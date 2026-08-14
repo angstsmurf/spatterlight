@@ -1,0 +1,826 @@
+
+pure chaos, v1.0 chaos entertainment
+
+You work at the detective agency. You find a briefcase on your desk. You open it and find a note and a disc.
+
+The note reads:
+"call 555-709-9906"
+
+You call the number.
+
+"help us! We're all being slaughtered! Help me! quik!"
+
+You get in your car and race to the house.
+
+PRESS A KEY!
+
+You jump out of the car and ring the bell. Nothing happens. You pick the lock and run through. You close the door behind you.
+
+PUSH A KEY TO CONTINUE!
+
+
+
+
+You are in hallway
+There is a clock here.
+You can go north or west.
+You are at the southern end of the hallway. West is the living room.
+
+> i
+You are carrying:
+disc
+
+> look at disc
+There's some weird symbols on it. There's a raised circle on the back of it.
+
+> look at clock
+It's a small clock.
+
+> w
+You are in living room
+There is the fireplace, the cabinet, a rug, a couch and a keyhole here.
+You can go east.
+You are in the living room.
+
+> examine fireplace
+Written in ash is:
+
+"help me! 7706!"
+You notice writing to small to read.
+
+> examine rug
+Cut into the rug is
+"bcoom frieapcle
+zmea drsi bxo cdo 3806.
+dsriazme n
+
+> look under rug
+You find a piece of string.
+
+> take piece of string
+You pick it up.
+
+> e
+You are in hallway
+There is a clock here.
+You can go north or west.
+You are at the southern end of the hallway. West is the living room.
+
+> n
+You are in hallway
+There is a chest and a button here.
+You can go north, south or west.
+This is the middle of the hallway. To the east is the games room.
+
+> use piece of string on chest
+You loop the string through the handle. You find a key in the chest.
+
+> take silver key
+You pick it up.
+
+> s
+You are in hallway
+There is a clock here.
+You can go north or west.
+You are at the southern end of the hallway. West is the living room.
+
+> w
+You are in living room
+There is the fireplace, the cabinet, a rug, a couch and a keyhole here.
+You can go east.
+You are in the living room.
+
+> use silver key on cabinet
+You find a sheet of music.
+
+> look at music
+It's a sheet of music. Maybe you can play it somewhere?
+
+> e
+You are in hallway
+There is a clock here.
+You can go north or west.
+You are at the southern end of the hallway. West is the living room.
+
+> n
+You are in hallway
+There is a chest and a button here.
+You can go north, south or west.
+This is the middle of the hallway. To the east is the games room.
+
+> w
+You are in music room
+There is a piano here.
+You can go north or east.
+This is the southern end of the music room. A piano is here.
+
+> look at piano
+It's a piano.
+
+> examine piano
+7 keys are black.
+
+> play piano
+You play a few random keys and notice only 7 work.
+
+> use music on piano
+You start playing the music.
+You play:
+a d f b
+
+> n
+You are in music room
+There is a huge safe here.
+You can go south.
+You are at the north end of the music room.
+
+> look at safe
+It's a huge wall safe.
+
+> open safe
+What will you guess?
+The safe opens revealing loads of money!
+
+> look at money
+It's about $1000000.
+
+> search money
+You search through the 1000000 and find a key. How did that get here?
+
+> take bronze key
+You pick it up.
+
+> s
+You are in music room
+There is a piano here.
+You can go north or east.
+This is the southern end of the music room. A piano is here.
+
+> e
+You are in hallway
+There is a chest and a button here.
+You can go north, south or west.
+This is the middle of the hallway. To the east is the games room.
+
+> use bronze key
+You unlock the east door.
+
+> e
+You are in games room
+There is a ping-pong table, an empty bottle, a tape recorder, an x box and aa huge tv here.
+You can go west.
+This is the games room.
+ A ping-pong table and game consoles are here.
+
+> look at ping-pong table
+It's just the ping-pong table.
+
+> look under ping-pong table
+You find a note lying on the floor.
+
+> take note
+You pick it up.
+
+> read note
+"Help! The demon's coming! HELP!
+teh yke si ni eht cchuo."
+"A line crosses the paper at this point and the paper is red!
+
+> take bottle
+You pick it up.
+
+> drop bottle
+You smash the bottle.
+
+> take shards
+You pick it up.
+
+> look at x box
+It's the huge x box.
+
+> open x box
+You pull the drawer open.
+
+> take tape
+(first removing it from x box)
+Done.
+You pick it up.
+
+> look at tape
+It's a tape. What's it doing in the x box? It's got some stars on it.
+
+> look at tape recorder
+It's lying on the floor.
+
+> use tape on tape recorder
+You insert the tape and push play but nothing happens.
+
+> turn on tv
+You turn on the tv and a game comes up. You grab the controller.
+You are in maze
+You can go north, south, east or west.
+Your character is in a maze.
+
+> n
+You are in maze
+You can go north, south, east or west.
+Your character is in a huge maze.
+
+> e
+You are in maze
+You can go west.
+Your character is in a small room. There's only the door to the west leading out.
+
+> w
+You walk through and the credits roll up the screen and a recording plays.
+The recording just stops there.
+You are in games room
+There is a ping-pong table, a tape recorder, an x box and aa huge tv here.
+You can go west.
+This is the games room.
+ A ping-pong table and game consoles are here.
+
+> look
+You are in games room
+There is a ping-pong table, a tape recorder, an x box and aa huge tv here.
+You can go west.
+This is the games room.
+ A ping-pong table and game consoles are here.
+
+> w
+You are in hallway
+There is a chest and a button here.
+You can go north, south, east or west.
+This is the middle of the hallway. To the east is the games room.
+
+> s
+You are in hallway
+There is a clock here.
+You can go north or west.
+You are at the southern end of the hallway. West is the living room.
+
+> w
+You are in living room
+There is the fireplace, the cabinet, a rug, a couch and a keyhole here.
+You can go east.
+You are in the living room.
+
+> use shards on couch
+You cut through the couch cushions with the shards and find a clock hand.
+
+> take clock hand
+You pick it up.
+
+> e
+You are in hallway
+There is a clock here.
+You can go north or west.
+You are at the southern end of the hallway. West is the living room.
+
+> use clock hand on clock
+You use the hand to open the clock.
+
+> look at clock
+It's the now opened clock. 1 of the hands is missing.
+
+> use clock hand on clock
+You attach the hand to the clock.
+
+> examine clock
+What will you turn the hour hand to?
+What will you turn the minute hand to?
+What will you turn the second hand to?
+What will you turn the weird hand to?
+The hands return to there normal places. Hmm. What happened?
+
+Suddenly a section of wall slides back and you find a small box in there.
+
+> take box
+You pick it up.
+
+> open box
+What is the combo?
+The box opens. You find a key inside.
+
+> i
+You are carrying:
+box
+gold key
+disc
+piece of string
+music
+silver key
+bronze key
+note
+shards
+tape
+
+> w
+You are in living room
+There is the fireplace, the cabinet, a rug, a couch and a keyhole here.
+You can go east.
+You are in the living room.
+
+> use gold key on keyhole
+You use the gold key to open a secret hallway!
+
+> e
+You are in hallway
+There is a clock here.
+You can go north or west.
+You are at the southern end of the hallway. West is the living room.
+
+> n
+You are in hallway
+There is a chest and a button here.
+You can go north, south, east or west.
+This is the middle of the hallway. To the east is the games room.
+
+> n
+You are in hallway
+You can go south, east or up.
+This is the north end of the hallway.
+
+> up
+You are in landing
+You can go south, east, up or down.
+You are on a landing.
+
+> up
+You are in second floor landing
+You can go south or down.
+Yu are on the second floor landing. This is the bedroom hallway. To the south is the long hallway. The attic is a bove you.
+
+> s
+You are in hallway
+You can go north or east.
+
+> e
+You are in kid's room
+There is a bed and a square here.
+You can go west.
+This is the kid's room.
+
+> look at bed
+It's just a small bed.
+
+> look under bed
+You find a box under there.
+
+> look at box2
+It's a small wooden box.
+
+> open box2
+You open it.
+
+> take square
+You pick it up.
+
+> look at square
+It has the same symbols as the disc.
+
+> use disc on square
+You fit the 2 together.
+
+> look at dws
+It's the disc and the square joined together.
+
+> w
+You are in hallway
+You can go north or east.
+
+> n
+You are in second floor landing
+You can go south or down.
+Yu are on the second floor landing. This is the bedroom hallway. To the south is the long hallway. The attic is a bove you.
+
+> down
+You are in landing
+You can go south, east, up or down.
+You are on a landing.
+
+> e
+You are in hallway
+There is the observatory door here.
+You can go east or west.
+This is the eastern hallway. North is the observatory door.
+
+> look at observatory door
+It's the observatory door. There's a square in the middle with a circle carved into the square.
+
+> use dws on observatory door
+The door opens.
+
+> n
+You are in the observatory
+There is the telescope and a symbol here.
+You can go south.
+This is the huge observatory.
+
+> look at telescope
+Through the telescope is .
+
+> use tape on telescope
+You point the telescope so you can see the map.
+
+> look at telescope
+Through the telescope is .
+
+> look at symbol
+It's a symbol on the floor. There's light glowing into it. There's a circle in the middle.
+
+> push symbol
+You push the symbol. The light stops reaching the symbol.
+
+> s
+You are in hallway
+There is the observatory door here.
+You can go north, east or west.
+This is the eastern hallway. North is the observatory door.
+
+> e
+You are in bedroom
+There is a closet here.
+You can go west.
+You are in the bedroom.
+
+> look at closet
+It's just a small closet.
+
+> open closet
+You open it.
+
+> w
+You are in hallway
+There is the observatory door here.
+You can go north, east or west.
+This is the eastern hallway. North is the observatory door.
+
+> w
+You are in landing
+You can go south, east, up or down.
+You are on a landing.
+
+> s
+You are in hallway
+You can go north, east or west.
+Youo are in the south hallway. Hallways stretch east and west.
+
+> e
+You are in hallway
+You can go south or west.
+You are in a small hallway. South is a bathroom and east is the locked office door.
+
+> s
+You are in bathroom
+There is a toilet, sink and a window here.
+You can go north.
+This is a tiny bathroom.
+
+> look at toilet
+It's a small toilet.
+
+> turn on sink
+You turn on the sink.
+
+> look at window
+It's just a small window.
+
+> examine window
+On the window ledge is a scroll.
+
+> take scroll
+You pick it up.
+
+> look at scroll
+It's just a small scroll.
+
+> n
+You are in hallway
+You can go south or west.
+You are in a small hallway. South is a bathroom and east is the locked office door.
+
+> w
+You are in hallway
+You can go north, east or west.
+Youo are in the south hallway. Hallways stretch east and west.
+
+> w
+You are in hallway
+You can go south, east or west.
+You are in a small hallway. South is another hallway and west is a balcony.
+
+> s
+You are in a small hallway
+You can go north or south.
+This is a tiny hallway! South is a bedroom. West is a locked door.
+
+> s
+You are in a bedroom
+There is a bed and a bedside table here.
+You can go north.
+This is your bedroom.
+
+> look under bed
+You find nothing under the bed.
+
+> open bedside table
+You open it.
+
+> take notebook
+(first removing it from bedside table)
+Done.
+You pick it up.
+
+> take pen
+(first removing it from bedside table)
+Done.
+You pick it up.
+
+> n
+You are in a small hallway
+You can go north or south.
+This is a tiny hallway! South is a bedroom. West is a locked door.
+
+> n
+You are in hallway
+You can go south, east or west.
+You are in a small hallway. South is another hallway and west is a balcony.
+
+> w
+You are in balcony
+You can go north or east.
+This is a small balcony. Over the rail you can see the street.
+
+> n
+You are in balconyn
+There is a vial and a window here.
+You can go south.
+This is the north end of the balcony. You can see that there is lightning crossing the sky but no thunder. Weird!
+
+> take vial
+You pick it up.
+
+> examine vial
+It's full of black liquid.
+
+> look at window
+Through the window you can see a small room. Maybe there's a way to open the window.
+
+> s
+You are in balcony
+You can go north or east.
+This is a small balcony. Over the rail you can see the street.
+
+> e
+You are in hallway
+You can go south, east or west.
+You are in a small hallway. South is another hallway and west is a balcony.
+
+> e
+You are in hallway
+You can go north, east or west.
+Youo are in the south hallway. Hallways stretch east and west.
+
+> n
+You are in landing
+You can go south, east, up or down.
+You are on a landing.
+
+> down
+You are in hallway
+You can go south, east or up.
+This is the north end of the hallway.
+
+> e
+You are in the kitchen
+There is the fridge and a cupboard here.
+You can go north or west.
+This is the small kitchen
+
+> open fridge
+You open it.
+
+> look at coke
+It's just a can of coke.
+
+> open coke
+You try to open it but you can't see a can opener arround here.
+
+> use pen on coke
+You use the pen to open the coke. You drink the heavenly coke!
+
+> open cupboard
+You open it.
+
+> look at sereal box
+It's just a sereal box.
+
+> w
+You are in hallway
+You can go south, east or up.
+This is the north end of the hallway.
+
+> s
+You are in hallway
+There is a chest and a button here.
+You can go north, south, east or west.
+This is the middle of the hallway. To the east is the games room.
+
+> s
+You are in hallway
+There is a clock here.
+You can go north or west.
+You are at the southern end of the hallway. West is the living room.
+
+> w
+You are in living room
+There is the fireplace, the cabinet, a rug and a couch here.
+You can go north or east.
+You are in the living room.
+
+> n
+You are in secret hallway
+There is a keypad here.
+You can go south, east or west.
+This is a small hallway. There are rooms to the east and west.
+
+> w
+You are in white room
+There is a carving here.
+You can go east.
+This is a small white room. There's a carving on the wall.
+
+> look at carving
+It's a small carving. It's got the same symbol as the one in the observatory.
+
+> push carving
+The carving rumbles.
+
+> e
+You are in secret hallway
+There is a keypad here.
+You can go south, east or west.
+This is a small hallway. There are rooms to the east and west.
+
+> e
+You are in a blue room
+There is the carvings here.
+You can go west.
+This blue room is huge! On the wall  are 3 carvings.
+
+> look at carvings
+It's the carvings.
+
+> push carvings
+Which one will you push?
+1) left
+2) middle
+3) right
+[choice] 1
+The carving sinks into the wall.
+
+> push carvings
+Which one will you push?
+1) left
+2) middle
+3) right
+[choice] 1
+The carving sinks into the wall.
+
+> push carvings
+Which one will you push?
+1) left
+2) middle
+3) right
+[choice] 3
+The carving sinks into the wall.
+
+> push carvings
+Which one will you push?
+1) left
+2) middle
+3) right
+[choice] 2
+The carvings sink into the wall.
+
+> w
+You are in secret hallway
+There is a keypad here.
+You can go south, east or west.
+This is a small hallway. There are rooms to the east and west.
+
+> s
+You are in living room
+There is the fireplace, the cabinet, a rug and a couch here.
+You can go north or east.
+You are in the living room.
+
+> e
+You are in hallway
+There is a clock here.
+You can go north or west.
+You are at the southern end of the hallway. West is the living room.
+
+> n
+You are in hallway
+There is a chest and a button here.
+You can go north, south, east or west.
+This is the middle of the hallway. To the east is the games room.
+
+> push button
+You hear a sound to the north.
+
+> n
+You are in hallway
+You can go south, east or up.
+This is the north end of the hallway.
+
+> e
+You are in the kitchen
+There is the fridge, a cupboard and a sereal box here.
+You can go north or west.
+This is the small kitchen
+
+> n
+You are in deck
+There is a table and chairs here.
+You can go south or down.
+
+> look
+You are in deck
+There is a table and chairs here.
+You can go south or down.
+
+> look at table
+It's the table.
+
+> look at chairs
+They're just chairs.
+
+> down
+You are in back yard
+There is a piece of paper here.
+You can go up.
+You are in the back yard. There's nothing really here.
+
+> look at paper
+It's just a piece of paper.
+
+> read paper
+It reads:
+"pssaowrd ---32767-----
+
+> up
+You are in deck
+There is a table and chairs here.
+You can go south or down.
+
+> s
+You are in the kitchen
+There is the fridge, a cupboard and a sereal box here.
+You can go north or west.
+This is the small kitchen
+
+> w
+You are in hallway
+You can go south, east or up.
+This is the north end of the hallway.
+
+> s
+You are in hallway
+There is a chest and a button here.
+You can go north, south, east or west.
+This is the middle of the hallway. To the east is the games room.
+
+> s
+You are in hallway
+There is a clock here.
+You can go north or west.
+You are at the southern end of the hallway. West is the living room.
+
+> w
+You are in living room
+There is the fireplace, the cabinet, a rug and a couch here.
+You can go north or east.
+You are in the living room.
+
+> n
+You are in secret hallway
+There is a keypad here.
+You can go south, east or west.
+This is a small hallway. There are rooms to the east and west.
+
+> look at keypad
+It's a keypad. Use it unlock the door.
+
+> use keypad
+Enter code.
+The floor falls from under you. you fall and land at the bottom of a pipe where you get beaten the crap out of!
+PUSH A KEY TO CONTINUE!
+
+You wake up tied to a bed.
+You are tied to a bed.
+You are strapped to a bed. A person is holding a scowpel and is going ot operate on you!
+You completed the demo.
+[runner] turns=174 leftover=0 running=false WON=YES

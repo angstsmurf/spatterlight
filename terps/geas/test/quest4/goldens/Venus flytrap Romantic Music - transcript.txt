@@ -1,0 +1,306 @@
+
+Venus flytrap: Romantic Music, v1.0 nicky.leech@venusflytrap.co.uk
+
+
+
+
+
+You are standing in your bedroom.
+
+> look
+
+
+You are standing in your bedroom.
+
+> look at bed
+
+Your single bed.
+
+> take everyday clothes
+
+You take your everyday clothes and put them on.
+
+> i
+You are carrying:
+everyday clothes
+
+> go to landing
+
+
+You are standing on the landing.  Above you is an attic door.  You can hear someone taking a shower in the bathroom.
+
+> go to attic
+
+
+You are standing on the landing.  Above you is an attic door.  You can hear someone taking a shower in the bathroom.
+
+You cannot reach.
+
+> go to parent's bedroom
+
+
+You are standing in your parent's bedroom.
+
+> take hat
+
+You take the hat.
+
+> out
+
+
+You are standing on the landing.  Above you is an attic door.  You can hear someone taking a shower in the bathroom.
+
+> go to bathroom
+
+
+You are standing on the landing.  Above you is an attic door.  You can hear someone taking a shower in the bathroom.
+
+The door is locked.
+
+> go to hallway
+
+
+You are standing in the hallway.
+
+> go to front room
+
+
+You are standing in the front room.
+
+> x green book
+
+How to Juggle by I. Dropballs
+
+> x red book
+
+You Too Can Have A Photographic Memory by I. Reed
+
+> take red book
+
+You take the red book.
+
+> read red book
+
+You read the red book.
+
+> take green book
+
+You take the green book.
+
+> read green book
+
+You read the green book.
+
+> out
+
+
+You are standing in the hallway.
+
+> go to kitchen
+
+
+You are standing in the kitchen.
+
+> take socks
+
+You take the socks and put them on your feet.
+
+> take shoes
+
+You take the shoes and put them on.
+
+> take steps
+
+You take the steps.
+
+> out
+
+
+You are standing in the hallway.
+
+> go to landing
+
+
+You are standing on the landing.  Above you is an attic door.  You can hear someone taking a shower in the bathroom.
+
+> drop steps
+You drop the steps.
+
+> lock steps
+
+You lock the steps.
+
+> climb steps
+
+
+You are standing in the attic.
+
+> take balls
+
+You take the soft balls.
+
+> out
+
+
+You are standing on the landing.  Above you is an attic door.  You can hear someone taking a shower in the bathroom.
+
+> go to hallway
+
+
+You are standing in the hallway.
+
+> go to street
+
+
+You are standing in the street.  You see a bus stop.
+
+You tread in some dog shit.
+
+It spreads into the soles of your comfortable shoes.
+
+> juggle balls
+
+You juggle like a pro.
+
+> drop hat
+You drop the hat.
+
+> juggle balls
+
+You juggle like a pro. An elderly woman is so impressed, she drops a £2 coin into your hat.
+
+> i
+You are carrying:
+everyday clothes
+red book
+green book
+socks
+shoes
+balls
+money
+
+> go to public convenience
+
+
+You are standing inside a public convenience
+
+> x condom machine
+
+If you insert a £2 coin you will receive a packet of condoms.
+
+> buy condoms
+
+You insert the £2 coin into the condom machine. A packet of condoms falls out.  You put them into your back pocket.
+
+> out
+
+
+You are standing in the street.  You see a bus stop.
+
+> take hat
+
+You take the hat.
+
+> go to hallway
+
+
+You are standing in the hallway.
+
+> go to landing
+
+
+You are standing on the landing.  Above you is an attic door.  You can hear someone taking a shower in the bathroom.
+
+> go to lodger's room
+
+
+You are standing in the lodger's bedroom.
+
+> x romantic music
+
+A collection of love songs by Nat King Cole.
+
+> take romantic music
+
+
+"What do you think you're doing, LEONARD?"
+
+
+LINDA VENUS enters the room with just a towel
+wrapped around her body.
+
+
+"I just wanted to borrow a CD."
+
+
+"Why didn't you just ask me?"
+
+
+"I just thought..."
+
+
+LINDA drops her towel.
+
+
+Do you want the music or not?
+
+
+
+
+Twenty minutes later...
+
+
+Linda is fast asleep.
+
+
+What have you done?
+
+
+You take the romantic music.
+
+> take everyday clothes
+
+You take your everyday clothes and put them on.
+
+> wake linda
+
+She is in a deep sleep.
+
+> x linda
+
+Your worst nightmare.
+
+> out
+
+
+You are standing on the landing.  Above you is an attic door.
+
+> go to bathroom
+
+
+You are standing inside the bathroom.
+
+> out
+
+
+You are standing on the landing.  Above you is an attic door.
+
+> go to hallway
+
+
+You are standing in the hallway.
+
+> go to street
+
+
+You are standing in the street.  You see a bus stop.
+
+
+Suddenly...
+
+
+A bus pulls up at the side of the road.
+
+End of episode one.
+
+[runner] turns=54 leftover=0 running=false WON=YES

@@ -11,8 +11,9 @@
 # corner no shipped game happens to touch).  Each fixture's header comment says
 # which behaviour it guards.
 #
-# The transcripts must be reproducible, so the seed is fixed -- and no fixture
-# prints a raw random number, since rand() differs between C libraries.
+# The transcripts must be reproducible, so the seed is fixed.  The runner also
+# substitutes its own generator for the C library's rand() (see the comment in
+# geas_walkthrough_runner.cc), so a seeded draw is the same on every platform.
 #
 # A fixture that needs extra runner flags puts them in a <label>.args file next
 # to its .cmd; timerperiod.args holds "--tick", which is what lets a timer be

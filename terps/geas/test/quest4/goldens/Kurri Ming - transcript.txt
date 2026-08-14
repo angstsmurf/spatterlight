@@ -1,0 +1,176 @@
+
+Kurri Ming, v1.0 Slackers Inc.
+
+Welcome to "Kurri Ming". A simple get out of the house style game brought to you by: Slackers Inc.
+
+Never played a text game before? DONT PANIC!
+
+Slackers Inc. has got your back. We set up a very useful feature in this game that we think you'll find.. well, useful!
+
+What is this amazing feature? The command list! No more need to panic about what you can and can't do with objects. 
+
+Simply type: "List Commands For X"
+
+EX: "List Commands For Soda"
+ This would print out something like this..
+
+Drink Soda
+Taste Soda
+Take Soda
+Lick Soda
+Crush Soda Can
+Smell Soda
+
+Now that you know all the possible commands you just simply have to try one. 
+
+NOTE: If you try a command that isn't on the list, don't expect it to work. 
+
+Enjoy!
+
+
+ 
+
+
+
+Before you know it the alarm goes off  on your radio, "I love chicken it's a real tasty treat.."  After a brief moment you realize you're in your room,  a relief as you have no clue what happened to you last night. As you're getting out of bed you decide that you should at least get dressed, "I love chicken, I think it's great to eat..." you sing along  while putting on a shirt . Oddly enough you mange to finish getting dressed about the same time the song ends, saying to yourself: 
+
+ "Steve Lingle, would of bought the CD if I hadn't already downloaded it."
+
+You begin looking around the room for clues as to what might of happened, having scanned the room you notice a few things that seem different. Firstly, there is a banner over your door which reads: "So Long, and Thanks for All the Fish!" The connection is easy enough to make, its a reference to "The Hitchhickers Guide to the Galaxy" but how on earth did it get there? Putting the thought aside for the moment you continue scanning the room.
+
+There is an EXIT to the EAST.
+
+> take fuse
+You now have the fuse.
+
+> take tape
+You pick it up.
+
+> take rubber band
+You pick it up.
+
+> e
+
+You enter into the hallway, nothing to interesting in here. 
+
+There is an EXIT to the NORTH and WEST.
+
+> n
+
+As you enter the living room the first thing you notice is that your good friend Kuroda Kinji is asleep on the sofa. Your footsteps are enough to wake him with a start. 
+
+“Kurri, you frightened me! Probably a good thing though, I had the most ridicules dream.”
+
+To the right of your screen you will  notice a Status Variable. It should  currently read:
+
+P1: Kurri
+
+To change this, in the top tool  bar..
+
+"Quest - Debug - Help..."
+
+.. there should be an option called:
+switch character.
+
+Simply click on that, and then when  the drop down menu apears select it again.
+
+Keep in mind you can only interact with a character when you are not them.
+
+Ex: When playing as Kurri, you can't "Speak to Kurri."
+
+There is an EXIT to the SOUTH and EAST.
+
+> take glock
+You now have the Glock.
+
+> take box of snap and pops
+You are not entirely sure why, but you have the sneaking suspicion that these will come in handy. Picking up the box you make a mental note that the label says: Contains 50pc.
+
+> use glock on computer
+A voice in your head calls out to you.. “Hey you.. with the gun. SHOOT THE COMPUTER!” Not wanting to upset the person from which the voice was coming, you decide to listen. After all, what has your computer ever done for you? It’s operating system is evil as heck, never should of bought one running Vista. Closing your eyes, you pull on the trigger and hear a loud BANG! What just happened? Is it safe to look? After opening your eyes again you see that the side of your computer has been blown off, and what appears to be a computer chip is laying on the floor. 
+
+> use fuse on box of snap and pops
+A random urge comes over you to create a makeshift bomb. You insert the fuse into the box of snap and pops and look at it for a moment. It isn’t bad for a spontaneous creation, but it could use a finishing touch to be a little more stable.
+
+> use tape on makeshift bomb
+In order to make your bomb more stable, you take the roll of tape and begin wrapping it several times around the fuse and box. At last! You’ve created the perfect little makeshift bomb!
+
+> s
+
+You enter into the hallway, nothing to interesting in here. 
+
+There is an EXIT to the NORTH and WEST.
+
+> w
+Edit later.. This is for when player comes back into their room.
+
+There is an EXIT to the EAST.
+
+> use makeshift bomb on simon game
+Using tape to hold it into place, you attach the makeshift bomb to the backside of the Simon game.
+
+“This should be fun!”
+
+You think to yourself, lighting the fuse. After a moment or two the bomb explodes and the back panel to the game is blown off!
+
+> switch character
+You are now playing as Kuroda Kinji!
+
+> take simon game
+You pick up the Simon Game.
+
+> e
+
+You enter into the hallway, nothing to interesting in here. 
+
+There is an EXIT to the NORTH and WEST.
+
+> n
+
+Entering the living room again, nothing seems to have changed much.
+
+> take computer chip
+You now have the computer chip.
+
+> use computer chip on simon game
+After placing the chip into the game, you notice it seams a little loose. If only you had a way to keep it in place.
+
+> use rubber band on simon game
+In order to make the computer chip stay in place better, you wrap the rubber band around the Simon game several times until you hear a click. 
+
+Now you need to program the chip.  
+
+> program computer chip
+With the chip into the Simon game, you program it using the colored buttons.
+
+Blue
+Blue, Red
+Blue, Red, Blue
+Blue, Red, Blue, Green
+Blue, Red, Blue, Green, Green
+Blue, Red, Blue, Green, Green, Yellow
+
+The game beeps  five times.
+
+> use key on door
+
+You Win!
+
+Special Thanks To:
+
+Linda Hood - Slackers Inc. Team:
+Creative & Technical Director
+
+Steve Lingle - Slackers Inc. Team:
+Technical Support
+
+Creator of "ChristmaKwanzakkah"
+(Not a Slackers Inc. game).
+
+Thomas - 
+Creator of "Escape the Prison"
+(Not a Slackers Inc. game).
+
+Stephen Brown - Slackers Inc. Team:
+Founder/Lead Programmer 
+[runner] turns=22 leftover=0 running=false WON=YES

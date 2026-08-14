@@ -1,0 +1,236 @@
+
+A day at the redsauce office
+
+Hello! Tom here.
+
+Welcome to 'A day at the redsauce office'.
+
+
+This is a standard text adventure, so remember to LOOK at things, SPEAK to everyone and GIVE things to them when necessary.
+
+
+Oh, and to check what you're carrying, type 'i' into the box.
+
+
+The goal is to defeat the crocodile so that you can get some work done.
+
+
+It's pretty easy, but try and finish it anyway.
+
+
+Press any key to load this merry game.
+
+
+
+
+
+You are standing outside the office.
+
+Above you is a large sign that reads redsauce.com
+In the windows are plastic tomatoes.
+Behind you is a lovely garden full of emo looking kids.
+
+You can go NORTH or SOUTH
+
+> north
+Try opening the door first.
+
+> open door
+You open the door, and step into the office...
+
+You are standing in the office.
+
+Ahead of you are a TEAM of hardworking individuals.
+On your right is a comfy-looking SOFA, a FRIDGE and some cube SHELVES.
+On your left is a FOOTBALL TABLE and a PILLAR.
+
+
+> speak to team
+You introduce yourself to the team, which consists of:
+
+JAMES
+SIMON
+CHRIS
+TIM
+AMY
+SELENA
+MILTON
+TOM
+ROGER
+
+They all say hi and are welcoming to you.
+
+AMY gets up and shows you to your desk.
+
+
+You sit at your desk.
+
+
+
+You try to do some work, but there is a large CROCODILE in the way.
+What could possibly defeat a CROCODILE?
+
+
+Looks like you'll need the help of your team!
+
+
+Go SOUTH to leave your desk.
+
+
+> south
+
+You are standing in the office.
+
+Ahead of you are a TEAM of hardworking individuals.
+On your right is a comfy-looking SOFA, a FRIDGE and some cube SHELVES.
+On your left is a FOOTBALL TABLE and a PILLAR.
+
+
+> look at fridge
+This fridge is full of ice cold drinks.
+
+Mostly pepsi and energy drinks from the pound shop. 
+
+Maybe Tom would like one?
+
+> take can
+You take the can of pepsi.
+
+> give can to tom
+You give the can to Tom, as James looks on judgingly.
+
+"Thankyouuu!" says Tom, popping open the can and swigging it instantly.
+
+"Here, you can have this banana, because frankly I'm sick of them"
+
+
+You now have a BANANA.
+
+> give banana to amy
+You give your banana to AMY.
+
+"Aww thankyou! Here, you can have the skin back"
+
+
+You now have a BANANA SKIN.
+
+Rough deal.
+
+> give banana skin to chris
+You give the banana skin to Chris.
+
+You hear a barely audible "Cheers, mate".
+
+For no real reason, he gives you a banjo.
+
+
+You now have a BANJO.
+
+> give banjo to tim
+You give the banjo to Tim.
+
+"Thanks mate, I was wondering where that had got to. That was a valuable investment, you see"
+
+Reaching into his drawer, he hands you a magazine dedicated solely to Twitter as thanks.
+
+
+You now have a MAGAZINE ON TWITTER.
+
+> give magazine to simon
+You give the magazine to Simon.
+
+He mumbles "Cheers mate, I'll remember to read it."
+
+You doubt that.
+
+He adds, "I made this cup of coffee. I don't know why... I don't even drink it. You can have it".
+
+
+You now have a CUP OF COFFEE.
+
+> give cup of coffee to roger
+Because it's what all techies say, he says "Cheers mate".
+
+As thanks, he gives you a knock-off ANIME DVD.
+
+God bless hooky street.
+
+> give anime dvd to selena
+You hand the anime DVD to Selena and see her little face light up.
+
+She says, "Och aye, domo origato, ya big jessie"
+
+She gives you a blue pack of m&ms.
+
+
+You now have a pack of M&Ms.
+
+> give m&ms to milton
+You give Milton the pack of m&m's.
+
+With a cold steely stare, he says nothing.
+
+But shortly after, he gives you a stylish pose and a cheeky look.
+
+
+You are now equipped with a CHEEKY POSE.
+
+> use cheeky pose on james
+
+OHHH MILTOOOON! Wa-wa-waaa.
+
+You promptly follow up with the CHEEKY LOOK.
+
+
+James bloomin loves it and laughs away.
+
+
+Oddly, he hands you a RUBBER BAND. 
+
+You're sure there's some use for this.
+
+
+> north
+
+You sit at your desk.
+
+
+
+You try to do some work, but there is a large CROCODILE in the way.
+What could possibly defeat a CROCODILE?
+
+
+Looks like you'll need the help of your team!
+
+
+Go SOUTH to leave your desk.
+
+
+> use rubber band on crocodile
+
+
+
+
+
+You remember seeing somewhere that even though crocodile's jaws are strong at closing, they are weak at opening up.
+
+You decide to give it a go and wrap the rubber band around the crocodile's mouth...
+
+
+...
+
+
+It works!
+
+
+
+
+
+Hooray! Now you can finally start writing content!
+
+
+You beat the game, so well done.
+
+
+Now, whose turn is it to make the teas?
+[runner] turns=17 leftover=0 running=true WON=YES

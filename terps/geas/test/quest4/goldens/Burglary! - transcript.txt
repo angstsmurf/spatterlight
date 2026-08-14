@@ -1,0 +1,380 @@
+
+Burglary!, v69.105 Himself
+
+Welcome to Burglary!  This text based game puts you inside a modern American with the intent to steal a very desirable item... if you don't get caught.  Explore the environments and carefully plan your actions to pull off a successful heist.  You can type "help" to see the help menu with a list of all the controls in this game.  If you're at a loss for ideas be sure to check it out.
+
+
+
+It's a starry night and the moon is out, slightly illuminating the yard.  After scoping the place out during the day and calculating the family's typical bedtime you have finally arrived to collect what you've waited months for.  It's tucked safely away in one of the rooms inside this house.  You silently climb up the gate and jump over...
+
+
+
+
+The front gate.  You can move east or west around the perimeter of the house or north to the front door.  You may also chicken out and head south over the front gate.  You're going to have to find a way inside.
+
+> look
+The front gate.  You can move east or west around the perimeter of the house or north to the front door.  You may also chicken out and head south over the front gate.  You're going to have to find a way inside.
+
+> east
+The eastern side of the front of the house.  There is a single window here but nothing else, really.  Some grass I guess.  Dirt.
+
+> examine window
+Pretty solid glass window.
+
+> north
+The eastern side of the house.  Two windows are here and a water spicket with nothing attached to it.
+
+> examine window 1
+Very... uh... glassy...?  It's a plain old window.
+
+> examine window 2
+The glow of a digital clock shows that there may be a chair inside the room and that the floor is carpeted and probably pretty soft.
+
+> examine water spicket
+Rusty and gross, frankly.
+
+> north
+The eastern side of the back of the house.  There's a single window here.  The back porch is to your west and the pool is north of where you're standing.
+
+> examine window
+Smooth, chilly glass.
+
+> north
+The pool area.  The water is still and reflects partial moonlight.  There's some plastic lounging chairs and a plastic table with plastic cups.  Lots of plastic there.  There's a towel lying on the concrete.  You can move east into the garden and south to the back of the house.
+
+> look
+The pool area.  The water is still and reflects partial moonlight.  There's some plastic lounging chairs and a plastic table with plastic cups.  Lots of plastic there.  There's a towel lying on the concrete.  You can move east into the garden and south to the back of the house.
+
+> examine towel
+Quite dry but probably not immune to the soaking power of water.  Very thick and plush.
+
+> take towel
+You pick up the towel.  Nice.
+
+> examine diving board
+Has a nice "spring" to it.  You can probably dive off this thing.
+
+> examine picnic set
+It's plastic.  It's fantastic.
+
+> west
+Ahh... the garden.  It is full of all sorts of plants and decorations.  Lilies, tulips, irises, one of those "garden globes".  Something is sticking out of the dirt.  The pool is east of here.
+
+> look
+Ahh... the garden.  It is full of all sorts of plants and decorations.  Lilies, tulips, irises, one of those "garden globes".  Something is sticking out of the dirt.  The pool is east of here.
+
+> examine something...
+Oh, it's the handle of a garden tool.
+
+> take something...
+That "something" turns out to be a trowel!  You pick it up and stash it in your jacket for safe keeping.
+
+> examine garden globe
+Very reflective!  Unlike you, you criminal.
+
+> use towel on trowel
+You wrap the trowel in the towel so you now have a toweled trowel.  Makes sense, right?
+
+> south
+Back of house (west).  A single window is here.  The family garden is north of you and the porch is east.
+
+> examine window
+You can faintly make out what looks to be the kitchen.  There's an illuminated clock inside that reads 12:34 AM.  The floor is wooden.
+
+> south
+The western side of the house.  There are two windows here and the electric meter.  You can move north to the back of the house (west).
+
+> examine electric meter
+You don't know how to read the meter hence you are robbing a house.
+
+> south
+Front of house (west).  There is a window here with the shade shrouding any veiw inside.  You can move north to the side (west) of the house.
+
+> examine window
+It's locked.  Nice try though.
+
+> east
+The front gate.  You can move east or west around the perimeter of the house or north to the front door.  You may also chicken out and head south over the front gate.  You're going to have to find a way inside.
+
+> north
+You are at the front door of the house.  Perhaps you can move north and enter through here...
+
+> read house number
+This house's number is 69,105.
+
+> examine front door
+It's a heavy, wooden, double door with a French boiserie.  Has a gold handle.
+
+> north
+Whoops!  Looks like that door is locked.  You'll have to find another way in.
+
+> south
+The front gate.  You can move east or west around the perimeter of the house or north to the front door.  You may also chicken out and head south over the front gate.  You're going to have to find a way inside.
+
+> east
+The eastern side of the front of the house.  There is a single window here but nothing else, really.  Some grass I guess.  Dirt.
+
+> north
+The eastern side of the house.  Two windows are here and a water spicket with nothing attached to it.
+
+> use toweled trowel on window 2
+You hold the covered trowel up in the air for a second and then strike the window.  Glass falls noiselessly onto the carpet below and you reach inside the house and unlock the window.  Well done, you have officially found an entrance!  You can now move west into the living room.
+You no longer have any need for the toweled trowel so you expertly toss it into some nearby bushes.
+
+> west
+It's really dark in here.  If only there was a way you could shine a light out of the palm of your hand with only your will power to... oh!  You suddenly remember you brought your flashlight!  I guess you didn't need it outside.  You can now see all around the inside of the house.  No room is safe from the revealing power of your Coleman.
+
+
+You are inside the living room.  The open window lets in a slight breeze.  There are various lamps in here, a television set, stereo equipment, a rocking chair, and "L" shaped couch.  Next to the lamps are various framed pictures.  You can move northwest into the porch, southeast into the library, southwest into the foyer, or west into the kitchen.
+
+> look
+
+> examine picture 1
+Looks like you can disassemble this picture frame to see if anything is inside.
+
+> disassemble picture 1
+You take the frame of Picture 1 apart only to find a small, silver key.  Nifty!  You put the frame back together like a nice criminal.
+
+> take small key
+You pick it up.
+
+> speak to small key
+You should really stop talking before someone wakes up.
+
+> examine picture 2
+Nothing special about this picture frame.
+
+> examine couch
+Made of pleather.  Great against spills!
+
+> examine stereo
+This thing looks like it cost a bit of money.  I bet it sounds great!  Would you like to turn it on?
+1) Yes
+2) No
+[choice] 2
+Probably a good move...
+
+> examine tv
+The television is off.
+The television is off.  There's not much you can do with this.  Would you like to turn it on?
+1) Yes
+2) No
+[choice] 2
+I was afraid you were going to do it for a second there!
+
+> southeast
+You are in the library.  There is a bookshelf which is completely full of books varying in subject matter.  There is a lamp in here with a pull-chain to turn it on.  An easy chair sits in the far corner of the room.  An oriental rug covers most of the floor.  You can move northwest into the living room or west into the foyer.
+
+> examine bookshelf
+Books
+1) Tonsillolith
+2) Boiserie
+3) The History of the Cappuccino
+4) The Painted Stork
+5) Valley of the Goblins
+6) Venus Express
+7) The First Cellular Phone
+8) In-jokes
+9) Baseball Slang A-D
+[choice] 2
+Boiserie (often used in the plural boiseries) is the term to used to define ornate and intricately carved panelling. Early examples of boiseries were unpainted, but later they were often painted or gilded. Boiseries were popular in 17th and 18th century French interior design. The Palace of Versailles has many examples. The panels were often not confined just to the walls of a room but were also used to decorate doors, frames, cupboards and shelves. Very often pictures would be set into the boiseries, the carving framing the picture rather like a conventional frame.
+I guess someone here loves boiseries!
+
+> look at oriental rug
+Oooo!  Traditional European!
+
+> west
+You are in the foyer of the house.  There is a closet here with a set of stairs running over its ceiling that lead to the second floor.  The closet doors are closed.  The living room is to the northeast, the library to the east, the front door to the house to the south,  and dining room to the west.
+
+> examine closet
+You open up the closet and find, hanging inside, a few coats for the ever changing seasons our world endures.  There are some boots and various other shoes on a rack on the floor.  The top shelf has a rather heavy safebox on it.  There is also a vaccum cleaner in here.
+
+> examine coats
+Ok, so you rummage through the coats.  Who wouldn't?  You find yourself a wallet in one of the larger ones.
+
+> examine wallet
+Wow!  Ok, there is a lot of cash in here (which you are not after- stay focused!) as well as various membership cards to places like Gold's Gym, BJ's Wholesale Club, Sears, AAA Insurance, and of course a drivers license.  Since you are a mediocre thief, and you know how you can use it, you take the drivers license without hesitation.
+
+> use small key on safebox
+You unlock the safebox only to find... um... I have no idea what that is.  It looks like a pen.  You no longer need the small key.
+
+> take pen-like object
+You pick it up.
+
+> west
+The dining room of the house.  An oak table with six chairs around it sits in the middle of the room.  There is a gold embroidered maroon table cloth covering the table.  There is a china cabinet containing some expensive looking plates in the corner of the room as well as a few paintings just hanging around the walls.  A candle set is in the middle of the table.  You can move north into the hall or east into the foyer.
+
+> examine china cabinet
+Everything here looks expensive but this isn't what you're trying to steal.  There's a pen here.
+
+> take pen
+You pick it up.
+
+> north
+You are in the hall.  There's a white bust at the north end sitting on stand.  A large painting is displayed at the other end.  You can move east into the kitchen, south into the dining room, or west into the bathroom.
+
+> examine bust
+A small copper plate it located at the base of the bust.  It reads: Abraham Lincoln.  Our greatest President!
+
+> examine painting
+Well lookie here- there's a safe behind this painting.  How original.
+
+> examine safe
+The safe (the side facing you anyway) is totally smooth.  Perhaps this thing is voice activated?
+
+> west
+You are in the downstairs bathroom.  There is a sink here with a round mirror attached to the wall behind it.  A toilet is here too.
+
+> examine toilet
+You open it up to find a rather clean toilet.  No surprises here, thankfully.
+
+> east
+You are in the hall.  There's a white bust at the north end sitting on stand.  A large painting is displayed at the other end.  You can move east into the kitchen, south into the dining room, or west into the bathroom.
+
+> east
+You silently slip into the kitchen.  There is a stove and oven in here, refrigerator, a lot of cabinets, and a sink.  You can move northeast onto the porch, east into the living room, and west into the hall.
+
+> examine cabinet
+You browse the insides of the cabinets and find a pack of gum.  Jackpot!!
+
+> take pack of gum
+You pick it up.
+
+> examine refrigerator
+Nothing of importance inside.  Unless you consider leftovers important.  Regardless, you close leave the device undisturbed.
+
+> east
+You are inside the living room.  The open window lets in a slight breeze.  There are various lamps in here, a television set, stereo equipment, a rocking chair, and "L" shaped couch.  Next to the lamps are various framed pictures.  You can move northwest into the porch, southeast into the library, southwest into the foyer, or west into the kitchen.
+
+> southwest
+You are in the foyer of the house.  There is a closet here with a set of stairs running over its ceiling that lead to the second floor.  The closet doors are closed.  The living room is to the northeast, the library to the east, the front door to the house to the south,  and dining room to the west.
+
+> up
+You are in the hallway of the second floor.  It's pretty bare except for a couple pictures and a table with a vase.  To your north is a bathroom, and four bedrooms to the northeast, southeast, southwest, and northwest.
+
+> look
+You are in the hallway of the second floor.  It's pretty bare except for a couple pictures and a table with a vase.  To your north is a bathroom, and four bedrooms to the northeast, southeast, southwest, and northwest.
+
+> examine picture us 1
+A nameplate on the bottom of the frame has the painter's name engraved.  Nothing else about this painting is important.
+
+> southeast
+The door to the guestroom.  It's locked.
+
+> use drivers license on guestroom door
+You put your body against the door and wiggle the card inbetween the jamb and latch.  It opens like magic!  Presto!
+
+> north
+You are in the bathroom.  All the essentials are here- sink, tub, toilet, really big mirror.  Next to the sink is a small basket full of body related paraphernalia.  The floor is vinyl and has a couple throw rugs on it.  You can move east into the hall.
+
+> examine toilet
+You have to go?  Now?!  You should have went before we started!  You find a plunger behind the toilet.
+
+> take plunger
+You pick it up.
+
+> separate plunger
+You separate the plunger into the flange and plunger handle.  These might come in handy!
+
+> south
+You are in the hallway of the second floor.  It's pretty bare except for a couple pictures and a table with a vase.  To your north is a bathroom, and four bedrooms to the northeast, southeast, southwest, and northwest.
+
+> southeast
+The guestroom.  This room has no one sleeping in it so you are free to explore.  Besides the bed, bedside table, and closet this room is rather bare.
+
+> examine bedside table
+There's nothing here except the clock and post-it notes.
+
+> examine post-it notes
+Some yellow post-it notes.  They create a nice breezy as you flip thorugh the pad.
+
+> use pen on post-it notes
+Oh, you want to leave the family a message?  Go for it, I guess...
+
+Type your message and press enter
+
+> look at post-it notes
+You wrote, "Thanks for the hospitality." on the pad of post-it notes.
+
+> northwest
+You are in the hallway of the second floor.  It's pretty bare except for a couple pictures and a table with a vase.  To your north is a bathroom, and four bedrooms to the northeast, southeast, southwest, and northwest.
+
+> down
+You are in the foyer of the house.  There is a closet here with a set of stairs running over its ceiling that lead to the second floor.  The closet doors are closed.  The living room is to the northeast, the library to the east, the front door to the house to the south,  and dining room to the west.
+
+> northeast
+You are inside the living room.  The open window lets in a slight breeze.  There are various lamps in here, a television set, stereo equipment, a rocking chair, and "L" shaped couch.  Next to the lamps are various framed pictures.  You can move northwest into the porch, southeast into the library, southwest into the foyer, or west into the kitchen.
+
+> west
+You silently slip into the kitchen.  There is a stove and oven in here, refrigerator, a lot of cabinets, and a sink.  You can move northeast onto the porch, east into the living room, and west into the hall.
+
+> northeast
+You enter the por...uh oh.  The family dog appears to be here and is not too happy about seeing you.  He lowers his head and begins to growl.
+The door to the back yard is to the north.  The kitchen is to the southwest and the living room is to the southeast.  There are a couple chairs here and a lamp but you'll have to deal with this dog before you can have a look around.
+He seems interested in an item you have.
+
+> use handle on dog
+The dog is suddenly very interested in where that plunger handle is headed.  You toss it his way and he catches it.  I think you just made a new friend!
+The door to the backyard is to the north.
+
+> examine table
+Upon examining the table you happen across some batteries inside the small drawer.
+
+> take batteries
+You pick it up.
+
+> use batteries on pen-like object
+You placed the batteries inside the pen-like object.  You press the button on the rod-of-mystery only to discover it's a laser!  A powerful one too!  Nicely done- I think we're onto something here.
+
+> chew gum
+You are now chewing some gum as quietly as possible.  How refreshing.
+
+> use gum (chewed) on flange
+Now we're roll'n!  You line the edge of the plunger head with some gum making it super sticky.  Totally believable.  Don't put this on your face!
+
+> north
+The outside of the porch.  The entire porch is encased with sliding windows and screens (to keep the bugs out!).  There is a door leading inside the porch to the south.
+
+> examine door
+Made out of flimsy, white plastic.  Has a black handle.
+
+> south
+You're in the porch.  The passified dog is laying here gnawing on the plunger handle.
+The door to the back yard it to the north.  The kitchen is to the southwest and the living room is to the southeast.  There are two chairs and a lamp here which sitting on a table.
+
+> southwest
+You silently slip into the kitchen.  There is a stove and oven in here, refrigerator, a lot of cabinets, and a sink.  You can move northeast onto the porch, east into the living room, and west into the hall.
+
+> west
+You are in the hall.  There's a white bust at the north end sitting on stand.  A large painting is displayed at the other end.  You can move east into the kitchen, south into the dining room, or west into the bathroom.
+
+> use gummy flange on safe
+You slap the super sticky flange onto the safe.  So far so good.
+
+> use laser on safe with flange
+You begin to trace the laser around the flange.  As the laser comes full circle around the flange you grab onto its rubbery surface and silently pull out the newly seperated piece of safe. There is now a large hole in safe that you can probably fit your hand into.
+
+> reach safe
+You reach inside the safe and feel around and...
+
+You feel a small box inside and remove it!
+
+> open small box
+Are you sure you want to open the small box?
+1) Yes
+2) No
+[choice] yes
+Are you absolutely sure you want to open this?
+1) Yes
+2) No
+[choice] yes
+Are you absolutely, positively sure about doing this?!
+1) Yes
+2) No
+[choice] yes
+You open the box to find... exactly what you came here for!  You got it!  You should be proud of yourself for a job well done.  This is definitely what you came here for; no doubt about it.  I think our business here is over.  You quietly slip out the front door and over the gate.  No one in that house will know you were there until tomorrow morning when they discover a chunk of safe sitting in the hallway with a plunger head stuck to it and a dog sleeping with a plunger handle in his mouth.  Well done!
+
+Oh... and the family will find a note that says "Thanks for the hospitality." in the morning.  Classy!
+
+
+[runner] turns=106 leftover=0 running=false WON=YES

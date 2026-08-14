@@ -1,0 +1,39 @@
+
+Operation Rising Star AAB
+
+You wake up in a bloddy lift, by yourself, scared and frighted. It appears you've been locked in the building. Can you get out?
+
+NOTE: Some words in the game are Meant to be mispelled. Note this before commenting on bad spelling.
+
+You are in a Lift
+There is a Blood Covered Body and a Switchblade here.
+You can go south.
+You have no idea how you got here. Blood is covering the walls, what the hell happened in here? You look around, scared and frightened.
+The indicator above the door is set at 1F. The doors are pried open with a crowbar, jammed in to stop them clamping shut.
+
+> south
+You are in the Main Hall
+There is Petrol Tanker here.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+The Main Hall for Elisype Tower. 50 Floors of concrete and steel. The front door is blocked by a petrol tanker. Wait, what?
+
+> southeast
+You are in Office Hall
+You can go north, south, east, northeast, northwest, southeast or southwest.
+A  hall which has six offices in it.
+
+> southwest
+You are in Room A6
+There is Card Reader here.
+You can go northeast or southwest.
+An office converted into a storeroom. On the left is bits of bric-a-brac hung on the wall. The US flag, a Maine lincense plate, a plate, ect.
+There's an emergency exit here, although it looks like i'll need a card...
+
+> use card reader
+You step outside, breathing in fresh air. Suddenly you notice a large pile off bodies and a laser pointer on the floor. The laser moves up your body to your head. You run, behind you a bullet smashes into the ground where you stood earlier. Now you sprint. Out of no-where a masked assalient appears and unloades 2 shotgun slugs into you. You fly backwards, flipped over by the force. You smash into a car and crumple to the ground. The killer steps over to you and stabsyou in the head, then drags you to the pile of bodies.
+
+Somehow, you're still alive. You feel liquid being on you and look up to see a man pouring gasoline on you. Then he lights a cigar, smokes it, then drops it onto you. Everything heats up as tires screech away. You drag yourself off the pire and manage to open your car. You put the keys in the ignition, and reverse before passing out...
+
+
+
+[runner] turns=4 leftover=0 running=false WON=YES

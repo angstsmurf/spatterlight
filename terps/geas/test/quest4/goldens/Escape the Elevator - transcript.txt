@@ -1,0 +1,137 @@
+
+Escape the Elevator Andrew Trewin
+
+.-  Welcome -.
+In this game you must simply Escape the Elevator. Simple? Nope. If you are having trouble understanding any of this, please type in Story for furthur... Um, story. Thanks!
+
+~Thana/Andrew Trewin
+
+Type Start to Begin. 
+Type Story to read the Story.
+
+> story
+Your name is Dr. Froth, but you arn't a Docter, you just like the title. You own a massive chain of Hotels all over the world. You are the 3rd wealthiest man on the planet, so many people rub up against you either wanting your money or your life.
+
+In this case, your Life.
+
+Elex DePaw has been hired to kill you. DePaw is the 4th most wanted on the FBI's Most Wanted list. She is renowned for her gruesome and interesting ways she kills her targets. Unfortunetly, she has been hired by some nutcase to kill Dr. Froth.
+
+Please Enjoy my Game!
+
+~Thana/Andrew Trewin 
+
+
+
+> start
+
+You are in the Elevator.
+There is a Mirror showing your reflection, an Ashtray with a burning cigar in it, a Control Panel for the Elevator, some Golden Hand Rails and an Emergency Exit Panel on the Roof here.
+A very richly decorated Elevator. The walls are made of a fine red leather, and solid gold hand rails are on the left side of the Elevator. The back wall is just a massive mirror. It is neither too big or too small. The perfect Elevator for a man with money to burn.
+
+> look
+You are in the Elevator.
+There is a Mirror showing your reflection, an Ashtray with a burning cigar in it, a Control Panel for the Elevator, some Golden Hand Rails and an Emergency Exit Panel on the Roof here.
+A very richly decorated Elevator. The walls are made of a fine red leather, and solid gold hand rails are on the left side of the Elevator. The back wall is just a massive mirror. It is neither too big or too small. The perfect Elevator for a man with money to burn.
+
+> x mirror
+Looking Good, Dr. Froth!
+
+> x ashtray
+The Ashtray is almost overflowing with ash. A single cigar lays smouldering in it.
+
+> take ashtray
+The Ashtray is bolted to the wall, so you remove the Cigar instead.
+
+> i
+You are carrying:
+Burning Cigar
+
+> use control panel
+You push the big pointy arrow. A computerized voice, neither male nor female, says: "Going Up."
+
+The Elevator starts to move, but suddenly the lights go out and it jerks to a stop. The light on the Control Panel goes out.
+
+You are in a Dark Elevator.
+There is a Mirror showing your reflection (Very faintly), an Ashtray with a burning cigar in it, a Control Panel for the Elevator, some Golden Hand Rails and an Emergency Exit Panel on the Roof here.
+You can go up.
+The Elevator is dark, but you can faintly make out most of the Objects in here.
+
+> look
+You are in a Dark Elevator.
+There is a Mirror showing your reflection (Very faintly), an Ashtray with a burning cigar in it, a Control Panel for the Elevator, some Golden Hand Rails and an Emergency Exit Panel on the Roof here.
+You can go up.
+The Elevator is dark, but you can faintly make out most of the Objects in here.
+
+> use burning cigar on golden hand rails
+You place the Burning Cigar onto the Gold Rail, but it turns oput the "gold" was just paint! Using the Cigar you manage to start and contain a fire that burns through the Rail! Excited, you do the same on the other side. The Rail comes away in your hands.
+
+> use gold rail on mirror
+You pull back your arm and with a ear-piercing SMASH the Mirror implodes. Shards of Glass cover the interior of the Elevator.
+
+> look
+You are in a Dark Elevator.
+There is some Shards of Glass, a Mirror showing your reflection (Very faintly), an Ashtray with a burning cigar in it, a Control Panel for the Elevator and an Emergency Exit Panel on the Roof here.
+You can go up.
+The Elevator is dark, but you can faintly make out most of the Objects in here.
+
+> take shards of glass
+You gingerly pick up a Shard.
+
+> use glass shard on emergency exit
+You reach up with the shard and insert it into the phillip head bolt, and start to turn. The first bolt comes out, then the second, third, and finally fourth. You push the panel out the way to reveal a Hole.
+
+> x hole
+A big black hole leading out to more black. Presumably the Elevator Shaft.
+
+> up
+You are standing on the Elevator, now in an Elevator Shaft.
+There is two Support Cables and a Fire Ladder winding upwards here.
+You can go up or down.
+You are now standing on top of the Elevator you were just in. It is dark, lit by a few lights on the wall next to you.
+
+> x support cables
+These are the things that hold the Elevator.
+
+> x fire ladder
+A thin ladder built into the wall, it
+
+> up
+You are in the Elevator Shaft (Climbing Fire Ladder).
+There is an Elevator Door and Fire Button here.
+You can go down.
+You are holding onto the Fire Ladder. On your right side is an Elevator Door, and on your Left is an Fire Button.
+
+> x elevator door
+The back of the metal Doors you usually see when you enter an Elevator.
+
+> x fire button
+This button opens the Elevator Door.
+
+> push fire button
+Wth a whoosh of Air-conditioned oxygen, the Door to your right opens and you pull yourself into a long Hallway.
+You are in an Air-Conditioned Hallway.
+There is a Pot Plant and a long Red Carpet here.
+You can go to the Elevator Maintenance Room.
+A long Hallway. Several doors lead off to different parts of the building. The Hallway itself is empty, apart from a pot plant in one corner and a long red carpet. The rest of it is fancy marble walls and pillars. A few windows show the outside world.
+
+> look
+You are in an Air-Conditioned Hallway.
+There is a Pot Plant and a long Red Carpet here.
+You can go to the Elevator Maintenance Room.
+A long Hallway. Several doors lead off to different parts of the building. The Hallway itself is empty, apart from a pot plant in one corner and a long red carpet. The rest of it is fancy marble walls and pillars. A few windows show the outside world.
+
+> x pot plant
+A nice plastic Pot Plant.
+
+> go to Elevator Maintenance Room
+You are in the Elevator Maintenance Room.
+You open the door and walk inside, expecting to see some sort of red light whirling due to a malfunction, but no. Instead a female figure stands on the other side of the room, holding a knife.
+"Dr. Froth." She says. 'My name is Elex DePaw, and I was hired to Kill you."
+"Why?!" You ask.
+She chuckles to herself. 
+"My client didn't elaborate on the reasons you are to die. He simply payed me to do it, so I am planning to do it. Now."
+"He?" You ask.
+Elex realises she has said to much.
+"Well, whatever 'he' is paying you, I will double it if you leave me alone!" You say.
+"I do not accept bribes. It ruins my reputation." She replies. "And now, Dr. Froth, smile as you die, as many more are frozen." With a confident flick of her wrist, the Knife soars effortlessly through the air and lodges it in your heart. You look down to the handle prutruding from your chest, and fall down dead.
+[runner] turns=25 leftover=0 running=false WON=YES

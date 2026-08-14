@@ -1,0 +1,803 @@
+
+Zombies Attack Ryan Le Quesne
+
+In the dead silence of the night . . .
+
+
+
+
+
+A scream. A piercing scream.
+
+
+
+
+
+
+Still slow from sleep you struggle to focus. Unsure wheter you were dreaming or not, you remain awake for a few minutes. Just as your eyes began to close unsettling noises came from below.
+
+Something strange is happening . . .
+
+
+
+Zombies Attack
+
+
+Press any key to start . . .
+
+You are in your apartment
+You're in your apartment, but its pitch black and you cannot see anything. Your're still in bed.
+The noises from below, scratching and scuttling makes you nervous. What's going on? 
+
+
+
+> exit bed
+You are in your apartment
+You can go north.
+Its too dark to see anything, but you can feel your bed from where you came.
+
+> north
+You are in Starting apartment floor north
+You can go south.
+You know you've hit the wall when your heads bumps into it, so you stop going forward. You can feel the door handle, so you know the light switch will be somewhere near.
+
+> turn on lights
+You manage to find the light switch on your wall and flick it on. As you do that a distinctly uneasily feeling rises, something knocks on the door. It isn't a person though . . .
+You are in Your Apartment (lit)
+There is Desk, Bed, a Laptop and Door here.
+You can go east.
+The lights flicker on and off strangely . . . You've never had a problem with them before. The apartment room is basic and dull.
+
+> take laptop
+Being an older model the laptop is quite heavy and sturdy, and it may make do as a weapon.
+
+> open door
+Open the door?
+1) Yes
+2) No
+[choice] 1
+Whatever is behind the door is really starting to creep you out. After a few seconds, you finally make yourself open the door. 
+
+You jump in fright as a man bowls straight through and into the opposite wall. You inspect him and find that his shirt is dirty and blood soaked . . .
+
+> east
+You are in the Bathroom
+There is Sink, Drawers and Toilet here.
+You can go west.
+The bathroom is cold and basic. There's nothing spectacular to it.
+
+> open drawers
+You open it.
+
+> take first aid kit
+This will come in useful if someone is injured.
+
+> west
+You are in Your Apartment (lit)
+There is Desk, Bed, Man and Door here.
+You can go east.
+The lights flicker on and off strangely . . . You've never had a problem with them before. The apartment room is basic and dull.
+
+> look at man
+His shirt is blood soaked, slightly torn and dirty. Why he was banging on the door or what he was doing was still a mystery, but now you're completed spooked.
+
+> look at desk
+It holds some of your papers from work. Your laptop sits closed to the side.
+
+> look at bed
+Your bed, messy due to 'recent disturbances'.
+
+> i
+You are carrying:
+Laptop
+First aid kit
+
+> look
+You are in Your Apartment (lit)
+There is Desk, Bed, Man and Door here.
+You can go east.
+The lights flicker on and off strangely . . . You've never had a problem with them before. The apartment room is basic and dull.
+
+> look
+You are in Your Apartment (lit)
+There is Desk, Bed, Man and Door here.
+You can go east.
+The lights flicker on and off strangely . . . You've never had a problem with them before. The apartment room is basic and dull.
+
+> look
+You are in Your Apartment (lit)
+There is Desk, Bed, Man and Door here.
+You can go east.
+The lights flicker on and off strangely . . . You've never had a problem with them before. The apartment room is basic and dull.
+
+> look
+You are in Your Apartment (lit)
+There is Desk, Bed, Man and Door here.
+You can go east.
+The lights flicker on and off strangely . . . You've never had a problem with them before. The apartment room is basic and dull.
+The man grunts something inhuman and pulls himself up. He launches himself at you, you barely miss it. Something is messed up with him, you have to attack him with something!
+
+> attack zombie
+Putting yourself in a firm stance, you wait for the zombie to charge at you. You absolutely smash it on his head; you swear you heard a neck cracking. The zombie was out instantly, flopping to the floor. The Laptop however was a wreck.
+
+After killing the zombie you're twitchy from adrenaline and terrified as well. You have to get out of the building . . .
+
+Racing through your mind on how to go about this seeing as there are lunatic zombies around you think its best that you prepare with weapons and medical supplies. Unfortunately, you don't own a firearm or know anybody who does. You have the basic first aid kit, but that won't help serious injuries.
+
+> open door
+You open the door, and outside is the corridor. There are two other apartments and the elevator. Something is wrong already, the elevator is opening and closing repeatedly and the scratching noises are louder. 
+You are in Corridor corner
+You can go north, south or west.
+The corner of the corridor, with the elevator to the north and the stairs to the west.
+
+> west
+You are in Corridor end
+There is Staircase and Door 5C here.
+You can go east, up or down.
+A staircase leads up and down, and apartment room 13C's door is next to it. A strange noise is coming from downstairs . . .
+
+> up
+You are in Building top
+There is Aerial and Power box here.
+You can go down.
+The night air is cold on your skin, and the darkness prevents you from seeing far.
+If you're stuck, or if you're ever stuck type in hint for help in a situation. It is also recommended that you read the guide by typing 'help'.
+
+> take aerial
+With two hands the loose connections snap free, and you have a flexible antenna wire.
+
+> down
+You are in Corridor end
+There is Staircase and Door 5C here.
+You can go east, up or down.
+A staircase leads up and down, and apartment room 13C's door is next to it. A strange noise is coming from downstairs . . .
+
+> open door 5c
+You try the door, and it opens easily.
+You are in Apartment 5C
+There is Table, Cupboard, Couch and Tv here.
+You can go out to Corridor end.
+You can go east.
+Nobody appears to be in the room. Saying that, nobody appears to be anywhere, only bodies or zombies. The room is basic and small.
+
+> open cupboard
+You open the cupboard and inside is lots of junk, but what takes your attention is the crowbar.
+
+> take crowbar
+(first removing it from Cupboard)
+Done.
+This could be a multi-purpose tool, from killing to leverage.
+
+> east
+You are in Bedroom
+There is Bed and Locked drawer here.
+You can go west.
+The bedroom is plain and of similar design to the rest of the apartment.
+
+> use aerial on locked drawer
+There's a 9/10 chance that you will pick the lock.
+Pick the lock using the aerial?
+1) Yes
+2) No
+[choice] 1
+The aerial actually makes as a good lock pick, and surely enough your mischievous childhood skills come in handy. The lock clicks open, and inside is a small horn. This would do for distracting zombies.
+
+> take horn
+You already have it.
+
+> west
+You are in Apartment 5C
+There is Table, Cupboard, Couch and Tv here.
+You can go out to Corridor end.
+You can go east.
+Nobody appears to be in the room. Saying that, nobody appears to be anywhere, only bodies or zombies. The room is basic and small.
+
+> out
+You are in Corridor end
+There is Staircase and Door 5C here.
+You can go east, up or down.
+A staircase leads up and down, and apartment room 13C's door is next to it. A strange noise is coming from downstairs . . .
+
+> east
+You are in Corridor corner
+You can go north, south or west.
+The corner of the corridor, with the elevator to the north and the stairs to the west.
+
+> north
+You are in Corridor end
+There is Elevator, Door 5A and Dead body here.
+You can go south.
+The elevator is repeatedly opening and closing on a body, and an apartment door is to the east.
+
+> kick door 5a
+You take a small step back and kick in the door. Part of it breaks off. You enter through the door.
+You are in Apartment 13A
+There is Broken table and Cabinet here.
+You can go out to Corridor end.
+This apartment is a wreck, everything is smashed or on the floor. The floorboards are ripped up, the walls have holes in them. The owners are either dead or left in a hurry.
+
+> open cabinet
+You're forced to break it a little in order to open it.
+
+> take tape
+
+> use tape on horn
+You tape down the squeezy part of the horn so it makes a loud sound without you having the squeeze it. It's the perfect distraction tool.
+
+> out
+You are in Corridor end
+There is Elevator, Dead body and Door (broken) here.
+You can go south.
+The elevator is repeatedly opening and closing on a body, and an apartment door is to the east.
+
+> use crowbar on dead body
+You stick the crowbar under the body and lever it out. With a bit of a slurping sound the body comes free, and you move it too the side.
+
+> south
+You are in Corridor corner
+You can go north, south or west.
+The corner of the corridor, with the elevator to the north and the stairs to the west.
+
+> west
+You are in Corridor end
+There is Staircase and Door 5C here.
+You can go east, up or down.
+A staircase leads up and down, and apartment room 13C's door is next to it. A strange noise is coming from downstairs . . .
+
+> down
+You are in Staircase
+There is Zombies and Furniture here.
+You can go up or down.
+Descending down the stairs the scratching noise becomes louder. You edge further down and almost jump out of your skin. 
+
+Three people, three dead people are stuck behind what appears to be furniture, almost like a barricade. They are biting and roaring towards you, but making no progress as they were stuck. The furniture could be climbed over, but the zombies would kill you even with weapons. You cannot face them, you won't survive.
+
+> throw taped horn
+Deciding what to do, you through the taped horn over into the far corner. Rather predictably, the zombies rush after it. Perfect.
+
+> down
+You are in Downstairs
+There is Destroyed stairs here.
+You can go east or up.
+The stairs are blocked off from going any further, so the office is the way out from here.
+
+> east
+You are in Office corridor
+There is Fire exit map here.
+You can go south, east or west.
+A messy office corridor. It looks like a storm has ripped through here . . . 
+Have you missed everything or what?
+The power flickers on and off regularily here, giving it an eerie feel. There are several office branches of the main corridor to the elevator.
+
+> south
+You are in Office
+There is Fat zombie here.
+You can go out to Office corridor.
+There's nothing much to the office except for papers, but a fat zombie sits in the corner, wearing security uniform. 
+
+> attack fat zombie
+There's an 8/10 chance that you will win . Then There's a 4/10 chance that you will win unscathed.
+Fight the fat zombie?
+1) Yes
+2) No
+[choice] 1
+You manage to bash the fat zombie down on the head and avoid his attacks. He drops a security key.
+
+> take security key
+You pick it up.
+
+> out
+You are in Office corridor
+There is Fire exit map here.
+You can go south, east or west.
+A messy office corridor. It looks like a storm has ripped through here . . . 
+Have you missed everything or what?
+The power flickers on and off regularily here, giving it an eerie feel. There are several office branches of the main corridor to the elevator.
+
+> east
+You are in Office corridor
+There is Security office door and Elevator here.
+You can go north or west.
+The security office is to the north. Another office is to the south but it seems to be caved in. You don't know what's going on, but lots of things have been destroyed. The elevator door sits closed.
+
+> use security key on security office door
+The key slots in the lock and the door clicks open.
+
+> north
+You are in Security office
+There is Desk, Cabinet and Monitors here.
+You can go out to Office corridor.
+The security office has a few monitors and various cabinets. It too is messy.
+
+> open cabinet
+You open the cabinet
+
+> take power key
+(first removing it from Cabinet)
+Done.
+You pick it up.
+
+> take flashlight
+(first removing it from Cabinet)
+Done.
+You pick it up.
+
+> out
+You are in Office corridor
+There is Security office door and Elevator here.
+You can go north or west.
+The security office is to the north. Another office is to the south but it seems to be caved in. You don't know what's going on, but lots of things have been destroyed. The elevator door sits closed.
+
+> west
+You are in Office corridor
+There is Fire exit map here.
+You can go south, east or west.
+A messy office corridor. It looks like a storm has ripped through here . . . 
+Have you missed everything or what?
+The power flickers on and off regularily here, giving it an eerie feel. There are several office branches of the main corridor to the elevator.
+
+> west
+You are in Downstairs
+There is Destroyed stairs here.
+You can go east or up.
+The stairs are blocked off from going any further, so the office is the way out from here.
+
+> up
+You are in Staircase
+There is Furniture and Zombies (distracted) here.
+You can go up or down.
+Descending down the stairs the scratching noise becomes louder. You edge further down and almost jump out of your skin. 
+
+Three people, three dead people are stuck behind what appears to be furniture, almost like a barricade. They are biting and roaring towards you, but making no progress as they were stuck. The furniture could be climbed over, but the zombies would kill you even with weapons. You cannot face them, you won't survive.
+
+> up
+You are in Corridor end
+There is Staircase and Door 5C here.
+You can go east, up or down.
+A staircase leads up and down, and apartment room 13C's door is next to it. A strange noise is coming from downstairs . . .
+
+> up
+You are in Building top
+There is Power box here.
+You can go down.
+The night air is cold on your skin, and the darkness prevents you from seeing far.
+
+> use power key on power box
+Using the power key you open the panel. Inside are various switches and meters.
+
+> look at power box
+The panel is open, so you can operate it. Looking inside you see various switches to restore power.  
+Restore the power to the lower levels?
+1) Yes
+2) No
+[choice] 1
+You flick all of the appropriate switches and the power box begins humming a little. The meters change, and seconds later it seems to burst with sparks. You step back to avoid them. By what the meter says it failed to restore power to some of the lower floors, but the elevator should work.
+
+> down
+You are in Corridor end
+There is Staircase and Door 5C here.
+You can go east, up or down.
+A staircase leads up and down, and apartment room 13C's door is next to it. A strange noise is coming from downstairs . . .
+
+> east
+You are in Corridor corner
+You can go north, south or west.
+The corner of the corridor, with the elevator to the north and the stairs to the west.
+
+> north
+You are in Corridor end
+There is Dead body, Elevator and Door (broken) here.
+You can go south.
+The elevator is repeatedly opening and closing on a body, and an apartment door is to the east.
+
+> open elevator
+You push the open button and the doors slide open
+You are in the Elevator
+There is Button panel here.
+You can go out to Corridor end.
+Avoiding the small pool of blood you stand to one side. The elevator itself is pretty normal.
+
+> look at button panel
+Several button with all of the floors are on the panel. You're on the fifth floor. 
+
+1) Floor 5
+2) Floor 4
+3) Floor 3
+4) Floor 2
+5) Floor 1
+6) Ground floor
+7) Carpark
+8) Close
+[choice] 3
+The power seems to be unreliable on the lower floors. You should keep your light source with you at all times.
+Go down to the lower floors?
+1) Yes
+2) No
+[choice] 1
+The elevator rumbles into action, but as quickly as it started it stops. There's a strange bang and a hydraulic hiss. The doors open partially with an emergency buzzer. 
+You are in Elevator
+There is Elevator doors, Roof panel and Button panel here.
+
+> open roof panel
+There's no way to directly open it, so you hit it. The panel pops off with a metallic clang. There's now a hole open to climb up through.
+
+> look at open roof panel
+The hole is big enough for you to fit in, and would be a way out. So with a bit of a jump you manage to lift yourself onto the top of the elevator.
+You are in Top of elevator
+There is Elevator cables and Elevator side here.
+The insides of the elevator tunnel are pretty dirty. Of course, they never get cleaned. The cable runs up a fair distance, and you can't see it going any lower.
+
+> look at elevator side
+There's a ledge along the elevator. You can fit down there, so it may be a way to get to the door. You carefully drop down.
+You are in Elevator side
+There is Ledge here.
+You can go north.
+The gap in between the elevator and the wall is pretty small, so its a confined space to be in.
+
+> north
+You are in Elevator side
+There is Ledge here.
+You can go south or east.
+The gap in between the elevator and the wall is pretty small, so its a confined space to be in.
+
+> east
+You are in Elevator side
+There is Ledge and Doors here.
+You can go west.
+The doors to the third floor are open, you can fit through.
+
+> look at doors
+They're partially opened for the oncoming elevator, but not fully because the elevator is stuck. You dare not look down as you step over.
+You are in Corridor
+You can go north, east or northwest.
+This appears to be one of the only lights on. The corridor further down is shrouded in darkness, and a strange musty smell comes from further in.
+
+> east
+You are in Closet
+There is Boxes and Broom here.
+You can go out to Corridor.
+The closet has no light of its own, so it's quite dull. It's a looks unused as well.
+
+> take broom
+Wiping a few cobwebs off, you pick it up.
+
+> out
+You are in Corridor
+You can go north, east or northwest.
+This appears to be one of the only lights on. The corridor further down is shrouded in darkness, and a strange musty smell comes from further in.
+
+> northwest
+You are in Bathroom (2)
+There is Medical kit box here.
+You can go southeast.
+The bathroom isn't in the best of conditions, but its much like you'd expect any bathroom to be. The lights weakly flicker on and off.
+
+> open medical kit box
+The hinges squeak noisily as you open it.
+
+> take medical kit
+(first removing it from Medical kit box)
+Done.
+You pick it up.
+
+> use medical kit
+You don't need to use it.
+
+> southeast
+You are in Corridor
+You can go north, east or northwest.
+This appears to be one of the only lights on. The corridor further down is shrouded in darkness, and a strange musty smell comes from further in.
+
+> turn on flashlight
+You flick the torch on. Its much easier to see now.
+
+> north
+You are in Corridor
+There is Door 3B and Door 3C here.
+You can go north, south, east or west.
+Even though you don't want to admit it, walking through a zombie infested place with only torchlight is terrifying. There are several apratment doors, but you're not to sure whether to open them or not. You want to get out quickly . . .
+
+> west
+Open the door?
+1) Yes
+2) No
+[choice] 1
+Slowly you nervously open the door . . .
+
+You quietly open the door and almost faint with fear. Five or six zombies are in the corner, but as you collect yourself you realise they're not moving. They're making quiet noises, but aren't taking the slightest bit of notice of you. You better be careful with your movements.
+
+> use broom on glass shards
+You quietly sweep the glass away so you can walk through. Thankfully none of the zombies noticed.
+
+> northwest
+You are in Apartment 3B
+There is Case here.
+You can go southeast.
+The room is much the same as the other side, the only real things is that glass seperates it.
+
+> open case
+You click it open. It looks like its a case for a handgun, but there's only a magazine of ammunition in it. You take the ammunition
+
+> southeast
+You quietly open the door and almost faint with fear. Five or six zombies are in the corner, but as you collect yourself you realise they're not moving. They're making quiet noises, but aren't taking the slightest bit of notice of you. You better be careful with your movements.
+
+> out
+You are in Corridor
+There is Door 3B and Door 3C here.
+You can go north, south, east or west.
+Even though you don't want to admit it, walking through a zombie infested place with only torchlight is terrifying. There are several apratment doors, but you're not to sure whether to open them or not. You want to get out quickly . . .
+
+> north
+You are in Corridor end
+There is Staircase here.
+You can go south, up or down.
+
+> down
+You are in Bottom of Stairs
+There is Stairs, Cracked wall and Rubble here.
+You can go south or up.
+Something is already wrong. The floor feels as though its on a slope . . . The walls appear to have cracked. Is the building falling apart?
+
+> look at cracked wall
+There's a crack where the floor appears to have bent down. The boards on the wall have come loose, and you manage to dislodge a sizeable plank.
+
+> south
+You are in Destroyed Corridor
+There is Partial ledge here.
+You can go north.
+The entire of the corridor and the adjacent apartment room has collapsed! There is a reasonable drop down with sharp rubble below. You have to get across to the other side somehow.
+
+> use plank on partial ledge
+You clear a few pieces of rubble so the plank sits flat. Its still a dodgy bridge
+
+> cross plank ledge
+There's a 7/10 chance that you will successfully make it across. 
+Cross the ledge with the plank?
+1) Yes
+2) No
+[choice] 1
+Carefully and slowly you step over the plank. You panic slightly when the plank wobbles, hoping liking anything it doesn't move. Thankfully it holds its spot and you're glad to be over.
+You are in Corridor end
+There is Elevator doors and Apartment door here.
+You can go west.
+With the stairs and the elevator gone, and a deadly drop in the middle of the corridor, there's no easy way out.
+
+> west
+You are in Apartment 2A
+There is Dead woman and Window here.
+You can go out to Corridor end.
+
+> look at dead woman
+She appears to have died from a bite to the throat. She's holding a gun with no ammunition. You could still find a use for it, so you think it would best if you took it.
+
+> open window
+You open the window and look out. There's a big enough ledge to fit on outside, so you carefully climb out.
+You are on the Building ledge.
+You can go south or east.
+Although the ledge is narrow its solid.
+
+> east
+You are on the Building ledge.
+You can go east or west.
+Although the ledge is narrow its solid.
+
+> east
+You are on the Building ledge.
+You can go south or west.
+You approach the building corner with a little more care, but manage easily enough.
+
+> south
+You are on the Building ledge.
+You can go north or south.
+Although the ledge is narrow its solid.
+
+> south
+You are on the Building ledge.
+There is Window here.
+You can go north or west.
+There's another window this time, and you should go in.
+
+> west
+You are in Apartment 2B
+There is Hole and Jammed door here.
+You can go east.
+There's a large portion of the floor thats fallen down, but its created a ramp so it will be easy enough to get down.
+
+> look at hole
+The floor has fallen down at one end but has kept up on the end you're standing on. It creates a ramp effect, so it will be easy to get down. If you go down you should be prepared.
+Go down the hole?
+1) Yes
+2) No
+[choice] 1
+You walk down the hole on the ramped floor. It leads to the ground floor. At the bottom, You hear a strange noise. Suddenly two zombies, blood pouring from their mouths run at you. You have to attack! 
+You are on
+You can go north.
+Choose a weapon to fight with
+1) Hand gun
+2) Crowbar
+[choice] 1
+There's a 8/10 chance that you will win. Then there's a 6/10 chance that you will win unscathed.
+Fight the zombies?
+1) Yes
+2) No
+[choice] 1
+Conveniently you shot one of the zombies in the head, and with a bit of a gurgly sound it falls to the ground. The other one takes a few more shots.
+
+> north
+You are in the Apartment building Entrance
+There is Desk here.
+You can go north or south.
+The entrance is trashed, decorations and glass are smashedd all over. You can see the streets outside . . .
+
+> north
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> turn off flashlight
+You flick it off.
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+Suddenly a low flying plane roars over the sky. Its a commercial plane, and you'd have no clue what its doing so close to the ground. Seconds later . . . 
+
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+BOOM!
+
+There's an explosion from somewhere south in the city! The plane crashed! Could zombies be at fault here? What's going on? 
+
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+Suddenly a scream comes from somewhere close! 
+
+"HE'S TRYING TO EAT ME!!!!"
+
+Something has to be done!
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+> look
+You are in the Street
+You're out! It has never been so good to get out of your apartment building. Its rather cold, but you honestly don't care. Now another question has hit you . . . where to from here?
+
+
+
+
+
+       The end!
+       
+
+
+       For now . . .
+       Thanks for playing :)
+
+       You completed the game in 143 turns, try to beat your best!
+       Hulkman508's First Game
+[runner] turns=143 leftover=0 running=false WON=YES

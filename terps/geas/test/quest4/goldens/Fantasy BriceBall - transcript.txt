@@ -1,0 +1,258 @@
+
+Fantasy BriceBall, Episode 1: the 2002 Revival, v1 Brice R. Binder
+
+FANTASY BRICEBALL
+Episode 1: the 2002 Revival
+
+In this game, you are a foreign exchange student.  You have arrived in Alameda to attend community college and learn English, but you are about to be instrumental in the revival of... the "sport" of the future!
+
+After you get a D on a tough quiz, your teacher, Professor Simpson, reccomends you make an appointment with the tutoring center's best, a guy named Brice...
+
+You are in the Tutoring Center
+There is Brice here.
+You can go north, south or west.
+This bland area in the library is your only hope to pass Writing 3 this semester.
+
+> speak to brice
+You say, "Hay-low"
+Brice says, "Hi... do you need an appointment?"
+
+You say, "I am likeen jor shert.  Gwat do it meaning?"
+Brice says, "It's nothing... a game we used to play."
+
+You say, "Oh, I am likeen games.  We can play, no?"
+Brice says, "Nah, we need four more people.  That's why we never play anymore... I'm the only one still here."
+
+You say, "Pleeeeeeeeeeeeeeeease?"
+Brice rolls his eyes.  He says, "OK, we need to find some people and some other junk.  Here's a list.  I'll go with you if you want."
+HINT: Take willing characters with you to play BriceBall!  AND... don't forget to take items you find that will help you get a game going (Not sure what you need? ...check the list!)
+
+> take brice
+Brice has agreed to follow you on your mission to bring back the "sport" of the future!
+
+> w
+You are in your Writing 3 Class
+There is Ivana and Mr. Simpson here.
+You can go east.
+This classroom is cold and undecorated.  It seems to always have a few students lingering around reading and waiting to talk to Professor Simpson in their quest to learn English as a second language.
+
+> speak to ivana
+You say, "Hay-low"
+Ivana says, "Hi... are you have done you are homework?"
+
+You say, "Jess... but I am wanting if you come play games outside?"
+Ivana looks a little confused.  She says, "Jou gwant to play outside?"
+
+You say, "Jess... is call BreeseBol.  is berry fun."
+Ivana says, "I am needing to finish my home-gwerk... sorry."
+
+You say, "Pleeeeeeeeeeeeeeeease?  Breese es a Engleesh tutor... maybe he helping us with homework..."
+Ivana looks down at her papers.  She says, "OK, dair ist six udder students before me waitinge to ask Mr. Simpson gwestions about der home-gwerk."
+
+> take ivana
+Ivana has agreed to follow you on your mission to bring back the "sport" of the future!
+
+> e
+You are in the Tutoring Center
+There is the List of stuff we need in order to play here.
+You can go north, south or west.
+This bland area in the library is your only hope to pass Writing 3 this semester.
+
+> s
+You are walking on Webster Street.
+There is Hector here.
+You can go north or south.
+This familiar, big street is on your daily walks between school and home.  There are a few places to grab a quick bite.
+
+> speak to hector
+You say, "Hay-low"
+Hector says, "Hello.  How are you?  You are in one of Mr. Simpson's classes, right?  Do you need help with your homework?"
+
+You say, "Wow!  Your Engleesh es berry goo."
+Hector says, "Certainly.  I have been a student of Mr. Simpson for years.  I also have the best in tutoring."
+
+You say, "Oh, I helping a tutor named Breese to play a game?"
+Hector says, "My tutor, Brice, needs help?"
+
+You say, "Pleeeeeeeeeeeeeeeease?  We are wanting to play BreeseBol again."
+Hector says, "I didn't even know there was such a game as BriceBall.  Of course I will help.  It would be an honor!"
+
+> take hector
+Hector has agreed to follow you on your mission to bring back the "sport" of the future!
+
+> s
+You are in Your Appartment
+There is a pen here.
+You can go north or east.
+You don't even have a TV.  Let's get out of here.
+
+> take pen
+You've got a pen... what else do we need?
+
+> e
+You are walking on Lincoln Avenue.
+There is Cynthia here.
+You can go south, east or west.
+This street is unfamiliar since you rarely venture around the island, other than when you go to school.
+
+> speak to cynthia
+You say, "Hay-low"
+Cynthia says, "Hey... where do I know you from?"
+
+You say, "I am going to jor school."
+Cynthia says, "Oh, yeah... how do you like it?"
+
+You say, "Is fun.  We trying to play a game at school.  You want play?"
+Cynthia says, "A game?  I'm no good at sports."
+
+You say, "Pleeeeeeeeeeeeeeeease?  This game es juss for fun"
+Cynthia smiles at you.  She says, "OK, I'm not doing anything, anyway."
+
+> take cynthia
+Cynthia has agreed to follow you on your mission to bring back the "sport" of the future!
+
+> s
+You are in the Hardware Store
+There is a long, yellow tow rope here.
+You can go north.
+This place is packed to the ceiling full of merchandise.  The narrow ailses inspire a bit of claustrophobia in your nerves.
+
+> take tow rope
+You've bought a rope for a couple bucks... what else do we need?
+
+> n
+You are walking on Lincoln Avenue.
+You can go south, east or west.
+This street is unfamiliar since you rarely venture around the island, other than when you go to school.
+
+> e
+You are at Franklin Park.
+There is old baseball bat here.
+You can go south, east or west.
+This cozy park features one of the smallest baseball fields ever created.
+
+> take old baseball bat
+You've got a bat... what else do we need?
+
+> e
+You are at a big blue house.
+You can go west or up.
+This big, old house's baby-blue paint is peeling.  You recognize Brice's car parked in front of it.
+
+> up
+You are in Brice's room
+There is an official BriceBall scorecard here.
+You can go down.
+The walls are covered in posters.  There are drawings and other papers strewn about.  No one made the bed.
+
+> take official briceball scorecard
+You've got a scorecard... what else do we need?
+
+> down
+You are at a big blue house.
+You can go west or up.
+This big, old house's baby-blue paint is peeling.  You recognize Brice's car parked in front of it.
+
+> w
+You are at Franklin Park.
+You can go south, east or west.
+This cozy park features one of the smallest baseball fields ever created.
+
+> s
+You are walking on Otis Drive.
+There is Betty here.
+You can go north or east.
+This four-lane street is good for a nice stroll.  You pass by a bunch of houses, a small school and a little lagoon.
+
+> e
+You are in the Velour Grill Restaurant
+There is Corey and Bill here.
+You can go west.
+This big restaurant is a favorite of early dining seniors.
+
+> speak to corey
+You say, "Hay-low"
+Corey says, "Hi... sit wherever you'd like"
+
+You say, "I no hongree.  You go with me to play game?"
+Corey says, "Uh, I'm working right now."
+
+You say, "Oh, but BreeseBol es berry fun!"
+Corey says, "BriceBall?"
+
+You say, "Pleeeeeeeeeeeeeeeease?"
+Corey says, "hmm..."
+
+> take corey
+Corey has agreed to follow you on your mission to bring back the "sport" of the future!
+
+> w
+You are walking on Otis Drive.
+There is Betty here.
+You can go north or east.
+This four-lane street is good for a nice stroll.  You pass by a bunch of houses, a small school and a little lagoon.
+
+> n
+You are at Franklin Park.
+You can go south, east or west.
+This cozy park features one of the smallest baseball fields ever created.
+
+> w
+You are walking on Lincoln Avenue.
+You can go south, east or west.
+This street is unfamiliar since you rarely venture around the island, other than when you go to school.
+
+> w
+You are in Your Appartment
+You can go north or east.
+You don't even have a TV.  Let's get out of here.
+
+> n
+You are walking on Webster Street.
+You can go north or south.
+This familiar, big street is on your daily walks between school and home.  There are a few places to grab a quick bite.
+
+> n
+You are in the Tutoring Center
+There is the List of stuff we need in order to play here.
+You can go north, south or west.
+This bland area in the library is your only hope to pass Writing 3 this semester.
+
+> n
+You are in the Parking Lot
+There is Brice's car here.
+You can go south, east or west.
+This afternoon, the lot is about half full.  There is a nice, grassy field to the east.
+
+> w
+You are at the Tennis Courts.
+There is a garbage can here.
+You can go east.
+These tennis courts are tucked away in a corner of campus and seem to have been deserted years ago.
+
+> look at garbage can
+
+> take three old tennis balls
+You've got balls... what else do we need?
+
+> e
+You are in the Parking Lot
+There is Brice's car here.
+You can go south, east or west.
+This afternoon, the lot is about half full.  There is a nice, grassy field to the east.
+
+> look at brice's car
+Brice opens his trunk, revealing a lot of stuff.  Is anything from the old days of BriceBall still here?
+
+> take backstop
+You've got a backstop... what else do we need?
+
+> e
+You are at BriceBall Memorial Field.
+You can go west.
+This vast, grassy field has not been used since August of last year when the last BriceBall game was played.  The grass is green.  A few geese peck at the ground in the distance.  This is the perfect place to bring back BriceBall!
+YOU WIN!
+
+Thanks for playing Fantasy BriceBall!  Now make all your fantasies come true... BriceBall is the "sport" of the future!  Check out www.BriceBall.com for more.
+
+[runner] turns=42 leftover=0 running=false WON=YES

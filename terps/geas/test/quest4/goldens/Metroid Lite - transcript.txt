@@ -1,0 +1,280 @@
+
+DJay32's "Metroid" Lite DJay32
+
+It is the year 23X0; the galaxy is at peace.
+
+World-famous bounty hunter Samus Aran is on her way to a big board meeting.
+
+You pass her in the hallway on your way there, and say, "Hello!"
+
+She responds with a wave.
+
+Such a beautiful day... the space outside is gorgeous, as well.
+
+
+
+
+DJay32's 
+"METROID"
+         Lite Edition
+
+You are in the GFS Theseus, in a Boardroom.
+
+You arrive in the meeting room, and are prompted to sit down.
+
+"Ladies, gentlemen.... take a seat," said the man in the top hat.
+
+You look around and take note of everyone there.
+
+- A Space Pirate scientist by the name of "Rlge," pronounced "Rulg."
+
+- Three aliens whose species you are not aware of.
+
+- Bounty hunter Samus Aran.
+
+- The man in the top hat, "Seargent Dane."
+
+- A large, blue creature. He says he's called "Rundas."
+
+- and YOU, a member of the Survey Team Mika-70 Wolf, sent to this board meeting.
+
+
+"If I could have everyone's attention, please."
+As Dane said this, the screen to his side displayed a message in alien lettering, which I presume reads the same, but as a translation.
+"I called you here today to make a very special announcement regarding the Space Pirates' defeat on Zebes."
+Rlge sighed, and glanced at Samus.
+
+"Miss Samus Aran here was the one to defeat them, as they were breaking Galactic Federation laws by capturing mysterious, parisitic creatures."
+Rlge raised his hand, cleared his throat, and spoke.
+
+"I would just like to say that I was not a part of this, as I was stationed at a seperate system entirely at this time."
+
+"Yes, well, we're well aware of this, mister Rlge. Anyway, these parisites are called 'Metroids,' and are highly dangerous. They were apparently SO dangerous that the Pirates' leader, Ridley, was willing to guard them with his life.
+
+"Samus was able to defeat Ridley, and destroy their base. Now for why I called you here: we have the remains of Ridley inside this safe."
+Dane lifted a safe from below the table, and propped it onto the table.
+
+"Ridley may be evil, but his DNA was highly advanced. We were thinking that if we were able to harness this data to use it AGAINST any further crimes, we could possibly create a superweapon."
+
+There was a small silence as everyone except Dane looked around the room, trying to understand what he just said.
+
+I decided to speak up.
+"Um... excuse me, Seargent Dane, sir? Yes. I'm Chief Officer Harvey Donaldson of the Survey Team Mika-70 Wolf. I didn't quite catch what you were saying, but I think I've gathered that you want to use the remains of the Space Pirate commander Ridley to make a superweapon in order to prevent further crimes?"
+
+"Chief Officer Donaldson, you got all the facts correct," Seargent Dane said with a smile.
+
+"Well, uh... also let me get the Zebes files correct. The Space Pirates attempted to use the Metroids as weapons in order to destroy their opposors, correct?"
+
+"That's about right, sir."
+
+"What I'm getting at is that maybe what you want to do is beyond Galactic Federation rules and bylaws, and if you attempt this, I'll have no choice but to put you under arrest."
+
+"Ah, now that's where the misunderstanding is, Chief Officer. I don't mean JUST a superweapon... I mean I want to use it to PREVENT crime. Think of it as an advanced laser pistol."
+
+"Hmm... I see. My apologies, Seargent," and with that, I take a seat.
+
+"So, any more objections, or questions?" Seargent Dane asked.
+
+There was a slight pause before Rlge stood up, and everyone's eyes were on him.
+
+"Indeed, I have one objection and one question, Seargent Dane," he asked him.
+
+"Go ahead and ask 'em," Dane replied.
+
+"First is the question. What are these remains comprised of?"
+
+"Intelligence and analysis suggests that the remains are comprised of Ridley's torso, and a little bit of his tail."
+
+"I see. Now for the objection."
+
+Rlge reached to his side, pulled a plasma rifle out, and pointed it at the seargent's head.
+
+"Be a good human and hand over the safe, or this ridiculous theory of superweapons will be your LAST," Rlge said with a smirk.
+
+Samus pointed her gun at Rlge, but he put his finger on the trigger, and was ready to pull it. It was either Dane surrender these vital remains, or we'll have a dead human and a dead Space Pirate in this room.
+
+Everyone was in shock.
+
+This lasted for a few more seconds, before Samus lowered her gun.
+
+Rlge chuckled, and spoke, "Wise choice. Now be a good girl and STAY that way."
+
+
+You look around the room for anything that might save Dane as well as the remains. You see a steam pipe above Rlge's head, and an airlock behind him.
+
+You gesture for Samus to look at you, which she does, and you gesture for her to shoot...
+You gesture for Samus to shoot...
+1) ...the steam pipe
+2) ...the airlock
+3) ...Rlge's head
+[choice] 1
+Samus shoots the steam pipe, and steam hisses into Rlge's face.
+
+"AAAHHH!!! AAAHHH!!!" he screams loudly, and drops the gun.
+
+"You will pay for all of this! Ridley's army will reign again!" Rlge twists the steam pipe so it blows steam all over the place, filling the room with smoke.
+
+Ten seconds of screaming later, Rundas uses his ice powers to freeze the opening in the steam pipe.
+
+When all of the smoke clears, it is revealed that Rlge and the safe are missing!
+
+Seargent Dane speaks up, "Samus! Get that safe!"
+
+Samus runs off, leaving the others to panic.
+
+> go to hallway
+It's one of the GFS Theseus' many hallways. The hall has a 'blue' feel to it, like everywhere else.
+
+> go to piperoom
+This is the GFS Theseus' Piperoom. Y'know. Where all the pipes are.
+You peek around the corner, and notice that Samus is having a face-off with Rlge.
+
+"What's the matter, girlie? Namihe gotcha tongue?" Rlge taunted.
+
+Samus just glared at him.
+
+Rlge began to pace, and spoke. "Y'know, I think I got why yer so obsessed with getting Ridley's remains. It's got nothing to do with 'Seargent Danes' orders.' It's 'cause Ridley killed yer parents, didn't he? Yeah, that's right, I know about it. Heh. How COULDN'T I? I was the one who planned it!"
+
+Samus nearly dived at him, but remained stationary.
+
+"Aren'tcha gonna kill me? Shoot me? Blow me up? C'mon. Blow me up. I dare ya."
+
+At first, I had no idea what was going on, but then I realized-- these pipes didn't just supply the ship with water; they were the support for the ship!
+
+Samus couldn't shoot him; it's WAY too risky.
+
+How can I help her? I can't! Rlge is just gonna escape into his little Pirate ship, and Ridley's remains will be brought to his little command post, where they will perform some surgery, and we'll all be dead.
+
+"I think I'll humor you a little. I'm just gonna stay RIIIIGHT here. For five minutes. You get five minutes to kill me. BUT! You must kill me by yerself! If I detect even a HINT of help... I'll blow this ship up, me in it and all. Doesn't matter to me.
+
+"These remains? Don't need 'em. My team's already performing surgery on commander Ridley back home, and they just asked me to get these. They even said I don't NEED to get 'em; I don't HAVE to get 'em; it'll simply be a little present for the commander. A safe with his torso in it. He loves that kinda stuff; trust me. Weird, innit?
+
+So go ahead. Five minutes to kill me. No help. The clock is ticking, little missus," and thus Rlge ended his monologue.
+
+Samus looked around, and decided to exit the room.
+
+"Oh, that's fine. Go on. Just don't mention word o' this to nobody, got it? You can find little rocks n' stuff to blow everyone up with. Go on," he said as she left.
+
+Samus noticed me, and I gave her a plan.
+
+"If we can get Rundas' freezing powers, we could freeze him in place, and just let him die," I said.
+
+She looked at me with a sad expression.
+
+"Oh, right. 'No help.' Don't worry; I'll get help FOR you, and we'll make it seem like you found some random weapon lying around."
+
+Samus was grateful for this, and pretended to search the hallway while I sneaked away.
+
+
+The clock is ticking. As soon as you press any key to continue.
+
+
+It's one of the GFS Theseus' many hallways. The hall has a 'blue' feel to it, like everywhere else.
+
+> go to boardroom
+This is the GFS Theseus' boardroom.
+
+> speak to rundas
+You explain the details of the fight to Rundas.
+
+He replies, "Oh. So... you think you need my gun? Uh... all right, I can't give you MY gun, but here's a backup I always keep."
+
+YOU GOT THE ICE WEAPON THING!
+
+> go to hallway
+You approach Samus, and she looks at your strange weapon. She shakes her head.
+
+Suddenly, Rgle yells, "IS THAT SOMEONE ELSE?! IF THAT IS, MAKE SURE YOU AIN'T DONE NUTTIN' TO UPSET ME, CUPCAKE! 'CAUSE MY HEAT-GENERATING ARMOR'LL SPEAK FOR ME!"
+
+You realize you have to find another weapon. Samus gestures towards the interesting storage closet.
+It's one of the GFS Theseus' many hallways. The hall has a 'blue' feel to it, like everywhere else.
+
+> go to storage room
+It's a storage room in the GFS Theseus.
+
+> take plasma rifle
+Sweet, a weapon!
+
+> take heat-seeking program
+Not sure what I'd use THIS for, but... okay.
+
+> use heat-seeking program on plasma rifle
+You fix the program into the rifle, and voila! Your plasma rifle is now a HEAT-SEEKING plasma rifle!
+
+> go to hallway
+It's one of the GFS Theseus' many hallways. The hall has a 'blue' feel to it, like everywhere else.
+
+> go to piperoom
+You give Samus the Heat-Seeking Plasma Rifle version 2.6, and she enters the pipe room. You watch.
+
+"What the hell is THAT thing?" Rlge asks.
+
+Samus just fires it, and it strikes him in the jaw, making him fall over. She grabs the safe, and runs back to the boardroom. You follow.
+
+Samus enters the boardroom, carrying the safe. You quietly slip in, as well.
+
+Everyone cheers, and Rundas gives you a thumbs-up.
+
+Seargent Dane pats Samus on the back, and tells everyone to sit down.
+
+He carefully enters the combination for the safe, and slowly opens it.
+
+And..... it's empty!
+
+"What the--? We've been had! Samus! Are you sure you got the right safe!?" Seargent Dane asked, yelling.
+
+Samus nodded, in shock. She looked out the door, as did I, and we saw Rlge get up, laugh ferociously, and retreat to his ship.
+
+I stood up, and said, "Sir! Rlge is retreating! Most likely with the remains!"
+
+Seargent Dane simply sat down, and put his hands to his chin, thinking. He finally said, "Who has a working ship with legal weapons?"
+
+Samus and I both raised our hands, albeit I raised mine a little nervously.
+
+"Bygonnit, Chief Officer! I'm assigning YOU to this task! Samus, you had your chance, and you blew it. Harvey Donaldson, get out there and stop that Space Pirate!"
+
+"Sir, yes, SIR!" I said, saluted, and ran out the door.
+
+This is the GFS Theseus' boardroom.
+
+
+> go to your ship
+Your ship's targeting computers have detected the enemy ship going towards an uncharted planet far off the trade routes! If he makes it there, nobody'll ever find him!
+
+According to the on-board computers, you have.... 1 minute before he exits the charted Galactic Trade zone.
+
+
+> take rlge's ship
+Alright, I've locked on to him.
+
+> shoot rlge's ship
+So, Rlge died. As did Ridley's remains, apparently.
+
+You return to Seargent Dane, and tell him, "I'm sorry, sir, but Ridley's remains blew up with Rlge's ship."
+
+Dane laughs heartily, and says, "That's fine, Chief! This way, they can't be used for evil!"
+
+In the end,  an evil Space Pirate mastermind is dead, and Samus respects you. And is that not the great Galactic Federation dream?
+
+
+The remains of Ridley have been disposed of.
+
+The galaxy is at peace.
+
+
+Metroid, Samus, Dane, Rundas, Space Pirates, the Galactic Federation, and all these things were made by Nintendo.
+
+I made this game. I used these things to make a story that actually fits with the Metroid universe, somewhat. That's what I call "being me."
+
+Before I go, though... there are a couple things I want to point out.
+
+
+- This is the Lite version of DJay32's "Metroid." The full version will come if I get the full version of Quest 4.0 (even though I DID have the full 3.5; new computer stuff, hope ya understand), and if I get around to it.
+
+- There are TWO endings to this. No, Rlge escaping isn't one of them. Did you find both?
+
+
+
+So, THE END. ....for now.
+
+[runner] turns=14 leftover=0 running=false WON=YES

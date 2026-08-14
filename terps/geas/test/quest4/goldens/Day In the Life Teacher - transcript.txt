@@ -1,0 +1,288 @@
+
+Day In the Life: Teacher Jordan
+
+Have you ever wondered how teachers lived? Well, now you can go through
+a similar replica of one day of a Teacher's life! A casual day, that is. You will
+play as Mr. Smith. Day In the Life: Teacher.
+
+You wake up in bed after a dream of kids yelling and screaming and causing
+you deafness. You say, "(sigh) The same dream as always..."
+
+> go to bedroom
+This is your bedroom. It has your bed and the door to the hallway, and the
+closet.
+
+> go to closet
+This is your closet with all kinds of crazy doodads.
+
+> take light
+You turn on the lights and spot your car keys.
+
+> take car keys
+I need this!
+
+> go to bedroom
+This is your bedroom. It has your bed and the door to the hallway, and the
+closet.
+
+> go to upstairs hallway
+This is the upstairs hallway, which leads to your room and the bathroom.
+Also, typing 'go down stairs' will lead you downstairs!
+
+> go down stairs
+This is the downstairs hallway which leads to the living room, dining room, and upstairs.
+To go upstairs, type 'go up stairs'.
+
+> go to dining room
+This is the dining room,
+which you don't have time to eat breakfast in because you must go to the school extremely early.
+
+> go to kitchen
+This is the Kitchen. Nothing much to use for, though, except for the Fridge.
+
+> take refridgerator
+You open it up and grab your lunch.
+
+> go to garage
+This is the Garage. Your large Fird car is in here.
+
+> take car
+You insert the car keys into the car and drive it to school.
+This is the school's front hall.
+
+> go to school- hallway
+This is the 7th Grade hallway in the school.
+
+> go to room 101
+This is my LA room. I have to teach Language Arts in here.
+
+> speak to 1st class
+"Okay, OKAY!!! Settle down!!! Today, we're learning about proper punctuation advanced."
+A kid raises his hand.
+"Yes?"
+"Duhhhhh.............................. wendo we lern bout da blofgh?"
+"The what?"
+Another kid blurts out--
+"Yo Teach! What ol' Doofus here means is when do we get da bling bling and the wizzle-wuzzle 'cuz we all wanna rap da hizouse and den 'ave a bunch of Geromps and then we wanna--"
+"Why don't you actually LISTEN to this class and improve your grammar, G. I. M. Stoopihd?"
+"................................. yo MAMA!"
+"....right. Anyway, let's all open our textbooks to page..."
+Later...
+"And so don't forget, TEST on Wednesday!"
+The kids leave.
+"(sigh) I can't believe how stupid those kids are."
+The bell rings.
+
+
+> speak to 2nd class
+"Okay, OKAY!!! Settle down!!! Today, we're learning about proper punctuation advanced."
+A kid raises his hand.
+"Yes?"
+"Duhhhhh.............................. wendo we lern bout da blofgh?"
+"The what?"
+Another kid blurts out--
+"Yo Teach! What ol' Doofus here means is when do we get da bling bling and the wizzle-wuzzle 'cuz we all wanna rap da hizouse and den 'ave a bunch of Geromps and then we wanna--"
+"Why don't you actually LISTEN to this class and improve your grammar, G. I. M. Stoopihd?"
+"................................. yo MAMA!"
+"....right. Anyway, let's all open our textbooks to page..."
+Later...
+"And so don't forget, TEST on Wednesday!"
+The kids leave.
+"(sigh) I can't believe how stupid those kids are."
+The bell rings.
+
+Okay, time for Science class.
+
+> go to school- hallway
+This is the 7th Grade hallway in the school.
+
+> go to room 105
+This is the Science Room where I teach Science. Unfortunately, I'm the only one who teaches 7th Grade Science.
+
+> speak to 1st science
+"Okay, everyone sit down! It's time to learn!"
+Everyone groans.
+"Today... we are studying the insides of frogs!"
+Everyone replies with either a gross remark or excited, then
+grabs a frog.
+"Remember: Wear safety goggles, an apron, and gloves when dealing with
+ANY science experiment! And don't start until I say so!"
+A random kid pokes their frog and the frog jumps around the room,
+while everyone else screams.
+"(sigh).... everyone, EVERYONE!!!! PLEASE!!!"
+You grab the frog.
+"THIS is why I am telling you all the science safety rules! NOW... do not poke the frog! Instead, carefully and gently take the knife and cut the skin--"
+Some random kid cuts it too hard and blood spurts out, everyone screams harder.
+"CAREFULLY AND GENTLY!!!! Forget disection, we're having a pop quiz because of the little fools who weren't careful."
+Later...
+the bell rings and the kids leave.
+
+
+> go to school- hallway
+This is the 7th Grade hallway in the school.
+
+> go to room 104
+This is the Math Room, where I teach Pre-Algebra, and Ms. Alguhbre teaches Algebra.
+
+> speak to 1st math
+"Everyone prepare for the test we're having today!
+Of course, you SHOULD remember that it's about x times y divided
+by the square root of z, right? The entire test's questions will be those,
+with rational, irrational, whole, fraction, decimal, positive, negative, and
+different variables for x, y, and z! So... take this small half hour period to study, then for the final half hour, you will be tested!"
+Later...
+"I sure hope that you all did good! (quietly) Actually, by looking at these, I KNOW you fluked..."
+The bell rings, the kids leave.
+
+
+> go to school- hallway
+This is the 7th Grade hallway in the school.
+
+> go to school- front
+This is the school's front hall.
+
+> go to teacher's lounge
+This is the completely awesome, I-can't-believe-we-don't-let-kids-do-this-stuff, extremely exciting Teacher's Lounge!
+
+> speak to other teachers
+You sit down and eat your Deluxe Cuisine, chatting with the other teachers about promotions, annoying kids, test scores, budget cuts, and expulsions.
+Later, you hear the bell ring.
+"Oh... well, bye guys! It's time to teach more Math."
+
+> go to school- hallway
+This is the 7th Grade hallway in the school.
+
+> go to room 104
+This is the Math Room, where I teach Pre-Algebra, and Ms. Alguhbre teaches Algebra.
+
+> speak to 2nd math
+"Everyone prepare for the test we're having today!
+Of course, you SHOULD remember that it's about x times y divided
+by the square root of z, right? The entire test's questions will be those,
+with rational, irrational, whole, fraction, decimal, positive, negative, and
+different variables for x, y, and z! So... take this small half hour period to study, then for the final half hour, you will be tested!"
+Later...
+"I sure hope that you all did good! (quietly) Actually, by looking at these, I KNOW you fluked..."
+The bell rings, the kids leave.
+
+
+> go to school- hallway
+This is the 7th Grade hallway in the school.
+
+> go to room 101
+This is my LA room. I have to teach Language Arts in here.
+
+> speak to 3rd class
+"Okay, OKAY!!! Settle down!!! Today, we're learning about proper punctuation advanced."
+A kid raises his hand.
+"Yes?"
+"Duhhhhh.............................. wendo we lern bout da blofgh?"
+"The what?"
+Another kid blurts out--
+"Yo Teach! What ol' Doofus here means is when do we get da bling bling and the wizzle-wuzzle 'cuz we all wanna rap da hizouse and den 'ave a bunch of Geromps and then we wanna--"
+"Why don't you actually LISTEN to this class and improve your grammar, G. I. M. Stoopihd?"
+"................................. yo MAMA!"
+"....right. Anyway, let's all open our textbooks to page..."
+Later...
+"And so don't forget, TEST on Wednesday!"
+The kids leave.
+"(sigh) I can't believe how stupid those kids are."
+The bell rings.
+
+
+> go to school- hallway
+This is the 7th Grade hallway in the school.
+
+> go to room 105
+This is the Science Room where I teach Science. Unfortunately, I'm the only one who teaches 7th Grade Science.
+
+> speak to 2nd science
+"Okay, everyone sit down! It's time to learn!"
+Everyone groans.
+"Today... we are studying the insides of frogs!"
+Everyone replies with either a gross remark or excited, then
+grabs a frog.
+"Remember: Wear safety goggles, an apron, and gloves when dealing with
+ANY science experiment! And don't start until I say so!"
+A random kid pokes their frog and the frog jumps around the room,
+while everyone else screams.
+"(sigh).... everyone, EVERYONE!!!! PLEASE!!!"
+You grab the frog.
+"THIS is why I am telling you all the science safety rules! NOW... do not poke the frog! Instead, carefully and gently take the knife and cut the skin--"
+Some random kid cuts it too hard and blood spurts out, everyone screams harder.
+"CAREFULLY AND GENTLY!!!! Forget disection, we're having a pop quiz because of the little fools who weren't careful."
+Later...
+the bell rings and the kids leave.
+
+
+> speak to 3rd science
+"Okay, everyone sit down! It's time to learn!"
+Everyone groans.
+"Today... we are studying the insides of frogs!"
+Everyone replies with either a gross remark or excited, then
+grabs a frog.
+"Remember: Wear safety goggles, an apron, and gloves when dealing with
+ANY science experiment! And don't start until I say so!"
+A random kid pokes their frog and the frog jumps around the room,
+while everyone else screams.
+"(sigh).... everyone, EVERYONE!!!! PLEASE!!!"
+You grab the frog.
+"THIS is why I am telling you all the science safety rules! NOW... do not poke the frog! Instead, carefully and gently take the knife and cut the skin--"
+Some random kid cuts it too hard and blood spurts out, everyone screams harder.
+"CAREFULLY AND GENTLY!!!! Forget disection, we're having a pop quiz because of the little fools who weren't careful."
+Later...
+the bell rings and the kids leave.
+
+Time to grade the papers.
+
+> go to school- hallway
+This is the 7th Grade hallway in the school.
+
+> go to school- front
+This is the school's front hall.
+
+> go to teacher's lounge
+This is the completely awesome, I-can't-believe-we-don't-let-kids-do-this-stuff, extremely exciting Teacher's Lounge!
+
+> take papers
+The final bell rings before you finish grading all the papers.
+"(sigh) Looks like I need to take these home and grade them..."
+
+> go to school- hallway
+This is the 7th Grade hallway in the school.
+
+> go to school- front
+This is the school's front hall.
+
+> take the car
+You drive home.
+"Better grade the papers in the Dining Room."
+This is the downstairs hallway which leads to the living room, dining room, and upstairs.
+To go upstairs, type 'go up stairs'.
+
+> go to dining room
+This is the dining room,
+which you don't have time to eat breakfast in because you must go to the school extremely early.
+
+> use papers
+You stay up late to grade the papers, and have dinner in the middle.
+"(yawn) Oh... it's 9 already? Well, off to bed."
+
+> go to downstairs hallway
+This is the downstairs hallway which leads to the living room, dining room, and upstairs.
+To go upstairs, type 'go up stairs'.
+
+> go up stairs
+This is the upstairs hallway, which leads to your room and the bathroom.
+Also, typing 'go down stairs' will lead you downstairs!
+
+> go to bedroom
+This is your bedroom. It has your bed and the door to the hallway, and the
+closet.
+
+> take the bed
+You get into bed and instantly fall asleep. The same dream again.
+
+That is an average teacher's day! You probably don't want to be a teacher, now... do you? GAME OVER!
+
+[runner] turns=49 leftover=0 running=false WON=YES

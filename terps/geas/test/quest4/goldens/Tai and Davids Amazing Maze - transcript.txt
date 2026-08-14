@@ -1,0 +1,336 @@
+
+Tai & David's Amazing Maze, v1 Tai & David
+
+
+Welcome! This message will only be displayed at the beginning of the game, or if you type in "intro message" (no quotes).
+
+You are about to embark upon a mysterious and amazing journey through Tai & David's Amazing Maze. To your left is a place called the cafe, where you may go to interact with many items and people. The cafe is like a safe house, or home base.
+
+The maze portion of this game is the portion that you will be in the majority of the time. What is your goal? Your goal is to find all 10 Magic Artifacts.
+
+Good luck, and one more thing- this is REALLY important. If you would like to save, make sure you are not in the middle of the maze, because SAVING WILL REDIRECT YOU TO THE BEGINNING(The main room. Progress will still be saved, just in a different room)**. This is because this will prevent you from saving while you are in the maze (which would be cheating). So, enjoy, and talk to the gate master (the man by the entrance to the start of the maze).
+
+
+Welcome! This message will only be displayed at the beginning of the game, or if you type in "intro message" (no quotes).
+
+You are about to embark upon a mysterious and amazing journey through Tai & David's Amazing Maze. To your left is a place called the cafe, where you may go to interact with many items and people. The cafe is like a safe house, or home base.
+
+The maze portion of this game is the portion that you will be in the majority of the time. What is your goal? Your goal is to find all 10 Magic Artifacts.
+
+Good luck, and one more thing- this is REALLY important. If you would like to save, make sure you are not in the middle of the maze, because SAVING WILL REDIRECT YOU TO THE BEGINNING(The main room. Progress will still be saved, just in a different room)**. This is because this will prevent you from saving while you are in the maze (which would be cheating). So, enjoy, and talk to the gate master (the man by the entrance to the start of the maze).
+
+You are in The Main Room
+There is The Gatekeeper and Moneybag here.
+You can go north, east or west.
+Around you is open empty space, and plain white walls.
+A man stands by the gate to help you with any thing relating to the Amazing Maze.
+Visit the cafe if you are bored, looking for answers, or you just want a hot cup of java.
+
+
+> look
+You are in The Main Room
+There is The Gatekeeper and Moneybag here.
+You can go north, east or west.
+Around you is open empty space, and plain white walls.
+A man stands by the gate to help you with any thing relating to the Amazing Maze.
+Visit the cafe if you are bored, looking for answers, or you just want a hot cup of java.
+
+
+> look at the gatekeeper
+This man is wearing a simple jacket, some jeans, and he is sitting in a comfortable chair near the gate. He looks awake and ready to assist any players in need.
+
+> speak to the gatekeeper
+What do you want to ask him?
+1) Hey, what's up?
+2) What's your purpose?
+3) Give me some tips.
+4) Can I give you the Document of approval?
+5) I'm done.
+[choice] 1
+Not much, just guarding the gate.
+What do you want to ask him?
+1) Hey, what's up?
+2) What's your purpose?
+3) Give me some tips.
+4) Can I give you the Document of approval?
+5) I'm done.
+[choice] 2
+Oh, I guess you are new here.
+
+My name is Crokk, and I'm the gate keeper of the Amazing Maze. My job is too make sure that people entering the maze have gotten approval from the Cafe lady, Jill. 
+What do you want to ask him?
+1) Hey, what's up?
+2) What's your purpose?
+3) Give me some tips.
+4) Can I give you the Document of approval?
+5) I'm done.
+[choice] 3
+I'm glad you asked!
+
+If you want to go back to the Cafe when you are out and about in the maze, just type "asdf" on the keyboard (no quotes). This will prompt a menu making sure you want to do this.
+
+There are 10 artifacts to find in this game, some of them even have abilities!
+
+You can read about the Amazing Maze in the Cafe book section.
+
+You have Health and Coins as your 2 status variables. You begin with 100 Health and 10 Coins. (HP, and C)
+
+
+
+
+What do you want to ask him?
+1) Hey, what's up?
+2) What's your purpose?
+3) Give me some tips.
+4) Can I give you the Document of approval?
+5) I'm done.
+[choice] 4
+You have to get it from Jill, the cafe lady.
+
+> look at moneybag
+It is used to hold money. Type "open moneybag" to recieve the coins inside.
+
+> take moneybag
+You take the moneybag.
+
+> open moneybag
+You open the bag, and gain 10 coins.
+
+> e
+You are in The Vault
+You can go west.
+The Vault is well lit, with a smooth tile floor.  Glass shelves line the walls, covered in objects. Some look old and rustic, while others appear new.  Some of these objects you collected yourself! (unless of course this is your first time visiting here).
+
+> look
+You are in The Vault
+You can go west.
+The Vault is well lit, with a smooth tile floor.  Glass shelves line the walls, covered in objects. Some look old and rustic, while others appear new.  Some of these objects you collected yourself! (unless of course this is your first time visiting here).
+
+> w
+The enourmous stainless steel door doesn't budge.
+
+> asdf
+Are you sure you want to return to the Cafe?
+1) Yes
+2) No
+[choice] 1
+Redirected.
+You are in The Cafe
+There is Trunk, Jill, Fireplace, man and Gold Key here.
+You can go east.
+Welcome to the glorious cafe. There are several chairs and tables here, as well as a trunk in the corner. The floor is rustic hardwood, and the walls are painted warm colors. The fireplace smolders quietly. A window shows you nothing but rock wall. The lady at the counter (Jill) will serve you and can help you get the document of approval for The Amazing Maze.
+
+> look at jill
+She's behind the cofee counter wtih an apron, organizing the work-space and getting ready for customers.
+
+> speak to jill
+What do you want to say to her?
+1) What's up?
+2) May I have the document of approval?
+3) How do I buy something?
+4) Seeya.
+[choice] 1
+Oh me? Just serving my customers like usual. Well, you're pretty much the only customer.
+What do you want to say to her?
+1) What's up?
+2) May I have the document of approval?
+3) How do I buy something?
+4) Seeya.
+[choice] 3
+"Oh, just type 'buy from Jill'."
+What do you want to say to her?
+1) What's up?
+2) May I have the document of approval?
+3) How do I buy something?
+4) Seeya.
+[choice] 2
+Oh, Yes! Of course, I'm guessing you're looking to go into the J.Redd Mine and search for treasure. Well, it's really dangerous out there, so we have to make sure you are ready. Here is the document, just make sure you sign it, or else Crokk won't accept it.
+
+> look at document
+The document is as follows:
+
+By signing this document you agree that you are willing to risk your life in the pursuit of treasure (or any other pursuit) in the J. Redd Mine. Injury and death may occur.
+
+I, _____ _____ , am willing to risk my life, proved by this document, in order to explore the J. Redd Mine. I am experienced enough and intelligent enough to withstand the hazards ahead of me, and I am therefore exclaiming my right to explore this cave by signing this document.
+
+Sign here. _______
+
+And here. _______ 
+
+And initials here. __ __
+
+Thank you very much.
+
+This document should be given to the Gatekeeper when finished signing.
+
+Oh, and sign here too. ______
+
+> sign document
+The document has been signed.
+
+
+
+> look at document
+The document is as follows:
+
+By signing this document you agree that you are willing to risk your life in the pursuit of treasure (or any other pursuit) in the J. Redd Mine. Injury and death may occur.
+
+I, Seth Rogers , am willing to risk my life, proved by this document, in order to explore the J. Redd Mine. I am experienced enough and intelligent enough to withstand the hazards ahead of me, and I am therefore exclaiming my right to explore this cave by signing this document.
+
+Sign here. Seth R.
+
+And here. Seth R.
+
+And initials here. S. R.
+
+Thank you very much.
+
+This document should be given to the Gatekeeper when finished signing.
+
+Oh, and sign here too. Seth R.
+
+> buy from jill
+What would you like to buy?
+1) Buy a Cup of Coffee 
+2) Buy Smoothie
+3) Leave
+[choice] 1
+Are you sure you want to buy a coffee for 5 Coins?
+1) Yes, please.
+2) No
+[choice] 1
+Thank you for the transaction.
+
+
+
+> buy from jill
+What would you like to buy?
+1) Buy a Cup of Coffee 
+2) Buy Smoothie
+3) Leave
+[choice] 2
+Are you sure you want to buy a smoothie for 12 coins?
+1) Yes
+2) No
+[choice] 1
+Thank you for the transaction.
+
+> i
+You are carrying:
+Document of Approval
+Coffee
+Smoothie
+
+> look at coffee
+Its a cup of delicious-looking coffee.
+
+> drink coffee
+You feel rejuvenated. 
+
+> look at smoothie
+It's a pink smoothie that's looks oh so tasty.
+
+> look at trunk
+Its a dark brown wooden trunk, sitting with dust in the corner of the cafe.
+
+> open trunk
+You jiggle the handle, but it is locked.
+
+> look at creepy guy
+You don't see any creepy guy.
+
+> speak to man
+What do you want to say to him?
+1) Hi
+2) Who are you?
+3) Goodbye.
+[choice] 2
+"Why do you care?"
+What do you want to say to him?
+1) Hi.
+2) Really, who are you?
+3) Goodbye.
+[choice] 2
+I'm no one, okay?
+What do you want to say to him?
+1) Hi.
+2) Tell me who you are!
+3) Goodbye.
+[choice] 2
+Fine, you little brat. To be honest, I'm just a guy who wants answers. My old man came home one day with this giant green gem.  He said he found it in the mine he was working in. A few weeks later, he and the gem were gone. I just wish I could figure out what his death was caused by and why it happened. And i'll get revenge on whatever killed him!
+
+> look at fireplace
+It's accross from the door, with a few smoldering logs inside.
+
+> look at gold key
+Its a small gold key you found on a table at the cafe.
+
+> take gold key
+You took the gold key! Yay!
+
+> e
+You are in The Main Room
+There is The Gatekeeper and Moneybag here.
+You can go north, east or west.
+Around you is open empty space, and plain white walls.
+A man stands by the gate to help you with any thing relating to the Amazing Maze.
+Visit the cafe if you are bored, looking for answers, or you just want a hot cup of java.
+
+
+> speak to the gatekeeper
+What do you want to ask him?
+1) Hey, what's up?
+2) What's your purpose?
+3) Give me some tips.
+4) Can I give you the Document of approval?
+5) I'm done.
+[choice] 4
+Type "Give The Gatekeeper the Document of Approval"
+
+> give the gatekeeper the document of approval
+Thank you for this. You may now enter the J. Redd Mine. (AKA The Amazing Maze).
+
+> n
+You are at the top of a staircase leading down to the first room.
+You can go south or down.
+Around you are the rocky walls of the underground, the mainroom behind you lights the way as you descend.
+(go down to descend the stairs.)
+
+> down
+The door in front of you leads to your fist challenge. Good luck!
+You can go north or up.
+
+> n
+This is your first challenge room.
+There is octagonal hole and Box here.
+You can go north or south.
+This room is bright, with a brown dirt floor and  rocky walls. There is a black box with a keyhole sitting in the middle of the room.
+
+> look at box
+It's a black sturdy-looking box about the size of your head. It has a keyhole but there's no key in this room...
+
+> look at octagonal hole
+Hmmm...  there appears to be a strangely-shaped hole in the wall next to the door.
+
+> use gold key on box
+You opened the box using the gold key. You found your first artifact, an enormous green gem!
+
+> look at artifact 1
+It's an eight-sided emerald the size of your fist.
+
+> speak to green gem
+It says "I can say this to you because i am magic. I can't say anything else, though. Because I don't have a brain."
+
+> use green gem on octagonal hole
+The Gem fits perfectly! You hear a click as the door unlocks. You may now move north.
+
+> look
+This is your first challenge room.
+There is octagonal hole here.
+You can go north or south.
+This room is bright, with a brown dirt floor and  rocky walls. There is a black box with a keyhole sitting in the middle of the room.
+
+> n
+Hello, you have made it to the end of Version 1, Tai & David's Amazing Maze. We hope you enjoyed this. Feel free to explore, and do as much as you can. More versions coming out soon. Email me by typing "email tai", and send me any feedback you want!
+You can go south.
+[runner] turns=42 leftover=0 running=true WON=YES

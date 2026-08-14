@@ -1,0 +1,1270 @@
+
+The Former, v1.0 Derek W.
+
+**THE FORMER**
+
+You are in Factory Center
+You can go south, east or west.
+You awaken in the middle of a large factory, and cannot remember who or where you are, and what exactly you are doing there. As your system begins to reboot, your Data Assistant kicks in. Because of her built-in programming, she may be able to tell you more. Be sure to ask her the following before continuing:
+
+- Who am I?
+- Where am I?
+- What am I doing here?
+- Who wiped my memory?
+- How can I get my memory back?
+
+> who am i?
+"You are 10-126. In case you were wondering, the 10 represents the model number, and the 126 represents when you were made."
+
+> where am i?
+"You are in the assembly factory on Useven Island. The place was designed to be a self-sufficient utopia, everyone with parameters that include what they can and cannot do. If these parameters are violated, by, say, commiting a crime, the unit is foced to turn himself in for deletion. Quite a place, this is."
+
+> what am i doing here?
+"Good question. Your memory was wiped, so I have no idea. "
+
+> who wiped my memory?
+"Don't know. I can do a scan, see if I can figure it out. I'll get back to you on that a little later, ok?"
+
+> how can i get my memory back?
+"I can run a defragmentation program on you, see if we can't sort this out. Being an A.I., we've got a lot of data on you to sort through. This could take days. As long as the program is running, you may experience some flashbacks once peices of your memory are returned."
+
+> south
+You are at the entrance of the Factory.
+You can go north or south.
+You can go to Pantry.
+More and more machinery. Against the wall is a large pantry. It does not appear to be locked. The factory exit lies to the south.
+
+> go to pantry
+ Pantry.
+There is Desk Key and Box here.
+You can go out to Factory.
+You open the pantry, revealing a plethora of gears, bolts, and other random junk.
+
+> take desk key
+You take the key.
+
+> take box
+You pick up the box.
+
+> out
+You close the pantry.
+You are at the entrance of the Factory.
+You can go north or south.
+You can go to Pantry.
+More and more machinery. Against the wall is a large pantry. It does not appear to be locked. The factory exit lies to the south.
+
+> north
+You are in the Central area of the Factory.
+There is PDA here.
+You can go south, east or west.
+This is where you woke up. You notice on the floor a broken PDA you had previously overlooked. It's completely smashed in and covered with dust. Distrubing. There must not be any service droids in action, as it seems this place hasn't had any maintanance in perhaps a year.
+
+> west
+You are in the Western area of the Factory.
+There is Desk here.
+You can go east.
+Just more factory here. It seems to be running itself, as you see no service bots anywhere. There is a desk nearby, covered in dust.
+
+> use desk key on desk
+You use the key, the desk opens. There is a Large key inside.
+
+> take rusty key
+You take the key.
+
+> east
+You are in the Central area of the Factory.
+There is PDA here.
+You can go south, east or west.
+This is where you woke up. You notice on the floor a broken PDA you had previously overlooked. It's completely smashed in and covered with dust. Distrubing. There must not be any service droids in action, as it seems this place hasn't had any maintanance in perhaps a year.
+
+> south
+You are at the entrance of the Factory.
+You can go north or south.
+You can go to Pantry.
+More and more machinery. Against the wall is a large pantry. It does not appear to be locked. The factory exit lies to the south.
+
+> south
+ Utility Region.
+There is Landfill Door, Recycling Plant Door and Power Grid Door here.
+You can go north, south, east, west or southeast.
+This is the center of the utility district, a small part of the island. You see many different large buildings here.
+
+> use rusty key on recycling plant door
+The door opens.
+
+> west
+You are in the Recycling Plant Entrance.
+There is Small Door and Key on a String here.
+You can go east or west.
+You step into the Recycling plant, a brightly lit place that, like the factory, seems to be running on its own. Upon closer inspection, though, you do see some robots doing some work. You should probably avoid them. There is a very, very small door the wall, smaller even than a window. Wierd.
+
+> use box on key on a string
+The box falls open, revealing a key.
+
+> use door key on small door
+The door swings open, Revealing lots of old to-be-recycled service droid parts.
+
+> take service droid head
+You take what appears to be the only fully-intact part in the closet.
+
+> east
+ Utility Region.
+There is Landfill Door and Power Grid Door here.
+You can go north, south, east, west or southeast.
+This is the center of the utility district, a small part of the island. You see many different large buildings here.
+
+> south
+ Exit Gate.
+There is Utility Region Gate here.
+You can go north or south.
+This is the exit gate.
+
+> use service droid head on utility region gate
+The gate mechanism reads the imprint from the droid, and a light flashes green.
+
+As the gate opens, you get hit with a flashback.
+
+You are at your house, reading a letter. You can't remember what it said, but you do remember being frightened. You should probably try and find that letter.
+
+"10, finding the letter might help bring up other memories. I'm uploading a map of the island, ok?" 
+
+> south
+You are at the Northern area of the Industrial Region.
+There is Car here.
+You can go north, south or east.
+This is part of the industrial hub of the island, everything was designed to be self sufficient. The sky is covered in smog. there are large grimey factories in every direction, smoke rolling out thick.
+
+> speak to car
+The car reacts and the doors open. Hmm, guess it was your car. Wonder what it's doing here? You really need to get your memory back.
+
+> east
+You are in the Northern area of the Commercial Region.
+You can go north, south, east or west.
+There are very tall buildings here, you see one made of all glass. Interesting. There are a lot of cars here. Not as much as in the city, but a lot nonetheless.
+
+> north
+You are in the Urban Region.
+You can go north, south, east, west or southeast.
+This is the place where most the robots in this city live. A lot of the houses look very similar. The street numbers are like a ranking of importance. Everyone has a nice, freshly cut lawn, except for you, you can see it from here. It's way overgrown.
+
+> west
+You are on 7th Sreet.
+You can go north or east.
+This is the street you live on. Everyones house has a very bright hue, the sun is shining and you hear a lawnmower in the distance. This is supposed to be paradise, but you just find it irritating.
+
+> north
+ Your House.
+There is Files here.
+You can go north or south.
+You walk in. This is your kitchen. There are some files on the table. It is very apperant you have no wife, the house is a mess and everything is very simple. You keep telling yourself to call a decorator, but you never will.
+
+> x files
+These files talk of different cases. Stolen car, missing husband, lost cat. To be fair, crime is almost impossible, so you can't expect much. On one of the folders it says "To 10-156, Detective"
+
+"It looks like you're a detective.Things are getting more interesting by the minute, eh?"
+
+Beneith all the folders, you see a letter.
+
+> x letter
+Dear 10-156,
+
+          I have witnessed a horrible crime, one that no robot should have been able to commit. I cannot tell you who I am, but only that I can guarantee this case will interest you. Meet me in the main city pub an 34:19 today.
+      
+           --Ananymous
+
+"10, the Pub is in the lower region of the city. You might want to check that place out."
+
+You have found a clue.
+
+> x files
+You sort through some of the files, revealing a key you had previously overlooked.
+
+> take room key
+You pick up the key.
+
+> north
+ Living Room.
+There is Stairs here.
+You can go south.
+You can go to Chair.
+This is your living room. Not really much here, just your chair, T.V., and phone. The T.V. is on for some reason, getting nothing but static. For a split second you hope no one's broke in, then you realise no robot can. The mess is no one's fault but your own.
+
+> go to chair
+You are in Chair
+There is Chair Pocket here.
+You can go out to Living Room.
+You sit down. You can clearly see the T.V.
+
+> x chair pocket
+Oh, look, you found some Data chips. Sweet.
+
+> take data chips
+You take the cash. Sweet.
+
+> out
+ Living Room.
+There is Stairs here.
+You can go south.
+You can go to Chair.
+This is your living room. Not really much here, just your chair, T.V., and phone. The T.V. is on for some reason, getting nothing but static. For a split second you hope no one's broke in, then you realise no robot can. The mess is no one's fault but your own.
+
+> south
+ Your House.
+There is Letter and Files here.
+You can go north or south.
+You walk in. This is your kitchen. There are some files on the table. It is very apperant you have no wife, the house is a mess and everything is very simple. You keep telling yourself to call a decorator, but you never will.
+
+> south
+You are on 7th Sreet.
+You can go north or east.
+This is the street you live on. Everyones house has a very bright hue, the sun is shining and you hear a lawnmower in the distance. This is supposed to be paradise, but you just find it irritating.
+
+> east
+You are in the Urban Region.
+You can go north, south, east, west or southeast.
+This is the place where most the robots in this city live. A lot of the houses look very similar. The street numbers are like a ranking of importance. Everyone has a nice, freshly cut lawn, except for you, you can see it from here. It's way overgrown.
+
+> south
+You are in the Northern area of the Commercial Region.
+You can go north, south, east or west.
+There are very tall buildings here, you see one made of all glass. Interesting. There are a lot of cars here. Not as much as in the city, but a lot nonetheless.
+
+> south
+You are in the Southern area of the Commercial Region.
+You can go north, south, east or west.
+A plethora of large buildings. None seem very familliar. After a while they all start looking the same. I guess that's what you get for living in a robot world.
+
+> south
+You are at your Office.
+You can go north or south.
+Wow, looks like you have an office. How nice. You must be be pretty popular, because there are files and papers everywhere. Or maybe you aren't, because this is a damn small office. It's just two rooms. The front room with a desk, and the back room.
+
+> use room key
+The door opens.
+
+> south
+You have entered the Back room.
+There is Beureau here.
+You can go north.
+You can go to Your Computer.
+Your back room is even more of a mess, if thats possible. You have a computer here, your interactive database. There is also a beureau against the wall.
+
+> x beureau
+You open the Beureau, and a wave of papers pours out.
+
+> take wallet
+You pick it up.
+
+> north
+You are at your Office.
+You can go north or south.
+Wow, looks like you have an office. How nice. You must be be pretty popular, because there are files and papers everywhere. Or maybe you aren't, because this is a damn small office. It's just two rooms. The front room with a desk, and the back room.
+
+> north
+You are in the Southern area of the Commercial Region.
+You can go north, south, east or west.
+A plethora of large buildings. None seem very familliar. After a while they all start looking the same. I guess that's what you get for living in a robot world.
+
+> east
+You are in the Southern area of the City.
+You can go north, east or west.
+More city. There are bright lights and television screens everywhere. Its very noisy. a car honks at you from behind, and padestrians line the streets.
+
+> east
+You are in City Pub
+You can go east or west.
+You can go to Interrogate Bartender or Interrogate Barfly.
+This is the city pub, the largest distributor of fine oils on the island. Nice place, as long as you ignore the stench of old oil, the thick atmosphere, and the drunkards that line the bar. This is where the robot wanted to meet you, better look around. There is a very old-looking bartender here, along with a few barflies.
+
+> go to interrogate bartender
+You Interrogate the bartender. He seems to be an old model, not capable of independant thought. He will answer whatever you ask him, to the fullest truth he knows. He will aslo answer in a very, very droning voice.
+
+Things to ask:
+
+What model number are you?
+Was I in here recently?
+Have I had any conversations with any robots?
+When was the last time I was here?
+Where does the back door go?
+
+> where does the back door go?
+"It leads to a back alleyway."
+
+You may further inquire:
+
+Why is it locked?
+May I borrow the key?
+
+> may i borrow the key?
+"Perhaps a few Data Chips would entice me."
+
+You wonder why bribery would be allowed in his programming. Well, might as well give it a try.
+
+> give data chips to bartender
+"Thanks. Here's the key. Just remember to give it back, please."
+
+> out
+You are in City Pub
+You can go east or west.
+You can go to Interrogate Bartender or Interrogate Barfly.
+This is the city pub, the largest distributor of fine oils on the island. Nice place, as long as you ignore the stench of old oil, the thick atmosphere, and the drunkards that line the bar. This is where the robot wanted to meet you, better look around. There is a very old-looking bartender here, along with a few barflies.
+
+> go to interrogate barfly
+You interrogate the Barfly. He appears to be drunk, so his answers may or may not be the truth.
+
+Things to ask:
+
+What model are you?
+Have you seen me here?
+Have you seen me talking to anyone?
+
+> have you seen me talking to anyone?
+"Oh yeah. Mee, the 'tender, those other dudes, and that short guy."
+
+He passes out in front of you.
+
+You have found a clue.
+
+You are in City Pub
+You can go east or west.
+You can go to Interrogate Bartender or Interrogate Barfly.
+This is the city pub, the largest distributor of fine oils on the island. Nice place, as long as you ignore the stench of old oil, the thick atmosphere, and the drunkards that line the bar. This is where the robot wanted to meet you, better look around. There is a very old-looking bartender here, along with a few barflies.
+
+> use bar key
+The back door opens. You give the key back before heading out.
+
+> east
+You are in Allyway
+There is Large Dumpster here.
+You can go west.
+This is a very dark and foul-smelling allyway, tall buildings run on both sides. It dosn't look like anyone really comes back here.
+
+> x large dumpster
+You notice something of interest behind the dumpster.
+
+> take motherboard shards
+Best leave it where it is. You pick up a small fragment instead.
+
+> x tiny motherboard fragment
+Some of your memories come back as you look over it...
+
+You remember looking at a body. Presumably the body that this motherboard goes to, but you aren't sure. You remember a very foul odor. You also remember having a large key in your posession, but you can't confirm its presant location.
+
+You have found a clue.
+
+> west
+You are in City Pub
+You can go east or west.
+You can go to Interrogate Bartender.
+This is the city pub, the largest distributor of fine oils on the island. Nice place, as long as you ignore the stench of old oil, the thick atmosphere, and the drunkards that line the bar. This is where the robot wanted to meet you, better look around. There is a very old-looking bartender here, along with a few barflies.
+
+> west
+You are in the Southern area of the City.
+You can go north, east or west.
+More city. There are bright lights and television screens everywhere. Its very noisy. a car honks at you from behind, and padestrians line the streets.
+
+> north
+You are in the northern area of the City.
+You can go north, south, east, west or northwest.
+This is the bustling city. There are shops and things everywhere. If you had any money, it would probably be gone within ten minutes here. There are people everywhere, and as near as you can tell the traffic is jammed.
+
+> northwest
+You are in the Urban Region.
+You can go north, south, east, west or southeast.
+This is the place where most the robots in this city live. A lot of the houses look very similar. The street numbers are like a ranking of importance. Everyone has a nice, freshly cut lawn, except for you, you can see it from here. It's way overgrown.
+
+> west
+You are on 7th Sreet.
+You can go north or east.
+This is the street you live on. Everyones house has a very bright hue, the sun is shining and you hear a lawnmower in the distance. This is supposed to be paradise, but you just find it irritating.
+
+> north
+ Your House.
+There is Letter and Files here.
+You can go north or south.
+You walk in. This is your kitchen. There are some files on the table. It is very apperant you have no wife, the house is a mess and everything is very simple. You keep telling yourself to call a decorator, but you never will.
+
+> north
+ Living Room.
+There is Stairs here.
+You can go south.
+You can go to Chair.
+This is your living room. Not really much here, just your chair, T.V., and phone. The T.V. is on for some reason, getting nothing but static. For a split second you hope no one's broke in, then you realise no robot can. The mess is no one's fault but your own.
+
+> look at stairs
+You go upstairs.
+You are in Bedroom
+There is Stairs and a Dresser here.
+This is your bedroom. Well, not really 'bed' per sey, since you are a robot you require no sleep. It does, however, contain a few maintanence devices, they hum and purr. One beeps. You find it extremely irritating so you unplug it.
+
+> x dresser
+You open one of the doors on the dresser and find a very large rusted key. Why in the world would you have THAT?
+
+> take rusty key
+You take the key.
+
+> look at stairs
+ Living Room.
+There is Stairs here.
+You can go south.
+You can go to Chair.
+This is your living room. Not really much here, just your chair, T.V., and phone. The T.V. is on for some reason, getting nothing but static. For a split second you hope no one's broke in, then you realise no robot can. The mess is no one's fault but your own.
+You go downstairs.
+
+> south
+ Your House.
+There is Letter and Files here.
+You can go north or south.
+You walk in. This is your kitchen. There are some files on the table. It is very apperant you have no wife, the house is a mess and everything is very simple. You keep telling yourself to call a decorator, but you never will.
+
+> south
+You are on 7th Sreet.
+You can go north or east.
+This is the street you live on. Everyones house has a very bright hue, the sun is shining and you hear a lawnmower in the distance. This is supposed to be paradise, but you just find it irritating.
+
+> east
+You are in the Urban Region.
+You can go north, south, east, west or southeast.
+This is the place where most the robots in this city live. A lot of the houses look very similar. The street numbers are like a ranking of importance. Everyone has a nice, freshly cut lawn, except for you, you can see it from here. It's way overgrown.
+
+> south
+You are in the Northern area of the Commercial Region.
+You can go north, south, east or west.
+There are very tall buildings here, you see one made of all glass. Interesting. There are a lot of cars here. Not as much as in the city, but a lot nonetheless.
+
+> west
+You are at the Northern area of the Industrial Region.
+You can go north, south or east.
+This is part of the industrial hub of the island, everything was designed to be self sufficient. The sky is covered in smog. there are large grimey factories in every direction, smoke rolling out thick.
+
+> north
+ Exit Gate.
+You can go north or south.
+This is the exit gate.
+
+> north
+ Utility Region.
+There is Landfill Door and Power Grid Door here.
+You can go north, south, east, west or southeast.
+This is the center of the utility district, a small part of the island. You see many different large buildings here.
+
+> use rusty key on landfill door
+You insert the key into the mechanism, and the doors swing open as the gears turn. It smells very bad here.
+
+> east
+You are in the Western area of the Landfill.
+You can go north, east or west.
+Boy, is this place dirty. Trash everywhere. Of course, thats to be expected. The garbage is piled high.
+
+> east
+You are in the Eastern area of the Landfill.
+There is a Dead Body here.
+You can go west or northwest.
+You see a dead robot here. He must have been taken here with the rest of the trash from that dumpster. Had he been deleted, he would have been taken to the recycling plant, to be melted down and re-used for future models.
+
+> x dead body
+Upon closer inspection, you see that a lot of his chasis has been bashed in, and one spot where it was punctured through. The killer must have had a weapon. The robot here appears to be a model 7.
+
+You have found a clue.
+
+> x dead body
+Upon even closer inspection, you notice the word "Latter" has been carved into his arm. Perhaps some sort of trademark left by the killer? Better ask around.
+
+You have found a clue.
+
+> west
+You are in the Western area of the Landfill.
+You can go north, east or west.
+Boy, is this place dirty. Trash everywhere. Of course, thats to be expected. The garbage is piled high.
+
+> west
+ Utility Region.
+There is Power Grid Door here.
+You can go north, south, east, west or southeast.
+This is the center of the utility district, a small part of the island. You see many different large buildings here.
+
+> south
+ Exit Gate.
+You can go north or south.
+This is the exit gate.
+
+> south
+You are at the Northern area of the Industrial Region.
+You can go north, south or east.
+This is part of the industrial hub of the island, everything was designed to be self sufficient. The sky is covered in smog. there are large grimey factories in every direction, smoke rolling out thick.
+
+> south
+You are in the Southern area of the Industrial Region.
+You can go north, south, east or west.
+More and more factories. You don't really see much of interest. There is a lot of smoke here too, and not many people. If you had lungs you would undoubtably be coughing. Lousy smog...
+
+> south
+You are in The Ghettos.
+You can go north or east.
+These are the Ghettos, an area of substandard housing. Most the bots that live here work in the factories. Poor guys. Basically all the houses here are apartments, some of the windows are barred or planked up. It seems quite dark here, probably from the smog from the industrial region.
+
+> east
+You are in Weapons Shop
+You can go east or west.
+You can go to Interrogate Weapons Lady.
+As you step in, you wonder why this place would be allowed to exist. the place is lined with swords, guns, and other items you've never seen before. The bot here has a scar on her eye, and walks with a limp.
+
+> go to interrogate weapons lady
+You approach her and she leans on the leg that isn't limping, and gives you a dirty look. apperantly she's waiting for you to say something.
+
+Things to ask:
+
+What model are you?
+What do you need a weapon for?
+What kind of weapon could puncture through a model 7 robot?
+Whats behind the locked door?
+Does the word latter mean anything to you?
+
+> what kind of weapon could puncture through a model 7 robot?
+"Model 7? Those versions are pretty tough. Wait, havn't you asked me this before? Answer is the same; a foiling lance. And even then, you'd have to modify it a bit.
+
+You may further inquire:
+
+Who has bought a Foiling Lance?"
+
+> who has bought a foiling lance?
+"Sorry, I don't disclose that kind of information to the general public. You'd need to give me a pretty big bribe for me to tell you."
+
+> give data chips to weapons lady
+"Okay.... Let me check. Alright, according to the records, No Lance has been bought in the past six months, and frankly, I throw my records out after that long. You're lucky I even keep them."
+
+You have found a clue.
+
+> does the word latter mean anything to you?
+No. Get out of my shop.
+
+You are in The Ghettos.
+You can go north or east.
+These are the Ghettos, an area of substandard housing. Most the bots that live here work in the factories. Poor guys. Basically all the houses here are apartments, some og the windows are barred or planked up. It seems quite dark here, probably from the smog from the industrial region.
+
+> north
+You are in the Southern area of the Industrial Region.
+You can go north, south, east or west.
+More and more factories. You don't really see much of interest. There is a lot of smoke here too, and not many people. If you had lungs you would undoubtably be coughing. Lousy smog...
+
+> east
+You are in the Southern area of the Commercial Region.
+You can go north, south, east or west.
+A plethora of large buildings. None seem very familliar. After a while they all start looking the same. I guess that's what you get for living in a robot world.
+
+> south
+You are at your Office.
+You can go north or south.
+Wow, looks like you have an office. How nice. You must be be pretty popular, because there are files and papers everywhere. Or maybe you aren't, because this is a damn small office. It's just two rooms. The front room with a desk, and the back room.
+
+> south
+You have entered the Back room.
+There is Beureau and Messy Files here.
+You can go north.
+You can go to Your Computer.
+Your back room is even more of a mess, if thats possible. You have a computer here, your interactive database. There is also a beureau against the wall.
+
+> go to your computer
+This is your interactive database. Just type in any keyword, and it will bring up any information about it that it has.
+
+Things to search:
+
+Latter
+
+> latter
+"The Latter is a mafia-like group on Useven. Despite efforts to oust this mysterious group, they seem to constantly reappear. There are currently no members of the group known. The group is said to have disbanded, as criminal activity seems to have halted. It is currently unknown how the group bypassed their parameters."
+
+You have a flashback. You can see the twisted remains of a bot, and remember it being cold, damp, and very dark.
+
+> out
+You have entered the Back room.
+There is Beureau and Messy Files here.
+You can go north.
+You can go to Your Computer.
+Your back room is even more of a mess, if thats possible. You have a computer here, your interactive database. There is also a beureau against the wall.
+
+> north
+You are at your Office.
+You can go north or south.
+Wow, looks like you have an office. How nice. You must be be pretty popular, because there are files and papers everywhere. Or maybe you aren't, because this is a damn small office. It's just two rooms. The front room with a desk, and the back room.
+
+> north
+You are in the Southern area of the Commercial Region.
+You can go north, south, east or west.
+A plethora of large buildings. None seem very familliar. After a while they all start looking the same. I guess that's what you get for living in a robot world.
+
+> west
+You are in the Southern area of the Industrial Region.
+You can go north, south, east or west.
+More and more factories. You don't really see much of interest. There is a lot of smoke here too, and not many people. If you had lungs you would undoubtably be coughing. Lousy smog...
+
+> west
+You are in the Mine Entrance.
+You can go east or west.
+The entrance to the mines. Its really dark down here, you've only walked in about ten feet and already you can't see your hand. Its very damp and cold in here, and the difference in temperatures has created an eerie whistle from the air attempting to come in. Spooky.
+
+> west
+You are in the Mines.
+You can go south or east.
+The mines are getting colder, darker, and are attaining a foul odor.
+
+> south
+You are in the Mines.
+You can go north, east or west.
+The Mines are winding down, going deeper and deeper. You've got no clue what was being mined here, but based on the soot, you assume it was coal.
+
+> east
+The lack of light is becomng unbearable. If you want to continue, you're going to need to find some portable source of light.
+
+> north
+You are in the Mines.
+You can go south or east.
+The mines are getting colder, darker, and are attaining a foul odor.
+
+> east
+You are in the Mine Entrance.
+You can go east or west.
+The entrance to the mines. Its really dark down here, you've only walked in about ten feet and already you can't see your hand. Its very damp and cold in here, and the difference in temperatures has created an eerie whistle from the air attempting to come in. Spooky.
+
+> east
+You are in the Southern area of the Industrial Region.
+You can go north, south, east or west.
+More and more factories. You don't really see much of interest. There is a lot of smoke here too, and not many people. If you had lungs you would undoubtably be coughing. Lousy smog...
+
+> north
+You are at the Northern area of the Industrial Region.
+You can go north, south or east.
+This is part of the industrial hub of the island, everything was designed to be self sufficient. The sky is covered in smog. there are large grimey factories in every direction, smoke rolling out thick.
+
+> east
+You are in the Northern area of the Commercial Region.
+You can go north, south, east or west.
+There are very tall buildings here, you see one made of all glass. Interesting. There are a lot of cars here. Not as much as in the city, but a lot nonetheless.
+
+> east
+You are in the northern area of the City.
+You can go north, south, east, west or northwest.
+This is the bustling city. There are shops and things everywhere. If you had any money, it would probably be gone within ten minutes here. There are people everywhere, and as near as you can tell the traffic is jammed.
+
+> east
+You are in System Reapir Shop
+You can go west.
+You can go to Interrogate Repair Droid.
+This is the System Repair shop. Mysterious parts and devices line the walls, many are very dusty. A dim light hangs overhead, and a Service Bot stands behind the desk with a dumb look on his face, hunched forward a little.
+
+> go to interrogate repair droid
+You interrogate the Repair Droid. He dosn't look very intellegent. At all.
+
+Things to ask:
+
+What model did this motherboard chip come from?
+Does the word Latter mean anything to you?
+Do you sell flashlights here?
+
+> what model did this motherboard chip come from?
+
+You have found a clue.
+
+> does the word latter mean anything to you?
+"What? No, no, I never herd of them. I don't deal with... I don't know anything."
+
+He's obviously lying.
+You may further inquire:
+
+Who are the Latter?
+
+> who are the latter?
+"Look... I dont want to get involved. Maybe I have some information if you have some data chips. Got it?"
+
+> give data chips to repair droid
+"Okay. As far as I know, the Latter are a bunch of bots who removed eachothers parameters. They're a smart bunch, real good programmers. They recruit more members by deleting their parameters. They don't have to follow the law. Thats all I know, okay?"
+
+You have found a clue.
+
+> do you sell flashlights here?
+Yes, I do. What, you want to buy one? Fine, here you go.....
+
+> out
+You are in System Reapir Shop
+You can go west.
+You can go to Interrogate Repair Droid.
+This is the System Repair shop. Mysterious parts and devices line the walls, many are very dusty. A dim light hangs overhead, and a Service Bot stands behind the desk with a dumb look on his face, hunched forward a little.
+
+> west
+You are in the northern area of the City.
+You can go north, south, east, west or northwest.
+This is the bustling city. There are shops and things everywhere. If you had any money, it would probably be gone within ten minutes here. There are people everywhere, and as near as you can tell the traffic is jammed.
+
+> west
+You are in the Northern area of the Commercial Region.
+You can go north, south, east or west.
+There are very tall buildings here, you see one made of all glass. Interesting. There are a lot of cars here. Not as much as in the city, but a lot nonetheless.
+
+> west
+You are at the Northern area of the Industrial Region.
+You can go north, south or east.
+This is part of the industrial hub of the island, everything was designed to be self sufficient. The sky is covered in smog. there are large grimey factories in every direction, smoke rolling out thick.
+
+> south
+You are in the Southern area of the Industrial Region.
+You can go north, south, east or west.
+More and more factories. You don't really see much of interest. There is a lot of smoke here too, and not many people. If you had lungs you would undoubtably be coughing. Lousy smog...
+
+> west
+You are in the Mine Entrance.
+You can go east or west.
+The entrance to the mines. Its really dark down here, you've only walked in about ten feet and already you can't see your hand. Its very damp and cold in here, and the difference in temperatures has created an eerie whistle from the air attempting to come in. Spooky.
+
+> west
+You are in the Mines.
+You can go south or east.
+The mines are getting colder, darker, and are attaining a foul odor.
+
+> south
+You are in the Mines.
+You can go north, east or west.
+The Mines are winding down, going deeper and deeper. You've got no clue what was being mined here, but based on the soot, you assume it was coal.
+
+> use flashlight
+You click the flashlight on.
+
+> east
+You are in the Mines.
+There is Mysterious Object here.
+You can go west.
+You shine your flashlight in the room and can barely make out a few objects.
+
+> x mysterious object
+You look closer at it.
+
+> x robot arm
+You can clearly see the word "Latter" engraved on the arm.
+
+You have found a clue.
+
+> west
+You are in the Mines.
+You can go north, east or west.
+The Mines are winding down, going deeper and deeper. You've got no clue what was being mined here, but based on the soot, you assume it was coal.
+
+> west
+You are in the Mines.
+You can go south or east.
+Darker and darker it goes. You begin to feel a bit like Alice, climbing through the rabbit hole. Except the hole you're in is giving of noxious gasses.
+
+> south
+You are in the Mines.
+There is Dead Body here.
+You can go north or south.
+There's a dead body in the room. You can't make out any details from here, better get a closer look.
+
+> x dead body
+This robot wasn't just stabbed once like the other one, she was torn apart. One of her legs and arms are missing, and her chest is in three peices. Everything is scrached, top to bottom; although that could be as a result of the mines. Whoever killed her was a sick, twisted person. You notice she's holding something.
+
+You have found a clue.
+
+> x diary
+As you flip through the pages, you see none of them are dated, the entries are simply separated. As you glance through, you notice one particular section of interest:
+
+Entry 54. I don't get my brother. I mean, we're both model 5's, and he lands a spot on 3rd street. What the hell? He sure seems scared of something, though.
+
+Entry 55. My brother and I have decided to get off this island, to Ufour. we have no money, but we'll win it in the casinos in the city. My bro says he knows a guy who'll loan me some dough.
+
+Entry 56. Turns out my bro's friend was a member of the Latter, now I'm in deep shit. If i don't actually WIN, I'll owe the Latter everything. My brother is such a dombass.... I swear, he'll regret this. I want to just give it back, but he says that'll offend them. Apperantly I owe them a favor now.
+
+Entry 57. YES! Me and my bro actually made money in the casino circuit. Now We can pay them back. We didnt make enough extra to pay for the trip, but we'll manage.
+
+Entry 58. We're still in deep shit. The Latter is calling back the 'favor' I owe them. They wanted me to kill someone... I can't do that! The whole thing was a setup. If I refuse, they kill me. If I do it, I get deleted. Either way, they get to steal my money.
+
+Entry 59. I don't know how long I have left. It's been two days since I refused to kill that guy.
+
+The entries stop there.
+
+You have found a clue.
+
+> north
+You are in the Mines.
+You can go south or east.
+Darker and darker it goes. You begin to feel a bit like Alice, climbing through the rabbit hole. Except the hole you're in is giving of noxious gasses.
+
+> east
+You are in the Mines.
+You can go north, east or west.
+The Mines are winding down, going deeper and deeper. You've got no clue what was being mined here, but based on the soot, you assume it was coal.
+
+> north
+You are in the Mines.
+You can go south or east.
+The mines are getting colder, darker, and are attaining a foul odor.
+
+"Hey 10, I just finished the datascan to see who wiped your memory. The person who did it was... You."
+
+
+You have found a clue.
+
+You are at your Office.
+You can go north or south.
+"Alright, 10. So far we have a lot of confused data, so let's go over what we know. Someone wanted to meet you at the bar for some reason, we're assuming it has to do with the murders. We are sure that  both robots were killed by the Latter."
+
+"The diary you found tells us why the girl was killed, but what was she doing in that mine? Perhaps a body dump. As for the one at the bar, we can tell he was beaten and tossed in the dumpster, but we have yet to find a motive for his death."
+
+"It's also hard to pinpoint a time of death, as the woman from the shop says she han't sold any foiling lances in six months."
+
+"The information about the Latter you got from the repair droid is interesting, but unfortunately so far hasn't told us anything of real value."
+
+"And how does the factory fit into all this? What were we doing there? And why oh why did you clear your memory?"
+
+"Actually, come to think of it, we aren't even sure you were working on this case at the time your memory was wiped. The database says the Latter seem to have disbanded, so whats the point in continuing? Still, a part of me can't ignore the dead bodies."
+
+"The best thing to do right now, perhaps, is to track the latter down. Then we can put this to rest without feeling guilty. A good place to look for information might be the brother of the girl in the mines, her diary said he had close ties with the Latter. He may have even been a member, that would explain why he lives oin third."
+
+> north
+You are in the Southern area of the Commercial Region.
+You can go north, south, east or west.
+A plethora of large buildings. None seem very familliar. After a while they all start looking the same. I guess that's what you get for living in a robot world.
+
+> north
+You are in the Northern area of the Commercial Region.
+You can go north, south, east or west.
+There are very tall buildings here, you see one made of all glass. Interesting. There are a lot of cars here. Not as much as in the city, but a lot nonetheless.
+
+> north
+You are in the Urban Region.
+You can go north, south, east, west or southeast.
+This is the place where most the robots in this city live. A lot of the houses look very similar. The street numbers are like a ranking of importance. Everyone has a nice, freshly cut lawn, except for you, you can see it from here. It's way overgrown.
+
+> north
+You are in the Housing Office.
+You can go south.
+You can go to Interrogate Housing Officer.
+This is the housing office. It contains the directory of every bot living here. The Directory Bot stands behind the counter
+
+> go to interrogate housing officer
+You interrogate the officer. He may be able to tell you where the robot lives you're looking for.
+
+Things to ask:
+
+Im looking for a model 5 on 3rd street.
+
+> im looking for a model 5 on 3rd street
+The only model 5 on 3rd is 5-201, he lives at house 14.
+
+> out
+You are in the Housing Office.
+You can go south.
+You can go to Interrogate Housing Officer.
+This is the housing office. It contains the directory of every bot living here. The Directory Bot stands behind the counter
+
+> south
+You are in the Urban Region.
+You can go north, south, east, west, northwest or southeast.
+This is the place where most the robots in this city live. A lot of the houses look very similar. The street numbers are like a ranking of importance. Everyone has a nice, freshly cut lawn, except for you, you can see it from here. It's way overgrown.
+
+> northwest
+You are on 3rd Street.
+You can go north or southeast.
+Another street on the urban region. Everyones house here is a lot bigger than yours. You should probably leave before you get tempted to do something that could get you deleted.
+
+> north
+You are at the Front Door of the Mansion.
+There is Doorbell here.
+You can go north or south.
+You aprroach the gate and ring the doorbell. In the distance, you see a small robot mowing the guy's lawn for him. You don't see any lights on in the house.
+
+> x doorbell
+You push the button and see no figures moving inside, nor lights on. You might as well go in, your parameters will allow it. 
+
+> north
+You are in the Entrance Hall of the Mansion.
+You can go south, east or west.
+As you enter the manson the air gets warm and stale, probably the result of a large and expensive heating system. All of the walls are white with a gold trim, giving you the idea that the house's owner is either very wealthy or trying very hard to appear so.
+
+> west
+You are in the Kitchen of the Mansion.
+You can go east or northeast.
+A marble countertop encloses all the walls, with a very large frige in the middle. it has four doors, one on each side. There are a few appliances on the marble counter. Why anyone would spend this much on a Kitchen you can't quite grasp, as food is not nessecary for a robod and is only ingested for pleasure.
+
+> northeast
+You are in the Dining Room of the Mansion.
+There is Stairs here.
+You can go north, east or southwest.
+This is a very large dining room, with a solitary table in the middle, surrounded by eight chairs, and all but one are pushed in. There are a few paintings on the wall, all of irrelevent scenery.
+
+> look at stairs
+You go upstairs.
+You are in the Game Room of the Mansion.
+There is Stairs here.
+You can go east or southeast.
+There really is no dicernable difference in here from the den, this room is just smaller and  has a pool table.
+
+> southeast
+You are in the Bedroom of the Mansion.
+There is Key here.
+You can go northwest.
+There's even a bed in here. You simultaniously feel jelous, disgusted, and annoyed at this sight. Other than that, There's nothing here but the usual maintanence machines, and a portrait of the houses owner wearing a suit and holding a glass orb on one of the walls. There is a pedistol in the middle of the room.
+
+> take key
+You take it off the pedistol.
+
+> northwest
+You are in the Game Room of the Mansion.
+There is Stairs here.
+You can go east or southeast.
+There really is no dicernable difference in here from the den, this room is just smaller and  has a pool table.
+
+> look at stairs
+You go down.
+You are in the Dining Room of the Mansion.
+There is Stairs here.
+You can go north, east or southwest.
+This is a very large dining room, with a solitary table in the middle, surrounded by eight chairs, and all but one are pushed in. There are a few paintings on the wall, all of irrelevent scenery.
+
+> east
+You are in the Living Room of the Mansion.
+You can go west or southeast.
+One of the entire walls is a television screen, and the other side of the wall is a large couch. You are very tempted to sit down, but that's probably not a good idea.
+
+> southeast
+You are in the Den of the Mansion.
+There is Stairs here.
+You can go east, west or northwest.
+There is a fireplace here, but it is unlit. Several futons lay about ponted twards the center of the room. It seems this room was created with parties in mind. There is a large painting of a martini glass on one wall, and also a set of stairs leading down.
+
+> use key
+The door unlocks.
+
+> east
+You are in the Garage of the Mansion.
+There is Window here.
+I wonder why this was locked? The room is dark on account of a complete lack of sources of light, except for a small window in the back.
+
+> look at window
+You climb through.
+You are in the Backyard of the Mansion.
+You can go to Terrace.
+The mowing robots stroll under the fence, and the lawn continues to appear freshly cut. There is a terrace against the house, leading up to a window.
+
+> go to terrace
+You have climbed the Terrace.
+There is Window here.
+You can go out to Mansion.
+You are holding onto the side of the terrace. From here you can reach an ajacent window.
+
+> look at window
+You climb in.
+You are in the Office of the Mansion.
+There is Dead Body here.
+You can go west.
+As you enter the room, you see the body of of the girl's brother. This one's been stabbed several times, and ripped apart just as his sister was.
+
+> x dead body
+He's obviously been beaten, and a lot. Whoever did it must have locked the door from the inside and climbed down, just how you climbed up. You wonder how long he's been up here. 
+
+You suddenly have another flashback. You can see yourself in your room, uncovering a chest from underneith your Closet. You can see yourself beginning to open it, but the memory fades away.
+
+You have found a clue.
+
+> x dead body
+Just as expected, the word 'Latter" has been carved into his arm.
+
+> x dead body
+Upon even closer inspection, You notice he is holding a key.
+
+> take key
+You pick it up.
+
+> west
+As you leave, the door slams shut behind you.
+
+You are in the Game Room of the Mansion.
+There is Stairs here.
+You can go east or southeast.
+There really is no dicernable difference in here from the den, this room is just smaller and  has a pool table.
+
+> look at stairs
+You go down.
+You are in the Dining Room of the Mansion.
+There is Stairs here.
+You can go north, east or southwest.
+This is a very large dining room, with a solitary table in the middle, surrounded by eight chairs, and all but one are pushed in. There are a few paintings on the wall, all of irrelevent scenery.
+
+> east
+You are in the Living Room of the Mansion.
+You can go west or southeast.
+One of the entire walls is a television screen, and the other side of the wall is a large couch. You are very tempted to sit down, but that's probably not a good idea.
+
+> southeast
+You are in the Den of the Mansion.
+There is Stairs here.
+You can go east, west or northwest.
+There is a fireplace here, but it is unlit. Several futons lay about ponted twards the center of the room. It seems this room was created with parties in mind. There is a large painting of a martini glass on one wall, and also a set of stairs leading down.
+
+> use key
+The door unlocks.
+
+> look at stairs
+You go down.
+You are in the Oil Cellar of the Mansion.
+There is Stairs and Ledger here.
+As you enter, you pull the string on a dangling lightbulb. It provides a small amount of light, enough for you to notice that you're in an Oil Cellar, and enough for you to notice the dusty ledger on the floor.
+
+> x ledger
+As you flip through, you see that he has documented all of his activities with the Latter. It seems he was a member. Twards the end you see many entries about dealings with his sister. Apperantly, after finding out about her death, he asked to leave the group, and was told a "Member of the Latter would come by and re-insert my parameters." He concluded his last entry by saying he'd better go put the key back up in his office.
+
+You have found a clue.
+
+> look at stairs
+You go upstairs.
+You are in the Den of the Mansion.
+There is Stairs here.
+You can go east, west or northwest.
+There is a fireplace here, but it is unlit. Several futons lay about ponted twards the center of the room. It seems this room was created with parties in mind. There is a large painting of a martini glass on one wall, and also a set of stairs leading down.
+
+> west
+You are in the Entrance Hall of the Mansion.
+You can go south, east or west.
+As you enter the manson the air gets warm and stale, probably the result of a large and expensive heating system. All of the walls are white with a gold trim, giving you the idea that the house's owner is either very wealthy or trying very hard to appear so.
+
+> south
+You are at the Front Door of the Mansion.
+There is Doorbell here.
+You can go north or south.
+You aprroach the gate and ring the doorbell. In the distance, you see a small robot mowing the guy's lawn for him. You don't see any lights on in the house.
+
+> south
+You are on 3rd Street.
+You can go north or southeast.
+Another street on the urban region. Everyones house here is a lot bigger than yours. You should probably leave before you get tempted to do something that could get you deleted.
+
+> southeast
+You are in the Urban Region.
+You can go north, south, east, west, northwest or southeast.
+This is the place where most the robots in this city live. A lot of the houses look very similar. The street numbers are like a ranking of importance. Everyone has a nice, freshly cut lawn, except for you, you can see it from here. It's way overgrown.
+
+> west
+You are on 7th Sreet.
+You can go north or east.
+This is the street you live on. Everyones house has a very bright hue, the sun is shining and you hear a lawnmower in the distance. This is supposed to be paradise, but you just find it irritating.
+
+> north
+ Your House.
+There is Letter and Files here.
+You can go north or south.
+You walk in. This is your kitchen. There are some files on the table. It is very apperant you have no wife, the house is a mess and everything is very simple. You keep telling yourself to call a decorator, but you never will.
+
+> north
+ Living Room.
+There is Stairs here.
+You can go south.
+You can go to Chair.
+This is your living room. Not really much here, just your chair, T.V., and phone. The T.V. is on for some reason, getting nothing but static. For a split second you hope no one's broke in, then you realise no robot can. The mess is no one's fault but your own.
+
+> look at stairs
+You go upstairs.
+You are in Bedroom
+There is Stairs, a Dresser and a Chest Underneith Your Dresser here.
+This is your bedroom. Well, not really 'bed' per sey, since you are a robot you require no sleep. It does, however, contain a few maintanence devices, they hum and purr. One beeps. You find it extremely irritating so you unplug it.
+
+> x chest underneith your dresser
+Opening the chest reveals two objects.
+
+> x latter h.q. key
+On the key, you can make out an inscription that says "Elevator 5, Lobby in Science Center"
+
+You have found a clue.
+
+> take latter h.q. key
+You pick it up.
+
+> x journal
+As you flip through the pages, memories come flooding back. You remember everything, or at least you think you do. Reading the journal tells whats going on. 
+You don't quite remember what happened, but somehow, your parameters were deleted.
+
+The Latter must have found out about this, as a member contacted you a short while after; you hadn't left your house since the incident. They wanted you to join. Seduced by by power and coupled with the fact that your logic systems were corrupt, you accepted. Your first job was simply to prove that the parameters had indeed been lifted, by killing a random person from the bar. Withought being caught, of course. They gave you a weapon, said they had modified it themselves. You killed the man, engraved the word latter into his arm, and returned as instructed.
+
+They gave you a new weapon and instructed you to kill a new person, a girl. You disposed of her and stashed her body in the abandoned mine. You were next told to kill her brother. You did so with great efficiency. The Latter were very pleased to have you on their side, but were quite disdrought with the arrival of a letter, claiming to have seen something horrible happen. You met with the small bot at the bar, the PDA. You were suprided to see that anyone would give a PDA the power of mobility, but you didnt ask. She led you out back and explained she was hiding in a garbage can when the incodent ocurred, but when the assassin left she saw a dead body.Of course she came to you, the detective. Once she saw there was no body in the alleyway anymore, you convinced her to come to the utility region with her, to see if the body had been disposed of by a garbage truck.
+
+You led her into the factory and destroyed her. Upon your arrival home, you apperantly wrote most of this down. Something was scribbled down very quickly and ilegibly about a reformatting, and that the process had already begun. You can't quite understand what you were trying to write there.
+"10, now that we know you've done a crime, we need to go back to the utility region to either confirm or deny your guilt. If we don't hurry, you'll end up deleting yourself."
+
+You rush Into your car and head for the utility region.
+
+ Exit gate.
+You can go north.
+You run through the gate into the utility region, It closes behind you, and beeps red. Your antenna begins to vibrate. Already the process is beginning.
+
+> north
+You are in Utility Outside
+You can go north, south, east, west or southeast.
+You continue up the path to the factory. No turning back now.
+
+> north
+ Factory Entrance.
+You can go north or south.
+You enter the factory in a panic, looking for the murdered PDA.
+
+> north
+ Factory Center.
+There is PDA here.
+You can go south or west.
+You can see the PDA there on the floor, sealing your fate. If you don't do something quickly, you'll be deleted!
+
+> x pda
+You look at the PDA, And quickly remember how you woke up. You must have dodged deletion by clearing your memory.
+
+You call out for Data to clear your memory, and she does so. You fall to the floor. With no evidence you've done anything wrong left on your hard drive, the deletion process stops.
+
+
+Factory Center
+You can go south or west.
+You awaken soon after feeling a tad hazy, and quickly realize you still have your memory, but the deletion process has halted. You may want to ask Data what's going on.
+
+Things to ask:
+
+Whats going on?
+Why do I still have my memory?
+What should I do now?
+
+> whats going on?
+"10, oUr syStems havee become corruPT."
+
+> why do i still have my memory?
+WeLl, mY data sCCans show YOURe memoRy HaSS been cLeaRD oVer 150 TiMes in tHHe pasT yeaR. THHat coMMbinD wiTT the FaCt That yOr memOry Has BEen ClearD, rEgaineD, and Cleared aGAin iN CyClic paTerNNs fOr almoSt a YeAr now hAs overLOADed itSElf. 
+
+> what should i do now?
+THHat's Up tO yOu. ITs yoUUr chOiVCe Whatt to Do wiTH youRsElF.
+
+> south
+You are at the entrance of the Factory.
+You can go north or south.
+You can go to Pantry.
+More and more machinery. Against the wall is a large pantry. It does not appear to be locked. The factory exit lies to the south.
+
+> go to pantry
+ Pantry.
+There is Desk Key and Box here.
+You can go out to Factory.
+You open the pantry, and see that all locks and keys have been put back. How strange. Perhaps done by a maintainence droid?
+
+> take desk key
+You take the key.
+
+> take box
+You pick up the box.
+
+> out
+You close the pantry.
+You are at the entrance of the Factory.
+You can go north or south.
+You can go to Pantry.
+More and more machinery. Against the wall is a large pantry. It does not appear to be locked. The factory exit lies to the south.
+
+> north
+You are in the Central area of the Factory.
+There is PDA here.
+You can go south, east or west.
+This is where you woke up again.
+
+> west
+You are in the Western area of the Factory.
+There is Desk here.
+You can go east.
+Just more factory here. It seems to be running itself, as you see no service bots anywhere. There is a desk nearby.
+
+> use desk key on desk
+You use the key, the desk opens. There is a Large key inside.
+
+> take rusty key
+You take the key.
+
+> east
+You are in the Central area of the Factory.
+There is PDA here.
+You can go south, east or west.
+This is where you woke up again.
+
+> south
+You are at the entrance of the Factory.
+You can go north or south.
+You can go to Pantry.
+More and more machinery. Against the wall is a large pantry. It does not appear to be locked. The factory exit lies to the south.
+
+> south
+ Utility Region.
+There is Landfill Door, Recycling Plant Door and Power Grid Door here.
+You can go north, south, east, west or southeast.
+This is the center of the utility district, a small part of the island. You see many different large buildings here.
+
+> use rusty key on recycling plant door
+The door opens.
+
+> west
+You are in the Recycling Plant Entrance.
+There is Small Door and Key on a String here.
+You can go east or west.
+You step into the Recycling plant, a brightly lit place that, like the factory, seems to be running on its own. Upon closer inspection, though, you do see some robots doing some work. You should probably avoid them. There is a very, very small door the wall, smaller even than a window. Wierd.
+
+> use box on key on a string
+The box falls open, revealing a key.
+
+> use door key on small door
+The door swings open.
+
+> take service droid head
+You take what appears to be the only fully-intact part in the closet.
+
+> east
+ Utility Region.
+There is Landfill Door and Power Grid Door here.
+You can go north, south, east, west or southeast.
+This is the center of the utility district, a small part of the island. You see many different large buildings here.
+
+> south
+ Exit Gate.
+There is Utility Region Gate here.
+You can go north or south.
+This is the exit gate.
+
+> use service droid head on utility region gate
+The gate mechanism reads the imprint from the droid, and a light flashes green.
+
+> south
+You are at the Northern area of the Industrial Region.
+You can go north, south or east.
+This is part of the industrial hub of the island, everything was designed to be self sufficient. The sky is covered in smog. there are large grimey factories in every direction, smoke rolling out thick.
+
+> east
+You are in the Northern area of the Commercial Region.
+You can go north, south, east or west.
+There are very tall buildings here, you see one made of all glass. Interesting. There are a lot of cars here. Not as much as in the city, but a lot nonetheless.
+
+> north
+You are in the Urban Region.
+You can go north, south, east, west, northwest or southeast.
+This is the place where most the robots in this city live. A lot of the houses look very similar. The street numbers are like a ranking of importance. Everyone has a nice, freshly cut lawn, except for you, you can see it from here. It's way overgrown.
+
+> east
+You are on the ground floor of the Science Center.
+You can go south or west.
+You can go to Elevator 5.
+This is the science center, where all the reaserch and development gets done. The walls, floor, ceiling, and everything else are colored white. A few white robots whizz by, you assume they're scientists untill you hear one of them say 'dude'. You wonder what the kids are doing here.
+
+> go to elevator 5
+You are in Elevator 5
+There is Small Keyhole here.
+This is the elevator in the science center, there are many buttons flasing. There is a small keyhold beneth the buttons.
+
+> use latter h.q. key on small keyhole
+It fits, and the elevator doors close.
+
+
+
+The elevator goes down to a small complex, formerly that of the Latter. The light here is insufficient at best. You exit the elevator, and immidiately in front of you is a wooden door with the image of a CPU carved into it. You walk in, expecting to see a mob of criminals, but instead see no one. The database was right, the Latter had long since disbanded, but for what reason you do not know. On a nearby shelf, you see a note.
+
+"Concerning anyone who may be reading this; the Latter are no more. We have, unfortunately, been found out. The police from nearby islands have been involving themselves in our affairs for quite some time, but never on a scale such as this. It seems as if we were tricked into accepting a bugged robot into our society, a model 10. He was, apperantly, at one point in time a detective serving Useven. His perameters and portions of his memory were erased, and they attatched a monitering device to his motherboard. He had no idea he was being bugged, so we didn't have a clue either. They found out most of the members of our group. The remaining members were forced into hiding. They may have been found out as well, as we have all but lost connections with eachother. I will do what I can to conceal my identity, and see that the detective has what's coming to him. Maybe a good-old fashioned reformatting is in order.
+Sincerely, X-XXX."
+
+Congradulations! You have completed the game, and have learned the whole truth.
+Nice job, sleuth.
+
+[runner] turns=231 leftover=0 running=false WON=YES

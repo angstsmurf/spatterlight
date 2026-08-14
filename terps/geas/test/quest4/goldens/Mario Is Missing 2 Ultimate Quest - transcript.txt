@@ -1,0 +1,1739 @@
+
+Mario Is Missing 2: Ultimate Quest Jordan
+
+One day, Mario was kidnapped! Luigi searched around the world for him, but was trapped in the Glitz Pit!!! If Luigi makes it out alive, he'll have to search deeper, harder areas and fight bigger bosses, just for Mario!
+
+
+/\/\ A R I O     I S      /\/\ I S S I N G  2:
+Ultimate Quest
+
+While stuck in the Glitz Pit, Luigi gets ready for a fight he'll never forget.
+PROLOUGE: Matches With Light
+
+You are in Glitz Pit- Locker Room
+There is GBA here.
+This is the Glitz Pit's red Major League locker room.
+
+> speak to gba
+L: I'm ready for my next fight!
+D: Ah, yes, Luigi! But first, do some training to get ready!
+L: (sigh), okay...
+You are in Training- Looking
+There is Bench here.
+TRAINING: YOU MUST LEARN TO LOOK.
+Try 'look at _____', 'examine ______', 'take _______', and 'speak to ________', make sure to check out everything!
+
+> look at bench
+It's a bench. Next to a seat.
+
+> examine seat
+It's a seat next to a bathroom.
+
+> speak to bathroom
+L: HEY! HURRY UP IN THERE!
+[a big, buffy bird comes out]
+RH: HEY! The Rawkster don't like how you talk to him!
+
+> take enemy
+[Luigi swings a hammer at him]
+RH: Alright, let's RAAAAAAAAWK!
+
+
+
+
+
+
+
+
+
+
+
+
+
+..........................R A W K   H A W K.......................
+[Features: Yellow feathers, stupid attitude, muscles]
+[Abilities: Wrestling moves]
+You are in Training- Fighting
+There is Rawk Hawk here.
+RH: LET'S RAAAAAAWK!
+TRAINING: Defeat Rawk Hawk! Try all the things you learned, although this is the easiest boss.
+
+> take rawk hawk
+[Luigi jumps at Rawk Hawk and jumps on him, toppling him over]
+RH: Oof... the Hawk's been... Rawked....
+D: VERY good! Now, you're ready for the Champion fight! The Title Match! You're fighting...
+MAGNUS VON GRAPPLE DELUXE!
+You are in BOSS- Magnus
+There is Magnus here.
+D: Everyone, it's time for the TITLE MATCH!!!!! Our up-and-comer, SUPER LUIGI, versus our new champ: MAGNUS VON GRAPPLE DELUXE!
+L: HA! A short, chubby guy?
+LC: BUH! BUH! BUH HUH HUH! I'm not Magnus, I DRIVE him! I am....
+
+
+
+...........................................L O R D   C R U M P............................................
+[Features: None]
+[Abilities: Can drive Magnus Von Grapple]
+[Glitz Pit Name: Lord Crush]
+[Lord Crump presses a button on a remote, and a giant pink robot appears]
+D: GET READY TO..... DIIIIIIIIIIIIIIIIIIIIEEEEEEEEEEEEEEEEEEEEEE!!!!!!!!!!
+
+> take magnus
+[Luigi jumps at Magnus, and wecks it]
+LC: Heh... you really think you win?
+L: I'm not gonna lose!
+LC: Well, EAT THIS!!!
+[Magnus shoots out his rocket fists]
+LC: BUH! BUH! BUH HUH HUH!!!
+
+> take magnus claws
+[Luigi jumps up again, destroying the fists, and wrecking Magnus]
+L: ALLLLLLLLRIIIIIIIIIIIIIIGHT!
+LC: You ACTUALLY think you've won?
+L: Yeah, actually.
+LC: Well, EAT THIS!!!
+[Lord Crump presses another button, and Magnus turns black, the white X turns yellow, a red 2 appears over it, and Magnus gets a lot stronger]
+You are in BOSS- Magnus 2
+There is Magnus 2 here.
+LC: BUH! BUH! BUH HUH HUHHH!!! Taste the fury of....
+
+
+
+
+
+...................................M A G N U S    V O N    G R A P P L E    V E R S I O N .............
+................................................. T W O - P O I N T    O (2.0)...........................
+[Features: Said already]
+[Abilities: Unknown]
+
+> speak to magnus 2
+L: So..... what does this thing do?
+LC: Wouldn't you want to know?
+[Lord Crush presses a button, and Magnus 2 opens it's hatches and sucks up a lot of the crowd]
+Crowd: AAAAAHHHH! HELP! AAAAAHHHHHH!!!!
+LC: Just TRY to stop me.
+
+> speak to machine gun
+L: Say, uh... that thing's stupid!
+LC: BUH! BUH! BUH HUH-- HUUUUHHH? What?
+L: I said, THAT THING'S STUPID!!
+LC: Um... well..... uh... grr!
+[Lord Crush runs off and forfeits]
+D: Under lousy circumstances, Lord Crush LOSES!
+L: Thank you very much!
+D: Now, you're the new champ!
+You are in Glitz Pit- Champ's Room
+There is Air Vent here.
+This is the Champion's room.
+
+> take air vent
+[Luigi opens the air vent, and crawls through]
+You are in Glitz Pit- Promoter's Room
+You can go to Glitz Pit- Arena.
+[Luigi busts open the air vent]
+D: WHOA!!!
+B: Yiiikes!
+D: Luigi, what're you doing here?
+L: Um... cleaning dust?
+D: Uh-huh... yeah.
+B: Doopliss, let's go public with this. It's in the plan.
+D: Right, of course! Let's go, slick!
+[Doopliss and Bowser exit]
+L: They're going to the Pit! Say, what's a Save Block doing here?
+
+> go to glitz pit- arena
+You are in Glitz Pit- Arena
+You can go to BOSS- Giga BowZer.
+[Luigi runs into the Pit, only to see a bunch of wondering people in the crowd, and Doopliss and BowZer]
+D: Ladies and Goombas! Listen up! What you're about to see may be too ugly for some freaks, but you're watching anyway! Press it, BowZer!
+[BowZer presses a button, and a giant machine rises from the ground]
+D: Folks, slicks, this WILL get scary, I promise, plus, you may not exit.
+B: May we have a volunteer from the audience? Uh-huh, yep... uh... you, the Koopa in pink!
+[a koopa with a pink shell comes up]
+D: Excuse me, ma'am, what's yer name?
+K: Koopie, Koopie Koo.
+D: Tell me, Koo, ya like being a Koopa?
+K: Why, yes! I love it!
+D: Well, too bad!
+[Doopliss tosses Koopie Koo into the machine, and she comes out....
+dressed up in tight clothing, a scarf covering the mouth, goggles covering the eyes, a hat covering the head, not one bit of Koopa showing! On the front, there's a large X]
+K: What the....? What happened?
+D: Congrats, Koopie! You're the first Koopa to become an......
+
+
+
+
+.........................................X - N A U T................................................
+[Features: Explained]
+Abilities: Unknown]
+D: How does it feel?
+K: Stuffy.
+D: Well, too bad! That costume is fused to your skin! HYUK YUK YUK YUK YUK!!! Plus, in a few minutes, that hat will erase your memories, and will make you an Order-abiding X-Naut!
+K: NOOOOO!!!
+D: Don't worry, it won't erase your IQ. You may become an X-Naut PhD!
+B: And, if you thought THAT was scary, listen to THIS: EVERYONE in this Pit won't leave until THESE costumes are fused to their skins! GWAH HA HA HA HA!!!
+[everyone screams]
+L: N-no! I won't stand for it! I OBJECT!
+D: Whuh?
+[Luigi steps onto the stage]
+L: I am here to stop you!
+D: Alright, slick! But, this Machine doesn't JUST turn people into X-Nauts, it ALSO....
+[BowZer steps into it, and out comes.......]
+
+
+
+
+
+......................................G I G A     B O W Z E R.....................................
+[Features: Ten times the size of BowZer, light blue shell, sharper spikes, spiky tail, more spikes, bigger spikes, terrifying look, fear-inducing roar, sharper teeth]
+[Abilities: Flamethrower breath, squashing ground pound, simple stomp, eat, tail swash, shell scar]
+
+[everyone screams as Giga BowZer roars]
+
+
+> go to boss- giga bowzer
+You are in BOSS- Giga BowZer
+There is Giga BowZer here.
+D: And now, our "If He Wins, Everyone Loses, Or If HE Wins, Everyone Lives" Match! Featuring... our CHAMP, the guy who put the Lu-igi in Lo-se: SUPER LUIGI!
+[Crowd Cheers]
+D: AND.... our soon-to-be-Champ, the KING of all, BOW before the GIGA strength of...
+GIGA BOWZER!!!!
+[Giga BowZer roars, everyone screams]
+L: I hope I win...
+GB: ROOOOOOOOOOOOOOAAAAAAAAAAAAAAARRRRRRRRRRR!!!!!!! I'M FEELING A LITTLE HUNGRY!!!!
+D: Let's get ready to.... DIIIIIIIIIIIIIEEEEEEEEEEEEEEEEEE!!!!!!
+
+> take giga bowzer
+[Luigi whacks his hammer at Giga BowZer, but misses]
+L: DRAT!
+
+> take lights
+L: Ow! Oof... got em!
+
+> use lights on giga bowzer
+L: Of course! The lights...
+[Luigi swings the lights at Giga BowZer, who burns and turns back into BowZer]
+B: CURSES! No! Ow, my butt...
+D: Okay, PLAN B!
+[two X-Nauts run in, carrying Prince X, and throw him into the machine]
+L: NO! Do you realize what you've done!?
+D: Not really.
+L: Hold on... WHO'S power did you say Prince Mush was given?
+D: Yours. Combined with Shadow Power.
+L: D'OH! You IDIOT!
+D: What?
+[Prince X jumps out of the Machine, same size, but emitting a DARKER aurora, and with hollow eyes, and a jack-o-lantern's mouth]
+DP: HYUK YUK YUK YUK YUK!!!
+L: Why.... is he--
+D: I never said WHO'S Shadow Power, slick!
+L: You never said YOU had Shadow Power!
+D: Right...
+DP: THAAAAAT"S right, slicks! It's ME.....
+
+
+
+
+.............................D A R K   P R I N C E.................
+[Features: Toad with dark energy]
+[Abilities: Unknown]
+DP: And now, Luigi, GEEET ready to.... DIIIIIIIIIEEEEEEEEEEEEEEEE!!!!!!!!!!
+You are in BOSS- Dark Prince
+There is Dark Prince here.
+BOSS: Dark Prince
+
+> use lights on dark prince
+[Luigi swings the lights at Dark Prince, who flies back into the Machine]
+DP: Huh? NO! Fool! The FIRST transformation is SUPER! The second is-- GAACK!
+[The Machine steps up on two poles, like feet, and the 'entry' port opens up and roars]
+TM: THE SECOND.... IS FUSION. ROOOOOOOOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARRRRRR!!!!
+L: Oh, now, shouldn't you have told me that BEFORE I swung the light?
+TM: ROAR! NO, I QUITE LIIIIKE THIS FORM!
+You are in BOSS- The Machine
+There is The Machine here.
+BOSS: The Machine
+L: I've got to shut this thing down!
+
+> use lights on the machine
+[Luigi uses his trustworthy light to destroy The Machine]
+TM: HA! A LIGHT!? FOOL! (Krrz) What? Ow! (Zzzzap!) N-no! NOOOOOO!!!!
+[Prince Mush flies out of The Machine, while it self-destructs]
+D: What the???? NOOOOOO!!!
+[BOOM!]
+[everyone cheers]
+L: Thank you, folks!
+K: Ugh.... wha-- [Koopie Koo jumps up] X-Naut PhD reporting for duty, SIR!!!!
+L: Koopie, you're NOT and X-Naut!
+K: Really? Phew...
+D: I hope you're happy, slick! 'Cause now we get to bring out our biggest threat to the world! See ya! HYUK YUK YUK YUK YUK YUK!!! [Doopliss runs away]
+L: That DOESN'T sound too good...
+[Meanwhile...]
+[Doopliss runs into a dark, red room with an anonymous person sitting in a throne]
+D: The Machine didn't work...
+?: I was HOPING you'd say that.
+D: I know, I'm sad to-- huh?
+?: This means...... IT can happen.
+D: Oh, yeah! IT! I was SO stupid!
+?: Yes, you WERE, now go get Lord Crump.
+D: Yes, sire!
+[Doopliss runs off, while Lord Crump runs in]
+LC: Yeah?
+?: Prepare those teleporters, we're going to make ourselves known!
+[Lord Crump runs off]
+?: Except me... GAAAAAAAAAAAAAACK ACK ACK ACK ACK ACK ACK ACK!!!!!
+M: That doesn't even NEED an evil laugh!
+?: I wasn't LAUGHING, I was COUGHING! And BESIDES, Mario, what are you doing out of your cage again?
+M: Just wanted to hear your newest plan.
+?: You can hear, but YOU, yes, YOU, the one who's actually READING this thing, (I hope) YOU will just see the next level!
+M: Fourth wall!
+?: Oh, right! GAAAACK ACK ACK ACK ACK ACK!! (Gack) (wheeze) GAAAAAACK ACK ACK ACK ACK ACK!!!
+
+You are in Toad Town- Main Sqaure
+There is Shroom Market here.
+You can go northwest.
+You can go to Toad Town- Item Shop.
+This is Toad Town's Main Square.
+Originally Paper Mario's main town, it moved on to Mario Is Missing 2's main town! It's got many places to explore, so why not explore now? TOAD TOWN
+
+
+> take shroom market
+
+> northwest
+You are in Toad Town- Pipe Expressway
+There is Green Pipe, Poster and Yellow Pipe here.
+You can go southeast.
+
+> take green pipe
+You are in Petal Meadows
+There is Stone Warp Pipe here.
+You can go east.
+This is Petal Meadows.
+Luigi is out of the Glitz Pit, but doesn't know what challenges await him in PETAL MEADOWS...
+
+
+CHAPTER 1: Kidnapper and Dragon
+
+
+> east
+You are in Petalburg
+There is Mayor Kroop here.
+You can go west.
+Koopa: Welcome, traveller, to Petalburg!
+
+> speak to mayor kroop
+MK: Hello, what's your name?
+L: Luigi.
+MK: Mooey? Why, what a weird name! Say, are you, by any chance, from the Real Dimension?
+L: Yes!
+MK: Ah, yes, y'see, these X0 fellas morphed the two dimensions together! This is bad, considering Hooktail's back, since now Hooktail can go to the Real place and eat people there!
+L: Ooh... that doesn't sound too good...
+MK: Ah, but if yer anything like this one guy, Murphy, you can beat her! Here, these Stone Keys'll get you to Hooktail Castle.
+
+> west
+You are in Petal Meadows
+There is Stone Warp Pipe here.
+You can go east.
+This is Petal Meadows.
+Luigi is out of the Glitz Pit, but doesn't know what challenges await him in PETAL MEADOWS...
+
+
+CHAPTER 1: Kidnapper and Dragon
+
+
+> take stone warp pipe
+[the stone warp pipe turns into a regular warp pipe, and Luigi rides it down]
+You are in Hooktail Castle- Front
+You can go to Hooktail Castle- Main Hall.
+There is a magnificant, dark castle towering in front of you.
+Originating in Paper Mario: The Thousand-Year Door, Hooktail Castle has nothing but traps, bones, and a big dragon! HOOKTAIL CASTLE
+
+
+> go to hooktail castle- main hall
+You are in Hooktail Castle- Main Hall
+There is stairs here.
+You can go to Hooktail Castle- Mural Room.
+This is Hooktail Castle's main hall.
+
+> take stairs
+This is the second floor.
+L: Sayyy... what's an X-Naut doing HERE?!
+
+> speak to x-naut
+L: Uh... hi?
+XN: Hey, Luigi.
+L: You're not gonna call X-Naut authorities?
+XN: As if they'd LISTEN. I was sent here for punishment...
+L: Wow... say, uh... where's Hooktail?
+XN: The top floor, to get there, make it to the Third Floor, then go up the tallest tower you find.
+L: Oh, okay! Thanks!
+
+> go to hooktail castle- third floor
+You are in Hooktail Castle- Third Floor
+There is box1, box2, box3, box4, box5, box6, box7, box8, box9 and box10 here.
+You can go to Hooktail Castle- Second Floor.
+
+> take box3
+L: Yayzorz!
+
+> use box3 on pedestal
+[Luigi places the Orange Box on the invisible pedestal]
+[the pedestal slowly becomes visible]
+L: Ah-CHOO!
+[the box falls off]
+L: Whoops!
+[Luigi puts the box back on the pedestal]
+[the pedestal becomes visible, and a staircase appears]
+
+> take tallest tower
+You are in BOSS- Hooktail
+There is Hooktail here.
+............................................H O O K T A I L................................................
+[Features: Hook-tail, red, female, huge]
+[Abilites: Bite, Stomp, Fire breath, eat]
+[As Luigi runs into the room, he hears a loud voice]
+?: So, Luigi, you made it...
+[Luigi looks up, and sees a silhouette on top of a sleeping dragon]
+?: I've been looking for you, Luigi. You see... I am-- wait... no, I'll tell you later, if you live until then, that is. I am the one in charge of everything and everyone you have fought in the past.... 16 hours. Ever since you woke up in bed! Yes, even Doopliss, Rawk Hawk, and even King Goomboss. And, I knew you'd make it out of the Pit alive, Machine fusion and all. Basically, I'm the one who has sent General Guy and Doopliss to kill you throughout the day.
+L: But General Guy--
+?: --is dead, I know. I doubted it would happen, but it did. Of course, an evil mastermind's minions ALWAYS survive the first kill.
+L: He's alive?
+?: Yes, he is. AND, he found a minion stronger than you can imagine! And right before I wake Hooktail up, General Guy told me to tell you, "Don't sleep. If you do, sleep with a helmet, which alone won't be enough to live." If you don't know what he means, I suggest trying to find a hard metal....
+HEEEEEEEEEEEEEEEEEEEEELMEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEET!!!!
+Bye!
+[? jumps away, while Hooktail wakes up]
+H: What? Ah, DINNER!
+L: I hate you, whoever you are...
+
+
+> take hooktail
+H: ROOOOOOOOOAAAAAAAAAAARRR!!! No! Why? There's still so much I wanted to do with my life.... so many meals...
+[Hooktail collapses, and a hidden room appears]
+L: Whoa.
+
+> go to hooktail castle- secret room
+You are in Hooktail Castle- Secret Room
+There is Radio here.
+You can go to Toad Town- Main Sqaure.
+L: There's nothing here. Hmm... well isn't that odd? Oh, wait! A radio!
+
+> take radio
+You pick it up.
+
+> go to toad town- main sqaure
+You are in Toad Town- Main Sqaure
+There is Shroom Market here.
+You can go northwest.
+You can go to Toad Town- Item Shop.
+This is Toad Town's Main Square.
+Originally Paper Mario's main town, it moved on to Mario Is Missing 2's main town! It's got many places to explore, so why not explore now? TOAD TOWN
+
+
+> go to toad town- item shop
+You are in Toad Town- Item Shop
+There is Dull T here.
+You can go out to Toad Town- Main Sqaure.
+It's Dull T's item shop!
+
+> speak to dull t
+DT: Which one do you want?
+1) 7 Crystal Stars
+2) Strange Toy Box
+3) Train Pass
+4) Boo Mansion Pass
+5) Yellow Binary
+[choice] 2
+D: Alright since you have the radio you may now have this Toy Box that you sold to me.
+
+> use toy box
+[Luigi jumps into the Toy Box]
+You are in Toy Box- Central
+There is Shy Guy and Spring here.
+You can go east.
+L: Whoa, this place changed. Hang on, why is a Save Block here?
+
+> east
+You are in Toy Box- Shy Guy's Playground
+There is Dark shadow here.
+You can go west.
+This is the Shy Guy Playground.
+
+> speak to dark shadow
+[as Luigi was about to leave, the shadow spoke]
+S: Luigi. Do you know who I am?
+L: Who?
+S: You should know.
+L: Mario?
+S: NO, infernal piece of italian-blood scepholopod!!!! I mean... no.
+L: I know, I was just messing with you-- who are you?
+[the dark shadow steps out of the shadows]
+GG: I hope you brought the helmet I mentioned earlier, because this will hurt.
+L: Guh-guh-guh... geh... General Guy!!! H-how did you---???
+GG: You will find that out later.
+GG: Luigi, I am not here for paddy-wacks and snicker-doodles.... nor is Mario here. You see, I founded this Toy Box for the SOLE PURPOSE of Shy Guy freedom, Luigi, FREEDOM to do whatever crosses their little, over-energetic heads. And in return for the freedom I give them, they serve in the Shy Guy army, and help find NEW land to be free in. Outside land, Luigi, OUTSIDE LAND. Outside of this inferno of a Toy Box. Luigi, listen up and listen up well, I'm not saying this again: YOU HAD YOUR FREEDOM. YOU HAD YOUR TIME TO LIVE. YOU RUINED IT BY RUINING ME. You had 60, 70 years ahead of you, and you blew it.
+L: On what?
+GG: (sigh) Today, 3 hours ago. In the Toy Box. You ruined your time to live, shortened it by 90 years, just by destroying my General Tank. THEN, you had to go and RUIN it more by finding my secret room, destroying General Death, and MOST OF ALL: Caving ME in there WITH NO food, drinks, OR resources of ANY KIND! I died, Luigi, D-I-E-D. If it weren't for my loyal friend, Anti-Guy, it'd be Game Over for me! You see, 2 hours after you left, this is how it happened:
+[Flashback: 2 hours ago, the Toy Box's secret room, caved in]
+[General Guy is pacing, thinking]
+GG: (thinking) Okay, General, get a hold of yourself! It's only been 2 hours-- wait. I forgot.... I was at the end of the trial! Oh, no... no..... NO!
+[Present time]
+L: The trial?
+GG: It was this thing where everyone was trying to see if I could go for 4 days with no food, and I was SUPPOSED to have the big celebration-- I did it, so I got a bunch of food, BUT you caved me in.
+L: Ouch...
+[back to flashbak]
+GG: (thinking) -GAAAACK! I am... so........ hungry...... must.... eat...................
+nothing............to....................................eat......................................
+sorry, troops....... your wonderful General........... is....................................
+......................................................................................gone.
+[General Guy passes away]
+[ten minutes later, Anti-Guy was riding the train]
+AG: Hmmm.... I wonder what the General's doing in there.... hey! Rocks? Whoa!
+[Anti-Guy pushes away the rocks, and screams]
+AG: AAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHH!!!!!!!!!!!!!!!!!!!!!!!!
+Oh my gosh, GENERAL!!! GENERAAAAAAL! He's dead.... (sniff)
+WAIT! I forgot! I have a Life Shroom!
+[Anti-Guy gives General Guy the life shroom, and General Guy wakes up]
+GG: ......huh? I...... I'm alive?
+AG: General! Are you alright?
+GG: Yes...... I'm fine. Anti-Guy, let it be known that on THIS day, LUIGI WILL NEVER LIVE TO SEE ANYONE EVER AGAAAAAAAAAAAAAAAAAAIN!!!!!!!!! And I will be the one to make it happen! For as long as the Shy Guys are playing around, WE know that there's evil afoot. Evil that begins with a CAPITAL L!!!! Anti-Guy, will you help me in my plot to rid the world of Luigi, and put him out of his misery?
+AG: Yes, sir!
+GG: Good. And, if we don't do this today, we'll do it TONIGHT, while he sleeps. And when he wakes up, the first thing he sees will be his worst nightmare-- US.
+AG: Yeah, OR we could make it so when he wakes up, he'll see nothing but HIS blood all over his walls, and his heart will be resting beside him!
+GG: Isn't that a bit.... gorey?
+AG: Oh.... well, I was taking a bit of a Stephen King approach, but your plan's good, too.
+[back to present]
+L: I'm glad you didn't pick his plan.
+GG: Who says I DIDN'T?
+L: ..... don't say that....
+GG: Enough talk, let's FIGHT!!!
+
+
+> take cannons
+L: I must hurry!
+
+> use cannons on the general
+[Luigi fires the cannons at General Guy, who is knocked back, revealing an entrance to the blue station]
+GG: You may og won this time, Luigi....
+[General Guy disappears]
+
+> go to toy box- blue station
+You are in Toy Box- Blue Station
+There is Train Toad here.
+You can go to Toy Box- Shy Guy's Playground.
+This is the Blue Station.
+L: Wait a minute, where's the train!?
+
+> speak to train toad
+L: Where did the train go?
+T: General Guy took it. He told me nobody was allowed in the Red Station.
+L: Of course.... General, you are one worthy adversary! Is there any other way?
+T: I didn't tell the General this, but those bombs over there are there for a reason, and so is that crumbled wall.
+
+> take bombs
+[Luigi kicks the bomb, and BOOM! The wall breaks open, revealing a hallway to the Pink Station, but Meanwhile...]
+GG: Huh? What was that boom? Anti-Guy!
+AG: Yes, sir!
+[Anti-Guy goes to the Pink Station]
+
+> go to toy box- blue to pink
+You are in Toy Box- Blue to Pink
+You can go to Toy Box- Pink Station or Toy Box- Blue Station.
+It's a hallway.
+
+> go to toy box- pink station
+You are in Toy Box- Pink Station
+There is Anti Guy here.
+You can go to Toy Box- Blue to Pink.
+This is the Toy Box's Pink Station.
+
+> speak to anti guy
+AG: So, you're Luigi! We finally meet. I'm.....
+
+
+
+
+
+......................A N T I - G U Y...............................
+[Features: Negative, black, shy guy]
+[Abilities: High HP, High Attack, no defense]
+AG: Did YOU make that loud boom?
+L: Um... yes.
+AG: Oh, okay! Bye!
+[Anti-Guy leaves]
+L: Nice guy.
+
+> go to toy box- pink to green
+You are in Toy Box- Pink to Green
+You can go to Toy Box- Pink Station or Toy Box- Green Station.
+This is another hallway.
+
+> go to toy box- green station
+You are in Toy Box- Green Station
+You can go to Toy Box- Green to Red or Toy Box- Pink to Green.
+This is the Green Station.
+
+> go to toy box- green to red
+You are in Toy Box- Green to Red
+You can go to Toy Box- Green Station or Toy Box- Red Station.
+
+> go to toy box- red station
+You are in Toy Box- Red Station
+You can go to Toy Box- Red to Blue or Toy Box- Pre-War Room.
+This is the Red Station.
+The war room is here.
+
+> go to toy box- pre-war room
+This is the Pre-War room. It's a large hallway with a Save Block.
+
+> go to toy box- war room
+You are in Toy Box- War Room
+There is General Guy and Cannon here.
+GG: Excellent, Luigi! You made it...
+L: Why am I here, again? I'm looking for Mario, not you!
+GG: You're looking for me because.... I know where Mario is.
+L: No way! Just.... WHO are you? WHAT are you? I want to know, as a last request before my fate.
+GG: Very well, you are very worthy. I am.........
+
+
+
+
+
+................................G E N E R A L    G U Y.............................................
+[Features: Grey Shy Guy, General's cap, recent scars]
+[Abilities: Bomb throwing, tank driving, Shy Guy ruling, others]
+L: Yes, but WHAT on EARTH IS a SHY GUY?
+GG: That is something only WE know, and NO ONE else can. Now, Luigi, let us do battle!
+
+
+> take cannon
+"I must hurry!"
+
+> use cannon on general guy
+[Luigi fires the cannon, a direct hit!]
+GG: Very good... ow.
+L: Where's Anti-Guy?
+GG: He's dead. You killed him, you should remember!
+L: What? When?
+GG: A few minutes ago! I saw you come in and kill Anti-Guy with this big paintbrush thing! You had red eyes, though... are you bloodshot?
+L: NO! I was in the Blue Ststion a few minutes ago!
+GG: Hmm... why don't we go check Anti-Guy? C'mon!
+You are in Toy Box- Grey Room
+There is Anti-Guy here.
+This is General Guy's Grey room. The same he died in.
+
+> speak to anti-guy
+L: Anti-Guy?
+[Anti-Guy wakes up]
+AG: Huh? AHHHH! KILLER!
+GG: That's what I thought. But, he wasn't even HERE a few minutes ago. But I still hate him.
+L: But then, WHO killed him? -- Wait, he's ALIVE!?
+AG: Yes. I think he konked me on the head, and said "I'll be waiting".
+L: Then he's still here!
+GG: The plan room! General Death Version 2.0 is in there!
+L: 2.0!?!?!?!?!?! WHY would you think of upgrading him?
+GG: You will never find out.
+
+> go to toy box- secret plans room
+You are in Toy Box- Secret Plans Room
+There is The Culprit here.
+This is where General Death is, the Secret plans room.
+
+> speak to the culprit
+GG: There he is! Wow, he looks a lot like you, Luigi.
+L: I know...
+TC: (sounds like Luigi mumbling eerily) Oh? Hmm.... oh, yeah!
+[The culprit jumps up into General Death 2.0]
+GG: This is bad. Very, VERY bad.
+L: That's easy for you to say, I don't know what it's like to die!
+GG: It hurts.
+[General Death 2 turns on]
+AG: Oh, no...
+GD: SYSTEM CHECK-UP COMPLETE. I AM.......
+
+
+
+
+.................................G E N E R A L    D E A T H     V E R S I O N....................
+.......................................T W O - P O I N T     O (2.0)..............................
+[Features: Version 1, but bigger]
+[Abilities: Drill, kill, grill, spill, thrill, and pound]
+GD: BEGIN KILLING.
+
+
+> take general death 2.0
+[all 3 smash the machine down, while the culprit flies down]
+TC: Hmm... D'OH! AAAHHH!!!
+[The Culprit paints a hallway and runs through it]
+[The 3 chase him]
+You are in Toy Box- ???
+You can go to BOSS- Shadow Luigi.
+This is a strange hallway. There's a Save Block waaaaaaaaaaaay at the other side.
+
+> go to boss- shadow luigi
+You are in BOSS- Shadow Luigi
+There is Bowser jr here.
+GG: We've got you cornered, culprit! You have tresspassed our Toy Box, and for that, like Luigi, you will be killed!
+[the culprit spins and jumps, revealing Bowser Jr.]
+BJ: Aww, come ON! Don't kill me! I'm just here to get Luigi!
+GG: Sorry, but I am the only one who may massacre Luigi down to the last blood cell! You can take your business elsewhere!
+BJ: So.... that's how you wanna do it, huh? Okay, FINE!
+[Bowser Jr. puts on a strange Shy Guy mask, and becomes Luigi-ish again]
+L: Was that a Shy Guy mask?
+GG: No, it wasn't! It was poorly made!
+BJ: Let me tell you a tale.... a tale about the Shy Guy....
+GG: NO! Don't listen to him! It's a trick!
+BJ: One day... there was a water creature who splashed billions of creatures, drowning them. But, one young shy guy stood up, gathered all the Shy Guys in the village, and commanded them to stop the creature. Altogether, fifteen Shy Guys weakened the creature, two Shy Guys on long sticks knocked it down, two towers of four Shy Guys knocked it to it's head, and the Shy Guy and a wooden machine with explosives beat it. After one victory, the Shy Guy decided to start an army. When he got three hundred Shy Guys, he and the army went to Toad Town to take over, and steal everything! I suppose you remember a Shy Guy coming to your house and making you chase him? Yep, THOSE Shy Guys. After stealing something, a Shy Guy would disappear. Nobody knew where the Shy Guys went. One day, however, a man in a red cap and blue overalls stepped up and discovered this Toy Box, where all the Shy Guys went. He got everything back, and found the one Shy Guy who commanded too much, and he fought four waves: The Shy Squad, a squad of fifteen Shy Guys; two Stilit Guys, shy guys on stilitsl; two Shy Stacks, four Shy Guys on top of each other; and the Shy Guy in a large tank throwing bombs. Sound familiar?
+L: Yes! It does! Was this Shy Guy..... GENERAL GUY, by any chance?
+BJ: You got it!
+GG: Luigi... you have heard too much! Bowser Jr, GET HIM!
+BJ: Can do!
+
+
+> use lights on bowser jr
+[Luigi swings his trusty light, and Bowser Jr. falls]
+BJ: OWWWW!!!
+GG: Luigi, you know too much. Way too much, and so, I will finish you.
+L: Please, PLEASE don't! I won't tell anyone!
+GG: (sigh) Luigi, it's too late. Bowser Jr and Anti-Guy being knocked out was part of my plan! You have done too much, seen too much, and heard too much. No matter what, I WILL have you dead, blood splattered all around the room, and your body crushed by rocks! Anti-Guy?
+AG: Ready, sir!
+GG: Okay. (whistle)
+[15 Shy Guys line up]
+GG: Luigi... you may be familiar with... the SHY SQUAD.
+L: I.... may of heard the name. And fought the team. And kicked their butts.
+GG: Yes. You may of. (different whistle)
+[two Shy Guys drop down, General Guy gives them stilts]
+GG: And... you.... may also be familiar with the STILT GUYS.
+L: Maybe.
+GG: Yes... maybe. (Another different whistle)
+[four Shy Guys drop down, then another four]
+GG: Luigi, you may recognize the SHY STACKS.
+L: Yes. I may.
+GG: Of course. (one last whistle)
+[a Shy Guy comes running down, pulling a large, pink tank]
+GG: And.... the General Tank. With TWO light bulbs this time, instead of one. Flaw fixed.
+L: Yes, big flaw fixed.
+GG: Of course, you won't be fighting us all at once. Here are the rules to the General Guy VS Luigi war:
+1: You will fight six phases. You are not to learn what phase is what until you reach that specific phase.
+2: You will fight and die with honor.
+3: NO battle cries. Only speak calmly. Until the final phase.
+4: Follow all rules strictly and strongly. Any breakings or slight disobeyances will result in a penalty of death.
+5: Any weapons may be used.
+GG: Do you agree?
+L: Oh, yeah. Let us begin.
+
+You are in BOSS- Shy Guy Army
+There is Shy Squad here.
+
+> take shy squad
+[Luigi smashes the Shy Squad]
+SS: RETREAT! RUN AWAY!
+GG: All right. Phase 2: Stilt Guys.
+
+> speak to stilt guys
+L: I don't think stilts are very good.
+SG: Um... you don't? Oh, drat!
+[the Stilt Guys run away]
+GG: Okay, the special 3rd phrase.
+
+> take anti- guy
+[Luigi smacks Anti-Guy with his hammer]
+AG: Ugh...
+GG: Alright, Phase Four.
+
+> examine shy stack
+[Luigi plays golf with the first Shy Guy and knocks them all down]
+GG: Fine, Luigi, you may fight the second-toughest phase:
+
+
+
+
+............................G E N E R A L     T A N K..............
+[Features: A large, pink tank with a lightbulb on top]
+[Abilities: Bombs, laser beam]
+
+> use lights on general tank
+[Luigi swings the lights and a lightbulb rises from the tank]
+GG: Hmm... attempt to fight, or be killed, Luigi.
+
+> use lights on lightbulb
+[the lights break the light, and the lights go out]
+You are in BOSS- Darkness
+[with the lights out, Luigi can't see! But how will he beat Tank?]
+
+> take tank
+[Luigi aims right and destroys the tank]
+GG: Curses... okay. For Phase Six, I upgraded General Death to...
+
+
+
+.................C O M M A N D E R      M U R D E R.............
+[Features: General Death, but bigger, sharper, and with a targeting ability]
+[Abilities: Targeting, stomp, shoot, rocket fists]
+Remember, there are still no lights!
+
+> take commander murder
+[Luigi hops on to Commander Murder and eliminates it]
+GG: WHAT THE!? How did you--?
+[after the explosion, a 20 Goom bill flies out of the sky]
+L: Sweet! 20 Gooms!
+[a spring appears so Luigi can jump out]
+
+> take springboard
+[Luigi bounces out of the Toy Box while Meanwhile...]
+?: I wonder how the plan is going...
+[Anti-Guy and a scorched-up General Guy run in]
+GG: Sir... (cough) Commander Murder didn't work.
+?: WHAT!? That was our best weapon!
+AG: Best weapon?!
+?: Well... uh... we have better soldiers than weapons.
+GG: So... who's our best soldier?
+?: Well... you'll see if Luigi doesn't die in either Goomba City or Dry Dry Outpost.
+GG: Yes, but what if he finds his way to Fahr Outpost? What then?!
+?: Our Bob-omb guards won't let him near the warp pipe, don't worry. You worry too much, General. Just sit back and let Doopliss handle this.
+D: Yeah, let the Doopster handle this!
+?: Don't use that name. And aren't you supposed to be--
+D: Relax, slick! Everything's fine, my soldiers will warn me of any breakouts!
+?: Any news on Bowser?
+D: The koopa king's doing fine! With that disguise, nobody'll notice him!
+?: Excellent. Luigi won't survive.
+
+You are in Toad Town- Main Sqaure
+There is Shroom Market here.
+You can go northwest.
+You can go to Toad Town- Item Shop.
+This is Toad Town's Main Square.
+Originally Paper Mario's main town, it moved on to Mario Is Missing 2's main town! It's got many places to explore, so why not explore now? TOAD TOWN
+
+
+> go to toad town- item shop
+You are in Toad Town- Item Shop
+There is Dull T here.
+You can go out to Toad Town- Main Sqaure.
+It's Dull T's item shop!
+
+> speak to dull t
+DT: Which one do you want?
+1) 7 Crystal Stars
+2) Strange Toy Box
+3) Train Pass
+4) Boo Mansion Pass
+5) Yellow Binary
+[choice] 5
+DT: Okay you have 20 Gooms keep the 20 I'll just give you this yellow binary I wonder what it does.
+
+> out
+You are in Toad Town- Main Sqaure
+There is Shroom Market here.
+You can go northwest.
+You can go to Toad Town- Item Shop.
+This is Toad Town's Main Square.
+Originally Paper Mario's main town, it moved on to Mario Is Missing 2's main town! It's got many places to explore, so why not explore now? TOAD TOWN
+
+
+> use mushroom
+[Luigi eats the mushroom, and somehow ends up at Goomba Gate]
+This place is the Goomba Gate, a large gate guarded by Goombas.
+
+> speak to gate
+[Luigi pays the Goomba Guard the money]
+GG: Okay. You may go in.
+[the gate opens]
+
+> go to goomba city- main street
+This is Goomba City's main street.
+
+> go to goomba city- 1st avenue
+This is Goomba City's 1st Avenue.
+
+> go to goomba city- lab
+You are in Goomba City- Lab
+There is Goombella here.
+You can go to Goomba City- 1st Avenue.
+
+> go to goomba city- 1st avenue
+This is Goomba City's 1st Avenue.
+
+> go to goomba city- main street
+This is Goomba City's main street.
+
+> go to goomba city- 2nd avenue
+This is Goomba City's 2nd Avenue.
+
+> north
+You are in Goomba City- Highway
+There is Machines here.
+You can go north, south, east, west, northeast or northwest.
+This is Highway Gembo 3.
+
+> north
+[Luigi and Goombella head north to Highway Gorber 7]
+
+> east
+You are in Goomba City
+You can go west.
+You can go to Goomba City- City Hall.
+This is big-time Goomba City! If Doopliss wasn't here, you could enjoy it here!
+
+> go to goomba city- city hall
+GBL: MAYOR!
+[the Mayor is tied up, and is risen by a machine, while two goombas turn into DULPIGHOSTS, which are like Doopliss but weaker]
+D1: You're too late! He's gonna be one of us!
+L: How?
+D2: Long process, you don't wanna hear it.
+L: Well, good luck with that! We'll be leaving...
+[Doopliss jumps down]
+D: NOT SO FAST, slicks! You ain't going anywhere!
+[Doopliss locks the door]
+GBL: You fiend! What do you want with Goomba City?
+D: It's not what I want, slick. It's what the kidnapper wants!
+L: Kidnapper of whom?
+D: Well... you're related to the kidnapee.
+L: Where's Mario!? Tell me, bed-sheet moron!
+D: Whoa, take it easy! He's in an ice-cold place. A place that isn't Shiver City, Goomby here's been there. Remember, Beth? Ice-cold, ignorant and stubborn bombs? Giant cannon?
+GBL: Fah--
+D: If you say the name, I'll pull a Goomba Stark! I have a razor!
+GBL: No, you don't!
+D: Oh, yeah... well, I'll make you a Duplighost!
+L: What do you want, Doopliss?
+D: First, I wanna tell you some stuff. Vital to Mario's life.
+L: And by that you mean...?
+D: If I don't tell you this, you can't save his life!
+L: From what?
+D: I'm getting to that. Listen, the boss has an extremely diabolical plan, so diabolical, it's even worse than Beldam!
+L: And that IS?
+GBL: Yeah, out with it!
+D: The only plan he told me to tell you was the LEAST diabolical one. He plans to rip time itself! And space...
+L: How?
+GBL: And how is that LEAST?
+D: Actually, that was the main plan, but to do that, he must:
+a: Take control over Goomba City, which has the technology to do the reincarnation!
+And before you ask, I'm getting to that!
+b: Use the technology to reincarnate Grodus!
+L: Grodus is dead?
+D: Not exac-- how do you know about Grodus?
+L: Mario told me all about it.
+D: Right. Well, he's a head now, but we need his full body to help the kidnapper in his plans! Remember meeting a shadow at Hooktail Castle?
+L: Yeah, the kidnapper!
+D: You see, the haunting thing is... you KNOW the kidnapper.
+L: Whoa, that IS shocking...
+D: Just think, Luigi. Who is the kidnapper? I'm not telling.
+L: Bowser?
+D: DARN! You're good... well, K-- um... Bowser, is planning on killing Mario in the most lethal way possible, and you, too. I gotta go now. GUARDS, GET THEM!
+[Doopliss disappears]
+
+L: This place is big!
+
+> take duplighosts
+[Goombella headbonks them, and purple smoke
+surrounds them]
+GBL: Uh-oh!
+[the 1st duplighost comes out looking just like Luigi]
+[the 2nd looks like Goombella]
+
+> take luigi dooplighost
+You are in Luigi Duplighost
+There is Luigi and Luigi? here.
+You're Goombella! Smack which Luigi? Ask them which one is real!
+
+> take luigi
+Hit this Luigi?
+1) Yes
+2) No
+[choice] yes
+[Goombella headbonks this Luigi]
+L: OOF!
+[the Luigi becomes a duplighost]
+D: You're good! I hate you so much!
+[the duplighost runs off, leaving a bow tie]
+L: Thanks for not hitting me, Goombella...
+GBL: Don't mention it. Every Mario brother knows the answer to my cickle cackle question! That's the secret code!
+L: Urp? Oh, I had no clue what you meant, I just accidently burped!
+
+> take bow tie
+GBL: A bow tie?
+GBL: MAYOR!
+[the Mayor is tied up, and is risen by a machine, while two goombas turn into DULPIGHOSTS, which are like Doopliss but weaker]
+D1: You're too late! He's gonna be one of us!
+L: How?
+D2: Long process, you don't wanna hear it.
+L: Well, good luck with that! We'll be leaving...
+[Doopliss jumps down]
+D: NOT SO FAST, slicks! You ain't going anywhere!
+[Doopliss locks the door]
+GBL: You fiend! What do you want with Goomba City?
+D: It's not what I want, slick. It's what the kidnapper wants!
+L: Kidnapper of whom?
+D: Well... you're related to the kidnapee.
+L: Where's Mario!? Tell me, bed-sheet moron!
+D: Whoa, take it easy! He's in an ice-cold place. A place that isn't Shiver City, Goomby here's been there. Remember, Beth? Ice-cold, ignorant and stubborn bombs? Giant cannon?
+GBL: Fah--
+D: If you say the name, I'll pull a Goomba Stark! I have a razor!
+GBL: No, you don't!
+D: Oh, yeah... well, I'll make you a Duplighost!
+L: What do you want, Doopliss?
+D: First, I wanna tell you some stuff. Vital to Mario's life.
+L: And by that you mean...?
+D: If I don't tell you this, you can't save his life!
+L: From what?
+D: I'm getting to that. Listen, the boss has an extremely diabolical plan, so diabolical, it's even worse than Beldam!
+L: And that IS?
+GBL: Yeah, out with it!
+D: The only plan he told me to tell you was the LEAST diabolical one. He plans to rip time itself! And space...
+L: How?
+GBL: And how is that LEAST?
+D: Actually, that was the main plan, but to do that, he must:
+a: Take control over Goomba City, which has the technology to do the reincarnation!
+And before you ask, I'm getting to that!
+b: Use the technology to reincarnate Grodus!
+L: Grodus is dead?
+D: Not exac-- how do you know about Grodus?
+L: Mario told me all about it.
+D: Right. Well, he's a head now, but we need his full body to help the kidnapper in his plans! Remember meeting a shadow at Hooktail Castle?
+L: Yeah, the kidnapper!
+D: You see, the haunting thing is... you KNOW the kidnapper.
+L: Whoa, that IS shocking...
+D: Just think, Luigi. Who is the kidnapper? I'm not telling.
+L: Bowser?
+D: DARN! You're good... well, K-- um... Bowser, is planning on killing Mario in the most lethal way possible, and you, too. I gotta go now. GUARDS, GET THEM!
+[Doopliss disappears]
+
+L: This place is big!
+
+> take goombella duplighost
+You are in GBL Duplighost
+There is GBL and GBL? here.
+There are two Goombellas! Which one is which?
+
+> take gbl?
+[SMACK!]
+GBL2: OOOOOWWWW!!!! Luiiigiiiii........ I'm gonna kill you! You little RUNT! How could you not recognize me???
+L: B-but....
+GBL: Luigi, he's trying to trick you.
+[HEADBONK]
+GBL2: Awww...... jeez!
+[the Goombella becomes the duplighost]
+D: Man... you're good, sly! I gotta make like a bannana and split!
+[the duplighost leaves, leaving a party hat]
+
+> take party hat
+L: Now, what could a party hat be needed for?
+GBL: MAYOR!
+[the Mayor is tied up, and is risen by a machine, while two goombas turn into DULPIGHOSTS, which are like Doopliss but weaker]
+D1: You're too late! He's gonna be one of us!
+L: How?
+D2: Long process, you don't wanna hear it.
+L: Well, good luck with that! We'll be leaving...
+[Doopliss jumps down]
+D: NOT SO FAST, slicks! You ain't going anywhere!
+[Doopliss locks the door]
+GBL: You fiend! What do you want with Goomba City?
+D: It's not what I want, slick. It's what the kidnapper wants!
+L: Kidnapper of whom?
+D: Well... you're related to the kidnapee.
+L: Where's Mario!? Tell me, bed-sheet moron!
+D: Whoa, take it easy! He's in an ice-cold place. A place that isn't Shiver City, Goomby here's been there. Remember, Beth? Ice-cold, ignorant and stubborn bombs? Giant cannon?
+GBL: Fah--
+D: If you say the name, I'll pull a Goomba Stark! I have a razor!
+GBL: No, you don't!
+D: Oh, yeah... well, I'll make you a Duplighost!
+L: What do you want, Doopliss?
+D: First, I wanna tell you some stuff. Vital to Mario's life.
+L: And by that you mean...?
+D: If I don't tell you this, you can't save his life!
+L: From what?
+D: I'm getting to that. Listen, the boss has an extremely diabolical plan, so diabolical, it's even worse than Beldam!
+L: And that IS?
+GBL: Yeah, out with it!
+D: The only plan he told me to tell you was the LEAST diabolical one. He plans to rip time itself! And space...
+L: How?
+GBL: And how is that LEAST?
+D: Actually, that was the main plan, but to do that, he must:
+a: Take control over Goomba City, which has the technology to do the reincarnation!
+And before you ask, I'm getting to that!
+b: Use the technology to reincarnate Grodus!
+L: Grodus is dead?
+D: Not exac-- how do you know about Grodus?
+L: Mario told me all about it.
+D: Right. Well, he's a head now, but we need his full body to help the kidnapper in his plans! Remember meeting a shadow at Hooktail Castle?
+L: Yeah, the kidnapper!
+D: You see, the haunting thing is... you KNOW the kidnapper.
+L: Whoa, that IS shocking...
+D: Just think, Luigi. Who is the kidnapper? I'm not telling.
+L: Bowser?
+D: DARN! You're good... well, K-- um... Bowser, is planning on killing Mario in the most lethal way possible, and you, too. I gotta go now. GUARDS, GET THEM!
+[Doopliss disappears]
+
+D: Aw, sheesh! Fine! I'll let the Mayor go... on one condition!
+GBL: What's that, creep?
+D: I take over the weapons research facility! HYUK YUK YUK YUK YUK YUK YUK YUK YUK YUK!!!
+[the Mayor is freed, but Doopliss quickly leaves]
+L: Oh...... great!
+
+> go to goomba city
+You are in Goomba City
+You can go west.
+You can go to Goomba City- City Hall or Goomba City- Weapons Research.
+This is big-time Goomba City! If Doopliss wasn't here, you could enjoy it here!
+
+> go to goomba city- weapons research
+You are in Goomba City- Weapons Research
+There is door here.
+You can go to Goomba City.
+This is Goomba City's top secret weapons research facility, where Doopliss ran to.
+[Doopliss turned off the lights! HYUK YUK YUK YUK!!]
+
+> take door
+You are in Goomba City- Spiral Staircase
+You can go to Goomba City- Weapons Research or Goomba City- Rooftop.
+Luckily there are windows here, so the lights are on.
+
+> go to goomba city- rooftop
+You are in Goomba City- Rooftop
+You can go to Goomba City- Spiral Staircase or BOSS- Doopliss.
+This is the Weapons Research rooftop. There's a Save Block here.
+
+> go to boss- doopliss
+You are in BOSS- Doopliss
+There is Doopliss here.
+FIGHT Doopliss!
+[Goombella and Luigi back Doopliss to the top of a Neuclear Silo]
+GBL: Face it, buddy, you're either giving up or dying! We are not going easy on you this time, bub!
+D: (panicky) Chill, slicks! You do know what's under us, right?
+GBL: Yep, and if you don't give, we'll make sure this thing DOES!
+D: Y-y-you wouldn't do that, would you?
+L: Yeah, would we?
+GBL: Shh! (quietly) I'm trying not to!
+D: 'Cause, you know, slicks... if this thing blows, so does the city and its suburbs! And one more place: anything below it! Including Toad Town!
+L: Goombella...
+GBL: Okay, buddy... before we go KRAZY on you, tell us... what's an X-Naut?
+D: An X-Naut? Well... I'm gonna tell you the scariest tale in the city, slick! Listen up:
+
+Once upon a cool moon, when the moon gave up and everything froze and we duked it out for flesh and bones, the weaklings would cower in fear! They were always killed and became the boos, who, in revenge, killed and sometimes ate anything that came their way ONCE IN A COOL MOON, that is. Y'see, the Cool Moon is the worst time of the bi-year. Luckily, it only occurs in the Paper Dimension, and you see... this is where the kidnapper's plot and the X-Nauts come in. Goombella, you remember when WE duked it out in the Cool Moon?
+
+GBL: Yeah... about a year ago.
+D: Not just A year ago, but TWO years ago... 2 years ago TONIGHT.
+L: (gulp)
+D: Yeah, you're scared, aren't you? And also, don't forget what the kidnapper's plot was:
+
+Morph both dimensions together! And was he successful? Yes!
+
+GBL: So... where do X-Nauts fit in?
+D: I'm getting to that:
+
+A millenium ago, tonight... one weakling stood up against the rest...
+
+
+
+
+................................G R O D U S   I.....................................................
+This guy didn't want his face shown, so he hid it with a clever disguise: goggles, a hat, a costume with an X on the front. A bunch of others were amazed by his bravery, so they joined him, costumes and all. But, these costumes didn't have scarves, no they didn't. When enough of them joined together and rallied up enough strength, they killed all those who got in their way. Grodus the first wanted to make himself recognizable, so nobody mistook him for a regular disguised weakling, and so he came up with a costume that placed chills in even the darkest and stiffest bones. It was a black and purple robe with a red sash with a white X on the front. The scary part wasn't the cape, sash, robe, nor scarf which he added... it was what HAPPENED to the guy. One day, he was fighting when suddenly a Boo came up and tore apart his head, it took one large bite and ripped the surface off. It started gnawing on the brain, and the inside, too! Oh, the screams of terror... "MEN! GET IT OFF... of...
+ugh......" and a few hours later, when the entire head was nothing but skull, a large beam of light encased his corpse and with one last breath, he screamed. This scream wasn't your average scream, no, not a scream of terror, it was a scream of JOY. His SKULL was SHRIEKING in HAPPINESS!!!!! How FREAKY is THAT!?!?!?!?!? Why was it? Well, the beam of light transformed him... his head... into a large computer! Thus the first technology. It's just... this computer... it... oh, man, I can't say it! (deep breath) The computer engulfed his entire head. Not one bit of skull shown. The computer wasn't any ordinary computer, slick, no... it was a LIFE SUPPORT SYSTEM. Nobody knows how or why he got this, but we DO know that he lives... somewhere.
+You see... I know an ancestor of his. So, I know he must be alive in somebody's heart, at least. Anyway, the boo that ate his brain... Grodus' CPU shot a laser and... the boo screamed, let's put it at that. And lemme tell you, it takes a LOT to make a boo scream, in fact, it's IMPOSSIBLE to make a Cool Moon boo scream, but he did it. Somehow, that CPU brain of his shot the laser that ripped the boo to shreds... (quietly) literally. (normally) Is this enough?
+[Luigi is staring with bulging eyes, repeatedly wispering "I'm at Daisy's, I'm at Daisy's, I'm at Daisy's..."]
+GBL: So... (cough)... where did the present X-Nauts come in?
+D: Oh, I'm getting to that, and to a big warning, too:
+
+
+A year later, it was revealed that shadow people live among us. They conquered the great city of Duplipolis, where the Duplighosts lived. Want me to explain duplighosts? Okay... the boo that was shot with the laser of Grodus, he was ripped to shreds, but his shreds came to life! So what looks like bedsheets to you is actually boo skin! There were three ghosts coming out: Duplighost, the boo's ability to hide; Mansoinighost, the boo's pranking nature; and Exteduplighost, the boo's ability to hide others. In one year, these ghosts developed Duplipolis, the best city on the planet! Then those shadow creatures came. The evil Shadow Queen cast a curse on three ghosts: the first three ever to live. She fused them together to create one ghost who has gone through it all. Can you guess who the hadnsome devil is?
+Yes, those three ghosts formed to create...
+
+
+.................................D O O P L I S S...................................................
+or, ME! HYUK YUK YUK YUK YUK YUK!!! Also, she took over the palace where the three were: Palace Of Doop. They call it the Palace Of Shadows now. I hear it's under Rogueport. Of course, the very same guy who was the Great Gonzales beat her! Sorry, I'm getting off track. Listen, this Shadow Queen... it was rumoured that she destroyed Grodus, just as she created him. It was all said in this chilling poem found written in 2 places, I'm not saying what the poem said, or where they are... okay. One place it was found is the Palace Of Shadows. You see, both poems are written in the generally same area, out of the same material: gooey red stuff... it is said this is Grodus' blood. They say the Shadow Queen wrote this. But the chilling part is... she wasn't around when the second area was built! The second area was built halfway between her death, and now. But enough talk, let's fight!
+
+
+> take doopliss
+[Luigi whacks Doopliss]
+D: YOW!!! Ugh, well... so at least you can fight better, slick. The Pit must of increased your power.
+
+> take nuclear reactor
+[Luigi smashes the reactor, and a computer voice says]
+CV: Fifteen seconds until explosion.
+L: Oops...
+D: RUUUUUUUUN!!!!!
+
+> go to goomba city- spiral staircase
+You are in Goomba City- Spiral Staircase
+You can go to Goomba City- Weapons Research or Goomba City- Rooftop.
+Luckily there are windows here, so the lights are on.
+
+> go to goomba city- weapons research
+You are in Goomba City- Weapons Research
+There is door here.
+You can go to Goomba City.
+This is Goomba City's top secret weapons research facility, where Doopliss ran to.
+[Doopliss turned off the lights! HYUK YUK YUK YUK!!]
+
+> go to goomba city
+You are in Goomba City
+You can go west.
+You can go to Goomba City- City Hall or Goomba City- Weapons Research.
+This is big-time Goomba City! If Doopliss wasn't here, you could enjoy it here!
+
+> west
+You are in Goomba City- Highway
+There is Machines here.
+You can go out to Toad Town- Main Sqaure.
+You can go north, south, east, west, northeast or northwest.
+This is Highway Gembo 3.
+
+> out
+You are in Toad Town- Main Sqaure
+There is Shroom Market and Bomb Shelter here.
+You can go northwest.
+You can go to Toad Town- Item Shop.
+This is Toad Town's Main Square.
+Originally Paper Mario's main town, it moved on to Mario Is Missing 2's main town! It's got many places to explore, so why not explore now? TOAD TOWN
+
+
+> take bomb shelter
+[Luigi and Goombella jump into the bomb shelter]
+D: WAIT! No... well, goodbye cruel world! See ya! Parting is such sweet--
+[BOOM!]
+D: SORRRRROOOOOOOOOOOWWWWWWW!!!!!!!!
+[a few hours later]
+GBL: He's... he's dead. FINALLY! YIIIPEEEEEEE!!!!
+L: But... if he's dead... then... oh, never mind.
+[his bedsheet is floating slightly off the ground]
+L: YEAH!!! WE BEAT DOOPLISS!!! But, man... I'm tired.
+GBL: Whaddya expect? It's 3 AM! Let's get some shuteye.
+[that night...]
+L: (yawn)... Finally, I can relax...
+[in Luigi's dream]
+D: Luigi, I have something to tell you.
+L: WHOA! Doopliss!? I thought you--
+D: Died? No, I assure you, I am quite alive! But listen... our lives are at stake! It's not really 3 AM... I messed up Goombella's watch. It's actually 10 PM. Tonight... the cool moon is coming!
+L: (gasp) I gotta wake up and tell Goombella!
+D: WAIT! Listen, Luigi... the X-Nauts are alive. They are not suposed to be alive. Every time X-Nauts lived was apocolypse to all those around them. Luigi, if the X-Nauts are here then I'm sure that they have a reason for it. A TERRIFYING reason. Something that has to do with the Shadow Queen. I dunno about your kidnapper, but his soldiers are gonna move to the Palace Of Shadows soon.
+L: What am I supposed to do?
+D: Their hideout is in the faraway Fahr Outpost, right underneath the cannon. The Bob-ombs never wanted to talk about it, because if they did... the evil beneath would strike first. Know what I mean? But before you wake up... remember this:
+"There is only one way to go to Fahr Outpost ever since the sewers got clogged...
+a Mansion of Boos, in the middle of a cool moon, through the forest of the bogged."
+I'm not so sure what it means, but I think it's talking about the Forever Forest. Maybe something happens tonight out there. Oh, and before you go-- the Forever Forest is inhabited by Boos. Under the cool moon's influence, you might just die sooner than anticipated. Okay, bye!
+L: Thanks for the info!
+[Luigi wakes up]
+L: Okay, I can't tell if that was a good dream or a bad dream, but I know I should probably go to Forever Forest.
+[Meanwhile...]
+?: Heh... my evil plan is almost complete! MEN, have you gotten the teleporter ready?
+XN: Yes, sir! And all those battle weapons you ordered are ready!
+?: Excellent. And the bad news is?
+XN: How'd you know there was bad news?
+?: I can tell by the look in your eyes.
+XN: Well... Doopliss died in the middle of an explosion, and we reported hearing a ghost of Doopliss telling too much to Luigi!
+?: Too much?
+XN: Where we are, a bit of our plan, where the Fahr Outpost path is...
+?: ARRGH! Well, I guess we'll have to block up the Forever Forest path, won't we?
+XN: Yes, sir!
+?: GAAAACK ACK ACK ACK ACK ACK ACK ACK!
+
+
+> northwest
+You are in Toad Town- Pipe Expressway
+There is Green Pipe, Poster and Yellow Pipe here.
+You can go southeast.
+
+> take yellow pipe
+[Luigi jumps down the pipe and ends up in Dry Dry Outpost]
+This is Dry Dry Outpost's main section.
+
+> speak to nomadimouse
+L: Hello there, Nomadimouse!
+N: Oh, Luigi! I am not worthy...
+L: What? Why not?
+N: Great sir of prophecies... the evil King Koopa has harnessed the power of Dry Dry Ruins and awakened Ultima-Bones; the god of the desert; and we have been cursed! Tonight, the zombies of the desert will come out and drag us to the dirt! PLEASE, HELP US! Prophecies said that a man in green will come searching for M in red, and save us all from the god of the desert by stopping the Koopa King then god!
+L: Okay, fine! Where is this 'Koopa King'?
+N: That's the point-- we do not know. BUT, we know he's in the shop cart section due East.
+
+> go to dry dry outpost- shop stands
+These are the Dry Dry Outpost Shop Stands. I suggest you choose wisely, as you only have one chance! Of course, a giant Save Block is here.
+
+> take man2
+[Luigi bonks the strange man, and he reveals himself]
+BOWSER!
+B: Gaah! What gave you the idea it was ME? Sheesh! This place is going down in zombie flames, anyway! See ya!
+[Bowser leaves]
+L: I've gotta follow him!
+This is Dry Dry Outpost's main section.
+
+> go to dry dry desert
+This is the large desert known as Dry Dry Desert. The scorching sun seems to burn forever.
+
+> speak to bowser
+L: BOWSER!
+B: Guh... huh!? What the-- HOW THE HECK DID YOU SEE ME?!?!?!?! Sheesh... fine, I'll show you what my plan is.
+[Bowser presses a button on a remote, and a giant ruin rises from the ground]
+B: These are the Dry Dry Ruins. Inside are what I wish to do.
+
+> take ruins
+This is an extremely creepy, dark hallway. There is a Save Block here, but it's very hard to make out.
+You are inside the DRY DRY RUINS. A haunting feeling makes you feel like as though someone, or something is watching you.
+
+
+> go to dry dry ruins- emperor's chamber
+This is a large room with a gigantic chair at the end. A mysterious whisper is heard, but is too distorted to understand.
+
+> take emperor's chair
+[Luigi sits down in the giant chair, and everything rumbles, all of a sudden, Bowser drops in]
+B: GWAH HAH HAH HAH HAH HAH!!!! FOOL! I tricked you into coming in here! There is no 'Zombie' thing, and these ruins have nothing to do with my plan! Heck, I don't even HAVE a plan, except to rid this world of you forever!
+L: Let's fight, Bowser... shut up and fight.
+Bowser is standing up there, next to the giant chair.
+
+> use lights on king koopa
+[Luigi swings his trusty light at Bowser, and ZZZAP!]
+B: YOOOOOW! Grr...
+[the ruins rumble, and collapse]
+B: AAAHHHH!!! LET'S GET OUTTA HERE!
+[the two run out, and see hands reaching out of the sand]
+B: N-no... it can't be!
+L: Bones...
+[the creatures are revealed to be skeletons called DRY BONES]
+B: NO! STAY BACK! You aren't meant to be here! You're NOT REAL! AAAAAHHHHHHH!!!!!
+[Bowser is grabbed and dragged into the sands]
+L: (gulp)
+[Luigi runs quickly into Dry Dry Outpost, only to find that the town has been invaded with Dry Bones]
+
+This is Dry Dry Outpost, but it's covered in bones! The Dry Bones are all moaning with death. I can barely make out the Save Block over there.
+
+> take dry bones
+[Luigi bonks the skeleton on the head with his hammer]
+DB: HHHHHHHHHH!!!! HHH HHHH! HHH HHHH HHH HHHHHH HHH HHHH HHHHHHH!
+L: What?
+?: Allow me to translate for you, Luigi.
+L: Huh?
+[Luigi turns around to see Mario's kidnapper, of course, it's nighttime, so he can't see who it is]
+L: YOU!
+?: Yes, me. Me, me, me, me, me.
+L: And me, too.
+?: Shut up. The Dry Bones screamed, then said, "You fool! You will pay dearly for your actions!" And I know exactly how you'll pay.
+L: How?
+[a rumbling noise, followed by an eerie roar]
+???: Oooeahauuuaaaaa....
+L: !!!
+[rising out of the ground is.....
+
+
+
+
+
+.....................................ULTIMA BONES...............................................
+[Features: Giant, red Dry Bones. Glowing red eyes.]
+[Abilities: Eerie roar, eerie moves, unknown.]
+?: RISE, ULTIMA BONES! HHHH, HHHHHH HHHHH! [from now on, whenever Dry talk is heard, you will see the translation in paranthesies] (It is I, [censored]! Here is the fool you requested.)
+UB: (Ahh, yes. He looks just as yummy as you described. Your ancestor will be proud of you, VERY proud.)
+?: (....well, yeah. I guess.)
+UB: (Is there something wrong?)
+?: (Yeah, I just took control of-- never mind. I don't have ancestors, actually.)
+UB: (Ah, yes... I know your secret. I recognize you, with your [censored] [censored].)
+?: (You do? Argh... I really wish that I was the only one who knew.)
+UB: ( You haven't told your army?)
+?: (...)
+UB: (Oh, yes... of course. Always with the loyalty. Anyway, I will take this fool, and do away with him!)
+L: Uh-oh.
+
+It's Ultima Bones! The dark Dry ones who can crush all.
+
+> use lights on ultima bones
+[Once again, Luigi swings his light at Ultima Bones]
+UB: (No, NO, NOOOOO!!!!)
+[Ultima Bones collapses and the other Dry Bones do, as well]
+?: Be glad that your light worked, Luigi. However, you shan't reach Forever
+Forest and LIVE... goodbye and good riddance!
+[the kidnapper jumps away]
+L: Another threat to the world stopped, thanks to ME, LUIGI!
+[a Nomadimouse steps up to Luigi, carrying a large hammer]
+N: Luigi, thanks to you, we are saved. In our debt, please accept this
+ancient hammer which can crush anything.
+L: Thanks, I guess.
+
+[Meanwhile...]
+[the kidnapper is running into the room, quickly, panting]
+?: Men, ... status.. report.
+XN: Sir, Luigi has gained the Dry Dry Hammer.
+?: Not good. Not good at all. That pesky light of his is starting to get on my nerves.
+XN: What do you suppose we do?
+?: We'll let him keep it... for now. If he doesn't survive what's next, we can just
+say it's gone. However, even if he DOES... we'll still make sure that his light is
+gone. Anyway, what time is it?
+XN: Sometime around 9-11, we don't have a clock.
+?: Then our plan is succeeding. Ready our next plan! Luigi will never survive as soon as the two hands hit directly upwards. GAAACK ACK ACK-- I gotta stop that.
+
+You are in Toad Town- Pipe Expressway
+There is Green Pipe, Poster and Yellow Pipe here.
+You can go southeast.
+
+> southeast
+You are in Toad Town- Main Sqaure
+There is Shroom Market and Bomb Shelter here.
+You can go northwest.
+You can go to Toad Town- Item Shop or Toad Town- Forever Gate.
+This is Toad Town's Main Square.
+Originally Paper Mario's main town, it moved on to Mario Is Missing 2's main town! It's got many places to explore, so why not explore now? TOAD TOWN
+
+
+> go to toad town- forever gate
+You are in Toad Town- Forever Gate
+There is Toad Guard and Big Rock here.
+You can go to Toad Town- Main Sqaure.
+This is the Forever Gate, where a toad is standing guard for Boos.
+
+> use dry dry hammer on big rock
+[Luigi swings the hammer and the rock is destroyed]
+
+> go to forever forest
+These are dark, spooky woods. However, the moon is shining bright and blue, revealing
+a clear path to what seems to be a Mansion. But, behind you is nothing but fog, so
+looks like there's no turning back! To your left, you see nothing but bog. However, you DO manage to make out a slight path in the bog.
+A dark, dark forest awaits, and a spooky, spooky mansion in the middle of a
+murderous, murderous moon.
+
+CHAPTER 5: Beware the Boo
+
+
+> go to forever forest- boo mansion entrance
+There is one huge mansion in front of you. There's something strange about it,
+something different from what Mario described. There is also a Save Block.
+More fog stands behind you.
+
+> go to boo mansion- foyer
+You are in Boo Mansion- Foyer
+There is Couch here.
+You can go to Boo Mansion- 2nd Floor, Room, or Room2.
+[Luigi steps in, but suddenly, his trusty lights
+float into the air and disappear!!! Faint
+laughter os heard]
+
+> go to room
+It's an empty room.
+
+> take vaccuum cleaner
+May as well...
+
+> use vaccuum cleaner
+[Luigi sucks up the dust and uncovers a Bob-omb doll]
+
+> go to boo mansion- foyer
+You are in Boo Mansion- Foyer
+There is Couch here.
+You can go to Boo Mansion- 2nd Floor, Room, or Room2.
+This is the 1st Floor Foyer of the Boo Mansion. You can faintly hear what sounds like
+a Vintage recording of the Super mario Bros. theme.
+
+> go to room2
+Another empty room. Except this one has a lone record player resting in the
+corner.
+
+> take record player
+[Luigi tries to play it, but it messes up and dust blows everywhere]
+
+> use vaccuum cleaner on dust
+[Luigi sucks up the dust with his vaccuuum cleaner, revealing a fireplace that was covered up]
+
+> take fireplace
+[Luigi looks into the fireplace, and accidentally presses the 'exhale' button on the vaccuum, and the pressure pushes him into the fireplace, and he falls down into who-knows-where]
+Full of dust and cobwebs, this is one spooky basement! Faint laughter and whispers are heard.
+
+> use vaccuum cleaner on boo
+Are you ready to rock?
+[Luigi uses the vaccuum cleaner on the boo, and he sneezes alot]
+B: Fool! You will wish you never used that-- ACHOOOOO!!! Thing!
+L: Wait, please! I-I didn't mean to!
+B: Shut up, loser! I am...
+
+
+.....................................B O O R A W N...............................................
+[Features: Ghostly muscles, serious face, ghost]
+[Abilities: Unknown]
+
+
+> use vaccuum cleaner on boorawn
+[Luigi uses his vaccuum cleaner, and Boorawn sneezes a lot]
+B: A-CHOO! A-CHOO! Aaaaaaaa....
+CHOOOOOOOOOOOOOOOOOO!!!!!
+[Boorawn melts, and out is revealed a wimpy little boo]
+
+> take real boorawn
+[Luigi punches Boorawn hard, and he is defeated]
+B: NOOOO!!!!
+[a strange teleporter appears, and Luigi steps through it]
+This is the highest hall in Boo Mansion, overlooking the Foyer.
+
+> use vaccuum cleaner
+[the vaccuum unveils a dusty door]
+
+> take giant door
+This is a giant room with stairs leading apparantly nowhere.
+
+> speak to bootler
+L: Um... excuse me? Sir?
+B: Huh-wha, Bow?
+L: No, I'm Luigi. And... um, where am I? (...Bow? Where have I heard that before?)
+B: Well, you're in the Boo Mansion! But, sir, while I'm still looking away,
+are you made of flesh and bones?
+L: Guh... (Oh, man... I remember what Doopliss said...) um... yes?
+[Luigi instantly ducks]
+B: Sir, I won't eat you! I just wanted to know. But, I do know what you're thinking...
+about the cool moon. And I highly disapprove of you coming here. None made of
+flesh ever dare to come here tonight, EVER! Instead, they block us from society
+for tonight. You see, over the years, Cool Boos have lost their ability to float
+through objects. Luckily, regular Boos can, though. But, Luigi... why exactly
+did you come here?
+L: Well... it's kind of a long story...
+B: We have approximately one hour before Cool Midnight, so go ahead.
+L: Okay...
+I woke up one day and discovered that Mario was gone! I searched Toad Town,
+but found out he wasn't there. I searched all of Goomba City where I was trapped
+in a space shuttle to Creepy Steeple, but escaped and he wasn't there. I searched
+all of Shiver City, Shiver Snowfield, Shiver Mountain and the Crystal Palace and he
+wasn't there. I searched through Goomba Village and the King Goomba Castle,
+no Mario. I found the Shy Guy's Toybox and fought a deadly enemy but no Mario.
+I even travelled to Rogueport and Poshley Heights, still no Mario. I went to the
+Glitz Pit in Glitzville and was trapped there for a while until a green girl boo helped me
+out, still no Mario. I searched Petal Meadows, Petalburg, and Hooktail Castle and
+even met Mario's kidnapper, although it was dark, and still no Mario! I revisited
+Shy Guy's Toybox and still no Mario! Goomba City again, Dry Dry Desert,
+no Mario anywhere! But, I have learned that Mario should be in Fahr Outpost... and
+I learned that the pipes are clogged up and a path is here somewhere and here I am.
+B: ......... the girl?
+L: What?
+B: The girl, was she wearing bows?
+L: I think so...
+B: THAT'S HER! You found Bow in the Glitz Pit!?
+L: (Oh... that's where...) Yeah, but I couldn't find her afterwards.
+B: Oh.......... well, the exit to Fahr Outpost is up these stairs.
+L: Really? Wow, that was easier than I thought!
+B: BUT... the passageway won't open until the Cool Moon appears.
+L: --Oh. Of course... there's always a catch. And when's that?
+B: About... 1 minute.
+L: Wait... when it gets cool... what about you?
+B: I will wait out here and lock the key to the door so I can not get you.
+L: Thanks.
+B: And Luigi?
+L: Yeah?
+B: Find Bow for me. Please, she is a Princess.
+L: Really? Okay, I'll do my best. (Hopefully a Bow Is Missing won't be made...)
+[Bootler exits]
+
+[Meanwhile...]
+[the X-Nauts are running around in a rush]
+XN: Make sure that log goes THERE, not THERE! Hurry! NOW! We mustn't let
+Luigi get the PASSWORD to our OUTPOST!
+
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+
+> look
+This is a giant room with stairs leading apparantly nowhere.
+This is Fahr Outpost. Not so sure how I got here so fast.
+This is Fahr Outpost, where the citizens are more stubborn than in Shiver City!
+
+CHAPTER 6: Luigi Shoots the Goons
+
+
+> speak to bob-omb
+BB: Say, you're really nice! Um... why'd you come here?
+L: Well, I came here to find Mario. You see...
+[later...]
+L: ... and that's why I'm here.
+BB: Okay. Seems fair. Listen, you don't wanna go here, no. You wanna go to the Thousand-Year Door! It's below Rogueport.
+L: Really? Okay...
+[and so, Luigi goes to the Thousand-Year Door]
+This is the Thousand-Year Door, underneath Rogueport. Goombella is here, why don't you ask her why?
+
+> take thousand year door
+Sure? If you wanna talk to Goombella, say no.
+1) Yes
+2) No
+[choice] yes
+[Luigi walks up to the giant Thousand-Year Door]
+L: Wow. This is one giant door!
+[the kidnapper is seen sneaking into it]
+L: HEY! It's you!
+?: D'oh! How did you get here so early!?
+L: Never mind that, kidnapper! Where's Mario?!
+?: He's inside. Inside the Palace of Shadow, where you'll never find him!!!
+GAAACK ACK ACK ACK ACK ACK ACK OOF... cough... urgh... um... HA!
+[the kidnapper quickly closes the door]
+L: That laugh... I think I have this mystery just about wrapped up! Now to go
+into the Palace of Shadow...
+[hiding behind a pillar is Bow, staring at him]
+TO BE CONTINUED IN...
+/\/\ A R I O    I S     /\/\ I S S I N G    2:
+Palace of Shadow
+(Congratulations on finding the secret ending!)
+
+Thanks for playing Ultimate Quest! Look forward to the third and final part, "Palace of Shadow!"
+
+[runner] turns=202 leftover=0 running=false WON=YES

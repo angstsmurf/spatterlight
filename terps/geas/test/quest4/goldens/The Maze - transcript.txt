@@ -1,0 +1,2486 @@
+
+The Maze, v1.1 Tim Hamilton
+
+The last thing you remember is hitting on this really pretty girl at a party. Then you suddenly have woken up in the middle of the night in the local hedge maze with the front gate shut and sealed. You need to find a way out of here before daylight hits and you are arrested for tresspassing.
+Press any key to continue.
+
+The Maze!
+By Wonderjudge.
+I left the debug windows on in this one so you could see that the game was made all in one room. I warn you though the only way you can lose is by using the debug window to cheat.
+
+Entrance to maze
+You are in the entranceway to a large hedge maze. The gates have shut behind you. The hedges are neatly trimmed.
+There is a Gate here.
+You can go north, south, east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+There is a Red ball here.
+You can go west
+
+> take red ball
+You pick it up.
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> w
+Entrance to maze
+You are in the entranceway to a large hedge maze. The gates have shut behind you. The hedges are neatly trimmed.
+There is a Gate here.
+You can go north, south, east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+There is a Red dispenser here.
+You can go north or east
+
+> use red ball on red dispenser
+You place the red ball in the top of the dispenser. You hear a few beeps then the ball comes out in the bin.
+A thin piece of red paper comes out of the slot.
+
+> read red clue
+The clue reads..
+What gets wetter and wetter the more it dries?
+
+> take red clue
+(first removing it from Red dispenser)
+Done.
+You pick it up.
+
+> take red ball
+(first removing it from Red dispenser)
+Done.
+You pick it up.
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> e
+Entrance to maze
+You are in the entranceway to a large hedge maze. The gates have shut behind you. The hedges are neatly trimmed.
+There is a Gate here.
+You can go north, south, east or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south, east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south, east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south, east or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+There is a Blue gate here.
+You can go north, south, east or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south or east
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+There is a Red gate here.
+You can go south, east or west
+
+> use red clue on red gate
+You scan the clue. You hear several beeps then the screen and keyboard light up.
+"What is your answer is printed on the screen."
+What will you enter into the keypad?
+You hear several dings then suddenly the gate opens!
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+There is a Yellow ball here.
+You can go west
+
+> take yellow ball
+You pick it up.
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south, east or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+There is a Blue gate here.
+You can go north, south, east or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south, east or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south, east or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south, east or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south or east
+
+> s
+Entrance to maze
+You are in the entranceway to a large hedge maze. The gates have shut behind you. The hedges are neatly trimmed.
+There is a Gate here.
+You can go north, south, east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+There is a Red dispenser here.
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+There is a Yellow dispenser here.
+You can go west
+
+> use yellow ball on yellow dispenser
+You place the yellow ball in the top of the dispenser. You hear a few beeps then the ball comes out in the bin.
+A thin piece of yellow paper comes out of the slot.
+
+> read yellow clue
+The clue reads..
+A man was going to st. ives he had seven brothers with seven wives who had seven sons with seven brides.
+How many were going to st. ives?
+
+> take yellow clue
+(first removing it from Yellow dispenser)
+Done.
+You pick it up.
+
+> take yellow ball
+(first removing it from Yellow dispenser)
+Done.
+You pick it up.
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+There is a Red dispenser here.
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> e
+Entrance to maze
+You are in the entranceway to a large hedge maze. The gates have shut behind you. The hedges are neatly trimmed.
+There is a Gate here.
+You can go north, south, east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, east or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+There is a Yellow gate here.
+You can go north, south or west
+
+> use yellow clue on yellow gate
+You scan the clue. You hear several beeps then the screen and keyboard light up.
+"What is your answer is printed on the screen."
+What will you enter into the keypad?
+You hear several dings then suddenly the gate opens!
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+There is a Orange dispenser here.
+You can go south
+
+> use red ball on orange dispenser
+You place the red ball in the top of the dispenser. You hear a few beeps then the ball comes out in the bin.
+
+> use yellow ball on orange dispenser
+You place the yellow ball in the top of the dispenser. You hear a few beeps then the ball comes out in the bin.
+A thin piece of orange paper comes out of the slot.
+
+> read orange clue
+The clue reads...
+What building can have a million stories?
+
+> take orange clue
+(first removing it from Orange dispenser)
+Done.
+You pick it up.
+
+> take red ball
+(first removing it from Orange dispenser)
+Done.
+You pick it up.
+
+> take yellow ball
+(first removing it from Orange dispenser)
+Done.
+You pick it up.
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+There is a Orange gate here.
+You can go north or east
+
+> use orange clue on orange gate
+You scan the clue. You hear several beeps then the screen and keyboard light up.
+"What is your answer is printed on the screen."
+What will you enter into the keypad?
+You hear several dings then suddenly the gate opens!
+
+> n
+Center of maze
+You have come to the center of the maze. Beautiful flowers are planted in beds here. 
+There is a White plinth here.
+You can go north or south
+
+> n
+Center of maze
+You have come to the center of the maze. Beautiful flowers are planted in beds here. 
+There is a Black plinth here.
+You can go north or south
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south, east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south, east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south, east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+There is a Blue ball here.
+You can go south
+
+> take blue ball
+You pick it up.
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south, east or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, east or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south, east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south, east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+There is a Blue dispenser here.
+You can go south
+
+> use blue ball on blue dispenser
+You place the blue ball in the top of the dispenser. You hear a few beeps then the ball comes out in the bin.
+A thin piece of blue paper comes out of the slot.
+
+> read blue clue
+The clue reads..
+If a man gives one son 12 cents and another son 13 cents what time is it?
+
+> take blue clue
+(first removing it from Blue dispenser)
+Done.
+You pick it up.
+
+> take blue ball
+(first removing it from Blue dispenser)
+Done.
+You pick it up.
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south, east or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south, east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south, east or west
+
+> s
+Center of maze
+You have come to the center of the maze. Beautiful flowers are planted in beds here. 
+There is a Black plinth here.
+You can go north or south
+
+> s
+Center of maze
+You have come to the center of the maze. Beautiful flowers are planted in beds here. 
+There is a White plinth here.
+You can go north or south
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> w
+Entrance to maze
+You are in the entranceway to a large hedge maze. The gates have shut behind you. The hedges are neatly trimmed.
+There is a Gate here.
+You can go north, south, east or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south, east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south, east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south, east or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+There is a Blue gate here.
+You can go north, south, east or west
+
+> use blue clue on blue gate
+You scan the clue. You hear several beeps then the screen and keyboard light up.
+"What is your answer is printed on the screen."
+What will you enter into the keypad?
+You hear several dings then suddenly the gate opens!
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+There is a Green dispenser here.
+You can go south
+
+> use yellow ball on green dispenser
+You place the yellow ball in the top of the dispenser. You hear a few beeps then the ball comes out in the bin.
+
+> use blue ball on green dispenser
+You place the blue ball in the top of the dispenser. You hear a few beeps then the ball comes out in the bin.
+A thin piece of green paper comes out of the slot.
+
+> read green clue
+The clue reads..
+What you find inside the answer to the orange clue + hell -l + f.
+
+> take green clue
+(first removing it from Green dispenser)
+Done.
+You pick it up.
+
+> take yellow ball
+(first removing it from Green dispenser)
+Done.
+You pick it up.
+
+> take blue ball
+(first removing it from Green dispenser)
+Done.
+You pick it up.
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south, east or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south, east or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south, east or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south, east or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south or east
+
+> s
+Entrance to maze
+You are in the entranceway to a large hedge maze. The gates have shut behind you. The hedges are neatly trimmed.
+There is a Gate here.
+You can go north, south, east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, east or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Center of maze
+You have come to the center of the maze. Beautiful flowers are planted in beds here. 
+There is a White plinth here.
+You can go north or south
+
+> n
+Center of maze
+You have come to the center of the maze. Beautiful flowers are planted in beds here. 
+There is a Black plinth here.
+You can go north or south
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south, east or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south, east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+There is a Violet dispenser here.
+You can go east
+
+> use red ball on violet dispenser
+You place the red ball in the top of the dispenser. You hear a few beeps then the ball comes out in the bin.
+
+> use yellow ball on violet dispenser
+You place the yellow ball in the top of the dispenser. You hear a few beeps then the ball comes out in the bin.
+
+> use blue ball on violet dispenser
+You place the blue ball in the top of the dispenser. You hear a few beeps then the ball comes out in the bin.
+A thin piece of violet paper comes out of the slot.
+
+> read violet clue
+The clue reads..
+(The answer to the blue clue - the number of sevens mentioned in the yellow clue) times (the answer to the yellow clue + 1)
+
+> take violet clue
+(first removing it from Violet dispenser)
+Done.
+You pick it up.
+
+> take red ball
+(first removing it from Violet dispenser)
+Done.
+You pick it up.
+
+> take yellow ball
+(first removing it from Violet dispenser)
+Done.
+You pick it up.
+
+> take blue ball
+(first removing it from Violet dispenser)
+Done.
+You pick it up.
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south, east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+There is a Green gate here.
+You can go north or south
+
+> use green clue on green gate
+You scan the clue. You hear several beeps then the screen and keyboard light up.
+"What is your answer is printed on the screen."
+What will you enter into the keypad?
+You hear several dings then suddenly the gate opens!
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+There is a Indigo dispenser here.
+You can go south
+
+> use blue ball on indigo dispenser
+You place the blue ball in the top of the dispenser. You hear a few beeps then the ball comes out in the bin.
+
+> use red ball on indigo dispenser
+You place the red ball in the top of the dispenser. You hear a few beeps then the ball comes out in the bin.
+A thin piece of indigo paper comes out of the slot.
+
+> read indigo clue
+The clue reads...
+Descramble 'ebereeepk'.
+
+> take indigo clue
+(first removing it from Indigo dispenser)
+Done.
+You pick it up.
+
+> take red ball
+(first removing it from Indigo dispenser)
+Done.
+You pick it up.
+
+> take blue ball
+(first removing it from Indigo dispenser)
+Done.
+You pick it up.
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south or east
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south, east or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south, east or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south, east or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+There is a Indingo gate here.
+You can go south or east
+
+> use indigo clue on indingo gate
+You scan the clue. You hear several beeps then the screen and keyboard light up.
+"What is your answer is printed on the screen."
+What will you enter into the keypad?
+You hear several dings then suddenly the gate opens!
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+There is a Black key here.
+You can go north
+
+> take black key
+You pick it up.
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south, east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south, east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south, east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+There is a Violet gate here.
+You can go north or south
+
+> use violet clue on violet gate
+You scan the clue. You hear several beeps then the screen and keyboard light up.
+"What is your answer is printed on the screen."
+What will you enter into the keypad?
+You hear several dings then suddenly the gate opens!
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+There is a White key here.
+You can go north
+
+> take white key
+You pick it up.
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south, east or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south, east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south, east or west
+
+> s
+Center of maze
+You have come to the center of the maze. Beautiful flowers are planted in beds here. 
+There is a Black plinth here.
+You can go north or south
+
+> s
+Center of maze
+You have come to the center of the maze. Beautiful flowers are planted in beds here. 
+There is a White plinth here.
+You can go north or south
+
+> use white key on white plinth
+You place the key into the keyhole and turn it. You hear a click and a beep.
+
+> n
+Center of maze
+You have come to the center of the maze. Beautiful flowers are planted in beds here. 
+There is a Black plinth here.
+You can go north or south
+
+> use black key on black plinth
+You place the key into the keyhole and turn it. You hear a click and a beep.
+You hear a creaking noise from somewhere to the north.
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south, east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south, east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, east or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north, south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> w
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or west
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> s
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or west
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go north or south
+
+> n
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go south or east
+
+> e
+Hedge Maze
+You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
+You can go east or west
+
+> e
+Exit
+You are at the exit to the maze. The way out is to the north.
+There is a Gate here.
+You can go north or west
+
+> n
+You walk through the gates to freedom!
+You have won!
+Now you can go home and sleep it off.
+
+[runner] turns=492 leftover=0 running=false WON=YES

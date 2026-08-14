@@ -1,0 +1,540 @@
+
+Into The Briny Blue Scott Lange and Abigail Auner
+
+The president has gone missing. As Shane Georgeson, a secret service agent, it's your task to find him. He was last seen somewhere around here babbling about the lost city of Atlantis. You and your trusty companion Darrel get on the USS Secret Service and drive out to where the president was last seen, swimming three hundred miles offshore of Florida. Thus begins your quest.... 
+
+
+INTO THE BRINY BLUE
+
+By Scott Lange and Abigail Auner. Type "VERBS" to see a list of all twelve of the verbs the game accepts. Type  "HELP" to see some hints. Type "CREDITS" to see information about this game's creators. Type  "ABOUT" to see other information. Press ENTER to begin.
+
+
+You are in the office of the USS Secret Service
+There is your bed and your computer here.
+You can go south.
+This is your office that doubles as a bedroom aboard the mighty galleon, the USS Secret Service. Looking around, you see your bed, your computer, and your reflection in the mirror hanging on the wall. The room is cramped, but has a mighty presence in your heart for being your home away from home while on duty in the mighty USS Secret Service. The main area of the USS Secret Service is south from here. There is a sign hanging on the door.
+
+> look
+You are in the office of the USS Secret Service
+There is your bed here.
+You can go south.
+This is your office that doubles as a bedroom aboard the mighty galleon, the USS Secret Service. Looking around, you see your bed, your computer, and your reflection in the mirror hanging on the wall. The room is cramped, but has a mighty presence in your heart for being your home away from home while on duty in the mighty USS Secret Service. The main area of the USS Secret Service is south from here. There is a sign hanging on the door.
+
+> look at bed
+This bed is your bed away from your real bed while on board the mighty galleon the USS Secret Service. Looking at it, you get nostalgic for your real bed, which is not your bed away from bed, back home in Witchita, Kansas.
+
+> look at computer
+This is a Tandy 400 model desktop computer from the year 1981, a fine year for the computing sciences. Your model is tan, and has a flashing screen that continuously beeps at you! Ah, the wonders of technology, you think to yourself. It has a 7 inch floppy drive, a laserdisc attachment, and 20 megabytes of RAM, as well as a 256 megabyte harddrive! USE COMPUTER ON *item* to find out more about the items aboard the ship!
+
+> look at reflection
+You look like Secret Serviceman Shane Georgeson, a dashing rogue adventure hero out on a quest to find the president!
+
+> look at sign
+"Secret Serviceman Shane Georgeson's room, authorized personnel only"
+
+> read sign
+"Secret Serviceman Shane Georgeson's room, authorized personnel only"
+
+> play with sign
+You do a little puppet show in front of the sign, spin it around a bit, then go back to what you were doing. Another day in the life.
+
+> make bed
+It's already immaculate, considering the marine platoon that came by to make it this morning. The marines have all left, so it's only you and Darrel from now on.
+
+> sleep on bed
+This is no time for lollygagging, soldier! You have a president to find!
+
+> south
+You are in the boat's hallway
+You can go north, south, east, west, up or down.
+This is the central hub of the USS Secret Service. To the north from here is your own quarters, east of here is the captain's quarters, where you can check in on the latest news with Darrel, the captain of this mighty vessel. West of here is the loading area of the boat, where you can hop on into the water to explore the briny blue. South of here is the storeroom of the USS Secret Service. Up is the crow's nest. Down is a floor.
+
+> south
+You are in the storage room
+You can go north or south.
+This is a small white walled room in the south side of the boat. There is a sign on the door, as well as rows and rows of shelves, drawers, and other storage devices, all of which are totally empty. The few things that you do need are south of here, in your own private closet area of the storage compartment.
+
+> look at sign
+"STORAGE ROOM"
+"Shoplifters will be prosecuted and/or hanged. Authorized Secret Service Personnel only!"
+
+> read sign
+"STORAGE ROOM"
+"Shoplifters will be prosecuted and/or hanged. Authorized Secret Service Personnel only!"
+
+> look at drawers
+They're all empty. Every single one of them. The room is deserted.
+
+> south
+You are in Shane's Private Storage Room
+There is your gun and a note here.
+You can go north.
+This is where the good stuff is. This is where you, Shane Georgeson, store all your belongings. Be sure to pick them up before entering the water and continuing your mission!
+
+> look at gun
+A Glock 19 in 9x19 parabellum. This gun has been specially modified with an attachment that automatically reloads the gun upon running out of ammunition, meaning all that you, Shane Georgeson, has to do is point and shoot! In order to shoot it, simply USE GUN ON (whatever you want to shoot)
+
+> take gun
+You take the gun. Remember, to fire, type "USE GUN ON *whatever you want to shoot*"
+
+> read gun
+"9x19 Parabellum Glock 19. Made in Austria. Infinite Ammunition attachment enabled."
+
+Below that, it says:
+
+"To fire, type "USE GUN ON *whatever you want to shoot*"
+
+> look at note
+It's a  nice little note from your commander, reminding you of your mission tasks!
+
+> take note
+You pick up the small piece of paper.
+
+> read note
+It says:
+
+"SHANE GEORGESON, PLEASE FIND THE PRESIDENT. HE WAS LAST SEEN 300 MILES OFF THE SHORE OF FLORIDA DIVING UNDERWATER IN SEARCH OF THE LOST CITY OF ATLANTIS."
+
+"LOVE, YOUR COMMANDER."
+
+> north
+You are in the storage room
+You can go north or south.
+This is a small white walled room in the south side of the boat. There is a sign on the door, as well as rows and rows of shelves, drawers, and other storage devices, all of which are totally empty. The few things that you do need are south of here, in your own private closet area of the storage compartment.
+
+> north
+You are in the boat's hallway
+You can go north, south, east, west, up or down.
+This is the central hub of the USS Secret Service. To the north from here is your own quarters, east of here is the captain's quarters, where you can check in on the latest news with Darrel, the captain of this mighty vessel. West of here is the loading area of the boat, where you can hop on into the water to explore the briny blue. South of here is the storeroom of the USS Secret Service. Up is the crow's nest. Down is a floor.
+
+> east
+You are in the captain's quarters
+There is bed, Captain Darrel's desk, the USS Secret Service's controls and Captain Darrel here.
+You can go west.
+The captain's quarters is the most elegant room on the USS Secret Service. In fact, the decor seems almost regal in how well-kept and fancy it is. Even the corners of his bookshelf are ornately carved into the shape of curling philodendron leaves. The hardwood floor is adorned with an Oriental rug of great antiquity, and the bedspread (lying inert on the bed on the east wall) is of the deepest maroon. 
+
+Captain Darrel himself is standing next to his meticulously organized desk, looking worried.
+
+Beside his desk is the USS Secret Service's control panel, complete with steering wheel and sonar functionality.
+
+> look at darrel
+Captain Darrel is in uniform at present time. However, that doesn't make him look any less disheveled. His balding head twitches as he looks around nervously. He doesn't look like the kind of man you'd want to mess with unless he was properly medicated.
+
+> talk to darrel
+The captain's response is, "Oh, yes, yes, carry on." It doesn't appear as if he genuinely wants to speak to you.
+
+> look at bookshelf
+Made of high-quality mahogany with handcarved leaf motifs, this bookshelf contains books on topics ranging from nautical navigation to military protocol to forbidden love.
+
+> look at rug
+The pattern on this rug is done in red, blue, and gold fibers. You can tell it's Oriental because of the tiny Buddhas that make up the rug's border.
+
+> look at bed
+Which bed do you mean?
+1) bed
+2) bed
+[choice] look at desk
+Pretty much standard.
+
+> look at controls
+These controls are too complex for your understanding or manipulation.
+
+> read controls
+The labels on the controls seem to be written in some strange runic language that you don't understand.
+
+> use computer on rug
+The computer kinda wonders what exactly it was you wanted to know about a rug.
+
+> give computer to darrel
+"Yeah, you can USE COMPUTER ON various stuff to learn about them."
+
+> use note from commander on darrel
+"Yep, that's what the Commander wrote you. Might want to get on that, Shane." says Cap'n Darrel.
+
+> use gun on darrel
+The bullet simply ricochets right off of him with a loud "PING", amazingly enough. It's as if Darrel is bulletproof! Wow!
+
+> west
+You are in the boat's hallway
+You can go north, south, east, west, up or down.
+This is the central hub of the USS Secret Service. To the north from here is your own quarters, east of here is the captain's quarters, where you can check in on the latest news with Darrel, the captain of this mighty vessel. West of here is the loading area of the boat, where you can hop on into the water to explore the briny blue. South of here is the storeroom of the USS Secret Service. Up is the crow's nest. Down is a floor.
+
+> up
+You are in the crow's nest
+You can go out to hallway.
+You can go down.
+This is the crow's nest of the USS Secret Service! The view offers a view of layer upon layer upon layer of briny blue waves. Some seagulls are flying around above you, and some waves are in the ocean. All in all, another great day to be the Secret Service's foremost ocean-going dashing rogue. Below you is the ladder  to get back to the main boat area.
+
+> look at seagulls
+The motley crue of avian creatures flies high above you, searching for food. They don't seem to be having a very successful day.
+
+> talk to seagulls
+"Squawk"
+
+> use gun on seagulls
+Dang! You missed this time!
+
+> down
+You are in the boat's hallway
+You can go north, south, east, west, up or down.
+This is the central hub of the USS Secret Service. To the north from here is your own quarters, east of here is the captain's quarters, where you can check in on the latest news with Darrel, the captain of this mighty vessel. West of here is the loading area of the boat, where you can hop on into the water to explore the briny blue. South of here is the storeroom of the USS Secret Service. Up is the crow's nest. Down is a floor.
+
+> west
+You are in the boat's diving deck
+There is an air tank, the wetsuit and the exit ladder here.
+You can go east.
+As you step out of the interior of the boat, you are overwhelmed by the salty wind around you. You've entered the diving deck, where the finest in scuba diving equipment lies. Resting against the wall is an air tank, and hanging above that on a hook is your (very nicely monogrammed) wetsuit. The ladder that allows an individual to enter the water needs to be lowered before you can begin diving. Once it is lowered, make sure you have all your equipment and hop on in!
+
+> look at air tank
+This model of air tank is bright yellow. The device is very large and looks heavy.
+
+> look at wetsuit
+Where a breast pocket would be on a shirt, there are two red, monogrammed initials, S and G. The rest of the wetsuit is fairly ordinary.
+
+> read wetsuit
+"S.G."
+
+> wear wetsuit
+You're wearing it!
+
+> look at ladder
+A ladder. If it's lowered, you may enter the ocean!
+
+> sleep on ladder
+You take a brisk, short nap while balancing on top of the ladder. You dream of your adventures to come, finding the presdient in the lost city of Atlantis! You wake up and go back to Secret Servicing.
+
+> lower ladder
+You lowered the ladder, so you may now go down into the ocean!
+
+> down
+You are at a depth of 15 Feet.
+There is the fish here.
+You can go out to diving deck.
+You can go north, south, east, west, northeast, northwest, southeast, southwest, up or down.
+The readout on your air tank indicates you are fifteen feet below the ocean's surface. You'd expect that being underwater would be a loud affair - you always do - but as always, the only sound you hear is your own nervous breathing. Below you see the top of a submerged cliff. You cannot see how far down the cliff face goes. Small fish of a pink and black hue dart here and there around you. The light filtering down through the waves makes the shadows of yourself, the boat, and the fish waver constantly. Swimming upwards would lead back to the safety of the USS Secret Service. The briny blue continues all around you for miles, however you can go down to explore the ocean further. Onwards to the president!
+
+> look at fish
+The fish are in neverending motion, swimming as if their lives depended on it (which, as you suppose, they do).
+
+> read fish
+The fishes' stoic faces bear no resemblance to any of the human expressions you were taught to interpret.
+
+> use gun on fish
+You shoot out a few fish, and several more take their place.
+
+> use computer on fish
+The computer tells you that they look like fish.
+
+> down
+You are at a depth of 75 feet.
+There is the hermit crabs here.
+You can go out to 15 Feet.
+You can go north, south, east, west, northeast, northwest, southeast, southwest, up or down.
+The readout on your scuba tank indicates that you are swimming at a depth of 75 feet. You are hovering above a rocky surface beneath the sea. It's covered in colorful coral and exotic plants you've never seen before. Several hermit crabs scuttle between them. If you go any farther down, you won't be able to see the seafloor, but the option is open. Swimming toward the surface would lead you closer to the surface.
+
+> look at plants
+The coral below you is of the most vivid magenta, and the weeds around it of the deepest green. These sway gently in the current.
+
+> talk to plants
+The plants tell you of their heroic struggle for survival.
+
+Unfortunately, you can't understand a word of it and remain callously oblivious.
+
+> look at hermit crabs
+These particular hermit crabs look more scared than anything, similar to how they looked in the specialty shops in your hometown.
+
+> play with hermit crabs
+The crabs to a choreographed dance routine flawlessly and effortlessly. They seem to be singing, but you can't hear it. They return back how they were.
+
+> down
+You are at a depth of 105 feet.
+You can go northeast or up.
+Your air tank readout indicates that you are swimming at a depth of 105 feet. Most of your surroundings are cloaked in darkness, which is frightening, but this is the last known location of you commander in chief, Ron Calihan. The face of a cliff lies northeast of your present location. It's too dark to venture far away from the cliff.
+
+> northeast
+You are at the cliff entrance.
+You can go northeast, southwest, up or down.
+You are very close to the cliff now. In fact, you can reach out and touch it, it's so close. The cliff keeps extending up and down, but at this depth you notice that there is a tunnel going into the cliff, to the northeast. The president always was talking about the tunnel to Atlantis. This must be it!
+
+> northeast
+You are in the tunnel to Atlantis
+You can go out to cliff entrance.
+You can go northwest or southwest.
+You have entered a northeast-southwest tunnel. While you personally fit fairly comfortably in the (obviously man-made) tunnel, someone with much more girth probably could not make it through. You can see that there's a corner coming up in the tunnel, for you see light streaming in from what must be the southwest. Otherwise, the tunnel is entirely dark.
+
+> northwest
+You are in another tunnel to Atlantis
+There is the president's tracking bracelet here.
+You can go north or southeast.
+You are in another part of the man-made tunnel. The light streaming in through this section of the tunnel is due to the presence of the tunnel's exit to the north. Beyond that is, obviously, the pearly gates to Atlantis.
+
+The president's been through this way. This is obvious due to the presence of the president's personal tracking bracelet, which you found snagged on a wall in this room! This is a good thing, the secret service always outfits the President with a tracking bracelet when he goes freediving three hundred miles offshore of Florida. It must have snagged and fallen free.
+
+> look at bracelet
+The beautiful, ornate bracelet is a radio-beacon that beeps whenever the president is near by. It's nearly half full of water at this point.
+
+> take bracelet
+You take the tracking device, pocketing it.
+
+> read bracelet
+"WARNING: Not waterproof"
+
+> use computer on bracelet
+The computer blinks momentarily, before informing you that the tracking bracelet is programmed to blink whenever the president is nearby, to aid in his rescue in the event that the bracelet and he were ever seperated. The computer goes on to say that a high-pitched, audible beeping device on it beeps whenever the president is near by.
+
+> north
+You are at the end of the tunnel.
+You can go north, south or west.
+You've reached the light at the end of the tunnel, and you are certain that Atlantis and your president lie dead ahead to the north! Other than a few primitive markings on the west wall, this section of tunnel is nondescript.
+
+> look at wall markings
+The markings, upon closer inspection, form the image of a grant CD, with the caption "Get something back for your tax dollars!" underneath.
+
+> read wall markings
+They seem to simply say:
+
+"Why am I doing this?"
+
+> use computer on wall markings
+The computer backs away in terror at the prospect of what kind of evil could be afoot. All that appears on the screen is the simple message, "Alan Greenspan, former Chairman of the Federal Reserve...". It trails off.
+
+> use tracking on wall markings
+You slam the tracking bracelet against the markings, only to find out that nothing happened when you did.
+
+> north
+You are at a depth of 200 feet.
+You can go north, south, east, west, northeast, northwest, southeast, southwest, up or down.
+You emerge from the tunnel to find more open water far as the eye can see, totally blue. Your depth finder says that you are at a depth of 200 feet, and the pressure from such a feat is really making your head throb. You can go down into more open water, or you can float around a bit. Looking around a bit, you turn 360 degrees and realise that the cave from whence you came has seemingly mysteriously vanished. You can see literally nothing but blue anywhere, far as the eye can see.
+
+> down
+You are at a depth of 250 feet.
+You can go out to nothing.
+You can go north, south, east, west, northeast, northwest, southeast, southwest, up or down.
+Your air tank readout begins blinking, along with displaying a message saying, "WARNING: GOING ANY DEEPER INTO THE WATER WILL CAUSE YOUR AIR TANK TO EXPLODE, AND WILL CAUSE YOU TO DIE OF DECOMPRESSION SICKNESS WHEN YOU SURFACE." Your surroundings (mostly consisting of water) are frightening, but your knowledge that the president is in peril drives you onward. You are a Secret Serviceman, after all.
+
+
+> down
+You are at a depth of 272 feet.
+You can go out to nothing.
+You can go up or down.
+Youre winded and aghast. You are in pure darkness at an incredible 272 feet. It seems there's only one place left to go: down. That is, if you could justifiably tell up from down.
+Your air tank explodes, the shrapnel from it missing killing you by inches. You hold your breath, not having many other options, and continue onwards.
+
+> down
+You are at a depth of ERROR- UNKNOWN VALUE.
+You can go north, south, east, west, northeast, northwest, southeast, southwest, up or down.
+Despite the fact that your depth meter can no longer tell you how far down you are, you know that Atlantis must be close by. Atlantis - your ticket to becoming a national hero! If only you can delve a bit deeper into the unknown, your instincts tell you that your president, your grateful motherland, and your retirement checks will all be within your grasp.
+Your trusty diving computer, the lovely Tandy that's been with you all along, feeding you all this information, finally can't handle the pressure and implodes on itself, much like a lesser man than yourself's body would. You are saddened by the loss, but nonetheless see it as a necessary sacrifice in your relentless pursuit of the president of the United States of America and the lost city of Atlantis.
+
+> down
+You are at a depth of 700+ feet.
+You can go up or down.
+You are dizzy. It is black. The bottom of the ocean is now within sight. Once there, you'll continue your mission to find the president, to save the fate of the United States, and possibly to find riches in Atlantis. Down you go. Down. You. Go.
+Your minutes of time spent in Coast Guard training simulators that led you to be considered the right man for this mission have taught you that you're probably upwards of seven hundred feet down at this point.
+There are approximately 22 atmospheres worth of pressure beating down on you from all sides at present, making every muscle in your body ache. Your wetsuit simply tears and explodes, as it was only ever rated for the three to four feet a kiddie pool would provide.
+While the wetsuit proved to be unsuitable and inappropriate for the task at hand, you're determined that you aren't. You press onwards.
+
+> down
+You are standing on the ocean floor.
+You can go north or west.
+You arrive at the ocean floor. After your eyes have time to adust to the complete and total pitch darkness, your vision becomes perfect again. This causes you to notice that there is sand here. When you survive this brave endeavor and begin writing your personal memoir, you will start off saying, "For those of you who have never personally set foot on the bottom of the Atlantic ocean, it's a sandy place."
+
+There is a large sign facing north. Speaking of north, there seems to be some manner of rock pile in that direction. There is also a nice little path to the west.
+
+> look at sign
+The sign says, in bold orange letters, "GREETINGS FROM THE MARINE RESEARCH CENTER! THIS SIGN WAS PLACED ON THE SEA FLOOR BY THE AQUARIUS TEAM IN OUR SUBMERSIBLE, THE IOMATIC 600. MAY, 1973." To think, no one's ever been this deep in water without a highly advanced machine protecting them before.
+
+> read sign
+The sign says, in bold orange letters, "GREETINGS FROM THE MARINE RESEARCH CENTER! THIS SIGN WAS PLACED ON THE SEA FLOOR BY THE AQUARIUS TEAM IN OUR SUBMERSIBLE, THE IOMATIC 600. MAY, 1973." To think, no one's ever been this deep in water without a highly advanced machine protecting them before.
+
+> north
+You are at the rocks.
+You can go south.
+Amidst all the sand that's here on the ocean floor, there is a singular heap of rocks. They aren't particularly talented or special rocks, save for their location. The rock pile sure is neat, though. The rest of the ocean floor is back south. Your secret service senses tell you that there isn't much of anything to the north or east or any non-south direction.
+
+> look at rock pile
+There is a pile of rocks here. It is made up of: rocks.
+
+> sleep on rock pile
+Ah! A perfect spot for a nap! Normally sleeping underwater is dangerous, but you figure why not? You've gotten this far, so you might as well. You doze off and awake several hours later, ready to resume your search.
+
+> use gun on rock pile
+BLAM! The rocks shatter in a zillion pieces when you shoot them, only to be replaced seconds later by more rocks!
+
+> south
+You are standing on the ocean floor.
+You can go north or west.
+You arrive at the ocean floor. After your eyes have time to adust to the complete and total pitch darkness, your vision becomes perfect again. This causes you to notice that there is sand here. When you survive this brave endeavor and begin writing your personal memoir, you will start off saying, "For those of you who have never personally set foot on the bottom of the Atlantic ocean, it's a sandy place."
+
+There is a large sign facing north. Speaking of north, there seems to be some manner of rock pile in that direction. There is also a nice little path to the west.
+
+> west
+You are walking down an underwater western path.
+There is the president's manilla file folder here.
+You can go east or west.
+This path was obviously formed by human feet treading upon it, yet you are astounded that any such thing is possible. There isn't much of any interest in this particular spot, except for a manilla file folder on the south side of the path. To the west is yet more open ocean floor. To the north you plainly see an Atlantis. You don't see the president anywhere.
+
+> look at folder
+Whatever was written on this folder or its contents is no longer legible. You think you see the word "president" written on it somewhere, but looking at it again, you don't.
+
+> take folder
+You pick up the folder, though it won't do you any good.
+
+> read folder
+The writing on it is totally smudged and illegible. There is no information to be gleaned from it. The only evidence you have that it ever belonged to the president in the first place is your complete and unshakable knowledge that the president is near by.
+
+> use tracking on folder
+That's odd. The tracker isn't making any beeping noises. It should be, what with this folder belonging to the president and all. Oh well, you continue your quest.
+
+> west
+You are walking down the path to the gates to Atlantis.
+You can go east, west or up.
+The grandeur of the long-lost city of Atlantis is apparent even from merely looking at its arched gates. This is the place the president so lovingly described. This is the place where he must be. You cast off any cares you may have once had in anticipation of seeing your great leader once more. Things will be okay, things will be better, as long as you can find him.
+
+To the west lie Atlantis's Golden Arches. Your destination.
+
+> west
+You are standing at the golden gateway to the lost city of Atlantis.
+There is the building here.
+You can go north or east.
+Right before you reach the gates of Atlantis, to the north, you see a white brick structure of some sort. There is a small window with the words "Admission: 5 yen for adults, 2 yen for children" printed on it. You wonder momentarily why Atlantis's currency is the yen before seeing a much larger sign above the window, bearing an ominous message:
+
+"CLOSED FOR REPAIRS - SEE YOU IN YEAR 250!"
+
+Nonetheless, this is where the president was headed. Nothing can get you down when you've got that knowledge.
+
+Meanwhile, you ponder over whether or not Captain Darrel misses you. Furthermore, you wonder if he even knows you're gone. Thinking about it, you did forget to tell him you were leaving...
+
+> look at building
+This is a small white building. It has some words printed on it. You can't enter it.
+
+> talk to building
+"Why, hello, Shane. Nice to see you down here. It's gotten awful lonely in the 2000+ years since my operator died," says the building.
+
+> use gun on building
+You shoot at it. "Knock it off, that tickles!" says the admission booth.
+
+> north
+You are standing in the fabled Lost City of Atlantis. Truth be told, the place bears a stronger resemblance to Detroit than it does an amusement park or a city of gold or anything like that. Grime coats most of the walls, what was once emeralds and rubies is now algae and seaweed. Straight up, this shit sucks.
+
+Nevertheless, you're not here to sightsee. You have a mission, a mission above all other missions: to find your friend, mentor, client, buddy, and lord and master the President of the United States of America. After wandering around the city (which, by the way, is only slightly larger than your average Burger King playplace) for a few more hours, you decide that the President probably isn't in this run-down backwoods hick town of Atlantis.
+
+Figures, doesn't it? All hype. All Atlantis is. Hype. Advertisements, legends, pearly golden arched entryways, flyers, banners, all for a grimy, nasty, hillbilly-infested trailer park.
+
+Whatever. Dissapointed in Atlantis's general lack of hygene and splendor, you figure you can mosey on out the back entrance to the north. There is still a president to be found, after all!
+
+> north
+You are standing at a sheer drop-off.
+You can go south, east, west, up or down.
+Not much around you to speak of other than a sheer cliff face. Going back to Atlantis sounds too soul-crushing, and going west or east would probably only lead to more pain. You figure that the President probably felt all these feelings too at some point upon visiting Atlantis, and that the President  also decided to get as far away from that nasty squalor we know as Atlantis as possible. The only sensible way to do this, of course, is to go down.
+
+> down
+You are at a depth of approx. 850 feet.
+You can go up or down.
+To the south is a sheer cliff face, though even if it were above water, you wouldn't be able to scale it. The rest of everything around you is nondescript: water, water, water. As usual. How long have you been under? How long have you left Captain Darrel alone? How long has the President been underwater, alone and defenseless? You've got to save him! He must be down here somewhere!
+
+> down
+You are at a depth of approx. 960 feet.
+There is a cliffside vault here.
+You can go south or down.
+As you descend further into the dark, cold, extremely highly pressurized water, you notice something out of place: A vault is on the cliff face. It's easily within arm's reach, and is wide open. There really isn't any possible direction but down at this point, considering that the president is awaiting you with open arms down there. Freefalling in pitch blackness isn't something most men are accustomed to, but after days and days of it, you're getting used to it.
+
+> look at vault
+The open vault door reveals that the vault contains immeasurable wealth in the form of gold bars, filling the entire space. However, that's not what you're here for! And anyway, how would you lug any, let alone all, of them to the surface, considering you have no intentions of going back any time soon? There's a President to be found, after all!
+
+> talk to vault
+The vault says, solemnly, "Money, money, money."
+
+You shout back, "No! No! No! The president!"
+
+And that's as far as that goes.
+
+> turn on vault
+There is a switch to the right of the vault door. When flipped, lights inside come on, revealing that the stacks of gold bars continue on for miles into the cliff face. This doesn't interest you.
+
+> down
+You are finally standing on the ocean floor.
+You can go northwest.
+You've once again reached the ocean floor. This spot on the ocean floor is taken up by none other than the late King Neptune's driveway. His house is to the northwest, and the door is wide open, looking mighty inviting if I do say so myself. The president is so close you can practically smell him. Your lord, master, king, companion, the President, is so close you can taste his taste in the friged, -50 degree Celcius water.
+The immense pressure of being over one thousand feet under the water's surface has finally done the rest of your belongings in. It's a shame, too, you really liked that pistol. Oh, well. You are undeterred, nonchalant even. If the President is somewhere that requires you to come in without belongings, so be it. 
+
+You man the hell up and continue with the mission.
+
+> look at house
+The walls and roof of the house and attached garage are made of huge scallop shells, befitting of the king of the sea.
+
+> read house
+The large neon sign out front says, "KING NEPTUNE'S HUMBLE ABODE"
+
+> northwest
+You are in King Neptune's living room
+There is King Neptune's trident here.
+You can go east, southeast or up.
+This is the place where the great King Neptune must have spent most of his time. There is a comfortable-looking recliner in one corner and a trident hanging up on the wall, unbolted, easily within arm's reach. Neptune's modest two-car garage is to the east, and his bedroom is upstairs.
+
+> look at recliner
+This blue-and-white-striped chair had to have belonged to King Neptune. What a chair to kick back and relax in!
+
+> look at trident
+You examine the trident for a while, admiring its beauty and heft. The weight of the thing is in and of itself impressive, let alone the millions of diamonds put in the handle. This trident will surely be a good weapon, at least until you can find a replacement pistol.
+
+> take trident
+You swing the trident around a bit, then put it in your inventory, like a good Secret Service agent.
+
+> talk to trident
+"Hello there, Shane Georgeson! I am King Neptune's trident. Type "USE TRIDENT ON *item*" to attack with me!" says the trident in a deep voice.
+
+> read trident
+Inscribed in the handle is "BUZZBEE TOYS, INC".
+
+> use trident on recliner
+You swing the trident at the recliner hard as you can, then quickly call up a repair service to fix the damage. They arrive minutes later, and it was a very pleasent experience.
+
+> east
+You are standing in King Neptune's modest two car garage.
+There is King Neptune's HAM Radio here.
+You can go west.
+You appear to be locked in King Neptune's nice, entry-level two car garage. The door swung shut on you and was bolted... You suddenly get the feeling you aren't alone.
+
+Could the president be nearby?
+
+Your attention is drawn to the HAM radio sitting on the floor in the middle of the room, because it's the ONLY thing in the entire room. Your mind is racing. How do you unlock that door...?
+
+> look at HAM radio
+This machine is quite old, and somewhat damaged from being in saltwater for so long. However, it is fully operational.
+
+> talk to HAM radio
+After a shy "Hello" in the direction of the radio, and after getting no response, you come to the conclusion that you must take the radio before a two-way conversation can be achieved.
+
+> read HAM radio
+Printed on the side of the radio are the letters R, C, and A. You wonder what this could mean.
+
+> take HAM radio
+You slowly grasp the HAM radio in your hands. You hear it ringing abruptly, which startles you, considering most radio's lack of a ring button. You pick up the reciever anyways, only to be greated by the gruff voice of none other than your Commander, Kenneth McDavidson, on the other end of the line!
+
+"Shane? Shane Georgeson? Is that you?" asks the Commander, sternly.
+"Yes! YES!" you reply, tears of happiness rolling out of your eyes and into the deep pitch-black blue sea.
+"What the hell have you been up to, Georgeson?" asks the Commander, stern as ever.
+"I... I was looking for the president! I followed him all across the ocean..." you say to him, voice trailing off, not really knowing how to explain.
+"Oh, well,  I wanted to let you know that your mission has been called off. We found the president. Slight communication error, turns out that by 300 miles off the coast of Florida, our intel actually meant he went missing 3 feet off of the White House Swimming Pool," says your Commander, stern-voiced as always.
+"Really? He's safe?  He's okay?" you say, delight swelling up in your voice, warmth swelling up in your soul.
+"Oh, yeah, he's fine. Doing absolutely fine," McDavidson says sternly and hardly paying attention.
+"And what about Captain Darrel? Is he still alive?" you ask, relieved that the President is still alive and okay.
+"Who? Oh, Darrel? Yeah, he went home when we found out about the mistake four weeks ago. He said he thought you were onboard, but it's whatever," says McDavidson, sternly.
+"Thank you, Commander. Thank you," you say, hanging up the phone and dropping to your knees in pure joy and ecstasy.
+
+Everything is fine. The President is safe. You feel nothing but sheer happiness as you lay crying tears of pure happiness and joy while locked in King Neptune's garage, one thousand one hundred feet below the surface, oxygen-less, naked, and safe in the knowledge that your beloved president is safe. And everything is fine.
+
+It is pitch black.
+
+And everything.
+
+Is.
+
+Fine.
+
+
+
+You win!
+
+[runner] turns=117 leftover=0 running=false WON=YES

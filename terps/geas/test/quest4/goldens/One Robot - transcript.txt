@@ -1,0 +1,718 @@
+
+One Robot, v1.0 Michael Tritz
+
+One Robot
+Once upon a time there was a world, a world ruled by a tyrant. This is a tale of one who did something about it, but why is your task to find out...
+
+
+You are in Production Line
+There is Unfinished Robots and L913 here.
+You can go west.
+"Good afternoon, E173-BETA. You are in a factory, amongst your fellow robots. Your code name is PATRICK. The year in 3058. So, Patrick, you are in the city of Meliosis, on the continent of Nibel. Meliosis is a huge walled city. Nobody goes in, nobody comes out. The population is primarily made up of E173s like yourself. You have been designed to serve humans and you have NO OTHER PURPOSE. I am L913, your companion droid. I will help you to adapt to life here until you no longer need me. So, first, test your legs and walk through the door to the west. When I have something to say to you, it will appear in quotation marks."
+
+> w
+You are in Main Factory Corridor
+There is L913 here.
+You can go north, south, east or west.
+
+> s
+You are in Factory Courtyard
+There is L913 here.
+You can go north, south or west.
+"If you need to know how to use weapons for self defense, then head west. If not, then head south, and we part. Maybe we'll see each other again."
+
+> w
+You are in Training Course Entrance
+There is Training Sergeant Droid here.
+You can go east or west.
+"I cannot accompany you into the training course. I will wait in the courtyard."
+
+> w
+You are in Training Course Part 1
+There is Thin Sword and Training Bot here.
+You can go east or west.
+Greetings. I am a training bot. To advance further, you must use the Thin Sword currently in the room to neutralize me. Then the next part of the course will open.
+
+> take thin sword
+You pick it up.
+
+> use thin sword on training bot
+
+> w
+You are in Training Course Part 2
+There is Training Bot and Gun here.
+You can go east or west.
+
+> take gun
+You pick it up.
+
+> use gun on training bot
+
+> take super switch presser 2000
+You pick it up.
+
+> w
+You are in Switch Room
+There is Switch here.
+You can go east.
+
+> use super switch presser 2000 on switch
+You are in Factory Courtyard
+There is L913 here.
+You can go north, south or west.
+"If you need to know how to use weapons for self defense, then head west. If not, then head south, and we part. Maybe we'll see each other again."
+
+> s
+You are in Factory Gates
+There is Gate Guard here.
+You can go north or south.
+
+> s
+You are in Robot Quarters
+There is Receptionist here.
+You can go north, south or west.
+Greetings, robot. Wait one moment to be analyzed, please.......................................................................................................................................................................................................................................................... OK, you are Patrick, an E173-BETA. Your apartment is on the 60th floor. The elevator automatically analyzes you and takes you directly to your apartment, so you may come and go as you please.
+
+> s
+You are in Industrial District
+There is E173-BETA here.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+The Factory and Robot Quarters are in this section of Meliosis.
+
+> sw
+You are in Business District
+There is Commuter here.
+You can go south, east, west, northeast or northwest.
+Robots and humans zigzag back and forth commuting to and from work. This section of Meliosis is devoted to businesses.
+
+> nw
+You are in Hunter's Agency
+There is Receptionist here.
+You can go north or southeast.
+One odd business, the Hunter's Agency pays you in weapons, stolen authorization passes, and other odds and ends in exchange for you killing someone or doing something for them. The government is filing a lawsuit against them for 'giving robots dangerous ideas' and illegal distribution of weapons, but they have no proof. However, an inside agent could be rewarded greatly.
+
+> n
+You are in Boss's Office
+There is Boss Hunter here.
+You can go south.
+
+> speak to boss hunter
+Greetings, robot. Are you looking for work? If you are, I can help you. You see, there's this guy over in the Shopping District. He runs a weapons store. If you could steal the box of weapons in the back of his shop, I will reward you.
+
+> s
+You are in Hunter's Agency
+There is Receptionist here.
+You can go north or southeast.
+One odd business, the Hunter's Agency pays you in weapons, stolen authorization passes, and other odds and ends in exchange for you killing someone or doing something for them. The government is filing a lawsuit against them for 'giving robots dangerous ideas' and illegal distribution of weapons, but they have no proof. However, an inside agent could be rewarded greatly.
+
+> se
+You are in Business District
+There is Commuter here.
+You can go south, east, west, northeast or northwest.
+Robots and humans zigzag back and forth commuting to and from work. This section of Meliosis is devoted to businesses.
+
+> s
+You are in Shopping District Transit
+You can go north, northeast, southeast or up.
+A shopper's heaven, this district of Meliosis is accessible to humans only: robots must take a transit system to the other side. It appears, however, that you can climb out the top and get into the Shopping District.
+
+> up
+You are in On Top of the Transit
+You can go west or down.
+
+> w
+You are in Air over SD
+You are positioned over the Shopping District. Off to one side is a ladder.
+You fall down to the Shopping District.
+You are in Shopping District
+You can go north, south, west, northeast, northwest, southwest or up.
+A shopper's heaven.
+
+> w
+You are in Weapon Shop
+There is Store Manager and Pile of Junk here.
+You can go east or west.
+A store that sells weapons.
+
+> w
+You are in Back Room
+There is Box of Weapons here.
+You can go east.
+
+> take box of weapons
+You pick it up.
+
+> e
+You are in Weapon Shop
+There is Store Manager and Pile of Junk here.
+You can go east or west.
+A store that sells weapons.
+
+> e
+You are in Shopping District
+You can go north, south, west, northeast, northwest, southwest or up.
+A shopper's heaven.
+
+> up
+You are in Air over SD
+You can go east or down.
+You are climbing a ladder up to the Shopping District Transit. To get on top of the transit, move east.
+
+> e
+You are in On Top of the Transit
+You can go west or down.
+
+> down
+You are in Shopping District Transit
+You can go north, northeast, southeast or up.
+A shopper's heaven, this district of Meliosis is accessible to humans only: robots must take a transit system to the other side. It appears, however, that you can climb out the top and get into the Shopping District.
+
+> n
+You are in Business District
+There is Commuter here.
+You can go south, east, west, northeast or northwest.
+Robots and humans zigzag back and forth commuting to and from work. This section of Meliosis is devoted to businesses.
+
+> nw
+You are in Hunter's Agency
+There is Receptionist here.
+You can go north or southeast.
+One odd business, the Hunter's Agency pays you in weapons, stolen authorization passes, and other odds and ends in exchange for you killing someone or doing something for them. The government is filing a lawsuit against them for 'giving robots dangerous ideas' and illegal distribution of weapons, but they have no proof. However, an inside agent could be rewarded greatly.
+
+> n
+You are in Boss's Office
+There is Boss Hunter here.
+You can go south.
+
+> speak to boss hunter
+Thank you, Patrick.
+That's all the jobs we've got. However, we've got an agent over at the Entertainment District who might help you if you need more work.
+As promised, your reward. This beam sword will help you in your next mission.
+
+> take beam sword
+You pick it up.
+
+> s
+You are in Hunter's Agency
+There is Receptionist here.
+You can go north or southeast.
+One odd business, the Hunter's Agency pays you in weapons, stolen authorization passes, and other odds and ends in exchange for you killing someone or doing something for them. The government is filing a lawsuit against them for 'giving robots dangerous ideas' and illegal distribution of weapons, but they have no proof. However, an inside agent could be rewarded greatly.
+
+> se
+You are in Business District
+There is Commuter here.
+You can go south, east, west, northeast or northwest.
+Robots and humans zigzag back and forth commuting to and from work. This section of Meliosis is devoted to businesses.
+
+> use beam sword on commuter
+
+> e
+You are in Government Tower Gates
+You can go north, south, east, west, southeast or southwest.
+An entrance to the Government Tower, this gate is protected by guards with energy-resistant uniforms. How well these uniforms would stand up to an old-fashioned weapon is anyone's guess. Too bad that old-fashioned weapons were banned from Meliosis 6 years ago.
+
+> e
+You are in Entertainment District
+There is Energy Bazooka and Hunter Agent here.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+This section of Meliosis is devoted to movies, music, plays, and more.
+
+> speak to hunter agent
+Hey. How you doin', Patrick? You wanna bust out of this city? I have an energy bazooka that could do just the trick. You just have to help me. The government has a spy in the business district pretending to be a commuter. Once you neutralize him, you'll be able to take the bazooka off me.
+
+> take energy bazooka
+You pick it up.
+
+> w
+You are in Government Tower Gates
+You can go north, south, east, west, southeast or southwest.
+An entrance to the Government Tower, this gate is protected by guards with energy-resistant uniforms. How well these uniforms would stand up to an old-fashioned weapon is anyone's guess. Too bad that old-fashioned weapons were banned from Meliosis 6 years ago.
+
+> s
+You are in City Gates
+There is Unused Gate here.
+You can go north, south, northeast or northwest.
+This unused entrance/exit to Meliosis looks like it hasn't been repaired for about 600 years. It is completely deserted, although it may be possible to use it...
+
+> use energy bazooka on unused gate
+
+> s
+You are in Ruin
+You can go north or south.
+Just some assorted crap and a broken gate.
+
+> s
+You are in Nibel
+You can go north or west.
+
+> w
+You are in Nibel
+You can go north, east or northwest.
+
+> nw
+You are in Cheese Town
+You can go north, northeast or southeast.
+
+> n
+You are in Town Square
+There is Horikama here.
+You can go north or south.
+
+> speak to horikama
+Hey. I'm Horikama, an assassin robot. I have a human best friend who's kinda stuck in court for a crime he didn't commit. If you help me out, I'll come with you, wherever you're going, and Apoc will too.
+
+> n
+You are in Town Hall
+There is Judge, Plaintiff, Apoc and Bailiff here.
+You can go south.
+
+> speak to apoc
+Hey. You must be from Horikama, right? You help me out, I help you out. Take care of the judge, and I'll handle the others.
+
+> use beam sword on judge
+You quickly kill the judge and Apoc handles the plaintiff. The bailiff pulls out a gun and Apoc is pinned down, but you pull through with your beam sword. 
+
+> s
+You are in Town Square
+There is Horikama and Apoc here.
+You can go north or south.
+
+> take horikama
+You recruited Horikama.
+
+> take apoc
+You recruited Apoc.
+
+> s
+You are in Cheese Town
+You can go north, northeast or southeast.
+
+> se
+You are in Nibel
+You can go north, east or northwest.
+
+> n
+You are in Nibel
+You can go south or northeast.
+
+> ne
+You are in Nibel
+You can go north or southwest.
+
+> n
+You are in Nibel
+You can go north or south.
+
+> n
+You are in Space Center (1F)
+There is Receptionist here.
+You can go south, east or up.
+The most knowlegable library in the world, the Space Center is devoted to getting a man into space. For now, they just have an airport on the second floor.
+
+> up
+You are in Airport (Space Center 2F)
+You can go east, west or down.
+
+> e
+You are in Flight School
+There is Instructor here.
+You can go west.
+
+> speak to instructor
+Greetings, bot. Since you are here, I assume that you want to learn how to fly. You're lucky. For a bot like you, I just need to upload some data and you're ready to fly.
+Do you wish to upload "Flying Data?"
+1) Yes
+2) No
+[choice] yes
+Your keys are in the Cheese-Puff 9000 out in the hangar.
+
+> w
+You are in Airport (Space Center 2F)
+You can go east, west or down.
+
+> w
+You are in Hangar
+You can go east.
+You can go to Cheese-Puff 9000.
+One plane in here stands out in particular: the Cheese-Puff 9000. You've just gotta have THAT.
+
+> go to cheese-puff 9000
+You are in Cheese-Puff 9000
+There is Ignition and CP 9000 Keys here.
+You can go out to Hangar.
+
+> take cp 9000 keys
+You pick it up.
+
+> use cp 9000 keys on ignition
+Do you wish to take off?
+1) Yes
+2) No
+[choice] yes
+You start the plane and fly up high.
+You are in Air over Space Center
+You can go north, south, east, west, northeast, northwest, southeast, southwest or down.
+
+> e
+You are in 1,4
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+
+> e
+You are in Air over Exile Island Airport
+You can go north, south, east, west, northeast, northwest, southeast, southwest or down.
+
+> down
+You are in Exile Island Hangar
+You can go east.
+You can go to Cheese-Puff 9000.
+
+> e
+You are in Exile Island Airport
+You can go east or west.
+The entrance to Exile Island, this airport is the most advanced thing on the continent since only Idiot Village and the Scrap Heap are here.
+
+> e
+You are in Exile Island
+You can go east or west.
+
+> e
+You are in Idiot Village
+You can go north, south, east or west.
+This is one of two areas on Exile Island. This is for the idiots who were banished for their idiocy and down south is the scrap heap, where old junk bots are found.
+
+> s
+You are in Exile Island
+You can go north or south.
+
+> s
+You are in Exile Island
+You can go north or south.
+
+> s
+You are in Scrap Heap
+You can go north or south.
+
+> s
+You are in Huge Pile
+There is Chain Gun here.
+You can go north, east or west.
+
+> take chain gun
+You pick it up.
+
+> w
+You are in Cave
+You can go east or down.
+
+> down
+You are in Cave
+You can go east or up.
+
+> e
+You are in Lit Tunnel
+You can go east or west.
+This cavern has lights lining the walls. You actually find it a bit eerie.
+
+> e
+You are in Huge Chamber
+You can go west.
+As you enter the room, two guards on either side stand behind you. A voice comes from the center of the room.
+What do you want? says a voice. Horikama says that you are just adventurers.
+After some explaining, they ask you if you wish to join their group, which is going to destroy the evil tyrant at government tower in Meliosis. They have dug a tunnel into the basement of the tower. They also tell you that the tyrant has mounted a gigantic cannon on his tower.
+Do you wish to join the resistance?
+1) Yes
+2) No
+[choice] yes
+They tell you that a Crudaso Landing Pass is in your ship and to head for the port in Crudaso City.
+They will meet you on board the ship. They do not wish for you to return to this area.
+You are in Cheese-Puff 9000
+There is Ignition and Crudaso Landing Pass here.
+You can go out to Exile Island Hangar.
+
+> take crudaso landing pass
+You pick it up.
+
+> use cp 9000 keys on ignition
+You are in Air over Exile Island Airport
+You can go north, south, east, west, northeast, northwest, southeast, southwest or down.
+
+> s
+You are in 2,5
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+
+> s
+You are in 3,5
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+
+> s
+You are in 4,5
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+
+> s
+You are in Air Over Crudaso Airport
+You can go north, south, east, west, northeast, northwest, southeast, southwest or down.
+
+> down
+Enter the code found on the back of your Crudaso Landing Pass. (Type it in on your keyboard.)
+
+> 87461983
+You are in Hangar
+You can go southeast.
+You can go to Cheese-Puff 9000.
+
+> se
+You are in Crudaso Airport
+You can go northwest or southwest.
+
+> sw
+You are in Tunnel
+You can go northeast or southwest.
+It's a huge tube that leads across the land from the airport to Crudaso City.
+
+> sw
+You are in Cheese Blvd.
+You can go northeast or southwest.
+
+> sw
+You are in Intersection
+You can go north, south, west or northeast.
+Cheese Street runs northeast to west
+
+> n
+You are in Milk Avenue
+You can go north or south.
+
+> n
+You are in Gang Hideout
+There is Thug, Thug and Thug here.
+You can go south.
+
+> use chain gun on thug
+Which thug do you mean?
+1) Thug
+2) Thug
+3) Thug
+[choice] 1
+You blast away the thug.
+
+> use chain gun on thug
+Which thug do you mean?
+1) Thug
+2) Thug
+[choice] 1
+You blast away the thug.
+
+> use chain gun on thug
+You blast away the thug.
+
+> s
+You are in Milk Avenue
+You can go north or south.
+
+> s
+You are in Intersection
+You can go north, south, west or northeast.
+Cheese Street runs northeast to west
+
+> w
+You are in Cheese Blvd.
+You can go east or southwest.
+
+> sw
+You are in Town Square
+You can go north, south, west, northeast, northwest, southeast or southwest.
+
+> w
+You are in Presidential Circle
+You can go east or northwest.
+
+> nw
+You are in Presidential Circle
+You can go west, northeast or southeast.
+
+> w
+You are in Mayor's House
+You can go east.
+Holding up to his end of the bargain, the mayor drops the key down from the balcony.
+
+> take boat's key
+You pick it up.
+
+> e
+You are in Presidential Circle
+You can go west, northeast or southeast.
+
+> se
+You are in Presidential Circle
+You can go east or northwest.
+
+> e
+You are in Town Square
+You can go north, south, west, northeast, northwest, southeast or southwest.
+
+> sw
+You are in The Fishy
+You can go northeast or southwest.
+The Fishy is a huge, enclosed road that leads from Crudaso City to the seaport.
+
+> sw
+You are in Sea Port
+There is Captain here.
+You can go northeast.
+
+> give boat's key to captain
+You give the key to the captain and board the boat.
+Do you wish to board the SS Cheese?
+1) Yes
+2) No
+[choice] yes
+You are in Your Cabin
+There is Apoc here.
+Your cabin aboard the SS Cheese. You and Apoc have to share.
+
+> speak to apoc
+Apoc says he does not trust the captain. He gets out of the small cabin and you follow.
+You are in Corridor
+You can go north.
+You are at the end of a very long hall. You watch Apoc bound down the the other end.
+
+> n
+You are in Staircase
+You can go west.
+You are on a staircase. You hear a huge CRACK! and the ship rumbles a little.
+
+> w
+You are in Lower Deck
+You can go up.
+You see the ship has hit an iceberg. Off in the distance you see your destination.
+
+> up
+You are in Upper Deck
+You can go east.
+You realize the ship is slowly sinking. Apoc senses this too and runs over to the bridge.
+
+> e
+You are in Bridge
+The captain has delibrately steered the ship into an iceberg. You punch out the captain and Apoc steers the ship. After you fetch Horikama, the three of you leap out of the boat onto the island and the boat goes under.
+You are in Mysterious Island
+You can go west.
+This place is creepy. Apoc and Horikama move ahead into what appears to be ruins.
+
+> w
+You are in Ancient Ruins
+You can go east or down.
+This place is sort of odd, but there is a hole in the floor you could go through. Horikama and Apoc are out of sight, so you assume they've gone ahead.
+
+> down
+You tumble down the hole. When you hit the ground, you look up. There's no way you're getting back up that way.
+You are in Cave
+There is Apoc, Horikama and Boulder here.
+You can go east.
+It's dark in here...But at least you caught up with the others.
+
+> e
+You are in Treasure Chamber
+There is Cracked Wall here.
+You can go west.
+You feel some kind of weird energy in here. Better take a look around.
+
+> look at cracked wall
+You think you can break this wall down. You do and it reveals two swords.
+
+> take shining swords
+You pick it up.
+
+> w
+You are in Cave
+There is Apoc, Horikama and Boulder here.
+You can go east.
+It's dark in here...But at least you caught up with the others.
+
+> use shining swords on boulder
+You swing your sword down and the boulder is split in half with the greatest of ease. You can now pass, apparently. rather than a tunnel, though, there is only a crawlspace. You head through it.
+You are in Elevator
+You can go down.
+
+> down
+You are in Elevator
+You can go east or up.
+
+> e
+You are in Transit
+You can go north or west.
+This transit looks oddly familiar. Must be because you're heading back to Meliosis.
+
+> n
+You are in Government Tower (B2F)
+You can go south or up.
+Wow. You actually got in here. Not done yet, though.
+
+> up
+You are in Government Tower (B1F)
+You can go up or down.
+You climb up a ladder and you're one floor below Meliosis.
+
+> up
+You are in Government Tower (1F)
+You can go down.
+You, Apoc, and Horikama blast your way through guards on this floor and head up a small staircase.
+You are in Government Tower (2F)
+You can go east.
+
+> e
+You are in Elevator (2F)
+You can go west or up.
+
+> up
+You are in Elevator (80F)
+You can go north or down.
+
+> n
+You are in Government Tower (80F)
+There is L913 here.
+As you enter the room, Horikama runs ahead. Behind you, a voice rings. "Nice to see you, Patrick."
+You and Apoc whirl around, and there is L913. You know that this bot means business, so you prepare your chain gun.
+"I've seen what you've done, you horrible human servant. Now it's time for you to meet the Maker."
+
+> use chain gun on l913
+You whip out your chain gun and destroy L913. He's gone. For good. Thank the Maker. You and Apoc have no time to chat, though, and you run into the observatory atop Government Tower.
+You are in Observatory (1F)
+There is Horikama Base, Switch, Switch, Switch and Switch here.
+Horikama is holding the President in one arm and a gun in another. THe look on his face is enraged. You try to kill Horikama before he does anything rash, but to no avail. Horikama moves the President in the way and you shoot him instead. Horikama is so mad at you, he fuses himself with a huge machine in the center of the room and the battle begins.
+
+> use shining swords on horikama base
+You attack the base and it is weakened. You head up a thin staircase to the next floor.
+You are in Observatory (2F)
+There is Switch, Switch, Switch, Switch and Horikama Shield Generator here.
+
+> use shining swords on horikama shield generator
+Alright! Time to finish this! Let's go up to the final floor!
+You are in Observatory (3F)
+There is Horikama and Horikama (unconscious) here.
+You can go east.
+
+> use shining swords on horikama
+The duel begins.
+You and Horikama's swords flash and you had no idea he had this kind of power. Apoc leaps in and is thrown down the observatory. You take advantage of this and stab Horikama in the arm. He falls unconscious. Apoc rushes up and tells you to take the unconscious body and fire it out of the cannon to destroy Horikama once and for all!
+
+> take horikama (unconscious)
+You pick it up.
+
+> e
+You are in Outside the Tower
+You can go west or up.
+
+> up
+You are in Top of the Tower
+You can go west or down.
+
+> w
+You are in Cannon Base
+There is Meliosis Cannon here.
+You can go east.
+
+> give horikama (unconscious) to meliosis cannon
+You load Horikama in and press the fire button. The cannon explodes and you and Apoc rush down the tower as it collapses. You two escape, but will be banished to a faraway land... but that is an entirely different story.
+You win the game...for now. When One Robot: Part Two comes out though, you'll have a bit of a challenge on your hands.
+
+[runner] turns=148 leftover=0 running=false WON=YES

@@ -1,0 +1,188 @@
+
+Love Song., v1.0000000000000000000 Mihalis "DarkAng3l" Georgostathis (mihgeorg@hotmail.com)
+
+
+
+
+
+
+
+Here you are lost in a forest. You dont know what is this place, but seems so beautiful. It's all so peaceful, that you feel very relaxed. The only sound is the birds singing and a distant sound from a waterfall. A little road leeds west, to a small lake and a path leads north to a chasm.
+Some vines are here, hunging on the trees.
+
+> take vines
+You take the vines.
+
+> north
+You stand here by a chasm. To the south is a forrest. You can see a tree standing by the chasm.
+A pretty flower is here, in one side of the chasm. If only you could reach it.
+
+> tie vines to tree
+Carefully, you tie the vines to the tree, creating a rope, which leads down to the chasm, reaching the flower.
+
+> take flower
+Carefully you climb down the rope and manage to get the flower. Then you climb up again with it.
+
+> south
+Here you are lost in a forest. You dont know what is this place, but seems so beautiful. It's all so peaceful, that you feel very relaxed. The only sound is the birds singing and a distant sound from a waterfall. A little road leeds west, to a small lake and a path leads north to a chasm.
+
+> west
+This is the shore of a small lake. To the east is a forest. Northen from here is a small tree while southern is a small waterfall.
+
+> north
+A small tree stands here. Underneath it, there is enough shadow and on it, there are sweet fruit.
+Your beloved Christine is here, lying under the tree.
+
+> give flower to christine
+"Oh it's so beautiful my love. Thank you!"
+She gives you a kiss and leaves the tree. She is moving south to the waterfall and says:
+"I'm going to the waterfall. Come with me if you want to."
+
+> south
+This is the shore of a small lake. To the east is a forest. Northen from here is a small tree while southern is a small waterfall.
+
+> south
+A wonderfull scenery. A waterfall is here, going straight to the lake. Vegetation surrounds the place.
+Christine is here, swimming in the lake and invites you to swim with her. 
+
+> undress
+You start removing your clothes. After you are naked, you get by the lake. Christine comes by you and kisses you. She says "Wake up!". Weird, you are not asleep. She shakes you for a while and then see tells you to wake up again. You decide to jump in the fire... ehm the lake (With Christine swiming in it, it will be a hot experiance.). You jump with a big Splash and...
+
+
+
+
+
+
+
+
+
+Good morning. Your mom is by your bed, holding a bucket. It's obvious she threw water on you to wake you up. She tells you she has to go and you must go to the gig. Oh shit, today is the day. You have to write that song too. Oh shit, you don't feel inspired, but you know that " this day is gonna be the day I'll sing the song to you" (Don't listen too much to Oasis, you are a hard-rocker and metalhead). "Slowly you wake, slowly you rise" (Even the dragons will cry for you if you don't write  the song) and try to settle down after this dream. Was it prophetic? Will you only have hot experiances with Christine in your dreams. Nevermind, you have to give a try.
+
+
+
+
+
+
+
+Welcome home! This is your room. It is the typical room owned by a teenage metalhead. A poster of Metallica is on the door. To the eastern wall, there are posters of Black Sabbath and Judas Priest. To the Western wall, it is the "brutal" side: Slayer, Cradle Of Filth, Exodus e.t.c. (Too bad your mother torn the Cannibal Corpse poster last week) To the north wall is your bed, over which is an Iron Maiden poster. To the south is the door out and by it is your wardrobe. Inside it, you can see many metal T-shirts and a box full of old LPs. 
+A radio is by your bed.
+A note is on the floor.
+Your old, reliable guitar is in the corner of the room.
+
+> look note
+The note says;
+1) Write a song for Christine.
+
+2) Rehearse with group in David's garage.
+
+> take box
+You open the box and you find the all-time classic metal records: Paranoid, British Steel, Powerslave, Kill 'em All, Reign in blood, Master of Puppets and some playboy magazines under the records. If only mom knew it.
+
+> take playboy magazines
+As you take one of them, a photo of Christine falls from inside. And you were searching it in trigonometry. As you watch it, you suddenly feel very inspired.
+
+> take electric guitar
+You take the guitar
+
+> play guitar
+This melody is perfect for the song you are writting
+
+> south
+The hall. To the north is your room and to the south the exit.
+
+> south
+Your wonderful yard. To the north is your house and to the south the road. Only interesting thing here is the barking from the east: It's Brutus, a little and "friendly" bulldog, owned by your also "friendly" and very religious neighbour.
+
+> south
+The road outside your house. Your house is to the north.  To the west the road continues, leading to your school. You neighbour is here, looking at you hostily.
+
+> west
+A simple road, leading east, to your house, west, to the school, and south, to David's house.
+
+> south
+This is David's yard. The garage is to the south and the road to the north. David's mother is here watering the flowers.
+
+> south
+A typical garage- rehearsal studio of a band. The place is soundproof with the old reliable carpet, cardboard and egg cartons.
+Your bandmates are here, along with their instruments, ready to rock and roll.
+
+> give song to david
+"That's cool, man! Let's go and practice it for a while."
+You start reahersaling the song for a while. After finishing rehearsal, David tells you; "Man, we have to leave. We are about to carry the organs to the scene. Will you help us?"
+"I have something more to do. See you there."
+
+> north
+This is David's yard. The garage is to the south and the road to the north. David's mother is here watering the flowers.
+
+> north
+A simple road, leading east, to your house, west, to the school, and south, to David's house.
+
+> west
+Welcome to your school. This is the enternce. To the north is the school cafe. To your east is the road back home. West and south from here are classes, in which you DON'T want to go.
+
+> north
+The school cafe! Some bad taste tables are here and so do some much cheesier chairs. Some kids are here, waiting for the gig to start (That's where you play). The stage is western from here, covered by a curtain, so you can't see if the rest of the group is here. Cristine and Lucy are here, sitting on cheesy chairs around a cheesy table, drinking some "Pritie goud chokoleite meelckchaque", named so by the Pakistan immigrant who runs this place.
+
+> west
+Yes, this is your big chance. On stage, hot and ready to rock the crowd. David is here, looking a little nervous. Hope he will be allright when the party begins. Frank asks if the gig is today. Not astonishing, because Frank is allways out of tune and out of place! Anna is fixing her hair. Women! The crowd is looming. Man, you will rock 'em. 
+
+> play song
+Well, the band  starts playing your song. before starting singing, you dedicate it to " the beautiest girl in  here". Everybody seems to like your song, some bang their heads, some jump up and down and some couples hug eachother. You look for Christine, but she is nowhere. You hope she listens to you. After the song, you continue with some covers from Black Sabbath, Metallica, Rolling Stones, Nirvana etc. After the gig, you go backstage.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Totally rocked out by the gig you and the rest of the group rest in pieces... ehm after the gig. To your east is a dark place, in which you can see a shadow watching you.
+
+> east
+Here in the shadows lurks a shadow, which will change your fate. The shadow is familiar and unexpected. You guessed well! The shadow IS Christine, watching you from the darkness.
+
+> talk to shadow
+You speak in a trembling voice, not believing your luck.
+-Did you enjoy the gig?
+-Well, I liked you playing. I liked the song you wrote... or it wasn't yours? U know, I'm not a big rock fan.
+-It was written by me! And do you happen to know to whom it was dedicated.
+-I only know that many girls would like this song being dedicated to them.
+-Would you?
+-Offcourse! Especially if it was written by a guy like you!
+You lose the ground under your feet. Your dream finally comes true. She likes you!
+-You know, the song was dedicated to you. You are the beautiest girl here. I LOVE YOU!
+Christine looks suprised.
+-I suspected that. But I thought I was wrong because... I LOVE YOU TOO. What you 've done today was very romantic.
+Enough with the words! There are many more things to say, but ther is enough time for  them. Nothing else matters right now, rather than showing your love. You kiss her. Your carress is long and full of pation. You stop and hear David, Frank and Anne claping and cheering. Friends can be so immature some times but who cares! You and Christine kiss each other again, ignoring them
+
+*********
+*THE END*
+*********
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[runner] turns=31 leftover=0 running=false WON=YES

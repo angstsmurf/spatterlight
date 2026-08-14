@@ -1,0 +1,424 @@
+
+Prison Break Roy Wong
+
+
+PRISON BREAK
+Story of an unfortunate boy
+
+
+
+-press any key to start-
+ 
+
+
+Instructions:
+
+This is a text-based adventure. You must type the action you want to take in the typing area at the bottom. For example, if you see a chair and wish to examine it, you may type "look at chair"; or if you want to talk to a doll, you should type "speak to doll". You can "look at" or "speak to" anything that you will see, but you may also try to perform other actions, such as "kiss baby", "eat candy", or "kick dog" etc. Interact-able objects are always listed in the right-hand side box.
+
+You must also pick up certain objects to help you escape. For example, if you see a key on the table and want to keep it with you, you can type "pick up key", and it should appear in your inventory box on the upper right corner (unless it is unobtainable.) To try using the key to open a locked box, simply type "use key on box".
+
+Finally, to advance to a different area, you may type "go to kitchen", and if you want to check your surrounding, just type "look". To see these instructions again, type "help". Good luck, and let the prison break begin.
+
+
+
+
+You find yourself in a very dark place. You hear some children singing a Christmas carol. You want to take a look, but you cannot move. Apparently, you are being locked inside some kind of a cardboard box.
+
+Luckily, someone seems to have heard your struggle, she asks, "Who's there?"
+
+You may need her help to escape from the box. Try talking to her by typing "speak to mystery voice".
+
+> help
+Instructions:
+
+This is a text-based adventure. You must type the action you want to take in the typing area at the bottom. For example, if you see a chair and wish to examine it, you may type "look at chair"; or if you want to talk to a doll, you should type "speak to doll". You can "look at" or "speak to" anything that you will see, but you may also try to perform other actions, such as "play piano", "eat candy", or "read newspaper" etc. Interact-able objects are always listed in the right-hand side box.
+
+You must also pick up certain objects to help you escape. For example, if you see a key on the table and want to keep it with you, you can type "pick up key", and it should appear in your inventory box on the upper right corner (unless it is unobtainable.) To try using the key to open a locked box, simply type "use key on box".
+
+Finally, to advance to a different area, you may type "go to kitchen", and if you want to check your surrounding, just type "look". To see these instructions again, type "help".
+
+> look
+You're trapped inside the cardboard box. You cannot see anything.
+
+> speak to mystery voice
+Please choose a question:
+1) Who are you?
+[choice] 1
+
+"I am Dungdung. Who are you?" she asks.
+
+To talk to her again, you can go lazy and simply type "speak to d", since "d" is the initial of her name. You can use the same trick on any object in the game. For example, if you want to watch the television, you can simply type "watch t" instead of "watch television". Now, try typing "speak to d" and see what happens.
+
+
+> speak to dungdung
+Hey, what's your name?
+1) I can't remember...
+2) Save me first, then we'll talk!
+[choice] 1
+Oh, I know, you're that teddy bear Boyboy!
+1) Why am I in the box?
+2) Where are we?
+[choice] 1
+Freda doesn't want you anymore, I'm afraid.
+1) Freda who?
+2) But why, I didn't do anything wrong.
+[choice] 1
+The stupid girl who locked us in this storage room!
+1) How do we get out?
+[choice] 1
+
+"The door is locked, we may need to cooperate," says Dungdung. "Let me get you out first."
+
+And so, you hear some scratching noise from above. It seems that Dungdung is using something to cut open the tape that seals the box. Does she have a knife? Why would she have such a dangerous object?
+
+Anyway, the box is open, and, thanks to your roly-poly body, you climbs out in quite a clumsy manner. You finally get to take a look at Dungdung, who happens to be a beautiful kitten. She must have used her claws to cut open the duck tape.
+
+You may want to talk to her again, just to discuss your escape plan. You can actually go even lazier and press the up/down arrow on your keyboard to browse through the commands you have typed before. Try pressing the up arrow until you see "speak to d" in the typing area and then press Enter.
+
+> look at dungdung
+Dungdung is a lovely kitten with black stripes on a greyish body.
+
+> punch dungdung
+You punch her with your fluffy hand. "What are you doing?" She seems mad.
+
+> speak to dungdung
+What do you want to say?
+1) Thank you for helping me out!
+2) Oh my, you're... a cat?
+[choice] 2
+
+"Yes, and you're a big fat teddy," says Dungdung. "Let's search for the key. It has to be here somewhere."
+
+Dungdung wants you to take a look around. To do so, simply type "look".
+
+> look
+You take a look around as she told. You find the surrounding very dirty and messy, even for a storage room. Freda must be too busy to clean this room. You shouldn't really complain - this room is for all her unwanted things anyway. You are abandoned, just like Dungdung.
+
+You notice a few things lying on the floor: a toy arrow, a pair of glasses, and a box of matches. You may want to keep them with you - they may prove to be useful later. To pick them up, type "pick up t", "pick up g" and "pick up m" respectively. You may also want to take a look at them or try to use them. Remember, you can always use an object on another object. For example, if you're feeling naughty and want to set Dungdung on fire, you can type "use matches on Dungdung", or simply "use m on d".
+
+"Look at", "speak to" and "use" would work for all objects, but you also have to be creative if you want to get Dungdung and yourself out of this storage room.
+
+> look at toy arrow
+A toy arrow with a suction cup tip.
+
+> take toy arrow
+You pick up the toy arrow.
+
+> speak to toy arrow
+"Well, hello," says the toy arrow. "Don't worry, I can't hurt anyone. My arrow head is actually a stupid suction cup, how embarrassing."
+
+> look at glasses
+A pair of glasses with black rubber frame.
+
+> take glasses
+You pick up the glasses.
+
+> speak to glasses
+"Oh, it's you, Boyboy," says the glasses. "Wait, where are we? It's so dark, I can't see anything."
+
+> look at matches
+A box of matches. Can be used to light something on fire...
+
+> take matches
+You pick up the matches.
+
+> speak to matches
+"Boyboy?" says the matches. "What, you want to light something on fire? Let's roll!"
+
+> use glasses
+You put on the glasses, and everything turns really blurry. So you take them off - you felt a little bit dizzy.
+
+> use matches
+You light up a match. You notice a scented candle sitting on top of a large cardboard box.
+
+> look at candle
+The candle is sitting on top of a large cardboard box. You are too short to reach it with your hand.
+
+> take candle
+The candle is sitting on top of the large cardboard box. It is too high for your hand to reach.
+
+> use toy arrow on candle
+You reach the candle with the toy arrow. The candle falls off the box and drops to the floor. You can finally light it with the matches now.
+
+> look at candle
+A simple yet elegant scented candle. It smells really nice.
+
+> use matches on candle
+You light up the candle. Soon it fills the room with a very pleasing scent. You can also see better now.
+
+"Couldn't you notice the candle earlier?" you couldn't help asking Dungdung. "You should be able to see in the dark!"
+
+"Of course I did, but I didn't think it would be useful," Dungdung tries to defend herself. "Like you said, I can see in the dark."
+
+You don't want to argue with her - after all, she did help you get out of the box. So you try to take a better look at the surrounding, and you finally see a key lying on the floor. Unfortunately, it is trapped between two giant cardboard boxes. The two of you try to push away one of the box to widen the gap, but the box is simply too heavy. You may need to find a way to reach the key.
+
+> look at key
+The key is trapped between two giant cardboard boxes. Your hand is too short to reach it.
+
+> take key
+You must find a way to reach the key if you want to pick it up.
+
+> speak to dungdung
+What do you want to say?
+1) Did you find anything?
+2) Why did she lock you in here again?
+3) You're a cat, can't you see things in the dark?
+4) She used to find me adorable...
+5) You're so mean...
+[choice] 3
+"Oh, I see things alright," says Dungdung. "I can see exactly why she doesn't want you anymore. You're just a little fatty with a stupid face, of course nobody likes you."
+
+> use toy arrow on key
+You almost reach the key with the toy arrow, but it is still too short. You may need to use the arrow on something to extend its length.
+
+> use toy arrow on glasses
+You press the suction cup of the toy arrow onto the glass. They now become a long reaching hook.
+
+> look at long hook
+A long reaching hook made with the toy arrow and the pair of glasses.
+
+> speak to long hook
+"Hey, I'm not a hook, I'm a pair of glasses!" says the hook. "Be respectful you!"
+
+> use long hook on key
+With the long hook you put together, you carefully pull the key out. You finally obtain the key. It is time to unlock the door and escape from here.
+
+To unlock the door, simply type "use key" or "use k".
+
+> speak to dungdung
+"No time for chit-chat," she hurries you. "Quick, use the key now!"
+
+> look at key
+A tiny silver key.
+
+> use key
+Since you are both a rather tiny little creature, the door knob is too high for either of you to reach. Nonetheless, it seems that you can still reach it by stepping on Dungdung's back. "No, a lady should be the one on top," but she insists. "Be a gentleman and stand still."
+
+So you do as she told and let her stand on your shoulders, even though you don't quite understand how she - a cat - can manage to unlock the door with a key. No offence, but her paws are not meant for this kind of activity.
+
+Surprisingly, she has opened the door already. "Come on," she jumps off your shoulders and says to you quietly, "We must find the key to the main entrance now, unless you want to be dumped like other rubbishes. Follow me to the kitchen, the key should be there."
+
+You stare at the key in your hand. How did she unlock the storeroom door without the key? You are a bit confused. Anyway, since you don't want to be dumped like rubbish, you've decided to follow her to the kitchen. To do so, simply type "go to kitchen" - since 'kitchen' is not an interact-able object, you cannot type "go to k". Hurry, Dungdung must be waiting for you.
+
+> go to kitchen
+You quietly sneak through the corridor. You hear the Christmas carol again. Freda must be watching some Christmas special programme on the television... without you. You remember her holding you tight on her lap, watching some silly soap operas together. She used to find it uncomforting to sleep without you. Those days are gone. You are nothing but a piece of useless garbage to her now.
+
+You have no reason to struggle. If she really wishes to throw you into the bin lorry, so be it. But you must help Dungdung escape first. Clearly, she has no intention to give in just yet. You must return the favour and help her break out of this very sad prison.
+
+So you enter the kitchen and find Dungdung milling around the cabinet below the sink's basin. "What took you so long?" she says even quieter. "Come, unlock the cabinet door. The main key must be inside."
+
+Oh, so the key in the storeroom is actually for the kitchen cabinet? It all makes sense now - Freda is a bit sloppy, but not so much that would locked the storeroom key inside the storeroom! But then, why did Dungdung lie to you? You have decided to inquire her.
+
+> look at dungdung
+Dungdung is a lovely kitten with black stripes on a greyish body.
+
+> speak to dungdung
+Please choose a question:
+1) Why did you lie to me?
+2) Why were you in the storage room exactly?
+[choice] 2
+I tried to get the key to the cabinet, but it fell off, and I couldn't find it.
+1) Why do you want to open the cabinet?
+2) So the storeroom door wasn't locked, was it?
+[choice] 2
+I need to unlock the cabinet to get the main key. Come on, help me!
+1) Okay...
+[choice] 1
+You've decided to help her nonetheless. To unlock the cabinet, simply type "use key" or "use k".
+
+> look at key
+The key to the lower cabinet in the kitchen.
+
+> use key
+Dungdung helped you earlier, you should return the favour anyway. So you use the key you found in the storeroom to unlock the cabinet door. Dungdung seems really excited.
+
+You open the cabinet door, and, instantly, you smell something fishy. The only thing inside the cabinet is a pile of canned salmon for cat. You are really confused now, and you turn your head to Dungdung. "The key is hidden inside the first can to the right," she explains to you. "It's a spare key, so there is nothing weird about it."
+
+Well, the explanation sounds reasonable enough to you. You take the said canned salmon out of the cabinet.
+
+"Now, we need to find a way to open this can," she says, "Let's take a look around and see if there's anything useful." To examine your surrounding, simply type "look".
+
+> look at canned salmon
+Canned salmon with an easy-open end. Unfortunately, it is only "easy-open" for someone with finger. You must find something to lift up the metal tab.
+
+> look
+You try to find something to open the canned salmon. The can has an easy-open end, but you do not have finger. You must find something else to lift up that metal tab.
+
+You take a good look around. Any metallic spoon or knife should do the job, but they are all inside the upper cupboard which is way too high for you to reach. There are, however, a pen and a piece of paper lying on the floor. Perhaps the pen can work as a lever to lift up the metal tab? You've decided to pick up the pen and try using it on the canned salmon.
+
+> look at pen
+An ordinary blue ball pen with a cheap plastic body.
+
+> take pen
+You pick up the blue ball pen.
+
+> speak to pen
+"What do you want me for?" asks the blue ball pen. "You're feeling artistic today?"
+
+> look at paper
+A piece of paper with some writings on it. You may try to read it.
+
+> take paper
+You pick up the piece of paper. It seems to be a checklist of some kind. You may try to read it.
+
+> read paper
+You read the paper. It seems to be some kind of a checklist, it writes:
+
+cardboard box X 20
+duck tape X 2
+book lorry
+get key
+get sofa
+more paints
+check holidays
+
+> use pen on paper
+You try to draw something on the paper. "Are you Picasso or something? No, so stop wasting your time," says Dungdung. "Go find something to lift up that metal tab, would you?"
+
+> use pen on canned salmon
+You insert the tip of the blue ball pen between the metal tab and the lid of the canned salmon. The tab is already lifted up a little. You only need to press the pen down to open the lid. Dungdung holds the can with her paws and says to you, "Now, jump on the pen and lift it up!"
+
+You follow her instruction and jump on the blue ball pen. Just when the lid is about to be peeled open, the pen has broken into two halves! "Oh, you're too heavy!" Dungdung looks very disappointed. "Didn't you know it would break the pen? It's made of plastic, you stupid fatty!" She seems to have forgotten that it is she who gave you the instruction.
+
+Now that the plastic body of the pen is broken, you are only left with the ink cartridge, which is simply too soft to work as a lever. You must find something else to do the job.
+
+"Boyboy, over here," Dungdung suddenly says to you. She must have noticed something.
+
+
+
+"Look, right here," she points to another lower cabinet and says. This cabinet has a glass door, thus you can easily see inside. Apart from the coffee mugs and wine glasses, there is also a butter knife left on the top shelf. The metallic butter knife would work as a perfect lever, but you have to find a way to get it out first. You try to open the glass door, but it is locked.
+
+> look at ink cartridge
+The ink cartridge of the broken blue ball pen. It is too soft to work as a lever, but you may just be able to use it to reach the butter knife inside the locked cupboard.
+
+> look at cupboard
+A cupboard filled with coffee mugs and wine glasses. There is also a butter knife left on the upper shelf. The glass door is locked, but there is a little gap between the door and the door frame, which is just enough for the ink cartridge to go through.
+
+> look at knife
+A butter knife left on the top shelf of the cupboard. It should work perfectly as a lever, but only if you can get it out.
+
+> speak to knife
+"I want to get out too, you know," says the butter knife. "See these mugs and glasses? I don't belong here!"
+
+> use ink cartridge on knife
+You may push the butter knife with the ink cartridge and make it drop to the bottom, but it won't help you to get it out. You must first place something on the bottom for the knife to land, so that you can pull it out through the gap beneath the glass door.
+
+> use paper on cupboard
+You insert half of the paper into the cupboard through the gap beneath the glass door. If the knife falls off now, it should land right onto the paper.
+
+> use ink cartridge on knife
+You push the knife off the edge of the top shelf with the ink cartridge and make it drop to the piece of paper. You slowly pull the paper out and, finally, you have got yourself a butter knife!
+
+> look at knife
+A metallic butter knife that should work perfectly as a lid opener.
+
+> speak to knife
+"Oh, thanks for getting me out," the knife says to you sincerely. "What now... me? A can opener? Hey, wait a minute..."
+
+> use knife on canned salmon
+"Oh, how did you get it out?" Dungdung looks really excited. "Okay, let's try again, quick!"
+
+You insert the butter knife into the gap between the metal tab and the lid of the canned salmon. Again, Dungdung uses her paws to hold the can for you, so that you can jump on the knife and lift the lid open. The plan actually works! The canned salmon is open now. You look into the can, and, as a normal person should have expected, there is only salmon inside.
+
+Without saying a word, Dungdung just starts to eat the salmon.
+
+Something isn't right...
+
+> look at dungdung
+Dungdung is busy enjoying her salmon. Perhaps you should speak to her.
+
+> speak to dungdung
+What do you want to say?
+1) Ahem... so, where's the key?
+2) Was I just being used?
+[choice] 1
+"Key? What key? Oh, the key! It's right here." Dungdung turns to you and hands you a key. "See? I wasn't lying or anything! Now, go ahead and unlock the entrance door. I'll come right after you. I promise!" She then quickly turns back her head and continues eating that salmon, even though she should have already found the key inside.
+
+You look at the key she gave you. It looks really like the key you found in the storage room earlier, which is used to unlock the cabinet door in the kitchen, not the entrance door. Perhaps they just look similar?
+
+Anyway, you should do as she told and try to escape from this house. Dungdung might have lied about something, but it is a fact that Freda did treat you like garbage and abandon you in the storage room. To advance to the sitting room, type "go to sitting room".
+
+> look at key
+A tiny silver key. It looks just like the key you used to unlock the cabinet door earlier.
+
+> go to dark room
+There is no point going back there.
+
+> go to sitting room
+You quietly walk to the sitting room. Freda is sitting on the sofa, watching the Christmas special programme on the television. You know that this could be the last time you see her. You feel a bit sad.
+
+You don't really want to leave her, but it is she who doesn't want you in the first place. Perhaps you should still stay here with her, even if it means you have to be trapped inside a dark cardboard box for the rest of your life? All of a sudden, you see something that totally breaks your heart. You see a big Pucca doll sitting comfortably in a corner. You can't believe it. It turns out that Freda still loves to play with dolls; she just doesn't want you.
+
+You must leave this place. There is no reason for you to stay anymore. It is just too painful to see her playing with other dolls, when you alone have to stay inside a cardboard box in the storage room. You must escape right now.
+
+
+What should you do first?
+1) Sneak to the corner where the Pucca doll is sitting.
+2) Hide behind the sofa where Freda is sitting.
+[choice] 1
+You're standing in the corner with Pucca. What now?
+1) Punch Pucca in her face.
+2) Tell Pucca to take care of Freda for you.
+[choice] 2
+You're such a good boy. What should you do now?
+1) Hide under the coffee table.
+2) Hide behind the bookshelf.
+[choice] 2
+Nice move, she didn't notice you. Now what?
+1) Sneak behind the coat rack.
+2) Make a run to the door!
+[choice] 1
+Good, she didn't see you. What next?
+1) Slowly approach the door and unlock it with the key.
+2) The key wouldn't work. Try to climb out the window instead.
+[choice] 2
+You're only one step to freedom! What is your decision?
+1) Climb out the window and leave.
+2) Stay, even if she doesn't want you anymore.
+[choice] 1
+
+Just as you're outside the window, you suddenly notice that Freda is staring right at you! You're pretty sure that she can see you, but she didn't do anything. She didn't come and get you. She doesn't mind if you run away. It is until this very moment that you realise she no longer cares about you.
+
+And so you leave.
+
+It happens to be Christmas Eve. Everyone on the street looks so joyful, yet your heart is filled with sorrows. You want to shed a tear, but you are just a teddy bear. An unloved teddy bear has no right to exist, no reason to live. 
+
+You shouldn't have climbed out of that cardboard box. Perhaps it's better if you just keep sleeping in the dark, not realising the very heartbreaking fact. If you're still sleeping in that box, you can at least fantasise the reason why she would put you there. Maybe she put you there by mistake, and she's still looking for you? Or maybe she wants to keep you in good shape? But now, after learning the cold hard truth, you're left with nothing but despair.
+
+You want to get away from the joyful crowd, so you try to find somewhere quiet. You finally reach a dirty alley full of worthless garbage. The alley is rather dark and cold. Slowly you walk towards a pile of garbage, and you lie there quietly. This is where you belong now. You close your eyes and wish that you will never wake up.
+
+
+
+After a long and lonely while, you hear someone walking into the alley. Her footsteps sound fatigued and weary. A spark of hope lightens up your heart. Would it be Freda? Is she looking for you?
+
+And so you open your eyes, trying to take a look at the girl who still cares about you, but you only see a middle-aged man. His clothes are ragged and dirty, and he looks so tired. It seems like he is not a man with much money. "A teddy bear? What are you doing here, fella?" He holds you up and tries to pat the dirt off your fluffy body. "You're still intact and all. Why would anyone want to dump such a lovely doll?"
+
+Hearing the word "dump", your heart sinks even deeper. You're dumped, just like all these garbage.
+
+The man didn't put you down. Rather, he holds you in his arms and keeps walking through the dark alley. Where is he taking you? You are a bit scared. Maybe he's going to do some terrible things to you?
+
+
+
+Suddenly, he makes a turn and walks down a set of stairs. He pulls out a key from his pocket, and unlocks the door at the bottom. Does he live here? Why would he live in such an unpleasant place? Oh yes, he must be too poor to rent a more decent apartment.
+
+If his clothes are old and ragged, this basement would have to be ancient. There aren't many furnitures in his home, and they are all damaged or broken to a certain extent. This man doesn't even have a television, and his only entertainment seems to be the worn books on the equally shabby wooden shelf - he must have picked them up somewhere.
+
+"Darling, you're home?" A middle-aged woman appears in the corridor. She must be his wife. It didn't take long for her to notice you. "Oh, what a lovely doll! Wait... you didn't steal anything, did you?"
+
+"Don't be silly," the man smiles to his wife and says. "Where's Ameli?"
+
+
+
+"Daddy!" A little girl comes running in her scruffy pyjamas. It must be Ameli. Her eyes are brightened up the moment she saw you. "Who's that? Is it for me?"
+
+The man carefully places you in his daughter's arms. "Merry Christmas, Ameli."
+
+Ameli holds you up and tries to take a better look at her new friend. "Teddy, why are you so sad?" she gives you a big kiss and says. "Don't be sad! I'll take care of you now."
+
+You aren't sad anymore, for you have finally found somewhere you belong.
+
+It may be cold outside, but this home has offered you warmth.
+
+- The End -
+
+[runner] turns=65 leftover=0 running=false WON=YES

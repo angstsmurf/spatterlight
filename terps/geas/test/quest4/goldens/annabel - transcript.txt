@@ -1,0 +1,1417 @@
+
+Where's annabel?
+
+
+
+Where's Annabel?
+
+Where's Annabel?
+
+
+In the Beginning...
+Annabel, a beautiful young girl, waits patiently on a tree stump in the middle of a Forest.  She is waiting for her true love, Griswold.
+
+There is a rustle of leaves behind her.  "Grissie, is that you?" she calls out tentatively.  but no-one replies.
+
+Annabel gets up and investigates the trees.  Suddenly a pair of huge arms appears from the trees and grab her.  
+She cannot scream, she struggles but to no avail.  And then she is gone!
+
+
+One week later, Griswold comes to your office.  He wants you to find her fiancee Annabel.  He tells you that she was last seen in the nearby village of Insania.
+
+He gives you 2 gold pieces and a photograph of Annabel.
+
+
+You are now about to enter the village.......
+
+
+You are in the main Garden
+There is a closed Well, some Yellow Flowers, some White Flowers, some Red Flowers and some Blue Flowers here.
+You can go west.
+You are standing in a small garden.  There is a large well here and it is overgrown with colourful flowers
+
+> look
+You are in the main Garden
+There is a closed Well, some Yellow Flowers, some White Flowers, some Red Flowers and some Blue Flowers here.
+You can go west.
+You are standing in a small garden.  There is a large well here and it is overgrown with colourful flowers
+
+> look
+You are in the main Garden
+There is a closed Well, some Yellow Flowers, some White Flowers, some Red Flowers and some Blue Flowers here.
+You can go west.
+You are standing in a small garden.  There is a large well here and it is overgrown with colourful flowers
+
+> w
+You are in the Village Square
+There is some Stocks here.
+You can go north or east.
+You are standing in the village square.  This would normally be the hub of all the village activity.  There are a set of stocks here.  Perhaps the villagers enjoy watching others suffer
+The stocks look like they have been well used
+
+> n
+You are in The Mnott-Gwin Inn
+There is Baggie the Barmaid here.
+You can go south.
+You are standing in the large Inn.
+At the moment there isn't much activity, maybe this is because of the scary looking woman behind the bar, or maybe it's because it's very early in the morning.
+
+
+> use photograph on baggie
+""Who do you think you are showing me photographs of strangers.  Get out of my pub!""
+Baggie picks you up and throws you back out into the Village Square!
+You are in the Village Square
+There is some Stocks here.
+You can go north or east.
+You are standing in the village square.  This would normally be the hub of all the village activity.  There are a set of stocks here.  Perhaps the villagers enjoy watching others suffer
+The stocks look like they have been well used
+As you pick yourself up, you are approached by a strange looking man.  And I mean strange.
+"Hi!  My name is Bobo.  Welcome to our village!  I see you have met my wife-to-be"
+Then he laughs!
+
+> use photograph on bobo
+You show Bobo the photograph.
+"Not someone I recognise from around here.
+
+But your best bet is to ask at warden.  You will find him south at the Warden's station. Just tell him Bobo sent you"
+"Here let me give you my card"
+
+> take bobo's card
+You take Bobo's card
+
+> s
+You are in Warden's Office
+There is The Warden here.
+You can go north.
+You can go to information.
+The Warden's office is very..er.. official looking.  There is a desk with a lamp, and the Warden is standing behind it.  Behind him still is a filing cabinet and on the wall is an information notice board.
+
+> give bobo's card to warden
+"So Bobo sent you did he?
+You must be the one he sent to pay his licence fee.
+That will be 1 gold coin"
+Will you pay Bobo's licence fee?
+1) Yes
+2) No
+[choice] yes
+You give the Warden 1 gold coin
+
+> take trading licence
+You take the licence
+
+> use photograph on warden
+"Now let met have a look at that photograph.
+Yes she looks familiar, but I will need to look it up in my records.
+Now I could look this up for you, but I will need a favour from you"
+Will you help the Warden?
+1) Yes
+2) No
+[choice] yes
+"Great! I am feeling peckish.
+
+I need a sandwich.  I want a Roast rabbit sandwich with Mint on wholemeal bread!  Now you will find the mint in the Garden, it should be fully accessable by now."
+
+> n
+You are in the Village Square
+There is Bobo and some Stocks here.
+You can go north, south or east.
+You are standing in the village square.  This would normally be the hub of all the village activity.  There are a set of stocks here.  Perhaps the villagers enjoy watching others suffer
+The stocks look like they have been well used
+
+> give trading licence to bobo
+You hand over th licence to Bobo
+"Thanks for that.  Heehee.
+Now I can get back to my market stall.
+Come and visit me,  my stall is in the West Market. It's west of here"
+Bobo runs off Laughing
+However, it looks like Bobo has left something behind
+
+> take red nose
+You take the red nose
+
+> e
+You are in the main Garden
+There is a closed Well, some Yellow Flowers, some White Flowers, some Red Flowers and some Blue Flowers here.
+You can go north, south or west.
+You are standing in a small garden.  There is a large well here and it is overgrown with colourful flowers
+
+> n
+You are in a Building site
+There is Bob, a Lunch box, a Tool Box and a Big Mac here.
+You can go south.
+This would have been a nice part of the garden but it is undergoing some work.  There is a forest to the north
+
+> look tool box
+You look int the tool box
+
+> take wire cutters
+You take the Wire Cutters
+
+> s
+You are in the main Garden
+There is a closed Well, some Yellow Flowers, some White Flowers, some Red Flowers and some Blue Flowers here.
+You can go north, south or west.
+You are standing in a small garden.  There is a large well here and it is overgrown with colourful flowers
+
+> use wire cutters on well
+You cut through the mesh and open up the well. The mesh drops into the well.
+
+However there is a small piece of wire left on the ground
+
+> take wire
+You take the wire
+
+> w
+You are in the Village Square
+There is some Stocks here.
+You can go north, south, east or west.
+You are standing in the village square.  This would normally be the hub of all the village activity.  There are a set of stocks here.  Perhaps the villagers enjoy watching others suffer
+The stocks look like they have been well used
+
+> w
+You are in the East Market
+There is Jumbo and a patch of Hard Ground here.
+You can go east or west.
+You are at the eastern end of the market.  Funnily enough, there is only one stall here.
+There is also a muddy patch of dirt on the ground.
+
+
+> w
+You are in West Market
+There is Bobo the Clown here.
+You can go south or east.
+You are at the Western end of a market.  Funnily enough there is only one stall here.
+
+> s
+You are in the Amphitheatre
+There is a Stage, a Broom and a Notice board here.
+You can go north or west.
+The amphitheatre is a large open air theatre.  There is a large wooden stage here and to the west you can see a shed.
+
+> take broom
+You pick it up.
+
+> examine broom
+The broom has a large brush had attached to a thick pole. 
+
+ooops
+
+AS you examine it it breaks apart.
+
+> use wire on stage
+You make a little hook from the wire and start fishing beneath the between the boards.
+
+Missed!
+
+Missed!
+
+Got it.
+
+You pull up a shining object.  It is a key
+
+> take dramatic key
+You take the dramatic key
+
+> look notice board
+The notice board is advertising auditions for a new show coming soon.
+
+You are invited to take a leaflet
+
+> take leaflet
+You take the leaflet
+
+> w
+You unlock the Prop Shed with the Dramatic Key
+You are in the Prop Shed
+There is a Large Chest, a wooden Closet and a Small crate here.
+You can go east.
+You are inside a small prop shed.  There are odd bits and pieces lying around and plenty of containers to store things in
+
+> examine small crate
+You rummage through the crate
+
+> take clown mask
+You pick it up.
+
+> take bootlace tie
+You take the Bootlace tie
+
+> use wire on bootlace tie
+You attach the wire to the lace and fashion a nice little Hook and line
+
+> e
+You head back to the amphitheatre.  
+
+But you remember to lock the shed behind you!
+You are in the Amphitheatre
+There is a Stage and a Notice board here.
+You can go north or west.
+The amphitheatre is a large open air theatre.  There is a large wooden stage here and to the west you can see a shed.
+
+> n
+You are in West Market
+There is Bobo the Clown here.
+You can go south or east.
+You are at the Western end of a market.  Funnily enough there is only one stall here.
+
+> e
+You are in the East Market
+There is Jumbo and a patch of Hard Ground here.
+You can go east or west.
+You are at the eastern end of the market.  Funnily enough, there is only one stall here.
+There is also a muddy patch of dirt on the ground.
+
+
+> e
+You are in the Village Square
+There is some Stocks here.
+You can go north, south, east or west.
+You are standing in the village square.  This would normally be the hub of all the village activity.  There are a set of stocks here.  Perhaps the villagers enjoy watching others suffer
+The stocks look like they have been well used
+
+> e
+You are in the main Garden
+There is some Yellow Flowers, some White Flowers, some Red Flowers, some Blue Flowers and an open Well here.
+You can go north, south or west.
+You are standing in a small garden.  There is a large well here and it is overgrown with colourful flowers
+
+> use hook and line on well
+You dip the hook and Line into the well.
+
+It's fun fishing.
+
+
+Didn't catch anything
+
+> use hook and line on well
+You dip the hook and Line into the well.
+
+It's fun fishing.
+
+
+Didn't catch anything
+
+> use hook and line on well
+You dip the hook and Line into the well.
+
+It's fun fishing.
+
+
+Your fishing pays off.
+
+You have pulled out an object
+
+> take ring
+You pick it up.
+
+> s
+You are in The Herb Garden
+There is some Mint, a Sage, some Thyme and Basil and Rosemary here.
+You can go north.
+You are standing in a smaller part of the garden, dedicated to rowing herbs.  There is a bench here.  I think it is dedicated to someone.
+
+> examine thyme
+You rummage through the thyme
+
+> take watering can
+You take the watering can
+
+> take mint
+You take the mint
+
+> give ring to basil and rosemary
+You give the ring to the couple
+"Thank you.  Here is some money for your effort"
+You are given three gold pieces
+
+> n
+You are in the main Garden
+There is some Yellow Flowers, some White Flowers, some Red Flowers, some Blue Flowers and an open Well here.
+You can go north, south or west.
+You are standing in a small garden.  There is a large well here and it is overgrown with colourful flowers
+
+> use watering can on well
+You dip the watering can into the well and it fills with water
+
+> w
+You are in the Village Square
+There is some Stocks here.
+You can go north, south, east or west.
+You are standing in the village square.  This would normally be the hub of all the village activity.  There are a set of stocks here.  Perhaps the villagers enjoy watching others suffer
+The stocks look like they have been well used
+
+> w
+You are in the East Market
+There is Jumbo and a patch of Hard Ground here.
+You can go east or west.
+You are at the eastern end of the market.  Funnily enough, there is only one stall here.
+There is also a muddy patch of dirt on the ground.
+
+
+> speak to jumbo
+"This is my stall.  I have plenty of food.  Both meat and vegetables."
+
+> take giant turnip
+Do you wish to buy the Turnip for 1 gold piece?
+1) Yes
+2) No
+[choice] yes
+
+> use clown mask on giant turnip
+You put the clown mask on the turnip
+
+> take tomato
+You pick it up.
+You take the tomato.
+
+"Jumbo yells at you.  "Hey put that tomato back.  They are not for sale!""
+You have to decide whether to put the tomato back.  You don't want to branded a thief, do you?
+
+> use red nose on barrel of tomatoes
+You drop the Red Nose onto the barrel.  At a glance it looks like the tomato.
+At least it seems to have fooled Jumbo
+"I am going to take this Barrel away from you to stop you trying that again"
+
+> w
+You are in West Market
+There is Bobo the Clown here.
+You can go south or east.
+You are at the Western end of a market.  Funnily enough there is only one stall here.
+
+> speak to bobo
+"This is my Joke Stall"
+
+> take itching powder
+You pick it up.
+"I will give you that for free seeing as you helped me out with the licence.  It would have cost 1 gold piece."
+You sigh and take it
+
+> look jokes
+There are all sorts of junk here.
+
+
+> take rubber chicken
+would you like to buy the Rubber Chcken for 2 gold coins?
+1) Yes
+2) No
+[choice] yes
+
+> use wire cutters on rubber chicken
+You use the wire cutter to remove the head of the rubber chicken.  
+AS it drops to the floor a Chef from KFC rushes in a d picks it, then rushes away again.
+But you are left with a headless rubber chicken!
+
+> e
+You are in the East Market
+There is Jumbo, a Roast Rabbit and a patch of Hard Ground here.
+You can go east or west.
+You are at the eastern end of the market.  Funnily enough, there is only one stall here.
+There is also a muddy patch of dirt on the ground.
+
+
+> e
+You are in the Village Square
+There is some Stocks here.
+You can go north, south, east or west.
+You are standing in the village square.  This would normally be the hub of all the village activity.  There are a set of stocks here.  Perhaps the villagers enjoy watching others suffer
+The stocks look like they have been well used
+
+> use tomato on stocks
+Just for fun, you throw the tomato at the stocks.
+It feels good!
+Ooops!
+The skull has just broken off the skeleton.
+
+> take skull
+Are you sure you want to take the skull?
+1) Yes
+2) No
+[choice] yes
+Well if you are sure.  You take the skull.  The horrible Icky Skull from a dead person
+
+> n
+You are in The Mnott-Gwin Inn
+There is Baggie the Barmaid here.
+You can go south.
+You are standing in the large Inn.
+At the moment there isn't much activity, maybe this is because of the scary looking woman behind the bar, or maybe it's because it's very early in the morning.
+
+
+> give turnip with clown mask to baggie
+Baggie bursts out laghing
+"That almost looks like my Bobo.
+
+Here let me add a few things!"
+Baggie adds one of Bobo's wigs and applies some make up.
+
+Now you really have quite a lifelike Bobo Head
+
+> s
+You are in the Village Square
+There is some Stocks here.
+You can go north, south, east or west.
+You are standing in the village square.  This would normally be the hub of all the village activity.  There are a set of stocks here.  Perhaps the villagers enjoy watching others suffer
+The stocks look like they have been well used
+
+> e
+You are in the main Garden
+There is some Yellow Flowers, some White Flowers, some Red Flowers, some Blue Flowers and an open Well here.
+You can go north, south or west.
+You are standing in a small garden.  There is a large well here and it is overgrown with colourful flowers
+
+> n
+You are in a Building site
+There is Bob, a Lunch box, a Tool Box and a Big Mac here.
+You can go south.
+This would have been a nice part of the garden but it is undergoing some work.  There is a forest to the north
+
+> use itching powder on big mac
+You sprinkle the itching powder over the coat
+
+> use full watering can on bob
+You stand over Bob and start to sprinkle the water on him.
+
+Bob, thinking it's raining, puts on his Big Mac.
+
+However, little does he know that you have added the itching powder.
+
+He screams and runs away, scratching... The Big Wuss!
+
+> examine lunch box
+You open the lunch box.
+
+Lovely!  A Sandwich
+
+> take cheese sandwich
+You pick it up.
+
+> examine cheese sandwich
+It is made of whie bread an cheese.
+
+Oops
+
+It's seperated!
+
+
+After while Bob returns, with his Big Mac.
+
+> s
+You are in the main Garden
+There is some Yellow Flowers, some White Flowers, some Red Flowers, some Blue Flowers and an open Well here.
+You can go north, south or west.
+You are standing in a small garden.  There is a large well here and it is overgrown with colourful flowers
+
+> w
+You are in the Village Square
+There is some Stocks here.
+You can go north, south, east or west.
+You are standing in the village square.  This would normally be the hub of all the village activity.  There are a set of stocks here.  Perhaps the villagers enjoy watching others suffer
+The stocks look like they have been well used
+
+> w
+You are in the East Market
+There is Jumbo, a Roast Rabbit and a patch of Hard Ground here.
+You can go east or west.
+You are at the eastern end of the market.  Funnily enough, there is only one stall here.
+There is also a muddy patch of dirt on the ground.
+
+
+> use full watering can on hard ground
+You tip the contents of the watering can onto the ground.  
+
+Soon it becomes muddy!
+The watering can is now empty
+
+> use white bread on muddy patch
+You dip the white bread in the mud.
+
+it turns brown and becomes gritty.
+
+now it really looks like Wholemeal bread!
+
+> use headless chicken on muddy patch
+you dunk the headless rubber chicken into the mud.  It stains and becomes a dark brown colour.  
+
+In act it may pass of as a Roast Rabbit!  But only to someone with bad eyesight!
+
+> use pole on muddy patch
+You press the pole into the muddy patch.
+
+It sticks firm.
+
+Now you can't get it out!
+
+> use bobo head on pole
+You place the Bobo head on the pole.  You have made a Bobo Scarecrow
+
+Jumbo, who is a little short sighted, mistakes it for the real Bobo and starts a confersation of with it.
+
+Now's your chance.  Jumbo is distracted
+
+> use fake rabbit on roast rabbit
+Whilst Jumbo is talking to the scarecrow, you switch the Fake rabbit for the roast rabbit.
+
+After a while Jumbo comes back and sees you interested in his rabbit, so he takes it away
+Baggie comes along and takes the Scarecrow away with her
+
+> use mint on roast rabbit
+You sprinkle the mint on the Roast Rabbit
+
+> use roast rabbit with mint on wholemeal bread
+You have created a Roast rabbit and mint sandwich on wholemeal bread.
+
+The Warden will be pleased!
+
+> e
+You are in the Village Square
+There is some Stocks here.
+You can go north, south, east or west.
+You are standing in the village square.  This would normally be the hub of all the village activity.  There are a set of stocks here.  Perhaps the villagers enjoy watching others suffer
+The stocks look like they have been well used
+
+> s
+You are in Warden's Office
+There is the Warden here.
+You can go north.
+You can go to information.
+The Warden's office is very..er.. official looking.  There is a desk with a lamp, and the Warden is standing behind it.  Behind him still is a filing cabinet and on the wall is an information notice board.
+
+> give warden's sandwich to warden
+You give th warden the sandwich
+
+
+"That's lovely thanks.
+
+Now while you were out I found this poster.  It is of Chad the Bad!  He was the one I saw with that girl in your photo.
+
+He has a hideout somewhere in the forest. 
+Your best bet is to find him!"
+All of a sudden, Bob enters
+Bob says "It's finished.  I have finished the gate.  You can now get into the forest!"
+
+> take wanted poster
+You pick it up.
+
+> n
+You are in the Village Square
+There is some Stocks here.
+You can go north, south, east or west.
+You are standing in the village square.  This would normally be the hub of all the village activity.  There are a set of stocks here.  Perhaps the villagers enjoy watching others suffer
+The stocks look like they have been well used
+
+> n
+You are in The Mnott-Gwin Inn
+There is Baggie the Barmaid and the Scarecrow here.
+You can go south.
+You are standing in the large Inn.
+At the moment there isn't much activity, maybe this is because of the scary looking woman behind the bar, or maybe it's because it's very early in the morning.
+
+
+> give wanted poster to baggie
+Oh look it's Chad, My Ex husband.  Silly old fool been up to no good again, has he?
+
+You tell Baggie that you need to find him
+She replies;
+"If you help me out I will draw you a map to his secret hideout"
+
+Will you help Baggie out?
+1) Yes
+2) No
+[choice] yes
+"Great! I want to make some cheese and onion crisps, but I need the ingredients.  If you can get me some cheese, an onion, a potato and some salt I will be able to make them and then I will draw you a map.
+Okay
+"
+
+> s
+You are in the Village Square
+There is some Stocks here.
+You can go north, south, east or west.
+You are standing in the village square.  This would normally be the hub of all the village activity.  There are a set of stocks here.  Perhaps the villagers enjoy watching others suffer
+The stocks look like they have been well used
+
+> e
+You are in the main Garden
+There is some Yellow Flowers, some White Flowers, some Red Flowers, some Blue Flowers and an open Well here.
+You can go north, south or west.
+You are standing in a small garden.  There is a large well here and it is overgrown with colourful flowers
+
+> n
+You are in a Building site
+There is a Wheelbarrow and a Big Mac here.
+You can go north or south.
+This would have been a nice part of the garden but it is undergoing some work.  There is a forest to the north
+
+> examine wheelbarrow
+You peer inside the wheelbarrow
+
+> take trowel
+You pick it up.
+
+> take plantcutters
+You pick it up.
+
+> take big mac
+You take Bob's Big Mac
+
+> s
+You are in the main Garden
+There is some Yellow Flowers, some White Flowers, some Red Flowers, some Blue Flowers and an open Well here.
+You can go north, south or west.
+You are standing in a small garden.  There is a large well here and it is overgrown with colourful flowers
+
+> w
+You are in the Village Square
+There is some Stocks here.
+You can go north, south, east or west.
+You are standing in the village square.  This would normally be the hub of all the village activity.  There are a set of stocks here.  Perhaps the villagers enjoy watching others suffer
+The stocks look like they have been well used
+
+> s
+You are in Warden's Office
+There is The Warden and Bob the Builder here.
+You can go north.
+You can go to information.
+The Warden's office is very..er.. official looking.  There is a desk with a lamp, and the Warden is standing behind it.  Behind him still is a filing cabinet and on the wall is an information notice board.
+
+> give big mac to bob the builder
+You give the Big Mac to Bob; it is his after all.
+"Thanks for returning my Big Mac. I wondered where I left it.
+
+Here let me give you something in return""
+
+He rummages through his pockets and reveals a small Hand axe.
+
+> take axe
+You pick it up.
+
+> n
+You are in the Village Square
+There is some Stocks here.
+You can go north, south, east or west.
+You are standing in the village square.  This would normally be the hub of all the village activity.  There are a set of stocks here.  Perhaps the villagers enjoy watching others suffer
+The stocks look like they have been well used
+
+> w
+You are in the East Market
+There is Jumbo and a Muddy patch here.
+You can go east or west.
+You are at the eastern end of the market.  Funnily enough, there is only one stall here.
+There is also a muddy patch of dirt on the ground.
+
+
+> use trowel on muddy patch
+You dig around in the muddy patch.  Ooh whats this?
+
+> take muddy nugget
+You pick it up.
+
+> e
+You are in the Village Square
+There is some Stocks here.
+You can go north, south, east or west.
+You are standing in the village square.  This would normally be the hub of all the village activity.  There are a set of stocks here.  Perhaps the villagers enjoy watching others suffer
+The stocks look like they have been well used
+
+> e
+You are in the main Garden
+There is some Yellow Flowers, some White Flowers, some Red Flowers, some Blue Flowers and an open Well here.
+You can go north, south or west.
+You are standing in a small garden.  There is a large well here and it is overgrown with colourful flowers
+
+> use muddy nugget on well
+You wash the muddy nugget.  Wil it be gold?
+
+No... It's a potato
+
+> n
+You are in a Building site
+There is a Wheelbarrow here.
+You can go north or south.
+This would have been a nice part of the garden but it is undergoing some work.  There is a forest to the north
+
+> n
+You are in the South Forest
+There is a Mushroom Patch and a Red Topped Mushroom here.
+You can go south, northeast or northwest.
+You are in the southern edge of the forest.  It is damp and a bit muddy.  There are plenty of mushrooms growing around.
+
+> nw
+You are in The West Forest
+There is a camp and the Meryy Menfolk here.
+You can go northeast or southeast.
+You are in the western edge of the forest.
+This area is full of life, with lush vegetation and widlife galore.
+There is a campsite here.
+
+> give bobo's card to meryy menfolk
+You pass Bobo's card to the menfolk
+"Ooh" shout the merry menfolk "some jokes.  That will cheer us up"
+
+And they run off.
+
+The camp is now unattended
+
+> examine camp
+With the merry menfolk gone you can have a llok around the camp
+
+> examine tent
+You open the tent and peer inside.
+
+It is quite snug to fit those seven men in here.
+
+Oh look they ahve a little stuffed cat
+
+> take stuffed cat
+You pick it up.
+
+> take bow and arrow
+You pick it up.
+
+> use stuffed cat on bow and arrow
+You shove the stuffed cat onto the arrow.
+
+Now if you shoot it then it will make the cat look like it is moving fast
+
+> use wire cutters on suitcase
+The suticase springs ipen
+
+Oh dear, the wire cutters seem to have broken.  They don't make them like they used to!
+
+> take new shoes
+You pick it up.
+
+> take new suit
+You pick it up.
+You decide to put on the new suit.
+
+gosh you look smart!
+
+> take luggage label
+You pick it up.
+
+> ne
+You are in the North Forest
+There is a tree Stump here.
+You can go southeast or southwest.
+You are in the Northern edge of the forest.  It is quite dense here and you could easily get lost if you strayed from the path.
+There is a tree stump here.
+
+> use axe on stump
+You whack the tree stump with the rusty axe.
+
+The tree stump splits into two bits.... as does the axe!
+
+Inside you find a patch of fungus
+
+> take blue topped mushroom
+You pick it up.
+
+> se
+You are in East Forest
+There is Robin Hatz here.
+You can go northwest or southwest.
+You are in the eatern edge of the forest.  
+The path is muddy here and there is a small bench made out of logs.
+
+> give leaflet to robin hatz
+ooh thats lovely.  An audition!
+
+But I have to prepare something.  I need a prop!
+
+> give skull to robin hatz
+ooh what a lovely prop.
+
+"Alas poor Derek I knew him when he was a wee nipper"
+
+Thanks a lot!
+"Im off ot audition!"
+
+> nw
+You are in the North Forest
+There is a Cracked Stump here.
+You can go southeast or southwest.
+You are in the Northern edge of the forest.  It is quite dense here and you could easily get lost if you strayed from the path.
+There is a tree stump here.
+
+> sw
+You are in The West Forest
+There is a Tent, a Campfire, a suitcase and a Wedding dress here.
+You can go northeast or southeast.
+You are in the western edge of the forest.
+This area is full of life, with lush vegetation and widlife galore.
+There is a campsite here.
+
+> se
+You are in the South Forest
+There is a Mushroom Patch and a Red Topped Mushroom here.
+You can go south, northeast or northwest.
+You are in the southern edge of the forest.  It is damp and a bit muddy.  There are plenty of mushrooms growing around.
+
+> s
+You are in a Building site
+There is a Wheelbarrow here.
+You can go north or south.
+This would have been a nice part of the garden but it is undergoing some work.  There is a forest to the north
+
+> s
+You are in the main Garden
+There is some Yellow Flowers, some White Flowers, some Red Flowers, some Blue Flowers and an open Well here.
+You can go north, south or west.
+You are standing in a small garden.  There is a large well here and it is overgrown with colourful flowers
+
+> s
+You are in The Herb Garden
+There is a Sage, some Thyme and Basil and Rosemary here.
+You can go north.
+You are standing in a smaller part of the garden, dedicated to rowing herbs.  There is a bench here.  I think it is dedicated to someone.
+
+> give luggage label to basil and rosemary
+You hand over the luggage label
+"Thank you for findin our luggage, we must go to it straight away.
+
+Here have some money"
+You are given three gold coins
+Basil adds
+"That suit looks just like the one I used to own"
+
+You look sheepish
+
+"Really?  It is a small world"
+
+Gulp!
+Basil and rosemary head off to find their luggage
+
+> n
+You are in the main Garden
+There is some Yellow Flowers, some White Flowers, some Red Flowers, some Blue Flowers and an open Well here.
+You can go north, south or west.
+You are standing in a small garden.  There is a large well here and it is overgrown with colourful flowers
+
+> n
+You are in a Building site
+There is a Wheelbarrow here.
+You can go north or south.
+This would have been a nice part of the garden but it is undergoing some work.  There is a forest to the north
+
+> n
+You are in the South Forest
+There is a Mushroom Patch and a Red Topped Mushroom here.
+You can go south, northeast or northwest.
+You are in the southern edge of the forest.  It is damp and a bit muddy.  There are plenty of mushrooms growing around.
+
+> nw
+You are in The West Forest
+There is a Tent, a Campfire, a suitcase, a Wedding dress and Basil and Rosemary here.
+You can go northeast or southeast.
+You are in the western edge of the forest.
+This area is full of life, with lush vegetation and widlife galore.
+There is a campsite here.
+
+> speak to basil and rosemary
+Rosemary says "You have helped so much lately.  
+Thank ytou for finding the luggage.
+My wedding dress is still here but I do miss my Bouquet.  ti wa made of flowesr of a very striking colour.
+Will you help me find them?
+Will you help Rosemary find her flowers?
+1) Yes
+2) No
+[choice] yes
+Thank you.  Here is a photograph which shows the bouquet!
+
+> se
+You are in the South Forest
+There is a Mushroom Patch and a Red Topped Mushroom here.
+You can go south, northeast or northwest.
+You are in the southern edge of the forest.  It is damp and a bit muddy.  There are plenty of mushrooms growing around.
+
+> s
+You are in a Building site
+There is a Wheelbarrow here.
+You can go north or south.
+This would have been a nice part of the garden but it is undergoing some work.  There is a forest to the north
+
+> s
+You are in the main Garden
+There is some Yellow Flowers, some White Flowers, some Red Flowers, some Blue Flowers and an open Well here.
+You can go north, south or west.
+You are standing in a small garden.  There is a large well here and it is overgrown with colourful flowers
+
+> s
+You are in The Herb Garden
+There is a Sage and some Thyme here.
+You can go north.
+You are standing in a smaller part of the garden, dedicated to rowing herbs.  There is a bench here.  I think it is dedicated to someone.
+
+> give wedding photo to sage
+"Ah yes.  The wedding photo.  I was ther you know.  I caught the bouquet.  Lovely flowers they were.  They look grey in this photo, thats because they were grey flowers.  Very rare!  I planted some in the garden, they maye have grown.  Why not go and check.
+
+I think I'll keep this photo to remind me"
+
+> n
+You are in the main Garden
+There is some Yellow Flowers, some White Flowers, some Red Flowers, some Blue Flowers, an open Well and some Grey Flowers here.
+You can go north, south or west.
+You are standing in a small garden.  There is a large well here and it is overgrown with colourful flowers
+
+> use plantcutters on grey flowers
+you cit the flowers
+
+Damn that was tough! they broke the plantcutters!
+
+> n
+You are in a Building site
+There is a Wheelbarrow here.
+You can go north or south.
+This would have been a nice part of the garden but it is undergoing some work.  There is a forest to the north
+
+> n
+You are in the South Forest
+There is a Mushroom Patch and a Red Topped Mushroom here.
+You can go south, northeast or northwest.
+You are in the southern edge of the forest.  It is damp and a bit muddy.  There are plenty of mushrooms growing around.
+
+> nw
+You are in The West Forest
+There is a Tent, a Campfire, a suitcase, a Wedding dress and Basil and Rosemary here.
+You can go northeast or southeast.
+You are in the western edge of the forest.
+This area is full of life, with lush vegetation and widlife galore.
+There is a campsite here.
+
+> give grey flowers to basil and rosemary
+You give Rosemary the Grey flowers.  "That's them" she claims. and hugs you!
+Here take this money!
+
+You are given three gold coins
+"We are going to collect the rest of outr stuff and go"  Claims Basil.  "It was a delight meeting you"
+
+> se
+You are in the South Forest
+There is a Mushroom Patch and a Red Topped Mushroom here.
+You can go south, northeast or northwest.
+You are in the southern edge of the forest.  It is damp and a bit muddy.  There are plenty of mushrooms growing around.
+
+> s
+You are in a Building site
+There is a Wheelbarrow here.
+You can go north or south.
+This would have been a nice part of the garden but it is undergoing some work.  There is a forest to the north
+
+> s
+You are in the main Garden
+There is some Yellow Flowers, some White Flowers, some Red Flowers, some Blue Flowers and an open Well here.
+You can go north, south or west.
+You are standing in a small garden.  There is a large well here and it is overgrown with colourful flowers
+
+> w
+You are in the Village Square
+There is some Stocks here.
+You can go north, south, east or west.
+You are standing in the village square.  This would normally be the hub of all the village activity.  There are a set of stocks here.  Perhaps the villagers enjoy watching others suffer
+The stocks look like they have been well used
+
+> w
+You are in the East Market
+There is Jumbo and a Muddy patch here.
+You can go east or west.
+You are at the eastern end of the market.  Funnily enough, there is only one stall here.
+There is also a muddy patch of dirt on the ground.
+
+
+> w
+You are in West Market
+There is Bobo the Clown, a selection of Jokes, a Whoopie Cushion and the Meryy Menfolk here.
+You can go south or east.
+You are at the Western end of a market.  Funnily enough there is only one stall here.
+
+> speak to meryy menfolk
+Thanks for the hekp
+Here take this card it should bring you luck!
+
+They rush off   laughing
+
+> s
+You are in the Amphitheatre
+There is a Stage and a Notice board here.
+You can go north or west.
+The amphitheatre is a large open air theatre.  There is a large wooden stage here and to the west you can see a shed.
+
+> w
+You unlock the Prop Shed with the Dramatic Key
+You are in the Prop Shed
+There is a Large Chest, a wooden Closet, a Table and Robin Hatz here.
+You can go east.
+You are inside a small prop shed.  There are odd bits and pieces lying around and plenty of containers to store things in
+
+> give tarot card to robin hatz
+
+You give the Tarot card to Robin.
+Robin examines the card
+He then screams.  "This is the Clown of Misfortune.  It is the unluckiest card you can get.  How can you giev this to me.  Don't you know I am superstitious?"
+"I hope nothing else unluck happens to me"
+
+> use new shoes on table
+You place the news hoes on the table
+"Robin shrieks in horror.  "Aaargh,  don't place new shoes on a table, that's bad luck!  I can't believe you did that!""
+
+Robin grabs the shows and throws them out!
+"I hope nothing else happens.  I am very superstitious"
+
+> use bow and arrow and stuffed cat on closet
+You fir the arrow, with the black cat attached, into the large wooden door of the closet.
+
+
+Robin watches in horror as the black cat whizzes past him.
+He screams!
+"I can't believe it.  That was a black cat! A black cat has just crossed my path! That is so unlucky"
+"
+Robin is looking horrified 
+" I can't believe my bad luck.  Thats threee things now that has happened to me!
+
+I have to ward off the bad luck""
+Robin grabs a salt shaker from his pocket and flings some over his left shoulder.
+
+With that he leaves, leaving the salt shaker behind!
+
+> take salt
+You pick it up.
+
+> e
+You head back to the amphitheatre.  
+
+But you remember to lock the shed behind you!
+You are in the Amphitheatre
+There is a Stage and a Notice board here.
+You can go north or west.
+The amphitheatre is a large open air theatre.  There is a large wooden stage here and to the west you can see a shed.
+
+> n
+You are in West Market
+There is Bobo the Clown, a selection of Jokes and a Whoopie Cushion here.
+You can go south or east.
+You are at the Western end of a market.  Funnily enough there is only one stall here.
+
+> e
+You are in the East Market
+There is Jumbo and a Muddy patch here.
+You can go east or west.
+You are at the eastern end of the market.  Funnily enough, there is only one stall here.
+There is also a muddy patch of dirt on the ground.
+
+
+> e
+You are in the Village Square
+There is some Stocks and An Usher here.
+You can go north, south, east or west.
+You are standing in the village square.  This would normally be the hub of all the village activity.  There are a set of stocks here.  Perhaps the villagers enjoy watching others suffer
+The stocks look like they have been well used
+
+> speak to usher
+Do you want to buy a ticket?
+Do you wish to buy a ticket for 5 gold pieces?
+1) Yes
+2) No
+[choice] yes
+Heres you ticket.
+
+Theres a map on the back!
+The Usher wanders off.
+
+> w
+You are in the East Market
+There is Jumbo and a Muddy patch here.
+You can go east or west.
+You are at the eastern end of the market.  Funnily enough, there is only one stall here.
+There is also a muddy patch of dirt on the ground.
+
+
+> w
+You are in West Market
+There is Bobo the Clown, a selection of Jokes and a Whoopie Cushion here.
+You can go south or east.
+You are at the Western end of a market.  Funnily enough there is only one stall here.
+
+> s
+You are in the Amphitheatre
+There is a Stage and a Notice board here.
+You can go north, east or west.
+The amphitheatre is a large open air theatre.  There is a large wooden stage here and to the west you can see a shed.
+
+> e
+You are in the indoor Theatre
+There is The Bouncer, the Actors, Anna, a Bag of onions, Bertha, a Program Seller, Program and the Sofa here.
+You can go west.
+You are in the theatre.  It is strange you hadn't noticed it before you bought the ticket.
+There is a large stage on which the actors are peforming and there are a couple of people in the audience.
+
+The Bouncer stops you as you enter the theatre
+"
+Ticket!"
+You show the Bouncer your ticket.
+You enter the theatre
+
+> give blue topped mushroom to anna
+"Hmm a lovely Blue mushroom.
+
+Here, you can have one of my onions!"
+
+> w
+You are in the Amphitheatre
+There is a Stage and a Notice board here.
+You can go north, east or west.
+The amphitheatre is a large open air theatre.  There is a large wooden stage here and to the west you can see a shed.
+
+> n
+You are in West Market
+There is Bobo the Clown, a selection of Jokes and a Whoopie Cushion here.
+You can go south or east.
+You are at the Western end of a market.  Funnily enough there is only one stall here.
+
+> e
+You are in the East Market
+There is Jumbo and a Muddy patch here.
+You can go east or west.
+You are at the eastern end of the market.  Funnily enough, there is only one stall here.
+There is also a muddy patch of dirt on the ground.
+
+
+> e
+You are in the Village Square
+There is some Stocks here.
+You can go north, south, east or west.
+You are standing in the village square.  This would normally be the hub of all the village activity.  There are a set of stocks here.  Perhaps the villagers enjoy watching others suffer
+The stocks look like they have been well used
+
+> n
+You are in The Mnott-Gwin Inn
+There is Baggie the Barmaid and the Scarecrow here.
+You can go south.
+You are standing in the large Inn.
+At the moment there isn't much activity, maybe this is because of the scary looking woman behind the bar, or maybe it's because it's very early in the morning.
+
+
+> speak to baggie
+Baggie says "thanks for getting all my ingredients!
+
+Here is the map I promised you
+
+> take secret map
+You pick it up.
+
+> s
+You are in the Village Square
+There is some Stocks here.
+You can go north, south, east or west.
+You are standing in the village square.  This would normally be the hub of all the village activity.  There are a set of stocks here.  Perhaps the villagers enjoy watching others suffer
+The stocks look like they have been well used
+
+> e
+You are in the main Garden
+There is some Yellow Flowers, some White Flowers, some Red Flowers, some Blue Flowers and an open Well here.
+You can go north, south or west.
+You are standing in a small garden.  There is a large well here and it is overgrown with colourful flowers
+
+> n
+You are in a Building site
+There is a Wheelbarrow here.
+You can go north or south.
+This would have been a nice part of the garden but it is undergoing some work.  There is a forest to the north
+
+> n
+You are in the South Forest
+There is a Mushroom Patch and a Red Topped Mushroom here.
+You can go south, northeast or northwest.
+You are in the southern edge of the forest.  It is damp and a bit muddy.  There are plenty of mushrooms growing around.
+
+> nw
+You are in The West Forest
+There is a Tent and a Campfire here.
+You can go northeast or southeast.
+You are in the western edge of the forest.
+This area is full of life, with lush vegetation and widlife galore.
+There is a campsite here.
+
+> ne
+You are in the North Forest
+There is a Cracked Stump here.
+You can go southeast or southwest.
+You are in the Northern edge of the forest.  It is quite dense here and you could easily get lost if you strayed from the path.
+There is a tree stump here.
+
+> use secret map
+You follow the secret map to the secret hideout of Chad the Bad
+You are in the Secret Hideout
+There is Chad and a Piles of Ill gotten gains here.
+You can go out to North Forest.
+You are in Chad's secret hideout. 
+As you look around you can see it is ornately decorated, probably from all the things that he has stolen.
+Chad himself is sitting in a chair but is facing the other way.  It is possible that he hasn't seen you yet.
+There is a big sign on the wall that says. "Time to SAVE your soul"
+
+> speak to chad
+Are you ready to face Chad?
+1) Yes
+2) No
+[choice] yes
+You approach the chair that Chad is resting on.
+
+He has heard you!
+He turns round andyou can see that he is holding a crossbow and it is poiting in your direction
+
+Then you realise that hs is in act blind!
+Chads smilies at you "Have you come for the girl?
+Will you say that you have come for the girl?
+1) Yes
+2) No
+[choice] yes
+You have ten seconds to tell me exactly why I should tell you.
+
+I may be blind but I can hear you well enough and I never miss.
+
+> use brush on chad
+You have an idea.
+You take out the Brush and press it towards Chad.
+
+"What's that?" he asks, a little unsure.
+"That is my pet hedgehog, and he is huge and he is hungry"
+
+Chad screams!  He has always had a fear of hedgehogs.
+
+He stumbles towards the corner of the room and cowers there.
+You place the Brush beside him
+"Stay there Gnasher" you say "and guard him until I get all the information I need"
+Chad is now a gibbering mess on the floor.  
+You try talking to him but he just jabbers nonsense.
+
+As he shakes with fear, a small object drops out of his pocket.
+
+It is a key.
+You stare at the small silver key.  You know that whatever that key unlocks, that is where you will find Annabel!
+
+your quest is nearly over
+
+> take small silver key
+You pick it up.
+
+> out
+You are in the North Forest
+There is a Cracked Stump here.
+You can go southeast or southwest.
+You are in the Northern edge of the forest.  It is quite dense here and you could easily get lost if you strayed from the path.
+There is a tree stump here.
+
+> sw
+You are in The West Forest
+There is a Tent and a Campfire here.
+You can go northeast or southeast.
+You are in the western edge of the forest.
+This area is full of life, with lush vegetation and widlife galore.
+There is a campsite here.
+
+> se
+You are in the South Forest
+There is a Mushroom Patch and a Red Topped Mushroom here.
+You can go south, northeast or northwest.
+You are in the southern edge of the forest.  It is damp and a bit muddy.  There are plenty of mushrooms growing around.
+
+> s
+You are in a Building site
+There is a Wheelbarrow here.
+You can go north or south.
+This would have been a nice part of the garden but it is undergoing some work.  There is a forest to the north
+
+> s
+You are in the main Garden
+There is some Yellow Flowers, some White Flowers, some Red Flowers, some Blue Flowers and an open Well here.
+You can go north, south or west.
+You are standing in a small garden.  There is a large well here and it is overgrown with colourful flowers
+
+> w
+You are in the Village Square
+There is some Stocks here.
+You can go north, south, east or west.
+You are standing in the village square.  This would normally be the hub of all the village activity.  There are a set of stocks here.  Perhaps the villagers enjoy watching others suffer
+The stocks look like they have been well used
+
+> w
+You are in the East Market
+There is Jumbo and a Muddy patch here.
+You can go east or west.
+You are at the eastern end of the market.  Funnily enough, there is only one stall here.
+There is also a muddy patch of dirt on the ground.
+
+
+> w
+You are in West Market
+There is Bobo the Clown, a selection of Jokes and a Whoopie Cushion here.
+You can go south or east.
+You are at the Western end of a market.  Funnily enough there is only one stall here.
+
+> s
+You are in the Amphitheatre
+There is a Stage and a Notice board here.
+You can go north, east or west.
+The amphitheatre is a large open air theatre.  There is a large wooden stage here and to the west you can see a shed.
+
+> w
+You unlock the Prop Shed with the Dramatic Key
+You are in the Prop Shed
+There is a Large Chest, a wooden Closet and a Table here.
+You can go east.
+You are inside a small prop shed.  There are odd bits and pieces lying around and plenty of containers to store things in
+
+> use small silver key on large chest
+You use the key
+
+Locked in the chest you find the frail and barely alive, Annabel.
+
+
+
+CONGRATULATIONS
+
+YOU HAVE FOUND ANNABEL
+
+YOU HAVE WON!
+
+
+
+
+You are sitting watching a show.  Annabel is by your side.
+You sit in anticipation watching the stage
+The Usher and the Bouncer shuffle on and attempt to bow.
+
+Anna And Bertha come on hand in Hand.
+Anna Bows gracefully and Bertha just belches
+
+The Sage, Basil and Rosemary enter and take a bow.   Rosemary is finally wearing her wedding dress.
+
+Bob and Jumbo walk on hand in hand.  You didn't see that coming did you?
+
+The Merry Menfolk dance on followed by Robin Hatz.  Robin Bows applauds himself.
+
+The Warden and Baggie enter.  Baggie is carrying that strange Bobo Scarecrow you made.
+
+Chad comes in.
+Everyone boos!
+
+And finally Bobo enters.  He takes centre stage and gives a majestic bow.
+He points to you, you stand up, pick Annabel up and swing here around.
+
+
+THE END
+
+
+....... Back at the market square, the camera pans to the stocks.
+
+They are empty.
+
+Hiding in the Shadows you here an evil laugh
+"They thought they could keep the Great Chadinski, the best escapologist in the world, in stocks.  
+I will get my revenge"
+
+Coming soon
+
+Annabel 2: Chad's Revenge
+
+
+[runner] turns=209 leftover=0 running=false WON=YES

@@ -1,0 +1,48 @@
+
+Defenders of Gondor, v1 Nathan Lindsell
+
+DEFENDERS OF GONDOR
+
+
+You are on a field.
+You can go north, east or west.
+You are on the Pelannor Fields. The grass is lush and green. To the west you can see the gates of Minis Tirith. To the east is the great river.
+
+> east
+You are on the bank of a river.
+There is a boat here.
+You can go west.
+The river flows fast, heading southwards. Beyond the river, eastwards, you can see mountains.
+Your Command, Sire?
+
+> use boat to cross river
+The boat safely reaches the eastern shore.
+You come to the crossroads.
+There is a Gondorian captain, a knight and a host of men here.
+You can go east.
+Two paths meet here, circled by trees. Some statues of great kings lie near by, smashed up and broken. To the west lies the eastern shore of the river.
+Your Command, Sire?
+
+> east
+You are in a dark valley, in which lies a dark city.
+There is an orc guard, an orc warrior and a dagger here.
+You can go west or northeast.
+You are in the dark valley of Minis Morgul. Here lies an evil city. You can hear the cries and screams of orcs and other foul things. There is a foul smell in the air.
+Your Command, Sire?
+
+> take a dagger
+You pick it up.
+Your Command, Sire?
+
+> northeast
+You are standing below a tall, dark tower.
+There is a nazgul and a troll here.
+You can go southwest.
+Above you lies the top of an evil, dark tower. It is the highest tower in Minis Morgul. A foul smell is in the air. The ground is wet and swamp-like. The air is like a deadly fume, choking your lungs.
+Your Command, Sire?
+
+> use a dagger on a nazgul
+You strike the Nazgul with your blade. It is dead.
+Lord Denethor of Gondor rewards you for your bravery. Well done!
+
+[runner] turns=6 leftover=0 running=false WON=YES

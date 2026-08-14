@@ -1,0 +1,144 @@
+
+Permenant Room Wyatt Arent
+
+'Huh? Where am I? I must be dreaming...' you think to your self.
+'I dont remember anything. What is this room im in? how did I get here?'
+
+You look around the room.
+
+The Permanant Room is small. The walls have wall paper on them and the floors are carpeted.
+On one wall is a sofa with a end table next to it. There is a tv on the other side of the room. On the end table are a few different objects; A potted plant, a phone and a peice of paper.
+
+On the east, west and south sides of the room are doors.
+
+'I need to get out...'
+
+
+You are in the Permanant Room.
+
+> help
+Availible Functions...
+
+Take
+Look at
+Watch
+Use (Item) on (Item)
+Open
+And other common sence functions...
+
+> x tv
+A fairly new, small television.
+
+> watch tv
+you watch the television for a while.
+
+> x sofa
+A medium sized sofa, and there seems to be a note squeezed between two cushions.
+
+> sit on sofa
+You rest on the sofa.
+
+> take note
+You pick it up.
+
+> read note
+A note that says 'The insides of a time teller is the perfect picture for mechanics.'
+
+> x phone
+An old style, black phone.
+
+> use phone
+You try to use the phone, but the phone lines are dead.
+
+> take paper
+You pick it up.
+
+> read paper
+There is nothing to read, its blank.
+
+> look under sofa
+You look under the sofa and find a quarter.
+
+> take quarter
+You pick it up.
+
+> look in pot
+You look in the plant's pot and find a pen.
+
+> take dirt
+You can't take it.
+
+> take pen
+You pick it up.
+
+> pull up carpet
+You tear the carpet back and find a watch hidden under it.
+
+> take watch
+You pick it up.
+
+> open drawer
+You open the droor on the end table and find a chisle.
+
+> take chisle
+You pick it up.
+
+> peel back wall paper
+You peel back the wall paper and find a safe embedded in the wall.
+
+> x safe
+A safe that has been embedded in the wall. The only thing keeping it closed is a screw.
+
+> x screw
+A screw keeping the safe closed.
+
+> use quarter on screw
+You use the quarter to unscrew the screw. You can now open the safe.
+
+> open safe
+You open the safe and find an odd mechanical slot embedded in the back of the safe with a small key hole below it.
+
+> x mechanical slot
+A flat, mysterious mechanical slot with a key hole below it.
+
+> look at key hole
+A medium sized key hole below the mechanical slot.
+
+> use note on slot
+You attempt to slide the note into the mechanical slot, but it rejects it.
+
+> use chisle on watch
+You use the chisle to open the watch.
+
+> x opened watch
+The inside of the silver watch. it has a very strange design on it.
+
+> use pen on paper
+You draw down what the inside of the watch looks like.
+
+> use used paper on slot
+You slide the paper into the mechanical slot. It accepts it and a key pops out of the key hole below it.
+
+> take key
+You pick it up.
+
+> open front door
+The door is locked
+
+> use key on front door
+You use the twisted key and unlock the front door.
+
+> open front door
+You open the door and see the exit leading out of the room, your freedom awaits.
+
+> open left door
+You open the door.
+
+> west
+You are in the Permanant Room.
+
+> south
+You escape the permanant room.
+
+YOU WIN!
+[runner] turns=39 leftover=0 running=false WON=YES

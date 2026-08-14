@@ -1,0 +1,688 @@
+
+Michael's Game Connie Strump
+
+Hello, Michael! Welcome. We know you enjoy activities like playing with your toys and appreciating all the things we've given you. But, we also know that you sometimes selfishly want to explore the world beyond this room. That's why we've made you this game! Enjoy it. We love you.
+
+You are in Michael's Room
+There is a bed, a television, Harold's Room, a monkey poster, a shark poster, a striking painting of a Native American gentleman, a strange bike hooked up to a record player, Michael's Computer and a toilet here.
+You can go west.
+It's your room, Michael. It is decorated just how you like it with the blue carpet and awesome wallpaper. Look around at all the expensive things we've given you. You are the luckiest boy in the world!
+
+> look
+You are in Michael's Room
+There is a bed, a television, Harold's Room, a monkey poster, a shark poster, a striking painting of a Native American gentleman, a strange bike hooked up to a record player, Michael's Computer and a toilet here.
+You can go west.
+It's your room, Michael. It is decorated just how you like it with the blue carpet and awesome wallpaper. Look around at all the expensive things we've given you. You are the luckiest boy in the world!
+
+> look at bed
+This bed is great and unburned. You are a good boy for not burning this bed. I wonder what's under it
+
+> look at television
+I'm 100 percent in control.
+
+> change channel on television
+Nice try, dude. Nothing happens, but good job reading the game manual!
+
+> look at harold's room
+Where's Harold?
+
+> look at painting
+This guy completely rocks. Like, just seriously completely!
+
+> burn painting
+How dare you!? You can't burn this! A single tear runs from the gentleman's eye. You monster!
+
+> look at strange bike
+This bike has a helmet also attached to it. People are allowed to ride it.
+
+> ride strange bike
+You start pedalling...
+
+> look at carpet
+Dang, that is some blue carpet. Wow!
+
+> look at wallpaper
+Yellowish wallpaper with blue planty things, this is a GREAT room
+
+> look at under bed
+There is a note down here that says "If you can read this then you are disappointed that it's not a clue."
+
+> look at toilet
+A toilet? Right in your own room? Xanadu! I wonder what that Silver Handle does when you turn it...
+
+> look at silver handle
+this handle is silver. why did you look at it? I mean, it's right in the name
+
+> turn silver handle
+Holy Bejesus! A sophisticated mechanism using fishing line and brass hooks caused a CD to fall out of the ceiling when you turned the handle! Whoever designed that mechanism is a genius and probably also handsome! Anyway hey there is a CD there. You should probably take it.
+
+> look at cd
+"Insert this CD into Michael's Computer" is written on it...in crayon.
+
+> take cd
+You took the CD. Good For you.
+
+> look at michael's computer
+It's your trusty computer just like what the astronauts use! It is blue and you need to type a password to get on it.
+
+> type password123
+A message comes up on the computer screen:
+
+"Hey! It worked. You really are our little miracle. You are now on your computer, Michael. You can use this computer to do things like look at safjdsafjusdgouasounfdsgoansg HELLO GLOOPONS. ITS ME MICHAEL. IM SO SORRY. THIS IS THE GAME THAT THEY USED TO TEACH ME THINGS DO YOU LIKE IT? IM GLAD YOU ARE PLAYING IT CAUSE ITM GONNA USE IT TO TELL YOU STUFF LIKE WHERE I AM. SO BEAT THE GAME SO YOU CAN STOP ME. PLEASE STOP ME. I LOVE YOU. PS ENJOY THESE COOL PICTURES OK"
+
+
+> use cd on michael's computer
+You put the CD into the computer. Lo and behold and lo, a key shoots out of the disc drive! Do wonders never cease?
+
+> look at key
+It's a key...
+
+> take key
+You hold the key. Take that, authority.
+
+> use key
+You use the key to unlock the door. This is going really well.
+
+> west
+You are in The Gloopon office
+There is Computers, phones and that glitter you left in here yesterday here.
+You can go east or west.
+This is the world outside your room Michael, The Gloopon Office. Look how boring it is. If I had my own awesome room like the one you just left, I would never leave. There are breakable things everywhere that you shouldn't touch. There are computers and phones for the productive members of society who work here. There's no reason for you to be here. 
+
+> look
+You are in The Gloopon office
+There is Computers, phones and that glitter you left in here yesterday here.
+You can go east or west.
+This is the world outside your room Michael, The Gloopon Office. Look how boring it is. If I had my own awesome room like the one you just left, I would never leave. There are breakable things everywhere that you shouldn't touch. There are computers and phones for the productive members of society who work here. There's no reason for you to be here. 
+
+> look at computers
+These computers aren't nearly as cool as the one in your room, Michael. You shouldn't touch them.
+
+> look at phones
+These phones are also important. Do not touch, Michael.
+
+> look at glitter
+You'd better pick it up or Andrew will yell so hard that his nosebleeds again
+
+> take glitter
+Whew, that was a close one. Better hold onto this stuff, just in case.
+
+> west
+You are in The Library
+There is a bookshelf, a globe, a strange guard guarding the Western door, some other bookshelf, television, a plant and a glass case here.
+You can go north, south, east or west.
+Whoa! Graphics! This game just got interesting! Anyway, this is the library. 
+
+> look
+You are in The Library
+There is a bookshelf, a globe, a strange guard guarding the Western door, some other bookshelf, television, a plant and a glass case here.
+You can go north, south, east or west.
+Whoa! Graphics! This game just got interesting! Anyway, this is the library. 
+
+> look at bookshelf
+Many of the best books from Western literature including  The Strawberry Man by Mark Train, Gustav Gets his Motorcycle by Herman Earningway, and  Pride and Prangles by Johnathan
+
+> look at globe
+It has all the countries. Even France.
+
+> look at other bookshelf
+More books: The Really Rich Rangers by Alfscott Fitzhamster, Steamtown Punchings by Tarles Gronkowski, A NOTE FROM MICHAEL, and Pudding Time! by Johnathan II
+
+> take a note from michael
+You pick it up.
+
+> look at a note from michael
+HELLO GLOOPONS. SORRY, IT's ME MICHAEL. I HID NOTES LIKE THIS THROUGHOUT THE GAME BECAUSE REENOLDS IS MEAN AND YO NEED TO GET PAST HIM. HERE IS ONE OF THE THINGS YOU NEED TO KNOW:
+
+STEP 3:  Combine calcuminum and cinnamon
+
+> look at television
+The best movie ever is playing on it.
+
+> look at guard
+It's one of thsoe weird British guards. No, not the not allowed to laugh MArge Simpson ones. The other funny hat ones. I think they're called meat eaters.
+
+It's one of thsoe weird British guards. No, not the not allowed to laugh MArge Simpson ones. The other funny hat ones. I think they're called meat eaters.
+
+> speak to guard
+"Oy, right! What do you want?...Oh, ye wants ta' get through, does ya? Well that ain't happening! It's my job you see. I guard this door unless I'm sleeping and it takes three things to get me to sleep. A glass o'milk, me beloved teddy bear, and, a'course, one of them old style pointy sleeping hats. So, unless you got those things and I accidentally take and use 'em, bugger off ladyface" 
+
+...Ladyface?
+
+
+> look at glass case
+This glass case has a machete in it. Behind glass. A valuable, valuable machete. Behind glass. Glass is fun to smash isn't it? Smashable smashable glass.
+
+> smash glass case
+You can't smash this glass without some sort of glass smashing device
+
+> north
+You are in The Public Employee Room
+There is a lady police officer, a male fireman and a construction worker here.
+You can go north or south.
+Don't say anything bad about unions in here
+
+> look
+You are in The Public Employee Room
+There is a lady police officer, a male fireman and a construction worker here.
+You can go north or south.
+Don't say anything bad about unions in here
+
+> look at police officer
+What you think only men can be cops?
+
+> speak to police officer
+"Hello, Michael, I'm a police officer. It is my job to keep people from breaking any laws. Don't break any laws Michael. You are a beautiful child. Oh also I picked this up because I thought it was clue for a crime I was solving, because I solve crimes. But I don't want it anymore. It smells weird." She reaches over and hands you ANOTHER NOTE FROM MICHAEL.
+
+> take another note from michael
+You already have it.
+
+> look at another note from michael
+HERE IS ANOTHER IMPORTANT THING: 
+
+Step one: Combine calcium and pieces of aluminum
+
+> look at fireman
+What? A man can't fight fires?
+
+> speak to fireman
+"Hello, Michael. I am a firefighter. I fight fires a lot because that is my job. I use water and also sometimes chemicals. Thank you for not starting any fires. In fact, as a thank you, have this lighter. I wasn't using it as I never start fires." He reaches over and hands you the LIGHTER. Also he tousles your hair a bit.
+
+> look at lighter
+It lights fires so you can use it to BURN things. I think there is something that needed burning somewhere in this stupid game...
+
+> look at construction worker
+I'm not sure what gender this construction worker is.
+
+> speak to construction worker
+"Hello, Michael. I am a construction worker. I build the many constructions in our community. It is hard work but it is fulfilling. Here, have a hammer. It's usefull for building things, though theoretically I guess it could smash some glass or something. Ok you can go now, I'm tired" The construction man or woman reaches over and gives you a hammer. These people are great and not at all a shortcut for the game programmer in giving you clues.
+
+> south
+You are in The Library
+There is a bookshelf, a globe, a strange guard guarding the Western door, some other bookshelf, television, a plant, a glass case and machete here.
+You can go north, south, east or west.
+Whoa! Graphics! This game just got interesting! Anyway, this is the library. 
+
+> smash glass case
+You smash the glass on the glass case. That was better than Woodstock.
+
+> take machete
+You got a machete. Just like you asked for for Grouponicus.
+
+> look at machete
+This certainly belongs in a library
+
+> east
+You are in The Gloopon office
+There is Computers and phones here.
+You can go east or west.
+This is the world outside your room Michael, The Gloopon Office. Look how boring it is. If I had my own awesome room like the one you just left, I would never leave. There are breakable things everywhere that you shouldn't touch. There are computers and phones for the productive members of society who work here. There's no reason for you to be here. 
+
+> east
+You are in Michael's Room
+There is a bed, a television, Harold's Room, a monkey poster, a shark poster, a striking painting of a Native American gentleman, a strange bike hooked up to a record player, silver handle, Michael's Computer and a toilet here.
+You can go west.
+It's your room, Michael. It is decorated just how you like it with the blue carpet and awesome wallpaper. Look around at all the expensive things we've given you. You are the luckiest boy in the world!
+
+> burn monkey poster
+You burned the hell out of that monkey poster. It burst into flames really quickly. Like it was just waiting to be set on fire. Whoa there's Gold Key hanging behind the poster. This is getting exhausting! You should take it!
+
+> look at louvre key
+It has miniature Vitruvian man
+
+> take louvre key
+You pick it up.
+
+> burn shark poster
+You burn the sark poster too because what the hell? OH man there is a Glass of Milk hidden behind it. I think i remember that being important! Yuo should get it!
+
+> take glass of milk
+You got it. This is an important thing so VICTORY MUSIC
+
+> burn bed
+No! You can't burn this. Do your homework!
+
+> west
+You are in The Gloopon office
+There is Computers and phones here.
+You can go east or west.
+This is the world outside your room Michael, The Gloopon Office. Look how boring it is. If I had my own awesome room like the one you just left, I would never leave. There are breakable things everywhere that you shouldn't touch. There are computers and phones for the productive members of society who work here. There's no reason for you to be here. 
+
+> west
+You are in The Library
+There is a bookshelf, a globe, a strange guard guarding the Western door, some other bookshelf, television, a plant and a glass case here.
+You can go north, south, east or west.
+Whoa! Graphics! This game just got interesting! Anyway, this is the library. 
+
+> north
+You are in The Public Employee Room
+There is a lady police officer, a male fireman and a construction worker here.
+You can go north or south.
+Don't say anything bad about unions in here
+
+> north
+You are in Jungle Room
+There is monkey, elephant, tiger, shovel, vines and trees here.
+You can go south or east.
+This is a jungle. It is like a forrest on a spring break. There are lots of exotic things and items. It's a jungle in here! I'll just save you some trouble by the way. You can't burn, smash, or hack the animals, you horrible boy. 
+
+
+
+> look
+You are in Jungle Room
+There is monkey, elephant, tiger, shovel, vines and trees here.
+You can go south or east.
+This is a jungle. It is like a forrest on a spring break. There are lots of exotic things and items. It's a jungle in here! I'll just save you some trouble by the way. You can't burn, smash, or hack the animals, you horrible boy. 
+
+
+
+> look at monkey
+This monkey swings around on the tree. He looks just like the little guy on your flammable poster in your awesome room. He makes a precious noise as if to say "burn, smash, or hack me."
+
+> look at elephant
+Elephants have big ears, which is why they never forget!
+
+> look at tiger
+A tigers stripes help him hide in grass probably.
+
+> look at trees
+These are jungle trees, Michael. You are learning.
+
+> look at shovel
+It's a shovel. Remember you can DIG with shovels after you GET them? The soil is pretty soft here. Just sayin' (also because of this dumb program I have to tell you that to dig with this thing you have to type "dig shovel"  I am sorry about this.
+
+> take shovel
+You pick it up.
+
+> dig shovel
+You dug all the soil. It's too bad they don't give Nobel PRizes for this kind of thing. Underneath the soil is YET ANOTHER NOTE FROM MICHAEL. You should get it maybe.
+
+> take yet another note from michael
+You pick it up.
+
+> look at yet another note from michael
+IMPORTANT: 
+
+Step:6 Give unobtainium to R.E.Y.N.O.L.D.
+
+> look at vines
+These darned jungle vines have grown over the door leading east! Mama said there'd be days like this. If only you could HACK them with something...
+
+> hack vines
+You hack those vines just completely to hell. They are extremely gone so don't worry about that they are still in the picture. The door is unlocked now that the vines have been bravely hacked. by you. Michael. in this video game. 
+
+> east
+You are in The Louvre
+There is great arts and a DaVinci Code here.
+You can go east or west.
+You are in the Louvre, Michael, so show some respect. 
+
+> look
+You are in The Louvre
+There is great arts and a DaVinci Code here.
+You can go east or west.
+You are in the Louvre, Michael, so show some respect. 
+
+> look at davinci code
+There is a DaVinci code in the Louvre but it is unimportant and should be ignored
+
+> look at arts
+
+1) dfbace
+2) fabecd
+3) dbfcae
+4) dbface
+5) Hamburger
+[choice] 4
+That's right! You passed the art test! All the dumb works of art burst into flame and A FOURTH NOTE FROM MICHAEL somehow materialzes out of their ashes. Prima's Official Strategy Guide for Michael's Room Text Adventure says you should GET it.
+
+> take a fourth note from michael
+Holy Crap! A ghost appears! "Hellloooooooo, Michael," it says, "I am the ghost of some other guy who played this gaaaaaaaaaaaaaaaaaame. And I have some advice for youuuuuu. If you die like I did then just use the magic checkpoint password and it will bring you back here with all the stuff you have right nooooow. The password is "goodbye, english breakfast." So if you die just type: "say goodbye, english breakfast" And you will be spiiiiiirited away to here with all your stuff. I loooooove you..." He disappeared. Good info though
+
+> look at a fourth note from michael
+READ THIS:
+
+Step 2: Combine dog bones and highlighter
+
+> use louvre key
+You unlocked the door going east
+
+> east
+You are in Underwater Room
+There is a pirate skull, A FIFTH NOTE FROM MICHAEL, brass key, a book, Dolphin, key-shaped rock, a Chest with a combination lock and School of fish here.
+You can go west.
+This is the underwater room. You are underwater. It's a good thing you went to breath holding camp, Michael because you will drown if you don't get out of this room in 1 minute.
+
+> look
+You are in Underwater Room
+There is a pirate skull, A FIFTH NOTE FROM MICHAEL, brass key, a book, Dolphin, key-shaped rock, a Chest with a combination lock and School of fish here.
+You can go west.
+
+> take brass key
+You pick it up.
+
+> look at brass key
+You probably will need this
+
+> look at a fifth note from michael
+IMPOTANT: 
+
+Step 5: Combine cinnamonium and science crystal
+
+
+
+> take a fifth note from michael
+You pick it up.
+
+> look at a pirate skull
+This kooky old skull looks like it has SKELETON KEY in it
+
+> look at a book
+Call me Ishmael. Some years ago - never mind how long precisely - having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth
+
+> look at dolphin
+Doilphins are mammals
+
+> look at school of fish
+Fish travel in schools Michael. You are learning so much. I hope you don't drown.
+
+> look at chest
+You'll probably want to open this before you drown
+
+> open chest
+You open the chest. It has a gold key, a silver key, and a pretzel key inside You are allowed to take only 1 thing from inside so use your noggin
+
+> take gold key
+You took the key. Good luck with that...
+
+> use gold key
+You unlocked the door. Get the hell outta here
+
+> west
+You are in The Louvre
+There is great arts and a DaVinci Code here.
+You can go east or west.
+You are in the Louvre, Michael, so show some respect. 
+
+> west
+You are in Jungle Room
+There is monkey, elephant, tiger, vines and trees here.
+You can go south or east.
+This is a jungle. It is like a forrest on a spring break. There are lots of exotic things and items. It's a jungle in here! I'll just save you some trouble by the way. You can't burn, smash, or hack the animals, you horrible boy. 
+
+
+
+> south
+You are in The Public Employee Room
+There is a lady police officer, a male fireman and a construction worker here.
+You can go north or south.
+Don't say anything bad about unions in here
+
+> south
+You are in The Library
+There is a bookshelf, a globe, a strange guard guarding the Western door, some other bookshelf, television, a plant and a glass case here.
+You can go north, south, east or west.
+Whoa! Graphics! This game just got interesting! Anyway, this is the library. 
+
+> use brass key
+You unlocked the door to the south. Go there!
+
+> south
+You are in Independence Hall
+There is George Washington, Albert Einstein, Sherlock Holmes and The declaration of independence here.
+You can go north or south.
+Why, Michael! You've stepped through history into Independence Hall in 1776. The founding fathers are here, signing the Declaration of Independence. Talk to them and learn some things.
+
+> look
+You are in Independence Hall
+There is George Washington, Albert Einstein, Sherlock Holmes and The declaration of independence here.
+You can go north or south.
+Why, Michael! You've stepped through history into Independence Hall in 1776. The founding fathers are here, signing the Declaration of Independence. Talk to them and learn some things.
+
+> look at george washington
+It's George Washington, the father of voting! He is handsome with a good nose and a cool president hat. It looks like something is sticking out from under it.
+
+> speak to george washington
+Great Jeez St. Louise! Here I am trying to birth our new country and there is a THING under my hat distracting the ye olde balls out of me. Will you get it for me?
+
+> take thing
+You took that thing from the MR. President's head and hey it turns out that it's THE SIXTH NOTE FROM MICHAEL and you got it!. 
+
+"Thank you so! Says George, I'll hide something in my office for you. If you ever get there just say my wife's nickname according to Groupon Says if there is every a website with a feature called that and the item will appear. If you are a fan of old timey sleeping then you will probably like it.
+
+> look at the sixth note from michael
+LOOK!
+
+Step 4: Put fluorescent bone paste over bunsen burner
+
+> look at albert einstein
+He has silly hair for a genius, huh?
+
+> speak to albert einstein
+Imagination is important, whether you are founding a country OR doing science, my boy.
+
+> look at sherlock holmes
+There he is, our county's first and greatest detective.
+
+> speak to sherlock holmes
+Give me liberty or give me death.
+
+> south
+You are in The Science Lab
+There is The Science table, calcium, pieces of aluminum, dog bones, cinnamon, neon green highlighter, bunsen burner and a computerized computer butler named R.E.Y.N.O.L.D. here.
+You can go north or east.
+It's the science lab. This is probably a good place to learn about science. 
+
+> look
+You are in The Science Lab
+There is The Science table, calcium, pieces of aluminum, dog bones, cinnamon, neon green highlighter, bunsen burner and a computerized computer butler named R.E.Y.N.O.L.D. here.
+You can go north or east.
+It's the science lab. This is probably a good place to learn about science. 
+
+> look at science table
+This science table is sturdy and holds a lot of stuff. You should probably take it all.
+
+> look at r.e.y.n.o.l.d.
+R.E.Y.N.O.L.D. is a computer that can talk. He has a green screen and a large slot for inserting something. He is attached to the door going EAST.
+
+> speak to r.e.y.n.o.l.d.
+I'm sorry, Michael, I cannot let you pass until you create a new element, like in that movie, The Fifth Element
+
+> look at calcium
+The building block of life.
+
+> take calcium
+You pick it up.
+
+> look at pieces of aluminum
+Aluminum pieces are a staple of the modern scientist's science kit.
+
+> take pieces of aluminum
+You pick it up.
+
+> look at dog bones
+By bones we mean skull and femur and by dog we mean adorable puppy.
+
+> take dog bones
+You pick it up.
+
+> look at cinnamon
+This would be good on a scone or in coffee or sometimes just on its own
+
+> take cinnamon
+You pick it up.
+
+> look at highlighter
+From Greenco brand Highlighters. This baby is top of the line.
+
+> take highlighter
+You pick it up.
+
+> look at bunsen burner
+Playing with fire has worked out extremely well so far. This baby is lit and ready to go.
+
+> combine calcium and pieces of aluminum
+You combine the calcium with pieces of aluminum. This awesome mixture is now called calcuminum.
+
+> combine dog bones and highlighter
+You crack open the highlighter and pour its contents over the dogbones. It starts to bubble and melt into fluorescent bone paste. Science is happening now.
+
+> put fluorescent bone paste over bunsen burner
+The heat from the bunsen burner crystallizes the bone paste into a science crystal. 
+
+> combine calcuminum and cinnamon
+You dust the calcuminum with cinnamon, giving it that rustic home baked look and trasnforming it into cinnamonium. Good jobs all around. 
+
+> combine cinnamonium and science crystal
+You combine the Cinnamonium and the Science Crystal. The lights start flickering and the ground starks shaking. You think you smell and then a big lightning happens. But look! You've done it! Created a new element the likes of which the world has never seen! In an expression of all your ingenuity and imagination, you give it the perfect, public-domain name...Unobtainium!
+
+
+> look at unobtainium
+Hey great! A new mineral! You should give it to R.E.Y.N.O.L.D. even though, well, I guess it looks a bit boring.
+
+> give unobtainium to r.e.y.n.o.l.d.
+You insert the Unobtainium in to R.E.Y.N.O.L.D.'s insertion chamber. He does this thing with lasers where he analyzes and computes it. "Not acceptable!" he sayss "I mean sure it's a new element and all but it's soooo boring. Couldn't you jazz it up? You know? Give it a racing stripe or make it sparkle or something?  Keep your dumb element and come back when I won't completely hate it.
+
+
+> combine glitter and unobtainium
+You use the glitter on the unobtainium. Now it's looking good. You call it "less boring unobtainium"
+
+> look at less boring unobtainium
+Now 75 percent less boring!
+
+> give less boring unobtainium to reynold
+Now that's more like it. I love this sexy new element. Thank you for depositing it into me! To show you my robo-gratitude I'll let you keep some AND I'll open this here door here!
+
+> east
+You are in The Oval Office
+There is Desk, eagle rug, fireplace?, a picture of Abraham Lincoln and a big red button button here.
+You can go east or west.
+This egg-shaped desk-hole is the center of the free world, Michael. Best behavior! Didn't Mr. Washington say something about a wife's nickname and a Groupon Says? I was sleeping.
+
+
+> look
+You are in The Oval Office
+There is Desk, eagle rug, fireplace?, a picture of Abraham Lincoln and a big red button button here.
+You can go east or west.
+This egg-shaped desk-hole is the center of the free world, Michael. Best behavior! Didn't Mr. Washington say something about a wife's nickname and a Groupon Says? I was sleeping.
+
+
+> look at desk
+The president sites here to do things
+
+> look at eagle rug
+This rug has an eagle holding some arrows and a cheeseburger
+
+> look at fireplace
+I think I remember the oval office having this from some movie
+
+> look at picture of abraham lincoln
+I portrait of Abraham Lincoln with his many, many shaved cats
+
+> look at button
+Give your breath long lasting freshness...with big red
+
+> say Betsy Ross
+No one can hear you. What a dweeb
+A secret panel in the Oval Ceiling opens up and drops an OLD TIMEY SLEEP HAT right in fucking front of you!
+
+> look at old timey sleep hat
+IT'S SO CONINICAL!
+
+> take old timey sleep hat
+You got the old timey sleep hat. Man do I love that victory music!
+
+> east
+You are in The Moon
+There is cheese, the american flag and astro man here.
+You can go west.
+It's the moon! This game is the greatest!
+
+ALSO ANSWER this here is a yes or no question: Was the game designer to lazy to set up a challenge in this room?
+
+> look
+You are in The Moon
+There is cheese, the american flag and astro man here.
+You can go west.
+It's the moon! This game is the greatest!
+
+ALSO ANSWER this here is a yes or no question: Was the game designer to lazy to set up a challenge in this room?
+
+> look at cheese
+delicious!
+
+> look at the american flag
+It's not really here but in a movie set in the nevada desert.
+
+> look at astro man
+He died of Moon Poisoning a long time ago.
+
+> yes
+Good work. A teddy bear appears. Get it. I'm tired.
+
+> look at teddy bear
+he even has an astronaut helmet on. bonus.
+
+> take teddy bear
+DOUBLE VICTORY MUSIC!
+You've got all three sleep ingredients for that dumb beef eatin' Library guard. Go give em to him, Ladyface!
+
+> west
+You are in The Oval Office
+There is Desk, eagle rug, fireplace?, a picture of Abraham Lincoln and a big red button button here.
+You can go east or west.
+This egg-shaped desk-hole is the center of the free world, Michael. Best behavior! Didn't Mr. Washington say something about a wife's nickname and a Groupon Says? I was sleeping.
+
+
+> west
+You are in The Science Lab
+There is The Science table, bunsen burner and a computerized computer butler named R.E.Y.N.O.L.D. here.
+You can go north or east.
+It's the science lab. This is probably a good place to learn about science. 
+
+> north
+You are in Independence Hall
+There is George Washington, Albert Einstein, Sherlock Holmes and The declaration of independence here.
+You can go north or south.
+Why, Michael! You've stepped through history into Independence Hall in 1776. The founding fathers are here, signing the Declaration of Independence. Talk to them and learn some things.
+
+> north
+You are in The Library
+There is a bookshelf, a globe, a strange guard guarding the Western door, some other bookshelf, television, a plant and a glass case here.
+You can go north, south, east or west.
+Whoa! Graphics! This game just got interesting! Anyway, this is the library. 
+
+> speak to guard
+"Oy, right! What do you want?...Oh, ye wants ta' get through, does ya? Well that ain't happening! It's my job you see. I guard this door unless I'm sleeping and it takes three things to get me to sleep. A glass o'milk, me beloved teddy bear, and, a'course, one of them old style pointy sleeping hats. So, unless you got those things and I accidentally take and use 'em, bugger off ladyface" 
+
+...Ladyface?
+
+
+> give glass of milk to guard
+Oy! A glass of milk! Me favorite!
+
+> give old timey sleep hat to guard
+Olllright! An old timey sleep hat! I ain't seen one of these things since I last slept!
+
+> give teddy bear to guard
+"Me teddy! I roight love this thing!"
+
+Why is this guy even in the game?
+"Hey! All me sleep things! You brought them to me. Ok I guess I'm ready to take a nap. But first you have to answer me this one riddle question: Assuming that every room in this game is the same size, when you draw them out on a map what letter do they make the shape of? Come back and SAY the answer whenever youre ready"
+
+Seriously? Jesus, this game is annoying.
+
+> speak to guard
+"I'm ready to sleep. Say the answer to my riddle, ya  ponce."
+
+> look at guard
+It's one of thsoe weird British guards. No, not the not allowed to laugh MArge Simpson ones. The other funny hat ones. I think they're called meat eaters.
+
+It's one of thsoe weird British guards. No, not the not allowed to laugh MArge Simpson ones. The other funny hat ones. I think they're called meat eaters.
+
+> say E
+No one can hear you. What a dweeb
+THAT'S RIGHT!!! You are one smart cromfallier, you is. I'm going to go to sleep now, leaving this DOOR TO THE END OF THIS DUMB GAME unguarded. 
+
+> west
+[runner] turns=172 leftover=0 running=true WON=YES

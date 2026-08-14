@@ -1,0 +1,592 @@
+
+All the news that's fit to print
+
+You are in Introduction
+You can go to The Field.
+[Welcome to the Daily Objective, Northern California's up-and-coming newspaper in the age of the blog. My name is Eddie Ditter and I run the place. Some folks say that the newspaper is dead. I say there will always be a market for solid, reigonal news.]
+
+[Do people really want their Kindles at the breakfast table?]
+
+You are our newest reporter. Your job is to go out into the field and bring back the truth. You have 6 hours of field time for this assignment, which translates to about 8 turns (whatever those are) to speak to interview subjects and obtain material for your news collumn. Note that article length is limited, so please follow the inverted pyramid model. Put only the most important information at the very top, and any information you're not afraid to lose below it.
+
+[What are you waiting for? Why don't you go to The Field.]
+
+[Note: Turns were not implemented properly. When you have 8 items in your inventory, "go to editor" from the field.]
+
+> go to the field
+You are in The Field
+You can go to Administration, Police, Protestors, Students, Business Sector, Activist organizations, Professors, or editor.
+
+[Welcome to The Field, your main menu on your assignment. From here you may select]
+
+[You have been assigned to cover a protest at UC Cashell. It seems there has been some controversy with the police involving pepper spray. You're the first professional reporter on the scene, so you have to act fast.]
+
+[Why don't we start by interviewing subjects?]
+
+Subject categories [Go to]
+Administration
+Police
+Protestors
+Students
+Business sector
+Activist organizations
+Professors
+
+[What will you do?]
+
+> go to administration
+You are in Administration
+There is Chancellor, President and Communications director here.
+You can go to The Field.
+[You have selected the category Administration. Who will you interview?]
+
+[Speak to]
+-President
+-Chancellor
+-Communications director
+
+> speak to president
+[You decide to speak with UC Cashell President Gretchen Rockwood. She looks out the window and sighs.]
+
+Gretchen: How can I help you?
+
+
+Ask Gretchen about Protest?
+1) Yes
+2) No
+[choice] 1
+Gretchen: I am glad to see that UC Cashell has such a politically involved student body, but this is not the outlet for it. We had our state funding slashed before the recession, and since then we've had even less of a choice in raising tuition fees. If students have to pay a little more to take part in the programs we offer, it's better that we can continue to offer such a high standard of education. The fact that tuition prices are rising does not give students a right to pitch tents 'Occupy' the central hub of our campus. It's not fair to the rest of our student body, and it will not result in lower tuition fees.
+
+Ask Gretchen about Pepper Spray?
+1) Yes
+2) No
+[choice] 1
+[You ask Gretchen about the Pepper Spray incident.]
+
+Gretchen: While we regret that several protestors were exposed to pepper spray on campus grounds, they were asked repeatedly to pack up their tents and relocate. When they refused to move, we had no choice but to involve the police. The important thing is that nobody was injured.
+
+> speak to chancellor
+[You decide to speak with UC Cashell's Chancellor, Bernard Meier. He is sitting behind his desk and doesn't look happy to see you.]
+
+Bernard: Oh, a reporter. What can I do for you?
+
+
+Ask Bernard about protest?
+1) Yes
+2) No
+[choice] 1
+[You ask Bernard about the Protest.]
+
+Bernard: While we are looking into some of the protestor's concerns, we have to balance them with the needs of our student community and the welfare of our state. The state's dwindling support of our institution can only fund our staff and operating costs so far. We have no choice but to rely more and more on tuition. Camping out in the Quad will not change that economic fact. The important thing to remember, for our students who need it, is that we have always offered appropriate financial aid.
+Ask Bernard about Pepper Spray? (1 turn)
+1) Yes
+2) No
+[choice] 1
+[You ask Bernard about the Pepper Spray]
+
+Bernard: While the Board of Governors did decide to ask the police to remove the protestors, who were interfering with campus activity, I don't like to see any of our students getting sprayed. We are looking into an investigation of the police's action on our campus. When we know, we'll release a statement.
+
+> speak to communications director
+[You decide to speak with Barry Tarver, Communications Director of UC Cashell, but he refuses to speak with you. Instead he clears his throat repeatedly and points to a press release he's prepared for you.]
+
+
+Take Barry's press release?
+1) Yes
+2) No
+[choice] 1
+Press release: UC Davis has a history of accommodating civil debate and even dissent on campus, and for most of our history our students have been content to protest within our institution's rules. However the protestors were warned that camping out on campus grounds violates school policy and were encouraged to demonstrate their frustration through alternative channels. The protestors were warned again when they set up their tents last night. An encampment of 30 tents, some of them belonging to students, were placed in the Quad. There were concerns for the safety of our student body and we had no choice but to involve the police.
+
+The video of a police officer spraying students does raise serious concerns about how situations like this are handled, but we are launching an investigation into these matters.
+
+> i
+You are carrying:
+chancellor pepper spray
+chancellor protest
+president pepper spray
+president protest
+director pepper spray
+
+> go to the field
+You are in The Field
+You can go to Administration, Police, Protestors, Students, Business Sector, Activist organizations, Professors, or editor.
+
+[Welcome to The Field, your main menu on your assignment. From here you may select]
+
+[You have been assigned to cover a protest at UC Cashell. It seems there has been some controversy with the police involving pepper spray. You're the first professional reporter on the scene, so you have to act fast.]
+
+[Why don't we start by interviewing subjects?]
+
+Subject categories [Go to]
+Administration
+Police
+Protestors
+Students
+Business sector
+Activist organizations
+Professors
+
+[What will you do?]
+
+> go to police
+You are in Police
+There is Directly involved officer, Other officer at the scene and Chief here.
+You can go to The Field.
+[You have selected the category Police. Who will you interview?]
+
+[Speak to]
+-Directly involved officer
+-Other officer at the scene
+-Chief
+
+> speak to directly involved officer
+[You spend an hour digging for the officer who doused the protestors in pepper spray.]
+
+Barry Carley: I was advised not to say anything.
+
+
+> speak to other officer at the scene
+[You decide to speak to another officer at the scene. One officer didn't see much, but is willing to use her name. The other does not want to be identified as a police officer in the article.]
+
+Speak with the officer who didn't see much?
+1) Yes
+2) No
+[choice] 1
+[You're speaking with Shawna Stone.]
+
+
+Ask Shawna about Protestors?
+1) Yes
+2) No
+[choice] 1
+Shawna: I have nothing against the protestors or their cause. They were trespassing on university ground and it was our responsibility to remove them.
+
+Ask Shawna about Pepper Spray?
+1) Yes
+2) No
+[choice] 1
+Shawna: At the time I was occupied with keeping the bystanders back, so I didn't see much. I can understand why Officer Carley felt the need to use his pepper spray. We were absolutely surrounded by protestors and some of their chants were quite threatening.
+
+Speak with the officer who doesn't wish to be named?
+1) Yes
+2) No
+[choice] 1
+Mario Schacht: I don't want to be identified by name or as a police officer. I don't need that target on my back. I want to say that the level of force used by Barry Carley was disgraceful. These kids were sitting down and refusing to cooperate. They could have been picked up, one-by-one, into a paddy-wagon and sent to occupy a jail cell downtown. Instead he immediately escalated to a painful neutralizing agent.
+Follow up with research?
+1) Yes
+2) No
+[choice] 1
+[You do some research on practices pertaining to the amount of force used by the police.]
+
+> speak to chief
+[You wait a couple minutes on hold before you speak over the phone with Nettie Roque, Chief of Police.]
+
+Nettie: Sorry about the wait. I'm told you have questions for me.
+
+
+Ask Nettie about protest?
+1) Yes
+2) No
+[choice] 1
+Nettie: Let's not beat around the bush. You're here because of the incident at UC Cashell. We have yet to release an official statement. Needless to say, there will be an investigation into these matters. Inappropriate use of force is an accusation we take seriously. If a police officer was responsible for any wrongdoing, appropriate actions will be taken.
+Ask Nettie if officer was following orders?
+1) Yes
+2) No
+[choice] 1
+[You ask if the officer was ordered to use pepper spray by a superior.]
+
+Nettie: I do not know all the details at this time but I am confident that if the use of force was inappropriate, it was the fault of an individual officer's decision and not training, policy, or our institution.
+
+> go to the field
+You are in The Field
+You can go to Administration, Police, Protestors, Students, Business Sector, Activist organizations, Professors, or editor.
+
+[Welcome to The Field, your main menu on your assignment. From here you may select]
+
+[You have been assigned to cover a protest at UC Cashell. It seems there has been some controversy with the police involving pepper spray. You're the first professional reporter on the scene, so you have to act fast.]
+
+[Why don't we start by interviewing subjects?]
+
+Subject categories [Go to]
+Administration
+Police
+Protestors
+Students
+Business sector
+Activist organizations
+Professors
+
+[What will you do?]
+
+> go to protestors
+You are in Protestors
+There is protestors at random, Press tent and Fringe here.
+You can go to The Field.
+[You have selected the category Protestors. Who will you interview?]
+
+[Speak to]
+-Protestors at random
+-Press tent
+-The fringe
+
+> speak to protestors at random
+[You speak to the protestors at random.]
+
+Speak with Mercedes Gamache?
+1) Yes
+2) No
+[choice] 1
+Ask Mercedes Gamache about protest?
+1) Yes
+2) No
+[choice] 1
+Mercades: This protest is about the privatization of our higher education system. Higher education should be in the public's interest. Why should this be a commodity too?
+
+Ask Mercedes Gamache about Pepper Spray?
+1) Yes
+2) No
+[choice] 1
+Mercedes: I'm kind of glad the police did something this stupid. On the one had, pepper spray sucks. On the other, this is going to give our protest a lot of attention. You have to wonder what they're afraid of.
+
+Speak with Miguel Salo?
+1) Yes
+2) No
+[choice] 1
+Ask Miguel about protest?
+1) Yes
+2) No
+[choice] 1
+Miguel: I know everyone else is here to protest the tuition hike but to be honest, my reason for being here is a little more selfish. I'm mostly here for the community. This is supposed to be a place where we can debate and exchange ideas. I can't believe that the UC Cashell isn't encouraging this practice, even if it's operating against their interests.
+
+Ask Miguel about pepper spray?
+1) Yes
+2) No
+[choice] 1
+Miguel: I'm just devastated that the administration felt the need to remove dissenting students from campus. The pepper spray incident just adds injury to insult
+
+Speak with Latasha Richman?
+1) Yes
+2) No
+[choice] 1
+Ask Latasha about protest?
+1) Yes
+2) No
+[choice] 1
+Protest: I'm here to lower tuition fees! Can you believe we're paying over fifteen thousand dollars a year in tuition? If I become a teacher, how am I supposed to pay my debts from my starting salary?
+
+
+Ask Latasha about Pepper Spray?
+1) Yes
+2) No
+[choice] 1
+Latasha: I can't believe this happened. People I knew got doused with pepper spray and were carted off to god-knows-where.
+
+> speak to press tent
+Ask Elsa about protest?
+1) Yes
+2) No
+[choice] 1
+Elsa: Tuition for out-of-state students is over thirty thousand dollars and is still half that amount for locals. While there are programs that help people from disadvantaged families, anybody above the cutoff has to take on between sixty thousand to a hundred and twenty thousand dollars in student loans. This privatization of higher education really has a chilling effect on scholarship, because it pushes students to only pursue degrees that lead to starting salaries which will quickly pay off their growing debt.
+
+Ask Elsa about pepper spray?
+1) Yes
+2) No
+[choice] 1
+Elsa: It's really unfortunate that the police chose to pepper spray sitting, nonviolent protestors. It is also unfortunate that the university felt the need for us to be forcibly removed. True, we broke university policy by camping out in the quad - which was not being used - but we took down our tents before the police felt the need to spray ten of our peers.
+
+> speak to fringe
+
+> go to the field
+You are in The Field
+You can go to Administration, Police, Protestors, Students, Business Sector, Activist organizations, Professors, or editor.
+
+[Welcome to The Field, your main menu on your assignment. From here you may select]
+
+[You have been assigned to cover a protest at UC Cashell. It seems there has been some controversy with the police involving pepper spray. You're the first professional reporter on the scene, so you have to act fast.]
+
+[Why don't we start by interviewing subjects?]
+
+Subject categories [Go to]
+Administration
+Police
+Protestors
+Students
+Business sector
+Activist organizations
+Professors
+
+[What will you do?]
+
+> go to students
+You are in Students
+There is Cellphones, on campus and far away here.
+You can go to The Field.
+[You have selected the category Students. Who will you interview?]
+
+[Speak to]
+-Students recording with Cellphones
+-Students On campus
+-Students Far away from event
+
+> speak to cellphones
+[You speak to the students who were on the scene, recording the incident with their phones.]
+
+Student: Yeah, I recorded the whole thing. The ten of them were just sitting here in the open when the police came and pepper sprayed them. The tents were already gone by the time it happened. I'm glad we have such good cameras on our phones. Maybe the police will get more accountable when they know the people are watching.
+Spend an hour combing through YouTube?
+1) Yes
+2) No
+[choice] 1
+[You comb through the YouTube videos and find some more information about the protest. Before the protesters were sprayed, some of them were making agressive chants like "fuck the police" but were discouraged by the group. After the incident they switched to "You use violence, we use words," and told the officers "you can leave now."]
+
+> speak to on campus
+[You speak with a random student on campus.]
+
+Ask student about protest?
+1) Yes
+2) No
+[choice] 1
+Student: Yeah, I heard it was about tuition fees or something. I guess I support it. Why wouldn't I want to pay lower fees?
+
+Ask student about pepper spray?
+1) Yes
+2) No
+[choice] 1
+Student: No way! The police pepper sprayed students? That's horrible. Is there a link on YouTube yet?
+
+[Didn't cost you a turn.]
+
+> speak to far away
+[You speak with a student far away from where the protest is taking place.]
+
+Ask student about protest?
+1) Yes
+2) No
+[choice] 1
+Student: I have no idea what the protest is about.
+
+Ask student about pepper spray?
+1) Yes
+2) No
+[choice] 1
+Student: Well, he must have done something. The police wouldn't pepper spray a guy for no reason.
+
+> go to the field
+You are in The Field
+You can go to Administration, Police, Protestors, Students, Business Sector, Activist organizations, Professors, or editor.
+
+[Welcome to The Field, your main menu on your assignment. From here you may select]
+
+[You have been assigned to cover a protest at UC Cashell. It seems there has been some controversy with the police involving pepper spray. You're the first professional reporter on the scene, so you have to act fast.]
+
+[Why don't we start by interviewing subjects?]
+
+Subject categories [Go to]
+Administration
+Police
+Protestors
+Students
+Business sector
+Activist organizations
+Professors
+
+[What will you do?]
+
+> go to business sector
+You are in Business Sector
+There is Student loans bankers and Business professionals here.
+You can go to The Field.
+[You have selected the category Business Sector because... you'll think of something. Who will you interview?]
+
+[Speak to]
+-Student loans bankers
+-Nearby business professonals
+
+> speak to student loans bankers
+[You speak with Ronnie Starke, a Student Loan Banker for Sallie March Education Financial Services.]
+
+Ronnie: Of course tuition fees should be raised, if it makes economic sense to do so. Thanks to government subsidies, students in need have access to loans that are comparatively affordable to the general market. If they are ineligible unsubsidized rates aren't bad either, so long as students are responsible and keep up with the payment plans.
+
+Do some follow up research to verify claims?
+1) Yes
+2) No
+[choice] 1
+[You find that the federal government will lend eligible students a maximum of about thrity-one thousand dollars, or about two years of UC Cashell's tuition for local students.]
+
+> speak to business professionals
+[You speak with business professionals in the nearby area about the protest.]
+
+Speak with Miguel Killinger?
+1) Yes
+2) No
+[choice] 1
+Miguel: I don't see why a taxpayer should be responsible for the burden of higher education instead of the students. Let them borrow some money and pay their way like everyone else. I was raised with a certain level of personal responsibility, and I can't believe there are people who want to leech off the system.
+
+Ask Rena Pavon about protest?
+1) Yes
+2) No
+[choice] 1
+Rena: Ouch, tuition fees. I remember those. I graduated about seven years ago and I only just payed off my student loans. Let me tell you, they were a nightmare.
+
+> go to the field
+You are in The Field
+You can go to Administration, Police, Protestors, Students, Business Sector, Activist organizations, Professors, or editor.
+
+[Welcome to The Field, your main menu on your assignment. From here you may select]
+
+[You have been assigned to cover a protest at UC Cashell. It seems there has been some controversy with the police involving pepper spray. You're the first professional reporter on the scene, so you have to act fast.]
+
+[Why don't we start by interviewing subjects?]
+
+Subject categories [Go to]
+Administration
+Police
+Protestors
+Students
+Business sector
+Activist organizations
+Professors
+
+[What will you do?]
+
+> go to activist organizations
+You are in Activist organizations
+There is ACLU and Debt free here.
+You can go to The Field.
+[You have selected the category Activist Organizations. Who will you interview?]
+
+[Speak to]
+-ACLU of Northern California
+-California Students for Debt Free Education
+
+> speak to aclu
+[You speak with the American Civil Liberties Union of Northern California.]
+
+ACLU: Our organization doesn't have an opinion on the peaceable protest, other than it's right to exist within the law. As for the pepper spray, this was completely unnecessary and serves as yet another example of police misconduct on our state's campuses. We have sent a letter to UC Cashell's chancellor, and we are launching our own investigation into the incident. We want to know the names of the officers involved, what their orders were, and what their policies are in such incidents. How can we protest anything if we are unaware of the consequences?
+
+> speak to debt free
+[You speak to the California Students for Debt Free Education.]
+
+CSDFE: Universities don't have the guts to tell students to go to a less expensive school. The thirty-one thousand dollars that federal loans provide is only enough for two semesters at UC Cashell. Less if you're out-of-state. After that, you're into private loans where firms like Sallie March charge unpredictable interest rates which can fluctuate between 2.4 and 9.3 percent, and of course they have an interest in higher tuition and keeping students paying. We advise students not to go into debt for more than their expected starting salaries.
+
+[Sallie March is a chief advertiser for The Daily Objective.]
+
+> go to the field
+You are in The Field
+You can go to Administration, Police, Protestors, Students, Business Sector, Activist organizations, Professors, or editor.
+
+[Welcome to The Field, your main menu on your assignment. From here you may select]
+
+[You have been assigned to cover a protest at UC Cashell. It seems there has been some controversy with the police involving pepper spray. You're the first professional reporter on the scene, so you have to act fast.]
+
+[Why don't we start by interviewing subjects?]
+
+Subject categories [Go to]
+Administration
+Police
+Protestors
+Students
+Business sector
+Activist organizations
+Professors
+
+[What will you do?]
+
+> go to professors
+You are in Professors
+There is Communications studies, Psychology and Economics here.
+You can go to The Field.
+[You have selected the category Professors. Who will you interview?]
+
+[Speak to] Professor of
+-Communications studies
+-Psychology
+-Economics
+
+> speak to communications studies
+Soldier, you're setting foot behind enemy lines. Turn back?
+1) Yes
+2) No
+[choice] 2
+
+> speak to psychology
+[You speak to Marcus Rainbolt, associate professor of Psychology about the protest.]
+
+Marcus: They're young, they feel invulnerable, and they are angry that their future is uncertain. Put them in a field together with some signs, get them chanting, and you have a mob. Mobs behave differently than individual actors, and I can see why the university administration is unwilling to let them camp out overnight.
+
+> speak to economics
+[You speak with Michael Ashbaugh, a MA lecturer in the department of Economics.]
+
+Michael: Frankly, I don't understand why this protest even occurred at UC Cashell. The tuition hikes only affected the students who could afford tuition anyways. The aids packages provided to low income students raised nearly dollar-for-dollar with the increases. As far as I can tell, what we're seeing is mostly rich kids whining because they can't financially justify their master's degrees in ethno musicology.
+
+> i
+You are carrying:
+chancellor pepper spray
+chancellor protest
+president pepper spray
+president protest
+director pepper spray
+directly pepper spray
+shawna protest
+mario pepper spray
+mario follow up
+chief protest
+chief follow up
+mercedes protest
+mercedes pepper spray
+miguel protest
+miguel pepper spray
+latasha protest
+latasha pepper spray
+press protest
+press pepper spray
+marcus protest
+cellphone pepper spray
+cellphone follow up
+on campus protest
+student loan debt
+student loan follow up
+killinger protest
+rena protest
+Debt free debt
+comm prof
+Psychology protest
+economics protest
+ACLU protest
+
+> go to the field
+You are in The Field
+You can go to Administration, Police, Protestors, Students, Business Sector, Activist organizations, Professors, or editor.
+
+[Welcome to The Field, your main menu on your assignment. From here you may select]
+
+[You have been assigned to cover a protest at UC Cashell. It seems there has been some controversy with the police involving pepper spray. You're the first professional reporter on the scene, so you have to act fast.]
+
+[Why don't we start by interviewing subjects?]
+
+Subject categories [Go to]
+Administration
+Police
+Protestors
+Students
+Business sector
+Activist organizations
+Professors
+
+[What will you do?]
+
+> go to editor
+You are in editor
+You can go to the end.
+[Now that you have your raw material for your article, here's where you put them into paragraphs.]
+
+[Make sure you only put one item from your inventory into each paragraph. You should have more items than we have space in the collumn. You will have to choose the most important.]
+
+[Advance to the end when complete.]
+
+[Put X in Paragraph Y, for paragraphs one to six]
+
+> go to the end
+You are in the end
+
+> look
+You are in the end
+[runner] turns=39 leftover=0 running=true WON=YES

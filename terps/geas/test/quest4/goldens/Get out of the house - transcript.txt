@@ -1,0 +1,408 @@
+
+Get out of the house!, v1.0 Steve Lingle
+
+You are about to embark on an adventure of a lifetime.  Well, that might be exaggerating.  You are about to embark on a very small quest to get out of a house.  
+Who's house and why are you there to begin with?  You'll never know.  Nevertheless, you are in a house and you must get out of it.  Using your razor sharp wit and born wisdom, you will find items to help you proceed through challenging puzzles.
+
+Interact with everything...Pick up everything no matter how ridiculous it seems.  Have fun with commands even if it does not progress you further.  :)
+Use simple commands.  N for north, etc...X for Examine.  Look at objects before examining them for a more flowing story.
+For generic commands help, type HELP.
+In some places, you can get a hint by typing HINT.
+NOW HAVE FUN AND GET OUT OF THE HOUSE!!!
+
+
+
+The lovely living room
+There is a rubber band, a TV, a shelf and the couch here.
+You are sitting on a couch in the living room of a fairly decent home.  It's your average living room with the normal furniture: couch, shelf, TV.
+The weather is clear; the birds are chirping.  You want to go outside and take all of this in.  To the north is a kitchen, to the east is a bathroom, to the south seems to be the front hallway.  What do you do?  Oh wait, there's also a rubber band sitting on the table next to where you are sitting.
+
+> take rubber band
+Good.  I'm glad you figured that one out.  You take the rubber band and stuff into your previously empty pocket.
+
+> stand
+'bout time.  You get tired of sitting on your butt so you stand.  As you stand, you hear the popping of bones and joints that go along with aging.
+You are in the living room
+There is a TV, the couch, the shelf and a music book here.
+You can go north, south, east or west.
+You can go to the bathroom, the kitchen, the den, or the front hall.
+You are now standing by a couch in the living room of a fairly decent home.  It's your average living room with the normal furniture: couch, shelf, TV.  Kitchen, north.
+The weather is clear; the birds are chirping.  You want to go outside and take all of this in.  To the north is a kitchen, to the east is a bathroom, to the west is the den and  to the south seems to be the front hallway.  What do you do?  
+
+> take couch
+Taken.  Only you would think to pick up a couch and stuff it in your pocket.  Who do you think you are, Serious Sam?
+
+> east
+Ok.  You feel the urge of nature to walk into the bathroom.  Although you don't have the urge to actually "go", you are, nonetheless, now standing in the bathroom.  You see the hideous reflection in the mirror and almost pass out but discover it is only you.  The putrid odor of mold fills the air as you look around the room taking in all the glorious scenery.  Speaking of glorious scenery, didn't you want to go outside?  As you look around the room, you spot a nice little decorative pillow on top of the toilet and a toothbrush sitting on the grotesque countertop that seems to scream, "put me in your mouth, I dare you".   A grungy bathrobe hangs menacingly on the back of the bathroom door.
+
+You hear a slow and painfully annoying drip from the shower.
+
+> take pillow
+Taken.  You notice a pillow-shaped area that is not covered with dust on top of the toilet.
+
+> take bathrobe
+Taken.  You stuff it nicely in your increasingly growing pocket.
+
+> use pillow on shower
+You strategically set the pillow on the shower floor directly below what seems to be a loose tile.
+
+> use bathrobe on shower
+You strategically lay the bathrobe on the shower floor covering any tiles nearby the trajectory point of where a falling tile might land.
+
+> take loose tile
+As you gently and tenderly touch the tile, the last fiber of whatever was holding it there releases and the tile slips from your grasp.  In slow motion, the tile tumbles end over end.  You can sense the view from a camera zooming in slowly on your widening eyes.  You realize there is no camera but if there was, it would be quite an impressive camera shot.  Your slow, clumsy hand reaches down to catch the slowly falling tile while you yell, "Noooooo" in a deep drawn-out voice that sounds like you are playing it back in slow-motion.  The tile lands on the decorative bathroom pillow and bounces off softly to the side.  The slow-motion action continues as the tile flips noiselessly on the grungy bathrobe.  All is now peaceful as you stand there feeling proud of yourself for saving a shower tile from imminent peril.
+
+> west
+You are in the living room
+There is a TV, the shelf and a music book here.
+You can go north, south, east or west.
+You can go to the bathroom, the kitchen, the den, or the front hall.
+You are now standing by a couch in the living room of a fairly decent home.  It's your average living room with the normal furniture: couch, shelf, TV.  Kitchen, north.
+The weather is clear; the birds are chirping.  You want to go outside and take all of this in.  To the north is a kitchen, to the east is a bathroom, to the west is the den and  to the south seems to be the front hallway.  What do you do?  
+
+> south
+You are in the front hall.  The front door looms before you.  You want to open it, don't you? 
+
+> look at peep hole
+You can't quite reach the peep hole, shorty.
+
+> press tile
+You do the river dance on the tile and the front door clicks.
+
+> south
+You are in the front closet
+There is the bucket and a mobile home here.
+You can go north.
+You've stumbled your way into the front closet.  That was highly unexpected.  Out of frustration, you look around the closet for anything useful.  Just some odds and ends.
+
+> take bucket
+You pick it up.
+
+> north
+You're in the front hall.  There is a hall closet to the south and the living room is to the north.
+
+> north
+You are in the living room
+There is a TV, the shelf and a music book here.
+You can go north, south, east or west.
+You can go to the bathroom, the kitchen, the den, or the front hall.
+You are now standing by a couch in the living room of a fairly decent home.  It's your average living room with the normal furniture: couch, shelf, TV.  Kitchen, north.
+The weather is clear; the birds are chirping.  You want to go outside and take all of this in.  To the north is a kitchen, to the east is a bathroom, to the west is the den and  to the south seems to be the front hallway.  What do you do?  
+
+> north
+You are in the kitchen
+There is a bottle, a sink, a microwave, a table, a specifically different kitchen chair, a chandelier and a toaster here.
+You can go north, south or west.
+You can go to the living room or the dining room.
+A counter top sits along the east wall and is a bit dusty but has many of the usual household items such as a toaster (that you won't need) and a microwave (that you shouldn't mess with).  There are some other bits as well.  There is a table here with four quaint chairs pushed in underneath.  A window peeks mildly behind a timid curtain.  To the north lies a door which you have a sneaky suspicion it might be locked.  To the west, you can almost see a table.  The living room lies to the south.
+
+> take bottle
+When you pick up the bottle, you hear a small object jingling inside.
+
+> south
+You are in the living room
+There is a TV, the shelf and a music book here.
+You can go north, south, east or west.
+You can go to the bathroom, the kitchen, the den, or the front hall.
+You are now standing by a couch in the living room of a fairly decent home.  It's your average living room with the normal furniture: couch, shelf, TV.  Kitchen, north.
+The weather is clear; the birds are chirping.  You want to go outside and take all of this in.  To the north is a kitchen, to the east is a bathroom, to the west is the den and  to the south seems to be the front hallway.  What do you do?  
+
+> west
+You are in the den
+There is a fireplace, a mantle, a comfy chair, a vase, a number two pencil and an outlet here.
+You can go north, east or up.
+You can go to the dining room or the living room.
+You're in the den.  There's a few items on the mantle.  The fireplace crackles with an eerie crackle.  An exit to the east leads to the Living Room and an exit to the north leads to the Dining Room.  Alas, you see a window on one side of the room.
+You walk into the den and see a comfy chair sitting next to a fireplace which crackles with an eerie crackle.  On the mantle, you see just a few items.
+
+> take pencil
+Careful not to stab your hand, you pick up the dull number 2 (or 3) pencil.
+
+> use pencil on bottle
+You center the eraser-side of the pencil against the cork and steadily push.  As you strain, you feel the cork give way slightly.  Finally, after much effort, the cork shoots inside the bottle. 
+
+Needless to say, you now decide to turn the bottle upside down and empty the rust-laden key into your sweaty palms.
+
+Good job!
+
+> east
+You are in the living room
+There is a TV, the shelf and a music book here.
+You can go north, south, east or west.
+You can go to the bathroom, the kitchen, the den, or the front hall.
+You are now standing by a couch in the living room of a fairly decent home.  It's your average living room with the normal furniture: couch, shelf, TV.  Kitchen, north.
+The weather is clear; the birds are chirping.  You want to go outside and take all of this in.  To the north is a kitchen, to the east is a bathroom, to the west is the den and  to the south seems to be the front hallway.  What do you do?  
+
+> north
+You are in the kitchen
+There is a sink, a microwave, a table, a specifically different kitchen chair, a chandelier and a toaster here.
+You can go north, south or west.
+You can go to the living room or the dining room.
+A counter top sits along the east wall and is a bit dusty but has many of the usual household items such as a toaster (that you won't need) and a microwave (that you shouldn't mess with).  There are some other bits as well.  There is a table here with four quaint chairs pushed in underneath.  A window peeks mildly behind a timid curtain.  To the north lies a door which you have a sneaky suspicion it might be locked.  To the west, you can almost see a table.  The living room lies to the south.
+
+> fill bucket
+You turn on the faucet and the pipes rumble angrily beneath the counter top.
+With a final climax, a small steady stream of nasty water fills the bucket.
+
+> south
+You are in the living room
+There is a TV, the shelf and a music book here.
+You can go north, south, east or west.
+You can go to the bathroom, the kitchen, the den, or the front hall.
+You are now standing by a couch in the living room of a fairly decent home.  It's your average living room with the normal furniture: couch, shelf, TV.  Kitchen, north.
+The weather is clear; the birds are chirping.  You want to go outside and take all of this in.  To the north is a kitchen, to the east is a bathroom, to the west is the den and  to the south seems to be the front hallway.  What do you do?  
+
+> west
+You are in the den
+There is a fireplace, a mantle, a comfy chair, a vase and an outlet here.
+You can go north, east or up.
+You can go to the dining room or the living room.
+You're in the den.  There's a few items on the mantle.  The fireplace crackles with an eerie crackle.  An exit to the east leads to the Living Room and an exit to the north leads to the Dining Room.  Alas, you see a window on one side of the room.
+You walk into the den and see a comfy chair sitting next to a fireplace which crackles with an eerie crackle.  On the mantle, you see just a few items.
+
+> put out fire
+You decide to extinguish the red glowing embers.  With a firm and well-placed sling of the bucket, the water covers the entire inside of the fireplace sending a quick puff of smoke and one last growling sizzle.
+
+You can see plenty of crawl space in the chimney now.
+
+> up
+You have put out the fire so you brave the blackened embers and ease your way into the chimney.
+
+You are in the chimney
+There is the string here.
+You can go down.
+
+You see a small string extending out of a pencil-sized hole that apparently had been drilled through the brick at the top of the chimney.
+You're so happy to be here.  You've put out the angry fire that hindered you from climbing up the chimney.  Then, alas, you discover this chimney has a rain guard at the top which stops any further travel up the chimney.  What a waste.  Oh, what's this?
+
+
+> take string
+You pull sharply on the string and feel tension on the other side of the chimney wall.  You also hear a click somewhere nearby.
+
+> down
+You are in the den
+There is a mantle, a comfy chair, a vase, a fireplace and an outlet here.
+You can go north, east or up.
+You can go to the dining room, the living room, or chimney.
+You're in the den.  There's a few items on the mantle.  The fireplace crackles with an eerie crackle.  An exit to the east leads to the Living Room and an exit to the north leads to the Dining Room.  Alas, you see a window on one side of the room.
+You walk into the den and see a comfy chair sitting next to a fireplace which crackles with an eerie crackle.  On the mantle, you see just a few items.
+
+> east
+You are in the living room
+There is a TV, the shelf and a music book here.
+You can go north, south, east or west.
+You can go to the bathroom, the kitchen, the den, or the front hall.
+You are now standing by a couch in the living room of a fairly decent home.  It's your average living room with the normal furniture: couch, shelf, TV.  Kitchen, north.
+The weather is clear; the birds are chirping.  You want to go outside and take all of this in.  To the north is a kitchen, to the east is a bathroom, to the west is the den and  to the south seems to be the front hallway.  What do you do?  
+
+> north
+You are in the kitchen
+There is a sink, a microwave, a table, a specifically different kitchen chair, a chandelier and a toaster here.
+You can go north, south or west.
+You can go to the living room or the dining room.
+A counter top sits along the east wall and is a bit dusty but has many of the usual household items such as a toaster (that you won't need) and a microwave (that you shouldn't mess with).  There are some other bits as well.  There is a table here with four quaint chairs pushed in underneath.  A window peeks mildly behind a timid curtain.  To the north lies a door which you have a sneaky suspicion it might be locked.  To the west, you can almost see a table.  The living room lies to the south.
+
+> north
+You are in the lonely bedroom
+There is the bed, a dirty sock and the dresser here.
+You can go south.
+This is a lonely bedroom.  You see a bed with no sheets, a dresser and a closet.  Hmmm, no window.  What does that mean?  Probably nothing.
+
+> x closet
+Aw, you discover there are a few more things than you thought.  Maybe you should take a look at each one.
+
+> take glue
+You pick it up.
+
+> take shoe
+You pick it up.
+
+> take shiny red button
+You pick it up.
+
+> take dirty sock
+Taken.  You discover a strange odor.
+
+> south
+You are in the kitchen
+There is a sink, a microwave, a table, a specifically different kitchen chair, a chandelier and a toaster here.
+You can go north, south or west.
+You can go to the living room or the dining room.
+A counter top sits along the east wall and is a bit dusty but has many of the usual household items such as a toaster (that you won't need) and a microwave (that you shouldn't mess with).  There are some other bits as well.  There is a table here with four quaint chairs pushed in underneath.  A window peeks mildly behind a timid curtain.  To the north lies a door which you have a sneaky suspicion it might be locked.  To the west, you can almost see a table.  The living room lies to the south.
+
+> west
+You are in the dining room
+There is a dining room table here.
+You can go north, south or east.
+You can go to the kitchen or the den.
+Here you find a dining room table.  It's still ok even if it does have retractable legs and a squishy top just like a card table.
+To the north is a door with a rusty lock that seems  to lead to a room.  To the east is the kitchen.  To the south is the den.
+
+> north
+You unlock the bedroom door with the rust-laden key and you stain your hands with rust.  yuck!
+You are in the strange room
+There is a weird machine and the socket here.
+You can go south.
+This is a bit of a strange room.  There's no window in here.  There is no bed, closet or any other normal thing that would be in a bedroom.  However, there is a weird machine in the corner that seems to catch your eye.
+
+> use shiny red button on machine
+You plug the shiny red button into the socket on the weird machine and feel proud of yourself.
+
+> press button
+You crumble under temptation and press the shiny red button.  A loud rumble is clearly heard outside and the house caves in and kills you.
+
+
+
+
+That doesn't really happen but it would have been scary.  Ok, so you press the red shiny button and you do hear the machine kick into gear.  It shakes and shudders and revs up to life.  The two pulleys begin to spin and suddenly, the black flimsy plastic ring breaks and shoots right in your eye.  You scream "OWWWW" and fall to your knees clutching your face.  The machine instantly decides it has had enough and calms back to down to a lifeless hunk of metal.
+
+> use rubber band on machine
+You brilliantly attach the rubber band to the pulleys.
+
+> press button
+You finally get all excited about pressing the shiny red button and then you do it.  A loud rumble is clearly heard outside and the house caves in and kills you.
+
+
+
+
+Again, that doesn't really happen but it would have been scary.  
+Ok, so you press the red shiny button and you do hear a low rumble in another room.  It almost sounds like it came from the front hall.  *wink, wink*
+
+> south
+You are in the dining room
+There is a dining room table here.
+You can go north, south or east.
+You can go to the kitchen or the den.
+Here you find a dining room table.  It's still ok even if it does have retractable legs and a squishy top just like a card table.
+To the north is a door with a rusty lock that seems  to lead to a room.  To the east is the kitchen.  To the south is the den.
+
+> south
+You are in the den
+There is a mantle, a comfy chair, a vase, a fireplace and an outlet here.
+You can go north, east or up.
+You can go to the dining room, the living room, or chimney.
+You're in the den.  There's a few items on the mantle.  The fireplace crackles with an eerie crackle.  An exit to the east leads to the Living Room and an exit to the north leads to the Dining Room.  Alas, you see a window on one side of the room.
+You walk into the den and see a comfy chair sitting next to a fireplace which crackles with an eerie crackle.  On the mantle, you see just a few items.
+
+> east
+You are in the living room
+There is a TV, the shelf and a music book here.
+You can go north, south, east or west.
+You can go to the bathroom, the kitchen, the den, or the front hall.
+You are now standing by a couch in the living room of a fairly decent home.  It's your average living room with the normal furniture: couch, shelf, TV.  Kitchen, north.
+The weather is clear; the birds are chirping.  You want to go outside and take all of this in.  To the north is a kitchen, to the east is a bathroom, to the west is the den and  to the south seems to be the front hallway.  What do you do?  
+
+> south
+You're in the front hall.  There is a hall closet to the south and the living room is to the north.
+
+> x gap
+It seems to be about 3" x 3".  Of course, you are just guessing because you have no tools to measure with.
+
+> north
+You are in the living room
+There is a TV, the shelf and a music book here.
+You can go north, south, east or west.
+You can go to the bathroom, the kitchen, the den, or the front hall.
+You are now standing by a couch in the living room of a fairly decent home.  It's your average living room with the normal furniture: couch, shelf, TV.  Kitchen, north.
+The weather is clear; the birds are chirping.  You want to go outside and take all of this in.  To the north is a kitchen, to the east is a bathroom, to the west is the den and  to the south seems to be the front hallway.  What do you do?  
+
+> east
+Ok.  You feel the urge of nature to walk into the bathroom.  Although you don't have the urge to actually "go", you are, nonetheless, now standing in the bathroom.  You see the hideous reflection in the mirror and almost pass out but discover it is only you.  The putrid odor of mold fills the air as you look around the room taking in all the glorious scenery.  Speaking of glorious scenery, didn't you want to go outside?  As you look around the room, you spot a nice little decorative pillow on top of the toilet and a toothbrush sitting on the grotesque countertop that seems to scream, "put me in your mouth, I dare you".   A grungy bathrobe hangs menacingly on the back of the bathroom door.
+
+You hear a slow and painfully annoying drip from the shower.
+
+> take tile
+You decide this tile may be helpful after all!
+
+> west
+You are in the living room
+There is a TV, the shelf and a music book here.
+You can go north, south, east or west.
+You can go to the bathroom, the kitchen, the den, or the front hall.
+You are now standing by a couch in the living room of a fairly decent home.  It's your average living room with the normal furniture: couch, shelf, TV.  Kitchen, north.
+The weather is clear; the birds are chirping.  You want to go outside and take all of this in.  To the north is a kitchen, to the east is a bathroom, to the west is the den and  to the south seems to be the front hallway.  What do you do?  
+
+> south
+You're in the front hall.  There is a hall closet to the south and the living room is to the north.
+
+> use tile on gap
+You decide to place the bathroom tile in the 3"x3" gap.  Wow!  It fits perfectly.  Did you know that the bathroom tile was exactly that big or were you just guessing?
+Regardless, you've managed to advance further in the game.
+You hear several loud noises at once...First, you make out the distinct crashing sound of the kitchen chandelier smashing on the table below it.  Then you hear the dining room table fall over.  You can almost hear several naked people running outside.  And the postcard of the mobile home flutters out of the front closet and onto the front hall floor.  But this was purely coincidental and not important. 
+
+> north
+You are in the living room
+There is a TV, the shelf and a music book here.
+You can go north, south, east or west.
+You can go to the bathroom, the kitchen, the den, or the front hall.
+You are now standing by a couch in the living room of a fairly decent home.  It's your average living room with the normal furniture: couch, shelf, TV.  Kitchen, north.
+The weather is clear; the birds are chirping.  You want to go outside and take all of this in.  To the north is a kitchen, to the east is a bathroom, to the west is the den and  to the south seems to be the front hallway.  What do you do?  
+
+> north
+You are in the kitchen
+There is a sink, a microwave, a specifically different kitchen chair, a kitchen table (with chandelier shards on it), the chandelier shards and an unplugged toaster here.
+You can go north, south or west.
+You can go to the living room or the dining room.
+A counter top sits along the east wall and is a bit dusty but has many of the usual household items such as a toaster (that you won't need) and a microwave (that you shouldn't mess with).  There are some other bits as well.  There is a table here with four quaint chairs pushed in underneath.  A window peeks mildly behind a timid curtain.  To the north lies a door which you have a sneaky suspicion it might be locked.  To the west, you can almost see a table.  The living room lies to the south.
+
+...as you walk through the kitchen, the broken chandelier shards crackle under your feet.
+
+You imagine that you're walking barefoot.  
+
+> take unplugged toaster
+Now that the toaster is safely unplugged, you decide to take it.
+
+> south
+You are in the living room
+There is a TV, the shelf and a music book here.
+You can go north, south, east or west.
+You can go to the bathroom, the kitchen, the den, or the front hall.
+You are now standing by a couch in the living room of a fairly decent home.  It's your average living room with the normal furniture: couch, shelf, TV.  Kitchen, north.
+The weather is clear; the birds are chirping.  You want to go outside and take all of this in.  To the north is a kitchen, to the east is a bathroom, to the west is the den and  to the south seems to be the front hallway.  What do you do?  
+
+> west
+You are in the den
+There is a mantle, a comfy chair, a vase, a fireplace and an outlet here.
+You can go north, east or up.
+You can go to the dining room, the living room, or chimney.
+You're in the den.  There's a few items on the mantle.  The fireplace crackles with an eerie crackle.  An exit to the east leads to the Living Room and an exit to the north leads to the Dining Room.  Alas, you see a window on one side of the room.
+You walk into the den and see a comfy chair sitting next to a fireplace which crackles with an eerie crackle.  On the mantle, you see just a few items.
+
+> plug in toaster
+You plug in the toaster into the outlet and here a scream outside but that was a complete coincidence.
+
+> use toaster
+You turn on the toaster and stuff your hand in it.  You forgot you were wearing your all-aluminum foil gardening gloves.  The toaster zaps you and sends you flying backwards into the window on the other end of the den.
+
+Be careful, those things can kill you!
+
+
+
+
+
+Not only were you thrown at the window, you seem to have been thrown through the window breaking it into bits as you continue to sail through it.
+
+
+You are in front yard
+There is a naked lady here.
+You can go north.
+You apparently have made it outside!  The grass is green, the sun is shining and the birds are chirping...and there really seem to be a few naked people running across the lawn.
+
+> give sock to lady
+You give the naked lady a dirty sock and she takes her shoe off and puts on the sock and then repositions her shoe over it.
+
+> give shoe to lady
+You give the shoe to the naked lady and she puts it on.
+You give the poor helpless naked lady a shoe and sock to complete her wardrobe and she turns to give you a big romantic kiss.  In slow motion, she runs towards you.  Her hair waving back in the wind, her smile hypnotizing you.
+
+You shrug and say "why not?" and start a mad dash towards the oncoming bare girl.
+
+All sense and logic give way to a randomly placed garden hose in the middle of the lawn and you trip.
+
+The nude princess watches you fall down in an ungraceful fashion as you see wavy lines in every direction.
+
+Moments later, you wake up immediately smelling a salty ocean breeze and realize you had been dreaming.  Oh well, it was a pleasant daydream.  You begin to drift off to continue your romance with the nude woman of your dreams but then a midget playing a bagpipe runs by and wakes you up again.
+
+CONGRATULATIONS!!!
+
+[runner] turns=67 leftover=0 running=false WON=YES

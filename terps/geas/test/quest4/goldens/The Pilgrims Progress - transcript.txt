@@ -1,0 +1,623 @@
+
+The Pilgrims Progress (TA), v0.075 Jason Dyer
+
+
+----------
+
+Welcome to The Pilgrims Progress (TA) by Jason Dyer, based on the book by John Bunyan (1628-1688). You can read the book at the following web site: http://www.ccel.org/ccel/bunyan/pilgrim.html
+
+Bible Verses taken from the NKJV & AV.
+
+----------
+
+
+
+----------
+
+Welcome to The Pilgrims Progress (TA) by Jason Dyer, based on the book by John Bunyan (1628-1688). You can read the book at the following web site: http://www.ccel.org/ccel/bunyan/pilgrim.html
+
+Bible Verses taken from the NKJV & AV.
+
+----------
+
+
+You are in the fields
+There is a book here.
+You are a man clothed with rags, standing in a field, with your face away from your own house. You have a great burden upon your back.
+
+> x book
+On the front of the book it says 'Holy Bible'.
+
+> take book
+You take the book.
+
+> read book
+You read the book ...
+
+... we are all like an unclean thing, and all our righteousnesses are like filthy rags...
+
+then quickly you flick through and read ...
+
+... my iniquities have gone over my head, like a heavy burden they are too heavy for me ...
+
+You ponder for a while and then brake out with a lamentable cry, saying,
+
+“What shall I do?”
+
+
+> go to house
+You are in the house
+There is your wife and your children here.
+Your house is sparse but comfortable. You have lived here since you were born.
+
+> x wife
+Your wife looks very busy.
+
+> speak to wife
+You speak to your wife ...
+
+"O, my dear wife, I am in myself undone because of a burden that lies hard upon me. I am certainly informed that this our city will be burnt with fire from heaven, in which you my wife, and you my sweet babes, shall miserably come to ruin, except some way of escape can be found whereby we may be delivered."
+
+At this your relations were shocked. Not that they believed your words, but that they thought some dreadful fever had taken hold of you.
+
+Therefore, because it was drawing towards night, and they hoping that sleep might settle your head, with all haste got you to bed.
+
+You are in your bedroom
+There is a candle, a wooden table, a bed, a window looking out to the fields, an old chair and a door leading to the landing here.
+
+> x candle
+The candle is lit.
+
+> take candle
+You pick it up.
+
+> lie on bed
+You lie on the bed. But instead of sleeping you spend the night in sighs and tears ...
+
+You see the light of day coming in through the window ...
+
+Someone unlocks the door.
+
+> open door
+You open the door.
+
+> go to landing
+You are on the landing.
+There is your wife and your children here.
+You can go to bedroom.
+There are doors to other bedrooms and some stairs leading down.
+
+Your wife says, "How are you this morning my dear?"
+
+
+> speak to wife
+
+You reply, "Worse and worse!"
+
+Over the next few days you set to talking to them again, but they begin to be hardened. They also thought to drive away your state by harsh words. Sometimes they would deride, sometimes they would chide, and sometimes they would quite neglect you.
+
+So you would often retire to your bedroom to pray for and pity them, and also to console your own misery.
+
+You would also walk solitarily in the fields, sometimes reading, and sometimes praying, and this for some days is how you spent your time ...
+
+You are in the fields
+You can go north, south or northeast.
+You are walking in the fields ...
+
+> n
+You are in the upper fields
+You can go north, south or east.
+You are walking in the fields ...
+
+> n
+You are in the high fields
+You can go south or southwest.
+You are walking in the fields ...
+
+> sw
+You are in the upper fields
+You can go east, west, northeast or southeast.
+You are walking in the fields ...
+
+> w
+You are in the upper fields
+There is some matches here.
+You can go east.
+You are walking in the fields ...
+
+> x matches
+You see a box of matches.
+
+> take matches
+You pick it up.
+
+> e
+You are in the upper fields
+You can go east, west, northeast or southeast.
+You are walking in the fields ...
+
+> se
+You are in the fields
+You can go north, south or northeast.
+You are walking in the fields ...
+
+> s
+You are in the lower fields
+You can go north or south.
+You are walking in the fields ...
+
+> s
+You are in the low fields
+You can go north, south, east or west.
+You are walking in the fields ...
+
+> e
+You are in the upper fields
+There is a cry for help here.
+You can go west.
+You are walking in the fields ...
+
+> x cry for help
+It says, "What shall I do to be saved?"
+
+> take cry for help
+You pick it up.
+
+> w
+You are in the upper fields
+You can go east, west, northwest or southwest.
+You are walking in the fields ...
+
+> sw
+You are in the fields
+You can go north, south or northeast.
+You are walking in the fields ...
+  
+You see a man named Evangelist coming to you, and he asks, "Why do you cry?"
+
+> x evangelist
+You see a man named Evangelist. His clothes look clean.
+
+> speak to evangelist
+You talk to Evangelist, saying,
+
+"Sir, I perceive, by the book I have read, that I am condemned to die, and after that to come to judgment. And I find that I am not willing to do the first, nor able to do the second."
+
+Evangelist then proceeds to give you a parchment roll, with words written within.
+
+> x parchment roll
+Written within the parchment roll it says, "Fly from the wrath to come."
+
+> speak to evangelist
+"Where must I go?"
+
+Then said Evangelist, (pointing with his finger over a very wide field,) "Do you see that distant gate?"
+
+"No."
+
+Then said the other, "Do you see the shining light?"
+
+"I think I do."
+
+Then said Evangelist, "Keep that light in your eye, and go up directly to it, and you shall see the gate, at which, when you knock, it shall be told you what to do."
+
+Evangelist goes North.
+
+> n
+You are in the upper fields
+You can go north, south or east.
+You are walking in the fields ...
+
+> n
+You are in the high fields
+You can go south or southwest.
+You can go to wide plain.
+You are walking in the fields ...
+
+> go to wide plain
+You are in the wide plain
+You can go to middle of the plain.
+In the distance you can just make out a shining light. Behind, you see your wife and children, crying after you to return, but you put your fingers in your ears, and run on crying, "Life! life! eternal life!"
+
+> go to middle of the plain
+You are in the middle of the plain
+There is Obstinate and Pliable here.
+You can go to wide plain.
+
+> x obstinate
+Obstinate looks tenaciously unwilling to yield.
+
+> x pliable
+Pliable looks like he might be easily influenced.
+
+> give book to pliable
+You give the book to Pliable.
+
+You also tell him, "I seek an inheritance incorruptible, undefiled, and that fadeth not away. And it is laid up in heaven, and safe there to be bestowed, at the time appointed, on them that diligently seek it. Read it so, if you will, in my book."
+
+Pliable reads some of the book before passing it back to you. He is persuaded to go with you.
+
+He says to Obstainate, "If what the good Christian says is true, the things he looks after are better than ours. My heart inclines to go with my neighbor."
+
+At which point Obstinate returned home saying, "I will go back to my place and will be no companion of such misled, fantastical fellows."
+
+You are in the middle of the plain
+You can go to miry slough.
+You say to Pliable, "Come then, good neighbor, let us be going."
+
+> go to miry slough
+You are in a miry slough
+The bog is very deep and you cannot find any footing. Here you wallow for a time, grievously covered with dirt. 
+Pliable enters and falls into the bog.
+
+> x slough
+This miry slough is such a place as cannot be mended. It is the descent where the scum and filth that attends conviction of sin does continually run, and therefore it is called the Slough of Despond. For as the sinner is awakened about his lost condition, there arise in his soul many fears and doubts, and discouraging apprehensions, which all of them get together, and settle in this place.
+
+> struggle
+You struggle to get out of the bog ...
+
+
+> struggle
+You struggle to get out of the bog ...
+
+
+> struggle
+You struggle to get out of the bog ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+Because of the burden that is on your back, you begin to sink in the mire ...
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+Pliable struggles ...
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+> struggle
+You struggle ...
+
+
+Pliable says, "Ah, neighbor Christian, where are you now?"
+
+You reply, "Truly, I do not know."
+
+At this Pliable began to be offended, and angrily said to his fellow, "Is this the happiness you have told me all this while of? If we have such ill speed at our first setting out, what may we expect between this and our journey's end? May I get out again with my life, you shall possess the brave country alone for me."
+
+And with that he gave a desperate struggle or two, and got out of the mire on that side of the slough which was next to his own house.
+
+So away he went, and you saw him no more.
+
+> struggle
+You struggle to that side of the slough that was farthest from your own house, and next to the gate.
+
+Still you could not get out because of the burden that was upon your back ...
+
+At that moment you see a man coming, whose name is Help.
+
+He calls to you, "Give me your hand".
+
+So you give him your hand, and he draws you out, and sets you upon sound ground before bidding you good day.
+
+You are at the sound ground.
+You can go to crossing of ways.
+You are standing on firm ground.
+
+> struggle
+You struggle to that side of the slough that was farthest from your own house, and next to the gate.
+
+Still you could not get out because of the burden that was upon your back ...
+
+At that moment you see a man coming, whose name is Help.
+
+He calls to you, "Give me your hand".
+
+So you give him your hand, and he draws you out, and sets you upon sound ground before bidding you good day.
+
+You are at the sound ground.
+You can go to crossing of ways.
+You are standing on firm ground.
+
+> struggle
+You struggle to that side of the slough that was farthest from your own house, and next to the gate.
+
+Still you could not get out because of the burden that was upon your back ...
+
+At that moment you see a man coming, whose name is Help.
+
+He calls to you, "Give me your hand".
+
+So you give him your hand, and he draws you out, and sets you upon sound ground before bidding you good day.
+
+You are at the sound ground.
+You can go to crossing of ways.
+You are standing on firm ground.
+
+> struggle
+You struggle to that side of the slough that was farthest from your own house, and next to the gate.
+
+Still you could not get out because of the burden that was upon your back ...
+
+At that moment you see a man coming, whose name is Help.
+
+He calls to you, "Give me your hand".
+
+So you give him your hand, and he draws you out, and sets you upon sound ground before bidding you good day.
+
+You are at the sound ground.
+You can go to crossing of ways.
+You are standing on firm ground.
+
+> read book
+You read the book ...
+
+He also brought me up out of a horrible pit,
+Out of the miry clay,
+And set my feet upon a rock,
+And established my steps.
+
+
+> go to crossing of ways
+You are at the crossing of ways.
+Here you see one crossing over the field to meet you. So it was that you meet just as you were crossing the way of each other.
+You see Mr Worldly Wiseman of the town of Carnal Policy.
+
+> x worldly wiseman
+This fellow lives in the town of Carnal Policy, a very great town, very near to that which you came from.
+
+> speak to worldly wiseman
+Mr Worldly Wiseman says, "Will you listen to me and take my good counsel?"
+
+> x good counsel
+
+The good counsel of Mr Worldly Wiseman,
+
+"In my opinion there is not a more dangerous and troublesome way in the world than is that into which Evangelist has directed you. Know that the slough is the beginning of the sorrows that do attend those that go on in that way.
+
+Hear me, you are likely to meet with wearisomeness, painfulness, hunger, perils, nakedness, sword, lions, dragons, darkness, and, in a word, death, and what not.
+
+And as for that book, like other weak men, who, meddle with things too high for them, you do suddenly fall into these distractions, which not only unman men, as I perceive is the case here, but they run them upon desperate ventures, to obtain they know not what."
+
+> take good counsel
+You take the good counsel.
+
+> speak to worldly wiseman
+Mr Worldly Wiseman says, "In the next village (the village is named Morality) there lives a gentleman whose name is Legality, a very judicious man, and a man of a very good name, that has skill to help men off with such burdens as you have.
+
+Furthermore, he has a son, whose name is Civility, that can do it (so to speak) as well as the old gentleman himself."
+
+> go to high hill
+You are at the high hill.
+There is a sign here.
+You can go up.
+You are by a high hill. In the distance you can just make out some houses. You see a path leading higher up the hill.
+
+> x sign
+On the sign is a picture of a happy family, a large arrow and some writing saying, "Reasonable rates! Provision here is cheap and good! Make your life happy! Live by honest neighbors! Be in credit and good fashion!"
+
+> x hill
+The hill is very high. You also see that it does also hang over the way.
+
+> u
+You are at the high hill.
+You can go up or down.
+You are now hard by the hill, and that side of it that was next to the way-side did hang so much over that you are afraid to venture further, incase the hill should fall on your head.
+
+Your burden seems heavier to you than ever before ...
+
+> u
+You are at the high hill.
+There is regret here.
+You can go up or down.
+You have come to a fearful and dreadful place. You see flashes of fire coming out of the hill that make you so afraid that you sweat and quake with fear.
+
+Your burden is now almost too heavy to bear ...
+
+> x regret
+You find regret for taking Mr Worldly Wiseman's counsel.
+
+> take regret
+You pick it up.
+
+> light candle
+You light the candle with the matches.
+
+> x candle
+The candle is lit.
+
+> u
+You are at the high hill.
+You can go down.
+It is dark and you can hardly see the edge of the path. You can hear a terrible trumpet sound ...
+
+You temble and quake exceedingly with fear ...
+
+> d
+You are at the high hill.
+You can go up or down.
+You have come to a fearful and dreadful place. You see flashes of fire coming out of the hill that make you so afraid that you sweat and quake with fear.
+
+Your burden is now almost too heavy to bear ...
+
+> d
+You are at the high hill.
+You can go up or down.
+You are now hard by the hill, and that side of it that was next to the way-side did hang so much over that you are afraid to venture further, incase the hill should fall on your head.
+
+Your burden seems heavier to you than ever before ...
+
+> d
+You are at the high hill.
+There is a sign here.
+You can go up.
+You are by a high hill. In the distance you can just make out some houses. You see a path leading higher up the hill.
+
+Evangelist enters.
+
+At the sight of Evangelist you fall down at his feet as dead, crying, "Woe is me, for I am undone!"
+
+But Evangelist catches you by the right hand, saying, "All manner of sin and blasphemies shall be forgiven unto men." and "Be not faithless, but believing."
+
+Then you did a little revive, and stood up trembling, as at first, before Evangelist.
+
+> speak to evangelist
+Evangelist says, "Strive to enter in at the straight gate," the gate to which I sent you, "for strait is the gate that leads to life, and few there are that find it." Know that from this little wicket-gate, and from the way has this wicked man turned you, to the bringing you almost to destruction.
+
+"Sir, is there now any hope? May I now go back, and go up to the gate? Shall I not be abandoned for this, and sent back from there ashamed? I am sorry I have listened to this man's counsel, but may my sin be forgiven?"
+
+Then said Evangelist, "The man at the gate will receive you still, for he has good-will for men. Only, take care that you turn not aside again."
+
+You speak to Evangelist ...
+
+> speak to evangelist
+
+You speak to Evangelist ...
+
+> go to wicket gate
+You are at the wicket gate.
+Over the gate there was written, "Knock, and it shall be opened to you."
+
+WELL DONE!
+
+YOU HAVE COMPLETED STAGE 1 OF PART 1 OF THIS ADVENTURE
+
+LOOk OUT FOR STAGE 2 - COMING SOON ...
+
+
+> read book
+You read the book.
+[runner] turns=107 leftover=0 running=true WON=YES

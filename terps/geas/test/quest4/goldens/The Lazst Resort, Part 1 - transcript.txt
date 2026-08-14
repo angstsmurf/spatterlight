@@ -1,0 +1,1410 @@
+
+The Lazst Resort, Part 1, valpha B.J. Best
+
+Welcome to The Lazst Resort, Part 1.  Type HELP at any time for some general assistance regarding the game.
+
+* * * * * * *
+
+You awaken in a bed, not having any idea who you are, where you are, or why you might be there...
+
+No, wait a minute.  You're pretty groggy when you first wake up in the morning.  After thinking about it briefly, you know exactly who you are, where you are, and what you're doing.  Your name is Pat Conroy, and you are staying in a hotel room at the Bayside Resort--although most people call it the Lazst Resort (either affectionately or disdainfully, and it can be hard to tell which) after its proprietor, Ray Lazst.
+
+Every autumn, Ray hosts a murder-mystery weekend, where every guest who is at the hotel is competing to see who can solve the mystery first.  But these are no ordinary murder-mysteries.  Ray prides himself on his complicated, multi-stage puzzles that must be solved, and he is particularly renowned for his electronic and mechanical genius:  previous retreats have featured working secret passages, electronically-coded locks, and an assortment of other strange goings-on.  Such puzzles require intense preparation, and the Bayside Resort suffers as a result of it, but since Ray has long been independently wealthy, it doesn't matter to him much.  The murder-mystery weekend is only one of a few in the year when you can be sure the hotel is fully booked.  This is Ray's thirteenth year of running the game, and you have attended every year since the second one, except in 1995, when you had pneumonia and were in the hospital.
+
+Ray serves as the puzzlemaster for the weekend, distributing clues and otherwise tending to the brainteasers.  He also gleefully serves as the murder victim, complete with grotesque stage makeup, relishing the screams from the guests when he is initially discovered.
+
+It is Saturday morning at 7:45.  The game typically starts around 8, and you were told to expect to receive instructions in your room around then.
+
+You lie awake in a not-entirely-familiar bed.
+You can go to your hotel room.
+The bed is a comfortable king-size.  The sheets are clean but starting to yellow slightly, thanks to years of smokers, and the bedspread has a intricate floral design and is done in browns and tans, as are most things in this hotel.
+
+> go to hotel room
+You are standing in your hotel room, room 209.
+There is an oak nightstand, a clock radio, a table lamp, a telephone and an oak dresser here.
+You can go west.
+You can go to your bed or the bathroom.
+You find your room is well-appointed, but showing the weariness of years.  From the decor, you would guess that it was last remodeled in the late 60's or early 70's.  The walls are all covered in a dark oak paneling, which may very well be fake.  A few cheap pictures hang crookedly.  They depict vaguely rustic scenes such as a autumn wheat field or a wheelbarrow rusting next to a barn using the earth-tones palette that matches everything else in the room.  The ceiling is comprised of dingy white tiles, some of which have waterspots.  The furniture--table, dresser, and nightstand--are made of solid oak.  The carpeting is rust-colored, avoiding further patheticness by having been installed either just before or just after the shag craze.
+
+> use telephone
+"Hello?"
+The jocular recorded voice of Ray Lazst shouts back at you in his thin Austrian accent:
+"Hello, sleuths!  Time to get cracking, because a murder is afoot!  You may start searching the hotel and its grounds at 8 a.m. sharp.  There is some information for each player available at the front desk."
+You hang up the phone.
+
+> use radio
+You turn on the radio and instantly tinny music starts playing.
+
+> go to the bathroom
+You are standing in the bathroom in your hotel room.
+There is a sink, a beige toilet and a shower stall here.
+You can go to your hotel room.
+The bathroom is  rather cramped. It is a testament to beige, as virtually everything--the toilet, the shower stall, the floor tiles, the countertop--is the same dull color.
+
+> use toilet
+Well, okay...
+
+Ah, now you feel much better.  You flush the toilet.
+
+> use shower
+Nah, you took a shower two weeks ago.
+
+> go to hotel room
+You are standing in your hotel room, room 209.
+There is an oak nightstand, a clock radio, a table lamp, a telephone and an oak dresser here.
+You can go west.
+You can go to your bed or the bathroom.
+You find your room is well-appointed, but showing the weariness of years.  From the decor, you would guess that it was last remodeled in the late 60's or early 70's.  The walls are all covered in a dark oak paneling, which may very well be fake.  A few cheap pictures hang crookedly.  They depict vaguely rustic scenes such as a autumn wheat field or a wheelbarrow rusting next to a barn using the earth-tones palette that matches everything else in the room.  The ceiling is comprised of dingy white tiles, some of which have waterspots.  The furniture--table, dresser, and nightstand--are made of solid oak.  The carpeting is rust-colored, avoiding further patheticness by having been installed either just before or just after the shag craze.
+
+> west
+You close the door to your room as you exit.
+You are standing at the end of a hallway on the second floor of the hotel.
+There is room 210's door here.
+You can go south or east.
+The long hallway provides access to all of the rooms on the second floor.  Its worn, brown carpet and dingy gray walls pretty much sum up the state of the hotel.  To the east is room 209, your room.
+
+> south
+You are standing in a long hallway on the second floor.
+There is room 207's door and room 208's door here.
+You can go north or south.
+
+> south
+You are standing in a long hallway on the second floor.
+There is room 205's door and room 206's door here.
+You can go north or south.
+
+> south
+You are standing in a long hallway on the second floor.
+There is room 203's door and room 204's door here.
+You can go north or south.
+
+> south
+You are standing in a long hallway on the second floor.
+There is room 201's door and room 202's door here.
+You can go north or south.
+
+> south
+You are standing at the top of a landing of a flight of stairs.
+There is a sign here.
+You can go north or east.
+You can go to the downstairs landing.
+The top stair creaks if you step on it.  The steps are bare, and the middle of each stair is quite worn.  The banister is rather ornate, hand-carved, apparently, out of mahogany or some other dark, sturdy wood.
+
+> east
+Here, the hallway opens up to a balcony to the south.
+There is a sign here.
+You can go east or west.
+A simple white, wooden, chest-high railing prevents mishaps.  Looking down, you can see the hotel's lobby and front desk.
+
+> east
+You are standing in the atrium of the ballroom.
+You can go north, south or west.
+The atrium is decorated in browns and reds, and has the same air of melancholia as the rest of this hotel.  A row of small windows are set in  the eastern wall, and offer a view of a nearby forest.  A small rectangular table with nothing on it sits below them.  On the other walls hang a few old, enlarged photographs of people dancing (apparently in the ballroom) in various ethnic costumes.   Large, fake plants flank the entrance to the ballroom, which lies to the south.
+
+> south
+Judging from the echoes you make while walking, you are in the ballroom.
+There is a brick wall here.
+You can go north.
+Unfortunately, the ballroom is exceptionally dark--there are no windows anywhere.  The only light is the dim light that filters in from the atrium.  It is barely enough to illuminate your feet, and you can see nothing beyond that.
+
+> use wall
+You grope blindly along the brick wall, and eventually discover a lightswitch to your right.
+
+> use lightswitch
+You flip the switch, and suddenly a single white beam shoots out from somewhere in the ceiling.  It hits a mirror ball, and instantly the ballroom is dimly lit by a thousand swirling sparkles.  Soon thereafter, a stage at the far end of the room is lit up by blue and red gels.  Most eerily, "Moonlight Serenade" beings playing through the room's PA system.
+You are standing at one end of an enormous ballroom.
+There is a lightswitch here.
+You can go north.
+You can go to the stage.
+The room is cavernous, a feeling redoubled every time you take a step, as your shoes echo off of the wooden floor.  In the dim light, you can see that the entire room is empty--no tables, no chairs--except for a bar in the southeast corner of the room.  There is neither liquor nor stools at the bar, and the feeling you get is that this room has not been used in years.  The music and the mirror ball give the room a sad, lonely atmosphere.
+
+> go to the stage
+You are standing on the stage at the southern end of the ballroom.
+There is a microphone here.
+You can go to the ballroom.
+The stage rises about five feet off of the main floor, and is also quite large.  You wonder if the Big Bands really did play here.
+
+> take microphone
+You pick it up.
+
+> use microphone
+"IF ya want my BODy, AND ya think I'm SEXy, COME on baby LET me know!"
+What a shame you don't see an amp to plug the microphone into anywhere.
+
+> go to the ballroom
+You are standing at one end of an enormous ballroom.
+There is a lightswitch here.
+You can go north.
+You can go to the stage.
+The room is cavernous, a feeling redoubled every time you take a step, as your shoes echo off of the wooden floor.  In the dim light, you can see that the entire room is empty--no tables, no chairs--except for a bar in the southeast corner of the room.  There is neither liquor nor stools at the bar, and the feeling you get is that this room has not been used in years.  The music and the mirror ball give the room a sad, lonely atmosphere.
+
+> north
+You are standing in the atrium of the ballroom.
+You can go north, south or west.
+The atrium is decorated in browns and reds, and has the same air of melancholia as the rest of this hotel.  A row of small windows are set in  the eastern wall, and offer a view of a nearby forest.  A small rectangular table with nothing on it sits below them.  On the other walls hang a few old, enlarged photographs of people dancing (apparently in the ballroom) in various ethnic costumes.   Large, fake plants flank the entrance to the ballroom, which lies to the south.
+
+> west
+Here, the hallway opens up to a balcony to the south.
+There is a sign here.
+You can go east or west.
+A simple white, wooden, chest-high railing prevents mishaps.  Looking down, you can see the hotel's lobby and front desk.
+
+> west
+You are standing at the top of a landing of a flight of stairs.
+There is a sign here.
+You can go north or east.
+You can go to the downstairs landing.
+The top stair creaks if you step on it.  The steps are bare, and the middle of each stair is quite worn.  The banister is rather ornate, hand-carved, apparently, out of mahogany or some other dark, sturdy wood.
+
+> go to the downstairs landing
+You descend the creaking stairs.
+You are standing at the bottom of a landing of a flight of stairs.
+There is small sign here.
+You can go north, south or east.
+You can go to the upstairs landing.
+The bottom stair creaks if you step on it.  The steps are bare, and the middle of each stair is quite worn.  The banister is rather ornate, hand-carved, apparently, out of mahogany or some other dark, sturdy wood.
+
+> south
+You stand in the resort's lobby.
+You can go north, south, east or west.
+The lobby is fairly small, and decorated with the same rustic charm as the rest of the hotel.  A large red door leads outside.  Two benches with slatted backs sit opposite each other in the entryway.  Further in, there are a few dark brown chairs, and a couple of end tables that boast out-of-date news magazines.  From here, the front desk is to the east, the hotel's bar is to the south, and the guestrooms are to the north.
+
+> east
+You stand at the front desk.
+There is a front desk bell and a stack of newspapers here.
+You can go west.
+The front desk is one of the few areas in the hotel that looks fairly modern.  Bright fluorescent light hangs above the receptionist's work area, and beneath the counter, out of sight to you, you can hear a computer hum.
+
+> use bell
+You gently ring the bell twice, and then you wait patiently.
+
+A receptionist suddenly appears from a back room, and smiles at you.
+
+> speak to bobbie
+What would you like to say to the receptionist?
+1) "Hello, how are you today?"
+2) "I understand that there's some information about the murder mystery here?"
+3) "I'd like to buy a newspaper."
+4) "Bobbie... I kinda like that name."
+5) "How do you like working at the infamous Lazst Resort?"
+[choice] 2
+"I understand that there's some information about the murder mystery here?"
+"Yes.  What's your name, please?"
+"Pat Conroy."
+"Okay, let me go get that for you."
+She disappears briefly into the back room, and returns with instructions for the murder mystery as well as two slips of paper, on which are written clues.
+
+> examine clue 1
+This is one of the clues provided to you for the murder-mystery weekend.  It is printed on a parchment-colored paper.
+
+> examine clue 2
+This is one of the clues provided to you for the murder-mystery weekend.  It is printed on a strip of pink paper.
+
+> take newspaper
+"I'd like to buy a newspaper."
+"Okay.  That'll be one dollar."
+You give the receptionist a dollar and she gives you the newspaper.
+
+> west
+You stand in the resort's lobby.
+You can go north, south, east or west.
+The lobby is fairly small, and decorated with the same rustic charm as the rest of the hotel.  A large red door leads outside.  Two benches with slatted backs sit opposite each other in the entryway.  Further in, there are a few dark brown chairs, and a couple of end tables that boast out-of-date news magazines.  From here, the front desk is to the east, the hotel's bar is to the south, and the guestrooms are to the north.
+
+> south
+You are standing in the hotel's barroom.
+There is a fifties-style jukebox, a dartboard, a note tacked to the wall next to the dartboard and an old player piano here.
+You can go north or east.
+The barroom is rather large, and contains typical barroom fare--a pool table, a few high tables with ashtrays on them, and stools.  Dull light streams in from the windows on the western and southern walls.  The room is decorated with a variety of nautical paraphernalia, including ropes, brass lanterns, posters of sailboats and islands, and a wooden carving of a gull.  Your favorite item is a framed drawing, perhaps by some former patron, of a stereotypical sea captain.  Next to the captain is a small poem, written in a fancy script:  "Facing a storm? / Better stay here / And improved weather / Will eventually appear."
+
+> use jukebox
+You insert a dollar into the jukebox, and make several selections, since the actual number of songs you get for that price isn't specified anywhere.
+"Hey!" you yell to the bartender.  "I didn't ask for 'The Girl From Ipanema!'"
+"That makes two of us," he replies smugly.
+
+> use piano
+You slip a dollar into the bill acceptor and instantly the keyboard springs to life.
+
+As soon as he hears the music starting, the bartender says, loud enough for you to hear, "If I have to hear that stupid song one more time, I'm gong to puke."
+
+> examine dartboard
+
+> use note
+The note is scrawled on the back of a bar napkin.  It reads, "Please do not take the darts!  We're paused in the middle of a series of games (a combination of 301 and 501), and my victory is a virtual lock! --R.L."
+
+> east
+You are standing at the hotel's bar.
+There is a tip jar, two quarters in the tip jar and Jack here.
+You can go south, east or west.
+The bar appears to be the original one that was built when the hotel was built in the 1920's, made out of thin strips of alternating light and dark wood.   It is U-shaped, placed up against the northern wall, with a small island in the middle of the U where glasses are stored and several refrigeration units are hidden from the partrons' view.  Many padded stools line the bar.
+
+> tip jack
+You slide a dollar bill lengthwise into the tip jar.  Jack acknowledges your generosity with a grudging half-smile.
+
+> speak to jack
+What would you like to say to the bartender?
+1) "Hello."
+2) "So your name is Jack..."
+3) "Can I get a soda?"
+4) "Can I get a glass of water?"
+5) "Can I get change for a dollar?"
+6) "I need a drink."
+7) "Do you have a corkscrew I can borrow?"
+8) "What's with the dart game in the barroom?"
+9) "How long have you been tending bar here?"
+10) "How's it working for Ray Lazst?"
+[choice] 6
+"I need a drink."
+"Ok, pal, what'll ya have?"
+"Surprise me."
+"That I can do."
+Jack turns around and  begins rummaging through various cabinets, looking for particular, seldom-used bottles.
+
+> take quarters
+You stealthily reach your hand into the jar and silently remove the two quarters.  Jack is too busy brewing up your liquid death for him to notice.  The dollar you put in the jar will conceal your treachery long enough for you to high-tail it out of the bar.
+
+> use newspaper
+What page would you like to read?
+1) A-1
+2) A-2
+3) A-3
+4) A-4
+5) B-1
+6) B-2
+7) B-3
+8) B-4
+[choice] 1
+The front-page headline blares: WORLD COMES TO AN END.  FILM AT 11.  That seems rather odd for a headline.  But the story is true to its title, describing how the planet underwent nuclear annihilation on Thursday.  Strange, you don't remember any nuclear annihilation.
+
+> use newspaper
+What page would you like to read?
+1) A-1
+2) A-2
+3) A-3
+4) A-4
+5) B-1
+6) B-2
+7) B-3
+8) B-4
+[choice] 2
+There are some very boring stories about the state of the economy on this page.
+
+> use newspaper
+What page would you like to read?
+1) A-1
+2) A-2
+3) A-3
+4) A-4
+5) B-1
+6) B-2
+7) B-3
+8) B-4
+[choice] 3
+This page contains some local stories.  In the bottom middle of the page is a longish story about the murder-mystery weekend at the Bayside Resort.  Ray Lazst is quoted, saying, "I guarantee it will be the best weekend ever, provided the world doesn't end first!"
+
+> use newspaper
+What page would you like to read?
+1) A-1
+2) A-2
+3) A-3
+4) A-4
+5) B-1
+6) B-2
+7) B-3
+8) B-4
+[choice] 4
+This is the editorial page.  It features, prominently, two editorials:  We Need More Things from the 1970's and Let's All Live in Ramshackle Hotels.  The editorials deliver exactly what they promise.  Neither has a by-line.  You are about to flip to another page when a small box in the lower left-hand corner catches your eye.  It reads, in full:
+
+The Bayside Gazetteer accepts editorials from Ray Lazst and only from Ray Lazst.  All other editorials submitted will be swiftly and efficiently torn to little bits.  All boring real stories taken from various wire services.  Published yesterday for the express purpose of the best murder-mystery weekend yet.  Publisher and Editor in Chief:  Raymond A. Lazst.
+
+> use newspaper
+What page would you like to read?
+1) A-1
+2) A-2
+3) A-3
+4) A-4
+5) B-1
+6) B-2
+7) B-3
+8) B-4
+[choice] 5
+Section B must be the sports section.  This page mainly features news about professional football teams.
+
+> use newspaper
+What page would you like to read?
+1) A-1
+2) A-2
+3) A-3
+4) A-4
+5) B-1
+6) B-2
+7) B-3
+8) B-4
+[choice] 6
+This page mainly features news about professional basketball teams.
+
+> use newspaper
+What page would you like to read?
+1) A-1
+2) A-2
+3) A-3
+4) A-4
+5) B-1
+6) B-2
+7) B-3
+8) B-4
+[choice] 7
+Sports standings and statistics are printed on the top of this page.  Classified ads fill the bottom half.  You scan them for that 1962 powder-blue Chevy Corvair you've been looking for, but come up empty. 
+
+> use newspaper
+What page would you like to read?
+1) A-1
+2) A-2
+3) A-3
+4) A-4
+5) B-1
+6) B-2
+7) B-3
+8) B-4
+[choice] 8
+On the back page are the comics, the bridge column, the horoscopes, the word puzzles, that sort of thing.
+Which would you like to read on page B-4?
+1) The comics
+2) The bridge column
+3) Your horoscope
+4) The kids' crossword puzzle
+[choice] 1
+Oh, that Ziggy is always cracking you up.
+
+> use newspaper
+What page would you like to read?
+1) A-1
+2) A-2
+3) A-3
+4) A-4
+5) B-1
+6) B-2
+7) B-3
+8) B-4
+[choice] 8
+Which would you like to read on page B-4?
+1) The comics
+2) The bridge column
+3) Your horoscope
+4) The kids' crossword puzzle
+[choice] 2
+Oh, that South is always cracking you up.
+
+> use newspaper
+What page would you like to read?
+1) A-1
+2) A-2
+3) A-3
+4) A-4
+5) B-1
+6) B-2
+7) B-3
+8) B-4
+[choice] 8
+Which would you like to read on page B-4?
+1) The comics
+2) The bridge column
+3) Your horoscope
+4) The kids' crossword puzzle
+[choice] 3
+"Too many cooks make light work, unless they're bearing gifts."
+You'll treasure that advice always.
+
+> use newspaper
+What page would you like to read?
+1) A-1
+2) A-2
+3) A-3
+4) A-4
+5) B-1
+6) B-2
+7) B-3
+8) B-4
+[choice] 8
+Which would you like to read on page B-4?
+1) The comics
+2) The bridge column
+3) Your horoscope
+4) The kids' crossword puzzle
+[choice] 4
+
+> look at jar
+More of a goblet than a jar, there is a small sign taped to the back lip reading "Tips."
+
+> look at jack
+Jack has his back turned to you, concocting some sort of dreaded libation, per your request.
+
+> look at dollar
+This is the dollar you tipped Jack with.
+
+> look
+You are standing at the hotel's bar.
+There is a dollar in the tip jar, a tip jar and Jack here.
+You can go south, east or west.
+The bar appears to be the original one that was built when the hotel was built in the 1920's, made out of thin strips of alternating light and dark wood.   It is U-shaped, placed up against the northern wall, with a small island in the middle of the U where glasses are stored and several refrigeration units are hidden from the partrons' view.  Many padded stools line the bar.
+
+> look at jar
+More of a goblet than a jar, there is a small sign taped to the back lip reading "Tips."
+
+> look at jack
+Jack has his back turned to you, concocting some sort of dreaded libation, per your request.
+
+> look at dollar
+This is the dollar you tipped Jack with.
+
+> look
+You are standing at the hotel's bar.
+There is a dollar in the tip jar, a tip jar and Jack here.
+You can go south, east or west.
+The bar appears to be the original one that was built when the hotel was built in the 1920's, made out of thin strips of alternating light and dark wood.   It is U-shaped, placed up against the northern wall, with a small island in the middle of the U where glasses are stored and several refrigeration units are hidden from the partrons' view.  Many padded stools line the bar.
+
+> look at jar
+More of a goblet than a jar, there is a small sign taped to the back lip reading "Tips."
+
+> look at jack
+Jack has his back turned to you, concocting some sort of dreaded libation, per your request.
+
+> look at dollar
+This is the dollar you tipped Jack with.
+
+> look
+You are standing at the hotel's bar.
+There is a dollar in the tip jar, a tip jar and Jack here.
+You can go south, east or west.
+The bar appears to be the original one that was built when the hotel was built in the 1920's, made out of thin strips of alternating light and dark wood.   It is U-shaped, placed up against the northern wall, with a small island in the middle of the U where glasses are stored and several refrigeration units are hidden from the partrons' view.  Many padded stools line the bar.
+
+> look at jar
+More of a goblet than a jar, there is a small sign taped to the back lip reading "Tips."
+
+> look at jack
+Jack has his back turned to you, concocting some sort of dreaded libation, per your request.
+
+> look at dollar
+This is the dollar you tipped Jack with.
+
+> look
+You are standing at the hotel's bar.
+There is a dollar in the tip jar, a tip jar and Jack here.
+You can go south, east or west.
+The bar appears to be the original one that was built when the hotel was built in the 1920's, made out of thin strips of alternating light and dark wood.   It is U-shaped, placed up against the northern wall, with a small island in the middle of the U where glasses are stored and several refrigeration units are hidden from the partrons' view.  Many padded stools line the bar.
+
+> look at jar
+More of a goblet than a jar, there is a small sign taped to the back lip reading "Tips."
+
+> look at jack
+Jack has his back turned to you, concocting some sort of dreaded libation, per your request.
+Jacks slams your drink on the bar in front of you, half-smiling.
+"Okay, that'll be two bucks."
+You slide two singles across the bar and take your drink.
+
+> use cocktail
+You take slug after slug of your beverage.  It tastes like a mixture of fire, pickles, and wet socks.
+
+Soon, you have nothing but an empty glass.
+
+> i
+You are carrying:
+microphone
+newspaper
+clue 1
+clue 2
+instructions
+quarters
+empty glass
+
+> west
+You are standing in the hotel's barroom.
+There is a fifties-style jukebox, a dartboard, a note tacked to the wall next to the dartboard and an old player piano here.
+You can go north or east.
+The barroom is rather large, and contains typical barroom fare--a pool table, a few high tables with ashtrays on them, and stools.  Dull light streams in from the windows on the western and southern walls.  The room is decorated with a variety of nautical paraphernalia, including ropes, brass lanterns, posters of sailboats and islands, and a wooden carving of a gull.  Your favorite item is a framed drawing, perhaps by some former patron, of a stereotypical sea captain.  Next to the captain is a small poem, written in a fancy script:  "Facing a storm? / Better stay here / And improved weather / Will eventually appear."
+
+> north
+You stand in the resort's lobby.
+You can go north, south, east or west.
+The lobby is fairly small, and decorated with the same rustic charm as the rest of the hotel.  A large red door leads outside.  Two benches with slatted backs sit opposite each other in the entryway.  Further in, there are a few dark brown chairs, and a couple of end tables that boast out-of-date news magazines.  From here, the front desk is to the east, the hotel's bar is to the south, and the guestrooms are to the north.
+
+> north
+You are standing at the bottom of a landing of a flight of stairs.
+There is small sign here.
+You can go north, south or east.
+You can go to the upstairs landing.
+The bottom stair creaks if you step on it.  The steps are bare, and the middle of each stair is quite worn.  The banister is rather ornate, hand-carved, apparently, out of mahogany or some other dark, sturdy wood.
+
+> go to the upstairs landing
+You climb the creaking stairs.
+You are standing at the top of a landing of a flight of stairs.
+There is a sign here.
+You can go north or east.
+You can go to the downstairs landing.
+The top stair creaks if you step on it.  The steps are bare, and the middle of each stair is quite worn.  The banister is rather ornate, hand-carved, apparently, out of mahogany or some other dark, sturdy wood.
+
+> east
+Here, the hallway opens up to a balcony to the south.
+There is a sign here.
+You can go east or west.
+A simple white, wooden, chest-high railing prevents mishaps.  Looking down, you can see the hotel's lobby and front desk.
+
+> east
+You are standing in the atrium of the ballroom.
+You can go north, south or west.
+The atrium is decorated in browns and reds, and has the same air of melancholia as the rest of this hotel.  A row of small windows are set in  the eastern wall, and offer a view of a nearby forest.  A small rectangular table with nothing on it sits below them.  On the other walls hang a few old, enlarged photographs of people dancing (apparently in the ballroom) in various ethnic costumes.   Large, fake plants flank the entrance to the ballroom, which lies to the south.
+
+> north
+You are in the hotel's vending area.
+There is a soft-drink vending machine and a humming ice machine here.
+You can go south.
+The vending area is a small alcove.  A bare fluorescent light flickers overhead, casting everything in a harsh electric glow.  Brick red ceramic tiles comprise the floor here.
+
+> use vending machine
+Which button would you like to press?
+1) Pepsi
+2) Diet Pepsi
+3) Mountain Dew
+4) Dr. Pepper
+5) Slice
+6) Orange Slice
+[choice] 2
+You slide your fifty cents into the slot and push the Diet Pepsi button.
+
+Eventually, a can of Diet Pepsi dispenses below with a clunk.  You take it, and notice there's a piece of paper wrapped around the can!  You separate the two.
+
+> examine clue 3
+This is one of the clues provided to you for the murder-mystery weekend.  It is printed on white paper.
+
+> use can
+You pop open the top of your Diet Pepsi and begin to chug it down.  Waves of effervescent refreshment roll over you.  The nectar of the gods has nothing on this carbonated beverage.  Finishing the can, you loudly exhale, "Ahhh!"  You do a little dance and then smile broadly.  Somewhere, the voice of Ray Charles speaks and a jingle plays.  You earn a few extra points.
+
+You feel like such a shill.
+
+> use ice machine
+You slip the empty glass beneath the spout where the ice is dispensed, press the button on the machine, and soon you have a glass full of ice.
+
+> south
+You are standing in the atrium of the ballroom.
+You can go north, south or west.
+The atrium is decorated in browns and reds, and has the same air of melancholia as the rest of this hotel.  A row of small windows are set in  the eastern wall, and offer a view of a nearby forest.  A small rectangular table with nothing on it sits below them.  On the other walls hang a few old, enlarged photographs of people dancing (apparently in the ballroom) in various ethnic costumes.   Large, fake plants flank the entrance to the ballroom, which lies to the south.
+
+> west
+Here, the hallway opens up to a balcony to the south.
+There is a sign here.
+You can go east or west.
+A simple white, wooden, chest-high railing prevents mishaps.  Looking down, you can see the hotel's lobby and front desk.
+
+> west
+You are standing at the top of a landing of a flight of stairs.
+There is a sign here.
+You can go north or east.
+You can go to the downstairs landing.
+The top stair creaks if you step on it.  The steps are bare, and the middle of each stair is quite worn.  The banister is rather ornate, hand-carved, apparently, out of mahogany or some other dark, sturdy wood.
+
+> go to the downstairs landing
+You descend the creaking stairs.
+You are standing at the bottom of a landing of a flight of stairs.
+There is small sign here.
+You can go north, south or east.
+You can go to the upstairs landing.
+The bottom stair creaks if you step on it.  The steps are bare, and the middle of each stair is quite worn.  The banister is rather ornate, hand-carved, apparently, out of mahogany or some other dark, sturdy wood.
+
+> south
+You stand in the resort's lobby.
+You can go north, south, east or west.
+The lobby is fairly small, and decorated with the same rustic charm as the rest of the hotel.  A large red door leads outside.  Two benches with slatted backs sit opposite each other in the entryway.  Further in, there are a few dark brown chairs, and a couple of end tables that boast out-of-date news magazines.  From here, the front desk is to the east, the hotel's bar is to the south, and the guestrooms are to the north.
+
+> south
+You are standing in the hotel's barroom.
+There is a fifties-style jukebox, a dartboard, a note tacked to the wall next to the dartboard and an old player piano here.
+You can go north or east.
+The barroom is rather large, and contains typical barroom fare--a pool table, a few high tables with ashtrays on them, and stools.  Dull light streams in from the windows on the western and southern walls.  The room is decorated with a variety of nautical paraphernalia, including ropes, brass lanterns, posters of sailboats and islands, and a wooden carving of a gull.  Your favorite item is a framed drawing, perhaps by some former patron, of a stereotypical sea captain.  Next to the captain is a small poem, written in a fancy script:  "Facing a storm? / Better stay here / And improved weather / Will eventually appear."
+
+> east
+You are standing at the hotel's bar.
+There is a dollar in the tip jar, a tip jar and Jack here.
+You can go south, east or west.
+The bar appears to be the original one that was built when the hotel was built in the 1920's, made out of thin strips of alternating light and dark wood.   It is U-shaped, placed up against the northern wall, with a small island in the middle of the U where glasses are stored and several refrigeration units are hidden from the partrons' view.  Many padded stools line the bar.
+
+> south
+You are in a small, unisex bathroom that serves the bar.
+There is a toilet, a sink, a mirror hanging above the sink and a hand dryer attached to the wall here.
+You can go north.
+The bathroom is small and stark.  There are no decorations of any sort.  The room is painted an off-white, and a fluorescent light buzzes overhead.
+
+> use hand dryer
+You hold the glass of ice under the hand dryer and press the button.
+
+It takes a few repetitions, but eventually you are left with a glass half-full of water.
+
+> north
+You are standing at the hotel's bar.
+There is a dollar in the tip jar, a tip jar and Jack here.
+You can go south, east or west.
+The bar appears to be the original one that was built when the hotel was built in the 1920's, made out of thin strips of alternating light and dark wood.   It is U-shaped, placed up against the northern wall, with a small island in the middle of the U where glasses are stored and several refrigeration units are hidden from the partrons' view.  Many padded stools line the bar.
+
+> west
+You are standing in the hotel's barroom.
+There is a fifties-style jukebox, a dartboard, a note tacked to the wall next to the dartboard and an old player piano here.
+You can go north or east.
+The barroom is rather large, and contains typical barroom fare--a pool table, a few high tables with ashtrays on them, and stools.  Dull light streams in from the windows on the western and southern walls.  The room is decorated with a variety of nautical paraphernalia, including ropes, brass lanterns, posters of sailboats and islands, and a wooden carving of a gull.  Your favorite item is a framed drawing, perhaps by some former patron, of a stereotypical sea captain.  Next to the captain is a small poem, written in a fancy script:  "Facing a storm? / Better stay here / And improved weather / Will eventually appear."
+
+> north
+You stand in the resort's lobby.
+You can go north, south, east or west.
+The lobby is fairly small, and decorated with the same rustic charm as the rest of the hotel.  A large red door leads outside.  Two benches with slatted backs sit opposite each other in the entryway.  Further in, there are a few dark brown chairs, and a couple of end tables that boast out-of-date news magazines.  From here, the front desk is to the east, the hotel's bar is to the south, and the guestrooms are to the north.
+
+> north
+You are standing at the bottom of a landing of a flight of stairs.
+There is small sign here.
+You can go north, south or east.
+You can go to the upstairs landing.
+The bottom stair creaks if you step on it.  The steps are bare, and the middle of each stair is quite worn.  The banister is rather ornate, hand-carved, apparently, out of mahogany or some other dark, sturdy wood.
+
+> north
+You are standing in a long hallway on the first floor.
+There is room 101's door and room 102's door here.
+You can go north or south.
+This hallway and its decor are identical to the one that leads to the rooms on the second floor.
+
+> north
+You are standing in a long hallway on the first floor.
+There is room 103's door and room 104's door here.
+You can go north or south.
+
+> north
+You are standing in a long hallway on the first floor.
+There is room 105's door and room 106's door here.
+You can go north or south.
+
+> north
+You are standing in a long hallway on the first floor.
+There is room 107's door and room 108's door here.
+You can go north or south.
+
+> north
+You are standing at the end of a hallway on the first floor.
+There is room 109's door, the housekeeping closet's door and a combination lock here.
+You can go south.
+
+> north
+You can't go there.
+
+> use lock
+You turn the dial of the lock several revolutions clockwise to reset it.
+
+Where would you like to turn the dial on the lock?  Please enter a number, 0-39:
+You turn the dial of the lock counterclockwise to 8.
+
+Where would you like to turn the dial on the lock?  Please enter a number, 0-39:
+You turn the dial of the lock clockwise to 20.
+
+Where would you like to turn the dial on the lock?  Please enter a number, 0-39:
+You turn the dial of the lock counterclockwise to 6.
+
+You pull down on the lock and it opens with a click.
+
+You may now enter the closet to the west.
+
+> west
+You are squeezed into the housekeeping closet.
+There is a roll of toilet paper, a box of tissue and a plaid shirt here.
+You can go east.
+Here is where the housekeeping staff keeps its various stockpiles of supplies.  It is a small, cramped closet, dimly lit by a bare lightbulb overhead.
+
+> take roll
+You pick it up.
+
+> take shirt
+You pick it up.
+
+> use shirt
+You slip the shirt on over your current clothes.  It's a perfect fit!
+
+> east
+You are standing at the end of a hallway on the first floor.
+There is room 109's door here.
+You can go south or west.
+
+> south
+You are standing in a long hallway on the first floor.
+There is room 107's door and room 108's door here.
+You can go north or south.
+
+> south
+You are standing in a long hallway on the first floor.
+There is room 105's door and room 106's door here.
+You can go north or south.
+
+> south
+You are standing in a long hallway on the first floor.
+There is room 103's door and room 104's door here.
+You can go north or south.
+
+> south
+You are standing in a long hallway on the first floor.
+There is room 101's door and room 102's door here.
+You can go north or south.
+This hallway and its decor are identical to the one that leads to the rooms on the second floor.
+
+> south
+You are standing at the bottom of a landing of a flight of stairs.
+There is small sign here.
+You can go north, south or east.
+You can go to the upstairs landing.
+The bottom stair creaks if you step on it.  The steps are bare, and the middle of each stair is quite worn.  The banister is rather ornate, hand-carved, apparently, out of mahogany or some other dark, sturdy wood.
+
+> east
+You are standing in a small nondescript hall.
+There is a housekeeping cart here.
+You can go east or west.
+This hall connects the stairway and the dining room.
+
+> take cart
+You decide that you'll push around the cart for awhile.
+
+> west
+You are standing at the bottom of a landing of a flight of stairs.
+There is small sign here.
+You can go north, south or east.
+You can go to the upstairs landing.
+The bottom stair creaks if you step on it.  The steps are bare, and the middle of each stair is quite worn.  The banister is rather ornate, hand-carved, apparently, out of mahogany or some other dark, sturdy wood.
+
+> north
+You are standing in a long hallway on the first floor.
+There is room 101's door and room 102's door here.
+You can go north or south.
+This hallway and its decor are identical to the one that leads to the rooms on the second floor.
+
+> north
+You are standing in a long hallway on the first floor.
+There is room 103's door and room 104's door here.
+You can go north or south.
+
+> north
+You are standing in a long hallway on the first floor.
+There is room 105's door and room 106's door here.
+You can go north or south.
+
+> use door
+You knock gently on the door to room 105.  "Housekeeping," you say. 
+"Oh, come in, I'll just be a moment," a woman's voice calls to you from inside.
+You walk through the door.  The woman silently gathers a few of her things and then leaves.
+You are in room 105.
+There is an oak nightstand, a clock radio, a table lamp, a telephone, oak dresser, a metal ladder and a small key here.
+You can go west.
+This room looks precisely like your room in every feature.
+
+> take ladder
+You pick up the ladder, struggling under its weight and bulk.
+
+> take key
+You pick it up.
+
+> west
+Now that you've gotten everything you need out of this room, you feel you can give up the housekeeping disguise and the cart.
+You are standing in a long hallway on the first floor.
+There is room 105's door and room 106's door here.
+You can go north or south.
+
+> south
+You are standing in a long hallway on the first floor.
+There is room 103's door and room 104's door here.
+You can go north or south.
+
+> south
+You are standing in a long hallway on the first floor.
+There is room 101's door and room 102's door here.
+You can go north or south.
+This hallway and its decor are identical to the one that leads to the rooms on the second floor.
+
+> south
+You are standing at the bottom of a landing of a flight of stairs.
+There is small sign here.
+You can go north, south or east.
+You can go to the upstairs landing.
+The bottom stair creaks if you step on it.  The steps are bare, and the middle of each stair is quite worn.  The banister is rather ornate, hand-carved, apparently, out of mahogany or some other dark, sturdy wood.
+
+> east
+You are standing in a small nondescript hall.
+You can go east or west.
+This hall connects the stairway and the dining room.
+
+> east
+You are in the resort's dining room.
+You can go south or west.
+The dining room is rather small, accommodating only about a dozen tables, with most tables set for parties of two.  The tables are set with silverware, napkins, and glasses, ready to be used for dinner.  A large fieldstone fireplace is set in the north wall.  There currently is no fire.
+
+> south
+You are in a small alcove to the east of the bar.
+There is a small window, a long string tied to a hook and a strange door here.
+You can go north or west.
+This is nothing more than a nook, really.  A solitary eastern window looks out into the morning gloom.
+
+> use string
+You climb the ladder and untie the string.  It falls limply to the floor.
+
+> use roll on string
+You grab the string and slide the toilet paper roll onto it.  Holding them together in one hand, you climb the ladder and re-tie the string.  You let go of the toilet paper, giving it a little push downward.  It zips down the string, through the window, and into the kitchen.
+
+Suddenly, the kitchen door slides open to the right with a whoosh.  The roll of toilet paper must have hit the button, which opened the door!  You can now enter the kitchen to the south.
+
+You are also glad to finally get rid of this ladder.  You don't feel you'll need it again.
+
+> south
+You are in the hotel's kitchen.
+There is a large freezer, a large refrigerator, a long counter and several magnets on the refrigerator here.
+You can go north.
+You can go to the basement stairs.
+Here is where they prepare the food for the resort's dining room.  This is another of one of those rare places where everything has been thoroughly modernized.  The kitchen swims in stainless steel:  counters, ovens, stoves, refrigerators, and freezers.  Numerous bowls, pans and utensils are stored on stainless steel carts that can be wheeled around for maximum mobility.  In one corner, there is a set of narrow stone stairs that disappear down around the corner, presumably to the basement.  Near the stairs is your string-and-toilet-paper-roll device that worked so admirably in opening the door.
+
+> use freezer
+The freezer opens with a click.  You manage to muffle a scream upon realizing what's inside...
+
+> examine corpse
+The corpse is that of an older man, and after a second you realize that it is none other than Ray Lazst.  No matter how many times you find his "corpse," it still startles you.  Ray's makeup is particularly gruesome this year.  Apparently he was stabbed in the neck by some sharp object, and blood has streamed down his entire left side and dried there.
+
+As you look him over, his eyes suddenly fly open, and he nearly shouts, "Pat Conroy!"  and lunges out at you to hug you, which is completely unexpected and frankly scares the hell out of you.
+
+> speak to ray
+What would you like to say to Ray?
+1) "So, how is it hanging out in the freezer?"
+2) "How's the mystery been going?"
+3) "Is there anything else I should know?"
+[choice] 1
+"So, how is it hanging out in the freezer?"
+"Oh, it's great!" he says excitedly, and pulls you by the arm towards the appliance.  "It's plenty warm, I've got enough air and light, and look!"--he pulls back a thick black cloth on the ceiling of the freezer, revealing multiple black and white monitors--"I've got the surveillance system wired in here, so I can see what's going on outside.  That way I can be dead whenever anyone enters the kitchen.  Jack helped me set it up."
+"That's very impressive," you say.
+
+> speak to ray
+What would you like to say to Ray?
+1) "So, how is it hanging out in the freezer?"
+2) "How's the mystery been going?"
+3) "Is there anything else I should know?"
+[choice] 2
+"How's the mystery been going?"
+"Pretty well, so far, a lot of people figuring out the clues.  You're the first one to find me, though, so you're ahead of the pack!
+
+> speak to ray
+What would you like to say to Ray?
+1) "So, how is it hanging out in the freezer?"
+2) "How's the mystery been going?"
+3) "Is there anything else I should know?"
+[choice] 3
+"Is there anything else I should know?"
+"Not that I can think of right now, Pat.  All of the clues you'll find today have already been placed.  There'll be more tomorrow.  So get out there and find my murderer!"
+
+Ray stands and regards you for a few moments.  Then he says, "Well, Pat, I really should get back in my freezer in case someone else comes."  He opens the door, disappears inside, then closes it quietly.
+
+> take magnets
+You take one of the magnets.
+
+> go to the basement stairs
+You shuffle down the old, cold stairs to the basement.
+You are standing at the bottom of the basement stairs.
+You can go north.
+You can go to the kitchen.
+The basement of the resort is unfurnished, damp, and cold.  Everything has stone walls, the outermost walls simply being the foundation for the building.  Inner walls are made of old, cream-colored brick.  There is no proper ceiling above you, and cobwebs dominate the network of pipes and wires that run overhead.  Bare lightbulbs glow along the western wall at irregular intervals.
+
+> north
+You are standing in a dingy hall in the basement.
+There is an office door and the office window here.
+You can go north or south.
+
+> north
+You are standing in a dingy hall in the basement.
+You can go north, south or west.
+
+> north
+You are at the end of the basement hallway, which opens up slightly into a small wine cellar.
+There is a wine bottle here.
+You can go south.
+The wine cellar has a few racks of wine, with all of the bottles covered in a thick layer of dust.  This room seems comparatively dry when compared to the rest of the basement, and perhaps that is why the wine is stored here.  You look at the labels on some of the bottles and recognize none of the makers.  Most of the vintages are between three and five years old.
+
+> take wine bottle
+You pick it up.
+
+> south
+You are standing in a dingy hall in the basement.
+You can go north, south or west.
+
+> south
+You are standing in a dingy hall in the basement.
+There is an office door and the office window here.
+You can go north or south.
+
+> south
+You are standing at the bottom of the basement stairs.
+You can go north.
+You can go to the kitchen.
+The basement of the resort is unfurnished, damp, and cold.  Everything has stone walls, the outermost walls simply being the foundation for the building.  Inner walls are made of old, cream-colored brick.  There is no proper ceiling above you, and cobwebs dominate the network of pipes and wires that run overhead.  Bare lightbulbs glow along the western wall at irregular intervals.
+
+> go to the kitchen
+You ascend the stairs and appreciate how much warmer it is on the first floor.
+You are in the hotel's kitchen.
+There is a large freezer, a large refrigerator, a long counter and several magnets on the refrigerator here.
+You can go north.
+You can go to the basement stairs.
+Here is where they prepare the food for the resort's dining room.  This is another of one of those rare places where everything has been thoroughly modernized.  The kitchen swims in stainless steel:  counters, ovens, stoves, refrigerators, and freezers.  Numerous bowls, pans and utensils are stored on stainless steel carts that can be wheeled around for maximum mobility.  In one corner, there is a set of narrow stone stairs that disappear down around the corner, presumably to the basement.  Near the stairs is your string-and-toilet-paper-roll device that worked so admirably in opening the door.
+
+> north
+You are in a small alcove to the east of the bar.
+There is a small window and a long string tied to a hook here.
+You can go north, south or west.
+This is nothing more than a nook, really.  A solitary eastern window looks out into the morning gloom.
+
+> north
+You are in the resort's dining room.
+You can go south or west.
+The dining room is rather small, accommodating only about a dozen tables, with most tables set for parties of two.  The tables are set with silverware, napkins, and glasses, ready to be used for dinner.  A large fieldstone fireplace is set in the north wall.  There currently is no fire.
+
+> west
+You are standing in a small nondescript hall.
+You can go east or west.
+This hall connects the stairway and the dining room.
+
+> west
+You are standing at the bottom of a landing of a flight of stairs.
+There is small sign here.
+You can go north, south or east.
+You can go to the upstairs landing.
+The bottom stair creaks if you step on it.  The steps are bare, and the middle of each stair is quite worn.  The banister is rather ornate, hand-carved, apparently, out of mahogany or some other dark, sturdy wood.
+
+> south
+You stand in the resort's lobby.
+You can go north, south, east or west.
+The lobby is fairly small, and decorated with the same rustic charm as the rest of the hotel.  A large red door leads outside.  Two benches with slatted backs sit opposite each other in the entryway.  Further in, there are a few dark brown chairs, and a couple of end tables that boast out-of-date news magazines.  From here, the front desk is to the east, the hotel's bar is to the south, and the guestrooms are to the north.
+
+> west
+You exit the hotel.
+You are standing outside on the landing for the hotel's entrance.
+You can go north, east or west.
+The landing is a large cement square, rising about two feet off of the ground, with two stairs that lead down to the path that accesses the rest of the resort's grounds.  A small vaulted roof covers the area, supported by four white posts, one at each corner.  Empty flowerboxes line both sides of the landing.  Looking around, you didn't realize while in the hotel what a gloomy autumn day it is.  The sky is overcast, constantly threatening rain, and fog hangs quite thickly over the grounds.  The air is chilly, although you are thankful there is no wind to make it worse.
+
+> north
+You are walking along a cement path on the resort's grounds.
+You can go north or south.
+This path leads to the parking lot, as you remember walking on it last night.  It's nothing more than a few cracked cement slabs resting in the ground.  From here, you can appreciate the grandeur the hotel once had back in its heyday of the 1920's, with its banks of windows, solid brick construction, and the promise of a dance every Saturday in the ballroom.  However, many of the bricks are crumbling now and some of the windows have been broken and are boarded up.  The ballroom hasn't been used in years.  Beyond the hotel, to the east, is a dark coniferous forest shrouded in fog.
+
+> north
+You are walking along a cement path on the resort's grounds.
+There is a large iron gate here.
+You can go north or south.
+
+> north
+You are standing in the hotel's parking lot.
+You can go south.
+You can go to your car.
+About a dozen cars are parked in the gravel lot here, including yours.  From here, it is about a half-hour drive to the nearest major highway.  However, due to the fog and general miserable weather, it might take a little longer today.
+
+> go to your car
+You sit in the driver's seat in your car.
+There is a steering wheel, the gearshift and a glove compartment here.
+You can go out to the parking lot.
+You car is a gray 1993 Ford Escort, with 90,000 miles on it.  It's not a terribly fancy car by any means, but it has served you well throughout the years, being very reliable.
+
+> use glove compartment
+You open the glove compartment and remove every item that's inside.
+
+> take needle
+You pick it up.
+
+> take manual
+You pick it up.
+
+> use manual
+You spend hours poring over tedious articles and lists of proper spelling and usage.  Know you now yule never make an other misteak in english agin.
+
+> use car
+You drive your car to Milwaukee and back, but it seems that little has changed.
+
+> out
+You are standing in the hotel's parking lot.
+You can go south.
+You can go to your car.
+About a dozen cars are parked in the gravel lot here, including yours.  From here, it is about a half-hour drive to the nearest major highway.  However, due to the fog and general miserable weather, it might take a little longer today.
+
+> south
+You are walking along a cement path on the resort's grounds.
+There is a large iron gate here.
+You can go north or south.
+
+> south
+You are walking along a cement path on the resort's grounds.
+You can go north or south.
+This path leads to the parking lot, as you remember walking on it last night.  It's nothing more than a few cracked cement slabs resting in the ground.  From here, you can appreciate the grandeur the hotel once had back in its heyday of the 1920's, with its banks of windows, solid brick construction, and the promise of a dance every Saturday in the ballroom.  However, many of the bricks are crumbling now and some of the windows have been broken and are boarded up.  The ballroom hasn't been used in years.  Beyond the hotel, to the east, is a dark coniferous forest shrouded in fog.
+
+> south
+You are standing outside on the landing for the hotel's entrance.
+You can go north, east or west.
+The landing is a large cement square, rising about two feet off of the ground, with two stairs that lead down to the path that accesses the rest of the resort's grounds.  A small vaulted roof covers the area, supported by four white posts, one at each corner.  Empty flowerboxes line both sides of the landing.  Looking around, you didn't realize while in the hotel what a gloomy autumn day it is.  The sky is overcast, constantly threatening rain, and fog hangs quite thickly over the grounds.  The air is chilly, although you are thankful there is no wind to make it worse.
+
+> west
+You are walking along a cement path on the resort's grounds.
+You can go east or west.
+Following this path will lead you down to the bay that Bayside Resort is so cleverly named after.  The path is lined with small bushes and shrubs here, although most have already lost their leaves.  Of the few evergreen shrubs, several have needles that are turning orange, a sure sign that they have not been sufficiently cared for.  From this vantage point, you can see the resort's scraggy lawn, a picnic table to the south, and a gazebo to the west.  The fog covers anything else.
+
+> west
+You are walking along a cement path on the resort's grounds.
+There is a lamppost here.
+You can go south, east or west.
+
+> speak to lamppost
+You speak to the lamppost matter-of-factly.  "Hello, lamppost.  Whatcha knowin'?  I've come to watch your flowers growin'."
+
+> south
+You are walking along a cement path on the resort's grounds.
+There is a solitary tree here.
+You can go north or south.
+
+> south
+You are walking along a cement path on the resort's grounds.
+You can go north, south or east.
+
+> east
+This is a little picnic area on the grass.
+There is a picnic table, a grill and a corkscrew on the picnic table here.
+You can go west.
+People can come to this spot if they feel like taking their meal outside.  It's not much really, just a ramshackle picnic table and a rusting grill.
+
+> take corkscrew
+You take the corkscrew off of the picnic table.
+
+> use corkscrew on wine bottle
+You peel off the foil from the top of the bottle, and twist the corkscrew into the cork.  Once the corkscrew is deeply embedded, you begin pulling it free.  The cork is really stuck in there!  You pull harder, and harder, and suddenly in one fluid movement, the cork pops out of the bottle and the bottle flies out of your hand, breaking on the ground below.  All you are left with are the corkscrew and the cork from the bottle.
+
+> west
+You are walking along a cement path on the resort's grounds.
+You can go north, south or east.
+
+> south
+You are walking along a cement path on the resort's grounds.
+You can go north or south.
+You notice that the fog seems to be getting thicker as you continue traveling south.
+
+> south
+You are walking along a cement path on the resort's grounds.
+You can go north, south or west.
+
+> use magnet on needle
+You rub the magnet against the needle repeatedly, in long strokes in the same direction.
+
+> use needle on cork
+You pierce the cork with the magnetized needle, pushing it so equal ends of the needle protrude.
+
+> use cork on glass of water
+You float the cork-and-needle assembly gingerly in the glass of water.  The cork slowly turns in the glass, with the tip of the needle soon pointing north.  Why, you've created your very own compass!
+
+> use magnet on microphone
+You clip the magnet onto the end of the microphone cord.
+
+> west
+You are standing near a small shed by the waterfront.
+There is a padlock on the shed's door, the shed's door and a large shed here.
+You can go east.
+The shed is rather small, constructed of some cheap, unpainted wood.  There is no indication what might be inside.  The door to the shed is locked with a padlock.  From here, you can see a few feet out into the bay, but the fog is quite thick.
+
+> use padlock
+You slide the key into the lock, turn it, and the lock falls open silently.
+
+You can now go into the shed.
+
+> go to the shed
+You are standing inside the small shed.
+There is a pair of oars here.
+You can go out to near shed.
+The shed is dark and small, smelling vaguely of mouse droppings.  You think that the shed is used for storing things from the hotel's beach--you notice a half-inflated inner tube lying limply in one corner, and several buoys used to delineate to swimming area in another.  However, there really isn't much in here.
+
+> take oars
+You pick them up.
+
+> out
+You are standing near a small shed by the waterfront.
+You can go east.
+You can go to shed.
+The shed is rather small, constructed of some cheap, unpainted wood.  There is no indication what might be inside.  The door to the shed is locked with a padlock.  From here, you can see a few feet out into the bay, but the fog is quite thick.
+
+> east
+You are walking along a cement path on the resort's grounds.
+You can go north, south or west.
+
+> south
+You are standing on a small pier.
+There is Hank, a rowboat and the bay here.
+You can go north.
+The pier is narrow and short, only extending about five feet over the water.  You are amazed at how thick the fog has gotten, and it is especially bad over the bay.  From here, you can make out no discernible features of the bay, besides being able to follow the western shoreline briefly to the south before it, too, is hidden by fog.
+
+> speak to hank
+"Um, excuse me," you say.
+"Uh, huh, what?" he says, obviously startled.  He looks up from the book he was reading and gives you the once over.  "Oh, you must be here for the thing.  I'm Hank," he says without smiling.  "I do a lot of the maintenance on the grounds here."
+"What maintenance?" you think to yourself.
+"Anyway, if you want to rent the boat, it'll be five dollars."
+Do you want to give Hank five dollars so you can use the rowboat?
+1) Yes
+2) No
+[choice] yes
+"Okay, I'll rent the rowboat," you say, and give Hank a five-dollar bill.
+"Whatever you say," he replies, taking your money.  He marks his page in his book, folds up his lawn chair and takes it, and begins to walk down the path back to the hotel.
+
+You can now go to the rowboat from the pier.
+
+> go to the rowboat
+You are sitting in the rowboat you rented, alongside the small pier.
+There is two oarlocks here.
+You can go out to the pier.
+
+You feel the compass you made will allow you to navigate your rowboat without getting lost, so you are ready to row into the bay!
+
+There are no oars in the oarlocks!  How will you use the boat?
+
+> use oars on oarlocks
+You slide the oars into their respective oarlocks.  The boat is now ready to be rowed around the bay!
+
+You feel the compass you made will allow you to navigate your rowboat without getting lost, so you are ready to row into the bay!
+
+> south
+You are rowing your boat in the bay, near the small pier from where you left.
+You can go north, south, east, west, northeast, southeast or southwest.
+
+> south
+You are rowing your boat in the bay.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+
+> southwest
+You are rowing your boat in the bay.
+There is some shiny thing at the bottom of the bay here.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+
+> use microphone with magnet on shiny thing
+You're not sure that whatever's at the bottom of the bay is metallic, or even then if it will be able to be picked up by a magnet, but you lower the microphone cord with the magnet attached into the water, fishing for the shiny object.
+
+Success!  After a few seconds of swinging the cord around near the object, it jumps to the magnet with a dull click.  You retrieve the object--it's a key!
+
+> east
+You are rowing your boat in the bay.
+You can go north, south, east, west, northeast, northwest or southwest.
+You can see a small island to the southeast, but alas, there is no place to dock your boat there.
+
+> east
+You are rowing your boat in the bay.
+You can go north, east, west, northeast or northwest.
+You can see a small island to the south, but alas, there is no place to dock your boat there.
+
+> east
+You are rowing your boat in the bay.
+You can go north, south, east, west, northwest or southeast.
+You can see a small island to the southwest, and what seems to be a small pier attached to it to the south.
+
+> south
+You are sitting in your rowboat next to a small, rotting pier that extends from the island.
+You can go out to the island pier.
+You can go north, south, east, northeast or southeast.
+
+> out
+You tie the bow of the rowboat loosely around one of the pier's planks, and step onto the pier.
+Your are standing on the island's pier.
+You can go west.
+You can go to the rowboat near island.
+The pier is of poor construction, consisting simply of two long planks that are barely suspended above the water by vertical posts at irregular intervals.  The wood appears to be rotten, and is extremely slippery, as waves from the bay constantly wash over it.
+
+> west
+You are standing on the eastern end of a small island.
+You can go east, west or northwest.
+The island is quite small, and is rather overgrown with tall plants and bushes.  Trees are scarce, and there can't be more than fifteen of them on the entire island.  A thin but well-worn path leads to the west.
+
+> northwest
+You are standing on the north side of the island.
+There is a shed and a keyboard here.
+You can go south, southeast or southwest.
+From here, you can look out over the bay back in the general direction of the resort, but the fog limits your visibility to only a few feet in front of you.
+
+> use keyboard
+What would you like to type on the keyboard?
+
+You type "cion" on the keyboard and press enter.  Suddenly the shed's door slides to the right with the sound of some squeaky gears.
+
+You can now go to the shed.
+
+> go to the island shed
+You are standing within the metal shed on the island.
+There is an ice pick here.
+You can go out to north island.
+The shed is about five feet square.  From the two corners near the doorway, two spotlights shine brilliantly, highlighting an object resting on a small wooden shelf on the far end of the shed.
+
+> examine ice pick
+The ice pick has a wooden handle and is about six inches long.  Resting on the shelf, it is lit up dramatically from the two spotlights on the opposite wall.  Looking at it closely, you notice that it has what seems to be red paint on the handle and the shaft, and there is a small pool of red paint next to the ice pick on the shelf.  Aha!  This must be the "murder" weapon!
+
+> out
+You are standing on the north side of the island.
+You can go south, southeast or southwest.
+You can go to island shed.
+From here, you can look out over the bay back in the general direction of the resort, but the fog limits your visibility to only a few feet in front of you.
+
+> southeast
+You are standing on the eastern end of a small island.
+You can go east, west or northwest.
+The island is quite small, and is rather overgrown with tall plants and bushes.  Trees are scarce, and there can't be more than fifteen of them on the entire island.  A thin but well-worn path leads to the west.
+
+> east
+Your are standing on the island's pier.
+You can go west.
+You can go to the rowboat near island.
+The pier is of poor construction, consisting simply of two long planks that are barely suspended above the water by vertical posts at irregular intervals.  The wood appears to be rotten, and is extremely slippery, as waves from the bay constantly wash over it.
+
+> go to the rowboat near island
+You untie your boat and hop in.
+You are sitting in your rowboat next to a small, rotting pier that extends from the island.
+You can go out to the island pier.
+You can go north, south, east, northeast or southeast.
+
+> north
+You are rowing your boat in the bay.
+You can go north, south, east, west, northwest or southeast.
+You can see a small island to the southwest, and what seems to be a small pier attached to it to the south.
+
+> west
+You are rowing your boat in the bay.
+You can go north, east, west, northeast or northwest.
+You can see a small island to the south, but alas, there is no place to dock your boat there.
+
+> west
+You are rowing your boat in the bay.
+You can go north, south, east, west, northeast, northwest or southwest.
+You can see a small island to the southeast, but alas, there is no place to dock your boat there.
+
+> north
+You are rowing your boat in the bay.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+
+> north
+You are rowing your boat in the bay, near the small pier from where you left.
+You can go north, south, east, west, northeast, southeast or southwest.
+
+> north
+You are sitting in the rowboat you rented, alongside the small pier.
+You can go out to the pier.
+You can go south, east, southeast or southwest.
+
+> out
+You are standing on a small pier.
+There is the bay here.
+You can go north.
+You can go to rowboat.
+The pier is narrow and short, only extending about five feet over the water.  You are amazed at how thick the fog has gotten, and it is especially bad over the bay.  From here, you can make out no discernible features of the bay, besides being able to follow the western shoreline briefly to the south before it, too, is hidden by fog.
+
+> north
+You are walking along a cement path on the resort's grounds.
+You can go north, south or west.
+
+> north
+You are walking along a cement path on the resort's grounds.
+You can go north or south.
+
+> north
+You are walking along a cement path on the resort's grounds.
+You can go north, south or east.
+
+> north
+You are walking along a cement path on the resort's grounds.
+There is a solitary tree here.
+You can go north or south.
+
+> north
+You are walking along a cement path on the resort's grounds.
+There is a lamppost here.
+You can go south, east or west.
+
+> east
+You are walking along a cement path on the resort's grounds.
+You can go east or west.
+Following this path will lead you down to the bay that Bayside Resort is so cleverly named after.  The path is lined with small bushes and shrubs here, although most have already lost their leaves.  Of the few evergreen shrubs, several have needles that are turning orange, a sure sign that they have not been sufficiently cared for.  From this vantage point, you can see the resort's scraggy lawn, a picnic table to the south, and a gazebo to the west.  The fog covers anything else.
+
+> east
+You are standing outside on the landing for the hotel's entrance.
+You can go north, east or west.
+The landing is a large cement square, rising about two feet off of the ground, with two stairs that lead down to the path that accesses the rest of the resort's grounds.  A small vaulted roof covers the area, supported by four white posts, one at each corner.  Empty flowerboxes line both sides of the landing.  Looking around, you didn't realize while in the hotel what a gloomy autumn day it is.  The sky is overcast, constantly threatening rain, and fog hangs quite thickly over the grounds.  The air is chilly, although you are thankful there is no wind to make it worse.
+
+> east
+You enter the hotel.
+You stand in the resort's lobby.
+You can go north, south, east or west.
+The lobby is fairly small, and decorated with the same rustic charm as the rest of the hotel.  A large red door leads outside.  Two benches with slatted backs sit opposite each other in the entryway.  Further in, there are a few dark brown chairs, and a couple of end tables that boast out-of-date news magazines.  From here, the front desk is to the east, the hotel's bar is to the south, and the guestrooms are to the north.
+
+As you enter the hotel lobby, Bobbie Jones, the receptionist, looks anxiously at you.  She immediately comes up to you and says tentatively, "Pat!  Have you seen Ray lately?"
+"Well, he was in the freezer being dead just a--"
+"I know," she says hurriedly, "but he's not there anymore.  No one can seem to find him.  It's just not like him to not be where he's supposed to, especially when people need to find him for the mystery!"  She casts an anxious glance sideways.  "Well,"  she continues, "maybe he's fixing something."
+"Well, I just came from outside and he wasn't there."
+"Okay.  Thanks," she mutters.  She stares blankly at you for a few moments.  "Oh!  There's something else.  I'm looking for my key to Ray's office.  I need to get some paperwork from down there.  But I can't seem to find it.  So, if you happen to run across it while you're looking around..."
+"Do you have any idea where it might be?"
+"Well," she says sheepishly, looking at your feet, "it could be anywhere...  But, I may have... dropped it into the bay yesterday.  I had to row..."  she says, and then pauses for a long time.  "I had to hide a clue on the island, and...  It may have fallen out of my pocket."
+"I don't understand why it would be there more than anyplace else."
+"Well..." she says evasively.  Suddenly the phone rings at the front desk.  "I better go get that," she mutters, and scurries off.
+
+> north
+You are standing at the bottom of a landing of a flight of stairs.
+There is small sign here.
+You can go north, south or east.
+You can go to the upstairs landing.
+The bottom stair creaks if you step on it.  The steps are bare, and the middle of each stair is quite worn.  The banister is rather ornate, hand-carved, apparently, out of mahogany or some other dark, sturdy wood.
+
+> east
+You are standing in a small nondescript hall.
+You can go east or west.
+This hall connects the stairway and the dining room.
+
+> east
+You are in the resort's dining room.
+You can go south or west.
+The dining room is rather small, accommodating only about a dozen tables, with most tables set for parties of two.  The tables are set with silverware, napkins, and glasses, ready to be used for dinner.  A large fieldstone fireplace is set in the north wall.  There currently is no fire.
+
+> south
+You are in a small alcove to the east of the bar.
+There is a small window and a long string tied to a hook here.
+You can go north, south or west.
+This is nothing more than a nook, really.  A solitary eastern window looks out into the morning gloom.
+
+> south
+You are in the hotel's kitchen.
+There is a large freezer, a large refrigerator, a long counter and several magnets on the refrigerator here.
+You can go north.
+You can go to the basement stairs.
+Here is where they prepare the food for the resort's dining room.  This is another of one of those rare places where everything has been thoroughly modernized.  The kitchen swims in stainless steel:  counters, ovens, stoves, refrigerators, and freezers.  Numerous bowls, pans and utensils are stored on stainless steel carts that can be wheeled around for maximum mobility.  In one corner, there is a set of narrow stone stairs that disappear down around the corner, presumably to the basement.  Near the stairs is your string-and-toilet-paper-roll device that worked so admirably in opening the door.
+
+> go to the basement stairs
+You shuffle down the old, cold stairs to the basement.
+You are standing at the bottom of the basement stairs.
+You can go north.
+You can go to the kitchen.
+The basement of the resort is unfurnished, damp, and cold.  Everything has stone walls, the outermost walls simply being the foundation for the building.  Inner walls are made of old, cream-colored brick.  There is no proper ceiling above you, and cobwebs dominate the network of pipes and wires that run overhead.  Bare lightbulbs glow along the western wall at irregular intervals.
+
+> north
+You are standing in a dingy hall in the basement.
+There is an office door and the office window here.
+You can go north or south.
+
+> use door key on office door
+You slide the key into the lock on the door and it turns easily.  You walk into the office and fumble around for a lightswitch.  Lying on the ground near his desk is Ray Lazst, pretending to be dead.
+
+
+Ray is dressed in his employee's plaid shirt, but is covered with stage blood.  He lies face down.  His "death" was apparently a blow to the head, and Ray has gone to great lengths to be sure a grotesque bit of broken skull is visible among his curly white hair, matted with blood.  A red pool surrounds his head, and appears to have run out his ears.
+
+
+It's all a bit much for your conservative tastes, but you've come to expect this. "Ha, Ray, I've found you!"  you shout to the corpse.   The corpse does not respond.  "Ray?  It's Pat Conroy!  You've really outdone yourself this time.  Well done."  Ray still does not move.
+
+
+Suddenly you have an intense wave of nausea and dread wash over you.  "Ray?" you ask feebly, instantly light-headed.  Your mouth is parched dry and you are close to hyperventilating.  You manage to shuffle a few feet forward and look at Ray's torso.  He is clearly not breathing.  
+
+
+You think about reaching for one of his arms and checking for a pulse, but unspeakable fear and panic strike you like a lightning bolt.  All you can do is scream and scream and scream.  Judy rushes in shortly, followed by a woman you think was the one from Room 105, and then Jack.  You continue screaming, your voice growing hoarse, until you quickly and quietly slump to the floor, your mouth still open in sheer terror, slipping into the welcome blankness of unconsciousness.
+
+
+* * * * * * *
+
+Congratulations!  Although currently unconscious, you have completed The Lazst Resort, Part 1.  
+
+You scored 125 points, out of a possible 125.  That means your rank is:  Perfectionist.
+
+This ends Part 1.  I hope to create a Part 2 sometime, where you solve the actual murder of Ray Lazst.  However,  it will be awhile, if at all.  If you (yes, you) would be interested in taking over the project and writing Part 2, please contact me at the e-mail address found in the README file.  The rooms, stationary objects, and all descriptions would already be in place--you could just delete all the procedures and moveable objects, and away you go.  Hope you enjoyed playing.
+
+
+[runner] turns=234 leftover=0 running=false WON=YES

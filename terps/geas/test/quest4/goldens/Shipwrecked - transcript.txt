@@ -1,0 +1,3257 @@
+
+Shipwrecked, v1.3 Wonderjudge
+
+You set out for a nice fishing trip for the day.
+Yep just you and your small boat with nothing to do but relax. 
+You end up napping in mid afternoon. 
+When You are suddenly awakend to the sounds of your ship cracking apart amid a very violent storm!!
+ (maybe you should not have had that rum).
+You find yourself clinging to some bits of wood during the great storm and finally you get washed up on the shore of some island.
+Shipwrecked!
+
+By Wonderjudge. Version 1.2
+
+Save often. Good luck.
+
+Send questions or comments to wonderjudge22@yahoo.com
+
+You are at the West shore.
+There is a pile of timber  here.
+You can go east, northeast or southeast.
+You are on the beach of the western side of the island. The ocean stretches on as far as the eye can see. 
+Off to the northern part of the island you can see a cliff top. The center of the island, which is off to the east, is shrouded in palm trees and other vegitation.
+
+> take pile of timber
+You pick up the timber.
+
+> northeast
+You are half way up a cliff
+There is a pile of rocks on the ground here.
+You can go south, east or southwest.
+You are about half-way up a large cliff. The waves from the ocean break upon the rocks below. You can go further up the cliff to the east or back down to the south or southwest.
+
+> examine pile of rocks
+You search through the pile of rubble....
+You unearth the skeletal remains of some dead explorer.
+You also uncover some of his effects.
+
+> take small hammer
+You pick up the hammer.
+
+> take skull
+You take the skull. Ewwwww.
+
+> take rusted canteen
+You take the canteen.
+
+> south
+You are standing in some Palm trees.
+There is some vines hanging down from the trees here.
+You can go north, south, east or west.
+You are walking through a small forest of palm trees. Coconuts dangle from the tops. Paths lead off in the four cardinal directions.
+
+> shake tree
+You shake the tree. A large bunch of coconuts fall down narrowly missing your head.
+
+> take coconut
+You pick up the coconut. It's lovely. Aren't you the lucky one.
+
+> south
+You are standing in some Scrub brush.
+There is a crude spear here.
+You can go north, south, east or northwest.
+You are walking through some short scrub and grass. Various bugs bite at you skin here, making you itchy. You can see a beach to the south, a meadow to the east and palm trees to the north.
+
+> take crude spear
+You pick up the spear.
+
+> east
+You are standing in a Meadow.
+There is a machete and a nasty looking venomous snake coiled up on the ground here.
+You can go north, south, west or northeast.
+You are walking through a grassy meadow full of flowers and tall grass.
+You can see dense forest to the north, a beach to the south, scrub to the west and a path leads northeast.
+
+> throw coconut
+You throw the coconut at the snake.
+With a satisfying clunk it makes contact with the snakes head. The snake hisses loudly and slithers off.
+
+> take machete
+You take the machete.
+
+> west
+You are standing in some Scrub brush.
+You can go north, south, east or northwest.
+You are walking through some short scrub and grass. Various bugs bite at you skin here, making you itchy. You can see a beach to the south, a meadow to the east and palm trees to the north.
+
+> north
+You are standing in some Palm trees.
+There is a lovely Bunch of coconuts and some vines hanging down from the trees here.
+You can go north, south, east or west.
+You are walking through a small forest of palm trees. Coconuts dangle from the tops. Paths lead off in the four cardinal directions.
+
+> use machete on vines
+You hack down the vines and cut them into coils of rope.
+
+> take makeshift rope
+You take the rope.
+
+> east
+You are in some Thick vegitation.
+There is a wall of vegitation and a small pond lies against a clifface here.
+You can go south, east or west.
+You are standing in an overgrown part of the island. There is vegitation everywhere. It' hard to tell where you are standing let alone going.
+
+> use machete on wall of vegitation
+You spend several minutes hacking away at the thick vegitation. Eventually you reveal a stone door. However your machete is completely spent.
+
+> east
+You are standing on the East shore.
+There is a tortoise shell lying on the sand here.
+You can go west or southwest.
+You are standing on the eastern shore of the island. Way off shore to the east a small ship floats serenely on the water. Paths lead off to the west and southwest.
+
+> flip over tortoise shell
+With some effort you manage to flip the large shell over. As you do so a pick axe flops down on the beach.
+
+> take pick axe
+You take the pick.
+
+> west
+You are in some Thick vegitation.
+There is a Stone door and a small pond lies against a clifface here.
+You can go south, east or west.
+You are standing in an overgrown part of the island. There is vegitation everywhere. It' hard to tell where you are standing let alone going.
+
+> west
+You are standing in some Palm trees.
+There is a lovely Bunch of coconuts here.
+You can go north, south, east or west.
+You are walking through a small forest of palm trees. Coconuts dangle from the tops. Paths lead off in the four cardinal directions.
+
+> north
+You are half way up a cliff
+There is a pile of rocks on the ground and pile of bones here.
+You can go south, east or southwest.
+You are about half-way up a large cliff. The waves from the ocean break upon the rocks below. You can go further up the cliff to the east or back down to the south or southwest.
+
+> east
+You are at the Top of cliff.
+There is There is a large boulder blocking the cave here.
+You can go east or west.
+You are standing on a cliff top. From here you can see the whole island. There are beaches on the other three sides and the center is covered in palm trees and other vegitation. Way off shore to the east you can just make out some kind of vessel floating serenely in the water. You can decend the cliff to the west.
+There is also a cave entrance down to the east.
+
+> use pick axe on large boulder
+You eventually manage to reduce the boulder to dust.
+
+> east
+You are in a Cave entrance.
+There is a set of cave drawings on the wall here.
+You can go east or west.
+You are at the entrance to a small cave. It is much cooler in here than outside. Moisture drips down the limestone walls. You can exit to the west or go further in to the east.
+
+> east
+You are in a Cave.
+There is stream here.
+You can go west.
+You  are standing in a dark cave complete with stalactites and stalagmites. ( I can never tell which is which) The only way out is up to the west.
+
+
+> use rusted canteen on stream
+You place the canteen in the stream. It floats serenely down into the crack.
+
+> west
+You are in a Cave entrance.
+There is a set of cave drawings on the wall here.
+You can go east or west.
+You are at the entrance to a small cave. It is much cooler in here than outside. Moisture drips down the limestone walls. You can exit to the west or go further in to the east.
+
+> west
+You are at the Top of cliff.
+You can go east or west.
+You are standing on a cliff top. From here you can see the whole island. There are beaches on the other three sides and the center is covered in palm trees and other vegitation. Way off shore to the east you can just make out some kind of vessel floating serenely in the water. You can decend the cliff to the west.
+There is also a cave entrance down to the east.
+
+> west
+You are half way up a cliff
+There is a pile of rocks on the ground and pile of bones here.
+You can go south, east or southwest.
+You are about half-way up a large cliff. The waves from the ocean break upon the rocks below. You can go further up the cliff to the east or back down to the south or southwest.
+
+> south
+You are standing in some Palm trees.
+There is a lovely Bunch of coconuts here.
+You can go north, south, east or west.
+You are walking through a small forest of palm trees. Coconuts dangle from the tops. Paths lead off in the four cardinal directions.
+
+> east
+You are in some Thick vegitation.
+There is a Stone door, a small pond lies against a clifface and a stone rod here.
+You can go south, east or west.
+You are standing in an overgrown part of the island. There is vegitation everywhere. It' hard to tell where you are standing let alone going.
+
+> take stone rod
+You pick up the stone rod.
+
+> use stone rod on stone door
+You slide the rod into the hole. You hear a series of clicks then the stone door slides down into the ground.
+
+> enter dark opening
+You step into the dark opening and decend a stone staircase...
+You are standing in the Temple.
+There is a stone slab splattered with blood in the center of the room here.
+You can go south, east or up.
+You are standing in what could only be described as a ruined temple of some kind. Bass reliefs of forgotten gods adorn all the walls. There is an alcove to the east and a stone door lies to the south.
+The stone door is closed.
+
+> use skull on stone slab
+You place the skull in the indentation.
+
+> east
+You are in an Alcove.
+There is a crude shovel and oars here.
+You can go west.
+You are in a small stone alcove. It is unadorned and looks like it may have been used for storage.
+The only exit is to the west.
+
+> take crude shovel
+You pick up the shovel.
+
+> take oars
+You take the oars.
+
+> west
+You are standing in the Temple.
+There is a skull and a stone slab splattered with blood in the center of the room here.
+You can go south, east or up.
+You are standing in what could only be described as a ruined temple of some kind. Bass reliefs of forgotten gods adorn all the walls. There is an alcove to the east and a stone door lies to the south.
+The stone door is closed.
+
+> up
+You are in some Thick vegitation.
+There is a small pond lies against a clifface and a dark opening leading down into a ruined building here.
+You can go south, east or west.
+You are standing in an overgrown part of the island. There is vegitation everywhere. It' hard to tell where you are standing let alone going.
+
+> west
+You are standing in some Palm trees.
+There is a lovely Bunch of coconuts here.
+You can go north, south, east or west.
+You are walking through a small forest of palm trees. Coconuts dangle from the tops. Paths lead off in the four cardinal directions.
+
+> north
+You are half way up a cliff
+There is a pile of rocks on the ground and pile of bones here.
+You can go south, east or southwest.
+You are about half-way up a large cliff. The waves from the ocean break upon the rocks below. You can go further up the cliff to the east or back down to the south or southwest.
+
+> east
+You are at the Top of cliff.
+You can go east or west.
+You are standing on a cliff top. From here you can see the whole island. There are beaches on the other three sides and the center is covered in palm trees and other vegitation. Way off shore to the east you can just make out some kind of vessel floating serenely in the water. You can decend the cliff to the west.
+There is also a cave entrance down to the east.
+
+> east
+You are in a Cave entrance.
+There is a set of cave drawings on the wall here.
+You can go east or west.
+You are at the entrance to a small cave. It is much cooler in here than outside. Moisture drips down the limestone walls. You can exit to the west or go further in to the east.
+
+> use stone rod on cave drawings
+You insert the stone rod into the small hole.
+
+You here a series of grinding noises.
+
+> west
+You are at the Top of cliff.
+You can go east or west.
+You are standing on a cliff top. From here you can see the whole island. There are beaches on the other three sides and the center is covered in palm trees and other vegitation. Way off shore to the east you can just make out some kind of vessel floating serenely in the water. You can decend the cliff to the west.
+There is also a cave entrance down to the east.
+
+> west
+You are half way up a cliff
+There is a pile of rocks on the ground and pile of bones here.
+You can go south, east or southwest.
+You are about half-way up a large cliff. The waves from the ocean break upon the rocks below. You can go further up the cliff to the east or back down to the south or southwest.
+
+> south
+You are standing in some Palm trees.
+There is a lovely Bunch of coconuts here.
+You can go north, south, east or west.
+You are walking through a small forest of palm trees. Coconuts dangle from the tops. Paths lead off in the four cardinal directions.
+
+> east
+You are in some Thick vegitation.
+There is a small pond lies against a clifface and a dark opening leading down into a ruined building here.
+You can go south, east or west.
+You are standing in an overgrown part of the island. There is vegitation everywhere. It' hard to tell where you are standing let alone going.
+
+> enter dark opening
+You step into the dark opening and decend a stone staircase...
+You are standing in the Temple.
+There is a skull and a stone slab splattered with blood in the center of the room here.
+You can go south, east or up.
+You are standing in what could only be described as a ruined temple of some kind. Bass reliefs of forgotten gods adorn all the walls. There is an alcove to the east and a stone door lies to the south.
+The stone door now lies open before you.
+
+> south
+You are standing before an Altar.
+There is a set Carvings above the altar on the south wall and a * Chest of gold * coins here.
+You can go north.
+You are standing in a small stone room. A large altar makes up the south wall. The only exit is to the north.
+
+> take chest of gold
+You take the chest.
+Your score just went up!
+You have become stronger and able to take more damage!
+
+> north
+You are standing in the Temple.
+There is a skull and a stone slab splattered with blood in the center of the room here.
+You can go south, east or up.
+You are standing in what could only be described as a ruined temple of some kind. Bass reliefs of forgotten gods adorn all the walls. There is an alcove to the east and a stone door lies to the south.
+The stone door now lies open before you.
+
+> up
+You are in some Thick vegitation.
+There is a small pond lies against a clifface and a dark opening leading down into a ruined building here.
+You can go south, east or west.
+You are standing in an overgrown part of the island. There is vegitation everywhere. It' hard to tell where you are standing let alone going.
+
+> south
+You are standing in a Meadow.
+There is a coconut here.
+You can go north, south, west or northeast.
+You are walking through a grassy meadow full of flowers and tall grass.
+You can see dense forest to the north, a beach to the south, scrub to the west and a path leads northeast.
+
+> south
+You have come to the East Beach.
+There is a crate floats in the water just offshore here.
+You can go north or west.
+You are walking along the eastern side of a long sandy beach on the southern shore of the island.
+To the north is a meadow and the beach continues on to the west.
+
+> use crude spear on crate
+You manage to hook the crate with the spear and drag it onto the shore.
+
+> take crate
+You take the crate.
+
+> west
+You have come to the West beach.
+You can go north or east.
+You are at the western end of a long sandy beach that stretches across the southern end of the island.
+There is a strange "x" made of seaweed marking a spot here on the beach.
+
+> dig
+You dig in the sand and come up with a pair of pirate hooks.
+
+> take pirate hooks
+You pick up the hooks.
+
+> east
+You have come to the East Beach.
+You can go north or west.
+You are walking along the eastern side of a long sandy beach on the southern shore of the island.
+To the north is a meadow and the beach continues on to the west.
+
+> north
+You are standing in a Meadow.
+There is a coconut here.
+You can go north, south, west or northeast.
+You are walking through a grassy meadow full of flowers and tall grass.
+You can see dense forest to the north, a beach to the south, scrub to the west and a path leads northeast.
+
+> northeast
+You are standing on the East shore.
+There is a tortoise shell lying on the sand here.
+You can go west or southwest.
+You are standing on the eastern shore of the island. Way off shore to the east a small ship floats serenely on the water. Paths lead off to the west and southwest.
+
+> use pile of timber on tortoise shell
+You surround the shell with the timber turning it into the makings of a raft. You still need something to tie it all together.
+
+> use makeshift rope on makeshift raft
+You use the rope and bind the raft together.
+It looks like it might work but you will still need something to row the boat with.
+
+> use pirate hooks on makeshift raft
+You attatch the hooks to either side of the raft.
+
+> use oars on makeshift raft
+You attatch the oars to the raft using the pirate hooks. It is almost done. All you need now is somewhere to store your gear.
+
+> use crate on makeshift raft
+You attach the crate to the back of the raft.
+
+> use chest of gold on makeshift raft
+You place the chest in the crate.
+Your score just went down.
+You have become weaker and able to take less damage.
+
+
+> drop small hammer
+You drop it.
+
+> drop machete
+You drop it.
+
+> drop stone rod
+You drop it.
+
+> drop pick axe
+You drop it.
+
+> drop crude spear
+You drop it.
+
+> drop crude shovel
+You drop it.
+
+> i
+You are carrying nothing.
+
+> sail
+You set sail in your makeshift raft. As you approach the vessel you notice that it is a small pirate sloop. Someone in the crows nest is looking down at you with a spyglass.
+
+He seems to notice that you have a large chest of gold coins with you. You make it to the ship and they hoist you from the water.
+They then take your chest and throw you in the brig!
+
+After awhile you hear the captain come in and announce that they are going ashore. He tells one of the crew to remain here and keep an eye on the prisoner.
+You are in the Brig.
+There is a Cell door and a Mop here.
+You can go south.
+You are in the brig. The only exit is to the south through an iron door.
+
+> take mop
+You take the mop.
+
+> examine cell door
+You do notice hanging on the wall just beyond the door a large key ring.
+
+> use mop on key ring
+It can't be this easy can it?
+Boy these are some stupid pirates. You use the mop to get the keyring. You unlock the door and break the keys off in it so they won't be able to lock you up again.
+That will teach em!
+
+
+> south
+You are in the Crew's quarters.
+You can go north, up or down.
+You are standing in the crew's quarters below deck. Boots and clothes are strewn all over the place as well as broken rum bottles. Several cots are here also littered with junk. You can go north to the brig, down to the hold, or up to the main deck from here.
+
+> examine cots
+The only thing you find of interest is a book hidden under some blankets.
+
+> take book
+You take the book.
+
+> read book
+You read through the book. You seem to grasp the basic fundamentals of fencing and would probably be able to hold your own now.
+
+> down
+You are in the Ship's hold.
+There is a * Chest of gold * coins, a Sack of rum and a * Silver bar * here.
+You can go up.
+You are down in the ship's hold. Large barrels and crates filled with gunpowder and other goods are stacked up here. A ladder leads up to the crew's quarters.
+
+> take sack of rum
+You take the sack of rum.
+
+> take silver bar
+You pick up the bar.
+Your score just went up!
+
+> up
+You are in the Crew's quarters.
+You can go north, up or down.
+You are standing in the crew's quarters below deck. Boots and clothes are strewn all over the place as well as broken rum bottles. Several cots are here also littered with junk. You can go north to the brig, down to the hold, or up to the main deck from here.
+
+> up
+You are on the Sloop deck.
+There is the Ship's flag lying in a crumpled heap, a small Row boat tied to the side of the deck and a Drunken pirate slumped over a barrel here.
+You can go north, south, up or down.
+You are standing on the main deck of a small pirate sloop. Off in the distance to the west you can see the island you were on. To the east you can see the shore of a larger island. There seems to be something in the water off to the north but you can't make out much from here. From here you can go north to the bow of the ship, south to the stern, up to the crow's nest or down to the crew's quarters.
+
+> raise ship's flag
+You raise the ship's flag up. 
+It's a black flag with a skull and crossbones on it.
+Something clatters onto the deck as you do so.
+
+> take cutlass
+You pick up the cutlass.
+
+> kill drunken pirate
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 5
+You swing your sword upwards at your opponent.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 5
+You attempt to block your opponents upward slash.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 4
+You slash downward at your opponent.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 3
+You attempt to block your opponents attack from the right.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 2
+You slash at your opponent from the left.
+You slip past your opponents guard and land a clean hit!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 4
+You attempt to block your opponents downward thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 4
+You slash downward at your opponent.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 4
+You attempt to block your opponents downward thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 3
+You slash at your opponent from the right.
+You sneak past your opponents guard and land a nasty blow!
+You have defeated the pirate! His body slumps down at your feet.
+You have become stronger and able to take more damage!
+
+> examine dead pirate
+You search the pirate and find an iron key.
+
+> take iron key
+You take the key.
+
+> tea bag dead pirate
+You tea bag the pirate!
+Ha ha ha!!!!
+Take that you stupid pirate!
+
+You have become stronger and able to take more damage!
+You feel more confident in yourself.
+
+> north
+You are at the Ship's bow.
+There is the Ship's wheel and a Pry bar here.
+You can go south.
+You are standing on the bow of a small pirate sloop. You can barely make out another ship in the water off to the north. The main deck is to the south.
+
+> take ship's wheel
+You remove the wheel from it's stand.
+
+> take pry bar
+You take the pry bar.
+
+> south
+You are on the Sloop deck.
+There is a small Row boat tied to the side of the deck and a Dead pirate here.
+You can go north, south, up or down.
+You are standing on the main deck of a small pirate sloop. Off in the distance to the west you can see the island you were on. To the east you can see the shore of a larger island. There seems to be something in the water off to the north but you can't make out much from here. From here you can go north to the bow of the ship, south to the stern, up to the crow's nest or down to the crew's quarters.
+
+> south
+You are at the Ship's stern.
+There is a sturdy Oak door and a large wooden Barrel here.
+You can go north or down.
+You are standing on the stern of a small pirate sloop. The main deck is to the north. There is a doorway leading down below decks as well.
+The door is closed.
+
+> use iron key on oak door
+You unlock the door and open it.
+
+> use pry bar on barrel
+You pry open the barrel. It is full of small crackers.
+
+> take cracker
+You take a cracker.
+
+> down
+You are in a Cabin.
+There is a Closet set in the south wall, a Painting hangs on the wall and a colorful Parrot sits on his perch here.
+You can go up.
+You are in what must be the captain's quarters. The bed and decorations are lavish compared to the rest of the ship. There is a small stand with a cage on top of it next to the bed. You can go up to the ship's stern from here.
+"SQUAK! Shiver me timbers! SQUAK!"
+
+> give cracker to parrot
+You give the cracker to the parrot. It gobbles it up greedily.
+
+> speak to parrot
+"SQUAK! What's the password? SQUAK!"
+
+Your answer?
+"SQUAK! You got it! SQUAK!"
+The parrot steps on an unseen button in his cage.
+You hear a click from somewhere in the room. 
+
+> examine painting
+There is a small section of the painting that has swung open.
+You notice a small key inside the open section of painting.
+
+> take small key
+You pick up the key.
+
+> look at closet
+A small wooden closet set in the south wall.
+The closet is closed.
+
+> use small key on closet
+You unlock the closet with the small key.
+
+> open closet
+You open the closet.
+
+> take pistol
+You take the pistol.
+
+> take small urn
+You take the urn.
+
+> take ivory tusk
+You take the tusk.
+Your score just went up!
+You have become stronger and able to take more damage!
+
+> up
+You are at the Ship's stern.
+There is a sturdy Oak door and a large wooden Barrel here.
+You can go north or down.
+You are standing on the stern of a small pirate sloop. The main deck is to the north. There is a doorway leading down below decks as well.
+The door is open.
+
+> north
+You are on the Sloop deck.
+There is a small Row boat tied to the side of the deck and a Dead pirate here.
+You can go north, south, up or down.
+You are standing on the main deck of a small pirate sloop. Off in the distance to the west you can see the island you were on. To the east you can see the shore of a larger island. There seems to be something in the water off to the north but you can't make out much from here. From here you can go north to the bow of the ship, south to the stern, up to the crow's nest or down to the crew's quarters.
+
+> enter row boat
+You get in the small boat and start rowing to the large island.
+As you are almost there you hear cannon fire!
+It seems a ship of the royal navy has blasted apart the pirate sloop!
+You make it ashore and get out of the row boat.
+You are in a Sandy cove.
+There is a Row boat here.
+You can go east.
+You are standing in a sandy cove. Large cliffs rise up to the north and south of here. There is a path leading off in between the cliffs to the east.
+
+> drop mop
+You drop it.
+
+> drop book
+You drop it.
+
+> drop iron key
+You drop it.
+
+> drop small key
+You drop it.
+
+> drop small urn
+You drop it.
+
+> drop ivory tusk
+You put down the tusk.
+Your score just went down.
+
+> drop silver bar
+You put down the bar.
+Your score just went down.
+You have become weaker and able to take less damage.
+
+
+> east
+You are walking through an East-west ravine.
+There is a Rockslide here.
+You can go north, east or west.
+You are walking through a ravine cut into the rock here. The ravine leads east to west. There is also a winding path leading up the cliff to the north.
+
+> east
+You are in the Village outskirts.
+There is an Angry villager with a shiny, pointy spear here.
+You can go north, south, east or west.
+You are walking along the outskirts of a small native village. The village itself is to the east. Paths lead off into ravines to the west and north. To the south can be seen a thick steamy jungle.
+
+> kill angry villager
+You attack the villager with you cutlass.
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 4
+You slash downward at your opponent.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 5
+You attempt to block your opponents upward slash.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 3
+You slash at your opponent from the right.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 3
+You attempt to block your opponents attack from the right.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 2
+You slash at your opponent from the left.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 4
+You attempt to block your opponents downward thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 3
+You slash at your opponent from the right.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 1
+You attempt to parry your opponents thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 2
+You slash at your opponent from the left.
+You slip past your opponents guard and land a clean hit!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 4
+You attempt to block your opponents downward thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 3
+You slash at your opponent from the right.
+You sneak past your opponents guard and land a nasty blow!
+You have defeated the villager! His body slumps down by your feet.
+You have become stronger and able to take more damage!
+
+> east
+You are in a Village.
+There is a bunch of Angry villagers here.
+You can go north, south, east or west.
+You are in the middle of a small native village. Grass huts line the area. There is a huge fire pit, complete with spit in the center of the village. You can see the remains of dinner here as well. Unfortunately, dinner seemed to consist of the pirates who had gone ashore. Paths lead off in the four cardinal directions.
+
+> give sack of rum to angry villagers
+You give the sack of rum to the villagers!
+
+They go hog wild and start chugging down the rum!
+
+Pretty soon they are all drunk and passed out leaving you with a single bottle of rum left.
+
+> take bottle of rum
+You take the bottle.
+
+> drink bottle of rum
+You drink the rum....
+Mmmmm yummy!
+You feel a little tipsy.
+
+> east
+You are on a Grassy plain.
+There is a Patch of tall grass here.
+You can go south, east or west.
+You are walking along a grassy plain. The plain continues to the south. You can go west to a small village or east to a shore.
+
+> examine patch of tall grass
+You find a box of matches.
+
+> take box of matches
+You take the matches.
+
+> west
+You are in a Village.
+There is a bunch of Drunken villagers here.
+You can go north, south, east or west.
+You are in the middle of a small native village. Grass huts line the area. There is a huge fire pit, complete with spit in the center of the village. You can see the remains of dinner here as well. Unfortunately, dinner seemed to consist of the pirates who had gone ashore. Paths lead off in the four cardinal directions.
+
+> west
+You are in the Village outskirts.
+There is a Dead villager here.
+You can go north, south, east or west.
+You are walking along the outskirts of a small native village. The village itself is to the east. Paths lead off into ravines to the west and north. To the south can be seen a thick steamy jungle.
+
+> west
+You are walking through an East-west ravine.
+There is a Rockslide here.
+You can go north, east or west.
+You are walking through a ravine cut into the rock here. The ravine leads east to west. There is also a winding path leading up the cliff to the north.
+
+> west
+You are in a Sandy cove.
+There is an Iron key, a Small key, a Small urn, an * Ivory tusk *, a Book, a Mop, a * Silver bar * and a Row boat here.
+You can go east.
+You are standing in a sandy cove. Large cliffs rise up to the north and south of here. There is a path leading off in between the cliffs to the east.
+
+> enter row boat
+You get in the boat and start rowing towards the other island. You notice that the large war ship has moved on to deeper waters. However they have left behind a smaller ship which is searching the debris. They are busy so you slip by them.
+
+
+You are standing on the East shore.
+There is a small hammer, a machete, a stone rod, a worn pick axe, a crude spear, a crude shovel and a Row boat here.
+You can go west or southwest.
+You are standing on the eastern shore of the island. Way off shore to the east a small ship floats serenely on the water. Paths lead off to the west and southwest.
+
+> take small hammer
+You pick up the hammer.
+
+> take crude spear
+You pick up the spear.
+
+> take stone rod
+You pick up the stone rod.
+
+> take crude shovel
+You pick up the shovel.
+
+> southwest
+You are standing in a Meadow.
+There is a coconut here.
+You can go north, south, west or northeast.
+You are walking through a grassy meadow full of flowers and tall grass.
+You can see dense forest to the north, a beach to the south, scrub to the west and a path leads northeast.
+
+> take coconut
+You pick up the coconut. It's lovely. Aren't you the lucky one.
+
+> north
+You are in some Thick vegitation.
+There is a small pond lies against a clifface and a dark opening leading down into a ruined building here.
+You can go south, east or west.
+You are standing in an overgrown part of the island. There is vegitation everywhere. It' hard to tell where you are standing let alone going.
+
+> west
+You are standing in some Palm trees.
+There is a lovely Bunch of coconuts here.
+You can go north, south, east or west.
+You are walking through a small forest of palm trees. Coconuts dangle from the tops. Paths lead off in the four cardinal directions.
+
+> north
+You are half way up a cliff
+There is a pile of rocks on the ground and pile of bones here.
+You can go south, east or southwest.
+You are about half-way up a large cliff. The waves from the ocean break upon the rocks below. You can go further up the cliff to the east or back down to the south or southwest.
+
+> east
+You are at the Top of cliff.
+You can go east or west.
+You are standing on a cliff top. From here you can see the whole island. There are beaches on the other three sides and the center is covered in palm trees and other vegitation. Way off shore to the east you can just make out some kind of vessel floating serenely in the water. You can decend the cliff to the west.
+There is also a cave entrance down to the east.
+
+> east
+You are in a Cave entrance.
+There is a set of cave drawings on the wall here.
+You can go east or west.
+You are at the entrance to a small cave. It is much cooler in here than outside. Moisture drips down the limestone walls. You can exit to the west or go further in to the east.
+
+> east
+You are in a Cave.
+There is stream here.
+You can go west.
+You  are standing in a dark cave complete with stalactites and stalagmites. ( I can never tell which is which) The only way out is up to the west.
+
+
+> use empty bottle on stream
+You fill the bottle with water.
+
+> west
+You are in a Cave entrance.
+There is a set of cave drawings on the wall here.
+You can go east or west.
+You are at the entrance to a small cave. It is much cooler in here than outside. Moisture drips down the limestone walls. You can exit to the west or go further in to the east.
+
+> west
+You are at the Top of cliff.
+You can go east or west.
+You are standing on a cliff top. From here you can see the whole island. There are beaches on the other three sides and the center is covered in palm trees and other vegitation. Way off shore to the east you can just make out some kind of vessel floating serenely in the water. You can decend the cliff to the west.
+There is also a cave entrance down to the east.
+
+> west
+You are half way up a cliff
+There is a pile of rocks on the ground and pile of bones here.
+You can go south, east or southwest.
+You are about half-way up a large cliff. The waves from the ocean break upon the rocks below. You can go further up the cliff to the east or back down to the south or southwest.
+
+> south
+You are standing in some Palm trees.
+There is a lovely Bunch of coconuts here.
+You can go north, south, east or west.
+You are walking through a small forest of palm trees. Coconuts dangle from the tops. Paths lead off in the four cardinal directions.
+
+> east
+You are in some Thick vegitation.
+There is a small pond lies against a clifface and a dark opening leading down into a ruined building here.
+You can go south, east or west.
+You are standing in an overgrown part of the island. There is vegitation everywhere. It' hard to tell where you are standing let alone going.
+
+> east
+You are standing on the East shore.
+There is a machete, a worn pick axe and a Row boat here.
+You can go west or southwest.
+You are standing on the eastern shore of the island. Way off shore to the east a small ship floats serenely on the water. Paths lead off to the west and southwest.
+
+> enter row boat
+You get in the boat and start rowing towards the other island. You notice that the large war ship has moved on to deeper waters. However they have left behind a smaller ship which is searching the debris. They are busy so you slip by them.
+
+
+You are in a Sandy cove.
+There is an Iron key, a Small key, a Small urn, an * Ivory tusk *, a Book, a Mop, a * Silver bar * and a Row boat here.
+You can go east.
+You are standing in a sandy cove. Large cliffs rise up to the north and south of here. There is a path leading off in between the cliffs to the east.
+
+> east
+You are walking through an East-west ravine.
+There is a Rockslide here.
+You can go north, east or west.
+You are walking through a ravine cut into the rock here. The ravine leads east to west. There is also a winding path leading up the cliff to the north.
+
+> move rockslide
+You shift some of the rocks aside and discover a small crack in the cliffside.
+
+> use crude spear on small crack
+You fish the tile out with the spear.
+
+> take ceramic tile1
+You take the tile.
+
+> drop crude spear
+You drop it.
+
+> east
+You are in the Village outskirts.
+There is a Dead villager here.
+You can go north, south, east or west.
+You are walking along the outskirts of a small native village. The village itself is to the east. Paths lead off into ravines to the west and north. To the south can be seen a thick steamy jungle.
+
+> south
+Welcome to the Jungle.
+There is a Monkey swinging in the trees here.
+You can go north, south, east, west, southeast or southwest.
+You are in an overgrown, steamy jungle. Paths lead off in many directions.
+A monkey swings into view here.
+
+> speak to monkey
+"Hey little monkey how are you?" you say.
+The monkey blows a rasberry at you making you angry!
+But given your current condition you actually think this is pretty funny!
+
+Seeing that he is not getting to you anymore the monkey comes down and climb up on your shoulders.
+
+> south
+Welcome to the Jungle.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You are in an overgrown, steamy jungle. Paths lead off in many directions.
+
+> southwest
+Welcome to the Jungle.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You are in an overgrown, steamy jungle. Paths lead off in many directions.
+
+> west
+You have come to a Dead end.
+There is a Monkey nest here.
+You can go east.
+You have come to a dead end in the jungle. The vegitation is just too thick to travel through and the the only way out is back to the east.
+
+> look at monkey nest
+It's a large nest made of leaves and twigs. 
+hmmm. I didn't think monkeys made nests.
+
+> take spiked boots
+You pick them up.
+
+> wear spiked boots
+You put them on. They fit nicely!
+
+> take ceramic tile3
+You take the tile.
+
+> take large diamond
+You take the diamond.
+Your score just went up!
+You have become stronger and able to take more damage!
+
+> east
+Welcome to the Jungle.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You are in an overgrown, steamy jungle. Paths lead off in many directions.
+
+> east
+Welcome to the Jungle.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You are in an overgrown, steamy jungle. Paths lead off in many directions.
+
+> southeast
+You are in some Ruins.
+There is a Stone building here.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You have discovered some old ruins nestled in the jungle. Several dilapitated stone buildings are here, overgrown with ivy. Paths lead off into the jungle in many directions. The ruins continue to the south.
+
+> examine stone building
+You notice a series of colored holes set in one of the walls.
+
+> use stone rod on colored holes
+Which hole will you insert the rod into?
+1) red hole
+2) orange hole
+3) yellow hole
+4) green hole
+5) blue hole
+6) indigo hole
+7) violet hole
+8) exit
+[choice] 5
+You hear a click.
+Which hole will you insert the rod into?
+1) red hole
+2) orange hole
+3) yellow hole
+4) green hole
+5) blue hole
+6) indigo hole
+7) violet hole
+8) exit
+[choice] 6
+You hear a click.
+Which hole will you insert the rod into?
+1) red hole
+2) orange hole
+3) yellow hole
+4) green hole
+5) blue hole
+6) indigo hole
+7) violet hole
+8) exit
+[choice] 4
+You hear a click.
+Which hole will you insert the rod into?
+1) red hole
+2) orange hole
+3) yellow hole
+4) green hole
+5) blue hole
+6) indigo hole
+7) violet hole
+8) exit
+[choice] 1
+You hear a click.
+
+Which hole will you insert the rod into?
+1) red hole
+2) orange hole
+3) yellow hole
+4) green hole
+5) blue hole
+6) indigo hole
+7) violet hole
+8) exit
+[choice] 2
+You hear a click.
+Which hole will you insert the rod into?
+1) red hole
+2) orange hole
+3) yellow hole
+4) green hole
+5) blue hole
+6) indigo hole
+7) violet hole
+8) exit
+[choice] 3
+You hear a click.
+
+Which hole will you insert the rod into?
+1) red hole
+2) orange hole
+3) yellow hole
+4) green hole
+5) blue hole
+6) indigo hole
+7) violet hole
+8) exit
+[choice] 7
+You hear a click.
+A section of stone wall slides down into the cround revealing a doorway into the building.
+
+> drop stone rod
+You drop it.
+
+> go to stone building
+You are in a Stone building.
+There is a Stone box here.
+You can go out to Ruins.
+You are inside a large stone building set in the center of the ruins here. The room has several crude drawings all over the walls and seems to have been some sort of shrine.
+
+> look at stone box
+It's a large stone box set in the center of the room.
+
+> open stone box
+You open the box.
+
+> take rope
+You take the rope.
+
+> take ceramic tile41
+You take the tile.
+
+> out
+You are in some Ruins.
+There is a stone rod here.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You can go to Stone building.
+You have discovered some old ruins nestled in the jungle. Several dilapitated stone buildings are here, overgrown with ivy. Paths lead off into the jungle in many directions. The ruins continue to the south.
+
+> south
+You are in some Ruins.
+You can go north, south, east, west, northeast, northwest, southeast, southwest or down.
+You have discovered some old ruins nestled in the jungle. Several dilapitated stone buildings, overgrown with ivy are here. Paths lead off into the jungle in several directions. The ruins continue to the north and south. In the center of the ruins here is a stone pyramid half buried into the ground. There is an opening in the top with a staircase leading down into darkness.
+
+> south
+You are in Ruins
+There is a Stone dais here.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You have discovered some old ruins nestled in the jungle. Several dilapitated stone buildings, overgrown with ivy are here. Paths lead off into the jungle in several directions. The ruins continue to the north.
+
+> use rope on stone dais
+You tie the rope to the metal bar.
+
+> northeast
+Welcome to the Jungle.
+You can go north, south, east, west, southeast or southwest.
+You are in an overgrown, steamy jungle. Paths lead off in many directions.
+
+> north
+You are in the Village outskirts.
+There is a Dead villager here.
+You can go north, south, east or west.
+You are walking along the outskirts of a small native village. The village itself is to the east. Paths lead off into ravines to the west and north. To the south can be seen a thick steamy jungle.
+
+> east
+You are in a Village.
+There is a bunch of Drunken villagers here.
+You can go north, south, east or west.
+You are in the middle of a small native village. Grass huts line the area. There is a huge fire pit, complete with spit in the center of the village. You can see the remains of dinner here as well. Unfortunately, dinner seemed to consist of the pirates who had gone ashore. Paths lead off in the four cardinal directions.
+
+> east
+You are on a Grassy plain.
+There is a Patch of tall grass here.
+You can go south, east or west.
+You are walking along a grassy plain. The plain continues to the south. You can go west to a small village or east to a shore.
+
+> south
+You are in a Grassy plain.
+There is an Ant hill here.
+You can go north or east.
+You are walking along a grassy plain. The plain continues to the north. You can see a shoreline to the east.
+
+> east
+You are at the East shore.
+There is a Large crate half buried in the sand here.
+You can go north or west.
+You have come to the large eastern shore of the island. Across the sea to the east you can see a small volcanic island. The shore continues to the north.
+
+> use crude shovel on large crate
+You dig it out of the sand.
+
+> use pry bar on large crate
+You pry it open.
+
+> look at large crate
+It's a large crate.
+
+> take box of nails
+You take the box of nails.
+
+> drop pry bar
+You drop it.
+
+> north
+You are at the East shore.
+You can go north, south or west.
+You can go to Sail boat.
+You have come the large eastern shore of the island. Across the sea to the east you can see a small volcanic island. The shore continues to the north and south. A small sail boat floats in the shallows here.
+
+> north
+You are at the East shore.
+There is a Cannon ball half buried in the sand here.
+You can go south.
+You have come to the large eastern shore of the island. Across the sea to the east you can see a small volcanic island. The shore continues to the south.
+
+> use crude shovel on cannon ball
+You dig out the cannon ball.
+
+> take cannon ball
+You pick up the cannon ball.
+
+> drop crude shovel
+You drop it.
+
+> south
+You are at the East shore.
+You can go north, south or west.
+You can go to Sail boat.
+You have come the large eastern shore of the island. Across the sea to the east you can see a small volcanic island. The shore continues to the north and south. A small sail boat floats in the shallows here.
+
+> go to sail boat
+You are on a Sail boat.
+There is a Wheel stand, some Rigging and a Pirate captain here.
+You can go down.
+You are on the deck of a small sail boat. A ladder leads down below deck.
+The sailboat is floating in the shallows just off shore to the east of a large island.
+You could probably SAIL if you could get the boat in good working order.
+
+> use pistol on pirate captain
+You blast him in the back with your pistol!
+He tumbles over the side and into the water.
+
+> drop pistol
+You drop it.
+
+> use ship's wheel on wheel stand
+You attatch the wheel to the stand.
+You could probably SAIL to the other island across the way now that you have some form of steering.
+
+> out
+You clamber out of the boat and go ashore.
+You are at the East shore.
+You can go north, south or west.
+You can go to Sail boat.
+You have come the large eastern shore of the island. Across the sea to the east you can see a small volcanic island. The shore continues to the north and south. A small sail boat floats in the shallows here.
+
+> west
+You are on a Grassy plain.
+There is a Patch of tall grass here.
+You can go south, east or west.
+You are walking along a grassy plain. The plain continues to the south. You can go west to a small village or east to a shore.
+
+> west
+You are in a Village.
+There is a bunch of Drunken villagers here.
+You can go north, south, east or west.
+You are in the middle of a small native village. Grass huts line the area. There is a huge fire pit, complete with spit in the center of the village. You can see the remains of dinner here as well. Unfortunately, dinner seemed to consist of the pirates who had gone ashore. Paths lead off in the four cardinal directions.
+
+> west
+You are in the Village outskirts.
+There is a Dead villager here.
+You can go north, south, east or west.
+You are walking along the outskirts of a small native village. The village itself is to the east. Paths lead off into ravines to the west and north. To the south can be seen a thick steamy jungle.
+
+> west
+You are walking through an East-west ravine.
+There is a crude spear, a Rockslide and a Small crack in the cliffside here.
+You can go north, east or west.
+You are walking through a ravine cut into the rock here. The ravine leads east to west. There is also a winding path leading up the cliff to the north.
+
+> north
+You are on a Rocky path.
+You can go south or west.
+The path up the cliffside turns from the south to the west here. To the west the path gets very steep and is strewn with loose rock.
+
+> west
+The spiked boots give you better traction and you clamber up the cliff.
+You are at a Cliff overlook.
+There is a Cannon set over the stone wall here.
+You can go east.
+You are standing on a flat area at the top of a cliff overlooking the sea to the west. Below to the south you can see a small cove. To the west and north you can see out into the ocean. The flat area here is surrounded by a low stone wall. A steep path leads down the cliffside to the east.
+You notice that the large warship has moved on to deeper waters. However they have left behind a smaller vessel to search the wreckage of the pirate sloop.
+
+> look in cannon
+You look inside the barrel of the cannon and notice something in there. You fish it out.
+
+> take ceramic tile2
+You take the tile.
+
+> load cannon
+You go to put the cannon ball in but there seems to be something else way in there. You reach way in and fish it out.
+
+> load cannon
+You load the cannon.
+
+> take large ruby
+You take the ruby.
+Your score just went up!
+
+> fire cannon
+You fire the cannon!
+You blast in half the smaller vessel that was floating in the water creating more wreckage.
+
+> east
+You are on a Rocky path.
+You can go south or west.
+The path up the cliffside turns from the south to the west here. To the west the path gets very steep and is strewn with loose rock.
+
+> south
+You are walking through an East-west ravine.
+There is a crude spear, a Rockslide and a Small crack in the cliffside here.
+You can go north, east or west.
+You are walking through a ravine cut into the rock here. The ravine leads east to west. There is also a winding path leading up the cliff to the north.
+
+> west
+You are in a Sandy cove.
+There is a pile of timber , an Iron key, a Small key, a Small urn, an * Ivory tusk *, a Book, a Mop, a * Silver bar *, a Row boat and a * Silver cross * here.
+You can go east.
+You are standing in a sandy cove. Large cliffs rise up to the north and south of here. There is a path leading off in between the cliffs to the east.
+
+> take pile of timber
+You pick up the timber.
+
+> east
+You are walking through an East-west ravine.
+There is a crude spear, a Rockslide and a Small crack in the cliffside here.
+You can go north, east or west.
+You are walking through a ravine cut into the rock here. The ravine leads east to west. There is also a winding path leading up the cliff to the north.
+
+> east
+You are in the Village outskirts.
+There is a Dead villager here.
+You can go north, south, east or west.
+You are walking along the outskirts of a small native village. The village itself is to the east. Paths lead off into ravines to the west and north. To the south can be seen a thick steamy jungle.
+
+> east
+You are in a Village.
+There is a bunch of Drunken villagers here.
+You can go north, south, east or west.
+You are in the middle of a small native village. Grass huts line the area. There is a huge fire pit, complete with spit in the center of the village. You can see the remains of dinner here as well. Unfortunately, dinner seemed to consist of the pirates who had gone ashore. Paths lead off in the four cardinal directions.
+
+> east
+You are on a Grassy plain.
+There is a Patch of tall grass here.
+You can go south, east or west.
+You are walking along a grassy plain. The plain continues to the south. You can go west to a small village or east to a shore.
+
+> east
+You are at the East shore.
+You can go north, south or west.
+You can go to Sail boat.
+You have come the large eastern shore of the island. Across the sea to the east you can see a small volcanic island. The shore continues to the north and south. A small sail boat floats in the shallows here.
+
+> drop box of matches
+You drop it.
+
+> go to sail boat
+You are on a Sail boat.
+There is a Pistol, a Steering wheel and some Rigging here.
+You can go down.
+You are on the deck of a small sail boat. A ladder leads down below deck.
+The sailboat is floating in the shallows just off shore to the east of a large island.
+You have a wheel and some smaller sails. You could probably SAIL to the other island across the way. But you are not going to get too much farther than that without a main sail.
+
+> sail
+You manage to sail to the other island.
+
+> out
+You clamber out of the boat and go ashore.
+You are on a Rocky beach.
+You can go east.
+You can go to Sail boat.
+You standing on a rocky beach. Your sailboat floats just offshore in the shallows. To the west you can see the larger island and a path leads up a hillside to the top of a volcano.
+
+> east
+You are on top of a Volcano.
+You can go west or down.
+You are standing on the rim of a dormant (or at least you think so) volcano. There is a path leading down the hillside to the east. You could probably make your way down into the volcano but it's a pretty steep path.
+
+> down
+With the help of the boots you clamber down to the bottom of the volcano.
+You are at the Volcano bottom.
+You can go south or up.
+You are at the bottom of a volcano core. You don't notice any signs of recent volcanic activity. (let's hope it stays that way)
+You could clamber back up to the top, but its very steep.
+There is also a rounded tube cut in the rock (probably from lava) leading to the south.
+
+> south
+You are in a Lava tube.
+There is a Stream of lava here.
+You can go north, south or southeast.
+You are standing in a tunnel hollowed out by lava. There is still a stream of lava slowly flowing through the width of the tube. The stream is too wide to jump across. The tunnel itself branches off to the south and southeast.
+
+> use pile of timber on stream of lava
+You build a wooden bridge over the lava!
+
+> drop small hammer
+You drop it.
+
+> south
+You are in a Lava cave.
+There is a Hot tile lying near the pool of lava here.
+You can go north.
+You are standing in a hollowed of cavern made by erupting lava. The only exit you can see lies to the north through a tube. There is still a small pool of lava bubbling in the center of the cavern here.
+
+> use bottle of water on hot tile
+You pour the water out on to the tile cooling it off enough to take.
+
+> take ceramic tile5
+You take the tile.
+
+> north
+You are in a Lava tube.
+There is a small hammer, a Stream of lava and a Wooden bridge crossing over the lava here.
+You can go north, south or southeast.
+You are standing in a tunnel hollowed out by lava. There is still a stream of lava slowly flowing through the width of the tube. The stream is too wide to jump across. The tunnel itself branches off to the south and southeast.
+
+> southeast
+You are in a Long tunnel.
+You can go south or northwest.
+You are walking through a very long tunnel tunnel. The tunnel leads out to a lava tube to the northwest and continues on for a long distance to the south. About halfway down the tunnel it starts sloping downward and goes underwater.
+You could go that way but you would have to swim for some distance and everything you are carrying would get soaked.
+
+> south
+You end up swimming for a little bit underwater but eventually you make it and rise out of center of a small lake.
+You are at the Lake center.
+You can go east or down.
+You are standing in a small lake in the center of yet another small island. This must be a huge chain of islands. You can go back down underwater and get to the long tunnel again or you can go east to a hillside.
+
+> east
+You are on the East hill.
+You can go west, northwest or southwest.
+You are on the eastern side of a small hill. To the west the hill rises gently and there is a lake in the center of it. You can also go northwest or southwest around the hillside.
+
+> northwest
+You are on the West hill.
+There is an Empty jar here.
+You can go northeast.
+You are on the western side of a small hill. The hill rises gently to the east and you can see a small lake in the center of it. There are a set of thick brambles and thorns here preventing you from going around the hill any further or getting to the lake.
+
+> take empty jar
+You take the jar.
+
+> northeast
+You are on the East hill.
+You can go west, northwest or southwest.
+You are on the eastern side of a small hill. To the west the hill rises gently and there is a lake in the center of it. You can also go northwest or southwest around the hillside.
+
+> west
+You are at the Lake center.
+You can go east or down.
+You are standing in a small lake in the center of yet another small island. This must be a huge chain of islands. You can go back down underwater and get to the long tunnel again or you can go east to a hillside.
+
+> down
+You have to swim underwater for a bit but eventually make it back to the long tunnel.
+You are in a Long tunnel.
+You can go south or northwest.
+You are walking through a very long tunnel tunnel. The tunnel leads out to a lava tube to the northwest and continues on for a long distance to the south. About halfway down the tunnel it starts sloping downward and goes underwater.
+You could go that way but you would have to swim for some distance and everything you are carrying would get soaked.
+
+> northwest
+You are in a Lava tube.
+There is a small hammer, a Stream of lava and a Wooden bridge crossing over the lava here.
+You can go north, south or southeast.
+You are standing in a tunnel hollowed out by lava. There is still a stream of lava slowly flowing through the width of the tube. The stream is too wide to jump across. The tunnel itself branches off to the south and southeast.
+
+> north
+You are at the Volcano bottom.
+You can go south or up.
+You are at the bottom of a volcano core. You don't notice any signs of recent volcanic activity. (let's hope it stays that way)
+You could clamber back up to the top, but its very steep.
+There is also a rounded tube cut in the rock (probably from lava) leading to the south.
+
+> up
+You climb back up to the top. It's a hard climb though.
+You are on top of a Volcano.
+You can go west or down.
+You are standing on the rim of a dormant (or at least you think so) volcano. There is a path leading down the hillside to the east. You could probably make your way down into the volcano but it's a pretty steep path.
+
+> west
+You are on a Rocky beach.
+You can go east.
+You can go to Sail boat.
+You standing on a rocky beach. Your sailboat floats just offshore in the shallows. To the west you can see the larger island and a path leads up a hillside to the top of a volcano.
+
+> go to sail boat
+You are on a Sail boat.
+There is a Pistol, a Steering wheel and some Rigging here.
+You can go down.
+You are on the deck of a small sail boat. A ladder leads down below deck.
+The sail boat is floating in the shallows just offshore to the west of a small volcanic island.
+You have a wheel and some smaller sails. You could probably SAIL to the other island across the way. But you are not going to get too much farther than that without a main sail.
+
+> sail
+You manage to sail to the other island.
+
+> out
+You clamber out of the boat and go ashore.
+You are at the East shore.
+There is a Box of matches here.
+You can go north, south or west.
+You can go to Sail boat.
+You have come the large eastern shore of the island. Across the sea to the east you can see a small volcanic island. The shore continues to the north and south. A small sail boat floats in the shallows here.
+
+> take box of matches
+You take the matches.
+
+> drop empty bottle
+You drop it.
+
+> drop ceramic tile1
+You drop it.
+
+> drop ceramic tile2
+You drop it.
+
+> drop ceramic tile3
+You drop it.
+
+> drop ceramic tile4
+You drop it.
+
+> drop ceramic tile5
+You drop it.
+
+> south
+You are at the East shore.
+There is a Pry bar, a Large crate lying on the beach and a Diary here.
+You can go north or west.
+You have come to the large eastern shore of the island. Across the sea to the east you can see a small volcanic island. The shore continues to the north.
+
+> west
+You are in a Grassy plain.
+There is an Ant hill here.
+You can go north or east.
+You are walking along a grassy plain. The plain continues to the north. You can see a shoreline to the east.
+
+> use empty jar on ant hill
+You fill the jar with ants.
+
+> north
+You are on a Grassy plain.
+There is a Patch of tall grass here.
+You can go south, east or west.
+You are walking along a grassy plain. The plain continues to the south. You can go west to a small village or east to a shore.
+
+> west
+You are in a Village.
+There is a bunch of Drunken villagers here.
+You can go north, south, east or west.
+You are in the middle of a small native village. Grass huts line the area. There is a huge fire pit, complete with spit in the center of the village. You can see the remains of dinner here as well. Unfortunately, dinner seemed to consist of the pirates who had gone ashore. Paths lead off in the four cardinal directions.
+
+> west
+You are in the Village outskirts.
+There is a Dead villager here.
+You can go north, south, east or west.
+You are walking along the outskirts of a small native village. The village itself is to the east. Paths lead off into ravines to the west and north. To the south can be seen a thick steamy jungle.
+
+> south
+Welcome to the Jungle.
+You can go north, south, east, west, southeast or southwest.
+You are in an overgrown, steamy jungle. Paths lead off in many directions.
+
+> south
+Welcome to the Jungle.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You are in an overgrown, steamy jungle. Paths lead off in many directions.
+
+> southwest
+Welcome to the Jungle.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You are in an overgrown, steamy jungle. Paths lead off in many directions.
+
+> east
+Welcome to the Jungle.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You are in an overgrown, steamy jungle. Paths lead off in many directions.
+
+> southeast
+You are in some Ruins.
+There is a stone rod here.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You can go to Stone building.
+You have discovered some old ruins nestled in the jungle. Several dilapitated stone buildings are here, overgrown with ivy. Paths lead off into the jungle in many directions. The ruins continue to the south.
+
+> south
+You are in some Ruins.
+You can go north, south, east, west, northeast, northwest, southeast, southwest or down.
+You have discovered some old ruins nestled in the jungle. Several dilapitated stone buildings, overgrown with ivy are here. Paths lead off into the jungle in several directions. The ruins continue to the north and south. In the center of the ruins here is a stone pyramid half buried into the ground. There is an opening in the top with a staircase leading down into darkness.
+
+> southeast
+You are in a Wooded grove.
+There is an Anteater here.
+You can go south or northwest.
+You are in a small wooded grove. Thick jungle surrrounds this area on all sides. The only paths lead to the northwest and south.
+
+> give jar of ants to anteater
+You give the ants to the anteater.
+He gobbles them up then rubs up against you.
+
+> take anteater
+You pick him up.
+
+> northwest
+You are in some Ruins.
+You can go north, south, east, west, northeast, northwest, southeast, southwest or down.
+You have discovered some old ruins nestled in the jungle. Several dilapitated stone buildings, overgrown with ivy are here. Paths lead off into the jungle in several directions. The ruins continue to the north and south. In the center of the ruins here is a stone pyramid half buried into the ground. There is an opening in the top with a staircase leading down into darkness.
+
+> north
+You are in some Ruins.
+There is a stone rod here.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You can go to Stone building.
+You have discovered some old ruins nestled in the jungle. Several dilapitated stone buildings are here, overgrown with ivy. Paths lead off into the jungle in many directions. The ruins continue to the south.
+
+> southeast
+Welcome to the Jungle.
+You can go north, south, east, west, southeast or southwest.
+You are in an overgrown, steamy jungle. Paths lead off in many directions.
+
+> north
+You are in the Village outskirts.
+There is a Dead villager here.
+You can go north, south, east or west.
+You are walking along the outskirts of a small native village. The village itself is to the east. Paths lead off into ravines to the west and north. To the south can be seen a thick steamy jungle.
+
+> east
+You are in a Village.
+There is a bunch of Drunken villagers here.
+You can go north, south, east or west.
+You are in the middle of a small native village. Grass huts line the area. There is a huge fire pit, complete with spit in the center of the village. You can see the remains of dinner here as well. Unfortunately, dinner seemed to consist of the pirates who had gone ashore. Paths lead off in the four cardinal directions.
+
+> east
+You are on a Grassy plain.
+There is a Patch of tall grass here.
+You can go south, east or west.
+You are walking along a grassy plain. The plain continues to the south. You can go west to a small village or east to a shore.
+
+> south
+You are in a Grassy plain.
+There is an Ant hill here.
+You can go north or east.
+You are walking along a grassy plain. The plain continues to the north. You can see a shoreline to the east.
+
+> drop anteater
+The anteater gets down and starts eating the ants. Pretty soon they are all gone.
+
+> examine ant hill
+You notice a couple of things in the ant hill.
+
+> take ceramic tile6
+You take the tile.
+
+> take large sapphire
+You take the sapphire.
+Your score just went up!
+You have become stronger and able to take more damage!
+
+> north
+You are on a Grassy plain.
+There is a Patch of tall grass here.
+You can go south, east or west.
+You are walking along a grassy plain. The plain continues to the south. You can go west to a small village or east to a shore.
+
+> west
+You are in a Village.
+There is a bunch of Drunken villagers here.
+You can go north, south, east or west.
+You are in the middle of a small native village. Grass huts line the area. There is a huge fire pit, complete with spit in the center of the village. You can see the remains of dinner here as well. Unfortunately, dinner seemed to consist of the pirates who had gone ashore. Paths lead off in the four cardinal directions.
+
+> north
+You are in a Valley.
+There is a Small basket and a large Bee hive hanging from a tree branch here.
+You can go south or west.
+You have come to a lush valley cut into the cliffside. There are fruit trees sprawled all around the place. A path cut through the cliff to the west and another leads south.
+
+> use coconut on bee hive
+You throw the coconut at the hive. It smacks right through the center and the hive falls to the ground. The bees swarm about for awhile then take off.
+
+> examine bee hive
+You notice some honey and an emerald in there.
+
+> take large emerald
+You take the emerald.
+Your score just went up!
+
+> take small basket
+You take the basket.
+
+> west
+You are in a North-south ravine.
+You can go north, south or east.
+A north-south ravine cuts through the cliffside here and dead ends to the north. However there is a very steep, rubble strewn path that leads up to the top. A narrow path also cuts through the rock to the east.
+
+> north
+The spiked boots give you better traction. You clamber up the cliff.
+You are in Cliff top
+There is a Lantern here.
+You can go south.
+You have come to the top of a large cliff on the north side of the island. You can see out to sea to the north for miles from here.
+
+> take lantern
+You take the lantern.
+
+> light lantern
+You light the lantern.
+
+> south
+You are in a North-south ravine.
+You can go north, south or east.
+A north-south ravine cuts through the cliffside here and dead ends to the north. However there is a very steep, rubble strewn path that leads up to the top. A narrow path also cuts through the rock to the east.
+
+> south
+You are in the Village outskirts.
+There is a Dead villager here.
+You can go north, south, east or west.
+You are walking along the outskirts of a small native village. The village itself is to the east. Paths lead off into ravines to the west and north. To the south can be seen a thick steamy jungle.
+
+> south
+Welcome to the Jungle.
+You can go north, south, east, west, southeast or southwest.
+You are in an overgrown, steamy jungle. Paths lead off in many directions.
+
+> south
+Welcome to the Jungle.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You are in an overgrown, steamy jungle. Paths lead off in many directions.
+
+> southwest
+Welcome to the Jungle.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You are in an overgrown, steamy jungle. Paths lead off in many directions.
+
+> east
+Welcome to the Jungle.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You are in an overgrown, steamy jungle. Paths lead off in many directions.
+
+> southeast
+You are in some Ruins.
+There is a stone rod here.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You can go to Stone building.
+You have discovered some old ruins nestled in the jungle. Several dilapitated stone buildings are here, overgrown with ivy. Paths lead off into the jungle in many directions. The ruins continue to the south.
+
+> south
+You are in some Ruins.
+You can go north, south, east, west, northeast, northwest, southeast, southwest or down.
+You have discovered some old ruins nestled in the jungle. Several dilapitated stone buildings, overgrown with ivy are here. Paths lead off into the jungle in several directions. The ruins continue to the north and south. In the center of the ruins here is a stone pyramid half buried into the ground. There is an opening in the top with a staircase leading down into darkness.
+
+> down
+You descend into the tomb.
+You are at a Tomb entrance.
+There is some Torches set in the walls here.
+You can go south or up.
+You have entered into some kind of ancient tomb. You seem to be in the antechamber. The main tomb lies to the south through an archway. There is a large updraft of wind coming from a crack in the floor of the archway and flowing out through the ceiling.
+
+> light torches
+You light all the torches. They flicker in the updraft.
+
+> up
+You are in some Ruins.
+You can go north, south, east, west, northeast, northwest, southeast, southwest or down.
+You have discovered some old ruins nestled in the jungle. Several dilapitated stone buildings, overgrown with ivy are here. Paths lead off into the jungle in several directions. The ruins continue to the north and south. In the center of the ruins here is a stone pyramid half buried into the ground. There is an opening in the top with a staircase leading down into darkness.
+
+> south
+You are in Ruins
+There is a Stone dais and a coil of Rope tied to the metal bar on the dais here.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You have discovered some old ruins nestled in the jungle. Several dilapitated stone buildings, overgrown with ivy are here. Paths lead off into the jungle in several directions. The ruins continue to the north.
+
+> use small basket on rope
+You tie the basket on to the other end of the rope.
+
+> put lantern in basket
+You carefully place the lit lantern in the basket.
+
+> lower basket
+You lower the basket into the opening.
+
+> north
+You are in some Ruins.
+You can go north, south, east, west, northeast, northwest, southeast, southwest or down.
+You have discovered some old ruins nestled in the jungle. Several dilapitated stone buildings, overgrown with ivy are here. Paths lead off into the jungle in several directions. The ruins continue to the north and south. In the center of the ruins here is a stone pyramid half buried into the ground. There is an opening in the top with a staircase leading down into darkness.
+
+> down
+You descend into the tomb.
+You are at a Tomb entrance.
+There is some Lit torches lining the walls here.
+You can go south or up.
+You have entered into some kind of ancient tomb. You seem to be in the antechamber. The main tomb lies to the south through an archway. There is a large updraft of wind coming from a crack in the floor of the archway and flowing out through the ceiling.
+
+> south
+You are in the Main tomb.
+There is a Small basket tied to a rope and a Lantern (lit) here.
+You can go north, south, east or west.
+This looks like the main chamber of the tomb itself. Archways lead off to different sections of the tomb.
+
+> take lantern
+You take the lantern from the basket.
+
+> i
+You are carrying:
+Cutlass
+* Large ruby *
+Monkey (on your back)
+* Large diamond *
+Spiked boots (worn)
+* Large emerald *
+Box of matches
+Ceramic tile6
+* Large Sapphire *
+Empty jar
+Lantern (lit)
+
+> east
+You are in the East wing.
+There is a Dead thing blocking the doorway here.
+You can go south or west.
+You are in the easten wing of a large tomb. The east wing is basically a narrow corridor that elbows from the west to south. You can get back to the main tomb to the west and an open doorway leads south.
+
+> kill dead thing
+You attack the dead thing!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 2
+You slash at your opponent from the left.
+You slip past your opponents guard and land a clean hit!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 5
+You attempt to block your opponents upward slash.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 2
+You slash at your opponent from the left.
+You slip past your opponents guard and land a clean hit!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 5
+You attempt to block your opponents upward slash.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 4
+You slash downward at your opponent.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 2
+You attempt to block your opponents attack from the left.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 2
+You slash at your opponent from the left.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 1
+You attempt to parry your opponents thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 2
+You slash at your opponent from the left.
+You slip past your opponents guard and land a clean hit!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 5
+You attempt to block your opponents upward slash.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 3
+You slash at your opponent from the right.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 4
+You attempt to block your opponents downward thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 5
+You swing your sword upwards at your opponent.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 4
+You attempt to block your opponents downward thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 2
+You slash at your opponent from the left.
+You slip past your opponents guard and land a clean hit!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 3
+You attempt to block your opponents attack from the right.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 2
+You slash at your opponent from the left.
+You sneak past your opponents guard and land a nasty blow!
+You have killed the dead thing!
+(how do you do that? oh well)
+
+You have become stronger and able to take more damage!
+
+> south
+You are in the East tomb.
+There is a Stone sarcophagus here.
+You can go north.
+You are a small inner chamber on the east side of a large tomb. The only exit is to the north.
+
+> look at stone sarcophagus
+Looks like a coffin made of stone to me.
+
+> open stone sarcophagus
+You remove the lid.
+
+> take ceramic tile8
+You take the tile.
+
+> north
+You are in the East wing.
+There is a Dead dead thing lying here.
+You can go south or west.
+You are in the easten wing of a large tomb. The east wing is basically a narrow corridor that elbows from the west to south. You can get back to the main tomb to the west and an open doorway leads south.
+
+> west
+You are in the Main tomb.
+There is a Small basket tied to a rope here.
+You can go north, south, east or west.
+This looks like the main chamber of the tomb itself. Archways lead off to different sections of the tomb.
+
+> west
+You are in the West wing.
+There is an Iron grate blocking the doorway here.
+You can go south or east.
+You are in the western wing of a large tomb. You are basically in a narrow elbow corridor leading from the east to the south. The main tomb is to the east and a doorway leads south.
+
+> examine iron grate
+You do notice a small opening in the bars near the bottom.
+
+> use monkey on small opening
+You point at the lever across the room and put the monkey in the opening.
+He clambers across the room and pulls the lever.
+The grate slides down into the floor.
+(At least that monkey was good for something!)
+
+> south
+You are in the West tomb.
+There is a Lever and a Stone sarcophagus here.
+You can go north.
+You are in a small inner chamber on the west side of a large tomb. The only exit is to the north.
+
+> look at stone sarcophagus
+Looks like a coffin made of stone to me.
+
+> open stone sarcophagus
+You remove the lid.
+
+> take ceramic tile7
+You take the tile.
+
+> north
+You are in the West wing.
+You can go south or east.
+You are in the western wing of a large tomb. You are basically in a narrow elbow corridor leading from the east to the south. The main tomb is to the east and a doorway leads south.
+
+> east
+You are in the Main tomb.
+There is a Small basket tied to a rope here.
+You can go north, south, east or west.
+This looks like the main chamber of the tomb itself. Archways lead off to different sections of the tomb.
+
+> south
+you are at the South wing.
+There is a Stone door in the south wall here.
+You can go north or south.
+You are in the southern wing of a large tomb, which is basically a narrow north-south corridor. An archway lead back to the main chamber north of here. There is a doorway to the south.
+
+> use large ruby on stone door
+You set the ruby in the door.
+Your score just went down.
+
+> use large diamond on stone door
+You set the diamond in the door.
+Your score just went down.
+You have become weaker and able to take less damage.
+
+
+> use large emerald on stone door
+You set the emerald in the door.
+Your score just went down.
+
+> use large sapphire on stone door
+You set the sapphire in the door.
+Your score just went down.
+You have become weaker and able to take less damage.
+
+As you insert the last gem into the door it swings open.
+
+> south
+You are in the South tomb.
+There is a Stone sarcophagus here.
+You can go north.
+You are in a small inner chamber on the south side of a large tomb. The only exit is north.
+
+> look at stone sarcophagus
+Looks like a coffin made of stone to me.
+
+> open stone sarcophagus
+You remove the lid.
+
+> take ceramic tile9
+You take the tile.
+
+> north
+you are at the South wing.
+There is a * Large ruby *, a * Large diamond *, a * Large emerald *, a * Large Sapphire * and a Stone door set in the south wall here.
+You can go north or south.
+You are in the southern wing of a large tomb, which is basically a narrow north-south corridor. An archway lead back to the main chamber north of here. There is a doorway to the south.
+
+> north
+You are in the Main tomb.
+There is a Small basket tied to a rope here.
+You can go north, south, east or west.
+This looks like the main chamber of the tomb itself. Archways lead off to different sections of the tomb.
+
+> put lantern in basket
+You carefully place the lit lantern in the basket.
+
+> north
+You are at a Tomb entrance.
+There is some Lit torches lining the walls here.
+You can go south or up.
+You have entered into some kind of ancient tomb. You seem to be in the antechamber. The main tomb lies to the south through an archway. There is a large updraft of wind coming from a crack in the floor of the archway and flowing out through the ceiling.
+
+> up
+You are in some Ruins.
+You can go north, south, east, west, northeast, northwest, southeast, southwest or down.
+You have discovered some old ruins nestled in the jungle. Several dilapitated stone buildings, overgrown with ivy are here. Paths lead off into the jungle in several directions. The ruins continue to the north and south. In the center of the ruins here is a stone pyramid half buried into the ground. There is an opening in the top with a staircase leading down into darkness.
+
+> northeast
+Welcome to the Jungle.
+You can go north, south, east, west, southeast or southwest.
+You are in an overgrown, steamy jungle. Paths lead off in many directions.
+
+> north
+You are in the Village outskirts.
+There is a Dead villager here.
+You can go north, south, east or west.
+You are walking along the outskirts of a small native village. The village itself is to the east. Paths lead off into ravines to the west and north. To the south can be seen a thick steamy jungle.
+
+> north
+You are in a North-south ravine.
+You can go north, south or east.
+A north-south ravine cuts through the cliffside here and dead ends to the north. However there is a very steep, rubble strewn path that leads up to the top. A narrow path also cuts through the rock to the east.
+
+> east
+You are in a Valley.
+There is a coconut, a large Bee hive lying on the ground and some Honey here.
+You can go south or west.
+You have come to a lush valley cut into the cliffside. There are fruit trees sprawled all around the place. A path cut through the cliff to the west and another leads south.
+
+> use empty jar on honey
+You fill the jar with honey.
+
+> put box of matches in jar of honey
+You put the matches in the jar of honey.
+
+> south
+You are in a Village.
+There is a bunch of Drunken villagers here.
+You can go north, south, east or west.
+You are in the middle of a small native village. Grass huts line the area. There is a huge fire pit, complete with spit in the center of the village. You can see the remains of dinner here as well. Unfortunately, dinner seemed to consist of the pirates who had gone ashore. Paths lead off in the four cardinal directions.
+
+> east
+You are on a Grassy plain.
+There is a Patch of tall grass here.
+You can go south, east or west.
+You are walking along a grassy plain. The plain continues to the south. You can go west to a small village or east to a shore.
+
+> east
+You are at the East shore.
+There is a Ceramic tile1, a Ceramic tile2, Ceramic tile3, a Ceramic tile4, an Empty bottle and a Ceramic tile5 here.
+You can go north, south or west.
+You can go to Sail boat.
+You have come the large eastern shore of the island. Across the sea to the east you can see a small volcanic island. The shore continues to the north and south. A small sail boat floats in the shallows here.
+
+> take ceramic tile1
+You take the tile.
+
+> take ceramic tile2
+You take the tile.
+
+> take ceramic tile3
+You take the tile.
+
+> take ceramic tile4
+You take the tile.
+
+> take ceramic tile5
+You take the tile.
+
+> go to sail boat
+You are on a Sail boat.
+There is a Pistol, a Steering wheel and some Rigging here.
+You can go down.
+You are on the deck of a small sail boat. A ladder leads down below deck.
+The sailboat is floating in the shallows just off shore to the east of a large island.
+You have a wheel and some smaller sails. You could probably SAIL to the other island across the way. But you are not going to get too much farther than that without a main sail.
+
+> down
+You are in the Sail boat hold.
+There is a Glass Case bolted to the wall and a Barrel of gunpowder here.
+You can go up.
+You are below decks on the small sailboat. The hold here is more like living quarters, complete with bed and furnishings. You can go back up to the deck from here.
+
+> take barrel of gunpowder
+You pick up the gunpowder.
+
+> up
+You are on a Sail boat.
+There is a Pistol, a Steering wheel and some Rigging here.
+You can go down.
+You are on the deck of a small sail boat. A ladder leads down below deck.
+The sailboat is floating in the shallows just off shore to the east of a large island.
+You have a wheel and some smaller sails. You could probably SAIL to the other island across the way. But you are not going to get too much farther than that without a main sail.
+
+> sail
+You manage to sail to the other island.
+
+> out
+You clamber out of the boat and go ashore.
+You are on a Rocky beach.
+You can go east.
+You can go to Sail boat.
+You standing on a rocky beach. Your sailboat floats just offshore in the shallows. To the west you can see the larger island and a path leads up a hillside to the top of a volcano.
+
+> east
+You are on top of a Volcano.
+You can go west or down.
+You are standing on the rim of a dormant (or at least you think so) volcano. There is a path leading down the hillside to the east. You could probably make your way down into the volcano but it's a pretty steep path.
+
+> down
+With the help of the boots you clamber down to the bottom of the volcano.
+You are at the Volcano bottom.
+You can go south or up.
+You are at the bottom of a volcano core. You don't notice any signs of recent volcanic activity. (let's hope it stays that way)
+You could clamber back up to the top, but its very steep.
+There is also a rounded tube cut in the rock (probably from lava) leading to the south.
+
+> south
+You are in a Lava tube.
+There is a small hammer, a Stream of lava and a Wooden bridge crossing over the lava here.
+You can go north, south or southeast.
+You are standing in a tunnel hollowed out by lava. There is still a stream of lava slowly flowing through the width of the tube. The stream is too wide to jump across. The tunnel itself branches off to the south and southeast.
+
+> southeast
+You are in a Long tunnel.
+You can go south or northwest.
+You are walking through a very long tunnel tunnel. The tunnel leads out to a lava tube to the northwest and continues on for a long distance to the south. About halfway down the tunnel it starts sloping downward and goes underwater.
+You could go that way but you would have to swim for some distance and everything you are carrying would get soaked.
+
+> south
+You end up swimming for a little bit underwater but eventually you make it and rise out of center of a small lake.
+You are at the Lake center.
+You can go east or down.
+You are standing in a small lake in the center of yet another small island. This must be a huge chain of islands. You can go back down underwater and get to the long tunnel again or you can go east to a hillside.
+
+> east
+You are on the East hill.
+You can go west, northwest or southwest.
+You are on the eastern side of a small hill. To the west the hill rises gently and there is a lake in the center of it. You can also go northwest or southwest around the hillside.
+
+> southwest
+You are on the South hill.
+There is a huge Pile of rubble block the southern path here.
+You can go south or northeast.
+You are on the southern side of a small hill. The hill rises gently to the north and you can see a small lake in the center. You can't go any further along the hill or get to the lake from here due to the brambles and thorn bushes blocking the way. You can get back to the east hill by going around to the northeast.
+There is a path leading down a steep slope to the south. The path ends up cutting through some cliffside.
+
+> drop barrel of gunpowder
+You drop it.
+
+> light gunpowder
+You light the gunpowder.
+The barrel explodes blowing apart the rubble.
+
+> south
+You are at a Cave entrance.
+There is a gigantic Stone door here.
+You can go north or south.
+The path down the hill ends in a cave entrance in the hillside. Steep walls rise all around you from here. 
+The stone door is closed.
+
+> examine stone door
+You notice a large indentation set in the stone door.
+
+> use ceramic tile1 on indentation
+You insert the tile.
+
+> use ceramic tile2 on indentation
+You insert the tile.
+
+> use ceramic tile3 on indentation
+You insert the tile.
+
+> use ceramic tile4 on indentation
+You insert the tile.
+
+> use ceramic tile6 on indentation
+You insert the tile.
+
+> use ceramic tile7 on indentation
+You insert the tile.
+
+> use ceramic tile8 on indentation
+You insert the tile.
+
+> use ceramic tile9 on indentation
+You insert the tile.
+
+> look at indentation
+
+
+
+Do you wish to move the tiles?
+1) Yes
+2) No
+[choice] yes
+
+
+
+
+1) Move tile up
+2) Move tile down
+3) Move tile left
+4) Move tile right
+5) Exit
+[choice] 4
+
+
+
+
+1) Move tile up
+2) Move tile down
+3) Move tile left
+4) Move tile right
+5) Exit
+[choice] 4
+
+
+
+
+1) Move tile up
+2) Move tile down
+3) Move tile left
+4) Move tile right
+5) Exit
+[choice] 2
+
+
+
+
+1) Move tile up
+2) Move tile down
+3) Move tile left
+4) Move tile right
+5) Exit
+[choice] 2
+
+
+
+
+1) Move tile up
+2) Move tile down
+3) Move tile left
+4) Move tile right
+5) Exit
+[choice] 3
+
+
+
+
+1) Move tile up
+2) Move tile down
+3) Move tile left
+4) Move tile right
+5) Exit
+[choice] 1
+
+
+
+
+1) Move tile up
+2) Move tile down
+3) Move tile left
+4) Move tile right
+5) Exit
+[choice] 4
+
+
+
+
+1) Move tile up
+2) Move tile down
+3) Move tile left
+4) Move tile right
+5) Exit
+[choice] 2
+
+
+
+
+1) Move tile up
+2) Move tile down
+3) Move tile left
+4) Move tile right
+5) Exit
+[choice] 3
+
+
+
+
+1) Move tile up
+2) Move tile down
+3) Move tile left
+4) Move tile right
+5) Exit
+[choice] 3
+
+
+
+
+1) Move tile up
+2) Move tile down
+3) Move tile left
+4) Move tile right
+5) Exit
+[choice] 1
+
+
+
+
+1) Move tile up
+2) Move tile down
+3) Move tile left
+4) Move tile right
+5) Exit
+[choice] 1
+
+
+
+
+1) Move tile up
+2) Move tile down
+3) Move tile left
+4) Move tile right
+5) Exit
+[choice] 4
+
+
+
+
+1) Move tile up
+2) Move tile down
+3) Move tile left
+4) Move tile right
+5) Exit
+[choice] 2
+
+
+
+
+1) Move tile up
+2) Move tile down
+3) Move tile left
+4) Move tile right
+5) Exit
+[choice] 4
+
+
+
+
+1) Move tile up
+2) Move tile down
+3) Move tile left
+4) Move tile right
+5) Exit
+[choice] 2
+
+
+
+
+1) Move tile up
+2) Move tile down
+3) Move tile left
+4) Move tile right
+5) Exit
+[choice] 3
+
+
+
+
+1) Move tile up
+2) Move tile down
+3) Move tile left
+4) Move tile right
+5) Exit
+[choice] 3
+
+
+
+
+1) Move tile up
+2) Move tile down
+3) Move tile left
+4) Move tile right
+5) Exit
+[choice] 1
+
+
+
+
+1) Move tile up
+2) Move tile down
+3) Move tile left
+4) Move tile right
+5) Exit
+[choice] 4
+
+
+
+
+You hear a click from the indentation and the tiles lock in place.
+
+> use ceramic tile5 on indentation
+You insert the tile.
+The door grinds open.
+
+> south
+You are in a Huge cavern.
+There is a Huge monsterous creature here.
+You can go north.
+You are in a huge cavern. Light filters down from cracks in the ceiling. Bones litter the floor here. The only exit is back the way you came.
+As you enter the cavern the door closes behind you!
+
+A huge creature is at the other end of the cavern. It looks as if he was lying on a large ship's sail!
+
+Your ticket out of here!
+
+
+The monkey on your back decides to throw some poo at the thing making it angry!
+Now that's done it! Stupid monkey!
+It's bellows and is heading straight for you!!
+You scream too!!!!
+
+> kill huge monsterous creature
+You throw caution to the wind and attack the creature.
+
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 5
+You swing your sword upwards at your opponent.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 3
+You attempt to block your opponents attack from the right.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 2
+You slash at your opponent from the left.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 5
+You attempt to block your opponents upward slash.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 4
+You slash downward at your opponent.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 5
+You attempt to block your opponents upward slash.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 3
+You slash at your opponent from the right.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 1
+You attempt to parry your opponents thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 2
+You slash at your opponent from the left.
+You slip past your opponents guard and land a clean hit!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 1
+You attempt to parry your opponents thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 5
+You swing your sword upwards at your opponent.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 3
+You attempt to block your opponents attack from the right.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 4
+You slash downward at your opponent.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 4
+You attempt to block your opponents downward thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 2
+You slash at your opponent from the left.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 1
+You attempt to parry your opponents thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 2
+You slash at your opponent from the left.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 5
+You attempt to block your opponents upward slash.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 5
+You swing your sword upwards at your opponent.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 1
+You attempt to parry your opponents thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 5
+You swing your sword upwards at your opponent.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 4
+You attempt to block your opponents downward thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 2
+You slash at your opponent from the left.
+You slip past your opponents guard and land a clean hit!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 2
+You attempt to block your opponents attack from the left.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 2
+You slash at your opponent from the left.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 3
+You attempt to block your opponents attack from the right.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 2
+You slash at your opponent from the left.
+You slip past your opponents guard and land a clean hit!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 3
+You attempt to block your opponents attack from the right.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 2
+You slash at your opponent from the left.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 3
+You attempt to block your opponents attack from the right.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 3
+You slash at your opponent from the right.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 1
+You attempt to parry your opponents thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 2
+You slash at your opponent from the left.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 2
+You attempt to block your opponents attack from the left.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 3
+You slash at your opponent from the right.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 1
+You attempt to parry your opponents thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 3
+You slash at your opponent from the right.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 4
+You attempt to block your opponents downward thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 2
+You slash at your opponent from the left.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 2
+You attempt to block your opponents attack from the left.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 2
+You slash at your opponent from the left.
+You slip past your opponents guard and land a clean hit!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 1
+You attempt to parry your opponents thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 4
+You slash downward at your opponent.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 1
+You attempt to parry your opponents thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 3
+You slash at your opponent from the right.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 3
+You attempt to block your opponents attack from the right.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 5
+You swing your sword upwards at your opponent.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 1
+You attempt to parry your opponents thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 4
+You slash downward at your opponent.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 5
+You attempt to block your opponents upward slash.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 5
+You swing your sword upwards at your opponent.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 5
+You attempt to block your opponents upward slash.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 2
+You slash at your opponent from the left.
+You slip past your opponents guard and land a clean hit!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 1
+You attempt to parry your opponents thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 3
+You slash at your opponent from the right.
+You sneak past your opponents guard and land a nasty blow!
+The creature breaths his last breath and crashes down onto the floor of the cavern!
+He must have landed on a pressure plate because the door opens!
+
+> take main sail
+You take it.
+
+> take black pearl
+You pick it up!
+Your score just went up!
+You have become stronger and able to take more damage!
+
+> north
+You are at a Cave entrance.
+There is a gigantic Stone door and a large Indentation in the stone door here.
+You can go north or south.
+The path down the hill ends in a cave entrance in the hillside. Steep walls rise all around you from here. 
+The stone door is open.
+
+> north
+You are on the South hill.
+You can go south or northeast.
+You are on the southern side of a small hill. The hill rises gently to the north and you can see a small lake in the center. You can't go any further along the hill or get to the lake from here due to the brambles and thorn bushes blocking the way. You can get back to the east hill by going around to the northeast.
+There is a path leading down a steep slope to the south. The path ends up cutting through some cliffside.
+
+> northeast
+You are on the East hill.
+You can go west, northwest or southwest.
+You are on the eastern side of a small hill. To the west the hill rises gently and there is a lake in the center of it. You can also go northwest or southwest around the hillside.
+
+> west
+You are at the Lake center.
+You can go east or down.
+You are standing in a small lake in the center of yet another small island. This must be a huge chain of islands. You can go back down underwater and get to the long tunnel again or you can go east to a hillside.
+
+> down
+You have to swim underwater for a bit but eventually make it back to the long tunnel.
+You are in a Long tunnel.
+You can go south or northwest.
+You are walking through a very long tunnel tunnel. The tunnel leads out to a lava tube to the northwest and continues on for a long distance to the south. About halfway down the tunnel it starts sloping downward and goes underwater.
+You could go that way but you would have to swim for some distance and everything you are carrying would get soaked.
+
+> northwest
+You are in a Lava tube.
+There is a small hammer, a Stream of lava and a Wooden bridge crossing over the lava here.
+You can go north, south or southeast.
+You are standing in a tunnel hollowed out by lava. There is still a stream of lava slowly flowing through the width of the tube. The stream is too wide to jump across. The tunnel itself branches off to the south and southeast.
+
+> north
+You are at the Volcano bottom.
+You can go south or up.
+You are at the bottom of a volcano core. You don't notice any signs of recent volcanic activity. (let's hope it stays that way)
+You could clamber back up to the top, but its very steep.
+There is also a rounded tube cut in the rock (probably from lava) leading to the south.
+
+> up
+You climb back up to the top. It's a hard climb though.
+You are on top of a Volcano.
+You can go west or down.
+You are standing on the rim of a dormant (or at least you think so) volcano. There is a path leading down the hillside to the east. You could probably make your way down into the volcano but it's a pretty steep path.
+
+> west
+You are on a Rocky beach.
+You can go east.
+You can go to Sail boat.
+You standing on a rocky beach. Your sailboat floats just offshore in the shallows. To the west you can see the larger island and a path leads up a hillside to the top of a volcano.
+
+> go to sail boat
+You are on a Sail boat.
+There is a Pistol, a Steering wheel and some Rigging here.
+You can go down.
+You are on the deck of a small sail boat. A ladder leads down below deck.
+The sail boat is floating in the shallows just offshore to the west of a small volcanic island.
+You have a wheel and some smaller sails. You could probably SAIL to the other island across the way. But you are not going to get too much farther than that without a main sail.
+
+> use main sail on rigging
+You set the main sail in the rigging.
+
+> sail
+
+You spend several minutes getting the sailboat in order.
+After a bit you set off to sea. You come around the island and come upon the war ship in the open water.
+They board your boat and take you aboard their vessel. You are brought before their captain. 
+He tells you that there has been alot of pirate activity in the area lately and that he is questioning anyone he comes upon. You almost have him convinced that you are not in fact a pirate and that you were shipwrecked and are happy to be off again.
+He is just about to let you get back aboard your sail boat when.....
+
+
+The monkey on your back decides to pee all over him!
+
+In the end he decides that you are not a pirate and decides to let you go. But not before searching your boat and confiscating your treasures.
+He tells you that these are the king's waters and anything found here belongs to the king.
+He does pay you a small finders fee though.
+
+
+
+You return home and sell the monkey to a local zoo.
+With that and your finders fee you are able to get yourself a nice new boat and promise yourself NEVER to drink that much while sailing again.
+
+You have finished shipwrecked!
+(still you feel the outcome could have been better)
+
+You score is 30/400.
+That give you the rank of...
+Shark Bait.
+Congratulations.....
+
+You have completed Shipwrecked...
+
+
+[runner] turns=419 leftover=0 running=false WON=YES

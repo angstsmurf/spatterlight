@@ -1,0 +1,1441 @@
+
+Nearco Jhames
+
+Tu nombre es Nearco. Tu señor, Alejandro Magno te ha enviado a estas tierras para buscar un valioso tesoro guardado con sumo celo por el gran rey persa Darío III Codomano.
+
+
+
+Estás en el desierto.
+
+La arena del suelo quema tus sandalias. A lo lejos, puedes percibir el efecto óptico que se produce cuando el aire caliente asciende desde las dunas. El Sol, abrasador, quema tu piel sin piedad.
+
+Aquí hay: un hueso, una piedra and una roca
+Puedes ir al: north, south, east, west, northeast, northwest, southeast or southwest
+
+> take hueso
+Coges el hueso.
+
+> take piedra
+Coges la piedra.
+
+> use piedra on roca
+Frotas la piedra contra la roca durante varios minutos hasta que consigues darle la forma de un prisma.
+
+> use casco on prisma
+Introduces el prisma dentro del casco y lo sujetas con la correa que se ata debajo del mentón, consiguiendo que el trozo de roca quede suspendido en el aire, en el centro semiesférico del casco.
+
+> use hueso on pañuelo
+Clavas el hueso en el pañuelo y enroscándolo a su alrededor consigues fabricar una especie de antorcha.
+
+> use antorcha on casco con prisma
+Utilizas el casco para recoger dentro de él, la luz del Sol. Gracias a la gran cantidad de rayos solares que se reflejan dentro de la semiesfera cóncava del casco, y que ahora se concentran en el interior del prisma, aumentas la potencia calorífica de la lupa casera que has fabricado, lo suficiente como para permitir que se pueda encender la antorcha.
+
+Ahora tienes una antorcha encendida.
+
+> north
+Estás en una cueva.
+You can go south or west.
+Has conseguido entrar en la cueva con suficiente iluminación.
+Ahora ya sabes por donde puedes caminar sin temor a dar un mal paso.
+
+> west
+Estás en la planta baja de la cueva.
+You can go north or east.
+Las paredes de la cueva son de dura roca, tremendamente frías y húmedas al tacto.
+
+> n
+Estás en la planta baja de la cueva.
+You can go south or east.
+Te da por pensar y piensas, luego, afortunadamente, existes.
+
+> e
+Estás en la planta baja de la cueva.
+You can go north or west.
+Piensas en si existes, o eres fruto de la imaginación de un afamado creador de aventuras.
+
+> n
+Estás en la planta baja de la cueva.
+You can go south or west.
+En el desierto hacía demasiado calor, y aquí un frío helado se clava como cuchillas en tu cuerpo.
+
+> w
+Estás en la planta baja de la cueva.
+You can go north or east.
+Algunas estalagmitas te dificultan el paso, pero consigues salvarlas.
+
+> n
+Estás en la planta baja de la cueva.
+You can go south or east.
+Este lugar parece maldito. Todo a tu alrededor es oscuridad y un olor fétido se desprende de las paredes de la cueva.
+
+> e
+Estás en la planta baja de la cueva.
+You can go east or west.
+En esta habitación hay un pequeño charco en el suelo. Te detienes un momento. Lo observas. Aprovechas para hacer pis, y continúas...
+
+> e
+Estás en la planta baja de la cueva.
+You can go south or west.
+Recuerdas a Melindrón, el cartógrafo de Alejandro. ¡¡ Como lo echas de menos en estos momentos !!.
+
+> s
+Estás en la planta baja de la cueva.
+You can go north or east.
+La duda de saber donde te encuentras, te corroe. Ya no te fijas en la oscuridad de la cueva.
+
+> e
+Estás en la planta baja de la cueva.
+You can go south or west.
+¿Es que esta cueva no tiene fin?. Tranqui. Acabas de empezar. Búscate un papel bien largo y un buen bolígrafo cargado de tinta.
+
+> s
+Estás en la planta baja de la cueva.
+You can go north or west.
+Un murciélago asustado se marcha revoloteando de la habitación, cuando entras en ella.
+
+> w
+Estás en la planta baja de la cueva.
+You can go south or east.
+Piensas en Eunesia, la bella esclava que tantas noches te ha proporcionado placer. Ah !!!.. Como la echas de menos en estos momentos.
+
+> s
+Estás en la planta baja de la cueva.
+You can go north or east.
+A cada paso que das hacia lo desconocido, un escalofrío recorre tu columna vertebral.
+
+> e
+Estás en la planta baja de la cueva.
+You can go east or west.
+Esta localidad te produce un profundo terror. Eso te hace recordar que te quedan pocos meses para hacer la declaración de la renta. Tendrás que hablar con tu asesor fiscal para saber si tienes derecho a la doble imposición por pagar tributos en Persia y en Macedonia.
+
+> e
+Estás en la planta baja de la cueva.
+You can go east or west.
+Aquí las paredes se estrechan. Pero aun asi puedes pasar a través de ellas.
+
+> e
+Estás en la planta baja de la cueva.
+You can go north or west.
+Una gota del techo se estrella contra la punta de tu nariz, recordándote que sigues vivo.
+
+> n
+Estás en la planta baja de la cueva.
+You can go south or west.
+Como echas de menos tu soleada Macedonia.
+
+> w
+Estás en la planta baja de la cueva.
+You can go north or east.
+Pensar en Macedonia te ha dado hambre. Como te gustaría comerte un cuenco de frutas cortadas en taquitos y bañadas en dulce almíbar de Esparta.
+Y te gustaría mucho más, si tu bella esclava Lacri, te pusiese los granos de uva en la boca, después de haberlos bañado en.. (mejor no pensarlo).
+
+> n
+Estás en la planta baja de la cueva.
+You can go south or east.
+Si la cueva tuviese cobertura, te hubiese dejado mi GPS.
+
+> e
+Estás en la planta baja de la cueva.
+You can go north or west.
+Estoy hasta el gorro de anotar en mi cabeza el plano de la cueva.
+
+> n
+Estás en la planta baja de la cueva.
+You can go north or south.
+Me estoy poniendo claustrofóbico.
+
+> n
+Estás en la planta baja de la cueva.
+You can go south or west.
+Una rata se detiene ante ti. Te mira con desprecio. Te enseña los dientes moviendo los bigotes. Y se marcha tan campante como diciendo: "No te preocupes, ya llegará el momento de que seas mi cena".
+
+> w
+Estás en la planta baja de la cueva.
+You can go south or east.
+Me estoy mareando de tanta vueltecita en la dichosa cueva.
+
+> s
+Estás en la planta baja de la cueva.
+You can go north or west.
+Presiento que algo novedoso va a ocurrir.
+
+> w
+Estás en la planta baja de la cueva.
+There is una ranura here.
+You can go north or east.
+Aquí hay una ranura.
+¡¡¡ Caray !!!.
+Lo intuía. Algo nuevo.
+En esta habitación hay una especie de pedestal de piedra. El pedestal se eleva desde el suelo hasta una altura cercana a tu pecho. (Si la que juega la aventura es una chica, léase: a tu "bonito pecho"). En lo alto del pedestal hay una ranura. Parece una máquina de Coca-Cola persa, pero evidentemente no lo es.
+
+> n
+Estás en la planta baja de la cueva.
+You can go south or west.
+Siempre me he preguntado como se fabrican los pergaminos.
+
+> w
+Estás en la planta baja de la cueva.
+You can go east or west.
+Cada vez se estrechan más los pasillos por donde vas caminando en esta húmeda cueva.
+¡¡¡ Cuidado !!!
+Tu cuerpo se tensa.
+Parece que has escuchado pasos que provienen de la habitación situada al oeste.
+
+> w
+Estás en la planta baja de la cueva.
+There is un soldado persa here.
+You can go north, east or west.
+Esta habitación está más caliente que el resto de la cueva.
+
+¡¡ Leñes !!!
+Aquí hay un persa con muy malas pulgas. Está armado con un arco y varias flechas.
+
+En cuanto te ve aparecer por el pasillo, sale corriendo detrás de ti.
+Solo te da tiempo a reaccionar volviéndo sobre tus pasos, y corriendo todo lo que puedes para que las flechas no te alcancen.
+
+Estás en la planta baja de la cueva.
+You can go south or west.
+Siempre me he preguntado como se fabrican los pergaminos.
+Escuchas como las saetas pasan a tu lado, silbándote en los oídos.
+
+Estás en la planta baja de la cueva.
+There is una ranura here.
+You can go north or east.
+Aquí hay una ranura.
+De pronto, te das la vuelta. El persa está muy cerca de ti. Le pones la zancadilla, tropieza y se golpea el cráneo contra la pared al caer.
+Rápidamente, coges el arco y las flechas.
+
+> examine soldado persa
+Está moribundo. Agonizante te dice: "Nunca podrás salir de aquí, sin las moned ... argggh".
+Expira. Al echarte hacia atrás, te das cuenta de que le estabas pisando el dedo gordo del pie izquierdo. Posiblemente eso esté relacionado con el grito tan horroroso que ha dado al fallecer.
+
+> n
+Estás en la planta baja de la cueva.
+You can go south or west.
+Siempre me he preguntado como se fabrican los pergaminos.
+
+> w
+Estás en la planta baja de la cueva.
+You can go east or west.
+Cada vez se estrechan más los pasillos por donde vas caminando en esta húmeda cueva.
+Hace un rato corriste como un gamo a través de esta habitación para no ser alcanzado por las flechas del persa.
+
+> w
+Estás en la planta baja de la cueva.
+You can go north, east or west.
+Esta habitación está más caliente que el resto de la cueva.
+Parece como si la pared norte fuese hueca.
+
+> w
+Estás en la planta baja de la cueva.
+You can go east or up.
+En esta sala de la cueva, hay una escalera de roca que permite ascender hasta un piso superior.
+
+> up
+Estás en una planta intermedia de la cueva.
+You can go south or down.
+Aquí hay una escalera que te permite descender a un nivel inferior.
+
+> s
+Estás en una planta intermedia de la cueva.
+You can go north or east.
+Como te aburres, empiezas a recordar citas del gran filósofo griego mentor de Alejandro:
+"No es igual de fácil ver la belleza del alma como la del cuerpo." Aristóteles.
+Aunque sinceramente, tu como buen soldado griego, prefieres ver la belleza, sobre todo si es desnuda del cuerpo femenino.
+
+> e
+Estás en una planta intermedia de la cueva.
+You can go south or west.
+Recuerdas citas del gran filósofo griego:
+"Encomendar lo más importante y lo más bello a la suerte sería muy desacertado." Aristóteles.
+Ya te gustaría que Aristóteles estuviese aquí contigo, a ver que decía en momentos como éste.
+
+
+> s
+Estás en una planta intermedia de la cueva.
+You can go north or west.
+Algunos reptiles pequeños, de nombres desconocidos para ti, se arrastran sobre las paredes y el techo de la estancia.
+
+> w
+Estás en una planta intermedia de la cueva.
+You can go south or east.
+En esta zona de la cueva, el suelo está lleno de gravilla. Puedes ver las huellas de pisadas humanas, marcadas en ella.
+
+> s
+Estás en una planta intermedia de la cueva.
+You can go north or east.
+Deberías saber que aún te queda un largo trecho de pasillos por recorrer. De modo que coge más papel para terminar de dibujar el laberinto.
+
+> e
+Estás en una planta intermedia de la cueva.
+There is una pluma here.
+You can go east or west.
+Te preguntas cuando acabará todo esto. Se te hace insoportable recorrer tanto pasillo.
+
+> take pluma
+Coges la pluma.
+
+> e
+Estás en una planta intermedia de la cueva.
+You can go north or west.
+Recuerdas las palabras de Arquíloco de Paros:
+"No es honroso mofarse de hombres que ya están muertos."  Y tu piensas: "A menos que sean persas".
+
+> n
+Estás en una planta intermedia de la cueva.
+You can go south or east.
+¡¡¡Cuidado!!!.
+Has pisado mal una de las piedras del suelo, y has estado a punto de hacerte un esguince.
+
+> e
+Estás en una planta intermedia de la cueva.
+You can go south or west.
+Tanta vuelta te está mareando, pero te dices a ti mismo que debes cumplir la misión que te ha encomendado Alejandro.
+
+> s
+Estás en una planta intermedia de la cueva.
+You can go north or east.
+Mirando las desnudas paredes de piedra recuerdas las palabras de Diofantes: "Tu cabeza es como una mujer. Si la desnudas se le va todo el calor, y si la cubres el calor se te va a ti".
+
+> e
+Estás en una planta intermedia de la cueva.
+You can go east or west.
+Escuchas gotas caer de las estalagtitas. Eso hace que te entre hambre. Recuerdas con nostalgia las lonchas de tocino a la brasa que te preparaba tu madre cuando eras niño.
+
+> e
+Estás en una planta intermedia de la cueva.
+You can go east or west.
+Esto es más largo que un día sin pan. Por cierto, piensas que tienes hambre porque llevas un día sin pan.
+
+> e
+Estás en una planta intermedia de la cueva.
+You can go north or west.
+Recuerdas a Teseo en el laberinto del Minotauro. Ojala hubieses traido contigo un ovillo de lana.
+
+> n
+Estás en una planta intermedia de la cueva.
+You can go south or west.
+Te preguntas si no habías pasado ya por este lugar. Todo esto te suena muchísimo.
+
+> w
+Estás en una planta intermedia de la cueva.
+You can go east or west.
+La llama de tu antorcha apenas si ilumina la oscuridad de este recinto. Pero con tu habilidad característica, consigues averiguar donde se encuentra el camino para cruzarlo, sin temor a caer en ninguna de las grutas que hay alrededor.
+
+> w
+Estás en una planta intermedia de la cueva.
+You can go north or east.
+Es curioso. Te sientes solo y piensas en lo agustito que estarías en la playa, tomando el Sol, con una bella esclava persa llevándote una gran copa del delicioso vino de Creta. (Cosecha del 345 A. de C.- Excelente). y frotándote la espalda con conchas del Peloponeso.
+
+> n
+Estás en una planta intermedia de la cueva.
+You can go south or east.
+Recuerdas una frase que leiste al entrar en la Academia de Platón:
+"Que no entre nadie sin saber geometría." 
+Tu le añadirías. "Que no salga nadie que la sepa". Odias las matemáticas.
+
+> e
+Estás en una planta intermedia de la cueva.
+You can go east or west.
+Maldición. Estás hasta el gorro de tanto pasillo. Esto no parece tener fin.
+
+> e
+Estás en una planta intermedia de la cueva.
+You can go north or west.
+Recuerdas una de las citas favoritas que te dijo Arquíloco de Paros antes de entrar en combate:
+"De las cosas que hay que alegrarse, alégrate y duélete de las malas no demasiado, pues comprende que de tal índole es el compás que domina a los hombres." . Pensar estas cosas te deja más tranquilo.
+
+
+
+> n
+Estás en una planta intermedia de la cueva.
+You can go south or west.
+Te preguntas si Cleóbulo de Lindos era mariquita. Por dos motivos, uno por donde había nacido y el otro por decir esta frase:
+"No pelearse con la mujer ni tener demasiados sentimientos estando otros presentes: pues lo uno puede parecer insensatez y lo otro locura."
+Definitivamente a Cleóbulo debían gustarle los efebos.
+
+> w
+Estás en una planta intermedia de la cueva.
+You can go north or east.
+Recuerdas la frase de Eurípides:
+"El esfuerzo, según dicen, es padre de la fama..". Y piensas: "Y yo, soy el padre de muchos esfuerzos..". Jejeje.
+
+> n
+Estás en una planta intermedia de la cueva
+Es una sala iluminada por antorchas.
+
+Aquí hay: un soldado persa and y otro soldado persa más
+Puedes ir al: south or east
+Dos persas están sentandos pobre unas estalagmitas que rodean otra de mayor tamaño, la cual simula una mesa de juego. Los soldados están tan ensimismados jugando a los dados que no se dan cuenta de tu presencia. Dan voces y beben vino sin preocuparse demasiado de lo que ocurre a su alrededor.
+
+> use arco on soldado persa
+Tus largas clases de adiestramiento de tiro con arco en tu Macedonia natal, ahora te sirven de gran utilidad. Certeramente atraviesas el corazón de uno de los persas, inmediatamente coges otra flecha y se la clavas en un ojo al persa que aún quedaba vivo.
+Has disparado con el arco. Te quedan dos flechas menos.
+
+> w
+Estás en una planta intermedia de la cueva.
+You can go south or east.
+Recuerdas la frase de Eurípides:
+"El esfuerzo, según dicen, es padre de la fama..". Creo que esta frase ya la he pensado antes.
+
+> s
+Estás en una planta intermedia de la cueva.
+You can go north or west.
+Brrrr... Estás hasta el gorro de recorrer pasillos que no te llevan a ninguna parte.
+
+
+
+> w
+Estás en una planta intermedia de la cueva.
+There is una ranura here.
+You can go north or east.
+¡¡ Hombre !!
+Algo nuevo.
+En esta habitación hay una especie de pedestal de piedra. El pedestal se eleva desde el suelo hasta una altura cercana a tu pecho. (Si la que juega la aventura es una chica, léase: a tu "bonito pecho"). En lo alto del pedestal hay una ranura. Parece otra máquina de Coca-Cola persa.
+
+> n
+Estás en una planta intermedia de la cueva.
+You can go south or west.
+En esta habitación, resuenan en tu cabeza las palabras de Esquilo que escuchaste en una ocasión por boca de Alejandro:
+"No es sabio el que sabe mucho, sino el que sabe lo útil..". Dudas un instante, porque realmente no sabes donde están los aseos de esta cueva.
+
+> w
+Estás en una planta intermedia de la cueva.
+You can go east or west.
+Esta zona de la cueva casi no tiene estalagmitas ni estalagtitas ya que con el paso del tiempo se han unido y ahora forman gruesas columnas. Es un bello espectáculo.
+
+> w
+Estás en una planta intermedia de la cueva.
+You can go south or east.
+Meditas sobre la frase de Demócrito de Abdera:
+"Hay que ser de los que dicen la verdad, no de los que hablan mucho." 
+Por eso, siempre estás callado.
+
+> s
+Estás en una planta intermedia de la cueva.
+You can go north or east.
+En la soledad de la cueva, recuerdas dos célebres frases:
+"¡Lo he encontrado!." Arquímedes, en Siracusa, al descubrir el principio de Arquímedes.
+"¡Lo tengo, lo tengo!." Lacri, al solucionar una de las láminas de La Búsqueda de Jhames.
+
+> e
+Estás en una planta intermedia de la cueva.
+You can go south or west.
+Piensas en frases para matar el aburrimiento, y recuerdas una célebre de Algreky:
+"Es necesario mirarse en el espejo, por si te muestra bello, hacer cosas bellas, y por si te muestra feo, corregir el defecto de tu naturaleza con una buena conducta." Ella siempre está corrigiéndose con buenas conductas.
+
+> s
+Estás en una planta intermedia de la cueva.
+You can go north or east.
+Como te aburres, empiezas a recordar citas del gran filósofo griego mentor de Alejandro:
+"El todo es distinto de las partes." Aristóteles.
+Pues aquí, ninguna parte parece distinta del todo.
+
+> e
+Estás en una planta intermedia de la cueva.
+You can go west or up.
+Recuerdas otra cita de Aristóteles:
+"Hay que preferir lo imposible verosímil antes que lo posible no creíble."
+Te acuerdas del cuento que le dijo la alegre tendera cretense a su marido, cuando creyó que os había pillado en su cama.
+
+
+> up
+Estás en la zona superior de la cueva.
+You can go east, northwest or down.
+Una escalera labrada en piedra permite descender a un nivel inferior.
+
+> nw
+Estás en la zona superior de la cueva.
+You can go northeast or southeast.
+Varias ratas te miran con sus ojos rojizos, como si pensaran atacarte, luego deciden que tu carne aun no está tierna.
+
+> ne
+Estás en la zona superior de la cueva.
+You can go southeast or southwest.
+En palabras de Rambo:
+"Dios mío. Esto es un infierno. No siento las piernas".
+
+> se
+Estás en la zona superior de la cueva.
+You can go west or northwest.
+Piensas a fondo en esta frase del gran Platón, preguntándote si estaba en sus cabales:
+"No creo saber lo que no sé.."
+
+> w
+Estás en la zona superior de la cueva.
+You can go east or northwest.
+La antorcha parpadea como si fuese a apagarse, pero examinándola a fondo, te das cuenta de que aún te queda iluminación hasta que termines la aventura. (No me apetece programar lo siguiente:
+
+- La vela se apaga.
+- Te has quedado a oscuras
+- Busca un nuevo trapo
+- Fabrica una nueva antorcha.
+- Sal de la cueva para encenderla.
+- LLegas hasta aquí. Y se vuelve a apagar.)
+
+Sería una faena. De modo que he decidido que la antorcha no se consuma nunca. Considérala como si fuese la zarza que vio Moisés arder en el monte Sinaí.
+
+> nw
+Estás en la zona superior de la cueva.
+You can go northeast or southeast.
+¿A qué mente enferma se le podría haber ocurrido crear un laberinto tan complicado como este?
+
+P.D.: El autor silba y mira para el techo disimulando.
+
+> ne
+Estás en la zona superior de la cueva.
+You can go southeast or southwest.
+Decía Quilón de Esparta:
+"Haz bodas sencillas." 
+Jhames te recomienda que no las hagas, ni sencillas, ni complicadas. ¡¡¡ Que no las hagas !!!. Es lo mejor para tu salud, y para tu bolsillo.
+
+> se
+Estás en la zona superior de la cueva.
+You can go north or northwest.
+Cuando vuelvas a ver a Alejandro tendrás que decirle que la misión ha sido muy difícil. Tendrá que subirte el salario.
+
+> n
+Estás en la zona superior de la cueva.
+You can go south or northwest.
+Una salamanquesa asustada recorre la pared oeste al oir tus pasos.
+
+> nw
+Estás en la zona superior de la cueva.
+There is un poco de hollín here.
+You can go northeast or southeast.
+Pasillos y más pasillos oscuros. Menos mal que la claustrofobia no figura entre tus virtudes.
+
+> ne
+Estás en la zona superior de la cueva.
+You can go south or southwest.
+¿Alquien entre el público tiene pastillas para el mareo?. Estoy empezando a cansarme de dar tanta vuelta.
+
+> s
+Estás en la zona superior de la cueva.
+You can go north or northwest.
+Como desearías haber entrado a la cueva despidiéndote de Ariadna, como hizo Teseo en Minos.
+
+> nw
+Estás en la zona superior de la cueva.
+You can go southeast or southwest.
+Varios murciélagos duermen colgados del techo sin percatarse de tu presencia.
+
+> sw
+Estás en la zona superior de la cueva.
+You can go northeast or northwest.
+Las paredes exhudan agua. Empiezas a estar algo cansado de deambular por esta cueva alejada de la mano de Zeus.
+
+> nw
+Estás en la zona superior de la cueva.
+You can go east or southeast.
+Dijo Suetonio:
+"Apresúrate despacio."
+Esto lo copiaría Napoleón más tarde diciendo:
+"Vísteme despacio, que tengo prisa".
+Y más tarde lo volvería a decir Jhames con esta frase:
+"Desvísteme deprisa, que tengo poco tiempo antes de que llegue tu marido".
+
+> e
+Estás en la zona superior de la cueva.
+You can go west or southwest.
+Aunque de niño se te enseñaron las artes de la guerra, siempre has recordado las palabras de Jenófanes:
+"No es justo preferir la fuerza a la buena sabiduría."
+
+> sw
+Estás en la zona superior de la cueva.
+You can go northeast or southeast.
+Recuerdas a los amigos de tu infancia, y con ellos la frase de Solón de Nicea:
+"No hagas amigos deprisa, y los que hagas no los rechaces deprisa.."
+
+> se
+Estás en la zona superior de la cueva.
+You can go northwest or southwest.
+Te ha parecido escuchar unos ruidos en la pared que está hacia el oeste.
+
+> sw
+Estás en la zona superior de la cueva.
+You can go south or northeast.
+Tienes la sensación de haber escuchado un ruido en la pared norte.
+
+> s
+Estás en la zona superior de la cueva.
+You can go north or southeast.
+Montones de piedra casi te impiden el paso por esta sala.
+
+> se
+Estás en la zona superior de la cueva.
+You can go west or northwest.
+Varias cucarachas se arremolinan en un rincón de esta localidad. Deben de estar dándose un festín.
+
+> w
+Estás en la zona superior de la cueva.
+You can go east or northwest.
+Aquí, apenas si ves estalagtitas.
+
+> nw
+Estás en la zona superior de la cueva.
+You can go southeast or southwest.
+Las palabras sabias de Pítaco, resuenan en la cabeza del autor de esta aventura:
+"Lo que vas a hacer no lo digas, pues habiendo fallado serás objeto de burlas..".
+¿Por qué?, se preguntará el avispado jugador.
+La respuesta es sencilla: "La anuncie en el CAAD antes de terminar de escribirla".
+
+> sw
+Estás en la zona superior de la cueva.
+You can go west or northeast.
+Estos pasillos son algo más amplios que los de niveles inferiores.
+
+> w
+Estás en la zona superior de la cueva.
+You can go north or east.
+Te da la sensación de estar en la zona suroeste de esta planta, pero no estás seguro de nada.
+
+> n
+Estás en la zona superior de la cueva.
+You can go south or northeast.
+En tu cabeza resuenan las palabras de  Periandro de Corinto:
+"Los placeres son mortales, pero las virtudes inmortales.."
+
+
+> ne
+Estás en la zona superior de la cueva.
+You can go northwest or southwest.
+Una rocas se desprenden de la pared y caen al suelo. Parece que esta zona no es muy estable.
+
+> nw
+Estás en la zona superior de la cueva.
+You can go south or southeast.
+Si lo llegas a saber, ni por todo el oro de Siracusa te hubieses adentrado en esta laberíntica cueva.
+
+> s
+Estás en la zona superior de la cueva.
+You can go north or northeast.
+Decía Plutarco:
+"Vive ocultamente", y tu piensas: ¿Qué mejor sitio para vivir ocultamente que esta cueva?.
+
+> ne
+Estás en la zona superior de la cueva.
+You can go east or southwest.
+Decía Quilón.
+"Que tu lengua no corra por delante de tu pensamiento."
+Prefieres no pensar por donde puede correr tu lengua.
+
+> e
+Estás en la zona superior de la cueva.
+You can go west or northwest.
+Te ha parecido escuchar unos ruidos detrás de la pared que está al este.
+
+> nw
+Estás en la zona superior de la cueva.
+You can go west or southeast.
+Recuerdas la frase de Sofocles en Antígona:
+"Hay muchas cosas admirables y nada es más admirable que el hombre.."
+Y aun así, nada es más admirable que Jhames.
+
+
+> w
+Estás en la zona superior de la cueva.
+You can go north or east.
+¿Alguien tiene un GPS para dejarte?. Creo que te has perdido.
+
+> n
+Estás en la zona superior de la cueva.
+You can go south or east.
+Te preguntas si al final de estos lóbregos pasadizos encontrarás algún ser monstruoso como el Minotauro.
+
+> e
+Estás en la zona superior de la cueva.
+You can go east or west.
+¿Qué tendrán los persas escondido dentro de esta cueva?.
+
+> e
+Estás en la zona superior de la cueva.
+You can go south or west.
+Al llegar a esta zona de la cueva, recuerdas que no has rezado a los dioses. Te tumbas en el suelo. Elevas una plegaria ensalzando tus virtudes para que el todopoderoso Zeus te proteja, y luego te levantas sacudiéndote el polvo del cuerpo.
+
+> s
+Estás en la zona superior de la cueva.
+You can go north or southeast.
+Varias ratas acompañan en procesión el velatorio de otra rata muerta por inanición. Salen de estampida en cuanto te ven aparecer.
+
+> se
+Estás en la zona superior de la cueva.
+There is un persa here.
+You can go northwest.
+Es una habitación espaciosa. No tiene frigorífico, ni televisión, pero es que aún no se habían inventado en aquella época.
+Aquí hay un persa de espaldas a ti. Está vigilando la puerta opuesta a la que acabas de cruzar.
+
+> use espada on persa
+Pillas al persa desprevenido. Le das un toquecito en el hombro para no atacarlo por la espalda. Cuando se gira, de un fuerte tajo le seccionas la cabeza. Todo muy limpio. Excepto el chorro de sangre que sale a presión del cuello del pobre soldado persa. La cabeza amputada del tronco rebota varias veces sobre el frío suelo con un sonido característico.
+
+> sw
+Estás en la zona superior de la cueva.
+There is una ranura here.
+You can go northeast or southwest.
+¡¡Caramba !!!.
+Algo distinto.
+En esta habitación hay una especie de pedestal de piedra. El pedestal se eleva desde el suelo hasta una altura cercana a tu pecho.  En lo alto del pedestal hay una ranura. Tiene la forma de un paralelepípedo. (Con perdón).
+
+> sw
+Estás en la zona superior de la cueva.
+There is un brazalete here.
+You can go northeast or southeast.
+Recuerdas una frase de Periandro de Corinto que luego sería copiada por el Che Guevara:
+"Mejor morir no teniendo medios que, viviendo, pasar necesidad.."
+
+
+> take brazalete
+Coges el brazalete.
+
+> se
+Estás en la zona superior de la cueva.
+You can go northwest or southwest.
+Recuerdas la frase que oiste a tu madre cuando te despidió en tu partida de Macedonia:
+"Eres lo más bonito del mundo entero y parte del extranjero".
+
+
+> sw
+Estás en la zona superior de la cueva.
+You can go south, west or northeast.
+Como autor del juego, te puedo hacer una pregunta: ¿Cuántas veces te has salido del papel haciendo el mapa del laberinto?. Jejeje.
+
+
+> s
+Estás en la zona superior de la cueva.
+You can go north or southwest.
+Un sexto sentido parece indicarte que estás llegando al final del camino.
+
+> sw
+Estás en la zona superior de la cueva.
+You can go south or northeast.
+Había pensado en poner un persa loco en esta habitación para prohibirte el paso a la siguiente sala.
+Pero me imagino que a estas alturas del juego, tu ya debes de estar lo suficientemente desquiciado con el laberinto, como para desempeñar perfectamente en el juego, el papel de demente.
+
+> s
+Estás en la zona superior de la cueva.
+You can go north or up.
+Una escalera labrada en la piedra del muro sur, te permite ascender hasta un nivel más elevado.
+
+> up
+Estás en una especie de palacio.
+You can go west or down.
+Caray. Esto ya no es una cueva. Las paredes son de ladrillo y están bellamente decorada con algunos tapices y escenas de la vida cotidiana persa. Parece un tipo de palacio construido encima de las cuevas.
+Una escalera te permite descender al nivel inferior.
+
+> w
+Estás en una especie de palacio.
+You can go south or east.
+En las paredes ves pintadas escenas de caza.
+
+> s
+Estás en una especie de palacio.
+You can go north or south.
+En las paredes se ven dibujadas varias constelaciones zodiacales.
+
+> s
+Estás en una especie de palacio.
+You can go north or east.
+Un día de estos, aprenderás persa en la escuela nocturna, estás harto de ver palabras en las paredes sin saber que significan.
+
+> e
+Estás en una especie de palacio.
+You can go east or west.
+Una de las bailarinas que se ven en el dibujo de la pared, te recuerda a tu bella esclava Pasífae con las que has disfrutado de tantas noches lujuriosas.
+
+> e
+Estás en una especie de palacio.
+You can go north, east or west.
+En una de las escenas pintadas en la pared, te llama la atención un toro montando a una jirafa.
+
+> n
+Estás en una especie de palacio.
+You can go north or south.
+En la pared un friso muestra escenas de soldados persas arrastrando esclavos nubios por el desierto.
+
+> n
+Estás en una especie de palacio.
+You can go south or east.
+La decoración aunque es sobria, es bastante artística.
+
+> e
+Estás en una especie de palacio.
+You can go south or west.
+En una de las paredes hay una escena de la vida persa. Una esclava ofrece manjares y vino a varios soldados persas.
+
+> s
+Estás en una especie de palacio.
+You can go north or south.
+La pared está desnuda. Aun no han empezado a trabajar en ella.
+
+> s
+Estás en una especie de palacio.
+You can go north, east or west.
+En la pared, ves más y más escenas de batallas entre persas y griegos.
+
+> e
+Estás en una especie de palacio.
+You can go north, west or northeast.
+En la pared ves el dibujo del rostro de Alejandro. Alguien le ha pintado un bigote, una barba y unos cuernos, con el hollín de una antorcha.
+
+> n
+Estás en una especie de palacio.
+You can go north or south.
+Las paredes de esta habitación están pintadas de azul claro. Nada más se observa en ellas.
+
+> n
+Estás en una especie de palacio.
+You can go south or southeast.
+En una pared se ven pintadas, varias bailarinas persas, exhibiendo sus encantos a un grupo de jovenes oficiales persas.
+
+> se
+Estás en una especie de palacio.
+You can go northwest, southeast or southwest.
+Te sientas en el suelo y descansas un minuto. Luego te incorporas, decidiendo seguir adelante para ver que encuentras más allá.
+
+> se
+Estás en una especie de palacio.
+You can go north, east or northwest.
+Varios anuncios en las paredes recomiendan beber vino de Siracusa. Ahora está en oferta. Tres ánforas al precio de dos.
+
+> n
+Estás en una especie de palacio.
+You can go north or south.
+En esta pared unos lobos pintados, devoran varias esclavas sátrapas.
+
+> n
+Estás en una especie de palacio.
+You can go south or east.
+En las paredes observas al gran rey persa montado en su carro, de cacería. Con una lanza atraviesa el cráneo de un fiero león.
+
+> e
+Estás en una especie de palacio.
+You can go south or west.
+Aquí no hay pinturas. Las paredes son completamente lisas.
+
+> s
+Estás en una especie de palacio.
+You can go north or south.
+Escenas eróticas no aptas para todos los públicos adornan las paredes de esta habitación. Te quedas unos minutos contemplándolas. Tu "estima" se eleva, y decides marcharte antes de que el fruto de tu pasión manche tan bellos murales.
+
+> s
+Estás en una especie de palacio.
+You can go north, east or west.
+En la pared de esta habitación ves el mapa del laberinto del primer piso de la cueva. Te cagas en la madre que parió al programador de la aventura. Te olvidas del mapa y continúas a lo tuyo.
+
+> e
+Estás en una especie de palacio.
+You can go north or west.
+En las pared se leen varios anuncios de venta de bailarinas y esclavas. Viene la dirección y el precio en moneda persa y moneda griega.
+
+> n
+Estás en una especie de palacio.
+You can go north or south.
+Palabras, sin sentido para ti, adornan las paredes de esta habitación.
+
+> n
+Estás en una especie de palacio.
+You can go south or southeast.
+Las paredes estan talladas con escenas del rey en la corte.
+
+> se
+Estás en una especie de palacio.
+You can go northeast or northwest.
+Piensas que si sales de aquí, jamás volverás a entrar en una cueva si antes no te proporcionan un mapa.
+
+> ne
+Estás en una especie de palacio.
+You can go south or southwest.
+Varias pinturas en la pared muestran como unos soldados persas machacan los cráneos de sus enemigos tendidos en el suelo, con pesados mazos.
+
+> s
+Estás en una especie de palacio.
+You can go north or south.
+Escenas lujuriosas adornan las paredes. Decides tomar apuntes. Nunca se sabe, y el saber no ocupa lugar.
+
+> s
+Estás en una especie de palacio.
+You can go north or northeast.
+La pared está decorada con pinturas de patos navegando por un bonito lago.
+
+> ne
+Estás en una especie de palacio.
+You can go east, northeast or southwest.
+En la pared hay pintadas águilas revoloteando por encima del carro del rey.
+
+> e
+Estás en una especie de palacio.
+You can go east or west.
+Esta habitación no tiene ninguna decoración.
+
+> e
+Estás en una especie de palacio.
+You can go west, northwest or southeast.
+Parece que han preparado la habitación para pintarla en breve.
+
+> se
+Estás en una especie de palacio.
+You can go north or northwest.
+El dibujo de varios leones alados decora las paredes de la estancia.
+
+> n
+Estás en una especie de palacio.
+You can go north or south.
+Más escenas lúbricas.
+
+> n
+Estás en una especie de palacio.
+You can go south or southeast.
+Grabado en la paredes, ves una escena en la que el gran rey persa es aclamado por todo su pueblo, postrado ante él.
+
+> se
+Estás en una especie de palacio.
+You can go northwest or southeast.
+Muchísimas más escenas lúbricas.
+
+> se
+Estás en una especie de palacio.
+You can go north or northwest.
+Escenas de concubinas lúbricas, haciendo cosas impensables para un macedonio.
+
+> n
+Estás en una especie de palacio.
+You can go north or south.
+Palabras en persa sin sentido para ti, adornan las paredes.
+
+> n
+Estás en una especie de palacio.
+You can go south or east.
+Ves con agrado los brillantes colores vivos de las pinturas que hay en las paredes.
+
+> e
+Estás en una especie de palacio.
+You can go south, east or west.
+Lees palabra persas escritas en la pared, pero no sabes descifrarlas.
+
+> e
+Estás en una especie de palacio.
+There is un cilindro de piedra here.
+You can go south or west.
+Es el extremo noreste de todo el conjunto de habitaciones.
+Lo más destacable de esta habitación es un enorme cilindro de piedra que sobresale medio codo real de la pared situada al este. (Nota de Jhames, medio codo real son aproximadamente 0,3855 metros). El diámetro del cilindro es también aproximadamente de otro medio codo real, y el centro del cilindro se encuentra incrustado en la pared a un codo y medio del suelo.
+
+> examine cilindro de piedra
+¿Quieres empujar el cilindro de piedra que sobresale de la pared?
+1) Si
+2) No
+[choice] Si
+Con un supremo esfuerzo presionas el cilindro de piedra que hay encajado en el muro situado al este, consiguiendo que se introduzca dentro de la pared, de tal modo, que queda al ras sin que se aprecie que antes sobresalía. El único vestigio que queda es la finísima ranura de un círculo. Mientras empujabas la piedra, podías escuchar el sonido de engranajes moviéndose detrás de ella. Aparentemente has abierto algo en algún sitio.
+
+> s
+Estás en una especie de palacio.
+There is un cilindro de piedra here.
+You can go north or south.
+Es el extremo centro-este de todo el conjunto de habitaciones.
+Lo más destacable de esta habitación es un enorme cilindro de piedra que sobresale medio codo real de la pared situada al este. (Nota de Jhames, medio codo real son aproximadamente 0,3855 metros). El diámetro del cilindro es también aproximadamente de otro medio codo real, y el centro del cilindro se encuentra incrustado en la pared a un codo y medio del suelo.
+
+> examine cilindro de piedra
+¿Quieres empujar el cilindro de piedra que sobresale de la pared?
+1) Si
+2) No
+[choice] Si
+Con un supremo esfuerzo presionas el cilindro de piedra que hay encajado en el muro situado al este, consiguiendo que se introduzca dentro de la pared, de tal modo, que queda al ras sin que se aprecie que antes sobresalía. El único vestigio que queda es la finísima ranura de un círculo. Mientras empujabas la piedra, podías escuchar el sonido de engranajes moviéndose detrás de ella. Aparentemente has abierto algo en algún sitio.
+
+> s
+Estás en una especie de palacio.
+There is cilindro de piedra un here.
+You can go north or west.
+Es el extremo sureste de todo el conjunto de habitaciones.
+Lo más destacable de esta habitación es un enorme cilindro de piedra que sobresale medio codo real de la pared situada al este. (Nota de Jhames, medio codo real son aproximadamente 0,3855 metros). El diámetro del cilindro es también aproximadamente de otro medio codo real, y el centro del cilindro se encuentra incrustado en la pared a un codo y medio del suelo.
+
+> examine cilindro de piedra
+¿Quieres empujar el cilindro de piedra que sobresale de la pared?
+1) Si
+2) No
+[choice] Si
+Con un supremo esfuerzo presionas el cilindro de piedra que hay encajado en el muro situado al este, consiguiendo que se introduzca dentro de la pared, de tal modo, que queda al ras sin que se aprecie que antes sobresalía. El único vestigio que queda es la finísima ranura de un círculo. Mientras empujabas la piedra, podías escuchar el sonido de engranajes moviéndose detrás de ella. Aparentemente has abierto algo en algún sitio.
+
+> n
+Estás en una especie de palacio.
+You can go north or south.
+Es el extremo centro-este de todo el conjunto de habitaciones.
+Tras empujar el cilindro e introducirlo dentro de la pared, ahora apenas si consigues distinguir el círculo en la pared de lo que antes fue la base del cilindro de piedra.
+
+> n
+Estás en una especie de palacio.
+There is una ranura circular here.
+You can go south or west.
+Es el extremo noreste de todo el conjunto de habitaciones.
+Tras empujar el cilindro e introducirlo dentro de la pared, ahora apenas si consigues distinguir el círculo en la pared de lo que antes fue la base del cilindro de piedra.
+
+> w
+Estás en una especie de palacio.
+You can go south, east or west.
+Lees palabra persas escritas en la pared, pero no sabes descifrarlas.
+
+> w
+Estás en una especie de palacio.
+You can go south or east.
+Ves con agrado los brillantes colores vivos de las pinturas que hay en las paredes.
+
+> s
+Estás en una especie de palacio.
+You can go north or south.
+Palabras en persa sin sentido para ti, adornan las paredes.
+
+> s
+Estás en una especie de palacio.
+You can go north or northwest.
+Escenas de concubinas lúbricas, haciendo cosas impensables para un macedonio.
+
+> nw
+Estás en una especie de palacio.
+You can go northwest or southeast.
+Muchísimas más escenas lúbricas.
+
+> nw
+Estás en una especie de palacio.
+You can go south or southeast.
+Grabado en la paredes, ves una escena en la que el gran rey persa es aclamado por todo su pueblo, postrado ante él.
+
+> s
+Estás en una especie de palacio.
+You can go north or south.
+Más escenas lúbricas.
+
+> s
+Estás en una especie de palacio.
+You can go north or northwest.
+El dibujo de varios leones alados decora las paredes de la estancia.
+
+> nw
+Estás en una especie de palacio.
+You can go west, northwest or southeast.
+Parece que han preparado la habitación para pintarla en breve.
+
+> w
+Estás en una especie de palacio.
+You can go east or west.
+Esta habitación no tiene ninguna decoración.
+
+> w
+Estás en una especie de palacio.
+You can go east, northeast or southwest.
+En la pared hay pintadas águilas revoloteando por encima del carro del rey.
+
+> sw
+Estás en una especie de palacio.
+You can go north or northeast.
+La pared está decorada con pinturas de patos navegando por un bonito lago.
+
+> n
+Estás en una especie de palacio.
+You can go north or south.
+Escenas lujuriosas adornan las paredes. Decides tomar apuntes. Nunca se sabe, y el saber no ocupa lugar.
+
+> n
+Estás en una especie de palacio.
+You can go south or southwest.
+Varias pinturas en la pared muestran como unos soldados persas machacan los cráneos de sus enemigos tendidos en el suelo, con pesados mazos.
+
+> sw
+Estás en una especie de palacio.
+You can go northeast or northwest.
+Piensas que si sales de aquí, jamás volverás a entrar en una cueva si antes no te proporcionan un mapa.
+
+> nw
+Estás en una especie de palacio.
+You can go south or southeast.
+Las paredes estan talladas con escenas del rey en la corte.
+
+> s
+Estás en una especie de palacio.
+You can go north or south.
+Palabras, sin sentido para ti, adornan las paredes de esta habitación.
+
+> s
+Estás en una especie de palacio.
+You can go north or west.
+En las pared se leen varios anuncios de venta de bailarinas y esclavas. Viene la dirección y el precio en moneda persa y moneda griega.
+
+> w
+Estás en una especie de palacio.
+You can go north, east or west.
+En la pared de esta habitación ves el mapa del laberinto del primer piso de la cueva. Te cagas en la madre que parió al programador de la aventura. Te olvidas del mapa y continúas a lo tuyo.
+
+> w
+Estás en una especie de palacio.
+You can go north, east or northwest.
+Varios anuncios en las paredes recomiendan beber vino de Siracusa. Ahora está en oferta. Tres ánforas al precio de dos.
+
+> nw
+Estás en una especie de palacio.
+You can go northwest, southeast or southwest.
+Te sientas en el suelo y descansas un minuto. Luego te incorporas, decidiendo seguir adelante para ver que encuentras más allá.
+
+> nw
+Estás en una especie de palacio.
+You can go south or southeast.
+En una pared se ven pintadas, varias bailarinas persas, exhibiendo sus encantos a un grupo de jovenes oficiales persas.
+
+> s
+Estás en una especie de palacio.
+You can go north or south.
+Las paredes de esta habitación están pintadas de azul claro. Nada más se observa en ellas.
+
+> s
+Estás en una especie de palacio.
+You can go north, west or northeast.
+En la pared ves el dibujo del rostro de Alejandro. Alguien le ha pintado un bigote, una barba y unos cuernos, con el hollín de una antorcha.
+
+> w
+Estás en una especie de palacio.
+You can go north, east or west.
+En la pared, ves más y más escenas de batallas entre persas y griegos.
+
+> w
+Estás en una especie de palacio.
+You can go north, east or west.
+En una de las escenas pintadas en la pared, te llama la atención un toro montando a una jirafa.
+
+> w
+Estás en una especie de palacio.
+You can go east or west.
+Una de las bailarinas que se ven en el dibujo de la pared, te recuerda a tu bella esclava Pasífae con las que has disfrutado de tantas noches lujuriosas.
+
+> w
+Estás en una especie de palacio.
+You can go north or east.
+Un día de estos, aprenderás persa en la escuela nocturna, estás harto de ver palabras en las paredes sin saber que significan.
+
+> n
+Estás en una especie de palacio.
+You can go north or south.
+En las paredes se ven dibujadas varias constelaciones zodiacales.
+
+> n
+Estás en una especie de palacio.
+You can go south or east.
+En las paredes ves pintadas escenas de caza.
+
+> e
+Estás en una especie de palacio.
+You can go west or down.
+Caray. Esto ya no es una cueva. Las paredes son de ladrillo y están bellamente decorada con algunos tapices y escenas de la vida cotidiana persa. Parece un tipo de palacio construido encima de las cuevas.
+Una escalera te permite descender al nivel inferior.
+
+> down
+Estás en la zona superior de la cueva.
+You can go north or up.
+Una escalera labrada en la piedra del muro sur, te permite ascender hasta un nivel más elevado.
+
+> n
+Estás en la zona superior de la cueva.
+You can go south or northeast.
+Había pensado en poner un persa loco en esta habitación para prohibirte el paso a la siguiente sala.
+Pero me imagino que a estas alturas del juego, tu ya debes de estar lo suficientemente desquiciado con el laberinto, como para desempeñar perfectamente en el juego, el papel de demente.
+
+> ne
+Estás en la zona superior de la cueva.
+You can go north or southwest.
+Un sexto sentido parece indicarte que estás llegando al final del camino.
+
+> n
+Estás en la zona superior de la cueva.
+You can go south, west or northeast.
+Como autor del juego, te puedo hacer una pregunta: ¿Cuántas veces te has salido del papel haciendo el mapa del laberinto?. Jejeje.
+
+
+> w
+Parece como si en esa dirección hubiese una puerta. Pero no consigues ver la forma de abrir la losa que bloquea el paso hacia la otra estancia.
+
+> ne
+Estás en la zona superior de la cueva.
+You can go northwest or southwest.
+Recuerdas la frase que oiste a tu madre cuando te despidió en tu partida de Macedonia:
+"Eres lo más bonito del mundo entero y parte del extranjero".
+
+
+> nw
+Estás en la zona superior de la cueva.
+You can go northeast or southeast.
+Recuerdas una frase de Periandro de Corinto que luego sería copiada por el Che Guevara:
+"Mejor morir no teniendo medios que, viviendo, pasar necesidad.."
+
+
+> ne
+Estás en la zona superior de la cueva.
+There is una ranura here.
+You can go northeast or southwest.
+¡¡Caramba !!!.
+Algo distinto.
+En esta habitación hay una especie de pedestal de piedra. El pedestal se eleva desde el suelo hasta una altura cercana a tu pecho.  En lo alto del pedestal hay una ranura. Tiene la forma de un paralelepípedo. (Con perdón).
+
+> ne
+Estás en la zona superior de la cueva.
+There is un persa muerto and la cabeza del persa here.
+You can go northwest or southwest.
+Es una habitación espaciosa. No tiene frigorífico, ni televisión, pero es que aún no se habían inventado en aquella época.
+Sobre el suelo descansa el cadáver de un persa.
+
+> nw
+Estás en la zona superior de la cueva.
+You can go north or southeast.
+Varias ratas acompañan en procesión el velatorio de otra rata muerta por inanición. Salen de estampida en cuanto te ven aparecer.
+
+> n
+Estás en la zona superior de la cueva.
+You can go south or west.
+Al llegar a esta zona de la cueva, recuerdas que no has rezado a los dioses. Te tumbas en el suelo. Elevas una plegaria ensalzando tus virtudes para que el todopoderoso Zeus te proteja, y luego te levantas sacudiéndote el polvo del cuerpo.
+
+> w
+Estás en la zona superior de la cueva.
+You can go east or west.
+¿Qué tendrán los persas escondido dentro de esta cueva?.
+
+> w
+Estás en la zona superior de la cueva.
+You can go south or east.
+Te preguntas si al final de estos lóbregos pasadizos encontrarás algún ser monstruoso como el Minotauro.
+
+> s
+Estás en la zona superior de la cueva.
+You can go north or east.
+¿Alguien tiene un GPS para dejarte?. Creo que te has perdido.
+
+> e
+Estás en la zona superior de la cueva.
+You can go west or southeast.
+Recuerdas la frase de Sofocles en Antígona:
+"Hay muchas cosas admirables y nada es más admirable que el hombre.."
+Y aun así, nada es más admirable que Jhames.
+
+
+> se
+Estás en la zona superior de la cueva.
+You can go west or northwest.
+Te ha parecido escuchar unos ruidos detrás de la pared que está al este.
+
+> w
+Estás en la zona superior de la cueva.
+You can go east or southwest.
+Decía Quilón.
+"Que tu lengua no corra por delante de tu pensamiento."
+Prefieres no pensar por donde puede correr tu lengua.
+
+> sw
+Estás en la zona superior de la cueva.
+You can go north or northeast.
+Decía Plutarco:
+"Vive ocultamente", y tu piensas: ¿Qué mejor sitio para vivir ocultamente que esta cueva?.
+
+> n
+Estás en la zona superior de la cueva.
+You can go south or southeast.
+Si lo llegas a saber, ni por todo el oro de Siracusa te hubieses adentrado en esta laberíntica cueva.
+
+> se
+Estás en la zona superior de la cueva.
+You can go northwest or southwest.
+Una rocas se desprenden de la pared y caen al suelo. Parece que esta zona no es muy estable.
+
+> sw
+Estás en la zona superior de la cueva.
+You can go south or northeast.
+En tu cabeza resuenan las palabras de  Periandro de Corinto:
+"Los placeres son mortales, pero las virtudes inmortales.."
+
+
+> s
+Estás en la zona superior de la cueva.
+You can go north or east.
+Te da la sensación de estar en la zona suroeste de esta planta, pero no estás seguro de nada.
+
+> e
+Estás en la zona superior de la cueva.
+You can go west or northeast.
+Estos pasillos son algo más amplios que los de niveles inferiores.
+
+> ne
+Estás en la zona superior de la cueva.
+You can go southeast or southwest.
+Las palabras sabias de Pítaco, resuenan en la cabeza del autor de esta aventura:
+"Lo que vas a hacer no lo digas, pues habiendo fallado serás objeto de burlas..".
+¿Por qué?, se preguntará el avispado jugador.
+La respuesta es sencilla: "La anuncie en el CAAD antes de terminar de escribirla".
+
+> se
+Estás en la zona superior de la cueva.
+You can go east or northwest.
+Aquí, apenas si ves estalagtitas.
+
+> e
+Estás en la zona superior de la cueva.
+You can go west or northwest.
+Varias cucarachas se arremolinan en un rincón de esta localidad. Deben de estar dándose un festín.
+
+> nw
+Estás en la zona superior de la cueva.
+You can go north or southeast.
+Montones de piedra casi te impiden el paso por esta sala.
+
+> n
+Estás en la zona superior de la cueva.
+You can go south or northeast.
+Tienes la sensación de haber escuchado un ruido en la pared norte.
+
+> ne
+Estás en la zona superior de la cueva.
+You can go northwest or southwest.
+Te ha parecido escuchar unos ruidos en la pared que está hacia el oeste.
+
+> nw
+Estás en la zona superior de la cueva.
+You can go northeast or southeast.
+Recuerdas a los amigos de tu infancia, y con ellos la frase de Solón de Nicea:
+"No hagas amigos deprisa, y los que hagas no los rechaces deprisa.."
+
+> ne
+Estás en la zona superior de la cueva.
+You can go west or southwest.
+Aunque de niño se te enseñaron las artes de la guerra, siempre has recordado las palabras de Jenófanes:
+"No es justo preferir la fuerza a la buena sabiduría."
+
+> w
+Estás en la zona superior de la cueva.
+You can go east or southeast.
+Dijo Suetonio:
+"Apresúrate despacio."
+Esto lo copiaría Napoleón más tarde diciendo:
+"Vísteme despacio, que tengo prisa".
+Y más tarde lo volvería a decir Jhames con esta frase:
+"Desvísteme deprisa, que tengo poco tiempo antes de que llegue tu marido".
+
+> se
+Estás en la zona superior de la cueva.
+You can go northeast or northwest.
+Las paredes exhudan agua. Empiezas a estar algo cansado de deambular por esta cueva alejada de la mano de Zeus.
+
+> ne
+Estás en la zona superior de la cueva.
+You can go southeast or southwest.
+Varios murciélagos duermen colgados del techo sin percatarse de tu presencia.
+
+> se
+Estás en la zona superior de la cueva.
+You can go north or northwest.
+Como desearías haber entrado a la cueva despidiéndote de Ariadna, como hizo Teseo en Minos.
+
+> n
+Estás en la zona superior de la cueva.
+You can go south or southwest.
+¿Alquien entre el público tiene pastillas para el mareo?. Estoy empezando a cansarme de dar tanta vuelta.
+
+> sw
+Estás en la zona superior de la cueva.
+There is un poco de hollín here.
+You can go northeast or southeast.
+Pasillos y más pasillos oscuros. Menos mal que la claustrofobia no figura entre tus virtudes.
+
+> se
+Estás en la zona superior de la cueva.
+You can go south or northwest.
+Una salamanquesa asustada recorre la pared oeste al oir tus pasos.
+
+> s
+Estás en la zona superior de la cueva.
+You can go north or northwest.
+Cuando vuelvas a ver a Alejandro tendrás que decirle que la misión ha sido muy difícil. Tendrá que subirte el salario.
+
+> nw
+Estás en la zona superior de la cueva.
+You can go southeast or southwest.
+Decía Quilón de Esparta:
+"Haz bodas sencillas." 
+Jhames te recomienda que no las hagas, ni sencillas, ni complicadas. ¡¡¡ Que no las hagas !!!. Es lo mejor para tu salud, y para tu bolsillo.
+
+> sw
+Estás en la zona superior de la cueva.
+You can go northeast or southeast.
+¿A qué mente enferma se le podría haber ocurrido crear un laberinto tan complicado como este?
+
+P.D.: El autor silba y mira para el techo disimulando.
+
+> se
+Estás en la zona superior de la cueva.
+You can go east or northwest.
+La antorcha parpadea como si fuese a apagarse, pero examinándola a fondo, te das cuenta de que aún te queda iluminación hasta que termines la aventura. (No me apetece programar lo siguiente:
+
+- La vela se apaga.
+- Te has quedado a oscuras
+- Busca un nuevo trapo
+- Fabrica una nueva antorcha.
+- Sal de la cueva para encenderla.
+- LLegas hasta aquí. Y se vuelve a apagar.)
+
+Sería una faena. De modo que he decidido que la antorcha no se consuma nunca. Considérala como si fuese la zarza que vio Moisés arder en el monte Sinaí.
+
+> e
+Estás en la zona superior de la cueva.
+You can go west or northwest.
+Piensas a fondo en esta frase del gran Platón, preguntándote si estaba en sus cabales:
+"No creo saber lo que no sé.."
+
+> nw
+Estás en la zona superior de la cueva.
+You can go southeast or southwest.
+En palabras de Rambo:
+"Dios mío. Esto es un infierno. No siento las piernas".
+
+> sw
+Estás en la zona superior de la cueva.
+You can go northeast or southeast.
+Varias ratas te miran con sus ojos rojizos, como si pensaran atacarte, luego deciden que tu carne aun no está tierna.
+
+> se
+Estás en la zona superior de la cueva.
+You can go east, northwest or down.
+Una escalera labrada en piedra permite descender a un nivel inferior.
+
+> e
+Estás en la zona superior de la cueva.
+Excrementos de murcielago secos producen un olor algo nauseabundo en esta estancia.
+Sin que te de tiempo a reaccionar, una enorme losa del suelo cede bajo tus pies, y con un enorme y sonoro: Arggghhhh.... caes a través de una especie de tobogán de piedra hasta un nivel inferior.
+Estás en la planta baja de la cueva.
+You can go north or west.
+Presiento que algo novedoso va a ocurrir.
+
+> w
+Estás en la planta baja de la cueva.
+There is una ranura here.
+You can go north or east.
+Aquí hay una ranura.
+¡¡¡ Caray !!!.
+Lo intuía. Algo nuevo.
+En esta habitación hay una especie de pedestal de piedra. El pedestal se eleva desde el suelo hasta una altura cercana a tu pecho. (Si la que juega la aventura es una chica, léase: a tu "bonito pecho"). En lo alto del pedestal hay una ranura. Parece una máquina de Coca-Cola persa, pero evidentemente no lo es.
+
+> n
+Estás en la planta baja de la cueva.
+You can go south or west.
+Siempre me he preguntado como se fabrican los pergaminos.
+
+> w
+Estás en la planta baja de la cueva.
+You can go east or west.
+Cada vez se estrechan más los pasillos por donde vas caminando en esta húmeda cueva.
+Hace un rato corriste como un gamo a través de esta habitación para no ser alcanzado por las flechas del persa.
+
+> w
+Estás en la planta baja de la cueva.
+There is un soldado persa here.
+You can go north, east or west.
+Esta habitación está más caliente que el resto de la cueva.
+Parece como si la pared norte fuese hueca.
+
+> n
+Parece como si en esa dirección hubiese una puerta. Pero no consigues ver la forma de abrir la losa que bloquea el paso hacia la otra estancia.
+
+> speak to soldado persa
+El persa se acerca a ti. Te tiende la mano y te la estrecha con un fuerte apretón. Luego, te dice:
+"Me alegro mucho de haber trabajado con usted en esta aventura. Para mi, ha sido un verdadero orgullo. Pero me tengo que marchar ya. Mi mujer me está esperando para la cena. Hoy es nuestro aniversario. Esto, que, quería decirle que si tiene ocasión que hable con los del CAAD, para que me nominen como mejor actor secundario por mi excelente interpretación de la caida y muerte en la cueva. Creo que pisarme al dedo gordo le ha dado mucha más credibilidad a la escena. Bueno, suerte con el resto de la aventura y hasta la vista."
+El persa se aleja por el pasillo del este, hasta que desaparece de tu vista, dejándote un poco perplejo, pero con ganas de continuar.
+[runner] turns=253 leftover=0 running=true WON=YES

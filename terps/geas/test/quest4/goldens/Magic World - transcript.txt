@@ -1,0 +1,75 @@
+
+Magic World, vTutorial Marysa
+
+You are in Entry Hall
+There is Sword here.
+You can go west or northwest.
+You see before you an elegant room, it takes you a second before you realise that this is your new home. The the chandelier's light glistens off the the knights armor and the relics beneath the glass cases, one of which is a *sword. The stone floor is hard and cool beneath your feet, which way do you want to go?
+
+> examine sword
+A familiar ruby encrusted sword...
+
+> destroy sword
+You can't Destroy that.
+
+> west
+You are in Library
+There is Odd Book Shelf and Book Shelf here.
+You can go east, southeast or down.
+You enter the library, its sooo beautiful. Elegant book shelves line the walls, you have just about every magical book known to the world! Though, one shelf looks a little odd.... its a very 'odd book shelf'... try to 'look at' it...
+
+> read book of enemies
+You don't see any book of enemies.
+
+> east
+You are in Entry Hall
+There is Sword here.
+You can go west or northwest.
+You see before you an elegant room, it takes you a second before you realise that this is your new home. The the chandelier's light glistens off the the knights armor and the relics beneath the glass cases, one of which is a *sword. The stone floor is hard and cool beneath your feet, which way do you want to go?
+
+> northwest
+You are in Lounge
+There is Ghost here.
+You can go northeast, northwest, southeast or up.
+You have entered your lounge... though the furniture is beautiful and the crackling fire adds warmth to this room, you can't help but notice some body sitting in the big red chair... as you take a closer look, you realize its the ghost of a little boy... no older the 7...
+
+> northeast
+You are in Cupboard
+There is Broom Stick, Strange looking Key and Wand here.
+You can go southwest.
+Its a cramped storage room filled with many magical house hold items.
+
+> take wand
+Your wand has been added to you inventory!
+
+> examine wand
+You find your wand laying ontop of one of the boxes in here, i wonder why its in here...
+
+> southwest
+You are in Lounge
+There is Ghost here.
+You can go northeast, northwest, southeast or up.
+You have entered your lounge... though the furniture is beautiful and the crackling fire adds warmth to this room, you can't help but notice some body sitting in the big red chair... as you take a closer look, you realize its the ghost of a little boy... no older the 7...
+
+> southeast
+You are in Entry Hall
+There is Sword here.
+You can go west or northwest.
+You see before you an elegant room, it takes you a second before you realise that this is your new home. The the chandelier's light glistens off the the knights armor and the relics beneath the glass cases, one of which is a *sword. The stone floor is hard and cool beneath your feet, which way do you want to go?
+
+> west
+You are in Library
+There is Odd Book Shelf and Book Shelf here.
+You can go east, southeast or down.
+You enter the library, its sooo beautiful. Elegant book shelves line the walls, you have just about every magical book known to the world! Though, one shelf looks a little odd.... its a very 'odd book shelf'... try to 'look at' it...
+
+> down
+You are in The Dungeon
+There is Lantern here.
+You can go up.
+At the bottom of the stone steps its pitch black but you can see a magical lantern at the bottom of the stairs....
+
+> use wand on evil dwarf
+You used the water spell to kill the dwarf!
+Congrats! You've won the game!
+[runner] turns=14 leftover=0 running=false WON=YES

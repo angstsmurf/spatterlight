@@ -1,0 +1,2023 @@
+
+Shiversword Tales CJ
+
+
+Shiversword: The Beginning.
+
+
+When you were 16 you had a vivid dream.  A faerie appeared to you and gave you this message
+
+"Behold Shiversword.  Do not be afriad, for I bring tidings of great amusement.
+
+You have a destiny.  You must seek out a musician named 'John' and learn from him the art of Music. For you are to be a famous Bard."
+
+When you wake, you are filled with a new sense of destiny.
+
+
+You are in your bedroom
+There is a bed, dresser and a mirror here.
+You can go down.
+You are in your own bedroom.  There is a bed and a dresser here and a staircase leading down.
+
+> look at dresser
+The dresser is wooden and houses one large drawer.  You imagine that your clothes will be in there.
+
+There is a book on the dresser
+
+> open drawer
+You open up the drawer in the dresser and find some clothes.
+
+> wear clothing
+In the privacy of your bedroom, you put your clothes on.
+
+> examine mattress
+You have a quick look under the mattress and find a silver coin
+
+> take silver coin
+You pick it up.
+
+> make bed
+You quickly arrange the sheet tidily on the bed.
+Throughout the game you can fimd cleaning points.  When you have found all ten, you will get a better end score!
+
+> down
+You descend the rickety stairs to the living room below
+You are in the living room
+There is mat, your cat and a bowl here.
+You can go out to street.
+You can go west or up.
+You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
+
+> look at mat
+The mat is in front of the main door.  It is muddy and has the word 'Welkum' written on it.
+There is a small piece of paper lying on the mat, as if it had been posted through the door.
+
+> take advert
+You pick it up.
+
+> west
+You are in kitchen
+There is Mama Shiversword, a cheese grater, a washing machine, a kitchen cupboard, collander and an Oven here.
+You can go east.
+You are in the kitchen.    There are many useful kitchen implements here.
+
+> speak to mama
+You speak to your Mama
+"Have you made your bed yet?  Good!  Now go on your way, and don't forget to feed the cat.
+
+Here take this coupon to the store and get some cat food."
+
+She gives you a coupon.
+
+> open cupboard
+You open the cupboard to see what is inside.  You find an old jar of pickled onions.
+
+> take pickled onions
+You pick it up.
+
+> use pickled onions on collander
+You poured the contents of the jar into the collander.  THe vinegar drips underneath whilst the onions remain inside.  You collect the vinegar back in the jar.
+
+> take onions
+You pick them up.
+
+> take vinegar
+You pick it up.
+
+> use onions on cheese grater
+You grate the onions on the grater and create some onion powder
+
+> east
+You are in the living room
+There is mat, your cat and a bowl here.
+You can go out to street.
+You can go west or up.
+You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
+
+> out
+You leave the house and enter the street
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north or south.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> south
+You are in Store
+There is McNasty the store owner, the shop's Stock and a walking stick here.
+You can go north.
+The general store is where you can buy anything you want- unless it is closed.  There is plenty of stock for you to examine.  The owner of the store is McNasty.
+
+> give coupon to mcnasty
+You give the coupon to McNasty.  He looks it over and with an evil smile says...
+"This coupon is out of date.  You can't use it.  You will have to buy the food instead"
+
+And he throws away the coupon.
+
+> north
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north or south.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> speak to mr p knutt
+You speak to Mr P Knutt
+"Hey there.  You don't fancy earning some money do you?  I need someone to hand out some promotional leaflets.  I will pay you three gold pieces!"
+Do you want to help Mr Knutt?
+1) Yes
+2) No
+[choice] 1
+"Great!  Now what I want you to do is to give these leaflets to people you meet.  If you can give out five leaflets come back to me and I will pay you"
+
+He hands you some leaflets.
+
+Oh and by the way, you have to wear this costume"
+
+And he hands you a big peanut costume.
+
+> go to shiversword's house
+You are in Shiversword's house
+You enter your own house.  
+You are in the living room
+There is mat, your cat and a bowl here.
+You can go out to street.
+You can go west or up.
+You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
+
+> up
+You are in your bedroom
+There is a bed, dresser, a mirror and book here.
+You can go down.
+You are in your own bedroom.  There is a bed and a dresser here and a staircase leading down.
+
+> remove clothing
+You remove your clothing
+
+> wear peanut costume
+You put on the peanut costume
+
+> down
+You descend the rickety stairs to the living room below
+You are in the living room
+There is mat, your cat and a bowl here.
+You can go out to street.
+You can go west or up.
+You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
+
+> west
+You are in kitchen
+There is Mama Shiversword, a cheese grater, a washing machine, a kitchen cupboard, collander and an Oven here.
+You can go east.
+You are in the kitchen.    There are many useful kitchen implements here.
+
+> give leaflets to mama
+"Would you like a leaflet, mama?" you ask.
+
+"Hmm Peanuts.  Nice.  Although I shouldn't because I am on a diet.  Oh go on, I'll take one."
+
+And your mum takes a leaflet.
+
+> east
+You are in the living room
+There is mat, your cat and a bowl here.
+You can go out to street.
+You can go west or up.
+You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
+
+> out
+You leave the house and enter the street
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north or south.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> north
+You are in the village square
+There is John Lemon, Harry Snotter, Laura Norder, Sharon Scone, Mrs Lastic and Lucy Lastic here.
+You can go south or northeast.
+The Village Square is normally the hubbub of village activity, and today is no different.
+
+> speak to john lemon
+You speak to John
+You approach John and tell him about your dream.
+"So you have a destiny to be a famous bard eh?" he says. "Well the best lute maker I know of is here in this village.  His name is Larry the Lute and his shop is just to the NorthWest of this square. "
+
+> give advert to john lemon
+You give the advert to John.  He takes it, autographs it and hands it back to you.
+
+"There you go lad"  he smiles.
+"That's the first time I've signed an autograph for a peanut"
+
+> speak to mrs lastic
+You speak to Mrs Lastic.
+"Hello boy.  Are you alright?"
+"Wow there, Shiversword.  That is some costume.
+
+Actually. If you are looking for a bit of work, my husband may be in need of your services.  You will find him on the Allotment which is east of the street."
+
+> give leaflets to mrs lastic
+"Excuse me, can I interest you in a leaflet?"
+
+Mrs Lastic looks at you.  "I suppose.  I do like to support local enterprise.  Just don't offer one to Lucy, she has a nut allergy you know."
+
+And she takes one.
+
+> give leaflets to harry snotter
+"Excuse me sir, would you like a leaflet?"
+
+"Hmm.  Replies Harry Snotter.  I think I might.  With the peanuts I can practise my new magic trick.  How to make Peanuts disappear."
+
+And he takes a leaflet.
+
+> speak to lucy lastic
+As you speak to Lucy, she screams and drops her sweets.  They fall all over the floor!
+
+> take sweets
+You scoop up the loose sweets.  it would be good if you could find a place to put them so you can give them back to Lucy.
+
+> northwest
+You are in Lutes for Loot
+There is Larry the Lute and a selection of instruments here.
+You can go southeast.
+Lutes for Loot is the village music store.  It is owned by Larry the Lute, a local lad come good.  There are many types of instrumentson display here.
+
+> give leaflets to larry
+"Would you like a leaflet?"
+
+Larry looks at you sympathetically.  "Go on then.  Seeing as it's you."
+
+And he takes one.
+
+> speak to larry
+You talk to Larry
+"So you want me to make you a lute do you?  Well If you can get me the materials then we can talk business.  I need you to get me some baked cat gut for the strings and some pressed pine wood for the base."
+
+> southeast
+You are in the village square
+There is John Lemon, Harry Snotter, Laura Norder, Sharon Scone, Mrs Lastic and Lucy Lastic here.
+You can go south, northeast or northwest.
+The Village Square is normally the hubbub of village activity, and today is no different.
+
+> northeast
+You are in zoo entrance
+There is Zoe Koeper here.
+You can go north or southwest.
+You are standing at the entrance to the village zoo.  There is a big sign here that says "Come and See our wonderful array of animal".  Zoe Koeper is here standing by the entrance.
+
+> give leaflets to zoe
+"Would you like a leaflet?"
+
+Zoe looks thrilled.  "Peanuts. Great!  That is just the type of treat the elephant loves!"
+
+And she takes one.
+
+> southwest
+You are in the village square
+There is John Lemon, Harry Snotter, Laura Norder, Sharon Scone, Mrs Lastic and Lucy Lastic here.
+You can go south, northeast or northwest.
+The Village Square is normally the hubbub of village activity, and today is no different.
+
+> south
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> speak to mr p knutt
+You speak to Mr P Knutt
+"Congratulations.  You have handed out the leaflets.
+
+Here you go."
+
+And he gives you 3 gold pieces and takes the leaflets from you.
+You spot the postman walking by.
+
+> north
+You are in the village square
+There is John Lemon, Harry Snotter, Laura Norder, Sharon Scone, Mrs Lastic and Lucy Lastic here.
+You can go south, northeast or northwest.
+The Village Square is normally the hubbub of village activity, and today is no different.
+
+> speak to harry snotter
+You speak to Harry
+"I see you managed to get rid of those leaflets.  I went to get some nuts but when I went, my rabbit disappeared.  Now I can't find it.  Would you help me find my rabbit?"
+Will you help Harry find his rabbit?
+1) Yes
+2) No
+[choice] 1
+"Great" Harry looks pleased.
+"Now the problem is he is invisible. But you will be able to hear him if you listen.  He does have a cold.
+Once you have found him, wear this magic hat and "say invisibunny " and he should appear. Then you can collect him in the magic hat."
+
+Okay"
+
+> south
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> east
+You are in the allotment
+There is Nobby Lastic here.
+You can go east, west, northeast or southeast.
+The allotment is an area of garden used for growing vegetables.  This particular allotment belongs to the Lastic family.
+
+> northeast
+You are in carrot patch
+There is carrots here.
+You can go south or southwest.
+This is a small area of the allotment set aside for growing carrots.  There are a few carrots growing here.
+
+> listen
+You listen intently.  You are sure you heard a very quiet sneeze.
+
+> wear magic hat
+You place the magic hat on your head.
+
+> say invisibunny
+After hearing the sneeze ou decide to try the word Harry mentioned.
+
+"INVISIBUNNY"
+
+Suddenly a pure white Bunny appears.
+You watch as it hops around and eats the remaining carrots
+
+> remove magic hat
+You remove the magic hat
+
+> use magic hat on rabbit
+You pick the rabbit up and place it into the hat.  Theoretically it shouldn't fit, but it does! 
+
+
+> take carrot tops
+You pick it up.
+
+> southwest
+You are in the allotment
+There is Nobby Lastic here.
+You can go east, west, northeast or southeast.
+The allotment is an area of garden used for growing vegetables.  This particular allotment belongs to the Lastic family.
+
+> speak to nobby
+You speak to Nobby
+"Ah Shiversword.  Did my wife send you?  I need some help.  I have been trying to grow some pumpkins in the vegetable plot but the birds keep eating the seeds.  I need something to scare them off.  Will you help me?"
+
+Will you help Nobby?
+1) Yes
+2) No
+[choice] 1
+"Excellent.  So what I need is something to scare the birds"
+
+> southeast
+You are in a Pumpkin patch
+There is pumpkin pile and a compost heap here.
+You can go north or northwest.
+This part of the allotment is enclosed by walls.  It is set out for storing pumpkins.  There is a huge pile of pumpkins resting against the south wall  There is also a compost heap here.
+
+> examine pumpkin pile
+On further examination of the pumpkins, you notice that they have been stacked up against a small wooden door in the south wall.  After moving a few of them you reveal a hidden exit.
+
+> use carrot tops on compost heap
+You throw the carrot tops onto the compast heap.
+
+You gain one cleaning point!
+
+> south
+You are in yard
+There is a window and a pile of straw here.
+You can go north.
+You are in a small walled yard that seems to back onto the store.  There is a wndow here in the east wll which probaly looks into the store.
+
+> take straw
+
+You take a large amount of straw,
+
+> north
+You are in a Pumpkin patch
+There is pumpkin pile and a compost heap here.
+You can go north, south or northwest.
+This part of the allotment is enclosed by walls.  It is set out for storing pumpkins.  There is a huge pile of pumpkins resting against the south wall  There is also a compost heap here.
+
+> northwest
+You are in the allotment
+There is Nobby Lastic here.
+You can go east, west, northeast or southeast.
+The allotment is an area of garden used for growing vegetables.  This particular allotment belongs to the Lastic family.
+
+> west
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> go to shiversword's house
+You are in Shiversword's house
+You enter your own house.  
+You are in the living room
+There is mat, your cat and a bowl here.
+You can go out to street.
+You can go west or up.
+You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
+
+> up
+You are in your bedroom
+There is a bed, dresser, a mirror, clothing and book here.
+You can go down.
+You are in your own bedroom.  There is a bed and a dresser here and a staircase leading down.
+
+> remove peanut costume
+You take off the costume
+
+> use straw on clothing
+You stuff the straw into your clothing.  You have made a passable scarecrow body.  But you now have no clothing.  Maybe there is some more in your bedroom.
+
+> open drawer
+You open up the drawer in the dresser and find some clothes.
+
+> wear clothing
+In the privacy of your bedroom, you put your clothes on.
+
+> down
+You descend the rickety stairs to the living room below
+You are in the living room
+There is mat, your cat and a bowl here.
+You can go out to street.
+You can go west or up.
+You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
+
+> out
+You leave the house and enter the street
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> south
+You are in Store
+There is McNasty the store owner, the shop's Stock and a walking stick here.
+You can go north.
+The general store is where you can buy anything you want- unless it is closed.  There is plenty of stock for you to examine.  The owner of the store is McNasty.
+
+> examine stock
+Having a quick look you spot the cat food that you need
+
+> buy cat food
+You hand over three gold coins to the shopkeeper and he gives you the cat food.
+
+> north
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> go to shiversword's house
+You are in Shiversword's house
+You enter your own house.  
+You are in the living room
+There is mat, your cat and a bowl here.
+You can go out to street.
+You can go west or up.
+You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
+
+> look at mat
+There is something else on the mat.  It must have been delieverd by the postman.
+The mat is in front of the main door.  It is muddy and has the word 'Welkum' written on it.
+
+> take ticket
+You pick it up.
+
+> use cat food on bowl
+You pour some of the food into the bowl.
+The cat greedily feeds on the food.  Yummy.
+
+From out of the kitchen, your mama calls "Well done in feeding that cat."
+
+> use cat food on bowl
+You pour some of the food into the bowl.
+Once again you fill the bowl up.  And once again the cat greedily wolfs up the food.  She must have been really hungry!
+From the kitchen your mum calls out "Don't over feed her, or she'll be sick"
+
+> use cat food on bowl
+You pour some of the food into the bowl.
+You fill the bowl up again, this time you finish off the cat food.
+
+And not thinking that the cat will eat anymore, you are surprised that, once again, she wolfs it up.
+Then it happened...
+....
+The cat was sick!
+
+"Now see what you've done" Your mama calls.
+
+How did she know?
+
+> examine cat vomit
+You place your hand inside the mond of vomit.  Having a quick rummage you find a lengthy piece of cat gut in there.
+
+> take cat gut
+You pick it up.
+
+> out
+You leave the house and enter the street
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> use wrapper on bin
+You throw the wrapper into the bin!  Keep Britain Tidy!  That gives you a cleaning point
+
+> north
+You are in the village square
+There is John Lemon, Harry Snotter, Laura Norder, Sharon Scone, Mrs Lastic and Lucy Lastic here.
+You can go south, northeast or northwest.
+The Village Square is normally the hubbub of village activity, and today is no different.
+
+> northeast
+You are in zoo entrance
+There is Zoe Koeper here.
+You can go north or southwest.
+You are standing at the entrance to the village zoo.  There is a big sign here that says "Come and See our wonderful array of animal".  Zoe Koeper is here standing by the entrance.
+
+> give ticket to zoe
+You give the ticket to Zoe.  "Great" she says "Now you can access the Zoo." Enjoy it!
+
+> north
+Zoe waves you through!  "Have a nice day in there"
+You walk into the zoo.
+You are in Zoo kiosk
+There is a Kiosk and a stack of Elephant masks here.
+You can go south or northeast.
+Every zoo has a kiosk where you can buy novelty items.  And this zoo is no different.
+
+> take elephant masks
+You take one of the elephant face masks off the pile.
+
+> use onion powder on face mask
+You sprinkle the onion powder onto the face mask
+
+> south
+You are in zoo entrance
+There is Zoe Koeper here.
+You can go north or southwest.
+You are standing at the entrance to the village zoo.  There is a big sign here that says "Come and See our wonderful array of animal".  Zoe Koeper is here standing by the entrance.
+
+> give face mask to zoe
+You hand over the mask and Zoe puts it over her face, not knowing that you have sprinkled the mask in onion powder
+
+Very soon she is howling in pain.  "My eyes! My eyes! I cannot see"  And even removing the mask doesn't help.  For the moment she is blinded.
+
+> north
+Zoe waves you through!  "Have a nice day in there"
+You walk into the zoo.
+You are in Zoo kiosk
+There is a Kiosk and a stack of Elephant masks here.
+You can go south or northeast.
+Every zoo has a kiosk where you can buy novelty items.  And this zoo is no different.
+
+> take elephant masks
+You take one of the elephant face masks off the pile.
+
+> south
+You are in zoo entrance
+There is Zoe Koeper here.
+You can go north or southwest.
+You are standing at the entrance to the village zoo.  There is a big sign here that says "Come and See our wonderful array of animal".  Zoe Koeper is here standing by the entrance.
+
+> southwest
+You are in the village square
+There is John Lemon, Harry Snotter, Laura Norder, Sharon Scone, Mrs Lastic and Lucy Lastic here.
+You can go south, northeast or northwest.
+The Village Square is normally the hubbub of village activity, and today is no different.
+
+> south
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> go to shiversword's house
+You are in Shiversword's house
+You enter your own house.  
+You are in the living room
+There is mat, your cat, a bowl and some Cat vomit here.
+You can go out to street.
+You can go west or up.
+You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
+
+> use face mask on cat vomit
+You use the face mask to mop up the vomit.  The paper it is made of is absorbant and manages to soak it all up.
+
+However, it has left a huge stain.
+Your cleaning score went up one point.
+
+> west
+You are in kitchen
+There is Mama Shiversword, a cheese grater, a washing machine, a kitchen cupboard, collander and an Oven here.
+You can go east.
+You are in the kitchen.    There are many useful kitchen implements here.
+
+> speak to mama
+You speak to your Mama
+"You're gonna need some bleach to clean that stain out"
+
+> east
+You are in the living room
+There is mat, your cat, a bowl and a dark Stain here.
+You can go out to street.
+You can go west or up.
+You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
+
+> out
+You leave the house and enter the street
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> north
+You are in the village square
+There is John Lemon, Harry Snotter, Laura Norder, Sharon Scone, Mrs Lastic and Lucy Lastic here.
+You can go south, northeast or northwest.
+The Village Square is normally the hubbub of village activity, and today is no different.
+
+> give magic hat to harry
+
+You give the magic hat back to Harry.  He is pleased that you have returned his rabbit and he gives you a gold coin.
+
+> south
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> south
+You are in Store
+There is McNasty the store owner, the shop's Stock and a walking stick here.
+You can go north.
+The general store is where you can buy anything you want- unless it is closed.  There is plenty of stock for you to examine.  The owner of the store is McNasty.
+
+> examine stock
+You have a look around and notice there is some bleach there.
+
+> buy bleach
+You buy the bleach for 1 gold piece.
+
+
+> north
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> go to shiversword's house
+You are in Shiversword's house
+You enter your own house.  
+You are in the living room
+There is mat, your cat, a bowl and a dark Stain here.
+You can go out to street.
+You can go west or up.
+You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
+
+> use bleach on stain
+You pour the bleach on the stain and give it a good rub.  eventually it comes out.
+You get another cleaning point
+Mama Walks into the living room.  "That's  good job you have done there.  Now I am off out for a bit.  Be good!"
+
+> west
+You are in kitchen
+There is a cheese grater, a washing machine, a kitchen cupboard, collander and an Oven here.
+You can go east.
+You are in the kitchen.    There are many useful kitchen implements here.
+
+> use bleach on cupboard
+You place the bleach in the cupboard
+
+> examine oven
+A quick search of the oven reveals a baking tray to one side. 
+
+> take baking tray
+You pick it up.
+
+> use vinegar on baking tray
+You pour the vinegar into the baking tray
+
+> use cat gut on baking tray
+You place the cat gut into the baking tray
+
+> use baking tray on oven
+You place the baking tray into te oven and turn it on.
+
+After a while smoke appears from the door.  It looks like the gut has been cooked enough!
+You take the baking tray from the oven , and there in the tray is a piece of baked cat gut.
+
+> take cat gut (baked)
+You pick it up.
+
+> use sweets on jar
+You place the sweets in the jar.
+
+> east
+You are in the living room
+There is mat, your cat and a bowl here.
+You can go out to street.
+You can go west or up.
+You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
+You don't really want to carry the baking tray around with you, so you decide to leave it in the kitchen.
+
+> out
+You leave the house and enter the street
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> north
+You are in the village square
+There is John Lemon, Harry Snotter, Laura Norder, Sharon Scone, Mrs Lastic and Lucy Lastic here.
+You can go south, northeast or northwest.
+The Village Square is normally the hubbub of village activity, and today is no different.
+
+> give jar of sweets to lucy
+You give the jar of sweets to Lucy.  You get a cleaning point for your actions.
+
+> give silver coin to lucy
+You give the silver coin to Lucy.  She is thrilled because it has a picture of a penguin on it.
+
+In return she give you the bonnet that her stuffed toy was wearing.
+
+> south
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> go to shiversword's house
+You are in Shiversword's house
+You enter your own house.  
+You are in the living room
+There is mat, your cat and a bowl here.
+You can go out to street.
+You can go west or up.
+You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
+
+> up
+You are in your bedroom
+There is a bed, dresser, a mirror, book and peanut costume here.
+You can go down.
+You are in your own bedroom.  There is a bed and a dresser here and a staircase leading down.
+
+> remove clothing
+You remove your clothing
+
+> wear peanut costume
+You put on the peanut costume
+
+> down
+You descend the rickety stairs to the living room below
+You are in the living room
+There is mat, your cat and a bowl here.
+You can go out to street.
+You can go west or up.
+You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
+
+> out
+You leave the house and enter the street
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> south
+You are in Store
+There is McNasty the store owner, the shop's Stock and a walking stick here.
+You can go north.
+The general store is where you can buy anything you want- unless it is closed.  There is plenty of stock for you to examine.  The owner of the store is McNasty.
+As you enter the store wearing your peanut costume, Mr McNasty looks up at you and screams!
+"Aaaaaaaargh the nightmares are coming true"
+
+And he rushes at you with his walking stick and pushes you out of the door.
+
+"GO AWAY! You giant scary peanut monster"
+
+And he throws the walking stick at you!
+You are in the street
+There is Mr P Knutt the peanut seller, a Bin and a walking stick here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+After a while McNasty decides to shut up his shop.  He closes the shutters around his stock, puts up a sign and disappears through a door at the beck.
+
+> take stick
+You pick it up.
+
+> east
+You are in the allotment
+There is Nobby Lastic here.
+You can go east, west, northeast or southeast.
+The allotment is an area of garden used for growing vegetables.  This particular allotment belongs to the Lastic family.
+
+> southeast
+You are in a Pumpkin patch
+There is pumpkin pile and a compost heap here.
+You can go north, south or northwest.
+This part of the allotment is enclosed by walls.  It is set out for storing pumpkins.  There is a huge pile of pumpkins resting against the south wall  There is also a compost heap here.
+
+> south
+You are in yard
+There is a window and a pile of straw here.
+You can go north.
+You are in a small walled yard that seems to back onto the store.  There is a wndow here in the east wll which probaly looks into the store.
+
+> tap window
+You tap on the window.  McNasty turns and looks at you.  The he screams!  You start waving your peanut arms scarily, knowing that McNasty has been having nightmares about scary giant peanut monsters.
+
+McNasty panicks and grabs something which he then hurls out of the window.  It is a boot!
+
+> tap window
+You tap on the window.  McNasty turns and looks at you.  The he screams!  You start waving your peanut arms scarily, knowing that McNasty has been having nightmares about scary giant peanut monsters.
+
+McNasty panicks even more  He picks something else up and throws it out of the window.
+
+Is is a pair of dirty socks
+
+> tap window
+You tap on the window.  McNasty turns and looks at you.  The he screams!  You start waving your peanut arms scarily, knowing that McNasty has been having nightmares about scary giant peanut monsters.
+
+McNasty screams even more.  He picks something else up and throws it out of the window.
+
+It is another boot.
+
+"GO away" he screams.
+
+> take left boot
+You take the left boot
+
+> take right boot
+You now have a pair of boots
+
+> take smelly socks
+You pick it up.
+
+> north
+You are in a Pumpkin patch
+There is pumpkin pile and a compost heap here.
+You can go north, south or northwest.
+This part of the allotment is enclosed by walls.  It is set out for storing pumpkins.  There is a huge pile of pumpkins resting against the south wall  There is also a compost heap here.
+
+> northwest
+You are in the allotment
+There is Nobby Lastic here.
+You can go east, west, northeast or southeast.
+The allotment is an area of garden used for growing vegetables.  This particular allotment belongs to the Lastic family.
+
+> west
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> north
+You are in the village square
+There is John Lemon, Harry Snotter, Laura Norder, Sharon Scone, Mrs Lastic and Lucy Lastic here.
+You can go south, northeast or northwest.
+The Village Square is normally the hubbub of village activity, and today is no different.
+
+> northeast
+You are in zoo entrance
+There is Zoe Koeper here.
+You can go north or southwest.
+You are standing at the entrance to the village zoo.  There is a big sign here that says "Come and See our wonderful array of animal".  Zoe Koeper is here standing by the entrance.
+
+> north
+Because Zoe is blinded, you walk straight into the zoo.
+You are in Zoo kiosk
+There is a Kiosk and a stack of Elephant masks here.
+You can go south or northeast.
+Every zoo has a kiosk where you can buy novelty items.  And this zoo is no different.
+
+> northeast
+You are in Elephant enclosure
+There is Nellie the elephant, Fence and a performing stage here.
+You can go southwest.
+The Elephant enclosure is the main attraction of the zoo.  Nellie, the Elephant, is in the enclosure which is surrounded by a wooden fence.
+
+> speak to nellie
+"Hello" you say and nellie looks at you.
+
+On seeing your giant peanut costume she gets excited and rushes towards you, crashing into the fence.
+You decide the best course of action is to run...
+You run back to the zoo entrance, where Zoe is waiting, feeling a whole lot better.
+
+"Now that's why we don't go in there wearing silly costumes!" She says.
+You are in zoo entrance
+There is Zoe Koeper here.
+You can go north or southwest.
+You are standing at the entrance to the village zoo.  There is a big sign here that says "Come and See our wonderful array of animal".  Zoe Koeper is here standing by the entrance.
+
+> speak to zoe
+"I don't know what came over me"  She says, puzzled.  One moment I was eating those nuts and wearing the face mask you gave me.  The next minute I couldn't see"
+
+
+"Perhaps I am allergic to these nuts"  She says, and then hands you the packet.
+
+> southwest
+You are in the village square
+There is John Lemon, Harry Snotter, Laura Norder, Sharon Scone, Mrs Lastic and Lucy Lastic here.
+You can go south, northeast or northwest.
+The Village Square is normally the hubbub of village activity, and today is no different.
+
+> south
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> go to shiversword's house
+You are in Shiversword's house
+You enter your own house.  
+You are in the living room
+There is mat, your cat and a bowl here.
+You can go out to street.
+You can go west or up.
+You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
+
+> up
+You are in your bedroom
+There is a bed, dresser, a mirror, clothing and book here.
+You can go down.
+You are in your own bedroom.  There is a bed and a dresser here and a staircase leading down.
+
+> remove peanut costume
+You take off the costume
+
+> wear clothing
+In the privacy of your bedroom, you put your clothes on.
+
+> down
+You descend the rickety stairs to the living room below
+You are in the living room
+There is mat, your cat and a bowl here.
+You can go out to street.
+You can go west or up.
+You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
+
+> out
+You leave the house and enter the street
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> north
+You are in the village square
+There is John Lemon, Harry Snotter, Laura Norder, Sharon Scone, Mrs Lastic and Lucy Lastic here.
+You can go south, northeast or northwest.
+The Village Square is normally the hubbub of village activity, and today is no different.
+
+> northeast
+You are in zoo entrance
+There is Zoe Koeper here.
+You can go north or southwest.
+You are standing at the entrance to the village zoo.  There is a big sign here that says "Come and See our wonderful array of animal".  Zoe Koeper is here standing by the entrance.
+
+> north
+Zoe waves you through!  "Have a nice day in there"
+You walk into the zoo.
+You are in Zoo kiosk
+There is a Kiosk and a stack of Elephant masks here.
+You can go south or northeast.
+Every zoo has a kiosk where you can buy novelty items.  And this zoo is no different.
+
+> northeast
+You are in Elephant enclosure
+There is Nellie the elephant, pile of wood and a performing stage here.
+You can go southwest.
+The Elephant enclosure is the main attraction of the zoo.  Nellie, the Elephant, is in the enclosure which is surrounded by a wooden fence.
+
+> examine pile of wood
+After a quick examination you find a piece of wood that is just small enough for you to take.
+
+> take wood
+You pick it up.
+
+> southwest
+You are in Zoo kiosk
+There is a Kiosk and a stack of Elephant masks here.
+You can go south or northeast.
+Every zoo has a kiosk where you can buy novelty items.  And this zoo is no different.
+
+> south
+You are in zoo entrance
+There is Zoe Koeper here.
+You can go north or southwest.
+You are standing at the entrance to the village zoo.  There is a big sign here that says "Come and See our wonderful array of animal".  Zoe Koeper is here standing by the entrance.
+
+> southwest
+You are in the village square
+There is John Lemon, Harry Snotter, Laura Norder, Sharon Scone, Mrs Lastic and Lucy Lastic here.
+You can go south, northeast or northwest.
+The Village Square is normally the hubbub of village activity, and today is no different.
+
+> south
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> go to shiversword's house
+You are in Shiversword's house
+You enter your own house.  
+You are in the living room
+There is mat, your cat and a bowl here.
+You can go out to street.
+You can go west or up.
+You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
+
+> west
+You are in kitchen
+There is a cheese grater, a washing machine, a kitchen cupboard, collander, an Oven and a Baking tray here.
+You can go east.
+You are in the kitchen.    There are many useful kitchen implements here.
+
+> use wood on cheese grater
+You use the wood on the cheese grater and end up with a large pile of wood shavings
+
+> take shavings
+You pick it up.
+
+> use shavings on washing machine
+You place the shavings into the washing machine and set it working,
+
+After while you end up with a soggy mass of wood pulp.
+
+> take wood pulp
+You pick it up.
+
+> use smelly socks on washing machine
+You place the smelly sock into the washing machine and set it on.  After a while the socks are clean... but very wet!
+
+> take wet socks
+You pick it up.
+
+> use wet socks on oven
+You decide that the best way to dry the socks will be to bake them in the oven for a bit!
+
+After a while, they come out nice and dry and toasty warm!
+
+You have earned a cleaning point
+
+> take clean socks
+You pick it up.
+
+> east
+You are in the living room
+There is mat, your cat and a bowl here.
+You can go out to street.
+You can go west or up.
+You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
+
+> out
+You leave the house and enter the street
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> north
+You are in the village square
+There is John Lemon, Harry Snotter, Laura Norder, Sharon Scone, Mrs Lastic and Lucy Lastic here.
+You can go south, northeast or northwest.
+The Village Square is normally the hubbub of village activity, and today is no different.
+
+> northeast
+You are in zoo entrance
+There is Zoe Koeper here.
+You can go north or southwest.
+You are standing at the entrance to the village zoo.  There is a big sign here that says "Come and See our wonderful array of animal".  Zoe Koeper is here standing by the entrance.
+
+> north
+Zoe waves you through!  "Have a nice day in there"
+You walk into the zoo.
+You are in Zoo kiosk
+There is a Kiosk and a stack of Elephant masks here.
+You can go south or northeast.
+Every zoo has a kiosk where you can buy novelty items.  And this zoo is no different.
+
+> northeast
+You are in Elephant enclosure
+There is Nellie the elephant, pile of wood and a performing stage here.
+You can go southwest.
+The Elephant enclosure is the main attraction of the zoo.  Nellie, the Elephant, is in the enclosure which is surrounded by a wooden fence.
+
+> use wood pulp on performing stage
+You lift the stage and spread the pulp underneath it.
+
+> give nuts to nellie
+You offer Nellie one of your peanuts.  On seeing the nut, she gets very excited.  She takes it from you in her trunk and jumps on to the performing stage, where she delights you by dancing a little jig.
+
+How very amusing!
+
+> lift stage
+
+You lift the stage
+Under the stage you find that the pulp has been flattened and pressed by the weight of the elephant.
+
+> take pressed wood
+You pick it up.
+
+> southwest
+You are in Zoo kiosk
+There is a Kiosk and a stack of Elephant masks here.
+You can go south or northeast.
+Every zoo has a kiosk where you can buy novelty items.  And this zoo is no different.
+
+> take elephant masks
+You take one of the elephant face masks off the pile.
+
+> south
+You are in zoo entrance
+There is Zoe Koeper here.
+You can go north or southwest.
+You are standing at the entrance to the village zoo.  There is a big sign here that says "Come and See our wonderful array of animal".  Zoe Koeper is here standing by the entrance.
+
+> southwest
+You are in the village square
+There is John Lemon, Harry Snotter, Laura Norder, Sharon Scone, Mrs Lastic and Lucy Lastic here.
+You can go south, northeast or northwest.
+The Village Square is normally the hubbub of village activity, and today is no different.
+
+> northwest
+You are in Lutes for Loot
+There is Larry the Lute and a selection of instruments here.
+You can go southeast.
+Lutes for Loot is the village music store.  It is owned by Larry the Lute, a local lad come good.  There are many types of instrumentson display here.
+
+> give cat gut (baked) to larry
+You give the cat gut to Larry
+"Thanks" he says.
+"All we need now is the pressed wood."
+
+> give pressed wood to larry
+You hand the pressed wood over.
+"Excellent.  That's just what I need"
+You have now given Larrry the Lute both the pressed wood and the baked cat gut.
+
+"Excellent" he says.  "Now for the payment.  I will make you the Lute, but I will need paying.  If you can get me 10 gold pieces, you can buy the lute."
+
+> speak to larry
+You talk to Larry
+"You need to get me ten gold pieces for the lute.
+
+And I may be able to help.  Will you deliver a package for me?"
+Will you help Larry?
+1) Yes
+2) No
+[choice] 1
+"Now I need this package delivere in person.  If you do that, then I will give you a gold piece"
+
+> southeast
+You are in the village square
+There is John Lemon, Harry Snotter, Laura Norder, Sharon Scone, Mrs Lastic and Lucy Lastic here.
+You can go south, northeast or northwest.
+The Village Square is normally the hubbub of village activity, and today is no different.
+
+> south
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> east
+You are in the allotment
+There is Nobby Lastic here.
+You can go east, west, northeast or southeast.
+The allotment is an area of garden used for growing vegetables.  This particular allotment belongs to the Lastic family.
+
+> southeast
+You are in a Pumpkin patch
+There is pumpkin pile and a compost heap here.
+You can go north, south or northwest.
+This part of the allotment is enclosed by walls.  It is set out for storing pumpkins.  There is a huge pile of pumpkins resting against the south wall  There is also a compost heap here.
+
+> take pumpkin pile
+
+You take one of the pumpkins.
+
+> north
+You are in vegetable plot
+There is a flock of Birds, Soil and a Trowel here.
+You can go north, south or west.
+The plot is nothing more than a patch of soil ploughed into rows.  There are some seeds in there but it looks like the birds have their eyes on them!
+
+> use face mask on pumpkin
+You place the face mask on the pumpkin.  There, that doesn't look too bad.  you just hope that birds are scared of elephants!
+
+> use bonnet on pumpkin
+You place the bonnet on the  pumpkin.
+Now that you have put the bonnet and the mask on the pumpkin, you have made a good, if not a bit freaky, scarecrow head.
+
+> use stick on soil
+You force the sitck firmly into the soil.  This will make a good basis for a scarecrow.
+
+> use scarecrow head on stick
+You place the scarecrow head on the stick
+
+> use scarecrow body on stick
+You place the scarecrow body onto the stick
+After adding the finishing touches, you stand back and admire your handiwork.  That has to be the most bizarre scarecrow ever.
+
+Still you hope it works.
+
+After w hile you notice that the birds have all gone.  It worked!
+
+> west
+You are in the allotment
+There is Nobby Lastic here.
+You can go east, west, northeast or southeast.
+The allotment is an area of garden used for growing vegetables.  This particular allotment belongs to the Lastic family.
+
+> speak to nobby
+You speak to Nobby
+"Excellent!" Nobby exclaims "That really worked.  How can I ver repay you"
+
+"Gold?" you suggest
+
+"ER...Okay"
+
+And he hands you 3 gold pieces
+
+> west
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> north
+You are in the village square
+There is John Lemon, Harry Snotter, Laura Norder, Sharon Scone, Mrs Lastic and Lucy Lastic here.
+You can go south, northeast or northwest.
+The Village Square is normally the hubbub of village activity, and today is no different.
+
+> give package to sharon
+You give the package to Sharon.
+"Excellent.  I have been waiting for this for ages.  I was going to pop by but I have been wasting my time waiting here to talk to Mr Lemon.
+
+In fact I can't waste my time here any longer.  I live just north of here, if you can get me an autograph from him and bring it to me then I will pay you."
+
+And with that, Sharon walks off.
+
+> northwest
+You are in Lutes for Loot
+There is Larry the Lute and a selection of instruments here.
+You can go southeast.
+Lutes for Loot is the village music store.  It is owned by Larry the Lute, a local lad come good.  There are many types of instrumentson display here.
+
+> speak to larry
+You talk to Larry
+"Oh good, you delivered the package"
+And Larry gives you a gold coin.
+
+> southeast
+You are in the village square
+There is John Lemon, Harry Snotter, Laura Norder, Mrs Lastic and Lucy Lastic here.
+You can go north, south, northeast or northwest.
+The Village Square is normally the hubbub of village activity, and today is no different.
+
+> north
+You are in Scone Cottage
+There is Sharon Scone and Birdcage here.
+You can go south.
+Scone cottage is a small house which is decorated in a stylish fashion.  Sharon Scone has obviously got style and is not afraid to show it off.
+
+> give advert to sharon
+"Oh lovely" She says.  That's just what I want!"
+And she takes the advert from you.
+
+"Here, have a gold coin!"
+
+> speak to sharon
+You speak to Sharon Scone 
+"I have another little job for you.  I'm havng a little party tonight and I need some help.  Would you like to help me out?"
+
+Will you help Sharon out?
+1) Yes
+2) No
+[choice] 1
+"Excellent.
+I am having some very important guests tonight and I need two things.  I need a musician to perform and I need some security on the door.
+
+If you can get them, there may be something in it for you!"
+
+> south
+You are in the village square
+There is John Lemon, Harry Snotter, Laura Norder, Mrs Lastic and Lucy Lastic here.
+You can go north, south, northeast or northwest.
+The Village Square is normally the hubbub of village activity, and today is no different.
+
+> speak to laura
+You speak to Laura
+You have an idea.  Laura is the law around here, and if anyone would make good security it will be her!
+
+"Excuse me Miss, owould you mind helping me out.  Sharon is having a party tonight and she is worried there may be trouble.  Could you please be security on the door?"
+
+Laura looks at you  "I have always liked you Shiversword and I am keen on keeping the peace.  I will help you out but first you have to prove yourself to me.  If you can get 6 or more cleaning points, then I will do it!"
+"Excellent!" Laura says "You have shown you are worthy of my help and so I will do as I have promised.  I will be security for tonights party!"
+
+> speak to laura
+You speak to Laura
+"Ill be there! You have my word"
+
+> speak to john lemon
+You speak to John
+You have an idea.  Sharon needs a musician for her party and John  would be ideal. 
+"Excuse me sir, would you mind playing for Sharon Scone and her VIP guests tonight"
+
+John thinks for a moment
+"Well, I am free tonight and it would be a great chance to promote my tour, but I have a problem.  My shoes are worn out.  If you can get me some nice boots, then I will perform."
+
+> give pair of boots to john lemon
+You give John the boots.  He seems thrilled!
+"These are exactly what I want.  Well done!  I will definitely play for Sharon tonight!"
+
+> north
+You are in Scone Cottage
+There is Sharon Scone and Birdcage here.
+You can go south.
+Scone cottage is a small house which is decorated in a stylish fashion.  Sharon Scone has obviously got style and is not afraid to show it off.
+
+> speak to sharon
+You speak to Sharon Scone 
+"Remember I need a musician to perform and security on the door"
+"Well done.  I see you managed to get the security and musician I needed.
+
+Well done!
+
+Here take this."
+
+And she gives you 3 gold pieces.
+"I have asked the postman to deliver something for you.
+Come back later when you have read it, because I will need you."
+
+With that you leave the cottage
+You are in the village square
+There is John Lemon, Harry Snotter, Laura Norder, Mrs Lastic and Lucy Lastic here.
+You can go north, south, northeast or northwest.
+The Village Square is normally the hubbub of village activity, and today is no different.
+
+> south
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> go to shiversword's house
+You are in Shiversword's house
+You enter your own house.  
+You are in the living room
+There is mat, your cat and a bowl here.
+You can go out to street.
+You can go west or up.
+You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
+
+> look at mat
+There is a small card on the mat
+
+> take invitation
+You pick it up.
+
+> read invitation
+You read the card.  It is an invitation to come to Sharon's Party.  Theme 'Toga Party'
+
+> up
+You are in your bedroom
+There is a bed, dresser, a mirror, book and peanut costume here.
+You can go down.
+You are in your own bedroom.  There is a bed and a dresser here and a staircase leading down.
+
+> remove clothing
+You remove your clothing
+
+> take sheet
+You take the sheet but you have messed up the bed yu made.  You lose a cleaning point.
+
+> wear sheet
+You drape the sheet around you and create a crude toga.
+
+> down
+You descend the rickety stairs to the living room below
+You are in the living room
+There is mat, your cat and a bowl here.
+You can go out to street.
+You can go west or up.
+You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
+
+> out
+You leave the house and enter the street
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> north
+You are in the village square
+There is John Lemon, Harry Snotter, Laura Norder, Mrs Lastic and Lucy Lastic here.
+You can go north, south, northeast or northwest.
+The Village Square is normally the hubbub of village activity, and today is no different.
+
+> north
+You are in Scone Cottage
+There is Sharon Scone and Birdcage here.
+You can go south.
+Scone cottage is a small house which is decorated in a stylish fashion.  Sharon Scone has obviously got style and is not afraid to show it off.
+
+> speak to sharon
+You speak to Sharon Scone 
+"Excellent" She says looking at you.  "You will make a perfect servant." The party is about to begin.  Follow me"
+Will you follow Sharon?
+1) Yes
+2) No
+[choice] 1
+You follow Sharon to the garden behind her cottage
+Sharon takes the invitation from you and gives you a tray of drinks.
+She tells you to offer her guests drinks throughout the evening.  "And be on your best behaviour as there are some very special guests!"
+When the party starts, you will have to give as many drinks to as many different people as possible.
+
+However, if Mama Shiversword appears, you won't be able to give anyone any drinks as she does not know what you have done with her best sheet.
+When you are ready to start the party, press a key
+
+
+You are in Scone Cottage
+There is Sharon Scone, Sir Lankylegs, King Arnold, Laura Norder and Birdcage here.
+You can go south.
+Scone cottage is a small house which is decorated in a stylish fashion.  Sharon Scone has obviously got style and is not afraid to show it off.
+
+> give drinks to sir lankylegs
+You give Sir Lankylegs a drink
+
+> give drinks to king arnold
+You give King Arnold a drink
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+Suddenly the people in the party change over.
+You are in Scone Cottage
+There is Sharon Scone, Sir Dwane, King Arnold, Queen Winalot, Laura Norder and Birdcage here.
+You can go south.
+Scone cottage is a small house which is decorated in a stylish fashion.  Sharon Scone has obviously got style and is not afraid to show it off.
+
+> give drinks to sir dwane
+You give Sir Dwane a drink
+
+> give drinks to queen winalot
+You give the Queen a drink
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+Suddenly, the people in the party change
+You are in Scone Cottage
+There is Sharon Scone, Sir Dwane, Marlon the Wizard, Queen Winalot, Laura Norder, Mama Shiversword and Birdcage here.
+You can go south.
+Scone cottage is a small house which is decorated in a stylish fashion.  Sharon Scone has obviously got style and is not afraid to show it off.
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+Suddenly the people in the party change.
+You are in Scone Cottage
+There is Sharon Scone, Marlon the Wizard, Laura Norder, Larry the Lute and Birdcage here.
+You can go south.
+Scone cottage is a small house which is decorated in a stylish fashion.  Sharon Scone has obviously got style and is not afraid to show it off.
+
+> give drinks to marlon
+You offer Marlon a drink
+
+> give drinks to larry the lute
+You offer Larry a drink
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+Suddenly the people in the room move.
+You are in Scone Cottage
+There is Sharon Scone, King Arnold, Laura Norder, Larry the Lute and Birdcage here.
+You can go south.
+Scone cottage is a small house which is decorated in a stylish fashion.  Sharon Scone has obviously got style and is not afraid to show it off.
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+Suddenly all the people change.
+You are in Scone Cottage
+There is Sharon Scone, Sir Lankylegs, Sir Dwane, King Arnold, Marlon the Wizard, Queen Winalot, Laura Norder, Larry the Lute, Mama Shiversword and Birdcage here.
+You can go south.
+Scone cottage is a small house which is decorated in a stylish fashion.  Sharon Scone has obviously got style and is not afraid to show it off.
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+Suddenly the people move around
+You are in Scone Cottage
+There is Sharon Scone, Sir Lankylegs, Sir Dwane, Marlon the Wizard, Laura Norder, Larry the Lute and Birdcage here.
+You can go south.
+Scone cottage is a small house which is decorated in a stylish fashion.  Sharon Scone has obviously got style and is not afraid to show it off.
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+
+> look at drinks
+It is a polished silver tray containing several cups of bubbly Grape Juice
+The party is now over.
+The guests have all gone
+
+But as Mama left, she spotted you!  And seeing what you had doen to her sheet has made her furious!
+She drags you home, and sends you to your room
+You are in your bedroom
+There is a bed, dresser, a mirror, clothing, book and peanut costume here.
+You can go down.
+You are in your own bedroom.  There is a bed and a dresser here and a staircase leading down.
+
+> use sheet on bed
+You throw the sheet back onto the bed
+
+> make bed
+You quickly arrange the sheet tidily on the bed.
+
+> wear clothing
+In the privacy of your bedroom, you put your clothes on.
+
+> down
+You descend the rickety stairs to the living room below
+You are in the living room
+There is mat, your cat and a bowl here.
+You can go out to street.
+You can go west or up.
+You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
+
+> out
+You leave the house and enter the street
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> north
+You are in the village square
+There is Harry Snotter, Laura Norder, Mrs Lastic and Lucy Lastic here.
+You can go north, south, northeast or northwest.
+The Village Square is normally the hubbub of village activity, and today is no different.
+
+> north
+You are in Scone Cottage
+There is Sharon Scone, empty cage and canary here.
+You can go south.
+Scone cottage is a small house which is decorated in a stylish fashion.  Sharon Scone has obviously got style and is not afraid to show it off.
+
+> speak to sharon
+You speak to Sharon Scone 
+"Thank you for your hard work at the party Shiversword" Sharon says "Here is your reward"
+
+And she gives you 2 gold pieces.
+"My guests were impressed by you, and one of them asked me to give you this"
+And she hands you another gold coin
+You managed to serve 6 drinks.  That is impressive.  Here I have something for you.
+I once dated a famous singer "Taxi Cab Willie".  HE ...er..... left his clothes here once.  I am not going to use it so I am going to give it to you.
+
+> south
+You are in the village square
+There is Harry Snotter, Laura Norder, Mrs Lastic and Lucy Lastic here.
+You can go north, south, northeast or northwest.
+The Village Square is normally the hubbub of village activity, and today is no different.
+
+> northwest
+You are in Lutes for Loot
+There is John Lemon, Larry the Lute and a selection of instruments here.
+You can go southeast.
+Lutes for Loot is the village music store.  It is owned by Larry the Lute, a local lad come good.  There are many types of instrumentson display here.
+
+> speak to larry
+You talk to Larry
+"Don't forget to get me ten gold pieces"
+Excellent.  You have got the money I need.
+Larry goes out to the back and gets your lute.
+
+> take lute
+You pick it up.
+
+> clean boots
+Using your sleave and a bit of spit, you polish John's boots.
+
+> southeast
+You are in the village square
+There is Harry Snotter, Laura Norder, Mrs Lastic and Lucy Lastic here.
+You can go north, south, northeast or northwest.
+The Village Square is normally the hubbub of village activity, and today is no different.
+
+> south
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> go to shiversword's house
+You are in Shiversword's house
+You enter your own house.  
+You are in the living room
+There is mat, your cat and a bowl here.
+You can go out to street.
+You can go west or up.
+You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
+
+> west
+You are in kitchen
+There is Mama Shiversword, a cheese grater, a washing machine, a kitchen cupboard, collander, an Oven and a Baking tray here.
+You can go east.
+You are in the kitchen.    There are many useful kitchen implements here.
+
+> speak to mama
+You speak to your Mama
+She ignores you.  You must have upset her! Perhaps you can find something to cheer her up.
+You show your Mama your new lute, but even that doesn't cheer her up
+
+> east
+You are in the living room
+There is mat, your cat and a bowl here.
+You can go out to street.
+You can go west or up.
+You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
+
+> out
+You leave the house and enter the street
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> south
+You are in Store
+There is McNasty the store owner and the shop's Stock here.
+You can go north.
+The general store is where you can buy anything you want- unless it is closed.  There is plenty of stock for you to examine.  The owner of the store is McNasty.
+
+> examine stock
+You have a look around to see if there is anything here that your Mama would like.  Then you spot a nice box of chocolates.
+
+> buy chocolates
+You buy the chocolates
+
+> give clean socks to mcnasty
+You hand the clean socks over to McNasty. You tell him you found them in the street after a strange peanut monster ran past and threw them away.
+
+He seemed to believe you.
+
+"Thank you for cleaning them"
+You gain a cleaning point
+
+> north
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> go to shiversword's house
+You are in Shiversword's house
+You enter your own house.  
+You are in the living room
+There is mat, your cat and a bowl here.
+You can go out to street.
+You can go west or up.
+You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
+
+> west
+You are in kitchen
+There is Mama Shiversword, a cheese grater, a washing machine, a kitchen cupboard, collander, an Oven and a Baking tray here.
+You can go east.
+You are in the kitchen.    There are many useful kitchen implements here.
+
+> give chocolates to mama
+You give the chocolates to Mama.  You also give her your most sorrowful puppy dog eyes.
+
+"I'mm Sooowwwwwyy" you say.
+Mama looks at you and hugs you.  "My boy.  I am not mad at you now."
+
+> east
+You are in the living room
+There is mat, your cat and a bowl here.
+You can go out to street.
+You can go west or up.
+You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
+
+> out
+You leave the house and enter the street
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> east
+You are in the allotment
+There is Nobby Lastic here.
+You can go east, west, northeast or southeast.
+The allotment is an area of garden used for growing vegetables.  This particular allotment belongs to the Lastic family.
+
+> southeast
+You are in a Pumpkin patch
+There is pumpkin pile and a compost heap here.
+You can go north, south or northwest.
+This part of the allotment is enclosed by walls.  It is set out for storing pumpkins.  There is a huge pile of pumpkins resting against the south wall  There is also a compost heap here.
+
+> south
+You are in yard
+There is a window and a pile of straw here.
+You can go north.
+You are in a small walled yard that seems to back onto the store.  There is a wndow here in the east wll which probaly looks into the store.
+
+> take straw
+
+You take a large amount of straw,
+
+> north
+You are in a Pumpkin patch
+There is pumpkin pile and a compost heap here.
+You can go north, south or northwest.
+This part of the allotment is enclosed by walls.  It is set out for storing pumpkins.  There is a huge pile of pumpkins resting against the south wall  There is also a compost heap here.
+
+> take pumpkin pile
+
+You take one of the pumpkins.
+
+> north
+You are in vegetable plot
+There is Soil, the scarecrow and a Trowel here.
+You can go north, south or west.
+The plot is nothing more than a patch of soil ploughed into rows.  There are some seeds in there but it looks like the birds have their eyes on them!
+
+> take trowel
+You pick it up.
+
+> use trowel on pumpkin
+Using the trowel you dig into the fleshy pumpkin.  Eventually you manage to get some seeds.
+
+However, while you were doin it, the blade broke inside the pumpkin and all you are left with is the handle.
+
+> south
+You are in a Pumpkin patch
+There is pumpkin pile and a compost heap here.
+You can go north, south or northwest.
+This part of the allotment is enclosed by walls.  It is set out for storing pumpkins.  There is a huge pile of pumpkins resting against the south wall  There is also a compost heap here.
+
+> northwest
+You are in the allotment
+There is Nobby Lastic here.
+You can go east, west, northeast or southeast.
+The allotment is an area of garden used for growing vegetables.  This particular allotment belongs to the Lastic family.
+
+> west
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> north
+You are in the village square
+There is Harry Snotter, Laura Norder, Mrs Lastic and Lucy Lastic here.
+You can go north, south, northeast or northwest.
+The Village Square is normally the hubbub of village activity, and today is no different.
+
+> north
+You are in Scone Cottage
+There is Sharon Scone, empty cage and canary here.
+You can go south.
+Scone cottage is a small house which is decorated in a stylish fashion.  Sharon Scone has obviously got style and is not afraid to show it off.
+
+> use broken handle on empty cage
+You place the broken handle into the cage, affixing it to the bars.  That will make a sufficient replacement perch
+
+> use pumpkin seeds on empty cage
+You pour the pumpkin seeds into the bowl in the cage.
+
+> use nuts on empty cage
+You pour the nuts into the bowl in the cage
+
+> use straw on empty cage
+You scatter some of your fresh straw into the bottom of the cage
+
+> speak to canary
+You try to coax the bird into the cage.  After a while, the canary flies back into the cage.
+"Oh thank you for doing that" Sharon says.
+You have gained another cleaning point.
+
+> south
+You are in the village square
+There is Harry Snotter, Laura Norder, Mrs Lastic and Lucy Lastic here.
+You can go north, south, northeast or northwest.
+The Village Square is normally the hubbub of village activity, and today is no different.
+
+> south
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> go to shiversword's house
+You are in Shiversword's house
+You enter your own house.  
+You are in the living room
+There is mat, your cat and a bowl here.
+You can go out to street.
+You can go west or up.
+You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
+
+> up
+You are in your bedroom
+There is a bed, a sheet, dresser, a mirror, book and peanut costume here.
+You can go down.
+You are in your own bedroom.  There is a bed and a dresser here and a staircase leading down.
+
+> remove clothing
+You remove your clothing
+
+> wear tuxedo
+You put on the tuxedo
+
+> down
+You descend the rickety stairs to the living room below
+You are in the living room
+There is mat, your cat and a bowl here.
+You can go out to street.
+You can go west or up.
+You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
+
+> out
+You leave the house and enter the street
+You are in the street
+There is Mr P Knutt the peanut seller and a Bin here.
+You can go north, south or east.
+You can go to Shiversword's house.
+The main village street leads to the village square.  To the south is the store.
+
+> north
+You are in the village square
+There is Harry Snotter, Laura Norder, Mrs Lastic and Lucy Lastic here.
+You can go north, south, northeast or northwest.
+The Village Square is normally the hubbub of village activity, and today is no different.
+
+> northwest
+You are in Lutes for Loot
+There is John Lemon, Larry the Lute and a selection of instruments here.
+You can go southeast.
+Lutes for Loot is the village music store.  It is owned by Larry the Lute, a local lad come good.  There are many types of instrumentson display here.
+
+> speak to john lemon
+You speak to John
+"I had a good time at the party.  I was very good, you know!.
+
+But look at my boots! They are dirty!"
+"I see you have got a lute now.  Excellent.  You know what, Shiversword.  You and I make a great team.
+
+Would you like to join me on my tour?  I could teach you all about music.  What do you say?
+
+"Yes please"
+
+"Excellent. Put your best clothes on, finish up all your business and lets go!"
+
+ Now Are you ready to go?
+Are you ready to leave with John and become a world famous bard?
+1) Yes
+2) No
+[choice] 1
+The End
+
+With your lute in your hand, you follow John on tour.
+You leave behind the town taht you once loved and knew.
+You are happy that you were able to leave on good terms with your Mama.
+GOLD STAR!
+
+
+You were able to complete all the cleaning tasks 
+ GOLD STAR!
+
+
+On tour, the crowd love you.  Your style and talent shine through.  John is very proud!  
+GOLD STAR!
+
+
+
+
+Whilst on tour, John becomes ill.
+
+On his death bed, he tells you a story...
+"I have heard of a legend.  There is a Magic Harp, hidden in the kingdom.  I have a map."
+
+As he hands you the map, he dies.
+
+TO BE CONTINUED.......
+[runner] turns=351 leftover=0 running=false WON=YES

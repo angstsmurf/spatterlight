@@ -1,0 +1,283 @@
+
+The Devil's Bargain, vBeta 1.0 staringmonkey
+
+ 
+ 
+ 
+ 
+  Presenting... 
+ 
+
+
+ 
+ 
+ 
+  The Credits
+
+  (As themselves) 
+
+
+ 
+ 
+ 
+   The Devil's Bargain  
+ 
+(You do not have permission to make fun of this title.) 
+
+(Your doing it anyway aren't you?) 
+
+(Damn you.) 
+
+
+
+   Directed By:  
+
+staringmonkey 
+
+ Lead Design:  
+
+staringmonkey 
+
+ Character Design:  
+
+staringmonkey 
+
+ Humor Design:  
+
+1 Norweigan Red Llama 
+
+ Special Effects:  
+
+22 Arabian Jumping Llamas 
+
+
+ 
+ 
+ 
+  Dedicated to: 
+
+ Graham Chapman  (Stone F**king Dead)
+
+ Terry Gilliam
+
+ Eric Idle
+
+ John Cleese
+
+ Terry Jones
+
+ Micheal Palin 
+
+ 
+ What is your name? 
+ 
+
+ 
+ How is your quest? (to seek the holy grail?) 
+ 
+
+ 
+ What is you favorite color? 
+ 
+
+
+ 
+ 
+ 
+ So then your name is Petter...  What the hell kind of name is Petter?  Must be Belgian.  And your quest is "to rock".  That's kind of a mundane quest, don't you think.  Wouldn't it be better to have a more, I don't know, perky quest.  Thats not really even a quest is it.  That's like saying "My quest is Bass Fishing!"  And I'll kill anyone who tries to stop my Bass Fishing.  It just doesn't work, oh well.  And your favorite color is blue.  Why the hell would you like the color blue. Well, your a looney, I'll give you that, but oh well.
+
+
+
+    
+ 
+ 
+
+Welcome to The Devil's Bargain.  In this text roleplaying game you portray a common thug living life on the streets.  You can play this character in many ways:  a thief, a nice guy, a drugE, or something else.  Whatever you choose I'm sure you will take full advantage of your resources as you try to build your fortune in this game. 
+
+Press any key to continue...  
+
+
+
+
+Objective:  Buy a Guitar (A $1000 Ibanez) from the Pawn Shop on Maple Avenue so you can start an amazing band that will rule the world with it's amazing sound!
+
+Losing:  Their are numerous ways to lose, dying or being thrown in jail without bail money are the most common. 
+
+Press any key to continue...  
+
+
+
+ 
+
+Tips:
+ Red = A Character
+ Blue = A Place
+ Green = An Object
+
+Press any key to begin playing...  
+  
+
+
+
+> north
+The corner of Arc and Stricker is a bustling corner with no distinguishing features except the prescence of a  Phone Booth .  To the north is  Arc Drive3 , and to the south is  Arc Drive2 .  To the east and west are  stricker street3  and  stricker street2 , respectively.
+
+> west
+This street is a calm side road with very little traffic.  Too the north is  The Police Station  and to the south is  The Pawn Shop .  To the east is  Arc and Stricker  and to the west is  Stricker Street1 .
+
+> west
+This street is fairly busy, mainly due to the  1st National Church of International Things  to the north, but also due to  Laser's Mini-Mall  to the south.  To the east is  Stricker Street1 .
+
+> south
+Laser's Mini-Mall is a medium sized one-floor inclosed building.  Several small shops have their home here.  Among these are:   Floyd's Pet Shop ,  Super Electronics , and lots of vacant stores.  You are currently in the center court of the mall.  Here their are multiple people walking about.  One of the more interesting of these people is the  Self-Taught Idiot .  Also interesting here is the  Insane Apocalypse Preacher .  Your only exit is onto Stricker Street1.
+
+> go to floyd's pet shop
+The inside of the pet shop is quite dirty and has a rather unpleasent odor about it.  The first thing that you notice is the complete lack of animals.  For the most part only empty cages are here.  The only animal still here is a  Parrot .  The owner of the shop as denoted by his nametag,  Floyd , stands behind the counter waiting to assist you.
+
+> speak to floyd
+What can I do for you today, sir?
+1) I would like to register a complaint.
+2) Where are all the other animals?
+3) Just looking.
+[choice] 1
+About what?
+1) This parrot that I bought here .
+2) The condition of your store.
+3) The smell in this store.
+4) Your beard, it offends me.
+[choice] 3
+What smell.  Describe it.
+1) It smells like a sewage plant.
+2) It smells like rotton bananas.
+3) It smells like a dead rabbit.
+4) It smells like a rotting corpse.
+5) It smells like a half-eaten spleen.
+[choice] 5
+"I'm sorry, please don't tell anyone.  Oh the horror.  I'm so sorry.  Here take this, but please don't tell anyone."
+
+> out
+Laser's Mini-Mall is a medium sized one-floor inclosed building.  Several small shops have their home here.  Among these are:   Floyd's Pet Shop ,  Super Electronics , and lots of vacant stores.  You are currently in the center court of the mall.  Here their are multiple people walking about.  One of the more interesting of these people is the  Self-Taught Idiot .  Also interesting here is the  Insane Apocalypse Preacher .  Your only exit is onto Stricker Street1.
+
+> north
+This street is fairly busy, mainly due to the  1st National Church of International Things  to the north, but also due to  Laser's Mini-Mall  to the south.  To the east is  Stricker Street1 .
+
+> north
+This is a very beautiful church with a large vaulted ceiling.  It is a new age revolutionary kind of church.  A man in a black monk-like-robe greets you at the door.  He throws you against the wall searches you, takes any weapons you have, and rushes you along.  You have only seconds to glance at the amazing architecture, before you are rushed into the main sanctuary of the church.
+
+
+ This is the main section of the church it contains rows and rows of pews.  At the front sits a computer with it's screen on.  The sheer size of the church is astounding.  A  Weeping Man  is sitting near the front.  Other people are milling around they seem totally uninterested in you.  Off to the right side you notice someone who might have been a  Friend  of yours a while back.  As you enter the sanctuary a  Priest  comes up to you.
+
+What can we do for you here, my son.
+1) I would like to make a confession.
+2) I would like to apply for a job here.
+3) I need to use your internet access.
+4) I would like to sell you some encyclopedias.
+5) I was wondering if the church would give me a loan.
+6) Bugger off.
+[choice] 2
+"Sorry we don't need a janitor."
+
+> take holy computer
+What will you do with the computer?
+1) Check my stocks.
+2) Look up pornographical sites.
+3) Write a novel.
+4) Draw a monkey in Paint (©1999 Microsoft, please don't sue me!).
+[choice] 4
+Congratulations, your drawing is superb!  The priest even gives you a printout of it.  If only you could sell it.
+
+> south
+
+ You are rushed back out of the church.  The monk who assaulted you when you came in stands against one wall, he gives you a friendly nod as you are rushed out.
+
+This street is fairly busy, mainly due to the  1st National Church of International Things  to the north, but also due to  Laser's Mini-Mall  to the south.  To the east is  Stricker Street1 .
+
+> east
+This street is a calm side road with very little traffic.  Too the north is  The Police Station  and to the south is  The Pawn Shop .  To the east is  Arc and Stricker  and to the west is  Stricker Street1 .
+
+> north
+You are in the Police Station Lobby.  A wooden divider seperates the officers on duty from anyone who might come into the office.   Police Officer: Maston Thrust  is stands behind the counter writing a  Report  of some type.  A  Pop Machine  stands in one corner and plants decorate the room.  A door to the West is labeled  Restrooms .  A door to the North leads  Behind the Counter .  The door to the east takes you to  Arc Drive3  and the door to the south takes you to  stricker street2 .
+
+> north
+Behind the Counter of the Police Lobby are several Police Officers at desks.   Officer Derek Peterson  sits at a desk typing a report on his Mac.  Another Officer,  Mary Jenkins  sits at a desk spinning a pencil in his fingers.  On one side of the room is a  Blackboard .  A door to the east is labeled  Captain Herris's Office .  Another door to the north is labeled  Cells .  Yet a third door to the west is labeled  Meeting Room .
+
+> east
+The inside of the captain's office is luxoriously furnished.  It appears that the captain is fairly well off.  The captain's  Desk  is here.  A  Painting  hangs on the wall.  The door leads back out to  The Officer's Section .
+
+> take photos
+You take the photos out of the desk.
+
+> i
+You are carrying:
+map
+police pass
+monkey drawing
+photos
+
+> west
+Behind the Counter of the Police Lobby are several Police Officers at desks.   Officer Derek Peterson  sits at a desk typing a report on his Mac.  Another Officer,  Mary Jenkins  sits at a desk spinning a pencil in his fingers.  On one side of the room is a  Blackboard .  A door to the east is labeled  Captain Herris's Office .  Another door to the north is labeled  Cells .  Yet a third door to the west is labeled  Meeting Room .
+
+> south
+You are in the Police Station Lobby.  A wooden divider seperates the officers on duty from anyone who might come into the office.   Police Officer: Maston Thrust  is stands behind the counter writing a  Report  of some type.  A  Pop Machine  stands in one corner and plants decorate the room.  A door to the West is labeled  Restrooms .  A door to the North leads  Behind the Counter .  The door to the east takes you to  Arc Drive3  and the door to the south takes you to  stricker street2 .
+
+> speak to police officer: maston thrust
+Where the hell did you get those photos!?  I will give you 800 Dollars if you give them to me.  What do you say.  Will you give me a break.
+1) Yes
+2) No
+[choice] yes
+What can I do for you today?
+1) I would like to report a drug dealer.
+2) I would like to turn myself in for murder.
+3) I was wondering if you would like to go back to my place...
+4) I was hoping that you would sell me that gun at your waist.
+5) I would like to rip you open and drink your blood.
+6) Die.
+[choice] 2
+"Yeah, ha ha... real funny punk.  Get the hell out of here."
+
+> east
+This street is very plain and the traffic isn't very heavy.  To the south is the corner of  Arc and Stricker .  To the east and west are  87th National Bank  and  The Police Station , respectively.
+
+> east
+The lobby of 87th National Bank is decorated in shades of gold and tan.  Several Tellers stand in their booths ready to assist you.   Teller 1  is helping an  Elderly Woman ,  Teller 2  is doing her nails, the spot where Teller 3 should be is closed and  Teller 4  is counting out money.  A door to the east leads behind the booths to the  Teller Area , a  Armed Guard  blocks the entrance.  Their are two exits, south to  Stricker Street3 , and west to Arc Drive3.
+
+> speak to teller 1
+Where did you get that amazing monkey drawing?  I will give you 850 Dollars for it.  Will you sell it to me.
+1) Yes
+2) No
+[choice] yes
+
+> west
+This street is very plain and the traffic isn't very heavy.  To the south is the corner of  Arc and Stricker .  To the east and west are  87th National Bank  and  The Police Station , respectively.
+
+> south
+The corner of Arc and Stricker is a bustling corner with no distinguishing features except the prescence of a  Phone Booth .  To the north is  Arc Drive3 , and to the south is  Arc Drive2 .  To the east and west are  stricker street3  and  stricker street2 , respectively.
+
+> south
+
+> west
+The inside of the pawn shop is dank and dirty.  The  Owner  stands behind a counter containing useless trinkets.  The only item of note is a  9mm Pistol .  As well as a  Lighter .  Their is also an incredibly nice Ibanez  Guitar  setting in one corner.  Besides the exit that you entered through, which leads east back to  Arc Drive2  or north to  stricker street2  or south to the local  Card Shop .  Their is also a door which leads to  The Back Room  of the Pawn Shop.
+
+> take guitar
+The Guitar will set you back 1000 dollars.  Are you sure you want it?
+1) Yes
+2) No
+[choice] yes
+The owner of the shop reaches in the glass case and pulls out a beatiful Les paul guitar.
+
+
+ 
+ 
+
+ 
+Good buy, now you can start a band which will rule the world with it's amazing sound. 
+
+You have won The Devil's Bargain created by staringmonkey. 
+
+If you have any comments about this game send them to staringmonkey@hotmail.com 
+
+Thank you for playing
+ 
+
+
+[runner] turns=28 leftover=0 running=false WON=YES

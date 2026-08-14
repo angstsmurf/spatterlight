@@ -1,0 +1,533 @@
+
+Spectrum, v1.1 Mocha Man
+
+
+
+ Welcome to spectrum!.
+Spectrum is an interactive fiction game where you walk through a maze collecting treasures and dropping them off at a certain place. But there is more to it than that... as you progress in the game more and more of another conflict reveals itself...
+
+During gameplay, type "help" for the treasure hunt tips and "credits" for credits.
+
+From here, type "start" to start a new game.
+
+> help
+TIP-- Make a map as you go.
+
+Type "north", "southwest", etc. Or click the compass buttons to navigate.
+
+Your goal is to pick up all the treasures you find (it will tell you if you pick up a treasure) and deposit them in the safe room where you start.
+
+You can type "look at" followed by the object name to learn more about an object.
+
+If you see anything that can be picked up, PICK IT UP! It is either a key or a treasure.
+
+There are one or two places where you can type "hint" to get a small hint, but don't count on 100 percent guidance.
+
+> credits
+- Programming: Mocha Man
+- Software: QDK
+     www.axeuk.com/quest
+
+NOTE: There are not any cheats for this game. No. None. Of course not. I'm not nervous. Do I look nervous? No cheats. Nada. heh heh...
+
+> start
+Happy hunting!
+You are safely in the safe room.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+Welcome to the safe room. Here, you will deposit all eight treasures you find in the rooms around you. Once all eight treasues are in this room, exit it and then re-enter it. You can then move out of the maze to the next part.
+
+> n
+You have found yourself in the Teal Room.
+There is the Shimmer Key here.
+You can go south or west.
+The teal room has a glass floor. Underneath you can see a shallow pond full of tropical fish. The walls are damp and made of a clouded cyan crystal.
+
+> look at shimmer key
+The glimmer key is mostly white, with several quartz crystals set into the handle. The tip of the key is gold.
+
+> take shimmer key
+The glimmer key sparkles happily as it slips into your pocket.
+
+> s
+You are safely in the safe room.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+Welcome to the safe room. Here, you will deposit all eight treasures you find in the rooms around you. Once all eight treasues are in this room, exit it and then re-enter it. You can then move out of the maze to the next part.
+
+> e
+Location Magenta Room.
+There is Gecko Key here.
+You can go north, south, east or west.
+In the magenta room, everything is smooth but not shiny, made out of some sort of marble or granite. There is a warm light radiating off of everything.
+
+> take gecko key
+Took the gecko key.
+
+> w
+You are safely in the safe room.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+Welcome to the safe room. Here, you will deposit all eight treasures you find in the rooms around you. Once all eight treasues are in this room, exit it and then re-enter it. You can then move out of the maze to the next part.
+
+> s
+Here is the Peach room.
+There is a discarded Flashlight sitting on the path here.
+You can go north, south, east or west.
+The peach room is brilliantly lit and has orange walls with green vines snaking up them. You stand on a brick path.
+
+> take flashlight
+You pocket the flashlight.
+
+> w
+You are in the Jet Room.
+You can go north, south, east, west or northeast.
+The jet room is all varying shades of grey and black. The hard, flat walls form a perfect cube and there are deep, unrecognisable carvings in some other language on the left wall, full of angles and brackets.
+
+> s
+Welcome to the Tan Room.
+There is a small Shell key, sitting out of place here.
+You can go north.
+The door to the tan room reveals a vast, giant desert that you can not see the end of. Behind you, the doorframe seems to be standing in the middle of nowhere, balancing on its own. When you open it you can see the jet room where you came from. There are cactuses and cliffs, and an eagle calls in the distance.
+
+> walk desert
+do you REALLY want to walk the desert?
+
+> yes
+Well tough. You can't commit suicide in this game.
+
+> take shell
+You carefully slip the key into your pocket.
+
+> n
+You are in the Jet Room.
+You can go north, south, east, west or northeast.
+The jet room is all varying shades of grey and black. The hard, flat walls form a perfect cube and there are deep, unrecognisable carvings in some other language on the left wall, full of angles and brackets.
+
+> w
+This is the Jade room.
+You can go south or east.
+Here in the jade room, it is cold and misty. You appear to be in an outdoor japanese garden on a very foggy, overcast day. You can not see more than five feet ahead of you and can hear a stream somewhere nearby.
+
+> s
+You are careful not to break the shell key as you unlock the door with it.
+You step into the Aqua room.
+There is an expensive platinum waterproof Watch here.
+You can go north.
+As you step into the aqua room, you realise that you are completely underwater. As you step through the door, an air bubble forms around you, keeping you dry and giving you a few minutes' worth of air. Tropical fish swim around you happily and you feel wet sand under your feet, and there is a flute nearby, half buried in the sand. The ceiling is made of glass.
+
+> take watch
+You buckle the watch onto your wrist, where it gleams brightly.
+You picked up a treasure!!
+
+> take flute
+You hold on to the instrument tightly.
+
+> n
+The shell key slips into the lock. You are careful not to break it as you turn it.
+This is the Jade room.
+You can go south or east.
+Here in the jade room, it is cold and misty. You appear to be in an outdoor japanese garden on a very foggy, overcast day. You can not see more than five feet ahead of you and can hear a stream somewhere nearby.
+
+> e
+You are in the Jet Room.
+You can go north, south, east, west or northeast.
+The jet room is all varying shades of grey and black. The hard, flat walls form a perfect cube and there are deep, unrecognisable carvings in some other language on the left wall, full of angles and brackets.
+
+> e
+Here is the Peach room.
+You can go north, south, east or west.
+The peach room is brilliantly lit and has orange walls with green vines snaking up them. You stand on a brick path.
+
+> e
+You walk quetly into the Mahogany room.
+You can go north, south, east, west or northwest.
+The mahogany room is a perfect cube and each surface is made of fine mahogany wood, almost red, polished until you can clearly see your reflection (and your fingerprints). There is bright, happy sunlight streaming in through a large glass window that looks out on the safe room.
+
+> s
+This is the Maroon Room.
+There is a Screwdriver lying on the ground here.
+You can go north, east or west.
+Welcome to the maroon room. Red carpet is soft under your feet. You can see potted palm trees all around you and there are expensive dark red couches arranged in a lounge-like circle. You are walking on stone cobbles, warm from the sun. It is nighttime in this room. When you look up through the hot air, you see a crescent moon in the clear sky.
+
+> take screwdriver
+You slip the screwdriver into your back pocket.
+
+> n
+You walk quetly into the Mahogany room.
+You can go north, south, east, west or northwest.
+The mahogany room is a perfect cube and each surface is made of fine mahogany wood, almost red, polished until you can clearly see your reflection (and your fingerprints). There is bright, happy sunlight streaming in through a large glass window that looks out on the safe room.
+
+> e
+Here you find the Blue Room.
+There is the Sky Key sitting on the ice here.
+You can go north, south, east or west.
+The first thing you step on is a piece of floating ice that supports your weight, bobbing on a frigid pond. You get across by hopping from one island to another. Along the edges of the room, in front of the ice walls, stand small penguins watching you in awe. You can see your breath, but you can also see the magnificent display of northern lights off in the distance.
+
+> take sky key
+You slip the sky key into a safe place in your pocket.
+
+> n
+This here is the Orange Room.
+You can go south, east or west.
+You are in a small dining room, with a long table laden with a giant feast. The room is lit with candlelight and there is no one else in sight. A cuckoo clock rests next to a flowerpot on the wall nearest you.
+
+> x feast
+The feast has turkey, mashed potatoes, stuffing, yams, gravy, cranberry sauce, and cider. There is also a large salad. Upon tasting some of the food you discover that it is absolutely delicious.
+
+> e
+ Blank Room.
+There is a beautiful Emerald sitting on the ground here.
+You can go north, south, east or west.
+The blank room is bright white but not like it should be... you can not see any walls or floor. You're walking on white and you see white. You can even hear white. The only object that is not white is a small metal grate set into the floor (or where the floor should be).
+
+> take emerald
+You unscrew the grate to remove it, and then pick it up.
+You got a treasure!
+
+> n
+Here you find the Rose Room.
+You can go north, south or east.
+Soft pink light illuminates a small room filled with various-sized containing various-sized fish. There is a small clock ticking on the far wall.
+
+> e
+You walk into the Pine Room.
+There is the Stone Key sitting heavily on the path. here.
+You can go north, south or west.
+The pine room has a deep green carpet on the ground. The only light is moonlight cast in through a small window on the right. A small shrine sits in front of the window, where there is insense burning slowly.
+
+> take stone key
+You slip it into your pocket, which you hope can take the weight.
+
+> n
+You step into the Slate Room.
+You can go north, south or west.
+The slate room is rather large. There are whirring machines all around you, illuminated by harsh white light. Sparks are flying from one machine while others have conveyor belts and buttons and levers. The commotion is almost unbearable. Everything is made out of hard, cold steel, and it would be easy to get lost here. There is a blue crystal door to the north, seeming out of place.
+
+> n
+The sky key fades into matching the lock and dissappears. Soon, you hear a click and the key materializes in your pocket.
+This is the interior of the Indigo Room.
+There is a brilliant Opal sitting on the ground here.
+You can go south or west.
+The indigo room has a walkway across it, probably made out of blue crystal, which is suspended about four hundred feet above a roaring deep blue sea. A sharp wind blows and the nighttime sky is lit with shooting stars.
+
+> take opal
+Your opal gleams, looking like a miniature laser show, as it slips into your pocket.
+You picked up a treasure!
+
+> s
+You step into the Slate Room.
+You can go north, south or west.
+The slate room is rather large. There are whirring machines all around you, illuminated by harsh white light. Sparks are flying from one machine while others have conveyor belts and buttons and levers. The commotion is almost unbearable. Everything is made out of hard, cold steel, and it would be easy to get lost here. There is a blue crystal door to the north, seeming out of place.
+
+> s
+You walk into the Pine Room.
+You can go north, south or west.
+The pine room has a deep green carpet on the ground. The only light is moonlight cast in through a small window on the right. A small shrine sits in front of the window, where there is insense burning slowly.
+
+> s
+This is the Mauve Room.
+You can go north, south or west.
+The mauve room is peaceful and warm. There is dim torchlight over everything, and around you you can see various rivers of what looks like molasses running down carved rivets in the walls slowly. The liquid is very hot.
+
+> s
+Your footsteps echo in the NE Grey Cavern.
+You can go north, south or west.
+This is part of the grey cavern, a large warehouse-like room with bare concrete walls, ceiling, and floor. There are large sturdy metal doors seperating it from the other rooms.
+
+> s
+Your footsteps continue to echo in the SE Grey Cavern.
+There is a Titanium Sword glistening on the ground here.
+You can go north or west.
+This is part of the grey cavern, a large warehouse-like room with bare concrete walls, ceiling, and floor. There are large sturdy metal doors seperating it from the other rooms.
+
+> flip switch
+The switch now faces to the left. You can hear the doors out of the cavern unlatch.
+
+> take titanium sword
+You unlock the chain holding it to the wall and slip in into its sheath.
+You picked up a treasure!
+
+> w
+Your footsteps echo here in the SW Grey Cavern.
+There is some charred remains of a woodwind instrument here.
+You can go north, east or west.
+This is part of the grey cavern, a large warehouse-like room with bare concrete walls, ceiling, and floor. There are large sturdy metal doors seperating it from the other rooms.
+
+In this section of the grey cavern something has been going on. In front of you are the remains of some sort of woodwind instrument and signs of something violent.
+
+> look at remains
+They are just bits and pieces of what looks like maybe a clarinet or something. There are large chunks missing out of the concrete nearby and the activity is recent.
+
+> n
+Here you find the NW Grey Cavern.
+You can go north, south, east or west.
+This is part of the grey cavern, a large warehouse-like room with bare concrete walls, ceiling, and floor. There are large sturdy metal doors seperating it from the other rooms.
+
+> w
+Here you find the Blue Room.
+You can go north, south, east or west.
+The first thing you step on is a piece of floating ice that supports your weight, bobbing on a frigid pond. You get across by hopping from one island to another. Along the edges of the room, in front of the ice walls, stand small penguins watching you in awe. You can see your breath, but you can also see the magnificent display of northern lights off in the distance.
+
+> w
+You walk quetly into the Mahogany room.
+You can go north, south, east, west or northwest.
+The mahogany room is a perfect cube and each surface is made of fine mahogany wood, almost red, polished until you can clearly see your reflection (and your fingerprints). There is bright, happy sunlight streaming in through a large glass window that looks out on the safe room.
+
+> nw
+You are safely in the safe room.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+Welcome to the safe room. Here, you will deposit all eight treasures you find in the rooms around you. Once all eight treasues are in this room, exit it and then re-enter it. You can then move out of the maze to the next part.
+
+> ne
+Here is the Lime Room.
+You can go south, east, west or southwest.
+In the lime room there are lush tropical plants on every surface except for a small pathway winding through them. It is humid here and full of butterflies. The walls appear to be made of light brown stone with bright green moss covering most of them.
+
+> e
+Used the gecko key to get through the gate.
+You have entered the Silver Room.
+There is a gold bar gleaming brightly here.
+You can go north or west.
+The silver room has mirrors on every surface. Try not to bump into anything!
+
+> take gold bar
+The gold bar is now weighing down your pockets. You collected a treasure!
+
+> n
+You are in a cavernous Yellow Room.
+You can go north or east.
+This room has a variety of different kinds of canaries fluttering about the room, perching in the lemon trees and avoiding the beehives. The sound of the animals is annoying but tolerable.
+
+> e
+You stuble into the White Room.
+You can go north, south, east or west.
+You are blinded by the sheer whiteness of every bland surface around you. The only relief from the color scheme is a golden keyhole on the far wall. There is also a small peice of paper that, upon further examination, reveals itself to be a peice of sheet music.
+
+> take music
+You fold up the music and pocket it.
+
+> n
+You step into the nothing of the Eraser room.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+Around you, you see nothing. Void. There is no floor, but before you begin to fall a HUGE gust of wind scoops you up and begins to push you further and further up into the air... The door you came through dwindles away below you. Suddenly, the wind stops, and you start falling and land where you least expected...
+
+> n
+You are safely in the safe room.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+Welcome to the safe room. Here, you will deposit all eight treasures you find in the rooms around you. Once all eight treasues are in this room, exit it and then re-enter it. You can then move out of the maze to the next part.
+
+> w
+You walk quietly into the Lavender Room.
+You can go north, east or west.
+The lavender room is completely silent. Soft, clean purple carpet feels good on your feet. The walls appear to match the carpet but seem to change color as you move. By the time you leave, they are ordinary blue walls.
+
+> n
+The shimmer key provides passage through the door.
+The gate reveals the Gold Room.
+There is a beautiful Silver bracelet here.
+You can go north, south or east.
+In the gold room, the walls curve to shape the room like a sphere. The walls, floor and ceiling are a deep, rich, amber color.
+
+> take silver bracelet
+You slip the bracelet around your wrist. It is warm and smooth.
+You picked up a treasure!
+
+> n
+Your shimmer key lets you through. The door is warm as you pull it open.
+You have entered the Red Room.
+You can go north, south, east or west.
+The first thing you notice is sweltering heat. You stand on a concrete platform floating over a flaming pit far below. The light comes from the streams of red-hot lava running down the walls. The doorknob is hot but still tolerable.
+
+> w
+You have stepped into the Opaque Room.
+You can go north, south or east.
+All surfaces are made of glass that has been smoked or blemished so that you can not see through it, yet you feel like you are walking on fog. Your footsteps echo slightly.
+
+> n
+Welcome to the Clover Room.
+There is an old, wooden pirate key here.
+You can go south or east.
+The clover room seems like a narrow hallway with soft moss growing on everything, except it has no roof, just walls that seem to go on forever. You take a few steps before a geyser to your left shoots a narrow jet of hot water up and up and out of sight. Soon, more join it, popping open in the least expected places. As you leave the room, the water from the first geyser begins to hit the ground like rain, now almost completely cool.
+
+> take pirate
+The skull and crossbones on it grins at you as you slip it into your pocket.
+
+> e
+You stumble into the Ginger room.
+You can go south, east or west.
+The ginger room is a fairly large room, but you can still see all six surfaces. The floor is covered with soft orange pillows that match the walls. There are cats everywhere, sleeping, playing, fishing, fighting, eating, and sleeping. One brushes against your leg.
+
+> x cats
+The cats are of all varieties, and are all beyond cute. Upon noticing your presence they begin jumping up onto pillows near you, eager for attention.
+
+> pet cat
+You pet one of the cats. It is soft and the cat begins to purr.
+
+> take cat
+You pick up one of the cats and take it with you. It sits happily in your arms for awhile and then decides to walk with you instead of being carried.
+
+> e
+You step into the Clear Room.
+You can go south, east or west.
+The clear room has walls, floor, and a ceiling, but you can not see them. They are clear. You can tell they are there because you're obviously walking on something, and because you can see your reflection below you. Overcast daylight pours in through the ceiling, and way below the floor stretches a vast, beautiful landscape of a foggy forest, mountains, and the ocean.
+
+> e
+This is the Pink Room.
+You can go south, east or west.
+The pink room is made of hard, pink wood. There are staircases everywhere, winding their way up to various doors leading in different directions. There is warm indoor light on everything and it is as quiet as an art gallery.
+
+> s
+This is the Dark Room.
+There is a long Pearl necklace here.
+You can go north or west.
+You have entered the dark room. It is dark.
+
+> take pearl
+You shine the flashlight around until you see the pearls and pick them up.
+You collected a treasure!
+
+> n
+This is the Pink Room.
+You can go south, east or west.
+The pink room is made of hard, pink wood. There are staircases everywhere, winding their way up to various doors leading in different directions. There is warm indoor light on everything and it is as quiet as an art gallery.
+
+> e
+You walk into the Brown Room.
+There is fine diamonds enclosed in a treasure chest here.
+You can go south, east or west.
+The brown room is actually the inside of an old ship, and you immediately think of a pirate galleon. You are far below decks, where they store supplies. Smells of good food and loud laughter ring down from above, and everything sways rhythmically. The light comes from several yellow lanterns.
+
+> go upstairs
+And what? Get killed by a pirate? Let's focus here.
+
+> take diamonds
+You use your pirate key to open the chest and get the diamonds. You then decide to take the chest with you for safekeeping.
+
+> e
+You step into the nothing of the Eraser room.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+Around you, you see nothing. Void. There is no floor, but before you begin to fall a HUGE gust of wind scoops you up and begins to push you further and further up into the air... The door you came through dwindles away below you. Suddenly, the wind stops, and you start falling and land where you least expected...
+
+> n
+You are safely in the safe room.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+Welcome to the safe room. Here, you will deposit all eight treasures you find in the rooms around you. Once all eight treasues are in this room, exit it and then re-enter it. You can then move out of the maze to the next part.
+
+> drop gold bar
+The gold is on the ground.
+
+> drop silver bracelet
+The bracelet sits on the ground, still warm.
+
+> drop pearl
+The pearls sit on the ground calmly.
+
+> drop watch
+You set the watch on the ground.
+
+> drop diamonds
+You set the chest and the diamonds down and lock it just to be safe.
+
+> drop opal
+Your laser light show rests on the ground.
+
+> drop emerald
+You gingerly set the emerald down on the ground.
+
+> drop titanium sword
+You set the sword down, where it leaves a long shallow cut in the ground.
+
+> i
+You are carrying:
+Gecko Key
+Shimmer Key
+Music
+Flashlight
+Shell
+Flute
+Screwdriver
+pirate
+cat
+Sky Key
+Stone Key
+
+> e
+Location Magenta Room.
+You can go north, south, east or west.
+In the magenta room, everything is smooth but not shiny, made out of some sort of marble or granite. There is a warm light radiating off of everything.
+
+> w
+You are safely in the safe room.
+There is a gold bar gleaming brightly, a beautiful Silver bracelet, a long Pearl necklace, an expensive platinum waterproof Watch, fine diamonds enclosed in a treasure chest, a brilliant Opal sitting on the ground, a beautiful Emerald sitting on the ground and a Titanium Sword glistening on the ground here.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You deposited all treasure in the safe room! You now have the rainbow key and can go out.
+
+> out
+You are in the North Hallway.
+You can go north, east or west.
+The north section of the hallway is very long, and as you go along the hallway it will become apparent that the hallway is in one big loop with eight corners. This is the only part that can get you back to the safe room.
+
+It is a bland hallway, with white walls and ceiling but with a brightly colored, thick, comfy turckish carpet that goes on in either direction with the hallway. It is very, very long. There is a staircase on the north wall that leads up to the safe room.
+
+> hint
+Before you read the rest of this hint, make sure you have gone the full circle of the hallway.
+
+ Still confused? Here's the hint: If you don't already have a cat, get one. Go back to the safe room and find the room with the cats, then get a cat and come back here.
+
+> e
+This is the NE Hallway.
+You can go south or west.
+The rainbow carpet continues with the hallway. You are standing at the NE corner of the loop. There is no noise.
+
+> s
+You step into the West Hallway.
+You can go north or south.
+Your cat yowls alarmingly and jumps away from the east wall. It stays at the west side in fear and when you further inspect the wall, it shows itself to be a hidden door.
+
+> e
+The hidden door opens and you step into the Entry Hall.
+You can go east or west.
+You are in a small room, where the carpet does not continue. Your cat refuses to come with you and stays in the west hallway, waiting for you to come back on a soft spot of carpet. The room has nothing in it of interest except a set of huge, colorful double doors leading further to the east.
+
+> e
+The huge colorful doors swing open at the whim of your rainbow key, revealing the horrors within.
+You have walked into the Final Room.
+There is the creature Aargh standing here.
+You can go west.
+You are standing in a huge, giant room that is completely rainbow in color. The walls are pulsating with light and are constantly cycling through the colors of all the rooms above.
+
+In front of you stands Aargh. I can not describe aargh to you-- if I did, my keyboard would explode and your screen would sizzle and shatter. I can, however, tell you that Aargh is bigger than you, initially not very friendly, and currently mad that you stole his treasures.
+
+> x aargh
+As I said-- big, mean, and angry. No more is to be said.
+
+> speak to aargh
+Aargh roars menacingly and you just barely avoid his foot as it tries to stomp you into the ground.
+
+> hint
+Here's your hint-- Aargh hates music. A lot.
+
+> play flute
+You use the sheet music to play the eerie tune over the flute. Aargh screams his name and dissolves into a pile of ashes. In the ashes is a small prism. Your cat now waits for you in the room to the west, and there is a way out.
+
+> take prism
+You pick up the prism, weighing it in your hand, and hold it up to the light. A bright rainbow streaks across your face.
+
+> w
+The hidden door opens and you step into the Entry Hall.
+There is a happy cat sleeping here.
+You can go out to Great Job!.
+You can go east or west.
+Your cat now waits for you here in the entry hall. There is a new, smaller doorway leading out. Bright daylight pours through it.
+
+> out
+ Great Job!.
+You have beaten spectrum. Congratulations! You deserve a well-earned break in the hot tub.
+
+- Programming: Mocha Man
+- Software: QDK
+     www.axeuk.com/quest
+
+Press enter to end the game.
+
+
+
+[runner] turns=107 leftover=0 running=false WON=YES

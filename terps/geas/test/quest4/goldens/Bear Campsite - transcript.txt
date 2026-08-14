@@ -1,0 +1,90 @@
+
+survive CJ
+
+You have recently been enjoying a hike around the lakes in Canada.  Eventually you find a deserted campsite by a lake.   you hear something rustling in the bushes behind you.  
+
+You are trapped in this campsite.  There is only one exit to the South, but that is where the noise was coming from.
+
+You are in the Campsite
+There is a small wooden crate, the edge of the lake and muddy ground here.
+You can go south or west.
+You are standing in a large green field which was once a campsite.
+
+> search lake
+You search the lake
+Putting your hand in the water you remove a rock
+
+> use rock on crate
+You lift  up the rock and smash open the crate.  All that is left is a small pile of wood
+
+> x wood pile
+You examine some of the pieces of wood.  Amongst them you find a small nail
+
+> take nail
+You pick it up.
+
+> search wood pile
+You search the ile of wood to find the contents of the crate.  Inside you only find a yoyo.
+
+> take yoyo
+You pick it up.
+
+> use rock on nail
+You hit the nail with the rock and it bends to form a kind of hook
+
+> take hook
+You pick it up.
+
+> x yoyo
+It appears that the string could be removed.
+
+> remove string
+You remove the string from the plastic body of the yoyo.
+
+> take plastic ball
+You pick it up.
+
+> take string
+You pick it up.
+
+> use string on hook
+You attach the hook to the string and fashion a crude fishing line
+
+> tap muddy ground
+You tap the muddy ground but nothing happens
+
+> tap muddy ground
+You tap the muddy ground but nothing happens
+
+> tap muddy ground
+You tap the muddy ground and eventually a worm appears from beneath the mud
+
+> take worm
+You delicately pick the worm up.
+
+> use worm on fishing line
+You put the worm onto the fishing line.
+
+> use fishing line on lake
+After a while fishing, you feel a tug on the line.  You have caught a fish!
+
+> use plastic ball on fish
+You thrust the plastic yoyo ball into the fish.
+
+> s
+As you try to head south a giant Grizzly Bear jumps out and blocks your path.
+
+> throw fish
+You throw the fish towards the bear, who rushes over and wolfs it down.  Then it stops...
+
+It starts to choke....
+
+And runs away grasping at it's own throat.
+
+You have created a safe exit south!
+
+> s
+You are in Freedom
+
+You have managed to escape the hazardous campsite.  Congratulations.
+[runner] turns=23 leftover=0 running=false WON=YES

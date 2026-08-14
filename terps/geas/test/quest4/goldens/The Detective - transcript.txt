@@ -1,0 +1,1497 @@
+
+The Detective, vv1.0 Catalin Nita
+
+
+
+You are in office
+This is going to be one hell of a day. With all of these paperworks to do. There was some kind of questionaire as well. What should I do?
+
+Do questionaire
+
+Don't do questionaire
+
+
+type the password here if you want to play  ' part 2'
+
+type the password here if you want to access 'special features'
+
+> in order anyway.
+I don't understand your command. Type HELP for a list of valid commands.
+
+> Part 1 opens on something else entirely -- a five-question true/false quiz about
+I don't understand your command. Type HELP for a list of valid commands.
+
+> Harry Potter and the Half-Blood Prince, offering "the magnificent prize money",
+I don't understand your command. Type HELP for a list of valid commands.
+
+> with four wrong answers that are each a `playerlose`.  Answering the fifth
+I don't understand your command. Type HELP for a list of valid commands.
+
+> correctly prints "type enter to continue", and ENTER is what finally produces the
+I don't understand your command. Type HELP for a list of valid commands.
+
+> 1) new game / 2) story menu.  The right answers are TRUE, 607, BLOOMSBURY,
+I don't understand your command. Type HELP for a list of valid commands.
+
+> HALF-BLOOD PRINCE.
+I don't understand your command. Type HELP for a list of valid commands.
+
+> Every keypad in the game is the same puzzle: you are shown four or five digits
+I don't understand your command. Type HELP for a list of valid commands.
+
+> "jumbled up" and have to type the intended order, which you cannot deduce -- you
+I don't understand your command. Type HELP for a list of valid commands.
+
+> have to know it.  The ones on the critical path are 376 (back entrance, from
+I don't understand your command. Type HELP for a list of valid commands.
+
+> 637) and 3296 (warehouse gate, from 2639).  The C4 puzzle is stranger: you are
+I don't understand your command. Type HELP for a list of valid commands.
+
+> shown 7291 and have to answer with letters, DBCA, under a scheme the trainee
+I don't understand your command. Type HELP for a list of valid commands.
+
+> explains with two worked examples that do not agree with each other.
+I don't understand your command. Type HELP for a list of valid commands.
+
+> Branches the script takes, and the ones it doesn't
+I don't understand your command. Type HELP for a list of valid commands.
+
+> Two scenes fork into different rooms rather than into a loss, and the script
+I don't understand your command. Type HELP for a list of valid commands.
+
+> takes the longer side of both:
+I don't understand your command. Type HELP for a list of valid commands.
+
+> * The lounge offers GET A PIZZA or WATCH TV.  Watching TV goes straight to HQ;
+I don't understand your command. Type HELP for a list of valid commands.
+
+> the pizza detours through the Pizza Hut, where all three toppings lead to
+I don't understand your command. Type HELP for a list of valid commands.
+
+> the same phone call.
+I don't understand your command. Type HELP for a list of valid commands.
+
+> * HQ offers a fake ID or the helicopter.  The fake ID goes straight to the
+I don't understand your command. Type HELP for a list of valid commands.
+
+> facility; the helicopter adds a scene where you are shot down and parachute
+I don't understand your command. Type HELP for a list of valid commands.
+
+> in.  Both land outside the facility.
+I don't understand your command. Type HELP for a list of valid commands.
+
+> The one place a wrong-looking answer is required is the trainee's office: the
+I don't understand your command. Type HELP for a list of valid commands.
+
+> question is "do you get it, yes or no", and NO prints the second worked example.
+I don't understand your command. Type HELP for a list of valid commands.
+
+> The script answers NO and then YES, which is allowed because both are just
+I don't understand your command. Type HELP for a list of valid commands.
+
+> commands.
+I don't understand your command. Type HELP for a list of valid commands.
+
+> Two `command <>` entries with no name at all sit in HQ and at 25 Bridge St, and
+I don't understand your command. Type HELP for a list of valid commands.
+
+> `command <up>` and `command <left>` in the facility car park have no script, so
+I don't understand your command. Type HELP for a list of valid commands.
+
+> those two turns print nothing.  The script types them to show they exist.
+I don't understand your command. Type HELP for a list of valid commands.
+
+> The special features are three minigames that are pure keypad drills.  The
+I don't understand your command. Type HELP for a list of valid commands.
+
+> 30-level keypad run in the script is the full set of answers; the "situations"
+I don't understand your command. Type HELP for a list of valid commands.
+
+> run is levels 1 to 5 (USE C4, HOUSE, UNIVERSE, then either direction in the
+I don't understand your command. Type HELP for a list of valid commands.
+
+> forest, then 32036), whose reward is the MATE password.
+I don't understand your command. Type HELP for a list of valid commands.
+
+> Start:
+I don't understand your command. Type HELP for a list of valid commands.
+
+> do questionaire
+Answer all the questions correctly about the 6th Harry Potter book and you could be winning the magnificent prize money. Answer true or false.
+
+
+1) chapter 2 is called 'spinners end'.
+
+true
+
+or 
+
+false
+
+> true
+2) How many pages are there?
+
+800
+
+or
+
+607
+
+> 607
+Correct answer.
+
+Who published the book?
+
+Bloomsbury
+
+or
+
+ISBN
+
+> bloomsbury
+Last questions.
+
+Finish the title:
+
+Harry potter and the .........
+
+
+half-blood prince
+
+or
+
+half-blooded prince
+
+> half-blood prince
+You finished the quiz well done. Now just hope you get that prize money to go on that dream holiday.
+
+type enter to continue
+
+> enter
+Copyright 2005
+By Catalin Nita
+
+
+1) new game
+
+2) story
+
+
+
+> 2
+You are detective Peterson. You have been assigned on a top secret mission. To find out what's happening at a warehouse. This is not going to be an easy one. Once Peterson discovers what happens his whole life will change upside down.
+
+A story by:
+
+Catalin Nita
+
+1) new game
+2) Story
+
+
+> 1
+You are in lounge
+Peterson: You ok, Marge?
+
+Marge (wife): Yeah I'm ok. I have to go I'l come a bit later.
+
+Peterson: Why you taking a cheque.
+
+Marge: Hm.... I'm lending my friend some money.
+
+Peterson: Bye. (Kisses her.)
+
+What do you want to do?
+
+get a pizza
+
+or
+
+watch tv
+
+> get a pizza
+I should be going to pizza hut then.
+
+> go to pizza hut
+You are in pizza hut
+Choose 3 toppings please.
+
+
+Peterson: I will have salami, Chicken and .......
+
+What should I put for the last topic?
+
+Menu:
+
+olives
+
+green pepper
+
+peas
+
+
+> olives
+Waiter:Wait a moment please.
+
+type enter to continue
+
+> enter
+(mobile phone is ringing.)
+
+
+Boss: Come to HQ this instant. 
+
+Peterson: What's the rush? I'm having a nice pizza over here.
+
+Boss: No time to explain. I'll double your wages.
+
+Peterson: Ok. I will be there in about 15 minutes.
+
+Boss: Thanks Pete.
+
+Peterson: No problem.
+
+I better head towards HQ.
+
+> go to HQ
+You are in hq
+Boss: Have a sit. People living nearby this warehouse  have complained that they hear screams each night. We are wandering what's going on. We are asking you, Peterson to investigate.
+
+Peterson: Is this serious?
+
+Boss: That's what we are fearing. You have 2 choices to get to the warehouse. Please make your choise.
+
+
+get a fake id and uniform
+
+or
+
+get in through the roof using the helicopter
+
+> get in through the roof using the helicopter
+Boss: You be carefull.
+
+Peterson: Wish me luck
+
+Boss: all the best.
+
+type 'e' to continue
+
+> e
+You are in helicopter
+Pilot: You nervous.
+
+Peterson: I have never been on a helicopter before.
+
+Pilot: Nothing to worry about. I will drop you on the roof of the middle warehouse, ok?
+
+Peterson: Sure. 
+
+(The enemy's started shooting at the helicopter.)
+
+Pilot: Were hit.
+
+Peterson: Do something. 
+
+Pilot: Use this parachute.
+
+> use parachute
+Peterson: Here goes nothing.
+
+(He lands on enemy territory.)
+
+press 'e' to continue
+
+> e
+You are in outside facility
+This is going to be tricky getting inside. There are 4 guards blocking the front entrance and I  can't just go up to them. There is a van approaching. Obviously one of theirs. What should I do?
+
+Talk to them
+
+or
+
+Jump on back of van
+
+> jump on back of van
+good idea. If I hide inside the van. I will get in their base undetected.
+
+(The car drove inside and parked in the car park. It was in a building type of car park.)
+
+what should I do?
+
+> exit van
+I should enter the drivers seat in this van. 
+
+> enter the drivers seat
+There is a note on the paddle.
+
+> take note
+It's some kind of map of this warehouse. It gives directions where everything is. (You should copy this down.)
+
+
+Toilet
+
+up
+
+left
+
+right
+
+
+
+Interrogation room
+
+down 
+
+Where should I go now?
+
+
+
+> up
+
+> left
+
+> right
+Nothing here.
+
+> down
+There's someone in  here. What should I do?
+
+
+Kill Him
+
+or 
+
+see what he does next
+
+> kill him
+He's dead. Now I have to change clothes. All set. Now they would think I'm one of them By looking at this note I found earlier. I looked on the back of it and saw something. It said computer room. Also this was writen on the back.
+
+curestiy
+
+(Probably a code jumbled up.)
+
+Possibly it might be a code for the computer room for one of the computers. I have to head towards the computer room.
+
+
+
+
+> go to computer room
+You are in computer room
+Please enter the password
+
+> security
+Bingo. I hacked it.
+
+What should I click on?
+
+
+rubbish bin
+
+my folder
+
+internet explorer
+
+> click on my folder
+nothing interresting.
+
+what should I click on?
+
+rubbish bin 
+
+internet explorer
+
+> click on internet explorer
+what should I write on the address bar?
+
+
+
+If you don't know. Where else do I have to click?
+
+rubbish bin
+
+my folder
+
+> click on rubbish bin
+There is a folder which says:
+
+For more info go on
+
+www.warehouses.org.uk
+
+where should I click on next?
+
+my folder
+
+internet explorer
+
+> www.warehouses.org.uk
+So much info. Probably this is how they communicate with their customers. The meeting point is in the centre of this warehouse. It's located north west from here. I should be heading there.
+
+> go north west
+You are in meeting point
+Leader: Give me the cheque.
+
+Marge: Please don't kidnap my child. Here is the cheque.
+
+Leader: I will kidnap him if you don't keep this up.
+
+Peterson: What's going on? My wife is there.
+
+Leader: Is andybody there? Security guard check this instant.
+
+What to do?
+
+Hide
+
+or
+
+have a fight
+
+> hide
+I will hang up on one of these pipes.
+
+Security guard: Nothing here.
+
+(Then a little sweat dripped on the guards face. I was caught.)
+
+Type 'e' to continue
+
+> e
+You are in home
+5.4.3.2.1 Ready or not son here I come. Where might he be?
+
+living room
+
+kitchen
+
+toilet
+
+bedroom
+
+attic
+
+> go to living room
+he's not here
+
+> go to kitchen
+he's not here
+
+> go to toilet
+he's not  here
+
+> go to attic
+he's not here
+
+> go to bedroom
+He has to be somewhere in this room. I should check around the room.
+
+> check under bed
+Gotcha. Let's go to mummy. She's in the study.
+
+> go to the study
+son: Mummy?
+
+Peterson: Don't look son.
+
+(She was murdered.)
+
+type 'enter' to continue
+
+> enter
+You are in cell
+Peterson: That must have been the worst nightmare I had in a long time. That son of a ...
+put me in a cell. I have to escape and see how my wife is doing. I hope she is ok.
+
+This are the items that are in this cell.
+
+chair 
+
+wooden stick
+
+rope (to hang myself the guy said.)
+
+There was a hatch on top of the cell.
+
+> use chair
+what for?
+
+> use wooden stick
+what for?
+
+> use rope
+I don't want to hang myself
+
+> climb on chair
+That's a good idea. Now I need to open this hatch somehow. I would have to tie it to something.
+
+> tie it to rope
+What should I do now?
+
+Push
+
+or 
+
+pull
+
+> push
+Push a rope? Joker.
+
+> pull
+Hatch opened finally I escaped. Now just escape.
+
+(voice over speakers.)
+
+Prisoner 10056 has escaped cell 23. Guards investigate immediately.
+
+Peterson: How thoughfull of them. They gave me a number.
+I have reached a dead end. You can go left or right.
+
+To the left I see light. To the right I see dark. Where should I go.
+
+> go left
+That light was actually daylight.
+I escaped. I best head home though.
+
+type 'enter' to continue
+
+> enter
+You are in my house
+There was a note on the table. I should read it.
+
+> read note
+Go to the park. 
+
+Peterson: It's probably from the people from the warehouse. No choice I best head there. They might have my wife
+
+> go to the park
+You are in the park
+There was a body on the floor. I should examine it.
+
+> examine body
+there's a parchemnt on the floor.
+
+> take parchment
+This is your wife. You messed with us. Now we mess with you. I have your son over here.
+
+We are going to play a little game. If at any stage you stop listening to us. Your son will die. Our first request is to assasinate Emilia Knowles. She leaves at 25 bridge st. Do it before 10:50 pm. 
+
+Peterson: It's 10:00 pm at the moment. I cannot beleive I have to kill innocent people just to get my son back. But even though. I lost my wife and I wasn't planning on losing my son. I have to go to the address he wrote down
+
+> go to 25 bridge st
+You are in 25 bridge st
+I'm shaking like bad. I never knew I will ever do this in my life. 
+
+What should I do?
+
+Knock on door
+
+or
+
+Wait a little longer
+
+> wait a little longer
+When I just thought my luck ran out. There was a pizza guy going to the person I'm meant to murder. (I hate saying that word.) 
+What should I do now?
+
+knock him out
+
+or
+
+wait longer
+
+> knock him out
+That cap fits me perfectly.
+
+Peterson: (knocks on door.)
+
+(She opens the door.)
+
+Peterson: Sign right here.
+
+Emilia Knowles: Ok.
+
+Peterson: Is your husband at home?
+
+Emilia Knowles: Why do you wan't to know?
+
+Peterson: Just curious.
+
+Emilia Knowles: Yes he is. Is there a problem with that.
+
+Peterson: No problem. I was concerned because something is around the corner. I was just wandering if you could come with me to show you.
+
+Emilia Knowles: Wait a second.
+
+(That was when I murdered her.)
+
+
+type 'e' to continue
+
+> e
+You are in the living room
+(the next day. Peterson was watching the news on T.V)
+
+anchorman: There was murder on bridge street yesterday night. We spoke to her husband earlier and he said she answered the door to the pizza delivery guy. At the moment we suspect the murderer works at pizza hut. We'l bring you more on that as we get it available.
+Next there was a...............
+
+Peterson: I can't beleive I did that.
+
+(The mobile phone is ringing)
+
+Peterson: Hello.
+
+Boss: I was told to tell you to go to bridge st. You are to investigate the murder. You are a detective after all.
+
+Peterson: Of course. I will be there right away.
+
+type 'enter' to continue
+
+> enter
+You are in bridge st
+Police officer: The body is right this way.
+
+Peterson: Ok.
+
+Police officer: I will let you do the rest.
+
+Peterson: Sure, whatever.
+
+ (You are in front of the boy)
+
+Peterson: Now I'm not going to find evidence I'm going to try to hide away whatever I find.
+
+What should I do now?
+
+
+                                                         Inventory:
+
+                                                          sofres( used to collect blood sample)
+                                                          gloves
+
+
+
+
+> use gloves
+I'm already wearing them.
+
+> use sofres
+I found some blood now where can I hide it?
+
+throw it away
+
+or
+
+take it with me
+
+> take it with me
+Good idea.
+
+(Peterson got a text message.)
+
+You are to rob high street bank. 1 million dollars exact.
+
+(end of message.)
+
+Peterson: Shit I have to do something else.
+
+FBI: Something wrong?
+
+Peterson: Would you excuse me please.
+
+FBI: certanly.
+
+type 'enter' to continue
+
+> enter
+You are in bank
+Peterson: I was going to do the impossible. 
+
+point gun at receptionist
+
+or 
+
+ask if I can steal 1 million dollars.
+
+> point gun at receptionist
+Peterson: Give me 1 million dolllars right this second.
+
+Receptionist: Wait a moment.
+
+Peterson: Hurry up!
+
+(She gave him the money. Then she pressed the alarm. The front doors were locked and she ran away.)
+
+Peterson: Shit.
+
+type 'e' to continue
+
+> e
+You are in Outside the bank
+(You are playing as a police officer.)
+
+Police officer: Put your hands up!
+
+Boss: I think I recognise the guy but I'm not sure.
+
+Police officer: What's our next move?
+
+Boss: You have to get in through the back door.
+
+Police officer: Ok.
+
+Type 'e' to continue
+
+
+> e
+You are in back entrance
+Shit, I can't go in like that. I have have to press a 3 digit code. 
+
+(The officer used a special device and saw the 3 numbers pressed.)
+
+637
+
+But it's not in the correct order. 
+
+What is the code?
+
+> 376
+Yes I got in. 
+
+Where should I go next?
+
+go at reception
+
+or
+
+go upstairs
+
+> go at reception
+Police officer: You ok?
+
+Receptionist: He went upstairs.
+
+Police Officer: Thank you.
+
+> go upstairs
+Police Officer: Stop right there.
+I'm a police officer.
+
+(Peterson went on the roof. He dropped a pack.)
+
+
+> take pack
+It's a blood dna. This guy is a detective.
+
+(Speaks on radio.)
+
+Our suspect is a detective. He dropped a blood dna. I will examine it later. He's heading on the roof. I'm requesting helicopters.
+
+type ' enter' to continue
+
+> enter
+You are in rooftop
+Police Officer: Put your hands up. Peterson?
+
+(Peterson jumps of roof.)
+
+Police officer: (talking on radio) He jumped on a train. I repeat he jumped on a train.
+
+Pilot of helicopter: We lost him. The train entered a tunnel.
+
+type 'e' to continue
+
+> e
+You are in HQ (boss's room)
+Boss: Who did you say it was?
+
+Officer: It was Peterson.
+
+Boss: I know him. He wouldn't do that.
+
+Officer: I examined the blood DNA that he had. It was Emilia's blood. He tried to hide it from us.
+
+Boss: All I know is that he changed from the time he went to that warehouse. I didn't have time to ask him what happened there.
+
+Officer: Do you want me to investigate it.
+
+Boss: Please.
+
+I have to go to the warehouse.
+
+> go to the warehouse
+You are in outside the warehouse
+No guards are patrolling. That's strange.
+
+(He got to the front gate.)
+
+Not this again. it was a keypad like the one at the bank. But this one you had to enter a 4 digit code.
+
+(The officer used a special device to see what 4 numbers were pressed.)
+The code is:
+2639
+
+But it's jumbled up.
+
+What is the code?
+
+> 3296
+That was long. But at least I got  inside. Where should I go:
+
+north
+east
+south
+west
+
+> go north
+nothing there
+
+> go east
+nothing there
+
+> go west
+The door is locked
+
+> go south
+There's a picklock on the floor.
+
+> take picklock
+You got it.
+
+> use picklock
+(Speaking on phone)
+
+Leader: Peterson, drop the money in the south district rubbish bin by 15:00 today.
+
+Peterson: Ok.
+
+Police officer: Put your hands up!
+
+type 'enter' to continue
+
+> enter
+You are in the south district
+(You are now playing as Peterson)
+
+I have to go to the rubbish bin.
+
+> go to the rubbish bin
+Police officer: Put your hands up. We are not going to hurt you.
+
+type 'e' to continue
+
+> e
+You are in HQ (meeting hall)
+Peterson: I can explain!
+Boss: Don't wory you don't need to explain anything. You're not in trouble. We caught the guy.
+Peterson: You mean the 'leader'?
+Boss: Correct.
+Peterson: What about my child?
+Boss: They kidnapped your son?
+Peterson: Of course they did. Please don't tell me you don't have him.
+Boss: We never knew.
+
+(Peterson's mobile phone was ringing.)
+
+Warehouse member: You did the wrong move,punk. I got you son. No more games,Pete. He is going to die. (Hangs up)
+
+END OF PART 1
+
+to play 'part 2'  enter this password at the main menu.
+
+wertyusdf
+
+type 's' to go to the main menu 
+
+
+> s
+You are in office
+This is going to be one hell of a day. With all of these paperworks to do. There was some kind of questionaire as well. What should I do?
+
+Do questionaire
+
+Don't do questionaire
+
+
+type the password here if you want to play  ' part 2'
+
+type the password here if you want to access 'special features'
+
+> wertyusdf
+You have just unlocked part 2. 
+But before actually playing it. You need to do a minigame. It will be 10 stages. It's the keypad minigame. you will get a code which is jumbled up then you will have to figure out the correct order.
+
+type 'start' to begin
+
+> start
+1)  547
+
+> 457
+2) 123
+
+> 321
+3) 987
+
+> 978
+4) 348
+
+> 483
+5) 503
+
+> 530
+6) 1745
+
+> 1475
+7)6423
+
+> 4632
+8)1406
+
+> 6041
+9) 2314
+
+> 2341
+10) 51975
+
+> 79155
+You have completed the mini game. To play part 2 
+type 'part2'
+
+> part2
+You are in meeting hall (HQ)
+Boss: We traced the cell phone. He's heading to Las Vegas. He's on a train at the moment.
+
+Peterson: Let me go after him.
+
+Boss: Sure, just be careful out there.
+
+Peterson: You know me.
+
+Boss: Here is the ticket.
+
+> take ticket
+Boss: Head towards the florence train station.
+
+Peterson: Ok.
+
+Boss: Just be careful.
+
+Peterson: I will. 
+
+I have to go to florence train station.
+
+> go to florence train station
+Train Inspector: Show me your ticket, please.
+
+> show ticket
+Ticket inpector: You may enter the train.
+
+> enter the train
+You are in the train
+It was quite crowed. But I had my own room which was nice. I'm a bit hungry. I should go to the restaurant and see what food they had.
+
+> go to the restaurant
+Staff: What would you like to eat sir? We have a wide selection of choices on our menu. Please take your time.
+
+Menu
+
+Pizza
+
+Burger
+
+fries
+
+> pizza
+What desert would you like?
+
+drink
+
+cake
+
+ice cream
+
+> drink
+Thank you for your order.
+
+type 'enter' to continue
+
+> enter
+Staff: Here is your order, sir.
+
+Peterson: Thank you.
+
+(The food was so nice. Especially the desert. I have to go to the bathroom.)
+
+> go to the bathroom
+Now I'm feeling better. I should head back to my room.
+
+> go to my room
+I think I will have a nap.
+
+
+( 2 hours later )
+
+Train driver: Passengers, please remain calm. We got unknown people boarding the train.
+
+Peterson: Who might it be?
+
+(Somebody opened the door to Peterson's room.)
+
+Warehouse member: We found him.
+
+type 'e' to continue  
+
+> e
+You are in unknown location
+Peterson: How did you find me?
+Warehouse member: Who asked you to talk. I got your son.
+Peterson: Please let him go.
+Warehouse: I will let your son go in exchange we want you to let our leader out of jail.
+Peterson: How can I trust you?
+Warehouse member: You can trust me. Here is a cell phone. Phone your american cops from here.
+
+type 'enter' to continue
+
+> enter
+Peterson: They will let him if you give me my son now. Afterwards you can talk to your leader so you see that it's true.
+Warehouse member: Ok. (Shouts to his mate) Bring his son over here!
+Member: Roger.
+Son:Daddy!
+Warehouse member: Not so fast. Let me talk to my leader.
+
+(I should hand him the cell phone.)
+
+> hand him the cell phone
+Warehouse member: Is that you,sir.
+Leader: Hurry up and give him his son. I can't stand here any longer.
+Warehouse member: Yes sir. 
+
+(End of conversation.)
+
+Warehouse member: Here's your son.
+
+Son: Daddy. I was worried.
+
+Peterson: Nothing to worry about son. Everything is going to be ok.
+
+Son: Where's mummy?
+
+Peterson: I will tell you later.
+
+ (I should get out of here.)
+
+> get out of here
+You are in Las vegas
+What a beautiful site.
+
+Son: Where are we, daddy?
+
+Peterson: This is Las Vegas.
+
+Son: Where is mummy?
+
+Peterson: I will tell you everything when we get home.
+
+type 'enter' to continue
+
+> enter
+You are in HQ meeting hall
+(You are now playing as the police officer.)
+
+Boss: We are planning an attack on the Warehouse members and the leader so we finish them of once and for all.
+
+Police Officer: What's the plan?
+
+Boss: You are to plant a C4 on their base in Las Vegas.
+
+Police Officer: I don't know how to use C4's. I never used them before.
+
+Boss: The trainee will teach you how to use it. That's why we have him here.
+
+Police Officer: Transport?
+
+Boss: Helicopter. I think you should be heading to the trainee's office.
+
+> go to the trainee's office
+Trainee: What do you want to know?
+
+Police officer: I want to know how to use C4.
+
+Trainee: You'll have to do me a favour first. Pick up a package from carlton street and bring it back here. Then I'll teach you.
+
+Police officer: Fine. 
+
+> go to carlton street
+You are in carlton street
+Dealer: What do you want?
+
+Police officer: I am here to collect a package for the trainee working at HQ.
+
+Dealer: Here it is.
+
+> take package
+Pollice officer: Thanks.
+
+type 'enter' to continue
+
+> enter
+You are in trainee's office
+Trainee: Give me the package then.
+
+> no
+Here is another example:
+
+1627
+
+The answer is: 1267
+
+But you don't type that.
+You type 'acbd'
+
+Because  1727
+               abcd
+
+correspond as that.
+
+You should be heading to the helicopter.
+
+> yes
+You should be heading towards the helicopter then.
+
+> go to the helicopter
+Pilot: Please enter the helicopter.
+
+> enter the helicopter
+Pilot: You nervous.
+
+Pollice Officer: Nah. I just want to get this over with. I think I need a vacation.
+
+Pilot: You look like you really need one.
+
+Pollice officer: It's part of the job.
+
+Pilot: You bet. Here we are you, better get of now.
+
+type 'e' to continue
+
+
+> e
+You are in Warehouse (Las Vegas)
+This is it.
+I should set the c4.
+
+> set the c4
+7291
+
+> dbca
+I have done it. I have to get out of here.
+
+> get out of here
+(The warehouse exploded.)
+
+Mission complete
+
+type 'enter' to continue
+
+> enter
+congrutalations. You have just completed 'The last detective'
+Enter this password at the main menu to unlock 'special features.
+
+zx12df
+
+type 'main menu' to get you to to the main menu
+
+> main menu
+You are in office
+This is going to be one hell of a day. With all of these paperworks to do. There was some kind of questionaire as well. What should I do?
+
+Do questionaire
+
+Don't do questionaire
+
+
+type the password here if you want to play  ' part 2'
+
+type the password here if you want to access 'special features'
+
+> zx12df
+Special features:
+
+minigames
+
+a note from the creator
+
+> a note from the creator
+Thank you for playing this game. I hope you enjoyed it. Email me on catalinadrian007@aol.com
+if you would like to see a sequel.
+
+From the creator,
+Catalin Nita
+
+special features:
+
+minigames
+
+a note from the creator
+
+> minigames
+situations (never played before)
+
+keypad
+
+c4
+
+> keypad
+there are 30 levels to complete.
+
+1)142
+
+> 124
+2) 573
+
+> 753
+3)186
+
+> 681
+4)978
+
+> 789
+5)123
+
+> 213
+6)019
+
+> 109
+7)204
+
+> 240
+8)609
+
+> 096
+9)678
+
+> 876
+10)5629
+
+> 5692
+11)0167
+
+> 1067
+12)1873
+
+> 7831
+13)0987
+
+> 7890
+14)5193
+
+> 5139
+15) 6798
+
+> 9678
+16)3213
+
+> 3123
+17)2918
+
+> 9812
+18)6729
+
+> 9672
+19)0234
+
+> 0423
+20)7658
+
+> 8567
+21)1592
+
+> 5129
+22)1902
+
+> 9012
+23)1632
+
+> 6231
+24)6248
+
+> 8462
+25)3451
+
+> 4351
+26)1043
+
+> 0341
+27)4732
+
+> 4372
+28)2954
+
+> 5294
+29)56980
+
+> 96850
+30)05671
+
+> 06571
+You have completed the keypad puzzle. Congrutalations.
+
+Special feaures
+
+situations (never played before.)
+
+keypad
+
+c4
+
+a note from the creator
+
+> C4
+This minigame is like the one where you blowed up the warehouse in Vegas. There is only one question.
+1)49172
+
+
+> badce
+You have completed the c4 minigame. The reason it was this short is because it's fustrating to play this kind of puzzle for very long. Even more if you played the keypad puzzle before this.
+
+Special Features
+
+situations (Never played before)
+
+keypad
+
+c4
+
+a note from the creator
+
+> situations
+This is one of the funnest minigame in this game. My opinion. You will get situations  which you will have to get out of. 
+
+e.g
+
+You are in a cell.
+There is a wooden stick.
+
+
+To do that all you type is
+'use stick'
+
+But later on it can get really hard and have to do more than one thing to finish the level.
+
+type 'p' to start
+
+> p
+Level 1
+
+There's this big boulder on the street. It's blocking the way to the other city. I have to use something to explode it.  
+
+type 'hint 1' if you want a hint.
+
+> hint 1
+The device is in one of the minigames. 
+
+> use c4
+Level 2
+Level 2
+
+
+I need to hack this computer.
+the code is 'ouhes'
+But it's jumbled up. What is the code.
+
+type 'hint 2' for a hint
+
+ 
+
+> hint 2
+What do you live in?
+
+> house
+Level 3
+
+Another computer I need to hack. The code is 'ivnuesre'
+But it's jumbled up.
+What is the code?
+
+
+type 'hint 3' for a hint
+
+> hint 3
+Where is Earth in?
+
+> universe
+level 4
+
+You are in  a forest. Where should I go?
+
+North
+
+or
+
+West
+
+
+there is no hints for this stage.
+
+> north
+It's a keypad lock.
+the code is '63203'
+but it's jumbled up.
+What is the code?
+
+> 32036
+level 5 
+
+the code is 'tmea'
+But it's jumbled up.
+Once you find out the code enter it in the special features menu to get a special ending.
+
+
+special features
+
+
+minigames
+
+a note from the creator
+
+> mate
+Location: Home
+
+Peterson: Are you ok?
+
+Son: You never told me where's mummy.
+
+Peterson: She is ....
+
+(phone is ringing)
+
+Boss: I found your wife. She was being held underground in the american warehouse.
+
+Peterson: So who was the one at the park?
+
+Boss: You're mum's twin sister.
+
+Peterson: Who did it.
+
+Boss: It was a different organisation.
+
+Peterson: For what reason?
+
+Boss: You are to investigate.
+
+type 'h' to continue 
+
+> h
+You are in office
+This is going to be one hell of a day. With all of these paperworks to do. There was some kind of questionaire as well. What should I do?
+
+Do questionaire
+
+Don't do questionaire
+
+
+type the password here if you want to play  ' part 2'
+
+type the password here if you want to access 'special features'
+[runner] turns=210 leftover=0 running=true WON=YES

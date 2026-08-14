@@ -1,0 +1,169 @@
+
+Exits of The World, v1 Jim R. Harbis
+
+You are The Doctor. You are a Timelord, and the last of your kind. Your self-applied goal in life is to preserve the human race. Davros, an evil scientist, has begun enslaving humans, some of which were close to you at one time. You must regain your belongings; they were scattered after you last regenerated. Good luck.
+
+
+You are at The World.
+There is a group of Enslaved Humans and an extremely long stretch of space here.
+You can go out to Davros' Lair.
+You can go north, south, east, west, northeast, northwest, southeast, southwest, up or down.
+You can go to Davros' Lair.
+
+> x enslaved humans
+All of humanity lost to being mindless slaves. Only the Daleks could have pulled something like this off... and they must be being led by Davros, the Dalek scientist...
+
+> speak to enslaved humans
+
+"Uuuuuaaah..."
+"Oooaah..."
+"Aaaauuuh..."
+"Eeeeeaaaahh..."
+You can't make sense of their horrid noises.
+A pretty black girl dropped something on the ground. She looks familiar.
+
+> x sonic screwdriver
+Boogie! One of your scattered belongings! This has been with you forever, and you use it to unlock locks for which you have no key.
+
+> take sonic screwdriver
+You pick it up.
+
+> x space
+Outer space, in all its vastness and mystery.
+
+> take space
+You reach your open palm into the sky, caressing the nothing; you close your hand, pull it back, and your hand is covered with microbacteria.
+
+> x microbacteria
+A penny-sized clump of trillions upon trillions of micro-organisms. When used on the right lifeform, they could infect it...
+
+> go to Davros' Lair
+Even though you want to confront Davros right now, you need to upgrade your ship to make it safe. Without the proper upgrades, you cannot leave.
+
+> up
+You are at the Exits of The World.
+You can go out to Skarro.
+You can go down.
+These are indeed the ends of the earth...
+
+> out
+This leads to Skarro. home planet of the Daleks. You need a ship to get there.
+
+> down
+You are at The World.
+There is a group of Enslaved Humans and an extremely long stretch of space here.
+You can go out to Davros' Lair.
+You can go north, south, east, west, northeast, northwest, southeast, southwest, up or down.
+You can go to Davros' Lair.
+
+> down
+You are at the Exits of The World.
+You can go out to J'doon Impound.
+You can go up.
+These are indeed the ends of the earth...
+
+> out
+You are in the J'doon Impound.
+There is your Type 40 TARDIS here.
+You can go out to Exits of The World.
+You can go to The World or Skarro.
+
+> x type 40 tardis
+Boogie! One of your scattered belongings. This is your time machine and spaceship, the TARDIS. TARDIS stands for Time And Relative Dimensions In Space. Not only is this a machine, it is a living organism.
+
+> take type 40 tardis
+You used the Sonic Screwdriver to free your impounded TARDIS.
+
+> go to Skarro
+You are on the planet Skarro.
+There is a number of Dalek Shells here.
+You can go out to Exits of The World.
+You can go to The World or J'doon Impound.
+
+> x dalek shells
+These are empty shells the Daleks wear, if you had a tool, you could remove the Dalekanium Panels and use them on your ship.
+
+> use sonic screwdriver on dalek shells
+You used the Sonic Screwdriver to remove the panels from the shells.
+
+> take dalekanium panels
+You pick them up.
+
+> go to The World
+You are at The World.
+There is a group of Enslaved Humans and an extremely long stretch of space here.
+You can go out to Davros' Lair.
+You can go north, south, east, west, northeast, northwest, southeast, southwest, up or down.
+You can go to Davros' Lair.
+
+> go to Davros' Lair
+You are in Davros' Lair
+There is Davros here.
+You can go out to The World.
+
+> x davros
+The evil Dalek scientist in person. You must defeat him and save the humans! But first you must work out how...
+
+> speak to davros
+
+"So you finally caught up to me, Doctor! Tell me, have you the power to stop me?"
+Choose an answer to reply to Davros
+1) "How can I return the humans back to their normal state?"
+2) "No, I don't..."
+[choice] 1
+"Doctor, what kind of a fool do you take me for? Did you really think you could get me monologuing and have me tell you everything?"
+
+> use microbacteria on davros
+"NO! You have polluted me with enzymes! Curses!"
+Davros was eaten alive by the enzymes
+
+> x dead davros
+All that is left of Davros is his lower Dalek mobile system...
+
+> x radar device
+A radar device used to control the humans. If you had a tool, you could re-write the mind control program, and beam the new program at them and it might return them to the normal state...
+
+> take radar device
+You pick it up.
+
+> use sonic screwdriver on radar device
+You reversed the effects of the Radar Device.
+
+> take re-configured radar device
+You pick it up.
+
+> out
+You are at The World.
+There is a group of Enslaved Humans and an extremely long stretch of space here.
+You can go out to Davros' Lair.
+You can go north, south, east, west, northeast, northwest, southeast, southwest, up or down.
+You can go to Davros' Lair.
+
+> use re-configured radar device on enslaved humans
+You hit the slaves with sonar waves from the device, and they suddenly snap back into normality.
+
+> x humans
+The same grounp of people from before, but now able to think for themselves and make decisions... able to live...
+
+> speak to humans
+"Thank you, Doctor!" They all cry simultaneously.
+Choose an answer to reply to the humans
+1) "It was my duty."
+2) "You're more than welcome."
+3) "Not a problem." turning to black woman, "Excuse me, Ms., Jones, is it? Ms. Jones, would you care to travel with me?" 
+[choice] 3
+"You mean like, as an assistant?"
+
+Speak to Ms. Jones to continue.
+
+> x martha jones
+A pretty, black young woman.
+
+> speak to martha jones
+Answer Martha's question
+1) "Yes, as a personal companion. I believe you can benefit from the knowledge you will recieve."
+[choice] 1
+"Well, I suppose..."
+With Davros defeated and the humans saved, you take Martha by the hand into the TARDIS, plotting the coordinates for your next adventure.
+
+[runner] turns=35 leftover=0 running=false WON=YES

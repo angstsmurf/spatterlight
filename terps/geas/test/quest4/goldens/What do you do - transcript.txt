@@ -1,0 +1,72 @@
+
+What do you do?, v0.1 OrenjiJusu
+
+You are in Hamleaf Town Pub
+You can go south, east or west.
+You are Jeff, sweet-talker and trouble maker.
+You are standing in a typical english Pub, there is the constant smel of tobacco in the air, despite the smoking ban, and people are slowly drinking away their intelligence, 
+Before you came into here harry caught you in bed with Frank's wife, and of course him being the good little lackey he is, he ran off to tell Frank, the local crime boss. Alice, your sister, has been drinking for quite some time and has the keys to the car, unforunately.
+Frank is coming to kill you, Harry has seen you naked and Alice is drunk. What do you do?
+
+> e
+You are in The bar
+There is Alice and Alice's bag here.
+You can go west.
+You are standing in the bar section of the Hamleaf town pub. This is the area where the patron come to buy the magical substances which will slowly lower their intelligence, and if Role playing games ring true, raise their charisma. The barman gives you an evil look and sets about ignoring your very existence. It appears that your sister has been drinking for a long time. She has slumped over onto the bar.
+
+> look at alice's bag
+Most of the contents appear to have spilled out some time ago. People have kicked about certain items and crushed others. You spot the keys, luckily for you un harmed.
+
+> take car keys
+
+> i
+You are carrying:
+Car keys
+
+> w
+You are in Hamleaf Town Pub
+You can go south, east or west.
+You are standing in a typical english Pub, there is the constant smel of tobacco in the air, despite the smoking ban, and people are slowly drinking away their intelligence.
+You hear shouting coming from up stairs. it may be best to leave quickly.
+
+> s
+You are in Outside the Pub
+There is Honda Civic here.
+You can go north, south, east or west.
+You are standing outside the pub, there is a smell of smoking outhere as well as  the smell of urine and puke. The traditional building style of the pub quite sutes the small village, although it may be best to not go into the pub, especially after what has happpened.
+
+> e
+You are in Street East
+There is Bin here.
+You can go east or west.
+You are standing in the street east of the pub, There is a odd lack of interesting building in this part of Hamleaf, just some terraced houses, really the pub was the most interesting place in the town.
+
+> look at bin
+Knife
+It is a typical bin, like any you'd find in a village of modern times, Full of wrappers, bottles, broken glass, knives....wait...what?
+
+> take knife
+
+> i
+You are carrying:
+Knife
+Car keys
+
+> west
+You are in Street with frank
+There is Frank here.
+You can go out to Street.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+As you turn back towards the pub you bump into Frank. It looks like he has chased you down. You can see the hate in his eyes and can see it in the fact hat every muscle in his body is buldging, along with a rather large vein on his forehead. This is your final encounter, the last boss if you will. Hope you brought a weapon.
+
+> look at frank
+He looks mad. whatever you're going to do, better do it now.
+
+> speak to frank
+" Surely this is all jjust one big misunderstanding" you attempt.
+Frank only stares, the hate in his eyes building.
+
+> use knife on frank
+Frank is surprised to find you rushing at him with a knife, you manage to catch him off guard and stab him in the gut. he manages to get off a shot into your kneecap. leaving you crippled, until an ambulance comes. Luckily for you, frank bled out, unluckily for you the police want to know what happened. Good luck explaining to them.
+You have survived.
+[runner] turns=14 leftover=0 running=false WON=YES

@@ -1,0 +1,1600 @@
+
+Shiversword 2 CJ
+
+It is the year 100AD, and you have just finished touring with John Lemon.  However things went wrong when John got ill....
+
+On his death bed, John Lemon told you a story....
+
+"When I was a young Lemon, I was told of a Magic Harp.  The legend goes that whoever can make the Harp sing will have every wish they ever desired granted.
+
+After many years of searching, I have at last discovered the final resting place of the Magic Harp.
+
+It's location is on this map."
+
+And John hands you a map.
+
+
+You are in the World Map
+You are in the World Map.  When you find clues or are told of different places you can visit, they will be added to the world map.
+
+> read map
+You read the map
+Marked on the map is a building with the words "The Temple of Shurlee"  There is a big red cross marked through it.
+
+Perhaps that is where you need to go.
+
+> go to shurlee temple
+You are in Shurlee Temple
+There is a large statue head here.
+You can go out to World Map.
+You can go north.
+The Goddess Shurlee was known for her childish antics and curly hair.  This temple was erected for her many years ago by the Shurlee druids, a cult of young virgins that liked to dress in party dresses and red curly wigs.
+
+However, now the temple is nothing more than ruins.
+
+> north
+You are in the ruins
+There is an altar and a mausoleum here.
+You can go south.
+You are standing in the ruins of Shurlee Temple.  There is no longer a roof above your head and the walls are nothing more than irregular piles of stone
+
+> look at mausoleum
+The mausoleum is old and made of stone.  It is a small hollow structure with stairs that descend deep into the ground beneath the temple.
+There is an iron gate bocking the passage down
+
+> push iron gate
+You push the gate and it comes easliy off it's hinges and crashes down the staircase to the chamber below.
+
+> down
+You are in chamber
+There is the broken gate here.
+You can go south or up.
+
+> look at broken gate
+The gate lies broken at the bottom of the stairway.
+Amongst the pile of debris you spot a long piece of metal which has still remained intact.
+
+> take rod
+You pick it up.
+
+> up
+You are in the ruins
+There is an altar and a mausoleum here.
+You can go south or down.
+You are standing in the ruins of Shurlee Temple.  There is no longer a roof above your head and the walls are nothing more than irregular piles of stone
+
+> south
+You are in Shurlee Temple
+There is a large statue head here.
+You can go out to World Map.
+You can go north.
+The Goddess Shurlee was known for her childish antics and curly hair.  This temple was erected for her many years ago by the Shurlee druids, a cult of young virgins that liked to dress in party dresses and red curly wigs.
+
+However, now the temple is nothing more than ruins.
+
+> use rod on head
+You use the rod as a lever to move the head.  And after some effort the head shifts slightly revealing a small hole.
+
+
+> north
+You are in the ruins
+There is an altar and a mausoleum here.
+You can go south or down.
+You are standing in the ruins of Shurlee Temple.  There is no longer a roof above your head and the walls are nothing more than irregular piles of stone
+
+> down
+You are in chamber
+There is the broken gate here.
+You can go south or up.
+
+> south
+You are in dark passage
+There is a shaft of light here.
+You can go north or south.
+Even though the passage is still dark, there is enough light coming from a shaft in the ceiling for you to see.
+
+> south
+You are in crypt
+There is a stone dais here.
+You can go north.
+The crypt is a dark stone circular room which is strangely lit by the glowing crystals embedded into the wall.  In the centre of the room of a stone dais.
+
+> look at dais
+The stone dais was obvisouly designed to hold something.  Perhaps it was where the magic harp rested?  However, there is no harp here now.
+A further look at the dais reveals a small piece of cloth
+
+> take cloth
+You pick it up.
+
+> look at cloth
+The cloth has a coat of arms printed on it.  It shows a Llama and Lava lamp holding up a huge shield.
+This flag has you stumped.
+
+Although there is one man you have heard of that may be able to help.  The Oracle, who lives in a small seaside town somewhere near Eastbourne- Fax by the Sea.
+
+Perhaps he will know what the crest is.
+
+A new location has been added to the world map
+
+> north
+You are in dark passage
+There is a shaft of light here.
+You can go north or south.
+Even though the passage is still dark, there is enough light coming from a shaft in the ceiling for you to see.
+
+> north
+You are in chamber
+There is the broken gate here.
+You can go south or up.
+
+> up
+You are in the ruins
+There is an altar and a mausoleum here.
+You can go south or down.
+You are standing in the ruins of Shurlee Temple.  There is no longer a roof above your head and the walls are nothing more than irregular piles of stone
+
+> south
+You are in Shurlee Temple
+There is a large statue head and a small hole here.
+You can go out to World Map.
+You can go north.
+The Goddess Shurlee was known for her childish antics and curly hair.  This temple was erected for her many years ago by the Shurlee druids, a cult of young virgins that liked to dress in party dresses and red curly wigs.
+
+However, now the temple is nothing more than ruins.
+
+> out
+You are in the World Map
+You can go to Shurlee Temple or Fax By The Sea.
+You are in the World Map.  When you find clues or are told of different places you can visit, they will be added to the world map.
+
+> go to fax by the sea
+You are in Fax By The Sea
+There is Oracle here.
+You can go out to World Map.
+This is the home of the Oracle.  A very knowledgable individual that may be able to help you.
+
+> speak to oracle
+You speak to the oracle
+You introduce yourself.
+"Ah Shiversword, I have heard of you.  In fact I saw you on tour with John Lemon.  Your version of 'Mysterious Wench' by Saint Peter of Andre was excellent.  Perhaps you could play it for me again one day
+
+Now let me be of service.  If you want to show me an object I may be able to tell you something about it, or you can ask me about something."
+
+> play lute
+You get your lute out to strum a little tune
+Which song will you play?
+1) Yesteryear by  John Lemon
+2) Mysterious Wench by Saint Peter of Andre
+[choice] 2
+"Mysterious Wench
+I wanna get close to you
+Oh Oh Oh
+Mysterious Wench
+But I can't because of the stench"
+The Oracle applauds you.
+
+"Thank you for playing that for me.  
+Here let me give you something unusual for your trouble"
+
+And he gives you book"
+
+> give book to oracle
+"I thought you would like this book for you to write songs down in.  Whenever you get inspiration for a song you can write it down in here"
+
+> give map to oracle
+The Oracle looks over the map.
+"That's a very old map.  I tell you something, I will buy it from you.  I will give you 2 gold pieces.
+
+Will you sell the map for 2 gold pieces?
+1) Yes
+2) No
+[choice] 1
+You agree to the deal, seeing as you have already used it to find the Temple.
+
+> give cloth to oracle
+"Ah yes.  I have seen this coat of arms before.  It belongs to Elliott.  A very famous explorer and treasure hunter.  Yes, this is definitely the coat of arms of the House of Elliott!
+
+
+He owns a manor house in the village of Elliott's Bottom.  Have you seen Elliott's Bottom? Here, let me show you where he is on the map."
+
+A new location has been added to the world map.
+
+> out
+You are in the World Map
+You can go to Shurlee Temple, Fax By The Sea, or Elliott's Bottom.
+You are in the World Map.  When you find clues or are told of different places you can visit, they will be added to the world map.
+
+> go to shurlee temple
+You are in Shurlee Temple
+There is a large statue head and a small hole here.
+You can go out to World Map.
+You can go north.
+The Goddess Shurlee was known for her childish antics and curly hair.  This temple was erected for her many years ago by the Shurlee druids, a cult of young virgins that liked to dress in party dresses and red curly wigs.
+
+However, now the temple is nothing more than ruins.
+
+> north
+You are in the ruins
+There is an altar and a mausoleum here.
+You can go south or down.
+You are standing in the ruins of Shurlee Temple.  There is no longer a roof above your head and the walls are nothing more than irregular piles of stone
+
+> down
+You are in chamber
+There is the broken gate here.
+You can go south or up.
+
+> south
+You are in dark passage
+There is a shaft of light here.
+You can go north or south.
+Even though the passage is still dark, there is enough light coming from a shaft in the ceiling for you to see.
+
+> look at light
+It is a shaft of light that is streaming in from the ceiling.  It is obviously coming from the hole you revealed underneath the statue's head.  As a shaft of light it is quite inspiring.
+
+Looking at the ray of light inspires you to write a song.
+
+"Ray of Light"
+
+Quicker than a ray of light I dream
+Shurlee wants you for a sunbeam.
+
+
+
+
+> north
+You are in chamber
+There is the broken gate here.
+You can go south or up.
+
+> up
+You are in the ruins
+There is an altar and a mausoleum here.
+You can go south or down.
+You are standing in the ruins of Shurlee Temple.  There is no longer a roof above your head and the walls are nothing more than irregular piles of stone
+
+> south
+You are in Shurlee Temple
+There is a large statue head and a small hole here.
+You can go out to World Map.
+You can go north.
+The Goddess Shurlee was known for her childish antics and curly hair.  This temple was erected for her many years ago by the Shurlee druids, a cult of young virgins that liked to dress in party dresses and red curly wigs.
+
+However, now the temple is nothing more than ruins.
+
+> out
+You are in the World Map
+You can go to Shurlee Temple, Fax By The Sea, or Elliott's Bottom.
+You are in the World Map.  When you find clues or are told of different places you can visit, they will be added to the world map.
+
+> go to elliott's bottom
+You are in Elliott's Bottom
+There is Simon of the Cowl here.
+You can go out to World Map.
+You can go north, east, west or northwest.
+The village of Elliott's Bottom is nestled between two hills.
+
+> speak to simon
+You speak to Simon
+"Are you interested in auditioning for The Eggs Factor?
+
+Entrance fee is 1 gold piece.
+
+Here take a leaflet and come back if you are interested"
+
+And he hands you a leaflet
+
+> speak to simon
+You speak to Simon
+"Do you want to enter the Eggs Factor?  It will be 1 gold piece to enter"
+Do you wish to enter The Eggs Factor?
+1) Yes
+2) No
+[choice] 1
+You pay your gold and Simon hands you a form
+
+> north
+You are in Elliott Manor
+There is Olive Neutral-Gong and a reception desk here.
+You can go south.
+The Manor is an imposing and majestic building overlooking the Elliott's Bottom.  If you stand in the highest tower you can get the best view of the Bottom from anywhere.
+
+> speak to olive
+You speak to Olive
+"Elliott is not seeing anyone at the moment.  He is busy.  If there is something you wish to leave with me, then I would be glad to pass it on"
+
+> give cloth to olive
+You hand the cloth to Olive.  "Does this belong to Elliott?"
+"Oh yes, that's his.  Thank you for returning it, he is always dropping things"
+
+> speak to olive
+You speak to Olive
+"Thanks for returning that cloth.  Elliott is always losing things.  He's lost his wallet as well.
+
+If you find it, do pop it in.  There might be a reward"
+
+> speak to olive
+You speak to Olive
+Olive seems to be doodling Elliott's name on a pad.
+
+Would you like to ask Olive about Elliott?
+1) Yes
+2) No
+[choice] 1
+"Oh Elliott is such a hunk, but he doesn't know I exist.  I am hopelessly devoted to him you see"
+Listening to Olive's tale of unrequited love inspires you to write a song
+
+'Hopelessly Devoted'
+
+"And now there's no place to hide
+I'll be your bit on the side
+Come jump in my bed
+I'm hoplessly dee-vo-ted to 
+you...."
+
+Perhaps Olive would like to hear it?
+
+> play lute
+You get your lute out to strum a little tune
+Which song would you like to play?
+1) 'Hopelessly Devoted' inspired by Olive Neutral-Gong
+2) 'Ray of Light' by Shiversword
+3) 'Yesteryear' by John Lemon
+4) 'Mysterious Wench' by Saint Peter of Andre
+[choice] 1
+'Hopelessly Devoted'
+
+"And now there's no place to hide
+I'll be your bit on the side
+Come jump in my bed
+I'm hoplessly dee-vo-ted to 
+you...."
+"That's a wonderful song" Olive says.  "It says exactly how I feel.
+
+But what's the use, he is never going to hear it."
+
+Hmmm...
+
+
+> give leaflet to olive
+You have an idea.
+"I am going to be performing in this show later.  Elliott will be there listening.  What if I was to sing the song I wrote for you"
+
+"That's a great idea" Olive says.  And I can be there too.  I must go and get a ticket for the show!"
+
+And she quickly leaves her desk
+
+> look at desk
+The desk is standing in the hall of the Manor
+There is a key on the desk
+
+> take box key
+Whilst Olive is away from her desk, you quickly swipe the key.
+When Olive returns, she seems somewhat cheerier.  "I have my ticket.  Remember you promise to sing my song"
+
+> south
+You are in Elliott's Bottom
+There is Simon of the Cowl here.
+You can go out to World Map.
+You can go north, east, west or northwest.
+The village of Elliott's Bottom is nestled between two hills.
+
+> west
+You are in the Globes Theatre
+The Globes Theatre is one of the most visited theatres in the land.  Often people have been heard to have said "Have you seen Elliott's Globes"?
+You are in an auditorium
+There is a Bouncer and the stalls here.
+You can go out to Elliott's Bottom.
+You can go west, northwest or up.
+The auditorium is a large room with tiered seats facing a main stage.  There is an exit which leads to a room back stage and a door leading upwards to the theatre boxes.
+
+> give pass to bouncer
+You show your pass to the bouncer and he grudgingly unlocks the door for you.  You now have access to the Green Room
+
+> up
+The door to the Theatre Box is locked.
+You use the key to the theatre box to unlock the door and climb up
+You are in the theatre box
+There is Chairs and a pair of opera glasses here.
+You can go down.
+The thatre box is a lavish seating area situated above the main auditorium.  It has a very good view of the stage.
+
+> examine chairs
+You quickly examine the chairs.  Stuck behind one of the cushions you find a wallet.
+
+> take wallet
+You pick it up.
+
+> look at opera glasses
+It is a pair of red opera glasses.  Yu hold them to your eyes and they act as a pair of binoculars.
+At the moment they are fixed into position by a little clip  the clip reads "1 gold piece"
+
+Looks like you are going to have to pay 1 gold piece to release them
+Will you pay one gold piece to release them?
+1) Yes
+2) No
+[choice] 1
+You put the gold piece into the slot and it releases the glasses.
+
+> down
+You are in an auditorium
+There is a Bouncer and the stalls here.
+You can go out to Elliott's Bottom.
+You can go west, northwest or up.
+The auditorium is a large room with tiered seats facing a main stage.  There is an exit which leads to a room back stage and a door leading upwards to the theatre boxes.
+
+> out
+You are in Elliott's Bottom
+There is Simon of the Cowl here.
+You can go out to World Map.
+You can go north, east, west or northwest.
+The village of Elliott's Bottom is nestled between two hills.
+
+> north
+You are in Elliott Manor
+There is Olive Neutral-Gong and a reception desk here.
+You can go south.
+The Manor is an imposing and majestic building overlooking the Elliott's Bottom.  If you stand in the highest tower you can get the best view of the Bottom from anywhere.
+
+> give wallet to olive
+"Does this belong to Elliott?"
+And you hand the wallet over.
+"OH yes  That's the one.  Here is your reward"
+And she gives you 1 gold piece
+
+> south
+You are in Elliott's Bottom
+There is Simon of the Cowl here.
+You can go out to World Map.
+You can go north, east, west or northwest.
+The village of Elliott's Bottom is nestled between two hills.
+
+> east
+You are in Elliott's farm
+There is a sheep here.
+You can go north, west or down.
+The farm is nothing more than a muddy field containing one sheep.
+
+> north
+You are in Elliott's pasture
+There is Edison, a scattered pile of scientific papers and a patch of long grass here.
+You can go south.
+You are standing in a large barren field.  This is probably where animals come to graze.
+
+> speak to edison
+You speak to Edison
+He is ignoring you at the moment.  He appears to be depressed about something.  
+Perhaps you could sing him a song to cheer him up.
+
+> play lute
+You get your lute out to strum a little tune
+Which song would you like to play?
+1) 'Hopelessly Devoted' inspired by Olive Neutral-Gong
+2) 'Ray of Light' by Shiversword
+3) 'Yesteryear' by John Lemon
+4) 'Mysterious Wench' by Saint Peter of Andre
+[choice] 2
+"Quicker than a ray of light I dream
+Shurlee wants you for a sunbeam."
+Edison looks up as you sing the song about light.
+
+"That's a nice song" he says.  I love light.  I love lightning more."
+
+He then goes back to his papers.  At least you've attracted his attention.
+
+
+> use opera glasses
+You decide to help Edison out by having a quick scout around.
+You put the opera glasses to your eyes and search the distant fields.
+
+Eventually you spot the lightning plain.
+
+"Excellent" cries Edison.  "I knew I'd find it"  And he rushes off.
+
+A new location has been added to your world map.
+
+> take long grass
+You pull a tuft of the long grass out of the pasture.
+
+> south
+You are in Elliott's farm
+There is a sheep here.
+You can go north, west or down.
+The farm is nothing more than a muddy field containing one sheep.
+
+> use grass on sheep
+You offer the handful of grass to the sheep and it comes towards you to eat it.  It is only then that you can see that the sheep was standing on top of a pair of gloves.
+
+> take gloves
+You pick it up.
+
+> west
+You are in Elliott's Bottom
+There is Simon of the Cowl here.
+You can go out to World Map.
+You can go north, east, west or northwest.
+The village of Elliott's Bottom is nestled between two hills.
+
+> west
+You are in the Globes Theatre
+The Globes Theatre is one of the most visited theatres in the land.  Often people have been heard to have said "Have you seen Elliott's Globes"?
+You are in an auditorium
+There is a Bouncer and the stalls here.
+You can go out to Elliott's Bottom.
+You can go west, northwest or up.
+The auditorium is a large room with tiered seats facing a main stage.  There is an exit which leads to a room back stage and a door leading upwards to the theatre boxes.
+
+> west
+You are in the Stage
+There is lever here.
+You can go north or east.
+As you stand on the stage you start to remember all the good times You and John had playing on tour.
+
+> pull lever
+You pull the lever and suddenly a trap door opens beneath you.  You fall down.......
+You are in a Props room
+There is lighting rig here.
+You are in a large understage storage area.
+
+> examine lighting rig
+You examine the rig
+Amongst the technical equipment you find a light bulb.
+
+> take bulb
+You pick it up.
+
+> examine lighting rig
+You examine the rig
+Amongst the rig you find a flat battery.
+
+> take flat battery
+You pick it up.
+
+> climb rig
+You climb the lighting rig back up to the stage.
+You are in the Stage
+There is lever here.
+You can go north or east.
+As you stand on the stage you start to remember all the good times You and John had playing on tour.
+
+> east
+You are in an auditorium
+There is a Bouncer and the stalls here.
+You can go out to Elliott's Bottom.
+You can go west, northwest or up.
+The auditorium is a large room with tiered seats facing a main stage.  There is an exit which leads to a room back stage and a door leading upwards to the theatre boxes.
+
+> out
+You are in Elliott's Bottom
+There is Simon of the Cowl here.
+You can go out to World Map.
+You can go north, east, west or northwest.
+The village of Elliott's Bottom is nestled between two hills.
+
+> out
+You are in the World Map
+You can go to Shurlee Temple, Fax By The Sea, Elliott's Bottom, or Lightning plain.
+You are in the World Map.  When you find clues or are told of different places you can visit, they will be added to the world map.
+
+> go to lightning plain
+You are in the Lightning plain
+There is Edison and a burnt patch on the ground here.
+You can go out to World Map.
+You are in large field.  The weather around you is stormy and every now and then there is a flash of lightning.
+
+> wear gloves
+You put the gloves on.  They are a very tight fit!
+
+> use rod on burnt patch
+You ram the rod into the burnt patch.  Even as you do so the lightning strikes the rod sending you clear across the field!
+
+> use flat battery on lightning rod
+You attach the wires of the flat battery to the rod whilst wearing the gloves.
+
+Eventually a olt of lightning strikes the rod and the battery charges.
+
+> take charged battery
+With your gloves on you pick up the battery.  Eventually the charge calms down.
+
+> give charged battery to edison
+
+You give the Charged battery to Edison
+He inserts it into the camera and starts taking photos of the lightning.  
+
+> out
+You are in the World Map
+You can go to Shurlee Temple, Fax By The Sea, Elliott's Bottom, or Lightning plain.
+You are in the World Map.  When you find clues or are told of different places you can visit, they will be added to the world map.
+
+> go to elliott's bottom
+You are in Elliott's Bottom
+There is Simon of the Cowl here.
+You can go out to World Map.
+You can go north, east, west or northwest.
+The village of Elliott's Bottom is nestled between two hills.
+
+> northwest
+You are in a Mystic's tent
+There is a large cushioned Chair, Madam Mayi, a covered table, a Crystal ball and a painting here.
+You can go southeast.
+You ar in the mystic's tent.  It is quite a large marquee draped in silk sheets of varying colours.  There is a large chair in the tent, which must be where the mystic sits to perform her readings.
+After a while the gloves start to hurt.  They are far too small.
+
+You take them off.
+
+> speak to madam mayi
+You speak to Madam Mayi.
+"Madam Mayi" You say
+"You may" She replies.  "Do you wish to have a reading?  It will cost you 1 gold piece."
+Do you wish to have a reading from Madam Mayi?
+1) Yes
+2) No
+[choice] 1
+You pay the gold piece
+"Before I start" She says"I always ask my clients to ask me a question about themselves that only they would know the answer to.  That way you will know I am genuine!"
+Which question about yourself will you ask Madam Mayi?
+1) What is my favourite food?
+2) What was the name of my first teddy bear?
+3) What number am I thinking of?
+[choice] 1
+Madam Mayi gazes into her crystal ball
+"You like to tell everyone that it is Peanuts but in fact you don't like peanuts.  You much prefer mouse and onion crisps"
+
+She is right!
+
+
+After you give the coin to Madam Mayi, she picks up her crystal ball
+
+Suddenly a light comes on inside it as she starts to meditate.
+
+"There is some good news for you here Shiversword"
+
+How did she know your name?
+
+"You are going on a mighty quest but beware, things will not end up well for you"
+
+And with that the light n the ball goes out
+Afterwards Madam Mayi gets up.
+
+"I am tired now and I must rest before my next client"
+
+She hangs up her cloak on the back of the chair, takes her crystal ball and leaves.
+
+> southeast
+You are in Elliott's Bottom
+There is Simon of the Cowl here.
+You can go out to World Map.
+You can go north, east, west or northwest.
+The village of Elliott's Bottom is nestled between two hills.
+
+> east
+You are in Elliott's farm
+There is a sheep here.
+You can go north, west or down.
+The farm is nothing more than a muddy field containing one sheep.
+
+> north
+You are in Elliott's pasture
+There is a patch of long grass here.
+You can go south.
+You are standing in a large barren field.  This is probably where animals come to graze.
+
+> take long grass
+You pull a tuft of the long grass out of the pasture.
+
+> south
+You are in Elliott's farm
+There is a sheep here.
+You can go north, west or down.
+The farm is nothing more than a muddy field containing one sheep.
+
+> west
+You are in Elliott's Bottom
+There is Simon of the Cowl here.
+You can go out to World Map.
+You can go north, east, west or northwest.
+The village of Elliott's Bottom is nestled between two hills.
+
+> out
+You are in the World Map
+You can go to Shurlee Temple, Fax By The Sea, Elliott's Bottom, or Lightning plain.
+You are in the World Map.  When you find clues or are told of different places you can visit, they will be added to the world map.
+
+> go to lightning plain
+You are in the Lightning plain
+There is Edison, a burnt patch on the ground and lightning rod here.
+You can go out to World Map.
+You are in large field.  The weather around you is stormy and every now and then there is a flash of lightning.
+
+> speak to edison
+You speak to Edison
+"Thank you for all your help.  I have managed to get some good photographs here.
+I need to get these photo's to my lab.  Why not come and visit me in my lab.  The address is on the card."
+
+And he hands you a business card.
+
+"Oh.  Here take the camera for your help.  You can always return it to me later"
+
+And with that Edison leaves, giving you his camera.
+
+> read business card
+The card reads "Edison's electrical Emporium.  Village of Burninghman, England"
+
+The village of Burningham!
+A new location has been added to the world map.
+
+> out
+You are in the World Map
+You can go to Shurlee Temple, Fax By The Sea, Elliott's Bottom, Lightning plain, or Burningham.
+You are in the World Map.  When you find clues or are told of different places you can visit, they will be added to the world map.
+
+> go to elliott's bottom
+You are in Elliott's Bottom
+There is Simon of the Cowl here.
+You can go out to World Map.
+You can go north, east, west or northwest.
+The village of Elliott's Bottom is nestled between two hills.
+
+> use camera on simon
+You decide to take a photograph of Simon.
+
+As the picture comes out of the camera Simon asks to see it.  So you show it to him.
+"Hey I look really good in this picture.  Let me sign it for you." And he quickly scrawls a message on it for you"
+This act of vanity inspires you to write a song.
+
+"You're so Vain" inspired by Simon of the Cowl.
+
+You're so vain
+I bet you think this song is about you
+You're a pain
+And your ego is as big as a train.  You're so vain.
+
+
+
+
+
+> out
+You are in the World Map
+You can go to Shurlee Temple, Fax By The Sea, Elliott's Bottom, Lightning plain, or Burningham.
+You are in the World Map.  When you find clues or are told of different places you can visit, they will be added to the world map.
+
+> go to fax by the sea
+You are in Fax By The Sea
+There is a map and Oracle here.
+You can go out to World Map.
+This is the home of the Oracle.  A very knowledgable individual that may be able to help you.
+
+> give autograph to oracle
+"Oh" The Oracle says "A Simon Autograph.  These could be rare in years to come.  Will you sell it to me for 2 gold pieces?"
+
+Will you sell the autograph for 2 gold pieces?
+1) Yes
+2) No
+[choice] 1
+You hand over the autograph
+
+> out
+You are in the World Map
+You can go to Shurlee Temple, Fax By The Sea, Elliott's Bottom, Lightning plain, or Burningham.
+You are in the World Map.  When you find clues or are told of different places you can visit, they will be added to the world map.
+
+> go to burningham
+You are in the village of Burningham
+You can go out to World Map.
+You can go north, south, east or west.
+You are standing in the centre of the village.  
+To the North is Edison's Electrical Emporium.
+To the West is Al Chemist's Alchemy store
+To the East is Bing Harbor's Barber shop
+To the South is the Chic Boutique
+
+> west
+You are in Al Chemist's Alchemy store
+There is Al Chemist, Microscope and a mortar and pestle here.
+You can go east.
+You are in Al's Alchemy store.  Al is standing behind his desk working with a microscope.  There are several jars filled with odd chemicals and pieces of equipment lying around.
+
+> speak to al
+You speak to Al.
+"Damn this microscope!  The lens has broken and I can't see anything through it! I don't suppose you can help?"
+
+> give opera glasses to al
+You offer Al the opera glasses.  "Inside these there are some lenses" 
+
+Al takes them from you.  "These will be great! Thanks!"
+
+Here take this mortar and pestle as a thank you.
+
+> speak to al
+You speak to Al.
+"Thanks for your help" he says.  I have been researching some bacteria and I think I have found out something amazing!"
+
+"How would you like to help me out again?  I need sme snails for my research.  Do you think you could find some snails for me.  I need five of them.  If you find five snails, bring them to me"
+
+> use grass on mortar and pestle
+You grind the grass in the mortar and pestle  After while you grind it into a green paste.
+
+However, you were a bit too heavy handed.  You have broken the pestle.  All you have now is the bowl!
+
+> east
+You are in the village of Burningham
+You can go out to World Map.
+You can go north, south, east or west.
+You are standing in the centre of the village.  
+To the North is Edison's Electrical Emporium.
+To the West is Al Chemist's Alchemy store
+To the East is Bing Harbor's Barber shop
+To the South is the Chic Boutique
+
+> out
+You are in the World Map
+You can go to Shurlee Temple, Fax By The Sea, Elliott's Bottom, Lightning plain, or Burningham.
+You are in the World Map.  When you find clues or are told of different places you can visit, they will be added to the world map.
+
+> go to shurlee temple
+You are in Shurlee Temple
+There is a large statue head and a small hole here.
+You can go out to World Map.
+You can go north.
+The Goddess Shurlee was known for her childish antics and curly hair.  This temple was erected for her many years ago by the Shurlee druids, a cult of young virgins that liked to dress in party dresses and red curly wigs.
+
+However, now the temple is nothing more than ruins.
+
+> examine hole
+You examine the hole a bit further.  Inside you find a snail, which you collect.
+
+> north
+You are in the ruins
+There is an altar and a mausoleum here.
+You can go south or down.
+You are standing in the ruins of Shurlee Temple.  There is no longer a roof above your head and the walls are nothing more than irregular piles of stone
+
+> examine altar
+In a small crevice in the altar you find a snail, which you collect.
+
+> down
+You are in chamber
+There is the broken gate here.
+You can go south or up.
+
+> south
+You are in dark passage
+There is a shaft of light here.
+You can go north or south.
+Even though the passage is still dark, there is enough light coming from a shaft in the ceiling for you to see.
+
+> south
+You are in crypt
+There is a stone dais here.
+You can go north.
+The crypt is a dark stone circular room which is strangely lit by the glowing crystals embedded into the wall.  In the centre of the room of a stone dais.
+
+> examine dais
+Hidden behind the dais you find a snail, which you collect.
+
+> north
+You are in dark passage
+There is a shaft of light here.
+You can go north or south.
+Even though the passage is still dark, there is enough light coming from a shaft in the ceiling for you to see.
+
+> north
+You are in chamber
+There is the broken gate here.
+You can go south or up.
+
+> up
+You are in the ruins
+There is an altar and a mausoleum here.
+You can go south or down.
+You are standing in the ruins of Shurlee Temple.  There is no longer a roof above your head and the walls are nothing more than irregular piles of stone
+
+> south
+You are in Shurlee Temple
+There is a large statue head and a small hole here.
+You can go out to World Map.
+You can go north.
+The Goddess Shurlee was known for her childish antics and curly hair.  This temple was erected for her many years ago by the Shurlee druids, a cult of young virgins that liked to dress in party dresses and red curly wigs.
+
+However, now the temple is nothing more than ruins.
+
+> out
+You are in the World Map
+You can go to Shurlee Temple, Fax By The Sea, Elliott's Bottom, Lightning plain, or Burningham.
+You are in the World Map.  When you find clues or are told of different places you can visit, they will be added to the world map.
+
+> go to elliott's bottom
+You are in Elliott's Bottom
+There is Simon of the Cowl here.
+You can go out to World Map.
+You can go north, east, west or northwest.
+The village of Elliott's Bottom is nestled between two hills.
+
+> east
+You are in Elliott's farm
+There is a sheep here.
+You can go north, west or down.
+The farm is nothing more than a muddy field containing one sheep.
+
+> down
+You are in the sheep dip
+There is a large tank, a valve and bleach here.
+You can go up.
+You are standing on a small platform overlooking a large tank.  The tank is designed to clean and disinfect sheep.
+
+> turn valve
+You turn the valve and the tank fills with water.
+
+> examine valve
+Hidden behind the valve, in the damp darkness, is a snail, which you collect.
+
+> take bleach
+You pick it up.
+
+> up
+You are in Elliott's farm
+There is a sheep here.
+You can go north, west or down.
+The farm is nothing more than a muddy field containing one sheep.
+
+> north
+You are in Elliott's pasture
+There is a patch of long grass here.
+You can go south.
+You are standing in a large barren field.  This is probably where animals come to graze.
+
+> examine long grass
+A detailed examination of the long grass reveals a snail which you collect.
+
+> south
+You are in Elliott's farm
+There is a sheep here.
+You can go north, west or down.
+The farm is nothing more than a muddy field containing one sheep.
+
+> west
+You are in Elliott's Bottom
+There is Simon of the Cowl here.
+You can go out to World Map.
+You can go north, east, west or northwest.
+The village of Elliott's Bottom is nestled between two hills.
+
+> out
+You are in the World Map
+You can go to Shurlee Temple, Fax By The Sea, Elliott's Bottom, Lightning plain, or Burningham.
+You are in the World Map.  When you find clues or are told of different places you can visit, they will be added to the world map.
+
+> go to burningham
+You are in the village of Burningham
+You can go out to World Map.
+You can go north, south, east or west.
+You are standing in the centre of the village.  
+To the North is Edison's Electrical Emporium.
+To the West is Al Chemist's Alchemy store
+To the East is Bing Harbor's Barber shop
+To the South is the Chic Boutique
+
+> west
+You are in Al Chemist's Alchemy store
+There is Al Chemist and Microscope here.
+You can go east.
+You are in Al's Alchemy store.  Al is standing behind his desk working with a microscope.  There are several jars filled with odd chemicals and pieces of equipment lying around.
+
+> speak to al
+You speak to Al.
+"Have you found any snails yet?
+"You have!  Here let me take them from you and give you something as a reward."
+
+And he hands you 2 gold pieces.
+
+> east
+You are in the village of Burningham
+You can go out to World Map.
+You can go north, south, east or west.
+You are standing in the centre of the village.  
+To the North is Edison's Electrical Emporium.
+To the West is Al Chemist's Alchemy store
+To the East is Bing Harbor's Barber shop
+To the South is the Chic Boutique
+
+> out
+You are in the World Map
+You can go to Shurlee Temple, Fax By The Sea, Elliott's Bottom, Lightning plain, or Burningham.
+You are in the World Map.  When you find clues or are told of different places you can visit, they will be added to the world map.
+
+> go to elliott's bottom
+You are in Elliott's Bottom
+There is Simon of the Cowl here.
+You can go out to World Map.
+You can go north, east, west or northwest.
+The village of Elliott's Bottom is nestled between two hills.
+
+> west
+You are in the Globes Theatre
+The Globes Theatre is one of the most visited theatres in the land.  Often people have been heard to have said "Have you seen Elliott's Globes"?
+You are in an auditorium
+There is a Bouncer and the stalls here.
+You can go out to Elliott's Bottom.
+You can go west, northwest or up.
+The auditorium is a large room with tiered seats facing a main stage.  There is an exit which leads to a room back stage and a door leading upwards to the theatre boxes.
+
+> northwest
+You are in the Green Room
+There is Sharon Frogspawn and Bing Harbor here.
+You can go south or southeast.
+The Green Room: a place backstage where actors and performers get ready to go on stage.
+
+> speak to sharon
+You speak to Sharon
+"Are you ready to start the competition?" She asks
+Are you ready to compete in the competition?
+1) Yes
+2) No
+[choice] 1
+"Okay, let's get the competition started."
+
+You sit in the Green room and wait as Bing Harbor takes the stage.
+
+From the room you can hear the the judges take Bing to pieces after his three songs. 
+However Bing does score a total of 24 out of 30.
+
+That is the score you have to beat
+
+Now it is your turn.  You head to the stage
+You are in the Stage
+There is lever and Bing Harbor here.
+You can go north or east.
+As you stand on the stage you start to remember all the good times You and John had playing on tour.
+
+
+You stand in front of the judges, Simon of the Cowl, Elliott and A woman you recognise as Queen Winalot.
+
+You now have to decide what to perform.
+Which song will you perform?
+1) Yesteryear
+2) Mysterious Wench
+3) Hopelessly Devoted
+4) Ray of Light
+5) You're so vain
+[choice] 5
+You play you're so vain
+
+This is the first time you have played this song to an audience, and in front of Simon.  The crowd go wild!  Even Simon loves it- but I suppose he would- it is about him!
+
+You score 10 out of 10
+That was your first song out of the way. You have scored a total of 10
+
+Now what will you perform?
+
+Which song will you perform?
+1) Yesteryear
+2) Mysterious Wench
+3) Hopelessly Devoted
+4) Ray of Light
+5) You're so vain
+[choice] 3
+You play Hopelessly Devoted
+
+You sing the song and wonder if Olive is in the audience swooning over Elliott.
+"Not a bad song" Simon says.
+
+You score 8 out of 10.
+That was the second song you have performed.
+Your score at the moment is 18
+
+What will be your final song?
+
+Which song will you perform?
+1) Yesteryear
+2) Mysterious Wench
+3) Hopelessly Devoted
+4) Ray of Light
+5) You're so vain
+[choice] 2
+You play Mysterious Wench.
+"An interesting performance.  Shame about the singing." Simon criticises.
+
+You score 7 out of 10.
+That is your final song.  You have score a grand total of....
+
+25 points.
+
+CONGRATULATIONS! You have just won the Eggs Factor
+
+Simon approaches you and hands you your prize.  A large crystal bowl and a recording contract
+
+> east
+You are in an auditorium
+There is the stalls here.
+You can go out to Elliott's Bottom.
+You can go west, northwest or up.
+The auditorium is a large room with tiered seats facing a main stage.  There is an exit which leads to a room back stage and a door leading upwards to the theatre boxes.
+
+> out
+You are in Elliott's Bottom
+You can go out to World Map.
+You can go north, east, west or northwest.
+The village of Elliott's Bottom is nestled between two hills.
+
+> north
+You are in Elliott Manor
+There is Olive Neutral-Gong and a reception desk here.
+You can go south.
+The Manor is an imposing and majestic building overlooking the Elliott's Bottom.  If you stand in the highest tower you can get the best view of the Bottom from anywhere.
+
+> speak to olive
+You speak to Olive
+"Wow! You were amazing in that show!  And Elliott was thrilled by that song.
+
+Here, I said I would help you.  Take this book, it is an unofficial biography of Elliott.  Unfortunately you won't be able to talk to him, only me and his Medium talk to him!"
+
+> south
+You are in Elliott's Bottom
+You can go out to World Map.
+You can go north, east, west or northwest.
+The village of Elliott's Bottom is nestled between two hills.
+
+> out
+You are in the World Map
+You can go to Shurlee Temple, Fax By The Sea, Elliott's Bottom, Lightning plain, or Burningham.
+You are in the World Map.  When you find clues or are told of different places you can visit, they will be added to the world map.
+
+> go to burningham
+You are in the village of Burningham
+You can go out to World Map.
+You can go north, south, east or west.
+You are standing in the centre of the village.  
+To the North is Edison's Electrical Emporium.
+To the West is Al Chemist's Alchemy store
+To the East is Bing Harbor's Barber shop
+To the South is the Chic Boutique
+
+> east
+You are in Bing's Barbers
+There is Bing Harbor, a pair of clippers and a sachet of red dye here.
+You can go west.
+
+> give contract to bing
+You give the contract to Bing.  You think he needs it more you do.
+
+"Thanks" He screams with joy."  Here, take these clippers as payment.  And he hands you the hair clippers.
+
+> west
+You are in the village of Burningham
+You can go out to World Map.
+You can go north, south, east or west.
+You are standing in the centre of the village.  
+To the North is Edison's Electrical Emporium.
+To the West is Al Chemist's Alchemy store
+To the East is Bing Harbor's Barber shop
+To the South is the Chic Boutique
+
+> out
+You are in the World Map
+You can go to Shurlee Temple, Fax By The Sea, Elliott's Bottom, Lightning plain, or Burningham.
+You are in the World Map.  When you find clues or are told of different places you can visit, they will be added to the world map.
+
+> go to elliott's bottom
+You are in Elliott's Bottom
+You can go out to World Map.
+You can go north, east, west or northwest.
+The village of Elliott's Bottom is nestled between two hills.
+
+> east
+You are in Elliott's farm
+There is a sheep here.
+You can go north, west or down.
+The farm is nothing more than a muddy field containing one sheep.
+
+> use clippers on sheep
+You use the hair clippers on the sheep.  After a while you find that there is a pile of wool on the floor.
+
+However you couldn't resist shearing the sheep in an amusing way.  It now looks like a poodle!
+
+> take plain wool
+You pick it up.
+
+> use camera on sheep
+You look at the sheep that now looks like a poodle. " I think I'll take a photo of this" you think.
+You take a photograph of the sheep shaved like a poodle.
+
+> use green paste on plain wool
+You rub the paste into the wool until you have a green wool
+
+> west
+You are in Elliott's Bottom
+You can go out to World Map.
+You can go north, east, west or northwest.
+The village of Elliott's Bottom is nestled between two hills.
+
+> out
+You are in the World Map
+You can go to Shurlee Temple, Fax By The Sea, Elliott's Bottom, Lightning plain, or Burningham.
+You are in the World Map.  When you find clues or are told of different places you can visit, they will be added to the world map.
+
+> go to burningham
+You are in the village of Burningham
+You can go out to World Map.
+You can go north, south, east or west.
+You are standing in the centre of the village.  
+To the North is Edison's Electrical Emporium.
+To the West is Al Chemist's Alchemy store
+To the East is Bing Harbor's Barber shop
+To the South is the Chic Boutique
+
+> south
+You are in Chic Boutique
+There is Cherie Chic, a clothes rack, a Rosette and collar and lead here.
+You can go north.
+
+> read rosette
+You read the writing on the rosette.  "Cruffs best in show.  "nd place."
+So Cherie is a dog lover....
+
+> speak to cherie
+You speak to Cherie
+You decide to ask Cherie about the rosette.
+
+"OH yes" Cherie replies proudly.  "I was a best in breed winner once you know.  But now, since my precious Pookie Woookie has gone..."
+
+"Was Pookie Wookie your dog?"
+
+"No" she replies "He was my rotten husband.  He left taking my favourite dog.  And now I need a nother one!"
+
+"Another husband?"
+
+"Another dog.  I don't suppose you could locate a nice well bred, good looking pooch for me?."
+
+> give poodle photo to cherie
+You pass the photograph over to Cherie.
+
+"This is an interesting dog" she says.  "Are you sure it's a pedigree?"
+
+"There's no other dog like it" you reply.
+
+"Here take this collar and lead and bring it to me"
+
+> north
+You are in the village of Burningham
+You can go out to World Map.
+You can go north, south, east or west.
+You are standing in the centre of the village.  
+To the North is Edison's Electrical Emporium.
+To the West is Al Chemist's Alchemy store
+To the East is Bing Harbor's Barber shop
+To the South is the Chic Boutique
+
+> out
+You are in the World Map
+You can go to Shurlee Temple, Fax By The Sea, Elliott's Bottom, Lightning plain, or Burningham.
+You are in the World Map.  When you find clues or are told of different places you can visit, they will be added to the world map.
+
+> go to elliott's bottom
+You are in Elliott's Bottom
+You can go out to World Map.
+You can go north, east, west or northwest.
+The village of Elliott's Bottom is nestled between two hills.
+
+> east
+You are in Elliott's farm
+There is a sheep here.
+You can go north, west or down.
+The farm is nothing more than a muddy field containing one sheep.
+
+> use collar and lead on sheep
+You attach the collar and lead to the sheep's neck and lead it to the boutique.
+You are in Chic Boutique
+There is Cherie Chic, a clothes rack and a Rosette here.
+You can go north.
+Cherie is thrilled by her new pet.  
+
+"Hello daaaarling" she coos at it.
+"BAAA!" it replies
+
+"Did it just go BAAAA?" she asks you.
+
+"Er.... yes.  Because not only is this a pedigree champion, but it can also do animal impressions.  You ust wait until you hear its Giraffe impression"
+
+> speak to cherie
+You speak to Cherie
+" Thanks for your help.  I may win Cruffs next year.  Here let me give  you something as a reward."
+
+Hoping for a cash prize, you are disappointed that she hands you a party dress.
+
+> remove battery
+You take the battery out of the camera.
+
+> use charged battery on bulb
+You attach the wires of the battery to the bulb.  Very soon the bulb is glowing brightly.
+
+> north
+You are in the village of Burningham
+You can go out to World Map.
+You can go north, south, east or west.
+You are standing in the centre of the village.  
+To the North is Edison's Electrical Emporium.
+To the West is Al Chemist's Alchemy store
+To the East is Bing Harbor's Barber shop
+To the South is the Chic Boutique
+
+> north
+You are in Edison's electrical emporium
+There is Edison, a set of pictures and a plasma ball here.
+You can go south.
+You are standing in Edison's Electrical Emporium.  There are many strange items here.
+
+> give empty camera to edison
+You hand the camera back to Edison.
+"Cheers" He says.  "Here have a gold piece for your help"
+
+> south
+You are in the village of Burningham
+You can go out to World Map.
+You can go north, south, east or west.
+You are standing in the centre of the village.  
+To the North is Edison's Electrical Emporium.
+To the West is Al Chemist's Alchemy store
+To the East is Bing Harbor's Barber shop
+To the South is the Chic Boutique
+
+> east
+You are in Bing's Barbers
+There is Bing Harbor and a sachet of red dye here.
+You can go west.
+
+> take red dye
+"Do you want to buy the red hair dye?" asks Bing.  "It is 5 gold pieces."
+Do you want to buy the red dye?
+1) Yes
+2) No
+[choice] 1
+You buy the hair dye
+
+> west
+You are in the village of Burningham
+You can go out to World Map.
+You can go north, south, east or west.
+You are standing in the centre of the village.  
+To the North is Edison's Electrical Emporium.
+To the West is Al Chemist's Alchemy store
+To the East is Bing Harbor's Barber shop
+To the South is the Chic Boutique
+
+> out
+You are in the World Map
+You can go to Shurlee Temple, Fax By The Sea, Elliott's Bottom, Lightning plain, or Burningham.
+You are in the World Map.  When you find clues or are told of different places you can visit, they will be added to the world map.
+
+> go to elliott's bottom
+You are in Elliott's Bottom
+You can go out to World Map.
+You can go north, east, west or northwest.
+The village of Elliott's Bottom is nestled between two hills.
+
+> use glowing bulb on crystal bowl
+You place the glowing bulb into the bowl.  It lights up well, making it give off the a mystical glow.
+
+> northwest
+You are in a Mystic's tent
+There is a large cushioned Chair, a covered table, cloak and a painting here.
+You can go southeast.
+You ar in the mystic's tent.  It is quite a large marquee draped in silk sheets of varying colours.  There is a large chair in the tent, which must be where the mystic sits to perform her readings.
+
+> use fake ball on table
+You place the fake crystal ball on the Mystics table.
+
+> wear cloak
+You put the cloak on
+
+> wear green wool
+You place the green wool on your head.  That should look like Madam Mayi's hair!
+
+> sit on chair
+With the cloak on, the green wig and the fake glowing crystal you are all set to fool Elliott when he comes in.....
+
+
+Eventually he Elliott comes in and sits in front of you.
+
+"Okay" he says "As always I have to ask you a question that only a true medium would know.  My questions is this....
+
+What is my greatest fear?"
+What can you do to find out the answer?
+
+> read biography
+You quickly flick through the biography to answer the question
+... and there it is....
+Ellott's biggest fear is..... Fish!
+
+"FISH!" you shout.
+
+"Correct" Elliott says.  "Now Mayi, can I have a reading?"
+......
+
+
+You stare into your glowing crystal ball.  Now is the oportunity to find out what was hidden in the chamber under Shurlee Temple.
+
+
+
+"I see a trip under a temple... in a dark room there is an object placed on a pillar of stone..."
+
+"Yes" Says Elliott" I've already done that"
+
+"The Spirits want to know... what was the item?  Was it a harp?"
+
+"No" Says Elliott "It was a fish,a carp, in a bowl.  Yuk!"
+
+"A fish?" You say confused.  "Ahhhhh... the spirits want to know... where is it now?"
+
+"Don't they already know?  I gave ti to Queen Winalot at the Royal Palace."
+
+"Ahhhh....." you had better think of something quickly"  The spirits are all in agreement  They feel that you would be most happy marrying Olive"
+
+"Are you sure?" said Elliott.  You nod.  "Well, funny they've never mentioned it before."
+
+And with that Elliot Leaves.
+
+
+So, there wasn't a magic harp.  Just a fish.  a carp!  A Magic Carp!  John must have misheard!
+
+But at least you know where it is.  Time to head to the Royal court!
+
+A new location has been added to the world map
+
+As you get up off the chair, the crystal ball falls onto the floor and smashes, just leaving the bulb, which you take.
+
+> remove cloak
+You remove the cloak and hang it back on the chair
+
+> southeast
+You are in Elliott's Bottom
+You can go out to World Map.
+You can go north, east, west or northwest.
+The village of Elliott's Bottom is nestled between two hills.
+You decide to remove the green wool before leaving the tent.
+
+> east
+You are in Elliott's farm
+You can go north, west or down.
+The farm is nothing more than a muddy field containing one sheep.
+
+> down
+You are in the sheep dip
+There is a large tank and a valve here.
+You can go up.
+You are standing on a small platform overlooking a large tank.  The tank is designed to clean and disinfect sheep.
+
+> use bleach on tank
+You pour the bleach into the water.
+
+> use green wool on tank
+You wash the green wol in the bleahced dip.  Eventually the green paste washes out leaving just the plain wool.
+
+> use red dye on plain wool
+You apply the red dye to the wool.  Soon you have stained the entire lot.
+
+> up
+You are in Elliott's farm
+You can go north, west or down.
+The farm is nothing more than a muddy field containing one sheep.
+
+> west
+You are in Elliott's Bottom
+You can go out to World Map.
+You can go north, east, west or northwest.
+The village of Elliott's Bottom is nestled between two hills.
+
+> out
+You are in the World Map
+You can go to Shurlee Temple, Fax By The Sea, Elliott's Bottom, Lightning plain, Burningham, or Royal Court.
+You are in the World Map.  When you find clues or are told of different places you can visit, they will be added to the world map.
+
+> go to royal court
+You are in the Royal Court
+There is Statue here.
+You can go out to World Map.
+You can go north.
+You are standing in the main courtyard of Castle Cum-Ere-A-Lot.
+
+> north
+You are in the palace
+There is Queen Winalot here.
+You can go south.
+
+> speak to queen
+You speak to the Queen
+The Queen is looking upset about something as you approach
+"My Queen I have a request.  My name is Shiversword and I have been on a quest"
+
+"I recognise you" she says "You won the Eggs Factor!"
+
+"Your Majesty I wish to know, did Elliott give you a fish?"
+
+"Yes" she replies and starts to cry "He knew about my passion about thins to do with the sea, but there has been a problem.  Some of the Followers of Shurlee have stolen it and are camped out in the barn.  I think they are going to use the press to crush it.  Will you save the fish for me?"
+
+"Er.... Of course I will, my lady"
+
+"The barn is South west of the courtyard.
+
+> south
+You are in the Royal Court
+There is Statue here.
+You can go out to World Map.
+You can go north or southwest.
+You are standing in the main courtyard of Castle Cum-Ere-A-Lot.
+
+> southwest
+You are in the barn
+There is Shurlee Followers, the Cult Leader, a press and a mule here.
+You can go northeast.
+You sneak into the barn.  You can see a crowd of druids crowded around a press.  Each of the druids has a shock of red curly hair and a party dress- the symbols of the Followers of Shurlee
+You decide now is the time to wear the red wig and dress
+
+> examine press
+You examine the press.  Their in the basin you spot the Magic Carp swimming around.
+
+> use clay bowl on magic carp
+You dip the clay bowl into the press basin and scoop out the fish.
+
+Unfortunately the followers spot you and block your exit.  You need to find a way out of this mess.
+
+> speak to magic carp
+You start to panic as the followers gather round.  And then you remember what John told you.
+"The Magic Harp will give you anything you wish.  And right now you wish to get out of this mess."
+
+So that's what you tell the carp!
+
+
+The fish leaps out of the bowl singing.
+The  mule, attached to the press rears up and starts to gallop around the press, knocking the Cult Leader into the press......
+
+
+The followers scream and scatter in panic.
+The Mule conitnues to run around as the press continues to grind... with the Cult Leader in it!....
+Eventually the press, unable to cope with the size of the Cult Leader, crack and breaks.  The Mule breaks free from it's harness and gallops out of the barn.
+
+Leaving you, holding the Magic Carp, in the barn, with a ground Cult Leader.
+
+> northeast
+You quietly nip out of the barn
+You are in the Royal Court
+There is Statue here.
+You can go out to World Map.
+You can go north or southwest.
+You are standing in the main courtyard of Castle Cum-Ere-A-Lot.
+You take off the dress
+You take off the red wig
+
+> north
+You are in the palace
+There is Queen Winalot here.
+You can go south.
+
+> give magic carp to queen
+You hand the magic carp to the queen.  
+
+The Queen is Delighted that you have managed to retrieve the Magic Carp.
+
+You tell her our story, about your quest to find a magic harp and how it led to you winning the Eggs Factor.  She is so thrilled by your story that she makes you Royal Minstrel.
+
+You are thrilled that you have such a prestigious job!
+ CONGRATULATIONS
+
+YOU HAVE WON! 
+
+
+
+Whilst you are performing for the Queen that night, her favourite song Greensleeves, there is a knock on the door.
+
+"We are the Nuns of Carnivora" a group of nuns burst through the door
+
+"We weren't expecting the Carnivora Nuns?" Says the Queen
+
+"No-one expects the Carnivora Nuns" They reply.
+
+"We have a complaint.  That bard of yours has been blaspheming about our religio, singin about Greens Leaves.  We demand you hand him over to us"
+
+Oh Dear, Shiversword.... I hink its about time you ran....
+
+And the rest.... is History! 
+[runner] turns=222 leftover=0 running=false WON=YES

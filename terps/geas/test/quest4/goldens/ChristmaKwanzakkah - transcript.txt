@@ -1,0 +1,258 @@
+
+ChristmaKwanzakkah Steve the gaming guy
+
+There you were, standing in the midst of confusion in December 2007 with no hope of playing any Christmas type text games until...
+
+
+Christmakwanzakkuh!  
+
+It's that time of year again.  A time for crunching through the crowds and spreading Christmas cheer.  Work your way through the trials of the season and destroy the bosses of Christmas to reach your goal.... but what is your goal?
+
+There are some rusty parts of this game due to the time I had left to make it.  But in the "toy room", just look at everything and type "get all" or "take all" to get all the weapons at once.  Ignore the bold statement in the corner room with the crowds.  It tells you that there's nothing else to do even if the crowds are still there.  I didn't have time to fix it.
+Other than that, have fun!
+
+
+You're wasting time in the holiday bathroom.  There's a magical doorway to the east.
+
+
+> e
+You fling your body through the magical doorway into the next room.
+
+It's a beautiful thing going on in this room.  There's a large sign overhead with the words "Toy Room" glistening in a shiny gold trim.  Instead of toys, this room seems to be loaded with all sorts of various weapons.
+There is a fancy shelf that you might want to look at.
+There is a weapon chest that catches your eye.
+There is a bag on the floor just waiting to be opened.
+To the west is the Holiday bathroom.  To the east is a corner room.  To the south is hallway of sorts.
+
+> look at shelf
+You take a closer look at the weapon shelf and see a small gun, pistol, rubberband gun and a sniper rifle.
+
+> look at chest
+You open the box and a leprechaun jumps out... just kidding.  You open the box to reveal a flame thrower and a rocket launcher!
+
+> look at bag
+You look in the bag and squeal for joy when you see a rusty hand grenade.
+
+> take all
+You can't pick up the weapon shelf!
+You can't pick up the weapon chest!
+You can't pick up the weapon paper bag!
+
+> i
+You are carrying:
+small gun
+pistol
+rubberband gun
+sniper rifle
+flame thrower
+rocket launcher
+hand grenade
+
+> e
+You pick up your body and throw it through the doorway.
+
+You have wandered into the corner room.  The author of the game gave that title to this room because on his grid, this is the uppermost room to the right (or the east).
+The happy Christmas crowd rumbles about the room looking for things to buy (but they can't because this room was not designed to have stores in it!).
+
+> use rocket launcher on crowd
+You wave the rocket launcher in the air like a wild ape and the crowd runs in terror!
+The noise from the crowd grates on you eardrums like scraping a fork on a brick.
+
+> use rocket launcher on big crowd
+You wave the rocket launcher in the air like a wild ape and the big crowd runs in terror!
+The noise from the crowd grates on you eardrums like scraping a fork on a brick.
+
+> use rocket launcher on bigger crowd
+You wave the rocket launcher in the air like a wild ape and the bigger crowd runs in terror!
+The noise from the crowd grates on you eardrums like scraping a fork on a brick.
+
+> use rocket launcher on biggest crowd
+You wave the rocket launcher in the air like a wild ape and the biggest crowd runs in terror!
+
+Now that the crowd is gone...a small block in the shape of an arch is sitting on the ground here.  GET IT!
+
+> take block
+You grasp the block firmly in your sweaty hands and stuff it quickly in your pants.
+
+> w
+The chilling scenery in this room is too much to bear so you hurdle through the doorway into the toy room.
+
+It's a beautiful thing going on in this room.  There's a large sign overhead with the words "Toy Room" glistening in a shiny gold trim.  Instead of toys, this room seems to be loaded with all sorts of various weapons.
+There is a shelf here that you already looked at.
+There is a weapon chest that has been opened.
+There is an open bag sitting on the floor.
+To the west is the Holiday bathroom.  To the east is a corner room.  To the south is hallway of sorts.
+
+> s
+You pick up your body and throw it through the doorway.
+
+This is a small hall.  It's even called the small hall.  You know this because the words "small hall" is imprinted on the floor.  On the east wall, there is a door with a strange cross-shaped indention.  On the west wall, there is a door with an arch-shaped indention.
+The toy room is to the north.
+
+> use block on arch keyhole
+You palms become sweaty as you put the block towards the keyhole...
+
+The block connects into the keyhole and...
+
+You mess your pants.  But then...
+
+The arch-shaped block fits squarely into the arch-shaped dent in the door and vanishes for some reason.  You can hear gears crunching and turning and with a loud eerie squeak, the west door opens.  You are now free to travel that direction.
+
+> w
+You are now in the room west of the small hall.  It reeks of sarcastic Christmas cheer.  Old, moldy tinsel hangs from the ceiling and the smell of burnt Christmas lights assault your nostrils.
+You take one step into the room into a pile of dog mess.
+
+You pause the game and run to the outside hose to clean off your shoe and then run back to the computer and unpause...
+
+Before you can get a grip on what your thoughts and fears, something unexpected happens...
+
+ENTER CHRISTMAS KEVIN
+
+A menacing, but cheery-looking figure looms before you and he shouts, "Bow down before me, mortal!  There will be no Happy Holidays!"
+
+You quickly faint and just as quickly recover and then began your next strategy...
+
+> use rocket launcher on christmas kevin
+You fire a well aimed rocket at the chest of the mighty Christmas Kevin and he flies back into the wall.  He utters a quiet hint of pain.  You must be winning!
+Christmas Kevin roars in pain...that must mean he lost some hit points!
+
+> use flame thrower on christmas kevin
+You believe Christmas Kevin is flammable so you set him ablaze with your flame launcher.
+Christmas Kevin roars in pain...that must mean he lost some hit points!
+The final blow takes Christmas Kevin by surprise and he squeals like a wounded pig and slumps to the floor... then he evaporates!  Congratulations!
+
+When Kevin evaporates, he leaves behind a cross-shaped block.
+
+> take cross block
+You pick it up happily.
+
+> e
+This is a small hall.  It's even called the small hall.  You know this because the words "small hall" is imprinted on the floor.  On the east wall, there is a door with a strange cross-shaped indention.  On the west wall, there is a door with an arch-shaped indention.
+The toy room is to the north.
+
+> use cross block on cross keyhole
+You palms become sweaty as you put the block towards the keyhole...
+
+The block connects into the keyhole and...
+
+You get a flashback of a kitten you once saw eating a cactus.  But then...
+
+The cross-shaped block fits squarely into the cross-shaped dent in the door and vanishes for some reason.  You can hear gears crunching and turning and with a loud eerie squeak, the east door opens.  You are now free to travel that direction.
+
+> e
+This is Kenan's Korner.  Grammatically incorrect but a cute name for a room.  There is nothing cute about the room however.  There are piles of bones scattered about the room.  A mess of fresh flesh (read that outloud) sitting in a pile in one corner.
+You take one step into the room into a puddle of hot boiling magma.  Not really...
+
+You think about the humor of the game's author and realize what a comedic genius he is and then...
+
+Before you can get a grip on what your thoughts and fears, something unexpected happens...
+
+ENTER KWANZAA KENAN!
+
+A scary dude with brightly colored robes looms before you and he shouts, "Bow down before me, mortal!  There will be no Happy Holidays!"
+
+You stare at the ceiling for a moment forgetting where you are... then realize you're about to be toasted... what do you do now?
+
+> use rocket launcher on kwanzaa kenan
+You fire a well aimed rocket at the chest of the mighty Kwanzaa Kenan and he flies back into the wall.  He utters a quiet hint of pain.  You must be winning!
+Kwanzaa Kenan roars in pain...that must mean he lost some hit points!
+Kenan yells, "You will never defeat me, mortal.  I will kill Santa as he tries to delivers packages to good girls and boys."
+
+> use rocket launcher on kwanzaa kenan
+You fire a well aimed rocket at the chest of the mighty Kwanzaa Kenan and he flies back into the wall.  He utters a quiet hint of pain.  You must be winning!
+Kwanzaa Kenan roars in pain...that must mean he lost some hit points!
+
+> use sniper rifle on kwanzaa kenan
+Even though Kwanzaa Kenan's room is not much bigger than an average living room, you feel the need to look through the scope of the sniper rifle and blast away like a hunter...
+
+It worked... you hit him!
+
+Kwanzaa Kenan roars in pain...that must mean he lost some hit points!
+The final blow takes Kwanzaa Kenan by surprise and he squeals like an injured puppy and slumps to the floor... then he evaporates!  Congratulations!
+
+When Kenan evaporates, he leaves behind a wiggly-shaped block.
+
+> take wiggly block
+You pick it up and grin.
+
+> w
+This is a small hall.  It's even called the small hall.  You know this because the words "small hall" is imprinted on the floor.  On the east wall, there is a door with a strange cross-shaped indention.  On the west wall, there is a door with an arch-shaped indention.
+The toy room is to the north.
+
+> w
+You are now in the room west of the small hall.  It reeks of sarcastic Christmas cheer.  Old, moldy tinsel hangs from the ceiling and the smell of burnt Christmas lights assault your nostrils.
+
+> use wiggly block on wiggly keyhole
+You palms become sweaty as you put the block towards the keyhole...
+
+The block connects into the keyhole and...
+
+You feel some churning in your stomach like bad chili but then...
+
+The wiggly-shaped block fits squarely into the wiggly-shaped dent in the door and vanishes for some reason.  You can hear gears crunching and turning and with a loud eerie squeak, the south door opens.  You are now free to travel that direction.
+
+> s
+You are elegantly standing in what the author calls the "first hall".  Why did he call it that?  I couldn't tell you.
+In this room, there is not much to see because today is 12/20/07 and it is the deadline for creating and sending in this game.  So deal with it.  Nothing more to see here.
+
+> e
+Since there were only three unlocking blocks made, the author left this door wide open to face your doom...so you walk through.
+This room smells like the 2nd to last room of the game.  There's not much more here.
+You take one step into the room and fall asleep...
+
+You wake up quickly and look around...
+
+Before you can get a grip on what your thoughts and fears, something unexpected happens...
+
+ENTER HANUKKAH HANK!
+
+A scary dude with a yarmukah shouts, "Bow down before me, mortal!  There will be no Happy Holidays!"
+
+You realize you're close to the end of the game but what do you do now?
+
+> use rocket launcher on hanukkah hank
+You fire a well aimed rocket at the chest of the mighty Hanukkah Hank and he flies back into the wall.  He utters a quiet hint of pain.  You must be winning!
+Hanukkah Hank roars in pain...that must mean he lost some hit points!
+
+> use rocket launcher on hanukkah hank
+You fire a well aimed rocket at the chest of the mighty Hanukkah Hank and he flies back into the wall.  He utters a quiet hint of pain.  You must be winning!
+Hanukkah Hank roars in pain...that must mean he lost some hit points!
+
+> use rocket launcher on hanukkah hank
+You fire a well aimed rocket at the chest of the mighty Hanukkah Hank and he flies back into the wall.  He utters a quiet hint of pain.  You must be winning!
+Hanukkah Hank roars in pain...that must mean he lost some hit points!
+
+> use rocket launcher on hanukkah hank
+You fire a well aimed rocket at the chest of the mighty Hanukkah Hank and he flies back into the wall.  He utters a quiet hint of pain.  You must be winning!
+Hanukkah Hank roars in pain...that must mean he lost some hit points!
+
+> use rocket launcher on hanukkah hank
+You fire a well aimed rocket at the chest of the mighty Hanukkah Hank and he flies back into the wall.  He utters a quiet hint of pain.  You must be winning!
+Hanukkah Hank roars in pain...that must mean he lost some hit points!
+The final blow takes Hanukkah Hank by surprise and he squeals like an injured puppy and slumps to the floor... then he evaporates!  Congratulations!
+
+
+> e
+
+At long last, you stumble into the last room of the game and get suddenly get sucked into a vortex into another game...
+
+A story was once told about a young girl who longed for her prince to arrive on a grand white horse and carry her off in the distance...
+
+
+...this is not that story...
+
+You, playing the part of yourself, will be embarking on an epic quest...
+
+I'm sorry.  Not quite an epic quest.  As a matter of fact, it might be an all too familiar adventure of getting out of a house.  
+
+"What?  Is this a remake?", you might say.  Maybe it is.  Maybe I as the author went to great lengths to broaden the world of this game and add new puzzles and tweak the gameplay just a little bit...
+
+
+You find yourself sitting on a couch...
+
+STOP... I'm totally screwing with you now.  You are still in the last room of Christmakwanzakkah.  A Christmakwanzakkah Tree looms before you.  Do you wanna do something with it?
+
+> take tree
+You got the tree and won!  Game over... play again.  Try crazy things.  Use the weapons on everything this time and each other.  (specifically near the beginning of the game which was where I had more time to make the added features.  Look at every detail you can)  Thanks for playing!
+
+[runner] turns=38 leftover=0 running=false WON=YES

@@ -1,0 +1,108 @@
+
+The Awakening Dead 2
+
+You curse as you notice your gas meter hit the 'E'. The suburbs are a little bit more peaceful than the warzone downtown. Only small groups of zombies wander about the front lawns which is fortunate for you. The outskirts of the city is not far now but fuel is running low and night is approaching fast.
+
+You will have to find fuel and shelter before continuing your journey to the highway. You pull up in an eerily quiet neighbourhood. Most of the houses show signs of attack but no zombies in sight. A secure building to sleep in and a gas can with fuel is all that you need. You are anxious to start searching. The sun's absence has unsettled you.
+
+You are in your Car
+There is a Knife here.
+You can go out to Street.
+This old car has faithfully served you for the past few harrowing minutes but now, it has no fuel and is completely useless.
+
+> take knife
+You grab the knife and put it in your back pocket.
+
+> out
+You are in the Street
+You can go north.
+You can go to Car.
+On both sides of the street are suburban homes destroyed and ravaged by the zombie horde. A few devoured bodies are left on the front lawns with numerous flies swarming them.
+
+> north
+You are standing in a Crossroads.
+You can go north, south, east or west.
+Several cars lay here, abandoned by their owners. The traffic lights flash green, orange and red seemingly at random. It is awfully quiet.
+
+> east
+You are in Vesterlit Avenue
+There is an Ambulance, a Wounded Police Officer and a Looter here.
+You can go west.
+An empty road that leads to the highway. Trees line either side of the road.
+
+> use knife on looter
+While the looter is not looking, you take out your knife and stab him in the back. He shrieks in pain as you withdraw your knife and stab him once again. As he slumps to the floor, a first aid kit flies out of his backpack. A further search of the bag's contents yield nothing of value.
+
+> take first aid kit
+You take the bag.
+
+> use first aid kit on wounded police officer
+You patch up the knife wound on the police officer as best you can. He thanks you profusely. You help him to his feet and he rewards you with his pistol.
+
+"Take it. I don't need it anymore. I'm heading back to the police station."
+
+You tell him that traveling at night could be disastrous but he waves you off. He disappears down the road.
+
+> west
+You are standing in a Crossroads.
+You can go north, south, east or west.
+Several cars lay here, abandoned by their owners. The traffic lights flash green, orange and red seemingly at random. It is awfully quiet.
+
+> west
+You are in Nitwin Road
+You can go south or east.
+Nitwin Road used to be a busy street lined with shops on either side. You have shopped here before on several occassions. Cars lie abandoned and devoured bodies can be seen almost everywhere.
+
+> south
+You are in a Gas Station
+There is a Zombie here.
+You can go north.
+The gas station is filled with cars waiting to get a refill, all abandoned. There is no fuel left here. Disappointed, you enter the convenience store attached to see if you can find something else that might aid you. Some of the windows are shattered and the place has been looted thorougly.
+
+> use pistol on zombie
+You whistle and the zombie turns around, coming face to face with the barrel of your gun. You fire a single shot and the zombie lets out a gurgling sound as it drops to the floor permanently dead.
+
+> take can of baked beans
+You pick it up.
+
+> north
+You are in Nitwin Road
+You can go south or east.
+Nitwin Road used to be a busy street lined with shops on either side. You have shopped here before on several occassions. Cars lie abandoned and devoured bodies can be seen almost everywhere.
+
+> east
+You are standing in a Crossroads.
+You can go north, south, east or west.
+Several cars lay here, abandoned by their owners. The traffic lights flash green, orange and red seemingly at random. It is awfully quiet.
+
+> north
+You are in Jewel Street
+You can go south or west.
+Jewel Street is a residential area. Ravaged suburban homes blot the sides of the street. Cars are left in their driveways, their owners nowhere to be seen.
+
+> west
+You are in a Boarded Up House
+There is Big Joe with a shotgun and a Mattress on the floor here.
+You can go east.
+As you enter this boarded up house, you sigh in relief as another human being comes into view from the shadows. From the looks of things, the house has been boarded up with planks and two mattresses are on the floor. A single gas lamp is on the floor between the two makeshift beds. This would be a nice place to take a rest.
+
+> give can of baked beans to big joe
+You hand Big Joe the can of baked beans and he eagerly takes them. He grabs two wooden seats and sets them by the lamp. He then disappears into the kitchen with the can of baked beans in hand. You take a seat and think about your mission. You have failed to find fuel but maybe Big Joe can help you further.
+
+After a few moments, Big Joe comes back with two plates of steaming baked beans. He gives a plate and a spoon to you and you both eat as night sets in. You both discuss about the events that have transpired around the world.
+
+You tell him of your need for fuel and the destination of the military bases around the city. He nods his head understandingly and says that he'll join when his brother comes back.
+
+You inquire about his brother and he scowls. Apparently, his brother left to scavenge at a nearby gas station and hasn't been back for two days.
+
+You tell him of the zombie you encountered there and he looks utterly horrified as you describe the zombie. He nods his head and confirms that the zombie must indeed be his brother. You apologise to him but he waves you off.
+
+"Don't worry about it. You did what you had to do. I understand that."
+
+As you finish your meal, Big Joe takes your plate and disappears back to the kitchen.
+
+"Go ahead and grab some shuteye. We'll head to the outskirts in my pickup tomorrow morning."
+
+You have a hard time sleeping, the moans of the undead always keeping you awake...
+
+[runner] turns=17 leftover=0 running=false WON=YES

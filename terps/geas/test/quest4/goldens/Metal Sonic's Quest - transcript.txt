@@ -1,0 +1,1950 @@
+
+Metal Sonic's Quest, v4.0 Jordan
+
+Welcome, mortal! To a text adventure game like no other! Sure, it's easy like no other, but it's got lots of story, more than one game mode, and lots and lots and lots and lots and lots of secrets! But, the Main Game is 1p mode, so ya know.
+---------(Metal Sonic's Quest)----------
+To get to the 2 important game modes, talk to the clerk at the lobby desk. Unlockable Hall holds *most* of the secrets, once you unlock them!
+
+You are in Multiplayer Lobby
+There is Lobby Desk and Strange Man here.
+You can go to Unlockable Hall.
+Welcome player, to the Metal Sonic's Quest Lobby!
+This is where you can chat, challenge others and get help in the game!
+Or get into the single player adventure! Choose now!
+
+> speak to lobby desk
+What would you like?
+1) I would like to play Single Player mode.
+2) I would like to play multiplayer campaign mode.
+3) I would like some tips.
+[choice] 1
+So, you want to start a new game?
+1) Yes
+2) No
+[choice] yes
+Have fun in the world of Mobius,
+ and try to unlock the secret chapter!
+"Uhh.... my head.... scan for errors...."
+You can go north.
+You can go to gate Knothole Junkyard- Gatekeeper.
+"Systems Online..... running diagnostics check..... all systems functional....."
+You notice You are in a junkyard.... in Knothole village..... you are
+Metal Sonic. 
+Scanning Horizons:
+
+gate
+
+ that's the only place to go.... just type "go to gate" and go there.
+Okay! Time to get into the Main Game! Metal Sonic, (M), is a life-killing robot bent on destroying all good guys, and you play as him! Now, something has happened to Metal, and everyone BUT him remember (a shame...). It's not a BIG thing, but it's still worth remembering. Along with forgetting it, though, he also forgot ALMOST EVERYTHING! He only remembered his creator, his enemies, and a few places. It's
+your job (not mine) to help Metal restore his memory. Who knows? You might be impressed eventually...
+----------------------------------------(Metal Sonic's Quest)--------------------------------------
+We'll start Chapter 1: Metal Sonic's Basic Training, in the Junkyard...
+
+
+> n
+You are in Knothole Junkyard- Gatekeeper
+There is gate here.
+You can go south.
+You can go to knottheplace Knothole- South or wakemeup Knothole Junkyard- Wake point.
+Hmm.... there's a gate..... go though it?
+
+S. H. (scanning horizons)
+
+wakemeup
+knottheplace
+
+> go to Knothole- South
+You are in Knothole- South
+There is foxy and south to north here.
+You can go to down Knothole- Downtown.
+There's a gate, a fox and an alleyway.
+S.H.
+
+gatemeup
+foxy
+alleyway
+
+> go to Knothole- Downtown
+You are in Knothole- Downtown
+There is monorail 01 here.
+You can go to Knothole- South.
+You are in a big wasteland known as Knothole....
+you are a mortal-killing robot bent on destroying all life forms.....
+and yet, no one gives a--WARNING! WARNING! ENEMY DETECTED IN NORTH SECTOR.
+
+ S.H.
+
+The south.
+The north.
+
+
+   I guess I'd better start moving....
+
+> take monorail 01
+You are in Monorail 01- Indoors section 1
+There is ladder here.
+This seems like a room, yet it's a vehicle.... very odd.....
+I hope we arrive soon....
+S.H.
+
+A few seats, a ladder and a door.
+
+> take ladder
+You are in Monorail 01- Outside
+There is map and ladder for climbing here.
+Hmm.... I see the North sector ahead! and a map! I'd better take it....
+
+> take map
+Okay.... got it! Better enjoy the ride!
+
+> take ladder for climbing
+You are in Monorail 01- Indoors 2
+There is chair here.
+Well, I sealed the ladder exit shut. I'd better just go to seep mode til we're there....
+
+> take chair
+You are in Knothole- North
+You can go to Sonic's House.
+You awake at the north sector.
+It's just....quiet.... there's a house over there!
+Hold on.... scanners indicate that the enemy is in the house! I'm going in!
+
+
+> go to Sonic's House
+You are in Sonic's House
+Here I am. Hmm? !!!!!! That hedgehog looks like the symbol on the monorail!
+Scanners indicate that he's the enemy.... what to use?
+W.L. (weapons list)
+
+Shotgun
+Uzi
+
+gulp!
+Choose a weapon!
+1) Shotgun
+2) Uzi
+[choice] 2
+You are in Killed Sonic
+You can go to Egg Base- Hallway.
+And so, I shot the hedgehog, and he died. Before he did, he said:
+" Metal Sonic, take this chaos emerald.... it'll tell you about your past...."
+I scratched his hand off and got the emerald....
+
+
+    I was teleported to a stange facility... new, yet somehow old....
+    but I checked my memory banks, and I had more knowledge! I searched
+    the data.... and learned about these 3 new names: Recylced Metal, Dr. Ivo Robotnik,
+    and Egg Base.... it was the beginning of a new Era........
+
+
+
+> go to Egg Base- Hallway
+You are in Egg Base- Hallway
+You can go to Egg Base- Mess Hall or Egg Base- Lab.
+Hmm.... a hallway.....
+it seems familiar......
+Uggghhh........ my...head hurts......
+I need to get my A.lmost I.nfinite batteries!
+S.H.
+
+Mess Hall
+Lab
+"Okay, Sonic's dead, Metal knows some stuff, and he got teleported away CAN I GO" "NOW?" you may ask, but the game is FAR from over. Metal still has to get to
+know his REAL mission! Know how to engage in combat, know what Wal-Mart is.
+And he shall learn them all in this next chapter:
+
+CHAPTER 2:   METAL SONIC MEETS HIS MAKER
+
+
+
+> go to Egg Base- Mess Hall
+You are in Egg Base- Mess Hall
+There is bench here.
+You can go to Egg Base- Hallway.
+The mess hall.... it's empty.... I doubt I'll find the batteries in here....
+but, it's best to check anyway.....
+
+  S.H.
+
+Hallway
+Bench
+
+> take bench
+I'm just... takin a small.....
+nap.....
+You are in Egg Base- Locked Room
+Uhh, my head, what? I'm on a table?
+What the? A shadowy figure?
+S.F: Hello, Metal!
+M: That voice..... it's, it's---
+Tails: Me, Tails! 
+M: What do you want?
+T: Nothing, except to destroy you! MUAHAHAHAHA!
+M: And how?
+T: That's an easy one-- you have an off button on your back....
+M: I..... didn't notice that..... no! I WILL FIGHT!
+T: How can you? Your A.I. batteries are almost out!
+M: Oh crud.... oh.........c.......r.....u.......SYSTEM OFFLINE
+T: Finally! Now, the world can play as me in this game!
+Oh, poppycock, I can't GET to his back-- he's lying face-up on a table!
+I've got to unlock him, but where's that key?
+Do you want to play as Tails in this mission?
+1) Yes
+2) No
+[choice] yes
+Here we go:
+You are in Egg Base- Lab later
+There is desk, cupboard and vault here.
+Key, key, where is that key?
+Let's see, desk, cupboard, and a vault....
+
+> take cupboard
+Hmm, turns out it opens the
+vault....
+
+> take open vault
+Well, it isn't there....
+oh well, good thing I keep
+a spare key under..... the.....
+door...mat.....DANG IT!
+
+> take key
+Oh, there it is. Time to go
+inside.... but wait.....
+You are in Locked Room part 2
+T: Sorry I'm late, I had to go to Wal-Mart and see if they had any enchil-- HOLY BURRITOS!
+M: Hello, Tails.... (cracks robot knuckles)
+T: Okay... I'm dead, unless I can get to that off button....
+Who wins?
+1) Metal Sonic
+2) Tails
+[choice] 1
+You are in The fight- Metal Sonic side
+You can go to Top Story Tonight.
+Metal jumps up, Tails flies, BOOSH BANG BAM BIM POW PISHOOSH!!!
+TIKIODKGXFKLJGHSDFIBHCF DS SDZGDGS  JIZJGDG HDXIF JI GFVJIO FD ZJOX
+BOOOOOOOMMMMMMMM!!!!!!!!!!!!!! In the end, Metal Sonic won.
+Alright, the emerald! Let's see......
+
+
+     3 new words!
+
+Super Form
+Hyper Form
+Metal Overlord
+
+> go to Top Story Tonight
+You are in Top Story Tonight
+You can go to To court.
+Good Evening, and welcome to Evening News @ 7:00
+Today, we have a special guest, Metal Sonic! Metal Sonic, it has been said
+that you were caught MURDERING 2 CREATURES, how do you plead?
+M: Guilty, and uh, who are you? What is this?
+Person: I am The Anchorman, this is Evening News @ 7:00 P.M.
+M: Okay. I understand.
+A: Okay, to COURT!
+M: Wha?
+What instincts to follow?
+Now, he has just learned how to enter combat! Which means that he could start
+a fight any moment! But, Metal is more sophisticated than that.... at least he'd
+better be, or HE'S GOING TO JAIL! Read all about it in:
+
+
+CHAPTER 3 1 half: Metal Sonic Takes the Cake-- to COURT
+
+
+> go to To court
+You are in To court
+You can go to Choose.
+I hope I decide soon, I could end up in jail! 
+Okay, this obviously requires some sophistication, patience, and no killing....
+Judge: Now, Metal, the offendant states that she has seen you MURDERING, 
+quite gorely, I might add, Sonic T. Hedgehog, age 15, and Miles Prower, age 8.
+How do you plead?
+M: Your honor, may I speak?
+J: This better be good.
+M: It is, because I know I'm guilty, but HOW EXACTLY DID the offendant SEE me?
+I scanned the horizons, no security cameras, no holes in the wall, no witnesses.
+HOW DID SHE?
+J: Very good question. Yes, how did you?
+O: Well, your honor, I used binoculars and looked through the window and...
+J: Hold on, Metal Sonic? Were there any windows on the premises?
+M: No, not at all, and the door was locked shut from the inside, it still is!
+J: IT IS?
+M: Yeah!
+M: Who are you, anyway?
+J: Yes, who are you?
+O: Oh, uhh, umm..... I uh..... have no name!
+M: Impossible.
+O: I'm outta here!
+ZIP!
+
+> go to Choose
+You are in Choose
+Finish this stuff.
+Choose a character
+1) Metal Sonic
+2) Shadow
+3) Meta Tails
+[choice] 3
+You are in Meta Tails
+You can go to Operation 1 or Operation 2.
+Systems...... online........ MUST ELIMINATE
+HYPER METAL SONIC! Current location: 2 miles away. More like 2 milliseconds away,
+ but I wouldn't want to startle him, now would I?
+
+
+    Operation: S.tartle, T.hen K.ill
+
+    Operation: W.ait for W.hole W.orld 2. C. (see
+
+> go to Operation 1
+You are in Operation 1
+You can go to Battle Royale.
+I boosted forward, using my scanning programs, and located a hostage!
+Incoming message from creator: KILL ALL HOSTAGES
+MT: Affirmative, ma'am.
+I boosted forward and slammed into the sewers, only to find exactly what I expected:
+   Target Practice.
+
+> go to Battle Royale
+You are in Battle Royale
+Turns out that you need to be Metal to win the game, so... choose a weapon!
+You're Metal! Choose a weapon.
+1) Flamethrower
+2) Minigun
+3) Bazooka
+4) Sniper Rifle
+[choice] 4
+You are in Finished Battle Royale
+You can go to Angel Island- Entrance.
+You've aimed carefully to choose the Sniper Rifle! Because that's how
+ you win! You get an emerald from Shadow. And a message from Meta Tails.
+
+  Message: Master is still out there, Metal.... please.....  don't kill her.....
+  Metal ripped it up. Time for the emerald.
+     
+
+
+         He was taught 3 more words:
+
+                  Extra Life
+                  Master Emerald
+                  "The Phrase"
+
+> go to Angel Island- Entrance
+You are in Angel Island- Entrance
+You can go to Angel Island- Caves or Angel Island- Forest.
+What?
+Now where am I?
+SCANNING AREA:
+ANGEL ISLAND.
+Okay..... I'd better explore!
+
+Caves
+Forest
+
+> go to Angel Island- Caves
+You are in Angel Island- Caves
+You can go to Angel Island- Entrance, Angel Island- Town, or Angel Island- Lost Caves.
+Wow..... a cave......
+I wonder where it leads to?
+
+Lost Caves
+Town
+
+
+> go to Angel Island- Town
+You are in Angel Island- Town
+There is Echidna Male and Echidna Female here.
+You can go to Angel Island- Caves, Angel Island- Forest, or Angel Island- Gate.
+What the?
+ A town?
+There are 2 people out right now....
+
+Caves
+Forest
+Gate
+
+> speak to Echidna Male
+"Hello, one who shines in blue,
+ I tell you, there dragon,
+ stronger than we. He come
+ on 5:00 to schorch me village.
+ I ask you, you do it?
+ He live in lost cave!"
+Accept the mission?
+1) Yes
+2) No
+[choice] yes
+You are in Angel Island- Caves
+You can go to Angel Island- Entrance, Angel Island- Town, or Angel Island- Lost Caves.
+Wow..... a cave......
+I wonder where it leads to?
+
+Lost Caves
+Town
+
+
+> go to Angel Island- Lost Caves
+You are in Angel Island- Lost Caves
+You can go to Angel Island- Burned Village.
+The lost caves......
+ there's a skeleton of an echidna.... let's see.....
+ the blood's still wet.....
+ {rough breath running down your back}
+ .... [look behind]
+ {enter dragon}
+.....
+M: Okay.... I'm gonna equip a weapon...
+D: {in rough voice} Hold on.
+M: You talk?
+D: Of course, just no one's ever listened.
+Talk to the dragon?
+1) Yes
+2) No
+[choice] yes
+M: Why do you burn the
+ village?
+D: Burn the village?
+M: Yeah, they say you burn it.
+D: NO! Lightning does that,
+ I just check on them.
+ Y'see, I'm watching my diet...
+M: So, you're a female?
+D: NO! Who says men can't
+ go on diets?
+M: Very well. I shall tell the
+ village that you mean no
+ harm....
+D: I'll come with you, to prove
+ it.
+
+> go to Angel Island- Burned Village
+You are in Angel Island- Burned Village
+You can go to Angel Island- Burned Gate.
+What the?
+M: The town is burned down!
+E: He.....l..p.....
+M: What happened?
+E: Woman in black..... hammer..... gasoline...... match.....
+D: This is horrible!
+M: Where did she go?
+E: Ice.....Cap...... {dies}
+M: Come on, dragon, let's go!
+
+> go to Angel Island- Burned Gate
+You are in Angel Island- Burned Gate
+You can go to Angel Island- Lost Woods.
+G: HALT!
+M: You're not dead?
+G: No.
+M: But we need to get to Ice Cap!
+G: The only way to get in is to.... take me to my house in the lost woods!
+M: What!? Oh, fine..... come on.....
+
+> go to Angel Island- Lost Woods
+You are in Angel Island- Lost Woods
+You can go to deep or deeper.
+The Lost Woods.....
+M: Alright you 2, let's make our way through!
+
+
+deeper
+deep
+
+> go to deeper
+You are in deeper
+You can go to Angel Island- Lost Woods, cave, or web.
+Alright, we're going deeper into the woods.....
+ what next?
+G: Careful, Metal, there's said to be a dangerous Turantula around here....
+M: How big?
+G: The only people who know have only seen it's legs...
+M: And?
+G: 1 leg is 564635654 times bigger than you.
+M: HOW DOES IT FIT ON THIS ISLAND?
+G: I dunno.
+D: Guys, look! A cave!
+M: AND a humngus web.
+
+Cave
+web
+
+Which to choose?
+
+> go to web
+You are in web
+You can go to treetop.
+Wow.....
+M: There's no one here....
+G: Good.....
+M: Scanners indicate that your house is a tree house...
+G: ... yeah.
+M: Let's start climbing.
+
+Treetop
+
+> go to treetop
+You are in treetop
+You can go to Burned Hewewe.
+M: Well, we're on the treetop....
+G: And there's my house!
+M: Can I please enter Ice Cap Mountain now?
+G: What? Oh, oh... sure. Whatever.....
+M: So, Dragon, are you coming with me?
+D: Of course! This sounds like a fun trip!
+M: Wait.....
+D: What?
+M: There's something over there at Hewewe, see?
+D: Hmm.... yeah, what is that?
+M: It looks like...... an echidna! Let's go, NOW!
+
+> go to Burned Hewewe
+You are in Burned Hewewe
+You can go to Ice Cap- Foot.
+M: Pant.... pant.....
+D: Woo boy....
+Echidna: What the? A life- killing robot and a fire- breathing dragon?
+M: [whispering to dragon] I think you'd better run now...
+M: Who are you?
+K: I am Knuckles the echidna, and it seems like you two destroyed my home!
+D: We didn't!
+K: Sorry, ain't gonna believe it.
+M: Well, Knuckles, don't try to beat me, I have already killed Sonic, Shadow, and Tails.
+K: Oh, so you murdered my friends too (except for Shadow)? I'm gonna avenge them!
+M: Dragon, prepare to engage battle!
+Choose a weapon
+1) Minigun
+2) Bazooka
+[choice] 1
+Metal shoots, he scores!
+1 shot, 2 to go.
+Choose another weapon
+1) Magic Bullet
+2) 2 magic bullets
+[choice] 1
+BOOM! It knocks 2 HP outta
+ Knuckles and he's dead!
+
+> go to Ice Cap- Foot
+You are in Ice Cap- Foot
+You can go to Ice Cap- Ski Lift.
+M: Well Dragon, we're at the foot of the mountain. Better get moving!
+Let's see, and the usual path up.
+And so, Metal's journey continues on as he makes his way up to the
+top of Ice Cap Mountain. But, little does he know, the one at the top is NOT the one
+he's thinking of.... I've... said too much... find out who in:
+
+CHAPTER 5: Metal Sonic on Ice
+
+
+> go to Ice Cap- Ski Lift
+You are in Ice Cap- Ski Lift
+There is ski lift here.
+You can go to Ice Cap- Foot.
+D: There's a ski lift! Let's use it to get to the top!
+M: I dunno, I mean, it's too easy....
+D: Well, it's either that, or we walk up.
+Ski Lift
+Caves
+
+> take ski lift
+M: Yeah, you're right....
+ it works fine!
+D: Great! I wonder how high it
+ goes.....
+You are in Ice Cap- Head
+You can go to Ice Cap- Snowboard.
+M: Wow. It's just a ski lift.
+D: Yeah..... we're at the top......
+M: But wait, that DOESN'T look like a female over there..... it looks like....
+M&D: KNUCKLES!
+K: Ding-a-ling! I'm back!
+D: What happened to you? You're all-
+K: Scorched up? I know. All thanks to YOUR flames down there! I was still alive....
+ then the flames rose and LOOK AT ME!
+M: They weren't our flames, Knuckles. And we're going to prove it!
+K: Try to. I have a 300 ft radius blasting bomb here....{starts to cry} and you killed my friends, my hometown, and I'm going to avenge them....
+M: Look, you have every right to be upset about your friends-
+K:- EVEN IF I HAVE TO KILL MYSELF IN THE PROCESS!
+D: Umm, Metal, I have a bad feeling about this.....
+K: PREPARE TO DIE IN 30 SECONDS!!
+M: GRAB A SNOWBOARD AND RUN!
+
+> go to Ice Cap- Snowboard
+You are in Ice Cap- Snowboard
+SNOWBOARD FOR YOUR LIVES!
+Choose a character, QUICK!
+1) Metal Sonic
+2) Dragon
+[choice] 1
+Choose a path!
+1) Left
+2) Right
+[choice] 2
+Made it through....
+Next Path!
+1) Left
+2) Center
+3) Right
+[choice] 1
+Made it. Good.
+Last ones!
+1) Far left
+2) Left
+3) Center
+4) Right
+[choice] 1
+SCREECH!
+Woo boy...
+I JUST dodged a cabin.
+You are in Ice Cap- Finale
+You can go to Cemetary.
+WHOOSH!
+M: We made it down!
+D: Yeah, but Ice Cap Mountain is gonna flood us!
+M: Oh yeah.
+M&D: AAAAAAHHHHHHHHHH!!!!!
+KA-BOOOM!!!
+M: (This is it..... this is the end....)
+{Heroes faint}
+
+> go to Cemetary
+You are in Cemetary
+You can go to Morph.
+{Metal wakes up}
+M: What the? Shadow?
+S: Huh? AAAAHHHH! He's alive!
+M: Of course I'm.... wait... I'm alive? YIPEE!
+S: Stop yer yapping. I was going to bury your corpse.
+M: ( He WAS, huh? That tells me something.)
+{ Dragon wakes up}
+D: Yawn.... wha?
+M: Oh, hello Dragon.
+D: I had the craziest dream. Shadow was saying you were alive Meta-
+{Shadow & Metal look at him}
+D: Oh.
+{spirits arise from graves}
+M,D&S: !?
+{Sonic, Tails and Knuckles spirits notice them}
+Spirits: Oh, hi Metal, Shadow,
+SS&TS: And a dragon.
+(simultaneously)
+KS: And Dragon.
+Sp: !?
+{Metal and Dragon faint}
+S: Guys? Oh my....
+Uh-oh.... wait.... Metal and Dragon are alive! Yeah! It appears Shadow
+had saved them at the last second! You may of thought he was dead,
+but he wasn't! He had JUST survived. Now, Metal and Dragon have
+to fight the Chapter 5 boss: No, not Shadow.... actually, SHADOW
+has to fight the boss! Yes, Shadow! Find out how:
+
+Chapter 5: BOSS
+
+
+> go to Morph
+You are in Morph
+Sonic Spirit: Form Of The feet and Face!
+Tails Spirit: Form Of The Tails and Fur-things!
+Knux Sirit: Form of The Hands and Spikes!
+All: Together we form: SONAICKLES!
+Which part to hit?
+1) Feet
+2) Tails
+3) Knuckles
+4) Say something stupid.
+[choice] 4
+You say," I'm not scared of you."
+SAC: Oh. He's not?
+S: NO! I'm not scared!
+SAC: Oh. Then never mind....
+See ya!
+You are in Egg Fortress- Hallway
+You can go to Egg Fortress- Receptionists Room or Egg Fortress- Mess Hall.
+Metal warps to a hallway.
+M: SCANNING HORIZONS:
+AREA: EGG FORTRESS
+M: Why did the emerald warp me HERE? !
+M: The creator must be here! He MUST have an emerald!
+M: Time to go.
+
+Receptionist Room
+Mess Hall
+How many chapters are there? You may be asking that.
+Well, one number can answer that: 8. Yes. 8. 7 normal, 1 secret.
+Can you unlock it? Now, Shadow gave Metal 2 emeralds, Dragon died
+of heartattack from all of the faints, and Metal teleported somewhere else.
+Live the adventure in:
+
+CHAPTER 6: Metal Sonic's Maker Meets His Maker
+
+
+> go to Egg Fortress- Receptionists Room
+You are in Egg Fortress- Receptionists Room
+You can go to Egg Fortress- Elevator.
+The Receptionist's room.
+M: Hello.
+R: Oh, hello..... creation 0934.
+M: The name is METAL......Sonic.
+R: Yeah, whatevuh.
+M: That Black face! You! You're the one from court!
+A.F: You.... must have me mistaken, I've never seen you before, Metal Sonic.
+M: ....
+A.F: .....
+M: I'm giving you 10 seconds.....
+{A.F. speeds off}
+M: Oh, no you don't!
+
+Hallway
+
+> go to Egg Fortress- Elevator
+You are in Egg Fortress- Elevator
+You can go to E.F.- Restroom, E.F.- File Room, E.F.- Creation Room, or E.F.- Elevator 2.
+{A.F. goes up elevator}
+M: Drat! That was the only one....
+'ding'!
+M:.... CREATOR?
+E: Oh, hello Metal.
+M: Where's that anonymus female?
+E: Her? Rouge the bat?
+M: Black face?
+E: Couldn't tell.
+M: That's her.
+E: Guards, could you please catch Rouge the Bat? She's running around unauthorized.
+G: Yes sir.
+E: Okay Metal, the guards will catch her.
+{1 hour later}
+E: Alright Metal, let's go. Metal? He's in sleep mode. I'll catch her.
+
+2nd Floor:
+
+Here I am.
+
+File Room
+Restroom
+Creation Room
+Elevator2
+
+> go to E.F.- Restroom
+You are in E.F.- Restroom
+You can go to E.F- 3rd Floor.
+Hmm? Helllloooooooooo?
+E: No one here.
+[smash]
+E: What the?
+[dash]
+E: Who-o-o's there?
+{enter Sonic with knife}
+E: AAAAAHHHHHHH!!!!!!!
+{Meanwhile}
+{Metal wakes up}
+E: (in distance) AAAAAHHHHHH!!!!!!!!
+M: Huh? Wha? Creator!
+[later]
+M: I got here as fast as I could.
+{Eggman in corner curdled up}
+E: S-S-S-S-S-Sonic! AAAAAHHHHHHHHHHHHHHHHH!!!!!!!!
+M: Nonononono, it's me, Metal.
+E: Oh.... we need to go to my office! On the 3rd floor!
+
+> go to E.F- 3rd Floor
+You are in E.F- 3rd Floor
+You can go to E.F.- Eggman's Office.
+M&E: WHAT IN THE NAME OF DOCTOR GERALD ROBOTNIK!?!?!?!?!?!?
+{turn camera to thousands of destroyed robot guards}
+E: My guards, my precious guards.... GONE!
+M: Oh no....
+Sonic in background: And now, to kill you, ASSISTANT-BOT!
+E: NNNNOOOOOOOOOOO!!!!!!!!!!!!
+{boom in background}
+E: No-ho-ho-hoooooo...... Assistant-bot was my second favorite robot.....
+ it took me almost as long as you to make!
+M: Well, if Sonic thinks he can just destroy my creator's prized possessions then he's
+ DEAD AND DEAD WRONG! Here I come, Sonic....
+
+> go to E.F.- Eggman's Office
+You are in E.F.- Eggman's Office
+You can go to E.F.-Boss.
+M: I may be making a HUGE mistake, but I MUST kill Sonic!  AGAIN!
+Sonic: Hello, Metal! Prepare to meet your maker!
+M: I already have.
+S: Look, I meant KILL you, not show you who created you.
+M: I know. I've died before.
+S: Well, PREPARE TO TURN BLACK AND BLUE!
+M: I AM black and blue. AND grey.
+S: Ahhh, forget the lame speech, I'm gonna kill you!
+M: My pleasure to do the same to you.
+{Metal pulls out minigun}
+{Sonic looks at his knife, then at Metal's minigun, then looks at screen, knowing
+ his fate.} S: Oh poo.
+You can tell what happens then.
+
+[Meanwhile]
+
+E: AAAAHHHH! METAL! HELP!
+M: Yeah? I just killed Sonic!
+E: Yes, that's very nice, but Rouge is going to--
+{slice}
+{Metal's pupils grow bigger, then he gets an Over the top Mad look on his face}
+R: Hello Metal.
+M: Time to die.
+
+> go to E.F.-Boss
+You are in E.F.-Boss
+Fight Rouge!
+Fight Rouge!
+1) From above
+2) From the side.
+[choice] 1
+You jump up and kick her.
+She kicks you back and rips your
+ leg off.
+R: Honestly, Metal, you really
+ thought you could beat ME?
+ I'm the world's greatest treasure hunter, and I'm going to get BILLIONS off of selling robot parts!
+M: Ugh.... you're not gonna get away with this Rouge...
+Hit her where it hurts!
+1) The head
+2) The legs
+[choice] 1
+You kick her (with your only leg)
+ and she gets hurt, but in return,
+ rips off your 2nd leg.
+R: I am too good for you, Metal.
+M: Oh, please, I've been fighting
+ since before you were born!
+Now, choose your weapon to kill her with! No answer is wrong!
+1) (Good) Spare Her
+2) (neutral) Uzi
+3) (Bad) Put grenade in mouth, on stomach, and underneath
+[choice] 2
+M: And now, to finish you off.
+[pulls out Uzi]
+{shoots Rouge}
+M: Target eliminated.
+R: [with last breath] Mekaku.....
+M: Mekaku?
+[drops uzi]
+{looks up, wondering meaning}
+M: Mekaku.....
+[a few minutes later]
+{reaches into Eggman's pocket}
+M: The 6th emerald....
+ only 1 left....
+You are in Area 51-Gate
+There is Box here.
+Metal teleports to outside Area 51.
+Gaurd: HALT! Wait, Metal?
+M: You! That guard dude from Angel Island!
+Both: What are YOU doing here?
+G: I got a new job.
+M: I was teleported here. Are there any Emeralds here?
+G: Well, of course! Otherwise I wouldn't be GUARDING anything!
+M: Okay, may I go inside?
+G: Ha ha.... no.
+M: WHAT!? Why not?
+G: I'm a GUARD. I GUARD this place. I don't just LET people and robots in!
+M: What can I do to get in?
+G: NOTHING AT ALL. I'm guarding the Emerald with my LIFE!
+M: We'll just see about that... ( I HAVE to get in)
+After killing Rouge, Metal prepares to get the final emerald, little does
+he know, someone, no, someTHING is waiting for him.....
+find out what in:
+
+
+CHAPTER 7:  Metal Sonic's 1st Encounter of His Worst Nightmare
+
+We now follow Metal, who has been teleported to the mysterious Area 51.....
+
+
+> examine box
+It says "This Side Up", with an arrow pointing up. Look! A window!
+
+> take a window
+You are in Area 51- Bathroom
+There is Door? here.
+You can go to Area 51.
+You lift the window up, and jump through-- SPLASH! And land in a toilet.
+ZZZrt. Buzzz....
+M: Whooo-OWAZA! I ZZZZRt/shfaODJ can't sasidjjsusakisasssssee.
+What happened? jsudhfdffjf Error in Hard Drive... Correct? Y/N
+Error in Hard Drive. Correct? Y/N
+1) Yes
+2) No
+[choice] yes
+"Y. BUZZART ASUIASGDIASUDHSDUCCCCCCCsih OW. Am I fixed yet? Good."
+
+> examine Door?
+Wait. It's not a door, it's a briefcase.
+
+> take Briefcase
+Wow, a briefcase! Wonder what's inside? DANGIT! Need a key.
+
+> go to Area 51
+You are in Area 51
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+This is the interior of Area 51!
+M: Hmm.... it's quiet here..... TOO quiet....
+(on P.A.) Male robot Voice: Hello, Metal.
+M: Wha?
+MK: I am MekakuKnux!
+M: Say what?
+MK: Mecha Knuckles.
+M: Oh.
+MK: Please come to the Rosswell, New Mexico artifacts room.
+M: ?
+MK: 2 rooms to your right. You MUST use the compass!
+
+> w
+You are in Area 51 SECRET ROOM
+There is Hidden Key here.
+You can go east.
+You stumble upon THE SECRET ROOM!
+What happens in here? You'll find out soon....
+1 thing's for sure, this place is the most eerie room I've ever seen! Let's get outta here!
+
+> e
+You are in Area 51
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+This is the interior of Area 51!
+M: Hmm.... it's quiet here..... TOO quiet....
+(on P.A.) Male robot Voice: Hello, Metal.
+M: Wha?
+MK: I am MekakuKnux!
+M: Say what?
+MK: Mecha Knuckles.
+M: Oh.
+MK: Please come to the Rosswell, New Mexico artifacts room.
+M: ?
+MK: 2 rooms to your right. You MUST use the compass!
+
+> e
+You are in Area 51 Screening Room
+There is lamppost and statue here.
+You can go west.
+The sreening room....
+MK: (On P.A.) Before you go any further, make sure you're prepared to fight.
+M: Check.
+MK: Good. Then, face the newest invention of the government, The Screaming Room!
+MUAHAHAHAHAHAAHAHHAHAHAAHA!!!!!! IF YOU GET OUT ALIVE, I'LL GIVE YOU A COOKIE!
+M: Wha?
+{ spirits rise}
+M: Uh-oh....
+How do I fight them?
+
+> take statue
+
+> take batteries
+You take them.
+
+> use batteries on lamppost
+You put the batteries in the lamp, and the ghosts get scared of the light!
+MK: Grr..... alright, very good.
+ But not good enough. How do you do against... this puzzle?!
+
+A giant map pops out, and it's of
+ your entire journey! But, one area's missing-- the Junkyard!
+MK: Solve this puzzle and you shall move on to me.
+
+> use map on giant map
+You put the Junkyard Map into the missing slot, and it fits!
+MK: Well, well... looks like you've solved the puzzle. Not a hard one, huh? Well, you'll get to something tough....
+
+A door opens, the Artifacts Room!
+
+> take a door
+You are in Area 51 Rosswell, New Mexico Artifacts Room
+You can go to Area 51- Boss.
+M: I'm here Mecha Knuckles, now where's my coo....k....i....e.....?
+{turn camera to huge shadow of a robot that is shaped like Knuckles}
+M: Hubba ......
+{turn camera to Mecha Knuckles, same size as Metal}
+M: Oh.
+MK: Hello Metal.
+M: Hello, Mecha. Who created you?
+MK: Rouge the bat. She's kinda smart ya know.
+M: She is NOT!
+MK: Oh, be quiet, will you? I'm going to give you 1 minute.....
+M: I won't budge. What do you want?
+MK: To avenge my creator.
+M: Okay, I see where this is going.....
+MK: Where?
+M: Listen: I avenged my creator by killing yours, now you're going to avenge YOUR creator
+ by killing me. Next, something I made is going to avenge it's creator by killing YOU!
+MK: ...
+M: Ok, I'll engage attack mode now.
+
+> go to Area 51- Boss
+You are in Area 51- Boss
+You can go to Area 51 Boss part2.
+Engaging Attack Mode!
+Fight! Quickly!
+1) Punch
+2) Block
+[choice] 1
+Punch!
+
+> go to Area 51 Boss part2
+You are in Area 51 Boss part2
+You can go to Area 51 FINAL boss.
+Hurry!
+Fight! Quickly!
+1) Punch
+2) Block
+[choice] 1
+Punch!
+
+> go to Area 51 FINAL boss
+You are in Area 51 FINAL boss
+You can go to Game Complete!.
+Last one!
+Fight! Quickly!
+1) Punch
+2) Block
+[choice] 1
+Punch!
+
+> go to Game Complete!
+You are in Game Complete!
+Congratulations!
+You have defeated Mecha Knuckles and gotten all 7 chaos emeralds! What about Metal's past? You'll find out when you've earned it....
+Metal Sonic's Quest
+
+Director                                                 Jordan Dooling
+Characters:
+
+Metal Sonic
+Dragon
+Spirits
+Sonic
+Tails
+Knuckles
+Rouge
+Robotnik
+Mecha Knuckles
+Echidnas
+Guard
+Guardbots
+Assistantbot
+Judge
+Anchorman
+Police
+Meta Tails
+Anonymus Female
+Recycled Metal
+Guy in tent
+Sonaickles
+Shadow
+
+
+Thanks for Playing!
+
+Congrats! Now you can look at an extra in the lobby!
+
+> use Hidden Key
+You are in Extra-start
+There is Control Pad and Dock here.
+{rumble rumble}
+M: What the?
+{ CRASH!}
+MK: Metal.... I SHALL avenge my creator! No matter WHAT!
+M: Whoa there Mecha, don't get hasty....
+MK: I'm taking these emeralds!
+{grabs emeralds}
+MK: MUAHAHAHAAHAHAHAHHAHAHAHAHAHAHAAAAAAAAA!!!!!!!!!!!!!!!!!!!!!!
+M: Whoa.
+{MK transforms into Mecha Conqueror}
+MC: MUAHAHA! All living things kneel before your master!
+M: Grr.... that's MY line! He's gonna pay... BIG TIME!
+(But how to do that?)
+Dock
+Rocket
+Hee hee hee! You explore quite a bit, don't you? Unlocking that key! That's one of the biggest secrets in the game! Can you unlock more secrets? Well, Metal
+was carrying around a mystical prototype, The Robot Reborn Key! What is it
+supposed to do? You'll find out! Get ready for:
+
+CHAPTER 8: Metal Sonic V.S. Mecha Conqueror
+
+
+> take Control Pad
+You turn the thing on. The rocket rumbles and takes off. You press
+ the "Come Back" buton, it
+ lands. " It appears as if I need to
+ get inside the rocket and use it
+ to hit MC...."
+
+> take stick
+There MAY be a use to this...
+
+> use stick on Control Pad
+You enter the rocket and throw the stick at the control panel. The rocket takes off, and you get up to
+ MC's head and- BAM! Right in the kisser! You hit him! Only 3 more hits!
+ But, MC grows bigger and blasts
+ the room away. He's traveling
+ to the city to blow it up! You've
+ got to beat him there!
+You are in Extra- Robotropolis
+There is military helecopter, sattelite and elevator here.
+Welcome to Robobtropolis! You beat him there alright, then you got to a rooftop and
+ smacked his face! It barely hurt him, though.
+M: Given up, yet?
+MC: Not anywhere near!
+M: Very well....
+MC: Indeed.
+M: But you shall give in SOMETIME! All robots have a weak spot!
+(But where? Where is his weak spot?)
+Aha! His helmet-thing! But I need something strong.....
+sattelite
+go down the elevator
+military helecopter
+
+> take elevator
+You are in Extra- Hotel
+You can go to Extra- Tornado.
+I had to take the elevator.
+M: Now, anything here?
+Hotel guy: Hello, how may I help you?
+M: I need something heavy.
+H: Okay. Here, a desk.
+M: HEAVIER!
+H: A toilet seat.
+M: ....
+H: A pencil?
+M: Okay, now you're just being silly. GIMME THE HEAVIEST THING YOU GOT!
+H: This deluxe king- sized bed?
+M: Perfect!
+You go out of the hotel and throw the bed.
+SMASH! 2 more hits left!
+MC: Ow.... what was that, a toilet seat?
+M: ....
+MC then made a tornado in the center of the city.
+M: Uh-oh.
+
+> go to Extra- Tornado
+You are in Extra- Tornado
+You can go to Extra- MC's head.
+You're swirling around in a tornado.
+M: Is that the best you can do?
+MC: .... shut up.
+M: I shall make you pay for stealing my line and still living! AND stealing the chaos emeralds!
+MC: Um.....uh...... well I...... oh yeah?
+M: Ooh. Nice comeback.
+MC: You don't understand, do you?
+M: Yes I do.
+MC: Uh.... no you don't.
+M: Yes I do.
+MC: NO you DON'T.
+M: YES I DO.
+MC: NO YOU.... oh, never mind... I rule.
+(okay, this guy is stupid. Maybe I should remove the helmet, then go inside that empty head of his.) Metal jumps up, and does what he just thought.
+
+> go to Extra- MC's head
+You are in Extra- MC's head
+M: Wow. I'm inside his head. Nothing in here. I'm not suprised. (rim shot)
+MC: Fine, so you want to play? Ok! Antibodies, GET HIM!
+(few moments later)
+M: You don't have antibodies, you're a robot.
+( I'd better start punching.)
+PUNCH PUNCH PUNCH PUNCH!
+MC: OW! That's it, I'm squishing you! Here comes my FIST!
+M: Uh-oh, I gotta dodge that fist!
+Which side?
+1) left
+2) right
+[choice] 2
+You dodge thee fist, and MC gets hurt by his fist. You get out of MC's head, but have to go to space,
+for the final battle!
+You are in Extra- Space
+You can go to Extra- Finished.
+Welcome to space! No air! You don't care, though, you don't breathe.
+M: Well, Mecha Conqueror, you're going down....
+MC: Oh yeah?
+M: YEAH!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! (grabs 7 emeralds away from MC)
+MK: Oh, crud. I'm Mecha Knuckles again! Uh-oh.....
+MO: What?
+M: You're Metal Overlord now.
+MO: (evil smile)
+2471789092185335763276946564891231284624897252789347 more hits!
+BOSS DEFEATED!
+
+> go to Extra- Finished
+You are in Extra- Finished
+You can go to Multiplayer Lobby.
+MO turns back to M, and the 7 emeralds return to Angel Island.
+Mecha Knuckles lies in the dirt, dead.
+Luckily, Metal Sonic has an extra life for Eggman, and now, Eggman is building more weapons for Metal.
+Sonic eventually gets an extra life from Amy, who Metal forgot to kill.
+Sonic revived Tails who revived Knuckles, and those guys are now more scared of Metal
+ than ever.
+The hotel guy, no one cares about him.
+Every one lived happily ever after....... for 30 years.
+[You can now go to Chapter Select in Unlockable Hall!]
+Metal Sonic's Quest
+Credits
+
+Story                                        Jordan Dooling
+Supervisor                                Mark Dooling
+Characters
+Metal Sonic
+Mecha Knuckles
+Metal Overlord
+Mecha Conqueror
+Hotel Guy
+Created with:                      Quest
+Special Thanks to:
+Jordan Dooling
+Benett Hamilton
+Quest
+Sonic Team
+Sega
+Other things I forgot
+THE     END!!!!!!
+
+Sega is copyright Sega 2005. Sonic Team is copyright Sega and Sonic Team 2005.
+
+Now you can read the second part
+ of Unlocked Goodies!
+
+> go to Multiplayer Lobby
+You are in Multiplayer Lobby
+There is Lobby Desk, Unlockable and Strange Man here.
+You can go to Unlockable Hall.
+Welcome player, to the Metal Sonic's Quest Lobby!
+This is where you can chat, challenge others and get help in the game!
+Or get into the single player adventure! Choose now!
+
+> give Briefcase to Strange Man
+M: Say! You've found my briefcase!
+Y: All in a day's work. So, can I play that demo?
+M: What? Oh, sure. Go to Unlockable Hall.
+Y: Oh, boy!
+
+> speak to lobby desk
+What would you like?
+1) I would like to play Single Player mode.
+2) I would like to play multiplayer campaign mode.
+3) I would like some tips.
+[choice] 2
+So, you want to play the exciting campaign mode?
+1) Yes
+2) No
+[choice] yes
+Okay! See you in 30 years!
+You are in Campaign Select
+Choose your side.
+
+
+Freedom Fighters (Sonic)
+
+Robot Wranglers (Metal)
+Select a force!
+1) Freedom Fighters
+2) Robot Wranglers
+3) FF Boot Camp
+4) RW boot camp
+[choice] 2
+You are in Campaign mode- Start point, Metal
+You can go to Campaign Mode- Plan room.
+Welcome to the ultimate showdown with Sonic the Hedgehog!
+Your commander's name is Recycled Metal, what happened, was Sonic smashed him down,
+ and Eggman, with an etra life, fixed him and gave him an awesome battle suit!
+Sonic is now 45, it has been 30 years since Metal Sonic's Quest, Metal has cloned himself, now, it's time to fight! P.S. you are one of his clones.
+Chapter 2: Mission Breakling
+M: Initiate wake mode, people, it's time to WAKE UP!
+You: What's all the hubub, Commander Metal?
+M: It's 0:300 hours, 3 A.M., the enemy's forces are asleep! We shall invade NOW!
+Y: Yes, SIR!
+M: Move, move, move, MOVE!
+M: To the plan room, NOW!
+
+> go to Campaign Mode- Plan room
+You are in Campaign Mode- Plan room
+You can go to Campaign Mode- Target Achiever-034.
+MekakuKnux: Alright guys, 'bots on left are Team Alpha, Commander Metal is their leader.
+MK: Right siders are Team Beta, I am their leader.
+MK: Everyone else, Team Epsilon, have no leader.
+{you were on the right side}
+MK: Okay, break up! Team Alpha, go to C.M! Team Beta stay here! Team Epsilon, do whatever.
+{the plan}
+Now, you, you, you, you and you, shall be The Rebels. Your job is to distract
+ some attention to the left side of enemy territory. You, and you are
+ Mr. and Ms. Smith. Your job is to sneak inside, now, if you're noticed, you'll
+ be in costume, so just say that you're Mr. and Ms. Smith. If they don't believe you,
+ report. Now, YOU! {you} YOU are th most important part of Mission Breakling,
+ your job is to get inside, and into the room with Sonikku in it. You are The Reporter.
+ When you're inside the base, I'll tell you what to do via transmissions. Now MOVE!
+
+> go to Campaign Mode- Target Achiever-034
+You are in Campaign Mode- Target Achiever-034
+You can go to Campaign Mode- Skydive.
+Later, on the hovercraft-jet.
+Y: So, I'm the Reporter?
+MK: Yes.
+Y: Okay.
+MK: Now listen, all you need to do is wait till I give the signal, then sneak inside,
+ when you're inside Sonikku's room, call for an assault. If you get caught, call for
+ backup. Oh, we're almost there!
+
+> go to Campaign Mode- Skydive
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+
+> look
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+
+> look
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+
+> look
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+
+> look
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+
+> look
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+
+> look
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+
+> look
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+
+> look
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+
+> look
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+
+> look
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+
+> look
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+
+> look
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+
+> look
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+
+> look
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+
+> look
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+
+> look
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+
+> look
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+
+> look
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+
+> look
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+
+> look
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+
+> look
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+
+> look
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+
+> look
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+
+> look
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+
+> look
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+
+> look
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+
+> look
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+
+> look
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+
+> look
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+
+> look
+You are in Campaign Mode- Skydive
+MK: Wait, once we're over the target point, you'll jump down.
+MK: O400 hours is when we do.
+MK: Here we are, JUMP!
+
+> take JUMP!
+You are in Campaign Mode- Rendevous Point
+You can go to Campaign Mode- Start point mission.
+After the jump:
+MK: Well, we landed safely. Now listen, this is the safe point, we'll meet here when we're done with the mission. For now, get recharged, get ready, and if you want, chat, and give each other weapons and ammo. When you're ready, come to the entrance so we can start
+ the mission.
+
+> go to Campaign Mode- Start point mission
+You are in Campaign Mode- Start point mission
+You can go to Campaign Mode- Behind MAMS.
+MK: Okay, Rebels, GO!
+R: HEY! YOU! IN THE BASE! WE HATE YOU! ( random insults)
+MK: Good, Mr. and Ms. Smith?
+MAMS: We're going.
+MK: Okay, Reporter, GO!
+Y: Time to go.
+
+> go to Campaign Mode- Behind MAMS
+You are in Campaign Mode- Behind MAMS
+You can go to Campaign Mode- Sonikku's Room.
+Y: Okay, sneaking in. Uh-oh.... guards are coming....
+MAMS: Don't worry Reporter, we'll take care of them.
+MAMS distracted the guards, now RUN!
+
+> go to Campaign Mode- Sonikku's Room
+You are in Campaign Mode- Sonikku's Room
+You can go to Campaign Mode- The lab.
+Y: Well, here I am.... Sonikku's room. Now, to call for help.
+[dialing]
+MK: Hello?
+Y: I am in Sonikku's room. What do I do now?
+MK: Don't you worry. We'll take care of it, justgive us your coordinates.
+Y: 2349, 33254
+MK: Okay. Mekaku Knux out.
+Y: Reporter out.
+ Mecha Knux teleported there, took Sonikku, and teleported out.
+ Then, the whole RW army teleported to the base, and stole a few things.
+ A robot grabbed you and teleported you out.
+
+> go to Campaign Mode- The lab
+You are in Campaign Mode- The lab
+You can go to Campaign Mode- Mess Hall.
+5 days have passed since Mission Breakling, and no one noticed any differences, until.....
+Robot: Commander Metal, a transmission has arrived. Shall I bring it on screen?
+CM: .......Very well.
+R: Yes sir, commander, sir.
+[ transmission comes on screen]
+CM: !!!
+R: Wow, that's quite alarming. Shall I inform the others?
+CM: Negative. Let's keep this as our little secret.
+R: But sir--
+CM: I said let's keep this a secret. Now, put it in your secrets folder, or else....
+R: ...... error, sir. There is no--
+CM: Then MAKE a folder named," secrets".
+R: Yes sir.
+CM: ( oh, no....)
+
+> go to Campaign Mode- Mess Hall
+You are in Campaign Mode- Mess Hall
+You can go to Campaign Mode- the next day.
+After the little "secret", the mess hall became quiet.
+Y: Hello? Hellloooooo? No one's here.
+Friend: Strange....
+Y: Yes, it IS strange. It's not like the mess hall to be empty....
+[ a few minutes later....]
+{ You and friend leave, while Commander Metal enters with soldier being strangled}
+CM: (mad face)
+S: Sir.... please..... it was..... an....... acc....i....d....e--
+{CM throws Soldier on to ground, then repeatedly steps on head until it finally gets crushed}
+CM: That should teach you not to watch my transmissions.... that was a secret, never to be shown to ANYBODY except me, MekakuKnux, or Robot.
+S: ..................s......i.....r.......
+{CM jumps straight on to soldier, therefore turning the disembodied head into scraps}
+CM: Why? Why? WHY? I miss my mercy.exe..... why must it be this way? I must kill him....
+ that meddling mortal..... hacked into my system and destroyed my security folder......
+ it had my mercy.exe in it..... that meddling--
+{camera switches to you before CM says the word}
+Y: Well, hopefully something will happen tommorow.... Initiate sleep mode.
+
+> go to Campaign Mode- the next day
+You are in Campaign Mode- the next day
+You can go to Campaign Mode- Plan.
+All these incidents..... happening so fast..... now for the next mission!
+Get ready for a BIG mission! Okay, not that big, but it requires some work!
+Be prepared for:
+Chapter 3: Mission Fight The Prower!
+
+R: Initiate wake mode, people! Now we must get ready for the next mission!
+Y: What the? Where's Seargent Mecha Knuckles?
+R: Um.... er..... he.... uh..... had some technical difficulties.
+Y: So, he's sick?
+R: Why, yes. Yeah. Let's go with that! (oh, thank you...)
+ To the planning room!
+
+> go to Campaign Mode- Plan
+You are in Campaign Mode- Plan
+You can go to Campaign Mode- Target Achiever.
+R: Okay, people, Commander Metal has something to say, so QUIET DOWN!
+CM: Ahem. Well, you all may of noticed that MekakuKnux had some..... problems.....
+ but..... he'll get better by... oh, I can't take it! My security folder was deleted long ago
+ by Mr. Prower. MekakuKnux couldn't come because he was captured! He was captured
+ last night, by the Freedom Fighters! But, we captured Sonikku, and Knux!
+Y: { my favorite video game, hehe...}
+CM: So, today's mission is Mission: Miles Capture, code named: Fight the Prower!
+ To battle stations, maggots!
+R: Alright, maaa-gots....
+CM: Maggots.
+R: Right. Today, robots on the right are.... uh....
+CM: The Killer Maggots.
+R: Right. They'll be commanded by me. Lefters are....
+CM: The Scary Maggots.
+R: Right, they'll be commanded by Commander Metal.
+ Everyone else....
+CM: Distracting Nit-wits. Just.... distract the enemies.
+{you were on left, woo-hoo!}
+[the plan]
+CM: All right, you Scary Maggots! Let's see your toughest move! Do it on me!
+{Clone 1 jumped onto CM, but was grabbed by the foot, swung around, and then beaten till
+ he was nothing but ashes, then was thrown into a dumpster}
+CM: PATHETIC! You've got to do it TOUGH! Only 1 robot will survive this.
+The one who takes over 1 hour to beat, will be the Scary Maggot.
+{in the end, you win. But, you're legs are rusty, the left side of your head is gone,
+ and so is your right arm}
+Y:............................................................................................................
+CM: You win, Clone 117!
+Y:............................................................................................................
+CM: Clone 117?
+Y:......{you scream so loud, that all that exist can hear you, you scream: ow}....ow....
+CM: You ok?
+Y: Error in gjidzcxjiohgj....{you fall over}
+CM: Weird. I wasn't even trying to hurt ANY of these guys.
+ Um..... medic-bot? Heal this guy.
+
+> go to Campaign Mode- Target Achiever
+You are in Campaign Mode- Target Achiever
+There is fully loaded shotgun and fully loaded handgun here.
+You can go to Campaign Mode- Roof.
+Later......
+CM: So, scary maggot, your job is to break into Mr. Prower's room, and scare him to death!
+ Leave the rest to me.....
+Y: What about the others?
+CM: They..... are piles of ash now, there is nothing ANYTHING can do.
+Y: Hmm.....
+CM: Grab some guns before you jump.
+CM: Get ready.....
+
+> take fully loaded shotgun
+You pick it up.
+
+> go to Campaign Mode- Roof
+You are in Campaign Mode- Roof
+There is Window here.
+You landed safely, and quietly on the roof.
+Y: This is Scary Maggot, I have landed on enemy's roof. Over.
+CM: Excellent. Oh, crud. The Killer Maggots are having trouble getting in front!
+ The door is locked. You need to get in the window!
+Y: Where is the window?
+CM: On the other side of the building!
+
+> take Window
+You are in Campaign Mode- Indoors
+There is door here.
+Y: This is Scary Maggot, I am inside the building. Over.
+CM: Excellent. Now, get into Miles' bedroom and shoot him!
+Y: Got it.
+
+> take door
+You are in Campaign Mode- Tails' room
+You can go to Campaign Mode- Lab 2.
+M: Here I am..... gotta make sure I have my weapon!
+CM: Now, you MUST shoot Miles! First, wake him up, THEN shoot!
+Y: Hey, Miles!
+Tails: Y-yeah? WHAT THE?
+Y: Say cheese-
+[shoots him]
+Y: Mission accomplished, commander!
+CM: Great job! We'll take care of the rest!
+
+> go to Campaign Mode- Lab 2
+You are in Campaign Mode- Lab 2
+You can go to Campaign Mode- FINAL MISSION.
+Right after the mission, inside Commander Metal's lab......
+[ Miles Prower is inside a VERY small cage, suspended 3 feet above hot plasma]
+CM: So...... Tails, was it? Remember what you did to me 30 years ago, today?
+T: N-no.....
+CM: OF COURSE YOU DO!
+[pulls switch, Tails' cage goes down 1 foot]
+T: Aaaahh....
+CM: You DO remember Tails, you just don't want to.....
+T: Can you give me a hint?
+CM: [scoffs] fine.... you captured ME, there was an off button on my back? You HACKED into my system?
+T: Oh yeah..... I'm really sorry, Metal. I-
+CM: That's COMMANDER Metal to you.
+[pulls switch, Tails' cage now 1 foot above hot plasma]
+CM: Listen Mister Prower, I now rule over ALL of your land..... there is NO way of you winning this fight, Sonikku and Knux are inside cages JUST LIKE THIS! They are all in situations JUST LIKE THIS! 1 wrong move, and you're 38-year old body will be nothing but.... NOTHING!
+T: Please, Commander Metal, don't kill me! I-
+CM: Hold on..... let me guess..... a wife and 3 beutiful kids?
+T: Yes, sir.
+CM: Not anymore...
+[pulls switch, distant screams]
+T: What just happened?
+Robot: Sir! Plasma just fell onto 1038583844780 robots in the mess hall!
+CM: Wrong switch....
+[pulls different switch, distant screams]
+T: What did THAT one do?
+CM: It dumped plasma onto your family. You can't tell anyone about your family anymore...
+ YOU DON'T HAVE ONE!
+T: NNNNOOOOOOOOOOOOOOOOOOOOO!!!!!!!!!![starts to cry]
+CM: Tails.... this is the exact thing that I captured you because.....
+T: [still crying] you.... wanted to show me my family getting killed?
+CM: NO! It's my mercy.exe..... when you hacked into my system, and deleted my security
+ folder.... you erased it..... so...... I wanted REVENGE.....
+T: I think I'll start begging for safety now....
+CM: I can't give you anything but death, Tails.... without my mercy.exe.... that's all I can give ANYONE..... other than orders..... so....
+[pulls switch, Tails' cage dives into the plasma, Tails screams]
+CM: What have I done? ............
+
+> go to Campaign Mode- FINAL MISSION
+You are in Campaign Mode- FINAL MISSION
+There is the door here.
+Now, be prepared for TOUGH stuff! Keep your weapon with you, you'll need it in:
+
+Mission: Revival of the Fittest
+
+{in the mess hall}
+Y: Commander Metal's gone missing!?!?!?!?!??!?
+[other robots start asking questions]
+Robot helper: Don't worry, guys, Commander Metal CAN'T be gone!
+[crash]
+Y: What was that?
+[robots check outside]
+R: Oh my goodness..... it's a....... it's the.......
+All: IT'S THE CHAOS EMERALDS!
+Y: LOOK! Something's glowing in there!
+R: .......RUN!
+[robots run]
+Narrator: What was it? You'll find out.....
+R: Alright you guys, we need to prepare for the worst! We are going to sacrafice ourselves to protect our glory and power! We own 99% of the planet!
+Y: How? You know how powerful that thing was!
+R: Oh yeah. I forgot..... WHERE ARE YOU, COMMANDER METAL?
+[meanwhile]
+CM: Goodbye, Robot Wranglers...... I must leave you with Robot Helper to command you.... WHAT AM I DOING? ROBOT HELPER CAN'T COMMAND! I GOTTA GET TO WORK!
+[meanwhile]
+Y: I'm glad I have my weapon..... I also have my claws...... tiny ones though....
+R: Alright, you guys...... when the door opens, shoot as hard as you can......
+N: Click door when you want to continue...
+
+> take the door
+You are in Campaign Mode- Fight
+You can go to Campaign Mode- Commander Metal's Final Online Time.
+The door knob is shaking......
+
+> look
+You are in Campaign Mode- Fight
+You can go to Campaign Mode- Commander Metal's Final Online Time.
+The door knob is shaking......
+
+> look
+You are in Campaign Mode- Fight
+You can go to Campaign Mode- Commander Metal's Final Online Time.
+The door knob is shaking......
+
+> look
+You are in Campaign Mode- Fight
+You can go to Campaign Mode- Commander Metal's Final Online Time.
+The door knob is shaking......
+
+> look
+You are in Campaign Mode- Fight
+You can go to Campaign Mode- Commander Metal's Final Online Time.
+The door knob is shaking......
+
+> look
+You are in Campaign Mode- Fight
+You can go to Campaign Mode- Commander Metal's Final Online Time.
+The door knob is shaking......
+BOOM!
+R: EVERYONE SHOOT!
+HURRY AND SHOOT!
+
+> take gun
+SHOOT SHOOT!
+You shoot at the things.
+When the bullets stop, you take a closer look..... they're all Freedom Fighters.....
+R: There's no commander to them...
+Y: Hold on. If these guys have no commander, then that crash..... those emeralds...... that THING! Commander Metal is doomed.....
+
+> go to Campaign Mode- Commander Metal's Final Online Time
+You are in Campaign Mode- Commander Metal's Final Online Time
+There is FINAL BATTLE here.
+N: With the Freedom Fighters destroyed, and that thing crashed, we move on to the toughest part of the game.
+Mission 3 act 2: Operation Shut Down
+N: We're in the Freedom Fighter's beach-- right behind the base.
+CM: Farewell, cruel world..... one touch of this.......... clear water.... will eliminate me.
+[takes one step closer to pure water]
+???: Stop.
+CM: Hmm? GASP!
+SS: Yes, me. SuperSonic.
+CM: But-but-but, this doesn't compute! It's just illogical!
+SS: Didn't you know? I used the chaos impact of the emeralds to escape the RW lab.
+CM: Very well. But, there is no need to destroy me, for I'm going to take one leap into this 100% pure water, and go offline.
+SS: Why?
+CM: mercy.exe. Miles eliminated it 30 years ago. So, I'm sick of having no mercy, and I'm comitting suicide.
+SS: Stop. I won't let you. We need to finish this rivalry for once and for all. Like you always say, " Rivalry is never put to rest." I'm getting revenge for all the cruel deeds you did.
+CM: ....... very well.
+[click on FINAL BATTLE to continue]
+
+> take FINAL BATTLE
+First, you must choose how to fight! Only 1 is right!
+1) Sonic v.s. Metal Sonic (fair fight)
+2) Sonic v.s. CM (unfair to FF)
+3) SuperSonic v.s. Metal Sonic (unfair to RW)
+4) SuperSonic v.s. CM (fair fight)
+[choice] 1
+Remember, you're Metal Sonic! What move?
+1) Sonic CD-ifyer
+2) Sonic The Fighters-ifyer
+3) Skip to End (no unlockables!)
+[choice] 1
+Metal: Let's finish this, Stardust Speedway Act 3 style!
+Sonic: Gotcha. First one to the goal room is the winner!
+You are in Campaign Mode- Sonic CD
+There is Racetrack here.
+3.... 2... 1....
+M: GO!
+[click racetrack to continue]
+
+
+> take Racetrack
+Get ready to jump the spike....
+1) Jump!
+[choice] 1
+You jump as quick as you can,
+ and survive! Get ready...
+Be prepared....
+1) JUMP!
+[choice] 1
+You jump over Sonic's head, and a spike patch, and win the race!
+You are in Campaign Mode- Complete
+You can go to Multiplayer Lobby.
+M: I win, Sonikku! Now, you can die slowly and painfully....
+S: (gulps) Okay Metal, I accept this death.
+M: Then you shall die a TINY bit faster.
+[stabs medium-speed]
+M: Excellent..... now, to jump into the water.
+R: Commander Metal! WAIT! Excuse me, sir, have you seen Commander Metal?
+M: I AM Commander Metal, you nitwit!
+R: Oh, DON'T KILL YOURSELF! I'm no good at leading!
+RW army: YEAH, HE STINKS AT LEADING!
+R: Don't rub it in.
+M: Hmm..... I may have more to stay online for than I thought. Alright army,
+ I shall rule with a chrome fist!
+RW army: You're made of chrome? I mean, (cheers)
+CONGRATULATIONS!!!!!!
+You have unlocked some pretty good stuff!
+
+> go to Multiplayer Lobby
+You are in Multiplayer Lobby
+There is Lobby Desk, Unlockable and Strange Man here.
+You can go to Unlockable Hall.
+Welcome player, to the Metal Sonic's Quest Lobby!
+This is where you can chat, challenge others and get help in the game!
+Or get into the single player adventure! Choose now!
+
+> take Unlockable
+You are in Metal's Past- Egg Fleet
+You can go to Metal's Past- Seaside Hill or Multiplayer Lobby.
+{ Right after Sonic Heroes}
+{Metal awakens}
+M: Huh? Get offa me!
+{Omega lets go}
+M: Oh.... my head..... grr.... that STUPID Sonic! He ruins EVERYTHING!
+O: Why did you do it, Metal?
+M: Because I am the Ulti-
+{Shadow smacks Metal}
+M: Ow.
+S: I'M the Ultimate.
+M: I was going to say Ultimate ROBO-
+{Omega smacks him}
+M: But it's true!
+{Omega smacks him again}
+M: I'm outta here.
+{Flies off}
+[meanwhile]
+M: Ahhh..... Sonic.... you are going DOWN!
+
+> go to Metal's Past- Seaside Hill
+You are in Metal's Past- Seaside Hill
+There is Locked here.
+You can go to Metal's Past- Egg Fleet or Multiplayer Lobby.
+M: Hello, Sonic!
+S: Metal? You're alive?
+M:...yes.
+T: Sonic, I don't like this....
+M:....
+K: You OK, Sonic?
+{Sonic shivering}
+S: Uh, um... oh, uh, ye-e-e-a-h... I'm uh, fine....
+M: What's the matter, Sonic? Scared?
+S: NO!
+M: Good. Because I'm just warning you about next time we meet.
+S: You'll never beat me, Metal!
+M: Try me!
+{Metal flies off}
+Try to unlock more!
+
+> take Locked
+You are in Metal's Past- Egg Base
+You can go to Metal's Past- Knothole.
+M: Grr... that Sonic makes me so MAD! You could disintegrate the sun on my head!
+E: Hello, Metal! How was YOUR time?
+M: Not good..... wait, YOU were there!
+E: I meant AFTER that.
+M: Oh. Good and bad.
+E: Mine stung, like a bee.... any luck killing Sonic?
+M: No, not yet. I was thinking of doing an old- fashioned gun fight.
+E: Tried it, he's too fast.
+M: How about tieing him to a rope, THEN shooting him?
+E: Tried it, he called Knuckles and Tails to help.
+M: Hmm..... I'VE GOT IT! I could kill K and T FIRST, THEN kill Sonic!
+E: Tri.... wait, I haven't tried THAT, go ahead!
+M: Okay, see ya!
+( later...)
+
+> go to Metal's Past- Knothole
+You are in Metal's Past- Knothole
+There is also Locked here.
+You can go to Multiplayer Lobby.
+M: Ahh.... Tails.....
+(SLASH! Death cry.)
+M: Hehe.... now, for Knuckles.....
+(as he leaves, enter Sonic)
+S: Ahh, what a wonderful day.... WHAT THE? Tails' corpse? I'd better use a 1-up.
+(meanwhile)
+M: Knuckles.... target no. 2.....
+(slash! Death cry)
+M: Now, to invite Sonic to the junkyard, where his corpse will lay....
+(as Metal leaves, enter Sonic)
+S: I hope I don't see another- CORPSE!? AAAAHHHH!!! Another 1-up....
+(meawhile)
+M: I've sent the invitations, Sonic should be coming....
+Try to unlock more!
+
+> take also Locked
+You are in Metal's Past- The thing
+S: Hiya Metal!
+M: Hello, Sonic. Are you ready to die?
+S: Nope, are you?
+M: Nope.
+S: Y'know Metal, I hear that your average hedgehog is smarter than your average robot!
+M: HA! Well, you're less than average, and I'm more than average!
+S: Tails, Knuckles?
+M: Too bad, they're dea--
+[T and K appear]
+M: D...d....d.... did you give them 1-ups?
+S: (nods)
+M: Blast, I forgot about those.
+CRASH BOOM BASH PUNCH POW KA-BOOOOOOOOOOOOOOOM!!!!!
+[K throws Metal into the junk pile]
+S: Next time you REALLY want a rematch, let me know so I can destroy you!
+M: ..... systems....... offline.....
+THE END!
+Congratulations, player! You have beaten both game modes, you are, indeed,
+GOOD! Only thing left to do? Get the MSQ2 Demo! Already have it? Then you've beaten Metal Sonic's Quest!
+
+
+
+Metal Sonic's Quest
+-----------------------
+Credits
+
+Director: Jordan Dooling
+Characters: Hyper Metal Sonic
+Robot Assistant
+Doctor Ivo Robotnik
+Hotel Guy
+Big Bane
+Lil Larry
+Rouge the Bat
+Sonic the Hedgehog
+Recycled Metal Sonic   as   Commander Metal
+Metal Sonic Clones    as    Robot Wrangler Army
+Knuckles the Echidna
+Miles Prower
+Various Animals   as   Freedom Fighters Army
+Super Mecha Knuckles
+Recycled Metal   as   Metal Overlord
+Super Mecha Knuckles   as   Mecha Conqueror
+Various Echidnas   as   Hewewe Residents, Echidna Guard
+Dragon
+Receptionist   as   Multiplayer Lobby Clerk
+Receptionist   as   Judge
+Rouge the Bat   as   Anonymous Female
+Shadow the Hedgehog
+Super Meta Tails
+Sonic, Tails, Knuckles   as   Sonaickles
+Sonic the Hedgehog   as   SuperSonic the Hedgehog
+Jordan Dooling   as   Mr. Metalism
+Game Created with:  QDK, Quest
+Sonic, Tails, and everyone else copyright SEGA© and SONICTEAM©.
+
+
+THE    END!
+Next time on MSQ2: Metal Sonic Joins G.U.N.
+
+[runner] turns=137 leftover=0 running=true WON=YES

@@ -1,0 +1,162 @@
+
+Where's my cell phone
+
+You hear your cell phone ring and reach into your pocket for it. It is not there. Where is it? You will need to go on a search through the house and find it. Happy hunting. The cell phone is the only phone you have so it is important to find it.
+
+You are in the kitchen
+There is a fridge, a cupboard, a table, Rosey, candy bar and waste can here.
+You can go north.
+this is a plain kitchen. The bedroom is to the north
+
+> speak to rosey
+You may have to do some wierd things to win this game.
+
+> open fridge
+You open it.
+
+> take pepsi
+(first removing it from fridge)
+Done.
+You pick it up.
+
+> drink pepsi
+you drink the pepsi, how refreshing.
+
+> take apple
+You can't take it.
+
+> open cupboard
+You open it.
+
+> open cereal box
+you open it to see if something extra might be inside.Surprise.
+
+> take bedroom key
+(first removing it from cereal box)
+Done.
+You pick it up.
+
+> examine bedroom key
+The key has an odd shape but what does that matter if it works?
+
+> x candy bar
+a milky way, your favorite however you notice it has a small hole in the wrapper the size a pin or needle might make.
+
+> take candy bar
+(first removing it from table)
+Done.
+You probably should not dare eating it though. What about the hole in the wrapper?
+
+> put candy bar in waste can
+you put it into file number 13
+
+> use bedroom key
+you should now be able to "unlock the  bedroom door.
+
+> north
+The exit is locked.
+
+> push button
+
+> north
+You are in the bedroom
+There is your bed, dresser and a ladder here.
+You can go south, east, west or up.
+This bedroom has only a bed and a dresser for furniture. There is a ladder that you can go up to the attic.
+
+> x bed
+Upon further checking out the bed you find your cell phone case. What luck. Is your search ended?
+
+> open cell phone case
+you open it and are disappointed to find it empty. Keep looking.
+
+> open drawer
+You open it.
+
+> open door
+you open it to see what is in the dresser.
+
+> take notepad
+(first removing it from door)
+Done.
+as you take it you notice some words written on it. Could you read the notepad?
+
+> read notepad
+It reads, Don't give up too soon. I did not forget to add the cell phone to the game. Just keep searching.
+
+> take office key
+(first removing it from door)
+Done.
+You pick it up.
+
+> push square
+
+> up
+You are in the attic
+There is a cardboard box here.
+You can go down.
+The attic is small and is fairly bright as it has a sunlight on the roof to let in light from the outside.
+
+> open cardboard box
+You open it.
+
+> take old jacket.
+(first removing it from cardboard box)
+Done.
+You pick it up.
+
+> examine old jacket.
+You search through the pockets and find nothing in them.
+
+> read dream game book
+Some games I have thought of creating: a braille game, a riddle game
+
+> down
+You are in the bedroom
+There is your bed, dresser, your clothes and a ladder here.
+You can go south, east, west or up.
+This bedroom has only a bed and a dresser for furniture. There is a ladder that you can go up to the attic.
+
+> west
+You are in the bathroom
+There is a toilet here.
+You can go east.
+It is a simple bathroom.
+
+> sit on toilet
+you sit for awhile then get up. What a relief, you feel much better now.
+
+> east
+You are in the bedroom
+There is your bed, dresser, your clothes and a ladder here.
+You can go south, east, west or up.
+This bedroom has only a bed and a dresser for furniture. There is a ladder that you can go up to the attic.
+
+> east
+You are in the office
+There is a desk and a computer here.
+You can go west.
+This office is where you keep your basic office needs.
+
+> x computer
+You can see by the screen that there is email. Maybe you want to read it?
+
+> read email
+You should find your cell phone if you really try hard. However if you are ready to ask for some hints you may type, reply to email. I have this set up so you will be able to send me an email.
+
+> open desk drawer
+You open it.
+
+> take record book
+(first removing it from desk drawer)
+Done.
+You pick it up.
+
+> read record book
+note from author: Have you found your cell phone yet?
+
+> open pen
+winYou found your cell phone and you win
+Congratulations you found your cell phone and you win!
+
+[runner] turns=40 leftover=0 running=false WON=YES

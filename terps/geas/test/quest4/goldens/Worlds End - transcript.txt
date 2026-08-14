@@ -1,0 +1,1191 @@
+
+World's End!, v1.0 GAMER!
+
+Name?
+The world was once peaceful. However an insane scientist decided to blow up most of america. The missile missed by miles and hit the antarctic! This, obviously, has caused a tiny problem. The problem is incresed by the fact aliens have been discovered in the middle of the earth and have started rising up! You are trying to stop them. It probably won't work.
+
+PRESS A KEY TO START PLAYING!
+
+
+This is the town where you grew up in and where you still live. It's just a normal town with shops and stuff. To the east is a teleport station. There is a laser gun shop to the north. There is a huge statue in the middle of the town on a huge plinth. To the west are the gates where guards are only letting people through who have a pass.
+
+> speak to statue
+You feel like doing something dumb so you talk to the statue. Suddenly a cat bounds up to you!
+
+> take cat
+You pick it up.
+
+> east
+This is a teleport stand. It's name says it all. People are teleporting around. A notice reads "just type teleport."
+
+> teleport
+Where will you teleport to?
+1) snowville
+2) locked
+3) locked
+4) locked
+5) locked
+6) locked
+7) locked
+[choice] 1
+This is the ice town. Snowmen are on top of buildings. There is a huge snow statue lying on the floor. There is a huge flag pole stuck in a circle of ice that should be a pond.
+
+> talk to woman
+"My cat's gon missing! If you find him I'll give you 20 gold dollars."
+Will you find the woman's cat?
+1) Yes
+2) No
+[choice] Yes
+"Great."
+
+> give cat to woman
+You give the cat to the woman.
+ "Thanks. Here's your 20 gold dollars."
+
+> teleport
+This is a teleport stand. It's name says it all. People are teleporting around. A notice reads "just type teleport."
+
+> west
+This is the town where you grew up in and where you still live. It's just a normal town with shops and stuff. To the east is a teleport station. There is a laser gun shop to the north. There is a huge statue in the middle of the town on a huge plinth. To the west are the gates where guards are only letting people through who have a pass.
+
+> north
+This is a lazer gun shop. It also sells normal guns like "smg's." There are loads of guns on display here.
+The man behind the counter looks up as you enter.
+
+> speak to gun seller
+"What type of gun do you want to buy?"
+1) normal guns
+2) laser guns
+3) nothing
+[choice] 1
+"Choose a gun."
+1) smg (20 gold dollars)
+2) buy nothing
+[choice] 1
+"Here you go."
+He hands you a new smg.
+
+> south
+This is the town where you grew up in and where you still live. It's just a normal town with shops and stuff. To the east is a teleport station. There is a laser gun shop to the north. There is a huge statue in the middle of the town on a huge plinth. To the west are the gates where guards are only letting people through who have a pass.
+
+> use smg on plinth
+You shoot the plinth. It shatters and the statue falls down a hole. A security chip rolls across the ground.
+
+> take heatville chip
+You pick it up.
+
+> east
+This is a teleport stand. It's name says it all. People are teleporting around. A notice reads "just type teleport."
+
+> use heatville chip on device
+You insert the chip. There is a wering from the teleporter.
+
+> teleport
+Where will you teleport to?
+1) snowville
+2) heatville
+3) locked
+4) locked
+5) locked
+6) locked
+7) locked
+[choice] 2
+This town is boiling! People are sunbathing everywhere. There is an icecream store serving soup. People are drinking coke and water. Just a normal boiling town.
+
+> speak to man
+"Hey can you help me? Some idiot put my diamond into a statue in snowville and I can't get is out. Could you do it for me? If you do I'll give you this knife."
+Will you get the diamond?
+1) Yes
+2) No
+[choice] 1
+"Great."
+
+> speak to trader
+"I'll give you this scrrewdriver for 2 gold dollars. Want it?"
+1) Yes
+2) No
+[choice] 1
+You buy the screwdriver.
+
+> teleport
+This is a teleport stand. It's name says it all. People are teleporting around. A notice reads "just type teleport."
+
+> teleport
+Where will you teleport to?
+1) snowville
+2) heatville
+3) locked
+4) locked
+5) locked
+6) locked
+7) locked
+[choice] 1
+This is the ice town. Snowmen are on top of buildings. There is a huge snow statue lying on the floor. There is a huge flag pole stuck in a circle of ice that should be a pond.
+
+> use smg on ice statue
+You shoot the statue. After about 7 shots the statue's head falls off revealing a diamond!
+
+> take diamond
+You pick it up.
+
+> teleport
+This is a teleport stand. It's name says it all. People are teleporting around. A notice reads "just type teleport."
+
+> teleport
+Where will you teleport to?
+1) snowville
+2) heatville
+3) locked
+4) locked
+5) locked
+6) locked
+7) locked
+[choice] 2
+This town is boiling! People are sunbathing everywhere. There is an icecream store serving soup. People are drinking coke and water. Just a normal boiling town.
+
+> give diamond to man
+"Thanks. Here's the knife."
+He Leaves gleefully and slots the diamond into a plinth. You see that a gate has opened to the north revealing some fields.
+
+> go to night club
+This is a normal night club. Music is blearing from speakers everywhere.
+
+> use smg on drunk alien
+You shoot the alien.
+
+> take lighter
+You pick up the lighter.
+
+> use knife on guitar
+You cut the strings on the guitar and find a teleporter inside it!
+
+> use teleporter
+You teleport and find yourself in an alien base!
+This is an alien base! It's like a maze in here! There is an alien working on some kind of cocmputer.
+
+> use smg on alien
+1 shot finishes it off.
+
+> turn on computer
+You turn on the computer. Suddenly you are teleported! A security chip falls into yor hand and you find yorself in snowville!
+This is the ice town. Snowmen are on top of buildings. There is a huge snow statue lying on the floor. There is a huge flag pole stuck in a circle of ice that should be a pond.
+
+> teleport
+This is a teleport stand. It's name says it all. People are teleporting around. A notice reads "just type teleport."
+
+> teleport
+Where will you teleport to?
+1) snowville
+2) heatville
+3) locked
+4) locked
+5) locked
+6) locked
+7) locked
+[choice] 2
+This town is boiling! People are sunbathing everywhere. There is an icecream store serving soup. People are drinking coke and water. Just a normal boiling town.
+
+> go to night club
+This is a normal night club. Music is blearing from speakers everywhere.
+
+> give teleporter to bartender
+You give the teleporter to the bartender. He gives you a normal axe.
+
+> out
+This town is boiling! People are sunbathing everywhere. There is an icecream store serving soup. People are drinking coke and water. Just a normal boiling town.
+
+> teleport
+This is a teleport stand. It's name says it all. People are teleporting around. A notice reads "just type teleport."
+
+> teleport
+Where will you teleport to?
+1) snowville
+2) heatville
+3) locked
+4) locked
+5) locked
+6) locked
+7) locked
+[choice] 1
+This is the ice town. Snowmen are on top of buildings. There is a huge snow statue lying on the floor. There is a huge flag pole stuck in a circle of ice that should be a pond.
+
+> look
+This is the ice town. Snowmen are on top of buildings. There is a huge snow statue lying on the floor. There is a huge flag pole stuck in a circle of ice that should be a pond.
+
+> examine flag pole
+You can't examine that.
+
+> use axe on pole
+You chop down the flag pole.
+
+> take pole
+You pick it up.
+
+> teleport
+This is a teleport stand. It's name says it all. People are teleporting around. A notice reads "just type teleport."
+
+> teleport
+Where will you teleport to?
+1) snowville
+2) heatville
+3) locked
+4) locked
+5) locked
+6) locked
+7) locked
+[choice] 2
+This town is boiling! People are sunbathing everywhere. There is an icecream store serving soup. People are drinking coke and water. Just a normal boiling town.
+
+> north
+These are just normal fields. There is a crop circle in the middle of the fields. There is a small spaceship parked in the middle of the circle.
+
+> use smg on alien
+Which alien do you mean?
+1) alien
+2) alien
+[choice] 1
+You shoot the alien and it dies. You find 30 gold dollars on it.
+
+> use smg on alien
+You shoot the alien. It doesn't die. You shoot it 4 more times and it dies. You find a small ice gem on it.
+
+> take ice gem
+You already have it.
+
+> south
+This town is boiling! People are sunbathing everywhere. There is an icecream store serving soup. People are drinking coke and water. Just a normal boiling town.
+
+> teleport
+This is a teleport stand. It's name says it all. People are teleporting around. A notice reads "just type teleport."
+
+> teleport
+Where will you teleport to?
+1) snowville
+2) heatville
+3) locked
+4) locked
+5) locked
+6) locked
+7) locked
+[choice] 1
+This is the ice town. Snowmen are on top of buildings. There is a huge snow statue lying on the floor. There is a huge flag pole stuck in a circle of ice that should be a pond.
+
+> go to ice forest
+This is an ice forest. There are ice trees everywhere. There is a stone bench with a hole in the top of it. Ice bears kill each other.
+
+> use ice gem on bench
+You put the gem into the hole. The hole disappears and a tree starts to move! It moves asside revealing an ice chamber beneath.
+
+> down
+This is a huge chamber. There is nothing really in here except for a huge book hanging from a rope.
+
+> use knife on book
+You cut the book up and find a key!
+
+> take key
+You pick it up.
+
+> up
+This is an ice forest. There are ice trees everywhere. There is a stone bench with a hole in the top of it. Ice bears kill each other.
+
+> out
+This is the ice town. Snowmen are on top of buildings. There is a huge snow statue lying on the floor. There is a huge flag pole stuck in a circle of ice that should be a pond.
+
+> teleport
+This is a teleport stand. It's name says it all. People are teleporting around. A notice reads "just type teleport."
+
+> teleport
+Where will you teleport to?
+1) snowville
+2) heatville
+3) locked
+4) locked
+5) locked
+6) locked
+7) locked
+[choice] 2
+This town is boiling! People are sunbathing everywhere. There is an icecream store serving soup. People are drinking coke and water. Just a normal boiling town.
+
+> north
+These are just normal fields. There is a crop circle in the middle of the fields. There is a small spaceship parked in the middle of the circle.
+
+> get in spaceship
+This is a spaceship. There are machines everywhere. There is a cupboard on the wall.
+
+> use key on cupboard
+You slide the key into the lock on the cupboard and it opens revealing a stick of dynamite!
+
+> take dynamite
+You pick it up.
+
+> out
+These are just normal fields. There is a crop circle in the middle of the fields. There is a small spaceship parked in the middle of the circle.
+
+> use dynamite on spaceship
+You plant the dynamite near the spaceship.
+
+> use lighter on dynamite
+You light the dynamite.
+
+> south
+This town is boiling! People are sunbathing everywhere. There is an icecream store serving soup. People are drinking coke and water. Just a normal boiling town.
+
+> look
+This town is boiling! People are sunbathing everywhere. There is an icecream store serving soup. People are drinking coke and water. Just a normal boiling town.
+
+> look
+This town is boiling! People are sunbathing everywhere. There is an icecream store serving soup. People are drinking coke and water. Just a normal boiling town.
+
+> look
+This town is boiling! People are sunbathing everywhere. There is an icecream store serving soup. People are drinking coke and water. Just a normal boiling town.
+
+> look
+This town is boiling! People are sunbathing everywhere. There is an icecream store serving soup. People are drinking coke and water. Just a normal boiling town.
+The dynamite explodes!
+
+> look
+This town is boiling! People are sunbathing everywhere. There is an icecream store serving soup. People are drinking coke and water. Just a normal boiling town.
+
+> look
+This town is boiling! People are sunbathing everywhere. There is an icecream store serving soup. People are drinking coke and water. Just a normal boiling town.
+
+> north
+These are just normal fields. There is a crop circle in the middle of the fields. There is a small spaceship parked in the middle of the circle.
+
+> examine crop circle
+You examine the crop circle and see a security chip.
+
+> take sleepville chip
+You pick it up.
+
+> south
+This town is boiling! People are sunbathing everywhere. There is an icecream store serving soup. People are drinking coke and water. Just a normal boiling town.
+
+> teleport
+This is a teleport stand. It's name says it all. People are teleporting around. A notice reads "just type teleport."
+
+> use sleepville chip on device
+You insert the security chip.
+
+> teleport
+Where will you teleport to?
+1) snowville
+2) heatville
+3) sleepville
+4) locked
+5) locked
+6) locked
+7) locked
+[choice] 3
+You are in the town ofo sleepville. People are sleeping in beds in the middle of the street. Bed shops are everywhere.
+
+> use screwdriver on bed
+You unscrew the screws on the bed. The man falls onto the floor and wakes up!
+ "Thanks" the woman says. "Here's 60 gold dollars."
+
+> take screw
+You pick it up.
+
+> teleport
+This is a teleport stand. It's name says it all. People are teleporting around. A notice reads "just type teleport."
+
+> use awakeville chip on device
+You insert the security chip.
+
+> teleport
+Where will you teleport to?
+1) snowville
+2) heatville
+3) sleepville
+4) awakeville
+5) locked
+6) locked
+7) locked
+[choice] 4
+You are in the town of awakeville. People are jumping around the place and doing excersises. A person is running around the small town. A person is climbing a tiny pole with no effort! Wow! This town is awake!
+
+> speak to man
+"I've lost the family dog. He fell down a drain. Could you go down the sewers and find him? Just "open manhole" to go down the sewers."
+Will you help him?
+1) Yes
+2) No
+[choice] 1
+"Thanks."
+
+> open manhole
+You open a manhole.
+
+> down
+This place stinks! It's like a maze down here.
+
+> north
+This place stinks! It's like a maze down here.
+
+> west
+This place stinks! It's like a maze down here.
+As you trudge along another ledge you see a zombie up ahead! You try to turn back but another zombie drags you under the water! You are dragged down a long tunnel and into a cell. The key is turned in the lock leaving you trapped!
+
+This is a dingy jail cell. It's so boring in here. There is a door is locked with a card reader on the other side. yor trapped in here obviously. There are no windows. Only a bunk. A chandelier hangs overhead. You wonder what a chandelier is doing in a cell.
+
+
+> use axe on bunk
+You chop a leg off the bunk.
+
+> take leg
+You pick it up.
+
+> use leg on chandelier
+You hurl the leg at the chandelier. It smashes and glash shards fall everywhere! A grate is revealed in the ceiling.
+
+> use smg on grate
+You shoot the grate. It flies off. It reveals a water pipe.
+
+> use smg on water pipe
+You shoot the water pipe. Nothing happens. You shoot it 4 times more. The pipe splits and a tidle wave of water pours into the room blowing the door off it's hinges!
+
+> west
+This is a small hallway. Nothing here really. There is a broken-down elevator which is yor ownly means of escape.
+
+> use screw on elevator
+You fit the screw into the hole in the elevator.
+
+> use screwdriver on elevator
+You screw in the screw and get in the elevator. You find yourself in a lobby.
+This is a lobby. An alien guard is guarding the front entrance. A hallway leads south.
+
+> use pole on hole
+You put the pole in the hole. A flame thrower slides down a pipe and onto the floor. You take the pole from the hole. The hole's top closes over.
+
+> take flame thrower
+You pick it up.
+
+> south
+This is a short north to south hallway.
+
+> use flame thrower on chest
+You burn the chest open revealing the dog the person in awakeville lost!
+
+> take dog
+YOu take the dog's lead.
+
+> south
+This is an operations room. Nothing special here.
+As you enter the room enemys aim laser guns!
+As they start firing you burn them. Ash falls down through a grate in the floor.
+
+> turn on computers
+What is the password?
+What will you do?
+1) email
+2) security
+3) log off
+[choice] 2
+What will you do?
+1) turn off security
+2) turn on security
+3) leave security
+[choice] 1
+You shut down the security.
+
+> north
+This is a short north to south hallway.
+
+> north
+This is a lobby. An alien guard is guarding the front entrance. A hallway leads south.
+
+> west
+This is a courtyard. There is only 1 exit to the north. The door to the east has locked. To the north is a guardhouse.
+
+> north
+This is a guardhouse. A guard is here with a remote in his hand. A device is in his hand.
+
+> speak to guard
+"I'll give you this device. Type your password. If it's right this gate will open."
+Will you try to guess the password?
+1) Yes
+2) No
+[choice] 1
+Type the password.
+"You can pass."
+
+> north
+You are on a road.
+There is a huge crator here.
+You can go west.
+This is an east to west road. To the east are some gates guarded by guards and there is a manhole cover in the middle of the street. To the west is a huge crator.
+
+> examine crator
+You lean over the edge of the crator and see a glinting object. The guard leaves the guardhouse and pushes you down the crator! You quiklygrab a ledge and climb down to the bottom.
+This is the bottom of a huge crator. There is nothing here really.
+
+> take bloodbath city chip
+You pick it up.
+
+> use smg on light
+You fire allot of bullets at the light. There is a scream then the guard falls  towards you. You hurl yourself out of the way as the guard's corpse splats on the floor covering you in blood!
+
+> search corpse
+You search the corpse and find a teleporter!
+
+> use teleporter on light
+You out of pure desperation push the button on the teleporter and point it at the light. You are teleported back to your hometown!
+This is the town where you grew up in and where you still live. It's just a normal town with shops and stuff. To the east is a teleport station. There is a laser gun shop to the north. There is a huge statue in the middle of the town on a huge plinth. To the west are the gates where guards are only letting people through who have a pass.
+
+> east
+This is a teleport stand. It's name says it all. People are teleporting around. A notice reads "just type teleport."
+
+> teleport
+Where will you teleport to?
+1) snowville
+2) heatville
+3) sleepville
+4) awakeville
+5) locked
+6) locked
+7) locked
+[choice] 4
+You are in the town of awakeville. People are jumping around the place and doing excersises. A person is running around the small town. A person is climbing a tiny pole with no effort! Wow! This town is awake!
+
+> give dog to man
+You give the person the dog.
+ "Here's your 200 gold dollars."
+
+> teleport
+This is a teleport stand. It's name says it all. People are teleporting around. A notice reads "just type teleport."
+
+> west
+This is the town where you grew up in and where you still live. It's just a normal town with shops and stuff. To the east is a teleport station. There is a laser gun shop to the north. There is a huge statue in the middle of the town on a huge plinth. To the west are the gates where guards are only letting people through who have a pass.
+
+> north
+This is a lazer gun shop. It also sells normal guns like "smg's." There are loads of guns on display here.
+The man behind the counter looks up as you enter.
+
+> speak to gun seller
+"What type of gun do you want to buy?"
+1) normal guns
+2) laser guns
+3) nothing
+[choice] 2
+"What laser gun do you want?"
+1) laser pistol (200 gold dollars)
+2) nothing
+[choice] 1
+You buy the laser pistol.
+
+> south
+This is the town where you grew up in and where you still live. It's just a normal town with shops and stuff. To the east is a teleport station. There is a laser gun shop to the north. There is a huge statue in the middle of the town on a huge plinth. To the west are the gates where guards are only letting people through who have a pass.
+
+> east
+This is a teleport stand. It's name says it all. People are teleporting around. A notice reads "just type teleport."
+
+> use bloodbath city chip on device
+You insert the security chip.
+
+> teleport
+Where will you teleport to?
+1) snowville
+2) heatville
+3) sleepville
+4) awakeville
+5) bloodbath city
+6) locked
+7) locked
+[choice] 5
+This is the violent town of bloodbath city. A woman is chopping a cow into billions of pieces! A man's corpse lies on the ground blood pouring out of it's ears.
+
+> search corpse
+You search the corpse and find a box.
+
+> open box
+You open the box.
+
+> take eye
+(first removing it from box)
+Done.
+You pick it up.
+
+> use eye on statue
+You fit the eye into an empty eyehole.
+Suddenly the statue turns revealing a trap door!
+
+> use laser pistol on trap door
+You shoot the trap door. It falls into the room below.
+
+> down
+You descend into a dark lab. You are thinking you should go and get a flashlight when a light comes on revealing a huge room. A man is aiming a in huge room. A scientist is pointing an uzzi at you!
+
+I've been expecting you. Now your going to die.
+You are in a lab.
+There is a scientist and a glass vial here.
+You can go up.
+This is a lab. Benches are everywhere. A vial of something is on the floor.
+
+> take vial
+You pick it up.
+
+> use vial on scientist
+You hurl the vial at the scientist. It hits him. Apparently it was a vial of assid because the assid eats through his armor and he jumps from the assid pool.
+
+> use laser pistol on scientist
+You shoot the scientist. He falls through the hole and splats on the floor below. You see that the hole leads into some kind of warehouse. A piece of paper falls from his pocket befor he falls.
+
+> take paper
+You pick it up.
+
+> down
+This is a full warehouse. Barrels are stacked against the walls. An elevator is here.
+
+> use axe on barrels
+You smash open the barrels and find a contains of poison! A pen also falls out.
+
+> take pen
+You pick it up.
+
+> use pen on paper
+You draw a crop circle on the piece of paper.
+
+> use paper2 on elevator
+You swipe the paper and the elevator's doors slide open.
+
+> go to elevator
+This is a cramped elevator. A keypad is here! You probably have to find the code obviously!
+
+> use keypad
+Enter your code.
+The elevator rises. You find yourself on the roof of the warehouse!
+You step out onto the roof of the warehouse. You see a huge contraption before you. As you study this you suddenly here a sound from behind you. You whip round and see an alien holding a laser uzi and a laser pistol and a laser smg and 555 laser grenades on a minny spaceship floating next to him. He points it at you.
+ "'step away from the motorgenerator" the alien says in a robot voice holding a translator.
+Y9ou have no choice but to walk away from the contraption.
+ "You will get in the spaceship and will have your weapons removed" the alien says.
+You climb into the spaceship full of explosives. Your weapons are taken (including your axe).
+ "You will now be left to die" the alien says befor slamming the door and pushing a button. The spaceship blasts into orbit arround the earth!
+
+You are stuck on a spaceship full of explosives in orbit around the earth! There is loads of equipment here but you can't destroy any of it.
+
+> examine equipment
+You look through the equipment and find a hammer.
+
+> take hammer
+You pick it up.
+
+> use hammer on equipment
+You bash up the equipment revealing a space suit and a plug socket.
+
+> take s
+You pick up the space suit.
+
+> unzip s
+You unzip the space suit.
+
+> examine s
+You find a scart lead and a parachute.
+
+> take scart lead
+You pick it up.
+
+> take parachute
+You pick it up.
+
+> wear parachute
+You wear the parachute.
+
+> use scart lead on socket
+You plug in the scart lead. Suddenly the spaceship dives towards earth! 100000 feet abuv the earth the hatch slides open and you fall to your doom!
+
+You are falling through the sky towards your doom! Aeroplanes are flying past you!
+The parachute opens and you slow down as you hurtal towards your splatty end. However you think you will still die!
+
+You hit something soft. You have enough time to realise it's a pile of junk and you are in a dump befor the force of the fall knocks you out!
+
+You wake up in a pile of junk. You pull yourself out.
+This is a dump. There is a huge pile of junk against all sides of the dump. Who knows what you couldn't find here?
+
+> search junk
+You search through the junk and find a suitcase!
+
+> open suitcase
+Do you want to try to open the case?
+1) Yes
+2) No
+[choice] 1
+Type the code now.
+There is a click.
+
+> open suitcase
+You open the suitcase.
+
+> take map
+(first removing it from suitcase)
+Done.
+You pick it up.
+
+> south
+This is a small town. To the north is the dump. A coach is here with "sahara" written on the side of it.
+
+> take chips
+You pick it up.
+
+> get on bus
+Do you want to pay 4 gold dollars to take a bus ride?
+1) Yes
+2) No
+[choice] 1
+You get on the bus. After 4 hours you reach the sahara desert!
+This is the sahara desert. The coach has left you to die out here!
+
+> use map
+You follow the map. The bus left you serprisingly near your destination. You start digging with your hands and after about 5 hours you come on a cell. You enter the room.
+This is a cell. There is a scientist leaning against a wall dying of starvation.
+
+> give chips to scientist
+You give her the chips.
+"I was just a normal scientist. My dad had been shot in the head by an assassin and I wasn't feeling to great about it. I was working in the lab when a huge cube hovered abuv the lab."
+"Was the lab beneath bloodbath city?" you ask.
+"It was. Anyway I called the police but a laser destroyed the connection. The cube seemed to descend then I was here. A vial did explode and it was the vial of assid and it damaged it. I remember blacking out then waking up here."
+Suddenly you feel metal against the back of your neck and a robotic voice.
+"Sorry to cut the description of all hour plans short but I'm afraid I'm going to have to kill you."
+
+PRESS A KEY TO SEE WHAT HAPPENS!
+
+You are lead out onto a desert where a huge cube is hovering! Suddenly 2 vials fly through the air and land in front of you. You quikly pick them up.
+
+This is the sahara desert. A huge cube is hovering over you firing lasers at you!
+
+> take vial1
+You already have it.
+A laser misses you!
+
+> take vial2
+You already have it.
+A laser misses you!
+
+> use vial1 on cube
+The vial misses the cube but you catch it.
+A laser hits you!
+
+> use vial2 on cube
+The vial hits the cube. The assid eats through half of it!
+A laser hits you!
+
+> use vial1 on cube
+The vial hits the cube! The assid eats through half of it.
+The cube explodes! You hurl yourself out of the way as it hits the ground! A security chip flies from the huge crator and lands in front of you.
+
+> take dumbville chip
+You pick it up.
+
+> south
+You walk back into the cell. You follow the map with the scientist until you reach a bus stop. You get on a bus and drive back to your hometown.
+This is the town where you grew up in and where you still live. It's just a normal town with shops and stuff. To the east is a teleport station. There is a laser gun shop to the north. There is a huge statue in the middle of the town on a huge plinth. To the west are the gates where guards are only letting people through who have a pass.
+
+> east
+This is a teleport stand. It's name says it all. People are teleporting around. A notice reads "just type teleport."
+
+> use dumbville chip on device
+You insert the security chip.
+
+> teleport
+Where will you teleport to?
+1) snowville
+2) heatville
+3) sleepville
+4) awakeville
+5) bloodbath city
+6) dumbville
+7) locked
+[choice] 6
+This is the dumb town of dumbville. People are falling over because they are to dumb to walk. A cat is wedged in a manhole and the people are to dumb to rescue it... oh wait it's dead. People are walking around like mindless zombies. The people have even dropped all their jewelry all over the floor and thieves are nicking it. To the north are a pair of impressive irong gates leading to a path.
+
+> examine jewelry
+You look through the jewelry and find a skull!
+
+> take skull
+You pick it up.
+
+> teleport
+This is a teleport stand. It's name says it all. People are teleporting around. A notice reads "just type teleport."
+
+> teleport
+Where will you teleport to?
+1) snowville
+2) heatville
+3) sleepville
+4) awakeville
+5) bloodbath city
+6) dumbville
+7) locked
+[choice] 1
+This is the ice town. Snowmen are on top of buildings. There is a huge snow statue lying on the floor. There is a huge flag pole stuck in a circle of ice that should be a pond.
+
+> go to ice forest
+This is an ice forest. There are ice trees everywhere. There is a stone bench with a hole in the top of it. Ice bears kill each other.
+
+> north
+You enter a small camp. Before you can walk through it a soldier grabs you.
+ "You have trespassed into are camp. Now you will pay!"
+
+"If you have a skull though you can pass"
+You are thrown through a gate!
+This is a clearing. A small tree is in the middle of it. You also see an elevator in the middle of it!
+
+> go to elevatorroom
+You head into an elevator.
+This is an elevator. There is a key hole on one wall. Loads of weapons are on racks around the walls of this huge elevator.
+
+> take axe
+You pick it up.
+
+> take smg
+You pick it up.
+
+> take laser pistol
+You pick it up.
+
+> out
+This is a clearing. A small tree is in the middle of it. You also see an elevator in the middle of it!
+
+> use axe on tree
+You chop down the tree.
+
+> search wood pile
+You search the wood pile and find a sack.
+
+> open sack
+You open the sack.
+
+> take triangle
+(first removing it from sack)
+Done.
+You pick it up.
+
+> take remote
+(first removing it from sack)
+Done.
+You pick it up.
+
+> south
+You are escorted back through the camp.
+This is an ice forest. There are ice trees everywhere. There is a stone bench with a hole in the top of it. Ice bears kill each other.
+
+> out
+This is the ice town. Snowmen are on top of buildings. There is a huge snow statue lying on the floor. There is a huge flag pole stuck in a circle of ice that should be a pond.
+
+> teleport
+This is a teleport stand. It's name says it all. People are teleporting around. A notice reads "just type teleport."
+
+> teleport
+Where will you teleport to?
+1) snowville
+2) heatville
+3) sleepville
+4) awakeville
+5) bloodbath city
+6) dumbville
+7) locked
+[choice] 6
+This is the dumb town of dumbville. People are falling over because they are to dumb to walk. A cat is wedged in a manhole and the people are to dumb to rescue it... oh wait it's dead. People are walking around like mindless zombies. The people have even dropped all their jewelry all over the floor and thieves are nicking it. To the north are a pair of impressive irong gates leading to a path.
+
+> use remote on gates
+You aim the remote at the gates and push the open button. They swing open.
+
+> north
+You are walking down a path. To the north is the front door of a house. There is a huge pond to the east.
+You hear a beep.
+
+> use triangle on door
+You fit the triangle into the hole.
+
+> east
+You are standing beside a pond. You don't know why there is a pond in the front yard! A bench is next to the pond.
+
+> examine pond
+There is a duck flying over it.
+
+> use smg on duck
+You shoot the duck. A pair of glasses fall from it's back and land next to the pond.
+
+> take glasses
+You pick them up.
+
+> west
+You are walking down a path. To the north is the front door of a house. There is a huge pond to the east.
+You hear a click.
+
+> south
+This is the dumb town of dumbville. People are falling over because they are to dumb to walk. A cat is wedged in a manhole and the people are to dumb to rescue it... oh wait it's dead. People are walking around like mindless zombies. The people have even dropped all their jewelry all over the floor and thieves are nicking it. To the north are a pair of impressive irong gates leading to a path.
+
+> teleport
+This is a teleport stand. It's name says it all. People are teleporting around. A notice reads "just type teleport."
+
+> teleport
+Where will you teleport to?
+1) snowville
+2) heatville
+3) sleepville
+4) awakeville
+5) bloodbath city
+6) dumbville
+7) locked
+[choice] 5
+This is the violent town of bloodbath city. A woman is chopping a cow into billions of pieces! A man's corpse lies on the ground blood pouring out of it's ears.
+
+> give glasses to woman
+You give the glasses to the woman. She gives you a wooden triangle.
+
+> teleport
+This is a teleport stand. It's name says it all. People are teleporting around. A notice reads "just type teleport."
+
+> teleport
+Where will you teleport to?
+1) snowville
+2) heatville
+3) sleepville
+4) awakeville
+5) bloodbath city
+6) dumbville
+7) locked
+[choice] 6
+This is the dumb town of dumbville. People are falling over because they are to dumb to walk. A cat is wedged in a manhole and the people are to dumb to rescue it... oh wait it's dead. People are walking around like mindless zombies. The people have even dropped all their jewelry all over the floor and thieves are nicking it. To the north are a pair of impressive irong gates leading to a path.
+
+> north
+You are walking down a path. To the north is the front door of a house. There is a huge pond to the east.
+You hear a click.
+
+> east
+You are standing beside a pond. You don't know why there is a pond in the front yard! A bench is next to the pond.
+
+> use triangle2 on bench
+You fit the triangle into the hole in the bench.
+
+> west
+You are walking down a path. To the north is the front door of a house. There is a huge pond to the east.
+You hear a click.
+
+> open door
+You open the door. It falls off it's hinges!
+
+> north
+This is a throne room. A figure sits on a throne at the northern end.
+
+> speak to oracle
+"I see you have arrived at last. You have to stop the aliens! They are going to destroy the world! Obviously! I have the chip to their location. Take this and destroy the alien chief. And whatever you do don't let the chief's blood touch the ground or the whole universe will explode!"
+She hands you a security chip.
+
+
+> south
+You are walking down a path. To the north is the front door of a house. There is a huge pond to the east.
+You hear a click.
+
+> south
+This is the dumb town of dumbville. People are falling over because they are to dumb to walk. A cat is wedged in a manhole and the people are to dumb to rescue it... oh wait it's dead. People are walking around like mindless zombies. The people have even dropped all their jewelry all over the floor and thieves are nicking it. To the north are a pair of impressive irong gates leading to a path.
+
+> teleport
+This is a teleport stand. It's name says it all. People are teleporting around. A notice reads "just type teleport."
+
+> use darkness chip on device
+You insert the security chip. The teleporter rumbles ominously!
+
+> teleport
+Where will you teleport to?
+1) snowville
+2) heatville
+3) sleepville
+4) awakeville
+5) bloodbath city
+6) dumbville
+7) alien's location
+[choice] 7
+You are in total darkness. You can't see anything!
+
+> north
+You stumble forward through the darkness. Suddenly you find yourself in a huge arena.
+ "Well well well. Finally you've come now die!"
+You are in an arena! The chief of the aliens is shooting you!
+You are healed for some reason.
+
+> use laser pistol on warlord
+Your laser hits the alien warlord hurting it for 10 damage!
+The alien warlord's laser hits you hurting you for 10 damage!
+
+> use laser pistol on warlord
+Your laser misses the warlord!
+The alien warlord's laser misses you!
+
+> use laser pistol on warlord
+Your laser misses the warlord!
+The alien warlord's laser misses you!
+
+> use laser pistol on warlord
+Your laser hits the alien warlord hurting it for 10 damage!
+The alien warlord's laser misses you!
+
+> use laser pistol on warlord
+Your laser misses the warlord!
+The alien warlord's laser hits you hurting you for 10 damage!
+
+> use laser pistol on warlord
+Your laser misses the warlord!
+The alien warlord's laser hits you hurting you for 10 damage!
+
+> use laser pistol on warlord
+Your laser hits the alien warlord hurting it for 10 damage!
+The alien warlord's laser misses you!
+
+> use laser pistol on warlord
+Your laser misses the warlord!
+The alien warlord's laser misses you!
+
+> use laser pistol on warlord
+Your laser misses the warlord!
+The alien warlord's laser hits you hurting you for 10 damage!
+
+> use laser pistol on warlord
+Your laser misses the warlord!
+The alien warlord's laser misses you!
+
+> use laser pistol on warlord
+Your laser hits the alien warlord hurting it for 10 damage!
+The alien warlord's laser hits you hurting you for 10 damage!
+
+> use laser pistol on warlord
+Your laser misses the warlord!
+The alien warlord's laser hits you hurting you for 10 damage!
+
+> use laser pistol on warlord
+Your laser hits the alien warlord hurting it for 10 damage!
+The alien warlord's laser hits you hurting you for 10 damage!
+
+> use laser pistol on warlord
+Your laser misses the warlord!
+The alien warlord's laser hits you hurting you for 10 damage!
+
+> use laser pistol on warlord
+Your laser misses the warlord!
+The alien warlord's laser hits you hurting you for 10 damage!
+
+> use laser pistol on warlord
+Your laser misses the warlord!
+The alien warlord's laser misses you!
+
+> use laser pistol on warlord
+Your laser misses the warlord!
+The alien warlord's laser hits you hurting you for 10 damage!
+  GAME OVER!
+
+You are in an arena! The chief of the aliens is shooting you!
+
+> use laser pistol on warlord
+Your laser hits the alien warlord hurting it for 10 damage!
+The alien warlord's laser hits you hurting you for 10 damage!
+  GAME OVER!
+
+You are in an arena! The chief of the aliens is shooting you!
+
+> use laser pistol on warlord
+Your laser hits the alien warlord hurting it for 10 damage!
+The alien warlord's laser hits you hurting you for 10 damage!
+  GAME OVER!
+
+You are in an arena! The chief of the aliens is shooting you!
+
+> use laser pistol on warlord
+Your laser misses the warlord!
+The alien warlord's laser hits you hurting you for 10 damage!
+  GAME OVER!
+
+You are in an arena! The chief of the aliens is shooting you!
+
+> use laser pistol on warlord
+Your laser misses the warlord!
+The alien warlord's laser misses you!
+
+> use laser pistol on warlord
+Your laser misses the warlord!
+The alien warlord's laser hits you hurting you for 10 damage!
+  GAME OVER!
+
+You are in an arena! The chief of the aliens is shooting you!
+
+> use laser pistol on warlord
+Your laser misses the warlord!
+The alien warlord's laser hits you hurting you for 10 damage!
+  GAME OVER!
+
+You are in an arena! The chief of the aliens is shooting you!
+
+> use laser pistol on warlord
+Your laser hits the alien warlord hurting it for 10 damage!
+The alien warlord's laser hits you hurting you for 10 damage!
+  GAME OVER!
+
+You are in an arena! The chief of the aliens is shooting you!
+
+> use laser pistol on warlord
+Your laser hits the alien warlord hurting it for 10 damage!
+The alien warlord's laser misses you!
+
+> use laser pistol on warlord
+Your laser hits the alien warlord hurting it for 10 damage!
+The alien warlord's laser misses you!
+
+> use laser pistol on warlord
+Your laser misses the warlord!
+The alien warlord's laser hits you hurting you for 10 damage!
+  GAME OVER!
+
+You are in an arena! The chief of the aliens is shooting you!
+
+> use laser pistol on warlord
+Your laser hits the alien warlord hurting it for 10 damage!
+The alien warlord's laser misses you!
+
+> use laser pistol on warlord
+Your laser hits the alien warlord hurting it for 10 damage!
+The alien warlord's laser hits you hurting you for 10 damage!
+  GAME OVER!
+
+You are in an arena! The chief of the aliens is shooting you!
+
+> use laser pistol on warlord
+Your laser misses the warlord!
+The alien warlord's laser misses you!
+
+> use laser pistol on warlord
+Your laser hits the alien warlord hurting it for 10 damage!
+The alien warlord's laser misses you!
+
+> use laser pistol on warlord
+Your laser misses the warlord!
+The alien warlord's laser hits you hurting you for 10 damage!
+  GAME OVER!
+
+You are in an arena! The chief of the aliens is shooting you!
+
+> use laser pistol on warlord
+Your laser misses the warlord!
+The alien warlord's laser hits you hurting you for 10 damage!
+  GAME OVER!
+
+You are in an arena! The chief of the aliens is shooting you!
+
+> use laser pistol on warlord
+Your laser misses the warlord!
+The alien warlord's laser misses you!
+
+> use laser pistol on warlord
+Your laser hits the alien warlord hurting it for 10 damage!
+The alien chief slumps to the ground dead! You quikly kick it into a coffin that had been meant for you. You slam the lid shut then leave the arena looking for some way to escape this place. You realise that this place doesn't have a teleporter. The only way out is the spaceship! You have no choice. You get in and push "launch." The spaceship explodes! Your unconcious form flies through the air and hits the ground. Hard!
+
+PRESS A KEY TO SEE WHAT HAPPENS!
+
+You wake up in a hospital room.
+"You have done extremely well. However we might have a tiny problem...
+
+The corpse of the alien warlord has dissappeared. If that gets in the wrong hands or touches the ground..."
+You jump out of bed your legs crumpling under you like dust!
+"OOOOOOOOOOWWWWWWWWWW!!!!!!!!!!"
+"Forgot to tell you don't try to move."
+
+(to be continued)
+
+[runner] turns=221 leftover=0 running=false WON=YES

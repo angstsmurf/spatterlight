@@ -1,0 +1,413 @@
+
+Revenge of the Shadow Masters, vDemo 0.5.2 Slackers Inc.
+
+With Alexendre Bartolomeu defeated, complete anarchy reigned over the Shadow Masters. They have wrecked havoc all through the little towns South and West of the Dark Hills in an attempt to seek revenge on the one who abandoned them and then returned to defeat their leader. Luckily for you, after winning your battle with Bartolomeu, you managed a narrow escape and have been hiding in a cave on just the other side of the Dark Hills for the last couple of weeks. During the time you've been sitting in the cave alone, you've thought about everything that has gone on. Somehow, you feel that the recent destruction is all your fault and that you have a responsibility to fix all of the wrong which has been done. You know you can't stay in hiding for the rest of your life so you decide that you must embark on a new journey to confront the Shadow Masters and remedy all the problems which you have caused.
+
+
+The warm sun shines brightly through the open exit to your hideout for the past few weeks. Your little campfire from the night before has been neatly put out and your backpack, which is still filled with a few supplies, has been safely stowed away under a nearby rock. Your towel, which is currently spread out on the cold ground, has really come in handy as a make-shift bed since you've been in hiding. On the wall, nearest your temporary bed, there are a couple of interesting shapes and symbols etched into the stone.
+
+> move rock
+As you move the rock, you're back pack becomes visable!
+
+> take back pack
+You pick it up.
+
+You figure that most everything you'll need can be found in your back pack. You can either continue looking around the cave, or continue on your journey.
+
+> open back pack
+You open it.
+
+> take pocket knife
+(first removing it from Back Pack)
+Done.
+You pick it up.
+
+> take first aid kit
+(first removing it from Back Pack)
+Done.
+You pick it up.
+
+> take shield
+You pick it up.
+
+> take towel
+You pick it up.
+
+> ne
+
+As you step outside your cave, you can hear the roaring sound of Geronimo Falls. The hillside is covered in green foliage on all of the bushes around the massive waterfall. The white water has etched a perfect pathway down through the rocks and further East. From what you can tell, there is a village just North of the falls.
+
+> look at bush
+
+You make your way over to the bushes and search around them. As you lean closer to the ground to have a better look you spot something shiny, a crowbar! Deciding that it might come in handy later you pick it up only to find something else, a twenty dollar bill!
+
+> n
+
+From where you stand, you can see a bustling little village to the North. It seems rather odd to you considering how dangerous things have been on the other side of the Dark Hills. To the North East, on the outskirts of the village, there is a peaceful looking holistic resort. You also notice that there is a rather out of place greenhouse to the East.
+
+> ne
+
+At the front entrance, you notice a large sign with some writing on it. On the opposite side, there is a check-in desk with a young man sitting behind it. You also notice a tray of candy, a pen, a couple of business cards and a book sitting on the desk. There are several leafy green plants and palm trees growing both inside and out. You can't help but think that this open air resort has an almost tropical atmosphere to it. Above a doorway to the South, you see an illuminated sign which reads "Restrooms." To the East, there is an open passageway leading into what looks like a courtyard.
+
+> e
+
+The setting of the resort's courtyard isn't much different from the tropical theme you noticed in the lobby. There are more palm trees growing out of various places throughout the open air area. The tiles you're standing upon match the white and green tiled floor of the men's room but they're significantly larger. In the middle of the courtyard, you notice a large, three-tier fountain with water flowing peacefully. On the other side of the fountain, to the East, you can see even more of the courtyard. To the North, you notice that there is a massage room. Glancing around even more, you spot an entrance to the pool just South from where you're standing.
+
+> speak to damien
+
+Might I help you my old friend?
+
+1) Yes.
+2) No.
+3) Nevermind.
+[choice] 1
+
+With what?
+
+1) Do you know what the Shadow Masters are up to?
+2) Do you know of anything that can help me along the way?
+3) How much do you know about decoding words and symbols?
+4) How can I defeat the Shadow Masters?
+5) Nevermind.
+[choice] 4
+
+I'm not sure but I've left something behind in my room that may be of use to you in your quest. Try going to the front desk and asking for a room. 
+
+> w
+
+Once again, you enter the lobby. It seems that nothing has changed.
+
+> speak to thomas
+
+How might I help you sir?
+
+1) Do you have a map of the village?
+2) May I speak to the manager please?
+3) I'd like to check out a room please.
+4) Nevermind.
+[choice] 3
+
+Just a moment sir, let me see if we have anything available.
+
+> s
+
+As you enter the hallway, you notice that there isn't much to see. The walls have a unique wallpapered pattern with a lone photo of some tropical island setting hung neatly in front of you. Glancing to the right, you see the men's restroom. To your left, there is an almost identical door that leads to the ladies' restroom.
+
+> look at picture frame
+
+Inching your face closer to the photograph, you begin to investigate the image in more detail. You admire the artist's ability to make the sandy island beach melt into the bright blue paint he or she used for the tropical water. Some of the palm tree leaves look a little smudged but you only noticed it after looking closer. 
+
+> remove picture
+
+As you remove the picture from its frame, you see a small piece of parchment fall to the floor. It appears to be half of a map!
+
+> take map
+You pick it up.
+
+> use crowbar on door to men's restroom
+
+A sudden urge to destory things comes over you, but what should you do? It doesn't take long for the thought to come to mind. You pick up your crowbar and begain prying the door to the mens bathroom open as you think to yourself "Ha ha, who needs a room key when you have a crowbar!"
+
+It seem's that room 115 is available, that will be fifteen dollars.  Here is your room key sir, enjoy your stay!
+
+> look at map
+
+Once in the Refuge of Riddles, head South West.
+
+> e
+
+The first thing you notice as you enter the men's restroom is the white and green tiled floor beneath your feet. The way that it's been cleaned is almost enough to give the floor an odd sort of glow. There are four unoccupied stalls and two urinals lining one wall of the room. On the other side, you spot three sinks. Attached to the wall just above each sink is an average sized rectangular mirror. As clean as everything is, you spy a sandy coloured spot on one of the faucets and a smudge on the mirror above it.
+
+> look at stalls
+
+You're not sure what but something suddenly inspires you to search the restroom stalls. The first two are identical. You find absolutely nothing in them aside from sparkling clean toilets and empty bathroom tissue despensers. In the third stall, you can't help but notice that there is something off about the toilet.
+
+> flush toilet
+
+As you go to flush the toilet, a small piece of parchment falls on the clean tile floor. You can tell there is writing on it but you can't read exactly what it says from so far away.
+
+> look at note
+
+Dear Damien,
+ 
+ It seems that the Shadow Masters are once again coming into power.  I've tried going to the Refuge of Riddles to clear my mind and possibly gain some insight as to what is to come but I'm afraid I've had no luck. In these dark times being on the outskirts of the Ninth Shadowed Realm has proven to be a task in itself.  The Shadow Masters are recruiting and showing no mercy. Our only hope at this point is Kitzue.
+
+Ike
+
+> w
+
+Entering the hallway once again, you note that nothing seems out of the ordinary.
+
+> n
+
+Once again, you enter the lobby. It seems that nothing has changed.
+
+> e
+
+The setting of the resort's courtyard isn't much different from the tropical theme you noticed in the lobby. There are more palm trees growing out of various places throughout the open air area. The tiles you're standing upon match the white and green tiled floor of the men's room but they're significantly larger. In the middle of the courtyard, you notice a large, three-tier fountain with water flowing peacefully. On the other side of the fountain, to the East, you can see even more of the courtyard. To the North, you notice that there is a massage room. Glancing around even more, you spot an entrance to the pool just South from where you're standing.
+
+> e
+
+As you continue on your way though the courtyard, you notice that there is now a gym to the North instead of a massage room. After gazing around at the other side, you begin to wonder just how big the swimming pool is because there is another entrance to it on the South side of the courtyard. Just in front of you, to the East, is the entrance to where the hotel rooms are. On either side of the hotel entrance is a tall wall made of tropical plants. It's obvious that whoever owns this resort has taken extra care to ensure that it is well maintained for its guests.
+
+> use room key on door to hotel
+
+Taking your room key out of your pocket, you use it on the door to the hotel. After a moment the green light comes on, and the door becomes unlocked.
+
+> e
+
+Passing through the tropical plants, you enter the actual hotel area of the resort. There are a couple of rooms, all with signs on the doors, on either side of the hallway you're standing in. As you begin looking for your room number, you spot rooms 111 and 112 but not 115. You can see that there are more rooms further down the silent corridor. Perhaps you should continue down the hall in search of your room.
+
+> e
+
+While continuing down the hallway, you can't help noticing the soft, green and blue carpet beneath your feet. Everything in this resort seems to have a very tropical and relaxing theme. As you come to the end of the hall, you see room 114 right in front of your face. To the North and South, there are additional hallways leading to even more rooms. Perhaps one of them is yours.
+
+> s
+
+It seems like there are miles and miles of green and blue carpeted hallways in this hotel. All of them are very well-illuminated by brightly glowing lamps in the ceiling. They're so well-lit, in fact, that you almost feel like you're standing outside on a sunny day. Stopping just in front of another locked door, you have a look at the room number. Much to your delight, you see that you've finally found room 115.
+
+> use room key on door
+
+Taking your room key out of your pocket, you use it on the door to your room. After a moment the green light comes on, and the door becomes unlocked.
+
+> e
+
+The first thing you notice as you enter the room is that there is a neat looking plant sitting on the oak desk. There is a half full glass placed on the desk as well. The simple, wooden chair is pushed in at the front of the desk. On the opposite wall from your door, you see a pair of tan curtains which have been pulled shut. You also spy a king sized bed with five pillows all lined up at the head of it. The blankets are still in perfect order which makes you wonder just a little about the used glass. The light above the desk is off but the little lamp on the nightstand, beside the large bed, has been left on. Another peculiar thing about your room is the telephone. For some reason, the phone has been left off of its base.
+
+> look at bed
+
+The pillows look very fluffy and comfortable and the bed is very inviting but you know that right now is no time to be sleeping. As you look over the bed more thoroughly, you notice that despite the covers being pulled tight, there is a lump right in the center. Pulling the blankets back, you uncover a rather old looking book.
+
+> read book
+Which book do you mean?
+1) The Towel: 101 Fun & Practical Uses
+2) book
+[choice] 2
+
+Getting a little curious about the content of your manual to immortality, you open it and begin to peruse the pages. The book is impressively clear due to the incredibly well-done illustrations and neatly written notes in the margins. One or two of the hand-written notes are comments on errors the reader has found in the book. As you begin to read the actual text, you see a recipe for something.
+
+
+Ingredients:
+
+Mug o' Grog
+1 pinch Salt
+1 Mela Oak Leaf
+
+Directions:
+
+Place the leaf of a Mela Oak and the pinch of salt into the mug with the grog. Wait patiently a few seconds as the grog dissolves the other two items. Your Brew of Immortality should be a bit spicy as it goes down and is good for one use only.
+
+***Disclaimer: 
+
+If not made properly, some of the possible side effects are indigestion, upset stomach, headache, rapid heartbeat, sweaty palms, baldness and sudden death. Please consult your doctor, wizard or voodoo lady before starting any Immortality regimen.
+
+> look at plant
+
+Gazing at the intriguing plant, you observe the large green leaves and the dark purple flowers sprouting from a few places.
+
+> eat leaf
+
+> look at phone
+
+The telephone being off the hook bugs you so much that you approach it to have a better look. As you bend down to investigate, you spot a piece of paper sticking out from under the displaced handset.
+
+> look at note
+
+It says: "Don't drink the mystery juice!"
+
+> move pillows
+
+There's a post-it note!
+
+> look at post it
+
+If wisdom you seek
+And much great insight
+The essence of orchid
+Just give it a bite.
+
+> w
+
+It seems like there are miles and miles of green and blue carpeted hallways in this hotel. All of them are very well-illuminated by brightly glowing lamps in the ceiling. They're so well-lit, in fact, that you almost feel like you're standing outside on a sunny day. Stopping just in front of another locked door, you have a look at the room number. Much to your delight, you see that you've finally found room 115.
+
+> n
+
+You head back down the hallway and find yourself in a familiar spot once more. You're almost tempted to try your key in the door for room 114...just to see what will happen. After a moment of staring at the door rather intently, you decide it's not the best idea.
+
+> w
+
+As you walk though the hallway once again, you can see the outside courtyard and its beautiful fountain. It's quite a sight to see.  
+
+> w
+
+As you continue on your way though the courtyard, you notice that there is now a gym to the North instead of a massage room. After gazing around at the other side, you begin to wonder just how big the swimming pool is because there is another entrance to it on the South side of the courtyard. Just in front of you, to the East, is the entrance to where the hotel rooms are. On either side of the hotel entrance is a tall wall made of tropical plants. It's obvious that whoever owns this resort has taken extra care to ensure that it is well maintained for its guests.
+
+> w
+
+The setting of the resort's courtyard isn't much different from the tropical theme you noticed in the lobby. There are more palm trees growing out of various places throughout the open air area. The tiles you're standing upon match the white and green tiled floor of the men's room but they're significantly larger. In the middle of the courtyard, you notice a large, three-tier fountain with water flowing peacefully. On the other side of the fountain, to the East, you can see even more of the courtyard. To the North, you notice that there is a massage room. Glancing around even more, you spot an entrance to the pool just South from where you're standing.
+
+> w
+
+Once again, you enter the lobby. It seems that nothing has changed.
+
+> sw
+
+From where you stand, you can see a bustling little village to the North. It seems rather odd to you considering how dangerous things have been on the other side of the Dark Hills. To the North East, on the outskirts of the village, there is a peaceful looking holistic resort. You also notice that there is a rather out of place greenhouse to the East.
+
+> e
+
+Stepping inside the large greenhouse, you notice a portly older woman roaming from place to place around the shop as she tends to the various plants. As you begin to have a better look around at everything else, it is apparent that the woman is doing a brilliant job of maintaining the flowers, plants and other living items because they are all flourising. Oddly enough, many of the plants don't even look remotely familiar to you. On your journeys, you have seen more vegitation than you can remember but this shop seems to have just about anything you might find in an encyclopedia of plants. They all vary in sizes, blooms and colours. Each little planter, filled with rich soil and a unique plant of its own, also has an interesting looking crystal bulb of sorts sticking up from the dirt. Wandering around the greenhouse, you also make note of the way each aisle has been arranged and that all of the racks of plants have tags which tell the names of all that is shelved there.
+
+> buy mela oak
+
+Picking up the plant, you take it over to the register and say: "I'd like to purchase this one please." 
+
+ "Very good choice sir, that will be fifteen dollars."
+
+After purchasing the plant you continue to look around the shop at the other exotic plants.
+
+> w
+
+From where you stand, you can see a bustling little village to the North. It seems rather odd to you considering how dangerous things have been on the other side of the Dark Hills. To the North East, on the outskirts of the village, there is a peaceful looking holistic resort. You also notice that there is a rather out of place greenhouse to the East.
+
+> n
+
+The town of Nevanwatts is an uncharacteristically busy place with many useful shops as well as several small residences. As you look around, you spot a tall, older man walking his hound dog. East of where you are currently standing, there is a shop with a sign that reads: "Ed's Junk Shop." You look to the North East and your eyes fall upon The Conjurer's Bar. To the West, you see a quaint little restaurant. It reminds you of how hungry you are after the long walk down from your cave.
+
+> e
+
+Entering the junk shop, you immediately realize that finding anything specific in this place would be practically impossible. There are rows of shelves, each completely cluttered with various items, lining the walls on both sides of you. From where you're standing, you can see all kinds of objects from lopsided scales, tattered books and dusty potion jars to broken clocks and doll parts. At the back of the shop, there is a counter with a simple register attached to it. Sitting behind the counter is a ginger-haired man with a funny expression on his face and a nametag that reads: "Hello, my name is Ed."
+
+> speak to ed
+
+"Welcome to 'Ed's Junkshop'...I'm Ed. How can I help you?"
+
+1) How's business?
+2) Do you know who the Shadow Masters are?
+3) Nevermind. I'd just like to browse.
+[choice] 3
+
+The shopkeeper goes back to sitting there with a silly grin on his innocent looking face.
+
+> look at shelves
+
+You aren't sure why but you decide to browse the junk shop shelves to your left. Most of the items are covered in dust but you can still make out several jars, vials and boxes. There are also a couple of books and a reflective piece of glass.
+
+> buy piece of mirror
+
+"Pleasure doing business with you Mr.. just realized I didn't catch your name. No matter, here you go sir. Perhaps you'll find it useful in the near future eh?"
+
+> w
+
+The town of Nevanwatts is an uncharacteristically busy place with many useful shops as well as several small residences. As you look around, you spot a tall, older man walking his hound dog. East of where you are currently standing, there is a shop with a sign that reads: "Ed's Junk Shop." You look to the North East and your eyes fall upon The Conjurer's Bar. To the West, you see a quaint little restaurant. It reminds you of how hungry you are after the long walk down from your cave.
+
+> ne
+
+The sign above the little village pub reads: "The Conjurer's Bar." You're suddenly reminded that you've been rather thirsty for most of your trip so you opt to enter. As you walk in, you find yourself in a decently illuminated pub that is rather full of patrons. Nearly all of the circular shaped tables, which are scattered all throughout the pub, are filled with people chatting away. There are a couple of blue-velvet, overstuffed chairs situated near an open window in the far corner. These are also occupied by various oddly-dressed patrons who seem rather busy with reading and quietly murmuring things about the books they're all holding. Just opposite the door, you can see the long (and very occupied) bar which is cluttered with shells, a few shot glasses, torn up pieces of paper, pewter mugs, spilt liquids and a few pieces of change. On the walls, there are various uniquely designed plaques and photographs of people who you do not recognize.
+
+> buy mug o' grog
+
+You pay the bartender five dallars and he gives you the Mug o' Grog.
+
+> sw
+
+The town of Nevanwatts is an uncharacteristically busy place with many useful shops as well as several small residences. As you look around, you spot a tall, older man walking his hound dog. East of where you are currently standing, there is a shop with a sign that reads: "Ed's Junk Shop." You look to the North East and your eyes fall upon The Conjurer's Bar. To the West, you see a quaint little restaurant. It reminds you of how hungry you are after the long walk down from your cave.
+
+> w
+
+The luxurious scent of juicy roast beef lures you in through the front doors of the Casa de Comida. The buzz of people chatting away and the sound of clinking silverware against glass plates are unmistakable as you first enter. Looking around, you notice that all of the furniture in the restaurant is made of oak and that practically every seat is occupied. At the very front, there is a counter with a cash register and a stack of menus on it. Standing behind the counter are two young ladies who are talking merrily. You notice that from inside the busy eatery, the smell of meat is even more alluring...so much more that your stomach gives a little growl to remind you of just how hungry you are. Since the hostesses are busy, you decide to seat yourself. Finding the one empty table in the whole place, you take a seat and wait patiently for a waiter to notice you.
+
+> take salt
+You pick it up.
+
+> use salt on mug o' grog
+
+In an attempt to make a drink that will make you immortal, you take the salt shaker and shake it over the Mug o' grog. Suddenly the frothy grog turns an oddish yellow color and begins to bubble a little more rapidly.
+
+> use mela oak on mug o' grog
+
+As you put the meal oak leaf into your already half concocted drink of immortality, a big puff of pink, glittery smoke erupts from the mug. The bubbling halts suddenly and you can smell something similar to toothpaste.
+
+> e
+
+The town of Nevanwatts is an uncharacteristically busy place with many useful shops as well as several small residences. As you look around, you spot a tall, older man walking his hound dog. East of where you are currently standing, there is a shop with a sign that reads: "Ed's Junk Shop." You look to the North East and your eyes fall upon The Conjurer's Bar. To the West, you see a quaint little restaurant. It reminds you of how hungry you are after the long walk down from your cave.
+
+> se
+
+Level 2:  
+Refuge of Riddles
+
+You have reached the end of this version. Please give us feedback with your thoughts and opinions thus far. Special thanks to:
+Alex Warren
+Linda Hood
+and
+Steve Lingle
+
+©2011 by: Slackers Inc.™ all rights reserved.
+
+> speak to lucy
+
+Taking a moment to look up from the ground, the young lady looks at you and asks if there is anything she can help you with.
+
+1) Who are you?
+2) Where is Ike?
+3) Do you know of anything that could help me defeat the Shadow Masters?
+[choice] 3
+
+The only thing powerful enough to defeat the Shadow Masters is the Wizards Grid. Thats why their trying to find it first.. to destory it
+and create a new one. One that will cause a disbalance within the  magical comunity and outside of it. You must find it before them.
+
+
+When the original grid was created there was a conjurer’s disturbance  which created an illusionary fluctuation in time and placed you in an  elemental shell. That's why you have a hard time remembering things
+about your past.
+
+> sw
+
+Continuing on your journey, you enter what is known as the Abyss of the Wise.  An elderly man is standing by a tree nearby.  By the look in his eyes you can tell that he isn’t any ordinary man, but rather one whose fate is shadowed. After a very brief moment of thought it comes to you, could this man be a Shadow Master? You aren’t sure whether or not you can trust this man, but at this point it seems you haven’t got much of a choice if you want information about what’s going on.
+
+> speak to mortimer
+
+"Can I help you?"
+
+1) Who are you?
+2) Are you a Shadow Master?
+3) Do you know anything about the Wizards Grid?
+[choice] 3
+
+You watch as Mortimer’s face turns a shade of pale white. "Do I know about the Grid?" He responds as though almost to himself. "Of course I do. I know more about it than anybody.
+
+
+Lucky enough for you I happen to know who you are. You're Kitzue, the only one that can bring back order to these parts. In order to do so however, you'll need to reconstruct the grid so listen up.
+
+
+The grid is constructed up of the five elements.. wood, fire, earth, metal, and water. Find these elements and combine them to make the grid. You must do this in the right order though or it won't work!
+
+> s
+
+As you head south, you run into what appears to be a tribe of native villagers. They seem very frustrated that their houses have been destroyed; no doubt the doing of the Shadow Masters.
+
+> speak to tribal leader
+
+"May I help you?"
+
+1) Who are you?
+2) Do you know about the Wizards Grid?
+3) Do you have anything that could help me?
+[choice] 3
+
+That all depends. In order to get something from us, we'd like to get something in return. If you can offer us with something to shield ourselves against the Shadow Masters, a tool or two to rebuild our homes, and some medical supplies; you can have our magical fire.
+
+> give pocket knife to tribal leader
+
+> give first aid kit to tribal leader
+
+> give shield to tribal leader
+
+> speak to tribal leader
+
+"You have met our request and proven you mean us no harm. For this, we offer you our sacred fire. We believe you'll find it most usful in the near future. Go now, and continue your journey." 
+
+> s
+
+Coming up on a stream, you see what you believe to be a dwarf.
+[runner] turns=78 leftover=0 running=true WON=YES

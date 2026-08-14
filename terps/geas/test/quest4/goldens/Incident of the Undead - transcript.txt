@@ -1,0 +1,123 @@
+
+Incident of the Undead, v1
+
+Are You Ready?
+The Zombie Apocalypse.
+You have your brain, your speed, and your reflexes. No muscles, no cars no bikes, and no guns. All you have to do is want you think is right. No game overs, (Sorta) and no Health, just one Awesome Zombie Apocalype Adventure. 
+Good Luck, You might not need it, but should take it anyway. Yes Good Luck.
+Good LUCK.
+
+> north
+You are in Far Driveway
+You can go north or south.
+You're outside of your house. Good. Find a weapon first, then leave. Go NORTHWEST of the HOUSE SPORTS AREA to the SHED. You Might find a weapon there. Then go to the EDGE OF THE DRIVEWAY and decide whether to go LEFT or RIGHT.
+
+> north
+You are in Middle Driveway
+You can go north, south or west.
+You see a sighn you and your youngest brother made. It reads:
+FAMILY SPORTS AREA to the left!
+
+> west
+You are in House Sports Area
+You can go east or northwest.
+
+> northwest
+You are in Shed
+There is Golf Club here.
+You can go southeast.
+It contains random things that aren't IN YOUR HOUSE, ON THE GROUND, or IN THE CRAWL SPACE.
+
+> take golf club
+
+> inventory
+You are carrying:
+Golf Club
+
+> southeast
+You are in House Sports Area
+You can go east or northwest.
+
+> east
+You are in Middle Driveway
+You can go north, south or west.
+You see a sighn you and your youngest brother made. It reads:
+FAMILY SPORTS AREA to the left!
+
+> north
+You are in Edge of Driveway
+You can go north or south.
+
+> north
+You are in South Straits Highway
+You can go south, east or west.
+Left: Follow your HEART and your DREAMS, untoughed by society, money, and law.
+
+
+
+> west
+You are in South Straits Highway Left
+You can go east or west.
+
+you have to type west to get it to work, sorry
+
+
+> west
+Suddenly you hear a car coming. Will You HIDE or WAIT? (Type the corresponding word to do it. If you don't know what corresponding means, you should probably seek immediate adult assistance, as you are either under the age of nine or messed up in the head.)
+You hear a car coming. Will you HIDE or WAIT?
+
+> wait
+You decided to WAIT. Which direction did you hear the Car coming from, though?
+
+> left
+You're in luck. Maybe you should team up like Columbus and Tallahasse from Zombieland. 
+He sees you and sloes down and pulls over. 
+"Where're you headed?"
+"What about you?"
+"Do you wanna ride or not?"
+YES or NO?
+
+> yes
+"Yeah, that'd help."
+"Hop in, scrawny fella."
+You get in his truck. 
+"So, I take it you're headed south too?"
+"Yeah. That's why i said yes to your offer."
+"Hitchhiker, huh? from the looks of it, you want my protection too, as all you have is a golf club. Hitchhiker and a leech?"
+"Yeah, usually leech at school. i'm the role of the bullied nerd."
+"Well, if you promise not to do anything stupid, this relationship will go ok, i guess."
+"Alright. let's start it normally like this, despite the situation. My name is-"
+"No no, no names. keeps us from gettin' too friendly. Again, where're you headed?"
+"Wolverine, Vanderbilt, and then Ann Arbor."
+"That your final plan?"
+"Yeah, Wolverine for Prep, Vandy for a survivor check, and Ann Arbor To live in the UNIVERSITY OF MICHIGAN."
+"A Michigan fan eh?"
+"Yeah, what about you?"
+What does he say?
+A: Ohio State Fan
+B: Fellow Michigan Fan
+C: Neutral.
+
+
+> b
+"There's a good start. Go Blue. Now, want me to call you vandy or ann since we wont be in wolverine long if its only prep?"
+Vandy Or Ann?"
+"How bout Arbor instead?"
+"I like it."
+"And you?"
+"Call me Buck. I was gonna go to U Mich at Dearborn. Dearborn, Dear, deer, bucks, ya know? I was gonna go to greenfield village, but i think ill go to ann arbor with you now."
+"Lets make a stop for greenfield."
+"Why?"
+"I had that for my 6th grade field trip, but never got to go. Some kid that bullied me threatened to kill me with his pocketknife if i went. this is our chance to go, so lets!"
+"Alright."
+
+You are in South Straits Highway Far Left Border
+You can go east or west.
+"Now, Arbor, I'm not easy to get along with, and I'm sensing you're a bit of a bitch, and an annoying one at that, but i think we can make this work."
+"Just do me a favor."
+"And what's that?"
+"If you're going to do Zombieland stuff, please don't get me sued for copyright infringement."
+You are in Wolverine
+You can go east.
+"I can tell with those words that you're going to get on my nerves...."
+[runner] turns=16 leftover=0 running=false WON=YES

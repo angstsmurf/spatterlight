@@ -1,0 +1,317 @@
+
+The Blade Sentinel, v0.1 Mihalis "DarkAng3l " Georgostathis
+
+Total darkness...
+
+Or something like that...
+
+You, in foetal position, tied to tubes and millions of high-tech machines, an artificial womb made to sustain your dying body. The only move you can do is to blink. All you can distinguish beyond the green thick liquid that surrounds you, are some shades. Probably scientists watching over your progress. That is  what happens when you are Blade Sentinel, the well-known superhero.
+
+
+But things were not allways like that (What a cliche, you say to yourself). It all changed in one day... A day not so far away from this one...
+
+
+
+
+
+
+
+
+ Sunrays hit your eyes. An alarm clock rings by you. Yes, you have to wake up. Another long day at work waits for you. Better take a shower, get dressed and get to work ASAP.
+ You are in your bedroom. A simple bed occupies the most of the room. To the north is a door leading to the bathroom and to the west, a door to your hall. By the door is a closet, containing your wardrobe.
+
+> north
+ A small bathroom, totally mundane and having everything you would expect.
+ (Including the shower who will save your life at the moment.)
+
+> shower
+
+ You enter the shower and poor some cold water on you to wake up. 
+
+> out
+ A small bathroom, totally mundane and having everything you would expect.
+ (Including the shower that just saved your life some minutes ago.)
+
+> south
+ You are in your bedroom. A simple bed occupies the most of the room. To the north is a door leading to the bathroom and to the west, a door to your hall. By the door is a closet, containing your wardrobe.
+
+> look at closet
+ The closet is open and packed with your clothes.
+
+> take clothes
+ You put on some clothes and close the closet.
+
+> west
+ Your hall, a long, narrow room, leading to the north to the exit, to the east to your bedroom and to the south to your kitchen. To the west is a small sitting room.
+ Seems like someone has shoved a large yellow envelope under your door.
+
+> look at envelope
+ A large yellow envelope, containing something solid and somewhat heavy. You notice that the envelope is too thick to fit under the door
+
+> take envelope
+ You carefully pick up the envelope. It looks like it contains something solid.
+
+> north
+ Alice Morgan... Yeah, that's me! Disciplined police detective, martial arts expert, hardworking, getting the bad guys and not having a personal life at all. And right now being in need for a cup of cofee. And suddering in the idea of another endless day at work.
+ As always, the police department is crowded with police officers and minor offenders. The noise is always unbearable as well as  the room itself.
+ Things aren't really so bad, since you can go east to your office and you can leave the police department to the south.
+
+> east
+ A peaceful office, at least compared to the enterance of the department. Two desks are here, one is yours and one belongs to your partner Jim Wallas. Both are packed with any kind of paper a detective could use.
+ A morning newspaper is here. Abnormally, it was published today. The last newspaper you found at the office was five years old.
+
+> take newspaper
+You take the newspaper.
+Jim enters the office holding a cup of coffee and goes to his desk.
+
+> read newspaper
+The newspaper has an article about the Alpha Force.
+The article is like that:
+"In the few past months, a group of Vigillantes, naming themselves the "Alpha Force" are cleansing the streets of our city of the criminals. Their work has made the life of citisents much safer. The city owes a big debt to this outstanding group of braved masked crime avengers.
+The leader of this group is "Sabre", a man in a red suit, known for his extreme agility and the sword he uses. Another notorius member of the team is "The Crusader", a man whose uniform is full of crosses. In an interview he gave us recently, he admits he fights crimes because of his faith to God. Criminals fear the blasts this holy avenger shoots from the devices attached to his hands. And who hasn't heard of "RockHard", the mountain of muscles of the team. Even though many doubt he has the brains, the rest of the group members saim it isn't true. Since there is  equality of the sexes, we should mention "Vixen", a black clad lady with a love for throwing knives. Another important member is..."
+(The rest of the article is unreadable, because some coffee is spilled on the newspaper.)
+
+
+> look at Jim
+ A middle aged police detective, medium height but high weight. He is bold, married and has three kids. You are one of the unlucky girls not to have an attractive partner.
+ He seems worried about something.
+
+> speak to Jim
+What would you like to tell him?
+1)  Good morning Jim. Is everything alright?
+2) What's up? Any problems with the kids?
+3) Is it my imagination, or is it really something bothering you?
+[choice] 1
+ Wish it was! Tony Torenti, the "Shark" was released today. The attorney dropped all charges against him.
+ 
+
+
+
+ Tony "the Shark" Torenti, mobster, gundealer, blackmailer etc. Public enemy number one. You managed to find some damning evidence against him last month and the police arrested him. You found it strange he didn't resisted arrest, but you were too drunk with your success you ignored it. Seems that his influence surpasses the law. Evidence disappeared, witnesses changed their testimonies and now he is free. Free like a bird. And you better be careful. This crow holds grunge against you and may attempt to take a vengenge on you.
+ As day passes, you find your self puzzled. First, someone shoves a mysterious envelope under your door, then an arch- mobster you imprisoned is free and probably out to get you. What the Hell is it going on here? Perhaps you will find out when you open the envelope. But right now you are too busy.
+ Day turns to night and you are still at your office working on a case. Time to go home. You take a folder with all the necessary paperwork to continue at home.
+
+> look at your desk
+ As usually piled with every useless paper you could imagine.
+
+> west
+ As always, the police department is crowded with police officers and minor offenders. The noise is always unbearable as well as  the room itself.
+ Things aren't really so bad, since you can go east to your office and you can leave the police department to the south.
+
+> open envelope
+ You open the envelope and to your surprise, you reveal a sword's hilt! Who the Hell would have sent you this one.
+
+> south
+ Time to go home after another tiring day at work, even though there is work to be done there.
+ Well, this morning you left, the house was a mess, but now you have returned, all Hell has broken loose. Seems like someone was searching for something.
+ Suddenly, the kitchen door opens and a shade opens the kitchen door. A large humanoid THING. It seems to be one of Torenti's droids.
+
+> look at hilt
+ Just a sword hilt, made of iron and having a golden dragon carved on it. The blade is missing.
+ You feel the world dimming around you, as the droid hits you with the strength of ten men and sends you smash against a wall. You can see your end coming soon, as you land to the floor, the droid standing over you, ready to finish you off.
+ You are on the floor of your apartment, a menacing droid over you, ready to smash your body. The folder you held has fallen far from your reach and so does your handgun. What is near you is the mysterious hilt you got this morning. Something inside you says it may be your saviour.
+
+> take hilt
+As you reach for the hilt, the droid makes its move: Its mighty bionic arms come down, crushing the floor. Thanks to your reflexes you are still alive. But the hilt bounces outside of your reach. As you crawl for it,the droid raises its fists for the finishing strike. You look at it as you blindly stumble for the hilt... You know your end comes closer every instant passing. Your dreaded enemy launches against you once more, while you touch, then grasp the hilt.
+Primordial energy runs through your palm, arm, your entire body. Pure force fills your heart with courrage. Courrage to fight your rival. From the hilt extends a blade of force. The same force that creates a light, flexible, almost elastic, yet extremely endurable and hard armor. You feel stronger both physically and emotionally. You are puzzled at what is happening to you, but there are many more important things to thing about now. Like the leathal fist that's heading to your head.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Back to your artificial womb, you linger in a state between life and death, consiousness and trance, past and present...
+The world around you comes and goes, constantly coming, then again fading away...
+The robes are hear talking to eachother. You can figure some words: "danger... stabilise... death... live...".
+Soon the world around you fades away once more, sending you once more in the sweet, yet fatal torpor of unconsiousness.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+The Shark is going to pay for that, you say to yourself, as you watch the warehouse from above. The city is silent tonight. Or is it just you? No time for thinking, the time for action has come. Law won't protect the citizents. You would never admit it before, but deep inside, the back side of your head, you always knew it. Now it is time for some Justice to be done.
+Alice Morgan  would never act like that, but the Blade Sentinel will. The Blade told you so. "I am here to help you bring Justice. I've chosen you to.". You give it another look to the Blade and take the courage to take the law to your hands. As you slide down the wall and gently land to the deserted street in the docks area, you can't stop but remembering the look (if you can call it that way) of the droid, as you choped off it's arm.
+
+ Down to the docks area, there is a warehouse where "the Shark" stores his "merchentice". Heavy weaponry, enough to arm an entire army.
+ And you are outside it, hidden beside a corner. To your south is a dark alley.
+ Unfortunatelly, between you and the door are two guards, a tall and a short one. And they won't roll the red carpet to great you...
+
+> south
+ A very dark alley, leading to a dead end. The only discernable things here are some garbage bins and better lit street to the north.
+
+> attack bins
+ You kick one of the garbage bins. Then hide in the dense darkness of the alley and wait for the guards to come. Half a minute later, the tall one is here, searching for the source of the noise
+
+> attack tall guard
+ As the guard comes in front of you, you take the oportunity to knock him out with a stunning punch.
+
+> north
+ Down to the docks area, there is a warehouse where "the Shark" stores his "merchentice". Heavy weaponry, enough to arm an entire army.
+ And you are outside it, hidden beside a corner. To your south is a dark alley.
+ Unfortunatelly, between you and the door is a short guard And he won't roll the red carpet to great you...
+
+> attack short guard
+ The nervous short guard is worrying his partner is not coming back. As he looks around for any sign of him, you sneak right behind him and knock him out with one blow. That's what you call a clean job!
+ Now you are free to enter the warehouse. And so you do carefully and silently.
+ The warehouse is empty... except from a douzine of empty crates in a corner, a large crate hanging from a crane and a big mean cyborg with anything than friendly intensions towards you.
+
+> look at Cyborg
+ Not the  bulky piece of (expensive) junk you encoudered (and hacked) an hour ago in your place, but a more bulky, more advansed model, CY-234 Military Mechanical Trooper, is launching at you with full force.
+ The Cyborg smacks you and sends you to the opposite wall. As you smash on it, you feel all the bones of your body protest in a chorus. You don't know how many hits like this you can endure.  
+
+> jump on crate
+ You gather your strength and you jump high enough to grab the bottom of the crate. You hastily climb on it, as the cyborg tries to grab your leg. It fails and tries to climb on the crate too. But due to its high weight, it will take it some more time.
+ Standing on a one ton heavy crate full with high-tech military equipment and a cyborg trying to climb on it to get you, would be a good oportunity to reflect your past life, if you were the heroine of a novel. But since it is real life, you think to yourself, its no time to waste your time, but to act the soonest possible.
+ The crate is hanging on an extremely endurable rope. You are on top of it and a Cyborg tries to climb it. Currently only half its torso is over the bottom of the crate. 
+ The Cyborg smacks you and sends you to the opposite wall. As you smash on it, you feel all the bones of your body protest in a chorus. You don't know how many hits like this you can endure.  
+
+> cut rope
+ You know what to do. As endurable as this rope may be, your blade is too sharp for it. With one slash, you cut it in two. The crate, free from its holding, falls, the cyborg trapped underneath it. A crushing sound indicates that military scientist should take better care of the cyborg's armors are more resistant to mechanical presure.
+ With a jump, you impale your foe with your blade, cutting the thread of its function.
+
+
+
+
+
+
+ Blinding lights...
+
+
+ What is this place?...
+
+
+ A hospital?...
+
+
+ A lab?...
+
+
+ Heaven?...
+
+
+ Hell?...
+
+
+ You don't know and you can't tell for sure. You only know that you are on a stretcher being pushed in a corridor lit by lights... bright lights... very bright lights...
+ Your whole body aches... you can't feel your legs... You can barely feel your arms... Your larygx aches as if an elastic tube was shoved in it...
+
+ As you try to find what it is going on, you fade again... Fade back to your dream of the past... To the past that brought you here.
+
+
+
+
+
+ This dark alley is almost deserted.  Only a man is here, probably waiting for Torrenti. Apart for him, there is nothing of interest here.
+ For the past weeks, you 've been chasing Torenti's goons, capturing most of them. But when Alice heard a tip that Torenti himself would have an important meeting in this specific dark alley, she couldn't resist telling you. So the Blade Sentinel is out to get the big boss. 
+
+> look at man
+ A man, dressed in a trenchcoat and a hat. You cannot discern much under them.
+
+> speak to man
+ You see that under the trenchcoat and the hat, hides Sabre, the leader of Alpha Force himself.
+ The comrade in arms against crime greets you.
+ In a hollow voice, he tells you: " Oh, nice to meet you comrade. We have learned you are a brave and capable avenger. I would propose you could work with us. As far as I can see, you hold a grudge against Tony Torenti. He is a very powerful criminal indeed, but at the moment our group has other priorities.But you could help us. We have gathered info on him. We know the location of his headquarters and the security systems, plus we have a plan to infiltrate them. Are you interested of doing this instead of us?"
+ Security center: Run by Skippy,  real name Samuel Rogers. Single, no girlfriend, a dog named Azor, hobby fishing, Hard worker but using too often explicit language.
+ Or so says the folder you got from Sabre. Anyway, the room is but a small office, featuring one desk and one computer.
+
+
+ How could I resist such proposal. I managed to sneak into the security center of Torrenti's headquarters. If I went straight at him, his droids would kick my ass. But, here in the control centre, I could set them to full agressive mode, spawning chaos and leaving the path to Torrenti's office clear.
+
+> look at computer
+ The computer is set in a login screen waiting for a password.
+
+> take computer
+The computer contains:
+1) The droid behaviour program
+2) Quake 3
+3) A porn movie
+[choice] 1
+ You set the droids to aggressive mode and can't wait to get the party started.
+ You have reached your goal. Your rival's office is ahead of you, to the north.
+
+ As you sneak to your target, you can hear the havoc caused by your little trick. Screams of panic and machinegun fires sound all over the building. Some explosions can be heard sporadicly, indicating things are getting too wild. And you smile as you imagine the faces of those trying to reset the droids to normal behaviour, when they find out the computer's screen is broken.
+ A man voice says: "Hey Skippy, will you open for me?"
+
+> north
+ The room is a luxurious office, as you would expect from a powerful criminal like Torenti. To the north of the room is a big desk, from which the mobster controlled his crime empire. Expensive painting hang from the walls. A bookcase covers the entire west wall.
+ One of Torenti's goons is here, aiming at you with his gun.
+ As you enter the office, you instantly notice Torrenti and one of his goons. Torrenti imediatly stands up and enters a hidden door behind his office. The goon pulls out his pistol and aims at you. Time for action now.
+
+> look at goon
+Nothing out of the ordinary.
+
+> attack goon
+ The bulky man takes an expression of surprise and dread, as your blade cuts his gun in two. Then, a spinning kick knocks him out. 
+
+> look at Torenti's desk
+ Looking closer at the office, you cannot but notice that there is a button on it. You press it and a secret door opens behind the desk. The secret door Torenti used to leave the office.
+
+> north
+ You descend the stairs and reach to a tunel. There seems to have been an escape pad here. The only thing you see at the moment is a note.
+
+> look at note
+ The note reads: "Bye bye Blade Sentinel!".
+As you read the message, you realise that this was a trap. You run to get away, but it is too late. Explosives soon detonate, making the building a Hell on Earth. The building collapses on you, and everything blackens around you.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+You creak your eyes. You can hear a voice. It says: "The hilt is lost. She is useless. Give her this injection we talked about."
+
+
+
+
+
+
+ As far as the eye sees, a delightfull green surrounds you. The only exception is to the south, where a tall wall stands. A big golden  gate is on it. Perhaps a way out from here... or further inside...
+
+> south
+ You are standing next to a tall wall. A golden gate is in front of you. You can always back away to an infinite garden to the north.
+ The gate is locked.
+
+> look at Golden Gate
+ A shiny golden gate. It is an embosed sword on it. It's blade is pointing to the sky and vines surround it. At the height of your torso is a panel.
+
+> look at panel
+ On the hilt of the embossed sword is a small round pannel. It has five buttons, named "Valor", "Justice", "Honour", "Compassion", "Strength". A small plaque admist them says: "Priority of virtues shall unseal the passage". 
+
+> press Valour
+
+> press all
+
+> south
+You can't go there.
+[runner] turns=45 leftover=0 running=true WON=YES

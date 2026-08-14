@@ -1,0 +1,124 @@
+
+Clay Pigeon Shooting Tomo
+
+CLAY PIGEON SHOOTING
+
+Clay pigeon shooting, also known as clay target shooting, and formally known as inanimate bird shooting, is the art of shooting at special flying targets, known as clay pigeons or clay targets, with a shotgun or any type of firearm. Scoring of each target is 3 points for a first barrel kill, 2 points for a second barrel kill and 0 for a miss. Make sure BOTH your barrels are loaded before shooting. This is standard procedure.
+
+This interactive fiction game can be played with either the keyboard or the mouse. When using the keyboard, you will have to type the commands.
+
+When using the mouse, you can access shortcuts to the commands by clicking on the alternatives presented in the window menu "game commands", which you can find at the top of the screen, or using the panes on the right hand side of the screen.
+
+Happy hunting!
+
+
+
+
+
+
+
+You are at the firing range, which is outdoors close to a evergreen forest clearing. Standing next to a fully loaded clay pigeon trap is your closest friend Billy Bob, who has been your hunting companion since you both got your first rifles. Closeby is an old wooden table, with all the necessary equipment resting on top of it.
+
+> take all
+You pick up all the necessary equipment from the wooden table.
+
+> use ear plugs
+You put the ear plugs into your ears.
+
+> use eye protection
+You put on the protection glasses. You are now fully protected.
+
+> load
+You crack open the shotgun and pop two shells into the barrel with the skill of a hunter.
+
+> pull
+You shout "pull", and Bob releases the clay pigeon!
+
+> fire
+You shoot at the clay pigeon but miss!
+
+> load
+You crack open the shotgun and pop an extra shell into the barrel.
+
+> pull
+You shout "pull", and Bob releases the clay pigeon!
+
+> fire
+You shoot at the clay pigeon but miss!
+
+> load
+You crack open the shotgun and pop an extra shell into the barrel.
+
+> pull
+You shout "pull", and Bob releases the clay pigeon!
+
+> fire
+You shoot at the clay pigeon but miss!
+
+> load
+You crack open the shotgun and pop an extra shell into the barrel.
+
+> pull
+You shout "pull", and Bob releases the clay pigeon!
+
+> fire
+You hit the clay pigeon, scoring 3 points for a first barrel kill!
+
+> load
+You crack open the shotgun and pop an extra shell into the barrel.
+
+> pull
+You shout "pull", and Bob releases the clay pigeon!
+
+> fire
+You hit the clay pigeon, scoring 3 points for a first barrel kill!
+
+> load
+You crack open the shotgun and pop an extra shell into the barrel.
+
+> pull
+You shout "pull", and Bob releases the clay pigeon!
+
+> fire
+You hit the clay pigeon, scoring 3 points for a first barrel kill!
+
+> load
+You crack open the shotgun and pop an extra shell into the barrel.
+
+> pull
+You shout "pull", and Bob releases the clay pigeon!
+
+> fire
+You hit the clay pigeon, scoring 3 points for a first barrel kill!
+
+> load
+You crack open the shotgun and pop an extra shell into the barrel.
+
+> pull
+You shout "pull", and Bob releases the clay pigeon!
+
+> fire
+You hit the clay pigeon, scoring 3 points for a first barrel kill!
+
+> load
+You crack open the shotgun and pop an extra shell into the barrel.
+
+> pull
+You shout "pull", and Bob releases the clay pigeon!
+
+> fire
+You shoot at the clay pigeon but miss!
+
+> load
+You crack open the shotgun and pop an extra shell into the barrel.
+
+> pull
+You shout "pull", and Bob releases the clay pigeon!
+This was the last bird!
+
+> fire
+You shoot at the clay pigeon but miss!
+
+> speak to bob
+"Your score for today's shooting is 15.  Now we should head back to the cabin for a scotch!"
+[runner] turns=34 leftover=0 running=false WON=YES

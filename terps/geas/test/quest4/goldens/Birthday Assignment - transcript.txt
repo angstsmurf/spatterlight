@@ -1,0 +1,474 @@
+
+The Birthday Assignment Patrick Hosseini
+
+This is truly an auspicious day for you, Captain! You are the captain of your very first airship, about to make your first delivery.
+
+Your uncle, the owner of a small airship delivery company has been left bedridden by illness and you have been called up to take his stead. At 19 years of age, you have finally aquired your Class D airship license, a day which you have long awaited.
+As you have travelled with your uncle on many deliveries, you believe you can face whatever the world has to hold. But are you truly prepared?
+
+
+
+You are in The Office
+There is the Advisor here.
+You can go east.
+
+The registration office is quite tidy albeit it's small size. The roof is surprisingly tall and the walls are covered in thick bookshelves rich with titles on subjects so obscure you suspect they may be fiction.  Upon the , wooden floor, a sturdy escritoire adorns the center accompanied by a chair, which is currently occupied by the Airlines advisor. A short, middle-aged and well-dressed man, he stands and greets you with a warm smile.
+
+"Welcome, welcome. Ah, I presume you're here to have your forms stamped, are you? That's what's wrong with all you young pilots, as soon as you've been licensed, you're all raring to go!  Oh, ha ha. Well then, here are your forms, you are now licensed to fly your ship in our fair skies. If you would like some information, feel free to speak to me with the speak to command(speak to advisor), and I will do my best to assist you."
+
+Just as he seats himself, he looks back up at you and adds: "Oh, please don't forget that the door will lock on your way out. I'm just about to finish up here" - he indicates to the stack of papers by his desk -  " So if there's anything you'd like to ask, now's the time."
+
+To your EAST there is the exit door.
+
+> x advisor
+He's quite well-dressed.
+
+> punch advisor
+Quick as lightning, the advisor blocks your strikes.
+"That wasn't very nice" he addresses you in a stern tone.
+"Don't do it again."
+
+> take advisor
+As he notices you reaching out to him, the advisor gives you a puzzled look and asks you what you are doing. You hastily apologise and pull your arm back.
+
+> x table
+It's quite a finely crafted table.
+
+> speak to table
+Hey there table, how've you been?
+"Flat out, mate."
+
+> speak to advisor
+"You're taking this quite seriously, I see. Very good to hear. Don't worry, you'll be out in just a moment so please be patient.
+
+First thing is first - you need to prepare yourself for what you might face out there. You can equip your ship with a cannon, purchase armaments to arm your crew or upgrade your engine, should you choose.
+To do this, you will need to pay. To the right of your screen you will notice your current funds. Keep track of them and make your decisions wisely."
+
+
+"Acting in text adventure's isn't to difficult. Simply type out what you want to do. Keep in mind that it's verb before noun.
+Example, 'break open nut' as opposed to 'break but open'.
+
+Moving is a simple affair, type in the direction or use the arrows."
+
+
+
+
+"And last, but certainly not least, we have Crew Tolerance (CT). This is affected by your actions and will have a direct effect on whether or not your crew will stand by your side. It will rise as they see you more favourable and drop as they begin to think less of you. Don't let it hit zero."
+
+And that's all I have to say. Best of luck in your journey.
+
+> e
+The
+There is fountain and several Benches here.
+You can go north, east or west.
+A tranquil square. There's a fountain bubbling away in the center of the square, surrounded by a couple of park benches.
+
+> x fountain
+What a nice fountain.
+
+> speak to fountain
+Hi there fountain, how are things?
+"Oh, life's been a splash!"
+
+> drink fountain
+After examining the water, you decide that it's best if you don't.
+
+> splash fountain
+Come on now, it's very tempting, but now's not the time.
+
+> play in fountain
+Come on now, it's very tempting, but now's not the time.
+
+> take fountain
+You roll up your sleeves, straighten your back and crouch onto your haunches in preperation to lift the fountain, before you realise that it's cemented to the ground.
+
+> x benches
+They look quite comfy.
+
+> sit benches
+Aaaaahh. Nothing like a good sit down.
+Well, time to get up. You've got work to do.
+
+> speak to benches
+Whilst participating in an engaging conversation with the benches, you realise that you should probably be elsewhere right now.
+
+
+> w
+The office has been closed for the day and the door is locked.
+
+> n
+You are in Old Alleyway
+There is a Homeless Man here.
+You can go north, south or west.
+You are at an alleyway. Even it being just past midday, there is no sunlight here, though despite that, the space here is surprisingly warm.
+You see an old man in raggedy clothes, leaning against a wall with his eyes turned to the sky, observing a passing airship. There's a distinct look of longing in his lined face and you get the feeling that he used to be something so much more than what he is now.
+
+> x kevin
+A gruff man. He seems to be middle aged, and has long, brown hair (white in some spots) which flows just past his neck. He also has a matching beard which comes just past his shoulderline and seems to be gruff and thick.
+His clothes are tattered and on the floor there is what you make out to be a makeshift home, pieced together with various woodstuff and clothing material.
+
+He leaning against the wall and is gazing longingly at the sky, staring at the various airships that past by. As you watch him, you can't help but feel that he used to be much more in life than he is now.
+
+> punch kevin
+Now now. You wouldn't hit a harmless hobo in real life, would you? What makes this guy any different? Just cause he's not real? Is that discrimination?
+
+> x sky
+Looking at it for yourself, you can easily see why the homeless man is so captivated by it. So large and expansive, something we take for granted every day.
+
+Well, you may as well get used to its magnitude, seeing as how you'll be flying in it.
+
+> speak to kevin
+As you approach the man, he takes notice of you and, as though it pains him to ask, he says "Spare some coin?"
+
+What will you do?
+1) Spare him 10 credits (10c)
+2) Ask him what he's going to use the money for
+3) Leave him alone
+[choice] 2
+Take by surprise, the homeless man stammers out his response.
+"A-ah, I'll be using the money f-for a nice warm meal y'see, haha, haven't had one in a while!"
+He shuffles about nervously, and you notice several empty bottles of alcohol by his feet.
+
+...
+
+Will you...
+1) Spare him 10 credits
+2) Offer to take him drinking (30c)
+3) Leave him alone
+[choice] 2
+The old man smiles enthusiastically as he accepts your offer, and you both set off to the tavern. After you buy him a drink, he introduces himself as 'Kevin' and talks about his days as a former first-mate on a merchant's airship.
+
+He says that there were few places in the country where he hasn't been, and the occasions when he had to fight bandits and creatures were many. Despite his ragged appearance and rough manner, it seems that the old man once had a glorious past and now drinks to lament those days long gone.
+
+You get the idea to hire him for work on your airship and mention this to him. After a brief display of ecstatic euphoria, consisting mainly of whooping and spilling beer everywhere, Kevin accepts. He is now a part of your crew and you will surely benefit from his experience.
+...
+....
+Congratulations on a well made decision.
+
+> n
+You are in The Tavern
+There is Barkeep here.
+You can go south.
+The space here isn't as large as you expected. Several tables and chairs are arranged neatly and toward the back of the tavern is the bar. The bartender is cleaning dishes and polishing the bar.
+
+> x bartender
+He's cleaning the glasses.
+
+> x tables
+The tables and chairs are arranged quite neatly here. You don't see any other patrons.
+
+> sit tables
+Now's not the time.
+
+> speak to tables
+Hey there, table and chair, don't you make a cute couple?
+...
+You decide to leave the table and chair alone.
+
+> x bar
+It's a well kept bar.
+
+> speak to bartender
+As you approach the bar, the barkeep greets you with a friendly smile.
+"Welcome friend, welcome to the Prospect Inn. Ah, you must be the young airship captain everyone is talking about. Well, what can I get you?"
+
+You ask for...
+1) Ask for a beer
+2) Ask for some information
+3) Ask if there's anything interesting to do in the area
+4) Nothing, I'm good thanks.
+[choice] 1
+You momentarily consider getting a beer, but then you remember you have to pilot an airship.
+
+You ask for...
+1) Ask for a beer
+2) Ask for some information
+3) Ask if there's anything interesting to do in the area
+4) Nothing, I'm good thanks.
+[choice] 3
+"Well, apart from buying a drink at the fine tavern - " he gives you a mischevious wink - " there really isn't anything here. Prospect is just a simple port-town, afterall. The residential areas are south of the Central Square, but you don't have any business there, do you?"
+
+You thank him for his time and are about to leave when he adds...
+
+"Oh. Dust storms. They're quite common in this area. They'll cause all kinds of problems for you if you're not careful."
+
+
+> speak to bartender
+As you approach the bar, the barkeep greets you with a friendly smile.
+"Welcome friend, welcome to the Prospect Inn. Ah, you must be the young airship captain everyone is talking about. Well, what can I get you?"
+
+You ask for...
+1) Ask for a beer
+2) Ask for some information
+3) Ask if there's anything interesting to do in the area
+4) Nothing, I'm good thanks.
+[choice] 2
+"Hey buddy," he leans in, as if to draw you closer. You lean in and he speaks.
+"Listen, I've got some booze I could do with getting rid of. I've got about ten kegs of the stuff - quite frankly, it's not selling.
+
+I'll sell it to you. For 50 credits a keg - that's half of what I bought it for, no shit.
+500c and it's all yours. I'll even have it loaded onto your ship, free of charge. How's that?"
+
+You think about this for a moment. You're sure that your crew will appreciate the alcohol, and that perhaps you could trade it as a commodity.
+
+
+1) Accept his offer (500c)
+2) Decline his offer
+[choice] 1
+"I'm quite glad to hear it. I'll have Lionel deliver it to your ship, you should have it once you get back.
+Please, do enjoy it, and remember that if you abuse the drink, the drink will abuse you."
+Your crew will appreciate the drinks.
+Crew tolerance +1
+
+> speak to bartender
+As you approach the bar, the barkeep greets you with a friendly smile.
+"Welcome friend, welcome to the Prospect Inn. Ah, you must be the young airship captain everyone is talking about. Well, what can I get you?"
+
+You ask for...
+1) Ask for a beer
+2) Ask for some information
+3) Ask if there's anything interesting to do in the area
+4) Nothing, I'm good thanks.
+[choice] 4
+"Well, take care then."
+He resumes polishing glasses.
+
+> punch bartender
+You draw back your arm, readying your fist for a punch when the bartender smashes the glass he's holding and points the jagged edge at you.
+
+You get the message and relax your arm.
+"That'll be 10c, please. These glasses are not cheap. Ooh, how about 5c extra, for putting me through all the trouble? And another 5c because you're pissing me off."
+
+You begrudgingly pay the bartender.
+He suddenly drops his grim expression and his warm, charming smile returns as he thanks you and asks you to leave.
+You are in Old Alleyway
+You can go north, south or west.
+You are at an alleyway. Even it being just past midday, there is no sunlight here, though despite that, the space here is surprisingly warm.
+The arms store is to your left and the tavern is just ahead.
+
+> w
+You are in The Armaments store
+There is the Gunsmith here.
+You can go east.
+As you enter the Arms store, you just can't help but admire the impressive display of weaponry that lines the walls.
+The storekeeper is a stout young woman with a permanent scowl affixed to her face. She seems to notice you but makes no effort to acknowledge your presence and continues to clean the rifle she holds.
+
+> x guns
+They look quite lethal.
+
+> speak to guns
+You decide to strike up a conversation with a nearby rifle.
+Hi there rifle, how's life been treating you?
+"Not too well. It's long, hard and always goes off with a bang."
+
+> take guns
+You think of taking a gun, but you remember the storekeeper and decide otherwise.
+
+> speak to gunsmith
+As you approach the counter, the storekeeper stops cleaning the rifle and stares at you.
+After a brief, unsettling silence, she begins to speak.
+"So, you're the captain of that small airship at the docks then." She pauses briefly and looks you over before she resumes.
+"You look a little wet behind the ears to me.
+Well, you've come to the right place. Here, we'll arm you to deal with those damned pirates and bandits that roam the skies.
+
+What will you do?
+1) Purchase Armaments for your crew (900c)
+2) Outfit your ship with a Battle Cannon (1000c)
+3) Ask for information
+[choice] 3
+"If you want some technical know-how, I'm your girl. Let me run you down on your options.
+
+If you want to punch some holes into pirate ships, then by all means, get yourself a ship mounted cannon. Some of the small fry can't stand up to an assault like that and will scram as soon as they see it.
+
+However, if you want some more up close and personal protection, you should outfit yourself and your crew with weapons and armour. We sell all kind of weapons, to single shot rifles and flintlocks to Halberds and Cutlass swords.
+
+> speak to gunsmith
+As you approach the counter, the storekeeper stops cleaning the rifle and stares at you.
+After a brief, unsettling silence, she begins to speak.
+"So, you're the captain of that small airship at the docks then." She pauses briefly and looks you over before she resumes.
+"You look a little wet behind the ears to me.
+Well, you've come to the right place. Here, we'll arm you to deal with those damned pirates and bandits that roam the skies.
+
+What will you do?
+1) Purchase Armaments for your crew (900c)
+2) Outfit your ship with a Battle Cannon (1000c)
+3) Ask for information
+[choice] 2
+You have decided to purchase a heavy artillery Battle Canon for your ship, except...
+"Sorry. That's a no-can-do." She states bluntly. "There's no way in hell I'd get away with selling such hardware to someone holding a Class D license.
+
+But what I can do is offer you this fine Heavy Repeater. Being completely honest, the two aren't too much different. However, the Battle Canon is more suited to Military applications and requires a Class S license for purchase.
+
+Anyway. The Heavy Repeater will put a hole into anything stupid enough to come close to your ship. I'll have Lionel install her for you, it'll be done in a bit."
+
+Feeling somewhat overwhelmed by this information, you thank her and leave.
+
+You have outfitted your ship with the Heavy Repeater.
+You are in Old Alleyway
+You can go north, south or west.
+You are at an alleyway. Even it being just past midday, there is no sunlight here, though despite that, the space here is surprisingly warm.
+The arms store is to your left and the tavern is just ahead.
+
+> n
+You are in The Tavern
+There is Barkeep here.
+You can go south.
+The space here isn't as large as you expected. Several tables and chairs are arranged neatly and toward the back of the tavern is the bar. The bartender is cleaning dishes and polishing the bar.
+
+> s
+You are in Old Alleyway
+You can go north, south or west.
+You are at an alleyway. Even it being just past midday, there is no sunlight here, though despite that, the space here is surprisingly warm.
+The arms store is to your left and the tavern is just ahead.
+
+> s
+The
+There is fountain and several Benches here.
+You can go north, east or west.
+A tranquil square. There's a fountain bubbling away in the center of the square, surrounded by a couple of park benches.
+
+> e
+You are in The Docks
+You can go north, south or west.
+You are at the docks. You can see your ship, the Flying Colours, grounded just at the end of the airport.
+To the north there is a mechanic's garage.
+To the south is your ship.
+
+> n
+You are in The Garage
+There is Lionel here.
+You can go south.
+You enter the mechanic's garage, which is more like an airship hangar than a garage. The first thing that immediatly catches your eye is the front end of an airship hull pointed directly at you. Its enourmous structure towers above you like the looming tower of Babel.
+As you ponder this religious resemblance, a tall, well built man, not too much older than yourself lithely swings down from the airship and lands squarely in front of you. He wipes his hands upon his overalls and firmly shakes your hand, introducing himself as Lionel.
+"I'm the greasemonkey and working horse of this place, friend" he smiles.
+
+What will you ask?
+1) Greasemonkey?
+2) 'Working Horse'?
+[choice] 1
+"Yeah. I'm the mechanic here.
+So, you're the owner of that airship out there? Nice machine,, for real. I can fix up her engine for ya, make her as fast as a panther and as smooth as butter. Gonna cost ya, though."
+
+What will you do?
+1) Upgrade engine (1000c)
+2) Ask for information
+3) Decline the offer
+[choice] 2
+You press Lionel for more information regarding the engine upgrade.
+
+He looks at you with an expression of disbelief.
+"What more information do you need? You go faster. Like, real fast. You think you knew fast? Hah, you thought wrong, my friend."
+
+What will you do?
+1) Upgrade engine (1000c)
+2) Ask for information
+3) Decline the offer
+[choice] 3
+"Come back anytime." He says.
+
+> speak to lionel
+"Hola! Changed your mind yet?"
+
+What will you do?
+1) Upgrade engine (1000c)
+2) Ask for information
+3) Decline the offer
+[choice] 3
+"Come back anytime." He says.
+
+> punch lionel
+You land a square punch on Lionel's left arm.
+"Oh, we playing punch for punch, are we?" He rolls up his sleeves with a devilish glint in his eyes. 
+
+How will you get out of this one?
+1) Beg for forgiveness
+2) Take him on
+[choice] 1
+You drop to your hands and knees and cry out for Lionel's forgiveness.
+Lionel scratches his head and looks down at you sceptically.
+"*sigh*....
+Listen, pull that kind of shit again, and I'll tear you a new one."
+
+You thank him for his kindness and leave the garage.
+
+You are in The Docks
+You can go north, south or west.
+You are at the docks. You can see your ship, the Flying Colours, grounded just at the end of the airport.
+To the north there is a mechanic's garage.
+To the south is your ship.
+
+> s
+You are in Flying Colours
+There is helm here.
+You can go north.
+You're at the helm of the Flying Colours.
+If you are ready to leave, simply type in man helm to take off.
+
+> man helm
+You are in Flying Colours
+You order your crew to prepare for take-off. The rotors start up and away you go, off into the great expanse of the sky.
+
+The take-off is clean and there is minimum turbulence, quite impressive for a captain of your experience. You stand upon the deck, enjoying the clear skies, when suddenly, they're not so clear anymore.
+
+
+"Captain! Captain!"
+It's Tony, your first mate. In truth, he has as little experience as you, but is a good friend of yours whom you trust very much. You could find no other more suited for the role of first mate.
+
+"A dust storm, dead ahead cap'n! I've never seen anything like it before in my life!" cries Tony.
+"Well what'll we do then?" says one voice. "Yeah, what're we gonna do? C'mon captain, time to get to work!" says another. It seems you still don't quite have the trust of your crew yet.
+
+"Well, I guess we could just go through it..." suggests Tony "It's only a bit of dust, after all!"
+
+Hearing this, Kevin suddenly speaks up.
+"What're you, crazy kid? Those storms have been known to uproot mountains! You'll barely survive if you go through them!"
+He then turns to address you directly.
+"Way back when, the more daring captains would fly around these storms, but most of the time we used to wait out storms like this, since most of the time our ships were too slow to make it in good time. On the other hand, waiting behind meant that we're sitting ducks for pirates..."
+
+How will you deal with this situation, captain?
+1) Travel around the dust storm
+2) Travel through the dust storm
+3) Wait for the storm to subside
+[choice] 3
+You have decided to wait out the dust storm. Have you made the right decision..?
+
+...
+Eventually, the dust storm subsides. But that is not the end of your worries.
+"Captain.... Captain look. Over there."
+You look in the direction Tony is pointing and notice a small,  military class airship headed menacingly toward you. As if to confirm your suspicions, you recieve a message over the wireless intercom:
+"G'aarrr! We be here to provide ye with provision!" rasps a stereotype on the other end of the line.
+
+Pirates.
+
+Kevin pipes up suddenly.
+"Gaah. Don't you worry too much about them. Look, they're just small fry, not even armoured. I'm sure you've prepared something for this, captain."
+
+Pirates! How will you deal with them?
+1) Use your mounted cannon
+2) Allow them to board and fight them to the death!
+[choice] 1
+You order your crew to man the Heavy Repeater.
+With a heavy mechanic whine, the Repeater protrudes from your ship and bares its canon toward the pirate ship.
+
+Suddenly, over the intercom you hear the pirates frantically apologise and watch as their ship turns and flees.
+
+"Excellent work, captain!"
+"Yeah, good work!"
+"Nicely done, sir."
+
+Your crew can't help but be impressed by your preperation and quick decision making.
+Crew Tolerance +1
+You are in Era int
+And with that dealt with, it's time to move onto the next town: Era.
+
+You are in EDock
+You land in the next town. Upon leaving your ship, you notice that the dock workers are looking a little nervous. One of them says to you, "You'd best leave soon as you can if you know what's good for you. There's trouble here you do not want to get mixed up in.
+
+"That was rather ominous," Tony comments after leaving the docks. "Might be that we'll have to watch ourselves here."
+
+
+Thank you for playing the demo of the Birthday Assignment.
+
+To be continued...
+
+
+[runner] turns=47 leftover=0 running=false WON=YES

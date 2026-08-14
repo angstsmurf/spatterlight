@@ -1,0 +1,111 @@
+
+TARDIS Escape, v.002 Jim R. Harbis
+
+You awake in a huge room with a strange looking shaft surrounded by computer screens, levers, and buttons in the center of the room. The walls are gold with silver bumps on them. You can't help but wonder how the bloody hell you ended up in a place like this...
+
+There is a coat rack, the Wardrobe Staircase and the Floor Grating here.
+You can go west, up or down.
+The main room of the TARDIS.
+
+> look at coat rack
+This coat hanger appears to have been left here for quite a long time. There is a brown trenchcoat on it. 
+
+> take trenchcoat
+(first removing it from coat rack)
+You took
+What a nice, warm coat. And it's a perfect fit, too!
+
+> look at trenchcoat
+A brown trenchcoat that seems to be very new, unlike the old coat rack it was found on... I wonder if the owner left an I.D. in the breast pocket?
+
+> look at pocket
+There's something bulging inside of it...
+
+> take sonic screwdriver
+(first removing it from pocket)
+*
+You acquired the Sonic Screwdriver! Fantastic!
+
+> take note
+(first removing it from pocket)
+*
+You aquired a piece of the note!
+
+> use sonic screwdriver on wardrobe staircase
+The door was unlocked.
+
+> up
+You are in TARDIS Wardrobe
+There is a closet and the Zero Chamber Door here.
+You can go west or down.
+
+> look at closet
+You are scared to open it and see what's inside...
+
+> open closet
+You open the doors.
+
+> take scrap
+(first removing it from closet)
+*
+You took the scrap of paper
+
+> use sonic screwdriver on zero chamber door
+The door was unlocked.
+
+> west
+You are in the Zero Chamber
+There is a crowbar here.
+You can go east.
+As soon as you enter the room you begin to float in the air. 
+
+> take crowbar
+Yout took the crowbar
+
+> east
+You are in TARDIS Wardrobe
+There is a closet and the Zero Chamber Door here.
+You can go west or down.
+
+> down
+
+There is a coat rack, the Wardrobe Staircase and the Floor Grating here.
+You can go west, up or down.
+The main room of the TARDIS.
+
+> use crowbar on floor grating
+You pried the grating up and tossed it aside.
+
+> down
+You are in the Maintainence Area
+There is the TARDIS Key here.
+You can go up.
+This room is under the metal grating of the TARDIS console. there appears to be some small item that is just out of your reach...
+
+> take tardis key
+Well, you could reach it after all!
+
+> up
+
+There is a coat rack, the Wardrobe Staircase and the Floor Grating here.
+You can go west, up or down.
+The main room of the TARDIS.
+
+> west
+You are at the door.
+There is a phone here.
+You can go east or west.
+
+> use tardis key on door
+The door was unlocked.
+
+> west
+You are in Outdoors
+There is The Doctor here.
+You can go east.
+You made it out! now, go give the Doctor his coat back, and be prepared for the adventure of your life!
+Who is that man over there?
+
+> give trenchcoat to the doctor
+"Thank you!" Says the Doctor.
+[runner] turns=24 leftover=0 running=false WON=YES

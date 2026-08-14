@@ -1,0 +1,69 @@
+
+Space: The Final Fuck Up., v1.0 Stretch: stretch@gentec.force9.co.uk
+
+SPACE: THE FINAL FUCK UP
+
+You are Conner Mclain. Conner to your friends.
+
+You awake out of your stasis pod and rub your eyes in preperation to greet the others. But your the only one up.
+Every one else is still sleeping. You look around. Everyone is dead. They're all dead. Everybody except you.......What the fuck is going on here people.
+
+Your mission............fuck knows.
+
+
+
+
+
+
+You are in Stasis Room
+There is a Pod and a Cupboard here.
+You can go out to Hallway.
+There are various pods around the room. They house the sleeping beuties.....I mean the crew. Each pod has a computer screen next to it. There are loads of wire, pipes and various other technical things around the place.
+
+> open cupboard
+You open the cupboard.
+There is a jar inside.
+
+> take jar
+You take the jar.
+
+> use jar on liquid
+You scoop up some of the liquid into the jar and seal it tightly.
+
+> out
+You are in Hallway
+There is a Control Panel and a Cat here.
+You can go to Stasis Room, Sciece Lab, Medilab, or the Bridge.
+A metalic hallway. There are panels all over the place.
+
+> go to sciece lab
+You are in the Sciece Lab
+There is a Microscope here.
+You can go out to Hallway.
+You can go to Escape Pod.
+A lab for sciency things. You're not sure how everything works though.
+
+> use liquid on microscope
+It's a virus.....and an acid......it's an acidic virus.
+
+> out
+You are in Hallway
+There is a Control Panel and a Cat here.
+You can go to Stasis Room, Sciece Lab, Medilab, or the Bridge.
+A metalic hallway. There are panels all over the place.
+
+> go to the bridge
+You are in the Bridge
+There is the door and an Alien here.
+There's loadsa triddle knobs and things here, but more importantly is the alien in the corner of the room.
+
+> use liquid on alien
+You throw the contents of the jar onto the creature. It desovles too. Cool. You take control of the shit and fly off to the nearest pub for a pint or two.
+
+
+
+
+
+
+
+[runner] turns=9 leftover=0 running=false WON=YES

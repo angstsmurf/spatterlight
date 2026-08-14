@@ -1,0 +1,6624 @@
+
+Wizard, v1.3 Wonderjudge
+
+Wizard!
+
+By Wonderjudge.
+If you have any questions or comments you can e-mail me at ..
+wonderjudge22@yahoo.com
+If you need spellcasting instructions you will find that option on the drop down menu or you can simply type instructions.
+
+Press any key to continue.
+
+
+Growing up you always knew you were special. You could do strange things the other kids could not, like opening doors without touching them, making friends with unfriendly animals and things of that nature.
+Naturally this made you very unpopular around town. Upon reaching the age of 18 your widowed mother decides to send you off to the wizards who live in the tower by the sea. The master wizards there find you to be an apt pupil with a great amount of power and you learn quickly.
+You have been here almost a month now. The grand wizard flings open your door in haste one morning and tells you that a summoning has gone amiss and that he is magically hiding the entrance to your room for your own protection. He then says he must do the same for the other students.
+You hear him shut your door and mumble an incantation. A few moments later you can hear a scream from somewhere down the hall.
+Startled you jump out of bed!
+
+Press any key to continue....
+
+
+
+You are in Your Bedroom (in almost total darkness)
+You are in your bedroom. the only light comes dimly in from the edges of your closed door. You do notice you have gone to sleep holding your spellbook again.
+
+> memorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) !
+5) !
+6) !
+7) !
+8) !
+9) !
+10) !
+11) !
+12) !
+[choice] 1
+You memorize the Illuminate spell.
+
+> illuminate
+You cast the Illuminate spell. Bright light fills the area.
+Bright light shines all around your bedroom now.
+You are in Your Bedroom (filled with bright light).
+There is a Door surrounded by a magical glow, a Bed and a Dresser here.
+You can go east.
+Your bedroom is a small nook of the tower not much bigger than a large closet. The only furnishings here are a small bed and dresser. 
+The door out is to the east.
+
+> look at dresser
+A small dresser for putting clothes in.
+
+> open dresser
+You open the dresser.
+
+> take robe
+(first removing it from Dresser)
+Done.
+You pick it up.
+
+> wear robe
+You don your robe.
+
+> look under bed
+You look under your bed. You find the scroll you lost.
+
+
+> take dusty scroll
+You pick it up.
+
+> memorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) !
+5) !
+6) !
+7) !
+8) !
+9) !
+10) !
+11) !
+12) !
+[choice] 3
+You memorize the Scribe spell.
+
+> scribe dusty scroll
+You cast the Scribe spell on the Dusty scroll.
+The scroll glows brightly as the spell is copied into your spellbook. Then vanishes.
+
+> memorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) !
+6) !
+7) !
+8) !
+9) !
+10) !
+11) !
+12) !
+[choice] 2
+You memorize the Unlock spell.
+
+> read spellbook
+Spells:
+
+Illuminate:   Lights up the area.
+Unlock:   Unlocks normally locked objects.
+Scribe:   Writes a spell on a scroll into your spellbook.
+Detect magic:   Detects the presence of magic or magically imbued objects in the immediate area.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+Your door suddenly stops glowing!
+That can mean only one thing.
+
+Something has happened to the wizard who sealed it!
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> east
+You are on a Spiral Staircase.
+You can go west, northwest or southwest.
+You are walking along the great spiral staircase that runs all the way up the tower. The stair continues up to the northwest and down to the southwest. There is also a doorway leading west to your bedroom.
+
+> northwest
+You are on a Spiral Staircase.
+There is a small wooden Door here.
+You can go east, northeast or southeast.
+You are walking along the great spiral staircase that runs all the way up the tower. The stairs continue down to the northeast and up to the top of the tower to the southeast. There is also a small doorway to the east.
+
+> southeast
+You are at the Top of the tower.
+There is a Telescope here.
+You can go down.
+You are standing on the very top of the wizard tower. You can see out to sea from here. It is a very beautiful view. A spiral stair leads back down into the tower from here.
+
+> reach in telescope
+You reach in the telescope and pull out an invisible object. It feels like a scroll.
+
+> memorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) !
+6) !
+7) !
+8) !
+9) !
+10) !
+11) !
+12) !
+[choice] 3
+You memorize the Scribe spell.
+
+> scribe invisible scroll
+You cast the Scribe spell on the Invisible scroll.
+Something glows brightly as a spell is copied into your spellbook then dissapears..... (again)
+
+> down
+You are on a Spiral Staircase.
+There is a small wooden Door here.
+You can go east, northeast or southeast.
+You are walking along the great spiral staircase that runs all the way up the tower. The stairs continue down to the northeast and up to the top of the tower to the southeast. There is also a small doorway to the east.
+
+> unlock door
+You cast Unlock on the Door.
+The door unlocks.
+
+> east
+You are in a Closet.
+There is a Broom, an Empty bucket and a small Mouse hole in the wall here.
+You can go west.
+You are in a small dingy closet. Various old torn robes and broken vials lie strewn on the floor. The only exit is to the west.
+
+> take broom
+You pick it up.
+
+> take empty bucket
+You pick it up.
+
+> west
+You are on a Spiral Staircase.
+There is Door here.
+You can go east, northeast or southeast.
+You are walking along the great spiral staircase that runs all the way up the tower. The stairs continue down to the northeast and up to the top of the tower to the southeast. There is also a small doorway to the east.
+
+> northeast
+You are on a Spiral Staircase.
+You can go west, northwest or southwest.
+You are walking along the great spiral staircase that runs all the way up the tower. The stair continues up to the northwest and down to the southwest. There is also a doorway leading west to your bedroom.
+
+> southwest
+You are on a Spiral Staircase.
+There is a Collapsed wall blocking the stairs here.
+You can go northeast or northwest.
+You are walking along the great spiral staircase that runs all the way up the tower. The stair continues up to the northeast and downward toward the northwest. However there is a large section of wall that is collapsed into the stair (I wonder what happened there?) blocking the way down.
+
+> memorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) !
+7) !
+8) !
+9) !
+10) !
+11) !
+12) !
+[choice] 5
+You memorize the Levitate spell.
+
+> levitate collapsed wall
+You cast Levitate on the Collapsed wall.
+The wall levitates enough for you to get by.
+Do you want to pass under the wall?
+1) Yes
+2) No
+[choice] yes
+You quickly pass under the wall.
+You are on a Spiral Staircase.
+There is a Collapsed wall blocking the stairs here.
+You can go south, southeast or southwest.
+You are walking along the great spiral staircase that runs all the way up the tower. The stair continues upwards to the southwest and downwards to the southeast. There is also a doorway to the south. However there is a large section of wall that is collapsed into the stair (I wonder what happened there?) blocking the way up.
+
+> south
+You are on the Library Balcony.
+There is a large crystal Chandelier hanging from the ceiling here.
+You can go north.
+You are on the balcony on the second floor of the library. Bookcases upon bookcases fill the area here. There doesn't appear to be any way down from here.
+
+> rmemorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) !
+7) !
+8) !
+9) !
+10) !
+11) !
+12) !
+[choice] 5
+You memorize the Gravitate spell.
+
+> gravitate chandelier
+You cast Gravitate on the Chandelier.
+The large chandelier creaks with pressure then snaps from the ceiling and crashes into the floor below.
+
+> north
+You are on a Spiral Staircase.
+There is a Collapsed wall blocking the stairs here.
+You can go south, southeast or southwest.
+You are walking along the great spiral staircase that runs all the way up the tower. The stair continues upwards to the southwest and downwards to the southeast. There is also a doorway to the south. However there is a large section of wall that is collapsed into the stair (I wonder what happened there?) blocking the way up.
+
+> southeast
+You are on a Spiral Staircase.
+You can go north, northeast or northwest.
+You are walking along the great spiral staircase that runs all the way up the tower. The stair continues upwards to the northeast and downwards to the northwest. There is also a doorway to the north.
+
+
+> north
+You are in a Library.
+There is a Broken Chandelier and a Control Desk here.
+You can go south.
+You are in the main part of the wizard tower's extensive library. Bookcases fill the area here all the way up to the second floor. There is a small control desk at the front of the entrance.
+
+> examine broken chandelier
+You look over the wreckage of the chandelier and find a small yellow bead.
+
+> take yellow bead
+You pick it up.
+
+> speak to control desk
+Central library control desk welcomes you...
+
+How can I assist you today?
+1) Check out a book by number
+2) Search for relevant topic
+3) Search for hidden secret things in the libray
+[choice] 1
+Please specify row number (1-2000).
+Please specify book (a-e).
+The approprate book comes flying off one of the shelves and lands on the desk.
+You open the book and notice it has been hollowed out in the center and there is a small yellow bead in the center.
+The Control desk shouts!
+"Who has been desecrating my books!?!?!"
+"Not me." You say removing the yellow bead.
+The book flys out of your hand and into a pile of books in the back labeled "for repair"
+
+
+> speak to control desk
+Central library control desk welcomes you...
+
+How can I assist you today?
+1) Check out a book by number
+2) Search for relevant topic
+3) Search for hidden secret things in the libray
+[choice] 2
+What topic would you like to look up?
+A book flies off the shelf and lands on the control desk. You pick it up and start reading.
+
+You are sure now that the portal in the summoning lab is not a summoning portal.
+It is a teleportation portal and it has become unstable. That is why it is shifting colors.
+According to the book you should never enter a shifting portal when the mist is black. The other colors will lead to random locations.
+If you want to find out where the portal was originally going then you will need to find a way to stabilize it.
+
+You place the book down and it flies back into place.
+
+
+> speak to control desk
+Central library control desk welcomes you...
+
+How can I assist you today?
+1) Check out a book by number
+2) Search for relevant topic
+3) Search for hidden secret things in the libray
+[choice] 3
+"Hehe this is a joke that has been played on many new comers to the wizard tower."
+"There are no secret rooms behind bookcases and no hidden things in this library."
+
+> speak to control desk
+Central library control desk welcomes you...
+
+How can I assist you today?
+1) Check out a book by number
+2) Search for relevant topic
+3) Search for hidden secret things in the libray
+[choice] 3
+"I have told you, This is a joke. There are no secrets in this library."
+
+> speak to control desk
+Central library control desk welcomes you...
+
+How can I assist you today?
+1) Check out a book by number
+2) Search for relevant topic
+3) Search for hidden secret things in the libray
+[choice] 3
+"You don't listen do you.
+There are no secrets here."
+
+> speak to control desk
+Central library control desk welcomes you...
+
+How can I assist you today?
+1) Check out a book by number
+2) Search for relevant topic
+3) Search for hidden secret things in the libray
+[choice] 3
+"Boy, you are just not getting it!
+NO SECRETS!!!!!!!"
+
+> speak to control desk
+Central library control desk welcomes you...
+
+How can I assist you today?
+1) Check out a book by number
+2) Search for relevant topic
+3) Search for hidden secret things in the libray
+[choice] 3
+"Ok fine there is but one secret in here. I have been instructed to give you this scroll."
+
+A scroll pops up out of the control desk.
+
+> take secret library scroll
+You pick it up.
+
+> take yellow bead
+Which yellow bead do you mean?
+1) Yellow Bead
+2) Yellow Bead
+[choice] 2
+You pick it up.
+
+> south
+You are on a Spiral Staircase.
+You can go north, northeast or northwest.
+You are walking along the great spiral staircase that runs all the way up the tower. The stair continues upwards to the northeast and downwards to the northwest. There is also a doorway to the north.
+
+
+> northwest
+You are on a Spiral Staircase.
+You can go east, northeast or southeast.
+You are walking along the great spiral staircase that runs all the way up the tower. You are on the ground floor here. The stair winds upward to the southeast and winds downward into the basement to the northeast. There is also a doorway, to the main level, leading east.
+
+> east
+You are in the Main Entrance.
+There is a Door set in the east wall and two Giant statues here.
+You can go south, east or west.
+This is the main entrance to the tower. Great double doors lead out to the courtyard. Flanking the double doors on either side are two large statues of knights with great swords. An archway to the west leads onto the great spiral stair that winds up the tower. Another doorway leads to the east.
+
+> examine giant statues
+You notice that some of the pieces of the statue are movable.
+
+Will you fiddle with the statues?
+1) Yes
+2) No
+[choice] yes
+It looks like you can turn the heads and shields of the statues to the left or right.  And the open arm of the statues you can move up or down.
+Currently..
+
+The left statue's arm is down.
+It's shield is turned to the left.
+It's head is turned to the left.
+The right statue's arm is down.
+It's shield is turned to the right.
+It's head is turned to the right.
+Which one will you move?
+1) Left Arm
+2) Right Arm
+3) Left Shield
+4) Right Shield
+5) Left Head
+6) Right Head
+7) Exit
+[choice] 1
+You raise the left arm up.
+Currently..
+
+The left statue's arm is up.
+It's shield is turned to the left.
+It's head is turned to the left.
+The right statue's arm is down.
+It's shield is turned to the right.
+It's head is turned to the right.
+Which one will you move?
+1) Left Arm
+2) Right Arm
+3) Left Shield
+4) Right Shield
+5) Left Head
+6) Right Head
+7) Exit
+[choice] 3
+You turn the shield right.
+Currently..
+
+The left statue's arm is up.
+It's shield is turned to the right.
+It's head is turned to the left.
+The right statue's arm is down.
+It's shield is turned to the right.
+It's head is turned to the right.
+Which one will you move?
+1) Left Arm
+2) Right Arm
+3) Left Shield
+4) Right Shield
+5) Left Head
+6) Right Head
+7) Exit
+[choice] 5
+You turn the head to the right.
+Currently..
+
+The left statue's arm is up.
+It's shield is turned to the right.
+It's head is turned to the right.
+The right statue's arm is down.
+It's shield is turned to the right.
+It's head is turned to the right.
+Which one will you move?
+1) Left Arm
+2) Right Arm
+3) Left Shield
+4) Right Shield
+5) Left Head
+6) Right Head
+7) Exit
+[choice] 2
+You raise the right arm up.
+Currently..
+
+The left statue's arm is up.
+It's shield is turned to the right.
+It's head is turned to the right.
+The right statue's arm is up.
+It's shield is turned to the right.
+It's head is turned to the right.
+Which one will you move?
+1) Left Arm
+2) Right Arm
+3) Left Shield
+4) Right Shield
+5) Left Head
+6) Right Head
+7) Exit
+[choice] 3
+You turn the shield left.
+Currently..
+
+The left statue's arm is up.
+It's shield is turned to the left.
+It's head is turned to the right.
+The right statue's arm is up.
+It's shield is turned to the right.
+It's head is turned to the right.
+Which one will you move?
+1) Left Arm
+2) Right Arm
+3) Left Shield
+4) Right Shield
+5) Left Head
+6) Right Head
+7) Exit
+[choice] 4
+You turn the shield to the left.
+Currently..
+
+The left statue's arm is up.
+It's shield is turned to the left.
+It's head is turned to the right.
+The right statue's arm is up.
+It's shield is turned to the left.
+It's head is turned to the right.
+Which one will you move?
+1) Left Arm
+2) Right Arm
+3) Left Shield
+4) Right Shield
+5) Left Head
+6) Right Head
+7) Exit
+[choice] 6
+You turn the head to the left.
+Currently..
+
+The left statue's arm is up.
+It's shield is turned to the left.
+It's head is turned to the right.
+The right statue's arm is up.
+It's shield is turned to the left.
+It's head is turned to the left.
+Which one will you move?
+1) Left Arm
+2) Right Arm
+3) Left Shield
+4) Right Shield
+5) Left Head
+6) Right Head
+7) Exit
+[choice] 1
+You lower the left arm down.
+Currently..
+
+The left statue's arm is down.
+It's shield is turned to the left.
+It's head is turned to the right.
+The right statue's arm is up.
+It's shield is turned to the left.
+It's head is turned to the left.
+Which one will you move?
+1) Left Arm
+2) Right Arm
+3) Left Shield
+4) Right Shield
+5) Left Head
+6) Right Head
+7) Exit
+[choice] 4
+You turn the shield to the right.
+Currently..
+
+The left statue's arm is down.
+It's shield is turned to the left.
+It's head is turned to the right.
+The right statue's arm is up.
+It's shield is turned to the right.
+It's head is turned to the left.
+Which one will you move?
+1) Left Arm
+2) Right Arm
+3) Left Shield
+4) Right Shield
+5) Left Head
+6) Right Head
+7) Exit
+[choice] 2
+You lower the right arm.
+The statues spring away from the doors and lock into place on the sides.
+
+> knock on door
+You hear a quivering voice from behind the door.
+
+"h-h-hello? Who i-is it? D-declare yourself."
+
+You reconize the voice of delbat a fellow student (although not a very good one) at the tower.
+
+"Open the door delbat." you say.
+
+"Oh, it's you come in then." 
+He unlocks and opens the door for you.
+
+
+> east
+You are in a Dormitory.
+There is a fellow student named Delbat here.
+You can go west or northwest.
+You are in the main dormitory of the tower. Beds line the walls here with little chests at the feet of the beds for storing personal belongings in. Your room may be small but at least you have some privacy. Another part of the dormitory lies to the northwest and the main entrance is to the west.
+
+> speak to delbat
+What will you say to Delbat?
+1) What happened Delbat?
+2) Where did everyone go?
+3) Do you want to come with me to investigate?
+4) 
+5) 
+[choice] 3
+"N-n-no t-thank you. I just w-want to go home now but I have no idea how t-to get the front doors open."
+"If you find a way to open them i'll give you this magical yellow bead i found."
+
+
+> speak to delbat
+What will you say to Delbat?
+1) What happened Delbat?
+2) Where did everyone go?
+3) Do you want to come with me to investigate?
+4) 
+5) I opened the main doors Delbat.
+[choice] 5
+"Ok. Great!"
+"I'll just go and check shall I."
+He leaves for a few minutes then returns.
+
+"Thank you! Thank you! I'm going home now. Here this is yours."
+He gives you a small yellow bead then runs quickly out the door.
+
+
+> northwest
+You are in a Dormitory.
+You can go southeast.
+You are a mor elaborate doritory. There are maybe a half dozen finely decorated and comfortable looking beds here. They all have large mahogany dressers and night stands next to them and are seperated from each other by thick, woolen, and finely designed curtains.
+This must be where the more advanced students bunk. The only exit is to the southeast.
+
+
+> examine beds
+You search all the beds and find a small yellow bead.
+
+> take yellow bead
+Which yellow bead do you mean?
+1) Yellow Bead
+2) Yellow Bead
+3) Yellow Bead
+4) Yellow Bead
+[choice] 4
+You pick it up.
+
+> examine night stands
+You search all the night stands and find a small handwritten note.
+
+
+> take small note
+You pick it up.
+
+> read small note
+"left-up.left-middle-right.left-up-right.left-middle-left.right-up.right-middle-left.right-up-left.right-middle-right.left-down.right-down."
+Hmmm sounds like directions.. You wonder what it could mean.
+
+> i
+You are carrying:
+Spellbook
+Robe (worn)
+Broom
+Empty bucket
+Yellow Bead
+Secret library scroll
+Yellow Bead
+Yellow Bead
+Yellow Bead
+small note
+
+> southeast
+You are in a Dormitory.
+You can go west or northwest.
+You are in the main dormitory of the tower. Beds line the walls here with little chests at the feet of the beds for storing personal belongings in. Your room may be small but at least you have some privacy. Another part of the dormitory lies to the northwest and the main entrance is to the west.
+
+> west
+You are in the Main Entrance.
+There is a Door leading to the barracks and two Giant statues here.
+You can go south, east or west.
+This is the main entrance to the tower. Great double doors lead out to the courtyard. Flanking the double doors on either side are two large statues of knights with great swords. An archway to the west leads onto the great spiral stair that winds up the tower. Another doorway leads to the east.
+
+> south
+You are in a Courtyard.
+There is a Body lying face down on the ground here.
+You can go north.
+You are in the courtyard of the wizard's tower. Roads lead off in many directions toward various towns but you have no interest in leaving til you get to the bottom of this. You can re-enter the tower to the north.
+
+> examine body
+You turn over the body and to your horror you recognize the wizard.
+It is Mercoz a flambouyant yet kind grand master here at the tower. He was your favorite mentor here. Alot of other students found him to be odd, always experimenting with strange spells but you chalked it up as being just a little eccentric.
+It saddens you greatly to see him in this state.
+
+
+> examine mercoz
+Grimly and with much sadness you look him over. All you can find is one of his spellbooks, a smudged note, and a small yellow bead.
+
+
+> take rainbow book
+You pick it up.
+
+> take smudged note
+You pick it up.
+
+> read smudged note
+--found--secret----m-----------extr-d-m-ntional---------puzzle in--------need beads-----gone-o-----found some-----------tower----not safe----------g-----------traitor---hidde----beads--one is--------ook 1112c.
+The rest of the note is far too smudged to make anything out.
+
+> take yellow bead
+Which yellow bead do you mean?
+1) Yellow Bead
+2) Yellow Bead
+3) Yellow Bead
+4) Yellow Bead
+5) Yellow Bead
+[choice] 4
+You pick it up.
+
+> memorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) !
+7) !
+8) !
+9) !
+10) !
+11) !
+12) !
+[choice] 3
+You memorize the Scribe spell.
+
+> scribe secret library scroll
+You cast the Scribe spell on the Secret library scroll.
+The scroll glows brightly as the spell is copied into your spellbook then dissapears.
+
+> memorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) !
+8) !
+9) !
+10) !
+11) !
+12) !
+[choice] 3
+You memorize the Scribe spell.
+
+> scribe rainbow book
+You cast the Scribe spell on the Rainbow book.
+The book glows brightly as the spell is copied into your spellbook then dissapears.
+
+> memorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) !
+9) !
+10) !
+11) !
+12) !
+[choice] 6
+You memorize the Enfeeble spell.
+
+> enfeeble
+You cast the Enfeeble spell.
+
+You feel strange....
+You feel your inteligence  slipping away.....
+
+You pick your nose for awhile then stop.
+
+
+> wait
+You look at your spellbook then throw it in frustration.
+
+
+> wait
+You stare at your hands as if you have never seen them before.
+
+
+> wait
+You stare at your hands as if you have never seen them before.
+
+
+> wait
+You bumble around and suck on your thumb for a bit.
+
+
+> wait
+You pick your nose for awhile then stop.
+
+
+> wait
+You look at your spellbook then throw it in frustration.
+
+
+> wait
+You stare at your hands as if you have never seen them before.
+
+
+> wait
+You stare at your hands as if you have never seen them before.
+
+
+> wait
+You look at your spellbook then throw it in frustration.
+
+
+> wait
+You bumble around and suck on your thumb for a bit.
+
+
+> wait
+You bumble around and suck on your thumb for a bit.
+
+
+> wait
+You pick your nose for awhile then stop.
+
+
+> wait
+You pick your nose for awhile then stop.
+
+
+> wait
+You pick your nose for awhile then stop.
+
+
+> wait
+You stare at your hands as if you have never seen them before.
+
+
+> wait
+You pick your nose for awhile then stop.
+
+
+> wait
+You look at your spellbook then throw it in frustration.
+
+
+> wait
+You bumble around and suck on your thumb for a bit.
+
+
+> wait
+You pick your nose for awhile then stop.
+
+
+> wait
+You stare at your hands as if you have never seen them before.
+
+
+> wait
+You look at your spellbook then throw it in frustration.
+
+
+> wait
+You look at your spellbook then throw it in frustration.
+
+
+> wait
+You pick your nose for awhile then stop.
+
+
+> wait
+You bumble around and suck on your thumb for a bit.
+
+
+> wait
+You stare at your hands as if you have never seen them before.
+
+
+> wait
+You look at your spellbook then throw it in frustration.
+
+
+> wait
+You stare at your hands as if you have never seen them before.
+
+
+> wait
+You drool a little then sit down for a bit.
+
+
+> wait
+You bumble around and suck on your thumb for a bit.
+
+
+> wait
+You pick your nose for awhile then stop.
+
+
+> wait
+You drool a little then sit down for a bit.
+
+
+> wait
+You pick your nose for awhile then stop.
+
+
+> wait
+You pick your nose for awhile then stop.
+
+
+> wait
+You bumble around and suck on your thumb for a bit.
+
+
+> wait
+You stare at your hands as if you have never seen them before.
+
+
+> wait
+You look at your spellbook then throw it in frustration.
+
+
+> wait
+You look at your spellbook then throw it in frustration.
+
+
+> wait
+You look at your spellbook then throw it in frustration.
+
+
+> wait
+You drool a little then sit down for a bit.
+
+
+> wait
+You pick your nose for awhile then stop.
+
+
+> wait
+You pick your nose for awhile then stop.
+
+
+> wait
+You stare at your hands as if you have never seen them before.
+
+
+> wait
+You drool a little then sit down for a bit.
+
+
+> wait
+You bumble around and suck on your thumb for a bit.
+
+
+> wait
+You bumble around and suck on your thumb for a bit.
+
+You feel back to normal again.
+
+> wait
+Time passes.
+
+> take spellbook
+You pick it up.
+
+> rmemorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) !
+9) !
+10) !
+11) !
+12) !
+[choice] 6
+You memorize the Enlighten spell.
+
+> enlighten
+You cast the Enlighten spell.
+
+You feel strange....
+You feel your mind expanding. Your understanding of complex things increases.
+
+> memorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) !
+9) !
+10) !
+11) !
+12) !
+[choice] 7
+You memorize the Bremoval spell.
+
+> memorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) !
+9) !
+10) !
+11) !
+12) !
+[choice] 7
+You memorize the Bremoval spell.
+
+> rmemorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) !
+9) !
+10) !
+11) !
+12) !
+[choice] 7
+You memorize the Badder spell.
+
+> rmemorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) !
+9) !
+10) !
+11) !
+12) !
+[choice] 7
+You memorize the Badder spell.
+
+> rmemorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) !
+9) !
+10) !
+11) !
+12) !
+[choice] 7
+You memorize the Badder spell.
+
+> spells
+Spells:
+
+Bremoval:  Removes B's
+Bremoval:  Removes B's
+Badder:  Adds a B.
+Badder:  Adds a B.
+Badder:  Adds a B.
+
+
+> north
+You are in the Main Entrance.
+There is a Door leading to the barracks and two Giant statues here.
+You can go south, east or west.
+This is the main entrance to the tower. Great double doors lead out to the courtyard. Flanking the double doors on either side are two large statues of knights with great swords. An archway to the west leads onto the great spiral stair that winds up the tower. Another doorway leads to the east.
+
+> west
+You are on a Spiral Staircase.
+You can go east, northeast or southeast.
+You are walking along the great spiral staircase that runs all the way up the tower. You are on the ground floor here. The stair winds upward to the southeast and winds downward into the basement to the northeast. There is also a doorway, to the main level, leading east.
+
+> northeast
+You are in the Basement.
+You can go north, south or up.
+You are in the basement of the tower. The great spiral stair that winds up through the tower starts here. There are also two archways leading north to the alchemy lab and south to the summoning lab.
+
+> south
+You are in the Summoning Labratory.
+There is a Swirling Misty Portal above the pentagram here.
+You can go north.
+You are in a large labratory used by the wizard's to teach the art of summoning to it's advanced students. You have never been in here yourself as you are a new student. In the center of the room is a large pentegram, used as a safety net for advanced summons. The lab itself has been virtually ripped to shreds. Broken equipment lies everywhere and there is blood on the floor and walls. The only exit is to the north.
+
+The mist in the portal is currently blue.
+
+
+> enter portal
+You enter the swirling portal. You feel like you are being squeezed from all sides and then folded and then suddenly you find yourself elsewhere.
+
+You are at a Lake shore.
+There is some Sand, some lake Water and a Misty White Portal here.
+You are on the shore of a small lake. There is an island in the center of the lake. All around you are think brambles preventing you from traveling along the shoreline. The water is full of snapping turtles making swimming impossible.
+
+
+> use empty bucket on sand
+You fill the bucket with sand.
+
+
+> enter misty white portal
+You enter the swirling portal. You feel like you are being squeezed from all sides and then folded and then suddenly you find yourself elsewhere.
+
+You are in the Summoning Labratory.
+There is a Swirling Misty Portal above the pentagram here.
+You can go north.
+You are in a large labratory used by the wizard's to teach the art of summoning to it's advanced students. You have never been in here yourself as you are a new student. In the center of the room is a large pentegram, used as a safety net for advanced summons. The lab itself has been virtually ripped to shreds. Broken equipment lies everywhere and there is blood on the floor and walls. The only exit is to the north.
+
+The mist in the portal is currently blue.
+
+
+> north
+You are in the Basement.
+You can go north, south or up.
+You are in the basement of the tower. The great spiral stair that winds up through the tower starts here. There are also two archways leading north to the alchemy lab and south to the summoning lab.
+
+> north
+You are in the Alchemy labratory.
+There is a Blackboard fixed to the wall, a Glass Machine, a Potion Dispenser and a Potion Mixer here.
+You can go south.
+You are in a labratory. Strange devices are all about the place as well as strange ingredients and mixes all along the shelves here. The exit is to the south.
+
+
+> look at potion dispenser
+This is a large machine sitting in the center of the room here. It has a small opening and three buttons. A red one, a Yellow one, and an unlabeled one.
+
+
+> look at potion mixer
+This strange device sits in the corner of the room. There are two openings in the front of the machine and a dispenser on the side. On the other side is a small lever.
+
+
+> use bucket of sand on glass machine
+You pour the sand into the machine. It makes alot of strange noises then a beaker pops out in the dispenser on the side.
+
+Strangely enough your bucket refills itself with sand.
+
+
+> take empty beaker
+(first removing it from Glass Machine)
+Done.
+You pick it up.
+
+> use empty beaker on potion dispenser
+You place the beaker in the dispenser.
+
+
+> push red button
+You press the button. The dispenser makes alot of strange noises then some red fluid pours out into the beaker.
+
+
+> take beaker
+(first removing it from Potion Dispenser)
+Done.
+You pick it up.
+
+> use beaker on potion mixer
+You place the Beaker (filled with red fluid) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises as the beaker empties. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take red potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use bucket of sand on glass machine
+You pour the sand into the machine. It makes alot of strange noises then a beaker pops out in the dispenser on the side.
+
+Strangely enough your bucket refills itself with sand.
+
+
+> take empty beaker
+(first removing it from Glass Machine)
+Done.
+You pick it up.
+
+> use empty beaker on potion dispenser
+You place the beaker in the dispenser.
+
+
+> push yellow button
+You press the button. The dispenser makes alot of strange noises then some yellow fluid pours out into the beaker.
+
+
+> take beaker
+(first removing it from Potion Dispenser)
+Done.
+You pick it up.
+
+> use beaker on potion mixer
+You place the Beaker (filled with yellow fluid) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises as the beaker empties. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take yellow potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use red potion on potion mixer
+You place the Red potion in the mixer.
+
+
+> use yellow potion on potion mixer
+You place the Yellow potion in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take orange potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use bucket of sand on glass machine
+You pour the sand into the machine. It makes alot of strange noises then a beaker pops out in the dispenser on the side.
+
+Strangely enough your bucket refills itself with sand.
+
+
+> take empty beaker
+(first removing it from Glass Machine)
+Done.
+You pick it up.
+
+> use empty beaker on potion dispenser
+You place the beaker in the dispenser.
+
+You feel the effects of the Enlighten spell wear off.
+
+> push red button
+You press the button. The dispenser makes alot of strange noises then some red fluid pours out into the beaker.
+
+
+> take beaker
+(first removing it from Potion Dispenser)
+Done.
+You pick it up.
+
+> use beaker on potion mixer
+You place the Beaker (filled with red fluid) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises as the beaker empties. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take red potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> south
+You are in the Basement.
+You can go north, south or up.
+You are in the basement of the tower. The great spiral stair that winds up through the tower starts here. There are also two archways leading north to the alchemy lab and south to the summoning lab.
+
+> south
+You are in the Summoning Labratory.
+There is a Swirling Misty Portal above the pentagram here.
+You can go north.
+You are in a large labratory used by the wizard's to teach the art of summoning to it's advanced students. You have never been in here yourself as you are a new student. In the center of the room is a large pentegram, used as a safety net for advanced summons. The lab itself has been virtually ripped to shreds. Broken equipment lies everywhere and there is blood on the floor and walls. The only exit is to the north.
+
+The mist in the portal is currently yellow.
+
+
+> drink red potion
+You drink the red potion.
+You feel a strange warmth rush through your body.
+
+
+> drink orange potion
+You drink the orange potion.
+You feel a blazing heat in your throat. Better not breathe on anything flammable.
+
+
+> enter portal
+You enter the swirling portal. You feel like you are being squeezed from all sides and then folded and then suddenly you find yourself elsewhere.
+
+You are on a Small ledge.
+There is a Misty White Portal here.
+You can go north.
+You are on a small ledge amid a snowy mountain. A path winds up the mountain to the north.
+
+> north
+You are on a Snowblown path.
+You can go south or northeast.
+You are on a path leading up the mountain side. The wind blows very hard here making it hard to see. The path continues up the mountain to the northeast and down to the south.
+
+
+> northeast
+You are on a Large ledge.
+There is a Wall of ice blocking the cave here.
+You can go north, east or southwest.
+You are on a large ledge set in the mountainside. The wind doesn't blow here so the temperature is bearable. The path up the mountain continues to the east and leads back down to the southwest. There is a small cave set in the cliff face to the north.
+
+
+> breathe on wall of ice
+You breathe fire on the wall of ice. It slowly melts away.
+
+
+> north
+You are in a Small cave.
+There is a Beast here.
+You can go south.
+You are in a small cave. Ice clings to the walls everywhere here. You can go back the way you came to the south.
+
+
+> bremoval beast
+You cast Bremoval on the Beast.
+
+You see the Beast go through a series of changes and with a tiny pop it becomes an......
+
+
+> rmemorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) !
+9) !
+10) !
+11) !
+12) !
+[choice] 1
+You memorize the Deluminate spell.
+
+> east
+You are in a Crystal cavern.
+There is a Yellow Bead and an Icy scroll here.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You are in a small cavern. Ice shines in the light coming from the ceiling. The light reflects everywhere giving it the look of crystal. It is difficult to tell where the exit is because of all the reflections.
+
+
+> take icy scroll
+You pick it up.
+
+> take yellow bead
+Which yellow bead do you mean?
+1) Yellow Bead
+2) Yellow Bead
+3) Yellow Bead
+4) Yellow Bead
+5) Yellow Bead
+6) Yellow Bead
+[choice] 6
+You pick it up.
+
+> deluminate
+You cast the Deluminate spell. It suddenly gets very dark.
+You are in total Darkness.
+You can go west.
+You are in total darkness now. You can't even see two feet in front of your face. There is a tiny ray of light coming from the west however.
+
+
+> west
+You are in a Small cave.
+You can go south or east.
+You are in a small cave. Ice clings to the walls everywhere here. You can go back the way you came to the south.
+
+
+> south
+You are on a Large ledge.
+You can go north, east or southwest.
+You are on a large ledge set in the mountainside. The wind doesn't blow here so the temperature is bearable. The path up the mountain continues to the east and leads back down to the southwest. There is a small cave set in the cliff face to the north.
+
+
+> southwest
+You are on a Snowblown path.
+You can go south or northeast.
+You are on a path leading up the mountain side. The wind blows very hard here making it hard to see. The path continues up the mountain to the northeast and down to the south.
+
+
+> south
+You are on a Small ledge.
+There is a Misty White Portal here.
+You can go north.
+You are on a small ledge amid a snowy mountain. A path winds up the mountain to the north.
+
+> enter misty white portal
+You enter the swirling portal. You feel like you are being squeezed from all sides and then folded and then suddenly you find yourself elsewhere.
+
+You are in the Summoning Labratory.
+There is a Swirling Misty Portal above the pentagram here.
+You can go north.
+You are in a large labratory used by the wizard's to teach the art of summoning to it's advanced students. You have never been in here yourself as you are a new student. In the center of the room is a large pentegram, used as a safety net for advanced summons. The lab itself has been virtually ripped to shreds. Broken equipment lies everywhere and there is blood on the floor and walls. The only exit is to the north.
+
+The mist in the portal is currently blue.
+
+
+> memorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) !
+9) !
+10) !
+11) !
+12) !
+[choice] 3
+You memorize the Scribe spell.
+
+> scribe icy scroll
+You cast the Scribe spell on the Icy scroll.
+The scroll glows brightly as the spell is copied into your spellbook. Then vanishes.
+
+> memorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) Charm
+9) !
+10) !
+11) !
+12) !
+[choice] 8
+You memorize the Charm spell.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+The mist in the portal changes color.
+
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+The mist in the portal changes color.
+
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> enter portal
+You enter the swirling portal. You feel like you are being squeezed from all sides and then folded and then suddenly you find yourself elsewhere.
+
+You are in a Forest.
+There is a Misty White Portal here.
+You can go north, south, east or west.
+You are in a dense forest. The trees form a sort of canopy here. Paths lead off in the four cardinal directions from here.
+
+
+> north
+You are on a Road.
+There is a couple of wild Boars here.
+You can go south or northeast.
+You are on a dirt road leading out of the forest to the south and heading towards a town to the northeast.
+
+
+> bremoval boars
+You cast Bremoval on the Boars.
+
+The boars start to implode then explode then with a loud pop they become...
+
+
+> take oars
+You pick them up.
+
+> northeast
+You are at the Town square.
+There is a Small boy here.
+You can go north, east, northwest or southwest.
+You are in the center of a small town set in the middle of nowhere. You think this might be not to far from the tower because you remember seeing one like this from the top of the tower. There are some stables to the east, a bar to the northwest, and a market to the north. The road out of town leads to the southwest.
+
+You feel the effects of the red potion wear off.
+
+
+> charm small boy
+You cast Charm on the Small boy.
+The boy looks up at you and says "Hi friend!"
+
+
+> speak to small boy
+"Hi! My mom says if I can beat this peg puzzle then she will buy me a new bag of marbles."
+"Can you show me how?"
+
+Will you try the puzzle?
+1) Yes
+2) No
+[choice] yes
+
+
+
+  
+Which peg do you wish to remove?
+1) 1
+2) 2
+3) 3
+4) 4
+5) 5
+6) 6
+7) 7
+8) 8
+9) 9
+10) 10
+[choice] 2
+
+
+
+  
+Which peg do you wish to move?
+1) Jump peg 4 with peg 7.
+2) Jump peg 5 with peg 9.
+3) 
+4) 
+5) 
+6) 
+7) 
+8) 
+9) 
+10) 
+[choice] 1
+
+
+
+  
+Which peg do you wish to move?
+1) Jump peg 2 with peg 1.
+2) Jump peg 5 with peg 6.
+3) Jump peg 8 with peg 9.
+4) 
+5) 
+6) 
+7) 
+8) 
+9) 
+10) 
+[choice] 1
+
+
+
+  
+Which peg do you wish to move?
+1) Jump peg 3 with peg 6.
+2) Jump peg 5 with peg 9.
+3) Jump peg 8 with peg 9.
+4) 
+5) 
+6) 
+7) 
+8) 
+9) 
+10) 
+[choice] 1
+
+
+
+  
+Which peg do you wish to move?
+1) Jump peg 5 with peg 4.
+2) Jump peg 5 with peg 8.
+3) Jump peg 5 with peg 9.
+4) Jump peg 8 with peg 9.
+5) 
+6) 
+7) 
+8) 
+9) 
+10) 
+[choice] 1
+
+
+
+  
+Which peg do you wish to move?
+1) Jump peg 8 with peg 9.
+2) Jump peg 6 with peg 10.
+3) 
+4) 
+5) 
+6) 
+7) 
+8) 
+9) 
+10) 
+[choice] 2
+
+
+
+  
+Which peg do you wish to move?
+1) Jump peg 3 with peg 1.
+2) Jump peg 9 with peg 8.
+3) Jump peg 8 with peg 9.
+4) 
+5) 
+6) 
+7) 
+8) 
+9) 
+10) 
+[choice] 1
+
+
+
+  
+Which peg do you wish to move?
+1) Jump peg 9 with peg 8.
+2) Jump peg 8 with peg 9.
+3) 
+4) 
+5) 
+6) 
+7) 
+8) 
+9) 
+10) 
+[choice] 1
+
+
+
+  
+Which peg do you wish to move?
+1) Jump peg 6 with peg 10.
+2) 
+3) 
+4) 
+5) 
+6) 
+7) 
+8) 
+9) 
+10) 
+[choice] 1
+
+
+
+  
+"Gee! Thanks my friend! I tell you what since you helped me so much you can have my spare bag of marbles and my three special marbles!"
+
+
+> take bag of marbles
+You pick it up.
+
+> take red marble
+Which red marble do you mean?
+1) Red marble
+2) Red marble
+[choice] 1
+You pick it up.
+
+> take red marble
+Which red marble do you mean?
+1) Red marble
+2) Red marble
+[choice] 2
+You pick it up.
+
+> take yellow bead
+Which yellow bead do you mean?
+1) Yellow Bead
+2) Yellow Bead
+3) Yellow Bead
+4) Yellow Bead
+5) Yellow Bead
+6) Yellow Bead
+7) Yellow Bead
+[choice] 7
+You pick it up.
+
+> memorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) Charm
+9) !
+10) !
+11) !
+12) !
+[choice] 8
+You memorize the Charm spell.
+
+> northwest
+You are in a Tavern.
+There is some Shelves filled with bottles and a Bartender serving drinks here.
+You can go north, east or southeast.
+You are in a small country tavern. A variety of liquors fill the shelves behind the bar. A grumpy looking bartender is serving drinks here.
+
+
+> examine shelves
+You look over the bottles on the shelves and notice one labeled "lue".
+
+
+> charm bartender
+You cast Charm on the Bartender.
+The bartender looks at you as is you were a long lost friend.
+
+
+> speak to bartender
+How can I help you my friend?
+1) I'll have an ale.
+2) Have you seen any scrolls or beads around here?
+3) Nice weather we are having huh?
+4) What is in that bottle labeled "lue"?
+5) 
+[choice] 4
+"That bottle? Oh that is a special concotion of mine. I call it lue. Libation under enchantment. It is soo good you'll swear it's enchanted."
+The cost is 10 copper pieces."
+
+
+> speak to bartender
+How can I help you my friend?
+1) I'll have an ale.
+2) Have you seen any scrolls or beads around here?
+3) Nice weather we are having huh?
+4) What is in that bottle labeled "lue"?
+5) Can I have the "lue" bottle?
+[choice] 5
+"Sure! Nothing is too good for a friend of mine!"
+
+
+> look at bottle of sludge
+A bottle of disgusting sludge.
+
+
+> take label
+(first removing it from Bottle of sludge)
+Done.
+You pick it up.
+
+> badder label
+You cast Badder on the Label.
+A "B" pops onto the label.
+
+
+> southeast
+You are at the Town square.
+There is a Small boy here.
+You can go north, east, northwest or southwest.
+You are in the center of a small town set in the middle of nowhere. You think this might be not to far from the tower because you remember seeing one like this from the top of the tower. There are some stables to the east, a bar to the northwest, and a market to the north. The road out of town leads to the southwest.
+
+
+> east
+You are in some Stables.
+There is a large Pile of hay in the corner and an Oat here.
+You can go west.
+You are in the stables for the town. Horse stalls line the large building. You can hear horses in the stalls. There is a large trough here. The only exit is to the west.
+
+
+> examine pile of hay
+Well, you don't find a needle but you do notice a yellow bead.
+
+
+> take yellow bead
+Which yellow bead do you mean?
+1) Yellow Bead
+2) Yellow Bead
+3) Yellow Bead
+4) Yellow Bead
+5) Yellow Bead
+6) Yellow Bead
+7) Yellow Bead
+8) Yellow Bead
+[choice] 8
+You pick it up.
+
+> take oat
+You pick it up.
+
+> west
+You are at the Town square.
+There is a Small boy here.
+You can go north, east, northwest or southwest.
+You are in the center of a small town set in the middle of nowhere. You think this might be not to far from the tower because you remember seeing one like this from the top of the tower. There are some stables to the east, a bar to the northwest, and a market to the north. The road out of town leads to the southwest.
+
+
+> southwest
+You are on a Road.
+You can go south or northeast.
+You are on a dirt road leading out of the forest to the south and heading towards a town to the northeast.
+
+
+> south
+You are in a Forest.
+There is a Misty White Portal here.
+You can go north, south, east or west.
+You are in a dense forest. The trees form a sort of canopy here. Paths lead off in the four cardinal directions from here.
+
+
+> enter misty white portal
+You enter the swirling portal. You feel like you are being squeezed from all sides and then folded and then suddenly you find yourself elsewhere.
+
+You are in the Summoning Labratory.
+There is a Swirling Misty Portal above the pentagram here.
+You can go north.
+You are in a large labratory used by the wizard's to teach the art of summoning to it's advanced students. You have never been in here yourself as you are a new student. In the center of the room is a large pentegram, used as a safety net for advanced summons. The lab itself has been virtually ripped to shreds. Broken equipment lies everywhere and there is blood on the floor and walls. The only exit is to the north.
+
+The mist in the portal is currently blue.
+
+
+> north
+You are in the Basement.
+You can go north, south or up.
+You are in the basement of the tower. The great spiral stair that winds up through the tower starts here. There are also two archways leading north to the alchemy lab and south to the summoning lab.
+
+> north
+You are in the Alchemy labratory.
+There is a Blackboard fixed to the wall, a Glass Machine, a Potion Dispenser, a Red Button on the potion dispenser, a Yellow Button on the potion dispenser, an Unlabeled Button on the potion dispenser, a Potion Mixer and a Lever here.
+You can go south.
+You are in a labratory. Strange devices are all about the place as well as strange ingredients and mixes all along the shelves here. The exit is to the south.
+
+
+> use label on unlabeled button
+You place the label over the unlabeled button.
+
+
+> look at potion dispenser
+This is a large machine sitting in the center of the room here. It has a small opening and three buttons. A red one, a Yellow one, and a Blue one.
+
+
+> use bucket of sand on glass machine
+You pour the sand into the machine. It makes alot of strange noises then a beaker pops out in the dispenser on the side.
+
+Strangely enough your bucket refills itself with sand.
+
+
+> take empty beaker
+(first removing it from Glass Machine)
+Done.
+You pick it up.
+
+> use empty beaker on potion dispenser
+You place the beaker in the dispenser.
+
+
+> push yellow button
+You press the button. The dispenser makes alot of strange noises then some yellow fluid pours out into the beaker.
+
+
+> take beaker
+(first removing it from Potion Dispenser)
+Done.
+You pick it up.
+
+> use beaker on potion mixer
+You place the Beaker (filled with yellow fluid) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises as the beaker empties. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take yellow potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use bucket of sand on glass machine
+You pour the sand into the machine. It makes alot of strange noises then a beaker pops out in the dispenser on the side.
+
+Strangely enough your bucket refills itself with sand.
+
+
+> take empty beaker
+(first removing it from Glass Machine)
+Done.
+You pick it up.
+
+> use empty beaker on potion dispenser
+You place the beaker in the dispenser.
+
+
+> push blue button
+You press the button. The dispenser makes alot of strange noises then some blue fluid pours out into the beaker.
+
+
+> take beaker
+(first removing it from Potion Dispenser)
+Done.
+You pick it up.
+
+> use beaker on potion mixer
+You place the Beaker (filled with blue fluid) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises as the beaker empties. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take blue potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use yellow potion on potion mixer
+You place the Yellow potion in the mixer.
+
+
+> use blue potion on potion mixer
+You place the Blue potion in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take green potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> memorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) Charm
+9) !
+10) !
+11) !
+12) !
+[choice] 3
+You memorize the Scribe spell.
+
+> memorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) Charm
+9) !
+10) !
+11) !
+12) !
+[choice] 5
+You memorize the Levitate spell.
+
+> memorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) Charm
+9) !
+10) !
+11) !
+12) !
+[choice] 4
+You memorize the Detect magic spell.
+
+> spells
+Spells:
+
+Badder:  Adds a B.
+Badder:  Adds a B.
+Scribe:  Writes a spell on a scroll into your spellbook.
+Levitate:  Raises an inanimate object six feet off the ground.
+Detect magic:  Detects the presence of magic or magically imbued objects in the immediate area.
+
+
+> south
+You are in the Basement.
+You can go north, south or up.
+You are in the basement of the tower. The great spiral stair that winds up through the tower starts here. There are also two archways leading north to the alchemy lab and south to the summoning lab.
+
+> south
+You are in the Summoning Labratory.
+There is a Swirling Misty Portal above the pentagram here.
+You can go north.
+You are in a large labratory used by the wizard's to teach the art of summoning to it's advanced students. You have never been in here yourself as you are a new student. In the center of the room is a large pentegram, used as a safety net for advanced summons. The lab itself has been virtually ripped to shreds. Broken equipment lies everywhere and there is blood on the floor and walls. The only exit is to the north.
+
+The mist in the portal is currently red.
+
+
+> drink green potion
+You drink the green potion.
+You feel a strange sensation in your ears and throat.
+
+
+> enter portal
+You enter the swirling portal. You feel like you are being squeezed from all sides and then folded and then suddenly you find yourself elsewhere.
+
+You are in a Forest.
+There is a Misty White Portal here.
+You can go north, south, east or west.
+You are in a dense forest. The trees form a sort of canopy here. Paths lead off in the four cardinal directions from here.
+
+
+> east
+You are in a Forest glen.
+There is an Oak tree in the center of the glen here.
+You can go west.
+You are in a small shaded glen in the forest. The canopy blocks out most of the sunlight here. The open area is surrounded by trees and brush and a lone path leads off to the west. A Great oak tree stands in the center of the glen.
+
+
+> climb oak tree
+You climb up the giant oak.
+
+You are Up a tree.
+There is a Songbird making a nest here.
+You can go down.
+You are amid the branches near the top of a large oak tree.
+
+
+> speak to songbird
+"Oh... Hello there..O drat I dropped my nest siding.... Oh well i'll have to go get some more."
+With that the little songbird flies off.
+
+
+> down
+You are in a Forest glen.
+There is an Oak tree in the center of the glen and a Crumpled scroll here.
+You can go west.
+You are in a small shaded glen in the forest. The canopy blocks out most of the sunlight here. The open area is surrounded by trees and brush and a lone path leads off to the west. A Great oak tree stands in the center of the glen.
+
+
+> take crumpled scroll
+You pick it up.
+
+> scribe crumpled scroll
+You cast the Scribe spell on the Crumpled scroll.
+The scroll glows brightly as the spell is copied into your spellbook. Then vanishes.
+
+> memorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) Charm
+9) Bind
+10) !
+11) !
+12) !
+[choice] 9
+You memorize the Bind spell.
+
+> west
+You are in a Forest.
+There is a Misty White Portal here.
+You can go north, south, east or west.
+You are in a dense forest. The trees form a sort of canopy here. Paths lead off in the four cardinal directions from here.
+
+
+> north
+You are on a Road.
+You can go south or northeast.
+You are on a dirt road leading out of the forest to the south and heading towards a town to the northeast.
+
+
+> northeast
+You are at the Town square.
+There is a Small boy here.
+You can go north, east, northwest or southwest.
+You are in the center of a small town set in the middle of nowhere. You think this might be not to far from the tower because you remember seeing one like this from the top of the tower. There are some stables to the east, a bar to the northwest, and a market to the north. The road out of town leads to the southwest.
+
+
+> northwest
+You are in a Tavern.
+There is some Shelves filled with bottles and a Bartender serving drinks here.
+You can go north, east or southeast.
+You are in a small country tavern. A variety of liquors fill the shelves behind the bar. A grumpy looking bartender is serving drinks here.
+
+
+> north
+You are in an Alley.
+There is a Shady looking man here.
+You can go south or southeast.
+You are in a narrow alley between a tavern and a church. Trash litters the area here.
+
+
+> bind shady looking man
+You cast Bind on the Shady looking man.
+
+Invisible cords seem to be wrapping themselves all around him. He slumpes into the corner unable to move.
+
+
+> examine shady looking man
+You look him over and find a small purse.
+
+
+> take small purse
+You pick it up.
+
+> open purse
+You open the purse.
+
+
+> look at purse
+a small coin pouch.
+
+> take copper coin
+(first removing it from Small purse)
+Done.
+You pick it up.
+
+> southeast
+You are in a Market.
+There is a Street Merchant here.
+You can go north, south, west or northwest.
+You are at the town market. Stalls selling all kinds of goods and food line the area here. You can go north to a church, west to a bar, south to the town square or northwest to an alley.
+
+
+> speak to street merchant
+"Do you wanna play sir?
+The cost is one copper coin. If you win you get this magical yellow bean. Just plant it anywhere and all your dreams come true."
+
+Do you want to play the shell game?
+1) Yes
+2) No
+[choice] yes
+You are at a Game table.
+There is a Table, a Left Shell, a Center Shell and a Right Shell here.
+You can go up.
+You are sitting at a carnival game table.
+You see the merchant put a red ball under one on the shells then with lightning speed he shuffles the shells around.
+You can't tell which one it's under.
+"Ok my friend pick a shell." he says.
+
+
+> look under table
+"C'mon friend pick a shell!" the merchant says.
+
+You notice the ball has gone into a small slot under the table.
+
+
+> levitate ball
+"C'mon friend pick a shell!" the merchant says.
+
+You cast Levitate on the Ball.
+The ball rises up into the shell of your choice.
+
+
+> pick left shell
+"C'mon friend pick a shell!" the merchant says.
+
+He lifts the shell and to his surprise the ball is there.
+"Well, um-um I guess you win. gratz. um here is your prize."
+
+
+> up
+"C'mon friend pick a shell!" the merchant says.
+
+You are in a Market.
+There is a Street Merchant here.
+You can go north, south, west or northwest.
+You are at the town market. Stalls selling all kinds of goods and food line the area here. You can go north to a church, west to a bar, south to the town square or northwest to an alley.
+
+
+> north
+You are in a Church.
+There is an Offering plate on the altar, a Small sign affixed to the altar and a Basket sitting on the altar here.
+You can go south.
+You are in small but well kept church. Stained glass windows let in sunlight for both sides here. Lines of pews run from the entrance down to near the back of the church. In the back there is an altar and a podium behind it.
+
+
+> detect magic
+You cast Detect Magic.
+The Bucket of sand glows briefly.
+The Yellow Bead glows briefly.
+The Yellow Bead glows briefly.
+The Yellow Bead glows briefly.
+The Yellow Bead glows briefly.
+The Yellow Bead glows briefly.
+The Yellow Bead glows briefly.
+The Yellow Bead glows briefly.
+The Red marble glows briefly.
+The Red marble glows briefly.
+The Yellow Bead glows briefly.
+The Yellow Bead glows briefly.
+
+> look at basket
+A small basket.
+
+
+> take yellow bead
+Which yellow bead do you mean?
+1) Yellow Bead
+2) Yellow Bead
+3) Yellow Bead
+4) Yellow Bead
+5) Yellow Bead
+6) Yellow Bead
+7) Yellow Bead
+8) Yellow Bead
+9) Yellow Bead
+10) Yellow Bead
+[choice] 9
+(first removing it from Basket)
+Done.
+You pick it up.
+
+> south
+You are in a Market.
+There is a Street Merchant here.
+You can go north, south, west or northwest.
+You are at the town market. Stalls selling all kinds of goods and food line the area here. You can go north to a church, west to a bar, south to the town square or northwest to an alley.
+
+
+> south
+You are at the Town square.
+There is a Small boy here.
+You can go north, east, northwest or southwest.
+You are in the center of a small town set in the middle of nowhere. You think this might be not to far from the tower because you remember seeing one like this from the top of the tower. There are some stables to the east, a bar to the northwest, and a market to the north. The road out of town leads to the southwest.
+
+
+> southwest
+You are on a Road.
+You can go south or northeast.
+You are on a dirt road leading out of the forest to the south and heading towards a town to the northeast.
+
+
+> south
+You are in a Forest.
+There is a Misty White Portal here.
+You can go north, south, east or west.
+You are in a dense forest. The trees form a sort of canopy here. Paths lead off in the four cardinal directions from here.
+
+
+> enter misty white portal
+You enter the swirling portal. You feel like you are being squeezed from all sides and then folded and then suddenly you find yourself elsewhere.
+
+You are in the Summoning Labratory.
+There is a Swirling Misty Portal above the pentagram here.
+You can go north.
+You are in a large labratory used by the wizard's to teach the art of summoning to it's advanced students. You have never been in here yourself as you are a new student. In the center of the room is a large pentegram, used as a safety net for advanced summons. The lab itself has been virtually ripped to shreds. Broken equipment lies everywhere and there is blood on the floor and walls. The only exit is to the north.
+
+The mist in the portal is currently black.
+
+
+> north
+You are in the Basement.
+You can go north, south or up.
+You are in the basement of the tower. The great spiral stair that winds up through the tower starts here. There are also two archways leading north to the alchemy lab and south to the summoning lab.
+
+> north
+You are in the Alchemy labratory.
+There is a Blackboard fixed to the wall, a Glass Machine, a Potion Dispenser, a Red Button on the potion dispenser, a Yellow Button on the potion dispenser, a Blue Button on the potion dispenser, a Potion Mixer and a Lever here.
+You can go south.
+You are in a labratory. Strange devices are all about the place as well as strange ingredients and mixes all along the shelves here. The exit is to the south.
+
+
+> use bucket of sand on glass machine
+You pour the sand into the machine. It makes alot of strange noises then a beaker pops out in the dispenser on the side.
+
+Strangely enough your bucket refills itself with sand.
+
+
+> take empty beaker
+(first removing it from Glass Machine)
+Done.
+You pick it up.
+
+> use empty beaker on potion dispenser
+You place the beaker in the dispenser.
+
+
+> push yellow button
+You press the button. The dispenser makes alot of strange noises then some yellow fluid pours out into the beaker.
+
+
+> take beaker
+(first removing it from Potion Dispenser)
+Done.
+You pick it up.
+
+> use beaker on potion mixer
+You place the Beaker (filled with yellow fluid) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises as the beaker empties. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take yellow potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> rmemorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) Charm
+9) Bind
+10) !
+11) !
+12) !
+[choice] 9
+You memorize the Unbind spell.
+
+> south
+You are in the Basement.
+You can go north, south or up.
+You are in the basement of the tower. The great spiral stair that winds up through the tower starts here. There are also two archways leading north to the alchemy lab and south to the summoning lab.
+
+> south
+You are in the Summoning Labratory.
+There is a Swirling Misty Portal above the pentagram here.
+You can go north.
+You are in a large labratory used by the wizard's to teach the art of summoning to it's advanced students. You have never been in here yourself as you are a new student. In the center of the room is a large pentegram, used as a safety net for advanced summons. The lab itself has been virtually ripped to shreds. Broken equipment lies everywhere and there is blood on the floor and walls. The only exit is to the north.
+
+The mist in the portal is currently black.
+
+
+> wait
+Time passes.
+The mist in the portal changes color.
+
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+The mist in the portal changes color.
+
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+You feel the effects of the orange potion wear off.
+
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+The mist in the portal changes color.
+
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> drink yellow potion
+You drink the yellow potion.
+You feel gills pop out of the side of you neck.
+
+
+> enter portal
+You enter the swirling portal. You feel like you are being squeezed from all sides and then folded and then suddenly you find yourself elsewhere.
+
+You are at a Lake shore.
+There is some Sand, some lake Water and a Misty White Portal here.
+You are on the shore of a small lake. There is an island in the center of the lake. All around you are think brambles preventing you from traveling along the shoreline. The water is full of snapping turtles making swimming impossible.
+
+
+> badder oat
+You cast Badder on the Oat.
+The oat seems to shimmer for a few momments then with a big POP! it becomes a....
+
+
+> enter boat
+You row over to the small island.
+
+You are on a Small island.
+There is a Trap door in the center of the island here.
+You can go down.
+You are standing on a small island in the middle of a lake.
+
+
+> unbind rope
+You cast Unbind on the Rope.
+
+The rope unties at lighting speed. You open the trap door.
+
+
+> take rope
+You pick it up.
+
+> down
+You swim down into the water.
+
+You are in a Flooded cavern.
+You can go east or up.
+You are swimming in a flooded cavern. You can make your way back up to the island from here or you can swim to the east.
+
+
+> east
+You are in a Sunken temple.
+There is a Giant statue here.
+You can go north, south, east or west.
+You are in a very large underground temple. By the looks of things this temple once stood above ground but has since sunken. There are huge archways leading to the north, south and east from here. You can also go back to the cavern to the west.
+
+You notice that there is about two feet of water covering the floor here. The water seems to be running in from the north.
+
+
+> north
+You are in the North wing.
+There is a Large shelf and Rain falling from the ceiling here.
+You can go south.
+You are in the north wing of a large sunken temple. This room looks to be like a large annex of the main part of the temple. The ceiling here is still about twenty feet high. A large archway leads back to the main temple to the south.
+
+The rain is causing the floor here to become flooded. There is about two feet of water on the ground.
+
+
+> badder rain
+You cast Badder on the Rain.
+The rain suddenly stops and with a big flash turns into...
+
+
+> take brain
+You pick it up.
+
+> south
+You are in a Sunken temple.
+There is a Giant statue here.
+You can go north, south, east or west.
+You are in a very large underground temple. By the looks of things this temple once stood above ground but has since sunken. There are huge archways leading to the north, south and east from here. You can also go back to the cavern to the west.
+
+
+> west
+You are in a Cavern.
+There is pile of Silt lying along the floor here.
+You can go east or up.
+You are in a large cavern hollowed out by water. You can climb up to the island or go east from here.
+
+
+> examine silt
+You sift through the silt and find a yellow bead.
+
+
+> take yellow bead
+Which yellow bead do you mean?
+1) Yellow Bead
+2) Yellow Bead
+3) Yellow Bead
+4) Yellow Bead
+5) Yellow Bead
+6) Yellow Bead
+7) Yellow Bead
+8) Yellow Bead
+9) Yellow Bead
+10) Yellow Bead
+11) Yellow Bead
+[choice] 11
+You pick it up.
+
+> up
+You are on a Small island.
+There is a Boat and a Trap door in the center of the island here.
+You can go down.
+You are standing on a small island in the middle of a lake.
+
+
+> enter boat
+You row over to the lake shore.
+
+You are at a Lake shore.
+There is some Sand, some lake Water and a Misty White Portal here.
+You are on the shore of a small lake. There is an island in the center of the lake. All around you are think brambles preventing you from traveling along the shoreline. The water is full of snapping turtles making swimming impossible.
+
+
+> enter misty white portal
+You enter the swirling portal. You feel like you are being squeezed from all sides and then folded and then suddenly you find yourself elsewhere.
+
+You are in the Summoning Labratory.
+There is a Swirling Misty Portal above the pentagram here.
+You can go north.
+You are in a large labratory used by the wizard's to teach the art of summoning to it's advanced students. You have never been in here yourself as you are a new student. In the center of the room is a large pentegram, used as a safety net for advanced summons. The lab itself has been virtually ripped to shreds. Broken equipment lies everywhere and there is blood on the floor and walls. The only exit is to the north.
+
+The mist in the portal is currently black.
+
+
+> north
+You are in the Basement.
+You can go north, south or up.
+You are in the basement of the tower. The great spiral stair that winds up through the tower starts here. There are also two archways leading north to the alchemy lab and south to the summoning lab.
+
+> north
+You are in the Alchemy labratory.
+There is a Blackboard fixed to the wall, a Glass Machine, a Potion Dispenser, a Red Button on the potion dispenser, a Yellow Button on the potion dispenser, a Blue Button on the potion dispenser, a Potion Mixer and a Lever here.
+You can go south.
+You are in a labratory. Strange devices are all about the place as well as strange ingredients and mixes all along the shelves here. The exit is to the south.
+
+
+> use bucket of sand on glass machine
+You pour the sand into the machine. It makes alot of strange noises then a beaker pops out in the dispenser on the side.
+
+Strangely enough your bucket refills itself with sand.
+
+
+> take empty beaker
+(first removing it from Glass Machine)
+Done.
+You pick it up.
+
+> use empty beaker on potion dispenser
+You place the beaker in the dispenser.
+
+
+> push red button
+You press the button. The dispenser makes alot of strange noises then some red fluid pours out into the beaker.
+
+
+> take beaker
+(first removing it from Potion Dispenser)
+Done.
+You pick it up.
+
+> use beaker on potion mixer
+You place the Beaker (filled with red fluid) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises as the beaker empties. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take red potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use bucket of sand on glass machine
+You pour the sand into the machine. It makes alot of strange noises then a beaker pops out in the dispenser on the side.
+
+Strangely enough your bucket refills itself with sand.
+
+
+> take empty beaker
+(first removing it from Glass Machine)
+Done.
+You pick it up.
+
+> use empty beaker on potion dispenser
+You place the beaker in the dispenser.
+
+
+> push yellow button
+You press the button. The dispenser makes alot of strange noises then some yellow fluid pours out into the beaker.
+
+
+> take beaker
+(first removing it from Potion Dispenser)
+Done.
+You pick it up.
+
+> use beaker on potion mixer
+You place the Beaker (filled with yellow fluid) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises as the beaker empties. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take yellow potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use bucket of sand on glass machine
+You pour the sand into the machine. It makes alot of strange noises then a beaker pops out in the dispenser on the side.
+
+Strangely enough your bucket refills itself with sand.
+
+
+> take empty beaker
+(first removing it from Glass Machine)
+Done.
+You pick it up.
+
+> use empty beaker on potion dispenser
+You place the beaker in the dispenser.
+
+
+> push blue button
+You press the button. The dispenser makes alot of strange noises then some blue fluid pours out into the beaker.
+
+
+> take beaker
+(first removing it from Potion Dispenser)
+Done.
+You pick it up.
+
+> use beaker on potion mixer
+You place the Beaker (filled with blue fluid) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises as the beaker empties. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take blue potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use yellow potion on potion mixer
+You place the Yellow potion in the mixer.
+
+
+> use blue potion on potion mixer
+You place the Blue potion in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take green potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use bucket of sand on glass machine
+You pour the sand into the machine. It makes alot of strange noises then a beaker pops out in the dispenser on the side.
+
+Strangely enough your bucket refills itself with sand.
+
+
+> take empty beaker
+(first removing it from Glass Machine)
+Done.
+You pick it up.
+
+> use empty beaker on potion dispenser
+You place the beaker in the dispenser.
+
+
+> push blue button
+You press the button. The dispenser makes alot of strange noises then some blue fluid pours out into the beaker.
+
+
+> take beaker
+(first removing it from Potion Dispenser)
+Done.
+You pick it up.
+
+> use beaker on potion mixer
+You place the Beaker (filled with blue fluid) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises as the beaker empties. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take blue potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use blue potion on potion mixer
+You place the Blue potion in the mixer.
+
+
+> use green potion on potion mixer
+You place the Green potion in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take violet potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> memorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) Charm
+9) Bind
+10) !
+11) !
+12) !
+[choice] 3
+You memorize the Scribe spell.
+You feel the effects of the yellow potion wear off.
+
+
+> south
+You are in the Basement.
+You can go north, south or up.
+You are in the basement of the tower. The great spiral stair that winds up through the tower starts here. There are also two archways leading north to the alchemy lab and south to the summoning lab.
+
+> south
+You are in the Summoning Labratory.
+There is a Swirling Misty Portal above the pentagram here.
+You can go north.
+You are in a large labratory used by the wizard's to teach the art of summoning to it's advanced students. You have never been in here yourself as you are a new student. In the center of the room is a large pentegram, used as a safety net for advanced summons. The lab itself has been virtually ripped to shreds. Broken equipment lies everywhere and there is blood on the floor and walls. The only exit is to the north.
+
+The mist in the portal is currently blue.
+
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+The mist in the portal changes color.
+
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+The mist in the portal changes color.
+
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+You feel the effects of the green potion wear off.
+
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+The mist in the portal changes color.
+
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> drink red potion
+You drink the red potion.
+You feel a strange warmth rush through your body.
+
+
+> enter portal
+You enter the swirling portal. You feel like you are being squeezed from all sides and then folded and then suddenly you find yourself elsewhere.
+
+You are on a Small ledge.
+There is a Misty White Portal here.
+You can go north.
+You are on a small ledge amid a snowy mountain. A path winds up the mountain to the north.
+
+> north
+You are on a Snowblown path.
+You can go south or northeast.
+You are on a path leading up the mountain side. The wind blows very hard here making it hard to see. The path continues up the mountain to the northeast and down to the south.
+
+
+> northeast
+You are on a Large ledge.
+You can go north, east or southwest.
+You are on a large ledge set in the mountainside. The wind doesn't blow here so the temperature is bearable. The path up the mountain continues to the east and leads back down to the southwest. There is a small cave set in the cliff face to the north.
+
+
+> east
+You are at the Top of the mountain.
+There is a large outcropping of Rock here.
+You can go south or west.
+You have come to the mountain top. Surprisingly the wind doesn't blow as much here. The path down the mountain is to the west. Also a steeper path leads down to the south. As you look down to the south you can see a tiny ledge set in the cliffside.
+
+
+> use rope on rock
+You tie the rope to the outcropping and let the other end dangle down the southern path.
+
+
+> south
+With the help of the rope you manage to make it to the tiny ledge.
+
+You are on a Tiny ledge.
+There is a Boulder here.
+You can go up or down.
+You are on a tiny ledge on the side of the mountain. You can climb back up the rope to the mountain top or slide down to the first small ledge.
+
+
+> use violet potion on boulder
+The acid pours out onto the boulder and slowly eats away at it until only the scroll is left.
+
+
+> take holey scroll
+You pick it up.
+
+> scribe holey scroll
+You cast the Scribe spell on the Holey scroll.
+The scroll glows brightly as the spell is copied into your spellbook. Then vanishes.
+
+> down
+You are on a Small ledge.
+There is a Misty White Portal here.
+You can go north.
+You are on a small ledge amid a snowy mountain. A path winds up the mountain to the north.
+
+> enter misty white portal
+You enter the swirling portal. You feel like you are being squeezed from all sides and then folded and then suddenly you find yourself elsewhere.
+
+You are in the Summoning Labratory.
+There is a Swirling Misty Portal above the pentagram here.
+You can go north.
+You are in a large labratory used by the wizard's to teach the art of summoning to it's advanced students. You have never been in here yourself as you are a new student. In the center of the room is a large pentegram, used as a safety net for advanced summons. The lab itself has been virtually ripped to shreds. Broken equipment lies everywhere and there is blood on the floor and walls. The only exit is to the north.
+
+The mist in the portal is currently blue.
+
+
+> north
+You are in the Basement.
+You can go north, south or up.
+You are in the basement of the tower. The great spiral stair that winds up through the tower starts here. There are also two archways leading north to the alchemy lab and south to the summoning lab.
+
+> north
+You are in the Alchemy labratory.
+There is a Blackboard fixed to the wall, a Glass Machine, a Potion Dispenser, a Red Button on the potion dispenser, a Yellow Button on the potion dispenser, a Blue Button on the potion dispenser, a Potion Mixer and a Lever here.
+You can go south.
+You are in a labratory. Strange devices are all about the place as well as strange ingredients and mixes all along the shelves here. The exit is to the south.
+
+
+> use bucket of sand on glass machine
+You pour the sand into the machine. It makes alot of strange noises then a beaker pops out in the dispenser on the side.
+
+Strangely enough your bucket refills itself with sand.
+
+
+> take empty beaker
+(first removing it from Glass Machine)
+Done.
+You pick it up.
+
+> use empty beaker on potion dispenser
+You place the beaker in the dispenser.
+
+
+> push red button
+You press the button. The dispenser makes alot of strange noises then some red fluid pours out into the beaker.
+
+
+> take beaker
+(first removing it from Potion Dispenser)
+Done.
+You pick it up.
+
+> use beaker on potion mixer
+You place the Beaker (filled with red fluid) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises as the beaker empties. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take red potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use bucket of sand on glass machine
+You pour the sand into the machine. It makes alot of strange noises then a beaker pops out in the dispenser on the side.
+
+Strangely enough your bucket refills itself with sand.
+
+
+> take empty beaker
+(first removing it from Glass Machine)
+Done.
+You pick it up.
+
+> use empty beaker on potion dispenser
+You place the beaker in the dispenser.
+
+
+> push yellow button
+You press the button. The dispenser makes alot of strange noises then some yellow fluid pours out into the beaker.
+
+
+> take beaker
+(first removing it from Potion Dispenser)
+Done.
+You pick it up.
+
+> use beaker on potion mixer
+You place the Beaker (filled with yellow fluid) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises as the beaker empties. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take yellow potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use red potion on potion mixer
+You place the Red potion in the mixer.
+
+
+> use yellow potion on potion mixer
+You place the Yellow potion in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take orange potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> rmemorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) Charm
+9) Bind
+10) Enchant
+11) !
+12) !
+[choice] 10
+You memorize the Disenchant spell.
+
+> memorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) Charm
+9) Bind
+10) Enchant
+11) !
+12) !
+[choice] 10
+You memorize the Enchant spell.
+
+> south
+You are in the Basement.
+You can go north, south or up.
+You are in the basement of the tower. The great spiral stair that winds up through the tower starts here. There are also two archways leading north to the alchemy lab and south to the summoning lab.
+
+> south
+You are in the Summoning Labratory.
+There is a Swirling Misty Portal above the pentagram here.
+You can go north.
+You are in a large labratory used by the wizard's to teach the art of summoning to it's advanced students. You have never been in here yourself as you are a new student. In the center of the room is a large pentegram, used as a safety net for advanced summons. The lab itself has been virtually ripped to shreds. Broken equipment lies everywhere and there is blood on the floor and walls. The only exit is to the north.
+
+The mist in the portal is currently red.
+
+
+> north
+You are in the Basement.
+You can go north, south or up.
+You are in the basement of the tower. The great spiral stair that winds up through the tower starts here. There are also two archways leading north to the alchemy lab and south to the summoning lab.
+
+> north
+You are in the Alchemy labratory.
+There is a Blackboard fixed to the wall, a Glass Machine, a Potion Dispenser, a Red Button on the potion dispenser, a Yellow Button on the potion dispenser, a Blue Button on the potion dispenser, a Potion Mixer and a Lever here.
+You can go south.
+You are in a labratory. Strange devices are all about the place as well as strange ingredients and mixes all along the shelves here. The exit is to the south.
+
+
+> use bucket of sand on glass machine
+You pour the sand into the machine. It makes alot of strange noises then a beaker pops out in the dispenser on the side.
+
+Strangely enough your bucket refills itself with sand.
+
+
+> take empty beaker
+(first removing it from Glass Machine)
+Done.
+You pick it up.
+
+> use empty beaker on potion dispenser
+You place the beaker in the dispenser.
+
+
+> push red button
+You press the button. The dispenser makes alot of strange noises then some red fluid pours out into the beaker.
+
+
+> take beaker
+(first removing it from Potion Dispenser)
+Done.
+You pick it up.
+
+> use beaker on potion mixer
+You place the Beaker (filled with red fluid) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises as the beaker empties. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take red potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use bucket of sand on glass machine
+You pour the sand into the machine. It makes alot of strange noises then a beaker pops out in the dispenser on the side.
+
+Strangely enough your bucket refills itself with sand.
+
+
+> take empty beaker
+(first removing it from Glass Machine)
+Done.
+You pick it up.
+
+> use empty beaker on potion dispenser
+You place the beaker in the dispenser.
+
+
+> push blue button
+You press the button. The dispenser makes alot of strange noises then some blue fluid pours out into the beaker.
+
+
+> take beaker
+(first removing it from Potion Dispenser)
+Done.
+You pick it up.
+
+> use beaker on potion mixer
+You place the Beaker (filled with blue fluid) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises as the beaker empties. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take blue potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use red potion on potion mixer
+You place the Red potion in the mixer.
+
+
+> use blue potion on potion mixer
+You place the Blue potion in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take indigo potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use bucket of sand on glass machine
+You pour the sand into the machine. It makes alot of strange noises then a beaker pops out in the dispenser on the side.
+
+Strangely enough your bucket refills itself with sand.
+
+You feel the effects of the red potion wear off.
+
+
+> take empty beaker
+(first removing it from Glass Machine)
+Done.
+You pick it up.
+
+> use empty beaker on potion dispenser
+You place the beaker in the dispenser.
+
+
+> push yellow button
+You press the button. The dispenser makes alot of strange noises then some yellow fluid pours out into the beaker.
+
+
+> take beaker
+(first removing it from Potion Dispenser)
+Done.
+You pick it up.
+
+> use beaker on potion mixer
+You place the Beaker (filled with yellow fluid) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises as the beaker empties. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take yellow potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use bucket of sand on glass machine
+You pour the sand into the machine. It makes alot of strange noises then a beaker pops out in the dispenser on the side.
+
+Strangely enough your bucket refills itself with sand.
+
+
+> take empty beaker
+(first removing it from Glass Machine)
+Done.
+You pick it up.
+
+> use empty beaker on potion dispenser
+You place the beaker in the dispenser.
+
+
+> push blue button
+You press the button. The dispenser makes alot of strange noises then some blue fluid pours out into the beaker.
+
+
+> take beaker
+(first removing it from Potion Dispenser)
+Done.
+You pick it up.
+
+> use beaker on potion mixer
+You place the Beaker (filled with blue fluid) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises as the beaker empties. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take blue potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use yellow potion on potion mixer
+You place the Yellow potion in the mixer.
+
+
+> use blue potion on potion mixer
+You place the Blue potion in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take green potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use bucket of sand on glass machine
+You pour the sand into the machine. It makes alot of strange noises then a beaker pops out in the dispenser on the side.
+
+Strangely enough your bucket refills itself with sand.
+
+
+> take empty beaker
+(first removing it from Glass Machine)
+Done.
+You pick it up.
+
+> use empty beaker on potion dispenser
+You place the beaker in the dispenser.
+
+
+> push blue button
+You press the button. The dispenser makes alot of strange noises then some blue fluid pours out into the beaker.
+
+
+> take beaker
+(first removing it from Potion Dispenser)
+Done.
+You pick it up.
+
+> use beaker on potion mixer
+You place the Beaker (filled with blue fluid) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises as the beaker empties. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take blue potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use blue potion on potion mixer
+You place the Blue potion in the mixer.
+
+
+> use green potion on potion mixer
+You place the Green potion in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take violet potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use indigo potion on potion mixer
+You place the Indigo potion in the mixer.
+
+
+> use violet potion on potion mixer
+You place the Violet potion in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take potion (v+i)
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use bucket of sand on glass machine
+You pour the sand into the machine. It makes alot of strange noises then a beaker pops out in the dispenser on the side.
+
+Strangely enough your bucket refills itself with sand.
+
+
+> take empty beaker
+(first removing it from Glass Machine)
+Done.
+You pick it up.
+
+> use empty beaker on potion dispenser
+You place the beaker in the dispenser.
+
+
+> push red button
+You press the button. The dispenser makes alot of strange noises then some red fluid pours out into the beaker.
+
+
+> take beaker
+(first removing it from Potion Dispenser)
+Done.
+You pick it up.
+
+> use beaker on potion mixer
+You place the Beaker (filled with red fluid) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises as the beaker empties. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take red potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use red potion on potion mixer
+You place the Red potion in the mixer.
+
+
+> use potion (v+i) on potion mixer
+You place the Potion (V+I) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take potion (v+i+r)
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use bucket of sand on glass machine
+You pour the sand into the machine. It makes alot of strange noises then a beaker pops out in the dispenser on the side.
+
+Strangely enough your bucket refills itself with sand.
+
+
+> take empty beaker
+(first removing it from Glass Machine)
+Done.
+You pick it up.
+
+> use empty beaker on potion dispenser
+You place the beaker in the dispenser.
+
+
+> push yellow button
+You press the button. The dispenser makes alot of strange noises then some yellow fluid pours out into the beaker.
+
+
+> take beaker
+(first removing it from Potion Dispenser)
+Done.
+You pick it up.
+
+> use beaker on potion mixer
+You place the Beaker (filled with yellow fluid) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises as the beaker empties. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take yellow potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use bucket of sand on glass machine
+You pour the sand into the machine. It makes alot of strange noises then a beaker pops out in the dispenser on the side.
+
+Strangely enough your bucket refills itself with sand.
+
+
+> take empty beaker
+(first removing it from Glass Machine)
+Done.
+You pick it up.
+
+> use empty beaker on potion dispenser
+You place the beaker in the dispenser.
+
+
+> push blue button
+You press the button. The dispenser makes alot of strange noises then some blue fluid pours out into the beaker.
+
+
+> take beaker
+(first removing it from Potion Dispenser)
+Done.
+You pick it up.
+
+> use beaker on potion mixer
+You place the Beaker (filled with blue fluid) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises as the beaker empties. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take blue potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use yellow potion on potion mixer
+You place the Yellow potion in the mixer.
+
+
+> use blue potion on potion mixer
+You place the Blue potion in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take green potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use green potion on potion mixer
+You place the Green potion in the mixer.
+
+
+> use potion (v+i+r) on potion mixer
+You place the Potion (V+I+R) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take potion (v+i+r+g)
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use bucket of sand on glass machine
+You pour the sand into the machine. It makes alot of strange noises then a beaker pops out in the dispenser on the side.
+
+Strangely enough your bucket refills itself with sand.
+
+
+> take empty beaker
+(first removing it from Glass Machine)
+Done.
+You pick it up.
+
+> use empty beaker on potion dispenser
+You place the beaker in the dispenser.
+
+
+> push blue button
+You press the button. The dispenser makes alot of strange noises then some blue fluid pours out into the beaker.
+
+
+> take beaker
+(first removing it from Potion Dispenser)
+Done.
+You pick it up.
+
+> use beaker on potion mixer
+You place the Beaker (filled with blue fluid) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises as the beaker empties. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take blue potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use blue potion on potion mixer
+You place the Blue potion in the mixer.
+
+
+> use orange potion on potion mixer
+You place the Orange potion in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take potion (b+o)
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use bucket of sand on glass machine
+You pour the sand into the machine. It makes alot of strange noises then a beaker pops out in the dispenser on the side.
+
+Strangely enough your bucket refills itself with sand.
+
+
+> take empty beaker
+(first removing it from Glass Machine)
+Done.
+You pick it up.
+
+> use empty beaker on potion dispenser
+You place the beaker in the dispenser.
+
+
+> push yellow button
+You press the button. The dispenser makes alot of strange noises then some yellow fluid pours out into the beaker.
+
+
+> take beaker
+(first removing it from Potion Dispenser)
+Done.
+You pick it up.
+
+> use beaker on potion mixer
+You place the Beaker (filled with yellow fluid) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises as the beaker empties. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take yellow potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use yellow potion on potion mixer
+You place the Yellow potion in the mixer.
+
+
+> use potion (b+o) on potion mixer
+You place the Potion (B+O) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take potion (b+o+y)
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use potion (v+i+r+g) on potion mixer
+You place the Potion (V+I+R+G) in the mixer.
+
+
+> use potion (b+o+y) on potion mixer
+You place the Potion (B+O+Y) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take rainbow potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use bucket of sand on glass machine
+You pour the sand into the machine. It makes alot of strange noises then a beaker pops out in the dispenser on the side.
+
+Strangely enough your bucket refills itself with sand.
+
+
+> take empty beaker
+(first removing it from Glass Machine)
+Done.
+You pick it up.
+
+> use empty beaker on potion dispenser
+You place the beaker in the dispenser.
+
+
+> push red button
+You press the button. The dispenser makes alot of strange noises then some red fluid pours out into the beaker.
+
+
+> take beaker
+(first removing it from Potion Dispenser)
+Done.
+You pick it up.
+
+> use beaker on potion mixer
+You place the Beaker (filled with red fluid) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises as the beaker empties. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take red potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use bucket of sand on glass machine
+You pour the sand into the machine. It makes alot of strange noises then a beaker pops out in the dispenser on the side.
+
+Strangely enough your bucket refills itself with sand.
+
+
+> take empty beaker
+(first removing it from Glass Machine)
+Done.
+You pick it up.
+
+> use empty beaker on potion dispenser
+You place the beaker in the dispenser.
+
+
+> push yellow button
+You press the button. The dispenser makes alot of strange noises then some yellow fluid pours out into the beaker.
+
+
+> take beaker
+(first removing it from Potion Dispenser)
+Done.
+You pick it up.
+
+> use beaker on potion mixer
+You place the Beaker (filled with yellow fluid) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises as the beaker empties. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take yellow potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use red potion on potion mixer
+You place the Red potion in the mixer.
+
+
+> use yellow potion on potion mixer
+You place the Yellow potion in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take orange potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use bucket of sand on glass machine
+You pour the sand into the machine. It makes alot of strange noises then a beaker pops out in the dispenser on the side.
+
+Strangely enough your bucket refills itself with sand.
+
+
+> take empty beaker
+(first removing it from Glass Machine)
+Done.
+You pick it up.
+
+> use empty beaker on potion dispenser
+You place the beaker in the dispenser.
+
+
+> push red button
+You press the button. The dispenser makes alot of strange noises then some red fluid pours out into the beaker.
+
+
+> take beaker
+(first removing it from Potion Dispenser)
+Done.
+You pick it up.
+
+> use beaker on potion mixer
+You place the Beaker (filled with red fluid) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises as the beaker empties. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take red potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use bucket of sand on glass machine
+You pour the sand into the machine. It makes alot of strange noises then a beaker pops out in the dispenser on the side.
+
+Strangely enough your bucket refills itself with sand.
+
+
+> take empty beaker
+(first removing it from Glass Machine)
+Done.
+You pick it up.
+
+> use empty beaker on potion dispenser
+You place the beaker in the dispenser.
+
+
+> push blue button
+You press the button. The dispenser makes alot of strange noises then some blue fluid pours out into the beaker.
+
+
+> take beaker
+(first removing it from Potion Dispenser)
+Done.
+You pick it up.
+
+> use beaker on potion mixer
+You place the Beaker (filled with blue fluid) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises as the beaker empties. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take blue potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use red potion on potion mixer
+You place the Red potion in the mixer.
+
+
+> use blue potion on potion mixer
+You place the Blue potion in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take indigo potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use bucket of sand on glass machine
+You pour the sand into the machine. It makes alot of strange noises then a beaker pops out in the dispenser on the side.
+
+Strangely enough your bucket refills itself with sand.
+
+
+> take empty beaker
+(first removing it from Glass Machine)
+Done.
+You pick it up.
+
+> use empty beaker on potion dispenser
+You place the beaker in the dispenser.
+
+
+> push yellow button
+You press the button. The dispenser makes alot of strange noises then some yellow fluid pours out into the beaker.
+
+
+> take beaker
+(first removing it from Potion Dispenser)
+Done.
+You pick it up.
+
+> use beaker on potion mixer
+You place the Beaker (filled with yellow fluid) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises as the beaker empties. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take yellow potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use bucket of sand on glass machine
+You pour the sand into the machine. It makes alot of strange noises then a beaker pops out in the dispenser on the side.
+
+Strangely enough your bucket refills itself with sand.
+
+
+> take empty beaker
+(first removing it from Glass Machine)
+Done.
+You pick it up.
+
+> use empty beaker on potion dispenser
+You place the beaker in the dispenser.
+
+
+> push blue button
+You press the button. The dispenser makes alot of strange noises then some blue fluid pours out into the beaker.
+
+
+> take beaker
+(first removing it from Potion Dispenser)
+Done.
+You pick it up.
+
+> use beaker on potion mixer
+You place the Beaker (filled with blue fluid) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises as the beaker empties. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take blue potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use yellow potion on potion mixer
+You place the Yellow potion in the mixer.
+
+
+> use blue potion on potion mixer
+You place the Blue potion in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take green potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> use bucket of sand on glass machine
+You pour the sand into the machine. It makes alot of strange noises then a beaker pops out in the dispenser on the side.
+
+Strangely enough your bucket refills itself with sand.
+
+
+> take empty beaker
+(first removing it from Glass Machine)
+Done.
+You pick it up.
+
+> use empty beaker on potion dispenser
+You place the beaker in the dispenser.
+
+
+> push blue button
+You press the button. The dispenser makes alot of strange noises then some blue fluid pours out into the beaker.
+
+
+> take beaker
+(first removing it from Potion Dispenser)
+Done.
+You pick it up.
+
+> use beaker on potion mixer
+You place the Beaker (filled with blue fluid) in the mixer.
+
+
+> pull lever
+You pull the lever.
+
+The mixer makes some strange noises as the beaker empties. After a few moments a potion pops out of the side of the machine into it's dispenser.
+
+
+
+> take blue potion
+(first removing it from Potion Mixer)
+Done.
+You pick it up.
+
+> memorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) Charm
+9) Bind
+10) Enchant
+11) !
+12) !
+[choice] 5
+You memorize the Levitate spell.
+
+> south
+You are in the Basement.
+You can go north, south or up.
+You are in the basement of the tower. The great spiral stair that winds up through the tower starts here. There are also two archways leading north to the alchemy lab and south to the summoning lab.
+
+> up
+You are on a Spiral Staircase.
+You can go east, northeast or southeast.
+You are walking along the great spiral staircase that runs all the way up the tower. You are on the ground floor here. The stair winds upward to the southeast and winds downward into the basement to the northeast. There is also a doorway, to the main level, leading east.
+
+> southeast
+You are on a Spiral Staircase.
+You can go north, northeast or northwest.
+You are walking along the great spiral staircase that runs all the way up the tower. The stair continues upwards to the northeast and downwards to the northwest. There is also a doorway to the north.
+
+
+> northeast
+You are on a Spiral Staircase.
+There is a Collapsed wall blocking the stairs here.
+You can go south, southeast or southwest.
+You are walking along the great spiral staircase that runs all the way up the tower. The stair continues upwards to the southwest and downwards to the southeast. There is also a doorway to the south. However there is a large section of wall that is collapsed into the stair (I wonder what happened there?) blocking the way up.
+
+> levitate collapsed wall
+You cast Levitate on the Collapsed wall.
+The wall levitates enough for you to get by.
+Do you want to pass under the wall?
+1) Yes
+2) No
+[choice] yes
+You quickly pass under the wall.
+You are on a Spiral Staircase.
+There is a Collapsed wall blocking the stairs here.
+You can go northeast or northwest.
+You are walking along the great spiral staircase that runs all the way up the tower. The stair continues up to the northeast and downward toward the northwest. However there is a large section of wall that is collapsed into the stair (I wonder what happened there?) blocking the way down.
+
+> northeast
+You are on a Spiral Staircase.
+You can go west, northwest or southwest.
+You are walking along the great spiral staircase that runs all the way up the tower. The stair continues up to the northwest and down to the southwest. There is also a doorway leading west to your bedroom.
+
+> northwest
+You are on a Spiral Staircase.
+There is Door here.
+You can go east, northeast or southeast.
+You are walking along the great spiral staircase that runs all the way up the tower. The stairs continue down to the northeast and up to the top of the tower to the southeast. There is also a small doorway to the east.
+
+> east
+You are in a Closet.
+There is a small Mouse hole in the wall here.
+You can go west.
+You are in a small dingy closet. Various old torn robes and broken vials lie strewn on the floor. The only exit is to the west.
+
+> drink green potion
+You drink the green potion.
+You feel a strange sensation in your ears and throat.
+
+
+> drink indigo potion
+You drink the indigo potion.
+You see the area around you growing bigger and bigger.
+
+You are in an Enormous Area.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You find yourself in a wide open enormous area.
+
+
+> go to large mouse hole
+You are in a Large mouse hole.
+There is a Giant mouse and a Yellow ball here.
+You can go west.
+You are in a large mouse hole set into the wall. Bits of debris form a nest here.
+
+
+> push yellow ball
+You try and push it out of the mouse hole but it is too heavy for you.
+
+
+> speak to giant mouse
+What will you say to the mouse?
+1) Hello mouse.
+2) Have you seen any scrolls around here?
+3) Can you help me move this ball?
+[choice] 3
+"Sure! It keeps getting in my way anyhow."
+The mouse helps you push the ball out of the mouse hole.
+
+> west
+You are in an Enormous Area.
+There is a Yellow ball here.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You can go to Large mouse hole.
+You find yourself in a wide open enormous area.
+
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+You see your surroundings start to shrink and shrink and shrink....
+
+You are in a Closet.
+There is a small Mouse hole in the wall and a Yellow Bead here.
+You can go west.
+You are in a small dingy closet. Various old torn robes and broken vials lie strewn on the floor. The only exit is to the west.
+
+> look
+You are in a Closet.
+There is a small Mouse hole in the wall and a Yellow Bead here.
+You can go west.
+You are in a small dingy closet. Various old torn robes and broken vials lie strewn on the floor. The only exit is to the west.
+
+> take yellow bead
+Which yellow bead do you mean?
+1) Yellow Bead
+2) Yellow Bead
+3) Yellow Bead
+4) Yellow Bead
+5) Yellow Bead
+6) Yellow Bead
+7) Yellow Bead
+8) Yellow Bead
+9) Yellow Bead
+10) Yellow Bead
+11) Yellow Bead
+12) Yellow Bead
+[choice] 1
+You pick it up.
+
+> spells
+Spells:
+
+Disenchant:  Turns an enchanted object into a normal object.
+Enchant:  Makes a normal object magical
+
+> memorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) Charm
+9) Bind
+10) Enchant
+11) !
+12) !
+[choice] 5
+You memorize the Levitate spell.
+
+> west
+You are on a Spiral Staircase.
+There is Door here.
+You can go east, northeast or southeast.
+You are walking along the great spiral staircase that runs all the way up the tower. The stairs continue down to the northeast and up to the top of the tower to the southeast. There is also a small doorway to the east.
+
+> northeast
+You are on a Spiral Staircase.
+You can go west, northwest or southwest.
+You are walking along the great spiral staircase that runs all the way up the tower. The stair continues up to the northwest and down to the southwest. There is also a doorway leading west to your bedroom.
+
+> southwest
+You are on a Spiral Staircase.
+There is a Collapsed wall blocking the stairs here.
+You can go northeast or northwest.
+You are walking along the great spiral staircase that runs all the way up the tower. The stair continues up to the northeast and downward toward the northwest. However there is a large section of wall that is collapsed into the stair (I wonder what happened there?) blocking the way down.
+
+> levitate collapsed wall
+You cast Levitate on the Collapsed wall.
+The wall levitates enough for you to get by.
+Do you want to pass under the wall?
+1) Yes
+2) No
+[choice] yes
+You quickly pass under the wall.
+You are on a Spiral Staircase.
+There is a Collapsed wall blocking the stairs here.
+You can go south, southeast or southwest.
+You are walking along the great spiral staircase that runs all the way up the tower. The stair continues upwards to the southwest and downwards to the southeast. There is also a doorway to the south. However there is a large section of wall that is collapsed into the stair (I wonder what happened there?) blocking the way up.
+
+> southeast
+You are on a Spiral Staircase.
+You can go north, northeast or northwest.
+You are walking along the great spiral staircase that runs all the way up the tower. The stair continues upwards to the northeast and downwards to the northwest. There is also a doorway to the north.
+
+
+> northwest
+You are on a Spiral Staircase.
+You can go east, northeast or southeast.
+You are walking along the great spiral staircase that runs all the way up the tower. You are on the ground floor here. The stair winds upward to the southeast and winds downward into the basement to the northeast. There is also a doorway, to the main level, leading east.
+
+> northeast
+You are in the Basement.
+You can go north, south or up.
+You are in the basement of the tower. The great spiral stair that winds up through the tower starts here. There are also two archways leading north to the alchemy lab and south to the summoning lab.
+
+> south
+You are in the Summoning Labratory.
+There is a Swirling Misty Portal above the pentagram here.
+You can go north.
+You are in a large labratory used by the wizard's to teach the art of summoning to it's advanced students. You have never been in here yourself as you are a new student. In the center of the room is a large pentegram, used as a safety net for advanced summons. The lab itself has been virtually ripped to shreds. Broken equipment lies everywhere and there is blood on the floor and walls. The only exit is to the north.
+
+The mist in the portal is currently black.
+
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+The mist in the portal changes color.
+
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+The mist in the portal changes color.
+
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+The mist in the portal changes color.
+
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> look at portal
+It's some kind of portal. It should be a summoning portal but you remember reading something in the library about portals and you don't think this looks like a summoning one.
+
+The mist in the portal is currently blue.
+
+
+> wait
+Time passes.
+
+> look at portal
+It's some kind of portal. It should be a summoning portal but you remember reading something in the library about portals and you don't think this looks like a summoning one.
+
+The mist in the portal is currently blue.
+
+
+> enter portal
+You enter the swirling portal. You feel like you are being squeezed from all sides and then folded and then suddenly you find yourself elsewhere.
+
+You are at a Lake shore.
+There is some Sand, some lake Water, a Misty White Portal and a Boat here.
+You are on the shore of a small lake. There is an island in the center of the lake. All around you are think brambles preventing you from traveling along the shoreline. The water is full of snapping turtles making swimming impossible.
+
+
+> spells
+Spells:
+
+Disenchant:  Turns an enchanted object into a normal object.
+Enchant:  Makes a normal object magical
+
+> disenchant bucket of sand
+You cast Disenchant on the Bucket of sand.
+
+
+> empty bucket
+You empty the bucket.
+
+
+> use empty bucket on water
+You fill the bucket with water.
+
+
+> enchant bucket of water
+You cast Enchant on the Bucket of water.
+
+
+> enter misty white portal
+You enter the swirling portal. You feel like you are being squeezed from all sides and then folded and then suddenly you find yourself elsewhere.
+
+You are in the Summoning Labratory.
+There is a Swirling Misty Portal above the pentagram here.
+You can go north.
+You are in a large labratory used by the wizard's to teach the art of summoning to it's advanced students. You have never been in here yourself as you are a new student. In the center of the room is a large pentegram, used as a safety net for advanced summons. The lab itself has been virtually ripped to shreds. Broken equipment lies everywhere and there is blood on the floor and walls. The only exit is to the north.
+
+The mist in the portal is currently blue.
+
+
+> wait
+Time passes.
+The mist in the portal changes color.
+
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+The mist in the portal changes color.
+
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> look at portal
+It's some kind of portal. It should be a summoning portal but you remember reading something in the library about portals and you don't think this looks like a summoning one.
+
+The mist in the portal is currently red.
+
+
+> enter portal
+You enter the swirling portal. You feel like you are being squeezed from all sides and then folded and then suddenly you find yourself elsewhere.
+
+You are in a Forest.
+There is a Misty White Portal here.
+You can go north, south, east or west.
+You are in a dense forest. The trees form a sort of canopy here. Paths lead off in the four cardinal directions from here.
+
+
+> west
+You are in a Forest.
+There is an enormous Ent trying to put out a fire and a small forest Fire here.
+You can go east.
+You are in a dense forest. The trees form a sort of canopy here. A lone path leads off to the east.
+
+
+> use bucket of water on fire
+You pour the bucket of water on the fire. Great gushes of water keep pouring out of the bucket until the fire is out.
+The ent thanks you profusely and then asks if there is anything he can do for you.
+"Can you get rid of those spiders in the forest for me?" you ask.
+"Sure thing!" he says and then stomps off.
+
+
+> east
+You are in a Forest.
+There is a Misty White Portal here.
+You can go north, south, east or west.
+You are in a dense forest. The trees form a sort of canopy here. Paths lead off in the four cardinal directions from here.
+
+
+> south
+You are in a Forest.
+You can go north or south.
+You are in a dense forest. The trees form a sort of canopy here. Paths lead off to the north and south.
+
+
+
+> south
+You are in a Forest.
+There is a large, sticky Web here.
+You can go north.
+You are in a dense forest. The trees form a sort of canopy here.  A lone path leads off to the north.
+
+
+
+
+> drink orange potion
+You drink the orange potion.
+You feel a blazing heat in your throat. Better not breathe on anything flammable.
+
+
+> breathe on web
+You carefully burn away the web (you don't want that ent to be angry).
+
+
+> look
+You are in a Forest.
+There is a Yellow Bead and a small Head of a stone statue here.
+You can go north.
+You are in a dense forest. The trees form a sort of canopy here.  A lone path leads off to the north.
+
+
+
+
+> take head
+You pick it up.
+
+> take yellow bead
+Which yellow bead do you mean?
+1) Yellow Bead
+2) Yellow Bead
+3) Yellow Bead
+4) Yellow Bead
+5) Yellow Bead
+6) Yellow Bead
+7) Yellow Bead
+8) Yellow Bead
+9) Yellow Bead
+10) Yellow Bead
+11) Yellow Bead
+12) Yellow Bead
+13) Yellow Bead
+[choice] 9
+You pick it up.
+
+> north
+You are in a Forest.
+You can go north or south.
+You are in a dense forest. The trees form a sort of canopy here. Paths lead off to the north and south.
+
+
+
+> north
+You are in a Forest.
+There is a Misty White Portal here.
+You can go north, south, east or west.
+You are in a dense forest. The trees form a sort of canopy here. Paths lead off in the four cardinal directions from here.
+
+You feel the effects of the green potion wear off.
+
+
+> enter misty white portal
+You enter the swirling portal. You feel like you are being squeezed from all sides and then folded and then suddenly you find yourself elsewhere.
+
+You are in the Summoning Labratory.
+There is a Swirling Misty Portal above the pentagram here.
+You can go north.
+You are in a large labratory used by the wizard's to teach the art of summoning to it's advanced students. You have never been in here yourself as you are a new student. In the center of the room is a large pentegram, used as a safety net for advanced summons. The lab itself has been virtually ripped to shreds. Broken equipment lies everywhere and there is blood on the floor and walls. The only exit is to the north.
+
+The mist in the portal is currently yellow.
+
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+The mist in the portal changes color.
+
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> look at portal
+It's some kind of portal. It should be a summoning portal but you remember reading something in the library about portals and you don't think this looks like a summoning one.
+
+The mist in the portal is currently blue.
+
+
+> enter portal
+You enter the swirling portal. You feel like you are being squeezed from all sides and then folded and then suddenly you find yourself elsewhere.
+
+You are at a Lake shore.
+There is some Sand, some lake Water, a Misty White Portal and a Boat here.
+You are on the shore of a small lake. There is an island in the center of the lake. All around you are think brambles preventing you from traveling along the shoreline. The water is full of snapping turtles making swimming impossible.
+
+
+> enter boat
+You row over to the small island.
+
+You are on a Small island.
+There is a Trap door in the center of the island here.
+You can go down.
+You are standing on a small island in the middle of a lake.
+
+
+> down
+You make your way down into the cavern.
+
+You are in a Cavern.
+There is pile of Silt lying along the floor here.
+You can go east or up.
+You are in a large cavern hollowed out by water. You can climb up to the island or go east from here.
+
+
+> east
+You are in a Sunken temple.
+There is a Giant statue here.
+You can go north, south, east or west.
+You are in a very large underground temple. By the looks of things this temple once stood above ground but has since sunken. There are huge archways leading to the north, south and east from here. You can also go back to the cavern to the west.
+
+
+> use red marble on head
+Which red marble do you mean?
+1) Red marble
+2) Red marble
+[choice] 1
+You place the red marble in an eye socket.
+
+
+> use red marble on head
+You place the red marble in an eye socket.
+
+
+> use brain on head
+You place the brain inside the stone skull.
+
+
+> use head on giant statue
+You place the head on the statue. It seems to click into place. Then suddenly the statue springs to life!
+"What is thy bidding master?" it asks.
+
+
+> speak to golem
+"I am at your command."
+
+Do you wish to command the golem?
+1) Yes
+2) No
+[choice] yes
+You feel your mind slip into the  mind of the golem. You look down.
+You are now the golem!
+(if you want to return to your body simply speak to it)
+
+You are in a Sunken temple.
+There is Yourself here.
+You can go north, south or east.
+You are in an underground temple. By the looks of things this temple once stood above ground but has since sunken. There archways leading to the north, south and east from here. There is an exit west but there is no way you would fit through it.
+
+
+
+> north
+You are in the North wing.
+There is a Small shelf here.
+You can go south.
+You are in the north wing of a sunken temple. This room looks to be like a  annex of the main part of the temple. The ceiling here is still about twenty feet high. An archway leads back to the main temple to the south.
+
+
+> break small shelf
+You smash the shelf to tiny bits.
+
+
+> take broken shelf
+You pick it up.
+
+
+> south
+You are in a Sunken temple.
+There is Yourself here.
+You can go north, south or east.
+You are in an underground temple. By the looks of things this temple once stood above ground but has since sunken. There archways leading to the north, south and east from here. There is an exit west but there is no way you would fit through it.
+
+
+
+> east
+You are in the East wing.
+There is a Furnace and a Strange machine here.
+You can go west.
+You are in the eastern wing of a sunken temple. This room looks like some kind of labratory as there are strange devices everywhere. The main temple lies to the west.
+
+
+> use broken shelf on furnace
+You place the wood in the furnace. It ignites and starts burning.
+
+
+> take strange machine
+You gently pick it up.
+
+
+> west
+You are in a Sunken temple.
+There is Yourself here.
+You can go north, south or east.
+You are in an underground temple. By the looks of things this temple once stood above ground but has since sunken. There archways leading to the north, south and east from here. There is an exit west but there is no way you would fit through it.
+
+
+
+> drop strange machine
+You drop it.
+
+> south
+You are in the South wing.
+There is a Stone coffin here.
+You can go north.
+You are in the south wing of a sunken temple. This room looks like an annex to the larger room to the north.
+
+
+> break stone coffin
+You smash it to bits. There were a couple of things inside.
+
+
+> north
+You are in a Sunken temple.
+There is Yourself and a Strange machine here.
+You can go north, south or east.
+You are in an underground temple. By the looks of things this temple once stood above ground but has since sunken. There archways leading to the north, south and east from here. There is an exit west but there is no way you would fit through it.
+
+
+
+> speak to yourself
+Do you wish to return to your body?
+1) Yes
+2) No
+[choice] yes
+You are in a Sunken temple.
+There is a huge Golem here.
+You can go north, south, east or west.
+You are in a very large underground temple. By the looks of things this temple once stood above ground but has since sunken. There are huge archways leading to the north, south and east from here. You can also go back to the cavern to the west.
+
+
+> look
+You are in a Sunken temple.
+There is a huge Golem and a Strange machine here.
+You can go north, south, east or west.
+You are in a very large underground temple. By the looks of things this temple once stood above ground but has since sunken. There are huge archways leading to the north, south and east from here. You can also go back to the cavern to the west.
+
+
+> look at strange machine
+There seem to be two tubes at the top, one has a scroll in it and the other a yellow bead. There are some levers and an opening below.
+
+There is now hot air running through the machine comming from a long hose attatched to the furnace. The levers have been lit up.
+
+
+Will you pull the levers?
+1) Yes
+2) No
+[choice] yes
+The bead is at the top of the tube.
+The scroll is at the top of the tube.
+Which lever will you pull?
+1) Pull the first lever
+2) Pull the second lever
+3) Pull the third lever
+4) Pull the fourth lever
+5) Exit
+[choice] 1
+The bead is near the bottom of the tube.
+The scroll is near the bottom of the tube.
+Which lever will you pull?
+1) Pull the first lever
+2) Pull the second lever
+3) Pull the third lever
+4) Pull the fourth lever
+5) Exit
+[choice] 3
+The bead is at the top of the tube.
+The scroll is half way up the tube.
+Which lever will you pull?
+1) Pull the first lever
+2) Pull the second lever
+3) Pull the third lever
+4) Pull the fourth lever
+5) Exit
+[choice] 1
+The scroll falls out of the machine.
+
+
+> take powerfull scroll
+You pick it up.
+
+> look at strange machine
+There seem to be two tubes at the top, one has a scroll in it and the other a yellow bead. There are some levers and an opening below.
+
+There is now hot air running through the machine comming from a long hose attatched to the furnace. The levers have been lit up.
+
+
+Will you pull the levers?
+1) Yes
+2) No
+[choice] yes
+The bead is at the top of the tube.
+Which lever will you pull?
+1) Pull the first lever
+2) Pull the second lever
+3) Pull the third lever
+4) Pull the fourth lever
+5) Exit
+[choice] 1
+The bead is near the bottom of the tube.
+Which lever will you pull?
+1) Pull the first lever
+2) Pull the second lever
+3) Pull the third lever
+4) Pull the fourth lever
+5) Exit
+[choice] 3
+The bead is at the top of the tube.
+Which lever will you pull?
+1) Pull the first lever
+2) Pull the second lever
+3) Pull the third lever
+4) Pull the fourth lever
+5) Exit
+[choice] 1
+The bead is near the bottom of the tube.
+Which lever will you pull?
+1) Pull the first lever
+2) Pull the second lever
+3) Pull the third lever
+4) Pull the fourth lever
+5) Exit
+[choice] 2
+The bead falls out of the machine.
+
+
+> look
+You are in a Sunken temple.
+There is a huge Golem, a Yellow Bead and a Strange machine here.
+You can go north, south, east or west.
+You are in a very large underground temple. By the looks of things this temple once stood above ground but has since sunken. There are huge archways leading to the north, south and east from here. You can also go back to the cavern to the west.
+
+
+> take yellow bead
+Which yellow bead do you mean?
+1) Yellow Bead
+2) Yellow Bead
+3) Yellow Bead
+4) Yellow Bead
+5) Yellow Bead
+6) Yellow Bead
+7) Yellow Bead
+8) Yellow Bead
+9) Yellow Bead
+10) Yellow Bead
+11) Yellow Bead
+12) Yellow Bead
+13) Yellow Bead
+14) Yellow Bead
+[choice] 14
+You pick it up.
+
+> north
+You are in the North wing.
+There is a Yellow Bead here.
+You can go south.
+You are in the north wing of a large sunken temple. This room looks to be like a large annex of the main part of the temple. The ceiling here is still about twenty feet high. A large archway leads back to the main temple to the south.
+
+
+> take yellow bead
+Which yellow bead do you mean?
+1) Yellow Bead
+2) Yellow Bead
+3) Yellow Bead
+4) Yellow Bead
+5) Yellow Bead
+6) Yellow Bead
+7) Yellow Bead
+8) Yellow Bead
+9) Yellow Bead
+10) Yellow Bead
+11) Yellow Bead
+12) Yellow Bead
+13) Yellow Bead
+14) Yellow Bead
+15) Yellow Bead
+[choice] 15
+You take it.
+
+
+> south
+You are in a Sunken temple.
+There is a huge Golem and a Strange machine here.
+You can go north, south, east or west.
+You are in a very large underground temple. By the looks of things this temple once stood above ground but has since sunken. There are huge archways leading to the north, south and east from here. You can also go back to the cavern to the west.
+
+
+> south
+You are in the South wing.
+There is a Yellow Bead and a Penned note here.
+You can go north.
+You are in the south wing of a sunken temple. This room looks like an annex to the larger room to the north.
+
+> take yellow bead
+Which yellow bead do you mean?
+1) Yellow Bead
+2) Yellow Bead
+3) Yellow Bead
+4) Yellow Bead
+5) Yellow Bead
+6) Yellow Bead
+7) Yellow Bead
+8) Yellow Bead
+9) Yellow Bead
+10) Yellow Bead
+11) Yellow Bead
+12) Yellow Bead
+13) Yellow Bead
+14) Yellow Bead
+15) Yellow Bead
+16) Yellow Bead
+[choice] 16
+You pick it up.
+
+> take penned note
+You pick it up.
+
+> read penned note
+It says " virg + boy live under the rainbow!" 
+Hmmm I wonder what that could mean?
+
+
+> north
+You are in a Sunken temple.
+There is a huge Golem and a Strange machine here.
+You can go north, south, east or west.
+You are in a very large underground temple. By the looks of things this temple once stood above ground but has since sunken. There are huge archways leading to the north, south and east from here. You can also go back to the cavern to the west.
+
+
+> west
+You are in a Cavern.
+There is pile of Silt lying along the floor here.
+You can go east or up.
+You are in a large cavern hollowed out by water. You can climb up to the island or go east from here.
+
+
+> up
+You are on a Small island.
+There is a Boat and a Trap door in the center of the island here.
+You can go down.
+You are standing on a small island in the middle of a lake.
+
+
+> enter boat
+You row over to the lake shore.
+
+You are at a Lake shore.
+There is some Sand, some lake Water and a Misty White Portal here.
+You are on the shore of a small lake. There is an island in the center of the lake. All around you are think brambles preventing you from traveling along the shoreline. The water is full of snapping turtles making swimming impossible.
+
+
+> enter misty white portal
+You enter the swirling portal. You feel like you are being squeezed from all sides and then folded and then suddenly you find yourself elsewhere.
+
+You are in the Summoning Labratory.
+There is a Swirling Misty Portal above the pentagram here.
+You can go north.
+You are in a large labratory used by the wizard's to teach the art of summoning to it's advanced students. You have never been in here yourself as you are a new student. In the center of the room is a large pentegram, used as a safety net for advanced summons. The lab itself has been virtually ripped to shreds. Broken equipment lies everywhere and there is blood on the floor and walls. The only exit is to the north.
+
+The mist in the portal is currently yellow.
+
+
+> spells
+You don't have any spells memorized.
+
+
+> rmemorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) Charm
+9) Bind
+10) Enchant
+11) !
+12) !
+[choice] 6
+You memorize the Enlighten spell.
+
+> enlighten
+You cast the Enlighten spell.
+
+You feel strange....
+You feel your mind expanding. Your understanding of complex things increases.
+
+> memorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) Charm
+9) Bind
+10) Enchant
+11) !
+12) !
+[choice] 7
+You memorize the Bremoval spell.
+
+> bremoval broom
+You cast Bremoval on the Broom.
+
+The broom melts away, flickers, and transforms into a room.
+
+
+> enter room
+You enter the room.
+
+You are in a Room.
+There is a Strange Table here.
+You are in a plain and unardorned room. It seems more like a rift in space than a place.
+
+> look
+You are in a Room.
+There is a Strange Table here.
+You are in a plain and unardorned room. It seems more like a rift in space than a place.
+
+> use yellow bead on strange table
+Which yellow bead do you mean?
+1) Yellow Bead
+2) Yellow Bead
+3) Yellow Bead
+4) Yellow Bead
+5) Yellow Bead
+6) Yellow Bead
+7) Yellow Bead
+8) Yellow Bead
+9) Yellow Bead
+10) Yellow Bead
+11) Yellow Bead
+12) Yellow Bead
+13) Yellow Bead
+14) Yellow Bead
+15) Yellow Bead
+16) Yellow Bead
+[choice] 1
+You place the bead on the table.
+
+
+> use yellow bead on strange table
+Which yellow bead do you mean?
+1) Yellow Bead
+2) Yellow Bead
+3) Yellow Bead
+4) Yellow Bead
+5) Yellow Bead
+6) Yellow Bead
+7) Yellow Bead
+8) Yellow Bead
+9) Yellow Bead
+10) Yellow Bead
+11) Yellow Bead
+12) Yellow Bead
+13) Yellow Bead
+14) Yellow Bead
+15) Yellow Bead
+[choice] 1
+You place the bead on the table.
+
+
+> use yellow bead on strange table
+Which yellow bead do you mean?
+1) Yellow Bead
+2) Yellow Bead
+3) Yellow Bead
+4) Yellow Bead
+5) Yellow Bead
+6) Yellow Bead
+7) Yellow Bead
+8) Yellow Bead
+9) Yellow Bead
+10) Yellow Bead
+11) Yellow Bead
+12) Yellow Bead
+13) Yellow Bead
+14) Yellow Bead
+[choice] 1
+You place the bead on the table.
+
+
+> use yellow bead on strange table
+Which yellow bead do you mean?
+1) Yellow Bead
+2) Yellow Bead
+3) Yellow Bead
+4) Yellow Bead
+5) Yellow Bead
+6) Yellow Bead
+7) Yellow Bead
+8) Yellow Bead
+9) Yellow Bead
+10) Yellow Bead
+11) Yellow Bead
+12) Yellow Bead
+13) Yellow Bead
+[choice] 1
+You place the bead on the table.
+
+
+> use yellow bead on strange table
+Which yellow bead do you mean?
+1) Yellow Bead
+2) Yellow Bead
+3) Yellow Bead
+4) Yellow Bead
+5) Yellow Bead
+6) Yellow Bead
+7) Yellow Bead
+8) Yellow Bead
+9) Yellow Bead
+10) Yellow Bead
+11) Yellow Bead
+12) Yellow Bead
+[choice] 1
+You place the bead on the table.
+
+
+> use yellow bead on strange table
+Which yellow bead do you mean?
+1) Yellow Bead
+2) Yellow Bead
+3) Yellow Bead
+4) Yellow Bead
+5) Yellow Bead
+6) Yellow Bead
+7) Yellow Bead
+8) Yellow Bead
+9) Yellow Bead
+10) Yellow Bead
+11) Yellow Bead
+[choice] 1
+You place the bead on the table.
+
+
+> use yellow bead on strange table
+Which yellow bead do you mean?
+1) Yellow Bead
+2) Yellow Bead
+3) Yellow Bead
+4) Yellow Bead
+5) Yellow Bead
+6) Yellow Bead
+7) Yellow Bead
+8) Yellow Bead
+9) Yellow Bead
+10) Yellow Bead
+[choice] 1
+You place the bead on the table.
+
+
+> use yellow bead on strange table
+Which yellow bead do you mean?
+1) Yellow Bead
+2) Yellow Bead
+3) Yellow Bead
+4) Yellow Bead
+5) Yellow Bead
+6) Yellow Bead
+7) Yellow Bead
+8) Yellow Bead
+9) Yellow Bead
+[choice] 1
+You place the bead on the table.
+
+
+> use yellow bead on strange table
+Which yellow bead do you mean?
+1) Yellow Bead
+2) Yellow Bead
+3) Yellow Bead
+4) Yellow Bead
+5) Yellow Bead
+6) Yellow Bead
+7) Yellow Bead
+8) Yellow Bead
+[choice] 1
+You place the bead on the table.
+
+
+> use yellow bead on strange table
+Which yellow bead do you mean?
+1) Yellow Bead
+2) Yellow Bead
+3) Yellow Bead
+4) Yellow Bead
+5) Yellow Bead
+6) Yellow Bead
+7) Yellow Bead
+[choice] 1
+You place the bead on the table.
+
+
+> use yellow bead on strange table
+Which yellow bead do you mean?
+1) Yellow Bead
+2) Yellow Bead
+3) Yellow Bead
+4) Yellow Bead
+5) Yellow Bead
+6) Yellow Bead
+[choice] 1
+You place the bead on the table.
+
+
+> use yellow bead on strange table
+Which yellow bead do you mean?
+1) Yellow Bead
+2) Yellow Bead
+3) Yellow Bead
+4) Yellow Bead
+5) Yellow Bead
+[choice] 1
+You place the bead on the table.
+
+
+> use yellow bead on strange table
+Which yellow bead do you mean?
+1) Yellow Bead
+2) Yellow Bead
+3) Yellow Bead
+4) Yellow Bead
+[choice] 1
+You place the bead on the table.
+
+
+> use yellow bead on strange table
+Which yellow bead do you mean?
+1) Yellow Bead
+2) Yellow Bead
+3) Yellow Bead
+[choice] 1
+You place the bead on the table.
+
+
+> use yellow bead on strange table
+Which yellow bead do you mean?
+1) Yellow Bead
+2) Yellow Bead
+[choice] 1
+You place the bead on the table.
+
+
+> use yellow bead on strange table
+You place the bead on the table.
+
+As you place the last bead on the table you see all the beads flash green for a second. You also hear a series of clicks from the table.
+
+
+> 1
+I don't understand your command. Type HELP for a list of valid commands.
+
+> look at strange table
+ 
+
+
+
+  
+
+It looks like you can press the beads.
+
+Do you want to press the beads?
+1) Yes
+2) No
+[choice] yes
+
+Which bead would you like to press?
+(example a4) (type "exit" to quit)
+
+ 
+
+
+
+  
+
+Which bead would you like to press?
+(example a4) (type "exit" to quit)
+
+ 
+
+
+
+  
+
+Which bead would you like to press?
+(example a4) (type "exit" to quit)
+
+ 
+
+
+
+  
+
+Which bead would you like to press?
+(example a4) (type "exit" to quit)
+
+ 
+
+
+
+  
+
+You hear a grinding noise from the table and a shiny new scroll pops out of the bottom.
+
+
+> look
+You are in a Room.
+There is a Strange Table and a Shiny scroll here.
+You are in a plain and unardorned room. It seems more like a rift in space than a place.
+
+> take shiny scroll
+You pick it up.
+
+> read shiny scroll
+It reads...
+Stabilize: Returns a magial spell to it's intended state.
+(objective spell)
+
+> out
+You exit the room.
+
+You are in the Summoning Labratory.
+There is a Room and a Swirling Misty Portal above the pentagram here.
+You can go north.
+You are in a large labratory used by the wizard's to teach the art of summoning to it's advanced students. You have never been in here yourself as you are a new student. In the center of the room is a large pentegram, used as a safety net for advanced summons. The lab itself has been virtually ripped to shreds. Broken equipment lies everywhere and there is blood on the floor and walls. The only exit is to the north.
+
+The mist in the portal is currently black.
+
+
+> memorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) Charm
+9) Bind
+10) Enchant
+11) !
+12) !
+[choice] 3
+You memorize the Scribe spell.
+
+> scribe shiny scroll
+You cast the Scribe spell on the Shiny scroll.
+The scroll glows brightly as the spell is copied into your spellbook. Then vanishes.
+
+> memorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) Charm
+9) Bind
+10) Enchant
+11) Stabilize
+12) !
+[choice] 11
+You memorize the Stabilize spell.
+
+> stabilize swirling misty portal
+You cast Stabilize on the Swirling Misty Portal.
+
+With a flash the portal seems to pull back together then spread apart. It is now white in color.
+
+
+> look at portal
+It's some kind of portal. It should be a summoning portal but you remember reading something in the library about portals and you don't think this looks like a summoning one.
+
+The portal is now white.
+
+
+> memorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) Charm
+9) Bind
+10) Enchant
+11) Stabilize
+12) !
+[choice] 2
+You memorize the Unlock spell.
+
+> rmemorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) Charm
+9) Bind
+10) Enchant
+11) Stabilize
+12) !
+[choice] 10
+You memorize the Disenchant spell.
+
+> rmemorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) Charm
+9) Bind
+10) Enchant
+11) Stabilize
+12) !
+[choice] 5
+You memorize the Gravitate spell.
+
+> memorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) Charm
+9) Bind
+10) Enchant
+11) Stabilize
+12) !
+[choice] 3
+You memorize the Scribe spell.
+
+> spells
+Spells:
+
+Unlock:  Unlocks normally locked objects.
+Disenchant:  Turns an enchanted object into a normal object.
+Gravitate:  Causes a suspended object to fall.
+Scribe:  Writes a spell on a scroll into your spellbook.
+
+> enter portal
+You enter the swirling portal. You feel like you are being squeezed from all sides and then folded and then suddenly you find yourself elsewhere.
+
+You come out in front of a castle. You recognize the banners flying about it. This is the home of the red scorpions, the most evil band of wizards around. They must have opened a teleportation portal inside the tower. That means they had to have had inside help. 
+Someone inside your tower is a traitor.
+
+You are at the Outside gate.
+There is a Swirling Misty Portal above the pentagram and a large Iron gate blocking the entrance here.
+You can go east.
+You are standing at the front gates leading to the grounds of a castle. You can enter the grounds to the east.
+
+
+> disenchant iron gate
+You cast Disenchant on the Iron gate.
+
+
+> unlock iron gate
+You cast Unlock on the Iron gate.
+The gate unlocks with a click.
+
+
+> east
+You are on the Castle grounds.
+There is a large Drawbridge here.
+You can go east or west.
+You can go to Moat.
+You are in the grounds outside the castle. The way out is to the west. A large moat surrounds the entire castle. You can see the main entrance to the east.
+
+The drawbridge is up.
+
+You feel the effects of the Enlighten spell wear off.
+
+> gravitate drawbridge
+You cast Gravitate on the Drawbridge.
+The drawbridge comes down.
+
+
+> go to moat
+You are swimming in the Moat.
+You can go out to Castle grounds.
+You can go southeast.
+You are swimming in the castle moat. You can get out of the moat here or swim around the moat to the southeast.
+
+
+> southeast
+You swimming in a Moat.
+You can go north or northwest.
+You are swimming in the moat along the side of the castle. The drawbridge is back to the northwest. There is a cracked section of wall here allowing entry to the castle.
+
+
+> north
+You are in the Inside cell.
+There is a small Hole in the ceiling here.
+You can go south.
+You are inside a small cramped cell. A wall has colapsed sealing the cell off from the rest of the castle. The only exit is back where you came.
+
+
+> speak to hole
+"Hello!!"
+Voice2 " Is it really you?"
+"Yes, I'm going to get you out of there." you say.
+Voice1 "Well I won't be holding my breath. Even if you can get by the front door, which is boobytrapped, I doubt you will be able to get past all the wizards."
+Voice2 "Silence victor! Listen, if you can get in the main doors, our cells are to the south of there, past a long hallway. Watch out for Grackon! He betrayed us. Here I have a hidden scroll left in my secret pouch. I will pass it down to you in hopes that it helps. Hurry."
+
+
+> take stained scroll
+You pick it up.
+
+> scribe stained scroll
+You cast the Scribe spell on the Stained scroll.
+The scroll glows brightly as the spell is copied into your spellbook. Then vanishes.
+
+> south
+You swimming in a Moat.
+You can go north or northwest.
+You are swimming in the moat along the side of the castle. The drawbridge is back to the northwest. There is a cracked section of wall here allowing entry to the castle.
+
+
+> northwest
+You are swimming in the Moat.
+You can go out to Castle grounds.
+You can go southeast.
+You are swimming in the castle moat. You can get out of the moat here or swim around the moat to the southeast.
+
+
+> out
+You are on the Castle grounds.
+There is a large Drawbridge here.
+You can go east or west.
+You can go to Moat.
+You are in the grounds outside the castle. The way out is to the west. A large moat surrounds the entire castle. You can see the main entrance to the east.
+
+The drawbridge is down.
+
+
+> west
+You are at the Outside gate.
+There is a Swirling Misty Portal above the pentagram and a large Iron gate blocking the entrance here.
+You can go east.
+You are standing at the front gates leading to the grounds of a castle. You can enter the grounds to the east.
+
+
+> enter portal
+You enter the portal. After a few moments you end up back in the summoning lab.
+
+You are in the Summoning Labratory.
+There is a Room and a Swirling Misty Portal above the pentagram here.
+You can go north.
+You are in a large labratory used by the wizard's to teach the art of summoning to it's advanced students. You have never been in here yourself as you are a new student. In the center of the room is a large pentegram, used as a safety net for advanced summons. The lab itself has been virtually ripped to shreds. Broken equipment lies everywhere and there is blood on the floor and walls. The only exit is to the north.
+
+The portal is now white.
+
+
+> memorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) Charm
+9) Bind
+10) Enchant
+11) Stabilize
+12) Shield
+[choice] 12
+You memorize the Shield spell.
+
+> rmemorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) Charm
+9) Bind
+10) Enchant
+11) Stabilize
+12) Shield
+[choice] 6
+You memorize the Enlighten spell.
+
+> rmemorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) Charm
+9) Bind
+10) Enchant
+11) Stabilize
+12) Shield
+[choice] 5
+You memorize the Gravitate spell.
+
+> memorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) Charm
+9) Bind
+10) Enchant
+11) Stabilize
+12) Shield
+[choice] 5
+You memorize the Levitate spell.
+
+> rmemorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) Charm
+9) Bind
+10) Enchant
+11) Stabilize
+12) Shield
+[choice] 11
+You memorize the Destabilize spell.
+
+> spells
+Spells:
+
+Shield:  Protects the wizard from magical projectiles.
+Enlighten:  Significantly increases the intelligence of the wizard.
+Gravitate:  Causes a suspended object to fall.
+Levitate:  Raises an inanimate object six feet off the ground.
+Destabilize:  Makes a magic spell unstable.
+
+
+> enter portal
+You enter the swirling portal. You feel like you are being squeezed from all sides and then folded and then suddenly you find yourself elsewhere.
+
+You come out in front of a castle. You recognize the banners flying about it. This is the home of the red scorpions, the most evil band of wizards around. They must have opened a teleportation portal inside the tower. That means they had to have had inside help. 
+Someone inside your tower is a traitor.
+
+You are at the Outside gate.
+There is a Swirling Misty Portal above the pentagram and a large Iron gate blocking the entrance here.
+You can go east.
+You are standing at the front gates leading to the grounds of a castle. You can enter the grounds to the east.
+
+
+> east
+You are on the Castle grounds.
+There is a large Drawbridge here.
+You can go east or west.
+You can go to Moat.
+You are in the grounds outside the castle. The way out is to the west. A large moat surrounds the entire castle. You can see the main entrance to the east.
+
+The drawbridge is down.
+
+
+> drink rainbow potion
+You drink the rainbow potion.
+You feel invincible.
+
+
+> east
+You are on the Front steps.
+You can go east or west.
+You are on the front steps of the castle. The drawbridge over the moat lies to the west and the main doors are east. Surrounding the main doors are all kinds of gargoyles and hideous statues.
+
+
+> east
+As soon as grab hold of the front door handle the statues and gargoyles spring to life.
+Knives, swords, darts and arrows sprout from nowhere looking to skewer you.
+They make impact but seem to pass right through you. You quietly slip into the main hall.
+
+You are in the Main entry.
+There is a Giant Chandelier here.
+You can go north, south, east, west or up.
+You are in the main entryway of the castle. Hallways branch off to the north, east, and south. A stair leads up to the second level. The main doors are to the west.
+
+
+> south
+You are in a Long hallway.
+You can go north or south.
+You are in a long hallway running from the main entry to the north and the off to the south.
+
+
+> south
+You are Outside cell.
+There is some Captured wizards inside the cell and a Lever here.
+You can go north or east.
+You are standing in the corner of what looks like an elbow in the long hallway. The hallway stretches off to the east and to the north back the way you came. On the south wall is a prison cell.
+
+
+> shield
+You cast the Shield spell. You feel more than see a shield of force in front of you.
+
+
+> enlighten
+You cast the Enlighten spell.
+
+You feel strange....
+You feel your mind expanding. Your understanding of complex things increases.
+
+> drink blue potion
+You drink the blue potion.
+You feel a strange cold creeping through your bones.
+
+
+> pull lever
+Pulling the lever is bound to set off some kind of alarm.
+(this might be a good time to save)
+Are you sure you want to pull it?
+1) Yes
+2) No
+[choice] yes
+You pull the lever and the cell door springs open. At the same time you hear a warning siren go off throughout the castle. You can hear loud voices comming from the hallway to the east. The escaped wizards rush down the hallway to the north. You trail after them.
+
+You are in a Long hallway.
+There is a bunch of Red scorpions hot on you heels here.
+You can go north or south.
+You are in a long hallway running from the main entry to the north and the off to the south.
+
+The escaping wizards flee to the north.
+
+> drop bag of marbles
+You drop the marbles. They scatter all over the hallway. The pursuing wizards slip and slide all over the marbles and fall into each other. You use this opportunity to run into the main entryway.
+
+You are in the Main entry.
+There is a Giant Chandelier and a bunch of Red scorpions hot on you heels here.
+You can go north, south, east, west or up.
+You are in the main entryway of the castle. Hallways branch off to the north, east, and south. A stair leads up to the second level. The main doors are to the west.
+
+The fleeing wizards head out the front door.
+You see a bunch of red scorpions emerge from the other hallways and down the stairs.
+
+
+> gravitate giant chandelier
+You cast Gravitate on the Giant Chandelier.
+The giant chandelier come crashing down with a huge bang! Many of the pursuing wizards are crushed by it.
+The others are trying to get around it. You use this opportunity to run out the doors and across the drawbridge.
+
+You are on the Castle grounds.
+There is a large Drawbridge and a bunch of Red scorpions hot on you heels here.
+You can go east or west.
+You can go to Moat.
+You are in the grounds outside the castle. The way out is to the west. A large moat surrounds the entire castle. You can see the main entrance to the east.
+
+The drawbridge is down.
+
+You see the fleeing wizard run through the main gate. 
+The red scorpions are starting to catch up to you again. They are nearly on the drawbridge.
+
+
+> levitate drawbridge
+You cast Levitate on the Drawbridge.
+You levitate the drawbridge up.
+
+The pursuing wizards crash into the drawbridge after you raise it up. You use this opportunity to run through the gates.
+
+You are at the Outside gate.
+There is a Swirling Misty Portal above the pentagram, a large Iron gate blocking the entrance and Grackon here.
+You can go east.
+You are standing at the front gates leading to the grounds of a castle. You can enter the grounds to the east.
+
+You see the last of the fleeing wizards go through the portal.
+At the same time you see Grackon appear in front of the portal, blocking your way through.
+"Insignificant little whelp!!" he cries!
+"I will teach you what a real wizard can do!!"
+
+"We'll just see about that grackon you filthy traitor!!!!" you yell.
+
+Grackon starts to cast a spell. You see flames appearing in his fingers.
+
+
+> wait
+Time passes.
+Flames erupt from grackons fingertips and engulf you!
+
+They wash over you but do no harm. He scowls and starts casting another spell.
+Darts start forming at his fingertips.
+
+
+> wait
+Time passes.
+Magical darts fly out of grackons fingers!
+
+They bounce harmlessly off your shield spell. He scowls at you and begins casting another spell.
+This one seems long and complex.
+
+> wait
+Time passes.
+Grackon continues casting his spell..
+
+
+> banish grackon
+Grackon is talking very fast trying to get his spell off but you get there first.
+With a fierce scream you watch as he slowly vanishes.
+Unfortunately the rest of the red scorpions come charging through the gate.
+
+
+> destabilize swirling misty portal
+You cast Destabilize on the Swirling Misty Portal.
+
+
+The portal becomes unstable and starts changing colors. The rest of the red scorpions catch up to you and overwhelm you. You get dragged off to a cell in the castle. At least you can rest in the knowledge that the rest of your guild is safe. You spend the next few hours trying to formulate a way out of this as they have taken everything from you except your robe.
+
+Congratulations!!!
+You have finished Wizard!!
+
+Play Wizard2 by wonderjudge!
+
+
+[runner] turns=1088 leftover=0 running=false WON=YES

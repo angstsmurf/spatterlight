@@ -1,0 +1,59 @@
+
+Christmas day Sarah
+
+You are in Your room
+There is Bed and Cool Furniture here.
+You can go south.
+You are in your room.
+
+> look
+You are in Your room
+There is Bed and Cool Furniture here.
+You can go south.
+You are in your room.
+
+> south
+You are in Hallway
+You can go north, south, east, west or southeast.
+
+> south
+You are in Living room
+There is Christmas Tree, Mom's gift, Dad's gift and Big gift here.
+You can go north.
+
+> take big gift
+
+> north
+You are in Hallway
+You can go north, south, east, west or southeast.
+
+> east
+You are in Dining room
+There is Table, Chairs, Mom, Dad and Key here.
+You can go west.
+
+> take key
+You take the key.
+
+> west
+You are in Hallway
+You can go north, south, east, west or southeast.
+
+> west
+You are in Your parents room
+There is Big bed, Furniture and Case here.
+You can go east.
+
+> use key on case
+You open the case.
+
+> open case
+It needs a key.
+
+> take knife
+You take the knife. Almost cut yaself.
+
+> use knife on big gift
+You open your gift.. And it's a teddy bear that says "Merry Christmas"! Aww!
+Thanks for playing :)
+[runner] turns=13 leftover=0 running=false WON=YES

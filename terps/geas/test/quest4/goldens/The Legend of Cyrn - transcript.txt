@@ -1,0 +1,468 @@
+
+The Legend of Cyrn, v1.0 Graham Kelly
+
+This is the demo of my rather large, soon-to-be-released game, The Legend of Cyrn. You play as one of eight races, although in the demo you can only choose from two, the Half-Elf and the Human (which are the same game, basically.) I hope you enjoy this game! I promise the full version out within the year.
+
+You are in signup room
+What is your name?
+Choose your race:
+1) Human
+2) Elf
+3) Dwarf
+4) Half-Elf
+5) Halfling
+6) Giant
+7) Troll
+8) Goblin
+9) Faerie
+[choice] 1
+The Humans are specifically tuned toward warfare--a heavy build, great strength, and a substantial intellect. Their weight and brute strength can be their undoing, however, for their lack of magical prowess and sanity in stressful situations often leads to their demise.
+Humans' war prowess and musical prowess can often overcome these weaknesses, for many have discovered the usefulness of music in the field of magic. Despite their outward appearance, Humans are greatly affiliated with the Gods, and make excellent priests.
+Do you wish to choose this race?
+1) Yes
+2) No
+[choice] 1
+You are in the Hall of Records.
+There is a Scholar taking notes here.
+You can go east or west.
+A long, extensive room filled with leather- and wood-bound tomes, scrolls, and spellbooks. The beautiful marble floor almost rings as you walk upon it, and is so clean that you can see your reflection clearly. It must have been cleaned magically to shine with such a wondrous luster. Many scholars desire to see this room, and many would consider you lucky to be here. A rare few do get chosen to study here, and many are sitting in the room now, studying happily.
+You are of the Humans, who are closest to the Gods. You are currently training as a scholar, and have been instructed to come here, to the Hall of Records, to seek out the Curator in his study and recieve your training. You begin...
+
+
+> west
+You are in the Hall of Records.
+There is a Scholar taking notes here.
+You can go north, south or east.
+A long, extensive room filled with leather- and wood-bound tomes, scrolls, and spellbooks. The beautiful marble floor almost rings as you walk upon it, and is so clean that you can see your reflection clearly. It must have been cleaned magically to shine with such a wondrous luster. Many scholars desire to see this room, and many would consider you lucky to be here. A rare few do get chosen to study here, and many are sitting in the room now, studying happily.
+
+> north
+You are in the Hall of Records.
+There is a Scholar taking notes here.
+You can go north or south.
+A long, extensive room filled with leather- and wood-bound tomes, scrolls, and spellbooks. The beautiful marble floor almost rings as you walk upon it, and is so clean that you can see your reflection clearly. It must have been cleaned magically to shine with such a wondrous luster. Many scholars desire to see this room, and many would consider you lucky to be here. A rare few do get chosen to study here, and many are sitting in the room now, studying happily.
+
+> north
+You step into the Curator's study.
+There is the Curator of the Hall of Records here.
+You can go out to Hall of Records.
+The study is piled high with books, scrolls, parchments, and tomes of all kinds. The dusty old Curator himself sits at his desk, scrawling furiously on a piece of parchment.
+
+> speak to curator
+The Curator looks up at you.
+"Er...Are you te new shcolar?" he says, his speech showing his lack of teeth.
+"Yes," you say.
+He looks over you for a moment.
+"Yesh, yesh," says the Curator. "I forshee you becoming a great shcolar and priesht, Cyrn. But firsht, you musht begin your training. Take this shcroll ta te Head Shcolar. He'll know what ta do."
+He hands you a piece of parchment.
+
+> out
+You are in the Hall of Records.
+There is a Scholar taking notes here.
+You can go north or south.
+A long, extensive room filled with leather- and wood-bound tomes, scrolls, and spellbooks. The beautiful marble floor almost rings as you walk upon it, and is so clean that you can see your reflection clearly. It must have been cleaned magically to shine with such a wondrous luster. Many scholars desire to see this room, and many would consider you lucky to be here. A rare few do get chosen to study here, and many are sitting in the room now, studying happily.
+
+> south
+You are in the Hall of Records.
+There is a Scholar taking notes here.
+You can go north, south or east.
+A long, extensive room filled with leather- and wood-bound tomes, scrolls, and spellbooks. The beautiful marble floor almost rings as you walk upon it, and is so clean that you can see your reflection clearly. It must have been cleaned magically to shine with such a wondrous luster. Many scholars desire to see this room, and many would consider you lucky to be here. A rare few do get chosen to study here, and many are sitting in the room now, studying happily.
+
+> south
+You are in the Hall of Records.
+There is a Scholar taking notes here.
+You can go north or west.
+A long, extensive room filled with leather- and wood-bound tomes, scrolls, and spellbooks. The beautiful marble floor almost rings as you walk upon it, and is so clean that you can see your reflection clearly. It must have been cleaned magically to shine with such a wondrous luster. Many scholars desire to see this room, and many would consider you lucky to be here. A rare few do get chosen to study here, and many are sitting in the room now, studying happily.
+
+> west
+You are in the Hall of Records.
+There is a Scholar taking notes and a Scholar taking notes here.
+You can go east or northwest.
+A long, extensive room filled with leather- and wood-bound tomes, scrolls, and spellbooks. The beautiful marble floor almost rings as you walk upon it, and is so clean that you can see your reflection clearly. It must have been cleaned magically to shine with such a wondrous luster. Many scholars desire to see this room, and many would consider you lucky to be here. A rare few do get chosen to study here, and many are sitting in the room now, studying happily.
+
+> give scroll to scholar
+Which scholar do you mean?
+1) Sleeping
+2) Awake
+[choice] 2
+"Hmm.." the scholar examines the scroll thoroughly. He nods to himself and produces a fine cloak, which he hands to you. As you carefully carry the cloak, it seems to call to you.
+"And a word of warning. Please don't put on the cloak. You aren't ready for its power yet."
+
+> east
+You are in the Hall of Records.
+There is a Scholar taking notes here.
+You can go north or west.
+A long, extensive room filled with leather- and wood-bound tomes, scrolls, and spellbooks. The beautiful marble floor almost rings as you walk upon it, and is so clean that you can see your reflection clearly. It must have been cleaned magically to shine with such a wondrous luster. Many scholars desire to see this room, and many would consider you lucky to be here. A rare few do get chosen to study here, and many are sitting in the room now, studying happily.
+
+> north
+You are in the Hall of Records.
+There is a Scholar taking notes here.
+You can go north, south or east.
+A long, extensive room filled with leather- and wood-bound tomes, scrolls, and spellbooks. The beautiful marble floor almost rings as you walk upon it, and is so clean that you can see your reflection clearly. It must have been cleaned magically to shine with such a wondrous luster. Many scholars desire to see this room, and many would consider you lucky to be here. A rare few do get chosen to study here, and many are sitting in the room now, studying happily.
+
+> north
+You are in the Hall of Records.
+There is a Scholar taking notes here.
+You can go north or south.
+A long, extensive room filled with leather- and wood-bound tomes, scrolls, and spellbooks. The beautiful marble floor almost rings as you walk upon it, and is so clean that you can see your reflection clearly. It must have been cleaned magically to shine with such a wondrous luster. Many scholars desire to see this room, and many would consider you lucky to be here. A rare few do get chosen to study here, and many are sitting in the room now, studying happily.
+
+> north
+You step into the Curator's study.
+There is the Curator of the Hall of Records here.
+You can go out to Hall of Records.
+The study is piled high with books, scrolls, parchments, and tomes of all kinds. The dusty old Curator himself sits at his desk, scrawling furiously on a piece of parchment.
+
+> give fine cloak to curator
+"Ahh.." says the Curator. He dons the cloak and says, "Thish is te firsht tesht. You tid not succumb to the lure of wearing te cloak, and tho have proven yourshelf trushtworthy. You have pashed the tesht. Here." He hands you a medallion.
+
+> speak to curator
+"Are you ready te undertake te next tashk?"
+1) Yes
+2) No
+[choice] 1
+"Ah, good. Goo ta te Hall of Learning, and shpeak with te Head Librarian there. Then, bring me te Writ of Knowledge."
+
+> out
+You are in the Hall of Records.
+There is a Scholar taking notes here.
+You can go north or south.
+A long, extensive room filled with leather- and wood-bound tomes, scrolls, and spellbooks. The beautiful marble floor almost rings as you walk upon it, and is so clean that you can see your reflection clearly. It must have been cleaned magically to shine with such a wondrous luster. Many scholars desire to see this room, and many would consider you lucky to be here. A rare few do get chosen to study here, and many are sitting in the room now, studying happily.
+
+> south
+You are in the Hall of Records.
+There is a Scholar taking notes here.
+You can go north, south or east.
+A long, extensive room filled with leather- and wood-bound tomes, scrolls, and spellbooks. The beautiful marble floor almost rings as you walk upon it, and is so clean that you can see your reflection clearly. It must have been cleaned magically to shine with such a wondrous luster. Many scholars desire to see this room, and many would consider you lucky to be here. A rare few do get chosen to study here, and many are sitting in the room now, studying happily.
+
+> south
+You are in the Hall of Records.
+There is a Scholar taking notes here.
+You can go north or west.
+A long, extensive room filled with leather- and wood-bound tomes, scrolls, and spellbooks. The beautiful marble floor almost rings as you walk upon it, and is so clean that you can see your reflection clearly. It must have been cleaned magically to shine with such a wondrous luster. Many scholars desire to see this room, and many would consider you lucky to be here. A rare few do get chosen to study here, and many are sitting in the room now, studying happily.
+
+> west
+You are in the Hall of Records.
+There is a Scholar taking notes and a Scholar taking notes here.
+You can go east or northwest.
+A long, extensive room filled with leather- and wood-bound tomes, scrolls, and spellbooks. The beautiful marble floor almost rings as you walk upon it, and is so clean that you can see your reflection clearly. It must have been cleaned magically to shine with such a wondrous luster. Many scholars desire to see this room, and many would consider you lucky to be here. A rare few do get chosen to study here, and many are sitting in the room now, studying happily.
+
+> northwest
+You step into the Hall of Learning.
+You can go north or southeast.
+The Hall of Learning is renowned throughout the region for its strict discipline and excellent teachers. It is full of many students and teachers going about their business.
+
+> north
+You step into the Hall of Learning.
+You can go north or south.
+The Hall of Learning is renowned throughout the region for its strict discipline and excellent teachers. It is full of many students and teachers going about their business.
+
+> north
+You step into the Hall of Learning.
+You can go south or west.
+The Hall of Learning is renowned throughout the region for its strict discipline and excellent teachers. It is full of many students and teachers going about their business.
+
+> west
+You walk into the Study Hall.
+There is the Head Librarian watching over the students, a Student studying and a Student studying here.
+You can go out to Hall of Learning.
+This is the room in which the students of the Hall of Learning are lectured and tested. A few students are here now, studying and working busily.
+
+> speak to head librarian
+You meekly approach the Head Librarian and greet him.
+"Hallo," the Librarian replies gruffly. He motions with his hand and a prefect takes over the duty of overseeing studies.
+"What may I do for you?"
+1) "The Curator sent me here to speak with you, Sir."
+2) "Never mind. Goodbye."
+[choice] 1
+"Ah.." the Librarian's features seem to soften. "Well, Initiate, what is your name?"
+"Cyrn," you reply.
+"Well, Cyrn, do you know the background of that name?"
+You shake your head.
+"We shall see."
+He takes you over to a pile of books. "Study these," he orders.
+
+> study books
+You pick up the books and begin to read. You look up the history of the "Cyrn" family line and begin to study. As you continue, you become sleepier and sleepier...
+You are on an endless plain.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+The plain stretches in a seemingly infinite journey toward the distant peaks surrounding you. You wonder how you got here.
+The Humans of your past step out of the misty plain. One looks to you, and you see in him your own face. Suddenly, you are filled with a deep understanding of your past.
+
+> north
+You begin travelling, and you are enveloped in a swirl of light and color. Suddenly you see a face swimming through the unidentifiable swirl. As they become clearer, you recognize the Head Librarian. "Wake up!" he shouts. You jerk awake.
+You walk into the Study Hall.
+There is the Head Librarian watching over the students, a Student studying and a Student studying here.
+You can go out to Hall of Learning.
+This is the room in which the students of the Hall of Learning are lectured and tested. A few students are here now, studying and working busily.
+The Head Librarian looks at you. "Have you learned?"
+"Yes," you reply. 
+"Good," says the Head Librarian. "Return to the Curator with this."
+He gives you a scroll.
+
+> out
+You step into the Hall of Learning.
+You can go south or west.
+The Hall of Learning is renowned throughout the region for its strict discipline and excellent teachers. It is full of many students and teachers going about their business.
+
+> south
+You step into the Hall of Learning.
+You can go north or south.
+The Hall of Learning is renowned throughout the region for its strict discipline and excellent teachers. It is full of many students and teachers going about their business.
+
+> south
+You step into the Hall of Learning.
+You can go north or southeast.
+The Hall of Learning is renowned throughout the region for its strict discipline and excellent teachers. It is full of many students and teachers going about their business.
+
+> southeast
+You are in the Hall of Records.
+There is a Scholar taking notes and a Scholar taking notes here.
+You can go east or northwest.
+A long, extensive room filled with leather- and wood-bound tomes, scrolls, and spellbooks. The beautiful marble floor almost rings as you walk upon it, and is so clean that you can see your reflection clearly. It must have been cleaned magically to shine with such a wondrous luster. Many scholars desire to see this room, and many would consider you lucky to be here. A rare few do get chosen to study here, and many are sitting in the room now, studying happily.
+
+> east
+You are in the Hall of Records.
+There is a Scholar taking notes here.
+You can go north or west.
+A long, extensive room filled with leather- and wood-bound tomes, scrolls, and spellbooks. The beautiful marble floor almost rings as you walk upon it, and is so clean that you can see your reflection clearly. It must have been cleaned magically to shine with such a wondrous luster. Many scholars desire to see this room, and many would consider you lucky to be here. A rare few do get chosen to study here, and many are sitting in the room now, studying happily.
+
+> north
+You are in the Hall of Records.
+There is a Scholar taking notes here.
+You can go north, south or east.
+A long, extensive room filled with leather- and wood-bound tomes, scrolls, and spellbooks. The beautiful marble floor almost rings as you walk upon it, and is so clean that you can see your reflection clearly. It must have been cleaned magically to shine with such a wondrous luster. Many scholars desire to see this room, and many would consider you lucky to be here. A rare few do get chosen to study here, and many are sitting in the room now, studying happily.
+
+> north
+You are in the Hall of Records.
+There is a Scholar taking notes here.
+You can go north or south.
+A long, extensive room filled with leather- and wood-bound tomes, scrolls, and spellbooks. The beautiful marble floor almost rings as you walk upon it, and is so clean that you can see your reflection clearly. It must have been cleaned magically to shine with such a wondrous luster. Many scholars desire to see this room, and many would consider you lucky to be here. A rare few do get chosen to study here, and many are sitting in the room now, studying happily.
+
+> north
+You step into the Curator's study.
+There is the Curator of the Hall of Records here.
+You can go out to Hall of Records.
+The study is piled high with books, scrolls, parchments, and tomes of all kinds. The dusty old Curator himself sits at his desk, scrawling furiously on a piece of parchment.
+
+> give writ of knowledge to curator
+"Ah, you have returned. I shee that you have te Writ, and you have nearly completed te journey from Initiate ta Shcolar. Here."
+He hands you a medallion.
+
+> speak to curator
+"Are you ready te undertake te next tashk?"
+1) Yes
+2) No
+[choice] 1
+"Good. To complete your training, Initiate, take this medallion. Use your ingenuity, and you shall discover how to use it."
+
+> out
+You are in the Hall of Records.
+There is a Scholar taking notes here.
+You can go north or south.
+A long, extensive room filled with leather- and wood-bound tomes, scrolls, and spellbooks. The beautiful marble floor almost rings as you walk upon it, and is so clean that you can see your reflection clearly. It must have been cleaned magically to shine with such a wondrous luster. Many scholars desire to see this room, and many would consider you lucky to be here. A rare few do get chosen to study here, and many are sitting in the room now, studying happily.
+
+> south
+You are in the Hall of Records.
+There is a Scholar taking notes here.
+You can go north, south or east.
+A long, extensive room filled with leather- and wood-bound tomes, scrolls, and spellbooks. The beautiful marble floor almost rings as you walk upon it, and is so clean that you can see your reflection clearly. It must have been cleaned magically to shine with such a wondrous luster. Many scholars desire to see this room, and many would consider you lucky to be here. A rare few do get chosen to study here, and many are sitting in the room now, studying happily.
+
+> east
+You are in the Hall of Records.
+There is a Scholar taking notes here.
+You can go east or west.
+A long, extensive room filled with leather- and wood-bound tomes, scrolls, and spellbooks. The beautiful marble floor almost rings as you walk upon it, and is so clean that you can see your reflection clearly. It must have been cleaned magically to shine with such a wondrous luster. Many scholars desire to see this room, and many would consider you lucky to be here. A rare few do get chosen to study here, and many are sitting in the room now, studying happily.
+
+> east
+You stand before the great Gateway.
+You can go east or west.
+These ancient silver gates have stood through many millenia, greeting newcomers to the Hall of Records with a shining luster and its famous engraved greeting, "Within Shall the Future be Written." The same awe passes through you now as did when you first arrived here, the same awe enstilled in the countless scholars here and yet to come.
+
+> east
+The gates open for you, and you walk out to the courtyard.
+You are outside the great gates.
+You can go north, south or west.
+The sun shines brightly upon the ever-gleaming doors to the Great Scholarly Halls. To the west lies the entanceway, and north leads to some sort of highway.
+
+> south
+You go to the Training Hall.
+There is the Combat Adviser and the Arcane Adviser here.
+You can go out to outside the great gates.
+You can go west.
+It is here that countless scholars have trained. The large wooden room is lined with seats to hold the people waiting for admission.
+
+> west
+You enter the Combat Chamber.
+You can go out to Training Hall.
+This room is padded with cloth and down to protect fighters. The room is quite plain excepting the dummy torso in the middle of the room.
+The Combat Adviser enters the room. He hands you a suit of crude armor and you put it on.
+"Now," he says, "Let's get down ta business. Heah we shall begin yar trainin' as a combatant. First, ya must learn the una'med ma'tial a'ts. Attack the dummy."
+
+> attack dummy
+You kick it, then come around and your mis-timed strike sends you flying.
+The Combat Adviser reminds you that you should always feel as well at think about your actions. He shows you some important moves.
+You try again. Your blow comes around...
+...and strikes the dummy! The Combat Adviser congratulates you and bids you out.
+You go to the Training Hall.
+There is the Combat Adviser and the Arcane Adviser here.
+You can go out to outside the great gates.
+You can go east.
+It is here that countless scholars have trained. The large wooden room is lined with seats to hold the people waiting for admission.
+"Ya will receive mo'e advanced trainin' when ya enter a combatant guild," says the Combat Adviser.
+
+> east
+You enter the Magic Chamber.
+You can go out to Training Hall.
+In this room mages are trained in the arcane arts. Magical practice sessions are often held here, but now the room is bare.
+The Arcane Adviser enters. "I see you are ready to begin your training in the basic arts of magic. The most basic spell is the light spell. Cast it now."
+The Adviser gives you a wand.
+
+> cast light spell
+You wave the thing around in the air, and a ball of light appears at the top.
+"Excellent!" says the Arcane Adviser. "This spell is useful for exploring dark places without a lantern. Now, cast the Dart Spell, a very simple attack spell."
+
+> cast dart spell
+A magical dart shoots out of the tip of your wand, burning away part of the east wall.
+"Very good!" says the Arcane Adviser. "Now cast the shield spell."
+
+> cast shield spell
+You cast a magical shield to surround yourself.
+"Good work," says the Arcane Adviser. "These are the three basic spells that will prove useful to you in your future travels. Each is one of the three types of spells: Enhancement, Attack, and Defence. Use them well."
+You go to the Training Hall.
+There is the Combat Adviser and the Arcane Adviser here.
+You can go out to outside the great gates.
+It is here that countless scholars have trained. The large wooden room is lined with seats to hold the people waiting for admission.
+You have completed your basic initiation tasks. The medallions awarded to you are no longer needed, and they have been taken from you for use on the next initiate.
+
+> out
+You are outside the great gates.
+You can go north, south or west.
+The sun shines brightly upon the ever-gleaming doors to the Great Scholarly Halls. To the west lies the entanceway, and north leads to some sort of highway.
+
+> north
+You walk along an old Path.
+You can go north or south.
+The old dirt road upon which you stand is the branch of the Highway that leads to the Two Scholarly Halls. The Highway runs north to south across Cyrn and nearly anywhere can be reached by traveling along its length.
+
+> north
+You walk along an old Path.
+You can go south or east.
+The old dirt road upon which you stand is the branch of the Highway that leads to the Two Scholarly Halls. The Highway runs north to south across Cyrn and nearly anywhere can be reached by traveling along its length.
+
+> east
+You walk along an old Path.
+You can go east or west.
+The old dirt road upon which you stand is the branch of the Highway that leads to the Two Scholarly Halls. The Highway runs north to south across Cyrn and nearly anywhere can be reached by traveling along its length.
+
+> east
+You walk along an old Path.
+There is a Fae Merchant here.
+You can go east or west.
+The old dirt road upon which you stand is the branch of the Highway that leads to the Vald Daen. The Highway runs north to south across Cyrn and nearly anywhere can be reached by traveling along its length.
+
+> speak to merchant
+"Whaddya want ta buy?"
+1) A bag of clay...........................50gp
+2) A sack of wheat........................70gp
+3) A worn staff...........................100gp
+4) A water skin............................30gp
+5) A broken wooden wheel..............30gp
+6) Nothing, goodbye.
+7) I would like to sell.
+[choice] 1
+"Here ya go."
+
+> east
+You walk along an old Path.
+There is an Olive tree here.
+You can go east or west.
+The old dirt road upon which you stand is the branch of the Highway that leads to the Vald Daen. The Highway runs north to south across Cyrn and nearly anywhere can be reached by traveling along its length.
+
+> take olive tree
+You can't take the tree, but you could take some olives.
+You take a few.
+
+> east
+You walk along an old Path.
+You can go north or west.
+The old dirt road upon which you stand is the branch of the Highway that leads to the Vald Daen. The Highway runs north to south across Cyrn and nearly anywhere can be reached by traveling along its length.
+
+> north
+You walk along an old Path.
+You can go north or south.
+The old dirt road upon which you stand is the branch of the Highway that leads to the Vald Daen. The Highway runs north to south across Cyrn and nearly anywhere can be reached by traveling along its length. Just ahead lie the gates of Vald Daen.
+
+> north
+You are in Vald Daen's Town Square.
+There is a fountain and a Fae Merchant here.
+You can go north, south, east, west, northeast, northwest or southwest.
+You can go to a small alcove.
+This is the place where the citizens of the Vald go to congregate and converse. The bustle of merchants quibbling over prices, townspeople making small talk and the babbling of the fountain here make for a noisy, yet comfortable atmosphere.
+
+> southwest
+You step into the Vald Daen Potter's Shop.
+You can go out to Town Square.
+You can go south.
+Here the potters of Vald Daen tout their wares to customers. In the back room you can see a potter, working away.
+
+> south
+You walk into the Potting Room.
+There is a Potter and a kiln here.
+You can go out to Potter's Shop.
+This is where the potters' pots are molded and fired. There are pots of glaze and paint, bags of clay, and many unfired units of pottery lying around on the floor and shelves.
+
+> mold clay
+You mold the clay into the shape of a pot.
+
+> use bag of clay on kiln
+You put in the pot for baking.
+A few hours later you return and take a fully baked pot.
+
+> out
+You step into the Vald Daen Potter's Shop.
+You can go out to Town Square.
+You can go south.
+Here the potters of Vald Daen tout their wares to customers. In the back room you can see a potter, working away.
+
+> out
+You are in Vald Daen's Town Square.
+There is a fountain and a Fae Merchant here.
+You can go north, south, east, west, northeast, northwest or southwest.
+You can go to a small alcove.
+This is the place where the citizens of the Vald go to congregate and converse. The bustle of merchants quibbling over prices, townspeople making small talk and the babbling of the fountain here make for a noisy, yet comfortable atmosphere.
+
+> west
+You walk into The Vald Daen Apothecary.
+There is a mortar and pestle here.
+You can go out to Town Square.
+Here the herbs, elixirs, and such needed for health are made and stored.
+
+> use olives on mortar and pestle
+You smash the olives into oil, juice and a pulp. You siphon off the oil and hold it in your hands.
+
+> use oil on lopsided pot
+You fill the pot with oil.
+
+> out
+You are in Vald Daen's Town Square.
+There is a fountain and a Fae Merchant here.
+You can go north, south, east, west, northeast, northwest or southwest.
+You can go to a small alcove.
+This is the place where the citizens of the Vald go to congregate and converse. The bustle of merchants quibbling over prices, townspeople making small talk and the babbling of the fountain here make for a noisy, yet comfortable atmosphere.
+
+> north
+You walk along an old Path.
+There is a Guard here.
+You can go south.
+The old dirt road upon which you stand is the branch of the Highway that leads to the Vald Daen. The Highway runs north to south across Cyrn and nearly anywhere can be reached by traveling along its length. Just behind lie the rear gates of Vald Daen.
+
+> give oil-filled pot to guard
+"Hmm.." the guard grunts. "I suppose this will do." He stands aside and bids you to pass.
+
+> north
+You walk along an old Path.
+You can go south.
+The old dirt road upon which you stand is the branch of the Highway that leads to the Vald Daen. The Highway runs north to south across Cyrn and nearly anywhere can be reached by traveling along its length. Just ahead lie the gates of Vald Daen.
+Ahead lies the Highway. Through it all of Cyrn is open to you. Good Luck.
+
+END OF DEMO
+[runner] turns=72 leftover=0 running=true WON=YES

@@ -1,0 +1,59 @@
+
+Theses of Canada Linus
+
+You are in Classroom
+There is Textbook here.
+You can go north, east or west.
+You can go to LR Laurentian Room, SR Staples Room, or FR Frontier Room.
+You are in the classroom and are faced with the challenge of finding out what Canada really is all about.
+
+> look at textbook
+Nothing out of the ordinary.
+
+> read textbook
+Your job is to find out about the different theses of how Canada developed, and, ultimately, to develop your own.
+
+> take textbook
+Aren't you going to read the book?
+
+> west
+You are in Laurentian Room
+There is Professor Donald Creighton here.
+You can go east or northeast.
+
+> look at donald creighton
+Nothing out of the ordinary.
+
+> east
+You are in Classroom
+You can go north, east or west.
+You can go to LR Laurentian Room, SR Staples Room, or FR Frontier Room.
+You are in the classroom and are faced with the challenge of finding out what Canada really is all about.
+
+> east
+You are in Frontier Room
+There is Professor Frederick Turner here.
+You can go west or northwest.
+
+> look at frederick turner
+A rugged looking man, for a historian. He wears cowboy boots and a ten gallon hat.
+
+> west
+You are in Classroom
+You can go north, east or west.
+You can go to LR Laurentian Room, SR Staples Room, or FR Frontier Room.
+You are in the classroom and are faced with the challenge of finding out what Canada really is all about.
+
+> north
+You are in Staples Room
+There is Professor Harold Innes here.
+You can go north or south.
+
+> look at harold innes
+Harold Innes is a very old Canadian historian. He looks conservative and wears a tweed blazer. He seems to be carrying a sheaf of wheat.
+
+> north
+You are in the Room of the Forgotten.
+You can go south, southeast or southwest.
+This is the room of the forgotten people. When deciding how Canada developed, historians forgot about these folks.
+[runner] turns=12 leftover=0 running=true WON=YES

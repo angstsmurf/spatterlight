@@ -1,0 +1,309 @@
+
+Haunted Horror, v2.00 FINAL Matt Slotnick
+
+Welcome to Haunted Horror
+
+The story so far...
+You pull up to a scary looking house on a dark and stormy night. You have gotten recent calls about mysterious happenings coming from this house and you were told by your boss to investigate. After all, you are a private eye investigator. So it makes sense to do your job. As you get out of your car, you look around, and something seems strange about this house...
+
+What is your name?
+Welcome, n, your game will begin momentarily...
+
+
+You are in the front Porch
+There is Door here.
+You can go south.
+You are standing on the front porch of the supposedly haunted house. There is a door infront of you with a doorbell next to it.
+
+> ring doorbell
+You ring the doorbell. A man inside the house opens the door and greets you.
+
+"Good evening, sir. You must be the detective that I have called for. Please, do come in. I hope this is not a bad time."
+
+> n
+You are in Living Room
+There is Man here.
+You can go north, south, east or west.
+
+> w
+You are in the Kitchen.
+You can go east or northwest.
+
+> nw
+You are in the Guest Bedroom.
+There is Paper here.
+You can go southeast.
+You walk into a guest bedroom off of the kitchen. Looks like this was used recently with the sheets all messed up. The people recently here looks like they left a piece of paper on the table.
+
+
+> get paper
+You pick it up.
+
+> se
+You are in the Kitchen.
+You can go east or northwest.
+
+> nw
+You are in the Guest Bedroom.
+You can go southeast.
+You walk into a guest bedroom off of the kitchen. Looks like this was used recently with the sheets all messed up. The people recently here looks like they left a piece of paper on the table.
+
+> get cord
+You pick it up.
+
+> se
+You are in the Kitchen.
+You can go east or northwest.
+
+> e
+You are in Living Room
+There is Man here.
+You can go north, south, east or west.
+
+> e
+You are in the East Hallway.
+You can go west or northeast.
+You are standing in the East Hallway. There are several paintings lined up on both sides of the hallway. The paintings are famous pieces of art.
+
+> ne
+You are in the Guest Bedroom.
+There is Safe here.
+You can go southwest.
+You walk into a guest bedroom off of the east hallway. There is not much here, except for a bed and a table. A safe is bolted into the side of the wall.
+
+> 2-50-7
+You enter the code into the safe and it opens up. There is another piece of paper here.
+
+> sw
+You are in the East Hallway.
+You can go west or northeast.
+You are standing in the East Hallway. There are several paintings lined up on both sides of the hallway. The paintings are famous pieces of art.
+
+> w
+You are in Living Room
+There is Man here.
+You can go north, south, east or west.
+
+> give safe paper to man
+You do not have that object.
+
+> n
+You are in the Main Hallway.
+You can go north, south or up.
+You walk into the Main Hallway of the house. There are pictures of people lined up on both sides of the hallway.
+
+> n
+You are in the Family Room.
+There is TV here.
+You can go south.
+From the Main Hallway, you walk into the Family Room. There is a TV in the corner infront of a couch and a chair.
+
+> use cord on tv
+You plug the TV in and it turns on. The TV is flashing a code. It says, "Put these numbers in order to solve the door code:
+4-8-1-9-3-10. Once you solve this, enter the numbers in the right order to open the door."
+
+> s
+You are in the Main Hallway.
+You can go north, south or up.
+You walk into the Main Hallway of the house. There are pictures of people lined up on both sides of the hallway.
+
+> u
+You are on the 2nd Floor.
+There is Door here.
+You can go down.
+You walk up the stairs to the 2nd floor. Unfortunatly, there is a door infront of you and it appears to be locked. There is a number pad next to the handle. Looks like you need to know the password to get in.
+
+> 1-3-4-8-9-10
+You enter in the code and hear the door unlock.
+
+> n
+You are in the Wide Hallway.
+You can go north, south, east or west.
+You open the door and find youself in a wide hallway upon the second floor. There are 3 doors infront of you. Wonder where they lead to?
+
+> w
+You are standing infront of a Storage Closet.
+You can go east.
+You open the door to find that it is a storage closet. Searching the shelves might find something useful?
+
+> search shelves
+You search the shelves and find a notebook!
+
+> get notebook
+You already have it.
+
+> read notebook
+You flip through the pages of the notebook and stop at some writing. It says:
+"What are the next two numbers?
+15-30-10-5-20
+The next two numbers are the first code, enter it as (number)-(number)."
+
+> e
+You are in the Wide Hallway.
+You can go north, south, east or west.
+You open the door and find youself in a wide hallway upon the second floor. There are 3 doors infront of you. Wonder where they lead to?
+
+> n
+You are in the Master Bedroom.
+There is Small Box here.
+You can go south.
+You step into the master bedroom. Not a lot here, only a bed and a nightside table. On top of the table is a small box.
+
+> get small box
+You pick it up.
+
+> green-red-blue-orange-black
+You press the buttons on the small box and it pops open. Inside is a key.
+
+> get key
+You pick it up.
+
+> s
+You are in the Wide Hallway.
+You can go north, south, east or west.
+You open the door and find youself in a wide hallway upon the second floor. There are 3 doors infront of you. Wonder where they lead to?
+
+> e
+You are in the Master Bathroom.
+You can go west.
+You open the door to the master bathroom. There is a sink and a toilet next to each other. A shower is on the opposite side of the room. A smaller door is infront of you on the other wall that appears to be locked.
+
+> 35-15
+You enter the code and the door unlocks.
+
+> e
+You are in the 1st Chamber.
+You can go west.
+You walk through the door to find another, again locked, door. Looks like you need the key.
+
+> use key
+You unlock the door with the key and it leads into another passage way.
+
+> n
+You are in the 2nd Chamber.
+You can go south.
+You open the door to find yourself in the second chamber. There is yet another door and it is, of course, locked. There is an inscription upon the wall.
+
+> 8-6
+You enter in the code and the door unlocks.
+
+> w
+You are in the Final Chamber.
+You can go east.
+You walk inside the final chamber. The final door is infront of you. Find the answer to open the door. Another inscription is on the wall.
+
+> 13
+You enter in the final code and the door unlocks.
+
+> n
+You are on the Staircase.
+You can go south or north.
+You open the door and find yourself standing infront of a staircase. I wonder where they lead to?
+
+> n
+You are in the Attic.
+There is Chest 1, Chest 2 and Chest 3 here.
+You can go south.
+You walk up the staircase and find yourself in the attic. There are a couple of chests here and some old raggedy clothes.
+
+> open chest 3
+You open the chest and search through it. You find a panel inside with 3 different switches on it. I wonder what each switch does?
+
+> get panel
+You pick it up.
+
+> switch 1
+You flipped switch 1.
+Switch 1 is now on.
+
+> switch 2
+You flipped switch 2.
+Switch 2 is now on.
+
+> switch 3
+You flipped switch 3.
+Switch 3 is now on.
+As you turn the switch on, you hear a slow rumble. The wall next to you begins to slide to the right, revealing a secret room!
+
+> e
+You are in the Secret Room.
+There is Notice here.
+You can go west.
+You walk inside the room, and there is a notice on the table. I wonder what it says?
+
+> get notice
+You have 13 seconds to escape this house before it self destructs.
+
+> get answer sheet
+You pick it up.
+
+> w
+You are in the Attic.
+There is Chest 1, Chest 2 and Chest 3 here.
+You can go south or east.
+You walk up the staircase and find yourself in the attic. There are a couple of chests here and some old raggedy clothes.
+
+> s
+You are on the Staircase.
+You can go south or north.
+You open the door and find yourself standing infront of a staircase. I wonder where they lead to?
+
+> s
+You are in the Final Chamber.
+You can go east.
+You walk inside the final chamber. The final door is infront of you. Find the answer to open the door. Another inscription is on the wall.
+
+> e
+You are in the 2nd Chamber.
+You can go south.
+You open the door to find yourself in the second chamber. There is yet another door and it is, of course, locked. There is an inscription upon the wall.
+
+> s
+You are in the 1st Chamber.
+You can go north or west.
+You walk through the door to find another, again locked, door. Looks like you need the key.
+
+> w
+You are in the Master Bathroom.
+You can go east or west.
+You open the door to the master bathroom. There is a sink and a toilet next to each other. A shower is on the opposite side of the room. A smaller door is infront of you on the other wall that appears to be locked.
+
+> w
+You are in the Wide Hallway.
+You can go north, south, east or west.
+You open the door and find youself in a wide hallway upon the second floor. There are 3 doors infront of you. Wonder where they lead to?
+
+> s
+You are on the 2nd Floor.
+There is Door here.
+You can go north or down.
+You walk up the stairs to the 2nd floor. Unfortunatly, there is a door infront of you and it appears to be locked. There is a number pad next to the handle. Looks like you need to know the password to get in.
+
+> d
+You are in the Main Hallway.
+You can go north, south or up.
+You walk into the Main Hallway of the house. There are pictures of people lined up on both sides of the hallway.
+
+> s
+You are in Living Room
+There is Man here.
+You can go north, south, east or west.
+
+> s
+You are in the front Porch
+There is Door here.
+You can go north or south.
+You are standing on the front porch of the supposedly haunted house. There is a door infront of you with a doorbell next to it.
+
+> s
+You are in your Car.
+There is Folder here.
+You can go north.
+You walked back to your car. There is a folder sitting on the passenger seat. It holds all the record files for this house.
+You leap out of the house just as it explodes into smitherines. You run to your car to call the police, but you find a small note on your dashboard. It says:
+
+"Nice job, you escaped your doom. But not for long!"
+
+GAME OVER - YOU WIN
+
+[runner] turns=63 leftover=0 running=false WON=YES

@@ -1,0 +1,72 @@
+
+Forward and Back, v1.0 MarcroSoft
+
+Welcome to: Forward and Back!
+How many players are playing?
+Enter name of player 1:
+Enter name of player 2:
+Enter name of player 3:
+The following 3 players are now ready to play:
+Marc
+Anna
+Bo
+How many dice should each player start with?
+Let's play!
+All players now have 2 dice.
+Enter ok to roll the dice.
+
+Marc, it is your turn.
+Current player: Marc 1 of 3.
+Marc has 2 dice.
+Anna has 2 dice.
+Bo has 2 dice.
+0 out of a total of 6 dice are out of the game.
+
+> ok
+Marc, your dice show: 2 2.
+Anna, it is your turn.
+
+> ok
+Anna, your dice show: 6 3.
+Bo, it is your turn.
+
+> ok
+Bo, your dice show: 5 3 1 3.
+Marc, it is your turn.
+
+> ok
+Marc, your dice show: 6.
+Anna, it is your turn.
+
+> ok
+Anna, your dice show: 2.
+Bo, it is your turn.
+
+> ok
+Bo, your dice show: 1 6 1.
+Marc, it is your turn.
+
+> ok
+Marc, your dice show: 3 4 6.
+Marc, it is your turn.
+
+> ok
+Marc, your dice show: 2 2.
+Bo, it is your turn.
+
+> ok
+Bo, your dice show: 5 5.
+Bo, it is your turn.
+
+> ok
+Bo, your dice show: 4 2.
+Anna, it is your turn.
+
+> ok
+Anna, your dice show: 4.
+Bo, it is your turn.
+
+> ok
+Bo, your dice show: 6.
+Anna, you lost!
+[runner] turns=12 leftover=0 running=false WON=YES

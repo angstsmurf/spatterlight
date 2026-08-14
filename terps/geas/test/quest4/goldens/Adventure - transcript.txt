@@ -1,0 +1,127 @@
+
+Adventure, v1
+
+Welcome to my adventure. This took me a while, so you better enjoy it.
+Welcome to: ADVENTURE!
+Made by: Caden James (c) 2011
+
+"Listen, I know you're afraid but you have got to take chances. Now go get me some gold!"
+
+Reluctantly, you turn to enter the castle...
+
+You are in Entryway
+You can go north.
+The doors behind you are locked. You can not leave!!!
+
+> xyzzy
+I'm a Zorkian too!
+
+> north
+You are in Hall 1
+You can go north, south, east or west.
+A long and dark hallway.
+
+> east
+You are in Bare room
+There is a Tinted Jar here.
+You can go west.
+This room has nothing in it. Other than a jar...
+
+> open tinted jar
+A lizard jumps out and attacks you.
+
+
+> west
+You are in Hall 1
+You can go north, south, east or west.
+A long and dark hallway.
+
+> west
+You are in a very Strange Room
+There is floating sign here.
+You can go east.
+You feel lightheaded and fall unconsious.But you wake up...
+
+> east
+You are in Hall 1
+You can go north, south, east or west.
+A long and dark hallway.
+You still feel lightheaded.
+
+> north
+You are in Hall 2
+You can go north, south, east or west.
+It's still dark...
+
+> north
+You are in Dog!
+There is Gold and a big dog here.
+You can go south.
+There is a dog here. It is guarding some gold.
+AAAAHHHH!! A BIG DOG!!!!
+
+> take gold
+(Must...be...CARFUL...)
+The dog wakes up and bites you, then goes back to sleep.
+"Phew!"
+
+> south
+(Must...be...CARFUL...)
+You are in Hall 2
+You can go north, south, east or west.
+It's still dark...
+"Phew!"
+
+> west
+You are in a Hole
+You can go east or down.
+There is a Giant hole in the ground!
+Woah!
+
+> down
+You are in a Bathroom?
+There is a smelly Toilet and some toilet paper here.
+You can go east or up.
+Why is this here? Is this a public attraction? (Well, maybe to Zorkians)
+UUUUMMMM?
+O.K.
+
+maybe you should go down...
+
+> east
+You made it to the... Credits room.
+There is credits here.
+You can go west or southeast.
+Glad you made it.
+OMG! It stinks in here!
+
+> look credits
+you like this?
+It says:
+"Game made by: Caden James
+
+ Based after:
+ Don Wood's and Will Crowther's Collassal     Cave Adventure
+&
+ Marc Blank's Zork
+
+(Note: this was 99% me, 0.5% the games mentioned above, and 0.5% my freinds.)
+
+(c) [not really] 2011
+cuz' I bet you do!
+
+> jump
+you like this?
+You jump, but nothing happens.
+cuz' I bet you do!
+
+> listen
+you like this?
+You can't hear much.
+cuz' I bet you do!
+
+> wait
+you like this?
+Time passes.
+cuz' I bet you do!
+[runner] turns=18 leftover=0 running=true WON=YES

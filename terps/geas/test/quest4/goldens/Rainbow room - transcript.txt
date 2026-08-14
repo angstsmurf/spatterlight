@@ -1,0 +1,354 @@
+
+Rainbow room
+
+You wake up, your head's pounding.
+You look around, you don't see anything familiar about the room you're in.
+
+You can't seem to remember how you got here, or why.
+How long have you been out cold?
+There's no clock to be seen, so you have no clue to what date it is,
+or what time it is.
+
+You remember being at the mall's food court, when someone asked if they could sit down at your table. You think it was a girl, but you're not sure...
+Everything's a blur from that point on...
+
+Time to get out of here!
+
+
+
+You are in the Bedroom
+There is a bed, a desk and a wardrobe here.
+You can go south or down.
+
+This is a girl's bedroom.
+The bed is covered with a pink blanket, and has a pink pillow on it.
+The wallpaper is pink, the carpet is also pink.
+It smells of cheap perfume in here.
+
+There's a bathroom door to the SOUTH.
+There's a staircase leading DOWN to the sitting area.
+
+> look at bed
+It's a bed...
+With a pink blanket, and a pink pillow.
+
+> examine pillow
+When you pick up the pillow, you discover a diary underneath!
+
+> x diary
+It has a drawing on the front.
+It depicts a love heart, pierced by an arrow.
+On one end of the arrow it says: ''Cindy''.
+On the other it says: ''Rob''.
+
+> take diary
+You take the diary.
+
+> open wardrobe
+You open it.
+
+> take tutu
+(first removing it from wardrobe)
+Done.
+You pick it up.
+
+> wear tutu
+You squeeze into the tiny tutu.
+Nice...
+
+> dance
+You prance around like a fairy.
+You hope to god that there are no hidden camera's around...
+
+> look at desk
+It's a sturdy desk. There's a pen on it.
+
+> take pen
+You pick it up.
+
+> s
+You are in the bathroom
+There is a toilet, a shower and a medicine cabinet here.
+You can go north.
+
+This bathroom is in dire need of a cleaning!
+It smells like your average dodgy truck stop bathroom.
+The tiles used to be white, but now they're all moldy.
+You can't seem to find any tile that isn't cracked.
+
+The bedroom is to the NORTH.
+
+> x toilet
+You'd rather not...
+
+> open medicine cabinet
+You open it.
+
+> n
+You are in the Bedroom
+There is a bed, a desk, a wardrobe, a blanket and a pillow here.
+You can go south or down.
+
+This is a girl's bedroom.
+The bed is covered with a pink blanket, and has a pink pillow on it.
+The wallpaper is pink, the carpet is also pink.
+It smells of cheap perfume in here.
+
+There's a bathroom door to the SOUTH.
+There's a staircase leading DOWN to the sitting area.
+
+> d
+You are in the SW corner
+There is a couch, a coffee table, a television, a telephone, a window and a lingerie catalog here.
+You can go east, northeast or up.
+
+You're in what looks to be the sitting area.
+There's a couch here. It looks comfy, but rather tatty.
+A table with nothing but a ''Dirty little secret'' lingerie catalog,
+and an old TV set.
+The carpet is worn, and it has holes in it.
+It smells like ammonia...
+
+There's a door to the NORTH EAST.
+There's a kitchen to the EAST.
+There's a staircase that leads UP to the bedroom.
+
+
+The downstairs floor looks like it consists of a single room,
+with all the facilities and furniture set up in their own separate corners.
+
+> examine couch
+A closer inspection of the couch reveals a small key 
+that got stuck between the cushions.
+
+> take small key
+You pick it up.
+
+> x small key
+It looks like a key that would fit a small lock.
+
+> take lingerie catalog
+You pick up the catalog.
+
+> read lingerie catalog
+There's not much to read in the catalog.
+Just the ordering info.
+
+''To order from our new line, call 0800 Bra's Here,
+To file a complaint, please dial 0800 Bra Bash'd.
+Thank you very much for your business!''
+
+
+> dial 0800brashere
+-''Dirty little secret lingerie hotline!
+How may I help you today?''
+
+You're so nervous, you hang up the phone immediately...
+
+> read diary
+You use the key to open the diary, and you start to read.
+Which page will you read?
+1) First page
+2) Second page
+3) Third page
+4) Fourth page
+5) Fifth page
+6) Sixth page
+7) Seventh page
+8) Eigth page
+9) Ninth page
+10) Tenth page
+11) Eleventh page
+[choice] 11
+The eleventh page is the last page with writing on it.
+It reads:
+
+-Dear diary,
+
+My state-of-the-art security system keeps shorting out!
+I'm having to spend a fortune on fuses!
+I tried to buy cheaper ones, but the box came apart when I got home!
+All the fuses rolled everywhere!
+I found almost all of them, all but one.
+I think it rolled under the couch or something...
+
+Oh well, I'll get it later...
+For now, I have to figure out a way to get to Rob.
+He got a restraining order against me!
+What did I ever do to him?
+He's the one that cheated with that cheerleader behind my back!
+
+But I forgive my Rob.
+I know he loves me, and we're destined to be together!
+I'll bring him home, and keep him here forever!
+
+I just need to practice first...
+I think I'll try to pick someone up at the mall...
+
+
+Whoa! So that's why you're here!
+You should try to find that fuse that got lost,
+and get the heck out of here!
+Want to read more?
+1) yes
+2) no
+[choice] 2
+You decide to stop reading the diary.
+
+> look under couch
+Looking under the couch, you see a fuse lying under it.
+Now to reach it...
+
+> e
+You are in the SE corner
+There is a stove, some cupboards, a sink, a drawer and a kitchen table here.
+You can go north or west.
+
+This part of the room is the kitchen part.
+You can't believe someone cooks here!
+It's all dirty and messy, the countertop is littered with rodent feces,
+and the stove looks like it hasn't been used in ages!
+The piece of linoleum surrounding the kitchen is stained,
+and warped around the edges.
+It smells of rotting food and rat pee.
+
+There's a door to the NORTH.
+There's a sitting area to the WEST.
+
+> open drawer
+You open it.
+
+> take spatula
+(first removing it from drawer)
+Done.
+You pick it up.
+
+> open cupboards
+You open it.
+
+> take frying pan
+(first removing it from cupboards)
+Done.
+You pick it up.
+
+> w
+You are in the SW corner
+There is a couch, a coffee table, a television, a telephone, a window and a fuse here.
+You can go east, northeast or up.
+
+You're in what looks to be the sitting area.
+There's a couch here. It looks comfy, but rather tatty.
+A table with nothing but a ''Dirty little secret'' lingerie catalog,
+and an old TV set.
+The carpet is worn, and it has holes in it.
+It smells like ammonia...
+
+There's a door to the NORTH EAST.
+There's a kitchen to the EAST.
+There's a staircase that leads UP to the bedroom.
+
+
+
+> use spatula
+You use the spatula to reach the fuse.
+PRESTO! You now have a fuse!
+
+> dial 911
+You call the police, and tell them your story.
+They ask you if you know where you are, which of course, you don't.
+
+You swear to the person on the phone, that you will find the nearest police station,
+and that you will bring something to prove your story.
+
+The police in turn go and pick up Rob, to put him in protective custody, just in case...
+
+> ne
+You are in the NE corner
+There is a weird looking door here.
+You can go south, east, west or southwest.
+
+The northeast corner of the appartment has a weird looking door,
+it has a colorful row of switches on it.
+There are stains in the carpet, and there's a faint smell of urine.
+
+There's a closet under the stairs to the WEST.
+There's a kitchen to the SOUTH.
+There's a sitting area to the SOUTH WEST.
+
+> w
+You are in the closet under the stairs
+There is a fuse box, a Tool box, a coat rack, a rain coat and a winter coat here.
+You can go east.
+
+The closet looks like some sort of utility closet.
+It smells damp and moldy. It must be from the raincoat hanging here.
+The appartment's fuse box is located in this closet,
+and someone uses it to store their tools.
+
+Out the closet is to the WEST.
+
+> examine fuse box
+It looks like one of the fuses is burnt out.
+
+> use fuse
+You put the fuse in the fuse box.
+
+> examine fuse box
+All four fuses look in perfect working order.
+
+> examine coat rack
+It's a metal coat rack, and it's used to hang coats from.
+Look! There they are!
+
+> open tool box
+You open it.
+
+> e
+You are in the NE corner
+There is a weird looking door here.
+You can go south, east, west or southwest.
+
+The northeast corner of the appartment has a weird looking door,
+it has a colorful row of switches on it.
+There are stains in the carpet, and there's a faint smell of urine.
+
+There's a closet under the stairs to the WEST.
+There's a kitchen to the SOUTH.
+There's a sitting area to the SOUTH WEST.
+
+> look at door
+The door has seven switches on it, in all the colors of the rainbow.
+
+> look at red switch
+A red flipswitch.
+It's unlit.
+It must be ''off''.
+
+> flip red switch
+You flip the switch to the ''on'' position.
+The door makes a few clicking sounds.
+
+> look at red switch
+A red flipswitch.
+It has a little red light burning in it.
+The switch must be ''on''.
+
+> flip orange switch
+You flip the switch to the ''on'' position.
+The door makes a few clicking sounds.
+
+> flip blue switch
+You flip the switch to the ''on'' position.
+The door makes a few clicking sounds.
+
+> e
+You get the heck out of the building, and you try to remember the adress before you run off to find the nearest police station.
+
+When you get there, it turns out they were notified of your call, and a search has been set up already.
+
+The diary you took provides plenty of evidence against Cindy, and plenty to put Rob in witness protection.
+
+Everyone thanks you for your bravery and quick thinking,
+you've gotten a sociopath commited, and saved a promising athlete's life!
+
+[runner] turns=46 leftover=0 running=false WON=YES

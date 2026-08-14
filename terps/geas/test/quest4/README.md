@@ -8,7 +8,7 @@ real game:
 | `make syntax` (at `../`) | nothing (in-repo) | code that only compiles as one translation unit |
 | `harness/run_fixtures.sh` | nothing (in-repo) | engine behaviour, against golden transcripts |
 | `harness/geas_unit_tests` | nothing (in-repo) | corrupt saves and parser edges no player can drive |
-| `harness/run_walkthroughs.sh` | the games (local; scripts in-repo) | regressions in 108 real games |
+| `harness/run_walkthroughs.sh` | the games (local; scripts in-repo) | regressions in 108 real games, against golden transcripts |
 
 `make check` (from `../`) runs everything but the last — those are
 self-contained, so they are the ones worth wiring into CI.
@@ -17,9 +17,9 @@ self-contained, so they are the ones worth wiring into CI.
 
 - `fixtures/` — the hand-written `.asl` games, their `.cmd` scripts and their
   `.expected` transcripts. Ours, and committed.
-- `goldens/` — the `<title> - command script.txt` walkthroughs we derived
-  ourselves, one per corpus game. Committed; the transcripts are not frozen,
-  since each game is checked by its win marker instead.
+- `goldens/` — two committed files per corpus game: the
+  `<title> - command script.txt` walkthrough we derived ourselves, and the
+  `<title> - transcript.txt` the engine produces when it replays it.
 - `games/` — the `.asl`/`.cas` corpus. **Untracked** (`../.gitignore`):
   third-party game data is never committed.
 - `games.manifest.tsv` — the committed sha256 pin for every file in `games/`,
@@ -44,10 +44,11 @@ harness/run_fixtures.sh           # PASS/FAIL table
 harness/run_fixtures.sh --bless   # regenerate the .expected files
 ```
 
-The transcripts must be reproducible, so the seed is fixed and no fixture ever
-prints a raw random number — `rand()` differs between C libraries. A fixture
-that wants to check a random value asserts a *range* instead (see
-`fixtures/functions.asl`).
+The transcripts must be reproducible, so the seed is fixed, and no fixture
+prints a raw random number: one asserting a random value checks a *range*
+instead (see `fixtures/functions.asl`). That convention predates the runner
+pinning its own generator — which now makes a raw draw reproducible too — and
+is kept because a range says what the fixture is actually testing.
 
 > **Watch out:** several of the bugs these guard are undefined behaviour, and a
 > plain `-O2` build does not fault on them — it silently returns garbage. A
@@ -129,8 +130,33 @@ PASS/FAIL table. The command scripts live in `goldens/` and are committed, so
 with the games in `games/` no arguments are needed:
 
 ```sh
-harness/run_walkthroughs.sh
+harness/run_walkthroughs.sh              # win marker + transcript diff
+harness/run_walkthroughs.sh --bless      # re-record the transcripts
+harness/run_walkthroughs.sh --win-only   # markers only, no diffing
 ```
+
+Each game is checked twice over: the win marker has to appear, **and** the whole
+replay has to match `goldens/<title> - transcript.txt` byte for byte. The marker
+on its own is a weak test — an engine change that garbles every room description
+still reaches the ending, so it still passes. Changing one word of the
+`badcommand` message, for instance, leaves all 108 win markers intact and shows
+up as four failed transcripts.
+
+A failure prints the head of the diff and how many lines moved; the transcripts
+themselves run from 2 KB to 280 KB, 3.7 MB in total. They are *our* engine's
+output, not an oracle's, so they freeze current behaviour, bugs included: a
+deliberate fix is expected to move them, and `--bless` re-records. What the
+diff is for is the change nobody intended — and its size is itself the signal,
+since a fix to one message should not move sixty games.
+
+Two things make the transcripts stable enough to diff. The seed is fixed
+(`GEAS_SEED=1`), and the runner substitutes its own Park-Miller generator for
+the C library's `rand()`, because the seeded draws decide the outcome of 14 of
+these games and `rand()` is not the same function on two C libraries. The
+substitute reproduces the macOS sequence the walkthroughs were derived against
+exactly — 200 000 draws from each of nine seeds agree value for value — so
+pinning it changed no transcript here and makes them reproducible off this
+machine.
 
 The games are copyrighted and stay local-only (`games/` is gitignored), so point
 the script elsewhere if you keep them somewhere else. Three of the games are
@@ -143,3 +169,7 @@ harness/run_walkthroughs.sh "/path/to/Geas games" "/path/to/Geas walkthroughs"
 
 A walkthrough is looked up in `goldens/` first and in that directory second, so
 a local copy never shadows a committed script.
+
+Those three get no transcript golden, and report `PASS (win marker only)`. A
+transcript spells out every command it replays, so recording one would republish
+the walkthrough — which is exactly what not redistributing it was about.

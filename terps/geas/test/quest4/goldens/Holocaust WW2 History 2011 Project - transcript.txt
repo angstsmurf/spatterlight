@@ -1,0 +1,462 @@
+
+Holocaust WW2 History 2011 Project
+
+You get up from where you are sitting on the ground.  You have no idea where you are or how you got here.  All you do know is that you just want to get back to your social studies class where you just were two seconds ago.  Well you had better start looking for a way out , or even what this place that you are in is. 
+
+You are in Lobby
+There is the Big Desk and the People here.
+You can go north, south, east or west.
+You are in a large room.  There is a large German sign above you that you can just translate.  It says Administration Building.  What strikes you as weird is that there are about a dozen people in the room, but none of them are moving and they appear frozen in motion of some sort.
+
+> look at people
+They are a bunch of frozen people that have nazi symbols on them.  They look creepy.
+
+> look at big desk
+It a big clean desk with a right and left drawer.
+
+> open right drawer
+Its empty.
+
+> open left drawer
+There is an envelope in here.
+
+> look at envelope
+Its a plan white envelope.
+
+> open letter
+There is a note in here.
+
+> read note
+The note is in German.  I think I can translate it.  The note says "Take the new guests to the shower as soon as they get here. "  Hmm strange.
+
+> w
+You are in West Hallway
+There is Carpet here.
+You can go north, south, east or west.
+As you walk into this dimly lit hallway you trip over a pulled back piece of carpet.  "STUPID CARPET"  you yell.
+
+> pull carpet
+There is a key under here.
+
+> look at key
+Its a small round key.
+
+> take key
+I got a key!!!
+
+> w
+You are in Big Office
+There is a Box here.
+You can go east.
+You enter a spacious room.  It has no windows but plenty of light.
+
+> look at box
+It appears to be a radio of some sort.  There are lots of wires coming out of it.
+
+> use box
+Hmm.  Now some music is playing.
+
+> e
+You are in West Hallway
+There is Carpet and a Key here.
+You can go north, south, east or west.
+As you walk into this dimly lit hallway you trip over a pulled back piece of carpet.  "STUPID CARPET"  you yell.
+
+> e
+You are in Lobby
+There is the Big Desk, an Envelope, Note and the People here.
+You can go north, south, east or west.
+You are in a large room.  There is a large German sign above you that you can just translate.  It says Administration Building.  What strikes you as weird is that there are about a dozen people in the room, but none of them are moving and they appear frozen in motion of some sort.
+
+> n
+You are in North Hallway
+There is a Closed Door here.
+You can go north or south.
+You are in a long hallway that is very narrow and has dim light.  There is pictures on the walls of famous Germany people.
+
+> look at closed door
+Its a door and its locked.
+
+> use key in closed door
+The door is now open!
+
+> n
+You are in Big Office
+There is a Desk here.
+You can go south.
+You are in a large lit chamber.  There is a big desk in the middle of the room and a huge window behind the desk.  There is an unmoving seemingly frozen man sitting at the desk.  He looks angry and appears to be looking at somethign on his desk.
+
+> look at desk
+It is a big wooden desk that has a picture of something.
+
+> look at picture
+It says on the back "Arial view of the camp".  I guess that is what this is you say.
+
+> s
+You are in North Hallway
+There is a Closed Door here.
+You can go north or south.
+You are in a long hallway that is very narrow and has dim light.  There is pictures on the walls of famous Germany people.
+
+> s
+You are in Lobby
+There is the Big Desk, an Envelope, Note and the People here.
+You can go north, south, east or west.
+You are in a large room.  There is a large German sign above you that you can just translate.  It says Administration Building.  What strikes you as weird is that there are about a dozen people in the room, but none of them are moving and they appear frozen in motion of some sort.
+
+> w
+You are in West Hallway
+There is Carpet and a Key here.
+You can go north, south, east or west.
+As you walk into this dimly lit hallway you trip over a pulled back piece of carpet.  "STUPID CARPET"  you yell.
+
+> n
+You are in Room
+There is Papers here.
+You can go south.
+It is a room with a single light on and a bunch of papers on the ground.
+
+> look at papers
+All these other papers look like junk, or they are too hard for me to translate.  This picture is the only thing that looks cool.
+
+> pick up picture
+I now have it!
+
+> i
+You are carrying nothing.
+
+> s
+You are in West Hallway
+There is Carpet and a Key here.
+You can go north, south, east or west.
+As you walk into this dimly lit hallway you trip over a pulled back piece of carpet.  "STUPID CARPET"  you yell.
+
+> s
+You are in Room
+You can go north or east.
+It is just an empty white room.
+
+> e
+You are in South Hallway
+You can go north, south, east or west.
+It is a bright wider hallway.
+
+> e
+You are in Room
+There is a Piece of Paper here.
+You can go south or west.
+It is just an empty.... WAIT.  There is a piece of paper here!
+
+> look at piece of paper
+The note is in German.  Let me translate it.  It says, "June 6, 1942: The new gas chambers have just been installed.  Now we will not have to be doing this anymore.  HA HA!
+
+> w
+You are in East Hallway
+You can go north, south, east or west.
+Its a short dimly lit hallway.
+
+> n
+You are in Room
+You can go south.
+It is just an empty white room.
+
+> s
+You are in East Hallway
+You can go north, south, east or west.
+Its a short dimly lit hallway.
+
+> s
+You are in Room
+You can go north or east.
+You enter a room that has nothing in it except for stairs leading downward.
+
+> e
+You are in Underground Room
+You can go north, south or west.
+You enter a spacious underground chamber.  To your left is a series of prison cells.  There is one that is open, but the rest are all closed and locked.  To your right is a spacious room with the door open.  As you look inside the other room it seems as if it is a secure bunker.
+
+> n
+You are in Bunker Room
+There is Giant Table and Huge Map here.
+You can go south.
+There is a giant table in the center of the room with a huge map on it.
+
+> look at giant table
+It is a huge table with a map on it.
+
+> look at huge map
+It is a giant map of Germany.
+
+> take huge map
+I now have it.  There is a pen under this map!!!
+
+> look at pen
+It is a pen.  It seems a little loose.
+
+> open pen
+The pen just falls apart and a small piece of paper comes out of it.
+
+> look at small piece of paper
+It is a small piece of paper that reads "This pen belongs to Heinrich Himmler and was presented to him when he visited camp Dachau in 1936
+
+> s
+You are in Underground Room
+You can go north, south or west.
+You enter a spacious underground chamber.  To your left is a series of prison cells.  There is one that is open, but the rest are all closed and locked.  To your right is a spacious room with the door open.  As you look inside the other room it seems as if it is a secure bunker.
+
+> s
+You are in Open prison cell
+There is Frozen Man and Book here.
+You can go north.
+As you enter the smelly prison cell,  you see a frozen man along with soem frozen rats.  Weird you say.
+
+> look at frozen man
+It is a frozen, skinny, younger man that looks very sad.  He must be a prisoner.  He has a book with him.
+
+> look at book
+It is called Mein Kampf.
+
+> n
+You are in Underground Room
+You can go north, south or west.
+You enter a spacious underground chamber.  To your left is a series of prison cells.  There is one that is open, but the rest are all closed and locked.  To your right is a spacious room with the door open.  As you look inside the other room it seems as if it is a secure bunker.
+
+> w
+You are in Room
+You can go north or east.
+You enter a room that has nothing in it except for stairs leading downward.
+
+> n
+You are in East Hallway
+You can go north, south, east or west.
+Its a short dimly lit hallway.
+
+> w
+You are in Lobby
+There is the Big Desk, an Envelope, Note and the People here.
+You can go north, south, east or west.
+You are in a large room.  There is a large German sign above you that you can just translate.  It says Administration Building.  What strikes you as weird is that there are about a dozen people in the room, but none of them are moving and they appear frozen in motion of some sort.
+
+> s
+You are in South Hallway
+You can go north, south, east or west.
+It is a bright wider hallway.
+
+> s
+You are in Outside
+You can go north, south or east.
+You walk through the door and are now outside.  The view takes your breath away.  You see thousands of people frozen in motion.  You are standing on top of a small hill overlooking many small houses or buildings.  You had better investigate.
+
+> e
+You are in Entrance
+There is a Gate here.
+You can go west.
+You appear at a large gate.  "This must be the entrance to wherever I am," you think.
+
+> look at gate
+It is a giant locked gate that says "Arbeit macht frei", or as I learned in social studies class, "work makes free".
+
+> w
+You are in Outside
+You can go north, south or east.
+You walk through the door and are now outside.  The view takes your breath away.  You see thousands of people frozen in motion.  You are standing on top of a small hill overlooking many small houses or buildings.  You had better investigate.
+
+> s
+You are in First set of Buildings
+There is Person 1 and Person 2 here.
+You can go north, south, east or west.
+You see the first set of buildings.  There are an equal number of them on both sides of you.  There are only two frozen people here.
+
+> look at person 1
+As you look more closely at this person you see that he is wearing rags and he looks like a prisoner.  He has an odd tattoo on his arm.
+
+> look at tattoo
+The tattoo is this number 140603.  I believe it is some sort of identification number.
+
+> look at person 2
+You look more closely at this male figure, and you see that he has the nazi symbol on him.  He looks as if he is some sort of guard.  A bright piece of metal that is hanging out of the guards pocket catches your eye.
+
+> look at metal object
+It is a necklace with a picture in it.
+
+> pick up metal object
+I now have it.
+
+> e
+You are in Building
+There is Sad Frozen People and a Toilet here.
+You can go west.
+You are in a narrow room with dirty beds, floors and a toilet that should not be considered a toilet.  There are around 50 dirty sad looking frozen people crammed into this small space.
+
+> look at toilet
+It is a dirty smelly overflowing toilet.  Wait in the bottom of the toilet is a piece of paper!
+
+> look at dirty piece of paper
+The dirty paper says," I am a German political prisoner held in my own country by my own people.  The citizens of my beloved Germany were tricked by this Hitler monster.  I hope that is message somehow gets from the toilet from where it was placed into the hands of someone who can help.  If my family ever gets this I love you all." signed, Gringarth Schmidt"
+
+> w
+You are in First set of Buildings
+There is Person 1 and Person 2 here.
+You can go north, south, east or west.
+You see the first set of buildings.  There are an equal number of them on both sides of you.  There are only two frozen people here.
+
+> w
+You are in Building
+You can go east.
+You enter the building and get a smell of stench enter your nose.  You can barely keep your eyes open, you had better get out of here fast!
+
+> e
+You are in First set of Buildings
+There is Person 1 and Person 2 here.
+You can go north, south, east or west.
+You see the first set of buildings.  There are an equal number of them on both sides of you.  There are only two frozen people here.
+
+> s
+You are in Second set of Buildings
+There is a Camera here.
+You can go north, south, east or west.
+As you move on to the next set of buildings you trip over something.  You see that it is a camera.
+
+> look at camera
+It is an old camera.
+
+> use camera
+Let me take a few pictures of this horrible place.
+Here are those buildings from the top of the hill.
+These are some of the many frozen people I saw as soon as I left the Administration Building.
+Here is the main gate a little ways from here.
+
+> e
+You are in Building
+You can go west.
+This building is set up just like the rest.  It has dirty everything and it is sad to look at.
+
+> w
+You are in Second set of Buildings
+There is a Camera here.
+You can go north, south, east or west.
+As you move on to the next set of buildings you trip over something.  You see that it is a camera.
+
+> w
+You are in Building
+There is Injured Man here.
+You can go east.
+This building is set up just like the rest.  The only difference is that there appears to be a frozen man injured on the floor.
+
+> look at injured man
+There appears to be an injured man here.  It looks like he has been whipped.
+
+> touch open wound
+As you touch the wound the blood seems to connect with your body.  You feel a surge of power and you realize where you are instantly.  "I am in a concentration camp in Germany that is very famous and is called D....", and then the power fades and all returns to normal.
+
+> e
+You are in Second set of Buildings
+There is a Camera here.
+You can go north, south, east or west.
+As you move on to the next set of buildings you trip over something.  You see that it is a camera.
+
+> s
+You are in Third set of Buildings
+You can go north, south, east or west.
+You come to the third and final set of buildings.  You look at your watch and realize that your parents are going to start missing you now.  You had better start to figure out where you are and how to get out.
+
+> e
+You are in Building
+You can go west.
+You enter another building that looks like the previous rest.
+
+> w
+You are in Third set of Buildings
+You can go north, south, east or west.
+You come to the third and final set of buildings.  You look at your watch and realize that your parents are going to start missing you now.  You had better start to figure out where you are and how to get out.
+
+> s
+You are in Far side of camp
+You can go north, east or west.
+You have passed by some of the many buildings around, and are now at the far side of location in which you are in.  As you look around you realize that the  entire place you are within is enclosed by a huge fence topped with barbed wire and scattered about are guard towers.
+
+> w
+You are in Guard Tower (ground)
+You can go east or up.
+You are standing beneath a guard tower.  There is a ladder leading up to the tower.
+
+> up
+You are in Guard Tower
+There is Machine Gun and Frozen Guard here.
+You can go down.
+You are standing in a small open room.  You are about four stories above the ground and can see the entire camp from up here.  It is a large rectangle shape with a huge fence all around it and barbed wire topping it.  Looking around in the guard tower you see a frozen guard manning the one machine gun turret.
+
+> look at frozen guard
+It is a nasty looking nazi guard who looks like he wants to kill.
+
+> look at machine gun
+It is a World War Two style Machine gun.
+
+> down
+You are in Guard Tower (ground)
+You can go east or up.
+You are standing beneath a guard tower.  There is a ladder leading up to the tower.
+
+> e
+You are in Far side of camp
+You can go north, east or west.
+You have passed by some of the many buildings around, and are now at the far side of location in which you are in.  As you look around you realize that the  entire place you are within is enclosed by a huge fence topped with barbed wire and scattered about are guard towers.
+
+> e
+You are in Small Building Green House
+You can go east or west.
+You are in a hot building with lots of plants.  You think you are in some sort of greenhouse.  You are starting to sweat and want to get out!
+
+> e
+You are in Big Building Gas Chamber and Crematorium
+You can go west.
+You enter the building and immediately see a sign that says Brausebad.  From your studies you know that word means shower.  From what you have seen around here you know what this place is.  It is a Gas Chamber!  Thankfully it is not in use at the momement and there is nobody in sight.  You want to get out of here as quick as possible.  You quickly turn around to run out the door, but trip over a loose stone.
+
+
+> pull loose stone
+As you pull the stone, it comes away from the ground to reveal a small box.
+
+> open small box
+Inside is a bunch of German coins.
+
+> look at german coins
+They are shiny coins dating between 1940-1943.  Hey on the back of this one coin is a message that says (translated), "I know the Germans will take my coins so I decided to write this message on the back of one.  This camo is an evil place and I hope that it meets its judgment someday.  CURSE YOU CAMP DAC-..."  The writting just cuts off there and the writting runs off the page.  he must of had to stop it early.
+
+> take german coins
+You now have them!
+
+> w
+You are in Small Building Green House
+You can go east or west.
+You are in a hot building with lots of plants.  You think you are in some sort of greenhouse.  You are starting to sweat and want to get out!
+
+> w
+You are in Far side of camp
+You can go north, east or west.
+You have passed by some of the many buildings around, and are now at the far side of location in which you are in.  As you look around you realize that the  entire place you are within is enclosed by a huge fence topped with barbed wire and scattered about are guard towers.
+
+> n
+You are in Third set of Buildings
+You can go north, south, east or west.
+You come to the third and final set of buildings.  You look at your watch and realize that your parents are going to start missing you now.  You had better start to figure out where you are and how to get out.
+
+> w
+You are in Building
+There is Basin with water and a Green Figure here.
+You can go east.
+You enter the building and see what is in everyother building.  Crappy beds, and toilet that cannot even be considered that, and many dirty frozen people.  There is one thing different though, this building has a basin with water in it.
+
+> look at basin with water
+It is a basin with filty water in it.  There is also a strange green figure in it.
+
+> look at green figure
+Its a strange green figure with long ears and who is very short.
+
+> talk to green figure
+"You who are hmmm?", the green figure speaks.  "Figured out where you are have you yet, hmm?"  "Well when you have, tell me and help you leave this place I can."
+
+> speak I am in Dachau green figure
+You win! HMMMMMMMM................................................
+As soon as you yell the location of you outloud.  Everything starts to fade around you.  You then hear you social studies teacher yelling at you to wake up.  As you lift your head from the table you realize you are back in your social studies class in present day.  "I guess it was all a dream you think".  Then you put your hand in your pocket and out tumbles the camera letter and other things you picked up along your travels...
+
+[runner] turns=104 leftover=0 running=false WON=YES

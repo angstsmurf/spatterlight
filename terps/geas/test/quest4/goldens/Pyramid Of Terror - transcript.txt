@@ -1,0 +1,330 @@
+
+Pyramid Of Terror, v1
+
+Things were fine in your Victorian folly.  But one day, you started having visions of Sutekh, the Egyptian god of destruction and dust.  Then you receive a scroll in the post, telling you that you must enter the under-realm of the Pyramid of Terror.  Will Sutekh be there?  So you follow the scroll's instructions, and climb down a manhole cover and into the sewer, the starting place of your quest...
+
+You are in the sewer
+There is a blob of lichen, a brass ring and a rat here.
+You can go north.
+It's not very nice down here.  The sewage flows away into the dim and dank distance.  The walls are coated in patches of moss and lichen.  Looks like someone's been here before you.  You can see a rat's eye gleaming in the murkiness.
+
+> look at rat
+The rat is grey and greasy,
+
+> speak to rat
+The rat raises a world-weary eyebrow, and says, 'I suppose you're another one looking for Sutekh.'
+
+> take brass ring
+You pick up the ring.
+
+> take blob of lichen
+You pick up the green, furry blob.
+
+> n
+You are in a gloomy stone passageway
+There is a trendy pair of sunglasses and a blind man's white cane here.
+You can go north or south.
+It is dim now, and the walls enclose, a bit like at the end of Batman, when He and Robin are being squeezed into a nail-walled cell, designed and controlled by the Joker, or some such.
+
+
+> take pair of sunglasses
+You pop them on and, strangely, they seem to illumine the way...
+
+> take blind man's white cane
+You take up the cane, and seem to take on the air of Gerald Harper as you do.
+
+> use cane
+You strut like Ray Charles, then swing your head about like Stevie Wonder, and then look to David Blunkett for a role-model, and become increasingly dissatisfied with your menu...
+
+> n
+You are in the sarcophagus chamber
+There is a sarcophagus here.
+You can go north, south or northwest.
+This is the sarcophagus chamber.  Before you, there is a bejewelled rug with a large letter M at its centre, nesting like a spider within red and purple spirals.  Beyond there is a tapestry hanging, and then just behind, a looming, ornate sarcophagus.
+
+> look at sarcophagus
+You can see finer details in the glowing sarcophagus now.  Within its belly, a dim, yellowy glow, like a distant sunset, and the letter A seems to reach into the purple sky above...
+
+> speak to sarcophagus
+The scowling face pulses with light as a booming voice addresses you.  'Yes, this is the doorway to the tomb of Sutekh...but I warn thee, I predict a riot...dare you go on...are you really that bored?'
+
+> open sarcophagus
+To your surprise, instead of a mummy, a female goth staggers out, screwing up her eyes as she emerges into the gloom, having been entombed for some time...
+
+> give brass ring to goth
+She accepts it with a smile and slips it on a finger.
+
+> look at goth
+You notice she is carrying a book.
+
+> take jane eyre book
+Do you normally go around snatching books off pretty girls?  It might be on her reading list, for her course.  Don't steal books, don't be so spineless.  I wonder though, how would she respond if you gave it back (give book to goth might do it).  She might have an invitation for you.  And if she does, I'd say yes goth...
+
+> give jane eyre book to goth
+She takes it from you, saying, 'Thank you, I'm only halfway through it, and I'm enjoying it a lot.  Have you read The Tenant of Wildfell Hall by Anne Bronte?  Actually, you look quite nice, would you like to go for a coffee?'
+
+> n
+You are in an underground kitchen
+There is an oven here.
+You can go north or south.
+It looks as if someone lodged here for a while.  There's a full mesh bin here, so full that most of the rubbish in it has petrified.  Now who'd have lived in a place like this?
+
+> switch on oven
+You switch on the oven by turning an ornate mahogany knob.
+
+> look at oven
+The ancient oven seems to have a flame burning inside, and as steam fills the little window, you see a letter P written in the condensation...ghostly, huh?  This is getting like Scooby Doo, or Goober and the Ghostchasers - remember that?
+
+> open oven
+You open the oven and notice a gingerbread man lying on a baking tray inside.
+
+> take gingerbread man
+You remove from dainty morsel from the clay oven.
+
+> speak to gingerbread man
+'I am but a humble gingerbreadperson,' it says.  'I am very tasty, if you're peckish.  But don't tell Sutekh.  But before you do eat me, I suggest you drop me, let me take you back to a doorway previously locked...so, drop me, or eat me....?
+
+> look at mesh bin
+You glance at the bin, and it reminds you of a ruined life, a lilting life.
+
+> take lilt can
+You are now the proud owner of a ruined and empty Lilt can.
+
+> drop gingerbread man
+You are in the sarcophagus chamber
+There is a brass ring, a sarcophagus and a goth here.
+You can go north, south or northwest.
+This is the sarcophagus chamber.  Before you, there is a bejewelled rug with a large letter M at its centre, nesting like a spider within red and purple spirals.  Beyond there is a tapestry hanging, and then just behind, a looming, ornate sarcophagus.
+You're back in the sarcophagus room.  Seems dropping gingerbread in this world sets you back a bit.  But it looks slightly different in here...
+
+> nw
+You are in the chamber of fire
+You can go southeast or down.
+This room smells of sulphur.  There are three tall blazing orange flames burning from three grills in the floor, and between them there seems to be a hole with a ladder leading down.  There is a sign on the back wall, and a cobweb hanging ominously in the corner where the walls meet the moss-clad ceiling.
+
+> look at sign
+The sign reads 'Quiet Please, Hermit In Progress...'
+
+> look at cobweb
+A seven-legged spider comes scuttling from the darkness and hangs there on his quivering web, eight eyes glinting...
+
+> speak to seven-legged spider
+The spiders wants you to know that there is a letter I in the word that murders Sutekh.
+
+> take seven-legged spider
+You pick him up.
+
+> down
+You are in a hermit's cell
+There is a bearded hermit and a mouldy Snickers bar here.
+You can go up.
+This is quite a depressing little cell, just bricks, dampness, and a straw-filled mattress on the floor.  Don't know what its council tax band would be.
+
+> speak to hermit
+The hermit frowns at you disapprovingly, and points up at the sign.  But he sees you have the spider on you, and he speaks in trepidation, and says in a hoarse whisper, 'Sutekh can't abide wedding-cake.  I know this, as I read it on a scrap of parchment wot I found, "The Song of Sutekh".  They say some scraps still exist.'
+
+> take snickers
+You pick up the peanut-packed Snickers bar...seems to be a crushed ant stuck to it.
+
+> eat snickers
+You bite off a chunk, and swallow.
+
+
+> sick up snickers
+You throw up the out-of-date confection, and the mummy vision seems to assuage, and your pool of vomit is before you on the floor.
+
+> up
+You are in the chamber of fire
+You can go southeast or down.
+This room smells of sulphur.  There are three tall blazing orange flames burning from three grills in the floor, and between them there seems to be a hole with a ladder leading down.  There is a sign on the back wall, and a cobweb hanging ominously in the corner where the walls meet the moss-clad ceiling.
+
+> se
+You are in the sarcophagus chamber
+There is a brass ring, a sarcophagus and a goth here.
+You can go north, south or northwest.
+This is the sarcophagus chamber.  Before you, there is a bejewelled rug with a large letter M at its centre, nesting like a spider within red and purple spirals.  Beyond there is a tapestry hanging, and then just behind, a looming, ornate sarcophagus.
+
+> n
+You are in an underground kitchen
+There is an oven here.
+You can go north or south.
+It looks as if someone lodged here for a while.  There's a full mesh bin here, so full that most of the rubbish in it has petrified.  Now who'd have lived in a place like this?
+
+> n
+You are in the temple of enticement
+There is the cursed pipe of Albion here.
+You can go south or east.
+This is Sutekh's awful shrine to all decadence.  Concoctions line the shelves around the walls, and there are jars and test-tubes along a crowded, diabolical workbench.
+
+> smoke pipe
+That was nice...might try that again...
+
+> stop pipe
+Probably a good idea, your pulse is galloping away like a frightened stallion...calm down...
+
+> drink concoctions
+You guzzle on a bottle and nothing happens for a moment, and then before you a vision of a marble sparrow in an apothecary's bottle hangs in the air before you, gauze-edged and foggy...
+
+> take marble sparrow
+(first removing it from concoctions)
+You can't remove that.
+
+> e
+You are in the chequered chessboard room
+There is a granite queen and a stone king here.
+You can go east or west.
+Well, this is the chessboard room.  The light here comes in through a skylight, or is it a manhole cover?  The floor is a chessboard, with all the pieces set out as if at the beginning of the game.  They are stone pieces, and the taller ones reach up to your shoulder.  Nice feature.
+
+> speak to granite queen
+Being stone, she doesn't have much to say.  You might say there's a stony silence - or you might not.
+
+> befriend king
+His granite lips quiver into action, 'There is a zip in that which kills Sutekh, a zip I tells ya.'
+
+
+> w
+You are in the temple of enticement
+There is the cursed pipe of Albion and a dainty marble sparrow here.
+You can go south or east.
+This is Sutekh's awful shrine to all decadence.  Concoctions line the shelves around the walls, and there are jars and test-tubes along a crowded, diabolical workbench.
+
+> s
+You are in an underground kitchen
+There is an oven here.
+You can go north or south.
+It looks as if someone lodged here for a while.  There's a full mesh bin here, so full that most of the rubbish in it has petrified.  Now who'd have lived in a place like this?
+
+> s
+You are in the sarcophagus chamber
+There is a brass ring, a sarcophagus and a goth here.
+You can go north, south or northwest.
+This is the sarcophagus chamber.  Before you, there is a bejewelled rug with a large letter M at its centre, nesting like a spider within red and purple spirals.  Beyond there is a tapestry hanging, and then just behind, a looming, ornate sarcophagus.
+
+> speak to goth
+'It was pretty stuffy in that mahogany monstrosity,' she says.
+
+
+> yes goth
+You accept her invitation, and the two of you are transported, as you are, to the coffee-shop of mystic interludes.  Fancy a frappe?
+You are in the coffee-shop of mystic interludes
+There is some Robusta beans, some Arabica beans, some special Sutekh beans and a gleaming self-service cafetiere here.
+.You find yourself, with your gothfriend, in a high-up, mystic coffee-bar.  It seems to look out over Seattle Sound, a la Frasier and Niles.  The place is decorated with bookish understatedness.
+
+> look at Seattle Sound
+It is a misty day out on the Sound.  You see a tiny boat, a tug, dot across the greyness like a speck in a waking dream.
+
+> weigh Robusta beans
+
+> weigh Arabica beans
+
+> weigh special Sutekh beans
+
+> take special Sutekh beans
+Oh dear, they seem to have a forcefield around them.
+
+> take Robusta beans
+You scoop up and pocket the Robustas.
+
+> speak to goth
+'I'm glad we came here,' she says.  'I cannot leave though.  You can, by drinking your Americano.  I will remain, dreaming of limes, listening to the Sound.'
+
+> use cafetiere
+You pull the lever and after a steaming and a gushing, a pale Americano pours forth into your waiting paper-cup.  Enjoy.  
+
+> take Americano
+You pick it up.
+
+> drink Americano
+You sip the Americano, and before you can take a meaningful gulp, you are whizzed'n'whirled into a room you've not seen before...
+You are in a seemingly empty room
+There is a yellowy blob and a vending machine here.
+You can go east or west.
+This room seems fairly bland, four magnolia walls surround you.
+
+> look at magnolia walls
+Magnolia begins with an M.
+
+> look at vending machine
+Nothing out of the ordinary.
+
+> wave cane
+You are correct to think that the white cane is a kind of wand.  You wave it gracefully before the vending machine, and suddenly you can take whichever of the treats you please...go ahead, take my treats...
+
+> take Maltesers
+You take the little red bag of glee...
+
+> take monster munch
+Much of a munchness, but they're yours...
+
+> take raspberry slushpuppy
+You reach for the jaunty paper cup, as a king might his goblet.
+
+> drink slushpuppy
+You take a few icy gulps...ooh, brainfreeze...ouch, that tartrazine's got a punch...
+
+> stop drinking
+You cease your guzzling, and slowly the visions subside, Sutekh's still maroon silhouette fading to grey, and away.
+
+
+> speak to marzipan
+I am from Marz, it whispers.
+
+> take marzipan
+You pick it up.
+
+> e
+You are in the swimming-pool
+There is a wedding-cake and a diving-board here.
+You can go west.
+The pool looks deep, and yearns like a rosebud for the morning sun.  The ceiling is high, and a blue mist drifts above the gently undulating water.  Wanna dip?
+
+> look at wedding-cake
+In the middle of the pool, an island-cum-cakestand, containing one wedding cake, with tiny figures atop it.
+
+> dive in
+You plunge into the deep blue vortex, swimming'n'spiralling into infinity.  Down, down, deeper on down, you plummet, the ghost of Francis Rossie haunting you as you descend.  Then, almost in relief, you clatter to the floor in a dark, diabolical lair...
+You are in Sutekh's Chamber Of Cruelty
+There is a magnifying glass and Sutekh here.
+You can go up.
+Jets of irridescent green flame roar at intervals from ornate brass funnels, and the walls, jet black, are studded with the occasional ruby, gleaming dark scarlet in the drear, like blood-eyes gazing from a world behind glass...nice feature.
+
+> take magnifying glass
+You pick it up.
+
+> use magnifying glass
+You look into its convex slightly scratched lens, and the letters PAN seem to drift behind the glass - what, is that Pan, the goat-god?
+
+> speak to Sutekh
+He murmurs something, seeming to snipe at self, and says, 'I shall make a plaything of you...'
+
+> drop marzipan
+Aha, you drop the yellowy blob, that you and Sutekh both know to be marzipan, to the dark stone floor.  'No, not the marzipan,' he howls, clamping jet gauntlets to his temples.  'Please, take it away, destroy it.  I offer you an alliance...destroy it, and I will give you a planet as a plaything, a system to reign over.'  As you are about to answer him, in a steaming mass of melted malevolence, Sutekh, Lord of all things dark, of destruction and dust, dissolves into so many grains of fizzing, dimming light before you, until, in a hole that seems to suck itself in on itself, the outline of Sutekh vanishes completely, leaving cool, clear, peaceful air.  It's as if a cloud has lifted.  Above you, the trapdoor clicks open.  You can go up now...
+
+
+
+> up
+You are in your drawing-room
+There is a globe and a record player here.
+You can go down.
+Yes, you're back in the drawing-room of your Victorian folly.  William Morris drapes hang in the bay-window, a globe on a stand before them.  Your Observer crossword awaits you.  Might need the magnifying glass for that.  It is a cosy, bookish room, a lava-lamp and a beanbag in the corner by the CDs.  Yes, this is home, such as it is...it's where you are.....
+
+> open drapes
+You see the street below, dark, quiet, lit by a solitary gas-standard.  In the middle of the road, a manhole cover is missing.
+
+> take scroll
+You pick up the rolled up papyrus.
+
+> read scroll
+It reads, 'Please, I am but a hapless goth, but I saw you in your window one afternoon, and you looked just the person to help me out.  I have tried to avenge the ruination of my wedding-day by hunting down the diabolical Sutekh, but every time I try I seem to mess it up.  In case I do, I'm leaving you this note.  Can you free me, find him, destroy him?  His destruction's in the thing he tried to wreck.  Best wishes, Imogen the goth xx
+
+> look at globe
+It's turned in such a way that Egypt captures your attention.
+
+> play record player
+You drop the needle on the record, and the eerie, ethereal song from Lionheart fills the room with its mellow plain, singing of far Eastern circumstances, Egyptian delight.  What's more, you find a joint at the side of the turntable.
+
+> smoke joint
+You do so, and a few minutes in, as Kashka from Baghdad returns to the cradle, you see visions in the curtains, mummies, a goth, a gingerbread man...
+Well, you slew Sutekh.  He wasn't all bad, I know, but it was you or him, I feel.  Thank you for passing through my world, maybe see you again.  Love, Sutekh
+
+[runner] turns=85 leftover=0 running=false WON=YES

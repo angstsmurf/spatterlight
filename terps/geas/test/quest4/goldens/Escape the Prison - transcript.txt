@@ -1,0 +1,48 @@
+
+Escape the Prison! Tomsa
+
+You awaken in a damp cell. Your party companions Tara the Thief and Hans the Cleric are here as well, but somebody is missing. Yes...that must be it - your other companion, Grogh the Orcish Berzerker, must have fallen asleep on his guard post the other night, that inexcusable sod. Even Donk, your pet donkey who carries your inventory, is here, which is kind of odd since his meat would have made an excellent stew.
+
+The cell is made entirely of stone slabs. It is damp and dark, with barely any light at all. Only an iron door lies between you and freedom. Apart from your merry band of adventurers, your pet inventory donkey Donk is here, grazing away at the moldy straw beddings. Suddenly a guard opens a very small hatch, only to throw in an apple. "Enjoy your dinner, swamprats, hahaha!", the guard laughs.
+
+> look at available characters
+Choose character
+1) Mandrake the Mage
+2) Tara the Thief
+3) Hans the Cleric
+[choice] 3
+You now play as Hans.
+
+> use spell of resurrection on tara the thief
+By erratically waving your hands and chanting, you resurrect Tara. "Thank you Hans, you saved me!"
+
+> look at available characters
+Choose character
+1) Mandrake the Mage
+2) Tara the Thief
+3) Hans the Cleric
+[choice] 2
+You now play as Tara.
+
+> take rotten apple
+You pick it up.
+
+> give rotten apple to donk
+You give the rotten apple to Donk, which he happily eats. It does not take long before his stomach starts grumbling, and moments later, Donk lifts his tail to drop a steaming pile of fresh dung on the stone floor, making the atmosphere of the cell unbearable.
+
+> look at leather pouch
+It is a pouch made of deer hide. It smells.
+
+> take lock pick
+(first removing it from leather pouch)
+Done.
+You pick it up.
+
+> use lock pick on iron door
+Tara uses the lock pick on the iron door. Soon, you hear a clicking noise.
+
+> north
+You are finally free!
+You have managed to escape the cell and a fate unknown. Now you and your merry band of adventurers may journey forth into the sunset!
+
+[runner] turns=9 leftover=0 running=false WON=YES

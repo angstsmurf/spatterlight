@@ -1,0 +1,517 @@
+
+Green Light, v1.0 Carlii Cortez
+
+GREEN LIGHT
+Version 1.0 Prereleased
+
+
+
+
+You are in the tower room.
+There is panel A, panel B, panel C and a steel grate below you here.
+The tower room has no windows and is black all over, so you can bearly see a thing. You look up to the pinaccle at the top and you notice it is made of glass.
+
+> i
+You are carrying:
+crowbar
+
+> x grate
+The steel grate seems be casted over a hole below you.
+
+> use crowbar on grate
+You rip at the grate with the crowbar and it comes after much effort. You look down the hole and find card A.
+
+> take card A
+You pick it up.
+
+> use card A on panel A
+You slot card A into panel A and hear a slight hum. The whole panel collapses at your feet and reveals a hidden door. You look through the empty space and see it leads south.
+
+> s
+You are in the the labratory.
+There is a big wooden table and a wall here.
+You can go north or east.
+Below the tower room lies the labratory. It is a small room, with a desk or two and bubbling liquids. You notice the tower room lies to the north and another room to the east.
+
+> x table
+Under the table you discover a trap door.
+
+> open trap door
+You grasp the latch on the trap door and whamp it open to reveal a ladder leading to another room.
+
+> go to potions room
+You are in the potions room.
+There is a rack, a small crystal-like potion bottle, an ordinary looking jug and a tiny vial here.
+You can go to up the ladder and through the trap door to the lab.
+
+> take potion bottle
+You pick it up.
+
+> take jug
+You pick it up.
+
+> take vial
+You pick it up.
+
+> go to lab
+You go up the ladder to the lab.
+You are in the the labratory.
+There is a big wooden table, a wall and an opened trap door barely visible here.
+You can go north or east.
+You can go to potions room.
+Below the tower room lies the labratory. It is a small room, with a desk or two and bubbling liquids. You notice the tower room lies to the north and another room to the east.
+
+> e
+You are in the fountain room.
+There is a gigantic stone fountain, an eight-eyed monster and a small glass window here.
+You can go south, east or west.
+The fountain room is a large expanse, strangely filled with grass, flowers and assorted items of amazement. As the name suggests, in the centre of the room is a gigantic fountain.
+
+> use jug on fountain
+You fill the jug up with water from the fountain.
+
+> s
+You are in the kitchen.
+There is a big wooden cupboard, a cooking book, a flour pot, a baking dish and an oven here.
+You can go north.
+You can go to inside pantry.
+Surrounding you are many dirty utensils, empty buckets, old appliances and, strangely enough, saw dust. The kitchen seems to connect with the fountain room from the north.
+
+> x cooking book
+It is a large thick book, or at least that's what it used to be. Most of the pages have been torn out and burned out of ill-use. You read the cover. It says "Cooking For Giants and Monsters Alike: A Comprehensive and Easy-To-Use Guide On How To Cook For The More Larger Creatures On This Earth". You wonder what other stranges words are inside...
+
+> read book
+You open the book and begin to read. Only a few pages are visible to read after such destruction...
+Green Stew
+ -200 grams of assorted boggies
+ -8 large human skulls
+ -generous amount of water and blood
+ -pinch of salt
+
+Mix ingrediants in bowl until the stew turns a green colour. Heat over fire for 10-15 minutes. Serve immediately.
+
+Figari Bread
+ -flour
+ -water
+ -one clove of Figari
+ -a sprinkle of sugar
+Mix flour and water together in a mixing bowl. Add Figari clove. Knead to dough. Make the dough into a bread shape and put into oven or over fire in a baking dish for 10 minutes or until golden brown. When the bread has cooled down add a sprinkle of sugar to the top.
+
+> x cupboard
+The cupboard has 9 drawers you think, after counting them.
+1) open and inspect number 1
+2) open and inspect number 2
+3) open and inspect number 3
+4) open and inspect number 4
+5) open and inspect number 5
+6) open and inspect number 6
+7) open and inspect number 7
+8) open and inspect number 8
+9) open and inspect number 9
+10) exit menu
+[choice] 8
+You open the draw to find...
+A cup!
+
+> x cupboard
+The cupboard has 9 drawers you think, after counting them.
+1) open and inspect number 1
+2) open and inspect number 2
+3) open and inspect number 3
+4) open and inspect number 4
+5) open and inspect number 5
+6) open and inspect number 6
+7) open and inspect number 7
+8) open and inspect number 8
+9) open and inspect number 9
+10) exit menu
+[choice] 4
+You open the draw to find...
+card B!
+
+> x cupboard
+The cupboard has 9 drawers you think, after counting them.
+1) open and inspect number 1
+2) open and inspect number 2
+3) open and inspect number 3
+4) open and inspect number 4
+5) open and inspect number 5
+6) open and inspect number 6
+7) open and inspect number 7
+8) open and inspect number 8
+9) open and inspect number 9
+10) exit menu
+[choice] 7
+You open the draw to find...
+1 gold coin!
+
+> take pot
+You pick it up.
+
+> take baking dish
+You pick it up.
+
+> go to pantry
+You are standing in the walk-in pantry.
+There is a sack of sugar here.
+You can go out to kitchen.
+It smells musky in here. Darkness surrounds you and you notice sadly that there isn't much food here.
+
+> use vial on sack of sugar
+You scoop up some sugar and place it in the tiny vial.
+
+> out
+You are in the kitchen.
+There is a big wooden cupboard, a cooking book and an oven here.
+You can go north.
+You can go to inside pantry.
+Surrounding you are many dirty utensils, empty buckets, old appliances and, strangely enough, saw dust. The kitchen seems to connect with the fountain room from the north.
+
+> n
+You are in the fountain room.
+There is a gigantic stone fountain, an eight-eyed monster and a small glass window here.
+You can go south, east or west.
+The fountain room is a large expanse, strangely filled with grass, flowers and assorted items of amazement. As the name suggests, in the centre of the room is a gigantic fountain.
+
+> w
+You are in the the labratory.
+There is a big wooden table, a wall and an opened trap door barely visible here.
+You can go north or east.
+You can go to potions room.
+Below the tower room lies the labratory. It is a small room, with a desk or two and bubbling liquids. You notice the tower room lies to the north and another room to the east.
+
+> n
+You are in the tower room.
+There is panel A, panel B and panel C here.
+You can go south.
+The tower room has no windows and is black all over, so you can bearly see a thing. You look up to the pinaccle at the top and you notice it is made of glass.
+
+> use card B on panel B
+You slot card B into panel B and hear a slight hum. The whole panel collapses at your feet and reveals a hidden door. You look through the empty space and see it leads south-west.
+
+> sw
+You are in the bedroom.
+There is a bed and a humungous purple and green vase here.
+You can go northeast.
+You can go to the top of the bed.
+This dusty room doesn't seem to have been used in a long time. It's a pretty ordinary bedroom except for one thing - the ceiling is 10 metres tall! This is similar to other rooms in the tower. It's as if a giant lived here once or something.
+
+> x vase
+It looks expensive. Maybe it holds something expensive too?
+
+> take vase
+You wouldn't like to handle it really, as you see it is so delicate you could break it. If you were to drop it it would smash open and anything inside would be spread over the floor.
+But you pick it up anyway.
+
+> drop vase
+You drop the vase on the floor and the contents spill...
+You find 4 gold coins and a Clove of Figari!
+
+> take pieces of ceramic
+You pick up the tiny pieces of ceramic. You suppose you better clean up the mess you made so the giant won't notice the vase is gone...
+
+> go to top of the bed
+You climb up the massive bed.
+...and finally make it.
+You are on the top of the bed.
+There is a lengthy piece of string dangling from the ceiling here.
+You can go to climb back to the main bedroom.
+It must've took a while to climb on top of the giant's bed, but you're on it now. You can just see the ceiling from here but it is still metres away out of reach.
+
+> x string
+It's just a piece of string dangling, attached to the ceiling.
+
+> pull string
+You pull the string hard. A large noise errupts and with the feeling that the ceiling will cave in beneath you, you scramble off the bed...
+You are in the bedroom.
+There is a bed here.
+You can go northeast.
+You can go to the top of the bed.
+This dusty room doesn't seem to have been used in a long time. It's a pretty ordinary bedroom except for one thing - the ceiling is 10 metres tall! This is similar to other rooms in the tower. It's as if a giant lived here once or something.
+You look up to the ceiling and see a long protuding ladder has resulting in your pulling the string. You cannot reach it from the ground however.
+
+> go to top of the bed
+You climb up the massive bed.
+...and finally make it.
+You are on the top of the bed.
+There is a long protuding ladder coming from the hole in the ceiling and a lengthy piece of string dangling from the ceiling here.
+You can go to climb back to the main bedroom.
+It must've took a while to climb on top of the giant's bed, but you're on it now. You can just see the ceiling from here but it is still metres away out of reach.
+
+> climb ladder
+You grab onto the ladder and begin climbing it up towards the hole in the ceiling...
+...and arrive on top of the tower!
+You are standing on the balcony.
+There is a long protuding ladder coming from the hole below you and a small gold key here.
+You can go to the ladder and climb it down to go back to the bedroom at the top of the bed.
+Standing on the balcony you can see the landscape unfold in front of you. With the wind in your air you can look over the strange countryside gracefully.
+
+> x key
+The key is not that big and is light to carry.
+
+> take key
+You pick it up.
+
+> go to top of the bed
+You are on the top of the bed.
+There is a long protuding ladder coming from the hole in the ceiling and a lengthy piece of string dangling from the ceiling here.
+You can go to climb back to the main bedroom.
+It must've took a while to climb on top of the giant's bed, but you're on it now. You can just see the ceiling from here but it is still metres away out of reach.
+
+> go to bedroom
+You are in the bedroom.
+There is a bed here.
+You can go northeast.
+You can go to the top of the bed.
+This dusty room doesn't seem to have been used in a long time. It's a pretty ordinary bedroom except for one thing - the ceiling is 10 metres tall! This is similar to other rooms in the tower. It's as if a giant lived here once or something.
+
+> ne
+You are in the tower room.
+There is panel A, panel B and panel C here.
+You can go south or southwest.
+The tower room has no windows and is black all over, so you can bearly see a thing. You look up to the pinaccle at the top and you notice it is made of glass.
+
+> s
+You are in the the labratory.
+There is a big wooden table, a wall and an opened trap door barely visible here.
+You can go north or east.
+You can go to potions room.
+Below the tower room lies the labratory. It is a small room, with a desk or two and bubbling liquids. You notice the tower room lies to the north and another room to the east.
+
+> e
+You are in the fountain room.
+There is a gigantic stone fountain, an eight-eyed monster and a small glass window here.
+You can go south, east or west.
+The fountain room is a large expanse, strangely filled with grass, flowers and assorted items of amazement. As the name suggests, in the centre of the room is a gigantic fountain.
+
+> x window
+You look through the window and notice a large field of wheat is outside. The window is locked and requires a key.
+
+> use key on window
+The slide the key into the keyhole beneath the window and creaks open...
+
+> go to wheatfield
+You are standing in the middle of a wheatfield.
+There is some wheat, a big cute cow and a sign here.
+You can go north.
+You can go to the fountain room.
+The field is quite small and you see a shed to the north. A high fence surrounds the place, making sure no intruders come out - and so no one can escape either.
+
+> x sign
+The sign bares the message:
+
+How to milk a cow:
+1) Retrieve gloves from the shed.
+2) "Milk" the cow, making sure you have a bottle or cup with you.
+3) And there you have it...some milk for you to enjoy!
+
+> x cow
+The black and white cow is the only one on the land. You find that a little strange.
+
+> n
+You are inside a small rusty shed.
+There is a cythe, a large hopper that fills the room and a pair of milking gloves here.
+You can go south.
+It is dark so you can barely make out the objects in the shed.
+
+> x cythe
+The sharp edge of this instrument indicates it is used to pick wheat.
+
+> take cythe
+You pick it up.
+
+> take gloves
+You pick it up.
+
+> x hopper
+The large machine was probably once used to process grain to flour.
+
+> s
+You are standing in the middle of a wheatfield.
+There is some wheat, a big cute cow and a sign here.
+You can go north.
+You can go to the fountain room.
+The field is quite small and you see a shed to the north. A high fence surrounds the place, making sure no intruders come out - and so no one can escape either.
+
+> pick wheat
+You draw the cythe and slice the wheat to retrieve some grain.
+
+> milk cow
+You press on the cow's udders a milk spurts out into the cup.
+
+> n
+You are inside a small rusty shed.
+There is a large hopper that fills the room here.
+You can go south.
+It is dark so you can barely make out the objects in the shed.
+
+> use grain on hopper
+You put the grain through the hopper and it comes out the other end as flour.
+
+> take flour
+You put the flour in the pot.
+
+> s
+You are standing in the middle of a wheatfield.
+There is a field of picked wheat, a big cute cow and a sign here.
+You can go north.
+You can go to the fountain room.
+The field is quite small and you see a shed to the north. A high fence surrounds the place, making sure no intruders come out - and so no one can escape either.
+
+> go to fountain room
+You are in the fountain room.
+There is a gigantic stone fountain, an eight-eyed monster and a small glass window here.
+You can go south, east or west.
+You can go to wheatfield.
+The fountain room is a large expanse, strangely filled with grass, flowers and assorted items of amazement. As the name suggests, in the centre of the room is a gigantic fountain.
+
+> use jug of water on pot with flour
+You mix the flour and water together to create dough.
+
+> use Clove of Figari on dough
+You add some Clove of Figari.
+
+> s
+You are in the kitchen.
+There is a big wooden cupboard, a cooking book and an oven here.
+You can go north.
+You can go to inside pantry.
+Surrounding you are many dirty utensils, empty buckets, old appliances and, strangely enough, saw dust. The kitchen seems to connect with the fountain room from the north.
+
+> use figari dough on baking dish
+You put the Figari dough in the baking dish.
+
+> use uncooked Figari bread on oven
+You place the bread in the oven...
+...and it comes out golden brown!
+
+> use vial of sugar on Figari bread
+You sprinkle some sugar on the Figari bread...now, it looks complete!
+Your mouth waters with excitement.
+
+> n
+You are in the fountain room.
+There is a gigantic stone fountain, an eight-eyed monster and a small glass window here.
+You can go south, east or west.
+You can go to wheatfield.
+The fountain room is a large expanse, strangely filled with grass, flowers and assorted items of amazement. As the name suggests, in the centre of the room is a gigantic fountain.
+
+> x eight-eyed monster
+The monster is hideous to look at. It is a bulgy mass of swollen pimples and scars and dead skin. Its armour is tough and scaly. Even in the fountain room, it is tall, larging over 8 feet. If someone said for every 8 feet it had an eye you would probably believe them for on its scary face dons eight small eyes. Its mouth floods of tonic flavoured phlegm-spit. Its menace casts a shadow on your presence. It horrifies and chills you to the bone.
+
+> speak to eight-eyed monster
+You wouldn't dare to go near it!
+But, today you are feeling a little frisky, so you walk up to it timidly.
+You say to the eight-eyed monster...
+1) "Hello. How are you?"
+2) "Who the hell 'r you?"
+3) "You're some ugly monster, kiddo."
+4) cancel
+[choice] 1
+"Ooooh," it says. "I'm soooo tired guarding this room. I haven't drunk or eaten in decades!"
+What will you reply with?
+1) "If you'd just let me through, I might be able to fix you up something in the storeroom."
+2) "I see. It must be a hard job guarding in the fountain room. You mustn't get much company."
+3) "I've got a friend in the Kingdom who bakes great Semple Pies!"
+4) cancel
+[choice] 2
+"Sure, it's 'ard," it says. "The Giant rarewly visits ma at 'll. He tortures me if I try ta leave! I never get fed, edder."
+What will you reply with?
+1) "I feel sorry for ya. You monsters should demand more respect."
+2) "How hungry how your right now?"
+3) "I don't see how monsters like you need so much food!"
+4) cancel
+[choice] 1
+"Hah!" it shouts. "You're aight! Butta' 'inna situation 'ike 'ine, what can 'ya do? Err, I feel soar sick and dirty."
+What will you reply with?
+1) "If you like I can talk to the Giant and tell him your circumstances."
+2) "If you like, I can help you out here, guard by your side?"
+3) "If you like, I might be able to make bring some food from the kitchen. How does that sound?"
+4) cancel
+[choice] 3
+"Really? You'd uh do ite foar me? That'd be great, tanks! Ooh, but one thing, I'm allergic to salt and most of the food in the kitchen is probably covered in it to be preserved. Make sure there isn't any salt in the food for me! If you do that for me, I might let you through..." it says.
+You see a huge grin appear over its face.
+
+> give sugared Figari bread to eight-eyed monster
+"mmmmmmm. This look 'ummy, tank 'ya 'ung man. Tho', still, I shall be needin' sumthing to wash this down wit. Be a goot guy and go get me sum milk wouldya? I am also allergic to water."
+
+> give cup of milk to eight-eyed monster
+"Ahh! Thank-you!" it says. "You've been so nice to me today, if you like, I'll let you through to this door." it smiles at you and leaves the room.
+
+> e
+You are standing in the hallway.
+You can go east or west.
+The deep and dark hallway's only light shines from the torches hung on the bricks walls to your left and right. You feel slightly claustophobic in this place, as you seem to be going lower and lower from the top of the tower. You smell the air. Musty and damp. Like an Egyptian tomb, you think to yourself.
+
+> e
+You are in the storeroom.
+There is card C here.
+You can go west.
+This is the smallest room in the tower. In here are a few boxes of junk and papers. It's dusty and it makes you sneeze.
+
+> take card C
+You pick it up.
+
+> w
+You are standing in the hallway.
+You can go east or west.
+The deep and dark hallway's only light shines from the torches hung on the bricks walls to your left and right. You feel slightly claustophobic in this place, as you seem to be going lower and lower from the top of the tower. You smell the air. Musty and damp. Like an Egyptian tomb, you think to yourself.
+
+> w
+You are in the fountain room.
+There is a gigantic stone fountain and a small glass window here.
+You can go south, east or west.
+You can go to wheatfield.
+The fountain room is a large expanse, strangely filled with grass, flowers and assorted items of amazement. As the name suggests, in the centre of the room is a gigantic fountain.
+
+> w
+You are in the the labratory.
+There is a big wooden table, a wall and an opened trap door barely visible here.
+You can go north or east.
+You can go to potions room.
+Below the tower room lies the labratory. It is a small room, with a desk or two and bubbling liquids. You notice the tower room lies to the north and another room to the east.
+
+> n
+You are in the tower room.
+There is panel A, panel B and panel C here.
+You can go south or southwest.
+The tower room has no windows and is black all over, so you can bearly see a thing. You look up to the pinaccle at the top and you notice it is made of glass.
+
+> use card C on panel C
+You slot card C into panel C and hear a slight hum. The whole panel collapses at your feet and you hear and distant sound of motion. Machines are working to open another hidden door, you presume.
+
+> sw
+You are in the bedroom.
+There is a bed here.
+You can go south or northeast.
+You can go to the top of the bed.
+This dusty room doesn't seem to have been used in a long time. It's a pretty ordinary bedroom except for one thing - the ceiling is 10 metres tall! This is similar to other rooms in the tower. It's as if a giant lived here once or something.
+
+> s
+You are standing in the middle of the library.
+There is a man named Mervil the giant here.
+You can go north.
+The Giant's personal library. It is adorned with books of every description - cooking, battling, magic & potions and much much more.
+
+> x Mervil
+The giant can barely fit in the library. He is hunched over a desk, reading and studying several books at once.
+
+> speak to Mervil
+"Ah," Mervil the giant says. "It's you. I thought you might find me."
+
+"Who are you?" you ask. "Who am I?!"
+
+"You, my son, are one of my many experiments," Mervil says. He grins, as if mad. "You've turned out great of course."
+
+"Experiments?!" you holler. "Experiments for what?"
+
+"Hush now, Jem," Mervil says. "You have much to do, and not a whole lot of time. You see, I created you using the new magical formula - it's called Green Light and I made it!" Mervil grins excitedly. "The formula is highly seeked of. Everyone want's to know how to make more...more of you!"
+
+"You need to get out there, in the wilderness. Here, Jem, take this, it's my formula for Green Light. Let no one touch it!" Mervil shouts. Suddenly, he looks frightened. "Oh no! They're coming, I can feel it! Run, Jem! Run away!"
+
+.............
+And so, you know now who you are, what your purpose is in life. Conceal the formula. Destroy it even. But do not let it fall into the wrong hands.
+
+In the next installment, Green Light: Gold Expansion, you will finally be able to leave the tower...and your destiny will be unfolded before your very eyes...
+
+[runner] turns=88 leftover=0 running=false WON=YES

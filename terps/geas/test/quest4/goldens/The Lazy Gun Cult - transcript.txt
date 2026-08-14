@@ -1,0 +1,476 @@
+
+The Lazy Gun Cult Felic Roman
+
+*The Lazy Gun Cult*
+
+You are a private investigator specialising in paranormal activity.  One evening, you recieve a call from an anonymous source, suggesting that you look into rumours of cult rituals at an old mansion in the country, and giving an address.  Although there is no contract, your passion for your career gets the better of you, and you set out the next morning to investigate.
+
+You arrive at the tall, dark mansion and park your car just inside the gate.  You head down along a leaf littered path, surrounded by trees, to arrive at the large front door.  There is no knocker, but you find that the door gives way with a push.  You step inside, to find yourself in a dimly lit hallway...
+
+
+**
+
+ A Hall
+You are standing at the top of a long hall which stretches from the great oak door to the south towards a grand staircase in the distance.
+There is a guest book here, attached to a short marble pillar in the centre of the hallway.
+You can go north or south.
+
+
+
+> look at guest book
+The book is turned to a page marked 'Tuesday IV Sept'.  If you're perception of time has remained intact following the crash, that was two weeks ago.
+
+> x guest book
+The page reads;
+
+Tuesday IV Sept:
+
+T.Count
+WSC
+(unreadable signature) - (whisper words)
+Markus Turnwire"
+
+A strange curved line below the above may indicate the start of an additional, unfinished signature in the book.
+
+
+> n
+ By Some Paintings
+You are in a long hall, halfway between the front door to the south and a grand marble staircase to the south.  A balcony is visible high above you - the ceiling, unmeasurable, is cloaked by darkness.
+There is a red painting hanging on the wall to your west. and There is a blue painting hanging on the wall to your east.
+You can go north or south.
+
+
+
+> x red painting
+The painting depicts the shoulders and head of an aged but regal looking gentlemen wearing a bow tie and monacle.  His black hair, which appears to stem only from the central point of his scalp, is curled around his head ending in a strange emulation of a fringe.  His eyes are pale and piercing.
+
+> x blue painting
+It is a painting of a middle aged woman.  Though not particularly beautiful, her features indicate a poisonous grace, and you feel a disturbing urge to cower slightly as you look into her superior, commanding eyes.   What appears to be some foreign variety of coin is affixed to the centre of the silver necklace she is wearing.
+
+> take coin
+You reach out and pluck the foreign looking coin from the frightening woman's necklace.
+
+> x blue painting
+It is a painting of a middle aged woman.  Though not particularly beautiful, her features indicate a poisonous grace, and you feel a disturbing urge to cower slightly as you look into her superior, commanding eyes.  There is a black indentation at the centre of the silver necklace she is wearing.
+
+> i
+You are carrying:
+foreign coin
+
+> n
+ Foot Of A Marble Staircase
+This is the foot of a grand marble staircase, which ascends up into the darkness.  At the end of each bannister is a pillar carved in the fashion of a lion's roaring ead
+
+You can go south or up.
+
+
+
+> twist head
+You twist the lion head to 90 degrees.  As you release it, it winds back to its original location with a series of clicks, it's mouth opening in the process in imitation of a mechanical roar.  A small key drops from it's open mouth, with subsequently snaps shut.
+
+> x key
+Upon very close inspection, you notice a small red marking on the key, although you cannot make out what it is.
+
+> take key
+You pick it up.
+
+> u
+ Midpoint On A Marble Staircase
+You are at the half way point of a wide marble staircase which continues upwards onto a dimly lit landing and down towards a long hall.  There is a small lcovein the east wall here.
+
+You can go up or down.
+
+
+
+> x alcove
+Upon close examination, you discover a very small lever attached to the inside of the alcove.
+
+> pull lever
+You reach into the alcove and pull the small lever.  You hear a series of distant clicks, followed by a creaking noise behind you.
+
+> x hatch
+It is an open hatch on the west wall of the stairway.  It is large enough for you to enter it.
+
+> enter hatch
+You squeeze yourself into the open hatch...
+
+ In The Dark
+You are in a small dark space.  Reaching before you, you find a metal ladder leading upwards through the darkness.  A small open hatch behind you leads east.
+
+You can go east or up.
+
+
+
+> u
+You climb the ladder for several minutes before emerging from a round hole...
+
+ Venting Tube
+This is a small venting tube in which you are forced to move on your hands and knees.  From here the tube leads south, and there is an open hole revealing a ladder that leads down into darkness.
+
+You can go south or down.
+
+
+
+> s
+ Cluttered Workroom
+You are in a small workroom, dimly lit by several torches in sconces around the walls.  There are various papers and tools scatter around the room, which is dominated by a large workdesk.  There is a drawer set into the workdesk.  You can enter the venting tube system via a hole in the wall to your north, and an open trapdoor in the floor creates an exit down.
+a bottle, a metal feather and A drawer in the desk.
+You can go north or down.
+
+
+
+> x drawer
+Upon close examination, you see that there is a small lions head scratched into the wood next to the keyhole.
+
+> open drawer
+You use the small key to unlock the drawer.  You open it to reveal a box of matches and a ceremonial arrow.
+
+> x drawer
+It is an open drawer in the large work desk.
+
+> take bottle
+You pick it up.
+
+> x bottle
+The label on the bottle depicts a skull symbol, followed by a handwritten message - 'lethal if all artifacts are not activated'.
+
+> take feather
+You pick it up.
+
+> x feather
+Etched in red onto the underside of the feather is a miniscule 
+
+> take matches
+You pick it up.
+
+> take arrow
+You pick it up.
+
+> x arrow
+The letter has been etched in red onto the head of the arrow.
+
+> take note
+You pick it up.
+
+> x note
+The note reads -
+
+'The soul transfer will only take place in the presence of fire.  Attempting the ritual whilst not in the presence of fire will result in death.'
+
+> d
+You climb into the hole and release your grip on the edges.  You are suddenly sliding down a long, smooth chute - in seconds you suddenly drop some distance and land lightly in the centre of a small room...
+
+ Control Room
+This room is little larger than a telephone booth in area, though its ceiling is a considerable distance above you, where you can just make out the terminating end of a person sized chute.  There is a bronze laqueon the wall beside you.
+There is a short lever set into the wall here., There is a long lever set into the wall here. and A binocular peephole is at eye level in the east wall of the chamber.
+You can go .
+
+
+
+> read plaque
+The bronze plaque reads -
+
+Short lever for code manipulation.
+Long lever for chamber rotation.
+
+> x peephole
+You set your face to the peephole, and look through.  You find yourself looking into the cold eyes of a woman painted against a blue background.
+
+> pull short lever
+As you pull the short lever, you hear the sound of gears creaking in the walls, followed by a deep bang like a heavy door being shut to your east.
+
+> x peephole
+You set your face to the peephole, and look through.  You find yourself looking at the head of a woman painted against a blue background.  You are slightly irked by the absence of her eyes, which are replaced by two black circles, each containing a silver number - '5' and '7'.
+
+> pull long lever
+You pull the long lever.  After a few seconds, you are plunged into darkness.  You have a brief sensation of rapid movement before the floor seems to disappear beneath you.  Light then fills your eyes again as you land heavily on a soft carpet...
+
+ By Some Paintings
+You are in a long hall, halfway between the front door to the south and a grand marble staircase to the south.  A balcony is visible high above you - the ceiling, unmeasurable, is cloaked by darkness.
+There is a red painting hanging on the wall to your west. and There is a blue painting hanging on the wall to your right.
+You can go north or south.
+
+
+
+> n
+ Foot Of A Marble Staircase
+This is the foot of a grand marble staircase, which ascends up into the darkness.  At the end of each bannister is a pillar carved in the fashion of a lion's roaring ead
+
+You can go south or up.
+
+
+
+> u
+ Midpoint On A Marble Staircase
+You are at the half way point of a wide marble staircase which continues upwards onto a dimly lit landing and down towards a long hall.  There is a small lcovein the east wall here.
+There is a hatch in the west wall.
+You can go up or down.
+
+
+
+> u
+ Summit Of A Marble Staircase
+You are standing at the top of the marble staircase, which leads down towards a long corridor.  To your west and east leads a musty corridor.
+There is a fresh corpse lying on the carpet here.
+You can go east, west or down.
+
+
+
+> x corpse
+You investigate the dead man's vestiments...
+You find a hammer attached to the inlay of his jacket.
+
+> x corpse
+You investigate the dead man's vestiments...
+You find nothing.
+
+> take hammer
+You pick it up.
+
+> w
+ Musty Corridor
+From the smell of this corridor it is clear that it recieves little domestic attention.  The corridor splits here, leading away south and northwest.
+
+You can go east, west or northwest.
+
+
+
+> nw
+ End Of A Corridor
+You have come to the end of a long, musty corridor.  The wallpaper here is so decayed that it is practically flaking from the walls.  There is a door here, leading north.  The corridor leads southeast.
+
+You can go north or southeast.
+
+
+
+> n
+ Large Antechamber
+This is a large but sparsely populated room.  The walls and floor are tiled with imitation stone ceiled together well enough to give the effect of being in a hollowed out chamber.  The floor is covered with a thin layer of soil.  To your west is a large pair of oak double doors set into the 'stone'.  A door leads out to the south.
+There are a number of symbols carved into the wall here. and There is a typewriter affixed to the wall beside the oak doors.
+You can go south or west.
+
+
+
+> x symbols
+
+> x typewriter
+The typewriter appears to be the key to opening the large oak doors.  You can type things on it 'type xx' if you wish.
+
+> type '57'
+As you finish typing, you hear a grinding sound, and a loud click from the wall beside the oak doors.
+
+> w
+ Display Room
+This is a small but ornately decorated room.  It is lined with pillars displaying expensive looking vases and busts.  Central to the far west wall is a pillar which clearly denotes itself to be the dominant piece.  A pair of sturdy oak doors leads east.
+A bronze hand rests on the central pillar. and There is a glass case enclosing the bronze hand.
+You can go east.
+
+
+
+> x bronze hand
+It is hard to examine the bronze hand further without having it in your inventory.
+
+> x glass case
+It's a simple square glass case, protecting the glass hand.  You would to break it to take the hand.
+
+> use hammer on glass case
+You wield the hammer and swing it at the glass case.  It smashes perfectly into a shower of small pieces that scatter across the floor.
+
+> take bronze hand
+As you step forward to take the bronze hand, a hatch on the pillar below it opens, causing it to drop away...
+
+You hear a loud bang above you and look up, your arm still outstretched - a huge hatchet blade attached to a wire drops from the ceiling.  It cleanly cuts your hand from your arm in a spray of blood...
+
+You are in pain.
+The stump of your arm is bleeding profusely...
+
+> take hand
+You pick it up.
+The stump of your arm is bleeding profusely...
+
+> x hand
+You examine the hand closely.  To your amazement, you see that a small spatter of blood, landed when you were cut by the hatchet, has coagulated on the palm to form the letter 
+The stump of your arm is bleeding profusely...
+
+> e
+ Large Antechamber
+This is a large but sparsely populated room.  The walls and floor are tiled with imitation stone ceiled together well enough to give the effect of being in a hollowed out chamber.  The floor is covered with a thin layer of soil.  To your west is a large pair of oak double doors set into the 'stone'.  A door leads out to the south.
+There are a number of symbols carved into the wall here. and There is a typewriter affixed to the wall beside the oak doors.
+You can go south or west.
+
+
+The stump of your arm is bleeding profusely...
+
+> s
+ End Of A Corridor
+You have come to the end of a long, musty corridor.  The wallpaper here is so decayed that it is practically flaking from the walls.  There is a door here, leading north.  The corridor leads southeast.
+
+You can go north or southeast.
+
+
+The stump of your arm is bleeding profusely...
+
+> se
+ Musty Corridor
+From the smell of this corridor it is clear that it recieves little domestic attention.  The corridor splits here, leading away south and northwest.
+
+You can go east, west or northwest.
+
+
+The stump of your arm is bleeding profusely...
+
+> e
+ Summit Of A Marble Staircase
+You are standing at the top of the marble staircase, which leads down towards a long corridor.  To your west and east leads a musty corridor.
+There is a fresh corpse lying on the carpet here.
+You can go east, west or down.
+
+
+The stump of your arm is bleeding profusely...
+
+> e
+ Musty Corridor
+From the smell of this corridor it is clear that it recieves little domestic attention.  The corridor splits here, leading away south and northeast.  There is a small plinth pillar here.
+a cask of oil
+You can go north, south or west.
+
+
+The stump of your arm is bleeding profusely...
+
+> x oil
+Upon close inspection, you notice a small red etched onto the cask.
+The stump of your arm is bleeding profusely...
+
+> take oil
+You pick it up.
+The stump of your arm is bleeding profusely...
+
+> s
+ End Of A Corridor
+You have reached the end of a dark corridor.  The south wall has no wallpaper, suggesting that the corridor has been blocked up and thus explaining this dead end.
+an Inca head-dress
+You can go north.
+
+
+The stump of your arm is bleeding profusely...
+
+> x head-dress
+There is an empty slot at the foremost point of the head-dress...
+The stump of your arm is bleeding profusely...
+
+> take head-dress
+You pick it up.
+The stump of your arm is bleeding profusely...
+
+> use feather on head-dress
+You slot the pewter feather into the head-dress...
+The stump of your arm is bleeding profusely...
+
+> n
+ Musty Corridor
+From the smell of this corridor it is clear that it recieves little domestic attention.  The corridor splits here, leading away south and northeast.  There is a small plinth pillar here.
+
+You can go north, south or west.
+
+
+The stump of your arm is bleeding profusely...
+
+> n
+ By A Red Door
+You are in a corridor next to a ed doorwhich leads east.  The corridor itself leads away south.
+
+You can go south or east.
+
+
+The stump of your arm is bleeding profusely...
+
+> e
+ Ritual Room
+There is an intense and indescribable aura to this room.  It is lit by the morning light spilling from a single round window in the north wall.  There are a number of strange, arcane objects littered about the room, which is populated by a vast array of candles in many different sizes and colours.  
+
+At the far end of the room is a life size  statuedepicting the head and torso of a human.  You feel strangely attracted to its mysterious gaze...
+
+There is a small  buttonin the wall beside the statue.
+A life sized statue of a human rests against the east wall.
+You can go west.
+
+
+The stump of your arm is bleeding profusely...
+
+> x statue
+The statue is made of bronze.  It has a piercing gaze to which you feel strangely attracted.  One of its arms is outstretched, the open hand waiting patiently.  The other harm terminates in a stump at the wrist, with a small extension, presumably for an attachable hand.  There is a small circular indentation on the statue's chest...
+The stump of your arm is bleeding profusely...
+
+> use head-dress on statue
+You place the head-dress atop the strange statue's head.
+You feel a brief wave of power emanate from the statue...
+The stump of your arm is bleeding profusely...
+
+> use hand on statue
+You take your severed hand in your good hand and thrust it onto the peg extending from the statue's incomplete arm.  It holds there.
+You feel a brief wave of power emanate from the statue...
+The stump of your arm is bleeding profusely...
+
+> use arrow on statue
+You place the arrow in the hand of the statue.  Suddenly, it clenches its bronze fist, sealing the shaft of the arrow within.
+You feel a brief wave of power emanate from the statue...
+The stump of your arm is bleeding profusely...
+
+> use coin on statue
+You press the foreign looking coin into the indentation on the chest of the statue.
+You feel a brief wave of power emanate from the statue...
+The stump of your arm is bleeding profusely...
+
+> press button
+As you press the button, you hear a click from the statue.  You watch in awe as its bronze mouth slowly opens, revealing a living, beating heart between its jaws.  The heart drops down onto the prepared ground before the statue as its mouth shuts again.
+The stump of your arm is bleeding profusely...
+
+> x heart
+The bloody heart lies here, beating slowly on the prepared ground before the statue.
+The stump of your arm is bleeding profusely...
+
+> use oil on heart
+You pour the entire contents of the oil cask over the heart, drenching it in flammable liquid.
+The stump of your arm is bleeding profusely...
+
+> use matches on heart
+You strike a match across the oiled heart.  It suddenly bursts into flames cascading light across the ritual room...
+The stump of your arm is bleeding profusely...
+
+> x heart
+The heart is  burning wildlyin front of the statue, the flickering light lending reality to its previously still expression...
+The stump of your arm is bleeding profusely...
+
+> drink bottle
+You drink the entire contents of the bottle in one swig...
+
+You feel the immense attraction of the statue pulling at your soul as your body begins to spasm with the effects of the poison...
+
+You feel your soul suddenly drawn through the flames towards the ever beckoning eyes of the statue as your body begins to collapse...
+
+You suddenly slam into the statue, cutting off the link to your dead body.  You are one with the stone...
+ The Message
+This is the message.
+
+You have completed part one of 'The Lazy Gun Cult'.  Part two begins where you left off, as the statue in the ritual room.  It will be finished soon.
+
+Type QUIT to exit the program.
+
+You can go .
+
+
+The stump of your arm is bleeding profusely...
+
+> look
+ The Message
+This is the message.
+
+You have completed part one of 'The Lazy Gun Cult'.  Part two begins where you left off, as the statue in the ritual room.  It will be finished soon.
+
+Type QUIT to exit the program.
+
+You can go .
+
+
+The stump of your arm is bleeding profusely...
+[runner] turns=82 leftover=0 running=true WON=YES

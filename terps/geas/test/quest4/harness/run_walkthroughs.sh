@@ -5,19 +5,41 @@
 # can be overridden.
 #
 #   ./run_walkthroughs.sh [games dir] ["extra walkthroughs dir"]
+#   ./run_walkthroughs.sh --bless [dirs...]     (re)record the transcripts
+#   ./run_walkthroughs.sh --win-only [dirs...]  win markers only, no diffing
 #
-# The command scripts we derived ourselves live in ../goldens and are
-# committed, so a fresh checkout only needs the games.  The three
-# "<title> - walkthrough.txt" files are other people's work and are not
-# redistributed here; point the second argument at a directory holding those to
-# include them, otherwise they SKIP.  A walkthrough is looked up in ../goldens
-# first and in that directory second.
+# Each game is checked twice over: the win marker has to appear, *and* the whole
+# transcript has to match "<title> - transcript.txt" in ../goldens byte for
+# byte.  The marker alone is a weak test -- an engine change that garbles every
+# room description still ends the game, so it still passes -- and these games
+# between them exercise far more of the engine than the fixtures can.
+#
+# The transcripts are ours to record but the walkthroughs behind them are not
+# all ours: the three "<title> - walkthrough.txt" files are other people's work
+# and are not redistributed here (point the second argument at a directory
+# holding them to include those games, otherwise they SKIP).  A transcript
+# spells out the commands it replays, so recording one would republish the
+# walkthrough -- those three games stay win-marker-only.  A walkthrough is
+# looked up in ../goldens first and in that directory second.
 #
 # Builds the runner if needed.  Uses a fixed RNG seed for reproducibility;
 # World's End's two random fights are won by --save-scum regardless of seed.
+# The runner substitutes its own generator for the C library's rand() so that
+# the seeded draws -- and so the transcripts -- are the same on every platform;
+# see the comment in geas_walkthrough_runner.cc.
 
 set -u
 here=$(cd "$(dirname "$0")" && pwd)
+
+bless=no; winonly=no
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --bless)    bless=yes; shift ;;
+        --win-only) winonly=yes; shift ;;
+        *)          break ;;
+    esac
+done
+
 G=${1:-"$here/../games"}
 W=${2:-}
 
@@ -35,6 +57,9 @@ RUN="$here/geas_walkthrough_runner"
 # nothing has changed.
 make -C "$here/../.." >/dev/null || exit 1
 
+tmpdiff=${TMPDIR:-/tmp}/geas_walkthrough_diff.$$
+trap 'rm -f "$tmpdiff"' EXIT INT TERM
+
 export GEAS_SEED=1
 pass=0; fail=0
 
@@ -45,10 +70,47 @@ play() {
     if [ ! -f "$G/$game" ] || [ -z "$wtfile" ]; then
         printf '%-22s SKIP (missing files)\n' "$label"; return
     fi
-    if "$RUN" "$@" --win "$marker" "$G/$game" "$wtfile" >/dev/null 2>&1; then
+
+    # Only the scripts in ../goldens get a transcript; see the header.
+    golden=""
+    case "$wtfile" in
+        "$here/../goldens/"*)
+            golden="$here/../goldens/${wt% - command script.txt} - transcript.txt" ;;
+    esac
+    [ "$winonly" = yes ] && golden=""
+
+    got=$("$RUN" "$@" --echo --win "$marker" "$G/$game" "$wtfile" 2>/dev/null)
+    won=$?
+
+    if [ "$bless" = yes ]; then
+        if [ -z "$golden" ]; then
+            printf '%-22s skipped (no transcript for this one)\n' "$label"
+        elif [ "$won" -ne 0 ]; then
+            printf '%-22s NOT BLESSED (the win marker never appeared)\n' "$label"
+        else
+            printf '%s\n' "$got" > "$golden"
+            printf '%-22s BLESSED\n' "$label"
+        fi
+        return
+    fi
+
+    if [ "$won" -ne 0 ]; then
+        printf '%-22s FAIL (win marker)\n' "$label"; fail=$((fail+1)); return
+    fi
+    if [ -z "$golden" ]; then
+        printf '%-22s PASS (win marker only)\n' "$label"; pass=$((pass+1)); return
+    fi
+    if [ ! -f "$golden" ]; then
+        printf '%-22s NO TRANSCRIPT (run with --bless)\n' "$label"; fail=$((fail+1)); return
+    fi
+    # The transcripts run to a few hundred KB, so show only the head of a diff.
+    if printf '%s\n' "$got" | diff -u "$golden" - > "$tmpdiff" 2>&1; then
         printf '%-22s PASS\n' "$label"; pass=$((pass+1))
     else
-        printf '%-22s FAIL\n' "$label"; fail=$((fail+1))
+        printf '%-22s FAIL (transcript, %s lines differ)\n' \
+            "$label" "$(grep -c '^[-+][^-+]' "$tmpdiff")"
+        fail=$((fail+1))
+        sed -n '3,40p' "$tmpdiff" | sed 's/^/    /'
     fi
 }
 
@@ -856,6 +918,7 @@ play MetalSonicsQuest    "MSQ.asl"                     "Metal Sonic's Quest - co
 # prints in its `finalscene' branch after you press SEND on the last MSN message.
 play SomethingBoutAHex   "something 'bout a hex.cas"   "Something 'Bout A Hex - command script.txt"                "completed BOOK TWO of Something 'Bout a Hex" --tick
 
+[ "$bless" = yes ] && exit 0
 echo "----"
 echo "pass=$pass fail=$fail"
 [ "$fail" -eq 0 ]

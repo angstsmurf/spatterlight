@@ -1,0 +1,883 @@
+
+On the far blue, v1.0 Odeon
+
+With an raging thundershock you awake,
+The cabin is shaking heavily from the left to the right.
+Another wave damages the cabin.
+Water is slowly dripping in the cabin.
+The ship is about to sink. 
+If i where you I would find something floatable quick.
+
+Only 5 minutes to go, to find something floatable and jump of the ship.
+You are in Sailor cabin
+There is Cabin door, Your treasure chest and Bed here.
+You can go out to Lowerdeck.
+This is the place where you and the other 3 crewmember's sleep.
+
+> look
+You are in Sailor cabin
+There is Cabin door, Your treasure chest and Bed here.
+You can go out to Lowerdeck.
+This is the place where you and the other 3 crewmember's sleep.
+
+> look at bed
+It's you bed, in your bed is, of course your pillow.
+5 minutes to go before you drown...
+
+> look at pillow
+You alway's lay something underneath your pillow. 
+Maybe it's wise to look under the pillow.
+
+> look under pillow
+You found the cabin key!
+
+> look at cabin key
+Amazing, its  a key!
+You rock!
+
+> look at your treasure chest
+In this you have stored thing's like clothing and your luckystone.
+You will need a key if you want to open it.
+
+
+> use cabin key on cabin door
+You are in Lowerdeck
+There is Captain Seval, Mast, Galley door, Captain cabin door and Steve here.
+You can go up.
+It's a complete chaos here, the deck is soaked with sea water, and one wave after another crashes on the deck.
+The situation is getting worse with the second.
+You opened the door, don't bother returning, you should focus on escaping in time.
+
+> speak to captain seval
+Arr matey! we will be fine,we just have to get this rowboat in the water.
+-He looks at you with a crazy smile.
+The Rowboat is stuck in the ropes, I'ts so stuck...It's impossible to free it, the captain must have lost his mind.
+
+
+
+> speak to steve
+Steve : Im really angry that i lost the key's of the Galley, I must have lost them somewhere on the upperdeck.
+I really need those cooking books!
+
+> speak to mast
+What? Don't try to speak to wood man...
+
+> up
+You are in Upperdeck
+There is Old Sam, Simon and Candle here.
+You can go down.
+
+> speak to old sam
+Old Sam : I found a key here, was it your's? I thought it was from the captain, so i put in in the captain's cabin. 
+No! the light from the candle is out!
+
+> look at candle
+This candle used to give us some light.
+
+> speak to simon
+
+Simon : Haha, im going straight to hell! and the good news : You are coming with me!
+
+> down
+You are in Lowerdeck
+There is Captain Seval, Mast, Galley door, Captain cabin door and Steve here.
+You can go up.
+It's a complete chaos here, the deck is soaked with sea water, and one wave after another crashes on the deck.
+The situation is getting worse with the second.
+
+> look at captain cabin door
+The captain shout's at you: no boy if you want to enter my cabin you will have to say the majic words!
+
+2 words matey! 
+
+First : what glow's in the dark but is often dark when it glow's outside? 
+
+And the second : What animal is men's best friend? You will need to use his first latin name.
+He looks at you with a crazy smile, he's gone mad, you now that he will stab you if you enter whitout the password.
+You will need the password quick.
+Both words begin with the letter ''C''
+
+> candle canis
+Correct! you can enter.
+You are in Captain cabin
+There is Captain's table here.
+You can go out to Lowerdeck.
+
+> look at captain's table
+The Galley key was laying on the table, you pick it up.
+
+> i
+You are carrying:
+Galley key
+Cabin key
+Yourself
+
+> out
+You are in Lowerdeck
+There is Captain Seval, Mast, Galley door, Captain cabin door and Steve here.
+You can go up.
+It's a complete chaos here, the deck is soaked with sea water, and one wave after another crashes on the deck.
+The situation is getting worse with the second.
+
+> use galley key on galley door
+You are in Galley
+There is Pile of large beer barrel's here.
+You can go out to Lowerdeck.
+
+> look at pile of large beer barrel's
+The beer barrel's are very large, also they are very floatable.
+
+> take beer barrel
+You now have an empty beer barrel, its floatable, and very big.
+
+Go quickly to the Lowerdeck and jump off board with this before it's too late!
+
+> out
+You are in Lowerdeck
+There is Captain Seval, Mast, Galley door, Captain cabin door and Steve here.
+You can go up.
+It's a complete chaos here, the deck is soaked with sea water, and one wave after another crashes on the deck.
+The situation is getting worse with the second.
+
+> jump off board
+You jump with the large barrel in the water, while you jump you quickly move yourself in the barrel and lock the lid in his place.
+
+With an loud smash you hit the water, and the barrel seems to be sinking.
+However, its an very large barrel.
+(because it contained beer!)
+And it seems to go up a little,
+You use all your power to hold the lid in it's place, pulling it heavily down.
+The storm continous for an hour, and you already given up the hope of surviving, You breath as slow as you can to presurve the little oxygen you have left.
+
+Suddenly the storm dissapears. Slowly you lift the lid up.........
+You can't see the ship anywhere. The ocean is calm now, slowly moving around your barrel..
+There is no land in sight, its just you and your barrel im afraid...
+
+
+You are in In the barrel
+There is Lid and Metal ring here.
+You look around you, there is no land in sight..
+You have to secure the lid with the thing's you have with you before you go to sleep.
+It's almost dark, you have only about 2 minute's before you can't see anything at all.
+
+
+
+> look
+You are in In the barrel
+There is Lid and Metal ring here.
+You look around you, there is no land in sight..
+You have to secure the lid with the thing's you have with you before you go to sleep.
+It's almost dark, you have only about 2 minute's before you can't see anything at all.
+
+
+
+> take metal ring
+
+> use metal ring on lid
+you placed to metal ring over the lid, that큦 much stronger, however, still not strong enough.
+
+> use cabin key on lid with metal ring
+You rammed the key through the lid and barrel, the left is now secured.
+
+> use galley key on lid with metal ring
+You rammed the key through the lid and the barrel.
+You secured the right.
+You attached both key큦 now you can finally sleep.
+
+
+
+You slept for many many hours, awakening with a loud bonk when your barrel arrives at land...
+You are on the northen peak of the rock island,
+There is Broken beer barrel and Rope stuck in the sand here.
+You can go south.
+it큦 a very very small island, and it almost looks like the only live form큦 here are the seagull큦.
+When you look at the horizon you can see another much larger island, that just looks like one dense forest.
+You can't swim to that island. There are way to much shark큦, you will need a raft.
+
+> look at broken beer barrel
+It is broken, there are some small holes below.
+
+> look at rope stuck in the sand
+It's burried half beneath the sand
+
+> s
+You are in the middle of the rock island.
+There is Giant rock and Badger here.
+You can go north, south, east or west.
+
+> look at giant rock
+It's a giant rock, on top of a rock island, how great.
+ The rock is close to a cliff, he could roll down the cliff if you remove some earth beneath it.
+There is a small cave below the Rock.
+
+> speak to giant rock
+Sigh........are you speaking to a rock? Seriously?
+
+> look at badger
+He is looking at you from the entrace of his cave.
+
+> w
+You are now in the western area of the island.
+There is Body washed a shore, Piece off timber and Piece of small rope here.
+You can go east.
+
+> look at body washed a shore
+You take a look at the body, it's your old pal Sam, it seems he is drowned.
+At his waist hangs a scabbard, where he alway's keep's his dagger.
+
+> take dagger
+You pick up the dagger.
+
+> look at piece off timber
+It큦 a bit of timber from your ship.
+
+> take piece of small rope
+You pick up the ropes.
+
+> e
+You are in the middle of the rock island.
+There is Giant rock and Badger here.
+You can go north, south, east or west.
+
+> s
+You are in Southern rock island
+There is Seagull nest큦 here.
+You can go north.
+
+> take seagull egg
+You pick up a seagull egg.
+
+> look at seagull egg
+You can eat this egg raw.
+
+> use yourself on seagull egg
+You eat the egg.
+
+> n
+You are in the middle of the rock island.
+There is Giant rock and Badger here.
+You can go north, south, east or west.
+
+> use dagger on cave
+You start carving the hole open, then suddenly the ground beneath the rock collapses and the rock roll큦 down the cliff to the eastern area.
+
+> e
+You are now in the eastern area of the island.
+There is Small forest, Piece큦 of the broken rock and Broken tree큦 here.
+You can go west.
+
+> take branch
+You pick up a pretty big branch.
+
+> use dagger on branch
+You made a stick of the branch.
+
+> use stick on rock
+You combined the rock and stick.
+
+> look at semi axe
+It큦 not finished, you should use something to secure the combining of the stick and rock.
+
+> use piece of small rope on semi axe
+You completed the axe!
+
+> look at axe
+It큦 your very own axe, you can cut wood with this.
+
+> use axe on small forest
+You start chopping down the tree's.
+You chop down the entire ''forest'' of 7 tree's.
+
+After that you make poles from the wood with your axe.
+
+> look at poles
+great! you can use these poles for a raft.
+You just need to tie them together with something.
+
+> w
+You are in the middle of the rock island.
+You can go north, south, east or west.
+
+> n
+You are on the northen peak of the rock island,
+There is Broken beer barrel and Rope stuck in the sand here.
+You can go south.
+it큦 a very very small island, and it almost looks like the only live form큦 here are the seagull큦.
+When you look at the horizon you can see another much larger island, that just looks like one dense forest.
+You can't swim to that island. There are way to much shark큦, you will need a raft.
+
+> use dagger on broken beer barrel
+Yeah that would work! stick a dagger in your barrel that will make it floatable again!
+
+> use dagger on rope stuck in the sand
+You carve the hole open and manage to obtain the rope.
+
+> take rope
+
+> s
+You are in the middle of the rock island.
+You can go north, south, east or west.
+
+> e
+You are now in the eastern area of the island.
+There is Piece큦 of the broken rock, Broken tree큦 and Poles here.
+You can go west.
+
+> use rope on poles
+You tie the Poles together, you have a wooden raft now.
+
+> look at wooden raft
+You should set sail with this raft in the eastern area of the island if you want to reach the larger island.
+
+> set sail
+You push the raft in the water, While sea water splashes in your face.
+The weak current try's to push you back, but with all yourr strenght you manage to break through the current and reach sea. On the raft it will take you about 2 minute's to arrive on the beach of the tree island, however there are also pretty aggressive shark's here.
+So stay alert!
+
+
+
+You are in On the raft
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+A huge shark attack's your raft! stop him now before it's to late!.
+
+> use dagger on shark
+You stab him right between the eyes, but he doesn't seem to die.
+In fact you made it furious and it's attacking your raft with even more power.
+
+> use axe on wounded shark
+You bash the axe in his head.
+That seems to work...the shark is dead now.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+A huge shark attack's your raft! stop him now before it's to late!.
+
+> use dagger on shark
+You stab him right between the eyes, but he doesn't seem to die.
+In fact you made it furious and it's attacking your raft with even more power.
+
+> use axe on wounded shark
+You bash the axe in his head.
+That seems to work...the shark is dead now.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+The raft got stuck on a rock, you have to free it quick, before the shark큦 eat you
+
+> use axe on sea rock
+You ram with the axe on the rock.
+You manage to get lose.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+A huge shark attack's your raft! stop him now before it's to late!.
+
+> use dagger on shark
+You stab him right between the eyes, but he doesn't seem to die.
+In fact you made it furious and it's attacking your raft with even more power.
+
+> use axe on wounded shark
+You bash the axe in his head.
+That seems to work...the shark is dead now.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+A huge shark attack's your raft! stop him now before it's to late!.
+
+> use dagger on shark
+You stab him right between the eyes, but he doesn't seem to die.
+In fact you made it furious and it's attacking your raft with even more power.
+
+> use axe on wounded shark
+You bash the axe in his head.
+That seems to work...the shark is dead now.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+A huge shark attack's your raft! stop him now before it's to late!.
+
+> use dagger on shark
+You stab him right between the eyes, but he doesn't seem to die.
+In fact you made it furious and it's attacking your raft with even more power.
+
+> use axe on wounded shark
+You bash the axe in his head.
+That seems to work...the shark is dead now.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+You reached land!
+You are in Eastern beach of forest island
+You can go north.
+You are now very close to a small town, you can see it behind the forest.
+You just have to reach it and you survive this adventure.
+
+> n
+You are in The forest
+You can go south.
+It's a place filled with plant's....duh.
+Suddenly you hear something:''You thought you could escape didn't you?''
+A maniacal laugh break's the silence of the forest. 
+You have no idea where that maniac is.
+
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+You hear him again:
+
+''Whaha you thought you where the only surviver? Im pretty sure you're going to die here!''
+
+You can't see him anywhere!
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+You hear him again, this time harder :'' It's time for you to die im afraid, i will never get this chance again to get rid of you WHAHAHA!''
+''Dead will come quick now, so stay alert is my advice HAHAHA!''
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+''WHAHAHA!''
+
+Suddenly a man attack's you from behind!
+
+> use dagger on mad simon
+You stab the dagger right in his torso, but he doesn't die! 
+It looks like he's waiting for something.
+
+> use axe on wounded simon
+He duck's and roll's in the bushes down the hill,leaving a blood trail behind, however, When you look around you suddenly see a path to the  village!
+
+> go to village
+You are in Village
+You survived! you reached a village!
+
+Thank you for playing 
+''On the far blue''
+[runner] turns=233 leftover=0 running=false WON=YES

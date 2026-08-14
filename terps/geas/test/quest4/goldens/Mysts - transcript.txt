@@ -1,0 +1,159 @@
+
+Mysts Mihalis "DarkAng3l" Georgostathis
+
+It has been two days since your master told you to follow him to a trip. So, starting from the city of Athens, you reach an abandoned cape in Pelloponisos. Standing by the beach, you and your master, you seem to wait for something. But gods know what are you waiting for...
+
+
+Soon, your master speaks. He shows you a building at the top of a nearby cliff and orders you to go up there and toll the bell which is inside it.
+
+
+
+
+
+
+
+
+
+
+
+A small strip of beach. To the east is the sea. The rest of the beach is surrounded by cliffs. The gulf, the beach being it's part, has no islands at all. A small path to the west leads to the top of the cliffs
+
+> x your master
+ Athinodoros, your master, is a rich Athenian of high reputation and great power. He is a tall, somewhat fat man, though his constitution and strength are well above average. He is wearing an expensive tunick. Around his neck is an amulet, glitering in the rays of the setting sun. 
+
+> speak to your master
+You wouldn't dare speak to him.
+
+> i
+You are carrying:
+calm
+
+> west
+An ordinary narrow path, leading to the top of the cliff. It's rocky and slippery. Some dried bushes are the only vegetation here. Something not abnormal for the arid climate of southern Greece. The path is divided into two different paths, one to the left (north) and one to the right (south). They both lead high, but you doubt whether or not they lead to the top of the cliff. You can also go east, to the beach.
+
+> north
+Not something different from the average. Just a narrow path on the side of a cliff. To the south is the lower part of the path. To the west, is the way up to the cliff.
+
+> west
+The path continues. To the west is a path leading to a plateau, while to the east is the path back to the beach.
+
+> west
+This is the ending of the left path. To the north is a plateau and to the east is the way back down.
+
+> north
+A small plateau in the side of the cliff. To the south is a path leading to the beach and to the west is the enterance to a small cave. No path leads further up. To your right, you see the other path ending to the top of the cliff.
+
+> west
+The cavern is dark and humid. Some roots extend from the ceiling. To the west, the cavern goes deeper, but a gloomy feelings tells you not to.
+Your vision blurs. The light fades away, while you feel like falling...
+
+
+A strange glow hits your eyes. This morbid light makes you creep. You are in the same cave, but something is different.  A shadow is in the back of the cave. The room is dissoriented. You feel like the place is distorted in a strange way. You try to move to the shadow, but this weird geometry doesn't allow you to reach it. You take another look at the shadow. It's lining seems human, but some anomalies are present in it. It looks like it has turned it's back to you. You try to speak to it,but fail to utter more than few, incomprehendable syllabs. The shadow turns around and looks at you. OH GODS!!! You will never forget these blood red eyes looking at you full of vileness. You have to run, to escape from them. You reach for a stone and you are ready to throw it. Throw it betwwen these two eyes. Those two hated things.
+
+
+Light dims again, and you find yourself in the cave. Time and space is normal now and the shadow is nowhere to be seen...
+
+
+
+
+
+
+
+
+> i
+You are carrying:
+upset
+stone
+
+> x stone
+ Just a simple stone.
+
+> west
+
+As you take a few steps deeper in the mountain, you have a creepy feeling running down your spine... You take a few more steps and feel a slight distortion of your surroundings. Suddenly from the depths of the cave, you see two red dots...  "NO GODS!!! NO!!! OH ZEY HELP ME. SAVE ME FROM THIS VILE DEMON. THESE BLASPHEMOUS EYES!!!". With total horror, you run to escape from this horror lurking inside the cave. You flee to the plateau, running like hell. Who knows what blasphemy awaits deeper in these caverns...
+
+
+A small plateau in the side of the cliff. To the south is a path leading to the beach and to the west is the enterance to a small cave. No path leads further up. To your right, you see the other path ending to the top of the cliff.
+
+> west
+On no way should you enter this vile cavern.
+
+> south
+This is the ending of the left path. To the north is a plateau and to the east is the way back down.
+
+> east
+The path continues. To the west is a path leading to a plateau, while to the east is the path back to the beach.
+
+> east
+Not something different from the average. Just a narrow path on the side of a cliff. To the south is the lower part of the path. To the west, is the way up to the cliff.
+
+> south
+An ordinary narrow path, leading to the top of the cliff. It's rocky and slippery. Some dried bushes are the only vegetation here. Something not abnormal for the arid climate of southern Greece. The path is divided into two different paths, one to the left (north) and one to the right (south). They both lead high, but you doubt whether or not they lead to the top of the cliff. You can also go east, to the beach.
+
+> south
+This is the right path climbing the cliff. You are at it's lower part. The vegetation here is sparse, consisted only by few bushes. To the north is the way to the beach, while to the west the way up the cliff.
+
+> west
+About in the middle of the cliff the path is surrounded by many bushes. To the west is the way to the top, while to the east the way down to the beach.
+
+> x bushes
+Many dense bushes surround the path.
+
+> take bushes
+It's no use.
+
+> west
+Here is the end of the path leading to the top of the cliff. Actually it is devided in two paths, each leading to a side of the cliff. The land here is bare. The two narrower paths are north and south from here, while to the east is the rest of the path, leading to the beach.
+
+> south
+Even though the view is magnificent, you notice that a canyon is standing between you and the building. You didn't choose the correct path. There is allways the way back to the north.
+
+> north
+Here is the end of the path leading to the top of the cliff. Actually it is devided in two paths, each leading to a side of the cliff. The land here is bare. The two narrower paths are north and south from here, while to the east is the rest of the path, leading to the beach.
+
+> north
+The view from up here is extraordinary. You can see the beach, your master, the plateau in which the left path leads and the wide, having no islands, gulf, in which the beach is. To the south is the path leading to the beach. To the west is the black, temple-like building you are sent to. You also notice that there is a canyon, tearing the cliff in two.
+
+> west
+Up here, on the top of the cliff, there is a strange building. It looks like an ordinary temple, only it is made of black stone. It stands northen from here, while to the east is the edge of the cliff and the path leading down to the beach.
+
+> north
+What the Hell is this place!? The inside of the building is dark and cold and gloomy and eerie. Three things here impress you. There is no altar, there is a big, black bell, made of some unknown to you metal and there is one statue of terrifying form against the door.
+
+> x statue
+A very weird, yet frightening statue. It represents a grotesque human-shaped form, totally assymetric, bearing bat wings on it's back and an octapus on it's head. What's amasing, is the assymetry of the statue, as well as the strange glimour of it. Seems the statue and the bell where made by the same material.
+
+> take statue
+The statue is too big to carry, but even if you could take it, you wouldn't even dare to touch it.
+
+> x bell
+Hanging above your head is a big, black bell, eminating a pecculiar glitter. The weird metal it is made of is unknown to you. It looks similar to the material of the statue. What is concerning is the fact that you can't reach for the bell. So you must think of something in order to accomplish your quest.
+
+> take bell
+If you could even touch it...
+
+> use stone on bell
+You throw the stone to the bell. The stone hits it, making it toll in a very eerie sound... Like millions of Sirens singing, an alien melody fills the air, making you feel... disoriented. Myriads of pictures come from the back of your brain, strange visions from places you never imagined. As you are exiting the building, you see a mysterious fog uncovering a small island, previously invisible. From behind you, you feel that the statue comes to life, it's tentacles menacingly try to gasp you. Your wits can't take more of this, and soon the merciful curtain of darkness covers your eyes, as you hit the ground unconcious...
+
+
+
+
+
+
+
+ You wake up on a small boat. Five figures surround you. One of them is your master. The other four, you don't know them. You raise your head just to see the small coast you previously were at, at a distance... And thew boat getting close to a small island... An island you haven't seen in the bay...
+
+
+End of the preview.
+
+
+
+
+
+
+
+
+
+
+
+[runner] turns=32 leftover=0 running=false WON=YES

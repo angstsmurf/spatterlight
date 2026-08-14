@@ -1,0 +1,102 @@
+
+A certain Oscar., v1.00 Ido Angel
+
+A tingling sensation at the end of your forehead wakes you up. Your ears seem to have catched the last moment of a dissolving echo, an eerie sound of metal crashing against the ground... but by the second you think you recognise the meaning of it all - all disappears.
+
+Quiet.
+
+It seems as though the world just stopped: The wind froze dead in mid gust. Birds paused their flapping, people snapped still - their sound echoes hanging motionless in the cold, wintery, windless air.
+
+And then the pain. A slow yet sharp pain, eating you up like a hungry virus from your heart and up through your throat, into your mouth, numbing your tongue... and thrn up to your head. You try to shut your eyes but you can't.
+
+And as if out of sudden concern, the frozen world kindly folds himself into an invisible little pink dot, and hides behind the leg of the letter "P" in the word "SHAKESPEARE", that is hanging in the air motionless, caught on it's way from one forgotten mind to another. The Word, now the only existing thing, other than the Darkness, dances happily around you. It is playing with you. You try to reach for it but it flys away, glittering with an endless sense of childish semanticism. You tire of it and finaly shut your eyes, only to realise that they have been shut the whole way through. "SHAKESPEAR", dissappointedly, fades away.
+
+And you remain alone.
+
+
+
+
+Game name: A certain Oscar.
+Version 1.00
+Author: Ido Angel
+Copyright: AI42 Ltd.
+A memorable identity search game.
+
+
+This a large and quietly white hospital room. Your bed seems to be the only one here, which is strange, considering the size of the room. The total whiteness of the room makes your eyes hurt.  The only non-white object in this room is an expensive looking TV set, which is mounted on the north wall, just infront of you. A window, located west to you,  is overlooking the hospital garden. To the east there is a door, which is locked. You are currently lying on the bed.
+
+> look
+This a large and quietly white hospital room. Your bed seems to be the only one here, which is strange, considering the size of the room. The total whiteness of the room makes your eyes hurt.  The only non-white object in this room is an expensive looking TV set, which is mounted on the north wall, just infront of you. A window, located west to you,  is overlooking the hospital garden. To the east there is a door, which is locked. You are currently lying on the bed.
+
+> look at bed
+It's a fairly large hospital bed. The sheets are white, and smell like a strange combination of lanolin and aspirin. You are in the bed.
+
+> look at tv
+The expensive looking TV set is off.
+
+> look at window
+It's a large, wall-to-wall, thick glass window. You can look through it.
+
+> look at remote control
+The remote has only two buttons, marked "ON" and "OFF".
+
+> look at yourself
+You are looking weary and confused.
+
+> speak to yourself
+You urge your weary self to do something.
+
+> open window
+The window can't be opened, or closed, for that matter. You can look through it, though.
+
+> close window
+The window can't be opened, or closed, for that matter. You can look through it, though.
+
+> take all
+
+> inventory
+You are carrying nothing.
+
+> get up
+You get up from the bed.
+This a large and quietly white hospital room. Your bed seems to be the only one here, which is strange, considering the size of the room. The total whiteness of the room makes your eyes hurt.  The only non-white object in this room is an expensive looking TV set, which is mounted on the north wall, just infront of you. A window, located west to you,  is overlooking the hospital garden. To the east there is a door, which is locked.
+
+> look
+This a large and quietly white hospital room. Your bed seems to be the only one here, which is strange, considering the size of the room. The total whiteness of the room makes your eyes hurt.  The only non-white object in this room is an expensive looking TV set, which is mounted on the north wall, just infront of you. A window, located west to you,  is overlooking the hospital garden. To the east there is a door, which is locked.
+
+> look at bed
+
+It's a fairly large hospital bed. The sheets are white, and smell like a strange combination of lanolin and aspirin.
+
+> look at tv
+The expensive looking TV set is off.
+
+> look at window
+It's a large, wall-to-wall, thick glass window. You can look through it.
+
+> look at remote control
+The remote has only two buttons, marked "ON" and "OFF".
+
+> take remote control
+You take the remote control in your hand.
+
+> inventory
+You are carrying nothing.
+
+> look
+This a large and quietly white hospital room. Your bed seems to be the only one here, which is strange, considering the size of the room. The total whiteness of the room makes your eyes hurt.  The only non-white object in this room is an expensive looking TV set, which is mounted on the north wall, just infront of you. A window, located west to you,  is overlooking the hospital garden. To the east there is a door, which is locked.
+
+> return to bed
+You lie down on the bed.
+This a large and quietly white hospital room. Your bed seems to be the only one here, which is strange, considering the size of the room. The total whiteness of the room makes your eyes hurt.  The only non-white object in this room is an expensive looking TV set, which is mounted on the north wall, just infront of you. A window, located west to you,  is overlooking the hospital garden. To the east there is a door, which is locked. You are currently lying on the bed.
+
+> look at bed
+It's a fairly large hospital bed. The sheets are white, and smell like a strange combination of lanolin and aspirin. You are in the bed.
+
+> about
+Game name: A certain Oscar.
+Version 1.00
+Author: Ido Angel
+Copyright: AI42 Ltd.
+A memorable identity search game.
+[runner] turns=23 leftover=0 running=true WON=YES

@@ -1,0 +1,1921 @@
+
+Blight of Elantria, v3 Craig Dutton
+
+Blight of Elantria
+By Craig Dutton (c) 2011
+
+A dark veil hangs over the land of Elantria.  Xanthus is a demon who resides in the Southern Peaks and has plans to conquer the lands with an undead army.  You are an adventurer and have been assigned to stop Xanthus before it's too late.  
+
+You know of only one way to defeat him - the Pandemonica.  It's an ancient tome that holds the secrets to the underworld.  Acquiring this will surely give you knowledge on how to destroy Xanthus.  Strangely, Xanthus keeps the tome near him.  It's protected so it doesn't fall into the wrong hands, but hopefully will fall into yours.
+
+Good luck on your mission!
+
+
+
+You are at the crossroads.
+You can go north, south, east or west.
+You are surrounded by oak trees.  The sun shines brightly above you and birds sing in the trees.  Forest paths lead in all directions with the north path opening out to reveal a huge castle.  To the west, filtering through the oaks, you spot another structure.
+
+> north
+You are outside the castle gates.
+You can go north or south.
+Two huge wooden gates lie open to reveal a large courtyard to Castle Balthor.  Five generations of Balthor's have lived here and the current Count is known for taking ownership of this castle from a prince long-lost and forgotten.
+
+> north
+You are in the courtyard.
+You can go north, south, east, west, southwest or up.
+The courtyard is cobbled underfoot with buildings around you.  The Great hall lies to the north and the gates to the south.  Doors lead east and west while stone steps lead up into the north tower.  The stables lies to the southwest.
+
+> east
+You are in the banquet hall.
+You can go east or west.
+A long dining table spans the whole hall and a tapestry depicting the battle of the four dragons hangs on the north wall.
+
+> lift tapestry
+You find a wheel behind it.
+
+> turn wheel
+You turn the wheel and hear a faint rumbling to the northwest.
+
+> east
+You are in the kitchen.
+You can go west or down.
+You can see a cupboard.
+The castle kitchen is always busy with meals prepared and servants running around.  However, today there is no one here and the main table is bereft of food.  Stone steps lead down to the cellar.
+
+> open cupboard
+You open it.
+
+> take salt
+(first removing it from cupboard)
+Done.
+You pick it up.
+
+> down
+You are in the cellar.
+You can go up.
+You can see a barrel.
+It is dark and damp and full of various stock.  Water drips from the ceiling and slippery steps lead up to the kitchen.
+
+> open barrel
+You open it.
+
+> take apple
+(first removing it from barrel)
+Done.
+You pick it up.
+
+> up
+You are in the kitchen.
+You can go west or down.
+You can see a cupboard.
+The castle kitchen is always busy with meals prepared and servants running around.  However, today there is no one here and the main table is bereft of food.  Stone steps lead down to the cellar.
+
+> west
+You are in the banquet hall.
+You can go east or west.
+You can see a wheel.
+A long dining table spans the whole hall and a tapestry depicting the battle of the four dragons hangs on the north wall.
+
+> west
+You are in the courtyard.
+You can go north, south, east, west, southwest or up.
+The courtyard is cobbled underfoot with buildings around you.  The Great hall lies to the north and the gates to the south.  Doors lead east and west while stone steps lead up into the north tower.  The stables lies to the southwest.
+
+> west
+You are in the library.
+You can go east or northwest.
+You can see a telescope.
+The castle library houses an impressive collection of volumes on all manner of subjects.  It would take months to read them all.  A large window opens out onto a view of the forest and beyond.
+
+> open telescope
+You open up the telescope and find a lens.
+
+> take lens
+You pick it up.
+
+> northwest
+You are in the gallery.
+You can go southeast.
+You can see a painting.
+Various paintings, portraits, busts and other works of art fill this room.  The walls are painted with a garish yellow and a plush beige carpet lies underfoot.
+
+> lift painting
+A small black disc drops from behind the painting.
+
+> take disc
+You pick it up.
+
+> southeast
+You are in the library.
+You can go east or northwest.
+You can see a telescope.
+The castle library houses an impressive collection of volumes on all manner of subjects.  It would take months to read them all.  A large window opens out onto a view of the forest and beyond.
+
+> east
+You are in the courtyard.
+You can go north, south, east, west, southwest or up.
+The courtyard is cobbled underfoot with buildings around you.  The Great hall lies to the north and the gates to the south.  Doors lead east and west while stone steps lead up into the north tower.  The stables lies to the southwest.
+
+> up
+You are in the north tower.
+You can go down.
+You can see Count Balthor.
+This is the Count's bedchamber in the north tower.  A four-posted bed stands by the north wall and a balcony opens out to the south giving a wonderful view of the forest and distant Southern Peaks.
+
+> give lens to count balthor
+'Oh look, a monacle, thank you.' smiles Balthor.  He offers you a shield as a reward.
+
+> take shield
+You pick it up.
+
+> down
+You are in the courtyard.
+You can go north, south, east, west, southwest or up.
+The courtyard is cobbled underfoot with buildings around you.  The Great hall lies to the north and the gates to the south.  Doors lead east and west while stone steps lead up into the north tower.  The stables lies to the southwest.
+
+> southwest
+You are in the stables.
+You can go out.
+You can see a horse.
+A smell of horse fill your nostrils here and underfoot it is muddy and slippy.  There are a few stalls and most are empty apart from mounds of hay.
+
+> ride horse
+The horse refuses to be ridden and gallops out of the stables and escapes the castle.
+
+> out
+You are in the courtyard.
+You can go north, south, east, west, southwest or up.
+The courtyard is cobbled underfoot with buildings around you.  The Great hall lies to the north and the gates to the south.  Doors lead east and west while stone steps lead up into the north tower.  The stables lies to the southwest.
+
+> south
+You are outside the castle gates.
+You can go north or south.
+Two huge wooden gates lie open to reveal a large courtyard to Castle Balthor.  Five generations of Balthor's have lived here and the current Count is known for taking ownership of this castle from a prince long-lost and forgotten.
+
+> south
+You are at the crossroads.
+You can go north, south, east or west.
+You are surrounded by oak trees.  The sun shines brightly above you and birds sing in the trees.  Forest paths lead in all directions with the north path opening out to reveal a huge castle.  To the west, filtering through the oaks, you spot another structure.
+
+> east
+You are in the forest.
+You can go east or west.
+You can see a horse.
+Tall trees lies on both sides of the forest path.  Roots try to trip you up and eyes watch your every move.  The crossroads lies west while a stone structure can be seen to the east.
+
+> ride horse
+The horse panics and rears into a nearby tree.  Something dislodges from the branches above before the horse gallops off never to be seen again.
+
+> take egg
+You pick it up.
+
+> east
+You are outside the temple.
+You can go south or west.
+It is a small structure with stone pillars at the entrance leading inside to the south.
+
+> south
+You are inside the temple.
+You can go out.
+You can see a bowl.
+It is a humble place with little decor.  The floor has been laid with red tiles and a stone pedestal stands by the south wall.  The only exit leads out.
+
+> use salt on bowl
+You fill the bowl with salt and a rumbling is heard.  You turn around and a secret recess appears on the floor.
+
+> open recess
+It is already open.
+
+> take bronze key
+(first removing it from recess)
+Done.
+You pick it up.
+
+> take ruby
+(first removing it from recess)
+Done.
+You pick it up.
+
+> out
+You are outside the temple.
+You can go south or west.
+It is a small structure with stone pillars at the entrance leading inside to the south.
+
+> west
+You are in the forest.
+You can go east or west.
+Tall trees lies on both sides of the forest path.  Roots try to trip you up and eyes watch your every move.  The crossroads lies west while a stone structure can be seen to the east.
+
+> west
+You are at the crossroads.
+You can go north, south, east or west.
+You are surrounded by oak trees.  The sun shines brightly above you and birds sing in the trees.  Forest paths lead in all directions with the north path opening out to reveal a huge castle.  To the west, filtering through the oaks, you spot another structure.
+
+> south
+You are in the forest.
+You can go north, southwest or southeast.
+You can see a yadda tree.
+The forest path is overgrown here and tall oaks tower over you like clawing giants.  A rustle of leaves above relieves the ominous silence.
+
+> southeast
+You are in the forest.
+You can go south, northwest or southeast.
+You can see an oak tree.
+The forest path peters out to the southeast and opens out to reveal a lake.  A creepy-looking graveyard lies to the south and the forest path continues to the northwest.
+
+> southeast
+You are by the lake.
+You can go south or northwest.
+You can see a boat.
+A dark, still expanse of water stretches out towards a small island in the centre of the lake.  The forest closes in to the south and northwest.
+
+> south
+You are in the forest.
+You can go north, south or southwest.
+You can see an Elf.
+The forest thins out to the south and on to open ground.  A lake lies to the north and a farm can be seen to the southwest.
+
+> south
+You are on the grassy plain.
+You can go north, south or east.
+A vast expanse of open ground stretches around you.  To the south the Southern Peaks stand with snow-capped tops.  A stone circle lies to the east and a dense forest to the north.
+
+> east
+You are in the stone circle.
+You can go west.
+You can see a knife.
+You are surrounded by a circle of nine stone monoliths with a stone altar in the centre.  Blood stains the top and sides of the altar and you shiver at the prospect of the poor victims that have been sacrificed probably to Xanthos himself.
+
+> take knife
+(first removing it from altar)
+Done.
+You pick it up.
+
+> west
+You are on the grassy plain.
+You can go north, south or east.
+A vast expanse of open ground stretches around you.  To the south the Southern Peaks stand with snow-capped tops.  A stone circle lies to the east and a dense forest to the north.
+
+> north
+You are in the forest.
+You can go north, south or southwest.
+You can see an Elf.
+The forest thins out to the south and on to open ground.  A lake lies to the north and a farm can be seen to the southwest.
+
+> southwest
+You are in the ploughed field.
+You can go south, west or northeast.
+A two acre field has just been ploughed.  A scary-looking scarecrow stands over you.  The farmhouse lies to the south and a windmill to the west.  A forest paths leads northeast.
+
+> look at pocket
+You find something.
+
+> take snuffbox
+You pick it up.
+
+> west
+You are in the windmill.
+You can go out.
+You can see a sack.
+A large grindstone sits in the centre of the grain covered floor.  An exit out leads to the field.
+
+> use knife on sack
+You cut open the sack with the knife and flour pours out along with a copper key.
+
+> take copper key
+You pick it up.
+
+> out
+You are in the ploughed field.
+You can go south, west or northeast.
+A two acre field has just been ploughed.  A scary-looking scarecrow stands over you.  The farmhouse lies to the south and a windmill to the west.  A forest paths leads northeast.
+
+> northeast
+You are in the forest.
+You can go north, south or southwest.
+You can see an Elf.
+The forest thins out to the south and on to open ground.  A lake lies to the north and a farm can be seen to the southwest.
+
+> north
+You are by the lake.
+You can go south or northwest.
+You can see a boat.
+A dark, still expanse of water stretches out towards a small island in the centre of the lake.  The forest closes in to the south and northwest.
+
+> northwest
+You are in the forest.
+You can go south, northwest or southeast.
+You can see an oak tree.
+The forest path peters out to the southeast and opens out to reveal a lake.  A creepy-looking graveyard lies to the south and the forest path continues to the northwest.
+
+> northwest
+You are in the forest.
+You can go north, southwest or southeast.
+You can see a yadda tree.
+The forest path is overgrown here and tall oaks tower over you like clawing giants.  A rustle of leaves above relieves the ominous silence.
+
+> use knife on yadda tree
+You cut open the tree and a sticky sap pours out.
+
+> southwest
+You are by the river bank.
+You can go northeast.
+On the east side of this fast-flowing river running from north to south is an old, rickety wooden bridge spanning the cold, watery depths.
+
+> cross bridge
+You cross the bridge to the other side.
+You are by the river bank.
+You can go north or south.
+On the west side of this fast-flowing river running from north to south is an old, rickety wooden bridge spanning the cold, watery depths.  A boathouse lies to the north.
+
+> north
+You are inside the boathouse.
+You can go out.
+You can see an oar.
+The run-down boathouse is in need of repair and half sunken boats hug the surface of the cold depths.
+
+> take oar
+You pick it up.
+
+> out
+You are by the river bank.
+You can go north or south.
+On the west side of this fast-flowing river running from north to south is an old, rickety wooden bridge spanning the cold, watery depths.  A boathouse lies to the north.
+
+> south
+You are by a pond.
+You can go north or southeast.
+A small waterfall cascades down into the small pond below.  Grasses and reeds surround the water while a rock covered in moss sits by your feet.  A rush of water from the river lies to the north and a small abode can be seen to the southeast.
+
+> enter waterfall
+You get a good soaking as you pass into a hidden cave.
+You are in the dark cave.
+You can go out.
+You can see a circular indent.
+The waterfall cascades across the only exit out of this dark, wet cave.
+
+> use disc on indent
+You insert the disc, it dissolves into the wall and an iron key is spat out from the same place.
+
+> take iron key
+You pick it up.
+
+> out
+You are by a pond.
+You can go north or southeast.
+A small waterfall cascades down into the small pond below.  Grasses and reeds surround the water while a rock covered in moss sits by your feet.  A rush of water from the river lies to the north and a small abode can be seen to the southeast.
+
+> southeast
+You are outside the wizard's house.
+You can go south or northwest.
+A small house with white-washed walls and a blue wooden door lies before you while a flowerbed full of beautiful flowers sits in front of the house.  The wizard who lives here is a good man with a generous heart or so you are led to believe.
+
+> look at flowerbed
+You find a shovel.
+
+> take shovel
+You pick it up.
+
+> south
+You are inside the wizard's house.
+You can go out.
+You can see Malbus the wizard and lamp.
+It is in fact a large single room with various parts of the house separated with screens.  A small unmade bed stands in the far corner.  An oak desk sits in the opposite corner, covered in papers, magical artifacts and knick-knacks.  A kitchen full of pots and pans piled high betray a chaotic existance.  A lit fireplace burns merrily in the west wall with a white cat outstretched, purring in front of it.
+
+> give egg to malbus
+'Ah, thanks.  I've been needing one of those for my protection spells.  Take this in exchange.'
+
+> take amulet
+You pick it up.
+
+> use ruby on amulet
+The ruby fits perfectly inside the hole.  Now you have in your possession the Amulet of Air.
+
+> steal lamp
+You wait for the moment when Malbus isn't looking.
+
+> out
+You are outside the wizard's house.
+You can go south or northwest.
+A small house with white-washed walls and a blue wooden door lies before you while a flowerbed full of beautiful flowers sits in front of the house.  The wizard who lives here is a good man with a generous heart or so you are led to believe.
+
+> northwest
+You are by a pond.
+You can go north or southeast.
+A small waterfall cascades down into the small pond below.  Grasses and reeds surround the water while a rock covered in moss sits by your feet.  A rush of water from the river lies to the north and a small abode can be seen to the southeast.
+
+> north
+You are by the river bank.
+You can go north or south.
+On the west side of this fast-flowing river running from north to south is an old, rickety wooden bridge spanning the cold, watery depths.  A boathouse lies to the north.
+
+> cross bridge
+You cross the bridge to the other side.
+You are by the river bank.
+You can go northeast.
+On the east side of this fast-flowing river running from north to south is an old, rickety wooden bridge spanning the cold, watery depths.
+
+> northeast
+You are in the forest.
+You can go north, southwest or southeast.
+You can see a yadda tree and some sap.
+The forest path is overgrown here and tall oaks tower over you like clawing giants.  A rustle of leaves above relieves the ominous silence.
+
+> use oar on sap
+The sap acts like a very strong glue and fixes the oar.
+
+> southeast
+You are in the forest.
+You can go south, northwest or southeast.
+You can see an oak tree.
+The forest path peters out to the southeast and opens out to reveal a lake.  A creepy-looking graveyard lies to the south and the forest path continues to the northwest.
+
+> south
+You are in the graveyard.
+You can go north, west or down.
+You can see a grave and an iron gate.
+A low-mist wraps around the worn gravestones and the sounds of crows mock you in nearby trees.  To the west you can enter the small church with a belfry on top and a forest path leads off to the north.  Looking down the entrance to a small crypt lies before you.
+
+> use iron key on gate
+You unlock the gate with the iron key.
+
+> open gate
+You open the gate.
+
+> use shovel on grave
+You dig up a coffin.
+
+> open coffin
+You open it.
+
+> pull skeleton
+The leg bone comes off quite easily!
+
+> take bone
+You pick it up.
+
+> west
+You are in the church.
+You can go out or up.
+You can see a small casket.
+The church is small and compact with a fews pews and a font by the altar.  Stone steps lead up into the belfry and an exit leads out into the graveyard.
+
+> use copper key on casket
+You unlock the casket.
+
+> open casket
+You open it.
+
+> take crucifix
+(first removing it from small casket)
+Done.
+You pick it up.
+
+> up
+You are in the belfry.
+You can go down.
+You can see a flock of bats.
+The belfry opens out to a view of the forest.  A large bell hangs from the belfry rafters and stone steps lead down back into the church.
+
+> scare bats
+You wave your arms about and shout like a mad man.  Nothing!  After a while, throwing a small pebble in their direction does the trick and the bats fly off.  One of them dislodges something from the rafters on to the floor.
+
+> take mouse
+You pick it up.
+
+> ring bell
+The noise is deafening and you lose your hearing, but you can still read lips.
+
+> down
+You are in the church.
+You can go out or up.
+You can see a small casket.
+The church is small and compact with a fews pews and a font by the altar.  Stone steps lead up into the belfry and an exit leads out into the graveyard.
+
+> out
+You are in the graveyard.
+You can go north, west or down.
+You can see a grave, coffin, a skeleton and an iron gate.
+A low-mist wraps around the worn gravestones and the sounds of crows mock you in nearby trees.  To the west you can enter the small church with a belfry on top and a forest path leads off to the north.  Looking down the entrance to a small crypt lies before you.
+
+> down
+You are in the crypt.
+You can go up.
+You can see a sarcophagus.
+It is dark and dusty and a sarcophagus sits atop a stone pedestal.  Lit torches cast eerie shadows around the chamber and the sound of scurrying rats can be heard in the dark corners.  Stone steps lead up and out.
+
+> use shovel on sarcophagus
+As you try to open the sarcophagus a little, the shovel breaks cleanly in two pieces.
+
+> up
+You are in the graveyard.
+You can go north, west or down.
+You can see a grave, coffin, a skeleton and an iron gate.
+A low-mist wraps around the worn gravestones and the sounds of crows mock you in nearby trees.  To the west you can enter the small church with a belfry on top and a forest path leads off to the north.  Looking down the entrance to a small crypt lies before you.
+
+> north
+You are in the forest.
+You can go south, northwest or southeast.
+You can see an oak tree.
+The forest path peters out to the southeast and opens out to reveal a lake.  A creepy-looking graveyard lies to the south and the forest path continues to the northwest.
+
+> northwest
+You are in the forest.
+You can go north, southwest or southeast.
+You can see a yadda tree and some sap.
+The forest path is overgrown here and tall oaks tower over you like clawing giants.  A rustle of leaves above relieves the ominous silence.
+
+> use shovel on sap
+The sap does wonders and fixes the shovel like it was brand new.
+
+> southeast
+You are in the forest.
+You can go south, northwest or southeast.
+You can see an oak tree.
+The forest path peters out to the southeast and opens out to reveal a lake.  A creepy-looking graveyard lies to the south and the forest path continues to the northwest.
+
+> south
+You are in the graveyard.
+You can go north, west or down.
+You can see a grave, coffin, a skeleton and an iron gate.
+A low-mist wraps around the worn gravestones and the sounds of crows mock you in nearby trees.  To the west you can enter the small church with a belfry on top and a forest path leads off to the north.  Looking down the entrance to a small crypt lies before you.
+
+> down
+You are in the crypt.
+You can go up.
+You can see a sarcophagus.
+It is dark and dusty and a sarcophagus sits atop a stone pedestal.  Lit torches cast eerie shadows around the chamber and the sound of scurrying rats can be heard in the dark corners.  Stone steps lead up and out.
+
+> use shovel on sarcophagus
+The shovel has no problem in opening the sarcophagus and the lid slides off.
+
+> look in sarcophagus
+Inside you see corpse.
+
+> look at corpse
+You find a gold key.
+
+> take gold key
+You pick it up.
+
+> up
+You are in the graveyard.
+You can go north, west or down.
+You can see a grave, coffin, a skeleton and an iron gate.
+A low-mist wraps around the worn gravestones and the sounds of crows mock you in nearby trees.  To the west you can enter the small church with a belfry on top and a forest path leads off to the north.  Looking down the entrance to a small crypt lies before you.
+
+> north
+You are in the forest.
+You can go south, northwest or southeast.
+You can see an oak tree.
+The forest path peters out to the southeast and opens out to reveal a lake.  A creepy-looking graveyard lies to the south and the forest path continues to the northwest.
+
+> northwest
+You are in the forest.
+You can go north, southwest or southeast.
+You can see a yadda tree and some sap.
+The forest path is overgrown here and tall oaks tower over you like clawing giants.  A rustle of leaves above relieves the ominous silence.
+
+> north
+You are at the crossroads.
+You can go north, south, east or west.
+You are surrounded by oak trees.  The sun shines brightly above you and birds sing in the trees.  Forest paths lead in all directions with the north path opening out to reveal a huge castle.  To the west, filtering through the oaks, you spot another structure.
+
+> west
+You are outside the tower.
+You can go east or west.
+You can see a tower door.
+The tall cracked grey stone tower is covered in moss and ivy.  It has an upper floor and a flat roof.  At its entrance lie dirty flagstones overgrown with weeds.  The forest is thick on all sides with a clear path to the east.
+
+> use gold key on tower door
+You unlock the door with the gold key.
+
+> open tower door
+You open the door.
+
+> west
+You are at the bottom of the tower.
+You can go out or up.
+Stone steps wind up around the inside of the tower.  The floor and walls are dirty and the smell of something rotten hangs in the air.  A stone entrance leads out into the fresh air.
+
+> up
+You are in a tower room.
+You can go up or down.
+You can see a puzzlebox.
+The tower room is round with a small narrow east window looking out over the forest.  The forest stretches out before you.  Steps lead up and down.
+
+> take puzzlebox
+You pick it up.
+
+> up
+You are on the tower roof.
+You can go down.
+You can see a flagpole.
+You have a bird's eye view of the surrounding area.  To the north and west lie the Blackridge Mountains and to the northeast you see a large castle.  To the south the forest stretches for miles before you reach the Southern Peaks.  Stone steps lead down.
+
+> throw puzzlebox
+You throw the puzzlebox off the tower and it smashes open down below.
+
+> down
+You are in a tower room.
+You can go up or down.
+The tower room is round with a small narrow east window looking out over the forest.  The forest stretches out before you.  Steps lead up and down.
+
+> down
+You are at the bottom of the tower.
+You can go out or up.
+Stone steps wind up around the inside of the tower.  The floor and walls are dirty and the smell of something rotten hangs in the air.  A stone entrance leads out into the fresh air.
+
+> out
+You are outside the tower.
+You can go east or west.
+You can see a tower door, some wooden pieces and a gold ring.
+The tall cracked grey stone tower is covered in moss and ivy.  It has an upper floor and a flat roof.  At its entrance lie dirty flagstones overgrown with weeds.  The forest is thick on all sides with a clear path to the east.
+
+> take ring
+You pick it up.
+
+> east
+You are at the crossroads.
+You can go north, south, east or west.
+You are surrounded by oak trees.  The sun shines brightly above you and birds sing in the trees.  Forest paths lead in all directions with the north path opening out to reveal a huge castle.  To the west, filtering through the oaks, you spot another structure.
+
+> south
+You are in the forest.
+You can go north, southwest or southeast.
+You can see a yadda tree and some sap.
+The forest path is overgrown here and tall oaks tower over you like clawing giants.  A rustle of leaves above relieves the ominous silence.
+
+> southeast
+You are in the forest.
+You can go south, northwest or southeast.
+You can see an oak tree.
+The forest path peters out to the southeast and opens out to reveal a lake.  A creepy-looking graveyard lies to the south and the forest path continues to the northwest.
+
+> southeast
+You are by the lake.
+You can go south or northwest.
+You can see a boat.
+A dark, still expanse of water stretches out towards a small island in the centre of the lake.  The forest closes in to the south and northwest.
+
+> use oar on boat
+You punt across the lake since you only have one oar.
+You are on the island.
+You can go down.
+You can see a boat and a grating.
+It is only a few hundred yards wide and is overgrown with grasses and reeds.
+
+> use bronze key on grating
+You unlock the grating.
+
+> open grating
+You open the grating.
+
+> down
+You are in the repository.
+You can go up.
+You can see a ghoul.
+A small square chamber full of mainly junk.  Water drips from the ceiling and the floor is muddy.  The smell of decay fills the air.  A ladder leads upwards.
+
+> use crucifix on ghoul
+The crucifix burns the Ghoul's flesh and it dissolves into a putrid mess.
+
+> take blue crystal
+You pick it up.
+
+> up
+You are on the island.
+You can go down.
+You can see a boat and a grating.
+It is only a few hundred yards wide and is overgrown with grasses and reeds.
+
+> use oar on boat2
+You punt across the lake since you only have one oar.
+You are by the lake.
+You can go south or northwest.
+You can see a boat.
+A dark, still expanse of water stretches out towards a small island in the centre of the lake.  The forest closes in to the south and northwest.
+
+> south
+You are in the forest.
+You can go north, south or southwest.
+You can see an Elf.
+The forest thins out to the south and on to open ground.  A lake lies to the north and a farm can be seen to the southwest.
+
+> give ring to elf
+'Thank you, my friend.  Please take these gifts for your kindness.' smiles the Elf and disappears into the trees.
+
+> take bow
+You pick it up.
+
+> take arrow
+You pick it up.
+
+> southwest
+You are in the ploughed field.
+You can go south, west or northeast.
+A two acre field has just been ploughed.  A scary-looking scarecrow stands over you.  The farmhouse lies to the south and a windmill to the west.  A forest paths leads northeast.
+
+> south
+You are in the farmhouse.
+You can go out.
+You can see the farmer.
+A small abode with a few chairs and a table.  A strange smell fills the air and an unlit fireplace makes this house really cold.  The only exit is to the outside.
+
+> use crucifix on farmer
+The farmer hisses on seeing the crucifix and transforms into a hideous demonic bat.  It flies off leaving something behind.
+
+> take red crystal
+You pick it up.
+
+> out
+You are in the ploughed field.
+You can go south, west or northeast.
+A two acre field has just been ploughed.  A scary-looking scarecrow stands over you.  The farmhouse lies to the south and a windmill to the west.  A forest paths leads northeast.
+
+> northeast
+You are in the forest.
+You can go north, south or southwest.
+The forest thins out to the south and on to open ground.  A lake lies to the north and a farm can be seen to the southwest.
+
+> south
+You are on the grassy plain.
+You can go north, south or east.
+A vast expanse of open ground stretches around you.  To the south the Southern Peaks stand with snow-capped tops.  A stone circle lies to the east and a dense forest to the north.
+
+> south
+You are in the mountain range.
+You can go north, southwest or southeast.
+Amongst the snow-capped mountains of the Southern Peaks you spy a cave entrance to the southwest.  The snow looks deeper as the rocky path winds to the southeast.  The grassy plain and the forest lie north.
+
+> southwest
+You are in the cave entrance.
+You can go west or northeast.
+An ominous-looking hole stands before you as you stare into the darkness.  This is the entrance to where Xanthos resides.
+
+> west
+You are in the small cave.
+You can go out, north or southwest.
+This small, dark cave has tunnels leading off in various directions.  The floor is covered in bones and the walls are lined with a luminous moss.
+
+> southwest
+You are in the tunnel.
+You can go south, northwest or northeast.
+A long winding tunnel that heads northwest and northeast.  A cave entrance lies to the south.
+
+> south
+You are in the ogre's cave.
+You can go north.
+You can see the Ogre.
+A large cave that is the home to dead rats and bones from animal and humanoid origins.  The putrid stench of ogre is unmistakable here.
+
+> give apple to ogre
+The Ogre grabs it and swallows it whole.  He looks at you with a puzzled look and offers you his pickaxe.
+
+> take pickaxe
+You pick it up.
+
+> north
+You are in the tunnel.
+You can go south, northwest or northeast.
+A long winding tunnel that heads northwest and northeast.  A cave entrance lies to the south.
+
+> northwest
+You are by the chasm.
+You can go southeast.
+This is the southside of an immensly deep and wide chasm.  Looking through the darkness you can just make out the other side.
+
+> rub amulet
+You rub the amulet and a cloud appears spanning the chasm.
+
+> cross cloud bridge
+You cross the cloud to the other side.
+You are by the chasm.
+You can go west.
+You can see a cloud bridge.
+This is the northside of an immensly deep and wide chasm.  Looking through the darkness you can just make out the other side.
+
+
+> west
+You are in the long hall.
+You can go north, south, east or west.
+The hall is about one hundred feet in length and is sparse.  Blood splatters the wall and chequered floor.  A smell of rat fill your nostrils.
+
+> west
+You are in the tunnel.
+You can go east, northwest or southwest.
+The tunnel forks in three directions.  The floor underfoot is sticky and a noise of scurrying feet can be heard in the darkness.
+
+> southwest
+You are in the marble-floored hall.
+You can go south, west or northeast.
+This large hall houses a magnificent marble floor of rich blues and greens.  However, set in mosaic is the image of Xanthos himself.
+
+> west
+You are in the spiral staircase.
+You can go east or up.
+You are at the bottom of a spiral staircase at the end of the tunnel.
+
+> up
+You are in the oak-panelled room.
+You can go north, south or down.
+You can see a sign.
+Oak panels on the wall surround a sparsely furnished room.  A sense of dread eminates from the north exit and a cold deliberate evil eminates from the south.  Either way it's probably safer going east.
+
+> read sign
+'PUSH LEFT, PUSH BOTTOM, PUSH MIDDLE, PUSH RIGHT.'
+
+> down
+You are in the spiral staircase.
+You can go east or up.
+You are at the bottom of a spiral staircase at the end of the tunnel.
+
+> east
+You are in the marble-floored hall.
+You can go south, west or northeast.
+This large hall houses a magnificent marble floor of rich blues and greens.  However, set in mosaic is the image of Xanthos himself.
+
+> south
+You are in the gigantic stone head.
+You can go north.
+You can see a gigantic head.
+This cavern opens out to reveal a huge stone head of Xanthos.  His large stone eyes feel like they burn into your very soul.
+
+> push left eye
+'CLICK.'
+
+> push mouth
+'CLICK.'
+
+> push nose
+'CLICK.'
+
+> push right eye
+'CLICK.'
+The mouth opens and an emerald drops out of it.
+
+> take emerald
+You pick it up.
+
+> north
+You are in the marble-floored hall.
+You can go south, west or northeast.
+This large hall houses a magnificent marble floor of rich blues and greens.  However, set in mosaic is the image of Xanthos himself.
+
+> northeast
+You are in the tunnel.
+You can go east, northwest or southwest.
+The tunnel forks in three directions.  The floor underfoot is sticky and a noise of scurrying feet can be heard in the darkness.
+
+> east
+You are in the long hall.
+You can go north, south, east or west.
+The hall is about one hundred feet in length and is sparse.  Blood splatters the wall and chequered floor.  A smell of rat fill your nostrils.
+
+> east
+You are by the chasm.
+You can go west.
+You can see a cloud bridge.
+This is the northside of an immensly deep and wide chasm.  Looking through the darkness you can just make out the other side.
+
+
+> cross cloud bridge
+You cross the cloud to the other side.
+You are by the chasm.
+You can go southeast.
+You can see a cloud bridge.
+This is the southside of an immensly deep and wide chasm.  Looking through the darkness you can just make out the other side.
+
+> southeast
+You are in the tunnel.
+You can go south, northwest or northeast.
+A long winding tunnel that heads northwest and northeast.  A cave entrance lies to the south.
+
+> northeast
+You are in the small cave.
+You can go out, north or southwest.
+This small, dark cave has tunnels leading off in various directions.  The floor is covered in bones and the walls are lined with a luminous moss.
+
+> out
+You are in the cave entrance.
+You can go west or northeast.
+An ominous-looking hole stands before you as you stare into the darkness.  This is the entrance to where Xanthos resides.
+
+> northeast
+You are in the mountain range.
+You can go north, southwest or southeast.
+Amongst the snow-capped mountains of the Southern Peaks you spy a cave entrance to the southwest.  The snow looks deeper as the rocky path winds to the southeast.  The grassy plain and the forest lie north.
+
+> southeast
+You are in the mountain range.
+You can go south, northwest or southwest.
+The snow is getting deeper here and a huge blanket of snow can be seen to the southwest.  A snowy trail heading futher into the Southern Peaks lies to the south, while the snow starts to peter out on the rocky path to the northwest.
+
+> southwest
+You are by the avalanche.
+You can go northeast.
+A large mass of impassable snow lies before you.  The avalanche must have happened in recent days since the top layer is still soft.  There is no way past it and you'll have to turn round and head to the northeast.
+
+> use shovel on avalanche
+You dig up a body!
+
+> use knife on goblin
+For some sick reason you manage to cut the hand off the goblin.
+
+> take hand
+You pick it up.
+
+> northeast
+You are in the mountain range.
+You can go south, northwest or southwest.
+The snow is getting deeper here and a huge blanket of snow can be seen to the southwest.  A snowy trail heading futher into the Southern Peaks lies to the south, while the snow starts to peter out on the rocky path to the northwest.
+
+> south
+You are on the snowy trail.
+You can go north, south or east.
+The trail winds to the north and east and to the south lies a small log cabin.  Looking to the east, sparkling in the sun you spot ice-covered towers.
+
+> east
+You are on the icy plateau.
+You can go north, west or southeast.
+A vast sheet of ice spans for half a mile in each direction.  A narrow path leading round a mountain heads off to the north while to the southeast you see the towers of an ice palace.  The snowy trail leads west.
+
+> north
+You are by the fallen rocks.
+You can go south.
+A narrow path hugging the side of the mountain is cut off by an obstruction of fallen rocks.
+
+> use pickaxe on rocks
+You clear a path in the rocks.
+
+> north
+You are in the Ice Dragon's lair.
+You can go south.
+You can see the Ice Dragon.
+Set up high on a small plateau is a nest of somekind made entirely of ice crystals.  There is no mistaking the lair of an Ice Dragon.  The path down from this mountain is your only exit.
+
+> south
+You are by the fallen rocks.
+You can go south or north.
+A narrow path hugging the side of the mountain is cut off by an obstruction of fallen rocks.
+
+> south
+You are on the icy plateau.
+You can go north, west or southeast.
+A vast sheet of ice spans for half a mile in each direction.  A narrow path leading round a mountain heads off to the north while to the southeast you see the towers of an ice palace.  The snowy trail leads west.
+
+> west
+You are on the snowy trail.
+You can go north, south or east.
+The trail winds to the north and east and to the south lies a small log cabin.  Looking to the east, sparkling in the sun you spot ice-covered towers.
+
+> south
+You are in the log cabin.
+You can go out.
+You can see the Trapper.
+Snow has gotten in through a hole in the roof and a blustery wind howls through to your bones.  The cabin has little furniture but a small fire is burning against the south wall.  A make-shift bed lies in one corner while animal skins and furs hang in another.
+
+> speak to trapper
+'You've found a Dragon?  Good job, I'll come with you and together we'll defeat it together.' the Trapper says grabbing a spear.
+
+> out
+You are on the snowy trail.
+You can go north, south or east.
+The trail winds to the north and east and to the south lies a small log cabin.  Looking to the east, sparkling in the sun you spot ice-covered towers.
+
+> east
+You are on the icy plateau.
+You can go north, west or southeast.
+A vast sheet of ice spans for half a mile in each direction.  A narrow path leading round a mountain heads off to the north while to the southeast you see the towers of an ice palace.  The snowy trail leads west.
+
+> north
+You are by the fallen rocks.
+You can go south or north.
+A narrow path hugging the side of the mountain is cut off by an obstruction of fallen rocks.
+
+> north
+You are in the Ice Dragon's lair.
+You can go south.
+You can see the Ice Dragon.
+Set up high on a small plateau is a nest of somekind made entirely of ice crystals.  There is no mistaking the lair of an Ice Dragon.  The path down from this mountain is your only exit.
+
+> give shield to trapper
+You give the shield to the Trapper and he nods.  'I'll hold the shield while you kill the Dragon.'
+
+> use arrow on ice dragon
+As the Trapper holds the shield to protect you both, you fire the arrow at the Dragon.  You pierce her heart and she dies instantly.  The Trapper jumps up for joy.
+
+'I'll take the hide and you can have her treasure.' he says and starts to strip off her hide.  An hour or so later, the Trapper waves goodbye with his new find.
+
+> take gemstone
+You pick it up.
+
+> south
+You are by the fallen rocks.
+You can go south or north.
+A narrow path hugging the side of the mountain is cut off by an obstruction of fallen rocks.
+
+> south
+You are on the icy plateau.
+You can go north, west or southeast.
+A vast sheet of ice spans for half a mile in each direction.  A narrow path leading round a mountain heads off to the north while to the southeast you see the towers of an ice palace.  The snowy trail leads west.
+
+> southeast
+You are by the ice palace gates.
+You can go east or northwest.
+You can see a snow wolf.
+The ice crystal gates tower over you and glisten in the sun, sparkling various colours.  The ice towers rise like frost giants guarding the gates themselves.  This is the home to the malevolent ice people.
+
+> give bone to wolf
+The snow wolf takes it and starts gnawing on it leaving you free to enter the palace.
+
+> east
+You are in the ice hall.
+You can go north, south, east, west or northwest.
+This palatial hall has a high-valuted crystalline ceiling that changes colour by supernatural means and is held up by wide ice crystal columns.
+
+> south
+You are in tower of light.
+You can go north.
+You can see the Mirror of Enlightenment.
+This tower is made purely of ice and the domed ceiling houses a large floating ball of electrified energy.  Now and again sparks fly from it and electrify the walls and ceiling.
+
+> turn mirror
+You turn the mirror to catch the light above.
+
+> look at mirror
+The mirror's reflection shows you the number: 6808.
+
+> north
+You are in the ice hall.
+You can go north, south, east, west or northwest.
+This palatial hall has a high-valuted crystalline ceiling that changes colour by supernatural means and is held up by wide ice crystal columns.
+
+> east
+You are in the crystal chamber.
+You can go north, east or west.
+You can see a crystal monolith.
+This open and round chamber houses a large crystal monolith in its centre.  It glows with various colours and swirls from red to blue to green and back to red again.
+
+> use blue crystal on monolith
+The crystal magically blends into the monolith.
+
+> use red crystal on monolith
+The crystal magically blends into the monolith.
+
+> east
+You are in the tower of knowledge.
+You can go west.
+You can see many scrolls.
+This library is the source of all the ice people's knowledge and contains thousands of scrolls.  There are too many to behold and are all preserved perfectly in this temperature-controlled tower.
+
+> take scrolls
+Which scroll from 1 to 10,000?
+The scroll of translation appears before you.
+
+> take scroll
+You pick it up.
+
+> west
+You are in the crystal chamber.
+You can go north, east or west.
+You can see a crystal monolith.
+This open and round chamber houses a large crystal monolith in its centre.  It glows with various colours and swirls from red to blue to green and back to red again.
+
+> west
+You are in the ice hall.
+You can go north, south, east, west or northwest.
+This palatial hall has a high-valuted crystalline ceiling that changes colour by supernatural means and is held up by wide ice crystal columns.
+
+> northwest
+You are in the ice cathedral.
+You can go southeast.
+You can see an ice organ and some sheet music.
+This magnificent structure houses a large pipe organ made from crystal and ice.  Ice sculptures from various religous sources line the walls while a high-valuted ceiling is held up by eight columns made from crystal.
+
+> take sheet music
+You pick it up.
+
+> southeast
+You are in the ice hall.
+You can go north, south, east, west or northwest.
+This palatial hall has a high-valuted crystalline ceiling that changes colour by supernatural means and is held up by wide ice crystal columns.
+
+> west
+You are by the ice palace gates.
+You can go east or northwest.
+You can see a snow wolf.
+The ice crystal gates tower over you and glisten in the sun, sparkling various colours.  The ice towers rise like frost giants guarding the gates themselves.  This is the home to the malevolent ice people.
+
+> northwest
+You are on the icy plateau.
+You can go north, west or southeast.
+A vast sheet of ice spans for half a mile in each direction.  A narrow path leading round a mountain heads off to the north while to the southeast you see the towers of an ice palace.  The snowy trail leads west.
+
+> west
+You are on the snowy trail.
+You can go north, south or east.
+The trail winds to the north and east and to the south lies a small log cabin.  Looking to the east, sparkling in the sun you spot ice-covered towers.
+
+> north
+You are in the mountain range.
+You can go south, northwest or southwest.
+The snow is getting deeper here and a huge blanket of snow can be seen to the southwest.  A snowy trail heading futher into the Southern Peaks lies to the south, while the snow starts to peter out on the rocky path to the northwest.
+
+> northwest
+You are in the mountain range.
+You can go north, southwest or southeast.
+Amongst the snow-capped mountains of the Southern Peaks you spy a cave entrance to the southwest.  The snow looks deeper as the rocky path winds to the southeast.  The grassy plain and the forest lie north.
+
+> north
+You are on the grassy plain.
+You can go north, south or east.
+A vast expanse of open ground stretches around you.  To the south the Southern Peaks stand with snow-capped tops.  A stone circle lies to the east and a dense forest to the north.
+
+> north
+You are in the forest.
+You can go north, south or southwest.
+The forest thins out to the south and on to open ground.  A lake lies to the north and a farm can be seen to the southwest.
+
+> north
+You are by the lake.
+You can go south or northwest.
+You can see a boat.
+A dark, still expanse of water stretches out towards a small island in the centre of the lake.  The forest closes in to the south and northwest.
+
+> northwest
+You are in the forest.
+You can go south, northwest or southeast.
+You can see an oak tree.
+The forest path peters out to the southeast and opens out to reveal a lake.  A creepy-looking graveyard lies to the south and the forest path continues to the northwest.
+
+> northwest
+You are in the forest.
+You can go north, southwest or southeast.
+You can see a yadda tree and some sap.
+The forest path is overgrown here and tall oaks tower over you like clawing giants.  A rustle of leaves above relieves the ominous silence.
+
+> north
+You are at the crossroads.
+You can go north, south, east or west.
+You are surrounded by oak trees.  The sun shines brightly above you and birds sing in the trees.  Forest paths lead in all directions with the north path opening out to reveal a huge castle.  To the west, filtering through the oaks, you spot another structure.
+
+> north
+You are outside the castle gates.
+You can go north or south.
+Two huge wooden gates lie open to reveal a large courtyard to Castle Balthor.  Five generations of Balthor's have lived here and the current Count is known for taking ownership of this castle from a prince long-lost and forgotten.
+
+> north
+You are in the courtyard.
+You can go north, south, east, west, southwest or up.
+The courtyard is cobbled underfoot with buildings around you.  The Great hall lies to the north and the gates to the south.  Doors lead east and west while stone steps lead up into the north tower.  The stables lies to the southwest.
+
+> north
+You are in the Great Hall.
+You can go south or secret room.
+The ceiling is vaulted and held up by six marble columns.  The floor has blue and white mosaic tiles and a large oak chair stands on a dais by the north wall.
+
+> go to secret room
+You are in a secret room.
+You can go out.
+You can see an ornate clock.
+The room is small and bare and only various treasures lie piled high around you.  The only exit is through the opening to the east.
+
+> use emerald on clock
+You place the emerald on the vacant spot and the clock starts to tick.  The hands rotate around the face and rest upon the twelve.  As it chimes a secret panel opens and a green crystal pops out.
+
+> take green crystal
+You pick it up.
+
+> out
+You are in the Great Hall.
+You can go south or secret room.
+The ceiling is vaulted and held up by six marble columns.  The floor has blue and white mosaic tiles and a large oak chair stands on a dais by the north wall.
+
+> south
+You are in the courtyard.
+You can go north, south, east, west, southwest or up.
+The courtyard is cobbled underfoot with buildings around you.  The Great hall lies to the north and the gates to the south.  Doors lead east and west while stone steps lead up into the north tower.  The stables lies to the southwest.
+
+> south
+You are outside the castle gates.
+You can go north or south.
+Two huge wooden gates lie open to reveal a large courtyard to Castle Balthor.  Five generations of Balthor's have lived here and the current Count is known for taking ownership of this castle from a prince long-lost and forgotten.
+
+> south
+You are at the crossroads.
+You can go north, south, east or west.
+You are surrounded by oak trees.  The sun shines brightly above you and birds sing in the trees.  Forest paths lead in all directions with the north path opening out to reveal a huge castle.  To the west, filtering through the oaks, you spot another structure.
+
+> south
+You are in the forest.
+You can go north, southwest or southeast.
+You can see a yadda tree and some sap.
+The forest path is overgrown here and tall oaks tower over you like clawing giants.  A rustle of leaves above relieves the ominous silence.
+
+> southwest
+You are by the river bank.
+You can go northeast.
+On the east side of this fast-flowing river running from north to south is an old, rickety wooden bridge spanning the cold, watery depths.
+
+> cross bridge
+You cross the bridge to the other side.
+You are by the river bank.
+You can go north or south.
+On the west side of this fast-flowing river running from north to south is an old, rickety wooden bridge spanning the cold, watery depths.  A boathouse lies to the north.
+
+> south
+You are by a pond.
+You can go north or southeast.
+A small waterfall cascades down into the small pond below.  Grasses and reeds surround the water while a rock covered in moss sits by your feet.  A rush of water from the river lies to the north and a small abode can be seen to the southeast.
+
+> southeast
+You are outside the wizard's house.
+You can go south or northwest.
+A small house with white-washed walls and a blue wooden door lies before you while a flowerbed full of beautiful flowers sits in front of the house.  The wizard who lives here is a good man with a generous heart or so you are led to believe.
+
+> south
+You are inside the wizard's house.
+You can go out.
+You can see Malbus the wizard.
+It is in fact a large single room with various parts of the house separated with screens.  A small unmade bed stands in the far corner.  An oak desk sits in the opposite corner, covered in papers, magical artifacts and knick-knacks.  A kitchen full of pots and pans piled high betray a chaotic existance.  A lit fireplace burns merrily in the west wall with a white cat outstretched, purring in front of it.
+
+> give sheet music to malbus
+'So you want to play the organ?  Very well.' he casts a spell over you.  You now have musical ability.
+
+> out
+You are outside the wizard's house.
+You can go south or northwest.
+A small house with white-washed walls and a blue wooden door lies before you while a flowerbed full of beautiful flowers sits in front of the house.  The wizard who lives here is a good man with a generous heart or so you are led to believe.
+
+> northwest
+You are by a pond.
+You can go north or southeast.
+A small waterfall cascades down into the small pond below.  Grasses and reeds surround the water while a rock covered in moss sits by your feet.  A rush of water from the river lies to the north and a small abode can be seen to the southeast.
+
+> north
+You are by the river bank.
+You can go north or south.
+On the west side of this fast-flowing river running from north to south is an old, rickety wooden bridge spanning the cold, watery depths.  A boathouse lies to the north.
+
+> cross bridge
+You cross the bridge to the other side.
+You are by the river bank.
+You can go northeast.
+On the east side of this fast-flowing river running from north to south is an old, rickety wooden bridge spanning the cold, watery depths.
+
+> northeast
+You are in the forest.
+You can go north, southwest or southeast.
+You can see a yadda tree and some sap.
+The forest path is overgrown here and tall oaks tower over you like clawing giants.  A rustle of leaves above relieves the ominous silence.
+
+> southeast
+You are in the forest.
+You can go south, northwest or southeast.
+You can see an oak tree.
+The forest path peters out to the southeast and opens out to reveal a lake.  A creepy-looking graveyard lies to the south and the forest path continues to the northwest.
+
+> southeast
+You are by the lake.
+You can go south or northwest.
+You can see a boat.
+A dark, still expanse of water stretches out towards a small island in the centre of the lake.  The forest closes in to the south and northwest.
+
+> south
+You are in the forest.
+You can go north, south or southwest.
+The forest thins out to the south and on to open ground.  A lake lies to the north and a farm can be seen to the southwest.
+
+> south
+You are on the grassy plain.
+You can go north, south or east.
+A vast expanse of open ground stretches around you.  To the south the Southern Peaks stand with snow-capped tops.  A stone circle lies to the east and a dense forest to the north.
+
+> south
+You are in the mountain range.
+You can go north, southwest or southeast.
+Amongst the snow-capped mountains of the Southern Peaks you spy a cave entrance to the southwest.  The snow looks deeper as the rocky path winds to the southeast.  The grassy plain and the forest lie north.
+
+> southeast
+You are in the mountain range.
+You can go south, northwest or southwest.
+The snow is getting deeper here and a huge blanket of snow can be seen to the southwest.  A snowy trail heading futher into the Southern Peaks lies to the south, while the snow starts to peter out on the rocky path to the northwest.
+
+> south
+You are on the snowy trail.
+You can go north, south or east.
+The trail winds to the north and east and to the south lies a small log cabin.  Looking to the east, sparkling in the sun you spot ice-covered towers.
+
+> east
+You are on the icy plateau.
+You can go north, west or southeast.
+A vast sheet of ice spans for half a mile in each direction.  A narrow path leading round a mountain heads off to the north while to the southeast you see the towers of an ice palace.  The snowy trail leads west.
+
+> southeast
+You are by the ice palace gates.
+You can go east or northwest.
+You can see a snow wolf.
+The ice crystal gates tower over you and glisten in the sun, sparkling various colours.  The ice towers rise like frost giants guarding the gates themselves.  This is the home to the malevolent ice people.
+
+> east
+You are in the ice hall.
+You can go north, south, east, west or northwest.
+This palatial hall has a high-valuted crystalline ceiling that changes colour by supernatural means and is held up by wide ice crystal columns.
+
+> northwest
+You are in the ice cathedral.
+You can go southeast.
+You can see an ice organ.
+This magnificent structure houses a large pipe organ made from crystal and ice.  Ice sculptures from various religous sources line the walls while a high-valuted ceiling is held up by eight columns made from crystal.
+
+> play organ
+As you start to play an Ice Sprite appears before you.
+
+> rub lamp
+Wishes do come true.  She offers you her wand and vanishes into icy dust.
+
+> take wand
+You pick it up.
+
+> southeast
+You are in the ice hall.
+You can go north, south, east, west or northwest.
+This palatial hall has a high-valuted crystalline ceiling that changes colour by supernatural means and is held up by wide ice crystal columns.
+
+> east
+You are in the crystal chamber.
+You can go north, east or west.
+You can see a crystal monolith.
+This open and round chamber houses a large crystal monolith in its centre.  It glows with various colours and swirls from red to blue to green and back to red again.
+
+> use green crystal on monolith
+The crystal magically blends into the monolith.
+The monolith descends into the floor and a warhammer rises instead.
+
+> take warhammer
+You pick it up.
+
+> north
+You are in the throne room.
+You can go south.
+You can see the Ice Queen.
+A large chamber with an ice crystal throne standing on a crystal dais.  Large stained glass windows about twenty foot high trickle the multi-coloured rays of the sun above it.
+
+> use warhammer on ice queen
+You swing the warhammer and hit her plainly in her icy head.  It shatters into tiny pieces along with the rest of her.  However, hidden in the fragments you find something.
+
+> take ice key
+You pick it up.
+
+> south
+You are in the crystal chamber.
+You can go north, east or west.
+This open and round chamber houses a large crystal monolith in its centre.  It glows with various colours and swirls from red to blue to green and back to red again.
+
+> west
+You are in the ice hall.
+You can go north, south, east, west or northwest.
+This palatial hall has a high-valuted crystalline ceiling that changes colour by supernatural means and is held up by wide ice crystal columns.
+
+> west
+You are by the ice palace gates.
+You can go east or northwest.
+You can see a snow wolf.
+The ice crystal gates tower over you and glisten in the sun, sparkling various colours.  The ice towers rise like frost giants guarding the gates themselves.  This is the home to the malevolent ice people.
+
+> northwest
+You are on the icy plateau.
+You can go north, west or southeast.
+A vast sheet of ice spans for half a mile in each direction.  A narrow path leading round a mountain heads off to the north while to the southeast you see the towers of an ice palace.  The snowy trail leads west.
+
+> west
+You are on the snowy trail.
+You can go north, south or east.
+The trail winds to the north and east and to the south lies a small log cabin.  Looking to the east, sparkling in the sun you spot ice-covered towers.
+
+> north
+You are in the mountain range.
+You can go south, northwest or southwest.
+The snow is getting deeper here and a huge blanket of snow can be seen to the southwest.  A snowy trail heading futher into the Southern Peaks lies to the south, while the snow starts to peter out on the rocky path to the northwest.
+
+> northwest
+You are in the mountain range.
+You can go north, southwest or southeast.
+Amongst the snow-capped mountains of the Southern Peaks you spy a cave entrance to the southwest.  The snow looks deeper as the rocky path winds to the southeast.  The grassy plain and the forest lie north.
+
+> southwest
+You are in the cave entrance.
+You can go west or northeast.
+An ominous-looking hole stands before you as you stare into the darkness.  This is the entrance to where Xanthos resides.
+
+> west
+You are in the small cave.
+You can go out, north or southwest.
+This small, dark cave has tunnels leading off in various directions.  The floor is covered in bones and the walls are lined with a luminous moss.
+
+> north
+You are in the echo chamber.
+You can go south.
+You can see a black sphere.
+This supernatural cavern has a remarkable feature.  Any loud noise is magnified a hundred-fold and can easily cause damage to the human body.
+
+> use warhammer on sphere
+You smash the sphere and find something!
+
+> take skull
+You pick it up.
+
+> south
+You are in the small cave.
+You can go out, north or southwest.
+This small, dark cave has tunnels leading off in various directions.  The floor is covered in bones and the walls are lined with a luminous moss.
+
+> southwest
+You are in the tunnel.
+You can go south, northwest or northeast.
+A long winding tunnel that heads northwest and northeast.  A cave entrance lies to the south.
+
+> northwest
+You are by the chasm.
+You can go southeast.
+You can see a cloud bridge.
+This is the southside of an immensly deep and wide chasm.  Looking through the darkness you can just make out the other side.
+
+> cross cloud bridge
+You cross the cloud to the other side.
+You are by the chasm.
+You can go west.
+You can see a cloud bridge.
+This is the northside of an immensly deep and wide chasm.  Looking through the darkness you can just make out the other side.
+
+
+> west
+You are in the long hall.
+You can go north, south, east or west.
+The hall is about one hundred feet in length and is sparse.  Blood splatters the wall and chequered floor.  A smell of rat fill your nostrils.
+
+> west
+You are in the tunnel.
+You can go east, northwest or southwest.
+The tunnel forks in three directions.  The floor underfoot is sticky and a noise of scurrying feet can be heard in the darkness.
+
+> southwest
+You are in the marble-floored hall.
+You can go south, west or northeast.
+This large hall houses a magnificent marble floor of rich blues and greens.  However, set in mosaic is the image of Xanthos himself.
+
+> west
+You are in the spiral staircase.
+You can go east or up.
+You are at the bottom of a spiral staircase at the end of the tunnel.
+
+> up
+You are in the oak-panelled room.
+You can go north, south or down.
+You can see a sign.
+Oak panels on the wall surround a sparsely furnished room.  A sense of dread eminates from the north exit and a cold deliberate evil eminates from the south.  Either way it's probably safer going east.
+
+> north
+You are in the Krahl cavern.
+You can go south.
+You can see the Krahl Crones.
+This is the home to the Krahl crones, three witches of pure evil.  The cavern walls and floor are covered in green ooze.  Various body parts from unfortunate victims have been left around the floor like discarded toys.
+
+> give mouse to krahl crones
+They snatch if off you and cackle.
+
+> give hand to krahl crones
+They grab it and dance around like lunatics.
+
+> give skull to krahl crones
+They rejoice in the macabre gift.
+The witches make a Potion of Decay for you.
+
+> take potion
+You pick it up.
+
+> use gemstone on krahl crones
+The gemstone emits a blast of light that obliterates the crones leaving nothing of them behind.
+
+> take fire key
+You pick it up.
+
+> south
+You are in the oak-panelled room.
+You can go north, south or down.
+You can see a sign.
+Oak panels on the wall surround a sparsely furnished room.  A sense of dread eminates from the north exit and a cold deliberate evil eminates from the south.  Either way it's probably safer going east.
+
+> south
+You are in the pandemonium chamber.
+You can go north.
+You can see an iron-bound chest.
+This chamber oozes evil to its core.  The walls are dripping with blood and poor trapped souls try to claw from the blood, screaming and wailing in the hell they have been sent.  A large chest made from black bone and oozing with a black oil stands in the centre.
+
+> use ice key on chest
+The ice key turns in one of the locks.
+
+> use fire key on chest
+The fire key turns in one of the locks.
+The chest is now unlocked.
+
+> open chest
+You open it.
+
+> take pandemonica
+(first removing it from iron-bound chest)
+Done.
+You pick it up.
+
+> use scroll on pandemonica
+The scroll glows and merges with the Pandemonica.
+
+> read pandemonica
+'... so to banish the demon, use the Orb of Blood taken from this frozen tome and cast out the unwanted.'
+
+> north
+You are in the oak-panelled room.
+You can go north, south or down.
+You can see a sign.
+Oak panels on the wall surround a sparsely furnished room.  A sense of dread eminates from the north exit and a cold deliberate evil eminates from the south.  Either way it's probably safer going east.
+
+> down
+You are in the spiral staircase.
+You can go east or up.
+You are at the bottom of a spiral staircase at the end of the tunnel.
+
+> east
+You are in the marble-floored hall.
+You can go south, west or northeast.
+This large hall houses a magnificent marble floor of rich blues and greens.  However, set in mosaic is the image of Xanthos himself.
+
+> northeast
+You are in the tunnel.
+You can go east, northwest or southwest.
+The tunnel forks in three directions.  The floor underfoot is sticky and a noise of scurrying feet can be heard in the darkness.
+
+> east
+You are in the long hall.
+You can go north, south, east or west.
+The hall is about one hundred feet in length and is sparse.  Blood splatters the wall and chequered floor.  A smell of rat fill your nostrils.
+
+> east
+You are by the chasm.
+You can go west.
+You can see a cloud bridge.
+This is the northside of an immensly deep and wide chasm.  Looking through the darkness you can just make out the other side.
+
+
+> cross cloud bridge
+You cross the cloud to the other side.
+You are by the chasm.
+You can go southeast.
+You can see a cloud bridge.
+This is the southside of an immensly deep and wide chasm.  Looking through the darkness you can just make out the other side.
+
+> southeast
+You are in the tunnel.
+You can go south, northwest or northeast.
+A long winding tunnel that heads northwest and northeast.  A cave entrance lies to the south.
+
+> northeast
+You are in the small cave.
+You can go out, north or southwest.
+This small, dark cave has tunnels leading off in various directions.  The floor is covered in bones and the walls are lined with a luminous moss.
+
+> out
+You are in the cave entrance.
+You can go west or northeast.
+An ominous-looking hole stands before you as you stare into the darkness.  This is the entrance to where Xanthos resides.
+
+> northeast
+You are in the mountain range.
+You can go north, southwest or southeast.
+Amongst the snow-capped mountains of the Southern Peaks you spy a cave entrance to the southwest.  The snow looks deeper as the rocky path winds to the southeast.  The grassy plain and the forest lie north.
+
+> north
+You are on the grassy plain.
+You can go north, south or east.
+A vast expanse of open ground stretches around you.  To the south the Southern Peaks stand with snow-capped tops.  A stone circle lies to the east and a dense forest to the north.
+
+> north
+You are in the forest.
+You can go north, south or southwest.
+The forest thins out to the south and on to open ground.  A lake lies to the north and a farm can be seen to the southwest.
+
+> north
+You are by the lake.
+You can go south or northwest.
+You can see a boat.
+A dark, still expanse of water stretches out towards a small island in the centre of the lake.  The forest closes in to the south and northwest.
+
+> northwest
+You are in the forest.
+You can go south, northwest or southeast.
+You can see an oak tree.
+The forest path peters out to the southeast and opens out to reveal a lake.  A creepy-looking graveyard lies to the south and the forest path continues to the northwest.
+
+> northwest
+You are in the forest.
+You can go north, southwest or southeast.
+You can see a yadda tree and some sap.
+The forest path is overgrown here and tall oaks tower over you like clawing giants.  A rustle of leaves above relieves the ominous silence.
+
+> southwest
+You are by the river bank.
+You can go northeast.
+On the east side of this fast-flowing river running from north to south is an old, rickety wooden bridge spanning the cold, watery depths.
+
+> cross bridge
+You cross the bridge to the other side.
+You are by the river bank.
+You can go north or south.
+On the west side of this fast-flowing river running from north to south is an old, rickety wooden bridge spanning the cold, watery depths.  A boathouse lies to the north.
+
+> south
+You are by a pond.
+You can go north or southeast.
+A small waterfall cascades down into the small pond below.  Grasses and reeds surround the water while a rock covered in moss sits by your feet.  A rush of water from the river lies to the north and a small abode can be seen to the southeast.
+
+> southeast
+You are outside the wizard's house.
+You can go south or northwest.
+A small house with white-washed walls and a blue wooden door lies before you while a flowerbed full of beautiful flowers sits in front of the house.  The wizard who lives here is a good man with a generous heart or so you are led to believe.
+
+> south
+You are inside the wizard's house.
+You can go out.
+You can see Malbus the wizard.
+It is in fact a large single room with various parts of the house separated with screens.  A small unmade bed stands in the far corner.  An oak desk sits in the opposite corner, covered in papers, magical artifacts and knick-knacks.  A kitchen full of pots and pans piled high betray a chaotic existance.  A lit fireplace burns merrily in the west wall with a white cat outstretched, purring in front of it.
+
+> give potion to malbus
+'Oh dear, what use is that to anyone.' says Malbus shaking his head.  'Let me see what I can do.'  With a wave of his hand and a few incantations the Potion of Decay transforms into the Potion of Life.
+
+> out
+You are outside the wizard's house.
+You can go south or northwest.
+A small house with white-washed walls and a blue wooden door lies before you while a flowerbed full of beautiful flowers sits in front of the house.  The wizard who lives here is a good man with a generous heart or so you are led to believe.
+
+> northwest
+You are by a pond.
+You can go north or southeast.
+A small waterfall cascades down into the small pond below.  Grasses and reeds surround the water while a rock covered in moss sits by your feet.  A rush of water from the river lies to the north and a small abode can be seen to the southeast.
+
+> north
+You are by the river bank.
+You can go north or south.
+On the west side of this fast-flowing river running from north to south is an old, rickety wooden bridge spanning the cold, watery depths.  A boathouse lies to the north.
+
+> cross bridge
+You cross the bridge to the other side.
+You are by the river bank.
+You can go northeast.
+On the east side of this fast-flowing river running from north to south is an old, rickety wooden bridge spanning the cold, watery depths.
+
+> northeast
+You are in the forest.
+You can go north, southwest or southeast.
+You can see a yadda tree and some sap.
+The forest path is overgrown here and tall oaks tower over you like clawing giants.  A rustle of leaves above relieves the ominous silence.
+
+> southeast
+You are in the forest.
+You can go south, northwest or southeast.
+You can see an oak tree.
+The forest path peters out to the southeast and opens out to reveal a lake.  A creepy-looking graveyard lies to the south and the forest path continues to the northwest.
+
+> use potion on oak
+The Potion of Life does what it says on the label and restores the dead oak tree to its former glory.
+
+> look at oak
+The oak tree is full of life and contains a hollow.
+
+> open hollow
+It is already open.
+
+> take crown
+(first removing it from hollow)
+Done.
+You pick it up.
+
+> southeast
+You are by the lake.
+You can go south or northwest.
+You can see a boat.
+A dark, still expanse of water stretches out towards a small island in the centre of the lake.  The forest closes in to the south and northwest.
+
+> south
+You are in the forest.
+You can go north, south or southwest.
+The forest thins out to the south and on to open ground.  A lake lies to the north and a farm can be seen to the southwest.
+
+> south
+You are on the grassy plain.
+You can go north, south or east.
+A vast expanse of open ground stretches around you.  To the south the Southern Peaks stand with snow-capped tops.  A stone circle lies to the east and a dense forest to the north.
+
+> south
+You are in the mountain range.
+You can go north, southwest or southeast.
+Amongst the snow-capped mountains of the Southern Peaks you spy a cave entrance to the southwest.  The snow looks deeper as the rocky path winds to the southeast.  The grassy plain and the forest lie north.
+
+> southeast
+You are in the mountain range.
+You can go south, northwest or southwest.
+The snow is getting deeper here and a huge blanket of snow can be seen to the southwest.  A snowy trail heading futher into the Southern Peaks lies to the south, while the snow starts to peter out on the rocky path to the northwest.
+
+> south
+You are on the snowy trail.
+You can go north, south or east.
+The trail winds to the north and east and to the south lies a small log cabin.  Looking to the east, sparkling in the sun you spot ice-covered towers.
+
+> east
+You are on the icy plateau.
+You can go north, west or southeast.
+A vast sheet of ice spans for half a mile in each direction.  A narrow path leading round a mountain heads off to the north while to the southeast you see the towers of an ice palace.  The snowy trail leads west.
+
+> southeast
+You are by the ice palace gates.
+You can go east or northwest.
+You can see a snow wolf.
+The ice crystal gates tower over you and glisten in the sun, sparkling various colours.  The ice towers rise like frost giants guarding the gates themselves.  This is the home to the malevolent ice people.
+
+> east
+You are in the ice hall.
+You can go north, south, east, west or northwest.
+This palatial hall has a high-valuted crystalline ceiling that changes colour by supernatural means and is held up by wide ice crystal columns.
+
+> north
+You are by the ice staircase.
+You can go south or up.
+The ice crystal staircase is beautifully carved and leads up into the tallest of the ice towers.
+
+> up
+You are in the antechamber.
+You can go north or down.
+This is the antechamber to the inner sanctum where the ice people hold council.  The staircase leads back down to the ground floor.
+
+> north
+You are in inner sanctum.
+You can go south.
+You can see a blue fire.
+This round ice tower is where the ice people hold council on all manner of subjects.  A huge round crystal table stands in the centre surrounded by hundreds of crystal chairs.
+
+> use pandemonica on blue fire
+The Pandemonic starts to freeze.  The pages crack followed by the cover and spine.  Emerging from its depths the Orb of Blood appears and drops to the floor.  The Pandemonica returns to its former condition.
+
+> take orb
+You pick it up.
+
+> south
+You are in the antechamber.
+You can go north or down.
+This is the antechamber to the inner sanctum where the ice people hold council.  The staircase leads back down to the ground floor.
+
+> down
+You are by the ice staircase.
+You can go south or up.
+The ice crystal staircase is beautifully carved and leads up into the tallest of the ice towers.
+
+> south
+You are in the ice hall.
+You can go north, south, east, west or northwest.
+This palatial hall has a high-valuted crystalline ceiling that changes colour by supernatural means and is held up by wide ice crystal columns.
+
+> west
+You are by the ice palace gates.
+You can go east or northwest.
+You can see a snow wolf.
+The ice crystal gates tower over you and glisten in the sun, sparkling various colours.  The ice towers rise like frost giants guarding the gates themselves.  This is the home to the malevolent ice people.
+
+> northwest
+You are on the icy plateau.
+You can go north, west or southeast.
+A vast sheet of ice spans for half a mile in each direction.  A narrow path leading round a mountain heads off to the north while to the southeast you see the towers of an ice palace.  The snowy trail leads west.
+
+> west
+You are on the snowy trail.
+You can go north, south or east.
+The trail winds to the north and east and to the south lies a small log cabin.  Looking to the east, sparkling in the sun you spot ice-covered towers.
+
+> north
+You are in the mountain range.
+You can go south, northwest or southwest.
+The snow is getting deeper here and a huge blanket of snow can be seen to the southwest.  A snowy trail heading futher into the Southern Peaks lies to the south, while the snow starts to peter out on the rocky path to the northwest.
+
+> northwest
+You are in the mountain range.
+You can go north, southwest or southeast.
+Amongst the snow-capped mountains of the Southern Peaks you spy a cave entrance to the southwest.  The snow looks deeper as the rocky path winds to the southeast.  The grassy plain and the forest lie north.
+
+> southwest
+You are in the cave entrance.
+You can go west or northeast.
+An ominous-looking hole stands before you as you stare into the darkness.  This is the entrance to where Xanthos resides.
+
+> west
+You are in the small cave.
+You can go out, north or southwest.
+This small, dark cave has tunnels leading off in various directions.  The floor is covered in bones and the walls are lined with a luminous moss.
+
+> southwest
+You are in the tunnel.
+You can go south, northwest or northeast.
+A long winding tunnel that heads northwest and northeast.  A cave entrance lies to the south.
+
+> northwest
+You are by the chasm.
+You can go southeast.
+You can see a cloud bridge.
+This is the southside of an immensly deep and wide chasm.  Looking through the darkness you can just make out the other side.
+
+> cross cloud bridge
+You cross the cloud to the other side.
+You are by the chasm.
+You can go west.
+You can see a cloud bridge.
+This is the northside of an immensly deep and wide chasm.  Looking through the darkness you can just make out the other side.
+
+
+> west
+You are in the long hall.
+You can go north, south, east or west.
+The hall is about one hundred feet in length and is sparse.  Blood splatters the wall and chequered floor.  A smell of rat fill your nostrils.
+
+> north
+You are in the sepulchre.
+You can go south.
+You can see a ghost.
+This palatial tomb is residence to a long-forgotten Prince Einhart.  Years ago he was riding out across the plains on his mighty steed when back in his castle, the Krahl Crones stole his crown.  They put a curse on him and he died a pauper.  The Count is now the new owner of the Prince's castle.
+
+> give crown to ghost
+'Thank you, stranger.  My curse has been lifted.  Take this horn as a reward.' smiles Prince Einhart.  He fades into nothing at the same time the Battlehorn of Timvrail appears before you.
+
+> take battlehorn
+You pick it up.
+
+> south
+You are in the long hall.
+You can go north, south, east or west.
+The hall is about one hundred feet in length and is sparse.  Blood splatters the wall and chequered floor.  A smell of rat fill your nostrils.
+
+> west
+You are in the tunnel.
+You can go east, northwest or southwest.
+The tunnel forks in three directions.  The floor underfoot is sticky and a noise of scurrying feet can be heard in the darkness.
+
+> northwest
+You are in the hall of mists.
+You can go southeast.
+The mist hangs so heavy in here that you can't make out how big the hall should be in size.  Not be able to say beyond your face in a bit disconcerting.  Luckily, you can make out the southeastern exit.
+
+> blow battlehorn
+The mist clears slightly to reveal a path to the west.
+
+> west
+You are by the lava river.
+You can go east.
+The heat from the river is intense.  You can make out the otherside quite a distance away.
+
+> wave wand
+With a wave of the wand a magical ice bridge spans the lava river.
+
+> cross ice bridge
+As you cross the bridge it starts to crack underfoot.  You rush to the otherside and make it before it crashes and melts into the lava river.
+You are by the lava river.
+You can go west.
+The heat from the river is intense.  You can make out the otherside quite a distance away.  A short tunnel leads to a palatial cavern to the west.
+
+> west
+You are in Xanthos' sanctum.
+You can go east.
+You can see Xanthos the Demon.
+This cavern seems to eminate pure evil.  Fire pits burn all around you and on top of a stepped dais is a throne made from bones of unfortunate victims.  The high ceiling has hanging cages full of skeletons and rotting corpses.  Hell has never been so real.
+
+> use orb on xanthos
+You hold out the Orb of Blood and Xanthos' smile stops.  He tries to cast a spell at you but too late.  His whole being gets literally sucked into the orb in a matter of seconds.  Xanthos is trapped inside forever!
+
+> throw orb
+You throw the Orb of Blood, along with Xanthos into the lava.  The orb melts and destroys Xanthos forever!
+
+> east
+You are by the lava river.
+You can go west.
+The heat from the river is intense.  You can make out the otherside quite a distance away.  A short tunnel leads to a palatial cavern to the west.
+
+> rub lamp
+Suddenly you are transported to familiar surroundings.
+You are inside the wizard's house.
+You can go out.
+You can see Malbus the wizard.
+It is in fact a large single room with various parts of the house separated with screens.  A small unmade bed stands in the far corner.  An oak desk sits in the opposite corner, covered in papers, magical artifacts and knick-knacks.  A kitchen full of pots and pans piled high betray a chaotic existance.  A lit fireplace burns merrily in the west wall with a white cat outstretched, purring in front of it.
+
+> speak to malbus
+'Congratulations, you have destroyed Xanthos forever.  I knew you could do it.  Elantria is in your debt forever.  Songs will be written about you for years to come.  Looks like you need a drink.' says Malbus joyfully and grabs a flagon of wine off his desk.  'First one under the table, washes the dishes.' he laughs.
+
+The End
+
+
+[runner] turns=401 leftover=0 running=false WON=YES

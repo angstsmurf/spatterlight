@@ -1,0 +1,1225 @@
+
+Ghost Light
+
+You are an investigator of the supernatural.  you have heard rumours of a demonic presence at the lonely manor house by the coast.  It is your job to investigate the area and, if possible, destroy the demonic threat that is there
+
+You are in the main Gate
+There is gates here.
+You can go north.
+You are standing in front of a pair of large iron gates.  Beyond them is the manor house that you are here to investigate.
+
+You breath deeply, before contemplating how to proceed.
+
+> push gates
+You push the gates open and walk through into the grounds of the large manor house.
+You are in the Lower Driveway
+There is a drain and the gate house door here.
+You can go north, south or west.
+You are standing at the bottom end of a long gravel driveway.  Ahead, to the north, you can see the large formidable silhouette of the manor house.  To the west there is a small shack- the gate house for the manor house.
+As you walk into the driveway the gates slam shut behind you.  There is no way back now!
+
+> north
+You are in the Middle Driveway
+There is a drain here.
+You can go north, south or east.
+You are standing halfway up the long driveway.  To the south you can see the gates you came in by and a small gate house.  To the north the imposing house towers above you.
+
+> east
+You are in the Ornamental Garden
+There is a statue and a marble plinth here.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You are standing in a small garden surrounded by well kept hedges.  The centre piece of the garden is an ornate statue.  There are pathways leading North and West, both leading to the driveway.
+
+> examine statue
+There is an inscription on the statue.  It reads "The path of vengeance is revealed. Marcus points the way."
+
+> look at plinth
+There is a plaque on the plinth.  It says "Marcus Marcellus"
+
+> look at spear
+The spear is stone, with a sharp stone blade.  It looks like you might be able to work it free, if you had the right tool.
+Knowing that this is the statue of Marcus Marcellus, and after reading the inscription, you are sure that the spear holds the key to something.
+You notice that the spear is pointing south east to a patch in the hedge that has been damaged.
+Further inspection reveals a hidden path.
+
+> examine hedge
+You notice a spot of colour in the hedge.  Putting your hand in you pull out an old boomerang.
+
+> southeast
+You are in a graveyard
+There is several gravestones here.
+You can go northwest.
+You are standing in a small makeshift graveyard.  There are several gravestones here.
+
+> look at gravestones
+The gravestones are old and weather worn.  You count 25 in total.  There are several names, dates and messages but none of them mean anything to you. 
+Searching around the gravestones you find a box of matches.  Perhaps someone dropped them.
+
+> take matches
+You pick it up.
+
+> examine matches
+There appears to be something scratched onto the matchbox.  It reads A=7.
+
+> northwest
+You are in the Ornamental Garden
+There is a statue and a marble plinth here.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You are standing in a small garden surrounded by well kept hedges.  The centre piece of the garden is an ornate statue.  There are pathways leading North and West, both leading to the driveway.
+
+> north
+You are in the East Driveway
+You can go south, east or west.
+You are standing in a large gravel area.  This must be where cars turn around.  To the East is a large garage.  The driveway continues to the West.
+There are some strange markings on the ground.
+
+> west
+You are in the Upper Driveway
+You can go north, south, east or northwest.
+You are standing at the upper end of the long driveway.  To the North you can see the large manor house.  The driveway continues to the East leading towards a garage.
+
+> north
+You are in Front Steps
+There is the front door and a sign here.
+You can go south.
+You are standing on the mains steps of the Manor house.  However, the front door has been bricked up.
+
+> examine front door
+There appears to be something scrawled onto the wall.  It reads B=8.
+
+> take sign
+You pull the sign off the bricked up doorway
+
+> examine sign
+Examining the sign you notice there is some sticky putty on the back.  Obviously it is what held the sign in place.
+
+> south
+You are in the Upper Driveway
+You can go north, south, east or northwest.
+You are standing at the upper end of the long driveway.  To the North you can see the large manor house.  The driveway continues to the East leading towards a garage.
+
+> northwest
+You are in a side path
+There is a side wall here.
+You can go north or southeast.
+You are on a small path that winds north around the side of the manor house.  Ahead of you you can see the coast.
+
+> examine wall
+There is a trellis attached to the side of the house
+
+> north
+You are in a beach path
+There is a pile rubbish here.
+You can go south or down.
+You are on a small, rugged path that leads down towards a hidden cove.  To the south you can see the manor house.
+
+> look at rubbish
+There is a small pile of rubbish here, probably dropped by trespassers going to the cove
+A quick search of the rubbish reveals nothing more than a sachet of vinegar
+
+> take vinegar
+You pick it up.
+
+> down
+You are in a hidden cove
+There is a makeshift campfire and an A-frame here.
+You can go out to beach hut.
+You can go northeast or up.
+You can go to beach hut.
+You are standing in a small, private beach
+
+> look at a-frame
+The A-frame is positioned around the campfire. 
+
+There is a large cooking pot hanging from the frame above the campfire.
+
+> out
+You are in a beach hut
+There is carpet here.
+You can go out to cove.
+The beach hut is old and delapidated.  There is mouldy carpet on the floor which appears to be rotting away in one corner.
+
+> lift carpet
+You lift the carpet at one of the edges and find a small screwdriver.  it must have rolled under there once and been forgotten about by the owner.
+
+> take screwdriver
+You pick it up.
+
+> out
+You are in a hidden cove
+There is a makeshift campfire, an A-frame and a cooking pot here.
+You can go out to beach hut.
+You can go northeast or up.
+You can go to beach hut.
+You are standing in a small, private beach
+
+> northeast
+You are in the shoreline
+There is a pile of driftwood, the sea and some seaweed here.
+You can go southwest.
+You are standing at the shorelin of the cove.  The frothy sea water is coming up to your shoes.  looking around there is plenty of seaweed and driftwood being washed up on the shore.
+
+> take driftwood
+You pick it up.
+
+> examine seaweed
+Searching the seaweed further, you find a small plastic brick.
+
+> take plastic brick
+You pick it up.
+
+> southwest
+You are in a hidden cove
+There is a makeshift campfire, an A-frame and a cooking pot here.
+You can go out to beach hut.
+You can go northeast or up.
+You can go to beach hut.
+You are standing in a small, private beach
+
+> use driftwood on campfire
+You place the driftwood into the campfire circle.
+
+> up
+You are in a beach path
+There is a pile rubbish here.
+You can go south or down.
+You are on a small, rugged path that leads down towards a hidden cove.  To the south you can see the manor house.
+
+> south
+You are in a side path
+There is a side wall and a trellis here.
+You can go north or southeast.
+You are on a small path that winds north around the side of the manor house.  Ahead of you you can see the coast.
+
+> climb trellis
+You climb the trellis up to the top.
+You are in trellis top
+There is a window here.
+You can go down.
+You are standing precariously at the top of the trellis.  There is a window here which leads into the manor house.
+
+> use screwdriver on window
+You force the scredrivew into the window where the latch is.  After a bit of force, you break the latch.
+
+> use boomerang on window
+You lift the window and prop it open with the boomerang.
+
+> enter window
+You crawl through the window into a loft room inside the manor.
+You are in rear loft
+There is some empty boxes and a locked door here.
+You can go south.
+You are standing in one of the loft rooms of the manor house.  The window here overlooks the rear of the house, looking towards the sea.  There is a door to the south leading to the front loft room.
+
+> examine boxes
+Rummaging around the boxes you find a long thin metal rod.  it appears to be an aerial of some kind.
+
+> take aerial
+You pick it up.
+
+> use putty on aerial
+You put the putty onto the end of the aerial
+
+> use sign on locked door
+You slide the sign under the door.  It now rests under the keyhole.
+
+> use screwdriver on keyhole
+You poke the screwdriver into the keyhole and push the key out of the lock on the other side.  The key drops onto the sign under the door.
+
+> take sign
+You pull the sign from under the door.
+The key that was in the keyhole dropped onto the sign and you are now able to take it.
+
+> take loft key
+You pick it up.
+
+> use loft key on locked door
+You ulnock the door south.
+
+> south
+You are in front loft
+There is a tripod, a specimin jar, a window and an electronic door lock here.
+You can go north or east.
+You are standing in one of the loft rooms in the manor house.  The room you are in over looks the garden and driveway.  There is a door to the north leading to the rear loft room and a door to the east which will take you to the manor house.
+
+> take specimin jar
+You pick it up.
+
+> look at electronic door lock
+It is the electronic door lock which is locking the door east into the manor house.
+
+Do you wish to enter the code now?
+1) Yes
+2) No
+[choice] 1
+Enter code now
+You type in the code and the door unlocks.
+
+> north
+You are in rear loft
+There is some empty boxes here.
+You can go south.
+You are standing in one of the loft rooms of the manor house.  The window here overlooks the rear of the house, looking towards the sea.  There is a door to the south leading to the front loft room.
+
+> out
+You climb back out of the window onto the trellis outside.
+You are in trellis top
+There is a window here.
+You can go down.
+You are standing precariously at the top of the trellis.  There is a window here which leads into the manor house.
+
+> down
+You climb back down the trellis.
+You are in a side path
+There is a side wall and a trellis here.
+You can go north or southeast.
+You are on a small path that winds north around the side of the manor house.  Ahead of you you can see the coast.
+
+> north
+You are in a beach path
+There is a pile rubbish here.
+You can go south or down.
+You are on a small, rugged path that leads down towards a hidden cove.  To the south you can see the manor house.
+
+> down
+You are in a hidden cove
+There is a makeshift campfire, an A-frame and a cooking pot here.
+You can go out to beach hut.
+You can go northeast or up.
+You can go to beach hut.
+You are standing in a small, private beach
+
+> take cooking pot
+You take the cooking pot from the A-frame.
+
+> northeast
+You are in the shoreline
+There is the sea and some seaweed here.
+You can go southwest.
+You are standing at the shorelin of the cove.  The frothy sea water is coming up to your shoes.  looking around there is plenty of seaweed and driftwood being washed up on the shore.
+
+> use cooking pot on sea
+You fill the pot with salty sea water.
+
+> southwest
+You are in a hidden cove
+There is a makeshift campfire and an A-frame here.
+You can go out to beach hut.
+You can go northeast or up.
+You can go to beach hut.
+You are standing in a small, private beach
+
+> up
+You are in a beach path
+There is a pile rubbish here.
+You can go south or down.
+You are on a small, rugged path that leads down towards a hidden cove.  To the south you can see the manor house.
+
+> south
+You are in a side path
+There is a side wall and a trellis here.
+You can go north or southeast.
+You are on a small path that winds north around the side of the manor house.  Ahead of you you can see the coast.
+
+> southeast
+You are in the Upper Driveway
+You can go north, south, east or northwest.
+You are standing at the upper end of the long driveway.  To the North you can see the large manor house.  The driveway continues to the East leading towards a garage.
+
+> south
+You are in the Middle Driveway
+There is a drain here.
+You can go north, south or east.
+You are standing halfway up the long driveway.  To the south you can see the gates you came in by and a small gate house.  To the north the imposing house towers above you.
+
+> use plastic brick on drain
+You drop the plastic brick down into the drain.
+
+> use cooking pot on drain
+You pour the water down into the drain.....
+As you pur the water down the drain, it carries the plastic brick with it.  You wonder where it has gone.
+
+> south
+You are in the Lower Driveway
+There is a drain, a small silver key, the gate house door and a plastic brick here.
+You can go north, south or west.
+You are standing at the bottom end of a long gravel driveway.  Ahead, to the north, you can see the large formidable silhouette of the manor house.  To the west there is a small shack- the gate house for the manor house.
+
+> use aerial with putty on key
+You slide the aerial through the grill and the key sticks to the putty.  You quickly draw it out before it falls.
+
+> use gate house key on gate house door
+You unlock the door to the gate house.
+
+> west
+You are in the Gate House
+There is a guillotine, a desk, safe and a lever here.
+You can go east.
+
+> examine desk
+There is a message etched onto the desk.  It reads C=AxB
+
+> open drawer
+In the drawer you find a large ball of string
+
+> take ball of string
+You pick it up.
+
+> open safe
+You need to enter a code for the safe.
+Do you wish to enter the safe code?
+1) Yes
+2) No
+[choice] 1
+Enter the code now.
+You type in the code and the door of the safe swings open.
+inside you find a brass telescope
+
+> take telescope
+You pick it up.
+
+> pull lever
+You pull the lever.  In the distance you can hear a grinding noise.
+
+> east
+You are in the Lower Driveway
+There is a drain and a plastic brick here.
+You can go north, south or west.
+You are standing at the bottom end of a long gravel driveway.  Ahead, to the north, you can see the large formidable silhouette of the manor house.  To the west there is a small shack- the gate house for the manor house.
+
+> north
+You are in the Middle Driveway
+There is a drain here.
+You can go north, south or east.
+You are standing halfway up the long driveway.  To the south you can see the gates you came in by and a small gate house.  To the north the imposing house towers above you.
+
+> north
+You are in the Upper Driveway
+You can go north, south, east or northwest.
+You are standing at the upper end of the long driveway.  To the North you can see the large manor house.  The driveway continues to the East leading towards a garage.
+
+> east
+You are in the East Driveway
+You can go south, east or west.
+You are standing in a large gravel area.  This must be where cars turn around.  To the East is a large garage.  The driveway continues to the West.
+There are some strange markings on the ground.
+You notice that the garage door is now open
+
+> east
+You are in the Garage
+There is some shelves, an old car and a bottle of turps here.
+You can go west, up or down.
+You are standing in the garage.  There is a smell of machinery and grease here.  There is a large car parked here.A small set of stairs leads up towards an office space whilst a trap door leads down to a workshop below.
+
+> examine shelves
+The lower shelves are prety much bare.  The only thing you find is a piece of chalk.
+
+> take chalk
+You pick it up.
+
+> push car
+Heaving with all your might, you push the car just far enough to reveal the trap door to the workshop below.
+
+> up
+You are in office
+There is a desk and a waste paper bin here.
+You can go down.
+You are in a tiny office above the garage.
+
+> examine bin
+Inside the bin you find a small plastic black box.  It must have been thrown away.
+
+> take black box
+You pick it up.
+
+> remove putty
+You take the putty off the end of the aerial.
+
+> use aerial on black box
+You fix the aerial onto the black box to form a remote control.  You wonder what would happen if you use it.
+
+> down
+You are in the Garage
+There is some shelves, an old car and a bottle of turps here.
+You can go west, up or down.
+You are standing in the garage.  There is a smell of machinery and grease here.  There is a large car parked here.A small set of stairs leads up towards an office space whilst a trap door leads down to a workshop below.
+
+> use remote control
+Something bizarre happens.  You hear a buzzing sound from  one of the higher shelves.  Suddenly a remote control car jumps off the shelf and smashes to the floor, bringing something else with it.
+
+> take laser pen
+You pick it up.
+
+> down
+You are in workshop
+There is Machine, some Blocks of wax, a manual, a set of dials and a button here.
+You can go up.
+The workshop is under the garage.  It is a small dimly lit room.  The room is dominated by a large piece of machinery designed to make candles.
+
+> read manual
+The manual reads...
+Place wax in the machine
+Turn heat to 118 degrees
+Add the wicks
+push the button.
+
+To make wicks...
+Soak 20cm of string in turps and vinegar.
+
+> up
+You are in the Garage
+There is some shelves, an old car, a bottle of turps and a broken toy here.
+You can go west, up or down.
+You are standing in the garage.  There is a smell of machinery and grease here.  There is a large car parked here.A small set of stairs leads up towards an office space whilst a trap door leads down to a workshop below.
+
+> west
+You are in the East Driveway
+You can go south, east or west.
+You are standing in a large gravel area.  This must be where cars turn around.  To the East is a large garage.  The driveway continues to the West.
+There are some strange markings on the ground.
+
+> west
+You are in the Upper Driveway
+You can go north, south, east or northwest.
+You are standing at the upper end of the long driveway.  To the North you can see the large manor house.  The driveway continues to the East leading towards a garage.
+
+> south
+You are in the Middle Driveway
+There is a drain here.
+You can go north, south or east.
+You are standing halfway up the long driveway.  To the south you can see the gates you came in by and a small gate house.  To the north the imposing house towers above you.
+
+> south
+You are in the Lower Driveway
+There is a drain and a plastic brick here.
+You can go north, south or west.
+You are standing at the bottom end of a long gravel driveway.  Ahead, to the north, you can see the large formidable silhouette of the manor house.  To the west there is a small shack- the gate house for the manor house.
+
+> west
+You are in the Gate House
+There is a guillotine, a desk, a safe and a lever here.
+You can go east.
+
+> use ball of string on guillotine
+After reading the manual about candle wicks you know what length to cut the string to.  You use the ruler on the guillotine to measure the lengths to 20cm and you cut several pieces off the ball of string.
+
+> use screwdriver on guillotine
+You unscrew the blade from the guillotine.
+
+> take blade
+You pick it up.
+
+> east
+You are in the Lower Driveway
+There is a drain and a plastic brick here.
+You can go north, south or west.
+You are standing at the bottom end of a long gravel driveway.  Ahead, to the north, you can see the large formidable silhouette of the manor house.  To the west there is a small shack- the gate house for the manor house.
+
+> north
+You are in the Middle Driveway
+There is a drain here.
+You can go north, south or east.
+You are standing halfway up the long driveway.  To the south you can see the gates you came in by and a small gate house.  To the north the imposing house towers above you.
+
+> north
+You are in the Upper Driveway
+You can go north, south, east or northwest.
+You are standing at the upper end of the long driveway.  To the North you can see the large manor house.  The driveway continues to the East leading towards a garage.
+
+> east
+You are in the East Driveway
+You can go south, east or west.
+You are standing in a large gravel area.  This must be where cars turn around.  To the East is a large garage.  The driveway continues to the West.
+There are some strange markings on the ground.
+
+> east
+You are in the Garage
+There is some shelves, an old car, a bottle of turps and a broken toy here.
+You can go west, up or down.
+You are standing in the garage.  There is a smell of machinery and grease here.  There is a large car parked here.A small set of stairs leads up towards an office space whilst a trap door leads down to a workshop below.
+
+> use vinegar on turps
+You pour the vinegar into the turps.
+
+> use pieces of string on turps
+You dip the pieces of string into the turps and vinegar to make a set of candle wicks.
+
+> down
+You are in workshop
+There is Machine, some Blocks of wax, a manual, a set of dials and a button here.
+You can go up.
+The workshop is under the garage.  It is a small dimly lit room.  The room is dominated by a large piece of machinery designed to make candles.
+
+> take blocks of wax
+You take a block of wax and place it in the machine
+
+> turn dials
+You decide to try and set the temperature.
+What would you like to set the first dial at?
+
+1) 1
+2) 2
+3) 3
+[choice] 2
+You  turn the first dial to 2
+What would you like to set the second dial at?
+
+1) 0
+2) 1
+[choice] 0
+You turn the second dial to 0
+What would you like to set the third dial at?
+
+1) -
+2) 0
+3) +
+[choice] -
+You turn the third dial to -
+After setting the three dials, the temperature readout changes to...
+118
+
+This is the correct temperature.  Very soon the wax in the machine starts to melt.
+
+> use wicks on machine
+You place some of your wicks to the machine.
+
+> push button
+Pushing the button sets the machine in motion.  The wicks dip into the wax several times and soon several white candles are made.
+The machine cools down.
+
+> up
+You are in the Garage
+There is some shelves, an old car, a bottle of turps and a broken toy here.
+You can go west, up or down.
+You are standing in the garage.  There is a smell of machinery and grease here.  There is a large car parked here.A small set of stairs leads up towards an office space whilst a trap door leads down to a workshop below.
+
+> west
+You are in the East Driveway
+You can go south, east or west.
+You are standing in a large gravel area.  This must be where cars turn around.  To the East is a large garage.  The driveway continues to the West.
+There are some strange markings on the ground.
+
+> west
+You are in the Upper Driveway
+You can go north, south, east or northwest.
+You are standing at the upper end of the long driveway.  To the North you can see the large manor house.  The driveway continues to the East leading towards a garage.
+
+> northwest
+You are in a side path
+There is a side wall and a trellis here.
+You can go north or southeast.
+You are on a small path that winds north around the side of the manor house.  Ahead of you you can see the coast.
+
+> north
+You are in a beach path
+There is a pile rubbish here.
+You can go south or down.
+You are on a small, rugged path that leads down towards a hidden cove.  To the south you can see the manor house.
+
+> down
+You are in a hidden cove
+There is a makeshift campfire and an A-frame here.
+You can go out to beach hut.
+You can go northeast or up.
+You can go to beach hut.
+You are standing in a small, private beach
+
+> northeast
+You are in the shoreline
+There is the sea and some seaweed here.
+You can go southwest.
+You are standing at the shorelin of the cove.  The frothy sea water is coming up to your shoes.  looking around there is plenty of seaweed and driftwood being washed up on the shore.
+
+> use cooking pot on sea
+You fill the pot with salty sea water.
+
+> southwest
+You are in a hidden cove
+There is a makeshift campfire and an A-frame here.
+You can go out to beach hut.
+You can go northeast or up.
+You can go to beach hut.
+You are standing in a small, private beach
+
+> use cooking pot on a-frame
+You place the cooking pot to the A-frame overhanging the campfire.
+
+
+> use matches on campfire
+You set the fire alight with the matches.  Very soon there is a huge fire blazing in the fireplace.
+The fire starts to boil the pot of sea water above it.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> look at cooking pot
+You don't see any cooking pot.
+
+> use specimin jar on salt
+You fill the specimin jar with the salt from the pot.
+
+> up
+You are in a beach path
+There is a pile rubbish here.
+You can go south or down.
+You are on a small, rugged path that leads down towards a hidden cove.  To the south you can see the manor house.
+
+> south
+You are in a side path
+There is a side wall and a trellis here.
+You can go north or southeast.
+You are on a small path that winds north around the side of the manor house.  Ahead of you you can see the coast.
+
+> climb trellis
+You climb the trellis up to the top.
+You are in trellis top
+There is a window here.
+You can go down.
+You are standing precariously at the top of the trellis.  There is a window here which leads into the manor house.
+
+> enter window
+You crawl through the window into a loft room inside the manor.
+You are in rear loft
+There is some empty boxes here.
+You can go south.
+You are standing in one of the loft rooms of the manor house.  The window here overlooks the rear of the house, looking towards the sea.  There is a door to the south leading to the front loft room.
+
+> south
+You are in front loft
+There is a tripod and a window here.
+You can go north or east.
+You are standing in one of the loft rooms in the manor house.  The room you are in over looks the garden and driveway.  There is a door to the north leading to the rear loft room and a door to the east which will take you to the manor house.
+
+> use telescope on tripod
+You slide the telescope into the vice grip of the tripod.
+
+> look through telescope
+As you look through the telescope you notice that it is trained directly to the garden and cemetery.  In fact, the spear of the statue appears to be pointing to a specific gravestone.  If only there was a way of checking which one.
+
+> take telescope
+You take the telescope from the tripod
+
+> use putty on tripod
+You stick the putty onto the tripod
+
+> use laser pen on tripod
+You stick the laser pen to the putty on the tripod.  Switching it on sends a beam of red light to the graveyard.
+
+The laser pen looks very unstable there.  It may drop soon so you will have to be quick.
+
+> north
+You are in rear loft
+There is some empty boxes here.
+You can go south.
+You are standing in one of the loft rooms of the manor house.  The window here overlooks the rear of the house, looking towards the sea.  There is a door to the south leading to the front loft room.
+
+> out
+You climb back out of the window onto the trellis outside.
+You are in trellis top
+There is a window here.
+You can go down.
+You are standing precariously at the top of the trellis.  There is a window here which leads into the manor house.
+
+> down
+You climb back down the trellis.
+You are in a side path
+There is a side wall and a trellis here.
+You can go north or southeast.
+You are on a small path that winds north around the side of the manor house.  Ahead of you you can see the coast.
+
+> southeast
+You are in the Upper Driveway
+You can go north, south, east or northwest.
+You are standing at the upper end of the long driveway.  To the North you can see the large manor house.  The driveway continues to the East leading towards a garage.
+
+> south
+You are in the Middle Driveway
+There is a drain here.
+You can go north, south or east.
+You are standing halfway up the long driveway.  To the south you can see the gates you came in by and a small gate house.  To the north the imposing house towers above you.
+
+> east
+You are in the Ornamental Garden
+There is a statue and a marble plinth here.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You are standing in a small garden surrounded by well kept hedges.  The centre piece of the garden is an ornate statue.  There are pathways leading North and West, both leading to the driveway.
+
+> southeast
+You are in a graveyard
+There is several gravestones here.
+You can go northwest.
+You are standing in a small makeshift graveyard.  There are several gravestones here.
+
+> use chalk on grave
+You mark the grave with the chalk, and not a moment too soon as the red laser light disappears.
+
+
+> examine grave
+There is a message scrawled in blood on the gravestone.  it reads "FOR ONE I KNOW"
+
+> northwest
+You are in the Ornamental Garden
+There is a statue and a marble plinth here.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You are standing in a small garden surrounded by well kept hedges.  The centre piece of the garden is an ornate statue.  There are pathways leading North and West, both leading to the driveway.
+
+> west
+You are in the Middle Driveway
+There is a drain here.
+You can go north, south or east.
+You are standing halfway up the long driveway.  To the south you can see the gates you came in by and a small gate house.  To the north the imposing house towers above you.
+
+> north
+You are in the Upper Driveway
+You can go north, south, east or northwest.
+You are standing at the upper end of the long driveway.  To the North you can see the large manor house.  The driveway continues to the East leading towards a garage.
+
+> northwest
+You are in a side path
+There is a side wall and a trellis here.
+You can go north or southeast.
+You are on a small path that winds north around the side of the manor house.  Ahead of you you can see the coast.
+
+> climb trellis
+You climb the trellis up to the top.
+You are in trellis top
+There is a window here.
+You can go down.
+You are standing precariously at the top of the trellis.  There is a window here which leads into the manor house.
+
+> enter window
+You crawl through the window into a loft room inside the manor.
+You are in rear loft
+There is some empty boxes here.
+You can go south.
+You are standing in one of the loft rooms of the manor house.  The window here overlooks the rear of the house, looking towards the sea.  There is a door to the south leading to the front loft room.
+
+> south
+You are in front loft
+There is a tripod, a window, putty and the laser pen here.
+You can go north or east.
+You are standing in one of the loft rooms in the manor house.  The room you are in over looks the garden and driveway.  There is a door to the north leading to the rear loft room and a door to the east which will take you to the manor house.
+
+> east
+You are in West Balcony
+There is a chandelier here.
+You can go west, northeast or southeast.
+You are standing on an imposing balcony overlooking a large circular hall.  The balcony forms a cirle haloing the imposing hallway.  It is possible to walk around the balcony in a large circle.  There is a huge chandelier above the hallway below.
+
+> northeast
+You are in the North Balcony
+There is a chandelier and a candelabra here.
+You can go southeast or southwest.
+The north balcony overlooks the central hall below.  The entire balcony forms a cirlce around the hall.
+
+> use white candles on candelabra
+You place some of your white candles in the candelabra
+
+> use matches on candelabra
+You light the candles in the candelabra.  Watching the flames you realise that the flames are flickering... suggesting a draught!  Further examination of the wall reveals a secret button hidden above the candelabra.
+
+> push button
+You push the button and suddenly a section of the wall disappears revealing a secret doorway.
+
+> enter doorway
+You walk through the secret doorway into the room beyond
+You are in secret store
+There is a fridge and an ancient manuscript here.
+You are standing in a small store room.  I was hidden behind the wall.  There is a gentle hum of a fridge here.
+
+> open fridge
+You open up the fridge and find a large pack of red liquid...... BLOOD!
+
+> take blood pack
+You pick it up.
+
+> read manuscript
+You read the old manuscript.
+The slaying of demons is a dangerous thing.
+To summon the demon, be at the altar and SUMMON DEMON.  but make sure you are well equipped, as once the demon has awoken it will be difficult to kill.
+
+However, there is a way..
+To Kill the Demon.
+Secure it in a circle of salt.  MAKE SALT CIRCLE around it.
+This will reduce its power for a short time.  Then bind it in iron with blood candles surrounding it.  This will draw the power from it.  Then pierce its heart with stone!
+Thus your demon will be destroyed!
+This is why you are here.  You need to destroy the demon!
+
+> out
+You leave the secret store
+You are in the North Balcony
+There is a chandelier and a secret doorway here.
+You can go southeast or southwest.
+The north balcony overlooks the central hall below.  The entire balcony forms a cirlce around the hall.
+
+> southeast
+You are in the East Balcony
+There is a chandelier here.
+You can go northwest, southwest or down.
+The east balcony overlooks the main hall.  There is a small spiral staircase here which leads down to the hall.
+
+> down
+You are in a large hall
+There is a stone altar here.
+You can go up.
+You are standing in a large circular hallway.  Above you you can see the balcony encircling you and there is a huge imposing chandeleir, which is obviously a centrepiece for the hall.  All the exits from the hall appear to be bricked up, apart from the stairway you came down.
+
+> examine altar
+A quick search of the altar reveals a sturdy chisel
+
+> take chisel
+You pick it up.
+
+> up
+You are in the East Balcony
+There is a chandelier here.
+You can go northwest, southwest or down.
+The east balcony overlooks the main hall.  There is a small spiral staircase here which leads down to the hall.
+
+> northwest
+You are in the North Balcony
+There is a chandelier and a secret doorway here.
+You can go southeast or southwest.
+The north balcony overlooks the central hall below.  The entire balcony forms a cirlce around the hall.
+
+> southwest
+You are in West Balcony
+There is a chandelier here.
+You can go west, northeast or southeast.
+You are standing on an imposing balcony overlooking a large circular hall.  The balcony forms a cirle haloing the imposing hallway.  It is possible to walk around the balcony in a large circle.  There is a huge chandelier above the hallway below.
+
+> west
+You are in front loft
+There is a tripod, a window, putty and the laser pen here.
+You can go north or east.
+You are standing in one of the loft rooms in the manor house.  The room you are in over looks the garden and driveway.  There is a door to the north leading to the rear loft room and a door to the east which will take you to the manor house.
+
+> north
+You are in rear loft
+There is some empty boxes here.
+You can go south.
+You are standing in one of the loft rooms of the manor house.  The window here overlooks the rear of the house, looking towards the sea.  There is a door to the south leading to the front loft room.
+
+> out
+You climb back out of the window onto the trellis outside.
+You are in trellis top
+There is a window here.
+You can go down.
+You are standing precariously at the top of the trellis.  There is a window here which leads into the manor house.
+
+> down
+You climb back down the trellis.
+You are in a side path
+There is a side wall and a trellis here.
+You can go north or southeast.
+You are on a small path that winds north around the side of the manor house.  Ahead of you you can see the coast.
+
+> southeast
+You are in the Upper Driveway
+You can go north, south, east or northwest.
+You are standing at the upper end of the long driveway.  To the North you can see the large manor house.  The driveway continues to the East leading towards a garage.
+
+> east
+You are in the East Driveway
+You can go south, east or west.
+You are standing in a large gravel area.  This must be where cars turn around.  To the East is a large garage.  The driveway continues to the West.
+There are some strange markings on the ground.
+
+> east
+You are in the Garage
+There is some shelves, an old car, a bottle of turps and a broken toy here.
+You can go west, up or down.
+You are standing in the garage.  There is a smell of machinery and grease here.  There is a large car parked here.A small set of stairs leads up towards an office space whilst a trap door leads down to a workshop below.
+
+> down
+You are in workshop
+There is Machine, some Blocks of wax, a manual, a set of dials and a button here.
+You can go up.
+The workshop is under the garage.  It is a small dimly lit room.  The room is dominated by a large piece of machinery designed to make candles.
+
+> use blood pack on machine
+You pour the contents of the blood pack into the machine.
+
+> take blocks of wax
+You take a block of wax and place it in the machine
+
+> turn dials
+You decide to try and set the temperature.
+What would you like to set the first dial at?
+
+1) 1
+2) 2
+3) 3
+[choice] 2
+You  turn the first dial to 2
+What would you like to set the second dial at?
+
+1) 0
+2) 1
+[choice] 0
+You turn the second dial to 0
+What would you like to set the third dial at?
+
+1) -
+2) 0
+3) +
+[choice] -
+You turn the third dial to -
+After setting the three dials, the temperature readout changes to...
+118
+
+This is the correct temperature.  Very soon the wax in the machine starts to melt.
+
+> use wicks on machine
+You place some of your wicks to the machine.
+
+> push button
+The machine goes into operation again.  The wicks drop into the bloodied wax and soon the blood candles are made.
+The machine cools down
+
+> up
+You are in the Garage
+There is some shelves, an old car, a bottle of turps and a broken toy here.
+You can go west, up or down.
+You are standing in the garage.  There is a smell of machinery and grease here.  There is a large car parked here.A small set of stairs leads up towards an office space whilst a trap door leads down to a workshop below.
+
+> west
+You are in the East Driveway
+You can go south, east or west.
+You are standing in a large gravel area.  This must be where cars turn around.  To the East is a large garage.  The driveway continues to the West.
+There are some strange markings on the ground.
+
+> west
+You are in the Upper Driveway
+You can go north, south, east or northwest.
+You are standing at the upper end of the long driveway.  To the North you can see the large manor house.  The driveway continues to the East leading towards a garage.
+
+> south
+You are in the Middle Driveway
+There is a drain here.
+You can go north, south or east.
+You are standing halfway up the long driveway.  To the south you can see the gates you came in by and a small gate house.  To the north the imposing house towers above you.
+
+> east
+You are in the Ornamental Garden
+There is a statue and a marble plinth here.
+You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You are standing in a small garden surrounded by well kept hedges.  The centre piece of the garden is an ornate statue.  There are pathways leading North and West, both leading to the driveway.
+
+> use chisel on spear
+You work around the spear with the chisel.  Very soon you are able to get it free.
+
+> take spear
+You pick it up.
+
+> west
+You are in the Middle Driveway
+There is a drain here.
+You can go north, south or east.
+You are standing halfway up the long driveway.  To the south you can see the gates you came in by and a small gate house.  To the north the imposing house towers above you.
+
+> north
+You are in the Upper Driveway
+You can go north, south, east or northwest.
+You are standing at the upper end of the long driveway.  To the North you can see the large manor house.  The driveway continues to the East leading towards a garage.
+
+> northwest
+You are in a side path
+There is a side wall and a trellis here.
+You can go north or southeast.
+You are on a small path that winds north around the side of the manor house.  Ahead of you you can see the coast.
+
+> climb trellis
+You climb the trellis up to the top.
+You are in trellis top
+There is a window here.
+You can go down.
+You are standing precariously at the top of the trellis.  There is a window here which leads into the manor house.
+
+> enter window
+You crawl through the window into a loft room inside the manor.
+You are in rear loft
+There is some empty boxes here.
+You can go south.
+You are standing in one of the loft rooms of the manor house.  The window here overlooks the rear of the house, looking towards the sea.  There is a door to the south leading to the front loft room.
+
+> south
+You are in front loft
+There is a tripod, a window, putty and the laser pen here.
+You can go north or east.
+You are standing in one of the loft rooms in the manor house.  The room you are in over looks the garden and driveway.  There is a door to the north leading to the rear loft room and a door to the east which will take you to the manor house.
+
+> east
+You are in West Balcony
+There is a chandelier here.
+You can go west, northeast or southeast.
+You are standing on an imposing balcony overlooking a large circular hall.  The balcony forms a cirle haloing the imposing hallway.  It is possible to walk around the balcony in a large circle.  There is a huge chandelier above the hallway below.
+
+> southeast
+You are in South Balcony
+There is a handle and a chandelier here.
+You can go northeast or northwest.
+The south balcony overlooks the hallway below.  Here there is a rope attached to the chandelier.  The rope is also attached to a handle on the wall.  This must be how the chandlelier is lowered and raised.
+
+> lower chandelier
+You lower the chandelier to the ground below.
+
+> northeast
+You are in the East Balcony
+You can go northwest, southwest or down.
+The east balcony overlooks the main hall.  There is a small spiral staircase here which leads down to the hall.
+
+> down
+You are in a large hall
+There is a chandelier and a stone altar here.
+You can go up.
+You are standing in a large circular hallway.  Above you you can see the balcony encircling you and there is a huge imposing chandeleir, which is obviously a centrepiece for the hall.  All the exits from the hall appear to be bricked up, apart from the stairway you came down.
+
+> use blood candles on chandelier
+You place the blood candles into the slots of the chandelier
+
+> use matches on chandelier
+You light the candles
+
+> up
+You are in the East Balcony
+You can go northwest, southwest or down.
+The east balcony overlooks the main hall.  There is a small spiral staircase here which leads down to the hall.
+
+> southwest
+You are in South Balcony
+There is a handle here.
+You can go northeast or northwest.
+The south balcony overlooks the hallway below.  Here there is a rope attached to the chandelier.  The rope is also attached to a handle on the wall.  This must be how the chandlelier is lowered and raised.
+
+> raise chandelier
+You raise the chandelier to its position above the hall
+
+> northeast
+You are in the East Balcony
+There is a chandelier here.
+You can go northwest, southwest or down.
+The east balcony overlooks the main hall.  There is a small spiral staircase here which leads down to the hall.
+
+> down
+You are in a large hall
+There is a stone altar here.
+You can go up.
+You are standing in a large circular hallway.  Above you you can see the balcony encircling you and there is a huge imposing chandeleir, which is obviously a centrepiece for the hall.  All the exits from the hall appear to be bricked up, apart from the stairway you came down.
+
+> summon demon
+Once the demon is summoned, there is no going back.  Are you prepared?
+Do you wish to summon the demon now?
+1) Yes
+2) No
+[choice] 1
+You pluck up all your courage and start to summon the demon.
+You go through the ritual as described on the manuscript.
+..
+..
+Suddenly a loud sound emanates from the ground and it violently shakes.
+
+You decide that staying down here might not be the best option so you race back up the stairs to watch what happens from the balcony.
+You are in the East Balcony
+There is a chandelier here.
+You can go northwest, southwest or down.
+The east balcony overlooks the main hall.  There is a small spiral staircase here which leads down to the hall.
+Suddenly a burst of fire erupts from the floor below and a huge demon cralws onto the altar....... Ageroth!
+
+From the west you hear the sound of the door locking!
+
+> make salt circle
+You watch the demon writhe on the altar below you.  You take out the jar of salt and run around the balcony pouring it over the edge.  You form a perfect circle around the demon.
+
+> southwest
+You are in South Balcony
+There is a handle, a chandelier and Ageroth the Demon here.
+You can go northeast or northwest.
+The south balcony overlooks the hallway below.  Here there is a rope attached to the chandelier.  The rope is also attached to a handle on the wall.  This must be how the chandlelier is lowered and raised.
+
+> use blade on rope
+You cut the rope making the chandelier plummet to the hall below. ...
+
+Because you bound the demon in a circle of salt, Ageroth cannot move out of the way of the falling chandelier.
+
+You watch as the large ornament crashes around the demon, capturing him within the iron framework
+As the demon struggles within its iron bindings, you watch as the lit blood candles drain its pwerful energy!
+
+You have nearly succeeded.
+What should you do now?
+
+> throw spear
+With the demon caught and being sapped of its power, you remember the last instruction.  Pierce the heart with stone.
+
+
+You throw the spear aiming straight for the demons chest.
+..
+..
+..
+DIRECT HIT!
+
+The demon screams!
+
+And with a loud bang it explodes into pieces...
+...
+...
+CONGRATULATIONS.
+
+YOU HAVE JUST KILLED THE DEMON!
+With the demon dead, you leave the manor house knowing that your actions have avenged the deaths of many a poor soul.
+
+[runner] turns=235 leftover=0 running=false WON=YES

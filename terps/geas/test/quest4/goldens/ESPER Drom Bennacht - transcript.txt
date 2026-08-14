@@ -1,0 +1,744 @@
+
+ESPER: The Secret of Drom Bennacht, vv.1.2 ESPER
+
+
+
+  You are a member of ESPER, the society for Extraordinary Supernatural Phenomena Explored and Revealed. You have been travelling for hours through the Scottish Highlands on roads completely empty of any other travellers. About two hours ago the rain started coming down in torrential downpours, and you have been unable to see anything but the road ten feet ahead of you ever since.
+ 
+  You have been called by Laird Jonathan Winters, master of the fabulous castle of Drom Bennacht in the small Scottish township of Ceadhannon. His father, Angus, who lies dying in the castle, claims to have heard the Bean Sidhe, the mythological Banshee whose mournful cries herald the coming of death to a family. 
+
+   You finally pull up to the front gate, which swings slowly inward to allow you passage. As soon as you drive through, it shuts tightly and leaves you in front of the mighty fortress of Drom Bennacht, alone with your thoughts. 
+
+
+You are in the
+You can go north or south.
+You can go to your Jeep.
+You are standing in the front yard of Drom Bennacht. The rain here is falling so hard that you can barely see, but the great spotlights looking up at the tall stone walls of the castle give you some sense of direction.
+
+> s
+You are sitting in
+There is an EMF Detector lying on the seat here and a File Folder here.
+You can go out to the Front Yard.
+You are currently inside your Jeep, protected from the storm. You can barely see out the windshield, but for the spots of bright light from the spotlights shining up on the front facce of the castle of Drom Bennacht.
+
+> look at detector
+This is a small device used to detect electromagnetic fields.
+
+> examine detector
+This device has three small green lights and a red light in order up the device, and a a speaker for the audio alarm.
+
+> take EMF Detector
+Taken.
+
+> take File Folder
+Taken.
+
+> read folder
+Case A36DB-1
+
+The Castle of Drom Bennacht
+
+The castle of Drom Bennacht has for years been the ancestral home of the Winters family. Most up-to-date information includes the three past masters: Cedric, Angus, and most recently Jonathan Winters have been the past three Lairds of Drom Bennacht. 
+
+The current residents of Drom Bennacht include Laird Winters himself; Angus Winters, the oldest living member and patriarch of the Winters clan; Jennifer Winters, sixteen-year-old daughter of Jonathan Winters; Moira McKinney, the head maid at Drom Bennacht, and James Monroe, active butler since the later days of Laird Angus' headship of the castle.
+ 
+
+ESPER has been called to investigate Drom Bennacht because, of late, old Angus Winters has from his deathbed heard the calls of the Bean Sidhe, the Banshee of traditional Celtic lore. In such stories, the howls of the Banshee signify the impending death of a member of the family. 
+  
+The investigator to whom this case is given has one job: discover whether or not the sounds attributed to the Banshee are real, and perhaps attempt to gain evidence of said creature.
+
+> out
+You are in the
+You can go north or south.
+You can go to your Jeep.
+You are standing in the front yard of Drom Bennacht. The rain here is falling so hard that you can barely see, but the great spotlights looking up at the tall stone walls of the castle give you some sense of direction.
+
+> look at jeep
+This is your Jeep Wrangler, standing black against the black night of the Scottish highland.
+
+> examine jeep
+You have seen this Jeep enough times to not need to examine it again.
+
+> n
+You are on the
+There is the doorbell here.
+You can go south.
+You are standing on the porch of Drom Bennacht. The wall of rain falling outside the stone balcony above is coming down in sheets which halt your view more than five feet out, obscuring your Jeep and most of the yard.
+
+> n
+You can't go there.
+
+> knock
+You knock on the door. Despite bruised knuckles, you achieve nothing.
+
+> look at doorbell
+This is a small brass-plated doorbell.
+
+> ring doorbell
+You ring the doorbell.
+After a moment, the butler opens the door and stares intently at you.
+
+"Welcome, sir. You are expected. Please, come in." He turns and enters the house, expecting you to follow him.
+
+> ring doorbell
+You ring the doorbell.
+The butler comes back to the door and looks at you. "I fail to see your reasoning for ringing the bell again, sir." He turns around and heads back inside.
+
+> n
+You are in Lobby
+There is a Butler here.
+You can go north, south, east or west.
+You are in the lobby of Drom Bennacht. This is one of the most majestic looking buildings you have ever seen in your life. Everything is all hardwood, except the crimson carpetting which runs all throughout the walkways through the house and up the grand staircase before you to the north. There are crystal chandeliers hanging above every twenty feet, and the light they give off into the room is ethereal and bright.
+
+You follow the butler into the lobby, and he turns again to face you.
+
+"It looks as though your paranormal services may no longer be needed. Laird Winters is dead. No, not Angus, the old man... Laird Jonathan Winters has died, and by less than natural means. The authorities have just taken him from his study."
+
+"Now, there was a room prepared for you, and I will not cast you out into that rainstorm after having come all this way. You will, as was originally planned, be recompensed for your expended gas in the morning when you leave. Until then, you are free to explore Drom Bennacht and to use the guest room provided you. To get there, just take the west wing and follow it to the end of the northern hallway."
+
+"I'm very sorry that your trip has been wasted. Please, enjoy the night's stay, but when this storm is over you must leave. I'm sure you understand, matters being as they are at present." He then turns on his heel and goes about his work.
+
+> speak to butler
+"Hey, butler..."
+1) Tell me about the murder.
+2) Tell me about Drom Bennacht.
+3) Tell me about the Banshee...
+4) How do I get to my room again?
+[choice] 1
+"It was a horrible thing... Moira walked into the Captain's room this morning... That was what Lord Jonathan called his study... and found him shot to death in his favorite chair."
+
+> speak to butler
+"Hey, butler..."
+1) Tell me about the murder.
+2) Tell me about Drom Bennacht.
+3) Tell me about the Banshee...
+4) How do I get to my room again?
+[choice] 2
+"Drom Bennacht is a fortress built for the Clan Buchanan in the 12th century. It has withstood the test of time, even when its original clan forsook it for several hundred generations. The Winters family moved in about a hundred years ago."
+
+> speak to butler
+"Hey, butler..."
+1) Tell me about the murder.
+2) Tell me about Drom Bennacht.
+3) Tell me about the Banshee...
+4) How do I get to my room again?
+[choice] 3
+"Well, while I do not share your enthusiastic and unscientific appreciation of the supernatural, sir, I do know what the people of these islands have said since the times that time forgot. She comes in the night, and by a fortnight a member of the family that hears her mournful cries passes away. Modern intellectual minds do not find this to be acceptable, and place the blame rather on the superstitious mind. Many in this family have such minds, and thus any noise could do to make them believe such unbelievable stories."
+
+> speak to butler
+"Hey, butler..."
+1) Tell me about the murder.
+2) Tell me about Drom Bennacht.
+3) Tell me about the Banshee...
+4) How do I get to my room again?
+[choice] 4
+"Oh, yes, sir... Go west through this hallway and then follow it north to the very end. Your room is at the end of the corridor."
+
+> e
+You are in the
+You can go north, east or west.
+You are in the eastern hallway of Drom Bennacht, where the crimson-carpetted hall continues throughout the eastern wing of the castle.
+
+> e
+You are in
+You can go west.
+You are in the private chamber of the head butler, James Monroe. His room is decorated in dark and earth-tones, and is very underfurnished for such a rich home. The only furnishings in the entire room are the small bed and the wardrobe pushed against the far wall next to it.
+
+> look at wardrobe
+This seems to be a regular oak wardrobe, where one might keep their clothing. However, there is a strangely engraved tin seal covering the doors and holding them shut.
+
+> examine wardrobe
+The wardrobe is an old fashioned armoire-style wardrobe with two doors on either side. It is sealed shut with a small tin seal which is between the two doors.
+
+> look at seal
+The seal is a small tin-fashioned circle upon which is engraved an open hand in which is the head of a dragon.
+
+> examine bed
+You look closely at the bed, but see nothing out of place.
+
+> w
+You are in the
+You can go north, east or west.
+You are in the eastern hallway of Drom Bennacht, where the crimson-carpetted hall continues throughout the eastern wing of the castle.
+
+> n
+You are in the
+There is a Moira here.
+You can go north or south.
+You are in the long Dining Room of Drom Bennacht, where the family would eat around the fine eighteenth century table. Rather than having many chandeliers like in the hall and foyer, this room contains one large chandelier directly above the dinner table. Although not spread, the table still is decorated with bowls of fruit, candlesticks, and silver pitchers and bowls.
+
+> speak to Moira
+"Pardon me, Ms. McKinney..."
+1) Tell me about the murder...
+2) Tell me about yourself...
+3) Tell me about the others...
+4) Tell me about the Banshee...
+[choice] 1
+"Oh, sir, it was 'orrible, it was. I walked into 'is study this mornin' ta give 'im 'is mornin'ly tea, an' 'e was just all blasted up, 'e was. Shot through the 'ead, 'e was. 'Orrible. Just 'orrible..."
+
+> speak to Moira
+"Pardon me, Ms. McKinney..."
+1) Tell me about the murder...
+2) Tell me about yourself...
+3) Tell me about the others...
+4) Tell me about the Banshee...
+[choice] 2
+"About me, eh? Well, I've been in the service o' Laird Winters fer about thirty years now... Started when I was just eighteen years old. Oh, I knows I don't look as old as that makes me, but I am, I am..."
+
+> speak to Moira
+"Pardon me, Ms. McKinney..."
+1) Tell me about the murder...
+2) Tell me about yourself...
+3) Tell me about the others...
+4) Tell me about the Banshee...
+[choice] 3
+Well, there's James. 'E's a good man, 'e is. Been long my only friend 'round this place. Among the staff, at least. Then, there's Jenny... Lovely Jenny... Such a purdy girl she is, and so sweet. Never even seen a man besides James an' 'er own kin, I wager. Then, there's Angus, an old scuttlebutt like ye've never seen. Always mad about somethin'... We were kinda expectin' the Banshee ta come f'rim, but it was poor Jonathan, 'is only son, done got butchered in the ol' man's place..."
+
+> speak to Moira
+"Pardon me, Ms. McKinney..."
+1) Tell me about the murder...
+2) Tell me about yourself...
+3) Tell me about the others...
+4) Tell me about the Banshee...
+[choice] 4
+"The Bean Sidhe... It's ol' Gaelic for 'Spirit Woman,' an' such a woman she is indeed. She comes on the family in the night  an' howls 'er damnable shrieks to tell ye that one o' ye soon're ta die. We all thought ol' Angus was on 'er list, as he was the one mostly hearin' 'er, an' all, but it was 'is poor son, Jonathan, instead..."
+
+> look at table
+This is a very old dining room table made of solid oak and overlaid with a red silken tablecloth upon which is the Winters family crest.
+
+> look at chandelier
+This is a huge crystal chandelier. It gives off enough light to make this room bright and bring out the beauty of its design and decoration.
+
+> n
+You are in the
+You can go south or west.
+You are in the so-called "Captain's Room." Although it is most likely that the master of this castle never was a captain of anything, per se, he must greatly have loved the sea. for this is simply a sitting room decorated in things of the days of sailing ships.
+
+This is the scene of the death of Laird Winters. His body, although recently removed, obviously once sat in the chair on the east end of the room, as the blood from his murder is still splattered on the wall it rests against.
+
+> look at blood
+The blood is splashed all over the east wall.
+
+> examine blood
+Interesting... Now that you look at it, the chair Laird Winters obviously was sitting in is facing south, toward the only exit. That must mean the shooter was a welcome guest in the room, or else was hiding in the music room to the west and snuck in.
+
+> w
+You are in the
+You can go east.
+You are in the music room. It is small, but packed full of interesting decorations and bric-a-brac. Above, a great skylight allows a view of the stormy, black sky. The main highlight of this room, however, is the large record player in the middle of the room.
+
+> examine phonograph
+It is large and set on wheels, but it looks too rickety to move by way of them.
+
+> e
+You are in the
+You can go south or west.
+You are in the so-called "Captain's Room." Although it is most likely that the master of this castle never was a captain of anything, per se, he must greatly have loved the sea. for this is simply a sitting room decorated in things of the days of sailing ships.
+
+This is the scene of the death of Laird Winters. His body, although recently removed, obviously once sat in the chair on the east end of the room, as the blood from his murder is still splattered on the wall it rests against.
+
+> s
+You are in the
+There is a Moira here.
+You can go north or south.
+You are in the long Dining Room of Drom Bennacht, where the family would eat around the fine eighteenth century table. Rather than having many chandeliers like in the hall and foyer, this room contains one large chandelier directly above the dinner table. Although not spread, the table still is decorated with bowls of fruit, candlesticks, and silver pitchers and bowls.
+
+> s
+You are in the
+You can go north, east or west.
+You are in the eastern hallway of Drom Bennacht, where the crimson-carpetted hall continues throughout the eastern wing of the castle.
+
+> w
+You are in Lobby
+There is a Butler here.
+You can go north, south, east or west.
+You are in the lobby of Drom Bennacht. This is one of the most majestic looking buildings you have ever seen in your life. Everything is all hardwood, except the crimson carpetting which runs all throughout the walkways through the house and up the grand staircase before you to the north. There are crystal chandeliers hanging above every twenty feet, and the light they give off into the room is ethereal and bright.
+
+> n
+You are on the main
+You can go north or south.
+You are on the main stairway of Drom Bennacht leading up to the main concourse and down to the foyer.
+
+> n
+You are on the
+You can go north or south.
+You are on the upstairs landing atop the great staircase. The main hallway stretches out to the north, through a pair of suits of armor which guard the stairs.
+
+> n
+You are in the upstairs
+You can go north, south, east or west.
+You are in the upstairs main hallway, which is lined with the portraits of past patriarchs of the Winters family and fancy electric torch sconces which give this hall a little more modern appearance than the rest of the house but do not detract from its attractiveness. The hall leads to  the stairway to the south and has doors in each of the other cardinal directions.
+
+> e
+You are in
+There is a Angus Winters here.
+You can go west.
+You are in the room of Angus Winters, the patriarch of the Winters' family. The room is completely empty of any decoration, including wallpaper, and contains only the hospital bed belonging to Angus.
+
+> speak to Angus
+"Damned... Bean Sidhe... Coming for me... Heard her... Every night... For the past fortnight... Coming... to take me... to Hell..."
+
+> examine Angus
+"Never... seen... an old man... dying... before...?"
+
+> w
+You are in the upstairs
+You can go north, south, east or west.
+You are in the upstairs main hallway, which is lined with the portraits of past patriarchs of the Winters family and fancy electric torch sconces which give this hall a little more modern appearance than the rest of the house but do not detract from its attractiveness. The hall leads to  the stairway to the south and has doors in each of the other cardinal directions.
+
+> w
+You are in
+There is a Jenny Winters here.
+You can go east.
+You are in the private room of Jenny Winters. The room is small, but nicely decorated in very feminine colors and designs. The only real furnishings are the bed and the wardrobe.
+
+> speak to Jenny
+"Ms. Winters, I was wondering if you could help me..."
+1) What do you know about the murder?"
+2) What can you tell me about Drom Bennacht?
+3) What about the Banshee?
+[choice] 1
+"Good riddance... Ever since Mother died five years ago, my father started becoming a little odd and it eventually got so out of hand that I couldn't stand to be around him. He became violent, even... After it happened, I could never stand to be around him anymore. But I have no idea how anyone could have killed him. Everyone in the house had reason, but not everyone had the means. Moira had actually just begun serving breakfast when we heard the shot..."
+
+> speak to Jenny
+"Ms. Winters, I was wondering if you could help me..."
+1) What do you know about the murder?"
+2) What can you tell me about Drom Bennacht?
+3) What about the Banshee?
+[choice] 2
+"Oh, goodness!!! This is such a wierd old place, you can know everything there is to know about it and still not know everything. Here's something neat, and it has to do with the room you're staying in! If you TAKE WALDEN off the bookshelf... Well, let's just say you'll get a surprise. I used to do it all the time when I was a kid, but ever since my father started getting all strange, I haven't hardly left my room..."
+
+> speak to Jenny
+"Ms. Winters, I was wondering if you could help me..."
+1) What do you know about the murder?"
+2) What can you tell me about Drom Bennacht?
+3) What about the Banshee?
+[choice] 3
+"I don't know about all that... Some wierd spirit woman that comes and screams knowin' that someone in the house is about to die... It's all ridiculous if you ask me. I heard what they were calling the 'Screams of the Bean Sidhe,' and I'll tell you, it sounded pretty scary and all...  But there's no way it was the Banshee... It sounded more like the house just being old..."
+
+> e
+You are in the upstairs
+You can go north, south, east or west.
+You are in the upstairs main hallway, which is lined with the portraits of past patriarchs of the Winters family and fancy electric torch sconces which give this hall a little more modern appearance than the rest of the house but do not detract from its attractiveness. The hall leads to  the stairway to the south and has doors in each of the other cardinal directions.
+
+> n
+You are in the
+You can go south.
+You are in the master bedroom of Drom Bennacht, a large room that cannot possibly be anything but the largest and most luxurious room you've ever seen. The bed is definitely the biggest you've ever seen, and all around it are marble Corinthian columns upon which are many varieties of plants. Above and in between them are portraits of many of the children of Drom Bennacht's past masters.
+
+> look at bed
+There are a whole lot of things in this room. You don't feel the need to investigate every one of them, which, even if you did, would be a near-endless task.
+
+> s
+You are in the upstairs
+You can go north, south, east or west.
+You are in the upstairs main hallway, which is lined with the portraits of past patriarchs of the Winters family and fancy electric torch sconces which give this hall a little more modern appearance than the rest of the house but do not detract from its attractiveness. The hall leads to  the stairway to the south and has doors in each of the other cardinal directions.
+
+> s
+You are on the
+You can go north or south.
+You are on the upstairs landing atop the great staircase. The main hallway stretches out to the north, through a pair of suits of armor which guard the stairs.
+
+> s
+You are on the main
+You can go north or south.
+You are on the main stairway of Drom Bennacht leading up to the main concourse and down to the foyer.
+
+> s
+You are in Lobby
+There is a Butler here.
+You can go north, south, east or west.
+You are in the lobby of Drom Bennacht. This is one of the most majestic looking buildings you have ever seen in your life. Everything is all hardwood, except the crimson carpetting which runs all throughout the walkways through the house and up the grand staircase before you to the north. There are crystal chandeliers hanging above every twenty feet, and the light they give off into the room is ethereal and bright.
+
+> w
+You are in the
+You can go north, east or west.
+You are in the West Hall of Drom Bennacht, where the kingly looking crimson carpetted hall continues all throughout the western wing of the castle.
+
+> w
+You are in
+You can go east.
+You are in the servant's quarters of the head maid for Drom Bennacht. This room is decorated in drab colors and is underfurnished, containing only a bed in earth-tone coverings... Very unusual for such a rich house.
+
+> examine bed
+You examine the bed, but there is not much interesting about it. However, on looking underneath it, you find a small necklace. You pull it out...
+
+> i
+You are carrying:
+EMF Detector
+File Folder
+Necklace
+
+> wear necklace
+You put on the necklace.
+
+> examine necklace
+The necklace is not unusual, but the charm attached to it is. It is an open hand with a lion's head etched in its palm. **It's not actually good for anything. It was going to be, but I never wound up implementing it. I never wound up deleting it, either, so I just made it an Easter Egg!**
+
+> e
+You are in the
+You can go north, east or west.
+You are in the West Hall of Drom Bennacht, where the kingly looking crimson carpetted hall continues all throughout the western wing of the castle.
+
+> n
+You are in the
+You can go north or south.
+You are in the back hall of Drom Bennacht which runs through the western wing of the castle. This area, being used mainly by the servants of the house, is decorated less grandly than the other areas of the house and bears carpetting which looks very worn.
+
+> n
+You are in the
+There is a bookshelf here.
+You can go south.
+You are in the guest room of Drom Bennacht, a sparsely furnished but nicely decorated little room, the central piece of which is the four-poster bed.
+
+> examine bookshelf
+The bookshelf seems a little too large, but the fact that there are enough books to completely fill it makes this a little less out-of-the-ordinary.
+
+> examine walden
+Walden, the classic piece of transcendentalist literature written by Henry David Thoreau, gives testimony of his life in the woods outside Walden Pond in Massachussetts. You much prefer The Catcher in the Rye, but do not see it among the multitudinous volumes.
+
+> take walden
+You search for Walden among the many titles on the shelf, and upon finding it pull it slowly out. Once you get to a certain point, you hear a click and the book retracts quickly back into the shelf. Among moans and creaks from the ancient architecture of the castle, you witness a great ominous hole appear as the bookshelf moves away along some unseen mechanical track. Behind it, a set of stairs lead up into the darkness of the north tower.
+
+> up
+You are on
+You can go southeast, southwest or down.
+You are in the middle of the great northern tower, seemingly the only tower still accessible from the castle. Although the rest of the staircase has collapsed here, you are just above the second floor, and there are two doors here leading outside to the roof.
+
+> sw
+You are in the
+You can go northeast.
+You are outside the castle on the roof, but have come to a place under an overhang which is invisible from the ground. This place seems to be someone's personal space, where a great tome atop a marble pedestal has been hidden away from the prying eyes of the other residents of the house.
+
+> look at pedestal
+This is a black marble pedestal, built to resemble the pulpits used by preachers. Upon it rests a book of great antiquity.
+
+> examine grimoire
+You scan the cover, taking note of the runes there. With the best of your knowledge of the arcane, you cannot decipher the unknown figures. The book, however, is written in English.
+
+> read grimoire
+You flip around through the spellbook, noting several sections which seem interesting.
+Which selection do you read?
+1) Introduction
+2) The Elder Gods
+3) Seals of Power
+4) The Ritual
+5) Words of Power
+6) Personal Notes
+[choice] 1
+For ages, we have watched as the Winters family used this place without knowledge of its true power. It was not until Jonathan that they discovered the truth of what lie beneath this ancient stone castle. This grimoire shall be my attempts to collect my thoughts as time moves closer to the proper configuration of the stars. On that night, the Winters clan shall no longer stake their claim to this land, and we, the True owners from time immemorial, shall reclaim it for our own.
+
+May the blood of the Oppressors be shed for the glory of our Dark Master!
+
+> read grimoire
+You flip around through the spellbook, noting several sections which seem interesting.
+Which selection do you read?
+1) Introduction
+2) The Elder Gods
+3) Seals of Power
+4) The Ritual
+5) Words of Power
+6) Personal Notes
+[choice] 2
+Seven are the Gods of Chaos...
+
+Narlath, the gatekeeper. Only by the shedding of virgin blood may he be tempted to open his Gate, to come forth and taste it on his own twisted lips.
+
+Ktu'ul, the Sleeping Priest, that shall awaken at Narlath's bloodthirsty cries of glee.
+
+Shunnag, the Mother of Filth. When Ktu'ul summons her, the end of the world is near.
+
+Yosog, the Shambling Darkness, first of the offspring of Shunnag. His birth is death to all else.
+
+Dagor, the Master of the Tempest. When he commands, the blood of the dead will raise into a flood to cleanse the world.
+
+Azoth, the Reformator, who shall make all new.
+
+And finally, the Unnamed One, who shall rule the new Earth and the dark Spawn of the Mother, free of the ignorance and foolishness of Man that has ruled His world for so long. 
+
+> read grimoire
+You flip around through the spellbook, noting several sections which seem interesting.
+Which selection do you read?
+1) Introduction
+2) The Elder Gods
+3) Seals of Power
+4) The Ritual
+5) Words of Power
+6) Personal Notes
+[choice] 3
+You flip around through the spellbook, noting a passage.
+
+"The sigil of the Elder Gods, the open hand with a dragon's head in the palm, is the best way to seal away the implements of sorcery. No man, save for the sorcerer himself, may open a container so sealed. The crest must be of tin, and must be engraved in the light of the full moon on the day and hour appropriate to Saturn."
+
+
+Interesting... Didn't James have something like this in his room? You would have thought Jonathan Winters to be the sorcerer here out of anyone, but... Hmmm...
+
+> read grimoire
+You flip around through the spellbook, noting several sections which seem interesting.
+Which selection do you read?
+1) Introduction
+2) The Elder Gods
+3) Seals of Power
+4) The Ritual
+5) Words of Power
+6) Personal Notes
+[choice] 5
+Words of Power:
+
+There are many words in the tongue of the Elder Gods that still bear use, even though those that speak them have been long gone off the face of the Earth.
+The foremost word of power is ZACAR, being pronounced, according to the Enochian language of Dr. John Dee, as "Zode-uh-CAR-ay." He who stands before a magickally enchanted or sealed object and says ZACAR with authority can break the enchantment and may find paths open to them. Being translated, this word means "COME," and will call on the power of the Elder Gods to attain that which is needed. 
+
+Also, he that in time of dire need cries out to the heavens with this word shall find that the eyes of trouble shall pass him by. 
+
+> read grimoire
+You flip around through the spellbook, noting several sections which seem interesting.
+Which selection do you read?
+1) Introduction
+2) The Elder Gods
+3) Seals of Power
+4) The Ritual
+5) Words of Power
+6) Personal Notes
+[choice] 6
+Winters had some kind of enchantment on the entrance to the Chapel. He put that damned phonograph on top of it and sealed it with a spell, but the Word of Power should be able to get it out of the way.
+
+> read grimoire
+You flip around through the spellbook, noting several sections which seem interesting.
+Which selection do you read?
+1) Introduction
+2) The Elder Gods
+3) Seals of Power
+4) The Ritual
+5) Words of Power
+6) Personal Notes
+[choice] 4
+You aren't about to read this entire section, because it is the most expansive in the entire book. You do skim it, however, and take note that this is not the type of material you want falling into the wrong hands. The ritual given is a Rite of Summonation to summon the Seven Gods of Chaos, or the Elder Gods, to destroy and reform the world that once was theirs aeons ago. Definitely not pleasant reading... Apparently, once the ritual starts, the attending sorcerers must hold concentration for one minute and thirty seconds, chanting a phrase so profane you are physically pained just looking at it written. Then, the end comes...
+
+> ne
+You are on
+You can go southeast, southwest or down.
+You are in the middle of the great northern tower, seemingly the only tower still accessible from the castle. Although the rest of the staircase has collapsed here, you are just above the second floor, and there are two doors here leading outside to the roof.
+
+> se
+You are on the roof
+You can go northwest.
+You are on the roof of Drom Bennacht, having passed through the rain to come under the shelter of a stone overhang. You can see another of these overhangs off to the west, but cannot make it there from here. Under it there seems to be some sort of pulpit or pedestal. Running all the way from over there to over here there appears to be some sort of pulley system set up.
+
+> examine pulley
+This is strange... The pulleys actually seem to be fully hooked up, although not running anywhere in particular. There is an old crank attached to it here.
+
+> examine crank
+Not much to see... Perhaps you should try to TURN the CRANK.
+
+> turn crank
+You begin to turn the aged crank. It is very difficult at first, but after not too terribly long it begins to give to you and the ancient ropes start to move. It produces the most horrible sound you've ever heard in your life! It's almost like... like... the howls of the Banshee! Yes! This rope seems to be vibrating in such a way that old Angus in the room below you could probably hear it very clearly, but one so superstitious and on the verge of dying could very easily mistake such a sound as the howling of the mythic creature!!!
+
+> nw
+You are on
+You can go southeast, southwest or down.
+You are in the middle of the great northern tower, seemingly the only tower still accessible from the castle. Although the rest of the staircase has collapsed here, you are just above the second floor, and there are two doors here leading outside to the roof.
+
+> down
+You are in the
+There is a bookshelf here.
+You can go south or up.
+You are in the guest room of Drom Bennacht, a sparsely furnished but nicely decorated little room, the central piece of which is the four-poster bed.
+
+> s
+You are in the
+You can go north or south.
+You are in the back hall of Drom Bennacht which runs through the western wing of the castle. This area, being used mainly by the servants of the house, is decorated less grandly than the other areas of the house and bears carpetting which looks very worn.
+
+> s
+You are in the
+You can go north, east or west.
+You are in the West Hall of Drom Bennacht, where the kingly looking crimson carpetted hall continues all throughout the western wing of the castle.
+
+> e
+You are in Lobby
+There is a Butler here.
+You can go north, south, east or west.
+You are in the lobby of Drom Bennacht. This is one of the most majestic looking buildings you have ever seen in your life. Everything is all hardwood, except the crimson carpetting which runs all throughout the walkways through the house and up the grand staircase before you to the north. There are crystal chandeliers hanging above every twenty feet, and the light they give off into the room is ethereal and bright.
+
+> n
+You are on the main
+You can go north or south.
+You are on the main stairway of Drom Bennacht leading up to the main concourse and down to the foyer.
+
+> n
+You are on the
+You can go north or south.
+You are on the upstairs landing atop the great staircase. The main hallway stretches out to the north, through a pair of suits of armor which guard the stairs.
+
+> n
+You are in the upstairs
+You can go north, south, east or west.
+You are in the upstairs main hallway, which is lined with the portraits of past patriarchs of the Winters family and fancy electric torch sconces which give this hall a little more modern appearance than the rest of the house but do not detract from its attractiveness. The hall leads to  the stairway to the south and has doors in each of the other cardinal directions.
+
+> e
+You are in
+There is a Angus Winters here.
+You can go west.
+You are in the room of Angus Winters, the patriarch of the Winters' family. The room is completely empty of any decoration, including wallpaper, and contains only the hospital bed belonging to Angus.
+
+> speak to Angus
+"Heard... her... again!!! Didn't... <wheeze
+
+> w
+You are in the upstairs
+You can go north, south, east or west.
+You are in the upstairs main hallway, which is lined with the portraits of past patriarchs of the Winters family and fancy electric torch sconces which give this hall a little more modern appearance than the rest of the house but do not detract from its attractiveness. The hall leads to  the stairway to the south and has doors in each of the other cardinal directions.
+
+> s
+You are on the
+You can go north or south.
+You are on the upstairs landing atop the great staircase. The main hallway stretches out to the north, through a pair of suits of armor which guard the stairs.
+
+> s
+You are on the main
+You can go north or south.
+You are on the main stairway of Drom Bennacht leading up to the main concourse and down to the foyer.
+
+> s
+You are in Lobby
+There is a Butler here.
+You can go north, south, east or west.
+You are in the lobby of Drom Bennacht. This is one of the most majestic looking buildings you have ever seen in your life. Everything is all hardwood, except the crimson carpetting which runs all throughout the walkways through the house and up the grand staircase before you to the north. There are crystal chandeliers hanging above every twenty feet, and the light they give off into the room is ethereal and bright.
+
+> e
+You are in the
+You can go north, east or west.
+You are in the eastern hallway of Drom Bennacht, where the crimson-carpetted hall continues throughout the eastern wing of the castle.
+
+> n
+You are in the
+There is a Moira here.
+You can go north or south.
+You are in the long Dining Room of Drom Bennacht, where the family would eat around the fine eighteenth century table. Rather than having many chandeliers like in the hall and foyer, this room contains one large chandelier directly above the dinner table. Although not spread, the table still is decorated with bowls of fruit, candlesticks, and silver pitchers and bowls.
+
+> n
+You are in the
+You can go south or west.
+You are in the so-called "Captain's Room." Although it is most likely that the master of this castle never was a captain of anything, per se, he must greatly have loved the sea. for this is simply a sitting room decorated in things of the days of sailing ships.
+
+This is the scene of the death of Laird Winters. His body, although recently removed, obviously once sat in the chair on the east end of the room, as the blood from his murder is still splattered on the wall it rests against.
+
+> w
+You are in the
+You can go east.
+You are in the music room. It is small, but packed full of interesting decorations and bric-a-brac. Above, a great skylight allows a view of the stormy, black sky. The main highlight of this room, however, is the large record player in the middle of the room.
+
+> zacar
+You say the word of command loudly and firmly, and before your very eyes you watch as the record player begins to shift across the floor, eventually revealing the dark hole underneath it...
+
+> down
+You are in a Dark Corridor
+You are in a dark corridor. To the north you can see the electric lights of the hallway above, but to the south are the flickering orange ghosts of torchlight.
+You notice a green light activate on your EMF detector.
+"As you enter the room completely, you realize a faint glow is formulating behind you. As you turn, you see the doors have been sealed with the symbol of an open hand in the palm of which is the head of a dragon!
+You hear the footfalls above of someone drawing near!
+
+> s
+You are in a Large Room
+You are in a large, round room which seems to not be natural but could not have been made with mortal hands. The walls are all as smooth as glass and have a strange marbling design of black veins running through them. In the middle of the room is an altar of black obsidian, and around it are concentric circles containing arcane symbols.
+You notice the second green light come on on your EMF detector, and the red light is blinking.
+You hear the footfalls above of someone drawing near!
+
+> s
+You stand before The Gate
+You are standing before a dark stone sphere in the wall of the southern end of the large room. The stone is decorated with signs and symbols of meanings unknown on this planet, and behind it you feel emanating a dark force unlike any you have ever felt.
+The EMF detector is showing red, and the alarm is beeping!
+You hear the footfalls above of someone drawing near!
+
+> zacar
+Remembering the words of the old grimoire atop the castle, you quietly whisper the word of power. 
+   Nothing seems to happen!
+That is, until two hooded and robed figures appear, pulling behind them the unconscious body of Jenny Winters. Unable to do anything else, you just stand there, your body tight and locked up. However, the two figures pass right by you as though you weren't even there! Going about their business, they set Jenny upon the altar in the Large Room.
+
+> n
+You are in a Large Room
+You are in a large, round room which seems to not be natural but could not have been made with mortal hands. The walls are all as smooth as glass and have a strange marbling design of black veins running through them. In the middle of the room is an altar of black obsidian, and around it are concentric circles containing arcane symbols.
+You notice the second green light come on on your EMF detector, and the red light is blinking.
+
+> look at Jenny
+Poor Jenny. Suitably a virgin and the daughter of the head of the Winters clan, she has been targetted for this sacrifice. She lies prostrate on the altar in the middle of the room.
+The chanting of the robed couple fills the room.
+
+> speak to Jenny
+As much as it pains you to see this innocent young girl here prepared to be sacrificed, you decide to keep your mouth shut for the time being.
+The chanting of the robed couple fills the room.
+
+> speak to robed man
+You have alerted the robed figures!
+
+"What are you doing here!" the man cries. The woman comes up alongside and says "Where did he come from?"
+
+You stand before the very gate of darkness, in a standoff between its two servants.
+
+
+"Fool," the robed man says. "I do not know how you came to infiltrate the inner sanctum of the Elder Gods, but you will suffer greatly for it!"
+
+"Ha!" cries the woman, "he doesn't even know why the Elder Gods must be called!"
+Why must the Elder Gods be called?
+1) To rid the world of those too weak to serve them.
+2) To destroy everything.
+3) Because the world is theirs and they want it back.
+4) Because you seek their power to rule the world for yourselves!
+[choice] 3
+
+"Hmmm. Very interesting... You are correct. Tell me, then, why did Laird Winters have to die?"
+Why did we kill Winters?
+1) He was going to resurrect them and take the glory for himself!
+2) You considered him a fool and did not want him to fail to properly perform the ceremony.
+3) He was actually trying to seal the gate.
+4) The ceremony required his daughter and he would not sacrifice her.
+[choice] 2
+
+"And what of the Banshee? You came to investigate her! Did you find out what she really was!"
+What was the Banshee?
+1) You released some owls in the attic.
+2) It was a sound system you devised and placed above the old man's room.
+3) It was the vibration of the old belfry ropes.
+4) It was a magickally-induced illusion.
+[choice] 3
+
+The woman steps forward.
+
+"Then who killed that arrogant fool Winters? If you think you know so much, you MUST know that!"
+Who killed Laird Winters?
+1) James did it.
+2) Moira did it.
+3) Jenny did it.
+4) Angus did it.
+5) The Elder Gods did it.
+[choice] 1
+
+"James! James!"
+
+As you defy the two robed figures, who are obviously James and Moira, Moira begins to seem disturbed by something, and finally reaches out to James, tugging on his robe.
+
+"Look!"
+
+She holds out an ancient device to him, and he gasps. You have never seen one before, but you know from your studies that this is a magickal device which keeps track of the movement of the stars.
+
+"The alignment! No! The alignment has passed!"
+
+Obviously upset that they were not freed, the Elder Gods move upon their once-faithful servants. What happens next should never occur in front of the eyes of any man. You thank whatever powers of good might exist in this world that poor, innocent Jenny was not awake to see what the gods now do to James Monroe and Moira McKinney.
+
+
+The next morning comes, and the rain has stopped. Jenny wakes up, and looks up at you, wondering why you bear her in your arms out of the house.
+
+"I'm sorry," you say before throwing a match into the castle. The gasoline you have already poured throughout the entry hallway is quick to catch, and the dark secret which lies buried under Drom Bennacht will soon be burned to ash.
+
+"Oh well," she says dreamily. "It's better that way." With that, the girl fades off to sleep. You take her to your car and start it up.
+
+...
+
+"ESPER," comes the voice on the other side of your cellphone. You are amazed that you have reception back all the way out here.
+
+"The job's done," you say. "And boy, do I have a story to tell you."
+
+THE END
+
+
+[runner] turns=115 leftover=0 running=false WON=YES

@@ -1,0 +1,4306 @@
+
+ King's Quest V - text adventure, v1.0 Steve Lingle
+
+King's Quest V
+
+Absence Makes The Heart Go Yonder
+
+The Text Adventure
+
+Disclaimer
+
+King's Quest V and the entire original King's Quest Series were created and produced by Roberta Williams and Sierra OnLine of whom I give special thanks.  This game was translated and adapted into a text adventure game for free distribution only.  I claim no copyright holdings with this game or any part within due to my designing this text version solely from memory of the original game.  Certain aspects of the game may be different from the original, yet the storyline and main puzzles are intact as they were taken from the original 3D version of the game.  You can find a full collection of the King's Quest series for sale online at various outlets including popular auction websites.
+
+For game hints, you can search the internet for King's Quest V hints.  For any other questions regarding the gameplay of this text adventure, you may email me directly at stevethemagicguy@gmail.com.  Thank you.
+
+
+===================
+I would also like to give special thanks to Tr0n (aka - Computer Whizz) for helping tremendously on the desert portion of this game.  He put together an awe-inspiring code that I would not have been able to create on my own.  Using this code provided an entertaining and realistic experience.  There were many others in the Quest forums that played a helpful role (small or large) including Al "MaDbRiT", and "I think I'm Dead" and even Alex, the Quest creator himself.
+
+After PART ONE was released, another helper became interested in the project.  I give a special thanks to Adam Scura for the many e-mails and suggestions.  An even bigger thanks to him for beta-testing the full version of the game, identifying a long list of bugs (gee, thanks...ha) and even giving his programming advice on how to fix them all.  Without his help, the full version game would not be what it is now.
+Thank you to everyone who inquired about the project over the past year and encouraged me to get moving with it!
+
+A gameplay warning, you will receive the occasional reminder to save the game before certain challenging parts (including the desert).  I advise you to save often because this game was closely modeled after the original whereas, you tend to be killed if you make the wrong mistake...I did take the liberty of minimizing the amount of ways that you as the player can be killed so it won't be too bad.
+In the desert if it becomes too challenging, type 'desert' and view the map I have created for you.
+Near the end of the game, there is a maze.  If you get lost, type 'maze' and view the map I have created for you...
+
+************************
+
+When talking to characters in the game, I have taken the extra steps to allow easier game control.  If you are talking to the toy shop owner, for example, you can simply say "talk to man".
+In certain areas, there may be similarly named characters.  For example, there is a room where there is a busy clerk and a sales clerk.  If you say "talk to clerk", it will give you a menu of whom you'd like to address.
+You will discover that long-named objects are for looks mostly.  For convenience, you can pick up the "silver coin" by typing "get coin" (or variations thereof).
+Be sure to check out the updated HELP menu within the game by typing 'help'.  It will list most of the special commands to use in the game.
+With that being said, enjoy!
+
+
+Have you played this game before?
+1) Yes
+2) No
+[choice] look
+After a lengthy discussion with the great wizard, Crispinopher (Crispin for short), Graham learns more about the evil wizard, Mordack.  
+Crispin is unable to answer the obvious question, "Why?" but is almost as determined as Graham to find out.
+
+And so...Graham sets off on his quest to find his family.  Accompanying him is Cedric, the wise-cracking owl, who will guide you occasionally.  Graham was given only two items by Crispin, a worn out magic wand and a bite of magical white snake (that he's already eaten) which helps him to understand the language of nature and animals.
+
+"Good luck, King Graham!" says Crispin, and he shuts the front door behind Graham as he steps outside...
+
+
+
+
+You are in front of Crispin's house.
+
+To the south you can almost make out a small town.  To the west is a dark path that winds into the forest beyond.
+
+> s
+You are on the town path.
+
+A single stream of sunlight parts the branches and barely illuminates the dirt path before you.  You come upon a dirt road intersection that goes in different directions.  To the west, is another path that winds into the forest.  To the south, you can definitely make out the activity of the town.  To the east, a path leads up into the mountains.
+A rattlesnake blocks the passage east into the mountains.
+
+"Look out for that snake, Graham!"
+says Cedric as he lands on a nearby tree branch.
+
+> s
+You are at the town entrance.
+
+Smoke rises from chimney tops as you approach the town.  The sounds of everyday life are evident.  A cow is in a pen eating from a trough.  The stream flows busily alongside of the town blocking any further passage south.  To the east is the town itself.  To the west, Graham can see smoke coming from a single chimney.
+
+> e
+"I think I'll just stay out here until you get back, Graham.  I had a nasty run-in with a dog last time."
+
+You are in the town.
+
+As you walk on the cobblestone street, townspeople walk up and down minding their own business and walking in and out of the town's quaint little shops.  The only open shops are the tailor's shop, the toy shop, and the shoemaker's shop.  There is a barrel at the entrance to the alley.  The street leads back to the west towards the path.
+A man is working on a wagon at the entrance to the alley.
+
+> examine barrel
+Graham looks into the barrel and discovers an old rotten fish.
+
+> take old fish
+Graham reaches deep into the barrel and retrieves the old rotten fish.
+
+> w
+You are at the town entrance.
+
+Smoke rises from chimney tops as you approach the town.  The sounds of everyday life are evident.  A cow is in a pen eating from a trough.  The stream flows busily alongside of the town blocking any further passage south.  To the east is the town itself.  To the west, Graham can see smoke coming from a single chimney.
+
+> e
+"I think I'll just stay out here until you get back, Graham.  I had a nasty run-in with a dog last time."
+
+You are in the town.
+
+As you walk on the cobblestone street, townspeople walk up and down minding their own business and walking in and out of the town's quaint little shops.  The only open shops are the tailor's shop, the toy shop, and the shoemaker's shop.  There is a barrel at the entrance to the alley.  The street leads back to the west towards the path.
+
+> take silver coin
+Graham picks up the silver coin.
+
+> w
+You are at the town entrance.
+
+Smoke rises from chimney tops as you approach the town.  The sounds of everyday life are evident.  A cow is in a pen eating from a trough.  The stream flows busily alongside of the town blocking any further passage south.  To the east is the town itself.  To the west, Graham can see smoke coming from a single chimney.
+
+> w
+You are front of the small cottage.
+
+A small cottage sits off of the main path that runs parallel to the stream.  The cottage is made of stone and a small stone chimney reaches to the trees.  It seems someone is here as you can see licks of smoke creeping from the chimney.  An aging oak tree completes the picture that reaches its limbs across the length of the house out in front.  On the front of the cottage is a small sign.
+To the east is the entrance to the small town.  To the north is a clearing in the forest.  To the west is a small country inn.
+
+> enter
+"I will wait for you out here, Graham."
+
+You are in the small cottage.
+
+Inside the small cottage, you can see a variety of baked goods.  The smell of fresh bread hits your nose as soon as you walk in.  On the front counter, a freshly baked custard pie sits and the aroma is quite tempting.
+A baker in the back room can be heard clanging dishes and scurrying back and forth cooking the next batch of bread.  The head baker is behind the counter near the custard pies.
+A cat sitting in one corner of the shop seems to not like Graham very much.
+
+> buy pie
+Graham requests the custard pie from the baker.
+
+"I'd like to buy that custard pie, good man."
+
+
+
+"Of course, that will be one silver coin."
+
+
+Graham hands the baker his silver coin.
+
+
+
+"Very good.  Now enjoy your pie."
+
+
+> out
+You are front of the small cottage.
+
+A small cottage sits off of the main path that runs parallel to the stream.  The cottage is made of stone and a small stone chimney reaches to the trees.  It seems someone is here as you can see licks of smoke creeping from the chimney.  An aging oak tree completes the picture that reaches its limbs across the length of the house out in front.  On the front of the cottage is a small sign.
+To the east is the entrance to the small town.  To the north is a clearing in the forest.  To the west is a small country inn.
+
+> w
+You are in front of a small country inn.
+
+The main path continues on east and west in front of a small country inn.  In the back, you see a small barn with a large haystack sitting in front of it.  A worn path winds its way north between the barn and the inn.
+To the east is a small cottage.  To the west is a more barren area with an old rotting tree.  To the north you can make out a small house built into the bottom of a tree.
+
+> w
+You are at the path's end.
+
+The path and the river come to a short end here.  An old rotting tree looms spookily over the end of the main path.  Bees are buzzing noisily around a huge gaping hole in the tree trunk. 
+To the north, a dusty trail leads near what looks like a sand castle.  To the east is a small country inn.  To the west is nothing but desert.
+Even further north, you can see a wagon.
+A large black bear is attacking the beehive built into the rotting tree.
+
+A stick from the old rotting tree lies near the path.
+
+
+> throw fish to bear
+Graham throws the rotting fish towards the bear and it turns its attention away from the bees, grabs the fish in its mouth and wanders off.
+
+A large bee wearing a crown flies out of the old rotten tree to address Graham.
+"Thank you, kind sir, for chasing away that bear.  My name is Queen Beetrice.  Who are you?"
+
+"You're very welcome.  My name is King Graham of Daventry in search of my family and castle.  They have been taken from me by an evil wizard, Mordack."
+
+"King Graham, we are just a small colony of bees but to thank you for your kindness; please take a honey comb from our tree.  I wish you well on your quest."
+
+> take honey comb
+Graham reaches into the old rotting tree and pulls out a large sticky honey comb and puts it in a protective sheet and tucks it away in his pack.
+
+> take stick
+Graham picks up the fallen stick.
+
+> n
+You are near a sand castle.
+
+A tall sand castle towers over the nearby shrubs.  Upon closer examination, Graham can see ants running all through and around the castle.   To the east is a house built into a tree.  To the west is nothing but desert.
+Further north, a wagon can be seen.
+A large dog is digging into the castle-shaped ant hill.
+
+> throw stick to dog
+Graham throws the stick to distract the large dog from the ant hill.
+"Here boy!"
+
+The dog grabs the stick in its mouth and runs away into the woods.
+
+A large ant wearing a crown appears from the castle-shaped ant hill and addresses Graham,
+"I am King Antony.  Thank you for getting rid of that dog."
+
+"Not at all.  I'm happy to help.  My name is King Graham.  I am on a quest to find my family who has been taken from me."
+
+"If there is anything we can do, we surely will do our best to help you when the time comes."
+The ant abruptly disappears back into the castle as quickly as he had appeared.
+
+> s
+You are at the path's end.
+
+The path and the river come to a short end here.  An old rotting tree looms spookily over the end of the main path.  Bees are buzzing noisily around a huge gaping hole in the tree trunk. 
+To the north, a dusty trail leads near what looks like a sand castle.  To the east is a small country inn.  To the west is nothing but desert.
+Even further north, you can see a wagon.
+
+> w
+"You're going into the desert?  Be careful, Graham.  I'll wait for you to come back!"
+
+You are at the end of the forest.
+
+At the edge of the forest, the desert sands strangle what remaining grass tries to grow.  Further west is nothing but desert sand as far as you can see.
+WARNING! (advisory)  It is well advised that you save your game before entering the desert.  Will you save the game?
+1) Yes
+2) No
+[choice] 2
+You were warned.  Be careful.
+When you find an oasis, type 'drink' or 'drink water' to keep from dying of thirst.
+
+> w
+You are in the desert
+You can go north, south, east or west.
+Endless sand in all directions.
+
+> w
+You are in the desert
+You can go north, south, east or west.
+Endless sand in all directions.
+
+> w
+You are in the desert
+You can go north, south, east or west.
+Endless sand in all directions.
+
+> w
+You are in the desert
+You can go north, south, east or west.
+Endless sand in all directions.
+
+> w
+The heat of the desert sun is taking a toll on Graham.  He is beginning to feel dehydrated.  He needs to find an oasis soon.
+You are at the oasis.
+
+You've reached the oasis.  What a pleasant relief to find among the desert sands.
+
+> drink
+Graham reaches down and has a refreshing sip of water.
+
+> w
+You are in the desert
+You can go north, south, east or west.
+Endless sand in all directions.
+
+> w
+You are in the desert
+You can go north, south, east or west.
+Endless sand in all directions.
+
+> n
+You are in the desert
+You can go north, south, east or west.
+Endless sand in all directions.
+
+> n
+You are at the  opening in the cliff.
+
+You stand before a huge opening in the cliff to the north.  You can see a huge stone temple carved right into the side of the cliff.
+A small oasis sits near a small boulder.
+
+The sound of horses approaching from the west grows louder.
+
+Hide quickly!
+
+
+
+> hide
+Graham hears the approaching horses and decides to hide behind the boulder.
+
+
+
+> look
+You are at the  opening in the cliff.
+
+You stand before a huge opening in the cliff to the north.  You can see a huge stone temple carved right into the side of the cliff.
+A small oasis sits near a small boulder.
+Two bandits riding horses approach the opening in the cliff wall.
+
+
+
+Luckily, they do not see Graham hidden behind the boulder and ride towards the stone temple.
+
+
+
+From where Graham is standing, he can see the bandits ride up to the huge stone door of the temple.
+
+
+One holding a staff dismounts his horse and approaches the door on foot.
+
+
+Waving the staff in the air, the bandit yells "Open Sesame!"
+
+
+
+Astonishingly, the entire stone door vaporizes and the bandit walks inside carrying a small bag of jewels.  After a few moments, he returns without the bag and the door returns to normal.
+
+The two bandits mount their horses and ride off toward the southwest.
+
+
+After they leave, Graham steps out from behind the boulder.
+
+> look
+You are at the  opening in the cliff.
+
+You stand before a huge opening in the cliff to the north.  You can see a huge stone temple carved right into the side of the cliff.
+A small oasis sits near a small boulder.
+
+> look
+You are at the  opening in the cliff.
+
+You stand before a huge opening in the cliff to the north.  You can see a huge stone temple carved right into the side of the cliff.
+A small oasis sits near a small boulder.
+
+> drink
+Graham reaches down and has a refreshing sip of water.
+
+> w
+You are in the desert
+You can go north, south, east or west.
+Endless sand in all directions.
+
+> w
+You are in the desert
+You can go north, south, east or west.
+Endless sand in all directions.
+
+> s
+You are in the desert
+You can go north, south, east or west.
+Endless sand in all directions.
+
+> s
+You are in the desert
+You can go north, south, east or west.
+Endless sand in all directions.
+
+> s
+The heat of the desert sun is taking a toll on Graham.  He is beginning to feel dehydrated.  He needs to find an oasis soon.
+You are at the oasis.
+
+You've reached the oasis.  What a pleasant relief to find among the desert sands.
+
+> drink
+Graham reaches down and has a refreshing sip of water.
+
+> w
+You are in the desert
+You can go north, south, east or west.
+Endless sand in all directions.
+
+> s
+You are in the desert
+You can go north, south, east or west.
+Endless sand in all directions.
+
+> s
+You are in the desert
+You can go north, south, east or west.
+Endless sand in all directions.
+
+> s
+You are near two tents.
+
+Two tents sit next to each other in this area of the desert.  One larger tent seems to be more lively.  Graham can see drunken men shouting at a dancing harem girl.  They are apparently rejoicing over a recent plundering.
+The smaller tent seems to be vacant at the moment but it is hard to tell from out here.
+A large jug of water sits in front of the tents.
+
+
+> go to the small tent
+You are in the small tent.
+
+Inside the small tent, a bandit wearing a turban is sleeping on a mat.  A few small odds and ends decorate the tent but you need to get out of there quick before the man wakes up.
+A long staff with a green emerald leans up against the back of the small tent.
+
+> take staff
+Graham takes the staff.
+
+> out
+You are near two tents.
+
+Two tents sit next to each other in this area of the desert.  One larger tent seems to be more lively.  Graham can see drunken men shouting at a dancing harem girl.  They are apparently rejoicing over a recent plundering.
+The smaller tent seems to be vacant at the moment but it is hard to tell from out here.
+A large jug of water sits in front of the tents.
+
+
+> drink
+Using the ladle in the jug, Graham reaches in and has a refreshing sip of water.
+
+> e
+You are in the desert
+You can go north, south, east or west.
+Endless sand in all directions.
+
+> n
+You are in the desert
+You can go north, south, east or west.
+Endless sand in all directions.
+
+> n
+You are in the desert
+You can go north, south, east or west.
+Endless sand in all directions.
+
+> n
+You are at the oasis.
+
+You've reached the oasis.  What a pleasant relief to find among the desert sands.
+
+> drink
+Graham reaches down and has a refreshing sip of water.
+
+> e
+You are in the desert
+You can go north, south, east or west.
+Endless sand in all directions.
+
+> e
+You are in the desert
+You can go north, south, east or west.
+Endless sand in all directions.
+
+> e
+Graham is still wandering through the desert, however, he has stumbled upon a traveler who obviously did not find an oasis in time.  A skeleton ages old lies partially buried in the sand.
+An old worn shoe lies in the sand nearby.
+
+> take shoe
+Graham takes the shoe.
+
+> w
+You are in the desert
+You can go north, south, east or west.
+Endless sand in all directions.
+
+> n
+The heat of the desert sun is taking a toll on Graham.  He is beginning to feel dehydrated.  He needs to find an oasis soon.
+You are in the desert
+You can go north, south, east or west.
+Endless sand in all directions.
+
+> n
+You are in the desert
+You can go north, south, east or west.
+Endless sand in all directions.
+
+> n
+You are at the  opening in the cliff.
+
+You stand before a huge opening in the cliff to the north.  You can see a huge stone temple carved right into the side of the cliff.
+A small oasis sits near a small boulder.
+
+> drink
+Graham reaches down and has a refreshing sip of water.
+
+> n
+You are in front of the temple.
+
+This temple is carved directly into the face of the cliff!
+
+A single huge door towers above you but is sealed shut.
+
+> wave staff
+Graham waves the staff and bangs it against the large door.  "Open Sesame!"
+
+
+
+The staff shatters to pieces but the large stone door seemingly vaporizes creating an entrance into the stone temple.
+
+
+
+
+> enter
+You are in the temple.
+
+Graham is suddenly overwhelmed by the sight before him.  Mountains of gold coins and treasure boxes.  Jewelry strewn about everywhere.
+A gold coin is lying near the exit.
+A large lamp is lying near the exit.
+
+> take coin
+Graham takes the gold coin.
+
+> take large lamp
+Graham takes the lamp.
+
+> out
+Graham leaps out of the temple just as the stone door solidifies back.  That was a close one!
+
+
+
+
+You are in front of the temple.
+
+This temple is carved directly into the face of the cliff!
+
+A single huge door towers above you but is sealed shut.
+
+> s
+You are at the  opening in the cliff.
+
+You stand before a huge opening in the cliff to the north.  You can see a huge stone temple carved right into the side of the cliff.
+A small oasis sits near a small boulder.
+
+> drink
+Graham reaches down and has a refreshing sip of water.
+
+> e
+You are in the desert
+You can go north, south, east or west.
+Endless sand in all directions.
+
+> e
+You are in the desert
+You can go north, south, east or west.
+Endless sand in all directions.
+
+> s
+You are in the desert
+You can go north, south, east or west.
+Endless sand in all directions.
+
+> s
+You are at the oasis.
+
+You've reached the oasis.  What a pleasant relief to find among the desert sands.
+
+> drink
+Graham reaches down and has a refreshing sip of water.
+
+> e
+You are in the desert
+You can go north, south, east or west.
+Endless sand in all directions.
+
+> e
+You are in the desert
+You can go north, south, east or west.
+Endless sand in all directions.
+
+> e
+You are in the desert
+You can go north, south, east or west.
+Endless sand in all directions.
+
+> e
+You are in the desert
+You can go north, south, east or west.
+Endless sand in all directions.
+
+> e
+The heat of the desert sun is taking a toll on Graham.  He is beginning to feel dehydrated.  He needs to find an oasis soon.
+You are at the end of the forest.
+
+At the edge of the forest, the desert sands strangle what remaining grass tries to grow.  Further west is nothing but desert sand as far as you can see.
+
+> e
+You are at the path's end.
+
+The path and the river come to a short end here.  An old rotting tree looms spookily over the end of the main path.  Bees are buzzing noisily around a huge gaping hole in the tree trunk. 
+To the north, a dusty trail leads near what looks like a sand castle.  To the east is a small country inn.  To the west is nothing but desert.
+Even further north, you can see a wagon.
+"Oh, there you are, Graham!  I was starting to get worried."
+
+> n
+You are near a sand castle.
+
+A tall sand castle towers over the nearby shrubs.  Upon closer examination, Graham can see ants running all through and around the castle.   To the east is a house built into a tree.  To the west is nothing but desert.
+Further north, a wagon can be seen.
+
+> n
+You are in the northeastern clearing.
+
+In this clearing of the woods, the trees are sparse and it leads into desert sands to the west.
+A gypsy wagon is set up near the trees.  A gypsy is sitting in a rocker next to the wagon, eyeing you cautiously.
+
+> give coin to gypsy
+Graham approaches the gypsy.
+
+"Good day, sir.  Here is a gold coin.  May I see Madam Mushka?"
+
+The gypsy looks at the gold coin and says, "You may see Madam Mushka now."
+
+WARNING! (advisory)  The following sequence contians clues to the completion of this game.  If you wish to skip it, be sure to note any new items in your inventory.  Do you wish to skip?
+1) Yes
+2) No
+[choice] 1
+After a talk with the gypsy fortune-teller, Graham steps out of the wagon.
+
+
+> wear amulet
+Graham puts on the amulet and the jewel begins to glow so he tucks it away in his tunic.
+
+> s
+You are near a sand castle.
+
+A tall sand castle towers over the nearby shrubs.  Upon closer examination, Graham can see ants running all through and around the castle.   To the east is a house built into a tree.  To the west is nothing but desert.
+Further north, a wagon can be seen.
+
+> s
+You are at the path's end.
+
+The path and the river come to a short end here.  An old rotting tree looms spookily over the end of the main path.  Bees are buzzing noisily around a huge gaping hole in the tree trunk. 
+To the north, a dusty trail leads near what looks like a sand castle.  To the east is a small country inn.  To the west is nothing but desert.
+Even further north, you can see a wagon.
+
+> e
+You are in front of a small country inn.
+
+The main path continues on east and west in front of a small country inn.  In the back, you see a small barn with a large haystack sitting in front of it.  A worn path winds its way north between the barn and the inn.
+To the east is a small cottage.  To the west is a more barren area with an old rotting tree.  To the north you can make out a small house built into the bottom of a tree.
+
+> take haystack
+Graham reaches into the hay stack but is startled by a long strand of ants marching up to it.
+
+After several moments, the ants march back out of the hay stack and King Antony steps forward to address Graham,
+"Hello King Graham.  As promised, we provided our help the best way that we could and have found a golden needle that we will give to you.  Use it wisely and thanks again."
+After handing you the golden needle, King Antony follows his ants away from the hay stack.
+
+> e
+You are front of the small cottage.
+
+A small cottage sits off of the main path that runs parallel to the stream.  The cottage is made of stone and a small stone chimney reaches to the trees.  It seems someone is here as you can see licks of smoke creeping from the chimney.  An aging oak tree completes the picture that reaches its limbs across the length of the house out in front.  On the front of the cottage is a small sign.
+To the east is the entrance to the small town.  To the north is a clearing in the forest.  To the west is a small country inn.
+
+> n
+As Graham walks further down the path, he hears a loud squeal and turns to see a cat chasing a rat down the path.
+
+
+> throw shoe at cat
+In desperation, Graham throws the old shoe at the cat chasing the rat...
+
+
+
+The shoe strikes the path very close to the cat frightening him away instantly.
+
+The rat runs up to Graham.
+
+
+
+Thank you for helping me kind sir.  My poor children would have been left all alone if that cat had caught me.
+If there is something I can do for you in the future, I will certainly help you...
+
+Graham watches as the rat scurries back down the path and disappears near the small country inn further away.
+
+
+> n
+You are in the clearing.
+
+In the lighted clearing, it is more apparent that the forest contains wildlife.  A tree with a hollowed area on the trunk is inadvertently creating a bath for a blue bird.  The bird is minding its own business and chirping away as it splashes around in the makeshift bathtub.  
+To the east is an intersection in the path.  To the north is a dark area of the forest.  To the west is a small house built into the bottom of a tree.  To the south is a small cottage with light puffs of smoke rising slowly from the stone chimney.
+A prince sits nearby on a log sobbing.
+
+
+> n
+You are at the dark forest entrance.
+
+West of Crispin's house is an entrance to a very dark part of the forest.  The entrance is to the north.  You also see a sign that very clearly states "Enter at Your Own Risk".  You think it might be your imagination, but it seems as if pairs of eyes are watching you from within the forest.
+The path continues to the west where you can see a broad ray of sunshine illuminating a weeping willow tree.  To the south, the path leads into a lighted clearing.
+
+> n
+You are in the dark forest
+You can go south, east or west.
+Graham walks into the dark forest and is surprised at how quickly it grows dark.  The trees are so thick that they block out most of the sunlight shining through the canopy above.  Creatures make noises in the bushes all around.
+WARNING! (advisory)  It is well advised that you save your game before entering the dark forest.  Will you save the game?
+1) Yes
+2) No
+[choice] 2
+You were warned.  Be careful.
+
+> e
+You are in the dark forest
+You can go north or west.
+The forest trees and plant life are thick.  The path is almost covered.
+Suddenly, a nasty old witch appears in a puff of smoke and screams, "Get out of my forest!"
+She waves her hands together and a beam of magical light flies towards Graham...
+
+Luckily, the amulet that Graham is wearing deflected the ball of magic and it did not affect him.
+
+> give large lamp to old witch
+Graham gives the lamp to the forest witch.  She takes it and eyes it with a look of curiousness.
+
+
+"What's this?"...
+
+The witch opens the lid to the lamp...
+
+A large genii comes from within the lamp in a cloud of smoke.  He notices the witch near the lamp.
+
+
+Now YOU spend the next 500 years in that lamp!
+
+
+The genii claps his hands and the witch disappears in a cloud of smoke and is instantaneously transported into the genii's bottle.
+
+
+
+The genii claps again and he and the bottle disappear in a magical puff of smoke leaving Graham alone in the forest.
+
+
+> look
+You are in the dark forest
+You can go north or west.
+The forest trees and plant life are thick.  The path is almost covered.
+
+> n
+In this part of the forest, a large tree sits off the path.  A small door is built directly into the trunk.
+
+> w
+At this part of the forest, a dreary crude house can be seen across a rickety bridge to the north.  The moat surrounding the house is filled with molten lava and the light cast from the lava creates and eerie display against the castle walls.
+
+> n
+Graham walks carefully over the rickety bridge and enters the small dreary castle.
+
+You are in the
+There is the chest, the dresser, the window and the skull here.
+You can go south.
+Inside the witch's house feels extremely cramped to Graham.  Many small pieces of furniture and other objects decorate the area in this room.  A small staircase leads further on but the opening is too small for Graham to fit through.  Seemingly, a tree has grown into the wall of the house and Graham can see a small dresser built directly into the tree.
+On the back wall of the room, a window-like crack in the wall sits above an interesting chest.  A skull hanging from the ceiling swings silently near the staircase.
+
+> open chest
+Graham opens the chest by the wall and sees a small spinning wheel.
+
+
+> take spinning wheel
+Graham takes the spinning wheel and closes the chest.
+
+
+> open drawer
+Graham opens the drawer in the dresser built into the trunk of the tree and sees a small brown pouch.
+
+
+
+> take brown pouch
+Graham takes the brown pouch from the dresser and closes the drawer.
+
+
+> examine skull
+Graham sees a small golden key inside of the hanging skull.
+
+
+> take small key
+Graham takes the golden key from the hanging skull.
+
+> open pouch
+Graham opens the pouch and finds three emeralds.
+
+
+> out
+At this part of the forest, a dreary crude house can be seen across a rickety bridge to the north.  The moat surrounding the house is filled with molten lava and the light cast from the lava creates and eerie display against the castle walls.
+
+> e
+In this part of the forest, a large tree sits off the path.  A small door is built directly into the trunk.
+
+> open door
+Graham fits the small gold key into the keyhole of the small door and it opens.  Inside, Graham can see a heart made of gold.
+
+
+> take gold heart
+Graham takes the golden heart from the tree and closes the small door.
+
+
+> w
+At this part of the forest, a dreary crude house can be seen across a rickety bridge to the north.  The moat surrounding the house is filled with molten lava and the light cast from the lava creates and eerie display against the castle walls.
+
+> w
+The forest trees and plant life are thick.  The path is almost covered.  There seems to be a path to the west but it is blocked by a large rock-shaped creature.  Many pairs of eyes are watching you from within the forest plants.
+
+> drop emerald
+Graham throws an emerald out onto the path a few feet in front of him.
+
+Out of the bushes, a small elf scurries onto the path, grabs the emerald and runs back into the bushes.
+
+
+> drop emerald
+Graham throws another emerald out onto the path a few feet in front of him but not as far as the first time.
+
+Out of the bushes, the small elf scurries onto the path as before, grabs the emerald and runs back into the bushes.
+
+
+> squeeze honey comb
+Graham thinks of a clever plan and squeezes all of the honey from the honeycomb onto the middle of the path.
+
+With the wax that remained, he rolled into a ball and put it back in his pocket.
+
+
+> drop emerald
+Graham throws the last emerald out onto the path right in front of him.
+
+Out of the bushes, the small elf scurries onto the path as before, grabs the emerald and Graham makes a grab for him...
+
+
+The elf, stuck in the honey, cannot run away allowing Graham to snatch him up.
+
+
+"Put me down!" the angry and frightened little elf cries.
+
+
+"Now why should I do that?  You're just going to run away."
+
+"I promise I won't if you just let me down.  I will show you how to get out of this forest."
+
+"It's against my better judgement...but ok."
+
+Graham sets the elf back on the ground.
+
+
+"Move over, Rocky!"
+Suddenly, the large rock-like creature blocking the western path begins to move...
+
+
+"Uhhh, sorry..."
+The creature moves off the path and Graham can see that the path extends further west.
+
+
+> w
+You are in the elves' cavern.
+
+The elves' cavern is huge.  There are only two exits.  One from which Graham came (up the ladder) and a tunnel leading south.
+Graham follows the elf into the cavern.
+
+
+"Kind sir, since you kept your word and let me go, I would like to offer you this finely crafted pair of elf shoes."
+The elf hands Graham a pair of beautifully crafted shoes with gold buckles.
+
+
+"These are amazing!  Thank you so much.  Now how do I get out of this confounded forest?"
+
+"Oh yes.  Just follow that tunnel to the south and you will find your way out soon enough!  Good luck, sir!"
+Before Graham has a chance to say anything further, the little elf turns and runs into the shadows.
+
+
+> s
+Graham follows the tunnel.
+
+Above the surface, Cedric is minding his own business when a fallen log begins to shudder and finally rolls to one side.
+
+Out of the hole in the ground appears Graham after finding his way through the elves' tunnel.
+
+
+"I was starting to get worried, Graham!"
+
+"I'm just glad I found my way out of that enchanted forest in one piece!"
+
+> w
+You are at the north pond.
+
+A pond in a dark part of the woods sits alone with no plant life growing near the edges.  
+
+A weeping willow tree stands in the center of the pond.  Oddly, it has a face and arms and continuously plays a sad tune on a harp.
+
+
+> give gold heart to weeping willow
+Graham gives the golden heart to the weeping willow tree.
+
+
+"Oh my goodness!  Is that my heart!?"
+
+The tree reaches out for the heart and takes it from Graham.  She puts it in a hole in her trunk and magically begins to change into a human woman.
+
+
+Coincidentally, as the tree changes back into a princess, her prince comes strolling up the path.
+
+
+"Darling, is that really you?"
+
+"Yes, my dear.  I'm perfectly fine now.  Let's leave this place and go to our own land."
+
+"Yes, lets."
+
+"I won't be needing this thing anymore."
+The princess tosses the harp aside and she and the prince walk away into the forest, leaving Graham and Cedric behind.
+
+
+> take harp
+Graham picks up the harp.
+
+
+> w
+You are in the northeastern clearing.
+
+In this clearing of the woods, the trees are sparse and it leads into desert sands to the west.
+A small tambourine sits alone in the middle this clearing.  Apparently, the owner left it behind.
+
+
+> take tambourine
+Graham picks up the tambourine.
+
+
+> e
+You are at the north pond.
+
+A pond in a dark part of the woods sits alone with no plant life growing near the edges.  
+
+
+> s
+You are in front of a tree house.
+
+In a small clearing of the forest, you find a very small house built into the bottom of an aging oak tree.  By the size of the door, it seems no human could possibly fit through it.   To the east is a clearing in the forest.  To the west is what appears to be a sand castle.  To the south is a small country inn.
+
+In front, sits an old gnome smoking a pipe.  A small child is sitting nearby playing with a marionette.
+
+> give spinning wheel to old gnome
+Graham approaches the old gnome smoking his pipe...
+
+
+"Sir, I found this spinning wheel and thought you might be interested in it.
+"
+
+"My spinning wheel!  Where did you find it?"
+
+I found it in the witch's house in the dark forest.
+
+
+"I thought that old hag had something to do with it.  She never could figure out how it worked.  That spinning wheel is no ordinary wheel.  It makes strands of pure gold.
+Now hand that over, son."
+
+"Hold on just a moment.  I went through a lot of trouble to come by this spinning wheel.  Don't you think that little boy's marionette would be an even trade?"
+
+The old gnome thinks for a moment and strokes his beard...
+
+"I suppose your right.  Give the man your marionette.  I can make you another one."
+
+
+The boy obeys and gives his marionette to Graham.
+
+Graham in turn gives the spinning wheel to the old gnome and both the gnome and the boy walk away and disappear down the path.
+
+
+> s
+You are in front of a small country inn.
+
+The main path continues on east and west in front of a small country inn.  In the back, you see a small barn with a large haystack sitting in front of it.  A worn path winds its way north between the barn and the inn.
+To the east is a small cottage.  To the west is a more barren area with an old rotting tree.  To the north you can make out a small house built into the bottom of a tree.
+
+> e
+You are front of the small cottage.
+
+A small cottage sits off of the main path that runs parallel to the stream.  The cottage is made of stone and a small stone chimney reaches to the trees.  It seems someone is here as you can see licks of smoke creeping from the chimney.  An aging oak tree completes the picture that reaches its limbs across the length of the house out in front.  On the front of the cottage is a small sign.
+To the east is the entrance to the small town.  To the north is a clearing in the forest.  To the west is a small country inn.
+
+> e
+You are at the town entrance.
+
+Smoke rises from chimney tops as you approach the town.  The sounds of everyday life are evident.  A cow is in a pen eating from a trough.  The stream flows busily alongside of the town blocking any further passage south.  To the east is the town itself.  To the west, Graham can see smoke coming from a single chimney.
+
+> e
+"I think I'll just stay out here until you get back, Graham.  I had a nasty run-in with a dog last time."
+
+You are in the town.
+
+As you walk on the cobblestone street, townspeople walk up and down minding their own business and walking in and out of the town's quaint little shops.  The only open shops are the tailor's shop, the toy shop, and the shoemaker's shop.  There is a barrel at the entrance to the alley.  The street leads back to the west towards the path.
+
+> go to the Tailor's Shop
+You are in the tailor's shop.
+
+Inside the shop, you first notice the sales clerk behind the counter measuring pieces of fabric.  In the back, a noisy customer complains about the garments that he is trying on in the dressing room.  Another busy clerk does his best to assist him.
+The sales clerk notices you,
+"Hello there, how fare you today?"
+
+> give golden needle to sales clerk
+Graham approaches the sales clerk.
+
+"Good day, sir.  Would you take this golden needle as payment for the cloak?"
+
+The sales clerk's eyes widen with excitement upon seeing the golden needle, "Heavens!  I have never seen such a beautiful golden needle.  Of course you can have the cloak."
+
+The sales clerk walks to the blue cloak on display and hands it to you.  I hope this bides you well on your quest.
+
+Thank you, sir.  I'm sure it will indeed.
+
+> out
+You are in the town.
+
+As you walk on the cobblestone street, townspeople walk up and down minding their own business and walking in and out of the town's quaint little shops.  The only open shops are the tailor's shop, the toy shop, and the shoemaker's shop.  There is a barrel at the entrance to the alley.  The street leads back to the west towards the path.
+
+> go to the Toy Shop
+You are in the toy shop.
+
+The toy shop is filled with a variety of toys.  The shop owner seems to be an older fellow with a full gray beard and small spectacles.  He is standing behind the counter watching a small boy playing with a broken toy train.
+The shop owner notices you walking into his shop,
+"Good day.  Please let me know if you need assistance."
+
+> give marionette to toy shop owner
+Graham approaches the toy shop owner...
+
+
+"Good day, sir.  I have come upon this fine crafted marionette that I thought you might be interested in."
+
+Graham takes out the marionette and shows it to the toy shop owner.
+
+
+"Young man!  Where did you get such a finely crafted marionette?"
+
+"It was given to me actually, but I have no need for such a toy.  Do you think it would be enough of a trade for that sled you have on the wall?"
+
+"Of course.  Please take it and enjoy."
+
+Graham takes the small sled and tucks it into his belongings.  The toy shop owner gets back to his business.
+
+
+> out
+You are in the town.
+
+As you walk on the cobblestone street, townspeople walk up and down minding their own business and walking in and out of the town's quaint little shops.  The only open shops are the tailor's shop, the toy shop, and the shoemaker's shop.  There is a barrel at the entrance to the alley.  The street leads back to the west towards the path.
+
+> go to the shoemaker's shop
+You are in the shoemaker's shop.
+
+In the shoemaker's shoe repair shop, it is quite noticable that no shoes are on the shelves.  There's nothing much of interest at all.
+
+Graham can see the shoe maker hammering the sole of a single shoe.  The old shoe maker's wife sweeps the floor around the shop while their rather skinny dog sits in a corner.
+
+> give nice shoes to shoemaker
+Graham holds out the shiny shoes to the shoe maker and his wife.
+
+
+"What's that you've got there son.  Martha, get those from the young man."
+
+The shoe maker's wife takes the shoes from Graham and brings them to her husband.
+
+
+"Look at these!  They are flawless.  Perfectly cut and sewn.  And the gold buckles!  I could sell these and retire!
+How can I ever repay you?"
+
+"Your happiness is all that I need."
+
+"Well, that's very kind of you.  Come on, Martha, let's go home.
+I guess I won't be needing this anymore.  Here, young man, if you can use a hammer, it's all yours."
+
+The old shoe maker hands Graham the hammer and then he and his wife walk out the door.  Their dog wakes up and follows them out leaving Graham alone in the shoe shop.
+
+
+> out
+You are in the town.
+
+As you walk on the cobblestone street, townspeople walk up and down minding their own business and walking in and out of the town's quaint little shops.  The only open shops are the tailor's shop, the toy shop, and the shoemaker's shop.  There is a barrel at the entrance to the alley.  The street leads back to the west towards the path.
+
+> w
+You are at the town entrance.
+
+Smoke rises from chimney tops as you approach the town.  The sounds of everyday life are evident.  A cow is in a pen eating from a trough.  The stream flows busily alongside of the town blocking any further passage south.  To the east is the town itself.  To the west, Graham can see smoke coming from a single chimney.
+
+> w
+You are front of the small cottage.
+
+A small cottage sits off of the main path that runs parallel to the stream.  The cottage is made of stone and a small stone chimney reaches to the trees.  It seems someone is here as you can see licks of smoke creeping from the chimney.  An aging oak tree completes the picture that reaches its limbs across the length of the house out in front.  On the front of the cottage is a small sign.
+To the east is the entrance to the small town.  To the north is a clearing in the forest.  To the west is a small country inn.
+
+> w
+You are in front of a small country inn.
+
+The main path continues on east and west in front of a small country inn.  In the back, you see a small barn with a large haystack sitting in front of it.  A worn path winds its way north between the barn and the inn.
+To the east is a small cottage.  To the west is a more barren area with an old rotting tree.  To the north you can make out a small house built into the bottom of a tree.
+
+> enter inn
+Which door is Graham going to enter?
+1) front door
+2) side door
+[choice] 1
+"I think I'll just stay out here until you get back, Graham.  That place is a little too rough for me."
+
+WARNING ADVISORY!  There is a chance you could die in the inn.  There's also a chance you could get 'stuck' if certain measure have not already been taken.  It is advised that you save your game here if you wish to explore the inn.  Will you save now?
+1) Yes
+2) No
+[choice] 2
+
+You were warned!
+
+
+
+You are in the small country inn
+There is the innkeeper and men here.
+You can go out to the small country inn -outdoors.
+The inn is rather empty aside from the rough looking clerk behind the counter.  He is having a conversation with two other roughly dressed men.  They are just out of earshot so Graham can't hear what they are saying.
+
+> listen to men
+Graham walks further into the lobby of the inn and overhears the men talking.
+
+
+"So where did you hide the money from that job we pulled the other day?"
+
+"Don't worry, it's in a safe place where no one will find it..."
+
+"Hey, where did you come from?"
+The innkeeper notices Graham nearby.
+
+"I was just looking for a place to stay the night."
+
+The innkeeper walks out from behind the counter.
+
+"I think you were eavesdropping on us."
+
+"What should we do wid him boss?"
+
+"Rub 'im out!"
+
+Graham feels a sharp pain on the back of his head.
+
+A while later, he finds himself tied very tight with rope in the bottom of what appears to be the basement of the inn.
+
+
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+The coil of rope lies on the basement floor.
+
+
+Struggle as he might, Graham cannot free himself from the rope.
+
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+While Graham continues to struggle, the rat that he saved comes out from the mouse hole.
+
+It starts biting the rope and finally, the ropes loosen from Graham and fall to the floor.
+
+
+"I'm glad I was able to help you.  Good luck on your journey.
+Oh, that is my children calling for me now.  I must go."
+
+The rat turns and disappears into the mouse hole.
+
+Graham is now free to move around.  The rope is lying nearby.
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+The coil of rope lies on the basement floor.
+
+
+> look
+You are in the basement.
+
+In the basement of the small country inn, it is very dark and dingy.  The only light comes from a torch high on the wall.  The door to the basement has a large lock on the handle.  There is a small mouse hole in one corner.
+The coil of rope lies on the basement floor.
+
+
+> take rope
+Graham takes the rope.
+
+
+> break lock
+Graham hits the lock on the basement door with the hammer and it breaks free.
+
+
+> n
+You are inside the inn's kitchen.
+
+The kitchen in this part of the small country inn contains several pieces of kitchen furnishings.  There is a pantry in one corner and other odds and ends.  There is a doorway leading to another part of the inn.  There is a door to the west that is currently closed.
+
+> open pantry
+Graham opens the pantry and sees a full leg of lamb.
+
+
+> take lamb
+Graham takes the leg of lamb and closes the door to the pantry.
+
+> w
+Graham opens the door and walks outside.
+
+You are in front of a small country inn.
+
+The main path continues on east and west in front of a small country inn.  In the back, you see a small barn with a large haystack sitting in front of it.  A worn path winds its way north between the barn and the inn.
+To the east is a small cottage.  To the west is a more barren area with an old rotting tree.  To the north you can make out a small house built into the bottom of a tree.
+
+> e
+You are front of the small cottage.
+
+A small cottage sits off of the main path that runs parallel to the stream.  The cottage is made of stone and a small stone chimney reaches to the trees.  It seems someone is here as you can see licks of smoke creeping from the chimney.  An aging oak tree completes the picture that reaches its limbs across the length of the house out in front.  On the front of the cottage is a small sign.
+To the east is the entrance to the small town.  To the north is a clearing in the forest.  To the west is a small country inn.
+
+> n
+You are in the clearing.
+
+In the lighted clearing, it is more apparent that the forest contains wildlife.  A tree with a hollowed area on the trunk is inadvertently creating a bath for a blue bird.  The bird is minding its own business and chirping away as it splashes around in the makeshift bathtub.  
+To the east is an intersection in the path.  To the north is a dark area of the forest.  To the west is a small house built into the bottom of a tree.  To the south is a small cottage with light puffs of smoke rising slowly from the stone chimney.
+
+> e
+You are on the town path.
+
+A single stream of sunlight parts the branches and barely illuminates the dirt path before you.  You come upon a dirt road intersection that goes in different directions.  To the west, is another path that winds into the forest.  To the south, you can definitely make out the activity of the town.  To the east, a path leads up into the mountains.
+A rattlesnake blocks the passage east into the mountains.
+
+
+> scare snake
+Graham rattles the tambourine scaring the snake.
+
+It uncoils and turns away writhing off the path.
+
+
+> e
+You are on the mountain path.
+
+There is not much too see up in this part of the snow peaked mountains.  The path leads on to the north.
+
+> wear cloak
+Graham puts on the blue cloak and feels much warmer.
+
+> n
+You are on the mountain path.
+
+There is not much too see up in this part of the snow peaked mountains.  The path ends abruptly at the edge of the mountain.
+Above on the side of a cliff, Graham can see a tree branch protruding from the snow covered plateau and a bit of rock jutting outwardly a few feet from the tree branch.
+Just above these seems to be a sturdy place to stand if there were only some way to reach it.
+
+> eat lamb
+Graham eats half of the leg of lamb but decides to save the other half for later.
+
+> throw rope
+Where should Graham throw the rope?
+1) branch
+2) rock
+[choice] 2
+Graham ties a loop on the end of the rope and hurls it up towards the rock.
+
+The loop of the rope lands its mark on the end of the rock and Graham gives it a yank tightening the end.
+
+The rope is now ready to climb.
+
+
+> climb rope
+Graham climbs the rope and pulls himself up onto the ledge above.
+
+You are on the west side of the mountain path.
+
+On this snowy level of the cliff, the path onward to the east is separated by a rather large gap.  It certainly is too far for a man to jump.
+Cedric lands on a nearby rock and says, "Watch out for that gap, Graham!"
+
+
+WARNING! (advisory)  The following puzzles could possibly result in death.  Will you save the game?
+1) Yes
+2) No
+[choice] 2
+You were warned.  Be careful.
+
+> cross gap
+Graham notices several step-like rocks jutting out from the side of the cliff along the gap.
+Walking very carefully, he steps on each rock making sure that it is stable before continuing.
+After a few brief minutes, he makes it to the other side.
+
+
+You are on the east side of the mountain path.
+
+On this side of the large gap, the path continues to the east.  Passage to the west is separated by the large gap.
+
+> e
+You are at the top of the slope
+At the top of the slope, there is nothing much of interest.  If only there were some way to slide down the slope, Graham might be able to cross the large gap at the bottom.
+
+> ride sled
+Graham pulls out the sled he received from the toy shop.  After taking a few steps back, he runs and jumps on the sled at the top of the slope and slides all the way down.
+
+
+At the base of the slope, Graham picks up enough speed and when the sled hits the ramp of snow, Graham and the sled soar over the large gap and lands with a crash on the other side.
+
+
+The sled breaks into many large pieces.  It doesn't quite matter because there is no further need for it.
+
+You are at the base of the slope
+On the other side of the gap, Graham can let out a sigh of relief knowing that he made it across on the sled without hurting himself.  He is unable to go back now so his only choice is to continue east.
+
+> e
+On this part of the path, Graham can see a fascinating castle made entirely of ice to the north.
+A pitiful-looking eagle is sitting on a branch nearby.
+
+
+> give lamb to eagle
+Graham gives the remaining half of the leg of lamb to the eagle.
+
+
+"Oh thank you, kind sir..."
+
+The eagle quickly eats the leg of lamb and casts the bone off of the mountain.
+
+
+"If there is any way I can help you on your journey, I will certainly do what I can.  Thank you eternally."
+
+The eagle flies off his perch and disappears into the mountain tops.
+
+
+> n
+As Graham nears the ice castle on the snowy path, two wolves come out of it and lead him inside.
+
+
+You are in the ice witch's castle
+
+The outside light glistens and sparkles off the icy surfaces of the ice witch's castle.  The ice witch sits high at the top of staircase glaring down at Graham.
+The inside of the ice castle shimmers and sparkles as the light hits the ice from all angles.
+The wolves lead Graham to the bottom of an ice staircase.
+
+
+At the top of the staircase, sits a woman dressed in dark blue and wearing a crown made of ice.
+She looks at Graham coldly.
+
+
+One of the wolves growls, "Bow before the ice queen".
+
+The queen begins to speak, "Foolish human!  Who are you that trespasses on my land?"
+
+"I apologize for trespassing, my lady.  I am King Graham of Daventry.  I have lost my family and I am on a quest to find them.  And if you..."
+
+"SILENCE!  I have heard enough.  If you think your sad story is enough to soften my heart, you are mistaken.  Guards, take him away."
+
+A wolf on either side of Graham begin to walk slowly towards him.  Something tells him that they are not just going to lead him to a dungeon.
+He better do something quick!
+
+
+> play harp
+Graham begins to play a beautiful song on the harp.
+
+"Halt!" the ice witch raises her hands to the wolves and they stop in their tracks.
+
+
+"I found that music to be very beautiful.  In fact, I felt my heart melt...a little bit.
+But enough, in fact, to allow you to rescue yourself and your friend."
+
+"To the east, is my emerald cave.  A yeti has inhabited it and will not leave.  If you can find a way to get rid of the yeti, I will set you and your friend free."
+
+Graham stands up straight with confidence, "I will take care of your yeti."
+
+
+The queen directs one of the wolves to escort Graham to the cave.
+After a short distance, the wolf stops and says, "You will find the yeti's cave just over there to the east.  Do not return until you have taken care of him."
+
+
+You are at the mountain path intersection
+
+The narrow rocky bridge ends here at an intersection in the mountain path.  To the east lies the emerald cave.  To the south, the path turns around the corner of the cliff.  Back to the west, the wolf blocks the way to the ice witch's castle.
+
+
+> e
+You are in front of the yeti's cave
+
+The path ends here at the entrance to the yeti's cave.  The snow covered rocks are of no interest to Graham.  The opening to the cave is plenty large enough for an average human to enter.
+
+> throw pie at yeti
+Graham throws the custard pie just in the nick of time and it hits the yeti in the face.  
+
+The yeti stumbles around a bit and loses its footing and slips off the edge of the cliff plummeting to its death. 
+
+Graham has defeated the yeti!
+
+...be sure to explore the cave before you leave!
+
+> n
+You are in the yeti's cave
+
+Inside the yeti's cave is illuminated by hundreds of crystals growing from the base of the cave.  The outside light reflecting off each crystal creates a dazzling display of sparkling light.
+
+One large crystal near Graham catches his attention.
+
+> take crystal
+Graham knocks the crystal loose with the cobbler's hammer and takes the crystal.
+
+
+> s
+You are in front of the yeti's cave
+
+The path ends here at the entrance to the yeti's cave.  The snow covered rocks are of no interest to Graham.  The opening to the cave is plenty large enough for an average human to enter.
+
+> w
+You are at the mountain path intersection
+
+The narrow rocky bridge ends here at an intersection in the mountain path.  To the east lies the emerald cave.  To the south, the path turns around the corner of the cliff.  Back to the west, the wolf blocks the way to the ice witch's castle.
+
+
+> speak to wolf
+"You have killed the yeti.  Come with me."
+
+The wolf leads Graham back up the rocky bridge towards the ice witch's castle.
+
+
+You are in the ice witch's castle
+
+The outside light glistens and sparkles off the icy surfaces of the ice witch's castle.  The ice witch sits high at the top of staircase glaring down at Graham.
+Graham notices that Cedric is here but he is locked in a cage made of icicles.
+
+Once inside, the wolves once again stand on either side of Graham while the witch speaks:
+
+
+"King Graham, you have proven yourself worthy.  I see that you have rid us of the yeti and I will keep my word.  You may continue with your quest."
+
+The witch raises her hand towards Cedric's cage and the bars of ice evaporate.
+
+
+The witch looks back at Graham, "Go now, may your journey be safe."
+
+
+"Thank you."  The witch directs the wolf to take Graham and Cedric back to the intersection of the mountain.
+
+
+You are at the mountain path intersection
+
+The narrow rocky bridge ends here at an intersection in the mountain path.  To the east lies the emerald cave.  To the south, the path turns around the corner of the cliff.  Back to the west, the wolf blocks the way to the ice witch's castle.
+
+
+> s
+You are on a rocky slope
+
+A rocky slope seems to reach up to the only passage from this rocky area.
+
+> up
+Graham climbs up the slope and just barely has a chance to see where he has climbed to before a large two-headed roc swoops down and grabs Graham by the shoulders.
+
+
+The roc carries Graham by the shoulders over the rocky terrain.
+In the distance, a large bird's nest has been built atop a tall rock towering over the valley.
+
+
+You in the roc's nest
+
+The large roc seems to have brought Graham to her hatching babies for breakfast.  Graham finds himself in front of a huge egg that begins to hatch.  In horror, Graham backs away from the egg as a two-headed roc emerges and quickly spots Graham.
+
+In his panic, Graham stumbles backwards and suddenly notices a golden locket lying within his reach in the nest.
+
+
+> take locket
+Graham picks up the locket while the baby roc cracks out of its shell.
+
+The two-headed baby bird grabs a hold of Graham's cloak and begins to gobble it up.
+...but just before the baby roc can devour Graham, a voice calls out, "I'm coming King Graham!"
+
+Graham looks up to see the eagle that he had given the lamb to flying towards the nest.  He swoops down and rescues Graham by grabbing him by the shoulders.
+
+
+Several minutes later, the eagle drops Graham off at a deserted beach.  Cedric was able to follow and meet up with him here.
+
+
+"Are you alright, Graham?"
+
+"I'm fine, Cedric.  Thank you."
+
+This area of the beach is where the eagle dropped Graham off.  To the north, a small waterfall is visible.  To the south, Graham can see a small house made from the hull of a ship.
+
+
+> take iron bar
+Graham picks up the iron bar.
+
+
+> n
+You are on the beach
+
+A waterfall from the rocky cliff pours into the ocean here churning up the saltwater.  To the east is open sea.
+
+
+
+> use wax on boat
+Graham takes out the beeswax left over from the honeycomb and wedges it into the hole of the boat.
+
+
+> take boat
+Graham gets into the boat and is ready to sail. (type N,S,E,W to sail in the desired direction)
+
+
+You are on open sea
+
+
+> e
+You are on open sea
+
+
+> e
+You are on open sea
+
+
+> e
+You are on open sea
+
+
+> s
+You are on open sea
+
+
+> e
+Graham steers the sailboat onto the beach and steps out onto the sand of the small island.
+
+
+Graham lands the boat on the sandy beach of the island and gets out of the boat.
+
+
+While Graham is taking in the new scenery, a screech comes from the west side of the cliff.
+
+
+Harpies!!
+Graham tries to make a run for it but a group of three angry harpies swoop from the sky and grab Graham and Cedric before they can get away.
+
+
+Two of the harpies carry Graham to the east side of the mountain as he watches another harpie carry Cedric away to the west side of the mountain.
+
+
+The harpies fly to a clearing and drop Graham onto the path's end at the top of the cliff and perch themselves on a rocky ledge to discuss what to do with him.
+
+
+Graham spends a brief moment marveling over the strangeness of these humanlike creatures and then realizes quickly that he must do something or these females with batwings will most likely eat him.
+
+
+> play harp
+What's that he's playing?
+
+"I don't know but I want it!"
+
+The three harpies rush towards Graham and yank the harp from his hands.  In a matter of seconds, they disappear to another part of the island.
+
+
+> take fishing hook
+Graham picks up the fishing hook.
+
+
+> s
+You are on the island's path
+
+This is a small path that connects the beach to the top of the path on the cliff.  There is not much of interest here.
+
+Off of the path lies Cedric beaten pretty badly almost to the point of unconsciousness.
+The harpies are nowhere to be seen.
+
+
+
+> take Cedric
+Graham gently picks up Cedric from the island path.
+
+
+> s
+You are on the beach of an island
+
+The island is small but mostly occupied by a large steep mountain.  By the looks of it, a path seems to lead up through the mountain to a cliff area.
+
+A large conch shell sits nestled in the sand on the beach.
+
+
+> take shell
+Graham picks up the shell from the sandy beach.
+
+
+> take boat
+Graham gets into the boat and is ready to sail. (type N,S,E,W to sail in the desired direction)
+
+
+You are on open sea
+
+
+> s
+You are on open sea
+
+
+> w
+You are on open sea
+
+
+> w
+You are on open sea
+
+
+> w
+You are on open sea
+
+
+> w
+Graham steers the sailboat onto the beach and steps out onto the sand.
+
+
+You in front of a beach house
+
+On this section of the beach, a worn down house made from the hull of a ship sits quietly near the rocks.  Smoke is rising from the chimney so someone must be home.
+
+
+> ring bell
+Graham rings the bell and a few seconds later, an old man appears at the door.
+
+
+> give shell to old man
+Graham hands the shell to the old man.
+
+The old man holds the shell up to his ear, "Now what was it that you were trying to tell me, sonny?"
+
+
+> speak to old man
+"You say your little owl friend was injured by the harpies?  I don't doubt it.  They can be vicious.  Bring him on in."  The old man holds the door open allowing Graham to carry Cedric into the house.
+
+
+Graham carries Cedric inside the old man's house.  The walls are littered with ropes and other sailing decorations.
+
+
+"Put your friend on the table.  I have some herbs that will help heal his injuries."
+Graham complies and sets Cedric gently on the table.
+
+
+A look of concern comes over Graham's face, "Is he going to be ok?"
+
+
+"Oh, he'll be alright in a matter of minutes.  Now while I fix him up, why don't you share how you ended up way out here."
+Graham explained the story of his family and his castle and began speaking of Mordack.  Suddenly, the old man's squinting eyes seemed to open just a little bit at the sound of Mordack's name.
+
+
+"What's that you say, sonny?  Mordack the wizard?  I advise against going to his island castle.  But if you're set on going, I wish you the best of luck and I know someone who can take you there after your friend recovers."
+
+
+Cedric begins to recover and opens his eyes.
+The three of them finish discussing the matter of Mordack's castle and the old man picks up a whistle made from a shell and walks outside while Graham and Cedric follow.
+
+
+The old man blows on the whistle and moments later, a beautiful mermaid appears in the water.
+The old man tells her what Graham wishes to do and she nods her head.
+
+
+"Hehe, she doesn't speak much but she will take you where you want to go.  I wish you good luck in finding your family, Graham."
+
+
+"Thank you, kind sir.  I will never forget this."
+Graham and Cedric board the sailboat and the mermaid turns to head out to sea.
+
+
+A few hours later, a dark island shrouded with clouds appears on the horizon.  The mermaid stops and points at the island and then disappears into the sea.
+
+
+Graham continues sailing the boat towards the island.
+As he gets closer, he notices that there is no soft sandy shore.  It's all rocks!
+
+
+The boat slams hard into the rocks shattering it to pieces and sending Graham and Cedric onto the hard shore.
+
+
+Graham sits up and looks over at Cedric lying nearby, "Cedric, are you ok?"
+
+
+Cedric shakes his wings and feels to see if he's alright.  "I'm fine, Graham.  This island gives me the creeps."
+
+
+The rocky shore of Mordack's island castle holds nothing of interest.
+A dead fish lies nearby.
+
+
+> take fish
+Graham picks up the fish from the shore.
+
+
+> n
+You are on the dark island's path
+
+The path on the island leads up from the rocky shore to a short bridge leading to the castle itself.  Just before the bridge on either side of the path, stand two very tall statues of dragons.  The head of each dragon seems to be angled down towards the center of the path.  The eyes of the dragons seem to be emeralds or crystals and they glow brighter as Graham steps closer.
+
+> use crystal on statues
+Graham realizes that the eyes of the dragons seem to be similar to the emeralds that he saw in the ice witch's cave.
+He holds it high above his head as he proceeds to walk between the statues.
+
+
+Graham begins to hear the low humming of some sort of energy coming from the statues.  As Graham steps between the statues on the path, the eyes of both dragons light up brightly and a strong bolt of electricity fires down at Graham.
+
+
+Graham grips the crystal strongly as the electricity seemingly becomes consumed into the crystal and fires back in the direction it came.
+
+
+The bolts of electricity fire into the eyes of the dragon statues shattering the emeralds and leaving smoking holes in the eye sockets.
+The crystal that Graham was holding also disintegrates under the intense stress of the electric bolts.
+
+
+It is now safe for Graham to proceed.
+
+
+> n
+With the statues now diffused, Graham passes between them safely.
+
+
+You are in front of Mordack's castle
+
+Mordack's castle looms before you.  The dark clouds shroud the top of the castle and bolts of lightening crackle across the sky.
+
+> w
+You are at the side of Mordack's castle
+
+The path ends abruptly at the side of the castle.  The walls are unscalable.  A few thin vines grow up the side of the wall.
+
+> open grate
+Graham pries open the grate using the iron bar and props it open.
+
+
+> down
+"C'mon, Cedric, let's go!" Graham says.
+
+
+"No, that's ok, Graham.  You go on ahead.  It looks a little too dark for me down there.  I'll stay up here and wait for you."
+
+
+"If you say so."  Graham eases himself into the opening and drops into a dark hallway that seems to run under the castle walls.
+
+
+This is the part of the maze underneath the grate where Graham dropped in. 
+There is a grate here.
+
+> s
+You are in a maze of seemingly identical corridors
+You can go north, south or east.
+
+> e
+You are in a maze of seemingly identical corridors
+You can go east or west.
+
+> e
+You are in a maze of seemingly identical corridors
+You can go north, south or west.
+
+> n
+You are in a maze of seemingly identical corridors
+You can go south or east.
+
+> e
+You are in a maze of seemingly identical corridors
+You can go north or west.
+
+> n
+You are in a maze of seemingly identical corridors
+You can go south or east.
+
+> e
+You are in a maze of seemingly identical corridors
+You can go north, east or west.
+
+> n
+You are in a maze of seemingly identical corridors
+You can go north or south.
+
+> n
+You are in a maze of seemingly identical corridors
+You can go south, east or west.
+
+> e
+You are in a maze of seemingly identical corridors
+You can go north or west.
+
+> n
+In this area of the maze, it is evident that a creature has roamed through here.
+
+> use tambourine on monster
+I can't see that here.
+
+> take hair pin
+You don't see any hair pin.
+
+> s
+You are in a maze of seemingly identical corridors
+You can go north or west.
+
+> n
+In this area of the maze, it is evident that a creature has roamed through here.
+
+> use tambourine on monster
+I can't see that here.
+
+> take hair pin
+You don't see any hair pin.
+
+> s
+You are in a maze of seemingly identical corridors
+You can go north or west.
+
+> n
+In this area of the maze, it is evident that a creature has roamed through here.
+
+> use tambourine on monster
+Graham shakes the tambourine and the creature becomes entranced with it and grabs it from Graham's hands.
+As it bounders off down the hallway, a small hair pin flies off of the creature's hairy back.
+
+
+> take hair pin
+Graham picks up the hairpin.
+
+
+
+> s
+You are in a maze of seemingly identical corridors
+You can go north or west.
+
+> n
+In this area of the maze, it is evident that a creature has roamed through here.
+
+> use tambourine on monster
+You don't have that.
+
+> take hair pin
+You already have it.
+
+> s
+You are in a maze of seemingly identical corridors
+You can go north or west.
+
+> n
+
+As Graham walks into this section of the maze, he is quite startled at the sight of a creature here!
+
+> use tambourine on monster
+You don't have that.
+
+> take hair pin
+You already have it.
+
+> s
+You are in a maze of seemingly identical corridors
+You can go north or west.
+
+> n
+
+As Graham walks into this section of the maze, he is quite startled at the sight of a creature here!
+
+> use tambourine on monster
+You don't have that.
+
+> take hair pin
+You already have it.
+
+> s
+You are in a maze of seemingly identical corridors
+You can go north or west.
+
+> n
+
+As Graham walks into this section of the maze, he is quite startled at the sight of a creature here!
+
+> use tambourine on monster
+You don't have that.
+
+> take hair pin
+You already have it.
+
+> s
+You are in a maze of seemingly identical corridors
+You can go north or west.
+
+> n
+
+As Graham walks into this section of the maze, he is quite startled at the sight of a creature here!
+
+> use tambourine on monster
+You don't have that.
+
+> take hair pin
+You already have it.
+
+> s
+You are in a maze of seemingly identical corridors
+You can go north or west.
+
+> n
+
+As Graham walks into this section of the maze, he is quite startled at the sight of a creature here!
+
+> use tambourine on monster
+You don't have that.
+
+> take hair pin
+You already have it.
+
+> s
+You are in a maze of seemingly identical corridors
+You can go north or west.
+
+> n
+
+As Graham walks into this section of the maze, he is quite startled at the sight of a creature here!
+
+> use tambourine on monster
+You don't have that.
+
+> take hair pin
+You already have it.
+
+> s
+You are in a maze of seemingly identical corridors
+You can go north or west.
+
+> n
+
+As Graham walks into this section of the maze, he is quite startled at the sight of a creature here!
+
+> use tambourine on monster
+You don't have that.
+
+> take hair pin
+You already have it.
+
+> s
+You are in a maze of seemingly identical corridors
+You can go north or west.
+
+> n
+
+As Graham walks into this section of the maze, he is quite startled at the sight of a creature here!
+
+> use tambourine on monster
+You don't have that.
+
+> take hair pin
+You already have it.
+
+> s
+You are in a maze of seemingly identical corridors
+You can go north or west.
+
+> n
+
+As Graham walks into this section of the maze, he is quite startled at the sight of a creature here!
+
+> use tambourine on monster
+You don't have that.
+
+> take hair pin
+You already have it.
+
+> s
+You are in a maze of seemingly identical corridors
+You can go north or west.
+
+> n
+
+As Graham walks into this section of the maze, he is quite startled at the sight of a creature here!
+
+> use tambourine on monster
+You don't have that.
+
+> take hair pin
+You already have it.
+
+> s
+You are in a maze of seemingly identical corridors
+You can go north or west.
+
+> n
+
+As Graham walks into this section of the maze, he is quite startled at the sight of a creature here!
+
+> use tambourine on monster
+You don't have that.
+
+> take hair pin
+You already have it.
+
+> s
+You are in a maze of seemingly identical corridors
+You can go north or west.
+
+> n
+
+As Graham walks into this section of the maze, he is quite startled at the sight of a creature here!
+
+> use tambourine on monster
+You don't have that.
+
+> take hair pin
+You already have it.
+
+> s
+You are in a maze of seemingly identical corridors
+You can go north or west.
+
+> n
+
+As Graham walks into this section of the maze, he is quite startled at the sight of a creature here!
+
+> use tambourine on monster
+You don't have that.
+
+> take hair pin
+You already have it.
+
+> s
+You are in a maze of seemingly identical corridors
+You can go north or west.
+
+> n
+
+As Graham walks into this section of the maze, he is quite startled at the sight of a creature here!
+
+> use tambourine on monster
+You don't have that.
+
+> take hair pin
+You already have it.
+
+> s
+You are in a maze of seemingly identical corridors
+You can go north or west.
+
+> n
+
+As Graham walks into this section of the maze, he is quite startled at the sight of a creature here!
+
+> use tambourine on monster
+You don't have that.
+
+> take hair pin
+You already have it.
+
+> s
+You are in a maze of seemingly identical corridors
+You can go north or west.
+
+> n
+
+As Graham walks into this section of the maze, he is quite startled at the sight of a creature here!
+
+> use tambourine on monster
+You don't have that.
+
+> take hair pin
+You already have it.
+
+> s
+You are in a maze of seemingly identical corridors
+You can go north or west.
+
+> n
+
+As Graham walks into this section of the maze, he is quite startled at the sight of a creature here!
+
+> use tambourine on monster
+You don't have that.
+
+> take hair pin
+You already have it.
+
+> s
+You are in a maze of seemingly identical corridors
+You can go north or west.
+
+> n
+
+As Graham walks into this section of the maze, he is quite startled at the sight of a creature here!
+
+> use tambourine on monster
+You don't have that.
+
+> take hair pin
+You already have it.
+
+> s
+You are in a maze of seemingly identical corridors
+You can go north or west.
+
+> n
+
+As Graham walks into this section of the maze, he is quite startled at the sight of a creature here!
+
+> use tambourine on monster
+You don't have that.
+
+> take hair pin
+You already have it.
+
+> s
+You are in a maze of seemingly identical corridors
+You can go north or west.
+
+> n
+
+As Graham walks into this section of the maze, he is quite startled at the sight of a creature here!
+
+> use tambourine on monster
+You don't have that.
+
+> take hair pin
+You already have it.
+
+> s
+You are in a maze of seemingly identical corridors
+You can go north or west.
+
+> n
+
+As Graham walks into this section of the maze, he is quite startled at the sight of a creature here!
+
+> s
+You are in a maze of seemingly identical corridors
+You can go north or west.
+
+> w
+You are in a maze of seemingly identical corridors
+You can go south, east or west.
+
+> w
+You are in a maze of seemingly identical corridors
+You can go east or west.
+
+> w
+You are in a maze of seemingly identical corridors
+You can go north or east.
+
+> n
+You are in a dark gloomy room
+
+The room is completely bare and featureless except for a single door to the north.
+
+> open door
+Graham maneuvers the hair pin into the lock of the door and unlocks it quite quickly.
+
+He then opens the door and proceeds north.
+
+
+You are in the castle's pantry
+
+Upon exiting the maze, Graham finds himself in the pantry below the castle.  There is a closed cabinet here amongst other useless items.
+
+
+> open cabinet
+Graham opens the cabinet and sees a bag of dried peas.
+
+
+> take peas
+Graham takes the bag of dried peas.
+
+
+
+
+> n
+You are in the castle's kitchen
+
+The kitchen of Mordack's castle is dimly lit from the fireplace on the north end of the room.  Shadows from the hanging chandelier dance eerily on the stone walls.  There are many items in here that pertain to cooking duties.  They seem to be of no interest.  
+In the center of the kitchen a young beautiful girl dressed in old raggedy clothing is washing the floor.
+
+> give locket to Cassima
+Graham approaches the slave girl and presents the golden locket.
+
+
+The girl begins to shy away but then looks at the locket and looks up at Graham.  After a few moments, she reaches out and takes the locket from Graham's hand.
+
+
+Graham clears his throat and speaks, "Young maiden, how long have you been kept a prisoner in this castle?"
+
+
+The girl begins to speak with Graham, "I do not know exactly how long I have been here.  I was kidnapped from my home by Mordack the wizard a long time ago.  I know my parents must be dreadfully worried about me."
+
+
+"That is very sad.  Please allow me to introduce myself.  I am King Graham of Daventry and I have traveled very far to find Mordack and rescue my family and find my castle."
+
+
+"I am princess Cassima of the Land of the Green Isles.  My parents are the King and Queen of the Isles.
+I don't know if I can help but I believe I have seen your family and your castle."
+
+
+Graham's heart skipped a beat, "Heavens be praised!  They are still alive?"
+
+
+"Oh yes.  They seem to have been shrunken down in size and are being kept in a large glass jar in the laboratory upstairs.  
+Be very careful when you go up there.  If you see a black cat along the way, it actually is a wizard that was changed into a cat and if he sees you, he will go tell Mordack."
+
+
+"Thank you, princess Cassima.  I am forever grateful for your help."
+
+
+"Oh please call me Cassima.  By the way, if you have to go back into the maze, don't be too alarmed by Dink.  He's quite tame as long as you don't get too close."
+
+
+"Oh yes, I ran into him out there.  Quite the extravagant creature.
+I thank you again, Cassima.  I will not forget you.  Once I have rescued my family, I will surely come back for you."
+
+
+"You are a kind sir.  I have to get back to work for now but if I can find a way to help you, I will.
+
+
+Cassima goes back to work on the kitchen floor.
+
+
+> e
+You are in the organ room
+
+As soon as Graham walks into the room, he gets an eerie feeling that eyes are watching him.  At a closer look, there is a ceramic head above the doorway that he just walked through and one across the hall above the other doorway.  The eyes of the heads watch Graham closely as he walks through the hallway.
+On the north end of the hallway sits a strange pipe organ.  A dragon's head extends from the organ and also watches Graham.
+
+> e
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+A strange blue creature has entered the room and is charging towards Graham.
+
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+The creature is quickly advancing towards Graham.  He better do something quick!
+
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+The creature grabs Graham and a portal opens up in the wall.
+The creature carries him through the portal and appears in the dungeon.
+
+
+
+Graham gets rudely tossed onto the dungeon floor and the creature backs through the strange door and it vanishes leaving no exit door available.
+
+
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+Just as Graham is doubting his escape, a stone on the west wall begins to wiggle.
+
+
+The stone pushes inward and falls to the dungeon floor.
+
+Cassima sticks her head in and whispers, "Come this way Graham.  With all of the time that I've had to explore this maze, I found a secret way out of the dungeon."
+
+
+Cassima ducks back out of the hole allowing Graham a way out of the dungeon.
+
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> examine mouse hole
+Upon closer examination, Graham can see a small piece of cheese just within the mouse hole.
+
+
+> use fishing hook on cheese
+Graham pulls the cheese from the mouse hole using the hook and puts it away.  Surely, this piece of cheese can be used for something.
+
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> look
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+
+> west
+You are in the dungeon
+
+Faint beams of light shine from a grating on the ceiling.  Unfortunately, it's quite far out of reach.  The door from whence the creature tossed Graham into has vanished without a trace.  Dripping water against the dirty stone floor is the only sound that can be heard.
+On the north wall, a small mouse hole can be seen.
+Graham follows Cassima back through the maze and through the wooden door leading into the pantry.
+
+
+You are in the castle's pantry
+
+Upon exiting the maze, Graham finds himself in the pantry below the castle.  There is a closed cabinet here amongst other useless items.
+
+
+> n
+You are in the castle's kitchen
+
+The kitchen of Mordack's castle is dimly lit from the fireplace on the north end of the room.  Shadows from the hanging chandelier dance eerily on the stone walls.  There are many items in here that pertain to cooking duties.  They seem to be of no interest.  
+In the center of the kitchen a young beautiful girl dressed in old raggedy clothing is washing the floor.
+
+> e
+You are in the organ room
+
+As soon as Graham walks into the room, he gets an eerie feeling that eyes are watching him.  At a closer look, there is a ceramic head above the doorway that he just walked through and one across the hall above the other doorway.  The eyes of the heads watch Graham closely as he walks through the hallway.
+On the north end of the hallway sits a strange pipe organ.  A dragon's head extends from the organ and also watches Graham.
+
+> e
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+A strange blue creature has entered the room and is charging towards Graham.
+
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> look
+You are in the north end of the dining room
+
+On the north end of the room sits the huge dining room table.  At least a dozen chairs line the sides.  Several five-tiered candlesticks burn dimly down the center of the table.  Other than a few decorations, there is nothing more of interest in this room.
+
+> spill peas
+Graham releases the entire bag of dried peas onto the floor.
+
+
+The creature steps on them and loses its balance and stumbles over knocking itself unconscious.
+
+
+Graham realizes although he has defeated the creature, it is a temporary defeat.  The creature could awaken at any moment.  Perhaps this is a good time to make his escape further into the castle.
+
+
+> s
+You are in the south end of the dining room
+
+On this end of the dining room, the scenery is less furnished.  The only thing that catches Graham's eye is a knight of armor but there is nothing special about it.
+
+> w
+You are in the treasure room
+
+This must be Mordack's treasure room.  Large, intricate statues fill this room sparkling with gold and other gems.  A staircase on the north wall leads to the upper level of the castle.
+
+> throw fish to cat
+Graham tosses the dead fish to the black cat and it immediately starts eating and is now completely distracted from what Graham is doing.
+
+
+> use empty bag on cat
+I can't see that here.
+
+> up
+You are in the upstairs hallway
+
+The hallway connecting the upstairs rooms is very dark and is only accented by a large flaming torch in the center.
+
+> w
+You are in Mordack's room
+
+A creepy bed sits in one corner of the room.  Next to it sits a bed stand and a closet.  To the south seems to be the opening to Mordack's library.
+
+
+> s
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> read book
+Graham looks closely at the open page of the large book.
+
+
+He can't read the language that the spells are written in but four pictures catch his eye.
+
+
+One seems to represent rain.
+
+
+Another seems to represent a weasel.
+
+
+Another seems to represent a rabbit.
+
+
+
+And the last one seems to represent a tiger.
+
+
+Graham commits them to memory.  
+There is nothing of further interest in the book.
+
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+As Graham looks around the library, a puff of light can be seen through the doorway into Mordack's room.
+
+
+Mordack has appeared in his bedroom and set his wand on the nightstand next to his bed and now has fallen fast asleep.
+
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> look
+You are in the library
+
+For a small library, it seems cramped with hundreds of old books sitting on the shelves.  A desk sits in one part of the room with a large book open.
+In this small room, Mordack's bed can clearly be seen through the doorway.
+
+> n
+You are in Mordack's room
+
+A creepy bed sits in one corner of the room.  Next to it sits a bed stand and a closet.  To the south seems to be the opening to Mordack's library.
+
+Mordack is asleep in his bed.  Be very careful not to wake him!
+
+
+> take Mordack's wand
+Graham picks up Mordack's wand quickly.
+
+
+> e
+You are in the upstairs hallway
+
+The hallway connecting the upstairs rooms is very dark and is only accented by a large flaming torch in the center.
+
+> e
+You are in the laboratory
+
+The laboratory is a very large room.  A stairway immediately to the left leads to the upper section of the laboratory where a strange machine can be seen from the ground floor.
+An enormous fireplace sits against the east wall with a ventilation shaft leading up and out through the ceiling.  On either side of the shaft are windows where most of the room's light is coming from.
+Magic trinkets and other type of chemical substances clutter laboratory tables on the sides of the room.
+Among the bottles and jars, Graham notices a very large jar on the edge of one of the tables containing a miniature castle.
+
+> up
+You are in the laboratory's balcony
+
+At the top of the laboratory's staircase is a small balcony that overhangs a portion of the main laboratory below.  In the balcony sits a strange machine.
+
+> use Mordack's wand on machine
+Graham lays Mordack's powerful wand on an empty tray of the strange machine.
+
+
+> use crispin's wand on machine
+Graham places Crispin's dormant wand onto an empty tray of the strange machine.
+
+
+> use cheese on machine
+Graham tosses the piece of moldy cheese into the bubbling liquid of the strange machine.
+
+
+The bubbling liquid begins to churn and bubble violently.
+
+
+Bolts of electricity begin to shoot up through the coils and copper wires over the entire machine.
+
+
+The metallic cone hanging above Mordack's wand begins to glow and several bursts of electricity shoot downward consuming the wand entirely.
+
+
+The bursts stop and then the other metallic cone above Cripsin's wand begins to glow in the same manner.
+Several bursts of electricity begin to activate Crispin's wand.
+
+
+Finally the machine dies down leaving Mordack's wand completely drained of its power and Crispin's wand pulsing with full magical power.
+
+
+> take crispin's wand
+Graham picks up Crispin's wand from the tray and can immediately feel the magical power flowing through it.
+
+
+A few moments later, Mordack appears in the entry of the laboratory downstairs.
+
+
+Graham steps forward to the edge of the balcony so he can see the laboratory.
+
+
+"What are you doing with my wand, you swine!" Mordack waves his hands and his wand sails through the air and into his waiting hand.
+
+
+"You will be a hindrance no more!"  
+Just as Mordack begins to wave his wand...
+
+
+"Graham, I have just heard from Crispin and he will be on his way to help..."
+It was Cedric!  He flew in through the laboratory windows.
+
+
+At that moment, a ray of magic shoots from Mordack's wand and hits Cedric as he accidentally intercepted the path of the magic spell.
+
+
+Cedric immediately turned to stone and fell to the floor.
+"Cedric!" shouted Graham.
+
+
+Mordack waves his wand again but only a few sparkles fizzle through the end.
+"What did you do to my wand?  Do not underestimate my powers, little man..."
+
+
+Mordack waves his arms and suddenly his whole body begins to glow.
+Graham watches in awe and horror as Mordack started to grow and change into a large flying insect.
+
+
+Mordack (as an insect) flies up to the upper level of the laboratory and hovers just above Graham.
+Now is the time for Graham to pull a trick or two out of his hat!
+
+
+> cast spell
+Graham waves his wand and prepares to cast a spell from the large book from Mordack's library.
+
+
+book
+1) tiger
+2) rabbit
+3) weasel
+4) rain
+[choice] 1
+Graham casts the tiger spell on himself and he immediately changes form into a tiger.
+
+
+Graham (as the tiger) begins jumping up on his hind legs and clawing at Mordack (as the insect).
+
+
+"Grrrrrrraaaahhhh!!!" cries Mordack.
+Mordack flies back down to the lower area of the laboratory and Graham jumps down ready to attack.
+
+
+"You think you're pretty smart, Graham...Let's see how you handle a little fire."  Mordack begins to grow very large and changes into a ferocious dragon.
+
+
+> cast spell
+Graham waves his wand and prepares to cast a spell from the large book from Mordack's library.
+
+
+book
+1) tiger
+2) rabbit
+3) weasel
+4) rain
+[choice] 2
+Graham casts the rabbit spell on himself and he immediately changes form into a rabbit.
+
+
+Mordack (as the dragon) begins blowing fireballs down at the floor.  Graham (as the rabbit) easily hops out of harm's way with each blast.
+
+
+"Rrrooooaaarrr!" Mordack is visually frustrated at Graham's trick.  He begins to shrink down to a smaller size.
+
+
+Mordack changed himself into a king cobra!  He begins to slither towards Graham (as the rabbit).
+"Let'sssss ssseee how you handle thissss..."
+
+
+> cast spell
+Graham waves his wand and prepares to cast a spell from the large book from Mordack's library.
+
+
+book
+1) tiger
+2) rabbit
+3) weasel
+4) rain
+[choice] 3
+Graham casts the weasel spell on himself changing him into the form of a weasel instantly.
+
+
+Mordack (as the cobra) slithers up to Graham (as the weasel) and tries to bite at him.
+
+Using quick weasel reflexes, Graham jumps up and bites the neck of the king cobra and shakes his head violently.
+
+
+"Aaahhh!  Cursssessss!" Mordack slithers away quickly.
+
+
+"Thisss isss the end of you, Graham!" Mordack screams as he begins to change into a very real ring of fire across the floor surrounding Graham entirely.
+
+
+> cast spell
+Graham waves his wand and prepares to cast a spell from the large book from Mordack's library.
+
+
+book
+1) tiger
+2) rabbit
+3) weasel
+4) rain
+[choice] 4
+Graham casts the rain spell on himself and a small rain cloud immediately appears over his head and begins to pour down heavy rain on Graham.
+
+
+Mordack (as the fire) surrounds Graham and the rain pours down on both of them washing out the fire.
+
+
+Mordack is gone!  Graham has won!
+
+
+Graham, in bewilderment, looks around the laboratory.  Mordack's ashes smolder as the last of the burning embers fizzle away.
+
+
+He looks at poor Cedric lying on the floor of the laboratory and he looks at his family in the large glass jar.
+
+
+As he ponders what to do next and how he would possibly get everyone home, a puff of smoke appears behind Graham.
+
+
+"Confound it...Oh wonderful.  Graham, I'm glad to see you are still alive."  It was Crispin.  Although he missed the show, hopefully he could help restore everything to normal.
+
+
+"You just missed it, Crispin.  Somehow I transferred the power from Mordack's wand into the wand that you gave me and I was able to counter his black magic.  He changed into a ring of fire and I created a rain spell that killed him."
+
+"I see, you washed him out, did you?  hee hee... That old wizard won't be bothering anyone anymore."
+Crispin rolls up his sleeves to prepare to send Graham's family home...
+
+
+Graham interruptsCrispin, "Crispin, when Mordack came into the room, Cedric flew in through the window and got in the way of a spell that was meant for me.  He's now lying as a stone statue over there on the floor."
+
+Crispin looks over at Cedric.  "I think I can handle this.  'ahem'....HOCUS POCUS!"  Crispin waves him arms and sends a magic spell into Cedric's stone body and he suddenly begins to move.
+
+
+"Oh dear...What happened to me?  I feel ok now but...oh, Crispin!  I was just telling Graham that you were on your way!"
+
+
+"Yes, Cedric.  Graham defeated Mordack and now it's time to put everything back to normal.  Now where is your family, Graham?"
+
+
+"Right over there, sir."
+Graham points to the large jar on the laboratory table.
+
+
+Crispin waves his hands at the jar and says, "Alakazam!".
+
+In a flash of light, Graham's wife Valanice and his two children Rosella and Alexander appear next to Graham completely unharmed.
+
+
+"My joy knows no boundaries!"  Graham hugs all of his family members.
+
+As they are reuniting, someone walks in through the laboratory door.
+
+
+"King Graham?..."  Graham turns around towards the voice.  It is Cassima!
+"Princess Cassima, please come in and meet my family."  Cassima casually walks up and greets each family member.  When she gets to Alexander, he steps forward...
+
+
+"It is lovely to meet you, m' lady."    Alexander kisses her hand.    "I am glad my father was able to rescue you from Mordack.  His evil was more than I have ever known."
+
+
+"You are a very kind person, Alexander.  If you are ever able to visit the Land of the Green Isles, you have my open invitation..."  Alexander was sure he could see the slightest hint of a twinkle in her eye.
+
+
+Crispin speaks, "Ok, princess...let's send you home."
+After she gives Graham, Alexander and his family final good-byes, she turns to Crispin and says, "I am ready..."
+
+
+Crispin waves his wand towards Cassima and says, "Hoggily Poggily Poo!"
+A flash of magic shoots out and engulfs the princess and she instantly disappears.
+
+
+"I hope she made it home alright.  I shall have to visit her very soon."  Alexander says worriedly.
+
+
+"I can assure you, she is just fine, Alexander."  Crispin looks over at the miniature castle in the jar.  "Now let's take care of your castle…Sendus Luminous!"
+A flash of light engulfs the castle and it instantly disappears.
+
+
+"Now King Graham, it's time to send you and your family home!  I assure you that you will find your castle back in its proper place as if it had always been there."
+
+
+"I don't know how I can thank you, Crispin…and you, Cedric."  Grahams smiles.
+
+"All in a day's work, Graham."  Crispin chuckles, "Now let's go!…Abara Cadarba…er…Abcadara…"
+
+
+"hmmph, what was that blasted spell?"
+
+
+"oh yes!"
+
+
+"ABARA CADABARA!"  a flash of light engulfs Graham's entire family and they instantly appear outside of their castle.
+
+
+"My heart is bursting with joy!  I never thought I would see my family or my castle ever again!"
+
+
+Graham and his family walk hand in hand toward their castle and they lived HAPPILY EVER AFTER…
+
+
+…until King's Quest VI
+
+
+You had a final score of 259 out of 260 and I thank you for playing.
+
+
+CREDITS:
+
+Full adaptation to text:  Steve Lingle
+Super Beta-Tester/Debugger:  Adam Scura
+Desert sequence creator:  Tr0n (aka Computer Whizz)
+Mordack's maze creator:  MaDbRiT  (unfortunately the sequence was changed for flow purposes)
+Helpful Hints and suggestions: I Think I'm Dead
+Quest Software:  Alex
+Original King's Quest Series creator:  Roberta Williams
+
+~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~
+You have successfully completed the FULL version of King's Quest V - The Text Adventure!  I hope you enjoyed yourself.
+~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!~
+
+Please go back to http://www.axeuk.com or http://www.textadventures.co.uk/ and play my first original game, "Get Out of The House."
+Currently in production is the working title "Get Out of The Really Big House".
+
+[runner] turns=662 leftover=0 running=false WON=YES

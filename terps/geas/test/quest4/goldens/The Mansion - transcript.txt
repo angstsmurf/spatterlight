@@ -1,0 +1,3598 @@
+
+The Mansion, v1.0 Nick Dablin
+
+It's 3:30 in the morning. The phone's ringing. Who could it be at this time of night? You stretch, yawn, and reach for the receiver lying on your bedside table.
+"Hello. Who is this?" you ask impatiently.
+A voice at the other end says that it's the police. Your uncle, a noted scientist, has been found dead.
+Shocked, you quickly pull on some clothes. It's quite a drive to the station, but you get there and identify the body. You feel quite sick to the stomach. Your uncle was your only living relative. Something isn't right though. Apparently, he died of a heart attack. But he was only 55, and had never had any history of heart problems.
+A few days later, you learn that you have inherited everything your uncle owned - his wealth and his huge mansion in the country. Wearily, you pull up on the gravel drive outside the house. Time to investigate the house for any clues to his death...
+
+
+
+*** THE MANSION ***
+
+
+You are standing at the west end of the Entrance Hall.
+You can go north, south, east or west.
+The gothic architecture of the mansion lends a creepy feel to the entrance hall. Candles light the room. 
+
+You can go EAST to the other side of the entrance hall. 
+There is also a door to the WEST.
+You can see a glass-paned door to the NORTH. Through it, a garden of some sort is visible.
+The front door is SOUTH.
+
+> east
+You are standing at the eastern end of the Entrance Hall.
+There is a Staircase here.
+You can go east or west.
+You can go to Cupboard under the stairs.
+You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
+
+You can also go WEST to the other side of the entrance hall from here.
+A door leads EAST.
+
+> go to cupboard under the stairs
+You are in the tiny Cupboard under the stairs.
+There is Red Herring here.
+You can go out to Entrance Hall.
+This cramped cupboard contains little of any value.
+
+> out
+You are standing at the eastern end of the Entrance Hall.
+There is a Staircase here.
+You can go east or west.
+You can go to Cupboard under the stairs.
+You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
+
+You can also go WEST to the other side of the entrance hall from here.
+A door leads EAST.
+
+> west
+You are standing at the west end of the Entrance Hall.
+You can go north, south, east or west.
+The gothic architecture of the mansion lends a creepy feel to the entrance hall. Candles light the room. 
+
+You can go EAST to the other side of the entrance hall. 
+There is also a door to the WEST.
+You can see a glass-paned door to the NORTH. Through it, a garden of some sort is visible.
+The front door is SOUTH.
+
+> west
+You are at the east end of the Gallery.
+There is a Dining Room Painting here.
+You can go north, east or west.
+This appears to be an art gallery of some sort. There are paintings on the walls, and various plinths with busts, vases and other works of art. All the art seems to be dark and disturbing. Only one piece stands out amongst the paintings of sorcerers and dark clouds - a mundane image of the dining room of this house.
+
+There is a door to the EAST.
+You can go WEST to the other side of the gallery.
+There is a small, battered wooden door to the NORTH.
+
+> look at dining room painting
+It's a painting of the dining hall of this mansion. It is easily removable from the frame.
+
+> examine dining room painting
+Upon closer inspection of the painting, you notice that there's a strange carving in the floor of the dining hall, where the table should be.
+The very edge of the painting has been clipped with two pieces of metal, one at the top, one at the bottom.
+
+> north
+You are in the Art Supplies Storage Room.
+There is a Vase here.
+You can go south.
+This small room is little more than a cupboard. It contains marble plinths, empty picture frames, and a few odds and ends, all covered by white dust sheets. A single, bare, flickering 40-watt bulb barely lights the room.
+
+The only exit is SOUTH, back to the art gallery.
+
+> take vase
+You pick up the vase. As you lift it from the floor, it emits a small rattling sound.
+
+> drop vase
+You drop the vase. It smashes on the floor. A key falls out of the pottery pieces. You take it.
+
+> south
+You are at the east end of the Gallery.
+There is a Dining Room Painting here.
+You can go north, east or west.
+This appears to be an art gallery of some sort. There are paintings on the walls, and various plinths with busts, vases and other works of art. All the art seems to be dark and disturbing. Only one piece stands out amongst the paintings of sorcerers and dark clouds - a mundane image of the dining room of this house.
+
+There is a door to the EAST.
+You can go WEST to the other side of the gallery.
+There is a small, battered wooden door to the NORTH.
+
+> west
+You are at the west end of the Gallery.
+You can go north, east or west.
+This is the western side of the art gallery. Works of art line the walls. Most of the pictures seem to be quite dark in nature - gothic castles, thunderstorms and such like. The sculptures are disturbing - a bust of a face contorted into a scream of anguish, and a vase with pictures representing a tribal sacrifice around the rim.
+
+There is a door to the NORTH.
+Another door leads WEST.
+EAST will take you to the other end of the gallery.
+
+> west
+You are at the south end of the Music Room.
+There is Grand Piano and the Gold Flute here.
+You can go north or east.
+This room seems to have been used for storing and playing instruments.
+
+You can go NORTH to the other end of the music room.
+EAST is a fine wooden door.
+
+> take gold flute
+You pick up the gold flute. It's quite heavy.
+
+> north
+You are at the north end of the Music Room.
+There is the Requiem of Open Doors here.
+You can go south or east.
+This is the north end of the music room. Sheet music lies scattered on a desk under the window.
+
+SOUTH will take you to the other end of the music room.
+There is a door to the EAST.
+
+> take requiem of open doors
+You take the piece of music.
+
+> south
+You are at the south end of the Music Room.
+There is Grand Piano here.
+You can go north or east.
+This room seems to have been used for storing and playing instruments.
+
+You can go NORTH to the other end of the music room.
+EAST is a fine wooden door.
+
+> use requiem of open doors with grand piano
+You play the Requiem of Open Doors on the piano. There is a click of a door unlocking faintly from somewhere in the house. It sounded like it came from the EAST.
+
+> east
+You are at the west end of the Gallery.
+You can go north, east or west.
+This is the western side of the art gallery. Works of art line the walls. Most of the pictures seem to be quite dark in nature - gothic castles, thunderstorms and such like. The sculptures are disturbing - a bust of a face contorted into a scream of anguish, and a vase with pictures representing a tribal sacrifice around the rim.
+
+There is a door to the NORTH.
+Another door leads WEST.
+EAST will take you to the other end of the gallery.
+
+> north
+You are in the West Hall.
+There is Plant Pot and an Electric Socket here.
+You can go north, south or west.
+You are in a small hallway. A dying plant sits in a pot on a table at the east side of the room.
+
+A door leads SOUTH.
+Another door will take you WEST.
+There is a third door to the NORTH.
+
+> north
+You are at the west end of a Corridor.
+You can go north, south or east.
+This short corridor runs from west to east. You are at the western end of it.
+
+A low door leads NORTH.
+The corridor continues EAST.
+A door leads SOUTH.
+
+> north
+You are in a small bathroom.
+There is a Mirror here.
+You can go south.
+This bathroom is serviceable. The sink has not been cleaned in a while and mildew is growing on the taps.
+
+The exit is SOUTH.
+
+> look at mirror
+It's a wide mirror. Someone's written on a post-it note and stuck it to the mirror.
+Do you wish to take the post-it note?
+1) Yes
+2) No
+[choice] 1
+You unstick the post-it note from the mirror.
+
+> south
+You are at the west end of a Corridor.
+You can go north, south or east.
+This short corridor runs from west to east. You are at the western end of it.
+
+A low door leads NORTH.
+The corridor continues EAST.
+A door leads SOUTH.
+
+> east
+You are at the east end of a Corridor.
+There is a Plinth here.
+You can go north, east or west.
+This is the eastern end of a short east-west corridor. A mirror hangs on the wall here.
+
+There is a glass panelled door to the EAST, leading outside.
+You can go WEST to the other end of the corridor.
+There is a door to the NORTH.
+
+
+> west
+You are at the west end of a Corridor.
+You can go north, south or east.
+This short corridor runs from west to east. You are at the western end of it.
+
+A low door leads NORTH.
+The corridor continues EAST.
+A door leads SOUTH.
+
+> south
+You are in the West Hall.
+There is Plant Pot and an Electric Socket here.
+You can go north, south or west.
+You are in a small hallway. A dying plant sits in a pot on a table at the east side of the room.
+
+A door leads SOUTH.
+Another door will take you WEST.
+There is a third door to the NORTH.
+
+> south
+You are at the west end of the Gallery.
+You can go north, east or west.
+This is the western side of the art gallery. Works of art line the walls. Most of the pictures seem to be quite dark in nature - gothic castles, thunderstorms and such like. The sculptures are disturbing - a bust of a face contorted into a scream of anguish, and a vase with pictures representing a tribal sacrifice around the rim.
+
+There is a door to the NORTH.
+Another door leads WEST.
+EAST will take you to the other end of the gallery.
+
+> east
+You are at the east end of the Gallery.
+There is a Dining Room Painting here.
+You can go north, east or west.
+This appears to be an art gallery of some sort. There are paintings on the walls, and various plinths with busts, vases and other works of art. All the art seems to be dark and disturbing. Only one piece stands out amongst the paintings of sorcerers and dark clouds - a mundane image of the dining room of this house.
+
+There is a door to the EAST.
+You can go WEST to the other side of the gallery.
+There is a small, battered wooden door to the NORTH.
+
+> east
+You are standing at the west end of the Entrance Hall.
+You can go north, south, east or west.
+The gothic architecture of the mansion lends a creepy feel to the entrance hall. Candles light the room. 
+
+You can go EAST to the other side of the entrance hall. 
+There is also a door to the WEST.
+You can see a glass-paned door to the NORTH. Through it, a garden of some sort is visible.
+The front door is SOUTH.
+
+> east
+You are standing at the eastern end of the Entrance Hall.
+There is a Staircase here.
+You can go east or west.
+You can go to Cupboard under the stairs.
+You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
+
+You can also go WEST to the other side of the entrance hall from here.
+A door leads EAST.
+
+> east
+You are standing in the Dining Hall.
+There is a Table here.
+You can go north, east or west.
+You are at the western end of a long dining hall. Crystal chandeliers hang from the ceiling above the long wood table that occupies most of the room.
+
+You can go EAST to the other end of the dining hall.
+A door lies to the WEST.
+A set of double doors is NORTH of here.
+
+> examine table
+The painting of the Dining Hall in the gallery showed a carving on the floor where the table is now. It's dark under the table. Perhaps you could move the table to see what's underneath.
+Do you wish to move the table aside?
+1) Yes
+2) No
+[choice] 1
+With some effort, you manage to push the table against the south wall.
+
+> examine mysterious carving
+The carving of the bull's head is quite shallow, except for the horns, where the carving is deep and rounded, as if you could fit some real horns in the holes.
+
+> east
+You are in Dining Hall
+There is the Drinks Cabinet here.
+You can go east or west.
+You are standing at the eastern end of the mansion's dining hall. This appears to be where your uncle kept his alcohol, as there is a large cabinet against the north wall. 
+
+A door leads EAST.
+WEST will take you to the other end of the dining hall.
+
+> examine drinks cabinet
+The cabinet doors are shut.
+Do you wish to open the drinks cabinet doors?
+1) Yes
+2) No
+[choice] 1
+You open the doors of the drinks cabinet.
+
+> examine drinks cabinet
+You've opened the cabinet doors and can see inside. There's something inside, but you can't make it out.
+Will you take the object?
+1) Yes
+2) No
+[choice] 1
+You reach in and pull out the dark object. Bringing it into the light reveals it to be a bottle.
+
+> west
+You are standing in the Dining Hall.
+There is a Mysterious Carving and a Table here.
+You can go north, east or west.
+You are at the western end of a long dining hall. Crystal chandeliers hang from the ceiling above the long wood table that occupies most of the room.
+
+You can go EAST to the other end of the dining hall.
+A door lies to the WEST.
+A set of double doors is NORTH of here.
+
+> north
+You are in the Kitchen.
+There is the Sink and a Fridge here.
+You can go south or east.
+This is the kitchen. It is quite empty. There's little modern technology here, only an old fridge and a gas stove.
+
+There is a door to the EAST.
+A set of double doors leads SOUTH.
+
+> east
+You have entered the Pantry.
+You can go west.
+This small room holds all kinds of dry foods.
+
+The way back to the kitchen is WEST.
+
+> west
+You are in the Kitchen.
+There is the Sink and a Fridge here.
+You can go south or east.
+This is the kitchen. It is quite empty. There's little modern technology here, only an old fridge and a gas stove.
+
+There is a door to the EAST.
+A set of double doors leads SOUTH.
+
+> south
+You are standing in the Dining Hall.
+There is a Mysterious Carving and a Table here.
+You can go north, east or west.
+You are at the western end of a long dining hall. Crystal chandeliers hang from the ceiling above the long wood table that occupies most of the room.
+
+You can go EAST to the other end of the dining hall.
+A door lies to the WEST.
+A set of double doors is NORTH of here.
+
+> west
+You are standing at the eastern end of the Entrance Hall.
+There is a Staircase here.
+You can go east or west.
+You can go to Cupboard under the stairs.
+You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
+
+You can also go WEST to the other side of the entrance hall from here.
+A door leads EAST.
+
+> look at staircase
+It's a wide set of stairs leading up to a landing above.
+Do you wish to ascend the staircase?
+1) Yes
+2) No
+[choice] 1
+You walk up the stairs and find yourself above the entrance hall.
+You are on the Entrance Hall Landing.
+There is a Staircase here.
+You can go east or west.
+This is the landing above the entrance hall. You can see over the rail into the entrance hall below.
+
+There is a door to the EAST.
+You can go WEST to the other side of the landing.
+
+> west
+You are on the west side of the Entrance Hall Landing.
+There is a Stone Shield here.
+You can go east or west.
+This is the west side of the landing above the entrance hall.
+
+You can go EAST to the other side of the landing.
+There is also a door to the WEST.
+
+> take stone shield
+The shield is quite heavy, but you pick it up.
+
+> west
+You are in a long corridor.
+You can go north, east or west.
+You are at the south end of a long corridor.
+
+You can go NORTH further up the corridor.
+There is a door to the WEST with the number 001 written above it.
+You can go EAST through another door.
+
+> north
+You are in the middle of a corridor.
+You can go north, south or west.
+This is the middle section of a long corridor running north to south. Windows to the east look out over the courtyard.
+
+You can go NORTH to the top of the corridor.
+You can go SOUTH to the other end of the corridor.
+A door leads WEST with a sign above it upon which is written 002.
+
+> north
+You are at the north end of the corridor.
+You can go north, south or west.
+This is the northern end of a long North-south corridor.
+
+You can go SOUTH further down the corridor.
+There's a door to the WEST.
+Another door leads NORTH.
+
+> west
+You are in the Dusty Store Room.
+There is a Ladder here.
+You can go north or east.
+This is a bare room with cobwebs and dust everywhere. There is nothing in the room, not even carpet, just a layer of dust inches thick. 
+
+There is a single set of footprints leading through the dust to a door to the NORTH.
+There is a door to the EAST.
+
+> look at ladder
+There's a ladder leading up through a hatch in the ceiling.
+Will you climb the ladder?
+1) Yes
+2) No
+[choice] 1
+You scale the dusty ladder and find yourself in a dingy attic space.
+You are on a dusty Landing.
+There is a Ladder here.
+You can go east.
+This is a dusty landing in the attic. The slope of the roof means that this room is very low.
+
+You can go EAST further along the attic.
+
+> east
+You are in a dim, dusty attic room.
+You can go east or west.
+A few dusty crates lie scattered about.
+
+An archway leads EAST between two wooden beams.
+The attic goes WEST.
+
+> east
+You are in the middle of a long corridor.
+You can go north, south or west.
+You are standing in a long corridor running north and south for the whole length of the attic.
+
+You can go NORTH or SOUTH along the corridor.
+An archway leads WEST.
+
+> north
+You are at the north end of the attic corridor.
+There is TV-VCR Combination here.
+You can go south.
+You are standing at the north end of a corridor running the length of the attic.
+
+You can go SOUTH down the corridor.
+
+> take tv-vcr combination
+You pick up the TV-VCR Combination.
+
+> south
+You are in the middle of a long corridor.
+You can go north, south or west.
+You are standing in a long corridor running north and south for the whole length of the attic.
+
+You can go NORTH or SOUTH along the corridor.
+An archway leads WEST.
+
+> south
+You are at the south end of the attic corridor.
+There is a Keypad here.
+You can go north or east.
+This is the south part of the attic corridor. There is nothing but empty boxes here.
+
+You can go NORTH back up the corridor.
+A door leads EAST.
+
+> examine keypad
+You can type a password on the keypad. But you don't know the password.
+
+> north
+You are in the middle of a long corridor.
+You can go north, south or west.
+You are standing in a long corridor running north and south for the whole length of the attic.
+
+You can go NORTH or SOUTH along the corridor.
+An archway leads WEST.
+
+> west
+You are in a dim, dusty attic room.
+You can go east or west.
+A few dusty crates lie scattered about.
+
+An archway leads EAST between two wooden beams.
+The attic goes WEST.
+
+> west
+You are on a dusty Landing.
+There is a Ladder here.
+You can go east.
+This is a dusty landing in the attic. The slope of the roof means that this room is very low.
+
+You can go EAST further along the attic.
+
+> look at ladder
+There's a ladder leading down through a hatch in the floor.
+Will you climb down the ladder?
+1) Yes
+2) No
+[choice] 1
+You climb down the ladder all the way to the bottom.
+You are in the Dusty Store Room.
+There is a Ladder here.
+You can go north or east.
+This is a bare room with cobwebs and dust everywhere. There is nothing in the room, not even carpet, just a layer of dust inches thick. 
+
+There is a single set of footprints leading through the dust to a door to the NORTH.
+There is a door to the EAST.
+
+> east
+You are at the north end of the corridor.
+You can go north, south or west.
+This is the northern end of a long North-south corridor.
+
+You can go SOUTH further down the corridor.
+There's a door to the WEST.
+Another door leads NORTH.
+
+> south
+You are in the middle of a corridor.
+You can go north, south or west.
+This is the middle section of a long corridor running north to south. Windows to the east look out over the courtyard.
+
+You can go NORTH to the top of the corridor.
+You can go SOUTH to the other end of the corridor.
+A door leads WEST with a sign above it upon which is written 002.
+
+> south
+You are in a long corridor.
+You can go north, east or west.
+You are at the south end of a long corridor.
+
+You can go NORTH further up the corridor.
+There is a door to the WEST with the number 001 written above it.
+You can go EAST through another door.
+
+> east
+You are on the west side of the Entrance Hall Landing.
+You can go east or west.
+This is the west side of the landing above the entrance hall.
+
+You can go EAST to the other side of the landing.
+There is also a door to the WEST.
+
+> east
+You are on the Entrance Hall Landing.
+There is a Staircase here.
+You can go east or west.
+This is the landing above the entrance hall. You can see over the rail into the entrance hall below.
+
+There is a door to the EAST.
+You can go WEST to the other side of the landing.
+
+> east
+You are at the south end of a short corridor running north to south.
+You can go north, east or west.
+This corridor is quite short. It has a black and white tiled floor.
+
+You can go NORTH to the other end of the corridor.
+There is a door WEST.
+There is another door to the EAST with the number 004 written beside it.
+
+> north
+You are at the north end of the black and white tiled corridor.
+You can go north, south or east.
+This is the north end of the short corridor. Windows to the west look out over the courtyard.
+
+There is a door to the NORTH.
+A door with 003 written on it leads EAST.
+The corridor continues to the SOUTH.
+
+> east
+You try the door labelled 003 but it's locked. Maybe the door has a key somewhere.
+
+> use key 003
+You use the Room 003 key on the door labelled 003. It fits and you unlock the door.
+
+> east
+You are in Room Three.
+You can go east or west.
+This room was labelled 003. It seems to be a guest bedroom. It's painted in bland shades of white, and a boring landscape painting hangs on one wall.
+
+WEST lies a door.
+Another door is EAST of this room.
+
+> east
+You are in the onsuite bathroom for Room 003.
+There is a Concrete Block here.
+You can go west.
+This is a small, sparsely decorated bathroom. It is dimly lit by the setting sun through the window in the east wall.
+
+The exit is WEST.
+
+> take concrete block
+You pick up the concrete block.
+
+> west
+You are in Room Three.
+You can go east or west.
+This room was labelled 003. It seems to be a guest bedroom. It's painted in bland shades of white, and a boring landscape painting hangs on one wall.
+
+WEST lies a door.
+Another door is EAST of this room.
+
+> west
+You are at the north end of the black and white tiled corridor.
+You can go north, south or east.
+This is the north end of the short corridor. Windows to the west look out over the courtyard.
+
+There is a door to the NORTH.
+A door with 003 written on it leads EAST.
+The corridor continues to the SOUTH.
+
+> south
+You are at the south end of a short corridor running north to south.
+You can go north, east or west.
+This corridor is quite short. It has a black and white tiled floor.
+
+You can go NORTH to the other end of the corridor.
+There is a door WEST.
+There is another door to the EAST with the number 004 written beside it.
+
+> west
+You are on the Entrance Hall Landing.
+There is a Staircase here.
+You can go east or west.
+This is the landing above the entrance hall. You can see over the rail into the entrance hall below.
+
+There is a door to the EAST.
+You can go WEST to the other side of the landing.
+
+> look at staircase
+It's a wide set of stairs leading down to the entrance hall below.
+Do you wish to descend the staircase?
+1) Yes
+2) No
+[choice] 1
+You walk down the stairs and find yourself in the entrance hall.
+You are standing at the eastern end of the Entrance Hall.
+There is a Staircase here.
+You can go east or west.
+You can go to Cupboard under the stairs.
+You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
+
+You can also go WEST to the other side of the entrance hall from here.
+A door leads EAST.
+
+> west
+You are standing at the west end of the Entrance Hall.
+You can go north, south, east or west.
+The gothic architecture of the mansion lends a creepy feel to the entrance hall. Candles light the room. 
+
+You can go EAST to the other side of the entrance hall. 
+There is also a door to the WEST.
+You can see a glass-paned door to the NORTH. Through it, a garden of some sort is visible.
+The front door is SOUTH.
+
+> west
+You are at the east end of the Gallery.
+There is a Dining Room Painting here.
+You can go north, east or west.
+This appears to be an art gallery of some sort. There are paintings on the walls, and various plinths with busts, vases and other works of art. All the art seems to be dark and disturbing. Only one piece stands out amongst the paintings of sorcerers and dark clouds - a mundane image of the dining room of this house.
+
+There is a door to the EAST.
+You can go WEST to the other side of the gallery.
+There is a small, battered wooden door to the NORTH.
+
+> west
+You are at the west end of the Gallery.
+You can go north, east or west.
+This is the western side of the art gallery. Works of art line the walls. Most of the pictures seem to be quite dark in nature - gothic castles, thunderstorms and such like. The sculptures are disturbing - a bust of a face contorted into a scream of anguish, and a vase with pictures representing a tribal sacrifice around the rim.
+
+There is a door to the NORTH.
+Another door leads WEST.
+EAST will take you to the other end of the gallery.
+
+> north
+You are in the West Hall.
+There is Plant Pot and an Electric Socket here.
+You can go north, south or west.
+You are in a small hallway. A dying plant sits in a pot on a table at the east side of the room.
+
+A door leads SOUTH.
+Another door will take you WEST.
+There is a third door to the NORTH.
+
+> use tv-vcr combination with electric socket
+You plug the TV-VCR Combination into the socket and place it on the table.
+
+> south
+You are at the west end of the Gallery.
+You can go north, east or west.
+This is the western side of the art gallery. Works of art line the walls. Most of the pictures seem to be quite dark in nature - gothic castles, thunderstorms and such like. The sculptures are disturbing - a bust of a face contorted into a scream of anguish, and a vase with pictures representing a tribal sacrifice around the rim.
+
+There is a door to the NORTH.
+Another door leads WEST.
+EAST will take you to the other end of the gallery.
+
+> east
+You are at the east end of the Gallery.
+There is a Dining Room Painting here.
+You can go north, east or west.
+This appears to be an art gallery of some sort. There are paintings on the walls, and various plinths with busts, vases and other works of art. All the art seems to be dark and disturbing. Only one piece stands out amongst the paintings of sorcerers and dark clouds - a mundane image of the dining room of this house.
+
+There is a door to the EAST.
+You can go WEST to the other side of the gallery.
+There is a small, battered wooden door to the NORTH.
+
+> east
+You are standing at the west end of the Entrance Hall.
+You can go north, south, east or west.
+The gothic architecture of the mansion lends a creepy feel to the entrance hall. Candles light the room. 
+
+You can go EAST to the other side of the entrance hall. 
+There is also a door to the WEST.
+You can see a glass-paned door to the NORTH. Through it, a garden of some sort is visible.
+The front door is SOUTH.
+
+> east
+You are standing at the eastern end of the Entrance Hall.
+There is a Staircase here.
+You can go east or west.
+You can go to Cupboard under the stairs.
+You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
+
+You can also go WEST to the other side of the entrance hall from here.
+A door leads EAST.
+
+> east
+You are standing in the Dining Hall.
+There is a Mysterious Carving and a Table here.
+You can go north, east or west.
+You are at the western end of a long dining hall. Crystal chandeliers hang from the ceiling above the long wood table that occupies most of the room.
+
+You can go EAST to the other end of the dining hall.
+A door lies to the WEST.
+A set of double doors is NORTH of here.
+
+> north
+You are in the Kitchen.
+There is the Sink and a Fridge here.
+You can go south or east.
+This is the kitchen. It is quite empty. There's little modern technology here, only an old fridge and a gas stove.
+
+There is a door to the EAST.
+A set of double doors leads SOUTH.
+
+> use bottle with sink
+You put the plug in and pour the contents of the bottle into the sink. There is a slight hiss, and a dreadful stench.
+
+> use concrete block with sink
+You drop the concrete block in the sink full of acid. The acid hisses and eats away at the concrete in a flurry of activity. Soon all that is left is a pure gold key. 
+
+> take gold key
+You could take the key... if you didn't value the flesh of your hand. The sink is still full of acid.
+Would you like to drain the sink?
+1) Yes
+2) No
+[choice] 1
+You gingerly pull the chain holding the plug in. The acid gurgles away down the plug hole. You wash away the remaining acid with water from the tap. All that is left is the key.
+
+> take key 001
+You took the key.
+You got Key 001.
+
+> drop empty bottle
+You dropped the item.
+
+> south
+You are standing in the Dining Hall.
+There is a Mysterious Carving and a Table here.
+You can go north, east or west.
+You are at the western end of a long dining hall. Crystal chandeliers hang from the ceiling above the long wood table that occupies most of the room.
+
+You can go EAST to the other end of the dining hall.
+A door lies to the WEST.
+A set of double doors is NORTH of here.
+
+> west
+You are standing at the eastern end of the Entrance Hall.
+There is a Staircase here.
+You can go east or west.
+You can go to Cupboard under the stairs.
+You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
+
+You can also go WEST to the other side of the entrance hall from here.
+A door leads EAST.
+
+> look at staircase
+It's a wide set of stairs leading up to a landing above.
+Do you wish to ascend the staircase?
+1) Yes
+2) No
+[choice] 1
+You walk up the stairs and find yourself above the entrance hall.
+You are on the Entrance Hall Landing.
+There is a Staircase here.
+You can go east or west.
+This is the landing above the entrance hall. You can see over the rail into the entrance hall below.
+
+There is a door to the EAST.
+You can go WEST to the other side of the landing.
+
+> west
+You are on the west side of the Entrance Hall Landing.
+You can go east or west.
+This is the west side of the landing above the entrance hall.
+
+You can go EAST to the other side of the landing.
+There is also a door to the WEST.
+
+> west
+You are in a long corridor.
+You can go north, east or west.
+You are at the south end of a long corridor.
+
+You can go NORTH further up the corridor.
+There is a door to the WEST with the number 001 written above it.
+You can go EAST through another door.
+
+> use key 001
+You used the key on the door to the west and unlocked it.
+
+> west
+You are standing in Room One.
+There is a Wardrobe here.
+You can go east or west.
+This is a guest bedroom. It's blandly decorated, except for a striking illustration of a mad scientist wielding a hyperdermic needle above the bed.
+
+There is a door to the WEST.
+Another door leads EAST.
+
+> examine wardrobe
+The wardrobe door handles are simple, white and circular.
+Would you like to open the wardrobe
+1) Yes
+2) No
+[choice] 1
+You pull open the wardrobe doors and look inside. There are no clothes, but there is a video tape on the wardrobe floor.
+
+> take video tape
+You pick up the video tape.
+
+> west
+You are in Room 001's Onsuite Bathroom.
+There is Ivory Horn here.
+You can go east.
+This is a small, rundown bathroom. The fixtures are broken and the tiles are cracked. Water is leaking onto the floor.
+
+The exit is EAST.
+
+> take ivory horn
+You take the ivory horn.
+
+> east
+You are standing in Room One.
+There is a Wardrobe here.
+You can go east or west.
+This is a guest bedroom. It's blandly decorated, except for a striking illustration of a mad scientist wielding a hyperdermic needle above the bed.
+
+There is a door to the WEST.
+Another door leads EAST.
+
+> east
+You are in a long corridor.
+You can go north, east or west.
+You are at the south end of a long corridor.
+
+You can go NORTH further up the corridor.
+There is a door to the WEST with the number 001 written above it.
+You can go EAST through another door.
+
+> east
+You are on the west side of the Entrance Hall Landing.
+You can go east or west.
+This is the west side of the landing above the entrance hall.
+
+You can go EAST to the other side of the landing.
+There is also a door to the WEST.
+
+> east
+You are on the Entrance Hall Landing.
+There is a Staircase here.
+You can go east or west.
+This is the landing above the entrance hall. You can see over the rail into the entrance hall below.
+
+There is a door to the EAST.
+You can go WEST to the other side of the landing.
+
+> look at staircase
+It's a wide set of stairs leading down to the entrance hall below.
+Do you wish to descend the staircase?
+1) Yes
+2) No
+[choice] 1
+You walk down the stairs and find yourself in the entrance hall.
+You are standing at the eastern end of the Entrance Hall.
+There is a Staircase here.
+You can go east or west.
+You can go to Cupboard under the stairs.
+You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
+
+You can also go WEST to the other side of the entrance hall from here.
+A door leads EAST.
+
+> west
+You are standing at the west end of the Entrance Hall.
+You can go north, south, east or west.
+The gothic architecture of the mansion lends a creepy feel to the entrance hall. Candles light the room. 
+
+You can go EAST to the other side of the entrance hall. 
+There is also a door to the WEST.
+You can see a glass-paned door to the NORTH. Through it, a garden of some sort is visible.
+The front door is SOUTH.
+
+> west
+You are at the east end of the Gallery.
+There is a Dining Room Painting here.
+You can go north, east or west.
+This appears to be an art gallery of some sort. There are paintings on the walls, and various plinths with busts, vases and other works of art. All the art seems to be dark and disturbing. Only one piece stands out amongst the paintings of sorcerers and dark clouds - a mundane image of the dining room of this house.
+
+There is a door to the EAST.
+You can go WEST to the other side of the gallery.
+There is a small, battered wooden door to the NORTH.
+
+> west
+You are at the west end of the Gallery.
+You can go north, east or west.
+This is the western side of the art gallery. Works of art line the walls. Most of the pictures seem to be quite dark in nature - gothic castles, thunderstorms and such like. The sculptures are disturbing - a bust of a face contorted into a scream of anguish, and a vase with pictures representing a tribal sacrifice around the rim.
+
+There is a door to the NORTH.
+Another door leads WEST.
+EAST will take you to the other end of the gallery.
+
+> north
+You are in the West Hall.
+There is Plant Pot and TV-VCR Combination here.
+You can go north, south or west.
+You are in a small hallway. A dying plant sits in a pot on a table at the east side of the room.
+
+A door leads SOUTH.
+Another door will take you WEST.
+There is a third door to the NORTH.
+
+> use video tape with tv-vcr combination
+You slide the video cassette into the recorder and hit 'Play'.
+The video starts with a lot of noise. Suddenly, the picture is sharp and clear. It's been filmed with a handheld camcorder. Your uncle is filming himself.
+"If you're watching this tape, that means I'm probably dead. The corporation knows my secret. They'll terminate me for sure. My involvement in the project is too great. But I know how to stop them. You must get to the basement. All the answers are there. I have hidden something useful in a sack of potatoes in the pantry. Don't let them finish my work."
+The tape cuts out at that point. Your uncle said something was hidden in the pantry...
+
+> drop video tape
+You dropped the item.
+
+> south
+You are at the west end of the Gallery.
+You can go north, east or west.
+This is the western side of the art gallery. Works of art line the walls. Most of the pictures seem to be quite dark in nature - gothic castles, thunderstorms and such like. The sculptures are disturbing - a bust of a face contorted into a scream of anguish, and a vase with pictures representing a tribal sacrifice around the rim.
+
+There is a door to the NORTH.
+Another door leads WEST.
+EAST will take you to the other end of the gallery.
+
+> east
+You are at the east end of the Gallery.
+There is a Dining Room Painting here.
+You can go north, east or west.
+This appears to be an art gallery of some sort. There are paintings on the walls, and various plinths with busts, vases and other works of art. All the art seems to be dark and disturbing. Only one piece stands out amongst the paintings of sorcerers and dark clouds - a mundane image of the dining room of this house.
+
+There is a door to the EAST.
+You can go WEST to the other side of the gallery.
+There is a small, battered wooden door to the NORTH.
+
+> east
+You are standing at the west end of the Entrance Hall.
+You can go north, south, east or west.
+The gothic architecture of the mansion lends a creepy feel to the entrance hall. Candles light the room. 
+
+You can go EAST to the other side of the entrance hall. 
+There is also a door to the WEST.
+You can see a glass-paned door to the NORTH. Through it, a garden of some sort is visible.
+The front door is SOUTH.
+
+> east
+You are standing at the eastern end of the Entrance Hall.
+There is a Staircase here.
+You can go east or west.
+You can go to Cupboard under the stairs.
+You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
+
+You can also go WEST to the other side of the entrance hall from here.
+A door leads EAST.
+
+> east
+You are standing in the Dining Hall.
+There is a Mysterious Carving and a Table here.
+You can go north, east or west.
+You are at the western end of a long dining hall. Crystal chandeliers hang from the ceiling above the long wood table that occupies most of the room.
+
+You can go EAST to the other end of the dining hall.
+A door lies to the WEST.
+A set of double doors is NORTH of here.
+
+> north
+You are in the Kitchen.
+There is an Empty Bottle, a Fridge and the Sink here.
+You can go south or east.
+This is the kitchen. It is quite empty. There's little modern technology here, only an old fridge and a gas stove.
+
+There is a door to the EAST.
+A set of double doors leads SOUTH.
+
+> east
+You have entered the Pantry.
+There is a Sack of Potatoes here.
+You can go west.
+This small room holds all kinds of dry foods.
+
+The way back to the kitchen is WEST.
+
+> examine sack of potatoes
+Peering inside, you see some mouldy potatoes. Something is glinting beneath them.
+Will you pull the item out?
+1) Yes
+2) No
+[choice] 1
+You tug on the glinting item, and retrieve a golden star-shaped pendant.
+
+> west
+You are in the Kitchen.
+There is an Empty Bottle, a Fridge and the Sink here.
+You can go south or east.
+This is the kitchen. It is quite empty. There's little modern technology here, only an old fridge and a gas stove.
+
+There is a door to the EAST.
+A set of double doors leads SOUTH.
+
+> south
+You are standing in the Dining Hall.
+There is a Mysterious Carving and a Table here.
+You can go north, east or west.
+You are at the western end of a long dining hall. Crystal chandeliers hang from the ceiling above the long wood table that occupies most of the room.
+
+You can go EAST to the other end of the dining hall.
+A door lies to the WEST.
+A set of double doors is NORTH of here.
+
+> west
+You are standing at the eastern end of the Entrance Hall.
+There is a Staircase here.
+You can go east or west.
+You can go to Cupboard under the stairs.
+You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
+
+You can also go WEST to the other side of the entrance hall from here.
+A door leads EAST.
+
+> west
+You are standing at the west end of the Entrance Hall.
+You can go north, south, east or west.
+The gothic architecture of the mansion lends a creepy feel to the entrance hall. Candles light the room. 
+
+You can go EAST to the other side of the entrance hall. 
+There is also a door to the WEST.
+You can see a glass-paned door to the NORTH. Through it, a garden of some sort is visible.
+The front door is SOUTH.
+
+> west
+You are at the east end of the Gallery.
+There is a Dining Room Painting here.
+You can go north, east or west.
+This appears to be an art gallery of some sort. There are paintings on the walls, and various plinths with busts, vases and other works of art. All the art seems to be dark and disturbing. Only one piece stands out amongst the paintings of sorcerers and dark clouds - a mundane image of the dining room of this house.
+
+There is a door to the EAST.
+You can go WEST to the other side of the gallery.
+There is a small, battered wooden door to the NORTH.
+
+> west
+You are at the west end of the Gallery.
+You can go north, east or west.
+This is the western side of the art gallery. Works of art line the walls. Most of the pictures seem to be quite dark in nature - gothic castles, thunderstorms and such like. The sculptures are disturbing - a bust of a face contorted into a scream of anguish, and a vase with pictures representing a tribal sacrifice around the rim.
+
+There is a door to the NORTH.
+Another door leads WEST.
+EAST will take you to the other end of the gallery.
+
+> north
+You are in the West Hall.
+There is Plant Pot, TV-VCR Combination and a Video Tape here.
+You can go north, south or west.
+You are in a small hallway. A dying plant sits in a pot on a table at the east side of the room.
+
+A door leads SOUTH.
+Another door will take you WEST.
+There is a third door to the NORTH.
+
+> north
+You are at the west end of a Corridor.
+You can go north, south or east.
+This short corridor runs from west to east. You are at the western end of it.
+
+A low door leads NORTH.
+The corridor continues EAST.
+A door leads SOUTH.
+
+> east
+You are at the east end of a Corridor.
+There is a Plinth here.
+You can go north, east or west.
+This is the eastern end of a short east-west corridor. A mirror hangs on the wall here.
+
+There is a glass panelled door to the EAST, leading outside.
+You can go WEST to the other end of the corridor.
+There is a door to the NORTH.
+
+
+> use star pendant with plinth
+The star pendant fits perfectly into the hollow in the top of the plinth. With a loud click, the door to the north swings open a small amount.
+
+> north
+You are in the Library.
+You can go north, south or east.
+You are standing at the south end of a sprawling library. Bookcases stretch from wall to ceiling, and there is a second floor running around the centre of the room. It doesn't look like you can access the upstairs section from here.
+
+You can go NORTH to the other end of the library.
+There is a door to the SOUTH.
+A glass-panelled door leads EAST. You can see a courtyard through it.
+
+> north
+You are in the Library.
+There is Science Book and Spider Book here.
+You can go south, east or west.
+This is the north end of the library. There are many bookcases here, and a desk with a few books lying strewn on it.
+
+You can go SOUTH to the other end of the library.
+There is a small door to the WEST.
+A wide wooden door leads EAST.
+
+> take spider book
+You pick it up.
+
+> take science book
+You pick it up.
+
+> west
+You are in the Reading Room.
+There is a pair of Glasses, a Gunpowder Book, a Map of Second Floor and a Key 002 here.
+You can go east.
+This is a small study. It contains a desk with a comfortable armchair. Your uncle's glasses are sitting on the desk, along with various papers and books.
+
+A door will take you EAST.
+
+> take gunpowder book
+This book could come in handy.
+
+> take map of second floor
+You take the map.
+
+> take key 002
+You took the Room 002 key.
+
+> east
+You are in the Library.
+You can go south, east or west.
+This is the north end of the library. There are many bookcases here, and a desk with a few books lying strewn on it.
+
+You can go SOUTH to the other end of the library.
+There is a small door to the WEST.
+A wide wooden door leads EAST.
+
+> south
+You are in the Library.
+You can go north, south or east.
+You are standing at the south end of a sprawling library. Bookcases stretch from wall to ceiling, and there is a second floor running around the centre of the room. It doesn't look like you can access the upstairs section from here.
+
+You can go NORTH to the other end of the library.
+There is a door to the SOUTH.
+A glass-panelled door leads EAST. You can see a courtyard through it.
+
+> south
+You are at the east end of a Corridor.
+There is a Plinth here.
+You can go north, east or west.
+This is the eastern end of a short east-west corridor. A mirror hangs on the wall here.
+
+There is a glass panelled door to the EAST, leading outside.
+You can go WEST to the other end of the corridor.
+There is a door to the NORTH.
+
+
+> west
+You are at the west end of a Corridor.
+You can go north, south or east.
+This short corridor runs from west to east. You are at the western end of it.
+
+A low door leads NORTH.
+The corridor continues EAST.
+A door leads SOUTH.
+
+> south
+You are in the West Hall.
+There is Plant Pot, TV-VCR Combination and a Video Tape here.
+You can go north, south or west.
+You are in a small hallway. A dying plant sits in a pot on a table at the east side of the room.
+
+A door leads SOUTH.
+Another door will take you WEST.
+There is a third door to the NORTH.
+
+> south
+You are at the west end of the Gallery.
+You can go north, east or west.
+This is the western side of the art gallery. Works of art line the walls. Most of the pictures seem to be quite dark in nature - gothic castles, thunderstorms and such like. The sculptures are disturbing - a bust of a face contorted into a scream of anguish, and a vase with pictures representing a tribal sacrifice around the rim.
+
+There is a door to the NORTH.
+Another door leads WEST.
+EAST will take you to the other end of the gallery.
+
+> east
+You are at the east end of the Gallery.
+There is a Dining Room Painting here.
+You can go north, east or west.
+This appears to be an art gallery of some sort. There are paintings on the walls, and various plinths with busts, vases and other works of art. All the art seems to be dark and disturbing. Only one piece stands out amongst the paintings of sorcerers and dark clouds - a mundane image of the dining room of this house.
+
+There is a door to the EAST.
+You can go WEST to the other side of the gallery.
+There is a small, battered wooden door to the NORTH.
+
+> east
+You are standing at the west end of the Entrance Hall.
+You can go north, south, east or west.
+The gothic architecture of the mansion lends a creepy feel to the entrance hall. Candles light the room. 
+
+You can go EAST to the other side of the entrance hall. 
+There is also a door to the WEST.
+You can see a glass-paned door to the NORTH. Through it, a garden of some sort is visible.
+The front door is SOUTH.
+
+> east
+You are standing at the eastern end of the Entrance Hall.
+There is a Staircase here.
+You can go east or west.
+You can go to Cupboard under the stairs.
+You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
+
+You can also go WEST to the other side of the entrance hall from here.
+A door leads EAST.
+
+> look at staircase
+It's a wide set of stairs leading up to a landing above.
+Do you wish to ascend the staircase?
+1) Yes
+2) No
+[choice] 1
+You walk up the stairs and find yourself above the entrance hall.
+You are on the Entrance Hall Landing.
+There is a Staircase here.
+You can go east or west.
+This is the landing above the entrance hall. You can see over the rail into the entrance hall below.
+
+There is a door to the EAST.
+You can go WEST to the other side of the landing.
+
+> west
+You are on the west side of the Entrance Hall Landing.
+You can go east or west.
+This is the west side of the landing above the entrance hall.
+
+You can go EAST to the other side of the landing.
+There is also a door to the WEST.
+
+> west
+You are in a long corridor.
+You can go north, east or west.
+You are at the south end of a long corridor.
+
+You can go NORTH further up the corridor.
+There is a door to the WEST with the number 001 written above it.
+You can go EAST through another door.
+
+> north
+You are in the middle of a corridor.
+You can go north, south or west.
+This is the middle section of a long corridor running north to south. Windows to the east look out over the courtyard.
+
+You can go NORTH to the top of the corridor.
+You can go SOUTH to the other end of the corridor.
+A door leads WEST with a sign above it upon which is written 002.
+
+> use key 002
+You use the 002 key on the door labelled 002. The key fits and you unlock the door.
+
+> west
+You have entered Room Two.
+There is Bedside Table here.
+You can go east or west.
+This bedroom is quite richly decorated. The walls are a terracotta red colour and the furniture is of a matching set - terracotta red with gold trimmings. The bed looks messed up as though someone has recently slept in it. The bedside table drawer is slightly ajar.
+
+You can go through a door to the WEST.
+There is another door leading EAST.
+
+> examine bedside table
+You look in the drawer. It's cluttered with personal effects and various bits of paper. There's something unusual poking out from under the muddle.
+Will you pull out the object?
+1) Yes
+2) No
+[choice] 1
+You pull on the object in the drawer. Papers are sent flying, and you retrieve an ebony bull's horn.
+
+> west
+You are in the onsuite bathroom of room 002.
+There is a Cloth, a bottle of Limescale Remover Fluid and a Pot of Gunpowder here.
+You can go east.
+This bathroom is well-kept, although it is obviously often used. Toothpaste stains the sink and the shower seems to have been abandoned halfway through being cleaned.
+
+The exit is EAST.
+
+> take pot of gunpowder
+Don't know what this is doing in a bathroom, but it might come in handy.
+
+> east
+You have entered Room Two.
+There is Bedside Table here.
+You can go east or west.
+This bedroom is quite richly decorated. The walls are a terracotta red colour and the furniture is of a matching set - terracotta red with gold trimmings. The bed looks messed up as though someone has recently slept in it. The bedside table drawer is slightly ajar.
+
+You can go through a door to the WEST.
+There is another door leading EAST.
+
+> east
+You are in the middle of a corridor.
+You can go north, south or west.
+This is the middle section of a long corridor running north to south. Windows to the east look out over the courtyard.
+
+You can go NORTH to the top of the corridor.
+You can go SOUTH to the other end of the corridor.
+A door leads WEST with a sign above it upon which is written 002.
+
+> south
+You are in a long corridor.
+You can go north, east or west.
+You are at the south end of a long corridor.
+
+You can go NORTH further up the corridor.
+There is a door to the WEST with the number 001 written above it.
+You can go EAST through another door.
+
+> east
+You are on the west side of the Entrance Hall Landing.
+You can go east or west.
+This is the west side of the landing above the entrance hall.
+
+You can go EAST to the other side of the landing.
+There is also a door to the WEST.
+
+> east
+You are on the Entrance Hall Landing.
+There is a Staircase here.
+You can go east or west.
+This is the landing above the entrance hall. You can see over the rail into the entrance hall below.
+
+There is a door to the EAST.
+You can go WEST to the other side of the landing.
+
+> look at staircase
+It's a wide set of stairs leading down to the entrance hall below.
+Do you wish to descend the staircase?
+1) Yes
+2) No
+[choice] 1
+You walk down the stairs and find yourself in the entrance hall.
+You are standing at the eastern end of the Entrance Hall.
+There is a Staircase here.
+You can go east or west.
+You can go to Cupboard under the stairs.
+You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
+
+You can also go WEST to the other side of the entrance hall from here.
+A door leads EAST.
+
+> east
+You are standing in the Dining Hall.
+There is a Mysterious Carving and a Table here.
+You can go north, east or west.
+You are at the western end of a long dining hall. Crystal chandeliers hang from the ceiling above the long wood table that occupies most of the room.
+
+You can go EAST to the other end of the dining hall.
+A door lies to the WEST.
+A set of double doors is NORTH of here.
+
+> use horn with mysterious carving
+Which horn do you mean?
+1) Ivory Horn
+2) Ebony Horn
+[choice] 1
+The ivory horn slots neatly into one of the hollows in the bull's head.
+
+> use horn with mysterious carving
+You slot the ebony horn neatly into the other horn hollow. It fits neatly. There is a loud click, and the carving on the floor turns on a previously unseen turntable until it faces the drawing room doors to the east. The drawing room doors swing open.
+
+> east
+You are in Dining Hall
+There is the Drinks Cabinet here.
+You can go east or west.
+You are standing at the eastern end of the mansion's dining hall. This appears to be where your uncle kept his alcohol, as there is a large cabinet against the north wall. 
+
+A door leads EAST.
+WEST will take you to the other end of the dining hall.
+
+> east
+You are at the south end of the Drawing Room.
+There is a Grandfather Clock, a Wooden Panel and a Letter here.
+You can go north or west.
+This is an elegant drawing room. It is warm and cosy. The embers of a fire crackle gently in the fireplace, and comfortable armchairs beckon to you.
+
+You can go WEST through a door with a bull's head carved on it.
+The drawing room continues NORTH.
+
+> look at grandfather clock
+It's an old-fashioned grandfather clock. The hands are stopped. The glass is missing from the clock face and you can move the hands.
+Do you wish to turn the clock hands?
+1) Yes
+2) No
+[choice] 1
+You decide to turn the hands of the clock.
+Which clock hand do you wish to turn?
+1) Large Hand
+2) Small Hand
+3) Neither
+[choice] 1
+You take hold of the large hand of the clock.
+What number on the clock face would you like to set the large hand to?
+1) 1
+2) 2
+3) 3
+4) 4
+5) 5
+6) 6
+7) 7
+8) 8
+9) 9
+10) 10
+11) 11
+12) 12
+13) Leave it
+[choice] 3
+You turn the large hand to the number 3. There is a click from somewhere inside the clock.
+
+> look at grandfather clock
+It's an old-fashioned grandfather clock. The hands are stopped. The glass is missing from the clock face and you can move the hands. The big hand has locked at the number three.
+Do you wish to turn the clock hands?
+1) Yes
+2) No
+[choice] 1
+You decide to turn the clock hands.
+Which clock hand do you wish to turn?
+1) Large Hand
+2) Small Hand
+3) Neither
+[choice] 2
+You take the small clock hand and turn it.
+What number would you like to set the small hand to?
+1) 1
+2) 2
+3) 3
+4) 4
+5) 5
+6) 6
+7) 7
+8) 8
+9) 9
+10) 10
+11) 11
+12) 12
+13) Leave it
+[choice] 9
+You turn the little clock hand to 9. There is a sharp click from inside the grandfather clock.
+
+> look at grandfather clock
+It's an old-fashioned grandfather clock. The hands are stopped. The glass is missing from the clock face and you can move the hands. The small hand has locked at the number nine.
+Do you wish to turn the clock hands?
+1) Yes
+2) No
+[choice] 1
+You decide to turn the clock hands.
+Which clock hand do you wish to turn?
+1) Large Hand
+2) Small Hand
+3) Neither
+[choice] 1
+You decide to turn the large hand.
+Which number do you wish to turn the large hand to?
+1) 1
+2) 2
+3) 3
+4) 4
+5) 5
+6) 6
+7) 7
+8) 8
+9) 9
+10) 10
+11) 11
+12) 12
+13) Leave it
+[choice] 7
+You turn the clock hand to 7. As soon as the hand is in place, there is a click, and the panel to the side of the grandfather clock slides open slowly, revealing a dark space behind.
+
+> examine wooden panel
+There's something inside the wall space behind the wooden panel. It's too dark to see it properly.
+Will you take the object from the grandfather clock?
+1) Yes
+2) No
+[choice] 1
+You reach in and pull the object out into the light. It's a sleek and shiny double-barrelled shotgun. It's not loaded.
+
+> take letter
+You pick up the letter.
+
+> north
+You are at the north end of the Drawing Room.
+There is Art Gallery Painting here.
+You can go north or south.
+This is a cozy, warm drawing room. The room is warmer at the north end where the fire is.
+
+You can go SOUTH to the other end of the drawing room.
+A door leads NORTH.
+
+> take art gallery painting
+You take the painting of the art gallery.
+
+> south
+You are at the south end of the Drawing Room.
+There is a Grandfather Clock and a Wooden Panel here.
+You can go north or west.
+This is an elegant drawing room. It is warm and cosy. The embers of a fire crackle gently in the fireplace, and comfortable armchairs beckon to you.
+
+You can go WEST through a door with a bull's head carved on it.
+The drawing room continues NORTH.
+
+> west
+You are in Dining Hall
+There is the Drinks Cabinet here.
+You can go east or west.
+You are standing at the eastern end of the mansion's dining hall. This appears to be where your uncle kept his alcohol, as there is a large cabinet against the north wall. 
+
+A door leads EAST.
+WEST will take you to the other end of the dining hall.
+
+> west
+You are standing in the Dining Hall.
+There is a Mysterious Carving and a Table here.
+You can go north, east or west.
+You are at the western end of a long dining hall. Crystal chandeliers hang from the ceiling above the long wood table that occupies most of the room.
+
+You can go EAST to the other end of the dining hall.
+A door lies to the WEST.
+A set of double doors is NORTH of here.
+
+> west
+You are standing at the eastern end of the Entrance Hall.
+There is a Staircase here.
+You can go east or west.
+You can go to Cupboard under the stairs.
+You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
+
+You can also go WEST to the other side of the entrance hall from here.
+A door leads EAST.
+
+> west
+You are standing at the west end of the Entrance Hall.
+You can go north, south, east or west.
+The gothic architecture of the mansion lends a creepy feel to the entrance hall. Candles light the room. 
+
+You can go EAST to the other side of the entrance hall. 
+There is also a door to the WEST.
+You can see a glass-paned door to the NORTH. Through it, a garden of some sort is visible.
+The front door is SOUTH.
+
+> west
+You are at the east end of the Gallery.
+There is a Dining Room Painting here.
+You can go north, east or west.
+This appears to be an art gallery of some sort. There are paintings on the walls, and various plinths with busts, vases and other works of art. All the art seems to be dark and disturbing. Only one piece stands out amongst the paintings of sorcerers and dark clouds - a mundane image of the dining room of this house.
+
+There is a door to the EAST.
+You can go WEST to the other side of the gallery.
+There is a small, battered wooden door to the NORTH.
+
+> take dining room painting
+You carefully remove the painting from the frame on the wall and roll it up.
+You are in the Gallery.
+There is an Empty Frame here.
+You can go north, east or west.
+Removing the picture from it's frame causes security shutters to slam down on all sides, locking you in the gallery.
+
+You can only go WEST to the other side of the gallery.
+
+> west
+You are in Gallery
+There is a Security Shutter here.
+You can go north, east or west.
+You are in the gallery, at the western end. Security shutters have blocked all the exits.
+
+You can only go EAST back to the other side of the gallery.
+
+> examine security shutter
+It's got something written on it:
+"Password = Arachnid"
+You'd better remember that!
+
+> east
+You are in the Gallery.
+There is an Empty Frame here.
+You can go north, east or west.
+Removing the picture from it's frame causes security shutters to slam down on all sides, locking you in the gallery.
+
+You can only go WEST to the other side of the gallery.
+
+> use art gallery painting with empty frame
+You slide the picture of the art gallery into the empty frame. It fits perfectly, and the security shutters release.
+You are at the east end of the Gallery.
+You can go north, east or west.
+This appears to be an art gallery of some sort. There are paintings on the walls, and various plinths with busts, vases and other works of art. All the art seems to be dark and disturbing. Only one piece stands out amongst the paintings of sorcerers and dark clouds - a mundane image of the dining room of this house.
+
+There is a door to the EAST.
+You can go WEST to the other side of the gallery.
+There is a small, battered wooden door to the NORTH.
+
+> east
+You are standing at the west end of the Entrance Hall.
+You can go north, south, east or west.
+The gothic architecture of the mansion lends a creepy feel to the entrance hall. Candles light the room. 
+
+You can go EAST to the other side of the entrance hall. 
+There is also a door to the WEST.
+You can see a glass-paned door to the NORTH. Through it, a garden of some sort is visible.
+The front door is SOUTH.
+
+> east
+You are standing at the eastern end of the Entrance Hall.
+There is a Staircase here.
+You can go east or west.
+You can go to Cupboard under the stairs.
+You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
+
+You can also go WEST to the other side of the entrance hall from here.
+A door leads EAST.
+
+> east
+You are standing in the Dining Hall.
+There is a Mysterious Carving and a Table here.
+You can go north, east or west.
+You are at the western end of a long dining hall. Crystal chandeliers hang from the ceiling above the long wood table that occupies most of the room.
+
+You can go EAST to the other end of the dining hall.
+A door lies to the WEST.
+A set of double doors is NORTH of here.
+
+> east
+You are in Dining Hall
+There is the Drinks Cabinet here.
+You can go east or west.
+You are standing at the eastern end of the mansion's dining hall. This appears to be where your uncle kept his alcohol, as there is a large cabinet against the north wall. 
+
+A door leads EAST.
+WEST will take you to the other end of the dining hall.
+
+> east
+You are at the south end of the Drawing Room.
+There is a Grandfather Clock and a Wooden Panel here.
+You can go north or west.
+This is an elegant drawing room. It is warm and cosy. The embers of a fire crackle gently in the fireplace, and comfortable armchairs beckon to you.
+
+You can go WEST through a door with a bull's head carved on it.
+The drawing room continues NORTH.
+
+> north
+You are at the north end of the Drawing Room.
+There is an Empty Frame here.
+You can go north or south.
+This is a cozy, warm drawing room. The room is warmer at the north end where the fire is.
+
+You can go SOUTH to the other end of the drawing room.
+A door leads NORTH.
+
+> use dining room painting with empty frame
+You slide the dining room painting into the empty frame above the fireplace. There is a click as it slots perfectly into place, and a key falls out of a tiny slot in the ceiling and lands on the floor.
+
+> take key 004
+You pick up the key.
+You got Key 004.
+
+> south
+You are at the south end of the Drawing Room.
+There is a Grandfather Clock and a Wooden Panel here.
+You can go north or west.
+This is an elegant drawing room. It is warm and cosy. The embers of a fire crackle gently in the fireplace, and comfortable armchairs beckon to you.
+
+You can go WEST through a door with a bull's head carved on it.
+The drawing room continues NORTH.
+
+> west
+You are in Dining Hall
+There is the Drinks Cabinet here.
+You can go east or west.
+You are standing at the eastern end of the mansion's dining hall. This appears to be where your uncle kept his alcohol, as there is a large cabinet against the north wall. 
+
+A door leads EAST.
+WEST will take you to the other end of the dining hall.
+
+> west
+You are standing in the Dining Hall.
+There is a Mysterious Carving and a Table here.
+You can go north, east or west.
+You are at the western end of a long dining hall. Crystal chandeliers hang from the ceiling above the long wood table that occupies most of the room.
+
+You can go EAST to the other end of the dining hall.
+A door lies to the WEST.
+A set of double doors is NORTH of here.
+
+> west
+You are standing at the eastern end of the Entrance Hall.
+There is a Staircase here.
+You can go east or west.
+You can go to Cupboard under the stairs.
+You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
+
+You can also go WEST to the other side of the entrance hall from here.
+A door leads EAST.
+
+> look at staircase
+It's a wide set of stairs leading up to a landing above.
+Do you wish to ascend the staircase?
+1) Yes
+2) No
+[choice] 1
+You walk up the stairs and find yourself above the entrance hall.
+You are on the Entrance Hall Landing.
+There is a Staircase here.
+You can go east or west.
+This is the landing above the entrance hall. You can see over the rail into the entrance hall below.
+
+There is a door to the EAST.
+You can go WEST to the other side of the landing.
+
+> east
+You are at the south end of a short corridor running north to south.
+You can go north, east or west.
+This corridor is quite short. It has a black and white tiled floor.
+
+You can go NORTH to the other end of the corridor.
+There is a door WEST.
+There is another door to the EAST with the number 004 written beside it.
+
+> use key 004
+You use the key to room 004 on the door to the east. It unlocks it.
+
+> east
+You are standing in Room Four.
+There is a Rusty Key here.
+You can go east or west.
+This room has not been used for a long time by the look of things. The bed is stripped of all sheets, and the wardrobe and chest of drawers are empty. A fine layer of dust covers everything.
+
+You can go EAST through a door.
+Another door leads WEST.
+
+> take rusty key
+You pick up the rusty key.
+
+> west
+You are at the south end of a short corridor running north to south.
+You can go north, east or west.
+This corridor is quite short. It has a black and white tiled floor.
+
+You can go NORTH to the other end of the corridor.
+There is a door WEST.
+There is another door to the EAST with the number 004 written beside it.
+
+> north
+You are at the north end of the black and white tiled corridor.
+You can go north, south or east.
+This is the north end of the short corridor. Windows to the west look out over the courtyard.
+
+There is a door to the NORTH.
+A door with 003 written on it leads EAST.
+The corridor continues to the SOUTH.
+
+> north
+You try the door to the North but it seems it's locked. The keyhole is severely rusted.
+
+> use rusty key
+The rusty key perfectly fits the door to the north. You unlock the door.
+
+> north
+You are in the Workshop.
+There is Shotgun Shell Machine and Blowtorch here.
+You can go north, south or east.
+This room appears to have been used as a workshop. It contains many tools like hammers, screwdrivers, saws and such like. Several machines sit on the bench in the centre of the room.
+
+A door leads SOUTH.
+There is a low archway to the EAST.
+Another door leads NORTH.
+
+> take blowtorch
+You pick up the blowtorch.
+
+> east
+You are standing in the workshop store room.
+There is a Box here.
+You can go west.
+This room is full of crates, bits of wood and broken machines. It looks like a store room for the workshop next door.
+
+An archway leads WEST.
+
+> take box
+You reach into the box and take the two shell casings that you find there.
+
+> west
+You are in the Workshop.
+There is Shotgun Shell Machine here.
+You can go north, south or east.
+This room appears to have been used as a workshop. It contains many tools like hammers, screwdrivers, saws and such like. Several machines sit on the bench in the centre of the room.
+
+A door leads SOUTH.
+There is a low archway to the EAST.
+Another door leads NORTH.
+
+> examine gunpowder book
+You read the book:
+"The manufacture of ammunition is a simple process with modern technology.
+The Locke and Lowde Ltd. Shotgun Shell Machine can quickly manufacture shotgun shells with ease.
+Simply put empty shell casings in the slot at one end of the machine and pour the gunpowder in the funnel. Then press the activation switch and the machine will make shotgun shells within seconds."
+Sounds useful.
+
+> use shell casings with shotgun shell machine
+You slot the two shell casings into the side of the machine. They seem to fit.
+
+> use pot of gunpowder with shotgun shell machine with casings
+You pour the gunpowder in the funnel at the top of the machine and press the green power button at the side. The machine springs into life, the shell casings disappear inside, and the gunpowder disappears down the funnel. Two shotgun shells appear at the other end.
+
+> take shotgun shells
+You pick it up.
+
+> drop pot
+You dropped the item.
+
+> north
+You are at the western end of a long corridor.
+You can go south, east or west.
+This corridor runs from east to west. You are at the west end of it.
+
+A glass-panelled door leads WEST.
+You can go further down the corridor to the EAST.
+A door leads SOUTH.
+
+> east
+You are in the middle of a long corridor.
+You can go north, east or west.
+This is the middle part of a long east-west corridor.
+
+The corridor continues WEST.
+The corridor also continues EAST.
+There's a door to the NORTH.
+
+> north
+You are in a storeroom.
+There is Dress here.
+You can go south.
+This storeroom contains all sorts of props and costumes. Wigs line one wall and a beautiful white dress sits on a mannequin in the centre of the room. Through a window to the east you can see down into a ballroom.
+
+The exit door is SOUTH.
+
+> examine dress
+The shape of a key is bulging out of the back of the dress. Looks like someone's hidden it there.
+Will you retrieve the key from the dress?
+1) Yes
+2) No
+[choice] 1
+You reach under the folds of material and pull out a silver key. It was attached to the dress with sellotape.
+
+> south
+You are in the middle of a long corridor.
+You can go north, east or west.
+This is the middle part of a long east-west corridor.
+
+The corridor continues WEST.
+The corridor also continues EAST.
+There's a door to the NORTH.
+
+> west
+You are at the western end of a long corridor.
+You can go south, east or west.
+This corridor runs from east to west. You are at the west end of it.
+
+A glass-panelled door leads WEST.
+You can go further down the corridor to the EAST.
+A door leads SOUTH.
+
+> west
+You are on the east side of a Balcony.
+You can go north, south, east or west.
+This roofed balcony goes from east to west. There is a great view down into the courtyard to the south from here.
+
+You can go EAST through a glass-panelled door.
+You can also go WEST further along the balcony.
+The courtyard is SOUTH.
+The top of a greenhouse is visible over the NORTH edge of the balcony.
+
+> west
+You are on the west end of the Balcony.
+There is Hanging Basket here.
+You can go north, south, east or west.
+This is the western end of a balcony overlooking the courtyard. Potted plants grow here. A hanging basket swings gently in the wind.
+
+There is a door to the NORTH.
+There is a glass-panelled door to the WEST.
+You can go back along the balcony to the EAST.
+The courtyard is SOUTH.
+
+> examine hanging basket
+You reach up to investigate the hanging basket. It tips up, and something shiny falls out. You make a grab, but it falls over the railing and into the courtyard below.
+
+> north
+You are on the Landing.
+There is a Staircase here.
+You can go south or west.
+This is a small landing. A golden chandelier hangs over the centre of the room.
+
+You can go SOUTH through a door.
+Another door leads WEST.
+
+> look at staircase
+It's a winding set of stairs leading down.
+Do you wish to descend the staircase?
+1) Yes
+2) No
+[choice] 1
+You walk down the stairs to the hall below.
+You are in a small Hall.
+There is a Staircase and Button here.
+You can go west.
+This is a small hallway. 
+
+There is a door to the WEST.
+
+> look at button
+This button is attached to the wall next to the door to the west.
+Do you wish to press the button?
+1) Yes
+2) No
+[choice] 1
+You press the button and the door to the west opens.
+
+> west
+You are in the Library.
+You can go south, east or west.
+This is the north end of the library. There are many bookcases here, and a desk with a few books lying strewn on it.
+
+You can go SOUTH to the other end of the library.
+There is a small door to the WEST.
+A wide wooden door leads EAST.
+
+> south
+You are in the Library.
+You can go north, south or east.
+You are standing at the south end of a sprawling library. Bookcases stretch from wall to ceiling, and there is a second floor running around the centre of the room. It doesn't look like you can access the upstairs section from here.
+
+You can go NORTH to the other end of the library.
+There is a door to the SOUTH.
+A glass-panelled door leads EAST. You can see a courtyard through it.
+
+> south
+You are at the east end of a Corridor.
+There is a Plinth here.
+You can go north, east or west.
+This is the eastern end of a short east-west corridor. A mirror hangs on the wall here.
+
+There is a glass panelled door to the EAST, leading outside.
+You can go WEST to the other end of the corridor.
+There is a door to the NORTH.
+
+
+> west
+You are at the west end of a Corridor.
+You can go north, south or east.
+This short corridor runs from west to east. You are at the western end of it.
+
+A low door leads NORTH.
+The corridor continues EAST.
+A door leads SOUTH.
+
+> south
+You are in the West Hall.
+There is Plant Pot, TV-VCR Combination and a Video Tape here.
+You can go north, south or west.
+You are in a small hallway. A dying plant sits in a pot on a table at the east side of the room.
+
+A door leads SOUTH.
+Another door will take you WEST.
+There is a third door to the NORTH.
+
+> south
+You are at the west end of the Gallery.
+You can go north, east or west.
+This is the western side of the art gallery. Works of art line the walls. Most of the pictures seem to be quite dark in nature - gothic castles, thunderstorms and such like. The sculptures are disturbing - a bust of a face contorted into a scream of anguish, and a vase with pictures representing a tribal sacrifice around the rim.
+
+There is a door to the NORTH.
+Another door leads WEST.
+EAST will take you to the other end of the gallery.
+
+> east
+You are at the east end of the Gallery.
+There is Art Gallery Painting here.
+You can go north, east or west.
+This appears to be an art gallery of some sort. There are paintings on the walls, and various plinths with busts, vases and other works of art. All the art seems to be dark and disturbing. Only one piece stands out amongst the paintings of sorcerers and dark clouds - a mundane image of the dining room of this house.
+
+There is a door to the EAST.
+You can go WEST to the other side of the gallery.
+There is a small, battered wooden door to the NORTH.
+
+> east
+You are standing at the west end of the Entrance Hall.
+You can go north, south, east or west.
+The gothic architecture of the mansion lends a creepy feel to the entrance hall. Candles light the room. 
+
+You can go EAST to the other side of the entrance hall. 
+There is also a door to the WEST.
+You can see a glass-paned door to the NORTH. Through it, a garden of some sort is visible.
+The front door is SOUTH.
+
+> east
+You are standing at the eastern end of the Entrance Hall.
+There is a Staircase here.
+You can go east or west.
+You can go to Cupboard under the stairs.
+You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
+
+You can also go WEST to the other side of the entrance hall from here.
+A door leads EAST.
+
+> look at staircase
+It's a wide set of stairs leading up to a landing above.
+Do you wish to ascend the staircase?
+1) Yes
+2) No
+[choice] 1
+You walk up the stairs and find yourself above the entrance hall.
+You are on the Entrance Hall Landing.
+There is a Staircase here.
+You can go east or west.
+This is the landing above the entrance hall. You can see over the rail into the entrance hall below.
+
+There is a door to the EAST.
+You can go WEST to the other side of the landing.
+
+> west
+You are on the west side of the Entrance Hall Landing.
+You can go east or west.
+This is the west side of the landing above the entrance hall.
+
+You can go EAST to the other side of the landing.
+There is also a door to the WEST.
+
+> west
+You are in a long corridor.
+You can go north, east or west.
+You are at the south end of a long corridor.
+
+You can go NORTH further up the corridor.
+There is a door to the WEST with the number 001 written above it.
+You can go EAST through another door.
+
+> north
+You are in the middle of a corridor.
+You can go north, south or west.
+This is the middle section of a long corridor running north to south. Windows to the east look out over the courtyard.
+
+You can go NORTH to the top of the corridor.
+You can go SOUTH to the other end of the corridor.
+A door leads WEST with a sign above it upon which is written 002.
+
+> north
+You are at the north end of the corridor.
+You can go north, south or west.
+This is the northern end of a long North-south corridor.
+
+You can go SOUTH further down the corridor.
+There's a door to the WEST.
+Another door leads NORTH.
+
+> west
+You are in the Dusty Store Room.
+There is a Ladder here.
+You can go north or east.
+This is a bare room with cobwebs and dust everywhere. There is nothing in the room, not even carpet, just a layer of dust inches thick. 
+
+There is a single set of footprints leading through the dust to a door to the NORTH.
+There is a door to the EAST.
+
+> north
+The door to the north is locked. A picture of a wolf howling at the moon is engraved on the door. Small flecks of silver mar the keyhole.
+
+> use silver key
+The silver key unlocks the door to the north.
+
+> north
+You are in the Statue Hall.
+There is a Statue and a Stone Sword here.
+You can go north or south.
+This room is empty except for a huge towering statue. Is there something significant about it?
+
+> take stone sword
+You pick up the sword, though it is quite heavy.
+
+> use stone shield with statue
+The shield slides neatly onto the statue's arm. It slots into place with a click.
+
+> use stone sword with statue
+The sword slides neatly into the statue's other hand. With both the sword and shield in place, the statue rises out of the floor slightly with a low rumble. It is now set on a circular platform.
+
+> look at post-it note
+Written on the note: Turn the large sword, then the small sword, then the large sword. The numbers must be right!
+
+> examine statue
+It looks like you can spin the statue around.
+Do you wish to turn the statue?
+1) Yes
+2) No
+[choice] 1
+You take hold of the statue and find it moves quite easily, spinning left and right.
+Which direction do you wish to turn the statue to face?
+1) North
+2) South
+3) East
+4) West
+5) Leave it
+[choice] 1
+You turn the statue to face north. With a slight click, the statue locks into place and the door to the north swings open.
+
+> north
+You are in the Observatory.
+There is the Telescope here.
+You can go south.
+This is an observatory of some sort. A huge telescope dominates the room, and the walls are lined with various astral charts.
+
+The exit to this room lies to the SOUTH.
+
+> examine telescope
+You look into the telescope expecting to see the early night sky. Instead, you can see absolutely nothing. There's a button beneath the viewfinder.
+Will you press the button?
+1) Yes
+2) No
+[choice] 1
+You press the button. The viewfinder adjusts. You are about to have another look when a deadly-looking fire ax slides down the length of the telescope and clatters to the floor.
+
+> take fire ax
+You pick up the fire ax.
+
+> drop post-it note
+You dropped the item.
+
+> south
+You are in the Statue Hall.
+There is a Statue here.
+You can go north or south.
+This room is empty except for a huge towering statue. Is there something significant about it?
+
+> south
+You are in the Dusty Store Room.
+There is a Ladder here.
+You can go north or east.
+This is a bare room with cobwebs and dust everywhere. There is nothing in the room, not even carpet, just a layer of dust inches thick. 
+
+There is a single set of footprints leading through the dust to a door to the NORTH.
+There is a door to the EAST.
+
+> look at ladder
+There's a ladder leading up through a hatch in the ceiling.
+Will you climb the ladder?
+1) Yes
+2) No
+[choice] 1
+You scale the dusty ladder and find yourself in a dingy attic space.
+You are on a dusty Landing.
+There is a Ladder here.
+You can go east.
+This is a dusty landing in the attic. The slope of the roof means that this room is very low.
+
+You can go EAST further along the attic.
+
+> east
+You are in a dim, dusty attic room.
+You can go east or west.
+A few dusty crates lie scattered about.
+
+An archway leads EAST between two wooden beams.
+The attic goes WEST.
+
+> east
+You are in the middle of a long corridor.
+You can go north, south or west.
+You are standing in a long corridor running north and south for the whole length of the attic.
+
+You can go NORTH or SOUTH along the corridor.
+An archway leads WEST.
+
+> south
+You are at the south end of the attic corridor.
+There is a Keypad here.
+You can go north or east.
+This is the south part of the attic corridor. There is nothing but empty boxes here.
+
+You can go NORTH back up the corridor.
+A door leads EAST.
+
+> examine keypad
+You can type a password on the keypad. You type the word ARACHNID. The door to the east beeps and then swings open.
+
+> east
+You are in an Office.
+There is a Key Handle here.
+You can go west.
+This is a small office, built under the roof arch. There is a desk and a chair here, and a small lamp.
+
+The exit lies to the SOUTH.
+
+> take key handle
+You pick up the broken key handle.
+
+> west
+You are at the south end of the attic corridor.
+There is a Keypad here.
+You can go north or east.
+This is the south part of the attic corridor. There is nothing but empty boxes here.
+
+You can go NORTH back up the corridor.
+A door leads EAST.
+
+> north
+You are in the middle of a long corridor.
+You can go north, south or west.
+You are standing in a long corridor running north and south for the whole length of the attic.
+
+You can go NORTH or SOUTH along the corridor.
+An archway leads WEST.
+
+> west
+You are in a dim, dusty attic room.
+You can go east or west.
+A few dusty crates lie scattered about.
+
+An archway leads EAST between two wooden beams.
+The attic goes WEST.
+
+> west
+You are on a dusty Landing.
+There is a Ladder here.
+You can go east.
+This is a dusty landing in the attic. The slope of the roof means that this room is very low.
+
+You can go EAST further along the attic.
+
+> look at ladder
+There's a ladder leading down through a hatch in the floor.
+Will you climb down the ladder?
+1) Yes
+2) No
+[choice] 1
+You climb down the ladder all the way to the bottom.
+You are in the Dusty Store Room.
+There is a Ladder here.
+You can go north or east.
+This is a bare room with cobwebs and dust everywhere. There is nothing in the room, not even carpet, just a layer of dust inches thick. 
+
+There is a single set of footprints leading through the dust to a door to the NORTH.
+There is a door to the EAST.
+
+> east
+You are at the north end of the corridor.
+You can go north, south or west.
+This is the northern end of a long North-south corridor.
+
+You can go SOUTH further down the corridor.
+There's a door to the WEST.
+Another door leads NORTH.
+
+> south
+You are in the middle of a corridor.
+You can go north, south or west.
+This is the middle section of a long corridor running north to south. Windows to the east look out over the courtyard.
+
+You can go NORTH to the top of the corridor.
+You can go SOUTH to the other end of the corridor.
+A door leads WEST with a sign above it upon which is written 002.
+
+> south
+You are in a long corridor.
+You can go north, east or west.
+You are at the south end of a long corridor.
+
+You can go NORTH further up the corridor.
+There is a door to the WEST with the number 001 written above it.
+You can go EAST through another door.
+
+> east
+You are on the west side of the Entrance Hall Landing.
+You can go east or west.
+This is the west side of the landing above the entrance hall.
+
+You can go EAST to the other side of the landing.
+There is also a door to the WEST.
+
+> east
+You are on the Entrance Hall Landing.
+There is a Staircase here.
+You can go east or west.
+This is the landing above the entrance hall. You can see over the rail into the entrance hall below.
+
+There is a door to the EAST.
+You can go WEST to the other side of the landing.
+
+> look at staircase
+It's a wide set of stairs leading down to the entrance hall below.
+Do you wish to descend the staircase?
+1) Yes
+2) No
+[choice] 1
+You walk down the stairs and find yourself in the entrance hall.
+You are standing at the eastern end of the Entrance Hall.
+There is a Staircase here.
+You can go east or west.
+You can go to Cupboard under the stairs.
+You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
+
+You can also go WEST to the other side of the entrance hall from here.
+A door leads EAST.
+
+> west
+You are standing at the west end of the Entrance Hall.
+You can go north, south, east or west.
+The gothic architecture of the mansion lends a creepy feel to the entrance hall. Candles light the room. 
+
+You can go EAST to the other side of the entrance hall. 
+There is also a door to the WEST.
+You can see a glass-paned door to the NORTH. Through it, a garden of some sort is visible.
+The front door is SOUTH.
+
+> use fire ax
+You swing the ax and smash the door open.
+
+> north
+You are in the south-west part of the Courtyard.
+You can go north, south, east, west or northeast.
+This beautiful garden and courtyard is full of trees and plants. There are benches to sit on and a fountain.
+
+The courtyard stretches out to the NORTH, NORTHEAST and EAST.
+A glass-panelled door lies to the SOUTH.
+A wooden door leads WEST.
+
+> north
+You are in the north-west part of the Courtyard.
+There is a Key Head here.
+You can go north, south, east, west or southeast.
+This is the north-west garden part of the courtyard. Many flowers are blooming here and there is a winding gravel path.
+
+NORTH will take you under a sheltered walkway.
+SOUTH, SOUTHEAST or EAST will take you to other parts of the courtyard.
+WEST is a glass-panelled door.
+
+> take key head
+You pick up the broken key part.
+
+> south
+You are in the south-west part of the Courtyard.
+You can go north, south, east, west or northeast.
+This beautiful garden and courtyard is full of trees and plants. There are benches to sit on and a fountain.
+
+The courtyard stretches out to the NORTH, NORTHEAST and EAST.
+A glass-panelled door lies to the SOUTH.
+A wooden door leads WEST.
+
+> west
+You are in a small wooden Shed.
+There is a Dirty Note here.
+You can go east.
+This tumble-down shed contains all sorts of junk. There doesn't seem to be anything of any use here.
+
+The exit lies to the EAST.
+
+> take dirty note
+You pick up the dirt-covered note.
+
+> east
+You are in the south-west part of the Courtyard.
+You can go north, south, east, west or northeast.
+This beautiful garden and courtyard is full of trees and plants. There are benches to sit on and a fountain.
+
+The courtyard stretches out to the NORTH, NORTHEAST and EAST.
+A glass-panelled door lies to the SOUTH.
+A wooden door leads WEST.
+
+> north
+You are in the north-west part of the Courtyard.
+You can go north, south, east, west or southeast.
+This is the north-west garden part of the courtyard. Many flowers are blooming here and there is a winding gravel path.
+
+NORTH will take you under a sheltered walkway.
+SOUTH, SOUTHEAST or EAST will take you to other parts of the courtyard.
+WEST is a glass-panelled door.
+
+> north
+You are at the western end of the Sheltered Walkway.
+You can go south, east, west or southeast.
+This wooden boardwalk runs from west to east along the northern wall of the courtyard. The balcony above shelters this area from the rain.
+
+The sheltered walkway continues EAST.
+You can go SOUTH or SOUTHEAST into the courtyard.
+A glass-panelled door leads WEST.
+
+> east
+You are at the eastern end of the Sheltered Walkway.
+You can go north, south, east, west or southwest.
+This is the eastern end of a long sheltered walkway. The balcony above covers this area and a wooden boardwalk runs west to east.
+
+You can go WEST along the walkway.
+SOUTH or SOUTHWEST will take you into the courtyard.
+A glass-panelled door leads EAST.
+A door will take you NORTH.
+
+> use fire ax
+You use the fire ax to smash open the glass-panelled door to the east.
+
+> east
+You are at the western end of a long Corridor.
+You can go south, east or west.
+This corridor has tiles on the floor. Towels hang on a rail on the wall.
+
+A door leads SOUTH.
+A glass-panelled door leads WEST.
+The corridor continues EAST.
+
+> east
+You are in the middle of a long Corridor.
+You can go north, east or west.
+This corridor stretches east and west.
+
+You can go WEST or EAST down the corridor.
+A door leads NORTH.
+
+> north
+You are in the Ballroom.
+There is a Metal Plinth here.
+You can go south or east.
+This is an elegant ballroom. A huge chandelier hangs from the high ceiling and a marble floor stretches from wall to wall. The windows are framed with luxurious curtains. A small window is visible high in the western wall.
+
+The ballroom continues EAST.
+A door leads SOUTH.
+
+> use gold flute with metal plinth
+You slot the gold flute into the narrow hole. It fits and the metal plinth rumbles slightly, then starts playing the flute! Must be some kind of machinery inside the plinth. Suddenly, a glass pillar rumbles out of a hole in the ceiling and hangs suspended in the air far above your head.
+
+> use shotgun shells with shotgun
+You load the shotgun shells into the shotgun. The shotgun is now loaded with two shots.
+
+> use shotgun with glass pillar
+You take aim and fire the shotgun. The noise is tremendous. The glass pillar shatters resoundingly and small piece of glass fly everywhere. You shield your face from the chaos until all the glass has landed. In the wreckage is a key.
+
+> take jewelled key
+You took the key.
+
+> east
+You are in the Ballroom.
+You can go south or west.
+This is the eastern end of a luxurious ball room. Plush chairs line the walls here and a detailed painting of a river scene looks out over the room.
+
+The ballroom continues WEST.
+A door leads SOUTH.
+
+> south
+You are at the east end of a long Corridor.
+You can go north, east or west.
+This corridor stretches out to the west.
+
+A door lies EAST.
+Another door is to the NORTH.
+The corridor continues WEST.
+
+> east
+This door appears to be locked. An emerald is set into the panel of the door.
+
+> use jewelled key
+You use the jewelled key in the lock of the door to the east. It fits and the door unlocks.
+
+> east
+You are on the Basement Stairs.
+You can go east or west.
+The floor of this room is a set of wooden steps leading down.
+
+The steps lead EAST to the bottom where there is a door.
+There is a door to the WEST.
+
+> east
+You are at the north end of a dark underground Hallway.
+You can go south or west.
+This is a dank hallway. It looks like it has been carved straight out of the earth. The floor is loosely covered with various planks of wood. The room is lit by one bare bulb hanging from the earthy ceiling.
+
+The room continues SOUTH.
+A door leads WEST.
+
+> south
+You are in the south middle section of a dank L-shaped Hallway.
+You can go north or west.
+This is the south part of a dank L-shaped earthy hallway. The corner section has metal girders supporting it.
+
+The hall continues NORTH.
+The hall also curves round to the WEST.
+
+> west
+You are at the west end of a dark underground Hallway.
+You can go east or west.
+This is a dank hallway carved out of the earth.
+
+The room continues EAST.
+A door leads WEST.
+
+> west
+You are at the north end of a simple stone-walled Corridor.
+You can go north, south, east or west.
+The ceiling of this short corridor is held up with wooden arch beams. The walls are made of stone. Electric bulbs glow in old torch brackets casting long shadows across the passage.
+
+The passage continues SOUTH.
+A door leads off to the EAST.
+Another door what about this leads NORTH.
+A barred gate leads WEST.
+
+> west
+You are in a small, cramped Cell.
+There is a Bone here.
+You can go east.
+This appears to be a prison cell of some sort. What's this doing under your uncle's house? It is furnished with a small wooden bed and a bucket.
+
+The barred exit door lies to the EAST.
+
+> take bone
+You gingerly pick up the bone.
+
+> east
+You are at the north end of a simple stone-walled Corridor.
+You can go north, south, east or west.
+The ceiling of this short corridor is held up with wooden arch beams. The walls are made of stone. Electric bulbs glow in old torch brackets casting long shadows across the passage.
+
+The passage continues SOUTH.
+A door leads off to the EAST.
+Another door what about this leads NORTH.
+A barred gate leads WEST.
+
+> east
+You are at the west end of a dark underground Hallway.
+You can go east or west.
+This is a dank hallway carved out of the earth.
+
+The room continues EAST.
+A door leads WEST.
+
+> east
+You are in the south middle section of a dank L-shaped Hallway.
+You can go north or west.
+This is the south part of a dank L-shaped earthy hallway. The corner section has metal girders supporting it.
+
+The hall continues NORTH.
+The hall also curves round to the WEST.
+
+> north
+You are at the north end of a dark underground Hallway.
+You can go south or west.
+This is a dank hallway. It looks like it has been carved straight out of the earth. The floor is loosely covered with various planks of wood. The room is lit by one bare bulb hanging from the earthy ceiling.
+
+The room continues SOUTH.
+A door leads WEST.
+
+> west
+You are on the Basement Stairs.
+You can go east or west.
+The floor of this room is a set of wooden steps leading down.
+
+The steps lead EAST to the bottom where there is a door.
+There is a door to the WEST.
+
+> west
+You are at the east end of a long Corridor.
+You can go north, east or west.
+This corridor stretches out to the west.
+
+A door lies EAST.
+Another door is to the NORTH.
+The corridor continues WEST.
+
+> west
+You are in the middle of a long Corridor.
+You can go north, east or west.
+This corridor stretches east and west.
+
+You can go WEST or EAST down the corridor.
+A door leads NORTH.
+
+> west
+You are at the western end of a long Corridor.
+You can go south, east or west.
+This corridor has tiles on the floor. Towels hang on a rail on the wall.
+
+A door leads SOUTH.
+A glass-panelled door leads WEST.
+The corridor continues EAST.
+
+> west
+You are at the eastern end of the Sheltered Walkway.
+You can go north, south, east, west or southwest.
+This is the eastern end of a long sheltered walkway. The balcony above covers this area and a wooden boardwalk runs west to east.
+
+You can go WEST along the walkway.
+SOUTH or SOUTHWEST will take you into the courtyard.
+A glass-panelled door leads EAST.
+A door will take you NORTH.
+
+> south
+You are in the north-east part of the Courtyard.
+There is the Swimming Pool here.
+You can go north, south, west or southwest.
+This is the north-east part of the courtyard. A swimming pool is here. It continues east inside the house, for when it's too cold to swim outside.
+
+You can go SOUTH, SOUTHWEST or WEST to go to other parts of the courtyard.
+NORTH will take you to a sheltered walkway running along the northern edge of the courtyard.
+
+> south
+You are in the south-east part of the Courtyard.
+There is the Kennel here.
+You can go north, west or northwest.
+This is the south-west part of the courtyard. A line of bushes disguises a dog kennel. The kitchen window is right next to the kennel.
+
+You can go NORTH, NORTHWEST or WEST to go to other parts of the courtyard.
+
+> examine kennel
+You attempt to look inside the kennel, but your uncle's fierce dog leaps out and barks repeatedly at you. It's chained to the kennel, so it can't get you, but you can't get into the kennel either.
+
+> give bone to dog
+You toss the meaty bone to the dog. Hungrily the dog growls and begins devouring the bone.
+
+> examine kennel
+You look inside the dog kennel. There's a key inside.
+Do you wish to take the key?
+1) Yes
+2) No
+[choice] 1
+You take the key and quickly get out of the kennel in case the dog notices.
+
+> west
+You are in the south-west part of the Courtyard.
+You can go north, south, east, west or northeast.
+This beautiful garden and courtyard is full of trees and plants. There are benches to sit on and a fountain.
+
+The courtyard stretches out to the NORTH, NORTHEAST and EAST.
+A glass-panelled door lies to the SOUTH.
+A wooden door leads WEST.
+
+> south
+You are standing at the west end of the Entrance Hall.
+You can go north, south, east or west.
+The gothic architecture of the mansion lends a creepy feel to the entrance hall. Candles light the room. 
+
+You can go EAST to the other side of the entrance hall. 
+There is also a door to the WEST.
+You can see a glass-paned door to the NORTH. Through it, a garden of some sort is visible.
+The front door is SOUTH.
+
+> east
+You are standing at the eastern end of the Entrance Hall.
+There is a Staircase here.
+You can go east or west.
+You can go to Cupboard under the stairs.
+You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
+
+You can also go WEST to the other side of the entrance hall from here.
+A door leads EAST.
+
+> look at staircase
+It's a wide set of stairs leading up to a landing above.
+Do you wish to ascend the staircase?
+1) Yes
+2) No
+[choice] 1
+You walk up the stairs and find yourself above the entrance hall.
+You are on the Entrance Hall Landing.
+There is a Staircase here.
+You can go east or west.
+This is the landing above the entrance hall. You can see over the rail into the entrance hall below.
+
+There is a door to the EAST.
+You can go WEST to the other side of the landing.
+
+> east
+You are at the south end of a short corridor running north to south.
+You can go north, east or west.
+This corridor is quite short. It has a black and white tiled floor.
+
+You can go NORTH to the other end of the corridor.
+There is a door WEST.
+There is another door to the EAST with the number 004 written beside it.
+
+> north
+You are at the north end of the black and white tiled corridor.
+You can go north, south or east.
+This is the north end of the short corridor. Windows to the west look out over the courtyard.
+
+There is a door to the NORTH.
+A door with 003 written on it leads EAST.
+The corridor continues to the SOUTH.
+
+> north
+You are in the Workshop.
+There is Shotgun Shell Machine and a Pot here.
+You can go north, south or east.
+This room appears to have been used as a workshop. It contains many tools like hammers, screwdrivers, saws and such like. Several machines sit on the bench in the centre of the room.
+
+A door leads SOUTH.
+There is a low archway to the EAST.
+Another door leads NORTH.
+
+> north
+You are at the western end of a long corridor.
+You can go south, east or west.
+This corridor runs from east to west. You are at the west end of it.
+
+A glass-panelled door leads WEST.
+You can go further down the corridor to the EAST.
+A door leads SOUTH.
+
+> east
+You are in the middle of a long corridor.
+You can go north, east or west.
+This is the middle part of a long east-west corridor.
+
+The corridor continues WEST.
+The corridor also continues EAST.
+There's a door to the NORTH.
+
+> east
+You are at the east end of a long corridor.
+You can go south, east or west.
+This is the eastern end of a long east-west corridor. Some piping comes out of the floor here and goes into the south wall next to the door.
+
+You can go along the corridor to the WEST.
+A door leads EAST.
+A rich-looking door leads SOUTH.
+
+> use office key
+You use the office key to unlock the office door to the East.
+
+> east
+You are in a small Office.
+There is Window here.
+You can go south or west.
+This office is cramped. Papers are strewn on the desk. A large window dominates the south wall.
+
+You can go WEST through a door.
+A large window lies SOUTH.
+
+> use fire ax with window
+You swing the fire ax at the window. It smashes, sending shards of reflective glass flying. You can now go SOUTH, through the window.
+
+> south
+You are in a richly decorated Bathroom.
+There is a Broken Mirror and a Diary here.
+You can go north or west.
+This room is a obviously a bathroom but it looks more like a palace. Gold and red seems to be the colour scheme of choice - the taps and shower-head look like valuable artifacts!
+It's a large room with a bath and a walk-in shower.
+
+The huge mirror to the NORTH over the sink is smashed and you can see through into an office.
+A door leads to the WEST.
+
+> take diary
+You take the diary.
+
+> use key head with key handle
+You fit the two key halves together. They look like they were once the same key. Now all you need is some way to fuse them together.
+
+> use blowtorch with broken key
+You use the blowtorch and fuse the two sections of the key together. Alright, it's not perfect, but at least you can use the key now.
+
+> north
+You are in a small Office.
+There is a Broken Window here.
+You can go south or west.
+This office is cramped. Papers are strewn on the desk. A large window dominates the south wall.
+
+You can go WEST through a door.
+A large window lies SOUTH.
+
+> west
+You are at the east end of a long corridor.
+You can go south, east or west.
+This is the eastern end of a long east-west corridor. Some piping comes out of the floor here and goes into the south wall next to the door.
+
+You can go along the corridor to the WEST.
+A door leads EAST.
+A rich-looking door leads SOUTH.
+
+> west
+You are in the middle of a long corridor.
+You can go north, east or west.
+This is the middle part of a long east-west corridor.
+
+The corridor continues WEST.
+The corridor also continues EAST.
+There's a door to the NORTH.
+
+> west
+You are at the western end of a long corridor.
+You can go south, east or west.
+This corridor runs from east to west. You are at the west end of it.
+
+A glass-panelled door leads WEST.
+You can go further down the corridor to the EAST.
+A door leads SOUTH.
+
+> south
+You are in the Workshop.
+There is Shotgun Shell Machine and a Pot here.
+You can go north, south or east.
+This room appears to have been used as a workshop. It contains many tools like hammers, screwdrivers, saws and such like. Several machines sit on the bench in the centre of the room.
+
+A door leads SOUTH.
+There is a low archway to the EAST.
+Another door leads NORTH.
+
+> south
+You are at the north end of the black and white tiled corridor.
+You can go north, south or east.
+This is the north end of the short corridor. Windows to the west look out over the courtyard.
+
+There is a door to the NORTH.
+A door with 003 written on it leads EAST.
+The corridor continues to the SOUTH.
+
+> south
+You are at the south end of a short corridor running north to south.
+You can go north, east or west.
+This corridor is quite short. It has a black and white tiled floor.
+
+You can go NORTH to the other end of the corridor.
+There is a door WEST.
+There is another door to the EAST with the number 004 written beside it.
+
+> west
+You are on the Entrance Hall Landing.
+There is a Staircase here.
+You can go east or west.
+This is the landing above the entrance hall. You can see over the rail into the entrance hall below.
+
+There is a door to the EAST.
+You can go WEST to the other side of the landing.
+
+> look at staircase
+It's a wide set of stairs leading down to the entrance hall below.
+Do you wish to descend the staircase?
+1) Yes
+2) No
+[choice] 1
+You walk down the stairs and find yourself in the entrance hall.
+You are standing at the eastern end of the Entrance Hall.
+There is a Staircase here.
+You can go east or west.
+You can go to Cupboard under the stairs.
+You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
+
+You can also go WEST to the other side of the entrance hall from here.
+A door leads EAST.
+
+> west
+You are standing at the west end of the Entrance Hall.
+You can go north, south, east or west.
+The gothic architecture of the mansion lends a creepy feel to the entrance hall. Candles light the room. 
+
+You can go EAST to the other side of the entrance hall. 
+There is also a door to the WEST.
+You can see a glass-paned door to the NORTH. Through it, a garden of some sort is visible.
+The front door is SOUTH.
+
+> north
+You are in the south-west part of the Courtyard.
+You can go north, south, east, west or northeast.
+This beautiful garden and courtyard is full of trees and plants. There are benches to sit on and a fountain.
+
+The courtyard stretches out to the NORTH, NORTHEAST and EAST.
+A glass-panelled door lies to the SOUTH.
+A wooden door leads WEST.
+
+> north
+You are in the north-west part of the Courtyard.
+You can go north, south, east, west or southeast.
+This is the north-west garden part of the courtyard. Many flowers are blooming here and there is a winding gravel path.
+
+NORTH will take you under a sheltered walkway.
+SOUTH, SOUTHEAST or EAST will take you to other parts of the courtyard.
+WEST is a glass-panelled door.
+
+> north
+You are at the western end of the Sheltered Walkway.
+You can go south, east, west or southeast.
+This wooden boardwalk runs from west to east along the northern wall of the courtyard. The balcony above shelters this area from the rain.
+
+The sheltered walkway continues EAST.
+You can go SOUTH or SOUTHEAST into the courtyard.
+A glass-panelled door leads WEST.
+
+> east
+You are at the eastern end of the Sheltered Walkway.
+You can go north, south, east, west or southwest.
+This is the eastern end of a long sheltered walkway. The balcony above covers this area and a wooden boardwalk runs west to east.
+
+You can go WEST along the walkway.
+SOUTH or SOUTHWEST will take you into the courtyard.
+A glass-panelled door leads EAST.
+A door will take you NORTH.
+
+> east
+You are at the western end of a long Corridor.
+You can go south, east or west.
+This corridor has tiles on the floor. Towels hang on a rail on the wall.
+
+A door leads SOUTH.
+A glass-panelled door leads WEST.
+The corridor continues EAST.
+
+> use mended key
+You use the key that you mended in the keyhole of the door to the south. It fits perfectly and the door unlocks.
+
+> south
+You are at the west end of the Swimming Pool Hall.
+There is the Swimming Pool here.
+You can go north or east.
+This long room houses a large swimming pool. A squeaky wet tiled floor leads around the edge of the pool. The pool continues through the western wall. You can see it leads outside.
+
+You can go EAST further along the edge of the swimming pool.
+A door leads NORTH.
+
+> east
+You are in the middle of the Swimming Pool Hall.
+There is the Swimming Pool here.
+You can go east or west.
+This is the hall that contains the swimming pool.
+
+The room continues EAST and WEST.
+
+> east
+You are at the eastern end of the Swimming Pool Hall.
+There is Button and Jacuzzi here.
+You can go south, east or west.
+This is the eastern end of the swimming pool hall. The pool has reached it's end here and there are seats overlooking it. A jaccuzi sits in one corner. Some pipes come out of the floor in one corner and continues up into the ceiling.
+
+There is a door to the EAST.
+Another door leads SOUTH.
+The hall continues WEST.
+
+> examine diary
+You open the diary and begin to read.
+
+
+"September 17th
+
+The corporation sent another couple of heavies round today. They're so clumsy - they keep breaking things!
+
+September 18th
+
+I think something's up. The second test was a huge success, and the corporation said they want to move the research to their own labs. I'm not sure this is legal.
+
+September 19th
+
+I heard two of them talking. They plan to use the formula as a weapon. While it would be an ideal tool for assassination, being totally untraceable and fatal within seconds, this is totally insane! I have destroyed all my papers. Tomorrow I will dispose of the sample.
+
+September 20th
+
+The sample is gone! The corporation must have taken it already! That means I'm a dead man. I've taken all the necessary steps, but they'll kill me for sure now. I know too much. I've hidden the missing part in the jacuzzi. I hope someone can put it to good use."
+
+There is nothing on any of the following pages.
+
+> examine jacuzzi
+Upon close inspection, you find a lever wedged down the plug hole.
+Do you wish to retrieve the lever?
+1) Yes
+2) No
+[choice] 1
+You pull on the lever and it comes free of the plug hole.
+
+> west
+You are in the middle of the Swimming Pool Hall.
+There is the Swimming Pool here.
+You can go east or west.
+This is the hall that contains the swimming pool.
+
+The room continues EAST and WEST.
+
+> west
+You are at the west end of the Swimming Pool Hall.
+There is the Swimming Pool here.
+You can go north or east.
+This long room houses a large swimming pool. A squeaky wet tiled floor leads around the edge of the pool. The pool continues through the western wall. You can see it leads outside.
+
+You can go EAST further along the edge of the swimming pool.
+A door leads NORTH.
+
+> north
+You are at the western end of a long Corridor.
+You can go south, east or west.
+This corridor has tiles on the floor. Towels hang on a rail on the wall.
+
+A door leads SOUTH.
+A glass-panelled door leads WEST.
+The corridor continues EAST.
+
+> east
+You are in the middle of a long Corridor.
+You can go north, east or west.
+This corridor stretches east and west.
+
+You can go WEST or EAST down the corridor.
+A door leads NORTH.
+
+> east
+You are at the east end of a long Corridor.
+You can go north, east or west.
+This corridor stretches out to the west.
+
+A door lies EAST.
+Another door is to the NORTH.
+The corridor continues WEST.
+
+> east
+You are on the Basement Stairs.
+You can go east or west.
+The floor of this room is a set of wooden steps leading down.
+
+The steps lead EAST to the bottom where there is a door.
+There is a door to the WEST.
+
+> east
+You are at the north end of a dark underground Hallway.
+You can go south or west.
+This is a dank hallway. It looks like it has been carved straight out of the earth. The floor is loosely covered with various planks of wood. The room is lit by one bare bulb hanging from the earthy ceiling.
+
+The room continues SOUTH.
+A door leads WEST.
+
+> south
+You are in the south middle section of a dank L-shaped Hallway.
+You can go north or west.
+This is the south part of a dank L-shaped earthy hallway. The corner section has metal girders supporting it.
+
+The hall continues NORTH.
+The hall also curves round to the WEST.
+
+> west
+You are at the west end of a dark underground Hallway.
+You can go east or west.
+This is a dank hallway carved out of the earth.
+
+The room continues EAST.
+A door leads WEST.
+
+> west
+You are at the north end of a simple stone-walled Corridor.
+You can go north, south, east or west.
+The ceiling of this short corridor is held up with wooden arch beams. The walls are made of stone. Electric bulbs glow in old torch brackets casting long shadows across the passage.
+
+The passage continues SOUTH.
+A door leads off to the EAST.
+Another door what about this leads NORTH.
+A barred gate leads WEST.
+
+> south
+You are at the south end of a short Corridor.
+You can go north, south or west.
+Some of the wall has tumbled down in this part of the corridor, revealing the bare earth behind. Wooden beams have been used to shore it up and the rubble has been swept into a corner.
+
+The corridor continues NORTH.
+A door leads WEST. Piping shoots out of the ceiling above this door and goes off into the ceiling.
+A set of elevator doors lie to the SOUTH.
+
+> west
+You are in a large, cool Cave.
+There is a Machine here.
+You can go east.
+This cave is wide and deep. A harsh path has been cut into the rock leading down. You can see a lake some way below the path. There's no guard rail. A set of piping follows the wall next to the path down to a machine built into a small area away from the cliff.
+
+The exit lies to the EAST.
+
+> use lever with machine
+Which slot would you like to insert the lever into?
+1) 1
+2) 2
+3) 3
+[choice] 3
+You slide the lever into the third slot. It fits perfectly and clicks into place. You pull it down, and the machine starts. There is a loud clunk noise, and a rattling noise along the pipe. Presumably a door has unlocked somewhere.
+
+> east
+You are at the south end of a short Corridor.
+You can go north, south or west.
+Some of the wall has tumbled down in this part of the corridor, revealing the bare earth behind. Wooden beams have been used to shore it up and the rubble has been swept into a corner.
+
+The corridor continues NORTH.
+A door leads WEST. Piping shoots out of the ceiling above this door and goes off into the ceiling.
+A set of elevator doors lie to the SOUTH.
+
+> north
+You are at the north end of a simple stone-walled Corridor.
+You can go north, south, east or west.
+The ceiling of this short corridor is held up with wooden arch beams. The walls are made of stone. Electric bulbs glow in old torch brackets casting long shadows across the passage.
+
+The passage continues SOUTH.
+A door leads off to the EAST.
+Another door what about this leads NORTH.
+A barred gate leads WEST.
+
+> east
+You are at the west end of a dark underground Hallway.
+You can go east or west.
+This is a dank hallway carved out of the earth.
+
+The room continues EAST.
+A door leads WEST.
+
+> east
+You are in the south middle section of a dank L-shaped Hallway.
+You can go north or west.
+This is the south part of a dank L-shaped earthy hallway. The corner section has metal girders supporting it.
+
+The hall continues NORTH.
+The hall also curves round to the WEST.
+
+> north
+You are at the north end of a dark underground Hallway.
+You can go south or west.
+This is a dank hallway. It looks like it has been carved straight out of the earth. The floor is loosely covered with various planks of wood. The room is lit by one bare bulb hanging from the earthy ceiling.
+
+The room continues SOUTH.
+A door leads WEST.
+
+> west
+You are on the Basement Stairs.
+You can go east or west.
+The floor of this room is a set of wooden steps leading down.
+
+The steps lead EAST to the bottom where there is a door.
+There is a door to the WEST.
+
+> west
+You are at the east end of a long Corridor.
+You can go north, east or west.
+This corridor stretches out to the west.
+
+A door lies EAST.
+Another door is to the NORTH.
+The corridor continues WEST.
+
+> west
+You are in the middle of a long Corridor.
+You can go north, east or west.
+This corridor stretches east and west.
+
+You can go WEST or EAST down the corridor.
+A door leads NORTH.
+
+> west
+You are at the western end of a long Corridor.
+You can go south, east or west.
+This corridor has tiles on the floor. Towels hang on a rail on the wall.
+
+A door leads SOUTH.
+A glass-panelled door leads WEST.
+The corridor continues EAST.
+
+> west
+You are at the eastern end of the Sheltered Walkway.
+You can go north, south, east, west or southwest.
+This is the eastern end of a long sheltered walkway. The balcony above covers this area and a wooden boardwalk runs west to east.
+
+You can go WEST along the walkway.
+SOUTH or SOUTHWEST will take you into the courtyard.
+A glass-panelled door leads EAST.
+A door will take you NORTH.
+
+> southwest
+You are in the north-west part of the Courtyard.
+You can go north, south, east, west or southeast.
+This is the north-west garden part of the courtyard. Many flowers are blooming here and there is a winding gravel path.
+
+NORTH will take you under a sheltered walkway.
+SOUTH, SOUTHEAST or EAST will take you to other parts of the courtyard.
+WEST is a glass-panelled door.
+
+> south
+You are in the south-west part of the Courtyard.
+You can go north, south, east, west or northeast.
+This beautiful garden and courtyard is full of trees and plants. There are benches to sit on and a fountain.
+
+The courtyard stretches out to the NORTH, NORTHEAST and EAST.
+A glass-panelled door lies to the SOUTH.
+A wooden door leads WEST.
+
+> south
+You are standing at the west end of the Entrance Hall.
+You can go north, south, east or west.
+The gothic architecture of the mansion lends a creepy feel to the entrance hall. Candles light the room. 
+
+You can go EAST to the other side of the entrance hall. 
+There is also a door to the WEST.
+You can see a glass-paned door to the NORTH. Through it, a garden of some sort is visible.
+The front door is SOUTH.
+
+> east
+You are standing at the eastern end of the Entrance Hall.
+There is a Staircase here.
+You can go east or west.
+You can go to Cupboard under the stairs.
+You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
+
+You can also go WEST to the other side of the entrance hall from here.
+A door leads EAST.
+
+> look at staircase
+It's a wide set of stairs leading up to a landing above.
+Do you wish to ascend the staircase?
+1) Yes
+2) No
+[choice] 1
+You walk up the stairs and find yourself above the entrance hall.
+You are on the Entrance Hall Landing.
+There is a Staircase here.
+You can go east or west.
+This is the landing above the entrance hall. You can see over the rail into the entrance hall below.
+
+There is a door to the EAST.
+You can go WEST to the other side of the landing.
+
+> east
+You are at the south end of a short corridor running north to south.
+You can go north, east or west.
+This corridor is quite short. It has a black and white tiled floor.
+
+You can go NORTH to the other end of the corridor.
+There is a door WEST.
+There is another door to the EAST with the number 004 written beside it.
+
+> north
+You are at the north end of the black and white tiled corridor.
+You can go north, south or east.
+This is the north end of the short corridor. Windows to the west look out over the courtyard.
+
+There is a door to the NORTH.
+A door with 003 written on it leads EAST.
+The corridor continues to the SOUTH.
+
+> north
+You are in the Workshop.
+There is Shotgun Shell Machine and a Pot here.
+You can go north, south or east.
+This room appears to have been used as a workshop. It contains many tools like hammers, screwdrivers, saws and such like. Several machines sit on the bench in the centre of the room.
+
+A door leads SOUTH.
+There is a low archway to the EAST.
+Another door leads NORTH.
+
+> north
+You are at the western end of a long corridor.
+You can go south, east or west.
+This corridor runs from east to west. You are at the west end of it.
+
+A glass-panelled door leads WEST.
+You can go further down the corridor to the EAST.
+A door leads SOUTH.
+
+> east
+You are in the middle of a long corridor.
+You can go north, east or west.
+This is the middle part of a long east-west corridor.
+
+The corridor continues WEST.
+The corridor also continues EAST.
+There's a door to the NORTH.
+
+> east
+You are at the east end of a long corridor.
+You can go south, east or west.
+This is the eastern end of a long east-west corridor. Some piping comes out of the floor here and goes into the south wall next to the door.
+
+You can go along the corridor to the WEST.
+A door leads EAST.
+A rich-looking door leads SOUTH.
+
+> south
+You are in a richly furnished Master Bedroom.
+There is the Wardrobe and Fuse here.
+You can go north or east.
+This appears to be the master bedroom. It is larger than the other bedrooms and the furniture is much finer. A large four-poster bed dominates the room. It has red curtains around it. A full-length mirror in the shape of a gothic arch sits in one corner and the wardrobe and other furniture also display the gothic style. Everything is made from a rich reddish wood.
+
+A door leads NORTH.
+Another door leads EAST.
+
+> take fuse
+You pick up the small fuse.
+
+> north
+You are at the east end of a long corridor.
+You can go south, east or west.
+This is the eastern end of a long east-west corridor. Some piping comes out of the floor here and goes into the south wall next to the door.
+
+You can go along the corridor to the WEST.
+A door leads EAST.
+A rich-looking door leads SOUTH.
+
+> west
+You are in the middle of a long corridor.
+You can go north, east or west.
+This is the middle part of a long east-west corridor.
+
+The corridor continues WEST.
+The corridor also continues EAST.
+There's a door to the NORTH.
+
+> west
+You are at the western end of a long corridor.
+You can go south, east or west.
+This corridor runs from east to west. You are at the west end of it.
+
+A glass-panelled door leads WEST.
+You can go further down the corridor to the EAST.
+A door leads SOUTH.
+
+> south
+You are in the Workshop.
+There is Shotgun Shell Machine and a Pot here.
+You can go north, south or east.
+This room appears to have been used as a workshop. It contains many tools like hammers, screwdrivers, saws and such like. Several machines sit on the bench in the centre of the room.
+
+A door leads SOUTH.
+There is a low archway to the EAST.
+Another door leads NORTH.
+
+> south
+You are at the north end of the black and white tiled corridor.
+You can go north, south or east.
+This is the north end of the short corridor. Windows to the west look out over the courtyard.
+
+There is a door to the NORTH.
+A door with 003 written on it leads EAST.
+The corridor continues to the SOUTH.
+
+> south
+You are at the south end of a short corridor running north to south.
+You can go north, east or west.
+This corridor is quite short. It has a black and white tiled floor.
+
+You can go NORTH to the other end of the corridor.
+There is a door WEST.
+There is another door to the EAST with the number 004 written beside it.
+
+> west
+You are on the Entrance Hall Landing.
+There is a Staircase here.
+You can go east or west.
+This is the landing above the entrance hall. You can see over the rail into the entrance hall below.
+
+There is a door to the EAST.
+You can go WEST to the other side of the landing.
+
+> look at staircase
+It's a wide set of stairs leading down to the entrance hall below.
+Do you wish to descend the staircase?
+1) Yes
+2) No
+[choice] 1
+You walk down the stairs and find yourself in the entrance hall.
+You are standing at the eastern end of the Entrance Hall.
+There is a Staircase here.
+You can go east or west.
+You can go to Cupboard under the stairs.
+You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
+
+You can also go WEST to the other side of the entrance hall from here.
+A door leads EAST.
+
+> west
+You are standing at the west end of the Entrance Hall.
+You can go north, south, east or west.
+The gothic architecture of the mansion lends a creepy feel to the entrance hall. Candles light the room. 
+
+You can go EAST to the other side of the entrance hall. 
+There is also a door to the WEST.
+You can see a glass-paned door to the NORTH. Through it, a garden of some sort is visible.
+The front door is SOUTH.
+
+> north
+You are in the south-west part of the Courtyard.
+You can go north, south, east, west or northeast.
+This beautiful garden and courtyard is full of trees and plants. There are benches to sit on and a fountain.
+
+The courtyard stretches out to the NORTH, NORTHEAST and EAST.
+A glass-panelled door lies to the SOUTH.
+A wooden door leads WEST.
+
+> north
+You are in the north-west part of the Courtyard.
+You can go north, south, east, west or southeast.
+This is the north-west garden part of the courtyard. Many flowers are blooming here and there is a winding gravel path.
+
+NORTH will take you under a sheltered walkway.
+SOUTH, SOUTHEAST or EAST will take you to other parts of the courtyard.
+WEST is a glass-panelled door.
+
+> north
+You are at the western end of the Sheltered Walkway.
+You can go south, east, west or southeast.
+This wooden boardwalk runs from west to east along the northern wall of the courtyard. The balcony above shelters this area from the rain.
+
+The sheltered walkway continues EAST.
+You can go SOUTH or SOUTHEAST into the courtyard.
+A glass-panelled door leads WEST.
+
+> east
+You are at the eastern end of the Sheltered Walkway.
+You can go north, south, east, west or southwest.
+This is the eastern end of a long sheltered walkway. The balcony above covers this area and a wooden boardwalk runs west to east.
+
+You can go WEST along the walkway.
+SOUTH or SOUTHWEST will take you into the courtyard.
+A glass-panelled door leads EAST.
+A door will take you NORTH.
+
+> east
+You are at the western end of a long Corridor.
+You can go south, east or west.
+This corridor has tiles on the floor. Towels hang on a rail on the wall.
+
+A door leads SOUTH.
+A glass-panelled door leads WEST.
+The corridor continues EAST.
+
+> east
+You are in the middle of a long Corridor.
+You can go north, east or west.
+This corridor stretches east and west.
+
+You can go WEST or EAST down the corridor.
+A door leads NORTH.
+
+> east
+You are at the east end of a long Corridor.
+You can go north, east or west.
+This corridor stretches out to the west.
+
+A door lies EAST.
+Another door is to the NORTH.
+The corridor continues WEST.
+
+> east
+You are on the Basement Stairs.
+You can go east or west.
+The floor of this room is a set of wooden steps leading down.
+
+The steps lead EAST to the bottom where there is a door.
+There is a door to the WEST.
+
+> east
+You are at the north end of a dark underground Hallway.
+You can go south or west.
+This is a dank hallway. It looks like it has been carved straight out of the earth. The floor is loosely covered with various planks of wood. The room is lit by one bare bulb hanging from the earthy ceiling.
+
+The room continues SOUTH.
+A door leads WEST.
+
+> south
+You are in the south middle section of a dank L-shaped Hallway.
+You can go north or west.
+This is the south part of a dank L-shaped earthy hallway. The corner section has metal girders supporting it.
+
+The hall continues NORTH.
+The hall also curves round to the WEST.
+
+> west
+You are at the west end of a dark underground Hallway.
+You can go east or west.
+This is a dank hallway carved out of the earth.
+
+The room continues EAST.
+A door leads WEST.
+
+> west
+You are at the north end of a simple stone-walled Corridor.
+You can go north, south, east or west.
+The ceiling of this short corridor is held up with wooden arch beams. The walls are made of stone. Electric bulbs glow in old torch brackets casting long shadows across the passage.
+
+The passage continues SOUTH.
+A door leads off to the EAST.
+Another door what about this leads NORTH.
+A barred gate leads WEST.
+
+> north
+You are in some kind of Machine Room.
+There is the Elevator Power Machine here.
+You can go south.
+This room is full of machinery. Some of it presumably controls the pumping system for the swimming pool. A machine in the corner is labelled 'Elevator Power'.
+
+A door leads to the SOUTH.
+
+> use fuse with elevator power machine
+You slot the fuse neatly into place and hit the power button. The machine clicks and buzzes and a small green light turns on. Presumably, the elevator now works.
+
+> south
+You are at the north end of a simple stone-walled Corridor.
+You can go north, south, east or west.
+The ceiling of this short corridor is held up with wooden arch beams. The walls are made of stone. Electric bulbs glow in old torch brackets casting long shadows across the passage.
+
+The passage continues SOUTH.
+A door leads off to the EAST.
+Another door what about this leads NORTH.
+A barred gate leads WEST.
+
+> south
+You are at the south end of a short Corridor.
+You can go north, south or west.
+Some of the wall has tumbled down in this part of the corridor, revealing the bare earth behind. Wooden beams have been used to shore it up and the rubble has been swept into a corner.
+
+The corridor continues NORTH.
+A door leads WEST. Piping shoots out of the ceiling above this door and goes off into the ceiling.
+A set of elevator doors lie to the SOUTH.
+
+> south
+You are in a rickety freight Elevator.
+There is the Elevator Button here.
+You can go north.
+This is a fairly unstable-looking elevator. The power is on. A button in the corner will let you go down.
+
+You can leave the elevator to the NORTH.
+
+> examine elevator button
+You can press the button.
+Do you wish to press the Elevator Button?
+1) Yes
+2) No
+[choice] 1
+You press the button and the elevator clunks, then begins to descend squeakily. Presently, it stops and the doors open.
+You are in a rickety freight Elevator.
+There is the Elevator Button here.
+You can go north.
+This is a fairly unstable-looking elevator. The power is on. A button in the corner will let you go up.
+
+You can leave the elevator to the NORTH.
+
+> north
+You step out of the elevator and find yourself in a huge laboratory. Chemicals and scientific equipment lie on benches and shelves all around the room. There is a dead rat in a cage and a large tank labelled 'Warning: Highly Toxic'.
+You are just about to investigate, when the lift suddenly rattles upwards! You run to stop it, but it's too late. You listen carefully. Presently, you hear someone getting into the elevator and coming down.
+At the bottom, a man in a black suit steps out and takes off his dark glasses. He starts to speak:
+"Thank you. You have been most helpful. We could not get into this lab because your uncle left such a complex series of locks and puzzles to stop us. Now you have opened the way for us. We need valuable chemicals from this lab to further our research. With your help, we have got them. Now we must decide what to do with you. You know too much for us to let you go. You can either come and work for us (your brilliant mind would be most useful to us.) or you can die, just like your uncle. The choice is yours..."
+
+You are in the Lab.
+There is a Man in a black suit here.
+You can go south.
+The man in the black suit is blocking your exit. He's offered you a choice. Perhaps you could work for them. Or at least try and bargain with them. Then again, they did murder your uncle. Revenge would be sweet. Perhaps you could even run past the black suited man into the lift, which lies to the SOUTH.
+
+> use fire ax on man
+With a great roar, you swing the ax at the man in black. He tries to pull out a gun, but before he can get off a shot, the ax lops his arm off at the elbow.
+He gasps in pain and stares in terror at his severed arm, now twitching on the floor. He looks up, and the last thing he sees is the fire ax descending onto his head.
+Wiping dark blood from your face, you grip your ax and make your way up the elevator.
+'That's for my uncle,' you whisper...
+Congratulations! You've completed the game. And you're alive! Now go do something productive... :)
+
+[runner] turns=428 leftover=0 running=false WON=YES

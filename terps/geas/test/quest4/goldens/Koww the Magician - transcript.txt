@@ -1,0 +1,144 @@
+
+The Adventures of Koww the Magician, v1.0 Brian the Great
+
+Find out if the grass is really greener on the other side of the chasm.
+
+You are in Koww's Chasm
+There is a sign and the chasm here.
+You can go east.
+You are outside in a pasture of pure, pure green.  Green as far as the eye can see.  But you, Koww the Magician, are not satisfied.  The grass may be even greener on the other side of the chasm... you must know!  Also in the area is a very undramatic sign.
+
+> east
+You are in Zeke's Farm
+There is the haystack and the pond here.
+You can go north, south, east or west.
+You can go to Zeke's Farmhouse or Zeke's Silo.
+You stand outside of a small farmhouse with a silo beside it.  There are a haystack and a pond here.
+
+> go to zeke's silo
+You are in Zeke's Silo
+There is Zeke here.
+You can go out to Zeke's Farm.
+Gee, this place smells just like rotting feed.  Standing in the silo, grinning like the idiot that he is, is Farmer Zeke.
+
+> give milk to zeke
+"Well, thanks a lot, good buddy!  Well, tell ya what, why don't I give ya this here pitchfork ta comp'n'sate ya fer yer milk."
+
+> out
+You are in Zeke's Farm
+There is the haystack and the pond here.
+You can go north, south, east or west.
+You can go to Zeke's Farmhouse or Zeke's Silo.
+You stand outside of a small farmhouse with a silo beside it.  There are a haystack and a pond here.
+
+> use pitchfork on haystack
+You stab the pitchfork into the haystack.  Lo and behold, the haystack falls down into a hole in the ground!  Inside the hole is a jade statuette, which you take.
+
+> south
+You are in Goblin Trail
+There is the road here.
+You can go north or south.
+The stench of goblins permeates this place.  Goblins are small, annoying creatures who like to fight anyone who looks weak.  Fortunately, you don't look weak.
+
+> south
+You are in Goblin Lair
+There is the cliff and the goblin guard here.
+You can go north.
+You can go to Inside the Goblin Lair.
+About twenty goblins patrol the front of a massive cave complex.  They eye you for a moment, then decide not to attack.  You return the favor and don't kill them.
+
+> go to inside the goblin lair
+You are in Inside the Goblin Lair
+There is the statues and the Goblin King here.
+You can go out to Goblin Lair.
+You are escorted to the Goblin King's throne room, a large chamber ornamented with statues of nude female goblins.  You try hard to avoid puking.
+
+> give jade statuette to goblin king
+"Ooooo!  You find goblinn lost statyoo!  We giv yu wun jar of spit!"
+
+> out
+You are in Goblin Lair
+There is the cliff and the goblin guard here.
+You can go north.
+You can go to Inside the Goblin Lair.
+About twenty goblins patrol the front of a massive cave complex.  They eye you for a moment, then decide not to attack.  You return the favor and don't kill them.
+
+> north
+You are in Goblin Trail
+There is the road here.
+You can go north or south.
+The stench of goblins permeates this place.  Goblins are small, annoying creatures who like to fight anyone who looks weak.  Fortunately, you don't look weak.
+
+> north
+You are in Zeke's Farm
+There is the haystack and the pond here.
+You can go north, south, east or west.
+You can go to Zeke's Farmhouse or Zeke's Silo.
+You stand outside of a small farmhouse with a silo beside it.  There are a haystack and a pond here.
+
+> north
+You are in Land of the NecroYaks
+There is a sign here.
+You can go north or south.
+The greenness of the farmland dissolves into gray bleakness as you pass into the land of the NecroYaks.  Yaks are the sworn enemies of cows -- you'd better stay on your toes!
+
+> north
+You are in Deep in NecroYak Territory
+You can go south.
+A cliff face blocks your way here.  It's steep -- you can't climb.  If you want to continue, you'll have to search the face.
+
+> search
+The NecroYaks jump out and search you for acid.  They find your goblin spit, take it, and run off.  But one of them drops a phoenix feather, and you scoop it up unnoticed.  By the way, there's no way to go farther this way unless you're a yak.
+
+> south
+You are in Land of the NecroYaks
+There is a sign here.
+You can go north or south.
+The greenness of the farmland dissolves into gray bleakness as you pass into the land of the NecroYaks.  Yaks are the sworn enemies of cows -- you'd better stay on your toes!
+
+> south
+You are in Zeke's Farm
+There is the haystack and the pond here.
+You can go north, south, east or west.
+You can go to Zeke's Farmhouse or Zeke's Silo.
+You stand outside of a small farmhouse with a silo beside it.  There are a haystack and a pond here.
+
+> east
+You are in Phoenix Mountain Pass
+There is the mountains here.
+You can go east or west.
+The towering mountains surround you on all sides but back to your west.  Passage farther east is remotely possible, should you be brave or foolhardy enough to try it.
+
+> east
+You are in Phoenix Peak
+There is the Resplendent Magnificent Phoenix here.
+You can go west.
+After hard hours of climbing, you finally reach the summit of Phoenix Peak.  Here, in all its glory, sits the Resplendent Magnificent Phoenix.
+
+> yes
+"Thank you; you have found my wing feather.  In the wrong hands, that could have been very dangerous.  I will give you this "fly" scroll to compensate you for your hard work.  Use the scroll to fly, but it will only work once."
+
+> west
+You are in Phoenix Mountain Pass
+There is the mountains here.
+You can go east or west.
+The towering mountains surround you on all sides but back to your west.  Passage farther east is remotely possible, should you be brave or foolhardy enough to try it.
+
+> west
+You are in Zeke's Farm
+There is the haystack and the pond here.
+You can go north, south, east or west.
+You can go to Zeke's Farmhouse or Zeke's Silo.
+You stand outside of a small farmhouse with a silo beside it.  There are a haystack and a pond here.
+
+> west
+You are in Koww's Chasm
+There is a sign and the chasm here.
+You can go east.
+You are outside in a pasture of pure, pure green.  Green as far as the eye can see.  But you, Koww the Magician, are not satisfied.  The grass may be even greener on the other side of the chasm... you must know!  Also in the area is a very undramatic sign.
+
+> use fly scroll
+You fly up and over the chasm!
+Congratulations, you have found out that you were better off where you started anyway.  The grass here is brown and crackly.  Too bad!  And... OH NO!  Now you're trapped here, alone with the NecroYaks!  Stay tuned for "The Adventures of Koww the Magician II -- Escape from the NecroYaks!"
+
+[runner] turns=24 leftover=0 running=false WON=YES

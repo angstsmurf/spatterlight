@@ -1,0 +1,3925 @@
+
+Barbarian, v1.0
+
+Before you start.
+Are you visually impaired?
+1) Yes
+2) No
+[choice] 2
+Barbarian!
+By Wonderjudge. Any questions or problems?
+Contact me at wonderjudge22@yahoo.com
+Press any key to continue
+
+You grew up in the small nordic town of golsiv. Golsiv is on the northern coast of the mainland. The people here are stout northmen and grow very large and barrel chested. Your father was the town chieftan. His rule was just and fair. The people knew their future was secure as you grew to be a young man. You were known to be just and fair and are almost as big as your father. A week ago when you were out hunting a small group of men in scarlet robes requested an audience with your father. When you returned home you found you father dead, slumped over in his chair. After a week of grieving the council of elders met to determine who would lead this town. You thought that rulership would automatically pass to you. You were wrong.
+Press any key to continue
+
+The council informs you that as you are not of age and your fathers death is under investigation you will need to complete three tasks. The tasks were to be set up by thorgin. Thorgin is bound not to be fair as if you fail in your tasks the leaderships role would probably fall to him. You go to see him in the great hall now to find out your first task......
+Press any key to continue
+
+
+You are at the North end of the village 
+You are at the northern end of your home village of Golsiv. The great hall is to the north. The stables are west of here and the blacksmith shop is to the east.. The village center lies to the south.
+You can go north, south, east or west.
+
+> north
+You are in the Great hall 
+You are in the great hall of the village chieftan. Furs, antlers and heads of various animals line all the walls here. The main doors lie to the south. Three smaller doorways lead off to the east, west and north.
+Thorgin is here.
+You can go north, south, east or west.
+
+> speak to thorgin
+"Oh, Tandum there you are. Are you ready to embark on your first task?" asks thorgin with a grin.
+"Yes." you reply rather flatly.
+"Ok then your first task is to bring back the 'Eye of the east' a  
+large jewel that used to be in the treasury here but has long since been lost. You will need to equip yourself properly and you will need a horse I daresay." he says.
+"Great, and where shall I look for this 'Eye of the east'" you reply sharply.
+"Once you are properly equipped councilman hardin will meet you at the crossroads to give you direction." he says.
+"That will be all." he says with finality.
+
+> west
+You are in the Parlor 
+You are in the parlor or sitting room of the great hall. A doorway leads back to the main hall to the east. There are numerous bookshelves and decorative weapons along the walls here.
+a Window and a large Fireplace in the north wall are here.
+You can go east.
+
+> examine fireplace
+There is a fire going in the fireplace. There is a large mantle on the top.
+
+
+> look at mantle
+A large stone mantle on the fireplace.
+
+> take vase
+(first removing it from Mantle)
+Done.
+You pick it up.
+
+> shake vase
+You shake the vase. There is something clunking around in there.
+
+
+> break vase
+You smash it on the ground. It shatters into tiny pieces.
+
+> take chisel
+You pick it up.
+
+> open window
+You open the window.
+
+> out
+You are in an Alley 
+You are in a small alley behind some hedges. You can go east back into the parlor.
+the Parlor window and Your window are here.
+You can go east.
+
+> use chisel on your window
+You jam the chisel in there and unlatch the window.
+
+> open your window
+You open the window.
+
+> enter your window
+You crawl through the window.
+You are in Your chamber 
+You are in your bedroom chamber. The place is a mess as you are not a very neat person. Clothes litter the floor. The hallway is to the east or you can go out the window you came in.
+a large Pile of clothes is here.
+You can go east or west.
+
+> take pile of clothes
+You start picking up your clothes that have been strewn about the place. You find your money purse in the mess.
+
+> west
+You are in an Alley 
+You are in a small alley behind some hedges. You can go east back into the parlor.
+the Parlor window and Your window are here.
+You can go east.
+
+> east
+You are in the Parlor 
+You are in the parlor or sitting room of the great hall. A doorway leads back to the main hall to the east. There are numerous bookshelves and decorative weapons along the walls here.
+a large Fireplace in the north wall, a Window and a Mantle on the fireplace are here.
+You can go out or east.
+
+> east
+You are in the Great hall 
+You are in the great hall of the village chieftan. Furs, antlers and heads of various animals line all the walls here. The main doors lie to the south. Three smaller doorways lead off to the east, west and north.
+Thorgin is here.
+You can go north, south, east or west.
+
+> south
+You are at the North end of the village 
+You are at the northern end of your home village of Golsiv. The great hall is to the north. The stables are west of here and the blacksmith shop is to the east.. The village center lies to the south.
+You can go north, south, east or west.
+
+> south
+You are in the Village center 
+You are in the center of your home village of Golsiv. You can go the north or south from here. The market is to the east and the inn is west.
+You can go north, south, east or west.
+
+> south
+You are at the South end of the village 
+You are at the southern end of your home village of Golsiv. You can go north or south from here. The local seer is to the east and the craft shop is west.
+You can go north, south, east or west.
+
+> south
+You are at the Cross roads 
+You are at the crossing of many roads. The village is to the north and the main road leads off to the south.
+Councilman Hardin is here.
+You can go north, south or west.
+
+> speak to hardin
+What will you say to hardin?
+1) Hi there Hardin!
+2) I need some money.
+[choice] 2
+"I need some money Hardin. Thorgin won't let me back in my chamber to get mine." you say.
+"Tandum, there must be a way you can get in there. Try the side window. Also here are some coins to get you started. Mind you don't tell anyone." he says.
+"Thanks Hardin! Your the best!" you say.
+"Your quite welcome Tandum. By the way I think the first thing you should do is get yourself a weapon. Go and see Gak." he adds.
+
+> coins
+You currently have 30 copper coins.
+
+> north
+You are at the South end of the village 
+You are at the southern end of your home village of Golsiv. You can go north or south from here. The local seer is to the east and the craft shop is west.
+You can go north, south, east or west.
+
+> north
+You are in the Village center 
+You are in the center of your home village of Golsiv. You can go the north or south from here. The market is to the east and the inn is west.
+You can go north, south, east or west.
+
+> north
+You are at the North end of the village 
+You are at the northern end of your home village of Golsiv. The great hall is to the north. The stables are west of here and the blacksmith shop is to the east.. The village center lies to the south.
+You can go north, south, east or west.
+
+> east
+You are in the Blacksmith shop 
+You are in the local blacksmith shop. Weapons and horseshoes line all the walls here. A great clay furnace and bellows takes up most of the east end of the shop. Gak, the local blacksmith is here busy working at the furnace.
+Gak the blacksmith is here.
+You can go west.
+
+> speak to gak
+What will you say to gak?
+1) Hey gak.
+2) What are you working on?
+3) 
+4) 
+5) 
+[choice] 1
+Gak looks up from the anvil.
+"Oh, hello Tandum. How are you?" he asks.
+"I'm fine." you reply.
+
+> speak to gak
+What will you say to gak?
+1) Hey gak.
+2) What are you working on?
+3) I need a weapon.
+4) 
+5) 
+[choice] 3
+"Well young tandum, what kind of weapon did you have in mind?" he asks.
+
+
+> speak to gak
+What will you say to gak?
+1) Hey gak.
+2) What are you working on?
+3) How about a sword.
+4) How about a flail.
+5) How about an axe.
+[choice] 5
+"Ok, but first you have to show me that you are skilled at using it. I'm not going to have you running around getting yourself killed with one of my weapons." says Gak.
+You take the axe and spar a little with gak.
+He smiles and nods.
+"Now that's more like it!" Gak says.
+"Now all I need is five copper and it's yours."
+
+
+> speak to gak
+What will you say to gak?
+1) Hey gak.
+2) What are you working on?
+3) I'll take that axe now Gak.
+4) 
+5) 
+[choice] 3
+"Sure thing Tandum. Here you are. If you become a little stronger then come back and I'll show you some new moves." says Gak.
+"Oh and don't forget to WIELD it.." he says.
+Your score just went up!
+To find out your rank type 'score'.
+
+> take battle axe
+You pick it up.
+
+> wield battle axe
+You wield the Battle axe.
+
+
+> coins
+You currently have 25 copper coins.
+
+> west
+You are at the North end of the village 
+You are at the northern end of your home village of Golsiv. The great hall is to the north. The stables are west of here and the blacksmith shop is to the east.. The village center lies to the south.
+You can go north, south, east or west.
+
+> west
+You are in the Stables 
+You are in the village stables. Straw and grain line the area here as well as a lage number of stalls. The stable boy here cleaning up the place. The only exit is east.
+a Stable boy and a Large horse are here.
+You can go east.
+
+> speak to stable boy
+What will you say to the stable boy?
+1) Hey, how are you?
+2) I need a horse.
+3) 
+[choice] 2
+"Sorry Tandum all the horses are out right now. A large hunting party has gone west with them to fill the stores for winter." he says.
+
+> speak to stable boy
+What will you say to the stable boy?
+1) Hey, how are you?
+2) What about that horse in the corner?
+3) Why are they all out now? It's not even fall yet.
+[choice] 2
+"That one? Oh he is wild. He won't let anyone too close to him without biting or kicking." he replies.
+
+> speak to stable boy
+What will you say to the stable boy?
+1) Hey, how are you?
+2) What does he like to eat?
+3) Why are they all out now? It's not even fall yet.
+[choice] 2
+"I don't think he likes much of anything. I tried carrots and apples so far." he says.
+"You could try asking marta. I heard she is really good with horses."
+
+> east
+You are at the North end of the village 
+You are at the northern end of your home village of Golsiv. The great hall is to the north. The stables are west of here and the blacksmith shop is to the east.. The village center lies to the south.
+You can go north, south, east or west.
+
+> south
+You are in the Village center 
+You are in the center of your home village of Golsiv. You can go the north or south from here. The market is to the east and the inn is west.
+You can go north, south, east or west.
+
+> west
+You are at the Inn 
+You are at the local inn. The doorway to the east leads back to the village center. There is a large counter here. The local innkeeper, Marta is behind the counter.
+"Good day young master Tandum!" she says as you walk in.
+Marta the innkeeper is here.
+You can go east.
+
+> speak to marta
+What will you say to marta?
+1) Hiya Marta.
+2) Can I have an ale marta?
+3) What do you think a wild horse would like to eat?
+[choice] 3
+"Hmmm. You could try a carrot that's always a good bet." she says.
+"It's been tried." you reply.
+"Well, you could always ask it." says marta.
+"Ask it?!? Last time I cheked horses don't talk Marta." you say.
+"Trust me. Go ask the seer for a green potion." she replies.
+
+> east
+You are in the Village center 
+You are in the center of your home village of Golsiv. You can go the north or south from here. The market is to the east and the inn is west.
+You can go north, south, east or west.
+
+> south
+You are at the South end of the village 
+You are at the southern end of your home village of Golsiv. You can go north or south from here. The local seer is to the east and the craft shop is west.
+You can go north, south, east or west.
+
+> east
+You are in the Seer's hut 
+You are in Selma's, the local seer, hut. The place is dimly lit and full of thick smoke and strange fragrances. A table and several chairs are in the center of the hut here. The way out is west.
+Selma the seer is here.
+You can go west.
+
+> speak to selma
+What will you say to selma?
+1) Can you tell my future Selma?
+2) I need a green potion.
+[choice] 2
+"That will be three copper Tandum."
+Will you buy the green potion?
+1) Yes
+2) No
+[choice] yes
+"I'll take it." you say.
+"Here you go." says Selma.
+She hands you a green potion.
+
+> drink green potion
+You drink the green potion.
+You feel a strange understanding enter you mind.
+
+> west
+You are at the South end of the village 
+You are at the southern end of your home village of Golsiv. You can go north or south from here. The local seer is to the east and the craft shop is west.
+You can go north, south, east or west.
+
+> north
+You are in the Village center 
+You are in the center of your home village of Golsiv. You can go the north or south from here. The market is to the east and the inn is west.
+You can go north, south, east or west.
+
+> north
+You are at the North end of the village 
+You are at the northern end of your home village of Golsiv. The great hall is to the north. The stables are west of here and the blacksmith shop is to the east.. The village center lies to the south.
+You can go north, south, east or west.
+
+> west
+You are in the Stables 
+You are in the village stables. Straw and grain line the area here as well as a lage number of stalls. The stable boy here cleaning up the place. The only exit is east.
+a Stable boy and a Large horse are here.
+You can go east.
+
+> speak to horse
+"What do you want?" 
+"Come to bring me a stupid carrot have you?"
+"I hate carrots!" the horse says.
+"Well, what kind of vegtables do you like?" you ask.
+"Cabbages." the horse says.
+"Cabbages?!?" you ask.
+"Yes, cabbages. Bring me a cabbage and I'll be your friend forever."
+
+> east
+You are at the North end of the village 
+You are at the northern end of your home village of Golsiv. The great hall is to the north. The stables are west of here and the blacksmith shop is to the east.. The village center lies to the south.
+You can go north, south, east or west.
+
+> south
+You are in the Village center 
+You are in the center of your home village of Golsiv. You can go the north or south from here. The market is to the east and the inn is west.
+You can go north, south, east or west.
+
+> east
+You are in the Market 
+You are in the local market. Stalls are strewn about the area in makeshift fashion. The village center lies to the west.
+Turner is here.
+You can go west.
+
+> speak to turner
+What will you say to turner?
+1) Do you have any cabbages?
+2) What have you got for sale today?
+3) 
+4) 
+5) 
+6) 
+7) 
+[choice] 2
+"Well lets see I have carrots, celery, lettuce, potatoes and tomatoes. All fresh! only one copper."
+
+> speak to turner
+What will you say to turner?
+1) Do you have any cabbages?
+2) I'll take a carrot.
+3) I'll take some celery.
+4) I'll take some lettuce.
+5) I'll take a potato.
+6) I'll take a tomato.
+7) 
+[choice] 4
+"One fresh head of lettuce just for you."
+He gives you a head of lettuce.
+
+> speak to turner
+What will you say to turner?
+1) Do you have any cabbages?
+2) I'll take a carrot.
+3) I'll take some celery.
+4) I'll take some lettuce.
+5) I'll take a potato.
+6) I'll take a tomato.
+7) 
+[choice] 6
+"One fresh tomato just for you."
+He gives you a tomato.
+
+> speak to turner
+What will you say to turner?
+1) Do you have any cabbages?
+2) I'll take a carrot.
+3) I'll take some celery.
+4) I'll take some lettuce.
+5) I'll take a potato.
+6) I'll take a tomato.
+7) 
+[choice] 6
+"One fresh tomato just for you."
+He gives you a tomato.
+
+> west
+You are in the Village center 
+You are in the center of your home village of Golsiv. You can go the north or south from here. The market is to the east and the inn is west.
+You can go north, south, east or west.
+
+> north
+You are at the North end of the village 
+You are at the northern end of your home village of Golsiv. The great hall is to the north. The stables are west of here and the blacksmith shop is to the east.. The village center lies to the south.
+You can go north, south, east or west.
+
+> north
+You are in the Great hall 
+You are in the great hall of the village chieftan. Furs, antlers and heads of various animals line all the walls here. The main doors lie to the south. Three smaller doorways lead off to the east, west and north.
+Thorgin is here.
+You can go north, south, east or west.
+
+> east
+You are in the Dining hall 
+You are in the great dinning hall. A large table for about twenty two people takes up the entire middle of the hall here. Plush chairs run all along the table. There are all sorts of weapons displayed on the walls here. The great hall is to the west and the kitchen north.
+You can go north or west.
+
+> north
+You are in the Kitchen 
+You are in the a large kitchen. Pots and pans line the walls, hanging from hooks here. Cooking implements are everywhere. The dining hall is to the south.
+Tessi is here.
+You can go south.
+
+> speak to tessi
+What will you say to tessi?
+1) Hello Tessi.
+2) Can I get some food Tessi?
+3) Tessi, can I have a cabbage?
+[choice] 3
+"I only have one cabbage left Tandum but I tell you what. I'm making a salad to go with thorgin's lunch." she grimaces.
+"If you bring me two tomatoes and a head of lettuce then you can have my cabbage."
+
+
+> give tomato to tessi
+Which tomato do you mean?
+1) Tomato
+2) Tomato
+[choice] 1
+"Thank you Tandum." she says.
+
+
+> give tomato to tessi
+"Thank you Tandum." she says.
+
+
+> give lettuce to tessi
+"Thank you Tandum." she says.
+
+"Ok Tandum, now I can make the salad. Here is my last cabbage as promised."
+She hands you a cabbage.
+
+> i
+You are carrying:
+Battle axe (wielded)
+Chisel
+Cabbage
+
+> south
+You are in the Dining hall 
+You are in the great dinning hall. A large table for about twenty two people takes up the entire middle of the hall here. Plush chairs run all along the table. There are all sorts of weapons displayed on the walls here. The great hall is to the west and the kitchen north.
+You can go north or west.
+
+> west
+You are in the Great hall 
+You are in the great hall of the village chieftan. Furs, antlers and heads of various animals line all the walls here. The main doors lie to the south. Three smaller doorways lead off to the east, west and north.
+Thorgin is here.
+You can go north, south, east or west.
+
+> south
+You are at the North end of the village 
+You are at the northern end of your home village of Golsiv. The great hall is to the north. The stables are west of here and the blacksmith shop is to the east.. The village center lies to the south.
+You can go north, south, east or west.
+
+> west
+You are in the Stables 
+You are in the village stables. Straw and grain line the area here as well as a lage number of stalls. The stable boy here cleaning up the place. The only exit is east.
+a Stable boy and a Large horse are here.
+You can go east.
+
+> give cabbage to horse
+You give the cabbage to the horse. He gobbles it down greedily then nuzzles up to you.
+
+> speak to stable boy
+What will you say to the stable boy?
+1) Hey, how are you?
+2) Can you outfit my horse for me?
+3) Why are they all out now? It's not even fall yet.
+[choice] 2
+"Hey! How did you tame him?" he asks.
+"With some cabbage." you reply.
+"Cabbage? Really? Yuck!" he says.
+"I know go figure" you say.
+"I can outfit your horse but I need to charge three copper for the supplies."
+Will you have your horse outfitted?
+1) Yes
+2) No
+[choice] yes
+"Ok Tandum, You are set to go."
+he says.
+"Thanks." you reply.
+To get on the horse type 'mount horse'. To get off type dismount.
+Your score just went up!
+To find out your rank type 'score'.
+
+> take horse
+You take the horse by the reins.
+
+> east
+You are at the North end of the village 
+You are at the northern end of your home village of Golsiv. The great hall is to the north. The stables are west of here and the blacksmith shop is to the east.. The village center lies to the south.
+You can go north, south, east or west.
+
+> south
+You are in the Village center 
+You are in the center of your home village of Golsiv. You can go the north or south from here. The market is to the east and the inn is west.
+You can go north, south, east or west.
+
+> south
+You are at the South end of the village 
+You are at the southern end of your home village of Golsiv. You can go north or south from here. The local seer is to the east and the craft shop is west.
+You can go north, south, east or west.
+
+> south
+You are at the Cross roads 
+You are at the crossing of many roads. The village is to the north and the main road leads off to the south.
+Councilman Hardin is here.
+You can go north, south or west.
+
+> speak to hardin
+What will you say to hardin?
+1) Hi there Hardin!
+2) 
+[choice] 1
+"Oh hello Tandum!" 
+"Before I can give you  your first destination you will need three things. A horse, a weapon, and some armor."
+"Now lets check you out.." he says.
+"Well I see you have a weapon. That's good."
+"You can now explore the surrounding area seeing as how you are armed."
+"You have a horse that's wonderful."
+"You still need some armor."
+
+> west
+You are on the Western road 
+You are walking along the western road that runs along the coast. The road continues to the southwest and heads back to your village to the east.
+a Traveling merchant and an Orc are here.
+You can go east or southwest.
+
+> attack orc
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) 
+5) 
+6) 
+[choice] 3
+You hack downward with your axe.
+You enemy jumps back but not in time. He suffers a light wound.
+
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) 
+5) 
+6) 
+[choice] 2
+You thrust with your axe.
+Your enemy tries to move in for a close attack.
+You knock him off balance.
+
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) 
+5) 
+6) 
+[choice] 3
+You hack downward with your axe.
+Your enemy is off balance and suffers a very deep wound!
+
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) 
+5) 
+6) 
+[choice] 1
+You swing your axe.
+The enemy tries to dodge.
+You land a nasty blow.
+
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) 
+5) 
+6) 
+[choice] 1
+You swing your axe.
+The enemy tries to dodge.
+You land a nasty blow.
+
+You have defeated your opponent!
+You have become stronger!
+
+The orc lies dead at your feet.
+The merchant thanks you for saving him, gives you some coins and continues down the road. You quickly search the orc and finding nothing on him dump the body in a ditch.
+
+> coins
+You currently have 21 copper coins.
+
+> east
+You are at the Cross roads 
+You are at the crossing of many roads. The village is to the north and the main road leads off to the south.
+Councilman Hardin is here.
+You can go north, south or west.
+
+> take horse
+You already have it.
+
+> mount horse
+You mount the horse.
+
+> south
+You are on the Southern road (mounted on the horse)
+You are traveling along the winding southern road. The road stretches on to the south and the crossroads are north of here.
+a large Black bear is here.
+You can go north or south.
+
+> attack bear
+You charge at the black bear on your horse. It sees you coming and rears up at you.
+How will you attack?
+1) Swing with axe
+2) Downward hack
+3) 
+4) 
+[choice] 1
+You swing your axe.
+The enemy swings at you.
+You both suffer wounds.
+
+How will you attack?
+1) Swing with axe
+2) Downward hack
+3) 
+4) 
+[choice] 1
+You swing your axe.
+The enemy swings at you.
+You both suffer wounds.
+
+How will you attack?
+1) Swing with axe
+2) Downward hack
+3) 
+4) 
+[choice] 1
+You swing your axe.
+The enemy tries to dodge.
+You land a nasty blow.
+
+How will you attack?
+1) Swing with axe
+2) Downward hack
+3) 
+4) 
+[choice] 2
+You hack downward from the horse with your axe.
+
+You enemy jumps back but not in time. He suffers a light wound.
+
+How will you attack?
+1) Swing with axe
+2) Downward hack
+3) 
+4) 
+[choice] 1
+You swing your axe.
+The enemy tries to move in for a close attack.
+You land a nasty blow.
+
+You have defeated your opponent!
+You have become stronger!
+
+The black bear collapses dead at your feet. You use the side of your axe to remove the head and skin. You dump the rest into a gulley in the woods.
+
+> take bear head
+You pick it up.
+
+> take bear skin
+You pick it up.
+
+> dismount
+You dismount.
+
+> north
+You are at the Cross roads 
+You are at the crossing of many roads. The village is to the north and the main road leads off to the south.
+Councilman Hardin is here.
+You can go north, south or west.
+
+> north
+You are at the South end of the village 
+You are at the southern end of your home village of Golsiv. You can go north or south from here. The local seer is to the east and the craft shop is west.
+You can go north, south, east or west.
+
+> drop horse
+You let go of the reins and give the horse a quick pat and tell him to wait for you here.
+
+> west
+You are in the Craft shop 
+You are in the local craftshop. Various craft equipment, needles thread and animal skins lie all over the tables here. Inga is here working at her potters wheel.
+Inga the crafter is here.
+You can go east.
+
+> speak to inga
+What will you say to inga?
+1) Hello Inga.
+2) I need some armor.
+[choice] 2
+Inga looks you over then pulls out a piece of string and starts to measure you.
+"Hmm Some nice studded leather armor ought to do for you Tandum. But I will need some supplies to make it." she says.
+"I need you to bring me the hide of large animal. A bear would do nicely." she adds.
+"Also, I will need some studs from the blacksmith."
+
+> east
+You are at the South end of the village 
+You are at the southern end of your home village of Golsiv. You can go north or south from here. The local seer is to the east and the craft shop is west.
+a Large horse is here.
+You can go north, south, east or west.
+
+> north
+You are in the Village center 
+You are in the center of your home village of Golsiv. You can go the north or south from here. The market is to the east and the inn is west.
+You can go north, south, east or west.
+
+> north
+You are at the North end of the village 
+You are at the northern end of your home village of Golsiv. The great hall is to the north. The stables are west of here and the blacksmith shop is to the east.. The village center lies to the south.
+You can go north, south, east or west.
+
+> east
+You are in the Blacksmith shop 
+You are in the local blacksmith shop. Weapons and horseshoes line all the walls here. A great clay furnace and bellows takes up most of the east end of the shop. Gak, the local blacksmith is here busy working at the furnace.
+Gak the blacksmith is here.
+You can go west.
+
+> speak to gak
+What will you say to gak?
+1) Hey gak.
+2) I need some metal studs.
+3) Do you have any fighting tips for me?
+4) 
+5) 
+[choice] 2
+"Sure thing Tandum. I got some right here and these are spares so they are on the house. Just don't tell anyone I gave em away."
+
+> speak to gak
+What will you say to gak?
+1) Hey gak.
+2) I need some metal studs.
+3) Do you have any fighting tips for me?
+4) 
+5) 
+[choice] 3
+"Ok, let me teach you some mounted techniques." Gak says.
+You spend awhile with Gak as he teaches you how to attack from horseback. Finally he is satisfied with your progress and dismisses you.
+"Ok Tandum, I'm gonna teach you how to do the cleave attack. The cleave attack is a large roundhouse swing with your axe. It deals alot of damage and is very usefull when fighting more than one opponent. However is leaves you vulnerable to thrust attacks." says Gak.
+After awhile Gak feels confident that you have learned it well and dismisses you.
+
+> west
+You are at the North end of the village 
+You are at the northern end of your home village of Golsiv. The great hall is to the north. The stables are west of here and the blacksmith shop is to the east.. The village center lies to the south.
+You can go north, south, east or west.
+
+> south
+You are in the Village center 
+You are in the center of your home village of Golsiv. You can go the north or south from here. The market is to the east and the inn is west.
+You can go north, south, east or west.
+
+> south
+You are at the South end of the village 
+You are at the southern end of your home village of Golsiv. You can go north or south from here. The local seer is to the east and the craft shop is west.
+a Large horse is here.
+You can go north, south, east or west.
+
+> west
+You are in the Craft shop 
+You are in the local craftshop. Various craft equipment, needles thread and animal skins lie all over the tables here. Inga is here working at her potters wheel.
+Inga the crafter is here.
+You can go east.
+
+> give studs to inga
+"Thanks Tandum." she says.
+
+> give bear skin to inga
+"Thanks Tandum." she says.
+"Well, I have everything I need. Give me a moment and I will get it for you." says Inga.
+After a little while Inga hands you a set of studded leather armor.
+"No charge. I don't care what that moron thorgin says."
+Your score just went up!
+To find out your rank type 'score'.
+
+> give bear head to inga
+"Hey I can make you a nice helmet out of that for two copper if you want." she says.
+Do you want her to make a helmet?
+1) Yes
+2) No
+[choice] yes
+You hand Inga two copper and she starts to work. After a while she finishes.
+"There you go Tandum, one bear skull helmet." she says as she hands you the helmet.
+"Thanks Inga!" you reply.
+
+> wear studded leather
+You put on the Studded leather.
+
+> wear helmet
+You put on the Helmet.
+
+> east
+You are at the South end of the village 
+You are at the southern end of your home village of Golsiv. You can go north or south from here. The local seer is to the east and the craft shop is west.
+a Large horse is here.
+You can go north, south, east or west.
+
+> take horse
+You take the horse by the reins.
+
+> south
+You are at the Cross roads 
+You are at the crossing of many roads. The village is to the north and the main road leads off to the south.
+Councilman Hardin is here.
+You can go north, south or west.
+
+> speak to hardin
+What will you say to hardin?
+1) Hi there Hardin!
+2) 
+[choice] 1
+"Oh hello Tandum!" 
+"Before I can give you  your first destination you will need three things. A horse, a weapon, and some armor."
+"Now lets check you out.." he says.
+"Well I see you have a weapon. That's good."
+"You can now explore the surrounding area seeing as how you are armed."
+"You have a horse that's wonderful."
+"You have some armor. Excellent!."
+"Looks like you are ready to go!" says Hardin.
+"I think so." you say.
+"Well, in that case your first destination and the suspected location of the 'eye of the east' is somewhere in chantly graveyard." he says.
+"Chantly graveyard? What would it be doing in there?" you ask.
+"Well, it is believed to have been stolen by someone who has been buried there and took it to the grave with him. At least that's the rumor." he says.
+"Great, you mean it might not even be there." you say glumly.
+"I have complete faith in you Tandum. Now, let me give you the directions....."
+He gives you the directions and wishes you luck.
+
+> mount horse
+You mount the horse.
+
+> go to chantly graveyard
+Chantly Graveyard (mounted on the horse)
+You are outside chantley graveyard, to the north. A very large iron fence surrounds it and fortunately the main gates are open. There are large oak trees surrounding the gates giving the effect of it being dusk inside the graveyard. The road back to the village is west.
+You can go north or west.
+
+> dismount
+You dismount.
+
+> drop horse
+You let go of the reins and give the horse a quick pat and tell him to wait for you here.
+
+> north
+
+You are standing inside the Graveyard 
+You are inside a very large graveyard. There are gravestones of all different shapes and sizes here. Paths lead off through the graveyard in many directions.
+some giant iron Gates are here.
+You can go north, south, east, west, northwest or northeast.
+As you enter the graveyard you get the strange feeling that something is not right. It's darker in here than it should be. Just as you finish that thought the main gates slam shut locking you in!
+Your score just went up!
+To find out your rank type 'score'.
+
+> west
+You are standing inside the Graveyard 
+You are inside a very large graveyard. There are gravestones of all different shapes and sizes here. Paths lead off through the graveyard in many directions.
+You can go north, east or northeast.
+
+> examine gravestones
+You notice one of the graves has a loose stone set in it's base.
+
+> north
+You are standing inside the Graveyard 
+You are inside a very large graveyard. There are gravestones of all different shapes and sizes here. Paths lead off through the graveyard in many directions.
+a low hanging Tree branch is here.
+You can go north, south, east, northeast or southeast.
+
+> examine gravestones
+You do notice one grave with a peculiar message. It says 'cold sunset,warm sunrise,warm sunset, cold sunrise'.
+
+> use battle axe on tree branch
+You neatly slice off the the tree limb.
+
+> take tree branch
+You pick it up.
+
+> north
+You are standing inside the Graveyard 
+You are inside a very large graveyard. There are gravestones of all different shapes and sizes here. Paths lead off through the graveyard in many directions.
+You can go south, east or southeast.
+
+> examine gravestones
+You notice one of the graves has a loose stone set in it's base.
+
+> east
+You are standing inside the Graveyard 
+You are inside a very large graveyard. There are gravestones of all different shapes and sizes here. Paths lead off through the graveyard in many directions.
+You can go south, east, west, southwest or southeast.
+
+> examine gravestones
+You do see a piece of cloth hidden amongst the graves.
+
+> take cloth
+You pick it up.
+
+> east
+You are standing inside the Graveyard 
+You are inside a very large graveyard. There are gravestones of all different shapes and sizes here. Paths lead off through the graveyard in many directions.
+You can go south, west or southwest.
+
+> examine gravestones
+You notice one of the graves has a loose stone set in it's base.
+
+> south
+You are standing inside the Graveyard 
+You are inside a very large graveyard. There are gravestones of all different shapes and sizes here. Paths lead off through the graveyard in many directions.
+You can go north, south, west, northwest or southwest.
+
+> examine gravestones
+You do notice one gravestone with a peculiar message. It says 'reverse the weather to open the gate'.
+On the ground near the grave you see a set of flint and steel.
+
+> take flint and steel
+You pick it up.
+
+> use cloth on tree branch
+You wrap the cloth around the tree branch.
+
+> use flint and steel on tree branch
+You light the cloth wrapped tree branch on fire. You go to wield it.
+You wield the Torch.
+
+
+> i
+You are carrying:
+Battle axe (wielded)
+Studded leather (worn)
+Helmet (worn)
+Chisel
+Torch (wielded)
+Flint and steel
+
+> south
+You are standing inside the Graveyard 
+You are inside a very large graveyard. There are gravestones of all different shapes and sizes here. Paths lead off through the graveyard in many directions.
+You can go north, west or northwest.
+
+> examine gravestones
+You notice one of the graves has a loose stone set in it's base.
+
+> north
+You are standing inside the Graveyard 
+You are inside a very large graveyard. There are gravestones of all different shapes and sizes here. Paths lead off through the graveyard in many directions.
+You can go north, south, west, northwest or southwest.
+
+> northwest
+You are standing inside the Graveyard 
+You are inside a very large graveyard. There are gravestones of all different shapes and sizes here. Paths lead off through the graveyard in many directions.
+You can go south, east, west, southwest or southeast.
+
+> west
+You are standing inside the Graveyard 
+You are inside a very large graveyard. There are gravestones of all different shapes and sizes here. Paths lead off through the graveyard in many directions.
+a Stone pressure plate is here.
+You can go south, east or southeast.
+
+> push plate
+You hear a click from the stone.
+
+> southeast
+You are standing inside the Graveyard 
+You are inside a very large graveyard. There are gravestones of all different shapes and sizes here. Paths lead off through the graveyard in many directions.
+a Stone door set in a large tomb and a Skeleton guarding the door are here.
+You can go north, south, east, west, northwest, northeast, southwest or southeast.
+
+> southeast
+You are standing inside the Graveyard 
+You are inside a very large graveyard. There are gravestones of all different shapes and sizes here. Paths lead off through the graveyard in many directions.
+a Stone pressure plate is here.
+You can go north, west or northwest.
+
+> push plate
+You hear a click from the stone.
+
+> west
+You are standing inside the Graveyard 
+You are inside a very large graveyard. There are gravestones of all different shapes and sizes here. Paths lead off through the graveyard in many directions.
+some giant iron Gates are here.
+You can go north, south, east, west, northwest or northeast.
+
+> west
+You are standing inside the Graveyard 
+You are inside a very large graveyard. There are gravestones of all different shapes and sizes here. Paths lead off through the graveyard in many directions.
+a Stone pressure plate is here.
+You can go north, east or northeast.
+
+> push plate
+You hear a click from the stone.
+
+> northeast
+You are standing inside the Graveyard 
+You are inside a very large graveyard. There are gravestones of all different shapes and sizes here. Paths lead off through the graveyard in many directions.
+a Stone door set in a large tomb and a Skeleton guarding the door are here.
+You can go north, south, east, west, northwest, northeast, southwest or southeast.
+
+> northeast
+You are standing inside the Graveyard 
+You are inside a very large graveyard. There are gravestones of all different shapes and sizes here. Paths lead off through the graveyard in many directions.
+a Stone pressure plate is here.
+You can go south, west or southwest.
+
+> push plate
+You hear a click from the stone.
+As you push the button you a grinding noise from the center of the graveyard.
+
+> southwest
+You are standing inside the Graveyard 
+You are inside a very large graveyard. There are gravestones of all different shapes and sizes here. Paths lead off through the graveyard in many directions.
+a Stone door set in a large tomb and a Skeleton guarding the door are here.
+You can go north, south, east, west, northwest, northeast, southwest, southeast or down.
+
+> attack skeleton
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) 
+6) 
+[choice] 2
+You thrust with your axe.
+Your enemy swings at you.
+You knock him off balance.
+
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) 
+6) 
+[choice] 4
+You swing your axe with a mighty swing.
+Your enemy is off balance and can't defend himself and suffer a grievous wound.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) 
+6) 
+[choice] 4
+You swing your axe with a mighty swing!
+The enemy swings at you.
+His blow glances off your armor but yours connects, dealing a very nasty blow!
+You have defeated your opponent!
+You have become stronger!
+
+The skeleton crumbles into a pile of bones at your feet. Strangely the sword and shield vanish.
+
+> take pile of bones
+You pick it up.
+
+> down
+You are in a Crypt 
+You are in a very large underground crypt. This part looks like the entrance way. Arched doorways lead off to the north, east, and west. The way out is up some stairs on the south wall.
+You can go north, south, east or west.
+Your score just went up!
+To find out your rank type 'score'.
+
+> east
+You are in a Tomb 
+You are in a small tomb off the main part of the crypt. The only exit is west.
+a stone Coffin is here.
+You can go west.
+
+> examine coffin
+You do notice a stone set in the bottom of the coffin.
+
+> west
+You are in a Crypt 
+You are in a very large underground crypt. This part looks like the entrance way. Arched doorways lead off to the north, east, and west. The way out is up some stairs on the south wall.
+You can go north, south, east or west.
+
+> west
+You are in a Tomb 
+You are in a small tomb off the main part of the crypt. The only exit is west.
+a stone Coffin is here.
+You can go east.
+
+> examine coffin
+You do notice a stone set in the bottom of the coffin.
+
+> east
+You are in a Crypt 
+You are in a very large underground crypt. This part looks like the entrance way. Arched doorways lead off to the north, east, and west. The way out is up some stairs on the south wall.
+You can go north, south, east or west.
+
+> north
+You are in the Crypt hallway 
+You are in a long hallway in a crypt. The hallway continues to the north and goes back to the entrance to the south. Small tombs lie to the east and west.
+You can go north, south, east or west.
+
+> east
+You are in a Tomb 
+You are in a small tomb off the main part of the crypt. The only exit is east.
+a stone Coffin is here.
+You can go west.
+
+> open coffin
+You slowly push the lid off the stone coffin.
+A mummy slowly rises from the coffin.
+
+> use torch on mummy
+You set the mummy on fire. It wails for a few momment then is reduced to ashes.
+
+> take silver coin
+You remove the silver coin from the coffin and put it in your pocket. 
+
+> take dusty scroll
+(first removing it from Coffin)
+Done.
+You pick it up.
+
+> read dusty scroll
+The scroll reads.
+Detect magic: Detects the presence of magic or magically imbued objects in the area.
+(objective spell)
+The rest is all gibberish to you.
+
+> west
+You are in the Crypt hallway 
+You are in a long hallway in a crypt. The hallway continues to the north and goes back to the entrance to the south. Small tombs lie to the east and west.
+You can go north, south, east or west.
+
+> west
+You are in a Tomb 
+You are in a small tomb off the main part of the crypt. The only exit is east.
+a stone Coffin is here.
+You can go east.
+
+> take rock
+You take a rock.
+
+> east
+You are in the Crypt hallway 
+You are in a long hallway in a crypt. The hallway continues to the north and goes back to the entrance to the south. Small tombs lie to the east and west.
+You can go north, south, east or west.
+
+> north
+You are in the Crypt hallway 
+You are in a long hallway in a crypt. The hallway continues to the south and opens up into a chamber to the north. There are small tombs to the east and west.
+an iron Portcullis blocking the northern exit is here.
+You can go north, south, east or west.
+
+> west
+You are in a Tomb 
+You are in a small tomb off the main part of the crypt. The only exit is east.
+a stone Coffin is here.
+You can go east.
+
+> examine coffin
+You do notice a stone set in the bottom of the coffin.
+
+> put rock in coffin
+You place the rock on top of the pressure plate. You hear a click.
+
+> east
+You are in the Crypt hallway 
+You are in a long hallway in a crypt. The hallway continues to the south and opens up into a chamber to the north. There are small tombs to the east and west.
+an iron Portcullis blocking the northern exit is here.
+You can go north, south, east or west.
+
+> east
+You are in a Tomb 
+You are in a small tomb off the main part of the crypt. The only exit is west.
+a stone Coffin is here.
+You can go west.
+
+> examine coffin
+You do notice a stone set in the bottom of the coffin.
+
+> west
+You are in the Crypt hallway 
+You are in a long hallway in a crypt. The hallway continues to the south and opens up into a chamber to the north. There are small tombs to the east and west.
+an iron Portcullis blocking the northern exit is here.
+You can go north, south, east or west.
+
+> south
+You are in the Crypt hallway 
+You are in a long hallway in a crypt. The hallway continues to the north and goes back to the entrance to the south. Small tombs lie to the east and west.
+You can go north, south, east or west.
+
+> west
+You are in a Tomb 
+You are in a small tomb off the main part of the crypt. The only exit is east.
+a stone Coffin is here.
+You can go east.
+
+> take rock
+You take a rock.
+
+> east
+You are in the Crypt hallway 
+You are in a long hallway in a crypt. The hallway continues to the north and goes back to the entrance to the south. Small tombs lie to the east and west.
+You can go north, south, east or west.
+
+> north
+You are in the Crypt hallway 
+You are in a long hallway in a crypt. The hallway continues to the south and opens up into a chamber to the north. There are small tombs to the east and west.
+an iron Portcullis blocking the northern exit is here.
+You can go north, south, east or west.
+
+> east
+You are in a Tomb 
+You are in a small tomb off the main part of the crypt. The only exit is west.
+a stone Coffin and a Stone pressure plate is here.
+You can go west.
+
+> put rock in coffin
+You place the rock on top of the pressure plate. You hear a click.
+
+> west
+You are in the Crypt hallway 
+You are in a long hallway in a crypt. The hallway continues to the south and opens up into a chamber to the north. There are small tombs to the east and west.
+an iron Portcullis blocking the northern exit is here.
+You can go north, south, east or west.
+
+> south
+You are in the Crypt hallway 
+You are in a long hallway in a crypt. The hallway continues to the north and goes back to the entrance to the south. Small tombs lie to the east and west.
+You can go north, south, east or west.
+
+> west
+You are in a Tomb 
+You are in a small tomb off the main part of the crypt. The only exit is east.
+a stone Coffin is here.
+You can go east.
+
+> take rock
+You take a rock.
+
+> east
+You are in the Crypt hallway 
+You are in a long hallway in a crypt. The hallway continues to the north and goes back to the entrance to the south. Small tombs lie to the east and west.
+You can go north, south, east or west.
+
+> south
+You are in a Crypt 
+You are in a very large underground crypt. This part looks like the entrance way. Arched doorways lead off to the north, east, and west. The way out is up some stairs on the south wall.
+You can go north, south, east or west.
+
+> east
+You are in a Tomb 
+You are in a small tomb off the main part of the crypt. The only exit is west.
+a stone Coffin and a Stone pressure plate is here.
+You can go west.
+
+> put rock in coffin
+You place the rock on top of the pressure plate. You hear a click.
+
+> west
+You are in a Crypt 
+You are in a very large underground crypt. This part looks like the entrance way. Arched doorways lead off to the north, east, and west. The way out is up some stairs on the south wall.
+You can go north, south, east or west.
+
+> north
+You are in the Crypt hallway 
+You are in a long hallway in a crypt. The hallway continues to the north and goes back to the entrance to the south. Small tombs lie to the east and west.
+You can go north, south, east or west.
+
+> west
+You are in a Tomb 
+You are in a small tomb off the main part of the crypt. The only exit is east.
+a stone Coffin is here.
+You can go east.
+
+> take rock
+You take a rock.
+
+> east
+You are in the Crypt hallway 
+You are in a long hallway in a crypt. The hallway continues to the north and goes back to the entrance to the south. Small tombs lie to the east and west.
+You can go north, south, east or west.
+
+> south
+You are in a Crypt 
+You are in a very large underground crypt. This part looks like the entrance way. Arched doorways lead off to the north, east, and west. The way out is up some stairs on the south wall.
+You can go north, south, east or west.
+
+> west
+You are in a Tomb 
+You are in a small tomb off the main part of the crypt. The only exit is west.
+a stone Coffin and a Stone pressure plate is here.
+You can go east.
+
+> put rock in coffin
+You place the rock on top of the pressure plate. You hear a click.
+You hear a scraping noise coming from somewhere in the crypt.
+
+> east
+You are in a Crypt 
+You are in a very large underground crypt. This part looks like the entrance way. Arched doorways lead off to the north, east, and west. The way out is up some stairs on the south wall.
+You can go north, south, east or west.
+
+> north
+You are in the Crypt hallway 
+You are in a long hallway in a crypt. The hallway continues to the north and goes back to the entrance to the south. Small tombs lie to the east and west.
+You can go north, south, east or west.
+
+> north
+You are in the Crypt hallway 
+You are in a long hallway in a crypt. The hallway continues to the south and opens up into a chamber to the north. There are small tombs to the east and west.
+You can go north, south, east or west.
+
+> north
+You are in a Crypt 
+You are in a very large underground crypt. This looks to be the large main chamber. This area is lighted up by torches lining the walls. It is filled with broken vases, smashed pottery and other destroyed items. Someone has definitely been in here. The hallway is to the south and a large archway to the north.
+a stone Lever set in the wall and a Stone door set in the north archway are here.
+You can go north or south.
+
+> examine stone door
+After close inspection you notice that the pictures are set in rings. Three on the outer ring. Four in the center ring. And five on the inner ring. There is also a button in the center. The rings look as if they can be turned.
+Will you turn the rings?
+1) Yes
+2) No
+[choice] yes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+What will you do?
+1) Turn outer ring left
+2) Turn outer ring right
+3) Turn middle ring left
+4) Turn middle ring right
+5) Turn inner ring left
+6) Turn inner ring right
+7) Press button
+[choice] 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+What will you do?
+1) Turn outer ring left
+2) Turn outer ring right
+3) Turn middle ring left
+4) Turn middle ring right
+5) Turn inner ring left
+6) Turn inner ring right
+7) Press button
+[choice] 3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+What will you do?
+1) Turn outer ring left
+2) Turn outer ring right
+3) Turn middle ring left
+4) Turn middle ring right
+5) Turn inner ring left
+6) Turn inner ring right
+7) Press button
+[choice] 3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+What will you do?
+1) Turn outer ring left
+2) Turn outer ring right
+3) Turn middle ring left
+4) Turn middle ring right
+5) Turn inner ring left
+6) Turn inner ring right
+7) Press button
+[choice] 5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+What will you do?
+1) Turn outer ring left
+2) Turn outer ring right
+3) Turn middle ring left
+4) Turn middle ring right
+5) Turn inner ring left
+6) Turn inner ring right
+7) Press button
+[choice] 5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+What will you do?
+1) Turn outer ring left
+2) Turn outer ring right
+3) Turn middle ring left
+4) Turn middle ring right
+5) Turn inner ring left
+6) Turn inner ring right
+7) Press button
+[choice] 7
+The stone door slowly grinds it's way upward into the ceiling.
+
+> north
+You are in a Large tomb 
+You are in a large tomb. This tomb looks untouched but relatively unadorned and almost empty. Some stone steps lead down to a sealed coffin behind which is a large pedestal. Standing to the side of the coffin is a life sized stone statue. The only exit is south through a large archway.
+the Eye of the East sitting on the pedestal, a stone Coffin, a life sized Statue and a stone Pedestal are here.
+You can go south.
+Your score just went up!
+To find out your rank type 'score'.
+
+> examine statue
+You notice the statue is holding a wooden shield in one hand and a large sack in the other.
+
+> take wooden shield
+You pick it up.
+
+> take sack
+You pick it up.
+
+> put pile of bones in sack
+You put the pile of bones in the sack.
+
+> unwield battle axe
+You put away the Battle axe (wielded).
+
+> wield wooden shield
+You wield the Wooden shield.
+
+
+> use sack on pedestal
+You quickly swap the sack of bones for the eye. Whew, nothing happened.
+When you turn around with the 'Eye of the East' in your hand a red cloaked figure appears in the doorway.
+"I'll be taking that now." he says.
+"Oh really." you reply.
+"Yes I thought it prudent to let you go and fetch it for me. But now that you have been a good dog hand it over."
+"I don't think so." you say brandishing your axe.
+"Your kind were never very smart." he says and begins an incantation. You see darts forming at his fingertips."
+
+> attack red cloaked figure
+You charge at the wizard!
+Magical darts fly from his fingertips.
+They hit the wooden shield with a 'thunk' and dissapear.
+You start closing the gap between you. He launches another spell at you. A few rocks fall on your head from the ceiling.
+They bounce harmlessly off your helmet. (you will have to thank inga later)
+Seeing you getting closer the figures flees to the south.
+
+> unwield wooden shield
+You put away the Wooden shield (wielded).
+
+> wield battle axe
+You wield the Battle axe.
+
+
+> south
+You are in a Crypt 
+You are in a very large underground crypt. This looks to be the large main chamber. This area is lighted up by torches lining the walls. It is filled with broken vases, smashed pottery and other destroyed items. Someone has definitely been in here. The hallway is to the south and a large archway to the north.
+a stone Lever set in the wall and a Red cloaked figure are here.
+You can go north or south.
+As you enter the room you see the figure on the other side. He casts a spell and the portcullis comes crashing down!
+
+> pull lever
+The figure taunts you from behind the bars.
+"Give me the eye and I will let you out. Otherwise stay in here and rot!"
+You pull the lever and the portcullis raises.
+The shocked look on the figure's face is priceless! (who says all wizards are smart.)
+Realizing his horrid error in judgment he flees to the south.
+
+> south
+You are in the Crypt hallway 
+You are in a long hallway in a crypt. The hallway continues to the south and opens up into a chamber to the north. There are small tombs to the east and west.
+a Red cloaked figure is here.
+You can go north, south, east or west.
+As you enter the hallway you see the figure continue running to the south.
+
+> south
+You are in the Crypt hallway 
+You are in a long hallway in a crypt. The hallway continues to the north and goes back to the entrance to the south. Small tombs lie to the east and west.
+a Red cloaked figure is here.
+You can go north, south, east or west.
+You continue to give chase, you see the red cloaked figure flee to the south.
+
+> south
+You are in a Crypt 
+You are in a very large underground crypt. This part looks like the entrance way. Arched doorways lead off to the north, east, and west. The way out is up some stairs on the south wall.
+a Red cloaked figure is here.
+You can go north, south, east or west.
+You see the red cloaked figure run up the stairs into the graveyard.
+
+> south
+You are standing inside the Graveyard 
+You are inside a very large graveyard. There are gravestones of all different shapes and sizes here. Paths lead off through the graveyard in many directions.
+a Stone door set in a large tomb and a Red cloaked figure are here.
+You can go north, south, east, west, northwest, northeast, southwest, southeast or down.
+The figure seems to have been waiting for you outside.
+"Let's see how you handle this!" he shouts.
+Two skeletons burst up from two of the graves both brandishing weapons!
+
+> unwield torch
+You put away the Torch (wielded).
+You burn your hand with the torch and drop it. It goes out.
+
+> wield wooden shield
+You wield the Wooden shield.
+
+
+> attack skeletons
+You attack the skeletons with your axe.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) 
+6) 
+[choice] 3
+You hack downward with your axe.
+Your enemy attempts to block with it's shield but you still connect.
+The second foe thrusts at you.
+His attack hits your shield squarely in the center.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) 
+6) 
+[choice] 2
+You thrust with your axe.
+The enemy thrusts. With a great 'CLANG!' your weapons collide in the middle.
+The second foe thrusts at you.
+His attack hits your shield squarely in the center.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) 
+6) 
+[choice] 4
+You swing your axe with a mighty swing!
+Your enemy tries to dodge but can't manage to get out of the way and suffers a nasty wound!
+The second opponent swings at you.
+Your mighty swing crashes into him as well as his swing bounces off your shield.
+The second foe suffers a nasty wound.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) 
+6) 
+[choice] 3
+You hack downward with your axe.
+Your enemy swings at you.
+Your enemy suffers a nasty wound!
+Your armor absorbs his blow.
+The second foe thrusts at you.
+His attack hits your shield squarely in the center.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) 
+6) 
+[choice] 4
+You swing your axe with a mighty swing!
+Your enemy tries to dodge but can't manage to get out of the way and suffers a nasty wound!
+The second foe tries to dodge your mighty swing as it crashes into him. He still suffers a light wound.
+You have defeated a foe!
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) 
+6) 
+[choice] 1
+You swing your axe.
+The enemy tries to dodge.
+You land a nasty blow.
+
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) 
+6) 
+[choice] 4
+You swing your axe with a mighty swing!
+The enemy swings at you.
+His blow glances off your armor but yours connects, dealing a very nasty blow!
+You have defeated your opponent!
+You have become stronger!
+
+You have defeated both skeletons! Their bones lie at your feet.
+The red cloaked figure is now truly frightened and runs at break neck speed out of the front gates and dissapears. He seems to have dropped something in his haste.
+
+> take note
+You pick it up.
+
+> read note
+The note says 'Make sure you get to the graveyard first and stop that whelp from getting the eye! I want this to go no further!'
+It's signed.
+'T'
+
+> take pile of bones
+You pick it up.
+
+> northeast
+You are standing inside the Graveyard 
+You are inside a very large graveyard. There are gravestones of all different shapes and sizes here. Paths lead off through the graveyard in many directions.
+a Stone pressure plate is here.
+You can go south, west or southwest.
+
+> push plate
+You hear a click from the stone.
+
+> southwest
+You are standing inside the Graveyard 
+You are inside a very large graveyard. There are gravestones of all different shapes and sizes here. Paths lead off through the graveyard in many directions.
+a Tree branch and a Stone door set in a large tomb are here.
+You can go north, south, east, west, northwest, northeast, southwest, southeast or down.
+
+> southwest
+You are standing inside the Graveyard 
+You are inside a very large graveyard. There are gravestones of all different shapes and sizes here. Paths lead off through the graveyard in many directions.
+a Stone pressure plate is here.
+You can go north, east or northeast.
+
+> push plate
+You hear a click from the stone.
+
+> northeast
+You are standing inside the Graveyard 
+You are inside a very large graveyard. There are gravestones of all different shapes and sizes here. Paths lead off through the graveyard in many directions.
+a Tree branch and a Stone door set in a large tomb are here.
+You can go north, south, east, west, northwest, northeast, southwest, southeast or down.
+
+> southeast
+You are standing inside the Graveyard 
+You are inside a very large graveyard. There are gravestones of all different shapes and sizes here. Paths lead off through the graveyard in many directions.
+a Stone pressure plate is here.
+You can go north, west or northwest.
+
+> push plate
+You hear a click from the stone.
+
+> northwest
+You are standing inside the Graveyard 
+You are inside a very large graveyard. There are gravestones of all different shapes and sizes here. Paths lead off through the graveyard in many directions.
+a Tree branch and a Stone door set in a large tomb are here.
+You can go north, south, east, west, northwest, northeast, southwest, southeast or down.
+
+> northwest
+You are standing inside the Graveyard 
+You are inside a very large graveyard. There are gravestones of all different shapes and sizes here. Paths lead off through the graveyard in many directions.
+a Stone pressure plate is here.
+You can go south, east or southeast.
+
+> push plate
+You hear a click from the stone.
+As you press the stone you hear a loud click and creak from the direction of the gates.
+
+> southeast
+You are standing inside the Graveyard 
+You are inside a very large graveyard. There are gravestones of all different shapes and sizes here. Paths lead off through the graveyard in many directions.
+a Tree branch and a Stone door set in a large tomb are here.
+You can go north, south, east, west, northwest, northeast, southwest or southeast.
+
+> south
+You are standing inside the Graveyard 
+You are inside a very large graveyard. There are gravestones of all different shapes and sizes here. Paths lead off through the graveyard in many directions.
+some giant iron Gates are here.
+You can go north, south, east, west, northwest or northeast.
+
+> south
+
+You walk through the gates. Upon leaving the graveyard you notice that night has fallen.
+Chantly Graveyard 
+You are outside chantley graveyard, to the north. A very large iron fence surrounds it and fortunately the main gates are open. There are large oak trees surrounding the gates giving the effect of it being dusk inside the graveyard. The road back to the village is west.
+a Large horse is here.
+You can go north or west.
+Your score just went up!
+To find out your rank type 'score'.
+
+> take horse
+You take the horse by the reins.
+
+> mount horse
+You mount the horse.
+
+> west
+You are at the Cross roads (mounted on the horse)
+You are at the crossing of many roads. The village is to the north and the main road leads off to the south.
+You can go north, south, west or Chantly Graveyard.
+
+> north
+You are at the South end of the village (mounted on the horse)
+You are at the southern end of your home village of Golsiv. You can go north or south from here. The local seer is to the east and the craft shop is west.
+You can go north, south, east or west.
+
+> north
+You are in the Village center (mounted on the horse)
+You are in the center of your home village of Golsiv. You can go the north or south from here. The market is to the east and the inn is west.
+You can go north, south, east or west.
+
+> north
+You are at the North end of the village (mounted on the horse)
+You are at the northern end of your home village of Golsiv. The great hall is to the north. The stables are west of here and the blacksmith shop is to the east.. The village center lies to the south.
+You can go north, south, east or west.
+
+> dismount
+You dismount.
+
+> drop horse
+You let go of the reins and give the horse a quick pat and tell him to wait for you here.
+
+> north
+You are in the Great hall 
+You are in the great hall of the village chieftan. Furs, antlers and heads of various animals line all the walls here. The main doors lie to the south. Three smaller doorways lead off to the east, west and north.
+Thorgin passed out in his chair is here.
+You can go north, south, east or west.
+
+> north
+You are in a Hallway 
+You are in a small hallway. Tapestries line the hallway walls here. The great hall is to the south, your old bedroom is west and the chieftan's room is east of here.
+You can go south, east or west.
+
+> east
+You are in the Chieftan's chamber 
+You are in the chieftan's chamber. Tapestries and portraits of former chieftans line the walls here. Animal fur rugs cover most of the floor. The Hallway lies to the west.
+You can go west.
+
+> examine rugs
+You notice a piece of parchment discarded on the rug.
+
+> take parchment
+You pick it up.
+
+> read parchment
+The parchment reads.
+"T. I am sending an emissary to Chantley graveyard to get the eye before anyone else does. He will be contacting you soon."
+It's signed.
+Skrag.
+
+> west
+You are in a Hallway 
+You are in a small hallway. Tapestries line the hallway walls here. The great hall is to the south, your old bedroom is west and the chieftan's room is east of here.
+You can go south, east or west.
+
+> south
+You are in the Great hall 
+You are in the great hall of the village chieftan. Furs, antlers and heads of various animals line all the walls here. The main doors lie to the south. Three smaller doorways lead off to the east, west and north.
+Thorgin passed out in his chair is here.
+You can go north, south, east or west.
+
+> south
+You are at the North end of the village 
+You are at the northern end of your home village of Golsiv. The great hall is to the north. The stables are west of here and the blacksmith shop is to the east.. The village center lies to the south.
+a Large horse is here.
+You can go north, south, east or west.
+
+> south
+You are in the Village center 
+You are in the center of your home village of Golsiv. You can go the north or south from here. The market is to the east and the inn is west.
+You can go north, south, east or west.
+
+> west
+You are at the Inn 
+You are at the local inn. The doorway to the east leads back to the village center. There is a large counter here. The local innkeeper, Marta is behind the counter.
+"Good day young master Tandum!" she says as you walk in.
+Marta the innkeeper is here.
+You can go east.
+
+> speak to marta
+What will you say to marta?
+1) Hiya Marta.
+2) Can I have an ale marta?
+3) I guess I need a room Marta.
+[choice] 3
+"Yes, I will get you a room right away and don't worry about your horse I will wake the stableboy and have him tend to it." says Marta.
+"Are you sure you are ready for bed?" she asks.
+1) Yes
+2) No
+[choice] yes
+
+You go to bed after a long day and wake up feeling refreshed.
+You are at the Inn 
+You are at the local inn. The doorway to the east leads back to the village center. There is a large counter here. The local innkeeper, Marta is behind the counter.
+"Good day young master Tandum!" she says as you walk in.
+Marta the innkeeper is here.
+You can go east.
+
+> east
+You are in the Village center 
+You are in the center of your home village of Golsiv. You can go the north or south from here. The market is to the east and the inn is west.
+You can go north, south, east or west.
+
+> north
+You are at the North end of the village 
+You are at the northern end of your home village of Golsiv. The great hall is to the north. The stables are west of here and the blacksmith shop is to the east.. The village center lies to the south.
+a Large horse is here.
+You can go north, south, east or west.
+
+> north
+You are in the Great hall 
+You are in the great hall of the village chieftan. Furs, antlers and heads of various animals line all the walls here. The main doors lie to the south. Three smaller doorways lead off to the east, west and north.
+Thorgin is here.
+You can go north, south, east or west.
+
+> speak to thorgin
+"Here is the 'Eye of the East' thorgin!" you say showing him the jewel.
+"So it would seem." he says.
+"Now hand it over!"
+"Well, since it seems you handled that task with relative ease we will give you a slightly more challenging one this time!"
+"Oh great, I quiver with anticipation." you reply sarcastically.
+He ignores this and goes on.
+"You are to bring back a scale from a red dragon." he says.
+"Hardin will show you your destination. That will be all!" he says with finality.
+Your score just went up!
+To find out your rank type 'score'.
+
+> south
+You are at the North end of the village 
+You are at the northern end of your home village of Golsiv. The great hall is to the north. The stables are west of here and the blacksmith shop is to the east.. The village center lies to the south.
+a Large horse is here.
+You can go north, south, east or west.
+
+> east
+You are in the Blacksmith shop 
+You are in the local blacksmith shop. Weapons and horseshoes line all the walls here. A great clay furnace and bellows takes up most of the east end of the shop. Gak, the local blacksmith is here busy working at the furnace.
+Gak the blacksmith is here.
+You can go west.
+
+> speak to gak
+What will you say to gak?
+1) Hey gak.
+2) I need some metal studs.
+3) Do you have any fighting tips for me?
+4) 
+5) 
+[choice] 3
+"The next move I can show you is the Unseat move. This one can be done from either on foot or on horseback. It comes in handy against mounted opponents. You use the flat side of the axe to try and knock the rider from his mount." says Gak.
+You spend a while with Gak and learn the Unseat move.
+
+> west
+You are at the North end of the village 
+You are at the northern end of your home village of Golsiv. The great hall is to the north. The stables are west of here and the blacksmith shop is to the east.. The village center lies to the south.
+a Large horse is here.
+You can go north, south, east or west.
+
+> south
+You are in the Village center 
+You are in the center of your home village of Golsiv. You can go the north or south from here. The market is to the east and the inn is west.
+You can go north, south, east or west.
+
+> south
+You are at the South end of the village 
+You are at the southern end of your home village of Golsiv. You can go north or south from here. The local seer is to the east and the craft shop is west.
+You can go north, south, east or west.
+
+> south
+You are at the Cross roads 
+You are at the crossing of many roads. The village is to the north and the main road leads off to the south.
+Councilman Hardin is here.
+You can go north, south, west or Chantly Graveyard.
+
+> speak to hardin
+What will you say to hardin?
+1) Hi there Hardin!
+2) 
+[choice] 1
+"For your next task Tandum you are going to need something to protect yourself from the fire of the dragon's breath before I can give you your destination."
+
+> speak to hardin
+What will you say to hardin?
+1) Hi there Hardin!
+2) Where would I find such a thing?
+[choice] 2
+"I would talk to Selma if I were you."
+
+> north
+You are at the South end of the village 
+You are at the southern end of your home village of Golsiv. You can go north or south from here. The local seer is to the east and the craft shop is west.
+You can go north, south, east or west.
+
+> east
+You are in the Seer's hut 
+You are in Selma's, the local seer, hut. The place is dimly lit and full of thick smoke and strange fragrances. A table and several chairs are in the center of the hut here. The way out is west.
+Selma the seer is here.
+You can go west.
+
+> speak to selma
+What will you say to selma?
+1) Can you tell my future Selma?
+2) I need something to protect me from dragon breath.
+[choice] 2
+"Hmmm.. Sounds like you need a blue potion. Unfortunately I am out at the moment." she says.
+"But you can always go to the wizard's tower and get one."
+"Ok, how do I get there?" you ask.
+"Hardin knows the way. However the wizards are going to want something in return." she says.
+"I have money." you reply.
+"Oh, they have no use for money. They are going to want something magical I'm afraid." she says.
+
+> west
+You are at the South end of the village 
+You are at the southern end of your home village of Golsiv. You can go north or south from here. The local seer is to the east and the craft shop is west.
+You can go north, south, east or west.
+
+> south
+You are at the Cross roads 
+You are at the crossing of many roads. The village is to the north and the main road leads off to the south.
+Councilman Hardin is here.
+You can go north, south, west or Chantly Graveyard.
+
+> speak to hardin
+What will you say to hardin?
+1) Hi there Hardin!
+2) I need to go to the wizard's tower.
+[choice] 2
+"Sure thing Tandum. Let me give you directions." he says.
+He tells you how to get there.
+
+> north
+You are at the South end of the village 
+You are at the southern end of your home village of Golsiv. You can go north or south from here. The local seer is to the east and the craft shop is west.
+You can go north, south, east or west.
+
+> north
+You are in the Village center 
+You are in the center of your home village of Golsiv. You can go the north or south from here. The market is to the east and the inn is west.
+You can go north, south, east or west.
+
+> north
+You are at the North end of the village 
+You are at the northern end of your home village of Golsiv. The great hall is to the north. The stables are west of here and the blacksmith shop is to the east.. The village center lies to the south.
+a Large horse is here.
+You can go north, south, east or west.
+
+> take horse
+You take the horse by the reins.
+
+> mount horse
+You mount the horse.
+
+> south
+You are in the Village center (mounted on the horse)
+You are in the center of your home village of Golsiv. You can go the north or south from here. The market is to the east and the inn is west.
+You can go north, south, east or west.
+
+> south
+You are at the South end of the village (mounted on the horse)
+You are at the southern end of your home village of Golsiv. You can go north or south from here. The local seer is to the east and the craft shop is west.
+You can go north, south, east or west.
+
+> south
+You are at the Cross roads (mounted on the horse)
+You are at the crossing of many roads. The village is to the north and the main road leads off to the south.
+Councilman Hardin is here.
+You can go north, south, west, Chantly Graveyard or Wizard's tower.
+
+> go to wizard's tower
+The Wizard's tower (mounted on the horse)
+You are standing in the courtyard just outside a spiraling stone tower. The way back is to the east.
+some large Front doors are here.
+You can go east.
+
+> knock on doors
+You knock on the doors. After a few minutes a young wizard, probably about the same age as you, appears and says...
+"Hello, can I help you?"
+"Hello I'm Tandum. I'm from Golsiv and am in desperate need of a blue potion." you say.
+"Well met Tandum my name is....."
+There will now be a pause for drama as you learn the name of the wizard from this author's game 'wizard'.
+
+"Mantis and I am rather new here. I have only been here a month and haven't taken any potion making classes yet." he says.
+"Mercoz will know what to do if I can get his attention. He has been acting even stranger than usual lately, walking around with a broom and talking to himself. I will go see him." he goes on.
+He turns to go into the tower then turns back and says "Please wait here if you come in an alarm will sound and the front doors will lock and it's a nightmare trying to open them again."
+
+
+After several minutes Mantis returns.
+"Mercoz has made the potion for me I have it here." he says.
+"However, I guess it is customary for you to give a gift of something magical in return." he goes on.
+"I'm afraid he was very insistent on this as this is the last blue potion and some joker has removed the blue label from the potion dispenser."
+
+> give dusty scroll to wizard
+You give the dusty scroll to Mantis. He looks it over.
+"Exellent. This will do nicely." he says.
+"Maybe mercoz will let me have this one as I don't know this spell yet. I would have some time in the morning to learn it."
+He hands you a blue potion.
+"See you around Tandum." he says.
+"Goodbye Mantis, it was nice to meet you." you reply as he heads back into the tower.
+Your score just went up!
+To find out your rank type 'score'.
+
+> east
+You are at the Cross roads (mounted on the horse)
+You are at the crossing of many roads. The village is to the north and the main road leads off to the south.
+Councilman Hardin is here.
+You can go north, south, west, Chantly Graveyard or Wizard's tower.
+
+> speak to hardin
+What will you say to hardin?
+1) Hi there Hardin!
+2) 
+[choice] 1
+"Ok Tandum, your next destination is Fang mountain. Be careful Tandum, even though you have something to protect you from the heat of his breath, a dragon is a very nasty buisiness!" Hardin says.
+"Dragons are not only very powerful but they are also extremely clever!" he goes on.
+"Listen Hardin, Don't worry ok. I'll be careful." you reply.
+With that Hardin gives you the directions and wishes you luck.
+
+> go to fang mountain
+Fang mountain (mounted on the horse)
+You are at the bottom of Fang mountain. From here the mountain looks very large and very imposing. A steep, icy, and narrow path winds up the mountain to the northeast. The way back to the village is south.
+You can go south or northeast.
+You are On the road to fang mountain (mounted on the horse)
+You are on the road to Fang mountain. An imposing figure on horseback is in the middle of the road blocking the way by.
+an Imposing figure is here.
+You can go out.
+
+> speak to figure
+"Can you move out of the way?" you ask.
+"I'm sorry little boy. But I have been paid well to make sure that you do not reach your destination." he says.
+"Paid by who?" you ask.
+"That is unimportant seeing as how your life is about to end." he remarks.
+"A little sure of yourself huh?" you say with a grin.
+"We'll see."
+
+> attack figure
+How will you attack?
+1) Swing with axe
+2) Downward hack
+3) Unseat
+4) 
+[choice] 3
+The enemy tries to unseat you as well.
+Your weapons meet with a great 'CLANG' but you both stay mounted.
+How will you attack?
+1) Swing with axe
+2) Downward hack
+3) Unseat
+4) 
+[choice] 2
+You hack downward from the horse with your axe.
+
+You enemy tries to parry you attack but you catch him on the side with the edge of your axe scoring a nasty wound!
+How will you attack?
+1) Swing with axe
+2) Downward hack
+3) Unseat
+4) 
+[choice] 3
+The enemy tries to hack downward at you.
+But you are faster and knock him to the ground!
+How will you attack?
+1) Swing with axe
+2) Downward hack
+3) Unseat
+4) 
+[choice] 1
+You swing your axe.
+The enemy swings at you.
+You both suffer wounds.
+
+How will you attack?
+1) Swing with axe
+2) Downward hack
+3) Unseat
+4) 
+[choice] 2
+You hack downward from the horse with your axe.
+
+You enemy jumps back but not in time. He suffers a light wound.
+
+How will you attack?
+1) Swing with axe
+2) Downward hack
+3) Unseat
+4) 
+[choice] 1
+You swing your axe.
+The enemy tries to move in for a close attack.
+You land a nasty blow.
+
+How will you attack?
+1) Swing with axe
+2) Downward hack
+3) Unseat
+4) 
+[choice] 1
+You swing your axe.
+The enemy tries to dodge.
+You land a nasty blow.
+
+How will you attack?
+1) Swing with axe
+2) Downward hack
+3) Unseat
+4) 
+[choice] 1
+You swing your axe.
+The enemy swings at you.
+You both suffer wounds.
+
+You have defeated your opponent!
+You have become stronger!
+
+You have defeated the imposing figure. His corpse lies at your feet. His horse trots off down the road.
+
+> examine dead man
+You notice he is carrying the 'Eye of the east'! He also has a gold coin!
+
+> take gold coin
+You pick up the gold coin and add it to your money.
+
+> take eye of the east
+You pick it up.
+
+> out
+Fang mountain (mounted on the horse)
+You are at the bottom of Fang mountain. From here the mountain looks very large and very imposing. A steep, icy, and narrow path winds up the mountain to the northeast. The way back to the village is south.
+You can go south or northeast.
+
+> dismount
+You dismount.
+
+> drop horse
+You let go of the reins and give the horse a quick pat and tell him to wait for you here.
+
+> northeast
+You slip and slide on the icy path and decide to come back down.
+You are probably going to need some kind of boots with traction. You had better go talk to Inga.
+
+> take horse
+You take the horse by the reins.
+
+> mount horse
+You mount the horse.
+
+> south
+You are at the Cross roads (mounted on the horse)
+You are at the crossing of many roads. The village is to the north and the main road leads off to the south.
+You can go north, south, west, Chantly Graveyard, Wizard's tower or Fang mountain.
+
+> north
+You are at the South end of the village (mounted on the horse)
+You are at the southern end of your home village of Golsiv. You can go north or south from here. The local seer is to the east and the craft shop is west.
+You can go north, south, east or west.
+
+> dismount
+You dismount.
+
+> drop horse
+You let go of the reins and give the horse a quick pat and tell him to wait for you here.
+
+> west
+You are in the Craft shop 
+You are in the local craftshop. Various craft equipment, needles thread and animal skins lie all over the tables here. Inga is here working at her potters wheel.
+Inga the crafter is here.
+You can go east.
+
+> speak to inga
+What will you say to inga?
+1) Hello Inga.
+2) I need some boots with traction.
+[choice] 2
+"Some spiked boots will probably do the trick." says inga.
+"I still have some of the bear hide you brought me so all I need is some spikes from the blacksmith." she says.
+
+> east
+You are at the South end of the village 
+You are at the southern end of your home village of Golsiv. You can go north or south from here. The local seer is to the east and the craft shop is west.
+a Large horse is here.
+You can go north, south, east or west.
+
+> north
+You are in the Village center 
+You are in the center of your home village of Golsiv. You can go the north or south from here. The market is to the east and the inn is west.
+You can go north, south, east or west.
+
+> north
+You are at the North end of the village 
+You are at the northern end of your home village of Golsiv. The great hall is to the north. The stables are west of here and the blacksmith shop is to the east.. The village center lies to the south.
+You can go north, south, east or west.
+
+> east
+You are in the Blacksmith shop 
+You are in the local blacksmith shop. Weapons and horseshoes line all the walls here. A great clay furnace and bellows takes up most of the east end of the shop. Gak, the local blacksmith is here busy working at the furnace.
+Gak the blacksmith is here.
+You can go west.
+
+> speak to gak
+What will you say to gak?
+1) Hey gak.
+2) I need some spikes.
+3) Do you have any fighting tips for me?
+4) 
+5) 
+[choice] 2
+"I can make you some Tandum but I am going to have to charge you 2 copper coins for these." Gak says.
+Will you buy the spikes?
+1) Yes
+2) No
+[choice] yes
+Gak spends awhile making the spikes then after a bit he hands them to you.
+
+> west
+You are at the North end of the village 
+You are at the northern end of your home village of Golsiv. The great hall is to the north. The stables are west of here and the blacksmith shop is to the east.. The village center lies to the south.
+You can go north, south, east or west.
+
+> south
+You are in the Village center 
+You are in the center of your home village of Golsiv. You can go the north or south from here. The market is to the east and the inn is west.
+You can go north, south, east or west.
+
+> south
+You are at the South end of the village 
+You are at the southern end of your home village of Golsiv. You can go north or south from here. The local seer is to the east and the craft shop is west.
+a Large horse is here.
+You can go north, south, east or west.
+
+> west
+You are in the Craft shop 
+You are in the local craftshop. Various craft equipment, needles thread and animal skins lie all over the tables here. Inga is here working at her potters wheel.
+Inga the crafter is here.
+You can go east.
+
+> give spikes to inga
+"Thanks Tandum. I'll get to work right away." she says.
+After a bit she hands some spiked boots to you.
+"Still no charge. I don't care how many threats thorgin makes! Let him come here and try!" she says.
+
+> wear spiked boots
+You put on the Spiked boots.
+
+> east
+You are at the South end of the village 
+You are at the southern end of your home village of Golsiv. You can go north or south from here. The local seer is to the east and the craft shop is west.
+a Large horse is here.
+You can go north, south, east or west.
+
+> take horse
+You take the horse by the reins.
+
+> mount horse
+You mount the horse.
+
+> south
+You are at the Cross roads (mounted on the horse)
+You are at the crossing of many roads. The village is to the north and the main road leads off to the south.
+You can go north, south, west, Chantly Graveyard, Wizard's tower or Fang mountain.
+
+> go to fang mountain
+Fang mountain (mounted on the horse)
+You are at the bottom of Fang mountain. From here the mountain looks very large and very imposing. A steep, icy, and narrow path winds up the mountain to the northeast. The way back to the village is south.
+You can go south or northeast.
+
+> dismount
+You dismount.
+
+> drop horse
+You let go of the reins and give the horse a quick pat and tell him to wait for you here.
+
+> northeast
+You are on a Narrow path 
+You are on a narrow, icy path that winds up the mountain side. Looking down from here makes you a little dizzy. The path continues up the mountain to the northeast and winds back down to the southwest.
+You can go northeast or southwest.
+Your score just went up!
+To find out your rank type 'score'.
+
+> northeast
+You are on a Large ledge 
+You have come to a large ledge. The path down the mountain is to the southwest and continues up to the northeast. The path up seems to have been hit with an avalanch and is now impassible. There is a small cave entrance to the west.
+an Iron door set in the cave entrance is here.
+You can go west or southwest.
+
+> use pile of bones on iron door
+You start to fit the bones into the indentations. After you are done it takes the shape of a skeleton. The door suddenly slides into the cliff face. You still have some bones left over.
+
+> west
+You are in a Small cave 
+You are in a small cave. The cold from the outside still seems to permeate into this cave, especially now that the iron door is open. The doorway to the outside is east, a wide rocky stair lead upward into the mountain to the north. Ther is a small archway to the west.
+a small Wooden door set in the archway is here.
+You can go north, east or west.
+Your score just went up!
+To find out your rank type 'score'.
+
+> drink blue potion
+You drink the blue potion. A sudden cold enters your veins and spreads throughout your body.
+
+> north
+Your are on a Great stair 
+You are on a wide and long stairway leading from the south to the west. You can hear some strange noises coming from the top of the stairway to the west. There is definitely something big up there.
+You can go south or west.
+
+> west
+You are on the East side of a huge cavern 
+Your are on the eastern side of a huge cavern. There is a large hole in the ceiling here. Smoke billows in from the western side of the cavern and out through the hole in the ceiling. Taking up half the western side of the cavern is a huge dragon with red scales.
+You can go east or west.
+As soon as you enter the cavern a huge gout of flame comes out of the dragon on the west side of the cavern. The flames wash over you!
+The blue potion protects you from the flames.
+
+> west
+You are on the West side of a huge cavern 
+You are on the western side of a huge cavern. There is a large hole in the ceiling here. An enormous red dragon takes up most of the space here. Smoke from his nostrils rises up through the hole in the ceiling. There is also a small tunnel leading off to the west.
+an enormous red Dragon is here.
+You can go east or west.
+
+> speak to dragon
+"Hello mighty dragon!" you say.
+"Hello young sir, why are you tresspassing in my home?" he asks.
+"I need one of your scales." you reply.
+"Oh, you do? do you? And what do you have to offer in return?" he asks.
+"Um.... my services i guess." you say.
+"Well, you are in luck because I could use your help. Goblins from down below keep sneaking up here and stealing my treasure. Also it seems the Red Scorpions have opened a portal to the tunnel to the west of here and also like to steal my stuff!" he says.
+"The Red Scorpions?" you inquire.
+"They are a group of evil wizards." he adds.
+"If you get rid of the goblins and return my large ruby they stole then I will give you this magic ring. It protects you from magic. If you can find a way of stopping those infernal mages from coming in here uninvited and bring back my diamond then I will give you a scale from my hide." he goes on.
+
+Do we have a deal?
+1) Yes
+2) No
+[choice] yes
+"Yes, dragon we have a deal." you agree.
+"My name is Fred." he says.
+"Fred!?!" you ask.
+"Yes Fred!!" he replies.
+
+> east
+You are on the East side of a huge cavern 
+Your are on the eastern side of a huge cavern. There is a large hole in the ceiling here. Smoke billows in from the western side of the cavern and out through the hole in the ceiling. Taking up half the western side of the cavern is a huge dragon with red scales.
+You can go east or west.
+
+> east
+Your are on a Great stair 
+You are on a wide and long stairway leading from the south to the west. You can hear some strange noises coming from the top of the stairway to the west. There is definitely something big up there.
+You can go south or west.
+
+> south
+You are in a Small cave 
+You are in a small cave. The cold from the outside still seems to permeate into this cave, especially now that the iron door is open. The doorway to the outside is east, a wide rocky stair lead upward into the mountain to the north. Ther is a small archway to the west.
+a small Wooden door set in the archway is here.
+You can go north, east or west.
+
+> use battle axe on wooden door
+You smash the door to bits with your axe. The goblin on the other side screams and runs down a tunnel.
+
+> west
+You are in a Narrow tunnel 
+You are in a narrow tunnel running from east to west. Water drips from the ceiling here forming lime deposits on the floor.
+You can go east or west.
+You see a goblin sprint into the room to the west.
+
+> west
+You are in the Goblin's lair 
+You are in a medium sized cave furnished with small makeshift beds of straw and animal hides. Small, goblin sized tunnels lead off in many directions. The only exit for you would be back to the east.
+A bunch of armed Goblins, a Large altar set against the west wall and a Large ruby are here.
+You can go east.
+The hoard of goblins charges at you when you enter their lair!
+You back into the doorway so they can only get at you two at a time.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 1
+You swing your axe.
+The enemy jumps back out of the way then back and score a hit on you. Your armor saved you from a nasty wound but you still get wounded.
+The second foe dodges then swings at you.
+You armor protects you.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 2
+You thrust with your axe.
+Your enemy tries to move in for a close attack.
+You knock him off balance.
+
+Your second foe jumps back out of the way.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 4
+You swing your axe with a mighty swing.
+Your enemy is off balance and can't defend himself and suffer a grievous wound.
+Your second foe jumps back out of the way.
+You have defeated a foe!
+As you defeat one of the goblins another one joins the fray.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 2
+You thrust with your axe.
+Your enemy tries to move in for a close attack.
+You knock him off balance.
+
+Your second foe jumps back out of the way.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 4
+You swing your axe with a mighty swing.
+Your enemy is off balance and can't defend himself and suffer a grievous wound.
+The second foe sneaks in for a close attack.
+You block his attack with your shield!
+You have defeated a foe!
+As you defeat one of the goblins another one joins the fray.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 2
+You thrust with your axe.
+Your enemy swings at you.
+You knock him off balance.
+
+The second foe sneaks in for a close attack.
+You block his attack with your shield!
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 4
+You swing your axe with a mighty swing.
+Your enemy is off balance and can't defend himself and suffer a grievous wound.
+The second opponent swings at you.
+He lands a clean hit!
+You have defeated a foe!
+As you defeat one of the goblins another one joins the fray.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 4
+You swing your axe with a mighty swing!
+Your enemy jumps back but still gets hit by your great swing and suffers a light wound.
+The second foe tries to dodge your mighty swing as it crashes into him. He still suffers a light wound.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 2
+You thrust with your axe.
+Your enemy tries to move in for a close attack.
+You knock him off balance.
+
+The second foe sneaks in for a close attack.
+You block his attack with your shield!
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 4
+You swing your axe with a mighty swing.
+Your enemy is off balance and can't defend himself and suffer a grievous wound.
+The second opponent swings at you.
+He lands a clean hit!
+You have defeated a foe!
+As you defeat one of the goblins another one joins the fray.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 4
+You swing your axe with a mighty swing!
+The enemy swings at you.
+His blow glances off your armor but yours connects, dealing a very nasty blow!
+The second opponent swings at you.
+Your mighty swing crashes into him as well as his swing bounces off your shield.
+The second foe suffers a nasty wound.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 4
+You swing your axe with a mighty swing!
+Your enemy tries to dodge but can't manage to get out of the way and suffers a nasty wound!
+The second opponent swings at you.
+Your mighty swing crashes into him as well as his swing bounces off your shield.
+The second foe suffers a nasty wound.
+You have defeated a foe!
+As you defeat one of the goblins another one joins the fray.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 3
+You hack downward with your axe.
+Your enemy swings at you.
+Your enemy suffers a nasty wound!
+Your armor absorbs his blow.
+The second foe dodges then swings at you.
+You armor protects you.
+You have defeated a foe!
+As you defeat one of the goblins another one joins the fray.
+The goblins see that there is no end to your wrath and the rest of them flee like the cowardly creatures they are. They scurry halfhazzardly down the tiny goblin holes in all directions.
+You have defeated your opponents!
+You have become stronger!
+
+
+> remove large ruby from large altar
+The altar is almost certainly trapped.
+Are you sure you want to do that?
+1) Yes
+2) No
+[choice] yes
+You remove the large ruby. Part of the wall springs open from behind the altar revealing a ring of tiny holes.
+What will you do?
+1) Hold up shield
+2) Dodge
+3) Run
+4) Duck
+5) Jump
+[choice] 1
+Darts fly from the holes in the wall!
+You hold up your shield just in time.
+Part of the ceiling opens.
+What will you do?
+1) Hold up shield
+2) Dodge
+3) Run
+4) Duck
+5) Jump
+[choice] 4
+A large blade swings out from the ceiling.
+You duck just in the nick of time!
+A section in the bottom of the altar opens.
+What will you do?
+1) Hold up shield
+2) Dodge
+3) Run
+4) Duck
+5) Jump
+[choice] 5
+A blade swings out by your feet!
+You jump up in the nick of time!
+The top of the altar opens!
+What will you do?
+1) Hold up shield
+2) Dodge
+3) Run
+4) Duck
+5) Jump
+[choice] 2
+A large axe springs out from the top of the altar!
+You dodge the axe in the nick of time!
+The whole ceiling starts to shake!
+What will you do?
+1) Hold up shield
+2) Dodge
+3) Run
+4) Duck
+5) Jump
+[choice] 3
+The ceiling collapses!
+You run at lightning speed and just make it out of the room before the entire room caves in! You have dropped the ruby though.
+You are in a Narrow tunnel 
+You are in a narrow tunnel running from east to west. Water drips from the ceiling here forming lime deposits on the floor.
+a Large ruby is here.
+You can go east or west.
+
+> take large ruby
+You pick it up.
+
+> east
+You are in a Small cave 
+You are in a small cave. The cold from the outside still seems to permeate into this cave, especially now that the iron door is open. The doorway to the outside is east, a wide rocky stair lead upward into the mountain to the north. Ther is a small archway to the west.
+You can go north, east or west.
+
+> north
+Your are on a Great stair 
+You are on a wide and long stairway leading from the south to the west. You can hear some strange noises coming from the top of the stairway to the west. There is definitely something big up there.
+You can go south or west.
+
+> west
+You are on the East side of a huge cavern 
+Your are on the eastern side of a huge cavern. There is a large hole in the ceiling here. Smoke billows in from the western side of the cavern and out through the hole in the ceiling. Taking up half the western side of the cavern is a huge dragon with red scales.
+You can go east or west.
+
+> west
+You are on the West side of a huge cavern 
+You are on the western side of a huge cavern. There is a large hole in the ceiling here. An enormous red dragon takes up most of the space here. Smoke from his nostrils rises up through the hole in the ceiling. There is also a small tunnel leading off to the west.
+Fred the Dragon is here.
+You can go east or west.
+
+> speak to fred
+What will you say to Fred?
+1) Your name is fred? Really?
+2) What did you want me to do again?
+3) I have your ruby!
+[choice] 3
+"Oh, so you do." he says taking the ruby from you and stashing it into a previously unseen pile of treasure beneath him.
+"Was it much trouble to get?" he asks.
+"Well not too much." you say.
+"I only had to kill about a half dozen goblins before the rest fled then dodge and run and avoid about a half dozen deadly traps to get it! Oh and then the room I was in collapsed and I barely escaped!" you go on.
+"Oh, so not much trouble at all then." Fred says.
+You grumble.
+"Well it sounds as if the red scorpions were helping the goblins to get my treasure!" he roars.
+"No goblin could have made such traps."
+"In any case here is the ring I promised you." he says flicking a ring at you.
+"All you need to do is rub it but I think it only has one charge left so use it wisely." he says.
+With that he goes back to itching his back.
+Your score just went up!
+To find out your rank type 'score'.
+
+> take magic ring
+You pick it up.
+
+> wear magic ring
+You put on the Magic ring.
+
+> west
+You are in a Narrow tunnel 
+You are in a narrow tunnel running from east to west. Water drips from the ceiling here forming lime deposits on the floor.
+You can go east or west.
+
+> west
+You are at the End of tunnel 
+The tunnel you were walking down dead ends here. There is a shimmering white portal at the end of it. The ceiling looks a little crumbly here as there are bits of rock on the floor. The way back is east.
+a shimmering white Portal is here.
+You can go east.
+
+> enter portal
+You enter the portal. You feel like you are being sucked into a whirlpool. Eventually you come out at the other end.
+You are in an Empty cell 
+You are in an empty cell. The floor is stained with blood here and there are no furnishings. The way out is to the south.
+a shimmering white Portal and an Iron door are here.
+You can go south.
+
+> use pile of bones on iron door
+You start to fit the bones into the indentations. After you are done it takes the shape of a skeleton. The door suddenly slides into the floor.
+
+> south
+You are in a Long hallway 
+You are in a very long hallway running from east to west. The cell is to the north and another doorway leads south.
+You can go north, south, east or west.
+
+> south
+You are in an Empty room 
+You are in an empty room. The walls here are all made of a light grey stone. Well the room isn't totally empty there is a grey stone pedestal in the center.
+a small stone Pedestal and a Large diamond is here.
+You can go north.
+
+> remove large diamond from pedestal
+You remove the diamond from the pedestal. An iron portcullis comes crashing down blocking the doorway!
+Several red cloaked figures appear on the other side of the bars. One of them your recognize as the one from the graveyard.
+"I told you he would take the bait. He is just a stupid barbarian after all!" he says.
+Suddenly an alarm starts going off all throughout the castle! "We have to go see what is going on. You stay here and keep an eye on the prisoner." One of them says.
+With that the others rush off leaving you alone with the figure from the graveyard.
+The figure taunts you from behind the bars.
+"Let's see you get out of this one!" he says and laughs.
+
+> rub magic ring
+You rub the ring. You feel a strange aura envelope you.
+The figure taunts you from behind the bars.
+"Let's see you get out of this one!" he says and laughs.
+
+> put large diamond on pedestal
+You place the diamond on the pedestal.
+The portcullis raises.
+The figure's face contorts in horror as he realizes that he has made another huge error in judgement! He unleashes a spell in terror. Magical flames wash over you!
+The magical flames have no effect. The red cloaked figure screams in horror as you slice him neatly in half! No one seems to notice as there is a very loud alarm going off.
+You are in a Long hallway 
+You are in a very long hallway running from east to west. The cell is to the north and another doorway leads south.
+a Dead wizard is here.
+You can go north, south, east or west.
+
+> examine dead wizard
+You find nothing on the wizard but you do notice a lever in the wall right by where the wizard's body fell.
+
+> use chisel on lever
+You jam the chisel in between the lever and the wall locking the lever in place.
+
+> south
+You are in an Empty room 
+You are in an empty room. The walls here are all made of a light grey stone. Well the room isn't totally empty there is a grey stone pedestal in the center.
+a small stone Pedestal and a Large diamond is here.
+You can go north.
+
+> remove large diamond from pedestal
+You hear a clunk as the lever outside tries to move but can't.
+
+> north
+You are in a Long hallway 
+You are in a very long hallway running from east to west. The cell is to the north and another doorway leads south.
+a stone Lever set in the wall and a Dead wizard are here.
+You can go north, south, east or west.
+
+> north
+You are in an Empty cell 
+You are in an empty cell. The floor is stained with blood here and there are no furnishings. The way out is to the south.
+a shimmering white Portal is here.
+You can go south.
+
+> enter portal
+You enter the portal. You feel like you are being sucked into a whirlpool. Eventually you come out at the other end.
+You are at the End of tunnel 
+The tunnel you were walking down dead ends here. There is a shimmering white portal at the end of it. The ceiling looks a little crumbly here as there are bits of rock on the floor. The way back is east.
+a shimmering white Portal is here.
+You can go east.
+As you come out of the portal you notice that the portal starts to glow. They must have noticed the body and are comming through after you.
+
+> use battle axe on ceiling
+You smash the ceiling with your axe. The whole ceiling starts to cave in. You dive into the tunnel to avoid injury and make it just in time as the whole ceiling collapses.
+You are in a Narrow tunnel 
+You are in a narrow tunnel running from east to west. Water drips from the ceiling here forming lime deposits on the floor.
+You can go east or west.
+
+> east
+You are on the West side of a huge cavern 
+You are on the western side of a huge cavern. There is a large hole in the ceiling here. An enormous red dragon takes up most of the space here. Smoke from his nostrils rises up through the hole in the ceiling. There is also a small tunnel leading off to the west.
+Fred the Dragon is here.
+You can go east or west.
+
+> speak to fred
+What will you say to Fred?
+1) Your name is fred? Really?
+2) What did you want me to do again?
+3) I have your diamond.
+[choice] 3
+"Oh, so you do." he says taking the diamond from you.
+"It wasn't much trouble I hope." he says.
+"Oh not much, I only had to infiltrate the red scorpion lair escape a room and kill a wizard then flee for my life. Oh and collapse the ceiling in the tunnel to keep them from comming after me." you say sarcastically.
+"Oh, so it was even easier to get than the ruby." he adds.
+You grumble...
+"Well I suppose I owe you a scale. A deal is a deal after all." he says.
+He reaches over to his back where he has been itching and plucks out a scale with an 'ouch'. He then plucks out a broken arrow that was beneath the scale.
+"So that's what has been causing my itch!" he exclaims.
+"I must have picked that up from those pesky farmers after I took one of their cows." he adds.
+He tosses the scale on the floor by your feet.
+"Thank you Tandum for all your help.' he says.
+"No problem and thank you for the scale." you say.
+Your score just went up!
+To find out your rank type 'score'.
+
+> take dragon scale
+You pick it up.
+
+> east
+You are on the East side of a huge cavern 
+Your are on the eastern side of a huge cavern. There is a large hole in the ceiling here. Smoke billows in from the western side of the cavern and out through the hole in the ceiling. Taking up half the western side of the cavern is a huge dragon with red scales.
+You can go east or west.
+
+> east
+Your are on a Great stair 
+You are on a wide and long stairway leading from the south to the west. You can hear some strange noises coming from the top of the stairway to the west. There is definitely something big up there.
+You can go south or west.
+
+> south
+You are in a Small cave 
+You are in a small cave. The cold from the outside still seems to permeate into this cave, especially now that the iron door is open. The doorway to the outside is east, a wide rocky stair lead upward into the mountain to the north. Ther is a small archway to the west.
+You can go north, east or west.
+
+> east
+You are on a Large ledge 
+You have come to a large ledge. The path down the mountain is to the southwest and continues up to the northeast. The path up seems to have been hit with an avalanch and is now impassible. There is a small cave entrance to the west.
+You can go west or southwest.
+
+> southwest
+You are on a Narrow path 
+You are on a narrow, icy path that winds up the mountain side. Looking down from here makes you a little dizzy. The path continues up the mountain to the northeast and winds back down to the southwest.
+You can go northeast or southwest.
+
+> southwest
+Fang mountain 
+You are at the bottom of Fang mountain. From here the mountain looks very large and very imposing. A steep, icy, and narrow path winds up the mountain to the northeast. The way back to the village is south.
+a Large horse is here.
+You can go south or northeast.
+
+> take horse
+You take the horse by the reins.
+
+> mount horse
+You mount the horse.
+
+> south
+You are at the Cross roads (mounted on the horse)
+You are at the crossing of many roads. The village is to the north and the main road leads off to the south.
+Councilman Hardin is here.
+You can go north, south, west, Chantly Graveyard, Wizard's tower or Fang mountain.
+
+As you approach you village you notice that night has fallen. Hardin is waiting for you by the crossroads.
+"Tandum, so glad am I to see you!" he says.
+"Hey hardin!" you say.
+"I see you have accoplished your second task!" Hardin says.
+"Well done! Well done indeed!" he exclaims.
+"Was the dragon hard to kill?" he asks.
+"Kill, who said anything about killing the dragon. I was just told to bring back a scale." you say.
+"Oh...Thorgin is going to be so angry!" he laughs.
+
+> speak to hardin
+What will you say to hardin?
+1) Hi there Hardin!
+2) I think thorgin is in league with the red scorpions.
+[choice] 2
+"Those are very serious accusations Tandum!" Hardin says.
+"You could present this to the council in the morning but I need to warn you. You will need proof before they will listen to you." he says.
+"I believe four pieces of evidence are required in order to properly accuse an elder." he goes on.
+"I have three I believe." you say.
+"You will need to find one more but unfortunately I need to give you your third task." he says.
+"I need you to find and bring back Marta's daughter megan. She has gone missing." he says.
+"Speak to marta about it."
+"I will get right on it!" you say.
+"Good, I have faith in you Tandum. So I will see you in the morning." he says.
+Your score just went up!
+To find out your rank type 'score'.
+
+> north
+You are at the South end of the village (mounted on the horse)
+You are at the southern end of your home village of Golsiv. You can go north or south from here. The local seer is to the east and the craft shop is west.
+You can go north, south, east or west.
+
+> north
+You are in the Village center (mounted on the horse)
+You are in the center of your home village of Golsiv. You can go the north or south from here. The market is to the east and the inn is west.
+Marta the innkeeper is here.
+You can go north, south, east or west.
+
+> speak to marta
+What will you say to marta?
+1) How can I help marta?
+2) 
+3) 
+[choice] 1
+"Oh, hi Tandum. My daughter megan is missing." she says.
+"I know, Hardin told me." you say.
+"Where did you see her last?" you ask.
+"She was down by the garden hedge maze like always. She never came home for dinner and when I went to go to the maze it had been closed off." she says.
+"Closed off!?!" you ask.
+"Yes, Thorgin had it ordered closed for some reason. When I went to see him he told me that megan was definitely not in there and to go home." she says.
+"OH, Tandum, I'm so worried." she sobs.
+You place your arm around her shoulder.
+"Don't you worry Marta. I'll find her." you say.
+"Thanks Tandum." she sobs.
+
+> speak to marta
+What will you say to marta?
+1) Dont worry marta.
+2) Do you know of any other ways into the hedge maze?
+3) 
+[choice] 2
+"No, I don't but Gak might he used to be in there all the time as a kid."
+
+> north
+You are at the North end of the village (mounted on the horse)
+You are at the northern end of your home village of Golsiv. The great hall is to the north. The stables are west of here and the blacksmith shop is to the east.. The village center lies to the south.
+You can go north, south, east or west.
+
+> east
+You are in the Blacksmith shop (mounted on the horse)
+You are in the local blacksmith shop. Weapons and horseshoes line all the walls here. A great clay furnace and bellows takes up most of the east end of the shop. Gak, the local blacksmith is here busy working at the furnace.
+Gak the blacksmith is here.
+You can go west.
+
+> speak to gak
+What will you say to gak?
+1) Hey gak.
+2) Do you know any other way to get in the hedge maze?
+3) Do you have any fighting tips for me?
+4) 
+5) 
+[choice] 2
+"Sure Tandum, I used to play in there all the time as a kid. You press the loose stone in the fireplace and a tunnel opens leading to the eastern edge." he says.
+"Thanks Gak!" you reply.
+
+> west
+You are at the North end of the village (mounted on the horse)
+You are at the northern end of your home village of Golsiv. The great hall is to the north. The stables are west of here and the blacksmith shop is to the east.. The village center lies to the south.
+You can go north, south, east or west.
+
+> dismount
+You dismount.
+
+> drop horse
+You let go of the reins and give the horse a quick pat and tell him to wait for you here.
+
+> north
+You are in the Great hall 
+You are in the great hall of the village chieftan. Furs, antlers and heads of various animals line all the walls here. The main doors lie to the south. Three smaller doorways lead off to the east, west and north.
+You can go north, south, east or west.
+
+> west
+You are in the Parlor 
+You are in the parlor or sitting room of the great hall. A doorway leads back to the main hall to the east. There are numerous bookshelves and decorative weapons along the walls here.
+a large Fireplace in the north wall, a Window and a Mantle on the fireplace are here.
+You can go out or east.
+
+> enter fireplace
+You enter the fireplace.
+You are Inside the fireplace 
+You are standing inside the large stone fireplace in the parlor. Looking up you can see the night sky outside. You can go out to the parlor.
+a Loose stone in the firplace is here.
+You can go out.
+
+> push loose stone
+You press the stone and a stone trap door springs open in the floor of the fireplace.
+
+> down
+You are in a Crawl space 
+You are in a tight crawl space beneath the fireplace. You can go up to the fireplace or crawl to the west.
+You can go west or up.
+
+> west
+You crawl through the tight space and eventually come out through a trap door inside the maze.
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go north, south or down.
+
+> north
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go north or south.
+
+> north
+You are at a Dead end 
+You have come to a dead end in the hedge maze.
+a short Metal bar is here.
+You can go south.
+
+> take metal bar
+You pick it up.
+
+> south
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go north or south.
+
+> south
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go north, south or down.
+
+> south
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go north, south or west.
+
+> west
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go north or east.
+
+> north
+You are at a Dead end 
+You have come to a dead end in the hedge maze.
+a length of Chain is here.
+You can go south.
+
+> take chain
+You pick it up.
+
+> south
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go north or east.
+
+> east
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go north, south or west.
+
+> south
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go north or west.
+
+> west
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go east or west.
+
+> west
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+an Iron gate is here.
+You can go north, south, east or west.
+
+> west
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go east or west.
+
+> west
+You are at a Dead end 
+You have come to a dead end in the hedge maze.
+a Bucket is here.
+You can go east.
+
+> take bucket
+You pick it up.
+
+> east
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go east or west.
+
+> east
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+an Iron gate is here.
+You can go north, south, east or west.
+
+> north
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go south or west.
+
+> west
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go east or west.
+
+> west
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go north or east.
+
+> north
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go north, south or east.
+
+> north
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go north or south.
+
+> north
+You are at a Dead end 
+You have come to a dead end in the hedge maze.
+a metal Handle is here.
+You can go south.
+
+> take handle
+You pick it up.
+
+> south
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go north or south.
+
+> south
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go north, south or east.
+
+> east
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go north or west.
+
+> north
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go north or south.
+
+> north
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go south or east.
+
+> east
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go east or west.
+
+> east
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go south or west.
+
+> south
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go north or west.
+
+> west
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go south or east.
+
+> south
+You are in the Center of the maze 
+You have made it to the center of the maze. Benches line the area here and beautiful flower beds line the sides of the hedges. In the dead center of the area is a small well.
+a small stone Well is here.
+You can go north.
+
+> use chain on metal bar
+You attatch the bar to the chain.
+
+> use bucket on bar and chain
+You attatch the bucket to the other end of the chain.
+
+> use handle on bar chain and bucket
+You attatch the handle to the metal bar.
+
+> use bar chain and bucket on well
+You put the bar over the well.
+
+> turn handle
+You turn the handle. The bucket lowers into the well.
+"Megan, get in the bucket if you can." you say.
+"Ok Tandum, I'll try." she answers.
+"Ok Tandum, I'm in." she says.
+You turn the crank and raise her out of the well then put her on the ground next to you.
+
+> speak to megan
+What will you say to megan?
+1) Are you ok megan?
+2) What happened megan?
+[choice] 2
+"Well I was playing in the hedge maze like I normally do when I overheard voices comming from the center. So I went to see who it was. I saw Thorgin talking to a man in a red cloak. He was saying something about setting a trap for you." she says.
+"Go on." you say.
+"Well then they saw me and the man in the cloak muttered something and the next thing I know I am at the bottom of the well." she sobs.
+"Well, you are safe now. I won't let anything happen to you." you say.
+"Thanks Tandum!"" she says.
+"Oh, and I also heard him say something about putting an ogre here to guard the front gate." she goes on.
+
+> unwield battle axe
+You put away the Battle axe (wielded).
+
+> unwield wooden shield
+You put away the Wooden shield (wielded).
+
+> take megan
+You gently pick her up.
+
+> north
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go south or east.
+
+> east
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go north or west.
+
+> north
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go south or west.
+
+> west
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go east or west.
+
+> west
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go south or east.
+
+> south
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go north or south.
+
+> south
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go north or west.
+
+> west
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go north, south or east.
+
+> south
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go north or east.
+
+> east
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go east or west.
+
+> east
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go south or west.
+
+> south
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+an Iron gate is here.
+You can go north, south, east or west.
+
+> east
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go east or west.
+
+> east
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go north or west.
+
+> north
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go north, south or west.
+
+> north
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go north, south or down.
+
+> down
+You are never going to get down through there carrying megan.
+"Megan, do you think you can crawl through there?" you ask.
+"I-I don't think I can." she says.
+"Then I am going to have to leave you for a bit to get the key to the front gates." you say.
+"No don't leave me Tandum!" she wailes.
+"I have a key." she says quietly.
+"You do?" you ask.
+"Yes, I took it from the vase above the mantle then replaced it with a chisel so no one would know it was gone." she says with a guilty look.
+"It's ok Megan but I will need that key to get you out of here." you say.
+"Ok Tandum." she says handing you the key.
+
+> south
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go north, south or west.
+
+> south
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go north or west.
+
+> west
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+You can go east or west.
+
+> west
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+an Iron gate is here.
+You can go north, south, east or west.
+
+> use iron key on iron gate
+You unlock the gate with the key then open it.
+
+> drop megan
+You gently place her down.
+
+> wield battle axe
+You wield the Battle axe.
+
+
+> south
+You are just Outside the hedge maze 
+You are just outside the hedge maze. The entrance is to the north. The way back to town is south.
+An ugly mean looking Ogre is here.
+You can go north or south.
+
+> attack ogre
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 2
+You thrust with your axe.
+Your enemy swings his club in a great curving arc! Your thrust throws his swing off and he misses. Both of you are unharmed.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 2
+You thrust with your axe.
+Your enemy does a downward hack.
+You barely deflect the stroke with your thrust.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 2
+You thrust with your axe.
+Your enemy does a downward hack.
+You barely deflect the stroke with your thrust.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 4
+You swing your axe with a mighty swing!
+The enemy tries to block with it's shield.
+With a great crunch his shield is shattered to bits!
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 2
+You thrust with your axe.
+Your enemy swings at you.
+You knock him off balance.
+
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 4
+You swing your axe with a mighty swing.
+Your enemy is off balance and can't defend himself and suffer a grievous wound.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 3
+You hack downward with your axe.
+Your enemy attempts to block with it's shield but you still connect.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 3
+You hack downward with your axe.
+Your enemy attempts to block with it's shield but you still connect.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 2
+You thrust with your axe.
+Your enemy swings at you.
+You knock him off balance.
+
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 4
+You swing your axe with a mighty swing.
+Your enemy is off balance and can't defend himself and suffer a grievous wound.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 3
+You hack downward with your axe.
+Your enemy attempts to block with it's shield but you still connect.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 2
+You thrust with your axe.
+Your enemy swings at you.
+You knock him off balance.
+
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 4
+You swing your axe with a mighty swing.
+Your enemy is off balance and can't defend himself and suffer a grievous wound.
+You have defeated your opponent!
+You have become stronger!
+
+You roll the ogre off to the side of the road so that Megan won't have to see it.
+
+> north
+You are in the Hedge maze 
+You are in the pride of golsiv. The town's hedge maze. During the summer people come from the neighboring villages to see it. The maze is surrounded by a high stone wall. The tall hedges here are all neatly trimmed.
+Megan is here.
+You can go north, south, east or west.
+
+> unwield battle axe
+You put away the Battle axe (wielded).
+
+> take megan
+You gently pick her up.
+
+> south
+You are just Outside the hedge maze 
+You are just outside the hedge maze. The entrance is to the north. The way back to town is south.
+You can go north or south.
+
+> south
+You carry Megan back to town.
+You are at the North end of the village 
+You are at the northern end of your home village of Golsiv. The great hall is to the north. The stables are west of here and the blacksmith shop is to the east.. The village center lies to the south.
+a Large horse is here.
+You can go north, south, east or west.
+
+> south
+You are in the Village center 
+You are in the center of your home village of Golsiv. You can go the north or south from here. The market is to the east and the inn is west.
+Marta the innkeeper is here.
+You can go north, south, east or west.
+Marta sees you coming.
+"Oh my Megan, are you alright!!?!!" she says.
+"Yes mom, but I think my leg is broken." she says as Marta takes Megan from you.
+"Tandum, You are my hero!" Marta says.
+"Let me go and get Megan settled then I will get a room ready for you. You must be tired." says marta then she dissapears inside the inn with megan.
+After a while she returns.
+"Well thankfully Megan's leg is not broken. Just sprained." she says.
+"Thank goodness." you reply.
+"Megan told me everything that happened and is willing to go before the council to give evidence against Thorgin if you want." she says.
+"That would be great. Get together with Hardin tommorow morning and meet us in the great hall." you reply.
+"We will!" she says. "And I hope that 'Thorgin' gets whats coming to him!"
+"He will." you reply. "One way or the other!"
+With that Marta shows you to your room and you go to sleep for the night....
+
+
+You wake up feeling refreshed. When you come downstairs Marta greets you and tells you she will meet you at the great hall.
+You step outside and Marta starts to lock up.
+You are in the Village center 
+You are in the center of your home village of Golsiv. You can go the north or south from here. The market is to the east and the inn is west.
+You can go north, south, east or west.
+Your score just went up!
+To find out your rank type 'score'.
+
+> north
+You are at the North end of the village 
+You are at the northern end of your home village of Golsiv. The great hall is to the north. The stables are west of here and the blacksmith shop is to the east.. The village center lies to the south.
+a Large horse is here.
+You can go north, south, east or west.
+
+> east
+You are in the Blacksmith shop 
+You are in the local blacksmith shop. Weapons and horseshoes line all the walls here. A great clay furnace and bellows takes up most of the east end of the shop. Gak, the local blacksmith is here busy working at the furnace.
+Gak the blacksmith is here.
+You can go west.
+
+> speak to gak
+What will you say to gak?
+1) Hey gak.
+2) Do you know any other way to get in the hedge maze?
+3) Do you have any fighting tips for me?
+4) 
+5) 
+[choice] 3
+"The next move I can show you is how to behead your opponent with one fell stroke. This is very effective but easily defended against. You will need your opponent to be offbalance before it will work." Gak says.
+You spend some time with Gak until he is satisfied with your progress then he dismisses you.
+"The next move I can show you Tandum is the vault move. This move guarantees unseating your opponent at the cost of unseating yourself." Gak says.
+"It's a leap from the saddle into your opponent knocking both of you to the ground."
+After spending some time with Gak he feels confident that you have learned well and dismisses you.
+Your score just went up!
+To find out your rank type 'score'.
+
+> west
+You are at the North end of the village 
+You are at the northern end of your home village of Golsiv. The great hall is to the north. The stables are west of here and the blacksmith shop is to the east.. The village center lies to the south.
+a Large horse is here.
+You can go north, south, east or west.
+
+> north
+You are in the Great hall 
+You are in the great hall of the village chieftan. Furs, antlers and heads of various animals line all the walls here. The main doors lie to the south. Three smaller doorways lead off to the east, west and north.
+Thorgin is here.
+You can go north, south, east or west.
+
+> speak to thorgin
+"I don't see any dragon scale. Do you admit defeat?" Thorgin laughs.
+"Actually I have already completed my second task and turned the scale in to Hardin last night!" you exclaim.
+"I shall have to ask Hardin about that. In the mean time your third task is to.."
+You interrupt him.
+"I have already finished my third task as well!"
+"What!?! I did not assign you the third task yet!" he shouts.
+"No. Hardin did and I'm happy to say I completed it." you say.
+"HE CANNOT ASSIGN YOU A TASK! Only I can!" he shouts.
+"I think you will find that you are wrong about that." Hardin says as he walks into the hall.
+"What? Who gave you the authority?!?" thorgin asks.
+"The council. As a matter of fact a meeting is about to begin if you would care to join us." hardin says.
+"We shall see about this!" thorgin bellows.
+With that they both walk east into the dinning hall.
+Hardin looks back. "Aren't you comming Tandum." he says.
+
+> east
+You are in the Dining hall 
+You are in the great dinning hall. A large table for about twenty two people takes up the entire middle of the hall here. Plush chairs run all along the table. There are all sorts of weapons displayed on the walls here. The great hall is to the west and the kitchen north.
+Thorgin, Councilman Hardin and The Members of the council are here.
+You can go north or west.
+
+> speak to members of the council
+You address the council.
+"The council recognizes Tandum." Hardin says.
+"Members of the council, upon doing these tasks I have discovered that Thorgin has been in contact and is working with members of the red scorpions who murdered my father." you say.
+There are gasps among the council members.
+"I accuse thorgin of murder." you say.
+"This is ridicu..." thorgin starts to say.
+Hardin interrupts him. "The council has not recognized thorgin yet!"
+"Those are very serious charges Tandum." one of the council members says.
+"You will need at least four pieces of hard evidence to make such a claim against a council member."
+"I believe I have got four pieces of eveidence." you say.
+"Well, present your evidence then Tandum."
+
+> give note to members of the council
+You hand the note to the council.
+"This was dropped by a red scorpion as he fled from Chantley graveyard." you say.
+A council member reads the note out loud.
+"He could have fabricated that! And it's signed 't' that could be anyone even him!" Thorgin yells.
+
+> give parchment to members of the council
+You hand the parchment to the council.
+"This I found in the chieftan's chamber." you say.
+A council member reads the note out loud.
+"So he says! That note could have been addressed to HIM!" Thorgin yells.
+
+> give eye of the east to members of the council
+You hand the eye to the council.
+"This I found on a mercenary that tried to kill me on the way to fang mountain. He said he had been well paid to do me in!" you say.
+The council looks at the eye then at thorgin.
+"He could have stolen that from my chamber!" Thorgin yells.
+"That's three pieces of evidence Tandum but where is the fourth?" one of the council members ask.
+Just at that moment Marta walks in with Megan. "Right here!" she says.
+She tells them of what megan saw and what happened to her. The council dismisses them and they leave.
+"Not a very convincing witness I would say!" Thorgin says.
+"She is an eight year old girl! She made it up!"
+He is looking nervously around the room now.
+"Given this evidence I move that...." Hardin begins.
+Thorgin suddenly reaches in his pocket and throws a gauntlet at your feet.
+"I invoke the right of trial by combat!" he yells fiercely.
+"Tandum, you will now need to either pick up the gauntlet and accept the challenge or dismiss your charges.
+Thorgin is looking triumphant.
+You pick up the gauntlet and give it to thorgin and say with a very low angry voice "I accept this challenge with glee."
+"Well, I guess we have preparations to make." says Hardin.
+"Tandum, go and make yourself ready. The contest will begins at dusk. Speak to me when you are ready." he says.
+With that all the council members file out.
+Your score just went up!
+To find out your rank type 'score'.
+
+> west
+You are in the Great hall 
+You are in the great hall of the village chieftan. Furs, antlers and heads of various animals line all the walls here. The main doors lie to the south. Three smaller doorways lead off to the east, west and north.
+You can go north, south, east or west.
+
+> south
+You are at the North end of the village 
+You are at the northern end of your home village of Golsiv. The great hall is to the north. The stables are west of here and the blacksmith shop is to the east.. The village center lies to the south.
+a Large horse is here.
+You can go north, south, east or west.
+
+> wield battle axe
+You wield the Battle axe.
+
+
+> wield wooden shield
+You wield the Wooden shield.
+
+
+> take horse
+You take the horse by the reins.
+
+> mount horse
+You mount the horse.
+
+> south
+You are in the Village center (mounted on the horse)
+You are in the center of your home village of Golsiv. You can go the north or south from here. The market is to the east and the inn is west.
+You can go north, south, east or west.
+
+> south
+You are at the South end of the village (mounted on the horse)
+You are at the southern end of your home village of Golsiv. You can go north or south from here. The local seer is to the east and the craft shop is west.
+You can go north, south, east or west.
+
+> south
+You are at the Cross roads (mounted on the horse)
+You are at the crossing of many roads. The village is to the north and the main road leads off to the south.
+Councilman Hardin is here.
+You can go north, south, west, Chantly Graveyard, Wizard's tower or Fang mountain.
+
+> speak to hardin
+What will you say to hardin?
+1) Hi there Hardin!
+2) 
+[choice] 1
+"Are you sure you are ready Tandum? This fight is to the death." he asks nervously.
+Are you ready to fight Thorgin?
+1) Yes
+2) No
+[choice] yes
+
+By the time you get to the grounds you notice night has fallen.
+You are at the Proving grounds (mounted on the horse)
+You are on the proving grounds, A great field of dirt surrounded by stone bleachers.
+A great Crowd of onlookers seated in the stands and Thorgin mounted on his horse are here.
+As you enter the field Hardin is in the center. He waves a red flag and announces "You may begin when you are ready Tandum!"
+With that he retreats to his seat in the audience.
+
+> attack thorgin
+How will you attack?
+1) Swing with axe
+2) Downward hack
+3) Unseat
+4) Vault
+[choice] 4
+You leap from your saddle and crash sidesways into thorgin! With a great thud you both land in the dirt!
+There is a great cheer from the audience!
+You both quickly regain your feet.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) Behead
+[choice] 4
+You swing your axe with a mighty swing!
+Thorgin swings at you. He is faster and scores a nasty wound on you but your swing still connects inflicting a grievous wound on him!
+There is a 'Ooooooooo!' from the crowd.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) Behead
+[choice] 4
+You swing your axe with a mighty swing!
+Thorgin swings at you. He is faster and scores a nasty wound on you but your swing still connects inflicting a grievous wound on him!
+There is a 'Ooooooooo!' from the crowd.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) Behead
+[choice] 1
+You swing your axe.
+Thorgin tries to dodge your attack but can't get out of the way.
+He suffers a nasty wound!
+There is a great cheer from the audience!
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) Behead
+[choice] 1
+You swing your axe.
+Thorgin parries your attack then swings at you!
+You block his attack with your shield.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) Behead
+[choice] 3
+You downward hack at him!
+Thorgin tries to block your attack with his shield but the force of your blow is too great and he still suffers a nasty wound!
+The crowd cheers!
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) Behead
+[choice] 4
+You swing your axe with a mighty swing!
+Thorgin swings at you. He is faster and scores a nasty wound on you but your swing still connects inflicting a grievous wound on him!
+There is a 'Ooooooooo!' from the crowd.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) Behead
+[choice] 1
+Thorgin jumps back before you can attack him then fiddles with somthing on his finger. You see he wounds heal!
+"Coward!" you yell and close in on him.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) Behead
+[choice] 2
+You thrust at him and knock him off balance!
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) Behead
+[choice] 6
+He is off balance and can't manage to duck in time!
+"That's for my father!!!!!!" you shout as Thorgin's head goes flying from his shoulders and his body collapses in a great heap by your feet!
+The crowd goes crazy and everyone comes rushing onto the field to congratulate you with Hardin and Marta leading the way!
+Your score just went up!
+To find out your rank type 'score'.
+As you are all celebrating your victory suddenly out of the darkness a great number of red cloaked figures appear. They surround all of you!
+"This village is under the control of the Red Scorpions now! We tried to do it peacefully with Thorgin's help but now we have to take matters into our own hands!" one of the figures shouts.
+
+
+You all start to protest when suddenly a great shadow can be seen and growing. The figures don't seem to notice the shadow and one of them continues to speak.
+"You will all now come with us to be..."
+He is interrupted by another voice, one you recognize!
+"They won't go anywhere with you!" it roars!
+"What who dares challenge us!?!" the figure says looking around for the source of the voice.
+
+"FRED!" thunders the voice as the figure of Fred the dragon lands in front of them. Everyone is looking petrified now as great gouts of flames erupt from Fred's mouth consuming several figures.
+"REVENGE!" thunders Fred as his tail sends several of them flying!
+"Teach you to steal my things!!" Fred says as he eats several more!
+
+
+Soon all the Red Scorpions are in full flight. Fred lets out one more round of flame at them as they all dissapear then turns towards you.
+"Hello friend Tandum!" he says.
+"Hey fred!" you reply.
+"I followed you from a distance because these wizards seemed to have an interest in you and I was looking for some payback!" he says.
+"Well your timing was wonderful Fred!" you say.
+"And after all that I guess I owe you." you go on.
+"No, really it was my pleasure." says fred.
+You take the 'Eye of the East' from a very scared looking Hardin and present it to Fred.
+"I believe that you have earned this now as well as a new name." you say.
+"From now on I will call you 'Fred the Fierce!' you exaclaim.
+"Thank you Tandum." he says taking the eye. "And I shall call you Tandum Dragonfriend!"
+"Until we meet again Tandum Dragonfriend!" he says as he flys off.
+"Farewell Fred the Fierce!" you shout as he dissapears into the sky.
+
+
+The next day you are annointed 'Chieftan' of the village in a great ceremony followed by a great feast in your honor!
+And from that day forward everyone came to know you as Tandum Dragonfriend chieftan of Golsiv.
+The end.
+
+Well Done!
+You have finished Barbarian!
+
+[runner] turns=508 leftover=0 running=false WON=YES

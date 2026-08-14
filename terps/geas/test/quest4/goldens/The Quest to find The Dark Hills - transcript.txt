@@ -1,0 +1,530 @@
+
+The Quest to find The Dark Hills, v2.0 Slackers Inc.
+
+
+
+
+A long time ago something happened to you. It was so long ago in fact, that you don't even remember all of the details. The only things you can seem to remember are that something happened between you and a mysterious group called the Shadow Masters, particularly one by the name of Alexendre Bartolomeu Pendelton, and that it happened in The Dark Hills. You're not exactly sure why Alexandre tried killing you but you have decided to go on a quest in search of The Dark Hills to find out. You hope that along the way you are able to remember more details and figure out any possible explanation for what happened and why. Before you head out on your quest, you may want to gather a few items. After all, you probably won't be able to open your door until you find your key.
+
+
+Standing beside your neatly-made bed, you begin to have a look around the room and spot one of your old math books on the floor. That doesn't seem too out of the ordinary since math never was your best subject. Each drawer of your dresser is properly closed, just as you left it, and there isn't anything sitting on top of it. As you continue to scan your bedroom, you notice that something doesn't seem quite right with your desk. Among other things you notice that your radio has been moved a tad to the left.
+
+> open book
+You open it, and see something fall to the floor.
+
+> take key
+You pick it up.
+
+> open desk
+You open the desk and inside it, there is an old map, a can of body spray, a lighter with no fluid in it, a letter opener, and a pen.
+
+> take body spray
+(first removing it from desk)
+Done.
+You pick it up.
+
+> take map
+(first removing it from desk)
+Done.
+You pick it up.
+
+> take lighter
+(first removing it from desk)
+Done.
+You pick it up.
+
+> take back pack
+You pick it up.
+
+> take radio
+You unplug it from the wall so you can take it with you, lucky for you the batteries are brand new! 
+
+> w
+
+Your bathroom, much like any other, is equipped with a shower against the far wall, a white porcelain toilet against another wall and your sink. Above the white marble sink, there is a stainless steel medicine cabinet hung on the plain white wall. The shower curtain is closed but, as far as you can remember, you hadn't left anything inside it. As you look around, you can't help but wonder why there isn’t a towel hanging on the towel rack.
+
+> open medicine cabinet
+You open the medicine cabinet. Inside it there is: a container of baby powder, a tube of toothpaste, a bottle of tylenol, a hairpin, and a roll of medical tape.
+
+> take baby powder
+You pick it up.
+
+> take tylenol
+You pick it up.
+
+> e
+
+As you step back into the room, you wonder if there might be anything else of use. 
+
+> use key on door
+You use the key on the door and unlock it. You can now go North.
+
+> n
+
+The single light in your hallway is off but, as you think about it, you remember that you needed to change the bulb. Unfortunately you don't recall buying any spare ones. There isn't anything strange or out of place about the plain tan walls or the wood floor beneath your feet. From here, the computer room is to the East and your living room is toward the North.
+
+> e
+
+As you enter the room, you notice your computer is turned off. You see the mess of cables coming off the back but decide not to bother with them. After a moment or two, you make the random notation that it's been so long since you've logged in, that you've forgotten the password. You seem to recall writing it down somewhere, if only you could remember where though. As you continue to look around the room, you note that the lamp sitting on your night stand is also turned off.
+
+> open night stand
+You open the night stand and in it there is a full bottle of lighter fluid, and a ten dollar bill!
+
+> take lighter fluid
+You pick it up.
+
+> take ten dollar bill
+"Yes, I have money now!"
+
+> use lighter fluid on lighter
+You use the lighter fluid and fill the lighter. It is now full!
+
+> w
+
+The single light in your hallway is off but, as you think about it, you remember that you needed to change the bulb. Unfortunately you don't recall buying any spare ones. There isn't anything strange or out of place about the plain tan walls or the wood floor beneath your feet. From here, the computer room is to the East and your living room is toward the North.
+
+> n
+
+In the center of your living room, there is a coffee table with a slice of pizza on it from last night. Over in the corner are your recliner and a lamp which is off. On the other side of the room, you spy your entertainment center. One of your game controllers is sitting on the floor and the television is turned on but the volume is low. The green curtains on the window beside it are wide open so that you can see outside into your yard. As you have a more in-depth look around, you notice that the sofa has been moved.
+Do you want to save?
+1) Yes
+2) No
+[choice] no
+
+> search sofa
+A new exit has become available! You can now go East.
+You search the sofa in hopes of finding a few coins. After a moment or two your hand finds something that feels more like paper. You pull it out to see what you've found. Alas, it's a twenty dollar bill!
+
+> e
+A new exit has become available! You can now go East.
+
+You step outside the house and begin making your way to the local pub, you note that things seem a bit more quite then usual. You continue walking until you here something off in the distance, before you can even think, a mountain lion pounces in front of you! You’ll have to defeat him if you  wish to continue onto the pub.
+
+> use body spray on mountain lion
+You attack the lion by using the body spray with your lighter creating a flame thrower!
+
+> use body spray on mountain lion
+You attack the lion by using the body spray with your lighter creating a flame thrower!
+
+> n
+You've defeated the lion, and may now head North.
+
+Part Two - You are well on your way to finding The Dark Hills, but you still have a long journey ahead of you. If you've found the map, that should help you a bit in your quest. If you haven't, I wish you the best of luck. 
+
+The narrow, dusty pathway, littered with a few scattered leaves which have blown free from the surrounding trees, suddenly comes to a halt. In front of you is a weathered structure made mostly of large slabs of stone with older, wooden shingles atop the angled roof. Everything about the tavern, even the large and slightly misshapen stone chimney spouting from the roof, gives it an almost "out of place" appearance among the trees.
+
+Located to the right of the structure is a small stack of neatly cut wood with an axe leaned against it. A few short logs, which still have yet to be chopped into smaller pieces, are lying around near the pile. Sitting in front of the far left corner of the building is a rather wolfish looking dog with bright blue eyes. It stares at you with a knowing look upon its face but doesn't move or make a sound. Just to the right of the animal is a large wooden door with a heavy iron handle. The sign above it clearly reads: Tom's Tavern
+Do you want to save?
+1) Yes
+2) No
+[choice] no
+
+> take axe
+You take the axe!
+You now have what you need to continue on your journey.
+
+> take wood
+
+> use full lighter on wood
+As you flick the lighter, you take one of the pieces of wood. Holding it under the flame, you watch until it begins to burn. You now have a torch!
+
+> ne
+
+As you head north east, you enter deeper and deeper into the forest. It isn't too long after, that you make it to a small clearing and there are trees all round. If you have the axe, now might be the time to use it. A toad sits just to the right of the tree to the west. 
+
+> use axe on east tree
+You cut down the tree to the east and a path becomes visible! You can now go east.
+
+> e
+
+You've managed to make it to Spires End, the town looking rather barren as people seem to keep to themselves. They seem deeply religious and rather downtrodden, their faith keeping them going. As you have a look around, you note that the local church is to the North West. You make note that to the North East, lies a rather old looking book shop with a sign that reads: "Damien's Books for Every Occasion".
+
+> ne
+
+As you enter the book shop you see a wide verity of books. Your eye just happens to catch some of the more interesting titles including “The Towel: 101 Fun & Practical Uses!” and “Magic: is it Real or Just a Sham?”. It isn’t long before you see a person in the back placing books upon the shelves. The man stops, as if he can feel your presence.  “Kitzue…” the man says without even turning around. "Might... m-might I be of service?"
+
+> look for towel
+You have a closer look around the book shop and to your amazment, there just happens to be a blue towel on the floor with green writing... it reads "Don't Panic!" 
+
+> take towel
+You pick it up.
+
+> sw
+
+ As you step outside the shop you know there is only one thing left to do, head into the church.
+
+> nw
+
+As you enter the cathedral you feel as if someone or something is watching you. You look over at the pulpit to see if perhaps someone is there, but you see nothing. There really isn't anything all to interesting about the church other then its creepy appeal, and the fact it has a basement.
+
+> d
+
+As you enter the basement to the cathedral and you notice that it is very dark and you can’t really see.  Perhaps now would be a good time to use the torch.
+
+> use torch
+You use the torch and see a trap door.
+
+> open trap door
+ As you open the trap door you see a ladder that leads down into a tunnel, you can now go down.
+
+> d
+
+You climb down the lighter and make your way into the tunnel. You move the torch around to better see, there isn’t much. As you begin making your way through the tunnel you see a few rats. You decide that as long as they leave you be, you’ll return the favor. If they decide to mess with you however, they're going down. You begin to wonder what lies ahead, how much further must you go to find what it is you're looking for. Holding your torch up high, you see something at the end of the tunnel. It looks like a rusted ladder!
+
+> u
+
+Part Three - You've managed to make it to the second church, but you still have a long way to go on your jouney.
+
+
+You have a look at your surroundings only to discover that the basement of this church is much more eerie than the first. The damp, heavy air that fills the vast church basement makes it harder to breathe and the dusty floor and walls aren't helping much. As you look around, you notice that there are several large tiles lining each wall. Many of them appear to have olde English writing on them but it's too dark to make out what any of them say from where you are standing so, instead, you decide to look for a way out. While doing so, your eyes happen upon a black coffin leaning against one of the walls. Its lid is slightly ajar but you cannot see inside of it.
+
+> open coffin
+You open the coffin to have a better look inside. As you look, a small piece of parchment comes out. 
+
+> take clue 1
+You pick it up.
+
+> u
+
+As you enter the church you see the high-arched ceiling, massive windows and gold plated altar which seem to make the cathedral glow but there is still something unnerving about the place. Glancing around from the wide open center, you observe the two rows of simple chairs lining the side walls and the many church pews toward the back. Near the altar, at the very front, two lit candles are sitting atop the white table. The flicker of their tiny flames is the only movement but you still feel as though someone or something is present. To the side of the table, you see a gold vase filled with a bouquet of white carnations and roses. Just passed the altar, a brightly colored mosaic in the window catches your eye.
+
+> look at alter
+Upon closer inspection of the alter you see what appears to be another clue!
+
+> take clue 2
+You pick it up.
+
+> look at pews
+When you look closer at the church pews, something catches your eye. It looks like another clue!
+
+> take clue 3
+You pick it up.
+
+> look at candles
+You step closer to the candles to better examine them. After a moment or two you spot another clue!
+
+> take clue 4
+You pick it up.
+
+> look at flowers
+Uno Dos Tres, there's a clue in the vase!
+
+> take final clue
+You pick it up.
+
+> levitate
+You close your eyes and try to concentrate and put your mind at ease. It doesn't take long however for your body to feel light as a feather. You take a chance and open your eyes to your amazement you're off of the ground! 
+
+> take map
+Which map do you mean?
+1) map
+2) Map
+[choice] 2
+
+> n
+
+As you head into the local town Zephyrus Way you note that there is a fork in the road. You have a decision to make. You can go North, North West, or North East.
+
+> nw
+
+You continue your jouney and begin heading in a North West direction. You don't know how to expline it, but you feel as if you can tell your getting closer to the dark hills. Surly it can't be much farther. Putting it out of your mind for now, you also have this feeling as if your being followed. Oh no, it's a bobcat! 
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> use towel on bobcat
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+You've defeated the bobcat and may now continue on your journey.
+
+> nw
+
+As you continue your journey, you find yourself entering a campsite of sorts. There are several white tents pitched all around an already glowing fire. Some of the tents are open enough for you to see inside but most of them are closed up tightly. From what you can tell, there are a bunch of people seated at makeshift tables. You have no idea what to do as the tribal members stare at you like a child wanting candy. It's unnerving that they continue to eye you silently as you stand there. You fear for your life but know you must do something here to continue. Perhaps you have to find something or build something.
+
+> give radio to tribal leader
+You give your radio to the tribal leader. Being very happy with his new boom boom box, he gives you his most prized necklace made from bear teeth.
+
+> give baby powder to tribal leader
+You give the baby powder to the tribal leader. Being very happy with his new mystic smoke, he gives you his most prized shield.
+
+> give tylenol to tribal leader
+You give the bottle of tylenol to the tribal leader. Being very happy with his new happy pills, he gives you his most prized deer meat.
+
+> ne
+You now have what you need to continue your journey, and may go North East.
+You are in Grave Yard
+There is statue, Hugo Sawyer and Shovel here.
+You can go east.
+
+Through an almost ghostly fog, you observe several rows of large tombstones throughout the graveyard. Some are slightly tilted, due to the ground which has shifted beneath them, while others look almost brand new. The grassy ground covering each burial plot serves as a vivid remind of what lies below the dirt but that isn't even the creepiest part. A high fence made of thick iron bars, each topped with a sharp arrow-shaped point, surrounds the graveyard. At the far right corner, there is a massive oak tree but, from what you can tell, most of the branches seem rather bare. In the very center of the many rows of graves stands a tall statue of an angel looking over the entire cemetery and its occupants. Just in front of you, there is a plain dirt pathway which looks as though it leads straight through the burial grounds.
+
+> speak to hugo sawyer
+
+You look at the man standing between you and the path to continue. You decide to ask him if he will move out of the way.
+
+
+He answers back.. "My name is Hugo Sawyer, I've been stuck in this grave yard for some time now. It's almost as if I've been cursed."
+
+
+"I shall not move for you, unless you can do something for me."
+
+
+"There is a grave around here, it shouldn't be to far away. If you can find it, use the shovel to dig it up. In it you'll find a ring, if you can get me the ring I'll let you be on your way."
+
+
+Your not quite sure where to look for this grave Hugo wants you to dig up, but you note that he said it shouldn't be that far away.
+
+> look for grave stone
+You take a closer look at your surroundings in search of a grave stone. After a moment or two you spot the very one your looking for!
+
+> take shovel
+You pick it up.
+
+> use shovel on grave stone
+
+You begin to dig in search for the ring Hugo has mentioned. As you continue to dig, your shovel hits something in the gound. As you bend down to get a better look at the shiny object, you realize it's the ring! 
+
+> take ring
+You pick it up.
+
+> give ring to hugo sawyer
+As you hand the ring to Hugo, he is ever so thankful. He decides to allow you to continue on your path.
+
+> e
+
+Theres a slight chill in the air as you enter into the very place you've been looking for all this time. The Dark Hills doesn't seem to be quite what you expected. A young man stands before you, and you know who he is. Alexendre Bartolomeu Pendelton, the very man who overthrew you many years ago to become the new leader of the Shadow Masters. It all comes back to you now, you know what you have to do. You have to defeat Alexendre and reclaim you place as the leader of the Shadow Masters!
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+Alexendre has began to attack you!
+
+> use body spray on alexendre
+You attack Alexendre by using the body spray with your lighter creating a flame thrower!
+
+> use body spray on alexendre
+You attack Alexendre by using the body spray with your lighter creating a flame thrower!
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+You've defeated him!
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+Lead Programmers:
+
+Stephen Brown
+Jack Gosche
+Steve Lingle
+
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+Creative & Technical Director:
+
+Linda Hood
+
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+Audio Programming:
+
+Stephen Brown
+
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+Music Provided By:
+
+Steve Lingle -
+"I love chicken"
+
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+Performance Consulting & Support:
+
+Nickolas Scoman
+Steve Lingle
+
+
+> wait
+Time passes.
+[runner] turns=140 leftover=0 running=true WON=YES

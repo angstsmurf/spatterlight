@@ -1,0 +1,132 @@
+
+Londe Perplex, v1.0
+
+Welcome to Londe! You can hear us but cannot see us. You can feel us but cannot communicate with us. We know who you are and where you are. We will guide you and protect you for now, mortal. This is where you start. The dance...
+
+You are in the Ballroom
+There is Pain and a Piano key here.
+You can go north.
+An empty ballroom. There are some sceptres here, wandering about and seeking refuge from fear. You are in between and you scavenge for some sort of items that may help you uncover the definition of this realm.
+
+You may PLAY, you may FEEL, you may ATTACK.
+
+> attack sceptres
+You try to jab and punch at the sceptres, venting your frustration. But it is no use. They do not budge. As your lean fists pass through their souls, you feel a strong blow to your heart. It is not painful but it is not a pleasant feeling either. 
+
+> take piano key
+You pick it up.
+
+> n
+You are in the Mind corridor
+There is Insanity and Rage here.
+You can go north, south, east or west.
+Dear mortal, this is the corridor of the mind. This is the first time that you can actually explore the true powers of the mind. Be careful how you trample here. There may be dire consequences. Insanity is a very powerful and destructive entity. You may not regain your norm once you trespass over the land of the futile.
+
+You may KILL. You may LOVE.
+
+> love insanity
+You embrace it, you love it. It cannot love you back but it connects with you and gives you a part of itself. The focus here is the vein of the pulsating, vicious fluid that is rage. 
+
+> take insanity
+You pick it up.
+
+> w
+You are in the West War
+There is the Warrior here.
+You can go east.
+You have entered the West War, dear mortal. This is a place where you understand the concept of fragility. You are in a position to deny your fragility here. But it is only because of our protection. 
+
+You may ATTACK.
+
+> use rage on warrior
+You can't use that here.
+
+> e
+You are in the Mind corridor
+You can go north, south, east or west.
+Dear mortal, this is the corridor of the mind. This is the first time that you can actually explore the true powers of the mind. Be careful how you trample here. There may be dire consequences. Insanity is a very powerful and destructive entity. You may not regain your norm once you trespass over the land of the futile.
+
+You may KILL. You may LOVE.
+
+> n
+You are in the Maze
+There is the door, the Riddler, some weird Statues and the Broken Tile here.
+You can go north or south.
+Welcome to the Maze. This is where we shall release our protection for a little while. There is a riddler here who shall help you unlock the door to the north. You must speak to him before you proceed. We shall let you do this on your own. Good luck, mortal. 
+
+You may OPEN, CLOSE, DESTROY, ATTACK, EMBRACE.
+
+> speak to riddler
+You ask the riddler what you're supposed to do. He simply gazes at you in a few moments of silence. And then he says, 'The corridor has given you the key to the dance, the key to being different, the key to a vicious trance. Unlocking the door will be as easy a you please
+
+> take broken tile
+You pick it up.
+
+> use insanity on door
+
+> n
+You are in the green Forest
+There is Freighter 1, Freighter 2, Freighter 3, Personified Sacred Guardians and a Magic Box here.
+You can go south.
+Dear mortal, we are here once more. You indeed need our protection here. There are three Freighters here and we need you to attack them. To pass through this level of our reality, you cannot possibly forget us. You need our guiding hand. Speak to us
+
+> speak to guardians
+Ah, your temporary ability to speak with the guardians has given you an immense power to defeat the freighters before you. The guardians forbid you to use insanity, rage or pain or any physical objects on the freighters. They show you Discus. This is greatest of all gifts. The magic box has been opened. 
+
+> use discus on freighter 1
+Freigher 1 aligns himself with the others and attacks from the left. The Discus burns as it takes a purple glaze and the freighter becomes nothing but ashes.
+
+> use discus on freighter 2
+The second freighter gnarls and races towards you. The mist has risen. The guardians are beyond you once more and you cannot communicate with them. The magic box has risen. You leap backwards as the freighter takes flight and commences a slow landing upon you. But the Discus burns in your hand and the freighter's eyes snap open and he dies.
+
+> use discus on freighter 3
+The third freighter is calm and waits for your move. His cunning experience in this field has led him to believe that you are temporarily stronger than him right now. The Discus is spinning in your hand, a flaming purple disc that the freighter has his eyes on. The freighter is about to turn around and flee but the discus burns in your hand and he is shot with a bolt of purple power. The freighter is destroyed.
+
+> s
+You are in the Maze
+There is the door, the Riddler and some weird Statues here.
+You can go north or south.
+Welcome to the Maze. This is where we shall release our protection for a little while. There is a riddler here who shall help you unlock the door to the north. You must speak to him before you proceed. We shall let you do this on your own. Good luck, mortal. 
+
+You may OPEN, CLOSE, DESTROY, ATTACK, EMBRACE.
+
+> s
+You are in the Mind corridor
+You can go north, south, east or west.
+Dear mortal, this is the corridor of the mind. This is the first time that you can actually explore the true powers of the mind. Be careful how you trample here. There may be dire consequences. Insanity is a very powerful and destructive entity. You may not regain your norm once you trespass over the land of the futile.
+
+You may KILL. You may LOVE.
+
+> e
+You are in East Evermore
+There is the Bollbellians here.
+You can go east or west.
+This is the Edge. If you have seen the dance, you know that you must not dwell in this area. You may fall here and not understand the consequences. You might talk of justice but these are human forms of the truth. You would not understand. There are Bollbellians here that are very dangerous. You must not try insanity on these creatures because they have seen it, understood it and will use it as a weapon. Come back here when you have the Discus. Do not look at, speak to or attack these demons. They will kill you. 
+
+You may ATTACK, you may DANCE, you may JUMP.
+
+> use discus on bollbellians
+The Bollbellians do not attack. They respect the power of your mind. They move aside and reveal the idea that was not with you before, that the edge was no edge after all. It was a passage to another room to the East. Welcome to the final task, mortal.
+
+> e
+You are in Edge
+There is the OMENGUARDIAN here.
+You can go west.
+You notice that the guardians have left you and joined the Bollbellians. You are all alone here in this final task. The guardians have given you great powers and you must learn to use them on your own now at the end of the Londe Perplex. When you defeat the OMENGUARDIAN before you, you will be given freedom of mind and will be sent to your reality with strong powers that humanity has never foreseen. 
+ !mih eerf yam uoY
+
+> free omenguardian
+What will you do to the OMENGUARDIAN?
+1) Use the the broken tile on the OMENGUARDIAN
+2) Use Insanity on the OMENGUARDIAN
+3) Use Discus on OMENGUARDIAN!
+4) Use rage on the OMENGUARDIAN!
+5) Use Piano Key on the OMENGUARDIAN
+6) Use Pain on the OMENGUARDIAN!
+[choice] 5
+The piano key was the key given to you by the dance of the sceptres. It was the riddle and the key to the artistic victory over any of the vicious powers of the mind. It is effective and never proves faulty. A sound is thrown towards the OMENGUARDIAN and the perplexity veils itself onto him. He does not seem to understand the power! The key sounds itself towards his direction and you can understand his entity. He is shattered into pieces and a light appears before you.
+
+YOU WIN!
+Londe has proved to be a good test for you to permit the powers of the mind to be used before a situation that entails the intense intellect of your beyond. You managed to land yourself in the light and you are back in your reality, in your house. You understand that the artistic sense you have is the most powerful and most beautiful as well as most important entity you possess. Well done. You not only have survived the Londe Perplex but you have taught it a lesson!
+
+[runner] turns=23 leftover=0 running=false WON=YES

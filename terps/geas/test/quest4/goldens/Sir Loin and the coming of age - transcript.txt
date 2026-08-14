@@ -1,0 +1,2452 @@
+
+Sir Loin and the coming of age CJ
+
+
+IN THE BEGINNING........
+
+
+A long, long time ago, somehwere between the dark ages and the light ages... in some sort of dawny age.. The caste of Cum-Ere-A-lot sat proudly on English soil, somewhere near Bognor Regis, and that was where King Arnold reigned, aided by his loyal and self-righteous Knights of the Brown table.
+
+
+Many people longed to become Knights of the Brown table, and one such person was Loin, a small oprhan, brought to the castle by kindly Quarter Master, Stan.
+
+As Loin lies sleeping in the hay in the Royal stables, he dreams that one day, he will wield the sword of the Knights and serve his King.
+
+
+And today just might be the day.......
+
+
+You awake in the stable, the place where you have lived since  moving into the Castle Cum-Ere-A-Lot.
+
+
+
+You are in the royal Stable
+There is a scroll, some hay, a trough, a nosebag and a Mule here.
+You can go out to Courtyard.
+You are in a stable.  It is a large wooden shed big enough to hold five stalls.  However, there are no horses here at the moment.
+
+> take scroll
+You pick it up.
+
+> read it
+You open up the scroll and read it's contents.
+Loin, your first task of today is to go to the stable master and help him out.  Give him this note as proof.
+Signed
+The King
+
+
+> x trough
+It is a stone trough
+
+> x mule
+The mule is old and stubborn
+
+> x nosebag
+An old leather nosebag for the Mule.  It may contain something.
+
+> open nosebag
+You open it.
+
+> take carrot
+(first removing it from nosebag)
+you take it
+You pick it up.
+
+> out
+You are in the Courtyard
+There is a Stone here.
+You can go north, south, east or west.
+You can go to the Stable.
+You are standing in a large courtyard.  To the south you see the dawbridge.  To the North you see the Main castle entrance.  There are paths both East and West.
+
+> x stone
+The stone in the courtyard is famous.  It holds the Sword of Arnold.  King Arnold was supposed to have lifted the sword from the stone, which made him king.  However, you wonder why it is still in the stone.
+
+> x sword
+It is Skelibar,  The famous legendary sword.
+
+> take sword
+You try to lift the sword out of the stone, but it is firmly set.  So much for delusions of grandeur!
+
+> n
+You are in the front steps
+There is Stan the Quarter Master and a Notice board here.
+You can go north or south.
+You are at the front steps of the main keep.  To the north, the main doors are closed.  To the South is the courtyard.
+
+> look at stan
+Stan is a large, burly man with a big bushy beard.  He has always been good to you only hitting you several times a day.  He also let you sleep with his mule which according to him is how he became a man!
+
+> speak to stan
+Hello Boyo.  Have you got something for me?
+
+> give scroll to stan
+Ah good, you got the note
+Now listen carefully, the king is in need of some wine.  You need to get some grapes from the vineyard, take it to the wine press, press it and fill a jug full of wine.  When you have the jug of wine, bring it back to me.
+
+> x jug
+
+> look at board
+There are several notices on it that you can read
+
+> read it
+Situation vacant:  Wanted lavotory cleaner.  Apply within.
+
+> read it
+Join the Mounted Guard.  Just get yourself a horse (or a mule) and you can apply.
+Details on how to mount a horse are a follows.....
+mount horse.
+
+> read it
+Words of advice from Dictionary corner.  If you are having trouble with what to do, try other verbs such as 'Examine' as it may give different results.
+If you think that two objects should go together try both 'use X on Y' or 'use Y on X'
+
+> read it
+Pond diving competition coming soon.
+If you want to practise just jump in the pond and DIVE.
+The knights of the Brown Table do not take any responsibility for any loss of life during the pond diving competition.
+
+Terms and Conditions: You may be disqualified for diving without the proper equipment
+
+> read it
+Note from the author.
+For hints send an email to
+cj592@hotmail.com
+
+> read it
+Crossword competition results.
+The words used were:
+Wear, Mount, Pull, Dive, Eat, Throw
+
+> read it
+"Totty the Tortoise will be available for viewing as soon as she has been polished"
+
+The Queen
+
+> s
+You are in the Courtyard
+There is a Stone and a sword here.
+You can go north, south, east or west.
+You can go to the Stable.
+You are standing in a large courtyard.  To the south you see the dawbridge.  To the North you see the Main castle entrance.  There are paths both East and West.
+
+> w
+You are in a Garden
+There is a gnome and a Vine here.
+You can go east.
+You are standing in a large garden.  There is lush vegetation around you and a large vine is growing up one of the walls that surrounds the secluded area
+
+> look at gnome
+The garden gnome is too big to carry.  It is the figure of a gnome holding a long fishing rod.  It is made of wood and painted quite badly.
+
+> x gnome
+On further inspection you notice that the rod is loose.  You pull it hard and soon it comes free.  But now you have broken the gnome
+
+> x rod
+It is the rod the gnome was holding.  It is long and thin and made of wood. 
+
+
+> take rod
+You pick it up.
+
+> look at vine
+There are some grapes on the vine but they are too high up for you to reach
+
+> use rod on vine
+You poke the vine with the rod and manage to dislodge the grapes.  However you do end up breaking the vine.
+
+> take grapes
+You pick it up.
+
+> e
+You are in the Courtyard
+There is a Stone and a sword here.
+You can go north, south, east or west.
+You can go to the Stable.
+You are standing in a large courtyard.  To the south you see the dawbridge.  To the North you see the Main castle entrance.  There are paths both East and West.
+
+> s
+You are in the South Gate
+There is a Guard here.
+You can go north, south, east or west.
+You are standing by the South Gate.  At the moment the portcullis is down.
+You can go North to the Courtyard
+You can go East to the Forge
+You can go West to the Press
+South leads out of the castle
+
+> w
+You are in a Barn
+There is the Press, a Harness and a Basin here.
+You can go east.
+You are in a large barn full of machinery.  The machine appears to be some sort of press.
+
+> look at press
+This is a large machine that will grind, mash or press anything that you use on it.  There is a large basin underneath to collect your produce and a large pole with a harness attached coming out of the side.  The pole is attached to a large grinding wheel, which obviously makes the press work
+
+> x press
+The press is empty
+
+> use grapes on press
+You place the grapes into the press
+
+> look at harness
+There is a saddle attached to the harness
+The harness is attached to the press by a pole.  IT appears that you have to tie an animal to the harness to get the press to work
+
+> look at saddle
+It is a small saddle, not big enough to fit on a horse.
+
+> take saddle
+You pick it up.
+
+> look at basin
+The basin is under the press ready to catch the produce.  Maybe it needs further examination.
+
+> x basin
+There is nothing in the basin
+
+> e
+You are in the South Gate
+There is a Guard here.
+You can go north, south, east or west.
+You are standing by the South Gate.  At the moment the portcullis is down.
+You can go North to the Courtyard
+You can go East to the Forge
+You can go West to the Press
+South leads out of the castle
+
+> n
+You are in the Courtyard
+There is a Stone and a sword here.
+You can go north, south, east or west.
+You can go to the Stable.
+You are standing in a large courtyard.  To the south you see the dawbridge.  To the North you see the Main castle entrance.  There are paths both East and West.
+
+> go to stable
+You are in the royal Stable
+There is some hay, a trough, a nosebag and a Mule here.
+You can go out to Courtyard.
+You are in a stable.  It is a large wooden shed big enough to hold five stalls.  However, there are no horses here at the moment.
+
+> use saddle on mule
+You place the saddle on the mule.  You should be able to mount it now
+
+> mount mule
+You mount the mule
+You are in position on the mule
+There is the Mule's head and the Mule's tail here.
+You can go down.
+You have mounted the mule.  You are now sitting on top of the mule
+
+> use carrot on rod
+You attach the carrot to the rod  You now have a rod with a carrot stuck on it
+
+> use rod on mule's head
+You wave the rod in front of the mule.  The mule sees the carrot and immediately starts to move.
+You mange to direct the mule towards the barn where you saw the harness.
+
+When there, you attach the mule to the harness and give it the carrot as a reward.
+You are in a Barn
+There is the Press, a Harness, a Basin and the mule here.
+You can go east.
+You are in a large barn full of machinery.  The machine appears to be some sort of press.
+
+> use rod on mule
+You hit the mule with the rod and it starts to move. as it is does, so does the press
+
+The press grinds the grapes and produes a fine rich liquid that drips into the basin
+
+> x basin
+there is some lovely rich wne in the basin.  That was easy to make!
+
+> use jug on basin
+You pour the contents of the basin into the jug.  You now have a jug of wine
+
+> e
+You are in the South Gate
+There is a Guard here.
+You can go north, south, east or west.
+You are standing by the South Gate.  At the moment the portcullis is down.
+You can go North to the Courtyard
+You can go East to the Forge
+You can go West to the Press
+South leads out of the castle
+
+> n
+You are in the Courtyard
+There is a Stone and a sword here.
+You can go north, south, east or west.
+You can go to the Stable.
+You are standing in a large courtyard.  To the south you see the dawbridge.  To the North you see the Main castle entrance.  There are paths both East and West.
+
+> n
+You are in the front steps
+There is Stan the Quarter Master and a Notice board here.
+You can go north or south.
+You are at the front steps of the main keep.  To the north, the main doors are closed.  To the South is the courtyard.
+
+> give jug to Stan
+You give the jug to Stan
+
+"Well done that is great"
+
+The King needs to see you.  He is in the throne room.
+With that, Stan opens the doors for you and walks off
+
+> n
+You are in the grand Hall
+There is a Statue, a Vase and a rare Painting here.
+You can go north, south, east or west.
+You are in the grand hall of Cum-Ere-A-Lot Castle.  It is adorned with various pieces of art
+To the North is the Throne room.
+To the west is the dining area
+To the East is the Queen's private chamber.
+
+> look at statue
+A classic looking statue of a woman carrying an urn
+
+> look at vase
+The vase looks old and expensive.  It wobbles a bit.
+
+> x vase
+You examine the vase in greater detail.  Under it you find a small key
+
+> take key
+You pick it up.
+
+> look at painting
+It is an amazing piece of art.  A Van Gosh!
+
+> x it
+On closer inspection you can see that it is a forgery.  Does the King have his own forger?
+
+> n
+You are in the Throne room
+There is King Arnold and a Throne here.
+You can go south, east or west.
+You are in a very ornate Throne room.  There are velvet curtains adorning the walls and in the centre of the room is a huge wood and gold throne, draped in lush velvet.
+
+> speak to king
+Ah Loin, Thank you for the wine.  I have a favour to ask of you.  I am in a bit of a pickle.  Tonight I am hosting a banquet for several guests, and they will be expecting me to draw Skelibar from the stone, but I haven't been able to do that for ages.
+
+
+"I need you to fix it for me to be able to do it.  What you will need to do is
+1) Hide the stone and sword that is in the courtyard
+2) Create a fake stone and sword that I can easily retrieve.
+
+Can you do this for me?"
+"Sure" you say"  I'll give it a go"
+
+"Go see my forger if you need to" he adds
+
+> w
+You are in the Games Room
+There is Sir Halibut here.
+You can go east.
+You are in a small games room filled with toys and games. The walls are painted with colourful cartoon patterns and a small window lets in a tiny bit of light.  There are several cupboards and boxed here.
+
+> look at sir halibut
+Sir Halibut is sitting on top of a large toy box
+
+> speak to sir
+Sir Halibut is looking upset.
+
+"I have lost the key to this toy box" he says "I have searched everywhere in the castle, but I am grounded so I can't go outside."
+
+"Will you search outside for me?"
+Will you help Sir Halibut?
+1) Yes
+2) No
+[choice] Yes
+Great! Here this will help you
+
+Halibut gives you a pair of multicoloured sunglasses.
+These glasses are magic.  They help you find hidden things if you use in them in certain locations.  All you need to do is go outside and use them to find the hidden key.
+
+Then bring it back to me
+
+> x glasses
+It's the magic glasses that Sir Halibut gave to you.  They are supposed to make hidden things visible.
+
+> e
+You are in the Throne room
+There is King Arnold and a Throne here.
+You can go south, east or west.
+You are in a very ornate Throne room.  There are velvet curtains adorning the walls and in the centre of the room is a huge wood and gold throne, draped in lush velvet.
+
+> e
+You are in the Study
+You can go west.
+The study seems pretty bare with just a few tapestries hanging on the walls.  However, you are sure you can hear something odd.
+
+> listen
+You can't hear much.
+
+> use glasses
+
+Ay you put the glasses on to study the study you are surprised at what you see.
+
+Hidden in the corner under a blanket you can see a strange old man.
+Surprised by what you see you go over to the man and take the blanket off him
+"No" screams the old man "I was hiding under that"
+
+The old man is Marlon the wizard
+
+> look at marlon
+Marlon the wizard, old and a bit stupid.
+
+> speak to marlon
+"I was hiding under the blanket of invisibility because of something stupid I have done.
+
+I was looking after the Queen's ring when suddenly it disappeared.  I don't know where it went, but if I don't find it the King will kill me
+
+Will you help me?"
+Will you help the wizard find the ring?
+1) Yes
+2) No
+[choice] Yes
+"Great!  If you find the ring, bring it back to me and as a reward I will lend you my blanket of invisibility"
+
+> x blanket
+It is the blanket that Marlon was hiding under
+
+> w
+You are in the Throne room
+There is King Arnold and a Throne here.
+You can go south, east or west.
+You are in a very ornate Throne room.  There are velvet curtains adorning the walls and in the centre of the room is a huge wood and gold throne, draped in lush velvet.
+
+> s
+You are in the grand Hall
+There is a Statue, a Vase and a rare Painting here.
+You can go north, south, east or west.
+You are in the grand hall of Cum-Ere-A-Lot Castle.  It is adorned with various pieces of art
+To the North is the Throne room.
+To the west is the dining area
+To the East is the Queen's private chamber.
+
+> w
+You are in the Dining Room
+There is a Dining Table, a Fireplace and a drinks Cabinet here.
+You can go east or west.
+The dining room is long and contains a large table.  Around the table there are many chairs.  Perhaps it is the legendary brown table!
+There is also a fire here and a drinks cabinet.
+
+> look at table
+The table has been set out for dinner
+
+> look at fireplace
+The firepalce is ornate and large.  There is plenty of coal there, but it has not been lit.
+
+> look at cabinet
+The cabinet is locked.  You wonder what could be inside.
+
+> open cabinet
+You can't open that.
+
+> w
+You are in the Kitchen
+There is the Chef here.
+You can go east.
+You are in the kitchen.  There are many cupboards and counters here and a huge stove and sink.
+
+> look at chef
+The chef is looking very busy, up to her arms in Cherries.  She is standing in front of a huge set of cupboards
+
+> speak to chef
+
+I am very busy.  I don't have time to talk, as I have to make some cherry pies for the Queen.
+
+You wouldn't like to help would you?
+Will you help the chef?
+1) Yes
+2) No
+[choice] Yes
+"Great.  Take these cherries and make some cherry Puree, theres a good chap!
+
+If you do this for me, I will even let you have one of the cherry pies"
+
+> x cherries
+It's a bowl a bowl of cherries
+
+> e
+You are in the Dining Room
+There is a Dining Table, a Fireplace and a drinks Cabinet here.
+You can go east or west.
+The dining room is long and contains a large table.  Around the table there are many chairs.  Perhaps it is the legendary brown table!
+There is also a fire here and a drinks cabinet.
+
+> e
+You are in the grand Hall
+There is a Statue, a Vase and a rare Painting here.
+You can go north, south, east or west.
+You are in the grand hall of Cum-Ere-A-Lot Castle.  It is adorned with various pieces of art
+To the North is the Throne room.
+To the west is the dining area
+To the East is the Queen's private chamber.
+
+> s
+You are in the front steps
+There is a Notice board here.
+You can go north or south.
+You are at the front steps of the main keep.  To the north, the main doors are closed.  To the South is the courtyard.
+
+> s
+You are in the Courtyard
+There is a Stone and a sword here.
+You can go north, south, east or west.
+You can go to the Stable.
+You are standing in a large courtyard.  To the south you see the dawbridge.  To the North you see the Main castle entrance.  There are paths both East and West.
+
+> s
+You are in the South Gate
+There is a Guard here.
+You can go north, south, east or west.
+You are standing by the South Gate.  At the moment the portcullis is down.
+You can go North to the Courtyard
+You can go East to the Forge
+You can go West to the Press
+South leads out of the castle
+
+> w
+You are in a Barn
+There is the Press, a Harness, a Basin and the mule here.
+You can go east.
+You are in a large barn full of machinery.  The machine appears to be some sort of press.
+
+> use cherries on press
+You place the cherries into the press.
+
+> use rod on mule
+You hit the mule with the rod and it starts to move. as it is does, so does the press
+
+As the press turns round, it grinds the cherries into a nice puree.
+
+The puree drips into the basin
+
+> x basin
+There is some lovey cherry puree in the basin
+
+> take puree
+You pick it up.
+
+> e
+You are in the South Gate
+There is a Guard here.
+You can go north, south, east or west.
+You are standing by the South Gate.  At the moment the portcullis is down.
+You can go North to the Courtyard
+You can go East to the Forge
+You can go West to the Press
+South leads out of the castle
+
+> n
+You are in the Courtyard
+There is a Stone and a sword here.
+You can go north, south, east or west.
+You can go to the Stable.
+You are standing in a large courtyard.  To the south you see the dawbridge.  To the North you see the Main castle entrance.  There are paths both East and West.
+
+> n
+You are in the front steps
+There is a Notice board here.
+You can go north or south.
+You are at the front steps of the main keep.  To the north, the main doors are closed.  To the South is the courtyard.
+
+> n
+You are in the grand Hall
+There is a Statue, a Vase and a rare Painting here.
+You can go north, south, east or west.
+You are in the grand hall of Cum-Ere-A-Lot Castle.  It is adorned with various pieces of art
+To the North is the Throne room.
+To the west is the dining area
+To the East is the Queen's private chamber.
+
+> w
+You are in the Dining Room
+There is a Dining Table, a Fireplace and a drinks Cabinet here.
+You can go east or west.
+The dining room is long and contains a large table.  Around the table there are many chairs.  Perhaps it is the legendary brown table!
+There is also a fire here and a drinks cabinet.
+
+> w
+You are in the Kitchen
+There is the Chef here.
+You can go east.
+You are in the kitchen.  There are many cupboards and counters here and a huge stove and sink.
+
+> give puree to chef
+You give the puree to the chef.
+
+"Thanks" she says, "take this"
+
+She gives you a cherry pie.  Then disappears
+
+> x pie
+a nice cerry pie
+
+> eat pie
+You eat into the cherry pie.  It is delicious.  
+
+But then your teeth find somethng hard.
+
+Spitting it out you find it is a ring!
+
+> x ring
+It looks very expensive... and feminine
+
+> x cupboards
+The cupboards may contain something useful
+
+> open cupboards
+You open it.
+
+> x sack
+It is a small sack filled with potatoes
+
+> take it
+(first removing it from cupboards)
+Done.
+You pick it up.
+
+> x peas
+The peas are small and round.  And quite hard!
+
+> take it
+(first removing it from cupboards)
+Done.
+You pick it up.
+
+> e
+You are in the Dining Room
+There is a Dining Table, a Fireplace and a drinks Cabinet here.
+You can go east or west.
+The dining room is long and contains a large table.  Around the table there are many chairs.  Perhaps it is the legendary brown table!
+There is also a fire here and a drinks cabinet.
+
+> e
+You are in the grand Hall
+There is a Statue, a Vase and a rare Painting here.
+You can go north, south, east or west.
+You are in the grand hall of Cum-Ere-A-Lot Castle.  It is adorned with various pieces of art
+To the North is the Throne room.
+To the west is the dining area
+To the East is the Queen's private chamber.
+
+> n
+You are in the Throne room
+There is King Arnold and a Throne here.
+You can go south, east or west.
+You are in a very ornate Throne room.  There are velvet curtains adorning the walls and in the centre of the room is a huge wood and gold throne, draped in lush velvet.
+
+> e
+You are in the Study
+There is Marlon the wizard and a worn old blanket here.
+You can go west.
+The study seems pretty bare with just a few tapestries hanging on the walls.  However, you are sure you can hear something odd.
+
+> give ring to Marlon
+You hand the ring to Marlon.
+
+"Excellent.  I knew I could trust you.  Now I must go.
+
+Feel free to take the blanket.  Although i will need it back later"
+
+> take blanket
+You pick it up.
+
+> w
+You are in the Throne room
+There is King Arnold and a Throne here.
+You can go south, east or west.
+You are in a very ornate Throne room.  There are velvet curtains adorning the walls and in the centre of the room is a huge wood and gold throne, draped in lush velvet.
+
+> s
+You are in the grand Hall
+There is a Statue, a Vase and a rare Painting here.
+You can go north, south, east or west.
+You are in the grand hall of Cum-Ere-A-Lot Castle.  It is adorned with various pieces of art
+To the North is the Throne room.
+To the west is the dining area
+To the East is the Queen's private chamber.
+
+> s
+You are in the front steps
+There is a Notice board here.
+You can go north or south.
+You are at the front steps of the main keep.  To the north, the main doors are closed.  To the South is the courtyard.
+
+> s
+You are in the Courtyard
+There is a Stone and a sword here.
+You can go north, south, east or west.
+You can go to the Stable.
+You are standing in a large courtyard.  To the south you see the dawbridge.  To the North you see the Main castle entrance.  There are paths both East and West.
+
+> go to stable
+You are in the royal Stable
+There is some hay, a trough and a nosebag here.
+You can go out to Courtyard.
+You are in a stable.  It is a large wooden shed big enough to hold five stalls.  However, there are no horses here at the moment.
+
+> use glasses
+You put the magic glasses on
+
+You notice there is something hidden in the hay.
+
+> x hay
+Searching the hay, you find the hidden key
+
+> take key
+Which key do you mean?
+1) key
+2) cemetery key
+[choice] 1
+You pick it up.
+
+> out
+You are in the Courtyard
+There is a Stone and a sword here.
+You can go north, south, east or west.
+You can go to the Stable.
+You are standing in a large courtyard.  To the south you see the dawbridge.  To the North you see the Main castle entrance.  There are paths both East and West.
+
+> n
+You are in the front steps
+There is a Notice board here.
+You can go north or south.
+You are at the front steps of the main keep.  To the north, the main doors are closed.  To the South is the courtyard.
+
+> n
+You are in the grand Hall
+There is a Statue, a Vase and a rare Painting here.
+You can go north, south, east or west.
+You are in the grand hall of Cum-Ere-A-Lot Castle.  It is adorned with various pieces of art
+To the North is the Throne room.
+To the west is the dining area
+To the East is the Queen's private chamber.
+
+> n
+You are in the Throne room
+There is King Arnold and a Throne here.
+You can go south, east or west.
+You are in a very ornate Throne room.  There are velvet curtains adorning the walls and in the centre of the room is a huge wood and gold throne, draped in lush velvet.
+
+> w
+You are in the Games Room
+There is Sir Halibut here.
+You can go east.
+You are in a small games room filled with toys and games. The walls are painted with colourful cartoon patterns and a small window lets in a tiny bit of light.  There are several cupboards and boxed here.
+
+> give key to sir
+Which key do you mean?
+1) key
+2) cemetery key
+[choice] 1
+You give the key to Sir Halibut.  He gets excited and opens up the toy box he was sitting on.  He pulls out something you can't see and skips off merrily
+
+> x box
+The toy box is unlocked
+
+> open box
+You open it.
+
+> look at sword
+It is a plain looking wooden sword.  There are no markings on it whatsoever.
+
+> x it
+This will never pass for Skelibar at the moment.
+
+> take it
+(first removing it from toy box)
+Done.
+You pick it up.
+
+> look at shooter
+A small plastic straw for blowing through.  Put a pea in it and you can project it at leat two feet!
+
+> take it
+(first removing it from toy box)
+Done.
+You pick it up.
+
+> e
+You are in the Throne room
+There is King Arnold and a Throne here.
+You can go south, east or west.
+You are in a very ornate Throne room.  There are velvet curtains adorning the walls and in the centre of the room is a huge wood and gold throne, draped in lush velvet.
+
+> s
+You are in the grand Hall
+There is a Statue, a Vase and a rare Painting here.
+You can go north, south, east or west.
+You are in the grand hall of Cum-Ere-A-Lot Castle.  It is adorned with various pieces of art
+To the North is the Throne room.
+To the west is the dining area
+To the East is the Queen's private chamber.
+
+> s
+You are in the front steps
+There is a Notice board here.
+You can go north or south.
+You are at the front steps of the main keep.  To the north, the main doors are closed.  To the South is the courtyard.
+
+> s
+You are in the Courtyard
+There is a Stone and a sword here.
+You can go north, south, east or west.
+You can go to the Stable.
+You are standing in a large courtyard.  To the south you see the dawbridge.  To the North you see the Main castle entrance.  There are paths both East and West.
+
+> e
+You are in the Lawn
+There is a bench here.
+You can go north or west.
+You can go to the Pond.
+You are in a small lawned area of the courtyard.  To the north is a gateway to the Royal Cemetery.
+
+> n
+You unlock the gate to the cemetery with the cemetery key
+
+> n
+You are in the cemetery
+There is Queen Winalot and a lot of graves here.
+You can go south.
+The cemetery holds the graves of many nobles and lords that have lived and worked in the castle.  There are many graves here.
+
+> look at queen
+The Queen is bending over some of the graves in the graveyard.
+
+> speak to queen
+Hello your majesty
+
+"Oh hello" she replies  "I didnt see you there as I was far to busy soing the rubbings.
+
+You just put the paper of the stone and rub, and you get an imprint of the stone
+
+Do you fancy giving it a go?"
+
+Do you want to try some rubbing?
+1) Yes
+2) No
+[choice] Yes
+"Great.  I have this spare brass rubbing kit.  You don't have to use it on just brass you know
+
+Give it a go"
+
+> x kit
+It is a kit that contains paper and crayons.  It will be useful for making rubbings of objects.
+
+> x graves
+There are several graves here of previous nobles.  Each gravestone holds a name, but no more information.
+
+> use kit on graves
+You try some grave rubbings.  I never knew you were into grave rubbery?
+
+> s
+You are in the Lawn
+There is a bench here.
+You can go north or west.
+You can go to the Pond.
+You are in a small lawned area of the courtyard.  To the north is a gateway to the Royal Cemetery.
+
+> w
+You are in the Courtyard
+There is a Stone and a sword here.
+You can go north, south, east or west.
+You can go to the Stable.
+You are standing in a large courtyard.  To the south you see the dawbridge.  To the North you see the Main castle entrance.  There are paths both East and West.
+
+> use kit on sword
+You place the paper over the sword and rub.  
+
+You get a very clear and detailed copy of the sword.
+
+> 1
+I don't understand your command. Type HELP for a list of valid commands.
+
+> s
+You are in the South Gate
+There is a Guard here.
+You can go north, south, east or west.
+You are standing by the South Gate.  At the moment the portcullis is down.
+You can go North to the Courtyard
+You can go East to the Forge
+You can go West to the Press
+South leads out of the castle
+
+> e
+You are in the Forge
+There is Sir Dwane, a tin of black paint, a tin of white paint and a stool here.
+You can go west.
+You are in a large Office/shed.  This is where the King's forger works.
+
+> look at sir
+Sir Dwane is the King's Forger.  He is small and grumpy.
+
+> x black
+Some black paint
+
+> x white
+Some white paint
+
+> x stool
+It is a short wooden stool that Sir Dwane is sitting on
+
+> take black
+You pick it up.
+
+> take white
+You pick it up.
+
+> speak to sir
+"The King told me you might be coming by.
+
+I am Sir Dwane, the master forger.  I am an Artist.  Give me something to work on, like paper, cloth or wood, and a design to copy, and I will create a masterpiece"
+
+> give sword to sir
+You give the sword to Sir Dwane.
+
+"Perfect" he says.  "All I need now is a design to work from"
+
+> give rubbing to sir
+Which rubbing do you mean?
+1) rubbing
+2) brass rubbing kit
+[choice] 1
+You give the rubbing to Sir Dwane
+
+"Excellent.  This is exactly the detail I need to make a fake sword.  All I need is the material
+With the wooden sword and the brass rubbing, Sir Dwane is able to create a magnificent fake Skelibar sword
+
+> x fake
+It is the spitting image of Skelibar, except made of wood
+
+> w
+You are in the South Gate
+There is a Guard here.
+You can go north, south, east or west.
+You are standing by the South Gate.  At the moment the portcullis is down.
+You can go North to the Courtyard
+You can go East to the Forge
+You can go West to the Press
+South leads out of the castle
+
+> w
+You are in a Barn
+There is the Press, a Harness, a Basin and the mule here.
+You can go east.
+You are in a large barn full of machinery.  The machine appears to be some sort of press.
+
+> use sack on press
+You pour the potatoes into the press
+
+> use rod on mule
+You hit the mule with the rod and it starts to move. as it is does, so does the press
+
+The press mashes the potatoes and soon a gloopy mess falls into the basin
+
+> x basin
+The basin is full of Mashed potato
+
+> take potato
+You pick it up.
+
+> e
+You are in the South Gate
+There is a Guard here.
+You can go north, south, east or west.
+You are standing by the South Gate.  At the moment the portcullis is down.
+You can go North to the Courtyard
+You can go East to the Forge
+You can go West to the Press
+South leads out of the castle
+
+> n
+You are in the Courtyard
+There is a Stone and a sword here.
+You can go north, south, east or west.
+You can go to the Stable.
+You are standing in a large courtyard.  To the south you see the dawbridge.  To the North you see the Main castle entrance.  There are paths both East and West.
+
+> go to stable
+You are in the royal Stable
+There is some hay, a trough and a nosebag here.
+You can go out to Courtyard.
+You are in a stable.  It is a large wooden shed big enough to hold five stalls.  However, there are no horses here at the moment.
+
+> use black on trough
+You pour the black paint into the trough
+
+> use white on trough
+You pour the white paint into the trough
+You mix the two paints in the trough.  They make a stone grey colour
+
+> use potato on grey
+You dip the mashed potato into the grey paint.
+
+As the paint dries on the grey mash, you smile. You are pleased with the result.  You have created a fake stone.
+
+All you need now is a fake sword
+
+> use sword on mash
+You place the fake Skelibar into the grey mash.  
+
+Well done! You have created a very convincing sword in the stone.  You can't wait to give it to the King.
+
+> out
+You are in the Courtyard
+There is a Stone and a sword here.
+You can go north, south, east or west.
+You can go to the Stable.
+You are standing in a large courtyard.  To the south you see the dawbridge.  To the North you see the Main castle entrance.  There are paths both East and West.
+
+> use blanket on stone
+You drape the blanket over the stone with Skelibar in it
+
+Suddenly both disappear.
+
+> 2
+I don't understand your command. Type HELP for a list of valid commands.
+
+> n
+You are in the front steps
+There is a Notice board here.
+You can go north or south.
+You are at the front steps of the main keep.  To the north, the main doors are closed.  To the South is the courtyard.
+
+> n
+You are in the grand Hall
+There is a Statue, a Vase and a rare Painting here.
+You can go north, south, east or west.
+You are in the grand hall of Cum-Ere-A-Lot Castle.  It is adorned with various pieces of art
+To the North is the Throne room.
+To the west is the dining area
+To the East is the Queen's private chamber.
+
+> n
+You are in the Throne room
+There is King Arnold and a Throne here.
+You can go south, east or west.
+You are in a very ornate Throne room.  There are velvet curtains adorning the walls and in the centre of the room is a huge wood and gold throne, draped in lush velvet.
+
+> give sword to king
+"That is marvellous"  the kng says.  "You have managed to make a great fake stone with a sword that easily comes out.  And you have hidden the orignial"
+
+
+
+
+"I must prepare for tonight's guests"
+......
+....
+
+The night goes very well for the King, and you are glad you were able to help.
+
+You settle down to sleep on your  makeshift home, nestled in the hay in the stable.
+...
+...
+...
+The next morning you wake, once again in the stable
+You are in the royal Stable
+There is some hay, a trough, a nosebag and a trough full of grey paint here.
+You can go out to Courtyard.
+You are in a stable.  It is a large wooden shed big enough to hold five stalls.  However, there are no horses here at the moment.
+
+> out
+You are in the Courtyard
+You can go north, south, east or west.
+You can go to the Stable.
+You are standing in a large courtyard.  To the south you see the dawbridge.  To the North you see the Main castle entrance.  There are paths both East and West.
+
+> use glasses
+Putting on the glasse you can see the Sword in the stone which is hidden by the blanket
+Do you wish to take the blanket off?
+1) Yes
+2) No
+[choice] Yes
+You take the blanket back
+
+> n
+You are in the front steps
+There is a Notice board and Stan the Quarter Master here.
+You can go north or south.
+You are at the front steps of the main keep.  To the north, the main doors are closed.  To the South is the courtyard.
+
+> speak to Stan
+"Ah, Loin" Stan says to you
+
+"The King was very pleased with your work yesterday and has given yo the opportunity to become a Knight of the Brown table."
+"All you have to do is....
+
+1) Get yourself a helmet
+2) Get yourself a shield
+and
+3) Rescue a princess.  But we will need proof!"
+
+"Show me that you have all that and we shall speak to the King.
+
+Now get going lad!"
+"Oh and you may need this..."
+
+Stan hands you a pass!
+
+> x pass
+It is a small pass that will allow you access to the village beyond the South Gate.
+
+> n
+You are in the grand Hall
+There is a Statue, a Vase and a rare Painting here.
+You can go north, south, east or west.
+You are in the grand hall of Cum-Ere-A-Lot Castle.  It is adorned with various pieces of art
+To the North is the Throne room.
+To the west is the dining area
+To the East is the Queen's private chamber.
+
+> w
+You are in the Dining Room
+There is a Dining Table, a Fireplace, Marlon the Wizard and a drinks Cabinet here.
+You can go east or west.
+The dining room is long and contains a large table.  Around the table there are many chairs.  Perhaps it is the legendary brown table!
+There is also a fire here and a drinks cabinet.
+
+> x Marlon
+It is Marlon the Wizard.  He is slumped in one of the dining chairs with his head on the table.  He is looking a bit hungover.
+
+> speak to Marlon
+You try to speak to Marlon, however he indicates that he cannot speak. Perhaps there is another way to communicate with him.
+
+> give brass rubbing kit to Marlon
+You give the brass rubbing kit to Marlon. After all it does contain crayons and paper.
+
+Marlon scribbles a note and passes it to you.
+
+> x note
+The note says....
+"After a heavy night, I have lost my voice.  Will you make me a honey and lemon drink?  That's Honey and lemon in a cup heated up.
+Then bring it back to me.
+
+If you do this I will give you some magic"
+
+> w
+You are in the Kitchen
+There is some cupboards and Queen Winalot here.
+You can go east.
+You are in the kitchen.  There are many cupboards and counters here and a huge stove and sink.
+
+> x Queen
+The Queen is standing by the small sink in the kitchen trying to scrub some sheets.
+
+> speak to Queen
+The queen is grumbling to herself "There is no way I can do all this laundry in this tiny sink"
+
+She then spots you and beckons you over.....
+
+
+"I need to get this laundry done, but there is not enough room in this sink, will you help me?"
+Will you help the queen with her laundry?
+1) Yes
+2) No
+[choice] Yes
+"Great!  Take this laundry and try to find a place to get it washed and dried.
+
+If you do that I will rewad you"
+
+> x laundry
+The pile is made up of several dirty sheets.
+
+> take it
+You pick it up.
+
+> e
+You are in the Dining Room
+There is a Dining Table, a Fireplace, Marlon the Wizard and a drinks Cabinet here.
+You can go east or west.
+The dining room is long and contains a large table.  Around the table there are many chairs.  Perhaps it is the legendary brown table!
+There is also a fire here and a drinks cabinet.
+
+> e
+You are in the grand Hall
+There is a Statue, a Vase and a rare Painting here.
+You can go north, south, east or west.
+You are in the grand hall of Cum-Ere-A-Lot Castle.  It is adorned with various pieces of art
+To the North is the Throne room.
+To the west is the dining area
+To the East is the Queen's private chamber.
+
+> s
+You are in the front steps
+There is a Notice board and Stan the Quarter Master here.
+You can go north or south.
+You are at the front steps of the main keep.  To the north, the main doors are closed.  To the South is the courtyard.
+
+> s
+You are in the Courtyard
+There is a Stone and a sword here.
+You can go north, south, east or west.
+You can go to the Stable.
+You are standing in a large courtyard.  To the south you see the dawbridge.  To the North you see the Main castle entrance.  There are paths both East and West.
+
+> w
+You are in a Garden
+There is broken gnome and the mule here.
+You can go east.
+You are standing in a large garden.  There is lush vegetation around you and a large vine is growing up one of the walls that surrounds the secluded area
+
+> x mule
+It is that stubborn old mule and it isn't looking very happy.  If only there was a way of helping it.  Perhaps you could take it back to the stable.
+
+You can see that there is still the remnants of the harness attached to its head.
+
+> take mule
+As you appraoch the mule, it becomes agitated and won't let you near it.
+
+> use blanket
+You put the blanket over you to hide yourself.  That way you can approach the mule and take it back to the stable.
+
+> take mule
+As you are hidden under the blanket, you manage to approach the mule.
+
+grabbing the leather harness, it starts to stuggle but after a while you manage to lead it back to the stable.
+As you tie it up in the stable, a small part of the leather harness falls off.
+
+You remove the blanket.
+You are in the royal Stable
+There is some hay, a trough, a nosebag, a trough full of grey paint, a leather strap and a mule here.
+You can go out to Courtyard.
+You are in a stable.  It is a large wooden shed big enough to hold five stalls.  However, there are no horses here at the moment.
+
+> look at strap
+a short leather strap that has a buckle.
+
+> take it
+You pick it up.
+
+> x mule
+The mule seems happier now it is back in it's stable, although you sense that it would kill you if it could.
+
+> out
+You are in the Courtyard
+There is a Stone and a sword here.
+You can go north, south, east or west.
+You can go to the Stable.
+You are standing in a large courtyard.  To the south you see the dawbridge.  To the North you see the Main castle entrance.  There are paths both East and West.
+
+> e
+You are in the Lawn
+There is a bench here.
+You can go north or west.
+You can go to the Pond.
+You are in a small lawned area of the courtyard.  To the north is a gateway to the Royal Cemetery.
+
+> n
+You are in the cemetery
+There is a lot of graves, Sir Halibut and a Kite here.
+You can go south.
+The cemetery holds the graves of many nobles and lords that have lived and worked in the castle.  There are many graves here.
+
+> x sir
+Sir Halibut is playing with a kite in the graveyard
+
+> x kite
+The kite is shaped like a shield.  If only it wasn't made of canvas.
+
+> speak to sir
+You approach Sit Halibut, who is so engrossed playing with his kite, that he doesn't see you coming.
+
+"Aargh!" he jumps.  "Oh it's you.  You nearly frightened me to death then.  I have to play with my kite in the cemetery because it is the windiest part of the castle and I'm not allowed out."
+
+
+"But it is spooky here.  I hope I don't see a ghost!"
+
+> s
+You are in the Lawn
+There is a bench here.
+You can go north or west.
+You can go to the Pond.
+You are in a small lawned area of the courtyard.  To the north is a gateway to the Royal Cemetery.
+
+> w
+You are in the Courtyard
+There is a Stone and a sword here.
+You can go north, south, east or west.
+You can go to the Stable.
+You are standing in a large courtyard.  To the south you see the dawbridge.  To the North you see the Main castle entrance.  There are paths both East and West.
+
+> s
+You are in the South Gate
+There is a Guard here.
+You can go north, south, east or west.
+You are standing by the South Gate.  At the moment the portcullis is down.
+You can go North to the Courtyard
+You can go East to the Forge
+You can go West to the Press
+South leads out of the castle
+
+> w
+You are in a Barn
+There is a Broken press here.
+You can go east.
+You are in a large barn full of machinery.  The machine appears to be some sort of press.
+
+> look at press
+The press, which you spent so much time workin yesterday, is now laying in pieces on the floor.  You can't help but wonder how it happened.
+
+> x press
+You rummage throught the wreckage.  You find some scrap metal and the basin.
+
+> x scrap
+It is pile of heavy metal.   Wow, man.  Heavy Metal!
+
+> take scrap
+You can't take it, it is too heavy.
+
+> x basin
+It is a the basin from the press.  It appears to be the same size as a helmet.  If only you could find something to attach it to your head with.
+
+> take basin
+You pick it up.
+
+> wear basin
+It fits quite well on your head, but it does need a strap.
+
+> use strap on basin
+
+You attach the strap to the basin.  You have made quite a nice helmet for yourself
+
+> x helmet
+It is the helmet you made from the basin and the leather strap.
+
+> e
+You are in the South Gate
+There is a Guard here.
+You can go north, south, east or west.
+You are standing by the South Gate.  At the moment the portcullis is down.
+You can go North to the Courtyard
+You can go East to the Forge
+You can go West to the Press
+South leads out of the castle
+
+> give pass to guard
+You hand the pass to the guard.
+"Okay, you are free to pass outside"
+With that he opens the portculis.  You can now leave the castle.
+
+> s
+You are in the Crossroads
+There is a wood pile here.
+You can go north, south, east or west.
+You are standing at some crossroads just South of the castle Cum-Ere-A-Lot.
+
+> x wood pile
+The pile of wood is quite high.  It looks like someone is ready to light a bonfire.
+
+> w
+You are in the Honey Garden
+There is hive and a swarm of bees here.
+You can go east.
+The Honey Garden is a small wooded grove which harbours the local bee hives. There is one large hive which is the main producer of the local honey.
+
+> look at hive
+The hive is large and has a swarm of agitated bees around it.
+
+> x hive
+You cannot get close to the hive to examine it, because the bees are far to agitated and won't let you near.
+
+> look at bees
+The bees are extremely agitated and won't let you near the hive.
+
+> e
+You are in the Crossroads
+There is a wood pile here.
+You can go north, south, east or west.
+You are standing at some crossroads just South of the castle Cum-Ere-A-Lot.
+
+> e
+You are in the Wind Farm
+There is the Wind Maker machine here.
+You can go south, west or up.
+You are in a small clearing which houses a large wind generating machine
+
+> x maker
+The wind machine is a clever contraption.  It has a large fan which is attached by a set of gears to a pedal powered machine, similar to a bike.  There is a ladder which you can climb to get into the saddle.
+
+
+The fan of the wind machine is facing South
+
+
+
+
+> s
+You are in a playground
+There is Climbing Frame and Patch the Dog here.
+You can go north.
+The playground is a small clearing which holds the largest and most elaborate piece of climbing equipment you have ever seen.  Other than that there is nothing else here.
+
+> x frame
+The climbing frame is a large wodden structure made from several large wooden poles nailed together in horizontal and vertical directions
+
+> mount frame
+You climb up the frame.  
+You climb down the frame.
+
+That was fun
+
+> x Patch
+The dog is a scruffy white colour with a black patch around the eye.  It appears to be watching you eagerly, wagging it's tail.
+
+> use rod on Patch
+You tease Patch with the rod.  He jumps up and down and gets very excited.  Perhaps there is something else you can do with the rod
+
+> throw rod
+You throw the rod and Patch runs off very excited.
+
+Moments later, he runs back to you with the rod in his mouth
+Patch looks at you even more excitedly.  I think he wants to do it again.
+
+> take rod
+You pick it up.
+
+> throw rod
+You throw the rod again and Patch runs off to fetch it.  This time, however, he doesn't bring the rod back to you, but a satchel.
+
+> take satchel
+You pick it up.
+
+> look at satchel
+The satchel is made of leather.
+
+> n
+You are in the Wind Farm
+There is the Wind Maker machine here.
+You can go south, west or up.
+You are in a small clearing which houses a large wind generating machine
+
+> w
+You are in the Crossroads
+There is a wood pile here.
+You can go north, south, east or west.
+You are standing at some crossroads just South of the castle Cum-Ere-A-Lot.
+
+> s
+You are in the Village centre
+You can go north or west.
+You can go to blacksmith, Casino, or Pet Grooming Centre.
+You are in the village centre.  From here you can access many of the stores in the village.
+
+> go to Pet Grooming Centre
+You are in the Pet Grooming Centre
+There is Woodhouse the Barbarian and cages and baskets here.
+You can go out to Village centre.
+The centre is really just a wooden hut containing several cages and baskets. There is a strong smell of perfume and soap.
+
+> look at Woodhouse
+Woodhouse is looking a little hassled.  He is trying hard to polish a tortoise.
+
+> look at cages
+The baskets and cages are dirty and smelly.
+
+You notice something hidden in one of the baskets.  It is a small sachet of soap powder.
+
+> take soap
+You pick it up.
+
+> speak to Woodhouse
+"Don't bother me now"  Woodhouse says.  "I need to get this tortoise polished for the Queen and that nasty little dog has run off with my satchel.  If you fid that dog, or that satchel, let me know"
+
+"OH and if you manage to find some wax to help me polish this tortoise, I would be grateful of that too!"
+
+> give satchel to Woodhouse
+"Thank you"  Woodhouse says.  "Here, take this.  MAybe you can control that wretched dog!"
+
+The hands you a whistle
+
+> x whistle
+It is a small whistle designed only for dogs to hear.
+
+> use whistle
+"You blow the whistle and suddenly you can hear the scuffing of tiny paws
+
+Patch comes running to your ankles
+
+> out
+You are in the Village centre
+You can go north or west.
+You can go to blacksmith, Casino, or Pet Grooming Centre.
+You are in the village centre.  From here you can access many of the stores in the village.
+
+> w
+You are in an Orchard
+There is a tree, a crate, Sir Lankylegs and a kitten here.
+You can go east.
+The Orchard helds many trees and bushes, but you notice that very few have fruit.  There is however a large lemon tree n the centre of the orchard.
+
+> x tree
+a tall lemon tree.  It has many branches but you can't reach them.
+
+> x crate
+There is a woode crate which should be filled with fruit.  It has the word lemon written on it.  Perhaps there is a lemon inside.
+
+> open crate
+you open the crate
+
+> x label
+The sticky label has a picture of a lemon on it.
+
+> take it
+(first removing it from crate)
+Done.
+You pick it up.
+
+> x sir
+Sir Lankylegs is a very tall and think knight.  At the moment he is stroking his kitten.
+
+> x kitten
+The kitten is soft and fluffy.
+
+> speak to sir
+"I have just got my new kitten.  I wonder what I should call her"
+
+> use whistle
+"You blow the whistle and suddenly you can hear the scuffing of tiny paws
+
+Patch comes running to your ankles
+As soon as the dog appears, the  kitten, which has been sitting quietly on Lankylegs' lap, rushes up the tree.
+
+The dog rushes to the tree and start to bark madly at it.
+
+Lankylegs screams and curses you, grabs the whistle from you and shouts "now look what you have done!"
+
+
+Eventually Lankylegs calms down, and asks you if you could get the cat down for him.
+
+Patch, eventually gets bored and runs away.
+
+> x kitten
+It's Lankylegs' kitten stuck up the tree.
+
+> speak to sir
+"Please help me.  Get my kitten down from the tree"
+
+> use shooter on kitten
+You have an idea.  You start blowing peas at the kitten in the tree. Each one seems to hit accurately and eventually the kitten gets so irritated it comes back down.
+
+Lankylegs scoops his kitten back in his arms.
+
+"Thank you" he says "You shall have the honour of naming it"
+You notice that you have used al your peas
+
+> speak to sir
+"What do you want to call the kitten?"
+Type in the name that you would like to give the cat then press enter.
+yippee
+"That's a great name for my cat.  Princess!  I can't wait to tell the King that you rescued my Princess!"
+
+And with that he rushes off clutching his kitten.
+
+You do notice that he has dropped something!
+
+> x chamber key
+It is a large key.  It must open something.
+
+> take it
+You pick it up.
+
+> e
+You are in the Village centre
+You can go north or west.
+You can go to blacksmith, Casino, or Pet Grooming Centre.
+You are in the village centre.  From here you can access many of the stores in the village.
+
+> go to casino
+You are in a Casino
+There is a fruit machine and a Croupier here.
+You can go out to Village centre.
+The casino is small and really only has a fruit machine.  Behind a counter stands a croupier.
+
+> x croupier
+The croupier is safe behind a secure counter.  But she is watching the fruit machine vehemently.
+
+> speak to croupier
+"If you can get three lemons on the fruit machine, I will give you a lemon"
+
+> x machine
+The fruit machine has a single lever, which when pulled rotates the spinning discs inside.  There are various fruits painted in the spinning discs.
+I wonder what would happen if you pull the lever?
+
+> pull lever
+When you pull the lever, the discs inside start to rotate...
+
+The first disc shows a lemon...
+
+
+The second disc shows a lemon....
+The third disc shows a
+
+
+
+Cherry!
+
+"Never mind" says the Croupier, grinning.
+
+> use label on machine
+You stick the sticky label on the fruit machine over the palce where the third disc spins.  And turn the handle.
+
+Now it looks like all the discs show lemons!
+
+The Croupier, who cannot see all that well from behind the kiosk, growls at you but reluctantly gives you the lemon.
+
+You decide to leave before your fraud is detected!
+
+> x lemon
+It is small and lemony
+
+> out
+You are in the Village centre
+You can go north or west.
+You can go to blacksmith, Casino, or Pet Grooming Centre.
+You are in the village centre.  From here you can access many of the stores in the village.
+
+> go to blacksmith
+You are in the blacksmith
+There is a box of Matches, a Furnace, a large shallow bowl and a button here.
+You can go out to Village centre.
+Ther is a strong smell of molten metal and smoke in the Blacksmiths shed.  There are many forged weapons and and items adorning the walls.  In the centre of the shed there is a large furnace in which to place scrap metal and a large shallow bowl in which to place an item to forge with metal.
+
+> x matches
+It is a small box of matches.
+
+> take matches
+You pick it up.
+
+> x furnace
+The furnace is large with a place to put scrap metal for smelting.
+
+The furnace is not lit
+
+> x bowl
+The large shallow bowl is there for you to place an object that you wish to pour molten metal onto.
+
+> x button
+The button is attached to the furnace.  IF you push it, it will release molten metal into the bowl
+
+> out
+You are in the Village centre
+You can go north or west.
+You can go to blacksmith, Casino, or Pet Grooming Centre.
+You are in the village centre.  From here you can access many of the stores in the village.
+
+> n
+You are in the Crossroads
+There is a wood pile here.
+You can go north, south, east or west.
+You are standing at some crossroads just South of the castle Cum-Ere-A-Lot.
+
+> n
+You are in the South Gate
+There is a Guard here.
+You can go north, south, east or west.
+You are standing by the South Gate.  At the moment the portcullis is down.
+You can go North to the Courtyard
+You can go East to the Forge
+You can go West to the Press
+South leads out of the castle
+
+> n
+You are in the Courtyard
+There is a Stone and a sword here.
+You can go north, south, east or west.
+You can go to the Stable.
+You are standing in a large courtyard.  To the south you see the dawbridge.  To the North you see the Main castle entrance.  There are paths both East and West.
+
+> e
+You are in the Lawn
+There is a bench here.
+You can go north or west.
+You can go to the Pond.
+You are in a small lawned area of the courtyard.  To the north is a gateway to the Royal Cemetery.
+
+> go to pond
+You are in the Pond
+There is Water here.
+You can go out to Lawn.
+You are in the pond.  Getting wet!
+
+> use laundry on water
+You wash the dirty laundry in the water using the soap powder.  Eventually you get some nice clean, but very wet laundry.
+
+> out
+You are in the Lawn
+There is a bench here.
+You can go north or west.
+You can go to the Pond.
+You are in a small lawned area of the courtyard.  To the north is a gateway to the Royal Cemetery.
+
+> w
+You are in the Courtyard
+There is a Stone and a sword here.
+You can go north, south, east or west.
+You can go to the Stable.
+You are standing in a large courtyard.  To the south you see the dawbridge.  To the North you see the Main castle entrance.  There are paths both East and West.
+
+> s
+You are in the South Gate
+There is a Guard here.
+You can go north, south, east or west.
+You are standing by the South Gate.  At the moment the portcullis is down.
+You can go North to the Courtyard
+You can go East to the Forge
+You can go West to the Press
+South leads out of the castle
+
+> s
+You are in the Crossroads
+There is a wood pile here.
+You can go north, south, east or west.
+You are standing at some crossroads just South of the castle Cum-Ere-A-Lot.
+
+> e
+You are in the Wind Farm
+There is the Wind Maker machine here.
+You can go south, west or up.
+You are in a small clearing which houses a large wind generating machine
+
+> s
+You are in a playground
+There is Climbing Frame here.
+You can go north.
+The playground is a small clearing which holds the largest and most elaborate piece of climbing equipment you have ever seen.  Other than that there is nothing else here.
+
+> use laundry on frame
+You drape the wet laundry over the climbing frame.
+
+> n
+You are in the Wind Farm
+There is the Wind Maker machine here.
+You can go south, west or up.
+You are in a small clearing which houses a large wind generating machine
+
+> u
+You are in the Wind Machine Saddle
+There is the Pedals and a socket here.
+You can go down.
+You have climbed up into the wind machine Saddle.  From here you should be able to operate the wind machine.
+
+> x pedals
+The pedals are attached to the machine.  If you pedal hard then the fan should turn and create wind.
+
+> x socket
+There appears to be a socket in the saddle.  Something must fit in here.
+
+> use pedals
+You sit in the wind machine seat and start to pedal
+Eventually the fan turns and starts to create wind.
+
+The wind created blows in a Southerly direction.
+
+
+
+The wind that blows south, dries the laundry hanging on the climbing frame
+
+
+> d
+You are in the Wind Farm
+There is the Wind Maker machine here.
+You can go south, west or up.
+You are in a small clearing which houses a large wind generating machine
+
+> s
+You are in a playground
+There is Climbing Frame and dry laundry here.
+You can go north.
+The playground is a small clearing which holds the largest and most elaborate piece of climbing equipment you have ever seen.  Other than that there is nothing else here.
+
+> take laundry
+You pick it up.
+
+> n
+You are in the Wind Farm
+There is the Wind Maker machine here.
+You can go south, west or up.
+You are in a small clearing which houses a large wind generating machine
+
+> w
+You are in the Crossroads
+There is a wood pile here.
+You can go north, south, east or west.
+You are standing at some crossroads just South of the castle Cum-Ere-A-Lot.
+
+> n
+You are in the South Gate
+There is a Guard here.
+You can go north, south, east or west.
+You are standing by the South Gate.  At the moment the portcullis is down.
+You can go North to the Courtyard
+You can go East to the Forge
+You can go West to the Press
+South leads out of the castle
+
+> n
+You are in the Courtyard
+There is a Stone and a sword here.
+You can go north, south, east or west.
+You can go to the Stable.
+You are standing in a large courtyard.  To the south you see the dawbridge.  To the North you see the Main castle entrance.  There are paths both East and West.
+
+> n
+You are in the front steps
+There is a Notice board and Stan the Quarter Master here.
+You can go north or south.
+You are at the front steps of the main keep.  To the north, the main doors are closed.  To the South is the courtyard.
+
+> n
+You are in the grand Hall
+There is a Statue, a Vase and a rare Painting here.
+You can go north, south, east or west.
+You are in the grand hall of Cum-Ere-A-Lot Castle.  It is adorned with various pieces of art
+To the North is the Throne room.
+To the west is the dining area
+To the East is the Queen's private chamber.
+
+> w
+You are in the Dining Room
+There is a Dining Table, a Fireplace, Marlon the Wizard and a drinks Cabinet here.
+You can go east or west.
+The dining room is long and contains a large table.  Around the table there are many chairs.  Perhaps it is the legendary brown table!
+There is also a fire here and a drinks cabinet.
+
+> w
+You are in the Kitchen
+There is some cupboards and Queen Winalot here.
+You can go east.
+You are in the kitchen.  There are many cupboards and counters here and a huge stove and sink.
+
+> give laundry to queen
+You give the dry laundry to the queen.  She seems extremely pleased.
+
+"Here take this" she says, and she hands you one of the clean sheets.
+
+With that the Queen rushes off.
+
+> x sheet
+A clean white sheet
+
+> wear sheet
+wearing the sheet makes you think of acting like a ghost at halloween.  If only there was a ghost image in the sheet.
+
+> e
+You are in the Dining Room
+There is a Dining Table, a Fireplace, Marlon the Wizard and a drinks Cabinet here.
+You can go east or west.
+The dining room is long and contains a large table.  Around the table there are many chairs.  Perhaps it is the legendary brown table!
+There is also a fire here and a drinks cabinet.
+
+> e
+You are in the grand Hall
+There is a Statue, a Vase and a rare Painting here.
+You can go north, south, east or west.
+You are in the grand hall of Cum-Ere-A-Lot Castle.  It is adorned with various pieces of art
+To the North is the Throne room.
+To the west is the dining area
+To the East is the Queen's private chamber.
+
+> e
+The door east is locked
+You use the chamber key to unlock the door.
+
+> e
+You are in the Queen's private chamber
+There is an old sea Chest, a clear animal tank and a Diving suit here.
+You can go west.
+The Queens prvate chamber is decked out like a shrine to all things aquatic.  There are aquarium tanks aournd the room, mostly filled with strange fish although one, not filled with water, appears to be empty.
+
+> x chest
+The chest is large and wooden, like the sort of thing you would see in films filled with treasure.
+
+> open it
+You open it.
+
+> x mask
+This is a diving mask to cover the eyes.  It has a mouth piece and a socket for a snorkel pipe to be fitted, but it is missing.  Without fitting a snorkel pipe, it will be useless as a diving mask.
+
+> take it
+(first removing it from Chest)
+Done.
+You pick it up.
+
+> use shooter on mask
+You fix the pea shooter onto the diving mask.  That should do quite well as a snorkel pipe.
+
+> x tank
+The tank is full of vegetation, but other than that it appears to be empty.  There is s ign that says "Totty the Tortoise" underneath it.
+
+> x suit
+The diving suit is being held up by a skeleton.
+
+> x skeleton
+The skeleton was propping open the diving suit.  It is quite scary looking, but it is quite cumbersome to carry.
+
+> take it
+You pick it up.
+
+> w
+You are in the grand Hall
+There is a Statue, a Vase and a rare Painting here.
+You can go north, south, east or west.
+You are in the grand hall of Cum-Ere-A-Lot Castle.  It is adorned with various pieces of art
+To the North is the Throne room.
+To the west is the dining area
+To the East is the Queen's private chamber.
+
+> s
+You are in the front steps
+There is a Notice board and Stan the Quarter Master here.
+You can go north or south.
+You are at the front steps of the main keep.  To the north, the main doors are closed.  To the South is the courtyard.
+
+> s
+You are in the Courtyard
+There is a Stone and a sword here.
+You can go north, south, east or west.
+You can go to the Stable.
+You are standing in a large courtyard.  To the south you see the dawbridge.  To the North you see the Main castle entrance.  There are paths both East and West.
+
+> s
+You are in the South Gate
+There is a Guard here.
+You can go north, south, east or west.
+You are standing by the South Gate.  At the moment the portcullis is down.
+You can go North to the Courtyard
+You can go East to the Forge
+You can go West to the Press
+South leads out of the castle
+
+> e
+You are in the Forge
+There is Sir Dwane and a stool here.
+You can go west.
+You are in a large Office/shed.  This is where the King's forger works.
+
+> give sheet to sir
+You give the sheet to Sir Dwane.  "This is perfect" he says, "Now what kind of image do you wnat designed on it?"
+
+> give skeleton to sir
+You give the Skeleton to Sir Dwane.  "This is excellent.  It will make a very scary image on something.  Now all I need is something to paint it onto"
+
+
+
+Sir Dwane, takes the image of the skeleton and creates an effect ghostly image onto the sheet.  Phew!  That is one scary ghost costume!
+
+> x ghost costume
+It is the ghost costume that Sir Dwane created from the sheet.
+
+> take it
+You pick it up.
+
+> w
+You are in the South Gate
+There is a Guard here.
+You can go north, south, east or west.
+You are standing by the South Gate.  At the moment the portcullis is down.
+You can go North to the Courtyard
+You can go East to the Forge
+You can go West to the Press
+South leads out of the castle
+
+> n
+You are in the Courtyard
+There is a Stone and a sword here.
+You can go north, south, east or west.
+You can go to the Stable.
+You are standing in a large courtyard.  To the south you see the dawbridge.  To the North you see the Main castle entrance.  There are paths both East and West.
+
+> e
+You are in the Lawn
+There is a bench here.
+You can go north or west.
+You can go to the Pond.
+You are in a small lawned area of the courtyard.  To the north is a gateway to the Royal Cemetery.
+
+> n
+You are in the cemetery
+There is a lot of graves, Sir Halibut and a Kite here.
+You can go south.
+The cemetery holds the graves of many nobles and lords that have lived and worked in the castle.  There are many graves here.
+
+> wear ghost costume
+You put the ghost costume on and creep up behind Sir Halibut.
+
+....
+
+
+....
+
+
+...
+
+BOO!
+"AAAAAAAAAAARGHHHHHHH"  He screams and runs off, leaving his kite behind.
+
+> take kite
+You pick it up.
+
+> s
+You are in the Lawn
+There is a bench here.
+You can go north or west.
+You can go to the Pond.
+You are in a small lawned area of the courtyard.  To the north is a gateway to the Royal Cemetery.
+
+> go to pond
+You are in the Pond
+There is Water here.
+You can go out to Lawn.
+You are in the pond.  Getting wet!
+
+> dive
+You dive under the water in the pond, wearing your diving mask.  Swimming aound you notice a metal object on the pond bed.
+
+You collect it
+On returning to the surface, you notice that the pea shooter you had attached has come loose and  has sunk to the bottom of the pond.
+
+You wont be able to go diving again.
+
+> x handle
+It is a small crank handle.  It should fit into a machine somewhere.
+
+> out
+You are in the Lawn
+There is a bench here.
+You can go north or west.
+You can go to the Pond.
+You are in a small lawned area of the courtyard.  To the north is a gateway to the Royal Cemetery.
+
+> w
+You are in the Courtyard
+There is a Stone and a sword here.
+You can go north, south, east or west.
+You can go to the Stable.
+You are standing in a large courtyard.  To the south you see the dawbridge.  To the North you see the Main castle entrance.  There are paths both East and West.
+
+> s
+You are in the South Gate
+There is a Guard here.
+You can go north, south, east or west.
+You are standing by the South Gate.  At the moment the portcullis is down.
+You can go North to the Courtyard
+You can go East to the Forge
+You can go West to the Press
+South leads out of the castle
+
+> s
+You are in the Crossroads
+There is a wood pile here.
+You can go north, south, east or west.
+You are standing at some crossroads just South of the castle Cum-Ere-A-Lot.
+
+> use matches on wood pile
+You set the woodpile alight, however it doesnt seem to go up very well.  Instead, it start to smoke violently.
+
+> x bonfire
+The bonfire is not lighting very well, but it is creating an awful let of smoke!
+
+> e
+You are in the Wind Farm
+There is the Wind Maker machine here.
+You can go south, west or up.
+You are in a small clearing which houses a large wind generating machine
+
+> u
+You are in the Wind Machine Saddle
+There is the Pedals and a socket here.
+You can go down.
+You have climbed up into the wind machine Saddle.  From here you should be able to operate the wind machine.
+
+> use handle on socket
+You fit the handle inot the socket.  It clicks firmly into place.
+
+> turn handle
+You turn the handle...
+
+Suddenly the machine turns a quarter turn in a clockwise direction.
+
+
+> use pedals
+You sit in the wind machine seat and start to pedal
+Eventually the fan turns and starts to create wind.
+
+
+The wind created blows in a Westerly direction
+
+
+
+As you pedal, the wind blows westerly, causing the smkoe from the lit bonfire to blow towards the hive.
+
+The bees, not liking the smoke at all, fly away.
+
+> d
+You are in the Wind Farm
+There is the Wind Maker machine here.
+You can go south, west or up.
+You are in a small clearing which houses a large wind generating machine
+
+> w
+You are in the Crossroads
+There is a smoky bonfire here.
+You can go north, south, east or west.
+You are standing at some crossroads just South of the castle Cum-Ere-A-Lot.
+
+> w
+You are in the Honey Garden
+There is hive here.
+You can go east.
+The Honey Garden is a small wooded grove which harbours the local bee hives. There is one large hive which is the main producer of the local honey.
+
+> x hive
+You have a look inside the hive and find some honey and some beeswax
+
+> x honey
+Some lovely fresh honey.
+
+> take it
+You pick it up.
+
+> x beeswax
+A small piece of waxy resin from the hive.
+
+> take it
+You pick it up.
+
+> e
+You are in the Crossroads
+There is a smoky bonfire here.
+You can go north, south, east or west.
+You are standing at some crossroads just South of the castle Cum-Ere-A-Lot.
+
+> s
+You are in the Village centre
+You can go north or west.
+You can go to blacksmith, Casino, or Pet Grooming Centre.
+You are in the village centre.  From here you can access many of the stores in the village.
+
+> go to pet grooming centre
+You are in the Pet Grooming Centre
+There is Woodhouse the Barbarian and cages and baskets here.
+You can go out to Village centre.
+The centre is really just a wooden hut containing several cages and baskets. There is a strong smell of perfume and soap.
+
+> give beeswax to Woodhouse
+You give the beeswax to Woodhouse.  He thanks you and finishes off polishing the tortoise.
+
+My, it is looking pretty now.
+
+After he is finished he hands it to you.
+
+"Do me a favour and return this to it's home"
+
+> x tortoise
+It's the freshly waxed Tortoise.
+
+> out
+You are in the Village centre
+You can go north or west.
+You can go to blacksmith, Casino, or Pet Grooming Centre.
+You are in the village centre.  From here you can access many of the stores in the village.
+
+> n
+You are in the Crossroads
+There is a smoky bonfire here.
+You can go north, south, east or west.
+You are standing at some crossroads just South of the castle Cum-Ere-A-Lot.
+
+> n
+You are in the South Gate
+There is a Guard here.
+You can go north, south, east or west.
+You are standing by the South Gate.  At the moment the portcullis is down.
+You can go North to the Courtyard
+You can go East to the Forge
+You can go West to the Press
+South leads out of the castle
+
+> n
+You are in the Courtyard
+There is a Stone and a sword here.
+You can go north, south, east or west.
+You can go to the Stable.
+You are standing in a large courtyard.  To the south you see the dawbridge.  To the North you see the Main castle entrance.  There are paths both East and West.
+
+> n
+You are in the front steps
+There is a Notice board and Stan the Quarter Master here.
+You can go north or south.
+You are at the front steps of the main keep.  To the north, the main doors are closed.  To the South is the courtyard.
+
+> n
+You are in the grand Hall
+There is a Statue, a Vase and a rare Painting here.
+You can go north, south, east or west.
+You are in the grand hall of Cum-Ere-A-Lot Castle.  It is adorned with various pieces of art
+To the North is the Throne room.
+To the west is the dining area
+To the East is the Queen's private chamber.
+
+> e
+You are in the Queen's private chamber
+There is an old sea Chest, a clear animal tank and a Diving suit here.
+You can go west.
+The Queens prvate chamber is decked out like a shrine to all things aquatic.  There are aquarium tanks aournd the room, mostly filled with strange fish although one, not filled with water, appears to be empty.
+
+> use tortoise on tank
+You place the tortoise back into it's tank.
+
+As you do, you notice something glistening in the tank.
+
+> x key
+the key is small, as if it was to fit the lock on a desk.
+
+> take it
+You pick it up.
+
+> w
+You are in the grand Hall
+There is a Statue, a Vase and a rare Painting here.
+You can go north, south, east or west.
+You are in the grand hall of Cum-Ere-A-Lot Castle.  It is adorned with various pieces of art
+To the North is the Throne room.
+To the west is the dining area
+To the East is the Queen's private chamber.
+
+> w
+You are in the Dining Room
+There is a Dining Table, a Fireplace, Marlon the Wizard and a drinks Cabinet here.
+You can go east or west.
+The dining room is long and contains a large table.  Around the table there are many chairs.  Perhaps it is the legendary brown table!
+There is also a fire here and a drinks cabinet.
+
+> use key on cabinet
+You use the small key to unlock the cabinet.
+
+Inside all you find is a small metal cup.  How disappointing.
+
+You decide to lock the cabinet back up, but as you do, the key breaks in the lock!
+
+> x cup
+It is a small metal cup
+
+
+
+> take it
+You pick it up.
+
+> use honey on cup
+You pour the honey into the cup
+
+> use lemon on cup
+You squeeze some lemon juice into the cup
+The honey and lemon mix to make a cordial.  All you need to do now is heat it up.
+
+> use matches on fireplace
+You light the fire in the fireplace
+
+> use cup on fireplace
+You place the cup over the fire and watch as the honey and lemon drink heats up.
+
+Soon you have a nice hot drink, the one that Marlon wanted!
+
+> take Marlon's drink
+You pick it up.
+
+> give it to Marlon
+You give the hot drink to Marlon, who dirnks it eagerly.
+
+After a while he lets out a contented sigh.  "That's better" He croaks "I've got my voice back now.
+
+Here is this spell I promised you"
+
+And he hands you a scroll with a weightlessness spell on it.
+With that Marlon disappears... literally!
+
+> x spell
+When the spell is used on a heavy object, it will become weightless.
+
+> take it
+You pick it up.
+
+> e
+You are in the grand Hall
+There is a Statue, a Vase and a rare Painting here.
+You can go north, south, east or west.
+You are in the grand hall of Cum-Ere-A-Lot Castle.  It is adorned with various pieces of art
+To the North is the Throne room.
+To the west is the dining area
+To the East is the Queen's private chamber.
+
+> s
+You are in the front steps
+There is a Notice board and Stan the Quarter Master here.
+You can go north or south.
+You are at the front steps of the main keep.  To the north, the main doors are closed.  To the South is the courtyard.
+
+> s
+You are in the Courtyard
+There is a Stone and a sword here.
+You can go north, south, east or west.
+You can go to the Stable.
+You are standing in a large courtyard.  To the south you see the dawbridge.  To the North you see the Main castle entrance.  There are paths both East and West.
+
+> s
+You are in the South Gate
+There is a Guard here.
+You can go north, south, east or west.
+You are standing by the South Gate.  At the moment the portcullis is down.
+You can go North to the Courtyard
+You can go East to the Forge
+You can go West to the Press
+South leads out of the castle
+
+> w
+You are in a Barn
+There is a Broken press and scrap metal here.
+You can go east.
+You are in a large barn full of machinery.  The machine appears to be some sort of press.
+
+> use spell on scrap metal
+You cast the spell on the scrap metal.
+Using the spell made the scroll disappear.
+
+> take scrap
+The spell has made the scrap metal practically weightless.
+
+> e
+You are in the South Gate
+There is a Guard here.
+You can go north, south, east or west.
+You are standing by the South Gate.  At the moment the portcullis is down.
+You can go North to the Courtyard
+You can go East to the Forge
+You can go West to the Press
+South leads out of the castle
+
+> s
+You are in the Crossroads
+There is a smoky bonfire here.
+You can go north, south, east or west.
+You are standing at some crossroads just South of the castle Cum-Ere-A-Lot.
+
+> s
+You are in the Village centre
+You can go north or west.
+You can go to blacksmith, Casino, or Pet Grooming Centre.
+You are in the village centre.  From here you can access many of the stores in the village.
+
+> go to blacksmith
+You are in the blacksmith
+There is a Furnace, a large shallow bowl and a button here.
+You can go out to Village centre.
+Ther is a strong smell of molten metal and smoke in the Blacksmiths shed.  There are many forged weapons and and items adorning the walls.  In the centre of the shed there is a large furnace in which to place scrap metal and a large shallow bowl in which to place an item to forge with metal.
+
+> use matches on furnace
+You light the furnace
+
+> use scrap on furnace
+You place the scrap metal into the furnace.....
+
+Very soon the metal has melted into a molten state.
+
+> use kite on bowl
+You place the kite into the shallow bowl of the furnace.
+
+> push button
+You push the button and the metal purs into the bowl.
+
+It forms around the kite and eventually cools into a very nice looking shield!
+
+> x shield
+It is a fine looking shield, considering how it was made.
+
+> take shield
+You pick it up.
+
+> out
+You are in the Village centre
+You can go north or west.
+You can go to blacksmith, Casino, or Pet Grooming Centre.
+You are in the village centre.  From here you can access many of the stores in the village.
+
+> n
+You are in the Crossroads
+There is a smoky bonfire here.
+You can go north, south, east or west.
+You are standing at some crossroads just South of the castle Cum-Ere-A-Lot.
+
+> n
+You are in the South Gate
+There is a Guard here.
+You can go north, south, east or west.
+You are standing by the South Gate.  At the moment the portcullis is down.
+You can go North to the Courtyard
+You can go East to the Forge
+You can go West to the Press
+South leads out of the castle
+
+> n
+You are in the Courtyard
+There is a Stone and a sword here.
+You can go north, south, east or west.
+You can go to the Stable.
+You are standing in a large courtyard.  To the south you see the dawbridge.  To the North you see the Main castle entrance.  There are paths both East and West.
+
+> n
+You are in the front steps
+There is a Notice board and Stan the Quarter Master here.
+You can go north or south.
+You are at the front steps of the main keep.  To the north, the main doors are closed.  To the South is the courtyard.
+
+> speak to stan
+"Remember you need a helmet, a shield and proof that you have rescued a princess"
+
+Stan looks at you...
+
+"It seems you have managed to complete all the tasks....
+
+.. now it is time to see the King!"
+
+
+Stan takes you to the King.
+
+With the sword and shield in your hand, you are anxious to make a good impression.
+
+
+
+When you meet the king you bow in front of him.
+
+Sir Lankylegs is beside him, stroking his pussy.
+
+"Sir Lanky has told me that you rescued his princess, that is a brave deed!"
+
+
+
+"And you have the shield and helmet that you need too.  This is good news."
+
+With that the King takes his sword and taps you on each shoulder
+
+
+
+
+Arise Sir Loin! Defender of the realm
+
+
+
+Congratulations, you have been knighted.  You have won the game.
+
+
+No sooner have you arison, than  Sir Dwane rushes in
+
+"Sire we have a problem....
+
+Queen Winalot has been kidnapped...."
+
+
+To be continued....
+[runner] turns=436 leftover=0 running=false WON=YES
