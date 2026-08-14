@@ -1664,6 +1664,50 @@ vetknow_solution.txt|vetknow.taf|AND THE NEW WORLD CHAMPION IS|SCR_SKIP_WAITKEY=
 # second row: if these ever diverge, something is reading the header when it
 # should not be.
 vetknow2_solution.txt|vetknow2.taf|AND THE NEW WORLD CHAMPION IS|SCR_SKIP_WAITKEY=1
+# The Lost Tomb (3.90, English, 56,336 bytes; 19 rooms / 99 tasks / 86 objects
+# / 1 NPC / 13 events / 6 variables) is the smallest unwired file left.  An
+# Egyptology farce: you have found pharaoh Erick's tomb and your funder, Lord
+# Rupert Mongoose -- monocle, pith helmet, alarm clock set for tiffin -- has
+# invited himself along.  WIN 175/175 in 105 commands, and 175 is provably the
+# ceiling: the file's 23 `ACT type=4` awards sum to exactly 175 and the route
+# fires every one.  WINTEXT is the trek back to camp, which is the marker.
+#
+# NO PUBLISHED WALKTHROUGH, and again it did not matter, because THE GAME
+# SHIPS ITS OWN HINT SYSTEM AND `SCR_DUMP_TASKS` PRINTS IT -- the per-task
+# HINTQ=/HINT1=/HINT2= fields, exactly as with Veteran Knowledge two rows up.
+# Second data point for that trick; check for those fields before deriving a
+# route the hard way.
+#
+# One engine-semantics find is why this row is worth keeping: T45/T46/T47
+# ("look at the wall" through the death mask) restrict on `type=0 v2=2`, which
+# is WORN BY THE PLAYER, not held (screstrs.cpp restr_object_in_place case 2),
+# and T44 is the v2=8 "not worn" counterpart that prints a plain, plausible
+# wall description.  Carrying the finished mask into the Riddle Room therefore
+# reads like success and silently costs the file's single biggest award (+20).
+# `wear mask` is the whole difference between 155 and 175.
+#
+# Four timing shapes, each of which cost a replay:
+#   (1) The dynamite must be IN the crack before it is lit.  T59 (lit in hand)
+#       starts EVENT 9 -> T61 "BOOM! YOURE DEAD!" two turns later; T60 (+5) is
+#       the in-the-wall version.  The crack is hidden until `x walls`, and the
+#       object it becomes is named "hole" -- `put dynamite in crack` misses.
+#   (2) EVENT 8 [TIFFIN TIME!] is `start=50..80`: when Rupert's alarm clock
+#       goes off it zeroes VAR 0 [Rupert] for three turns and every
+#       `ask rupert to ...` task is gated on it.  A swallowed request answers
+#       with flavour ("the lid is too heavy for you"), not a refusal, so it
+#       reads as a wrong solution.  The second sarcophagus is asked twice.
+#   (3) The Wall Room is on a clock: EVENT 2 closes the walls one step every
+#       two turns (12 -> 10 -> 8 -> 6 feet) and `jam spear in walls` is
+#       refused until 6 feet, i.e. turn 7 after the hand-in-the-hole ask --
+#       hence the nine `z`s, then two more to bend the spear and open the door.
+#   (4) EVENT 6 [PILLAR CHECK] runs T30 at the END of the turn the fourth
+#       statue lands, so the ruby it reveals cannot be taken until the turn
+#       after.  Without the bare `z`, `take ruby` does nothing AND SAYS
+#       NOTHING, and the mask can never be completed -- 155/175, silently.
+# Plus one losing ending that looks like the obvious move: climbing out of the
+# well while holding the death mask is T33, `ACT type=6 v1=1`.  The mask goes
+# up inside the rucksack tied to the rope (T32) with Rupert winding (T36).
+losttomb_solution.txt|losttombv2.taf|you and Rupert start the trek back to camp.
 EOF
 }
 

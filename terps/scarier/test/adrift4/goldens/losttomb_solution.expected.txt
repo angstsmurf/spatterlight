@@ -1,0 +1,526 @@
+Loading game...
+
+The Lost Tomb.
+
+It has taken years, but you've finally found it, the lost tomb of Erick. They
+all called you mad, a fool, a cheat. None had believed in the ancient legends
+except you, and now, with funding from Lord Rupert Mongoose, you have finally
+found it.
+
+The sands of the desert bake under the scorching sun and there is an
+excitement around the camp. The entrance was discovered and removed the
+previous day, and today you shall enter it alone, as none of the locals dare
+incur the wrath of Erick, for it is written, anyone who disturbs his sleep,
+shall pay with their lives.
+
+Just as you prepare to leave however, an unexpected visiter arrives, Rupert
+Mongoose.
+"Why hello dear boy! Long time no see!" He says as he frantically shakes your
+hand. "I heard last night you found the tomb, excellent work by the way!, so
+I thought it might be quite nice if I tagged along, you know, see first hand
+where all my money has been going, what! Now I know we'll probably be just
+rooting around a lot of dusty old things, but it gets me out of the house, as
+it where. So here I am, fully equipped with my rucksack and pith helmet! When
+do we leave?"
+
+The Camp Site
+Workers go about their business amongst the big white tents of the camp. Your
+tent is pitched nearby, and to the north, is the trail to the tomb.
+
+Rupert is here.
+
+>You move in.
+Your Tent
+Your temporary abode is simple, but functional, consisting solely of your
+bunk and a nightstand.
+
+Also here is your rucksack.
+
+>You pick up your rucksack.
+
+>You open your rucksack.  Inside your rucksack is a box of matches, a pencil,
+a notebook, a water bottle, a rope and a stick of dynamite.
+
+>You take the lamp from your nightstand.
+
+>You take the box of matches from your rucksack.
+
+>(Your score has increased by 5)
+If flames into life.
+
+>You take the water bottle from your rucksack.
+
+>(Your score has increased by 5)
+You pour the water onto the ground.
+
+>(Your score has increased by 5)
+The water bottle is now filled with sand, and feels heavier for being so.
+
+>You take the cork from the water bottle.
+
+>You move out.
+The Camp Site
+Workers go about their business amongst the big white tents of the camp. Your
+tent is pitched nearby, and to the north, is the trail to the tomb.
+
+>
+The walk is long and dusty, under the hot sun. It is made even worse by
+Rupert's insistence to sing songs from his youth.
+You are more then glad when you finally reach your destination.
+Outside The Tomb
+Buried in the side of a large sand dune, is the entrance to the fabled lost
+tomb of pharaoh Erick.
+The huge stone door that had been blocking it was removed the previous day,
+leaving now an ominous looking hole, leading into darkness.
+
+Rupert is here.
+
+>You move north.
+Sloping Corridor
+The walls are decorated with faded pictures of wild flowers. The low ceiling
+forces you to crouch over, an uncomfortable position to hold for long,  and
+forms a narrow passage that gently slopes downward.
+
+>The pictures of flowers must of been a dazzling sight of colour, before they
+faded into pale pastels. You notice a crack in the east wall.
+
+>You take the stick of dynamite from your rucksack.
+
+>You put the stick of dynamite inside the crack in the wall.
+
+>(Your score has increased by 5)
+You light it. The fuse crackles like a sparkler, and remember, it's a very
+short fuse.
+
+>You move south.
+Outside The Tomb
+Buried in the side of a large sand dune, is the entrance to the fabled lost
+tomb of pharaoh Erick.
+The huge stone door that had been blocking it was removed the previous day,
+leaving now an ominous looking hole, leading into darkness.
+
+>Time passes...
+
+>Time passes...
+
+>You move north.
+Sloping Corridor
+The walls are decorated with faded pictures of wild flowers. The low ceiling
+forces you to crouch over, an uncomfortable position to hold for long,  and
+forms a narrow passage that gently slopes downward.  A large hole has been
+blown in the east wall.
+
+>You move east.
+A Secret Chamber
+Dust hangs still in the stuffy air. At the far end of the room is an altar in
+pristine condition. Nothing is unusual about the floor or walls, as they are
+all perfectly unblemished, but the ceiling is another matter. A long narrow
+hole is cut into it, running vertically towards the altar.
+
+>(Your score has increased by 10)
+The altar drops ever so slightly and you hear a click, but is that a good
+thing?
+
+>Slowly, you carefully take the orb....Nothing happens and you take a sigh of
+relief.
+
+>You move west.
+Sloping Corridor
+The walls are decorated with faded pictures of wild flowers. The low ceiling
+forces you to crouch over, an uncomfortable position to hold for long,  and
+forms a narrow passage that gently slopes downward.  A large hole has been
+blown in the east wall.
+
+>As you enter, heavy stone doors in front and behind you drop down, sealing
+you in. ,
+The Sand Room
+Standing in the middle of the room is a magnificently decorated sarcophagus.
+The walls are decorated with brightly coloured effigies of animals and
+several holes in the ceiling spiral outwards from a central point.
+
+Rupert is here.
+Sand begins to filter through holes in the ceiling.
+
+>(Your score has increased by 5)
+You manage to dig them out of the eye sockets with your fingers.
+
+>
+"Ah need my help to open this thingy-ma-jig eh? Well I'm more than welcome to
+oblige dear boy!"
+
+>(Your score has increased by 10)
+Together, you and Rupert manage to remove the lid, sending it crashing to the
+floor.
+
+>(Your score has increased by 5)
+They click into place. As you do, the sand ceases to fall and the heavy stone
+doors slowly open.
+
+"Whew!, that was a close one." Says Rupert, wiping sweat from his brow.
+
+>You move north.
+Sloping Corridor
+Another narrow passage, descending even further downward. The walls are
+covered in plaster and decorated with simple geometric shapes, repeated over
+and over again to form a pattern.
+
+>The circle, square and triangle feature heavily in the pattern. Some damage
+has been made to the west wall, revealing bricks.
+
+>You move north.
+The Wall Room
+The room is dark and gloomy. Only the east and west walls have any sort of
+decoration upon them, a motif of dancing skeletons. The floor is covered with
+dried reeds, and to the north, an open doorway. A strange hole in the wall is
+beside it, low to the ground.
+
+>(Your score has increased by 5)
+You rummage around in the reeds with your hands. Touching something cold, you
+grasp it firmly and whip it up. To your surprise it is a spear.
+
+>You move south.
+Sloping Corridor
+Another narrow passage, descending even further downward. The walls are
+covered in plaster and decorated with simple geometric shapes, repeated over
+and over again to form a pattern.
+
+>(Your score has increased by 5)
+Using the point of the spear, you chip away at the bricks, little by little.
+It takes you quite a while, but you manage to make a hole large enough for
+you to squeeze through.
+
+>You move west.
+A secret chamber
+The room is long and narrow, stretching far off northwards, with a dome
+shaped roof. At the far end, you can see a slender marble statue, carved into
+the shape of a crocodile. Upon the floor, decorated in the style of a large
+snake winding its way across the floor, are four rows of square wood panels,
+each one having a Roman numeral painted on it.
+It is impossible to reach the other end of the room without stepping on the
+panels.
+
+>There are four rows, each containing five panels with Roman numerals painted
+on. Those numbers are, starting with the first row closest to the entrance:
+
+VI III IV X XI
+
+V II VIII IV V
+
+VI I XX XIV II
+
+X XVII V VII IV
+
+All of them are painted black, except the 'X' in the first row, which is
+painted red.
+
+>"I'll stay at this end of room, if it's all right with you!" Says Rupert,
+slapping you on the back.
+You step onto the numeral.
+Standing on X
+You are standing on the X numeral of the first row. You can move south to the
+entrance of the room.
+
+>You step onto the numeral.
+Standing on VIII
+You are standing on the VIII numeral of the second row.
+
+>You step onto the numeral XIV.
+Standing on XIV
+You are standing on the XIV numeral of the third row.
+
+>You step onto the numeral XVII.
+Standing on XVII
+You are standing on the XVII numeral of the fourth row. Just to the north is
+the Crocodile statue.
+
+>You move north.
+Beside the Crocodile statue
+You are now beside the magnificent marble statue of the crocodile. It stands
+a full five feet and is very imposing.  The mouth with all its teeth is
+slightly open, enough for you to reach in. Inside you see something shining.
+
+>You take the pencil from your rucksack.
+
+>As you do so, the jaws slam shut snapping the pencil. But they also smash
+against each other and break into little pieces.
+
+>(Your score has increased by 10)
+You slowly reach in with your hand. As soon as it touches the shining item,
+the jaws of the statue slam shut on your hand. fortunately, as the teeth are
+broken, it causes you no harm and you take the object, discovering it to be a
+sun orb.
+
+>
+You skillfully leap from one panel to the other until you reach the other end
+of the room.
+A secret chamber
+The room is long and narrow, stretching far off northwards, with a dome
+shaped roof. At the far end, you can see a slender marble statue, carved into
+the shape of a crocodile. Upon the floor, decorated in the style of a large
+snake winding its way across the floor, are four rows of square wood panels,
+each one having a Roman numeral painted on it.
+It is impossible to reach the other end of the room without stepping on the
+panels.
+
+>You move east.
+Sloping Corridor
+Another narrow passage, descending even further downward. The walls are
+covered in plaster and decorated with simple geometric shapes, repeated over
+and over again to form a pattern.
+
+>You move north.
+The Wall Room
+The room is dark and gloomy. Only the east and west walls have any sort of
+decoration upon them, a motif of dancing skeletons. The floor is covered with
+dried reeds, and to the north, an open doorway. A strange hole in the wall is
+beside it, low to the ground.
+
+>
+There is no way through that door at the moment.
+Just as you are about to leave, Rupert nearly trips on something. Clearing
+away the reeds, he finds a brick poking up about an inch.
+"By jove! What bad workmanship, having an uneven floor like that!!" He
+exclaims, then pushes it down, making it flush with the rest of the bricks.
+Both entrances to the room suddenly close with stone doors, and the east and
+west walls begin to slowly move together.
+"Oops!" Says Rupert.
+
+>(Your score has increased by 5)
+"Need my help again what! Looks like a good thing I came along then doesn't
+it!" He says, crouching down to the hole and putting his arm in, up to his
+shoulder.
+"I can feel a something, yes, a wheel. I can turn it clockwise."He says.
+As he does so, you notice the northern door inching open.
+The walls are 12 feet apart.
+
+>Time passes...
+
+>Time passes...
+The walls are 10 feet apart.
+
+>Time passes...
+
+>Time passes...
+The walls are 8 feet apart.
+The northern door is about half a foot open.
+
+>Time passes...
+
+>Time passes...
+The walls are 6 feet apart.
+
+>Time passes...
+
+>Time passes...
+The walls are 4 feet apart.
+The northern door is about a foot open.
+
+>Time passes...
+
+>(Your score has increased by 10)
+You wedge the spear between the walls, stopping them in their tracks.
+The spear seems to be holding (for now).
+
+>Time passes...
+
+>Time passes...
+The spear begins to bend.
+The northern door is open enough for you to escape!
+
+>
+You and Rupert quickly dash for the door and squeeze under, moments before
+the walls crunch together.
+"I'll tell you one thing dear boy!, this expedition is turning out to be more
+fun than I thought!" Says Rupert, catching his breath.
+The Inner Chamber
+A spectacular sarcophagus, made from solid gold and decorated in the highest
+quality, takes centre stage in a large chamber, the walls of which are
+stunningly painted and carved. Mounted in an arch in one of the walls, is a
+large and impressive statue of a jackal.
+Three gold rimmed archways lead off in three directions, northwest, north and
+northeast.
+
+Rupert is here.
+
+>(Your score has increased by 5)
+You poke it in with your thumb. It makes a tight fit.
+
+An alarm clock rings from inside Rupert's bag.
+"Ah! Time for tiffin!" He exclaims, looking at the clock.
+
+>"Another one eh? Very well."
+
+>"Another one eh? Very well."
+
+Rupert slurps some tea, eats the scones and burps.
+"Oops, pardon me!" He says, brushing crumbs from his moustache.
+
+>(Your score has increased by 5)
+You both manage to push the heavy lid onto the floor.
+
+He packs it all back up and looks ready for more adventuring.
+
+>You take the sapphire from the sarcophagus.
+
+>You move northwest.
+The Pillar Room
+The walls are made of a rough cut black rock, which makes the room darker
+then the others. Standing in each corner is a pillar, each painted a
+different colour, red, green, yellow and blue.  A large symmetrical design of
+abstract shapes has been carved into the floor, with an inscription drawn in
+the centre circle.
+
+Also here is the cat, the vulture, the snake and the dung beetle.
+
+>You take the notebook from your rucksack.
+
+>You open the notebook.  Some paper is inside the notebook.
+
+>You take the paper from the notebook.
+
+>You put the paper onto the inscription.
+
+>(Your score has increased by 10)
+By rubbing all over the paper, you make a relief of the inscription.
+
+>You pick up the cat.
+
+>You put the cat onto the blue pillar.
+
+>You pick up the vulture.
+
+>You put the vulture onto the red pillar.
+
+>You pick up the snake.
+
+>You put the snake onto the yellow pillar.
+
+>You pick up the dung beetle.
+
+>You put the dung beetle onto the green pillar.
+
+>(Your score has increased by 10)
+
+The four pillars slowly sink into the ground.
+The room rumbles and the floor inscription breaks, revealing a ruby.
+The Pillar Room
+The walls are made of a rough cut black rock, which makes the room darker
+then the others. Standing in each corner is a pillar, each painted a
+different colour, red, green, yellow and blue.  A large symmetrical design of
+abstract shapes has been carved into the floor. The inscription has broken,
+revealing a secret compartment.
+
+Also here is a ruby.
+
+Rupert is here.
+
+>You pick up the ruby.
+
+>You move southeast.
+The Inner Chamber
+A spectacular sarcophagus, made from solid gold and decorated in the highest
+quality, takes centre stage in a large chamber, the walls of which are
+stunningly painted and carved. Mounted in an arch in one of the walls, is a
+large and impressive statue of a jackal.
+Three gold rimmed archways lead off in three directions, northwest, north and
+northeast.
+
+>You move northeast.
+The Well Room
+The ceiling is low, the air, chilled with moisture. The large, rough bricks
+of the walls are cold and wet to the touch, due to condensation. Moss grows
+rampantly upon the mortar between them. A stone well with a wooden frame has
+been built in the middle.
+
+>You take the rope from your rucksack.
+
+>(Your score has increased by 5)
+After firmly securing the rope, it dangles down into the darkness of the
+well.
+
+>"If its all the same to you dear boy, I'll stay up here." Says Rupert.
+
+As you climb down into the darkness, the eerie silence and chilled air makes
+you shiver.
+The Bottom of the well
+You're standing up to your knees in stagnant water. The sides of the well are
+smooth and slippery, making them impossible to climb.
+
+Also here is a rope and the death mask.
+
+>You pick up the death mask.
+
+>You put the death mask inside your rucksack.
+
+>(Your score has increased by 10)
+Your rucksack is now securely tied to the end of the rope.
+
+>(Your score has increased by 5)
+"Righty ho!" Shouts Rupert.
+He winds the rope up, detaches the rucksack, then winds it back down again.
+
+>You move up.
+The Well Room
+The ceiling is low, the air, chilled with moisture. The large, rough bricks
+of the walls are cold and wet to the touch, due to condensation. Moss grows
+rampantly upon the mortar between them. A stone well with a wooden frame has
+been built in the middle.
+
+Also here is your rucksack.
+
+>You pick up your rucksack.
+
+>You take the death mask from your rucksack.
+
+>The ruby fits perfectly into the left eye socket.
+
+>The sapphire fits perfectly into the right eye socket.
+
+>You move southwest.
+The Inner Chamber
+A spectacular sarcophagus, made from solid gold and decorated in the highest
+quality, takes centre stage in a large chamber, the walls of which are
+stunningly painted and carved. Mounted in an arch in one of the walls, is a
+large and impressive statue of a jackal.
+Three gold rimmed archways lead off in three directions, northwest, north and
+northeast.
+
+>You move north.
+The Riddle Room
+The walls are bare and polished smooth, except for the north wall, upon which
+is a very strange design.
+
+>You put on the death mask.
+
+>(Your score has increased by 20)
+The writing on the wall is as clear as crystal. It read:
+At the start of the festive night, my legs are strong and right.
+By the middle, when a lot of rejoicing has been made, their strength begins
+to fade.
+And at the end when all is said and sung and done, I have to crawl upon the
+floor, homeward bound forever more.
+What strange ailment has effected me so?
+Say it loud if you know.
+
+>(Your score has increased by 10)
+As you speak the answer, it echoes out all around the room. There is a moment
+of silence...... then the roof begins to creak and crack. Slowly, it lowers
+down upon chains of iron, bringing sand blown in by the wind with it. When it
+finally stops, it has formed a ramp, leading up and out of this damned
+forsaken place.
+
+>Your score is 165 out of a maximum of 175.  (94%)
+
+>(Your score has increased by 10)
+You and Rupert climb the ramp, leaving the gloom and dark of the tomb behind.
+
+"Well, that was a most interesting diversion what!" says Rupert, while
+cleaning his monocle.
+"Yes, most rewarding, we have discovered the lost tomb of the great Pharaoh,
+Erick" He continues, "And although it may not of been stacked to the rafters
+with gold and jewels, this mask thingy must be worth a bob or two." He says,
+while he finishes dusting himself down. His alarm clock then suddenly rings.
+"Ye Gods!" He exclaims, looking at the time. "We'll need to get a move on
+dear boy! It's nearly supper time!"
+And with that, you and Rupert start the trek back to camp.
+Congratulations!

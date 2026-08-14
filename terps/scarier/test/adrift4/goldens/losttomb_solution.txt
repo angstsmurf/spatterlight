@@ -1,0 +1,227 @@
+# The Lost Tomb (losttombv2.taf) -- ADRIFT 3.90, English, 56,336 bytes.
+# 19 rooms, 99 tasks, 86 objects, 1 NPC (Lord Rupert Mongoose), 13 events,
+# 6 variables.  The .taf carries no author byte-field and games.manifest.tsv
+# has none either; adrift.co lists it only as "The Lost Tomb".
+#
+# Egyptology farce: you have found the tomb of pharaoh Erick, and your funder
+# Rupert -- monocle, pith helmet, alarm clock set for tiffin -- has decided to
+# tag along.  Result: WIN, 175/175 in 105
+# commands (104 moves plus one `score` check).
+#
+# 175 IS PROVABLY THE CEILING.  The file has exactly 23 `ACT type=4` awards:
+#   T53  +5   light the lamp              T65  +5   empty the water bottle
+#   T67  +5   fill the bottle with sand   T60  +5   light dynamite in the crack
+#   T78  +10  right item on the altar     T8   +5   take the emeralds
+#   T4   +10  open sarcophagus w/ Rupert  T6   +5   emeralds into the eagle
+#   T13  +5   find the spear              T81  +5   dig out the bricks
+#   T96  +10  take the sun orb            T17  +5   Rupert's hand in the hole
+#   T14  +10  jam the spear in the walls  T25  +5   cork the jackal
+#   T23  +5   open the second sarcophagus T28  +10  rub the inscription
+#   T30  +10  the pillar puzzle           T31  +5   tie the rope to the beam
+#   T32  +10  tie the rucksack to rope    T36  +5   Rupert winds the handle
+#   T47  +20  read the wall through mask  T48  +10  answer the riddle
+#   T49  +10  escape
+# 10+5+5+5+10+5+5+5+10+10+5+10+5+20+10+10+5+5+5+5+10+5+10 = 175, and the route
+# below fires every one of them.  The `score` check on the second-to-last
+# line reads 165/175; the winning `up` is T49's last +10.
+#
+# Six things cost a replay each and are the reason this script looks the way
+# it does:
+#
+#  (1) THE DYNAMITE MUST GO IN THE HOLE BEFORE IT IS LIT.  T59 (light it while
+#      holding it) starts EVENT 9, which fires T61 "BOOM! YOURE DEAD!" two
+#      turns later.  T60 (+5) is the in-the-wall version.  The crack is also
+#      hidden until `x walls` reveals it, and the object it becomes is called
+#      "hole" -- `put dynamite in crack` is not understood.
+#
+#  (2) RUPERT KEEPS HIS OWN CLOCK.  EVENT 8 [TIFFIN TIME!] has a random start
+#      of 50..80 turns; when it fires it sets VAR 0 [Rupert] to 0 for three
+#      turns, and every "ask rupert to ..." task is gated on that variable.
+#      A request swallowed by tiffin fails with a flavour message ("the lid is
+#      too heavy for you"), not a refusal, so it reads like a wrong solution.
+#      The second sarcophagus is therefore asked for TWICE below -- the first
+#      ask lands mid-tiffin under this seed.
+#
+#  (3) THE WALL ROOM IS A TIMED TRAP AND THE SPEAR ONLY FITS LATE.  Rupert
+#      trips the brick on the way back through, both doors shut and the walls
+#      start closing (EVENT 2, one step every two turns: 12 -> 10 -> 8 -> 6
+#      feet).  `jam spear in walls` answers "The walls are too far apart at the
+#      moment to do that" until they reach 6 feet, which is turn 7 after the
+#      hand-in-the-hole ask -- hence the nine `z`s.  Two more turns bend the
+#      spear and open the north door enough to squeeze out.
+#
+#  (4) THE PILLAR SINK TAKES A TURN.  EVENT 6 [PILLAR CHECK] runs T30 at the
+#      END of the turn the fourth statue is placed, so the ruby it reveals is
+#      not there to take until the turn after -- the bare `z` before
+#      `take ruby` is that turn.  Without it `take ruby` silently does nothing
+#      and the mask can never be completed (T40 needs the ruby held), which
+#      strands the run at 155/175 with no error message anywhere.
+#
+#  (5) NEVER CLIMB OUT OF THE WELL HOLDING THE MASK.  T33 is `ACT type=6
+#      v1=1` -- a LOSING ending.  T34 is the near-miss ("the rope creaks, you
+#      climb back down"), and the intended route is to send the mask up on its
+#      own: mask into the rucksack, rucksack tied to the rope (T32 +10), then
+#      ask Rupert to wind the handle (T36 +5).  He drops the rucksack back
+#      down empty and leaves the mask waiting in the Well Room.
+#
+#  (6) THE MASK MUST BE WORN, NOT CARRIED, TO READ THE WALL.  T45/T46/T47 all
+#      use restriction `type=0 v2=2` = "worn by the player" (screstrs.cpp
+#      restr_object_in_place case 2), and T44 -- the plain "hundreds of lines
+#      of red and blue" description -- is the v2=8 "NOT worn" counterpart.  So
+#      `x wall` while merely holding the finished mask reads as a failure that
+#      looks exactly like a right answer, and quietly costs 20 points.  The
+#      author's own hint says so obliquely ("...maybe the wall will become
+#      clear when looked at with the right attitude... ...or eyes...").
+#
+# The hint text above is not from a published walkthrough -- there is none.
+# It comes out of `SCR_DUMP_TASKS=1`, which prints the file's per-task
+# HINTQ=/HINT1=/HINT2= fields; this game ships an author hint menu, same as
+# Veteran Knowledge.
+#
+# The file contains no <waitkey> tag (harness/waitkey_audit.py), so the row
+# needs no SCR_SKIP_WAITKEY.
+#
+# --- Camp: kit up ------------------------------------------------------
+in
+take rucksack
+open rucksack
+take lamp
+take matches
+light lamp
+take bottle
+empty bottle
+fill bottle with sand
+take cork
+out
+#
+# --- Sloping Corridor: blow the crack open (from a safe distance) ------
+n
+n
+x walls
+take dynamite
+put dynamite in hole
+light dynamite
+s
+z
+z
+n
+#
+# --- Secret Chamber: swap sand for the moon orb (Indiana Jones gag) ----
+e
+put bottle on altar
+take orb
+w
+#
+# --- The Sand Room: emeralds, sarcophagus, eagle -----------------------
+n
+take emeralds
+ask rupert to open sarcophagus
+open sarcophagus
+put emeralds in eagle
+#
+# --- Wall Room / lower corridor: spear, then dig the bricks ------------
+n
+x walls
+n
+search reeds
+s
+dig bricks
+#
+# --- Roman-numeral floor: X, VIII, XIV, XVII --------------------------
+# Four rows of five panels -- VI III IV X XI / V II VIII IV V / VI I XX XIV
+# II / X XVII V VII IV -- and every panel that is not one of the four below
+# is a task with `ACT type=6 v1=2` on it, i.e. instant death (T90-T93).  Only
+# the first step is signposted in play: the row-1 'X' is painted red.  The
+# author's hint for the rest is "...You'll need to find the relationship
+# between them to take a step in the right direction... ...maybe the right
+# number has something to do with the next row..."; whatever that relation is
+# meant to be, the answers are simply hard-coded in T86-T89 and are X, VIII,
+# XIV, XVII.
+w
+x numerals
+step on x
+step on viii
+step on xiv
+step on xvii
+n
+#
+# --- Crocodile statue: jam the jaws with the pencil first --------------
+take pencil
+put pencil in mouth
+put hand in mouth
+s
+e
+#
+# --- Back through the Wall Room: the closing-walls trap ----------------
+n
+n
+ask rupert to put hand in hole
+z
+z
+z
+z
+z
+z
+z
+z
+z
+jam spear in walls
+z
+z
+n
+#
+# --- Inner Chamber: cork the jackal, then the second sarcophagus ------
+put cork in mouth
+ask rupert to open sarcophagus
+ask rupert to open sarcophagus
+open sarcophagus
+take sapphire
+#
+# --- Pillar Room: rub the inscription, then match beast to element -----
+# The relief reads "the cat by water, the snake chasing the sun, the vulture
+# flying above fire, and the dung beetle hiding in grass" -> blue / yellow /
+# red / green.
+nw
+take notebook
+open notebook
+take paper
+put paper on inscription
+rub paper with pencil
+take cat
+put cat on blue pillar
+take vulture
+put vulture on red pillar
+take snake
+put snake on yellow pillar
+take dung beetle
+put dung beetle on green pillar
+z
+take ruby
+#
+# --- The Well: send the death mask up in the rucksack ------------------
+se
+ne
+take rope
+tie rope to beam
+d
+take mask
+put mask in rucksack
+tie rucksack to rope
+ask rupert to turn handle
+u
+take rucksack
+take mask
+put ruby in mask
+put sapphire in mask
+#
+# --- The Riddle Room: wear the mask, read the wall, say the answer -----
+# "At the start of the festive night, my legs are strong and right... at the
+# end ... I have to crawl upon the floor" -- drunkenness.
+sw
+n
+wear mask
+x wall
+drunk
+score
+u
+#

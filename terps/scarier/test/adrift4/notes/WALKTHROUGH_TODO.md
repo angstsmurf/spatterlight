@@ -60,6 +60,20 @@ byte-field `Robert Rafgon` → `Robert Street`, one added ABOUT sentence saying
 so, and the build date), the transcripts are byte-identical, and the second row
 exists to keep them that way. See *Veteran Knowledge* below.
 
+**2026-08-14: *The Lost Tomb* wired, suite 238 rows, 238 PASS.** Next in the
+smallest-first order — 56,336 bytes, **3.90**, 19 rooms / 99 tasks / 86 objects
+/ 1 NPC / 13 events. **WON 175/175** in 105 commands, and 175 is provably the
+ceiling (23 `ACT type=4` awards summing to exactly 175, all 23 fired). No
+published walkthrough, and again it did not matter: **this game ships an author
+hint menu too**, so the `HINTQ=`/`HINT1=`/`HINT2=` trick from *Veteran
+Knowledge* worked a second time — that is now a habit, not a coincidence. The
+row's real value is an engine-semantics find: object restriction `type=0 v2=2`
+is **worn by the player, not held**, and the game's biggest single award (+20,
+T47 "read the wall through the death mask") hangs on it while the `v2=8`
+counterpart prints a plausible wall description instead of a refusal. Carrying
+the finished mask in reads as success and silently costs 20 points. See
+*The Lost Tomb* below.
+
 **One open item, opened 2026-08-12: `harness/waitkey_audit.py` flags 18 wired
 rows as SUSPECT** — games with a `<waitkey>` whose row does not set
 `SCR_SKIP_WAITKEY=1`, and which have no blank filler line to spare, so a real
@@ -172,17 +186,18 @@ Two things came out of this wave beyond the rows:
   comment above `restr_object_in_place` in `screstrs.cpp`.
 
 **Parked again 2026-08-11 at the user's request.** Nothing is broken and
-nothing is half-finished — the suite is green at 237/237 and every wired game
-has all four artefacts. What remains is **17 unwired `.taf` files, 16 of them
+nothing is half-finished — the suite is green at 238/238 and every wired game
+has all four artefacts. What remains is **16 unwired `.taf` files, 15 of them
 v3.90 and 1 v4.00** (23 when this was written; *Camp Windy Lake : Part 2*,
 *Salutations* and *A Day at the Iachini House* went in on 2026-08-12,
-*La hija del relojero* and both *Veteran Knowledge* files on 2026-08-14); the
-table below is the original 29, with the six done in the third wave struck
-through and windy2, salutations, iachini, relojero, vetknow and vetknow2 struck
-through after them. The sole remaining 4.00 file is `Vardock Bates.taf`, which
-is Spanish and 2.9 MB. **Next by size is `losttombv2.taf`** (56,336 bytes, 3.90,
-English) — but note that `The Town Of Azra.taf` above it is a second *file* of
-an already-wired game, not a second game.
+*La hija del relojero*, both *Veteran Knowledge* files and *The Lost Tomb* on
+2026-08-14); the table below is the original 29, with the six done in the third
+wave struck through and windy2, salutations, iachini, relojero, vetknow,
+vetknow2 and losttombv2 struck through after them. The sole remaining 4.00 file
+is `Vardock Bates.taf`, which is Spanish and 2.9 MB. **Next by size is
+`Journ2.taf`** (59,124 bytes, 3.90, *The Long Journey Home*) — but note that
+`The Town Of Azra.taf` above it is a second *file* of an already-wired game,
+not a second game.
 
 **Two cautions about that list.** *Byte size does not compare across versions*:
 a 4.00 `.taf` is zlib-compressed and a 3.90 one is only XOR-obfuscated, so the
@@ -207,7 +222,7 @@ the manifest is already wired.
 | 52,248 | 4.00 | ~~`vetknow.taf`~~ | ~~Veteran Knowledge~~ | **WIRED 2026-08-14 — WON 50/50** |
 | 52,290 | 4.00 | ~~`vetknow2.taf`~~ | ~~Veteran Knowledge [Version 2]~~ | **WIRED 2026-08-14** — three changed strings vs the above, byte-identical transcript |
 | 55,039 | 3.90 | ~~`Richard.taf`~~ | ~~Where Is Richard?~~ | **WIRED, third wave** |
-| 56,336 | 3.90 | `losttombv2.taf` | The Lost Tomb | |
+| 56,336 | 3.90 | ~~`losttombv2.taf`~~ | ~~The Lost Tomb~~ | **WIRED 2026-08-14 — WON 175/175** |
 | 59,124 | 3.90 | `Journ2.taf` | The Long Journey Home | |
 | 59,896 | 3.90 | `mudergreatfalls.taf` | Murder In Great Falls | |
 | 63,183 | 3.90 | `Vampire.taf` | The Vampire With A Conscience | |
@@ -577,6 +592,75 @@ header when it should not be. Worth doing whenever the corpus holds two files of
 one game; it is a free consistency check, unlike the *Town of Azra* pair, whose
 two files really are different builds.
 
+## The Lost Tomb (2026-08-14) — `v2=2` is *worn*, and it is worth 20 points
+
+Next in the smallest-first order, and the first **3.90** file since the third
+wave. **WON 175/175** in 105 commands; suite 237 → **238 rows, 238 PASS**.
+`losttombv2.taf`, 56,336 bytes — 19 rooms, 99 tasks, 86 objects, 1 NPC, 13
+events, 6 variables. No author is recorded anywhere: no author byte-field in
+the file, and `games.manifest.tsv` line 123 carries only the title. An
+Egyptology farce — you have found pharaoh Erick's tomb, and your funder Lord
+Rupert Mongoose, monocle and pith helmet and an alarm clock set for tiffin, has
+invited himself along. Full write-up in `notes/The_Lost_Tomb_walkthrough.md`.
+
+**175/175 is provable.** Exactly 23 `ACT type=4` awards, summing to exactly the
+declared maximum, and the route fires all 23. Nothing is left on the table:
+the only unfired tasks with endings on them are deaths and near-misses.
+
+**The transferable finding: object restriction `type=0 v2=2` is WORN BY THE
+PLAYER, not held** (`screstrs.cpp`, `restr_object_in_place` case 2/8) — and
+this game hangs its single largest award on that distinction in a way that is
+invisible in play. `x wall` in the Riddle Room is four competing tasks: T45,
+T46 and T47 want the ruby / sapphire / complete death mask **worn** (`v2=2`),
+and T44 is the `v2=8` "not worn" counterpart, which prints a perfectly
+plausible description of the wall. Walk in *carrying* the finished mask and you
+get a sensible answer, no refusal, no failure message — and lose 20 points.
+The riddle still answers, the escape still wins, and the run lands on 155/175
+with nothing anywhere to say why. `wear mask` is the whole difference.
+**Whenever a v4 route comes up short with no visible failure, check the losing
+task's `v2` for 2/8 before assuming a routing mistake.**
+
+**The hint-menu trick worked a second time.** No published walkthrough exists
+for this game either, and again `SCR_DUMP_TASKS` printed the author's own
+`HINTQ=`/`HINT1=`/`HINT2=` fields — one entry per puzzle, including the
+oblique one that gives away the worn-mask rule ("*...maybe the wall will become
+clear when looked at with the right attitude... ...or eyes...*"). Two games
+running: treat the `HINT2=` grep as step one of the per-game workflow, not as a
+lucky break. The two exceptions here are instructive — the riddle's hints are
+deliberately a taunt ("*...and for this one, you're on your own... Mu ha ha ha
+ha ha ha!...*"), and the numeral-floor hint points at a numeric "relationship
+between the rows" that nothing in the game text states; the four safe panels
+are simply hard-coded as the `ALTCMD` patterns of T86–T89 (X, VIII, XIV, XVII)
+and every other panel is an `ACT type=6 v1=2` death.
+
+**Four timing shapes and two losing endings**, each of which cost a replay:
+
+- **A random event start that reads as a wrong answer.** `EVENT 8 [TIFFIN
+  TIME!]` is `start=50..80`; when Rupert's alarm goes off it zeroes `VAR 0
+  [Rupert]` for three turns, and every `ask rupert to ...` task is gated on it.
+  A request swallowed by tiffin does not get refused — it falls through to a
+  *flavour* message ("the lid is too heavy for you"), which reads exactly like
+  a wrong solution. The route asks for the second sarcophagus twice.
+- **A trap on a two-turn clock with a late-opening window.** `EVENT 2 [CLOSING
+  WALLS]` steps 12 → 10 → 8 → 6 feet, and `jam spear in walls` (+10) is refused
+  until 6 feet — turn 7 after the hand-in-the-hole ask, hence nine `z`s, then
+  two more to bend the spear and open the door.
+- **An end-of-turn event whose revealed object is not there yet.** `EVENT 6
+  [PILLAR CHECK]` runs T30 (+10) at the *end* of the turn the fourth statue
+  lands, so `take ruby` on the next line **does nothing and says nothing** — and
+  since the mask needs the ruby, the run silently strands at 155/175. A bare
+  `z` fixes it. Same failure signature as the worn-mask trap: a route that is
+  20 or 10 points short with a clean transcript.
+- **Lighting something you are still holding.** T59 (dynamite lit in hand)
+  starts `EVENT 9` → T61 "BOOM! YOURE DEAD!" two turns later; T60 (+5) is the
+  in-the-wall version. Plus a parser note: the crack is hidden until
+  `x walls`, and the object it becomes is aliased **hole**, so
+  `put dynamite in crack` is not understood.
+- **Two losing endings on the obvious move.** Climbing out of the well while
+  holding the death mask is T33, `ACT type=6 v1=1`; reaching into the crocodile
+  statue before jamming its jaws with the pencil is T95, likewise. Both have a
+  polite alternative task sitting next to them that does the right thing.
+
 ## Where everything is
 
 | What | Where |
@@ -641,6 +725,14 @@ passing branch. Trust the trace and `score`, not the prose.
    *variable* rather than the engine score (The PK Girl, Three Monkeys), count
    the type-3 actions on that variable instead.
 
+3b. **Grep that same dump for `HINT2=` before deriving anything.** ADRIFT
+   stores per-task author hints, and `SCR_DUMP_TASKS` prints them as
+   `HINTQ=`/`HINT1=`/`HINT2=` — one entry per puzzle, often with the literal
+   command in capitals. On the two games that shipped a hint menu (*Veteran
+   Knowledge*, *The Lost Tomb*) that was the whole walkthrough, for free. Do
+   **not** type `hint` in play instead: it prompts `[Y/N]` and echoes its own
+   prompt twice, which no golden survives.
+
 4. **Play to a win**, banking confirmed steps into `solution.txt`. Use the
    `tasks` patterns for verbs and the `objects`/`npcs` dumps for "where is X".
    Wandering NPCs: find the deterministic turn they are present (trace with
@@ -689,6 +781,16 @@ passing branch. Trust the trace and `score`, not the prose.
   ```
 - **Check `OBJNAME … prefix=[…]` before believing "I see no such thing"** — the
   author's prefix is often part of the only accepted phrasing.
+- **A route that comes up short with a clean transcript is usually a
+  restriction you read as "held".** In `RESTR type=0`, `v2=1`/`7` is *held by*
+  (which does include worn, and one level of container nesting) but **`v2=2`/`8`
+  is *worn by*, and nothing else**. Authors pair the two into a task that
+  succeeds either way but only scores when the object is worn — *The Lost Tomb*
+  loses 20 of 175 points that way, with no failure message anywhere. The same
+  signature comes from an end-of-turn event whose revealed object is not
+  takeable until the next turn (its `take` fails silently too). When points go
+  missing, diff the `SCR_DUMP_TASKS` restrictions of the task that *did* fire
+  against the one that should have.
 - **Determinism = combat reproducibility.** The Battle System is RNG-driven and
   the seed shim is what makes scores stable. "Doesn't seem to do any damage" is
   the faithful `damage = strength − defence ≤ 0` branch, not a bug.
