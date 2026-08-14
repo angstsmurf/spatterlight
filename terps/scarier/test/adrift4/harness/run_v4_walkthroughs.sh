@@ -1598,6 +1598,24 @@ salutations_solution.txt|salutations.taf|you'll decline to answer.|SCR_SKIP_WAIT
 # and the remote lands *inside* the closed piano, so `push key 80` has to be
 # followed by `open piano`.
 iachini_solution.txt|iachini.taf|You settle down in front of the TV.
+# La hija del relojero ("Nano", Spanish, 4.00) is the smallest 4.00 file left
+# after Salutations: ONE room, 8 tasks, 12 objects, no NPCs, and no score at
+# all -- `score` answers "Your puntos is 0 fuera of a maximum of 0", the
+# author having translated the score nouns but not the frame.  A clockmaker
+# watches his daughter die of the roses growing out of her back; the win is to
+# wind up the brass Phoenix he made her and let it sing her to sleep.  Eleven
+# commands, and the marker is a line of WINTEXT.
+#
+# Three of the eight tasks are dead, all three in the file rather than in us:
+# T6 `*vaso*` and T7 `*Tamborilero*` are `Where` Type 0, runnable in no room
+# at all (the Hangover rule), and T4 `Abrir ventana` is unmatchable because
+# the game's own `SYNONYM [abrir] -> [Open]` rewrites the verb before the
+# matcher sees it -- so the command arrives as "Open ventana" and falls
+# through to the library's "Open what?".  The same substitution is what makes
+# `hablar hija` work (`SYNONYM [Hija] -> [Maria]` -> T0's `hablar maria`
+# alternate), which is how it was pinned: `SCR_TRACE_MATCH=1` echoes the
+# post-substitution input.
+relojero_solution.txt|relojero.taf|Cierro los ojos y lloro.
 EOF
 }
 

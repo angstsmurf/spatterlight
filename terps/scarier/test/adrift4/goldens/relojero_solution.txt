@@ -1,0 +1,88 @@
+# La hija del relojero (relojero.taf) -- ADRIFT 4.00, by "Nano", in Spanish.
+#
+# ONE room, 8 tasks, 12 objects, no NPCs, 2 events, 21,775 bytes.  A clockmaker
+# sits at the bedside of his dying daughter Maria; five roses are growing out
+# of her back and feeding on her blood.  He cannot save her, only give her
+# something to hold on to -- so he winds up the brass Phoenix he built for her
+# years ago and lets it sing her to sleep.
+#
+# Result: WIN -- `ACT type=6 v1=0` on T5, then WINTEXT.  There is NO score:
+# not one `ACT type=4` in the file, and `score` prints "Your puntos is 0 fuera
+# of a maximum of 0" (the author translated the score nouns but left the
+# sentence frame English), so the win marker has to be prose from WINTEXT.
+# There is no losing ending either: T5's is the file's only `ACT type=6`.
+#
+# THE CHAIN.  Three gated steps, and the game tells you all three itself.
+#   abrir cajon    The library open of the bedside table's drawer (obj 7,
+#                  `OPENABLE obj=7 openable=6 key=-1`).  It reveals obj 6,
+#                  the "Fenix de laton" -- the only object in the game that is
+#                  not static, and the only one not in scope at the start.
+#   coger fenix    Needed by both remaining tasks.
+#   tirar cuerda   T3 `Tirar *cuerda*`, gated on holding the Phoenix
+#                  (`RESTR type=0 v1=3 v2=1` = obj 6 held).  The Phoenix's own
+#                  description is the hint: "De su panza sobresale una pequena
+#                  cuerda, si tirase de ella lo pondria en funcionamiento."
+#                  Pulling it does not wind the bird -- the cord is decades old
+#                  and snaps, and T3's `ACT type=0 v1=4 v2=4` puts the broken
+#                  piece (obj 8, "Trozo de cuerda") into your hand.
+#   arreglar fenix T5, gated on holding BOTH the Phoenix and the broken cord
+#                  (two `RESTR type=0 ... v2=1`) -- WIN.  `arreglar/unir/atar
+#                  *cuerda` are its alternate commands; the clockmaker knots
+#                  the two ends together and the bird sings.
+#
+# THREE OF THE EIGHT TASKS ARE DEAD, and each is dead for its own reason.
+# None of this is a Scarier divergence -- it is all in the file, so the real
+# Runner is equally stuck.
+#   * T6 `*vaso*` and T7 `*Tamborilero*` are `Where` **Type 0**
+#     (ROOMLIST_NO_ROOMS), which is runnable in NO room at all, not in every
+#     room -- see `notes/The_Hangover_walkthrough.md` and
+#     `sctasks.cpp task_can_run_task_directional`, which returns FALSE for
+#     that type outright.  The room description offers "un vaso y una botella
+#     de agua" on the bedside table and the tin drummer in the corner, and
+#     both were meant to answer; neither can.  The glass is doubly lost --
+#     `STATIC obj=10 [Vaso] rooms=` places it in no room either, so `x vaso`
+#     is "You see no such thing" whichever way you come at it.  (The drummer
+#     is placed, so `x tamborilero` still prints its object description; what
+#     is lost there is only the task text.)
+#   * T4 `Abrir ventana` is killed by the game's own synonym table.  The file
+#     defines `SYNONYM [abrir] -> [Open]`, and synonym substitution runs
+#     BEFORE task matching -- verified with `SCR_TRACE_MATCH=1`, which echoes
+#     `input=[hablar Maria]` for a typed `hablar hija` (that one is the same
+#     mechanism working as intended, via `SYNONYM [Hija] -> [Maria]`).  So
+#     "abrir ventana" reaches the matcher as "Open ventana", the pattern
+#     "Abrir ventana" cannot match it, "ventana" is not an object, and the
+#     library answers "Open what?".  The task's only restriction is
+#     `type=3 v1=0 v2=0 v3=0`, which passes; the command can simply never be
+#     typed in a form that reaches it.
+#
+# THE HABLAR TRIO.  T0, T1 and T2 are three separate tasks with three
+# different commands (`Hablar hija` / `Hablar nina` / `hablar maria`) that all
+# carry the SAME two alternates, so all three patterns are on all three tasks
+# and T0 claims every one of them -- `MATCH task=0 pattern=[hablar maria]`.
+# T1 and T2 are unreachable too, but harmlessly so: they are duplicates.
+#
+# THE EVENTS are atmosphere and a no-op.  EVENT 0 is the recurring moan of
+# pain ("Un gemido de dolor se escapa de la boca de mi hija"), `start=4..4
+# time1=time2=4 restart=1`, so it lands every fourth turn and paces the route
+# below.  EVENT 1 (`start=6..6 time1=time2=1`) has no texts, no affected task
+# and no object moves -- it starts on turn 6 and then finishes and restarts
+# itself forever, printing nothing.
+#
+# ENCODING.  The game's text is ISO-8859-1 and so is the golden.  Keep this
+# solution ASCII: `x munecas` does NOT match obj 9 [Munecas], whose only names
+# carry the tilde, so the porcelain dolls are left out of the tour rather than
+# put a high byte in a solution file.  Everything else answers in plain ASCII.
+#
+# No `<waitkey>` anywhere in the game (checked with `SCR_MARK_WAITKEY=1`), so
+# the row needs no `SCR_SKIP_WAITKEY=1` and no filler line.
+x hija
+x rosas
+hablar hija
+x mesita
+x cajon
+abrir cajon
+coger fenix
+x fenix
+tirar cuerda
+x trozo
+arreglar fenix

@@ -38,6 +38,14 @@ Next in the smallest-first order — 19,083 bytes, 4.00, a 27-room chore game.
 the file contains 140 points' worth of awards. See *A Day at the Iachini
 House* below.
 
+**2026-08-14: *La hija del relojero* wired, suite 235 rows, 235 PASS.** Next in
+the smallest-first order — 21,775 bytes, 4.00, Spanish, one room, eight tasks,
+no score anywhere in the file. **WON in eleven commands**, and three of the
+eight tasks are provably dead: two are `Where` Type 0 and the third is
+unmatchable because the game's own synonym table rewrites its verb. See
+*La hija del relojero* below — and §4 of `../../../RUNNER_TESTS_TODO.md`, which
+that game opened a new row in.
+
 **One open item, opened 2026-08-12: `harness/waitkey_audit.py` flags 18 wired
 rows as SUSPECT** — games with a `<waitkey>` whose row does not set
 `SCR_SKIP_WAITKEY=1`, and which have no blank filler line to spare, so a real
@@ -151,11 +159,14 @@ Two things came out of this wave beyond the rows:
 
 **Parked again 2026-08-11 at the user's request.** Nothing is broken and
 nothing is half-finished — the suite is green at 231/231 and every wired game
-has all four artefacts. What remains is **20 unwired `.taf` files, 16 of them
-v3.90 and 4 v4.00** (23 when this was written; *Camp Windy Lake : Part 2*,
-*Salutations* and *A Day at the Iachini House* went in on 2026-08-12); the
-table below is the original 29, with the six done in the third wave struck
-through and windy2, salutations and iachini struck through after them.
+has all four artefacts. What remains is **19 unwired `.taf` files, 16 of them
+v3.90 and 3 v4.00** (23 when this was written; *Camp Windy Lake : Part 2*,
+*Salutations* and *A Day at the Iachini House* went in on 2026-08-12,
+*La hija del relojero* on 2026-08-14); the table below is the original 29, with
+the six done in the third wave struck through and windy2, salutations, iachini
+and relojero struck through after them. **Next by size is `vetknow.taf`**
+(52,248 bytes, 4.00, English) — but note that `The Town Of Azra.taf` above it
+is a second *file* of an already-wired game, not a second game.
 
 **Two cautions about that list.** *Byte size does not compare across versions*:
 a 4.00 `.taf` is zlib-compressed and a 3.90 one is only XOR-obfuscated, so the
@@ -170,7 +181,7 @@ the manifest is already wired.
 |---|---|---|---|---|
 | 5,591 | 4.00 | ~~`salutations.taf`~~ | ~~Salutations~~ | **WIRED 2026-08-12 — WON, no score in the file** |
 | 19,083 | 4.00 | ~~`iachini.taf`~~ | ~~A Day at the Iachini House~~ | **WIRED 2026-08-12 — WON 115/115** |
-| 21,775 | 4.00 | `relojero.taf` | La hija del relojero | **Spanish** — **start here** (next by size; if the language makes it a poor next pick, skip to `vetknow.taf`) |
+| 21,775 | 4.00 | ~~`relojero.taf`~~ | ~~La hija del relojero~~ | **WIRED 2026-08-14 — WON, no score in the file** |
 | 44,145 | 3.90 | `The Town Of Azra.taf` | The Town of Azra | **the adrift.co release of an already-wired game** — `The_Town_Of_Azra.taf` (4.00, 13,868 bytes, IF Archive) is row `the_town_of_azra_solution.txt`, and the existing route replays on this build too, so this is a second file, not a second game |
 | 44,503 | 3.90 | ~~`as.taf`~~ | ~~Asylum~~ | **WIRED, third wave** |
 | 44,666 | 3.90 | ~~`Wheel105.taf`~~ | ~~The Wheels Must Turn~~ | **WIRED, third wave** |
@@ -406,6 +417,75 @@ author meant `room=24` and mistyped it. And the game enforces a carry limit
 whose messages read like puzzle refusals ("Your hands are full at the moment",
 "The armload of firewood is too heavy for you to carry at the moment") — an
 early route silently missed three objects to it.
+
+## La hija del relojero (2026-08-14) — three of eight tasks dead, and a new §4 row
+
+Next in the smallest-first order. **WON in 11 commands**; suite 234 →
+**235 rows, 235 PASS**. "Nano", 31 March 2008, ADRIFT 4.00, **Spanish** — the
+second Spanish game in the v4 corpus after *Renuntio* and the third one-room
+game after *Salutations* and *I*. One room, 8 tasks, 12 objects, no NPCs, 2
+events. A clockmaker sits at his dying daughter's bedside while five roses grow
+out of her back; the win is to wind up the brass Phoenix he built for her and
+let it sing her to sleep. Full write-up in
+`notes/La_hija_del_relojero_walkthrough.md`.
+
+**No score at all** — not one `ACT type=4` in the file, and `score` answers
+*"Your puntos is 0 fuera of a maximum of 0"*. No losing ending either: T5's
+`ACT type=6 v1=0` is the file's only type-6. The chain is three gated steps
+(`abrir cajon` → `coger fenix` → `tirar cuerda`, which snaps the winding cord
+into your hand → `arreglar fenix`), and the game hints every one of them in its
+own object descriptions.
+
+**Three of the eight tasks are dead, each for its own reason, and all three in
+the file rather than in us.**
+
+- **T6 `*vaso*` and T7 `*Tamborilero*` are `Where` Type 0** — runnable in *no*
+  room, the rule settled against run400 for *The Hangover* (§5 of
+  `RUNNER_TESTS_TODO.md`). Both were written to answer scenery the room
+  description advertises. The glass is lost twice over: `STATIC obj=10 [Vaso]
+  rooms=` places it in no room either, so `x vaso` is "You see no such thing"
+  from both directions.
+- **T4 `Abrir ventana` is killed by the game's own synonym table.** The file
+  defines `SYNONYM [abrir] -> [Open]`, and substitution runs **before** task
+  matching, so the command reaches the matcher as `Open ventana`, the pattern
+  cannot match, and the library answers "Open what?". `SCR_TRACE_MATCH=1` is
+  what pins this: it echoes the *post*-substitution input, printing
+  `input=[hablar Maria]` for a typed `hablar hija` — the same machinery working
+  as intended one task away from the one it breaks.
+
+**The new finding, and it generalises: a localised game's message-replacement
+table is a Runner oracle.** This `.taf` carries 49 output-message replacements
+(`You open the` → `Extendiendo mi mano abrì el`, `from the` → `de el`,
+`score` → `puntos`, and — usefully — `You can't do that here!` → a Spanish
+line, so the refusal ported on 2026-08-10 is exercised by a second game). The
+author wrote each pair by reading what the real Runner printed, which makes the
+left-hand column a transcript of Runner output in miniature.
+
+One pair does not fire against Scarier: **`You take a` → `Con sumo cuidado cogi
+el`**. Scarier prints `You take the …`, so the replacement misses and the line
+comes out half-translated — *"You take the Fenix de laton de el cajon."*, the
+`from the` half fired and the `You take a` half did not.
+
+The Phoenix has an **empty `Prefix`**, and Scarier's two object printers guess
+differently about that: `lib_print_object()` defaults an empty prefix to
+`"a "`, `lib_print_object_np()` defaults it to `"the "`, and both defaults
+carry a comment saying they are empirical — the np one has said "what it's
+really supposed to do is a mystery" since the original SCARE. The take-from
+message uses the np printer, the container-reveal listing uses the other, which
+is why the same object is `A Fenix de laton is inside the cajon` on one line
+and `the Fenix de laton` on the next. The author wrote `A` → `Encontrè un` for
+the first and `You take a` for the second, i.e. **he saw the Runner print the
+"a" default in both** — so this is a witness that the np default is wrong, not
+merely that the pair failed to match. Opened as a row in §4 of
+`RUNNER_TESTS_TODO.md`; arbitrating it needs run400 under Wine, not more
+reading — and it must be arbitrated before anything is changed, because every
+`take X from Y` line in 235 goldens depends on that default.
+
+**Method note for the next Spanish or otherwise localised game:** dump the
+`.taf` plaintext tail (`zlib.decompress(data[22:])` for a 4.00 file) and read
+the replacement table before deriving anything. It tells you the game's verbs,
+its direction words, and — free of charge — what the Runner's library messages
+look like.
 
 ## Where everything is
 
