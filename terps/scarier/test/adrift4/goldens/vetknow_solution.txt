@@ -1,0 +1,227 @@
+# Veteran Knowledge (vetknow.taf) -- ADRIFT 4.00, English, 52,248 bytes.
+# 43 rooms, 359 tasks, 83 objects, 15 NPCs, 38 events, 2 variables.
+#
+# The full-length rewrite of *Veteran Experience* (`veteran.taf`, 12,043 bytes,
+# 4th 1-Hour Comp), which is already wired as row `veteran_solution.txt`.  Same
+# author, same premise, same finish -- a washed-up wrestler crowbars his way
+# back to the World title -- but where the 1-hour game is just the arena, this
+# one puts a whole town in front of it.  The one thing worth carrying over from
+# `notes/Veteran_Experience_walkthrough.md` is the shape of the endgame: take
+# out the other contenders one at a time, then win the match with a weapon from
+# under the ring.
+#
+# Result: WIN, **50/50** -- and 50 really is the ceiling.  Summing every
+# `ACT type=4` in the file gives 2 + 8 + 10 + 4x3 + 8 + 10 = 50, and the route
+# below fires all eight of them, so there is no scoring action left unclaimed.
+# WINTEXT is EMPTY, so the win marker has to be prose from the endgame text --
+# `AND THE NEW WORLD CHAMPION IS`, which is the ring announcement.
+#
+# PROVENANCE.  No published walkthrough: David Welbourn covered the *earlier*
+# game (http://www.plover.net/~davidw/sol/adr2nd3hr04.html#veteran) and nobody
+# covered this one.  It does not matter, because **the game ships its own hint
+# system and `SCR_DUMP_TASKS` prints it**: the per-task `HINTQ=`/`HINT1=`/
+# `HINT2=` fields are the author's own walkthrough, one entry per puzzle, and
+# every load-bearing step below is quoted from them.  (In play the same text is
+# behind `hint`, but that prompts `[Y/N]` and echoes its prompt twice, so it is
+# no use inside a strict-diffed golden -- read it out of the dump instead.)
+#
+# THE EIGHT SCORING TASKS, in the order the route fires them:
+#   T46  `swim`                room 17  +2   wash off the alley
+#   T49  `paint *trunks`       anywhere +8   the Veteran's old ring gear
+#   T63  `pour *oil *driveway` room 5   +10  writes the Brawler out of the show
+#   T111 `light*firecracker`   room 29  +4   scares the Evil Twins off your crowbar
+#   T124 `hit*monster*crowbar` room 27  +4   and drops the bottle of acid
+#   T135 `get *mask*`          room 39  +4   unmasks the High Flyer
+#   T138 `throw *acid*youth`   room 26  +8   and starts the title match
+#   T260 `attack*star*crowbar` room 42  +10  the only `ACT type=6 v1=0` in the file
+#
+# THE FOUR TIMING TRAPS, all of them things that cost a replay to find:
+#
+# 1. THE FLYER LANDS AT THE END OF TURN 3.  `EVENT 1 [Flyer arrives]` is
+#    `start=4..4`, so `take flyer` on turn 1 is "You see no such thing".  The
+#    three `z`s at the top are not padding -- they are the wait.
+#
+# 2. THE BRATS DO NOT MOVE INTO THE PARK UNTIL THE BEER IS DRUGGED.  The north
+#    end of the park (room 18) is empty at the start; `talk to brats` there does
+#    nothing and no amount of waiting helps.  What puts NPCs 4 and 5 in it is
+#    **T57 `east` out of the bar**, gated on T54 `put pills in beer` being
+#    complete.  So the pills have to be stolen from the store and dropped in the
+#    Brawler's beer BEFORE the walk to the park, which is why the route crosses
+#    town twice.
+#
+# 3. TAKING THE OIL BUYS YOU A PILEDRIVER AND A `<waitkey>`.  Grabbing the can
+#    off the red shirted brat brings the Monster down on you; the scene ends in
+#    a "(Press a key)" pause, which is why the row carries `SCR_SKIP_WAITKEY=1`.
+#    You keep the oil, and the game gives you a grudge to spend later.
+#
+# 4. `LOOK UNDER RING` IS TWO DIFFERENT TASKS AND THE ORDER IS FORCED.  T126
+#    (tacks + ladder) has `RESTR type=2 v1=139 v2=1` -- task 138 NOT complete --
+#    and T127 (steel chair + crowbar + fire extinguisher) has the same reference
+#    with `v2=0`, complete.  So the ringside trip for the High Flyer's props has
+#    to happen BEFORE the acid, and the trip for the crowbar AFTER it.  Get that
+#    backwards and the High Flyer is unbeatable.
+#
+# THE ARENA, which is where the game actually starts.  Walking in triggers T79
+# `east`: a white crate falls and jams the stairway door.  T86 `move crate with
+# crowbar` levers it clear -- and the Evil Twins jump you, take the crowbar, and
+# dump you unconscious in the Mysterious room (`ACT type=1 v1=0 v3=28`).  That
+# is not a losing state, it is the intended way in:
+#   touch east wall   T95 -- a hairpin, in the dark, from the author's own hint
+#                     ("TOUCH EAST WALL then head WEST to escape")
+#   west              picks the closet lock with the hairpin and drops you in
+#                     the lower south corridor (29), where the Twins are playing
+#                     cards in the storeroom to the west with your crowbar
+#   talk to guard     T104 -- "He is actually very willing to leave if you TALK
+#                     TO GUARD".  He goes to the car park to smoke, and takes
+#                     the red cigarette lighter with him; the fireworks
+#                     storeroom to the south is now unguarded.
+#   pick lock         T106, with the hairpin -- one firecracker.
+#   THEN WALK INTO HIS ROOM AGAIN.  Stepping into the north corridor makes the
+#   guard bolt back to his post, and he DROPS THE LIGHTER in the north end of
+#   the car park on the way.  That is the only way to get it: there is not one
+#   task in rooms 36/37, and `take lighter` while he is still holding it is
+#   "Take what?".
+#   light firecracker T111 in room 29 -- the Twins run upstairs and leave the
+#                     crowbar behind in the empty storeroom (33), west.
+#
+# THE MONSTER'S ROOM IS DARK AND HOLDING THE TORCH IS NOT ENOUGH.  The
+# flashlight is in the locker in your own locker room (23) -- `open locker`
+# first, `take flashlight` alone is "Take what?" while it is still shut -- and
+# it has to be switched on: `turn on flashlight` fires T67 and, conveniently,
+# also carries the pending `east`, so the transcript reads "You move east and
+# turn on your flashlight."  T122/T124 both carry `RESTR type=0 v1=13 v2=1`
+# (flashlight held) on top of everything else.
+#
+# THE FINAL MATCH IS ON A CLOCK.  `throw acid at youth` teleports you into the
+# ring with EMPTY HANDS, and 38 events start firing: `star attack 1..8` at turns
+# 3-4, 7-8, 11-12 ... 29-30, and `star gets out chain` at 36.  The seven-command
+# finish below lands the win on match turn 7.  `spray star` sets the `blinded`
+# variable, which `EVENT 14..20 [unblind star]` clear again **4 turns later** --
+# T260 needs `blinded == 1`, so the crowbar has to swing on the very next turn.
+# The author says it plainest: "You need to go outside, look under the ring, get
+# the fire extinguisher and crowbar, go back inside, spray Star, and hit Star
+# with crowbar."
+#
+# 120 commands.  No RNG is consulted on this route, so no `SCR_SEED` is needed;
+# `SCR_SKIP_WAITKEY=1` is mandatory (three `(Press a key)` pauses: the Monster's
+# piledriver, the Promoter's street-fight offer, and the celebration).
+z
+z
+z
+take flyer
+read flyer
+w
+open can
+take crowbar
+e
+s
+se
+e
+take paint
+take pills
+w
+nw
+w
+put pills in beer
+e
+e
+e
+swim
+n
+take oil
+w
+sw
+s
+s
+s
+open gate with crowbar
+w
+push trampoline
+stand on trampoline
+get trunks
+get off trampoline
+e
+ne
+e
+open can
+take paintbrush
+paint trunks
+wear trunks
+w
+nw
+pour oil on driveway
+s
+w
+talk to promoter
+e
+e
+e
+unlock door
+in
+e
+move crate with crowbar
+touch east wall
+w
+n
+n
+w
+talk to guard
+s
+pick lock
+n
+e
+e
+take lighter
+w
+s
+s
+light firecracker
+w
+take crowbar
+e
+n
+n
+n
+u
+u
+s
+e
+open locker
+take flashlight
+turn on flashlight
+w
+w
+take teddy bear
+e
+s
+s
+e
+give teddy to monster
+hit monster with crowbar
+w
+n
+w
+w
+look under ring
+take tacks
+take ladder
+e
+e
+s
+w
+give ladder to high flyer
+throw tacks on mattress
+get mask
+wear mask
+e
+n
+n
+w
+throw acid at youth
+out
+look under ring
+take fire extinguisher
+take crowbar
+in
+spray star
+attack star with crowbar

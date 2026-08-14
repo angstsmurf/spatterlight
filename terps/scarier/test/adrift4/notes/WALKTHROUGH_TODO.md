@@ -46,6 +46,20 @@ unmatchable because the game's own synonym table rewrites its verb. See
 *La hija del relojero* below — and §4 of `../../../RUNNER_TESTS_TODO.md`, which
 that game opened a new row in.
 
+**2026-08-14: *Veteran Knowledge* wired twice, suite 237 rows, 237 PASS.** Next
+in the smallest-first order — 52,248 bytes, 4.00, 43 rooms and 359 tasks, the
+full-length rewrite of the already-wired *Veteran Experience*. **WON 50/50** in
+120 commands, and 50 is provably the ceiling (eight `ACT type=4` awards summing
+to 50, all eight fired). No published walkthrough exists, and it did not matter:
+**the game ships its own hint system, and `SCR_DUMP_TASKS` prints it** as the
+per-task `HINTQ=`/`HINT1=`/`HINT2=` fields, one entry per puzzle with the
+literal command in capitals. That is the transferable lesson — grep for `HINT2=`
+first on any game whose author built a hint menu. `vetknow2.taf` went in on the
+same route: it differs from `vetknow.taf` in **three strings only** (the author
+byte-field `Robert Rafgon` → `Robert Street`, one added ABOUT sentence saying
+so, and the build date), the transcripts are byte-identical, and the second row
+exists to keep them that way. See *Veteran Knowledge* below.
+
 **One open item, opened 2026-08-12: `harness/waitkey_audit.py` flags 18 wired
 rows as SUSPECT** — games with a `<waitkey>` whose row does not set
 `SCR_SKIP_WAITKEY=1`, and which have no blank filler line to spare, so a real
@@ -158,15 +172,17 @@ Two things came out of this wave beyond the rows:
   comment above `restr_object_in_place` in `screstrs.cpp`.
 
 **Parked again 2026-08-11 at the user's request.** Nothing is broken and
-nothing is half-finished — the suite is green at 231/231 and every wired game
-has all four artefacts. What remains is **19 unwired `.taf` files, 16 of them
-v3.90 and 3 v4.00** (23 when this was written; *Camp Windy Lake : Part 2*,
+nothing is half-finished — the suite is green at 237/237 and every wired game
+has all four artefacts. What remains is **17 unwired `.taf` files, 16 of them
+v3.90 and 1 v4.00** (23 when this was written; *Camp Windy Lake : Part 2*,
 *Salutations* and *A Day at the Iachini House* went in on 2026-08-12,
-*La hija del relojero* on 2026-08-14); the table below is the original 29, with
-the six done in the third wave struck through and windy2, salutations, iachini
-and relojero struck through after them. **Next by size is `vetknow.taf`**
-(52,248 bytes, 4.00, English) — but note that `The Town Of Azra.taf` above it
-is a second *file* of an already-wired game, not a second game.
+*La hija del relojero* and both *Veteran Knowledge* files on 2026-08-14); the
+table below is the original 29, with the six done in the third wave struck
+through and windy2, salutations, iachini, relojero, vetknow and vetknow2 struck
+through after them. The sole remaining 4.00 file is `Vardock Bates.taf`, which
+is Spanish and 2.9 MB. **Next by size is `losttombv2.taf`** (56,336 bytes, 3.90,
+English) — but note that `The Town Of Azra.taf` above it is a second *file* of
+an already-wired game, not a second game.
 
 **Two cautions about that list.** *Byte size does not compare across versions*:
 a 4.00 `.taf` is zlib-compressed and a 3.90 one is only XOR-obfuscated, so the
@@ -188,8 +204,8 @@ the manifest is already wired.
 | 45,737 | 3.90 | ~~`life.taf`~~ | ~~Life~~ | **WIRED, third wave** |
 | 48,764 | 3.90 | ~~`Renuntio.taf`~~ | ~~Renuntio~~ | **WIRED, third wave** |
 | 51,820 | 3.90 | ~~`hhorror.taf`~~ | ~~House Of Horror~~ | **WIRED, third wave** |
-| 52,248 | 4.00 | `vetknow.taf` | Veteran Knowledge | English; also missed by the sweep |
-| 52,290 | 4.00 | `vetknow2.taf` | Veteran Knowledge [Version 2] | second release of the above |
+| 52,248 | 4.00 | ~~`vetknow.taf`~~ | ~~Veteran Knowledge~~ | **WIRED 2026-08-14 — WON 50/50** |
+| 52,290 | 4.00 | ~~`vetknow2.taf`~~ | ~~Veteran Knowledge [Version 2]~~ | **WIRED 2026-08-14** — three changed strings vs the above, byte-identical transcript |
 | 55,039 | 3.90 | ~~`Richard.taf`~~ | ~~Where Is Richard?~~ | **WIRED, third wave** |
 | 56,336 | 3.90 | `losttombv2.taf` | The Lost Tomb | |
 | 59,124 | 3.90 | `Journ2.taf` | The Long Journey Home | |
@@ -487,13 +503,77 @@ the replacement table before deriving anything. It tells you the game's verbs,
 its direction words, and — free of charge — what the Runner's library messages
 look like.
 
+## Veteran Knowledge ×2 (2026-08-14) — the author's hint system *is* the walkthrough
+
+Next in the smallest-first order. **WON 50/50** in 120 commands; suite 235 →
+**237 rows, 237 PASS**, because `vetknow2.taf` went in on the same route. Robert
+Street (credited "Robert Rafgon" in the first release), 12 February 2005 in 3.90
+and 6 May 2005 in 4.00 R46 — 43 rooms, 359 tasks, 83 objects, 15 NPCs, 38
+events, 2 variables. The full-length rewrite of *Veteran Experience*
+(`veteran.taf`, 12,043 bytes), which has been wired since the first wave: same
+author, same washed-up wrestler crowbarring his way back to the World title, but
+with a whole town in front of the arena. Full write-up in
+`notes/Veteran_Knowledge_walkthrough.md`.
+
+**50/50 is provable, not assumed.** The file has exactly eight `ACT type=4`
+awards — 2 + 8 + 10 + 4×3 + 8 + 10 = 50 — and the route fires every one. It also
+has exactly **one `ACT type=6`**, T260's win, so the game cannot be lost: the
+Star's eight scheduled attacks and the steel chain he produces on turn 36 are
+texture. WINTEXT is empty, so the marker is prose out of T260's own text.
+
+**The transferable finding: `SCR_DUMP_TASKS` prints an author's hint menu.**
+There is no published walkthrough for this game — David Welbourn covered the
+earlier one only — and none was needed, because ADRIFT stores per-task hints and
+the dump prints them as `HINTQ=` / `HINT1=` / `HINT2=`, with `HINT2` almost
+always the literal command in capitals:
+
+```
+TASK 122 where=1 room=27 ... cmd=[give*teddy*monster]
+    HINTQ=[The Monster's locker room 2]
+    HINT1=[You firstly need to distract the Monster. ...]
+    HINT2=[You need to GIVE TEDDY TO MONSTER]
+```
+
+The Ring's hint is a sentence-by-sentence walkthrough of the last seven moves.
+**Grep the dump for `HINT2=` before deriving anything, on any game whose author
+built a hint menu.** Typing `hint` in play is no substitute inside a golden: it
+prompts `[Y/N]` *and echoes its own prompt twice*.
+
+**Four timing shapes worth remembering**, each of which cost a replay: an event
+gating an object's arrival (`EVENT 1 [Flyer arrives]`, `start=4..4`, so the
+three `z`s at the top of the solution are the wait); NPCs that do not exist in
+the world until a task elsewhere moves them (the brats are `startRoom=-1` and
+only T57 `east`-out-of-the-bar, gated on drugging the beer, puts them in the
+park — so the route crosses town twice by necessity); **one command that is two
+tasks with inverted gates** (`look under ring` is T126 for the tacks and ladder
+*before* the acid and T127 for the crowbar and fire extinguisher *after* it, so
+the order is forced and getting it backwards makes the High Flyer unbeatable);
+and a **variable with a four-turn expiry** (`spray star` sets VAR 0 `blinded`,
+`EVENT 14..20 [unblind star]` clear it four turns later, and T260 wants
+`blinded == 1`, so the crowbar has to swing on the very next turn).
+
+**And one dead end that reads like a loss and is not.** Levering the fallen
+crate (T86) gets you mugged by the Evil Twins and dumped unconscious in the
+Mysterious room. That *is* the way onto the bottom floor — `touch east wall` for
+a hairpin, then `west`.
+
+**`vetknow2.taf` is the same game.** A zlib-decompress (offset 22) plus
+`strings` diff of the two files finds **three changed strings and nothing
+else**: the author byte-field, one added ABOUT sentence recording the rename,
+and the build date. Not one room, task, object, NPC or event differs, and the
+same 120 commands produce a byte-identical transcript. The second row exists to
+keep that true — if those two goldens ever diverge, something is reading the
+header when it should not be. Worth doing whenever the corpus holds two files of
+one game; it is a free consistency check, unlike the *Town of Azra* pair, whose
+two files really are different builds.
+
 ## Where everything is
 
 | What | Where |
 |---|---|
 | The manifest — one line per row, `solution\|game\|win-marker\|env` | the table at the top of `harness/run_v4_walkthroughs.sh` |
 | Routes and their recorded transcripts | `goldens/<name>_solution.txt` + `<name>_solution.expected.txt` |
-| **Per-game analysis, route prose and score accounting** | `notes/<Game>_walkthrough.md` — 185 of them (183 tracked; the AIF ones are gitignored) |
+| **Per-game analysis, route prose and score accounting** | `notes/<Game>_walkthrough.md` — 187 of them (185 tracked; the AIF ones are gitignored) |
 | Engine fidelity questions raised along the way | `../../../RUNNER_TESTS_TODO.md` |
 | Which rows a game's `<waitkey>` is eating commands from | `python3 harness/waitkey_audit.py` |
 | The full session-by-session derivation log (2026-06-24 → 2026-08-04) | git history of this file; it was pruned in the commit that added this line, so `git log --follow -p -- test/adrift4/notes/WALKTHROUGH_TODO.md` has all 4134 lines of it |

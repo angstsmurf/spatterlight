@@ -1616,6 +1616,54 @@ iachini_solution.txt|iachini.taf|You settle down in front of the TV.
 # alternate), which is how it was pinned: `SCR_TRACE_MATCH=1` echoes the
 # post-substitution input.
 relojero_solution.txt|relojero.taf|Cierro los ojos y lloro.
+# Veteran Knowledge (Robert Street, 4.00, 43 rooms / 359 tasks / 83 objects /
+# 15 NPCs / 38 events) is the full-length rewrite of Veteran Experience, which
+# is already wired two dozen rows above as `veteran_solution.txt` -- same
+# author, same washed-up wrestler, same crowbar, but a whole town in front of
+# the arena.  WIN 50/50 in 120 commands, and 50 is provably the ceiling: the
+# file's eight `ACT type=4` awards are 2 + 8 + 10 + 4x3 + 8 + 10 = 50 and the
+# route fires every one of them.  WINTEXT is EMPTY, so the marker is the ring
+# announcement out of T260's own text.
+#
+# NO PUBLISHED WALKTHROUGH -- David Welbourn covered the earlier game only
+# (plover.net/~davidw/sol/adr2nd3hr04.html#veteran).  It did not matter,
+# because THE GAME SHIPS ITS OWN HINT SYSTEM AND `SCR_DUMP_TASKS` PRINTS IT:
+# the per-task `HINTQ=`/`HINT1=`/`HINT2=` fields are the author's walkthrough,
+# one entry per puzzle.  (Typing `hint` in play works too, but it prompts
+# `[Y/N]` and echoes its prompt twice, so it is no use inside a golden.)
+# Worth remembering for any other game whose author built a hint menu.
+#
+# Kept for four timing shapes, each of which cost a replay to find.
+#   (1) EVENT 1 [Flyer arrives] is `start=4..4`, so the flyer is not there to
+#       take until the end of turn 3 -- the three `z`s at the top are the wait.
+#   (2) THE PARK IS EMPTY UNTIL THE BEER IS DRUGGED.  `talk to brats` at the
+#       north end does nothing and waiting does not help; what moves NPCs 4/5
+#       into room 18 is T57 `east` out of the bar, gated on T54 `put pills in
+#       beer`.  The route therefore crosses town twice by necessity.
+#   (3) `LOOK UNDER RING` IS TWO TASKS AND THE ORDER IS FORCED: T126 (tacks +
+#       ladder) needs T138 `throw *acid*youth` NOT complete, T127 (steel chair
+#       + crowbar + fire extinguisher) needs it complete.  Ringside before the
+#       acid for the High Flyer's props, ringside again after it for the
+#       crowbar; backwards and the High Flyer cannot be beaten.
+#   (4) THE TITLE MATCH IS ON A CLOCK.  The acid teleports you into the ring
+#       EMPTY-HANDED and starts `star attack 1..8` (turns 3-4, 7-8 ... 29-30)
+#       plus `star gets out chain` at 36; `spray star` sets VAR 0 `blinded`,
+#       which `EVENT 14..20 [unblind star]` clear 4 turns later, and T260
+#       needs `blinded == 1`.  The seven-command finish wins on match turn 7.
+# Plus one dead end that reads like a loss and is not: levering the crate
+# (T86) gets you mugged by the Evil Twins and dumped unconscious in the
+# Mysterious room.  That IS the way in -- `touch east wall` for a hairpin,
+# then `west`.
+vetknow_solution.txt|vetknow.taf|AND THE NEW WORLD CHAMPION IS|SCR_SKIP_WAITKEY=1
+# ... and vetknow2.taf is the SAME GAME again.  A zlib-decompress + `strings`
+# diff of the two files finds exactly three changed strings -- the author
+# byte-field (`Robert Rafgon` -> `Robert Street`), one added sentence in the
+# ABOUT text saying so, and the build date -- and not one changed room, task,
+# object, NPC or event.  So the two solutions are the same 120 commands and
+# the two goldens are byte-identical, which is the point of carrying the
+# second row: if these ever diverge, something is reading the header when it
+# should not be.
+vetknow2_solution.txt|vetknow2.taf|AND THE NEW WORLD CHAMPION IS|SCR_SKIP_WAITKEY=1
 EOF
 }
 

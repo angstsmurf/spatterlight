@@ -1,0 +1,140 @@
+# Veteran Knowledge [Version 2] (vetknow2.taf) -- ADRIFT 4.00, 52,290 bytes.
+#
+# The SAME GAME as `vetknow.taf`, and the same route: this file is a verbatim
+# copy of the command list in `vetknow_solution.txt` (read that one for the
+# derivation and the hint-system provenance -- all of it applies here).
+#
+# What the second release actually changed, from a zlib-decompress + `strings`
+# diff of the two files, is THREE STRINGS AND NOTHING ELSE:
+#   * the author byte-field, `Robert Rafgon` -> `Robert Street`
+#   * the ABOUT text, which gains one sentence: "Version 2.1 on 11 December
+#     2005 updates the author name from Robert Rafgon to Robert Street."
+#   * the build date, `07 May 2005` -> `11 Dec 2005`
+# Not one room, task, object, NPC or event differs.  The two transcripts are
+# byte-identical, so `vetknow2_solution.expected.txt` and
+# `vetknow_solution.expected.txt` are the same file content -- and that identity
+# is the point of carrying the second row: if a future engine change ever makes
+# these two diverge, something is reading the header when it should not be.
+#
+# Result: WIN, 50/50.  Marker `AND THE NEW WORLD CHAMPION IS`; needs
+# `SCR_SKIP_WAITKEY=1` for the same three "(Press a key)" pauses.
+z
+z
+z
+take flyer
+read flyer
+w
+open can
+take crowbar
+e
+s
+se
+e
+take paint
+take pills
+w
+nw
+w
+put pills in beer
+e
+e
+e
+swim
+n
+take oil
+w
+sw
+s
+s
+s
+open gate with crowbar
+w
+push trampoline
+stand on trampoline
+get trunks
+get off trampoline
+e
+ne
+e
+open can
+take paintbrush
+paint trunks
+wear trunks
+w
+nw
+pour oil on driveway
+s
+w
+talk to promoter
+e
+e
+e
+unlock door
+in
+e
+move crate with crowbar
+touch east wall
+w
+n
+n
+w
+talk to guard
+s
+pick lock
+n
+e
+e
+take lighter
+w
+s
+s
+light firecracker
+w
+take crowbar
+e
+n
+n
+n
+u
+u
+s
+e
+open locker
+take flashlight
+turn on flashlight
+w
+w
+take teddy bear
+e
+s
+s
+e
+give teddy to monster
+hit monster with crowbar
+w
+n
+w
+w
+look under ring
+take tacks
+take ladder
+e
+e
+s
+w
+give ladder to high flyer
+throw tacks on mattress
+get mask
+wear mask
+e
+n
+n
+w
+throw acid at youth
+out
+look under ring
+take fire extinguisher
+take crowbar
+in
+spray star
+attack star with crowbar
