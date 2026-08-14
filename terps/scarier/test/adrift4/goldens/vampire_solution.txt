@@ -1,0 +1,162 @@
+# The Vampire With A Conscience (Vampire.taf) -- ADRIFT 3.90, English,
+# 63,183 bytes, version 1.0, by Ole Olsen.  17 rooms, 137 tasks, 49 objects
+# (33 of them static), 11 NPCs, 11 events, 8 variables.  Declared MaxScore 100.
+#
+# You are Jean Buffet, the 500-year-old delegate from Wianna, in room 1502 of
+# the Oslo Plaza for the annual grand vampire convention.  The meeting is at
+# midnight; the clock starts at 22:00 and advances one minute per turn.  Grand
+# master vampire Igor van der Linden means to have you killed at that meeting,
+# so you are going to walk in first and shoot the whole table.  For that you
+# need a gun, silver-free carbonated bullets, and an *undead* assistant to
+# carry a second gun past the mirrors that screen the conference-room door.
+#
+# RESULT: **WIN, 100 out of a declared maximum of 100**, in 57 input lines
+# (55 moves, 1 `score` check and the final `end`).
+#
+# 100 IS PROVABLY THE CEILING AND IT IS EXACTLY REACHABLE.  The file holds
+# exactly 18 `ACT type=4` awards and no other scoring machinery:
+#
+#   T5   +5   call 5550                   T43  +10  buy heroin
+#   T26  +5   n (drift into the ducts)    T46  +3   listen (dark hallway)
+#   T27  +3   listen (Igor's plan)        T49  +5   give beer to anette
+#   T28  +10  hitchhike                   T54  +5   drain jon simonsen
+#   T39  +5   buy beer                    T62  +5   put stick in container
+#   T40  +2   listen (the call girl)      T64  +5   open container
+#   T41  +5   put heroin in beer          T84  +5   enter queue
+#   T42  +2   give roses to anette        T94  +10  push 15  \  mutually
+#   T108 +15  west (into the conference)  T95  +10  push 15  /  exclusive
+#
+# They sum to 110, but T94 and T95 are the SAME +10 award on the same command
+# (`push 15` in the elevator) behind two different sets of restrictions -- T94
+# wants T93 `ask portiere about igor van der linden`, T95 wants both duct
+# `listen`s -- and forward first-match dispatch runs at most one task per
+# command, so only one of the two can ever fire.  110 - 10 = 100, exactly the
+# file's declared maximum, and the route below fires all sixteen of the others.
+# This run qualifies through T95 (we never speak to the portiere).
+#
+# THE THREE CLOCKS.  EVENT 2 [Nutriton] starts at LOAD and runs T80
+# -NutritionDeath (a LOSE) after 63 turns unless it is paused, and its
+# PauseTask is T54 -- i.e. draining Jon Simonsen is the meal that keeps you
+# alive, so it has to happen before 23:03.  EVENT 7 [JonsEscape] and EVENT 8
+# [RaiseJon] both start when T54 completes; EVENT 7 would let Simonsen out of
+# the garbage container, but its task T77 first checks that the stick is NOT
+# jammed in the handles, so `put stick in container` defuses it.  EVENT 8 runs
+# T78 -RaiseJonS, which is what `open container` (T64) waits for.  Finally T83
+# refuses the taxi queue from 23:40 and T119 -ToLate loses the game at 24:00.
+#
+# `wait` IS WORTH THREE TURNS HERE.  The file sets `Globals/WaitTurns` to 3, so
+# each of the six `wait`s below burns three minutes off the clock and three
+# turns off EVENT 8 -- which is why six of them, plus the seven other commands
+# between the drain and `remove stick`, clear a 20-turn event.  Four is the
+# measured minimum (three leaves T70 still refusing the stick).
+#
+# NOT NEEDED, despite looking essential: the earth from the coffin (T50) and
+# the shaving foam in the bathroom (T130/T131, for smearing the door mirrors)
+# are referenced by no restriction on the winning path -- the mirrors are a
+# problem only for a *living* companion, and Simonsen is undead by then.
+#
+# THE ROW NEEDS `SCR_SKIP_WAITKEY=1`: the file's single <waitkey> sits at the
+# end of the intro, before the first prompt, so without the variable it eats
+# line 1 and the whole script is off by one.
+#
+# ===========================================================================
+# --- Hotel room 1502, 22:00 ------------------------------------------------
+# T5, +5 -- 5550 is the number on the piece of paper: Jon Simonsen.
+call 5550
+# Open the hotel-room door so the room's own west exit works (T9 only supplies
+# the message), then take the roses from the vase (T47, Anette's price later).
+open door
+w
+take roses
+e
+n
+# --- Out through the ventilation ducts -------------------------------------
+# T18 `change into mist` is rep=0, a ONE-SHOT, and EVENT 3 [MistForm] turns you
+# back after 8 turns.  Mist is the only way north through the vent (T26) and
+# out of the hotel back yard (T31), so the next five moves are on that clock.
+change into mist
+# T26, +5 -- drift up into the air ducts.
+n
+# T27, +3 -- Igor is on floor 15 and plans to have you killed at the meeting.
+listen
+# T40, +2 -- a call girl has been ordered "just before midnight".
+listen
+# T31 -- out into the hotel back yard; take the stick that will jam the
+# garbage container's handles.
+n
+take stick
+n
+change back
+# T28, +10 -- a lift downtown, and the clock jumps forward 15 minutes.
+hitchhike
+# --- Karl Johan ------------------------------------------------------------
+w
+# T48 -- Simonsen hands over the gun and the carbonated bullets, then follows.
+ask simonsen about plan
+# T39, +5.
+buy beer
+e
+n
+e
+# T46, +3, then T43, +10 -- heroin is to a vampire what a stake is, which is
+# exactly why it is the right thing to put in a girl's beer (T41, +5).
+listen
+buy heroin
+put heroin in beer
+# --- The backyard: make Simonsen your undead assistant ---------------------
+# T54 needs Anette (NPC 7) and the Bozo Guard (NPC 10) both OUT of the
+# backyard.  The guard patrols room 6 <-> room 11, and Anette does not move
+# until she has the roses -- so drain Simonsen BEFORE giving them to her.
+w
+s
+w
+w
+# T54, +5 -- feeds you (this is what pauses EVENT 2) and leaves a corpse.
+drain jon simonsen
+# T113 hides the body.  Leave it lying and T76 has the Bozo Guard walk in on
+# you, after which T74 makes going east a LOSE.
+open container
+put corpse in container
+close container
+# T62, +5 -- jams the handles, which is what defuses EVENT 7 [JonsEscape].
+put stick in container
+# --- Anette, the living decoy ----------------------------------------------
+# T61 lets you back into the club now that the corpse is out of sight.
+e
+# T42, +2 -- AnetteVar=25201, and she starts following you.
+give roses to anette
+# T49, +5 -- she downs the spiked beer.
+give beer to anette
+# --- Wait out EVENT 8 [RaiseJon] -------------------------------------------
+# Six `wait`s = 18 turns (Globals/WaitTurns is 3).
+wait
+wait
+wait
+wait
+wait
+wait
+w
+# T71 -- T70 refuses this until T78 -RaiseJonS has run.
+remove stick
+# T64, +5 -- Jon climbs out undead, and follows you again.
+open container
+# --- Back to the Plaza -----------------------------------------------------
+e
+e
+s
+# T84, +5 -- needs BOTH Anette and Simonsen present; the taxi drops all three
+# of you in the lobby and forces the clock to 23:45.
+enter queue
+# --- The elevator ----------------------------------------------------------
+e
+# T95, +10 -- Anette gets off at 15 "for Igor", AnetteVar=30001.
+push 15
+# T104 only lets you west when CurrentFloor==0.
+push 0
+w
+w
+# T108, +15 -- gun held, Simonsen along, Anette gone: the shooting starts.
+w
+score
+# T135 -- ACT type=6 v1=0, the winning endgame.
+end

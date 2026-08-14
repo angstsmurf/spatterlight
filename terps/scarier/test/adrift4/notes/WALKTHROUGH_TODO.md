@@ -225,18 +225,19 @@ Two things came out of this wave beyond the rows:
 
 **Parked again 2026-08-11 at the user's request.** Nothing is broken and
 nothing is half-finished — the suite is green at 240/240 and every wired game
-has all four artefacts. What remains is **14 unwired `.taf` files, 13 of them
+has all four artefacts. What remains is **13 unwired `.taf` files, 12 of them
 v3.90 and 1 v4.00** (23 when this was written; *Camp Windy Lake : Part 2*,
 *Salutations* and *A Day at the Iachini House* went in on 2026-08-12,
 *La hija del relojero*, both *Veteran Knowledge* files, *The Lost Tomb*,
-*The Long Journey Home* and *Murder in Great Falls* on 2026-08-14); the table
-below is the original 29, with the six done in the third wave struck through
-and windy2, salutations, iachini, relojero, vetknow, vetknow2, losttombv2,
-Journ2 and mudergreatfalls struck through after them. The sole remaining 4.00
-file is `Vardock Bates.taf`, which is Spanish and 2.9 MB. **Next by size is
-`Vampire.taf`** (63,183 bytes, 3.90, *The Vampire With A Conscience*) — but
-note that `The Town Of Azra.taf` above it is a second *file* of an
-already-wired game, not a second game.
+*The Long Journey Home*, *Murder in Great Falls* and *The Vampire With A
+Conscience* on 2026-08-14); the table below is the original 29, with the six
+done in the third wave struck through and windy2, salutations, iachini,
+relojero, vetknow, vetknow2, losttombv2, Journ2, mudergreatfalls and Vampire
+struck through after them. The sole remaining 4.00 file is
+`Vardock Bates.taf`, which is Spanish and 2.9 MB. **Next by size is
+`Merry_Murders.taf`** (69,489 bytes, 3.90, *Merry Murders*) — but note that
+`The Town Of Azra.taf` above it is a second *file* of an already-wired game,
+not a second game.
 
 **Two cautions about that list.** *Byte size does not compare across versions*:
 a 4.00 `.taf` is zlib-compressed and a 3.90 one is only XOR-obfuscated, so the
@@ -264,7 +265,7 @@ the manifest is already wired.
 | 56,336 | 3.90 | ~~`losttombv2.taf`~~ | ~~The Lost Tomb~~ | **WIRED 2026-08-14 — WON 175/175** |
 | 59,124 | 3.90 | ~~`Journ2.taf`~~ | ~~The Long Journey Home~~ | **WIRED 2026-08-14 — UNFINISHABLE, 30/90** |
 | 59,896 | 3.90 | ~~`mudergreatfalls.taf`~~ | ~~Murder In Great Falls~~ | **WIRED 2026-08-14 — WON 200/200** |
-| 63,183 | 3.90 | `Vampire.taf` | The Vampire With A Conscience | |
+| 63,183 | 3.90 | ~~`Vampire.taf`~~ | ~~The Vampire With A Conscience~~ | **WIRED 2026-08-14 — WON 100/100** |
 | 69,489 | 3.90 | `Merry_Murders.taf` | Merry Murders | |
 | 71,216 | 3.90 | `thewoods.taf` | The Woods Are Dark | |
 | 74,568 | 3.90 | `Captive.taf` | Captive Universe | |
@@ -861,6 +862,65 @@ arrest for a paragraph before the trial goes wrong, so the row is anchored on
 `Globals/DispFirstRoom` is false in this file, so the transcript opens with no
 Office description — the author's setting, honoured by `run_main_loop()`.
 
+## The Vampire With A Conscience (2026-08-14) — a doubled award, and `wait` is worth three turns
+
+`Vampire.taf`, 63,183 bytes, ADRIFT **3.90**, Ole Olsen, version 1.0. 17
+rooms, 137 tasks, 49 objects (33 static), 11 NPCs, 11 events, 8 variables.
+**WIN, 100/100 — the file's declared maximum — in 57 input lines.** Row:
+
+```
+vampire_solution.txt|Vampire.taf|Now you are the most powerful vampire alive.|SCR_SKIP_WAITKEY=1
+```
+
+Full write-up in `notes/The_Vampire_With_A_Conscience_walkthrough.md`. Four
+things are worth carrying forward.
+
+**1. The award total overshoots the maximum because one award is authored
+twice.** 18 `ACT type=4` awards summing to **110** against a declared MaxScore
+of **100** — the first corpus file where the arithmetic does *not* close on
+its own. T94 and T95 are the same `push * %number% *` in the elevator with the
+same four actions and the same +10, differing only in what they demand first
+(T94 wants `ask portiere about igor van der linden`; T95 wants both duct
+`listen`s). Forward first-match dispatch runs at most one task per command, so
+exactly one of the two can ever pay. 110 − 10 = 100, and the ceiling is
+exactly reachable. **Before reporting an award total that exceeds MaxScore,
+check the list for two tasks with the same command pattern and the same
+award** — an author writing alternative prerequisites for one puzzle is the
+likely cause, and the duplicate is unreachable by construction.
+
+**2. `wait` is not one turn.** `Globals/WaitTurns` is 3 in this file, so every
+`wait` in the script burns three turns of event clock and three minutes of the
+game's own minute counter, while printing a single "Time passes...". This cost
+an hour of confusion: `SCR_TRACE_EVENTS` showed EVENT 3 `[MistForm]` ticking a
+full 8 turns while the transcript showed only three prompts, and EVENT 8
+`[RaiseJon]` (Time1=Time2=20) clearing after twelve commands. Both are correct
+once the multiplier is in. **When event timings look ~3× too fast, read
+`Globals/WaitTurns` before suspecting the engine** — `sclibrar.cpp:2347` sets
+`game->waitcounter = game->waitturns`, and `scrunner.cpp:2415` runs a full
+turn per decrement.
+
+**3. The event index conventions are not uniform, and the dump resolves them
+for you.** Confirmed against `scevents.cpp` on this file: `StartTask` and
+`TaskAffected` are *one*-based (`task - 1`), but **`PauseTask` and
+`ResumeTask` are two-based** (`pausetask - 2`, with 1 meaning "any task"), in
+`evt_pauser_task_is_complete()` / `evt_resumer_task_is_complete()`. Reading
+EVENT 2 `[Nutriton]`'s `pauseTask=56` as T55 rather than T54 sends you looking
+for a reason the *hotel* guard should stop a starvation clock; the right
+answer is T54 `drain jon simonsen`, i.e. the plot's murder is also the meal.
+
+**4. Alternate-solution machinery that the winning route never touches.** The
+bathroom's shaving foam (T130/T131, with a `foamLeft` counter) exists to
+smear the two mirrors in front of the conference-room door, and the coffin's
+earth (T50) reads like a vampire staple — neither is named by a single
+restriction on the way to the win, because the mirrors only ever matter to a
+*living* companion and yours is undead by then. Worth logging rather than
+deleting: a `.taf` can carry a complete second puzzle chain that the maximum
+score does not require.
+
+The file's hint menu is the corpus's most honest: six entries covering the
+hotel room, ending at **"OK, I got downtown. What now?" → "Sorry, you're on
+your own from now on."**
+
 ## Where everything is
 
 | What | Where |
@@ -979,6 +1039,10 @@ passing branch. Trust the trace and `score`, not the prose.
   printf 'z\nquit\ny\n' | SCR_TRACE_EVENTS=1 ./scare GAME 2>&1 >/dev/null \
     | grep -ac '^Event: ticking event 0:'
   ```
+  Second witness 2026-08-14: *The Vampire With A Conscience* is also 3, and
+  there the symptom was the opposite reading — every event looked like it was
+  running ~3× too fast against a script full of `wait`s. Same cause, same
+  check.
 - **Check `OBJNAME … prefix=[…]` before believing "I see no such thing"** — the
   author's prefix is often part of the only accepted phrasing.
 - **A route that comes up short with a clean transcript is usually a

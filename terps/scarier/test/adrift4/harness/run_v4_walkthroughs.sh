@@ -1795,6 +1795,28 @@ journ2_solution.txt|Journ2.taf|Your score is 30 out of a maximum of 90.
 # Accusing wrong is a losing ending: T64 `accuse rick` and T65 `accuse ross`
 # are both `ACT type=6 v1=1`, and only T66 `accuse ken` is `v1=0`.
 murder_great_falls_solution.txt|mudergreatfalls.taf|Ken is found guilty of triple homicide.|SCR_SKIP_WAITKEY=1
+# The Vampire With A Conscience -- ADRIFT 3.90, Ole Olsen, 63,183 bytes.
+# WIN, 100/100, the file's declared maximum, in 57 lines.  You are a vampire
+# delegate at a convention in the Oslo Plaza who has 120 minutes (one per turn)
+# to arm himself, raise an undead assistant and shoot the grand master before
+# the grand master shoots him.
+# THE +10 IS DOUBLE-BANKED AND THAT IS WHY THE AWARDS OVERSHOOT.  18 awards
+# summing to 110 against a MaxScore of 100: T94 and T95 are the same +10 on the
+# same `push 15`, gated on two different prerequisites (the portiere, or the
+# two duct `listen`s), and first-match dispatch can only ever run one of them.
+# So 100 is both the ceiling and exactly reachable.  This route qualifies
+# through T95.
+# THREE CLOCKS RUN AT ONCE, and each one is an event rather than a variable
+# test: EVENT 2 [Nutriton] kills you 63 turns in unless T54 `drain jon simonsen`
+# pauses it, EVENT 7 [JonsEscape] frees your victim 19 turns after that drain
+# unless the stick is jammed in the container handles (T62 -> T77's own check),
+# and EVENT 8 [RaiseJon] is the 20-turn wait that T64 `open container` needs.
+# On top of those, T83 refuses the taxi queue from 23:40 and T119 loses at
+# midnight.  The six `wait`s in the middle of the script are EVENT 8's, and
+# anything from four upward works -- the file sets Globals/WaitTurns to 3, so
+# one `wait` is three turns of event clock (and three minutes of the other two).
+# The row needs SCR_SKIP_WAITKEY=1 for the single <waitkey> that ends the intro.
+vampire_solution.txt|Vampire.taf|Now you are the most powerful vampire alive.|SCR_SKIP_WAITKEY=1
 EOF
 }
 
