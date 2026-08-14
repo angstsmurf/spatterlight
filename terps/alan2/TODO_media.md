@@ -15,6 +15,7 @@ utilities that ship alongside the `.acd`:
 | --- | --- | --- |
 | `VIEWER.EXE` | *Viewer 2.2* by Mark Stehr, 1994. VESA VBE 1.2 SVGA image viewer for "BMP, FLI/FLC, GIF, ICO, IFF, PCD, PCX, Targa, TIFF". Centres the image, waits for a key, restores text mode (`-g` "stay in graphics mode" is **not** passed). | `viewer <name>.pcx` |
 | `SBPLAY.EXE` | *SBPlay 2.11* by John A. Ball, 1995. Sound Blaster player for "VOC, WAV, SND, IFF, AIF, SAM & MOD". Blocks until the sample has finished. | `sbplay <name>.wav /s` (`/S` = suppress file information, i.e. quiet) |
+| `ShowJPG.exe` | *ShowJPG* by Jan Patera. The same idea for JPEGs — used instead of `VIEWER.EXE` by *A Matter of Time* 1.2, whose art was re-rendered as JPEG for the 2003 re-release. | `showjpg <name>.jpg` |
 
 A third command, `pause`, is not a program in the game directory at all — it is
 `COMMAND.COM`'s built-in "Press any key to continue . . .".
@@ -62,29 +63,78 @@ On-disk case does not match the command strings (`CARPARK.PCX` vs
 - **Parsing.** The verb is the first blank-separated word, the argument the
   first following word that does not start with `-` or `/` — switches can
   come before the file name (*A Matter of Time* runs `viewer -f3 title.pcx`)
-  or after it (`sbplay <name>.wav /s`). `viewer`, `sbplay` and `pause`
-  dispatch, anything else is silently ignored (nothing is ever executed).
+  or after it (`sbplay <name>.wav /s`). `viewer`, `showjpg` and `sbplay`
+  dispatch; everything else, `pause` included, is silently ignored (nothing
+  is ever executed).
   Lookup in the game directory (dirname of `advnam`) is case-insensitive;
   absent files degrade to silence with no error text. `ALAN2_MEDIA_DEBUG=1`
   in the environment traces every `SYSTEM` string to stderr.
 
-- **Pictures.** PCX (8-bpp VGA and 1-bpp/≤4-plane EGA) and IFF (planar ILBM
+- **Pictures.** A file whose magic says the app can already read it (JPEG,
+  PNG, GIF) is handed over as it lies — that is the `showjpg` case. Otherwise
+  PCX (8-bpp VGA and 1-bpp/≤4-plane EGA) and IFF (planar ILBM
   and chunky `PBM `, byterun or uncompressed) are decoded by file magic, not
   extension, and written once per session to a temp 8-bpp BMP —
   a format ImageIO reads natively. The file is registered under a small
   resource number with `win_loadimage(resno, path, 0, len)`
   (`glkimp/connect.c`), after which the standard `glk_image_*` calls hit the
   app-side cache and the `PIC<n>` fallback in `loadimage()` is never
-  consulted. Display opens a `wintype_Graphics` split above the buffer window
-  (transcript survives, unlike the DOS full-screen flip), sized via
-  `glk_window_set_arrangement()` to the picture's scaled height, draws
-  centred and letterboxed on black, waits for a key, and closes the split.
-  Honours `gli_enable_graphics`.
+  consulted. Display draws the picture **inline in the buffer window**, on a
+  paragraph of its own, with `glk_image_draw_scaled_ext()` (Glk 0.7.6
+  `GLK_MODULE_IMAGE2`) under `imagerule_WidthOrig | imagerule_AspectRatio`
+  and `maxwidth` 0x10000: original size, aspect ratio kept, never wider than
+  the window, and re-resolved on every re-layout, so a 640×480 screenshot
+  fits and follows a window resize. Unlike the DOS full-screen flip there is
+  nothing to flip back from, so no keypress is waited for — the picture stays
+  in the transcript where the game put it. Hosts that cannot draw into a
+  buffer window (`gestalt_DrawImage`/`gestalt_Graphics`) are left alone
+  before any output is emitted, so their transcripts are unchanged. Honours
+  `gli_enable_graphics`.
 
-- **`pause`.** Prints a `[Press any key to continue]` prompt (not DOS's text)
-  and blocks on `glk_request_char_event()`/`glk_select()` right at the call
-  site, so the interpreter's text-file position is never disturbed. Arrange
-  and Redraw events redraw the status line (and the picture, while one is up).
+- **`pause`.** Ignored. It is not an independent effect: the games use it to
+  hold the text on screen before VIEWER.EXE flips the whole screen to
+  graphics, so it sits directly in front of a `viewer` call — the acode
+  idiom is *describe, pause, viewer, describe again* on the way back
+  (`examine julie`). Drawing the picture inline wipes nothing, so there is
+  nothing to hold, and a prompt there would just ask the player to press a
+  key to reveal a picture that is already on its way into the transcript.
+
+- **The repeated description.** The other half of that idiom is the second
+  *describe*: VIEWER.EXE restored text mode on a cleared screen, so the
+  author printed the text again for the player coming back from graphics.
+  Inline, the first copy is still right there above the picture and the
+  repeat is glaring.
+
+  What gets repeated is not tidy, so paragraphs are the wrong unit for the
+  comparison. In *The Hollywood Murders* `examine julie` repeats a single
+  sentence, and the two copies differ by a trailing space. In *A Matter of
+  Time* every room repeats its description *and* its object list, and on the
+  way in the first copy is glued to the end of a much longer paragraph
+  ("You decide that it is too dangerous for Clarisse … There appears to be a
+  trail leading to the north"). What does hold in both games is that the
+  words printed after the picture are the last words printed before it, so
+  that is the test: split both sides into words, ignore white space
+  entirely, and look for the repeat as a suffix of the run-up — longest
+  match wins, so a repeat the game followed with something new is still
+  recognised. Short matches are left alone (fewer than 4 words or 24
+  characters is more likely a stray "Yes." or a bare room name than a
+  description).
+
+  So the text of the turn so far is remembered, and from the moment a
+  picture is drawn the rest of the turn is held back instead of printed;
+  at the end of the turn whatever repeats the run-up is dropped and the
+  rest goes out. Everything the interpreter prints already funnels through
+  `glkio_printf()`, which is where the filter sits (`newline()` was routed
+  through it too, so paragraph breaks are seen as well); output to the
+  status window is passed straight through, since `statusline()` uses the
+  same funnel. Text can never be lost: whatever is held is resolved and
+  released at the next prompt (`readline()`), at the next picture, at
+  `terminate()`, and released untouched if it outgrows the buffer. The turn
+  record restarts at the prompt too — otherwise it would begin with the
+  `"> "` that `agetline()` prints *before* asking for input, followed by
+  nothing at all for the line the player types, which the library echoes
+  rather than sending through the funnel. A text-only host draws no
+  picture, so nothing is ever held there and its transcript is untouched.
 
 - **Sounds.** No conversion needed: `SoundHandler` sniffs formats from data
   and `NSSound` plays 8-bit mono PCM at all three sample rates. Files whose
@@ -101,15 +151,36 @@ On-disk case does not match the command strings (`CARPARK.PCX` vs
 
 ## Testing
 
-Verified in the app (title/share/secret pictures, pause prompt, radio playing
+Verified in the app (title/share/secret pictures drawn inline and re-fitting
+on a window resize, the repeated description gone, radio playing
 `suspense.wav` audibly) and headless. The headless CheapGlk harness (see the
-`alan2` build recipe used for the 2.6 work) builds with `-DSPATTERLIGHT` plus
-`-Itest`: `test/glkimp.h` is a stub of the Spatterlight extensions and
+`alan2` build recipe used for the 2.6 work) builds with `-DSPATTERLIGHT`
+plus `-Itest`: `test/glkimp.h` is a stub of the Spatterlight extensions and
 `test/headless_stubs.c` defines them, in the style of
-`terps/scott/test/headless_stubs.c`. CheapGlk refuses graphics windows and
-reports images as unsupported, so scripted runs still exercise parsing,
-lookup, conversion and the pause prompt, but drawing is inert. Useful sites:
-`examine julie` in the room north of the start hits `pause` + `viewer
-secret.pcx`; `turn on fan` plays `switch.wav`; asking Harold about anything
-plays the rejected `nuthin.wav`; 2.8 regression against `bugged.acd` and
+`terps/scott/test/headless_stubs.c`. CheapGlk reports images as unsupported,
+so scripted runs still exercise parsing, lookup and conversion, but drawing
+is inert and adds nothing to the transcript. Since `pause` no longer
+prompts, scripted input no longer needs a blank line per `pause` either.
+
+Because nothing is drawn there, the headless build also never holds text
+back, so the duplicate-description filter is invisible to it — which is
+exactly the point (its transcripts are byte-identical to the ones from
+before any of this). To exercise the filter headless, temporarily skip the
+`gestalt_Graphics`/`gestalt_DrawImage`/`glk_image_get_info` guard in
+`showPicture()` and diff the run against an unmodified one: every
+difference should be a deletion, and every deletion an exact repeat of the
+text just above it.
+
+Useful sites: `examine julie` in the room north of the start hits `pause` +
+`viewer secret.pcx` and is the single-sentence duplicate case; `turn on fan`
+plays `switch.wav`; asking Harold about anything plays the rejected
+`nuthin.wav`. *A Matter of Time* (`~/Downloads/Alan 2.6/AMattero/TIME1.ACD`,
+Alan 2.5) covers the switch-before-name form `viewer -f3 title.pcx` and is
+the harder duplicate case — a picture in every room, each repeating a
+multi-paragraph block, so simply walking around it (`n`, `n`, `n`, `s`,
+`n`, `look`) is the regression test. The same game's registered build
+(`~/Downloads/Alan 2.6/A-Matter-of-Time_DOS_EN_v12/Time1.acd`, v1.2 — the
+sibling `Old\Time1.ACD` is the older DPMI-free build the README tells you
+to fall back to, same media) is the `showjpg` case: 14 JPEGs, 5 WAVs, and
+no missing files at all. 2.8 regression against `bugged.acd` and
 `chasing.acd`.
