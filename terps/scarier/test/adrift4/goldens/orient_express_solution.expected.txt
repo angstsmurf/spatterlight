@@ -39,6 +39,7 @@ Thanks, you can now go to your compartment, or elsewhere on the train. You
 are in compartment A3."
 
 >You move south.
+
 Compartment A
 This is the section of train that the compartments are located in. The
 compartments are much nicer than berths. They also provide privacy. Doors
@@ -49,6 +50,7 @@ small earthquake.
 You can move north, south and west.
 
 >You move south.
+
 Compartment B
 This is another train car full of compartments. Doors line the corridor. The
 compartments are numbered B1-B20.  Maybe you should talk to the woman.
@@ -69,6 +71,7 @@ said, she walks into her compartment.
 Ivanna Stiffdrink walks off.
 
 >You move south.
+
 Compartment C
 This car is full of berths. There are berths that line the corridor on both
 sides. The berths are small bunks with curtains to provide privacy.  The
@@ -77,6 +80,7 @@ walls appear as if they are being shook by a small earthquake.
 You can move north, east, south, west and up.
 
 >You move south.
+
 Lavatory Car
 This car provides bathrooms for the passengers. Doors line both sides of the
 corridor.
@@ -87,6 +91,7 @@ earthquake.
 You can move north, east, south and west.
 
 >You move east.
+
 Compartment A bathrooms
 This is a fairly large bathroom. It has all the usual features. A toilet,
 sink, mirror, and this one happens to have a shower.  The walls appear as if
@@ -104,6 +109,7 @@ quickly dry them on your pants.
 May be you should see someone about your compulsive behavior.
 
 >You move in.
+
 Compartment A shower
 It is a standard shower. There are knobs, a drain, a showerhead. What did you
 expect?  The walls appear as if they are being shook by a small earthquake.
@@ -118,6 +124,7 @@ You seem to instantly dry, and grab your clothes and put them on. You feel so
 much better now.
 
 >You move out.
+
 Compartment A bathrooms
 This is a fairly large bathroom. It has all the usual features. A toilet,
 sink, mirror, and this one happens to have a shower.  The walls appear as if
@@ -126,6 +133,7 @@ they are being shook by a small earthquake.
 You can move west and in.
 
 >You move west.
+
 Lavatory Car
 This car provides bathrooms for the passengers. Doors line both sides of the
 corridor.
@@ -136,6 +144,7 @@ earthquake.
 You can move north, east, south and west.
 
 >You move south.
+
 Dining Car
 This train car provides a relaxing place to enjoy a meal.  Small tables and a
 few booths take up the space in this room.  This car also has a kitchen built
@@ -170,6 +179,7 @@ You being a wise guy decide to give the waiter a tip. You look at him and say
  "Here's a tip for ya, pal.  Never jump off a moving train."
 
 >You move south.
+
 Lounge Car
 This is the lounge. Many passengers enjoy a drink or two here. There is a bar
 at the far end. There are many cocktail tables and chairs.
@@ -207,6 +217,7 @@ The train begins to slow. You are sure that you must be arriving in
 Hopeimakeit.
 
 >You move north.
+
 Dining Car
 This train car provides a relaxing place to enjoy a meal.  Small tables and a
 few booths take up the space in this room.  This car also has a kitchen built
@@ -221,6 +232,7 @@ You can move north and south.
 Ivanna Stiffdrink walks towards you from the south.
 
 >You move north.
+
 Lavatory Car
 This car provides bathrooms for the passengers. Doors line both sides of the
 corridor.
@@ -236,6 +248,7 @@ Ivanna Stiffdrink walks towards you from the south.
 You lunge slightly to counteract the force of the train coming to a stop.
 
 >You move north.
+
 Compartment C
 This car is full of berths. There are berths that line the corridor on both
 sides. The berths are small bunks with curtains to provide privacy.
@@ -245,6 +258,7 @@ You can move north, east, south, west and up.
 Ivanna Stiffdrink walks towards you from the south.
 
 >You move north.
+
 Compartment B
 This is another train car full of compartments. Doors line the corridor. The
 compartments are numbered B1-B20.  The corridor is empty
@@ -256,6 +270,7 @@ You can move north and south.
 Ivanna Stiffdrink walks towards you from the south.
 
 >You move north.
+
 Compartment A
 This is the section of train that the compartments are located in. The
 compartments are much nicer than berths. They also provide privacy. Doors
@@ -267,6 +282,7 @@ You can move north, south, west and out.
 Ivanna Stiffdrink walks towards you from the south.
 
 >You move out.
+
 HopeImakeit Station
 The Hopeimakeit station seems deserted. The platform is empty,  the streets
 are empty.  The only thing in sight is a public telephone.
@@ -285,6 +301,7 @@ friend, you'd better better get the cash from the address you found on that
 card. You don't have much time."
 
 >You move west.
+
 Up the Creek Road
 This is the seedy part of town. There are long been closed shops that line
 the street on both sides. Most are boarded up. You can't help but have the
@@ -296,6 +313,7 @@ You can move north and east.
 Ivanna Stiffdrink walks towards you from the east.
 
 >You move north.
+
 Booze Barn
 This is Ivanna's favorite place. It is a large red building that looks much
 like a country barn. There is walk up window. They had to close the doors to
@@ -327,6 +345,7 @@ looks at you with caring eyes. Or maybe drunken eye's.  Ivanna goes limp in
 your arms.  Moments later Habibo  takes Ivanna's lifeless body away.
 
 >You move west.
+
 Warehouse
 This is the warehouse where you assume that the Big Boss does his business.
 It is dark and musty. Every now and then you can see something moving out of

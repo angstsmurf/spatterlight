@@ -24,6 +24,7 @@ into two, and the gate is missing entirely. The pitiful remnants of the
 village lie north, through the wall.
 
 >You move north.
+
 The Center of the Village
 This is the center of the village, which apparently served as a trading post
 of sorts to cater to the caravans that passed through. Burnt shells of houses
@@ -33,12 +34,14 @@ assume that it was not the source of this trouble, your mentor would belt you
 one up the head.
 
 >You move east.
+
 Near Some Houses
 Nearby are two houses. There is one to the north, which really isn't so much
 a house anymore as it is a foundation, and one to the south, which is at
 least intact, if not habitable. The center of the village lies back west.
 
 >You move south.
+
 A House
 This house, while burnt and broken, is still standing. The stench of rotten
 flesh hangs in the air, however, and the reason is obvious; a corpse lies
@@ -49,12 +52,14 @@ the north.
 >You take the ceramic plate from the table.
 
 >You move north.
+
 Near Some Houses
 Nearby are two houses. There is one to the north, which really isn't so much
 a house anymore as it is a foundation, and one to the south, which is at
 least intact, if not habitable. The center of the village lies back west.
 
 >You move north.
+
 A Foundation
 This house is long gone. The only thing left is the stone foundation that the
 house was built on. You can pick your way back out to the south.
@@ -62,12 +67,14 @@ house was built on. You can pick your way back out to the south.
 >You take the small flask of water from the stone foundation.
 
 >You move south.
+
 Near Some Houses
 Nearby are two houses. There is one to the north, which really isn't so much
 a house anymore as it is a foundation, and one to the south, which is at
 least intact, if not habitable. The center of the village lies back west.
 
 >You move west.
+
 The Center of the Village
 This is the center of the village, which apparently served as a trading post
 of sorts to cater to the caravans that passed through. Burnt shells of houses
@@ -77,6 +84,7 @@ assume that it was not the source of this trouble, your mentor would belt you
 one up the head.
 
 >You move north.
+
 Inside the Church
 This church is dead; you felt it as soon as you stepped in. What appears to
 be a pile of the pews lies against the wall, blackened and charred. The
@@ -91,6 +99,7 @@ swirling black light and smoke. An evil aura spreads out from here, and you
 hear a demonic cackle from the far western part of the village.
 
 >You move south.
+
 The Center of the Village
 This is the center of the village, which apparently served as a trading post
 of sorts to cater to the caravans that passed through. Burnt shells of houses
@@ -101,6 +110,7 @@ one up the head.
 
 >(Your score has increased by 1)
 You move west.
+
 A Field of Corn
 You are surrounded by several acres of corn field. Many years of harvest,
 drought, and erosion show here; the soil is crumbly and dry, and shreds of

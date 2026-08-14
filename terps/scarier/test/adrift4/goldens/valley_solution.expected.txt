@@ -75,6 +75,7 @@ can talk the miners into at least giving you a chance."
 >You pick up the pair of gardening gloves.
 
 >You move east.
+
 Happy Valley
 You stand next to a large wooden sign at the end of a grassy, well-manicured
 path that leads south through an artfully tangled grove of trees growing at
@@ -89,6 +90,7 @@ boulders slopes steeply upward.
 kind of prickly.
 
 >You move north.
+
 Beneath the Great Oak
 On closer inspection, you'd have to say the Great Oak could more accurately
 be called the Average Oak, but you suppose that doesn't have quite the same
@@ -112,6 +114,7 @@ interesting to do.
 quickly (and painfully) than you got up it.
 
 >You move south.
+
 Happy Valley
 You stand next to a large wooden sign at the end of a grassy, well-manicured
 path that leads south through an artfully tangled grove of trees growing at
@@ -123,6 +126,7 @@ cottage, while to the west, a pitted stone cliff surrounded by a cluster of
 boulders slopes steeply upward.
 
 >You move east.
+
 Outside the Cottage
 The small cottage is made of sand-colored bricks and has a roof of wooden
 shingles. Leading up to the door is a cobbled walkway lined by perfectly
@@ -139,6 +143,7 @@ You marvel at the fact that so many letters were able to fit on such a tiny
 berry. Nature is truly a wondrous thing.
 
 >You move east.
+
 Curator's Office
 It's rather jarring how the outwardly adorable little cottage loses its
 quaint visage the moment you step inside. The interior is lit by harsh
@@ -167,6 +172,7 @@ The text trails off into an unreadable squiggle at the end.
 >You take the empty plastic cup from the waste basket.
 
 >You move east.
+
 Bathroom
 A tiny cramped bathroom painted a fascinating shade of beige and containing a
 sink and a toilet. Your office is back to the west.
@@ -178,6 +184,7 @@ it.
 person you are.
 
 >You move west.
+
 Curator's Office
 It's rather jarring how the outwardly adorable little cottage loses its
 quaint visage the moment you step inside. The interior is lit by harsh
@@ -211,6 +218,7 @@ Just as you finish, a small bird-shaped blur swoops in, kicks you in the
 knee, pecks you in the eyeball, and flies off with your pen. What a dick.
 
 >You move west.
+
 Outside the Cottage
 The small cottage is made of sand-colored bricks and has a roof of wooden
 shingles. Leading up to the door is a cobbled walkway lined by perfectly
@@ -225,6 +233,7 @@ makes you scream like a little girl.
 >You pick up the crate.
 
 >You move west.
+
 Happy Valley
 You stand next to a large wooden sign at the end of a grassy, well-manicured
 path that leads south through an artfully tangled grove of trees growing at
@@ -236,6 +245,7 @@ cottage, while to the west, a pitted stone cliff surrounded by a cluster of
 boulders slopes steeply upward.
 
 >You move south.
+
 Thicket
 The path you're on meanders back and forth among tall, silver-barked trees,
 and the incessant singing of birds fills the air around you. Wildflowers
@@ -255,6 +265,7 @@ That was fun! After all this is over you might just take up gardening after
 all...
 
 >You move north.
+
 Happy Valley
 You stand next to a large wooden sign at the end of a grassy, well-manicured
 path that leads south through an artfully tangled grove of trees growing at
@@ -266,6 +277,7 @@ cottage, while to the west, a pitted stone cliff surrounded by a cluster of
 boulders slopes steeply upward.
 
 >You move west.
+
 Outside the Mine
 A lovely rock garden consisting of boulders of varying sizes has been
 artfully arranged right at the foot of this steeply sloping mountainside that
@@ -343,6 +355,7 @@ the brim and presses it into your hands. "Now, just go give this to that
 cranky old dragon and it should send her off to dreamland for a bit."
 
 >You move west.
+
 Gnomish Mines
 Here the cave widens out to a large, roughly triangular chamber. Twisty
 little tunnels wind off in all directions, but the widest and most
@@ -404,6 +417,7 @@ moment later there is a massive THUD that makes the whole cavern shake, and
 when you look again the dragon is sprawled out and snoring.
 
 >You move south.
+
 Silverbeard's Smithy
 As one might expect in a smithy, a large anvil and forge dominate the center
 of this dim and cluttered room. A small desk squats in one corner, looking
@@ -485,6 +499,7 @@ gold..."
 something real for my hoard."
 
 >You move north.
+
 Gnomish Mines
 Here the cave widens out to a large, roughly triangular chamber. Twisty
 little tunnels wind off in all directions, but the widest and most
@@ -502,6 +517,7 @@ to...sometimes there's just no reasoning with her and we have to give 'er a
 sleeping potion just to get by."
 
 >You move east.
+
 Happy Valley
 You stand next to a large wooden sign at the end of a grassy, well-manicured
 path that leads south through an artfully tangled grove of trees growing at
@@ -513,6 +529,7 @@ cottage, while to the west, a pitted stone cliff surrounded by a cluster of
 boulders slopes steeply upward.
 
 >You move south.
+
 Thicket
 The path you're on meanders back and forth among tall, silver-barked trees,
 and the incessant singing of birds fills the air around you. Wildflowers
@@ -577,6 +594,7 @@ He's actually much louder than the bird recordings were in the first place,
 but you have to admit he has a lovely singing voice. Eunuch?
 
 >You move west.
+
 Outside the Mine
 A lovely rock garden consisting of boulders of varying sizes has been
 artfully arranged right at the foot of this steeply sloping mountainside that
@@ -589,6 +607,7 @@ the entrance.  Foreman Fogofoogo is here, reading over a list of complaints
 and muttering to himself.
 
 >You move west.
+
 Gnomish Mines
 Here the cave widens out to a large, roughly triangular chamber. Twisty
 little tunnels wind off in all directions, but the widest and most
@@ -601,6 +620,7 @@ Several little wheelbarrows filled with ore and mining tools sit abandoned
 here.
 
 >You move south.
+
 Tunnel
 This otherwise non-descript tunnel is currently packed so tightly with dragon
 -- not to mention the fabulous treasure the dragon is lying on -- that

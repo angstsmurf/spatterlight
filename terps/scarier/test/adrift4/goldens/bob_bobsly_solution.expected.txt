@@ -18,6 +18,7 @@ You take out your laser writer and scribble your name on the guest list, oh
 yeah, and Don's.
 
 >You move north.
+
 Dancefloor of Nightclub
 You are on the dance floor of the nightclub. Go back south to get outside. To
 the east is the bar where the bartender is serving drinks. To the west is the
@@ -27,6 +28,7 @@ This place sure is packed.
 You can move east, south, west and up.
 
 >You move east.
+
 The Bar
 This is the bar. There are some drunk people sitting on there bar stools
 guzzlin down on some martini's. The bartender is making drinks. There is a
@@ -41,6 +43,7 @@ You can only move west.
 >You pick up wad of gum.
 
 >You move west.
+
 Dancefloor of Nightclub
 You are on the dance floor of the nightclub. Go back south to get outside. To
 the east is the bar where the bartender is serving drinks. To the west is the
@@ -50,6 +53,7 @@ This place sure is packed.
 You can move east, south, west and up.
 
 >You move west.
+
 Mens Toilets
 This is the Gents, and a stinky gents at that. There are a few, ahem,
 occupants at the cubicles. You are feeling the urge to use one of the
@@ -58,6 +62,7 @@ cubicles. The cubicles are to the west.
 You can move east and west.
 
 >You move west.
+
 Cubicle
 An unocupied cubicle with a crapper.  There is an air vent above the toilet
 that looks a little loose.
@@ -72,12 +77,14 @@ You stand on the dunny and remove the air vent cover. It seems to lead
 upwards.
 
 >You move west.
+
 Air Vent
 A long airvent tunneling all the way to the north.
 
 You can move north and east.
 
 >You move north.
+
 Air Vent Section
 After a few minutes of crawling you arrive at a section which has another
 grate. You remove it. It isn't a long drop to the ground.
@@ -102,6 +109,7 @@ Come quickly! To get out of the office type beam me up scotty.
 Strangley enough it works! You warp back into the dancefloor!
 
 >You move up.
+
 Upstairs
 Upstairs is a large door guarded by a guard. He is looking tired and there is
 a coffee machine next to him. "Hey buddy, could you give me a coffee? There
@@ -120,6 +128,7 @@ You give the coffee to the guard and he takes a sip. He falls over instanly
 paralyzed. Time to make your sneak!
 
 >You move north.
+
 Secret Lab
 The long secret lab! In the corner is Ihava! He is sitting near a Wapromatic
 5000 warp machine, or so stated by the large fluro sign! He is holding a

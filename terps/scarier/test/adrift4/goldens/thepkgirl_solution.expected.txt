@@ -41,6 +41,7 @@ mall.  Having an atmosphere conducive to pleasant joviality, Majesty Mall has
 always been a popular hangout, especially among the youth of Rittersburg
 City.  However, your particular reason for stopping in tonight is to sample
 again the ice cream served by the best ice cream parlor in town.
+
 Front of Mall
     Although four-wheeled vehicles do pass through, this autonomous spot of
 pavement is too narrow a place for them to stall.  It is just right for
@@ -58,6 +59,7 @@ You move north.
 made it possible for you to take this detour on your way back this evening.
 If what you have seen of the city so far is representative of it, quality ice
 cream parlors are only one element of an altogether agreeable place to live.
+
 Mall Entrance
     You stand at the mall's canopied entrance.  There are retaining walls on
 either side leading up to an open double doorway just northward.  These doors
@@ -99,6 +101,7 @@ to the north.  The mall's exit is south.
     A happy-looking couple walks by, the girl leaning on the guy's shoulder.
 
 >You move north.
+
 Majesty Mall Center
     This, the center of the mall, is occupied and graced by a beautiful
 fountain around which is a bench that patrons may sit on to rest or to wait
@@ -108,6 +111,7 @@ continues on north and south.
     A girl is sitting on the bench with her hands in the lap of her dress.
 
 >You move west.
+
 Ice Cream Parlor
     The ice cream served in this shop is excellent;  it more than justifies a
 trip to this mall, even if the route is slightly out of the way.  Ordering a
@@ -203,6 +207,7 @@ follow you.
 
 >
 >You rush out into the mall...
+
 Majesty Mall Center
     This, the center of the mall, is occupied and graced by a beautiful
 fountain around which is a bench that patrons may sit on to rest or to wait
@@ -216,6 +221,7 @@ flurry of kidnappers exiting the mall.
     Laurie follows you from the west.
 
 >You run in the direction that the kidnappers have fled...
+
 Majesty Mall South End
     The interior of the mall is spacious, with several yards separating the
 shops on the west from the shops on the east.  The ceiling, too, reaches to a
@@ -227,6 +233,7 @@ to the north.  The mall's exit is south.
 
 >You move south.
     As you leave the mall you can see a helicopter lifting off ahead.
+
 Mall Entrance
     You stand at the mall's canopied entrance.  There are retaining walls on
 either side leading up to an open double doorway just northward.  These doors
@@ -241,6 +248,7 @@ up passenger or party.
     The helicopter elevates and turns to face west in the direction of the
 city.  Perhaps you could follow it on your...?!   Someone has sabotaged your
 motorcycle!
+
 Front of Mall
     Although four-wheeled vehicles do pass through, this autonomous spot of
 pavement is too narrow a place for them to stall.  It is just right for
@@ -296,6 +304,7 @@ Your motorcycle is parked here.
 
 >(Getting off your motorcycle first)
 You move east.
+
 Bridge Landing
     The bridge that supports the road that you traveled by to reach these
 parts of the city begins here and continues on to the east.  It is possible
@@ -307,6 +316,7 @@ barely see the lights of the city.
     Laurie has climbed down from your motorcycle.
 
 >Laurie climbs over the railing with you...
+
 Top of the Hill
     You are at the top of a grassy hill that overlooks the city to the north
 and west, and the river to the east.  The view might be considered romantic
@@ -330,6 +340,7 @@ parents away.... " Her voice trails off.
 3) "We'll get her back.  I promise."
 
 >You move west.
+
 Bottom of the Hill
     Down here where the slope lessens, very little can be seen of the city,
 the river, or anything.  Some largish stones are embedded into the ground at
@@ -339,6 +350,7 @@ can be reached by travelling to the west.
     Laurie follows you from the east.
 
 >You move west.
+
 Vacant Lot
     This is a small parking lot, or something of that nature.  It is not
 clear exactly what the space is used for, if anything, as there are no
@@ -349,6 +361,7 @@ travellers and old ladies.
     Laurie follows you from the east.
 
 >You move north.
+
 Deserted Street
     This back street runs through a mostly deserted part of town.  The
 neighborhood is not a nice one and probably not a friendly one either.  The
@@ -362,6 +375,7 @@ the east the river is almost visible.  The street continues on west.
 too quiet", she whispers.
 
 >You move west.
+
 Street in Front of Bar
     The street continues on east and west.   The area north is occupied by a
 dingy bar.  To the south is an alley.  A solitary lamppost stands at a
@@ -441,6 +455,7 @@ maybe during Christmas."
     "Notin' else worth spendin' money on", grunts Samson explanatorily.
 
 >You move south.
+
 Street in Front of Bar
     The street continues on east and west.   The area north is occupied by a
 dingy bar.  To the south is an alley.  A solitary lamppost stands at a
@@ -458,6 +473,7 @@ bars."
 3) "Yes, I'm sorry about that."
 
 >You move south.
+
 Alley East of Building
     This is the east side of the large grey building.  It is especially dark
 here in the shadows provided by the building's wall.  The alley continues
@@ -513,6 +529,7 @@ Laurie is waiting for you under the lamppost.
     A loud alarm is ringing.
 
 >You move south.
+
 Long Hall South
    You are in the hallway of an office building running north to south and
 you don't have a lot of time to look around!  Rather than entering one of the
@@ -525,6 +542,7 @@ junction up ahead.
     A loud alarm is ringing.
 
 >You move south.
+
 Hallway Junction
     This is where the north-south hallway ends.  Running perpendicular to it
 is a similar-looking hallway which extends east and west for an
@@ -542,6 +560,7 @@ runs in your direction.
 behind.
 
 >You move east.
+
 Long Hall East
     The hallway continues east and west, with the entrance to some darkened
 room to the south.
@@ -557,6 +576,7 @@ in there!"
     A loud alarm is ringing.
 
 >You move south.
+
 Supply Room
     Light from the hallway north of you allows you to quickly observe the
 following features in this closet-type room.  There is a filing cabinet in
@@ -568,6 +588,7 @@ window with curtains stands to the south.
     An alarm can be heard in the halls outside.
 
 >You push aside the curtains and step through the window.
+
 Standing Outside the East Window
     You are standing on a windowsill that continues to the west.  North
 through the window is the room from which you stepped out of.  South of you
@@ -582,6 +603,7 @@ insignificant.
 
 >You move west along the windowsill.  As you do so, you hear the curtains
 close in the room you came from.
+
 On the Windowsill
     You are standing on a windowsill, hugging the north wall to keep from
 falling.  South of you is the exterior wall of some other part of the
@@ -600,6 +622,7 @@ closed."
     The voices fade out.
 
 >You move west.
+
 Standing Outside the West Window
     You are standing on a windowsill that continues to the east.  North
 through the window is a darkened room.  Opposite you to the south is the wall
@@ -610,6 +633,7 @@ of some other part of the building.
 >You step through the window.
 
     Laurie follows you through the window and then stops.
+
 Copy Room
     There are no furnishings here other than a copy machine in one corner and
 stacks of papers all around.  To the north is the main hallway.  There are
@@ -641,6 +665,7 @@ to gather herself.
     An alarm can be heard in the halls outside.
 
 >You move west.
+
 An Office
     This is a one-person office with a nice carpet and a desk.  There is a
 swivel chair beside the desk.  Underneath the desk is a large cardboard box.
@@ -670,6 +695,7 @@ Laurie is waiting for you under the lamppost.
 
 >As you move forward you can hear the cries of a girl from up ahead.  You and
 Laurie crouch behind some furniture that is at hand and survey the scene.
+
 Behind the Furniture
     This is where the cellar passageway from the south opens into a spacious
 room to the west.   Pipes hang from the ceiling.  Some miscellaneous
@@ -763,6 +789,7 @@ able to do all that."
 2) "C'mon, let's get you girls to safety."
 
 >You move north.
+
 Cellar Annex
     Light cast from the large room to the south permits some visibility in
 this dark cellar passageway that leads north.  Pipes hang from the ceiling.
@@ -775,6 +802,7 @@ Also here is the chest freezer.
     Cassie follows you from the south.
 
 >You move north.
+
 Passageway End
     The passageway ends here at a ladder ascending to a circular hatch on the
 ceiling.  In fact, it is the underside of a manhole.  Not shocking since the
@@ -841,6 +869,7 @@ Friends and Clues
 You and your passengers arrive at the front of a house that Laurie indicates
 is the place where her friend lives.  You park your motorcycle and the girls
 dismount.
+
 Front of Monika's House
     The house before you is not large, nor is it attractive in any way other
 than in the domestic atmosphere that permeates it, made possible by
@@ -1005,6 +1034,7 @@ east.  The front door is west.
 
 >(Getting off the couch first)
 You move south.
+
 Dining Room
     A dining table stands before a broad window with curtains, which serves
 to make mealtimes pleasant when the weather is nice, and comfortable when it
@@ -1015,6 +1045,7 @@ centerpiece.
     You smell good food nearby.
 
 >You move east.
+
 Kitchen
     Monika's kitchen sports the usual accommodations, including a counter, a
 sink, and a stovetop.  A toaster sits at one end of the counter like a book
@@ -1077,6 +1108,7 @@ sort of make with confidence", says Laurie.
     Laurie walks away to the west.
 
 >You move west.
+
 Dining Room
     A dining table stands before a broad window with curtains, which serves
 to make mealtimes pleasant when the weather is nice, and comfortable when it
@@ -1139,6 +1171,7 @@ sisters quite like this before.  But it is a good sign that the both of them
 are able to laugh at all after last night's events.
 
 >You move north.
+
 Living Room
     Monika's living room is satisfactorily filled with the amenities that any
 home sweet home must include, such as a couch, a coffee table, a rug, and
@@ -1147,6 +1180,7 @@ space opens up to a dining area to the south, and an area with a stairway
 east.  The front door is west.
 
 >You leave the house, closing the door behind you.
+
 Front of Monika's House
     The house before you is not large, nor is it attractive in any way other
 than in the domestic atmosphere that permeates it, made possible by
@@ -1176,6 +1210,7 @@ also apartments to the west and east, spaced at a less than neighborly
 distance apart.  Your motorcycle is parked here.
 
 >You open the door and enter the apartment.
+
 Inside Apartment
     The interior of Ethan's apartment is hopelessly messy.  Boxes of junk,
 appliances, furniture, and miscellaneous objects have been heaped up or left
@@ -1187,6 +1222,7 @@ you hear the sounds of typing at a keyboard.  The exit to the apartment is
 north.
 
 >You move down.
+
 Ethan's Den
     The downstairs of Ethan's apartment is only slightly less cluttered than
 above.  Since the room is smaller, it actually feels even more crammed down
@@ -1227,6 +1263,7 @@ that, I'll tell you everything you want to know about this organization from
 what their taxes were last year to where they go to do their laundry."
 
 >You move up.
+
 Inside Apartment
     The interior of Ethan's apartment is hopelessly messy.  Boxes of junk,
 appliances, furniture, and miscellaneous objects have been heaped up or left
@@ -1238,6 +1275,7 @@ you hear the sounds of typing at a keyboard.  The exit to the apartment is
 north.
 
 >You leave the apartment, closing the door behind you.
+
 Front of Ethan's
     You stand at a plain concrete apartment complex.  The door to the south
 of you is where, according to Laurie's directions, Ethan lives.  There are
@@ -1264,6 +1302,7 @@ The route back to Monika's was not minutely engraved in your mind and you
 nearly took a wrong turn at several places.  But at the sight of the quaint
 little blue house all dubiety is dissolved.  Laurie will be waiting for you
 inside.
+
 Front of Monika's House
     The house before you is not large, nor is it attractive in any way other
 than in the domestic atmosphere that permeates it, made possible by
@@ -1281,6 +1320,7 @@ space opens up to a dining area to the south, and an area with a stairway
 east.  The front door is west.
 
 >You move east.
+
 By the Stairs
     The stairway here ascends up to a second floor.  To the west is the
 living room, to the south is the kitchen, and a door stands before a bedroom
@@ -1289,6 +1329,7 @@ to the east.
 An air freshener is on the wall here.
 
 >You move south.
+
 Kitchen
     Monika's kitchen sports the usual accommodations, including a counter, a
 sink, and a stovetop.  A toaster sits at one end of the counter like a book
@@ -1346,6 +1387,7 @@ sees?  Well, hmm, I guess he could do that."
 couldn't be more sincere about it.
 
 >You move north.
+
 By the Stairs
     The stairway here ascends up to a second floor.  To the west is the
 living room, to the south is the kitchen, and a door stands before a bedroom
@@ -1354,6 +1396,7 @@ to the east.
 An air freshener is on the wall here.
 
 >You move west.
+
 Living Room
     Monika's living room is satisfactorily filled with the amenities that any
 home sweet home must include, such as a couch, a coffee table, a rug, and
@@ -1362,6 +1405,7 @@ space opens up to a dining area to the south, and an area with a stairway
 east.  The front door is west.
 
 >You leave the house, closing the door behind you.
+
 Front of Monika's House
     The house before you is not large, nor is it attractive in any way other
 than in the domestic atmosphere that permeates it, made possible by
@@ -1390,6 +1434,7 @@ The traffic kept increasing all the way up here to the point where being on
 one's feet was wholly preferable to the stop and go of travel by motor
 vehicle.  At last you were able to find a spot beside the road with no
 competition for parking space.  You bring your bike to a rest.
+
 Avenue
     Small shops line the side of the walk through this, the trendier part of
 the city of Rittersburg.  The avenue runs east-west, with people passing by
@@ -1399,6 +1444,7 @@ Your motorcycle is parked along the street.
 
 >(Getting off your motorcycle first)
 You move north.
+
 Intersection
     You stand in the midst of a spacious four-way crossing for pedestrians
 only.  Numerous people walk past you in every which direction, their
@@ -1446,6 +1492,7 @@ destinations not deducible from reading only their faces.  The patter of feet
 on pavement is heard continually.
 
 >You move south.
+
 Avenue
     Small shops line the side of the walk through this, the trendier part of
 the city of Rittersburg.  The avenue runs east-west, with people passing by
@@ -1454,6 +1501,7 @@ It seems to be the fountain from which much of the traffic flows to or from.
 Your motorcycle is parked along the street.
 
 >You move east.
+
 By the Cafe
     The avenue from the west ends here beside a fashionable cafe with a row
 of rose bushes in front.  A couple tables with chairs have been set up for
@@ -1464,6 +1512,7 @@ displaying the cafe's name.  The city continues to the north.
 
     "Have a seat", says the woman at the table.  She has not looked up but it
 is clear she is speaking to you.
+
 Cafe
     The interior of this cafe is lit primarily by a tiny window on the east
 wall; the place really doesn't seem to require any more lighting than that.
@@ -1538,6 +1587,7 @@ count on you."
 >You leave the cafe.
 
     You do not see Katryn anywhere.
+
 By the Cafe
     The avenue from the west ends here beside a fashionable cafe with a row
 of rose bushes in front.  A couple tables with chairs have been set up for
@@ -1545,6 +1595,7 @@ the occasional outdoor diner, and there is a folded sign on the ground
 displaying the cafe's name.  The city continues to the north.
 
 >You move west.
+
 Avenue
     Small shops line the side of the walk through this, the trendier part of
 the city of Rittersburg.  The avenue runs east-west, with people passing by
@@ -1593,6 +1644,7 @@ also apartments to the west and east, spaced at a less than neighborly
 distance apart.  Your motorcycle is parked here.
 
 >You open the door and enter the apartment.
+
 Inside Apartment
     The interior of Ethan's apartment is hopelessly messy.  Boxes of junk,
 appliances, furniture, and miscellaneous objects have been heaped up or left
@@ -1604,6 +1656,7 @@ you hear the sounds of typing at a keyboard.  The exit to the apartment is
 north.
 
 >You move down.
+
 Ethan's Den
     The downstairs of Ethan's apartment is only slightly less cluttered than
 above.  Since the room is smaller, it actually feels even more crammed down
@@ -1647,6 +1700,7 @@ it now.    Anyways, you may want to come back later."
 
 >As you turn to go, Ethan says, "Bring Laurie with you next time.  I'd sure
 like to see her."
+
 Inside Apartment
     The interior of Ethan's apartment is hopelessly messy.  Boxes of junk,
 appliances, furniture, and miscellaneous objects have been heaped up or left
@@ -1658,6 +1712,7 @@ you hear the sounds of typing at a keyboard.  The exit to the apartment is
 north.
 
 >You leave the apartment, closing the door behind you.
+
 Front of Ethan's
     You stand at a plain concrete apartment complex.  The door to the south
 of you is where, according to Laurie's directions, Ethan lives.  There are
@@ -1684,6 +1739,7 @@ You arrive back at Monika's without incident...
 
 It's good to be getting back, and this not only for anticipation of delicious
 homemade cooking.
+
 Front of Monika's House
     The house before you is not large, nor is it attractive in any way other
 than in the domestic atmosphere that permeates it, made possible by
@@ -1705,6 +1761,7 @@ east.  The front door is west.
 Sheesh, I've been so bored here."
 
 >You move east.
+
 By the Stairs
     The stairway here ascends up to a second floor.  To the west is the
 living room, to the south is the kitchen, and a door stands before a bedroom
@@ -1713,6 +1770,7 @@ to the east.
 An air freshener is on the wall here.
 
 >You move south.
+
 Kitchen
     Monika's kitchen sports the usual accommodations, including a counter, a
 sink, and a stovetop.  A toaster sits at one end of the counter like a book
@@ -1856,6 +1914,7 @@ tortillas and folding the tortillas.
     Monika walks away to the west.
 
 >You move north.
+
 By the Stairs
     The stairway here ascends up to a second floor.  To the west is the
 living room, to the south is the kitchen, and a door stands before a bedroom
@@ -1864,6 +1923,7 @@ to the east.
 An air freshener is on the wall here.
 
 >You move east.
+
 Bedroom
     This small room contains only a bed and a nightstand with a mirror.  All
 has been kept clean.  Either Monika gets guests often or she simply doesn't
@@ -1876,6 +1936,7 @@ Laurie is waiting for you under the lamppost.
 nap", she confesses.
 
 >You move west.
+
 By the Stairs
     The stairway here ascends up to a second floor.  To the west is the
 living room, to the south is the kitchen, and a door stands before a bedroom
@@ -1886,6 +1947,7 @@ An air freshener is on the wall here.
     Laurie walks in from the east.
 
 >You move west.
+
 Living Room
     Monika's living room is satisfactorily filled with the amenities that any
 home sweet home must include, such as a couch, a coffee table, a rug, and
@@ -1894,6 +1956,7 @@ space opens up to a dining area to the south, and an area with a stairway
 east.  The front door is west.
 
 >You move south.
+
 Dining Room
     A dining table stands before a broad window with curtains, which serves
 to make mealtimes pleasant when the weather is nice, and comfortable when it
@@ -2026,6 +2089,7 @@ another toss.
 
 >(Getting off the chairs first)
 You move north.
+
 Living Room
     Monika's living room is satisfactorily filled with the amenities that any
 home sweet home must include, such as a couch, a coffee table, a rug, and
@@ -2034,6 +2098,7 @@ space opens up to a dining area to the south, and an area with a stairway
 east.  The front door is west.
 
 >You leave the house, closing the door behind you.
+
 Front of Monika's House
     The house before you is not large, nor is it attractive in any way other
 than in the domestic atmosphere that permeates it, made possible by
@@ -2065,6 +2130,7 @@ also apartments to the west and east, spaced at a less than neighborly
 distance apart.  Your motorcycle is parked here.
 
 >You open the door and enter the apartment.
+
 Inside Apartment
     The interior of Ethan's apartment is hopelessly messy.  Boxes of junk,
 appliances, furniture, and miscellaneous objects have been heaped up or left
@@ -2076,6 +2142,7 @@ you hear the sounds of typing at a keyboard.  The exit to the apartment is
 north.
 
 >You move down.
+
 Ethan's Den
     The downstairs of Ethan's apartment is only slightly less cluttered than
 above.  Since the room is smaller, it actually feels even more crammed down
@@ -2099,6 +2166,7 @@ programs I'm using.  Unless you've got something that could help speed up the
 process?  You probably wouldn't, huh."
 
 >You move up.
+
 Inside Apartment
     The interior of Ethan's apartment is hopelessly messy.  Boxes of junk,
 appliances, furniture, and miscellaneous objects have been heaped up or left
@@ -2110,6 +2178,7 @@ you hear the sounds of typing at a keyboard.  The exit to the apartment is
 north.
 
 >You leave the apartment, closing the door behind you.
+
 Front of Ethan's
     You stand at a plain concrete apartment complex.  The door to the south
 of you is where, according to Laurie's directions, Ethan lives.  There are
@@ -2137,6 +2206,7 @@ You arrive at the Industrial District...
 It has grown quite dark by the time you pull up by the back door of the site.
  The door is open.  The time designated for your clandestine meeting with
 Katryn is at hand.
+
 Outside the Site
     This is the back entrance to an industrial site situated to the west,
 most of which cannot be seen past a high stone wall, save for a distant
@@ -2145,6 +2215,7 @@ does not open by the use of knob or handle, as these conventions are not
 present.  Your motorcycle is parked here.
 
 >You enter the site.
+
 Industrial Square
     This large open area is punctuated here and there by oil drums, scattered
 steel beams, and miscellaneous machinery.  The sweat and the sounds of labor
@@ -2156,6 +2227,7 @@ open wide.
     Upon your entering the door slides shut with force behind you.
 
 >You enter the warehouse.
+
 Warehouse
     This room is quite large.  The greater part of it is filled with tightly
 packed rows of crates stacked tall and neatly.  An empty aisle exists between
@@ -2276,6 +2348,7 @@ finally silence in the room.  You are unhurt in any way.
 >You climb onto the ledge.
 
 >You walk south along the ledge, through a doorway into the adjoining room.
+
 Back Room
     The room adjoining the main warehouse is much smaller, but just as poorly
 lit.  The ledge continues along the north and east walls.  From an opening in
@@ -2286,6 +2359,7 @@ or down by means of a length of chain.
 
 >You step out onto several large mounds of scrap metal.  Your position is
 precarious so you skip your way down to the ground...
+
 Scrapyard
     Tall mounds of scrap metal encompass this ground.  Standing in the midst
 of them you experience the effect of falling endlessly down a pit with walls
@@ -2293,6 +2367,7 @@ of glistening metal.  Beyond these mounds rise long buildings.  One of them
 closely borders some of the scrap piles.  An open area is north.
 
 >You move north.
+
 Industrial Square
     This large open area is punctuated here and there by oil drums, scattered
 steel beams, and miscellaneous machinery.  The sweat and the sounds of labor
@@ -2301,6 +2376,7 @@ to the east is the doorway that marks the back entrance to this site.  To the
 immediate west lies a windowless brown building.
 
 >You move east.
+
 Outside the Site
     This is the back entrance to an industrial site situated to the west,
 most of which cannot be seen past a high stone wall, save for a distant
@@ -2334,6 +2410,7 @@ A motorcycle has pulled up in the middle of the road, crossing both
 lanes--your motorcycle.  The engine is still going.   A woman that you
 recognize sits in the vehicle.  She speaks.
     "Good evening, handsome.  How 'bout a ride?"
+
 Road at Night
     You've come this far by foot on a lonesome road that runs straight for a
 great distance.   A thick forest of dark and unsightly trees borders it on
@@ -2404,6 +2481,7 @@ Press enter to continue
 
 It's early morning by the time you arrive back at Monika's house.  The sun is
 just barely beginning to emerge above the horizon..
+
 Front of Monika's House
     The house before you is not large, nor is it attractive in any way other
 than in the domestic atmosphere that permeates it, made possible by
@@ -2431,6 +2509,7 @@ You arrive and park in front of Ethan's...
 
 Already things look bad.  The front door of Ethan's apartment has been flung
 open, but there is nobody in sight.
+
 Front of Ethan's
     You stand at a plain concrete apartment complex.  The door to the south
 of you is where, according to Laurie's directions, Ethan lives.  There are
@@ -2438,6 +2517,7 @@ also apartments to the west and east, spaced at a less than neighborly
 distance apart.  Your motorcycle is parked here.
 
 >You open the door and enter the apartment.
+
 Inside Apartment
     The interior of Ethan's apartment is hopelessly messy.  Boxes of junk,
 appliances, furniture, and miscellaneous objects have been heaped up or left
@@ -2477,6 +2557,7 @@ the damage can be credited to Laurie.  From looking around the room it is
 amazing to think that anyone was able to lay a hand on her at all.
 
 >You move up.
+
 Inside Apartment
     The interior of Ethan's apartment is hopelessly messy.  Boxes of junk,
 appliances, furniture, and miscellaneous objects have been heaped up or left
@@ -2487,6 +2568,7 @@ junk.  As it is, you can barely make your way down the stairway  partially
 concealed by the rummage.  The exit to the apartment is north.
 
 >You leave the apartment, closing the door behind you.
+
 Front of Ethan's
     You stand at a plain concrete apartment complex.  The door to the south
 of you is where, according to Laurie's directions, Ethan lives.  There are
@@ -2513,6 +2595,7 @@ You arrive at the Plaza...
 
 The gaiety of the Plaza does not penetrate your heart on this morning when
 Laurie is not to be found.  Though the sun is shining brightly, all is bleak.
+
 Avenue
     Small shops line the side of the walk through this, the trendier part of
 the city of Rittersburg.  The avenue runs east-west, with people passing by
@@ -2522,6 +2605,7 @@ Your motorcycle is parked along the street.
 
 >(Getting off your motorcycle first)
 You move north.
+
 Intersection
     You stand in the midst of a spacious four-way crossing for pedestrians
 only.  Numerous people walk past you in every which direction, their
@@ -2529,6 +2613,7 @@ destinations not deducible from reading only their faces.  The patter of feet
 on pavement is heard continually.
 
 >You move north.
+
 West Plaza
     This is the west end of a friendly cobblestone thoroughfare several yards
 wide that continues on to the east.  Pedestrians walk along leisurely.  Thick
@@ -2539,6 +2624,7 @@ it.
 stretched, watching people pass by dreamily.
 
 >You move east.
+
 Center Plaza
     Colored cobblestones have been arranged on the ground so as to create a
 stylish image of a handsome tree, or at least that's how it appears from
@@ -2575,6 +2661,7 @@ are told to look for a pass between the mountains that cannot easily be seen
 from the road.
 
 >You move west.
+
 West Plaza
     This is the west end of a friendly cobblestone thoroughfare several yards
 wide that continues on to the east.  Pedestrians walk along leisurely.  Thick
@@ -2585,6 +2672,7 @@ it.
 stretched, watching people pass by dreamily.
 
 >You move south.
+
 Intersection
     You stand in the midst of a spacious four-way crossing for pedestrians
 only.  Numerous people walk past you in every which direction, their
@@ -2594,6 +2682,7 @@ on pavement is heard continually.
     A group of idle teens cross your path.
 
 >You move south.
+
 Avenue
     Small shops line the side of the walk through this, the trendier part of
 the city of Rittersburg.  The avenue runs east-west, with people passing by
@@ -2625,6 +2714,7 @@ You are sore from the long ride.  It must have been nearly three hours since
 you began it.  The last two hours of it you saw little more than empty
 wilderness, with hardly even a tree to dot the land.  Now at last the
 mountains have been reached.  She is here...somewhere...
+
 Road Through the Valley
     Encircled by mountains, this twisty road runs north-south.  Despite it
 being a bright and sunny day, the road lies in shadow.  The mountains can be
@@ -2640,6 +2730,7 @@ spacious clearing...
 
     Some people wearing white are moving away from that building, spilling
 out like candy from a paper sack.
+
 Clearing
     Few would expect to find so wide an expanse of flat open space among
 mountains such as these.  The shrub becomes sparser as you move eastward, out
@@ -2648,6 +2739,7 @@ end of the clearing you can see a building, beige in color, square in shape.
 
 >You head east towards the building.  By the time that you reach it, those
 people are all out of sight.
+
 The Silo
     The sun beats down against you now that you are out of the shade that the
 west mountains provided.  The building you saw from afar seems out of place
@@ -2661,6 +2753,7 @@ intercom.
 "...until further notice.  Again, there is an intruder on the premises.
 Evacuate immediately.  This is the final relay." (click)  You've heard that
 voice before.  It belongs to Katryn!
+
 Facility Entrance
     This is a compact room with a rectangular booth filling much of the
 space.  The booth is a security booth; it has a plexiglass window and can be
@@ -2708,6 +2801,7 @@ static.
 >You step out of the security booth.
 
 >You move east.
+
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
 complex.  The wall, floor, and ceiling are of stained steel, and all look
@@ -2716,6 +2810,7 @@ dome-shaped lights that lines the outer wall at chin-height.  The corridor
 continues north and south, and there is a room to the west.
 
 >You move north.
+
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
 complex.  The wall, floor, and ceiling are of stained steel, and all look
@@ -2729,6 +2824,7 @@ pusillanimous.  Most of the 'enemy' already ran.  Which leaves you free to go
 and find those magnets.  Yep, they're here.  Time for you to fetch me them."
 
 >You move east.
+
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
 complex.  The wall, floor, and ceiling are of stained steel, and all look
@@ -2737,6 +2833,7 @@ dome-shaped lights that lines the outer wall.  A door is to the south.  The
 corridor continues east and west, and branches to the north.
 
 >You move east.
+
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
 complex.  The wall, floor, and ceiling are of stained steel, and all look
@@ -2746,6 +2843,7 @@ corridor continues west and east.  However, a sliding wall blocks off further
 access to the east.
 
 >You open the door and enter.
+
 Research Lab C
     There is a great deal of scientific equipment here, devices, instruments,
 and machines both small and large.  There are tables and desks, including one
@@ -2760,6 +2858,7 @@ Also here is a striped lab-book.
 >You pick up two heavy magnets.
 
 >You move back into the corridor.  The door closes behind you.
+
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
 complex.  The wall, floor, and ceiling are of stained steel, and all look
@@ -2769,6 +2868,7 @@ corridor continues west and east.  However, a sliding wall blocks off further
 access to the east.
 
 >You move west.
+
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
 complex.  The wall, floor, and ceiling are of stained steel, and all look
@@ -2777,6 +2877,7 @@ dome-shaped lights that lines the outer wall.  A door is to the south.  The
 corridor continues east and west, and branches to the north.
 
 >You move west.
+
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
 complex.  The wall, floor, and ceiling are of stained steel, and all look
@@ -2790,6 +2891,7 @@ them approvingly.  "See here, you can leave the rest to me.  Just stay out of
 my way and the story will end nice and happy."
 
 >You move south.
+
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
 complex.  The wall, floor, and ceiling are of stained steel, and all look
@@ -2800,6 +2902,7 @@ continues north and south, and there is a room to the west.
     Dustin walks in from the north.
 
 >You move south.
+
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
 complex.  The wall, floor, and ceiling are of stained steel, and all look
@@ -2810,6 +2913,7 @@ corridor continues north and south.
     Dustin walks in from the north.
 
 >You move south.
+
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
 complex.  The wall, floor, and ceiling are of stained steel, and all look
@@ -2820,6 +2924,7 @@ there is a hatch of some kind.  A ladder-like apparatus is attached near it.
 The corridor continues north and east.
 
 >You move east.
+
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
 complex.  The wall, floor, and ceiling are of stained steel, and all look
@@ -2828,6 +2933,7 @@ dome-shaped lights that lines the outer wall.  A door is to the north.  The
 corridor continues east and west.
 
 >You move east.
+
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
 complex.  The wall, floor, and ceiling are of stained steel, and all look
@@ -2837,6 +2943,7 @@ corridor continues east and west, and branches to the south.  However, a
 sliding wall blocks off further access to the east.
 
 >You move south.
+
 Prep Corner
     This short hall originating from the north comes to an end beside a door
 to the west.  There is a long wooden shelf high on the opposite wall that
@@ -2844,6 +2951,7 @@ carries some boxes.  There are several hooks on the wall beneath it, on which
 are hanging ropes and cords of varying sizes.
 
 >You open the door and enter.
+
 Detainment
     This room of average dimensions is entirely bare.  The exit is east.
 Laurie is waiting for you under the lamppost.
@@ -2879,6 +2987,7 @@ explains why this room is so bare."  She waves her arms around.  "He can't
 have you PK'ing things around that you shouldn't be."
 
 >You move east.
+
 Prep Corner
     This short hall originating from the north comes to an end beside a door
 to the west.  There is a long wooden shelf high on the opposite wall that
@@ -2886,6 +2995,7 @@ carries some boxes.  There are several hooks on the wall beneath it, on which
 are hanging ropes and cords of varying sizes.
 
 >You move north.
+
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
 complex.  The wall, floor, and ceiling are of stained steel, and all look
@@ -2894,6 +3004,7 @@ dome-shaped lights that lines the outer wall.  A door is to the north.  The
 corridor continues east and west, and branches to the south.
 
 >You open the door and enter.
+
 Research Lab E
     There is a great deal of scientific equipment here, devices, instruments,
 and machines both small and large.  There are tables and desks, including one
@@ -2908,6 +3019,7 @@ is inside the cabinet.
 >You take the microwave transmitter from the cabinet.
 
 >You move back into the corridor.  The door closes behind you.
+
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
 complex.  The wall, floor, and ceiling are of stained steel, and all look
@@ -2916,6 +3028,7 @@ dome-shaped lights that lines the outer wall.  A door is to the north.  The
 corridor continues east and west, and branches to the south.
 
 >You move east.
+
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
 complex.  The wall, floor, and ceiling are of stained steel, and all look
@@ -2924,6 +3037,7 @@ Mounted up where the wall and ceiling meet is a small camera.  The corridor
 continues north and west.
 
 >You move north.
+
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
 complex.  The wall, floor, and ceiling are of stained steel, and all look
@@ -2932,6 +3046,7 @@ dome-shaped lights that lines the outer wall.  A door is to the east.  The
 corridor continues north and south.
 
 >You move north.
+
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
 complex.  The wall, floor, and ceiling are of stained steel, and all look
@@ -2940,6 +3055,7 @@ dome-shaped lights that lines the outer wall.  A door is to the east.  The
 corridor continues north and south.
 
 >You move north.
+
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
 complex.  The wall, floor, and ceiling are of stained steel, and all look
@@ -2952,6 +3068,7 @@ A fire extinguisher is on one of the walls.
 >You pick up the fire extinguisher.
 
 >You move south.
+
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
 complex.  The wall, floor, and ceiling are of stained steel, and all look
@@ -3005,6 +3122,7 @@ based on ability, unless it is psychic ability.   I am glad you dealt with
 him as you did, and I expected no less."
 
 >You open the door and enter.
+
 Control Room
     This is a tiny room with a switchboard occupying much of one of the
 walls, and a chair beside it.  Lights from the switchboard bathe the dark
@@ -3027,6 +3145,7 @@ from far away.
     A steady humming sound fills the air.
 
 >You move back into the corridor.
+
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
 complex.  The wall, floor, and ceiling are of stained steel, and all look
@@ -3039,6 +3158,7 @@ corridor continues north and south.
     A steady humming sound fills the air.
 
 >You move south.
+
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
 complex.  The wall, floor, and ceiling are of stained steel, and all look
@@ -3049,6 +3169,7 @@ corridor continues north and south.
     A steady humming sound fills the air.
 
 >You move south.
+
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
 complex.  The wall, floor, and ceiling are of stained steel, and all look
@@ -3059,6 +3180,7 @@ continues north and west.
     A steady humming sound fills the air.
 
 >You move west.
+
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
 complex.  The wall, floor, and ceiling are of stained steel, and all look
@@ -3072,6 +3194,7 @@ corridor continues east and west, and branches to the south.
     A steady humming sound fills the air.
 
 >You move south.
+
 Prep Corner
     This short hall originating from the north comes to an end beside a door
 to the west.  There is a long wooden shelf high on the opposite wall that
@@ -3081,6 +3204,7 @@ are hanging ropes and cords of varying sizes.
     A steady humming sound fills the air.
 
 >You open the door and enter.
+
 Detainment
     This room of average dimensions is entirely bare.  The exit is east.
 Laurie is waiting for you under the lamppost.
@@ -3117,6 +3241,7 @@ I wasn't able to use my power on anything.  What a dreadful device."
 trusted.  I'm not sure."
 
 >You move east.
+
 Prep Corner
     This short hall originating from the north comes to an end beside a door
 to the west.  There is a long wooden shelf high on the opposite wall that
@@ -3128,6 +3253,7 @@ are hanging ropes and cords of varying sizes.
     A steady humming sound fills the air.
 
 >You move north.
+
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
 complex.  The wall, floor, and ceiling are of stained steel, and all look
@@ -3140,6 +3266,7 @@ corridor continues east and west, and branches to the south.
     A steady humming sound fills the air.
 
 >You move west.
+
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
 complex.  The wall, floor, and ceiling are of stained steel, and all look
@@ -3163,6 +3290,7 @@ need be made."  She hands you a peculiar device in the shape of a pyramid.
     A steady humming sound fills the air.
 
 >You move west
+
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
 complex.  The wall, floor, and ceiling are of stained steel, and all look
@@ -3203,6 +3331,7 @@ Octal's direction.
     "Would you shoot me?  Guns are a cowardly way to contend."
     In response, Dustin attempts to cock the weapon, but cannot do it.  The
 gun simply fails to click.  Octal laughs.
+
 Top of the Silo
     A panoramic view of the mountains is once again to be had outside the
 silo.  The sun is low on the horizon.   You can see the barren valley that

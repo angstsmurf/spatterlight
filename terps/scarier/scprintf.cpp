@@ -1118,6 +1118,66 @@ pf_buffer_paragraph_line (scr_filterref_t filter, const scr_char *string)
 
 
 /*
+ * pf_text_trailing_breaks()
+ * pf_buffer_paragraph_break()
+ *
+ * Ensure that whatever is buffered next opens a new paragraph: if the buffer
+ * already holds text, top it up with breaks until it ends in a blank line.
+ * Does nothing on an empty buffer, so a paragraph never opens with leading
+ * whitespace.
+ *
+ * This exists for the inline room name.  The Adrift runner does not print room
+ * names into the transcript at all -- the name lives in the status bar, and a
+ * task with "Show room description" set, or a plain "look", runs the room
+ * description straight on from whatever preceded it.  SCARIER prints the name
+ * inline, so it is interrupting the runner's prose with a heading of its own;
+ * giving that heading a blank line above it keeps it reading as a heading
+ * rather than as another sentence of the paragraph it just cut into.
+ */
+static scr_int
+pf_text_trailing_breaks (const scr_char *text)
+{
+  scr_int length, count;
+
+  count = 0;
+  for (length = strlen (text); length > 0; )
+    {
+      if (text[length - 1] == '\n')
+        {
+          length -= 1;
+          count++;
+        }
+      else if (length >= 4 && !scr_strncasecmp (text + length - 4, "<br>", 4))
+        {
+          length -= 4;
+          count++;
+        }
+      else
+        break;
+    }
+
+  return count;
+}
+
+void
+pf_buffer_paragraph_break (scr_filterref_t filter)
+{
+  const scr_char *buffered;
+  scr_int breaks;
+
+  assert (pf_is_valid (filter));
+
+  /* Nothing buffered means nothing to separate from. */
+  buffered = pf_get_buffer (filter);
+  if (!buffered || scr_strempty (buffered))
+    return;
+
+  for (breaks = pf_text_trailing_breaks (buffered); breaks < 2; breaks++)
+    pf_buffer_character (filter, '\n');
+}
+
+
+/*
  * pf_buffer_join()
  *
  * Append a string as a continuation of the current output line, with the

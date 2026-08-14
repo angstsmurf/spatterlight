@@ -16,6 +16,7 @@ here.
 There are exits north, east, south and west.
 
 >You move east.
+
 Outside the Shack
 There's a shack here. It's made of bright blue wood and has a purple door.
 There are two lanterns hanging from each side of the door. There are pink
@@ -24,6 +25,7 @@ flames illuminating them. Wonder what's inside?
 There are exits west and in.
 
 >You move in.
+
 Inside the Shack
 It's a cramped and cluttered little shack with various trinkets lying all
 over the place. There is a wooden table with some things on it, and a
@@ -38,6 +40,7 @@ You can only move out.
 >You take the star statue from the bookshelf.
 
 >You move out.
+
 Outside the Shack
 There's a shack here. It's made of bright blue wood and has a purple door.
 There are two lanterns hanging from each side of the door. There are pink
@@ -46,6 +49,7 @@ flames illuminating them. Wonder what's inside?
 You can move west and in.
 
 >You move west.
+
 Open Area
 What a weird place. It looks like you stepped right into another dimension!
 Looking up, you find yourself staring straight into space. There are billions
@@ -56,6 +60,7 @@ here.
 You can move north, east, south and west.
 
 >You move west.
+
 Merchant's Stand
 In the vast land of checkerboards, you come to something of interest. There
 is a consession stand here with an array of items spread out on it. Behind
@@ -72,6 +77,7 @@ Let's trade. I don't need this anyway." The merchant accepts your bracelet
 and in exchange, gives you the candy.
 
 >You move west.
+
 By the Banana Moon Statue
 There is a statue here of a big banana. Or maybe its a crescent moon. Hell, I
 can't tell.
@@ -89,6 +95,7 @@ keeps going on with his run-on sentence, completely ignoring you. That'll
 really help your self-esteem.
 
 >You move west.
+
 Outside the Outhouse
 Oh, how nice, an outhouse. Why don't you go inside and relieve yourself? Or
 not. It kind of smells.
@@ -96,6 +103,7 @@ not. It kind of smells.
 You can move east and in.
 
 >You move in.
+
 Outhouse
 It's really cramped in here. And it smells. Do you really have to go to the
 bathroom that bad? There is a hole here for doing your business, and a lever
@@ -110,6 +118,7 @@ You can only move out.
 >You take the piece of paper from the hole.
 
 >You move out.
+
 Outside the Outhouse
 Oh, how nice, an outhouse. Why don't you go inside and relieve yourself? Or
 not. It kind of smells.
@@ -117,6 +126,7 @@ not. It kind of smells.
 You can move east and in.
 
 >You move east.
+
 By the Banana Moon Statue
 There is a statue here of a big banana. Or maybe its a crescent moon. Hell, I
 can't tell.
@@ -126,6 +136,7 @@ Old Man is here.
 You can move east and west.
 
 >You move east.
+
 Merchant's Stand
 In the vast land of checkerboards, you come to something of interest. There
 is a consession stand here with an array of items spread out on it. Behind
@@ -136,6 +147,7 @@ Merchant is here.
 You can move east and west.
 
 >You move east.
+
 Open Area
 What a weird place. It looks like you stepped right into another dimension!
 Looking up, you find yourself staring straight into space. There are billions
@@ -146,6 +158,7 @@ here.
 You can move north, east, south and west.
 
 >You move south.
+
 Tree
 There is a huge dead tree here.
 
@@ -168,6 +181,7 @@ might be able to help you out some."
 >You eat some candy and save the rest for later.
 
 >You move south.
+
 Tea Time
 There is a frilly pink table with two chairs and a pink tea pot, sitting out
 in what seems like the middle of nowhere. Looks like a good place to take a
@@ -182,6 +196,7 @@ Squirrel scampers up from the north.
 >You pick up the tea cup.
 
 >You move north.
+
 Tree
 There is a huge dead tree here.
 
@@ -190,6 +205,7 @@ You can move north and south.
 Squirrel scampers up from the south.
 
 >You move north.
+
 Open Area
 What a weird place. It looks like you stepped right into another dimension!
 Looking up, you find yourself staring straight into space. There are billions
@@ -202,6 +218,7 @@ You can move north, east, south and west.
 Squirrel scampers up from the south.
 
 >You move north.
+
 Outside the Mansion
 There is a huge mansion before you, it is a dark violet color and looks very
 old and almost foreboding. Would you really wanna go inside? It looks really
@@ -219,6 +236,7 @@ squirrel pokes its head out and it has a grin on its face. "See? See? Hells
 yah!"
 
 >You move west.
+
 Sewing Room
 This small, quarter-circular room was used for sewing. There is a chair, as
 well as a desk with a sewing machine and some tools on it, and some random
@@ -233,6 +251,7 @@ Squirrel scampers up from the east.
 >You take the needle box from the desk.
 
 >You move east.
+
 Mansion Entrance
 Inside, it is very dark. There are cobwebs and dust everywhere. It is eerily
 quiet. The walls are blue-gray and the floors are black marble.  Above is an
@@ -243,6 +262,7 @@ You can move north, east, west and out.
 Squirrel scampers up from the west.
 
 >You move east.
+
 Tea Room
 This is a circular room where people have tea. There is a comfy chair, a
 sofa, and a little side table. Everything looks stiff and old. It doesn't
@@ -255,6 +275,7 @@ Squirrel scampers up from the west.
 >You take the tea packet from the table.
 
 >You move west.
+
 Mansion Entrance
 Inside, it is very dark. There are cobwebs and dust everywhere. It is eerily
 quiet. The walls are blue-gray and the floors are black marble.  Above is an
@@ -265,6 +286,7 @@ You can move north, east, west and out.
 Squirrel scampers up from the east.
 
 >You move out.
+
 Outside the Mansion
 There is a huge mansion before you, it is a dark violet color and looks very
 old and almost foreboding. Would you really wanna go inside? It looks really
@@ -276,6 +298,7 @@ You can only move south.
 Squirrel scampers up.
 
 >You move south.
+
 Open Area
 What a weird place. It looks like you stepped right into another dimension!
 Looking up, you find yourself staring straight into space. There are billions
@@ -288,6 +311,7 @@ You can move north, east, south and west.
 Squirrel scampers up from the north.
 
 >You move south.
+
 Tree
 There is a huge dead tree here.
 
@@ -296,6 +320,7 @@ You can move north and south.
 Squirrel scampers up from the north.
 
 >You move south.
+
 Tea Time
 There is a frilly pink table with two chairs and a pink tea pot, sitting out
 in what seems like the middle of nowhere. Looks like a good place to take a
@@ -319,6 +344,7 @@ to work anyway. Congradulations. You must be God or something.
 >You place the cup to your lips and drink the tea. Mm, tasty.
 
 >You move north.
+
 Tree
 There is a huge dead tree here.
 
@@ -327,6 +353,7 @@ You can move north and south.
 Squirrel scampers up from the south.
 
 >You move north.
+
 Open Area
 What a weird place. It looks like you stepped right into another dimension!
 Looking up, you find yourself staring straight into space. There are billions
@@ -339,6 +366,7 @@ You can move north, east, south and west.
 Squirrel scampers up from the south.
 
 >You move north.
+
 Outside the Mansion
 There is a huge mansion before you, it is a dark violet color and looks very
 old and almost foreboding. Would you really wanna go inside? It looks really
@@ -357,6 +385,7 @@ extravagent chandeleir, but it is not lit.
 Squirrel is here.
 
 >You move north.
+
 Ballroom
 This room is very large. As you walk through it you can hear your footsteps
 echoing. Kinda scary. OH MY GOD WHAT IS THAT?! ...Oh, heh, nothing. Anyway,
@@ -386,6 +415,7 @@ let me leave. Can you get rid of it for me?"
 very much, Jillian!"
 
 >You move south.
+
 Mirror Mansion Entrance
 Just like the real one, except that the door won't open. Guess you'll have to
 go back through to the other side to leave.
@@ -395,6 +425,7 @@ You can move north, east and west.
 Squirrel scampers up from the north.
 
 >You move west.
+
 Music Room
 This is where people come to play or practice music. It is neater than most
 of the other rooms in the mansion and seems to be not so badly kept. There is
@@ -410,6 +441,7 @@ Squirrel scampers up from the east.
 >You pick up the flute.
 
 >You move east.
+
 Mirror Mansion Entrance
 Just like the real one, except that the door won't open. Guess you'll have to
 go back through to the other side to leave.
@@ -419,6 +451,7 @@ You can move north, east and west.
 Squirrel scampers up from the west.
 
 >You move east.
+
 Library
 This is a library. It is full of books, what were you expecting? You don't
 have time to go digging through these books, so don't bother trying. There is
@@ -431,6 +464,7 @@ Squirrel scampers up from the west.
 >You take the spellbook from the table.
 
 >You move west.
+
 Mirror Mansion Entrance
 Just like the real one, except that the door won't open. Guess you'll have to
 go back through to the other side to leave.
@@ -440,6 +474,7 @@ You can move north, east and west.
 Squirrel scampers up from the east.
 
 >You move north.
+
 Mirror Ballroom
 How strange... It's just like the other ballroom, except creepier and
 backwards.
@@ -451,6 +486,7 @@ You can move east and south.
 Squirrel scampers up from the south.
 
 >You move east.
+
 Corridor
 This is a cold, narrow, dead-end corridor that the ghost likes to haunt. The
 walls and floor are made of stone and it is dark and lonely.
@@ -472,6 +508,7 @@ there with you, he's getting on my nerves anyway." And he disappears. So much
 for an encore.
 
 >You move west.
+
 Mirror Ballroom
 How strange... It's just like the other ballroom, except creepier and
 backwards.
@@ -490,6 +527,7 @@ to the normal ballroom.
 Great! Kinda dumb though.
 
 >You move south.
+
 Mansion Entrance
 Inside, it is very dark. There are cobwebs and dust everywhere. It is eerily
 quiet. The walls are blue-gray and the floors are black marble.  Above is an
@@ -502,6 +540,7 @@ Squirrel scampers up from the north.
 Vampy glides in from the north.
 
 >You move out.
+
 Outside the Mansion
 There is a huge mansion before you, it is a dark violet color and looks very
 old and almost foreboding. Would you really wanna go inside? It looks really
@@ -515,6 +554,7 @@ Squirrel scampers up.
 Vampy glides in.
 
 >You move south.
+
 Open Area
 What a weird place. It looks like you stepped right into another dimension!
 Looking up, you find yourself staring straight into space. There are billions
@@ -529,6 +569,7 @@ Squirrel scampers up from the north.
 Vampy glides in from the north.
 
 >You move west.
+
 Merchant's Stand
 In the vast land of checkerboards, you come to something of interest. There
 is a consession stand here with an array of items spread out on it. Behind
@@ -543,6 +584,7 @@ Squirrel scampers up from the east.
 Vampy glides in from the east.
 
 >You move west.
+
 By the Banana Moon Statue
 There is a statue here of a big banana. Or maybe its a crescent moon. Hell, I
 can't tell.
@@ -578,6 +620,7 @@ creep me out.
 even a thank you. What manners.
 
 >You move east.
+
 Merchant's Stand
 In the vast land of checkerboards, you come to something of interest. There
 is a consession stand here with an array of items spread out on it. Behind
@@ -594,6 +637,7 @@ Vampy glides in from the west.
 Old Man hobbles up from the west.
 
 >You move east.
+
 Open Area
 What a weird place. It looks like you stepped right into another dimension!
 Looking up, you find yourself staring straight into space. There are billions
@@ -610,6 +654,7 @@ Vampy glides in from the west.
 Old Man hobbles up from the west.
 
 >You move south.
+
 Tree
 There is a huge dead tree here.
 
@@ -622,6 +667,7 @@ Vampy glides in from the north.
 Old Man hobbles up from the north.
 
 >You move south.
+
 Tea Time
 There is a frilly pink table with two chairs and a pink tea pot, sitting out
 in what seems like the middle of nowhere. Looks like a good place to take a
@@ -642,6 +688,7 @@ water level by like, a whole lot! Hey... I think I see something down there.
 >You take the spellbook's missing page from the lake.
 
 >You move north.
+
 Tea Time
 There is a frilly pink table with two chairs and a pink tea pot, sitting out
 in what seems like the middle of nowhere. Looks like a good place to take a
@@ -656,6 +703,7 @@ Vampy glides in from the south.
 Old Man hobbles up from the south.
 
 >You move north.
+
 Tree
 There is a huge dead tree here.
 
@@ -668,6 +716,7 @@ Vampy glides in from the south.
 Old Man hobbles up from the south.
 
 >You move north.
+
 Open Area
 What a weird place. It looks like you stepped right into another dimension!
 Looking up, you find yourself staring straight into space. There are billions
@@ -684,6 +733,7 @@ Vampy glides in from the south.
 Old Man hobbles up from the south.
 
 >You move west.
+
 Merchant's Stand
 In the vast land of checkerboards, you come to something of interest. There
 is a consession stand here with an array of items spread out on it. Behind
@@ -700,6 +750,7 @@ Vampy glides in from the east.
 Old Man hobbles up from the east.
 
 >You move west.
+
 By the Banana Moon Statue
 There is a statue here of a big banana. Or maybe its a crescent moon. Hell, I
 can't tell.
@@ -713,6 +764,7 @@ Vampy glides in from the east.
 Old Man hobbles up from the east.
 
 >You move west.
+
 Outside the Outhouse
 Oh, how nice, an outhouse. Why don't you go inside and relieve yourself? Or
 not. It kind of smells.
@@ -726,6 +778,7 @@ Vampy glides in from the east.
 Old Man hobbles up from the east.
 
 >You move in.
+
 Outhouse
 It's really cramped in here. And it smells. Do you really have to go to the
 bathroom that bad? There is a hole here for doing your business, and a lever
@@ -745,6 +798,7 @@ Old Man hobbles up from outside.
 pin-prick.
 
 >You move out.
+
 Outside the Outhouse
 Oh, how nice, an outhouse. Why don't you go inside and relieve yourself? Or
 not. It kind of smells.
@@ -758,6 +812,7 @@ Vampy glides in from inside.
 Old Man hobbles up from inside.
 
 >You move east.
+
 By the Banana Moon Statue
 There is a statue here of a big banana. Or maybe its a crescent moon. Hell, I
 can't tell.
@@ -771,6 +826,7 @@ Vampy glides in from the west.
 Old Man hobbles up from the west.
 
 >You move east.
+
 Merchant's Stand
 In the vast land of checkerboards, you come to something of interest. There
 is a consession stand here with an array of items spread out on it. Behind
@@ -787,6 +843,7 @@ Vampy glides in from the west.
 Old Man hobbles up from the west.
 
 >You move east.
+
 Open Area
 What a weird place. It looks like you stepped right into another dimension!
 Looking up, you find yourself staring straight into space. There are billions
@@ -803,6 +860,7 @@ Vampy glides in from the west.
 Old Man hobbles up from the west.
 
 >You move north.
+
 Outside the Mansion
 There is a huge mansion before you, it is a dark violet color and looks very
 old and almost foreboding. Would you really wanna go inside? It looks really
@@ -829,6 +887,7 @@ Vampy glides in from outside.
 Old Man hobbles up from outside.
 
 >You move north.
+
 Ballroom
 This room is very large. As you walk through it you can hear your footsteps
 echoing. Kinda scary. OH MY GOD WHAT IS THAT?! ...Oh, heh, nothing. Anyway,
@@ -846,6 +905,7 @@ Vampy glides in from the south.
 Old Man hobbles up from the south.
 
 >You move north.
+
 Garden
 You step outside into the moonlight and find yourself in a beautiful,
 mystifying garden. The flowers and plants all seem to be sparkling, and there
@@ -877,6 +937,7 @@ but thanks anyway!"
 >"Isn't there something you have to do?" she asks with a bright disposition.
 
 >You move south.
+
 Ballroom
 This room is very large. As you walk through it you can hear your footsteps
 echoing. Kinda scary. OH MY GOD WHAT IS THAT?! ...Oh, heh, nothing. Anyway,
@@ -896,6 +957,7 @@ Old Man hobbles up from the north.
 Plant Lady prances along from the north.
 
 >You move south.
+
 Mansion Entrance
 Inside, it is very dark. There are cobwebs and dust everywhere. It is eerily
 quiet. The walls are blue-gray and the floors are black marble.  Above is an
@@ -912,6 +974,7 @@ Old Man hobbles up from the north.
 Plant Lady prances along from the north.
 
 >You move out.
+
 Outside the Mansion
 There is a huge mansion before you, it is a dark violet color and looks very
 old and almost foreboding. Would you really wanna go inside? It looks really
@@ -929,6 +992,7 @@ Old Man hobbles up.
 Plant Lady prances along.
 
 >You move south.
+
 Open Area
 What a weird place. It looks like you stepped right into another dimension!
 Looking up, you find yourself staring straight into space. There are billions

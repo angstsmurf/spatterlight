@@ -59,6 +59,7 @@ sometime this year. Type 'map' to bring up the Silk Road map, included simply
 for the curious.
 
 >You move east.
+
 Citadel
 From the top of the citadel, the city of Samarkand stretches out in front of
 you, famed for its academics, craftsmen and cosmopolitan nature. It is also
@@ -142,6 +143,7 @@ so important to the Khan, that he would give up the Sword of Nismus,
 presumably buried in one of his vaults somewhere.
 
 >You move west.
+
 Marketplace
 The market continues to hum and bustle with activity. The smell of cooking
 food fills your senses, and you are nearly diverted by sizzling shashlik -
@@ -154,6 +156,7 @@ allowed to enter. Scanning the buildings through thier screen of trees, you
 manage to locate the city's Zoroastrian Shrine to the northeast.
 
 >You move northeast.
+
 Zoroastrian Shrine
 The shrine is small and humble, showing its inferior status to the recently
 adopted and near-universal Arab religion. This structure has obviously been
@@ -228,6 +231,7 @@ The priest sighs again. 'You don't want to know. I wish I didn't. And all for
 the beasts they call 'Heavenly''. He snorts and pulls out a pipe.
 
 >You move southwest.
+
 Marketplace
 The market continues to hum and bustle with activity. The smell of cooking
 food fills your senses, and you are nearly diverted by sizzling shashlik -

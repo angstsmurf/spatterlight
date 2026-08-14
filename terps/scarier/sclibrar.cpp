@@ -402,6 +402,14 @@ lib_print_room_name (scr_gameref_t game, scr_int room)
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_char *name;
 
+  /*
+   * Open a paragraph for the name.  The runner has no inline room name, so
+   * anything already buffered ran straight into the room description there;
+   * here it would run straight into a heading instead.  See
+   * pf_buffer_paragraph_break().
+   */
+  pf_buffer_paragraph_break (filter);
+
   /* Print the room name, possibly in bold. */
   name = lib_get_room_name (game, room);
   if (game->bold_room_names)

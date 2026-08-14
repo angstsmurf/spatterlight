@@ -17,6 +17,7 @@ little better.
 little better.
 
 >You lift yourself off the floor and look around.
+
 Dark Chamber
 The room is pitch black...  except for some small blinking lights on a wall.
 (In an ancient temple?!?)
@@ -29,6 +30,7 @@ display several push buttons.
 button above, and a green button below.
 
 >You hear a slight click as the button turns on...  as well as the lights.
+
 Computer Chamber
 The chamber glows with a bluish light.  The east wall is a computer function
 display.  To the north is a long stairway leading up.
@@ -99,6 +101,7 @@ grabs him and say's "Sit down!"
 
 >As you leave the villagers to head west, they decide to stand up and get back
 to work in the fields.
+
 Communal Dining Hall
 Large trees denuded of branches form the main external framing with the walls
 made of poorly joined wood siding.  Two holes in the roof allow the smoke
@@ -111,6 +114,7 @@ large thick clay pot dangling over the fire, while the other has an animal
 roasting on a spit.
 
 >You move east.
+
 Medieval Village
 The ruins you remember are in worse shape and occupied by peasants likened to
 medieval England.  Tents and shacks are scattered randomly as well as the
@@ -187,6 +191,7 @@ The river slightly widens and you see a dilapidated hotel approaching.
 Further south the river drops several meters down a waterfall.  The platform
 approaches the abandoned parking lot and settles down at the far west corner
 of the lot.
+
 Anti-Gravity Platform
 The platform is at the far western end of the hotel parking lot.  The lot
 itself was once solid concrete, but now many cracks with wildflowers and
@@ -197,6 +202,7 @@ The wizard is here.
 Wizard strides off to the east.
 
 >You move east.
+
 Parking Lot
 It was once solid concrete, but now many cracks with wildflowers and weeds
 cover the ground.  One solitary pickup sits with the hood open near the
@@ -206,6 +212,7 @@ The wizard is here.
 Wizard strides off to the east.
 
 >You move east.
+
 Foyer
 A solitary couch frame with boards secured where the springs should have been
 sits in the middle of the room.  Surprisingly, the picture window the couch
@@ -218,6 +225,7 @@ The wizard is here.
 Wizard strides off to the east.
 
 >You move east.
+
 Main Floor Hall
 Interesting how some features of the hotel indicate great age, yet others of
 advanced technology.  The picture window looking south is intact, yet the
@@ -232,6 +240,7 @@ The wizard is here.
 Wizard strides off to the north.
 
 >You move north.
+
 Dining Hall
 Large enough to hold parties of thirty, the hall is set up for only twelve
 people.  Light streams in from the picture window on the north wall.  The
@@ -313,6 +322,7 @@ She starts leaving the kitchen south, when you ask, "Who are you?"
 
 "I'm one of the warlocks those pompous fools fear, but you can call me
 M'greet," she replies as she leaves the room.
+
 Kitchen
 Someone is living much better than the villagers!  The commercial gas range
 and oven are made of gleaming metal.  A dishwasher is giving off steam, a
@@ -326,6 +336,7 @@ The warlock is casually walking.
 Warlock saunters out to the south.
 
 >You move south.
+
 Office
 The office are completely cleaned out of any business furniture.  The only
 things remaining is a single wooden chair and a small coffee table.
@@ -334,6 +345,7 @@ The warlock is casually walking.
 Warlock saunters out to the south.
 
 >You move south.
+
 Foyer
 A solitary couch frame with boards secured where the springs should have been
 sits in the middle of the room.  Surprisingly, the picture window the couch
@@ -346,6 +358,7 @@ The warlock is casually walking.
 Warlock saunters out to the east.
 
 >You move east.
+
 Main Floor Hall
 Interesting how some features of the hotel indicate great age, yet others of
 advanced technology.  The picture window looking south is intact, yet the
@@ -360,6 +373,7 @@ The warlock is casually walking.
 Warlock saunters out to the east.
 
 >You move east.
+
 Main Floor Hall
 You are at the eastern side of the "L" shaped hall with the long part
 extending east-west.  The hall continues directly north to rooms 11 through
@@ -371,6 +385,7 @@ directly at you.
 Warlock saunters out to the east.
 
 >You move east.
+
 Room 10
 Two beds occupy most of the room.  The double bed has been made, while the
 twin bed is covered with several large canvas bags waiting to be filled with
@@ -420,6 +435,7 @@ activated - simply direct it back to the village.  I'll wait for you in the
 storeroom."
   With her trademark smirk she gives you a slight push out the door.  "I need
 to set a few other things up here.  Hurry back."
+
 Main Floor Hall
 You are at the eastern side of the "L" shaped hall with the long part
 extending east-west.  The hall continues directly north to rooms 11 through
@@ -428,6 +444,7 @@ room 10.
 M'greet closes the door behind you and you hear the lock engage.
 
 >You move west.
+
 Main Floor Hall
 Interesting how some features of the hotel indicate great age, yet others of
 advanced technology.  The picture window looking south is intact, yet the
@@ -439,6 +456,7 @@ north of you is an open doorway to the dining hall, and to the west is the
 foyer.
 
 >You move west.
+
 Foyer
 A solitary couch frame with boards secured where the springs should have been
 sits in the middle of the room.  Surprisingly, the picture window the couch
@@ -448,12 +466,14 @@ public building for quite some time.  To the north is, or was, the manager's
 office.  The main hall continues to the east.
 
 >You move west.
+
 Parking Lot
 It was once solid concrete, but now many cracks with wildflowers and weeds
 cover the ground.  One solitary pickup sits with the hood open near the
 loading dock at the north end of the lot.  To the east is the hotel itself.
 
 >You move west.
+
 Anti-Gravity Platform
 The platform is at the far western end of the hotel parking lot.  The lot
 itself was once solid concrete, but now many cracks with wildflowers and
@@ -464,10 +484,12 @@ twists.  The Peruvian forests cover the land on either side of the ravine.
 Looking at the southern horizon, you see a metallic glint beyond the
 mountains, occasionally obscured by clouds.  The platform follows the river
 upstream towards the village.
+
 Anti-Gravity Platform
 The platform is at the north end of the village.
 
 >You move south.
+
 Medieval Village
 The ruins you remember are in worse shape and occupied by peasants likened to
 medieval England.  Tents and shacks are scattered randomly as well as the
@@ -476,6 +498,7 @@ villagers who are talking - in English!
 The villagers are working their fields, and a few wave their hands at you.
 
 >You move west.
+
 Communal Dining Hall
 Large trees denuded of branches form the main external framing with the walls
 made of poorly joined wood siding.  Two holes in the roof allow the smoke
@@ -496,6 +519,7 @@ The villager is starting to frown and you realize you might be getting
 greedy.
 
 >You move east.
+
 Medieval Village
 The ruins you remember are in worse shape and occupied by peasants likened to
 medieval England.  Tents and shacks are scattered randomly as well as the
@@ -511,6 +535,7 @@ like on the wizard's robe.  As you look around in more detail, you see a
 narrow brush-covered trail to the southwest.
 
 >You move southwest.
+
 Mountain Path
 The mountain brush leans over the path, yet is clear enough to indicate that
 individuals would walk single file along it.  Though the brush is high enough
@@ -518,6 +543,7 @@ that you cannot see where it winds to, you can see back to the village to the
 northeast.  The trail bends downward toward the northwest.
 
 >You move northwest.
+
 Mountain Path
 The brush covered trail continues to wind downward toward the north.  It
 bends up to the southeast behind you.  To the south some of the brush is low
@@ -529,18 +555,21 @@ make out what appears to be a needle-like structure.  An occasional cloud
 passes before object, so you surmise it might be hundreds of kilometers away.
 
 >You move north.
+
 Mountain Path
 The mountain path is decreasing in inclination and you can see it becoming
 wider, not because of traffic, but the soil is more rocky as it winds
 northeast.  The trail rises behind you to the south.
 
 >You move northeast.
+
 Ravine Overlook
 No guard rail protects the novice from leaning too far over and falling into
 the deep ravine below you northward.  However you believe you could easily
 climb down with your experience.
 
 >You move down.
+
 Cliffside
 Directly above you is the overlook.  You easily negotiate the rockface and
 can reach into your backback if you needed to.
@@ -552,11 +581,13 @@ partially buried in the stone and dirt.
 >You pick up the green gemstone.
 
 >You move east.
+
 Cliffside
 The rock face is fairly easy for you to negotiate along.  The only direction
 without any hand or foot holds is up.
 
 >You move east.
+
 Cliffside
 The rock face is fairly easy for you to negotiate along.  However at this
 location the only accessible direction is to the west.
@@ -568,21 +599,25 @@ buried in the stone and dirt.
 >You pick up the grey gemstone.
 
 >You move west.
+
 Cliffside
 The rock face is fairly easy for you to negotiate along.  The only direction
 without any hand or foot holds is up.
 
 >You move west.
+
 Cliffside
 Directly above you is the overlook.  You easily negotiate the rockface and
 can reach into your backback if you needed to.
 
 >You move west.
+
 Cliffside
 The rock face is fairly easy for you to negotiate along.  Although you find
 you cannot proceed any further west or directly up.
 
 >You move down.
+
 Cliffside
 The rock face is fairly easy for you to negotiate along, but to the west is a
 large rock outcropping that is impassible.
@@ -594,11 +629,13 @@ stone and dirt.
 >You pick up the clear gemstone.
 
 >You move east.
+
 Cliffside
 You proceed quickly and smoothly along the rock face, with all directions
 traversable.
 
 >You move down.
+
 Cliffside
 The rockface is starting to increase in steepness and you consider getting
 ready to use your climbing tools, if you decide to continue downward.  A
@@ -611,6 +648,7 @@ buried in the stone and dirt.
 >You pick up the blue gemstone.
 
 >You move down.
+
 Cliffside
 Hand holds are harder to find and you consider going back up, but after
 further examination you think you can rappel down to the next face.
@@ -637,6 +675,7 @@ backpack.
 >(Your score has increased by 2)
 With a few quick jumps, you proceed down the rockface to the limits of the
 rope.
+
 Cliffside
 The rocks on this wall are larger and more accessable for hand and footholds,
 in spite the vertical pitch.  Below you can see a small ledge outcropping
@@ -650,6 +689,7 @@ buried in the stone and dirt.
 >You pick up the brown gemstone.
 
 >You move down.
+
 Small ledge on cliffside
 The ledge is large enough for you to sit down and take a breather.  Looking
 up you see that you've progressed roughly a quarter of the way down toward
@@ -659,6 +699,7 @@ opening on this north face - not too small for you to enter - but the fact
 that this strata is not where caves are usually found.
 
 >You move south.
+
 Small cave
 In of itself, there is nothing special about it.  A small and narrow tunnel
 continues up into the rock southward.  An old firepit sits inside near one
@@ -680,17 +721,20 @@ You can see a little light filtering into the tunnel from the cave you first
 entered.  Otherwise the tunnel is pitch black.
 
 >You move south.
+
 Pitch Black
 It is pitch black.  Only by feeling the ground, you determine that you can
 continue south or return downward back north.  Further on you do hear
 dripping water.
 
 >You move up.
+
 Pitch Black
 It is pitch black and for the first time you start to feel claustrophobic, as
 the walls literally are very tight around you.
 
 >You move up.
+
 Pitch Black
 It is pitch black.
 
@@ -736,6 +780,7 @@ from last recording, 310 years, 309 days, 4 hours, 11 minutes."
 Well that answered all your questions - Hah!
 
 >You move down.
+
 Pitch Black
 It is pitch black and for the first time you start to feel claustrophobic, as
 the walls literally are very tight around you.
@@ -744,6 +789,7 @@ the walls literally are very tight around you.
 are.
 
 >You move down.
+
 Pitch Black
 It is pitch black.  Only by feeling the ground, you determine that you can
 continue south or return downward back north.  Further on you do hear
@@ -753,6 +799,7 @@ Politics?!  What kind of clue is that?  Conservative, liberal?  ...  Blue,
 red? ...
 
 >You move south.
+
 Pitch Black
 It is pitch black, you stepped into a deep puddle of water, and at
 intermittant intervals, a drop of water falls on the back of your neck.  The
@@ -771,6 +818,7 @@ negotiating the tunnel more difficult.  You came in from the southeast, and
 openings lead to the north and northeast.
 
 >You move northeast.
+
 Pitch Black
 It is pitch black.
 
@@ -814,12 +862,14 @@ negotiating the tunnel more difficult.  You came in from the northwest, and
 openings lead to the northeast and southwest.
 
 >You move northeast.
+
 Pitch Black
 It is pitch black, you stepped into a deep puddle of water, and at
 intermittant intervals, a drop of water falls on the back of your neck.  The
 area echos with the sound of flowing water.
 
 >You move south.
+
 Pitch Dark
 The stone floor has been worn to a glass-like surface and with the water
 flowing rapidly below your feet it immediately feels like ice.  So much so
@@ -830,6 +880,7 @@ to a stop somewhere in the depths of this drain tube.    Now if only you
 could see where to go.
 
 >You move northwest.
+
 Slide pool
 Water from the drain tube accumulates into a pool of water about waist deep,
 which flows out north into a river.  There is enough stone not eroded
@@ -843,6 +894,7 @@ A canoe is partly in the water.
 
 >With a few short strokes of the paddle, you glide out of the cave into the
 river.
+
 Ravine River
 Both the north and south cliffs of the ravine are unclimbable.  Some
 vegetation lines the very narrow river banks.  Directly south is the cave
@@ -884,6 +936,7 @@ drops several meters down a waterfall.
 You are sitting in the canoe.
 
 >A couple strokes brings you right next to the dock.
+
 Boat Dock
 A solitary dock extends into the river.  It is sheltered by a concrete wall
 and ceiling.  The dock connects to a door in the east wall.
@@ -893,6 +946,7 @@ You are sitting in the canoe.
 >You leave the canoe, which floats nearby the dock.
 
 >You move east.
+
 Dark Room
 Very little light enters the room from the door to the west.
 
@@ -937,6 +991,7 @@ meet me in the conference room."
 Warlock saunters out to above.
 
 >You move up.
+
 Kitchen
 Someone is living much better than the villagers!  The commercial gas range
 and oven are made of gleaming metal.  A dishwasher is giving off steam, a
@@ -950,6 +1005,7 @@ The warlock is casually walking.
 Warlock saunters out to the south.
 
 >You move south.
+
 Office
 The office are completely cleaned out of any business furniture.  The only
 things remaining is a single wooden chair and a small coffee table.
@@ -958,6 +1014,7 @@ The warlock is casually walking.
 Warlock saunters out to the south.
 
 >You move south.
+
 Foyer
 A solitary couch frame with boards secured where the springs should have been
 sits in the middle of the room.  Surprisingly, the picture window the couch
@@ -970,6 +1027,7 @@ The warlock is casually walking.
 Warlock saunters out to the east.
 
 >You move east.
+
 Main Floor Hall
 Interesting how some features of the hotel indicate great age, yet others of
 advanced technology.  The picture window looking south is intact, yet the
@@ -984,6 +1042,7 @@ The warlock is casually walking.
 Warlock saunters out to the east.
 
 >You move east.
+
 Main Floor Hall
 You are at the eastern side of the "L" shaped hall with the long part
 extending east-west.  The hall continues directly north to rooms 11 through
@@ -994,6 +1053,7 @@ The warlock is casually walking.
 Warlock saunters out to above.
 
 >You move up.
+
 Second Floor Hall
 You are at the eastern side of the "L" shaped hall with the long part
 extending east-west.  The hall continues directly north to rooms 21 through
@@ -1004,6 +1064,7 @@ The warlock is casually walking.
 Warlock saunters out to the west.
 
 >You move north.
+
 Second Floor Hall
 The hall continues north-south, with room 21 to the west, and room 22 to the
 east.
@@ -1011,6 +1072,7 @@ east.
 >You open the room 21 door.
 
 >You move west.
+
 Room 21
 Two double beds occupy most of the room.  A night stand sits between the
 beds.  The closet is open with several different silvery-white garments
@@ -1029,11 +1091,13 @@ your body.  The suit provides no obstruction to your placing the backpack and
 belt back on.
 
 >You move east.
+
 Second Floor Hall
 The hall continues north-south, with room 21 to the west, and room 22 to the
 east.
 
 >You move south.
+
 Second Floor Hall
 You are at the eastern side of the "L" shaped hall with the long part
 extending east-west.  The hall continues directly north to rooms 21 through
@@ -1041,6 +1105,7 @@ extending east-west.  The hall continues directly north to rooms 21 through
 room 20.
 
 >You move west.
+
 Second Floor Hall
 The second floor hall is "L" shaped with the long part extending east-west,
 then around the corner to the north.  The north side of the main corridor
@@ -1048,6 +1113,7 @@ where you are at has an open doorway to a conference room.  To the south
 between the windows is a door to the deck.
 
 >You move north.
+
 Conference Room
 Most of the north wall and the northern part of the east and west walls are
 missing and open to the air along with about a third of the ceiling.
@@ -1084,6 +1150,7 @@ racing below you, maybe less that a hundred meters.  Quickly you race over
 the ocean as you rapidly approach the towering ship.  "Descent active," the
 voice intones.  As the capsule opens up, the voice states, "Re-entry will
 activate the return trip."
+
 Alien Mound
 The ground around you is several meters above the ocean.  If not for the
 special suit, you'd be freezing your tail off as you can see Antarctica from
@@ -1100,6 +1167,7 @@ Also here is a capsule.
 
 >(Getting off the capsule first)
 You move east.
+
 Base of Climb
 You realize that the ground isn't rock but a root system, making the aliens
 plant-like.  Looking up at the climb you see several grip locations, however
@@ -1117,6 +1185,7 @@ even you vertigo.
 
 >The climb is slow as you search for hand and foot holds.  Three additional
 times you need to pull out a piton to assist in the climb.
+
 Mid-Point
 About fifteen minutes of climbing and spiking pitons to get halfway up.  You
 look down about fifty meters.
@@ -1131,12 +1200,14 @@ look down about fifty meters.
 
 >The climb is slow as you search for hand and foot holds.  Again it takes
 three additional pitons to assist in the climb.
+
 Against Hull
 You are now over a hundred meters above the ground.  One of the main tap
 roots emerges from a circular opening in the hull.  Coming from the opening
 is an odor like a composter.
 
 >You move in.
+
 Inside - Below Controls
 The hull was very thin to what you thought it should be.  Whatever the aliens
 intended must have failed.  You believe that they were killed slowly by
@@ -1151,6 +1222,7 @@ alien being.
 
 >The climb is slow as you search for hand and foot holds.  With the dead
 "branches", it only takes your last two pitons.
+
 Control Area
 Various shades of green and blue lights flash along the metal surface nearest
 you.  Still towering above you, possibly the full length of the ship, is the
@@ -1171,6 +1243,7 @@ A voice echos from the device, "Lançamento em dez minutos."  You don't know
 the language, but decide to leave fast!
 
 >You proceed down the rope with large leaps as fast as you dare.
+
 Inside - Below Controls
 The hull was very thin to what you thought it should be.  Whatever the aliens
 intended must have failed.  You believe that they were killed slowly by
@@ -1185,6 +1258,7 @@ backpack.
 "Seis minutos"
 
 >You move out.
+
 Against Hull
 You are now over a hundred meters above the ground.  One of the main tap
 roots emerges from a circular opening in the hull.  Coming from the opening
@@ -1193,11 +1267,13 @@ is an odor like a composter.
 >You secure a rope to a piton near you.
 
 >You proceed down the rope with large leaps as fast as you dare.
+
 Mid-Point
 About fifteen minutes of climbing and spiking pitons to get halfway up.  You
 look down about fifty meters.  A nylon rope is securely tied to a piton.
 
 >You proceed down the rope with large leaps as fast as you dare.
+
 Base of Climb
 You realize that the ground isn't rock but a root system, making the aliens
 plant-like.  Looking up at the climb you see several grip locations, however
@@ -1207,6 +1283,7 @@ even you vertigo.  A nylon rope is securely tied to a piton.
 
 >You reach the base of the mound and run like a bat out of hell to the
 capsule.
+
 Alien Mound
 The ground around you is several meters above the ocean.  If not for the
 special suit, you'd be freezing your tail off as you can see Antarctica from

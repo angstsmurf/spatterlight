@@ -35,6 +35,7 @@ you.  But you made it to the crown.
 >You are now standing on the floor next to the ruined statue.
 
 >You move north.
+
 Ancient Gallery
 The walls about you are ancient and crumbling, yet modern looking portraits
 hang from them all the same. The faces depicted twist and writhe in torment.
@@ -54,6 +55,7 @@ warning you to not touch the crystal.
 All of the portraits are leaning against the wall.
 
 >You move south.
+
 Ruined Statue
 You are on top of the ruined statue, which has been ravaged by the passage of
 time. A crown of stone rests upon its brow, a glittering jewel its
@@ -65,6 +67,7 @@ thing I read those Hardy Boys books."
 Passages in the ruined walls of this place lie to the north and west.
 
 >You move west.
+
 Cage
 The centre of this circular chamber is a cage. Claw marks on the bars of the
 cage indicate the beast fought ferociously to escape its imprisonment, yet
@@ -81,6 +84,7 @@ cage slowly rises.
 >You open the door.
 
 >You move west.
+
 Humming Chamber
 Once this was doubtless some kind of meeting hall. Rows of seats spiral
 outwards from a central podium where a speaker once stood to deliver speeches
@@ -98,6 +102,7 @@ burned, but it is old.  As the book turns to dust before your eyes, you
 notice a key on a chain fall from it.
 
 >You move northwest.
+
 Blocked Passage
 The ceiling has collapsed, and the stones are blocking further access along
 this passage. On one wall is an opening which overlooks the outside world,
@@ -110,6 +115,7 @@ The rope ladder is securely fastened on the hooks.  It looks as though it
 could hold your weight.
 
 >You move down.
+
 The Ledge
 You are standing on a small ledge.  You must be careful, or you could easily
 fall.  As you look around, you see that this world is far from yours.  There
@@ -125,6 +131,7 @@ Also here is a tuning fork.
 You now have the tuning fork.
 
 >You move up.
+
 Blocked Passage
 The ceiling has collapsed, and the stones are blocking further access along
 this passage. On one wall is an opening which overlooks the outside world,
@@ -133,6 +140,7 @@ although the drop looks to be formidable and you doubt you could survive it.
 The passage leads back to the southeast.
 
 >You move southeast.
+
 Humming Chamber
 Once this was doubtless some kind of meeting hall. Rows of seats spiral
 outwards from a central podium where a speaker once stood to deliver speeches
@@ -145,6 +153,7 @@ heard, emanating from somewhere in the chamber.
 A passage extends northwest and another to the east.
 
 >You move east.
+
 Cage
 The centre of this circular chamber is a cage. Claw marks on the bars of the
 cage indicate the beast fought ferociously to escape its imprisonment, yet
@@ -160,6 +169,7 @@ index finger starts to tingle.  The Beast lunges at you.
 Beast hits you, but it doesn't seem to do any damage.
 
 >You move east.
+
 Ruined Statue
 You are on top of the ruined statue, which has been ravaged by the passage of
 time. A crown of stone rests upon its brow, a glittering jewel its
@@ -171,6 +181,7 @@ thing I read those Hardy Boys books."
 Passages in the ruined walls of this place lie to the north and west.
 
 >You move north.
+
 Ancient Gallery
 The walls about you are ancient and crumbling, yet modern looking portraits
 line the floor all the same. The faces depicted twist and writhe in torment.
@@ -197,6 +208,7 @@ You reach up and touch it and discover that you are bleeding.  It does not
 seem too bad, nothing a stitch or two can fix.
 
 >You move northeast.
+
 Passage
 The broken bones of tiny rodents crunch underfoot as you make your way along
 this passage. It is dark and shadowy for the most part, illuminated poorly by

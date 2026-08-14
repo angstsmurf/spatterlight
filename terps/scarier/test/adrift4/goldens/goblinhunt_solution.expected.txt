@@ -46,6 +46,7 @@ been chasing. He gives a snarl and runs off to the north.
 you come across a whistle that must have been dropped by Blood.
 
 >You move northwest.
+
 Graveyard - West
 Here at the western edge of the graveyard, someone has lumped a few goblin
 corpses together. From the smell, the goblins have either not had a wash in a
@@ -55,6 +56,7 @@ likely).
 You can move east, northeast and southeast.
 
 >You move northeast.
+
 Graveyard - North
 The only thing of interest in the northern part of the graveyard is the
 gravedigger's hut. And this is a lot less interesting than you might think on
@@ -124,6 +126,7 @@ account of it being locked up tighter than your wife's purse when you're on
 the scrounge.
 
 >You move southeast.
+
 Graveyard - East
 The wall surrounding the graveyard has tumbled down here, allowing access to
 a field to the east in which several cows are currently holding a discussion
@@ -132,6 +135,7 @@ on the vagaries of isometric shapes in a diagonal universe. Riveting stuff.
 You can move east, west, southwest and northwest.
 
 >You move east.
+
 Cow Field
 There's a field here but on account of the cows who keep brushing past you
 and disrupting things, it's kind of difficult to make head or head of what's
@@ -152,6 +156,7 @@ find that you leave the other stuff where it is.
 >You put on the armour.
 
 >You move west.
+
 Graveyard - East
 The wall surrounding the graveyard has tumbled down here, allowing access to
 a field to the east that is now remarkably cow-free.
@@ -178,6 +183,7 @@ Blood gives a curse of disappointment at this unfortunate (for him) turn of
 events and runs off to the south.
 
 >You move south.
+
 Graveyard - South
 The gravestones of several dozen dead goblin hunters are arrayed about you, a
 chilling reminder of just what fate awaits you if you fail today.

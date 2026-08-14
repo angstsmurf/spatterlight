@@ -18,6 +18,7 @@ Zifan is here.
 >You open the big door.
 
 >You move south.
+
 Oran entrance
 You have entered the town of Oran. This place does not look very friendly.
 The houses are all scattered randomly accross the area. Some of them have

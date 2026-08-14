@@ -16,16 +16,19 @@ flicking his tongue at passing insects. The pond water is to the east.
 juicy dragonfly. You feel much stronger.
 
 >You hop off to confront the princess.
+
 Pond
 You are immersed in the familiar murky water of your pond. Soft scum
 surrounds you.  The shore is to the east.
 
 >You move east.
+
 Pond
 You are immersed in the familiar murky water of your pond. Soft scum
 surrounds you.  The shore is to the east.
 
 >You move east.
+
 The Shore
 Your web feet sink into the fragrant mud of the shore. You can't tell which
 of the openings int he weeds might be a path, or which direction to go in.
@@ -41,6 +44,7 @@ Jackie Kennedy. It does make you look vaguely human. At least to a guard
 that's a heron.
 
 >You hop closer to your battle with the princess.
+
 Castle gate.
 This is the entrance to the castle.  The castle lies to the south.  A guard
 blocks your way.
@@ -48,6 +52,7 @@ blocks your way.
 Guard is here.
 
 >You move south.
+
 The throne room
 You are in an elegant throne room that would probably impress you with its
 magnificance if you were into interior design rather than being a simple love

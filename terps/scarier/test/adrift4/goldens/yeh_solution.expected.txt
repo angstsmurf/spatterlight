@@ -23,18 +23,21 @@ You gained 100 points
 You drink it.
 
 >You move south.
+
 Outside
 It is a grassy meadow. The woods lay west of here.
 
 You can move north and west.
 
 >You move west.
+
 Woods
 The trees are all around. The path leads North and south.
 
 You can move north, east and south.
 
 >You move south.
+
 A dirt path
 The path moves forward and then splits into two. One going West and one goind
 east.
@@ -46,6 +49,7 @@ Ugly thing hits you.
 Leon hits Ugly thing.
 
 >You move east.
+
 Spooky area.
 The woods have gotten incredibly dark. A tower lies to the east. A town lies
 to the south.
@@ -53,6 +57,7 @@ to the south.
 You can move east, south and west.
 
 >You move east.
+
 Tower Lobby
 You enter a room made with stone. Moss grows along the northern wall and can
 be climbed up. Otherwise the other walls are lined iin pretty black stones
@@ -61,6 +66,7 @@ here and there.
 You can move west and up.
 
 >You move up.
+
 Tower Floor 2
 After climbing the moss it seems as if the tower has changed into a woodland
 structure like the bark of a tree. A vine is twitching in the center of the
@@ -69,6 +75,7 @@ room. A spiral staircase is past it.
 You can move up and down.
 
 >You move up.
+
 Tower Floor 3
 A bow sits in the center of the room guarded by yet another vine. Another
 patch of moss leads up.
@@ -85,6 +92,7 @@ Leon hits Animated Vine.
 Leon hits Animated Vine.
 
 >You move up.
+
 Tower Floor 4
 The sides of the walls are rough and wet with due. A glowing door sits south
 of you.
@@ -92,6 +100,7 @@ of you.
 You can move south and down.
 
 >You move south.
+
 Room of portals
 The room has white walls and glowing doors are to the west south and east of
 you.
@@ -106,6 +115,7 @@ You can move north, east and south.
 Wee Ha
 
 >You move south.
+
 Tree Land
 Trees are all around. You are walking on a vine. A tree with a vine that you
 can walk up is just beyond an archer.
@@ -113,6 +123,7 @@ can walk up is just beyond an archer.
 You can move north and up.
 
 >You move up.
+
 Final tower room.
 The tree has once again converted into a tower. A man with bushes all around
 him and vines for arms sits there.

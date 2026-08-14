@@ -42,6 +42,7 @@ leave. There, you've said it, but first of course you could do with some
 clothes...
 
 >You move east.
+
 Your living room
 Your house is (let's face it) pretty rubbish. In your living room is a cheap
 sofa and a small mahogany table.  From here you can go either east or up.
@@ -69,6 +70,7 @@ amazes you as it means you actually have money.
 a rebel!
 
 >You move up.
+
 Your upstairs landing
 The landing is a narrow corridor which leads to your bedroom. A small table
 lies at the end upon which stands a small vase.  This narrow corridor can
@@ -78,6 +80,7 @@ your bedroom.
 >You take the crowbar from the vase.
 
 >You move east.
+
 Your bedroom
 Your bedroom has a small bed in it and an ageing, rickety chair in the corner
 of the room. There are piles of clothes on the floor. The windows look out
@@ -103,6 +106,7 @@ springtime (whatever that smells like.)
 >You pick up the pair of trousers.
 
 >You move east.
+
 Your bathroom
 Your bathroom is an unpleasent off-white colour and contains a shower, sink
 and toilet. A medicine cabinet hangs on the wall. There is a large bottle of
@@ -132,6 +136,7 @@ day's residual plaque off of your yellowing teeth.
 CANNOT EAT A LIQUID. Have yourself 5 points for being an arsehole.
 
 >You move west.
+
 Your bedroom
 Your bedroom has a small bed in it and an ageing, rickety chair in the corner
 of the room. There are piles of clothes on the floor. The windows look out
@@ -139,6 +144,7 @@ over another dreary day.   From here you can go either east to the lands of
 fresh minty flavour (aka your bathroom) or west to your upstairs landing.
 
 >You move west.
+
 Your upstairs landing
 The landing is a narrow corridor which leads to your bedroom. A small table
 lies at the end upon which stands a small vase.  This narrow corridor can
@@ -146,6 +152,7 @@ only be exited by going down the stairs to your living room or going east to
 your bedroom.
 
 >You move down.
+
 Your living room
 Your house is (let's face it) pretty rubbish. In your living room is a cheap
 sofa and a small mahogany table.  From here you can go either east or up.
@@ -156,6 +163,7 @@ at this point without at least a pair of well-washed trousers.
 Also here is the letter.
 
 >You move east.
+
 Your Kitchen
 Your kitchen has the usual fridge/freezer, oven etc. There is a washing
 machine as well but apart from that It is pretty plain.  From here, you can
@@ -169,6 +177,7 @@ You hear a crash from the living room. It sounds as if the door has been
 broken down.
 
 >You move west.
+
 Your living room
 Your house is (let's face it) pretty rubbish. In your living room is a cheap
 sofa and a small mahogany table.  From here you can go either east or up.
@@ -195,6 +204,7 @@ them has a chocolate bar in his pocket which you take. You leave them where
 they are.
 
 >You move west.
+
 Street (south end)
 You are in the south end of a long street. This end of the street is pretty
 plain except for a small cash machine mounted on the wall outside the bank.
@@ -203,6 +213,7 @@ living room, west to the Piddlington bank, south to the Piddlington car
 showroom or north to travel up the street.
 
 >You move north.
+
 Street (middle)
 You are in the middle of a long street. A car sits unobtrusively on one side
 of the road. Birds circle overhead and grey clouds roll slowly across the
@@ -212,6 +223,7 @@ go east to Mrs Walters' (your elderly couch potato neighbour with a peanut
 allergy) house.
 
 >You move east.
+
 Mrs Walters' Living Room
 The living room is a testament to Mrs Walters complete lack of colour
 co-ordination. The widescreen TV seems to always be tuned into the soap opera
@@ -264,6 +276,7 @@ Mrs Walters totters out of the room to the east.
 >You quickly take the picasso and run out of the door.
 
 >You move south.
+
 Street (south end)
 You are in the south end of a long street. This end of the street is pretty
 plain except for a small cash machine mounted on the wall outside the bank.
@@ -284,6 +297,7 @@ The doorbell is pressed again.
 eager to talk.
 
 >You move up.
+
 Your upstairs landing
 The landing is a narrow corridor which leads to your bedroom. A small table
 lies at the end upon which stands a small vase.  This narrow corridor can
@@ -291,6 +305,7 @@ only be exited by going down the stairs to your living room or going east to
 your bedroom.
 
 >You move east.
+
 Your bedroom
 Your bedroom has a small bed in it and an ageing, rickety chair in the corner
 of the room. There are piles of clothes on the floor. The windows look out
@@ -300,6 +315,7 @@ fresh minty flavour (aka your bathroom) or west to your upstairs landing.
 >You don't have the right equipment.
 
 >You move west.
+
 Your upstairs landing
 The landing is a narrow corridor which leads to your bedroom. A small table
 lies at the end upon which stands a small vase.  This narrow corridor can
@@ -307,6 +323,7 @@ only be exited by going down the stairs to your living room or going east to
 your bedroom.
 
 >You move down.
+
 Your living room
 Your house is (let's face it) pretty rubbish. In your living room is a cheap
 sofa and a small mahogany table.  From here you can go either east, up or
@@ -338,6 +355,7 @@ exchange and departs. You sit there with the $1000 in your hand. Then you
 realise that you have a car to buy!
 
 >You move west.
+
 Street (south end)
 You are in the south end of a long street. This end of the street is pretty
 plain except for a small cash machine mounted on the wall outside the bank.
@@ -346,6 +364,7 @@ living room, west to the Piddlington bank, south to the Piddlington car
 showroom or north to travel up the street.
 
 >You move north.
+
 Street (middle)
 You are in the middle of a long street. A car sits unobtrusively on one side
 of the road. Birds circle overhead and grey clouds roll slowly across the
@@ -354,18 +373,21 @@ could also choose to go south which would lead you down the street or you can
 go east to the now dead Mrs Walters'  house.
 
 >You move north.
+
 Street (North end)
 You are in the north end of a long street.  You can walk west to Giovanni's
 restaurant (the premier eatery in town) or north to the Cheapoland shopping
 centre.
 
 >You move north.
+
 Cheapoland Shopping centre
 Cheapoland shopping centre is surprisingly quiet today. The shopping centre
 extends upwards, downwards, sideways etc.  You can move north to the clothes
 department, south to the street or up to the bookstore.
 
 >You move north.
+
 Clothes department
 The cheapoland clothes department is a testament to man-made fibres, PVC in
 particular. The clothes on the shelves are not so much cheap as cheap and
@@ -375,6 +397,7 @@ the shopping centre.
 Hundreds of customers are here, milling all over the place.
 
 >You move north.
+
 Bargain basement
 Let's face it, if you can't afford whats in the bargain basement then you
 really are below the poverty line. One corner of this section in particular
@@ -390,6 +413,7 @@ hat and a small box of milk chocolates. You decide to put the chef's hat on.
 >The chocolates taste absolutely fabulous.
 
 >You move south.
+
 Clothes department
 The cheapoland clothes department is a testament to man-made fibres, PVC in
 particular. The clothes on the shelves are not so much cheap as cheap and
@@ -399,12 +423,14 @@ the shopping centre.
 Hundreds of customers are here, milling all over the place.
 
 >You move south.
+
 Cheapoland Shopping centre
 Cheapoland shopping centre is surprisingly quiet today. The shopping centre
 extends upwards, downwards, sideways etc.  You can move north to the clothes
 department, south to the street or up to the bookstore.
 
 >You move up.
+
 Cheapoland bookstore
 The Cheapoland bookstore is the hub of literary brilliance and contains
 nearly every book known to man, except of course, the one you're looking for.
@@ -416,6 +442,7 @@ section and down leads back down to the shopping centre entrance.
 Betty is here.
 
 >You move west.
+
 The Modern Fiction Section
 The modern fiction section of the bookshop is a fairly ordinary room. Posters
 of different bestsellers adorn the walls.  From here you can either move west
@@ -426,6 +453,7 @@ Also here are the bottle of pills.
 >You pick up the bottle of pills.
 
 >You move east.
+
 Cheapoland bookstore
 The Cheapoland bookstore is the hub of literary brilliance and contains
 nearly every book known to man, except of course, the one you're looking for.
@@ -467,6 +495,7 @@ CONGRATULATIONS, YOU HAVE JUST COMPLETED THE UTTERLY POINTLESS BONUS TASK AND
 HAVE EARNED YOURSELF 500 POINTS!!!
 
 >You move east.
+
 Cheapoland Foreign book section
 The foreign book section contains lots of different books in lots of
 different languages. However, one book in particular catches your eye. It is
@@ -480,6 +509,7 @@ pocket without anyone noticing.
 mastered the intricacies of the entire Norwegian language.
 
 >You move west.
+
 Cheapoland bookstore
 The Cheapoland bookstore is the hub of literary brilliance and contains
 nearly every book known to man, except of course, the one you're looking for.
@@ -493,12 +523,14 @@ entrance.
 Betty is here.
 
 >You move west.
+
 The Modern Fiction Section
 The modern fiction section of the bookshop is a fairly ordinary room. Posters
 of different bestsellers adorn the walls.  From here you can either move west
 to the 'classic fiction' section or east to the main bookshop area.
 
 >You move west.
+
 The Classic Fiction Section
 The Classic fiction section of the bookstore is concerned with old classics.
 The 'classic fiction' section can only be exited via the eastern door which
@@ -526,6 +558,7 @@ the chair and stand there, unable to believe your luck. Mr Broofield leaves
 quickly, the book held in his hands.
 
 >You move north.
+
 Street (middle)
 You are in the middle of a long street. A car sits unobtrusively on one side
 of the road. Birds circle overhead and grey clouds roll slowly across the
@@ -534,12 +567,14 @@ could also choose to go south which would lead you down the street or you can
 go east to the now dead Mrs Walters'  house.
 
 >You move north.
+
 Street (North end)
 You are in the north end of a long street.  You can walk west to Giovanni's
 restaurant (the premier eatery in town) or north to the Cheapoland shopping
 centre.
 
 >You move west.
+
 Restaurant
 Giovanni's is one of the village's premier restaurants. It is an exotic blend
 of Italian style and Greek architechture wrapped up in one big ball of
@@ -559,6 +594,7 @@ that they aren't actually part of the story, just a casual piece of scenery
 and an attempt to make the gaming environment more realistic. Or both.
 
 >You move west.
+
 Giovanni's Kitchen
 The room is filled with the latest state of the art kitchen equipment.  You
 have the choice of either moving east to the restaurant or down to the wine
@@ -580,6 +616,7 @@ customers. He also tells you that they are expecting a new chef to be coming
 later on in the day before he turns back and carries on with the dishes.
 
 >You move down.
+
 Giovanni's Wine Cellar
 It is very cold down in the cellar. Long racks of wine bottles strech in all
 directions. All kinds of wines are in the cellar. Rouges, blancs and even a
@@ -596,6 +633,7 @@ to push the limits of this game to see just how stupid you can be? Well,
 thats fine by me. You get yourself 5 points.
 
 >You move up.
+
 Giovanni's Kitchen
 The room is filled with the latest state of the art kitchen equipment.  You
 have the choice of either moving east to the restaurant or down to the wine
@@ -605,6 +643,7 @@ with a wooden spoon.  Malcolm stands at the sink, washing the seemingly
 endless pile of dishes.
 
 >You move east.
+
 Restaurant
 Giovanni's is one of the village's premier restaurants. It is an exotic blend
 of Italian style and Greek architechture wrapped up in one big ball of
@@ -619,12 +658,14 @@ delights of Giovanni's kitchen or east to the street.
 Some diners are here.
 
 >You move east.
+
 Street (North end)
 You are in the north end of a long street.  You can walk west to Giovanni's
 restaurant (the premier eatery in town) or north to the Cheapoland shopping
 centre.
 
 >You move south.
+
 Street (middle)
 You are in the middle of a long street. A car sits unobtrusively on one side
 of the road. Birds circle overhead and grey clouds roll slowly across the
@@ -633,6 +674,7 @@ could also choose to go south which would lead you down the street or you can
 go east to the now dead Mrs Walters'  house.
 
 >You move south.
+
 Street (south end)
 You are in the south end of a long street. This end of the street is pretty
 plain except for a small cash machine mounted on the wall outside the bank.
@@ -644,6 +686,7 @@ showroom or north to travel up the street.
 today so your appoinment is soon.
 
 >You move west.
+
 Bank
 The Piddlington bank is quiet today, there is only the loans department open.
 A pot-plant sits quietly in the corner minding it's own business while a fly
@@ -653,6 +696,7 @@ the street outside or north to the loans 'department.' Mr Fairbanks' office
 now appears accessible.
 
 >You move north.
+
 Loans 'department'
 The loans 'department' of the Piddlington bank consists of an unbelievebly
 enthusiastic young bank worker behind a rather manky looking desk/computer
@@ -685,6 +729,7 @@ to your bank account and add £1000 to the the £50 already in there. You
 switch off the computer, ready to go.
 
 >You move south.
+
 Bank
 The Piddlington bank is quiet today, there is only the loans department open.
 A pot-plant sits quietly in the corner minding it's own business while a fly
@@ -694,6 +739,7 @@ the street outside or north to the loans 'department.' Mr Fairbanks' office
 now appears accessible.
 
 >You move west.
+
 Mr Fairbanks office
 Mr Fairbank appears to be the manager of the bank. He is sitting at a desk.
 There are pictures on the wall behind him.  The only way out of the office is
@@ -718,6 +764,7 @@ thousand which he hands over to you quickly. You stand there with the grand
 in your hand.
 
 >You move east.
+
 Bank
 The Piddlington bank is quiet today, there is only the loans department open.
 A pot-plant sits quietly in the corner minding it's own business while a fly
@@ -727,6 +774,7 @@ the street outside or north to the loans 'department.' Mr Fairbanks' office
 now appears accessible.
 
 >You move east.
+
 Street (south end)
 You are in the south end of a long street. This end of the street is pretty
 plain except for a small cash machine mounted on the wall outside the bank.
@@ -743,6 +791,7 @@ card and a wad of notes to the value of £1000. You gather up the notes and
 the card.
 
 >You move south.
+
 Car showroom
 The showroom is full of expensive sports cars and not so expensive second
 hand cars.  The Fullerton 'Hog' seems to call to you from it's space on the
@@ -765,6 +814,7 @@ over unconscious. As he falls, he drops the key to his office, which you
 take.
 
 >You move south.
+
 Matthews' office
 Matthews' office is a small office with a few filing cabinets a desk and a
 rack of keys attached to the wall. There is also a gold name plate on the
@@ -776,6 +826,7 @@ Also here is the car key.
 >You pick up the car key.
 
 >You move north.
+
 Car showroom
 The showroom is full of expensive sports cars and not so expensive second
 hand cars.  The Fullerton 'Hog' seems to call to you from it's space on the
@@ -790,6 +841,7 @@ Unconscious Matthews is here.
 >You climb back out of the window and into the showroom.
 
 >You move north.
+
 Street (south end)
 You are in the south end of a long street. This end of the street is pretty
 plain except for a small cash machine mounted on the wall outside the bank.
@@ -798,6 +850,7 @@ living room, west to the Piddlington bank, south to the Piddlington car
 showroom or north to travel up the street.
 
 >You move north.
+
 Street (middle)
 You are in the middle of a long street. A car sits unobtrusively on one side
 of the road. Birds circle overhead and grey clouds roll slowly across the
@@ -839,6 +892,7 @@ on! Hit the Accelerator! Hit the Accelerator!"
 as you know that there isn't much time.
 
 >You move west.
+
 The country lane (a bit further on)
 This bit of country road is much like any other, surrounded by fields and
 badly signposted. But right now you've probably got more important things on
@@ -854,6 +908,7 @@ floor unconscious. The sheep instictively begin going off in all directions,
 a few choosing to gnaw at the slumbering shephard's face.
 
 >You move north.
+
 The side of the road (2)
 This is the side of the road, A large brown fence with remarkably useful
 handholds dominates the nearby surroundings.  The options for movement here

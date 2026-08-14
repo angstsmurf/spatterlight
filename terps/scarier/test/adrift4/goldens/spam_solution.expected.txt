@@ -28,12 +28,14 @@ So, how do you intend to find out what's in SPAM©?
 >You pick up the can of SPAM©.
 
 >You move north.
+
 Driveway
 Your car is here.
 
 >You don't have your car keys!
 
 >You move south.
+
 Kitchen
 The usual refrigerator, stove, and the like are all here, along with
 groceries, and a can of SPAM©.
@@ -43,6 +45,7 @@ Oh, and your car keys are on the counter.
 >You pick up car keys.
 
 >You move north.
+
 Driveway
 Your car is here.
 
@@ -53,6 +56,7 @@ You get in your car.
 of SPAM©.
 
 >You move north.
+
 Inside SPAM© Headquarters
 You are at a desk. There is a receptionist here, typing away at a computer.
 

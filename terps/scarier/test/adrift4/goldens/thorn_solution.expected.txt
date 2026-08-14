@@ -50,6 +50,7 @@ Inside the otherwise empty desk is what appars to be a map.
 >You take the map from the desk.
 
 >You move east.
+
 Beside the Road
 The road you've parked your van beside is little more than a dirt track,
 running north, through the fens Snow covers the ground but mists still hang
@@ -57,6 +58,7 @@ above the ditches which take the place of hedgerows in the area. To the east,
 a stone vicarage and church are outlined against the sky.
 
 >You move east.
+
 In Front of the Vicarage
 The area between the road and the vicarage to the east appears to be nothing
 more than a flat patch of desolate earth traversed by a  flagstone walk. The
@@ -65,6 +67,7 @@ summer garden, had there been one. The church is just a black  rectangular
 mass from here. A churchyard lies to the north.
 
 >You move north.
+
 The Churchyard
 This part of the churchyard, dusted in snow, appears nearly empty.  Here and
 there the wind has scoured the snow from one of the flat  gravestones but the
@@ -72,12 +75,14 @@ rest are concealed. The churchyard  extends to the north.  The church looms
 to the east
 
 >You move east.
+
 Inside the Church
 Weak light from the gray rectangle of the door to the west and from the tall,
 pointed windows along the walls, reveal a gutted interior. A stone staircase
 leads up into the tower.
 
 >You move up.
+
 Inside the Church Tower
 The tower is an empty shell, like the rest of the church.
 
@@ -102,12 +107,14 @@ thorn were different from those of the Glastonbury Thorn."
 There is nothing more. Either the story was never continued or was discarded.
 
 >You move down.
+
 Inside the Church
 Weak light from the gray rectangle of the door to the west and from the tall,
 pointed windows along the walls, reveal a gutted interior. A stone staircase
 leads up into the tower.
 
 >You move west.
+
 The Churchyard
 This part of the churchyard, dusted in snow, appears nearly empty.  Here and
 there the wind has scoured the snow from one of the flat  gravestones but the
@@ -125,6 +132,7 @@ cross-shaped monuments. To the west, in the growing shadows, you can make out
 what might be a ruin. The churchyard extends to the south.
 
 >You move west.
+
 In Front of the Abbey
 The remains of an ancient abbey. A single wall, part  of the cloister
 buildings, perhaps. The wind off the fens has formed a low,  curved ridge of
@@ -137,6 +145,7 @@ along the wall. The wall continues west  The churchyard lies to the east.
 >You pick up the dry sticks.
 
 >You move west.
+
 The Ruined Wall
 The short jagged length of wall points like a skeletal finger toward the
 empty fens where ghostly exhalations of mist shimmer in the darkness.
@@ -279,6 +288,7 @@ cross shape shows where a crucifix had protected the plaster beneath from
 smoke. The only way out is the door to the west.
 
 >You move west.
+
 The Ruined Wall at Dawn
 
 You are drawn irresistibly back to the ruined wall and the twisted thorn. The

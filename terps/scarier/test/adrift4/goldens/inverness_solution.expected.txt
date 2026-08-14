@@ -47,6 +47,7 @@ all professions that go the primrose way to the everlasting bonfire."
 "Anon, anon! I pray you, remember the porter."
 
 The door creaks slowly open.  You move north.
+
 Entrance Hall
 This is the entrance hall of Inverness Castle, which is lit by torches on the
 walls.  The walls are decorated in large tapestries.  The sitting room is to
@@ -56,6 +57,7 @@ leave the castle to the south.
 The porter is here.
 
 >You move north.
+
 Back Hall
 From the back hall you can go north to the kitchen.  A narrow stone staircase
 leads up to the upstairs hall.  You can also go east to the servant's
@@ -63,6 +65,7 @@ quarters, north-east to the kitchen staff's quarters, south-east to the
 sitting room or south to the entrance hall.
 
 >You move north.
+
 Kitchen
 You're in the kitchen.  There's an oven on the north wall and a pantry to the
 east.  From the kitchen you can go south to the dining room or south-east to
@@ -75,6 +78,7 @@ bottle of wine, a sack of flour and a spice rack.
 >You take the loaf of bread from the pantry.
 
 >You move southeast.
+
 Back Hall
 From the back hall you can go north to the kitchen.  A narrow stone staircase
 leads up to the upstairs hall.  You can also go east to the servant's
@@ -82,6 +86,7 @@ quarters, north-east to the kitchen staff's quarters, south-east to the
 sitting room or south to the entrance hall.
 
 >You move south.
+
 Entrance Hall
 This is the entrance hall of Inverness Castle, which is lit by torches on the
 walls.  The walls are decorated in large tapestries.  The sitting room is to
@@ -97,6 +102,7 @@ to look for a drink to wash it down.
 You take the torch from the wall.
 
 >You move east.
+
 Sitting Room
 The sitting room is lit by candles and oil lamps.  On the walls are a variety
 of paintings, and tapestries, and a statue.  They are dominated by a large
@@ -120,6 +126,7 @@ where a small wooden box has been hidden.
 >You can't seem to get the box open.  Perhaps someone can help you open it.
 
 >You move west.
+
 Entrance Hall
 This is the entrance hall of Inverness Castle, which is lit by torches on the
 walls.  The walls are decorated in large tapestries.  The sitting room is to
@@ -129,18 +136,21 @@ leave the castle to the south.
 The porter is here.
 
 >You move south.
+
 Outside Inverness
 The heavy wooden door to Inverness Castle looms before you to the north, the
 castle looking ominous in dark grey stone.  The road to Forres is to the
 north-east.
 
 >You move northeast.
+
 Road to Forres
 The town of Forres is to the north-east.  The entrance to Inverness Castle is
 to the south-west, and the back of the castle is to the west.  You see a
 blasted heath to the south.
 
 >You move south.
+
 A Blasted Heath near Forres
 This is a deserted, foul place.  You can go north to the road.
 Graymalkin the cat is here, skulking around.  Paddock the toad is here.
@@ -172,17 +182,20 @@ The box slowly opens.
 >You take the scroll from the wooden box.
 
 >You move north.
+
 Road to Forres
 The town of Forres is to the north-east.  The entrance to Inverness Castle is
 to the south-west, and the back of the castle is to the west.  You see a
 blasted heath to the south.
 
 >You move west.
+
 Behind Inverness
 The desolate area behind the castle is cold and windy.  You can go south to
 the kitchen.  You see the road to the east.
 
 >You move south.
+
 Kitchen
 You're in the kitchen.  There's an oven on the north wall and a pantry to the
 east.  From the kitchen you can go south to the dining room or south-east to
@@ -190,6 +203,7 @@ the back hall.  A staircase leads down to the cellar.  A back door leads out
 to the yard.
 
 >You move southeast.
+
 Back Hall
 From the back hall you can go north to the kitchen.  A narrow stone staircase
 leads up to the upstairs hall.  You can also go east to the servant's
@@ -199,11 +213,13 @@ sitting room or south to the entrance hall.
 Porter saunters in from the south.
 
 >You move up.
+
 North Upstairs Hall
 Bedroom doors are to the east and west, and the hallway continues to the
 south.  There is a narrow, stone staircase going down.
 
 >You move west.
+
 Master Bedroom
 Macbeth and Lady Macbeth sleep in this room.  There is an exit on the east
 wall, which leads to the hallway, and a dressing room to the south.  There's
@@ -220,6 +236,7 @@ You open the desk drawer.
 
 >(Your score has increased by 20)
 You move south.
+
 Dressing Room
 This dressing room is like a large, walk-in closet.  Macbeth and Lady Macbeth
 use this room to change their clothes and other things.
@@ -290,6 +307,7 @@ Blackness
 It's dark.  You can't see anything.
 You feel really groggy, and your head hurts.
 After a moment of grogginess, you realize you are in the cellar.
+
 Cellar
 The dark and dingy cellar is used to store food and wine.  A staircase leads
 up to the kitchen.  It's cold down here.

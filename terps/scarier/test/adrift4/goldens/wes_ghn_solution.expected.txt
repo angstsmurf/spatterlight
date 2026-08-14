@@ -147,6 +147,7 @@ This doesn't feel right.
 >
 >
 >You move north.
+
 Merciless Walkways
 You stand on a dimly-lit but clearly intricate walkway, reminiscentof
 Versailles Palace, in a cavernous space so large you cannot see the ceiling
@@ -176,6 +177,7 @@ The doorway in front of you has clicked open and is now clear.
 >
 >
 >You move north.
+
 Waiting Room
 You are in a small room lit by a flickering fluorescent light. The floor is
 green and white checkered linoleum, caked with deep set dirt and grime. Along
@@ -202,6 +204,7 @@ if anyone was ever there.
 >You take the gold ring from the severed hand.
 
 >You move north.
+
 Grand Corridor
 You step into a long hallway decorated with portraits on either side and lit
 by wall sconces high above you. The walls are painted a beautiful variation
@@ -218,6 +221,7 @@ You can move east, south and west.
 hardening, and forming the Soul Scythe.
 
 >You move west.
+
 The Core of Beauty
 A large room of flat gray colors and stone. Littered about the floor are the
 cracked remnants and unsettling ruins of destroyed statues and idols that
@@ -316,6 +320,7 @@ move.
 >
 >
 >You move east.
+
 Grand Corridor
 You step into a long hallway decorated with portraits on either side and lit
 by wall sconces high above you. The walls are painted a beautiful variation
@@ -329,6 +334,7 @@ strange contraption next to it.
 You can move east, south and west.
 
 >You move east.
+
 The Halting Chapel
 Cobwebs and thick dust coat every surface of the room and indicate that it
 has not seen much use. Statues of saints sit back in alcoves long forgotten
@@ -437,6 +443,7 @@ You cut Hope with the Soul Scythe.
 step back. A bright white light flashes and she is gone.
 
 >You move west.
+
 Grand Corridor
 You step into a long hallway decorated with portraits on either side and lit
 by wall sconces high above you. The walls are painted a beautiful variation
@@ -450,6 +457,7 @@ strange contraption next to it.
 You can move east, south and west.
 
 >You move west.
+
 The Core of Beauty
 A large room of flat gray colors and stone. Littered about the floor are the
 cracked remnants and unsettling ruins of destroyed statues and idols that
@@ -469,6 +477,7 @@ eyes to find the fountain has changed.
 >You pick up the vial.
 
 >You move north.
+
 Radiology Chamber
 The stark whiteness of the room is unsettling. The walls are flat and
 scattered along them you see view screens of skeletons and bodies accompanied
@@ -533,6 +542,7 @@ you want to get passed that optical scanner."
 >
 >
 >You move south.
+
 The Core of Beauty
 A large room of flat gray colors and stone. Littered about the floor are the
 cracked remnants and unsettling ruins of destroyed statues and idols that
@@ -543,6 +553,7 @@ sprays an iridescent sweet smelling fluid.
 You can move north and east.
 
 >You move east.
+
 Grand Corridor
 You step into a long hallway decorated with portraits on either side and lit
 by wall sconces high above you. The walls are painted a beautiful variation
@@ -567,6 +578,7 @@ a small bundle. It seems that is all there is inside of the hole.
 >You open the grand corridor door.
 
 >You move north.
+
 The Medicine Cabinet
 This enormous room's floor is completely obscured by knee-deep water. Out of
 the water juts monolithic capsules with medical symbols or names on them. The
@@ -723,6 +735,7 @@ you alone to contemplate the challenges ahead of you.
 >You open the medicine cabinet door.
 
 >You move north.
+
 Maternaless Ward
 The most conventionally hospital-esque place you've seen thus far. The
 Maternaless Ward is a long hallway. The floors are checkered a clean black
@@ -744,6 +757,7 @@ from the medicine cabinet.
 >
 >
 >You move south.
+
 The Medicine Cabinet
 This enormous room's floor is completely obscured by knee-deep water. Out of
 the water juts monolithic capsules with medical symbols or names on them. The
@@ -760,6 +774,7 @@ You can move north and south.
 >You pick up La Virgencita key.
 
 >You move south.
+
 Grand Corridor
 You step into a long hallway decorated with portraits on either side and lit
 by wall sconces high above you. The walls are painted a beautiful variation
@@ -773,6 +788,7 @@ strange contraption next to it.
 You can move north, east, south and west.
 
 >You move west.
+
 The Core of Beauty
 A large room of flat gray colors and stone. Littered about the floor are the
 cracked remnants and unsettling ruins of destroyed statues and idols that
@@ -783,6 +799,7 @@ sprays an iridescent sweet smelling fluid.
 You can move north and east.
 
 >You move north.
+
 Radiology Chamber
 The stark whiteness of the room is unsettling. The walls are flat and
 scattered along them you see view screens of skeletons and bodies accompanied
@@ -798,6 +815,7 @@ You can only move south.
 >You pick up the Woebegotten scalpel.
 
 >You move south.
+
 The Core of Beauty
 A large room of flat gray colors and stone. Littered about the floor are the
 cracked remnants and unsettling ruins of destroyed statues and idols that
@@ -808,6 +826,7 @@ sprays an iridescent sweet smelling fluid.
 You can move north and east.
 
 >You move east.
+
 Grand Corridor
 You step into a long hallway decorated with portraits on either side and lit
 by wall sconces high above you. The walls are painted a beautiful variation
@@ -821,6 +840,7 @@ strange contraption next to it.
 You can move north, east, south and west.
 
 >You move north.
+
 The Medicine Cabinet
 This enormous room's floor is completely obscured by knee-deep water. Out of
 the water juts monolithic capsules with medical symbols or names on them. The
@@ -833,6 +853,7 @@ of the figure.
 You can move north and south.
 
 >You move north.
+
 Maternaless Ward
 The most conventionally hospital-esque place you've seen thus far. The
 Maternaless Ward is a long hallway. The floors are checkered a clean black
@@ -965,6 +986,7 @@ and lift it out...
 You are back in the Maternaless Ward.
 
 >You move south.
+
 The Medicine Cabinet
 This enormous room's floor is completely obscured by knee-deep water. Out of
 the water juts monolithic capsules with medical symbols or names on them. The
@@ -977,6 +999,7 @@ of the figure.
 You can move north and south.
 
 >You move south.
+
 Grand Corridor
 You step into a long hallway decorated with portraits on either side and lit
 by wall sconces high above you. The walls are painted a beautiful variation
@@ -990,6 +1013,7 @@ strange contraption next to it.
 You can move north, east, south and west.
 
 >You move south.
+
 Waiting Room
 You are in a small room lit by a flickering fluorescent light. The floor is
 green and white checkered linoleum, caked with deep set dirt and grime. Along
@@ -1009,6 +1033,7 @@ You can move north and south.
 >You pick up the Sighing Prudence.
 
 >You move north.
+
 Grand Corridor
 You step into a long hallway decorated with portraits on either side and lit
 by wall sconces high above you. The walls are painted a beautiful variation
@@ -1022,6 +1047,7 @@ strange contraption next to it.
 You can move north, east, south and west.
 
 >You move east.
+
 The Halting Chapel
 Cobwebs and thick dust coat every surface of the room and indicate that it
 has not seen much use. Statues of saints sit back in alcoves long forgotten

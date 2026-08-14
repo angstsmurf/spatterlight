@@ -31,6 +31,7 @@ roughly upon a reef of stones - land leads east into the unknown.
 >Time passes...
 
 >You move east.
+
 On a grey beach
    A lone tree weeps at the edge of the beach, its roots firmly planted in
 the grey sand. The wind toys with its fronds, a vicious unseen harpy, as the
@@ -43,6 +44,7 @@ west.
 the ground against the torment of the wind.
 
 >You move up.
+
 Atop a hill
    With its summit firmly lost in the mesh of grey cloud and dirty fog, the
 hill offers only a distressed signpost pointing south and west.
@@ -54,6 +56,7 @@ path leads down to the beach.
 by a dark moss.
 
 >You move west.
+
 By a ruined cabin
    Built from rough stones and rotten driftwood, a small cabin takes a
 beating from the wind. A ragged curtain, tugged by an unseen force, slaps
@@ -66,6 +69,7 @@ itself against the cabin again.
 driftwood, the cabin is a small outpost, the home of unseen entities.
 
 >You move in.
+
 Inside the cabin
    Empty but for a small table, the cabin appears long forgotten - rotten
 beams struggle to hold it together and a basket of withered wicker cowers in
@@ -87,6 +91,7 @@ fades in your hand, the soggy flesh crumbling into the basket.
 >   You nibble the root of the leek, its foul taste matching its foul stench.
 
 >You move out.
+
 By a ruined cabin
    Built from rough stones and rotten driftwood, a small cabin takes a
 beating from the wind. A ragged curtain, tugged by an unseen force, slaps
@@ -96,6 +101,7 @@ itself against the cabin again.
    A barely discernible path leads east into the fog.
 
 >You move east.
+
 Atop a hill
    With its summit firmly lost in the mesh of grey cloud and dirty fog, the
 hill offers only a distressed signpost pointing south and west.
@@ -104,6 +110,7 @@ hill offers only a distressed signpost pointing south and west.
 path leads down to the beach.
 
 >You move south.
+
 A barren field
    Guarded by fenceposts without any beams, you can only guess as to how vast
 the field is - the fog blocks your vision beyond the first few metres. Grass,
@@ -118,6 +125,7 @@ Finished chewing, it turns to you in expectation of another leek but ignores
 you when it realises no more offerings are forthcoming.
 
 >You move north.
+
 Atop a hill
    With its summit firmly lost in the mesh of grey cloud and dirty fog, the
 hill offers only a distressed signpost pointing south and west.
@@ -126,6 +134,7 @@ hill offers only a distressed signpost pointing south and west.
 path leads down to the beach.
 
 >You move down.
+
 On a grey beach
    A lone tree weeps at the edge of the beach, its roots firmly planted in
 the grey sand. The wind toys with its fronds, a vicious unseen harpy, as the

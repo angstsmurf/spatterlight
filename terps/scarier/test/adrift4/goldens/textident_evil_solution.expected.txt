@@ -98,6 +98,7 @@ A zombie lashes out at you! It's mangled teeth clamp down on a
 arm...chomping! Eating! You stifle a scream and shake it off!
 
 >You move west.
+
 Intersection
 
 Intersection
@@ -110,6 +111,7 @@ there. A side-road lies to the east, and you can just make out a path through
 the wrecks to the north.
 
 >You move north.
+
 Highway
 
 Highway
@@ -131,6 +133,7 @@ spot a clip of ammo in it. Hmmm, this might come in useful.
 >You pick up the clip of pistol ammo.
 
 >You move east.
+
 Pawn Shop
 
 Pawn Shop
@@ -165,6 +168,7 @@ seeps out from under its body.
 The pistol is now empty.
 
 >You move east.
+
 Office
 
 Office
@@ -193,6 +197,7 @@ benevolent medical research. Once again, we can anticipate great things from
 Umbrella!
 
 >You move west.
+
 Pawn Shop
 
 Pawn Shop
@@ -206,6 +211,7 @@ A mangled zombie has found you! It's countenance is feral and hungry, and its
 eyes promise only a painful death!
 
 >You move west.
+
 Highway
 
 Highway
@@ -220,6 +226,7 @@ continue to follow the highway either to the north or south.
 You quickly load the pistol and cock it. Ready to go.
 
 >You move north.
+
 End of Highway
 
 End of Highway
@@ -248,6 +255,7 @@ out beneath it.
 Your ammo is expended.
 
 >You move east.
+
 Quiet Street
 
 Quiet Street
@@ -270,6 +278,7 @@ healing!
 You quickly chew the bitter herb--and feel life returning to your body!
 
 >You move north.
+
 Stinking Hallway
 
 Stinking Hallway
@@ -299,6 +308,7 @@ forward, dead. His movement reveals a big metallic object underneath him...
 >You pick up the military shotgun.
 
 >You move up.
+
 Second Floor
 
 Second Floor
@@ -316,6 +326,7 @@ SMASH!
 backwards in terror. With a horrible grinding sound, the door wrenches off
 and slams onto the floor. Another of those...things! It shuffles down the
 hall towards you, it's filthy, clawed hands swiping at you...
+
 End of Hall
 
 End of Hall
@@ -348,6 +359,7 @@ gasping with the effort. The gap you have created now provides access to the
 fire-escape.
 
 >You move south.
+
 Fire-escape
 
 Fire-escape

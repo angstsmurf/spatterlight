@@ -38,6 +38,7 @@ Meatball of Pain!"
 You can almost feel the ratings of the show go up by 5.
 
 >You move north.
+
 Kitchen
 The kitchen set was created hastily, so it's not fully furnished. There's a
 table in the middle of the room, and a fridge right beside it. There are
@@ -86,6 +87,7 @@ Jojo finally runs into the bathroom set, and puts his face into the sink to
 put out the burning.
 
 >You move south.
+
 Living Room
 The cheap living room set was created for one purpose: to play pranks on Jojo
 the Radioactive Monkey.   Jojo's not here right now, the sofa is empty.
@@ -96,6 +98,7 @@ You can go North into the Kitchen, East into the Bathroom, or West into the
 Garage.
 
 >You move east.
+
 Bathroom
 The small bathroom is hardly ever used on the show, so it's filled with
 hardly any props.   A sink rests in the wall, probably the only prop that
@@ -123,6 +126,7 @@ out of the room. He kicks down the door to the garage and gets into his car
 to attempt to escape.
 
 >You move west.
+
 Living Room
 The cheap living room set was created for one purpose: to play pranks on Jojo
 the Radioactive Monkey.   Jojo's not here right now, the sofa is empty.

@@ -35,6 +35,7 @@ The desk drawer slides open.
 >You take the pack of cards from the Revolving Table.
 
 >You move south.
+
 In the Southern Half of the Common Room
 This is the Southern Half of the Common Room where the lockers are situated,
 along with various electronic appliances used in the production of
@@ -55,6 +56,7 @@ locker and onto the floor.
 >You pick up the round Soccer ball.
 
 >You move north.
+
 In the Northern Half of the Common Room
 Desks line the walls of the Common Room in an attempt to make it look like a
 place of study. In reality this is simply a storage space for the possessions
@@ -70,6 +72,7 @@ Shane's desk is open and its contents are displayed to the world.
 Greg is here, annoying you with his mere presence.
 
 >You move west.
+
 In the bush behind the Common Room
 The native bush here is out of bounds so not surprisingly it is a haven for
 students who don't want to adhere to the rules of the school. Trees of
@@ -86,6 +89,7 @@ pocket and steal his lighter.
 >You pick up the heavy stick.
 
 >You move east.
+
 In the Northern Half of the Common Room
 Desks line the walls of the Common Room in an attempt to make it look like a
 place of study. In reality this is simply a storage space for the possessions
@@ -101,6 +105,7 @@ Shane's desk is open and its contents are displayed to the world.
 Greg is here, annoying you with his mere presence.  Luke is here, dancing.
 
 >You move east.
+
 On the Common Room Deck
 The deck is where many of the students choose to frequent on fine days such
 as today. The Seventh Formers sit upon squeaky rotating chairs, chatting
@@ -111,6 +116,7 @@ Some 7th Formers are lounging here.
 Mrs Walsh walks towards you from the south.
 
 >You move north.
+
 Outside the Geography Room
 You're standing next to the Geography Room, which you aren't allowed to enter
 because you don't take Geography. To your west is the entrance to the Library
@@ -124,6 +130,7 @@ Mr B is here.
 >You take the half-eaten apple from the rubbish bin.
 
 >You move east.
+
 Behind the main block
 You are standing on the hill that overlooks the back of the main block. From
 here you can see the fan perched atop the building, splattered with what
@@ -138,6 +145,7 @@ and lands in the ground beside you.
 >You pick up the plastic shard.
 
 >You move north.
+
 On the Soccer Field
 You are standing in the middle of the soccer field where many students spend
 their lunchtimes, playing soccer. There is a soggy feeling in your shoes and
@@ -149,6 +157,7 @@ Michael gleefully takes the soccer ball and hands you one of your report
 cards in return.
 
 >You move south.
+
 Behind the main block
 You are standing on the hill that overlooks the back of the main block. From
 here you can see the fan perched atop the building, splattered with what
@@ -156,6 +165,7 @@ seems to be the remnants of fruit. Looking around you can see the soccer
 field to your north and Mr Cook's mathematics room to the east.
 
 >You move west.
+
 Outside the Geography Room
 You're standing next to the Geography Room, which you aren't allowed to enter
 because you don't take Geography. To your west is the entrance to the Library
@@ -167,6 +177,7 @@ Room dominates your southern vista.  The library door is closed.
 Mr B is here.
 
 >You move south.
+
 On the Common Room Deck
 The deck is where many of the students choose to frequent on fine days such
 as today. The Seventh Formers sit upon squeaky rotating chairs, chatting
@@ -184,6 +195,7 @@ you finish it faster." She hands you some earplugs.
 Mrs Walsh walks off to the south.
 
 >You move west.
+
 In the Northern Half of the Common Room
 Desks line the walls of the Common Room in an attempt to make it look like a
 place of study. In reality this is simply a storage space for the possessions
@@ -206,6 +218,7 @@ he falls he lets drop one of your report cards!
 >You pick up your History report.
 
 >You move south.
+
 In the Southern Half of the Common Room
 This is the Southern Half of the Common Room where the lockers are situated,
 along with various electronic appliances used in the production of
@@ -222,6 +235,7 @@ Greg's Locker opens before you, revealing a $20 bill.
 Luke leaves to the north.
 
 >You move north.
+
 In the Northern Half of the Common Room
 Desks line the walls of the Common Room in an attempt to make it look like a
 place of study. In reality this is simply a storage space for the possessions
@@ -237,6 +251,7 @@ Shane's desk is open and its contents are displayed to the world.
 Greg is here, annoying you with his mere presence.  Luke is here, dancing.
 
 >You move east.
+
 On the Common Room Deck
 The deck is where many of the students choose to frequent on fine days such
 as today. The Seventh Formers sit upon squeaky rotating chairs, chatting
@@ -245,6 +260,7 @@ leading north to the Library and south towards the Corridor Entrance.
 Some 7th Formers are lounging here.
 
 >You move north.
+
 Outside the Geography Room
 You're standing next to the Geography Room, which you aren't allowed to enter
 because you don't take Geography. To your west is the entrance to the Library
@@ -259,6 +275,7 @@ Mr B is here.
 The door swings open, allowing a blast of cold air to enter the library.
 
 >You move west.
+
 In the Library Foyer
 This is the Library Foyer where all students must shed anything that violates
 the Library rules, including shoes, bags and jackets. However you're on good
@@ -272,6 +289,7 @@ Also here is a book.
 >You pick up the book.
 
 >You move east.
+
 Outside the Geography Room
 You're standing next to the Geography Room, which you aren't allowed to enter
 because you don't take Geography. To your west is the entrance to the Library
@@ -285,6 +303,7 @@ Library.
 Mr B is here.
 
 >You move south.
+
 On the Common Room Deck
 The deck is where many of the students choose to frequent on fine days such
 as today. The Seventh Formers sit upon squeaky rotating chairs, chatting
@@ -293,11 +312,13 @@ leading north to the Library and south towards the Corridor Entrance.
 Some 7th Formers are lounging here.
 
 >You move south.
+
 On the Library path
 You're standing on the path that leads northwards to the library and
 southwards to the entrance to the main block.
 
 >You move south.
+
 Outside Room 9
 Room 9 is out of bounds to all students at lunchtime so this area abounds
 with Year 8 students who mill around like ants who have been cut off from
@@ -308,6 +329,7 @@ Mrs Walsh is here, bullying Correspondence students.  A Year 8 student is
 here.
 
 >You move south.
+
 On the corner
 This is where the library path that heads north intersects with the path that
 leads east to the main block and the office area. Unlike the library path,
@@ -315,6 +337,7 @@ the east path is covered which gives you an idea as to how student welfare
 rates compared to teacher welfare.
 
 >You move east.
+
 At the entrance to the Main Block
 The double doors that mark the entrance to the main block are to your north
 while the path continues east and west. The steps lead south but your
@@ -322,6 +345,7 @@ business is located around the main block and you can't afford to get
 sidetracked. There's a sign here.
 
 >You move north.
+
 Outside the Bursar's Office
 The Bursar's office is the financial hub of the school where students pay the
 various fees and charges that are a result of school activities. The one-way
@@ -334,17 +358,20 @@ The Bursar is here.
 The Bursar takes your money and gives you a calculator.
 
 >You move north.
+
 In the Corridor South
 You're in the southern half of the one way corridor. Entrances to various
 classrooms are to each side of you but unfortunately they're locked. The only
 way out is to continue forwards.
 
 >You move north.
+
 In the Corridor North
 The corridor continues....
 Mrs Trimmer is here, patrolling the corridor.
 
 >You move north.
+
 Behind the main block
 You are standing on the hill that overlooks the back of the main block. From
 here you can see the fan perched atop the building, splattered with what
@@ -352,6 +379,7 @@ seems to be the remnants of fruit. Looking around you can see the soccer
 field to your north and Mr Cook's mathematics room to the east.
 
 >You move east.
+
 In Mr Cook's Stats class
 This is where countless students have been subjected to the rigorous torture
 of studying statistics in an attempt to secure qualifications for the future.
@@ -367,6 +395,7 @@ appreciate you're in a spot of bother so take this report. If you buck up
 your ideas in the next couple of days I may alter it."
 
 >You move west.
+
 Behind the main block
 You are standing on the hill that overlooks the back of the main block. From
 here you can see the fan perched atop the building, splattered with what
@@ -374,6 +403,7 @@ seems to be the remnants of fruit. Looking around you can see the soccer
 field to your north and Mr Cook's mathematics room to the east.
 
 >You move west.
+
 Outside the Geography Room
 You're standing next to the Geography Room, which you aren't allowed to enter
 because you don't take Geography. To your west is the entrance to the Library
@@ -387,6 +417,7 @@ Library.
 Mr B is here.
 
 >You move south.
+
 On the Common Room Deck
 The deck is where many of the students choose to frequent on fine days such
 as today. The Seventh Formers sit upon squeaky rotating chairs, chatting
@@ -395,11 +426,13 @@ leading north to the Library and south towards the Corridor Entrance.
 Some 7th Formers are lounging here.
 
 >You move south.
+
 On the Library path
 You're standing on the path that leads northwards to the library and
 southwards to the entrance to the main block.
 
 >You move south.
+
 Outside Room 9
 Room 9 is out of bounds to all students at lunchtime so this area abounds
 with Year 8 students who mill around like ants who have been cut off from
@@ -409,6 +442,7 @@ entrance to the main block is to the south.
 A Year 8 student is here.
 
 >You move south.
+
 On the corner
 This is where the library path that heads north intersects with the path that
 leads east to the main block and the office area. Unlike the library path,
@@ -417,6 +451,7 @@ rates compared to teacher welfare.
 Mrs Walsh is here, bullying Correspondence students.
 
 >You move east.
+
 At the entrance to the Main Block
 The double doors that mark the entrance to the main block are to your north
 while the path continues east and west. The steps lead south but your
@@ -424,12 +459,14 @@ business is located around the main block and you can't afford to get
 sidetracked. There's a sign here.
 
 >You move east.
+
 Heading for the Office Block
 If you continue along this path to the east then you will find yourself
 inside the office block. Back west is the entrance to the corridor. You take
 the time to admire the garden here before pressing on.
 
 >You move east.
+
 Outside the Main Office
 You are standing outside Mrs Todd's office, at the very centre of staff
 activity at Piopio College. The Main Office is to the east while the
@@ -438,6 +475,7 @@ towards the rest of the school.   You can see a fire alarm within its
 protective glass casing.
 
 >You move north.
+
 Outside Homus' Office
 Most students know this area simply because they've served punishment here at
 some time or another. The couch here is worn by the buttocks of hundreds of
@@ -451,6 +489,7 @@ had some new reading material!" he says. He gives you the Silmarillion in
 return.
 
 >You move south.
+
 Outside the Main Office
 You are standing outside Mrs Todd's office, at the very centre of staff
 activity at Piopio College. The Main Office is to the east while the
@@ -459,6 +498,7 @@ towards the rest of the school.   You can see a fire alarm within its
 protective glass casing.
 
 >You move south.
+
 Outside the Staffroom
 You are standing outside the Staffroom, the only place where teachers can get
 some respite from their students. Except in emergencies, students are not
@@ -471,6 +511,7 @@ You call Homus and then simply drop the receiver. That should keep him
 occupied for a little while.
 
 >You move north.
+
 Outside the Main Office
 You are standing outside Mrs Todd's office, at the very centre of staff
 activity at Piopio College. The Main Office is to the east while the
@@ -479,6 +520,7 @@ towards the rest of the school.   You can see a fire alarm within its
 protective glass casing.
 
 >You move north.
+
 Outside Homus' Office
 Most students know this area simply because they've served punishment here at
 some time or another. The couch here is worn by the buttocks of hundreds of
@@ -487,6 +529,7 @@ Homus' office is to the north.
 Hamish is sitting here.
 
 >You move north.
+
 In Homus' Office
 Homus' office is an example of neatness. One might wonder at his motives at
 times but you can't help but respect his dedication to his work. As one would
@@ -500,6 +543,7 @@ Homus is here.
 >You pick up your Biology report.
 
 >You move south.
+
 Outside Homus' Office
 Most students know this area simply because they've served punishment here at
 some time or another. The couch here is worn by the buttocks of hundreds of
@@ -508,6 +552,7 @@ Homus' office is to the north.
 Hamish is sitting here.
 
 >You move south.
+
 Outside the Main Office
 You are standing outside Mrs Todd's office, at the very centre of staff
 activity at Piopio College. The Main Office is to the east while the
@@ -516,12 +561,14 @@ towards the rest of the school.   You can see a fire alarm within its
 protective glass casing.
 
 >You move west.
+
 Heading for the Office Block
 If you continue along this path to the east then you will find yourself
 inside the office block. Back west is the entrance to the corridor. You take
 the time to admire the garden here before pressing on.
 
 >You move west.
+
 At the entrance to the Main Block
 The double doors that mark the entrance to the main block are to your north
 while the path continues east and west. The steps lead south but your
@@ -530,6 +577,7 @@ sidetracked. There's a sign here.
 Mrs Walsh is here, bullying Correspondence students.
 
 >You move west.
+
 On the corner
 This is where the library path that heads north intersects with the path that
 leads east to the main block and the office area. Unlike the library path,
@@ -537,6 +585,7 @@ the east path is covered which gives you an idea as to how student welfare
 rates compared to teacher welfare.
 
 >You move north.
+
 Outside Room 9
 Room 9 is out of bounds to all students at lunchtime so this area abounds
 with Year 8 students who mill around like ants who have been cut off from
@@ -546,11 +595,13 @@ entrance to the main block is to the south.
 A Year 8 student is here.
 
 >You move north.
+
 On the Library path
 You're standing on the path that leads northwards to the library and
 southwards to the entrance to the main block.
 
 >You move north.
+
 On the Common Room Deck
 The deck is where many of the students choose to frequent on fine days such
 as today. The Seventh Formers sit upon squeaky rotating chairs, chatting
@@ -559,6 +610,7 @@ leading north to the Library and south towards the Corridor Entrance.
 Some 7th Formers are lounging here.
 
 >You move north.
+
 Outside the Geography Room
 You're standing next to the Geography Room, which you aren't allowed to enter
 because you don't take Geography. To your west is the entrance to the Library
@@ -572,6 +624,7 @@ Library.
 Mr B is here.
 
 >You move west.
+
 In the Library Foyer
 This is the Library Foyer where all students must shed anything that violates
 the Library rules, including shoes, bags and jackets. However you're on good
@@ -583,6 +636,7 @@ the east. There's a sign here.  Liz cries out, "Close the door!"
 >The door slams shut.
 
 >You move north.
+
 In the Library
 The library is filled with books on all sorts of topics. It's Liz's pride and
 joy and not a bad place to find some information. One particular bookcase
@@ -601,6 +655,7 @@ up at you for a second and says, "Here. Take my lamington."
 for you."
 
 >You move south.
+
 In the Library Foyer
 This is the Library Foyer where all students must shed anything that violates
 the Library rules, including shoes, bags and jackets. However you're on good
@@ -612,6 +667,7 @@ the east. There's a sign here.  The library door is shut tight.
 >The door swings open, allowing a blast of cold air to enter the library.
 
 >You move east.
+
 Outside the Geography Room
 You're standing next to the Geography Room, which you aren't allowed to enter
 because you don't take Geography. To your west is the entrance to the Library
@@ -625,6 +681,7 @@ Library.
 Mr B is here.
 
 >You move south.
+
 On the Common Room Deck
 The deck is where many of the students choose to frequent on fine days such
 as today. The Seventh Formers sit upon squeaky rotating chairs, chatting
@@ -633,11 +690,13 @@ leading north to the Library and south towards the Corridor Entrance.
 Some 7th Formers are lounging here.
 
 >You move south.
+
 On the Library path
 You're standing on the path that leads northwards to the library and
 southwards to the entrance to the main block.
 
 >You move south.
+
 Outside Room 9
 Room 9 is out of bounds to all students at lunchtime so this area abounds
 with Year 8 students who mill around like ants who have been cut off from
@@ -651,6 +710,7 @@ The student greedily wolfs down your proffered treat and proceeds to become
 your most loyal slave.
 
 >You move south.
+
 On the corner
 This is where the library path that heads north intersects with the path that
 leads east to the main block and the office area. Unlike the library path,
@@ -658,6 +718,7 @@ the east path is covered which gives you an idea as to how student welfare
 rates compared to teacher welfare.
 
 >You move east.
+
 At the entrance to the Main Block
 The double doors that mark the entrance to the main block are to your north
 while the path continues east and west. The steps lead south but your
@@ -666,12 +727,14 @@ sidetracked. There's a sign here.
 Mrs Walsh is here, bullying Correspondence students.
 
 >You move east.
+
 Heading for the Office Block
 If you continue along this path to the east then you will find yourself
 inside the office block. Back west is the entrance to the corridor. You take
 the time to admire the garden here before pressing on.
 
 >You move east.
+
 Outside the Main Office
 You are standing outside Mrs Todd's office, at the very centre of staff
 activity at Piopio College. The Main Office is to the east while the
@@ -689,6 +752,7 @@ You can hear bells ring throughout the school. This is followed by the sound
 of footsteps as both students and staff flee to escape the "blaze."
 
 >You move south.
+
 Outside the Staffroom
 You are standing outside the Staffroom, the only place where teachers can get
 some respite from their students. Except in emergencies, students are not
@@ -697,6 +761,7 @@ location is the little phone booth that students may use in times of need but
 only if they ask first....
 
 >You move east.
+
 In the Staffroom
 The Staffroom was recently renovated and, compared to the Common Room, it is
 an absolute palace. Comfortable chairs and lovingly furbished tables are the
@@ -710,6 +775,7 @@ Also here is your Economics report and a pair of fluffy slippers.
 >You pick up the pair of fluffy slippers.
 
 >You move west.
+
 Outside the Staffroom
 You are standing outside the Staffroom, the only place where teachers can get
 some respite from their students. Except in emergencies, students are not
@@ -718,6 +784,7 @@ location is the little phone booth that students may use in times of need but
 only if they ask first....
 
 >You move north.
+
 Outside the Main Office
 You are standing outside Mrs Todd's office, at the very centre of staff
 activity at Piopio College. The Main Office is to the east while the
@@ -727,12 +794,14 @@ which is exposed. Glass shards lie on the floor.
 A Year 8 student is here.
 
 >You move west.
+
 Heading for the Office Block
 If you continue along this path to the east then you will find yourself
 inside the office block. Back west is the entrance to the corridor. You take
 the time to admire the garden here before pressing on.
 
 >You move west.
+
 At the entrance to the Main Block
 The double doors that mark the entrance to the main block are to your north
 while the path continues east and west. The steps lead south but your
@@ -740,6 +809,7 @@ business is located around the main block and you can't afford to get
 sidetracked. There's a sign here.
 
 >You move west.
+
 On the corner
 This is where the library path that heads north intersects with the path that
 leads east to the main block and the office area. Unlike the library path,
@@ -748,6 +818,7 @@ rates compared to teacher welfare.
 Mrs Walsh is here, bullying Correspondence students.
 
 >You move north.
+
 Outside Room 9
 Room 9 is out of bounds to all students at lunchtime so this area abounds
 with Year 8 students who mill around like ants who have been cut off from
@@ -756,11 +827,13 @@ lacking in energy which is quite unlike the usual behaviour of a Year 8. The
 entrance to the main block is to the south.
 
 >You move north.
+
 On the Library path
 You're standing on the path that leads northwards to the library and
 southwards to the entrance to the main block.
 
 >You move north.
+
 On the Common Room Deck
 The deck is where many of the students choose to frequent on fine days such
 as today. The Seventh Formers sit upon squeaky rotating chairs, chatting
@@ -769,6 +842,7 @@ leading north to the Library and south towards the Corridor Entrance.
 Some 7th Formers are lounging here.
 
 >You move west.
+
 In the Northern Half of the Common Room
 Desks line the walls of the Common Room in an attempt to make it look like a
 place of study. In reality this is simply a storage space for the possessions
@@ -784,6 +858,7 @@ Shane's desk is open and its contents are displayed to the world.
 Greg is here, annoying you with his mere presence.
 
 >You move south.
+
 In the Southern Half of the Common Room
 This is the Southern Half of the Common Room where the lockers are situated,
 along with various electronic appliances used in the production of
@@ -799,6 +874,7 @@ you're such a pal, could you take this letter to the office for me? Cheers."
 Luke leaves to the north.
 
 >You move north.
+
 In the Northern Half of the Common Room
 Desks line the walls of the Common Room in an attempt to make it look like a
 place of study. In reality this is simply a storage space for the possessions
@@ -814,6 +890,7 @@ Shane's desk is open and its contents are displayed to the world.
 Greg is here, annoying you with his mere presence.  Luke is here, dancing.
 
 >You move east.
+
 On the Common Room Deck
 The deck is where many of the students choose to frequent on fine days such
 as today. The Seventh Formers sit upon squeaky rotating chairs, chatting
@@ -822,11 +899,13 @@ leading north to the Library and south towards the Corridor Entrance.
 Some 7th Formers are lounging here.
 
 >You move south.
+
 On the Library path
 You're standing on the path that leads northwards to the library and
 southwards to the entrance to the main block.
 
 >You move south.
+
 Outside Room 9
 Room 9 is out of bounds to all students at lunchtime so this area abounds
 with Year 8 students who mill around like ants who have been cut off from
@@ -836,6 +915,7 @@ entrance to the main block is to the south.
 Mrs Walsh is here, bullying Correspondence students.
 
 >You move south.
+
 On the corner
 This is where the library path that heads north intersects with the path that
 leads east to the main block and the office area. Unlike the library path,
@@ -843,6 +923,7 @@ the east path is covered which gives you an idea as to how student welfare
 rates compared to teacher welfare.
 
 >You move east.
+
 At the entrance to the Main Block
 The double doors that mark the entrance to the main block are to your north
 while the path continues east and west. The steps lead south but your
@@ -850,12 +931,14 @@ business is located around the main block and you can't afford to get
 sidetracked. There's a sign here.
 
 >You move east.
+
 Heading for the Office Block
 If you continue along this path to the east then you will find yourself
 inside the office block. Back west is the entrance to the corridor. You take
 the time to admire the garden here before pressing on.
 
 >You move east.
+
 Outside the Main Office
 You are standing outside Mrs Todd's office, at the very centre of staff
 activity at Piopio College. The Main Office is to the east while the
@@ -865,6 +948,7 @@ which is exposed. Glass shards lie on the floor.
 A Year 8 student is here.
 
 >You move east.
+
 In Mrs Todd's Office
 The command centre of the school, Mrs Todd's office contains all sorts of
 interesting information and records on students. The Principal's Office is to
@@ -878,6 +962,7 @@ dancing, in an attempt to prove your "identity." Strangely enough, she
 believes you. "You can enter Brian's office now if you wish," she says.
 
 >You move north.
+
 In B R Tegg's Office
 Memorabilia from many years at the helm decorate BR's office. His desk is
 covered in all sorts of ridiculous executive toys along with various papers

@@ -35,6 +35,7 @@ a sigh of relief.
 beanstalk fast!
 
 >You climbed down from the beanstalk.
+
 On the beanstalk
 You're climbing a very tall beanstalk that goes up as high as you can see. It
 passes just past your window to the west, and the base of plant is in the
@@ -45,6 +46,7 @@ with his vast weight!
 
 >You climbed down and climbed down and climbed down and climbed down until you
 were just outside your window.
+
 Top of the beanstalk
 Somehow, you're arrived at a heavily forested area in a far far away country.
 The top of the beanstalk pokes through a large hole in the ground here. More
@@ -57,6 +59,7 @@ thing you wanted to hear:
 "MY HARP! MY HARP! THIEF! THIEF!", roared the ogre.
 
 >You went south.
+
 Inside the castle
 Despite the hugeness of the castle, it looks cold and unfriendly to your
 eyes. There seems to be few furnishings or luxuries of any kind, excepting a
@@ -68,6 +71,7 @@ A giant ogre is sleeping in his huge stone chair.
 The person who owns a magic harp will be welcome anywhere.
 
 >You went out.
+
 Inside the oven
 It's dark and scary inside the oven, and it smells of ashes and old meat. But
 at least there's plenty of room for you to sit in here, and as long as you
@@ -91,6 +95,7 @@ ogre said: "Play," and it sang such a beautiful lullaby that you almost fell
 asleep yourself. The next thing you hear is the ogre snoring.
 
 >You went in.
+
 Inside the castle
 Despite the hugeness of the castle, it looks cold and unfriendly to your
 eyes. There seems to be few furnishings or luxuries of any kind, excepting a
@@ -98,6 +103,7 @@ huge stone chair and a black oven so large you could enter it without
 difficulty. The exit is to this cheerless place is to the south.
 
 >You went into the castle, where the giantess serves you some breakfast.
+
 Top of the beanstalk
 Somehow, you're arrived at a heavily forested area in a far far away country.
 The top of the beanstalk pokes through a large hole in the ground here. More
@@ -120,6 +126,7 @@ you are so charming, and look so innocent, she never connects you with the
 previous robberies and is only too eager to let you in and give you a meal.
 
 >You climbed up and climbed up and climbed up and climbed up ...
+
 On the beanstalk
 You're climbing a very tall beanstalk that goes up as high as you can see. It
 passes just past your window to the west, and the base of plant is in the
@@ -130,6 +137,7 @@ garden below.
 As you reverse-climb off the beanstalk, the world fades and reforms. It looks
 like it's two years earlier. Mother and I have changed. And what am I
 carrying now?
+
 Outside your home
 You're outside the cottage you've lived in with your mother your entire life.
 There's a woodpile outside the door to the west and a small garden. The long
@@ -141,6 +149,7 @@ Your mother is here.
 >You are carrying a brown hen.
 
 >You climbed down from the beanstalk.
+
 On the beanstalk
 You're climbing a very tall beanstalk that goes up as high as you can see. It
 passes just past your window to the west, and the base of plant is in the
@@ -148,12 +157,14 @@ garden below.
 
 >You climbed down and climbed down and climbed down and climbed down until you
 were just outside your window.
+
 Top of the beanstalk
 Somehow, you're arrived at a heavily forested area in a far far away country.
 The top of the beanstalk pokes through a large hole in the ground here. More
 importantly, a tall castle with a huge door stands to the north.
 
 >You went south.
+
 Inside the castle
 Despite the hugeness of the castle, it looks cold and unfriendly to your
 eyes. There seems to be few furnishings or luxuries of any kind, excepting a
@@ -165,6 +176,7 @@ A giant ogre is sleeping in his huge stone chair.
 will no longer need to work.
 
 >You went out.
+
 Inside the oven
 It's dark and scary inside the oven, and it smells of ashes and old meat. But
 at least there's plenty of room for you to sit in here, and as long as you
@@ -189,6 +201,7 @@ brought it, and the ogre said: "Lay," and it laid an egg all of gold. The
 next thing you hear is the ogre snoring.
 
 >You went in.
+
 Inside the castle
 Despite the hugeness of the castle, it looks cold and unfriendly to your
 eyes. There seems to be few furnishings or luxuries of any kind, excepting a
@@ -196,6 +209,7 @@ huge stone chair and a black oven so large you could enter it without
 difficulty. The exit is to this cheerless place is to the south.
 
 >You went into the castle, where the giantess serves you some breakfast.
+
 Top of the beanstalk
 Somehow, you're arrived at a heavily forested area in a far far away country.
 The top of the beanstalk pokes through a large hole in the ground here. More
@@ -219,6 +233,7 @@ eat. I can't think when I'm so hungry."
 And the giantess was so intrigued, she invited you inside.
 
 >You climbed up and climbed up and climbed up and climbed up ...
+
 On the beanstalk
 You're climbing a very tall beanstalk that goes up as high as you can see. It
 passes just past your window to the west, and the base of plant is in the
@@ -229,6 +244,7 @@ garden below.
 As you reverse-climb off the beanstalk, the world fades and reforms. It looks
 like it's two years earlier. Mother and I have changed. And what am I
 carrying now?
+
 Outside your home
 You're outside the cottage you've lived in with your mother your entire life.
 There's a woodpile outside the door to the west and a small garden. The long
@@ -240,6 +256,7 @@ Your mother is here.
 >You are carrying a bag of gold.
 
 >You climbed down from the beanstalk.
+
 On the beanstalk
 You're climbing a very tall beanstalk that goes up as high as you can see. It
 passes just past your window to the west, and the base of plant is in the
@@ -247,12 +264,14 @@ garden below.
 
 >You climbed down and climbed down and climbed down and climbed down until you
 were just outside your window.
+
 Top of the beanstalk
 Somehow, you're arrived at a heavily forested area in a far far away country.
 The top of the beanstalk pokes through a large hole in the ground here. More
 importantly, a tall castle with a huge door stands to the north.
 
 >You went south.
+
 Inside the castle
 Despite the hugeness of the castle, it looks cold and unfriendly to your
 eyes. There seems to be few furnishings or luxuries of any kind, excepting a
@@ -264,6 +283,7 @@ A giant ogre is sleeping in his huge stone chair.
 will no longer be starving.
 
 >You went out.
+
 Inside the oven
 It's dark and scary inside the oven, and it smells of ashes and old meat. But
 at least there's plenty of room for you to sit in here, and as long as you
@@ -288,6 +308,7 @@ huge chest and brought him a bag, and the ogre began to count the coins:
 "One. Two. Three..." The next thing you hear is the ogre snoring.
 
 >You went in.
+
 Inside the castle
 Despite the hugeness of the castle, it looks cold and unfriendly to your
 eyes. There seems to be few furnishings or luxuries of any kind, excepting a
@@ -295,6 +316,7 @@ huge stone chair and a black oven so large you could enter it without
 difficulty. The exit is to this cheerless place is to the south.
 
 >You went into the castle, where the giantess serves you some breakfast.
+
 Top of the beanstalk
 Somehow, you're arrived at a heavily forested area in a far far away country.
 The top of the beanstalk pokes through a large hole in the ground here. More
@@ -318,6 +340,7 @@ honest!" you say. "If I don't eat soon, I might die anyway!"
 "Oh, very well. Come in and be quick about it."
 
 >You climbed up and climbed up and climbed up and climbed up ...
+
 On the beanstalk
 You're climbing a very tall beanstalk that goes up as high as you can see. It
 passes just past your window to the west, and the base of plant is in the
@@ -329,6 +352,7 @@ Somewhere, a rooster crows.
 
 "You've done very well, Jack," says the mysterious voice, "but now it's the
 break of day. You should get some rest," the voice says hintingly.
+
 Outside your home
 You're outside the cottage you've lived in with your mother your entire life.
 There's a woodpile outside the door to the west and a small garden. The long
@@ -338,12 +362,14 @@ A tall beanstalk dominates the garden.
 Your mother is here.
 
 >You went east.
+
 Cottage interior
 Your humble home is more humble than most. The food pot hanging over the
 fireplace is easily its most interesting feature. The front door is east, and
 on the north wall, there's a ladder up to your room in the attic.
 
 >You went down.
+
 Your bedroom
 The attic of your mother's cottage serves as your small bedroom. Your bed and
 things are tucked under the south side of the sloping roof, and the ladder
@@ -361,12 +387,14 @@ Ashamed of your foolishness, you followed your mother's orders and went to
 bed.
 
 >You went up.
+
 Cottage interior
 Your humble home is more humble than most. The food pot hanging over the
 fireplace is easily its most interesting feature. The front door is east, and
 on the north wall, there's a ladder up to your room in the attic.
 
 >You went west.
+
 Outside your home
 You're outside the cottage you've lived in with your mother your entire life.
 There's a woodpile outside the door to the west and a small garden. The long
@@ -397,6 +425,7 @@ bed. There'll be no supper tonight. I have none to give you." And then she
 starts crying, and says no more.
 
 >You went west.
+
 On the road
 The road to the market is a long one. The market lies further east, and your
 home is back west.
@@ -439,6 +468,7 @@ of a cow? Sell your cow to me. Sell her! And these fabulous beans shall be
 yours!"
 
 >You went east.
+
 Outside your home
 You're outside the cottage you've lived in with your mother your entire life.
 There's a woodpile outside the door to the west and a small garden. The long
@@ -460,6 +490,7 @@ our old cow to market."
 those ourselves. We've got nothing better to sell but old Milky, if we want
 to buy the things we need. Oil. Salt. And you'll be needing new boots soon.
 It's sad to lose her, but it's got to be done. I'll see you downstairs."
+
 Your bedroom
 The attic of your mother's cottage serves as your small bedroom. Your bed and
 things are tucked under the south side of the sloping roof, and the ladder

@@ -184,6 +184,7 @@ or is the smile only in your imagination?
 >You step into a tangle of dark vegetation. Your foot hits a stone and you
 fall forward, grab a sapling to steady yourself. You must have stumbled out
 the back door of the Museum!
+
 Dark, Tangled Vegetation
 Dense brush and tall, rank grass blocks your vision. You're disoriented.  Not
 sure which direction you should go.  At least you're outside.  A large stone
@@ -196,6 +197,7 @@ Glass! You can make out the dim corridor beyond.
 
 So you're not outside after all. This is another exhibit. From here you can
 see your surroundings more clearly.
+
 The Manson Family Exhibit
 Dense brush and tall, rank grass partially blocks your vision.  Breaks in the
 foliage to the east and west might indicate doorways. The glass barrier looms
@@ -235,6 +237,7 @@ We were looking in the windows, on the other side of the glass, and they
 never knew."
 
 >You move east.
+
 The Yard
 You're in a yard in front of a white, wood frame house.  Or rather, some
 siding nailed to the back wall of  the display. There's a doorframe in the
@@ -259,6 +262,7 @@ be a glowstick.  A reward for your act of cosmetic mercy.
 You feel Marie's head tremble against your chest.
 
 >You step inside. Into cold. Like the inside of a freezer.  Or a morgue.
+
 The Front Room
 
 Illuminated by the aqueous green phosphorescence of the glowstick, the front
@@ -281,6 +285,7 @@ in the floor, leading down.
 
 >You slide into darknes even colder than the empty room.  It is like slipping
 through a skin of ice, into black water. You lie on your stomach.
+
 The Crawlspace
 Now you know why it is called a crawlspace. About all you can do is crawl.
 You can barely turn over without catching your shoulder on the rough
@@ -320,6 +325,7 @@ A car is parked by the curb. From its prominent tail fins you judge it to be
 a remnant of the fifties.
 
 >You move up.
+
 The Bedroom
 More a cavern than a room. Arcane grafitti -- like cave paintings of some
 mad, ancient race -- covers the walls.

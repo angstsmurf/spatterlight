@@ -491,6 +491,7 @@ requiring an ANSWER of either 'yes' or 'no'. Are you ready?"
 is simply: yes or no?"
    "Yes or no what?"
    Infuriatingly, he just stands there and repeats: "yes or no?"
+
 Destiny
 I'm in… I don't know. It's strange.
 
@@ -549,6 +550,7 @@ is. He wandered off when we got here and I haven't seen him since.
 of the house.
 
 >I move west.
+
 Hallway
 Ah, a bit of peace and quiet. Still noisy, of course (hell, they can probably
 hear this party on the Moon) but not so painfully loud that my head is
@@ -785,6 +787,7 @@ all possibility of conversation.
 have been closed for several months, if not years. The street extends east
 and west, both directions looking equally bleak, while south, over the road,
 there looks to have been some kind of incident.
+
 Destiny
 I'm in… I don't know. It's strange.
 

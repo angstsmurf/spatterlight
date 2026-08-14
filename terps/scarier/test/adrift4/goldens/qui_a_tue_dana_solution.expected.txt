@@ -70,6 +70,7 @@ Vous ramassez votre pull.
 
 >(Your score has increased by 1)
 Vous enfilez votre pull.
+
 La Chambre de John
 C'est une chambre des plus démunie.
 Un lit, des habits jetés à la va-vite sur le sol, un gros cendrier rempli de
@@ -115,6 +116,7 @@ Vous entendez un vrombissement qui vient en direction de votre porte.
 >Vous sortez, puis refermez votre porte.
 la voiture de votre adjoint est là.
 Vous montez.
+
 En voiture
 Vous vous trouvez maintenant aux côtés de votre fidèle adjoint MALKOWITCH.
 Vous filez à vive allure dans les rues de New York.
@@ -156,6 +158,7 @@ C'est une voiture de police traditionnelle américaine.
 MALKOWITCH est assis là.
 
 >Vous vous déplacez vers le Bas.
+
 Scène du crime
 
 Vous êtes sur un sentier de terre battu.
@@ -211,6 +214,7 @@ souffert.
 je ne pourrais te dire cela qu'après l'autopsie.
 -ok, merci doc..
 [Appuyer sur une touche pour continuer]
+
 Scène du crime
 
 Vous êtes sur un sentier de terre battu.
@@ -244,6 +248,7 @@ température humaine.
 -absolument pas Monsieur, c'est un cas inédit, je dois dire que je n'y
 comprend rien.
 -eh bien, ça tombe bien, moi non plus..
+
 Scène du crime
 
 Vous êtes sur un sentier de terre battu.
@@ -286,6 +291,7 @@ Malkowitch monta dans la voiture
 je veux voir le rapport du légiste.
 Les deux hommes ne se dirent plus rien pendant la durée  de la route.
 [Appuyer sur une touche pour continuer]
+
 En voiture
 Vous vous trouvez maintenant aux côtés de votre fidèle adjoint MALKOWITCH.
 Vous filez à vive allure dans les rues de New York.
@@ -296,6 +302,7 @@ MALKOWITCH est assis là.
 Vous êtes maintenant arrivé au commissariat, entrez donc!
 
 >Vous entrez.
+
 Couloir du Commissariat
 
 Vous vous trouvez dans un couloir plutôt banal.
@@ -310,6 +317,7 @@ Une machine à café est là dans un coin du couloir.
 Sorties évidentes: nord, Est, Ouest et out.
 
 >Vous vous déplacez vers l'Est.
+
 Bureau de MALKOWITCH
 C'est un petit bureau.
 Et oui, ce n'est que votre adjoint, il ne va quand même pas avoir un bureau
@@ -344,6 +352,7 @@ vous concerne, est toujours bien mis en évidence.
 >Vous prenez Un memo de Le bureau.
 
 >Vous vous déplacez vers l'Ouest.
+
 Couloir du Commissariat
 
 Vous vous trouvez dans un couloir plutôt banal.
@@ -358,6 +367,7 @@ Une machine à café est là dans un coin du couloir.
 Sorties évidentes: nord, Est, Ouest et out.
 
 >Vous vous déplacez vers l'Ouest.
+
 Votre bureau
 
 Vous êtes ici dans vote bureau, bien à vous.
@@ -394,6 +404,7 @@ Vous raccrochez.
 Allez, faut se remettre de nouveaux éléments ont dû arrivés depuis!
 
 >Vous vous déplacez vers l'Est.
+
 Couloir du Commissariat
 
 Vous vous trouvez dans un couloir plutôt banal.
@@ -408,6 +419,7 @@ Une machine à café est là dans un coin du couloir.
 Sorties évidentes: nord, Est, Ouest et out.
 
 >Vous vous déplacez vers l'Est.
+
 Bureau de MALKOWITCH
 C'est un petit bureau.
 Et oui, ce n'est que votre adjoint, il ne va quand même pas avoir un bureau
@@ -439,6 +451,7 @@ Les rapports sont pas prêts d'arriver!
 Vous prenez des photos.
 
 >Vous vous déplacez vers l'Ouest.
+
 Couloir du Commissariat
 
 Vous vous trouvez dans un couloir plutôt banal.
@@ -453,6 +466,7 @@ Une machine à café est là dans un coin du couloir.
 Sorties évidentes: nord, Est, Ouest et out.
 
 >Vous vous déplacez vers le Nord.
+
 Salle de repos
 Ici, tous les policiers y viennent se détendre, fumer ou tuer le temps en
 attendant les rapports qui tardent à arriver. Il y a des fauteuils alignés au
@@ -474,6 +488,7 @@ Vous tournez dans tous les sens les éléments de l'enquête mais, rien à faire,
 pas l'ombre d'une solution en vue.
 
 >Vous vous déplacez vers le Sud.
+
 Couloir du Commissariat
 
 Vous vous trouvez dans un couloir plutôt banal.
@@ -488,6 +503,7 @@ Une machine à café est là dans un coin du couloir.
 Sorties évidentes: nord, Est, Ouest et out.
 
 >Vous vous déplacez vers l'Est.
+
 Bureau de MALKOWITCH
 C'est un petit bureau.
 Et oui, ce n'est que votre adjoint, il ne va quand même pas avoir un bureau
@@ -516,6 +532,7 @@ alors, ne changez rien!
 >Rapport de l'IML Legiste chef Julie LUKISS
 
 >Vous vous déplacez vers l'Ouest.
+
 Couloir du Commissariat
 
 Vous vous trouvez dans un couloir plutôt banal.
@@ -530,6 +547,7 @@ Une machine à café est là dans un coin du couloir.
 Sorties évidentes: nord, Est, Ouest et out.
 
 >Vous vous déplacez vers l'Ouest.
+
 Votre bureau
 
 Vous êtes ici dans vote bureau, bien à vous.
@@ -622,6 +640,7 @@ stupidité, mais là, les preuves scientifiques étaient là, et il ne pouvait
 pas les contourner.
 
 >Vous vous déplacez vers l'Est.
+
 Couloir du Commissariat
 
 Vous vous trouvez dans un couloir plutôt banal.
@@ -636,6 +655,7 @@ Une machine à café est là dans un coin du couloir.
 Sorties évidentes: nord, Est, Ouest et out.
 
 >Vous vous déplacez vers l'Est.
+
 Bureau de MALKOWITCH
 C'est un petit bureau.
 Et oui, ce n'est que votre adjoint, il ne va quand même pas avoir un bureau

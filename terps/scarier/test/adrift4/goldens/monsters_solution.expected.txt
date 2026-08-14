@@ -52,6 +52,7 @@ closet...  Chloe, I've got something for you..."
 
 >(Getting off Sissy's four poster bed first)
 I move in.
+
 Under My Bed
 Enclosed by the day bed white, metal frame, the mattress is barely a foot and
 a half above the floor.  Under my bed, I can see everyone's feet as they walk
@@ -62,6 +63,7 @@ A graham cracker lays against the wall in the corner.
 >I pick up the graham cracker.
 
 >I move out.
+
 Bedroom
 Opposite each other, my day bed is along the east wall while Sissy's four
 poster bed is along the west wall under the window.  Its two sliding doors
@@ -104,6 +106,7 @@ smoke.
 "I did it all for you my lady," states Pooky resting down on the floor.
 
 >I move south.
+
 Bedroom Closet
 Though Mom and Dad removed the closet sliding doors, the monsters like to
 hide in the corners where I can't see them until its too late.
@@ -130,6 +133,7 @@ flashlight is Off.
 flashlight is On.
 
 >I move north.
+
 Bedroom
 Opposite each other, my day bed is along the east wall while Sissy's four
 poster bed is along the west wall under the window.  Its two sliding doors
@@ -149,6 +153,7 @@ Standing on the chair, I'm able to reach, unlock and open the bedroom door.
 
 >(Getting off the pink plastic chair first)
 I move northeast.
+
 South End of Hallway
 My bedroom is at the end of a long dark hallway.  To the north is the front
 of the house while to the south west is back into my bedroom.  Mommy's
@@ -163,6 +168,7 @@ Pooky stands nearby carefully watching for your next move.  Sissy is standing
 here with sleep in her eyes.
 
 >I move southwest.
+
 Bedroom
 Opposite each other, my day bed is along the east wall while Sissy's four
 poster bed is along the west wall under the window.  Its two sliding doors
@@ -176,6 +182,7 @@ A cozy coupe ride on awaits to take you to destinations unknown.
 You can also see a pink plastic chair.
 
 >I move northeast.
+
 South End of Hallway
 My bedroom is at the end of a long dark hallway.  To the north is the front
 of the house while to the south west is back into my bedroom.  Mommy's
@@ -186,6 +193,7 @@ bedroom door to the south is closed and locked.
 >I open mommys bedroom door.
 
 >I move south.
+
 Parent's Room
 My parents room is rather sparse with sky blue walls and a single cherry
 sleigh bed in the center of the room.  Mommy is sleeping in her bed.
@@ -214,12 +222,14 @@ here with sleep in her eyes.
 >Mommy looks just like me.  Except older.  She is now sleeping peacefully.
 
 >I move north.
+
 South End of Hallway
 My bedroom is at the end of a long dark hallway.  To the north is the front
 of the house while to the south west is back into my bedroom.  Mommy's
 bedroom door to the south is closed and locked.
 
 >I move southwest.
+
 Bedroom
 Opposite each other, my day bed is along the east wall while Sissy's four
 poster bed is along the west wall under the window.  Its two sliding doors

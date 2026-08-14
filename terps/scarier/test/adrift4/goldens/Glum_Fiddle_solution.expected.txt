@@ -155,6 +155,7 @@ The tiny gatehouse is west, and giant's valley is east.
 An Ogre sits gloomily, his eyes shining redly.
 
 >You move east.
+
 Pile of boulders
 Glum Fiddle's valley is a large space between steep cliff faces that reach up
 to the peaks of the Bawaire Mountains. Here, near the cave entrance, is a
@@ -215,6 +216,7 @@ Glum suddenly turns and heads south.
 >You put the set of china cups inside the hessian sack.
 
 >You move north.
+
 Pigsty
 To the north of the boulders, at the lower end of the valley, is a simple
 pigsty - a low corral of stout logs, a sea of mud within, and a rank stench.
@@ -231,6 +233,7 @@ which is partly full of barley, and the two pigs tuck in.
 >You drop the plank across the crevasse.
 
 >You move south.
+
 Pile of boulders
 Glum Fiddle's valley is a large space between steep cliff faces that reach up
 to the peaks of the Bawaire Mountains. Here, near the cave entrance, is a
@@ -243,6 +246,7 @@ There's a pigsty to the north, a briar patch to the east, a patch of forest
 to the southeast, and a swamp to the south. The cave entrance is to the west.
 
 >You move south.
+
 Swamp
 A swamp fills the lower end of the valley - it must be a sinkhole of
 somekind. Wafts of warm, rotten air are almost visible in the thin air of the
@@ -257,6 +261,7 @@ The giant is here, and let's out belch that makes you wince.
 >You scoop up some slime from the marsh with the teapot.
 
 >You move north.
+
 Pile of boulders
 Glum Fiddle's valley is a large space between steep cliff faces that reach up
 to the peaks of the Bawaire Mountains. Here, near the cave entrance, is a
@@ -269,6 +274,7 @@ There's a pigsty to the north, a briar patch to the east, a patch of forest
 to the southeast, and a swamp to the south. The cave entrance is to the west.
 
 >You move west.
+
 Cave entrance
 At least 20 feet high, the entrance to the cave has a massive wrought iron
 gate that spans it's width and reaches far above your head. The interior of
@@ -331,6 +337,7 @@ The Ogre does as he's told, and your parents pat you on the back and say
 'chip off the old block' and 'I knew she'd be clever from the womb.'
 
 >You move east.
+
 Pile of boulders
 Glum Fiddle's valley is a large space between steep cliff faces that reach up
 to the peaks of the Bawaire Mountains. Here, near the cave entrance, is a
@@ -343,6 +350,7 @@ There's a pigsty to the north, a briar patch to the east, a patch of forest
 to the southeast, and a swamp to the south. The cave entrance is to the west.
 
 >You move north.
+
 Pigsty
 To the north of the boulders, at the lower end of the valley, is a simple
 pigsty - a low corral of stout logs, a sea of mud within, and a rank stench.
@@ -355,6 +363,7 @@ boulders ahead of it in its inexorable path down the mountain.
 Also here is a wooden plank.
 
 >Jubilant, you rush across the wooden plank, which creaks under your weight.
+
 Glacier
 A small glacier has slowly and achingly pushed its way down the mountain
 face, ending here just east of the pigsty. Dirty crags of snow jut up between
@@ -474,6 +483,7 @@ gate might still be open.'
 
 'Oh, I don't think we need to worry about him. Just pray he's run out of
 poems to recite.'
+
 Pigsty
 To the north of the boulders, at the lower end of the valley, is a simple
 pigsty - a low corral of stout logs, a sea of mud within, and a rank stench.
@@ -484,6 +494,7 @@ A cool breeze comes from the east, where a glacier terminates, pushing
 boulders ahead of it in its inexorable path down the mountain.
 
 >You move south.
+
 Pile of boulders
 Glum Fiddle's valley is a large space between steep cliff faces that reach up
 to the peaks of the Bawaire Mountains. Here, near the cave entrance, is a
@@ -496,6 +507,7 @@ There's a pigsty to the north, a briar patch to the east, a patch of forest
 to the southeast, and a swamp to the south. The cave entrance is to the west.
 
 >You move west.
+
 Cave entrance
 At least 20 feet high, the entrance to the cave has a massive wrought iron
 gate that spans it's width and reaches far above your head. The interior of
@@ -509,6 +521,7 @@ cavern.
 You can now see that there is a tunnel leading northward.
 
 >You move north.
+
 Sloping tunnel
 The tunnel slopes upward, the stone around you slick and damp. You can barely
 keep your footing as you scramble up.
@@ -523,6 +536,7 @@ out of here.
 tunnel. It oozes down the tunnel.
 
 >You move north.
+
 Mountain Ridge
 This razor-backed mountain ridge stretches right up to the nearest peak of
 the mountains that ring Glum Fiddle's Valley. A narrow path leads downward,
@@ -535,6 +549,7 @@ slides down the tunnel of slime. You and your parents dissolve into laughter.
 >You throw the cups down the mountainside, where they roll around.
 
 >You move down.
+
 Cliff
 The path down the mountain terminates at the end of a sheer cliff face. A
 hundred feet or so down, there is a ledge, and the path can be seen resuming

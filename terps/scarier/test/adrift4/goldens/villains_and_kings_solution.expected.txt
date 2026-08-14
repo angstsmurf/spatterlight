@@ -21,6 +21,7 @@ There are exits north and south.
 >You sneek the note out of the midgets back pocket.
 
 >You move north.
+
 Hall
 The hall leads far down.  At one end is the kings throne room, the other, the
 leads to the waiting room for the king.  There are some great stained glass
@@ -36,6 +37,7 @@ state.
 You can see a shadow of somthing behind the window.
 
 >You move north.
+
 Kings throne room.
 This is the Kings throne room.  About 20 feet away is the kings chair.  There
 is a door to the south, and a door to the west.  There is a fishy smell about
@@ -52,6 +54,7 @@ looks at you.  "hmm you aint no midget... but Whatever."  Stupid harry gives
 you 100 gold pieces.
 
 >You move south.
+
 Hall
 The hall leads far down.  At one end is the kings throne room, the other, the
 leads to the waiting room for the king.  There are some great stained glass
@@ -62,6 +65,7 @@ draft.  Yup, its still the first day.
 You can move north and south.
 
 >You move south.
+
 Waiting room
 This is the waiting room, for people to stand in line to see the king about
 important things, and you just happen to be at the end of that line.  You
@@ -73,6 +77,7 @@ stupid king.  Yup, its still the first day.
 You can move north and south.
 
 >You move south.
+
 Courtyard
 You're just south of the castle.  Trimmed, dolphin-shaped hedges abound on
 both sides of the stone road that leads to the gigantic door. To the east is
@@ -83,6 +88,7 @@ The Dumb old guy stares at you.  Yup, its still the first day.
 You can move north, east and west.
 
 >You move east.
+
 Armory
 Woo hoo, now you've entered the armory.  Shields and Weapons and crap
 decorate the walls.  A fiery forge is in the corner.  There is a weapon rack
@@ -95,6 +101,7 @@ You can move west and in.
 >You wield Kinda Sharp Sword.
 
 >You move west.
+
 Courtyard
 You're just south of the castle.  Trimmed, dolphin-shaped hedges abound on
 both sides of the stone road that leads to the gigantic door. To the east is
@@ -105,6 +112,7 @@ The Dumb old guy stares at you.  Yup, its still the first day.
 You can move north, east and west.
 
 >You move north.
+
 Waiting room
 This is the waiting room, for people to stand in line to see the king about
 important things, and you just happen to be at the end of that line.  You
@@ -116,6 +124,7 @@ stupid king.  Yup, its still the first day.
 You can move north and south.
 
 >You move north.
+
 Hall
 The hall leads far down.  At one end is the kings throne room, the other, the
 leads to the waiting room for the king.  There are some great stained glass
@@ -126,6 +135,7 @@ draft.  Yup, its still the first day.
 You can move north and south.
 
 >You move north.
+
 Kings throne room.
 This is the Kings throne room.  About 20 feet away is the kings chair.  There
 is a door to the south, and a door to the west.  There is a fishy smell about
@@ -137,6 +147,7 @@ west.  Yup, its still the first day.
 You can move south and west.
 
 >You move west.
+
 Royal Shower Room
 This is where the king takes showers.  Unfortunately he hasnt taken one for
 quite some time.  You look in the shower and you see many tiles.  Some of the
@@ -151,6 +162,7 @@ You start to wonder what the click came from, it didn't sound like it came
 from this room though.
 
 >You move east.
+
 Kings throne room.
 This is the Kings throne room.  About 20 feet away is the kings chair.  There
 is a door to the south, and a door to the west.  There is a fishy smell about
@@ -162,6 +174,7 @@ west.  Yup, its still the first day.
 You can move south and west.
 
 >You move south.
+
 Hall
 The hall leads far down.  At one end is the kings throne room, the other, the
 leads to the waiting room for the king.  There are some great stained glass
@@ -186,6 +199,7 @@ to the king.
 >You've already got Golden soap!
 
 >You move north.
+
 Kings throne room.
 This is the Kings throne room.  About 20 feet away is the kings chair.  There
 is a door to the south, and a door to the west.  There is a fishy smell about
@@ -203,6 +217,7 @@ they way, did you get the non-golden soap on a rope?" (if you did say "yes"
 if you didn't say "no")
 
 >You move south.
+
 Hall
 The hall leads far down.  At one end is the kings throne room, the other, the
 leads to the waiting room for the king.  There are some great stained glass
@@ -226,6 +241,7 @@ and is now un-openable from here.
 You hear a click from a different room.
 
 >You move north.
+
 Kings throne room.
 The king sees your soap on a rope and says, "give me that you bastard."
 Harry the King sits in his throne.  Guido is here guarding the room to the
@@ -243,6 +259,7 @@ You snatch a doughnut while the king takes a shower.  Goodness.
 You see Guido look at you.  I think he wants one of the doughnuts.
 
 >You move south.
+
 Hall
 The hall leads far down.  At one end is the kings throne room, the other, the
 leads to the waiting room for the king.  There are some great stained glass
@@ -255,6 +272,7 @@ Jackass Trying to Kill You (dead) is here.  Yup, its still the first day.
 You can move north and south.
 
 >You move south.
+
 Waiting room
 This is the waiting room, for people to stand in line to see the king about
 important things, and you just happen to be at the end of that line.  You
@@ -267,6 +285,7 @@ The Dumb old guy stares at you.  Yup, its still the first day.
 You can move north and south.
 
 >You move south.
+
 Courtyard
 You're just south of the castle.  Trimmed, dolphin-shaped hedges abound on
 both sides of the stone road that leads to the gigantic door. To the east is
@@ -276,6 +295,7 @@ fountain.  A locked gate is to the south.  Yup, its still the first day.
 You can move north, east and west.
 
 >You move west.
+
 Giant fountain
 There is a giant fountain here, it is big, and huge, both big AND huge.  Some
 servents busy around and spill things, and there is a slight strangeness
@@ -285,6 +305,7 @@ about the fountain.  There is a sign here that says things on it.  There are
 You can move north and east.
 
 >You move north.
+
 Out side a BIIIIG house.
 You are outside a BIIIIG house.  You don't know who lives there, you don't
 know where they come from, you don't even know how they reproduce.  All you
@@ -293,6 +314,7 @@ know is, is its kinda Spook-key-y.  Yup, its still the first day.
 You can move south and west.
 
 >You move west.
+
 Sculpto's House
 This is Sculpto's house, complete with sculpts, scultures, and sculpys.  This
 man is Cccrrrrraaaazy.  The room has 2 big sculptures on both sides of the

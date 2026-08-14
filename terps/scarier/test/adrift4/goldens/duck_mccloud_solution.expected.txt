@@ -26,6 +26,7 @@ does not see you, but you notice them talking about another bomb on the
 plane. And you realise you have to get off. But How?
 
 >You move east.
+
 Passage
 It is a small passage, north is the cockpit south is the toilet. And in the
 corner is the boarding door.
@@ -33,6 +34,7 @@ corner is the boarding door.
 You can move north and west.
 
 >You move north.
+
 Cockpit
 Straight ahead of you are many dials which mean absolutly nothing to you.  In
 the Pilot and Co-Pilot chairs are two corpes. The pilot is a rather fat man
@@ -52,6 +54,7 @@ You can only move south.
 >You have taken the parachute.
 
 >You move south.
+
 Passage
 It is a small passage, north is the cockpit south is the toilet. And in the
 corner is the boarding door.

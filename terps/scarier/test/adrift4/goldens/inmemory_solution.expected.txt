@@ -32,6 +32,7 @@ stability, some serenity.
 The frenetic pace of the swirling thoughts has diminished.  Indeed - now that
 they've ceased their whirling, now that you can examine them, you know them
 to be memories from the life you've lived.
+
 Unconsciousness
 You are ensconced in the soothing indigo light.
 
@@ -51,6 +52,7 @@ you to where you are now.
 >You recognize the rabbit from your earliest childhood memories.  As you focus
 on it, the other images around you fade and all that you can see is that
 small, soft bunny.
+
 Holding onto the Bunny
 It seems impossible that you could remember something that happened so very
 long ago, but it feels very, very real... You are an infant, not yet able to
@@ -73,6 +75,7 @@ outlook most of the time.
 
 Unfortunately, the image fades all too soon, and the pleasant feelings
 dissipate with it...
+
 Unconsciousness
 You are ensconced in the soothing indigo light.
 
@@ -83,6 +86,7 @@ and the vista from back home.
 >So small... did you ever fit in that seat?  Yes, long ago you did.  As you
 focus on your desk from elementary school, the other images around you fade,
 and you are transported back to...
+
 School Days
 How old were you when you spent your days seated here, listening to Mrs
 Bright as she tried her best to make you into something?  It was that
@@ -105,6 +109,7 @@ were a lot more keen on things like writing and reading than math or science.
 key.
 
 The small desk and thoughts of school fade from view...
+
 Unconsciousness
 You are ensconced in the soothing indigo light.
 
@@ -116,6 +121,7 @@ back home.
 there across the bed, waiting for you to put it on for the dance.  As you
 focus on the ensemble, the other images around you fade, and you're
 transported back to...
+
 Homecoming Night
 What will Chris think of this outfit?  You're still not sure.  Oddly, though
 a part of you is sure that the dance, like this memory, has already happened,
@@ -134,6 +140,7 @@ any indication, Chris will be decked out flamboyantly, and no one will even
 notice that you've dressed down.
 
 Memories of Chris and of the Homecoming night fade from view...
+
 Unconsciousness
 You are ensconced in the soothing indigo light.
 
@@ -143,6 +150,7 @@ over-sized headphones, a hardcover book and the vista from back home.
 >You think back to the best of days when Sam was seemingly always there by
 your side. As you focus on Sam's smile, the other images around you fade and
 you remember what it was like...
+
 Loving Sam
 The world was kind of a scary place for you back then, fresh out of school.
 Frightened to death of what lay ahead, unable to let go of the decisions
@@ -163,6 +171,7 @@ smiled.
 Even you.
 
 The image of Sam fades...
+
 Unconsciousness
 You are ensconced in the soothing indigo light.
 
@@ -172,6 +181,7 @@ the vista from back home.
 >God yes, those headphones!  How they let you shut out the rest of the world,
 how they filled your head with music.  As you focus on them, the other images
 around you fade, and you become increasingly...
+
 Lost in Sound
 Being a grown up is sometime pretty difficult.  Decisions to make, burdens to
 carry.  Most of the time you like to think you did okay, but you have to
@@ -191,6 +201,7 @@ of harsh awakening later, unforunately, but it always felt perfect at the
 time.
 
 The music fades from your memory...
+
 Unconsciousness
 You are ensconced in the soothing indigo light.
 
@@ -199,6 +210,7 @@ In the light, you can see a hardcover book and the vista from back home.
 >You remember how that book used to feel in your hands.  As you recall the
 sunny afternoons with it under the tree, the rainy evenings with it curled up
 near the fire, the other images around you fade and you are carried into...
+
 Imagined Realities
 Escapism's not such a bad thing, right?  All good things in moderation, they
 say.  Though, hm.  Perhaps you did overdo it a bit from time to time.  You
@@ -224,6 +236,7 @@ subtle ones are better, even if you can't sometimes help going for the
 authors that lay it on thick.
 
 The book closes, and the memory fades...
+
 Unconsciousness
 You are ensconced in the soothing indigo light.
 
@@ -234,6 +247,7 @@ voices and the beeping of machines... but then it's gone.
 
 >Even in the hardest times, coming here helped.  Nothing made you feel quite
 so at ease as when you looked out across...
+
 The Vista Back Home
 Looking back on the entirety of your life, you saw a fair amount of the
 world.  Not as much as some, certainly, but more than many of your
@@ -252,6 +266,7 @@ possessing its own unique vantage point.  Why did you ever feel you couldn't
 explore endlessly right here at home?
 
 The landscape fades, taking the memory with it...
+
 Unconsciousness
 You are ensconced in the soothing indigo light.
 And there are no more images, no more thoughts...

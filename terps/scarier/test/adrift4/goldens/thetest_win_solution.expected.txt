@@ -432,6 +432,7 @@ You insert the bright orange key into the lock but instead of unlocking the
 door turns green.
 You hear the key fall into some storage space, and the door click open.  You
 walk through.
+
 The Room of Eternal Dialing
 You are in the room of eternal dialling.  There is a phone here.  It gives
 you the strange idea of using it to dial a number!  What a good idea!  There
@@ -454,6 +455,7 @@ into a slot in the wall above.  The door has gone.  You can now leave to the
 east.
 
 >You move east.
+
 The Orange Room
 This room is orange thus becoming the orange room.  Orange paint is painted
 on all the surfaces of this room including the floor except a small gap in
@@ -544,6 +546,7 @@ Robot Guard storms in from the west.
 Robot Guard hits you with the robot's chain.
 
 >You move west.
+
 The Room of Eternal Dialing
 You are in the room of eternal dialling.  There is a phone here.  It gives
 you the strange idea of using it to dial a number!  What a good idea!  There
@@ -579,6 +582,7 @@ glows blue then becomes a hole in the wall.  It expands leaving a new exit to
 the east.
 
 >You move east.
+
 The Empty Room
 This room is completely empty and very plain.  Unless you count the dust, but
 even that is very plain.

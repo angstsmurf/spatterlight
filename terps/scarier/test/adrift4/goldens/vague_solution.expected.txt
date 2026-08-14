@@ -109,6 +109,7 @@ hide it.  For some reason you are aware that it has no relevance.
 >You open the set of double doors with glass panels.
 
 >You move south, pushing through thick fog.
+
 Cabin E86, E Deck
 The two-berth second class cabin is a large, bright, airy place of which you
 are the only occupant. The feeling of space is probably due to the light
@@ -138,6 +139,7 @@ sofa-bed.
 >You open the cabin door.
 
 >Opening the cabin door, you move north.
+
 Railway Platform
 The wind swept railway station has that look of neglect and decay, making it
 feel a very sad place.  The platform is covered by a canopy which neither
@@ -178,6 +180,7 @@ you.
 >You pick up the booklet.
 
 >You move west, pushing through thick fog.
+
 The Jetty
 The lighthouse jetty is made of stone with a metal handrail running around
 it.  You notice immediately that the handrail is damaged.  Down a wooden
@@ -203,6 +206,7 @@ the knife into someone.
 So are you a murderer?
 
 >You climb down the ladder, into the boat.
+
 Row Boat
 The small row boat is a type known as a dory and is about 4.5m long and 1.2m
 wide. The narrow bottom and wide flaring sides makes for easy rowing. They
@@ -235,6 +239,7 @@ In the bottom of the boat you find your old rucksack.
 "Correct, this location is from Darkness".
 
 >Climbing the ladder, onto the jetty.
+
 The Jetty
 The lighthouse jetty is made of stone with a metal handrail running around
 it.  You notice immediately that the handrail is damaged.  Down a wooden
@@ -243,6 +248,7 @@ lighthouse.  In the water just below the jetty, you can see an object
 floating. It appears to be a woollen hat.
 
 >You move east.
+
 Railway Platform
 The wind swept railway station has that look of neglect and decay, making it
 feel a very sad place.  The platform is covered by a canopy which neither
@@ -261,6 +267,7 @@ stop.
 The trainspotter writes in his book.
 
 >You move east, pushing through thick fog.
+
 The Flying Horse
 The Flying Horse has the typical pub smell of stale beer and cigarettes, not
 exactly a stomach churning experience but not that pleasant either.  The
@@ -301,6 +308,7 @@ A small black and white cat strolls in from the south.
 Colin and Fred are arguing about some football match.
 
 >You move east, pushing through thick fog.
+
 Cage
 The centre of this circular chamber is a cage, sunk into the floor, in which
 the remains of some beast lie decomposing. Claw marks on the bars of the cage
@@ -335,6 +343,7 @@ remains make a groaning noise.
 A small black and white cat strolls out to the west.
 
 >You move east.
+
 Ruined Statue
 Above you towers a broken statue, ravaged by the passage of time. A crown of
 stone rests upon its brow, a glittering jewel its centrepiece. About you lurk
@@ -350,6 +359,7 @@ You can also see a pair of overalls.
 jewel it appears to be no more than a pebble.
 
 >You move east.
+
 Storeroom
 The long, low room smells of oil and something else which you can't quite
 place.  Nearly all the available space is filled with pipes, cables and
@@ -379,6 +389,7 @@ For a few moments you feel dizzy but slowly it passes.
 Was that real?
 
 >You move west.
+
 Ruined Statue
 Above you towers a broken statue, ravaged by the passage of time. A crown of
 stone rests upon its brow, a large jagged hole as centrepiece. About you lurk
@@ -391,6 +402,7 @@ Passages in the ruined walls of this place lie to the east and west.
 You can also see a pair of overalls.
 
 >You move west.
+
 Cage
 The centre of this circular chamber is a cage, sunk into the floor, in which
 the remains of the Tarc appears to be watching you. Claw marks on the bars of
@@ -401,6 +413,7 @@ To the west there is a large chamber from which a humming sound emanates; to
 the east you can make out a statue.
 
 >You move west.
+
 The Flying Horse
 The Flying Horse has the typical pub smell of stale beer and cigarettes, not
 exactly a stomach churning experience but not that pleasant either.  The
@@ -414,6 +427,7 @@ bar.
 A small black and white cat strolls out to the east.
 
 >You move south.
+
 The Yard
 The yard is just behind the pub and is probably used for storage. About 10m
 square it has a high wall all the way around and the floor is concrete. The
@@ -434,6 +448,7 @@ like, "Just what we need, another drunken idiot."
 >You open the metal gate.
 
 >You move south.
+
 The Lounge
 You are in a lovely lounge, well no it's actually horrible.  The weak morning
 light is struggling to get through the dirty windows. A pair of limp unhappy
@@ -450,6 +465,7 @@ noticing you, "Lost your clothes then?". He does not wait for an answer.
 >Stuffed down the side of the settee you find a handbill.
 
 >You move east.
+
 The Throat
 You are in a smooth, slippery tube with a shiny pink lining.  From here the
 mouth is west and the stomach east. On both sides of the throat are ball-like
@@ -466,6 +482,7 @@ this location is from "We are coming to get you!".
 Your relatives suddenly head east.
 
 >You move east.
+
 Domicile of Epsilon-Beta
 The dull metal room, which is exactly 2m square and 2.5m in height, is
 appropriate to your level of achievement. Attached to the wall behind you is
@@ -492,6 +509,7 @@ So you are Epsilon-Beta, some sort of policeman? But what is a Delta-Tyr
 Series 5?
 
 >The room slowly fades and is replaced with your destination.
+
 Centre for Examination
 The hexagonal metal room is 10m across and nearly 5m in height. With the
 standard hidden lighting set to a low level, most of the room is in gloom. A
@@ -524,6 +542,7 @@ You hand the pebble to Zeta-Theta who hands you the crystal. Once in your
 hand you realise the crystal is in fact a note.
 
 >The room slowly fades and is replaced with your destination.
+
 Roof of Building
 You are on the roof of the futuristic Bakewell Insurance Building, which has
 19 floors and was built around 10 years ago. A strong wind is blowing from
@@ -573,6 +592,7 @@ What are these memories?
 >You open the door.
 
 >You move down.
+
 Cage
 The centre of this circular chamber is a cage, sunk into the floor, in which
 the remains of the Tarc appears to be watching you. Claw marks on the bars of
@@ -588,6 +608,7 @@ this location is from 'Pathway to Destruction'".
 The beast makes a final groaning sound and is then silent.
 
 >You move east.
+
 Ruined Statue (Pathway to Destruction)
 Above you towers a broken statue, ravaged by the passage of time. A crown of
 stone rests upon its brow, a large jagged hole as centrepiece. About you lurk
@@ -599,6 +620,7 @@ Passages in the ruined walls of this place lie to the east and west.
 You can also see a pair of overalls.
 
 >You move east.
+
 Storeroom
 The long, low room smells of oil and something else which you can't quite
 place.  Nearly all the available space is filled with pipes, cables and
@@ -615,6 +637,7 @@ the playbill he has been carrying.
 Shouting, "I'm cured! I'm cured!" the lab assistant runs towards the stairs".
 
 >You move west.
+
 Ruined Statue (Pathway to Destruction)
 Above you towers a broken statue, ravaged by the passage of time. A crown of
 stone rests upon its brow, a large jagged hole as centrepiece. About you lurk
@@ -626,6 +649,7 @@ Passages in the ruined walls of this place lie to the east and west.
 You can also see a pair of overalls.
 
 >You move west.
+
 Cage (Pathway to Destruction)
 The centre of this circular chamber is a cage, sunk into the floor, in which
 the remains of some beast lie decomposing. Claw marks on the bars of the cage
@@ -636,6 +660,7 @@ To the west there is a large chamber and to the east you can make out a
 statue.
 
 >You move west.
+
 The Flying Horse
 The Flying Horse has the typical pub smell of stale beer and cigarettes, not
 exactly a stomach churning experience but not that pleasant either.  The
@@ -647,6 +672,7 @@ Colin Turner is standing at the bar.  Fred Sutton is staring vacantly around.
 Colin and Fred are staring at each other.
 
 >You move west.
+
 Railway Platform
 The wind swept railway station has that look of neglect and decay, making it
 feel a very sad place.  The platform is covered by a canopy which neither
@@ -673,6 +699,7 @@ looks you up and down before continuing, "Unbelievable!".
 >You open the set of double doors with glass panels.
 
 >You move south.
+
 Cabin E86, E Deck
 The two-berth second class cabin is a large, bright, airy place of which you
 are the only occupant. The feeling of space is probably due to the light
@@ -684,6 +711,7 @@ corridor and a porthole is to the south.
 >You open the porthole.
 
 >You move south.
+
 Post Office, G Deck
 The ship's post office houses a range of bags, bins and pigeonholes for
 sorting the mail. To your east is a corridor and some steps lead down.
@@ -706,6 +734,7 @@ to his work.
 The postal clerk picks up a postbag and goes down the steps.
 
 >You move down, pushing through thick fog.
+
 The Yard
 The yard is just behind the pub and is probably used for storage. About 10m
 square it has a high wall all the way around and the floor is concrete. The
@@ -718,6 +747,7 @@ Jed Peters is watching you carefully.
 this location is from Fire in the Blood.  Now get lost!".
 
 >You move north.
+
 The Flying Horse
 The Flying Horse has the typical pub smell of stale beer and cigarettes, not
 exactly a stomach churning experience but not that pleasant either.  The
@@ -734,6 +764,7 @@ A small black and white cat strolls out to the east.
 The jukebox is loudly playing country music.
 
 >You move south.
+
 The Yard
 The yard is just behind the pub and is probably used for storage. About 10m
 square it has a high wall all the way around and the floor is concrete. The
@@ -773,6 +804,7 @@ Looking surprised the porter exclaims, "Solved six locations I hear". He
 looks you up and down before continuing, "Amazing!".
 
 >You move east.
+
 The Flying Horse (Fire in the Blood)
 The Flying Horse has the typical pub smell of stale beer and cigarettes, not
 exactly a stomach churning experience but not that pleasant either.  The
@@ -789,6 +821,7 @@ then whispers, "We think it was him, the evil author".
 You notice that the pub is strangely quiet.
 
 >You move south.
+
 The Yard (Fire in the Blood)
 The yard is just behind the pub and is probably used for storage. About 10m
 square it has a high wall all the way around and the floor is concrete. The
@@ -818,6 +851,7 @@ you have just tied up at the lighthouse jetty.
 So you are Ross Walham, a harbour master?
 
 >You move north.
+
 The Flying Horse (Fire in the Blood)
 The Flying Horse has the typical pub smell of stale beer and cigarettes, not
 exactly a stomach churning experience but not that pleasant either.  The
@@ -828,6 +862,7 @@ Colin Turner is standing at the bar.  Fred Sutton is staring vacantly around.
  Emma Taylor is standing behind the bar.
 
 >You move west.
+
 Railway Platform
 The wind swept railway station has that look of neglect and decay, making it
 feel a very sad place.  The platform is covered by a canopy which neither
@@ -847,6 +882,7 @@ The trainspotter writes in his book.
 The drunk makes a coughing sound.
 
 >You move west.
+
 The Jetty
 The lighthouse jetty is made of stone with a metal handrail running around
 it.  You notice immediately that the handrail is damaged.  Down a wooden
@@ -876,6 +912,7 @@ You can also see some card.
 >You pick up the card.
 
 >You climb down the ladder, into the boat.
+
 Row Boat
 The small row boat is a type known as a dory and is about 4.5m long and 1.2m
 wide. The narrow bottom and wide flaring sides makes for easy rowing. They
@@ -892,6 +929,7 @@ ghost then hands you a letter.
 Slowly the ghostly figure fades away.
 
 >Climbing the ladder, onto the jetty.
+
 The Jetty (Darkness)
 The lighthouse jetty is made of stone with a metal handrail running around
 it.  You notice immediately that the handrail is damaged.  Down a wooden
@@ -899,6 +937,7 @@ ladder you can see your boat and to the east is a path leading to the
 lighthouse.
 
 >You move east.
+
 Railway Platform
 The wind swept railway station has that look of neglect and decay, making it
 feel a very sad place.  The platform is covered by a canopy which neither
@@ -927,6 +966,7 @@ The drunk makes a coughing sound.
 The trainspotter looks down at his shoes.
 
 >You move east.
+
 The Flying Horse (Fire in the Blood)
 The Flying Horse has the typical pub smell of stale beer and cigarettes, not
 exactly a stomach churning experience but not that pleasant either.  The
@@ -935,6 +975,7 @@ and a wall mounted jukebox. To the west is Albert Street, east is Draycot
 Road and the yard behind the pub is to the south.
 
 >You move south.
+
 The Yard (Fire in the Blood)
 The yard is just behind the pub and is probably used for storage. About 10m
 square it has a high wall all the way around and the floor is concrete. The
@@ -946,6 +987,7 @@ You can also see a photograph.
 >You open the metal gate.
 
 >You move south.
+
 The Lounge
 You are in a lovely lounge, well no it's actually horrible.  The weak morning
 light is struggling to get through the dirty windows. A pair of limp unhappy
@@ -962,12 +1004,14 @@ location is from Where are my Keys?".
 Very slowly John gets onto his feet and ambles out into the hall.
 
 >You move east.
+
 The Throat (We are coming to get you!)
 You are in a smooth, slippery tube with a shiny pink lining.  From here the
 mouth is west and the stomach east. The tonsils are red and swollen,
 tonsillitis!
 
 >You move east.
+
 Domicile of Epsilon-Beta
 The dull metal room, which is exactly 2m square and 2.5m in height, is
 appropriate to your level of achievement. Attached to the wall behind you is
@@ -977,6 +1021,7 @@ With the lighting fixed on the lowest setting the place is in gloom, just how
 you prefer it.
 
 >The room slowly fades and is replaced with your destination.
+
 Centre for Examination
 The hexagonal metal room is 10m across and nearly 5m in height. With the
 standard hidden lighting set to a low level, most of the room is in dullness.
@@ -990,6 +1035,7 @@ your assignment is complete. This location is from Unauthorized Termination".
 Zeta-Theta moves over to the teleporter, steps onto the pad and disappears.
 
 >The room slowly fades and is replaced with your destination.
+
 Roof of Building (Target)
 You are on the roof of the futuristic Bakewell Insurance Building, which has
 19 floors and was built around 10 years ago. A strong wind is blowing from
@@ -1006,6 +1052,7 @@ The body of a dead tramp is lying here.
 >You open the door.
 
 >You move down.
+
 Cage (Pathway to Destruction)
 The centre of this circular chamber is a cage, sunk into the floor, in which
 the remains of some beast lie decomposing. Claw marks on the bars of the cage
@@ -1019,6 +1066,7 @@ You can also see a bell.
 The body of a dead cat is lying here.
 
 >You move west.
+
 The Flying Horse (Fire in the Blood)
 The Flying Horse has the typical pub smell of stale beer and cigarettes, not
 exactly a stomach churning experience but not that pleasant either.  The
@@ -1027,6 +1075,7 @@ and a wall mounted jukebox. To the west is Albert Street, east is Draycot
 Road and the yard behind the pub is to the south.
 
 >You move west.
+
 Platform One (Ticket to No Where)
 You are on a wind swept railway platform.  The platform is covered by a
 canopy which neither protects from the rain or wind.  Attached to the wall is
@@ -1047,6 +1096,7 @@ The Station Master hands you something saying, "This is for you lad".
 
 >You move north onto the train. The trainspotter half raises his hand as if he
 is about to wave. He obviously changes his mind and lowers his arm quickly.
+
 Train (doors open)
 You are on a Great Eastern Railways train.  The train has double hard looking
 seats either side of a very narrow gangway.  The train is already packed and

@@ -62,11 +62,13 @@ path snakes off down the mountain to the south.
 "Somebody help me!" Cries Murky.
 
 >You move south.
+
 Long winding path
 A long rocky mountain path twists and turns like a snake from north to south.
 Windswept clouds glide by high above.
 
 >You move south.
+
 Outside Inn
 At the foot of the mountain, the path meets  the highway. The Inn is the only
 thing that breaks the flat, cold line of the horizion for miles. It is a
@@ -75,6 +77,7 @@ swings in the breeze just above the entrance, and by the side of the road
 stands a wooden post with a board nailed to it.
 
 >You move in.
+
 In the Inn
 The cieling is surprisingly low, with thick wooden beams jutting out from it.
 The far wall is lined with a dusty looking wooden counter, acting as the bar,
@@ -138,6 +141,7 @@ drinks than you can count.
 The sound of horses hoofs can be heard from outside.
 
 >You move out.
+
 Outside Inn
 At the foot of the mountain, the path meets  the highway. The Inn is the only
 thing that breaks the flat, cold line of the horizion for miles. It is a
@@ -160,6 +164,7 @@ very drunk and very ill. You fall into a dreamless sleep and are awakened
 when your head hits the ground, as Freaky Jack drags you out of his coach by
 the ankles and dumps you by the road. "Here, you going." he says before
 jumping back on his coach and gallops off ever onward.
+
 Highway
 You're by the side of a wide, well worn track, stretching far off to the east
 and west. A large, gnarled tree with branches that hang like broken fingers
@@ -168,6 +173,7 @@ The sun is creeping up in the morning sky, your stomach grumbles and your
 head is spinning.
 
 >You move north.
+
 Outside the Tavern
 A tall, solid structure made of  timbers with a sloped roof, stands alone in
 a clearing facing the lake to the west. Smoke spirals upwards from a stone
@@ -176,6 +182,7 @@ west wall. Another wooden structure can be seen just off to the north west,
 while a trail leads further into the woods to the northwest.
 
 >You move northeast.
+
 A woodland Trail
 The muddy trail, covered with leaves of all different colours and shades,
 branches off three ways. North, east or south east. The trees of the wood
@@ -184,6 +191,7 @@ shadows upon the ground.
 You feel hungry.
 
 >You move north.
+
 Outside the store
 Under the canopy of the woods stands a short, stoney building, covered in
 grass. A green painted door in between two circular windows appears to be the
@@ -191,6 +199,7 @@ only way in or out. A large flat stone leans up against the building with
 writing carved into it.
 
 >You move in.
+
 Inside Herbs' Herbs
 All manner of bottles and herbs and plants fill the place up and make it look
 very cluttered. Behind a counter with a copper top, stands Herb. The wall
@@ -218,6 +227,7 @@ You feel thirsty.
 >You take the backward burp berries.
 
 >You move out.
+
 Outside the store
 Under the canopy of the woods stands a short, stoney building, covered in
 grass. A green painted door in between two circular windows appears to be the
@@ -227,6 +237,7 @@ You feel hungry.
 Your head is spinning.
 
 >You move south.
+
 A woodland Trail
 The muddy trail, covered with leaves of all different colours and shades,
 branches off three ways. North, east or south east. The trees of the wood
@@ -234,6 +245,7 @@ strech upwards towards the sky, thier branches casting a patch work of
 shadows upon the ground.
 
 >You move southwest.
+
 Outside the Tavern
 A tall, solid structure made of  timbers with a sloped roof, stands alone in
 a clearing facing the lake to the west. Smoke spirals upwards from a stone
@@ -243,6 +255,7 @@ while a trail leads further into the woods to the northwest.
 Your stomach growls.
 
 >You move in.
+
 Inside the Tavern
 It is just one large room with timber walls and sawdust on the floor. A
 circular counter stands in the middle of it with a barman leaning idly upon
@@ -278,6 +291,7 @@ Your head is spinning.
 Sid sips from his mug.
 
 >You move up.
+
 Hall
 The hall is narrow with a high roof and squeaky floorboards. At the far end
 is a door with a wooden plaque on it, while running down both sides are other
@@ -285,6 +299,7 @@ doors, none of which hold any interest to you, except one with the number 2
 carved into it, to the west.
 
 >You move north.
+
 Water Closet
 It is no more than a wooden bench with a hole in it. An awful stench reeks
 from it. A shelf is on the east wall.
@@ -297,6 +312,7 @@ You feel hungry.
 Your throat is sore.
 
 >You move south.
+
 Hall
 The hall is narrow with a high roof and squeaky floorboards. At the far end
 is a door with a wooden plaque on it, while running down both sides are other
@@ -312,6 +328,7 @@ You feel thirsty.
 Using the key, you unlock the door.
 
 >You move west.
+
 Your Room
 A wooden bed with a mattress of straw and a woolen blanket fills most of the
 room. It is small, but sufficient. Beside the bed is a little desk, and in
@@ -333,6 +350,7 @@ Your throat is sore.
 >You drop the drawer.
 
 >You move east.
+
 Hall
 The hall is narrow with a high roof and squeaky floorboards. At the far end
 is a door with a wooden plaque on it, while running down both sides are other
@@ -342,6 +360,7 @@ Your guts rumble.
 You feel thirsty.
 
 >You move down.
+
 Inside the Tavern
 It is just one large room with timber walls and sawdust on the floor. A
 circular counter stands in the middle of it with a barman leaning idly upon
@@ -426,6 +445,7 @@ You light the candle on the fire. surprisingly, the flame is a bright blue!
 Sid picks up his mug and drinks.
 
 >You move out.
+
 Outside the Tavern
 A tall, solid structure made of  timbers with a sloped roof, stands alone in
 a clearing facing the lake to the west. Smoke spirals upwards from a stone
@@ -434,6 +454,7 @@ west wall. Another wooden structure can be seen just off to the north west,
 while a trail leads further into the woods to the northwest.
 
 >You move northeast.
+
 A woodland Trail
 The muddy trail, covered with leaves of all different colours and shades,
 branches off three ways. North, east or south east. The trees of the wood
@@ -441,11 +462,13 @@ strech upwards towards the sky, thier branches casting a patch work of
 shadows upon the ground.
 
 >You move east.
+
 Ruins
 Piles of rubble lay in a circle, eroded by the weather and covered in moss.
 In the middle, worn stone steps decend into darkness.
 
 >You move down.
+
 A Dungeon
 Walls of cold stone bricks, with trickles of water running down them and
 chains and shackles bolted to them, give the place a very spooky feeling.
@@ -462,6 +485,7 @@ dungeon.
 >You pick up the metal bar.
 
 >You move south.
+
 Torture Room
 By the look of the blood stained stones and the rusty tools of torture,
 hanging from a nearby rack, it is obvious that many a poor soul had an
@@ -476,6 +500,7 @@ iron bucket.
 >You take the poker from the iron bucket.
 
 >You move north.
+
 A Dungeon
 Walls of cold stone bricks, with trickles of water running down them and
 chains and shackles bolted to them, give the place a very spooky feeling.
@@ -496,6 +521,7 @@ surrounding bricks start to crack and crumble. Soon the half the wall comes
 tumbling down in an almighty crash.
 
 >You move north.
+
 Inside the wall
 Chained by both arms and feet, a skeleton hangs, still wearing armour.
 
@@ -510,6 +536,7 @@ Also here is a sword blade.
 >You pick up the sword blade.
 
 >You move south.
+
 A Dungeon
 Walls of cold stone bricks, with trickles of water running down them and
 chains and shackles bolted to them, give the place a very spooky feeling.
@@ -519,11 +546,13 @@ this room from another to the east.  A pile of bricks lie in front of a hole
 in the north wall.
 
 >You move up.
+
 Ruins
 Piles of rubble lay in a circle, eroded by the weather and covered in moss.
 In the middle, worn stone steps decend into darkness.
 
 >You move west.
+
 A woodland Trail
 The muddy trail, covered with leaves of all different colours and shades,
 branches off three ways. North, east or south east. The trees of the wood
@@ -531,10 +560,12 @@ strech upwards towards the sky, thier branches casting a patch work of
 shadows upon the ground.
 
 >You move southeast.
+
 Muddy Footprints
 In the muddy trail, a set of footprints are clearly visible, heading south.
 
 >You move south.
+
 A Hole in A Hill
 The denseness of the canopy above prevents almost any light from getting in.
 The ground is covered in weeds, squeezing the life out of wild flowers and
@@ -542,6 +573,7 @@ anything else that chooses to try and grow here. A small hill (also covered
 in weeds) has a hole dug into its side.
 
 >You move in.
+
 Weevils' Home
 A steep tunnel leads down into a cavern. The place is so cramped that you
 have to sit on the floor with your knees under your chin just to fit!
@@ -557,6 +589,7 @@ the helmet and knocks it a few times. He puts it on his head, it's too big
 for him but he agrees to the trade and hands you a bottle.
 
 >You move out.
+
 A Hole in A Hill
 The denseness of the canopy above prevents almost any light from getting in.
 The ground is covered in weeds, squeezing the life out of wild flowers and
@@ -564,10 +597,12 @@ anything else that chooses to try and grow here. A small hill (also covered
 in weeds) has a hole dug into its side.
 
 >You move north.
+
 Muddy Footprints
 In the muddy trail, a set of footprints are clearly visible, heading south.
 
 >You move northwest.
+
 A woodland Trail
 The muddy trail, covered with leaves of all different colours and shades,
 branches off three ways. North, east or south east. The trees of the wood
@@ -575,6 +610,7 @@ strech upwards towards the sky, thier branches casting a patch work of
 shadows upon the ground.
 
 >You move southwest.
+
 Outside the Tavern
 A tall, solid structure made of  timbers with a sloped roof, stands alone in
 a clearing facing the lake to the west. Smoke spirals upwards from a stone
@@ -583,6 +619,7 @@ west wall. Another wooden structure can be seen just off to the north west,
 while a trail leads further into the woods to the northwest.
 
 >You move south.
+
 Highway
 You're by the side of a wide, well worn track, stretching far off to the east
 and west. A large, gnarled tree with branches that hang like broken fingers
@@ -602,6 +639,7 @@ ground.
 >You drop the room key.
 
 >You move north.
+
 Outside the Tavern
 A tall, solid structure made of  timbers with a sloped roof, stands alone in
 a clearing facing the lake to the west. Smoke spirals upwards from a stone
@@ -610,6 +648,7 @@ west wall. Another wooden structure can be seen just off to the north west,
 while a trail leads further into the woods to the northwest.
 
 >You move in.
+
 Inside the Tavern
 It is just one large room with timber walls and sawdust on the floor. A
 circular counter stands in the middle of it with a barman leaning idly upon
@@ -658,6 +697,7 @@ his feet. "Meet me in me boat house whens your ready." And with that, he
 walks off (in a jagged line ) laughing to himself.
 
 >You move out.
+
 Outside the Tavern
 A tall, solid structure made of  timbers with a sloped roof, stands alone in
 a clearing facing the lake to the west. Smoke spirals upwards from a stone
@@ -666,6 +706,7 @@ west wall. Another wooden structure can be seen just off to the north west,
 while a trail leads further into the woods to the northwest.
 
 >You move northwest.
+
 Outside the Boathouse
 It is a timber building, similar in look to the tavern, except it's
 triangular in structure. It's walls slope gently down from a hieght of about
@@ -674,6 +715,7 @@ into the lake, while on its side, a door in a porch leads in with a lantern
 attracting insects hanging from it.
 
 >You move in.
+
 Inside the Boathouse
 All manner of fishing equipment is sprawled all over the place. Hanging from
 ceiling, hooked unto the walls, even heaped into piles and stuffed into
@@ -690,6 +732,7 @@ here, laying on a big pile of nets.
 You climb into the boat and hold on to the sides. Sid gives the thing a push
 and it slides down the rails, splashes into the lake and drifts out towards
 the middle.
+
 On the lake
 You're standing on the rowing boat, hoping to get your sea legs and slowly
 getting sea sick. (Trolls and water have never really got on, thats why they
@@ -736,6 +779,7 @@ floats on the surface.
 >You paddle the boat back to shore, just outside the boathouse.
 
 >You move in.
+
 Inside the Boathouse
 All manner of fishing equipment is sprawled all over the place. Hanging from
 ceiling, hooked unto the walls, even heaped into piles and stuffed into
@@ -750,6 +794,7 @@ is speechless. Without a word, he retrieves a sack from a hiding place and
 hands it to you. He sits down in astonishment and stares at the dead fish.
 
 >You move out.
+
 Outside the Boathouse
 It is a timber building, similar in look to the tavern, except it's
 triangular in structure. It's walls slope gently down from a hieght of about
@@ -759,6 +804,7 @@ attracting insects hanging from it.   Upon the shore of the lake, lies the
 boat.
 
 >You move southeast.
+
 Outside the Tavern
 A tall, solid structure made of  timbers with a sloped roof, stands alone in
 a clearing facing the lake to the west. Smoke spirals upwards from a stone
@@ -767,6 +813,7 @@ west wall. Another wooden structure can be seen just off to the north west,
 while a trail leads further into the woods to the northwest.
 
 >You move in.
+
 Inside the Tavern
 It is just one large room with timber walls and sawdust on the floor. A
 circular counter stands in the middle of it with a barman leaning idly upon
@@ -785,6 +832,7 @@ wisely, you decide to settle your food and drink bill in cash, thus
 preventing the Chief being billed (and you being pummeled by him.)
 
 >You move out.
+
 Outside the Tavern
 A tall, solid structure made of  timbers with a sloped roof, stands alone in
 a clearing facing the lake to the west. Smoke spirals upwards from a stone
@@ -793,6 +841,7 @@ west wall. Another wooden structure can be seen just off to the north west,
 while a trail leads further into the woods to the northwest.
 
 >You move south.
+
 Highway
 You're by the side of a wide, well worn track, stretching far off to the east
 and west. A large, gnarled tree with branches that hang like broken fingers
@@ -805,6 +854,7 @@ Also here is the coach, a room key and a mangey horse.
 Happy to be going home, you hop on the coach and knock on the roof to tell
 Jack to get going. He cracks his whip and the coach speeds off down the road,
 shaking and rattling like mad.
+
 Outside Inn
 At the foot of the mountain, the path meets  the highway. The Inn is the only
 thing that breaks the flat, cold line of the horizion for miles. It is a
@@ -813,6 +863,7 @@ swings in the breeze just above the entrance, and by the side of the road
 stands a wooden post with a board nailed to it.
 
 >You move in.
+
 In the Inn
 The cieling is surprisingly low, with thick wooden beams jutting out from it.
 The far wall is lined with a dusty looking wooden counter, acting as the bar,
@@ -828,6 +879,7 @@ the chief, you fork over a large sum of money to the landlord.
 The landlord blows his nose on the rag.
 
 >You move out.
+
 Outside Inn
 At the foot of the mountain, the path meets  the highway. The Inn is the only
 thing that breaks the flat, cold line of the horizion for miles. It is a
@@ -836,11 +888,13 @@ swings in the breeze just above the entrance, and by the side of the road
 stands a wooden post with a board nailed to it.
 
 >You move north.
+
 Long winding path
 A long rocky mountain path twists and turns like a snake from north to south.
 Windswept clouds glide by high above.
 
 >You move north.
+
 The South Gate
 The frog monster is awake and munching heartily on the burp berries. Murky is
 still caught underneath and your fellow trolls are still trying to move it.

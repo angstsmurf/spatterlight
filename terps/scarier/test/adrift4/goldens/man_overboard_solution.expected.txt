@@ -108,6 +108,7 @@ the sea. You wish that you'd bought your travel sickness medicine on this
 journey like your mum had told you too.
 
 >You move north.
+
 Corridor
 You are standing in a long dark corridor that smells of mould. It is dimly
 lit and is the main area below deck. The walls are grey and the floor is
@@ -126,6 +127,7 @@ Winnie's second coming, but you take another look, and decide to stop being
 so silly...it's probably not.
 
 >You move north.
+
 First Mate's Quarters
 You are standing in the first mate's quarters. The First Mate is nowhere in
 sight and you deduce that he has either fallen overboard or is lying comatose
@@ -155,6 +157,7 @@ much, but decide against it.  The set of drawers are closed.
 >The set of drawers are locked.
 
 >You move south.
+
 Corridor
 You are standing in a long dark corridor that smells of mould. It is dimly
 lit and is the main area below deck. The walls are grey and the floor is
@@ -167,6 +170,7 @@ and continues down to the cargo hold. You can move North, East, South, West,
 up or down.
 
 >You move west.
+
 Dormitory
 You are standing in the dormitory. There is a bunk bed in the centre of the
 room, and a large wardrobe attached to the far wall. Empty crisp packets and
@@ -204,6 +208,7 @@ your back hurts when you stretch).
 floor. The Chef is such a pig.
 
 >You move east.
+
 Corridor
 You are standing in a long dark corridor that smells of mould. It is dimly
 lit and is the main area below deck. The walls are grey and the floor is
@@ -216,6 +221,7 @@ and continues down to the cargo hold. You can move North, East, South, West,
 up or down.
 
 >You move east.
+
 Kitchen
 You are in the ships kitchen, and dining quarters. Despite being a "kitchen",
 you don't actually remember the last time there was any food in here. Most of
@@ -259,6 +265,7 @@ appears to be broken.
 the groovy tunes. You are one cool cat..
 
 >You move west.
+
 Corridor
 You are standing in a long dark corridor that smells of mould. It is dimly
 lit and is the main area below deck. The walls are grey and the floor is
@@ -271,6 +278,7 @@ and continues down to the cargo hold. You can move North, East, South, West,
 up or down.
 
 >You move down.
+
 Cargo Hold
 You are in the Cargo hold, a large holding area in the belly of the ship. It
 is dark and a bit scary down here. There are loads of boxes stacked up on top
@@ -312,6 +320,7 @@ he holds onto it with all his might, and clutches it close to his chest. This
 is one fight you're not going to win...
 
 >You move up.
+
 Corridor
 You are standing in a long dark corridor that smells of mould. It is dimly
 lit and is the main area below deck. The walls are grey and the floor is
@@ -324,6 +333,7 @@ and continues down to the cargo hold. You can move North, East, South, West,
 up or down.
 
 >You move north.
+
 First Mate's Quarters
 You are standing in the first mate's quarters. The First Mate is nowhere in
 sight and you deduce that he has either fallen overboard or is lying comatose
@@ -354,6 +364,7 @@ noticable puncture marks on it.
 for.
 
 >You move south.
+
 Corridor
 You are standing in a long dark corridor that smells of mould. It is dimly
 lit and is the main area below deck. The walls are grey and the floor is
@@ -366,6 +377,7 @@ and continues down to the cargo hold. You can move North, East, South, West,
 up or down.
 
 >You move up.
+
 Ship's deck
 You are on the Ship's deck. The midday sun is beating down mercilessly,
 causing the sea to twinkle and sparkle. There is nothing to be seen for miles
@@ -400,6 +412,7 @@ up...That's nice, you think. At least someone's on your side.
 >The sea appears to stretch on for miles, without anything else in sight...
 
 >You move north.
+
 Ship's Helm
 You are at the Ship's Helm behind the Ship's Wheel. Oh yeah, you think to
 yourself, this is what life on the sea is all about. The Helm is covered by a
@@ -420,6 +433,7 @@ electornic equipment, that at the moment are turned off. You assume they must
 be used for some sort of navigation purpose.
 
 >You move south.
+
 Ship's deck
 You are on the Ship's deck. The midday sun is beating down mercilessly,
 causing the sea to twinkle and sparkle. There is nothing to be seen for miles
@@ -433,6 +447,7 @@ leads to a plank of wood leading off the ship.
 Bob is standing on deck staring blankly and picking his nose.
 
 >You move up.
+
 Crows nest
 You are at the top of the ladder, standing in the Crow's Nest, the highest
 point of the ship. The view is a brilliant one, stretching for miles around,
@@ -461,6 +476,7 @@ You open the toolbox.  A crowbar is inside the toolbox.
 >You take the crowbar from the toolbox.
 
 >You move down.
+
 Ship's deck
 You are on the Ship's deck. The midday sun is beating down mercilessly,
 causing the sea to twinkle and sparkle. There is nothing to be seen for miles
@@ -474,6 +490,7 @@ leads to a plank of wood leading off the ship.
 Bob is standing on deck staring blankly and picking his nose.
 
 >You move down.
+
 Corridor
 You are standing in a long dark corridor that smells of mould. It is dimly
 lit and is the main area below deck. The walls are grey and the floor is
@@ -486,6 +503,7 @@ and continues down to the cargo hold. You can move North, East, South, West,
 up or down.
 
 >You move east.
+
 Kitchen
 You are in the ships kitchen, and dining quarters. Despite being a "kitchen",
 you don't actually remember the last time there was any food in here. Most of
@@ -508,6 +526,7 @@ pantry swings open! Inside the pantry is a can of Red Bull, and a foot pump.
 >A small foot pump. Handy for pumping things up suprisingly enough.
 
 >You move west.
+
 Corridor
 You are standing in a long dark corridor that smells of mould. It is dimly
 lit and is the main area below deck. The walls are grey and the floor is
@@ -520,6 +539,7 @@ and continues down to the cargo hold. You can move North, East, South, West,
 up or down.
 
 >You move up.
+
 Ship's deck
 You are on the Ship's deck. The midday sun is beating down mercilessly,
 causing the sea to twinkle and sparkle. There is nothing to be seen for miles
@@ -533,6 +553,7 @@ leads to a plank of wood leading off the ship.
 Bob is standing on deck staring blankly and picking his nose.
 
 >You move west.
+
 Walking the plank....
 You are standing on a wooden plank that leads off the Ship's Deck. You are
 several feet above the water and can see a shark circling in the water below

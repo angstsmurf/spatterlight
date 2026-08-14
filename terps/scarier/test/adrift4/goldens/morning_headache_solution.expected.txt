@@ -20,6 +20,7 @@ You find an old dirty trouser here.
 >(Your score has increased by 3)
 (Getting off the Bed first)
 You move west.
+
 Living room
 The living room is simple. An old couch you inherited from a friends
 grandmother stands in front of a coffee table with the same origin. Your
@@ -65,6 +66,7 @@ You turn off your buzzer.
 The woman has almost finished dressing.
 
 >You move north.
+
 Kitchen
 A pretty standard kitchen. You have a table with two chairs, some cupboards,
 a stove and a bench here. The kitchens cupboards are built into the walls, as
@@ -89,6 +91,7 @@ you can place it on the bookshelf in the living room and pretend that it was
 never opened.
 
 >You move south.
+
 Living room
 The living room is simple. An old couch you inherited from a friends
 grandmother stands in front of a coffee table with the same origin. Your
@@ -98,6 +101,7 @@ a real pig). A bookshelf. contains the books from your education.  You can go
 east to the bedroom, or north to the kitchen.
 
 >You move east.
+
 Your Bedroom
 This is your bedroom. Of all the rooms in the apartment, you like this best.
 This is because you sleep and relax here, and that is what you do best. You
@@ -111,6 +115,7 @@ living room, or north to the bathroom.
 >You take the boxer shorts from the chair.
 
 >You move north.
+
 Bathroom
 You always get claustrophobic when you enter your bathroom. It's the smallest
 room in the apartment, even the staircase is bigger. A shower cabinet, a sink
@@ -120,6 +125,7 @@ and a toilet barely fits in here. You can go south to the bedroom.
 You wash off the BO from last night. You feel better already.
 
 >You move south.
+
 Your Bedroom
 This is your bedroom. Of all the rooms in the apartment, you like this best.
 This is because you sleep and relax here, and that is what you do best. You
@@ -195,6 +201,7 @@ forgiven. With a  boyfriend who gives head like that, Hanna let her
 suspicions rest. She walks into the bathroom to take a shower.
 
 >You move south.
+
 Living room
 The living room is simple. An old couch you inherited from a friends
 grandmother stands in front of a coffee table with the same origin. Your
@@ -204,6 +211,7 @@ a real pig). A bookshelf. contains the books from your education.  You can go
 east to the bedroom, or north to the kitchen.
 
 >You move east.
+
 Your Bedroom
 This is your bedroom. Of all the rooms in the apartment, you like this best.
 This is because you sleep and relax here, and that is what you do best. You
@@ -211,6 +219,7 @@ have your bed, a dresser and a small night table here. You can go west to the
 living room, or north to the bathroom.
 
 >You move north.
+
 Bathroom
 You always get claustrophobic when you enter your bathroom. It's the smallest
 room in the apartment, even the staircase is bigger. A shower cabinet, a sink
@@ -231,6 +240,7 @@ You look at your hand. Oh, there it is, Jonas wedding ring. To be sure you
 wouldn't loose it you put it on your finger.
 
 >You move south.
+
 Your Bedroom
 This is your bedroom. Of all the rooms in the apartment, you like this best.
 This is because you sleep and relax here, and that is what you do best. You
@@ -238,6 +248,7 @@ have your bed, a dresser and a small night table here. You can go west to the
 living room, or north to the bathroom.
 
 >You move west.
+
 Living room
 The living room is simple. An old couch you inherited from a friends
 grandmother stands in front of a coffee table with the same origin. Your
@@ -247,6 +258,7 @@ a real pig). A bookshelf. contains the books from your education.  You can go
 east to the bedroom, or north to the kitchen.
 
 >You move north.
+
 Kitchen
 A pretty standard kitchen. You have a table with two chairs, some cupboards,
 a stove and a bench here. The kitchens cupboards are built into the walls, as
@@ -256,6 +268,7 @@ greenish color on the walls.  You can go south to the living room, or north
 to the staircase.
 
 >You move north.
+
 Staircase
 The staircase spirals down to the first floor.  You can go down to the hall,
 or south to the kitchen.
@@ -267,6 +280,7 @@ Also here are the shoes.
 >You put on the shoes.
 
 >You move down.
+
 Hall
 A small hall which is the only place you risk running into your landlord.
 And he is here now. This morning has been nothing but bad luck!  "You're late

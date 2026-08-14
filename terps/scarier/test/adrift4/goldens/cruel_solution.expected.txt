@@ -48,6 +48,7 @@ Cruel and Hilarious Punishment.
 prank on him.
 
 >You move north.
+
 Destroyed Cafe
 At one time this was a Cafe, now it's just a hole in the side of a building.
 The rubble has been pushed out to make room for a home, with a bed and a few
@@ -72,6 +73,7 @@ You seach through the jacket's pockets but don't find anything useful.
 >A styrofoam cup full of steaming hot coffee.
 
 >You move south.
+
 Archer Street
 Archer Street once used to be beautiful, but now it's just an urban
 wasteland. Flipped over cars form barricades all around you, some of them
@@ -80,6 +82,7 @@ it's delapidated sign hanging on by a thin cord. A thin man leans next to a
 burnt vending machine, a cigarette dangles out of his mouth.
 
 >You move down.
+
 Sewer
 The dank sewers are almost cleaner than the streets above. In the section
 you're in, there's nothing too amazing. A few dirty matresses rest on the
@@ -107,6 +110,7 @@ that always comes in handy with pranks.
 >Using the sponge, you're able to get some acidic slime.
 
 >You move up.
+
 Archer Street
 Archer Street once used to be beautiful, but now it's just an urban
 wasteland. Flipped over cars form barricades all around you, some of them
@@ -115,6 +119,7 @@ it's delapidated sign hanging on by a thin cord. A thin man leans next to a
 burnt vending machine, a cigarette dangles out of his mouth.
 
 >You move north.
+
 Destroyed Cafe
 At one time this was a Cafe, now it's just a hole in the side of a building.
 The rubble has been pushed out to make room for a home, with a bed and a few
@@ -141,6 +146,7 @@ The camera man runs off, leaving his jacket behind. Well..the plan didn't go
 exactly as you planned, but at least the other guy's gone.
 
 >You move south.
+
 Archer Street
 Archer Street once used to be beautiful, but now it's just an urban
 wasteland. Flipped over cars form barricades all around you, some of them

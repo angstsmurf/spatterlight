@@ -18,6 +18,7 @@ something hard, and pull out a screwdriver. It's a risk to carry it around,
 but it may come in handy. You slide it into the pocket of your pants.
 
 >You move south.
+
 East Hallway
 A sign posted on the wall addresses this as the "East Hallway". Just like
 every other room in the asylum, the walls are bright white with hardly a
@@ -25,6 +26,7 @@ speck of dust or dirt on them. To the North, you can see Room 4 (Your room).
 To the South is Room 3, and to the West is the center of the building.
 
 >You move south.
+
 Room 3
 Room 3 is almost exactly like your room, with the exact same window and bed
 in the exact same spots. The only difference is the card on the wall, which
@@ -39,6 +41,7 @@ Take this one, and hope it brings you salvation."
 He removes the cross and carefully hands it to you.
 
 >You move north.
+
 East Hallway
 A sign posted on the wall addresses this as the "East Hallway". Just like
 every other room in the asylum, the walls are bright white with hardly a
@@ -46,6 +49,7 @@ speck of dust or dirt on them. To the North, you can see Room 4 (Your room).
 To the South is Room 3, and to the West is the center of the building.
 
 >You move west.
+
 Games Room
 A large sign hanging off the wall tells you where you are, "The Fun and Games
 Room". Despite the sign's proclamation, there seems to be neither fun or
@@ -101,6 +105,7 @@ on the other end.
 "Uhh...ok Dr. Walsh, I'll have the medicine ready when Mr. Tanakian comes."
 
 >You move south.
+
 Games Room
 A large sign hanging off the wall tells you where you are, "The Fun and Games
 Room". Despite the sign's proclamation, there seems to be neither fun or
@@ -118,12 +123,14 @@ Leroy is now standing next to the TV, repeatedly hitting it with his fists to
 get it working and occasionaly screaming at it.
 
 >You move south.
+
 South Hallway
 The south hallway continues South to a door marked 'Medication Room'. You'd
 like to find something else interesting about this hallway, but it's no
 different than the rest. Spotlessly clean with blindingly bright white walls.
 
 >You move south.
+
 Medication Room
 The strong scent of medicine hits you hard as you enter the room, probably
 because it's called the medication room. It's a very small room, with the
@@ -151,12 +158,14 @@ Lois reaches under the counter and pulls up a small bottle of pills.
 should help you relax."
 
 >You move north.
+
 South Hallway
 The south hallway continues South to a door marked 'Medication Room'. You'd
 like to find something else interesting about this hallway, but it's no
 different than the rest. Spotlessly clean with blindingly bright white walls.
 
 >You move north.
+
 Games Room
 A large sign hanging off the wall tells you where you are, "The Fun and Games
 Room". Despite the sign's proclamation, there seems to be neither fun or
@@ -174,6 +183,7 @@ Leroy is now standing next to the TV, repeatedly hitting it with his fists to
 get it working and occasionaly screaming at it.
 
 >You move west.
+
 West Hallway
 The west hallway looks almost identical to the Eastern side. There are two
 rooms, Room 1 to the North and Room 2 to the South.  Along the West wall is a
@@ -187,12 +197,14 @@ You slip the pointy end of the cross into the lock and begin to jiggle it
 around. Something clicks and the padlock swings open.
 
 >You move west.
+
 Stairway
 
 The narrow staircase leads down to another door, this one marked 'Front
 Entrance'. Back to the East is the Western Hallway.
 
 >You move down.
+
 Front Entrance
 You stand on a small balcony that overlooks the large entrance room of the
 asylum. A small staircase winds down the side of the room, leading to the

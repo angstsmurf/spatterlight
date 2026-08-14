@@ -22,6 +22,7 @@ as you open the mail box it explodes and is distroyed
 >You pick up the silver-key.
 
 >You move west.
+
 Front door
 you are standing outside the front door to a 3 story building.  the door is
 to the south and you can go east up the drive way.  there isan intercom to
@@ -43,6 +44,7 @@ You can only move east.
 the front door unlocks with a click
 
 >You move south.
+
 Lobey
 this is the lobey of the building of death.  you can proceed up the stairs to
 the second floor or go west to a hall of doors
@@ -50,6 +52,7 @@ the second floor or go west to a hall of doors
 You can move north, west and up.
 
 >You move up.
+
 Second floor
 this is the second floor of the building of death there are two doors one to
 each side of you and a second flight of stairs leading up to the third floor.
@@ -57,6 +60,7 @@ each side of you and a second flight of stairs leading up to the third floor.
 You can move up and down.
 
 >You move up.
+
 Third floor
 this is the top floor of the building of death.  There are two doors on each
 side of the hallway.
@@ -67,6 +71,7 @@ You can only move down.
 you unlock number 3 and can now proceed into the apartment
 
 >You move east.
+
 Red kitchen
 this is the kitchen of apartment number 3
 
@@ -81,6 +86,7 @@ his knife and shield
 >You pick up the gold-key.
 
 >You move west.
+
 Third floor
 this is the top floor of the building of death.  There are two doors on each
 side of the hallway.
@@ -94,6 +100,7 @@ You can move east and down.
 >you purchus plate male for 400 gp
 
 >You move down.
+
 Second floor
 this is the second floor of the building of death there are two doors one to
 each side of you and a second flight of stairs leading up to the third floor.
@@ -104,6 +111,7 @@ You can move up and down.
 you unlock number 2 and swing open the door
 
 >You move west.
+
 Lit dining room
 this is the dining room of apartment 2
 
@@ -117,6 +125,7 @@ Ireen hits you, but it doesn't seem to do any damage.
 >You pick up the red-key.
 
 >You move east.
+
 Second floor
 this is the second floor of the building of death there are two doors one to
 each side of you and a second flight of stairs leading up to the third floor.
@@ -124,6 +133,7 @@ each side of you and a second flight of stairs leading up to the third floor.
 You can move west, up and down.
 
 >You move up.
+
 Third floor
 this is the top floor of the building of death.  There are two doors on each
 side of the hallway.
@@ -134,6 +144,7 @@ You can move east and down.
 you unlock number 4 and open the door
 
 >You move west.
+
 Dark closet
 this is a closet for apartment 4
 
@@ -147,6 +158,7 @@ Rooth hits you, but it doesn't seem to do any damage.
 >You pick up the crystal-key.
 
 >You move east.
+
 Third floor
 this is the top floor of the building of death.  There are two doors on each
 side of the hallway.
@@ -154,6 +166,7 @@ side of the hallway.
 You can move east, west and down.
 
 >You move down.
+
 Second floor
 this is the second floor of the building of death there are two doors one to
 each side of you and a second flight of stairs leading up to the third floor.
@@ -164,6 +177,7 @@ You can move west, up and down.
 you use the crystal key and unlock the door to number 1
 
 >You move east.
+
 Living room
 this is the living room for apartment 1 there is a fireplace on one wall and
 a hallway to yournorth.  there is a table infront of you and a couch behind
@@ -172,12 +186,14 @@ it
 You can move north and west.
 
 >You move north.
+
 Corner of hall
 this is the corner of a hall witch runs west and north
 
 You can move north, east, south and west.
 
 >You move east.
+
 Hall1 west
 this is the hallway leading to the bedrooms of apartment 1
 
@@ -191,6 +207,7 @@ as debbie dies she disapppears and the pan falls to the floor
 Debbie hits you, but it doesn't seem to do any damage.
 
 >You move east.
+
 Hall1 east
 this is the west end of a hall in apartment 1 of the building of death.
 there are doors to the north and south
@@ -198,6 +215,7 @@ there are doors to the north and south
 You can move north and west.
 
 >You move north.
+
 Guest room
 this is a guest room in the house of death
 
@@ -212,6 +230,7 @@ the floor with a look of amazement on her face
 Beth hits you, but it doesn't seem to do any damage.
 
 >You move south.
+
 Hall1 east
 this is the west end of a hall in apartment 1 of the building of death.
 there are doors to the north and south
@@ -219,6 +238,7 @@ there are doors to the north and south
 You can move north, south and west.
 
 >You move south.
+
 Master bedroom
 this is the master bedroom in the house of death
 
@@ -232,6 +252,7 @@ Joshua walks in .
 Joshua stabs Ross with sword of hope.
 
 >You move north.
+
 Hall1 east
 this is the west end of a hall in apartment 1 of the building of death.
 there are doors to the north and south
@@ -241,6 +262,7 @@ You can move north, south and west.
 Joshua walks in  from the south.
 
 >You move west.
+
 Hall1 west
 this is the hallway leading to the bedrooms of apartment 1
 
@@ -254,6 +276,7 @@ Joshua walks in  from the east.
 Debbie hits you, but it doesn't seem to do any damage.
 
 >You move west.
+
 Corner of hall
 this is the corner of a hall witch runs west and north
 
@@ -262,6 +285,7 @@ You can move north, east, south and west.
 Joshua walks in  from the east.
 
 >You move south.
+
 Living room
 this is the living room for apartment 1 there is a fireplace on one wall and
 a hallway to yournorth.  there is a table infront of you and a couch behind
@@ -272,6 +296,7 @@ You can move north and west.
 Joshua walks in  from the north.
 
 >You move west.
+
 Second floor
 this is the second floor of the building of death there are two doors one to
 each side of you and a second flight of stairs leading up to the third floor.
@@ -281,6 +306,7 @@ You can move east, west, up and down.
 Joshua walks in  from the east.
 
 >You move up.
+
 Third floor
 this is the top floor of the building of death.  There are two doors on each
 side of the hallway.
@@ -296,6 +322,7 @@ the demon disappears in a flash of light
 >the witch disappears with a laugh
 
 >You move up.
+
 Attic
 this is the attic of the house of death
 

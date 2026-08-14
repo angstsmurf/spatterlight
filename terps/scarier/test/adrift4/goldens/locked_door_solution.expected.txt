@@ -70,6 +70,7 @@ that is carved out of the soft rock.
 There is a heavy wooden table set next to the doorway.
 
 >You move east.
+
 Hallway
 This room is long and narrow, and acts as a hall from west to east.  The
 walls are roughly hewn from the soft limestone, with the jagged marks from
@@ -77,6 +78,7 @@ the tools that were used are still visable.  The floor is made from the same
 rough cut stone.
 
 >You move east.
+
 Iron Doorway
 This room is carved out of the soft limestone.  The walls have been carefully
 smoothed over.  In the northern wall of the room is a large iron door.  A set
@@ -175,6 +177,7 @@ door unlocks with a series of clicks.  The door swings open, hopefully
 revealing the exit to this place.
 
 >You move north, passing the through the iron doorway.
+
 Ladderway
 This room is dominated by a large iron door, which has opened into this room.
  In front of the door is a metal grate that acts as a drain.  To the south is

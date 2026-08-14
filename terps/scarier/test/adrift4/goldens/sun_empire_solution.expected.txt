@@ -49,6 +49,7 @@ Passing your hand over the touch pod, the control room doors have unlocked
 and opened.
 
 >You move east.
+
 Control Room Patio
 A large steel frame supports the control room above the laboratory floor.
 Here a large railed section is affectionately known as the patio.  To the
@@ -58,6 +59,7 @@ A large white, polymer patio table appears cheesily inexpensive but lends
 itself to the informal and laid back atmosphere of the patio.
 
 >You move down.
+
 Control Stairwell
 Underneath the steel framework that supports the control room above the
 laboratory floor, a stairwell leads up.  The lab floor is to the north.
@@ -67,6 +69,7 @@ Mhentsh is here.
 Jeriah Eldon enters from the north.
 
 >You move north.
+
 Genetics Lab
 This sprawling room is sectioned in two by a long, multi-level stainless
 steel table.  The main lab exit is to the east and the control stairwell is
@@ -74,6 +77,7 @@ to the south.  Against the west wall is a large single piece of equipment,
 the DNA analysis computer, that takes up half the wall.
 
 >You move east.
+
 North/South Hall
 The walls are white washed concrete and the floor is covered with stone
 tiles.  An orange carpet extends the walkway from the northern reception area
@@ -82,6 +86,7 @@ arrow to the south reads, "Personal Quarters".  Another sign next to huge
 blast shield doors indicates that the main genetics lab is to the west.
 
 >You move south.
+
 PQ Intersection
 The orange carpet over stone tile ends here at the intersection of the
 personal quarters.  To the north is a main hallway.  There are doors to the
@@ -90,6 +95,7 @@ southwest, south and southeast.
 >You open the door.
 
 >You move southwest.
+
 Jeriah's PQ
 Jeriah spent most of his waking hours in the lab; thus the spartan furnishing
 of the room: a single bed.
@@ -103,12 +109,14 @@ Also here is a clothes trunk.
 >You take the clothes from the clothes trunk.
 
 >You move northeast.
+
 PQ Intersection
 The orange carpet over stone tile ends here at the intersection of the
 personal quarters.  To the north is a main hallway.  There are doors to the
 southwest, south and southeast.
 
 >You move north.
+
 North/South Hall
 The walls are white washed concrete and the floor is covered with stone
 tiles.  An orange carpet extends the walkway from the northern reception area
@@ -117,6 +125,7 @@ arrow to the south reads, "Personal Quarters".  Another sign next to huge
 blast shield doors indicates that the main genetics lab is to the west.
 
 >You move west.
+
 Genetics Lab
 This sprawling room is sectioned in two by a long, multi-level stainless
 steel table.  The main lab exit is to the east and the control stairwell is
@@ -191,6 +200,7 @@ recombination techniques with the same set of founder tissue samples.
 You really must get back to Mark and talk to him about these results.
 
 >You move east.
+
 North/South Hall
 The walls are white washed concrete and the floor is covered with stone
 tiles.  An orange carpet extends the walkway from the northern reception area
@@ -199,6 +209,7 @@ arrow to the south reads, "Personal Quarters".  Another sign next to huge
 blast shield doors indicates that the main genetics lab is to the west.
 
 >You move north.
+
 Reception
 The orange carpet begins here around a central information booth and
 continues to the south and west.  The entrance doors to the north are shut.
@@ -207,6 +218,7 @@ Nadine sits here in the reception booth welcoming guests, transferring
 communications and managing point for security.
 
 >You move east.
+
 Security
 Security is the nerve center of the laboratory.  Walls filled with video
 monitors and computer terminals allow checking in on any area of the grounds.
@@ -218,6 +230,7 @@ talks with some roving security detail, you deftly detach the grenade from
 his belt and conceal it on your person.
 
 >You move west.
+
 Reception
 The orange carpet begins here around a central information booth and
 continues to the south and west.  The entrance doors to the north are shut.
@@ -226,6 +239,7 @@ Nadine sits here in the reception booth welcoming guests, transferring
 communications and managing point for security.
 
 >You move south.
+
 North/South Hall
 The walls are white washed concrete and the floor is covered with stone
 tiles.  An orange carpet extends the walkway from the northern reception area
@@ -234,6 +248,7 @@ arrow to the south reads, "Personal Quarters".  Another sign next to huge
 blast shield doors indicates that the main genetics lab is to the west.
 
 >You move west.
+
 Genetics Lab
 This sprawling room is sectioned in two by a long, multi-level stainless
 steel table.  The main lab exit is to the east and the control stairwell is
@@ -244,6 +259,7 @@ Jeriah Eldon is pacing here musing over a notepad.
 Jeriah Eldon exits to the south.
 
 >You move south.
+
 Control Stairwell
 Underneath the steel framework that supports the control room above the
 laboratory floor, a stairwell leads up.  The lab floor is to the north.
@@ -252,6 +268,7 @@ Jeriah Eldon is pacing here musing over a notepad.
 Mhentsh is here.
 
 >You move up.
+
 Control Room Patio
 A large steel frame supports the control room above the laboratory floor.
 Here a large railed section is affectionately known as the patio.  To the
@@ -263,6 +280,7 @@ itself to the informal and laid back atmosphere of the patio.
 Jeriah Eldon enters from below.
 
 >You move west.
+
 Control Room
 Lit brightly with flourescent lights, windows surrounding the control room
 give an aerial view of the laboratory floor.  Shiny, white tile floors
@@ -281,6 +299,7 @@ can try."
 "Ok," he replies, "I'll follow you.  Lead on."
 
 >You move east.
+
 Control Room Patio
 A large steel frame supports the control room above the laboratory floor.
 Here a large railed section is affectionately known as the patio.  To the
@@ -292,6 +311,7 @@ itself to the informal and laid back atmosphere of the patio.
 Mark Eridian walks in from the west.
 
 >You move down.
+
 Control Stairwell
 Underneath the steel framework that supports the control room above the
 laboratory floor, a stairwell leads up.  The lab floor is to the north.
@@ -305,6 +325,7 @@ Jeriah Eldon exits to the north.
 
 >(Your score has increased by 5)
 You move north.
+
 Genetics Lab
 This sprawling room is sectioned in two by a long, multi-level stainless
 steel table.  The main lab exit is to the east and the control stairwell is
@@ -447,6 +468,7 @@ Skynd manages to avoid Mark Eridian's attack.
 You manage to avoid Skynd's attack.
 
 >You move south.
+
 Control Stairwell
 Underneath the steel framework that supports the control room above the
 laboratory floor, a stairwell leads up.  The lab floor is to the north.
@@ -474,6 +496,7 @@ Skyrv manages to avoid Mark Eridian's attack.
 Skyrv hits Mark Eridian, but it doesn't seem to do any damage.
 
 >You move up.
+
 Control Room Patio
 A large steel frame supports the control room above the laboratory floor.
 Here a large railed section is affectionately known as the patio.  To the
@@ -493,6 +516,7 @@ Mark Eridian hits Skyrv, but it doesn't seem to do any damage.
 Skynd hits you, but it doesn't seem to do any damage.
 
 >You move west.
+
 Control Room
 Dimly lit with only a few non-broken flourescent lights, dust hangs in the
 air.  Debris from the desktops is strewn across the now grey tiles.  Through
@@ -586,6 +610,7 @@ Skynd manages to avoid Mark Eridian's attack.
 Skyrv hits you.
 
 >You move west.
+
 Cafeteria
 Strewn about in disarray, the cafeteria common area normally seats over a
 hundred at rows of metal tables.  Cloth back chairs are overturned amid the
@@ -623,6 +648,7 @@ Skyrv manages to avoid Mark Eridian's attack.
 Skyrv hits you, but it doesn't seem to do any damage.
 
 >You move north.
+
 East/West Hall
 Green and greyish Orgaan goo is spilt over the orange carpet and stone tiles
 in the hall. The reception area to the west of here appears destroyed.  To
@@ -637,6 +663,7 @@ Skynd manages to avoid Mark Eridian's attack.
 You manage to avoid Skynd's attack.
 
 >You move east.
+
 Reception
 The grenade blast has completely destroyed the reception desk.  Green, orange
 and greyish goo is mixed with wood and tile splinters.  The northern entrance
@@ -662,6 +689,7 @@ Skyrv manages to avoid Mark Eridian's attack.
 Mark Eridian manages to avoid Skynd's attack.
 
 >You move east.
+
 Security
 Security is the nerve center of the laboratory.  Walls filled with video
 monitors and computer terminals allow checking in on any area of the grounds.
@@ -717,6 +745,7 @@ Malthew manages to avoid Skyrv's attack.
 Skynd manages to avoid Malthew's attack.
 
 >You move west.
+
 Reception
 The grenade blast has completely destroyed the reception desk.  Green, orange
 and greyish goo is mixed with wood and tile splinters.  The northern entrance
@@ -738,6 +767,7 @@ Skynd hits Mark Eridian, but it doesn't seem to do any damage.
 Skynd manages to avoid Malthew's attack.
 
 >You move west.
+
 East/West Hall
 Green and greyish Orgaan goo is spilt over the orange carpet and stone tiles
 in the hall. The reception area to the west of here appears destroyed.  To
@@ -755,6 +785,7 @@ You manage to avoid Skyrv's attack.
 Skyrv manages to avoid Malthew's attack.
 
 >You move south.
+
 Cafeteria
 Strewn about in disarray, the cafeteria common area normally seats over a
 hundred at rows of metal tables.  Cloth back chairs are overturned amid the

@@ -13,10 +13,12 @@ House
 Dis is ur house its big + good. You can only move north.
 
 >You move north.
+
 Path
 U r on a long path with treez. You can move north and south.
 
 >You move north.
+
 Dragun place
 in front of u is a sleepin dragon. dis is where u hav to get da crystal. wen
 u get it take it bak to ur HOuse to win da game!!!! You can only move south.
@@ -26,6 +28,7 @@ Also here is a crystal.
 >You pick up the crystal.
 
 >You move south.
+
 Path
 U r on a long path with treez. You can move north and south.
 

@@ -7,6 +7,7 @@ man.On your last mission , your satilite comlink was destroyed , you have to
 find a way back.
 
 >You move out.
+
 The car lot
 The milatary car lot was directly above the lab so most of the cars and
 trucks are completely gone , or burned to the point where the engine is
@@ -33,6 +34,7 @@ the swade breifcase.
 as you drove to town .
 
 >You move east.
+
 Main street (west)
 The street is paved and very black , there are no yellow lines along the
 middle . There is a building here , it looks like a bar or hotel .
@@ -40,6 +42,7 @@ middle . There is a building here , it looks like a bar or hotel .
 You can move east, west and in.
 
 >You move in.
+
 The bar
 The bar has some people around it , there is a bar tender behind the bar ,
 and a couple of stools . The bar is very ill lit with one light in the middle
@@ -60,6 +63,7 @@ anything all day.
 him that he was using to contact suvivers . They would have killed you .
 
 >You move out.
+
 Main street (west)
 The street is paved and very black , there are no yellow lines along the
 middle . There is a building here , it looks like a bar or hotel .
@@ -67,6 +71,7 @@ middle . There is a building here , it looks like a bar or hotel .
 You can move east, west and in.
 
 >You move east.
+
 Main street
 The paved street has some lights on it , and the usual yellow lines . The
 road is black and there is a concrete building in the center , the center
@@ -75,6 +80,7 @@ building appears to be a pavilion .
 You can move north, east, south, west and in.
 
 >You move east.
+
 Main street (east)
 The street ends here , there is a building here , it looks like a shop of
 some sort . The road is paved black , there are street lights near the road
@@ -83,6 +89,7 @@ and the basic yellow markers .
 You can move west and in.
 
 >You move in.
+
 A lock smith shop
 The lock smith is standing behind the order table , there are lots of
 machines here . The lighting is provided by two 60 watts light bulbs . There
@@ -102,6 +109,7 @@ The keymaker says "Thanks for the job , heres your key" and hands you the key
 .
 
 >You move out.
+
 Main street (east)
 The street ends here , there is a building here , it looks like a shop of
 some sort . The road is paved black , there are street lights near the road
@@ -111,6 +119,7 @@ You can move west and in.
 You know there must be survivers so you should leave asap.
 
 >You move west.
+
 Main street
 The paved street has some lights on it , and the usual yellow lines . The
 road is black and there is a concrete building in the center , the center
@@ -119,6 +128,7 @@ building appears to be a pavilion .
 You can move north, east, south, west and in.
 
 >You move north.
+
 A small airport
 The airport has one concrete building and a paved strip for a runway .
 
@@ -139,6 +149,7 @@ survice runway . The crew takes the plane to the hanger and begins working on
 it .
 
 >You move west.
+
 The entranceway
 The entranceway is very clean and the red carpet is wonderous , there are a
 set of stairs leading to the commanders office .

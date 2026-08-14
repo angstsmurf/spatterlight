@@ -13,6 +13,7 @@ You are outside the castle. The castle entrance is to the north. The small
 rock is also here.
 
 >You move north.
+
 In the main hallway
 You are in the castle's main hallway. There are doors in the north, east and
 west walls. The south door leads outside. There is a wooden chair halfway
@@ -21,6 +22,7 @@ along the hall.
 Also here is the 'welcome' mat.
 
 >You move west.
+
 In the kitchen
 This is the castle kitchen. In the middle of the room stands a stove. There
 are doors in the north and south walls. The east door leads back to the main
@@ -29,6 +31,7 @@ hallway.
 Also here is the human brain.
 
 >You move north.
+
 In the King's study
 This is King Thingalot's private study. In the middle of the room stand a
 bronze table and a bronze chair. On the north wall is a green button. A door
@@ -40,6 +43,7 @@ Also here is the book.
 do. Now you can go through the north door in the main hallway.
 
 >You move south.
+
 In the kitchen
 This is the castle kitchen. In the middle of the room stands a stove. There
 are doors in the north and south walls. The east door leads back to the main
@@ -48,6 +52,7 @@ hallway.
 Also here is the human brain.
 
 >You move east.
+
 In the main hallway
 You are in the castle's main hallway. There are doors in the north, east and
 west walls. The south door leads outside. There is a wooden chair halfway
@@ -56,6 +61,7 @@ along the hall.
 Also here is the 'welcome' mat.
 
 >You move north.
+
 In the dining room
 You now stand in the castle dining room. A large table stands in the middle
 of the room. There is a door in the north wall. The south door leads back to
@@ -64,12 +70,14 @@ the main hallway.
 Also here is the human lung.
 
 >You move north.
+
 In the gallery
 You are in the castle gallery. However, there is only one painting here.
 There are doors in the north and west walls. To the east, there is a hall
 lined with brass. The south door leads back to the dining room.
 
 >You move east.
+
 In the Brass Hall
 You now stand in the Brass Hall. To the east, a heavy iron portcullis blocks
 the way. Next to it are a blue lever and a black lever. One of these levers
@@ -80,11 +88,13 @@ ceiling. Well done - that was something you had to do. Now you can proceed
 east.
 
 >You move east.
+
 In the circular room
 This room is circular. There are doors in the north, south and east doors.
 The Brass Hall is to the west.
 
 >You move south.
+
 On the balcony
 You are now standing on a balcony outside the castle. There are two
 floorplates here, one red and one white. These floorplates are switches, and
@@ -98,11 +108,13 @@ that was something you had to do. Now you can go through the east door in the
 circular room.
 
 >You move north.
+
 In the circular room
 This room is circular. There are doors in the north, south and east doors.
 The Brass Hall is to the west.
 
 >You move east.
+
 In the puzzle room
 This is the puzzle room. As you enter, the door slams shut behind you and
 locks itself! Now you cannot retrace your steps. A disembodied voice booms,
@@ -113,6 +125,7 @@ either six or eight." When you have made your decision, type in your answer.
 >You have answered correctly! Suddenly, you feel a strange tingling sensation
 and your vision blurs. A second later, you find yourself in a triangular
 room, which will be described next. Well done!
+
 In the treasure room
 This is the treasure room. Sitting on the ground is a treasure chest. It's
 open and you can see the treasure inside - gems, gold coins and gold bars.

@@ -66,12 +66,14 @@ doom, before he gets revenge with a curse!
 >You open your wallet and pull out you trusty credit card.
 
 >You move east.
+
 Main Hall
 This is the main hall of the compound, that connects all the rooms together.
 To the West is your apartment, the bathroom is to the North, and Donny's Dump
 is to the East.
 
 >You move east.
+
 Donny's Dump
 Donny's not the sharpest tool in the shack, which explains why he'd open up a
 store that sold garbage. The room is littered with useless trash and junk,
@@ -94,12 +96,14 @@ saw."
 Donny hands you the saw he promised.
 
 >You move west.
+
 Main Hall
 This is the main hall of the compound, that connects all the rooms together.
 To the West is your apartment, the bathroom is to the North, and Donny's Dump
 is to the East.
 
 >You move north.
+
 Bathroom
 This bathroom was voted 'Best of the Best' by National Toiletries Weekly. It
 features all of the latest in hi-tech bathroom technology: sinks, urinals,
@@ -109,11 +113,13 @@ monkey usually sits, and he's there right now with his banjo in hand.
 You can go West to the Hall, or North into a stall.
 
 >You move north.
+
 Stall
 The small stall is quite normal, except for the large staircase that leads
 downstairs into Big Al's Bathroom Diner.
 
 >You move down.
+
 Big Al's Bathroom Diner
 Big Al created the diner after he realized he got hungry after going to the
 bathroom. Of course, everyone wanted to come to a place that was under a
@@ -132,11 +138,13 @@ from within the remote.
 minutes, you pull the melted battery mess out and stick it into your pocket.
 
 >You move up.
+
 Stall
 The small stall is quite normal, except for the large staircase that leads
 downstairs into Big Al's Bathroom Diner.
 
 >You move south.
+
 Bathroom
 This bathroom was voted 'Best of the Best' by National Toiletries Weekly. It
 features all of the latest in hi-tech bathroom technology: sinks, urinals,
@@ -146,12 +154,14 @@ monkey usually sits, and he's there right now with his banjo in hand.
 You can go West to the Hall, or North into a stall.
 
 >You move south.
+
 Main Hall
 This is the main hall of the compound, that connects all the rooms together.
 To the West is your apartment, the bathroom is to the North, and Donny's Dump
 is to the East.
 
 >You move west.
+
 Apartment
 Your small apartment smells like a mixture of wet sock and burnt plastic.
 The smell comes from the 'Smell-o-matic', which rests firmly on the side of a

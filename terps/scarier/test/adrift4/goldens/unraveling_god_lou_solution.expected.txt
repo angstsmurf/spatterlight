@@ -174,6 +174,7 @@ time to get down to the lab and see how Herb is doing.
 
 >(Getting off the chair first)
 You move north.
+
 Lab hallway
 
 Lab hallway
@@ -411,6 +412,7 @@ to grade these for me by tomorrow morning."
      He just grins and runs off.
 
 >You move south.
+
 End of hallway
 
 End of hallway
@@ -419,6 +421,7 @@ single classroom is to the north. Your office and the main MagLab are to the
 west.
 
 >You move west.
+
 Lab hallway
 
 Lab hallway
@@ -427,6 +430,7 @@ proper, and to the east are the MagLab's one classroom and the exit out of
 the building. The door to your office is to the south.
 
 >You move west.
+
 MagLab
 
 MagLab
@@ -528,6 +532,7 @@ field, and walks out of the lab, Herb sitting on his shoulder and holding
 onto his hair.
 
 >You move east.
+
 Lab hallway
 
 Lab hallway
@@ -536,6 +541,7 @@ proper, and to the east are the MagLab's one classroom and the exit out of
 the building. The door to your office is to the south.
 
 >You move east.
+
 End of hallway
 
 End of hallway
@@ -558,6 +564,7 @@ your classes for the rest of the week, and you and Justin will be locking
 yourselves in the MagLab starting tomorrow morning.
 
 >You move east.
+
 Outside the MagLab
 
 Outside the MagLab
@@ -569,6 +576,7 @@ a good time to let your nerves get the better of you. It is time, right now,
 to get down to the lab proper and get on with the long-duration suspension.
 
 >You move south.
+
 Parking lot
 
 Parking lot
@@ -592,6 +600,7 @@ down your street, the blissfully quiet Oak Point Drive, and pull into your
 driveway.
 
 >You climb out of the car.
+
 Driveway
 
 Driveway
@@ -612,6 +621,7 @@ a shudder of awesome near disbelief, you realize that you could be the man
 who gives the stars to the human race. Or rather, you and Justin.
 
 >You move north.
+
 Front porch
 
 Front porch
@@ -625,6 +635,7 @@ keys).
 >You open front door.
 
 >You move north.
+
 Hallway
 
 Hallway
@@ -712,6 +723,7 @@ laying on your floor, bleeding to death from internal injuries. You were just
 resenting him, how petty that seems now, you never wanted anything like this,
 and then, unbidden, the thought occurs... it was almost like this was fated
 to happen.
+
 Kitchen
 
 Kitchen
@@ -756,6 +768,7 @@ The doorbell rings.
 
 >(Getting off leather chair first)
 You move east.
+
 Hallway
 
 Hallway
@@ -882,6 +895,7 @@ enough for you to see down the length of the hall to it's far northern end,
 where a large object you can't quite make out sits on the floor.
 
 >You move north.
+
 The Throne
 
 The Throne

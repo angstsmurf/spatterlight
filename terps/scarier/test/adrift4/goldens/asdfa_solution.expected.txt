@@ -24,6 +24,7 @@ Rancid the butler is here.
 
 >
 >You move north.
+
 Dining Room
 From the massive dining table taking up the middle of this room, you're
 guessing you've found the dining room. Alas, one without much in the way of
@@ -32,6 +33,7 @@ surprisingly barren.
    Exits lie: south (to the entrance) and northeast (to the kitchen).
 
 >You move northeast.
+
 Kitchen
 The kitchen looks just like your kitchen back home: food strewn across the
 floor and a drunken chef sitting in the corner cursing merrily to himself. A
@@ -51,6 +53,7 @@ didna see him standin' there and jus' shovelled in all the veggies."
 Using the key, you do just that.
 
 >You move northeast.
+
 Pantry
 The pantry is empty. Aside, that is, from a single shelf that is just crying
 out for someone to come along and examine it.
@@ -58,6 +61,7 @@ out for someone to come along and examine it.
 
 >(Your score has increased by 5)
 You move southwest.
+
 Kitchen
 The kitchen looks just like your kitchen back home: food strewn across the
 floor and a drunken chef sitting in the corner cursing merrily to himself. A
@@ -70,6 +74,7 @@ resisted the urge to do the blindingly obvious. Here, have a reward."
    A sword appears in your hand as if by magic, which it undoubtedly is.
 
 >You move southwest.
+
 Dining Room
 From the massive dining table taking up the middle of this room, you're
 guessing you've found the dining room. Alas, one without much in the way of
@@ -78,6 +83,7 @@ surprisingly barren.
    Exits lie: south (to the entrance) and northeast (to the kitchen).
 
 >You move south.
+
 Entrance
 The mansion entrance is large and dark. There might be a source of light here
 somewhere but you don't see one anywhere. Shadowy doorways lead deeper into
@@ -87,6 +93,7 @@ the mansion and look quite ominous.
 Rancid the butler is here.
 
 >You move northwest.
+
 Sitting Room
 This is all very quaint and if not for the fact that you're currently trapped
 in a dream you might find the roaring fire and cosy armchair to be quite
@@ -102,6 +109,7 @@ experimental chops at it with your sword!
    Still cursing, it floats away through one of the walls.
 
 >You move southeast.
+
 Entrance
 The mansion entrance is large and dark. There might be a source of light here
 somewhere but you don't see one anywhere. Shadowy doorways lead deeper into
@@ -111,6 +119,7 @@ the mansion and look quite ominous.
 Rancid the butler is here.
 
 >You move east.
+
 Top Of Steps
 You're at the top of a flight of steps which lead down to the sort of place
 you just expect to find all manner of undead inhabiting.
@@ -118,6 +127,7 @@ you just expect to find all manner of undead inhabiting.
 cellar).
 
 >You move down.
+
 Cellar
 Aside from the coffin, there's nothing much here. Yep, the coffin. You're not
 quite sure why there's a coffin in the cellar but it doesn't take a genius to
@@ -148,6 +158,7 @@ happen to have with me."
    You rub your eyes. This place gets weirder all the time!
 
 >You move up.
+
 Top Of Steps
 You're at the top of a flight of steps which lead down to the sort of place
 you just expect to find all manner of undead inhabiting.
@@ -155,6 +166,7 @@ you just expect to find all manner of undead inhabiting.
 cellar).
 
 >You move west.
+
 Entrance
 The mansion entrance is large and dark. There might be a source of light here
 somewhere but you don't see one anywhere. Shadowy doorways lead deeper into
@@ -164,6 +176,7 @@ the mansion and look quite ominous.
 Rancid the butler is here.
 
 >You move northwest.
+
 Sitting Room
 This is all very quaint and if not for the fact that you're currently trapped
 in a dream you might find the roaring fire and cosy armchair to be quite
@@ -186,6 +199,7 @@ ter bash some heads an' no damn mistake!"
    He goes charging off out of the room.
 
 >You move southeast.
+
 Entrance
 The mansion entrance is large and dark. There might be a source of light here
 somewhere but you don't see one anywhere. Shadowy doorways lead deeper into
@@ -195,6 +209,7 @@ the mansion and look quite ominous.
 Rancid the butler is here.
 
 >You move east.
+
 Top Of Steps
 You're at the top of a flight of steps which lead down to the sort of place
 you just expect to find all manner of undead inhabiting.
@@ -202,6 +217,7 @@ you just expect to find all manner of undead inhabiting.
 cellar).
 
 >You move down.
+
 Cellar
 Aside from the coffin, there's nothing much here. Yep, the coffin. You're not
 quite sure why there's a coffin in the cellar but it doesn't take a genius to
@@ -217,6 +233,7 @@ injustice of it just chills my (lack of) blood."
 coffin and taking out a deed that you see lying by its feet.
 
 >You move up.
+
 Top Of Steps
 You're at the top of a flight of steps which lead down to the sort of place
 you just expect to find all manner of undead inhabiting.
@@ -224,6 +241,7 @@ you just expect to find all manner of undead inhabiting.
 cellar).
 
 >You move west.
+
 Entrance
 The mansion entrance is large and dark. There might be a source of light here
 somewhere but you don't see one anywhere. Shadowy doorways lead deeper into

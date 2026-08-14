@@ -31,6 +31,7 @@ John is currently slumped in the armchair.
 yourself.
 
 >You move west.
+
 Hall
 You are in Marks small hall.  The front hall in a house is usually a warm and
 inviting place.  It is usually the first room visitors see and makes a good
@@ -42,6 +43,7 @@ the west.  Some stairs lead, well up.
 You can see a pair of boxer shorts.
 
 >You move west.
+
 The Kitchen
 You are in Marks reasonable sized Kitchen.  It is nice to see that the theme
 starting in the Lounge is being continued here as the Kitchen is horrible as
@@ -67,6 +69,7 @@ I do not think that is a good idea.
 You take the large knife and the jar of coffee from the kitchen unit.
 
 >You move southeast.
+
 Under the Stairs
 You are in the tiny cupboard under the stairs.  Although it is tiny, very
 cramped and dark it seems to be the nicest place you have been in so far.
@@ -79,6 +82,7 @@ have moved one it makes it easier to lift the other loose ones.  You can now
 get under the floor.
 
 >You climb down through the hole.
+
 Under the Floorboards
 You are in a small space under the floor about 4ft in height.  It feels very
 cold and damp down here, not the sort of place to linger. The floor under
@@ -90,6 +94,7 @@ You can also see a pair of gloves.
 >You pick up the pair of gloves.
 
 >You move up.
+
 Under the Stairs
 You are in the tiny cupboard under the stairs.  Although it is tiny, very
 cramped and dark it seems to be the nicest place you have been in so far.
@@ -101,6 +106,7 @@ hole or northwest back to the kitchen.
 >You switch off the fuse box.
 
 >You move northwest.
+
 The Dark Kitchen
 You are in Marks reasonable sized Kitchen.  It is nice to see that the theme
 starting in the Lounge is being continued here as the Kitchen is horrible as
@@ -129,6 +135,7 @@ butter, a butter knife and a bottle of milk are inside the fridge.
 >You put the bone into the fridge.
 
 >You move southeast.
+
 Under the Stairs
 An emergency light is on, otherwise it would be very dark in here.  You can
 see a very large hole in the floor, big enough to get through.  You can down
@@ -137,6 +144,7 @@ the hole or northwest back to the kitchen.
 >You switch on the fuse box.
 
 >You move northwest.
+
 The Kitchen
 You are in Marks reasonable sized Kitchen.  It is nice to see that the theme
 starting in the Lounge is being continued here as the Kitchen is horrible as
@@ -149,6 +157,7 @@ is to the east, the door to the back garden south and what looks like a
 cupboard under the stairs is southeast.
 
 >You move east.
+
 Hall
 You are in Marks small hall.  The front hall in a house is usually a warm and
 inviting place.  It is usually the first room visitors see and makes a good
@@ -160,6 +169,7 @@ the west.  Some stairs lead, well up.
 You can see a pair of boxer shorts.
 
 >You move up.
+
 On the Stairs
 You are on Marks stairs.  You can go up the stairs to the Landing and down to
 the Hall.  The carpet looks worn and the stairs move as you stand on them.
@@ -168,6 +178,7 @@ On the wall is a gold framed picture.
 You can see a pair of old trousers.
 
 >You move up.
+
 Landing
 You are on Marks landing.  This area has no window so it is quite dark here,
 the light is on but doesn't seem to help.  Even in the bad light you can see
@@ -179,6 +190,7 @@ The small brown terrier is wandering around.
 The small brown terrier wandering around is growling at you.
 
 >You move east.
+
 Bathroom
 You are in Marks small bathroom.  Along one side of the room is the bath
 which at the moment has someone sleeping in it.  At the end of the room is
@@ -196,6 +208,7 @@ cabinet.
 >You take the headache packet from the medicine cabinet.
 
 >You move west.
+
 Landing
 You are on Marks landing.  This area has no window so it is quite dark here,
 the light is on but doesn't seem to help.  Even in the bad light you can see
@@ -204,6 +217,7 @@ the north and the back bedroom is opposite.  You can just make out the
 bathroom to the east and you can go down to the hall.
 
 >You move south.
+
 Back Bedroom
 You are in Marks fairly small back bedroom.  The room has a small looking
 single bed with a cheap looking bedside cabinet next to it.  You expect the
@@ -223,6 +237,7 @@ paperback book are on the bookcase.
 >You take the coffee mug from the bookcase.
 
 >You move north.
+
 Landing
 You are on Marks landing.  This area has no window so it is quite dark here,
 the light is on but doesn't seem to help.  Even in the bad light you can see
@@ -234,6 +249,7 @@ The small brown terrier is wandering around.
 The small dog wanders out to below.
 
 >You move down.
+
 On the Stairs
 You are on Marks stairs.  You can go up the stairs to the Landing and down to
 the Hall.  The carpet looks worn and the stairs move as you stand on them.
@@ -245,6 +261,7 @@ The small brown terrier is wandering around.
 The small brown terrier wandering around is whimpering at you.
 
 >You move down.
+
 Hall
 You are in Marks small hall.  The front hall in a house is usually a warm and
 inviting place.  It is usually the first room visitors see and makes a good
@@ -256,6 +273,7 @@ the west.  Some stairs lead, well up.
 You can see a pair of boxer shorts.
 
 >You move west.
+
 The Kitchen
 You are in Marks reasonable sized Kitchen.  It is nice to see that the theme
 starting in the Lounge is being continued here as the Kitchen is horrible as
@@ -270,6 +288,7 @@ cupboard under the stairs is southeast.
 >You get the bone.
 
 >You move east.
+
 Hall
 You are in Marks small hall.  The front hall in a house is usually a warm and
 inviting place.  It is usually the first room visitors see and makes a good
@@ -281,6 +300,7 @@ the west.  Some stairs lead, well up.
 You can see a pair of boxer shorts.
 
 >You move up.
+
 On the Stairs
 You are on Marks stairs.  You can go up the stairs to the Landing and down to
 the Hall.  The carpet looks worn and the stairs move as you stand on them.
@@ -289,6 +309,7 @@ On the wall is a gold framed picture.
 You can see a pair of old trousers.
 
 >You move up.
+
 Landing
 You are on Marks landing.  This area has no window so it is quite dark here,
 the light is on but doesn't seem to help.  Even in the bad light you can see
@@ -297,6 +318,7 @@ the north and the back bedroom is opposite.  You can just make out the
 bathroom to the east and you can go down to the hall.
 
 >You move south.
+
 Back Bedroom
 You are in Marks fairly small back bedroom.  The room has a small looking
 single bed with a cheap looking bedside cabinet next to it.  You expect the
@@ -313,6 +335,7 @@ You carefully (so as not to get bitten) hand the dog the bone.  The dog heads
 off towards the kitchen.
 
 >You move north.
+
 Landing
 You are on Marks landing.  This area has no window so it is quite dark here,
 the light is on but doesn't seem to help.  Even in the bad light you can see
@@ -321,6 +344,7 @@ the north and the back bedroom is opposite.  You can just make out the
 bathroom to the east and you can go down to the hall.
 
 >You move down.
+
 On the Stairs
 You are on Marks stairs.  You can go up the stairs to the Landing and down to
 the Hall.  The carpet looks worn and the stairs move as you stand on them.
@@ -329,6 +353,7 @@ On the wall is a gold framed picture.
 You can see a pair of old trousers.
 
 >You move down.
+
 Hall
 You are in Marks small hall.  The front hall in a house is usually a warm and
 inviting place.  It is usually the first room visitors see and makes a good
@@ -340,6 +365,7 @@ the west.  Some stairs lead, well up.
 You can see a pair of boxer shorts.
 
 >You move west.
+
 The Kitchen
 You are in Marks reasonable sized Kitchen.  It is nice to see that the theme
 starting in the Lounge is being continued here as the Kitchen is horrible as
@@ -359,6 +385,7 @@ The dog is standing near the back door waiting to go out.
 The dog goes out of the Kitchen into the garden with its bone.
 
 >You move south.
+
 Back Garden
 You are in Marks back garden.  The back door to the kitchen is north and to
 the west seems to be some sort of vegetable patch.  The garden is surrounded
@@ -366,6 +393,7 @@ by a very tall garden fence.  Just to one side of the back door is an old
 black plastic rubbish bin.
 
 >You move west.
+
 Vegetable Patch
 You are in Marks vegetable patch, minus any vegetables.  It does look like
 someone has been digging here as the patch is full of small holes and little
@@ -393,6 +421,7 @@ toy into the shed.
 >You take you car keys!
 
 >You move east.
+
 Back Garden
 You are in Marks back garden.  The back door to the kitchen is north and to
 the west seems to be some sort of vegetable patch.  The garden is surrounded
@@ -402,6 +431,7 @@ black plastic rubbish bin.
 >You open the back door.
 
 >You move north.
+
 The Kitchen
 You are in Marks reasonable sized Kitchen.  It is nice to see that the theme
 starting in the Lounge is being continued here as the Kitchen is horrible as
@@ -451,6 +481,7 @@ The mug now contains hot black coffee.
 >You drink the mug of coffee. You feel a little better.
 
 >You move east.
+
 Hall
 You are in Marks small hall.  The front hall in a house is usually a warm and
 inviting place.  It is usually the first room visitors see and makes a good
@@ -465,6 +496,7 @@ You can see a pair of boxer shorts.
 You can hear a dog howling.
 
 >You move north.
+
 Front Garden
 You are in Marks front garden.  It is quite obvious that Mark is not a very
 keen gardener, and has adopted a very hands off approach.  The front door to

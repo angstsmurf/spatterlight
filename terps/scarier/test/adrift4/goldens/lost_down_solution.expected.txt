@@ -32,18 +32,21 @@ Are these ours? The park rangers don't like litter. If anyone has a chance to
 see if they can find these items and retrieve them, let me know.
 
 >You walk south.
+
 Path through the pines
 The path is narrow. Pine branches brush your shoulders. Pine needles cushion
 your steps. The shelter is north or you can continue along the path
 southeast.
 
 >You walk southeast.
+
 Steep slope
 Descending a steep hill, the path is little more than a rut bisected by
 treacherous roots. Your foot slides. You nearly fall. You wish  you had
 brought your walking stick. The path runs northwest to southeast.
 
 >You walk southeast.
+
 Fork in the path
 At the bottom of the hill the path forks, going east and south. The path runs
 back up the slope to the northwest.
@@ -51,6 +54,7 @@ A gray squirrel digs through the leaves beside the path, oblivious to your
 presence..
 
 >You walk east.
+
 Swamp Trail
 The trail runs along a steep hill. In a few months, in the spring, the trail
 will be mud. Now the mud has been hardened by frost. A few tracks reveal
@@ -59,6 +63,7 @@ or follow the bend to the southeast. To the northeast there is a gap in the
 steep hill.
 
 >You walk northeast.
+
 Bottom of the reentrant
 You are at the mouth of what orienteers refer to as a reentrant, a kind of
 small valley cut into the side of a hill  The top of the reentrant is to the
@@ -69,6 +74,7 @@ a soothing place,  beyond the reach of the world. Ridiculous of course, since
 the highway is a few minutes walk.
 
 >You walk northeast.
+
 Top of the reentrant
 The ground rises sharply and the gap in the hills narrows.  A large log, the
 remains of a fallen tree,  blocks your way. You can return southwest to the
@@ -86,6 +92,7 @@ log.
  You hear your name spoken. It seems. But when you turn no one is there.
 
 >You walk southwest.
+
 Bottom of the reentrant
 You are at the mouth of what orienteers refer to as a reentrant, a kind of
 small valley cut into the side of a hill  The top of the reentrant is to the
@@ -106,6 +113,7 @@ into a whorl of fog which glows dimly in the twilight. It was only your
 imagination. Just wishful thinking.
 
 >You walk southwest.
+
 Swamp Trail
 The trail runs along a steep hill. In a few months, in the spring, the trail
 will be mud. Now the mud has been hardened by frost. A few tracks reveal
@@ -114,6 +122,7 @@ or follow the bend to the southeast. To the northeast there is a gap in the
 steep hill.
 
 >You walk southeast.
+
 Swamp
 The frozen swamp presents a bleak picture. Here and there  grassy hillocks
 are interspersed with dead trees. At the edge, cattails rattle in the breeze.
@@ -132,6 +141,7 @@ echoes in the cold still air. You are left holding a long, straight stick.
 A few snowflakes dance erratically in the cold air.
 
 >You walk northwest.
+
 Swamp Trail
 The trail runs along a steep hill. In a few months, in the spring, the trail
 will be mud. Now the mud has been hardened by frost. A few tracks reveal
@@ -140,6 +150,7 @@ or follow the bend to the southeast. To the northeast there is a gap in the
 steep hill.
 
 >You walk west.
+
 Fork in the path
 At the bottom of the hill the path forks, going east and south. The path runs
 back up the slope to the northwest.
@@ -152,12 +163,14 @@ today. Beth never did like the unpredictable weather here. She will probably
 take the kids elsewhere now.
 
 >You walk south.
+
 Bridge
 A  few planks form a bridge over a narrow stream. The path curves to the
 southwest where you see a glimmer of water through thick hemlocks. The fork
 in the path is to the north.
 
 >You walk southwest.
+
 Path beside the pond
 The path runs along a  frozen pond which sits at the bottom of a  bowl in the
 hills, a depression scooped out by glacial action thousands of years ago. As
@@ -170,6 +183,7 @@ twilight the park begins to seem like a wilderness. You're only a few minutes
 away from the shelter, and yet. . .
 
 >You walk west.
+
 Narrow track beside the pond
 The path runs from west to northwest but it's more like a narrow deer track
 than a path and unlike a deer you don't have four feet.
@@ -205,6 +219,7 @@ You struggle through the blizzard. Branches you never see scratch your face.
 You fall, get up. You're not even sure if you're still on the trail.
 
 >You walk north.
+
 Snow covered fork in the trail
 
 You can barely see through the blinding snow but it seems you have made it
@@ -212,6 +227,7 @@ back to where the path forks to  the east and south and runs back up the
 slope to the northwest.
 
 >You walk northwest.
+
 Snow covered slope
 
 This must be the steep  slope leading back to the shelter. Now it is slick
@@ -225,6 +241,7 @@ ground. You find yourself sitting, stunned, engulfed in a blur of white. As
 you climb to your feet  you see the snow has stopped.
 
 You are in a birch grove.
+
 Birch grove
  Strange, you don't remember seeing birch trees in the park. You are lost in
 shades of white. The ankle deep snow, tinged with pale blue, as if reflecting
@@ -260,6 +277,7 @@ mist and memories, beckoning you to follow.
 >Time passes...
 
 >Again you decide to go in the same direction as the phantom.
+
 Rocky outcropping
 You find yourself on a  massive outcropping of rock . Only a few withered and
 twisted birches cling here.  A biting wind has scoured the snow, revealing

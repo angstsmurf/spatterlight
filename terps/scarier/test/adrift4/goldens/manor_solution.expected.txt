@@ -58,11 +58,13 @@ Angie is here.
 >You take the book of matches from the end table.
 
 >You move north.
+
 Short Hall
 This is a short hall. There are more paintings hanging on the wooden panelled
 walls.
 
 >You move west.
+
 Kitchen
 This is the kitchen. There is a small table here and a long counter.
 Cupboards line the wall above the counter. There is a large, old refrigerator
@@ -74,11 +76,13 @@ windows on the west wall.
 >You take the tin of cat food from the cupboard.
 
 >You move east.
+
 Short Hall
 This is a short hall. There are more paintings hanging on the wooden panelled
 walls.
 
 >You move east.
+
 Dining Room
 This appears to be the dining room. There is a large table in the centre of
 the room. There are chairs surrounding the table. Large windows, similar to
@@ -87,20 +91,24 @@ those in the foyer, line the east wall.
 >You take the unlit candelabra from the dining table.
 
 >You move west.
+
 Short Hall
 This is a short hall. There are more paintings hanging on the wooden panelled
 walls.
 
 >You move north.
+
 Corridor Intersection
 From this junction, hallways continue north, west and south.
 
 >You move north.
+
 Long Hall
 This is a long hall running north and south. More paintings hang here, and
 one in particular catches your attention.
 
 >You move north.
+
 Solarium
 This is a vast greenhouse and solarium. The walls and ceiling of this domed
 room are made of glass. The glass is thick and covered in grime like all the
@@ -112,6 +120,7 @@ roots.
 The ghost of a little girl is here.
 
 >You move north.
+
 Garden
 This area was probably once a beautiful garden. It has become completely
 overgrown with weeds and brush. Large trees dominate the area, and the entire
@@ -123,6 +132,7 @@ You can also see a shovel.
 >You pick up the shovel.
 
 >You move south.
+
 Solarium
 This is a vast greenhouse and solarium. The walls and ceiling of this domed
 room are made of glass. The glass is thick and covered in grime like all the
@@ -134,20 +144,24 @@ roots.
 The ghost of a little girl is here.
 
 >You move south.
+
 Long Hall
 This is a long hall running north and south. More paintings hang here, and
 one in particular catches your attention.
 
 >You move south.
+
 Corridor Intersection
 From this junction, hallways continue north, west and south.
 
 >You move south.
+
 Short Hall
 This is a short hall. There are more paintings hanging on the wooden panelled
 walls.
 
 >You move south.
+
 Front Foyer
 This is the front foyer of the manor. Two curved staircases curl upwards to a
 balcony above, overlooking the foyer. Old paintings hang along the walls
@@ -159,6 +173,7 @@ You can also see Theo's cellphone.
 Angie is here.
 
 >You move up.
+
 Balcony
 The stairs meet at the center of the upper balcony here. A suit of armor
 stands on a small raised platform against the middle of the north wall,
@@ -166,15 +181,18 @@ between some more paintings. There is a railing here to the south,
 overlooking the foyer below. The balcony continues to the east and west.
 
 >You move west.
+
 Balcony, West End
 You are at the west end of the balcony. There is a railing here, and you can
 see down to the foyer below. There is a darkened hallway to the north.
 
 >You move north.
+
 Western Hallway
 It is dark here. You cannot see anything.
 
 >You move east.
+
 Closet
 It is dark here. You cannot see anything.
 
@@ -185,10 +203,12 @@ It is dark here. You cannot see anything.
 Somewhere in the house you hear a door bang shut.
 
 >You move west.
+
 Western Hallway
 It is dark here. You cannot see anything.
 
 >You move west.
+
 Master Bedroom
 It is dark here. You cannot see anything.
 
@@ -197,6 +217,7 @@ It is dark here. You cannot see anything.
 >You pick up the necklace.
 
 >You move east.
+
 Western Hallway
 It is dark here. You cannot see anything.
 
@@ -204,6 +225,7 @@ A ghostly figure of a little boy runs by you. He stops and looks back at you.
 "Did you steal my ball?" he asks, and then fades away.
 
 >You move north.
+
 Spare Bedroom
 It is dark here. You cannot see anything.
 
@@ -224,15 +246,18 @@ You spin around, but no one is there!
 >You pick up the ball.
 
 >You move south.
+
 Western Hallway
 It is dark here. You cannot see anything.
 
 >You move south.
+
 Balcony, West End
 You are at the west end of the balcony. There is a railing here, and you can
 see down to the foyer below. There is a darkened hallway to the north.
 
 >You move east.
+
 Balcony
 The stairs meet at the center of the upper balcony here. A suit of armor
 stands on a small raised platform against the middle of the north wall,
@@ -240,15 +265,18 @@ between some more paintings. There is a railing here to the south,
 overlooking the foyer below. The balcony continues to the east and west.
 
 >You move east.
+
 Balcony, East End
 You are at the east end of the balcony. There is a railing here, and you can
 see down to the foyer below. There is a darkened hallway to the north.
 
 >You move north.
+
 Eastern Hallway
 It is dark here. You cannot see anything.
 
 >You move east.
+
 Child's Bedroom
 It is dark here. You cannot see anything.
 
@@ -262,14 +290,17 @@ tucked in one of the drawer slots.
 >You pick up the doll.
 
 >You move west.
+
 Eastern Hallway
 It is dark here. You cannot see anything.
 
 >You move north.
+
 Attic Stairwell
 It is dark here. You cannot see anything.
 
 >You move up.
+
 Attic
 It is dark here. You cannot see anything.
 
@@ -280,19 +311,23 @@ You hear the wind picking up outside, and thunder in the distance.
 >You pick up the old crucifix.
 
 >You move down.
+
 Attic Stairwell
 It is dark here. You cannot see anything.
 
 >You move south.
+
 Eastern Hallway
 It is dark here. You cannot see anything.
 
 >You move south.
+
 Balcony, East End
 You are at the east end of the balcony. There is a railing here, and you can
 see down to the foyer below. There is a darkened hallway to the north.
 
 >You move west.
+
 Balcony
 The stairs meet at the center of the upper balcony here. A suit of armor
 stands on a small raised platform against the middle of the north wall,
@@ -300,6 +335,7 @@ between some more paintings. There is a railing here to the south,
 overlooking the foyer below. The balcony continues to the east and west.
 
 >You move down.
+
 Front Foyer
 This is the front foyer of the manor. Two curved staircases curl upwards to a
 balcony above, overlooking the foyer. Old paintings hang along the walls
@@ -313,6 +349,7 @@ You can also see Theo's cellphone.
 You unlock the secret door with the brass key.
 
 >You move in.
+
 Secret Alcove
 This is a small alcove hidden behind the wooden panelling underneath the
 stairs. There is a small table here.
@@ -320,6 +357,7 @@ stairs. There is a small table here.
 >You take the pipe from the small table.
 
 >You move out.
+
 Front Foyer
 This is the front foyer of the manor. Two curved staircases curl upwards to a
 balcony above, overlooking the foyer. Old paintings hang along the walls
@@ -333,11 +371,13 @@ You can also see Theo's cellphone.
 You place the candelabra down and light it with the match.
 
 >You move north.
+
 Short Hall
 This is a short hall. There are more paintings hanging on the wooden panelled
 walls.
 
 >You move west.
+
 Kitchen
 This is the kitchen. There is a small table here and a long counter.
 Cupboards line the wall above the counter. There is a large, old refrigerator
@@ -346,6 +386,7 @@ windows on the west wall.
 The ghost of a little girl is here.
 
 >You move down.
+
 Wine Cellar
 This is a small wine cellar. There is a wine rack along one wall.  The dust
 on the floor has been recently disturbed, as if something was dragged or
@@ -354,6 +395,7 @@ scraped along it. The place is damp and smells musty.
 >You search behind the wine rack and discover a secret passage to the south!
 
 >You move south.
+
 Secret Room
 Almost a small cave, the floor of this room is damp earth. The walls are
 rough stone, seemingly carved out of the ground and not part of the original

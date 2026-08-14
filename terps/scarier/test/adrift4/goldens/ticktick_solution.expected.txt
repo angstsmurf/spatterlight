@@ -13,6 +13,7 @@ HURRY!  HURRY.  The Cat's Ticking.  It's about to EXPLODE!!! Get that cat out
 of here.
 
 >You move south.
+
 Living Room
 This sparsely furnished room is where you and your cat live, more or less.
 The bedroom is north, the kitchen east. More importantly the door out is to
@@ -21,6 +22,7 @@ TICK tick TICK tick TICK tick tick TICK TICK!!!!!!!!!!!
 The scruffy ticking cat follows you.
 
 >You move east.
+
 Kitchen
 Your cramped kitchen boasts all the usual ammenities and appliances, fridge,
 stove, oven, cupboards.The living room is to the west.
@@ -43,6 +45,7 @@ The scruffy ticking cat follows you.
 tuna bison cat food.
 
 >You move west.
+
 Living Room
 This sparsely furnished room is where you and your cat live, more or less.
 The bedroom is north, the kitchen east. More importantly the door out is to
@@ -56,6 +59,7 @@ There's still something ticking.  The sound's coming from the bedroom.
 It wasn't the cat.
 
 >You move north.
+
 Bare Bedroom
 This is your bare bedroom.  There's room for a bed, barely. The living room
 is to the south.  The ticking is coming from inside the mattress.  Quick,

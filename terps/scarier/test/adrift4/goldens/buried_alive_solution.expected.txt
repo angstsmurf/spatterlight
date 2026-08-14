@@ -155,6 +155,7 @@ her own little bloodbath.
 >You pick up the milkman's head.
 
 >
+
 --The Lounge--
 
 It's empty! Would you credit it? That sweetheart you married has only gone
@@ -172,6 +173,7 @@ them to the police for selling bombs outside the local school.
    It's never worked since.
 
 >
+
 --The Hallway--
 
 The hallway winds around the whole of the second floor of your house. Whole?
@@ -191,6 +193,7 @@ the east. You really feel 'whole' should mean something a bit bigger but
 there you are. The sound of someone singing can be heard from the bathroom.
 Steps lead down, though you've probably already guessed this considering you
 must have come up them to get here.
+
 --The Bedroom--
 
 The bedroom you share with the love of your life. It's not much of a bedroom
@@ -262,6 +265,7 @@ Steps lead down, though you've probably already guessed this considering you
 must have come up them to get here.
 
 >
+
 --The Lounge--
 
 It's empty! Would you credit it? That sweetheart you married has only gone
@@ -272,6 +276,7 @@ stare in dismay at this and barely notice the exits, one to the west and one
 leading up.
 
 >
+
 --The Kitchen--
 
 Gertrude looks to have left things in a right state. Typical of her! You'd
@@ -285,6 +290,7 @@ cellar where that gem you married is too scared to set foot in case she gets
 eaten by giant rats.
 
 >
+
 --The Cellar--
 
 Well what do you know? There's an actual coffin in the cellar! Yep, raised up
@@ -334,6 +340,7 @@ just by looking at-
    Damnit! You cut yourself.
 
 >
+
 --The Kitchen--
 
 Gertrude looks to have left things in a right state. Typical of her! You'd
@@ -347,6 +354,7 @@ cellar where that gem you married is too scared to set foot in case she gets
 eaten by giant rats.
 
 >
+
 --The Lounge--
 
 It's empty! Would you credit it? That sweetheart you married has only gone
@@ -361,6 +369,7 @@ beloved one tried to kill you today you're in a funny mood, so if you want to
 carry a TV around with you then, damnit, you'll carry a TV around with it.
 
 >
+
 --The Hallway--
 
 The hallway winds around the whole of the second floor of your house. Whole?
@@ -371,6 +380,7 @@ Steps lead down, though you've probably already guessed this considering you
 must have come up them to get here.
 
 >
+
 --The Bathroom--
 
 Some people go for bathrooms with style, others for bathrooms with class.
@@ -386,6 +396,7 @@ work! I'll be the envy of me friends with this."
    Now for your darling wife...
 
 >
+
 --The Hallway--
 
 The hallway winds around the whole of the second floor of your house. Whole?
@@ -398,6 +409,7 @@ considering you must have come up them to get here.
 >You step into the bedroom.
 
 Congratulations!
+
 --The Bedroom--
 
 The bedroom you share with the love of your life. It's not much of a bedroom

@@ -46,6 +46,7 @@ tips on how to play the game.
 Good luck...
 
 >You move south.
+
 Lightning tree
 A tree struck by lightning has fallen over the trail here.
 The tree seems quite easy to climb over, so the trail, which now leads
@@ -57,6 +58,7 @@ Also here is a fallen oak tree.
 There are exits north, south, west, southeast and southwest.
 
 >You move southeast.
+
 Chasm edge.
 You stand at the edge of a chasm.
 Where a tree growing precariously from the side of the chasm’s edge leans
@@ -68,6 +70,7 @@ you here from the henge bends off to the west.
 You can move west, up, down and northwest.
 
 >You move up.
+
 Leaning tree.
 You get a better look at the village across the chasm. There are people
 moving about there, but they are too far away for them to hear any cries for
@@ -86,6 +89,7 @@ egg are inside the bird’s nest.
 >You take the chain attached to a medallion from the bird’s nest.
 
 >You move down.
+
 Chasm edge.
 You stand at the edge of a chasm.
 Where a tree growing precariously from the side of the chasm’s edge leans
@@ -97,6 +101,7 @@ you here from the henge bends off to the west.
 You can move west, up, down and northwest.
 
 >You move northwest.
+
 Lightning tree
 A tree struck by lightning has fallen over the trail here.
 The tree seems quite easy to climb over, so the trail, which now leads
@@ -117,6 +122,7 @@ broadsword suddenly appears in your hands. Fetlar says, "Its name is Seeker.
 It warns you when enemies are about."
 
 >You move north.
+
 Stonehenge
 You stand in the centre of a Stonehenge-like structure.
 The sky is grey, and no sound of life can be heard in this strange land.
@@ -148,6 +154,7 @@ up into the sky and moves on.
 It starts to rain...
 
 >You move north.
+
 Trees
 Trees seem to block your path here.
 Their long branches blocking out what little light there is, the trees seem
@@ -170,6 +177,7 @@ It is raining...
 >You put on the pair of leather gloves.
 
 >You move down.
+
 Trees
 Trees seem to block your path here.
 Their long branches blocking out what little light there is, the trees seem
@@ -180,6 +188,7 @@ You can move south and up.
 You hear the flutter of batlike wings.
 
 >You move south.
+
 Stonehenge
 You stand in the centre of a Stonehenge-like structure.
 The sky is grey, and no sound of life can be heard in this strange land.
@@ -193,18 +202,21 @@ Fetlar the overly fetid is here.  It is raining...
 You can move north, east, south and west.
 
 >You move east.
+
 Shadow Forest gap.
 To the east, there is a gap in the forest’s trees.
 
 You can move north, east and west.
 
 >You move north.
+
 Shadow Forest.
 To the east, the forest thickens.
 
 You can move north and south.
 
 >You move north.
+
 Shadow Forest.
 The impassable Kuskarian Range mountains can be seen to the north, while, to
 the east, the forest thickens.
@@ -212,6 +224,7 @@ the east, the forest thickens.
 You can move south and west.
 
 >You move west.
+
 Shadow Forest.
 The impassable Kuskarian Range mountains can be seen to the north.
 
@@ -233,6 +246,7 @@ rummage about inside it.
 Reevling trots off to the west.
 
 >You move north.
+
 Druids grove.
 The sacred grove of the druids is surrounded by thick foliage and dense
 forest. It smells sweet here.
@@ -245,6 +259,7 @@ You can only move south.
 >You pluck a rose from the flowerbed.
 
 >You move south.
+
 Shadow Forest.
 The impassable Kuskarian Range mountains can be seen to the north.
 
@@ -258,6 +273,7 @@ Fang attacks you with the fine set of teeth in its muzzle, but you manage to
 avoid it.
 
 >You move east.
+
 Shadow Forest.
 The impassable Kuskarian Range mountains can be seen to the north, while, to
 the east, the forest thickens.
@@ -265,12 +281,14 @@ the east, the forest thickens.
 You can move south and west.
 
 >You move south.
+
 Shadow Forest.
 To the east, the forest thickens.
 
 You can move north and south.
 
 >You move south.
+
 Shadow Forest gap.
 To the east, there is a gap in the forest’s trees.
 
@@ -278,6 +296,7 @@ You can move north, east and west.
 You catch a faint whiff of Fetlar. He must be somewhere nearby.
 
 >You move west.
+
 Stonehenge
 You stand in the centre of a Stonehenge-like structure.
 The sky is grey, and no sound of life can be heard in this strange land.
@@ -307,6 +326,7 @@ whimpering to itself.
 Rossi creeps in.
 
 >You move south.
+
 Lightning tree
 A tree struck by lightning has fallen over the trail here.
 The tree seems quite easy to climb over, so the trail, which now leads
@@ -320,6 +340,7 @@ You can move north, south, west, southeast and southwest.
 Fetlar scratches himself.
 
 >You move southwest.
+
 Swamp over chasm
 The stench of the swamp permeates the air.
 The swamp heads off to the west and the north. To the south lies a chasm
@@ -333,6 +354,7 @@ light of the sun; on closer inspection, you notice a large black dragon
 soaring high above you.
 
 >You move west.
+
 Great Swamp.
 You see a chasm to the south.
 
@@ -343,6 +365,7 @@ You can move north, east, west, northeast and northwest.
 >You pick up the sword.
 
 >You move north.
+
 Great Swamp.
 You stand in the Great Swamp.  It is raining...
 
@@ -352,6 +375,7 @@ northwest.
 Fetlar the overly fetid flutters down.
 
 >You move northwest.
+
 Great Swamp.
 
 Also here is a statue of a fair maiden and a sign.  It is raining...
@@ -360,6 +384,7 @@ You can move north, east, south, west, northeast, southeast, southwest and
 northwest.
 
 >You move west.
+
 Cave entrance.
 You see a large number of statues here. There is also a cave leading into the
 mountainside, to the west.
@@ -373,6 +398,7 @@ Seeker hums!
 Seeker hums!
 
 >You move west.
+
 The Basilisks cave.
 You are inside a cave leading into the mountainside. To the west, the cave
 goes deeper, but it is somewhat obscured by the large boulder blocking it.
@@ -382,6 +408,7 @@ You can only move east.
 Seeker hums!
 
 >You move east.
+
 Cave entrance.
 You see a large number of statues here. There is also a cave leading into the
 mountainside, to the west.
@@ -392,6 +419,7 @@ You can move east and west.
 Seeker hums!
 
 >You move east.
+
 Great Swamp.
 
 Also here is a statue of a fair maiden and a sign.
@@ -400,6 +428,7 @@ You can move north, east, south, west, northeast, southeast, southwest and
 northwest.
 
 >You move southeast.
+
 Great Swamp.
 You stand in the Great Swamp.
 Fetlar the overly fetid is here.  Rossi, the muck dweller, is here.
@@ -408,6 +437,7 @@ You can move north, east, south, west, northeast, southeast, southwest and
 northwest.
 
 >You move southeast.
+
 Swamp over chasm
 The stench of the swamp permeates the air.
 The swamp heads off to the west and the north. To the south lies a chasm
@@ -417,6 +447,7 @@ face can be seen stretching upwards.
 You can move north, east, west, northeast and northwest.
 
 >You move northeast.
+
 Lightning tree
 A tree struck by lightning has fallen over the trail here.
 The tree seems quite easy to climb over, so the trail, which now leads
@@ -428,6 +459,7 @@ Also here is a fallen oak tree.
 You can move north, south, west, southeast and southwest.
 
 >You move north.
+
 Stonehenge
 You stand in the centre of a Stonehenge-like structure.
 The sky is grey, and no sound of life can be heard in this strange land.
@@ -440,6 +472,7 @@ Also here is a body and a staff.
 You can move north, east, south and west.
 
 >You move east.
+
 Shadow Forest gap.
 To the east, there is a gap in the forest’s trees.
 
@@ -448,6 +481,7 @@ You can move north, east and west.
 Reevling trots in from the north.
 
 >You move east.
+
 Grassy plains.
 Grassy plains stretch off in all directions, while to the west lies the
 Shadow Forest, and to the south lies a huge chasm. There are some rather
@@ -456,6 +490,7 @@ large footprints here!
 You can move north, east, west and northeast.
 
 >You move east.
+
 Grassy plains.
 There are some rather large footprints here! The plains stretch off in all
 directions, while east is blocked by the impassable Kuskarian Range
@@ -465,6 +500,7 @@ into the chasm.
 You can move north, west, down and northwest.
 
 >You move down.
+
 Chasm footpath.
 You stand on the footpath halfway down the chasm. You can see what looks to
 be a stone building below.
@@ -472,6 +508,7 @@ be a stone building below.
 You can move up and down.
 
 >You move down.
+
 Bottom of the chasm.
 You stand at the bottom of the chasm. A stone building is here that looks
 somewhat like a tomb, its doorway blocked by a stone slab. A rock fall has
@@ -483,6 +520,7 @@ You can move south and up.
 >You open the stone slab.
 
 >You move east.
+
 Inside the stone building.
 You stand inside a burial chamber. It is very cold and damp in here. The
 walls are painted with various scenes of battle, although the paint seems
@@ -543,6 +581,7 @@ passage is revealed in the northern wall.
 
 >(Getting off the sarcophagus first)
 You move north.
+
 Secret room.
 This room is completely bare apart from a rather large iron wheel on the
 north wall.
@@ -555,6 +594,7 @@ The stone wall blocking your exit from the burial chamber room seems to have
 moved. Your exit is clear.
 
 >You move south.
+
 Inside the stone building.
 You stand inside a burial chamber. It is very cold and damp in here. The
 walls are painted with various scenes of battle, although the paint seems
@@ -569,6 +609,7 @@ Also here is a sarcophagus.
 You can move north and west.
 
 >You move west.
+
 Bottom of the chasm.
 You stand at the bottom of the chasm. A stone building is here that looks
 somewhat like a tomb, its doorway blocked by a stone slab. A rock fall has
@@ -578,6 +619,7 @@ of the chasm; east into the stone building; or up back the way you came.
 You can move east, south and up.
 
 >You move up.
+
 Chasm footpath.
 You stand on the footpath halfway down the chasm. You can see what looks to
 be a stone building below.
@@ -585,6 +627,7 @@ be a stone building below.
 You can move up and down.
 
 >You move up.
+
 Grassy plains.
 There are some rather large footprints here! The plains stretch off in all
 directions, while east is blocked by the impassable Kuskarian Range
@@ -596,6 +639,7 @@ You can move north, west, down and northwest.
 Fetlar the overly fetid flutters down.
 
 >You move north.
+
 Grassy plains.
 The plains stretch off in all directions, while eastward is blocked by the
 impassable Kuskarian Range mountains. There are some rather large footprints
@@ -604,6 +648,7 @@ here!
 You can move north, south, west, southwest and northwest.
 
 >You move north.
+
 Grassy plains.
 The plains stretch off in all directions, while north and east are blocked by
 the impassable Kuskarian Range mountains. However, a cave entrance leads into
@@ -617,6 +662,7 @@ very sad. Grumski says, "HEY THERE, MANLING, YOU GOTTA HELP ME! THOSE DAMN
 FAIRIES ARE RUINING MY LIFE!"
 
 >You move east.
+
 The giant cave entrance.
 The sunlight streams into the entrance hall of the cave, making visible a
 room further into the east. West leads back out onto the grassy plains.
@@ -638,6 +684,7 @@ GRUMSKI WILL HELP MANLING." He quickly stomps into the cave and checks that
 everything is okay before stomping back out again.
 
 >You move west.
+
 Grassy plains.
 The plains stretch off in all directions, while north and east are blocked by
 the impassable Kuskarian Range mountains. However, a cave entrance leads into
@@ -649,6 +696,7 @@ You can move east, south, west and southwest.
 Grumski stomps off to the south.
 
 >You move southwest.
+
 Grassy plains.
 The plains stretch off in all directions, while westward is blocked by the
 thick Shadow Forest. There are some rather large footprints here!
@@ -656,6 +704,7 @@ thick Shadow Forest. There are some rather large footprints here!
 You can move north, east, south, northeast and southeast.
 
 >You move south.
+
 Grassy plains.
 Grassy plains stretch off in all directions, while to the west lies the
 Shadow Forest, and to the south lies a huge chasm. There are some rather
@@ -666,12 +715,14 @@ You can move north, east, west and northeast.
 Grumski stomps over from the north-east.
 
 >You move west.
+
 Shadow Forest gap.
 To the east, there is a gap in the forest’s trees.
 
 You can move north, east and west.
 
 >You move west.
+
 Stonehenge
 You stand in the centre of a Stonehenge-like structure.
 The sky is grey, and no sound of life can be heard in this strange land.
@@ -685,6 +736,7 @@ You can move north, east, south and west.
 A chill wind blows southerly.
 
 >You move south.
+
 Lightning tree
 A tree struck by lightning has fallen over the trail here.
 The tree seems quite easy to climb over, so the trail, which now leads
@@ -696,6 +748,7 @@ Also here is a fallen oak tree.  It is raining...
 You can move north, south, west, southeast and southwest.
 
 >You move southwest.
+
 Swamp over chasm
 The stench of the swamp permeates the air.
 The swamp heads off to the west and the north. To the south lies a chasm
@@ -706,6 +759,7 @@ It is raining...
 You can move north, east, west, northeast and northwest.
 
 >You move northwest.
+
 Great Swamp.
 You stand in the Great Swamp.  It is raining...
 
@@ -713,6 +767,7 @@ You can move north, east, south, west, northeast, southeast, southwest and
 northwest.
 
 >You move northwest.
+
 Great Swamp.
 
 Also here is a statue of a fair maiden and a sign.  It is raining...
@@ -721,6 +776,7 @@ You can move north, east, south, west, northeast, southeast, southwest and
 northwest.
 
 >You move west.
+
 Cave entrance.
 You see a large number of statues here. There is also a cave leading into the
 mountainside, to the west.
@@ -732,6 +788,7 @@ Seeker hums!
 
 >(Your score has increased by 10)
 You move west.
+
 The Basilisks cave.
 You are inside a cave leading into the mountainside. To the west, the cave
 goes deeper, but it is somewhat obscured by the large boulder blocking it.
@@ -763,6 +820,7 @@ further into the cave.
 You catch a faint whiff of Fetlar. He must be somewhere nearby.
 
 >You move west.
+
 The cave end.
 The cave ends in a dead end.
 
@@ -781,6 +839,7 @@ of metal from large wooden chest.
 >You put on the small copper ring.
 
 >You move east.
+
 The Basilisks cave.
 You are inside a cave leading into the mountainside. To the west, the cave
 goes deeper, but it is somewhat obscured by the large boulder blocking it.
@@ -790,6 +849,7 @@ Also here is a stone basilisk.
 You can move east and west.
 
 >You move east.
+
 Cave entrance.
 You see a large number of statues here. There is also a cave leading into the
 mountainside, to the west.
@@ -802,6 +862,7 @@ Fetlar the overly fetid flutters down.
 Fetlar scratches himself.
 
 >You move east.
+
 Great Swamp.
 
 Also here is a statue of a fair maiden and a sign.
@@ -811,6 +872,7 @@ northwest.
 A chill wind blows southerly.
 
 >You move southeast.
+
 Great Swamp.
 You stand in the Great Swamp.
 Rossi, the muck dweller, is here.
@@ -821,6 +883,7 @@ You are feeling very tired, indeed, and realise you should find somewhere to
 sleep!
 
 >You move southeast.
+
 Swamp over chasm
 The stench of the swamp permeates the air.
 The swamp heads off to the west and the north. To the south lies a chasm
@@ -830,6 +893,7 @@ face can be seen stretching upwards.
 You can move north, east, west, northeast and northwest.
 
 >You move northeast.
+
 Lightning tree
 A tree struck by lightning has fallen over the trail here.
 The tree seems quite easy to climb over, so the trail, which now leads
@@ -860,6 +924,7 @@ You feel weak, and very tired. Your strength starts to ebb away. You
 definitely need to sleep.
 
 >You move southeast.
+
 Chasm edge.
 You stand at the edge of a chasm.
 Where a tree growing precariously from the side of the chasm’s edge leans
@@ -874,12 +939,14 @@ You can move west, up, down and northwest.
 The ring glows and you float up into the air. The cold wind blows you
 southward across the chasm, to the other side, where you land safely. The
 copper ring turns to dust and blows away in the wind.
+
 Windthrush.
 You stand at the entrance of Windthrush Village. The village looks deserted.
 There’s not a soul to be seen in the Village Square, to the south. The chasm
 is to the north.
 
 >You move south.
+
 The Village Square.
 It looks like a typical village square, yet all the market stalls and shops
 appear abandoned. West leads to one such shop; east leads to a blacksmith’s,
@@ -1507,6 +1574,7 @@ Jarris lumbers off to the west.
 Boris drags himself off to below.
 
 >You move east.
+
 Outside the blacksmith’s.
 It looks to be in very bad condition; the door hangs off its hinges. East
 leads into the blacksmith’s, while west leads to the Village Square.
@@ -1514,6 +1582,7 @@ leads into the blacksmith’s, while west leads to the Village Square.
 You can move east and west.
 
 >You move east.
+
 Inside the blacksmith’s.
 It appears that the blacksmith isn’t home. It also appears that he has taken
 his wares with him, leaving very little for any would-be looters.
@@ -1601,6 +1670,7 @@ Arthur falls face down as he his finally put out of his misery.
 >You take the tinderbox from the cupboard.
 
 >You move west.
+
 Outside the blacksmith’s.
 It looks to be in very bad condition; the door hangs off its hinges. East
 leads into the blacksmith’s, while west leads to the Village Square.
@@ -1611,6 +1681,7 @@ You can move east and west.
 Lazaraz rides away to the west.
 
 >You move west.
+
 The Village Square.
 It looks like a typical village square, yet all the market stalls and shops
 appear abandoned. West leads to one such shop; east leads to a blacksmith’s,
@@ -1627,6 +1698,7 @@ Seeker hums!
 Seeker Hums!
 
 >You move south.
+
 Residential.
 It’s all quiet in the residential area of the village. The houses are all
 boarded up. To the west lies the Inn of the Giggling Gargoyle; east would
@@ -1644,6 +1716,7 @@ Lazaraz rides over from the north.
 Seeker Hums!
 
 >You move west.
+
 The Inn.
 You enter the common room of the Inn of the Giggling Gargoyle. The place is a
 tip of broken chairs, tables, and various other miscellaneous junk. A doorway
@@ -1668,6 +1741,7 @@ Seeker hums!
 
 >(Getting off the bar first)
 You move up.
+
 Inn’s stairs.
 You stand halfway up the spiral staircase. The stairs creak with your weight.
 
@@ -1682,6 +1756,7 @@ already?
 Seeker hums!
 
 >You move up.
+
 The Inn upstairs.
 The upper level of the inn contains rows and rows of beds. A shadow hides the
 far corner of this room. This place seems awfully quiet... Only your
@@ -1699,6 +1774,7 @@ Boris drags himself off to below.
 >You pick up silver coin.
 
 >You move down.
+
 Inn’s stairs.
 You stand halfway up the spiral staircase. The stairs creak with your weight.
 
@@ -1708,6 +1784,7 @@ Jarris staggers in from below.
 Seeker hums!
 
 >You move down.
+
 The Inn.
 You enter the common room of the Inn of the Giggling Gargoyle. The place is a
 tip of broken chairs, tables, and various other miscellaneous junk. A doorway
@@ -1727,6 +1804,7 @@ Arthur pulls himself in from the east.
 Seeker hums!
 
 >You move west.
+
 The Inn’s kitchen.
 Apart from the rotting foodstuffs and shabby kitchen utensils, the kitchen
 doesn’t seem to be in that bad of a condition. Some salt is on the floor.
@@ -1753,6 +1831,7 @@ Bambi shuffles in.
 Seeker hums!
 
 >You move east.
+
 The Inn.
 You enter the common room of the Inn of the Giggling Gargoyle. The place is a
 tip of broken chairs, tables, and various other miscellaneous junk. A doorway
@@ -1769,6 +1848,7 @@ Seeker hums!
 Jarris lumbers off to the east.
 
 >You move east.
+
 Residential.
 It’s all quiet in the residential area of the village. The houses are all
 boarded up. To the west lies the Inn of the Giggling Gargoyle; east would
@@ -1789,6 +1869,7 @@ Boris drags himself off to the west.
 Arthur pulls himself away to the north.
 
 >You move north.
+
 The Village Square.
 It looks like a typical village square, yet all the market stalls and shops
 appear abandoned. West leads to one such shop; east leads to a blacksmith’s,
@@ -1803,6 +1884,7 @@ You can move north, east, south, west and down.
 Arthur pulls himself away to the south.
 
 >You move down.
+
 The bottom of the well.
 It looks and smells quite fine.
 
@@ -1815,6 +1897,7 @@ You can only move up.
 >You fill the bottle with some water.
 
 >You move up.
+
 The Village Square.
 It looks like a typical village square, yet all the market stalls and shops
 appear abandoned. West leads to one such shop; east leads to a blacksmith’s,
@@ -1837,6 +1920,7 @@ Boris lumbers in from below.
 Seeker hums!
 
 >You move south.
+
 Residential.
 It’s all quiet in the residential area of the village. The houses are all
 boarded up. To the west lies the Inn of the Giggling Gargoyle; east would
@@ -1851,6 +1935,7 @@ Seeker hums!
 Holga stumbles off to the west.
 
 >You move south.
+
 The village fields.
 The village fields must of been where the villagers planted their crops. The
 field is fenced off to the south.
@@ -1858,6 +1943,7 @@ field is fenced off to the south.
 You can move north, east, west and northeast.
 
 >You move west.
+
 A footpath.
 The footpath leads from the northeast to the south. To the west lies the
 northern edge of the Webbed Woods.
@@ -1876,6 +1962,7 @@ The other wolves soon follow.
 Seeker Hums!
 
 >You move northeast.
+
 Residential.
 It’s all quiet in the residential area of the village. The houses are all
 boarded up. To the west lies the Inn of the Giggling Gargoyle; east would
@@ -1889,6 +1976,7 @@ Jarris staggers in from the north.
 Seeker hums!
 
 >You move southeast.
+
 The village church.
 The church itself is gothic in appearance. It seems secure, though the roof
 could do with a bit of repair. You stand outside the main door to the church,
@@ -1901,6 +1989,7 @@ You can move west and northwest.
 >You open church door.
 
 >You move south.
+
 Inside the church.
 The interior of the church has rows of benches, with scant decoration. It
 does, however, have an aura of peace about it, and the faint smell of tobacco
@@ -1940,6 +2029,7 @@ The bottle briefly glows, and you feel an aura of holiness in the church.
 >You light the pipe with the tinderbox. It smells lovely.
 
 >You move north.
+
 The village church.
 The church itself is gothic in appearance. It seems secure, though the roof
 could do with a bit of repair. You stand outside the main door to the church,
@@ -1950,6 +2040,7 @@ Also here is church door.
 You can move south, west and northwest.
 
 >You move west.
+
 The village fields.
 The village fields must of been where the villagers planted their crops. The
 field is fenced off to the south.
@@ -1957,6 +2048,7 @@ field is fenced off to the south.
 You can move north, east, west and northeast.
 
 >You move west.
+
 A footpath.
 The footpath leads from the northeast to the south. To the west lies the
 northern edge of the Webbed Woods.
@@ -1967,6 +2059,7 @@ Lazaraz rides over from the south.
 Seeker Hums!
 
 >You move south.
+
 Gypsy Grove.
 The Webbed Woods thicken on all sides, making movement in certain directions
 either very difficult or impossible. There are numerous amounts of cobwebs
@@ -1979,6 +2072,7 @@ You can move north, east, west, southeast and northwest.
 " Cross my palm with silver and I will help you " she croaks.
 
 >You move east.
+
 Webbed Woods east.
 The Webbed Woods thicken on all sides, making movement in certain directions
 either very difficult or impossible. There are numerous amounts of cobwebs
@@ -2014,6 +2108,7 @@ Seeker hums!
 Seeker hums!
 
 >You move up.
+
 Up a large oak tree.
 There is a huge web up here littered with the husks of hapless victims.
 Haraxis, the giant spider, is here.
@@ -2183,6 +2278,7 @@ rephrasing your command.
 >Time passes...
 
 >You move down.
+
 Webbed Woods east.
 The Webbed Woods thicken on all sides, making movement in certain directions
 either very difficult or impossible. There are numerous amounts of cobwebs
@@ -2193,6 +2289,7 @@ Also here is a dead giant spider and a dried husk.
 You can move west and up.
 
 >You move west.
+
 Gypsy Grove.
 The Webbed Woods thicken on all sides, making movement in certain directions
 either very difficult or impossible. There are numerous amounts of cobwebs
@@ -2223,6 +2320,7 @@ hidden deep in the depths of Shadowpeak; find the crypts, and you shall find
 your prize in the dark queen’s coffin."
 
 >You move southeast.
+
 In the foul fog.
 You stand in a haze of fog. You can’t see for more than a few feet ahead.
 The fog smells foul, and makes you choke on your own breath. This fog is
@@ -2233,6 +2331,7 @@ here, sloping up to the south.
 You can move south and northwest.
 
 >You move south.
+
 The road to Castle Shadowpeak.
 The road slopes ever upward from north to south. On both sides of the road is
 a huge drop to the shoreline of the Herongusion ocean, where the waves lap up
@@ -2241,6 +2340,7 @@ against the rocks below.
 You can move north and south.
 
 >You move south.
+
 Drawbridge.
 You stand on the castle’s drawbridge. It spans over a drop some thousand feet
 to the shoreline below.
@@ -2252,6 +2352,7 @@ Seeker hums!
 Seeker hums!
 
 >You move south.
+
 The castle entrance.
 The castle doors stand open, and the portcullis is only half closed.
 Southward past the entrance is the castle’s courtyard, while, to the north,
@@ -2292,6 +2393,7 @@ burning to the bone. Suddenly she turns into a thin mist and is swept away by
 the icy cold wind.
 
 >You move south.
+
 The castle courtyard.
 Covered in moss, the castle courtyard is very slippery after the rain. The
 castle’s front doors lie to the south, while to the northeast and the
@@ -2304,6 +2406,7 @@ The castle’s front doors slowly creak open, as if they were expecting you.
 Beyond, you can see a dimly lit, long hall leading into the castle proper.
 
 >You move south.
+
 The long hall.
 The hallway stretches southward into darkness. To the east and west are
 darkened rooms; to the north, the front doors.
@@ -2313,6 +2416,7 @@ The front doors of the castle slam shut behind you.
 You hear the haunting sound of organ music echoing through out the castle.
 
 >You move south.
+
 The main hall.
 This is a massive hall dominated by four huge stone pillars that reach up to
 the arched ceiling, where four stone gargoyles survey the room from above.
@@ -2361,6 +2465,7 @@ notice them, they are gone.
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move south.
+
 The fountain room.
 The sound of running water fills this room, its source a large marble
 fountain that resides in its centre. To the north lies the main hall.
@@ -2375,11 +2480,13 @@ Seeker hums!
 >You drop the Shield.
 
 >You plunge into the fountain.
+
 In the fountain’s depths.
 You plunge deep into the fountain’s depths. You swim ever downward, then,
 sharply, the walls of the fountain’s depths bend upwards in a U-turn. Your
 head breaks the water’s surface. As you gasp for air and climb out of the
 basin, you notice you’re in quite a different room.
+
 The hidden chapel.
 An air of tranquillity envelopes this small room with the rippling sound of
 water.
@@ -2390,6 +2497,7 @@ Also here is a altar to Horamis.
 You put the smoking pipe and weed onto the altar to Horamis.
 As you do so, the pipe and weed suddenly disappear from the altar and are
 replaced by the unbroken staff of Borantha.
+
 The hidden chapel.
 An air of tranquillity envelopes this small room with the rippling sound of
 water.
@@ -2400,6 +2508,7 @@ Also here is a altar to Horamis.
 
 >You dive back into the fountain’s depths, and, after a strenuous swim, you
 arrive back in the fountain room.
+
 The fountain room.
 The sound of running water fills this room, its source a large marble
 fountain that resides in its centre. To the north lies the main hall.
@@ -2422,6 +2531,7 @@ Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
 damage.
 
 >You move north.
+
 The main hall.
 This is a massive hall dominated by four huge stone pillars that reach up to
 the arched ceiling. Decoration in here is sparse apart from a large stone
@@ -2433,6 +2543,7 @@ You can move north, east, south, west, up and down.
 Seeker hums!
 
 >You move east.
+
 The dining room.
 This is a very long room. The smell of freshly-cooked venison fills the air.
 
@@ -2445,6 +2556,7 @@ Seeker hums!
 Seeker hums!
 
 >You move west.
+
 The main hall.
 This is a massive hall dominated by four huge stone pillars that reach up to
 the arched ceiling. Decoration in here is sparse apart from a large stone
@@ -2455,6 +2567,7 @@ You can move north, east, south, west, up and down.
 Seeker hums!
 
 >You move west.
+
 Pentagram room.
 A large silver pentagram, a five-pointed star with a circle surrounding it,
 is engraved into the centre of this room. To the east lies the main hall,
@@ -2470,6 +2583,7 @@ monstrosity which stands entrapped in the pentagram. "My name is Zandos. Is
 there anything I can help you with, my friend?"
 
 >You move south.
+
 The study.
 Morac’s study is in disarray, Only one item of furniture has survived the
 ravage of time. What other furniture there once was has long since been eaten
@@ -2482,6 +2596,7 @@ You can move north and south.
 Seeker hums!
 
 >You move south.
+
 The overlook.
 You stand on an open air balcony overlooking the southern cliffs of
 Shadowpeak. The cliffs stretch down some five hundred feet. You can see the
@@ -2504,6 +2619,7 @@ Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move north.
+
 The study.
 Morac’s study is in disarray, Only one item of furniture has survived the
 ravage of time. What other furniture there once was has long since been eaten
@@ -2517,6 +2633,7 @@ Seeker hums!
 A black cat suddenly darts in front of you and off into the shadows.
 
 >You move north.
+
 Pentagram room.
 A large silver pentagram, a five-pointed star with a circle surrounding it,
 is engraved into the centre of this room. To the east lies the main hall,
@@ -2530,6 +2647,7 @@ Seeker hums!
 The demon’s eyes watch you as you move about the room.
 
 >You move east.
+
 The main hall.
 This is a massive hall dominated by four huge stone pillars that reach up to
 the arched ceiling. Decoration in here is sparse apart from a large stone
@@ -2541,6 +2659,7 @@ You can move north, east, south, west, up and down.
 Seeker hums!
 
 >You move east.
+
 The dining room.
 This is a very long room. The smell of freshly-cooked venison fills the air.
 
@@ -2550,6 +2669,7 @@ You can move east and west.
 Seeker hums!
 
 >You move east.
+
 The kitchen.
 This place is a mess, with rotting foodstuffs, and the ovens and other
 equipment being full of grime and dirt. West leads to the dining room.
@@ -2564,6 +2684,7 @@ top; up, up, you must not stop; up, up to the very top; once you’re there, no
 need to knock," says Melvin, looking rather pleased with himself.
 
 >You move down.
+
 The cellar stairs.
 You stand at the halfway point of the cellar stairs.
 
@@ -2572,6 +2693,7 @@ Seeker hums!
 You hear the sound of a cat’s "meow".
 
 >You move down.
+
 The cellar entrance.
 It smells of sour wine down here. Wine racks have been smashed to pieces
 along the walls, and broken glass lies everywhere. If you go up, you will
@@ -2584,6 +2706,7 @@ Seeker hums!
 You hear the shuffling of feet elsewhere in the castle.
 
 >You move east.
+
 The cellar.
 This room is filled with water to about knee height. More broken racks and
 glass can be seen in this room. West leads to the cellar entrance, and to the
@@ -2598,6 +2721,7 @@ boots you wear protect you sufficiently enough.
 Gargoyle #1 stabs you with the military fork.
 
 >You move south.
+
 A small box room.
 This room is also knee-high in water. The room itself is quite small, and a
 heap of rubble is in one corner. The only exit is from the way you came in.
@@ -2611,6 +2735,7 @@ Seeker hums!
 Seeker hums!
 
 >You move north.
+
 The cellar.
 This room is filled with water to about knee height. More broken racks and
 glass can be seen in this room. West leads to the cellar entrance, and to the
@@ -2623,6 +2748,7 @@ Hundreds of rats are here. They gnaw at your feet, but the thick leather
 boots you wear protect you sufficiently enough.
 
 >You move west.
+
 The cellar entrance.
 It smells of sour wine down here. Wine racks have been smashed to pieces
 along the walls, and broken glass lies everywhere. If you go up, you will
@@ -2634,6 +2760,7 @@ You can move north, east and up.
 Seeker hums!
 
 >You move up.
+
 The cellar stairs.
 You stand at the halfway point of the cellar stairs.
 Melvin the Butler is here.
@@ -2642,6 +2769,7 @@ You can move up and down.
 Seeker hums!
 
 >You move up.
+
 The kitchen.
 This place is a mess, with rotting foodstuffs, and the ovens and other
 equipment being full of grime and dirt. West leads to the dining room.
@@ -2652,6 +2780,7 @@ You can move south, west and down.
 Seeker hums!
 
 >You move west.
+
 The dining room.
 This is a very long room. The smell of freshly-cooked venison fills the air.
 
@@ -2661,6 +2790,7 @@ You can move east and west.
 Seeker hums!
 
 >You move west.
+
 The main hall.
 This is a massive hall dominated by four huge stone pillars that reach up to
 the arched ceiling. Decoration in here is sparse apart from a large stone
@@ -2672,6 +2802,7 @@ You can move north, east, south, west, up and down.
 Seeker hums!
 
 >You move down.
+
 Bottom of the main hall stairs.
 This room is filled with torture apparatus. It does not, however, seem to
 have been used for some time. Dark exits lead off to the north and south; the
@@ -2682,6 +2813,7 @@ Seeker hums!
 You hear the shuffling of feet elsewhere in the castle.
 
 >You move north.
+
 The crypts.
 This huge cavern rests in the very rocks forming the foundations of Castle
 Shadowpeak. Stone coffins and sarcophagi line the walls of this great cavern.
@@ -2708,6 +2840,7 @@ Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move south.
+
 Bottom of the main hall stairs.
 This room is filled with torture apparatus. It does not, however, seem to
 have been used for some time. Dark exits lead off to the north and south; the
@@ -2717,6 +2850,7 @@ You can move north, south and up.
 Seeker hums!
 
 >You move up.
+
 The main hall.
 This is a massive hall dominated by four huge stone pillars that reach up to
 the arched ceiling. Decoration in here is sparse apart from a large stone
@@ -2728,6 +2862,7 @@ You can move north, east, south, west, up and down.
 Seeker hums!
 
 >You move west.
+
 Pentagram room.
 A large silver pentagram, a five-pointed star with a circle surrounding it,
 is engraved into the centre of this room. To the east lies the main hall,
@@ -2743,6 +2878,7 @@ Seeker hums!
 The demon’s eyes watch you as you move about the room.
 
 >You move west.
+
 The gallery.
 This hall is filled with large portraits and paintings hung high up on the
 walls, each one some twelve feet tall and about as wide. The frames of these
@@ -2763,6 +2899,7 @@ The painting is ripped open, revealing a secret passage leading northward.
 Seeker hums!
 
 >You move north.
+
 The passage behind the painting.
 This dark passage slopes downwards from south to north.
 A faint mist swirls around you.
@@ -2771,6 +2908,7 @@ You can move north and south.
 Seeker hums!
 
 >You move north.
+
 The witch’s cave.
 You stand in a glistening cave. The passage south will take you back behind
 the painting; another passage leads northward, further into the caverns.
@@ -2793,6 +2931,7 @@ Seeker hums!
 Gargoyle #1 stabs you with the military fork.
 
 >You move north.
+
 The hidden shrine.
 This cave is dank and dark. There is a lot of unholy religious paraphernalia
 here.
@@ -2809,6 +2948,7 @@ unconscious for, but you feel much better now.
 Seeker hums!
 
 >You move south.
+
 The witch’s cave.
 You stand in a glistening cave. The passage south will take you back behind
 the painting; another passage leads northward, further into the caverns.
@@ -2822,6 +2962,7 @@ Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move south.
+
 The passage behind the painting.
 This dark passage slopes downwards from south to north.
 A faint mist swirls around you.
@@ -2830,6 +2971,7 @@ You can move north and south.
 Seeker hums!
 
 >You move south.
+
 The gallery.
 This hall is filled with large portraits and paintings hung high up on the
 walls, each one some twelve feet tall and about as wide. The frames of these
@@ -2846,6 +2988,7 @@ Seeker hums!
 You hear Melvin singing. He must be somewhere nearby.
 
 >You move east.
+
 Pentagram room.
 A large silver pentagram, a five-pointed star with a circle surrounding it,
 is engraved into the centre of this room. To the east lies the main hall,
@@ -2874,6 +3017,7 @@ energy.
 Seeker hums!
 
 >You move east.
+
 The main hall.
 This is a massive hall dominated by four huge stone pillars that reach up to
 the arched ceiling. Decoration in here is sparse apart from a large stone
@@ -2885,6 +3029,7 @@ You can move north, east, south, west, up and down.
 Seeker hums!
 
 >You move up.
+
 The main hall stairs.
 You stand halfway up the main hall staircase.  A faint mist swirls around
 you.
@@ -2897,6 +3042,7 @@ You feel the hairs on the back your neck stand up.
 Gargoyle #1 stabs you with the military fork.
 
 >You move up.
+
 Top of the stairs.
 You stand on the topmost step. There is a door on the north wall; light
 flickers from under it.
@@ -2913,6 +3059,7 @@ Seeker hums!
 Seeker hums!
 
 >You move north.
+
 The tower.
 You stand inside the large tower. Exits lead off to the four points of the
 compass. A cool breeze comes from the west.
@@ -2927,6 +3074,7 @@ suit and cape, the lining of which is deep red. You realise that this is
 Morac! He seems to be looking for something.
 
 >You move north.
+
 The bottom of the iron steps.
 This room has a set of iron steps spiralling upward. The steps are blocked,
 however, by the large stone golem standing in front of them.
@@ -2978,6 +3126,7 @@ Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
 damage.
 
 >You move south.
+
 The tower.
 You stand inside the large tower. Exits lead off to the four points of the
 compass. A cool breeze comes from the west.
@@ -2988,6 +3137,7 @@ You can move north, east, south and west.
 Seeker hums!
 
 >You move south.
+
 Top of the stairs.
 You stand on the topmost step. There is a door on the north wall; light
 flickers from under it.
@@ -2998,6 +3148,7 @@ You can move north and down.
 Seeker hums!
 
 >You move down.
+
 The main hall stairs.
 You stand halfway up the main hall staircase.
 
@@ -3005,6 +3156,7 @@ You can move up and down.
 Seeker hums!
 
 >You move down.
+
 The main hall.
 This is a massive hall dominated by four huge stone pillars that reach up to
 the arched ceiling. Decoration in here is sparse apart from a large stone
@@ -3016,6 +3168,7 @@ You can move north, east, south, west, up and down.
 Seeker hums!
 
 >You move east.
+
 The dining room.
 This is a very long room. The smell of freshly-cooked venison fills the air.
 
@@ -3042,6 +3195,7 @@ Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move east.
+
 The kitchen.
 This place is a mess, with rotting foodstuffs, and the ovens and other
 equipment being full of grime and dirt. West leads to the dining room.
@@ -3052,6 +3206,7 @@ You can move south, west and down.
 Seeker hums!
 
 >You move south.
+
 Storage room.
 The room is packed full to the ceiling with crates of rotting foodstuffs.
 There are, however, some small walkways leading you around the crates to the
@@ -3061,6 +3216,7 @@ You can move north, east, south and west.
 Seeker hums!
 
 >You move west.
+
 Servants’ quarters.
 Skeletons of the once-proud servants litter the floor in this room.
 
@@ -3212,6 +3368,7 @@ Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move east.
+
 Storage room.
 The room is packed full to the ceiling with crates of rotting foodstuffs.
 There are, however, some small walkways leading you around the crates to the
@@ -3221,6 +3378,7 @@ You can move north, east, south and west.
 Seeker hums!
 
 >You move north.
+
 The kitchen.
 This place is a mess, with rotting foodstuffs, and the ovens and other
 equipment being full of grime and dirt. West leads to the dining room.
@@ -3231,6 +3389,7 @@ You can move south, west and down.
 Seeker hums!
 
 >You move west.
+
 The dining room.
 This is a very long room. The smell of freshly-cooked venison fills the air.
 
@@ -3240,6 +3399,7 @@ You can move east and west.
 Seeker hums!
 
 >You move west.
+
 The main hall.
 This is a massive hall dominated by four huge stone pillars that reach up to
 the arched ceiling. Decoration in here is sparse apart from a large stone
@@ -3251,6 +3411,7 @@ You can move north, east, south, west, up and down.
 Seeker hums!
 
 >You move down.
+
 Bottom of the main hall stairs.
 This room is filled with torture apparatus. It does not, however, seem to
 have been used for some time. Dark exits lead off to the north and south; the
@@ -3260,6 +3421,7 @@ You can move north, south and up.
 Seeker hums!
 
 >You move south.
+
 The prison.
 This room is filled with barred cells; all are locked. It is very dusty and
 dirty in here.
@@ -3314,6 +3476,7 @@ Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
 damage.
 
 >You move north.
+
 Bottom of the main hall stairs.
 This room is filled with torture apparatus. It does not, however, seem to
 have been used for some time. Dark exits lead off to the north and south; the
@@ -3323,6 +3486,7 @@ You can move north, south and up.
 Seeker hums!
 
 >You move north.
+
 The crypts.
 This huge cavern rests in the very rocks forming the foundations of Castle
 Shadowpeak. Stone coffins and sarcophagi line the walls of this great cavern.
@@ -3359,6 +3523,7 @@ The coffin is empty. You can only wonder where the occupant is now.
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move south.
+
 Bottom of the main hall stairs.
 This room is filled with torture apparatus. It does not, however, seem to
 have been used for some time. Dark exits lead off to the north and south; the
@@ -3368,6 +3533,7 @@ You can move north, south and up.
 Seeker hums!
 
 >You move up.
+
 The main hall.
 This is a massive hall dominated by four huge stone pillars that reach up to
 the arched ceiling. Decoration in here is sparse apart from a large stone
@@ -3387,6 +3553,7 @@ Woody moans and wines about something totally irrelevant, then turns round
 and casually spits on you.
 
 >You move up.
+
 The main hall stairs.
 You stand halfway up the main hall staircase.
 
@@ -3394,6 +3561,7 @@ You can move up and down.
 Seeker hums!
 
 >You move up.
+
 Top of the stairs.
 You stand on the topmost step. There is a door on the north wall; light
 flickers from under it.
@@ -3405,6 +3573,7 @@ Seeker hums!
 You hear Melvin singing. He must be somewhere nearby.
 
 >You move north.
+
 The tower.
 You stand inside the large tower. Exits lead off to the four points of the
 compass. A cool breeze comes from the west.
@@ -3415,6 +3584,7 @@ You can move north, east, south and west.
 Seeker hums!
 
 >You move east.
+
 The magical prison.
 This room feels very cold. There is a very becoming young lady here, who
 stands motionless in the centre of the room. Her golden hair flows down her
@@ -3451,6 +3621,7 @@ Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move west.
+
 The tower.
 You stand inside the large tower. Exits lead off to the four points of the
 compass. A cool breeze comes from the west.
@@ -3461,6 +3632,7 @@ You can move north, east, south and west.
 Seeker hums!
 
 >You move north.
+
 The bottom of the iron steps.
 This room has a set of iron steps spiralling upward.
 
@@ -3468,6 +3640,7 @@ You can move south and up.
 Seeker hums!
 
 >You move up.
+
 Atop of the iron steps.
 The steps end here at a single wooden door on the northern wall.
 
@@ -3486,6 +3659,7 @@ Seeker hums!
 
 >(Your score has increased by 5)
 You move north.
+
 Morac’s laboratory.
 This room is full of laboratory equipment: glassware, bubbling pots, and
 burners, etc.There is a shuttered window on the north wall.
@@ -3516,6 +3690,7 @@ of a huge black dragon.
 Seeker hums!
 
 >You move north.
+
 On the window ledge.
 You hang on the window ledge. Down below, you see the castle’s western
 battlements. Vines grow from below to the height of the window ledge.
@@ -3529,6 +3704,7 @@ Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
 damage.
 
 >You move down.
+
 The battlements.
 You stand on the west wall battlements. They lead up to the main tower of the
 castle, but there is no entrance into the tower from the battlements. Vines
@@ -3539,6 +3715,7 @@ You can move north and up.
 Seeker hums!
 
 >You move north.
+
 Top of the northwest tower.
 Battlements man the top of this tower. From here you can see the ocean
 lapping up against the rocks, as well as the not-so-sleepy Village of
@@ -3559,6 +3736,7 @@ northward to the stone henge.
 Seeker hums!
 
 >You move down.
+
 Northwest tower.
 You enter the northwest tower. It is dark and wet in here. Iron rungs are
 imbedded into the wall here; they lead upwards.
@@ -3567,6 +3745,7 @@ You can move up and southeast.
 Seeker hums!
 
 >You move southeast.
+
 The castle courtyard.
 Covered in moss, the castle courtyard is very slippery after the rain. The
 castle’s front doors lie to the south, while to the northeast and the
@@ -3578,6 +3757,7 @@ You can move north, south, northeast and northwest.
 Seeker hums!
 
 >You move south.
+
 The long hall.
 The hallway stretches southward into darkness. To the east and west are
 darkened rooms; to the north, the front doors.
@@ -3586,6 +3766,7 @@ You can move east, south and west.
 Seeker hums!
 
 >You move south.
+
 The main hall.
 This is a massive hall dominated by four huge stone pillars that reach up to
 the arched ceiling. Decoration in here is sparse apart from a large stone
@@ -3599,6 +3780,7 @@ Berto flies out of the room.
 Seeker hums!
 
 >You move down.
+
 Bottom of the main hall stairs.
 This room is filled with torture apparatus. It does not, however, seem to
 have been used for some time. Dark exits lead off to the north and south; the
@@ -3608,6 +3790,7 @@ You can move north, south and up.
 Seeker hums!
 
 >You move north.
+
 The crypts.
 This huge cavern rests in the very rocks forming the foundations of Castle
 Shadowpeak. Stone coffins and sarcophagi line the walls of this great cavern.
@@ -3620,6 +3803,7 @@ Seeker hums!
 Seeker hums!
 
 >You move north.
+
 The family crypt.
 This crypt has three stone coffins. Two of them are smashed to pieces; only
 one is fully intact.
@@ -3640,6 +3824,7 @@ damage.
 >(Your score has increased by 5)
 You do so, and arrive back at the stone henge. Through the portal you can now
 see the family crypt.
+
 Stonehenge
 You stand in the centre of a Stonehenge-like structure.
 The sky is grey, and no sound of life can be heard in this strange land.
@@ -3660,6 +3845,7 @@ defeated him.
 Seeker hums!
 
 >You move east.
+
 Shadow Forest gap.
 To the east, there is a gap in the forest’s trees.
 
@@ -3668,6 +3854,7 @@ You hear Fetlar’s shrill voice shout out, "Where are you, buddy friend?"
 Seeker hums!
 
 >You move east.
+
 Grassy plains.
 Grassy plains stretch off in all directions, while to the west lies the
 Shadow Forest, and to the south lies a huge chasm. There are some rather
@@ -3677,6 +3864,7 @@ You can move north, east, west and northeast.
 Seeker hums!
 
 >You move northeast.
+
 Grassy plains.
 The plains stretch off in all directions, while eastward is blocked by the
 impassable Kuskarian Range mountains. There are some rather large footprints
@@ -3686,6 +3874,7 @@ You can move north, south, west, southwest and northwest.
 Seeker hums!
 
 >You move north.
+
 Grassy plains.
 The plains stretch off in all directions, while north and east are blocked by
 the impassable Kuskarian Range mountains. However, a cave entrance leads into
@@ -3695,6 +3884,7 @@ You can move east, south, west and southwest.
 Seeker hums!
 
 >You move east.
+
 The giant cave entrance.
 The sunlight streams into the entrance hall of the cave, making visible a
 room further into the east. West leads back out onto the grassy plains.
@@ -3703,6 +3893,7 @@ You can move east and west.
 Seeker hums!
 
 >You move east.
+
 Grumski’s abode.
 Grumski the Giant’s living quarters are exactly what you would expect a
 giant’s abode to look like: giant-sized bed, table, pots, pans, and a huge
@@ -3715,6 +3906,7 @@ You can move east and west.
 Seeker hums!
 
 >You move east.
+
 Passage through mountainside.
 The passageway leads you through the heart of the mountain. West leads back
 to Grumski’s abode, while, east, sunlight can be seen from the far side of
@@ -3751,6 +3943,7 @@ one." With this, Andro steps to one side.
 Seeker hums!
 
 >You move east.
+
 Eastern side of the mountain.
 You stand halfway up the eastern side of the mountainside. West leads back
 into the mountain passage, while east leads down a footpath to the bottom of
@@ -3805,6 +3998,7 @@ Seeker hums!
 Seeker hums!
 
 >You move west.
+
 C13 Passage through mountainside.
 The passageway leads you through the heart of the mountain. West leads back
 to Grumski’s abode, while, east, sunlight can be seen from the far side of
@@ -3817,6 +4011,7 @@ Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move west.
+
 Grumski’s abode.
 Grumski the Giant’s living quarters are exactly what you would expect a
 giant’s abode to look like: giant-sized bed, table, pots, pans, and a huge
@@ -3829,6 +4024,7 @@ You can move east and west.
 Seeker hums!
 
 >You move west.
+
 The giant cave entrance.
 The sunlight streams into the entrance hall of the cave, making visible a
 room further into the east. West leads back out onto the grassy plains.
@@ -3837,6 +4033,7 @@ You can move east and west.
 Seeker hums!
 
 >You move west.
+
 Grassy plains.
 The plains stretch off in all directions, while north and east are blocked by
 the impassable Kuskarian Range mountains. However, a cave entrance leads into
@@ -3849,6 +4046,7 @@ Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move south.
+
 Grassy plains.
 The plains stretch off in all directions, while eastward is blocked by the
 impassable Kuskarian Range mountains. There are some rather large footprints
@@ -3858,6 +4056,7 @@ You can move north, south, west, southwest and northwest.
 Seeker hums!
 
 >You move southwest.
+
 Grassy plains.
 Grassy plains stretch off in all directions, while to the west lies the
 Shadow Forest, and to the south lies a huge chasm. There are some rather
@@ -3867,6 +4066,7 @@ You can move north, east, west and northeast.
 Seeker hums!
 
 >You move west.
+
 Shadow Forest gap.
 To the east, there is a gap in the forest’s trees.
 
@@ -3875,6 +4075,7 @@ You hear Fetlar’s shrill voice shout out, "Where are you, buddy friend?"
 Seeker hums!
 
 >You move west.
+
 Stonehenge
 You stand in the centre of a Stonehenge-like structure.
 The sky is grey, and no sound of life can be heard in this strange land.
@@ -3889,6 +4090,7 @@ You can move north, east, south and west.
 Seeker hums!
 
 >You move west.
+
 Shadow Forest.
 You stand amidst the Shadow Forest.
 
@@ -4016,6 +4218,7 @@ Seeker hums!
 rephrasing your command.
 
 >You move northwest.
+
 Great Swamp.
 You stand in the Great Swamp.
 It is raining...
@@ -4025,6 +4228,7 @@ northwest.
 Seeker hums!
 
 >You move north.
+
 Doors in the mountains.
 You see the great Kuskarian Range mountains blocking your path northward,
 although those huge double doors may be of some use if you would happen to
@@ -4043,6 +4247,7 @@ You hear Fetlar’s shrill voice shout out, "Where are you, buddy friend?"
 Seeker hums!
 
 >You move north.
+
 A long corridor.
 The corridor leads northward into the mountain, and appears to be somehow
 magically lit. There is something about this corridor that makes you feel
@@ -4069,6 +4274,7 @@ by the huge block of stone.
 Seeker hums!
 
 >You move east.
+
 The crossroads.
 You stand in a ten foot by ten foot room with concrete walls and floor.
 Passages lead off to the north, south, east, and west.
@@ -4145,6 +4351,7 @@ Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move north.
+
 The long passage.
 You stand in an extremely long passage some five foot wide, ten feet high,
 and over a two hundred feet long. The walls to the left, right, and slightly
@@ -4164,6 +4371,7 @@ The copper plates stop buzzing.
 Seeker hums!
 
 >You move north.
+
 The long passage, midway.
 You stand at the halfway point in the long passage. There are dozens of slits
 in the walls to the left, right, and slightly forward from where you are
@@ -4181,6 +4389,7 @@ You do so, and strangely feel a bit relieved.
 Seeker hums!
 
 >You move north.
+
 The northern end of the long passage.
 The passage ends here. There are no visible exits.
 
@@ -4214,6 +4423,7 @@ the wind."
 Seeker hums!
 
 >You move up.
+
 Room above the pedestal.
 This room is completely bare. There is a passage leading north, and an
 opening leading down.
@@ -4222,6 +4432,7 @@ You can move north and down.
 Seeker hums!
 
 >You move north.
+
 Multicoloured room.
 You stand at the south end of a fifty-foot by fifty-foot room. The ceiling is
 fifty feet high and has large, sharp, spiky rock formations on it. The floor
@@ -4269,6 +4480,7 @@ Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move north.
+
 Behind the wall of fire.
 It appears that this is another bare room. An exit leads off to the north,
 while another leads south, the way you came.
@@ -4279,6 +4491,7 @@ You can move north and south.
 Seeker hums!
 
 >You move north.
+
 Maze
 You stand in a smooth-walled corridor.
 
@@ -4295,6 +4508,7 @@ Seeker hums!
 All is quiet in here...
 
 >You move east.
+
 Maze.
 You stand in a smooth-walled corridor.
 
@@ -4307,6 +4521,7 @@ Something or someone must have thrown it at you, and by the force it hit you
 with, they must be rather strong indeed.
 
 >You move east.
+
 Maze.
 You stand in a smooth-walled corridor.
 
@@ -4314,6 +4529,7 @@ You can move east and west.
 Seeker hums!
 
 >You move east.
+
 Maze.
 You stand in a smooth-walled corridor.
 
@@ -4326,6 +4542,7 @@ Seeker hums!
 Seeker hums!
 
 >You move west.
+
 Maze.
 You stand in a smooth-walled corridor.
 
@@ -4333,6 +4550,7 @@ You can move east and west.
 Seeker hums!
 
 >You move west.
+
 Maze.
 You stand in a smooth-walled corridor.
 
@@ -4343,6 +4561,7 @@ You can move north, east and west.
 Seeker hums!
 
 >You move west.
+
 Maze
 You stand in a smooth-walled corridor.
 
@@ -4350,6 +4569,7 @@ You can move east and west.
 Seeker hums!
 
 >You move west.
+
 Maze.
 You stand in a smooth-walled corridor.
 
@@ -4357,6 +4577,7 @@ You can move north, east and west.
 Seeker hums!
 
 >You move west.
+
 Maze.
 You stand in a smooth-walled corridor.
 
@@ -4364,6 +4585,7 @@ You can move east, south and west.
 Seeker hums!
 
 >You move west.
+
 Maze.
 You stand in a smooth-walled corridor.
 
@@ -4378,6 +4600,7 @@ Gargoyle #1 flies in.
 Seeker hums!
 
 >You move north.
+
 Maze.
 You stand in a smooth-walled corridor.
 
@@ -4385,6 +4608,7 @@ You can move north and south.
 Seeker hums!
 
 >You move north.
+
 Maze.
 You stand in a smooth-walled corridor.
 
@@ -4392,6 +4616,7 @@ You can move north and south.
 Seeker hums!
 
 >You move north.
+
 Maze.
 You stand in a smooth-walled corridor.
 
@@ -4399,6 +4624,7 @@ You can move north, east, south and west.
 Seeker hums!
 
 >You move north.
+
 Maze.
 You stand in a smooth-walled corridor.
 
@@ -4406,6 +4632,7 @@ You can move north and south.
 Seeker hums!
 
 >You move north.
+
 Maze.
 You stand in a smooth-walled corridor.
 
@@ -4413,6 +4640,7 @@ You can move north and south.
 Seeker hums!
 
 >You move north.
+
 Maze.
 You stand in a smooth-walled corridor.
 
@@ -4425,6 +4653,7 @@ Seeker hums!
 Seeker hums!
 
 >You move east.
+
 Maze
 You stand in a smooth-walled corridor.
 
@@ -4432,6 +4661,7 @@ You can move east and west.
 Seeker hums!
 
 >You move east.
+
 Maze.
 You stand in a smooth-walled corridor.
 
@@ -4439,6 +4669,7 @@ You can move east, south and west.
 Seeker hums!
 
 >You move east.
+
 Maze.
 You stand in a smooth-walled corridor.
 
@@ -4449,6 +4680,7 @@ Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move east.
+
 Maze.
 You stand in a smooth-walled corridor.
 
@@ -4456,6 +4688,7 @@ You can move east and west.
 Seeker hums!
 
 >You move east.
+
 Maze.
 You stand in a smooth-walled corridor.
 
@@ -4463,6 +4696,7 @@ You can move east, south and west.
 Seeker hums!
 
 >You move east.
+
 Maze.
 You stand in a smooth-walled corridor.
 
@@ -4472,6 +4706,7 @@ You can move south and west.
 Seeker hums!
 
 >You move south.
+
 Maze.
 You stand in a smooth-walled corridor.
 Chin on legs is here.
@@ -4482,6 +4717,7 @@ Chin scuttles to the north.
 Seeker hums!
 
 >You move south.
+
 Maze.
 You stand in a smooth-walled corridor.
 
@@ -4489,6 +4725,7 @@ You can move north and south.
 Seeker hums!
 
 >You move south.
+
 Maze.
 You stand in a smooth-walled corridor.
 Damastus, the minotaur, is here!
@@ -4499,6 +4736,7 @@ Damastus lumbers off to the north.
 Seeker hums!
 
 >You move north.
+
 Maze.
 You stand in a smooth-walled corridor.
 Damastus, the minotaur, is here!
@@ -4514,6 +4752,7 @@ Damastus lumbers off to the north.
 Seeker hums!
 
 >You move north.
+
 Maze.
 You stand in a smooth-walled corridor.
 Damastus, the minotaur, is here!  Chin on legs is here.
@@ -4531,6 +4770,7 @@ Damastus lumbers off to the north.
 Seeker hums!
 
 >You move north.
+
 Maze.
 You stand in a smooth-walled corridor.
 
@@ -4551,6 +4791,7 @@ Chin scuttles from the south.
 Seeker hums!
 
 >You move south.
+
 Maze.
 You stand in a smooth-walled corridor.
 Gargoyle #1 is here.
@@ -4569,6 +4810,7 @@ Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
 damage.
 
 >You move north.
+
 Maze.
 You stand in a smooth-walled corridor.
 
@@ -4594,6 +4836,7 @@ Click! You do so.
 Seeker hums!
 
 >You move west.
+
 Maze.
 You stand in a smooth-walled corridor.
 
@@ -4601,6 +4844,7 @@ You can move east, south and west.
 Seeker hums!
 
 >You move west.
+
 Maze.
 You stand in a smooth-walled corridor.
 
@@ -4608,6 +4852,7 @@ You can move east and west.
 Seeker hums!
 
 >You move west.
+
 Maze.
 You stand in a smooth-walled corridor.
 
@@ -4618,6 +4863,7 @@ Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move south.
+
 Minotaur’s lair.
 This room stinks of bovine excretion. Some spiral stairs lead upwards.
 
@@ -4633,6 +4879,7 @@ Seeker hums!
 Seeker hums!
 
 >You move up.
+
 The spiral stairs.
 The spiral stairs seem endless, although sunlight can be seen above.
 
@@ -4642,6 +4889,7 @@ You are feeling very tired, indeed, and realise you should find somewhere to
 sleep!
 
 >You move up.
+
 Atop a mountain.
 You stand atop the Kuskarian Range mountains. The freezing wind wraps itself
 around you. You cannot really make anything of the view, as a heavy mist has
@@ -4657,6 +4905,7 @@ cloud. The cloud gently floats you back down to ground level.
 Seeker hums!
 
 >You move south.
+
 Great Swamp.
 You stand in the Great Swamp.
 It is raining...
@@ -4666,6 +4915,7 @@ northwest.
 Seeker hums!
 
 >You move southeast.
+
 Shadow Forest.
 You stand amidst the Shadow Forest.
 
@@ -4673,6 +4923,7 @@ You can move north, east, south, west, southwest and northwest.
 Seeker hums!
 
 >You move east.
+
 Stonehenge
 You stand in the centre of a Stonehenge-like structure.
 The sky is grey, and no sound of life can be heard in this strange land.
@@ -4717,6 +4968,7 @@ The laughter trails off to nothing. You have no idea where the voice could
 have come from, and you feel very alone.
 
 >You move south.
+
 The River Styx.
 A river of lava cuts across the foul earth here.
 
@@ -4761,6 +5013,7 @@ Wandering around the bottom of the pillar are thousands of lost souls.
 Seeker hums!
 
 >You move up.
+
 Atop the pillar of debris.
 
 Also here is black key.
@@ -4775,6 +5028,7 @@ Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 >You move down.
+
 Garden of Lost Souls.
 Here gravestones are piled on top of one another. Shattered and broken, they
 form a pillar of debris in the centre of this stone garden. The garden itself
@@ -4792,6 +5046,7 @@ Seeker hums!
 Charon, the ferryman, takes you back across the River Styx.
 
 >You move north.
+
 The gate of Hades.
 The landscape here is scorched and black. Flames shoot up out of the foul
 earth, and all is lit by a deep red sky. To the east and west, the land
@@ -4810,6 +5065,7 @@ Seeker hums!
 Seeker hums!
 
 >You move north.
+
 Tunnel of the underdark.
 This tunnel travels from north to south. The heat here is tremendous, as
 fumes rise from cracks on the cavernous walls.
@@ -4864,6 +5120,7 @@ rephrasing your command.
 rephrasing your command.
 
 >You move north.
+
 Demon pit.
 This place is a massive cavern. Firelight flashes on the walls, making
 shadows dance back and forth. Here demons play in huge craters of molten
@@ -4876,6 +5133,7 @@ Seeker hums!
 Seeker Hums!
 
 >You move north.
+
 North of the demon pit.
 The tunnel carries on from north to south. The heat here is still very hot.
 Every now and then, steam gushes out from cracks on the cavernous walls.
@@ -4890,6 +5148,7 @@ beyond!
 Seeker hums!
 
 >You move north.
+
 Throne room of Asmodeus.
 This room is huge; some two hundred feet long and half as wide. Benches and
 cages line the side walls, while a large red carpet leads up the centre of

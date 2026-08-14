@@ -146,6 +146,7 @@ into the two and a half legged chair and - amazingly - it stops. The metal
 door struggles against the chair, but it quickly becomes apparent that the
 chair will not break. The metal door whines softly and gives up. It stays
 there, wedged between the chair and the ceiling.
+
 Luxurious 3 Star Cabin
 The room is lit by the glow of an unadorned, low-watt lightbulb. Wooden
 floorboards poke through the threadbare carpet, and the ramshackle furniture
@@ -169,6 +170,7 @@ The smoke drifts away and the smoke detector stops beeping.
 around you. At the far end is a large elevator, just the thing you need to
 take you up to the evacuation deck. You push your way forward, forcing
 yourself into the packed lift. The doors ease closed behind you.
+
 Elevator
 The lift is a silver box so shiny that you can't look anywhere without
 catching sight of your face. This has the curious effect of making everyone
@@ -290,6 +292,7 @@ horizontal to the lift.
 goes up as far as the eye can see. A dark ventilation shaft is directly
 horizontal to the lift top and, in the absence of a better plan, you squeeze
 into it.
+
 Ventilation Shaft
 The ventilation shaft is a narrow and claustrophobic strip of tunnel running
 north-south. It's too small to turn around in, so you can only move forward,
@@ -341,6 +344,7 @@ ruler is inside the toolbox.
 >You squeeze your way down the tunnel, wiggling an inch at a time, the grease
 of the margerine easing your passage. With an audible 'Pop,' you burst
 through the metal grill and fall out into a large, open room.
+
 Luxury Dining Area
 The brochure suggested deep carpets, silver service and a huge tropical fish
 tank down one wall. In fact, the dining area resembles an enormous school
@@ -367,6 +371,7 @@ arm, whistling nonchantly.
 
 >You walk from the Luxury Dining Area over to the impressive looking Gift
 Shop.
+
 Gift Shop
 The gift shop is very plush, easily the best decorated part of the Cittian
 you have seen so far. Not that this says very much. The shop is filled with
@@ -407,6 +412,7 @@ too wealthy, to pick it up, they leave it where it lies.
 The maid notices something trapped within the vacuum.
 
 >You leave the Gift Shop and return to the Luxury Dining Area.
+
 Luxury Dining Area
 The brochure suggested deep carpets, silver service and a huge tropical fish
 tank down one wall. In fact, the dining area resembles an enormous school
@@ -422,6 +428,7 @@ beside her.
 
 >You hurry up more flights of stairs than you care to count, coming out,
 panting and sweating, at the evacuation deck.
+
 Escape Bay
 The evacuation deck is a gentle hive of activity. As the ships shakes and
 rumbles, an orderly queue of people are waiting very patiently, and very
@@ -471,6 +478,7 @@ weekly is inside the dark suitcase.  A collapsible wooden ruler is inside the
 toolbox.
 
 >You hurry back down the stairs.
+
 Luxury Dining Area
 The brochure suggested deep carpets, silver service and a huge tropical fish
 tank down one wall. In fact, the dining area resembles an enormous school
@@ -498,6 +506,7 @@ serving in the dining room.
 
 >You hurry up more flights of stairs than you care to count, coming out,
 panting and sweating, at the evacuation deck.
+
 Escape Bay
 The evacuation deck is a gentle hive of activity. As the ships shakes and
 rumbles, an orderly queue of people are waiting very patiently, and very
@@ -579,6 +588,7 @@ Press any key to continue
 
 Feeling hungry you pop the prawn sandwiches into your mouth and munch happily
 until they are gone.
+
 Valley
 You are stood in what was once a lush, pink valley.
 The key words there are was and pink. Wherever you are, it isn't Earth.
@@ -617,6 +627,7 @@ Now you just have to work out how to get off this strange new planet, and
 back to Earth.
 
 >You carefully step into the ruins of the alien cottage.
+
 Alien Cottage
 You stand in the ruins of the alien cottage. Most of the building is rubble
 and dirt, but a table is still standing in the centre of the room. The table
@@ -630,6 +641,7 @@ buried somewhere beneath.  A purple disc is on shrivelled black hand.
 >You take the purple disc from shrivelled black hand.
 
 >You step out of the ruined cottage.
+
 Valley
 You are stood in what was once a lush, pink valley.
 The key words there are was and pink. Wherever you are, it isn't Earth.
@@ -661,6 +673,7 @@ Also here is a broken, empty oxygen tank.
 
 >You step gingerly into the mouth of the cave. After a few moments of
 darkness, you find yourself in a brightly lit room.
+
 Hangar
 The launch area is a wide hangar, seemingly chiselled out of hills in the
 manner of  Bond villain hideout. The hangar is deserted, and almost empty.
@@ -674,11 +687,13 @@ the whole room. The valley lies back to the west.
 dull 'whoosh' and the door rises.
 
 >You walk up the ramp and enter the space-ship.
+
 Alien Spaceship
 The room is dark, and you can make out nothing but a light switch. You can
 feel the fear building in the pit of your stomach.
 
 >The reaction is instantaneous, the room is bright.
+
 Alien Spaceship
 You are stood on the alien space-ship's bridge. It is a large and open space,
 lined with banks of computers and strange, alien devices. A shiny, mirrored

@@ -208,6 +208,7 @@ lounge, where Tim is, east would take me to the workstations, where Calvin
 is, and north would take me to the rest of the space station.
 
 >I move north.
+
 Corridor
 This corridor doesn't look much more impressive than the entrance lobby. In
 fact the only thing of any interest is Tim, standing against one of the
@@ -219,6 +220,7 @@ he'll be, and due north is the computer room. South takes me back to the
 entrance lobby.
 
 >I move west.
+
 Captain's room
 If it wasn't for the trauma surrounding this room, and the smell of corpse
 inhabiting it, I'd have first noticed how the Captain's room is so luxurious.
@@ -243,6 +245,7 @@ although I don't think I'll talk to him about it yet. I think V was lying to
 me. I don't know how or why, but I'm sure she was."
 
 >I move east.
+
 Corridor
 This corridor doesn't look much more impressive than the entrance lobby. In
 fact the only thing of any interest is Tim, standing against one of the
@@ -254,6 +257,7 @@ he'll be, and due north is the computer room. South takes me back to the
 entrance lobby.
 
 >I move south.
+
 Entrance Lobby
 I'm standing in the entrance lobby. It's metallic and fairly bare. I guess on
 a lonely research space station the entrance lobby is used for little more
@@ -263,6 +267,7 @@ lounge, where Tim is, east would take me to the workstations, where Calvin
 is, and north would take me to the rest of the space station.
 
 >I move east.
+
 Workstations
 The workstations are five computers in a small room. It's safe to assume
 they're all networked together, and are used for the crew's work. This seems
@@ -280,6 +285,7 @@ Maybe I should find out something about this space station? I might find out
 how they got here in the first place.
 
 >I move west.
+
 Entrance Lobby
 I'm standing in the entrance lobby. It's metallic and fairly bare. I guess on
 a lonely research space station the entrance lobby is used for little more
@@ -289,6 +295,7 @@ lounge, where Tim is, east would take me to the workstations, where Calvin
 is, and north would take me to the rest of the space station.
 
 >I move west.
+
 Lounge
 This seems to be the lounge. I guess even scientists need to relax away from
 the computers sometime. What really surprises me is the amount of
@@ -321,6 +328,7 @@ will know about it."
 staring past me. Poor guy.
 
 >I move east.
+
 Entrance Lobby
 I'm standing in the entrance lobby. It's metallic and fairly bare. I guess on
 a lonely research space station the entrance lobby is used for little more
@@ -330,6 +338,7 @@ lounge, where Tim is, east would take me to the workstations, where Calvin
 is, and north would take me to the rest of the space station.
 
 >I move north.
+
 Corridor
 This corridor doesn't look much more impressive than the entrance lobby. In
 fact the only thing of any interest is Tim, standing against one of the
@@ -341,6 +350,7 @@ he'll be, and due north is the computer room. South takes me back to the
 entrance lobby.
 
 >I move north.
+
 Computer room
 The computer room is something to behold. There are only two things in the
 room. A stool, and the computer. the computer is an enormous metallic
@@ -373,6 +383,7 @@ I think I can interact with V just like I used to, by asking her questions.
 But I think she might be a little more helpful now. As well as asking her
 about her opinion on the corrupt data, I should try asking her things again
 to see what she'll tell me now.
+
 Computer room
 The computer room is something to behold. There are only two things in the
 room. A stool, and V. V is an enormous metallic machine, that curves in a
@@ -383,6 +394,7 @@ is on, and the letters on the screen read:
 To the south is the corridor I came from.
 
 >I move south.
+
 Corridor
 This corridor doesn't look much more impressive than the entrance lobby. In
 fact the only thing of any interest is Tim, standing against one of the
@@ -394,6 +406,7 @@ he'll be, and due north is the computer room. South takes me back to the
 entrance lobby.
 
 >I move east.
+
 William's room
 William's room is surprisingly luxurious, but then these are top class
 scientists. There's a large bed, a fur rug, a bookcase full of books, a TV, a
@@ -469,6 +482,7 @@ now and then he looks up, presumably to see if I'm still there.
 To the west is the corridor I came from.
 
 >I move west.
+
 Corridor
 This corridor doesn't look much more impressive than the entrance lobby. In
 fact the only thing of any interest is Tim, standing against one of the
@@ -480,6 +494,7 @@ he'll be, and due north is the computer room. South takes me back to the
 entrance lobby.
 
 >I move north.
+
 Computer room
 The computer room is something to behold. There are only two things in the
 room. A stool, and V. V is an enormous metallic machine, that curves in a

@@ -87,12 +87,14 @@ path which runs north but also branches east.  Walls of rank vegetation press
 in all around.
 
 >You move east.
+
 A narrowing forest path
 A dead end, abrupt as the end of an alleyway. The forest seems to tighten
 around you here.  The path only runs west. But there is also, to the south, a
 slight gap in the thick bushes, maybe an animal track.
 
 >You move south.
+
 Animal Track
 This is surely an animal track rather than a path. You can barely squeeze
 between the gnarled and twisted laurel on both sides. Branches close over
@@ -101,6 +103,7 @@ by a rabbit. The path runs north and south. Also, there is an opening to the
 east.
 
 >You move east.
+
 A cliff
 The path here runs north. To the south vegetation blocks any progress. A
 small opening, perhaps an animal track leads to the west. To the east is a
@@ -109,6 +112,7 @@ be able to step down and into the shadowy space underneath. You can also make
 out some indentations in the cliff face.
 
 >You move down.
+
 The cave
 The overhanging rock forms a sort of small cave, the opening a few steps up.
 Against the dripping back wall lies a skeleton.
@@ -124,6 +128,7 @@ You take the sword.  Although it is large and appears to be forged of bronze,
 it is oddly light.
 
 >You move up.
+
 A cliff
 The path here runs north. To the south vegetation blocks any progress. A
 small opening, perhaps an animal track leads to the west. To the east is a
@@ -132,17 +137,20 @@ be able to step down and into the shadowy space underneath. You can also make
 out some indentations in the cliff face.
 
 >You move north.
+
 Path along the cliff
 The path continues north and south along the base of the cliff which here is
 sheer and unclimbable. The vegetation along the path is impassable.
 
 >You move north.
+
 Path Through the Swamp
 Here the north/south path runs through what looks to be the end of a swamp. A
 few tall cattails sway in some unfelt breeze. There is also a path running
 east and west.
 
 >You move west.
+
 Copse
 Here the trees have formed a copse littered with rotting, fallen trunks. A
 huge boulder sits in the center of the  clearing. The boulder, surrounded by
@@ -156,6 +164,7 @@ interest.  What does interest you is the leather  pouch you see lying there.
 You take the leather pouch.
 
 >You move west.
+
 A widening forest path
 The path widens in this direction. Although it is dark, you think you can
 make out, to the north, an opening, where the impenetrable black of the
@@ -163,12 +172,14 @@ surrounding trees and bushes gives way to the lighter darkness  of the night
 sky. There also is an opening in the bushes to the east.
 
 >You move north.
+
 The Highway
 A wide highway paved with massive concrete slabs runs east and  west.
 Although, here and there, great trees lean out over the thoroughfare,  the
 forest has made no inroads. There is a path leading south.
 
 >You move east.
+
 The highway
 Here the highway is blocked by a towering pile of deadfall which appears at
 first glance to be impassable. The side of the roadway is littered with
@@ -184,6 +195,7 @@ opening.
 
 >You squeeze yourself down into the opening and manage to crawl through a
 tight, narrow burrow.
+
 Under the deadfall
 You are in a cramped hollow space  walled by tree trunks, sticks and other
 forest debris. A dark patch of shadow to the south might indicate an opening.
@@ -204,6 +216,7 @@ Carefully you put the dead snake into the pouch.
 
 >You crawl through the narrow opening and move further into the massive pile
 of deadfall.
+
 The lair
 This must be the lair of some carnivore. It is practically filled with a
 ghastly heap of remains. The sort of  debris left by a cave weasel -- or
@@ -222,24 +235,28 @@ Maybe it  found the gold thread unpalatable.
 worked letters: YAH. Perhaps the owner's initials.
 
 >You move north.
+
 Under the deadfall
 You are in a cramped hollow space  walled by tree trunks, sticks and other
 forest debris. A dark patch of shadow to the south might indicate an opening.
 You can also go back to the west.
 
 >You move up.
+
 The highway
 Here the highway is blocked by a towering pile of deadfall which appears at
 first glance to be impassable. The side of the roadway is littered with
 rubble.
 
 >You move west.
+
 The Highway
 A wide highway paved with massive concrete slabs runs east and  west.
 Although, here and there, great trees lean out over the thoroughfare,  the
 forest has made no inroads. There is a path leading south.
 
 >You move south.
+
 A widening forest path
 The path widens in this direction. Although it is dark, you think you can
 make out, to the north, an opening, where the impenetrable black of the
@@ -247,6 +264,7 @@ surrounding trees and bushes gives way to the lighter darkness  of the night
 sky. There also is an opening in the bushes to the east.
 
 >You move east.
+
 Copse
 Here the trees have formed a copse littered with rotting, fallen trunks. A
 huge boulder sits in the center of the  clearing. The boulder, surrounded by
@@ -254,12 +272,14 @@ weeds and green with moss, is twice your height. There seem to be openings to
 the east and west.
 
 >You move east.
+
 Path Through the Swamp
 Here the north/south path runs through what looks to be the end of a swamp. A
 few tall cattails sway in some unfelt breeze. There is also a path running
 east and west.
 
 >You move north.
+
 The Highway
 The broad highway built of concrete slabs runs east and west, glimmering
 white, like a frozen stream, in the darkness.  To the west it is blocked by
@@ -279,6 +299,7 @@ the faint cry of a cicada. "Fool! Go back!" it seems to be saying. Surely you
 must be imagining things.
 
 >You move east.
+
 The Gate
 The highway ends before an immense, masonry wall.   Set into the wall is an
 equally enormous metal door which is closed.
@@ -311,6 +332,7 @@ sounds rather like a wasp-sized  Malevol.
 
 >(Your score has increased by 15)
 You stride through the open gateway.
+
 Deserted Square
 Once this may have been a great  plaza,  its size and magnificence humbling
 those strangers who entered Xycanthus. Now there remain only bare cobbles.
@@ -333,6 +355,7 @@ world, only recently risen, appear from behind a tattered veil of clouds.
 >There is no watcher here.
 
 >You move north.
+
 Colonnaded Thoroughfare
 The remains of a colonnaded thoroughfare, twice as wide as the Avenue of the
 Eternal Sun in Heliopoli. Now most of the bordering columns have fallen and
@@ -343,6 +366,7 @@ ruined structure.
 You can also see a marble bust.
 
 >You move north.
+
 Ruined Villa
 Here the remains of a villa, little more than foundations, are laid out like
 a diagram on the ground. There is the outline of the dining hall, the
@@ -354,6 +378,7 @@ You can also see a paperweight.
 >You take the paperweight.
 
 >You move east.
+
 Gardens
 This place was once an elaborate, decorative garden.  Now the grass grows
 wild, the ornamental bushes have degenerated into stunted, twisted shapes.
@@ -394,6 +419,7 @@ So that is where Malevol sent her. Far from Heliopoli. She  must have given
 you the spell so you would be able to find her.
 
 >You move south.
+
 Temple Courtyard
 This courtyard must have been colonnaded once, but now only a few stumps of
 columns remain around its edge. The surface is an unbroken sheet of what
@@ -411,6 +437,7 @@ door in the corpulent stone belly of the thing.
 >You unlock the temple door.
 
 >You move east.
+
 Temple of the Toad God
 The interior of the temple is suffused with a watery green effulgence which
 seems to emanate from the intricately carved walls. The floor is bare
@@ -433,12 +460,14 @@ and one by one the toads shrivel and implode in tiny puffs of glittering dust
 leaving behind no trace.
 
 >You move east.
+
 The Onyx Stairs
 This immense staircase of black and gray striped onyx leads down into a kind
 of crater from the center of which rises a gargantuan dome. The stairs also
 go east  to the temple.
 
 >You move down.
+
 A Desolate Crater
 A crater, an expanse of blasted, barren earth in which not even a hardy weed
 has chosen to grow. The ground begins to rise near the edge of the crater,
@@ -449,12 +478,14 @@ rim of the crater.  None can match the massive, domed edifice at the center.
 You can go up the stairs or move east or south, around the dome.
 
 >You move east.
+
 A Desolate Crater
 The crater looks to be entirely empty, save for the towering dome in the
 middle. The packed earth is devoid even of dust. You can go south or west
 around the dome in the center of the crater.
 
 >You move south.
+
 A Desolate Crater
 In this dead crater, starkly lit by the light of the moons, there is nothing
 but packed earth, hard and unyielding as pavement. The great dome rises from
@@ -469,6 +500,7 @@ embedded in your hand. The eye is blinking rapidly. Is is possible for a
 disembodied eye to look wide with terror?
 
 >You move up.
+
 A cavern
 This is a sort of cavity in what appears to be plain rock, more like a
 natural cave than a room one would expect to find within a manmade structure.
@@ -480,24 +512,28 @@ south and east as well as the exit leading down.
 iron key and the paperweight.
 
 >You move east.
+
 Dim Passageway
 A wide, tubular passageway. Here and there some kind of nacreous mineral,
 half embedded in the curving walls,  glimmers dimly. In one spot there
 appears to be  scratchings on the wall. Exits lie to the north and west.
 
 >You move north.
+
 Dim Passageway
 You can barely see in the dim light but you sense a pulsation, like a
 heartbeat, coming from. . .where? The walls? The passageway ahead? The exits
 are south and west.
 
 >You move west.
+
 Dim Passageway
 There is nothing to see in the gloom but the rough conglomerate of the walls.
 However, clearly, the pulsating thump filling the air comes from the opening
 to the north. There is also an exit to the east.
 
 >You move north.
+
 A Grotto
 This grotto looks no less natural than the cave which lies beyond the
 passageway to the south but unlike the cave it is filled with a lambent light
@@ -550,6 +586,7 @@ You are drowning in an inky darkness. The exits to the north and west are
 more recalled than seen.
 
 >Your legs are weak but you seem to have outrun the horror.
+
 Cavern
 The cavern leading out of the great dome has been transformed. In addition to
 the exit to the east, half the floor has fallen away taking whatever might

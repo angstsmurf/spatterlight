@@ -204,6 +204,7 @@ thunderous explosion is triggered inside the cottage.
 >You pick up the metal bar.
 
 >
+
 Hallway
 A short hallway lies before you, the walls decorated with portraits of the
 lady of the house. The carpet underfoot has an unpleasant feel to it, as
@@ -258,6 +259,7 @@ mouth would be a good idea.
 creaking sound from the room off to the west.
 
 >
+
 Mrs Moog's Study
 A desk of vast proportions occupies just about the entirety of this otherwise
 smallish room, its edges actually bending the wall in places and the floor
@@ -346,6 +348,7 @@ Lying on the floor is a shield.
 >You pick up the shield.
 
 >
+
 Hallway
 A short hallway lies before you, the walls decorated with portraits of the
 lady of the house. The carpet underfoot has an unpleasant feel to it, as
@@ -378,6 +381,7 @@ if by coincidence, a sudden breeze blows and lifts free the note, blowing it
 out of the cottage via the still open front door.
 
 >
+
 Gymnasium
 You've never heard of a cottage with a gymnasium before but apparently Mrs
 Moog likes to be different. And she's certainly gone for a 'different' look
@@ -475,6 +479,7 @@ cottage and then, upstairs, a door opening.
 bob a little but otherwise remain where they were before.
 
 >
+
 Hallway
 A short hallway lies before you, the walls decorated with portraits of the
 lady of the house. The carpet underfoot has an unpleasant feel to it, as
@@ -485,6 +490,7 @@ shattered fragments at your feet. At your back (to the south) is the front
 door via which you entered the cottage.
 
 >
+
 Mrs Moog's Study
 A desk of vast proportions occupies just about the entirety of this otherwise
 smallish room, its edges actually bending the wall in places and the floor
@@ -504,6 +510,7 @@ gold hand in a cavity in the wall of her study, but in the house of Mrs Moog
 it seems that pretty much anything goes.
 
 >
+
 Hallway
 A short hallway lies before you, the walls decorated with portraits of the
 lady of the house. The carpet underfoot has an unpleasant feel to it, as
@@ -514,6 +521,7 @@ shattered fragments at your feet. At your back (to the south) is the front
 door via which you entered the cottage.
 
 >
+
 Gymnasium
 You've never heard of a cottage with a gymnasium before but apparently Mrs
 Moog likes to be different. And she's certainly gone for a 'different' look
@@ -555,6 +563,7 @@ two is now severed.
 >You push the door open all the way, revealing the tech room beyond.
 
 >
+
 Tech Room
 From the brand new top of the range computer nestling on a gleaming desk in
 the centre in the room, to the row of servers lining the walls, it seems
@@ -676,6 +685,7 @@ present correct and…
 just heading to the study and opening the secret passage.
 
 >
+
 Gymnasium
 You've never heard of a cottage with a gymnasium before but apparently Mrs
 Moog likes to be different. And she's certainly gone for a 'different' look
@@ -691,6 +701,7 @@ the east marked "tech room".
 You see some charred material.
 
 >
+
 Kitchen
 Mrs Moog's kitchen seems a bizarre mishmash of the ultra modern and the ultra
 ancient. There's a brand new pressure cooker here, the type of thing that can
@@ -828,6 +839,7 @@ the cooker.
 cob, the devil statue and the garlic.
 
 >
+
 Gymnasium
 You've never heard of a cottage with a gymnasium before but apparently Mrs
 Moog likes to be different. And she's certainly gone for a 'different' look
@@ -843,6 +855,7 @@ the east marked "tech room".
 You see some charred material.
 
 >
+
 Hallway
 A short hallway lies before you, the walls decorated with portraits of the
 lady of the house. The carpet underfoot has an unpleasant feel to it, as
@@ -1010,6 +1023,7 @@ far wall has opened, revealing a small cavity.
 a previously hidden passage to the west.
 
 >
+
 Hallway
 A short hallway lies before you, the walls decorated with portraits of the
 lady of the house. The carpet underfoot has an unpleasant feel to it, as
@@ -1047,6 +1061,7 @@ the right size.
 >You put on the gloves.
 
 >
+
 Hallway
 A short hallway lies before you, the walls decorated with portraits of the
 lady of the house. The carpet underfoot has an unpleasant feel to it, as
@@ -1058,6 +1073,7 @@ door via which you entered the cottage. There is a gaping hole in the floor,
 leading down to the cottage's cellar.
 
 >
+
 Gymnasium
 You've never heard of a cottage with a gymnasium before but apparently Mrs
 Moog likes to be different. And she's certainly gone for a 'different' look
@@ -1073,6 +1089,7 @@ the east marked "tech room".
 You see some charred material.
 
 >
+
 Kitchen
 Mrs Moog's kitchen seems a bizarre mishmash of the ultra modern and the ultra
 ancient. There's a brand new pressure cooker here, the type of thing that can
@@ -1085,6 +1102,7 @@ light comes from the glowing fridge.
 lead up to the cottage's second floor.
 
 >
+
 Upstairs Landing
 After everything else you have seen in Mrs Moog's cottage, you might have
 expected the upstairs landing to be a strange and unusual one, but instead it
@@ -1118,6 +1136,7 @@ fragile thing (the dart that is, not the railing) and you quickly crush it to
 dust, disposing of it.
 
 >
+
 Bedroom
 Mrs Moog's bedroom appears every bit as eccentric as most of the rooms in her
 cottage. The bed, for instance, is actually on the ceiling and looks to have
@@ -1206,6 +1225,7 @@ been the sort of fellow who likes to see good money just lying around in
 electrified pools.
 
 >
+
 Upstairs Landing
 After everything else you have seen in Mrs Moog's cottage, you might have
 expected the upstairs landing to be a strange and unusual one, but instead it
@@ -1217,6 +1237,7 @@ the walls and floor look normal.
 west.
 
 >
+
 Corridor
 The angles of this corridor are strange and bewildering, making it appear
 that the area at the top of the stairs is several hundred metres away to the
@@ -1228,6 +1249,7 @@ follow you around the corridor although you're sure this is just a flaw in
 the picture.
 
 >
+
 Guest Room
 This room, generally reserved for any guests Mrs Moog has staying with her,
 is long and narrow with a window at the far southern end overlooking the
@@ -1272,6 +1294,7 @@ and wondering just what happened.
 that happen in dreams that don't actually mean a thing?
 
 >
+
 Corridor
 The angles of this corridor are strange and bewildering, making it appear
 that the area at the top of the stairs is several hundred metres away to the
@@ -1318,6 +1341,7 @@ portrait, slides to one side. A previously concealed passage is revealed
 beyond.
 
 >
+
 Bathroom
 You might have expected Mrs Moog's bathroom to display the same kind of
 bizarre eccentricity as the rest of her cottage, but instead it seems
@@ -1392,6 +1416,7 @@ peeking out from behind some [unmentionables]. You hesitate for a second then
 quickly snatch it out before quickly closing the basket once more.
 
 >
+
 Corridor
 The previous strange appearance of the corridor seems to have been fixed by
 you wearing Mrs Moog’s glasses. The top of the stairs is the normal distance
@@ -1401,6 +1426,7 @@ the wall to your left while to the west is a passage, previously concealed
 behind a portrait of Mrs Moog.
 
 >
+
 Upstairs Landing
 After everything else you have seen in Mrs Moog's cottage, you might have
 expected the upstairs landing to be a strange and unusual one, but instead it
@@ -1412,6 +1438,7 @@ the walls and floor look normal.
 west.
 
 >
+
 Kitchen
 Mrs Moog's kitchen seems a bizarre mishmash of the ultra modern and the ultra
 ancient. There's a brand new pressure cooker here, the type of thing that can
@@ -1424,6 +1451,7 @@ light comes from the glowing fridge.
 lead up to the cottage's second floor.
 
 >
+
 Gymnasium
 You've never heard of a cottage with a gymnasium before but apparently Mrs
 Moog likes to be different. And she's certainly gone for a 'different' look
@@ -1439,6 +1467,7 @@ the east marked "tech room".
 You see some charred material.
 
 >
+
 Tech Room
 From the brand new top of the range computer nestling on a gleaming desk in
 the centre in the room, to the row of servers lining the walls, it seems
@@ -1488,6 +1517,7 @@ of the game's writer appears on screen.
 He fades away.
 
 >
+
 Gymnasium
 You've never heard of a cottage with a gymnasium before but apparently Mrs
 Moog likes to be different. And she's certainly gone for a 'different' look
@@ -1503,6 +1533,7 @@ the east marked "tech room".
 You see some charred material.
 
 >
+
 Hallway
 A short hallway lies before you, the walls decorated with portraits of the
 lady of the house. The carpet underfoot has an unpleasant feel to it, as
@@ -1692,6 +1723,7 @@ door via which you entered the cottage. There is a gaping hole in the floor,
 leading down to the cottage's cellar.
 
 >
+
 Gymnasium
 You've never heard of a cottage with a gymnasium before but apparently Mrs
 Moog likes to be different. And she's certainly gone for a 'different' look
@@ -1707,6 +1739,7 @@ the east marked "tech room".
 You see some charred material.
 
 >
+
 Kitchen
 Mrs Moog's kitchen seems a bizarre mishmash of the ultra modern and the ultra
 ancient. There's a brand new pressure cooker here, the type of thing that can
@@ -1719,6 +1752,7 @@ light comes from the glowing fridge.
 lead up to the cottage's second floor.
 
 >
+
 Upstairs Landing
 After everything else you have seen in Mrs Moog's cottage, you might have
 expected the upstairs landing to be a strange and unusual one, but instead it
@@ -1730,6 +1764,7 @@ the walls and floor look normal.
 west.
 
 >
+
 Corridor
 The previous strange appearance of the corridor seems to have been fixed by
 you wearing Mrs Moog’s glasses. The top of the stairs is the normal distance
@@ -1751,6 +1786,7 @@ again. A second or two passes and then a brilliant light shines from the
 panel, lighting up the corridor brighter than the midday sun.
 
 >
+
 Guest Room
 This room, generally reserved for any guests Mrs Moog has staying with her,
 is long and narrow with a window at the far southern end overlooking the
@@ -1785,6 +1821,7 @@ as you were leavin but that's neither here nor there."
 to see him anywhere.
 
 >
+
 Guest Room
 This room, generally reserved for any guests Mrs Moog has staying with her,
 is long and narrow with a window at the far southern end overlooking the
@@ -1802,6 +1839,7 @@ somewhere.
 >You put on the helm.
 
 >
+
 Corridor
 The previous strange appearance of the corridor seems to have been fixed by
 you wearing Mrs Moog’s glasses. The top of the stairs is the normal distance
@@ -1842,6 +1880,7 @@ attic where Mrs Moog is lying unconscious is over to the west while the
 concealed passage leads downwards.
 
 >
+
 Western End Of Attic
 Mrs Moog lies on the floor here, more unconscious than you’ve ever seen
 anyone before. In fact, she looks more unconscious than some dead people

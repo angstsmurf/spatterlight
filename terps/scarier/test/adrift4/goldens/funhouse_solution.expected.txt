@@ -19,6 +19,7 @@ twos and a lighter.
 There is an exit south.
 
 >You move south.
+
 Main ticket booth
 What'll it be sir. The bracelet and strips of tickets are five dollars each.
 Hurry up now got a line forming here.
@@ -43,6 +44,7 @@ Take what?
 You manage to avoid Mafia man's attack.
 
 >You move east.
+
 Enter Hall of Mirrors
 This room is full of mirrors. There is a door somewhere here. You have time,
 find it!
@@ -52,6 +54,7 @@ Brat Kid is here.
 You can move north, south and west.
 
 >You move north.
+
 Strobe light room
 blacklight posters, music, and strobe lights flashing rapidly are a feature
 of this room. It is giving me a headache.
@@ -59,6 +62,7 @@ of this room. It is giving me a headache.
 You can move east and south.
 
 >You move east.
+
 Vampire lair
 A coffin opens and closes as you walk past the wax figure of Dracula.
 Creepy......
@@ -68,6 +72,7 @@ Vampire is here.
 You can move east, south and west.
 
 >You move east.
+
 Dark Room
 Feel your way around the walls. You cannot see anything. Find the door and
 leave this gosh awful room as quick as you can. It gives you the creeps!
@@ -79,6 +84,7 @@ Bumpy the clown is here.
 You can move north, east, south and west.
 
 >You move north.
+
 Fun slide
 A feel along the wall reveals a slide you did not notice. Should you save
 some time and take the slide?
@@ -89,6 +95,7 @@ You can only move south.
 
 >(Your score has increased by 110)
 You pick up a beautiful ring.
+
 Fun slide
 A feel along the wall reveals a slide you did not notice. Should you save
 some time and take the slide?
@@ -96,6 +103,7 @@ some time and take the slide?
 Also here is a diamond ring.
 
 >You move south.
+
 Dark Room
 Feel your way around the walls. You cannot see anything. Find the door and
 leave this gosh awful room as quick as you can. It gives you the creeps!
@@ -111,6 +119,7 @@ You can move north, east, south and west.
 >You pick up the cassette.
 
 >You move west.
+
 Vampire lair
 A coffin opens and closes as you walk past the wax figure of Dracula.
 Creepy......
@@ -120,6 +129,7 @@ Vampire is here.
 You can move east, south and west.
 
 >You move west.
+
 Strobe light room
 blacklight posters, music, and strobe lights flashing rapidly are a feature
 of this room. It is giving me a headache.
@@ -127,6 +137,7 @@ of this room. It is giving me a headache.
 You can move east and south.
 
 >You move south.
+
 Enter Hall of Mirrors
 This room is full of mirrors. There is a door somewhere here. You have time,
 find it!
@@ -137,6 +148,7 @@ You can move north, south and west.
 You manage to avoid Brat Kid's attack.
 
 >You move west.
+
 Main ticket booth
 What'll it be sir. The bracelet and strips of tickets are five dollars each.
 Hurry up now got a line forming here.

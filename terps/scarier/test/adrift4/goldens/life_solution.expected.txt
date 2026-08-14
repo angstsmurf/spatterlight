@@ -26,6 +26,7 @@ is on the northern wall looking out into your garden.  The door to the
 kitchen is to the south.
 
 >You move south.
+
 Kitchen
 You can see a dining table with a set of chairs.  A refridgerator is in one
 corner of the room with a counter to its side and there is a window above the
@@ -38,6 +39,7 @@ Delicious.
 >You get to work with cleaning the dishes.
 
 >You move east.
+
 Bathroom
 A white toilet and a matching sink are on the western wall. A medicine
 cabinet with the standard mirror is above the sink and a shower booth is to
@@ -46,6 +48,7 @@ the left of the sink.
 >I don't understand what you mean!
 
 >You move west.
+
 Kitchen
 You can see a dining table with a set of chairs.  A refridgerator is in one
 corner of the room with a counter to its side and there is a window above the
@@ -53,6 +56,7 @@ counter. Three doors can be seen leading out of the room. One goes into your
 bedroom, another into your bathroom and the third into the living room.
 
 >You move west.
+
 Living room
 A rather ugly, purple sofa is in front of a small, black&white screen tv. A
 window looking out into the street is behind the tv.
@@ -64,6 +68,7 @@ After about half an hour you stop watching tv and get up from the sofa.
 much better afterwards.
 
 >You move out.
+
 Hindburg street
 Most of the houses in the street look beautiful and there are only two or
 three exceptions and those don't look that bad. You can also get a good look
@@ -77,6 +82,7 @@ its rampage. Children are jumping from rooftops into heaps of snow.
 Anne is here.
 
 >You move north.
+
 Hindburg street
 You can see the place you call home to the south down the street. Far to the
 east is the supermarket while the street just continues north and turns east.
@@ -95,6 +101,7 @@ which you can put it on. There's a desk in your bedroom.
 >You go out of the computer store and into the street.
 
 >You move north.
+
 Hindburg street
 Hindburg street goes east and south. To the south is your beautiful house and
 to the east is a video rental. You can see kids returning home from school.
@@ -103,6 +110,7 @@ through the streets while all other cars have to wait until the weather stops
 its rampage. Children are jumping from rooftops into heaps of snow.
 
 >You move east.
+
 Hindburg street
 On the side of the street is a pet shop. It's open from 11:00 to 18:00.  The
 street goes east and west. You can see kids returning home from school.
@@ -141,6 +149,7 @@ much is left in the bowl, type 'cat food level' while in the kitchen.
 >You exit the pet store.
 
 >You move west.
+
 Hindburg street
 Hindburg street goes east and south. To the south is your beautiful house and
 to the east is a video rental. You can see kids returning home from school.
@@ -149,6 +158,7 @@ through the streets while all other cars have to wait until the weather stops
 its rampage. Children are jumping from rooftops into heaps of snow.
 
 >You move south.
+
 Hindburg street
 You can see the place you call home to the south down the street. Far to the
 east is the supermarket while the street just continues north and turns east.
@@ -159,6 +169,7 @@ through the streets while all other cars have to wait until the weather stops
 its rampage. Children are jumping from rooftops into heaps of snow.
 
 >You move south.
+
 Hindburg street
 Most of the houses in the street look beautiful and there are only two or
 three exceptions and those don't look that bad. You can also get a good look
@@ -172,11 +183,13 @@ its rampage. Children are jumping from rooftops into heaps of snow.
 Anne is here.
 
 >You move in.
+
 Living room
 A rather ugly, purple sofa is in front of a small, black&white screen tv. A
 window looking out into the street is behind the tv.
 
 >You move east.
+
 Kitchen
 You can see a dining table with a set of chairs.  A refridgerator is in one
 corner of the room with a counter to its side and there is a window above the
@@ -196,6 +209,7 @@ thougths. These thougths may be aggressive, peaceful, sad or sleepy.
 more info)
 
 >You move north.
+
 Bedroom
 A small bed is in one corner of the room with a desk by its side.  A window
 is on the northern wall looking out into your garden.  The door to the

@@ -56,6 +56,7 @@ Judy's bedroom is to the west. The hallway continues to the south.
 Kitty slinks in from the east.
 
 >You move west.
+
 Judy's bedroom
 This is Judy's bedroom.  She practices her trumpet in this room.  There is a
 waterbed here, with a bedside table.  Two windows are on the north wall.
@@ -76,6 +77,7 @@ a spit rag and a Monette trumpet.
 The trumpet valves seem to move much more easily now.
 
 >You move east.
+
 Outside Bedrooms
 This is a long, white-tiled hallway lined with photographs. The guest room is
 to the east, David's room is to the north-east, a bathroom is to the north,
@@ -86,12 +88,14 @@ David is here.
 David retreats to the north.
 
 >You move south.
+
 Outside den
 You're in a north-south hallway with a white tiled floor. To the east is the
 den, or computer room. To the west is the living room, and the hallway
 proceeds north and south.
 
 >You move south.
+
 Entrance hall
 The entrance hall, like the rest of the hallway, has white tile.  Family
 photos and plaques are mounted on the walls.  There is a mirror on the south
@@ -101,6 +105,7 @@ south-west is the kitchen, and the hallway continues to the north, where the
 bedrooms are.
 
 >You move southwest.
+
 Kitchen
 This is the kitchen.  The countertop is blue, and the same white tile lines
 the floor.  There are a variety of small appliances on the counter.  To the
@@ -110,6 +115,7 @@ through the west window.  There is a pot of hot coffee here, and it smells
 good.
 
 >You move south.
+
 Eating area
 The eating area is where most of the family meals are eaten, around the
 round, glass-topped table.  Sitting at the table one can either look out the
@@ -125,6 +131,7 @@ Judy is here, whistling happily.
 >You take the set of car keys from the leather purse.
 
 >You move north.
+
 Kitchen
 This is the kitchen.  The countertop is blue, and the same white tile lines
 the floor.  There are a variety of small appliances on the counter.  To the
@@ -134,6 +141,7 @@ through the west window.  There is a pot of hot coffee here, and it smells
 good.
 
 >You move east.
+
 Laundry
 One of the smallest rooms in the house, this room has a washer and dryer in
 it.  On the floor you see the kitty's food, water and kitty litter.  To the
@@ -143,6 +151,7 @@ south is the half-bath.
 Also here is a laundry basket.
 
 >You move east.
+
 Garage
 The garage has a large door on the east side.  The laundry is to the east,
 and another small door is on the south wall.  A spare refrigerator is on the
@@ -154,6 +163,7 @@ The car door is unlocked.
 >The car door is open.
 
 >You move in.
+
 Car
 You're in a red & gray 1994 Chrysler Concorde.
 
@@ -162,12 +172,14 @@ Also here is a folder and a garage-door opener.
 >You pick up the folder.
 
 >You move out.
+
 Garage
 The garage has a large door on the east side.  The laundry is to the east,
 and another small door is on the south wall.  A spare refrigerator is on the
 west wall, as is the garage door opener.  The car door is open.
 
 >You move west.
+
 Laundry
 One of the smallest rooms in the house, this room has a washer and dryer in
 it.  On the floor you see the kitty's food, water and kitty litter.  To the
@@ -177,6 +189,7 @@ south is the half-bath.
 Also here is a laundry basket.
 
 >You move west.
+
 Kitchen
 This is the kitchen.  The countertop is blue, and the same white tile lines
 the floor.  There are a variety of small appliances on the counter.  To the
@@ -188,6 +201,7 @@ good.
 David comes in from the north-east.
 
 >You move northeast.
+
 Entrance hall
 The entrance hall, like the rest of the hallway, has white tile.  Family
 photos and plaques are mounted on the walls.  There is a mirror on the south
@@ -197,18 +211,21 @@ south-west is the kitchen, and the hallway continues to the north, where the
 bedrooms are.
 
 >You move north.
+
 Outside den
 You're in a north-south hallway with a white tiled floor. To the east is the
 den, or computer room. To the west is the living room, and the hallway
 proceeds north and south.
 
 >You move north.
+
 Outside Bedrooms
 This is a long, white-tiled hallway lined with photographs. The guest room is
 to the east, David's room is to the north-east, a bathroom is to the north,
 Judy's bedroom is to the west. The hallway continues to the south.
 
 >You move west.
+
 Judy's bedroom
 This is Judy's bedroom.  She practices her trumpet in this room.  There is a
 waterbed here, with a bedside table.  Two windows are on the north wall.
@@ -308,12 +325,14 @@ She gives you directions and goes back to practicing.
 >Give what?
 
 >You move east.
+
 Outside Bedrooms
 This is a long, white-tiled hallway lined with photographs. The guest room is
 to the east, David's room is to the north-east, a bathroom is to the north,
 Judy's bedroom is to the west. The hallway continues to the south.
 
 >You move south.
+
 Outside den
 You're in a north-south hallway with a white tiled floor. To the east is the
 den, or computer room. To the west is the living room, and the hallway
@@ -321,6 +340,7 @@ proceeds north and south.
 Judy is here, whistling happily.
 
 >You move east.
+
 Den
 The blue-carpeted den, or computer room, has two desks, and two computers.
 The PC is in the north-east corner of the room, and the Mac is on the desk on
@@ -335,6 +355,7 @@ study guide to a Windows 98 Secrets book as well as a Microsoft Office 2000
 manual.  You study the computer books and feel smarter.
 
 >You move west.
+
 Outside den
 You're in a north-south hallway with a white tiled floor. To the east is the
 den, or computer room. To the west is the living room, and the hallway
@@ -345,6 +366,7 @@ happily.
 Kitty retreats to the east.
 
 >You move south.
+
 Entrance hall
 The entrance hall, like the rest of the hallway, has white tile.  Family
 photos and plaques are mounted on the walls.  There is a mirror on the south
@@ -354,6 +376,7 @@ south-west is the kitchen, and the hallway continues to the north, where the
 bedrooms are.
 
 >You move southwest.
+
 Kitchen
 This is the kitchen.  The countertop is blue, and the same white tile lines
 the floor.  There are a variety of small appliances on the counter.  To the
@@ -365,6 +388,7 @@ good.
 David is here.
 
 >You move east.
+
 Laundry
 One of the smallest rooms in the house, this room has a washer and dryer in
 it.  On the floor you see the kitty's food, water and kitty litter.  To the
@@ -405,6 +429,7 @@ After folding the clothes, you place them neatly back into the laundry basket
 and put the basket back on top of the washing machine.
 
 >You move west.
+
 Kitchen
 This is the kitchen.  The countertop is blue, and the same white tile lines
 the floor.  There are a variety of small appliances on the counter.  To the
@@ -424,6 +449,7 @@ and warm and smells nice.
 Mmm!  That sure tasted good.  You feel all warm inside.
 
 >You move northeast.
+
 Entrance hall
 The entrance hall, like the rest of the hallway, has white tile.  Family
 photos and plaques are mounted on the walls.  There is a mirror on the south
@@ -433,6 +459,7 @@ south-west is the kitchen, and the hallway continues to the north, where the
 bedrooms are.
 
 >You move northwest.
+
 Living room
 The blue-carpeted living room features a large set of bookshelves on the east
 wall.  There are some chairs and a sofa-bed here.  Windows on the west wall
@@ -458,6 +485,7 @@ next time!
 Dave shakes your hand and says, "Good game. Next time, I'll be white, OK?"
 
 >You move southeast.
+
 Entrance hall
 The entrance hall, like the rest of the hallway, has white tile.  Family
 photos and plaques are mounted on the walls.  There is a mirror on the south
@@ -467,6 +495,7 @@ south-west is the kitchen, and the hallway continues to the north, where the
 bedrooms are.
 
 >You move southwest.
+
 Kitchen
 This is the kitchen.  The countertop is blue, and the same white tile lines
 the floor.  There are a variety of small appliances on the counter.  To the
@@ -476,6 +505,7 @@ through the west window.  There is a pot of hot coffee here, and it smells
 good.
 
 >You move east.
+
 Laundry
 One of the smallest rooms in the house, this room has a washer and dryer in
 it.  On the floor you see the kitty's food, water and kitty litter.  To the
@@ -483,12 +513,14 @@ east is the door leading to the garage, and west is the kitchen.  To the
 south is the half-bath.
 
 >You move east.
+
 Garage
 The garage has a large door on the east side.  The laundry is to the east,
 and another small door is on the south wall.  A spare refrigerator is on the
 west wall, as is the garage door opener.  The car door is open.
 
 >You move in.
+
 Car
 You're in a red & gray 1994 Chrysler Concorde.
 
@@ -503,16 +535,19 @@ You start up the car and back out of the garage.  After following Judy's
 directions, you find the beach.
 
 >You move out.
+
 Parking lot
 This is a parking lot.  There are a variety of cars here, including Judy's
 red car.
 
 >You move east.
+
 Path to beach
 The sidewalk leads east to the crossover and west to the parking lot.  To the
 north you see a beach volleyball court, to the south-east is a beach shower.
 
 >You move north.
+
 Beach volleyball
 The sand beach volleyball court looks like a fun way to get a sunburn.
 
@@ -542,31 +577,37 @@ excellent player.
 excellent player.
 
 >You move south.
+
 Path to beach
 The sidewalk leads east to the crossover and west to the parking lot.  To the
 north you see a beach volleyball court, to the south-east is a beach shower.
 
 >You move east.
+
 Beach crossover
 The wooden crossover allows you to cross the environmentally sensitive dunes
 without damaging the plant life.
 
 >You move east.
+
 Beach
 A variety of people are tanning themselves on the beach.  A couple of old men
 are fishing here.  And you see surfers in the ocean to the east.
 
 >You move west.
+
 Beach crossover
 The wooden crossover allows you to cross the environmentally sensitive dunes
 without damaging the plant life.
 
 >You move west.
+
 Path to beach
 The sidewalk leads east to the crossover and west to the parking lot.  To the
 north you see a beach volleyball court, to the south-east is a beach shower.
 
 >You move southeast.
+
 Beach shower
 The beach shower is here to allow visitors to wash the sand off their feet.
 

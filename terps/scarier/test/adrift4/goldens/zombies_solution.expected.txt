@@ -38,6 +38,7 @@ problem.
 bashing it with baseball bats for fun.
 
 >You move east.
+
 Shed
 The shed next to your house is usually warm and inviting, but today's it's
 dark and terrifying. Ah well, nothing's perfect. A strange rustling sound can
@@ -95,6 +96,7 @@ your decision, you lead, I'll follow."
 >Stu shakes his head, as if he doesn't understand the question.
 
 >You move east.
+
 Shed
 The shed next to your house is usually warm and inviting, but today's it's
 dark and terrifying. Ah well, nothing's perfect. A strange rustling sound can
@@ -111,6 +113,7 @@ chainsaw too, because it's now lying on the ground.
 >As you raise the chainsaw into the air, you feel as if your life is complete.
 
 >You move west.
+
 Yard
 You're in the yard next to your small home. A wooden fence stretched all
 around the area, except for the driveway which led out into the street. A

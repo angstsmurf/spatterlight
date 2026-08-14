@@ -10,6 +10,7 @@ Please enter your name:
 >I take the ball from the basket.
 
 >I move east.
+
 The Garden - Near the old oak tree
 
 Also here is the bone.
@@ -28,6 +29,7 @@ I eat the bone.  Not bad, but it could do with a pinch of salt!
 Ahhh... The bone was very good.
 
 >I move north.
+
 The Garden - The patio
 Bizet the cat is here... I hate her.
 Bizet the Cat hisses at me...
@@ -45,9 +47,11 @@ She drops the mouse and runs somewhere.
 >I pick up the dead mouse.
 
 >I move south.
+
 The Garden - Near the old oak tree
 
 >I move west.
+
 The Garden - Near my basket
 
 >(Your score has increased by 5)
@@ -55,9 +59,11 @@ I put the dead mouse inside the basket.
 Well done!
 
 >I move west.
+
 The Garden - Near the neighbour fence
 
 >I move north.
+
 The House - Near the window
 There's the wall of my house here.
 

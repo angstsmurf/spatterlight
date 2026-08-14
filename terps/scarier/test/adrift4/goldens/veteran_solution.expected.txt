@@ -40,11 +40,13 @@ You open the bag.  A crowbar is inside the bag.
 >You take the crowbar from the bag.
 
 >You move north.
+
 Eastern corridor
 This corridor extends to the west. To the south is your locker room. To the
 north is the Youth's locker room.
 
 >You move north.
+
 The Youth's locker room
 The Youth is preening himself in front of a mirror. Near him are the gifts
 from some female admirers. It is a long time since you had any females after
@@ -73,16 +75,19 @@ supposed to be rough and brutal.
 >You pick up the teddy bear.
 
 >You move south.
+
 Eastern corridor
 This corridor extends to the west. To the south is your locker room. To the
 north is the Youth's locker room.
 
 >You move west.
+
 Central corridor
 This corridor extends to locker rooms in the east and west. To the south is
 the ring.
 
 >You move south.
+
 The Ring
 The ring has been set up earlier and is surrounded by empty chairs, waiting
 for the fans to come in for the big show later in the night. You can only
@@ -108,16 +113,19 @@ him.
 >You pick up the ladder.
 
 >You move north.
+
 Central corridor
 This corridor extends to locker rooms in the east and west. To the south is
 the ring.
 
 >You move west.
+
 Western corridor
 This corridor extends to the east. To the north is the Monster's locker room.
 To the south is the High Flyer's locker room.
 
 >You move north.
+
 The Monster's locker room
 The Monster is here, sitting on the floor brooding, in preparation for his
 title challenge. The light is broken, leaving the room near-dark apart from a
@@ -150,11 +158,13 @@ eliminated an opponent.
 >You take the bottle of acid from the unconscious Monster.
 
 >You move south.
+
 Western corridor
 This corridor extends to the east. To the north is the Monster's locker room.
 To the south is the High Flyer's locker room.
 
 >You move south.
+
 The High Flyer's locker room
 The High Flyer is here practicing his aerial maneuvers before the tournament
 on a mattress on the floor. You don't see that there is a place in wrestling
@@ -189,21 +199,25 @@ and tells you he will now have to retire. Oh well, there goes one opponent.
 >You put on the jet mask.
 
 >You move north.
+
 Western corridor
 This corridor extends to the east. To the north is the Monster's locker room.
 To the south is the High Flyer's locker room.
 
 >You move east.
+
 Central corridor
 This corridor extends to locker rooms in the east and west. To the south is
 the ring.
 
 >You move east.
+
 Eastern corridor
 This corridor extends to the west. To the south is your locker room. To the
 north is the Youth's locker room.
 
 >You move north.
+
 The Youth's locker room
 The Youth is preening himself in front of a mirror. Near him are the gifts
 from some female admirers. It is a long time since you had any females after

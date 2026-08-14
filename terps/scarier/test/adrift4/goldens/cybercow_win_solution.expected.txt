@@ -19,6 +19,7 @@ cottage on the hill, there is nothing around for a long ways.
 There is an exit south.
 
 >You move south.
+
 Chapel Yard
 You are at the well.  You have fond childhood memories of this well, although
 none of them are occurring to you right now.  Your humble abode is to the
@@ -31,6 +32,7 @@ Red sky in morning...
 >Can you see something glint down there--?  Some kind of motion--?
 
 >You move east.
+
 Living Room
 Your humble childhood home.  Next to the mailbox, the door west leads
 outside.  There is a cupboard here, which you recall generally not having
@@ -54,6 +56,7 @@ these modern, lightweight deals.
 >Moving the couch reveals a cleverly-hidden trapdoor!
 
 >You move west.
+
 Chapel Yard
 You are at the well.  You have fond childhood memories of this well, although
 none of them are occurring to you right now.  Your humble abode is to the
@@ -64,6 +67,7 @@ It is daytime.
 You can move north, east, south and west.
 
 >You move west.
+
 Meadow
 Flowers and grass are all around you.  To the east you can see the well in
 the chapel yard, and beyond that your humble childhood home.  At the top of
@@ -84,6 +88,7 @@ Vluurinik flies in.
 into its shell.
 
 >You move east.
+
 Chapel Yard
 You are at the well.  You have fond childhood memories of this well, although
 none of them are occurring to you right now.  Your humble abode is to the
@@ -96,12 +101,14 @@ You can move north, east, south and west.
 Vluurinik flies in from the west.
 
 >You move south.
+
 In the Chapel
 You are inside the local House of God.
 
 You can move north, east and south.
 
 >You move east.
+
 Bottom of Bell Tower
 You are at the bottom of the bell tower.  A rickety spiral stairway leads up
 the inside of the tower -- a long way up.  West returns to the chapel proper.
@@ -113,6 +120,7 @@ You can move west and up.
 a good-sized chink missing.
 
 >You move up.
+
 Top of Bell Tower
 You are at the top of the church's bell tower.  A rickety spiral staircase
 leads down to the ground.  The empty bell chassis has a rope tied to an
@@ -127,6 +135,7 @@ down into darkness.
 bell chassis.  It falls down the central shaft.
 
 >You move out.
+
 Clinging to the Steeple
 You can see the chapel yard and the well directly below.  To the east, as if
 in miniature, the little cottage; to the west the wide expanse of meadow.
@@ -155,6 +164,7 @@ It is daytime.
 You can only move in.
 
 >You move in.
+
 Top of Bell Tower
 You are at the top of the church's bell tower.  A rickety spiral staircase
 leads down to the ground.  The empty bell chassis has marks on it you noticed
@@ -163,6 +173,7 @@ when you were untying the rope.
 You can move down and out.
 
 >You move down.
+
 Bottom of Bell Tower
 You are at the bottom of the bell tower.  A rickety spiral stairway leads up
 the inside of the tower -- a long way up.  West returns to the chapel proper.
@@ -175,12 +186,14 @@ You can move west and up.
 >You pick up the rope.
 
 >You move west.
+
 In the Chapel
 You are inside the local House of God.
 
 You can move north, east and south.
 
 >You move north.
+
 Chapel Yard
 You are at the well.  You have fond childhood memories of this well, although
 none of them are occurring to you right now.  Your humble abode is to the
@@ -193,6 +206,7 @@ It is daytime.
 You can move north, east, south and west.
 
 >You tie the rope to the well.
+
 Chapel Yard
 You are at the well.   One end of the rope is tied to the well quite
 securely; the rest lies on the ground.  Your humble abode is to the east.
@@ -209,12 +223,14 @@ It is daytime.
 Vluurinik flies in from the west.
 
 >You move south.
+
 In the Chapel
 You are inside the local House of God.
 
 You can move north, east and south.
 
 >You move east.
+
 Bottom of Bell Tower
 You are at the bottom of the bell tower.  A rickety spiral stairway leads up
 the inside of the tower -- a long way up.  West returns to the chapel proper.
@@ -244,6 +260,7 @@ BONG!  BONG!ngngngng" goes the bell.
 >You drop the heavy cross.
 
 >You move in.
+
 In the Bell
 You are in the huge cracked churchbell.  (Step careful here:  it rolls
 dangerously.)  You can see something taped to the inside of the bell.
@@ -255,6 +272,7 @@ You can only move out.
 >You unpeel the packet from the side of the bell.
 
 >You move out.
+
 Bottom of Bell Tower
 You are at the bottom of the bell tower.  A rickety spiral stairway leads up
 the inside of the tower -- a long way up.  West returns to the chapel proper.
@@ -268,12 +286,14 @@ You can move west, up and in.
 this, construction is all but complete.
 
 >You move west.
+
 In the Chapel
 You are inside the local House of God.
 
 You can move north, east and south.
 
 >You move north.
+
 Chapel Yard
 You are at the well.   The rope, which is tied to the well quite securely,
 leads down.  Your humble abode is to the east.  Fields are to the west.  The
@@ -285,6 +305,7 @@ It is daytime.
 You can move north, east, south, west and down.
 
 >You move east.
+
 Living Room
 Your humble childhood home.  Next to the mailbox, the door west leads
 outside.  There is a cupboard here, which you recall generally not having
@@ -293,6 +314,7 @@ cookies.  There is a couch here, which used to cleverly hide a trapdoor.
 You can move west and down.
 
 >You move down.
+
 Cellar
 The work space around the well-lit table in the center of the room remains
 clear, although cobwebs and dirt have claimed the periphery of the room.  A
@@ -321,6 +343,7 @@ the robot's yawing chest cavity.  Apparently the flashlight won't work as a
 power source.
 
 >You move up.
+
 Living Room
 Your humble childhood home.  Next to the mailbox, the door west leads
 outside.  There is a cupboard here, which you recall generally not having
@@ -329,6 +352,7 @@ cookies.  There is a couch here, which used to cleverly hide a trapdoor.
 You can move west and down.
 
 >You move west.
+
 Chapel Yard
 You are at the well.   The rope, which is tied to the well quite securely,
 leads down.  Your humble abode is to the east.  Fields are to the west.  The
@@ -339,6 +363,7 @@ It is daytime.
 You can move north, east, south, west and down.
 
 >You move down.
+
 Bottom of the Well
 You are standing at the bottom of the town well.  The ground is slightly
 moist here.  The end of the rope dangles here, providing you with a way back
@@ -365,6 +390,7 @@ you fill the bowl with warm, fragrant CyberCow milk.
 
 >That's a bit of a trick carrying a warm bowl of fresh, frothing CyberCow milk
 -- but you manage it.
+
 Chapel Yard
 You are at the well.   The rope, which is tied to the well quite securely,
 leads down.  Your humble abode is to the east.  Fields are to the west.  The
@@ -392,6 +418,7 @@ from the weight of the thing) makes for the meadow!
 >You pause a moment...
 
 >You move west.
+
 Meadow
 Flowers and grass are all around you.  To the east you can see the well in
 the chapel yard, and beyond that your humble childhood home.  At the top of
@@ -424,6 +451,7 @@ You can only move east.
 >The fairy squirms in your grip.
 
 >You move east.
+
 Chapel Yard
 You are at the well.   The rope, which is tied to the well quite securely,
 leads down.  Your humble abode is to the east.  Fields are to the west.  The
@@ -434,6 +462,7 @@ It is daytime.
 You can move north, east, south, west and down.
 
 >You move east.
+
 Living Room
 Your humble childhood home.  Next to the mailbox, the door west leads
 outside.  There is a cupboard here, which you recall generally not having
@@ -442,6 +471,7 @@ cookies.  There is a couch here, which used to cleverly hide a trapdoor.
 You can move west and down.
 
 >You move down.
+
 Cellar
 The work space around the well-lit table in the center of the room remains
 clear, although cobwebs and dirt have claimed the periphery of the room.  A
@@ -475,6 +505,7 @@ The Robot seems to enjoy this experience.
 
 >--
 The Robot releases you with a mean little shove.
+
 Cellar
 The work space around the well-lit table in the center of the room remains
 clear, although cobwebs and dirt have claimed the periphery of the room.  A
@@ -487,6 +518,7 @@ The Robot is here.  The Robot seems to be enjoying this experience.
 >You pause a moment...
 
 >You move up.
+
 Living Room
 Your humble childhood home.  Next to the mailbox, the door west leads
 outside.  There is a cupboard here, which you recall generally not having
@@ -497,6 +529,7 @@ You can move west and down.
 The Robot marches in  from below.
 
 >You move west.
+
 Chapel Yard
 You are at the well.   The rope, which is tied to the well quite securely,
 leads down.  Your humble abode is to the east.  Fields are to the west.  The
@@ -510,6 +543,7 @@ The Robot marches in  from the east.
 -COME. COME. PATHETIC. HUMAN.- The Robot grates.  -STOP. SCREWING. AROUND.-
 
 >You move down.
+
 Bottom of the Well
 You are standing at the bottom of the town well.  The ground is slightly
 moist here.  The end of the rope dangles here, providing you with a way back
@@ -526,6 +560,7 @@ The Robot begins charging its ray weapon.
 the Robot fires that thing.
 
 >You move west.
+
 Lair Entrance
 This is the narrow entrance to the CyberCow's underground lair.  You are
 standing here fighting off the pricker bushes on both sides.  Sounds of
@@ -545,6 +580,7 @@ In the bottom of the well to the east, the sounds of battle continue.
 >Yumm.
 
 >You move west.
+
 The Lair
 The CyberCow lair is decorated mostly in teak, a fine wood for patio
 furniture.  There is a teak recliner in the SW corner, a swinging teak bench
@@ -606,6 +642,7 @@ A trickle of water runs past your feet from the direction of the well.
  The small fridge is closed.
 
 >You move east.
+
 Lair Entrance
 This is the narrow entrance to the CyberCow's underground lair.  You are
 standing here fighting off the pricker bushes on both sides.  Sounds of
@@ -615,6 +652,7 @@ kind.
 You can move east and west.
 
 >You move east.
+
 Bottom of the Well
 The stone wall leads up to a small circular view of the sky.  A rope dangles
 here.  The CyberCow, victorious, has lain it head on the ruptured hulk of the
@@ -629,6 +667,7 @@ Right behind you, the water level seems to rise as fast as you climb.
 >You can't go in that direction, but you can move north, east, south and west.
 
 >You move south.
+
 In the Chapel (flooding)
 You are in the local house of God.    At the top of the hill, the chapel is
 surrounded on all sides by water.  It is dry here.
@@ -636,6 +675,7 @@ surrounded on all sides by water.  It is dry here.
 You can move north, east and south.
 
 >You move east.
+
 Bottom of Bell Tower (flooding)
 A rickety spiral staircase leads upward.    It is still dry here.  The
 churchbell rests on its side.
@@ -656,6 +696,7 @@ As the water level crests the platform and brings the bell to the very top of
 the tower, you grab hold of the bell chassis:
 You pull your way along the rocker arm and outside.
 The steeple sinks gradually into the water behind you.
+
 In the Bell (floating in a vast expanse of water)
 You are careful to keep your weight opposite the crack, so the leaky surface
 of the bell stays out of the water.  The iron bell wouldn't have to take on

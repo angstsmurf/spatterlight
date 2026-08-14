@@ -39,6 +39,7 @@ You spot the Reviews forum over to the east.
 
 >
 >You leap eastwards into the forum.
+
 Review Forum
 The walls of this forum have been whitewashed, and are now dull and dusty.
 All relics that marked Woodfish's former reign have been stripped away, along
@@ -55,6 +56,7 @@ As soon as you make contact, you are whisked forwards, and the hole expands
 into a glittering gateway of stars. You are sent reeling through this, flying
 through the stars as they blur past you, until you come an abrupt halt. You
 are thrown to the ground.
+
 Shaded Alley
 The entrance to this alley is dwarfed by the huge buildings that tower either
 side of it. However, you're sure this is where they've taken Campbell because
@@ -76,6 +78,7 @@ The words 'Exhibit 24: Tough Guard Plastercast' are printed on his left foot.
 
 >You run stealthily through the alleyway until you reach a doorway. Slipping
 through it, you find yourself in a room.
+
 Fountain Hall
 This room has a lavish black-and-white marble floor, with a stone fountain in
 the middle. Frothing white water is churned out of it, cascading down the
@@ -121,6 +124,7 @@ at his sides.
 >You take the piece of paper from the white desk.
 
 >You run back into the landing.
+
 Landing
 The landing is filled with bright sunshine that spills in through the wide
 window in the wall beside you. Through it, you can see a view of a cloud-free
@@ -160,6 +164,7 @@ back down to the fountain.
 >You smash the glass into a sizeable hole for you to climb out of.
 
 >You hoist yourself up and out of the window.
+
 Window Ledge
 You are much higher up above ground than you thought was possible. Streets
 far below are lined with cars and people the size of ants. There is a strong

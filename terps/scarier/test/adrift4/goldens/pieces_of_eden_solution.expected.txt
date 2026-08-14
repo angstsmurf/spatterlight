@@ -76,6 +76,7 @@ Something tells you that your going to have to avoid this place for a little
 while.
 
 >You move west.
+
 Alley
 
 You burst into the back alley. Your head and heart are pounding in unison.
@@ -122,6 +123,7 @@ Remember the number 104.
 escape.
 
 >You move north.
+
 Front of shop
 You move cautiously into the street. A couple and a few children are standing
 around, waiting to see what all the commotion is about. Fear isn't something

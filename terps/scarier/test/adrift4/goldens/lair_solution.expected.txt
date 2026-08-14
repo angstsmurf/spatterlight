@@ -120,6 +120,7 @@ there is little to see.
 Exits lie: west (to the cell), north (to a door) and southeast (to a hallway)
 
 >You move southeast.
+
 Shadowy hallway
 
 Shadowy Hallway
@@ -139,6 +140,7 @@ Exits lie: northwest (to the laboratory), east (to the bend in the hallway)
 and southwest (to a further branching of the hallway)
 
 >You move southwest.
+
 Dark passageway
 
 Dark passageway
@@ -159,6 +161,7 @@ spell. Shaking your head in confusion appears to dispel this.
 
    But when you look again you find you are not standing in the dark
 passageway any longer.
+
 Hidden room
 
 Hidden room
@@ -375,6 +378,7 @@ floor, disturbing the dust that lies there.
    A little time passes and then you hear a strange, grating sound and the
 floor at your feet spins around, moving you back to the dark passageway once
 more.
+
 Dark passageway
 
 Dark passageway
@@ -388,6 +392,7 @@ of the walls.
 Exits lie: northeast (to the hallway) and south (to the dimly-lit room)
 
 >You move south.
+
 Dimly-lit room
 
 Dimly-lit room
@@ -471,6 +476,7 @@ afterwards. I can tell you nothing more."
 box.
 
 >You move north.
+
 Dark passageway
 
 Dark passageway
@@ -483,6 +489,7 @@ shore somewhere that you do not recognise.
 Exits lie: northeast (to the hallway) and south (to the dimly-lit room)
 
 >You move northeast.
+
 Shadowy hallway
 
 Shadowy Hallway
@@ -503,6 +510,7 @@ Exits lie: northwest (to the laboratory), east (to the bend in the hallway)
 and southwest (to a further branching of the hallway)
 
 >You move northwest.
+
 Laboratory
 
 The Laboratory
@@ -595,6 +603,7 @@ Farewell."
 weakly to the southeast.
 
 >You move north.
+
 Study
 
 Study
@@ -721,6 +730,7 @@ items have lost none of their potent power.
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 5
 
 >You move south.
+
 Laboratory
 
 The Laboratory
@@ -738,6 +748,7 @@ there is little to see.
 Exits lie: west (to the cell), north (to a door) and southeast (to a hallway)
 
 >You move southeast.
+
 Shadowy hallway
 
 Shadowy Hallway
@@ -757,6 +768,7 @@ Exits lie: northwest (to the laboratory), east (to the bend in the hallway)
 and southwest (to a further branching of the hallway)
 
 >You move southwest.
+
 Dark passageway
 
 Dark passageway
@@ -769,6 +781,7 @@ shore somewhere that you do not recognise.
 Exits lie: northeast (to the hallway) and south (to the dimly-lit room)
 
 >You move south.
+
 Dimly-lit room
 
 Dimly-lit room
@@ -794,6 +807,7 @@ Exits lie: north (to the dark passageway)
 collection of herbs which you decide to take with you.
 
 >You move north.
+
 Dark passageway
 
 Dark passageway
@@ -806,6 +820,7 @@ shore somewhere that you do not recognise.
 Exits lie: northeast (to the hallway) and south (to the dimly-lit room)
 
 >You move northeast.
+
 Shadowy hallway
 
 Shadowy Hallway
@@ -825,6 +840,7 @@ Exits lie: northwest (to the laboratory), east (to the bend in the hallway)
 and southwest (to a further branching of the hallway)
 
 >You move northwest.
+
 Laboratory
 
 The Laboratory
@@ -843,6 +859,7 @@ corners of the room yet when you look again there is nothing there.
 Exits lie: west (to the cell), north (to a door) and southeast (to a hallway)
 
 >You move west.
+
 Cell
 
 The cell
@@ -903,6 +920,7 @@ You want me to follow you, just say so."
 >   "Thought you'd never ask."
 
 >You move east.
+
 Laboratory
 
 The Laboratory
@@ -922,6 +940,7 @@ Exits lie: west (to the cell), north (to a door) and southeast (to a hallway)
 Garrick walks towards you from the west.
 
 >You move southeast.
+
 Shadowy hallway
 
 Shadowy Hallway
@@ -943,6 +962,7 @@ and southwest (to a further branching of the hallway)
 Garrick walks towards you from the north-west.
 
 >You move east.
+
 Eastern hallway
 
 Eastern hallway
@@ -977,6 +997,7 @@ coin is crushed to dust.
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 6
 
 >You move south.
+
 Ruined Stairs
 
 Ruined Stairs
@@ -992,6 +1013,7 @@ Exits lie: north (through the steel door) and up (the stairs)
 Garrick walks towards you from the north.
 
 >   You move up.
+
 Top of the stairs
 
 Top of the Stairs
@@ -1006,6 +1028,7 @@ Exits lie: down (the stairs) and north (through the door)
 Garrick walks towards you from below.
 
 >You move north.
+
 Empty room
 
 Empty room
@@ -1025,6 +1048,7 @@ southeast (through an archway) and south (to the top of the stairs)
 Garrick walks towards you from the south.
 
 >You move southeast.
+
 Library
 
 Deserted Library
@@ -1055,6 +1079,7 @@ it is the spell does. It also contains the cryptic line: "Touch the one you
 would summon to life and speak the words of might"
 
 >You move south.
+
 Passageway
 
 Passageway
@@ -1119,6 +1144,7 @@ this place."
    "As anything but. Go now. I can tell you nothing more."
 
 >You move south.
+
 The Dream
 
 The Dream
@@ -1134,6 +1160,7 @@ Iridil is here.
 Garrick walks towards you from the north.
 
 >You move west.
+
 The Dream
 
 The Dream
@@ -1170,6 +1197,7 @@ to pick it up.
 will ever get the better of Vaslock."
 
 >You move east.
+
 The Dream
 
 The Dream
@@ -1208,6 +1236,7 @@ deserving of it."
 to discover for yourself."
 
 >You move west.
+
 The Dream
 
 The Dream
@@ -1223,6 +1252,7 @@ Sokan is here.
 Garrick walks towards you from the east.
 
 >You move northwest.
+
 The Dream
 
 The Dream
@@ -1259,6 +1289,7 @@ take a bit more than a little cross to get the better of him."
    "Discover that and you might just be ready for Vaslock after all."
 
 >You move southeast.
+
 The Dream
 
 The Dream
@@ -1274,6 +1305,7 @@ Sokan is here.
 Garrick walks towards you from the north-west.
 
 >You move east.
+
 The Dream
 
 The Dream
@@ -1289,6 +1321,7 @@ Iridil is here.
 Garrick walks towards you from the west.
 
 >You move north.
+
 The Dream
 
 The Dream
@@ -1317,6 +1350,7 @@ this place and you will never leave alive."
    Vadris laughs.
 
 >You move south.
+
 The Dream
 
 The Dream
@@ -1332,6 +1366,7 @@ Iridil is here.
 Garrick walks towards you from the north.
 
 >You move west.
+
 The Dream
 
 The Dream
@@ -1347,6 +1382,7 @@ Sokan is here.
 Garrick walks towards you from the east.
 
 >You move northwest.
+
 The Dream
 
 The Dream
@@ -1362,6 +1398,7 @@ Gabriel is here.
 Garrick walks towards you from the south-east.
 
 >You move southwest.
+
 The Dream
 
 The Dream
@@ -1396,6 +1433,7 @@ system."
 nothing more on the subject.
 
 >You move southeast.
+
 The Dream
 
 The Dream
@@ -1426,6 +1464,7 @@ don't have any use for it myself."
 Do with it as you want. Only leave me be."
 
 >You move east.
+
 The Dream
 
 The Dream
@@ -1461,6 +1500,7 @@ must."
 bother me anymore."
 
 >You move northeast.
+
 The Dream
 
 The Dream
@@ -1476,6 +1516,7 @@ Iridil is here.
 Garrick walks towards you from the south-west.
 
 >You move north.
+
 The Dream
 
 The Dream
@@ -1523,6 +1564,7 @@ verdigris key, the vial of holy water, the herbs, the scroll and the cobalt
 key.
 
 >You move north.
+
 Library
 
 Deserted Library
@@ -1541,6 +1583,7 @@ Exits lie: northwest (to the empty room) and south (to a passageway)
 Garrick walks towards you from the south.
 
 >You move northwest.
+
 Empty room
 
 Empty room
@@ -1558,6 +1601,7 @@ southeast (through an archway) and south (to the top of the stairs)
 Garrick walks towards you from the south-east.
 
 >You move northwest.
+
 Passage
 
 Passage
@@ -1729,6 +1773,7 @@ that seems to have changed is the word in the back of your mind - 'lies'.
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 8
 
 >You move west.
+
 The Pit
 
 The Pit
@@ -1768,6 +1813,7 @@ interrupted them at all.
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 9
 
 >You move north.
+
 Cells
 
 Cells
@@ -1852,6 +1898,7 @@ have to do next.
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 15
 
 >You move south.
+
 The Pit
 
 The Pit
@@ -1872,6 +1919,7 @@ Exits lie:  north (to the openings) and east (to the passage)
 Garrick walks towards you from the north.
 
 >You move east.
+
 Passage
 
 Passage
@@ -1890,6 +1938,7 @@ Exits lie: west (to the pit) and southeast (to the empty room)
 Garrick walks towards you from the west.
 
 >You move southeast.
+
 Empty room
 
 Empty room
@@ -1907,6 +1956,7 @@ southeast (through an archway) and south (to the top of the stairs)
 Garrick walks towards you from the north-west.
 
 >You move south.
+
 Top of the stairs
 
 Top of the Stairs
@@ -1925,6 +1975,7 @@ carefully enough. One of the steps gives way beneath your feet, sending you
 crashing to the bottom of the stairs.
 
    You grimly pick yourself up. You are winded but do not seem badly hurt.
+
 Ruined Stairs
 
 Ruined Stairs
@@ -1940,6 +1991,7 @@ Exits lie: north (through the steel door) and up (the stairs)
 Garrick walks towards you from above.
 
 >You move north.
+
 Eastern hallway
 
 Eastern hallway
@@ -1960,6 +2012,7 @@ Exits lie: west (to the shadowy hallway) and south (through the steel door)
 Garrick walks towards you from the south.
 
 >You move west.
+
 Shadowy hallway
 
 Shadowy Hallway
@@ -1981,6 +2034,7 @@ and southwest (to a further branching of the hallway)
 Garrick walks towards you from the east.
 
 >You move northwest.
+
 Laboratory
 
 The Laboratory
@@ -2042,6 +2096,7 @@ Garrick walks towards you from the east.
 >   You get the doll.
 
 >You move east.
+
 Laboratory
 
 The Laboratory
@@ -2062,6 +2117,7 @@ Exits lie: west (to the cell), north (to a door) and southeast (to a hallway)
 Garrick walks towards you from the west.
 
 >You move southeast.
+
 Shadowy hallway
 
 Shadowy Hallway
@@ -2083,6 +2139,7 @@ and southwest (to a further branching of the hallway)
 Garrick walks towards you from the north-west.
 
 >You move east.
+
 Eastern hallway
 
 Eastern hallway
@@ -2103,6 +2160,7 @@ Exits lie: west (to the shadowy hallway) and south (through the steel door)
 Garrick walks towards you from the west.
 
 >You move south.
+
 Ruined Stairs
 
 Ruined Stairs
@@ -2124,6 +2182,7 @@ crashing to the bottom of the stairs.
    You grimly pick yourself up. You are winded but do not seem badly hurt.
 
 >   You move up.
+
 Top of the stairs
 
 Top of the Stairs
@@ -2139,6 +2198,7 @@ Exits lie: down (the stairs) and north (through the door)
 Garrick walks towards you from below.
 
 >You move north.
+
 Empty room
 
 Empty room
@@ -2156,6 +2216,7 @@ southeast (through an archway) and south (to the top of the stairs)
 Garrick walks towards you from the south.
 
 >You move east.
+
 Eastern passage
 
 Eastern passage
@@ -2188,6 +2249,7 @@ in horror as the beast finally sinks to the floor, its death throes over.
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 16
 
 >You move east.
+
 Sloping Corridor
 
 Sloping Corridor
@@ -2206,6 +2268,7 @@ Exits lie: west (to the passageway) and north (the sloping corridor)
 Garrick walks towards you from the west.
 
 >You move north.
+
 Ancient Feasthall
 
 Ancient Feasthall
@@ -2226,6 +2289,7 @@ archway) and south (to the sloping corridor)
 Garrick walks towards you from the south.
 
 >You move north.
+
 Goblin Chamber
 
 Goblin Chamber
@@ -2246,6 +2310,7 @@ Garrick walks towards you from the south.
 bit smaller afterwards.
 
 >You move south.
+
 Ancient Feasthall
 
 Ancient Feasthall
@@ -2266,6 +2331,7 @@ archway) and south (to the sloping corridor)
 Garrick walks towards you from the north.
 
 >You move west.
+
 End of Corridor
 
 End of Corridor
@@ -2316,6 +2382,7 @@ clarity and a moment later seem nothing more than stone once again.
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 12
 
 >You move north.
+
 End of Corridor
 
 End of Corridor
@@ -2334,6 +2401,7 @@ feasthall
 Garrick walks towards you from the south.
 
 >You move east.
+
 Ancient Feasthall
 
 Ancient Feasthall
@@ -2410,6 +2478,7 @@ The longer the wards are down, the more chance there is of Vaslock detecting
 their absence and coming to investigate."
 
 >You move west.
+
 End of Corridor
 
 End of Corridor
@@ -2429,6 +2498,7 @@ feasthall
 Garrick walks towards you from the east.
 
 >You move south.
+
 The Pool
 
 The Pool
@@ -2457,6 +2527,7 @@ surprised to find her skin is no longer stone, it is human flesh once more.
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 12
 
 >You move north.
+
 End of Corridor
 
 End of Corridor
@@ -2475,6 +2546,7 @@ feasthall
 Garrick walks towards you from the south.
 
 >You move west.
+
 Strange Room
 
 Strange Room
@@ -2498,6 +2570,7 @@ takes its hold on you. In this time, you find what appears to be a small clay
 idol tucked into a crack in one wall.
 
 >You move north.
+
 Toril's Chambers
 
 Toril's Chambers
@@ -2570,6 +2643,7 @@ that the wards have reinstated themselves.
 Garrick walks towards you from the north.
 
 >You move east.
+
 End of Corridor
 
 End of Corridor
@@ -2588,6 +2662,7 @@ feasthall
 Garrick walks towards you from the west.
 
 >You move southwest.
+
 Kitchen
 
 Kitchen
@@ -2623,6 +2698,7 @@ fall out, crashing to the floor in an unholy mess.
 >You pick up the jug.
 
 >You move northeast.
+
 End of Corridor
 
 End of Corridor
@@ -2721,6 +2797,7 @@ thank you for this.'
    The strange note is not signed.
 
 >You move west.
+
 Ancient Feasthall
 
 Ancient Feasthall
@@ -2741,6 +2818,7 @@ archway) and south (to the sloping corridor)
 Garrick walks towards you from the east.
 
 >You move south.
+
 Sloping Corridor
 
 Sloping Corridor
@@ -2759,6 +2837,7 @@ Exits lie: west (to the passageway) and north (the sloping corridor)
 Garrick walks towards you from the north.
 
 >You move west.
+
 Eastern passage
 
 Eastern passage
@@ -2775,6 +2854,7 @@ Exits lie: west (to the empty room) and east (to the shadowy archway)
 Garrick walks towards you from the east.
 
 >You move west.
+
 Empty room
 
 Empty room
@@ -2794,6 +2874,7 @@ southeast (through an archway) and south (to the top of the stairs)
 Garrick walks towards you from the east.
 
 >You move south.
+
 Top of the stairs
 
 Top of the Stairs
@@ -2813,6 +2894,7 @@ carefully enough. One of the steps gives way beneath your feet, sending you
 crashing to the bottom of the stairs.
 
    You grimly pick yourself up. You are winded but do not seem badly hurt.
+
 Ruined Stairs
 
 Ruined Stairs
@@ -2828,6 +2910,7 @@ Exits lie: north (through the steel door) and up (the stairs)
 Garrick walks towards you from above.
 
 >You move north.
+
 Eastern hallway
 
 Eastern hallway
@@ -2848,6 +2931,7 @@ Exits lie: west (to the shadowy hallway) and south (through the steel door)
 Garrick walks towards you from the south.
 
 >You move west.
+
 Shadowy hallway
 
 Shadowy Hallway
@@ -2869,6 +2953,7 @@ and southwest (to a further branching of the hallway)
 Garrick walks towards you from the east.
 
 >You move southwest.
+
 Dark passageway
 
 Dark passageway
@@ -2883,6 +2968,7 @@ Exits lie: northeast (to the hallway) and south (to the dimly-lit room)
 Garrick walks towards you from the north-east.
 
 >You move south.
+
 Dimly-lit room
 
 Dimly-lit room
@@ -2931,6 +3017,7 @@ now."
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 10
 
 >You move north.
+
 Dark passageway
 
 Dark passageway
@@ -2945,6 +3032,7 @@ Exits lie: northeast (to the hallway) and south (to the dimly-lit room)
 Garrick walks towards you from the south.
 
 >You move northeast.
+
 Shadowy hallway
 
 Shadowy Hallway
@@ -2967,6 +3055,7 @@ and southwest (to a further branching of the hallway)
 Garrick walks towards you from the south-west.
 
 >You move east.
+
 Eastern hallway
 
 Eastern hallway
@@ -2987,6 +3076,7 @@ Exits lie: west (to the shadowy hallway) and south (through the steel door)
 Garrick walks towards you from the west.
 
 >You move south.
+
 Ruined Stairs
 
 Ruined Stairs
@@ -3002,6 +3092,7 @@ Exits lie: north (through the steel door) and up (the stairs)
 Garrick walks towards you from the north.
 
 >   You move up.
+
 Top of the stairs
 
 Top of the Stairs
@@ -3016,6 +3107,7 @@ Exits lie: down (the stairs) and north (through the door)
 Garrick walks towards you from below.
 
 >You move north.
+
 Empty room
 
 Empty room
@@ -3033,6 +3125,7 @@ southeast (through an archway) and south (to the top of the stairs)
 Garrick walks towards you from the south.
 
 >You move east.
+
 Eastern passage
 
 Eastern passage
@@ -3049,6 +3142,7 @@ Exits lie: west (to the empty room) and east (to the shadowy archway)
 Garrick walks towards you from the west.
 
 >You move east.
+
 Sloping Corridor
 
 Sloping Corridor
@@ -3066,6 +3160,7 @@ Exits lie: west (to the passageway) and north (the sloping corridor)
 Garrick walks towards you from the west.
 
 >You move north.
+
 Ancient Feasthall
 
 Ancient Feasthall
@@ -3086,6 +3181,7 @@ archway) and south (to the sloping corridor)
 Garrick walks towards you from the south.
 
 >You move northeast.
+
 Corridor
 
 Corridor
@@ -3105,6 +3201,7 @@ Garrick walks towards you from the south-west.
 heading in this direction.
 
 >You move northeast.
+
 The Statue
 
 The Statue
@@ -3186,6 +3283,7 @@ Exits lie: north (along the passage) and south (through the dark archway)
 >   You fill the jug with blood.
 
 >You move north.
+
 Dark Passageway
 
 Dark Passageway
@@ -3199,6 +3297,7 @@ Exits lie: north (to the junction), south (to the deathly chamber) and east
 (to a small alcove)
 
 >You move east.
+
 Small Alcove
 
 Small Alcove
@@ -3284,6 +3383,7 @@ oozes out of him.
 YOUR JOURNAL HAS BEEN UPDATED - PAGE 18
 
 >You move west.
+
 Dark Passageway
 
 Dark Passageway
@@ -3316,6 +3416,7 @@ vampires from seeing you. You are free to move about - provided you do not
 make too much noise.
 
 >You move northeast.
+
 Top of Steps
 
 Top of Steps
@@ -3335,6 +3436,7 @@ whispers a spectral voice.
 you have passed some kind of test.
 
 >You move down.
+
 Crypt
 
 Crypt
@@ -3472,6 +3574,7 @@ more than he anticipated.
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 23
 
 >You move up.
+
 Top of Steps
 
 Top of Steps
@@ -3483,6 +3586,7 @@ the steps is a sign upon which is written several words.
 Exits lie: southwest (to the junction) and down (the steps)
 
 >You move southwest.
+
 Junction
 
 Junction
@@ -3523,6 +3627,7 @@ and will no doubt be a useful ally in this place.
 Gragor follows you.
 
 >You move east.
+
 End of Passage
 
 End of Passage
@@ -3541,6 +3646,7 @@ room beyond.
    "The storeroom," Gragor says. "C'mon."
 
 >   You move southeast.
+
 Storeroom
 
 Storeroom
@@ -3574,6 +3680,7 @@ here."
 "Now I feel a bit better prepared."
 
 >You move northwest.
+
 End of Passage
 
 End of Passage
@@ -3587,6 +3694,7 @@ Exits lie: west (to the junction) and southeast (to the storeroom)
 Gragor follows you from the south-east.
 
 >You move west.
+
 Junction
 
 Junction
@@ -3648,6 +3756,7 @@ dust.
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 24
 
 >You move west.
+
 Dark Tunnel [2]
 
 Dark Tunnel
@@ -3664,6 +3773,7 @@ Exits lie: west and east (along tunnel)
 Gragor follows you from the east.
 
 >You move west.
+
 Dark Tunnel [3]
 
 Dark Tunnel
@@ -3683,6 +3793,7 @@ slides effortlessly to one side. A passage is revealed beyond.
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 19
 
 >You move west.
+
 Passage
 
 Passage
@@ -3695,6 +3806,7 @@ Exits lie: east (to the dark tunnel) and west (to the sloping passage)
 Gragor follows you from the east.
 
 >You move west.
+
 Sloping Passage
 
 Sloping Passage

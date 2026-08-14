@@ -40,6 +40,7 @@ talking to me, at least have the decency to get my name right and don't refer
 to me as 'girl'. Jeez! Some people!"
 
 >You move up.
+
 Open Area
 Busy journalists rush past you on all sides, creating a veritable horde of
 activity in this dimly-lit area. Several offices line the walls although as
@@ -48,6 +49,7 @@ none of them are marked it's difficult to say just what is in them.
 various offices) and south (to the toilets).
 
 >You move northwest.
+
 Bogg's Office
 The office of the fabled Bogg, one of the most scathing journalists in town.
 The bile and rage he has poured onto your classic games in the past - even
@@ -61,6 +63,7 @@ The surface of Bogg's desk is completely empty. Aside, that is, from an empty cu
 might find it gone and spontaneously combust as a result.
 
 >You move southeast.
+
 Open Area
 Busy journalists rush past you on all sides, creating a veritable horde of
 activity in this dimly-lit area. Several offices line the walls although as
@@ -69,6 +72,7 @@ none of them are marked it's difficult to say just what is in them.
 various offices) and south (to the toilets).
 
 >You move south.
+
 Toilets
 The toilets look like the inside of a sewer (a scene hghly reminiscent of
 your game Down int he Sewa) what with the pools of dirty water on the floor
@@ -83,6 +87,7 @@ fill it up. Disgusting as this seems, the stuff contained within the cup is
 now undoubtedly closer to coffee than what journalists generally drink.
 
 >You move north.
+
 Open Area
 Busy journalists rush past you on all sides, creating a veritable horde of
 activity in this dimly-lit area. Several offices line the walls although as
@@ -91,6 +96,7 @@ none of them are marked it's difficult to say just what is in them.
 various offices) and south (to the toilets).
 
 >You move down.
+
 Reception
 The newspaper reception is small and cramped with several bundles of ancient
 newspapers cluttering up every corner. Behind the reception desk sits a bored
@@ -123,6 +129,7 @@ wife calls, tell her I'm seeing my mistress."
    "He's such a gentleman," sighs Lisa.
 
 >You move up.
+
 Open Area
 Busy journalists rush past you on all sides, creating a veritable horde of
 activity in this dimly-lit area. Several offices line the walls although as
@@ -136,6 +143,7 @@ she hates smoking! I'd better-"
    There is the sound of a window smashing.
 
 >You move north.
+
 Snarf's Office
 The head of the newspaper has this office, and you're sure he was the
 vicious-minded so-and-so behind that scandalous hack job in the paper this
@@ -152,6 +160,7 @@ mortal fear that you were his dearly beloved wife.
 >You pick up the match.
 
 >You move south.
+
 Open Area
 Busy journalists rush past you on all sides, creating a veritable horde of
 activity in this dimly-lit area. Several offices line the walls although as
@@ -160,6 +169,7 @@ none of them are marked it's difficult to say just what is in them.
 various offices) and south (to the toilets).
 
 >You move northeast.
+
 Archives System
 This is the very hub of the newspaper: the storage area for all their old
 stories. One fire here and...

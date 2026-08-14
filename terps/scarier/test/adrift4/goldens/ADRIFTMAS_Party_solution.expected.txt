@@ -75,6 +75,7 @@ You build a masterpiece in no time, but are disappointed that it doesn't seem
 to stay together, and ends up with back where it started.
 
 >You move north.
+
 Covered Entry
 Tall pillars rise up on both sides of the covered entry.  Tall double doors
 mark the entrance to Campbell's magnificent home. Snow covered bushes
@@ -94,6 +95,7 @@ away from that spot.
 >You open the double door.
 
 >You move north.
+
 Foyer
 Opening to the dining room to the east and the study to the west, highly
 polished hardwood floors give the feeling of being in a grand place.  The
@@ -130,6 +132,7 @@ You decided that you are not so fond of gum after all and remove it from your
 mouth.
 
 >You move north.
+
 Hall
 Standing in the hall is the bust of Rob Roy MacGregor and a pink rug that
 lies on the floor.  The hall opens to the living room, dining room, and
@@ -146,6 +149,7 @@ The Invisible Man sidles unobtrusively into the room from the south-west.
 Nick Grimson wanders in from the south-west.
 
 >You move west.
+
 Kitchen
 This modern kitchen is quite charming.  Granite countertops spread throughout
 the kitchen, and cover the island in the center also. A stove range and
@@ -155,6 +159,7 @@ counter, with cabinets above the sink is located in the southwest portion.
 You can move north, east, south and west.
 
 >You move south.
+
 Kitchen Hall
 The hall runs east and west, and is void of any decoration.  To the northwest
 is the bathroom, and a closet is to the south.  Back to the east is the
@@ -170,6 +175,7 @@ You can move north and northwest.
 >You open the closet door.
 
 >You move south.
+
 Kitchen Hall Closet
 Being in this small closet reminds you of the time that the elves locked you
 in the woodshed for two days.  It wasn't worth the long days of cleaning out
@@ -188,6 +194,7 @@ You give the floor quick sweep, wishing the elves were here to do it for you.
 You stick the piece of chewed bubble gum on the end of the broom handle.
 
 >You move north.
+
 Kitchen Hall
 The hall runs east and west, and is void of any decoration.  To the northwest
 is the bathroom, and a closet is to the south.  Back to the east is the
@@ -200,6 +207,7 @@ KF stands hunched, trying not to be noticed.
 You can move north, south and northwest.
 
 >You move north.
+
 Kitchen
 This modern kitchen is quite charming.  Granite countertops spread throughout
 the kitchen, and cover the island in the center also. A stove range and
@@ -236,6 +244,7 @@ water.   Soon after the circles begin to disappear and you regain your
 senses.
 
 >You move north.
+
 Game Room
 The walls are kind of WILD in here, as opposed to the rest of the house.  In
 the center of the room is a billiards table, not too far away from a
@@ -268,6 +277,7 @@ something like this would get you into trouble.  Perhaps you might learn some
 self control.
 
 >You move north.
+
 Master Bath
 Upon entering the master bathroom, the first thing that catches your eye is
 the magnificent shower on the east wall, next to the raised platform bath in
@@ -278,6 +288,7 @@ crystal light fixtures, softening the mood of the room.
 You can move north, south, west, northeast and northwest.
 
 >You move northwest.
+
 Master Suite
 Tall arched windows rise high on the north wall, breaking up the blue of the
 walls. Against the east wall is a modern looking bed accompanied by dual
@@ -289,6 +300,7 @@ EdS is here, looking for more silverware to sneak into his pockets.
 You can move southeast and southwest.
 
 >You move southwest.
+
 Hall
 Standing in the hall is the bust of Rob Roy MacGregor and a pink rug that
 lies on the floor.  The hall opens to the living room, dining room, and
@@ -297,6 +309,7 @@ foyer.
 You can move north, south, west, northeast, southeast and southwest.
 
 >You move north.
+
 Living Room
 A fine leather sofa sits facing the east wall on which there is a fireplace
 and plasma television.  Located at the end each end of the sofa is a couple
@@ -316,6 +329,7 @@ You use the gum on the stick and carefully retrieve the key from the top of
 the tree.
 
 >You move west.
+
 Game Room
 The walls are kind of WILD in here, as opposed to the rest of the house.  In
 the center of the room is a billiards table, not too far away from a
@@ -357,6 +371,7 @@ cash from MileOut.
 staggering back to where he was before you ambushed him.
 
 >You move east.
+
 Living Room
 A fine leather sofa sits facing the east wall on which there is a fireplace
 and plasma television.  Located at the end each end of the sofa is a couple
@@ -371,6 +386,7 @@ comfortably around the room.
 You can move south and west.
 
 >You move south.
+
 Hall
 Standing in the hall is the bust of Rob Roy MacGregor and a pink rug that
 lies on the floor.  The hall opens to the living room, dining room, and
@@ -379,6 +395,7 @@ foyer.
 You can move north, south, west, northeast, southeast and southwest.
 
 >You move southeast.
+
 Study
 A large corner desk takes up space on the north and eastern wall, accompanied
 by matching framed prints.  A high back leather chair sits before the desk.
@@ -412,6 +429,7 @@ You restrain from complaining about the reading, since it was only $10.
 You're not so sure about what he says, though.
 
 >You move northwest.
+
 Hall
 Standing in the hall is the bust of Rob Roy MacGregor and a pink rug that
 lies on the floor.  The hall opens to the living room, dining room, and
@@ -424,6 +442,7 @@ You can move north, south, west, northeast, southeast and southwest.
 Lancer Sykera floats away through the air to the west.
 
 >You move southwest.
+
 Dining Room
 The dining room is elegantly furnished with a dark cherry wood table
 surrounded by eight chairs.  Along the west wall, two paintings hang on
@@ -441,6 +460,7 @@ You can move east and northeast.
 >You take the springs from the right drawer.
 
 >You move northeast.
+
 Hall
 Standing in the hall is the bust of Rob Roy MacGregor and a pink rug that
 lies on the floor.  The hall opens to the living room, dining room, and
@@ -453,6 +473,7 @@ DuoDave is here.
 You can move north, south, west, northeast, southeast and southwest.
 
 >You move northeast.
+
 Master Suite
 Tall arched windows rise high on the north wall, breaking up the blue of the
 walls. Against the east wall is a modern looking bed accompanied by dual
@@ -465,6 +486,7 @@ balancing five platefuls of food about his person.
 You can move southeast and southwest.
 
 >You move southeast.
+
 Master Bath
 Upon entering the master bathroom, the first thing that catches your eye is
 the magnificent shower on the east wall, next to the raised platform bath in
@@ -475,6 +497,7 @@ crystal light fixtures, softening the mood of the room.
 You can move north, south, west, northeast and northwest.
 
 >You move south.
+
 Second Master Closet
 The closet is quite large and has a large wraparound shelf that encompasses
 the room, until it meets a wardrobe on the west wall.  Beneath the shelf is
@@ -496,6 +519,7 @@ inside the wardrobe.
 >You close the suitcase.
 
 >You move north.
+
 Master Bath
 Upon entering the master bathroom, the first thing that catches your eye is
 the magnificent shower on the east wall, next to the raised platform bath in
@@ -506,6 +530,7 @@ crystal light fixtures, softening the mood of the room.
 You can move north, south, west, northeast and northwest.
 
 >You move northwest.
+
 Master Suite
 Tall arched windows rise high on the north wall, breaking up the blue of the
 walls. Against the east wall is a modern looking bed accompanied by dual
@@ -518,6 +543,7 @@ balancing five platefuls of food about his person.
 You can move southeast and southwest.
 
 >You move southwest.
+
 Hall
 Standing in the hall is the bust of Rob Roy MacGregor and a pink rug that
 lies on the floor.  The hall opens to the living room, dining room, and
@@ -530,6 +556,7 @@ DuoDave is here.
 You can move north, south, west, northeast, southeast and southwest.
 
 >You move south.
+
 Foyer
 Opening to the dining room to the east and the study to the west, highly
 polished hardwood floors give the feeling of being in a grand place.  The
@@ -542,6 +569,7 @@ carved double doors that lead to the outside.
 You can move north, east, south, west and out.
 
 >You move south.
+
 Covered Entry
 Tall pillars rise up on both sides of the covered entry.  Tall double doors
 mark the entrance to Campbell's magnificent home. Snow covered bushes
@@ -551,6 +579,7 @@ dome light provides ample lighting for the front area of the house.
 You can move north, south and in.
 
 >You move south.
+
 Front Steps
 These stone steps lead up to a covered entry, just outside the front door. A
 light layer of snow covers each stair, and has small bushes to each side.

@@ -52,6 +52,7 @@ The time is now 9:31.)
 >You pull a piece of wire from the rubbish bin.
 
 >You move north.
+
 Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
@@ -123,6 +124,7 @@ A cat strolls out to the north.
 The young girl says "need donningby train."
 
 >You move west.
+
 Cafe
 It is probably the first time you have been in this cafe (and it will be the
 last).  You have the feeling that a visit from the local heath inspector is
@@ -161,6 +163,7 @@ The shaking feels like it is never going to stop.
 Station Master."
 
 >You move east.
+
 Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
@@ -178,6 +181,7 @@ A train thunders through the station and it doesn't sound like it is going to
 stop.
 
 >You move north.
+
 Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
@@ -205,6 +209,7 @@ A young girl wanders in from the east.
 The young girl says "how get donningby?"
 
 >You move east.
+
 Waiting Room
 Hoping for something different to the rest of the station you are
 disappointed.  You now find yourself in the Waiting Room which is drab, dirty
@@ -337,6 +342,7 @@ The shaking feels like it is never going to stop.
 >"we do owe a little money that is true, but my husband will sort it all out."
 
 >You move west.
+
 Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
@@ -351,6 +357,7 @@ night on a bench.
 You appear to be able to move east, south and northwest.
 
 >You move northwest.
+
 Bridge
 You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
@@ -386,6 +393,7 @@ You can hear a small bell tinkling which sounds just like one of those bells
 worn by a cat.
 
 >You move northeast.
+
 Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
@@ -399,6 +407,7 @@ A large pigeon is watching you from the canopy over the platform.
 You appear to be able to move north, east and southwest.
 
 >You move east.
+
 Private
 The warm and cosy Station Master's office is a pleasant surprise from the
 rest of the station.  It even has wallpaper and a carpet. The room has a
@@ -497,6 +506,7 @@ The Station Master says "Why did you do that? I liked that vase."
 >You pickup the flowers.
 
 >You move west.
+
 Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
@@ -567,6 +577,7 @@ You hang up.
 The young girl says "donningby platform?"
 
 >You move east.
+
 Private
 The warm and cosy Station Master's office is a pleasant surprise from the
 rest of the station.  It even has wallpaper and a carpet. The room has a
@@ -582,6 +593,7 @@ The door out of the room is west.
 He is going to be no help.  Better find someone else.
 
 >You move west.
+
 Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
@@ -603,6 +615,7 @@ The pigeon on the canopy of platform 2 flaps its wings and does its business.
 You end up with bird mess on your suit.
 
 >You move southwest.
+
 Bridge
 You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
@@ -686,6 +699,7 @@ You can hear a small bell tinkling which sounds just like one of those bells
 worn by a cat.
 
 >You move southeast.
+
 Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
@@ -712,6 +726,7 @@ The shaking feels like it is never going to stop.
 >You try to wipe the mess from your suit, but it just looks worse then ever.
 
 >You move south.
+
 Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
@@ -724,6 +739,7 @@ The Ticket Seller is looking at you expectantly.
 You appear to be able to move north, south and west.
 
 >You move south.
+
 Front of Station
 You are at the front of Coltby Railway Station.  All the stations that
 belonged to this company where built of local stone in a sort of mock
@@ -808,6 +824,7 @@ It sounds like a train is at platform 2.
 >I have no idea what you mean!
 
 >You move north.
+
 Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
@@ -822,6 +839,7 @@ You hear someone blowing a whistle and the train on platform 2 pulls out of
 the station.
 
 >You move west.
+
 Cafe
 It is probably the first time you have been in this cafe (and it will be the
 last).  You have the feeling that a visit from the local heath inspector is
@@ -843,6 +861,7 @@ shopping is a pair of tights, a tin of pet food, a can of deodorant and a
 pair of gloves.
 
 >You move east.
+
 Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
@@ -855,6 +874,7 @@ The Ticket Seller is looking at you expectantly.
 You appear to be able to move north, south and west.
 
 >You move north.
+
 Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
@@ -886,6 +906,7 @@ litter wardens.
 >"have a word with the Station Master."
 
 >You move south.
+
 Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
@@ -898,6 +919,7 @@ The Ticket Seller is looking at you expectantly.
 You appear to be able to move north, south and west.
 
 >You move south.
+
 Front of Station
 You are at the front of Coltby Railway Station.  All the stations that
 belonged to this company where built of local stone in a sort of mock
@@ -916,6 +938,7 @@ To the north you can see the station entrance.
 >You look at your wristwatch and see that the time is 11:38.
 
 >You move north.
+
 Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
@@ -933,6 +956,7 @@ The whole station seems to be shaking as a freight train rumbles through.
 The shaking feels like it is never going to stop.
 
 >You move south.
+
 Front of Station
 You are at the front of Coltby Railway Station.  All the stations that
 belonged to this company where built of local stone in a sort of mock
@@ -949,6 +973,7 @@ To the north you can see the station entrance.
 >You put the banana skin inside the rubbish bin.
 
 >You move north.
+
 Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
@@ -961,6 +986,7 @@ The Ticket Seller is looking at you expectantly.
 You appear to be able to move north, south and west.
 
 >You move north.
+
 Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
@@ -1003,6 +1029,7 @@ A cat strolls out to the east.
 A young girl wanders out to the east.
 
 >You move northwest.
+
 Bridge
 You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
@@ -1046,6 +1073,7 @@ think.
 >Young Girl -- Waiting Room.
 
 >You move southeast.
+
 Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
@@ -1099,6 +1127,7 @@ You can hear a small bell tinkling which sounds just like one of those bells
 worn by a cat.
 
 >You move northwest.
+
 Bridge
 You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
@@ -1110,6 +1139,7 @@ A Trainspotter dressed in wet weather gear is watching you.
 You appear to be able to move northeast and southeast.
 
 >You move northeast.
+
 Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
@@ -1124,6 +1154,7 @@ A large pigeon is watching you from the canopy over the platform.
 You appear to be able to move north, east and southwest.
 
 >You move north.
+
 Left Luggage
 Although the whole station has seen better days, this room certainly can't
 have seen any worse.  The paint is peeling from the brick walls, the ceiling
@@ -1149,6 +1180,7 @@ It sounds like a train is at platform 1.
 It sounds like a train is at platform 1.
 
 >You move south.
+
 Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
@@ -1183,6 +1215,7 @@ doors of the train have closed.
 You can see that the Colesworth train is at platform 1.
 
 >You move east.
+
 Private
 The warm and cosy Station Master's office is a pleasant surprise from the
 rest of the station.  It even has wallpaper and a carpet. The room has a
@@ -1202,6 +1235,7 @@ You hear someone blowing a whistle and the train on platform 1 pulls out of
 the station.
 
 >You move west.
+
 Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
@@ -1215,6 +1249,7 @@ You can also see a payphone.
 You appear to be able to move north, east and southwest.
 
 >You move southwest.
+
 Bridge
 You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
@@ -1233,6 +1268,7 @@ excited.  He shouts "YOU'RE A TRAINSPOTTER! Great! Lets swap train details!"
 Lets not you think to yourself.
 
 >You move southeast.
+
 Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
@@ -1255,6 +1291,7 @@ A train thunders through the station and it doesn't sound like it is going to
 stop.
 
 >You move south.
+
 Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
@@ -1269,6 +1306,7 @@ The Ticket Sellers looks and says "seen any good trains today." He then
 starts laughing.
 
 >You move south.
+
 Front of Station
 You are at the front of Coltby Railway Station.  All the stations that
 belonged to this company where built of local stone in a sort of mock
@@ -1285,6 +1323,7 @@ To the north you can see the station entrance.
 >You put the apple core inside the rubbish bin.
 
 >You move north.
+
 Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
@@ -1297,6 +1336,7 @@ The Ticket Seller is looking at you expectantly.
 You appear to be able to move north, south and west.
 
 >You move north.
+
 Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
@@ -1312,6 +1352,7 @@ night on a bench.
 You appear to be able to move east, south and northwest.
 
 >You move northwest.
+
 Bridge
 You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
@@ -1330,6 +1371,7 @@ The trainspotter writes something in a notebook.
 say "no, I've already got two copies.  This one is yours."
 
 >You move northeast.
+
 Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
@@ -1346,6 +1388,7 @@ You appear to be able to move north, east and southwest.
 A cat strolls out to the north.
 
 >You move east.
+
 Private
 The warm and cosy Station Master's office is a pleasant surprise from the
 rest of the station.  It even has wallpaper and a carpet. The room has a
@@ -1362,6 +1405,7 @@ You hand the IOU to the Station Master explaining how you found it.  He says
 He could return at any moment so you want anything you had better be quick.
 
 >You move west.
+
 Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
@@ -1404,6 +1448,7 @@ like the porter is getting a telling off about the .
 The Station Master enters from the southwest and heads east.
 
 >You move east.
+
 Private
 The warm and cosy Station Master's office is a pleasant surprise from the
 rest of the station.  It even has wallpaper and a carpet. The room has a
@@ -1417,6 +1462,7 @@ The door out of the room is west.
 >"I let that Porter know what I thought of him."
 
 >You move west.
+
 Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
@@ -1430,6 +1476,7 @@ You can also see a payphone.
 You appear to be able to move north, east and southwest.
 
 >You move southwest.
+
 Bridge
 You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
@@ -1444,6 +1491,7 @@ You can hear a small bell tinkling which sounds just like one of those bells
 worn by a cat.
 
 >You move southeast.
+
 Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
@@ -1501,6 +1549,7 @@ whistling.  You then hear Bakeswell followed by something like "running
 approximately 15 minutes late."
 
 >You move northwest.
+
 Bridge
 You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
@@ -1523,6 +1572,7 @@ The trainspotter writes something in a notebook.
 The Trainspotters says "I prefer cheese in my sandwiches."
 
 >You move northeast.
+
 Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
@@ -1536,6 +1586,7 @@ You can also see a payphone.
 You appear to be able to move north, east and southwest.
 
 >You move north.
+
 Left Luggage
 Although the whole station has seen better days, this room certainly can't
 have seen any worse.  The paint is peeling from the brick walls, the ceiling
@@ -1552,6 +1603,7 @@ The door out of the left luggage room is south.
 >The suitcase is too heavy for you to carry at the moment.
 
 >You move south.
+
 Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
@@ -1565,6 +1617,7 @@ You can also see a payphone.
 You appear to be able to move north, east and southwest.
 
 >You move southwest.
+
 Bridge
 You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
@@ -1580,6 +1633,7 @@ You can hear a small bell tinkling which sounds just like one of those bells
 worn by a cat.
 
 >You move southeast.
+
 Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
@@ -1632,6 +1686,7 @@ The Porter mutters something under his breath.
 You can see that the Bakeswell train is at platform 2.
 
 >You move east.
+
 Waiting Room
 Hoping for something different to the rest of the station you are
 disappointed.  You now find yourself in the Waiting Room which is drab, dirty
@@ -1740,6 +1795,7 @@ He leaves with Mr Peters and the cat follows.
 >Its from the Dobie and Moyles Bank.
 
 >You move west.
+
 Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
@@ -1760,6 +1816,7 @@ The porter says "if you see the Station Master before I do can you tell him a
 parcel has been delivered.  I put it in Left Luggage."
 
 >You move northwest.
+
 Bridge
 You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
@@ -1773,6 +1830,7 @@ The Trainspotters says "Its a strange fact that I love trainspotting but get
 travel sick on trains."
 
 >You move northeast.
+
 Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
@@ -1786,6 +1844,7 @@ You can also see a payphone.
 You appear to be able to move north, east and southwest.
 
 >You move north.
+
 Left Luggage
 Although the whole station has seen better days, this room certainly can't
 have seen any worse.  The paint is peeling from the brick walls, the ceiling
@@ -1825,6 +1884,7 @@ should be harder to snap pencils."
 >You close the parcel.
 
 >You move south.
+
 Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
@@ -1838,6 +1898,7 @@ You can also see a payphone.
 You appear to be able to move north, east and southwest.
 
 >You move east.
+
 Private
 The warm and cosy Station Master's office is a pleasant surprise from the
 rest of the station.  It even has wallpaper and a carpet. The room has a
@@ -1877,6 +1938,7 @@ of gloves and a pamphlet.  A scrap of paper is inside your wallet.  A can of
 deodorant is inside the bag of shopping.
 
 >You move west.
+
 Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
@@ -1890,6 +1952,7 @@ You can also see a payphone.
 You appear to be able to move north, east and southwest.
 
 >You move southwest.
+
 Bridge
 You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
@@ -1901,6 +1964,7 @@ A Trainspotter dressed in wet weather gear is watching you.
 You appear to be able to move northeast and southeast.
 
 >You move southeast.
+
 Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
@@ -1947,6 +2011,7 @@ You can see that the Coldon train is at platform 2.
 You can see that the Coldon train is at platform 2.
 
 >You move south.
+
 Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
@@ -1961,6 +2026,7 @@ You appear to be able to move north, south and west.
 It sounds like a train is at platform 2.
 
 >You move west.
+
 Cafe
 It is probably the first time you have been in this cafe (and it will be the
 last).  You have the feeling that a visit from the local heath inspector is
@@ -1977,6 +2043,7 @@ It sounds like a train is at platform 2.
 It sounds like a train is at platform 2.
 
 >You move east.
+
 Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
@@ -1991,6 +2058,7 @@ You appear to be able to move north, south and west.
 It sounds like a train is at platform 2.
 
 >You move north.
+
 Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
@@ -2046,6 +2114,7 @@ now ready to 'write something on the note'.
 You write the name 'Colesworth' on the note.
 
 >You move northwest.
+
 Bridge
 You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
@@ -2060,6 +2129,7 @@ The Trainspotter has seen the note you are carrying and says "You should
 really hand that note back to the Station Master."
 
 >You move northeast.
+
 Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
@@ -2076,6 +2146,7 @@ The whole station seems to be shaking as a freight train rumbles through.
 The shaking feels like it is never going to stop.
 
 >You move east.
+
 Private
 The warm and cosy Station Master's office is a pleasant surprise from the
 rest of the station.  It even has wallpaper and a carpet. The room has a
@@ -2097,6 +2168,7 @@ You hand the pen to the Station Master.  "I thought I'd lost this.  My wife
 gave it me you know."
 
 >You move west.
+
 Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
@@ -2115,6 +2187,7 @@ stop.
 >You pick up the chocolate wrapper.
 
 >You move southwest.
+
 Bridge
 You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
@@ -2131,6 +2204,7 @@ The Trainspotters says "I notice you do not have a flask.  You will need one
 if you are going to be a trainspotter."
 
 >You move southeast.
+
 Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
@@ -2146,6 +2220,7 @@ night on a bench.  A tall business woman is looking at you.
 You appear to be able to move east, south and northwest.
 
 >You move south.
+
 Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
@@ -2158,6 +2233,7 @@ The Ticket Seller is looking at you expectantly.
 You appear to be able to move north, south and west.
 
 >You move south.
+
 Front of Station
 You are at the front of Coltby Railway Station.  All the stations that
 belonged to this company where built of local stone in a sort of mock
@@ -2180,6 +2256,7 @@ gloves and a pamphlet.  A scrap of paper is inside your wallet.  A can of
 deodorant is inside the bag of shopping.
 
 >You move north.
+
 Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
@@ -2192,6 +2269,7 @@ The Ticket Seller is looking at you expectantly.
 You appear to be able to move north, south and west.
 
 >You move north.
+
 Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
@@ -2225,6 +2303,7 @@ whistling.  You then hear Thrumpton followed by something like "running
 approximately 5 minutes late."
 
 >You move northwest.
+
 Bridge
 You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
@@ -2238,6 +2317,7 @@ The Trainspotters says "I think I forgot to mention that my brother is a
 trainspotter as well."
 
 >You move northeast.
+
 Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
@@ -2251,6 +2331,7 @@ You can also see a payphone.
 You appear to be able to move north, east and southwest.
 
 >You move north.
+
 Left Luggage
 Although the whole station has seen better days, this room certainly can't
 have seen any worse.  The paint is peeling from the brick walls, the ceiling
@@ -2265,6 +2346,7 @@ You can also see a suitcase, a sweeping brush and a bucket.
 The door out of the left luggage room is south.
 
 >You move south.
+
 Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
@@ -2284,6 +2366,7 @@ on the announcement.
 two people depart from the train and leave.
 
 >You move southwest.
+
 Bridge
 You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
@@ -2298,6 +2381,7 @@ You can see that the Thrumpton train is at platform 2.
 
 >
 >You move southeast.
+
 Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
@@ -2315,6 +2399,7 @@ You appear to be able to move east, south and northwest.
 You can see that the Thrumpton train is at platform 2.
 
 >You move south.
+
 Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
@@ -2333,6 +2418,7 @@ It sounds like a train is at platform 2.
 It sounds like a train is at platform 2.
 
 >You move north.
+
 Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
@@ -2354,6 +2440,7 @@ the station.
 >You pick up the single sock.
 
 >You move south.
+
 Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
@@ -2366,6 +2453,7 @@ The Ticket Seller is looking at you expectantly.
 You appear to be able to move north, south and west.
 
 >You move south.
+
 Front of Station
 You are at the front of Coltby Railway Station.  All the stations that
 belonged to this company where built of local stone in a sort of mock
@@ -2384,6 +2472,7 @@ The shaking feels like it is never going to stop.
 >You put the single sock inside the rubbish bin.
 
 >You move north.
+
 Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
@@ -2398,6 +2487,7 @@ Somewhere in the distance you hear the siren of a police car or perhaps a
 fire engine.
 
 >You move north.
+
 Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
@@ -2415,6 +2505,7 @@ The porter looks at you and whispers "the Police are here.  They say they
 will arrest anyone with stolen property."
 
 >You move northwest.
+
 Bridge
 You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
@@ -2434,6 +2525,7 @@ stop.
 The trainspotter writes something in a notebook.
 
 >You move northeast.
+
 Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
@@ -2478,6 +2570,7 @@ You can hear a beeping sound.  The automatic doors on the train must be
 closing.
 
 >You move southwest.
+
 Bridge
 You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
@@ -2500,6 +2593,7 @@ the station.
 The trainspotter writes something in a notebook.
 
 >You move southeast.
+
 Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
@@ -2518,6 +2612,7 @@ A train thunders through the station and it doesn't sound like it is going to
 stop.
 
 >You move south.
+
 Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
@@ -2530,6 +2625,7 @@ The Ticket Seller is looking at you expectantly.
 You appear to be able to move north, south and west.
 
 >You move south.
+
 Front of Station
 You are at the front of Coltby Railway Station.  All the stations that
 belonged to this company where built of local stone in a sort of mock
@@ -2546,6 +2642,7 @@ To the north you can see the station entrance.
 >You put the hamburger carton inside the rubbish bin.
 
 >You move north.
+
 Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
@@ -2558,6 +2655,7 @@ The Ticket Seller is looking at you expectantly.
 You appear to be able to move north, south and west.
 
 >You move north.
+
 Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
@@ -2573,6 +2671,7 @@ night on a bench.  A tall business woman is looking at you.
 You appear to be able to move east, south and northwest.
 
 >You move northwest.
+
 Bridge
 You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
@@ -2584,6 +2683,7 @@ A Trainspotter dressed in wet weather gear is watching you.
 You appear to be able to move northeast and southeast.
 
 >You move northeast.
+
 Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see

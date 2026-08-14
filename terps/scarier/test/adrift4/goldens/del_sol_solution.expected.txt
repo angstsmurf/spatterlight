@@ -130,6 +130,7 @@ Wish there was something exciting to do...
 You find a corner of a room where no one is at and decide to sleep through
 the rest of class.
 Hmmm....sleepy
+
 WoODsHoP
 The room looks normal, all the kids are working away at some machine, working
 on their projects.  The teacher is in his office playing solitaire and Noslen
@@ -242,6 +243,7 @@ print both SCARIER's and the game's version number.
 
 >That's interesting, but it doesn't mean much.
 The bell rings and everyone leaves the class.
+
 Physics
 Talk about the most drab class ever.  The professor, Mr. Ech, is talking
 about angles, forces and shooting at monkeys in trees.  Paying attention in
@@ -367,6 +369,7 @@ this?
 
 >Staring at the direction of the teacher, you write the stuff you see on the
 board.
+
 Physical Education
 The gym is large, but not large enough for the 50 kids that are all supposed
 to play basketball at the same time.  The teacher, Ms. Rasmussen, is trying

@@ -26,6 +26,7 @@ your feet to the floor.  You just sit there a moment pondering your thoughts.
 movement or just doing something different will clear your mind.  It doesn't.
  But, you're up now.  You can't sleep standing up.  There must be some
 activity to provide a mental distraction to the plagues in your head.
+
 The bedroom
         Your bedroom is only partially lighted, with a beam of bright
 moonlight straining in between the blinds over the window.  The door to the
@@ -68,6 +69,7 @@ rippling the surface.
 >        Carefully placing your leg through the remaining frame of the mirror,
 you step inside the small vessel and sit with oars poised in your hands.  An
 amazing peacefulness befalls you, like the calm after a long storm.
+
 The Mirror Portal
         You are in the midst of a vast silver ocean which extends in all
 directions for as far as you can see.  The mercury-like water ripples as a
@@ -78,6 +80,7 @@ worry, honey.  I'm sure the dog hasn't gone far."   A warm light glows
 orange, like a brilliant sunset.  A small island lies to the distant north.
 
 >You move north.
+
 The Island
         The tiny island features a long rope, which handily pulls you ashore.
  The soft sediment beneath your bare feet relaxes you with a comfortable
@@ -106,6 +109,7 @@ possibly climb up.  A large iron gate guards an exit to the south.  Your long
 rope dangles from the top of the tunnel.
 
 >You move south.
+
 The Lair
         A dark room, lit by the dim flickering light of flames from small
 torches on the walls, lays itself out in front of you with grim, almost
@@ -133,6 +137,7 @@ something.  It’s a card.  The creature then steps aside and allows you to
 pass.
 
 >You move east.
+
 The path to Sorrow
         The darkness gives way to a dim light as you enter this large room.
 Although you are most decidedly within a room, you feel as though you are
@@ -140,6 +145,7 @@ outdoors.  The stone walls enclose a narrow path, winding through tight scrub
 and small trees.  The tiny path leads further to the southeast.
 
 >You move southeast.
+
 The slippery slope
         The path narrows to a point that leaves you wondering if you are
 really on a path, or if you have lead your way into a wilderness choked by
@@ -180,6 +186,7 @@ path begins to clear.  After a long, tiresome labor, your have cleared enough
 of the entanglement to proceed northwest along the path.
 
 >You move northwest.
+
 The path to Sorrow
         The darkness gives way to a dim light as you enter this large room.
 Although you are most decidedly within a room, you feel as though you are
@@ -187,6 +194,7 @@ outdoors.  The stone walls enclose a narrow path, winding through tight scrub
 and small trees.  The tiny path leads further to the southeast.
 
 >You move west.
+
 The Lair
         A dark room, lit by the dim flickering light of flames from small
 torches on the walls, lays itself out in front of you with grim, almost
@@ -200,6 +208,7 @@ as to not give any clue where it leads.
 The creature stands and stairs.
 
 >You move west.
+
 The Path to Fear
         A small torch with a very small flame just barely lights the room to
 make out a space overgrown with the limbs of old, dead brush and gnarly
@@ -209,6 +218,7 @@ archway is just barely large enough to get through with brushing up against a
 minimal amount of thorns.
 
 >You move south.
+
 The Gnarled Woods
         You cannot see the walls or ceiling for the tangled mass of brush and
 trees that blocks out all existing forms of light.  The soft ground forms an
@@ -230,6 +240,7 @@ indentation in the ground.
 hands and knees.  A new surface presents itself, like smooth stone.  You
 suddenly no longer feel the thorny scrub of the mangled mass above you.  You
 freely stand to walk upright.
+
 Terror
         Feeling along the walls, you come across some interesting features of
 the room.  It is made of rough, hand-carved stone that occasionally pierces
@@ -244,6 +255,7 @@ Also here is the short shaft.
 >You pick up the short shaft.
 
 >        You move carefully through the door into a remarkably similar room.
+
 Terror
         Feeling along the walls, you come across some interesting features of
 the room.  It is made of rough, hand-carved stone that occasionally pierces
@@ -262,6 +274,7 @@ the wall.  Although it takes several tries, a tiny spark manages to land
 perfectly on the reeds.  After blowing a few times, your torch ignites.
 
 >You move north.
+
 The Gnarled Woods
         You cannot see the walls or ceiling for the tangled mass of brush and
 trees that blocks out all existing forms of light.  The soft ground forms an
@@ -279,6 +292,7 @@ Also here are the King of Spades.
 >You pick up the King of Spades.
 
 >You move north.
+
 The Path to Fear
         A small torch with a very small flame just barely lights the room to
 make out a space overgrown with the limbs of old, dead brush and gnarly
@@ -288,6 +302,7 @@ archway is just barely large enough to get through with brushing up against a
 minimal amount of thorns.
 
 >You move east.
+
 The Lair
         A dark room, lit by the dim flickering light of flames from small
 torches on the walls, lays itself out in front of you with grim, almost

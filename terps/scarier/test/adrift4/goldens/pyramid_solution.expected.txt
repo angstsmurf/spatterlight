@@ -30,10 +30,12 @@ scene depicting a man being beheaded.
 >You move through into the short passage. You feel the stone you stand on
 shift slightly down and hear a strange almost clockwork sound coming from the
 wall.
+
 Short passage
 A short passageway south from the entrance chamber.
 
 >You move south.
+
 Golden Chamber
 By comparison with the early parts of this construction, this golden chamber
 makes your heart skip a beat as it was walls made from what appears to be
@@ -43,6 +45,7 @@ ceremonials.
 You can move north and east.
 
 >You move east.
+
 Side Chamber
 A small chamber, the walls are a slighly yellowed white, and again lined with
 many fine scenes, this time in red, gold and black. In the centre of the room
@@ -56,6 +59,7 @@ are inside the magnificent sarcophagos.
 >You take the golden beetle from the magnificent sarcophagos.
 
 >You move west.
+
 Golden Chamber
 By comparison with the early parts of this construction, this golden chamber
 makes your heart skip a beat as it was walls made from what appears to be
@@ -65,12 +69,14 @@ ceremonials.
 You can move north and east.
 
 >You move north.
+
 Short passage
 A short passageway south from the entrance chamber.
 
 You can move north and south.
 
 >You move north.
+
 Entrance Chamber
 You are just inside the pyramid.  Beside you is the stone which opened and
 shut when you leant on it outside. On examination beside the stone is an

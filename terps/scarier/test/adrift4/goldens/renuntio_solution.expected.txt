@@ -137,15 +137,18 @@ donde una viga termina muriendo.
 
 >Cierro los ojos y... no se, todo parece diferente pero nada parece haber
 cambiado. No se si me explico pero me siento más firme, más real.
+
 Ojos  cerrados
 Tengo los ojos cerrados.
 
 >Me dirijo hacia el norte.
+
 Ojos  cerrados
 Tremulamente he dado un paso... no ha sucedido nada, los cubos permanecen
 firmes y no giran.
 
 >Abro los ojos.
+
 Pasillo
 Ahora me encuentro en un pasillo muy parecido al que ya he dejado atras,
 salvo que esta vez no tiene forma circular sino que ahora es un cuadrado, al
@@ -193,6 +196,7 @@ atacar y nosotros somos Nadie.
                         Recordazlo niñas, no considereis nada, ya que nada
 existe, nada perdura, todo se pierde, todo pasa, y al final solo queda la
 Nada y la Nada puede contener el Todo... nosotras somos la memoria.-
+
 Sala
 Dolor, frio ,luz ... la sala donde me encuentro en estos momentos es un
 reptangulo al cual le calculo unos tres pasos de ancho y cinco de largo.
@@ -200,6 +204,7 @@ Delante mio hay una puerta, a mi derecha canturrea una fuente y a mi izquerda
 hay un extraño aparato.
 
 >Me dirijo hacia el Este.
+
 Fuente
 Adosada en este extremo de la sala hay una fuente, la cual emite un pequeño
 hilo de agua que cae ininterrumpidamente dentro de una concavidad del suelo.
@@ -219,6 +224,7 @@ carrillos. Espero que no me de la risa por el camino, pienso en un acceso
 histérico e incongruente.
 
 >Me dirijo hacia el Oeste.
+
 Sala
 La sala donde me encuentro en estos momentos es un reptangulo al cual le
 calculo unos tres pasos de ancho y cinco de largo. Delante mio hay una
@@ -226,6 +232,7 @@ puerta, a mi derecha canturrea una fuente y a mi izquerda hay un extraño
 aparato.
 
 >Me dirijo hacia el Oeste.
+
 Ingenio mecánico
 En este extremo de la sala hay un extraño aparato adosado a la pared.
 
@@ -249,6 +256,7 @@ clang, chasqui... un momento, va cada vez más lento, creo que necesita más
 agua.
 
 >Me dirijo hacia el Este.
+
 Sala
 La sala donde me encuentro en estos momentos es un reptangulo al cual le
 calculo unos tres pasos de ancho y cinco de largo. Delante mio hay una
@@ -256,6 +264,7 @@ puerta, a mi derecha canturrea una fuente y a mi izquerda hay un extraño
 aparato.
 
 >Me dirijo hacia el Este.
+
 Fuente
 Adosada en este extremo de la sala hay una fuente, la cual emite un pequeño
 hilo de agua que cae inenterrumpidamente dentro de una concavidad del suelo.
@@ -265,6 +274,7 @@ carrillos. Espero que no me de la risa por el camino, pienso en un acceso
 histérico e incongruente.
 
 >Me dirijo hacia el Oeste.
+
 Sala
 La sala donde me encuentro en estos momentos es un reptangulo al cual le
 calculo unos tres pasos de ancho y cinco de largo. Delante mio hay una
@@ -272,6 +282,7 @@ puerta, a mi derecha canturrea una fuente y a mi izquerda hay un extraño
 aparato.
 
 >Me dirijo hacia el Oeste.
+
 Ingenio mecánico 1
 En este extremo de la sala hay un extraño aparato adosado a la pared.
 
@@ -283,6 +294,7 @@ clang, chasquido... parecen que van cogiendo buen ritmo aunque  creo que
 necesita más agua.
 
 >Me dirijo hacia el Este.
+
 Sala
 La sala donde me encuentro en estos momentos es un reptangulo al cual le
 calculo unos tres pasos de ancho y cinco de largo. Delante mio hay una
@@ -290,6 +302,7 @@ puerta, a mi derecha canturrea una fuente y a mi izquerda hay un extraño
 aparato.
 
 >Me dirijo hacia el Este.
+
 Fuente
 Adosada en este extremo de la sala hay una fuente, la cual emite un pequeño
 hilo de agua que cae inenterrumpidamente dentro de una concavidad del suelo.
@@ -299,6 +312,7 @@ carrillos. Espero que no me de la risa por el camino, pienso en un acceso
 histérico e incongruente.
 
 >Me dirijo hacia el Oeste.
+
 Sala
 La sala donde me encuentro en estos momentos es un reptangulo al cual le
 calculo unos tres pasos de ancho y cinco de largo. Delante mio hay una
@@ -306,6 +320,7 @@ puerta, a mi derecha canturrea una fuente y a mi izquerda hay un extraño
 aparato.
 
 >Me dirijo hacia el Oeste.
+
 Ingenio mecánico 2
 En este extremo de la sala hay un extraño aparato adosado a la pared.
 
@@ -324,6 +339,7 @@ encima de la horquilla del marco, súbitamente esta se se hunde y con un
 sonido como miles de insectos frotando sus patas a la vez la puerta se
 disuelve.
                                               Yo tambien soy libre.
+
 Pasillo
 Y una vez más el azul, siempre el azul, rodeandome, envolviendome.
 Eternamente azul ¿Cuando acabará esto?
@@ -400,6 +416,7 @@ sonido blando, gritos... luego nada, gritos y luego el agua suena como una
 campanada... se ha soltado, se ha soltado y ha caido al agua, no la oigo, me
 doi la vuelta y corro hacia el pueblo, ayuda... la gente grita a mi
 alrededor... gritos... vacio... nada... silencio.
+
 Pasillo final
 Esto es insoportable, otra vez... una vez más, el pasillo azul. Me veo
 obligada a a dar un traspies ya que esta vez el pasillo esta muy inclinado y
@@ -415,6 +432,7 @@ oscuridad más alla y solo en la más completa oscuridad una mente puede
 brillar poderosa."
 
 >Con decisión salto dentro del pozo
+
 A aquello que te encadena.
 Yazco envuelta en la más completa negrura, mi espalda está helada y mis
 miembros entumecidos por el frio suelo. No se cuanto tiempo llevo aqui, tal

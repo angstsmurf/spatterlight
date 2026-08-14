@@ -43,6 +43,7 @@ Please enter your name:
 [TIME=12]. It has been 0 days since you have moved in.
 
 >You move west.
+
 The Upstairs Landing
 This is the upstairs landing, which has a cupboard full of towels. To the
 east is your bedroom and downstairs is the lounge room.
@@ -50,6 +51,7 @@ east is your bedroom and downstairs is the lounge room.
 You can move east and down.
 
 >You move down.
+
 The Lounge Room
 This is the lounge room. To the west, is your front garden. To the east, is
 your kitchen. In here is a Couch and a TV.
@@ -67,6 +69,7 @@ Episode 1 right now.
 >You can't turn that.
 
 >You move west.
+
 Front Garden
 You are in your front garden. Your mailbox is here, which sometimes contains
 mail. To the west is the "Main Street", the road you live on.
@@ -74,6 +77,7 @@ mail. To the west is the "Main Street", the road you live on.
 You can only move west.
 
 >You move west.
+
 Main Street - Centre
 You are at the Centre of Main Street. To the east is your appartment. The
 street goes north and south, and you can move to the west to enter the Hudson
@@ -82,6 +86,7 @@ Shopping Centre.
 You can move north, east, south and west.
 
 >You move west.
+
 Hudson Shopping Centre
 This is the Hudson Shopping Centre. To the north is the Supermarket, To the
 South is the Newsagent and to the West is Bank.
@@ -89,6 +94,7 @@ South is the Newsagent and to the West is Bank.
 You can move north, east, south and west.
 
 >You move north.
+
 Hudson Supermarket
 This is the Hudson Supermarket, there are counters all around and shelves of
 food. There is a menu which tells you all of the foods for sale.
@@ -99,6 +105,7 @@ You can only move south.
 >You give Lisa $2 and she hands you a pack of chips.
 
 >You move south.
+
 Hudson Shopping Centre
 This is the Hudson Shopping Centre. To the north is the Supermarket, To the
 South is the Newsagent and to the West is Bank.

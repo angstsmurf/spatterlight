@@ -6,6 +6,7 @@ he does in an average day.
 
 >(Standing up first)
 You move north.
+
 Hallway
 The hallway
 
@@ -14,24 +15,28 @@ Dozer is here.
 There are exits north, east, south and west.
 
 >You move east.
+
 Hallway
 You are in your hallway.
 
 You can move north, east, south and west.
 
 >You move east.
+
 Hallway
 You are in your hallway.
 
 You can move east, west and down.
 
 >You move down.
+
 Downstairs Hallway
 Your hallway.
 
 You can move north, west, up and out.
 
 >You move north.
+
 Kitchen
 You are in your kitchen. Wow!!! Look at all of the appliances! There is a
 refridgerator, an oven, a cupboard, and a water faucet

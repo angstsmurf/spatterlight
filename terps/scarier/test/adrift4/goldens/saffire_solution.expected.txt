@@ -56,12 +56,14 @@ everything.
 >You walk for a while, the torchlight seeking ahead, its light always wavering
 around on the carpet ahead. Eventually, it comes upon a solid vertical
 surface, which you run up to.
+
 Wall
 You stand beside a vast wall. It stretches up and along for as far as you can
 see with the torchlight. The purple carpeted area continues to the north, or
 you can scale the wall to the east and west.
 
 >You walk along the wall.
+
 Beside Shelf
 A small, wooden shelf juts out of the wall's surface. It is polished, so that
 it gleams in the light, and is curved at the edges. On it stands a glass of
@@ -77,6 +79,7 @@ leading upwards has materialised nearby.
 light, and a roaring sun bursts into the sky above. You begin to notice
 pieces of mist drift around, and as you get higher, they cling together,
 forming a permanent haze.
+
 Staircase
 You are perched on a giant staircase, surrounded in a bright, white mist. A
 sun shines down from above, obscured slightly in the haze. The stairs carry
@@ -86,6 +89,7 @@ on upwards or go back down.
 like clouds. This is proven correct, when you finally break the surface of
 them, and find yourself standing in the most breath-takingly beautiful scene
 you have ever experienced.
+
 Clouds
 You stand on the cloud's surface, the staircase having ended further down
 without you realising. The fluffy ground is soft and bouncy, and stretches
@@ -97,6 +101,7 @@ Floating in the air beside you is an arrow made out of cloud, pointing south.
 
 >You set off amongst the cloud, and stride on until it begins to rise and form
 a solid room around you.
+
 Room of Cloud
 Each wall of this room is formed of piles of white cloud stacked together. In
 the center of the room, there hovers a huge blue sapphire, sunlight

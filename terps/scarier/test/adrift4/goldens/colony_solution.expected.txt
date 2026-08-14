@@ -17,6 +17,7 @@ several computers and screens here mainly for navigation and mostly inactive
 There is an exit down.
 
 >You move down.
+
 In your ship's crew courters
 You are in the part of your ship where you slept and ate for the past 4 days
 in space , up  , because of the way the ship came down , is the bridge and
@@ -33,6 +34,7 @@ There are exits up and down.
 >You put on body armour.
 
 >You move down.
+
 In your ship's storage hull
 You are in the area where all the food , drink and outside equipment is
 stored , however because of the crash most of the food and drinks are bad or
@@ -52,6 +54,7 @@ The gas is really starting to affect you!
 >You push the button near the door to open it .
 
 >You move out.
+
 On the planet
 You are on the planet looking towards a large building and a small tunnel
 that leads under it , to get to the building you have to track east then up a
@@ -62,6 +65,7 @@ clouds its very cold down here .
 You can move north, east and in.
 
 >You move north.
+
 In the tunnel
 You are in a tunnel not that deep underground , it is covered by aluminum to
 keep the dirt out and also to keep the tunnel from falling in on itself . You
@@ -71,6 +75,7 @@ aluminum .
 You can move north and south.
 
 >You move north.
+
 Near the tunnel's upper exit
 You can see a pale green light coming from down from a room you can't quite
 see yet , you don't think its a mine because all the mines extend from the
@@ -83,6 +88,7 @@ You can move south and up.
 An alien hits you, but it doesn't seem to do any damage.
 
 >You move up.
+
 In the waste disposal area
 You are now standing in one of the more unpleasant areas , the sewer . I
 don't think you want to know what it looks like !!
@@ -94,6 +100,7 @@ You can only move down.
 >You pick up climbing equipment.
 
 >You move down.
+
 Near the tunnel's upper exit
 You can see a pale green light coming from down from a room you can't quite
 see yet , you don't think its a mine because all the mines extend from the
@@ -106,6 +113,7 @@ You can move south and up.
 An alien hits you, but it doesn't seem to do any damage.
 
 >You move south.
+
 In the tunnel
 You are in a tunnel not that deep underground , it is covered by aluminum to
 keep the dirt out and also to keep the tunnel from falling in on itself . You
@@ -115,6 +123,7 @@ aluminum .
 You can move north and south.
 
 >You move south.
+
 On the planet
 You are on the planet looking towards a large building and a small tunnel
 that leads under it , to get to the building you have to track east then up a
@@ -127,6 +136,7 @@ A streak of lightning flashes on the horizon and a whirl of flame spits from
 the sky where the lightning went down .
 
 >You move east.
+
 Near the cliff
 You are standing near the cliff , there is a sturdy steel catwalk that leads
 to the main entrance of the building . west is the area that leads into a
@@ -135,6 +145,7 @@ small tunnel .
 You can move north and west.
 
 >You move north.
+
 On the catwalk
 You are standing on the metal catwalk that is suspended from an overhead bar
 that looks like a light post , the catwalk seems to end here that seems to
@@ -149,6 +160,7 @@ the equipment . You make your way up and you are standing at the foot of the
 building .
 
 >You move east.
+
 East of the main entrance
 There is a ladder going up , it looks in bad shape but it might support your
 weight as you climb . West is the main entrance to the building and even more
@@ -157,6 +169,7 @@ west is just another part of the building .
 You can move west and up.
 
 >You move up.
+
 On the roof
 You are on the roof that appears to be a launch pad for small ships , there
 is a large tower in the middle of the roof that has a small  door on it that
@@ -171,6 +184,7 @@ the sky where the lightning went down .
 A small alien hits you, but it doesn't seem to do any damage.
 
 >You move in.
+
 In the bottom of the tower
 You are inside the cracked , rusted elevator shaft of the tower , the shaft
 has a large steel cable hanging from the top , lights are built into the
@@ -199,6 +213,7 @@ You put the eoi bullets into the gun.
 A large alien hits you, but it doesn't seem to do any damage.
 
 >You move down.
+
 In the bottom of the tower
 You are inside the cracked , rusted elevator shaft of the tower , the shaft
 has a large steel cable hanging from the top , lights are built into the
@@ -208,12 +223,14 @@ elevator but a large hole is in the floor .
 You can move down and out.
 
 >You move down.
+
 In the mine entrance
 The mine is very dirty and there is a lot of rubble .
 
 You can move north and south.
 
 >You move south.
+
 Near a large pile of rubble
 There is a large pile of rubble here that seem like it can be blasted by a
 powerful enough beam!
@@ -224,6 +241,7 @@ You can only move north.
 You pull the trigger and the bullet explodes sending rubble everywhere!
 
 >You move south.
+
 In the waste disposal area
 You are now standing in one of the more unpleasant areas , the sewer . I
 don't think you want to know what it looks like !!
@@ -231,6 +249,7 @@ don't think you want to know what it looks like !!
 You can move north and down.
 
 >You move down.
+
 Near the tunnel's upper exit
 You can see a pale green light coming from down from a room you can't quite
 see yet , you don't think its a mine because all the mines extend from the
@@ -243,6 +262,7 @@ You can move south and up.
 An alien hits you, but it doesn't seem to do any damage.
 
 >You move south.
+
 In the tunnel
 You are in a tunnel not that deep underground , it is covered by aluminum to
 keep the dirt out and also to keep the tunnel from falling in on itself . You
@@ -252,6 +272,7 @@ aluminum .
 You can move north and south.
 
 >You move south.
+
 On the planet
 You are on the planet looking towards a large building and a small tunnel
 that leads under it , to get to the building you have to track east then up a
@@ -262,6 +283,7 @@ clouds its very cold down here .
 You can move north, east and in.
 
 >You move east.
+
 Near the cliff
 You are standing near the cliff , there is a sturdy steel catwalk that leads
 to the main entrance of the building . west is the area that leads into a
@@ -272,6 +294,7 @@ A streak of lightning flashes on the horizon and a whirl of flame spits from
 the sky where the lightning went down .
 
 >You move north.
+
 On the catwalk
 You are standing on the metal catwalk that is suspended from an overhead bar
 that looks like a light post , the catwalk seems to end here that seems to
@@ -285,6 +308,7 @@ the equipment . You make your way up and you are standing at the foot of the
 building .
 
 >You move east.
+
 East of the main entrance
 There is a ladder going up , it looks in bad shape but it might support your
 weight as you climb . West is the main entrance to the building and even more
@@ -293,6 +317,7 @@ west is just another part of the building .
 You can move west and up.
 
 >You move up.
+
 On the roof
 You are on the roof that appears to be a launch pad for small ships , there
 is a large tower in the middle of the roof that has a small  door on it that

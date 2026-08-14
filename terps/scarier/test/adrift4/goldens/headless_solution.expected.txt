@@ -65,6 +65,7 @@ doctor will be wit' you shortly, ya?"
 >Your body smashes through the window with an elbow and throws the rest of the
 door open.  Gerchis spins to meet it, but freezes on the spot.  His eyes dart
 nervously toward the syringe of Formula X!
+
 LAB (upon a metal tray)
 This is where the doctor plots his evil schemes!  From your place on the
 metal tray, you can see that the room is filled with experimental equipment.
@@ -90,12 +91,14 @@ wholeness for a moment, but pull yourself together.
 You will be okay.
 
 >You move east.
+
 HALLWAY JUNCTION
 A gradual slope here indicates the floor is rising to the north and
 descending further west.  Other than a trail of blood from your severed head,
 the area is completely white.  A door stands in the western wall.
 
 >You move north.
+
 ENTRYWAY
 The only way in and out of the doctor's secret lair.  The way out, back into
 the freezing weather, is to the north, while while a hallway leading farther

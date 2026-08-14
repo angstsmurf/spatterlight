@@ -32,6 +32,7 @@ real gumshoe.
 >Your head feels like its been with a hammer
 
 >You move north.
+
 Street
 You're standing in the bustling street of Chicago. You look at your note of
 paper and read all the places Daisy mentioned. North, is the The Jazz Stop, a
@@ -41,6 +42,7 @@ Daisy. Your office was back to the South. The sun isn't out today, even it
 knows not to come out on a dark day like this.
 
 >You move east.
+
 Front of Office
 You're standing in front of Dr.Louis and Donny's office. Louis would be the
 proffesional one, while Donny used his office for less legal matters. The
@@ -50,6 +52,7 @@ and an old warehouse beside it. The smell of fresh garbage reaches out to you
 from within the alley. The front door to the Office is to the North.
 
 >You move east.
+
 Alley
 You're in the alley behind the office. There's old boxes lined up against the
 wall,they used to be filled with cheap cigars. There's a poster up on the
@@ -78,6 +81,7 @@ need to know who did it, you must ask Louis. He knows who did it."
 >You search through the boxes but can't find anything.
 
 >You move west.
+
 Front of Office
 You're standing in front of Dr.Louis and Donny's office. Louis would be the
 proffesional one, while Donny used his office for less legal matters. The
@@ -87,6 +91,7 @@ and an old warehouse beside it. The smell of fresh garbage reaches out to you
 from within the alley. The front door to the Office is to the North.
 
 >You move north.
+
 Hallway
 You're standing in a dim hallway of the office. A door on the East leads to
 Mack's office, while a door to the West leads to Donny's old office. The
@@ -94,6 +99,7 @@ hallways walls have began to turn yellow from some water that's leaking in
 from the roof.
 
 >You move east.
+
 Dr.Louis Mack's Office
 You're standing in the small office of Dr.Louis Mack. The first thing you
 notice is Dr.Macks lifeless body lying on the ground, it seems someone beat
@@ -114,6 +120,7 @@ inside it.
 important.
 
 >You move west.
+
 Hallway
 You're standing in a dim hallway of the office. A door on the East leads to
 Mack's office, while a door to the West leads to Donny's old office. The
@@ -121,6 +128,7 @@ hallways walls have began to turn yellow from some water that's leaking in
 from the roof.
 
 >You move west.
+
 Donny's Office
 You're standing in Donny's office. It seems that Daisy didn't call the police
 yet, Donny's body is still sprawling on the desktop. There aren't any lights
@@ -141,6 +149,7 @@ Donny    $1000     Jazz Stop    Status- Not Paid
 >You look, but there's no safe behind the painting.
 
 >You move east.
+
 Hallway
 You're standing in a dim hallway of the office. A door on the East leads to
 Mack's office, while a door to the West leads to Donny's old office. The
@@ -148,6 +157,7 @@ hallways walls have began to turn yellow from some water that's leaking in
 from the roof.
 
 >You move south.
+
 Front of Office
 You're standing in front of Dr.Louis and Donny's office. Louis would be the
 proffesional one, while Donny used his office for less legal matters. The
@@ -157,6 +167,7 @@ and an old warehouse beside it. The smell of fresh garbage reaches out to you
 from within the alley. The front door to the Office is to the North.
 
 >You move west.
+
 Street
 You're standing in the bustling street of Chicago. You look at your note of
 paper and read all the places Daisy mentioned. North, is the The Jazz Stop, a
@@ -166,6 +177,7 @@ Daisy. Your office was back to the South. The sun isn't out today, even it
 knows not to come out on a dark day like this.
 
 >You move north.
+
 The Jazz Stop
 You're sitting at the bar at the Jazz Stop,a common hangout for the more
 organized business men.Say the wrong thing here,and you could be swimming
@@ -182,6 +194,7 @@ Bartender is here.
 >That's some great jazz.
 
 >You move south.
+
 Street
 You're standing in the bustling street of Chicago. You look at your note of
 paper and read all the places Daisy mentioned. North, is the The Jazz Stop, a
@@ -191,6 +204,7 @@ Daisy. Your office was back to the South. The sun isn't out today, even it
 knows not to come out on a dark day like this.
 
 >You move west.
+
 Donny's House
 You're standing in Donny's small house. As soon as you enter the house you
 can see a large ashtray on the coffee table. Daisy is sitting on the small

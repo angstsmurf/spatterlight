@@ -58,6 +58,7 @@ You use the stick as a makeshift shovel and dig the passage out.  The stick
 breaks and is no longer usable, so you toss it up out of the hole.
 
 >You move south.
+
 Underground water pipe
 You are at the underground water way.  There is a wooden spoon floating
 around in the water, that leads into darkness.

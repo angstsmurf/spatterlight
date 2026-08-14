@@ -24,6 +24,7 @@ was still there. I'd tell you how much, but you'd laugh. And, to make your
 job easier. I'll take the money for you.
 
 >I move north.
+
 Hallway
 The small, cramped hallway smells like wet cat. My place is to the South,
 there's an elevator that I can take Down to the street. The landlord's room
@@ -31,6 +32,7 @@ is to the East, he leaves the door open during the day so everyone's allowed
 in (He would lock it but someone stole the locks)
 
 >I move east.
+
 Landlord's Room
 It's my landlords room. It's a very nice place, much nicer than my hole in
 the wall you have. This place actually has a sink. Of course, the sink is
@@ -43,6 +45,7 @@ when he doesn't get his money.
 anymore, I want the money today or you'll be sleeping on the street tonight."
 
 >I move west.
+
 Hallway
 The small, cramped hallway smells like wet cat. My place is to the South,
 there's an elevator that I can take Down to the street. The landlord's room
@@ -50,6 +53,7 @@ is to the East, he leaves the door open during the day so everyone's allowed
 in (He would lock it but someone stole the locks)
 
 >I move down.
+
 Main Street
 The Main street of Sleaze City. It goes on for miles, but this part of the
 road is where it's at. There's my apartment up in the apartment building, a
@@ -59,6 +63,7 @@ just looking at a tire, and to the West is Archer Street where you can find
 even more interesting stuff that I don't feel like talking about here.
 
 >I move north.
+
 Garage
 It's Mick's Garage, odd since there was never anyone named Mick that worked
 here. The owner is Red, an ex-mafia man who now hides out by charging people
@@ -80,6 +85,7 @@ hook you up with some guys that can get you some illegal weapons. Oopps, heh,
 forget about that one."
 
 >I move south.
+
 Main Street
 The Main street of Sleaze City. It goes on for miles, but this part of the
 road is where it's at. There's my apartment up in the apartment building, a
@@ -89,6 +95,7 @@ just looking at a tire, and to the West is Archer Street where you can find
 even more interesting stuff that I don't feel like talking about here.
 
 >I move west.
+
 Archer Street
 Archer Street is where the more presentable areas of this part of the city
 are. A small cafe is to the North, my old pal Gimpy owns it. There's a small
@@ -97,6 +104,7 @@ the East is Main street, known as the street with the most corpses to people
 who write the world records.
 
 >I move south.
+
 Convience Store
 This very conveinent convience store has only been open for a couple of days
 so everything is super cheap. A rack of lottery tickets adorn a corner of the
@@ -111,6 +119,7 @@ I gave the money to the clerk and took a lottery ticket.
 I took a free wirecutter and stuck it in my pocket.
 
 >I move north.
+
 Archer Street
 Archer Street is where the more presentable areas of this part of the city
 are. A small cafe is to the North, my old pal Gimpy owns it. There's a small
@@ -119,6 +128,7 @@ the East is Main street, known as the street with the most corpses to people
 who write the world records.
 
 >I move east.
+
 Main Street
 The Main street of Sleaze City. It goes on for miles, but this part of the
 road is where it's at. There's my apartment up in the apartment building, a
@@ -128,6 +138,7 @@ just looking at a tire, and to the West is Archer Street where you can find
 even more interesting stuff that I don't feel like talking about here.
 
 >I move south.
+
 Alley
 It's a dingy alley that I like because it's cleaner than my apartment. A few
 garbage cans sit in the other corner of the alley, most of them are filled
@@ -145,6 +156,7 @@ WON 20,000 DOLLARS!!! Ahem...now that I'm filthy rich, there must be some use
 to this thing.
 
 >I move north.
+
 Main Street
 The Main street of Sleaze City. It goes on for miles, but this part of the
 road is where it's at. There's my apartment up in the apartment building, a
@@ -154,6 +166,7 @@ just looking at a tire, and to the West is Archer Street where you can find
 even more interesting stuff that I don't feel like talking about here.
 
 >I move up.
+
 Hallway
 The small, cramped hallway smells like wet cat. My place is to the South,
 there's an elevator that I can take Down to the street. The landlord's room
@@ -161,6 +174,7 @@ is to the East, he leaves the door open during the day so everyone's allowed
 in (He would lock it but someone stole the locks)
 
 >I move south.
+
 Apartment
 It's my apartment in the beautiful downtown area of the city. Two windows lie
 on one side of the room, I'd like to look through them but a thick cloud of
@@ -180,6 +194,7 @@ I quickly picked up the dictionary and began reading. After thiry eight
 hours, I was finished and I found myself seeming smarter.
 
 >I move north.
+
 Hallway
 The small, cramped hallway smells like wet cat. My place is to the South,
 there's an elevator that I can take Down to the street. The landlord's room
@@ -187,6 +202,7 @@ is to the East, he leaves the door open during the day so everyone's allowed
 in (He would lock it but someone stole the locks)
 
 >I move down.
+
 Main Street
 The Main street of Sleaze City. It goes on for miles, but this part of the
 road is where it's at. There's my apartment up in the apartment building, a
@@ -196,6 +212,7 @@ just looking at a tire, and to the West is Archer Street where you can find
 even more interesting stuff that I don't feel like talking about here.
 
 >I move west.
+
 Archer Street
 Archer Street is where the more presentable areas of this part of the city
 are. A small cafe is to the North, my old pal Gimpy owns it. There's a small
@@ -204,6 +221,7 @@ the East is Main street, known as the street with the most corpses to people
 who write the world records.
 
 >I move north.
+
 Cafe
 Gimpy's Cafe, a cafe like no other. Actually, it's exactly like all the
 others. It's a place that looks like a cafe and sells food. My old pal Gimpy
@@ -218,6 +236,7 @@ cook something up. If it tastes good, I'll let you be the chef. When you're
 done, just serve (Type serve when you're done)"
 
 >I move out.
+
 Archer Street
 Archer Street is where the more presentable areas of this part of the city
 are. A small cafe is to the North, my old pal Gimpy owns it. There's a small
@@ -228,6 +247,7 @@ go into the cafe through the front entrance if Gimpy thinks you're cooking so
 you'd rather go In through the window.
 
 >I move east.
+
 Main Street
 The Main street of Sleaze City. It goes on for miles, but this part of the
 road is where it's at. There's my apartment up in the apartment building, a
@@ -237,6 +257,7 @@ just looking at a tire, and to the West is Archer Street where you can find
 even more interesting stuff that I don't feel like talking about here.
 
 >I move up.
+
 Hallway
 The small, cramped hallway smells like wet cat. My place is to the South,
 there's an elevator that I can take Down to the street. The landlord's room
@@ -244,6 +265,7 @@ is to the East, he leaves the door open during the day so everyone's allowed
 in (He would lock it but someone stole the locks)
 
 >I move east.
+
 Landlord's Room
 It's my landlords room. It's a very nice place, much nicer than my hole in
 the wall you have. This place actually has a sink. Of course, the sink is
@@ -259,6 +281,7 @@ have to go to the bank for a second."
 I grabbed the sandwich and forced myself not to eat it.
 
 >I move west.
+
 Hallway
 The small, cramped hallway smells like wet cat. My place is to the South,
 there's an elevator that I can take Down to the street. The landlord's room
@@ -266,6 +289,7 @@ is to the East, he leaves the door open during the day so everyone's allowed
 in (He would lock it but someone stole the locks)
 
 >I move down.
+
 Main Street
 The Main street of Sleaze City. It goes on for miles, but this part of the
 road is where it's at. There's my apartment up in the apartment building, a
@@ -275,6 +299,7 @@ just looking at a tire, and to the West is Archer Street where you can find
 even more interesting stuff that I don't feel like talking about here.
 
 >I move west.
+
 Archer Street
 Archer Street is where the more presentable areas of this part of the city
 are. A small cafe is to the North, my old pal Gimpy owns it. There's a small
@@ -285,6 +310,7 @@ go into the cafe through the front entrance if Gimpy thinks you're cooking so
 you'd rather go In through the window.
 
 >I move in.
+
 Kitchen
 Before I knew it, I was inside the greasy kitchen. Pots lined the walls and
 the sinks, each one of them dirty. Frying pans were nowhere to be found,

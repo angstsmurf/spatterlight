@@ -66,6 +66,7 @@ Widdershins.  The satchel is closed.
 satchel.
 
 >
+
 Manor Grounds
 I am standing in the manor grounds to the west of the driveway.  There is a
 small round hut here in the middle of the lawn.  It has been almost
@@ -76,6 +77,7 @@ a time.
 Exits are east, west and in.
 
 >
+
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
@@ -113,6 +115,7 @@ Heh heh.  I think not.
 Okay.  I have dropped the paper aeroplane.
 
 >
+
 Manor Grounds
 I am standing in the manor grounds to the west of the driveway.  There is a
 small round hut here in the middle of the lawn.  It has been almost
@@ -123,6 +126,7 @@ a time.
 Exits are east, west and in.
 
 >
+
 Driveway
 I am standing on the drive leading to Attervist manor. It is a miserable
 looking building. The snow does its best to cover up the harsh jagged edges
@@ -132,6 +136,7 @@ the manor's entrance.
 Exits are north, east, south and west.
 
 >
+
 Porch
 I am standing beside the large front door of Attervist manor.  The door has
 been badly warped by the ravages of time: its coat of dark green paint is
@@ -158,6 +163,7 @@ With a creak the door swings open.  That's strange.  It's not like Grandad to
 leave the door unlocked.
 
 >
+
 Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
@@ -166,6 +172,7 @@ persian rug lies in a large circle before me. The front door is to my south.
 Exits are north, east, south, west and up.
 
 >
+
 Alcove
 I am in a cramped alcove underneath the manor's main staircase.  Here,
 another smaller stairway leads down into the gloom.  This leads down into
@@ -178,6 +185,7 @@ Exits are south and down.
 I pull the cord and a naked light bulb illuminates the staircase.
 
 >
+
 Cellar
 I am in the cellar.  The cellar is brimming with mechanical junk.  A strong
 smell of damp fills the air, making it quite hard to breath down here.  In
@@ -209,6 +217,7 @@ the chute.
 The chimpanzee happily gulps down the banana.  There is an appreciative burp.
 
 >
+
 Alcove
 I am in a cramped alcove underneath the manor's main staircase.  Here,
 another smaller stairway leads down into the gloom.  This leads down into
@@ -218,6 +227,7 @@ hangs from the ceiling of the alcove.
 Exits are south and down.
 
 >
+
 Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
@@ -226,6 +236,7 @@ persian rug lies in a large circle before me. The front door is to my south.
 Exits are north, east, south, west and up.
 
 >
+
 First Floor
 I am standing on the first floor landing.  Grandad has liberally decorated
 this part of the manor with portraits of serious-looking ladies and
@@ -236,6 +247,7 @@ west.
 Exits are north, east, up and down.
 
 >
+
 Second Floor
 I am standing on the second floor landing.  A low, squat doorway leads
 westward into the small spare bedroom.  There are locked doors to my east and
@@ -250,6 +262,7 @@ falls from the doortop and splits open on my head.  I groan out loud as a
 cloud of white flour billows around me.  Every year Grandad does this, it's
 virtually a tradition, and every year it's just as unamusing as before.  I am
 covered with the stuff.  Ugh!
+
 Spare Bedroom
 I am in the small spare bedroom.  A wardrobe has been built into one of the
 walls.  For some strange reason the walls have all been adorned with drawings
@@ -280,6 +293,7 @@ Schrodinger wanders towards me from the east.
 Schrodinger wanders to the east.
 
 >
+
 Second Floor
 I am standing on the second floor landing.  A low, squat doorway leads
 westward into the small spare bedroom.  There are locked doors to my east and
@@ -292,6 +306,7 @@ Exits are west, up and down.
 Schrodinger wanders to the west.
 
 >
+
 First Floor
 I am standing on the first floor landing.  Grandad has liberally decorated
 this part of the manor with portraits of serious-looking ladies and
@@ -302,6 +317,7 @@ west.
 Exits are north, east, up and down.
 
 >
+
 Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
@@ -315,6 +331,7 @@ scarf.
 >Okay.  I have taken the shovel.
 
 >
+
 Porch
 I am standing beside the large front door of Attervist manor.  The door has
 been badly warped by the ravages of time: its coat of dark green paint is
@@ -325,6 +342,7 @@ button beside the door.
 Exits are north and south.
 
 >
+
 Driveway
 I am standing on the drive leading to Attervist manor. It is a miserable
 looking building. The snow does its best to cover up the harsh jagged edges
@@ -334,6 +352,7 @@ the manor's entrance.
 Exits are north, east, south and west.
 
 >
+
 Manor Grounds
 I am standing on the snow, just east of the road leading up to the manor's
 front door.  A long line of beechwood trees mark out the sides of the
@@ -349,6 +368,7 @@ I use all my might to heave the trapdoor open.  A narrow shaft is revealed,
 leading downwards into the gloom.
 
 >
+
 Wishing Well
 I am standing next to the high bramble hedge by an old well.  Just this side
 of the hedge there is a wide perspex tube rising about eight foot into the
@@ -374,6 +394,7 @@ batteries can be obtained from your usual supplier.  Thank you for your
 attention".
 
 >Gingerly I climb down the rope into the gloom.
+
 Bottom of Well
 I am crouched at the bottom of a muddy well.  There is no actual water in
 this well any more, it must have dried out years ago.  That is if you can
@@ -391,6 +412,7 @@ I give the wall a hearty thwack.  A few bricks fall way, revealing a gloomy
 tunnel to my east.
 
 >
+
 Tunnel
 I am in a damp tunnel.  Mud slurps around my feet every time I move.  There
 is an archway to my east.  A few bricks have fallen away to my west, allowing
@@ -409,6 +431,7 @@ Exits are east, south and west.
 Okay.  I have taken the crowbar.
 
 >
+
 Priesthole
 I am standing in a muddy priesthole just south of the main part of the
 tunnel.  There isn't really much to say about this place - other than it is
@@ -426,6 +449,7 @@ the wall.  I move to turn it on, but before I can reach the switch the light
 slides back into the wall.  Darn it!
 
 >
+
 Tunnel
 I am in a damp tunnel.  Mud slurps around my feet every time I move.  There
 is an archway to my east.  A few bricks have fallen away to my west, allowing
@@ -437,12 +461,14 @@ north.  An ornately carved lever sticks up through the mud on the floor.
 Exits are east, south and west.
 
 >
+
 Dark
 Everything is dark.
 
 Exits are east and up.
 
 >
+
 Wishing Well
 I am standing next to the high bramble hedge by an old well.  Just this side
 of the hedge there is a wide perspex tube rising about eight foot into the
@@ -454,6 +480,7 @@ small dirt yard.
 Exits are south and down.
 
 >
+
 Manor Grounds
 I am standing on the snow, just east of the road leading up to the manor's
 front door.  A long line of beechwood trees mark out the sides of the
@@ -463,6 +490,7 @@ my way further east.  There is a recently opened trapdoor here.
 Exits are north, south, west and down.
 
 >
+
 Driveway
 I am standing on the drive leading to Attervist manor. It is a miserable
 looking building. The snow does its best to cover up the harsh jagged edges
@@ -472,6 +500,7 @@ the manor's entrance.
 Exits are north, east, south and west.
 
 >
+
 Porch
 I am standing beside the large front door of Attervist manor.  The door has
 been badly warped by the ravages of time: its coat of dark green paint is
@@ -482,6 +511,7 @@ button beside the door.
 Exits are north and south.
 
 >
+
 Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
@@ -495,6 +525,7 @@ Exits are north, east, south, west and up.
 Schrodinger wanders to above.
 
 >
+
 Alcove
 I am in a cramped alcove underneath the manor's main staircase.  Here,
 another smaller stairway leads down into the gloom.  This leads down into
@@ -504,6 +535,7 @@ hangs from the ceiling of the alcove.
 Exits are south and down.
 
 >
+
 Cellar
 I am in the cellar.  The cellar is brimming with mechanical junk.  A strong
 smell of damp fills the air, making it quite hard to breath down here.  In
@@ -531,6 +563,7 @@ returns to its corner of the cellar.  There is a loud whooshing sound from
 the chute.
 
 >
+
 Alcove
 I am in a cramped alcove underneath the manor's main staircase.  Here,
 another smaller stairway leads down into the gloom.  This leads down into
@@ -540,6 +573,7 @@ hangs from the ceiling of the alcove.
 Exits are south and down.
 
 >
+
 Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
@@ -561,6 +595,7 @@ Schrodinger wanders towards me from the north.
 Schrodinger wanders to above.
 
 >
+
 Alcove
 I am in a cramped alcove underneath the manor's main staircase.  Here,
 another smaller stairway leads down into the gloom.  This leads down into
@@ -570,6 +605,7 @@ hangs from the ceiling of the alcove.
 Exits are south and down.
 
 >
+
 Cellar
 I am in the cellar.  The cellar is brimming with mechanical junk.  A strong
 smell of damp fills the air, making it quite hard to breath down here.  In
@@ -585,10 +621,12 @@ Exits are east and up.
 I sit in the chair.  I feel a tingling sensation flow through my body.  There
 is a bright flash of light.  A sharp electric shock passes through me and I
 jump out of the chair.
+
 Dark
 Everything is dark.
 
 >
+
 Dark
 Everything is dark.  I can see a light and hear noises to my east.
 
@@ -599,6 +637,7 @@ As I walk into the light the noises stop.  A small bearded man in staring at
 me, his face white as a sheet:  "Wahhh!  A ghost!"  The man turns to run
 away, but stumbles on a piece of rock.  He falls to the ground with a dull
 thud.
+
 Tunnel
 I am in the dingy red brick tunnel.  The tunnel continues its route to my
 east and west, whilst an ornate archway has been bricked up to my south.
@@ -627,6 +666,7 @@ to make out some words.  They seem to be written in some sort of code: "AMEN
 GENO AMOT IOU NRG YH"
 
 >
+
 Tunnel
 I am in the dingy tunnel by an iron grating.  The tunnel looks onto an
 entrance hall, a stone staircase to one side.  The tunnel continues into damp
@@ -635,6 +675,7 @@ gloominess to my west.  The grating is half open.
 Exits are east and west.
 
 >
+
 Entrance Hall
 I am standing beside an impressive brick archway.  The archway leads onto a
 larger chamber.  A staircase leads upwards to a seemingly dead end, whilst an
@@ -644,6 +685,7 @@ statue leans against the staircase.
 Exits are east, west and up.
 
 >
+
 Centre Chamber
 I am in a large square chamber carved out of marble.  Beside me there is a
 rectangular table.  A large spider looms threateningly from its web hanging
@@ -653,6 +695,7 @@ staircase, whist north, south, and east reach into gloomy alcoves.
 Exits are north, east, south and west.
 
 >
+
 North Alcove
 I am standing in the north alcove next to a table shaped like an oval.  Just
 beyond reach there is a man-size gap in the ceiling above me.  Through the
@@ -678,6 +721,7 @@ Heh heh.  You should have your own series on Channel 4.
 it.  The numerals read MMMCDXLVI.
 
 >
+
 Centre Chamber
 I am in a large square chamber carved out of marble.  Beside me there is a
 rectangular table.  A large spider looms threateningly from its web hanging
@@ -691,6 +735,7 @@ Exits are north, east, south and west.
 >Okay.  I put the amphora onto the rectangular table.
 
 >
+
 East Alcove
 I am standing in the east alcove.  The only exit from here leads west through
 an archway back into the central chamber.  In the darkest corner of this room
@@ -711,6 +756,7 @@ triangular table.
 >Okay.  I have taken the china doll from the triangular table.
 
 >
+
 Centre Chamber
 I am in a large square chamber carved out of marble.  Beside me there is a
 rectangular table.  A large spider looms threateningly from its web hanging
@@ -724,6 +770,7 @@ Exits are north, east, south and west.
 >Okay.  I put the swimming goggles onto the rectangular table.
 
 >
+
 South Alcove
 I am standing in the south alcove.  In the centre of the alcove there is a
 large table shaped like a crescent.  The central chamber is back to my north.
@@ -744,6 +791,7 @@ wood.  A claw, a swimming cap and a bronze key are on the crescent table.
 >Okay.  I have taken the bronze key from the crescent table.
 
 >
+
 Centre Chamber
 I am in a large square chamber carved out of marble.  Beside me there is a
 rectangular table.  A large spider looms threateningly from its web hanging
@@ -757,6 +805,7 @@ Exits are north, east, south and west.
 >Okay.  I put the swimming cap onto the rectangular table.
 
 >
+
 North Alcove
 I am standing in the north alcove next to a table shaped like an oval.  Just
 beyond reach there is a man-size gap in the ceiling above me.  Through the
@@ -767,12 +816,14 @@ A wooden ladder leans against the wall.
 Exits are south and up.
 
 >I clamber up the ladder.
+
 Manor Grounds
 I am in the manor grounds of Attervist manor.  It is a beautiful summer's day
 and the lawns stretch out before me.  To my east there is a small gap in the
 hedge.  A man-sized hole in the grass at my feet leads downwards.
 
 >
+
 Field
 Trying not to graze myself I squeeze through the gap in the hedge.  I am in a
 rolling field.  The sun beats down on the swaying grass.  A gap in the hedge
@@ -782,6 +833,7 @@ off to my south.
 Exits are south and west.
 
 >
+
 By Pub
 I am outside a public house.  A wooden sign hangs from the pub's
 pebble-dashed wall.  A dusty track leads off to the north.  It looks as
@@ -817,6 +869,7 @@ The grave-digger snatches the beer out of my hand and downs it in one gulp.
 He burps loudly and immediately falls asleep.
 
 >
+
 By Pub
 I am outside a public house.  A wooden sign hangs from the pub's
 pebble-dashed wall.  A dusty track leads off to the north.  It looks as
@@ -833,6 +886,7 @@ Okay.  I have opened the coffin.  A body is inside the coffin.
 >Okay.  I close the coffin.
 
 >
+
 Frog and Ferret
 I am inside the Frog and Ferret public house.  It is a typical Victorian pub.
  In one corner there is a dusty dart board.  A large barman stands
@@ -844,6 +898,7 @@ An exit leads outside.
 >I shake the grave-digger vigorously, and he wakes up.
 
 >
+
 By Pub
 I am outside a public house.  A wooden sign hangs from the pub's
 pebble-dashed wall.  A dusty track leads off to the north.  It looks as
@@ -853,6 +908,7 @@ There is a horse and cart here.
 Exits are north and in.
 
 >
+
 Field
 Trying not to graze myself I squeeze through the gap in the hedge.  I am in a
 rolling field.  The sun beats down on the swaying grass.  A gap in the hedge
@@ -862,6 +918,7 @@ off to my south.
 Exits are south and west.
 
 >
+
 Manor Grounds
 I am in the manor grounds of Attervist manor.  It is a beautiful summer's day
 and the lawns stretch out before me.  To my east there is a small gap in the
@@ -870,6 +927,7 @@ hedge.  A man-sized hole in the grass at my feet leads downwards.
 Exits are east and down.
 
 >
+
 North Alcove
 I am standing in the north alcove next to a table shaped like an oval.  Just
 beyond reach there is a man-size gap in the ceiling above me.  Through the
@@ -880,6 +938,7 @@ A wooden ladder leans against the wall.
 Exits are south and up.
 
 >
+
 Centre Chamber
 I am in a large square chamber carved out of marble.  Beside me there is a
 rectangular table.  A large spider looms threateningly from its web hanging
@@ -889,6 +948,7 @@ staircase, whist north, south, and east reach into gloomy alcoves.
 Exits are north, east, south and west.
 
 >
+
 Entrance Hall
 I am standing beside an impressive brick archway.  The archway leads onto a
 larger chamber.  A staircase leads upwards to a seemingly dead end, whilst an
@@ -898,12 +958,14 @@ statue leans against the staircase.
 Exits are east, west and up.
 
 >Crash!  The grating slams shut behind me!
+
 Tunnel
 I am in the dingy tunnel by an iron grating.  The tunnel looks onto an
 entrance hall, a stone staircase to one side.  The tunnel continues into damp
 gloominess to my west.  The grating is closed.
 
 >
+
 Tunnel
 I am in the dingy red brick tunnel.  The tunnel continues its route to my
 east and west, whilst an ornate archway has been bricked up to my south.
@@ -912,6 +974,7 @@ The body of the miner lies unconcious on the ground.
 Exits are east and west.
 
 >
+
 Tunnel
 I am in a low tunnel.  The walls of the tunnel have been made out of bright
 red brick, and show no real sign of decay.  It is quite dingy down here.
@@ -920,6 +983,7 @@ West leads back to the cellar whilst east leads further into the dark tunnel.
 Exits are east and west.
 
 >
+
 Cellar
 I am in a dark cellar.  There is a distinct smell of damp down here, and I
 hate to imagine what sort of creatures live in the shadows.  A rickety
@@ -933,6 +997,7 @@ Exits are east and up.
 >I sit in the chair.  I feel a tingling sensation flow through my body.  There
 is a bright flash of light.  A sharp electric shock passes through me and I
 jump out of the chair.
+
 Cellar
 I am in the cellar.  The cellar is brimming with mechanical junk.  A strong
 smell of damp fills the air, making it quite hard to breath down here.  In
@@ -943,6 +1008,7 @@ beechwood armchair sits in the middle of the cellar.
 There is a small chimpanzee here.
 
 >
+
 Alcove
 I am in a cramped alcove underneath the manor's main staircase.  Here,
 another smaller stairway leads down into the gloom.  This leads down into
@@ -952,6 +1018,7 @@ hangs from the ceiling of the alcove.
 Exits are south and down.
 
 >
+
 Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
@@ -963,6 +1030,7 @@ gloves and a carrot.
 Exits are north, east, south, west and up.
 
 >
+
 Passage
 I am in a dingy corridor leading from east to west.  The panelled walls here
 have recently been given a fresh lick of varnish, either that or Grandad has
@@ -972,6 +1040,7 @@ south wall of the corridor.
 Exits are north, east, south and west.
 
 >
+
 Study
 I am in Grandad's study.  An elegant antique desk can be seen in one corner
 of the room; at least it would be seen if there weren't so many papers strewn
@@ -995,6 +1064,7 @@ gentle click and the door swings open.
 >Okay.  I have dropped the nailfile.
 
 >
+
 Top of Staircase
 I am at the top of the hidden staircase.  The cold stone steps lead down into
 a musky entrance chamber.  The air is quite dead here, as if it has not been
@@ -1003,6 +1073,7 @@ disturbed for years.  A low doorway leads west back into Grandad's study.
 Exits are west and down.
 
 >
+
 Entrance Hall
 I am at the bottom of the hidden staircase.  It is extremely musky down here.
  A crumbling brick archway leads eastward into a larger chamber.  Vines climb
@@ -1017,6 +1088,7 @@ dial's arrow is pointing to the number one.
 >Okay.  I turn the dial to position three.
 
 >
+
 Centre Chamber
 I am in a large square chamber carved out of marble.  Beside me there is a
 rectangular glass case.  The case stretches for almost the entire width of
@@ -1026,6 +1098,7 @@ the staircase, whilst north, south, and east reach into gloomy alcoves.
 Exits are north, east, south and west.
 
 >
+
 East Alcove
 I am standing in the east alcove.  A soft moss covers much of the floor here,
 breaking up the paving stones.  The only exit from here leads west back into
@@ -1041,6 +1114,7 @@ dial's arrow is pointing to the number two.
 >Okay.  I turn the dial to position four.
 
 >
+
 Centre Chamber
 I am in a large square chamber carved out of marble.  Beside me there is a
 rectangular glass case.  The case stretches for almost the entire width of
@@ -1050,6 +1124,7 @@ the staircase, whilst north, south, and east reach into gloomy alcoves.
 Exits are north, east, south and west.
 
 >
+
 South Alcove
 I am standing in the south alcove.  The alcove is dominated by a large
 display case shaped like a crescent.  The case is covered in thick cobwebs.
@@ -1068,6 +1143,7 @@ dial's arrow is pointing to the number three.
 >Okay.  I have taken the mattress.
 
 >
+
 Centre Chamber
 I am in a large square chamber carved out of marble.  Beside me there is a
 rectangular glass case.  The case stretches for almost the entire width of
@@ -1077,6 +1153,7 @@ the staircase, whilst north, south, and east reach into gloomy alcoves.
 Exits are north, east, south and west.
 
 >
+
 North Alcove
 I am standing next to an oval display case.  The case is doing its best to
 hold up a particularly derelict-looking wall.  A small metal dial is attached
@@ -1092,6 +1169,7 @@ dial's arrow is pointing to the number four.
 >Okay.  I have dropped the mattress.
 
 >
+
 Centre Chamber
 I am in a large square chamber carved out of marble.  Beside me there is a
 rectangular glass case.  The case stretches for almost the entire width of
@@ -1119,6 +1197,7 @@ and the swimming cap from the rectangular table.
 >Okay.  I am now wearing the swimming goggles.
 
 >
+
 Entrance Hall
 I am at the bottom of the hidden staircase.  It is extremely musky down here.
  A crumbling brick archway leads eastward into a larger chamber.  Vines climb
@@ -1128,6 +1207,7 @@ iron grating blocks my way west into a dark red-brick tunnel.
 Exits are east and up.
 
 >
+
 Top of Staircase
 I am at the top of the hidden staircase.  The cold stone steps lead down into
 a musky entrance chamber.  The air is quite dead here, as if it has not been
@@ -1136,6 +1216,7 @@ disturbed for years.  A low doorway leads west back into Grandad's study.
 Exits are west and down.
 
 >
+
 Study
 I am in Grandad's study.  An elegant antique desk can be seen in one corner
 of the room; at least it would be seen if there weren't so many papers strewn
@@ -1150,6 +1231,7 @@ Exits are east and south.
 >Okay.  I have taken the monocle.
 
 >
+
 Passage
 I am in a dingy corridor leading from east to west.  The panelled walls here
 have recently been given a fresh lick of varnish, either that or Grandad has
@@ -1159,6 +1241,7 @@ south wall of the corridor.
 Exits are north, east, south and west.
 
 >
+
 Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
@@ -1189,6 +1272,7 @@ Schrodinger wanders towards me from the west.
 Schrodinger wanders to the west.
 
 >
+
 Alcove
 I am in a cramped alcove underneath the manor's main staircase.  Here,
 another smaller stairway leads down into the gloom.  This leads down into
@@ -1198,6 +1282,7 @@ hangs from the ceiling of the alcove.
 Exits are south and down.
 
 >
+
 Cellar
 I am in the cellar.  The cellar is brimming with mechanical junk.  A strong
 smell of damp fills the air, making it quite hard to breath down here.  In
@@ -1212,6 +1297,7 @@ Exits are east and up.
 >Okay.  I turn the torch on.
 
 >
+
 Tunnel
 I am in a low tunnel.  The floor is covered in bat droppings, and they
 squelch noisily beneath my impatient feet.  The walls of the tunnel have been
@@ -1226,6 +1312,7 @@ Exits are east and west.
 >Okay.  I have taken the sweet.
 
 >
+
 T-Junction
 I am at a T-junction in the underground tunnel.  A lead pipe runs along the
 tunnel ceiling from the west.  It makes a sharp turn and continues
@@ -1236,6 +1323,7 @@ cellar.
 Exits are east, south and west.
 
 >
+
 Tunnel
 I am at the end of the red brick tunnel by an iron grating and a wooden
 chute.  Through the grating I can see what seems to be some sort of entrance
@@ -1250,6 +1338,7 @@ I can only move west.
 front an ornate letter "S has been engraved.
 
 >
+
 T-Junction
 I am at a T-junction in the underground tunnel.  A lead pipe runs along the
 tunnel ceiling from the west.  It makes a sharp turn and continues
@@ -1260,6 +1349,7 @@ cellar.
 Exits are east, south and west.
 
 >
+
 Tunnel
 I am in a dark underground tunnel.  There is an archway to my east leading
 into a softly list room.  Beside the archway there is a small, dumpy robot.
@@ -1286,6 +1376,7 @@ weird.
 
 >(Your score has increased by 10)
 Okay.
+
 Games Room
 I am in a softly lit room.  All sorts of games and puzzles litter the room.
 A round marble plinth stands in the middle of the room.  Built into the floor
@@ -1373,6 +1464,7 @@ The octopus sniffs and hands over the dweezil.
 >Okay.  I turn the torch on.
 
 >
+
 Tunnel
 I am in a dark underground tunnel.  There is an archway to my east leading
 into a softly list room.  Beside the archway there is a small, dumpy robot.
@@ -1385,6 +1477,7 @@ Also here is a monocle.
 Exits are north, east and south.
 
 >
+
 Tunnel
 I am in a dark underground tunnel.  To my south there is an extremely ornate
 marble archway.  The crawling vines and twisting ivy give it an almost
@@ -1395,6 +1488,7 @@ and east along the ground.
 Exits are north, east and south.
 
 >
+
 Tunnel
 I am in a gloomy underground tunnel.  An antiquated washing machine sits by
 the north wall.  A long extension lead runs along the bottom of the wall.  It
@@ -1404,6 +1498,7 @@ An aardvark is curled up on top of the washing machine.
 Exits are east, south and west.
 
 >
+
 Tunnel
 I am in an underground tunnel lit by harsh neon lights.  A large open doorway
 to my south is covered in tinsel and bunting.  Amid the decorations there is
@@ -1429,6 +1524,7 @@ adult. Prize raffle tonite:
 3rd prize - Surprise supa-dupa mystery package."
 
 >
+
 Tunnel
 I am in an underground tunnel.  The tunnel is constructed out of a bright red
 brick, and is rather unpleasant to the eye.  I hate to imagine what kind of
@@ -1442,6 +1538,7 @@ Exits are east, south and west.
 front an ornate letter "R" has been engraved.
 
 >
+
 Tunnel
 I am at a turning in the tunnel.  A mass of electronic diodes and valves
 dominate the east wall of the tunnel.  It is virtually impossible to see the
@@ -1493,6 +1590,7 @@ I thought I already was!  Arf arf.
 >Okay.  I turn the torch on.
 
 >
+
 Tunnel
 I am in the underground tunnel.  Crawling vines climb up the tunnel's walls.
 A large metal door prevents me from going east.  There is a small wooden
@@ -1518,6 +1616,7 @@ An aardvark is curled up on top of the washing machine.
 Exits are east, south and west.
 
 >
+
 Tunnel
 I am in a dark underground tunnel.  To my south there is an extremely ornate
 marble archway.  The crawling vines and twisting ivy give it an almost
@@ -1530,6 +1629,7 @@ Exits are north, east and south.
 >Okay.  I have dropped the hammer.
 
 >
+
 Tunnel
 I am in a dark underground tunnel.  There is an archway to my east leading
 into a softly list room.  Beside the archway there is a small, dumpy robot.
@@ -1542,6 +1642,7 @@ Also here is a monocle.
 Exits are north, east and south.
 
 >
+
 T-Junction
 I am at a T-junction in the underground tunnel.  A lead pipe runs along the
 tunnel ceiling from the west.  It makes a sharp turn and continues
@@ -1552,6 +1653,7 @@ cellar.
 Exits are east, south and west.
 
 >
+
 Tunnel
 I am in a low tunnel.  The floor is covered in bat droppings, and they
 squelch noisily beneath my impatient feet.  The walls of the tunnel have been
@@ -1562,6 +1664,7 @@ tunnel.  All in all, it's lovely.
 Exits are east and west.
 
 >
+
 Cellar
 I am in the cellar.  The cellar is brimming with mechanical junk.  A strong
 smell of damp fills the air, making it quite hard to breath down here.  In
@@ -1576,6 +1679,7 @@ Exits are east and up.
 >Okay.  I turn the torch off.
 
 >
+
 Alcove
 I am in a cramped alcove underneath the manor's main staircase.  Here,
 another smaller stairway leads down into the gloom.  This leads down into
@@ -1588,6 +1692,7 @@ Exits are south and down.
 Schrodinger wanders to the south.
 
 >
+
 Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
@@ -1618,6 +1723,7 @@ Schrodinger wanders towards me from above.
 Schrodinger wanders to above.
 
 >
+
 Porch
 I am standing beside the large front door of Attervist manor.  The door has
 been badly warped by the ravages of time: its coat of dark green paint is
@@ -1628,6 +1734,7 @@ button beside the door.
 Exits are north and south.
 
 >
+
 Driveway
 I am standing on the drive leading to Attervist manor. It is a miserable
 looking building. The snow does its best to cover up the harsh jagged edges
@@ -1637,6 +1744,7 @@ the manor's entrance.
 Exits are north, east, south and west.
 
 >
+
 Manor Grounds
 I am standing in the manor grounds to the west of the driveway.  There is a
 small round hut here in the middle of the lawn.  It has been almost
@@ -1647,6 +1755,7 @@ a time.
 Exits are east, west and in.
 
 >
+
 Manor Grounds
 I am standing in the grounds, by a long hedge of brambles.  The brambles are
 very prickly and are covered in frosty cobwebs.  There is a small gap in the
@@ -1673,12 +1782,14 @@ N, W, N, S, and finally E.  Phew!
 >I stumble through the maze's entrance, and take a few random twists and turns
 along the snow covered pathways.. I get a grip of myself and try to assess
 the situation:
+
 The Maze
 I am standing in the maze on a snow covered pathway.  Twisty long pathways
 lead away from here, bordered by high hedges.  The hedges are made out of
 prickly brambles and are covered with frosty cobwebs.
 
 >
+
 The Maze
 I am standing in the maze on a snow covered pathway.  Twisty long pathways
 lead away from here, bordered by high hedges.  The hedges are made out of
@@ -1687,6 +1798,7 @@ prickly brambles and are covered with frosty cobwebs.
 Exits are east, south and west.
 
 >
+
 The Maze
 I am standing in the maze on a snow covered pathway.  Twisty long pathways
 lead away from here, bordered by high hedges.  The hedges are made out of
@@ -1695,6 +1807,7 @@ prickly brambles and are covered with frosty cobwebs.
 Exits are north, east, south and west.
 
 >
+
 The Maze
 I am standing in the maze on a snow covered pathway.  Twisty long pathways
 lead away from here, bordered by high hedges.  The hedges are made out of
@@ -1703,6 +1816,7 @@ prickly brambles and are covered with frosty cobwebs.
 Exits are north, east, south and west.
 
 >
+
 The Maze
 I am standing in the maze on a snow covered pathway.  Twisty long pathways
 lead away from here, bordered by high hedges.  The hedges are made out of
@@ -1711,6 +1825,7 @@ prickly brambles and are covered with frosty cobwebs.
 Exits are north, east and west.
 
 >
+
 The Maze
 I am standing in the maze on a snow covered pathway.  Twisty long pathways
 lead away from here, bordered by high hedges.  The hedges are made out of
@@ -1719,6 +1834,7 @@ prickly brambles and are covered with frosty cobwebs.
 Exits are north, east, south and west.
 
 >
+
 The Maze
 I am standing in the maze on a snow covered pathway.  Twisty long pathways
 lead away from here, bordered by high hedges.  The hedges are made out of
@@ -1727,6 +1843,7 @@ prickly brambles and are covered with frosty cobwebs.
 Exits are north, east, south and west.
 
 >
+
 The Maze
 I am standing in the maze on a snow covered pathway.  Twisty long pathways
 lead away from here, bordered by high hedges.  The hedges are made out of
@@ -1735,6 +1852,7 @@ prickly brambles and are covered with frosty cobwebs.
 Exits are north, east, south and west.
 
 >
+
 The Maze
 I am standing in the maze on a snow covered pathway.  Twisty long pathways
 lead away from here, bordered by high hedges.  The hedges are made out of
@@ -1743,6 +1861,7 @@ prickly brambles and are covered with frosty cobwebs.
 Exits are north, east, south and west.
 
 >
+
 The Maze
 I am standing in the maze on a snow covered pathway.  Twisty long pathways
 lead away from here, bordered by high hedges.  The hedges are made out of
@@ -1751,6 +1870,7 @@ prickly brambles and are covered with frosty cobwebs.
 Exits are north, east, south and west.
 
 >
+
 The Maze
 I am standing in the maze on a snow covered pathway.  Twisty long pathways
 lead away from here, bordered by high hedges.  The hedges are made out of
@@ -1759,6 +1879,7 @@ prickly brambles and are covered with frosty cobwebs.
 Exits are north, east, south and west.
 
 >
+
 The Maze
 I am standing in the maze on a snow covered pathway.  Twisty long pathways
 lead away from here, bordered by high hedges.  The hedges are made out of
@@ -1791,6 +1912,7 @@ I dig around the base of the statue and uncover an emerald.
 >Okay.  I have taken the emerald.
 
 >
+
 The Maze
 I am standing in the maze on a snow covered pathway.  Twisty long pathways
 lead away from here, bordered by high hedges.  The hedges are made out of
@@ -1799,6 +1921,7 @@ prickly brambles and are covered with frosty cobwebs.
 Exits are north, east, south and west.
 
 >
+
 The Maze
 I am standing in the maze on a snow covered pathway.  Twisty long pathways
 lead away from here, bordered by high hedges.  The hedges are made out of
@@ -1807,6 +1930,7 @@ prickly brambles and are covered with frosty cobwebs.
 Exits are north, east, south and west.
 
 >
+
 The Maze
 I am standing in the maze on a snow covered pathway.  Twisty long pathways
 lead away from here, bordered by high hedges.  The hedges are made out of
@@ -1816,6 +1940,7 @@ to my east leads out onto the manor's lawn.
 Exits are north, east, south and west.
 
 >
+
 Manor Grounds
 I am standing in the grounds, by a long hedge of brambles.  The brambles are
 very prickly and are covered in frosty cobwebs.  There is a small gap in the
@@ -1827,6 +1952,7 @@ Also here is a parchment.
 Exits are north, east and west.
 
 >
+
 Clearing
 I am in a small clearing in a wooded copse in the manor grounds.  In the
 centre of the clearing, at the base of a dead tree, there is a small hole
@@ -1843,6 +1969,7 @@ Exits are south and down.
 >Okay.  I have taken the termites from the tree.
 
 >I squeeze down through the hole.
+
 Warren
 I am in an underground rabbit warren.  Twisting earth tunnels lead off in all
 directions.  A sign hangs on the wall of the warren.  Something red sparkles
@@ -1867,6 +1994,7 @@ belongings.  Eventually I stop shrinking - but only when I am less than two
 feet tall!
 
 >
+
 Warren
 I am in an underground rabbit warren.  Twisting burrowed tunnels lead off in
 most directions.  Many generations of rabbits have left their mark on this
@@ -1880,6 +2008,7 @@ Exits are north, east, south, west and down.
 >Okay.  I have taken the ruby.
 
 >
+
 Warren
 I am in an underground rabbit warren.  Twisting earth tunnels lead off in all
 directions.  A sign hangs on the wall of the warren.  There is a blue flower
@@ -1905,6 +2034,7 @@ the emerald and the termites.
 >Okay.  I am now wearing the swimming cap.
 
 >
+
 Clearing
 I am in a small clearing in a wooded copse in the manor grounds.  In the
 centre of the clearing, at the base of a dead tree, there is a small hole
@@ -1916,6 +2046,7 @@ Nearby a baby bear cub scavenges around for food in the snow.
 Exits are south and down.
 
 >
+
 Manor Grounds
 I am standing in the grounds, by a long hedge of brambles.  The brambles are
 very prickly and are covered in frosty cobwebs.  There is a small gap in the
@@ -1927,6 +2058,7 @@ Also here is a parchment.
 Exits are north, east and west.
 
 >
+
 Manor Grounds
 I am standing in the manor grounds to the west of the driveway.  There is a
 small round hut here in the middle of the lawn.  It has been almost
@@ -1937,6 +2069,7 @@ a time.
 Exits are east, west and in.
 
 >
+
 Driveway
 I am standing on the drive leading to Attervist manor. It is a miserable
 looking building. The snow does its best to cover up the harsh jagged edges
@@ -1946,6 +2079,7 @@ the manor's entrance.
 Exits are north, east, south and west.
 
 >
+
 Porch
 I am standing beside the large front door of Attervist manor.  The door has
 been badly warped by the ravages of time: its coat of dark green paint is
@@ -1956,6 +2090,7 @@ button beside the door.
 Exits are north and south.
 
 >
+
 Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
@@ -1971,6 +2106,7 @@ Exits are north, east, south, west and up.
 Schrodinger wanders towards me from above.
 
 >
+
 Passage
 I am in a dingy corridor leading from east to west.  The panelled walls here
 have recently been given a fresh lick of varnish, either that or Grandad has
@@ -1980,6 +2116,7 @@ south wall of the corridor.
 Exits are north, east, south and west.
 
 >
+
 Sitting Room
 I am in the sitting room.  This room is full of archaeological bric-a-brac
 and paraphernalia.  To the north there is a locked door, looking out over the
@@ -2041,6 +2178,7 @@ the top of the hat.
 >Okay.  I have taken the feather from the hat.
 
 >
+
 Passage
 I am in a dingy corridor leading from east to west.  The panelled walls here
 have recently been given a fresh lick of varnish, either that or Grandad has
@@ -2050,6 +2188,7 @@ south wall of the corridor.
 Exits are north, east, south and west.
 
 >
+
 Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
@@ -2076,6 +2215,7 @@ Schrodinger wanders to the north.
 Schrodinger wanders towards me from the north.
 
 >
+
 Alcove
 I am in a cramped alcove underneath the manor's main staircase.  Here,
 another smaller stairway leads down into the gloom.  This leads down into
@@ -2087,6 +2227,7 @@ Exits are south and down.
 Schrodinger wanders towards me from the south.
 
 >
+
 Cellar
 I am in the cellar.  The cellar is brimming with mechanical junk.  A strong
 smell of damp fills the air, making it quite hard to breath down here.  In
@@ -2101,6 +2242,7 @@ Exits are east and up.
 >Okay.  I turn the torch on.
 
 >
+
 Tunnel
 I am in a low tunnel.  The floor is covered in bat droppings, and they
 squelch noisily beneath my impatient feet.  The walls of the tunnel have been
@@ -2111,6 +2253,7 @@ tunnel.  All in all, it's lovely.
 Exits are east and west.
 
 >
+
 T-Junction
 I am at a T-junction in the underground tunnel.  A lead pipe runs along the
 tunnel ceiling from the west.  It makes a sharp turn and continues
@@ -2121,6 +2264,7 @@ cellar.
 Exits are east, south and west.
 
 >
+
 Tunnel
 I am in a dark underground tunnel.  There is an archway to my east leading
 into a softly list room.  Beside the archway there is a small, dumpy robot.
@@ -2133,6 +2277,7 @@ Also here is a monocle.
 Exits are north, east and south.
 
 >
+
 Tunnel
 I am in a dark underground tunnel.  To my south there is an extremely ornate
 marble archway.  The crawling vines and twisting ivy give it an almost
@@ -2145,6 +2290,7 @@ Also here is a hammer.
 Exits are north, east and south.
 
 >
+
 Tunnel
 I am in a gloomy underground tunnel.  An antiquated washing machine sits by
 the north wall.  A long extension lead runs along the bottom of the wall.  It
@@ -2169,6 +2315,7 @@ wall.
 HEL3761".
 
 >
+
 Tunnel
 I am in an underground tunnel lit by harsh neon lights.  A large open doorway
 to my south is covered in tinsel and bunting.  Amid the decorations there is
@@ -2252,6 +2399,7 @@ The metal door to my west slides open.
 >Okay.  I turn the torch on.
 
 >
+
 Storage Room
 I am in a tiny storage room.  An ageing food dispenser stands beside one
 wall.  There is barely enough room for me to squeeze in here as well.  The
@@ -2277,6 +2425,7 @@ Okay.  I press button number three.  A turkey leg falls out of the dispenser.
 >Okay.  I have taken the turkey leg.
 
 >
+
 Tunnel
 I am in an underground tunnel lit by harsh neon lights.  A large open doorway
 to my south is covered in tinsel and bunting.  Amid the decorations there is
@@ -2288,6 +2437,7 @@ doorway.
 Exits are north, east, south and west.
 
 >
+
 Tunnel
 I am in a gloomy underground tunnel.  An antiquated washing machine sits by
 the north wall.  A long extension lead runs along the bottom of the wall.  It
@@ -2297,6 +2447,7 @@ An aardvark is curled up on top of the washing machine.
 Exits are east, south and west.
 
 >
+
 Tunnel
 I am in a dark underground tunnel.  To my south there is an extremely ornate
 marble archway.  The crawling vines and twisting ivy give it an almost
@@ -2309,6 +2460,7 @@ Also here is a hammer.
 Exits are north, east and south.
 
 >
+
 Tunnel
 I am in a dark underground tunnel.  There is an archway to my east leading
 into a softly list room.  Beside the archway there is a small, dumpy robot.
@@ -2321,6 +2473,7 @@ Also here is a monocle.
 Exits are north, east and south.
 
 >
+
 T-Junction
 I am at a T-junction in the underground tunnel.  A lead pipe runs along the
 tunnel ceiling from the west.  It makes a sharp turn and continues
@@ -2331,6 +2484,7 @@ cellar.
 Exits are east, south and west.
 
 >
+
 Tunnel
 I am in a low tunnel.  The floor is covered in bat droppings, and they
 squelch noisily beneath my impatient feet.  The walls of the tunnel have been
@@ -2341,6 +2495,7 @@ tunnel.  All in all, it's lovely.
 Exits are east and west.
 
 >
+
 Cellar
 I am in the cellar.  The cellar is brimming with mechanical junk.  A strong
 smell of damp fills the air, making it quite hard to breath down here.  In
@@ -2355,6 +2510,7 @@ Exits are east and up.
 >Okay.  I turn the torch off.
 
 >
+
 Alcove
 I am in a cramped alcove underneath the manor's main staircase.  Here,
 another smaller stairway leads down into the gloom.  This leads down into
@@ -2367,6 +2523,7 @@ Exits are south and down.
 Schrodinger wanders to the south.
 
 >
+
 Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
@@ -2381,6 +2538,7 @@ Exits are north, east, south, west and up.
 Schrodinger wanders to the north.
 
 >
+
 Dining Room
 I am in the dining room.  There is a long wooden table in the centre of the
 room, with the remains of an unfinished meal.  Grandad must have forgotten to
@@ -2395,6 +2553,7 @@ mousse is on the dining room table.
 >Okay.  I have taken the mousse from the dining room table.
 
 >
+
 Kitchen
 I am in a long rectangular room with a heavy wooden table.  The walls are
 covered with pans, dishes and china plates.  There is a shallow doorway to my
@@ -2410,6 +2569,7 @@ Exits are south and west.
 The door swings open.
 
 >
+
 Butler's Room
 I am in a small, neat and compact room.  Whoever uses this room must be very
 organised - it is scrupulously tidy.  Impressionist paintings, sadly of a
@@ -2443,6 +2603,7 @@ Okay.  I have taken the golden casket from the wine.
 >I open the golden casket.  Some pepper is inside the golden casket.
 
 >
+
 Kitchen
 I am in a long rectangular room with a heavy wooden table.  The walls are
 covered with pans, dishes and china plates.  There is a shallow doorway to my
@@ -2472,6 +2633,7 @@ From inside the kennel there is a contented gnawing.
 >Okay.  I have taken the kettle.
 
 >
+
 Dining Room
 I am in the dining room.  There is a long wooden table in the centre of the
 room, with the remains of an unfinished meal.  Grandad must have forgotten to
@@ -2481,6 +2643,7 @@ to my east heads back to the hall.
 Exits are north and east.
 
 >
+
 Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
@@ -2511,6 +2674,7 @@ Schrodinger wanders to the north.
 Schrodinger wanders towards me from the north.
 
 >
+
 Porch
 I am standing beside the large front door of Attervist manor.  The door has
 been badly warped by the ravages of time: its coat of dark green paint is
@@ -2521,6 +2685,7 @@ button beside the door.
 Exits are north and south.
 
 >
+
 Driveway
 I am standing on the drive leading to Attervist manor. It is a miserable
 looking building. The snow does its best to cover up the harsh jagged edges
@@ -2530,6 +2695,7 @@ the manor's entrance.
 Exits are north, east, south and west.
 
 >
+
 Manor Grounds
 I am standing on the snow, just east of the road leading up to the manor's
 front door.  A long line of beechwood trees mark out the sides of the
@@ -2539,6 +2705,7 @@ my way further east.  There is a recently opened trapdoor here.
 Exits are north, south, west and down.
 
 >
+
 Beside the Lake
 I am standing in the grounds, beside a large lake.  Most of the lake has been
 iced over in this freezing weather.  A huge Viking longboat has been caught
@@ -2555,6 +2722,7 @@ claw my way back onto the ice.  My legs flay wildly in an attempt to stay
 afloat.  Suddenly there is a strong pull on my collar, and I feel a hairy
 hand winch me upwards.  Spluttering and freezing cold my mysterious saviour
 drags me out of the water.
+
 Viking Galley
 I am onboard the Viking longboat.  This seems to be some sort of galley area
 - boars hang up on hooks from the low beamed ceiling.  Blood slowly drips
@@ -2598,6 +2766,7 @@ to notice the small filofax drop from his back pocket.
 >Okay.  I have taken the filofax.
 
 >
+
 Viking Longboat
 I am standing on the south deck of the Viking longboat.  From this vantage
 point I can see over the island.  A rope leads down the side of the boat's
@@ -2607,6 +2776,7 @@ doorway leads northwards back into the galley area of the boat.
 Exits are north and down.
 
 >
+
 Island
 I am standing on the small island in the middle of the iced-over lake.  In
 fact it is less of an island and more of a small patch of frozen land.  There
@@ -2659,6 +2829,7 @@ Thud.  Clunk.. whirr.  A ticket falls out of the dispenser.
 
 >I carefully make my way over the ice; past the Viking longboat and to the
 mainland.
+
 Beside the Lake
 I am standing in the grounds, beside a large lake.  Most of the lake has been
 iced over in this freezing weather.  A huge Viking longboat has been caught
@@ -2666,6 +2837,7 @@ in the ice's grasp, its wooden bows creaking under the pressure.  Beyond the
 longboat there is a small island.
 
 >
+
 Manor Grounds
 I am standing on the snow, just east of the road leading up to the manor's
 front door.  A long line of beechwood trees mark out the sides of the
@@ -2675,6 +2847,7 @@ my way further east.  There is a recently opened trapdoor here.
 Exits are north, south, west and down.
 
 >
+
 Driveway
 I am standing on the drive leading to Attervist manor. It is a miserable
 looking building. The snow does its best to cover up the harsh jagged edges
@@ -2684,6 +2857,7 @@ the manor's entrance.
 Exits are north, east, south and west.
 
 >
+
 Porch
 I am standing beside the large front door of Attervist manor.  The door has
 been badly warped by the ravages of time: its coat of dark green paint is
@@ -2694,6 +2868,7 @@ button beside the door.
 Exits are north and south.
 
 >
+
 Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
@@ -2718,6 +2893,7 @@ the mug, the sugar lump, the bag of porridge, the sandwich and the ticket.
 Schrodinger wanders towards me from above.
 
 >
+
 Dining Room
 I am in the dining room.  There is a long wooden table in the centre of the
 room, with the remains of an unfinished meal.  Grandad must have forgotten to
@@ -2729,6 +2905,7 @@ Exits are north and east.
 Schrodinger wanders towards me from the east.
 
 >
+
 Kitchen
 I am in a long rectangular room with a heavy wooden table.  The walls are
 covered with pans, dishes and china plates.  There is a shallow doorway to my
@@ -2749,6 +2926,7 @@ shark totters around on his hind fins.  The shark smiles benignly at me,
 damp flipper, and flamboyantly places a small caddy on one of the pantry
 shelves.  The shark smiles at me again, and waggles his eyebrows in
 anticipation of my response.
+
 Pantry
 I am in the pantry.  It is a small, dark room - the only source of light
 being a barred oval window built close to the ceiling in the west wall.  A
@@ -2813,6 +2991,7 @@ The cat miaows happily.
 aren't even clean"  He stops me from touching the caddy.
 
 >
+
 Kitchen
 I am in a long rectangular room with a heavy wooden table.  The walls are
 covered with pans, dishes and china plates.  There is a shallow doorway to my
@@ -2828,6 +3007,7 @@ instead.
 From inside the kennel there is a contented gnawing.
 
 >
+
 Dining Room
 I am in the dining room.  There is a long wooden table in the centre of the
 room, with the remains of an unfinished meal.  Grandad must have forgotten to
@@ -2839,6 +3019,7 @@ Exits are north and east.
 Schrodinger wanders towards me from the north.
 
 >
+
 Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
@@ -2864,6 +3045,7 @@ Schrodinger wanders to above.
 >Okay.  I am now wearing the gloves.
 
 >
+
 First Floor
 I am standing on the first floor landing.  Grandad has liberally decorated
 this part of the manor with portraits of serious-looking ladies and
@@ -2874,6 +3056,7 @@ west.
 Exits are north, east, up and down.
 
 >
+
 Second Floor
 I am standing on the second floor landing.  A low, squat doorway leads
 westward into the small spare bedroom.  There are locked doors to my east and
@@ -2886,6 +3069,7 @@ Exits are west, up and down.
 Schrodinger wanders to below.
 
 >
+
 Third Floor
 I am on the top landing of the manor.  This landing is a lot smaller than the
 ones on previous floors, and looks as if it was last dusted in 1957.  In fact
@@ -2896,6 +3080,7 @@ laundry room to my west.
 Exits are east, west and down.
 
 >
+
 Laundry Room
 I am in the tiny laundry room.  The ageing boiler wheezes like a grumpus in
 its vain attempt to keep the manor warm.  A collection of warm towels hang
@@ -2933,6 +3118,7 @@ Clouds of steam billow from the kettle's spout and slowly drift upwards.
 Clouds of steam billow from the kettle's spout and slowly drift upwards.
 
 >I unplug the kettle from the socket, and walk away.
+
 Third Floor
 I am on the top landing of the manor.  This landing is a lot smaller than the
 ones on previous floors, and looks as if it was last dusted in 1957.  In fact
@@ -2942,6 +3128,7 @@ laundry room to my west.
 Clouds of steam billow from the kettle's spout and slowly drift upwards.
 
 >
+
 Attic
 I am in the attic.  It is really very cold in here.  I don't think Grandad
 can afford to heat this part of the manor.  The only light that manages to
@@ -2964,6 +3151,7 @@ Clouds of steam billow from the kettle's spout and slowly drift upwards.
 The kettle stops boiling.
 
 >
+
 Roof
 I am on the snowy roof of Attervist manor.  Snow swirls around me - it is
 very cold up here.  A skylight has been built into the roof and leads down
@@ -2972,6 +3160,7 @@ into an inviting attic.
 Exits are east and down.
 
 >
+
 Roof
 I am standing on the snowy roof beside a brick chimney.  From here I can see
 far and wide over the Attervist manor estate.
@@ -2987,6 +3176,7 @@ Such inane behaviour doesn't actually achieve anything, but it makes me feel
 a lot better.
 
 >
+
 Roof
 I am on the snowy roof of Attervist manor.  Snow swirls around me - it is
 very cold up here.  A skylight has been built into the roof and leads down
@@ -2995,6 +3185,7 @@ into an inviting attic.
 Exits are east and down.
 
 >
+
 Attic
 I am in the attic.  It is really very cold in here.  I don't think Grandad
 can afford to heat this part of the manor.  The only light that manages to
@@ -3005,6 +3196,7 @@ the manor's roof.
 Exits are east, west and up.
 
 >
+
 Third Floor
 I am on the top landing of the manor.  This landing is a lot smaller than the
 ones on previous floors, and looks as if it was last dusted in 1957.  In fact
@@ -3015,6 +3207,7 @@ laundry room to my west.
 Exits are east, west and down.
 
 >
+
 Laundry Room
 I am in the tiny laundry room.  The ageing boiler wheezes like a grumpus in
 its vain attempt to keep the manor warm.  A collection of warm towels hang
@@ -3052,6 +3245,7 @@ the bottom of the kettle.  The kettle contains some salt.
 >Okay.  I have taken the salt from the kettle.
 
 >
+
 Third Floor
 I am on the top landing of the manor.  This landing is a lot smaller than the
 ones on previous floors, and looks as if it was last dusted in 1957.  In fact
@@ -3062,6 +3256,7 @@ laundry room to my west.
 Exits are east, west and down.
 
 >
+
 Second Floor
 I am standing on the second floor landing.  A low, squat doorway leads
 westward into the small spare bedroom.  There are locked doors to my east and
@@ -3071,6 +3266,7 @@ down directions.
 Exits are west, up and down.
 
 >
+
 First Floor
 I am standing on the first floor landing.  Grandad has liberally decorated
 this part of the manor with portraits of serious-looking ladies and
@@ -3081,6 +3277,7 @@ west.
 Exits are north, east, up and down.
 
 >
+
 Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
@@ -3096,6 +3293,7 @@ Exits are north, east, south, west and up.
 Schrodinger wanders towards me from the west.
 
 >
+
 Passage
 I am in a dingy corridor leading from east to west.  The panelled walls here
 have recently been given a fresh lick of varnish, either that or Grandad has
@@ -3105,6 +3303,7 @@ south wall of the corridor.
 Exits are north, east, south and west.
 
 >
+
 Laboratory
 I am in Grandad's laboratory.  This is where he does most of his inventing
 and experimentation.  The octagonal room is full of scientific equipment, I
@@ -3125,6 +3324,7 @@ to shrivel up.  It gives a few helpless slurps before falling silent.
 >Okay.  I have taken the zircon from the chest.
 
 >
+
 Passage
 I am in a dingy corridor leading from east to west.  The panelled walls here
 have recently been given a fresh lick of varnish, either that or Grandad has
@@ -3134,6 +3334,7 @@ south wall of the corridor.
 Exits are north, east, south and west.
 
 >
+
 Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
@@ -3167,6 +3368,7 @@ Schrodinger wanders to the north.
 Schrodinger wanders towards me from the north.
 
 >
+
 Porch
 I am standing beside the large front door of Attervist manor.  The door has
 been badly warped by the ravages of time: its coat of dark green paint is
@@ -3177,6 +3379,7 @@ button beside the door.
 Exits are north and south.
 
 >
+
 Driveway
 I am standing on the drive leading to Attervist manor. It is a miserable
 looking building. The snow does its best to cover up the harsh jagged edges
@@ -3186,6 +3389,7 @@ the manor's entrance.
 Exits are north, east, south and west.
 
 >
+
 Manor Grounds
 I am standing on the snow, just east of the road leading up to the manor's
 front door.  A long line of beechwood trees mark out the sides of the
@@ -3195,6 +3399,7 @@ my way further east.  There is a recently opened trapdoor here.
 Exits are north, south, west and down.
 
 >
+
 Wishing Well
 I am standing next to the high bramble hedge by an old well.  Just this side
 of the hedge there is a wide perspex tube rising about eight foot into the
@@ -3211,6 +3416,7 @@ I carefully snip a large hole in the wire fence with the clippers.
 >Okay.  I have dropped the wire clippers.
 
 >I carefully step through the gap in the fence.
+
 Yard
 I am standing in a small yard.  The ground is thinly covered by a layer of
 snow here.  A side wall of the manor marks the west boundary of the yard, and
@@ -3219,6 +3425,7 @@ end of the yard, a small ramp leading inside.  To my south there is a high
 wire fence.
 
 >
+
 Hen-house
 I am in the large wooden hen-house.  At least I suppose it is large for
 chickens and other poultry.  I am finding it a bit cramped myself.  Messy
@@ -3236,6 +3443,7 @@ disturbing..." onto it.
 With a squeak of rusty hinges the door swings open.
 
 >
+
 Manor Grounds
 I am in the grounds of the manor's back garden.  Directly to my south there
 is the back of a wooden hen house.  A small wooden door has been built into
@@ -3248,6 +3456,7 @@ Exits are north and south.
 ""...figure of speech" onto it.  It is open.
 
 >
+
 Back Garden
 I am in the grounds of the manor's back garden.  The entire area is covered
 with a thick, featureless blanket of snow.  There is a clothes line nearby,
@@ -3271,6 +3480,7 @@ and button have been set into the side.  The button on the side of the bath
 is ominously marked "Ignition".
 
 >
+
 Manor Grounds
 I am in the grounds of the manor's back garden.  Directly to my south there
 is the back of a wooden hen house.  A small wooden door has been built into
@@ -3288,6 +3498,7 @@ way.  There seems to be a small room down there.  It is quite a drop down to
 the floor though.
 
 >
+
 Hen-house
 I am in the large wooden hen-house.  At least I suppose it is large for
 chickens and other poultry.  I am finding it a bit cramped myself.  Messy
@@ -3317,6 +3528,7 @@ Exits are north and out.
 >Okay.  I have taken the battery.
 
 >
+
 Yard
 I am standing in a small yard.  The ground is thinly covered by a layer of
 snow here.  A side wall of the manor marks the west boundary of the yard, and
@@ -3327,6 +3539,7 @@ wire fence.
 Exits are south and in.
 
 >
+
 Wishing Well
 I am standing next to the high bramble hedge by an old well.  Just this side
 of the hedge there is a wide perspex tube rising about eight foot into the
@@ -3340,6 +3553,7 @@ Also here are some wire clippers.
 Exits are north, south and down.
 
 >
+
 Manor Grounds
 I am standing on the snow, just east of the road leading up to the manor's
 front door.  A long line of beechwood trees mark out the sides of the
@@ -3349,6 +3563,7 @@ my way further east.  There is a recently opened trapdoor here.
 Exits are north, south, west and down.
 
 >
+
 Driveway
 I am standing on the drive leading to Attervist manor. It is a miserable
 looking building. The snow does its best to cover up the harsh jagged edges
@@ -3358,6 +3573,7 @@ the manor's entrance.
 Exits are north, east, south and west.
 
 >
+
 Porch
 I am standing beside the large front door of Attervist manor.  The door has
 been badly warped by the ravages of time: its coat of dark green paint is
@@ -3368,6 +3584,7 @@ button beside the door.
 Exits are north and south.
 
 >
+
 Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
@@ -3383,6 +3600,7 @@ Exits are north, east, south, west and up.
 Schrodinger wanders towards me from the west.
 
 >
+
 First Floor
 I am standing on the first floor landing.  Grandad has liberally decorated
 this part of the manor with portraits of serious-looking ladies and
@@ -3393,6 +3611,7 @@ west.
 Exits are north, east, up and down.
 
 >
+
 Grandad's Bedroom
 I am in Grandad's bedroom.  The usual bedroom things are here: a large bed, a
 full length mirror and a Mark III sub-atomic particle accelerator.  A month's
@@ -3425,6 +3644,7 @@ relief let them go.  A buss pass drops from the pile of laundry.
 front an ornate letter "A" has been engraved.
 
 >
+
 First Floor
 I am standing on the first floor landing.  Grandad has liberally decorated
 this part of the manor with portraits of serious-looking ladies and
@@ -3435,6 +3655,7 @@ west.
 Exits are north, east, up and down.
 
 >
+
 Bathroom
 I am in the bathroom.  There is a matching bathroom suite here: bath, basin,
 and toilet.  Or rather there should be a bath.  Grandad ripped it out a few
@@ -3466,6 +3687,7 @@ Subotsky.  Personally I saw nothing wrong with it, and if anyone is looking
 for a terrapin-minder for the holidays I am available at the usual address.
 
 >
+
 First Floor
 I am standing on the first floor landing.  Grandad has liberally decorated
 this part of the manor with portraits of serious-looking ladies and
@@ -3476,6 +3698,7 @@ west.
 Exits are north, east, up and down.
 
 >
+
 Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
@@ -3563,6 +3786,7 @@ Schrodinger wanders towards me from the west.
 Schrodinger wanders to the north.
 
 >
+
 Passage
 I am in a dingy corridor leading from east to west.  The panelled walls here
 have recently been given a fresh lick of varnish, either that or Grandad has
@@ -3572,6 +3796,7 @@ south wall of the corridor.
 Exits are north, east, south and west.
 
 >
+
 Sitting Room
 I am in the sitting room.  This room is full of archaeological bric-a-brac
 and paraphernalia.  To the north there is a locked door, looking out over the
@@ -3619,6 +3844,7 @@ lantern.
 Grandad walks to the west.
 
 >
+
 Passage
 I am in a dingy corridor leading from east to west.  The panelled walls here
 have recently been given a fresh lick of varnish, either that or Grandad has
@@ -3629,6 +3855,7 @@ Grandad stands nearby.
 Exits are north, east, south and west.
 
 >
+
 Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
@@ -3644,6 +3871,7 @@ Exits are north, east, south, west and up.
 >Okay.  I have dropped the trombone.
 
 >
+
 Alcove
 I am in a cramped alcove underneath the manor's main staircase.  Here,
 another smaller stairway leads down into the gloom.  This leads down into
@@ -3653,6 +3881,7 @@ hangs from the ceiling of the alcove.
 Exits are south and down.
 
 >
+
 Cellar
 I am in the cellar.  The cellar is brimming with mechanical junk.  A strong
 smell of damp fills the air, making it quite hard to breath down here.  In
@@ -3667,6 +3896,7 @@ Exits are east and up.
 >Okay.  I turn the torch on.
 
 >
+
 Tunnel
 I am in a low tunnel.  The floor is covered in bat droppings, and they
 squelch noisily beneath my impatient feet.  The walls of the tunnel have been
@@ -3677,6 +3907,7 @@ tunnel.  All in all, it's lovely.
 Exits are east and west.
 
 >
+
 T-Junction
 I am at a T-junction in the underground tunnel.  A lead pipe runs along the
 tunnel ceiling from the west.  It makes a sharp turn and continues
@@ -3687,6 +3918,7 @@ cellar.
 Exits are east, south and west.
 
 >
+
 Tunnel
 I am in a dark underground tunnel.  There is an archway to my east leading
 into a softly list room.  Beside the archway there is a small, dumpy robot.
@@ -3699,6 +3931,7 @@ Also here is a monocle.
 Exits are north, east and south.
 
 >
+
 Tunnel
 I am in a dark underground tunnel.  To my south there is an extremely ornate
 marble archway.  The crawling vines and twisting ivy give it an almost
@@ -3711,6 +3944,7 @@ Also here is a hammer.
 Exits are north, east and south.
 
 >
+
 Tunnel
 I am in a gloomy underground tunnel.  An antiquated washing machine sits by
 the north wall.  A long extension lead runs along the bottom of the wall.  It
@@ -3720,6 +3954,7 @@ An aardvark is curled up on top of the washing machine.
 Exits are east, south and west.
 
 >
+
 Tunnel
 I am in an underground tunnel lit by harsh neon lights.  A large open doorway
 to my south is covered in tinsel and bunting.  Amid the decorations there is
@@ -3866,6 +4101,7 @@ Exits are north, east, south and west.
 >(Your score has increased by 10)
 The bouncer moves to stop me, but Grandad's voice calls back "Don't worry.
 He's with me".  The bouncer waves me in with a grunt.
+
 Golden Gulp
 I am in the seedy Golden Gulp drinking den.  A strong smell of sarsaparilla
 and home-made shepherd's pie fills the air.  Small hairy creatures sit at
@@ -4001,6 +4237,7 @@ The familiar figure of Grandad slouches in the armchair snoring loudly.
 Exits are north and south.
 
 >
+
 Tunnel
 I am in an underground tunnel lit by harsh neon lights.  A large open doorway
 to my south is covered in tinsel and bunting.  Amid the decorations there is
@@ -4014,6 +4251,7 @@ Exits are north, east, south and west.
 Grandad enters from the south.
 
 >
+
 Dark
 Everything is dark.  I can see a light to my south.
 
@@ -4022,6 +4260,7 @@ Exits are east, south and west.
 Grandad enters from the south.
 
 >
+
 Dark
 Everything is dark.
 
@@ -4036,6 +4275,7 @@ Grandad enters from the east.
 Okay.  There is a blinding flash, and for a brief few seconds I feel as if I
 am trying to walk through a plate of bangers and mash.  I quickly come to my
 senses - How can this be happening?  I don't even like sausages.
+
 Waiting Room
 I am in a small, square room with no windows.  On one wall there is a small
 blue telephone, whilst the rest of the wall is covered by posters.  There is
@@ -4048,6 +4288,7 @@ Grandad enters from the north.
 
 >I step through the doorway and out into the open air.  Something strikes me
 as being unusual, and then I realise: the lack of snow.
+
 Bus Stop
 I am standing by a bus stop in a rural country lane.  There is a windowless
 concrete building to my north.  The lane continues its twisty journey east
@@ -4078,6 +4319,7 @@ asleep.
 The sound of a neighing horse wakes me.  I find myself lying face-down in a
 field of cold snow.  I quickly stand up, shake the snow off me, and take
 stock of my predicament:
+
 Field
 I am in a snow-covered field.  Nearby, a mossy tombstone pokes up through the
 snow.  To my west, over a high hedge, I can see Attervist manor.  I don't
@@ -4125,6 +4367,7 @@ my way further east.  There is a recently opened trapdoor here.
 Exits are north, south, west and down.
 
 >
+
 Wishing Well
 I am standing next to the high bramble hedge by an old well.  Just this side
 of the hedge there is a wide perspex tube rising about eight foot into the
@@ -4138,6 +4381,7 @@ Also here are some wire clippers.
 Exits are north, south and down.
 
 >I carefully step through the gap in the fence.
+
 Yard
 I am standing in a small yard.  The ground is thinly covered by a layer of
 snow here.  A side wall of the manor marks the west boundary of the yard, and
@@ -4146,6 +4390,7 @@ end of the yard, a small ramp leading inside.  To my south there is a high
 wire fence.
 
 >
+
 Hen-house
 I am in the large wooden hen-house.  At least I suppose it is large for
 chickens and other poultry.  I am finding it a bit cramped myself.  Messy
@@ -4156,6 +4401,7 @@ the yard.  A goose clucks quietly to itself nearby.
 Exits are north and out.
 
 >
+
 Manor Grounds
 I am in the grounds of the manor's back garden.  Directly to my south there
 is the back of a wooden hen house.  A small wooden door has been built into
@@ -4175,6 +4421,7 @@ With a cry of "Geronimo" I leap down the gap.  Unfortunately the floor seems
 even further away than I had originally estimated.  Wumph!  Luckily there is
 a soft mattress to break my fall.  I stand up, dust myself down, and examine
 my surroundings.
+
 North Alcove
 I am standing next to an oval display case.  The case is doing its best to
 hold up a particularly derelict-looking wall.  A small metal dial is attached
@@ -4185,6 +4432,7 @@ a little high to reach though.
 Also here is a mattress.
 
 >
+
 Centre Chamber
 I am in a large square chamber carved out of marble.  Beside me there is a
 rectangular glass case.  The case stretches for almost the entire width of
@@ -4195,6 +4443,7 @@ carrying the end of a long chain.
 Exits are north, east, south and west.
 
 >
+
 South Alcove
 I am standing in the south alcove.  The alcove is dominated by a large
 display case shaped like a crescent.  The case is covered in thick cobwebs.
@@ -4210,6 +4459,7 @@ The door swings open.
 >Okay.  I have dropped the bronze key.
 
 >
+
 Tunnel
 I am in a damp tunnel.  Mud slurps around my feet every time I move.  There
 is an archway to my east.  A few bricks have fallen away to my west, allowing
@@ -4224,6 +4474,7 @@ Exits are north, east, south and west.
 >Okay.  I have dropped the chain.
 
 >
+
 Crypt
 I am in a gloomy underground crypt.  On one wall of the crypt there is a
 small round pressure dial and a grey button.  A wide perspex tube rises
@@ -4252,6 +4503,7 @@ The pressure dial flickers into life.  A loud humming pervades the crypt as
 the dial's needle rises.
 
 >
+
 Tunnel
 I am in a damp tunnel.  Mud slurps around my feet every time I move.  There
 is an archway to my east.  A few bricks have fallen away to my west, allowing
@@ -4265,12 +4517,14 @@ There is the end of a long chain here.
 Exits are north, east, south and west.
 
 >
+
 Dark
 Everything is dark.
 
 Exits are east and up.
 
 >
+
 Wishing Well
 I am standing next to the high bramble hedge by an old well.  Just this side
 of the hedge there is a wide perspex tube rising about eight foot into the
@@ -4285,6 +4539,7 @@ Exits are north, south and down.
 The ground shakes violently.
 
 >
+
 Manor Grounds
 I am standing on the snow, just east of the road leading up to the manor's
 front door.  A long line of beechwood trees mark out the sides of the
@@ -4294,6 +4549,7 @@ my way further east.  There is a recently opened trapdoor here.
 Exits are north, south, west and down.
 
 >
+
 Driveway
 I am standing on the drive leading to Attervist manor. It is a miserable
 looking building. The snow does its best to cover up the harsh jagged edges
@@ -4303,6 +4559,7 @@ the manor's entrance.
 Exits are north, east, south and west.
 
 >
+
 Porch
 I am standing beside the large front door of Attervist manor.  The door has
 been badly warped by the ravages of time: its coat of dark green paint is
@@ -4313,6 +4570,7 @@ button beside the door.
 Exits are north and south.
 
 >
+
 Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
@@ -4331,6 +4589,7 @@ Exits are north, east, south, west and up.
 pass and the package.
 
 >
+
 First Floor
 I am standing on the first floor landing.  Grandad has liberally decorated
 this part of the manor with portraits of serious-looking ladies and
@@ -4341,6 +4600,7 @@ west.
 Exits are north, east, up and down.
 
 >
+
 Bathroom
 I am in the bathroom.  There is a matching bathroom suite here: bath, basin,
 and toilet.  Or rather there should be a bath.  Grandad ripped it out a few
@@ -4360,6 +4620,7 @@ Okay.  I wash all the flour out of my hair.  I shake my head dry.
 >Okay.  I turn the tap off.
 
 >
+
 First Floor
 I am standing on the first floor landing.  Grandad has liberally decorated
 this part of the manor with portraits of serious-looking ladies and
@@ -4370,6 +4631,7 @@ west.
 Exits are north, east, up and down.
 
 >
+
 Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
@@ -4417,6 +4679,7 @@ Schrodinger wanders towards me from the north.
 Schrodinger wanders to the north.
 
 >
+
 Dining Room
 I am in the dining room.  There is a long wooden table in the centre of the
 room, with the remains of an unfinished meal.  Grandad must have forgotten to
@@ -4426,6 +4689,7 @@ to my east heads back to the hall.
 Exits are north and east.
 
 >
+
 Kitchen
 I am in a long rectangular room with a heavy wooden table.  The walls are
 covered with pans, dishes and china plates.  There is a shallow doorway to my
@@ -4436,6 +4700,7 @@ my east.
 Exits are east, south and west.
 
 >
+
 Pantry
 I am in the pantry.  It is a small, dark room - the only source of light
 being a barred oval window built close to the ceiling in the west wall.  A
@@ -4462,6 +4727,7 @@ Okay.  I have taken the caddy.
 >Okay.  I have dropped the caddy.
 
 >
+
 Kitchen
 I am in a long rectangular room with a heavy wooden table.  The walls are
 covered with pans, dishes and china plates.  There is a shallow doorway to my
@@ -4472,6 +4738,7 @@ my east.
 Exits are east, south and west.
 
 >
+
 Dining Room
 I am in the dining room.  There is a long wooden table in the centre of the
 room, with the remains of an unfinished meal.  Grandad must have forgotten to
@@ -4481,6 +4748,7 @@ to my east heads back to the hall.
 Exits are north and east.
 
 >
+
 Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
@@ -4501,6 +4769,7 @@ Schrodinger wanders towards me from above.
 Schrodinger wanders to above.
 
 >
+
 Porch
 I am standing beside the large front door of Attervist manor.  The door has
 been badly warped by the ravages of time: its coat of dark green paint is
@@ -4511,6 +4780,7 @@ button beside the door.
 Exits are north and south.
 
 >
+
 Driveway
 I am standing on the drive leading to Attervist manor. It is a miserable
 looking building. The snow does its best to cover up the harsh jagged edges
@@ -4520,6 +4790,7 @@ the manor's entrance.
 Exits are north, east, south and west.
 
 >
+
 Manor Grounds
 I am standing on the snow, just east of the road leading up to the manor's
 front door.  A long line of beechwood trees mark out the sides of the
@@ -4562,6 +4833,7 @@ THUD!.. keels over.
 >Okay.  I have taken the wumpus.
 
 >
+
 Oily cave
 I am in a dark and damp cave.  There is barely enough room to stand up in
 here.  Large pools of oil splash around my feet.  There is a dark tunnel
@@ -4575,6 +4847,7 @@ Okay.  I have dropped the wumpus.  The wumpus yawns and rolls over in a pool
 of oil.
 
 >
+
 Manor Grounds
 I am standing on the snow, just east of the road leading up to the manor's
 front door.  A long line of beechwood trees mark out the sides of the
@@ -4674,6 +4947,7 @@ Okay.  I have taken the polaroid.
 leading downwards into the gloom.
 
 >
+
 Oily cave
 I am in a dark and damp cave.  There is barely enough room to stand up in
 here.  Large pools of oil splash around my feet.  There is a dark tunnel
@@ -4688,6 +4962,7 @@ I can only move up.
 makes no attempt to escape.
 
 >
+
 Manor Grounds
 I am standing on the snow, just east of the road leading up to the manor's
 front door.  A long line of beechwood trees mark out the sides of the
@@ -4697,6 +4972,7 @@ my way further east.  There is a recently opened trapdoor here.
 Exits are north, south, west and down.
 
 >
+
 Driveway
 I am standing on the drive leading to Attervist manor. It is a miserable
 looking building. The snow does its best to cover up the harsh jagged edges
@@ -4706,6 +4982,7 @@ the manor's entrance.
 Exits are north, east, south and west.
 
 >
+
 Porch
 I am standing beside the large front door of Attervist manor.  The door has
 been badly warped by the ravages of time: its coat of dark green paint is
@@ -4716,6 +4993,7 @@ button beside the door.
 Exits are north and south.
 
 >
+
 Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
@@ -4754,6 +5032,7 @@ Schrodinger wanders to the north.
 Schrodinger wanders towards me from the north.
 
 >
+
 Alcove
 I am in a cramped alcove underneath the manor's main staircase.  Here,
 another smaller stairway leads down into the gloom.  This leads down into
@@ -4763,6 +5042,7 @@ hangs from the ceiling of the alcove.
 Exits are south and down.
 
 >
+
 Cellar
 I am in the cellar.  The cellar is brimming with mechanical junk.  A strong
 smell of damp fills the air, making it quite hard to breath down here.  In
@@ -4777,6 +5057,7 @@ Exits are east and up.
 >Okay.  I turn the torch on.
 
 >
+
 Tunnel
 I am in a low tunnel.  The floor is covered in bat droppings, and they
 squelch noisily beneath my impatient feet.  The walls of the tunnel have been
@@ -4787,6 +5068,7 @@ tunnel.  All in all, it's lovely.
 Exits are east and west.
 
 >
+
 T-Junction
 I am at a T-junction in the underground tunnel.  A lead pipe runs along the
 tunnel ceiling from the west.  It makes a sharp turn and continues
@@ -4797,6 +5079,7 @@ cellar.
 Exits are east, south and west.
 
 >
+
 Tunnel
 I am in a dark underground tunnel.  There is an archway to my east leading
 into a softly list room.  Beside the archway there is a small, dumpy robot.
@@ -4809,6 +5092,7 @@ Also here is a monocle.
 Exits are north, east and south.
 
 >
+
 Tunnel
 I am in a dark underground tunnel.  To my south there is an extremely ornate
 marble archway.  The crawling vines and twisting ivy give it an almost
@@ -4821,6 +5105,7 @@ Also here is a hammer.
 Exits are north, east and south.
 
 >
+
 Waiting Room
 I am in a small, square room with no windows.  On one wall there is a small
 blue telephone, whilst the rest of the wall is covered by posters.  There is
@@ -4858,18 +5143,21 @@ I know it's ridiculous but all I can remember is her National Insurance
 number, and that's.. 60318897"
 
 >
+
 Dark
 Everything is dark.
 
 Exits are north, east and south.
 
 >
+
 Dark
 Everything is dark.  I can see a light to my south.
 
 Exits are east, south and west.
 
 >
+
 Tunnel
 I am in an underground tunnel lit by harsh neon lights.  A large open doorway
 to my south is covered in tinsel and bunting.  Amid the decorations there is
@@ -4881,6 +5169,7 @@ doorway.
 Exits are north, east, south and west.
 
 >
+
 Tunnel
 I am in an underground tunnel.  The tunnel is constructed out of a bright red
 brick, and is rather unpleasant to the eye.  I hate to imagine what kind of
@@ -4890,6 +5179,7 @@ walls.  A raging wall of fire blocks my way southwards.
 Exits are east, south and west.
 
 >
+
 Tunnel
 I am at a turning in the tunnel.  A mass of electronic diodes and valves
 dominate the east wall of the tunnel.  It is virtually impossible to see the
@@ -4945,6 +5235,7 @@ I type on the computer.  The computer logs off the Viking Society Bulletin
 Board.
 
 >
+
 Tunnel
 I am in an underground tunnel.  The tunnel is constructed out of a bright red
 brick, and is rather unpleasant to the eye.  I hate to imagine what kind of
@@ -4954,6 +5245,7 @@ walls.  A raging wall of fire blocks my way southwards.
 Exits are east, south and west.
 
 >
+
 Tunnel
 I am in an underground tunnel lit by harsh neon lights.  A large open doorway
 to my south is covered in tinsel and bunting.  Amid the decorations there is
@@ -4965,18 +5257,21 @@ doorway.
 Exits are north, east, south and west.
 
 >
+
 Dark
 Everything is dark.  I can see a light to my south.
 
 Exits are east, south and west.
 
 >
+
 Dark
 Everything is dark.
 
 Exits are north, east and south.
 
 >
+
 Waiting Room
 I am in a small, square room with no windows.  On one wall there is a small
 blue telephone, whilst the rest of the wall is covered by posters.  There is
@@ -5010,18 +5305,21 @@ the D chute.
 powder disappears from view.
 
 >
+
 Dark
 Everything is dark.
 
 Exits are north, east and south.
 
 >
+
 Dark
 Everything is dark.  I can see a light to my south.
 
 Exits are east, south and west.
 
 >
+
 Tunnel
 I am in an underground tunnel lit by harsh neon lights.  A large open doorway
 to my south is covered in tinsel and bunting.  Amid the decorations there is
@@ -5033,6 +5331,7 @@ doorway.
 Exits are north, east, south and west.
 
 >
+
 Tunnel
 I am in an underground tunnel.  The tunnel is constructed out of a bright red
 brick, and is rather unpleasant to the eye.  I hate to imagine what kind of
@@ -5042,6 +5341,7 @@ walls.  A raging wall of fire blocks my way southwards.
 Exits are east, south and west.
 
 >
+
 Tunnel
 I am at a turning in the tunnel.  A mass of electronic diodes and valves
 dominate the east wall of the tunnel.  It is virtually impossible to see the
@@ -5058,6 +5358,7 @@ Exits are north and west.
 
 >(Your score has increased by 20)
 There is a tinkling sound and the tunnel slowly fades away..
+
 Rubbish Tip
 I am in an enormous room, it could be almost as large as an aircraft hanger
 or a couple of football pitches.  Junk and garbage litter the floor for as
@@ -5087,6 +5388,7 @@ the ether as the junk slowly disappears around me.
 >I sit down on the marble pedestal.
 
 >There is a tinkling sound and the tunnel slowly fades away..
+
 Rubbish Tip
 I am in an enormous room, it could be almost as large as an aircraft hanger
 or a couple of football pitches.  Junk and garbage litter the floor for as
@@ -5114,6 +5416,7 @@ The fairy beams, "Thank you!  Now shut your eyes and I'll give you a
 surprise."  I shut my eyes, after all, who argues with fairies?  I hear a
 tinkling bell in the back of my mind and the fairy's voice fading into the
 distance, "Glad to be of service!"
+
 Tunnel
 I am at a turning in the tunnel.  A mass of electronic diodes and valves
 dominate the east wall of the tunnel.  It is virtually impossible to see the
@@ -5127,6 +5430,7 @@ A hacker stands beside the computer.
 >Okay.  I turn the torch on.
 
 >
+
 Tunnel
 I am in the underground tunnel.  Crawling vines climb up the tunnel's walls.
 A large metal door prevents me from going east.  There is a small wooden
@@ -5139,6 +5443,7 @@ Okay.  I put the bag of porridge on the stool.  There is a harsh grating
 noise from the east.  Slowly but surely the metal door begins to slide open.
 
 >
+
 Oubiette
 I am in a tiny, almost closet-like, room.  This is just the sort of place you
 could leave people you want to forget about.  A shiver runs down my spine at
@@ -5151,6 +5456,7 @@ I can only move west.
 >Okay.  I have taken the amethyst.
 
 >
+
 Tunnel
 I am in the underground tunnel.  Crawling vines climb up the tunnel's walls.
 A large metal door prevents me from going east.  There is a small wooden
@@ -5159,6 +5465,7 @@ stool here.
 Exits are east, south and west.
 
 >
+
 Tunnel
 I am in a gloomy underground tunnel.  An antiquated washing machine sits by
 the north wall.  A long extension lead runs along the bottom of the wall.  It
@@ -5196,6 +5503,7 @@ the ankles and gives me a sparkling sapphire.  With a smile the wumpus
 toddles off to the west.
 
 >
+
 Tunnel
 I am in a dark underground tunnel.  To my south there is an extremely ornate
 marble archway.  The crawling vines and twisting ivy give it an almost
@@ -5208,6 +5516,7 @@ Also here is a hammer.
 Exits are north, east and south.
 
 >
+
 Tunnel
 I am in a dark underground tunnel.  There is an archway to my east leading
 into a softly list room.  Beside the archway there is a small, dumpy robot.
@@ -5220,6 +5529,7 @@ Also here is a monocle.
 Exits are north, east and south.
 
 >
+
 T-Junction
 I am at a T-junction in the underground tunnel.  A lead pipe runs along the
 tunnel ceiling from the west.  It makes a sharp turn and continues
@@ -5230,6 +5540,7 @@ cellar.
 Exits are east, south and west.
 
 >
+
 Tunnel
 I am in a low tunnel.  The floor is covered in bat droppings, and they
 squelch noisily beneath my impatient feet.  The walls of the tunnel have been
@@ -5240,6 +5551,7 @@ tunnel.  All in all, it's lovely.
 Exits are east and west.
 
 >
+
 Cellar
 I am in the cellar.  The cellar is brimming with mechanical junk.  A strong
 smell of damp fills the air, making it quite hard to breath down here.  In
@@ -5254,6 +5566,7 @@ Exits are east and up.
 >Okay.  I turn the torch off.
 
 >
+
 Alcove
 I am in a cramped alcove underneath the manor's main staircase.  Here,
 another smaller stairway leads down into the gloom.  This leads down into
@@ -5263,6 +5576,7 @@ hangs from the ceiling of the alcove.
 Exits are south and down.
 
 >
+
 Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
@@ -5295,6 +5609,7 @@ Schrodinger wanders to the north.
 Schrodinger wanders towards me from the north.
 
 >
+
 Alcove
 I am in a cramped alcove underneath the manor's main staircase.  Here,
 another smaller stairway leads down into the gloom.  This leads down into
@@ -5304,6 +5619,7 @@ hangs from the ceiling of the alcove.
 Exits are south and down.
 
 >
+
 Cellar
 I am in the cellar.  The cellar is brimming with mechanical junk.  A strong
 smell of damp fills the air, making it quite hard to breath down here.  In
@@ -5318,6 +5634,7 @@ Exits are east and up.
 >Okay.  I turn the torch on.
 
 >
+
 Tunnel
 I am in a low tunnel.  The floor is covered in bat droppings, and they
 squelch noisily beneath my impatient feet.  The walls of the tunnel have been
@@ -5328,6 +5645,7 @@ tunnel.  All in all, it's lovely.
 Exits are east and west.
 
 >
+
 T-Junction
 I am at a T-junction in the underground tunnel.  A lead pipe runs along the
 tunnel ceiling from the west.  It makes a sharp turn and continues
@@ -5338,6 +5656,7 @@ cellar.
 Exits are east, south and west.
 
 >
+
 Tunnel
 I am in a dark underground tunnel.  There is an archway to my east leading
 into a softly list room.  Beside the archway there is a small, dumpy robot.
@@ -5350,6 +5669,7 @@ Also here is a monocle.
 Exits are north, east and south.
 
 >
+
 Tunnel
 I am in a dark underground tunnel.  To my south there is an extremely ornate
 marble archway.  The crawling vines and twisting ivy give it an almost
@@ -5372,6 +5692,7 @@ ring loudly.
 >Okay.  I have dropped the hammer.
 
 >
+
 Tunnel
 I am in a gloomy underground tunnel.  An antiquated washing machine sits by
 the north wall.  A long extension lead runs along the bottom of the wall.  It
@@ -5382,6 +5703,7 @@ ringing loudly.
 Exits are east, south and west.
 
 >
+
 Tunnel
 I am in an underground tunnel lit by harsh neon lights.  A large open doorway
 to my south is covered in tinsel and bunting.  Amid the decorations there is
@@ -5393,6 +5715,7 @@ doorway.  The fire alarm is ringing loudly.
 Exits are north, east, south and west.
 
 >
+
 Tunnel
 I am in an underground tunnel.  The tunnel is constructed out of a bright red
 brick, and is rather unpleasant to the eye.  I hate to imagine what kind of
@@ -5457,6 +5780,7 @@ burns.
 >(Your score has increased by 10)
 As I walk through the wall of fire even the fireman's protective uniform
 burns away.
+
 Dead End
 I am at a dead end in the underground tunnel.  The red brick walls here are
 virtually invisible beneath a thick layer of soot.  A small metal wheel is
@@ -5474,6 +5798,7 @@ I turn the wheel.  The wall of fire to my north goes out almost immediately.
 front an ornate letter "Z" has been engraved.
 
 >
+
 Tunnel
 I am in an underground tunnel.  The tunnel is constructed out of a bright red
 brick, and is rather unpleasant to the eye.  I hate to imagine what kind of
@@ -5490,6 +5815,7 @@ Exits are east, south and west.
 >Okay.  I turn the torch on.
 
 >
+
 Tunnel
 I am in an underground tunnel lit by harsh neon lights.  A large open doorway
 to my south is covered in tinsel and bunting.  Amid the decorations there is
@@ -5502,6 +5828,7 @@ Exits are north, east, south and west.
 "No time to lose," cries Dennis, "We've got a fire to put out."
 
 >
+
 Tunnel
 I am in a gloomy underground tunnel.  An antiquated washing machine sits by
 the north wall.  A long extension lead runs along the bottom of the wall.  It
@@ -5513,6 +5840,7 @@ Exits are east, south and west.
 "No time to lose," cries Dennis, "We've got a fire to put out."
 
 >
+
 Tunnel
 I am in a dark underground tunnel.  To my south there is an extremely ornate
 marble archway.  The crawling vines and twisting ivy give it an almost
@@ -5526,6 +5854,7 @@ Exits are north, east and south.
 "No time to lose," cries Dennis, "We've got a fire to put out."
 
 >
+
 Tunnel
 I am in a dark underground tunnel.  There is an archway to my east leading
 into a softly list room.  Beside the archway there is a small, dumpy robot.
@@ -5539,6 +5868,7 @@ Exits are north, east and south.
 "No time to lose," cries Dennis, "We've got a fire to put out."
 
 >
+
 T-Junction
 I am at a T-junction in the underground tunnel.  A lead pipe runs along the
 tunnel ceiling from the west.  It makes a sharp turn and continues
@@ -5550,6 +5880,7 @@ Exits are east, south and west.
 "No time to lose," cries Dennis, "We've got a fire to put out."
 
 >
+
 Tunnel
 I am in a low tunnel.  The floor is covered in bat droppings, and they
 squelch noisily beneath my impatient feet.  The walls of the tunnel have been
@@ -5561,6 +5892,7 @@ Exits are east and west.
 "No time to lose," cries Dennis, "We've got a fire to put out."
 
 >
+
 Cellar
 I am in the cellar.  The cellar is brimming with mechanical junk.  A strong
 smell of damp fills the air, making it quite hard to breath down here.  In
@@ -5575,6 +5907,7 @@ Exits are east and up.
 >Okay.  I turn the torch off.
 
 >
+
 Alcove
 I am in a cramped alcove underneath the manor's main staircase.  Here,
 another smaller stairway leads down into the gloom.  This leads down into
@@ -5584,6 +5917,7 @@ hangs from the ceiling of the alcove.
 Exits are south and down.
 
 >
+
 Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
@@ -5649,6 +5983,7 @@ Schrodinger wanders to the north.
 Schrodinger wanders towards me from the north.
 
 >
+
 First Floor
 I am standing on the first floor landing.  Grandad has liberally decorated
 this part of the manor with portraits of serious-looking ladies and
@@ -5659,6 +5994,7 @@ west.
 Exits are north, east, up and down.
 
 >
+
 Grandad's Bedroom
 I am in Grandad's bedroom.  The usual bedroom things are here: a large bed, a
 full length mirror and a Mark III sub-atomic particle accelerator.  A month's
@@ -5682,6 +6018,7 @@ disappears from view.  There is a faint tinkling sound from further down in
 the chute.
 
 >
+
 First Floor
 I am standing on the first floor landing.  Grandad has liberally decorated
 this part of the manor with portraits of serious-looking ladies and
@@ -5692,6 +6029,7 @@ west.
 Exits are north, east, up and down.
 
 >
+
 Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
@@ -5704,6 +6042,7 @@ trombone, a bus pass, a tooth and a polaroid.
 Exits are north, east, south, west and up.
 
 >
+
 Alcove
 I am in a cramped alcove underneath the manor's main staircase.  Here,
 another smaller stairway leads down into the gloom.  This leads down into
@@ -5713,6 +6052,7 @@ hangs from the ceiling of the alcove.
 Exits are south and down.
 
 >
+
 Cellar
 I am in the cellar.  The cellar is brimming with mechanical junk.  A strong
 smell of damp fills the air, making it quite hard to breath down here.  In
@@ -5727,6 +6067,7 @@ Exits are east and up.
 >Okay.  I turn the torch on.
 
 >
+
 Tunnel
 I am in a low tunnel.  The floor is covered in bat droppings, and they
 squelch noisily beneath my impatient feet.  The walls of the tunnel have been
@@ -5738,6 +6079,7 @@ Exits are east and west.
 "No time to lose," cries Dennis, "We've got a fire to put out."
 
 >
+
 T-Junction
 I am at a T-junction in the underground tunnel.  A lead pipe runs along the
 tunnel ceiling from the west.  It makes a sharp turn and continues
@@ -5749,6 +6091,7 @@ Exits are east, south and west.
 "No time to lose," cries Dennis, "We've got a fire to put out."
 
 >
+
 Tunnel
 I am at the end of the red brick tunnel by an iron grating and a wooden
 chute.  Through the grating I can see what seems to be some sort of entrance
@@ -5774,6 +6117,7 @@ the chute.
 "No time to lose," cries Dennis, "We've got a fire to put out."
 
 >
+
 T-Junction
 I am at a T-junction in the underground tunnel.  A lead pipe runs along the
 tunnel ceiling from the west.  It makes a sharp turn and continues
@@ -5785,6 +6129,7 @@ Exits are east, south and west.
 "No time to lose," cries Dennis, "We've got a fire to put out."
 
 >
+
 Tunnel
 I am in a dark underground tunnel.  There is an archway to my east leading
 into a softly list room.  Beside the archway there is a small, dumpy robot.
@@ -5798,6 +6143,7 @@ Exits are north, east and south.
 "No time to lose," cries Dennis, "We've got a fire to put out."
 
 >
+
 Tunnel
 I am in a dark underground tunnel.  To my south there is an extremely ornate
 marble archway.  The crawling vines and twisting ivy give it an almost
@@ -5811,6 +6157,7 @@ Exits are north, east and south.
 "No time to lose," cries Dennis, "We've got a fire to put out."
 
 >
+
 Waiting Room
 I am in a small, square room with no windows.  On one wall there is a small
 blue telephone, whilst the rest of the wall is covered by posters.  There is
@@ -5834,6 +6181,7 @@ disappears from view.  There is a faint tinkling sound from further down in
 the chute.
 
 >
+
 Tunnel
 I am in a dark underground tunnel.  To my south there is an extremely ornate
 marble archway.  The crawling vines and twisting ivy give it an almost
@@ -5847,6 +6195,7 @@ Exits are north, east and south.
 "No time to lose," cries Dennis, "We've got a fire to put out."
 
 >
+
 Tunnel
 I am in a gloomy underground tunnel.  An antiquated washing machine sits by
 the north wall.  A long extension lead runs along the bottom of the wall.  It
@@ -5858,6 +6207,7 @@ Exits are east, south and west.
 "No time to lose," cries Dennis, "We've got a fire to put out."
 
 >
+
 Tunnel
 I am in an underground tunnel lit by harsh neon lights.  A large open doorway
 to my south is covered in tinsel and bunting.  Amid the decorations there is
@@ -5870,6 +6220,7 @@ Exits are north, east, south and west.
 "No time to lose," cries Dennis, "We've got a fire to put out."
 
 >
+
 Storage Room
 I am in a tiny storage room.  An ageing food dispenser stands beside one
 wall.  There is barely enough room for me to squeeze in here as well.  The
@@ -5890,6 +6241,7 @@ disappears from view.  There is a faint tinkling sound from further down in
 the chute.
 
 >
+
 Tunnel
 I am in an underground tunnel lit by harsh neon lights.  A large open doorway
 to my south is covered in tinsel and bunting.  Amid the decorations there is
@@ -5902,6 +6254,7 @@ Exits are north, east, south and west.
 "No time to lose," cries Dennis, "We've got a fire to put out."
 
 >
+
 Tunnel
 I am in an underground tunnel.  The tunnel is constructed out of a bright red
 brick, and is rather unpleasant to the eye.  I hate to imagine what kind of
@@ -5925,6 +6278,7 @@ disappears from view.  There is a faint tinkling sound from further down in
 the chute.
 
 >
+
 Dead End
 I am at a dead end in the underground tunnel.  The red brick walls here are
 virtually invisible beneath a thick layer of soot.  A small metal wheel is
@@ -5947,6 +6301,7 @@ disappears from view.  There is a faint tinkling sound from further down in
 the chute.
 
 >
+
 Tunnel
 I am in an underground tunnel.  The tunnel is constructed out of a bright red
 brick, and is rather unpleasant to the eye.  I hate to imagine what kind of
@@ -5959,6 +6314,7 @@ Dennis the fireman is here.  The fire alarm is ringing loudly.
 Exits are east, south and west.
 
 >
+
 Tunnel
 I am in an underground tunnel lit by harsh neon lights.  A large open doorway
 to my south is covered in tinsel and bunting.  Amid the decorations there is
@@ -5974,6 +6330,7 @@ as much as a spark.  I've a good mind to report you to the police."  Still
 moaning, Dennis walks off.
 
 >
+
 Tunnel
 I am in a gloomy underground tunnel.  An antiquated washing machine sits by
 the north wall.  A long extension lead runs along the bottom of the wall.  It
@@ -5984,6 +6341,7 @@ ringing loudly.
 Exits are east, south and west.
 
 >
+
 Tunnel
 I am in a dark underground tunnel.  To my south there is an extremely ornate
 marble archway.  The crawling vines and twisting ivy give it an almost
@@ -5996,6 +6354,7 @@ Also here is a hammer.  The fire alarm is ringing loudly.
 Exits are north, east and south.
 
 >
+
 Tunnel
 I am in a dark underground tunnel.  There is an archway to my east leading
 into a softly list room.  Beside the archway there is a small, dumpy robot.
@@ -6023,6 +6382,7 @@ weird.
 The torch flickers briefly.
 
 >
+
 T-Junction
 I am at a T-junction in the underground tunnel.  A lead pipe runs along the
 tunnel ceiling from the west.  It makes a sharp turn and continues
@@ -6033,6 +6393,7 @@ cellar.  The fire alarm is ringing loudly.
 Exits are east, south and west.
 
 >
+
 Tunnel
 I am in a low tunnel.  The floor is covered in bat droppings, and they
 squelch noisily beneath my impatient feet.  The walls of the tunnel have been
@@ -6043,6 +6404,7 @@ tunnel.  All in all, it's lovely.  The fire alarm is ringing loudly.
 Exits are east and west.
 
 >
+
 Cellar
 I am in the cellar.  The cellar is brimming with mechanical junk.  A strong
 smell of damp fills the air, making it quite hard to breath down here.  In
@@ -6099,6 +6461,7 @@ I?
 I'll need Grandad's help to find it though.
 
 >
+
 Alcove
 I am in a cramped alcove underneath the manor's main staircase.  Here,
 another smaller stairway leads down into the gloom.  This leads down into
@@ -6108,6 +6471,7 @@ hangs from the ceiling of the alcove.
 Exits are south and down.
 
 >
+
 Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
@@ -6139,6 +6503,7 @@ The golden casket is open.  Some pepper is inside the golden casket.
 Schrodinger wanders towards me from above.
 
 >
+
 Passage
 I am in a dingy corridor leading from east to west.  The panelled walls here
 have recently been given a fresh lick of varnish, either that or Grandad has
@@ -6148,6 +6513,7 @@ south wall of the corridor.
 Exits are north, east, south and west.
 
 >
+
 Study
 I am in Grandad's study.  An elegant antique desk can be seen in one corner
 of the room; at least it would be seen if there weren't so many papers strewn
@@ -6161,6 +6527,7 @@ Jasper is snarling nearby.
 I can only move south.
 
 >
+
 Passage
 I am in a dingy corridor leading from east to west.  The panelled walls here
 have recently been given a fresh lick of varnish, either that or Grandad has
@@ -6170,6 +6537,7 @@ south wall of the corridor.
 Exits are north, east, south and west.
 
 >
+
 Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
@@ -6184,6 +6552,7 @@ Exits are north, east, south, west and up.
 Schrodinger wanders towards me from the north.
 
 >
+
 Porch
 I am standing beside the large front door of Attervist manor.  The door has
 been badly warped by the ravages of time: its coat of dark green paint is
@@ -6194,6 +6563,7 @@ button beside the door.
 Exits are north and south.
 
 >
+
 Driveway
 I am standing on the drive leading to Attervist manor. It is a miserable
 looking building. The snow does its best to cover up the harsh jagged edges
@@ -6203,6 +6573,7 @@ the manor's entrance.
 Exits are north, east, south and west.
 
 >
+
 Manor Grounds
 I am standing in the manor grounds to the west of the driveway.  There is a
 small round hut here in the middle of the lawn.  It has been almost
@@ -6213,6 +6584,7 @@ a time.
 Exits are east, west and in.
 
 >
+
 Manor Grounds
 I am standing in the grounds, by a long hedge of brambles.  The brambles are
 very prickly and are covered in frosty cobwebs.  There is a small gap in the
@@ -6224,6 +6596,7 @@ Also here is a parchment.
 Exits are north, east and west.
 
 >
+
 Clearing
 I am in a small clearing in a wooded copse in the manor grounds.  In the
 centre of the clearing, at the base of a dead tree, there is a small hole
@@ -6273,6 +6646,7 @@ licks the honey off the sock.
 If it's all the same to you I'd rather not.
 
 >
+
 Manor Grounds
 I am standing in the grounds, by a long hedge of brambles.  The brambles are
 very prickly and are covered in frosty cobwebs.  There is a small gap in the
@@ -6286,6 +6660,7 @@ Exits are north, east and west.
 >I stumble through the maze's entrance, and take a few random twists and turns
 along the snow covered pathways.. I get a grip of myself and try to assess
 the situation:
+
 The Maze
 I am standing in the maze on a snow covered pathway.  Twisty long pathways
 lead away from here, bordered by high hedges.  The hedges are made out of
@@ -6674,6 +7049,7 @@ Okay.  I have taken the can.
 He picks up the tin and puts it in his back pocket.
 
 >
+
 Manor Grounds
 I am standing in the manor grounds to the west of the driveway.  There is a
 small round hut here in the middle of the lawn.  It has been almost
@@ -6684,6 +7060,7 @@ a time.
 Exits are east, west and in.
 
 >
+
 Driveway
 I am standing on the drive leading to Attervist manor. It is a miserable
 looking building. The snow does its best to cover up the harsh jagged edges
@@ -6693,6 +7070,7 @@ the manor's entrance.
 Exits are north, east, south and west.
 
 >
+
 Manor Grounds
 I am standing on the snow, just east of the road leading up to the manor's
 front door.  A long line of beechwood trees mark out the sides of the
@@ -6702,6 +7080,7 @@ my way further east.  There is a recently opened trapdoor here.
 Exits are north, south, west and down.
 
 >
+
 Wishing Well
 I am standing next to the high bramble hedge by an old well.  Just this side
 of the hedge there is a wide perspex tube rising about eight foot into the
@@ -6715,12 +7094,14 @@ Also here are some wire clippers.
 Exits are north, south and down.
 
 >
+
 Dark
 Everything is dark.
 
 Exits are east and up.
 
 >
+
 Tunnel
 I am in a damp tunnel.  Mud slurps around my feet every time I move.  There
 is an archway to my east.  A few bricks have fallen away to my west, allowing
@@ -6750,10 +7131,12 @@ I try and tie the chain to the bars.  "Good idea Sidney", Grandad reaches
 through the bars and helps me tie the chain.
 
 >The chain won't stretch any further, and I am forced to drop it.
+
 Dark
 Everything is dark.
 
 >
+
 Wishing Well
 I am standing next to the high bramble hedge by an old well.  Just this side
 of the hedge there is a wide perspex tube rising about eight foot into the
@@ -6767,6 +7150,7 @@ Also here are some wire clippers.
 Exits are north, south and down.
 
 >I carefully step through the gap in the fence.
+
 Yard
 I am standing in a small yard.  The ground is thinly covered by a layer of
 snow here.  A side wall of the manor marks the west boundary of the yard, and
@@ -6775,6 +7159,7 @@ end of the yard, a small ramp leading inside.  To my south there is a high
 wire fence.
 
 >
+
 Hen-house
 I am in the large wooden hen-house.  At least I suppose it is large for
 chickens and other poultry.  I am finding it a bit cramped myself.  Messy
@@ -6785,6 +7170,7 @@ the yard.  A goose clucks quietly to itself nearby.
 Exits are north and out.
 
 >
+
 Manor Grounds
 I am in the grounds of the manor's back garden.  Directly to my south there
 is the back of a wooden hen house.  A small wooden door has been built into
@@ -6796,6 +7182,7 @@ underground room.  It is quite a jump down to the floor though.
 Exits are north, south and down.
 
 >
+
 Back Garden
 I am in the grounds of the manor's back garden.  The entire area is covered
 with a thick, featureless blanket of snow.  There is a clothes line nearby,

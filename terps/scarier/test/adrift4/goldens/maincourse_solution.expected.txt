@@ -65,6 +65,7 @@ There is an exit north.
 
 >(Standing up first)
 SoMorph moves north.
+
 Corridor Alpha
 
 SoMorph in cross corridor. Cross Corridor confuse SoMorph a little.
@@ -170,6 +171,7 @@ Cat sheepishly enters from the south.
 SoMorph need loo badly!
 
 >SoMorph moves east.
+
 Bathroom
 
 Bathroom small. And very dirty.
@@ -230,6 +232,7 @@ SoMorph hopes sphincters will re-align soon. Makes SoMorph feel queesy...
 >SoMorph opens the bathroom door.
 
 >SoMorph moves west.
+
 Corridor Alpha
 
 SoMorph in cross corridor. Cross Corridor confuse SoMorph a little.
@@ -253,6 +256,7 @@ Cat sheepishly enters from the south.
 Human runs screaming to the west.
 
 >SoMorph moves west.
+
 Cryo Stasis Room
 
 SoMorph think this cryo stasis room.
@@ -345,6 +349,7 @@ SoMorph look down on floor. An eye look back up at SoMorph.
 SoMorph quickly pick up eye and eat it, burping loudly...
 
 >SoMorph moves east.
+
 Corridor Alpha
 
 SoMorph in cross corridor. Cross Corridor confuse SoMorph a little.
@@ -366,6 +371,7 @@ Cat sheepishly enters from the east.
 Human runs screaming from the east.
 
 >SoMorph moves north.
+
 Command Deck
 
 SoMorph think this be command deck of ship.

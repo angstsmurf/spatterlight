@@ -160,6 +160,7 @@ vous sont grises et ternes.
 Sorties évidentes: Nord et Sud.
 
 >Vous vous déplacez vers le Sud.
+
 JONCTION
 Vous atteignez une intersection, qui part dans trois direction, Sud, Ouest et
 Est. Au Sud se trouve
@@ -174,6 +175,7 @@ l'entrée du cachot souterrain.
 Sorties évidentes: nord, Est, Sud et Ouest.
 
 >Vous vous déplacez vers le Sud.
+
 PIECE CIRCULAIRE
 Vous commencez à descendre le passage au sud et arrivez bientôt dans la pièce
 circulaire que
@@ -217,6 +219,7 @@ Vous arrivez à éviter l'attaque de l'ogre.
 Votre coup est fatal pour l'ogre qui s'éffondre sur le sol.
 
 >Vous vous déplacez vers l'ouest.
+
 CAVERNE STERILE
 Cette caverne est stérile mais une étrange odeur de combustion légère émane
 de l'ouest.

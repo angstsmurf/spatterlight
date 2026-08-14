@@ -120,6 +120,7 @@ You may now embark on your quest, but remember, there are many dangers
 awaiting you...
 
 >You move west.
+
 Outside Of Your Hut
 You are standing outside of your hut, which is to the east. A large oak tree
 dominates most of your property, and casts a large shadow across the road
@@ -129,6 +130,7 @@ heads down to a small stream. The sun is shining in the sky.
 You can walk east, west and southeast.
 
 >You move southeast.
+
 By The Stream
 You are standing at the end of the path by a quiet running stream. The water
 is crystal clear and has a few pebbles lying at the bottom. Across the stream
@@ -141,6 +143,7 @@ You can walk northwest.
 it. It tastes lovely, very refreshing.
 
 >You move northwest.
+
 Outside Of Your Hut
 You are standing outside of your hut, which is to the east. A large oak tree
 dominates most of your property, and casts a large shadow across the road
@@ -150,6 +153,7 @@ heads down to a small stream. The sun is shining in the sky.
 You can walk east, west and southeast.
 
 >You move west.
+
 At The Front Gate
 You are standing at the front gate of your house. A small wooden mailbox with
 the number 4 painted on it sits to the side of the road. The gate is made out
@@ -159,6 +163,7 @@ and west onto the main road towards the city. The sun is shining in the sky.
 You can walk east and west.
 
 >You move west.
+
 The Main Road
 You are standing on the main road, which goes north to the mountains and
 south to the town of Azeroth. To the east of you is your front gate. Lovely
@@ -174,6 +179,7 @@ town. About 20 minutes later you finally arrive near the town.
 A man walks by carrying a sack of food he bought from the town.
 
 >You move south.
+
 Idan Road - Northern End
 You are standing at the northern end of Idan Road, a busy street full of
 villagers and shops. The road is made out of large stone slabs. To the east
@@ -185,6 +191,7 @@ looking through shop windows.
 You can walk north and south.
 
 >You move south.
+
 Idan Road - Middle
 You are standing in the middle Idan Road, which is surrounded by shops and
 villagers. To the west is the Tavern, which is open from 9:00 - 24:00 and to
@@ -195,6 +202,7 @@ people walk down the streets looking through shop windows.
 You can walk north and south.
 
 >You move south.
+
 At An Intersection
 You are standing in the middle of an intersection, which heads north, south,
 east and west down the long stone roads. The sun is shining in the sky..

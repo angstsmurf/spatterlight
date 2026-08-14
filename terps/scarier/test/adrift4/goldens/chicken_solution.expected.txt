@@ -56,6 +56,7 @@ and then goes back to pointlessly looking for the brick.
 >You're stupid, aren't you.
 
 >You move north.
+
 Yard
 You're standing in the front yard of the old abandoned farm. Back in '78, the
 man who owned this place choked to death on a spoon, and this place has been
@@ -77,6 +78,7 @@ dancing.
 has ever seen.
 
 >You move south.
+
 Yard
 You're standing in the front yard of the old abandoned farm. Back in '78, the
 man who owned this place choked to death on a spoon, and this place has been
@@ -86,6 +88,7 @@ that hit Earth. To the North is the house, to the East is the garden, and
 South is the Chicken Coop, where the chicken plans his evil deeds.
 
 >You move east.
+
 Garden
 The small garden used to grow carrots, potatos, and a weird breed of
 vegetable called "Muckshot", but now it's just a big pile of dirt. And this
@@ -99,6 +102,7 @@ garden is illogical. A game about a two-nosed chicken isn't supposed to be
 realistic.)
 
 >You move west.
+
 Yard
 You're standing in the front yard of the old abandoned farm. Back in '78, the
 man who owned this place choked to death on a spoon, and this place has been
@@ -112,6 +116,7 @@ the door. If only your chainsaw instructor was alive to see this, he'd be
 proud.
 
 >You move west.
+
 Shed
 The first thing you realize about the shed, is that it's not really a shed,
 just a shelf. There's nothing else in here, even the floor is spotlessly
@@ -134,6 +139,7 @@ open, revealing a gun inside.
 liner tone.
 
 >You move east.
+
 Yard
 You're standing in the front yard of the old abandoned farm. Back in '78, the
 man who owned this place choked to death on a spoon, and this place has been
@@ -144,6 +150,7 @@ South is the Chicken Coop, where the chicken plans his evil deeds.  The
 unpainted shed now lies open, ready to be entred to the West.
 
 >You move south.
+
 Chicken Coop
 I'm standing here, for no apparent reason, with my good friend Steve. Steve
 is currently looking through the hay on the floor for a brick, and given that

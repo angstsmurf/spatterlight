@@ -59,6 +59,7 @@ undergrowth.
 >You take the gun from the Mary Quant handbag.
 
 >You move west.
+
 Yew tree
 You stand under the spreading shadow of a vast yew tree, gnarled and twisted
 with age and knobbled with bulbous fungoid protusions. Hundreds of ragged
@@ -84,6 +85,7 @@ Donald McRonald follows you from the east.
 >You pick up the crowbar.
 
 >You move east.
+
 Cemetary Entrance
 You stand at the entrance to the Restview Cemetary for Circus Folk, where a
 mysterious object from space was seen to crash-land earlier tonight. The
@@ -101,6 +103,7 @@ Also here is a Mary Quant handbag.
 Donald McRonald follows you from the west.
 
 >You move north.
+
 Outside the chapel
 Here, beneath a shroud of ivy, lurks the ruined chapel. The chapel has been
 boarded up, several solid planks nailed across the door to deter vandals.
@@ -110,6 +113,7 @@ over the lowering clouds.
 Donald McRonald follows you from the south.
 
 >You move west.
+
 Cemetary
 This is a shady corner of the cemetary. There are a fair scattering of
 variously sized headstones to be seen, including a gigantic stone angel,
@@ -135,6 +139,7 @@ The gorilla sniggers as he hands it over, and then slopes off into the
 darkness whistling a merry tune.
 
 >You move east.
+
 Outside the chapel
 Here, beneath a shroud of ivy, lurks the ruined chapel. The chapel has been
 boarded up, several solid planks nailed across the door to deter vandals.
@@ -144,6 +149,7 @@ over the lowering clouds.
 Donald McRonald follows you from the west.
 
 >You move south.
+
 Cemetary Entrance
 You stand at the entrance to the Restview Cemetary for Circus Folk, where a
 mysterious object from space was seen to crash-land earlier tonight. The
@@ -161,6 +167,7 @@ Also here is a Mary Quant handbag.
 Donald McRonald follows you from the north.
 
 >You move east.
+
 The Vault of Mandoo the Mystic
 Here lies the ivy-covered vault of Mandoo the Mystic, an ornate stone
 structure in the style of an Indian temple that is sinking slowly into the
@@ -187,6 +194,7 @@ permanently out of commission. In fact there is nothing left of him but a
 pair of white patent leather cuban-heeled shoes, size 2.
 
 >You move in.
+
 Inside the Vault
 This is the vault of Mandoo the Mystic - the evil psychic and hypnotist who
 once tried to turn the townsfolk into his willing slaves! Heavy drapes cover
@@ -199,6 +207,7 @@ Donald McRonald follows you from outside.
 >You take the femur bone from the stone sarcophagus.
 
 >You move out.
+
 The Vault of Mandoo the Mystic
 Here lies the ivy-covered vault of Mandoo the Mystic, an ornate stone
 structure in the style of an Indian temple that is sinking slowly into the
@@ -207,6 +216,7 @@ depths of the bog. The lead-lined door hangs open.
 Donald McRonald follows you from inside.
 
 >You move west.
+
 Cemetary Entrance
 You stand at the entrance to the Restview Cemetary for Circus Folk, where a
 mysterious object from space was seen to crash-land earlier tonight. The
@@ -224,6 +234,7 @@ Also here is a Mary Quant handbag.
 Donald McRonald follows you from the east.
 
 >You move north.
+
 Outside the chapel
 Here, beneath a shroud of ivy, lurks the ruined chapel. The chapel has been
 boarded up, several solid planks nailed across the door to deter vandals.
@@ -236,6 +247,7 @@ Donald McRonald follows you from the south.
 open. A musty smell and an eerie green glow issue from within.
 
 >You move in.
+
 The Chapel
 The chapel has been completely wrecked by the object that fell from the sky.
 From a massive hole in the floor comes a greenish glow. Crumbling stone steps
@@ -245,6 +257,7 @@ cemetary.
 Donald McRonald follows you from outside.
 
 >You move down.
+
 The Crypt
 A dismal crypt with vaulted ceiling, now largely destroyed. Sitting in the
 middle of the crypt are the unmistakable remains of a Mexican Space Module.
@@ -257,6 +270,7 @@ Crumbling stone steps lead up into the chapel.
 Donald McRonald follows you from above.
 
 >You move in.
+
 Inside the space module
 The inside of the space module is a mass of hissing tubes and fizzing cables.
 Everything is broken, and everything is bathed in an eerie glow from a

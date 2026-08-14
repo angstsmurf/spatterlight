@@ -19,6 +19,7 @@ your mission is  1. to make sure that the plane lands!
 >COCKPIT- KEY CARD CODE 90238
 
 >You move north.
+
 THE COCKPIT DOOR
 ON THE DOOR IS A CODE ENTER THINGY! AND YOU NEED TO KNOW THE CODE BEFORE YOU
 CAN ENTER!
@@ -26,6 +27,7 @@ CAN ENTER!
 You can move east and south.
 
 >You move east.
+
 TOILETS
 WELL THERE'S NOT MUCH TO SAY ABOUT THE TOILETS... IT'S SMALL! AND WITH A
 TOILET INSIDE!
@@ -38,6 +40,7 @@ You can only move west.
 sucked in
 
 >You move west.
+
 THE COCKPIT DOOR
 ON THE DOOR IS A CODE ENTER THINGY! AND YOU NEED TO KNOW THE CODE BEFORE YOU
 CAN ENTER!
@@ -47,6 +50,7 @@ You can move east and south.
 >well done your in the cockpit!
 
 >You move down.
+
 THE STORAGE ROOM
 100'S OF BAGS FILL THE STORAGE ROOM! I TRY TO FIND MY BAG.... OH, THERE IT
 IS! I RUN TO IT! "THANK GOD I FOUND THIS, IT'S GOT ALL MY GADGETS IN HERE!
@@ -76,6 +80,7 @@ THANKS" Q "NO TIME FOR THANK YOU'S JUST GET IN THE COCKPIT AND FLY AND LAND
 THIS THING! GOOD LUCK!
 
 >You move up.
+
 Cockpit
 THERE ARE NO PILOTS! OH IT'S ON AUTO-PILOT THANK GOD! I BETTER NOT PREES THAT
 BUTTON! & you can go downstairs to the storage room!

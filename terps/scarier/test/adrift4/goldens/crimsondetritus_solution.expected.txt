@@ -66,6 +66,7 @@ eye at the same time!  "Cool!"
 
 >        You enter the room and the door closes behind you and disappears
 seamlessly into the wall.
+
 Assembly line
 Spanning from one side to the other, a large conveyor belt takes up a
 significant portion of the room.  On the eastern wall there is a control
@@ -91,6 +92,7 @@ control here.
         You grab the remote.
 
 >You move up.
+
 Slide
         Just inside the doorway, a long slide leads into darkness.
 

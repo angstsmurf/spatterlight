@@ -24,12 +24,14 @@ garage door is closed.
 
 >
 >You move up.
+
 On the front porch
 You are on the front porch.  A set of stairs flanked by a white railing and
 some attractive outdoor lights leads down to the driveway.  The front door of
 the house is open, showing the interior to the north.
 
 >You move north.
+
 In the entrance hall
 You are in the high-ceilinged entrance hall of the Puzzle house.  The front
 door is south of you, leading out to the front porch.  The living room is to
@@ -38,12 +40,14 @@ the bedrooms here.  In addition, this hall continues to the north, heading
 toward the powder room and the kitchen.
 
 >You move north.
+
 In the downstairs hallway
 You are in the downstairs hallway.  The kitchen is to the north, and the
 powder room is to the west.  The hallway extends to the south, towards the
 front door.
 
 >You move west.
+
 In the powder room
 You are in the main level powder room.   This is a small guest bathroom with
 no shower.  The exit is to the east.
@@ -53,12 +57,14 @@ You can also see a bottle of glass cleaner.
 >You take the bottle of glass cleaner.
 
 >You move east.
+
 In the downstairs hallway
 You are in the downstairs hallway.  The kitchen is to the north, and the
 powder room is to the west.  The hallway extends to the south, towards the
 front door.
 
 >You move north.
+
 In the kitchen
 You are in the kitchen.  There are several drawers and cabinets here.  There
 is also a stove and oven, along with the other typical kitchen appliances.  A
@@ -82,6 +88,7 @@ refrigerator.
 Ahh!  That was delicious.
 
 >You move east.
+
 In back of the family room
 You are in the back of the family room.  There is a computer here, as well as
 a fireplace.  The kitchen is west of here, and the back patio is north of
@@ -96,6 +103,7 @@ You lose quickly in the first few games, but eventually start doing much
 better.  You feel a sense of accomplishment and coordination when you finish.
 
 >You move south.
+
 In the front of the family room
 You are in the front of the family room.  This is where the family usually
 gathers to relax.  There is an entertainment center here.  There is also a
@@ -103,6 +111,7 @@ comfy-looking couch.  The entrance hall is to the west, and this room
 continues to the north.
 
 >You move west.
+
 In the entrance hall
 You are in the high-ceilinged entrance hall of the Puzzle house.  The front
 door is south of you, leading out to the front porch.  The living room is to
@@ -111,6 +120,7 @@ the bedrooms here.  In addition, this hall continues to the north, heading
 toward the powder room and the kitchen.
 
 >You move west.
+
 In the living room
 You are in the living room.  The decor is quite tasteful, with the furniture
 upholstered in white leather.  The table in the center of the room is of a
@@ -122,6 +132,7 @@ through an archway.
 
 >
 >You move east.
+
 In the entrance hall
 You are in the high-ceilinged entrance hall of the Puzzle house.  The front
 door is south of you, leading out to the front porch.  The living room is to
@@ -130,6 +141,7 @@ the bedrooms here.  In addition, this hall continues to the north, heading
 toward the powder room and the kitchen.
 
 >You move up.
+
 At the top of the stairs
 You are at the top of the stairs.  Looking over the railing, you see the high
 entrance hall below and before you, with a chandelier hanging from the
@@ -137,6 +149,7 @@ ceiling above the front door.  The master bedroom is to the east and the hall
 continues to the west.  Stairs lead down to the entrance hall from here.
 
 >You move west.
+
 In the upstairs hallway
 You are in the upstairs hallway.  The top of the stairs is east of here.
 There is a bathroom to the northeast and some storage closets to the north.
@@ -144,6 +157,7 @@ Julie's room is northwest of here, Danny's room is to the west, and Vinny's
 room lies to the southwest.
 
 >You move northwest.
+
 In Julie's room
 You are in Julie's room.  Julie obviously has an eye for interior design, as
 the room is impeccably arrayed with the utmost of class.  There is a waterbed
@@ -161,6 +175,7 @@ now clearly make out the message: "PUSH KEY 80"
 >You drop the bottle of glass cleaner.
 
 >You move southeast.
+
 In the upstairs hallway
 You are in the upstairs hallway.  The top of the stairs is east of here.
 There is a bathroom to the northeast and some storage closets to the north.
@@ -168,6 +183,7 @@ Julie's room is northwest of here, Danny's room is to the west, and Vinny's
 room lies to the southwest.
 
 >You move west.
+
 In Danny's room
 You are in Danny's room.  Danny seems to be a fan of various sports, both as
 a spectator and a player, judging by the decorations.  He has a waterbed and
@@ -185,6 +201,7 @@ bulging from the additional strength.
 >You drop the pair of weights.
 
 >You move east.
+
 In the upstairs hallway
 You are in the upstairs hallway.  The top of the stairs is east of here.
 There is a bathroom to the northeast and some storage closets to the north.
@@ -192,6 +209,7 @@ Julie's room is northwest of here, Danny's room is to the west, and Vinny's
 room lies to the southwest.
 
 >You move southwest.
+
 In Vinny's room
 You are in Vinny's room.   Vinny seems to be an enthusiastic athlete and
 sports fan, judging from the stuff in his room.  There are a dresser and a
@@ -203,6 +221,7 @@ You can also see an orange basketball.
 >You take the orange basketball.
 
 >You move northeast.
+
 In the upstairs hallway
 You are in the upstairs hallway.  The top of the stairs is east of here.
 There is a bathroom to the northeast and some storage closets to the north.
@@ -210,6 +229,7 @@ Julie's room is northwest of here, Danny's room is to the west, and Vinny's
 room lies to the southwest.
 
 >You move east.
+
 At the top of the stairs
 You are at the top of the stairs.  Looking over the railing, you see the high
 entrance hall below and before you, with a chandelier hanging from the
@@ -217,6 +237,7 @@ ceiling above the front door.  The master bedroom is to the east and the hall
 continues to the west.  Stairs lead down to the entrance hall from here.
 
 >You move down.
+
 In the entrance hall
 You are in the high-ceilinged entrance hall of the Puzzle house.  The front
 door is south of you, leading out to the front porch.  The living room is to
@@ -226,12 +247,14 @@ toward the powder room and the kitchen.
 
 >
 >You move south.
+
 On the front porch
 You are on the front porch.  A set of stairs flanked by a white railing and
 some attractive outdoor lights leads down to the driveway.  The front door of
 the house is open, showing the interior to the north.
 
 >You move down.
+
 In the driveway
 You are in the driveway of the Puzzle house.  It is generally flat.  At the
 south end, you can see a small, black mailbox.  There is a basketball goal
@@ -250,6 +273,7 @@ the rim clatters to the pavement.
 >You take the screwdriver.
 
 >You move north.
+
 In the garage
 You are in the garage.  It is a fairly large two-car garage, but both cars
 are gone at the moment.  There are some shelves in the back of the room and a
@@ -272,6 +296,7 @@ off to the side.  The doorway is now clear.
 
 >
 >You move east.
+
 In the basement
 You are in the basement.  The basement is unfinished, with a concrete floor
 below you and exposed rafters above, but you can see signs that work will
@@ -287,6 +312,7 @@ You manage to fix the broken stair.  You can use the door to the kitchen now.
 >You drop the screwdriver.
 
 >You move north.
+
 In the laundry area
 You are in the laundry area in the back of the basement.  There are some
 shelves here with several odds and ends on them.  There is also a washing
@@ -301,6 +327,7 @@ machine and a dryer here.  The rest of the basement lies to the south.
 >You drop the bottle of laundry soap.
 
 >You move south.
+
 In the basement
 You are in the basement.  The basement is unfinished, with a concrete floor
 below you and exposed rafters above, but you can see signs that work will
@@ -312,6 +339,7 @@ handiwork in fixing that broken stair.
 You can also see a screwdriver.
 
 >You move northwest.
+
 In the basement bathroom
 You are in the basement bathroom.  There is a toilet, a sink, a shower, and a
 towel bar here.  The basement lies to the east.
@@ -321,6 +349,7 @@ towel bar here.  The basement lies to the east.
 >You take the bar of soap from the basement shower.
 
 >You move southeast.
+
 In the basement
 You are in the basement.  The basement is unfinished, with a concrete floor
 below you and exposed rafters above, but you can see signs that work will
@@ -332,6 +361,7 @@ handiwork in fixing that broken stair.
 You can also see a screwdriver.
 
 >You move up.
+
 In the kitchen
 You are in the kitchen.  There are several drawers and cabinets here.  There
 is also a stove and oven, along with the other typical kitchen appliances.  A
@@ -341,17 +371,20 @@ a stairway leading down to the basement.
 
 >
 >You move east.
+
 In back of the family room
 You are in the back of the family room.  There is a computer here, as well as
 a fireplace.  The kitchen is west of here, and the back patio is north of
 here.  In addition, this room extends to the south.
 
 >You move north.
+
 On the back patio
 You are on the back patio.  A gas grill is sitting in front of you.  The hot
 tub is west of here.  You can re-enter the house to the south.
 
 >You move west.
+
 By the hot tub
 You are standing on the back patio near the hot tub.  There is a bay window
 looking into the dining room here.  The rest of the porch is east of where
@@ -381,17 +414,20 @@ currently at 7.
 >You drop the jug of basic discs.
 
 >You move east.
+
 On the back patio
 You are on the back patio.  A gas grill is sitting in front of you.  The hot
 tub is west of here.  You can re-enter the house to the south.
 
 >You move south.
+
 In back of the family room
 You are in the back of the family room.  There is a computer here, as well as
 a fireplace.  The kitchen is west of here, and the back patio is north of
 here.  In addition, this room extends to the south.
 
 >You move west.
+
 In the kitchen
 You are in the kitchen.  There are several drawers and cabinets here.  There
 is also a stove and oven, along with the other typical kitchen appliances.  A
@@ -400,12 +436,14 @@ family room is to the east, and the hallway is to the south.   There is also
 a stairway leading down to the basement.
 
 >You move south.
+
 In the downstairs hallway
 You are in the downstairs hallway.  The kitchen is to the north, and the
 powder room is to the west.  The hallway extends to the south, towards the
 front door.
 
 >You move south.
+
 In the entrance hall
 You are in the high-ceilinged entrance hall of the Puzzle house.  The front
 door is south of you, leading out to the front porch.  The living room is to
@@ -415,6 +453,7 @@ toward the powder room and the kitchen.
 
 >
 >You move up.
+
 At the top of the stairs
 You are at the top of the stairs.  Looking over the railing, you see the high
 entrance hall below and before you, with a chandelier hanging from the
@@ -422,6 +461,7 @@ ceiling above the front door.  The master bedroom is to the east and the hall
 continues to the west.  Stairs lead down to the entrance hall from here.
 
 >You move east.
+
 In the master bedroom
 You are in the master bedroom. The furniture here looks brand new.  The
 bedroom suit consists of a sleigh bed, a dresser, and an armoire.  The master
@@ -434,6 +474,7 @@ inside the handsome armoire.
 >You take the box of matches from the handsome armoire.
 
 >You move north.
+
 In the master bathroom
 You are in the master bathroom.  In addition to the standard toilet and sink,
 there is a surprisingly small shower here.  There is also a towel bar hanging
@@ -444,6 +485,7 @@ on the wall.  The exit is to the south.
 >You take the bottle of shampoo from the master shower.
 
 >You move south.
+
 In the master bedroom
 You are in the master bedroom. The furniture here looks brand new.  The
 bedroom suit consists of a sleigh bed, a dresser, and an armoire.  The master
@@ -451,6 +493,7 @@ bathroom is to the north and the closet is to the east.  You can leave this
 room to the west.
 
 >You move east.
+
 In the master closet
 You are in the closet of the master bedroom.  The clothes and personal
 effects of the mistress of the house are here.  The bedroom is to the west.
@@ -460,6 +503,7 @@ You can also see a dirty, comfortable-looking afghan.
 >You take the dirty, comfortable-looking afghan.
 
 >You move west.
+
 In the master bedroom
 You are in the master bedroom. The furniture here looks brand new.  The
 bedroom suit consists of a sleigh bed, a dresser, and an armoire.  The master
@@ -467,6 +511,7 @@ bathroom is to the north and the closet is to the east.  You can leave this
 room to the west.
 
 >You move west.
+
 At the top of the stairs
 You are at the top of the stairs.  Looking over the railing, you see the high
 entrance hall below and before you, with a chandelier hanging from the
@@ -474,6 +519,7 @@ ceiling above the front door.  The master bedroom is to the east and the hall
 continues to the west.  Stairs lead down to the entrance hall from here.
 
 >You move west.
+
 In the upstairs hallway
 You are in the upstairs hallway.  The top of the stairs is east of here.
 There is a bathroom to the northeast and some storage closets to the north.
@@ -481,6 +527,7 @@ Julie's room is northwest of here, Danny's room is to the west, and Vinny's
 room lies to the southwest.
 
 >You move north.
+
 In the upstairs closets
 You are in the upstairs storage closets.  There are some wooden shelves here
 with household items on them.  You can leave this area to the south.
@@ -488,6 +535,7 @@ with household items on them.  You can leave this area to the south.
 >You take the fluffy bath towel from the set of wooden shelves.
 
 >You move south.
+
 In the upstairs hallway
 You are in the upstairs hallway.  The top of the stairs is east of here.
 There is a bathroom to the northeast and some storage closets to the north.
@@ -495,6 +543,7 @@ Julie's room is northwest of here, Danny's room is to the west, and Vinny's
 room lies to the southwest.
 
 >You move southwest.
+
 In Vinny's room
 You are in Vinny's room.   Vinny seems to be an enthusiastic athlete and
 sports fan, judging from the stuff in his room.  There are a dresser and a
@@ -508,6 +557,7 @@ it out of the way.
 >You drop the claw hammer.
 
 >You move up.
+
 In the attic
 You are in a hot attic crawlspace.  The exit is through the hatch in the
 floor.
@@ -517,6 +567,7 @@ You can also see an armload of firewood.
 >You take the armload of firewood.
 
 >You move down.
+
 In Vinny's room
 You are in Vinny's room.   Vinny seems to be an enthusiastic athlete and
 sports fan, judging from the stuff in his room.  There are a dresser and a
@@ -526,6 +577,7 @@ the attic has been moved out of the way.
 You can also see a claw hammer.
 
 >You move northeast.
+
 In the upstairs hallway
 You are in the upstairs hallway.  The top of the stairs is east of here.
 There is a bathroom to the northeast and some storage closets to the north.
@@ -533,6 +585,7 @@ Julie's room is northwest of here, Danny's room is to the west, and Vinny's
 room lies to the southwest.
 
 >You move east.
+
 At the top of the stairs
 You are at the top of the stairs.  Looking over the railing, you see the high
 entrance hall below and before you, with a chandelier hanging from the
@@ -540,6 +593,7 @@ ceiling above the front door.  The master bedroom is to the east and the hall
 continues to the west.  Stairs lead down to the entrance hall from here.
 
 >You move down.
+
 In the entrance hall
 You are in the high-ceilinged entrance hall of the Puzzle house.  The front
 door is south of you, leading out to the front porch.  The living room is to
@@ -549,6 +603,7 @@ toward the powder room and the kitchen.
 
 >
 >You move east.
+
 In the front of the family room
 You are in the front of the family room.  This is where the family usually
 gathers to relax.  There is an entertainment center here.  There is also a
@@ -556,6 +611,7 @@ comfy-looking couch.  The entrance hall is to the west, and this room
 continues to the north.
 
 >You move north.
+
 In back of the family room
 You are in the back of the family room.  There is a computer here, as well as
 a fireplace.  The kitchen is west of here, and the back patio is north of
@@ -564,6 +620,7 @@ here.  In addition, this room extends to the south.
 >You put the armload of firewood inside the red brick fireplace.
 
 >You move west.
+
 In the kitchen
 You are in the kitchen.  There are several drawers and cabinets here.  There
 is also a stove and oven, along with the other typical kitchen appliances.  A
@@ -572,6 +629,7 @@ family room is to the east, and the hallway is to the south.   There is also
 a stairway leading down to the basement.
 
 >You move west.
+
 In the dining room
 You are in the dining room.  There is a bay window overlooking the hot tub on
 the back patio.  A large dining room table is here, as well as an antique
@@ -587,6 +645,7 @@ What kind of a moron would put dryer sheets in a place like that?
 >You take today's newspaper from the dining room table.
 
 >You move east.
+
 In the kitchen
 You are in the kitchen.  There are several drawers and cabinets here.  There
 is also a stove and oven, along with the other typical kitchen appliances.  A
@@ -595,6 +654,7 @@ family room is to the east, and the hallway is to the south.   There is also
 a stairway leading down to the basement.
 
 >You move east.
+
 In back of the family room
 You are in the back of the family room.  There is a computer here, as well as
 a fireplace.  The kitchen is west of here, and the back patio is north of
@@ -603,6 +663,7 @@ here.  In addition, this room extends to the south.
 >You put today's newspaper inside the red brick fireplace.
 
 >You move west.
+
 In the kitchen
 You are in the kitchen.  There are several drawers and cabinets here.  There
 is also a stove and oven, along with the other typical kitchen appliances.  A
@@ -611,6 +672,7 @@ family room is to the east, and the hallway is to the south.   There is also
 a stairway leading down to the basement.
 
 >You move down.
+
 In the basement
 You are in the basement.  The basement is unfinished, with a concrete floor
 below you and exposed rafters above, but you can see signs that work will
@@ -622,6 +684,7 @@ handiwork in fixing that broken stair.
 You can also see a screwdriver.
 
 >You move north.
+
 In the laundry area
 You are in the laundry area in the back of the basement.  There are some
 shelves here with several odds and ends on them.  There is also a washing
@@ -637,6 +700,7 @@ You can also see a bottle of laundry soap.
 
 >
 >You move south.
+
 In the basement
 You are in the basement.  The basement is unfinished, with a concrete floor
 below you and exposed rafters above, but you can see signs that work will
@@ -648,6 +712,7 @@ handiwork in fixing that broken stair.
 You can also see a screwdriver.
 
 >You move up.
+
 In the kitchen
 You are in the kitchen.  There are several drawers and cabinets here.  There
 is also a stove and oven, along with the other typical kitchen appliances.  A
@@ -656,6 +721,7 @@ family room is to the east, and the hallway is to the south.   There is also
 a stairway leading down to the basement.
 
 >You move east.
+
 In back of the family room
 You are in the back of the family room.  There is a computer here, as well as
 a fireplace.  The kitchen is west of here, and the back patio is north of
@@ -670,6 +736,7 @@ on your part, finally alights.  The flames spread throughout your little wood
 pile, and you soon have a merry fire going.
 
 >You move west.
+
 In the kitchen
 You are in the kitchen.  There are several drawers and cabinets here.  There
 is also a stove and oven, along with the other typical kitchen appliances.  A
@@ -678,6 +745,7 @@ family room is to the east, and the hallway is to the south.   There is also
 a stairway leading down to the basement.
 
 >You move west.
+
 In the dining room
 You are in the dining room.  There is a bay window overlooking the hot tub on
 the back patio.  A large dining room table is here, as well as an antique
@@ -685,6 +753,7 @@ radio.  There are six wooden chairs around the table.  The archway to the
 living room is south of you, and the kitchen is to the east.
 
 >You move south.
+
 In the living room
 You are in the living room.  The decor is quite tasteful, with the furniture
 upholstered in white leather.  The table in the center of the room is of a
@@ -703,6 +772,7 @@ were jarred loose.
 You take the television remote from the console piano.
 
 >You move east.
+
 In the entrance hall
 You are in the high-ceilinged entrance hall of the Puzzle house.  The front
 door is south of you, leading out to the front porch.  The living room is to
@@ -711,6 +781,7 @@ the bedrooms here.  In addition, this hall continues to the north, heading
 toward the powder room and the kitchen.
 
 >You move up.
+
 At the top of the stairs
 You are at the top of the stairs.  Looking over the railing, you see the high
 entrance hall below and before you, with a chandelier hanging from the
@@ -718,6 +789,7 @@ ceiling above the front door.  The master bedroom is to the east and the hall
 continues to the west.  Stairs lead down to the entrance hall from here.
 
 >You move west.
+
 In the upstairs hallway
 You are in the upstairs hallway.  The top of the stairs is east of here.
 There is a bathroom to the northeast and some storage closets to the north.
@@ -725,6 +797,7 @@ Julie's room is northwest of here, Danny's room is to the west, and Vinny's
 room lies to the southwest.
 
 >You move northeast.
+
 In the upstairs bathroom
 You are in the upstairs bathroom.  In addition to the toilet and the sink,
 there is a comfortably large shower here, and towel bar hanging on the wall.
@@ -739,6 +812,7 @@ dry yourself with the big, fluffy towel, hang the towel on the towel bar, and
 get back into your clothes.  You feel much better now.
 
 >You move southwest.
+
 In the upstairs hallway
 You are in the upstairs hallway.  The top of the stairs is east of here.
 There is a bathroom to the northeast and some storage closets to the north.
@@ -746,6 +820,7 @@ Julie's room is northwest of here, Danny's room is to the west, and Vinny's
 room lies to the southwest.
 
 >You move east.
+
 At the top of the stairs
 You are at the top of the stairs.  Looking over the railing, you see the high
 entrance hall below and before you, with a chandelier hanging from the
@@ -753,6 +828,7 @@ ceiling above the front door.  The master bedroom is to the east and the hall
 continues to the west.  Stairs lead down to the entrance hall from here.
 
 >You move down.
+
 In the entrance hall
 You are in the high-ceilinged entrance hall of the Puzzle house.  The front
 door is south of you, leading out to the front porch.  The living room is to
@@ -761,12 +837,14 @@ the bedrooms here.  In addition, this hall continues to the north, heading
 toward the powder room and the kitchen.
 
 >You move north.
+
 In the downstairs hallway
 You are in the downstairs hallway.  The kitchen is to the north, and the
 powder room is to the west.  The hallway extends to the south, towards the
 front door.
 
 >You move north.
+
 In the kitchen
 You are in the kitchen.  There are several drawers and cabinets here.  There
 is also a stove and oven, along with the other typical kitchen appliances.  A
@@ -775,6 +853,7 @@ family room is to the east, and the hallway is to the south.   There is also
 a stairway leading down to the basement.
 
 >You move down.
+
 In the basement
 You are in the basement.  The basement is unfinished, with a concrete floor
 below you and exposed rafters above, but you can see signs that work will
@@ -786,6 +865,7 @@ handiwork in fixing that broken stair.
 You can also see a screwdriver.
 
 >You move north.
+
 In the laundry area
 You are in the laundry area in the back of the basement.  There are some
 shelves here with several odds and ends on them.  There is also a washing
@@ -832,6 +912,7 @@ clothes dryer.
 
 >
 >You move south.
+
 In the basement
 You are in the basement.  The basement is unfinished, with a concrete floor
 below you and exposed rafters above, but you can see signs that work will
@@ -843,6 +924,7 @@ handiwork in fixing that broken stair.
 You can also see a screwdriver.
 
 >You move up.
+
 In the kitchen
 You are in the kitchen.  There are several drawers and cabinets here.  There
 is also a stove and oven, along with the other typical kitchen appliances.  A
@@ -851,12 +933,14 @@ family room is to the east, and the hallway is to the south.   There is also
 a stairway leading down to the basement.
 
 >You move east.
+
 In back of the family room
 You are in the back of the family room.  There is a computer here, as well as
 a fireplace.  The kitchen is west of here, and the back patio is north of
 here.  In addition, this room extends to the south.
 
 >You move south.
+
 In the front of the family room
 You are in the front of the family room.  This is where the family usually
 gathers to relax.  There is an entertainment center here.  There is also a

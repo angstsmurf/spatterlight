@@ -55,6 +55,7 @@ them.  Other than that, the room is bare.
 
 >
 >You move north.
+
 In a short white-walled corridor
 You are in a small corridor, with creamy white walls.  To what your compass
 tells you is the south is the dark room you found yourself in.  There are two
@@ -76,6 +77,7 @@ alcove in the opposite wall...
 You loop your belt over the greasy cable and clutch it with both hands before
 casting yourself over the edge.  The belt holds your weight easily, and you
 slide gracefully down the cord to the opposite alcove...
+
 In a small alcove
 You are in an alcove in the north wall of a pit.  The south wall, in which
 there is a corridor, is about a hundred and fifty feet away, and the floor is
@@ -89,6 +91,7 @@ Also here is a small key.
 >You pick up the small key.
 
 >You move down.
+
 In a small corridor
 This corridor is quite short.  At the south end, it opens out into a deep
 pit, up the north wall of which a ladder runs.  Two small alcoves are set in
@@ -99,6 +102,7 @@ iron door is set in the north wall.
 white light.  The floor seems to drop away from underneath you, and you fall
 for a second or two before landing feet first on something hard...  Exactly
 like when you arrived here.
+
 In a round room
 This room is circular, with dark metal walls, and four corridors sprout from
 it.  The one to the south is merely a small alcove with a glowing yellow
@@ -108,6 +112,7 @@ west to the room to the north.
 Also here is a battery.
 
 >You move west.
+
 In a small, dimly lit room
 You are in a cupboard sized room, around which run several electrical wires.
 On the wall is a large lever, from which a wire leads out of the room.
@@ -115,6 +120,7 @@ On the wall is a large lever, from which a wire leads out of the room.
 >You pull the lever, but nothing interesting seems to happen.
 
 >You move east.
+
 In a round room
 This room is circular, with dark metal walls, and four corridors sprout from
 it.  The one to the south is merely a small alcove with a glowing yellow
@@ -124,6 +130,7 @@ west to the room to the north.
 Also here is a battery.
 
 >You move north.
+
 In a bright, circular room
 This is a well lit, circular room.  Above is a cage.  From the edge of the
 cage runs a wire down the corridor to the south.  A lever labelled "Cage
@@ -137,6 +144,7 @@ tiger and the block of metal to drop to the floor.
 >You pick up the A-shaped metal block.
 
 >You move south.
+
 In a round room
 This room is circular, with dark metal walls, and four corridors sprout from
 it.  The one to the south is merely a small alcove with a glowing yellow
@@ -148,12 +156,14 @@ Also here is a battery.
 >You pick up the battery.
 
 >You move east.
+
 In a length of corridor
 You are in a length of corridor, from which four doorways sprout.  The
 passage is lit by a strip of luminous plastic along the ceiling, casting an
 eerie glow.
 
 >You move north.
+
 In a supply room of some sort...
 This room is small, and bare.
 
@@ -164,12 +174,14 @@ Also here is a clip of bullets and a harpoon.
 >You pick up the harpoon.
 
 >You move south.
+
 In a length of corridor
 You are in a length of corridor, from which four doorways sprout.  The
 passage is lit by a strip of luminous plastic along the ceiling, casting an
 eerie glow.
 
 >You move south.
+
 In a shooting gallery
 You are in a small room, in the south wall of which is a vision-slit, in
 which is mounted a large gun.  Through the slit, you can see a line of
@@ -187,12 +199,14 @@ you.
 >You pick up the F-shaped metal block.
 
 >You move north.
+
 In a length of corridor
 You are in a length of corridor, from which four doorways sprout.  The
 passage is lit by a strip of luminous plastic along the ceiling, casting an
 eerie glow.
 
 >You move east.
+
 On the edge of a deep pit
 You are in a corridor that leads out from the face of a deep pit, at the
 bottom of which you can see rows of deadly looking spikes.  There is an
@@ -207,6 +221,7 @@ You fire the harpoon gun at the target across the gap, and score a perfect
 hit.
 
 >You move east.
+
 In a little alcove above a pit of spikes
 You are in a small alcove above a pit of spikes.  There is a hole in the
 floor down which runs a ladder.  An alcove in the west wall has a glowing
@@ -219,6 +234,7 @@ Also here is an I-shaped metal block and a piece of string.
 >You pick up the piece of string.
 
 >You move down.
+
 In a square room
 You are in a square room, illuminated by glow-strips.  The walls around you
 are perforated with strange little holes.  A pillar stands against the north
@@ -231,6 +247,7 @@ You tie one end of the string to the metal block atop the pillar.
 You climb up the ladder, holding the piece of string.  When you get to the
 top, you pull the block of metal after you, an action that is accompanied by
 a roar of gunfire from below.
+
 In a little alcove above a pit of spikes
 You are in a small alcove above a pit of spikes.  There is a hole in the
 floor down which runs a ladder.  An alcove in the west wall has a glowing
@@ -240,6 +257,7 @@ yellow floor.
 immediately, you are surrounded by a bright white light.  You feel as if you
 are falling, and after a second or two, you land on something feet first...
 It's exactly like when you arrived here!
+
 In a small, dark room
 You are in a small, dark room.  The floor is grip-metal, which makes you
 think of the decking onboard a Mexican sub you once hijacked...  There is a
@@ -248,6 +266,7 @@ no other exits.  The walls are also metal, but have a slight blue tinge to
 them.  Other than that, the room is bare.
 
 >You move north.
+
 In a short white-walled corridor
 You are in a small corridor, with creamy white walls.  To what your compass
 tells you is the south is the dark room you found yourself in.  There are two
@@ -264,6 +283,7 @@ connecting the two.  Also, a ladder seems to lead down the hole from the
 alcove in the opposite wall...
 
 >You move west.
+
 In a small, darkened room
 This is a very small, dark room, in which the only feature is a large metal
 box.
@@ -276,6 +296,7 @@ carved into a bizarre shape.
 >You take the D-shaped metal block from the metal box.
 
 >You move east.
+
 In a short white-walled corridor
 You are in a small corridor, with creamy white walls.  To what your compass
 tells you is the south is the dark room you found yourself in.  There are two
@@ -292,6 +313,7 @@ connecting the two.  Also, a ladder seems to lead down the hole from the
 alcove in the opposite wall...
 
 >You move east.
+
 In a small room
 You are in a small, light room.  A block of ice stands against the east wall,
 in which is frozen some sort of object.  Beneath the ice is a small metal
@@ -306,6 +328,7 @@ that was inside drops to the floor.
 >You pick up the T-shaped metal block.
 
 >You move west.
+
 In a short white-walled corridor
 You are in a small corridor, with creamy white walls.  To what your compass
 tells you is the south is the dark room you found yourself in.  There are two
@@ -324,6 +347,7 @@ alcove in the opposite wall...
 >You loop your belt over the greasy cable and clutch it with both hands before
 casting yourself over the edge.  The belt holds your weight easily, and you
 slide gracefully down the cord to the opposite alcove...
+
 In a small alcove
 You are in an alcove in the north wall of a pit.  The south wall, in which
 there is a corridor, is about a hundred and fifty feet away, and the floor is
@@ -333,6 +357,7 @@ this alcove to the corridor in the opposite wall.  Also, a ladder runs down
 this side of the pit from this alcove to a second small alcove.
 
 >You move down.
+
 In a small corridor
 This corridor is quite short.  At the south end, it opens out into a deep
 pit, up the north wall of which a ladder runs.  Two small alcoves are set in

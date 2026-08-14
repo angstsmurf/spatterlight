@@ -36,6 +36,7 @@ back to the spaceport is West.
 >
 >(Getting off the chair first)
 You move west.
+
 Starport Lobby
 Beings of all description bustle about this busy lobby creating a din that is
 almost deafening. In the center of the lobby is rooted a monstrous service
@@ -45,6 +46,7 @@ to the North while flashing displays beckon you to the Starport Cafe to the
 East. The exit into Starlight City is South.
 
 >You move north.
+
 Starport Concourse
 This vast concourse is filled with a variety of beings dragging around all
 manner of luggage in every possible direction. To the North, a ramp leads to
@@ -53,6 +55,7 @@ South. Corriders branching off to the East and West lead to the Intergalactic
 Express Platform and to the Docking Bays respectively.
 
 >You move west.
+
 Corridor to the Docking Bays
 This corridor connects the Docking Bays to the West and the Concourse to the
 East. A toolbox is here.
@@ -74,6 +77,7 @@ after the bum.
 >You take the laser torch from the toolbox.
 
 >You move east.
+
 Starport Concourse
 This vast concourse is filled with a variety of beings dragging around all
 manner of luggage in every possible direction. To the North, a ramp leads to
@@ -82,6 +86,7 @@ South. Corriders branching off to the East and West lead to the Intergalactic
 Express Platform and to the Docking Bays respectively.
 
 >You move east.
+
 Intergalactic Express Platform
 Benches and chairs line the walls here. Most are arranged in rows or around
 small islands of plants. An entertainment vid is being shown on the display

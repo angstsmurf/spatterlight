@@ -17,6 +17,7 @@ south, through a winding forest. A small, dilapidated cabin lies eastward.
 >And what, exactly, in English, is that supposed to mean?
 
 >You move east.
+
 In the cabin
 The cabin is quite old, and the wood that composes its walls is also
 decomposing. The fireplace is full of old, blackened ashes, and a wood box
@@ -38,6 +39,7 @@ You hear a small snap, as if a twig had been broken.
 You hear a small snap, as if a twig had been broken.
 
 >You move west.
+
 The base of the mountain
 A huge mountain looms in front of you, like a man before an ant. You can see
 a small hole at the base of a group of trees. There is a path that leads
@@ -46,6 +48,7 @@ A cool breeze blows past. The grass and plants that surround you quiver as it
 caresses them.
 
 >You move south.
+
 A huge forest
 The trees are quite varied. Some are pine, some oak, some live, some dead and
 rotting. The dirt path leads south and north. You can see footprints of small
@@ -61,6 +64,7 @@ A cool breeze blows past. The grass and plants that surround you quiver as it
 caresses them.
 
 >You move south.
+
 A large field
 This field is so big that if you went anywhere but back north, you'd get
 lost. The grass is taller here than anywhere else. It's almost up to your
@@ -73,6 +77,7 @@ dirt. Soon, you expose a small hole leading down into the ground.
 You hear a small snap, as if a twig had been broken.
 
 >You move down.
+
 Underground cave
 This is a small underground cave that you discovered. Stalactites that shine
 with an eerie glow hang from the ceiling. At your feet, a small river flows
@@ -82,6 +87,7 @@ past. Light shines through the small hole that leads back to the surface.
 You dip the bucket into the river and scoop up some water.
 
 >You move up.
+
 A large field
 This field is so big that if you went anywhere but back north, you'd get
 lost. The grass is taller here than anywhere else. It's almost up to your
@@ -91,6 +97,7 @@ into a cave.
 You hear a small snap, as if a twig had been broken.
 
 >You move north.
+
 A huge forest
 The trees are quite varied. Some are pine, some oak, some live, some dead and
 rotting. The dirt path leads south and north. You can see footprints of small
@@ -99,6 +106,7 @@ A cool breeze blows past. The grass and plants that surround you quiver as it
 caresses them.
 
 >You move north.
+
 The base of the mountain
 A huge mountain looms in front of you, like a man before an ant. You can see
 a small hole at the base of a group of trees. There is a path that leads
@@ -120,12 +128,14 @@ You put the key in the lock and turn it. The lock clicks and the door swings
 open.
 
 >You move north.
+
 The grand hall
 This is apparently the pride of the castle. There is a large table in the
 center of the room surrounded by chairs, and a balcony above where the king
 apparently sits. There are doorways, void of doors, to the south and west.
 
 >You move west.
+
 The throne room
 This is the king's living area. Not only is there a throne, but there is also
 a bed, a table, and two chairs. The rug is nailed to the floor. The
@@ -139,12 +149,14 @@ headrest.
 You press the button. Suddenly, there is a great noise of clanking chains.
 
 >You move east.
+
 The grand hall
 This is apparently the pride of the castle. There is a large table in the
 center of the room surrounded by chairs, and a balcony above where the king
 apparently sits. There are doorways, void of doors, to the south and west.
 
 >You move south.
+
 The castle entrance
 This is the entrance to the castle. An elegant tapestry hangs above a door to
 the north. The bricks in the wall are roughly hewn, and cold to the touch. A
@@ -152,11 +164,13 @@ film of dirt coats the floor, and you can see your footprints in it.  The
 drawbridge has been lowered, exposing a large white wasteland to the south.
 
 >You move south.
+
 On the clouds
 Mushy clouds rearrange themselves beneath your feet. The castle is to your
 north, and more cloud stretches around in every other direction.
 
 >You move southwest.
+
 By the beanstalk
 It's a beanstalk, but that castle wasn't a giant's. Good. The beanstalk
 stretches down, but you can't see where it's growing from. The only way to go
@@ -170,6 +184,7 @@ screaming as you fall through the air, tumbling head over heel... You black
 out...You wake bobbing about in the middle of an ocean.
 
 >You move west.
+
 The lighthouse
 You are on a sandy stretch of ground near a huge stone structure that appears
 to be a lighthouse. Its stones are aged and deteriorating, due to the
@@ -179,6 +194,7 @@ doesn't appear to be much vegetation on the island except one thin tree at
 the back of the lighthouse.
 
 >You move north.
+
 Behind the lighthouse
 Behind the lighthouse, the masonry is less dilapidated. The tide only washes
 up to about within 10 feet of the tower, so it is not striking the stone back
@@ -194,6 +210,7 @@ seashell.
 >You take the tiny pearl from the pretty blue seashell.
 
 >You move south.
+
 The lighthouse
 You are on a sandy stretch of ground near a huge stone structure that appears
 to be a lighthouse. Its stones are aged and deteriorating, due to the
@@ -203,6 +220,7 @@ doesn't appear to be much vegetation on the island except one thin tree at
 the back of the lighthouse.
 
 >You move in.
+
 In the lighthouse- 1st Floor
 The lighthouse floorboards squeak under your feet as you walk around. Dust
 stirs up from an ancient table as you brush by it, walking about slowly.
@@ -211,6 +229,7 @@ You can see something on the window ledge, but you can't quite make out what
 it is in the dim light.
 
 >You move up.
+
 In the lighthouse- 2nd floor
 The floor is less stable up here, and you can feel the floor bend under your
 feet. The stench of decay fills the air, and the reason is quite apparent.
@@ -220,6 +239,7 @@ obviously trickled across the floor before it dried) winds about the dusty
 floor and stops near your feet.
 
 >You move up.
+
 In the lighthouse- 3rd floor
 The third floor is even less stable. Huge parts of it are dried, rotted, and
 missing. It is all you can do just to sidestep around the holes to get across
@@ -228,6 +248,7 @@ through the floorboards. The sunlight from a large hole in the stonework
 shines on the floor in a thick beam.
 
 >You move up.
+
 In the lighthouse- 4th floor
 The room is a complete mess. Clothes lie strewn about the floor, and a
 dresser has been tipped backwards. Shattered pieces of a glass lamp are
@@ -246,6 +267,7 @@ You wonder where he would go, since there wasn't a boat outside.
 >You take the tiny bronze key from the ruffled sheet.
 
 >You move down.
+
 In the lighthouse- 3rd floor
 The third floor is even less stable. Huge parts of it are dried, rotted, and
 missing. It is all you can do just to sidestep around the holes to get across
@@ -254,6 +276,7 @@ through the floorboards. The sunlight from a large hole in the stonework
 shines on the floor in a thick beam.
 
 >You move out.
+
 The third floor balcony
 You're pretty sure that this was not intended to be a balcony. It only sticks
 out of the building about 3 feet, allowing little walking room. The bricks
@@ -267,6 +290,7 @@ You knot the rope around the metal bar and drop it down over the edge of the
 balcony. You can now climb down to the beach, and the floors in between.
 
 >You move down.
+
 Outside the second floor
 You are dangling from a rope outside the lighthouse, at about the second
 floor level. You can stare straight into the palm tree, and observe the palm
@@ -274,6 +298,7 @@ fronds in all their glory.  There seems to be a coconut dangling from the
 palm tree. Mmm... coconut... you're so hungry...
 
 >You move down.
+
 Outside the first floor
 You are dangling on the rope about 10 feet above the ground. There is a
 window in the side of the lighthouse, at approximately your height. You can
@@ -282,6 +307,7 @@ around over by the tree, squawking repeatedly. You'd like to hurt it, but you
 don't have a way to.
 
 >You move down.
+
 Behind the lighthouse
 Behind the lighthouse, the masonry is less dilapidated. The tide only washes
 up to about within 10 feet of the tower, so it is not striking the stone back
@@ -291,6 +317,7 @@ length of rope hangs down from the third floor, allowing you to climb up.
 Also here is a pretty blue seashell.
 
 >You move west.
+
 Western Beach
 You are standing at the base of a tall, rough-trunked palm tree. Seagulls fly
 incessantly over it, circling for ages and ages, almost as if it is a god to
@@ -305,6 +332,7 @@ foot by foot.
 the ground below. It must be rotten.
 
 >You move down.
+
 Western Beach
 You are standing at the base of a tall, rough-trunked palm tree. Seagulls fly
 incessantly over it, circling for ages and ages, almost as if it is a god to
@@ -317,6 +345,7 @@ Also here is a rotten coconut.
 The tide washes in, splashing about your feet.
 
 >You move east.
+
 Behind the lighthouse
 Behind the lighthouse, the masonry is less dilapidated. The tide only washes
 up to about within 10 feet of the tower, so it is not striking the stone back
@@ -326,6 +355,7 @@ length of rope hangs down from the third floor, allowing you to climb up.
 Also here is a pretty blue seashell.
 
 >You move up.
+
 Outside the first floor
 You are dangling on the rope about 10 feet above the ground. There is a
 window in the side of the lighthouse, at approximately your height. You can
@@ -344,6 +374,7 @@ squeaks, and something falls into the lighthouse from the window ledge.
 Hmm... wonder what it could be?
 
 >You move down.
+
 Behind the lighthouse
 Behind the lighthouse, the masonry is less dilapidated. The tide only washes
 up to about within 10 feet of the tower, so it is not striking the stone back
@@ -353,6 +384,7 @@ length of rope hangs down from the third floor, allowing you to climb up.
 Also here is a pretty blue seashell.
 
 >You move south.
+
 The lighthouse
 You are on a sandy stretch of ground near a huge stone structure that appears
 to be a lighthouse. Its stones are aged and deteriorating, due to the
@@ -363,6 +395,7 @@ the back of the lighthouse.
 The tide recedes from the island, leaving wet sand where there was water.
 
 >You move in.
+
 In the lighthouse- 1st Floor
 The lighthouse floorboards squeak under your feet as you walk around. Dust
 stirs up from an ancient table as you brush by it, walking about slowly.
@@ -386,6 +419,7 @@ rises up, and you feel as if you are in a vacuum. You are sucked into the
 vortex that the spiral creates, into another world...
 
 >You move in.
+
 The Puzzlelord's realm
 The room is filled with a sense of foreboding. A large figure floats above
 the floor in the center of the room. His guards stand on either side of him,

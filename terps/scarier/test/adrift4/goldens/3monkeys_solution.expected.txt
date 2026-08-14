@@ -69,6 +69,7 @@ manage to find your feet.
 >You take your jersey from your bed.
 
 >You scurry over to the northeast.
+
 Northeast Corner
     You occupy the interior of a large cubical enclosure with transparent
 walls, a high ceiling, and a dirt floor.  A coconut tree is standing, perhaps
@@ -91,6 +92,7 @@ shaking his head like a disapproving parent.
     The chimpanzee inspects your bed for bananas but comes away with none.
 
 >You scurry over to the southwest.
+
 Southwest Corner
     You occupy the interior of a large cubical enclosure with transparent
 walls, a high ceiling, and a dirt floor.  There is a round fan mounted at the
@@ -133,6 +135,7 @@ The smoke follows suit.
     The mandrill escapes from the smoke over to your east (from your north).
 
 >You scurry over to the north.
+
 Northwest Corner
     You occupy the interior of a large cubical enclosure with transparent
 walls, a high ceiling, and a dirt floor.  High up on the north wall and
@@ -157,6 +160,7 @@ up by the chimpanzee, whom Nature has bestowed with an internal banana radar.
 way.  Whatever the case, this ape's gonna jump.
 
 >You scurry over to the south.
+
 Southwest Corner
     You occupy the interior of a large cubical enclosure with transparent
 walls, a high ceiling, and a dirt floor.  There is a round fan mounted at the
@@ -196,6 +200,7 @@ east).
  That is to say, he consumes it rapidly.
 
 >You scurry over to the east.
+
 Southeast Corner
     You occupy the interior of a large cubical enclosure with transparent
 walls, a high ceiling, and a dirt floor.  A slab of metal that functions as a
@@ -267,6 +272,7 @@ to turn over in his expert, appraising hands.
 out of character for the brute.
 
 >(first stepping over to the here)
+
 Southwest Corner
     You occupy the interior of a large cubical enclosure with transparent
 walls, a high ceiling, and a dirt floor.  There is a round fan mounted at the
@@ -282,6 +288,7 @@ You turn the fan so it is facing northeast.
 The smoke follows suit.
 
 >You scurry over to the northeast.
+
 Northeast Corner
     You occupy the interior of a large cubical enclosure with transparent
 walls, a high ceiling, and a dirt floor.  A coconut tree is standing, perhaps
@@ -368,6 +375,7 @@ push it up the rest of the way!
     The mandrill snarls at the chimpanzee.
 
 >You scurry over to the south.
+
 Southeast Corner
     You occupy the interior of a large cubical enclosure with transparent
 walls, a high ceiling, and a dirt floor.  A slab of metal that functions as a
@@ -401,6 +409,7 @@ word.
 coconut fix in weeks.
 
 >You scurry over to the west.
+
 Southwest Corner
     You occupy the interior of a large cubical enclosure with transparent
 walls, a high ceiling, and a dirt floor.  There is a round fan mounted at the
@@ -421,6 +430,7 @@ You now have something resembling a torch.
 The smoke follows suit.
 
 >You scurry over to the east.
+
 Southeast Corner
     You occupy the interior of a large cubical enclosure with transparent
 walls, a high ceiling, and a dirt floor.  A slab of metal that functions as a
@@ -478,6 +488,7 @@ considering the best way to go about pummeling you into mud.
 
 >(first untying the cord from your waist)
 You step over to the west.
+
 Southwest Corner
     You occupy the interior of a large cubical enclosure with transparent
 walls, a high ceiling, and a dirt floor.  There is a round fan mounted at the
@@ -498,6 +509,7 @@ the chimp, but in the end decides it wouldn't be worth his time.
 being one.
 
 >You scurry over to the north.
+
 Northwest Corner
     You occupy the interior of a large cubical enclosure with transparent
 walls, a high ceiling, and a dirt floor.  High up on the north wall and
@@ -522,6 +534,7 @@ swarm and sally forth like cavalry storming down a hill.  "Alll rigghhht,
 whooo threww thatt rockkk?!", they seem to want to know.
 
 >You scurry over to the south.
+
 Southwest Corner
     You occupy the interior of a large cubical enclosure with transparent
 walls, a high ceiling, and a dirt floor.  There is a round fan mounted at the
@@ -550,6 +563,7 @@ protects you from their vindictive stings, and you can still see well enough
 to do what you have to do.
 
 >You scurry over to the east.
+
 Southeast Corner
     You occupy the interior of a large cubical enclosure with transparent
 walls, a high ceiling, and a dirt floor.  A slab of metal that functions as a
@@ -763,6 +777,7 @@ one.
 >Time passes...
 
 >You scurry over to the west.
+
 Southwest Corner
     You occupy the interior of a large cubical enclosure with transparent
 walls, a high ceiling, and a dirt floor.  There is a round fan mounted at the
@@ -855,6 +870,7 @@ they open again to reveal a new threat.
 firecracker.
 
 >You scurry over to the east.
+
 Southeast Corner
     You occupy the interior of a large cubical enclosure with transparent
 walls, a high ceiling, and a dirt floor.  A slab of metal that functions as a

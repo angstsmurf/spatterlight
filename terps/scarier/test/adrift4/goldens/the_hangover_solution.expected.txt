@@ -10,6 +10,7 @@ Copyright @ 2009
 
 >(Getting off your bathrobe first)
 You move east.
+
 Your Bathroom
 Your headache becomes worse as you look at the white tile of the, well, its
 supposed a bathroom. I suppose because you have your toothbrush here on your
@@ -23,6 +24,7 @@ look at your toothbrush.  Your toothbrush is on the sink.
 >You take your toothbrush from the sink.
 
 >You move west.
+
 Your Bedroom
 You have a horrid hangover and no asprin in the apartment. This is your
 bedroom. Your ill-loking bed takes up most of the space. You have a closet
@@ -41,6 +43,7 @@ Also here is your bathrobe.
 >You put the two dollar bill inside your bathrobe.
 
 >You move west.
+
 Your Living Room
 You living room wich also is your kitchen and dining room and just about
 everything else besides a bathroom. You have a kicthen counter and a fridge.
@@ -51,6 +54,7 @@ To the north is the exit. To the east is Your Bedroom.
 The women is here.
 
 >You move north.
+
 Hallway
 This is a hallway. The dim lights help sooth your headache but the look of
 things well... the hallway looks as if its been abandon for years and a
@@ -65,6 +69,7 @@ Also here is your mail.
 >You pick up your mail.
 
 >You move north.
+
 Fedrick Avenue
 Now that you have left your slum of an apartment building you can gaze upon
 the... uh, slum city street. The bright sun hits your head and your hangover
@@ -74,6 +79,7 @@ the street. You should really move to somewhere else.  A "Burger Club" is to
 your north. To your east is a bus stop.
 
 >You move north.
+
 Burger Club
 This horrid place that is coated with so much grease just standing in here
 could give you a heart attack but your head hurts too much to worry about
@@ -88,6 +94,7 @@ french fries are very greasy. Grats my friend, you should probably eat them
 before they get anything else greasy.
 
 >You move south.
+
 Fedrick Avenue
 Now that you have left your slum of an apartment building you can gaze upon
 the... uh, slum city street. The bright sun hits your head and your hangover
@@ -97,6 +104,7 @@ the street. You should really move to somewhere else.  A "Burger Club" is to
 your north. To your east is a bus stop.
 
 >You move west.
+
 Bus Stop
 This is the bus stop. This is the real slum. There are more posters all over
 the bench, the sidewalk is wet and slimey, and there seems to be a bench. The
@@ -111,6 +119,7 @@ simply walks over to Fredrick Avenue. The bus has arrived! You should get on
 the bus. Go north to get on the bus.
 
 >You move north.
+
 Bus
 You are inside the bus. There is no one onboard except the bus driver who has
 overly large headphones. You take you seat on the pleather bus seat. The
@@ -125,6 +134,7 @@ works! This would include the offices the 42nd Bank of America. You can get
 off by going north.
 
 >You move north.
+
 Corperate Street
 This street is clean and lined with gray office buildings with nothing else.
 They all look the same except what sign is over the enternece. And you came
@@ -135,6 +145,7 @@ the north.
 That dog is here.
 
 >You move north.
+
 42nd Bank of America Lobby
 The lobby is covered in tile with waiting benches, a metal detector, and a
 secretary behind a rather large desk. The room smells rather odd and the
@@ -152,6 +163,7 @@ You have given the secretary your letter. She gives a form and tells you to
 procede to the Form Process Office. Her finger points to the east.
 
 >You move east.
+
 Form Process Office
 This is a massive room with many many cubicles. There is a single desk in
 front of you while the massive ammount of cubicles loom behind the single
@@ -168,6 +180,7 @@ consult the secretary. Here is a note for permision. just give the letter to
 secretary.
 
 >You move west.
+
 42nd Bank of America Lobby
 The lobby is covered in tile with waiting benches, a metal detector, and a
 secretary behind a rather large desk. The room smells rather odd and the
@@ -182,6 +195,7 @@ down that far so you'll have to take the stairs to the west. The Director of
 Form Requests is... odd. You'll see. The stairs are west.
 
 >You move west.
+
 Approval Form Office
 This "office" is really just a large cellar with some cubicles which have
 metal doors... very odd. What is even more odd is that there is a low desk
@@ -201,6 +215,7 @@ fun. The first one would be thorugh the door behind me to the north. I hope
 you have a terrible day.
 
 >You move north.
+
 Storage Room
 The door locks behind you. This room is also like the cellar. Dark to help
 your hangover. The room is crowded with random boxes and filing cabinets.
@@ -219,6 +234,7 @@ cabinet.
 >You take card name replacement approval form from the cabinet.
 
 >You move north.
+
 Utility Tunnel
 This is a long utility tunnel. There is water driping from the concrete
 ceiling. It is very hot in here as the many pipes lining the walls are
@@ -227,6 +243,7 @@ light down here which is good for your hangover. To the south is the storage
 room. To the north is deeper into the Utility Tunnel.
 
 >You move north.
+
 Utility Tunnel
 This is a long utility tunnel. There is water driping from the concrete
 ceiling. It is very hot in here as the many pipes lining the walls are
@@ -235,6 +252,7 @@ There is very little light down here which is good for your hangover. To the
 south is deeper into the tunnel. To the north is a metal door.
 
 >You move north.
+
 Psycho Hospital Room
 The door you went through seems to be a false wall and is one. The room is a
 white padded room. The only door is a locked steel door. It seems you are
@@ -244,6 +262,7 @@ stuck for the rest of your life. It was a crappy run anyways.
 unlocking. This is your chance! Go west to leave!
 
 >You move west.
+
 Psycho Hospital Cafeteria
 You've made your way to the cafeteria. The entire room is white. The tables,
 plates, and clothes. The meal seems to be egg whites and milk. You and your
@@ -260,6 +279,7 @@ approval form. If not, you can rot in here with those three pyschos.
 >Give what?
 
 >You move south.
+
 Country Road
 As you exit the Pyscho Hospital, a private jet begins to lands and stops in
 front of you. A man opens the enterence and throws down a ladder. He tells
@@ -269,6 +289,7 @@ never knew existed to your hangover. This just isn't your day. Go south to
 get in the jet.
 
 >You move south.
+
 Jet
 The jet is very nice. There are layzboy chairs and a round table in the
 middle. A few million times better then your apartment. The man gives a metal
@@ -295,6 +316,7 @@ the only parachute and jumps out.
 >You remove your bathrobe.
 
 >You move east.
+
 Corperate Street
 This street is clean and lined with gray office buildings with nothing else.
 They all look the same except what sign is over the enternece. And you came
@@ -310,6 +332,7 @@ That dog is here.
 >You can't go in that direction, but you can move north.
 
 >You move north.
+
 42nd Bank of America Lobby
 The lobby is covered in tile with waiting benches, a metal detector, and a
 secretary behind a rather large desk. The room smells rather odd and the
@@ -320,6 +343,7 @@ should ask the secretary about debit card.
 Secretary is here.
 
 >You move east.
+
 Form Process Office
 This is a massive room with many many cubicles. There is a single desk in
 front of you while the massive ammount of cubicles loom behind the single

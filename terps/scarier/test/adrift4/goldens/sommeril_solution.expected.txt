@@ -53,6 +53,7 @@ There are exits north, south, northeast and northwest.
 >You pick up the BOOK COVER.
 
 >You move north.
+
 Faust Street Junction
 You are standing beneath a street sign - an ornate, Victorian -looking piece
 of ironwork with a gaslight at its top, proclaims this "FAUST STREET".
@@ -63,6 +64,7 @@ street.
 You can move north and south.
 
 >You move north.
+
 Lower Faust Street
 This area of the street is dedicated mostly to an open air CAFE to the west.
 The wood SIDEWALK is lined with young TREES that bear PURPLE FRUIT.
@@ -74,6 +76,7 @@ You can move north, south and west.
 >The fish squirms slimily in your grip.
 
 >You move west.
+
 Cafe
 Outside the entrance of a small edifice is a single circular TABLE and CHAIR
 on which has been placed a pristine white TABLECLOTH which flutters lightly
@@ -91,6 +94,7 @@ You can only move east.
 The placemat slides from under the plate easily.
 
 >You move east.
+
 Lower Faust Street
 This area of the street is dedicated mostly to an open air CAFE to the west.
 The wood SIDEWALK is lined with young TREES that bear PURPLE FRUIT.
@@ -98,6 +102,7 @@ The wood SIDEWALK is lined with young TREES that bear PURPLE FRUIT.
 You can move north, south and west.
 
 >You move north.
+
 Middle Faust Street
 Here is a area dedicated to warehouses, mostly wooden buildings, but one or
 two constructed of brick. In the middle of the street, a modern AMBULANCE is
@@ -111,6 +116,7 @@ You can move north, south and in.
 distance, but he disappears into the swirling fog.
 
 >You move north.
+
 Upper Faust Street
 This is upper Faust Street.  The street widens somewhat to accommodate a
 sandstone FOUNTAIN. At its center, on a dais, is a stone STATUE of a
@@ -180,6 +186,7 @@ anything like that to
 me before".
 
 >You move north.
+
 Park
 Here is a small but most unusual park, perhaps a hundred yards wide. The
 entire effect is one of mind-reeling surrealism. CLOCKS are draped over
@@ -193,6 +200,7 @@ by a string no thicker than a human hair.
 You can move north, south, southeast and southwest.
 
 >You move southwest.
+
 Upper Nemo Boulevard
 The scenery takes a bizarre turn at this point. There are buildings, but they
 are just false fronts, scale cutouts  made of cardboard and propped up by
@@ -209,6 +217,7 @@ You place the orb on the gargoyle's small perch and it exclaims
 flexes his wings and flies off like a bird from a roost.
 
 >You move south.
+
 Middle Nemo Boulevard
 Many of the buildings are non-descript. Their WINDOWS dark panes of inky
 blackness. You note buildings of both wood and brick, some with fancy iron
@@ -223,6 +232,7 @@ A line of tiny naked mice, each with a perfectly formed human ear growing on
 its back, runs across the street a few feet ahead of you.
 
 >You move south.
+
 Lower Nemo Boulevard
 Several open-air shops and stores line this part of the street, and their
 owners stand in the doorways. But they could be mistaken for mannequins. They
@@ -234,6 +244,7 @@ You can move north and south.
 sounds strangely warped and slow.
 
 >You move south.
+
 Nemo Boulevard Junction
 This street is proclaimed by the sign beneath the gaslight as  "NEMO BLVD."
 Heading down the cobblestone street, buildings of strangely varied
@@ -272,6 +283,7 @@ puddle on the floor. The smell of the urine burned my nostrils..."
 distance, but he disappears into the swirling fog.
 
 >You move southeast.
+
 Mist-shrouded junction
 You are standing, naked, damp and chilled, at the intersection of three
 cobblestone streets.  The streets head north, northeast, and northwest. Gas
@@ -282,6 +294,7 @@ shapes are moving about unseen in it.  It is twilight. The rest is silence.
 You can move north, south, northeast and northwest.
 
 >You move northeast.
+
 Romarico Avenue Junction
 The street sign here, a ornate but rusted affair that tilts drunkenly among a
 rubble of broken cobblestones, reads "ROMARICO  AVENUE". This used to be a
@@ -323,6 +336,7 @@ but he checked the
 readings on the monitor and must have decided he didn't need it... "
 
 >You move north.
+
 Lower Romarico Avenue
 Here the buildings appear in disrepair. Doors and shutters hang drunkenly on
 rusted hinges., and faded paint peels in curly strips off of dry wood. To
@@ -332,6 +346,7 @@ letters.
 You can move north, south and in.
 
 >You move north.
+
 Middle Romarico Avenue
 The street is deserted. The few shops here are boarded up. You can hear the
 the rattle of a can as it rocks from side to side in the barely perceptible
@@ -347,6 +362,7 @@ You can move north and south.
 >You take the WHEEL from the GUTTER.
 
 >You move north.
+
 Upper Romarico Avenue
 The cobblestones here are broken and scattered in piles. A fire must have
 swept the block at some point, leaving gutted cavities like decayed teeth
@@ -357,6 +373,7 @@ reads "Ye Olde Curiosities & Toys."
 You can move south, in and northwest.
 
 >You move in.
+
 Ye Olde Curiosities & Toys
 The interior of the little shop is dark and dingy, the light coming in
 through the shop's dusty plateglass window being wholly inadequate. The
@@ -408,6 +425,7 @@ syringes, clamps,
 sutures, and IV bags."
 
 >You move out.
+
 Upper Romarico Avenue
 The cobblestones here are broken and scattered in piles. A fire must have
 swept the block at some point, leaving gutted cavities like decayed teeth
@@ -418,6 +436,7 @@ reads "Ye Olde Curiosities & Toys."
 You can move south, in and northwest.
 
 >You move northwest.
+
 Park
 Here is a small but most unusual park, perhaps a hundred yards wide. The
 entire effect is one of mind-reeling surrealism. CLOCKS are draped over
@@ -431,6 +450,7 @@ by a string no thicker than a human hair.
 You can move north, south, southeast and southwest.
 
 >You move north.
+
 Citadel stairs
 Wide polished marble stairs lead up to two huge oak DOORS. The doors are
 inlaid with hand carved figures of writhing tortured souls. The door handles
@@ -458,6 +478,7 @@ You've already got the RING!
 Take what?
 
 >You move south.
+
 Park
 Here is a small but most unusual park, perhaps a hundred yards wide. The
 entire effect is one of mind-reeling surrealism. CLOCKS are draped over
@@ -471,6 +492,7 @@ by a string no thicker than a human hair.
 You can move north, south, southeast and southwest.
 
 >You move southeast.
+
 Upper Romarico Avenue
 The cobblestones here are broken and scattered in piles. A fire must have
 swept the block at some point, leaving gutted cavities like decayed teeth
@@ -481,6 +503,7 @@ reads "Ye Olde Curiosities & Toys."
 You can move south, in and northwest.
 
 >You move south.
+
 Middle Romarico Avenue
 The street is deserted. The few shops here are boarded up. You can hear the
 the rattle of a can as it rocks from side to side in the barely perceptible
@@ -492,6 +515,7 @@ CANS litter the GUTTER.
 You can move north and south.
 
 >You move south.
+
 Lower Romarico Avenue
 Here the buildings appear in disrepair. Doors and shutters hang drunkenly on
 rusted hinges., and faded paint peels in curly strips off of dry wood. To
@@ -501,6 +525,7 @@ letters.
 You can move north, south and in.
 
 >You move in.
+
 Town Crier
 The interior of the little building is bare, except for a straightback chair
 in the middle of the wooden floor:
@@ -519,6 +544,7 @@ A old SILVER KEY lies among the rubble of the disintergrated bride.
 >You pick up the SILVER KEY.
 
 >You move out.
+
 Lower Romarico Avenue
 Here the buildings appear in disrepair. Doors and shutters hang drunkenly on
 rusted hinges., and faded paint peels in curly strips off of dry wood. To
@@ -530,6 +556,7 @@ You can move north, south and in.
 distance, but he disappears into the swirling fog.
 
 >You move north.
+
 Middle Romarico Avenue
 The street is deserted. The few shops here are boarded up. You can hear the
 the rattle of a can as it rocks from side to side in the barely perceptible
@@ -541,6 +568,7 @@ CANS litter the GUTTER.
 You can move north and south.
 
 >You move north.
+
 Upper Romarico Avenue
 The cobblestones here are broken and scattered in piles. A fire must have
 swept the block at some point, leaving gutted cavities like decayed teeth
@@ -551,6 +579,7 @@ reads "Ye Olde Curiosities & Toys."
 You can move south, in and northwest.
 
 >You move northwest.
+
 Park
 Here is a small but most unusual park, perhaps a hundred yards wide. The
 entire effect is one of mind-reeling surrealism. CLOCKS are draped over
@@ -564,6 +593,7 @@ by a string no thicker than a human hair.
 You can move north, south, southeast and southwest.
 
 >You move south.
+
 Upper Faust Street
 This is upper Faust Street.  The street widens somewhat to accommodate a
 sandstone FOUNTAIN. At its center, on a dais, is a stone STATUE of a
@@ -574,6 +604,7 @@ also marks the entrance to a park further north.
 You can move north and south.
 
 >You move south.
+
 Middle Faust Street
 Here is a area dedicated to warehouses, mostly wooden buildings, but one or
 two constructed of brick. In the middle of the street, a modern AMBULANCE is
@@ -585,6 +616,7 @@ coming from a roofed open area under a large tree.
 You can move north, south and in.
 
 >You move in.
+
 Village Smythe
 Under a spreading Chestnut tree, a village Smythe stands. This is no more
 than a wood-shingled ROOF set over a open work area, with a few stalls in the
@@ -605,6 +637,7 @@ repairing the stall properly. You can have that piece of paper now, if you
 want it..."
 
 >You move north.
+
 Stall
 The stall is occupied by a large grey mare, which stands on a small wheeled
 trolly. The trolley is missing its back left wheel, and the HORSE and trolly
@@ -647,6 +680,7 @@ I don't know if anyone heard
 me..."
 
 >You move south.
+
 Village Smythe
 Under a spreading Chestnut tree, a village Smythe stands. This is no more
 than a wood-shingled ROOF set over a open work area, with a few stalls in the
@@ -660,6 +694,7 @@ BLACKSMITH is here.
 You can move north and out.
 
 >You move out.
+
 Middle Faust Street
 Here is a area dedicated to warehouses, mostly wooden buildings, but one or
 two constructed of brick. In the middle of the street, a modern AMBULANCE is
@@ -673,6 +708,7 @@ You can move north, south and in.
 sounds strangely warped and slow.
 
 >You move north.
+
 Upper Faust Street
 This is upper Faust Street.  The street widens somewhat to accommodate a
 sandstone FOUNTAIN. At its center, on a dais, is a stone STATUE of a
@@ -683,6 +719,7 @@ also marks the entrance to a park further north.
 You can move north and south.
 
 >You move north.
+
 Park
 Here is a small but most unusual park, perhaps a hundred yards wide. The
 entire effect is one of mind-reeling surrealism. CLOCKS are draped over
@@ -696,6 +733,7 @@ by a string no thicker than a human hair.
 You can move north, south, southeast and southwest.
 
 >You move north.
+
 Citadel stairs
 Wide polished marble stairs lead up to two huge oak DOORS. The doors are
 inlaid with hand carved figures of writhing tortured souls. The door handles
@@ -711,6 +749,7 @@ You can only move south.
 >(Your score has increased by 10)
 The huge wooden doors swing open with a echoing groan. It is dark inside as
 you step into the foyer.
+
 Citadel foyer
 The inside of the Citadel towers here like a ten story Gothic cave. Its
 spires and turrets are capped with copper. Its windows are stained-glass
@@ -721,6 +760,7 @@ illuminating the room. The candles, on decorative iron stands, fill the room
 front to back, giving the ornate  interior a soft, warm glow.
 
 >You move west.
+
 Outside confessional
 The confessional is aproximately five foot high and five foot wide. It is
 made of polished cherry wood with gold accents. it had a tiny door on the
@@ -729,6 +769,7 @@ side facing you, and an identical one on the opposite side.
 You can move east and in.
 
 >You move in.
+
 Inside confessional
 The tiny cramped space is barely as wide as your shoulders. A small sliding
 partition separates you from the chamber on the other side. The box smells

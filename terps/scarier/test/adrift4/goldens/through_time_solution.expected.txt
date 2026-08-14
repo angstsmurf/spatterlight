@@ -68,6 +68,7 @@ You slowly get up from the couch…
 Duff's Waterhole? Why... that's here!!!
 
 >You move south.
+
 The kitchen
 The smell of old food lingers in the air, heavy and foul.
 The walls are greasy and flies swarm around the sink where the last few weeks
@@ -101,6 +102,7 @@ from whatever it is that is behind them.
 pick up the slice of pizza.
 
 >You move north.
+
 The living room
 The living room is not exactly a suite at the Ritz, far from it.
 It’s hard to see what is what in here… Old pizza boxes, empty except for the
@@ -163,6 +165,7 @@ the south leads into the kitchen.
 >
 >Ignoring your wifes high pitched voice you quietly go out the door onto the
 porch.
+
 The porch
 The porch runs along the front of the house (which isn't all that long) You
 build it yourself many years ago which clearly shows.

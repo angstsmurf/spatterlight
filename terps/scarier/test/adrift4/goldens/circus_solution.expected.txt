@@ -63,6 +63,7 @@ from the direction of the funhouse.
 A carny is here, working the ring toss game.
 
 >You move north.
+
 Main Entrance
 You're at the entrance of the circus. There is a banner above the entrance,
 and a ticket booth with a sign on it. The midway is to the south.
@@ -76,6 +77,7 @@ Marie is here, behind the ticket booth.
 buy you up to 0 tokens.
 
 >You move south.
+
 Midway
 You're at the Midway, where people can play all kinds of games.  You see the
 ring toss here, which costs 1 token.  To the east in the distance you see a
@@ -92,6 +94,7 @@ the direction of the funhouse.
 A carny is here, working the ring toss game.
 
 >You move east.
+
 Midway East
 You're at the east end of the midway, where people can play all kinds of
 games.  You see the duck pond here.  To the south is an outdoor stage, and
@@ -135,6 +138,7 @@ circus!"
 He hands you a free ticket.
 
 >You move west.
+
 Midway
 You're at the Midway, where people can play all kinds of games.  You see the
 ring toss here, which costs 1 token.  To the east in the distance you see a
@@ -156,6 +160,7 @@ camera case is gone, and your videocamera with it!  Oh no!  How will you tape
 the animals for PETA now?  Maybe if you can find it...
 
 >You move north.
+
 Main Entrance
 You're at the entrance of the circus. There is a banner above the entrance,
 and a ticket booth with a sign on it. The midway is to the south.
@@ -183,6 +188,7 @@ The vendor sells you a bag of peanuts for $1.
 >I don't think that is for sale.
 
 >You move northeast.
+
 East Bleachers
 The portable bleachers are made of aluminum.  They aren't very comfortable.
 To the northwest is the back door, to the southwest is the main entrance, and
@@ -200,6 +206,7 @@ You look under the east bleachers and think you can detect movement, a small
 dark figure.
 
 >You move down.
+
 Under East Bleachers
 You're under the metal bleachers.  You can see the supports of the
 collapsable bleachers here, criscrossing above your head.  You smell the
@@ -213,6 +220,7 @@ She drops the toy knife and disappears to the north-west.
 >You pick up the toy knife.
 
 >You move up.
+
 East Bleachers
 The portable bleachers are made of aluminum.  They aren't very comfortable.
 To the northwest is the back door, to the southwest is the main entrance, and
@@ -223,6 +231,7 @@ carnival food.  You see a young boy riding on his father's shoulders.  You
 smell the freshly roasted peanuts being sold by the food vendor.
 
 >You move southwest.
+
 Main Entrance
 You're at the entrance of the circus. There is a banner above the entrance,
 and a ticket booth with a sign on it. The midway is to the south.
@@ -248,6 +257,7 @@ Your score has been lowered by 10 points to 3, but you now have $4.
 buy you up to 2 tokens.
 
 >You move south.
+
 Midway
 You're at the Midway, where people can play all kinds of games.  You see the
 ring toss here, which costs 1 token.  To the east in the distance you see a
@@ -263,6 +273,7 @@ your way.  You hear calliope music coming from the direction of the funhouse.
 A carny is here, working the ring toss game.
 
 >After paying 1 token to the midway worker, you move west.
+
 Funhouse
 The funhouse has numerous funny mirrors and moving floors.  It's fun.
 Skippy the Clown is here, laughing maniacly.  Bill is here, playing the
@@ -273,6 +284,7 @@ You show Bill the funhouse mirror.  He stops playing the calliope and starts
 preening in the wavy mirror.  He laughs at his silly image.
 
 >You move east.
+
 Midway
 You're at the Midway, where people can play all kinds of games.  You see the
 ring toss here, which costs 1 token.  To the east in the distance you see a
@@ -290,6 +302,7 @@ game.
 the vendor is here.
 
 >You move east.
+
 Midway East
 You're at the east end of the midway, where people can play all kinds of
 games.  You see the duck pond here.  To the south is an outdoor stage, and
@@ -304,6 +317,7 @@ air reminds you of when you were a kid.
 A carny is here, working the duck pond game.
 
 >You move east.
+
 Fortune Teller
 Amongst the heavy odor of incense and dim light, you make out the figure of
 the old gypsy fortune teller, the circus psychic.
@@ -333,6 +347,7 @@ cards on the table.
 Madame Elsa the gypsy is here, gazing into a crystal ball.
 
 >You move west.
+
 Midway East
 You're at the east end of the midway, where people can play all kinds of
 games.  You see the duck pond here.  To the south is an outdoor stage, and
@@ -347,6 +362,7 @@ peanuts being sold by the food vendor.
 A carny is here, working the duck pond game.
 
 >You move west.
+
 Midway
 You're at the Midway, where people can play all kinds of games.  You see the
 ring toss here, which costs 1 token.  To the east in the distance you see a
@@ -362,6 +378,7 @@ familiar odor of hot nachos wafts over to you.
 A carny is here, working the ring toss game.
 
 >You move north.
+
 Main Entrance
 You're at the entrance of the circus. There is a banner above the entrance,
 and a ticket booth with a sign on it. The midway is to the south.
@@ -376,6 +393,7 @@ ring.
 Marie is here, behind the ticket booth.
 
 >You move north.
+
 Center Ring
 The center ring is where most of the circus performances take place.  To the
 north is the back door, to the south is the main entrance, to the east and
@@ -389,6 +407,7 @@ midway.  The odor of pizza wafts its way over to you.
 Lance strolls in from the north.
 
 >You move north.
+
 Back door
 The back door is where the performers and animals enter the big top.  To the
 southeast and southwest you see bleachers, to the south is the center ring.
@@ -397,6 +416,7 @@ Patrons are talking amongst themselves.  Kids are running up and down the
 bleachers, giggling.  The odor of freshly popped popcorn hangs in the air.
 
 >You move north.
+
 Backyard
 You're behind the circus tent, in an area where animals and performers
 prepare.  There is a lot of straw and sawdust on the ground here.  To the
@@ -404,6 +424,7 @@ south is the backdoor to the big top.  To the north you see some animal
 cages, to the east and west are trailers used as dressing rooms.
 
 >You move east.
+
 Clown Dressing Room
 This trailer is where the clowns change their clothes.  You see racks of
 clown costumes and a trunk of props, a lit makeup mirror and table.  The exit
@@ -425,6 +446,7 @@ Zippo shoots you with the toy gun, but it doesn't seem to do any damage.
 >You take the videocamera from the trunk.
 
 >You move west.
+
 Backyard
 You're behind the circus tent, in an area where animals and performers
 prepare.  There is a lot of straw and sawdust on the ground here.  To the
@@ -432,6 +454,7 @@ south is the backdoor to the big top.  To the north you see some animal
 cages, to the east and west are trailers used as dressing rooms.
 
 >You move north.
+
 Animal Cages
 This is where the animal cages are.  There is straw and sawdust on the ground
 here.  You see an elephant cage, a lion cage, a tiger cage, and a gorilla
@@ -476,6 +499,7 @@ She hands you the video tape.
 Barb walks away to the south.
 
 >You move south.
+
 Backyard
 You're behind the circus tent, in an area where animals and performers
 prepare.  There is a lot of straw and sawdust on the ground here.  To the
@@ -485,6 +509,7 @@ cages, to the east and west are trailers used as dressing rooms.
 Barb is here.
 
 >You move south.
+
 Back door
 The back door is where the performers and animals enter the big top.  To the
 southeast and southwest you see bleachers, to the south is the center ring.
@@ -495,6 +520,7 @@ in the air.
 Lance the ringmaster is here, announcing acts and working the crowd.
 
 >You move south.
+
 Center Ring
 The center ring is where most of the circus performances take place.  To the
 north is the back door, to the south is the main entrance, to the east and
@@ -506,6 +532,7 @@ Young kids are laughing at the clowns.  A woman wearing too much perfume
 walks past and you catch a whif.
 
 >You move up.
+
 Platform
 You're standing on a platform about a hundred feet up, looking down on the
 bleachers and center ring.  This is where the aerial acrobats launch their
@@ -521,6 +548,7 @@ Also here is the battery.
 >You put the videotape inside the videocamera.
 
 >You move down.
+
 Center Ring
 The center ring is where most of the circus performances take place.  To the
 north is the back door, to the south is the main entrance, to the east and
@@ -533,6 +561,7 @@ fond memories of baseball games as the aroma of hot dogs drifts over to you.
 Lance the ringmaster is here, announcing acts and working the crowd.
 
 >You move north.
+
 Back door
 The back door is where the performers and animals enter the big top.  To the
 southeast and southwest you see bleachers, to the south is the center ring.
@@ -542,6 +571,7 @@ are running up and down the bleachers, giggling.  You smell the freshly
 roasted peanuts being sold by the food vendor.
 
 >You move north.
+
 Backyard
 You're behind the circus tent, in an area where animals and performers
 prepare.  There is a lot of straw and sawdust on the ground here.  To the
@@ -549,6 +579,7 @@ south is the backdoor to the big top.  To the north you see some animal
 cages, to the east and west are trailers used as dressing rooms.
 
 >You move north.
+
 Animal Cages
 This is where the animal cages are.  There is straw and sawdust on the ground
 here.  You see an elephant cage, a lion cage, a tiger cage, and a gorilla

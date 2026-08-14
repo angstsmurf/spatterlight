@@ -19,12 +19,14 @@ home alone," I spoke to him, trying to sound happy.
 He remained silent. Something was wrong...
 
 >I move north.
+
 Thin Hallway
 I stepped into the thin hallway. Dark green wallpaper covered the walls, but
 most of it was ripped off, revealing the cement on the other side. There's a
 doorway to the East, and a steep set of stairs lead up to the next floor.
 
 >I move east.
+
 Bathroom
 I gagged in disgust as I stepped into the bathroom. Blood covered the walls
 like paint, and the smell was worse than anything I had ever smelled, even
@@ -42,12 +44,14 @@ If you are reading this, then you will be dead soon. Please pray to god.
 >I winced as I pulled the plug out of the bloody sink.
 
 >I move west.
+
 Thin Hallway
 I stepped into the thin hallway. Dark green wallpaper covered the walls, but
 most of it was ripped off, revealing the cement on the other side. There's a
 doorway to the East, and a steep set of stairs lead up to the next floor.
 
 >I move up.
+
 Bedroom
 I got a chill as I climbed up the last stair into the creepy bedroom. It
 seemed too dark in here, especially since there was a window that let
@@ -68,6 +72,7 @@ but I can still hear it. Hopefully my hiding spot is good enough.
 the panel down, revealing a secret room up above me.
 
 >I move up.
+
 Attic
 The attic was quiet, like the rest of the house. The sight of a body lying on
 the floor caught my attention right away. There was no blood around, but the
@@ -102,6 +107,7 @@ As I put the scrap of paper back in my satchel, I heard a gunshot erupt from
 somewhere downstairs.
 
 >I move down.
+
 Bedroom
 I got a chill as I climbed up the last stair into the creepy bedroom. It
 seemed too dark in here, especially since there was a window that let
@@ -110,12 +116,14 @@ with long arches stretching out of the posts and gargoyles perched at the top
 of them. A desk sat in the corner, dust covered it like clothing.
 
 >I move down.
+
 Thin Hallway
 I stepped into the thin hallway. Dark green wallpaper covered the walls, but
 most of it was ripped off, revealing the cement on the other side. There's a
 doorway to the East, and a steep set of stairs lead up to the next floor.
 
 >I move south.
+
 Kitchen
 The small kitchen was completely empty, with piles of rubble spread across
 the floor.  In the darkened corner of the room, the body of Officer Stevens

@@ -46,10 +46,12 @@ adventure.
 
 >
 >You move north.
+
 The Lobby
 After waking the length of the hall you come to the lobby.
 
 >You move east.
+
 Study
 Here is the study. Many papers lay about it, and a fire burns in the
 fireplace.  It appears that someone in a hurry has been here recently.
@@ -61,10 +63,12 @@ Also here is a fireplace poker and Colt .45 pistol.
 >You pick up Colt .45 pistol.
 
 >You move west.
+
 The Lobby
 After waking the length of the hall you come to the lobby.
 
 >You move west.
+
 Library
 This is the Library. Many bookcases cover its walls.
 
@@ -73,6 +77,7 @@ As you use the poker to pry open the bookcase, it falls to the floor
 revealing a secret passage.
 
 >You move down.
+
 Dungeon
 Accesed through the secret passage, the dungeon is several layers below
 ground. You can hardly see anything. You may not want to go any further
@@ -83,15 +88,18 @@ Also here is straw torch.
 >You pick up straw torch.
 
 >You move up.
+
 Library
 This is the Library. Many bookcases cover its walls.  A bookcase has fallen
 to the floor revelaing a secret passage.
 
 >You move east.
+
 The Lobby
 After waking the length of the hall you come to the lobby.
 
 >You move east.
+
 Study
 Here is the study. Many papers lay about it, and a fire burns in the
 fireplace.  It appears that someone in a hurry has been here recently.
@@ -100,15 +108,18 @@ fireplace.  It appears that someone in a hurry has been here recently.
 The torch sparks into flame
 
 >You move west.
+
 The Lobby
 After waking the length of the hall you come to the lobby.
 
 >You move up.
+
 Upper Lobby
 After climbing the stairs from the lobby,  you emerge into the second floor
 lobby.
 
 >You move west.
+
 Attic
 You enter a room full of cobwebs and boxes stacked to the ceiling. There may
 be some items of some use around.
@@ -127,11 +138,13 @@ be some items of some use around.
 You ate the potatoes. Not bad, but they could do  with a pinch of salt.
 
 >You move east.
+
 Upper Lobby
 After climbing the stairs from the lobby,  you emerge into the second floor
 lobby.
 
 >You move east.
+
 Bathroom
 Ugggh, this bathroom hasn't been cleaned in ages, so it seems. There is a
 horrible stench and many muffled noises coming from behind the shower
@@ -144,20 +157,24 @@ A girl is tied up behind it!!!!
 The girl is now untied and is free to talk.
 
 >You move west.
+
 Upper Lobby
 After climbing the stairs from the lobby,  you emerge into the second floor
 lobby.
 
 >You move down.
+
 The Lobby
 After waking the length of the hall you come to the lobby.
 
 >You move west.
+
 Library
 This is the Library. Many bookcases cover its walls.  A bookcase has fallen
 to the floor revelaing a secret passage.
 
 >You move down.
+
 Dungeon
 Accesed through the secret passage, the dungeon is several layers below
 ground. You can hardly see anything. You may not want to go any further
@@ -165,6 +182,7 @@ unless you acquire a source of light.   Now that the torch is lit, you can
 see about the room.
 
 >You move north.
+
 Courtyard
 An erie courtyard sits at the middle of the mansion. You stare up at the sky
 and take a deep breath. It is the middle of the night. Now you take notice of
@@ -175,6 +193,7 @@ You drink some of the water from the fountain, and almost immediatly you feel
 stronger.
 
 >You move north.
+
 Observatory
 You enter the observatory. It is a dimly lit room with few candles and an
 open drawer.
@@ -214,6 +233,7 @@ Fernelli shoots you with the Remington 410 shotgun.
 >You pick up gold key.
 
 >You move south.
+
 Courtyard
 An erie courtyard sits at the middle of the mansion. You stare up at the sky
 and take a deep breath. It is the middle of the night. Now you take notice of
@@ -223,6 +243,7 @@ your surroundings.
 stronger.
 
 >You move down.
+
 Dungeon
 Accesed through the secret passage, the dungeon is several layers below
 ground. You can hardly see anything. You may not want to go any further
@@ -230,6 +251,7 @@ unless you acquire a source of light.   Now that the torch is lit, you can
 see about the room.
 
 >You move south.
+
 Second dungeon
 Another dungeon. Nothing remarkable, only some old skeletons in the area.
 An old butler is here, chained against the wall.
@@ -240,6 +262,7 @@ has been malnourished and has fainted. You check his pulse...no reading...
 the butler is dead.
 
 >You move north.
+
 Dungeon
 Accesed through the secret passage, the dungeon is several layers below
 ground. You can hardly see anything. You may not want to go any further
@@ -247,20 +270,24 @@ unless you acquire a source of light.   Now that the torch is lit, you can
 see about the room.
 
 >You move up.
+
 Library
 This is the Library. Many bookcases cover its walls.  A bookcase has fallen
 to the floor revelaing a secret passage.
 
 >You move east.
+
 The Lobby
 After waking the length of the hall you come to the lobby.
 
 >You move up.
+
 Upper Lobby
 After climbing the stairs from the lobby,  you emerge into the second floor
 lobby.
 
 >You move north.
+
 Bedroom
 The beautiful bedroom lined with blue wallpaper and containing a solid oak
 bed. It appears to you that a fight of some sort took place. There are
@@ -317,6 +344,7 @@ mostly empty. You won't be able to get back to bedroom this way. The only
 exit is to the north.
 
 >You move north.
+
 Wine Cellar
 Mr. Smith must have had quite a bit of money, because he has some expensive
 wines in this chilly room. Racks and racks of them line the wall, and most
@@ -325,12 +353,14 @@ are full.
 Also here is a wine bottle and an ID card.
 
 >You move west.
+
 Catacombs
 The scent of rotting flesh is all around you. So are some skeletons. This
 labyrnith of tunnels that appears to have been here long before the mansion
 was built is called the catacombs.
 
 >You move north.
+
 Catacombs
 The scent of rotting flesh is all around you. So are some skeletons. This
 labyrnith of tunnels that appears to have been here long before the mansion
@@ -341,12 +371,14 @@ Also here is an old bone.
 >You pick up the old bone.
 
 >You move south.
+
 Catacombs
 The scent of rotting flesh is all around you. So are some skeletons. This
 labyrnith of tunnels that appears to have been here long before the mansion
 was built is called the catacombs.
 
 >You move east.
+
 Wine Cellar
 Mr. Smith must have had quite a bit of money, because he has some expensive
 wines in this chilly room. Racks and racks of them line the wall, and most
@@ -363,6 +395,7 @@ front door key also comes out.
 >You pick up the front door key.
 
 >You move north.
+
 Recreation Room
 Mr. Smith wanted to have something to do in the winter time when it's too
 cold or snowy to go outside. The rec room contains anything and everything
@@ -370,6 +403,7 @@ that he could have wanted. Fooseball, Ping-Pong, and video games are just
 some of the activities here.
 
 >You move east.
+
 Kitchen
 The average modern kitchen. It has a microwave, refrigerator, oven, toster,
 and all of the other usual items you would expect to find here. A window is
@@ -384,6 +418,7 @@ walls.
 You eat the sandwich. You have never EVER tasted anything so good.
 
 >You move west.
+
 Recreation Room
 Mr. Smith wanted to have something to do in the winter time when it's too
 cold or snowy to go outside. The rec room contains anything and everything
@@ -391,6 +426,7 @@ that he could have wanted. Fooseball, Ping-Pong, and video games are just
 some of the activities here.
 
 >You move west.
+
 Billiard Room
 A cozy room where you can have a few beers and play pool with some good
 friends. There is a pool table in the center and a sofa that wraps around the
@@ -409,6 +445,7 @@ The gun cabinet is locked, you cannot open it.
 >You take the AUG assault rifle from the gun cabinet.
 
 >You move east.
+
 Recreation Room
 Mr. Smith wanted to have something to do in the winter time when it's too
 cold or snowy to go outside. The rec room contains anything and everything
@@ -416,6 +453,7 @@ that he could have wanted. Fooseball, Ping-Pong, and video games are just
 some of the activities here.
 
 >You move north.
+
 Front Hall
 You enter the front hall. It is coated in a tasteful color of white paint,
 with a door at one end. There are some hooks used for holding coats.
@@ -424,6 +462,7 @@ with a door at one end. There are some hooks used for holding coats.
 The door opens and sunlight floods the room.
 
 >You move north.
+
 Front Yard
 You emerge from the house (finally), only to find Mr. Jones gone, and some
 old, dry footprints leading out into the road. It is midafternoon, and
@@ -435,6 +474,7 @@ Dog hits you, but it doesn't seem to do any damage.
 The dog now calms down and begins to chew on the bone.
 
 >You move north.
+
 Road
 This is the road in the front of the house. There is an automobile and a taxi
 parked on it, but nothing else worth mentioning. There is a path that leads
@@ -450,6 +490,7 @@ is one pair of muddy footprints leading up it.
 >You take the pack of matches from the taxi cab.
 
 >You move north.
+
 Mountain Path
 This is the path that leads from the road all the way up to the summit. You
 are surrounded by trees and can only move forward. There are footprints
@@ -458,6 +499,7 @@ A gigantic grizzley bear is here too, watch out!
 Bear hits you.
 
 >You move north.
+
 Low Hills
 There are footprints still leading north here, but they are wet. You also
 think that you hear a chopping noise ahead. You can't move north yet, because
@@ -489,6 +531,7 @@ Hurry and stop Mr. Jones before he escapes!
 >Your score is 80 out of a maximum of 100.  (80%)
 
 >You move north.
+
 Summit
 After a day's long hike you finally reach the top of the mountain. You look
 out over the edge and see a breathtaking view of the whole city.

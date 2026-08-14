@@ -30,6 +30,7 @@ tent is pitched nearby, and to the north, is the trail to the tomb.
 Rupert is here.
 
 >You move in.
+
 Your Tent
 Your temporary abode is simple, but functional, consisting solely of your
 bunk and a nightstand.
@@ -59,6 +60,7 @@ The water bottle is now filled with sand, and feels heavier for being so.
 >You take the cork from the water bottle.
 
 >You move out.
+
 The Camp Site
 Workers go about their business amongst the big white tents of the camp. Your
 tent is pitched nearby, and to the north, is the trail to the tomb.
@@ -67,6 +69,7 @@ tent is pitched nearby, and to the north, is the trail to the tomb.
 The walk is long and dusty, under the hot sun. It is made even worse by
 Rupert's insistence to sing songs from his youth.
 You are more then glad when you finally reach your destination.
+
 Outside The Tomb
 Buried in the side of a large sand dune, is the entrance to the fabled lost
 tomb of pharaoh Erick.
@@ -76,6 +79,7 @@ leaving now an ominous looking hole, leading into darkness.
 Rupert is here.
 
 >You move north.
+
 Sloping Corridor
 The walls are decorated with faded pictures of wild flowers. The low ceiling
 forces you to crouch over, an uncomfortable position to hold for long,  and
@@ -93,6 +97,7 @@ You light it. The fuse crackles like a sparkler, and remember, it's a very
 short fuse.
 
 >You move south.
+
 Outside The Tomb
 Buried in the side of a large sand dune, is the entrance to the fabled lost
 tomb of pharaoh Erick.
@@ -104,6 +109,7 @@ leaving now an ominous looking hole, leading into darkness.
 >Time passes...
 
 >You move north.
+
 Sloping Corridor
 The walls are decorated with faded pictures of wild flowers. The low ceiling
 forces you to crouch over, an uncomfortable position to hold for long,  and
@@ -111,6 +117,7 @@ forms a narrow passage that gently slopes downward.  A large hole has been
 blown in the east wall.
 
 >You move east.
+
 A Secret Chamber
 Dust hangs still in the stuffy air. At the far end of the room is an altar in
 pristine condition. Nothing is unusual about the floor or walls, as they are
@@ -125,6 +132,7 @@ thing?
 relief.
 
 >You move west.
+
 Sloping Corridor
 The walls are decorated with faded pictures of wild flowers. The low ceiling
 forces you to crouch over, an uncomfortable position to hold for long,  and
@@ -133,6 +141,7 @@ blown in the east wall.
 
 >As you enter, heavy stone doors in front and behind you drop down, sealing
 you in. ,
+
 The Sand Room
 Standing in the middle of the room is a magnificently decorated sarcophagus.
 The walls are decorated with brightly coloured effigies of animals and
@@ -159,6 +168,7 @@ doors slowly open.
 "Whew!, that was a close one." Says Rupert, wiping sweat from his brow.
 
 >You move north.
+
 Sloping Corridor
 Another narrow passage, descending even further downward. The walls are
 covered in plaster and decorated with simple geometric shapes, repeated over
@@ -168,6 +178,7 @@ and over again to form a pattern.
 has been made to the west wall, revealing bricks.
 
 >You move north.
+
 The Wall Room
 The room is dark and gloomy. Only the east and west walls have any sort of
 decoration upon them, a motif of dancing skeletons. The floor is covered with
@@ -179,6 +190,7 @@ You rummage around in the reeds with your hands. Touching something cold, you
 grasp it firmly and whip it up. To your surprise it is a spear.
 
 >You move south.
+
 Sloping Corridor
 Another narrow passage, descending even further downward. The walls are
 covered in plaster and decorated with simple geometric shapes, repeated over
@@ -190,6 +202,7 @@ It takes you quite a while, but you manage to make a hole large enough for
 you to squeeze through.
 
 >You move west.
+
 A secret chamber
 The room is long and narrow, stretching far off northwards, with a dome
 shaped roof. At the far end, you can see a slender marble statue, carved into
@@ -216,24 +229,29 @@ painted red.
 >"I'll stay at this end of room, if it's all right with you!" Says Rupert,
 slapping you on the back.
 You step onto the numeral.
+
 Standing on X
 You are standing on the X numeral of the first row. You can move south to the
 entrance of the room.
 
 >You step onto the numeral.
+
 Standing on VIII
 You are standing on the VIII numeral of the second row.
 
 >You step onto the numeral XIV.
+
 Standing on XIV
 You are standing on the XIV numeral of the third row.
 
 >You step onto the numeral XVII.
+
 Standing on XVII
 You are standing on the XVII numeral of the fourth row. Just to the north is
 the Crocodile statue.
 
 >You move north.
+
 Beside the Crocodile statue
 You are now beside the magnificent marble statue of the crocodile. It stands
 a full five feet and is very imposing.  The mouth with all its teeth is
@@ -253,6 +271,7 @@ sun orb.
 >
 You skillfully leap from one panel to the other until you reach the other end
 of the room.
+
 A secret chamber
 The room is long and narrow, stretching far off northwards, with a dome
 shaped roof. At the far end, you can see a slender marble statue, carved into
@@ -263,12 +282,14 @@ It is impossible to reach the other end of the room without stepping on the
 panels.
 
 >You move east.
+
 Sloping Corridor
 Another narrow passage, descending even further downward. The walls are
 covered in plaster and decorated with simple geometric shapes, repeated over
 and over again to form a pattern.
 
 >You move north.
+
 The Wall Room
 The room is dark and gloomy. Only the east and west walls have any sort of
 decoration upon them, a motif of dancing skeletons. The floor is covered with
@@ -332,6 +353,7 @@ You and Rupert quickly dash for the door and squeeze under, moments before
 the walls crunch together.
 "I'll tell you one thing dear boy!, this expedition is turning out to be more
 fun than I thought!" Says Rupert, catching his breath.
+
 The Inner Chamber
 A spectacular sarcophagus, made from solid gold and decorated in the highest
 quality, takes centre stage in a large chamber, the walls of which are
@@ -363,6 +385,7 @@ He packs it all back up and looks ready for more adventuring.
 >You take the sapphire from the sarcophagus.
 
 >You move northwest.
+
 The Pillar Room
 The walls are made of a rough cut black rock, which makes the room darker
 then the others. Standing in each corner is a pillar, each painted a
@@ -403,6 +426,7 @@ By rubbing all over the paper, you make a relief of the inscription.
 
 The four pillars slowly sink into the ground.
 The room rumbles and the floor inscription breaks, revealing a ruby.
+
 The Pillar Room
 The walls are made of a rough cut black rock, which makes the room darker
 then the others. Standing in each corner is a pillar, each painted a
@@ -417,6 +441,7 @@ Rupert is here.
 >You pick up the ruby.
 
 >You move southeast.
+
 The Inner Chamber
 A spectacular sarcophagus, made from solid gold and decorated in the highest
 quality, takes centre stage in a large chamber, the walls of which are
@@ -426,6 +451,7 @@ Three gold rimmed archways lead off in three directions, northwest, north and
 northeast.
 
 >You move northeast.
+
 The Well Room
 The ceiling is low, the air, chilled with moisture. The large, rough bricks
 of the walls are cold and wet to the touch, due to condensation. Moss grows
@@ -442,6 +468,7 @@ well.
 
 As you climb down into the darkness, the eerie silence and chilled air makes
 you shiver.
+
 The Bottom of the well
 You're standing up to your knees in stagnant water. The sides of the well are
 smooth and slippery, making them impossible to climb.
@@ -460,6 +487,7 @@ Your rucksack is now securely tied to the end of the rope.
 He winds the rope up, detaches the rucksack, then winds it back down again.
 
 >You move up.
+
 The Well Room
 The ceiling is low, the air, chilled with moisture. The large, rough bricks
 of the walls are cold and wet to the touch, due to condensation. Moss grows
@@ -477,6 +505,7 @@ Also here is your rucksack.
 >The sapphire fits perfectly into the right eye socket.
 
 >You move southwest.
+
 The Inner Chamber
 A spectacular sarcophagus, made from solid gold and decorated in the highest
 quality, takes centre stage in a large chamber, the walls of which are
@@ -486,6 +515,7 @@ Three gold rimmed archways lead off in three directions, northwest, north and
 northeast.
 
 >You move north.
+
 The Riddle Room
 The walls are bare and polished smooth, except for the north wall, upon which
 is a very strange design.

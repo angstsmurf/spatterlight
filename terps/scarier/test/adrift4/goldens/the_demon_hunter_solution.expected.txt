@@ -41,6 +41,7 @@ pedestal
 >You take the Cross of Christ from the small pedestal.
 
 >You move west.
+
 Cage
 The centre of this circular chamber is a cage, sunken into the floor, in
 which the remains of some beast lie decomposing. Claw marks on the bars of
@@ -56,6 +57,7 @@ The bowl seems to have held drinking water for whatever was in here.
 >You pick up the small bowl.
 
 >You move west.
+
 Humming Chamber
 Once this was doubtless some kind of meeting hall. Rows of seats spiral
 outwards from a central podium where a speaker once stood to deliver speeches
@@ -76,6 +78,7 @@ You manage to clear away part of the debris and in doing so reveal a small
 ladder leading down in to darkness.
 
 >You move down.
+
 The Armory
 This room appears to have once housed a massive quantity of gladiatorial
 arms; judging by the frescos and murals painted on the walls. It seems that
@@ -130,6 +133,7 @@ Freedom."
 press any key...
 
 >You move north.
+
 The Armory
 This room appears to have once housed a massive quantity of gladiatorial
 arms; judging by the frescos and murals painted on the walls. It seems that
@@ -140,6 +144,7 @@ A small passage leads to the south and ladder rungs are hewn into one wall
 leading up.
 
 >You move up.
+
 Humming Chamber
 Once this was doubtless some kind of meeting hall. Rows of seats spiral
 outwards from a central podium where a speaker once stood to deliver speeches
@@ -155,6 +160,7 @@ Sifting through the rubble, all you can find is one fragile scrap of
 parchment.
 
 >You move northwest.
+
 Blocked Passage
 The ceiling has collapsed, blocking further access along this passage. On one
 wall is an opening which overlooks the outside world, although the drop looks
@@ -190,6 +196,7 @@ simple wooden shaft is now solid gold; and the flattened metal tip is now the
 purest silver! Surely this is the Holy Spear spoken of in the ancient texts!
 
 >You move southeast.
+
 Humming Chamber
 Once this was doubtless some kind of meeting hall. Rows of seats spiral
 outwards from a central podium where a speaker once stood to deliver speeches
@@ -205,6 +212,7 @@ Sifting through the rubble, all you can find is one fragile scrap of
 parchment.
 
 >You move east.
+
 Cage
 The centre of this circular chamber is a cage, sunken into the floor, in
 which the remains of some beast lie decomposing. Claw marks on the bars of
@@ -215,6 +223,7 @@ To the west there is a large chamber, and to the east you can make out a
 statue.
 
 >You move east.
+
 Ruined Statue
 Above you towers a broken statue, ravaged by the passage of time. A crown of
 stone rests upon its brow, a glittering jewel its centrepiece. About you lurk
@@ -225,6 +234,7 @@ closely at them.
 Passages in the ruined walls of this place lie to the north and west.
 
 >You move north.
+
 Ancient Gallery
 The walls about you are ancient and crumbling, yet modern looking portraits
 hang from them all the same. The faces depicted twist and writhe in torment.
@@ -332,6 +342,7 @@ move out of the haze, you realize that you have been fully healed!
 You can see a light shining from the passage to the northeast.
 
 >You move northeast.
+
 Passage
 The bright light shining to the northeast makes it difficult to see what is
 around you...all you are sure of is that the exit to the southwest leads back

@@ -20,6 +20,7 @@ You see a tongue and razor sharp teeth.
 You now have the cheese.
 
 >You move south.
+
 Stomach
 You are swimming in a vat of gastric juices. The smell is horrid, but
 thankfully, you can't smell.
@@ -28,6 +29,7 @@ thankfully, you can't smell.
 You now have the worm.
 
 >You move east.
+
 Lungs
 The howling winds here would certainly ruffle your hair... if you had any.
 
@@ -37,11 +39,13 @@ Also here is a alveoli.
 You now have the alveoli.
 
 >You move west.
+
 Stomach
 You are swimming in a vat of gastric juices. The smell is horrid, but
 thankfully, you can't smell.
 
 >You move south.
+
 Intestines
 Looks rather clean. Not much to see other than the lining.
 
@@ -63,24 +67,29 @@ so at least someone can remember me... if only for a couple minutes
 themselves." She hands you a virus and dies.
 
 >You move west.
+
 Intestines
 Looks rather clean. Not much to see other than the lining.
 
 >You move north.
+
 Stomach
 You are swimming in a vat of gastric juices. The smell is horrid, but
 thankfully, you can't smell.
 
 >You move east.
+
 Lungs
 The howling winds here would certainly ruffle your hair... if you had any.
 
 >You move north.
+
 Heart
 It's like an earthquake with ventricles and atriums all pushing blood around
 via their valves.
 
 >You move north.
+
 Brain
 This is a hub of the rat. You can't help but notice how small it is. An open
 synaptic nerve sits to one side.

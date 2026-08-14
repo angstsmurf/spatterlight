@@ -108,6 +108,7 @@ prove that drummers will drink or eat anything for . . .  no reason at all.
 
 >(Standing up first)
 You move down.
+
 Lobby
 This is the lobby of the J. Edgar Hoover Building.  Video monitors and long
 benches remain from the days when they used to allow visitors to tour the
@@ -117,6 +118,7 @@ a Salvation Army volunteer ringing a bell in the street outside.
 You can move east, up and out.
 
 >You move east.
+
 Parking Garage A
 This is the top level of the official FBI Parking Garage.  Some light filters
 in from the exits, but much of the area is illuminated by the neon lights
@@ -126,6 +128,7 @@ Unfortunately, you didn't drive today.   A rat scurries across the floor.
 You can move west, down and out.
 
 >You move down.
+
 Parking Garage B
 This is the lower level of the official FBI Parking Garage.  The area is
 illuminated by the neon lights that line the ceiling alone.  It is somewhat
@@ -150,6 +153,7 @@ were dead, you would be, too."
 You take the case file from Cancer Man.  "Everything you need to find them
 can be found in the information in this file.  I'll be in touch again . . .
 Trust No One, Agent Mulder."
+
 Parking Garage B
 This is the lower level of the official FBI Parking Garage.  The area is
 illuminated by the neon lights that line the ceiling alone.  It is somewhat
@@ -167,6 +171,7 @@ This is a labeled key.  The label reads,"Davis Storage, Baltimore, MD. / 5"
 Completing further research, you find directions to the site.
 
 >You move up.
+
 Parking Garage A
 This is the top level of the official FBI Parking Garage.  Some light filters
 in from the exits, but much of the area is illuminated by the neon lights
@@ -176,6 +181,7 @@ Unfortunately, you didn't drive today.  You scan the shadows but see no one.
 You can move west, down and out.
 
 >You move out.
+
 In Front Of FBI HQ Parking Garage A - Washington, D.C.
 You're standing on the sidewalk outside the J. Edgar Hoover Building Parking
 Garage  in Washington, D.C.  Christmas lights line the buildings as snowfall
@@ -186,6 +192,7 @@ parking garage.  Maybe it's just the cold.
 You can move west and in.
 
 >You move west.
+
 In Front Of FBI HQ - Washington, D.C.
 You're standing on the sidewalk outside the J. Edgar Hoover Building in
 Washington, D.C.  Christmas lights line the buildings as snowfall gently
@@ -198,6 +205,7 @@ Volunteer is here.
 You can move north, east, south and in.
 
 >You move north.
+
 Davis Storage Warehouse - Baltimore, MD
 You stand outside the garage that the warehouse key indicated.  Nothing seems
 out of place.    You can use the warehouse key to enter the building.
@@ -223,6 +231,7 @@ on the other end of the phone.  "Try not to get too jolly, okay Mulder?"
 >You pick up Small Pocket Knife.
 
 >You move out.
+
 Davis Storage Warehouse - Baltimore, MD
 You stand outside the garage that the warehouse key indicated.  Nothing seems
 out of place.    You can use the warehouse key to enter the building.
@@ -230,6 +239,7 @@ out of place.    You can use the warehouse key to enter the building.
 You can move south and in.
 
 >You move south.
+
 In Front Of FBI HQ - Washington, D.C.
 You're standing on the sidewalk outside the J. Edgar Hoover Building in
 Washington, D.C.  Christmas lights line the buildings as snowfall gently
@@ -252,6 +262,7 @@ wallet and place it in the bucket.  The man ringing the bell smiles.  "God
 bless you, sir," he says and goes back to ringing the bell.
 
 >You move south.
+
 Outside Of The Red Bull Tavern - Arlington, VA
 You stand on the sidewalk outside of the bar you live above.  It's in a nice
 section of town and it's only temporary until you find an apartment you can
@@ -262,6 +273,7 @@ person they would want to stay away from, you dirty stripper.
 You can move north, west, up and in.
 
 >You move in.
+
 The Red Bull Tavern
 Welcome to the Red Bull Tavern, a nice establishment that you sometimes
 frequent with Ruth after work.  The owner and barkeep, Nick, always gives you
@@ -282,6 +294,7 @@ seat at the bar.
 
 >(Getting off the Stool first)
 You move up.
+
 Your Apartment
 This is your apartment.  Clothes are stewn about the floor.  Your couch, the
 best friend you have besides Ruth, looks inviting.  The light from your fish
@@ -302,6 +315,7 @@ Container.
 >(Your score has increased by 1)
 Your fish happily gobble the pellet up.  You receive a warm feeling of
 self-satisfaction.
+
 Your Apartment
 This is your apartment.  Clothes are stewn about the floor.  Your couch, the
 best friend you have besides Ruth, looks inviting.  The light from your fish
@@ -311,6 +325,7 @@ unplugged in one corner.  You're a rip snortin' hottie, woof!
 Also here is Fish Food Container.
 
 >You move down.
+
 The Red Bull Tavern
 Welcome to the Red Bull Tavern, a nice establishment that you sometimes
 frequent with Ruth after work.  The owner and barkeep, Nick, always gives you
@@ -325,6 +340,7 @@ Nick is here.
 You can move up and out.
 
 >You move out.
+
 Outside Of The Red Bull Tavern - Arlington, VA
 You stand on the sidewalk outside of the bar you live above.  It's in a nice
 section of town and it's only temporary until you find an apartment you can
@@ -335,6 +351,7 @@ person they would want to stay away from, you dirty stripper.
 You can move north, west, up and in.
 
 >You move north.
+
 In Front Of FBI HQ - Washington, D.C.
 You're standing on the sidewalk outside the J. Edgar Hoover Building in
 Washington, D.C.  Christmas lights line the buildings as snowfall gently
@@ -348,6 +365,7 @@ You can move north, east, south, in and southwest.
 
 >
 >You move southwest.
+
 Outside John Doggett's House -  Falls Church, VA
 You stand on the sidewalk outside John Doggett's house.  Snow is still gently
 falling on the street.  The lights are on, so someone must be home.
@@ -365,6 +383,7 @@ him."  You return the embrace before Doggett pulls you inside.  "This is
 dangerous,"he comments before shutting the door.
 
 >You move out.
+
 Outside John Doggett's House -  Falls Church, VA
 You stand on the sidewalk outside John Doggett's house.  Snow is still gently
 falling on the street.  The lights are on, so someone must be home.  You're
@@ -373,6 +392,7 @@ glad to know that you'll always have a safe haven with John Doggett.
 You can move north, east, in and northeast.
 
 >You move northeast.
+
 In Front Of FBI HQ - Washington, D.C.
 You're standing on the sidewalk outside the J. Edgar Hoover Building in
 Washington, D.C.  Christmas lights line the buildings as snowfall gently
@@ -385,6 +405,7 @@ Volunteer is here.
 You can move north, east, south, west, in and southwest.
 
 >You move west.
+
 Outside The Lair Of The LGM - Washington, D.C.
 You stand at the bottom of a stairway located inconspiciously next to a
 nicely kept suburban house.  A camera records your movement as you note how
@@ -400,6 +421,7 @@ You can move east and south.
 Peering closely into the lens of the video camera above the doorway and
 grinning, you hear an audible click from the locks on the doorway.  Funny
 they should leave you in after just seeing your face.
+
 Lair Of The LGM
 This is the private operating layer of the LGM News Service, printers of the
 infamous Magic Bullet Digest.  A network of computers fills the room.
@@ -422,6 +444,7 @@ Wrapped Gift.
 >You take Your Gun from Neatly Wrapped Gift.
 
 >You move out.
+
 Outside The Lair Of The LGM - Washington, D.C.
 You stand at the bottom of a stairway located inconspiciously next to a
 nicely kept suburban house.  A camera records your movement as you note how
@@ -460,6 +483,7 @@ Gunmen unload the van and set up computer equipment in the room.  In
 retrospect, the cheesesteaks were good.
 
 >You move east.
+
 In Front Of FBI HQ - Washington, D.C.
 You're standing on the sidewalk outside the J. Edgar Hoover Building in
 Washington, D.C.  Christmas lights line the buildings as snowfall gently
@@ -473,6 +497,7 @@ You can move north, east, south, west, in and southwest.
 Your legs are sore.
 
 >You move north.
+
 Town Square - Bellefleur, OR
 Welcome to Bellefleur, Oregon, the place your parents worked their first and
 last case together as partners in the FBI X-Files Division.  This is main
@@ -510,6 +535,7 @@ northeast, southeast, southwest and northwest.
 >You can't go in that direction (at present).
 
 >You move southeast.
+
 Outside Dean's Diner - Bellefleur, OR
 You stand outside of Dean's Diner, an ode to old times.  The place seems like
 something you've seen in old magazines.  You can see that this diner has been
@@ -518,6 +544,7 @@ here for a very long time.
 You can move north, west, in and northwest.
 
 >You move in.
+
 Dean's Diner
 This is Dean's Diner.  It's decorated with memorabilia from the mid-twentieth
 century.  There's a trendy checkered theme with the flooring and the
@@ -533,6 +560,7 @@ Your incurable curiosity gets the better part of you again and you reach out
 and push the buzzer.
 
 >You move out.
+
 Outside Dean's Diner - Bellefleur, OR
 You stand outside of Dean's Diner, an ode to old times.  The place seems like
 something you've seen in old magazines.  You can see that this diner has been
@@ -541,6 +569,7 @@ here for a very long time.
 You can move north, west, in and northwest.
 
 >You move northwest.
+
 Town Square - Bellefleur, OR
 Welcome to Bellefleur, Oregon, the place your parents worked their first and
 last case together as partners in the FBI X-Files Division.  This is main
@@ -554,6 +583,7 @@ You can move east, south, west, northeast, southeast, southwest and
 northwest.
 
 >You move northeast.
+
 Outside Arroway Hardware Store - Bellefleur, OR
 You stand outside of the only legitimate shop left in Bellefleur and it seems
 to be doing remarkably well.  The newer concrete building seems to dwarf its
@@ -562,6 +592,7 @@ forgotten neighbors.  Wheelbarrows lean against the outside of this building.
 You can move south, in and southwest.
 
 >You move in.
+
 Arroway Hardware
 This is a small town hardware store that has recently been renovated.  Rows
 and rows of hardware equipment make up the shelves that line the walls.
@@ -584,6 +615,7 @@ out.  Get in the van as soon as you're outside.  Don't do anything stupid,
 Mulder."  He hangs up.
 
 >You move out.
+
 Outside Arroway Hardware Store - Bellefleur, OR
 You stand outside of the only legitimate shop left in Bellefleur and it seems
 to be doing remarkably well.  The newer concrete building seems to dwarf its
@@ -630,6 +662,7 @@ himself.  "This is creepy," he says.  You draw your gun in agreement.
 >(Your score has increased by 25)
 Without notifying the Gunmen, you draw your gun, turn on your flashlight, and
 venture into the woods.
+
 Forest Clearing - Bellefleur, OR
 You stand in a small clearing made in the Oregon forest.  There's a small
 dwelling here that looks like a hunting cabin common to this area.  You feel

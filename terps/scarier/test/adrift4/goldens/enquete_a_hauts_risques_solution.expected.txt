@@ -35,6 +35,7 @@ allongé sur votre lit. "Lèves-toi Lucas!" pensez-vous.
 
 >(Your score has increased by 1)
 Vous descendez de votre lit.
+
 Dans votre chambre
 Vous vous trouvez dans votre chambre (une petite pièce dont le sol est
 recouvert de moquette et dont les murs sont recouverts d'une tapisserie
@@ -57,6 +58,7 @@ Vous vous saisissez du sac à dos puis vous l'enfilez à votre dos.
 >Vous ouvrez le sac à dos.
 
 >Vous vous déplacez vers le Nord.
+
 Votre domicile
 A présent, vous vous trouvez dans l'entrée de votre domicile. Les murs sont
 recouverts d'une tapisserie jaune et le sol est recouvert de moquette (tout
@@ -67,10 +69,12 @@ chambre se situe au Sud; la sortie se trouve à l'Est.
 >(Your score has increased by 1)
 Vous enfilez vos chaussures puis vous sortez de chez vous. Vous prenez alors
 votre voiture afin de vous rendre au commissariat.
+
 Devant le commissariat
 Vous arrivez devant le commissariat. L'entrée se trouve au Nord.
 
 >Vous vous déplacez vers le Nord.
+
 L'accueil
 Vous vous trouvez à l'accueil du commissariat. Il s'agit d'un hall
 relativement spacieux. A l'Est, vous pouvez un comptoir derrière lequel est
@@ -78,12 +82,14 @@ assise une secrétaire. Une porte ouverte menant à un couloir se trouve au
 Nord; la sortie est située au Sud.
 
 >Vous vous déplacez vers le Nord.
+
 Le couloir
 Vous êtes à présent dans un petit couloir (ni très long, ni très large).
 Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest;
 l'accueil se situe au Sud.
 
 >Vous vous déplacez vers l'Ouest.
+
 Le bureau de Yannick
 Vous vous trouvez dans le bureau de Yannick. Cette pièce est identique à
 votre bureau, à ceci près que la disposition du mobilier est quelque peu
@@ -132,6 +138,7 @@ Vous prenez le rapport: "Voici venir le moment que j'attends depuis cinq
 longues années. Ce malfrat va finir ses jours là où il doit être,
 c'est-à-dire derrière les barreaux." dites-vous. "Vas-y Lucas. On se reverra
 tout à l'heure." "Ok Yannick. A tout à l'heure." répondez-vous.
+
 Le bureau de Yannick
 Vous vous trouvez dans le bureau de Yannick. Cette pièce est identique à
 votre bureau, à ceci près que la disposition du mobilier est quelque peu
@@ -140,12 +147,14 @@ placard est situé à l'Ouest; la sortie se trouve à l'Est.
 Yannick Vilon est ici.
 
 >Vous vous déplacez vers l'Est.
+
 Le couloir
 Vous êtes à présent dans un petit couloir (ni très long, ni très large).
 Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest;
 l'accueil se situe au Sud.
 
 >Vous vous déplacez vers le Nord.
+
 L'ascenseur
 Vous voilà dans l'ascenseur! Tapez "premier étage" pour vous rendre au
 premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
@@ -170,6 +179,7 @@ Roberto Amato ainsi qu'un mandat de perquisition pour son domicile. Je vous
 charge de cette affaire Lucas. Embarquez deux hommes et foncez chez ce
 mafieux." ordonne le chef. "Vous pouvez compter sur moi chef! Je vais me
 faire un plaisir d'envoyer ce gars derrière les barreaux." répondez-vous.
+
 Le bureau du commissaire Guersant
 Vous êtes dans le bureau du commissaire Guersant. Cette pièce ressemble
 étrangement à votre bureau. A l'Ouest, vous pouvez voir un placard; le bureau
@@ -178,6 +188,7 @@ trouve au Sud.
 Guersant est ici.
 
 >Vous vous déplacez vers le Sud.
+
 Le premier étage
 Vous arrivez au premier étage. Il s'agit d'un petit couloir, similaire à
 celui du rez-de-chaussée. Le bureau du personnel se trouve à l'Ouest; celui
@@ -185,6 +196,7 @@ du commissaire Guersant est situé au Nord; la salle de repos se situe à
 l'Est; l'ascenseur se trouve au Sud.
 
 >Vous vous déplacez vers l'Ouest.
+
 Le bureau du personnel
 Vous vous trouvez dans le bureau du personnel. Il s'agit d'une vaste pièce
 dans laquelle sont installés une dizaine de postes (bureaux et ordinateurs).
@@ -203,6 +215,7 @@ Rejoins-moi dans le bureau de Yannick dès que possible." dites-vous. La
 sortie se trouve à l'Est.
 
 >Vous vous déplacez vers l'Est.
+
 Le premier étage
 Vous arrivez au premier étage. Il s'agit d'un petit couloir, similaire à
 celui du rez-de-chaussée. Le bureau du personnel se trouve à l'Ouest; celui
@@ -210,6 +223,7 @@ du commissaire Guersant est situé au Nord; la salle de repos se situe à
 l'Est; l'ascenseur se trouve au Sud.
 
 >Vous vous déplacez vers le Sud.
+
 L'ascenseur
 Vous voilà dans l'ascenseur! Tapez "premier étage" pour vous rendre au
 premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
@@ -217,6 +231,7 @@ premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
 "rez-de-chaussée" pour regagner le rez-de-chaussée.
 
 >Vous regagnez le rez-de-chaussée.
+
 Le couloir
 Vous êtes à présent dans un petit couloir (ni très long, ni très large).
 Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest;
@@ -227,12 +242,14 @@ Celui-ci est présent, ainsi que votre collègue Patrick. Vous prenez la
 parole: "Vous êtes prêts les gars?" demandez-vous. "Oui Lucas." répond
 Yannick. "Je vais chercher mon arme de service dans mon bureau et je vous
 rejoins." dites-vous avant de ressortir de la pièce.
+
 Le couloir
 Vous êtes à présent dans un petit couloir (ni très long, ni très large).
 Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest;
 l'accueil se situe au Sud.
 
 >Vous vous déplacez vers l'Est.
+
 Votre bureau
 Vous pénétrez dans votre bureau. Il s'agit d'une pièce relativement étroite.
 Au Nord, vous pouvez voir un placard; le bureau se trouve à l'Est; un
@@ -245,6 +262,7 @@ fauteuil est situé au Sud; le couloir se situe à l'Ouest.
 >Vous enlevez votre arme de service.
 
 >Vous vous déplacez vers l'Ouest.
+
 Le couloir
 Vous êtes à présent dans un petit couloir (ni très long, ni très large).
 Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest;
@@ -256,6 +274,7 @@ les gars,  on peut y aller." dites-vous. "Ok Lucas. Allons coffrer ce gars!"
 répond Yannick. Vous sortez du bureau puis vous quittez le commissariat,
 accompagné par vos deux collègues.  Vous vous dirigez alors vers le domicile
 de Roberto Amato.
+
 Devant le domicile de Roberto Amato
 Vous arrivez sur place après un long quart d'heure de trajet.  Vous vous
 trouvez dans une petite cour. La porte d'entrée de la maison se trouve au
@@ -288,12 +307,14 @@ vous, vous parvenez à vous relever, malgré un important mal de tête. L'entrée
 de la maison du mafieux se trouve au Nord.
 
 >Vous vous déplacez vers le Nord.
+
 Le domicile de Roberto Amato
 A présent, vous vous trouvez dans l'entrée du domicile de Roberto Amato. Il
 s'agit d'un petit couloir. Le sol est carrelé; les murs sont recouverts d'une
 tapisserie blanche. Le salon se trouve au Nord; la sortie est située au Sud.
 
 >Vous vous déplacez vers le Nord.
+
 Le salon
 Vous arrivez dans le salon du mafieux. Ici, vous retrouvez les mêmes
 carrelages et la même tapisserie que dans l'entrée. A l'Est, contre le mur,
@@ -312,6 +333,7 @@ pages de ce magazine sont déchirées. Cela pourrait servir à prouver que
 Roberto Amato nit faire face à des pulsions." pensez-vous
 
 >Vous vous déplacez vers le Nord.
+
 La cuisine
 Vous pénétrez dans la cuisine. Différents meubles sont installés dans cette
 pièce relativement spacieuse: une table en verre trône au centre de la pièce;
@@ -340,6 +362,7 @@ complémenter les trouvailles faites par les experts de la police
 scientifique." pensez-vous.
 
 >Vous montez les escaliers.
+
 A l'étage
 Vous arrivez à l'étage. Vous vous trouvez sur un palier. La chambre du
 mafieux se trouve au Nord; la salle de bain est située à l'Ouest; les
@@ -355,6 +378,7 @@ avant de retourner au commissariat. Attends-moi à l'étage des
 interrogatoires." conseillez-vous. "Tu pourras me trouver en salle 2."
 affirme Yannick. "Ok Yannick. A tout à l'heure." dites-vous avant de
 raccrocher.
+
 La chambre de Roberto Amato
 Vous pénétrez dans la chambre de Roberto Amato. Il s'agit d'une pièce
 relativement vaste. Le sol est recouvert de parquet flottant; une tapisserie
@@ -374,12 +398,14 @@ Vous prenez le sachet de drogue.
 Vous prenez la batte de baseball.
 
 >Vous vous déplacez vers le Sud.
+
 A l'étage
 Vous arrivez à l'étage. Vous vous trouvez sur un palier. La chambre du
 mafieux se trouve au Nord; la salle de bain est située à l'Ouest; les
 escaliers permettant de regagner la cuisine se situent au Sud.
 
 >Vous descendez les escaliers.
+
 La cuisine
 Vous pénétrez dans la cuisine. Différents meubles sont installés dans cette
 pièce relativement spacieuse: une table en verre trône au centre de la pièce;
@@ -389,6 +415,7 @@ permettant de se rendre à l'étage se trouvent au Nord; le salon est situé au
 Sud.
 
 >Vous vous déplacez vers le Sud.
+
 Le salon
 Vous arrivez dans le salon du mafieux. Ici, vous retrouvez les mêmes
 carrelages et la même tapisserie que dans l'entrée. A l'Est, contre le mur,
@@ -397,6 +424,7 @@ l'Ouest, contre le mur. La cuisine se trouve au Nord; l'entrée est située au
 Sud.
 
 >Vous vous déplacez vers le Sud.
+
 Le domicile de Roberto Amato
 A présent, vous vous trouvez dans l'entrée du domicile de Roberto Amato. Il
 s'agit d'un petit couloir. Le sol est carrelé; les murs sont recouverts d'une
@@ -406,10 +434,12 @@ tapisserie blanche. Le salon se trouve au Nord; la sortie est située au Sud.
 "Cette fois, je te tiens Amato. Je vais t'envoyer moisir en prison pour le
 reste de ta misérable vie." affirmez-vous en sortant du domicile du criminel.
 Vous reprenez la route, en direction du commissariat.
+
 Devant le commissariat
 Vous arrivez devant le commissariat. L'entrée se trouve au Nord.
 
 >Vous vous déplacez vers le Nord.
+
 L'accueil
 Vous vous trouvez à l'accueil du commissariat. Il s'agit d'un hall
 relativement spacieux. A l'Est, vous pouvez un comptoir derrière lequel est
@@ -417,12 +447,14 @@ assise une secrétaire. Une porte ouverte menant à un couloir se trouve au
 Nord; la sortie est située au Sud.
 
 >Vous vous déplacez vers le Nord.
+
 Le couloir
 Vous êtes à présent dans un petit couloir (ni très long, ni très large).
 Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest;
 l'accueil se situe au Sud.
 
 >Vous vous déplacez vers le Nord.
+
 L'ascenseur
 Vous voilà dans l'ascenseur! Tapez "premier étage" pour vous rendre au
 premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
@@ -452,6 +484,7 @@ dit Yannick en regardant Roberto. Votre ami quitte alors la pièce suivi par
 Patrick et Roberto. La sortie se trouve au Sud.
 
 >Vous vous déplacez vers le Sud.
+
 Le deuxième étage
 Vous arrivez au deuxième étage, un étage réservé aux interrogatoires. Vous
 pouvez voir trois portes: à l'Ouest, la porte menant à la salle 1; au Nord,
@@ -459,6 +492,7 @@ la porte menant à la salle 2; à l'Est, celle menant à la salle 3. L'ascenseur
 se trouve au Sud.
 
 >Vous vous déplacez vers le Sud.
+
 L'ascenseur
 Vous voilà dans l'ascenseur! Tapez "premier étage" pour vous rendre au
 premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
@@ -564,6 +598,7 @@ rapporter la clé dès que vous aurez enfermé ce mafieux." vous rappelle le
 chef. "Ce sera fait chef." répondez-vous. La sortie se trouve au Sud.
 
 >Vous vous déplacez vers le Sud.
+
 Le premier étage
 Vous arrivez au premier étage. Il s'agit d'un petit couloir, similaire à
 celui du rez-de-chaussée. Le bureau du personnel se trouve à l'Ouest; celui
@@ -571,6 +606,7 @@ du commissaire Guersant est situé au Nord; la salle de repos se situe à
 l'Est; l'ascenseur se trouve au Sud.
 
 >Vous vous déplacez vers le Sud.
+
 L'ascenseur
 Vous voilà dans l'ascenseur! Tapez "premier étage" pour vous rendre au
 premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
@@ -606,6 +642,7 @@ dites-vous. Yannick vous serre la main: "Pas de problème mon pote!"
 s'exclame-t-il avant de s'éloigner. L'ascenseur se trouve au Sud.
 
 >Vous vous déplacez vers le Sud.
+
 L'ascenseur
 Vous voilà dans l'ascenseur! Tapez "premier étage" pour vous rendre au
 premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
@@ -635,6 +672,7 @@ soirée." souhaitez-vous. "Vous de même." répond le commissaire. La sortie se
 trouve au Sud.
 
 >Vous vous déplacez vers le Sud.
+
 Le premier étage
 Vous arrivez au premier étage. Il s'agit d'un petit couloir, similaire à
 celui du rez-de-chaussée. Le bureau du personnel se trouve à l'Ouest; celui
@@ -642,6 +680,7 @@ du commissaire Guersant est situé au Nord; la salle de repos se situe à
 l'Est; l'ascenseur se trouve au Sud.
 
 >Vous vous déplacez vers le Sud.
+
 L'ascenseur
 Vous voilà dans l'ascenseur! Tapez "premier étage" pour vous rendre au
 premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
@@ -649,12 +688,14 @@ premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
 "rez-de-chaussée" pour regagner le rez-de-chaussée.
 
 >Vous regagnez le rez-de-chaussée.
+
 Le couloir
 Vous êtes à présent dans un petit couloir (ni très long, ni très large).
 Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest;
 l'accueil se situe au Sud.
 
 >Vous vous déplacez vers le Sud.
+
 L'accueil
 Vous vous trouvez à l'accueil du commissariat. Il s'agit d'un hall
 relativement spacieux. A l'Est, vous pouvez un comptoir derrière lequel est
@@ -667,6 +708,7 @@ dirigez vers votre domicile. Après un quart d'heure de trajet, vous arrivez à
 bon port.  "Stéphanie? Morgane?" appelez-vous en entrant dans votre demeure.
 A votre grande surprise, personne ne vous répond. "Pourquoi ne
 répondent-elles pas? Où sont-elles?" vous demandez-vous.
+
 Votre domicile
 A présent, vous vous trouvez dans l'entrée de votre domicile. Les murs sont
 recouverts d'une tapisserie jaune et le sol est recouvert de moquette (tout
@@ -707,6 +749,7 @@ votre téléphone se met à sonner. Vous décrochez, tremblant comme une feuille:
 "Ici Label." dites-vous timidement. "Salut Lucas! C'est Yannick! Il y a du
 nouveau dans l'affaire Amato!" s'exclame Yannick au bout du fil. "Je n'ai pas
 le temps Yannick!" rétorquez-vous avant de raccrocher.
+
 Votre domicile
 A présent, vous vous trouvez dans l'entrée de votre domicile. Les murs sont
 recouverts d'une tapisserie jaune et le sol est recouvert de moquette (tout
@@ -724,10 +767,12 @@ claquant des doigts, il se trompe sur toute la ligne!" dites-vous en quittant
 votre domicile. Vous prenez immédiatement la route, en direction de
 l'aéroport d'Orly. Après un long trajet d'une heure (dû aux embouteillages),
 vous arrivez enfin à destination.
+
 Devant l'aéroport d'Orly
 Vous arrivez devant l'aéroport. L'entrée se trouve au Nord.
 
 >Vous vous déplacez vers le Nord.
+
 Le hall d'entrée
 Vous pénétrez dans le hall d'entrée de l'aéroport. Quelques personnes vont et
 viennent dans ce hall. Le nombre peu élevé d'individus renforce l'aspect
@@ -735,6 +780,7 @@ vaste de l'endroit. Les guichets permettant d'enregistrer les bagages sont
 situés au Nord; la sortie se trouve au Sud.
 
 >Vous vous déplacez vers le Nord.
+
 Les guichets
 Vous arrivez dans une vaste pièce dans laquelle sont installés les différents
 guichets permettant d'enregistrer les bagages. Les guichets sont disposés de
@@ -1005,6 +1051,7 @@ autres passagers. Vous vous déplacez à l'intérieur de l'aéroport jusqu'à en
 trouver la sortie.  Une fois à l'extérieur, vous reprenez votre voiture afin
 de vous rendre au commissariat, malgré l'heure tardive: "Bien qu'il soit 21
 heures, je pourrai peut-être trouver Yannick au commissariat." pensez-vous.
+
 Devant le commissariat
 Vous arrivez devant le commissariat. L'entrée se trouve au Nord.
 (Your score has increased by 1)
@@ -1012,6 +1059,7 @@ Vous arrivez devant le commissariat. L'entrée se trouve au Nord.
 >Le temps passe...
 
 >Vous vous déplacez vers le Nord.
+
 L'accueil
 Vous vous trouvez à l'accueil du commissariat. Il s'agit d'un hall
 relativement spacieux. A l'Est, vous pouvez un comptoir derrière lequel est
@@ -1019,6 +1067,7 @@ assise une secrétaire. Une porte ouverte menant à un couloir se trouve au
 Nord; la sortie est située au Sud.
 
 >Vous vous déplacez vers le Nord.
+
 Le couloir
 Vous êtes à présent dans un petit couloir (ni très long, ni très large).
 Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest;
@@ -1062,6 +1111,7 @@ interroge Yannick. "Je sais que cette piste est plutôt vague mais nous ne
 devons négliger aucune possibilité. Je vais rendre une petite visite à cet
 avocat." assurez-vous. "Ok Lucas mais je refuse que tu y ailles seul. Je
 t'accompagne." "Ok Yannick. On y va."
+
 Le bureau de Yannick
 Vous vous trouvez dans le bureau de Yannick. Cette pièce est identique à
 votre bureau, à ceci près que la disposition du mobilier est quelque peu
@@ -1075,6 +1125,7 @@ quittez le commissariat en compagnie de votre ami. Ce dernier vous conduit
 jusqu'au cabinet de cet avocat: "Quoi qu'il arrive, ne fais pas de connerie."
 vous conseille Yannick. "Ne t'inquiète pas, je saurai me retenir."
 certifiez-vous.
+
 Devant le cabinet de Maître Laguiard
 Vous arrivez devant le cabinet de l'avocat. L'entrée se trouve au Nord.
 Yannick Vilon est ici.
@@ -1183,6 +1234,7 @@ mon coeur. Je vais te détacher." répondez-vous.
 Vous dénouez les sangles attachées aux poignets et aux chevilles de votre
 femme: "C'est fini ma chérie." dites-vous en prenant Erica dans vos bras.
 "Sortons d'ici." propose votre épouse. "D'accord. Suis-moi."
+
 La grande salle
 Vous êtes dans une grande salle, dont le mobilier est on ne peut plus
 inhabituel: seul un lit trône au centre de la pièce. La sortie se trouve au
@@ -1213,10 +1265,12 @@ ma chérie. Je t'appellerai dès que nous aurons du nouveau concernant
 Morgane." proposez-vous. "D'accord. Fais attention à toi." "C'est promis."
 assurez-vous. Erica vous embrasse une dernière fois, avant de repartir pour
 le domicile conjugal.
+
 Devant le commissariat
 Vous arrivez devant le commissariat. L'entrée se trouve au Nord.
 
 >Vous vous déplacez vers le Nord.
+
 L'accueil
 Vous vous trouvez à l'accueil du commissariat. Il s'agit d'un hall
 relativement spacieux. A l'Est, vous pouvez un comptoir derrière lequel est
@@ -1224,12 +1278,14 @@ assise une secrétaire. Une porte ouverte menant à un couloir se trouve au
 Nord; la sortie est située au Sud.
 
 >Vous vous déplacez vers le Nord.
+
 Le couloir
 Vous êtes à présent dans un petit couloir (ni très long, ni très large).
 Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest;
 l'accueil se situe au Sud.
 
 >Vous vous déplacez vers le Nord.
+
 L'ascenseur
 Vous voilà dans l'ascenseur! Tapez "premier étage" pour vous rendre au
 premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
@@ -1289,6 +1345,7 @@ serrez la main. "Merci Yannick. On se voit demain." Votre collègue quitte, à
 son tour, le bureau du chef. La sortie se trouve au Sud.
 
 >Vous vous déplacez vers le Sud.
+
 Le premier étage
 Vous arrivez au premier étage. Il s'agit d'un petit couloir, similaire à
 celui du rez-de-chaussée. Le bureau du personnel se trouve à l'Ouest; celui
@@ -1296,6 +1353,7 @@ du commissaire Guersant est situé au Nord; la salle de repos se situe à
 l'Est; l'ascenseur se trouve au Sud.
 
 >Vous vous déplacez vers le Sud.
+
 L'ascenseur
 Vous voilà dans l'ascenseur! Tapez "premier étage" pour vous rendre au
 premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
@@ -1303,6 +1361,7 @@ premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
 "rez-de-chaussée" pour regagner le rez-de-chaussée.
 
 >Vous regagnez le rez-de-chaussée.
+
 Le couloir
 Vous êtes à présent dans un petit couloir (ni très long, ni très large).
 Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest;
@@ -1314,6 +1373,7 @@ commissariat. Vous reprenez alors la route en direction de votre domicile.
 Après une durée de trajet vous semblant être une éternité, vous arrivez à bon
 port.  Vous sortez de votre voiture puis vous vous précipitez à l'intérieur
 de votre demeure.
+
 Votre domicile
 A présent, vous vous trouvez dans l'entrée de votre domicile. Les murs sont
 recouverts d'une tapisserie jaune et le sol est recouvert de moquette (tout

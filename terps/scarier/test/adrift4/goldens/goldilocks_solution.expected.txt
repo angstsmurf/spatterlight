@@ -28,6 +28,7 @@ An old pedlar is sitting on a log here, tending to his bunions.
 There are exits north, east and south.
 
 >I move south.
+
 On a path in the forest
 I'm on a path winding through the Enchanted Forest. The path winds it way
 from the north towards the west. In every other direction there are dark,
@@ -51,6 +52,7 @@ the path forks; you know, like a fork. To the north the path widens into a
 clearing. To the west it disappears into the forest.
 
 >I move north.
+
 In a clearing in the forest
 I'm in a clearing. There is a teeny tiny cottage here complete with a
 thatched roof and leaded windows. It's just like something out of a fairy
@@ -62,6 +64,7 @@ west.
 I can move north, south and west.
 
 >I move north.
+
 On the porch
 I'm standing on the porch of the Three Bears' cottage. It would be quite
 pretty in a rustic sort of way had someone not seen fit to paint it gold. The
@@ -78,6 +81,7 @@ I can only move south.
 >I take the crumpled note from the empty milkbottle.
 
 >I move south.
+
 In a clearing in the forest
 I'm in a clearing. There is a teeny tiny cottage here complete with a
 thatched roof and leaded windows. It's just like something out of a fairy
@@ -89,6 +93,7 @@ west.
 I can move north, south and west.
 
 >I move west.
+
 In the garden
 I'm in a little garden alongside the cottage. There's a vegetable plot in a
 sunny spot by the wall and on the other side of the garden a somewhat
@@ -108,6 +113,7 @@ things came from tins!
 >I take the overripe pumpkin from the vegetable plot.
 
 >I move in.
+
 In the potting shed
 I'm in the potting shed, a ramshackle structure that was obviously cobbled
 together in five minutes some idle Sunday afternoon.  I didn't know bears had
@@ -133,6 +139,7 @@ sticks of dynamite from the old metal trunk.  I take the trowel and the pair
 of gardening gloves from one of the plant pots.
 
 >I move out.
+
 In the garden
 I'm in a little garden alongside the cottage. There's a vegetable plot in a
 sunny spot by the wall and on the other side of the garden a somewhat
@@ -144,6 +151,7 @@ the north, an overgrown pergola leads into a meadow.
 I can move north, east and in.
 
 >I move north.
+
 In a small meadow
 I'm in a small meadow at the back of the cottage, separated from the forest
 by a rickety fence. In the middle of the meadow is what appears to be a
@@ -159,6 +167,7 @@ nuzzling my chest. I get impression she thinks I've got more turnips hidden
 somewhere about my person. I can't imagine where she gets that idea.
 
 >I move south.
+
 In the garden
 I'm in a little garden alongside the cottage. There's a vegetable plot in a
 sunny spot by the wall and on the other side of the garden a somewhat
@@ -172,6 +181,7 @@ I can move north, east and in.
 Daisy the cow walks towards me from the north.
 
 >I move east.
+
 In a clearing in the forest
 I'm in a clearing. There is a teeny tiny cottage here complete with a
 thatched roof and leaded windows. It's just like something out of a fairy
@@ -185,6 +195,7 @@ I can move north, south and west.
 Daisy the cow walks towards me from the west.
 
 >I move south.
+
 At a fork in the path
 I'm at a fork in the path. Not the kind of fork you eat with, the sort where
 the path forks; you know, like a fork. To the north the path widens into a
@@ -195,6 +206,7 @@ I can move north, east and west.
 Daisy the cow walks towards me from the north.
 
 >I move east.
+
 On a path in the forest
 I'm on a path winding through the Enchanted Forest. The path winds it way
 from the north towards the west. In every other direction there are dark,
@@ -207,6 +219,7 @@ Daisy the cow walks towards me from the west.
 
 >(Your score has increased by 3)
 I move north.
+
 In the enchanted forest
 A large wooden sign informs me that I'm in the Enchanted Forest. What it
 doesn't tell me is how the hell I get out! Everywhere I look there are trees,
@@ -225,6 +238,7 @@ you go love - you'll be cured in no time!' He open his suitcase and hands me
 a small packet, then leads Daisy off into the forest.
 
 >I move south.
+
 On a path in the forest
 I'm on a path winding through the Enchanted Forest. The path winds it way
 from the north towards the west. In every other direction there are dark,
@@ -234,6 +248,7 @@ kind of way. Ooh, I'm soooo scared!
 I can move north, east, south and west.
 
 >I move west.
+
 At a fork in the path
 I'm at a fork in the path. Not the kind of fork you eat with, the sort where
 the path forks; you know, like a fork. To the north the path widens into a
@@ -242,6 +257,7 @@ clearing. To the west it disappears into the forest.
 I can move north, east and west.
 
 >I move north.
+
 In a clearing in the forest
 I'm in a clearing. There is a teeny tiny cottage here complete with a
 thatched roof and leaded windows. It's just like something out of a fairy
@@ -253,6 +269,7 @@ west.
 I can move north, south and west.
 
 >I move west.
+
 In the garden
 I'm in a little garden alongside the cottage. There's a vegetable plot in a
 sunny spot by the wall and on the other side of the garden a somewhat
@@ -288,6 +305,7 @@ pair of secateurs, the small packet, the trowel, the ratty old paintbrush,
 the overripe pumpkin and the pair of gardening gloves.
 
 >If Jack can do it, so can Goldilocks!
+
 At the top of the beanstalk
 I'm at the top of the beanstalk. I was under the impression that these giant
 beanstalks all had castles at the top of them, but not this scrawny specimin.
@@ -295,6 +313,7 @@ However I can almost touch the roof of the cottage from here.
 
 >Okay... Oof! Fortunately for you I had a soft landing on the thatched roof of
 the cottage...
+
 On the roof
 I'm perched precariously on the roof of the cottage, trying desperately not
 to look down. There is a chimney here attached to which is a TV aerial. It
@@ -306,6 +325,7 @@ Okay - that should impove the picture!
 
 >Okay here goes... Wheee! I slid right down the chimney and out of the
 fireplace! That was fun. Can I do it again?
+
 In the kitchen
 I am in the bears' tiny kitchen, a cosy little room that could have come
 straight from the pages of Country Living. It's big on original features and
@@ -351,6 +371,7 @@ place to keep it! I pick it up in case it comes in useful.
 >I drop the spoon.
 
 >I move north.
+
 In the pantry
 I'm in the pantry, a small claustrophobic room which smells faintly of
 cinammon, honey and the mouse droppings that are liberally sprinkled across
@@ -384,6 +405,7 @@ cool is that?
 >I drop the box of porridge oats.
 
 >I move south.
+
 In the kitchen
 I am in the bears' tiny kitchen, a cosy little room that could have come
 straight from the pages of Country Living. It's big on original features and
@@ -397,6 +419,7 @@ gigantic bowl and a trowel.
 I can move north and east.
 
 >I move east.
+
 In the hall
 I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
@@ -433,6 +456,7 @@ Someone could have a nasty accident if they didn't know it was there!
 >I open the trapdoor. A set of rickety wooden stairs lead down into darkness.
 
 >I move north.
+
 In the sitting room
 From its floral carpet to its lovingly dusted knick-knacks, The Three Bears'
 sitting room is a chintzy abomination of taste, the sort of room that would
@@ -459,6 +483,7 @@ under me! I guess that's what happens if you buy self-assembly.
 
 >(Getting up off the floor first)
 I move south.
+
 In the hall
 I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
@@ -473,6 +498,7 @@ The Big Bad Wolf is here.
 I can move north, west, up, down and out.
 
 >I move up.
+
 In the bedroom
 I'm in the Three Bears' bedroom, a small attic room with steeply sloping
 walls. They have the weirdest sleeping arrangements. There's a tiny little
@@ -496,6 +522,7 @@ marriage guidance!
 >I take the cue ball from one of the pockets.
 
 >I move down.
+
 In the hall
 I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
@@ -510,6 +537,7 @@ The Big Bad Wolf is here.
 I can move north, west, up, down and out.
 
 >I move west.
+
 In the kitchen
 I am in the bears' tiny kitchen, a cosy little room that could have come
 straight from the pages of Country Living. It's big on original features and
@@ -536,6 +564,7 @@ I put the pork chops on the hearth. Wow, they defrosted quickly!
 >I take the packet of medium rare pork chops from the fireplace.
 
 >I move east.
+
 In the hall
 I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
@@ -558,6 +587,7 @@ delectable dish! If there is anything I can do in return, simply name it, and
 it will be done! Huffing and puffing a speciality...'
 
 >I move out.
+
 On the porch
 I'm standing on the porch of the Three Bears' cottage. It would be quite
 pretty in a rustic sort of way had someone not seen fit to paint it gold. The
@@ -571,6 +601,7 @@ I can move south and in.
 The Big Bad Wolf walks towards me from inside.
 
 >I move south.
+
 In a clearing in the forest
 I'm in a clearing. There is a teeny tiny cottage here complete with a
 thatched roof and leaded windows. It's just like something out of a fairy
@@ -584,6 +615,7 @@ I can move north, south and west.
 The Big Bad Wolf walks towards me from the north.
 
 >I move west.
+
 In the garden
 I'm in a little garden alongside the cottage. There's a vegetable plot in a
 sunny spot by the wall and on the other side of the garden a somewhat
@@ -599,6 +631,7 @@ I can move north, east and in.
 The Big Bad Wolf walks towards me from the east.
 
 >I move north.
+
 In a small meadow
 I'm in a small meadow at the back of the cottage, separated from the forest
 by a rickety fence. In the middle of the meadow is what appears to be a
@@ -628,6 +661,7 @@ hem of his nightdress, hops over the fence and disappears into the forest.
 >I drop the oil can.
 
 >I move south.
+
 In the garden
 I'm in a little garden alongside the cottage. There's a vegetable plot in a
 sunny spot by the wall and on the other side of the garden a somewhat
@@ -641,6 +675,7 @@ the roof.
 I can move north, east and in.
 
 >I move east.
+
 In a clearing in the forest
 I'm in a clearing. There is a teeny tiny cottage here complete with a
 thatched roof and leaded windows. It's just like something out of a fairy
@@ -652,6 +687,7 @@ west.
 I can move north, south and west.
 
 >I move north.
+
 On the porch
 I'm standing on the porch of the Three Bears' cottage. It would be quite
 pretty in a rustic sort of way had someone not seen fit to paint it gold. The
@@ -663,6 +699,7 @@ A battered old dustbin sits to one side of the porch.
 I can move south and in.
 
 >I move in.
+
 In the hall
 I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
@@ -675,6 +712,7 @@ an open trapdoor.
 I can move north, west, up, down and out.
 
 >I move down.
+
 In the cellar
 I'm in a dingy cellar with bare brick walls and the musty smell of a laundry
 room. There is an old upright washing machine in the corner and a fusebox on
@@ -699,12 +737,14 @@ leading into some kind of hidden room! The words 'Baby Bear's Playroom' are
 painted above the arch!
 
 >I move west.
+
 In a dark passage
 I'm in a dark passage carved into the rock. It curves around to the north.
 
 I can move north and east.
 
 >I move north.
+
 In a dungeon
 This seems to be a small annex to the main part of the cellar. Everything
 about the decor of this place says 'dungeon' to me, from the guttering
@@ -726,12 +766,14 @@ her, um, actually you don't want to know where it was shoved. Ouch.
 I've taken the poker in case it comes in useful.
 
 >I move south.
+
 In a dark passage
 I'm in a dark passage carved into the rock. It curves around to the north.
 
 I can move north and east.
 
 >I move east.
+
 In the cellar
 I'm in a dingy cellar with bare brick walls and the musty smell of a laundry
 room. There is an old upright washing machine in the corner and a fusebox on
@@ -751,6 +793,7 @@ force never achieved anything?
 >I drop the set of dumbells.
 
 >I move up.
+
 In the hall
 I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
@@ -763,6 +806,7 @@ an open trapdoor.
 I can move north, west, up, down and out.
 
 >I move north.
+
 In the sitting room
 From its floral carpet to its lovingly dusted knick-knacks, The Three Bears'
 sitting room is a chintzy abomination of taste, the sort of room that would
@@ -779,6 +823,7 @@ Okay, I use the secateurs to cut the cable connecting the electrodes to the
 power supply. Let's see Papa Bear try to fry me now!
 
 >I move south.
+
 In the hall
 I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
@@ -791,6 +836,7 @@ an open trapdoor.
 I can move north, west, up, down and out.
 
 >I move down.
+
 In the cellar
 I'm in a dingy cellar with bare brick walls and the musty smell of a laundry
 room. There is an old upright washing machine in the corner and a fusebox on
@@ -805,6 +851,7 @@ I can move west and up.
 >Okay, Switch B is in the ON position.
 
 >I move up.
+
 In the hall
 I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
@@ -817,6 +864,7 @@ an open trapdoor.
 I can move north, west, up, down and out.
 
 >I move north.
+
 In the sitting room
 From its floral carpet to its lovingly dusted knick-knacks, The Three Bears'
 sitting room is a chintzy abomination of taste, the sort of room that would
@@ -886,6 +934,7 @@ carrying me with it. The hole in the sitting room floor closes behind it.
 >I stand up from the large chair.
 
 >I move south.
+
 In the hall
 I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
@@ -899,6 +948,7 @@ I can move north, west, up, down and out.
 'Ding-Dong!' A bell rings somewhere.
 
 >I move out.
+
 On the porch
 I'm standing on the porch of the Three Bears' cottage. It would be quite
 pretty in a rustic sort of way had someone not seen fit to paint it gold. The
@@ -921,6 +971,7 @@ Hmmm... they seem to fit quite snuggly. I jammed them in upside down so that
 the fuses are touching the heating elements of the toaster.
 
 >I move in.
+
 In the hall
 I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
@@ -933,6 +984,7 @@ an open trapdoor.
 I can move north, west, up, down and out.
 
 >I move down.
+
 In the cellar
 I'm in a dingy cellar with bare brick walls and the musty smell of a laundry
 room. There is an old upright washing machine in the corner and a fusebox on
@@ -947,6 +999,7 @@ I can move west and up.
 >Okay, Switch A is in the OFF position.
 
 >I move up.
+
 In the hall
 I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
@@ -959,6 +1012,7 @@ an open trapdoor.
 I can move north, west, up, down and out.
 
 >I move north.
+
 In the sitting room
 From its floral carpet to its lovingly dusted knick-knacks, The Three Bears'
 sitting room is a chintzy abomination of taste, the sort of room that would
@@ -1008,6 +1062,7 @@ carrying me with it. The hole in the sitting room floor closes behind it.
 >I stand up from the large chair.
 
 >I move south.
+
 In the hall
 I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
@@ -1020,6 +1075,7 @@ an open trapdoor.
 I can move north, west, up, down and out.
 
 >I move down.
+
 In the cellar
 I'm in a dingy cellar with bare brick walls and the musty smell of a laundry
 room. There is an old upright washing machine in the corner and a fusebox on
@@ -1043,6 +1099,7 @@ heat up igniting the fuses on the sticks of dynamite...
 EXPLOSION which rocks the whole cottage!
 
 >I move up.
+
 In the hall
 I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
@@ -1055,6 +1112,7 @@ an open trapdoor.
 I can move north, west, up, down and out.
 
 >I move north.
+
 In the sitting room
 From its floral carpet to its lovingly dusted knick-knacks, The Three Bears'
 sitting room is a chintzy abomination of taste, the sort of room that would
@@ -1089,6 +1147,7 @@ I can also see a TV remote control.
 for someone much heavier than me!
 
 >I move west.
+
 In Papa Bear's workshop
 This must be where Papa Bear does all his D.I.Y. It's a small but tidy
 workshop with a bench and an old filing cabinet in the corner. Pinned to the
@@ -1115,6 +1174,7 @@ collapses to reveal a strange cauldron-like contraption inside.
 >I drop the blackened metal poker.
 
 >I move east.
+
 In a cave
 The cave has been completely devastated by the explosion! Where the door used
 to be there is now a gaping hole in the rock. The walls of the cave, melted
@@ -1134,6 +1194,7 @@ carrying me with it. The hole in the sitting room floor closes behind it.
 >I stand up from the large chair.
 
 >I move south.
+
 In the hall
 I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
@@ -1146,6 +1207,7 @@ an open trapdoor.
 I can move north, west, up, down and out.
 
 >I move out.
+
 On the porch
 I'm standing on the porch of the Three Bears' cottage. It would be quite
 pretty in a rustic sort of way had someone not seen fit to paint it gold. The
@@ -1159,6 +1221,7 @@ I can also see a package.
 I can move south and in.
 
 >I move south.
+
 In a clearing in the forest
 I'm in a clearing. There is a teeny tiny cottage here complete with a
 thatched roof and leaded windows. It's just like something out of a fairy
@@ -1170,6 +1233,7 @@ west.
 I can move north, south and west.
 
 >I move west.
+
 In the garden
 I'm in a little garden alongside the cottage. There's a vegetable plot in a
 sunny spot by the wall and on the other side of the garden a somewhat
@@ -1190,6 +1254,7 @@ He drops it on the grass in front of me and puckers up expectantly...
 >I pick up the slimy green frog.
 
 >I move east.
+
 In a clearing in the forest
 I'm in a clearing. There is a teeny tiny cottage here complete with a
 thatched roof and leaded windows. It's just like something out of a fairy
@@ -1201,6 +1266,7 @@ west.
 I can move north, south and west.
 
 >I move north.
+
 On the porch
 I'm standing on the porch of the Three Bears' cottage. It would be quite
 pretty in a rustic sort of way had someone not seen fit to paint it gold. The
@@ -1214,6 +1280,7 @@ I can also see a package.
 I can move south and in.
 
 >I move in.
+
 In the hall
 I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
@@ -1226,6 +1293,7 @@ an open trapdoor.
 I can move north, west, up, down and out.
 
 >I move up.
+
 In the bedroom
 I'm in the Three Bears' bedroom, a small attic room with steeply sloping
 walls. They have the weirdest sleeping arrangements. There's a tiny little
@@ -1303,6 +1371,7 @@ Damn it! I'm completely starkers now! You've got your three points - I hope
 you're satisfied!
 
 >I move down.
+
 In the hall
 I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
@@ -1315,6 +1384,7 @@ an open trapdoor.
 I can move north, west, up, down and out.
 
 >I move north.
+
 In the sitting room
 From its floral carpet to its lovingly dusted knick-knacks, The Three Bears'
 sitting room is a chintzy abomination of taste, the sort of room that would
@@ -1349,6 +1419,7 @@ I can also see a TV remote control.
 for someone much heavier than me!
 
 >I move west.
+
 In Papa Bear's workshop
 This must be where Papa Bear does all his D.I.Y. It's a small but tidy
 workshop with a bench and an old filing cabinet in the corner. Pinned to the
@@ -1367,6 +1438,7 @@ There is a bright flash and the magic porridge pot disappears in a puff of
 smoke! The wand is starting to get rarther warm.
 
 >I move east.
+
 In a cave
 The cave has been completely devastated by the explosion! Where the door used
 to be there is now a gaping hole in the rock. The walls of the cave, melted
@@ -1386,6 +1458,7 @@ carrying me with it. The hole in the sitting room floor closes behind it.
 >I stand up from the large chair.
 
 >I move south.
+
 In the hall
 I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
@@ -1398,6 +1471,7 @@ an open trapdoor.
 I can move north, west, up, down and out.
 
 >I move down.
+
 In the cellar
 I'm in a dingy cellar with bare brick walls and the musty smell of a laundry
 room. There is an old upright washing machine in the corner and a fusebox on
@@ -1433,6 +1507,7 @@ an open trapdoor.
  Just inside the front door is an open trapdoor.
 
 >I move north.
+
 In the sitting room
 From its floral carpet to its lovingly dusted knick-knacks, The Three Bears'
 sitting room is a chintzy abomination of taste, the sort of room that would
@@ -1447,6 +1522,7 @@ I can only move south.
 >I pick up the bearskin rug.
 
 >I move south.
+
 In the hall
 I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
@@ -1467,6 +1543,7 @@ Okay, I placed the rug over the trapdoor, so that it looks exactly as before
 >The front door is now closed.
 
 >I move up.
+
 In the bedroom
 I'm in the Three Bears' bedroom, a small attic room with steeply sloping
 walls. They have the weirdest sleeping arrangements. There's a tiny little

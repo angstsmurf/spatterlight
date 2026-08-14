@@ -52,6 +52,7 @@ From the elastic rope you make a rather good elastic lasso.
 >(Your score has increased by 1)
 Using the elastic lasso you climb up. The lasso falls back into the high
 sided room.
+
 Machinery
 You seem are in the middle of some sort of machinery or mechanism. The only
 visible exit is down, to the coin store.
@@ -61,12 +62,14 @@ levers. The frame has various horizontal metal bars welded across it.
 
 >(Your score has increased by 1)
 You climb up the machinery.
+
 Slot Room
 The tall but narrow room has a bright slot at one end. Some sort of lever is
 attached to the wall. The only visible exist is down to the machinery room.
 
 >(Your score has increased by 1)
 You pull the lever and the western wall gives way, you fall through it.
+
 Glass Room
 Standing on a small ledge one whole wall of this room seems to be made from
 glass. It appears that painted onto the other side of the glass are pictures
@@ -76,6 +79,7 @@ slot room.
 >(Your score has increased by 1)
 Using the cables against each picture as hand and foot holds, you climb down
 the glass wall.
+
 Metal Drum Room
 As far as you can see are row upon row of round metal objects, 4 metres in
 diameter. Each row has another row on top, and so on as far into the air as
@@ -99,6 +103,7 @@ An enormous paperclip is laying on the floor.
 Using the paperclip as a lever you open the nearest can. The force of the
 liquid escaping throws you against the wall.  As the pressure drops you fall
 to the floor and through a kind of trap door.
+
 Flap Room
 This place is about the size of one of those cans you have just seen. The
 wall in front of you appears to be an enormous flap. You do not see any

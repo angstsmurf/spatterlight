@@ -68,6 +68,7 @@ My lucky car is here, in all its 80s American glory.
 >I take the flashlight from the trunk.
 
 >I move north.
+
 Outside House
 The closer you get to a house, the more you start to see its soul. This soul
 is corrupted. You don't have to directly at it to know this, just look at the
@@ -84,6 +85,7 @@ nowhere is a recipe for disaster.
 
 I step foot into the house. God, I hope he's here. Shane. That's my son's
 name. I hope Shane's here.
+
 House (Den)
 Life does not belong here. Toys strewn everywhere, a broken television, a
 streak of blood across the carpet leading to another room (north). And there
@@ -102,6 +104,7 @@ saw.
 >I've already got the saw!
 
 >I move northeast.
+
 House (Kitchen)
 Reminds me of why I divorced my ex-wife. (She could never keep the house
 clean.) Crap galore. Pots and pans out of their proper cabinets, a box of
@@ -120,6 +123,7 @@ You could always go back to the (equally horrible) den (southwest).
 >I take the blue vial from the refrigerator.
 
 >I move southwest.
+
 House (Den)
 Life does not belong here. Toys strewn everywhere, a broken television, a
 streak of blood across the carpet leading to another room (north). And there
@@ -130,6 +134,7 @@ clean, seemingly unaffected by the rest of the chaos in the room.
 A broken window behind me (out).
 
 >I move north.
+
 House (Corridor)
 If incredibly tight spaces are bad for one's health, then it is a miracle
 that I am alive right now. No points of interest. There's just a trail of
@@ -141,6 +146,7 @@ It takes some time, but I carve a nice spot for the doorknob to fall out. The
 door is now openable.
 
 >I move west.
+
 House (Bedroom)
 One bed and a whole lot of junk: those are the occupants of this room. The
 smell of dead eggs and rotten meat is strong here; methinks it would be a
@@ -153,6 +159,7 @@ until I get my hands on something sturdy. I pull out...a laptop.
 >I've already got the laptop!
 
 >I move east.
+
 House (Corridor)
 If incredibly tight spaces are bad for one's health, then it is a miracle
 that I am alive right now. No points of interest. There's just a trail of
@@ -162,12 +169,14 @@ blood leading to a door (north), what looks to be a bedroom to my left
 >I open the door.
 
 >I move north.
+
 House (Steps)
 Narrow enclosures like this one are usually humid and stuffy, and this one is
 no exception. Wooden steps spiral poorly, as if done by an amateur, down into
 darkness.
 
 >I move down.
+
 House (Secret Room)
 Circuits and wires run throughout the room. In the middle of everything is a
 big metal box that is about my height. Surrounding it is a desk, a table with
@@ -211,6 +220,7 @@ Chapter Two: The Field
 
 I feel like I ran a million miles on one foot. Body aches like hell.
 Everything hurts. Ugh.
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
@@ -219,11 +229,13 @@ It's unusally hard to breathe here. It's like the air is clogging my throat.
 
 >
 >I move north.
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
 
 >I move north.
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
@@ -235,33 +247,39 @@ The air...it really is choking me...
 >I put on the gas mask.
 
 >I move north.
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
 
 >I move north.
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (east).
 
 >(Your score has increased by 2)
 I forge eastward.
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (east).
 
 >I move east.
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (east).
 A naked woman is here, chained to the ground.
 
 >I move east.
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
 
 >I move north.
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
@@ -271,6 +289,7 @@ A rock is here.
 >I pick up the rock.
 
 >I move north.
+
 Field
 Yellow grass, about knee-high, all around me. This is the end of the trail.
 
@@ -279,16 +298,19 @@ Here lies a large gate (north).
 >I put my hands in the dirt and come up...with an axe.
 
 >I move south.
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
 
 >I move south.
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
 
 >I move west.
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (east).
@@ -363,6 +385,7 @@ Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (east).
 
 >I move west.
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (east).
@@ -375,6 +398,7 @@ anything of interest for some distance (east).
 >Take what?
 
 >I move west.
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (east).
@@ -387,6 +411,7 @@ anything of interest for some distance (east).
 >Take what?
 
 >I move south.
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
@@ -399,6 +424,7 @@ anything of interest for some distance (north).
 >Take what?
 
 >I move south.
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
@@ -411,6 +437,7 @@ anything of interest for some distance (north).
 >Take what?
 
 >I move south.
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
@@ -423,6 +450,7 @@ anything of interest for some distance (north).
 >Take what?
 
 >I move south.
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
@@ -447,41 +475,49 @@ A woman is here, happy apparently.
 I might kill this woman.
 
 >I move north.
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
 
 >I move north.
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
 
 >I move north.
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
 
 >I move north.
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (east).
 
 >I move east.
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (east).
 
 >I move east.
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (east).
 
 >I move east.
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
 
 >I move north.
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
@@ -518,6 +554,7 @@ A medallion is here.
 >I put on the medallion.
 
 >I move north.
+
 Field
 Yellow grass, about knee-high, all around me. This is the end of the trail.
 
@@ -763,6 +800,7 @@ air...so hard to breathe.
 "You made it to your second trial. That is wonderful. Some people cannot even
 make it that far. I will reward you with more information as you get used to
 your surroundings."
+
 Cell 2
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 2 painted
@@ -1148,6 +1186,7 @@ Everything goes black.
 [Press any key to continue]
 
 And then everything lights up.
+
 Cell 4
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 4 painted
@@ -1394,6 +1433,7 @@ Here we go again.
 [Press any key to continue]
 
 I can see again.
+
 Cell 6
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 6 painted
@@ -1617,6 +1657,7 @@ Chapter Four: The Death
 [Press any key to continue]
 
 "Move north. You'll find him. Ask for battle tips if you feel overwhelmed."
+
 The Death
 Blue rays or light illuminate the landscape from underneath me. Above, a
 couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
@@ -1637,6 +1678,7 @@ It thunders in the distance. Streaks of green lightning are in the sky.
 Hard difficulty level selected.
 
 >I move north.
+
 The Death
 Blue rays or light illuminate the landscape from underneath me. Above, a
 couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
@@ -1742,6 +1784,7 @@ Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
 the ground long enough for it to calm to a breeze.
 
 >I move east.
+
 The Death
 Blue rays or light illuminate the landscape from underneath me. Above, a
 couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
@@ -1849,6 +1892,7 @@ Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
 
 >I move north.
+
 The Death
 Blue rays or light illuminate the landscape from underneath me. Above, a
 couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
@@ -2044,6 +2088,7 @@ Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
 
 >I move east.
+
 The Death
 Blue rays or light illuminate the landscape from underneath me. Above, a
 couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
@@ -2064,6 +2109,7 @@ I lapse into a coughing fit, unable to control myself. I cough up a thick
 purple substance. I wipe my mouth.
 
 >I move west.
+
 The Death
 Blue rays or light illuminate the landscape from underneath me. Above, a
 couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
@@ -2299,6 +2345,7 @@ Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
 
 >I move west.
+
 The Death
 Blue rays or light illuminate the landscape from underneath me. Above, a
 couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
@@ -2481,6 +2528,7 @@ back, louder than ever.
 >I've already got the lighter!
 
 >I move north.
+
 The Death
 Blue rays or light illuminate the landscape from underneath me. Above, a
 couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
@@ -2500,6 +2548,7 @@ floating and go crashing to the ground.
 My skin gets unusually warm for a second. It feels like it's burning.
 
 >I move north.
+
 The Death
 Blue rays or light illuminate the landscape from underneath me. Above, a
 couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
@@ -2656,6 +2705,7 @@ The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
 
 >I move northeast.
+
 The Death
 Blue rays or light illuminate the landscape from underneath me. Above, a
 couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
@@ -3035,6 +3085,7 @@ Chapter Five: The Waste Land
 [Press any key to continue]
 
 I wake up in a dump.
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
@@ -3578,6 +3629,7 @@ islands of black-brown masses which stink like hell.
 I can go north.
 
 >I move north.
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
@@ -3585,6 +3637,7 @@ islands of black-brown masses which stink like hell.
 I can go east and south.
 
 >I move east.
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.

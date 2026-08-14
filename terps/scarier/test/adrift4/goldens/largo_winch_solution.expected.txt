@@ -44,6 +44,7 @@ se trouvant à l'Ouest, il est écrit "Second compartiment"; sur celle située
 au Nord, il est inscrit "Sortie en terrasse." Le couloir est situé au Sud.
 
 >Vous vous déplacez vers l'Est.
+
 Dans le premier compartiment
 Vous êtes dans le premier compartiment. Il s'agit d'une grande salle de
 réception magnifiquement décorée (ce qui est normal pour un milliardaire).
@@ -70,6 +71,7 @@ dirai à Simon de ne pas trop se faire remarquer ce soir." "Bonne idée!" "A
 plus tard John." "A plus tard Largo."
 
 >Vous vous déplacez vers l'Ouest.
+
 Dans le salon V.I.P.
 Vous pénétrez dans le salon V.I.P. Il s'agit en réalité d'un couloir. Vous
 pouvez voir trois portes: une à l'Est, sur laquelle il est écrit "Premier
@@ -78,6 +80,7 @@ compartiment."; une au Nord, sur laquelle il est inscrit "Sortie en
 terrasse." Le couloir se trouve au Sud.
 
 >Vous vous déplacez vers l'Ouest.
+
 Dans le second compartiment
 Vous vous retrouvez dans le second compartiment. Il s'agit du bar. Quelques
 clients se font servir à boire par un barman. Vous pouvez voir un fauteuil à
@@ -127,6 +130,7 @@ second compartiment se trouve à l'Ouest; le couloir principal du salon V.I.P.
 est situé à l'Est.
 
 >Vous vous déplacez vers l'Est.
+
 Dans le salon V.I.P.
 Vous pénétrez dans le salon V.I.P. Il s'agit en réalité d'un couloir. Vous
 pouvez voir trois portes: une à l'Est, sur laquelle il est écrit "Premier
@@ -135,6 +139,7 @@ compartiment."; une au Nord, sur laquelle il est inscrit "Sortie en
 terrasse." Le couloir se trouve au Sud.
 
 >Vous vous déplacez vers le Nord.
+
 En terrasse
 Vous arrivez sur une grande terrasse entourée de jardinières de fleurs. Vous
 pouvez voir Jenny Lucas, assise à l'une des quelques tables installées.
@@ -156,6 +161,7 @@ imminent." "Merci John. J'arrive dans quelques instants." Le salon V.I.P. se
 trouve au Sud.
 
 >Vous vous déplacez vers le Sud.
+
 A l'intérieur
 Au moment où vous franchissez la porte de la terrasse, une femme entre par la
 porte principale et se dirige vers vous: "Monsieur Winch?" "Oui. Vous êtes
@@ -189,6 +195,7 @@ quoi?" "Crois-en mon expérience de voleur! Essaies du côté de la terrasse."
 le bar se situe à l'Ouest; la terrasse est située au Nord.
 
 >Vous vous déplacez vers le Nord.
+
 Sur la terrasse
 Vous voilà de retour sur la terrasse. Jenny Lucas se tient debout près d'une
 rambarde. Vous pouvez voir un plantoir délaissé sur une des jardinières
@@ -207,6 +214,7 @@ j'ai jamais rencontré!" Vous êtes entre le mur de la terrasse et la rambarde.
 Vous pouvez vous déplacer vers l'Ouest.
 
 >Vous vous déplacez vers l'Ouest.
+
 Devant la fenêtre
 Vous arrivez devant une fenêtre: "Cette fenêtre est fermée." vous dites-vous.
 Vous l'inspectez de plus près: "Il y a un léger décalage entre la fenêtre et
@@ -258,6 +266,7 @@ du rez-de-chaussée. Au Nord, vous pouvez voir la porte du salon V.I.P.
 légèrement ouverte grâce aux talents de Simon.
 
 >Vous vous déplacez vers le Nord.
+
 Dans le salon
 Vous franchissez la porte du salon V.I.P. Derrière cette porte, vous voyez
 Simon, se tenant la tête, essayant de se remettre debout: "Simon? Que
@@ -273,6 +282,7 @@ compartiments se trouvent à l'Est et à l'Ouest; la terrasse est située au
 Nord.
 
 >Vous vous déplacez vers le Nord.
+
 La terrasse
 Vous revoilà sur la terrasse. Jenny Lucas est étendue sur le sol. Cette
 pauvre femme a l'air mal en point.
@@ -293,11 +303,13 @@ les malfaiteurs étaient là pour intercepter ces documents." "C'est horrible!"
 "A plus tard Largo." Le salon V.I.P. est situé au Sud.
 
 >Vous vous déplacez vers le Sud.
+
 Le salon
 Vous revoilà dans le couloir principal du salon V.I.P. Les deux compartiments
 se trouvent à l'Est et à l'Ouest; la terrasse est située au Nord.
 
 >Vous vous déplacez vers l'Est.
+
 La salle de réception
 Vous entrez dans la salle de réception. Sharon est assise à une table. "Je
 dois la rassurer." vous dites-vous.
@@ -379,6 +391,7 @@ au salon; la porte menant à la chambre de la jeune femme est située à
 l'Ouest; la cuisine se trouve à l'Est.
 
 >Vous vous déplacez vers le Nord.
+
 Dans le salon
 Vous pénétrez dans le salon de Sharon. Il s'agit d'une petite pièce. Des
 motifs de roses ornent la tapisserie; le sol est recouvert de moquette. A
@@ -426,6 +439,7 @@ laissé aucune chance." "Merci Jerry. Je vais tirer cette affaire au clair."
 Nord.
 
 >Vous vous déplacez vers le Nord.
+
 A l'accueil
 Vous entrez dans les locaux. Vous débouchez dans une petite salle. En fond de
 salle, vous pouvez voir une table sur laquelle sont posés des magazines. A
@@ -484,6 +498,7 @@ Vous êtes donc dans la salle d'accueil. Au Nord, vous pouvez voir une porte
 ouverte.
 
 >Vous vous déplacez vers le Nord.
+
 Le couloir du rez-de-chaussée
 Vous pénétrez dans un petit couloir. Vous pouvez voir deux ascenseurs: un à
 l'Est et un à l'Ouest. Jenny Lucas sort de l'ascenseur situé à l'Est.
@@ -538,6 +553,7 @@ A l'Est et à l'Ouest, vous pouvez voir les deux ascenseurs; l'accueil se
 trouve au Sud.
 
 >Vous vous déplacez vers le Sud.
+
 L'accueil
 Vous entrez dans la salle d'accueil. Vous pouvez voir le directeur et la
 secrétaire.
@@ -564,16 +580,19 @@ Winch. A bientôt." "A bientôt Carmen." Vous êtes donc à l'accueil. Au Nord,
 vous pouvez voir le couloir du rez-de-chaussée.
 
 >Vous vous déplacez vers le Nord.
+
 Dans le couloir du rez-de-chaussée
 Vous revoilà dans le couloir du rez-de-chaussée du labo. A l'Est et à
 l'Ouest, vous pouvez voir les deux ascenseurs.
 
 >Vous vous déplacez vers l'Est.
+
 L'ascenseur de droite
 Vous entrez dans l'ascenseur de droite. Tapez "haut" ou "bas" pour utiliser
 cet ascenseur.
 
 >Vous vous déplacez vers le Haut.
+
 Le couloir sombre
 Vous arrivez dans un long couloir sombre. Vous pouvez voir deux ascenseurs:
 un à l'Ouest et un au Nord. L'ascenseur se trouvant à l'Ouest vous permet de
@@ -581,11 +600,13 @@ redescendre; l'ascenseur situé au Nord vous offre la possibilité de continuer
 votre chemin.
 
 >Vous vous déplacez vers le Nord.
+
 L'ascenseur du labo 2
 Vous entrez dans l'ascenseur. Tapez "haut" ou "bas" pour utiliser cet
 ascenseur.
 
 >Vous vous déplacez vers le Haut.
+
 Le labo 2
 Vous êtes dans le labo 2. Vous pouvez voir une commode et une paillasse
 derrière laquelle se trouve une scientifique. L'ascenseur est situé au Sud.
@@ -610,11 +631,13 @@ Un mélangeur est posé sur une paillasse, derrière la scientifique.
 Vous prenez le mélangeur.
 
 >Vous vous déplacez vers le Sud.
+
 L'ascenseur du labo 2
 Vous entrez dans l'ascenseur. Tapez "haut" ou "bas" pour utiliser cet
 ascenseur.
 
 >Vous vous déplacez vers le Bas.
+
 Le couloir sombre
 Vous arrivez dans un long couloir sombre. Vous pouvez voir deux ascenseurs:
 un à l'Ouest et un au Nord. L'ascenseur se trouvant à l'Ouest vous permet de
@@ -622,21 +645,25 @@ redescendre; l'ascenseur situé au Nord vous offre la possibilité de continuer
 votre chemin.
 
 >Vous vous déplacez vers l'Ouest.
+
 L'ascenseur de droite
 Vous entrez dans l'ascenseur de droite. Tapez "haut" ou "bas" pour utiliser
 cet ascenseur.
 
 >Vous vous déplacez vers le Bas.
+
 Dans le couloir du rez-de-chaussée
 Vous revoilà dans le couloir du rez-de-chaussée du labo. A l'Est et à
 l'Ouest, vous pouvez voir les deux ascenseurs.
 
 >Vous vous déplacez vers l'Ouest.
+
 L'ascenseur de gauche
 Vous entrez dans l'ascenseur de gauche. Tapez "haut" ou "bas" pour utiliser
 cet ascenseur.
 
 >Vous vous déplacez vers le Haut.
+
 Le labo 1
 Vous êtes dans le labo 1. Vous pouvez voir deux scientifiques: un blond et un
 brun. L'ascenseur permettant de redescendre se trouve à l'Est.
@@ -677,21 +704,25 @@ vous en prie  monsieur Winch." L'ascenseur permettant de redescendre se
 trouve à l'Est.
 
 >Vous vous déplacez vers l'Est.
+
 L'ascenseur de gauche
 Vous entrez dans l'ascenseur de gauche. Tapez "haut" ou "bas" pour utiliser
 cet ascenseur.
 
 >Vous vous déplacez vers le Bas.
+
 Dans le couloir du rez-de-chaussée
 Vous revoilà dans le couloir du rez-de-chaussée du labo. A l'Est et à
 l'Ouest, vous pouvez voir les deux ascenseurs.
 
 >Vous vous déplacez vers l'Est.
+
 L'ascenseur de droite
 Vous entrez dans l'ascenseur de droite. Tapez "haut" ou "bas" pour utiliser
 cet ascenseur.
 
 >Vous vous déplacez vers le Haut.
+
 Le couloir sombre
 Vous arrivez dans un long couloir sombre. Vous pouvez voir deux ascenseurs:
 un à l'Ouest et un au Nord. L'ascenseur se trouvant à l'Ouest vous permet de
@@ -699,11 +730,13 @@ redescendre; l'ascenseur situé au Nord vous offre la possibilité de continuer
 votre chemin.
 
 >Vous vous déplacez vers le Nord.
+
 L'ascenseur du labo 2
 Vous entrez dans l'ascenseur. Tapez "haut" ou "bas" pour utiliser cet
 ascenseur.
 
 >Vous vous déplacez vers le Haut.
+
 Le labo 2
 Vous êtes dans le labo 2. Vous pouvez voir une commode et une paillasse
 derrière laquelle se trouve une scientifique. L'ascenseur est situé au Sud.
@@ -735,6 +768,7 @@ auras terminé." "D'accord Largo. A tout à l'heure." L'appartement se trouve
 au Nord.
 
 >Vous vous déplacez vers le Nord.
+
 Dans l'appartement
 Vous êtes dans l'appartement de Jack Place. A l'Est, contre le mur, vous
 pouvez voir un répondeur posé sur un petit meuble. Le salon se trouve au
@@ -743,6 +777,7 @@ Nord; la chambre du chercheur est située à l'Ouest.
 eux." pensez-vous.
 
 >Vous vous déplacez vers le Nord.
+
 Le salon
 Vous pénétrez dans le salon. Il s'agit d'une petite pièce pas très bien
 décorée (papier peint déchiré, dalles usées...). Vous pouvez voir un
@@ -773,6 +808,7 @@ eux." pensez-vous.
 eux." pensez-vous.
 
 >Vous vous déplacez vers le Sud.
+
 Dans l'appartement
 Vous êtes dans l'appartement de Jack Place. A l'Est, contre le mur, vous
 pouvez voir un répondeur posé sur un petit meuble. Le salon se trouve au
@@ -790,6 +826,7 @@ d'intervenir auprès de votre banque si vous persistez à ne pas honorer vos
 eux." pensez-vous.
 
 >Vous vous déplacez vers le Nord.
+
 Le salon
 Vous pénétrez dans le salon. Il s'agit d'une petite pièce pas très bien
 décorée (papier peint déchiré, dalles usées...). Vous pouvez voir un
@@ -800,6 +837,7 @@ ordinateur. Sur l'écran de l'ordinateur, vous pouvez voir l'inscription
 eux." pensez-vous.
 
 >Vous vous déplacez vers le Nord.
+
 La cuisine
 Vous êtes à présent dans la cuisine. A votre grande surprise, il n'y a qu'un
 réfrigérateur dans cette pièce.
@@ -822,6 +860,7 @@ Grâce à cette combinaison, vous découvrez un mot: AGYLAP. "On dirait un mot
 de passe. C'est sûrement le mot de passe de l'ordinateur."
 
 >Vous vous déplacez vers le Sud.
+
 Le salon
 Vous pénétrez dans le salon. Il s'agit d'une petite pièce pas très bien
 décorée (papier peint déchiré, dalles usées...). Vous pouvez voir un
@@ -874,6 +913,7 @@ Sullivan pour savoir ce qui est arrivé à Kerensky et je te rejoins." Vous
 l'ascenseur se trouve au Nord.
 
 >Vous vous déplacez vers le Nord.
+
 L'ascenseur
 Vous entrez dans l'ascenseur. Tapez "salle du bigboard" pour aller dans la
 salle du bigboard; tapez "central informatique" pour vous rendre au central
@@ -917,6 +957,7 @@ me rejoindre dans le central informatique." "Ce sera fait Largo." "Merci
 John. A plus tard." "A plus tard Largo."
 
 >Vous vous déplacez vers le Sud.
+
 L'ascenseur
 Vous entrez dans l'ascenseur. Tapez "salle du bigboard" pour aller dans la
 salle du bigboard; tapez "central informatique" pour vous rendre au central
@@ -987,6 +1028,7 @@ immeuble, à la porte 3A." "Merci monsieur." "De rien." Le russe referme la
 porte.
 
 >Vous vous déplacez vers le Nord.
+
 Le premier étage
 Vous êtes au premier étage. A l'Est et à l'Ouest, vous pouvez voir des
 appartements dont les nupéros vont de 1A à 10A. Les escaliers permettant de
@@ -994,14 +1036,17 @@ monter se trouvent au Nord; ceux permettant de redescendre sont situés au
 Sud.
 
 >Vous vous déplacez vers l'Est.
+
 5A
 Vous êtes devant la porte 5A.
 
 >Vous vous déplacez vers l'Est.
+
 4A
 Vous êtes devant la porte 4A.
 
 >Vous vous déplacez vers l'Est.
+
 3A
 Vous êtes devant la porte 3A.
 
@@ -1014,14 +1059,17 @@ piégé la serrure. Je ne peux pas la crocheter. Tu dois trouver un autre moyen
 d'accès." déclare Simon.
 
 >Vous vous déplacez vers l'Ouest.
+
 4A
 Vous êtes devant la porte 4A.
 
 >Vous vous déplacez vers l'Ouest.
+
 5A
 Vous êtes devant la porte 5A.
 
 >Vous vous déplacez vers l'Ouest.
+
 Le premier étage
 Vous êtes au premier étage. A l'Est et à l'Ouest, vous pouvez voir des
 appartements dont les nupéros vont de 1A à 10A. Les escaliers permettant de
@@ -1029,20 +1077,24 @@ monter se trouvent au Nord; ceux permettant de redescendre sont situés au
 Sud.
 
 >Vous vous déplacez vers le Nord.
+
 Le deuxième étage
 Vous êtes au deuxième et dernier étage de l'immeuble. A l'Est et à l'Ouest,
 vous pouvez voir des portes d'appartements dont les numéros vont de 1B à 10B.
 Les escaliers permettant de redescendre se trouvent au Sud.
 
 >Vous vous déplacez vers l'Est.
+
 5B
 Vous êtes devant la porte 5B.
 
 >Vous vous déplacez vers l'Est.
+
 4B
 Vous êtes devant la porte 4B.
 
 >Vous vous déplacez vers l'Est.
+
 3B
 Vous êtes devant la porte 3B.
 
@@ -1059,6 +1111,7 @@ Vous entrez dans l'appartement. La cuisine est située au Nord; la chambre se
 trouve à l'Ouest; un balcon enneigé se trouve à l'Est.
 
 >Vous vous déplacez vers l'Ouest.
+
 La chambre
 Vous entrez dans une petite chambre. Vous pouvez voir un lit et une armoire.
 
@@ -1076,12 +1129,14 @@ Vous prenez le drap sale.
 Grâce à cette combinaison, vous confectionnez une corde.
 
 >Vous vous déplacez vers l'Est.
+
 L'appartement 3B
 Vous êtes dans un petit appartement pas très bien décoré. La cuisine est
 située au Nord; la chambre se trouve à l'Ouest; un balcon enneigé est situé à
 l'Est; la sortie est au Sud.
 
 >Vous vous déplacez vers l'Est.
+
 Le balcon
 Vous voilà sur le balcon enneigé.
 
@@ -1097,30 +1152,36 @@ avec une quasi certitude que le disjoncteur se trouve en bas." "Au
 rez-de-chaussée de l'immeuble?" "Oui." "Ok Simon. Je m'en occupe."
 
 >Vous vous déplacez vers l'Ouest.
+
 L'appartement 3B
 Vous êtes dans un petit appartement pas très bien décoré. La cuisine est
 située au Nord; la chambre se trouve à l'Ouest; un balcon enneigé est situé à
 l'Est; la sortie est au Sud.
 
 >Vous vous déplacez vers le Sud.
+
 3B
 Vous êtes devant la porte 3B.
 
 >Vous vous déplacez vers l'Ouest.
+
 4B
 Vous êtes devant la porte 4B.
 
 >Vous vous déplacez vers l'Ouest.
+
 5B
 Vous êtes devant la porte 5B.
 
 >Vous vous déplacez vers l'Ouest.
+
 Le deuxième étage
 Vous êtes au deuxième et dernier étage de l'immeuble. A l'Est et à l'Ouest,
 vous pouvez voir des portes d'appartements dont les numéros vont de 1B à 10B.
 Les escaliers permettant de redescendre se trouvent au Sud.
 
 >Vous vous déplacez vers le Sud.
+
 Le premier étage
 Vous êtes au premier étage. A l'Est et à l'Ouest, vous pouvez voir des
 appartements dont les nupéros vont de 1A à 10A. Les escaliers permettant de
@@ -1141,6 +1202,7 @@ Vous retirez le fusible 3A du disjoncteur. "Ca y est, le courant est coupé!"
 pensez-vous.
 
 >Vous vous déplacez vers le Nord.
+
 Le premier étage
 Vous êtes au premier étage. A l'Est et à l'Ouest, vous pouvez voir des
 appartements dont les nupéros vont de 1A à 10A. Les escaliers permettant de
@@ -1151,14 +1213,17 @@ la fenêtre! Je suis dans l'appartement de Vladimir. Tu peux m'y rejoindre par
 la porte 3A."
 
 >Vous vous déplacez vers l'Est.
+
 5A
 Vous êtes devant la porte 5A.
 
 >Vous vous déplacez vers l'Est.
+
 4A
 Vous êtes devant la porte 4A.
 
 >Vous vous déplacez vers l'Est.
+
 3A
 Vous êtes devant la porte 3A.
 La porte est ouverte. Simon est à l'intérieur.
@@ -1173,6 +1238,7 @@ salle de séjour se trouve au Nord; la chambre se trouve à l'Ouest; le balcon
 est situé à l'Est.
 
 >Vous vous déplacez vers le Nord.
+
 La salle de séjour
 Vous pénétrez dans une pièce moyennement spacieuse. Vous pouvez voir une
 table et un bureau sur lequel est posé un répondeur. Une cassette audio et
@@ -1201,6 +1267,7 @@ que je t'ai envoyé par courrier. A plus tard Vladimir." "La société Omega est
 probablement le lieu de travail de Vladimir." pensez-vous.
 
 >Vous vous déplacez vers le Sud.
+
 Le domicile de Kostenko
 Vous êtes dans l'appartement du pirate. Il s'agit du même logement que le 3B.
 La salle de séjour se trouve au Nord; la chambre est située à l'Ouest; le
@@ -1208,19 +1275,23 @@ balcon se situe à L'Est; la sortie se trouve au Sud. Simon est adossé à la
 porte d'entrée.
 
 >Vous vous déplacez vers le Sud.
+
 3A
 Vous êtes devant la porte 3A.
 La porte est ouverte. Simon est à l'intérieur.
 
 >Vous vous déplacez vers l'Ouest.
+
 4A
 Vous êtes devant la porte 4A.
 
 >Vous vous déplacez vers l'Ouest.
+
 5A
 Vous êtes devant la porte 5A.
 
 >Vous vous déplacez vers l'Ouest.
+
 Le premier étage
 Vous êtes au premier étage. A l'Est et à l'Ouest, vous pouvez voir des
 appartements dont les nupéros vont de 1A à 10A. Les escaliers permettant de
@@ -1246,6 +1317,7 @@ d'emporter le devis se trouvant à l'intérieur. "Il ne me reste plus qu'à
 rejoindre Simon." pensez-vous.
 
 >Vous vous déplacez vers le Nord.
+
 Le premier étage
 Vous êtes au premier étage. A l'Est et à l'Ouest, vous pouvez voir des
 appartements dont les nupéros vont de 1A à 10A. Les escaliers permettant de
@@ -1256,14 +1328,17 @@ la fenêtre! Je suis dans l'appartement de Vladimir. Tu peux m'y rejoindre par
 la porte 3A."
 
 >Vous vous déplacez vers l'Est.
+
 5A
 Vous êtes devant la porte 5A.
 
 >Vous vous déplacez vers l'Est.
+
 4A
 Vous êtes devant la porte 4A.
 
 >Vous vous déplacez vers l'Est.
+
 3A
 Vous êtes devant la porte 3A.
 La porte est ouverte. Simon est à l'intérieur.
@@ -1289,11 +1364,13 @@ petite demi-heure de route, vous arrivez devant la société Omega. L'entrée se
 trouve au Nord.
 
 >Vous vous déplacez vers le Nord.
+
 Le hall d'entrée
 Vous êtes à présent dans le hall d'entrée de la société Omega. Des escaliers
 permettant de descendre se trouvent au Nord.
 
 >Vous vous déplacez vers le Nord.
+
 En haut des escaliers
 Vous vous approchez des escaliers. Soudain, une femme déboule devant vous,
 vous empêchant de descendre: "Qui êtes-vous?" demandez-vous. "Je vous
@@ -1350,17 +1427,20 @@ lève puis recule afin de libérer le passage. Une porte ouverte se trouve au
 Nord; les escaliers permettant de remonter sont situés au Sud.
 
 >Vous vous déplacez vers le Nord.
+
 Le couloir
 Vous êtes dans un couloir moyennement long et assez large. A l'Ouest, vous
 pouvez voir un technicien qui bricole la serrure d'une porte; le bureau de
 Vladimir se trouve à l'Est.
 
 >Vous vous déplacez vers le Sud.
+
 En bas des escaliers
 Vous revoilà en bas des escaliers, là où vous avez discuté avec le barbu. Les
 escaliers se trouvent au Sud; la porte du couloir est située au Nord.
 
 >Vous vous déplacez vers le Sud.
+
 Le hall
 Vous montez les escaliers. Vous vous retrouvez dans le hall d'entrée. A
 l'Est, vous pouvez voir une machine à café; les escaliers se trouvent au
@@ -1378,6 +1458,7 @@ Vladimir." dites-vous à voix basse. Vous pouvez voir le technicien; les
 escaliers se trouvent au Nord.
 
 >Vous vous déplacez vers le Nord.
+
 En bas des escaliers
 Vous revoilà en bas des escaliers, là où vous avez discuté avec le barbu. Les
 escaliers se trouvent au Sud; la porte du couloir est située au Nord.
@@ -1391,6 +1472,7 @@ bureau de Vladimir se trouve à l'Est.
 Vous prenez le tournevis.
 
 >Vous vous déplacez vers l'Est.
+
 Dans le bureau de Vladimir
 Vous êtes à présent dans le bureau du pirate.A votre grande surprise, la
 pièce est presque déserte. Vous pouvez voir un bureau.
@@ -1416,6 +1498,7 @@ dépose juste devant l'entrée du Gagarine Paradise. L'entrée se trouve au
 Nord.
 
 >Vous vous déplacez vers le Nord.
+
 Le Gagarine Paradise
 Vous entrez dans le bar. Il s'agit d'une grande pièce dans laquelle sont
 installées quelques tables ainsi qu'une piste de danse. Vous pouvez voir une
@@ -1458,6 +1541,7 @@ voisine pour préparer votre boisson. Vous avez donc libre accès à la réserve.
 sortie est située au Sud.
 
 >Vous vous déplacez vers le Nord.
+
 La réserve
 Vous vous trouvez dans la réserve du bar. Vous pouvez voir un placard
 pharmaceutique qui est ouvert.
@@ -1468,6 +1552,7 @@ pharmaceutique qui est ouvert.
 Vous prenez le tube de somnifères.
 
 >Vous vous déplacez vers le Sud.
+
 Le Gagarine Paradise
 Vous revoilà dans la grande salle. Au moment ot vous passez près du bar, le
 barman vous interpelle: "Votre ulla ulla est prêt monsieur." déclare-t-il.
@@ -1477,6 +1562,7 @@ repart pour vous préparer votre second cocktail. La réserve se trouve au
 Nord; la sortie est située au Sud.
 
 >Vous vous déplacez vers le Sud.
+
 Dehors
 Vous sortez du bar. "Puisque je ne peux pas monter à l'étage par l'intérieur,
 je dois trouver une autre solution. En cherchant un peu, je devrais pouvoir
@@ -1485,6 +1571,7 @@ Vous pouvez longer le mur face auquel vous vous trouvez par l'Est ou par
 l'Ouest.
 
 >Vous vous déplacez vers l'Est.
+
 Au pied de l'échelle
 Vous longez le mur par le côté Est. Vous arrivez au pied d'une échelle.
 "Génial! Cela ne pouvait pas mieux tomber." Tapez "monter" pour grimper à
@@ -1498,6 +1585,7 @@ pensez-vous. Vous redescendez l'échelle. Vous êtes donc au pied de cette
 déplacer vers l'Ouest.
 
 >Vous vous déplacez vers l'Ouest.
+
 Dehors
 Vous sortez du bar. "Puisque je ne peux pas monter à l'étage par l'intérieur,
 je dois trouver une autre solution. En cherchant un peu, je devrais pouvoir
@@ -1545,6 +1633,7 @@ Vous videz le tube de somnifères dans le verre de Vodka. "Bien joué Largo! Il
 ne reste plus qu'à rejoindre Simon." pensez-vous.
 
 >Vous vous déplacez vers le Sud.
+
 Dehors
 Vous sortez du bar. "Puisque je ne peux pas monter à l'étage par l'intérieur,
 je dois trouver une autre solution. En cherchant un peu, je devrais pouvoir
@@ -1553,6 +1642,7 @@ Vous pouvez longer le mur face auquel vous vous trouvez par l'Est ou par
 l'Ouest.
 
 >Vous vous déplacez vers l'Est.
+
 Au pied de l'échelle
 Vous longez le mur par le côté Est. Vous arrivez au pied d'une échelle.
 "Génial! Cela ne pouvait pas mieux tomber." Tapez "monter" pour grimper à
@@ -1569,6 +1659,7 @@ pistolet. Une porte entrouverte se trouve au Nord.
 >Vous ramassez le pistolet.
 
 >Vous vous déplacez vers le Nord.
+
 La "salle du boss"
 Vous approchez lentement de la porte entrouverte afin d'écouter ce qu'il se
 passe de l'autre côté. N'entendant rien, vous décidez de franchir cette
@@ -1706,6 +1797,7 @@ building. Vous vous trouvez à présent dans le hall d'accueil. Votre bureau
 est situé à l'Est; l'ascenseur se trouve au Nord.
 
 >Vous vous déplacez vers le Nord.
+
 L'ascenseur
 Vous voilà dans l'ascenseur. Tapez "salle du bigboard" pour aller dans la
 salle du bigboard; tapez "central informatique" pour vous rendre au central
@@ -1740,6 +1832,7 @@ situé dans le bureau de Nerio, enfin votre bureau." "Quoi? Merci John. Je
 vais voir ça immédiatement." L'ascenseur se trouve au Sud.
 
 >Vous vous déplacez vers le Sud.
+
 L'ascenseur
 Vous voilà dans l'ascenseur. Tapez "salle du bigboard" pour aller dans la
 salle du bigboard; tapez "central informatique" pour vous rendre au central
@@ -1811,10 +1904,12 @@ part, la grande grille s'ouvre. Vous pouvez à présent vous déplacer vers le
 Nord.
 
 >Vous vous déplacez vers le Nord.
+
 La cour
 Vous arrivez dans une petite cour. Des escaliers se trouvent au Nord.
 
 >Vous vous déplacez vers le Nord.
+
 La salle d'échec
 Vous montez les escaliers puis vous franchissez une double porte en bois.
 Vous vous trouvez à présent dans une petite salle dans laquelle est installé
@@ -1823,6 +1918,7 @@ pensez-vous. Une porte ouverte se trouve au Nord; les escaliers permettant de
 regagner la cour sont situés au Sud.
 
 >Vous vous déplacez vers le Nord.
+
 Le bureau de Nerio
 Vous voilà enfin dans le bureau de votre défunt père. Vous pouvez voir un
 bureau et une bibliothèque. Une porte entrouverte sur laquelle vous pouvez
@@ -1833,6 +1929,7 @@ l'inscription se trouvant sur la porte: "Danger de mort? Je reconnais bien
 mon père!" dites-vous.
 
 >Vous vous déplacez vers le Nord.
+
 La salle secrète
 Vous voilà dans la salle secrète! Il s'agit d'une petite pièce carrée. Vous
 êtes surpris par le fait que cette pièce soit vide. "Une pièce vide?
@@ -1882,6 +1979,7 @@ vois Sullivan." pensez-vous. La sortie se trouve à l'Ouest.
 l'ascenseur est situé au Nord.
 
 >Vous vous déplacez vers le Nord.
+
 L'ascenseur
 Vous voilà dans l'ascenseur. Tapez "salle du bigboard" pour aller dans la
 salle du bigboard; tapez "central informatique" pour vous rendre au central
@@ -1962,6 +2060,7 @@ montrer à quel point je me mets en colère lorsqu'on s'attaque à mes amis!"
 hurlez-vous. L'entrée de l'hôtel se trouve au Nord.
 
 >Vous vous déplacez vers le Nord.
+
 A l'accueil de l'hôtel
 Vous êtes à présent à l'accueil de l'hôtel W Hospitality. Il s'agit d'un
 grand hall. Vous pouvez voir deux ascenseurs situés à l'Est et à l'Ouest; une
@@ -1980,6 +2079,7 @@ beaucoup." répondez-vous en prenant le badge. L'ascenseur de droite est situé
 à l'Est; celui de gauche se trouve à l'Ouest.
 
 >Vous vous déplacez vers l'Est.
+
 L'ascenseur de droite
 Vous vous trouvez à présent dans l'ascenseur de droite. Tapez "premier étage"
 pour vous rendre au premier étage; tapez "deuxième étage" pour monter au
@@ -1991,38 +2091,47 @@ arrivez dans une petite salle dans laquelle se trouvent quelques chaises. Le
 couloir se trouve à l'Est.
 
 >Vous vous déplacez vers l'Est.
+
 200
 Vous êtes devant la porte de la chambre 200 qui est fermée.
 
 >Vous vous déplacez vers l'Est.
+
 201
 Vous êtes devant la porte de la chambre 201 qui est fermée.
 
 >Vous vous déplacez vers l'Est.
+
 202
 Vous êtes devant la porte de la chambre 202 qui est fermée.
 
 >Vous vous déplacez vers l'Est.
+
 203
 Vous êtes devant la porte de la chambre 203 qui est fermée.
 
 >Vous vous déplacez vers l'Est.
+
 204
 Vous êtes devant la perte de la chambre 204 qui est fermée.
 
 >Vous vous déplacez vers l'Est.
+
 205
 Vous êtes devant la porte de la chambre 205 qui est fermée.
 
 >Vous vous déplacez vers l'Est.
+
 206
 Vous êtes devant la porte de la chambre 206 qui est fermée.
 
 >Vous vous déplacez vers l'Est.
+
 207
 Vous êtes devant la porte de la chambre 207 qui est fermée.
 
 >Vous vous déplacez vers l'Est.
+
 208
 Vous êtes devant la porte de la chambre 208 qui est fermée.
 
@@ -2063,6 +2172,7 @@ arrivez donc dans la petite salle dans laquelle se trouvent quelques chaises.
 L'ascenseur se trouve au Sud.
 
 >Vous vous déplacez vers le Sud.
+
 L'ascenseur de droite
 Vous vous trouvez à présent dans l'ascenseur de droite. Tapez "premier étage"
 pour vous rendre au premier étage; tapez "deuxième étage" pour monter au
@@ -2074,39 +2184,48 @@ trouvez dans une petite salle identique à celle du deuxième étage. Le couloir
 se trouve à l'Est.
 
 >Vous vous déplacez vers l'Est.
+
 100
 Vous êtes devant la porte de la chambre 100 qui est fermée.
 
 >Vous vous déplacez vers l'Est.
+
 101
 Vous vous trouvez à présent devant la porte de la chambre 101 qui est, une
 fois de plus, fermée.
 
 >Vous vous déplacez vers l'Est.
+
 102
 Vous êtes devant devant la porte de la chambre 102. Celle-ci est fermée.
 
 >Vous vous déplacez vers l'Est.
+
 103
 Vous êtes devant la porte de la chambre 103 qui est fermée.
 
 >Vous vous déplacez vers l'Est.
+
 104
 Vous êtes devant la porte de la chambre 104 qui est fermée.
 
 >Vous vous déplacez vers l'Est.
+
 105
 Vous êtes à présent devant la porte de la chambre 105. Celle-ci est fermée.
 
 >Vous vous déplacez vers l'Est.
+
 106
 Vous voilà devant la porte de la chambre 106 qui est fermée.
 
 >Vous vous déplacez vers l'Est.
+
 107
 Vous êtes devant la porte de la chambre 107. Celle-ci est fermée.
 
 >Vous vous déplacez vers l'Est.
+
 108
 Vous vous trouvez devant la porte de la chambre 108. Celle-ci est fermée.
 
@@ -2186,44 +2305,54 @@ sortez de la chambre en compagnie de vos deux amis. Le couloir se trouve à
 l'Ouest.
 
 >Vous vous déplacez vers l'Ouest.
+
 107
 Vous êtes devant la porte de la chambre 107. Celle-ci est fermée.
 
 >Vous vous déplacez vers l'Ouest.
+
 106
 Vous voilà devant la porte de la chambre 106 qui est fermée.
 
 >Vous vous déplacez vers l'Ouest.
+
 105
 Vous êtes à présent devant la porte de la chambre 105. Celle-ci est fermée.
 
 >Vous vous déplacez vers l'Ouest.
+
 104
 Vous êtes devant la porte de la chambre 104 qui est fermée.
 
 >Vous vous déplacez vers l'Ouest.
+
 103
 Vous êtes devant la porte de la chambre 103 qui est fermée.
 
 >Vous vous déplacez vers l'Ouest.
+
 102
 Vous êtes devant devant la porte de la chambre 102. Celle-ci est fermée.
 
 >Vous vous déplacez vers l'Ouest.
+
 101
 Vous vous trouvez à présent devant la porte de la chambre 101 qui est, une
 fois de plus, fermée.
 
 >Vous vous déplacez vers l'Ouest.
+
 100
 Vous êtes devant la porte de la chambre 100 qui est fermée.
 
 >Vous vous déplacez vers l'Ouest.
+
 Au premier étage
 Vous êtes au premier étage de l'hôtel. Le couloir se trouve à l'Est;
 l'ascenseur est situé au Sud.
 
 >Vous vous déplacez vers le Sud.
+
 L'ascenseur de droite
 Vous vous trouvez à présent dans l'ascenseur de droite. Tapez "premier étage"
 pour vous rendre au premier étage; tapez "deuxième étage" pour monter au
@@ -2268,6 +2397,7 @@ courant." répond Kerensky. "D'accord Yorgi. A plus tard." Vous sortez de
 votre bureau, suivi par Simon et Joy. L'ascenseur se trouve au Nord.
 
 >Vous vous déplacez vers le Nord.
+
 L'ascenseur
 Vous voilà dans l'ascenseur. Tapez "salle du bigboard" pour aller dans la
 salle du bigboard; tapez "central informatique" pour vous rendre au central
@@ -2492,6 +2622,7 @@ au rez-de-chaussée du building W. Votre bureau est situé à l'Est; l'ascenseur
 se trouve au Nord.
 
 >Vous vous déplacez vers le Nord.
+
 L'ascenseur
 Vous voilà dans l'ascenseur. Tapez "salle du bigboard" pour aller dans la
 salle du bigboard; tapez "central informatique" pour vous rendre au central
@@ -2571,6 +2702,7 @@ auras peut-être besoin de moi." affirme Joy. "Ok Joy. Allons-y." L'ascenseur
 se trouve au Sud. Joy est à vos côtés.
 
 >Vous vous déplacez vers le Sud.
+
 L'ascenseur
 Vous entrez dans l'ascenseur. Tapez "salle du bigboard" pour aller dans la
 salle du bigboard; tapez "central informatique" pour vous rendre au central

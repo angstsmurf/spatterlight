@@ -12,6 +12,7 @@ about 6 feet high and 3 feet across.
 
 >
 >You move north.
+
 Foyer
 This is the ante room of the Cleft complex.  You can barely make out the
 ceiling as the polished granite walls rise up hundreds of feet.  An ornate
@@ -19,10 +20,12 @@ compass rose is inlaid in marble on the polished octagonal floor, each point
 indicating a well formed doorway.
 
 >You move east.
+
 Wide passage
 This passage appears to be a crossroad.
 
 >You move east.
+
 Storeroom
 You are in a 20 x 30 room stacked untidily with various boxes marked "Acme
 Dungeon Dressing Suppliers Inc" .  Most appear sealed.
@@ -30,11 +33,13 @@ Dungeon Dressing Suppliers Inc" .  Most appear sealed.
 Also here is a sealed box.
 
 >You move down.
+
 Set of stairs
 Six wooden steps descend (and ascend, since they are multi-purpose) a total
 of ten feet.
 
 >You move down.
+
 Employees lunchroom
 You are in a cramped room with an oak table and chairs.
 
@@ -46,11 +51,13 @@ The topiary attendant opens his eyes, gathers his thoughts, and runs
 screaming from the room.
 
 >You move up.
+
 Set of stairs
 Six wooden steps descend (and ascend, since they are multi-purpose) a total
 of ten feet.
 
 >You move up.
+
 Storeroom
 You are in a 20 x 30 room stacked untidily with various boxes marked "Acme
 Dungeon Dressing Suppliers Inc" .  Most appear sealed.
@@ -58,10 +65,12 @@ Dungeon Dressing Suppliers Inc" .  Most appear sealed.
 Also here is a sealed box.
 
 >You move west.
+
 Wide passage
 This passage appears to be a crossroad.
 
 >You move west.
+
 Foyer
 This is the ante room of the Cleft complex.  You can barely make out the
 ceiling as the polished granite walls rise up hundreds of feet.  An ornate
@@ -69,16 +78,19 @@ compass rose is inlaid in marble on the polished octagonal floor, each point
 indicating a well formed doorway.
 
 >You move west.
+
 Topiary kiosk
 You are in a 10 x 10 room with a pedestal carved into the west wall.  The
 portcullis is raised.
 A topiary attendant is here, fast asleep.
 
 >You move west.
+
 Topiary gate
 A short path under a leafy gate joins the kiosk and topiary.
 
 >You move west.
+
 Topiary
 A number of well-tended shrubs, cut to represent animals, designs and
 monsters, grow in a small copse.
@@ -88,16 +100,19 @@ Also here is a Viewing ticket.
 >You pick up the Viewing ticket.
 
 >You move east.
+
 Topiary gate
 A short path under a leafy gate joins the kiosk and topiary.
 
 >You move east.
+
 Topiary kiosk
 You are in a 10 x 10 room with a pedestal carved into the west wall.  The
 portcullis is raised.
 A topiary attendant is here, fast asleep.
 
 >You move east.
+
 Foyer
 This is the ante room of the Cleft complex.  You can barely make out the
 ceiling as the polished granite walls rise up hundreds of feet.  An ornate
@@ -105,6 +120,7 @@ compass rose is inlaid in marble on the polished octagonal floor, each point
 indicating a well formed doorway.
 
 >You move north.
+
 Skyview kiosk
 You are in a 10 x 10 room with a desk against the north wall bearing the sign
 "Skyview Monitor".  A large staircase can be seen spiralling into the north
@@ -118,11 +134,13 @@ You hand the ticket to the oblationary, who appears to remove an unseen rope
 from before the stairs and gestures toward them.
 
 >You move north.
+
 Spiral staircase
 The staircase spirals up and down into the living rock.  A brass rail follows
 the curve of the wall.
 
 >You move east.
+
 Scenic vista
 From this point you are afforded a view of the surrounding countryside
 through a thick crystal window.  A mighty river appears to enter the rock
@@ -133,11 +151,13 @@ Also here is a rusty pedestal compass.
 >You pick up the rusty pedestal compass.
 
 >You move west.
+
 Spiral staircase
 The staircase spirals up and down into the living rock.  A brass rail follows
 the curve of the wall.
 
 >You move south.
+
 Skyview kiosk
 You are in a 10 x 10 room with a desk against the north wall bearing the sign
 "Skyview Monitor".  A large staircase can be seen spiralling into the north
@@ -147,6 +167,7 @@ the staircase.
 Merthyr is here.
 
 >You move south.
+
 Foyer
 This is the ante room of the Cleft complex.  You can barely make out the
 ceiling as the polished granite walls rise up hundreds of feet.  An ornate
@@ -154,10 +175,12 @@ compass rose is inlaid in marble on the polished octagonal floor, each point
 indicating a well formed doorway.
 
 >You move northwest.
+
 Dark shaft
 The passage twists through the rock and narrows toward the west.
 
 >You move west.
+
 Pothole room
 This is a circular room about 20 feet in diameter with a 6 foot diameter
 smooth bored shaft in the centre.
@@ -165,10 +188,12 @@ smooth bored shaft in the centre.
 >You drop the rusty pedestal compass.
 
 >You move east.
+
 Dark shaft
 The passage twists through the rock and narrows toward the west.
 
 >You move southeast.
+
 Foyer
 This is the ante room of the Cleft complex.  You can barely make out the
 ceiling as the polished granite walls rise up hundreds of feet.  An ornate
@@ -176,14 +201,17 @@ compass rose is inlaid in marble on the polished octagonal floor, each point
 indicating a well formed doorway.
 
 >You move northeast.
+
 Deja vu maze
 You are in a maze of passy little twistages, all familiar.
 
 >You move north.
+
 Vuja de maze
 You are passing an amazing tryst, all unfamiliar.
 
 >You move out.
+
 Side chamber
 You are in a 5 x 5 room with a wooden notice saying "Please enjoy the music.
 The Management." screwed to the wall.
@@ -193,14 +221,17 @@ Also here is a Stanley knife.
 >You pick up the Stanley knife.
 
 >You move in.
+
 Vuja de maze
 You are passing an amazing tryst, all unfamiliar.
 
 >You move north.
+
 Deja vu maze
 You are in a maze of passy little twistages, all familiar.
 
 >You move southwest.
+
 Foyer
 This is the ante room of the Cleft complex.  You can barely make out the
 ceiling as the polished granite walls rise up hundreds of feet.  An ornate
@@ -208,10 +239,12 @@ compass rose is inlaid in marble on the polished octagonal floor, each point
 indicating a well formed doorway.
 
 >You move east.
+
 Wide passage
 This passage appears to be a crossroad.
 
 >You move east.
+
 Storeroom
 You are in a 20 x 30 room stacked untidily with various boxes marked "Acme
 Dungeon Dressing Suppliers Inc" .  Most appear sealed.
@@ -231,10 +264,12 @@ and a lamp.
 >You take the lamp from the loose box.
 
 >You move west.
+
 Wide passage
 This passage appears to be a crossroad.
 
 >You move west.
+
 Foyer
 This is the ante room of the Cleft complex.  You can barely make out the
 ceiling as the polished granite walls rise up hundreds of feet.  An ornate
@@ -242,10 +277,12 @@ compass rose is inlaid in marble on the polished octagonal floor, each point
 indicating a well formed doorway.
 
 >You move northwest.
+
 Dark shaft
 The passage twists through the rock and narrows toward the west.
 
 >You move west.
+
 Pothole room
 This is a circular room about 20 feet in diameter with a 6 foot diameter
 smooth bored shaft in the centre.
@@ -265,6 +302,7 @@ That's going to hurt in a few hours.
 >You pick up the lamp.
 
 >You move down.
+
 Cave depths
 About 10 feet down (it's only just opened) you reach the base of the cave.
 
@@ -276,6 +314,7 @@ Also here is a battery.
 The lamp shines like a champion.
 
 >You move up.
+
 Pothole room
 This is a circular room about 20 feet in diameter with a 6 foot diameter
 smooth bored shaft in the centre.
@@ -283,10 +322,12 @@ smooth bored shaft in the centre.
 Also here is a length of rope.
 
 >You move east.
+
 Dark shaft
 The passage twists through the rock and narrows toward the west.
 
 >You move southeast.
+
 Foyer
 This is the ante room of the Cleft complex.  You can barely make out the
 ceiling as the polished granite walls rise up hundreds of feet.  An ornate
@@ -294,23 +335,28 @@ compass rose is inlaid in marble on the polished octagonal floor, each point
 indicating a well formed doorway.
 
 >You move east.
+
 Wide passage
 This passage appears to be a crossroad.
 
 >You move north.
+
 Dim passage
 You are walking along an unlit passage that gets darker to the north.
 
 >You move north.
+
 Dimmer passage
 This passage is pitch black to the north and lighter to the south.
 
 >You move north.
+
 Control foyer
 This is the entrance hall to a room signed as "Cleft Control Room.  Please
 wipe your feet."
 
 >You move northeast.
+
 Control room
 A rusty console juts from one wall of the control room. (Buttons should just
 be referred to by their colours, matey)
@@ -327,27 +373,33 @@ You pull the lever.
 You hear a klaxon sounding in the far distance.
 
 >You move southwest.
+
 Control foyer
 This is the entrance hall to a room signed as "Cleft Control Room.  Please
 wipe your feet."
 
 >You move south.
+
 Dimmer passage
 This passage is pitch black to the north and lighter to the south.
 
 >You move south.
+
 Dim passage
 You are walking along an unlit passage that gets darker to the north.
 
 >You move south.
+
 Wide passage
 This passage appears to be a crossroad.
 
 >You move down.
+
 Ramp
 You are on a 45 degree incline, rubbed smooth.
 
 >You move down.
+
 Loading bay
 This is a small flat platform at the base of the ramp.  A large red bulb in a
 wire cage is affixed to the wall.  The bulb is flashing wildly.
@@ -377,14 +429,17 @@ gold coin.
 >You take gold coin from packing case.
 
 >You move up.
+
 Ramp
 You are on a 45 degree incline, rubbed smooth.
 
 >You move up.
+
 Wide passage
 This passage appears to be a crossroad.
 
 >You move west.
+
 Foyer
 This is the ante room of the Cleft complex.  You can barely make out the
 ceiling as the polished granite walls rise up hundreds of feet.  An ornate
@@ -392,6 +447,7 @@ compass rose is inlaid in marble on the polished octagonal floor, each point
 indicating a well formed doorway.
 
 >You move southwest.
+
 Tiny room
 This is a room the size of a telephone booth.  Its one notable feature is a
 small slot cut into one wall, about 2 inches long and half an inch wide.

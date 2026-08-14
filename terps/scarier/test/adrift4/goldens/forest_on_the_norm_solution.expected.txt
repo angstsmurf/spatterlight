@@ -22,11 +22,13 @@ crazy planet.I see wood, wood and wood.
 >Und du meinst ernsthaft, der versteht deutsch?
 
 >I move north.
+
 Wood
 There is more wood. Any more, any more, any more wood. I can`t see any
 civilisation here.
 
 >I move east.
+
 Wood
 There is a chicken. Isn`t that the chicken, which has stolen my starship? The
 chicken is blocking your way.
@@ -38,10 +40,12 @@ Chicken is here.
 >I am carrying a key and a easteregg.
 
 >I move north.
+
 Wood
 Wow, everywhere wood.
 
 >I move west.
+
 Outside Cave
 There is a cave. And a keyhole in the cave. No. A keyhole in a cave? Ok, a
 keyhole in a cave.
@@ -49,6 +53,7 @@ keyhole in a cave.
 >The Cave opens.....
 
 >I move north.
+
 Cave
 I am in the cave. He.... I`ve seen him in space before: Roger W.
 
@@ -57,6 +62,7 @@ Roger is here.
 >Roger W. shows you the nothern way
 
 >I move north.
+
 Big tree
 He, it looks like the biggest tree in RON!
 
@@ -65,16 +71,19 @@ Big tree is here.
 >Now you can go up.
 
 >I move up.
+
 Alley in the forest
 It`s the alley. Something is missing here....
 
 >I move east.
+
 Sea
 It`s a small ocean!?
 
 >OK, I am going to start diving! Now I can see a way up...
 
 >I move up.
+
 YAHTZEEBRAND
 Oh, there is the shop.... and the clerk?
 
@@ -83,16 +92,19 @@ Also here is a Needle.
 >Iget the needle and somebody opens the door behind me. I can go south now.
 
 >I move south.
+
 Church
 A holy place....
 
 >I move north.
+
 Under church
 I go upstairs. WWAAAAHHH, a Snake is here! Don`t go north.....
 
 >I should run.... The Snake don`t want to talk with me.
 
 >I move up.
+
 Farm
 Hm, a farm.
 
@@ -102,6 +114,7 @@ never seen you before. Are you an Alien? Please follow me!" Mika goes the
 northern way.
 
 >I move north.
+
 Jail
 Ok, the people of RON are thinking, that I`ve transformed the city to a
 forest.... and NOW I am sitting here..... forever? Maybe not. But this game

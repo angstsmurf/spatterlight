@@ -61,6 +61,7 @@ and... open the door.
 I write!"
 
 >You move east.
+
 Entrance
 The entrance of Adventure Corps is a slick, futuristic reception area
 complete with large, plastic displays of all the best adventure games around.
@@ -69,6 +70,7 @@ Funnily enough, none of your own are included. Surely an oversight.
 (to a meeting room).
 
 >You move northeast.
+
 Corridor
 This shabby little corridor links the entrance to the rest of the building.
    Exits lie: southwest (to the entrance) and northeast (to an open area).
@@ -87,6 +89,7 @@ games - most notably The Explodin Peeple! - you never knew it happened in
 real life as well. Fancy that!
 
 >You move northeast.
+
 Open Area
 This large room contains a veritable horde of adventure games all stacked
 neatly in piles and labeled according to their contents. A couple of doorways
@@ -95,6 +98,7 @@ in the white walls lead deeper into the building.
 the building).
 
 >You move southeast.
+
 Chap's Office
 The office of Mr Chap, the owner of Adventure Corps and the guy responsible
 for missing your games out of the container, is a lavish affair with
@@ -112,6 +116,7 @@ Again you look and... this time you find a pen!
    It seems you weren't paying attention enough the first time.
 
 >You move northwest.
+
 Open Area
 This large room contains a veritable horde of adventure games all stacked
 neatly in piles and labeled according to their contents. A couple of doorways
@@ -120,11 +125,13 @@ in the white walls lead deeper into the building.
 the building).
 
 >You move southwest.
+
 Corridor
 This shabby little corridor links the entrance to the rest of the building.
    Exits lie: southwest (to the entrance) and northeast (to an open area).
 
 >You move southwest.
+
 Entrance
 The entrance of Adventure Corps is a slick, futuristic reception area
 complete with large, plastic displays of all the best adventure games around.
@@ -133,6 +140,7 @@ Funnily enough, none of your own are included. Surely an oversight.
 (to a meeting room).
 
 >You move east.
+
 Meeting Room
 This large room with a circular table in the centre looks to be where the
 people in charge of Adventure Corps sat around and decided which games were
@@ -153,6 +161,7 @@ appears in your hand!
 games!"
 
 >You move south.
+
 Winding Corridor
 This looks like one seriously strange corridor. It winds back and forth more
 than the plot of most of your games.
@@ -160,6 +169,7 @@ than the plot of most of your games.
 (along the corridor).
 
 >You move east.
+
 Rules Room
 Though only small, this is the room where all the rules governing which games
 get put in the container and which games don't are made up. Reams of paper
@@ -176,6 +186,7 @@ You quickly amend the rules to the effect that it will now be impossible for
 anyone to ban you.
 
 >You move west.
+
 Winding Corridor
 This looks like one seriously strange corridor. It winds back and forth more
 than the plot of most of your games.
@@ -183,6 +194,7 @@ than the plot of most of your games.
 (along the corridor).
 
 >You move southwest.
+
 Testing Room
 A dozen state of the art computers are crammed into this tiny room which is
 where all the testing takes place. Various games look to be scattered around
@@ -206,6 +218,7 @@ little more than a pile of fragments.
    Afterwards, you feel so much better for doing that.
 
 >You move northeast.
+
 Winding Corridor
 This looks like one seriously strange corridor. It winds back and forth more
 than the plot of most of your games.
@@ -213,6 +226,7 @@ than the plot of most of your games.
 (along the corridor).
 
 >You move north.
+
 Meeting Room
 This large room with a circular table in the centre looks to be where the
 people in charge of Adventure Corps sat around and decided which games were
@@ -221,6 +235,7 @@ detailed scribblings are visible scattered about the surface.
    Exits lie: west (to the entrance) and south (through an open door).
 
 >You move west.
+
 Entrance
 The entrance of Adventure Corps is a slick, futuristic reception area
 complete with large, plastic displays of all the best adventure games around.
@@ -229,11 +244,13 @@ Funnily enough, none of your own are included. Surely an oversight.
 (to a meeting room).
 
 >You move northeast.
+
 Corridor
 This shabby little corridor links the entrance to the rest of the building.
    Exits lie: southwest (to the entrance) and northeast (to an open area).
 
 >You move northeast.
+
 Open Area
 This large room contains a veritable horde of adventure games all stacked
 neatly in piles and labeled according to their contents. A couple of doorways
@@ -242,6 +259,7 @@ in the white walls lead deeper into the building.
 the building).
 
 >You move east.
+
 Container Storage Room
 In the middle of this room rests the container: six feet of stainless steel
 with reinforced sides and a titanium seal on top which will, sometime
@@ -257,6 +275,7 @@ eye, you close the container in such a way that no one will ever know what
 you have done.
 
 >You move west.
+
 Open Area
 This large room contains a veritable horde of adventure games all stacked
 neatly in piles and labeled according to their contents. A couple of doorways
@@ -265,11 +284,13 @@ in the white walls lead deeper into the building.
 the building).
 
 >You move southwest.
+
 Corridor
 This shabby little corridor links the entrance to the rest of the building.
    Exits lie: southwest (to the entrance) and northeast (to an open area).
 
 >You move southwest.
+
 Entrance
 The entrance of Adventure Corps is a slick, futuristic reception area
 complete with large, plastic displays of all the best adventure games around.
@@ -278,6 +299,7 @@ Funnily enough, none of your own are included. Surely an oversight.
 (to a meeting room).
 
 >You move west.
+
 Outside The Building
 You're crouching outside the building known simply as Adventure Corps. It's a
 big building with lots of interesting features to examine but you're too

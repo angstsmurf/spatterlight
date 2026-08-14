@@ -57,6 +57,7 @@ looks at you stupidly.  "Of course silly!" she says as she hugs you.
 >You pick up the pretty flower.
 
 >You move north.
+
 Elder's hut
 This is the hut of the village elder who never leaves it.  You have proven
 yourself a worthy guardian of the village but still must defer to the elder.
@@ -82,6 +83,7 @@ where it cools instantly.
 >You pick up strange wand.
 
 >You move south.
+
 Hamlet
 This is the village which you called home for the last few years.  Everybody
 here is your friend for though you came as a stranger, you have proven
@@ -91,6 +93,7 @@ the the south lies the trail that winds its way out of the village.
 Villagers and Muse are here.
 
 >You move south.
+
 Trail out of the village
 Before you on the trail stands the Red Dragon and the great beast regards you
 cooly.  "So, the young hero has set out upon his quest," the beast says
@@ -121,6 +124,7 @@ flashes across your hand and the wand vanishes.
 if that was the plan all along.
 
 >You move south.
+
 The bridge
 You have reached the bridge crossing the mighty mountain river Thale.  To the
 north is the trailhead which leads to the village and to the south is the
@@ -130,6 +134,7 @@ caution is recommended.
 Bridge Guard is here.
 
 >You move down.
+
 River Thale
 This is the landing on Thale.  The only exit is up to the bridge above or out
 into the river.  Without a boat, traveling along the river will prove fatal
@@ -142,6 +147,7 @@ Gelry is here.
 Then, she cuts off a lock of it and hands it to you.
 
 >You move up.
+
 The bridge
 You have reached the bridge crossing the mighty mountain river Thale.  To the
 north is the trailhead which leads to the village and to the south is the
@@ -154,12 +160,14 @@ Bridge Guard is here.
 gratefully and sniffs it.  "Ah, Gelry," he says and wanders off past you.
 
 >You move south.
+
 The trail
 You have reached the trail.  To the north is the bridge which leads to your
 home.  To the south, the trial continues.  You can leave the trail at any
 time by traveling to the east or the west.
 
 >You move east.
+
 Wilderness
 You have ventured off the trail which lies to the west.   This land is a
 broad forest and there are many paths that wander about.  You remember
@@ -173,6 +181,7 @@ Also here is a bright red rose.
 You gain a few hit points
 
 >You move east.
+
 Mage's Cabin
 This cabin is strange in that the inside is MUCH larger than the outside.
 You think you can leave to the west but even standing in the doorway dulls
@@ -201,6 +210,7 @@ book.  "Your lessons begin...."
 creatures by using the command TURN
 
 >You move west.
+
 Wilderness
 You have ventured off the trail which lies to the west.   This land is a
 broad forest and there are many paths that wander about.  You remember
@@ -209,18 +219,21 @@ run to to a cabin to the east.   You never actually entered the cabin because
 it belongs to an old reclusive mage.
 
 >You move west.
+
 The trail
 You have reached the trail.  To the north is the bridge which leads to your
 home.  To the south, the trial continues.  You can leave the trail at any
 time by traveling to the east or the west.
 
 >You move west.
+
 Wilderness
 You have wandered off the trail which lies to the east.  You never really
 ventured on this side of the trail as this area is predominately ruled by a
 massive cemetary to the south.
 
 >You move south.
+
 Graveyard
 This is the graveyard that your village uses to bury their dead.  It is a
 nice and cheery place during the day but at night people are loathe to come
@@ -238,6 +251,7 @@ the rope that was noosed around its neck.
 >You pick up length of rope.
 
 >You move in.
+
 Crypt
 This is the crypt.  Above the entryway was the name Devonshire and so you
 imagine that the Devonshires were once the owners of all the land about.  The
@@ -271,6 +285,7 @@ I do enjoy this one so much."  Then, she looks at you lustfully, her old
 melancholy gone.
 
 >You move out.
+
 Graveyard
 This is the graveyard that your village uses to bury their dead.  It is a
 nice and cheery place during the day but at night people are loathe to come
@@ -280,12 +295,14 @@ enter it.    There is an open grave here that was home to the zombie that you
 turned.
 
 >You move east.
+
 Trail
 The trail leads northward and south into the head of the moutain pass.  You
 can leave the trail at anytime by going to the west.  To the west is a
 massive graveyard.
 
 >You move east.
+
 Wilderness
 You have moved off of the trail which lies to the west.  To the north is yet
 more wilderness and to the south, are the forbidding mountains.  You cannot
@@ -299,12 +316,14 @@ Also here is big tree.
 Even so, the murky darkness is uninviting.
 
 >You move west.
+
 Trail
 The trail leads northward and south into the head of the moutain pass.  You
 can leave the trail at anytime by going to the west.  To the west is a
 massive graveyard.
 
 >You move south.
+
 Mouth of the pass
 This is the trailhead of the only pass through the mountains.  These
 mountains are a dangerous place and the creatures that inhabit it are the
@@ -313,6 +332,7 @@ winds its way to the south and there is a smaller, trail that leads into a
 cleft of the rock to the east.
 
 >You move south.
+
 Mountain pass
 The way here is steep but managable.  To the south lies the valley where your
 village lies.  If you really look, you can just make it out in the haze of
@@ -333,6 +353,7 @@ dead.  You hear a moan and another Ghoul shambles into the pass
 dead.  You hear a moan and another Ghoul shambles into the pass
 
 >You move north.
+
 Mouth of the pass
 This is the trailhead of the only pass through the mountains.  These
 mountains are a dangerous place and the creatures that inhabit it are the
@@ -341,18 +362,21 @@ winds its way to the south and there is a smaller, trail that leads into a
 cleft of the rock to the east.
 
 >You move north.
+
 Trail
 The trail leads northward and south into the head of the moutain pass.  You
 can leave the trail at anytime by going to the west.  To the west is a
 massive graveyard.
 
 >You move north.
+
 The trail
 You have reached the trail.  To the north is the bridge which leads to your
 home.  To the south, the trial continues.  You can leave the trail at any
 time by traveling to the east or the west.
 
 >You move east.
+
 Wilderness
 You have ventured off the trail which lies to the west.   This land is a
 broad forest and there are many paths that wander about.  You remember
@@ -361,6 +385,7 @@ run to to a cabin to the east.   You never actually entered the cabin because
 it belongs to an old reclusive mage.
 
 >You move east.
+
 Mage's Cabin
 This cabin is strange in that the inside is MUCH larger than the outside.
 You think you can leave to the west but even standing in the doorway dulls
@@ -377,6 +402,7 @@ book.  "Your lessons begin...."
 creatures by using the command TURN
 
 >You move west.
+
 Wilderness
 You have ventured off the trail which lies to the west.   This land is a
 broad forest and there are many paths that wander about.  You remember
@@ -385,18 +411,21 @@ run to to a cabin to the east.   You never actually entered the cabin because
 it belongs to an old reclusive mage.
 
 >You move west.
+
 The trail
 You have reached the trail.  To the north is the bridge which leads to your
 home.  To the south, the trial continues.  You can leave the trail at any
 time by traveling to the east or the west.
 
 >You move south.
+
 Trail
 The trail leads northward and south into the head of the moutain pass.  You
 can leave the trail at anytime by going to the west.  To the west is a
 massive graveyard.
 
 >You move south.
+
 Mouth of the pass
 This is the trailhead of the only pass through the mountains.  These
 mountains are a dangerous place and the creatures that inhabit it are the
@@ -405,6 +434,7 @@ winds its way to the south and there is a smaller, trail that leads into a
 cleft of the rock to the east.
 
 >You move south.
+
 Mountain pass
 The way here is steep but managable.  To the south lies the valley where your
 village lies.  If you really look, you can just make it out in the haze of
@@ -415,6 +445,7 @@ there.
 Ghoul is here.
 
 >You move west.
+
 Mountain Pass
 You are near the summit of the pass.  On either side of you the cliffs rise
 high above you blocking out the sun.  This would be a perfect place for an
@@ -511,6 +542,7 @@ pass.
 You feel more powerful
 
 >You move east.
+
 Mountain pass
 The way here is steep but managable.  To the south lies the valley where your
 village lies.  If you really look, you can just make it out in the haze of
@@ -521,6 +553,7 @@ there.
 Ghoul is here.
 
 >You move north.
+
 Mouth of the pass
 This is the trailhead of the only pass through the mountains.  These
 mountains are a dangerous place and the creatures that inhabit it are the
@@ -529,12 +562,14 @@ winds its way to the south and there is a smaller, trail that leads into a
 cleft of the rock to the east.
 
 >You move north.
+
 Trail
 The trail leads northward and south into the head of the moutain pass.  You
 can leave the trail at anytime by going to the west.  To the west is a
 massive graveyard.
 
 >You move north.
+
 The trail
 You have reached the trail.  To the north is the bridge which leads to your
 home.  To the south, the trial continues.  You can leave the trail at any
@@ -542,6 +577,7 @@ time by traveling to the east or the west.
 You gain a few hit points
 
 >You move east.
+
 Wilderness
 You have ventured off the trail which lies to the west.   This land is a
 broad forest and there are many paths that wander about.  You remember
@@ -550,6 +586,7 @@ run to to a cabin to the east.   You never actually entered the cabin because
 it belongs to an old reclusive mage.
 
 >You move east.
+
 Mage's Cabin
 This cabin is strange in that the inside is MUCH larger than the outside.
 You think you can leave to the west but even standing in the doorway dulls
@@ -566,6 +603,7 @@ book.  "Your lessons begin...."
 creatures by using the command TURN
 
 >You move west.
+
 Wilderness
 You have ventured off the trail which lies to the west.   This land is a
 broad forest and there are many paths that wander about.  You remember
@@ -574,18 +612,21 @@ run to to a cabin to the east.   You never actually entered the cabin because
 it belongs to an old reclusive mage.
 
 >You move west.
+
 The trail
 You have reached the trail.  To the north is the bridge which leads to your
 home.  To the south, the trial continues.  You can leave the trail at any
 time by traveling to the east or the west.
 
 >You move south.
+
 Trail
 The trail leads northward and south into the head of the moutain pass.  You
 can leave the trail at anytime by going to the west.  To the west is a
 massive graveyard.
 
 >You move south.
+
 Mouth of the pass
 This is the trailhead of the only pass through the mountains.  These
 mountains are a dangerous place and the creatures that inhabit it are the
@@ -594,6 +635,7 @@ winds its way to the south and there is a smaller, trail that leads into a
 cleft of the rock to the east.
 
 >You move south.
+
 Mountain pass
 The way here is steep but managable.  To the south lies the valley where your
 village lies.  If you really look, you can just make it out in the haze of
@@ -604,6 +646,7 @@ there.
 Ghoul is here.
 
 >You move west.
+
 Mountain Pass
 You are near the summit of the pass.  On either side of you the cliffs rise
 high above you blocking out the sun.  This would be a perfect place for an
@@ -613,6 +656,7 @@ cave toward the west.
 Greater Ghoul is here.
 
 >You move west.
+
 Mountain cave
 This cave has the stench of death and decay though it is an old scent.  It's
 obvious that whatever creature once lived here has moved on.  Deeper to the
@@ -620,6 +664,7 @@ nouth you can see the faint flicker of torches and can hear the laughter of
 racous men.
 
 >You move north.
+
 Mountain Cave
 As you venture farther into the cave, you begin to wonder why you decided to
 do this.   As stealthily as you can move, you cannot be sneaky enough for men
@@ -660,6 +705,7 @@ think for a moment.  "Very well.  I will this one and I have no use for this.
 >You pick up dusty old book.
 
 >You move south.
+
 Mountain cave
 This cave has the stench of death and decay though it is an old scent.  It's
 obvious that whatever creature once lived here has moved on.  Deeper to the
@@ -667,6 +713,7 @@ nouth you can see the faint flicker of torches and can hear the laughter of
 racous men.
 
 >You move east.
+
 Mountain Pass
 You are near the summit of the pass.  On either side of you the cliffs rise
 high above you blocking out the sun.  This would be a perfect place for an
@@ -676,6 +723,7 @@ buildup as if a landslide buried something forever.
 Bandit Lord and Greater Ghoul are here.
 
 >You move south.
+
 Mountain peak
 You have reached the summit of the pass and before you you can see the valley
 of the King.  The fair city of Harmon's Glade  lies to far to the south and
@@ -688,6 +736,7 @@ Skeleton Warrior is here.
 allowing you to pass through the mountains.
 
 >You move south.
+
 Mountain Pass
 This side of the pass is much easier than the northern side.  To the north is
 the summit of the peak and southward lies the valley.  As you're walking, you
@@ -695,6 +744,7 @@ notice that from time to time, sheer cliffs appear on either the east side or
 the west side of the path.
 
 >You move south.
+
 Base of Mountain
 You are standing at the foot of the mountains and in the valley of Kings.  To
 the north is the treacherous moutnain pass and to the south, the trail
@@ -707,6 +757,7 @@ Highwayman is here.
 You gain a few hit points
 
 >You move south.
+
 Road
 You are on the forest trail.  To the north the trail continues and there it
 passes through the mountain forest which is a maze of trees and roots.  Those
@@ -715,6 +766,7 @@ east and west are the first signs of civilization as two farms sprawl to
 either side of the road
 
 >You move west.
+
 Meggle's Farm
 This farm land is owned by Hal Meggle and he's a nice enough fella once you
 get to know him.  You can head east to the road or west to the house proper.
@@ -727,6 +779,7 @@ Well, Hal will certainly be surprised.
 >You pick up Gold nugget.
 
 >You move east.
+
 Road
 You are on the forest trail.  To the north the trail continues and there it
 passes through the mountain forest which is a maze of trees and roots.  Those
@@ -735,6 +788,7 @@ east and west are the first signs of civilization as two farms sprawl to
 either side of the road
 
 >You move south.
+
 Harmon's Glade Main Road
 You have finally reached the fair city of Harmon's Glade and are....
 disappointed.  You had expected to find towering spires all of white and
@@ -743,6 +797,7 @@ the main road through the town.  To the South the road continues toward the
 castle but you can also head east to an inn or west to an alley.
 
 >You move south.
+
 Harmon Glade's Main Road
 You have reached an intersection.  To the south is the castle of the Lord of
 Harmon's Glade.  To the north, the road heads toward the mountains but first
@@ -750,6 +805,7 @@ passing through the town.  To the west, is an entrance arch to a university
 though what is studied there, you don't know.
 
 >You move west.
+
 University
 As you pass under the arch from the roadway, a cowled figure approaches
 though you don't know from whence he came.  "Welcome to the University of
@@ -795,6 +851,7 @@ start to rain down upon you driving you out of the University and you hear
 Melvin's maniacal laugh from within the ring of fire.
 
 >You move west.
+
 University
 As you pass under the arch from the roadway, a cowled figure approaches
 though you don't know from whence he came.  "Welcome to the University of
@@ -816,6 +873,7 @@ his face, dead.
 >You pick up Melvin's Amulet.
 
 >You move east.
+
 Harmon Glade's Main Road
 You have reached an intersection.  To the south is the castle of the Lord of
 Harmon's Glade.  To the north, the road heads toward the mountains but first
@@ -823,6 +881,7 @@ passing through the town.  To the west, is an entrance arch to a university
 though what is studied there, you don't know.
 
 >You move south.
+
 Harmon's Keep
 This is the castle and main defense of Harmon's Glade which lies to the
 north.  As you look around, you can see several stern faced guards an an
@@ -834,6 +893,7 @@ to be watching you, you guess that that way lies the throne room.
 Royal Knight is here.
 
 >You move west.
+
 Throne Room
 This is the throne room and it is decorated with a throne of heavy black
 stone.  Two burly guards stand to either side of the throne itself.  There
@@ -854,6 +914,7 @@ from me by a group of bandits.  Return it and I shall reward you well."
 You gain a few hit points
 
 >You move east.
+
 Harmon's Keep
 This is the castle and main defense of Harmon's Glade which lies to the
 north.  As you look around, you can see several stern faced guards an an
@@ -865,6 +926,7 @@ to be watching you, you guess that that way lies the throne room.
 Royal Knight is here.
 
 >You move north.
+
 Harmon Glade's Main Road
 You have reached an intersection.  To the south is the castle of the Lord of
 Harmon's Glade.  To the north, the road heads toward the mountains but first
@@ -872,6 +934,7 @@ passing through the town.  To the west, is an entrance arch to a university
 though what is studied there, you don't know.
 
 >You move north.
+
 Harmon's Glade Main Road
 You have finally reached the fair city of Harmon's Glade and are....
 disappointed.  You had expected to find towering spires all of white and
@@ -880,6 +943,7 @@ the main road through the town.  To the South the road continues toward the
 castle but you can also head east to an inn or west to an alley.
 
 >You move west.
+
 Dark Alley
 This dark alley seems to stop at a blank wall but it doesn't look too high
 and you could climb it if you wished.. The stench of debris is almost
@@ -887,6 +951,7 @@ overpowering though you have a feeling of something drafting against your
 legs.   The ground here is littered with rubbish.
 
 >You move down.
+
 Theives Guild
 You practically fall into this well lit room and almost instantly are
 surrounded by shadowy figures wearing cloaks.  One of them yanks you to your
@@ -915,6 +980,7 @@ get close, she swats you away.  After an hour of near falls and a great deal
 of pain, you reach the top and she kisses you softly.  "Good job," she says.
 
 >You move up.
+
 Dark Alley
 This dark alley seems to stop at a blank wall but it doesn't look too high
 and you could climb it if you wished.. The stench of debris is almost
@@ -922,6 +988,7 @@ overpowering though you have a feeling of something drafting against your
 legs.   The ground here is littered with rubbish.
 
 >You move east.
+
 Harmon's Glade Main Road
 You have finally reached the fair city of Harmon's Glade and are....
 disappointed.  You had expected to find towering spires all of white and
@@ -930,6 +997,7 @@ the main road through the town.  To the South the road continues toward the
 castle but you can also head east to an inn or west to an alley.
 
 >You move east.
+
 Inn
 Ah, the Harmon's Glade Inn.  Not what you expected by comfortable and clean
 nonetheless.   Apparently they expected you because your room to the south is
@@ -941,6 +1009,7 @@ Jim is here.
 >"Of course," Jim says.  "That will be but 1 gold piece."
 
 >You move west.
+
 Harmon's Glade Main Road
 You have finally reached the fair city of Harmon's Glade and are....
 disappointed.  You had expected to find towering spires all of white and
@@ -949,6 +1018,7 @@ the main road through the town.  To the South the road continues toward the
 castle but you can also head east to an inn or west to an alley.
 
 >You move north.
+
 Road
 You are on the forest trail.  To the north the trail continues and there it
 passes through the mountain forest which is a maze of trees and roots.  Those
@@ -957,6 +1027,7 @@ east and west are the first signs of civilization as two farms sprawl to
 either side of the road
 
 >You move north.
+
 Base of Mountain
 You are standing at the foot of the mountains and in the valley of Kings.  To
 the north is the treacherous moutnain pass and to the south, the trail
@@ -971,6 +1042,7 @@ Highwayman is here.
 thank you M'Lord and shall be on my way."
 
 >You move north.
+
 Mountain Pass
 This side of the pass is much easier than the northern side.  To the north is
 the summit of the peak and southward lies the valley.  As you're walking, you
@@ -978,6 +1050,7 @@ notice that from time to time, sheer cliffs appear on either the east side or
 the west side of the path.
 
 >You move north.
+
 Mountain peak
 You have reached the summit of the pass and before you you can see the valley
 of the King.  The fair city of Harmon's Glade  lies to far to the south and
@@ -985,6 +1058,7 @@ as you gaze northward, you can only see the winding mountian pass that you
 just traversed.
 
 >You move north.
+
 Mountain Pass
 You are near the summit of the pass.  On either side of you the cliffs rise
 high above you blocking out the sun.  This would be a perfect place for an
@@ -1001,6 +1075,7 @@ of meat.  As you knead the poison into the meat, it burns into your fingers.
 Vicious stuff.
 
 >You move east.
+
 Mountain pass
 The way here is steep but managable.  To the south lies the valley where your
 village lies.  If you really look, you can just make it out in the haze of
@@ -1011,6 +1086,7 @@ there.
 Ghoul is here.
 
 >You move north.
+
 Mouth of the pass
 This is the trailhead of the only pass through the mountains.  These
 mountains are a dangerous place and the creatures that inhabit it are the
@@ -1019,12 +1095,14 @@ winds its way to the south and there is a smaller, trail that leads into a
 cleft of the rock to the east.
 
 >You move north.
+
 Trail
 The trail leads northward and south into the head of the moutain pass.  You
 can leave the trail at anytime by going to the west.  To the west is a
 massive graveyard.
 
 >You move east.
+
 Wilderness
 You have moved off of the trail which lies to the west.  To the north is yet
 more wilderness and to the south, are the forbidding mountains.  You cannot
@@ -1036,6 +1114,7 @@ to, you could climb down into the dark hole
 Also here is big tree.
 
 >You move down.
+
 The hole
 This is a dark forbidding hole and you're surprised that you weren't aware of
 it before.  As far as you can tell, the only way is back up but there is the
@@ -1057,6 +1136,7 @@ Goblins flee in terror.
 >You pick up goblin blood.
 
 >You move up.
+
 Wilderness
 You have moved off of the trail which lies to the west.  To the north is yet
 more wilderness and to the south, are the forbidding mountains.  You cannot
@@ -1068,12 +1148,14 @@ to, you could climb down into the dark hole
 Also here is big tree.
 
 >You move west.
+
 Trail
 The trail leads northward and south into the head of the moutain pass.  You
 can leave the trail at anytime by going to the west.  To the west is a
 massive graveyard.
 
 >You move west.
+
 Graveyard
 This is the graveyard that your village uses to bury their dead.  It is a
 nice and cheery place during the day but at night people are loathe to come
@@ -1083,6 +1165,7 @@ enter it.    There is an open grave here that was home to the zombie that you
 turned.
 
 >You move in.
+
 Crypt
 This is the crypt.  Above the entryway was the name Devonshire and so you
 imagine that the Devonshires were once the owners of all the land about.  The
@@ -1123,6 +1206,7 @@ lightly.
  "I gave you a gift, not a curse.  Undeath will not claim you."
 
 >You move out.
+
 Graveyard
 This is the graveyard that your village uses to bury their dead.  It is a
 nice and cheery place during the day but at night people are loathe to come
@@ -1132,12 +1216,14 @@ enter it.    There is an open grave here that was home to the zombie that you
 turned.
 
 >You move east.
+
 Trail
 The trail leads northward and south into the head of the moutain pass.  You
 can leave the trail at anytime by going to the west.  To the west is a
 massive graveyard.
 
 >You move south.
+
 Mouth of the pass
 This is the trailhead of the only pass through the mountains.  These
 mountains are a dangerous place and the creatures that inhabit it are the
@@ -1146,6 +1232,7 @@ winds its way to the south and there is a smaller, trail that leads into a
 cleft of the rock to the east.
 
 >You move east.
+
 Cleft in the rock
 This cleft is nothing more than the base of a rock chimney.  A skilled
 climber could ascend to the peak.
@@ -1155,6 +1242,7 @@ make it easily.
 You gain a few hit points
 
 >You move east.
+
 Stone Fortress
 From up close, this fortress is even more impressive.  You can see that it is
 a basion of strength and it would take more than an army to bring down this
@@ -1198,6 +1286,7 @@ the armor strikes the ground, it turns to dust.  The last to fall is the
 massive two handed sword which imbeds itself in the stone.
 
 >You move north.
+
 Temple of Jedimah
 As you enter the temple you feel a sudden feeling of peace.    You can see
 that the courtyard of this fortress has been converted to a worship place and
@@ -1209,6 +1298,7 @@ Also here is Statue of Jedimah.
 Worshippers is here.
 
 >You move east.
+
 Fortress Keep
 You enter the keep fo the temple and hear nothing at all.  As you walk across
 the stones, your feet make no sound and when you try to speak, the sound
@@ -1259,6 +1349,7 @@ but he says no more.
 >You pick up the Dark Gem.
 
 >You move west.
+
 Temple of Jedimah
 As you enter the temple you feel a sudden feeling of peace.    You can see
 that the courtyard of this fortress has been converted to a worship place and
@@ -1266,6 +1357,7 @@ you can see a statue of the god being worshipped here.  To the east is the
 keep.
 
 >You move south.
+
 Stone Fortress
 From up close, this fortress is even more impressive.  You can see that it is
 a basion of strength and it would take more than an army to bring down this
@@ -1276,6 +1368,7 @@ repair.  There is a two handed sword embedded in the stone here where the
 Temple Guard finally left the waking world.
 
 >You move west.
+
 Top of Chimney
 You have reached the top of the rock chimney and look about.  Far below you,
 the pass seems to wander.  From this vantage point, you can see farther than
@@ -1284,11 +1377,13 @@ looking building squatting atop the hill.  Seen from a distance, this
 fortress would be practically invisible so carefully crafted it is.
 
 >You move down.
+
 Cleft in the rock
 This cleft is nothing more than the base of a rock chimney.  A skilled
 climber could ascend to the peak.
 
 >You move west.
+
 Mouth of the pass
 This is the trailhead of the only pass through the mountains.  These
 mountains are a dangerous place and the creatures that inhabit it are the
@@ -1297,6 +1392,7 @@ winds its way to the south and there is a smaller, trail that leads into a
 cleft of the rock to the east.
 
 >You move south.
+
 Mountain pass
 The way here is steep but managable.  To the south lies the valley where your
 village lies.  If you really look, you can just make it out in the haze of
@@ -1307,6 +1403,7 @@ there.
 Ghoul is here.
 
 >You move west.
+
 Mountain Pass
 You are near the summit of the pass.  On either side of you the cliffs rise
 high above you blocking out the sun.  This would be a perfect place for an
@@ -1316,6 +1413,7 @@ buildup as if a landslide buried something forever.
 Greater Ghoul is here.
 
 >You move south.
+
 Mountain peak
 You have reached the summit of the pass and before you you can see the valley
 of the King.  The fair city of Harmon's Glade  lies to far to the south and
@@ -1323,6 +1421,7 @@ as you gaze northward, you can only see the winding mountian pass that you
 just traversed.
 
 >You move south.
+
 Mountain Pass
 This side of the pass is much easier than the northern side.  To the north is
 the summit of the peak and southward lies the valley.  As you're walking, you
@@ -1330,6 +1429,7 @@ notice that from time to time, sheer cliffs appear on either the east side or
 the west side of the path.
 
 >You move south.
+
 Base of Mountain
 You are standing at the foot of the mountains and in the valley of Kings.  To
 the north is the treacherous moutnain pass and to the south, the trail
@@ -1339,6 +1439,7 @@ in that ancient forest but stories say that if you lose your way, you can
 stumble about there forever.
 
 >You move south.
+
 Road
 You are on the forest trail.  To the north the trail continues and there it
 passes through the mountain forest which is a maze of trees and roots.  Those
@@ -1347,6 +1448,7 @@ east and west are the first signs of civilization as two farms sprawl to
 either side of the road
 
 >You move east.
+
 Hobbles Farm
 This farm is owned by Jed Hobbles and is run by same.  You don't know Jed and
 Jed don't know you which is bad for both of you because Jed doesn't
@@ -1362,6 +1464,7 @@ to whimper and lurches about the yard panting harshly as if it can't breathe.
 You gain a few hit points
 
 >You move east.
+
 Hobbles House
 This is the house of Jed Hobble and his daughters Carrie and Selkie.  It is a
 clean place with everything put where it belongs.  Jed himself rarely leaves
@@ -1384,6 +1487,7 @@ then storms out.
 >You take leaf circlet from heavy trunk.
 
 >You move west.
+
 Hobbles Farm
 This farm is owned by Jed Hobbles and is run by same.  You don't know Jed and
 Jed don't know you which is bad for both of you because Jed doesn't
@@ -1395,6 +1499,7 @@ Also here is dog blood.
 Jed Hobble and Selkie are here.
 
 >You move west.
+
 Road
 You are on the forest trail.  To the north the trail continues and there it
 passes through the mountain forest which is a maze of trees and roots.  Those
@@ -1403,6 +1508,7 @@ east and west are the first signs of civilization as two farms sprawl to
 either side of the road
 
 >You move north.
+
 Base of Mountain
 You are standing at the foot of the mountains and in the valley of Kings.  To
 the north is the treacherous moutnain pass and to the south, the trail
@@ -1412,12 +1518,14 @@ in that ancient forest but stories say that if you lose your way, you can
 stumble about there forever.
 
 >You move west.
+
 Forest
 You have foolishly entered the forest and quickly lost your way.  You can try
 traveling in any direction in hopes of reaching the trail or a settlement of
 some kind.
 
 >You move south.
+
 Dryad Grove
 It seems you have stumbled into an area devoid of trees.  You can see a small
 pond here of crystal clear water that seems to be in the exact center of the
@@ -1438,12 +1546,14 @@ radiate a warm light.
 Gem into your hands.
 
 >You move north.
+
 Forest
 You have foolishly entered the forest and quickly lost your way.  You can try
 traveling in any direction in hopes of reaching the trail or a settlement of
 some kind.
 
 >You move east.
+
 Base of Mountain
 You are standing at the foot of the mountains and in the valley of Kings.  To
 the north is the treacherous moutnain pass and to the south, the trail
@@ -1453,6 +1563,7 @@ in that ancient forest but stories say that if you lose your way, you can
 stumble about there forever.
 
 >You move south.
+
 Road
 You are on the forest trail.  To the north the trail continues and there it
 passes through the mountain forest which is a maze of trees and roots.  Those
@@ -1461,6 +1572,7 @@ east and west are the first signs of civilization as two farms sprawl to
 either side of the road
 
 >You move south.
+
 Harmon's Glade Main Road
 You have finally reached the fair city of Harmon's Glade and are....
 disappointed.  You had expected to find towering spires all of white and
@@ -1469,6 +1581,7 @@ the main road through the town.  To the South the road continues toward the
 castle but you can also head east to an inn or west to an alley.
 
 >You move south.
+
 Harmon Glade's Main Road
 You have reached an intersection.  To the south is the castle of the Lord of
 Harmon's Glade.  To the north, the road heads toward the mountains but first
@@ -1476,6 +1589,7 @@ passing through the town.  To the west, is an entrance arch to a university
 though what is studied there, you don't know.
 
 >You move south.
+
 Harmon's Keep
 This is the castle and main defense of Harmon's Glade which lies to the
 north.  As you look around, you can see several stern faced guards an an
@@ -1487,6 +1601,7 @@ to be watching you, you guess that that way lies the throne room.
 Royal Knight is here.
 
 >You move west.
+
 Throne Room
 This is the throne room and it is decorated with a throne of heavy black
 stone.  Two burly guards stand to either side of the throne itself.  There
@@ -1522,18 +1637,21 @@ again.
  "I can't leave your side," she answers softly, "now that we're bonded."
 
 >You move down.
+
 Catacombs
 This is a tunnel under the King's dungeon. It is dark, but there is enough
 light filtering in that you can see.
 You gain a few hit points
 
 >You move south.
+
 Center of Catacombs
 This is a large room beneath the King's dungeon.  There is a pit in the
 center of the chamber that you don't want to get to close to as it seems to
 yawn darkly below you.  There are exits to the north, south, east, and west.
 
 >You move south.
+
 Catacombs
 This tunnel is long and flat and extremely well lit.  To either side of you
 are dark chambers that you think were the original cells of this dungeon.
@@ -1541,6 +1659,7 @@ Fortunatly, all of the iron doors are closed and locked because the sounds of
 the creatures trapped behind those doors is frightening.
 
 >You move south.
+
 Ancient Guard Room
 This circular room appears to have once been a guard room but no longer.
 There are blood stains on the floor as if the guards all died painfully and
@@ -1562,6 +1681,7 @@ Gail hits Skull Collector, but it doesn't seem to do any damage.
 Skull Collector hits Mat, but it doesn't seem to do any damage.
 
 >You move north.
+
 Catacombs
 This tunnel is long and flat and extremely well lit.  To either side of you
 are dark chambers that you think were the original cells of this dungeon.
@@ -1574,6 +1694,7 @@ damage.
 Gail hits Skull Collector, but it doesn't seem to do any damage.
 
 >You move north.
+
 Center of Catacombs
 This is a large room beneath the King's dungeon.  There is a pit in the
 center of the chamber that you don't want to get to close to as it seems to
@@ -1588,6 +1709,7 @@ damage.
 Gail hits Skull Collector, but it doesn't seem to do any damage.
 
 >You move west.
+
 Catacombs
 This tunnel winds down into the earth and there is a stench wafting up at you
 from below.  It leads forward into a dark room.
@@ -1599,6 +1721,7 @@ Gail hits Skull Collector, but it doesn't seem to do any damage.
 Skull Collector hits Gail, but it doesn't seem to do any damage.
 
 >You move west.
+
 Dark Room
 This room is pitch black and no manner of light source and permeate the
 darkness here.  You can hear something moving in the nothingness and then a
@@ -1691,23 +1814,27 @@ You feel more powerful
 >You pick up the heart.
 
 >You move east.
+
 Catacombs
 This tunnel winds down into the earth and there is a stench wafting up at you
 from below.  It leads forward into a dark room.
 You gain a few hit points
 
 >You move east.
+
 Center of Catacombs
 This is a large room beneath the King's dungeon.  There is a pit in the
 center of the chamber that you don't want to get to close to as it seems to
 yawn darkly below you.  There are exits to the north, south, east, and west.
 
 >You move north.
+
 Catacombs
 This is a tunnel under the King's dungeon. It is dark, but there is enough
 light filtering in that you can see.
 
 >You move up.
+
 Dungeon
 This is the dungeon of Harmon's Keep and under less happy circumstances, it
 might be cheery, as far as dungeons go.  The exit is to the west though it
@@ -1725,6 +1852,7 @@ demand and the Jailer pulls it out and you trade.
 unlocks and you swing it open.
 
 >You move west.
+
 Harmon's Keep
 This is the castle and main defense of Harmon's Glade which lies to the
 north.  As you look around, you can see several stern faced guards an an
@@ -1734,6 +1862,7 @@ guess that it leads to a dungeon.  From the way that the western guards seem
 to be watching you, you guess that that way lies the throne room.
 
 >You move north.
+
 Harmon Glade's Main Road
 You have reached an intersection.  To the south is the castle of the Lord of
 Harmon's Glade.  To the north, the road heads toward the mountains but first
@@ -1741,6 +1870,7 @@ passing through the town.  To the west, is an entrance arch to a university
 though what is studied there, you don't know.
 
 >You move north.
+
 Harmon's Glade Main Road
 You have finally reached the fair city of Harmon's Glade and are....
 disappointed.  You had expected to find towering spires all of white and
@@ -1749,6 +1879,7 @@ the main road through the town.  To the South the road continues toward the
 castle but you can also head east to an inn or west to an alley.
 
 >You move north.
+
 Road
 You are on the forest trail.  To the north the trail continues and there it
 passes through the mountain forest which is a maze of trees and roots.  Those
@@ -1757,6 +1888,7 @@ east and west are the first signs of civilization as two farms sprawl to
 either side of the road
 
 >You move north.
+
 Base of Mountain
 You are standing at the foot of the mountains and in the valley of Kings.  To
 the north is the treacherous moutnain pass and to the south, the trail
@@ -1816,12 +1948,14 @@ he?" it asks pointing to the body of the King.  "If not then flee this
 place."
 
 >You move west.
+
 Forest
 You have foolishly entered the forest and quickly lost your way.  You can try
 traveling in any direction in hopes of reaching the trail or a settlement of
 some kind.
 
 >You move south.
+
 Dryad Grove
 It seems you have stumbled into an area devoid of trees.  You can see a small
 pond here of crystal clear water that seems to be in the exact center of the
@@ -1837,12 +1971,14 @@ affront to nature and I will battle it with all my being.  Alas, I am trapped
 within this grove!"
 
 >You move north.
+
 Forest
 You have foolishly entered the forest and quickly lost your way.  You can try
 traveling in any direction in hopes of reaching the trail or a settlement of
 some kind.
 
 >You move east.
+
 Base of Mountain
 You are standing at the foot of the mountains and in the valley of Kings.  To
 the north is the treacherous moutnain pass and to the south, the trail
@@ -1858,6 +1994,7 @@ Also here is Demon gate.
 Demon is here.
 
 >You move north.
+
 Mountain Pass
 This side of the pass is much easier than the northern side.  To the north is
 the summit of the peak and southward lies the valley.  As you're walking, you
@@ -1865,6 +2002,7 @@ notice that from time to time, sheer cliffs appear on either the east side or
 the west side of the path.
 
 >You move north.
+
 Mountain peak
 You have reached the summit of the pass and before you you can see the valley
 of the King.  The fair city of Harmon's Glade  lies to far to the south and
@@ -1872,6 +2010,7 @@ as you gaze northward, you can only see the winding mountian pass that you
 just traversed.
 
 >You move north.
+
 Mountain Pass
 You are near the summit of the pass.  On either side of you the cliffs rise
 high above you blocking out the sun.  This would be a perfect place for an
@@ -1882,6 +2021,7 @@ Greater Ghoul is here.
 You gain a few hit points
 
 >You move east.
+
 Mountain pass
 The way here is steep but managable.  To the south lies the valley where your
 village lies.  If you really look, you can just make it out in the haze of
@@ -1892,6 +2032,7 @@ there.
 Ghoul is here.
 
 >You move north.
+
 Mouth of the pass
 This is the trailhead of the only pass through the mountains.  These
 mountains are a dangerous place and the creatures that inhabit it are the
@@ -1900,11 +2041,13 @@ winds its way to the south and there is a smaller, trail that leads into a
 cleft of the rock to the east.
 
 >You move east.
+
 Cleft in the rock
 This cleft is nothing more than the base of a rock chimney.  A skilled
 climber could ascend to the peak.
 
 >You move up.
+
 Top of Chimney
 You have reached the top of the rock chimney and look about.  Far below you,
 the pass seems to wander.  From this vantage point, you can see farther than
@@ -1913,6 +2056,7 @@ looking building squatting atop the hill.  Seen from a distance, this
 fortress would be practically invisible so carefully crafted it is.
 
 >You move east.
+
 Stone Fortress
 From up close, this fortress is even more impressive.  You can see that it is
 a basion of strength and it would take more than an army to bring down this
@@ -1923,6 +2067,7 @@ repair.  There is a two handed sword embedded in the stone here where the
 Temple Guard finally left the waking world.
 
 >You move north.
+
 Temple of Jedimah
 As you enter the temple you feel a sudden feeling of peace.    You can see
 that the courtyard of this fortress has been converted to a worship place and
@@ -1930,6 +2075,7 @@ you can see a statue of the god being worshipped here.  To the east is the
 keep.
 
 >You move east.
+
 Fortress Keep
 You enter the keep and your footsteps ring against the flagstones, a welcome
 sound.  As you enter, you can see a statue holding a mirror which is shining
@@ -1944,6 +2090,7 @@ Elizabeth and Jedimah are here.
 where death walks.  If you bring it before me, I will aide as I am able."
 
 >You move west.
+
 Temple of Jedimah
 As you enter the temple you feel a sudden feeling of peace.    You can see
 that the courtyard of this fortress has been converted to a worship place and
@@ -1951,6 +2098,7 @@ you can see a statue of the god being worshipped here.  To the east is the
 keep.
 
 >You move south.
+
 Stone Fortress
 From up close, this fortress is even more impressive.  You can see that it is
 a basion of strength and it would take more than an army to bring down this
@@ -1961,6 +2109,7 @@ repair.  There is a two handed sword embedded in the stone here where the
 Temple Guard finally left the waking world.
 
 >You move west.
+
 Top of Chimney
 You have reached the top of the rock chimney and look about.  Far below you,
 the pass seems to wander.  From this vantage point, you can see farther than
@@ -1969,11 +2118,13 @@ looking building squatting atop the hill.  Seen from a distance, this
 fortress would be practically invisible so carefully crafted it is.
 
 >You move down.
+
 Cleft in the rock
 This cleft is nothing more than the base of a rock chimney.  A skilled
 climber could ascend to the peak.
 
 >You move west.
+
 Mouth of the pass
 This is the trailhead of the only pass through the mountains.  These
 mountains are a dangerous place and the creatures that inhabit it are the
@@ -1982,12 +2133,14 @@ winds its way to the south and there is a smaller, trail that leads into a
 cleft of the rock to the east.
 
 >You move north.
+
 Trail
 The trail leads northward and south into the head of the moutain pass.  You
 can leave the trail at anytime by going to the west.  To the west is a
 massive graveyard.
 
 >You move west.
+
 Graveyard
 This is the graveyard that your village uses to bury their dead.  It is a
 nice and cheery place during the day but at night people are loathe to come
@@ -1997,6 +2150,7 @@ enter it.    There is an open grave here that was home to the zombie that you
 turned.
 
 >You move in.
+
 Crypt
 This is the crypt.  Above the entryway was the name Devonshire and so you
 imagine that the Devonshires were once the owners of all the land about.  The
@@ -2014,6 +2168,7 @@ softly.  "It nearly destroyed me.  If you can lure this foul creature here, I
 will pit my strength against it."
 
 >You move out.
+
 Graveyard
 This is the graveyard that your village uses to bury their dead.  It is a
 nice and cheery place during the day but at night people are loathe to come
@@ -2023,12 +2178,14 @@ enter it.    There is an open grave here that was home to the zombie that you
 turned.
 
 >You move east.
+
 Trail
 The trail leads northward and south into the head of the moutain pass.  You
 can leave the trail at anytime by going to the west.  To the west is a
 massive graveyard.
 
 >You move north.
+
 The trail
 You have reached the trail.  To the north is the bridge which leads to your
 home.  To the south, the trial continues.  You can leave the trail at any
@@ -2036,6 +2193,7 @@ time by traveling to the east or the west.
 You gain a few hit points
 
 >You move north.
+
 The bridge
 You have reached the bridge crossing the mighty mountain river Thale.  To the
 north is the trailhead which leads to the village and to the south is the
@@ -2043,6 +2201,7 @@ trail proper.  If you desire, you can climb down to the river itself but
 caution is recommended.
 
 >You move north.
+
 Trail out of the village
 This is the trailhead that leads out of the village.  To the south lies the
 bridge over the river which protects your village from the rest of the world.
@@ -2071,6 +2230,7 @@ creature before me, and I will aid as I am able."
 >You put the Dark Gem inside the Ruby Box.
 
 >You move south.
+
 The bridge
 You have reached the bridge crossing the mighty mountain river Thale.  To the
 north is the trailhead which leads to the village and to the south is the
@@ -2078,18 +2238,21 @@ trail proper.  If you desire, you can climb down to the river itself but
 caution is recommended.
 
 >You move south.
+
 The trail
 You have reached the trail.  To the north is the bridge which leads to your
 home.  To the south, the trial continues.  You can leave the trail at any
 time by traveling to the east or the west.
 
 >You move south.
+
 Trail
 The trail leads northward and south into the head of the moutain pass.  You
 can leave the trail at anytime by going to the west.  To the west is a
 massive graveyard.
 
 >You move south.
+
 Mouth of the pass
 This is the trailhead of the only pass through the mountains.  These
 mountains are a dangerous place and the creatures that inhabit it are the
@@ -2098,6 +2261,7 @@ winds its way to the south and there is a smaller, trail that leads into a
 cleft of the rock to the east.
 
 >You move south.
+
 Mountain pass
 The way here is steep but managable.  To the south lies the valley where your
 village lies.  If you really look, you can just make it out in the haze of
@@ -2108,6 +2272,7 @@ there.
 Ghoul is here.
 
 >You move west.
+
 Mountain Pass
 You are near the summit of the pass.  On either side of you the cliffs rise
 high above you blocking out the sun.  This would be a perfect place for an
@@ -2117,6 +2282,7 @@ buildup as if a landslide buried something forever.
 Greater Ghoul is here.
 
 >You move south.
+
 Mountain peak
 You have reached the summit of the pass and before you you can see the valley
 of the King.  The fair city of Harmon's Glade  lies to far to the south and
@@ -2124,6 +2290,7 @@ as you gaze northward, you can only see the winding mountian pass that you
 just traversed.
 
 >You move south.
+
 Mountain Pass
 This side of the pass is much easier than the northern side.  To the north is
 the summit of the peak and southward lies the valley.  As you're walking, you
@@ -2131,6 +2298,7 @@ notice that from time to time, sheer cliffs appear on either the east side or
 the west side of the path.
 
 >You move south.
+
 Base of Mountain
 You are standing at the foot of the mountains and in the valley of Kings.  To
 the north is the treacherous moutnain pass and to the south, the trail
@@ -2155,6 +2323,7 @@ then howls as the tendrilt that seemed to stretch from the gate to it is
 severed.
 
 >You move north.
+
 Mountain Pass
 This side of the pass is much easier than the northern side.  To the north is
 the summit of the peak and southward lies the valley.  As you're walking, you
@@ -2164,6 +2333,7 @@ the west side of the path.
 Demon  from the south.
 
 >You move north.
+
 Mountain peak
 You have reached the summit of the pass and before you you can see the valley
 of the King.  The fair city of Harmon's Glade  lies to far to the south and
@@ -2173,6 +2343,7 @@ just traversed.
 Demon  from the south.
 
 >You move north.
+
 Mountain Pass
 You are near the summit of the pass.  On either side of you the cliffs rise
 high above you blocking out the sun.  This would be a perfect place for an
@@ -2184,6 +2355,7 @@ Greater Ghoul is here.
 Demon  from the south.
 
 >You move east.
+
 Mountain pass
 The way here is steep but managable.  To the south lies the valley where your
 village lies.  If you really look, you can just make it out in the haze of
@@ -2197,6 +2369,7 @@ Demon  from the west.
 You gain a few hit points
 
 >You move north.
+
 Mouth of the pass
 This is the trailhead of the only pass through the mountains.  These
 mountains are a dangerous place and the creatures that inhabit it are the
@@ -2207,6 +2380,7 @@ cleft of the rock to the east.
 Demon  from the south.
 
 >You move east.
+
 Cleft in the rock
 This cleft is nothing more than the base of a rock chimney.  A skilled
 climber could ascend to the peak.
@@ -2214,6 +2388,7 @@ climber could ascend to the peak.
 Demon  from the west.
 
 >You move up.
+
 Top of Chimney
 You have reached the top of the rock chimney and look about.  Far below you,
 the pass seems to wander.  From this vantage point, you can see farther than
@@ -2224,6 +2399,7 @@ fortress would be practically invisible so carefully crafted it is.
 Demon  from below.
 
 >You move east.
+
 Stone Fortress
 From up close, this fortress is even more impressive.  You can see that it is
 a basion of strength and it would take more than an army to bring down this
@@ -2236,6 +2412,7 @@ Temple Guard finally left the waking world.
 Demon  from the west.
 
 >You move north.
+
 Temple of Jedimah
 As you enter the temple you feel a sudden feeling of peace.    You can see
 that the courtyard of this fortress has been converted to a worship place and
@@ -2245,6 +2422,7 @@ keep.
 Demon  from the south.
 
 >You move east.
+
 Fortress Keep
 You enter the keep and your footsteps ring against the flagstones, a welcome
 sound.  As you enter, you can see a statue holding a mirror which is shining
@@ -2272,6 +2450,7 @@ statue and runs up the legs.  Jedimah screams in your head banishing that
 cruel voice and then, the statue crumbles to the ground lifeless once again.
 
 >You move west.
+
 Temple of Jedimah
 As you enter the temple you feel a sudden feeling of peace.    You can see
 that the courtyard of this fortress has been converted to a worship place and
@@ -2281,6 +2460,7 @@ keep.
 Demon  from the east.
 
 >You move south.
+
 Stone Fortress
 From up close, this fortress is even more impressive.  You can see that it is
 a basion of strength and it would take more than an army to bring down this
@@ -2293,6 +2473,7 @@ Temple Guard finally left the waking world.
 Demon  from the north.
 
 >You move west.
+
 Top of Chimney
 You have reached the top of the rock chimney and look about.  Far below you,
 the pass seems to wander.  From this vantage point, you can see farther than
@@ -2303,6 +2484,7 @@ fortress would be practically invisible so carefully crafted it is.
 Demon  from the east.
 
 >You move down.
+
 Cleft in the rock
 This cleft is nothing more than the base of a rock chimney.  A skilled
 climber could ascend to the peak.
@@ -2310,6 +2492,7 @@ climber could ascend to the peak.
 Demon  from above.
 
 >You move west.
+
 Mouth of the pass
 This is the trailhead of the only pass through the mountains.  These
 mountains are a dangerous place and the creatures that inhabit it are the
@@ -2320,6 +2503,7 @@ cleft of the rock to the east.
 Demon  from the east.
 
 >You move south.
+
 Mountain pass
 The way here is steep but managable.  To the south lies the valley where your
 village lies.  If you really look, you can just make it out in the haze of
@@ -2332,6 +2516,7 @@ Ghoul is here.
 Demon  from the north.
 
 >You move west.
+
 Mountain Pass
 You are near the summit of the pass.  On either side of you the cliffs rise
 high above you blocking out the sun.  This would be a perfect place for an
@@ -2343,6 +2528,7 @@ Greater Ghoul is here.
 Demon  from the east.
 
 >You move south.
+
 Mountain peak
 You have reached the summit of the pass and before you you can see the valley
 of the King.  The fair city of Harmon's Glade  lies to far to the south and
@@ -2352,6 +2538,7 @@ just traversed.
 Demon  from the north.
 
 >You move south.
+
 Mountain Pass
 This side of the pass is much easier than the northern side.  To the north is
 the summit of the peak and southward lies the valley.  As you're walking, you
@@ -2361,6 +2548,7 @@ the west side of the path.
 Demon  from the north.
 
 >You move south.
+
 Base of Mountain
 You are standing at the foot of the mountains and in the valley of Kings.  To
 the north is the treacherous moutnain pass and to the south, the trail
@@ -2374,6 +2562,7 @@ about reading the book you acquired for him and fingering Melvin's medallion.
 Demon  from the north.
 
 >You move west.
+
 Forest
 You have foolishly entered the forest and quickly lost your way.  You can try
 traveling in any direction in hopes of reaching the trail or a settlement of
@@ -2382,6 +2571,7 @@ some kind.
 Demon  from the east.
 
 >You move south.
+
 Dryad Grove
 It seems you have stumbled into an area devoid of trees.  You can see a small
 pond here of crystal clear water that seems to be in the exact center of the
@@ -2413,6 +2603,7 @@ You gain a few hit points
 You feel more powerful.
 
 >You move north.
+
 Forest
 You have foolishly entered the forest and quickly lost your way.  You can try
 traveling in any direction in hopes of reaching the trail or a settlement of
@@ -2421,6 +2612,7 @@ some kind.
 Demon  from the south.
 
 >You move east.
+
 Base of Mountain
 You are standing at the foot of the mountains and in the valley of Kings.  To
 the north is the treacherous moutnain pass and to the south, the trail
@@ -2434,6 +2626,7 @@ about reading the book you acquired for him and fingering Melvin's medallion.
 Demon  from the west.
 
 >You move north.
+
 Mountain Pass
 This side of the pass is much easier than the northern side.  To the north is
 the summit of the peak and southward lies the valley.  As you're walking, you
@@ -2443,6 +2636,7 @@ the west side of the path.
 Demon  from the south.
 
 >You move north.
+
 Mountain peak
 You have reached the summit of the pass and before you you can see the valley
 of the King.  The fair city of Harmon's Glade  lies to far to the south and
@@ -2452,6 +2646,7 @@ just traversed.
 Demon  from the south.
 
 >You move north.
+
 Mountain Pass
 You are near the summit of the pass.  On either side of you the cliffs rise
 high above you blocking out the sun.  This would be a perfect place for an
@@ -2463,6 +2658,7 @@ Greater Ghoul is here.
 Demon  from the south.
 
 >You move east.
+
 Mountain pass
 The way here is steep but managable.  To the south lies the valley where your
 village lies.  If you really look, you can just make it out in the haze of
@@ -2475,6 +2671,7 @@ Ghoul is here.
 Demon  from the west.
 
 >You move north.
+
 Mouth of the pass
 This is the trailhead of the only pass through the mountains.  These
 mountains are a dangerous place and the creatures that inhabit it are the
@@ -2485,6 +2682,7 @@ cleft of the rock to the east.
 Demon  from the south.
 
 >You move north.
+
 Trail
 The trail leads northward and south into the head of the moutain pass.  You
 can leave the trail at anytime by going to the west.  To the west is a
@@ -2493,6 +2691,7 @@ massive graveyard.
 Demon  from the south.
 
 >You move north.
+
 The trail
 You have reached the trail.  To the north is the bridge which leads to your
 home.  To the south, the trial continues.  You can leave the trail at any
@@ -2501,6 +2700,7 @@ time by traveling to the east or the west.
 Demon  from the south.
 
 >You move north.
+
 The bridge
 You have reached the bridge crossing the mighty mountain river Thale.  To the
 north is the trailhead which leads to the village and to the south is the
@@ -2510,6 +2710,7 @@ caution is recommended.
 Demon  from the south.
 
 >You move north.
+
 Trail out of the village
 This is the trailhead that leads out of the village.  To the south lies the
 bridge over the river which protects your village from the rest of the world.
@@ -2535,6 +2736,7 @@ the sky crashing to the ground.  You can see that the dragon is badly injured
 but still alive.
 
 >You move south.
+
 The bridge
 You have reached the bridge crossing the mighty mountain river Thale.  To the
 north is the trailhead which leads to the village and to the south is the
@@ -2544,6 +2746,7 @@ caution is recommended.
 Demon  from the north.
 
 >You move south.
+
 The trail
 You have reached the trail.  To the north is the bridge which leads to your
 home.  To the south, the trial continues.  You can leave the trail at any
@@ -2552,6 +2755,7 @@ time by traveling to the east or the west.
 Demon  from the north.
 
 >You move south.
+
 Trail
 The trail leads northward and south into the head of the moutain pass.  You
 can leave the trail at anytime by going to the west.  To the west is a
@@ -2560,6 +2764,7 @@ massive graveyard.
 Demon  from the north.
 
 >You move west.
+
 Graveyard
 This is the graveyard that your village uses to bury their dead.  It is a
 nice and cheery place during the day but at night people are loathe to come
@@ -2571,6 +2776,7 @@ turned.
 Demon  from the east.
 
 >You move in.
+
 Crypt
 This is the crypt.  Above the entryway was the name Devonshire and so you
 imagine that the Devonshires were once the owners of all the land about.  The
@@ -2601,6 +2807,7 @@ stone sarcophogus.
 You feel more powerful
 
 >You move out.
+
 Graveyard
 This is the graveyard that your village uses to bury their dead.  It is a
 nice and cheery place during the day but at night people are loathe to come
@@ -2612,6 +2819,7 @@ turned.
 Demon  from inside.
 
 >You move east.
+
 Trail
 The trail leads northward and south into the head of the moutain pass.  You
 can leave the trail at anytime by going to the west.  To the west is a
@@ -2621,6 +2829,7 @@ Demon  from the west.
 You gain a few hit points
 
 >You move north.
+
 The trail
 You have reached the trail.  To the north is the bridge which leads to your
 home.  To the south, the trial continues.  You can leave the trail at any
@@ -2629,6 +2838,7 @@ time by traveling to the east or the west.
 Demon  from the south.
 
 >You move north.
+
 The bridge
 You have reached the bridge crossing the mighty mountain river Thale.  To the
 north is the trailhead which leads to the village and to the south is the
@@ -2638,6 +2848,7 @@ caution is recommended.
 Demon  from the south.
 
 >You move down.
+
 River Thale
 This is the landing on Thale.  The only exit is up to the bridge above or out
 into the river.  Without a boat, traveling along the river will prove fatal
@@ -2672,6 +2883,7 @@ still about, your quest remains unfulfilled.
 Demon .
 
 >You move up.
+
 The bridge
 You have reached the bridge crossing the mighty mountain river Thale.  To the
 north is the trailhead which leads to the village and to the south is the
@@ -2681,6 +2893,7 @@ caution is recommended.
 Demon  from below.
 
 >You move north.
+
 Trail out of the village
 This is the trailhead that leads out of the village.  To the south lies the
 bridge over the river which protects your village from the rest of the world.

@@ -34,6 +34,7 @@ roof. This cottage is where you live at the moment.
 >The boulders are above the cave entrance.
 
 >You move in.
+
 Inside the cottage
 The cottage is a small one-room building. The room is fairly empty, with a
 bed taking up most of the space. You don't get many luxuries whilst staying
@@ -67,6 +68,7 @@ suitcase.
 never been good at saving.
 
 >You move out.
+
 The valley
 This is a quiet grassy valley, with a small cottage in the centre. The open
 door to the cottage is inviting you to walk inside and relax. You are not an
@@ -81,6 +83,7 @@ You have just eaten a meal. However, as you are a big man who needs lots of
 food, you are already starting to feel hungry again.
 
 >You move west.
+
 Inside the cave
 The cave is not very long, and opens up into an unnaturally smooth chamber,
 shaped like a large room. The centrepiece of this room is an altar, sitting
@@ -120,6 +123,7 @@ have obviously reached the food limit for now.
 
 You look at the meat and realise that you have to cook it. A fireplace is
 nearby, but you need wood for it to work.
+
 Inside the cottage
 The cottage is a small one-room building. The room is fairly empty, with a
 bed taking up most of the space. You don't get many luxuries whilst staying
@@ -136,6 +140,7 @@ Next to the bed is a suitcase
 >You drop the wallet and the piece of meat.
 
 >You move out.
+
 The valley
 This is a quiet grassy valley, with a small cottage in the centre. The open
 door to the cottage is inviting you to walk inside and relax. You are not an
@@ -149,6 +154,7 @@ though, as it is a long climb.
 >You struggle up the hill. It doesn't look that far, but you are very unfit
 and it is a huge effort for you to reach the top. You take a quick break at
 the top to recover your breath.
+
 Top of a hill
 On one side, you can see back down into the valley you came from. On the
 other side, there is nothing but a blank sky-coloured wall. The view would be
@@ -200,6 +206,7 @@ as you come to a crashing halt at the bottom.
 You do not feel injured, which is good, but you do feel exhausted. You go
 back to the cottage and take a rest in the bed. Eventually you get back up
 when the hunger becomes unbearable.
+
 Inside the cottage
 The cottage is a small one-room building. The room is fairly empty, with a
 bed taking up most of the space. You don't get many luxuries whilst staying
@@ -214,6 +221,7 @@ Next to the bed is a suitcase
 You can see a wallet and a piece of meat.
 
 >You move out.
+
 The valley
 This is a quiet grassy valley, with a small cottage in the centre. The open
 door to the cottage is inviting you to walk inside and relax. You are not an
@@ -235,6 +243,7 @@ not break easily.
 >You pick up the bunch of small branches.
 
 >You move in.
+
 Inside the cottage
 The cottage is a small one-room building. The room is fairly empty, with a
 bed taking up most of the space. You don't get many luxuries whilst staying
@@ -267,6 +276,7 @@ You hear a slight rumbling noise outside.
 >You pick up the suitcase and the wallet.
 
 >You move out.
+
 The valley
 This is a quiet grassy valley, with a small cottage in the centre. The open
 door to the cottage is inviting you to walk inside and relax. You are not an
@@ -285,6 +295,7 @@ smart is better than being thin. The stick breaks in the effort, but you no
 longer need it.
 
 >You move west.
+
 Inside the cave
 The cave is not very long, and opens up into an unnaturally smooth chamber,
 shaped like a large room. The centrepiece of this room is an altar, sitting

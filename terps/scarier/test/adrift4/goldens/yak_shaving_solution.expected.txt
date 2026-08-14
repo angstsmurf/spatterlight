@@ -57,6 +57,7 @@ glacier!
 light cannot penetrate.
 
 >You move west.
+
 Meadow
 Meadow
 Here, in the foothills of the mountains is a meadow of lush grass, strewn
@@ -71,6 +72,7 @@ that within moments you are outside again, gasping for air. If you've ever
 wondered how a hamster cage would smell to a bloodhound, now you know.
 
 >You move east.
+
 Shangri-La
 Shangri-La
 You weren't sure what to expect from the mystical valley of Shangri-La. You'd
@@ -87,6 +89,7 @@ to the north the valley is blocked by a sheer wall of ice; an enormous
 glacier!
 
 >You move east.
+
 Mountaintop
 Mountaintop
 Here, at the peak of the mountain, perched beneath a snow-covered overhang,
@@ -157,6 +160,7 @@ it's almost impossible.
 open the jar.
 
 >You move out.
+
 Mountaintop
 Mountaintop
 Here, at the peak of the mountain, perched beneath a snow-covered overhang,
@@ -227,6 +231,7 @@ line.
 >You take the clothes peg from the clothes line.
 
 >You move west.
+
 Shangri-La
 Shangri-La
 You weren't sure what to expect from the mystical valley of Shangri-La. You'd
@@ -243,6 +248,7 @@ to the north the valley is blocked by a sheer wall of ice; an enormous
 glacier!
 
 >You move west.
+
 Meadow
 Meadow
 Here, in the foothills of the mountains is a meadow of lush grass, strewn
@@ -255,6 +261,7 @@ barn, of no great architectural merit. A sign above the door bears the legend
 >You place the clothes peg on your nose.
 
 >Clothes peg firmly in place, you step bravely into the yak shed.
+
 Yak Shed
 Yak Shed
 The yak shed is a gloomy wooden structure of rickety construction. Enormous
@@ -270,6 +277,7 @@ spaghettied!
 >You'd need something to shave it with.
 
 >You move out.
+
 Meadow
 Meadow
 Here, in the foothills of the mountains is a meadow of lush grass, strewn
@@ -280,6 +288,7 @@ barn, of no great architectural merit. A sign above the door bears the legend
 'Yak Shed'. To the east, a rugged path leads down into the valley.
 
 >You move east.
+
 Shangri-La
 Shangri-La
 You weren't sure what to expect from the mystical valley of Shangri-La. You'd
@@ -296,6 +305,7 @@ to the north the valley is blocked by a sheer wall of ice; an enormous
 glacier!
 
 >You move north.
+
 Glacier
 Glacier
 You are standing at the foot of the glacier, a sheer wall of ice that would
@@ -321,6 +331,7 @@ back at you. Someone, or something, has been trapped in the ice, perhaps for
 aeons! Within seconds the ice has frosted over again.
 
 >You move south.
+
 Shangri-La
 Shangri-La
 You weren't sure what to expect from the mystical valley of Shangri-La. You'd
@@ -337,6 +348,7 @@ to the north the valley is blocked by a sheer wall of ice; an enormous
 glacier!
 
 >You move west.
+
 Meadow
 Meadow
 Here, in the foothills of the mountains is a meadow of lush grass, strewn
@@ -347,6 +359,7 @@ barn, of no great architectural merit. A sign above the door bears the legend
 'Yak Shed'. To the east, a rugged path leads down into the valley.
 
 >Clothes peg firmly in place, you step bravely into the yak shed.
+
 Yak Shed
 Yak Shed
 The yak shed is a gloomy wooden structure of rickety construction. Enormous
@@ -371,6 +384,7 @@ produce a sock that more or less exactly resembles the other one.
 could have such abominably big feet.
 
 >You move out.
+
 Meadow
 Meadow
 Here, in the foothills of the mountains is a meadow of lush grass, strewn
@@ -383,6 +397,7 @@ barn, of no great architectural merit. A sign above the door bears the legend
 >You remove the clothes peg.
 
 >You move east.
+
 Shangri-La
 Shangri-La
 You weren't sure what to expect from the mystical valley of Shangri-La. You'd
@@ -399,6 +414,7 @@ to the north the valley is blocked by a sheer wall of ice; an enormous
 glacier!
 
 >You move east.
+
 Mountaintop
 Mountaintop
 Here, at the peak of the mountain, perched beneath a snow-covered overhang,
@@ -415,6 +431,7 @@ The spot once occupied by the acolyte is now home to a very large pile of
 snow.
 
 >You move in.
+
 Sanctum Sanctorum
 Sanctum Sanctorum
 After your long and arduous journey it's hard not to be disappointed by the
@@ -443,6 +460,7 @@ be powered by cosmic energy, which is handy as there doesn't seem to be
 anywhere to plug it in.  The hairdryer is on.
 
 >You move out.
+
 Mountaintop
 Mountaintop
 Here, at the peak of the mountain, perched beneath a snow-covered overhang,
@@ -459,6 +477,7 @@ The spot once occupied by the acolyte is now home to a very large pile of
 snow.
 
 >You move west.
+
 Shangri-La
 Shangri-La
 You weren't sure what to expect from the mystical valley of Shangri-La. You'd
@@ -475,6 +494,7 @@ to the north the valley is blocked by a sheer wall of ice; an enormous
 glacier!
 
 >You move north.
+
 Glacier
 Glacier
 You are standing at the foot of the glacier, a sheer wall of ice that would
@@ -487,6 +507,7 @@ Who knows what else might have been swept up in this monstrous river of ice?
 big enough to  crawl through.
 
 >You move in.
+
 Ice Cave
 Ice Cave
 A vast, cathedral-like cavern bathed in an eerie blue glow. Through the walls
@@ -512,6 +533,7 @@ little dance and gives you big, hairy, smelly bear-hug before tearing off
 into the open air.
 
 >You move out.
+
 Glacier
 Glacier
 You are standing at the foot of the glacier, a sheer wall of ice that would
@@ -536,6 +558,7 @@ back to you lidless. Far out.
 >A jar of eggs, pickled in vinegar.  The jar of pickled eggs is open.
 
 >You move south.
+
 Shangri-La
 Shangri-La
 You weren't sure what to expect from the mystical valley of Shangri-La. You'd
@@ -552,6 +575,7 @@ to the north the valley is blocked by a sheer wall of ice; an enormous
 glacier!
 
 >You move east.
+
 Mountaintop
 Mountaintop
 Here, at the peak of the mountain, perched beneath a snow-covered overhang,
@@ -568,6 +592,7 @@ The spot once occupied by the acolyte is now home to a very large pile of
 snow.
 
 >You move in.
+
 Sanctum Sanctorum
 Sanctum Sanctorum
 After your long and arduous journey it's hard not to be disappointed by the

@@ -269,6 +269,7 @@ nourishment fuels your growth even as you are licking your lips.
 >You glide down from your canopy birthplace into the dark forest floor below.
 
 >You move south.
+
 Cavern
 The cavern is damp and dark.  It's mossy walls dampen the sounds of all the
 cavern's creatures, digging, flapping, & chirping.
@@ -347,6 +348,7 @@ stone walls of the cave like these creatures, but you should try digging
 outside in the dirt.
 
 >You move north.
+
 Forest Floor
 Under the canopy the trees are huge columns of wood sprouting from a rotten,
 brown blanket of fallen leaves and branches.
@@ -363,6 +365,7 @@ The moon is high in the sky, but provides a little light.
 A nasty little slug slimes around on a leaf near your feet.
 
 >You move up.
+
 Forest Canopy
 The uppermost branches of the trees are thick with bright green foliage,
 little buds of pink, purple, and orange, and a multitude of creatures
@@ -388,6 +391,7 @@ Distension is a natural thing for a mangiasaur's belly, but you are aware of
 your stomach returning to normal as you process your excess of food.
 
 >You move down.
+
 Forest Floor
 Under the canopy the trees are huge columns of wood sprouting from a rotten,
 brown blanket of fallen leaves and branches.
@@ -425,6 +429,7 @@ time you're done with the feast!
 Your stomach is still full and fat.  It's a good feeling.
 
 >You move east.
+
 Valley Pass
 The trees of the forest to the west give way abruptly to a low rolling
 grassland nestled between huge looming mountains.  Smelly herd beasts upset
@@ -478,6 +483,7 @@ for the food.  In addition to filling you up, the meat from the smelly animal
 is great fuel for your growth, and you grow drastically in size!
 
 >You move in.
+
 Small Adobe Hut
 This little dwelling is made of mud.
 
@@ -509,6 +515,7 @@ while, you are blasted by a burst of warm air and find yourself staring down
 at the entrance to a huge cave.  You can hear water down there...
 
 >You move out.
+
 Valley Pass
 The trees of the forest to the west give way abruptly to a low rolling
 grassland nestled between huge looming mountains.  Smelly herd beasts upset
@@ -530,6 +537,7 @@ attached to!  They're bland, and being full of air, they don't do much to
 fill your stomach.
 
 >You move in.
+
 Small Adobe Hut
 This little dwelling is made of mud.
 
@@ -537,6 +545,7 @@ Also here is a down.
 A hut dweller is standing in here, wondering what you are.
 
 >You slide down through the hole and splash into the underground ocean.
+
 Underground Ocean
 It may be hard to see underwater, but the tentacle nets drifting around in
 the water emit a soft blue light that makes it possible for you to navigate
@@ -595,6 +604,7 @@ You turn to flee immediately, huge shark jaws agape behind you!  You swim
 well, and escape the underground ocean, never to return again.
 
 >You move out.
+
 Valley Pass
 The trees of the forest to the west give way abruptly to a low rolling
 grassland nestled between huge looming mountains.  Smelly herd beasts upset
@@ -708,6 +718,7 @@ Your aim is true, and the spear is wedged into the hole, standing straight
 up.  Then the flat rock begins to move.
 
 >You crawl down the hole and find yourself in the Hall of Humans.
+
 Hall of Humans
 The Hall of Humans is unlike anything you've ever seen.  The room must occupy
 almost the entire volume of the mesa.  Little adobe dwellings hang from

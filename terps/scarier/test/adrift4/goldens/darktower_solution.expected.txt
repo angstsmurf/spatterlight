@@ -41,6 +41,7 @@ crazy is that?
 >Done.
 
 >You move north.
+
 Lobby
 This is the lobby.  To the west are the stairs.  To the north is a door with
 a key card slot.  The lobby continues to the south.
@@ -48,18 +49,21 @@ a key card slot.  The lobby continues to the south.
 You can move south and west.
 
 >You move west.
+
 Stairs, 1st Floor
 The stairs lead up and down.  There is a door marked "1st Floor" to the east.
 
 You can move east, up and down.
 
 >You move down.
+
 Stairs, Parking Garage
 The stairs lead up.  There is a door marked "Parking Garage" to the east.
 
 You can move east and up.
 
 >You move east.
+
 Parking Garage North End
 There is one van parked here.  It is a very long extended conversion van,
 although you are unable to discern the make or model.  It is solid black with
@@ -76,6 +80,7 @@ flashlight.  You take the flashlight and turn it on.  It's one of those big
 ones with the large battery, so you'll have hours of light.
 
 >You move south.
+
 Parking Garage
 There are no cars here.  There is a door marked "Maintenance" to the west.
 The garage continues to the north and south.  The garage entrance / exit is
@@ -84,6 +89,7 @@ to the east.
 You can move north, east, south and west.
 
 >You move east.
+
 Parking Garage Entrance/Exit
 This is where the cars enter and leave the garage.  There is a small gate
 house to the south.  There is a large, solid steel gate completely covering
@@ -92,6 +98,7 @@ the exit.
 You can move east, south and west.
 
 >You move south.
+
 Gate House
 This is the gate house for the garage.  There are three button here.  One to
 raise and lower the entrance bar, one to raise and lower the exit bar, and
@@ -105,6 +112,7 @@ You can only move north.
 >You pick up the red key card.
 
 >You move north.
+
 Parking Garage Entrance/Exit
 This is where the cars enter and leave the garage.  There is a small gate
 house to the south.  There is a large, solid steel gate completely covering
@@ -113,6 +121,7 @@ the exit.
 You can move east, south and west.
 
 >You move west.
+
 Parking Garage
 There are no cars here.  There is a door marked "Maintenance" to the west.
 The garage continues to the north and south.  The garage entrance / exit is
@@ -121,6 +130,7 @@ to the east.
 You can move north, east, south and west.
 
 >You move north.
+
 Parking Garage North End
 There is one van parked here.  It is a very long extended conversion van,
 although you are unable to discern the make or model.  It is solid black with
@@ -133,18 +143,21 @@ garage continues to the south.
 You can move south and west.
 
 >You move west.
+
 Stairs, Parking Garage
 The stairs lead up.  There is a door marked "Parking Garage" to the east.
 
 You can move east and up.
 
 >You move up.
+
 Stairs, 1st Floor
 The stairs lead up and down.  There is a door marked "1st Floor" to the east.
 
 You can move east, up and down.
 
 >You move east.
+
 Lobby
 This is the lobby.  To the west are the stairs.  To the north is a door with
 a key card slot.  The lobby continues to the south.
@@ -154,6 +167,7 @@ You can move south and west.
 >Done.
 
 >You move north.
+
 Suite 100
 Hoffman, Smith, & Brown, attorneys at law
 
@@ -168,6 +182,7 @@ You can only move south.
 >You pick up the blue key card.
 
 >You move south.
+
 Lobby
 This is the lobby.  To the west are the stairs.  To the north is a door with
 a key card slot.  The lobby continues to the south.
@@ -175,6 +190,7 @@ a key card slot.  The lobby continues to the south.
 You can move north, south and west.
 
 >You move south.
+
 Lobby
 This is the lobby.  To the west is the entrance.  There is a reception desk
 here with a phone.  To the east is a door with a key card slot marked
@@ -184,6 +200,7 @@ metal security gate blocking the exit to the building.
 You can move north, east and south.
 
 >You move east.
+
 Security
 This is the security office.  There is a desk facing the west wall, which is
 covered in monitors.  There are about 25 monitors here, one for each camera
@@ -211,6 +228,7 @@ getting new cards Friday, so keep hold of your cards, and for gosh shake, do
 NOT leave your gold card lying around!
 
 >You move west.
+
 Lobby
 This is the lobby.  To the west is the entrance.  There is a reception desk
 here with a phone.  To the east is a door with a key card slot marked
@@ -220,6 +238,7 @@ metal security gate blocking the exit to the building.
 You can move north, east and south.
 
 >You move south.
+
 Lobby
 This is the lobby.  To the south is a door with a key card slot.  To the west
 is the elevator.  The lobby continues to the north.  The elevator can't be
@@ -228,6 +247,7 @@ used until power has been restored to the building.
 You can move north and south.
 
 >You move south.
+
 Suite 101
 Charlie's
 
@@ -242,6 +262,7 @@ You can only move north.
 >You pick up the elevator key.
 
 >You move north.
+
 Lobby
 This is the lobby.  To the south is a door with a key card slot.  To the west
 is the elevator.  The lobby continues to the north.  The elevator can't be
@@ -250,6 +271,7 @@ used until power has been restored to the building.
 You can move north and south.
 
 >You move north.
+
 Lobby
 This is the lobby.  To the west is the entrance.  There is a reception desk
 here with a phone.  To the east is a door with a key card slot marked
@@ -259,6 +281,7 @@ metal security gate blocking the exit to the building.
 You can move north, east and south.
 
 >You move north.
+
 Lobby
 This is the lobby.  To the west are the stairs.  To the north is a door with
 a key card slot.  The lobby continues to the south.
@@ -266,18 +289,21 @@ a key card slot.  The lobby continues to the south.
 You can move north, south and west.
 
 >You move west.
+
 Stairs, 1st Floor
 The stairs lead up and down.  There is a door marked "1st Floor" to the east.
 
 You can move east, up and down.
 
 >You move up.
+
 Stairs, 2nd Floor
 The stairs lead up and down.  There is a door marked "2nd Floor" to the east.
 
 You can move east, up and down.
 
 >You move east.
+
 2nd Floor Hallway
 This is a hallway.  To the west are the stairs.  To the north is a door with
 a key card slot.  The hallway continues to the south.
@@ -287,6 +313,7 @@ You can move south and west.
 >Done.
 
 >You move north.
+
 Suite 200
 PowerTemp
 
@@ -300,6 +327,7 @@ You can only move south.
 >You pick up the power cable.
 
 >You move south.
+
 2nd Floor Hallway
 This is a hallway.  To the west are the stairs.  To the north is a door with
 a key card slot.  The hallway continues to the south.
@@ -307,6 +335,7 @@ a key card slot.  The hallway continues to the south.
 You can move north, south and west.
 
 >You move south.
+
 2nd Floor Hallway
 This is a hallway.  There are two doors here, one east and one west, each
 with a key card slot.  The hallway continues to the north and south.
@@ -314,6 +343,7 @@ with a key card slot.  The hallway continues to the north and south.
 You can move north, east, south and west.
 
 >You move east.
+
 Suite 201
 Talent Shot
 
@@ -326,6 +356,7 @@ You can only move west.
 >You pick up the green key card.
 
 >You move west.
+
 2nd Floor Hallway
 This is a hallway.  There are two doors here, one east and one west, each
 with a key card slot.  The hallway continues to the north and south.
@@ -333,6 +364,7 @@ with a key card slot.  The hallway continues to the north and south.
 You can move north, east, south and west.
 
 >You move west.
+
 Suite 203
 Collector, Inc.
 
@@ -348,6 +380,7 @@ You can only move east.
 >You pick up the garage key.
 
 >You move east.
+
 2nd Floor Hallway
 This is a hallway.  There are two doors here, one east and one west, each
 with a key card slot.  The hallway continues to the north and south.
@@ -355,6 +388,7 @@ with a key card slot.  The hallway continues to the north and south.
 You can move north, east, south and west.
 
 >You move north.
+
 2nd Floor Hallway
 This is a hallway.  To the west are the stairs.  To the north is a door with
 a key card slot.  The hallway continues to the south.
@@ -362,18 +396,21 @@ a key card slot.  The hallway continues to the south.
 You can move north, south and west.
 
 >You move west.
+
 Stairs, 2nd Floor
 The stairs lead up and down.  There is a door marked "2nd Floor" to the east.
 
 You can move east, up and down.
 
 >You move up.
+
 Stairs, 3rd Floor
 The stairs lead up and down.  There is a door marked "3rd Floor" to the east.
 
 You can move east, up and down.
 
 >You move east.
+
 3rd Floor Hallway
 This is a hallway.  To the west are the stairs.  To the north is a door with
 a key card slot.  The hallway continues to the south.
@@ -383,6 +420,7 @@ You can move south and west.
 >Done.
 
 >You move north.
+
 Suite 300
 Video Surplus.
 
@@ -395,6 +433,7 @@ You can only move south.
 >You pick up the patch kit.
 
 >You move south.
+
 3rd Floor Hallway
 This is a hallway.  To the west are the stairs.  To the north is a door with
 a key card slot.  The hallway continues to the south.
@@ -402,6 +441,7 @@ a key card slot.  The hallway continues to the south.
 You can move north, south and west.
 
 >You move south.
+
 3rd Floor Hallway
 This is a hallway.  There are two doors here, one east and one west, each
 with a key card slot.  The hallway continues to the north and south.
@@ -409,6 +449,7 @@ with a key card slot.  The hallway continues to the north and south.
 You can move north, east, south and west.
 
 >You move east.
+
 Suite 301
 This is a vacant office.
 
@@ -419,6 +460,7 @@ You can only move west.
 >You pick up the yellow key card.
 
 >You move west.
+
 3rd Floor Hallway
 This is a hallway.  There are two doors here, one east and one west, each
 with a key card slot.  The hallway continues to the north and south.
@@ -426,6 +468,7 @@ with a key card slot.  The hallway continues to the north and south.
 You can move north, east, south and west.
 
 >You move west.
+
 Suite 303
 Engineerco
 
@@ -439,6 +482,7 @@ You can only move east.
 >You pick up the wire cutters.
 
 >You move east.
+
 3rd Floor Hallway
 This is a hallway.  There are two doors here, one east and one west, each
 with a key card slot.  The hallway continues to the north and south.
@@ -446,6 +490,7 @@ with a key card slot.  The hallway continues to the north and south.
 You can move north, east, south and west.
 
 >You move south.
+
 3rd Floor Hallway
 This is a hallway.  To the south is a door with a key card slot.  To the west
 is the elevator.  The hallway continues to the north.  The elevator can't be
@@ -456,6 +501,7 @@ Also here is a mysterious part 10.
 You can move north and south.
 
 >You move south.
+
 Suite 302
 Ad Aware
 
@@ -469,6 +515,7 @@ You can only move north.
 >You pick up the gate key.
 
 >You move north.
+
 3rd Floor Hallway
 This is a hallway.  To the south is a door with a key card slot.  To the west
 is the elevator.  The hallway continues to the north.  The elevator can't be
@@ -479,6 +526,7 @@ Also here is a mysterious part 10.
 You can move north and south.
 
 >You move north.
+
 3rd Floor Hallway
 This is a hallway.  There are two doors here, one east and one west, each
 with a key card slot.  The hallway continues to the north and south.
@@ -486,6 +534,7 @@ with a key card slot.  The hallway continues to the north and south.
 You can move north, east, south and west.
 
 >You move north.
+
 3rd Floor Hallway
 This is a hallway.  To the west are the stairs.  To the north is a door with
 a key card slot.  The hallway continues to the south.
@@ -493,18 +542,21 @@ a key card slot.  The hallway continues to the south.
 You can move north, south and west.
 
 >You move west.
+
 Stairs, 3rd Floor
 The stairs lead up and down.  There is a door marked "3rd Floor" to the east.
 
 You can move east, up and down.
 
 >You move up.
+
 Stairs, 4th Floor
 The stairs lead up and down.  There is a door marked "4th Floor" to the east.
 
 You can move east, up and down.
 
 >You move east.
+
 4th Floor Hallway
 This is a hallway.  To the west are the stairs.  To the north is a door with
 a key card slot.  The hallway continues to the south.
@@ -514,6 +566,7 @@ You can move south and west.
 >Done.
 
 >You move south.
+
 4th Floor Hallway
 This is a hallway.  There are two doors here, one east and one west, each
 with a key card slot.  The hallway continues to the north and south.
@@ -521,6 +574,7 @@ with a key card slot.  The hallway continues to the north and south.
 You can move north, east, south and west.
 
 >You move east.
+
 Suite 401
 Jones & White
 
@@ -533,6 +587,7 @@ You can only move west.
 >You pick up the black key card.
 
 >You move west.
+
 4th Floor Hallway
 This is a hallway.  There are two doors here, one east and one west, each
 with a key card slot.  The hallway continues to the north and south.
@@ -540,6 +595,7 @@ with a key card slot.  The hallway continues to the north and south.
 You can move north, east, south and west.
 
 >You move west.
+
 Suite 403
 Private Eyes
 
@@ -553,6 +609,7 @@ You can only move east.
 >You pick up the diamond screwdriver.
 
 >You move east.
+
 4th Floor Hallway
 This is a hallway.  There are two doors here, one east and one west, each
 with a key card slot.  The hallway continues to the north and south.
@@ -560,6 +617,7 @@ with a key card slot.  The hallway continues to the north and south.
 You can move north, east, south and west.
 
 >You move north.
+
 4th Floor Hallway
 This is a hallway.  To the west are the stairs.  To the north is a door with
 a key card slot.  The hallway continues to the south.
@@ -567,12 +625,14 @@ a key card slot.  The hallway continues to the south.
 You can move north, south and west.
 
 >You move west.
+
 Stairs, 4th Floor
 The stairs lead up and down.  There is a door marked "4th Floor" to the east.
 
 You can move east, up and down.
 
 >You move up.
+
 Stairs, 5th Floor
 The stairs lead up and down.  There is a door marked "5th Floor" to the east.
 
@@ -581,6 +641,7 @@ Also here is a mysterious part 5.
 You can move east, up and down.
 
 >You move east.
+
 5th Floor Hallway
 This is a hallway.  To the west are the stairs.  To the north is a door with
 a key card slot.  The hallway continues to the south.
@@ -590,6 +651,7 @@ Also here is a mysterious part 9.
 You can move north, south and west.
 
 >You move north.
+
 Suite 500
 A to Z Graphics
 
@@ -603,6 +665,7 @@ You can only move south.
 >You pick up the repair manual.
 
 >You move south.
+
 5th Floor Hallway
 This is a hallway.  To the west are the stairs.  To the north is a door with
 a key card slot.  The hallway continues to the south.
@@ -614,6 +677,7 @@ You can move north, south and west.
 >Done.
 
 >You move south.
+
 5th Floor Hallway
 This is a hallway.  There are two doors here, one east and one west, each
 with a key card slot.  The hallway continues to the north and south.
@@ -621,6 +685,7 @@ with a key card slot.  The hallway continues to the north and south.
 You can move north, east, south and west.
 
 >You move east.
+
 Suite 501
 Picture Perfect
 
@@ -634,6 +699,7 @@ You can only move west.
 >You pick up the power cord.
 
 >You move west.
+
 5th Floor Hallway
 This is a hallway.  There are two doors here, one east and one west, each
 with a key card slot.  The hallway continues to the north and south.
@@ -641,6 +707,7 @@ with a key card slot.  The hallway continues to the north and south.
 You can move north, east, south and west.
 
 >You move west.
+
 Suite 503
 Fly Away
 
@@ -653,6 +720,7 @@ You can only move east.
 >You pick up the wrench.
 
 >You move east.
+
 5th Floor Hallway
 This is a hallway.  There are two doors here, one east and one west, each
 with a key card slot.  The hallway continues to the north and south.
@@ -660,6 +728,7 @@ with a key card slot.  The hallway continues to the north and south.
 You can move north, east, south and west.
 
 >You move south.
+
 5th Floor Hallway
 This is a hallway.  To the south is a door with a key card slot.  To the west
 is the elevator.  The hallway continues to the north.  The elevator can't be
@@ -668,6 +737,7 @@ used until power has been restored to the building.
 You can move north and south.
 
 >You move south.
+
 Suite 502
 Gecko Insurance
 
@@ -680,6 +750,7 @@ You can only move north.
 >You pick up the phillips screwdriver.
 
 >You move north.
+
 5th Floor Hallway
 This is a hallway.  To the south is a door with a key card slot.  To the west
 is the elevator.  The hallway continues to the north.  The elevator can't be
@@ -688,6 +759,7 @@ used until power has been restored to the building.
 You can move north and south.
 
 >You move north.
+
 5th Floor Hallway
 This is a hallway.  There are two doors here, one east and one west, each
 with a key card slot.  The hallway continues to the north and south.
@@ -695,6 +767,7 @@ with a key card slot.  The hallway continues to the north and south.
 You can move north, east, south and west.
 
 >You move north.
+
 5th Floor Hallway
 This is a hallway.  To the west are the stairs.  To the north is a door with
 a key card slot.  The hallway continues to the south.
@@ -704,6 +777,7 @@ Also here is a mysterious part 9.
 You can move north, south and west.
 
 >You move west.
+
 Stairs, 5th Floor
 The stairs lead up and down.  There is a door marked "5th Floor" to the east.
 
@@ -712,36 +786,42 @@ Also here is a mysterious part 5.
 You can move east, up and down.
 
 >You move down.
+
 Stairs, 4th Floor
 The stairs lead up and down.  There is a door marked "4th Floor" to the east.
 
 You can move east, up and down.
 
 >You move down.
+
 Stairs, 3rd Floor
 The stairs lead up and down.  There is a door marked "3rd Floor" to the east.
 
 You can move east, up and down.
 
 >You move down.
+
 Stairs, 2nd Floor
 The stairs lead up and down.  There is a door marked "2nd Floor" to the east.
 
 You can move east, up and down.
 
 >You move down.
+
 Stairs, 1st Floor
 The stairs lead up and down.  There is a door marked "1st Floor" to the east.
 
 You can move east, up and down.
 
 >You move down.
+
 Stairs, Parking Garage
 The stairs lead up.  There is a door marked "Parking Garage" to the east.
 
 You can move east and up.
 
 >You move east.
+
 Parking Garage North End
 There is one van parked here.  It is a very long extended conversion van,
 although you are unable to discern the make or model.  It is solid black with
@@ -754,6 +834,7 @@ garage continues to the south.
 You can move south and west.
 
 >You move south.
+
 Parking Garage
 There are no cars here.  There is a door marked "Maintenance" to the west.
 The garage continues to the north and south.  The garage entrance / exit is
@@ -762,6 +843,7 @@ to the east.
 You can move north, east, south and west.
 
 >You move west.
+
 Maintenance
 This is a large room.  There is a desk in the corner with papers stacked on
 it.  There is a small locker on the back wall.  Along the south wall is an

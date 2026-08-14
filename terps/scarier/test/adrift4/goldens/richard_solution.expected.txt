@@ -26,6 +26,7 @@ You shout, "Hey Rich! Good one buddy! You had me going there for a sec."
 There is no answer...
 
 >You move west.
+
 In the computer room
 This is the computer room. There are windows along the north wall, and
 bookshelves bracket the doorway. Under the windows is a long wooden table
@@ -42,6 +43,7 @@ You hear a humming noise from somewhere above your head, and the overhead
 light dims for a moment.
 
 >You move south.
+
 In the guest bedroom
 This is the guest bedroom. Windows line the south wall. There is a
 comfortable looking bed here, with a dresser standing next to it. There is an
@@ -57,6 +59,7 @@ find him, and help him get home. When you awaken, you feel rested and ready
 to continue your search.
 
 >You move west.
+
 In the hallway
 This is the hallway between the spare bedroom and the yoga room. There a
 small, open closet here.
@@ -66,6 +69,7 @@ You can go east, south and west.
 >You take the watering pail from the hall closet.
 
 >You move west.
+
 In the yoga room
 This is a large carpeted room with no furniture. Plants line the west wall,
 under the windows. There is a closet in the corner.
@@ -77,6 +81,7 @@ You can go north, east and west.
 >You pick up the yoga mat.
 
 >You move west.
+
 In the master bedroom
 This is the master bedroom. It is elegantly furnished with a king sized bed.
 There is a nightstand next to the bed, and there is an open closet in the
@@ -87,6 +92,7 @@ You can go north and east.
 >You take the backpack from the master bedroom closet.
 
 >You move east.
+
 In the yoga room
 This is a large carpeted room with no furniture. Plants line the west wall,
 under the windows. There is a closet in the corner.
@@ -94,6 +100,7 @@ under the windows. There is a closet in the corner.
 You can go north, east and west.
 
 >You move north.
+
 In the kitchen
 Sunlight streams in through the windows on the north wall of this cheery
 kitchen, reflecting off the chrome edges of the refrigerator and stove. The
@@ -106,6 +113,7 @@ You can go east, south and west.
 >You fill the pail with water.
 
 >You move south.
+
 In the yoga room
 This is a large carpeted room with no furniture. Plants line the west wall,
 under the windows. There is a closet in the corner.
@@ -117,6 +125,7 @@ That should help them quite a bit, and you're sure Richard will appreciate
 your effort... if you can ever find him to tell him about it.
 
 >You move east.
+
 In the hallway
 This is the hallway between the spare bedroom and the yoga room. There a
 small, open closet here.
@@ -124,6 +133,7 @@ small, open closet here.
 You can go east, south and west.
 
 >You move east.
+
 In the guest bedroom
 This is the guest bedroom. Windows line the south wall. There is a
 comfortable looking bed here, with a dresser standing next to it. There is an
@@ -132,6 +142,7 @@ open closet in the corner.
 You can go north and west.
 
 >You move north.
+
 In the computer room
 This is the computer room. There are windows along the north wall, and
 bookshelves bracket the doorway. Under the windows is a long wooden table
@@ -144,6 +155,7 @@ You can go east, south and west.
 The screen flashes again and you hear more beeping noises.
 
 >You move west.
+
 In the kitchen
 Sunlight streams in through the windows on the north wall of this cheery
 kitchen, reflecting off the chrome edges of the refrigerator and stove. The
@@ -154,6 +166,7 @@ cutting board to one side. Over the counter is a wide kitchen cabinet.
 You can go east, south and west.
 
 >You move west.
+
 In the laundry room
 Most of the space in this room is taken up by the washer, which sits directly
 under the access to the attic.
@@ -161,6 +174,7 @@ under the access to the attic.
 You can go east and down.
 
 >You move down.
+
 In the basement
 Dim light filters in through the windows, revealing a small basement with a
 dirt floor and unfinished walls. There is a furnace and a water heater down
@@ -173,6 +187,7 @@ A fly is buzzing around, bumping into things.
 You can go up and in.
 
 >You move in.
+
 In the phone booth
 There is no phone in the booth, but where the phone would usually be is a
 flat metal panel.
@@ -189,16 +204,19 @@ laid out, you surmise you are in an area once used for mining. There is what
 appears to be an old ore cart in one corner of the cavern.
 
 >You move west.
+
 In the mining tunnels
 
 You can go north, east and west.
 
 >You move north.
+
 In the mining tunnels
 
 You can go north, east, south and west.
 
 >You move north.
+
 In the mining tunnels
 Blocking the passage to the north is a wall of green flames. The flames are
 so hot, you can't even get near them to see what lies beyond.
@@ -210,16 +228,19 @@ You put the yoga mat on the flames.
 The mat sizzles and melts, but it looks like you could get past the fire now.
 
 >You move north.
+
 In the mining tunnels
 
 You can go south and west.
 
 >You move west.
+
 In the mining tunnels
 
 You can go east and west.
 
 >You move west.
+
 In the mining tunnels
 There is a hole in the ceiling here. You can't see what's up there, but you
 will have no trouble climbing up there.
@@ -227,6 +248,7 @@ will have no trouble climbing up there.
 You can go east and up.
 
 >You move up.
+
 In a corridor
 You are in what looks like an office hallway. The floor is covered in grey
 carpet, the walls are grey panels, and the ceiling has a light fixture
@@ -235,12 +257,14 @@ running down the length of the corridor.
 You can go south and down.
 
 >You move south.
+
 In a corridor
 This is more of the hallway.
 
 You can go north and south.
 
 >You move south.
+
 In a corridor
 This part of the corridor is darker than the rest. The light panel hangs down
 from the ceiling on twisted wires, and the carpet appears torn and stained.
@@ -255,6 +279,7 @@ begins to twitch, and skitter around in circles. It's movements become more
 and more erratic, until finally it collapses. That was a very yucky cupcake.
 
 >You move south.
+
 In a corridor
 The hallway dead-ends here. There is a large handle on the south wall.
 
@@ -309,6 +334,7 @@ He smiles confidently, and suddenly you know everything is going to be okay.
 Just get the beacon, and then go home. A piece of cake...
 
 >You move out.
+
 On the surreal plain
 You are standing outside the entrance to the staging area. Noxious, bubbling
 swamps lie in every direction. To the north you can see a faint path that
@@ -318,38 +344,45 @@ the side of the door is a large button.
 You can only go north.
 
 >You move north.
+
 In the swamp
 
 You can go north, east, south and west.
 
 >You move north.
+
 In the swamp
 
 You can go north, east, south and west.
 
 >You move east.
+
 In the swamp
 
 You can go north, south and west.
 
 >You move north.
+
 In the swamp
 
 You can go north, south and west.
 
 >You move north.
+
 In the swamp
 A large boulder blocks the way west here.
 
 You can go north and south.
 
 >You move north.
+
 In the swamp
 There are some low hills to the north.
 
 You can go south and west.
 
 >You move west.
+
 In the swamp
 A large boulder blocks the path south here. There are some low hills to the
 north.
@@ -357,17 +390,20 @@ north.
 You can go east and west.
 
 >You move west.
+
 In the swamp
 There are some low hills to the north.
 
 You can go east, south and west.
 
 >You move south.
+
 In the swamp
 
 You can go north and south.
 
 >You move south.
+
 In the swamp
 There is a small, twisted bush here, poking out of the muck of the swamp.
 
@@ -376,23 +412,27 @@ You can only go north.
 >You pick the berries.
 
 >You move north.
+
 In the swamp
 
 You can go north and south.
 
 >You move north.
+
 In the swamp
 There are some low hills to the north.
 
 You can go east, south and west.
 
 >You move west.
+
 In the swamp
 There are some low hills to the north.
 
 You can go east and west.
 
 >You move west.
+
 In the swamp
 The path dead-ends here. There is a large structure off to the west, but you
 can't see a path to it through the swamp. There are some low hills to the
@@ -409,18 +449,21 @@ puddle of slime. Sitting in the middle of the puddle is the recall beacon.
 >You pick up the beacon.
 
 >You move east.
+
 In the swamp
 There are some low hills to the north.
 
 You can go east and west.
 
 >You move east.
+
 In the swamp
 There are some low hills to the north.
 
 You can go east, south and west.
 
 >You move east.
+
 In the swamp
 A large boulder blocks the path south here. There are some low hills to the
 north.
@@ -428,38 +471,45 @@ north.
 You can go east and west.
 
 >You move east.
+
 In the swamp
 There are some low hills to the north.
 
 You can go south and west.
 
 >You move south.
+
 In the swamp
 A large boulder blocks the way west here.
 
 You can go north and south.
 
 >You move south.
+
 In the swamp
 
 You can go north, south and west.
 
 >You move south.
+
 In the swamp
 
 You can go north, south and west.
 
 >You move west.
+
 In the swamp
 
 You can go north, east, south and west.
 
 >You move south.
+
 In the swamp
 
 You can go north, east, south and west.
 
 >You move south.
+
 On the surreal plain
 You are standing outside the entrance to the staging area. Noxious, bubbling
 swamps lie in every direction. To the north you can see a faint path that

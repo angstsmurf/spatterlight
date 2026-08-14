@@ -39,6 +39,7 @@ stop the fever.
 >It smells like Black Angus.
 
 >You move east.
+
 Alley
 Like most alley's, this one is dank and dark. Unlike most alleys, this one
 also has a huge machine generating power in it. The long cord from the neon
@@ -70,6 +71,7 @@ head, you notice something odd. You're hair's now standing up from the huge
 shock, giving you an afro. Groovy.
 
 >You move west.
+
 Outside the Club
 You're standing outside the Flaming Flamingo, voted worst club by every
 single magazine published, including ones that were written before the club

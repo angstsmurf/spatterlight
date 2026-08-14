@@ -41,6 +41,7 @@ JD fancies me!  Up the Celts.  SFD rules!  Phone 4388 for a good time.  My
 other bus shelter's a Porsche.
 
 >I move west.
+
 By a large dog kennel
 I am next to a large dog kennel, bizarrly in the middle of nowhere.
 
@@ -50,6 +51,7 @@ There is a very large dog here, tied up by the kennel.
 I can move north, east, south, west and in.
 
 >I move south.
+
 Outside the swimming pool
 I am outside a spanking new building.  There is a large sign over the door
 telling me that this is a swimming pool.
@@ -57,6 +59,7 @@ telling me that this is a swimming pool.
 I can move north, west and in.
 
 >I move in.
+
 At the pool reception
 I am at the reception of the swimming pool.  There is no-one in sight.  An
 entrance leads into the changing rooms.
@@ -64,6 +67,7 @@ entrance leads into the changing rooms.
 I can move in and out.
 
 >I move in.
+
 In the changing rooms
 I am inside the swimming pool changing rooms.  There are a number of lockers
 running along the wall (I don't mean literally of course), and there is a
@@ -101,6 +105,7 @@ is open.  A small silver coin is inside the red locker.
 >I take the small silver coin from the red locker.
 
 >I move out.
+
 At the pool reception
 I am at the reception of the swimming pool.  There is no-one in sight.  An
 entrance leads into the changing rooms.
@@ -108,6 +113,7 @@ entrance leads into the changing rooms.
 I can move in and out.
 
 >I move out.
+
 Outside the swimming pool
 I am outside a spanking new building.  There is a large sign over the door
 telling me that this is a swimming pool.
@@ -115,6 +121,7 @@ telling me that this is a swimming pool.
 I can move north, west and in.
 
 >I move west.
+
 Outside the village pub
 I am outside the village pub.  It looks like this is the usual hang about for
 the youth of Ambersville.
@@ -125,6 +132,7 @@ I can move north, east, west and in.
 It starts to rain.
 
 >I move in.
+
 Inside the village pub
 I am inside a quaint little pub.  There is a bar over in one corner of the
 pub.  A number of tables are scattered around, and the floor looks as though
@@ -140,6 +148,7 @@ bar.
 >I take the pint of lager from the bar.
 
 >I move out.
+
 Outside the village pub
 I am outside the village pub.  It looks like this is the usual hang about for
 the youth of Ambersville.
@@ -154,6 +163,7 @@ I can move north, east, west and in.
 run out anyway."  Boff hands me a rather used looking marker pen.
 
 >I move west.
+
 Outside a cheap motel
 I am outside a rather run down motel.  To my south is a rather tall wire
 fence.  Through the fence, I can see a scrapyard with lots of old cars.
@@ -163,6 +173,7 @@ I can move north, east, west and in.
 A couple of seagulls fly about aimlessly.
 
 >I move north.
+
 Outside the Post Office
 I am outside the village post office.  The roof of the post office is fairly
 low.  There is a bright red post box set outside the door of the post office.
@@ -171,6 +182,7 @@ low.  There is a bright red post box set outside the door of the post office.
 I can move north, east, south and in.
 
 >I move in.
+
 Inside the Post Office
 I am inside the post office.  There is a counter on the far wall, which has a
 glass screen in front of it, presumably protecting the workers from vicious
@@ -193,6 +205,7 @@ address of some company written on it.
 I fill out the application form.
 
 >I move out.
+
 Outside the Post Office
 I am outside the village post office.  The roof of the post office is fairly
 low.  There is a bright red post box set outside the door of the post office.
@@ -204,6 +217,7 @@ I can move north, east, south and in.
 I post the application form into the post box.
 
 >I move east.
+
 In the village Centre
 I am in the village centre.  There is a large statue here, set upon a tall
 pillar.  It is raining.
@@ -212,6 +226,7 @@ I can move north, east, south and west.
 The rain eases slightly.
 
 >I move east.
+
 By a large dog kennel
 I am next to a large dog kennel, bizarrly in the middle of nowhere.
 
@@ -221,6 +236,7 @@ There is a very large dog here, tied up by the kennel.  It is raining.
 I can move north, east, south, west and in.
 
 >I move east.
+
 At the bus stop
 I am at the bus stop.  The main road runs in a north-south direction.  There
 is a rather flimsy looking bus shelter here, with a plastic bench which looks
@@ -234,6 +250,7 @@ The rain stops.
 >I drop the marker pen.
 
 >I move west.
+
 By a large dog kennel
 I am next to a large dog kennel, bizarrly in the middle of nowhere.
 
@@ -243,6 +260,7 @@ There is a very large dog here, tied up by the kennel.
 I can move north, east, south, west and in.
 
 >I move south.
+
 Outside the swimming pool
 I am outside a spanking new building.  There is a large sign over the door
 telling me that this is a swimming pool.
@@ -250,6 +268,7 @@ telling me that this is a swimming pool.
 I can move north, west and in.
 
 >I move west.
+
 Outside the village pub
 I am outside the village pub.  It looks like this is the usual hang about for
 the youth of Ambersville.
@@ -259,6 +278,7 @@ Biff and Boff are here.
 I can move north, east, west and in.
 
 >I move west.
+
 Outside a cheap motel
 I am outside a rather run down motel.  To my south is a rather tall wire
 fence.  Through the fence, I can see a scrapyard with lots of old cars.
@@ -267,6 +287,7 @@ There is a closed gate here.
 I can move north, east, west and in.
 
 >I move west.
+
 At Ambersville station
 I am at the Ambersville railway station.  The platform is very small, and
 there's not a lot around here.  There is a large sign here.
@@ -279,6 +300,7 @@ I can only move east.
 The train pulls in to a stop at Ambersville.
 
 >I move in.
+
 Inside the train
 The train looks like a normal train.  Lots of seats, big windows etc.  There
 is a cubicle near the rear of the carriage.
@@ -289,6 +311,7 @@ I can move in and out.
 "Can I see your ticket please sir?"
 
 >I move in.
+
 In the trains toilet
 I am inside the trains toilet.  It is very cramped in here.  There is only
 room for a small toilet, and a wash basin.
@@ -304,6 +327,7 @@ There is a loud tooting sound, the train doors close, and the train slowly
 moves away from the station.
 
 >I move out.
+
 Inside the train
 The train looks like a normal train.  Lots of seats, big windows etc.  There
 is a cubicle near the rear of the carriage.
@@ -318,11 +342,13 @@ I can move in and out.
 "If you don't show me your ticket I'm going to throw you off the train!"
 "No ticket eh?  Well, I'm sorry, but we don't take stowaways on my train!"
 Boris yanks open the doors, and kicks me out of the moving train.
+
 By some wasteland
 I am on some barren wasteland.  There is a railway line running past here.
 It is raining.
 
 >I move east.
+
 Inside the Scrapyard
 I am inside the village scrapyard.  There are lots of old rusty cars lying
 about here.  To the north is a tall wire fence, with a gate built into the
@@ -334,6 +360,7 @@ I can only move west.
 >I push the red button firmly.  Slowly, the wire gate swings open.
 
 >I move north.
+
 Outside a cheap motel
 I am outside a rather run down motel.  To my south is a rather tall wire
 fence.  Through the fence, I can see a scrapyard with lots of old cars.  The
@@ -342,6 +369,7 @@ wire gate is open.  It is raining.
 I can move north, east, south, west and in.
 
 >I move north.
+
 Outside the Post Office
 I am outside the village post office.  The roof of the post office is fairly
 low.  There is a bright red post box set outside the door of the post office.
@@ -350,6 +378,7 @@ low.  There is a bright red post box set outside the door of the post office.
 I can move north, east, south and in.
 
 >I move in.
+
 Inside the Post Office
 I am inside the post office.  There is a counter on the far wall, which has a
 glass screen in front of it, presumably protecting the workers from vicious
@@ -373,6 +402,7 @@ I tear open the envelope.  Inside, I find a Gold card.
 I drop the manilla envelope.
 
 >I move out.
+
 Outside the Post Office
 I am outside the village post office.  The roof of the post office is fairly
 low.  There is a bright red post box set outside the door of the post office.
@@ -380,6 +410,7 @@ low.  There is a bright red post box set outside the door of the post office.
 I can move north, east, south and in.
 
 >I move north.
+
 On the pebbly beach
 I am on a pebbly beach.  Most of the pebbles are really smooth.  The sea
 breaks every so often up on the shore.  A sewer outlet pipe emerges from the
@@ -390,6 +421,7 @@ I can move east and south.
 >I pick the flowers, making a lovely bunch.
 
 >I move east.
+
 By the drain
 I am in the middle of a paved area.  There is a drain in the middle of the
 pavings, sticking out like a sore thumb.  The drain is closed.
@@ -397,6 +429,7 @@ pavings, sticking out like a sore thumb.  The drain is closed.
 I can move north, east, south and west.
 
 >I move east.
+
 Outside the village shop
 I am outside the one and only village shop.  There is a large window in the
 front of the shop.  One thing in particular that catches your eye is a scuba
@@ -405,6 +438,7 @@ outfit.
 I can move south, west and in.
 
 >I move in.
+
 Inside the village shop
 I am inside the village shop.  It actually appears to be much larger that I
 first thought.  There are shelves high up on every wall.  At the far end of
@@ -424,6 +458,7 @@ it fits!"
 all the graffiti around here."
 
 >I move out.
+
 Outside the village shop
 I am outside the one and only village shop.  There is a large window in the
 front of the shop.  One thing in particular that catches your eye is a scuba
@@ -432,6 +467,7 @@ outfit.
 I can move south, west and in.
 
 >I move west.
+
 By the drain
 I am in the middle of a paved area.  There is a drain in the middle of the
 pavings, sticking out like a sore thumb.  The drain is closed.
@@ -439,6 +475,7 @@ pavings, sticking out like a sore thumb.  The drain is closed.
 I can move north, east, south and west.
 
 >I move south.
+
 In the village Centre
 I am in the village centre.  There is a large statue here, set upon a tall
 pillar.
@@ -455,6 +492,7 @@ revealing a juicy pork chop.
 >I take the juicy pork chop from the small plaque.
 
 >I move east.
+
 By a large dog kennel
 I am next to a large dog kennel, bizarrly in the middle of nowhere.
 
@@ -470,6 +508,7 @@ chewing away.
 >I pick up the large shark hook.
 
 >I move west.
+
 In the village Centre
 I am in the village centre.  There is a large statue here, set upon a tall
 pillar.
@@ -477,6 +516,7 @@ pillar.
 I can move north, east, south and west.
 
 >I move north.
+
 By the drain
 I am in the middle of a paved area.  There is a drain in the middle of the
 pavings, sticking out like a sore thumb.  The drain is closed.
@@ -489,6 +529,7 @@ With a bit of effort, I manage to get the drain open with the shark hook.
 >I drop the large shark hook.
 
 >I move south.
+
 In the village Centre
 I am in the village centre.  There is a large statue here, set upon a tall
 pillar.
@@ -496,6 +537,7 @@ pillar.
 I can move north, east, south and west.
 
 >I move south.
+
 Outside the village pub
 I am outside the village pub.  It looks like this is the usual hang about for
 the youth of Ambersville.
@@ -505,6 +547,7 @@ Biff and Boff are here.
 I can move north, east, west and in.
 
 >I move east.
+
 Outside the swimming pool
 I am outside a spanking new building.  There is a large sign over the door
 telling me that this is a swimming pool.
@@ -512,6 +555,7 @@ telling me that this is a swimming pool.
 I can move north, west and in.
 
 >I move in.
+
 At the pool reception
 I am at the reception of the swimming pool.  There is no-one in sight.  An
 entrance leads into the changing rooms.
@@ -519,6 +563,7 @@ entrance leads into the changing rooms.
 I can move in and out.
 
 >I move in.
+
 In the changing rooms
 I am inside the swimming pool changing rooms.  There are a number of lockers
 running along the wall (I don't mean literally of course), and there is a
@@ -527,6 +572,7 @@ bench next to the lockers.
 I can move in and out.
 
 >I move in.
+
 In the pool room
 I am in the pool room.  There is a large swimming pool here.
 
@@ -535,6 +581,7 @@ I can move in and out.
 >I put on the scuba outfit.
 
 >I move in.
+
 In the swimming pool
 I am in the swimming pool, which is full of crystal clear water.  At the
 bottom of the pool is a large plug.
@@ -548,12 +595,14 @@ pool rushes towards me, starts spinning round and round and round, and
 eventually all gurgles down the plughole.
 
 >I move out.
+
 In the pool room
 I am in the pool room.  There is a large swimming pool here.
 
 I can move in and out.
 
 >I move out.
+
 In the changing rooms
 I am inside the swimming pool changing rooms.  There are a number of lockers
 running along the wall (I don't mean literally of course), and there is a
@@ -562,6 +611,7 @@ bench next to the lockers.
 I can move in and out.
 
 >I move out.
+
 At the pool reception
 I am at the reception of the swimming pool.  There is no-one in sight.  An
 entrance leads into the changing rooms.
@@ -569,6 +619,7 @@ entrance leads into the changing rooms.
 I can move in and out.
 
 >I move out.
+
 Outside the swimming pool
 I am outside a spanking new building.  There is a large sign over the door
 telling me that this is a swimming pool.  It is raining.
@@ -576,6 +627,7 @@ telling me that this is a swimming pool.  It is raining.
 I can move north, west and in.
 
 >I move west.
+
 Outside the village pub
 I am outside the village pub.  It looks like this is the usual hang about for
 the youth of Ambersville.
@@ -587,6 +639,7 @@ I can move north, east, west and in.
 >I remove the scuba outfit.
 
 >I move in.
+
 Inside the village pub
 I am inside a quaint little pub.  There is a bar over in one corner of the
 pub.  A number of tables are scattered around, and the floor looks as though
@@ -605,6 +658,7 @@ me. "There you go mate."  Arthur places another pint on the counter.
 >I take the small ticket from the tables.
 
 >I move out.
+
 Outside the village pub
 I am outside the village pub.  It looks like this is the usual hang about for
 the youth of Ambersville.
@@ -618,6 +672,7 @@ The rain eases slightly.
 impress the ladies).  Oo-err, that's strong stuff.  I feel a bit queazy now.
 
 >I move west.
+
 Outside a cheap motel
 I am outside a rather run down motel.  To my south is a rather tall wire
 fence.  Through the fence, I can see a scrapyard with lots of old cars.  The
@@ -627,6 +682,7 @@ I can move north, east, south, west and in.
 The rain stops.
 
 >I move south.
+
 Inside the Scrapyard
 I am inside the village scrapyard.  There are lots of old rusty cars lying
 about here.  To the north is a tall wire fence, with a gate built into the
@@ -641,6 +697,7 @@ I'm feeling rather drunk.
 >I place the empty glass under the dripping car, and fill it with petrol.
 
 >I move north.
+
 Outside a cheap motel
 I am outside a rather run down motel.  To my south is a rather tall wire
 fence.  Through the fence, I can see a scrapyard with lots of old cars.  The
@@ -649,6 +706,7 @@ wire gate is open.  Everything looks a bit wobbly.
 I can move north, east, south, west and in.
 
 >I move in.
+
 Inside the cheap motel
 I am inside a rather run down motel.  The carpet has a rather disgusting
 flowery pattern.  There is a set of stairs leading upstairs, a desk against
@@ -662,6 +720,7 @@ card, and proceeds to write down all my details.  Very high tech!  Anyway,
 eventually she hands me my card back, along with a room key.
 
 >I move up.
+
 On the motel landing
 I am on the upstairs landing of the motel.  There are only two doors here,
 labelled 1 and 2.  There is a window at the end of the corridor.  Everything
@@ -680,6 +739,7 @@ I'm starting to sober up.
 I feel okay again now.
 
 >I move in.
+
 In my motel room
 I am in my motel room.  It is pretty sparse in here except a small bed, a
 table, and a wardrobe.
@@ -687,6 +747,7 @@ table, and a wardrobe.
 I can move in and out.
 
 >I move in.
+
 In my bathroom
 I am in my bathroom.  There is a sink, a grubby bath, and a toilet in here.
 
@@ -700,6 +761,7 @@ I flush the toilet.  It gurgles a lot, then suddenly, whatever it is that is
 stuck inside gets sucked down and away.
 
 >I move out.
+
 In my motel room
 I am in my motel room.  It is pretty sparse in here except a small bed, a
 table, and a wardrobe.
@@ -708,6 +770,7 @@ I can move in and out.
 
 >I move into the wardrobe.
 Whoosh!
+
 Narnia
 I am in a snowy land.  There are lots of trees about, casting eerie shadows
 all over the place.  There appears to be some sort of portal here.
@@ -736,6 +799,7 @@ better have this."
 "Sorry, I don't know anything about that."
 
 >I move out.
+
 In my motel room
 I am in my motel room.  It is pretty sparse in here except a small bed, a
 table, and a wardrobe.
@@ -743,6 +807,7 @@ table, and a wardrobe.
 I can move in and out.
 
 >I move out.
+
 On the motel landing
 I am on the upstairs landing of the motel.  There are only two doors here,
 labelled 1 and 2.  There is a window at the end of the corridor.
@@ -752,6 +817,7 @@ Also here is a room key.
 I can move down and in.
 
 >I move down.
+
 Inside the cheap motel
 I am inside a rather run down motel.  The carpet has a rather disgusting
 flowery pattern.  There is a set of stairs leading upstairs, a desk against
@@ -772,6 +838,7 @@ door."
 "Bye for now."
 
 >I move out.
+
 Outside a cheap motel
 I am outside a rather run down motel.  To my south is a rather tall wire
 fence.  Through the fence, I can see a scrapyard with lots of old cars.  The
@@ -780,6 +847,7 @@ wire gate is open.  It is raining.
 I can move north, east, south, west and in.
 
 >I move east.
+
 Outside the village pub
 I am outside the village pub.  It looks like this is the usual hang about for
 the youth of Ambersville.
@@ -789,6 +857,7 @@ Biff and Boff are here.  It is raining.
 I can move north, east, west and in.
 
 >I move north.
+
 In the village Centre
 I am in the village centre.  There is a large statue here, set upon a tall
 pillar.  It is raining.
@@ -803,6 +872,7 @@ Somehow, he manages to scramble off the pillar.
 Porkie walks towards you.
 
 >I move west.
+
 Outside the Post Office
 I am outside the village post office.  The roof of the post office is fairly
 low.  There is a bright red post box set outside the door of the post office.
@@ -832,6 +902,7 @@ I drop the witch's magic wand.
 roof of the Post Office.
 
 >I move up.
+
 On the roof of the Post Office
 I am on the flat roof of the Post Office.  From here, I can see all the way
 out to sea.
@@ -843,6 +914,7 @@ I can only move down.
 >I pick up the small black cat.
 
 >I move down.
+
 Outside the Post Office
 I am outside the village post office.  The roof of the post office is fairly
 low.  There is a bright red post box set outside the door of the post office.
@@ -852,6 +924,7 @@ Also here is the witch's magic wand and a statue of a pig.
 I can move north, east, south, up and in.
 
 >I move in.
+
 Inside the Post Office
 I am inside the post office.  There is a counter on the far wall, which has a
 glass screen in front of it, presumably protecting the workers from vicious
@@ -868,6 +941,7 @@ cat's eyes bulge out slightly.  "I'm so grateful, here, take this."  Madge
 removes the amulet from around her neck, and gives it to me
 
 >I move out.
+
 Outside the Post Office
 I am outside the village post office.  The roof of the post office is fairly
 low.  There is a bright red post box set outside the door of the post office.
@@ -877,6 +951,7 @@ Also here is the witch's magic wand and a statue of a pig.
 I can move north, east, south, up and in.
 
 >I move east.
+
 In the village Centre
 I am in the village centre.  There is a large statue here, set upon a tall
 pillar.
@@ -884,6 +959,7 @@ pillar.
 I can move north, east, south and west.
 
 >I move north.
+
 By the drain
 I am in the middle of a paved area.  There is a drain in the middle of the
 pavings, sticking out like a sore thumb.  The drain is open.
@@ -895,6 +971,7 @@ I can move north, east, south, west and down.
 >I drop the gold card.
 
 >I move down.
+
 In the sewer
 I am in the village sewer system.  The sides of the sewer walls are made from
 some sort of tiling.  It smells of chlorine in here.  One of the tiles has
@@ -907,6 +984,7 @@ I can only move up.
 >I pick up the small anchor.
 
 >I move up.
+
 By the drain
 I am in the middle of a paved area.  There is a drain in the middle of the
 pavings, sticking out like a sore thumb.  The drain is open.
@@ -916,6 +994,7 @@ Also here is a gold card and a large shark hook.
 I can move north, east, south, west and down.
 
 >I move north.
+
 On the pier
 I am on a wooden pier, which stretches out into the water.  There is a small
 boat beside the pier.
@@ -923,6 +1002,7 @@ boat beside the pier.
 I can move south and in.
 
 >I move in.
+
 In the speedboat
 I am in the small white speedboat.  At the front of the boat is the
 dashboard, and there is a large engine at the back.  There is a throttle
@@ -955,16 +1035,19 @@ throttle again.
 >I put on the scuba outfit.
 
 >I move out.
+
 In the sea
 I am swimming in the sea.  There is a speedboat here.  It is raining.
 
 I can move down and in.
 
 >I swim down.
+
 By the old shipwreck
 I am deep underwater.  There is an old shipwreck nearby, listing on one side.
 
 >I move in.
+
 Inside the shipwreck
 I am inside the shipwreck.  There are various bits of wood floating around,
 and most of the ship appears to be rotten.  There appears to be an old wooden
@@ -986,16 +1069,19 @@ inside the old wooden cabinet.
 I take the old log book and the large bronze key from the old wooden cabinet.
 
 >I move out.
+
 By the old shipwreck
 I am deep underwater.  There is an old shipwreck nearby, listing on one side.
 
 I can move up and in.
 
 >I swim back up to the surface, relieved to find the boat still there.
+
 In the sea
 I am swimming in the sea.  There is a speedboat here.  It is raining.
 
 >I move in.
+
 In the speedboat
 I am in the small white speedboat.  At the front of the boat is the
 dashboard, and there is a large engine at the back.  There is a throttle
@@ -1015,6 +1101,7 @@ system in Ambersville, as I fear our journey today is extremely
 treacherous..."  It goes on, but isn't very exciting.
 
 >I move out.
+
 On the pier
 I am on a wooden pier, which stretches out into the water.  There is a small
 boat beside the pier.  It is raining.
@@ -1023,6 +1110,7 @@ I can move south and in.
 The rain stops.
 
 >I move south.
+
 By the drain
 I am in the middle of a paved area.  There is a drain in the middle of the
 pavings, sticking out like a sore thumb.  The drain is open.
@@ -1032,6 +1120,7 @@ Also here is a gold card and a large shark hook.
 I can move north, east, south, west and down.
 
 >I move south.
+
 In the village Centre
 I am in the village centre.  There is a large statue here, set upon a tall
 pillar.
@@ -1039,6 +1128,7 @@ pillar.
 I can move north, east, south and west.
 
 >I move south.
+
 Outside the village pub
 I am outside the village pub.  It looks like this is the usual hang about for
 the youth of Ambersville.
@@ -1048,6 +1138,7 @@ Biff and Boff are here.
 I can move north, east, west and in.
 
 >I move west.
+
 Outside a cheap motel
 I am outside a rather run down motel.  To my south is a rather tall wire
 fence.  Through the fence, I can see a scrapyard with lots of old cars.  The
@@ -1056,6 +1147,7 @@ wire gate is open.
 I can move north, east, south, west and in.
 
 >I move west.
+
 At Ambersville station
 I am at the Ambersville railway station.  The platform is very small, and
 there's not a lot around here.  There is a large sign here.
@@ -1087,6 +1179,7 @@ The train pulls in to a stop at Ambersville.
 The rain stops.
 
 >I move in.
+
 Inside the train
 The train looks like a normal train.  Lots of seats, big windows etc.  There
 is a cubicle near the rear of the carriage.
@@ -1115,12 +1208,14 @@ moves away from the station.
 The train pulls in to a stop at Redstown.
 
 >I step out of the train.
+
 At Redstown station
 I am at the Redstown railway station.  The platform is very small, and
 there's not a lot around here.  There is a large sign here.  A train sits at
 the station, its doors open.
 
 >I move east.
+
 By a large door
 I am outside a house with a large door.  In the distance I can see the rest
 of Redstown, but to be honest, I've no motivation to go there.
@@ -1131,6 +1226,7 @@ I can only move west.
 on in."
 
 >I move in.
+
 Inside a dimly lit room
 I am inside a dimly lit room.  There are a couple of comfy seats and a table
 in the room.  Over in the corner sits a computer.
@@ -1160,6 +1256,7 @@ disappears behind the couch, and brings back a pair of night-vision goggles.
 "Here, take these.  I never use them."
 
 >I move out.
+
 By a large door
 I am outside a house with a large door.  In the distance I can see the rest
 of Redstown, but to be honest, I've no motivation to go there.
@@ -1167,6 +1264,7 @@ of Redstown, but to be honest, I've no motivation to go there.
 I can move west and in.
 
 >I move west.
+
 At Redstown station
 I am at the Redstown railway station.  The platform is very small, and
 there's not a lot around here.  There is a large sign here.  A train sits at
@@ -1175,6 +1273,7 @@ the station, its doors open.
 I can move east and in.
 
 >I move in.
+
 Inside the train
 The train looks like a normal train.  Lots of seats, big windows etc.  There
 is a cubicle near the rear of the carriage.
@@ -1197,12 +1296,14 @@ The train pulls in to a stop at Ambersville.
 >Time passes...
 
 >I step out of the train.
+
 At Ambersville station
 I am at the Ambersville railway station.  The platform is very small, and
 there's not a lot around here.  There is a large sign here.  A train sits at
 the station, its doors open.  It is raining.
 
 >I move east.
+
 Outside a cheap motel
 I am outside a rather run down motel.  To my south is a rather tall wire
 fence.  Through the fence, I can see a scrapyard with lots of old cars.  The
@@ -1211,6 +1312,7 @@ wire gate is open.  It is raining.
 I can move north, east, south, west and in.
 
 >I move east.
+
 Outside the village pub
 I am outside the village pub.  It looks like this is the usual hang about for
 the youth of Ambersville.
@@ -1220,6 +1322,7 @@ Biff and Boff are here.  It is raining.
 I can move north, east, west and in.
 
 >I move north.
+
 In the village Centre
 I am in the village centre.  There is a large statue here, set upon a tall
 pillar.  It is raining.
@@ -1227,6 +1330,7 @@ pillar.  It is raining.
 I can move north, east, south and west.
 
 >I move east.
+
 By a large dog kennel
 I am next to a large dog kennel, bizarrly in the middle of nowhere.
 There is a very large dog here, tied up by the kennel.  It is raining.
@@ -1235,6 +1339,7 @@ I can move north, east, south, west and in.
 The rain eases slightly.
 
 >I move in.
+
 Inside the kennel
 It's pretty cramped in here, and it stinks of dog.
 
@@ -1245,6 +1350,7 @@ I can only move out.
 >I pick up the rather chewed stick.
 
 >I move out.
+
 By a large dog kennel
 I am next to a large dog kennel, bizarrly in the middle of nowhere.
 There is a very large dog here, tied up by the kennel.
@@ -1252,6 +1358,7 @@ There is a very large dog here, tied up by the kennel.
 I can move north, east, south, west and in.
 
 >I move west.
+
 In the village Centre
 I am in the village centre.  There is a large statue here, set upon a tall
 pillar.
@@ -1259,6 +1366,7 @@ pillar.
 I can move north, east, south and west.
 
 >I move north.
+
 By the drain
 I am in the middle of a paved area.  There is a drain in the middle of the
 pavings, sticking out like a sore thumb.  The drain is open.
@@ -1268,6 +1376,7 @@ Also here is a gold card and a large shark hook.
 I can move north, east, south, west and down.
 
 >I move down.
+
 In the sewer
 I am in the village sewer system.  The sides of the sewer walls are made from
 some sort of tiling.  It smells of chlorine in here.  One of the tiles has
@@ -1285,6 +1394,7 @@ inspection, I can see a keyhole situated in the middle of the hole.
 sewer opens up, revealing a secret passageway.
 
 >I move south.
+
 In a secret passage
 Everything is dark.
 
@@ -1299,6 +1409,7 @@ I am in a secret passage, just off the sewer system.
 I can move north and south.
 
 >I move south.
+
 By the portcullis
 I am at the end of the secret passage.  In front of me is a large portcullis.
  To the right of the portcullis is a slot.  Through the portcullis, I can
@@ -1316,6 +1427,7 @@ I put the stick into the slot.  It fits perfectly, creating a lever.
 portcullis raises.
 
 >I move south.
+
 In an underground cavern
 I am in an underground cavern.  In the middle of the room sits a huge wooden
 chest.

@@ -58,6 +58,7 @@ There are exits north, east, south and west.
 >
 >
 >You move east.
+
 Inside Hartho's Golden Tavern
 This is a brightly lit tavern. People are jammed in here, and Harthro is
 managing all of their orders. The smell of meat, work, and pure human
@@ -95,6 +96,7 @@ laughter rises through the taver
 masterpiece from Harthro's grill.
 
 >You move west.
+
 In a busy street
 This is a busy street. You see the crowd here buzzing buy, murmuring to
 itself and buying things. There's a street lamp on the side of the road, and
@@ -109,6 +111,7 @@ talking.
 You can move north, east, south and west.
 
 >You move west.
+
 In Golapho's Armor
 You are in Golapho's Armor shop. There is a item sign here.
 
@@ -128,6 +131,7 @@ cents.
 >You put on the rawhide armor.
 
 >You move east.
+
 In a busy street
 This is a busy street. You see the crowd here buzzing buy, murmuring to
 itself and buying things. There's a street lamp on the side of the road, and
@@ -142,6 +146,7 @@ talking.
 You can move north, east, south and west.
 
 >You move south.
+
 At Poel's Plaza
 This is a small plaza of shops and stalls. It was named after the first
 Council Officer del Economica, Preu Poel. To the south is a metalsmith's
@@ -151,6 +156,7 @@ the west is a road.
 You can move north, east, south, west and southeast.
 
 >You move south.
+
 In Calado's Metal Works
 This is shop where you can buy metal items, such as swords, shields, and
 knives. Ask Calado about any of those categories and he will tell you what he
@@ -167,6 +173,7 @@ sword. You have $296 and 50 cents.
 >You wield the hunting sword.
 
 >You move north.
+
 At Poel's Plaza
 This is a small plaza of shops and stalls. It was named after the first
 Council Officer del Economica, Preu Poel. To the south is a metalsmith's
@@ -176,6 +183,7 @@ the west is a road.
 You can move north, east, south, west and southeast.
 
 >You move southeast.
+
 In Gralle's Inn
 This is Gralle's Inn, the place for newcomers to stay. Gralle is the young
 heir to the inn, after her father, Tullin, was killed in the hunting
@@ -190,6 +198,7 @@ You now have $246 and 50 cents.
 You have 24 hours left at your room in Gralle's Inn.
 
 >You move in.
+
 In a room at Gralle's Inn
 This is a small room, with a table, a chair, and a bed.  You currently have
 room rented at Gralle's Inn.
@@ -204,6 +213,7 @@ You feel a little better, after taking the nap.
 
 >(Getting off the bed first)
 You move out.
+
 In Gralle's Inn
 This is Gralle's Inn, the place for newcomers to stay. Gralle is the young
 heir to the inn, after her father, Tullin, was killed in the hunting
@@ -214,6 +224,7 @@ Gralle is here.  You currently have room rented at Gralle's Inn.
 You can move in and northwest.
 
 >You move northwest.
+
 At Poel's Plaza
 This is a small plaza of shops and stalls. It was named after the first
 Council Officer del Economica, Preu Poel. To the south is a metalsmith's

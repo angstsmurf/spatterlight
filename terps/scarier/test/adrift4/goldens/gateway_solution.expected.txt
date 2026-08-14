@@ -25,6 +25,7 @@ Lights flash around you and noise zips passed. Voices grow loud and then
 disappear so fast you can't tell what they are saying. Your body aches and
 your head pounds as you speed through chaos. Then all is calm and your senses
 slowly return to normal. You are not where you were.
+
 Temple Courtyard
 You are in a large square court yard. East of you stands the double doors to
 a two story building. North can be seen a small stable where a few stable
@@ -72,6 +73,7 @@ give you supplies for your journey. Good luck."
 
 >(Getting off the comfy chair first)
 You move east.
+
 Bright Hall
 The hallway is extremely bright with the light of day cutting through the
 many skylights along the hall roof. The marble tile floor reflects the light
@@ -80,6 +82,7 @@ off of its nearly white surface, reminding you of snow on a sunny day.
 EXITS:  north, east, south and west.
 
 >You move south.
+
 South End of the Hall
 The light of the hall beyond follows you through the doorway into the
 stairwell. It casts your shadow down the white spiral staircase leading to
@@ -89,6 +92,7 @@ offices, the library, and a prayer room.
 EXITS:  north and down.
 
 >You move down.
+
 South End of the Corridor
 You are standing in a stair well looking north down a candle lit hall. The
 hall leads into the heart of the first floor of the temple. To your left is
@@ -99,6 +103,7 @@ hallway.
 EXITS:  north, east and up.
 
 >You move north.
+
 Temple Entry Hall
 The entry is brightly lit and a half dozen white robed priests are constantly
 running passed. A light blue pillar stands on either side of the doors
@@ -111,6 +116,7 @@ Here you can see the designed carpet.
 EXITS:  north, east, south and west.
 
 >You move west.
+
 Temple Courtyard
 You are in a large square court yard. East of you stands the double doors to
 a two story building. North can be seen a small stable where a few stable
@@ -122,6 +128,7 @@ gates of the temple leading out into the Panrian Woods.
 EXITS:  north, east, south and west.
 
 >You move south.
+
 Garden
 A soft breeze washes across the multi-coloured flowers of the temple garden.
 Many of the flowers look similar to the ones you know from your own world,
@@ -137,6 +144,7 @@ EXIT:   north.
 You took the purple flower.
 
 >You move north.
+
 Temple Courtyard
 You are in a large square court yard. East of you stands the double doors to
 a two story building. North can be seen a small stable where a few stable
@@ -148,6 +156,7 @@ gates of the temple leading out into the Panrian Woods.
 EXITS:  north, east, south and west.
 
 >You move east.
+
 Temple Entry Hall
 The entry is brightly lit and a half dozen white robed priests are constantly
 running passed. A light blue pillar stands on either side of the doors
@@ -160,6 +169,7 @@ Here you can see the designed carpet.
 EXITS:  north, east, south and west.
 
 >You move north.
+
 Corridore
 Walking down the hall you come upon a door to the east. To the north another,
 but less attractive, door leads into a stairwell. Candles are spread evenly
@@ -170,6 +180,7 @@ completely dark.
 EXITS:  north, east and south.
 
 >You move east.
+
 Prayer Room
 The room is small and painted with a peach colour to make it feel warm and
 welcoming. A short wood bench, for kneeling beside when praying, rests near
@@ -183,6 +194,7 @@ EXIT:   west.
 You took the purple flower.
 
 >You move west.
+
 Corridore
 Walking down the hall you come upon a door to the east. To the north another,
 but less attractive, door leads into a stairwell. Candles are spread evenly
@@ -193,6 +205,7 @@ completely dark.
 EXITS:  north, east and south.
 
 >You move north.
+
 North End of the Corridor
 You are at the top of a dark stair well leading down into the ground. Another
 stair case, this one white, spirals up to the second floor of the building.
@@ -203,6 +216,7 @@ stairs leading up and washes the ground with fuzzy warmth.
 EXITS:  south, up and down.
 
 >You move down.
+
 Guard Room
 The room is a little chilly and smells slightly of sweat. In the middle of
 the room stands a table upon which rests a bowl. Around the table is three
@@ -223,12 +237,14 @@ It opens the jail cells and we don't want it leaving this basement."
 rapist not too long ago and he's still in there. He's due for execution in a
 few days. If you do open the cell and find you can't handle him, just call
 for us and Kadfast'll come running."
+
 Dark Hall
 You enter the cold room and close the door behind you at the command of the
 guards. You see three iron doors with a tiny barred window on each. Looking
 through the windows you can see that the doors each block off a jail cell.
 
 >Using the key, you walk through the door.
+
 East Jail Cell
 The room is extremely dark, cold, and damp. This is not at all a comfortable
 place to spend a long time in. Some moldy hay piled in a corner of the room
@@ -243,6 +259,7 @@ You get the purple flower.
 A Rapist hits you with the rock.
 
 >You move west.
+
 Dark Hall
 You enter the cold room and close the door behind you at the command of the
 guards. You see three iron doors with a tiny barred window on each. Looking
@@ -251,6 +268,7 @@ through the windows you can see that the doors each block off a jail cell.
 EXITS:  north and east.
 
 >You move north.
+
 Guard Room
 The room is a little chilly and smells slightly of sweat. In the middle of
 the room stands a table upon which rests a bowl. Around the table is three
@@ -271,6 +289,7 @@ Kadfast. The soldier nods and waves you along, giving you the chance to try
 leaving again.
 
 >You move up.
+
 North End of the Corridor
 You are at the top of a dark stair well leading down into the ground. Another
 stair case, this one white, spirals up to the second floor of the building.
@@ -281,6 +300,7 @@ stairs leading up and washes the ground with fuzzy warmth.
 EXITS:  south, up and down.
 
 >You move south.
+
 Corridore
 Walking down the hall you come upon a door to the east. To the north another,
 but less attractive, door leads into a stairwell. Candles are spread evenly
@@ -291,6 +311,7 @@ completely dark.
 EXITS:  north, east and south.
 
 >You move south.
+
 Temple Entry Hall
 The entry is brightly lit and a half dozen white robed priests are constantly
 running passed. A light blue pillar stands on either side of the doors
@@ -303,6 +324,7 @@ Here you can see the designed carpet.
 EXITS:  north, east, south and west.
 
 >You move west.
+
 Temple Courtyard
 You are in a large square court yard. East of you stands the double doors to
 a two story building. North can be seen a small stable where a few stable
@@ -314,6 +336,7 @@ gates of the temple leading out into the Panrian Woods.
 EXITS:  north, east, south and west.
 
 >You move west.
+
 Outside the Temple Gate
 The tall rounded gate of the temple stands to your east and the Panrian Woods
 spreads out over and around you. A wide dirt street heads into the forest and
@@ -325,6 +348,7 @@ shower of broken twigs and soft leaves fall upon your head.
 EXITS:  east and west.
 
 >You move west.
+
 THE END
 Type End Game if you wish to quit now and win! Or head back East and continue
 exploring the temple.

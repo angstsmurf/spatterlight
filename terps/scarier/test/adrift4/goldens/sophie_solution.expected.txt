@@ -52,6 +52,7 @@ don't this year" before she heads into her room and slams the door shut.
    Typical Carla really.
 
 >You move down.
+
 Downstairs Hallway
 The downstairs hallway isn't really a hallway at all, just a wide corridor
 with the coatrack on one side and a gaudy mirror Mother bought from a jumble
@@ -291,6 +292,7 @@ to say.
    Then Grumble opens his mouth and asks, "any pubs where we're going?"
 
 >You move northeast.
+
 Beach
 The beach stretches away quite some distance to the east where it is blocked
 by a large stone figure which looks to have taken a tumble. Crabs and seaweed
@@ -316,6 +318,7 @@ out of sight.
    "Maybe it had a can of beer tied to it."
    "But why-" you start to say then just decide you're better off keeping
 quiet.
+
 Beach
 The central part of the beach is no more exhilarating than the western part
 and if not for the half-buried scarecrow by the sea's edge there'd be nothing
@@ -328,6 +331,7 @@ the cliffs to the north is a short distance away.
 Grumble complaining of beer deprivation staggers in from the west.
 
 >You move northwest.
+
 Muddy Path
 The muddy path winds in several directions but as the majority of these are
 blocked by bushes you don't pay much attention to them. The only ways open to
@@ -340,6 +344,7 @@ part of the beach).
 Grumble complaining of beer deprivation staggers in from the south-east.
 
 >You move northeast.
+
 Muddier Path
 There's not really much path here at all and it's all you can do to stop
 yourself sinking into a depth that would be quite frightening. The landscape
@@ -352,6 +357,7 @@ path).
 Grumble complaining of beer deprivation staggers in from the south-west.
 
 >You move north.
+
 Extremely Muddy Path
 The mud here has reached a depth so extreme that it's almost like you're
 swimming through the stuff. If there's solid ground beneath you it's well
@@ -364,6 +370,7 @@ muddy path) and north (to a not quite so muddy path).
 Grumble complaining of beer deprivation staggers in from the south.
 
 >You move north.
+
 Not Quite So Muddy Path
 The mud seems to have thinned somewhat here and you can feel actual solid
 ground beneath your (very muddy) feet. The path is bordered on either side by
@@ -376,6 +383,7 @@ path).
 Grumble complaining of beer deprivation staggers in from the south.
 
 >You move northeast.
+
 Mud-Free Path
 You're on a path without even a hint of mud in sight. In fact, if you didn't
 know better you'd swear the path was swept on a regular basis to keep it
@@ -390,6 +398,7 @@ the marketplace of Grimmghoul Town).
 Grumble complaining of beer deprivation staggers in from the south-west.
 
 >You move northeast.
+
 Grimmghoul Marketplace
 All about you is the bustle of a busy little village: stallholders rushing
 back and forth, frantic villagers trying to snap up all the "bargains" (most
@@ -458,6 +467,7 @@ fund," adds Snordy hopefully.
 Grumble complaining of beer deprivation staggers in from the south.
 
 >You move south.
+
 Grimmghoul Marketplace
 All about you is the bustle of a busy little village: stallholders rushing
 back and forth, frantic villagers trying to snap up all the "bargains" (most
@@ -566,6 +576,7 @@ glances back at you. "You finished with your questions then?"
 the possible destruction of the known world?"
 
 >You move southwest.
+
 Grimmghoul Marketplace
 All about you is the bustle of a busy little village: stallholders rushing
 back and forth, frantic villagers trying to snap up all the "bargains" (most
@@ -583,6 +594,7 @@ southwest (to a mud-free path).
 Grumble complaining of beer deprivation staggers in from the north-east.
 
 >You move southeast.
+
 Tanner Row
 The street you are following is encroached on all sides by large, rundown
 buildings with just small paths between them leading further on. Filthy kids
@@ -595,6 +607,7 @@ store), and southeast (to Merridew Lane).
 Grumble complaining of beer deprivation staggers in from the north-west.
 
 >You move southeast.
+
 Merridew Lane
 The street narrows on both sides and light from the sun seems almost blocked
 out by the way the buildings are  leaning into each other overhead. The
@@ -608,6 +621,7 @@ a tumbledown building inhabited by beggars) and southeast (to Morry Row).
 Grumble complaining of beer deprivation staggers in from the north-west.
 
 >You move northeast.
+
 Church
 You've never been much of a church fanatic in your life and if the churches
 back home were as dilapidated as this one, you doubt you'd ever go again. It
@@ -669,6 +683,7 @@ your reward."
    4: "I don't believe in God. I think it's all made up."
 
 >You move southwest.
+
 Merridew Lane
 The street narrows on both sides and light from the sun seems almost blocked
 out by the way the buildings are  leaning into each other overhead. The
@@ -682,6 +697,7 @@ a tumbledown building inhabited by beggars) and southeast (to Morry Row).
 Grumble complaining of beer deprivation staggers in from the north-east.
 
 >You move south.
+
 Tumbledown Building
 You've never found a worse place than Maths class but this place comes pretty
 close: the walls are greasy and slimy, the floor is full of holes, the very
@@ -742,6 +758,7 @@ hear."
 Grumble complaining of beer deprivation staggers in from the south.
 
 >You move northwest.
+
 Tanner Row
 The street you are following is encroached on all sides by large, rundown
 buildings with just small paths between them leading further on. Filthy kids
@@ -754,6 +771,7 @@ store), and southeast (to Merridew Lane).
 Grumble complaining of beer deprivation staggers in from the south-east.
 
 >You move northwest.
+
 Grimmghoul Marketplace
 All about you is the bustle of a busy little village: stallholders rushing
 back and forth, frantic villagers trying to snap up all the "bargains" (most
@@ -841,6 +859,7 @@ southwest (to a mud-free path).
 Grumble complaining of beer deprivation staggers in from the north-east.
 
 >You move southeast.
+
 Tanner Row
 The street you are following is encroached on all sides by large, rundown
 buildings with just small paths between them leading further on. Filthy kids
@@ -853,6 +872,7 @@ store), and southeast (to Merridew Lane).
 Grumble complaining of beer deprivation staggers in from the north-west.
 
 >You move southeast.
+
 Merridew Lane
 The street narrows on both sides and light from the sun seems almost blocked
 out by the way the buildings are  leaning into each other overhead. The
@@ -936,6 +956,7 @@ a tumbledown building inhabited by beggars) and southeast (to Morry Row).
 Grumble complaining of beer deprivation staggers in from the north-east.
 
 >You move northwest.
+
 Tanner Row
 The street you are following is encroached on all sides by large, rundown
 buildings with just small paths between them leading further on. Filthy kids
@@ -948,6 +969,7 @@ store), and southeast (to Merridew Lane).
 Grumble complaining of beer deprivation staggers in from the south-east.
 
 >You move northwest.
+
 Grimmghoul Marketplace
 All about you is the bustle of a busy little village: stallholders rushing
 back and forth, frantic villagers trying to snap up all the "bargains" (most
@@ -965,6 +987,7 @@ southwest (to a mud-free path).
 Grumble complaining of beer deprivation staggers in from the south-east.
 
 >You move southwest.
+
 Mud-Free Path
 You're on a path without even a hint of mud in sight. In fact, if you didn't
 know better you'd swear the path was swept on a regular basis to keep it
@@ -979,6 +1002,7 @@ the marketplace of Grimmghoul Town).
 Grumble complaining of beer deprivation staggers in from the north-east.
 
 >You move southwest.
+
 Not Quite So Muddy Path
 The mud seems to have thinned somewhat here and you can feel actual solid
 ground beneath your (very muddy) feet. The path is bordered on either side by
@@ -991,6 +1015,7 @@ path).
 Grumble complaining of beer deprivation staggers in from the north-east.
 
 >You move south.
+
 Extremely Muddy Path
 The mud here has reached a depth so extreme that it's almost like you're
 swimming through the stuff. If there's solid ground beneath you it's well
@@ -1003,6 +1028,7 @@ muddy path) and north (to a not quite so muddy path).
 Grumble complaining of beer deprivation staggers in from the north.
 
 >You move west.
+
 Hills
 The path you follow winds up into a series of grassy hills which look
 suspiciously like some hills back home you used to play in as a kid. Several
@@ -1015,6 +1041,7 @@ path) and southwest (to some old ruins).
 Grumble complaining of beer deprivation staggers in from the east.
 
 >You move north.
+
 End Of The Path
 You've come to the end of the path. It peters out just ahead at a sheer wall
 of amazingly smooth stone which looks quite of place in this setting. The
@@ -1126,6 +1153,7 @@ light switch. Flicking it reveals the lair in its glory (or lack of).
 Grumble complaining of beer deprivation staggers in from the south-east.
 
 >You move southeast.
+
 End Of The Path
 You've come to the end of the path. It peters out just ahead at a sheer wall
 of amazingly smooth stone which looks quite of place in this setting. The
@@ -1145,6 +1173,7 @@ Grumble complaining of beer deprivation staggers in.
 >You pick up the holy handgrenade.
 
 >You move south.
+
 Hills
 The path you follow winds up into a series of grassy hills which look
 suspiciously like some hills back home you used to play in as a kid. Several
@@ -1157,6 +1186,7 @@ path) and southwest (to some old ruins).
 Grumble complaining of beer deprivation staggers in from the north.
 
 >You move east.
+
 Extremely Muddy Path
 The mud here has reached a depth so extreme that it's almost like you're
 swimming through the stuff. If there's solid ground beneath you it's well
@@ -1169,6 +1199,7 @@ muddy path) and north (to a not quite so muddy path).
 Grumble complaining of beer deprivation staggers in from the west.
 
 >You move north.
+
 Not Quite So Muddy Path
 The mud seems to have thinned somewhat here and you can feel actual solid
 ground beneath your (very muddy) feet. The path is bordered on either side by
@@ -1181,6 +1212,7 @@ path).
 Grumble complaining of beer deprivation staggers in from the south.
 
 >You move northeast.
+
 Mud-Free Path
 You're on a path without even a hint of mud in sight. In fact, if you didn't
 know better you'd swear the path was swept on a regular basis to keep it
@@ -1195,6 +1227,7 @@ the marketplace of Grimmghoul Town).
 Grumble complaining of beer deprivation staggers in from the south-west.
 
 >You move northeast.
+
 Grimmghoul Marketplace
 All about you is the bustle of a busy little village: stallholders rushing
 back and forth, frantic villagers trying to snap up all the "bargains" (most
@@ -1244,6 +1277,7 @@ see everyone who wants to see him."
 Grumble complaining of beer deprivation staggers in from the south.
 
 >You move south.
+
 Grimmghoul Marketplace
 All about you is the bustle of a busy little village: stallholders rushing
 back and forth, frantic villagers trying to snap up all the "bargains" (most
@@ -1261,6 +1295,7 @@ southwest (to a mud-free path).
 Grumble complaining of beer deprivation staggers in from the north.
 
 >You move southeast.
+
 Tanner Row
 The street you are following is encroached on all sides by large, rundown
 buildings with just small paths between them leading further on. Filthy kids
@@ -1273,6 +1308,7 @@ store), and southeast (to Merridew Lane).
 Grumble complaining of beer deprivation staggers in from the north-west.
 
 >You move southeast.
+
 Merridew Lane
 The street narrows on both sides and light from the sun seems almost blocked
 out by the way the buildings are  leaning into each other overhead. The
@@ -1286,6 +1322,7 @@ a tumbledown building inhabited by beggars) and southeast (to Morry Row).
 Grumble complaining of beer deprivation staggers in from the north-west.
 
 >You move southeast.
+
 Morry Row
 The road here is little more than a dirt path and just east of here there is
 a large gate, guarded by several burly fellows in tight-fitting body armour.
@@ -1302,6 +1339,7 @@ the east gate and the house).
 Grumble complaining of beer deprivation staggers in from the north-west.
 
 >You move east.
+
 East Gate
 You find yourself standing in a puddle of muddy water by the east gate of
 Grimmghoul, which is both locked and not looking very much like it's going to
@@ -1390,6 +1428,7 @@ some."
 Grumble complaining of beer deprivation staggers in from the west.
 
 >You move east.
+
 Dark Forest Path
 It's pretty dark and dank under the trees and this is undoubtedly the
 creepiest forest you've ever been in. It's every bit as bad as the forest in
@@ -1402,6 +1441,7 @@ branches and trying to trip you with their roots.
 Grumble complaining of beer deprivation staggers in from the west.
 
 >You move southeast.
+
 Stream (west)
 You're standing at the western edge of a small stream in the forest. Water
 rushes past very quickly from here and disappears over a thundering waterfall
@@ -1436,6 +1476,7 @@ glade).
 Grumble complaining of beer deprivation staggers in from the west.
 
 >You move east.
+
 Shadowy Glade
 The corpses of several elves lie on the ground in this glade, their bodies
 battered and beaten. Broken weapons lie scattered about. Something tells you
@@ -1490,6 +1531,7 @@ sight deader than even He can bring back to life."
 >You pick up the Torazin Crystal.
 
 >You move east.
+
 Forest Edge
 Overhead the trees of the forest are thinning out and you can make out some
 treeless areas to the east. A campfire is burning away here although there
@@ -1500,6 +1542,7 @@ fires spring to mind.
 Grumble complaining of beer deprivation staggers in from the west.
 
 >You move east.
+
 Rutted Path
 A wagon has overturned here and is merrily burning away, sending plumes of
 smoke into the sky. Several bodies are lying by the overturned wagon, none of
@@ -1513,6 +1556,7 @@ path).
 Grumble complaining of beer deprivation staggers in from the west.
 
 >You move southeast.
+
 Junction
 Several paths meet here at a point where someone with a lot more enthusiasm
 than skill has erected a signpost. Quite what the signpost is indicating is a
@@ -1527,6 +1571,7 @@ road).
 Grumble complaining of beer deprivation staggers in from the north-west.
 
 >You move east.
+
 Well Maintained Road
 This road is quite a bit different than the ones you've been getting used to
 walking along in this world: it's paved and none too shabbily done either.
@@ -1541,6 +1586,7 @@ can make out.
 Grumble complaining of beer deprivation staggers in from the west.
 
 >You move northeast.
+
 Outside The Prancing Pratt Public House
 The sign you're standing next to calls this building the Prancing Pratt
 Public House. It looks similar to the rundown dump you remember seeing in
@@ -1553,6 +1599,7 @@ brutally honest) filter through cracks in the oak walls.
 Grumble complaining of beer deprivation staggers in from the south-west.
 
 >You move northeast.
+
 Shadowy Path
 The beginnings of a  wooded area ahead effectively block off the road and it
 doesn't look like you'll be able to reach the massive cliff you can see to
@@ -1569,6 +1616,7 @@ Kontik is here.
 Grumble complaining of beer deprivation staggers in from the south-west.
 
 >You move northeast.
+
 Bloodied Path
 The path bobs up and down as you follow it through the wooded area, sometimes
 seeming to lose its way altogether. It's very dark here indeed what with the
@@ -1605,6 +1653,7 @@ all!"
 >You pick up the spike trap.
 
 >You move southeast.
+
 Smelly Path
 You don't know what is making this part of the path smell but it sure does
 reek! It's all you can do to stop gasping for breath and making horrid
@@ -1615,6 +1664,7 @@ Toronel the knight is here.
 Grumble complaining of beer deprivation staggers in from the north-west.
 
 >You move southwest.
+
 Pebbled Path
 The path here has been pebble-dashed, or maybe someone with entirely too much
 time on their hands has just come along with several tonnes of pebbles and
@@ -1627,6 +1677,7 @@ paths).
 Grumble complaining of beer deprivation staggers in from the north-east.
 
 >You move north.
+
 Skull Clearing
 In the centre of this clearing there is a huge skull. It looks like the size
 of a house and resembles your Uncle Osrick to a degree you find quite
@@ -1651,6 +1702,7 @@ fails) then goes charging off to the south.
 its lair and see if it kept a well-supplied larder myself."
 
 >You move south.
+
 Pebbled Path
 The path here has been pebble-dashed, or maybe someone with entirely too much
 time on their hands has just come along with several tonnes of pebbles and
@@ -1663,6 +1715,7 @@ paths).
 Grumble complaining of beer deprivation staggers in from the north.
 
 >You move northwest.
+
 Shadowy Path
 The beginnings of a  wooded area ahead effectively block off the road and it
 doesn't look like you'll be able to reach the massive cliff you can see to
@@ -1679,6 +1732,7 @@ Kontik is here.
 Grumble complaining of beer deprivation staggers in from the south-east.
 
 >You move southwest.
+
 Outside The Prancing Pratt Public House
 The sign you're standing next to calls this building the Prancing Pratt
 Public House. It looks similar to the rundown dump you remember seeing in
@@ -1691,6 +1745,7 @@ brutally honest) filter through cracks in the oak walls.
 Grumble complaining of beer deprivation staggers in from the north-east.
 
 >You move southeast.
+
 The Prancing Pratt Public House
 Far larger inside than it appeared outside, the Prancing Pratt is a loud,
 boisterous and altogether smelly public house filled to capacity with drunks,
@@ -1800,6 +1855,7 @@ wallet and sneaking off southwards into the strip den.
 Grumble complaining of beer deprivation staggers in from the east.
 
 >You move south.
+
 Strip Den
 If your mother knew you were here, you doubt you'd ever hear the end of it.
 Ladies wearing more makeup than clothes parade around, whispering sweet
@@ -1827,6 +1883,7 @@ in sheep's clothing!"
 worth making - Jodee dashes past you and out of the room.
 
 >You move north.
+
 The Prancing Pratt Public House
 Far larger inside than it appeared outside, the Prancing Pratt is a loud,
 boisterous and altogether smelly public house filled to capacity with drunks,
@@ -1861,6 +1918,7 @@ don't want the room you don't have to take it. Worse room I've got but it's
 all yours for as long as you want."
 
 >You move up.
+
 Your Room
 When Smiggles said this was the worse room he had he wasn't joking! From the
 crumpled bed to the sagging ceiling, floor and dirt-stained walls, this has
@@ -1881,6 +1939,7 @@ Grumble complaining of beer deprivation staggers in from below.
 >You pick up the Torrow Crystal.
 
 >You move down.
+
 The Prancing Pratt Public House
 Far larger inside than it appeared outside, the Prancing Pratt is a loud,
 boisterous and altogether smelly public house filled to capacity with drunks,
@@ -1900,6 +1959,7 @@ regarding the proceedings with disdain.  Smiggles the bartender is here.
 Grumble complaining of beer deprivation staggers in from above.
 
 >You move northwest.
+
 Outside The Prancing Pratt Public House
 The sign you're standing next to calls this building the Prancing Pratt
 Public House. It looks similar to the rundown dump you remember seeing in
@@ -1912,6 +1972,7 @@ brutally honest) filter through cracks in the oak walls.
 Grumble complaining of beer deprivation staggers in from the south-east.
 
 >You move southwest.
+
 Well Maintained Road
 This road is quite a bit different than the ones you've been getting used to
 walking along in this world: it's paved and none too shabbily done either.
@@ -1926,6 +1987,7 @@ can make out.
 Grumble complaining of beer deprivation staggers in from the north-east.
 
 >You move west.
+
 Junction
 Several paths meet here at a point where someone with a lot more enthusiasm
 than skill has erected a signpost. Quite what the signpost is indicating is a
@@ -1940,6 +2002,7 @@ road).
 Grumble complaining of beer deprivation staggers in from the east.
 
 >You move northwest.
+
 Rutted Path
 A wagon has overturned here and is merrily burning away, sending plumes of
 smoke into the sky. Several bodies are lying by the overturned wagon, none of
@@ -1953,6 +2016,7 @@ path).
 Grumble complaining of beer deprivation staggers in from the south-east.
 
 >You move north.
+
 Narrow Path
 This narrow path is crowded on both sides by a horde of seriously nasty
 looking plants. You saw Day of the Triffids once and they had nothing on
@@ -1963,6 +2027,7 @@ Captain Wilbeforce, Lady Sofia and several brutish guards are here.
 Grumble complaining of beer deprivation staggers in from the south.
 
 >You move north.
+
 Outside Arliss' Tower
 The tower of Arliss is an impressive size: it soars into the sky before you
 and stands at least two hundred feet tall. It also looks unbelievably narrow
@@ -2208,6 +2273,7 @@ a Barbie doll instead of a Harry Potter doll - you step through the door.
    "-torch…" You look around into the darkness, "oh, s-" and then say a word
 that if your mother were here would probably earn you a grounding for the
 next year or two.
+
 Top Of Steps
 You're by a closed stone door which looks like it's not going to open for you
 no matter what. Something tells you that pounding and kicking on it won't do
@@ -2217,6 +2283,7 @@ waste.
    Exits lie: down (to the short corridor).
 
 >You move down.
+
 Short Corridor
 This place reminds you a bit of your cellar back home: all musty and dark and
 unpleasant. But unlike your cellar back home, there are glowing panels in the
@@ -2227,6 +2294,7 @@ forced through actually) into this place.
    Exits lie: up (the steps) and south (to the room).
 
 >You move south.
+
 Room Of Challenges
 You stand in a completely circular room, the walls of which comprise a number
 of glowing doors: six in total. Each door is numbered from 1 - 6 and each is,
@@ -2243,6 +2311,7 @@ Also here is a chisel.
 >You pick up the chisel.
 
 >You move north.
+
 Short Corridor
 This place reminds you a bit of your cellar back home: all musty and dark and
 unpleasant. But unlike your cellar back home, there are glowing panels in the
@@ -2270,6 +2339,7 @@ forwards odd leads to the crystals of magic".
    How strange!
 
 >You move south.
+
 Room Of Challenges
 You stand in a completely circular room, the walls of which comprise a number
 of glowing doors: six in total. Each door is numbered from 1 - 6 and each is,
@@ -2995,6 +3065,7 @@ ask your opinion…
  Your companions enter.
 
 >You move north.
+
 Crossroads
 Three paths meet here: the one you found yourself on after leaving Arliss'
 tower (to the south), one leading to a large abandoned farmhouse to the
@@ -3010,6 +3081,7 @@ Merin is here, looking about very nervously indeed.
  Your companions enter from the south.
 
 >You move northwest.
+
 Outside Farmhouse
 The path reaches an end here outside a large farmhouse which looks old and
 abandoned. A field to one side contains some graves and more than a few bales
@@ -3156,6 +3228,7 @@ Arliss. "Well done, Sophie."
    "But where's the beer?" asks Grumble.
 
 >You move down.
+
 The Long And Winding Runnel
 Water drips from the roof of this tunnel in a steady patter, leaving the
 ground wet and slippery. The walls of the tunnel are broken chunks of stone
@@ -3506,6 +3579,7 @@ magics. And, also, I would teach you in the use of the orb yourself."
    1: "Die, evil so-and-so!"
 
 >You move south.
+
 Balcony
 This balcony overlooks a large room some thirty feet below. Some kind of
 ritual sacrifice appears to be going on in this room judging by the skeletons
@@ -3560,6 +3634,7 @@ Arliss strides towards you from the south.
  Your companions enter from the south.
 
 >You move south.
+
 Balcony
 This balcony overlooks a large room some thirty feet below. Some kind of
 ritual sacrifice appears to be going on in this room judging by the skeletons
@@ -3608,6 +3683,7 @@ Arliss strides towards you from the south.
  Your companions enter from the south.
 
 >You move north.
+
 Gallery
 To say this room is supposed to be a gallery, you don't see a whole lot in
 the way of paintings or portraits or indeed any works of art. What you do see
@@ -3740,6 +3816,7 @@ dropped it during his flight."
    He hands the compass to you.
 
 >You move northwest.
+
 Corridor
 This long corridor runs as far north as you can see. Something about it
 strikes you as wrong but you're not sure what it is. As far as you can tell,
@@ -3757,6 +3834,7 @@ Arliss strides towards you from the south-east.
 energies recharged.
 
 >You move southeast.
+
 Gallery
 To say this room is supposed to be a gallery, you don't see a whole lot in
 the way of paintings or portraits or indeed any works of art. What you do see
@@ -3776,6 +3854,7 @@ Arliss strides towards you from the north-west.
  Your companions enter from the north-west.
 
 >You move north.
+
 Chamber of Battle
 You find yourself in a wide chamber which is open to the sky (a stormy sky
 with lots of evil looking clouds floating around in it but the sky
@@ -3835,6 +3914,7 @@ you for safe keeping.
    "It's bound to be important," says Arliss. "We should keep hold of it."
 
 >You move south.
+
 Gallery
 To say this room is supposed to be a gallery, you don't see a whole lot in
 the way of paintings or portraits or indeed any works of art. What you do see
@@ -3854,6 +3934,7 @@ Arliss strides towards you from the north.
  Your companions enter from the north.
 
 >You move south.
+
 Shadowy Hall
 This once impressive hall seems to have fallen to ruin long ago. Dust covers
 every table and chair and throne and even the wall hangings are shrouded in
@@ -3873,6 +3954,7 @@ Arliss strides towards you from the north.
  Your companions enter from the north.
 
 >You move east.
+
 Art Room
 The walls of this room are decorated with portraits of the evil skeleton
 lord. They're not very good portraits for the most part (but then he is a
@@ -3889,6 +3971,7 @@ Arliss strides towards you from the west.
  Your companions enter from the west.
 
 >You move east.
+
 Portraits Room
 Wandering through this large room full of portraits of skeletons is weird in
 the extreme and you wonder if Brask isn't a little touched to have a place
@@ -3906,6 +3989,7 @@ Arliss strides towards you from the west.
  Your companions enter from the west.
 
 >You move up.
+
 Empty Hall
 The only item of interest in this hall - which is roughly the size of a
 football stadium - is a large statue of the evil skeleton lord in the centre.
@@ -3922,6 +4006,7 @@ Arliss strides towards you from below.
  Your companions enter from below.
 
 >You move west.
+
 Crumbling Passage
 This passage looks like it has started to decay. The walls lean at an angle,
 the ceiling sags and even the floor has a rotted look to it. Walking about is
@@ -3936,6 +4021,7 @@ Arliss strides towards you from the east.
  Your companions enter from the east.
 
 >You move west.
+
 Small Study
 The study you find yourself in seems quite cosy after the rest of the evil
 skeleton lord's fortress you have seen today. A writing bureau is placed
@@ -3995,6 +4081,7 @@ thrust through the heart stopped him but I put it down to laziness myself."
    5: "How did you die?"
 
 >You move east.
+
 Crumbling Passage
 This passage looks like it has started to decay. The walls lean at an angle,
 the ceiling sags and even the floor has a rotted look to it. Walking about is
@@ -4061,6 +4148,7 @@ Arliss strides towards you from the east.
  Your companions enter from the east.
 
 >You move east.
+
 Crumbling Passage
 This passage looks like it has started to decay. The walls lean at an angle,
 the ceiling sags and even the floor has a rotted look to it. Walking about is
@@ -4075,6 +4163,7 @@ Arliss strides towards you from the west.
  Your companions enter from the west.
 
 >You move east.
+
 Empty Hall
 The only item of interest in this hall - which is roughly the size of a
 football stadium - is a large statue of the evil skeleton lord in the centre.
@@ -4091,6 +4180,7 @@ Arliss strides towards you from the west.
  Your companions enter from the west.
 
 >You move down.
+
 Portraits Room
 Wandering through this large room full of portraits of skeletons is weird in
 the extreme and you wonder if Brask isn't a little touched to have a place
@@ -4108,6 +4198,7 @@ Arliss strides towards you from above.
  Your companions enter from above.
 
 >You move west.
+
 Art Room
 The walls of this room are decorated with portraits of the evil skeleton
 lord. They're not very good portraits for the most part (but then he is a
@@ -4124,6 +4215,7 @@ Arliss strides towards you from the east.
  Your companions enter from the east.
 
 >You move west.
+
 Shadowy Hall
 This once impressive hall seems to have fallen to ruin long ago. Dust covers
 every table and chair and throne and even the wall hangings are shrouded in
@@ -4150,6 +4242,7 @@ one day. Many thanks, child. And now, my gift..."
 will, no doubt, be in for quite a surprise."
 
 >You move east.
+
 Art Room
 The walls of this room are decorated with portraits of the evil skeleton
 lord. They're not very good portraits for the most part (but then he is a
@@ -4166,6 +4259,7 @@ Arliss strides towards you from the west.
  Your companions enter from the west.
 
 >You move east.
+
 Portraits Room
 Wandering through this large room full of portraits of skeletons is weird in
 the extreme and you wonder if Brask isn't a little touched to have a place
@@ -4183,6 +4277,7 @@ Arliss strides towards you from the west.
  Your companions enter from the west.
 
 >You move up.
+
 Empty Hall
 The only item of interest in this hall - which is roughly the size of a
 football stadium - is a large statue of the evil skeleton lord in the centre.

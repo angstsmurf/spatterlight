@@ -37,6 +37,7 @@ towering manner. A door leads inside.
 for!" the voice of your beloved princess yells out at you.
 
 >I move north.
+
 The Most Boring Location In The Game
 You're at the far southern edge of a long, long plain which stretches to the
 north as far as the eye can see. You can't see a single interesting thing no
@@ -44,6 +45,7 @@ matter how hard you look. The plain stretches north and northeast and south
 lies the tower.
 
 >I move north.
+
 A Very Tedious Location
 The plain stretches off further to the north and northwest but there doesn't
 look to be a whole lot in either of those directions. To add a little depth
@@ -54,6 +56,7 @@ to the east and south.
 >A voice from inside shouts out: "stop examining my damn tent!"
 
 >I move west.
+
 Tent
 It's quite dark inside the light due to the absence of lights and the
 pervading aroma of smoke (which might indicate the tent's on fire so don't
@@ -76,6 +79,7 @@ the blade is razor sharp.
 >"I'll talk to you when Grimbel is dead and not until."
 
 >I move east.
+
 A Very Tedious Location
 The plain stretches off further to the north and northwest but there doesn't
 look to be a whole lot in either of those directions. To add a little depth
@@ -84,6 +88,7 @@ fascinating of locations lies west and the plain you've just walked along is
 to the east and south.
 
 >I move south.
+
 The Most Boring Location In The Game
 You're at the far southern edge of a long, long plain which stretches to the
 north as far as the eye can see. You can't see a single interesting thing no
@@ -91,6 +96,7 @@ matter how hard you look. The plain stretches north and northeast and south
 lies the tower.
 
 >I move south.
+
 Outside the tower
 You're standing on a windswept at the base of a large tower which soars into
 the night sky above you. The tower appears made from a glowing substance
@@ -100,6 +106,7 @@ East lies a forest, west a marsh, south a desert, north a plain where the
 wildebeests roam. And a door leads inside the tower itself.
 
 >I move west.
+
 Marsh
 You're staggering through a waterlogged marsh, undoubtedly the most
 unpleasant place you've ever been to in your life. Submerged trees make up a
@@ -115,6 +122,7 @@ discover about them.
 >Subdued? Don't ask.
 
 >I move west.
+
 Marsh
 The marsh seems a little drier here. On the ground is a strange set of
 markings in the form of a demon's head. If you didn't know better, you'd
@@ -125,6 +133,7 @@ east.
 you'll just have to use your imagination.
 
 >I move east.
+
 Marsh
 You're staggering through a waterlogged marsh, undoubtedly the most
 unpleasant place you've ever been to in your life. Submerged trees make up a
@@ -133,6 +142,7 @@ subdued hedge. Grimy paths wind away to the west and southwest and the tower
 you started from is to the east.
 
 >I move southwest.
+
 Outside a cave
 The ground gets even wetter here than it was before (if that's possible) and
 you find yourself up to your knees in foul, stinking marsh water. To the
@@ -143,6 +153,7 @@ you've just come lies northeast.
 venturing inside would not be a good idea.
 
 >I move south.
+
 Cave
 The interior of the cave is dark and dank and your footsteps echo eerily
 about as you make your way around. In the middle of the cave is pit sunken
@@ -170,6 +181,7 @@ luck would have it, one of his ribs snaps off and you quickly swipe it.
 >I see no such thing.
 
 >I move north.
+
 Outside a cave
 The ground gets even wetter here than it was before (if that's possible) and
 you find yourself up to your knees in foul, stinking marsh water. To the
@@ -177,6 +189,7 @@ south you can just about make out the entrance to a cave whereas the way
 you've just come lies northeast.
 
 >I move northeast.
+
 Marsh
 You're staggering through a waterlogged marsh, undoubtedly the most
 unpleasant place you've ever been to in your life. Submerged trees make up a
@@ -185,6 +198,7 @@ subdued hedge. Grimy paths wind away to the west and southwest and the tower
 you started from is to the east.
 
 >I move east.
+
 Outside the tower
 You're standing on a windswept at the base of a large tower which soars into
 the night sky above you. The tower appears made from a glowing substance
@@ -194,6 +208,7 @@ East lies a forest, west a marsh, south a desert, north a plain where the
 wildebeests roam. And a door leads inside the tower itself.
 
 >I move south.
+
 Desert
 All about are tall sand dunes which seem to shift and slide beneath your feet
 in a most alarming manner. Far to the south you can make out what appears to
@@ -201,12 +216,14 @@ be a tower quite similar in appearance to the one you set out from to the
 north.
 
 >I move south.
+
 Deeper in the desert
 You stagger across some more sand dunes. Off to the west is what looks like
 an oasis whereas the tower you spotted before looms a little closer to the
 south. The tower you started from is just about visible to the north.
 
 >I move west.
+
 Oasis
 You're by a pleasant oasis in the middle of the desert. There is a pool here,
 occupied by a couple of alligators, and a tree from which hang a multitude of
@@ -232,12 +249,14 @@ afterwards but they don't follow you from the pool.
 hideous visage. Whoever chopped this guy's head off was doing him a favour.
 
 >I move east.
+
 Deeper in the desert
 You stagger across some more sand dunes. Off to the west is what looks like
 an oasis whereas the tower you spotted before looms a little closer to the
 south. The tower you started from is just about visible to the north.
 
 >I move south.
+
 Outside another tower
 Though very similar in appearance to the tower you set off from, this one
 differs in that there is no door visible in its surface. There is, however, a
@@ -259,12 +278,14 @@ shout at you: S...O... D... O... F... F...? Must be your imagination.
 >Using the dagger, you slice through some of the rope and gather it up.
 
 >I move north.
+
 Deeper in the desert
 You stagger across some more sand dunes. Off to the west is what looks like
 an oasis whereas the tower you spotted before looms a little closer to the
 south. The tower you started from is just about visible to the north.
 
 >I move north.
+
 Desert
 All about are tall sand dunes which seem to shift and slide beneath your feet
 in a most alarming manner. Far to the south you can make out what appears to
@@ -272,6 +293,7 @@ be a tower quite similar in appearance to the one you set out from to the
 north.
 
 >I move north.
+
 Outside the tower
 You're standing on a windswept at the base of a large tower which soars into
 the night sky above you. The tower appears made from a glowing substance
@@ -281,6 +303,7 @@ East lies a forest, west a marsh, south a desert, north a plain where the
 wildebeests roam. And a door leads inside the tower itself.
 
 >I move north.
+
 The Most Boring Location In The Game
 You're at the far southern edge of a long, long plain which stretches to the
 north as far as the eye can see. You can't see a single interesting thing no
@@ -288,11 +311,13 @@ matter how hard you look. The plain stretches north and northeast and south
 lies the tower.
 
 >I move northeast.
+
 Another Boring Location
 You're standing on a very boring plain which is seriously lacking in
 description. It continues to the northeast, west and southwest
 
 >I move northeast.
+
 Yet Another Boring Location
 You've reached the northeast edge of the plain. Here, a large chasm bisects
 the land, its bottom lost in murky shadows. Aside from you and a solitary
@@ -320,11 +345,13 @@ your strong point), but you're sure that there's a woman somewhere in this
 game who'll appreciate it.
 
 >I move southwest.
+
 Another Boring Location
 You're standing on a very boring plain which is seriously lacking in
 description. It continues to the northeast, west and southwest
 
 >I move west.
+
 A Very Tedious Location
 The plain stretches off further to the north and northwest but there doesn't
 look to be a whole lot in either of those directions. To add a little depth
@@ -333,6 +360,7 @@ fascinating of locations lies west and the plain you've just walked along is
 to the east and south.
 
 >I move west.
+
 Tent
 It's quite dark inside the light due to the absence of lights and the
 pervading aroma of smoke (which might indicate the tent's on fire so don't
@@ -344,6 +372,7 @@ lies east.
 that poor schmuck! Ha! And you fell for it, too!"
 
 >I move east.
+
 A Very Tedious Location
 The plain stretches off further to the north and northwest but there doesn't
 look to be a whole lot in either of those directions. To add a little depth
@@ -352,6 +381,7 @@ fascinating of locations lies west and the plain you've just walked along is
 to the east and south.
 
 >I move south.
+
 The Most Boring Location In The Game
 You're at the far southern edge of a long, long plain which stretches to the
 north as far as the eye can see. You can't see a single interesting thing no
@@ -359,6 +389,7 @@ matter how hard you look. The plain stretches north and northeast and south
 lies the tower.
 
 >I move south.
+
 Outside the tower
 You're standing on a windswept at the base of a large tower which soars into
 the night sky above you. The tower appears made from a glowing substance
@@ -368,6 +399,7 @@ East lies a forest, west a marsh, south a desert, north a plain where the
 wildebeests roam. And a door leads inside the tower itself.
 
 >I move east.
+
 Forest
 It's pretty dark and murky in the forest what with the tree branches meeting
 overhead. In the distance you hear the cries of ferocious animals (they sound
@@ -375,6 +407,7 @@ somewhat like your mother-in-law after a few cases of bourbon). A path winds
 away to the southeast and the tower lies west.
 
 >I move southeast.
+
 Clearing
 You've reached a clearing in the forest, in the centre of which are a trio of
 standing stones. Each appears to be of immense age and they are covered with
@@ -421,6 +454,7 @@ A brief second later, the beautiful nymph is gone.
 earn in twenty years.
 
 >I move northwest.
+
 Forest
 It's pretty dark and murky in the forest what with the tree branches meeting
 overhead. In the distance you hear the cries of ferocious animals (they sound
@@ -428,6 +462,7 @@ somewhat like your mother-in-law after a few cases of bourbon). A path winds
 away to the southeast and the tower lies west.
 
 >I move west.
+
 Outside the tower
 You're standing on a windswept at the base of a large tower which soars into
 the night sky above you. The tower appears made from a glowing substance
@@ -437,6 +472,7 @@ East lies a forest, west a marsh, south a desert, north a plain where the
 wildebeests roam. And a door leads inside the tower itself.
 
 >Congratulations!
+
 Inside the tower
 You're in the tower which is the final location in the game and, as time is
 pressing, pretty damn empty of things to examine.

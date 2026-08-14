@@ -44,6 +44,7 @@ you were stupid enough to leap out of.
 You hear running water to the east.
 
 >You move east.
+
 Brook
 This is a brook, a creek, a crick.  Whatever you want to call it, it is a
 small body of running water.  The sound of the running water makes you want
@@ -87,6 +88,7 @@ shoulders?  Something... someone... pulls you to the surface... in a daze you
 wake up...
 
 >You move south.
+
 Small Cabin
 You're inside a small cabin built entirely of plastic logs made from recycled
 beverage bottles.  It's actually rather ugly.  You notice some wet footprints
@@ -104,6 +106,7 @@ innards.  All of the sudden, the lid pops open and a silver sphere pops out.
 the chimney.
 
 You're all covered in soot now.  Happy?
+
 Cabin Roof
 You're now on the cabin roof, which is made of plastic shingles similar to
 the recycled materials the rest of the cabin is made of.  Tied to the chimney

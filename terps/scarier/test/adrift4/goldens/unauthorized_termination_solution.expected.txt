@@ -50,6 +50,7 @@ achievement.  Your square id badge is on the shelf.
 It is displaying: Attend Centre for Examination - Urgent.
 
 >The room slowly fades and is replaced with your destination.
+
 Centre for Examination
 The hexagonal metal room is 10m across and nearly 5m in height. With the
 standard hidden lighting set to a low level, most of the room is in
@@ -74,6 +75,7 @@ An unauthorised termination is not unusual but is fairly rare; it is most
 likely some form of accident.
 
 >The room slowly fades and is replaced with your destination.
+
 Domicile of Gamma-Sigma
 The domicile is appropriate to the victim's level of achievement and the
 metal room is 1.5m square and only 2m in height. On one side of the room is
@@ -102,6 +104,7 @@ individual has been subject to an electrical shock. The memory module
 retrieval will hopefully give some clues to what happen.
 
 >The room slowly fades and is replaced with your destination.
+
 Centre for Examination
 The hexagonal metal room is nearly 5m in height and 10m across. A security
 monitor is on one side of the room, to your right the interrogator and
@@ -124,6 +127,7 @@ examination continues at the Centre of Maintenance. The order for an
 immediate deconstruct of the remains of Gamma-Sigma will be given."
 
 >The room slowly fades and is replaced with your destination.
+
 Centre for Maintenance
 The oblong metal room is 10m long by 5m wide and nearly 3m in height. The
 standard hidden lighting seems to be set to a higher level than normal, it is
@@ -155,6 +159,7 @@ That is very unusual, especially with your examination still taking place.
 You decide to return to the centre.
 
 >The room slowly fades and is replaced with your destination.
+
 Centre for Examination
 The hexagonal metal room is nearly 5m in height and 10m across. A security
 monitor is on one side of the room, to your right the interrogator and
@@ -203,6 +208,7 @@ domicile of Psi-Tau will be granted."
 Something is not correct here, but you still fail to identify what.
 
 >The room slowly fades and is replaced with your destination.
+
 Domicile of Psi-Tau
 The metal room is 2m square and 2.5m in height. On one side of the room is a
 recharger and opposite the communicator. On the other wall is the teleporter
@@ -222,6 +228,7 @@ obtained such a thing (violation of law 3981), never mind actually owning it
 (violation of law 4361).
 
 >The room slowly fades and is replaced with your destination.
+
 Centre for Examination
 The hexagonal metal room is nearly 5m in height and 10m across. A security
 monitor is on one side of the room, to your right the interrogator and
@@ -276,6 +283,7 @@ interrogator.
 >You take the tracer from the interrogator.
 
 >The room slowly fades and is replaced with your destination.
+
 Centre for Maintenance
 The oblong metal room is 10m long by 5m wide and nearly 3m in height. The
 standard hidden lighting seems to be set to a higher level than normal, it is
@@ -343,6 +351,7 @@ You hand the synthetic crystal to Mu-Nu, who takes it and without saying
 another word hands you the thermal lance.
 
 >The room slowly fades and is replaced with your destination.
+
 Tyr Centre of Creation
 The centre must be the largest and brightest places you have ever visited.
 The place can only be described as monumental and you are extremely
@@ -374,6 +383,7 @@ seems to be more of a statement than a question. Mu-Rho points north and
 continues, "The remains are in the stores."
 
 >You move north.
+
 Tyr Assembly Plant
 The vast assembly plant of the Tyr creation centre towers about you. Spread
 out before you are machines of every shape, size, complexity and function.
@@ -385,6 +395,7 @@ been in such a large room. You flatten yourself against the wall until the
 power surge (panic maybe?) passes.
 
 >You move west.
+
 Tyr Stores
 The stores is a place much more suited to your tastes, it is 10m square with
 lower lighting levels. Against the wall, just inside the entrance, is a metal
@@ -428,6 +439,7 @@ The thermal lance is making a very loud buzzing sound.
 >You turn off the lance.
 
 >You move east.
+
 Tyr Assembly Plant
 The vast assembly plant of the Tyr creation centre towers about you. Spread
 out before you are machines of every shape, size, complexity and function.
@@ -438,6 +450,7 @@ Now you are calm it is interesting to think that this is your place of
 creation.
 
 >You move south.
+
 Tyr Centre of Creation
 The centre must be the largest and brightest places you have ever visited.
 The place can only be described as monumental and you are extremely
@@ -445,6 +458,7 @@ uncomfortable. To the north is the main assembly plant of the centre.
 Mu-Rho is hovering in the centre of the room.
 
 >The room slowly fades and is replaced with your destination.
+
 Centre for Maintenance
 The oblong metal room is 10m long by 5m wide and nearly 3m in height. The
 standard hidden lighting seems to be set to a higher level than normal, it is
@@ -474,6 +488,7 @@ More importantly Gamma-Sigma was terminated by a weapon! This is a direct
 violation of laws 1276 and 2871.
 
 >The room slowly fades and is replaced with your destination.
+
 Tie Centre of Creation
 The centre must be the largest and brightest places you have ever visited.
 The place can only be described as enormous and you are extremely
@@ -500,6 +515,7 @@ that has not happen."
 So, where are the remains of Psi-Tau?
 
 >You move north.
+
 Tie Assembly Plant
 The vast assembly plant of the Tie creation centre towers about you. Spread
 out before you are machines of every shape, size, complexity and function.
@@ -514,6 +530,7 @@ badge then continues, "Gamma-Sigma found out about the Echo Series 9." The
 individual then disappears back into the mass of functioners.
 
 >You move west.
+
 Tie Stores
 The stores is a place much more suited to your tastes, it is 10m square with
 lower lighting levels. Against the wall, just inside the entrance, is a metal
@@ -523,6 +540,7 @@ Looking around the stores it is just as Mu-Lambda stated, the remains of
 Psi-Tau are not located here.
 
 >You move east.
+
 Tie Assembly Plant
 The vast assembly plant of the Tie creation centre towers about you. Spread
 out before you are machines of every shape, size, complexity and function.
@@ -531,6 +549,7 @@ individuals. To the west are the stores and the control room is south.
 In the distance a Phi is hovering.
 
 >You move south.
+
 Tie Centre of Creation
 The centre must be the largest and brightest places you have ever visited.
 The place can only be described as enormous and you are extremely
@@ -544,6 +563,7 @@ Mu-Lambda is hovering in the centre of the room.
 Outside? What can that mean? Such a thing is not possible?
 
 >The room slowly fades and is replaced with your destination.
+
 Centre for Maintenance
 The oblong metal room is 10m long by 5m wide and nearly 3m in height. The
 standard hidden lighting seems to be set to a higher level than normal, it is
@@ -579,6 +599,7 @@ contravene law 8675 which prohibits rebellion, insurrection or plotting
 against authority. Also, what is the meaning of krybo?
 
 >The room slowly fades and is replaced with your destination.
+
 Tet Centre of Creation
 The centre must be the largest and brightest places you have ever visited.
 The place can only be described as immense and you are extremely
@@ -598,6 +619,7 @@ termination."
 interfere," Mu-Kappa replies sharply.
 
 >You move north.
+
 Tet Assembly Plant
 The vast assembly plant of the Tet creation centre towers about you. Spread
 out before you are machines of every shape, size, complexity and function.
@@ -605,6 +627,7 @@ All are being serviced by an army of Alpha, Beta and Phi Series 3 and 4
 individuals. To the west are the stores and the control room is south.
 
 >You move west.
+
 Tet Stores
 The stores is a place much more suited to your tastes, it is 10m square with
 lower lighting levels. Against the wall, just inside the entrance, is a metal
@@ -613,6 +636,7 @@ table. To the east is the assembly plant.
 >Moving the table causes a panel to open in the opposite wall.
 
 >You move west.
+
 Secret Chamber
 The chamber is dark and reasonably large at 10m square. It is laid out in an
 almost domicile manner with a recharger, teleporter and communicator. On one
@@ -620,6 +644,7 @@ wall is a life-size diagram of a Beta type individual. To the east is the Tet
 Stores.
 
 >The room slowly fades and is replaced with your destination.
+
 Domicile of No-one
 The metal room is 2m square and 2.5m in height. On one side of the room is a
 recharger and opposite the communicator. On the other wall is the teleporter.
@@ -638,6 +663,7 @@ says, "Charge level is now 399 units."
 The tracer you are carrying is indicating east.
 
 >You move east.
+
 On the surface of the planet
 The silvery planet surface is a barren featureless place which stretches off
 in all directions. Behind you, to the west, is the safety of the city.
@@ -650,6 +676,7 @@ surface.
 The tracer you are carrying is indicating east.
 
 >You move east.
+
  On the surface of the planet
 The silvery planet surface is a barren featureless place which stretches off
 in all directions.
@@ -657,6 +684,7 @@ in all directions.
 The tracer you are carrying is indicating east.
 
 >You move east.
+
 Small Crater
 The small crater, which is an oval shape, is just deep enough to be hidden
 from the surface of the planet.  At one end of the crater is a wrecked
@@ -686,11 +714,13 @@ The thermal lance vibrates but makes no audible sound.
 >You turn off the lance.
 
 >You move west.
+
  On the surface of the planet
 The silvery planet surface is a barren featureless place which stretches off
 in all directions.
 
 >You move west.
+
 On the surface of the planet
 The silvery planet surface is a barren featureless place which stretches off
 in all directions. Behind you, to the west, is the safety of the city.
@@ -698,6 +728,7 @@ in all directions. Behind you, to the west, is the safety of the city.
 For a moment something away to the south glints in the weak sunlight.
 
 >You move south.
+
  On the surface of the planet
 The silvery planet surface is a barren featureless place which stretches off
 in all directions. Lying half buried in the surface of the planet is a
@@ -706,11 +737,13 @@ meteor.
 >You take the meteor.
 
 >You move north.
+
 On the surface of the planet
 The silvery planet surface is a barren featureless place which stretches off
 in all directions. Behind you, to the west, is the safety of the city.
 
 >You move west.
+
 Domicile of No-one
 The metal room is 2m square and 2.5m in height. On one side of the room is a
 recharger and opposite the communicator. On the other wall is the teleporter.
@@ -718,6 +751,7 @@ The eastern wall of the domicile is completely missing, through which you can
 see the planet surface.
 
 >The room slowly fades and is replaced with your destination.
+
 Secret Chamber
 The chamber is dark and reasonably large at 10m square. It is laid out in an
 almost domicile manner with a recharger, teleporter and communicator. On one
@@ -725,12 +759,14 @@ wall is a life-size diagram of a Beta type individual. To the east is the Tet
 Stores.
 
 >You move east.
+
 Tet Stores
 The stores is a place much more suited to your tastes, it is 10m square with
 lower lighting levels. Against the wall, just inside the entrance, is a metal
 table. To the west is a secret chamber and east is the assembly plant.
 
 >You move east.
+
 Tet Assembly Plant
 The vast assembly plant of the Tet creation centre towers about you. Spread
 out before you are machines of every shape, size, complexity and function.
@@ -738,6 +774,7 @@ All are being serviced by an army of Alpha, Beta and Phi Series 3 and 4
 individuals. To the west are the stores and the control room is south.
 
 >You move south.
+
 Tet Centre of Creation
 The centre must be the largest and brightest places you have ever visited.
 The place can only be described as immense and you are extremely
@@ -745,6 +782,7 @@ uncomfortable. To the north is the main assembly plant of the centre.
 Mu-Kappa is hovering in the centre of the room.
 
 >The room slowly fades and is replaced with your destination.
+
 Centre for Maintenance
 The oblong metal room is 10m long by 5m wide and nearly 3m in height. The
 standard hidden lighting seems to be set to a higher level than normal, it is
@@ -786,6 +824,7 @@ precautions for your safety."
 You reply, "Your caution is noted."
 
 >The room slowly fades and is replaced with your destination.
+
 Centre for Examination
 The hexagonal metal room is nearly 5m in height and 10m across. A security
 monitor is on one side of the room, to your right the interrogator and
@@ -818,6 +857,7 @@ matters.  Return to your domicile to recharge and I will make all the
 necessary arrangements."
 
 >The room slowly fades and is replaced with your destination.
+
 Domicile of Epsilon-Beta
 The dull metal room, which is exactly 2m square and 2.5m in height, is
 appropriate to your level of achievement. Attached to the wall behind you is
@@ -869,6 +909,7 @@ Psi-Tau.
 >The display on the tracer reads "Psi-Tau, Secret Chamber".
 
 >The room slowly fades and is replaced with your destination.
+
 Centre for Examination
 The hexagonal metal room is nearly 5m in height and 10m across. A security
 monitor is on one side of the room, to your right the interrogator and
@@ -882,6 +923,7 @@ your domicile?" Zeta-Theta does not what for an answer, "The investigation is
 closed. Return to your domicile and await further orders."
 
 >The room slowly fades and is replaced with your destination.
+
 Tet Centre of Creation
 The centre must be the largest and brightest places you have ever visited.
 The place can only be described as immense and you are extremely
@@ -893,6 +935,7 @@ The tracer you are carrying is indicating north.
 As you appear Mu-Kappa looks at you and exclaims, "But this is not possible!"
 
 >You move north.
+
 Tet Assembly Plant
 The vast assembly plant of the Tet creation centre towers about you. Spread
 out before you are machines of every shape, size, complexity and function.
@@ -903,6 +946,7 @@ In the distance a Phi is hovering.
 The tracer you are carrying is indicating west.
 
 >You move west.
+
 Tet Stores
 The stores is a place much more suited to your tastes, it is 10m square with
 lower lighting levels. Against the wall, just inside the entrance, is a metal
@@ -916,6 +960,7 @@ opposite wall.  The chamber beyond the panel is still in darkness but you
 cannot see anything moving.
 
 >You move west.
+
 Secret Chamber
 The chamber is dark and reasonably large at 10m square. It is laid out in an
 almost domicile manner with a recharger, teleporter and communicator. On one
@@ -936,6 +981,7 @@ Omicron-Xi, Head of Sector is the head examiner for this whole city sector.
 Omicron-Xi is the superior of Zeta-Theta and so your superior.
 
 >The room slowly fades and is replaced with your destination.
+
 Head of Sector
 The hexagonal metal room is 20m across and nearly 6m in height. With the
 standard hidden lighting set to a low level, most of the room is in shadow.

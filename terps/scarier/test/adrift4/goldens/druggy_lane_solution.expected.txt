@@ -71,6 +71,7 @@ BANK = $0
 >You buy 3 crack for $1316 each.
 
 >You decide to call it a night. You now have 29 days left.
+
 Druggy Lane
 This is where all of the drugs are bought and sold.
 
@@ -94,6 +95,7 @@ BANK = $0
 >You buy 36 speed for $191 each.
 
 >You decide to call it a night. You now have 28 days left.
+
 Druggy Lane
 This is where all of the drugs are bought and sold.
 
@@ -117,6 +119,7 @@ BANK = $0
 >You buy 36 speed for $255 each.
 
 >You decide to call it a night. You now have 27 days left.
+
 Druggy Lane
 This is where all of the drugs are bought and sold.
 
@@ -140,6 +143,7 @@ BANK = $0
 >You deposit $14201 into the bank
 
 >You decide to call it a night. You now have 26 days left.
+
 Druggy Lane
 This is where all of the drugs are bought and sold.
 
@@ -163,6 +167,7 @@ BANK = $17213
 >You buy 76 speed for $226 each.
 
 >You decide to call it a night. You now have 25 days left.
+
 Druggy Lane
 This is where all of the drugs are bought and sold.
 
@@ -186,6 +191,7 @@ BANK = $0
 >You buy 23 hash for $1354 each.
 
 >You decide to call it a night. You now have 24 days left.
+
 Druggy Lane
 This is where all of the drugs are bought and sold.
 
@@ -209,6 +215,7 @@ BANK = $0
 >You buy 2 coke for $19905 each.
 
 >You decide to call it a night. You now have 23 days left.
+
 Druggy Lane
 This is where all of the drugs are bought and sold.
 
@@ -232,6 +239,7 @@ BANK = $0
 >You buy 468 speed for $108 each.
 
 >You decide to call it a night. You now have 22 days left.
+
 Druggy Lane
 This is where all of the drugs are bought and sold.
 
@@ -255,6 +263,7 @@ BANK = $0
 >You deposit $177372 into the bank
 
 >You decide to call it a night. You now have 21 days left.
+
 Druggy Lane
 This is where all of the drugs are bought and sold.
 
@@ -278,6 +287,7 @@ BANK = $214996
 >You buy 182 crack for $1175 each.
 
 >You decide to call it a night. You now have 20 days left.
+
 Druggy Lane
 This is where all of the drugs are bought and sold.
 
@@ -301,6 +311,7 @@ BANK = $0
 >You buy 182 crack for $1646 each.
 
 >You decide to call it a night. You now have 19 days left.
+
 Druggy Lane
 This is where all of the drugs are bought and sold.
 
@@ -324,6 +335,7 @@ BANK = $0
 >You buy 2391 speed for $186 each.
 
 >You decide to call it a night. You now have 18 days left.
+
 Druggy Lane
 This is where all of the drugs are bought and sold.
 
@@ -347,6 +359,7 @@ BANK = $0
 >You deposit $1076086 into the bank
 
 >You decide to call it a night. You now have 17 days left.
+
 Druggy Lane
 This is where all of the drugs are bought and sold.
 
@@ -370,6 +383,7 @@ BANK = $1304347
 >You buy 2080 weed for $627 each.
 
 >You decide to call it a night. You now have 16 days left.
+
 Druggy Lane
 This is where all of the drugs are bought and sold.
 
@@ -393,6 +407,7 @@ BANK = $1
 >You buy 1285 for $1337 each.
 
 >You decide to call it a night. You now have 15 days left.
+
 Druggy Lane
 This is where all of the drugs are bought and sold.
 
@@ -416,6 +431,7 @@ BANK = $1
 >You buy 24682 speed for $140 each.
 
 >You decide to call it a night. You now have 14 days left.
+
 Druggy Lane
 This is where all of the drugs are bought and sold.
 
@@ -442,6 +458,7 @@ You only have 2 weeks left.
 >You buy 4279 for $1863 each.
 
 >You decide to call it a night. You now have 13 days left.
+
 Druggy Lane
 This is where all of the drugs are bought and sold.
 
@@ -465,6 +482,7 @@ BANK = $1
 >You buy 26984 weed for $513 each.
 
 >You decide to call it a night. You now have 12 days left.
+
 Druggy Lane
 This is where all of the drugs are bought and sold.
 
@@ -488,6 +506,7 @@ BANK = $1
 >You buy 11909 crack for $2003 each.
 
 >You decide to call it a night. You now have 11 days left.
+
 Druggy Lane
 This is where all of the drugs are bought and sold.
 
@@ -511,6 +530,7 @@ BANK = $1
 >You buy 69508 weed for $422 each.
 
 >You decide to call it a night. You now have 10 days left.
+
 Druggy Lane
 This is where all of the drugs are bought and sold.
 
@@ -534,6 +554,7 @@ BANK = $1
 >You buy 40001 crack for $1649 each.
 
 >You decide to call it a night. You now have 9 days left.
+
 Druggy Lane
 This is where all of the drugs are bought and sold.
 
@@ -557,6 +578,7 @@ BANK = $1
 >You deposit $83723544 into the bank
 
 >You decide to call it a night. You now have 8 days left.
+
 Druggy Lane
 This is where all of the drugs are bought and sold.
 
@@ -580,6 +602,7 @@ BANK = $101483085
 >You buy 179616 weed for $565 each.
 
 >You decide to call it a night. You now have 7 days left.
+
 Druggy Lane
 This is where all of the drugs are bought and sold.
 
@@ -606,6 +629,7 @@ You only have 1 week left.
 >You buy 1075519 speed for $165 each.
 
 >You decide to call it a night. You now have 6 days left.
+
 Druggy Lane
 This is where all of the drugs are bought and sold.
 
@@ -629,6 +653,7 @@ BANK = $2
 >You buy 311470 crack for $1250 each.
 
 >You decide to call it a night. You now have 5 days left.
+
 Druggy Lane
 This is where all of the drugs are bought and sold.
 
@@ -652,6 +677,7 @@ BANK = $2
 >You buy 953650 weed for $599 each.
 
 >You decide to call it a night. You now have 4 days left.
+
 Druggy Lane
 This is where all of the drugs are bought and sold.
 
@@ -675,6 +701,7 @@ BANK = $2
 >You buy 839212 crack for $1100 each.
 
 >You decide to call it a night. You now have 3 days left.
+
 Druggy Lane
 This is where all of the drugs are bought and sold.
 
@@ -698,6 +725,7 @@ BANK = $2
 >You buy 2123536 weed for $839 each.
 
 >You decide to call it a night. You now have 2 days left.
+
 Druggy Lane
 This is where all of the drugs are bought and sold.
 
@@ -738,6 +766,7 @@ CASH = $1955777052
 BANK = $2
 
 >You decide to call it a night. You now have 1 days left.
+
 Druggy Lane
 This is where all of the drugs are bought and sold.
 
@@ -763,6 +792,7 @@ have.
 >You pay back $56591
 
 >You decide to call it a night. You now have 0 days left.
+
 Druggy Lane
 This is where all of the drugs are bought and sold.
 

@@ -8,6 +8,7 @@ could be found by anyone, you set off to the mines to see if you could be the
 lucky man that would become the richest gold digger in town.
 
 >You move south.
+
 Path
 The long path continues South through the forest and North to the Mines. Tall
 trees reach up into the heavens, their large limbs swaying in motion with the
@@ -20,11 +21,13 @@ A GOLD RING WAS STOLEN FROM THE BLUE KEG PUB. IF FOUND, PLEASE RETURN FOR A
 REWARD.
 
 >You move south.
+
 Edge of Road
 The lonely edge of the road where people used to pass. The lonely road
 stretches far East and West, but the only place around here is to the West.
 
 >You move west.
+
 Outside Cabin
 A lone cabin sits abandoned at the edge of the road. It's long uncut grass
 sways in the gusting wind. A small pile of logs pile against the side of the
@@ -32,6 +35,7 @@ building, cut down from the forest trees. The road continues West and East.
 A small bird flies overhead in the bright blue sky.
 
 >You move in.
+
 Cabin
 You stand shivering in the doorway of the cold cabin. The old fireplace that
 once heated up the place now sits barren and alone in the corner of the room.
@@ -50,6 +54,7 @@ piece of cheese lying at the bottom of the box. You decide to take it as the
 rat wouldn't need it anymore.
 
 >You move down.
+
 Cellar
 As you climb down the rickety stairs to the cellar, you notice how dark it
 is. In the shadows, you can make out a few object. A fridge sits alone near
@@ -70,6 +75,7 @@ You slide open the desk drawer and look inside. Near the bottom of the paper
 pile, you find a coupon. Thinking it'll come in handy, you decide to take it.
 
 >You move up.
+
 Cabin
 You stand shivering in the doorway of the cold cabin. The old fireplace that
 once heated up the place now sits barren and alone in the corner of the room.
@@ -79,6 +85,7 @@ the shaking from before. An open trapdoor in the corner of the room leads
 down into the cellar.
 
 >You move out.
+
 Outside Cabin
 A lone cabin sits abandoned at the edge of the road. It's long uncut grass
 sways in the gusting wind. A small pile of logs pile against the side of the
@@ -98,12 +105,14 @@ had been hidden.
 >You take the stick of Dynamite from the metal box.
 
 >You move down.
+
 Outside Cabin
 A lone cabin sits abandoned at the edge of the road. It's long uncut grass
 sways in the gusting wind. A small pile of logs pile against the side of the
 building, cut down from the forest trees. The road continues West and East.
 
 >You move west.
+
 Outside Blue Keg Pub
 At the edge of a small town, the Blue Keg Pub is the one place in the area
 where you can find the latest information on any treasure findings in the
@@ -111,6 +120,7 @@ mines. The long road heads back East, and also continues farther into town to
 the West.
 
 >You move west.
+
 Outside your home
 This is the only other part of this town you'd bother to stop by. Your home
 is a small shack that sits near the edge of the town. It's small and dingy
@@ -119,6 +129,7 @@ continues West here, but you're not going any farther unless you want to head
 out of state.
 
 >You move in.
+
 Home
 Your home is probaly the worst in town. Consisting of only one room, you're
 surprised it even holds up when it rains. Your small bed is in the corner of
@@ -139,6 +150,7 @@ keep the shadows off of it.
 You stick the hard hat on your head and do up the straps.
 
 >You move out.
+
 Outside your home
 This is the only other part of this town you'd bother to stop by. Your home
 is a small shack that sits near the edge of the town. It's small and dingy
@@ -147,6 +159,7 @@ continues West here, but you're not going any farther unless you want to head
 out of state.
 
 >You move east.
+
 Outside Blue Keg Pub
 At the edge of a small town, the Blue Keg Pub is the one place in the area
 where you can find the latest information on any treasure findings in the
@@ -154,6 +167,7 @@ mines. The long road heads back East, and also continues farther into town to
 the West.
 
 >You move in.
+
 Blue Keg Pub
 The Blue Keg Pub, home of the drunks of the town. Although it used to be
 populated by many people from the area, the drunks are the main customers as
@@ -162,6 +176,7 @@ a rag over his shoulder.   There are some stairs that lead upstairs to the
 gambling room.
 
 >You move up.
+
 Gambling Room
 This is where the action is. Four men sit quiet at the table in the middle of
 the room. Each one holding five cards up to their heads, glancing at each
@@ -177,6 +192,7 @@ to the ground, you pick it up and run down the stairs before you get shot
 yourself.
 
 >You move out.
+
 Outside Blue Keg Pub
 At the edge of a small town, the Blue Keg Pub is the one place in the area
 where you can find the latest information on any treasure findings in the
@@ -184,23 +200,27 @@ mines. The long road heads back East, and also continues farther into town to
 the West.
 
 >You move east.
+
 Outside Cabin
 A lone cabin sits abandoned at the edge of the road. It's long uncut grass
 sways in the gusting wind. A small pile of logs pile against the side of the
 building, cut down from the forest trees. The road continues West and East.
 
 >You move east.
+
 Edge of Road
 The lonely edge of the road where people used to pass. The lonely road
 stretches far East and West, but the only place around here is to the West.
 
 >You move north.
+
 Path
 The long path continues South through the forest and North to the Mines. Tall
 trees reach up into the heavens, their large limbs swaying in motion with the
 wind.
 
 >You move north.
+
 Mine Entrance
 The mine stands in front of you to the North, beckoning you to enter and find
 it's treasures.  Large boulders are strewn about the soft grass, pulled away
@@ -214,6 +234,7 @@ You walk inside of the mines in hope of finding the treasure.
 You pull the ring out of the crevice and stick it in your pocket.
 
 >You move north.
+
 Tunnel
 A long dark tunnel in the deep mine. South leads you back to the shaft
 entrance.   You'd like to go North but a large rat stands in front of you.
@@ -226,6 +247,7 @@ You grab the chunk of cheese and throw it behind you. The large rat runs
 after it squeaking in joy as it runs away with its food.
 
 >You move south.
+
 Shaft Entrance
 The entrance to the mine shafts is dark and dank. The rocks are moist from
 the humidity and seem to glisten in the shadows. A miner digs into the hard
@@ -234,6 +256,7 @@ broken minecart stands on top of the rails that lead deeper into the mines to
 the North.
 
 >You move south.
+
 Mine Entrance
 The mine stands in front of you to the North, beckoning you to enter and find
 it's treasures.  Large boulders are strewn about the soft grass, pulled away
@@ -241,23 +264,27 @@ by shovels days ago. Grass not covered by the boulders sway in the gentle
 breeze of the wind. A small path leads South to the road.
 
 >You move south.
+
 Path
 The long path continues South through the forest and North to the Mines. Tall
 trees reach up into the heavens, their large limbs swaying in motion with the
 wind.
 
 >You move south.
+
 Edge of Road
 The lonely edge of the road where people used to pass. The lonely road
 stretches far East and West, but the only place around here is to the West.
 
 >You move west.
+
 Outside Cabin
 A lone cabin sits abandoned at the edge of the road. It's long uncut grass
 sways in the gusting wind. A small pile of logs pile against the side of the
 building, cut down from the forest trees. The road continues West and East.
 
 >You move west.
+
 Outside Blue Keg Pub
 At the edge of a small town, the Blue Keg Pub is the one place in the area
 where you can find the latest information on any treasure findings in the
@@ -265,6 +292,7 @@ mines. The long road heads back East, and also continues farther into town to
 the West.
 
 >You move in.
+
 Blue Keg Pub
 The Blue Keg Pub, home of the drunks of the town. Although it used to be
 populated by many people from the area, the drunks are the main customers as
@@ -298,6 +326,7 @@ You quickly pull out the pencil and write your name on the signature.
 drink you cheapskate."
 
 >You move out.
+
 Outside Blue Keg Pub
 At the edge of a small town, the Blue Keg Pub is the one place in the area
 where you can find the latest information on any treasure findings in the
@@ -305,23 +334,27 @@ mines. The long road heads back East, and also continues farther into town to
 the West.
 
 >You move east.
+
 Outside Cabin
 A lone cabin sits abandoned at the edge of the road. It's long uncut grass
 sways in the gusting wind. A small pile of logs pile against the side of the
 building, cut down from the forest trees. The road continues West and East.
 
 >You move east.
+
 Edge of Road
 The lonely edge of the road where people used to pass. The lonely road
 stretches far East and West, but the only place around here is to the West.
 
 >You move north.
+
 Path
 The long path continues South through the forest and North to the Mines. Tall
 trees reach up into the heavens, their large limbs swaying in motion with the
 wind.
 
 >You move north.
+
 Mine Entrance
 The mine stands in front of you to the North, beckoning you to enter and find
 it's treasures.  The large boulder once covering the shovel now sits to the
@@ -332,12 +365,14 @@ A small path leads South to the road.
 >You walk inside of the mines in hope of finding the treasure.
 
 >You move north.
+
 Tunnel
 A long dark tunnel in the deep mine. South leads you back to the shaft
 entrance.   With the rat now gone, you can now travel further into the mines
 to the North.
 
 >You move north.
+
 Blockage in Tunnel
 You now stand at the end of the mines. Hundreds of rocks are piled together
 to form a barricade in the tunnel.   A miner who introduces himself as Gus,
