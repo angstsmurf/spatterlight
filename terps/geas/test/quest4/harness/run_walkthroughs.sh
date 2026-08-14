@@ -4,9 +4,9 @@
 # ../games (gitignored, see ../../.gitignore); the games dir defaults there but
 # can be overridden.
 #
-#   ./run_walkthroughs.sh [games dir] ["extra walkthroughs dir"]
-#   ./run_walkthroughs.sh --bless [dirs...]     (re)record the transcripts
-#   ./run_walkthroughs.sh --win-only [dirs...]  win markers only, no diffing
+#   ./run_walkthroughs.sh [games dir]
+#   ./run_walkthroughs.sh --bless [games dir]     (re)record the transcripts
+#   ./run_walkthroughs.sh --win-only [games dir]  win markers only, no diffing
 #
 # Each game is checked twice over: the win marker has to appear, *and* the whole
 # transcript has to match "<title> - transcript.txt" in ../goldens byte for
@@ -14,13 +14,11 @@
 # room description still ends the game, so it still passes -- and these games
 # between them exercise far more of the engine than the fixtures can.
 #
-# The transcripts are ours to record but the walkthroughs behind them are not
-# all ours: the three "<title> - walkthrough.txt" files are other people's work
-# and are not redistributed here (point the second argument at a directory
-# holding them to include those games, otherwise they SKIP).  A transcript
-# spells out the commands it replays, so recording one would republish the
-# walkthrough -- those three games stay win-marker-only.  A walkthrough is
-# looked up in ../goldens first and in that directory second.
+# Both files of each pair are ours: every "<title> - command script.txt" in
+# ../goldens was derived here from the game, and the transcript beside it is
+# what our engine prints when it replays that script.  Nothing in ../goldens
+# reproduces anyone else's walkthrough, which is what lets them be committed
+# while the games themselves cannot be.
 #
 # Builds the runner if needed.  Uses a fixed RNG seed for reproducibility;
 # World's End's two random fights are won by --save-scum regardless of seed.
@@ -41,14 +39,6 @@ while [ $# -gt 0 ]; do
 done
 
 G=${1:-"$here/../games"}
-W=${2:-}
-
-# Where does this walkthrough live -- in the repo, or in the caller's own dir?
-wtpath() {
-    if [ -f "$here/../goldens/$1" ]; then printf '%s\n' "$here/../goldens/$1"
-    elif [ -n "$W" ] && [ -f "$W/$1" ]; then printf '%s\n' "$W/$1"
-    fi
-}
 
 RUN="$here/geas_walkthrough_runner"
 # Always ask make: the runner unity-includes the engine sources, so a binary that
@@ -63,20 +53,15 @@ trap 'rm -f "$tmpdiff"' EXIT INT TERM
 export GEAS_SEED=1
 pass=0; fail=0
 
-# play  <label>  <game>  <walkthrough>  <win-marker>  [extra runner args...]
+# play  <label>  <game>  <command script>  <win-marker>  [extra runner args...]
 play() {
     label=$1; game=$2; wt=$3; marker=$4; shift 4
-    wtfile=$(wtpath "$wt")
-    if [ ! -f "$G/$game" ] || [ -z "$wtfile" ]; then
+    wtfile="$here/../goldens/$wt"
+    if [ ! -f "$G/$game" ] || [ ! -f "$wtfile" ]; then
         printf '%-22s SKIP (missing files)\n' "$label"; return
     fi
 
-    # Only the scripts in ../goldens get a transcript; see the header.
-    golden=""
-    case "$wtfile" in
-        "$here/../goldens/"*)
-            golden="$here/../goldens/${wt% - command script.txt} - transcript.txt" ;;
-    esac
+    golden="$here/../goldens/${wt% - command script.txt} - transcript.txt"
     [ "$winonly" = yes ] && golden=""
 
     got=$("$RUN" "$@" --echo --win "$marker" "$G/$game" "$wtfile" 2>/dev/null)
@@ -84,7 +69,7 @@ play() {
 
     if [ "$bless" = yes ]; then
         if [ -z "$golden" ]; then
-            printf '%-22s skipped (no transcript for this one)\n' "$label"
+            printf '%-22s skipped (--win-only)\n' "$label"
         elif [ "$won" -ne 0 ]; then
             printf '%-22s NOT BLESSED (the win marker never appeared)\n' "$label"
         else
@@ -116,13 +101,13 @@ play() {
 
 play Adventure           "adventure.cas"               "Adventure - command script.txt"                            "Credits room"
 play Assassination       "attempted_assassination.asl" "Attempted Assassination - command script.txt"              "YOU WIN"
-play BrokenMirror        "BMTSFD.asl"                  "Broken Mirror - The Screaming Fountain - walkthrough.txt"  "completed the rather short demo"
-play FadeToWhite         "White.asl"                   "Fade to White - walkthrough.txt"                           "END OF DEMO"
+play BrokenMirror        "BMTSFD.asl"                  "Broken Mirror - The Screaming Fountain - command script.txt" "completed the rather short demo"
+play FadeToWhite         "White.asl"                   "Fade to White - command script.txt"                        "END OF DEMO"
 play Koww                "KOWW1.ASL"                   "Koww the Magician - command script.txt"                    "over the chasm"
 play MagicWorld          "Magic.asl"                   "Magic World - command script.txt"                          "won the game"
 play SirLoin             "sirloin.cas"                 "Sir Loin and the coming of age - command script.txt"       "To be continued"
 play Space               "space.asl"                   "Space - The Final Fuck Up - command script.txt"            "pint or two"
-play Uranus              "uranus.asl"                  "Uranus or Bust - walkthrough.txt"                          "BOOOOOM"
+play Uranus              "uranus.asl"                  "Uranus or Bust - command script.txt"                       "BOOOOOM"
 play GatheredInDarkness  "Gatheredindarkness.cas"      "Gathered in Darkness - command script.txt"                 "Congrats"
 play Mansion             "mansion.asl"                 "The Mansion - command script.txt"                          "completed the game"
 play BearCampsite        "Bear Campsite.cas"           "Bear Campsite - command script.txt"                        "escape the hazardous campsite"

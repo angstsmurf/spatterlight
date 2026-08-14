@@ -1,0 +1,40 @@
+Broken Mirror: The Screaming Fountain -- command script
+Derived from BMTSFD.asl (ASL 310).
+
+A demo, so the ending is a `displaytext <win>` plus `playerwin` rather than a
+real conclusion; the win marker is "completed the rather short demo".
+
+Two things in the map are not exits and cannot be walked to:
+
+  * Subway Entrance -> Street happens inside the Two Men's `speak` script
+    (a `goto <Street>`), so talking to them is mandatory, not colour.
+  * The pub is reached with `place <THE ENGLISH>`, which makes a "go to" exit
+    named after the room's alias -- hence "go to the english pub".
+
+The last three moves are the whole puzzle. Examining the Old Guy is what
+`show <Rope>`s the rope he is twiddling with; the Brothel Advertisment on the
+bar is what makes him leave, but only via his `give` script's `if real <Rope>`
+guard, so it has to be examined first; and the rope can only be taken once he
+is gone (`take` checks `not here <Old Guy>`).
+
+Talking to the Woman for the Card, and the extras in the subway and the pub,
+are not needed to win. They are here to walk a little more of the demo than
+the shortest path does.
+
+Start:
+look at train
+take can of coke
+north
+look at newspaper
+north
+talk to two men
+talk to woman
+examine card
+east
+go to the english pub
+talk to bartender
+talk to two men
+examine old guy
+take brothel advertisment
+give brothel advertisment to old guy
+take rope

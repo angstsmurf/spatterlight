@@ -45,7 +45,7 @@ cleanly even when no header declares it — the caller simply sees the earlier
 definition. The Xcode build compiles those files separately and rejects it.
 
 This is a real failure mode, not a hypothetical one: a missing `starts_with_i`
-prototype in `geas-util.hh` passed the fixtures, the unit tests *and* all 108
+prototype in `geas-util.hh` passed the fixtures, the unit tests *and* all 111
 walkthroughs, and broke the app build. `make syntax` runs `-fsyntax-only` over
 each source on its own — including `geasglk.cc`, `quest5/aslxglk.cc` and
 `geasglkterm.c`, which no harness here compiles at all — in a few seconds, and

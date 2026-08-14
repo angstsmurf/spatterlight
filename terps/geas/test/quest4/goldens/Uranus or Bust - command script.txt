@@ -1,0 +1,42 @@
+Uranus or Bust! Episode 1: Escort (uranus.asl, by Sam Bickley, ASL 210) -
+walkthrough, derived from the game source.
+Win marker: "BOOOOOM".  Episode 1 of a series, so the ending is a "Continued
+in..." card rather than a real conclusion.
+
+Two things can kill you, and both are the *first* answer to a yes/no question:
+saying yes to "Try and destroy?" at the asteroid blows up the squad, and
+attacking the Fatties without the Fighting for Newbies Book gets everyone shot
+(procedures 7 and 16).  Answers are menu numbers -- 1 is Yes, 2 is No.
+
+Every "go to asteroid surface" below is a different room: the game chains five
+of them (Asteroid Surface, Surface2 ... surface5), all aliased "Asteroid
+Surface", each with a single place exit to the next.
+Start: Mars Command Station.
+
+talk to head general tondy
+take fighting for newbies book
+take your ship
+1
+north
+north
+look at asteroids in the distance
+take colony ship
+1
+take your squad
+1
+go to asteroid belt
+take asteroid
+2
+talk to tads
+go to asteroid surface
+talk to tads
+go to asteroid surface
+look at metal hull in the distance
+look at buggy
+talk to fatties
+1
+talk to simon
+go to asteroid surface
+look at your ship
+1
+1

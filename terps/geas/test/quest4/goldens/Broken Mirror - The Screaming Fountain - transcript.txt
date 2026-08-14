@@ -1,0 +1,134 @@
+
+BrOkEn MirRoR: ThE ScReAmInG FoUnTaIn Adam Ironside
+
+You are sitting on a bench in an underground subway. Your name is Karl Nixon. You are an american tourist enjoying a vacation in Paris.
+A man walks by you with a suitcase. Suddenly two large gangsters grab the man, punch him several times and run off with the briefcase.
+Then there is a huge explosion. A train crashes at full speed into the wall. You fall from your chair and hit your head on the floor.
+All is black...
+
+You are in The Subway Station
+There is a Train, a Vending Machine and a Can of Coke here.
+You can go north.
+All around you is wreckage. It looks like a destruction derby, but with trains, and people. There is a de-reailed train  which is smashed up against the wall, and a vending machine which is randomly spewing out ice cold drinks. Posters ahve been torn and walls have caved in.
+
+Go NORTH to exit the subway station
+
+> look at train
+A train has de-railed and collided with a wall due to the explosion. The windows are broken and the sides are crumpled and torn.
+
+> take can of coke
+You got the can of coke.
+
+> north
+You are in the Stairway
+There is a Newspaper and a Banister here.
+You can go north or south.
+After exiting from the platform you arrive at the bottom of some big concrete steps. All around you is litter, and the constant sound of nothing.
+
+Go SOUTH to the platform
+Go NORTH to head up the stairs
+
+> look at newspaper
+An old, half-torn, newspaper.
+
+> north
+You are in The Subway Entrance
+There is the Two Men here.
+You can go south.
+The area around you is large. There is a McDonalds in one corner, and various other shops scattered around the room. Two men stand near the exit, one on his hands and news with a  magnifying glass, and another taking notes.
+
+Go SOUTH to head down the staircase
+
+> talk to two men
+Erm Hi?
+The man holding the notepad lowers it so he can see you, and the man on the floor stands up.
+"Ah! Bonjour miseur," says the man with the notepad, "I am inspecteur Rosso of le Parisian city, you were involved in the explosion non?"
+Yes inspector, i was.
+""I knew it!" said the man who was on the floor, "t was you who did the bombing, you are under arrest!""
+"Silence officer Padré," shout Rosso, "Excuse me sir, officer Padré is... not very bright."
+"I am a noble man sir, very clever!" says Padré.
+Rosso shakes his head before turning back to you.
+"Now, what happened?" he asked.
+"Well," you begin, "I was sitting waiting for the train when i see this man pass with a brefcase. Suddenly two men jumped out a pucnched him, then stole the briefcase, they ran away after that, then the bomb went off, and i blacked out."
+"Did you see what any of the men looked like?" asked Rosso.
+"No inspector, the situation had overwhelmed me!"
+"Overwhelmed you, pah! nothing overwhelms Padré!"
+Padré, will you shut up please!" shouts Rosso.
+He turns back to you.
+"Well sir, thankyou for your time, but now you will have to leave the building, if you need anything else visit me at the police station."
+You are in The Street
+There is a Woman here.
+You can go east.
+The street is desserted, except for one woman who continues to take photographs of the train station. Other than that, the place is surprisingly quiet.
+
+Go EAST to go up the street
+
+> talk to woman
+"Hello ma'am."
+"Oh, Bonjour," she says, "Were you involved in the explosion?"
+"Yeah! I nearly got killed."
+"Excellent," she begins, (you think she is saying excellent, you were nearly killed, but then she continues), "I am Chloé, a reporter for Le Parisian, may i interview you?"
+"Erm, here!"
+"A non, my place, my card." she says as she gives you her card.
+"Okay!"
+"Please call by later."
+Chloé then leaves.
+
+> examine card
+Chloé Jarry: Reporter.
+64 Rose Marianne road
+0202 5890765
+
+> east
+You are in The Street
+You can go west.
+You can go to The english pub.
+After walking up the road for a while you came to a pub called THE ENGLISH, okay.
+
+Go WEST to head back down the street.
+
+> go to the english pub
+You are in The english pub
+There is an Old Guy, Rope, a Woman, Two Men, a Bartender, the Alcohol Dispensing Taps and a Brothel Advertisment here.
+You can go out to The Street.
+There are very few customers around. The bartender is pottering about behind the bar, an old guy sits in the corner constantly sneezing, a woman is sitting at a table by herself, and two men are standig at the bar.
+
+Go OUT to the street.
+
+> talk to bartender
+Hi there
+"Hullo, welcome to the english pub, the only one in the street!"
+(wow! i htought to myself) Is that so? (i mangaed to say).
+"Yeah, now what can i get you?"
+I dont drink
+
+> talk to two men
+Good day guys.
+"Oh hi, i'm Harry. And this is Barry," says the fat one.
+How are you guys?
+""Fine""
+Have you heard about the bomb?
+"Oh is that what the explosion was?" asks the thin one, "I just thought it was Barryreleasing more gas!"
+No, it nearly killed me!
+"What did? Barry's gas?" asks the thin man genuinley.
+No, oh forget it.
+
+> examine old guy
+As you look closer you notice the old guy is twiddling with a piece of rope.
+
+> take brothel advertisment
+You got the card
+
+> give brothel advertisment to old guy
+"Oh, watch my drink, i gotta go for some chicken!"
+The old guy runs out of the pub.
+
+> take rope
+You take the rope.
+Congratulations! You have completed the rather short demo of the upcoming blockbuster BrOkEn MirRoR: ThE ScReAmInG FoUnTaIn
+Look out for the game, scheduled for a release next year, look out for more demos in the following months, please post reviews of my demo to let me know what you think!
+
+Congratulations! You have completed the rather short demo of the upcoming blockbuster BrOkEn MirRoR: ThE ScReAmInG FoUnTaIn
+Look out for the game, scheduled for a release next year, look out for more demos in the following months, please post reviews of my demo to let me know what you think!
+
+[runner] turns=16 leftover=0 running=false WON=YES

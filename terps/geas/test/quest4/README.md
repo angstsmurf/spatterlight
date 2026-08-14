@@ -8,7 +8,7 @@ real game:
 | `make syntax` (at `../`) | nothing (in-repo) | code that only compiles as one translation unit |
 | `harness/run_fixtures.sh` | nothing (in-repo) | engine behaviour, against golden transcripts |
 | `harness/geas_unit_tests` | nothing (in-repo) | corrupt saves and parser edges no player can drive |
-| `harness/run_walkthroughs.sh` | the games (local; scripts in-repo) | regressions in 108 real games, against golden transcripts |
+| `harness/run_walkthroughs.sh` | the games (local; scripts in-repo) | regressions in 111 real games, against golden transcripts |
 
 `make check` (from `../`) runs everything but the last — those are
 self-contained, so they are the ones worth wiring into CI.
@@ -34,7 +34,7 @@ self-contained, so they are the ones worth wiring into CI.
 Small hand-written `.asl` games, each paired with a `.cmd` script and a golden
 `.expected` transcript. They exist because **the game corpus cannot catch these
 bugs**: a shipped game only walks the paths its author happened to walk, so a
-crash or a wrong string in an unvisited corner leaves all 108 walkthroughs
+crash or a wrong string in an unvisited corner leaves all 111 walkthroughs
 byte-identical. Every fixture here was checked against a pre-fix engine and
 either crashes it or produces different output; each file's header comment says
 what it guards.
@@ -139,11 +139,11 @@ Each game is checked twice over: the win marker has to appear, **and** the whole
 replay has to match `goldens/<title> - transcript.txt` byte for byte. The marker
 on its own is a weak test — an engine change that garbles every room description
 still reaches the ending, so it still passes. Changing one word of the
-`badcommand` message, for instance, leaves all 108 win markers intact and shows
+`badcommand` message, for instance, leaves all 111 win markers intact and shows
 up as four failed transcripts.
 
 A failure prints the head of the diff and how many lines moved; the transcripts
-themselves run from 2 KB to 280 KB, 3.7 MB in total. They are *our* engine's
+themselves run from 1 KB to 280 KB, 3.6 MB in total. They are *our* engine's
 output, not an oracle's, so they freeze current behaviour, bugs included: a
 deliberate fix is expected to move them, and `--bless` re-records. What the
 diff is for is the change nobody intended — and its size is itself the signal,
@@ -159,17 +159,14 @@ pinning it changed no transcript here and makes them reproducible off this
 machine.
 
 The games are copyrighted and stay local-only (`games/` is gitignored), so point
-the script elsewhere if you keep them somewhere else. Three of the games are
-played against a `<title> - walkthrough.txt` written by someone else; those are
-not redistributed here, so they SKIP unless you pass a directory holding them:
+the script elsewhere if you keep them somewhere else:
 
 ```sh
-harness/run_walkthroughs.sh "/path/to/Geas games" "/path/to/Geas walkthroughs"
+harness/run_walkthroughs.sh "/path/to/Geas games"
 ```
 
-A walkthrough is looked up in `goldens/` first and in that directory second, so
-a local copy never shadows a committed script.
-
-Those three get no transcript golden, and report `PASS (win marker only)`. A
-transcript spells out every command it replays, so recording one would republish
-the walkthrough — which is exactly what not redistributing it was about.
+Both halves of every pair in `goldens/` are ours. Each command script was
+derived here by reading the game — its header says what the puzzles turn on and
+why the odd-looking moves are there — and the transcript beside it is our
+engine's own output. Nothing in `goldens/` reproduces a walkthrough written by
+someone else, which is what lets these be committed when the games cannot be.

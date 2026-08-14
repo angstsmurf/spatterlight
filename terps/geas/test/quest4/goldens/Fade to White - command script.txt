@@ -1,0 +1,104 @@
+Fade to White -- command script
+Derived from White.asl (ASL 210, QDK 1.0 Beta 5).
+
+A demo again: there is no `playerwin`, the ending is simply the description of
+the room `Escape!`, which has "END OF DEMO" printed at the end of it. That
+string is the win marker, so the replay stops the moment that room is entered.
+
+The whole game alternates between the hospital and a drug hallucination, and
+each transition is scripted rather than walked:
+
+  * WHITE LIGHT -- speaking to Voice 2 reveals Voice 3, and speaking to *her*
+    is what puts you under (`goto <Hospital Bed>`).
+  * The Lot 9 swap is the one real puzzle. Speaking to Dr. Cain reveals the
+    Intrevenus, looking at the Intrevenus reveals the bag hanging from it, and
+    taking the bag gives you `Lot 9 Bag`. In the bathroom you pour it away and
+    refill it from the sink; lying down re-hooks the water bag, and `sleep`
+    then takes you on to the Examination Table instead of the Stone Edifice.
+  * Examination Table -- the Doctor reveals the Anesthesiologist, and speaking
+    to him is the jump into the woods.
+  * The woods end at the Eastern Edge: taking the Red Rose is what ends the
+    hallucination and lands you in the Interrogation Room.
+  * There, swallow the Blue Pill, then talk to Alan Stern. His `speak` script
+    asks "Is the blue pill still on the table?" -- an `ask`, which the runner
+    presents as a numbered menu, so the answer is the digit `2` (No), which by
+    then is the truth. That gets his long speech and the move to Testing Room
+    A; answering `1` only re-swallows the pill and you have to speak to him
+    again.
+  * Speaking to the Scientist reveals the Colors, and looking at them drops you
+    into the Spectrum Maze.
+
+The maze is seven rooms and the key is the mnemonic the game shows you on the
+helmet and repeats through `hint`: ROYGBIV. Each room names a colour for each
+of its exits, and the way through is to take the next colour of the rainbow in
+turn -- red, orange, yellow, green, blue, indigo, violet -- which is
+north, southwest, east, northeast, west, southeast, south. Any other exit
+throws you back to the first room.
+
+Violet from room 7 is the way out. North from room 7 is the Head Chamber,
+which is not on the way to anything -- the Blue Head is the demo's answer to
+who you are, and every exit from that room dumps you back at maze room 1 --
+so the seven maze moves are walked twice here: once to visit the head, once to
+leave. Everything before the maze that is not one of the steps above (the
+orderlie at the door, the sink, the black cat, the fork's other branch) is
+included for the same reason, to cover more of the demo than the shortest path
+does.
+
+Start:
+speak to voice 1
+speak to voice 2
+speak to voice 3
+speak to dr. cain
+get up
+open door
+speak to orderlie
+lie down
+look at intrevenus
+look at lot 9 (fluid bag)
+take lot 9 (fluid bag)
+get up
+northeast
+look at sink
+pour lot 9 down drain
+fill empty bag with water
+southwest
+lie down
+sleep
+speak to intern
+speak to doctor
+speak to anesthesiologist
+south
+north
+north
+north
+north
+northwest
+speak to black cat
+southeast
+northeast
+east
+take red rose
+look at blue pill
+take blue pill
+speak to alan stern
+2
+speak to scientist
+look at colors
+north
+southwest
+east
+northeast
+west
+southeast
+north
+speak to floating head
+look at blue head
+take blue head
+out
+north
+southwest
+east
+northeast
+west
+southeast
+south
