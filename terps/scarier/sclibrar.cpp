@@ -443,9 +443,14 @@ lib_print_object_np (scr_gameref_t game, scr_int object)
    * with "the", and skipping any odd "the" already present.  If no prefix at
    * all, add a "the " anyway.
    *
-   * TODO This is empirical, based on observed Adrift Runner behavior, and
-   * what it's _really_ supposed to do is a mystery.  This routine has been a
-   * real PITA.
+   * This is empirical, based on observed Adrift Runner behavior.  The empty
+   * prefix case was the last guess left in it, and it is measured now:
+   * run400.exe playing La hija del relojero (whose Phoenix has no prefix)
+   * answers "coger fenix" with "You take the Fenix de laton de el cajon.",
+   * i.e. "the " is right.  lib_print_object below defaults the same empty
+   * prefix to "a ", and that is right too -- the same run prints "Encontre un
+   * Fenix de laton dentro del cajon." on the container-reveal path.  See the
+   * divergence table in RUNNER_TESTS_TODO.md, settled 2026-08-14.
    */
   normalized = prefix;
   if (scr_compare_word (prefix, "a", 1))

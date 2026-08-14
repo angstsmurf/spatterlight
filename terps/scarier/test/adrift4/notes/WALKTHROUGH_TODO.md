@@ -483,19 +483,29 @@ comes out half-translated — *"You take the Fenix de laton de el cajon."*, the
 `from the` half fired and the `You take a` half did not.
 
 The Phoenix has an **empty `Prefix`**, and Scarier's two object printers guess
-differently about that: `lib_print_object()` defaults an empty prefix to
-`"a "`, `lib_print_object_np()` defaults it to `"the "`, and both defaults
-carry a comment saying they are empirical — the np one has said "what it's
-really supposed to do is a mystery" since the original SCARE. The take-from
-message uses the np printer, the container-reveal listing uses the other, which
-is why the same object is `A Fenix de laton is inside the cajon` on one line
-and `the Fenix de laton` on the next. The author wrote `A` → `Encontrè un` for
-the first and `You take a` for the second, i.e. **he saw the Runner print the
-"a" default in both** — so this is a witness that the np default is wrong, not
-merely that the pair failed to match. Opened as a row in §4 of
-`RUNNER_TESTS_TODO.md`; arbitrating it needs run400 under Wine, not more
-reading — and it must be arbitrated before anything is changed, because every
-`take X from Y` line in 235 goldens depends on that default.
+differently about that: `lib_print_object()` defaults an empty prefix to `"a "`,
+`lib_print_object_np()` defaults it to `"the "`, and both defaults carried a
+comment saying they were empirical — the np one had said "what it's really
+supposed to do is a mystery" since the original SCARE. The take-from message
+uses the np printer, the container-reveal listing uses the other, which is why
+the same object is `A Fenix de laton is inside the cajon` on one line and `the
+Fenix de laton` on the next. The author wrote `A` → `Encontrè un` for the first
+and `You take a` for the second, which read like a witness that the np default
+was wrong.
+
+**It isn't — arbitrated 2026-08-14 and the answer is that Scarier is right.**
+This very game was run in `run400.exe` under Wine, and it answers `coger fenix`
+with **`You take the Fenix de laton de el cajon.`** and `abrir cajon` with
+**`Encontrè un Fenix de laton dentro del cajon.`** — both byte-identical to our
+golden's lines 66-67 and 72. So the `"the "` np default and the `"a "` default
+are *both* faithful, and the author's `You take a` pair simply never fired in
+the real Runner either: he wrote it speculatively. **The caveat in the §4 row
+was the right one to have written.** A localised replacement table is a Runner
+oracle for the pairs that *do* fire, and no evidence at all for the ones that
+do not — the same run shows the table is a blind string replace, since the room
+description's `A mi lado hay…` comes out as `Encontrè un mi lado hay…` in
+run400 too. The §4 row is closed and the `sclibrar.cpp` TODO retired; the 235
+goldens riding on that default were never at risk.
 
 **Method note for the next Spanish or otherwise localised game:** dump the
 `.taf` plaintext tail (`zlib.decompress(data[22:])` for a 4.00 file) and read
