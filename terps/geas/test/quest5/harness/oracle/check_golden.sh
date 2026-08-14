@@ -1,22 +1,24 @@
 #!/bin/bash
 # Golden regression for the qvh oracle. For every driven corpus game, replay the
-# FROZEN command script committed under golden/<Game>.cmd through QuestViva and
-# diff the normalised transcript against the committed golden/<Game>.out.
+# FROZEN command script committed under ../../goldens/<Game>.cmd through
+# QuestViva and diff the normalised transcript against the committed
+# ../../goldens/<Game>.txt.
 #
 # This deliberately drives from the committed .cmd (not extract_walkthrough.py),
 # so a FAIL means the oracle's behaviour drifted — a QuestViva upstream change, a
 # .NET/RNG regression, or a Program.cs edit — NOT a walkthrough-extraction tweak.
 # (To refresh the goldens after an intended change, run ./update_golden.sh.)
 #
-# Requires the built oracle (./build.sh) and the corpus games (default
-# ~/Downloads/Quest 5 games). Exit status is non-zero if any game diverges, or
-# if corpus.tsv and golden/ disagree about which games are covered (see the
-# coverage cross-check at the bottom).
+# Requires the built oracle (./build.sh) and the corpus games (quest5/games if
+# that exists, else ~/Downloads/Quest 5 games; override with GAMES). Exit status
+# is non-zero if any game diverges, or if corpus.tsv and the goldens disagree
+# about which games are covered (see the coverage cross-check at the bottom).
 export PATH="/opt/homebrew/bin:$PATH"
 set -u
 HERE="$(cd "$(dirname "$0")" && pwd)"
+if [ -z "${GAMES:-}" ] && [ -d "$HERE/../../games" ]; then GAMES="$HERE/../../games"; fi
 GAMES="${GAMES:-$HOME/Downloads/Quest 5 games}"
-GOLDEN="$HERE/golden"
+GOLDEN="$HERE/../../goldens"
 DLL="$HERE/bin/Release/net10.0/qvh.dll"
 WORK="$HERE/out"
 mkdir -p "$WORK"
@@ -48,10 +50,10 @@ JOBS="${GOLDEN_JOBS:-$( (sysctl -n hw.ncpu 2>/dev/null || nproc 2>/dev/null || e
 check_one() {  # $1 = golden .cmd path; prints one "STATUS<TAB>game<TAB>detail" line
   local cmd="$1" game q gold got
   game="$(basename "$cmd" .cmd)"
-  q="$GAMES/$game.quest"; gold="$GOLDEN/$game.out"
+  q="$GAMES/$game.quest"; gold="$GOLDEN/$game.txt"
   [ -f "$q" ]    || { printf 'MISS\t%s\tgame file missing\n' "$game"; return; }
-  [ -f "$gold" ] || { printf 'MISS\t%s\tno golden .out\n' "$game";    return; }
-  got="$WORK/$game.golden-check.out"
+  [ -f "$gold" ] || { printf 'MISS\t%s\tno golden .txt\n' "$game";    return; }
+  got="$WORK/$game.golden-check.txt"
   dotnet "$DLL" "$q" "$cmd" > "$got" 2>/dev/null
   if diff -q "$gold" "$got" >/dev/null; then
     printf 'PASS\t%s\t\n' "$game"
@@ -85,9 +87,9 @@ echo "---"
 [ "${#FILTERS[@]}" -gt 0 ] && echo "(filtered: $sel of $(ls "$GOLDEN"/*.cmd | wc -l | tr -d ' ') goldens; ${JOBS}-way parallel)"
 echo "golden check: $pass passed, $fail failed, $miss missing"
 
-# Coverage cross-check. The loop above iterates golden/*.cmd, so it only ever
-# visits games that ALREADY have a golden: a corpus row that is driven but was
-# never frozen into golden/ is not regression-checked and nothing complains.
+# Coverage cross-check. The loop above iterates ../../goldens/*.cmd, so it only
+# ever visits games that ALREADY have a golden: a corpus row that is driven but
+# was never frozen into goldens/ is not regression-checked and nothing complains.
 # (run_corpus.sh's counterpart guard catches the other half — a corpus row that
 # cannot be driven at all.) Compare the two directions explicitly.
 rows="$(mktemp)"; trap 'rm -f "$rows"' EXIT
@@ -98,7 +100,7 @@ done < "$HERE/corpus.tsv" > "$rows"
 
 ungolden=0; orphan=0
 while IFS= read -r game; do
-  if [ ! -f "$GOLDEN/$game.cmd" ] || [ ! -f "$GOLDEN/$game.out" ]; then
+  if [ ! -f "$GOLDEN/$game.cmd" ] || [ ! -f "$GOLDEN/$game.txt" ]; then
     printf "NOGOLD  %-48s (driven corpus row, but no frozen golden)\n" "$game"
     ungolden=$((ungolden+1))
   fi
@@ -117,7 +119,7 @@ echo "coverage: $(wc -l < "$rows" | tr -d ' ') driven corpus rows, $ungolden wit
 
 # Corpus composition. These are the numbers README.md used to hard-code, and they
 # went stale every time a game was wired (each per-game commit touches corpus.tsv,
-# golden/ and overrides/README.md, but not the README totals). Derive them here
+# the goldens and overrides/README.md, but not the README totals). Derive them here
 # instead so the source of truth is the manifest, not prose. Like the coverage
 # cross-check above, this always covers the FULL corpus, ignoring any filter args.
 wt_rows=0; ov_rows=0; ov_driven=0; extracted=0
@@ -130,7 +132,7 @@ while IFS=$'\t' read -r game wt mode preamble; do
   if [ -f "$HERE/overrides/$game.cmd" ]; then ov_driven=$((ov_driven+1)); else extracted=$((extracted+1)); fi
   # Final state comes from the FROZEN golden, not this run's replay: the golden is
   # the committed answer key, and a FAIL above already reports any live divergence.
-  case "$(tail -1 "$GOLDEN/$game.out" 2>/dev/null)" in
+  case "$(tail -1 "$GOLDEN/$game.txt" 2>/dev/null)" in
     '[state=Finished]') fin=$((fin+1));;
     '[state=Running]')  runn=$((runn+1));;
     '[state=Wedged]')   wedge=$((wedge+1));;
@@ -140,7 +142,7 @@ done < "$HERE/corpus.tsv"
 ov_wt=$((ov_driven - ov_rows))   # overrides on rows that DO have a walkthrough
 echo "composition: $((wt_rows + ov_rows)) driven rows = $wt_rows walkthrough-mapped + $ov_rows override-only"
 echo "             $ov_driven driven by curated overrides ($ov_rows override-only + $ov_wt walkthrough rows), $extracted via extract_walkthrough.py"
-printf "final states (frozen golden/*.out): %d Finished, %d Running, %d Wedged" "$fin" "$runn" "$wedge"
+printf "final states (frozen goldens/*.txt): %d Finished, %d Running, %d Wedged" "$fin" "$runn" "$wedge"
 [ "$unknown" -gt 0 ] && printf ", %d with no readable [state=] line" "$unknown"
 echo
 

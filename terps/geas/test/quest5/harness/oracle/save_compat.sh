@@ -27,10 +27,11 @@
 # Usage: ./save_compat.sh [Game ...]   (default: a small, menu-free set)
 set -u
 HERE="$(cd "$(dirname "$0")" && pwd)"
+if [ -z "${GAMES:-}" ] && [ -d "$HERE/../../games" ]; then GAMES="$HERE/../../games"; fi
 GAMES="${GAMES:-$HOME/Downloads/Quest 5 games}"
 QVH="dotnet $HERE/bin/Release/net10.0/qvh.dll"
 REPLAY="$HERE/../aslx_replay"
-CORE="$HERE/../../quest5/aslx-core"
+CORE="$HERE/../../../../quest5/aslx-core"
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 
@@ -41,7 +42,7 @@ GAMELIST=("$@")
 pass=0; fail=0
 for game in "${GAMELIST[@]}"; do
     quest="$GAMES/$game.quest"
-    cmd="$HERE/golden/$game.cmd"
+    cmd="$HERE/../../goldens/$game.cmd"
     if [ ! -f "$quest" ] || [ ! -f "$cmd" ]; then
         echo "SKIP  $game (missing game or golden)"; continue
     fi

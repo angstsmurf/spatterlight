@@ -1,6 +1,6 @@
 "Welcome to Ponyville" (Ponyville.asl) -- Klondikekun, version 0.2, ASL 410
 ===========================================================================
-Command script for terps/geas/test/run_walkthroughs.sh.
+Command script for terps/geas/test/quest4/harness/run_walkthroughs.sh.
 
 Verified: 185 turns, leftover 0, no --tick.  The end-of-content marker is
 "You pack up and head out with her", which is the last line the game prints.

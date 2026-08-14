@@ -1,6 +1,6 @@
 "Get out of the house!" (gooth913.asl) -- Steve Lingle, ASL 350
 ================================================================================
-Command script for terps/geas/test/run_walkthroughs.sh.
+Command script for terps/geas/test/quest4/harness/run_walkthroughs.sh.
 
 Verified: 67 turns, leftover 0, WON.  No flags needed -- no timers, no random
 numbers, no menus.  The win marker is "CONGRATULATIONS", the last line of the

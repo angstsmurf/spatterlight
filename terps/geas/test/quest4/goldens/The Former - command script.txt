@@ -1,6 +1,6 @@
 "The Former" (former.asl) -- Derek W., ASL 350
 ================================================================================
-Command script for terps/geas/test/run_walkthroughs.sh.
+Command script for terps/geas/test/quest4/harness/run_walkthroughs.sh.
 
 Verified: 231 turns, leftover 0, WON.  No flags needed -- there is not a single
 timer or `rand` in the file.  The win marker is "have learned the whole truth",

@@ -6,6 +6,11 @@
 export PATH="/opt/homebrew/bin:$PATH"
 set -u
 HERE="$(cd "$(dirname "$0")" && pwd)"
+# Both corpora are third-party material and so are kept out of the repo. Prefer
+# a local quest5/games (quest5/downloaded) if one has been set up, the way
+# quest4/games works, and fall back to the ~/Downloads layout otherwise.
+if [ -z "${GAMES:-}" ] && [ -d "$HERE/../../games" ]; then GAMES="$HERE/../../games"; fi
+if [ -z "${WALKS:-}" ] && [ -d "$HERE/../../downloaded" ]; then WALKS="$HERE/../../downloaded"; fi
 GAMES="${GAMES:-$HOME/Downloads/Quest 5 games}"
 WALKS="${WALKS:-$HOME/Downloads/Quest 5 walkthroughs}"
 OUT="$HERE/out"
@@ -15,7 +20,7 @@ DLL="$HERE/bin/Release/net10.0/qvh.dll"
 printf "%-52s %-6s %6s %6s %4s %-9s\n" "GAME" "ASL" "STEPS" "EMITS" "ERR" "STATE"
 # `bad` counts corpus rows that could not be driven at all (missing game file,
 # missing override for a wt=- row, missing walkthrough, empty command script).
-# Such a row produces no out/*.out, so check_golden.sh never diffs it and stays
+# Such a row produces no out/*.txt, so check_golden.sh never diffs it and stays
 # green while the row is silently not being tested — which is exactly how the
 # Defeating The Monster override went missing for a whole release. Any such row
 # is a hard failure: this script exits non-zero.
@@ -58,7 +63,7 @@ while IFS=$'\t' read -r game wt mode preamble; do
   python3 "$HERE/extract_walkthrough.py" --mode "$mode" "$src" >> "$cmd"
   fi
   [ -s "$cmd" ] || { printf "%-52s  (no commands extracted)\n" "$game"; bad=$((bad+1)); continue; }
-  dotnet "$DLL" "$q" "$cmd" > "$OUT/$game.out" 2> "$OUT/$game.err"
+  dotnet "$DLL" "$q" "$cmd" > "$OUT/$game.txt" 2> "$OUT/$game.err"
   diag="$(grep '^\[diag\] end:' "$OUT/$game.err")"
   ver="$(grep -o 'version=[^ ]*' "$OUT/$game.err" | head -1 | cut -d= -f2)"
   steps="$(echo "$diag" | grep -o 'steps=[0-9]*' | cut -d= -f2)"

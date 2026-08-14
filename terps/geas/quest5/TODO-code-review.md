@@ -4,11 +4,11 @@ Findings from the 2026-07-21 multi-agent review of `terps/geas/quest5`.
 **Status: ALL 23 backlog findings fixed (2026-07-21, second pass), plus one
 bonus divergence found during verification.** Native goldens stayed 74/74
 byte-identical after every priority group (`aslx_replay` sweep vs
-`quest5-oracle/golden/`), `make check` + `make asan` green, and the Glk
+`quest5/goldens/`), `make check` + `make asan` green, and the Glk
 frontend verified by a before/after `ASLXGLK_PROMPT_FIRST=1` smoke sweep over
 all 74 goldens (byte-identical stdout).
 
-New regression tests (in `test/aslx_loader_test.cc` / `test/aslx_runtime_test.cc`):
+New regression tests (in `test/quest5/harness/aslx_loader_test.cc` / `test/quest5/harness/aslx_runtime_test.cc`):
 `test_zip_hostile`, `test_save_hostile`, `test_number_parse_oracle`,
 `test_parser_depth_caps`, `test_attribute_names_deep`,
 `test_firsttime_bake_oneliners`, `test_save_degenerate_state`. Each was

@@ -5,7 +5,7 @@
 //
 // Built by test/Makefile; links libexpat and zlib. See TODO-quest5.md.
 
-#include "../quest5/aslx.cc"
+#include "../../../quest5/aslx.cc"
 
 #include <cstdio>
 #include <iostream>
@@ -42,7 +42,7 @@ static const Value *field(const World &w, const char *elem, const char *f) {
 
 static void test_hello() {
     World w;
-    bool ok = load_file("fixtures/aslx/hello.aslx", w);
+    bool ok = load_file("../fixtures/hello.aslx", w);
     if (!ok) {
         std::cerr << "load failed:\n" << dump(w);
     }
@@ -207,7 +207,7 @@ static void test_coreboot() {
     // core_dir is relative to test/ (where the harness runs). The fixture's
     // includes resolve English.aslx (Languages/) and Core.aslx (root), which in
     // turn pull in every non-editor Core*.aslx.
-    bool ok = load_file("fixtures/aslx/coreboot.aslx", w, "../quest5/aslx-core");
+    bool ok = load_file("../fixtures/coreboot.aslx", w, "../../../quest5/aslx-core");
     if (!ok || !w.errors.empty()) {
         std::cerr << "coreboot load failed / had errors:\n" << dump(w);
     }
@@ -280,7 +280,7 @@ static void test_coreboot() {
 // plus one stored and one deflated resource and a directory entry.
 static void test_zip_package() {
     std::string buf;
-    CHECK(slurp_file("fixtures/aslx/package.quest", buf));
+    CHECK(slurp_file("../fixtures/package.quest", buf));
     const uint8_t *data = reinterpret_cast<const uint8_t *>(buf.data());
 
     std::vector<ZipEntryInfo> entries;
@@ -312,11 +312,11 @@ static void test_zip_package() {
     std::string game;
     CHECK(extract_game_aslx(data, buf.size(), game));
     std::string direct;
-    CHECK(slurp_file("fixtures/aslx/hello.aslx", direct));
+    CHECK(slurp_file("../fixtures/hello.aslx", direct));
     CHECK(game == direct);
 
     World w;
-    CHECK(load_file("fixtures/aslx/package.quest", w));
+    CHECK(load_file("../fixtures/package.quest", w));
     CHECK_EQ(w.game_name, std::string("Hello Quest"));
 
     // Not a zip at all.

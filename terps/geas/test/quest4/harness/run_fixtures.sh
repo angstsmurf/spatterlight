@@ -1,5 +1,5 @@
 #!/bin/sh
-# Play each fixture game in ./fixtures against its command script and compare
+# Play each fixture game in ../fixtures against its command script and compare
 # the transcript to the golden .expected file next to it.
 #
 #   ./run_fixtures.sh            check every fixture (PASS/FAIL table)
@@ -20,7 +20,7 @@
 
 set -u
 here=$(cd "$(dirname "$0")" && pwd)
-F="$here/fixtures"
+F="$here/../fixtures"
 RUN="$here/geas_walkthrough_runner"
 
 bless=no
@@ -30,7 +30,7 @@ bless=no
 # is newer than geas_walkthrough_runner.cc can still be older than the edit being
 # tested.  The Makefile depends on ../*.cc and ../*.hh, so this is a no-op when
 # nothing has changed.
-make -C "$here" >/dev/null || exit 1
+make -C "$here/../.." >/dev/null || exit 1
 
 export GEAS_SEED=1
 pass=0; fail=0

@@ -92,7 +92,7 @@
   functions collects them.  A brace scan skipping strings and comments bounds
   each body; a computed (non-literal) callback name is simply not indexed.
 - Verified the index resolves all seven functions the engine actually calls
-  to exactly the nine `event:` injections `golden/Moquette.cmd` needs:
+  to exactly the nine `event:` injections `quest5/goldens/Moquette.cmd` needs:
   `act0Clear→FinishAct0Clear`, `endAct0→StartAct1`,
   `doScreenClear→JSFinish_Clear`, `heatherText→JSFinish_HeatherText`,
   `blackout→JSFinish_Blackout`, `heatherTube→JSFinish_HeatherTube`,
@@ -141,7 +141,7 @@
   object link parsed correctly but `live()` said no, so the anchor rendered
   as plain text and "door" stopped being clickable at all.  **Anything a
   click can DO belongs in `live()`.**
-- **New `test/aslxglk_link_tests.cc`, in `make check`.**  This whole area was
+- **New `test/quest5/harness/aslxglk_link_tests.cc`, in `make check`.**  This whole area was
   untested and it shows: `aslx_replay` strips HTML before it sees a tag, and
   `aslxglk_smoke` runs on CheapGlk, whose gestalt reports NO hyperlink
   support — so `g_hyperlinks` is false there and no link is ever registered
@@ -149,7 +149,7 @@
   file-local) and calls it on real Core output for each link flavour,
   asserting both the recovered action and `live()`.  Verified to fail on
   both of today's regressions.
-- Native `aslx_replay` sweep 76/76 byte-identical vs `quest5-oracle/golden/`,
+- Native `aslx_replay` sweep 76/76 byte-identical vs `quest5/goldens/`,
   `make check` green, `xcodebuild -target geas` clean.
 
 ## Status (2026-07-21, grid map: the canvas is the game's background)
@@ -172,11 +172,11 @@
   `SetStatus`/`UpdateLocation`/`SetPanelContents`).
 - Zero transcript risk: both new branches sit behind `grid_draw`, which is
   null headless, so the argument is not even evaluated there.  Native
-  `aslx_replay` sweep 75/75 byte-identical vs `quest5-oracle/golden/`,
+  `aslx_replay` sweep 75/75 byte-identical vs `quest5/goldens/`,
   `make check` green.  Live-verified with screenshots in the app: I Contain
   Multitudes now draws white exit lines on black, Dream Pieces 2 its yellow
   room on black.
-- New `ASLX_GRID_TRACE=1` on `test/aslx_replay` dumps the paint commands, so
+- New `ASLX_GRID_TRACE=1` on `test/quest5/harness/aslx_replay` dumps the paint commands, so
   map behaviour can be checked without launching the app.
 
 ## Status (2026-07-19, Spatterlight autosave/autorestore — BOTH engines)
@@ -328,7 +328,7 @@
   a game saved in the desktop Quest player / QuestViva imports into
   Spatterlight. The `save` command still writes the v1 snapshot (perfect
   Spatterlight round-trip); the native writer is the interop/export path.
-- **Ground truth**: `test/quest5-oracle/save_compat.sh` drives a golden
+- **Ground truth**: `test/quest5/harness/oracle/save_compat.sh` drives a golden
   walkthrough's first half in one engine, snapshots a native save, and
   continues the second half in the OTHER engine, comparing both directions to a
   pure-QuestViva save/restore baseline (qvh gained a `save:` step + a
@@ -550,7 +550,7 @@
   `zip_find_entry` (exact-then-case-insensitive, QuestViva's OrdinalIgnoreCase
   resource table) generalize the old game.aslx-only reader;
   `extract_game_aslx` is a wrapper now (still exact-name, like
-  `zip.GetEntry`). `test_zip_package` + committed `fixtures/aslx/package.quest`
+  `zip.GetEntry`). `test_zip_package` + committed `quest5/fixtures/package.quest`
   (stored + deflated + directory entries).
 - **Frontend resources** (aslxglk.cc): the package entry table is listed once
   at startup; `resource_bytes(name)` pulls a payload byte-range out of the
@@ -650,7 +650,7 @@
   the app-bundle terp boots Dream Pieces and sits in the prompt loop
   (`read_line` → `glk_select`, confirmed by `sample`), keystrokes round-trip,
   and via the CheapGlk smoke harness Dream Pieces and The Myothian Falcon play
-  to their WINS through the exact frontend code (`test/aslxglk_smoke`,
+  to their WINS through the exact frontend code (`test/quest5/harness/aslxglk_smoke`,
   `make aslxglk_smoke`, needs the local corpus).
 - **`aslxglk.cc` — the Glk frontend** (unity-includes the loader+runtime, the
   only aslx TU in the geas binary; `geasglk.cc:glk_main` sniffs the story file
@@ -750,8 +750,8 @@
 ## Status (2026-07-16, evening — golden-parity batch)
 
 - **14 of 17 golden walkthroughs replay BYTE-IDENTICAL through the native
-  engine** (up from 2 this morning; test/aslx_replay.cc vs
-  quest5-oracle/golden/): Dream Pieces, One Night Stand, A Christmas Game (+
+  engine** (up from 2 this morning; test/quest5/harness/aslx_replay.cc vs
+  quest5/goldens/): Dream Pieces, One Night Stand, A Christmas Game (+
   Sequel), A Hobbit Trek, Basilica de Sangre, EFMB, all three Guttersnipes,
   Jacqueline, Mouse/Christmas, Myothian Falcon, Dream Pieces 2. The three
   remaining are the two known-glitchy games — Whitefield (598 diff lines, the
@@ -845,7 +845,7 @@
 ## Status (2026-07-16)
 
 - **Ground-truth oracle: built and frozen** (§7, milestone 6's diff half).
-  `terps/geas/test/quest5-oracle/` drives real `.quest`/`.aslx` games headless
+  `terps/geas/test/quest5/harness/oracle/` drives real `.quest`/`.aslx` games headless
   through QuestViva (.NET port of the Quest 5 engine), RNG routed through
   `erkyrath_random()` (seed 1234), and captures normalised golden transcripts.
   17 walkthroughs driven — **15 Finished, 1 Running (ICM), 1 Wedged
@@ -871,7 +871,7 @@
     resolves inheritance (own → inherited types, most-recent-first). ~40
     built-ins (attribute/type, list, string, number) with `GetRandomInt`/
     `GetRandomDouble` routed through a deterministic erkyrath_random() port.
-    Tested by `test/aslx_runtime_test.cc` (`make check`, clean under ASan/UBSan).
+    Tested by `test/quest5/harness/aslx_runtime_test.cc` (`make check`, clean under ASan/UBSan).
   - **M3 loader half landed** (Core bundling + `<include>` resolution).
     The non-editor Core libraries are bundled under `terps/geas/quest5/aslx-core/`
     (root `Core*.aslx`/`GamebookCore.aslx` + `Languages/*.aslx`), and the
@@ -884,7 +884,7 @@
     attributes (an attr whose `type=` names a `<delegate>` loads its body as a
     delegate-implementation Script). **All 76 corpus games load with 0 errors**;
     a fresh game boots the full Core tree (~330 functions / ~56 types). Wired as
-    `test/aslx_loader_test.cc:test_coreboot()` (fixture `coreboot.aslx`),
+    `test/quest5/harness/aslx_loader_test.cc:test_coreboot()` (fixture `coreboot.aslx`),
     `make check` green, clean under ASan/UBSan.
   - **M3 script layer widened** (2026-07-15): the big batch of Core-critical
     script commands and built-ins landed, all unit-tested and clean under
@@ -911,7 +911,7 @@
       `Contains`, `GetAttributeNames`, 2-arg `TypeOf(obj,attr)`, `CapFirst`,
       `SafeXML`. (`JSSafe` is Core ASLX, not an engine primitive — it comes
       free once these run.)
-    - Tests: `test/aslx_runtime_test.cc:test_script_commands` +
+    - Tests: `test/quest5/harness/aslx_runtime_test.cc:test_script_commands` +
       `:test_new_builtins` (fixture `runtime.aslx` gained a template, a
       dynamictemplate, and an object script).
   - **M3 parser primitives: regex landed** (2026-07-15): `IsRegexMatch`,
@@ -927,7 +927,7 @@
     Matching is `regex_search` (search, not full-match, mirroring .NET `Match`)
     with `icase`; the `RegexCache` keys on cacheID alone (pattern ignored on a
     hit), so the no-cacheID forms compile fresh. Wired as
-    `test/aslx_runtime_test.cc:test_regex_primitives`; `make check` green, clean
+    `test/quest5/harness/aslx_runtime_test.cc:test_regex_primitives`; `make check` green, clean
     under ASan/UBSan; the 76-game 0-error load invariant is preserved. This
     proves `std::regex` ECMAScript covers what CoreParser's simplepattern regexes
     need (§2 "Command parsing comes free" caveat resolved for the common case).
@@ -935,7 +935,7 @@
     a fresh game plus the full Core library now runs `InitInterface` +
     `StartGame` + the `on ready` queue with **zero script errors**, and the
     opening title + room description come out through Core's own `{...}` text
-    processor. Regression: `test/aslx_runtime_test.cc:test_coreboot_runs`
+    processor. Regression: `test/quest5/harness/aslx_runtime_test.cc:test_coreboot_runs`
     (`make check` green, clean under ASan/UBSan; 76-game 0-error load preserved).
     Landed to get there, all traced empirically by running Core and fixing what
     it hit:
@@ -974,7 +974,7 @@
     chain, with **zero script errors**. `look`, `take`/`inventory`, `examine`,
     `open`, and `go`-through-an-exit (into a second room, with the object list
     and the `{exit:}` link rendered) all work. Regression:
-    `test/aslx_runtime_test.cc:test_command_driving` (fixture `command.aslx`);
+    `test/quest5/harness/aslx_runtime_test.cc:test_command_driving` (fixture `command.aslx`);
     `make check` green, clean under ASan/UBSan; 50-package corpus still loads
     0-error. Landed, each traced by running a command and fixing what Core hit:
     - **Command patterns resolve three ways** (`aslx.cc`, matching QuestViva's
@@ -1017,7 +1017,7 @@
     (2026-07-16, second batch — the whole corpus through `InitInterface` +
     `StartGame` + `on ready`, up from 2-of-5 sampled the day before). Landed,
     each verified against QuestViva source and unit-tested
-    (`test/aslx_runtime_test.cc:test_realgame_constructs`):
+    (`test/quest5/harness/aslx_runtime_test.cc:test_realgame_constructs`):
     - **Multi-word (space-encoded) identifiers** (`Utility.EncodeIdentifierSpaces`
       port): outside string literals, adjacent word-char words join into one
       identifier unless either is an expression keyword (`and or xor not if in`,
@@ -1088,7 +1088,7 @@
     `ListExclude` filters ALL occurrences and also accepts a list to exclude
     (both fixed). Container TypeOf stays "stringlist"/"objectlist" — QuestViva
     has a distinct "list" name for QuestList<object>, still TODO if a game
-    branches on it. Tests: `test/aslx_runtime_test.cc:test_typed_lists` +
+    branches on it. Tests: `test/quest5/harness/aslx_runtime_test.cc:test_typed_lists` +
     typed-`<value>` loader checks (fixture `hello.aslx`); `make check` green,
     clean under ASan/UBSan. **spondre now aborts at QuestViva's own abort
     point** (foreach over `game.pov.longtermtopics` with pov unset — the
@@ -1133,7 +1133,7 @@
       answer routed by `HandleCommand` → `HandleMenuTextResponse`), so two
       same-alias objects + `take hat` + `1` works end-to-end through
       send_command. Only missing primitive was `IsInt` (+ `IsDouble`), added.
-    - Tests: `test/aslx_runtime_test.cc:test_input_model` (fixture
+    - Tests: `test/quest5/harness/aslx_runtime_test.cc:test_input_model` (fixture
       `command.aslx` gained two same-alias hats + type/pick/query/nap
       commands); `make check` green, ASan/UBSan clean; corpus still
       49/50-boot-0-error, boot output byte-identical except The Acreage, whose
@@ -1300,7 +1300,7 @@ Port of `v5:WorldModel/WorldModel/` (or `main:src/Engine/`, which is cleaner):
       transaction back twice, the second time applying forward). Stacks are
       unbounded, exactly like the reference; the redo stack exists but
       nothing in play mode pops it. Tests:
-      `test/aslx_runtime_test.cc:test_undo`; verified end-to-end through
+      `test/quest5/harness/aslx_runtime_test.cc:test_undo`; verified end-to-end through
       Core's parser in Dream Pieces (take/i/undo echoes "Undo: i" and
       reverts). Goldens unaffected (16/17, ASan/UBSan clean) even though
       every replayed command now runs the logger hot.
@@ -1517,7 +1517,7 @@ Quest 5 emits HTML through the IASL `PrintText` interface and drives a JS UI.
       `save_game_native`/`restore_game_native`, `restore_game` auto-detects the
       format, and the RESTORE metaverb imports a Quest/QuestViva-written save.
       Bidirectional, verified against the QuestViva oracle by
-      `test/quest5-oracle/save_compat.sh` (~18 games byte-identical both ways).
+      `test/quest5/harness/oracle/save_compat.sh` (~18 games byte-identical both ways).
       See the top status entry. Still open: Spatterlight autosave/autorestore
       integration.
 
@@ -1533,20 +1533,20 @@ stays unsupported, as in `quest4.c`.
 - [x] Corpus: 49 games + 102 walkthroughs pulled into `~/Downloads`
       (textadventures.co.uk + if-archive). See the `quest5-corpus` memo.
 - [x] Ground truth: Quest Viva's `src/Engine` builds headless on macOS
-      (.NET 10, `terps/geas/test/quest5-oracle/build.sh` clones + builds
+      (.NET 10, `terps/geas/test/quest5/harness/oracle/build.sh` clones + builds
       `~/questviva-oracle`). `qvh` driver emits normalised transcripts;
       RNG wired to `erkyrath_random()`. Same recipe as `test/adrift5/harness/a5_groundtruth.sh`.
 - [x] Walkthrough regression scripts: `.quest` games' shipped walkthroughs
       (+ Welbourn corpus) extracted by `extract_walkthrough.py`, driven by
-      `run_corpus.sh`; 17 wired (15 win). Frozen as `golden/<Game>.cmd`+`.out`.
+      `run_corpus.sh`; 17 wired (15 win). Frozen as `quest5/goldens/<Game>.cmd`+`.txt`.
 - [~] Extend `terps/geas/test/`: aslx fixtures with `.cmd`/`.expected`
       goldens under `run_fixtures.sh`, walkthrough runner rows for real
       games, `make check` stays the gate. (Oracle goldens exist; the native
       engine still needs its own fixture harness — starts with milestone 1.)
-      **Native replay driver landed** (2026-07-16): `test/aslx_replay.cc`
+      **Native replay driver landed** (2026-07-16): `test/quest5/harness/aslx_replay.cc`
       (`make aslx_replay`, needs the local corpus so not in `check`) replays
       an oracle `.cmd` through the native engine with qvh's exact step
-      grammar/normalisation and diffs against `quest5-oracle/golden/*.out`.
+      grammar/normalisation and diffs against `quest5/goldens/*.txt`.
       First-light baseline was ~30–70% matching lines, 0 games finishing;
       by the end of 2026-07-16 **16 of 17 goldens replay byte-identical**
       (night status; only the documented ICM oracle artifact remains).
@@ -1584,10 +1584,10 @@ Staged but unwired (`~/Downloads/More Quest 5 games`):
 ## 8. Milestones
 
 1. **Loader** ✅ (2026-07-15): unzip + XML → element tree; `dump()` debug mode.
-   `aslx.hh`/`aslx.cc` + `test/aslx_loader_test.cc`; loads all 76 corpus games.
+   `aslx.hh`/`aslx.cc` + `test/quest5/harness/aslx_loader_test.cc`; loads all 76 corpus games.
 2. **Script/expression core** ✅ (2026-07-15): runs a hand-written `.aslx`
    (msg/if/while/for/foreach/`=`/functions/return) with no Core library.
-   `aslx-runtime.*` + `test/aslx_runtime_test.cc`. Expression evaluator, script
+   `aslx-runtime.*` + `test/quest5/harness/aslx_runtime_test.cc`. Expression evaluator, script
    interpreter, inheritance-aware field resolution, ~40 built-ins, deterministic
    RNG. Remaining script commands / built-ins tracked in §2.
 3. **Core.aslx boots + drives commands** (loader ✅ 2026-07-15; boot ✅
@@ -1596,11 +1596,11 @@ Staged but unwired (`~/Downloads/More Quest 5 games`):
    `StartGame`+`on ready` execute with 0 errors, and real player commands
    (`look`/`take`/`inventory`/`examine`/`open`/`go`) now run end-to-end through
    Core's `HandleCommand` → scope → resolve → verb-script chain with 0 errors.
-   `test/aslx_loader_test.cc:test_coreboot` (load) +
-   `test/aslx_runtime_test.cc:test_coreboot_runs` (boot) +
+   `test/quest5/harness/aslx_loader_test.cc:test_coreboot` (load) +
+   `test/quest5/harness/aslx_runtime_test.cc:test_coreboot_runs` (boot) +
    `:test_command_driving` (commands) + `:test_input_model` (disambiguation).
    Change scripts landed 2026-07-16; two real games replay byte-identical to
-   their oracle goldens (test/aslx_replay.cc).
+   their oracle goldens (test/quest5/harness/aslx_replay.cc).
 4. **Interaction** (input model ✅ 2026-07-16; Glk prompt loop ✅ 2026-07-16):
    get input, menus, ask, wait land engine-side with host entry points
    (`send_command` + `set_menu_response`/`set_question_response`/

@@ -1,6 +1,6 @@
 "Zombies Attack" (Zombies Attack.cas) -- Ryan Le Quesne / "Hulkman508", ASL 410
 ================================================================================
-Command script for terps/geas/test/run_walkthroughs.sh.
+Command script for terps/geas/test/quest4/harness/run_walkthroughs.sh.
 
 Verified: 143 turns, leftover 0, WON.  Needs BOTH --tick and --seed 4.
 The win marker is "You completed the game in", from the timer that ends the game.

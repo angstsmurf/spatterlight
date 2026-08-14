@@ -1,8 +1,8 @@
-# Build the headless geas walkthrough/regression runner and the unit tests.
+# Build the headless geas harnesses and the unit tests, for both engines.
 #
-#   make            build ./geas_walkthrough_runner
-#   make check      syntax-check every engine source, build both, then run the
-#                   unit tests and the fixture games
+#   make            build the Quest 4 walkthrough runner
+#   make check      syntax-check every engine source, build the in-repo
+#                   harnesses, then run the unit tests and the fixture games
 #   make syntax     compile each engine source on its own, no linking (see the
 #                   note above the target -- the harnesses cannot catch this)
 #   make asan       same, with AddressSanitizer/UBSan (several of the bugs the
@@ -10,54 +10,69 @@
 #                   build does not fault on -- it just returns garbage)
 #   make clean      remove the binaries
 #
-# The binaries unity-include the engine sources from the parent directory; their
-# own quoted includes resolve relative to that directory, so -I.. is enough.
+# The test tree is split by engine generation, and each harness builds beside
+# its own sources:
+#
+#   quest4/harness/   Quest 4 (.asl/.cas) -- the geas engine
+#   quest5/harness/   Quest 5 (.aslx/.quest) -- the aslx engine + its oracle
+#   ./                engine-agnostic only (questglk_unit_tests, glkdrive.py)
+#
+# The binaries unity-include the engine sources from the geas root; their own
+# quoted includes spell out the full relative path from wherever they live, so
+# they build the same whether make is run from here or the source is compiled
+# by hand.  Harnesses that open a fixture at run time resolve it relative to
+# their own directory, so the run rules below cd into it first.
 
 CXX      ?= clang++
 CC       ?= clang
 CXXFLAGS ?= -std=c++17 -O2 -w -I..
 ASANFLAGS := -std=c++17 -O1 -g -w -I.. -fsanitize=address,undefined
 
-BIN := geas_walkthrough_runner
-SRC := geas_walkthrough_runner.cc
-TESTBIN := geas_unit_tests
-TESTSRC := geas_unit_tests.cc
+Q4 := quest4/harness
+Q5 := quest5/harness
+
+BIN := $(Q4)/geas_walkthrough_runner
+SRC := $(Q4)/geas_walkthrough_runner.cc
+TESTBIN := $(Q4)/geas_unit_tests
+TESTSRC := $(Q4)/geas_unit_tests.cc
 DEPS := $(wildcard ../*.cc ../*.hh)
 
 # Quest 5 (.aslx / .quest) milestone-1 loader test. It compiles ../quest5/aslx.cc via a
 # unity include and links libexpat + zlib (the loader's only external deps).
-ASLXBIN := aslx_loader_test
-ASLXSRC := aslx_loader_test.cc
+ASLXBIN := $(Q5)/aslx_loader_test
+ASLXSRC := $(Q5)/aslx_loader_test.cc
 ASLXDEPS := ../quest5/aslx.cc ../quest5/aslx.hh
 ASLXLIBS := -lexpat -lz
 
 # Quest 5 milestone-2 script/expression runtime test.
-ASLXRTBIN := aslx_runtime_test
-ASLXRTSRC := aslx_runtime_test.cc
+ASLXRTBIN := $(Q5)/aslx_runtime_test
+ASLXRTSRC := $(Q5)/aslx_runtime_test.cc
 ASLXRTDEPS := ../quest5/aslx.cc ../quest5/aslx.hh ../quest5/aslx-runtime.cc ../quest5/aslx-runtime.hh \
               ../quest5/aslx-runtime-parse.inc ../quest5/aslx-runtime-builtins.inc \
               ../quest5/aslx-state.inc ../quest5/aslx-savenative.inc
 
-# Quest 5 native walkthrough replayer (diff against quest5-oracle/golden/).
+# Quest 5 native walkthrough replayer (diff against quest5/goldens/).
 # Needs the local game corpus, so it is built on demand and not part of check.
-ASLXREPLAY := aslx_replay
+ASLXREPLAY := $(Q5)/aslx_replay
 
 # Quest 5 native link reporter: replays a .cmd walkthrough like aslx_replay but
 # prints the visible TEXT of the command link each step clicks (harvested from
 # the Core text processor's <a data-command="..."> markup). Corpus-dependent,
 # so built on demand and not part of check.
-#   make aslx_linkcapture
-#   ASLX_CORE=../quest5/aslx-core ./aslx_linkcapture "<game.quest>" "<script.cmd>"
-ASLXLINKCAP := aslx_linkcapture
+#   make quest5/harness/aslx_linkcapture
+#   cd quest5/harness && ASLX_CORE=../../../quest5/aslx-core \
+#       ./aslx_linkcapture "<game.quest>" "<script.cmd>"
+ASLXLINKCAP := $(Q5)/aslx_linkcapture
 
 # Quest 5 Glk frontend smoke harness: the real aslxglk.cc against the in-repo
 # CheapGlk, driven by piping commands to stdin. Built on demand.
-ASLXGLK := aslxglk_smoke
+ASLXGLK := $(Q5)/aslxglk_smoke
 CHEAPGLK := ../../cheapglk
 
 # Unit tests for the helpers both Glk frontends share (../questglk-common.inc).
-# It includes the .inc directly and links CheapGlk for the glk_* symbols the
-# other helpers in there reference.
+# Engine-agnostic, so it stays at the root of the test tree.  It includes the
+# .inc directly and links CheapGlk for the glk_* symbols the other helpers in
+# there reference.
 QGLKBIN := questglk_unit_tests
 QGLKSRC := questglk_unit_tests.cc
 
@@ -65,8 +80,8 @@ QGLKSRC := questglk_unit_tests.cc
 # aslxglk.cc (link_action is file-local) and links CheapGlk for the glk_*
 # symbols the frontend references -- CheapGlk reports no hyperlink support, so
 # the smoke harness never registers or clicks a link and cannot cover this.
-ASLXLINKBIN := aslxglk_link_tests
-ASLXLINKSRC := aslxglk_link_tests.cc
+ASLXLINKBIN := $(Q5)/aslxglk_link_tests
+ASLXLINKSRC := $(Q5)/aslxglk_link_tests.cc
 
 all: $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN) $(QGLKBIN) $(ASLXLINKBIN)
 
@@ -129,13 +144,15 @@ syntax:
 	if [ $$fail -ne 0 ]; then echo "syntax: FAILED"; exit 1; fi; \
 	echo "syntax: $(words $(SYNTAXCXX) $(SYNTAXC)) sources OK"
 
+# The aslx tests open their fixtures by a path relative to their own directory
+# (../fixtures/...), so run them from there rather than from here.
 check: syntax $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN) $(QGLKBIN) $(ASLXLINKBIN)
-	./$(TESTBIN)
-	./$(ASLXBIN)
-	./$(ASLXRTBIN)
+	cd $(Q4) && ./geas_unit_tests
+	cd $(Q5) && ./aslx_loader_test
+	cd $(Q5) && ./aslx_runtime_test
 	./$(QGLKBIN)
-	./$(ASLXLINKBIN)
-	./run_fixtures.sh
+	cd $(Q5) && ./aslxglk_link_tests
+	$(Q4)/run_fixtures.sh
 
 asan: $(SRC) $(TESTSRC) $(DEPS)
 	$(CXX) $(ASANFLAGS) $(TESTSRC) -o $(TESTBIN)
@@ -143,11 +160,11 @@ asan: $(SRC) $(TESTSRC) $(DEPS)
 	$(CXX) $(ASANFLAGS) $(ASLXSRC) $(ASLXLIBS) -o $(ASLXBIN)
 	$(CXX) $(ASANFLAGS) $(ASLXRTSRC) $(ASLXLIBS) -o $(ASLXRTBIN)
 	$(CXX) $(ASANFLAGS) -I$(CHEAPGLK) $(QGLKSRC) $(CHEAPGLK)/libcheapglk.a -o $(QGLKBIN)
-	./$(TESTBIN)
-	./$(ASLXBIN)
-	./$(ASLXRTBIN)
+	cd $(Q4) && ./geas_unit_tests
+	cd $(Q5) && ./aslx_loader_test
+	cd $(Q5) && ./aslx_runtime_test
 	./$(QGLKBIN)
-	./run_fixtures.sh
+	$(Q4)/run_fixtures.sh
 
 clean:
 	rm -f $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN) $(QGLKBIN) $(ASLXLINKBIN)

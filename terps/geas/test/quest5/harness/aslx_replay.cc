@@ -1,14 +1,14 @@
 // aslx_replay.cc -- replay an oracle .cmd walkthrough script through the
 // NATIVE aslx engine and emit a qvh-normalised transcript, for diffing
-// against the frozen goldens in quest5-oracle/golden/. This is the native
-// half of the milestone-6 ground-truth harness; the .cmd/.out pairs were
-// produced by the QuestViva oracle (quest5-oracle/README.md).
+// against the frozen goldens in ../goldens/. This is the native half of the
+// milestone-6 ground-truth harness; the .cmd/.txt pairs were produced by the
+// QuestViva oracle (oracle/README.md).
 //
 //   make aslx_replay
-//   ASLX_CORE=../quest5/aslx-core ./aslx_replay "<game.quest>" "golden/<Game>.cmd" \
-//       | diff "quest5-oracle/golden/<Game>.out" -
+//   ASLX_CORE=../../../quest5/aslx-core ./aslx_replay "<game.quest>" \
+//       "../goldens/<Game>.cmd" | diff "../goldens/<Game>.txt" -
 //
-// Mirrors quest5-oracle/Program.cs: same step grammar (menu:/answer:/assert:/
+// Mirrors oracle/Program.cs: same step grammar (menu:/answer:/assert:/
 // label:/delay:/runtime:/event:/# comments; bare lines resolve pending menus
 // and questions), same auto-advance of pending waits, same deterministic
 // DrainTimers (after each step, tick pending SetTimeout timers by exactly
@@ -35,8 +35,8 @@
 // literal trailing U+00A0s). Then 26 goldens (The Deer Trail, an override
 // rendering the author's "Direction to <room>" shorthand into parser
 // commands); it replayed byte-identical with no engine changes — 25 of 26.
-#include "../quest5/aslx.cc"
-#include "../quest5/aslx-runtime.cc"
+#include "../../../quest5/aslx.cc"
+#include "../../../quest5/aslx-runtime.cc"
 
 #include <fstream>
 #include <iostream>

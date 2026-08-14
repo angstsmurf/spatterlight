@@ -23,7 +23,7 @@
 #include <iostream>
 #include <string>
 
-#include "../quest5/aslxglk.cc"
+#include "../../../quest5/aslxglk.cc"
 
 extern "C" {
 #include "glkstart.h"

@@ -1,16 +1,16 @@
 #!/bin/sh
 # Play a collection of Quest games against their walkthroughs and print a
 # PASS/FAIL table.  The games are copyrighted, so they are kept local-only in
-# ./games (gitignored, see .gitignore); the games dir defaults there but can be
-# overridden.
+# ../games (gitignored, see ../../.gitignore); the games dir defaults there but
+# can be overridden.
 #
 #   ./run_walkthroughs.sh [games dir] ["extra walkthroughs dir"]
 #
-# The command scripts we derived ourselves live in ./walkthroughs and are
+# The command scripts we derived ourselves live in ../goldens and are
 # committed, so a fresh checkout only needs the games.  The three
 # "<title> - walkthrough.txt" files are other people's work and are not
 # redistributed here; point the second argument at a directory holding those to
-# include them, otherwise they SKIP.  A walkthrough is looked up in ./walkthroughs
+# include them, otherwise they SKIP.  A walkthrough is looked up in ../goldens
 # first and in that directory second.
 #
 # Builds the runner if needed.  Uses a fixed RNG seed for reproducibility;
@@ -18,12 +18,12 @@
 
 set -u
 here=$(cd "$(dirname "$0")" && pwd)
-G=${1:-"$here/games"}
+G=${1:-"$here/../games"}
 W=${2:-}
 
 # Where does this walkthrough live -- in the repo, or in the caller's own dir?
 wtpath() {
-    if [ -f "$here/walkthroughs/$1" ]; then printf '%s\n' "$here/walkthroughs/$1"
+    if [ -f "$here/../goldens/$1" ]; then printf '%s\n' "$here/../goldens/$1"
     elif [ -n "$W" ] && [ -f "$W/$1" ]; then printf '%s\n' "$W/$1"
     fi
 }
@@ -33,7 +33,7 @@ RUN="$here/geas_walkthrough_runner"
 # is newer than geas_walkthrough_runner.cc can still be older than the edit being
 # tested.  The Makefile depends on ../*.cc and ../*.hh, so this is a no-op when
 # nothing has changed.
-make -C "$here" >/dev/null || exit 1
+make -C "$here/../.." >/dev/null || exit 1
 
 export GEAS_SEED=1
 pass=0; fail=0

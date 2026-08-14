@@ -1,0 +1,7 @@
+# Build artifacts and scratch transcripts — the QuestViva clone lives outside
+# the repo (~/questviva-oracle by default). The committed regression baseline
+# lives outside this directory, in quest5/goldens/, and is NOT ignored (see
+# check_golden.sh / update_golden.sh).
+bin/
+obj/
+out/

@@ -5,8 +5,8 @@
 // Built by test/Makefile; links libexpat + zlib (via the loader). See
 // TODO-quest5.md §2.
 
-#include "../quest5/aslx.cc"
-#include "../quest5/aslx-runtime.cc"
+#include "../../../quest5/aslx.cc"
+#include "../../../quest5/aslx-runtime.cc"
 
 #include <cstdio>
 #include <iostream>
@@ -186,7 +186,7 @@ static void test_control_flow() {
 
 static void test_functions_and_objects() {
     World w;
-    bool ok = load_file("fixtures/aslx/runtime.aslx", w);
+    bool ok = load_file("../fixtures/runtime.aslx", w);
     if (!ok) std::cerr << dump(w);
     CHECK(ok);
     Interp in(w);
@@ -219,7 +219,7 @@ static void test_functions_and_objects() {
 
 static void test_script_commands() {
     World w;
-    bool ok = load_file("fixtures/aslx/runtime.aslx", w);
+    bool ok = load_file("../fixtures/runtime.aslx", w);
     if (!ok) std::cerr << dump(w);
     CHECK(ok);
     Interp in(w);
@@ -323,7 +323,7 @@ static void test_script_commands() {
 
 static void test_new_builtins() {
     World w;
-    bool ok = load_file("fixtures/aslx/runtime.aslx", w);
+    bool ok = load_file("../fixtures/runtime.aslx", w);
     CHECK(ok);
     Interp in(w);
 
@@ -688,7 +688,7 @@ static void test_rng_determinism() {
 static void test_coreboot_runs() {
     World w;
     // core_dir relative to test/ (where the harness runs).
-    bool ok = load_file("fixtures/aslx/coreboot.aslx", w, "../quest5/aslx-core");
+    bool ok = load_file("../fixtures/coreboot.aslx", w, "../../../quest5/aslx-core");
     CHECK(ok);
     CHECK(w.errors.empty());
     if (!w.errors.empty())
@@ -732,7 +732,7 @@ static void test_coreboot_runs() {
 // must run with zero script errors and produce the expected Core output.
 static void test_command_driving() {
     World w;
-    bool ok = load_file("fixtures/aslx/command.aslx", w, "../quest5/aslx-core");
+    bool ok = load_file("../fixtures/command.aslx", w, "../../../quest5/aslx-core");
     CHECK(ok);
     CHECK(w.errors.empty());
 
@@ -797,7 +797,7 @@ static void test_command_driving() {
 // at all -- the numbered answer arrives as the next command.
 static void test_input_model() {
     World w;
-    bool ok = load_file("fixtures/aslx/command.aslx", w, "../quest5/aslx-core");
+    bool ok = load_file("../fixtures/command.aslx", w, "../../../quest5/aslx-core");
     CHECK(ok);
     CHECK(w.errors.empty());
 
@@ -887,7 +887,7 @@ static void test_input_model() {
 // subscriber), the JS.updateStatus route, and the SendEventCore bridge.
 static void test_update_lists() {
     World w;
-    bool ok = load_file("fixtures/aslx/command.aslx", w, "../quest5/aslx-core");
+    bool ok = load_file("../fixtures/command.aslx", w, "../../../quest5/aslx-core");
     CHECK(ok);
 
     Interp in(w);
@@ -1194,7 +1194,7 @@ static void test_undo() {
 // saved-game boot (InitInterface re-runs, StartGame does not).
 static void test_save_restore() {
     World w;
-    bool ok = load_file("fixtures/aslx/command.aslx", w, "../quest5/aslx-core");
+    bool ok = load_file("../fixtures/command.aslx", w, "../../../quest5/aslx-core");
     CHECK(ok);
 
     Interp in(w);
@@ -1235,7 +1235,7 @@ static void test_save_restore() {
     // again reproduces it byte-identically.
     {
         World w2;
-        CHECK(load_file("fixtures/aslx/command.aslx", w2, "../quest5/aslx-core"));
+        CHECK(load_file("../fixtures/command.aslx", w2, "../../../quest5/aslx-core"));
         Interp in2(w2);
         in2.print = [](const std::string &) {};
         std::string err;
@@ -1281,14 +1281,14 @@ static void test_save_restore() {
     // Wrong-game and malformed saves are rejected without touching the world.
     {
         World w3;
-        CHECK(load_file("fixtures/aslx/runtime.aslx", w3));
+        CHECK(load_file("../fixtures/runtime.aslx", w3));
         Interp in3(w3);
         std::string err;
         CHECK(!in3.restore_game(save, err));
         CHECK(!err.empty());
         std::string truncated = save.substr(0, save.size() / 2);
         World w4;
-        CHECK(load_file("fixtures/aslx/command.aslx", w4, "../quest5/aslx-core"));
+        CHECK(load_file("../fixtures/command.aslx", w4, "../../../quest5/aslx-core"));
         Interp in4(w4);
         CHECK(!in4.restore_game(truncated, err));
         CHECK(!Interp::is_save_data("garbage", 7));
@@ -1399,7 +1399,7 @@ static void test_attribute_names_deep() {
 // one-line firsttime/otherwise body is silently deleted from a native save.
 static void test_firsttime_bake_oneliners() {
     World w;
-    CHECK(load_file("fixtures/aslx/runtime.aslx", w));
+    CHECK(load_file("../fixtures/runtime.aslx", w));
     Interp in(w);
     std::string out;
     in.print = [&](const std::string &s) { out += s; };
@@ -1439,7 +1439,7 @@ static void test_firsttime_bake_oneliners() {
 // self-referential collection must not recurse the writers to death.
 static void test_save_degenerate_state() {
     World w;
-    CHECK(load_file("fixtures/aslx/runtime.aslx", w));
+    CHECK(load_file("../fixtures/runtime.aslx", w));
     Interp in(w);
     in.print = [](const std::string &) {};
     Context c;
@@ -1469,7 +1469,7 @@ static void test_save_degenerate_state() {
 // overwriting static elements -- all before anything mutates the world.
 static void test_save_hostile() {
     World w;
-    CHECK(load_file("fixtures/aslx/command.aslx", w, "../quest5/aslx-core"));
+    CHECK(load_file("../fixtures/command.aslx", w, "../../../quest5/aslx-core"));
     Interp in(w);
     in.print = [](const std::string &) {};
 
@@ -1519,7 +1519,7 @@ static void test_save_hostile() {
 // test_save_restore, exercising the writer and the overlay reader.
 static void test_save_restore_native() {
     World w;
-    CHECK(load_file("fixtures/aslx/command.aslx", w, "../quest5/aslx-core"));
+    CHECK(load_file("../fixtures/command.aslx", w, "../../../quest5/aslx-core"));
 
     Interp in(w);
     std::string out;
@@ -1565,7 +1565,7 @@ static void test_save_restore_native() {
 
     {
         World w2;
-        CHECK(load_file("fixtures/aslx/command.aslx", w2, "../quest5/aslx-core"));
+        CHECK(load_file("../fixtures/command.aslx", w2, "../../../quest5/aslx-core"));
         Interp in2(w2);
         in2.print = [](const std::string &) {};
         std::string err;
@@ -1617,7 +1617,7 @@ static void test_save_restore_native() {
         size_t vq = bogus.find('"', vp + 9);
         bogus.replace(vp, vq - vp + 1, "version=\"999\"");
         World w5;
-        CHECK(load_file("fixtures/aslx/command.aslx", w5, "../quest5/aslx-core"));
+        CHECK(load_file("../fixtures/command.aslx", w5, "../../../quest5/aslx-core"));
         Interp in5(w5);
         std::string err;
         CHECK(!in5.restore_game(bogus, err));

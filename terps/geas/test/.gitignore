@@ -1,14 +1,20 @@
-/geas_walkthrough_runner
-/geas_unit_tests
+# Harness binaries. They build beside their own sources, so the paths are
+# per-engine; the *.dSYM rule is global because a debug build drops one next to
+# whichever binary produced it.
+/quest4/harness/geas_walkthrough_runner
+/quest4/harness/geas_unit_tests
+/quest5/harness/aslx_loader_test
+/quest5/harness/aslx_runtime_test
+/quest5/harness/aslx_replay
+/quest5/harness/aslx_linkcapture
+/quest5/harness/aslxglk_smoke
+/quest5/harness/aslxglk_link_tests
 /questglk_unit_tests
-/aslx_loader_test
-/aslx_runtime_test
 *.dSYM/
 
-# Copyrighted Quest game files used by run_walkthroughs.sh — kept local-only.
-# The fixtures/ games are ours, and are committed.
-/games/
-/aslx_replay
-/aslx_linkcapture
-/aslxglk_smoke
-/aslxglk_link_tests
+# Copyrighted third-party material — games and other people's walkthroughs —
+# kept local-only. The fixtures/ games and the goldens/ command scripts are
+# ours, and are committed.
+/quest4/games/
+/quest5/games/
+/quest5/downloaded/

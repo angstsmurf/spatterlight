@@ -1,7 +1,7 @@
 "Sutekh Is Hiding In Your Priory"
 Author unrecorded -- the game block carries no `game author` line, only
 `game info <Created with QDK 4.1.5>`.  ASL 410, ships as a plain .asl.
-Command script for terps/geas/test/run_walkthroughs.sh.
+Command script for terps/geas/test/quest4/harness/run_walkthroughs.sh.
 
 Verified: 158 turns, leftover 0, WON.  No --tick needed.
 

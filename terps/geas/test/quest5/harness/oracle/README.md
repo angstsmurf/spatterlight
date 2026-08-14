@@ -106,15 +106,15 @@ it off, so the engine will *not* split a `.`-joined line itself — pre-splittin
 in welbourn mode is required, and also yields one deterministic turn per command.
 
 `run_corpus.sh` drives every non-`hints` row of `corpus.tsv`, writing
-`out/<Game>.cmd` scripts + `out/<Game>.out` transcripts and printing a coverage
+`out/<Game>.cmd` scripts + `out/<Game>.txt` transcripts and printing a coverage
 table (ASL version, steps, emits, error count, final state). Coverage as of this
 writing: **72 games driven** — **61 `Finished`**, **11 `Running`**, **0 `Wedged`**.
 
 Every count in this section is a *snapshot*. `./check_golden.sh` recomputes all of
-them from `corpus.tsv` and `golden/` on every run and prints them as its closing
+them from `corpus.tsv` and the goldens on every run and prints them as its closing
 `composition:` / `final states:` lines — trust that output, not this prose, which
 drifts each time a game is wired (a per-game commit touches `corpus.tsv`,
-`golden/` and `overrides/README.md`, never these paragraphs).
+the goldens and `overrides/README.md`, never these paragraphs).
 
 `Finished` means Core's `finish` ran. It is the *only* unambiguous win signal, but
 its absence is not a loss: **9 of the 11 `Running` rows are genuine wins in games
@@ -244,15 +244,16 @@ implemented — no corpus game reaches one.)
 
 ### Golden baseline (committed regression)
 
-`golden/` holds the frozen answer key: for each driven game, the exact
-command script (`golden/<Game>.cmd`) and the normalised transcript QuestViva
-produces for it (`golden/<Game>.out`). This is the only part of the harness
-committed to the repo (alongside `overrides/`) — `bin/`, `obj/`, and the scratch
-`out/` are ignored, and the QuestViva clone and the corpus games/walkthroughs all
-live outside it.
+`../../goldens/` holds the frozen answer key: for each driven game, the exact
+command script (`<Game>.cmd`) and the normalised transcript QuestViva
+produces for it (`<Game>.txt`). It sits one level up, beside the fixtures and
+the native harnesses, because it is the answer key for *both* engines rather
+than a private artifact of this directory; here, only `overrides/` is committed
+— `bin/`, `obj/` and the scratch `out/` are ignored, and the QuestViva clone and
+the corpus games/walkthroughs all live outside the repo entirely.
 
-- **`./check_golden.sh`** replays each committed `golden/<Game>.cmd` through the
-  built oracle and diffs the result against `golden/<Game>.out`. It drives from
+- **`./check_golden.sh`** replays each committed `<Game>.cmd` through the
+  built oracle and diffs the result against `<Game>.txt`. It drives from
   the *frozen* `.cmd` (not `extract_walkthrough.py`), so a `FAIL` isolates an
   actual oracle behaviour change — a QuestViva upstream bump, a .NET/RNG
   regression, or a `Program.cs` edit — from a walkthrough-extraction tweak. It
@@ -261,13 +262,13 @@ live outside it.
   from one run and every game is re-driven from scratch.)
 - **`./update_golden.sh`** refreshes the baseline after an *intended* change: it
   runs the full `run_corpus.sh` pipeline (re-extract → drive → transcript) and
-  copies the new `.cmd` + `.out` for every driven game into `golden/`. The git
-  diff of `golden/` then *is* the change in "what real Quest does" — review it
-  before committing.
+  copies the new `.cmd` + `.txt` for every driven game into `../../goldens/`. The
+  git diff of the goldens then *is* the change in "what real Quest does" —
+  review it before committing.
 
-This is what makes the oracle a durable reference: the eventual native Geas ASLX
-engine diffs its own transcript for `golden/<Game>.cmd` against `golden/<Game>.out`
-without needing QuestViva or .NET at all.
+This is what makes the oracle a durable reference: the native Geas ASLX engine
+diffs its own transcript for `<Game>.cmd` against `<Game>.txt` (that is what
+`../aslx_replay` does) without needing QuestViva or .NET at all.
 
 ### `Wedged`: telling the error breaker apart from a real win
 

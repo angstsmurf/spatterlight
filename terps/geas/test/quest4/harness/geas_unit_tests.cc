@@ -17,12 +17,12 @@
 #include <string>
 #include <vector>
 
-#include "../geas-util.cc"
-#include "../istring.cc"
-#include "../readfile.cc"
-#include "../geasfile.cc"
-#include "../geas-state.cc"
-#include "../geas-runner.cc"
+#include "../../../geas-util.cc"
+#include "../../../istring.cc"
+#include "../../../readfile.cc"
+#include "../../../geasfile.cc"
+#include "../../../geas-state.cc"
+#include "../../../geas-runner.cc"
 
 namespace {
 
