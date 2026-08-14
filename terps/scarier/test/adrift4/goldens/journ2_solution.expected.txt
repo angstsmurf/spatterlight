@@ -1,0 +1,310 @@
+Loading game...
+
+The Long Journey Home
+
+In the Beginning
+Please enter your gender.  Type "male" or "female".
+
+>        It's late.  You toss and turn gently, trying not to disturb your
+spouse's peaceful slumber.  Thoughts are racing through your mind.  You're
+miserable at work, burned completely out on what you do.  You hate it.  Other
+pains are invading your mind, as well.  Your children keep you too occupied
+to have time to yourself.  Not that you really resent them.  In fact it's the
+opposite;  you love them so much that you want to give them time enough to
+serve their needs.  But, it seems as though you have no time to get any sort
+of piece of mind.  No time to reflect, to think, to do an enjoyable activity,
+to even have time to vegetate and do nothing.  Financial problems are
+brewing.  Missing bonuses has put an unbelievable strain on not only being
+able to keep up with the bills and the house payment and the car payments,
+but also you your relationship with your wife.  The fitful rest continues.
+        A quick glance at the clock notes that the red glowing numbers are
+lighting the room and pushing on you the fact that it's two in the morning.
+A deep cleansing sigh isn't enough to rid the discomfort well enough to
+invoke even a cursory sleep, so you slide your body wearily around, dropping
+your feet to the floor.  You just sit there a moment pondering your thoughts.
+        Trying to invoke some sort of relief, you get up in hopes that
+movement or just doing something different will clear your mind.  It doesn't.
+ But, you're up now.  You can't sleep standing up.  There must be some
+activity to provide a mental distraction to the plagues in your head.
+The bedroom
+        Your bedroom is only partially lighted, with a beam of bright
+moonlight straining in between the blinds over the window.  The door to the
+bathroom to the north dangles on its hinge, leaving it almost half way open.
+The bedroom door to the east is shut completely.  The dressor mirror reflects
+the red glow of the clock menacingly, nagging at you to return to sleep.
+
+Also here is the mirror.
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+
+>Time passes...
+        As you are looking around the room, trying to gather an indication of
+what might be happening, you happen to glance across the mirror.  Something
+about the mirror pulls you towards it.  The glass loosens into elastic-like
+waves.  In fact, there appears not to be any glass anymore.  Silver waves
+undulate across the mirror, like an ocean of mercury with a genlte breeze
+rippling the surface.
+
+>Time passes...
+
+>        Carefully placing your leg through the remaining frame of the mirror,
+you step inside the small vessel and sit with oars poised in your hands.  An
+amazing peacefulness befalls you, like the calm after a long storm.
+The Mirror Portal
+        You are in the midst of a vast silver ocean which extends in all
+directions for as far as you can see.  The mercury-like water ripples as a
+gentle breeze flows across it.  Voices whisper from somewhere distant,
+echoing all around you. "It's a boy!"  "It's your mother.  She isn't doing
+well."  "I don't care!  You shouldn't spend money we don't have!"  "Don't
+worry, honey.  I'm sure the dog hasn't gone far."   A warm light glows
+orange, like a brilliant sunset.  A small island lies to the distant north.
+
+>You move north.
+The Island
+        The tiny island features a long rope, which handily pulls you ashore.
+ The soft sediment beneath your bare feet relaxes you with a comfortable
+feeling that you are someplace protective. There seems to be nothing else of
+interest here, besides a small wishing well, made with large, smooth rocks
+and a tall palm.
+
+Also here is a long heavy rope.
+
+>You pick up the long heavy rope.
+
+>        You tie the rope snugly to the palm tree in a manner that seems very
+sturdy.
+
+>        The rope slides down the well, uncoiling until it stretches to its
+full length deep into the darkness so far that you cannot see its end.
+
+>(Your score has increased by 5)
+The Well Pit
+        Jagged rock points downward, like the sharp spikes that normally run
+along the driveway entrance to a secure parking lot.  The barbs of these
+rocks covers the walls of a long, earthen tunnel that travels far up to a
+tiny, round opening with warm, orange sunlight barely making its way down to
+you, resting on a muddy floor.  You have climbed down, but you can not
+possibly climb up.  A large iron gate guards an exit to the south.  Your long
+rope dangles from the top of the tunnel.
+
+>You move south.
+The Lair
+        A dark room, lit by the dim flickering light of flames from small
+torches on the walls, lays itself out in front of you with grim, almost
+reddish walls that give a foreboding appearance.  The northern wall of the
+large, stone room is broken by the presence of a large hearth that takes up a
+majority of the space.  An enormous creature crouches in front of the hearth,
+watching flames from a roaring fire flicker across.  A large iron gate is
+locked shut in the northwestern corner of the room.  Three other exits lead
+out, one to the east, one to the west, and one to the south.  Each is so dark
+as to not give any clue where it leads.
+The creature stands and stairs.
+        The creature suddenly jolts himself to his feet and turns his gaze
+rapidly towards you.  With a blast of hot breath from his nose, his black
+eyes pierce through you and melt your soul with uneasiness.  He watches your
+every move, or lack thereof.
+
+>        As you begin to move the creature blasts through the air in winged
+flight and lands directly in front you, blocking your progress.  He drops his
+head down, to be level with your own, then moves his face directly into
+yours, staring deep into your eyes.  As you gaze back at the black eyes, you
+notice that they do not reflect, and nausea sets in with your uneasy soul.
+Just as you begin to feel you are going to pass out underneath the pressure,
+the creature smiles and backs away just slightly enough to hand you
+something.  It’s a card.  The creature then steps aside and allows you to
+pass.
+
+>You move east.
+The path to Sorrow
+        The darkness gives way to a dim light as you enter this large room.
+Although you are most decidedly within a room, you feel as though you are
+outdoors.  The stone walls enclose a narrow path, winding through tight scrub
+and small trees.  The tiny path leads further to the southeast.
+
+>You move southeast.
+The slippery slope
+        The path narrows to a point that leaves you wondering if you are
+really on a path, or if you have lead your way into a wilderness choked by
+the trees and brush.  You now have to force your way through thorny branches
+and thick leaves.  The dim gray lighting seems grayer as you progress.  The
+entire area inclines at greater degrees the further you move, until you find
+yourself groping for stability and cling tightly to the thorny branches to
+keep from sliding down the incline.
+        Your foot suddenly breaks free from the ground, your quick grab for a
+thin branch, leaves the branch breaking loose in your hand as you descend
+down a steep slope into a pit, mired with wet sticky mud, and encircled by
+brambles and thorns so thick that you wonder if you can possibly climb your
+way out.  Your body bleeds from the wounds you’ve received from your fall.
+Your feet have planted themselves firmly in the soft mud, and are beginning
+to sink.  A shovel, with its old, rotting wooden handle, leans up against the
+muddy side of the pit.
+
+>You pick up the rusty old shovel.
+
+>        You lack energy to such a degree that the effort seems incredibly
+daunting, though you are able to encourage yourself enough so as to scrape
+away a few shovel fulls of mud from the sides of the pit.  An tiny, thin
+object appears in the mud within the cavity you’ve just created.
+
+>You pick up the King of Clubs.
+
+>(Your score has increased by 10)
+        You place your foot deeply into the cavity in the side of the pit and
+work your way up it’s steep sides to the top.  As you pull yourself up, the
+thick brambles and thorns cut into your flesh.  The ascent is painful, but
+inspiring and encouraging as you are able to once again stand on former
+ground.  However, your footing remains precarious, and the tiny, narrow path
+seems to be completely blocked out by heavy thorny scrub.
+
+>(Your score has increased by 5)
+        You hack at the thick underbrush with your makeshift machete and a
+path begins to clear.  After a long, tiresome labor, your have cleared enough
+of the entanglement to proceed northwest along the path.
+
+>You move northwest.
+The path to Sorrow
+        The darkness gives way to a dim light as you enter this large room.
+Although you are most decidedly within a room, you feel as though you are
+outdoors.  The stone walls enclose a narrow path, winding through tight scrub
+and small trees.  The tiny path leads further to the southeast.
+
+>You move west.
+The Lair
+        A dark room, lit by the dim flickering light of flames from small
+torches on the walls, lays itself out in front of you with grim, almost
+reddish walls that give a foreboding appearance.  The northern wall of the
+large, stone room is broken by the presence of a large hearth that takes up a
+majority of the space.  An enormous creature crouches in front of the hearth,
+watching flames from a roaring fire flicker across.  A large iron gate is
+locked shut in the northwestern corner of the room.  Three other exits lead
+out, one to the east, one to the west, and one to the south.  Each is so dark
+as to not give any clue where it leads.
+The creature stands and stairs.
+
+>You move west.
+The Path to Fear
+        A small torch with a very small flame just barely lights the room to
+make out a space overgrown with the limbs of old, dead brush and gnarly
+trees.  A jagged path leads through the entangled mass, just beneath a large
+thorn bush, cut away into a small archway to the south.  The opening in the
+archway is just barely large enough to get through with brushing up against a
+minimal amount of thorns.
+
+>You move south.
+The Gnarled Woods
+        You cannot see the walls or ceiling for the tangled mass of brush and
+trees that blocks out all existing forms of light.  The soft ground forms an
+impression beneath your weight as you move.  You can only feel your way along
+a rough pathway, which has forked out into four directions, to the front,
+behind you, and to your right and left.  You begin to realize that in the
+darkness you have lost all sense of direction and have succumbed to a feeling
+of crippling fear at the prospect of not knowing your way.
+
+>        Now completely disoriented, you crawl in a direction you hope will
+lead you out.  After several minutes of crawling, you come to rest at a soft
+indentation in the ground.
+
+>        Now completely disoriented, you crawl in a direction you hope will
+lead you out.  After several minutes of crawling, you come to rest at a soft
+indentation in the ground.
+
+>        Crawling along, you begin to feel the ground harden beneath your
+hands and knees.  A new surface presents itself, like smooth stone.  You
+suddenly no longer feel the thorny scrub of the mangled mass above you.  You
+freely stand to walk upright.
+Terror
+        Feeling along the walls, you come across some interesting features of
+the room.  It is made of rough, hand-carved stone that occasionally pierces
+the skin on your hand as you feel across it.  You are able to find a door to
+what you decide to call the south wall of the room, and to the north, you
+locate a tunnel, with its entrance framed with thorny brush.  On the west
+wall, you locate a small shaft of wood, like a short pole, mounted to the
+wall.
+
+Also here is the short shaft.
+
+>You pick up the short shaft.
+
+>        You move carefully through the door into a remarkably similar room.
+Terror
+        Feeling along the walls, you come across some interesting features of
+the room.  It is made of rough, hand-carved stone that occasionally pierces
+the skin on your hand as you feel across it.  You are able to find a door to
+what you decide to call the south wall of the room, and to the north, you
+locate a tunnel, with its entrance framed with thorny brush.  As you move
+along the west wall, your foot kicks two small stones.
+
+Also here are two small stones.
+
+>You pick up two small stones.
+
+>(Your score has increased by 10)
+        You strike the stones together over the torch you've dismounted from
+the wall.  Although it takes several tries, a tiny spark manages to land
+perfectly on the reeds.  After blowing a few times, your torch ignites.
+
+>You move north.
+The Gnarled Woods
+        You cannot see the walls or ceiling for the tangled mass of brush and
+trees that blocks out all existing forms of light.  The soft ground forms an
+impression beneath your weight as you move.  You can only feel your way along
+a rough pathway, which has forked out into four directions, to the front,
+behind you, and to your right and left.  You begin to realize that in the
+darkness you have lost all sense of direction and have succumbed to a feeling
+of crippling fear at the prospect of not knowing your way.          With the
+torch in hand, you can see your small path well.  There are two trails that
+lead in circles, but the main path leads on through to a room to the north.
+A card dangles from one of the branches.
+
+Also here are the King of Spades.
+
+>You pick up the King of Spades.
+
+>You move north.
+The Path to Fear
+        A small torch with a very small flame just barely lights the room to
+make out a space overgrown with the limbs of old, dead brush and gnarly
+trees.  A jagged path leads through the entangled mass, just beneath a large
+thorn bush, cut away into a small archway to the south.  The opening in the
+archway is just barely large enough to get through with brushing up against a
+minimal amount of thorns.
+
+>You move east.
+The Lair
+        A dark room, lit by the dim flickering light of flames from small
+torches on the walls, lays itself out in front of you with grim, almost
+reddish walls that give a foreboding appearance.  The northern wall of the
+large, stone room is broken by the presence of a large hearth that takes up a
+majority of the space.  An enormous creature crouches in front of the hearth,
+watching flames from a roaring fire flicker across.  A large iron gate is
+locked shut in the northwestern corner of the room.  Three other exits lead
+out, one to the east, one to the west, and one to the south.  Each is so dark
+as to not give any clue where it leads.
+The creature stands and stairs.
+
+>Give what?
+
+>You are carrying the King of Hearts, a rusty old shovel, the King of Clubs,
+the short shaft, two small stones and the King of Spades.
+
+>Your score is 30 out of a maximum of 90.  (33%)
+
+>Do you really want to quit? [Y/N]

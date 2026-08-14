@@ -74,6 +74,22 @@ counterpart prints a plausible wall description instead of a refusal. Carrying
 the finished mask in reads as success and silently costs 20 points. See
 *The Lost Tomb* below.
 
+**2026-08-14: *The Long Journey Home* wired, suite 239 rows, 239 PASS.** Next
+in the smallest-first order — `Journ2.taf`, 59,124 bytes, **3.90**, Danny
+Chabino, 20 June 2001. **UNFINISHABLE, 30/90** in 46 commands, so the row is
+anchored on the score line like *The Hangover*'s. Three independent walls, all
+provable from the dump: the ten `ACT type=4` awards include **three
+male/female twins**, so 90 is two mutually exclusive careers and 60 is anyone's
+arithmetic ceiling; **T22 steals the valve from T25** (identical four patterns,
+T22 unrestricted and at the lower index) in a room whose only exit is
+`gateTask=25`, making Rage a **one-way trap**; and **T76 `#6 start card game`
+has no dispatcher at all** — internal-label Command[0], no ALTCMDs, no event
+targets it, and the file has zero `ACT type=5` — which seals T77/T78/T79 and
+the whole endgame. The verdict does not even rest on those: **T86 `#17 the
+end`, the file's only `ACT type=6 v1=0`, is itself `where=0`**, the second file
+in the corpus with *The Hangover*'s exact shape. Two transferable findings came
+out of it — see *The Long Journey Home* below.
+
 **One open item, opened 2026-08-12: `harness/waitkey_audit.py` flags 18 wired
 rows as SUSPECT** — games with a `<waitkey>` whose row does not set
 `SCR_SKIP_WAITKEY=1`, and which have no blank filler line to spare, so a real
@@ -186,18 +202,18 @@ Two things came out of this wave beyond the rows:
   comment above `restr_object_in_place` in `screstrs.cpp`.
 
 **Parked again 2026-08-11 at the user's request.** Nothing is broken and
-nothing is half-finished — the suite is green at 238/238 and every wired game
-has all four artefacts. What remains is **16 unwired `.taf` files, 15 of them
+nothing is half-finished — the suite is green at 239/239 and every wired game
+has all four artefacts. What remains is **15 unwired `.taf` files, 14 of them
 v3.90 and 1 v4.00** (23 when this was written; *Camp Windy Lake : Part 2*,
 *Salutations* and *A Day at the Iachini House* went in on 2026-08-12,
-*La hija del relojero*, both *Veteran Knowledge* files and *The Lost Tomb* on
-2026-08-14); the table below is the original 29, with the six done in the third
-wave struck through and windy2, salutations, iachini, relojero, vetknow,
-vetknow2 and losttombv2 struck through after them. The sole remaining 4.00 file
-is `Vardock Bates.taf`, which is Spanish and 2.9 MB. **Next by size is
-`Journ2.taf`** (59,124 bytes, 3.90, *The Long Journey Home*) — but note that
-`The Town Of Azra.taf` above it is a second *file* of an already-wired game,
-not a second game.
+*La hija del relojero*, both *Veteran Knowledge* files, *The Lost Tomb* and
+*The Long Journey Home* on 2026-08-14); the table below is the original 29,
+with the six done in the third wave struck through and windy2, salutations,
+iachini, relojero, vetknow, vetknow2, losttombv2 and Journ2 struck through
+after them. The sole remaining 4.00 file is `Vardock Bates.taf`, which is
+Spanish and 2.9 MB. **Next by size is `mudergreatfalls.taf`** (59,896 bytes,
+3.90, *Murder In Great Falls*) — but note that `The Town Of Azra.taf` above it
+is a second *file* of an already-wired game, not a second game.
 
 **Two cautions about that list.** *Byte size does not compare across versions*:
 a 4.00 `.taf` is zlib-compressed and a 3.90 one is only XOR-obfuscated, so the
@@ -223,7 +239,7 @@ the manifest is already wired.
 | 52,290 | 4.00 | ~~`vetknow2.taf`~~ | ~~Veteran Knowledge [Version 2]~~ | **WIRED 2026-08-14** — three changed strings vs the above, byte-identical transcript |
 | 55,039 | 3.90 | ~~`Richard.taf`~~ | ~~Where Is Richard?~~ | **WIRED, third wave** |
 | 56,336 | 3.90 | ~~`losttombv2.taf`~~ | ~~The Lost Tomb~~ | **WIRED 2026-08-14 — WON 175/175** |
-| 59,124 | 3.90 | `Journ2.taf` | The Long Journey Home | |
+| 59,124 | 3.90 | ~~`Journ2.taf`~~ | ~~The Long Journey Home~~ | **WIRED 2026-08-14 — UNFINISHABLE, 30/90** |
 | 59,896 | 3.90 | `mudergreatfalls.taf` | Murder In Great Falls | |
 | 63,183 | 3.90 | `Vampire.taf` | The Vampire With A Conscience | |
 | 69,489 | 3.90 | `Merry_Murders.taf` | Merry Murders | |
@@ -661,6 +677,87 @@ and every other panel is an `ACT type=6 v1=2` death.
   statue before jamming its jaws with the pencil is T95, likewise. Both have a
   polite alternative task sitting next to them that does the right thing.
 
+## The Long Journey Home (2026-08-14) — three walls, and a task-list off-by-one
+
+`Journ2.taf`, 59,124 bytes, **3.90**, Danny Chabino, released 20 June 2001 —
+the next file in the smallest-first order. 27 rooms, 89 tasks, 37 objects,
+2 NPCs, 5 events, 6 variables. **UNFINISHABLE, 30 of a declared 90**, in 46
+commands; suite 238 → **239 rows, 239 PASS**. The row is anchored on the score
+line, the same convention *The Hangover* established. Full write-up in
+`notes/The_Long_Journey_Home_walkthrough.md`; the commented route with per-line
+task numbers is `goldens/journ2_solution.txt`.
+
+You wake in your own bed, walk through the bathroom mirror and descend a well
+into a stone underworld of rooms named Sorrow, Despaire, Anger, Rage, Fear and
+Terror. There is a card game with a creature down there, and past it the way
+home. Neither is reachable.
+
+**The declared 90 is two careers, not one.** Ten `ACT type=4` awards sum to 90,
+but T10/T11, T24/T25 and T74/T75 are **male/female twins** and move one is a
+gender prompt. 60 is anyone's arithmetic ceiling — and the female half is
+broken twice over: T24 is `where=0`, and T75 (unlike T74) has no `ACT type=0`
+to drop the King of Spades, while `EXIT room=20 N -> dest=19 gateTask=74
+wantDone=1` gates the Gnarled Woods' only way back on **T74 specifically**. A
+woman who lights her torch in Terror scores her ten points and never leaves.
+
+**Rage is a one-way trap because of a task-list off-by-one.** `T22 #12 turn
+valve debris here` (room 9, `restr=0`, index 22) and `T25 #12 release pressure`
+(+10, index 25) carry the *identical* four patterns —
+`* turn/open/release/use * valve *`. Forward first-match in
+`run_game_commands_common()` hands every phrasing to the unrestricted T22
+forever, debris cleared or not, which contradicts T25's own hint text. And
+Rage's only exit is `gateTask=25 wantDone=1`, with T17 additionally
+intercepting `n` while `VAR 5 [taskstate]` is unset — so `get on raft` in the
+Reservoir (T13) is a soft-lock.
+
+The transferable part is **how that was settled without a Wine session**. The
+same room holds two other success/failure sibling pairs and the author ordered
+*both* correctly: T18 (`remove debris` holding the mast) sits before T19
+(`remove debris` bare-handed, `ACT type=6 v1=2` — **instant death**), and T20
+(`mount pipe`, restricted on T23) before T21 (`#12 pipe fitting too hot`,
+unrestricted). Under any order but forward-first-match the Reservoir would kill
+every player on sight and the author's own hint menu would be lying in two
+places. Forward order is the only reading under which the file's hints are
+self-consistent — and under forward order the valve pair alone is backwards.
+**When a divergence question is really an ordering question, look for the
+sibling pairs elsewhere in the same file: an author who relied on the order
+three times and got it right twice has told you what the order is.** (Left
+unverified against `run390.exe` on purpose: it is 10 points inside a room with
+no exit, so it cannot move the verdict.)
+
+**The card game has no starter, and the ending is sealed anyway.** `T76 #6
+start card game` has three satisfiable restrictions and **nothing that can
+fire it**: Command[0] is the author's internal `#N` label with no ALTCMDs, no
+event targets it (raw `affTask`s are 33/85/82/83/1), and the file contains
+**zero `ACT type=5`** actions. T77/T78/T79 (+10) are all `RESTR type=2 v1=77`,
+so rooms 23–25, the NPC Joy and T85's +10 are unreachable. Then the closer:
+the file has exactly two `ACT type=6` actions — T19's death and `T86 #17 the
+end`, `ACT type=6 v1=0`, the one win — **and T86 is itself `where=0`**. The
+`WINTEXT` (which is where the author credit and release date come from) is dead
+data. This is the second file in the corpus with *The Hangover*'s exact shape;
+see `adrift4-where-norooms.md`.
+
+**Second transferable finding: literal task labels really are typeable.**
+`!goto lair` (T87) and `!random` (T88) are debug tasks the author shipped in
+the release, and typing them fires them — ADRIFT literal patterns match
+literally. So a real Runner player *could* type `#6 start card game` and start
+the card game by hand; only our headless front end refuses, because
+`os_ansi.cpp:286` skips script lines beginning with `#`. Worth knowing before
+declaring any `#`-labelled task "untypeable": here it changes nothing (the
+backdoor is worth 20 points and still stops at T86), but on another file it
+might.
+
+Parser notes, one replay each: the Creature eats your **first** move in the
+Lair (T5, one-shot, hands over the King of Hearts and does not move you); the
+King and Queen of Clubs are the only two of the eight cards with no `card`
+alias; the Gnarled Woods is an RNG maze (T68 needs `VAR 2 [direction] == 2`,
+re-rolled every turn by `EVENT 4` through T0) that takes three `left`s under
+the harness seed; T71 there claims `* *e *`, which matches **any word ending in
+"e" followed by another word**, so it is `get king of spades`, not `take`; and
+Terror is two near-identically described rooms with the shaft in one and the
+stones in the other. `T6 #8 slipnslide` has the ALTCMD `[*]` — *whatever* you
+type on the slippery slope slides you into Despaire.
+
 ## Where everything is
 
 | What | Where |
@@ -791,6 +888,24 @@ passing branch. Trust the trace and `score`, not the prose.
   takeable until the next turn (its `take` fails silently too). When points go
   missing, diff the `SCR_DUMP_TASKS` restrictions of the task that *did* fire
   against the one that should have.
+- **Two tasks with the same patterns: the lower index wins, always.**
+  `run_game_commands_common()` scans forward and the first match whose `Where`
+  and restrictions pass runs. Authors use this deliberately — the restricted
+  "success" task above the unrestricted "you can't do that yet" one — and when
+  they get it backwards the success task is *dead*, with a plausible failure
+  message covering for it (*The Long Journey Home*, T22 vs T25, −10). **Before
+  suspecting an engine divergence, look for the other sibling pairs in the same
+  file**: an author who relied on the order three times and got it right twice
+  has told you what the order is, and one of the pairs is usually a death task
+  whose reversal would make the game unplayable for everyone. That is cheaper
+  and more conclusive than a Wine session.
+- **A `#`-labelled task with no ALTCMDs is not automatically dead.** ADRIFT
+  literal command patterns match literally, so a player *can* type the author's
+  internal label — `!goto lair` / `!random` (debug tasks shipped in *The Long
+  Journey Home*) both fire. Only our headless front end refuses, because
+  `os_ansi.cpp:286` treats a script line beginning with `#` as a comment. To
+  prove a task genuinely unreachable you need all three: no matching pattern,
+  no event `affTask`, and no `ACT type=5` anywhere in the file.
 - **Determinism = combat reproducibility.** The Battle System is RNG-driven and
   the seed shim is what makes scores stable. "Doesn't seem to do any damage" is
   the faithful `damage = strength − defence ≤ 0` branch, not a bug.

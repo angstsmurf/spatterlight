@@ -1708,6 +1708,44 @@ vetknow2_solution.txt|vetknow2.taf|AND THE NEW WORLD CHAMPION IS|SCR_SKIP_WAITKE
 # well while holding the death mask is T33, `ACT type=6 v1=1`.  The mask goes
 # up inside the rucksack tied to the rope (T32) with Rupert winding (T36).
 losttomb_solution.txt|losttombv2.taf|you and Rupert start the trek back to camp.
+# The Long Journey Home (Danny Chabino, 20 June 2001) is UNFINISHABLE, and the
+# row is anchored on the score line for the same reason The Hangover's is.
+# You wake in your bedroom, step through the bathroom mirror and descend a well
+# into an underworld of rooms called Sorrow, Despaire, Anger, Rage, Fear and
+# Terror.  46 commands reach 30 of a declared 90, which is the ceiling of
+# legitimate play.  Three independent walls, all provable from the dump:
+#   (1) 90 IS TWO CAREERS, NOT ONE.  Ten `ACT type=4` awards sum to 90, but
+#       T10/T11, T24/T25 and T74/T75 are male/female twins and the game makes
+#       you pick on move one.  60 is the most anyone could bank -- and the
+#       female half is broken: T24 is `where=0` (runnable nowhere), and T75,
+#       unlike T74, has no `ACT type=0` to drop the King of Spades, while
+#       `EXIT room=20 N gateTask=74` gates the Gnarled Woods' only way back on
+#       T74 specifically.  A woman who enters Terror never leaves.  Play male.
+#   (2) RAGE IS A ONE-WAY TRAP.  T22 (room 9, restr=0, `#12 turn valve debris
+#       here`) and T25 (+10, `#12 release pressure`) carry the identical four
+#       patterns, and forward first-match in `run_game_commands_common()` hands
+#       every phrasing to the unrestricted T22 forever.  Rage's only exit is
+#       `gateTask=25 wantDone=1`, and T17 intercepts `n` while VAR 5 is unset,
+#       so boarding the raft in the Reservoir (T13) is a soft-lock.  The author
+#       got the same shape right at T20-before-T21 and at T18-before-T19 (where
+#       the reverse order would make `remove debris` instantly fatal to
+#       everyone), so this is an off-by-one in their task list, not an engine
+#       question.  The route never goes south from the Lair.
+#   (3) THE CARD GAME HAS NO STARTER AND THE ENDING IS SEALED.  T76 `#6 start
+#       card game` has only the author's internal label as Command[0], no
+#       ALTCMDs, no event targets it (affTasks 33/85/82/83/1) and the file has
+#       ZERO `ACT type=5` actions -- yet T77/T78/T79 all require it done, so
+#       rooms 23-25 and T85's +10 are unreachable.  And T86 `#17 the end`, the
+#       file's only `ACT type=6 v1=0`, is itself `where=0`: the WINTEXT can
+#       never print.  (A real Runner player could type `#6 start card game`
+#       literally -- `!goto lair` proves literal patterns fire -- but that only
+#       buys 20 points and still stops at T86.)
+# Parser notes: the Creature eats your first move in the Lair (T5, one-shot,
+# hands over the King of Hearts); the King of Clubs has no `card` alias; the
+# Gnarled Woods is an RNG maze (T68 needs VAR 2 == 2, re-rolled every turn by
+# EVENT 4) that takes three `left`s under this seed, and T71's `* *e *` steals
+# any word ending in "e", so it is `get king of spades` there, not `take`.
+journ2_solution.txt|Journ2.taf|Your score is 30 out of a maximum of 90.
 EOF
 }
 

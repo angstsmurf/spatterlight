@@ -1,0 +1,208 @@
+# The Long Journey Home (Journ2.taf) -- ADRIFT 3.90, English, 59,124 bytes.
+# Danny Chabino, released 20 June 2001 (the credit and the date are in the
+# file's own WINTEXT, which is never printed because the game cannot be won --
+# see below).  ifarchive .../games/adrift/journey.zip -> journey2/Journ2.taf;
+# games.manifest.tsv line 111 records no author.
+# 27 rooms, 89 tasks, 37 objects, 2 NPCs (the Creature, Joy), 5 events,
+# 6 variables.
+#
+# You wake in your own bedroom, walk through the bathroom mirror, and descend
+# a well into a stone underworld whose rooms are named Sorrow, Despaire,
+# Anger, Rage, Fear and Terror.  Somewhere down there is a card game with a
+# creature, and beyond it the way home.
+#
+# RESULT: **UNFINISHABLE**.  30 out of a declared maximum of 90, in 46
+# commands.  This is the honest ceiling of legitimate play; the reasons are
+# below and in notes/The_Long_Journey_Home_walkthrough.md.  The row is
+# therefore anchored on the score line, like the_hangover_solution.txt.
+#
+# ---------------------------------------------------------------------------
+# WHY 90 IS NOT REACHABLE BY ANYONE
+#
+# The file holds exactly ten `ACT type=4` awards summing to 90:
+#
+#   T69  +5   descend the well          T10  +10  climb out of Despaire (m)
+#   T11  +10  climb out of Despaire (f) T12  +5   chop the path open
+#   T74  +10  light the torch (m)       T75  +10  light the torch (f)
+#   T25  +10  release the pressure (m)  T24  +10  release the pressure (f)
+#   T79  +10  turn the cards over       T85  +10  drop the cards in the Void
+#
+# Three of those are GENDER TWINS -- T10/T11, T24/T25, T74/T75 -- and the game
+# asks you to pick male or female on the first move (VAR 1 [gender], room 10).
+# So no single playthrough can bank more than 60 whatever it does; 90 is the
+# sum of two mutually exclusive careers.  Of the 60, thirty more are behind
+# three separate dead ends:
+#
+#  (1) THE FEMALE HALF OF THE GAME IS BROKEN.  T24 (`#12 release pressure (f)`)
+#      is `where=0` -- ROOMLIST_NO_ROOMS, which `task_where_allows_run()` in
+#      sctasks.cpp answers with a flat `return FALSE`, i.e. the task is
+#      runnable NOWHERE.  Worse, T75 (the female torch, +10) has no `ACT
+#      type=0` at all where T74 has `ACT type=0 v1=13 v2=0 v3=21` -- the male
+#      torch drops the King of Spades into the Gnarled Woods and the female
+#      one does not -- and `EXIT room=20 N -> dest=19 gateTask=74 wantDone=1`
+#      gates the woods' only way back on T74 SPECIFICALLY.  A female player who
+#      walks into Terror can never walk out.  Play male.
+#
+#  (2) THE VALVE IN RAGE IS STOLEN, AND RAGE IS A ONE-WAY TRAP.  T22
+#      (`#12 turn valve debris here`, where=1 room=9, restr=0, rep=1) and T25
+#      (`#12 release pressure`, +10, where=1 room=9) carry the IDENTICAL four
+#      patterns -- `* turn * valve *`, `* open * valve *`, `* release * valve *`,
+#      `* use * valve *`.  `run_game_commands_common()` in scrunner.cpp scans
+#      forward and the first match whose restrictions pass wins, so T22 -- which
+#      has NO restrictions -- answers all four phrasings forever:
+#
+#          >open valve
+#          Through much vain effort, you begin to realize that the valve will
+#          not move with the debris in the way.
+#
+#      even with the debris removed and the pipe fittings mounted.  The author
+#      clearly meant T22 as the "you haven't cleared the debris yet" failure
+#      and simply put it at the wrong index; they got the same shape RIGHT one
+#      task earlier, where T20 (mount pipe, restricted on T23 done) sits BEFORE
+#      T21 (`#12 pipe fitting too hot`, unrestricted) and therefore wins.
+#
+#      Two more sibling pairs in this same room prove SCARE's forward order is
+#      what the author was building against, not a divergence: T18 (`remove
+#      debris`, restricted on holding the mast) sits before T19 (`remove
+#      debris` bare-handed, `ACT type=6 v1=2` -- INSTANT DEATH), and T20 before
+#      T21.  Under any other order the Reservoir would kill every player on
+#      sight and the author's own hint text ("First, close the valve to stop
+#      the release of steam.  Then, attach the pipe fittings") would be a lie.
+#      Under forward order that hint works and the T25 hint ("Make sure you've
+#      cleared the debris and mounted the pipe fittings.  Then, open the
+#      valve") is the one that is a lie.  It is an off-by-one in the task list,
+#      not an engine question.  (Not cross-checked against a real run390.exe;
+#      it costs 10 points inside a room you can never leave, so it cannot
+#      change the verdict either way.)
+#
+#      And it CANNOT be walked off: `EXIT room=9 N -> dest=7 gateTask=25
+#      wantDone=1` is Rage's only exit, and T17 additionally intercepts `n`
+#      while VAR 5 [taskstate] != 1, which only T25 ever sets.  Boarding the
+#      raft in the Reservoir (T13, `* get * raft *`) is a soft-lock.  THE ROUTE
+#      BELOW NEVER GOES SOUTH FROM THE LAIR.
+#
+#  (3) THE CARD GAME HAS NO STARTER, AND THE ENDING IS UNREACHABLE ANYWAY.
+#      T76 `#6 start card game` is where=1 room=1 with three satisfiable
+#      restrictions -- but its Command[0] is the author's own internal label and
+#      it has NO ALTCMDs, so no English phrase matches it.  Nothing else can
+#      reach it either: the file contains ZERO `ACT type=5` (execute task)
+#      actions, and none of the five events target it (their affTasks are 33,
+#      85, 82, 83 and 1, i.e. T32, T84, T81, T82, T0).  T77 (`give cards`),
+#      T78 and T79 (+10) are all `RESTR type=2 v1=77` = "task 76 must be done",
+#      so the whole endgame -- room 23 New Lair, room 24 Broad View, room 25
+#      The Void, T85's +10 -- is sealed off.  The route ends with `give cards`
+#      in the Lair to show what that looks like: the parser answers "Give
+#      what?", because T77 does not match and there is no "cards" object.
+#
+#      Even a player who cheats past it gains nothing.  There are exactly two
+#      `ACT type=6` actions in the file: T19's death, and T86 `#17 the end`,
+#      `ACT type=6 v1=0` -- the game's ONE win -- which is itself `where=0`.
+#      The WINTEXT quoted at the top of this file is dead data.
+#
+# A NOTE ON TYPING THE LABEL.  `!goto lair` (T87) and `!random` (T88) are
+# debug tasks the author shipped in the release, and they DO fire if typed --
+# literal ADRIFT command patterns match literally.  By the same token a real
+# Runner player could type `#6 start card game` and start the card game by
+# hand; only our headless front end refuses, because os_ansi.cpp:286 treats a
+# line beginning with `#` as a script comment.  That backdoor is worth 20
+# points (T79 + T85) and is not a solution, and it still ends at T86's
+# `where=0` wall, so the game is unwinnable with or without it.
+#
+# ---------------------------------------------------------------------------
+# THE 30 POINTS THAT ARE REAL
+#
+#   T69  +5   `down` the well, once the rope is tied and dropped
+#   T10  +10  `climb` out of Despaire, once `dig` has cut a foothold
+#   T12  +5   `chop brush with shovel` at the edge of the pit
+#   T74  +10  `strike stones` in Terror, holding the shaft and the stones
+#
+# Four parser notes, each of which cost a replay:
+#
+#  * THE CREATURE EATS YOUR FIRST MOVE IN THE LAIR.  T5 (male) / T4 (female)
+#    match all twenty direction words in room 1, fire once (`rep=0`), hand you
+#    the King of Hearts and do NOT move you.  The extra `s` below is that
+#    throwaway move.
+#  * THE KING AND QUEEN OF CLUBS HAVE NO `card` ALIAS.  obj5 and obj13 are the
+#    only two of the eight cards without one, so `take card` in Despaire finds
+#    nothing -- `take king of clubs` is required.
+#  * THE GNARLED WOODS IS AN RNG MAZE.  T68 moves you to Terror only while
+#    VAR 2 [direction] == 2, and EVENT 4 [change randoms] re-rolls it every
+#    turn through T0; T70 (`#14 wrong way`) is the fallback.  Under the
+#    harness's fixed seed it takes three `left`s.  Any of `left`/`right`/
+#    `forward`/`backward` works -- but NOT compass directions, and not much
+#    else either: T71 (`#14 use compass directions`) claims `* *e *`, which
+#    matches any word ending in "e" followed by another word, so `take king of
+#    spades` in that room is answered with "You can't seem to remember which
+#    way that direction is."  `get king of spades` gets through.
+#  * TERROR IS TWO ROOMS.  The shaft is in room 21 and the stones in room 22;
+#    `go through door` (T72/T73) shuttles between them and the descriptions are
+#    deliberately near-identical.  T74 needs BOTH held.
+#
+# The file contains no <waitkey> tag, so the row needs no SCR_SKIP_WAITKEY.
+#
+# --- The bedroom: pick a gender, then wait for the mirror ------------------
+# EVENT 0 [change mirror] is `starter=2 start=12..14` -- it runs T32 on a
+# random turn in that window and only then does the mirror become a doorway.
+# Taking anything in this room is T28, which is fatal.
+male
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+go through mirror
+#
+# --- The Island: rope down the well (+5) -----------------------------------
+n
+take rope
+tie rope to palm
+drop rope in well
+down
+#
+# --- The Lair: one wasted step buys the King of Hearts ---------------------
+s
+s
+#
+# --- Sorrow -> the slippery slope -> Despaire ------------------------------
+# T6 in room 3 has ALTCMD `[*]`, so whatever you type there slides you down
+# into Despaire and drops the shovel in after you.
+e
+se
+take shovel
+dig
+take king of clubs
+climb
+chop brush with shovel
+nw
+#
+# --- Back to the Lair, then west into Fear and the woods -------------------
+w
+w
+s
+left
+left
+left
+#
+# --- Terror: shaft in one room, stones in the other (+10) ------------------
+take shaft
+go through door
+take stones
+strike stones
+#
+# --- Out through the woods the torch just lit ------------------------------
+n
+get king of spades
+n
+e
+#
+# --- Nothing starts the card game -----------------------------------------
+give cards
+i
+score
