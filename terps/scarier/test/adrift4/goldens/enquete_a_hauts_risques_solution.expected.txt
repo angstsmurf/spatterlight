@@ -33,7 +33,8 @@ dossier et j'ai besoin de ton aide." déclare votre ami. "Ok Yannick. Je serai
 là dans une demi heure." dites-vous avant de raccrocher.  Vous êtes donc
 allongé sur votre lit. "Lèves-toi Lucas!" pensez-vous.
 
->(Your score has increased by 1)
+> se lever
+(Your score has increased by 1)
 Vous descendez de votre lit.
 
 Dans votre chambre
@@ -42,22 +43,28 @@ recouvert de moquette et dont les murs sont recouverts d'une tapisserie
 jaune), debout à proximité de votre lit. A l'Ouest, vous pouvez voir votre
 armoire; la table de nuit est située à l'Est. La sortie se trouve au Nord.
 
->Vous ouvrez les deux portes de votre armoire. Un jean, un pull et un sac à
+> ouvrir armoire
+Vous ouvrez les deux portes de votre armoire. Un jean, un pull et un sac à
 dos sont mis en évidence, sur l'une des étagères de l'armoire.
 
->(Your score has increased by 1)
+> prendre jean
+(Your score has increased by 1)
 Vous vous saisissez du jean, vous l'enfilez, puis vous insérez votre
 téléphone portable dans l'une des poches.
 
->(Your score has increased by 1)
+> prendre pull
+(Your score has increased by 1)
 Vous vous saisissez du pull puis vous l'enfilez.
 
->(Your score has increased by 1)
+> prendre sac à dos
+(Your score has increased by 1)
 Vous vous saisissez du sac à dos puis vous l'enfilez à votre dos.
 
->Vous ouvrez le sac à dos.
+> ouvrir sac à dos
+Vous ouvrez le sac à dos.
 
->Vous vous déplacez vers le Nord.
+> n
+Vous vous déplacez vers le Nord.
 
 Votre domicile
 A présent, vous vous trouvez dans l'entrée de votre domicile. Les murs sont
@@ -66,14 +73,16 @@ comme dans votre chambre). La salle de séjour se trouve au Nord; les
 escaliers permettant de se rendre à l'étage sont situés à l'Ouest; votre
 chambre se situe au Sud; la sortie se trouve à l'Est.
 
->(Your score has increased by 1)
+> e
+(Your score has increased by 1)
 Vous enfilez vos chaussures puis vous sortez de chez vous. Vous prenez alors
 votre voiture afin de vous rendre au commissariat.
 
 Devant le commissariat
 Vous arrivez devant le commissariat. L'entrée se trouve au Nord.
 
->Vous vous déplacez vers le Nord.
+> n
+Vous vous déplacez vers le Nord.
 
 L'accueil
 Vous vous trouvez à l'accueil du commissariat. Il s'agit d'un hall
@@ -81,14 +90,16 @@ relativement spacieux. A l'Est, vous pouvez un comptoir derrière lequel est
 assise une secrétaire. Une porte ouverte menant à un couloir se trouve au
 Nord; la sortie est située au Sud.
 
->Vous vous déplacez vers le Nord.
+> n
+Vous vous déplacez vers le Nord.
 
 Le couloir
 Vous êtes à présent dans un petit couloir (ni très long, ni très large).
 Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest;
 l'accueil se situe au Sud.
 
->Vous vous déplacez vers l'Ouest.
+> w
+Vous vous déplacez vers l'Ouest.
 
 Le bureau de Yannick
 Vous vous trouvez dans le bureau de Yannick. Cette pièce est identique à
@@ -97,7 +108,8 @@ différente. Le bureau se trouve au Nord; un fauteuil est placé au Sud; un
 placard est situé à l'Ouest; la sortie se trouve à l'Est.
 Yannick Vilon est ici.
 
->(Your score has increased by 1)
+> parler à yannick
+(Your score has increased by 1)
 "Salut Yannick!" dites-vous en regardant votre ami. "Ah te voilà enfin!"
 réplique Yannick en souriant. "Epargnes-moi tes réflexions à deux balles! Tu
 m'as déjà offert un réveil brutal..." rétorquez-vous. "Un réveil brutal à
@@ -133,7 +145,8 @@ mais cette fois, on dirait qu'il s'est débrouillé tout seul comme un grand!"
 dites-vous. "C'est ce que les preuves disent. Prends ce rapport et vas le
 montrer au chef." conseille votre collègue en vous tendant le rapport.
 
->(Your score has increased by 1)
+> prendre rapport
+(Your score has increased by 1)
 Vous prenez le rapport: "Voici venir le moment que j'attends depuis cinq
 longues années. Ce malfrat va finir ses jours là où il doit être,
 c'est-à-dire derrière les barreaux." dites-vous. "Vas-y Lucas. On se reverra
@@ -146,14 +159,16 @@ différente. Le bureau se trouve au Nord; un fauteuil est placé au Sud; un
 placard est situé à l'Ouest; la sortie se trouve à l'Est.
 Yannick Vilon est ici.
 
->Vous vous déplacez vers l'Est.
+> e
+Vous vous déplacez vers l'Est.
 
 Le couloir
 Vous êtes à présent dans un petit couloir (ni très long, ni très large).
 Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest;
 l'accueil se situe au Sud.
 
->Vous vous déplacez vers le Nord.
+> n
+Vous vous déplacez vers le Nord.
 
 L'ascenseur
 Vous voilà dans l'ascenseur! Tapez "premier étage" pour vous rendre au
@@ -161,13 +176,15 @@ premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
 "troisième étage" pour vous rendre au troisième étage; tapez
 "rez-de-chaussée" pour regagner le rez-de-chaussée.
 
->Le premier étage
+> premier étage
+Le premier étage
 Vous arrivez au premier étage. Il s'agit d'un petit couloir, similaire à
 celui du rez-de-chaussée. Le bureau du personnel se trouve à l'Ouest; celui
 du commissaire Guersant est situé au Nord; la salle de repos se situe à
 l'Est; l'ascenseur se trouve au Sud.
 
->(Your score has increased by 1)
+> n
+(Your score has increased by 1)
 Vous vous déplacez vers le Nord. Vous entrez en hâte dans le bureau du
 commissaire: "Qui a-t-il Lucas?" demande votre chef. Vous lui tendez le
 rapport. Après en avoir examiné le contenu, le commissaire vous parle en ces
@@ -187,7 +204,8 @@ du commissaire est placé au Nord; un fauteuil est situé à l'Est; la sortie se
 trouve au Sud.
 Guersant est ici.
 
->Vous vous déplacez vers le Sud.
+> s
+Vous vous déplacez vers le Sud.
 
 Le premier étage
 Vous arrivez au premier étage. Il s'agit d'un petit couloir, similaire à
@@ -195,7 +213,8 @@ celui du rez-de-chaussée. Le bureau du personnel se trouve à l'Ouest; celui
 du commissaire Guersant est situé au Nord; la salle de repos se situe à
 l'Est; l'ascenseur se trouve au Sud.
 
->Vous vous déplacez vers l'Ouest.
+> w
+Vous vous déplacez vers l'Ouest.
 
 Le bureau du personnel
 Vous vous trouvez dans le bureau du personnel. Il s'agit d'une vaste pièce
@@ -203,7 +222,8 @@ dans laquelle sont installés une dizaine de postes (bureaux et ordinateurs).
 La sortie se trouve à l'Est.
 Patrick Gini est ici.  Martin Viguier est ici.
 
->(Your score has increased by 1)
+> parler à patrick
+(Your score has increased by 1)
 Vous vous approchez de Patrick: "J'aurais besoin de toi Patrick."
 annoncez-vous. "Que puis-je faire pour toi?" demande votre collègue. "Nous
 sommes en possession de nouveaux éléments concernant l'affaire Roberto Amato.
@@ -214,7 +234,8 @@ questionnez-vous. "Pas de problème Lucas!" répond Patrick. "Merci Patrick.
 Rejoins-moi dans le bureau de Yannick dès que possible." dites-vous. La
 sortie se trouve à l'Est.
 
->Vous vous déplacez vers l'Est.
+> e
+Vous vous déplacez vers l'Est.
 
 Le premier étage
 Vous arrivez au premier étage. Il s'agit d'un petit couloir, similaire à
@@ -222,7 +243,8 @@ celui du rez-de-chaussée. Le bureau du personnel se trouve à l'Ouest; celui
 du commissaire Guersant est situé au Nord; la salle de repos se situe à
 l'Est; l'ascenseur se trouve au Sud.
 
->Vous vous déplacez vers le Sud.
+> s
+Vous vous déplacez vers le Sud.
 
 L'ascenseur
 Vous voilà dans l'ascenseur! Tapez "premier étage" pour vous rendre au
@@ -230,14 +252,16 @@ premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
 "troisième étage" pour vous rendre au troisième étage; tapez
 "rez-de-chaussée" pour regagner le rez-de-chaussée.
 
->Vous regagnez le rez-de-chaussée.
+> rez-de-chaussée
+Vous regagnez le rez-de-chaussée.
 
 Le couloir
 Vous êtes à présent dans un petit couloir (ni très long, ni très large).
 Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest;
 l'accueil se situe au Sud.
 
->Vous vous déplacez vers l'Ouest.  Vous entrez dans le bureau de Yannick.
+> w
+Vous vous déplacez vers l'Ouest.  Vous entrez dans le bureau de Yannick.
 Celui-ci est présent, ainsi que votre collègue Patrick. Vous prenez la
 parole: "Vous êtes prêts les gars?" demandez-vous. "Oui Lucas." répond
 Yannick. "Je vais chercher mon arme de service dans mon bureau et je vous
@@ -248,27 +272,33 @@ Vous êtes à présent dans un petit couloir (ni très long, ni très large).
 Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest;
 l'accueil se situe au Sud.
 
->Vous vous déplacez vers l'Est.
+> e
+Vous vous déplacez vers l'Est.
 
 Votre bureau
 Vous pénétrez dans votre bureau. Il s'agit d'une pièce relativement étroite.
 Au Nord, vous pouvez voir un placard; le bureau se trouve à l'Est; un
 fauteuil est situé au Sud; le couloir se situe à l'Ouest.
 
->Vous ouvrez le placard.  Votre arme de service est  dans le placard.
+> ouvrir placard
+Vous ouvrez le placard.  Votre arme de service est  dans le placard.
 
->Vous prenez votre arme de service.
+> prendre arme
+Vous prenez votre arme de service.
 
->Vous enlevez votre arme de service.
+> take off arme de service
+Vous enlevez votre arme de service.
 
->Vous vous déplacez vers l'Ouest.
+> w
+Vous vous déplacez vers l'Ouest.
 
 Le couloir
 Vous êtes à présent dans un petit couloir (ni très long, ni très large).
 Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest;
 l'accueil se situe au Sud.
 
->(Your score has increased by 1)
+> w
+(Your score has increased by 1)
 Vous entrez une nouvelle fois dans le bureau de votre ami Yannick: "C'est bon
 les gars,  on peut y aller." dites-vous. "Ok Lucas. Allons coffrer ce gars!"
 répond Yannick. Vous sortez du bureau puis vous quittez le commissariat,
@@ -281,7 +311,8 @@ trouvez dans une petite cour. La porte d'entrée de la maison se trouve au
 Nord.
 Yannick Vilon est ici.  Patrick Gini est ici.
 
->(Your score has increased by 1)
+> n
+(Your score has increased by 1)
 Vous frappez à la porte. Un grand homme barbu vient vous ouvrir: "Qu'est-ce
 que c'est?" demande le barbu. "Vous êtes Roberto Amato?" interroge Patrick.
 "Ouais c'est moi. Qui me demande?" "Inspecteurs Lucas Label, Yannick Vilon et
@@ -306,14 +337,16 @@ deux collègues se lancent alors à la poursuite de Roberto Amato. Quant à
 vous, vous parvenez à vous relever, malgré un important mal de tête. L'entrée
 de la maison du mafieux se trouve au Nord.
 
->Vous vous déplacez vers le Nord.
+> n
+Vous vous déplacez vers le Nord.
 
 Le domicile de Roberto Amato
 A présent, vous vous trouvez dans l'entrée du domicile de Roberto Amato. Il
 s'agit d'un petit couloir. Le sol est carrelé; les murs sont recouverts d'une
 tapisserie blanche. Le salon se trouve au Nord; la sortie est située au Sud.
 
->Vous vous déplacez vers le Nord.
+> n
+Vous vous déplacez vers le Nord.
 
 Le salon
 Vous arrivez dans le salon du mafieux. Ici, vous retrouvez les mêmes
@@ -322,17 +355,21 @@ vous pouvez voir un canapé; un meuble supportant une télévision est placé à
 l'Ouest, contre le mur. La cuisine se trouve au Nord; l'entrée est située au
 Sud.
 
->Ce canapé est plus ou moins usé.  Le magazine pornographique est sur le
+> x canapé
+Ce canapé est plus ou moins usé.  Le magazine pornographique est sur le
 canapé.
 
->(Your score has increased by 1)
+> prendre magazine pornographique
+(Your score has increased by 1)
 Vous prenez le magazine pornographique.
 
->"Ce magazine prouve que notre homme est un amateur de pornographie. Certaines
+> x magazine pornographique
+"Ce magazine prouve que notre homme est un amateur de pornographie. Certaines
 pages de ce magazine sont déchirées. Cela pourrait servir à prouver que
 Roberto Amato nit faire face à des pulsions." pensez-vous
 
->Vous vous déplacez vers le Nord.
+> n
+Vous vous déplacez vers le Nord.
 
 La cuisine
 Vous pénétrez dans la cuisine. Différents meubles sont installés dans cette
@@ -342,33 +379,41 @@ alignés à l'Ouest, contre le mur (du Nord-Ouest au Sud-Ouest). Les escaliers
 permettant de se rendre à l'étage se trouvent au Nord; le salon est situé au
 Sud.
 
->Il s'agit d'une longue table en verre.  Un passeport falsifié est sur la
+> x table
+Il s'agit d'une longue table en verre.  Un passeport falsifié est sur la
 table.
 
->(Your score has increased by 1)
+> prendre passeport falsifié
+(Your score has increased by 1)
 Vous prenez le passeport falsifié.
 
->Il s'agit d'un passeport au nom de Bob Mato. "Amato ne s'est pas cassé la
+> x passeport falsifié
+Il s'agit d'un passeport au nom de Bob Mato. "Amato ne s'est pas cassé la
 tête pour trouver ce faux nom!" pensez-vous.
 
->Vous ouvrez le réfrigérateur.  Une bouteille est  dans le réfrigérateur.
+> ouvrir réfrigérateur
+Vous ouvrez le réfrigérateur.  Une bouteille est  dans le réfrigérateur.
 
->Il s'agit d'une bouteille de vin rouge.
+> x bouteille
+Il s'agit d'une bouteille de vin rouge.
 
->(Your score has increased by 1)
+> prendre bouteille
+(Your score has increased by 1)
 Vous prenez la bouteille. "Avec un peu de chance, nous trouverons l'ADN de ce
 cher Roberto sur cette bouteille vide. Cet élément pourrait alors
 complémenter les trouvailles faites par les experts de la police
 scientifique." pensez-vous.
 
->Vous montez les escaliers.
+> n
+Vous montez les escaliers.
 
 A l'étage
 Vous arrivez à l'étage. Vous vous trouvez sur un palier. La chambre du
 mafieux se trouve au Nord; la salle de bain est située à l'Ouest; les
 escaliers permettant de regagner la cuisine se situent au Sud.
 
->(Your score has increased by 1)
+> n
+(Your score has increased by 1)
 Au moment où vous alliez franchir la porte de la chambre, votre téléphone
 portable se met à sonner. Vous décrochez: "Allo." dites-vous. "Lucas? C'est
 Yannick." "Salut Yannick. As-tu arrêté Amato?" demandez-vous. "Oui je l'ai
@@ -386,25 +431,31 @@ blanche orne les murs. Le lit du malfrat est placé à l'Est, le long du mur;
 une table de nuit se trouve au Nord; une armoire est située à l'Ouest. La
 sortie se trouve au Sud.
 
->Vous ouvrez la table de nuit.  Un sachet de drogue est  dans la table de
+> ouvrir table de nuit
+Vous ouvrez la table de nuit.  Un sachet de drogue est  dans la table de
 nuit.
 
->(Your score has increased by 1)
+> prendre sachet de drogue
+(Your score has increased by 1)
 Vous prenez le sachet de drogue.
 
->Vous ouvrez l' armoire.  Une batte de baseball est  dans l' armoire.
+> ouvrir armoire
+Vous ouvrez l' armoire.  Une batte de baseball est  dans l' armoire.
 
->(Your score has increased by 1)
+> prendre batte de baseball
+(Your score has increased by 1)
 Vous prenez la batte de baseball.
 
->Vous vous déplacez vers le Sud.
+> s
+Vous vous déplacez vers le Sud.
 
 A l'étage
 Vous arrivez à l'étage. Vous vous trouvez sur un palier. La chambre du
 mafieux se trouve au Nord; la salle de bain est située à l'Ouest; les
 escaliers permettant de regagner la cuisine se situent au Sud.
 
->Vous descendez les escaliers.
+> s
+Vous descendez les escaliers.
 
 La cuisine
 Vous pénétrez dans la cuisine. Différents meubles sont installés dans cette
@@ -414,7 +465,8 @@ alignés à l'Ouest, contre le mur (du Nord-Ouest au Sud-Ouest). Les escaliers
 permettant de se rendre à l'étage se trouvent au Nord; le salon est situé au
 Sud.
 
->Vous vous déplacez vers le Sud.
+> s
+Vous vous déplacez vers le Sud.
 
 Le salon
 Vous arrivez dans le salon du mafieux. Ici, vous retrouvez les mêmes
@@ -423,14 +475,16 @@ vous pouvez voir un canapé; un meuble supportant une télévision est placé à
 l'Ouest, contre le mur. La cuisine se trouve au Nord; l'entrée est située au
 Sud.
 
->Vous vous déplacez vers le Sud.
+> s
+Vous vous déplacez vers le Sud.
 
 Le domicile de Roberto Amato
 A présent, vous vous trouvez dans l'entrée du domicile de Roberto Amato. Il
 s'agit d'un petit couloir. Le sol est carrelé; les murs sont recouverts d'une
 tapisserie blanche. Le salon se trouve au Nord; la sortie est située au Sud.
 
->(Your score has increased by 1)
+> s
+(Your score has increased by 1)
 "Cette fois, je te tiens Amato. Je vais t'envoyer moisir en prison pour le
 reste de ta misérable vie." affirmez-vous en sortant du domicile du criminel.
 Vous reprenez la route, en direction du commissariat.
@@ -438,7 +492,8 @@ Vous reprenez la route, en direction du commissariat.
 Devant le commissariat
 Vous arrivez devant le commissariat. L'entrée se trouve au Nord.
 
->Vous vous déplacez vers le Nord.
+> n
+Vous vous déplacez vers le Nord.
 
 L'accueil
 Vous vous trouvez à l'accueil du commissariat. Il s'agit d'un hall
@@ -446,14 +501,16 @@ relativement spacieux. A l'Est, vous pouvez un comptoir derrière lequel est
 assise une secrétaire. Une porte ouverte menant à un couloir se trouve au
 Nord; la sortie est située au Sud.
 
->Vous vous déplacez vers le Nord.
+> n
+Vous vous déplacez vers le Nord.
 
 Le couloir
 Vous êtes à présent dans un petit couloir (ni très long, ni très large).
 Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest;
 l'accueil se situe au Sud.
 
->Vous vous déplacez vers le Nord.
+> n
+Vous vous déplacez vers le Nord.
 
 L'ascenseur
 Vous voilà dans l'ascenseur! Tapez "premier étage" pour vous rendre au
@@ -461,13 +518,15 @@ premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
 "troisième étage" pour vous rendre au troisième étage; tapez
 "rez-de-chaussée" pour regagner le rez-de-chaussée.
 
->Le deuxième étage
+> deuxième étage
+Le deuxième étage
 Vous arrivez au deuxième étage, un étage réservé aux interrogatoires. Vous
 pouvez voir trois portes: à l'Ouest, la porte menant à la salle 1; au Nord,
 la porte menant à la salle 2; à l'Est, celle menant à la salle 3. L'ascenseur
 se trouve au Sud.
 
->(Your score has increased by 1)
+> n
+(Your score has increased by 1)
 Vous vous déplacez vers le Nord.  Vous entrez dans la salle 2. Patrick,
 Yannick et Roberto Amato sont présents. Vous prenez la parole: "Tu es foutus
 Roberto! J'ai perquisitionné ton domicile. J'y ai trouvé un certain nombre
@@ -483,7 +542,8 @@ idée." répondez-vous. "Quant à toi, je te conseille de te tenir à carreaux!"
 dit Yannick en regardant Roberto. Votre ami quitte alors la pièce suivi par
 Patrick et Roberto. La sortie se trouve au Sud.
 
->Vous vous déplacez vers le Sud.
+> s
+Vous vous déplacez vers le Sud.
 
 Le deuxième étage
 Vous arrivez au deuxième étage, un étage réservé aux interrogatoires. Vous
@@ -491,7 +551,8 @@ pouvez voir trois portes: à l'Ouest, la porte menant à la salle 1; au Nord,
 la porte menant à la salle 2; à l'Est, celle menant à la salle 3. L'ascenseur
 se trouve au Sud.
 
->Vous vous déplacez vers le Sud.
+> s
+Vous vous déplacez vers le Sud.
 
 L'ascenseur
 Vous voilà dans l'ascenseur! Tapez "premier étage" pour vous rendre au
@@ -499,13 +560,15 @@ premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
 "troisième étage" pour vous rendre au troisième étage; tapez
 "rez-de-chaussée" pour regagner le rez-de-chaussée.
 
->Le premier étage
+> premier étage
+Le premier étage
 Vous arrivez au premier étage. Il s'agit d'un petit couloir, similaire à
 celui du rez-de-chaussée. Le bureau du personnel se trouve à l'Ouest; celui
 du commissaire Guersant est situé au Nord; la salle de repos se situe à
 l'Est; l'ascenseur se trouve au Sud.
 
->(Your score has increased by 1)
+> n
+(Your score has increased by 1)
 Vous vous déplacez vers le Nord.  Vous entrez dans le bureau du commissaire
 Guersant. Tout le monde est présent: Yannick, Patrick, Roberto et le
 commissaire. "Ah! Vous voilà enfin Lucas! Montrez-nous les éléments que vous
@@ -513,7 +576,8 @@ avez rapporté de chez ce cher Roberto Amato!" vous ordonne le chef. Pour
 montrer un objet, tapez "utiliser" puis le nom de l'objet que vous souhaitez
 montrer.
 
->(Your score has increased by 1)
+> utiliser sachet de drogue
+(Your score has increased by 1)
 Vous montrez le sachet de drogue: "Où vous êtes-vous procuré cette drogue?"
 demandez-vous en regardant le malfrat. "Tu voudrais bien le savoir, salopard
 de flic!" répond Amato en riant. "Laisses-moi deviner. Tu es impliqué dans un
@@ -522,7 +586,8 @@ trafic de drogue." supposez-vous. "Il faudra le prouver Label et crois-moi,
 pas, nous trouverons des preuves." assure le commissaire en prenant le sachet
 de drogue.
 
->(Your score has increased by 1)
+> utiliser batte de baseball
+(Your score has increased by 1)
 Vous montrez la batte de baseball: "Voici ce que j'ai trouvé dans l'armoire
 de notre homme. Cette batte ne serait-elle pas l'arme qui a été utilisée pour
 tuer Diana Marca?" interrogez-vous. "Tu n'es vraiment qu'un sale flic Label!
@@ -532,14 +597,16 @@ lieux de fond en comble." déclare le commissaire Guersant. "Et vous, sachez
 que je n'irai jamais en prison!" réplique le malfrat. "Nous verrons cela."
 dit le commissaire en prenant la batte.
 
->(Your score has increased by 1)
+> utiliser bouteille
+(Your score has increased by 1)
 Vous montrez la bouteille: "Les experts de la police scientifique pourront
 effectuer des analyses ADN sur cette bouteille. Ils seront alors en mesure de
 comparer les résultats obtenus avec les échantillons prélevés sur le corps de
 Diana Marca." dites-vous. "Vous avez raison Lucas." répond le commissaire en
 prenant la bouteille.
 
->(Your score has increased by 1)
+> utiliser magazine pornographique
+(Your score has increased by 1)
 Vous montrez le magazine pornographique quelque peu déchiré: "Alors comme ça,
 on passe ses nerfs sur les magazines?" dites-vous en regardant le mafieux.
 "Fermes-la Label!" rétorque Roberto. "Il me semble t'avoir déjà conseillé de
@@ -550,7 +617,8 @@ ses pulsions." constate Patrick. "Ce magazine ne constituera pas un réel
 officier de police à la liste des chefs d'accusations." affirme Guersant en
 se saisissant du magazine.
 
->(Your score has increased by 1)
+> utiliser passeport falsifié
+(Your score has increased by 1)
 Vous montrez le passeport falsifié: "On dirait que notre homme avait projeté
 de quitter le pays." dites-vous. "Pourquoi voulez-vous nous fuir? Avez-vous
 quelque chose à vous reprocher?" demande Patrick en fixant Roberto du regard.
@@ -567,7 +635,8 @@ obtiendrons les résultats de ces analyses." "Que va-t-on faire de lui en
 attendant les résultats?" demandez-vous. "Conduisez-le en cellule. Je vous
 donne la clé." répond le commissaire. Votre chef vous tend une clé.
 
->(Your score has increased by 1)
+> prendre clé
+(Your score has increased by 1)
 Vous prenez la clé. Le commissaire prend alors la parole: "Enfermez-le dans
 la cellule 3." dit-il en vous regardant. "D'accord chef!" répondez-vous. Au
 moment où vous alliez attraper Roberto par le bras, celui-ci s'écrie: "Ne me
@@ -597,7 +666,8 @@ commissaire, suivi de près par Amato. "Allez-y Lucas. N'oubliez pas de me
 rapporter la clé dès que vous aurez enfermé ce mafieux." vous rappelle le
 chef. "Ce sera fait chef." répondez-vous. La sortie se trouve au Sud.
 
->Vous vous déplacez vers le Sud.
+> s
+Vous vous déplacez vers le Sud.
 
 Le premier étage
 Vous arrivez au premier étage. Il s'agit d'un petit couloir, similaire à
@@ -605,7 +675,8 @@ celui du rez-de-chaussée. Le bureau du personnel se trouve à l'Ouest; celui
 du commissaire Guersant est situé au Nord; la salle de repos se situe à
 l'Est; l'ascenseur se trouve au Sud.
 
->Vous vous déplacez vers le Sud.
+> s
+Vous vous déplacez vers le Sud.
 
 L'ascenseur
 Vous voilà dans l'ascenseur! Tapez "premier étage" pour vous rendre au
@@ -613,13 +684,15 @@ premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
 "troisième étage" pour vous rendre au troisième étage; tapez
 "rez-de-chaussée" pour regagner le rez-de-chaussée.
 
->Le troisième étage
+> troisième étage
+Le troisième étage
 Vous arrivez au troisième étage, un étage appelé "étage des cellules". Vous
 vous trouvez sur un palier. La porte menant aux cellules se trouve à l'Ouest;
 l'ascenseur est situé au Sud.
 Yannick Vilon est ici.  Roberto Amato est ici.
 
->Vous ouvrez la porte puis vous vous retournez vers Yannick: "Le grand moment
+> déverrouiller porte
+Vous ouvrez la porte puis vous vous retournez vers Yannick: "Le grand moment
 est enfin arrivé!" dites-vous en souriant. "Je te conseille de savourer ce
 moment de bonheur Label car tout se paie dans la vie." assure le malfrat.
 "Serait-ce une menace?" interrogez-vous. "C'est une affirmation. Crois-moi,
@@ -641,7 +714,8 @@ de rangement." répond Yannick. "D'accord. On se recontacte plus tard."
 dites-vous. Yannick vous serre la main: "Pas de problème mon pote!"
 s'exclame-t-il avant de s'éloigner. L'ascenseur se trouve au Sud.
 
->Vous vous déplacez vers le Sud.
+> s
+Vous vous déplacez vers le Sud.
 
 L'ascenseur
 Vous voilà dans l'ascenseur! Tapez "premier étage" pour vous rendre au
@@ -649,13 +723,15 @@ premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
 "troisième étage" pour vous rendre au troisième étage; tapez
 "rez-de-chaussée" pour regagner le rez-de-chaussée.
 
->Le premier étage
+> premier étage
+Le premier étage
 Vous arrivez au premier étage. Il s'agit d'un petit couloir, similaire à
 celui du rez-de-chaussée. Le bureau du personnel se trouve à l'Ouest; celui
 du commissaire Guersant est situé au Nord; la salle de repos se situe à
 l'Est; l'ascenseur se trouve au Sud.
 
->(Your score has increased by 1)
+> n
+(Your score has increased by 1)
 Vous vous déplacez vers le Nord.  Vous entrez dans le bureau du commissaire.
 Le chef est là, un sourire au bout des lèvres: "Toutes mes félicitations
 Lucas! Nous en aurons bientôt fini avec Roberto Amato!" dit-il. "C'est ce que
@@ -671,7 +747,8 @@ nouveau." 'Je n'y manquerai pas Lucas." assure le chef. "Merci chef. Bonne
 soirée." souhaitez-vous. "Vous de même." répond le commissaire. La sortie se
 trouve au Sud.
 
->Vous vous déplacez vers le Sud.
+> s
+Vous vous déplacez vers le Sud.
 
 Le premier étage
 Vous arrivez au premier étage. Il s'agit d'un petit couloir, similaire à
@@ -679,7 +756,8 @@ celui du rez-de-chaussée. Le bureau du personnel se trouve à l'Ouest; celui
 du commissaire Guersant est situé au Nord; la salle de repos se situe à
 l'Est; l'ascenseur se trouve au Sud.
 
->Vous vous déplacez vers le Sud.
+> s
+Vous vous déplacez vers le Sud.
 
 L'ascenseur
 Vous voilà dans l'ascenseur! Tapez "premier étage" pour vous rendre au
@@ -687,14 +765,16 @@ premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
 "troisième étage" pour vous rendre au troisième étage; tapez
 "rez-de-chaussée" pour regagner le rez-de-chaussée.
 
->Vous regagnez le rez-de-chaussée.
+> rez-de-chaussée
+Vous regagnez le rez-de-chaussée.
 
 Le couloir
 Vous êtes à présent dans un petit couloir (ni très long, ni très large).
 Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest;
 l'accueil se situe au Sud.
 
->Vous vous déplacez vers le Sud.
+> s
+Vous vous déplacez vers le Sud.
 
 L'accueil
 Vous vous trouvez à l'accueil du commissariat. Il s'agit d'un hall
@@ -702,7 +782,8 @@ relativement spacieux. A l'Est, vous pouvez un comptoir derrière lequel est
 assise une secrétaire. Une porte ouverte menant à un couloir se trouve au
 Nord; la sortie est située au Sud.
 
->(Your score has increased by 1)
+> s
+(Your score has increased by 1)
 Vous vous déplacez vers le Sud.  Vous quittez le commissariat puis vous vous
 dirigez vers votre domicile. Après un quart d'heure de trajet, vous arrivez à
 bon port.  "Stéphanie? Morgane?" appelez-vous en entrant dans votre demeure.
@@ -716,7 +797,8 @@ comme dans votre chambre). La salle de séjour se trouve au Nord; les
 escaliers permettant de se rendre à l'étage sont situés à l'Ouest; votre
 chambre se situe au Sud; la sortie se trouve à l'Est.
 
->(Your score has increased by 1)
+> s
+(Your score has increased by 1)
 Vous vous déplacez vers le Sud.  Vous sursautez en entrant dans votre
 chambre: vous apercevez Stéphanie, inanimée sur le sol. Votre premier réflexe
 est de vous précipiter vers elle: "Stéphanie? Oh mon dieu! Parles-moi ma
@@ -743,7 +825,8 @@ multiples plaies étendues sur tout le corps de votre fille: "Je coincerai
 celui qui t'a fait ça! Je te le promets ma chérie!" promettez-vous. La sortie
 se trouve au Nord.
 
->(Your score has increased by 1)
+> n
+(Your score has increased by 1)
 Vous vous déplacez vers le Nord.  Au moment où vous sortez de votre chambre,
 votre téléphone se met à sonner. Vous décrochez, tremblant comme une feuille:
 "Ici Label." dites-vous timidement. "Salut Lucas! C'est Yannick! Il y a du
@@ -757,7 +840,8 @@ comme dans votre chambre). La salle de séjour se trouve au Nord; les
 escaliers permettant de se rendre à l'étage sont situés à l'Ouest; votre
 chambre se situe au Sud; la sortie se trouve à l'Est.
 
->(Your score has increased by 1)
+> e
+(Your score has increased by 1)
 "Qui est le meurtrier de Stéphanie? Pourquoi ma fille est-elle morte? Où sont
 Erica et Morgane? Pourquoi ce salopard m'a-t-il demandé de me rendre à Orly?
 Je trouverai les réponses à toutes ces questions. Cependant, je vais être
@@ -771,7 +855,8 @@ vous arrivez enfin à destination.
 Devant l'aéroport d'Orly
 Vous arrivez devant l'aéroport. L'entrée se trouve au Nord.
 
->Vous vous déplacez vers le Nord.
+> n
+Vous vous déplacez vers le Nord.
 
 Le hall d'entrée
 Vous pénétrez dans le hall d'entrée de l'aéroport. Quelques personnes vont et
@@ -779,7 +864,8 @@ viennent dans ce hall. Le nombre peu élevé d'individus renforce l'aspect
 vaste de l'endroit. Les guichets permettant d'enregistrer les bagages sont
 situés au Nord; la sortie se trouve au Sud.
 
->Vous vous déplacez vers le Nord.
+> n
+Vous vous déplacez vers le Nord.
 
 Les guichets
 Vous arrivez dans une vaste pièce dans laquelle sont installés les différents
@@ -791,21 +877,25 @@ dont le numéro commence par le chiffre 2... Les guichets sont numérotés de 1
 à 9. Pour vous présenter devant un guichet, tapez "guichet" puis le numéro du
 guichet auquel vous souhaitez accéder.
 
->Vous vous présentez devant le guichet 7. Une jeune femme blonde se tient
+> guichet 7
+Vous vous présentez devant le guichet 7. Une jeune femme blonde se tient
 derrière le guichet: "Bonjour monsieur. Désirez-vous enregistrer des
 bagages?" vous demande la femme. "Non mademoiselle. Je n'ai aucun bagage."
 répondez-vous. "Avez-vous une réservation sur l'un de nos vols?" questionne
 la jeune femme. Tapez "oui" ou "non" pour répondre à la question.
 
->(Your score has increased by 1)
+> oui
+(Your score has increased by 1)
 "Oui." dites-vous timidement. "Sur quel vol?" interroge l'agent d'accueil.
 Tapez le numéro du vol auquel vous souhaitez accéder.
 
->"Vol 711." répondez-vous. "A quel nom?" interroge la jeune femme. Tapez
+> 711
+"Vol 711." répondez-vous. "A quel nom?" interroge la jeune femme. Tapez
 "Lucas Label" pour donner votre nom; tapez "je refuse" pour refuser de vous
 identifier.
 
->(Your score has increased by 1)
+> Lucas Label
+(Your score has increased by 1)
 "Je suis Lucas Label." dites-vous. "Lucas Label? Un homme est passé il y a
 quelques minutes. Il a payé une réservation au nom de Lucas Label pour le vol
 711." affirme la jeune femme. "Quoi? A quoi ressemblait-il?" demandez-vous.
@@ -837,7 +927,8 @@ ordonne-t-elle. L'agent de sécurité se circule afin de vous libérer le
 passage. Les escaliers permettant d'accéder aux salles d'embarquement se
 trouvent au Nord.
 
->(Your score has increased by 1)
+> n
+(Your score has increased by 1)
 Vous montez les escaliers.  Vous arrivez dans un long couloir permettant
 d'accéder aux différentes portes d'embarquement disposées de part et d'autre
 de ce couloir. Vous marchez lentement vers le Nord, en direction de la porte
@@ -847,30 +938,37 @@ je m'apprête à prendre l'avion à destination de Rome. Je suis complètement
 perdu. Pourtant, il devrait y avoir une certaine logique dans tout ça."
 pensez-vous avant de vous arrêter. La porte G se trouve au Nord.
 
->(Your score has increased by 1)
+> n
+(Your score has increased by 1)
 Vous vous déplacez vers le Nord.  Vous entrez dans la salle G. Tous les
 fauteuils mis à la disposition des voyageurs sont occupés: "Il n'y a même pas
 de place pour s'assoir! Je vais être obligé d'attendre l'heure d'embarquement
 debout!" constatez-vous.
 
->Le temps passe...
+> z
+Le temps passe...
 
->Le temps passe...
+> z
+Le temps passe...
 
->Le temps passe...
+> z
+Le temps passe...
 
->Le temps passe...
+> z
+Le temps passe...
 Une voix féminine se fait entendre dans les hauts-parleurs installés dans la
 salle: "A tous les passagers du vol 711; embarquement immédiat porte G." Un
 long frisson parcourt votre corps tandis que les passagers se déplacent vers
 le Nord. "Tu dois suivre ces gens Lucas." pensez-vous.
 
->(Your score has increased by 1)
+> n
+(Your score has increased by 1)
 Vous vous déplacez vers le Nord.  Vous suivez les passagers. Vous montez des
 escaliers puis vous traversez une passerelle. L'entrée de l'avion se trouve
 au Nord.
 
->(Your score has increased by 1)
+> n
+(Your score has increased by 1)
 Vous vous déplacez vers le Nord.  Vous entrez dans l'avion. Vous êtes
 accueillis par une jeune hôtesse (une grande brune plutôt jolie): "Bonjour
 monsieur. Bienvenue à bord de ce Boeing 747. Puis-je connaître votre nom?"
@@ -890,13 +988,17 @@ Ce sera tout." affirmez-vous. "Je vous en prie monsieur Label." dit l'hôtesse
 en s'éloignant. Vous vous asseyez sur votre siège. "Il ne te reste plus qu'à
 attendre le décollage." pensez-vous.
 
->Le temps passe...
+> z
+Le temps passe...
 
->Le temps passe...
+> z
+Le temps passe...
 
->Le temps passe...
+> z
+Le temps passe...
 
->Le temps passe...
+> z
+Le temps passe...
 (Your score has increased by 1)
 "Mesdames et messieurs, soyez les bienvenus à bord de ce Boeing 747. Dans
 quelques instants, nous allons procéder au décollage. Veuillez regagner vos
@@ -912,10 +1014,12 @@ de passer aux choses sérieuses." "Où voulez-vous en venir?" demandez-vous
 d'une voix tremblante. "Regardes sous ton siège!" vous ordonne le malfaiteur.
 (Your score has increased by 1)
 
->Une caisse en bois se trouve sous votre siège: "Je vois une caisse en bois."
+> regarder sous siège
+Une caisse en bois se trouve sous votre siège: "Je vois une caisse en bois."
 déclarez-vous. "Ouvres cette caisse!" ordonne votre interlocuteur.
 
->(Your score has increased by 1)
+> ouvrir caisse
+(Your score has increased by 1)
 Vous ouvrez la caisse en bois. Une bombe se trouve à l'intérieur: "Oh mon
 dieu! C'est une bombe!" chuchottez-vous pour ne pas éveiller les soupçons des
 autres passagers. "Belle observation Label! Cette bombe explosera dans quinze
@@ -937,7 +1041,8 @@ avant de raccrocher.  Vous vous levez de votre siège. Vous vous trouvez dans
 l'allée dans laquelle sont installés les passagers. Le cocpit se trouve au
 Nord.
 
->(Your score has increased by 1)
+> n
+(Your score has increased by 1)
 Vous vous déplacez vers le Nord.  Après être passé devant les hôtesses, vous
 entrez dans le cocpit. Le pilote et le co-pilote sont présents. Vous prenez
 la parole: "Auriez-vous une pince ou quelque chose de ressemblant?"
@@ -948,12 +1053,14 @@ co-pilote quitte le cocpit puis revient quelques secondes plus tard, une
 pince coupante à la main: "Prenez cette pince monsieur l'inspecteur."
 propose-t-il.
 
->(Your score has increased by 1)
+> prendre pince
+(Your score has increased by 1)
 Vous prenez la pince: "Merci." dites-vous en regardant le co-pilote. "D'où
 sors-tu cette pince?" demande le pilote à son co-équipier. "Je suis un homme
 organisé!"  La sortie se trouve au Sud.
 
->(Your score has increased by 1)
+> s
+(Your score has increased by 1)
 Vous vous déplacez vers le Sud.  Vous quittez le cocpit puis vous regagnez
 votre siège. Au moment où vous arrivez à votre place, votre téléphone se met
 à sonner. Vous décrochez: "Ici Label." "C'est Yannick! Les démineurs ne
@@ -973,10 +1080,12 @@ ce même détonateur à la charge explosive." expliquez-vous. "Il faut commencer
 par couper les câbles reliant le détonateur à la minuterie, à savoir le vert
 et le noir." affirme Martin.
 
->(Your score has increased by 1)
+> couper câble vert
+(Your score has increased by 1)
 Vous coupez le câble vert.
 
->(Your score has increased by 1)
+> couper câble noir
+(Your score has increased by 1)
 Vous coupez le câble noir.
 "C'est fait! Que dois-je faire maintenant?"" demandez-vous en collant le
 téléphone à votre oreille. "Pour être franc, je n'en sais rien." avoue
@@ -991,7 +1100,8 @@ permettant que la liaison entre le détonateur et..." "Oui j'ai compris."
 interrompez-vous. "Il faut couper le bon câble. Bonne chance Lucas." vous
 souhaite Martin.
 
->(Your score has increased by 1)
+> couper câble rouge
+(Your score has increased by 1)
 Vous coupez le câble rouge. Aucune explosion ne se produit! "J'ai réussi!"
 criez-vous. La voix de Yannick se fait entendre au bout du fil: "Bien joué
 mon pote! On se retrouvera sur la terre ferme!" "Sans problème mon gars! Je
@@ -999,7 +1109,8 @@ vais prévenir les pilotes!" dites-vous avant de raccrocher. Ces expressions
 de joie éveillent la curiosité des passagers. Certains d'entre eux vous
 fixent du regard. Le cocpit se trouve au Nord.
 
->(Your score has increased by 1)
+> n
+(Your score has increased by 1)
 Vous vous déplacez vers le Nord.  Vous entrez dans le cocpit. Le pilote et le
 co-pilote sont présents. Vous prenez la parole: "Il n'y a plus d'inquiétude à
 avoir. La bombe est désamorcée!" vous exclamez-vous. "Félicitations
@@ -1014,7 +1125,8 @@ j'ai beaucoup à faire à Paris, à commencer par arrêter ce fou furieux."
 dites-vous. "Nous vous souhaitons bonne chance pour la suite monsieur Label."
 "Merci messieurs." répondez-vous. La sortie se trouve au Sud.
 
->(Your score has increased by 1)
+> s
+(Your score has increased by 1)
 Vous vous déplacez vers le Sud.  Vous quittez le cocpit puis vous regagnez
 votre siège. "Tu pourrais faire carrière dans le déminage Lucas!" pensez-vous
 en vous asseyant.  Quelques minutes plus tard, vous êtes soudainement pris
@@ -1025,13 +1137,17 @@ son entourage. Oh mon dieu! Comment vais-je faire pour vivre sans ma fille?
 Comment Morgane va-t-elle réagir? Si je ne parviens pas à libérer Erica et
 Morgane, ma vie n'aura plus aucun sens." pensez-vous.
 
->Le temps passe...
+> z
+Le temps passe...
 
->Le temps passe...
+> z
+Le temps passe...
 
->Le temps passe...
+> z
+Le temps passe...
 
->Le temps passe...
+> z
+Le temps passe...
 (Your score has increased by 1)
 La voix du co-pilote se fait entendre: "Mesdames et messieurs, nous allons
 atterrir. Veuillez regagner vos places et attacher vos ceintures. Toutefois,
@@ -1056,9 +1172,11 @@ Devant le commissariat
 Vous arrivez devant le commissariat. L'entrée se trouve au Nord.
 (Your score has increased by 1)
 
->Le temps passe...
+> z
+Le temps passe...
 
->Vous vous déplacez vers le Nord.
+> n
+Vous vous déplacez vers le Nord.
 
 L'accueil
 Vous vous trouvez à l'accueil du commissariat. Il s'agit d'un hall
@@ -1066,14 +1184,16 @@ relativement spacieux. A l'Est, vous pouvez un comptoir derrière lequel est
 assise une secrétaire. Une porte ouverte menant à un couloir se trouve au
 Nord; la sortie est située au Sud.
 
->Vous vous déplacez vers le Nord.
+> n
+Vous vous déplacez vers le Nord.
 
 Le couloir
 Vous êtes à présent dans un petit couloir (ni très long, ni très large).
 Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest;
 l'accueil se situe au Sud.
 
->(Your score has increased by 1)
+> w
+(Your score has increased by 1)
 Vous vous déplacez vers l'Ouest.  Vous entrez dans le bureau de Yannick, à la
 grande surprise de celui-ci: "Lucas? Mais... Que fais-tu ici?" balbutie votre
 ami. "Après l'épisode de la bombe, les pilotes ont préféré revenir à Paris.
@@ -1119,7 +1239,8 @@ différente. Le bureau se trouve au Nord; un fauteuil est placé au Sud; un
 placard est situé à l'Ouest; la sortie se trouve à l'Est.
 Yannick Vilon est ici.
 
->(Your score has increased by 1)
+> e
+(Your score has increased by 1)
 Vous vous déplacez vers l'Est.  Vous sortez du bureau de Yannick puis vous
 quittez le commissariat en compagnie de votre ami. Ce dernier vous conduit
 jusqu'au cabinet de cet avocat: "Quoi qu'il arrive, ne fais pas de connerie."
@@ -1130,7 +1251,8 @@ Devant le cabinet de Maître Laguiard
 Vous arrivez devant le cabinet de l'avocat. L'entrée se trouve au Nord.
 Yannick Vilon est ici.
 
->(Your score has increased by 1)
+> n
+(Your score has increased by 1)
 Au moment où vous vous apprétiez à entrer dans le cabinet de l'avocat, un
 homme (grand et musclé) en sort et vous bloque le passage: "Qui êtes-vous?"
 demande l'individu. "Inspecteurs Lucas Label et Yannick Vilon de la brigade
@@ -1143,24 +1265,29 @@ musclé. "Si je comprends bien, je vais devoir t'écorcher pour entrer!"
 dites-vous en riant. "Je vais t'éclater espèce d'ordure!" s'écrie l'individu.
 Tapez "combattre" pour débuter le combat.
 
->Vous vous trouvez à l'extérieur du cabinet de l'avocat, face à "l'homme
+> combattre
+Vous vous trouvez à l'extérieur du cabinet de l'avocat, face à "l'homme
 musclé". Tapez "coup de poing" pour frapper cet homme d'un coup de poing;
 tapez "coup de pied" pour le frapper d'un coup de pied.
 
->Vous frappez votre ennemi au visage d'un violent coup de pied. Celui-ci tente
+> coup de pied
+Vous frappez votre ennemi au visage d'un violent coup de pied. Celui-ci tente
 de riposter mais en vain.
 
->Vous frappez votre ennemi d'un coup de poing dans les parties génitales.
+> coup de poing
+Vous frappez votre ennemi d'un coup de poing dans les parties génitales.
 Celui-ci tente de vous blesser mais en vain.
 
->Vous terrassez votre ennemi d'un ultime coup de pied. "Ouf! Il s'en est fallu
+> coup de pied
+Vous terrassez votre ennemi d'un ultime coup de pied. "Ouf! Il s'en est fallu
 de peu!" dites-vous. Vous vous retournez vers Yannick: "Merci pour le coup de
 main!" dites-vous en souriant. "Je voulais voir comment tu te battais! Je
 serais venu à ton secours en cas d'extrême urgence! N'aies aucune
 inquiétude!" répond votre ami. "Les amis sont là pour ça!" affirmez-vous.
 L'entrée du cabinet se trouve au Nord.
 
->(Your score has increased by 1)
+> n
+(Your score has increased by 1)
 Vous vous déplacez vers le Nord. A présent, vous vous trouvez dans l'entrée
 du cabinet de l'avocat. Il s'agit d'un couloir long et étroit.  Vous avancez
 vers le Nord jusqu'à une porte entrouverte. Vous vous arrêtez puis vous vous
@@ -1174,13 +1301,17 @@ croisés en attendant que cet avocat tue ma femme!" répliquez-vous. "Je te
 conseille d'attendre Lucas. C'est sans doute notre seule chance." conseille
 Yannick.
 
->Le temps passe...
+> z
+Le temps passe...
 
->Le temps passe...
+> z
+Le temps passe...
 
->Le temps passe...
+> z
+Le temps passe...
 
->Le temps passe...
+> z
+Le temps passe...
 La voix de l'avocat se fait entendre de l'autre côté de la porte: "Maître
 Jean-Michel revient dans un instant ma chérie. Tu vas avoir droit à la
 torture du siècle!" dit-il avant de se diriger vers la porte.  Au moment où
@@ -1206,7 +1337,8 @@ Jean-Michel Laguiard puis vous vous retournez vers Yannick: "Mets-lui les
 pinces avant que je change d'avis. Je vais voir Erica." dites-vous. La salle
 dans laquelle est retenue votre femme se trouve au Nord.
 
->(Your score has increased by 1)
+> n
+(Your score has increased by 1)
 Vous vous déplacez vers le Nord.  Vous pénétrez dans une grande salle, dont
 le mobilier est on ne peut plus inhabituel: seul un lit sur lequel est
 ligotée votre femme trône au centre de la pièce.  Vous vous approchez du lit
@@ -1230,7 +1362,8 @@ que tout. Ne t'inquiète pas ma chérie, nous allons la retrouver."
 assurez-vous. "Détaches-moi Lucas. Je ne supporte plus d'être ici." "D'accord
 mon coeur. Je vais te détacher." répondez-vous.
 
->(Your score has increased by 1)
+> détacher erica
+(Your score has increased by 1)
 Vous dénouez les sangles attachées aux poignets et aux chevilles de votre
 femme: "C'est fini ma chérie." dites-vous en prenant Erica dans vos bras.
 "Sortons d'ici." propose votre épouse. "D'accord. Suis-moi."
@@ -1241,7 +1374,8 @@ inhabituel: seul un lit trône au centre de la pièce. La sortie se trouve au
 Sud.
 Erica est ici.
 
->(Your score has increased by 1)
+> s
+(Your score has increased by 1)
 Vous vous déplacez vers le Sud.  Vous sortez de la grande salle en compagnie
 de votre femme. Vous êtes de retour dans l'entrée. "Erica est sauvée!"
 dites-vous en regardant Yannick. "C'est magnifique!" s'exclame votre ami.
@@ -1269,7 +1403,8 @@ le domicile conjugal.
 Devant le commissariat
 Vous arrivez devant le commissariat. L'entrée se trouve au Nord.
 
->Vous vous déplacez vers le Nord.
+> n
+Vous vous déplacez vers le Nord.
 
 L'accueil
 Vous vous trouvez à l'accueil du commissariat. Il s'agit d'un hall
@@ -1277,14 +1412,16 @@ relativement spacieux. A l'Est, vous pouvez un comptoir derrière lequel est
 assise une secrétaire. Une porte ouverte menant à un couloir se trouve au
 Nord; la sortie est située au Sud.
 
->Vous vous déplacez vers le Nord.
+> n
+Vous vous déplacez vers le Nord.
 
 Le couloir
 Vous êtes à présent dans un petit couloir (ni très long, ni très large).
 Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest;
 l'accueil se situe au Sud.
 
->Vous vous déplacez vers le Nord.
+> n
+Vous vous déplacez vers le Nord.
 
 L'ascenseur
 Vous voilà dans l'ascenseur! Tapez "premier étage" pour vous rendre au
@@ -1292,13 +1429,15 @@ premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
 "troisième étage" pour vous rendre au troisième étage; tapez
 "rez-de-chaussée" pour regagner le rez-de-chaussée.
 
->Le premier étage
+> premier étage
+Le premier étage
 Vous arrivez au premier étage. Il s'agit d'un petit couloir, similaire à
 celui du rez-de-chaussée. Le bureau du personnel se trouve à l'Ouest; celui
 du commissaire Guersant est situé au Nord; la salle de repos se situe à
 l'Est; l'ascenseur se trouve au Sud.
 
->(Your score has increased by 1)
+> n
+(Your score has increased by 1)
 Vous vous déplacez vers le Nord.  Vous entrez dans le bureau du commissaire.
 Yannick, Laguiard, Amato et Guersant sont présents. Votre patron prend la
 parole: "Je vous félicite Lucas. Vous avez pris d'importants risques afin de
@@ -1344,7 +1483,8 @@ retrouver Morgane. Fais-moi confiance." promet votre ami tandis que vous lui
 serrez la main. "Merci Yannick. On se voit demain." Votre collègue quitte, à
 son tour, le bureau du chef. La sortie se trouve au Sud.
 
->Vous vous déplacez vers le Sud.
+> s
+Vous vous déplacez vers le Sud.
 
 Le premier étage
 Vous arrivez au premier étage. Il s'agit d'un petit couloir, similaire à
@@ -1352,7 +1492,8 @@ celui du rez-de-chaussée. Le bureau du personnel se trouve à l'Ouest; celui
 du commissaire Guersant est situé au Nord; la salle de repos se situe à
 l'Est; l'ascenseur se trouve au Sud.
 
->Vous vous déplacez vers le Sud.
+> s
+Vous vous déplacez vers le Sud.
 
 L'ascenseur
 Vous voilà dans l'ascenseur! Tapez "premier étage" pour vous rendre au
@@ -1360,14 +1501,16 @@ premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
 "troisième étage" pour vous rendre au troisième étage; tapez
 "rez-de-chaussée" pour regagner le rez-de-chaussée.
 
->Vous regagnez le rez-de-chaussée.
+> rez-de-chaussée
+Vous regagnez le rez-de-chaussée.
 
 Le couloir
 Vous êtes à présent dans un petit couloir (ni très long, ni très large).
 Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest;
 l'accueil se situe au Sud.
 
->(Your score has increased by 1)
+> s
+(Your score has increased by 1)
 Vous vous déplacez vers le Sud.  Vous passez à l'accueil puis vous quittez le
 commissariat. Vous reprenez alors la route en direction de votre domicile.
 Après une durée de trajet vous semblant être une éternité, vous arrivez à bon
@@ -1381,14 +1524,16 @@ comme dans votre chambre). La salle de séjour se trouve au Nord; les
 escaliers permettant de se rendre à l'étage sont situés à l'Ouest; votre
 chambre se situe au Sud; la sortie se trouve à l'Est.
 
->(Your score has increased by 1)
+> s
+(Your score has increased by 1)
 Vous vous déplacez vers le Sud.  Vous entrez dans votre chambre. Erica est
 allongée sur le lit. Vous vous approchez lentement: "Lucas? C'est toi mon
 chéri?" demande votre femme d'une voix endormie. "Oui c'est moi."
 répondez-vous. "Tu viens te coucher?" interroge Erica. "Oui ma chérie.
 J'arrive." répondez-vous.
 
->(Your score has increased by 1)
+> se coucher
+(Your score has increased by 1)
 Vous vous allongez sur votre lit, auprès de votre femme. Celle-ci vous serre
 dans ses bras: "Que va-t-on devenir mon chéri?" questionne-t-elle. "Hélas, je
 n'en sais rien. Pour le moment, nous devons nous concentrer sur Morgane.

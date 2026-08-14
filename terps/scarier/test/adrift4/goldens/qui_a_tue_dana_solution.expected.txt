@@ -57,18 +57,23 @@ mégots sur le sol à la tête du lit.
 
 Aussi voici Un jean et Un pull.
 
->Vous vous levez.
+> se lever
+Vous vous levez.
 
->(Your score has increased by 2)
+> prendre jean
+(Your score has increased by 2)
 Vous ramassez votre jean.
 
->(Your score has increased by 1)
+> enfiler jean
+(Your score has increased by 1)
 Vous enfilez votre jean.
 
->(Your score has increased by 2)
+> prendre pull
+(Your score has increased by 2)
 Vous ramassez votre pull.
 
->(Your score has increased by 1)
+> enfiler pull
+(Your score has increased by 1)
 Vous enfilez votre pull.
 
 La Chambre de John
@@ -77,7 +82,8 @@ Un lit, des habits jetés à la va-vite sur le sol, un gros cendrier rempli de
 mégots sur le sol à la tête du lit.
 Habillé, ça le fait mieux quand même!
 
->La pièce principale
+> n
+La pièce principale
 
 Vous entrez dans ce qui est votre salle de séjour.
 C'est une petite pièce, sans meubles.
@@ -90,30 +96,38 @@ certainement la sortie de chez vous.
 
 Un bar se dresse devant vous.
 
->Vous êtes maintenant en possession d'une cigarete.
+> prendre cigarette
+Vous êtes maintenant en possession d'une cigarete.
 
->Vous vous saisisez du briquet.
+> prendre briquet
+Vous vous saisisez du briquet.
 
->(Your score has increased by 5)
+> pousser bouton
+(Your score has increased by 5)
 Vous appuyez sur le bouton pour un expresso.
 Attention, c'est chaud!
 Un expresso est maintenant posé sur le bar.
 Il n'attend plus que votre gosier affamé et sec du matin.
 
->Vous prenez Un expresso de Un bar.
+> prendre expresso
+Vous prenez Un expresso de Un bar.
 
->(Your score has increased by 2)
+> boire expresso
+(Your score has increased by 2)
 Ah! Quel délice! Votre machine restera toujours votre fierté! ça fait du bien
 par où ça passe
 
->(Your score has increased by 7)
+> smoke cigarette
+(Your score has increased by 7)
 Accompagnant le café, il n'y a rien de tel!
 Bon, par contre, maintenant faudrait vous bouger!
 Vous entendez un vrombissement qui vient en direction de votre porte.
 
->Vous ouvrez votre porte.
+> ouvrir porte
+Vous ouvrez votre porte.
 
->Vous sortez, puis refermez votre porte.
+> out
+Vous sortez, puis refermez votre porte.
 la voiture de votre adjoint est là.
 Vous montez.
 
@@ -124,7 +138,7 @@ MALKOWITCH sait toujours où vous devez aller.
 C'est une voiture de police traditionnelle américaine.
 MALKOWITCH est assis là.
 
->
+> parler
 
 Vous écoutez votre adjoint :
 -J'ai eu les premières infos par l'équipe de constatation.
@@ -157,7 +171,8 @@ MALKOWITCH sait toujours où vous devez aller.
 C'est une voiture de police traditionnelle américaine.
 MALKOWITCH est assis là.
 
->Vous vous déplacez vers le Bas.
+> d
+Vous vous déplacez vers le Bas.
 
 Scène du crime
 
@@ -172,7 +187,8 @@ Le Responsable de l'Enquête est ici.
 La Médecin légiste est ici.
 La Chef scientifique est là.
 
->(Your score has increased by 2)
+> parler
+(Your score has increased by 2)
 -Bonjour, Mulder, des moeurs, que pouvez-vous me dire?
 -La victime s'appelle Dana Mulder, elle a 19 ans
 -comment dites-vous qu'elle s'appelle ?
@@ -182,15 +198,18 @@ La Chef scientifique est là.
 -eh, t'as vraiment l'impression que j'ai la gueule d'un mec qui plaisante ?
 L'autre flic, apparemment gêné ne répondit pas.
 
->(Your score has increased by 5)
+> soulever drap
+(Your score has increased by 5)
 Vous soulevez un drap et...
 Vous pouvez voir un corps inerte sous le drap!
 
->C'est...le corps d'une femme, jeune et jolie. Vous reconnaissez bien là le
+> x corps inerte
+C'est...le corps d'une femme, jeune et jolie. Vous reconnaissez bien là le
 visage de votre nièce.
 C'est la première fois que vous êtes écoeuré à la vue d'un corps.
 
->(Your score has increased by 6)
+> parler
+(Your score has increased by 6)
 -Salut doc., alors, ça dit quoi ?
 -Salut John, la victime a été étranglée d'une façon très violente. Le larynx
 est broyé.
@@ -232,7 +251,8 @@ La Chef scientifique est là.
 
 Un drap est ici.
 
->(Your score has increased by 2)
+> parler
+(Your score has increased by 2)
 -Salut,  vous avez des prélèvements ?
 -oui, on a toutes les traces du viole, par contre, aucune trace de pas, rien
 sur l'agresseur
@@ -267,7 +287,7 @@ La Chef scientifique est là.
 Vous pouvez vous déplacer maintenant vers le haut.
 votre adjoint semble avoir rallumé la voiture.
 
->
+> up
 
 John s'éloigna de toute cette population de flics et repartit vers la voiture
 de son adjoint.
@@ -301,7 +321,8 @@ MALKOWITCH est assis là.
 
 Vous êtes maintenant arrivé au commissariat, entrez donc!
 
->Vous entrez.
+> in
+Vous entrez.
 
 Couloir du Commissariat
 
@@ -316,7 +337,8 @@ Une machine à café est là dans un coin du couloir.
 
 Sorties évidentes: nord, Est, Ouest et out.
 
->Vous vous déplacez vers l'Est.
+> e
+Vous vous déplacez vers l'Est.
 
 Bureau de MALKOWITCH
 C'est un petit bureau.
@@ -331,13 +353,16 @@ Un bureau se situe ici.
 
 Vous pouvez seulement vous déplacer vers l'Ouest.
 
->C'est un bureau assez petit. Une pile de dossiers s'empilent dessus. Ce qui
+> x bureau
+C'est un bureau assez petit. Une pile de dossiers s'empilent dessus. Ce qui
 vous concerne, est toujours bien mis en évidence.
   Un memo est on Le bureau.
 
->Un petit papier plastifié où vous pouvez voir des inscriptions.
+> x memo
+Un petit papier plastifié où vous pouvez voir des inscriptions.
 
->Mémoire de votre téléphone :
+> lire memo
+Mémoire de votre téléphone :
 1=F.B.I Enquêtes Mystérieuses
 2=Légiste
 3=Famille
@@ -349,9 +374,11 @@ vous concerne, est toujours bien mis en évidence.
 9=Police scientifique
 0=Responsable d'Enquête
 
->Vous prenez Un memo de Le bureau.
+> prendre memo
+Vous prenez Un memo de Le bureau.
 
->Vous vous déplacez vers l'Ouest.
+> w
+Vous vous déplacez vers l'Ouest.
 
 Couloir du Commissariat
 
@@ -366,7 +393,8 @@ Une machine à café est là dans un coin du couloir.
 
 Sorties évidentes: nord, Est, Ouest et out.
 
->Vous vous déplacez vers l'Ouest.
+> w
+Vous vous déplacez vers l'Ouest.
 
 Votre bureau
 
@@ -381,16 +409,20 @@ Un beau bureau trône ici.
 
 Vous pouvez seulement vous déplacer vers l'Est.
 
->Vous vous saisissez du dossier.
+> prendre dossier
+Vous vous saisissez du dossier.
 
->Vous prenez Un téléphone de Un beau bureau.
+> prendre téléphone
+Vous prenez Un téléphone de Un beau bureau.
 
->C'est un téléphone à touches.
+> x téléphone
+C'est un téléphone à touches.
 Vous remarquez différents boutons sur sa surface.
   Le 1, Le 2, Le 3, Le 4, Le 5, Le 6, Le 7, Le 8, Le 9 et Le 0 est sur Un
 téléphone.
 
->(Your score has increased by 3)
+> appuyer 3
+(Your score has increased by 3)
 
 Vous enfoncez la mémoire 3 de votre téléphone.
 Une tonalité se fait entendre, puis le numéro se compose automatiquement.
@@ -403,7 +435,8 @@ atrocité.
 Vous raccrochez.
 Allez, faut se remettre de nouveaux éléments ont dû arrivés depuis!
 
->Vous vous déplacez vers l'Est.
+> e
+Vous vous déplacez vers l'Est.
 
 Couloir du Commissariat
 
@@ -418,7 +451,8 @@ Une machine à café est là dans un coin du couloir.
 
 Sorties évidentes: nord, Est, Ouest et out.
 
->Vous vous déplacez vers l'Est.
+> e
+Vous vous déplacez vers l'Est.
 
 Bureau de MALKOWITCH
 C'est un petit bureau.
@@ -433,11 +467,13 @@ Un bureau se situe ici.
 
 Vous pouvez seulement vous déplacer vers l'Ouest.
 
->C'est un bureau assez petit. Une pile de dossiers s'empilent dessus. Ce qui
+> x bureau
+C'est un bureau assez petit. Une pile de dossiers s'empilent dessus. Ce qui
 vous concerne, est toujours bien mis en évidence.
   Les photos est sur Le bureau.
 
->On y voyait la victime, nue, allongée sur le dos.
+> x photos
+On y voyait la victime, nue, allongée sur le dos.
             Il vit bien que le gros plan fait sur la partie pubienne de la
 jeune fille présentait un tableau pour le moins surprenant.
 La jeune fille semblait avoir été déchirée par le sexe de son violeur.
@@ -447,10 +483,12 @@ Vous jetez un coup d'oeil à votre montre.
 5 heures indiquait-elle.
 Les rapports sont pas prêts d'arriver!
 
->(Your score has increased by 2)
+> prendre photos
+(Your score has increased by 2)
 Vous prenez des photos.
 
->Vous vous déplacez vers l'Ouest.
+> w
+Vous vous déplacez vers l'Ouest.
 
 Couloir du Commissariat
 
@@ -465,7 +503,8 @@ Une machine à café est là dans un coin du couloir.
 
 Sorties évidentes: nord, Est, Ouest et out.
 
->Vous vous déplacez vers le Nord.
+> n
+Vous vous déplacez vers le Nord.
 
 Salle de repos
 Ici, tous les policiers y viennent se détendre, fumer ou tuer le temps en
@@ -476,18 +515,22 @@ Une table est là.  Un fauteuil douillet est ici.
 
 Vous pouvez seulement vous déplacer vers le Sud.
 
->C'est une table simple. Des flics peuvent y jouer aux cartes, boire du
+> x table
+C'est une table simple. Des flics peuvent y jouer aux cartes, boire du
 café...  Une cigarette est on Une table.
 
->Vous prenez Une cigarette de Une table.
+> prendre cigarette
+Vous prenez Une cigarette de Une table.
 
->(Your score has increased by 7)
+> light cigarette
+(Your score has increased by 7)
 Vous fumez une cigarette.
 Vous vous reposez mais ne vous endormez pas.
 Vous tournez dans tous les sens les éléments de l'enquête mais, rien à faire,
 pas l'ombre d'une solution en vue.
 
->Vous vous déplacez vers le Sud.
+> s
+Vous vous déplacez vers le Sud.
 
 Couloir du Commissariat
 
@@ -502,7 +545,8 @@ Une machine à café est là dans un coin du couloir.
 
 Sorties évidentes: nord, Est, Ouest et out.
 
->Vous vous déplacez vers l'Est.
+> e
+Vous vous déplacez vers l'Est.
 
 Bureau de MALKOWITCH
 C'est un petit bureau.
@@ -517,21 +561,26 @@ Un bureau se situe ici.
 
 Vous pouvez seulement vous déplacer vers l'Ouest.
 
->C'est un bureau assez petit. Une pile de dossiers s'empilent dessus. Ce qui
+> x bureau
+C'est un bureau assez petit. Une pile de dossiers s'empilent dessus. Ce qui
 vous concerne, est toujours bien mis en évidence.
   Le rapport est on Le bureau.
 
->(Your score has increased by 1)
+> prendre rapport
+(Your score has increased by 1)
 Vous récupérez le rapport du légiste.
 
->Une longue panacée de feuilles pleins de détails médicaux dont vous comprenez
+> x rapport
+Une longue panacée de feuilles pleins de détails médicaux dont vous comprenez
 à peine le sens!
 Vous avez toujours préféré aler à l'essentiel et à la source de l'information
 alors, ne changez rien!
 
->Rapport de l'IML Legiste chef Julie LUKISS
+> lire rapport
+Rapport de l'IML Legiste chef Julie LUKISS
 
->Vous vous déplacez vers l'Ouest.
+> w
+Vous vous déplacez vers l'Ouest.
 
 Couloir du Commissariat
 
@@ -546,7 +595,8 @@ Une machine à café est là dans un coin du couloir.
 
 Sorties évidentes: nord, Est, Ouest et out.
 
->Vous vous déplacez vers l'Ouest.
+> w
+Vous vous déplacez vers l'Ouest.
 
 Votre bureau
 
@@ -561,7 +611,8 @@ Un beau bureau trône ici.
 
 Vous pouvez seulement vous déplacer vers l'Est.
 
->(Your score has increased by 5)
+> appuyer 2
+(Your score has increased by 5)
 
 Vous décrochez.Vous enfoncez la seconde mémoire de votre téléphone et,
 aussitôt une voix vous répond:
@@ -587,7 +638,8 @@ grands points de mes conclusions.
 -merci doc, à bientôt.
 Vous raccrochez.
 
->(Your score has increased by 1)
+> appuyer 9
+(Your score has increased by 1)
 
 Vous décrochez, enfoncez la mémoire 9 de votre téléphone.
 Une voix se fit entendre, vous répondez alors de suite:
@@ -617,7 +669,8 @@ victime.
 -bien, merci. Déclara John dépité.
 Le combiné tomba sur le téléphone.
 
->(Your score has increased by 4)
+> appuyer 1
+(Your score has increased by 4)
 Vous pressez la mémoire1 du téléphone.
 Le responsable du FBI décroche en disant:
 -Allô j'écoute, que vous arrive-t-il MULDER?
@@ -639,7 +692,8 @@ viole par des extra-terrestres.
 stupidité, mais là, les preuves scientifiques étaient là, et il ne pouvait
 pas les contourner.
 
->Vous vous déplacez vers l'Est.
+> e
+Vous vous déplacez vers l'Est.
 
 Couloir du Commissariat
 
@@ -654,7 +708,8 @@ Une machine à café est là dans un coin du couloir.
 
 Sorties évidentes: nord, Est, Ouest et out.
 
->Vous vous déplacez vers l'Est.
+> e
+Vous vous déplacez vers l'Est.
 
 Bureau de MALKOWITCH
 C'est un petit bureau.
@@ -671,13 +726,17 @@ MALKOWITCH est assis là.
 
 Vous pouvez seulement vous déplacer vers l'Ouest.
 
->Vous ouvrez Le dossier.
+> ouvrir dossier
+Vous ouvrez Le dossier.
 
->Vous mettez Les photos  dans Le dossier.
+> mettre photos dans dossier
+Vous mettez Les photos  dans Le dossier.
 
->Vous mettez Le rapport  dans Le dossier.
+> mettre rapport dans dossier
+Vous mettez Le rapport  dans Le dossier.
 
->
+> l
+
 Bureau de MALKOWITCH
 C'est un petit bureau.
 Et oui, ce n'est que votre adjoint, il ne va quand même pas avoir un bureau
@@ -693,9 +752,11 @@ MALKOWITCH est assis là.
 
 Vous pouvez seulement vous déplacer vers l'Ouest.
 
->Vous fermez Le dossier.
+> fermer dossier
+Vous fermez Le dossier.
 
->(Your score has increased by 42)
+> donner malkowitch dossier
+(Your score has increased by 42)
 Vous donnez le dossier Dana MULDER à votre adjoint MALKOWITCH
 Vous lui déclarez:
 " tiens, porte ce dossier à la section " enquêtes mystérieuses " du FBI,

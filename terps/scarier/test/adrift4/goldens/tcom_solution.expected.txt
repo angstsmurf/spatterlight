@@ -29,7 +29,8 @@ right away...
 
 Also here is a letter from mom and a library book.
 
->(Getting off the old pizza box first)
+> n
+(Getting off the old pizza box first)
 I move north.
 
 Outside of My Dorm Room
@@ -38,13 +39,15 @@ floor seem to be around. Perhaps they're at another one of those parties I
 never get invited to. There's a door that goes down to the first floor
 straight ahead.
 
->I move north.
+> n
+I move north.
 
 At the Top of the Stairwell
 My room is on the top floor of the building - the stairs from here go down
 one floor to the courtyard. I'd better get a move on!
 
->I move down.
+> d
+I move down.
 
 At the Bottom of the Stairwell
 An open  doorway here leads north in the direction of the courtyard. The door
@@ -52,7 +55,8 @@ has apparently been removed. Some fellow inhabitant has puked on the tiles at
 the bottom of the stairs. Walking through this slippery little deposit does
 not add to the charm of my situation.
 
->I move north.
+> n
+I move north.
 
 At the Back of the Courtyard
 Ionesco Hall's interior courtyard - or "quadrangle," as I've heard some
@@ -68,7 +72,8 @@ reach down and squash anyone who so much as bends a single blade of grass
 beneath his feet...
 Straight to the north there is a small, decorative fountain.
 
->I move north.
+> n
+I move north.
 
 Beside the Fountain
 This is an  ugly ornamental fountain that some rich alumnus donated to the
@@ -82,7 +87,8 @@ some reason.
 I think I  saw something moving in there! Just a little beneath the surface
 of the water...
 
->I move north.
+> n
+I move north.
 
 At the Front of the Courtyard
 Here a broad wooden door stands open, leading northward to the main entrance
@@ -90,7 +96,8 @@ to Ionesco Hall. Through the gloom of the building's main foyer can just
 barely see that the front door is open! I might just make it to that exam in
 time, if I really boot...
 
->I move north.
+> n
+I move north.
 
 In the Foyer, By the Hall Porter's Desk
 Hanging up over my head on the back wall of the foyer is the University's
@@ -103,7 +110,8 @@ desk is shut fast.
 
  Time's tight! The clock above his desk says 8:59! Must hurry! Must hurry!
 
->I move north.
+> n
+I move north.
 
 On the Front Steps of Ionesco Hall
 The wind whistles disturbingly around me. I'm standing on the great stone
@@ -117,7 +125,7 @@ already begun to snicker at my visible nudity, and back into the welcoming
 gates of Ionesco hall. I wonder to myself for just a moment whether it's
 really so very important to me to take this freakin' exam after all...
 
->
+> d
 
 As soon as I leave the grounds of the college I suddenly realize that I'm
 completely naked, and  in full view of the public. There's a crowd of people
@@ -138,7 +146,8 @@ its way toward me with frightful, footless speed, and carrying a fearsome
 looking farming implement over its bowed and hooded head. Its face is hidden
 but there's no mistaking it - I'm being chased by Death himself!
 
->I move north.
+> n
+I move north.
 
 Down a Moist and Unlit Alleyway
 Having managed to cross the sea of bodies I now need to head north to the
@@ -147,7 +156,8 @@ two nameless redbrick buildings. This narrow walkway is a well-known location
 for hazings, molestations and sordid rendezvous' on campus after dark. No
 time to be nervous now, though - the Grim Reaper is hot on my trail!
 
->I move north.
+> n
+I move north.
 
 Further Down an Increasingly Dank and Unpleasant Alleyway
 The light seems awfully dim here, given that it's supposed to be early
@@ -161,7 +171,8 @@ Also here is a soft and unpleasant thing.
 Death drifts along the asphalt towards me, silent and precise in his
 relentless pursuit.
 
->I move north.
+> n
+I move north.
 
 Before the Great Wooden Door
 This is it - my classroom. If I can just get through this door before the
@@ -169,7 +180,8 @@ This is it - my classroom. If I can just get through this door before the
 humiliation, and the sort of flu you get from walking around the campus nude
 in a thick early-morning fog.
 
->I pull hard on the cold iron handle of the door and step forward into...
+> open wooden door
+I pull hard on the cold iron handle of the door and step forward into...
 
 Nothingness....
 

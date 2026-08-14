@@ -35,120 +35,144 @@ murky depths. At your back is the world of the surface. Exits lie: north,
 south.
 
 >
+
 >
->To the north you go.
+
+> n
+To the north you go.
 
 A set of twisty little passages
 Passages approach here from many directions, bewildering in their complexity.
 Exits lie: northwest, north, east, south and west.
 
->You move west.
+> w
+You move west.
 
 A short, winding passageway
 Dark and dank, this passageway winds around a corner up ahead. Exits lie:
 southwest and east.
 
->To the southwest you go.
+> sw
+To the southwest you go.
 
 Dead end
 The passage reaches an abrupt dead end ahead of you, blocked by an immovable
 boulder. Exits lie: northeast.
 
->There is certainly something unusual about the positioning of the boulder. It
+> x boulder
+There is certainly something unusual about the positioning of the boulder. It
 does not look like it formed naturally and doubtless was placed here for some
 reason. Is it some kind of doorway?
 
->You knock on the boulder and, as if by magic (or maybe just a clever hidden
+> knock on door
+You knock on the boulder and, as if by magic (or maybe just a clever hidden
 mechanism) it swings aside to reveal a hidden room beyond.
 
->To the southwest you go.
+> sw
+To the southwest you go.
 
 Hidden grotto
 A small and grimy room with a few treasures. Exits lie: northeast.
 
 Also here is some armour and the Blocker's Ring.
 
->You pick up the armour and the Blocker's Ring.
+> get all
+You pick up the armour and the Blocker's Ring.
 
->You put on the armour and the Blocker's Ring.
+> wear all
+You put on the armour and the Blocker's Ring.
 
->To the northeast you go.
+> ne
+To the northeast you go.
 
 Dead end
 The passage widens to the southwest where a hidden grotto is revealed. Exits
 lie: northeast and southwest.
 
->To the northeast you go.
+> ne
+To the northeast you go.
 
 A short, winding passageway
 Dark and dank, this passageway winds around a corner up ahead. Exits lie:
 southwest and east.
 
->To the east you go.
+> e
+To the east you go.
 
 A set of twisty little passages
 Passages approach here from many directions, bewildering in their complexity.
 Exits lie: northwest, north, east, south and west.
 
->To the north you go.
+> n
+To the north you go.
 
 Graves
 A number of graves have been dug in the hard stone floor of the passage,
 lending an air of the macabre to a location not entirely pleasant in the
 first place. Exits lie: north, east and south.
 
->To the north you go.
+> n
+To the north you go.
 
 Narrow passage
 This passage is barely wide enough for you to squeeze through. Exits lie:
 north and south.
 
->To the north you go.
+> n
+To the north you go.
 
 Grumbleguts' lair
 A horrid smell assails you as you stumble around the lair of Grumbleguts, a
 ferocious ogre. A young woman locked in an iron cage looks on unhappily.
 Exits lie: east and south.
 
->To the east you go.
+> e
+To the east you go.
 
 Mossy cavern
 Thick moss grows in clumps throughout this cavern; unfortunately your
 knowledge of moss is decidely limited so you are unable to tell if this has
 any significance or not. Exits lie: northwest, east, southeast and west.
 
->You examine the moss and see, poking out of it, a toothpick. Someone must
+> x moss
+You examine the moss and see, poking out of it, a toothpick. Someone must
 have dropped it here and never even realised.
    You take it with you.
 
->To the northwest you go.
+> nw
+To the northwest you go.
 
 Curving passage
 You follow a passage which curves so many times it is very easy to get lost.
 The corpse of a former adventurer lies sprawled on the ground; some poor
 fellow less fortunate than you. Exits lie: northeast, southeast and west.
 
->A quick search of the unfortunate fellow reveals a tatty book and a purple
+> x corpse
+A quick search of the unfortunate fellow reveals a tatty book and a purple
 vial which you take with you.
 
->You gulp it down in one go, and, afterwards, feel quite a bit calmer. As
+> drink vial
+You gulp it down in one go, and, afterwards, feel quite a bit calmer. As
 indeed you should after drinking an entire Vial of Bravery!
 
->To the northeast you go.
+> ne
+To the northeast you go.
 
 Mad Tom's lair
 You seem to have stumbled into the lair of Mad Tom, a decidely deranged
 wizard with a penchant for throwing fireballs first and asking questions
 later. Exits lie: southwest.
 
->"Don't interrupt me in the middle of doing nothing!" cries Mad Tom,
+> talk to mad tom
+"Don't interrupt me in the middle of doing nothing!" cries Mad Tom,
 gesticulating furiously. "I almost had it then."
    "It?" you query.
    "It!" affirms Mad Tom. "Damn! I was sure I had the book with me! All the
 information's in there and, like a fool, I went and lost it! But I'll
 remember it, just as long as I'm NOT INTERRUPTED!"
 
->"Don't inter-" Mad Tom starts to say then interrupts himself as you hand over
+> give book to mad tom
+"Don't inter-" Mad Tom starts to say then interrupts himself as you hand over
 the book you found. "Haahahahh! The book! That fool thought he'd got away but
 my Hellfire Deathbolt of Killing Murderous Pain sure put paid to him! Here,
 have this shovel by way of payment."
@@ -156,46 +180,53 @@ have this shovel by way of payment."
 or spells or weapons?"
    "Maybe. But the shovel is cheaper."
 
->"If you want to me helpful," says Mad Tom, "you can go and find me some
+> talk to mad tom
+"If you want to me helpful," says Mad Tom, "you can go and find me some
 seaweed."
    You frown. "Seaweed? In a cave?"
    "Yes. There's bound to be some around here somewhere if you look hard
 enough."
 
->To the southwest you go.
+> sw
+To the southwest you go.
 
 Curving passage
 You follow a passage which curves so many times it is very easy to get lost.
 The corpse of a former adventurer lies sprawled on the ground; some poor
 fellow less fortunate than you. Exits lie: northeast, southeast and west.
 
->You move west.
+> w
+You move west.
 
 Grisly junction
 At this junction, the dead body of a former adventurer has been nailed to the
 walls; a grisly reminder of the fate which befalls most who enter the
 Darkhaven Caves. Exits lie: north, south, east and west.
 
->You move west.
+> w
+You move west.
 
 Crumbling passage
 The walls of this passage are crumbling; massive scars mar their surface as
 if some great beast has clawed at them in its fury. Exits lie: east and
 southwest.
 
->To the southwest you go.
+> sw
+To the southwest you go.
 
 Junction
 Three passages meet here, all leading deeper into the caverns. Exits lie:
 northwest, northeast and southeast.
 
->To the southeast you go.
+> se
+To the southeast you go.
 
 Twisty passageway
 The main passageway continues on a northwest/southeast route with a smaller
 passage heading off to the west. Exits lie: northwest, southeast and west.
 
->You move west.
+> w
+You move west.
 
 Troll's cavern
 A fiendfish troll has made its lair in this cavern and every breath could be
@@ -204,20 +235,24 @@ your last. Exits lie: east.
 Also here is some meat.
 Snugg the troll is here, looming massively you.
 
->You pick up the meat.
+> get meat
+You pick up the meat.
 
->You throw the meat out of the cavern. Snugg watches it with the look of
+> throw meat
+You throw the meat out of the cavern. Snugg watches it with the look of
 someone who is a bit too dim to realise what is going on, but he doesn't do
 anything.
 
->"Growl!" he says.
+> talk to troll
+"Growl!" he says.
    "That doesn't sound very frightening," you say.
    Snuff sighs. "Yeah, well, I ain't been in a very frightenin' mood lately
 what wiv all the toothache an' everythin'." He gestures to his front molars
 which are being forced out of shape by part of a goblin's thighbone which is
 trapped there. "Right painful thing this is."
 
->"Hey, thanks!" says the troll. He jabs the toothpick between his teeth and
+> give toothpick
+"Hey, thanks!" says the troll. He jabs the toothpick between his teeth and
 succeeds in dislodging the goblin's thighbone. "Woo! That's a relief! I
 thought I might have to let the next nun I came across off wiv a warnin'! But
 now, thanks to you, I can eat 'em jus' the same as ever!"
@@ -228,9 +263,11 @@ fetchin' cello the other day. Here, all yours."
    He hands you the cello before you can say whether you're a 'musical
 fellow' or not.
 
->You pick up the goblin's thighbone.
+> get thighbone
+You pick up the goblin's thighbone.
 
->To the east you go.
+> e
+To the east you go.
 
 Twisty passageway
 The main passageway continues on a northwest/southeast route with a smaller
@@ -238,28 +275,34 @@ passage heading off to the west. Exits lie: northwest, southeast and west.
 
 Also here is some meat.
 
->You pick up the meat.
+> get meat
+You pick up the meat.
 
->To the northwest you go.
+> nw
+To the northwest you go.
 
 Junction
 Three passages meet here, all leading deeper into the caverns. Exits lie:
 northwest, northeast and southeast.
 
->To the northwest you go.
+> nw
+To the northwest you go.
 
 Underground lake
 The passage ends at an underground lake. The waters are stirred by no breeze
 and remain as still as death itself. An island can be seen in the murky
 waters. Exits lie: southeast.
 
->Is it your imagination or are there large shapes swimming in the water?
+> x lake
+Is it your imagination or are there large shapes swimming in the water?
 
->You throw the meat into the lake. Immediately there is a massive thrashing
+> throw meat
+You throw the meat into the lake. Immediately there is a massive thrashing
 motion under the water as the lake's resident shark starts tearing apart his
 dinner.
 
->With the shark distracted by the meat, you swim swiftly past it to the
+> swim
+With the shark distracted by the meat, you swim swiftly past it to the
 island.
 
 Island
@@ -267,38 +310,47 @@ A small and almost empty island in the middle of the lake. A rusted chest is
 the only thing you can see.
    The only way off the island looks to be by swimming.
 
->You whack the chest as hard as you can and smash a hole in the side. A ring
+> smash chest
+You whack the chest as hard as you can and smash a hole in the side. A ring
 tumbles out.
 
->An old pirate chest, massively rusted but still pretty sturdy. A hole has
+> x chest
+An old pirate chest, massively rusted but still pretty sturdy. A hole has
 been smashed in the side of the chest.  Some seaweed is on the rusty chest.
 
->You take the seaweed from the rusty chest.
+> get seaweed
+You take the seaweed from the rusty chest.
 
->You pick up the Scammin's Ring.
+> get scammin's ring
+You pick up the Scammin's Ring.
 
->You put on the Scammin's Ring.
+> wear scammin's ring
+You put on the Scammin's Ring.
 
->You head back to shore.
+> swim
+You head back to shore.
 
 Underground lake
 The passage ends at an underground lake. The waters are stirred by no breeze
 and remain as still as death itself. An island can be seen in the murky
 waters. Exits lie: southeast.
 
->To the southeast you go.
+> se
+To the southeast you go.
 
 Junction
 Three passages meet here, all leading deeper into the caverns. Exits lie:
 northwest, northeast and southeast.
 
->To the southeast you go.
+> se
+To the southeast you go.
 
 Twisty passageway
 The main passageway continues on a northwest/southeast route with a smaller
 passage heading off to the west. Exits lie: northwest, southeast and west.
 
->To the southeast you go.
+> se
+To the southeast you go.
 
 Lengthy passage
 This passage runs straight and smooth for as far as you can see to the
@@ -307,44 +359,52 @@ little passages. Exits lie: northwest and southeast.
 
 Cyana is here.
 
->To the southeast you go.
+> se
+To the southeast you go.
 
 A set of twisty little passages
 Passages approach here from many directions, bewildering in their complexity.
 Exits lie: northwest, north, east, south and west.
 
->To the east you go.
+> e
+To the east you go.
 
 Glowing passage
 The walls of this passage glow with a strange light, although what might be
 causing it you cannot say. Exits lie: north and west.
 
->You move west.
+> w
+You move west.
 
 A set of twisty little passages
 Passages approach here from many directions, bewildering in their complexity.
 Exits lie: northwest, north, east, south and west.
 
->To the north you go.
+> n
+To the north you go.
 
 Graves
 A number of graves have been dug in the hard stone floor of the passage,
 lending an air of the macabre to a location not entirely pleasant in the
 first place. Exits lie: north, east and south.
 
->Using the shovel, you dig up the graves.
+> dig
+Using the shovel, you dig up the graves.
 
->You look around the graves and come across a necklace around the neck of one
+> x graves
+You look around the graves and come across a necklace around the neck of one
 corpse. Figuring that you will have more use for it than the corpse, you take
 it with you.
 
->To the south you go.
+> s
+To the south you go.
 
 A set of twisty little passages
 Passages approach here from many directions, bewildering in their complexity.
 Exits lie: northwest, north, east, south and west.
 
->To the northwest you go.
+> nw
+To the northwest you go.
 
 Lengthy passage
 This passage runs straight and smooth for as far as you can see to the
@@ -353,18 +413,21 @@ little passages. Exits lie: northwest and southeast.
 
 Cyana is here.
 
->She wrinkles her pretty nose at you. "Oh my god, a human," she says, the last
+> talk to cyana
+She wrinkles her pretty nose at you. "Oh my god, a human," she says, the last
 word spoken in the tones of someone who doesn't really care for humans and
 would probably be quite happy if they all exploded and didn't bother her
 again. "What are you - some damn fool wandering around these caves trying to
 make his fortune? Thh! Ought to be strangled at birth if you ask me."
 
->"What?" she snaps. "You think I want to talk to you? No, I do not! But..."
+> talk to cyana
+"What?" she snaps. "You think I want to talk to you? No, I do not! But..."
 She hesitates, biting her lip. "If you've come across anything nice in these
 caves, you might as well hand it over. But," she adds, "don't expect you're
 getting anything for it."
 
->"Hmm, not bad," she says, then adds quickly, "for a human. Well, you've
+> give necklace to cyana
+"Hmm, not bad," she says, then adds quickly, "for a human. Well, you've
 exceeded the incredibly low expectations I had for you so..." She sighs. "I
 was going to run off and leave you with nothing but, damnit, my upbringing
 was too good for that. Even forced me to deal fairly with humans of all
@@ -372,74 +435,86 @@ things! Here, have this. You might find it handy."
    She hands you a helmet with the words "exbsg sfqfmmfs" written on the top.
    Then she puts on her necklace and departs.
 
->You put on the helm.
+> wear helm
+You put on the helm.
 
->To the southeast you go.
+> se
+To the southeast you go.
 
 A set of twisty little passages
 Passages approach here from many directions, bewildering in their complexity.
 Exits lie: northwest, north, east, south and west.
 
->To the north you go.
+> n
+To the north you go.
 
 Graves
 A number of graves have been dug in the hard stone floor of the passage,
 lending an air of the macabre to a location not entirely pleasant in the
 first place. Exits lie: north, east and south.
 
->To the north you go.
+> n
+To the north you go.
 
 Narrow passage
 This passage is barely wide enough for you to squeeze through. Exits lie:
 north and south.
 
->To the north you go.
+> n
+To the north you go.
 
 Grumbleguts' lair
 A horrid smell assails you as you stumble around the lair of Grumbleguts, a
 ferocious ogre. A young woman locked in an iron cage looks on unhappily.
 Exits lie: east and south.
 
->To the east you go.
+> e
+To the east you go.
 
 Mossy cavern
 Thick moss grows in clumps throughout this cavern; unfortunately your
 knowledge of moss is decidely limited so you are unable to tell if this has
 any significance or not. Exits lie: northwest, east, southeast and west.
 
->To the northwest you go.
+> nw
+To the northwest you go.
 
 Curving passage
 You follow a passage which curves so many times it is very easy to get lost.
 The corpse of a former adventurer lies sprawled on the ground; some poor
 fellow less fortunate than you. Exits lie: northeast, southeast and west.
 
->To the northeast you go.
+> ne
+To the northeast you go.
 
 Mad Tom's lair
 You seem to have stumbled into the lair of Mad Tom, a decidely deranged
 wizard with a penchant for throwing fireballs first and asking questions
 later. Exits lie: southwest.
 
->"Ah, my seaweed!" cries Mad Tom, doing a happy little dance. "At least I'll
+> give seaweed to mad tom
+"Ah, my seaweed!" cries Mad Tom, doing a happy little dance. "At least I'll
 have something for my dinner now!"
    His mad dancing dislodges a key which you quickly swipe before he notices.
 
->To the southwest you go.
+> sw
+To the southwest you go.
 
 Curving passage
 You follow a passage which curves so many times it is very easy to get lost.
 The corpse of a former adventurer lies sprawled on the ground; some poor
 fellow less fortunate than you. Exits lie: northeast, southeast and west.
 
->You move west.
+> w
+You move west.
 
 Grisly junction
 At this junction, the dead body of a former adventurer has been nailed to the
 walls; a grisly reminder of the fate which befalls most who enter the
 Darkhaven Caves. Exits lie: north, south, east and west.
 
->To the north you go.
+> n
+To the north you go.
 
 Goblin cavern
 A band of goblins call this cavern home and seem very minded to kill you for
@@ -451,20 +526,23 @@ but another of them grabs his arm and points.
    Then, frighteningly, he smiles!
    "Hey there, feller me lad," he says. "Welcome back!"
 
->You hand over the thighbone.
+> give thighbone to goblins
+You hand over the thighbone.
    "Murkle, me favourite brother," one of the goblins says with a sigh. "Pity
 'ee got 'et by dat der evil troll but yer canna win 'em all. Tanks, hooman."
    You stand around waiting for some kind of reward but a reward seems to be
 the last thing on the goblins' minds.
 
->To the south you go.
+> s
+To the south you go.
 
 Grisly junction
 At this junction, the dead body of a former adventurer has been nailed to the
 walls; a grisly reminder of the fate which befalls most who enter the
 Darkhaven Caves. Exits lie: north, south, east and west.
 
->To the south you go.
+> s
+To the south you go.
 
 Cells
 A number of cells around the outskirts of this chamber contain prisoners, no
@@ -472,7 +550,8 @@ doubt thrown in here for the amusement of whatever foul being calls this
 place its lair. Fortunately it doesn't seem to be in residence at the moment.
 Exits lie: north.
 
->The moment you reach out to open the nearest cage, there is a thunderous roar
+> open cells
+The moment you reach out to open the nearest cage, there is a thunderous roar
 and a huge, foul-smelling beast - the jailer, no doubt - comes roaring out of
 the shadows and tries to brain you with a massive hammer! Only the fact that
 a dozen goblins suddenly charge into the area and lay into the jailer with
@@ -486,28 +565,32 @@ one of them had found before his capture.
    Eager to be gone from here, the prisoners make an orderly line and head
 for the exit.
 
->To the north you go.
+> n
+To the north you go.
 
 Grisly junction
 At this junction, the dead body of a former adventurer has been nailed to the
 walls; a grisly reminder of the fate which befalls most who enter the
 Darkhaven Caves. Exits lie: north, south, east and west.
 
->To the east you go.
+> e
+To the east you go.
 
 Curving passage
 You follow a passage which curves so many times it is very easy to get lost.
 The corpse of a former adventurer lies sprawled on the ground; some poor
 fellow less fortunate than you. Exits lie: northeast, southeast and west.
 
->To the southeast you go.
+> se
+To the southeast you go.
 
 Mossy cavern
 Thick moss grows in clumps throughout this cavern; unfortunately your
 knowledge of moss is decidely limited so you are unable to tell if this has
 any significance or not. Exits lie: northwest, east, southeast and west.
 
->To the southeast you go.
+> se
+To the southeast you go.
 
 Painted passageway
 The walls of this passage are painted with many elaborate (and disturbing)
@@ -521,9 +604,11 @@ the sword in fright (along with 15 gold coins which you quickly grab hold of)
 before fleeing away from you as fast as he can.
    What a strange fellow!
 
->You pick up the sword.
+> get sword
+You pick up the sword.
 
->To the east you go.
+> e
+To the east you go.
 
 Bridge
 A bridge spans this vast chasm, a spindly structure which looks hardly strong
@@ -531,13 +616,15 @@ enough to hold your weight. A knight in full plate armour - the legendary Sir
 Pargus the Magnificent - stands partway across the bridge, a fearsome waraxe
 clenched in his gauntletted fists. Exits lie: east and west.
 
->Sword held high and armour gleaming, you lunge at Sir Pargus and,
+> kill sir pargus
+Sword held high and armour gleaming, you lunge at Sir Pargus and,
 surprisingly, catch him an unexpected blow that knocks him back several feet!
    "Damnation, varlet!" he thunders. "You hit me! You-"
    "Defeated you," you say.
    He blusters a bit but cannot deny what you say. Grudgingly he steps aside.
 
->To the east you go.
+> e
+To the east you go.
 
 Treasure trove
 You have reached the fabled treasure trove of the caves! Around you there is
@@ -545,13 +632,16 @@ more wealth than you could ever hope to spend in a thousand lifetimes!
 
 Also here is a jewelled rod and a jade sceptre.
 
->You take as much treasure as you can manage right now - 55 gold coins (gold
+> get treasure
+You take as much treasure as you can manage right now - 55 gold coins (gold
 weighs a lot, you know). You can always come back for more once you've
 successfully cleared the caves of all dangers.
 
->You pick up the jewelled rod and the jade sceptre.
+> get all
+You pick up the jewelled rod and the jade sceptre.
 
->You move west.
+> w
+You move west.
 
 Bridge
 A bridge spans this vast chasm, a spindly structure which looks hardly strong
@@ -559,27 +649,31 @@ enough to hold your weight. A knight in full plate armour - the legendary Sir
 Pargus the Magnificent - stands partway across the bridge, a fearsome waraxe
 clenched in his gauntletted fists. Exits lie: east and west.
 
->You move west.
+> w
+You move west.
 
 Painted passageway
 The walls of this passage are painted with many elaborate (and disturbing)
 images. Exits lie: northwest, east and southwest.
 
->To the northwest you go.
+> nw
+To the northwest you go.
 
 Mossy cavern
 Thick moss grows in clumps throughout this cavern; unfortunately your
 knowledge of moss is decidely limited so you are unable to tell if this has
 any significance or not. Exits lie: northwest, east, southeast and west.
 
->You move west.
+> w
+You move west.
 
 Grumbleguts' lair
 A horrid smell assails you as you stumble around the lair of Grumbleguts, a
 ferocious ogre. A young woman locked in an iron cage looks on unhappily.
 Exits lie: east and south.
 
->"You killed the foul ogre!" cries the young woman as you free her from the
+> open cage
+"You killed the foul ogre!" cries the young woman as you free her from the
 cage. "Oh, this is wonderful! I don't have to worry about that disgusting
 monster ever again!"
    She thrusts some money - 15 gold coins! - into your hands before running
@@ -587,91 +681,107 @@ away, not even stopping as you try to tell her that you didn't actually kill
 the ogre but just swiped the key to her cage. For all you know, Grumbleguts
 is still out there.
 
->To the east you go.
+> e
+To the east you go.
 
 Mossy cavern
 Thick moss grows in clumps throughout this cavern; unfortunately your
 knowledge of moss is decidely limited so you are unable to tell if this has
 any significance or not. Exits lie: northwest, east, southeast and west.
 
->To the east you go.
+> e
+To the east you go.
 
 Merchant
 An enterprising gnome has set up a merchant's stall in this passage, selling
 odds and ends he's no doubt discovered in the caves. Exits lie: north and
 west.
 
->To the north you go.
+> n
+To the north you go.
 
 Outside the mad harpist's hall
 A rickety old hall rises before you: rotting walls and a ceiling do not give
 you a favourable impression of the place. Exits lie: northeast (or in) and
 south.
 
->To the northeast you go.
+> ne
+To the northeast you go.
 
 The mad harpist's hall
 Harp music floats around this hall, the signature of the strangest resident
 of the Darkhaven Caves: the mad harpist. He is a weirdly-dressed fellow in
 yellow robes who plays a harp endlessly. Exits lie: southwest (or out).
 
->"Ah, the master flutist is here!" cries the mad harpist. "Excellent! Together
+> talk to mad harpist
+"Ah, the master flutist is here!" cries the mad harpist. "Excellent! Together
 we shall perform a play like none the world has ever..." He trails off upon
 noticing the lack of flutes about your person. "Damn. Still, nice idea while
 it lasted. Tell you what, fellow, you come across any musical instruments on
 your travels, you be sure to let me have them. Big reward in it for you."
 
->"Excellent!" cries the mad harpist. "Here, have some money!"
+> give cello to mad harpist
+"Excellent!" cries the mad harpist. "Here, have some money!"
    He takes the cello and hands you five gold coins.
 
->"I've always had a thing for guitars!" cries the mad harpist. "Here, have
+> give guitar to mad harpist
+"I've always had a thing for guitars!" cries the mad harpist. "Here, have
 some money!"
    He takes the guitar and hands you five gold coins.
 
->Outwards you go.
+> out
+Outwards you go.
 
 Outside the mad harpist's hall
 A rickety old hall rises before you: rotting walls and a ceiling do not give
 you a favourable impression of the place. Exits lie: northeast (or in) and
 south.
 
->To the south you go.
+> s
+To the south you go.
 
 Merchant
 An enterprising gnome has set up a merchant's stall in this passage, selling
 odds and ends he's no doubt discovered in the caves. Exits lie: north and
 west.
 
->"Ho there, bold adventurer!" cries the gnome, seeming quite pleased to have a
+> talk to merchant
+"Ho there, bold adventurer!" cries the gnome, seeming quite pleased to have a
 customer. "On the menu today, I have a pearl for 30 gold coins, a ruby also
 for 30 gold coins and a diamond for the mere sum of 60 gold coins. Now," he
 adds before you can say anything, "I'm awful fussy about how I do business.
 If you try anything other than 'buy [relevant jewel name]' I'll refuse to
 answer. Got that? Okay, go ahead."
 
->"A worthwhile purchase and no mistake," says the gnome and hands over the
+> buy diamond
+"A worthwhile purchase and no mistake," says the gnome and hands over the
 diamond.
 
->"A worthwhile purchase and no mistake," says the gnome and hands over the
+> buy pearl
+"A worthwhile purchase and no mistake," says the gnome and hands over the
 pearl.
 
->"A worthwhile purchase and no mistake," says the gnome and hands over the
+> buy ruby
+"A worthwhile purchase and no mistake," says the gnome and hands over the
 ruby.
 
->You move west.
+> w
+You move west.
 
 Mossy cavern
 Thick moss grows in clumps throughout this cavern; unfortunately your
 knowledge of moss is decidely limited so you are unable to tell if this has
 any significance or not. Exits lie: northwest, east, southeast and west.
 
->To the southeast you go.
+> se
+To the southeast you go.
 
 Painted passageway
 The walls of this passage are painted with many elaborate (and disturbing)
 images. Exits lie: northwest, east and southwest.
 
->To the southwest you go.
+> sw
+To the southwest you go.
 
 Completely dark!!!
 No matter how hard you look or whatever you might be carrying, this
@@ -679,30 +789,35 @@ passageway is completely dark and you are unable to see a thing! However, a
 light breeze blowing through the passage indicates the location of the exits.
 Exits lie: northeast, south and west.
 
->To the south you go.
+> s
+To the south you go.
 
 Glowing passage
 The walls of this passage glow with a strange light, although what might be
 causing it you cannot say. Exits lie: north and west.
 
->You move west.
+> w
+You move west.
 
 A set of twisty little passages
 Passages approach here from many directions, bewildering in their complexity.
 Exits lie: northwest, north, east, south and west.
 
->To the south you go.
+> s
+To the south you go.
 
 Entrance to the caves
 The caves lie before you, dark and eerie; untold treasures await you in their
 murky depths. At your back is the world of the surface. Exits lie: north,
 south.
 
->You start towards the outside world. Then hesitate. Once you leave here you
+> s
+You start towards the outside world. Then hesitate. Once you leave here you
 might well never return. Have you got everything you came for?
    If so, going south again will take you away from the caves.
 
->You step from the Caves. Now, to see how well you did...
+> s
+You step from the Caves. Now, to see how well you did...
 Your score is 125 out of 125.
    You did amazing! In fact, you got the maximum possible score! (Did you
 cheat?)
@@ -712,4 +827,5 @@ among adventurers.
 
 Your finishing rank is: Godlike Adventurer.
 
->Do you really want to quit? [Y/N]
+> quit
+Do you really want to quit? [Y/N]

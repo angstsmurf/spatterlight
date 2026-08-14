@@ -27,7 +27,8 @@ Don‘t know why he keeps going down there in the dark.  That is the third time
 today."
 
 >
->
+
+> look
 
 In 'Ye Old Pub
 
@@ -41,7 +42,8 @@ home.
 
 My Mum is scrubbing the floor, right over there.
 
->I slowly climb up the narrow ladder and emerge in our humble home.
+> up
+I slowly climb up the narrow ladder and emerge in our humble home.
 
 Sleeping Quarters
 
@@ -53,9 +55,11 @@ sleep.  I don’t think that is the real reason though.
 
 Also here is an old lantern.
 
->I pick up the old lantern.
+> take lantern
+I pick up the old lantern.
 
->I slowly climb down the narrow ladder and emerge in dark corner of 'Ye Old
+> d
+I slowly climb down the narrow ladder and emerge in dark corner of 'Ye Old
 Pub.
 
 In 'Ye Old Pub
@@ -70,7 +74,8 @@ home.
 
 My Mum is scrubbing the floor, right over there.
 
->(Your score has increased by 2)
+> give lantern to mum
+(Your score has increased by 2)
 I give the lantern to my Mum.  She stops scrubbing the floor long enough to
 pull a flask of oil from her apron, and fills the lantern.
 
@@ -86,7 +91,7 @@ She returns to scrubbing the floor, while I move from her sight.  When she
 threatens no supper, she means it.  That isn't a good thing.  Indeed, it is
 very, very bad.
 
->
+> look
 
 The Storeroom
 
@@ -96,9 +101,11 @@ stuff down to the cellar and put in a stove so ‘Ye Old Pub can serve food.
 Mum is a right good cook, and father thinks it will draw in a lot of money.
 A trapdoor in the floor leads down to the cellar.
 
->I open the trap door.
+> open trapdoor
+I open the trap door.
 
->(Your score has increased by 2)
+> d
+(Your score has increased by 2)
 “Ahhh!”
 
 Right, that was a smart move.  I was steadying myself with an old crate when
@@ -158,29 +165,38 @@ along with some jars.  The other wall has a large hole in it, leading in,
 with a pile of bricks slightly off to the side.  Mum isn’t going to be happy
 about this at all. The trapdoor leads up to the storeroom.
 
->The entire wall is filled with shelves that are loaded up with bags of herbs
+> x shelf
+The entire wall is filled with shelves that are loaded up with bags of herbs
 and spices.  A few of the shelves house jars of pickled eggs some black jars.
  I'm not sure what is in all of them.
 
->They're about yeah high, and this big around.  If you want better than that,
+> x jars
+They're about yeah high, and this big around.  If you want better than that,
 you'll have to be more specific.  There are jars of pickled eggs and some
 black ones. I can't tell what is in them.
 
->I open the pickled egg jar.  A pickled egg is inside the pickled egg jar.
+> open pickled eggs
+I open the pickled egg jar.  A pickled egg is inside the pickled egg jar.
 
->I pull and egg from the jar, and boy, does it smell ripe.
+> take egg
+I pull and egg from the jar, and boy, does it smell ripe.
 
->I open the black jar.  A pickled pig's foot is inside the black jar.
+> open black jar
+I open the black jar.  A pickled pig's foot is inside the black jar.
 
->I pull a pickled pig's foot from the jar.  It drips a little, but doesn't
+> take foot
+I pull a pickled pig's foot from the jar.  It drips a little, but doesn't
 make too big of a mess.
 
->It's kind of dark down here, but I am guessing there must be at least twenty
+> x pile
+It's kind of dark down here, but I am guessing there must be at least twenty
 bricks or so.  A brick is on the pile of bricks.
 
->One is all I need.
+> take brick
+One is all I need.
 
->(Your score has increased by 2)
+> in
+(Your score has increased by 2)
 I stick the lantern through the hole first, checking for spiders and rats.
 I'm not very fond of 'nightly creatures', as mum calls them.  I look around
 for Hanson, but don't see him anywhere.
@@ -198,7 +214,8 @@ the floor.  It looks like it continues to the north and a hole in the wall
 leads back into the cellar, which I can go through.  How odd, though.  There
 is no sign of the lantern that I am sure I heard Hanson break.
 
->I move north.
+> n
+I move north.
 
 A Dark Tunnel
 
@@ -207,7 +224,8 @@ floors, everything is crawling with spiders.  I can see the tunnel turns east
 from here, but there is a very large, hairy spider blocking my way.  The
 tunnel also leads south.
 
->(Your score has increased by 4)
+> smash spider
+(Your score has increased by 4)
 Realizing I have a heavy brick, I begin to smash as many of the little
 spiders as I can.  That very large spider, blocking my way, doesn't seem to
 be too happy about that and comes at me very quickly.
@@ -218,7 +236,8 @@ be too happy about that and comes at me very quickly.
 smashed body and crumpled legs of the irritating spider.  I want to get out
 of here, NOW!
 
->I carefully enter the tunnel to the east.
+> e
+I carefully enter the tunnel to the east.
 
 A Dark Tunnel
 
@@ -227,16 +246,20 @@ can make out a lever near the grate.  It is too dark to see what lies to the
 east on the other side of the grate, and I dread to think of returning to the
 west, where all of those spiders are.
 
->The grate seems to be locked.
+> open grate
+The grate seems to be locked.
 
->I pull as hard as I can and the lever moves half way down, but nothing
+> pull lever
+I pull as hard as I can and the lever moves half way down, but nothing
 happens.
 
->(Your score has increased by 2)
+> again
+(Your score has increased by 2)
 I again pull as hard as I can and the lever moves into the down position and
 the grate slowly swings open.
 
->I move east.
+> e
+I move east.
 
 A Dark Tunnel
 
@@ -245,7 +268,8 @@ is too dark to see what lies to the west, on the other side of the grate.
 This side has large puddles of water that fill the center of the tunnel, and
 it appears to lead to the north from here.
 
->I move north.
+> n
+I move north.
 
 A Dark Tunnel
 
@@ -253,13 +277,15 @@ Great!  I hate rats!  Water runs down the center of the tunnel and is filled
 with hundreds of rats that scurry about.  The tunnel runs south from here and
 west.  Man, there are a lot of rats!
 
->(Your score has increased by 3)
+> feed rats
+(Your score has increased by 3)
 I throw the egg down the tunnel a little ways, and the rats scurry on over,
 climbing over each other to get a piece.
 
 There are still too many rats to pass.  They look very hungry.
 
->(Your score has increased by 9)
+> again
+(Your score has increased by 9)
 I throw the pickled pigs foot down the tunnel a little ways, and the rats
 race over to it as quickly as they can.
 
@@ -267,7 +293,8 @@ The rats are huddled together further on down the tunnel.  They are
 screeching and climbing all over each other, trying to get at the food.
 There is now a little a clear path to the west.
 
->I move west.
+> w
+I move west.
 
 A Dark Tunnel
 
@@ -283,7 +310,8 @@ attached to the wall, it would be far below the hole.
 
 Also here is an old ladder.
 
->(Your score has increased by 3)
+> climb ladder
+(Your score has increased by 3)
 I'm steadying myself at the bottom and begin to climb upward, towards the
 direction of the light.  I'm almost there.
 
@@ -294,10 +322,12 @@ direction of the light.  I'm almost there.
 Nice going.  I fell.  And it seems I took the ladder with me.  There is no
 way it will reach the hole now.  I guess Hanson couldn't have gone that way.
 
->I've got it.  Whoah.  Almost dropped it.  But I have it now.  Nothing to
+> take ladder
+I've got it.  Whoah.  Almost dropped it.  But I have it now.  Nothing to
 worry about.
 
->I move west.
+> w
+I move west.
 
 A Dark Tunnel
 
@@ -305,16 +335,19 @@ Hmmm. There is a rickety bridge that spans across a very dark pit  It looks
 like the pit is around six foot wide.  I can’t really tell which way the
 tunnel goes on the other side, but it does lead back to the east from here.
 
->I steady myself carefully on the rope bridge, trying not to fall.  A couple
+> cross bridge
+I steady myself carefully on the rope bridge, trying not to fall.  A couple
 steps in, the rope begins to untwine and I am barely able to jump back to
 safety before it snaps, disappearing somewhere into the pit.
 
->(Your score has increased by 3)
+> put ladder over pit
+(Your score has increased by 3)
 Steadying the ladder at the edge of the pit, I slowly lower it, making
 contact with the other side.  It seems to have worked.  I might be able to
 get to the other side now.
 
->I slowly make my way across the ladder!
+> n
+I slowly make my way across the ladder!
 
 "WHOAH!"
 
@@ -331,7 +364,8 @@ three other tunnels lead north, northeast, and northwest.  A strong odor of
 ammonia fills the air.  It is likely coming from the bat guano that covers
 the ground.
 
->I move northwest.
+> nw
+I move northwest.
 
 A Dark Tunnel
 
@@ -341,7 +375,8 @@ the tunnels early on.  It almost seems like this tunnel is a little more
 narrow than the others I’ve been in.  It looks like the tunnel goes southeast
 and north.
 
->I move north.
+> n
+I move north.
 
 A Dark tunnel
 
@@ -350,9 +385,11 @@ floor is piled high with bat droppings, and the stench is quite nauseating.
 
 Also here is a small boulder.
 
->I pick up the small boulder.
+> take boulder
+I pick up the small boulder.
 
->I move west.
+> w
+I move west.
 
 A Dark tunnel
 
@@ -361,7 +398,8 @@ of sorts.  Three stone plinths rise up from the guano covered floor, each one
 differing in height.  I can see a tall plinth, a medium plinth, and a short
 plinth. Wow, it really smells bad in here.
 
->(Your score has increased by 8)
+> put boulder on tall plinth
+(Your score has increased by 8)
 "Mmmmgggphh."
 
  Ok, that wasn't so bad.  It weighs about as much as a sack of grain.  It's
@@ -372,14 +410,16 @@ on the tall plinth.
   I swear I heard something.  It was like grinding stone or something like
 that.  It was somewhere off in one of the other tunnels.
 
->I move east.
+> e
+I move east.
 
 A Dark tunnel
 
 This narrow tunnel leads west and south, and is intoxicating to be in.  The
 floor is piled high with bat droppings, and the stench is quite nauseating.
 
->I move south.
+> s
+I move south.
 
 A Dark Tunnel
 
@@ -389,7 +429,8 @@ the tunnels early on.  It almost seems like this tunnel is a little more
 narrow than the others I’ve been in.  It looks like the tunnel goes southeast
 and north.
 
->I move southeast.
+> se
+I move southeast.
 
 A Dark Tunnel
 
@@ -398,7 +439,8 @@ three other tunnels lead north, northeast, and northwest.  A strong odor of
 ammonia fills the air.  It is likely coming from the bat guano that covers
 the ground.
 
->I move northeast.
+> ne
+I move northeast.
 
 A Dark Tunnel
 
@@ -409,7 +451,8 @@ Bat's are are flying about everywhere.
 
 A flock of bats flutter away to the north.
 
->I move north.
+> n
+I move north.
 
 A Dark Tunnel
 
@@ -417,7 +460,8 @@ There is an opening in the east wall that wasn't there before.  The guano
 filled tunnel stretches east and south.
 Bat's are are flying about everywhere.
 
->I move east.
+> e
+I move east.
 
 A Dark Tunnel
 
@@ -428,9 +472,11 @@ the tunnel just yet, thought the smell of guano lingers heavily in the air.
 
 Also here is a medium boulder.
 
->I pick up the medium boulder.
+> take boulder
+I pick up the medium boulder.
 
->I move west.
+> w
+I move west.
 
 A Dark Tunnel
 
@@ -439,7 +485,8 @@ filled tunnel stretches east and south.
 
 A flock of bats swoop in from the south.
 
->I move south.
+> s
+I move south.
 
 A Dark Tunnel
 
@@ -447,7 +494,8 @@ This tunnel is overrun with bat droppings so thick that the stench is enough
 to make me want to pass out.  The stinky tunnel leads to the north and to the
 southwest.
 
->I move southwest.
+> sw
+I move southwest.
 
 A Dark Tunnel
 
@@ -456,7 +504,8 @@ three other tunnels lead north, northeast, and northwest.  A strong odor of
 ammonia fills the air.  It is likely coming from the bat guano that covers
 the ground.
 
->I move northwest.
+> nw
+I move northwest.
 
 A Dark Tunnel
 
@@ -466,14 +515,16 @@ the tunnels early on.  It almost seems like this tunnel is a little more
 narrow than the others I’ve been in.  It looks like the tunnel goes southeast
 and north.
 
->I move north.
+> n
+I move north.
 
 A Dark tunnel
 
 This narrow tunnel leads west and south, and is intoxicating to be in.  The
 floor is piled high with bat droppings, and the stench is quite nauseating.
 
->I move west.
+> w
+I move west.
 
 A Dark tunnel
 
@@ -482,7 +533,8 @@ of sorts.  Three stone plinths rise up from the guano covered floor, each one
 differing in height.  I can see a tall plinth, a medium plinth, and a short
 plinth. Wow, it really smells bad in here.
 
->(Your score has increased by 11)
+> put boulder on medium plinth
+(Your score has increased by 11)
 "Mmmmgggphh. Oooh.  Oh.  Whoa! Almost dropped it.  A little more.  Come on.
 There!"
 
@@ -491,14 +543,16 @@ There!"
 I heard something that sounded like grinding stone.  I don't think it was my
 imagination, though my father always says I have rocks in my head.
 
->I move east.
+> e
+I move east.
 
 A Dark tunnel
 
 This narrow tunnel leads west and south, and is intoxicating to be in.  The
 floor is piled high with bat droppings, and the stench is quite nauseating.
 
->I move south.
+> s
+I move south.
 
 A Dark Tunnel
 
@@ -508,7 +562,8 @@ the tunnels early on.  It almost seems like this tunnel is a little more
 narrow than the others I’ve been in.  It looks like the tunnel goes southeast
 and north.
 
->I move southeast.
+> se
+I move southeast.
 
 A Dark Tunnel
 
@@ -518,7 +573,8 @@ ammonia fills the air.  It is likely coming from the bat guano that covers
 the ground.
 Bat's are are flying about everywhere.
 
->I move north.
+> n
+I move north.
 
 A Dark Tunnel
 
@@ -528,7 +584,8 @@ quite overwhelming.
 
 A flock of bats swoop in from the south.
 
->I move north.
+> n
+I move north.
 
 A Dark Tunnel
 
@@ -537,7 +594,8 @@ tunnel, only making the stench of the bat droppings that much more
 nauseating.  I can see that the tunnel branches off to the northeast and
 northwest, as well as to the south.
 
->I move northeast.
+> ne
+I move northeast.
 
 A Dark Tunnel
 
@@ -546,7 +604,8 @@ droppings that cover the ground.  There is an opening, where the stone wall
 used to be, leading to the northwest, while the tunnel leads back to the
 southwest.
 
->I move northwest.
+> nw
+I move northwest.
 
 A Dark Tunnel
 
@@ -557,7 +616,8 @@ any droppings here.
 
 Also here is a large boulder.
 
->"Grrrr. Hhhrrrmmmmmmmmmppphhhh."
+> push boulder sw
+"Grrrr. Hhhrrrmmmmmmmmmppphhhh."
 
 I pushed the boulder to the southwest.
 
@@ -572,7 +632,8 @@ Also here is a large boulder.
 
 A flock of bats swoop in from the south-east.
 
->"Grrrr. Hhhrrrmmmmmmmmmppphhhh."
+> push boulder se
+"Grrrr. Hhhrrrmmmmmmmmmppphhhh."
 
 I pushed the boulder to the southeast.
 
@@ -585,7 +646,8 @@ northwest, as well as to the south.
 
 Also here is a large boulder.
 
->"Grrrr. Hhhrrrmmmmmmmmmppphhhh."
+> push boulder s
+"Grrrr. Hhhrrrmmmmmmmmmppphhhh."
 
 I pushed the boulder to the south.
 
@@ -597,7 +659,8 @@ quite overwhelming.
 
 Also here is a large boulder.
 
->"Grrrr. Hhhrrrmmmmmmmmmppphhhh."
+> push boulder s
+"Grrrr. Hhhrrrmmmmmmmmmppphhhh."
 
 I pushed the boulder to the south.
 
@@ -610,7 +673,8 @@ the ground.
 
 Also here is a large boulder.
 
->"Grrrr. Hhhrrrmmmmmmmmmppphhhh."
+> push boulder nw
+"Grrrr. Hhhrrrmmmmmmmmmppphhhh."
 
 I pushed the boulder to the northwest.
 
@@ -624,7 +688,8 @@ and north.
 
 Also here is a large boulder.
 
->"Grrrr. Hhhrrrmmmmmmmmmppphhhh."  I pushed the boulder to the north.
+> push boulder n
+"Grrrr. Hhhrrrmmmmmmmmmppphhhh."  I pushed the boulder to the north.
 
 A Dark tunnel
 
@@ -633,7 +698,8 @@ floor is piled high with bat droppings, and the stench is quite nauseating.
 
 Also here is a large boulder.
 
->(Your score has increased by 10)
+> push boulder w
+(Your score has increased by 10)
 "Grrrr. Hhhrrrmmmmmmmmmppphhhh."
 
 I pushed the boulder to the west.
@@ -647,7 +713,8 @@ plinth. Wow, it really smells bad in here.
 
 Also here is a large boulder.
 
->(Your score has increased by 13)
+> put large boulder on short plinth
+(Your score has increased by 13)
 "Mmmmgggphh. Uuuuugghhh.  Whoy boy.  Easy does it.  Oh!  Ahh!  Grrruuummmph.
 Ok."
 
@@ -659,14 +726,16 @@ think I tore my....my....one of those important muscle things.
   I heard another grinding of stone somewhere.  That must mean another door
 is opened somewhere.  I guess I had better go check it out.
 
->I move east.
+> e
+I move east.
 
 A Dark tunnel
 
 This narrow tunnel leads west and south, and is intoxicating to be in.  The
 floor is piled high with bat droppings, and the stench is quite nauseating.
 
->I move south.
+> s
+I move south.
 
 A Dark Tunnel
 
@@ -676,7 +745,8 @@ the tunnels early on.  It almost seems like this tunnel is a little more
 narrow than the others I’ve been in.  It looks like the tunnel goes southeast
 and north.
 
->I move southeast.
+> se
+I move southeast.
 
 A Dark Tunnel
 
@@ -685,7 +755,8 @@ three other tunnels lead north, northeast, and northwest.  A strong odor of
 ammonia fills the air.  It is likely coming from the bat guano that covers
 the ground.
 
->I move north.
+> n
+I move north.
 
 A Dark Tunnel
 
@@ -693,9 +764,11 @@ The tunnel narrows a little here, but I can see that it runs north and south
 from here.  The stench from the bat droppings that cover the tunnel floor is
 quite overwhelming.
 
->I can't go in that direction, but I can move north and south.
+> ne
+I can't go in that direction, but I can move north and south.
 
->I move north.
+> n
+I move north.
 
 A Dark Tunnel
 
@@ -704,7 +777,8 @@ tunnel, only making the stench of the bat droppings that much more
 nauseating.  I can see that the tunnel branches off to the northeast and
 northwest, as well as to the south.
 
->I move northwest.
+> nw
+I move northwest.
 
 A Dark Tunnel
 
@@ -716,7 +790,8 @@ Bat's are are flying about everywhere.
 
 A flock of bats flutter away to the south-east.
 
->I move northeast.
+> ne
+I move northeast.
 
 A Dark Tunnel
 
@@ -724,7 +799,8 @@ The tunnel curves around to the southeast and southwest from here.  Directly
 south is an open doorway, leading into darkness.  Thankfully there isn't any
 guano present, though the smell still lingers.
 
->I cautiously move south.
+> s
+I cautiously move south.
 
 "HANSON!”
 
@@ -796,9 +872,11 @@ going to be back real soon. He said another was coming to help soon and then
 he was going to throw me in that pit; now that the hole to here is caved in,
 and I’d never get out.  I don’t think he’d mind throwing you in too.”
 
->"I got it! Let's go."
+> take ladder
+"I got it! Let's go."
 
->"Northward!"
+> n
+"Northward!"
 
 "Shhh!"
 
@@ -814,7 +892,8 @@ south is an open doorway, leading into darkness.  Thankfully there isn't any
 guano present, though the smell still lingers.
 "Hanson is here, looking at me for direction."
 
->I move southwest.
+> sw
+I move southwest.
 
 A Dark Tunnel
 
@@ -825,7 +904,8 @@ goes off to the southeast.
 
 Hanson follows me in from the north-east.
 
->I move southeast.
+> se
+I move southeast.
 
 A Dark Tunnel
 
@@ -836,7 +916,8 @@ northwest, as well as to the south.
 
 Hanson follows me in from the north-west.
 
->I move south.
+> s
+I move south.
 
 A Dark Tunnel
 
@@ -846,7 +927,8 @@ quite overwhelming.
 
 Hanson follows me in from the north.
 
->I move south.
+> s
+I move south.
 
 A Dark Tunnel
 
@@ -857,7 +939,8 @@ the ground.
 
 Hanson follows me in from the north.
 
->South, back to the pit.
+> s
+South, back to the pit.
 
 A Dark Tunnel
 
@@ -865,12 +948,14 @@ A large pit, nearly six foot wide lies before me.  The bridge that was here
 has disappeared somewhere into the pit.  The tunnel leads east.
 "Hanson is here, looking at me for direction."
 
->(Your score has increased by 3)
+> put ladder over pit
+(Your score has increased by 3)
 Steadying the ladder at the edge of the pit, I slowly lower it, making
 contact with the other side.  It seems to have worked.  I might be able to
 get to the other side now.
 
->(Your score has increased by 10)
+> cross ladder
+(Your score has increased by 10)
 "I easily make it across, looking like an expert in the eyes of my younger
 brother."
 
@@ -894,7 +979,8 @@ is no way to reach it now, the ladder has come free from the wall.  It looks
 like the tunnel goes west from here, and back east to where the rats are.
 "Hanson is here, looking at me for direction."
 
->I move east.
+> e
+I move east.
 
 A Dark Tunnel
 
@@ -904,7 +990,8 @@ west.  Man, there are a lot of rats!
 
 Hanson follows me in from the west.
 
->I move south.
+> s
+I move south.
 
 A Dark Tunnel
 
@@ -915,9 +1002,11 @@ it appears to lead to the north from here.
 
 Hanson follows me in from the north.
 
->I can't go in that direction, but I can move north and west.
+> e
+I can't go in that direction, but I can move north and west.
 
->I move west.
+> w
+I move west.
 
 A Dark Tunnel
 
@@ -928,7 +1017,8 @@ west, where all of those spiders are.
 
 Hanson follows me in from the east.
 
->I move west.
+> w
+I move west.
 
 A Dark Tunnel
 
@@ -941,7 +1031,8 @@ Also here is a brick.
 
 Hanson follows me in.
 
->I move south.
+> s
+I move south.
 
 A Dark Tunnel
 
@@ -952,7 +1043,8 @@ is no sign of the lantern that I am sure I heard Hanson break.
 
 Hanson follows me in from the north.
 
->I stick the lantern through the hole first, making sure something isn't in
+> in
+I stick the lantern through the hole first, making sure something isn't in
 there.
 
 Through the hole I go, into the cellar.
@@ -968,9 +1060,11 @@ about this at all. The trapdoor leads up to the storeroom.
 
 Hanson follows me in.
 
->My score is 85 out of a maximum of 0.  (0%)
+> score
+My score is 85 out of a maximum of 0.  (0%)
 
->(Your score has increased by 15)
+> up
+(Your score has increased by 15)
 "The trapdoor is stuck! We still can't get out, Hanson."
 
 "Don't be such a crybaby, Shadrick.  MOM! MOM! SHADRICK IS BEATING ON ME!"

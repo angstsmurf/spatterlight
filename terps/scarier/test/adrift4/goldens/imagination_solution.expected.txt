@@ -48,16 +48,21 @@ she toppled over head first into the hole.  Her tiny screams echoed through
 the darkness. Can you help Jenny get back home?
 
 Please enter your name:
->
->You pick up the small stick.
+
+> Jenny
+
+> take stick
+You pick up the small stick.
 
 Jenny follows you .
 
->(Your score has increased by 20)
+> dig dirt
+(Your score has increased by 20)
 You use the stick as a makeshift shovel and dig the passage out.  The stick
 breaks and is no longer usable, so you toss it up out of the hole.
 
->You move south.
+> s
+You move south.
 
 Underground water pipe
 You are at the underground water way.  There is a wooden spoon floating
@@ -67,30 +72,39 @@ Also here is a piece of dental floss and a small rock.
 
 Jenny follows you .
 
->You pick up the piece of dental floss.
+> take floss
+You pick up the piece of dental floss.
 
->You pick up the small rock.
+> take rock
+You pick up the small rock.
 
->(Your score has increased by 20)
+> tie the string to the rock
+(Your score has increased by 20)
 You wrap the floss around the rock and make a grappling rock.
 
->(Your score has increased by 20)
+> throw rock at spoon
+(Your score has increased by 20)
 You throw the grappling rock at the spoon and miss several times.  One last
 try....and it land on the wooden spoon.  You are then able to pull it near.
 It looks like there is just enough room for you and the little girl.
 
->(Your score has increased by 20)
+> stand on spoon
+(Your score has increased by 20)
 You climb onto the spoon and carefully held the little girl on.  She loses
 her balance and nearly falls in, kicking the rock into the dark water.
 
->You float down the water pipe until you reach your chambers.  You jump off
+> s
+You float down the water pipe until you reach your chambers.  You jump off
 and help the little girl.
 
->You open the nut shell.  A ring is inside the nut shell.
+> open shell
+You open the nut shell.  A ring is inside the nut shell.
 
->You take the ring from the nut shell.
+> take ring
+You take the ring from the nut shell.
 
->(Your score has increased by 20)
+> give ring to girl
+(Your score has increased by 20)
 You hand the little girl the ring and she exclaims in excitement, "Oh, thank
 you!  Mommy will surely be happy now!"    She removes the bow from her curly,
 blond hair and asks, "But how will I get back home?"

@@ -18,7 +18,8 @@ twos and a lighter.
 
 There is an exit south.
 
->You move south.
+> south
+You move south.
 
 Main ticket booth
 What'll it be sir. The bracelet and strips of tickets are five dollars each.
@@ -33,17 +34,20 @@ There are exits north and east.
 
 Mafia man .
 
->(Your score has increased by 100)
+> take hundred dollars
+(Your score has increased by 100)
 You pick up the hundred dollars.
 
 Bouncer walks towards you.
 thank you. Have fun now.
 
->(Your score has increased by 100)
+> pick up money
+(Your score has increased by 100)
 Take what?
 You manage to avoid Mafia man's attack.
 
->You move east.
+> east
+You move east.
 
 Enter Hall of Mirrors
 This room is full of mirrors. There is a door somewhere here. You have time,
@@ -53,7 +57,8 @@ Brat Kid is here.
 
 You can move north, south and west.
 
->You move north.
+> north
+You move north.
 
 Strobe light room
 blacklight posters, music, and strobe lights flashing rapidly are a feature
@@ -61,7 +66,8 @@ of this room. It is giving me a headache.
 
 You can move east and south.
 
->You move east.
+> east
+You move east.
 
 Vampire lair
 A coffin opens and closes as you walk past the wax figure of Dracula.
@@ -71,7 +77,8 @@ Vampire is here.
 
 You can move east, south and west.
 
->You move east.
+> east
+You move east.
 
 Dark Room
 Feel your way around the walls. You cannot see anything. Find the door and
@@ -83,7 +90,8 @@ Bumpy the clown is here.
 
 You can move north, east, south and west.
 
->You move north.
+> north
+You move north.
 
 Fun slide
 A feel along the wall reveals a slide you did not notice. Should you save
@@ -93,7 +101,8 @@ Also here is a diamond ring.
 
 You can only move south.
 
->(Your score has increased by 110)
+> take ring
+(Your score has increased by 110)
 You pick up a beautiful ring.
 
 Fun slide
@@ -102,7 +111,8 @@ some time and take the slide?
 
 Also here is a diamond ring.
 
->You move south.
+> south
+You move south.
 
 Dark Room
 Feel your way around the walls. You cannot see anything. Find the door and
@@ -114,11 +124,14 @@ Bumpy the clown is here.
 
 You can move north, east, south and west.
 
->You pick up the kewbie doll.
+> take kewbie doll
+You pick up the kewbie doll.
 
->You pick up the cassette.
+> take cassette
+You pick up the cassette.
 
->You move west.
+> west
+You move west.
 
 Vampire lair
 A coffin opens and closes as you walk past the wax figure of Dracula.
@@ -128,7 +141,8 @@ Vampire is here.
 
 You can move east, south and west.
 
->You move west.
+> west
+You move west.
 
 Strobe light room
 blacklight posters, music, and strobe lights flashing rapidly are a feature
@@ -136,7 +150,8 @@ of this room. It is giving me a headache.
 
 You can move east and south.
 
->You move south.
+> south
+You move south.
 
 Enter Hall of Mirrors
 This room is full of mirrors. There is a door somewhere here. You have time,
@@ -147,7 +162,8 @@ Brat Kid is here.
 You can move north, south and west.
 You manage to avoid Brat Kid's attack.
 
->You move west.
+> west
+You move west.
 
 Main ticket booth
 What'll it be sir. The bracelet and strips of tickets are five dollars each.
@@ -160,7 +176,9 @@ Tall man, Ticket man, Bouncer and Your children 8) are here.
 
 You can move north and east.
 
->Your score is 310 out of a maximum of 410.  (75%)
+> score
+Your score is 310 out of a maximum of 410.  (75%)
 
->thank you for bravely protecting this important information
+> give ticket man cassette
+thank you for bravely protecting this important information
 Congratulations!

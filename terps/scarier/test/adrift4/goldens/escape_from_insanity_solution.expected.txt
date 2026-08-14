@@ -16,13 +16,19 @@ because I'm going to escape, and I'm going to become a rich oil tycoon!
 Nah...I think I'll just escape.
 
 >
->
->
->You are carrying a shard of glass.
-
->Your score is 0 out of a maximum of 1000.  (0%)
 
 >
+
+>
+
+> i
+You are carrying a shard of glass.
+
+> score
+Your score is 0 out of a maximum of 1000.  (0%)
+
+> look
+
 Padded Cell
 This is the place. The horrible place. Full of so many horrors, you'd think
 it's some sort of horror factory. The perfectly smooth padded walls sit
@@ -32,33 +38,43 @@ environment, especially since there's a large camera attached to it, watching
 my every move.  The constant humming of the fluorescent drives me insane, I
 wish I could just cry.
 
->You hear the song Live and Let Die be hummed by the light.
+> listen
+You hear the song Live and Let Die be hummed by the light.
 
->It was just a figure of speech.
+> cry
+It was just a figure of speech.
 
->Yeah, I'm sure they'll just leave it open for you to escape.
+> open door
+Yeah, I'm sure they'll just leave it open for you to escape.
 
->You grab the top pipe with both your hands, and tug it off. Excellent. That
+> take pipe
+You grab the top pipe with both your hands, and tug it off. Excellent. That
 should come in handy.
 
->You stick the glass onto the end of the pipe, increasing it's length a
+> use glass with pipe
+You stick the glass onto the end of the pipe, increasing it's length a
 little.
 
->You swing the pipe at the light, and the glass that you attached to the end
+> use pipe on light
+You swing the pipe at the light, and the glass that you attached to the end
 makes it long enough to shatter the light. The object inside falls to the
 ground, a long chunk of rock. You don't need the pipe anymore, so you hide it
 so the guards don't find it.
 
->You manage to shimmy the rock under the button, and using some pressure,
+> use rock on button
+You manage to shimmy the rock under the button, and using some pressure,
 manage to pry the button off the wall with a loud pop.
 
->You tear open the back of the button with the rock, and find a small knife
+> use rock on button
+You tear open the back of the button with the rock, and find a small knife
 hidden inside.
 
->Using the rock, you manage to sharpen the blade of the knife. Damn this rock
+> sharpen knife
+Using the rock, you manage to sharpen the blade of the knife. Damn this rock
 is useful.
 
->(Your score has increased by 1000)
+> cut cord
+(Your score has increased by 1000)
 You pull out the knife, making a clever *swish* noise as you do, and held it
 against the cord. You shout a weird warcry, and slash the cord across the
 middle. The cord rips in half, shooting sparks all over the place. That was

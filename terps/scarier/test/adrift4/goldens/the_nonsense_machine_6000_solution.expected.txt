@@ -4,18 +4,22 @@ The Nonsense Machine 6000
 Welcome to The Nonsense Machine 6000, with up to one million different bits
 of random nonsense! Pull lever for a bit of nonsense!
 
->50 year old dentist played ping pong with something that you wouldn't believe
+> pull lever
+50 year old dentist played ping pong with something that you wouldn't believe
 if I told you while eating a banana and singing classical classical songs
 about ice men to a swedish saucage dog that just ate a swedish meat ball.
 
->Australian crocodile wrestler proposed to a government official while drawing
+> pull lever
+Australian crocodile wrestler proposed to a government official while drawing
 on a piece of rock with a spoon dipped in strawberry yogurt and feeding a pet
 gerbal bits and pieces off a californian biker chick with a slight overbight,
 who loves attending plays and sleeping upside-down in trees made from guitar
 strings.
 
->American President shot something that you wouldn't believe if I told you
+> pull lever
+American President shot something that you wouldn't believe if I told you
 while trying to seperate an atom  and drinking a martini which was made by a
 guidance councellor who has just got out of prison.
 
->Do you really want to quit? [Y/N]
+> quit
+Do you really want to quit? [Y/N]

@@ -1847,18 +1847,28 @@ find_game() {  # $1=basename -> prints path or nothing
 # Run the seeded interpreter over a solution and normalise the transcript the
 # same way the a5 golden path does (strip trailing ws, squeeze blank runs).
 # ROW_ENV carries the row's optional env assignments (4th MAP field).
+#
+# SCR_ECHO_INPUT=1 makes os_ansi echo each command after its '>' prompt, as
+# "\n> command\n" -- the same shape a5run_dump gives the ADRIFT 5 goldens.
+# Without it the goldens record only the replies, so reading one means counting
+# prompts against the solution file by hand, and a route that desyncs by one
+# command is invisible in the diff.
 transcript() {  # $1=game path $2=solution path
   { cat "$2"; echo quit; echo y; } \
-    | ( ulimit -t 30; env $ROW_ENV "$SCARE_BIN" "$1" 2>/dev/null ) \
+    | ( ulimit -t 30; env SCR_ECHO_INPUT=1 $ROW_ENV "$SCARE_BIN" "$1" 2>/dev/null ) \
     | tr -d '\r' | sed 's/[[:space:]]*$//' | cat -s
 }
 
 # Build the harness if it's missing OR older than any engine source.  The
 # missing-only check once let a whole corpus run "pass" against a stale binary
-# (the wield-model port, 2026-08-01) -- never again.
+# (the wield-model port, 2026-08-01) -- never again.  os_ansi.cpp is in the set
+# too: it is the port that prints the transcript (prompt, echo, line wrap), so
+# editing it changes every golden while matching none of the sc*.cpp globs.
 SRC_DIR="${SCARE_DIR:-$(cd "$HERE/../../.." && pwd)}"
 if [ ! -x "$SCARE_BIN" ] \
-   || [ -n "$(find "$SRC_DIR" -maxdepth 1 \( -name 'sc*.cpp' -o -name '*.h' \) \
+   || [ -n "$(find "$SRC_DIR" -maxdepth 1 \
+              \( -name 'sc*.cpp' -o -name 'os_ansi.cpp' -o -name 'mapdraw.cpp' \
+                 -o -name '*.h' \) \
               -newer "$SCARE_BIN" 2>/dev/null | head -1)" ]; then
   echo "building headless scare harness (build.sh)..." >&2
   SCARE_DIR="${SCARE_DIR:-}" sh "$HERE/build.sh" >&2 || {

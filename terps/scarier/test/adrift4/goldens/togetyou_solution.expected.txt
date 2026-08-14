@@ -26,20 +26,25 @@ You are in a smooth, slippery tube with a shiny pink lining.  From here to
 you can go to the ear, nose, mouth or stomach.
 Millions of your relatives are here.
 
->Loads and loads of your family, all multiplying and infecting. It is a
+> x relative
+Loads and loads of your family, all multiplying and infecting. It is a
 beautiful sight.
 
->You need to state which place you are going to.
+> s
+You need to state which place you are going to.
 
->On either side of the throat you can see the tonsils.
+> x tube
+On either side of the throat you can see the tonsils.
 
->The tonsils help to catch germs entering through the throat.  "Well, they are
+> x tonsils
+The tonsils help to catch germs entering through the throat.  "Well, they are
 going to catch something today!" you think to yourself.
 
 It sounds like something is being eaten or maybe the flesh-sack is taking a
 drink?
 
->(Your score has increased by 1)
+> infect tonsils
+(Your score has increased by 1)
 They are now Infected!
 
 The Infected Throat
@@ -48,7 +53,8 @@ you can go to the ear, nose, mouth or stomach.  The tonsils are red and
 swollen, tonsillitis!
 Millions of your relatives are here.
 
->You head off to the stomach.
+> stomach
+You head off to the stomach.
 
 The Stomach
 It holds all the food just eaten and is squeezed by the muscular walls, with
@@ -57,16 +63,21 @@ or throat
 
 Also here is some acid.
 
->Stomach acid! Lovely!
+> x acid
+Stomach acid! Lovely!
 
->Eating the acid tastes good! You will now be able to spit the acid.
+> eat acid
+Eating the acid tastes good! You will now be able to spit the acid.
 
->You can see a polyp growing in the stomach wall.
+> x walls
+You can see a polyp growing in the stomach wall.
 
->It looks like a mushroom growing in the lining of the stomach. "Now that
+> x polyp
+It looks like a mushroom growing in the lining of the stomach. "Now that
 looks nasty," you smile to yourself.
 
->(Your score has increased by 1)
+> infect polyp
+(Your score has increased by 1)
 It is now Infected!
 
 The Infected Stomach
@@ -74,25 +85,30 @@ It holds all the food just eaten and is squeezed by the muscular walls, with
 a little help from some acid.  From here you can go to the ear, nose, mouth
 or throat  A polyp growing on the stomach wall has been infected.
 
->You head off to the right ear.
+> ear
+You head off to the right ear.
 
 The Ear
 This is the outer ear canal, which is the part of the ear you can see from
 outside. From here to you can go to the throat, nose, mouth or stomach.  The
 ear canal is full of wax, which will need to be removed.
 
->You can't see too much for all the ear wax in the ear canal.
+> x wax
+You can't see too much for all the ear wax in the ear canal.
 
->You spit out the acid, which dissolves the ear wax.
+> spit acid
+You spit out the acid, which dissolves the ear wax.
 
 The Ear
 This is the outer ear canal, which is the part of the ear you can see from
 outside. From here to you can go to the throat, nose, mouth or stomach.  In
 the ear canal you can see a tiny cut.
 
->Already looks nasty.
+> x cut
+Already looks nasty.
 
->(Your score has increased by 1)
+> infect cut
+(Your score has increased by 1)
 It is now Infected!
 
 The Ear
@@ -100,24 +116,30 @@ This is the outer ear canal, which is the part of the ear you can see from
 outside. From here to you can go to the throat, nose, mouth or stomach.  In
 the ear canal you can see a tiny cut.
 
->You head off to the mouth.
+> mouth
+You head off to the mouth.
 
 The Mouth
 Resting on the tongue, above and below you are the teeth (look a little
 yellow).  A nasty mouth ulcer is just to you left.  From here to you can go
 to the ear, nose, throat or stomach.
 
->This flesh-sack's  tongue looks horrible.  So, your family must be doing its
+> x tongue
+This flesh-sack's  tongue looks horrible.  So, your family must be doing its
 work properly.
 
->You can see two rows of teeth, they look a bit yellow.  One tooth looks
+> x teeth
+You can see two rows of teeth, they look a bit yellow.  One tooth looks
 interesting.
 
->It is a lovely bad tooth.
+> x tooth
+It is a lovely bad tooth.
 
->It is a break of the skin on inside of the mouth. It looks painful.
+> x ulcer
+It is a break of the skin on inside of the mouth. It looks painful.
 
->(Your score has increased by 1)
+> infect ulcer
+(Your score has increased by 1)
 It is now Infected!
 
 The Infected Mouth
@@ -126,24 +148,30 @@ yellow).  A nasty mouth ulcer is just to you left.  From here to you can go
 to the ear, nose, throat or stomach.  A lovely infection is now taking hold
 in the ulcer.
 
->You head off to the nose.
+> nose
+You head off to the nose.
 
 The Nose
 The inside of the nose is lined with some sort of a thin, moist, layer of
 tissue. At the back of the nose you can just see the adenoids.  From here to
 you can go to the ear, throat, mouth or stomach.
 
->The adenoids are lumpy things, that sit in the back of the nose above the
+> x adenoids
+The adenoids are lumpy things, that sit in the back of the nose above the
 roof of the mouth.
 
->You can see some blood vessels.
+> x tissue
+You can see some blood vessels.
 
->The nose is lined with blood vessels. "Now they would make a lovely nose
+> x vessels
+The nose is lined with blood vessels. "Now they would make a lovely nose
 bleed," you think to yourself.
 
->The blood vessels are not broken, so you will not be able to infect them yet.
+> infect vessels
+The blood vessels are not broken, so you will not be able to infect them yet.
 
->You head off to the stomach.
+> stomach
+You head off to the stomach.
 
 The Infected Stomach
 It holds all the food just eaten and is squeezed by the muscular walls, with
@@ -152,19 +180,23 @@ or throat  A polyp growing on the stomach wall has been infected.
 
 Also here is some acid.
 
->Eating the acid tastes good! You will now be able to spit the acid.
+> eat acid
+Eating the acid tastes good! You will now be able to spit the acid.
 
->You head off to the nose.
+> nose
+You head off to the nose.
 
 The Nose
 The inside of the nose is lined with some sort of a thin, moist, layer of
 tissue. At the back of the nose you can just see the adenoids.  From here to
 you can go to the ear, throat, mouth or stomach.
 
->Ahh! You have given your victim a nose bleed! The day just gets better and
+> spit acid
+Ahh! You have given your victim a nose bleed! The day just gets better and
 better.
 
->(Your score has increased by 1)
+> infect vessels
+(Your score has increased by 1)
 It is now Infected!
 
 The Infected Nose
@@ -176,7 +208,8 @@ nose bleed and must be in a lot of discomfort.
 
 Well that is everything infected.  Time to leave.
 
->(Your score has increased by 1)
+> smash adenoids
+(Your score has increased by 1)
 You give the adenoids a good hard bang.  It looks like the flesh-sack is
 going to sneeze.
 

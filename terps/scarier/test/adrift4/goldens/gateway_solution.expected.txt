@@ -9,8 +9,12 @@ lights and noise stop and the pain is gone. Your heart pounds and you breath
 heavily, trying to get ahold of yourself. You realize that you're on your
 back, looking up at empty blackness.
 Please enter your name:
->Please choose the player's gender (male or female):
->
+
+> Hero
+Please choose the player's gender (male or female):
+
+> male
+
 In The Gateway
 You are in a dark room with a slightly transparent and glowing image of a
 little girl that floats above you and slowly turns. The child has long brown
@@ -20,7 +24,8 @@ her body causing the image to pulse with a dim white light. Also in the room
 is a wood framed door that leads into an expanse of stars in a black night
 sky.
 
->You walk through the doorway...
+> walk through door
+You walk through the doorway...
 Lights flash around you and noise zips passed. Voices grow loud and then
 disappear so fast you can't tell what they are saying. Your body aches and
 your head pounds as you speed through chaos. Then all is calm and your senses
@@ -36,7 +41,8 @@ gates of the temple leading out into the Panrian Woods.
 A woman cries out in terror at your sudden appearance and rushes away into
 the building. A few other people in the court yard stare at you in confusion.
 
->   Suddenly a dozen armed guards wearing shiny chain mail armour burst out of
+> east
+   Suddenly a dozen armed guards wearing shiny chain mail armour burst out of
 the building to the east and charge towards you. You are weaponless and have
 no way to defend yourself. The soldiers run you down before you can escape
 and surround you, holding their swords and spears at the ready. One of them,
@@ -71,7 +77,8 @@ grabs a piece of paper and pen and quickly scrolls down a message. He hands
 you the paper and says, "Deliver this to the black smith in Fayn. He will
 give you supplies for your journey. Good luck."
 
->(Getting off the comfy chair first)
+> east
+(Getting off the comfy chair first)
 You move east.
 
 Bright Hall
@@ -81,7 +88,8 @@ off of its nearly white surface, reminding you of snow on a sunny day.
 
 EXITS:  north, east, south and west.
 
->You move south.
+> south
+You move south.
 
 South End of the Hall
 The light of the hall beyond follows you through the doorway into the
@@ -91,7 +99,8 @@ offices, the library, and a prayer room.
 
 EXITS:  north and down.
 
->You move down.
+> down
+You move down.
 
 South End of the Corridor
 You are standing in a stair well looking north down a candle lit hall. The
@@ -102,7 +111,8 @@ hallway.
 
 EXITS:  north, east and up.
 
->You move north.
+> north
+You move north.
 
 Temple Entry Hall
 The entry is brightly lit and a half dozen white robed priests are constantly
@@ -115,7 +125,8 @@ Here you can see the designed carpet.
 
 EXITS:  north, east, south and west.
 
->You move west.
+> west
+You move west.
 
 Temple Courtyard
 You are in a large square court yard. East of you stands the double doors to
@@ -127,7 +138,8 @@ gates of the temple leading out into the Panrian Woods.
 
 EXITS:  north, east, south and west.
 
->You move south.
+> south
+You move south.
 
 Garden
 A soft breeze washes across the multi-coloured flowers of the temple garden.
@@ -140,10 +152,12 @@ The Temple Gardener is busy tending the gardens.
 
 EXIT:   north.
 
->(Your score has increased by 10)
+> pick flower
+(Your score has increased by 10)
 You took the purple flower.
 
->You move north.
+> north
+You move north.
 
 Temple Courtyard
 You are in a large square court yard. East of you stands the double doors to
@@ -155,7 +169,8 @@ gates of the temple leading out into the Panrian Woods.
 
 EXITS:  north, east, south and west.
 
->You move east.
+> east
+You move east.
 
 Temple Entry Hall
 The entry is brightly lit and a half dozen white robed priests are constantly
@@ -168,7 +183,8 @@ Here you can see the designed carpet.
 
 EXITS:  north, east, south and west.
 
->You move north.
+> north
+You move north.
 
 Corridore
 Walking down the hall you come upon a door to the east. To the north another,
@@ -179,7 +195,8 @@ completely dark.
 
 EXITS:  north, east and south.
 
->You move east.
+> east
+You move east.
 
 Prayer Room
 The room is small and painted with a peach colour to make it feel warm and
@@ -190,10 +207,12 @@ An old Woman has knelt here and is praying.
 
 EXIT:   west.
 
->(Your score has increased by 10)
+> get flower
+(Your score has increased by 10)
 You took the purple flower.
 
->You move west.
+> west
+You move west.
 
 Corridore
 Walking down the hall you come upon a door to the east. To the north another,
@@ -204,7 +223,8 @@ completely dark.
 
 EXITS:  north, east and south.
 
->You move north.
+> north
+You move north.
 
 North End of the Corridor
 You are at the top of a dark stair well leading down into the ground. Another
@@ -215,7 +235,8 @@ stairs leading up and washes the ground with fuzzy warmth.
 
 EXITS:  south, up and down.
 
->You move down.
+> down
+You move down.
 
 Guard Room
 The room is a little chilly and smells slightly of sweat. In the middle of
@@ -230,10 +251,12 @@ Kadfast is playing cards with her follow soldiers.
 
 EXITS:  south and up.
 
->"You take care of that key," Kadfast says as she hands the gold key to you.
+> get key
+"You take care of that key," Kadfast says as she hands the gold key to you.
 It opens the jail cells and we don't want it leaving this basement."
 
->"I wouldn't open the east jail cell," one of the soldiers says. "We caught a
+> south
+"I wouldn't open the east jail cell," one of the soldiers says. "We caught a
 rapist not too long ago and he's still in there. He's due for execution in a
 few days. If you do open the cell and find you can't handle him, just call
 for us and Kadfast'll come running."
@@ -243,7 +266,8 @@ You enter the cold room and close the door behind you at the command of the
 guards. You see three iron doors with a tiny barred window on each. Looking
 through the windows you can see that the doors each block off a jail cell.
 
->Using the key, you walk through the door.
+> east
+Using the key, you walk through the door.
 
 East Jail Cell
 The room is extremely dark, cold, and damp. This is not at all a comfortable
@@ -254,11 +278,13 @@ hay and hide in a dark corner. Very cosy, you think darkly.
 A Rapist is here.
 A Rapist hits you with the rock.
 
->(Your score has increased by 10)
+> get flower
+(Your score has increased by 10)
 You get the purple flower.
 A Rapist hits you with the rock.
 
->You move west.
+> west
+You move west.
 
 Dark Hall
 You enter the cold room and close the door behind you at the command of the
@@ -267,7 +293,8 @@ through the windows you can see that the doors each block off a jail cell.
 
 EXITS:  north and east.
 
->You move north.
+> north
+You move north.
 
 Guard Room
 The room is a little chilly and smells slightly of sweat. In the middle of
@@ -282,13 +309,15 @@ Kadfast is playing cards with her follow soldiers.
 
 EXITS:  south and up.
 
->"Hold it there!" one of the silent cards speaks up. You turn around and see
+> up
+"Hold it there!" one of the silent cards speaks up. You turn around and see
 the heavily muscled soldier fingering the edge of a throwing knife. "Where do
 you think you're going with that key?" You scowl and quickly give the key to
 Kadfast. The soldier nods and waves you along, giving you the chance to try
 leaving again.
 
->You move up.
+> up
+You move up.
 
 North End of the Corridor
 You are at the top of a dark stair well leading down into the ground. Another
@@ -299,7 +328,8 @@ stairs leading up and washes the ground with fuzzy warmth.
 
 EXITS:  south, up and down.
 
->You move south.
+> south
+You move south.
 
 Corridore
 Walking down the hall you come upon a door to the east. To the north another,
@@ -310,7 +340,8 @@ completely dark.
 
 EXITS:  north, east and south.
 
->You move south.
+> south
+You move south.
 
 Temple Entry Hall
 The entry is brightly lit and a half dozen white robed priests are constantly
@@ -323,7 +354,8 @@ Here you can see the designed carpet.
 
 EXITS:  north, east, south and west.
 
->You move west.
+> west
+You move west.
 
 Temple Courtyard
 You are in a large square court yard. East of you stands the double doors to
@@ -335,7 +367,8 @@ gates of the temple leading out into the Panrian Woods.
 
 EXITS:  north, east, south and west.
 
->You move west.
+> west
+You move west.
 
 Outside the Temple Gate
 The tall rounded gate of the temple stands to your east and the Panrian Woods
@@ -347,7 +380,8 @@ shower of broken twigs and soft leaves fall upon your head.
 
 EXITS:  east and west.
 
->You move west.
+> west
+You move west.
 
 THE END
 Type End Game if you wish to quit now and win! Or head back East and continue
@@ -357,7 +391,8 @@ playable.
 
 EXIT:   east.
 
->Thank you for playing Gateway: Guardian Child.
+> end game
+Thank you for playing Gateway: Guardian Child.
 
 CONGRADULATIONS!!!
 

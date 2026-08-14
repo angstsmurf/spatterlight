@@ -33,7 +33,8 @@ is covered by a beautiful persian rug. Of course, the mandatory small bar is
 also here. On the floor in a corner stands your coffin.  You can go north to
 the bathroom. The door to the hall in the west wall is closed.
 
->(Your score has increased by 5)
+> call 5550
+(Your score has increased by 5)
 "This is Simonsen", you hear a man answer. "Is that you Jean?" You say it is.
 "OK, meet me downtown at Bozo night club on Karl Johans street at 23:00." He
 hangs up. Jon "The Slayer" Simonsen is part of your plan. You would never
@@ -42,9 +43,11 @@ you have the same intrest. That is, slaying vampires. Of course, you do hate
 eachother, and Simonsen will probably have a go at you after finishing of the
 other masters, but that's just his nature.
 
->You open the door.
+> open door
+You open the door.
 
->You move west.
+> w
+You move west.
 
 Hall
 The hall has several doors to different rooms. A small table with red roses
@@ -52,9 +55,11 @@ in a vase is here to cheer up the guests. The hall runs from north to south.
 To the north is the elevator.
 A guard appointed by the grand master vampire is here.
 
->You take ten red roses from the vase.
+> take roses
+You take ten red roses from the vase.
 
->You move east.
+> e
+You move east.
 
 Hotel Room
 The hotel room is large and lavish. The single window is covered by tick
@@ -64,7 +69,8 @@ is covered by a beautiful persian rug. Of course, the mandatory small bar is
 also here. On the floor in a corner stands your coffin.  You can go north to
 the bathroom, and west to the hall.
 
->You move north.
+> n
+You move north.
 
 Bathroom
 The bathroom is simply magnificent. The sink and toilet are made of marble.
@@ -72,12 +78,14 @@ The blue floor tiles looks cold and pleasant. There is a shower cabinet in
 one of the corners. Above the shower to the north is a small air vent.   You
 can go south to the bedroom.
 
->You transform into green mist. You really dont like your other forms. They
+> change into mist
+You transform into green mist. You really dont like your other forms. They
 remind you of what you are, but they definitely have their advantages. You
 can only stay in this form for a few minutes each day anyway, so you try to
 avoid it.
 
->(Your score has increased by 5)
+> n
+(Your score has increased by 5)
 You drift through the air vent.
 
 Air ventilation ducts
@@ -87,7 +95,8 @@ You head north hoping to find an exit. about 20 meters from the bathroom you
 hear some voices from an air went to another room to the west. To the north
 you can now see an exit out to the back yard of the hotel.
 
->(Your score has increased by 3)
+> listen
+(Your score has increased by 3)
 You stop by the air went and listen.
 "Sire, I have heard rumours of a conspiracy to destroy you tonight at the
 counsel, and I think I know who is the master mind behind it. It's the Wienna
@@ -102,13 +111,15 @@ way to finish him off when he is expecting the attack. But he will perish,
 one way or another, that pompous old tyrant. You've got to remember that the
 grand master vampire stays at the 15 floor.
 
->(Your score has increased by 2)
+> listen
+(Your score has increased by 2)
 "Get me some food will you", you hear Igor say.
 "Ok, I'll order a call girl just before midnight, so you won't go hungry for
 the meeting", the other voice answers. You hear a door open and close shortly
 thereafter.
 
->You drift outside the hotel. You are at the 15 floor, but that's no problem
+> n
+You drift outside the hotel. You are at the 15 floor, but that's no problem
 in your mist form. Beneath you is the hotels back yard. You descent downward
 against the wall.
 
@@ -120,9 +131,11 @@ road to downtown Oslo.
 
 Also here is a stick.
 
->You pick up the stick.
+> take stick
+You pick up the stick.
 
->You move north.
+> n
+You move north.
 
 Ring route 3
 You stand by the roadside of Ring route 3 witch leads downtown to the west.
@@ -132,9 +145,11 @@ can't see any bus stops or taxi cabs around. To the south is the Oslo Plaza
 back yard.
 You sense that you can not stay in your mist form for much longer.
 
->You change back to your human form.
+> change back
+You change back to your human form.
 
->(Your score has increased by 10)
+> hitchhike
+(Your score has increased by 10)
 After a few minutes a blue Ford Escort stops in front of you. "Do you need a
 lift?", the driver asks. You say you do, and jump into the car. The trip
 takes about 15 minutes. You thank the driver and get out of the car at the
@@ -145,7 +160,8 @@ Karl Johans is the main street through Oslo centrum. You are standing about
 half way beetween the central station to the south and the royal castle to
 the north. Across the street to the west is a night club called Bozo.
 
->You move west.
+> w
+You move west.
 
 Bozo Nightclub
 The Bozo night club is a crowded and small. There are drunk youths
@@ -162,17 +178,20 @@ dancefloor eyes you closly.  The Bozo Guard is here.
 
 Bartender is here.
 
->"Wait", Simonsen says. "We don't have much time. Have you found a way to get
+> ask simonsen about plan
+"Wait", Simonsen says. "We don't have much time. Have you found a way to get
 me into the conference room yet? OK, I'll come with you. I sure hope you know
 what you're doing." He fumbles around in his pockets and draws out a gun. You
 put it behind your belt and quickly buttons your jacket to hide it. "And here
 are the carbonated bullets", he slips a small box in your jacket's left
 pocket.
 
->(Your score has increased by 5)
+> buy beer
+(Your score has increased by 5)
 You order a beer from the bartender at the bar.
 
->You move east.
+> e
+You move east.
 
 Karl Johans Street
 Karl Johans is the main street through Oslo centrum. You are standing about
@@ -181,7 +200,8 @@ the north. Across the street to the west is a night club called Bozo.
 
 Jon Simonsen enters from the west.
 
->You move north.
+> n
+You move north.
 
 Egertorget Square
 Egertorget is a small square in the middle of Karl Johan. Around the square
@@ -194,7 +214,8 @@ find anything interesting there.
 
 Jon Simonsen enters from the south.
 
->You move east.
+> e
+You move east.
 
 Dark Hallway
 You enter the dark hallway. A few junkies are haggling with a pusher over
@@ -204,21 +225,25 @@ wreck of a junkie is lying half dead of a perhaps to big dose of some drug.
 
 Jon Simonsen enters from the west.
 
->(Your score has increased by 3)
+> listen
+(Your score has increased by 3)
 The drug the addicts are after is heroin. You hate that drug. It's one of the
 modern inventions that vampires fear. To vampires heroin is just as bad as
 getting a stick through the heart. On the other hand, it's perfect for
 assassinations.
 
->(Your score has increased by 10)
+> buy heroin
+(Your score has increased by 10)
 You buy a gram of heroin from the pusher at the price he demands. "You see,
 that's the only way you miserable wrecks are getting high tonight. Paying the
 price", he says to the junkies. The argument continues.
 
->(Your score has increased by 5)
+> put heroin in beer
+(Your score has increased by 5)
 You put a tiny piece of the heroin in the beer.
 
->You move west.
+> w
+You move west.
 
 Egertorget Square
 Egertorget is a small square in the middle of Karl Johan. Around the square
@@ -231,7 +256,8 @@ find anything interesting there.
 
 Jon Simonsen enters from the east.
 
->You move south.
+> s
+You move south.
 
 Karl Johans Street
 Karl Johans is the main street through Oslo centrum. You are standing about
@@ -240,7 +266,8 @@ the north. Across the street to the west is a night club called Bozo.
 
 Jon Simonsen enters from the north.
 
->You move west.
+> w
+You move west.
 
 Bozo Nightclub
 The Bozo night club is a crowded and small. There are drunk youths
@@ -259,7 +286,8 @@ Bartender is here.
 
 Jon Simonsen enters from the east.
 
->You move west.
+> w
+You move west.
 
 Bozo backyard
 Bozos backyard is dark. The tall buildings blocks the sounds from the city
@@ -269,52 +297,67 @@ bozo back door.
 
 Jon Simonsen enters from the east.
 
->(Your score has increased by 5)
+> drain jon simonsen
+(Your score has increased by 5)
 You sink your fangs into jon's neck. He tries to defend himself, but you're
 far to quick for him. The red coppery tasting fluid brings new strength. Your
 hunger is finally satisfied. Simonsen falls limp in your arms, and the corpse
 drops to the ground as you wipe the blood from your mouth. He will raise from
 the dead in about 20 minutes.
 
->You open the container.
+> open container
+You open the container.
 
->You dump Simonsens corpse in the container.
+> put corpse in container
+You dump Simonsens corpse in the container.
 
->You close the container.
+> close container
+You close the container.
 
->(Your score has increased by 5)
+> put stick in container
+(Your score has increased by 5)
 You put the stick between the handles of the container prevent it from being
 opened from inside.
 
->You enter the nightclub again.
+> e
+You enter the nightclub again.
 
->(Your score has increased by 2)
+> give roses to anette
+(Your score has increased by 2)
 You give the roses to the girl by the small table. She lightens up and gives
 you a kiss on the cheek. "Oh, thank you. They are so beautiful. My name is
 Anette. What's yours?" Your vampiric charm never fails, at least not with a
 few roses. Anette get's of the chair and comes with you.
 
->(Your score has increased by 5)
+> give beer to anette
+(Your score has increased by 5)
 She accept's the beer, and downs it at an amazing speed.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 Your watch makes a small beep.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
 Bozo Guard walks off to the west.
 
 Bozo Guard walks towards you from the west.
 
->Time passes...
+> wait
+Time passes...
 
->You move west.
+> w
+You move west.
 
 Bozo backyard
 Bozos backyard is dark. The tall buildings blocks the sounds from the city
@@ -324,15 +367,18 @@ bozo back door.
 
 Anette follows you from the from the east.
 
->You pull the stick out from the container handles.
+> remove stick
+You pull the stick out from the container handles.
 
->(Your score has increased by 5)
+> open container
+(Your score has increased by 5)
 You hear some noise from inside the container. When you open it up it reveals
 Jon. Now he's an undead just like you. His eyes are filled with hate. But he
 can't harm you since you are his creator, his master. He climbs out of the
 container.
 
->You move east.
+> e
+You move east.
 
 Bozo Nightclub
 The Bozo night club is a crowded and small. There are drunk youths
@@ -352,7 +398,8 @@ Jon Simonsen enters from the west.
 
 Anette follows you from the from the west.
 
->You move east.
+> e
+You move east.
 
 Karl Johans Street
 Karl Johans is the main street through Oslo centrum. You are standing about
@@ -363,7 +410,8 @@ Jon Simonsen enters from the west.
 
 Anette follows you from the from the west.
 
->You move south.
+> s
+You move south.
 
 Oslo Central Station
 In front of the Oslo Central Station there is a small market place. At this
@@ -375,7 +423,8 @@ Jon Simonsen enters from the north.
 
 Anette follows you from the from the north.
 
->(Your score has increased by 5)
+> enter queue
+(Your score has increased by 5)
 You Anette and Jon lines up for a taxi. It takes quite a while but you
 finally get one. The three of you arrive back at the Hotel 23:45. The meeting
 starts in 15 minutes. You might prefer to sneak back into the Hotel to avoid
@@ -391,7 +440,8 @@ elevator, and to the west a door leads into the conference rooms. Doors to
 the south leads out of the hotel.
 Simonsen is here.  Anette is here.
 
->You move east.
+> e
+You move east.
 
 Elevator
 A standard Hotel elevator. There are a panel of button here ranging from 0 to
@@ -401,7 +451,8 @@ Jon Simonsen enters.
 
 Anette follows you from the.
 
->(Your score has increased by 10)
+> push 15
+(Your score has increased by 10)
 The elevator gets into motion, and you arrive at the floor of the grand
 master vampire. You calculate that Igor's room has to be 1502 based on the
 position in the air duct. You can see no vampires guarding his door, so they
@@ -416,17 +467,20 @@ will finish him of for sure. You sneak back into the elevator.
 
 Anette follows you from the.
 
->You arrive at the 0. floor. You can leave the elevator to the west.
+> push 0
+You arrive at the 0. floor. You can leave the elevator to the west.
 
 Anette follows you from the.
 
->You walk into the lobby.
+> w
+You walk into the lobby.
 
 Jon Simonsen enters from the east.
 
 Anette follows you from the.
 
->You move west.
+> w
+You move west.
 
 Hall
 From this hall several doors lead into different conference rooms. You se at
@@ -441,7 +495,8 @@ Jon Simonsen enters from the east.
 
 Anette follows you from the.
 
->(Your score has increased by 15)
+> w
+(Your score has increased by 15)
 You and Simonsen enter the conference. Simonsen is now an undead and passes
 easily through the mirrors. Many of the other delagates have arrived already.
 Each have their assistants with them, all other vampires. You and your
@@ -472,6 +527,8 @@ some hints on funny things to do, or END to see your score.
 
 Anette follows you from the.
 
->Your score is 100 out of a maximum of 100.  (100%)
+> score
+Your score is 100 out of a maximum of 100.  (100%)
 
->Congratulations!
+> end
+Congratulations!

@@ -15,7 +15,7 @@ David Whyld
 
 3)  How to play Sophie's Adventure
 
->
+> 1
 
 Sophie's Room
 This is your room, a merry hodge-podge of bright colours and "enthusiastic"
@@ -28,7 +28,8 @@ be a television in here somewhere but it seems to have been overwhelmed by
 the rest of your "happy" decorations.
    Exits lie: east (to the upstairs hallway).
 
->You move east.
+> e
+You move east.
 
 Upstairs Hallway
 The upstairs hallway winds around the upper floor of your house and is one of
@@ -51,7 +52,8 @@ looking less than pleased.
 don't this year" before she heads into her room and slams the door shut.
    Typical Carla really.
 
->You move down.
+> d
+You move down.
 
 Downstairs Hallway
 The downstairs hallway isn't really a hallway at all, just a wide corridor
@@ -61,7 +63,8 @@ over but it's a pretty close thing. The "hallway" ends a short distance ahead
 at a front door that could certainly do with a few licks of paint.
    Exits lie: east (to the kitchen) and south (to the dining room).
 
->You open the front door and see the front garden, the path wending its way to
+> open door
+You open the front door and see the front garden, the path wending its way to
 the gate, and, beyond it, Chatham Street with several people walking along,
 dogs yapping at their heels, some kids on pushbikes, an ice cream van at the
 corner-
@@ -96,7 +99,8 @@ matter of life or death (which this might well be...)
    You turn back to the five dwarves who seem to be standing around, waiting
 for you to say something.
 
->"Are you the one who was propheic- proff- pro, er, the chosen one?" asks
+> talk to randle
+"Are you the one who was propheic- proff- pro, er, the chosen one?" asks
 Randle with an intensity you haven't seen since the time Father hit his thumb
 with a hammer.
 
@@ -105,7 +109,8 @@ with a hammer.
    3)  "I've no idea what you're talking about!"
    4)  "Do you mean 'prophecized'?"
 
->Randle rubs his hands together mischievously. "Excellent!" He looks at the
+> 1
+Randle rubs his hands together mischievously. "Excellent!" He looks at the
 other dwarves. "This is the one, lads! The pro- er, the chosen one!"
    "Has she got any beer?" asks Grumble.
    "She looks a bit short to me," says Snitch, who is over a foot shorter
@@ -268,7 +273,8 @@ if you're not sure what it means), you try to make your decision:
    5:  "Grumble, I don't have any beer but you're coming with me all the
 same."
 
->"She picked... Grumble?" says Snitch with a groan. "Grumble?"
+> 5
+"She picked... Grumble?" says Snitch with a groan. "Grumble?"
    The other dwarves stare at Grumble who looks around, blinks, and says,
 "has she got any beer?"
    "There's more to life than beer, Grumble," says Randle.
@@ -291,7 +297,8 @@ at Grumble. "You'll certainly need it."
 to say.
    Then Grumble opens his mouth and asks, "any pubs where we're going?"
 
->You move northeast.
+> ne
+You move northeast.
 
 Beach
 The beach stretches away quite some distance to the east where it is blocked
@@ -304,7 +311,8 @@ to your left is the cave you emerged from at the start of your adventure.
 
 Grumble complaining of beer deprivation staggers in from the south-west.
 
->You move east.
+> e
+You move east.
 
 You catch sight of someone standing on top of the cliff to the north and a
 moment later a rock comes flying down and misses your head by an inch!
@@ -330,7 +338,8 @@ the cliffs to the north is a short distance away.
 
 Grumble complaining of beer deprivation staggers in from the west.
 
->You move northwest.
+> nw
+You move northwest.
 
 Muddy Path
 The muddy path winds in several directions but as the majority of these are
@@ -343,7 +352,8 @@ part of the beach).
 
 Grumble complaining of beer deprivation staggers in from the south-east.
 
->You move northeast.
+> ne
+You move northeast.
 
 Muddier Path
 There's not really much path here at all and it's all you can do to stop
@@ -356,7 +366,8 @@ path).
 
 Grumble complaining of beer deprivation staggers in from the south-west.
 
->You move north.
+> n
+You move north.
 
 Extremely Muddy Path
 The mud here has reached a depth so extreme that it's almost like you're
@@ -369,7 +380,8 @@ muddy path) and north (to a not quite so muddy path).
 
 Grumble complaining of beer deprivation staggers in from the south.
 
->You move north.
+> n
+You move north.
 
 Not Quite So Muddy Path
 The mud seems to have thinned somewhat here and you can feel actual solid
@@ -382,7 +394,8 @@ path).
 
 Grumble complaining of beer deprivation staggers in from the south.
 
->You move northeast.
+> ne
+You move northeast.
 
 Mud-Free Path
 You're on a path without even a hint of mud in sight. In fact, if you didn't
@@ -397,7 +410,8 @@ the marketplace of Grimmghoul Town).
 
 Grumble complaining of beer deprivation staggers in from the south-west.
 
->You move northeast.
+> ne
+You move northeast.
 
 Grimmghoul Marketplace
 All about you is the bustle of a busy little village: stallholders rushing
@@ -415,7 +429,8 @@ southwest (to a mud-free path).
 
 Grumble complaining of beer deprivation staggers in from the south-west.
 
->You move north.
+> n
+You move north.
 
 Castle Gates
 Before you rise the gates of a massive castle, old and gnarled and looking
@@ -466,7 +481,8 @@ fund," adds Snordy hopefully.
 
 Grumble complaining of beer deprivation staggers in from the south.
 
->You move south.
+> s
+You move south.
 
 Grimmghoul Marketplace
 All about you is the bustle of a busy little village: stallholders rushing
@@ -484,7 +500,8 @@ southwest (to a mud-free path).
 
 Grumble complaining of beer deprivation staggers in from the north.
 
->You try to go northeast but a bouncer on the door of the tavern puts his hand
+> ne
+You try to go northeast but a bouncer on the door of the tavern puts his hand
 out and blocks the way.
    "You're not on the list," he says. "You're not coming-"
    "A tavern?" cries Grumble, grabbing your shoulder in delight. "A tavern?
@@ -535,7 +552,8 @@ now.
 
 Grumble complaining of beer deprivation staggers in from the south-west.
 
->Bast eyes you with the sheer dread of knowing that, as a customer, he can't
+> talk to bast
+Bast eyes you with the sheer dread of knowing that, as a customer, he can't
 just bash you a few times to shut you up. He has to talk to you!
    "What d'you want?" he grunts.
 
@@ -547,7 +565,8 @@ just bash you a few times to shut you up. He has to talk to you!
 the possible destruction of the known world?"
    6: "So tell me about this monster that's terrorising the town."
 
->Bast goes still as you mention the monster. "And you think I know something
+> 6
+Bast goes still as you mention the monster. "And you think I know something
 about it?" he asks with nonchalance. He doesn't do a very good job of it. You
 doubt he even knows how to spell nonchalance.
    "What do you know?" you ask.
@@ -575,7 +594,8 @@ glances back at you. "You finished with your questions then?"
    4: "What do you think of the upcoming war with the evil skeleton lord and
 the possible destruction of the known world?"
 
->You move southwest.
+> sw
+You move southwest.
 
 Grimmghoul Marketplace
 All about you is the bustle of a busy little village: stallholders rushing
@@ -593,7 +613,8 @@ southwest (to a mud-free path).
 
 Grumble complaining of beer deprivation staggers in from the north-east.
 
->You move southeast.
+> se
+You move southeast.
 
 Tanner Row
 The street you are following is encroached on all sides by large, rundown
@@ -606,7 +627,8 @@ store), and southeast (to Merridew Lane).
 
 Grumble complaining of beer deprivation staggers in from the north-west.
 
->You move southeast.
+> se
+You move southeast.
 
 Merridew Lane
 The street narrows on both sides and light from the sun seems almost blocked
@@ -620,7 +642,8 @@ a tumbledown building inhabited by beggars) and southeast (to Morry Row).
 
 Grumble complaining of beer deprivation staggers in from the north-west.
 
->You move northeast.
+> ne
+You move northeast.
 
 Church
 You've never been much of a church fanatic in your life and if the churches
@@ -636,7 +659,8 @@ Shamuel is here, cackling madly and geturing bizarelly.
 
 Grumble complaining of beer deprivation staggers in from the south-west.
 
->"Come to cast off some sins, have you?" says Shamuel. "Well, well, we don't
+> talk to shamuel
+"Come to cast off some sins, have you?" says Shamuel. "Well, well, we don't
 get many worshippers in here these days."
 
    1: "I need some holy supplies to help me save the world."
@@ -646,7 +670,8 @@ get many worshippers in here these days."
    5: "Need any odd jobs doing?"
    6: "I don't believe in God. I think it's all made up."
 
->"Yes indeed. A gang of foul miscreants broke in here the other day and stole
+> 5
+"Yes indeed. A gang of foul miscreants broke in here the other day and stole
 some bread. I want them found and killed!"
    "For stealing bread?" you say, thinking the punishment a little harsh.
    Shamuel sighs. "Oh, very well. Just tell them of the error of their ways
@@ -659,7 +684,8 @@ felt like it and they even thanked you for it."
    3: "Your church looks a little rundown."
    4: "I've come to cast off my sins. Er, how do I do that again?"
 
->"A difficult process," says Shamuel, "but one well worth the effort. To
+> 4
+"A difficult process," says Shamuel, "but one well worth the effort. To
 achieve it properly, you must find the most evil man in town and beat him to
 a bloody pulp."
    "That doesn't sound much like casting off my sins."
@@ -673,7 +699,8 @@ beaten him to a bloody pulp."
    4: "Need any odd jobs doing?"
    5: "I don't believe in God. I think it's all made up."
 
->"You'll find him in the tavern. An evil man he is, one with a soul black as
+> 1
+"You'll find him in the tavern. An evil man he is, one with a soul black as
 night. Go there and deal to him the Lord's justice and then return here for
 your reward."
 
@@ -682,7 +709,8 @@ your reward."
    3: "Need any odd jobs doing?"
    4: "I don't believe in God. I think it's all made up."
 
->You move southwest.
+> sw
+You move southwest.
 
 Merridew Lane
 The street narrows on both sides and light from the sun seems almost blocked
@@ -696,7 +724,8 @@ a tumbledown building inhabited by beggars) and southeast (to Morry Row).
 
 Grumble complaining of beer deprivation staggers in from the north-east.
 
->You move south.
+> s
+You move south.
 
 Tumbledown Building
 You've never found a worse place than Maths class but this place comes pretty
@@ -713,7 +742,8 @@ Lurch, Grunge and Moppet are here.
 
 Grumble complaining of beer deprivation staggers in from the north.
 
->"Hello-" you start to say then Moppet gives a yell.
+> talk to lurch
+"Hello-" you start to say then Moppet gives a yell.
    "She knows, she knows, the child of darkness knows the evil in our souls
 and that-"
    "Be quiet, you melodramatic fool!" Grunge snaps. "Do you want to give the
@@ -757,7 +787,8 @@ hear."
 
 Grumble complaining of beer deprivation staggers in from the south.
 
->You move northwest.
+> nw
+You move northwest.
 
 Tanner Row
 The street you are following is encroached on all sides by large, rundown
@@ -770,7 +801,8 @@ store), and southeast (to Merridew Lane).
 
 Grumble complaining of beer deprivation staggers in from the south-east.
 
->You move northwest.
+> nw
+You move northwest.
 
 Grimmghoul Marketplace
 All about you is the bustle of a busy little village: stallholders rushing
@@ -788,7 +820,8 @@ southwest (to a mud-free path).
 
 Grumble complaining of beer deprivation staggers in from the south-east.
 
->You move northeast. The bouncer glares daggers at you but one look from
+> ne
+You move northeast. The bouncer glares daggers at you but one look from
 Grumble - already beginning to salivate at being this close to so much beer -
 stops him from trying anything.
    Into the tavern you go.
@@ -817,7 +850,8 @@ beautiful smell in the world, is there?"
 
 Grumble complaining of beer deprivation staggers in from the south-west.
 
->Considering that guile might serve you better here than brute force, you
+> kill scab
+Considering that guile might serve you better here than brute force, you
 whisper to Grumble: "see that evil guy by the bar?"
    Grumble nods.
    "He's a beer inspector come to shut the tavern down."
@@ -858,7 +892,8 @@ southwest (to a mud-free path).
 
 Grumble complaining of beer deprivation staggers in from the north-east.
 
->You move southeast.
+> se
+You move southeast.
 
 Tanner Row
 The street you are following is encroached on all sides by large, rundown
@@ -871,7 +906,8 @@ store), and southeast (to Merridew Lane).
 
 Grumble complaining of beer deprivation staggers in from the north-west.
 
->You move southeast.
+> se
+You move southeast.
 
 Merridew Lane
 The street narrows on both sides and light from the sun seems almost blocked
@@ -885,7 +921,8 @@ a tumbledown building inhabited by beggars) and southeast (to Morry Row).
 
 Grumble complaining of beer deprivation staggers in from the north-west.
 
->You move northeast.
+> ne
+You move northeast.
 
 Church
 You've never been much of a church fanatic in your life and if the churches
@@ -921,7 +958,8 @@ to have with you.
 
 Grumble complaining of beer deprivation staggers in from the south-west.
 
->"Word has spread around town of your deeds," says Shamuel with a smile. "Scab
+> talk to shamuel
+"Word has spread around town of your deeds," says Shamuel with a smile. "Scab
 has been beaten within an inch of his life. Ah, it warms my heart to hear
 such things."
    "He hated beer," says Grumble. "He had it coming."
@@ -955,7 +993,8 @@ a tumbledown building inhabited by beggars) and southeast (to Morry Row).
 
 Grumble complaining of beer deprivation staggers in from the north-east.
 
->You move northwest.
+> nw
+You move northwest.
 
 Tanner Row
 The street you are following is encroached on all sides by large, rundown
@@ -968,7 +1007,8 @@ store), and southeast (to Merridew Lane).
 
 Grumble complaining of beer deprivation staggers in from the south-east.
 
->You move northwest.
+> nw
+You move northwest.
 
 Grimmghoul Marketplace
 All about you is the bustle of a busy little village: stallholders rushing
@@ -986,7 +1026,8 @@ southwest (to a mud-free path).
 
 Grumble complaining of beer deprivation staggers in from the south-east.
 
->You move southwest.
+> sw
+You move southwest.
 
 Mud-Free Path
 You're on a path without even a hint of mud in sight. In fact, if you didn't
@@ -1001,7 +1042,8 @@ the marketplace of Grimmghoul Town).
 
 Grumble complaining of beer deprivation staggers in from the north-east.
 
->You move southwest.
+> sw
+You move southwest.
 
 Not Quite So Muddy Path
 The mud seems to have thinned somewhat here and you can feel actual solid
@@ -1014,7 +1056,8 @@ path).
 
 Grumble complaining of beer deprivation staggers in from the north-east.
 
->You move south.
+> s
+You move south.
 
 Extremely Muddy Path
 The mud here has reached a depth so extreme that it's almost like you're
@@ -1027,7 +1070,8 @@ muddy path) and north (to a not quite so muddy path).
 
 Grumble complaining of beer deprivation staggers in from the north.
 
->You move west.
+> w
+You move west.
 
 Hills
 The path you follow winds up into a series of grassy hills which look
@@ -1040,7 +1084,8 @@ path) and southwest (to some old ruins).
 
 Grumble complaining of beer deprivation staggers in from the east.
 
->You move north.
+> n
+You move north.
 
 End Of The Path
 You've come to the end of the path. It peters out just ahead at a sheer wall
@@ -1054,7 +1099,8 @@ has its lair.
 
 Grumble complaining of beer deprivation staggers in from the south.
 
->You move northwest.
+> nw
+You move northwest.
 
 Monster's Lair
 Eerie sounds (breathing, claws rasping on stone, heavy footfalls) echo about
@@ -1068,7 +1114,7 @@ more welcoming as the seconds tick by...
 
 Grumble complaining of beer deprivation staggers in from the south-east.
 
->
+> se
 
 Suddenly something looms out of the darkness of the cave and grabs you by the
 throat.
@@ -1100,7 +1146,8 @@ but at least the teacher didn't try to strangle you.
 
 Grumble complaining of beer deprivation staggers in.
 
->"You sure about this?" Grumble asks, with an uneasy look at the cave. "There
+> nw
+"You sure about this?" Grumble asks, with an uneasy look at the cave. "There
 might not be any beer in there but there is a monster. You sure you wanna
 risk taking on that thing and then find out there's no beer anyway?"
    "There's more to life than beer, Grumble," you say.
@@ -1108,7 +1155,8 @@ risk taking on that thing and then find out there's no beer anyway?"
 "If you've got your mind set on going on, then go. Just don't blame me if you
 end up dead."
 
->You move northwest.
+> nw
+You move northwest.
 
 Eerie sounds (breathing, claws rasping on stone, heavy footfalls) echo about
 this cave, reflecting off the walls and making it hard to tell the cave's
@@ -1152,7 +1200,8 @@ light switch. Flicking it reveals the lair in its glory (or lack of).
 
 Grumble complaining of beer deprivation staggers in from the south-east.
 
->You move southeast.
+> se
+You move southeast.
 
 End Of The Path
 You've come to the end of the path. It peters out just ahead at a sheer wall
@@ -1168,11 +1217,14 @@ Also here is a crucifix and the holy handgrenade.
 
 Grumble complaining of beer deprivation staggers in.
 
->You pick up the crucifix.
+> get crucifix
+You pick up the crucifix.
 
->You pick up the holy handgrenade.
+> get holy handgrenade
+You pick up the holy handgrenade.
 
->You move south.
+> s
+You move south.
 
 Hills
 The path you follow winds up into a series of grassy hills which look
@@ -1185,7 +1237,8 @@ path) and southwest (to some old ruins).
 
 Grumble complaining of beer deprivation staggers in from the north.
 
->You move east.
+> e
+You move east.
 
 Extremely Muddy Path
 The mud here has reached a depth so extreme that it's almost like you're
@@ -1198,7 +1251,8 @@ muddy path) and north (to a not quite so muddy path).
 
 Grumble complaining of beer deprivation staggers in from the west.
 
->You move north.
+> n
+You move north.
 
 Not Quite So Muddy Path
 The mud seems to have thinned somewhat here and you can feel actual solid
@@ -1211,7 +1265,8 @@ path).
 
 Grumble complaining of beer deprivation staggers in from the south.
 
->You move northeast.
+> ne
+You move northeast.
 
 Mud-Free Path
 You're on a path without even a hint of mud in sight. In fact, if you didn't
@@ -1226,7 +1281,8 @@ the marketplace of Grimmghoul Town).
 
 Grumble complaining of beer deprivation staggers in from the south-west.
 
->You move northeast.
+> ne
+You move northeast.
 
 Grimmghoul Marketplace
 All about you is the bustle of a busy little village: stallholders rushing
@@ -1244,7 +1300,8 @@ southwest (to a mud-free path).
 
 Grumble complaining of beer deprivation staggers in from the south-west.
 
->You move north.
+> n
+You move north.
 
 Castle Gates
 Before you rise the gates of a massive castle, old and gnarled and looking
@@ -1276,7 +1333,8 @@ see everyone who wants to see him."
 
 Grumble complaining of beer deprivation staggers in from the south.
 
->You move south.
+> s
+You move south.
 
 Grimmghoul Marketplace
 All about you is the bustle of a busy little village: stallholders rushing
@@ -1294,7 +1352,8 @@ southwest (to a mud-free path).
 
 Grumble complaining of beer deprivation staggers in from the north.
 
->You move southeast.
+> se
+You move southeast.
 
 Tanner Row
 The street you are following is encroached on all sides by large, rundown
@@ -1307,7 +1366,8 @@ store), and southeast (to Merridew Lane).
 
 Grumble complaining of beer deprivation staggers in from the north-west.
 
->You move southeast.
+> se
+You move southeast.
 
 Merridew Lane
 The street narrows on both sides and light from the sun seems almost blocked
@@ -1321,7 +1381,8 @@ a tumbledown building inhabited by beggars) and southeast (to Morry Row).
 
 Grumble complaining of beer deprivation staggers in from the north-west.
 
->You move southeast.
+> se
+You move southeast.
 
 Morry Row
 The road here is little more than a dirt path and just east of here there is
@@ -1338,7 +1399,8 @@ the east gate and the house).
 
 Grumble complaining of beer deprivation staggers in from the north-west.
 
->You move east.
+> e
+You move east.
 
 East Gate
 You find yourself standing in a puddle of muddy water by the east gate of
@@ -1353,7 +1415,8 @@ blasted moorland.
 
 Grumble complaining of beer deprivation staggers in from the west.
 
->As you start to move east to the locked gate, a guard steps forward and says,
+> e
+As you start to move east to the locked gate, a guard steps forward and says,
 "ah, you must be the kid wot Snordy sent word about. He said I wuz to expect
 you."
    "We didn't burn that pub down," says Grumble. "We weren't anywhere near
@@ -1400,7 +1463,8 @@ for miles."
 
 Grumble complaining of beer deprivation staggers in from the west.
 
->You move east.
+> e
+You move east.
 
 More East Road
 You're further along the east road leading from Grimmghoul to a not very
@@ -1427,7 +1491,8 @@ some."
 
 Grumble complaining of beer deprivation staggers in from the west.
 
->You move east.
+> e
+You move east.
 
 Dark Forest Path
 It's pretty dark and dank under the trees and this is undoubtedly the
@@ -1440,7 +1505,8 @@ branches and trying to trip you with their roots.
 
 Grumble complaining of beer deprivation staggers in from the west.
 
->You move southeast.
+> se
+You move southeast.
 
 Stream (west)
 You're standing at the western edge of a small stream in the forest. Water
@@ -1455,11 +1521,13 @@ of the stream).
 
 Grumble complaining of beer deprivation staggers in from the north-west.
 
->The moment you attempt to cross the stream, you feel a wave of dizziness hits
+> e
+The moment you attempt to cross the stream, you feel a wave of dizziness hits
 you and you almost fall.
    "I suggest we go another way," mutters Grumble. "No pubs over there."
 
->Deciding to risk things, you step into the stream and… nothing happens. In a
+> e
+Deciding to risk things, you step into the stream and… nothing happens. In a
 way you're a bit disappointed with this because you kind of expecting to die
 on the spot but, as you haven't died, you just finish crossing the stream and
 end up on the far side.
@@ -1475,7 +1543,8 @@ glade).
 
 Grumble complaining of beer deprivation staggers in from the west.
 
->You move east.
+> e
+You move east.
 
 Shadowy Glade
 The corpses of several elves lie on the ground in this glade, their bodies
@@ -1486,7 +1555,8 @@ get yourself out of here as fast as your little legs can carry you.
 
 Grumble complaining of beer deprivation staggers in from the west.
 
->The very moment you make to leave the glade, something happens. The air grows
+> e
+The very moment you make to leave the glade, something happens. The air grows
 heavy and before you a doorway opens in mid-air.
    "Woah!" grunts Grumble. "I ain't seen a sight like this since the last
 time I drank a barrel of rat poison!"
@@ -1511,7 +1581,8 @@ the world of light, humanity will come to an end-"
    The evil skeleton breaks off its rant and glares at him. "So be it," it
 says, bringing the sword up to attack. "Die then. Die and be forgotten."
 
->The evil skeleton watches you pull the pin on the handgrenade and throw it.
+> throw holy handgrenade at evil skeleton
+The evil skeleton watches you pull the pin on the handgrenade and throw it.
    "What is this toy you have?" it rasps. Reaching out a hand it plucks the
 handgrenade out of the air. "Well, well, some primitive weapon no dou-"
 BOOOM!!!!!
@@ -1528,9 +1599,11 @@ arou- I mean, is it going to attack us again?"
 moving ain't workin' anymore. The thing's as dead as it should be and a damn
 sight deader than even He can bring back to life."
 
->You pick up the Torazin Crystal.
+> get torazin crystal
+You pick up the Torazin Crystal.
 
->You move east.
+> e
+You move east.
 
 Forest Edge
 Overhead the trees of the forest are thinning out and you can make out some
@@ -1541,7 +1614,8 @@ fires spring to mind.
 
 Grumble complaining of beer deprivation staggers in from the west.
 
->You move east.
+> e
+You move east.
 
 Rutted Path
 A wagon has overturned here and is merrily burning away, sending plumes of
@@ -1555,7 +1629,8 @@ path).
 
 Grumble complaining of beer deprivation staggers in from the west.
 
->You move southeast.
+> se
+You move southeast.
 
 Junction
 Several paths meet here at a point where someone with a lot more enthusiasm
@@ -1570,7 +1645,8 @@ road).
 
 Grumble complaining of beer deprivation staggers in from the north-west.
 
->You move east.
+> e
+You move east.
 
 Well Maintained Road
 This road is quite a bit different than the ones you've been getting used to
@@ -1585,7 +1661,8 @@ can make out.
 
 Grumble complaining of beer deprivation staggers in from the west.
 
->You move northeast.
+> ne
+You move northeast.
 
 Outside The Prancing Pratt Public House
 The sign you're standing next to calls this building the Prancing Pratt
@@ -1598,7 +1675,8 @@ brutally honest) filter through cracks in the oak walls.
 
 Grumble complaining of beer deprivation staggers in from the south-west.
 
->You move northeast.
+> ne
+You move northeast.
 
 Shadowy Path
 The beginnings of a  wooded area ahead effectively block off the road and it
@@ -1615,7 +1693,8 @@ Kontik is here.
 
 Grumble complaining of beer deprivation staggers in from the south-west.
 
->You move northeast.
+> ne
+You move northeast.
 
 Bloodied Path
 The path bobs up and down as you follow it through the wooded area, sometimes
@@ -1628,7 +1707,8 @@ path).
 
 Grumble complaining of beer deprivation staggers in from the south-west.
 
->It's dead, but still warm to the touch which indicates it hasn't been lying
+> x body
+It's dead, but still warm to the touch which indicates it hasn't been lying
 here long.
    "Has he got any beer?" asks Grumble.
    "Haven't you got anything better to think about at a time like this?" you
@@ -1642,17 +1722,23 @@ them out on the ground to get a better look at them.
    "Of all the rotten luck," mutters Grumble. "Not a single mug o' beer at
 all!"
 
->You pick up the thimble.
+> get thimble
+You pick up the thimble.
 
->You pick up the belt.
+> get belt
+You pick up the belt.
 
->You pick up the raw meat.
+> get raw meat
+You pick up the raw meat.
 
->You pick up the whistle.
+> get whistle
+You pick up the whistle.
 
->You pick up the spike trap.
+> get spike trap
+You pick up the spike trap.
 
->You move southeast.
+> se
+You move southeast.
 
 Smelly Path
 You don't know what is making this part of the path smell but it sure does
@@ -1663,7 +1749,8 @@ Toronel the knight is here.
 
 Grumble complaining of beer deprivation staggers in from the north-west.
 
->You move southwest.
+> sw
+You move southwest.
 
 Pebbled Path
 The path here has been pebble-dashed, or maybe someone with entirely too much
@@ -1676,7 +1763,8 @@ paths).
 
 Grumble complaining of beer deprivation staggers in from the north-east.
 
->You move north.
+> n
+You move north.
 
 Skull Clearing
 In the centre of this clearing there is a huge skull. It looks like the size
@@ -1689,10 +1777,12 @@ assortment of chewed, bitten and partially-eaten bones.
 
 Grumble complaining of beer deprivation staggers in from the south.
 
->You throw the meat into the skull - and immediately there comes the sound of
+> throw meat
+You throw the meat into the skull - and immediately there comes the sound of
 something beginning to eat it.
 
->You toss the spike trap into the skull. There comes a ferocious howl from the
+> throw spike trap
+You toss the spike trap into the skull. There comes a ferocious howl from the
 skull then the fearsome black tiger itself comes bursting out, the spike trap
 lodged in its head!
    It roars at you, makes an attempt to bite your head off (which mercifully
@@ -1701,7 +1791,8 @@ fails) then goes charging off to the south.
    "You can if you like," says Grumble. "Personally I'd sooner just head into
 its lair and see if it kept a well-supplied larder myself."
 
->You move south.
+> s
+You move south.
 
 Pebbled Path
 The path here has been pebble-dashed, or maybe someone with entirely too much
@@ -1714,7 +1805,8 @@ paths).
 
 Grumble complaining of beer deprivation staggers in from the north.
 
->You move northwest.
+> nw
+You move northwest.
 
 Shadowy Path
 The beginnings of a  wooded area ahead effectively block off the road and it
@@ -1731,7 +1823,8 @@ Kontik is here.
 
 Grumble complaining of beer deprivation staggers in from the south-east.
 
->You move southwest.
+> sw
+You move southwest.
 
 Outside The Prancing Pratt Public House
 The sign you're standing next to calls this building the Prancing Pratt
@@ -1744,7 +1837,8 @@ brutally honest) filter through cracks in the oak walls.
 
 Grumble complaining of beer deprivation staggers in from the north-east.
 
->You move southeast.
+> se
+You move southeast.
 
 The Prancing Pratt Public House
 Far larger inside than it appeared outside, the Prancing Pratt is a loud,
@@ -1766,7 +1860,8 @@ Snark is here.
 
 Grumble complaining of beer deprivation staggers in from the north-west.
 
->"Blimey!" gasps Snark. "You did it!"
+> talk to snark
+"Blimey!" gasps Snark. "You did it!"
    "Did what?" you ask.
    "Killed it! Killed the Black Tiger!"
    "Er-"
@@ -1785,7 +1880,8 @@ you bend down and swipe the glowing crystal which Snark dropped in his haste
 to leave the tavern - even then, no one says a word. It looks like strange
 men going rushing out of here must be a regular occurrence.
 
->"If you're here for beer, you're too young," says Smiggles, not really
+> talk to smiggles
+"If you're here for beer, you're too young," says Smiggles, not really
 looking at you or paying any attention to you. He seems distracted. "If
 you're here for the fighting, you're too wimpy. If you're here for the strip
 den, you're too young. So I don't what the two of us have got to discuss."
@@ -1798,7 +1894,8 @@ den, you're too young. So I don't what the two of us have got to discuss."
    6: "Any odd jobs going?"
    7: "Tell me about the surrounding lands."
 
->"Now that you mention it, I might well have. I reckon one of the lousy scum
+> 6
+"Now that you mention it, I might well have. I reckon one of the lousy scum
 what I employ has been stealing from me. I don't know who. Now normally I'd
 just take me spiked mace and belt the lot of 'em with it but last time I did
 that I lost six staff - three I killed myself, two I'd crippled so badly they
@@ -1813,7 +1910,8 @@ again if you find anything. But I think we need to keep a low profile so no
 one gets suspicious so no more chatting till we find the thief."
    Smiggles turns away, the conversation over with for now.
 
->You move east.
+> e
+You move east.
 
 Games Room
 Over a dozen tables have been crammed into this tiny room, at each sit at
@@ -1831,7 +1929,8 @@ you hard stares.
 
 Grumble complaining of beer deprivation staggers in from the west.
 
->You move west.
+> w
+You move west.
 
 The Prancing Pratt Public House
 Far larger inside than it appeared outside, the Prancing Pratt is a loud,
@@ -1854,7 +1953,8 @@ wallet and sneaking off southwards into the strip den.
 
 Grumble complaining of beer deprivation staggers in from the east.
 
->You move south.
+> s
+You move south.
 
 Strip Den
 If your mother knew you were here, you doubt you'd ever hear the end of it.
@@ -1869,7 +1969,8 @@ cheerful.  Jodee is here doing her best to look annoyed with her lot in life.
 
 Grumble complaining of beer deprivation staggers in from the north.
 
->"Yah, boo sucks!" Jodee hisses. "Are you another of them wot's got it in for
+> talk to jodee
+"Yah, boo sucks!" Jodee hisses. "Are you another of them wot's got it in for
 me? Ooh, they're all out to get me!"
 
    1: "Who is out to get you?"
@@ -1877,12 +1978,14 @@ me? Ooh, they're all out to get me!"
    3: "No, I haven't got it in for you."
    4: "Smiggles asked me to catch a thief - and I think I've caught her!"
 
->"Ha! I knew it! You're out to get me! Well, you won't catch me, you hellspawn
+> 4
+"Ha! I knew it! You're out to get me! Well, you won't catch me, you hellspawn
 in sheep's clothing!"
    Before you can come up with a response to that - assuming there's even one
 worth making - Jodee dashes past you and out of the room.
 
->You move north.
+> n
+You move north.
 
 The Prancing Pratt Public House
 Far larger inside than it appeared outside, the Prancing Pratt is a loud,
@@ -1902,7 +2005,8 @@ regarding the proceedings with disdain.  Smiggles the bartender is here.
 
 Grumble complaining of beer deprivation staggers in from the south.
 
->"Ah, you have the evidence!" says Smiggles. "And the filthy, stinking thief
+> talk to smiggles
+"Ah, you have the evidence!" says Smiggles. "And the filthy, stinking thief
 will now be punished to within an inch of her life! I will give her the
 thrashing she deserves and she won't dare set foot inside this tavern again
 if she values her-"
@@ -1917,7 +2021,8 @@ a thumb upwards to a room you never noticed before. "End of discussion. You
 don't want the room you don't have to take it. Worse room I've got but it's
 all yours for as long as you want."
 
->You move up.
+> u
+You move up.
 
 Your Room
 When Smiggles said this was the worse room he had he wasn't joking! From the
@@ -1936,9 +2041,11 @@ Also here is the Torrow Crystal.
 
 Grumble complaining of beer deprivation staggers in from below.
 
->You pick up the Torrow Crystal.
+> get torrow crystal
+You pick up the Torrow Crystal.
 
->You move down.
+> d
+You move down.
 
 The Prancing Pratt Public House
 Far larger inside than it appeared outside, the Prancing Pratt is a loud,
@@ -1958,7 +2065,8 @@ regarding the proceedings with disdain.  Smiggles the bartender is here.
 
 Grumble complaining of beer deprivation staggers in from above.
 
->You move northwest.
+> nw
+You move northwest.
 
 Outside The Prancing Pratt Public House
 The sign you're standing next to calls this building the Prancing Pratt
@@ -1971,7 +2079,8 @@ brutally honest) filter through cracks in the oak walls.
 
 Grumble complaining of beer deprivation staggers in from the south-east.
 
->You move southwest.
+> sw
+You move southwest.
 
 Well Maintained Road
 This road is quite a bit different than the ones you've been getting used to
@@ -1986,7 +2095,8 @@ can make out.
 
 Grumble complaining of beer deprivation staggers in from the north-east.
 
->You move west.
+> w
+You move west.
 
 Junction
 Several paths meet here at a point where someone with a lot more enthusiasm
@@ -2001,7 +2111,8 @@ road).
 
 Grumble complaining of beer deprivation staggers in from the east.
 
->You move northwest.
+> nw
+You move northwest.
 
 Rutted Path
 A wagon has overturned here and is merrily burning away, sending plumes of
@@ -2015,7 +2126,8 @@ path).
 
 Grumble complaining of beer deprivation staggers in from the south-east.
 
->You move north.
+> n
+You move north.
 
 Narrow Path
 This narrow path is crowded on both sides by a horde of seriously nasty
@@ -2026,7 +2138,8 @@ Captain Wilbeforce, Lady Sofia and several brutish guards are here.
 
 Grumble complaining of beer deprivation staggers in from the south.
 
->You move north.
+> n
+You move north.
 
 Outside Arliss' Tower
 The tower of Arliss is an impressive size: it soars into the sky before you
@@ -2040,7 +2153,8 @@ the narrow path).
 
 Grumble complaining of beer deprivation staggers in from the south.
 
->You start into the shadowy confines of Arliss' tower - and find an invisible
+> e
+You start into the shadowy confines of Arliss' tower - and find an invisible
 barrier blocking the way!
    "Woah!" gasps Grumble. "Something's here! You see it?"
    "It's invisible," you say.
@@ -2098,16 +2212,20 @@ back."
    "I think I need a drink," says Grumble.
    "You're not the only one," you say numbly.
 
->You use the Torrow Crystal. As is by magic (which is exactly what it is) it
+> use torrow crystal
+You use the Torrow Crystal. As is by magic (which is exactly what it is) it
 disappears with a flash.
 
->You use the Belazar Crystal. Magic flares momentarily blinding you. When you
+> use belazar crystal
+You use the Belazar Crystal. Magic flares momentarily blinding you. When you
 can see again, the Belazar Crystal has vanished.
 
->You use the Torazin Crystal. Magic energies swirl around you and then the
+> use torazin crystal
+You use the Torazin Crystal. Magic energies swirl around you and then the
 Crystal vanishes from view.
 
->You move east.
+> e
+You move east.
 
 As you cross the threshold of the tower, you look ahead of you to see Randle,
 Snitch, Arkle and Grolsch.
@@ -2282,7 +2400,8 @@ sudden freak earthquake tearing through the place and laying everything to
 waste.
    Exits lie: down (to the short corridor).
 
->You move down.
+> d
+You move down.
 
 Short Corridor
 This place reminds you a bit of your cellar back home: all musty and dark and
@@ -2293,7 +2412,8 @@ at the top of a flight of stone steps, is the door you entered (or were
 forced through actually) into this place.
    Exits lie: up (the steps) and south (to the room).
 
->You move south.
+> s
+You move south.
 
 Room Of Challenges
 You stand in a completely circular room, the walls of which comprise a number
@@ -2308,9 +2428,11 @@ The corridor you reached this room by is still open to the north.
 
 Also here is a chisel.
 
->You pick up the chisel.
+> get chisel
+You pick up the chisel.
 
->You move north.
+> n
+You move north.
 
 Short Corridor
 This place reminds you a bit of your cellar back home: all musty and dark and
@@ -2321,7 +2443,8 @@ at the top of a flight of stone steps, is the door you entered (or were
 forced through actually) into this place.
    Exits lie: up (the steps) and south (to the room).
 
->Acting on a hunch, you bash at the panel for a while with the chisel. While
+> open panel
+Acting on a hunch, you bash at the panel for a while with the chisel. While
 this might not be the chisel's intended use (which you suspect might have
 something to do with chiselling) it does, nevertheless, work a treat and the
 panel flies open. To the floor drops a dark crystal and a wasp about the size
@@ -2329,16 +2452,20 @@ of your hand! You give a shriek as the wasp frees itself from the crystal and
 goes flying off down the corridor into the room. The crystal just lies where
 it fell.
 
->You pick up the dark crystal.
+> get dark crystal
+You pick up the dark crystal.
 
->Vaguely you see some writing on one of the walls, in very, very small print
+> x walls
+Vaguely you see some writing on one of the walls, in very, very small print
 which is very, very difficult to read.
 
->Studying the writing you manage to make out a few words: "backwards even,
+> x writing
+Studying the writing you manage to make out a few words: "backwards even,
 forwards odd leads to the crystals of magic".
    How strange!
 
->You move south.
+> s
+You move south.
 
 Room Of Challenges
 You stand in a completely circular room, the walls of which comprise a number
@@ -2351,7 +2478,8 @@ something tells you that no amount of brute force will do you any good here.
 The corridor you reached this room by is still open to the north.
    Exits lie: north (to the short corridor).
 
->You reach out to grasp the door - and find yourself sucked through…
+> open door 6
+You reach out to grasp the door - and find yourself sucked through…
 
 Flying Challenge
 You're falling! To one side of you is a mountain of quite gigantic
@@ -2362,15 +2490,18 @@ are no immediate danger, you're completely incapable of flying and are in
 very real danger.
    Exits lie: out (to the Room of Challenges).
 
->Funny. It's miles away from you but it looks almost close enough to touch.
+> x ground
+Funny. It's miles away from you but it looks almost close enough to touch.
 
->Convinced you're just wasting your time, you reach out and try to touch the
+> touch ground
+Convinced you're just wasting your time, you reach out and try to touch the
 ground - and touch it!
    With a surprised cry you draw your hand back and find yourself clutching a
 mace!
    What just happened there you don't know but it sure freaked you out.
 
->"You must be mad!" cries one bird. "Talking to birds! Do you really think
+> talk to birds
+"You must be mad!" cries one bird. "Talking to birds! Do you really think
 we're going to answer you?"
    "You are answering me!" you shout at them, the wind ripping your words
 away the moment they leave your mouth.
@@ -2382,10 +2513,12 @@ birds?"
    The birds consider this request. Finally one cries, "not very damn
 likely!"
 
->"Stop wasting your time talking to us!" cries a bird. "You're not going to
+> talk to birds
+"Stop wasting your time talking to us!" cries a bird. "You're not going to
 get anything useful from us!"
 
->"She's not going to stop, is she?" cries one bird to another. "She's going to
+> talk to birds
+"She's not going to stop, is she?" cries one bird to another. "She's going to
 keep talking to us until we tell her something useful!"
    "'Fraid so," mutters another. "Okay, human, listen up and listen good. You
 any good at maths?"
@@ -2405,14 +2538,16 @@ shoots 7 natives."
    5: "He renounces his evil ways and befriends the natives."
    6: "He cheats."
 
->The birds consider this reply then one says, "of course he cheats! Cheating
+> 6
+The birds consider this reply then one says, "of course he cheats! Cheating
 is the only option available! Well done! Here, have this!"
    One bird flies up to you and drops into your hand not a parachute but
 instead a red crystal.
    "What's this?" you ask.
    "What you need," says the bird.
 
->The moment you think the word "out", you find yourself back in the room with
+> out
+The moment you think the word "out", you find yourself back in the room with
 all the doors. Whew! That was worrying for a moment there!
 
 Room Of Challenges
@@ -2426,7 +2561,8 @@ something tells you that no amount of brute force will do you any good here.
 The corridor you reached this room by is still open to the north.
    Exits lie: north (to the short corridor).
 
->You drop the crystal gingerly down the statue’s throat, wondering if you'll
+> put crystal in throat
+You drop the crystal gingerly down the statue’s throat, wondering if you'll
 ever see it again. The crystal disappears down the stone throat and…
 ...press a key...
 
@@ -2450,7 +2586,8 @@ ANOTHER DOOR AND SEE HOW MUCH OF THE MAGIC CAN BE YOURS!”
    Its message passed on, the statue reverts to its former self leaving you
 feeling a little confused by everything that has happened.
 
->You reach out to grasp the door - and find yourself sucked through…
+> open door 4
+You reach out to grasp the door - and find yourself sucked through…
 
 Skeleton Challenge
 You seem to be in a castle. At least that's the impression you get as you try
@@ -2463,7 +2600,8 @@ the far wall shows a field full of skeletal grass and skeletal cows and even
 skeletal trees.
    Exits lie: out (to the Room of Challenges).
 
->Wielding the mace, you give a fearsome battlecry - "Thunderbirds Are GO!" -
+> smash skeletons
+Wielding the mace, you give a fearsome battlecry - "Thunderbirds Are GO!" -
 and slam it into the nearest skeletons!
    It doesn't have as much effect as you were kind of hoping but it does
 succeed in chipping off the odd arm or leg. None of the skeletons seem unduly
@@ -2477,7 +2615,8 @@ happen to glance into the rubble that your whacking has caused and see a
 green crystal lying there. Deciding to swipe this as a memento of your
 efforts, you shove it into your pocket for later perusal.
 
->It's not a very good throne. In fact, it's fair to say that it's the worse
+> x throne
+It's not a very good throne. In fact, it's fair to say that it's the worse
 throne you've ever seen. Okay, so it's also the first thrown you've ever seen
 but you imagine that if your life up to this point had been filled with days
 of endlessly viewing thrones, this one would still be the worst one you had
@@ -2486,7 +2625,8 @@ ever seen.
 which is just begging to be pushed in a way you know you're not going to be
 able to resist.
 
->You start to leave - then stop as the skeleton chief cries: "wait!"
+> out
+You start to leave - then stop as the skeleton chief cries: "wait!"
    You stop.
    "You did remarkably well in resisting the lure of the button," it remarks.
 "Incredible that one of the living should resist such an obvious temptation
@@ -2520,7 +2660,8 @@ something tells you that no amount of brute force will do you any good here.
 The corridor you reached this room by is still open to the north.
    Exits lie: north (to the short corridor).
 
->Remembering what happened last time, you drop the crystal gingerly down the
+> put crystal in throat
+Remembering what happened last time, you drop the crystal gingerly down the
 statue’s throat then duck back in case the beams shoot from the statue’s eyes
 again.
    Nothing happens!
@@ -2539,7 +2680,8 @@ AND SEE HOW MUCH OF THE MAGIC CAN BE YOURS!”
    Its message passed on, the statue reverts to its former self leaving you
 feeling a little more confused by everything that has happened.
 
->You reach out to grasp the door - and find yourself sucked through…
+> open door 2
+You reach out to grasp the door - and find yourself sucked through…
 
 Space Challenge
 You're floating in space! Strangely enough you can still breathe but it is
@@ -2550,27 +2692,32 @@ of weetabix. Floating in space about a hundred feet from where you are is a
 spaceship.
    Exits lie: out (to the Room of Challenges).
 
->Is this the planet you've been wandering around on since Randle and Co found
+> x planet
+Is this the planet you've been wandering around on since Randle and Co found
 you this morning? It might well be. You find yourself peering down at the
 landmasses in case you can see Arliss' tower but of course even a huge
 structure like that isn't visible from space. The only manmade thing you can
 see looks like a great wall running down the middle of the world.
 
->You can't make out many details because it's so far away but from the way the
+> x wall
+You can't make out many details because it's so far away but from the way the
 wall curls and twists as it makes its way down the middle of the world, it
 almost looks like it's forming a word.
 
->The word is "gamble", although maybe that's just a coincidence. After all,
+> x word
+The word is "gamble", although maybe that's just a coincidence. After all,
 it'd be a pretty big engineering project to work a word like that into the
 construction of a wall which spans half the world.
 
->As you study the spaceship, you notice a body floating next to it. Doing your
+> x spaceship
+As you study the spaceship, you notice a body floating next to it. Doing your
 impression of a doggie-paddle-in-space, you swim/float over to the body and
 find yourself staring at… you!
    Yes, the body is none other than a little girl called Sophie who looks to
 be about nine years old. She also looks a little on the - gulp! - dead side.
 
->Acting on a hunch, you slip the helmet onto the dead version of you - and she
+> put helmet on body
+Acting on a hunch, you slip the helmet onto the dead version of you - and she
 awakes!
    "That was horrible!" she gasps in a voice remarkably similar to yours. "I
 was nearly a goner there!"
@@ -2619,7 +2766,8 @@ told her!"
 then try to get your head around what must be the strangest encounter of your
 life.
 
->The moment you think the word "out", you find yourself back in the room with
+> out
+The moment you think the word "out", you find yourself back in the room with
 all the doors. Whew! That was worrying for a moment there!
 
 Room Of Challenges
@@ -2633,7 +2781,8 @@ something tells you that no amount of brute force will do you any good here.
 The corridor you reached this room by is still open to the north.
    Exits lie: north (to the short corridor).
 
->With a sense of the inevitable, you drop the crystal down the statue’s throat
+> put crystal in mouth
+With a sense of the inevitable, you drop the crystal down the statue’s throat
 and then close your eyes, grit your teeth and wait.
    A minute later you're still waiting.
    A minute after that and you're still waiting.
@@ -2652,7 +2801,8 @@ TRY ANOTHER DOOR AND SEE HOW MUCH OF THE MAGIC CAN BE YOURS!”
    Its message passed on, the statue reverts to its former self leaving you
 wondering if you can really handle three more jolts.
 
->You reach out to grasp the door - and find yourself sucked through…
+> open door 1
+You reach out to grasp the door - and find yourself sucked through…
 
 Spider Challenge
 The walls of this room are covered with spider cocoons, as are the floors and
@@ -2668,15 +2818,18 @@ was modelled on.
 
 Also here is a snowball.
 
->You pick up the snowball.
+> get snowball
+You pick up the snowball.
 
->You haven't got anything to wash them with so you settle for spitting on
+> wash hands
+You haven't got anything to wash them with so you settle for spitting on
 them, rubbing them together then wiping them on your clothes (which aren't
 that clean by this stage). What Mother would say if she saw this distinct
 lack of hygiene on your part you don't like to think but at least your hands
 are cleaner than they were.
 
->Deciding a spot of web-climbing is called for, you reach out and grab the
+> climb web
+Deciding a spot of web-climbing is called for, you reach out and grab the
 nearest web - and a voice blares out at you: "well, well, you made it this
 far! I am impressed. I had fully expected you would have died long before
 now."
@@ -2698,7 +2851,8 @@ leaving. "You have what is required."
    "But what is it?"
    The voice, however, isn't saying.
 
->The moment you think the word "out", you find yourself back in the room with
+> out
+The moment you think the word "out", you find yourself back in the room with
 all the doors. Whew! That was worrying for a moment there!
 
 Room Of Challenges
@@ -2712,7 +2866,8 @@ something tells you that no amount of brute force will do you any good here.
 The corridor you reached this room by is still open to the north.
    Exits lie: north (to the short corridor).
 
->Groaning inwardly, you drop the crystal into the statue’s throat and mutter,
+> put crystal in mouth
+Groaning inwardly, you drop the crystal into the statue’s throat and mutter,
 “c’mon, pal, get it over with.”
    As usual there is the wait before anything happens. Sounding like it is
 reading from a hidden auto-cue, the statue says you: ”THE CRYSTAL IS MINE,
@@ -2727,7 +2882,8 @@ you got anything else to say?”
    You're not sure but the statue seems to glare angrily at you for a second
 before reverting to its stony self.
 
->You reach out to grasp the door - and find yourself sucked through…
+> open door 3
+You reach out to grasp the door - and find yourself sucked through…
 
 Fire Challenge
 All about you are rivers of fire, lakes of molten lava and pools of flaming
@@ -2740,17 +2896,20 @@ from living fire. It seems to be waiting for you to say or do something.
 
 Also here is a sword.
 
->"The gift!" cries the figure. "Where is the gift that was promised?"
+> talk to figure
+"The gift!" cries the figure. "Where is the gift that was promised?"
 
    1: "What gift?"
 
->The moment you show the snowball to the figure of flame, it yelps and jumps
+> give snowball to figure
+The moment you show the snowball to the figure of flame, it yelps and jumps
 back!
    "Are you trying to kill me?" it cries. "Fire and ice don't go together
 very well at all! Get out of here with that before I incinerate you on the
 spot!"
 
->The figure claps its hands in obvious delight.
+> gamble
+The figure claps its hands in obvious delight.
    "Yes, gamble!" it cries. "That's what was promised! Now, do you have a
 pack of cards?"
    "No."
@@ -2772,10 +2931,12 @@ you… no, that won't work either. What if we both have a pink crystal… no, not
 going to work…" It sighs. "Tell you what, I'm not all that fussed about
 gambling myself. What say we save it for another day?"
 
->You reach out and grab the sword. The figure hisses a bit but, remembering
+> get sword
+You reach out and grab the sword. The figure hisses a bit but, remembering
 the snowball you carry, refrains from doing more than merely hissing.
 
->The moment you think the word "out", you find yourself back in the room with
+> out
+The moment you think the word "out", you find yourself back in the room with
 all the doors. Whew! That was worrying for a moment there!
 
 Room Of Challenges
@@ -2789,7 +2950,8 @@ something tells you that no amount of brute force will do you any good here.
 The corridor you reached this room by is still open to the north.
    Exits lie: north (to the short corridor).
 
->Plonk!!! goes the crystal as it drops down the statue’s throat. You watch it
+> put crystal in mouth
+Plonk!!! goes the crystal as it drops down the statue’s throat. You watch it
 this time to see if you can see what happens to it. Instead you hear: ”THE
 CRYSTAL IS MINE, THE MAGIC IS YOURS! PREPARE TO RECEIVE YOUR FIFTH GIFT,
 CHILD OF MAGIC!”
@@ -2802,7 +2964,8 @@ spiel.
    It glares at you once more then reverts to its stony form and leaves you
 wishing you'd made a better wish for your eighth birthday.
 
->You reach out to grasp the door - and find yourself sucked through…
+> open door 5
+You reach out to grasp the door - and find yourself sucked through…
 
 Demon Challenge
 Aaaaaaaaaaaaarrgghghh!!! You're swimming in a pool of burning lava,
@@ -2814,7 +2977,8 @@ it's hot in here, and unpleasant, and you'll be only too glad to see the back
 of it.
    Exits lie: out (to the Room of Challenges).
 
->"Come to rot in the eternal fires of damnation, eh?" the devil says with a
+> talk to devil
+"Come to rot in the eternal fires of damnation, eh?" the devil says with a
 chortle. "Good, good. We get 'em all sooner or later - the sinners, the
 saints, the unrepentant ones, the ones who don't give a damn… Heh, heh, heh.
 We get 'em all sooner or later."
@@ -2824,13 +2988,15 @@ We get 'em all sooner or later."
    3: "Tell me about the unrepentant ones."
    4: "Tell me about the ones who don't give a damn."
 
->"Not many of 'em take that attitude, of course. Once they've seen where they
+> 4
+"Not many of 'em take that attitude, of course. Once they've seen where they
 are - pretty much damned - they soon give up that idea. Of course, we whip
 the life out of 'em anyway but that's just for fun."
 
    1: "You're not whipping me!"
 
->The devil scratches his brow. "Well, it's not on the agenda but if you ask
+> 1
+The devil scratches his brow. "Well, it's not on the agenda but if you ask
 nicely-"
    "No!"
    "Okay, okay. No need to get in a huff about it! Man, you'd think you
@@ -2843,7 +3009,8 @@ eternal damnation like the other heroes that troop through this place?"
    2: "No."
    3: "I'm here to learn magic."
 
->The devil smiles. "Now that what I call attitude! When faced with a question
+> 3
+The devil smiles. "Now that what I call attitude! When faced with a question
 about saving souls from eternal torment, you ignore the idea and go for
 personal gain. Ah, you've got a bit of devil in you, my girl, I can tell.
 Okay, what it comes down to is this: I want a gift. Something nice. Something
@@ -2854,7 +3021,8 @@ gift."
    "What kind of gift?"
    "Surprise me."
 
->"Hey, me very own sword!" cries the devil with delight. He takes a few
+> give sword to devil
+"Hey, me very own sword!" cries the devil with delight. He takes a few
 experimental whacks at a soul of torment and chortles. "Better than a whip
 any day of the week! I won't be just slicin' bits of the tormenteds' bodies
 off with this, I'll be hack 'n' slashin' 'em into the middle of beyond!
@@ -2874,7 +3042,8 @@ something tells you that no amount of brute force will do you any good here.
 The corridor you reached this room by is still open to the north.
    Exits lie: north (to the short corridor).
 
->Quite relieved to have dropped the last crystal down the statue’s throat, you
+> put crystal in mouth
+Quite relieved to have dropped the last crystal down the statue’s throat, you
 grit your teeth and wait for the inevitable blast from its eyes that heralds
 your next ‘gift of magical power’.
    Nothing happens.
@@ -2896,7 +3065,8 @@ BESTOWED!”
    You start to yell at it a very bad word at it but realise there's probably
 no point.
 
->The moment you speak the word, you find your surroundings changing. The walls
+> begone
+The moment you speak the word, you find your surroundings changing. The walls
 start to disappear, the statue twists into a beam of light then reforms
 itself - into Arliss himself.
    You blink. The room of challenges is gone and you are in a small, plain
@@ -2947,15 +3117,20 @@ heap in which your belongings have been thrown, "and then meet me in the next
 room and we will decide on our next move."
    He bids you farewell and departs.
 
->You pick up the crucifix.
+> get crucifix
+You pick up the crucifix.
 
->You pick up the thimble.
+> get thimble
+You pick up the thimble.
 
->You pick up the belt.
+> get belt
+You pick up the belt.
 
->You pick up the whistle.
+> get whistle
+You pick up the whistle.
 
->
+> n
+
 ...press a key...
 
 "Welcome again," says Arliss. "We've been expecting you."
@@ -3064,7 +3239,8 @@ ask your opinion…
 
  Your companions enter.
 
->You move north.
+> n
+You move north.
 
 Crossroads
 Three paths meet here: the one you found yourself on after leaving Arliss'
@@ -3080,7 +3256,8 @@ Merin is here, looking about very nervously indeed.
 
  Your companions enter from the south.
 
->You move northwest.
+> nw
+You move northwest.
 
 Outside Farmhouse
 The path reaches an end here outside a large farmhouse which looks old and
@@ -3097,7 +3274,8 @@ Arliss strides towards you.
 
  Your companions enter from the south-east.
 
->You move north.
+> n
+You move north.
 
 Though very, very dusty (your mother would scream if she saw this place!),
 you get the impression that this building isn't actually as deserted as it
@@ -3152,18 +3330,21 @@ Arliss strides towards you from the south.
 
  Your companions enter from the south.
 
->Melissa is even younger than you - you'd guess about four - but from the way
+> x melissa
+Melissa is even younger than you - you'd guess about four - but from the way
 she's clutching toy a knife in her hands and has the head of an evil skeleton
 tucked into her blouse, she seems quite a bit older. She's quite pretty in a
 fiery sort of way and seems to be not at all pleased by you examining her.
 
->Melissa is even younger than you - you'd guess about four - but from the way
+> x melissa
+Melissa is even younger than you - you'd guess about four - but from the way
 she's clutching a toy knife in her hands and has the head of an evil skeleton
 tucked into her blouse, she seems quite a bit older. She's quite pretty in a
 fiery sort of way and seems to be not at all pleased by you examining her.
    "Quit gawping at me!" she screeches. "What are you - some kinda freak?"
 
->Melissa is even younger than you - you'd guess about four - but from the way
+> x melissa
+Melissa is even younger than you - you'd guess about four - but from the way
 she's clutching a toy knife in her hands and has the head of an evil skeleton
 tucked into her blouse, she seems quite a bit older. She's quite pretty in a
 fiery sort of way and seems to be not at all pleased by you examining her.
@@ -3171,7 +3352,8 @@ fiery sort of way and seems to be not at all pleased by you examining her.
    Rushing over, Melissa kicks you in the shins with a cry of "let that be a
 warning to you!"
 
->Melissa is even younger than you - you'd guess about four - but from the way
+> x melissa
+Melissa is even younger than you - you'd guess about four - but from the way
 she's clutching a toy knife in her hands and has the head of an evil skeleton
 tucked into her blouse, she seems quite a bit older. She's quite pretty in a
 fiery sort of way and seems to be not at all pleased by you examining her.
@@ -3180,14 +3362,17 @@ tryin' to snog me next!" Melissa cries.
    She makes a break for the door, pausing only long enough to bash you in
 the leg with her toy knife. A second later she is gone.
 
->You sweep it to one side with your hand - and find a trapdoor underneath!
+> sweep dust
+You sweep it to one side with your hand - and find a trapdoor underneath!
    "We should check this out," says Arliss. "It could well prove to lead
 somewhere."
 
->It certainly looks like a sturdy trapdoor and not one that is likely to give
+> x trapdoor
+It certainly looks like a sturdy trapdoor and not one that is likely to give
 way easily. The lock looks complicated to say the least.
 
->Alas, as an eight year old your experience of picking locks is seriously
+> pick lock
+Alas, as an eight year old your experience of picking locks is seriously
 lacking.
    "Lemme try that," says Randle.
    He crouches down by the trapdoor, his face dark with concentration. He
@@ -3201,7 +3386,8 @@ smashes his fist into the trapdoor as hard as he can!
    He shrugs. "Damned if I know. I tried everything else and nothing seemed
 to work."
 
->You move down.
+> d
+You move down.
 
 Cellar
 The cellar is actually quite a bit cleaner than the rest of the farmhouse
@@ -3219,7 +3405,8 @@ Arliss strides towards you from above.
 
  Your companions enter from above.
 
->You're too small to move the sofa yourself but after convincing Grumble that
+> move sofa
+You're too small to move the sofa yourself but after convincing Grumble that
 there might well be a hidden stash of beer underneath it, the two of you
 shove it to one side.
    And discover a hidden passage!
@@ -3227,7 +3414,8 @@ shove it to one side.
 Arliss. "Well done, Sophie."
    "But where's the beer?" asks Grumble.
 
->You move down.
+> d
+You move down.
 
 The Long And Winding Runnel
 Water drips from the roof of this tunnel in a steady patter, leaving the
@@ -3245,7 +3433,8 @@ Arliss strides towards you from above.
 
  Your companions enter from above.
 
->You move north.
+> n
+You move north.
 
 End Of The Tunnel
 The tunnel reaches an abrupt end at a featureless stone wall. There is
@@ -3268,9 +3457,11 @@ Arliss strides towards you from the south.
 
  Your companions enter from the south.
 
->Aside from a few lines of writing, the wall is amazingly blank.
+> x wall
+Aside from a few lines of writing, the wall is amazingly blank.
 
->It looks to be some kind of cryptic message: "Speaketh the wordeths and the
+> read writing
+It looks to be some kind of cryptic message: "Speaketh the wordeths and the
 walleth will openeth!"
    "Seems simple enough," says Randle. "Just tell the stone wall what the
 words are and it'll open up for you."
@@ -3278,7 +3469,8 @@ words are and it'll open up for you."
    He shrugs. "Damned if I know. I'm a dwarven thief not some poncy guy what
 knows about magic walls and the like."
 
->As soon as you speak "the wordeth" there is a groaning sound and the stone
+> the wordeth
+As soon as you speak "the wordeth" there is a groaning sound and the stone
 wall abruptly opens before you!
    "A damn trick question!" hisses Randle. "I knew it! I knew it!"
    "Well why didn't you tell me then?"
@@ -3302,7 +3494,8 @@ Arliss strides towards you from below.
 
  Your companions enter from below.
 
->You approach the dark alcove - and step through.
+> e
+You approach the dark alcove - and step through.
 
 Shadowy Hall
 This once impressive hall seems to have fallen to ruin long ago. Dust covers
@@ -3328,7 +3521,8 @@ Arliss strides towards you from the west.
 
  Your companions enter from the west.
 
->You move west.
+> w
+You move west.
 
 You're not quite sure why an evil skeleton lord has a wine cellar but you're
 standing in it right now. Rows and rows of wine bottles stretch away as far
@@ -3364,7 +3558,8 @@ Arliss strides towards you from the east.
 
  Your companions enter from the east.
 
->"Waahahahahahahaha!" wails Ickle. "Don't hurt me! Don't hurt lil Ickle!
+> talk to ickle
+"Waahahahahahahaha!" wails Ickle. "Don't hurt me! Don't hurt lil Ickle!
 Didn't wanna hurt no one didn't lil Ickle. Jus' mindin' his business and not
 botherin' no one!"
 
@@ -3374,20 +3569,23 @@ botherin' no one!"
    4: "Whose side are you on, Ickle?"
    5: "I need help in defeating the evil skeleton lord. Can I rely on you?"
 
->"Dunno. Ickle special. Ickle cry 'n' cry but no one else cry. Ickle gonna be
+> 3
+"Dunno. Ickle special. Ickle cry 'n' cry but no one else cry. Ickle gonna be
 important one day 'cos Ickle can cry!"
 
    1: "Why will crying make you important?"
    2: "Whose side are you on, Ickle?"
    3: "I need help in defeating the evil skeleton lord. Can I rely on you?"
 
->"'Cos Ickle find a market for 'is talent and get rich 'n' famous!"
+> 1
+"'Cos Ickle find a market for 'is talent and get rich 'n' famous!"
 
    1: "Who's trying to killin you?"
    2: "Whose side are you on, Ickle?"
    3: "I need help in defeating the evil skeleton lord. Can I rely on you?"
 
->"Nasty men!" cries Ickle. "Poor Ickle! Poor lil Ickle! Nasty men break into
+> 1
+"Nasty men!" cries Ickle. "Poor Ickle! Poor lil Ickle! Nasty men break into
 castle lookin' for nice goldie stuff an' not find it an' start killing' 'n'
 killin'! Kill poor lil Ickle soon! Wahahaahahahaha! Poor lil Ickle! All alone
 in the world wiv no friends 'n' family 'n' now gonna gets killed!
@@ -3400,7 +3598,8 @@ Wahahahahah!!!"
    5: "Whose side are you on, Ickle?"
    6: "I need help in defeating the evil skeleton lord. Can I rely on you?"
 
->Ickle stops crying. "Run… away?" he asks, clearly having no idea what this
+> 3
+Ickle stops crying. "Run… away?" he asks, clearly having no idea what this
 entails.
    "Yes. Just get out of the castle so the bad men can't kill you."
    Ickle frowns. Then he smiles. (It's strange seeing a skeleton -
@@ -3419,7 +3618,8 @@ doorway you entered the wine cellar by.
    You take the comb off him. "Why would a skeleton have a baby?" you ask.
    To that, no one has an answer.
 
->"Beer!" cries Grumble, shoving you out of the way. "Back off! It's mine! I'll
+> get wine
+"Beer!" cries Grumble, shoving you out of the way. "Back off! It's mine! I'll
 kill anyone wot tries ter keep me from me beer!"
    "It's wine," you say.
    Grumble hesitates with one hand poised to pick up a bottle. "Wine?" he
@@ -3435,7 +3635,8 @@ ter be sure." He looks back at you. "You sure it's wine?"
 you find a use for it at some point. Failing anything else, you can always
 hit Grumble with it to keep him quiet.
 
->You move up. The moment you pass through the dark alcove a hideous spasm rips
+> e
+You move up. The moment you pass through the dark alcove a hideous spasm rips
 through you…
 
 Shadowy Hall
@@ -3466,25 +3667,30 @@ Arliss strides towards you from the west.
 
  Your companions enter from the west.
 
->No doubt this was where the lord of this fortress sat in ancient times. The
+> x throne
+No doubt this was where the lord of this fortress sat in ancient times. The
 throne is fully eight feet tall and built for someone a great deal larger
 than you. An impressive sunburst motif is carved into the seat although you
 don't know what, if anything, this means.
 
->The moment you touch the motif there is an unholy rumbling sound from
+> touch motif
+The moment you touch the motif there is an unholy rumbling sound from
 somewhere in the castle.
    "It wasn't me," says Grumble. "So you can stop giving me the evil eye."
 
->Flanked by the throne's arms, the seat is quite ordinary. There looks to be a
+> x seat
+Flanked by the throne's arms, the seat is quite ordinary. There looks to be a
 slight depression there but you don't know whether this means anything or if
 it's just where the last person to sit on this seat left an imprint of his
 behind.
 
->There are two, as there are on most chairs. The left arm ends in a
+> x arms
+There are two, as there are on most chairs. The left arm ends in a
 hand-shaped mark, the right in a circular groove. What either of them mean
 you don't know.
 
->You place your hand in it.
+> touch mark
+You place your hand in it.
    "Nothing's going to happen," says Randle. "I can see your hand's too small
 for-"
    An unholy rumbling sound rips through the hall.
@@ -3496,22 +3702,27 @@ for-"
 "Typical big folk and their-"
    Arliss flashes him a hostile glare and Snitch falls silent.
 
->You touch it but nothing seems to happen.
+> touch groove
+You touch it but nothing seems to happen.
    "Maybe you're not touching it the right way," says Randle.
 
->You touch it but nothing seems to happen.
+> touch groove
+You touch it but nothing seems to happen.
    "Still not got the hang of it," says Randle.
 
->You touch it but nothing seems to happen.
+> touch groove
+You touch it but nothing seems to happen.
    "I'd give up if I were you, it's not going to work," says Randle.
 
->You touch it but nothing seems to happen.
+> touch groove
+You touch it but nothing seems to happen.
    "You might as well-"
    A hideous rumbling sound rips through the hall.
    "Just as well you listened to what I said and kept touching the groove,"
 says Randle. "Or you'd never have discovered that little trick."
 
->"Looks dangerous," says Randle.
+> sit on throne
+"Looks dangerous," says Randle.
    "It's a throne," you say.
    "Maybe, maybe not. Never let your guard down for a minute, that's my
 motto."
@@ -3535,7 +3746,8 @@ considered it an acceptable risk."
    "3%!"
    Snitch wails some more.
 
->This is the first skeleton you have come across during your travels who has
+> x skeleton
+This is the first skeleton you have come across during your travels who has
 the decency to be dead. He's just stood in the middle of the room - you
 wonder how long it took to position him in that way so that he wouldn't
 collapse - wearing a tunic and bowler hat and carrying a placard in his bony
@@ -3558,7 +3770,8 @@ be coming along at some point."
    3: "What were you doing standing motionless in the middle of the room?"
    4: "Die, evil so-and-so!"
 
->"Why," says Dimm, "his name is Brask."
+> 1
+"Why," says Dimm, "his name is Brask."
 
    1: "You mean your brother is the evil skeleton lord himself?"
    2: "How do you know who I am?"
@@ -3566,7 +3779,8 @@ be coming along at some point."
    4: "Die, evil so-and-so!"
    5: "Anything you can help me with?"
 
->Dimm frowns (or does a good approximation of frowning with no eyebrows and no
+> 5
+Dimm frowns (or does a good approximation of frowning with no eyebrows and no
 facial expressions). "There might be at that. I'm reluctant to have Brask
 imprison me again for my perceived 'disobedience'. I'm not able to leave this
 chamber myself - he has placed wards over the exits that prevent my escaping
@@ -3578,7 +3792,8 @@ magics. And, also, I would teach you in the use of the orb yourself."
 
    1: "Die, evil so-and-so!"
 
->You move south.
+> s
+You move south.
 
 Balcony
 This balcony overlooks a large room some thirty feet below. Some kind of
@@ -3595,7 +3810,8 @@ Arliss strides towards you from the north.
 
  Your companions enter from the north.
 
->You move north.
+> n
+You move north.
 
 Shadowy Hall
 This once impressive hall seems to have fallen to ruin long ago. Dust covers
@@ -3633,7 +3849,8 @@ Arliss strides towards you from the south.
 
  Your companions enter from the south.
 
->You move south.
+> s
+You move south.
 
 Balcony
 This balcony overlooks a large room some thirty feet below. Some kind of
@@ -3650,7 +3867,8 @@ Arliss strides towards you from the north.
 
  Your companions enter from the north.
 
->You unleash your deadliest spell on the skeletons. A wave of killing magic
+> cast implosion
+You unleash your deadliest spell on the skeletons. A wave of killing magic
 sweeps down over them - and several of them explode! Bits of burning and
 shattered skeleton rain all over the large room.
    "Yay!" cries Snitch. "You used a really deadly spell and saved a length of
@@ -3682,7 +3900,8 @@ Arliss strides towards you from the south.
 
  Your companions enter from the south.
 
->You move north.
+> n
+You move north.
 
 Gallery
 To say this room is supposed to be a gallery, you don't see a whole lot in
@@ -3702,7 +3921,8 @@ Arliss strides towards you from the south.
 
  Your companions enter from the south.
 
->You move northwest.
+> nw
+You move northwest.
 
 Corridor
 This long corridor runs as far north as you can see. Something about it
@@ -3717,7 +3937,8 @@ Arliss strides towards you from the south-east.
 
  Your companions enter from the south-east.
 
->You move southeast.
+> se
+You move southeast.
 
 Gallery
 To say this room is supposed to be a gallery, you don't see a whole lot in
@@ -3774,7 +3995,8 @@ Arliss strides towards you from the north-west.
 
  Your companions enter from the north-west.
 
->Srorg snarls in rage the moment your evil actions become apparent and brings
+> kill benthem
+Srorg snarls in rage the moment your evil actions become apparent and brings
 his mace up, ready to strike.
    "Ho, fellows!" cries Benthem. His sword is drawn. Magical flames run up
 and down the blade. "It seems we have a fight on our hands!"
@@ -3789,7 +4011,8 @@ one day."
 something pretty damn quick."
    "Cast a spell before the big guys get us!" cries Snitch.
 
->Srorg charges at you, Pulm leaps towards you, Ilasera readies a spell,
+> cast implosion
+Srorg charges at you, Pulm leaps towards you, Ilasera readies a spell,
 Rudgutter starts to twirl his staff ready for an attack - but it's Benthem
 who you judge as the most dangerous of the mercenaries so it's him who you
 aim the spell at.
@@ -3815,7 +4038,8 @@ from the floor. "But we have the compass Benthem mentioned. It seems he
 dropped it during his flight."
    He hands the compass to you.
 
->You move northwest.
+> nw
+You move northwest.
 
 Corridor
 This long corridor runs as far north as you can see. Something about it
@@ -3830,10 +4054,12 @@ Arliss strides towards you from the south-east.
 
  Your companions enter from the south-east.
 
->You doze off for a few moments and, when you awaken, find your magical
+> sleep
+You doze off for a few moments and, when you awaken, find your magical
 energies recharged.
 
->You move southeast.
+> se
+You move southeast.
 
 Gallery
 To say this room is supposed to be a gallery, you don't see a whole lot in
@@ -3853,7 +4079,8 @@ Arliss strides towards you from the north-west.
 
  Your companions enter from the north-west.
 
->You move north.
+> n
+You move north.
 
 Chamber of Battle
 You find yourself in a wide chamber which is open to the sky (a stormy sky
@@ -3870,7 +4097,8 @@ Arliss strides towards you from the south.
 
  Your companions enter from the south.
 
->The moment you take a step towards the north corridor, a grill slams down
+> n
+The moment you take a step towards the north corridor, a grill slams down
 over the corridor effectively blocking your way out. At the same time, a
 second grill drops down over the southern corridor, also blocking that way.
    "I don't like the look o' this," says Grumble, "trapped an' wiv no beer to
@@ -3896,7 +4124,8 @@ here. I think some of those spells you learnt beneath my tower might well be
 very handy here."
    You sure hope so.
 
->The moment you raise your hands to cast the implosion spell, one of the suits
+> cast implosion
+The moment you raise your hands to cast the implosion spell, one of the suits
 of armour gives a hollow, tinny cry and tries to run for it. It's not quick
 enough. You unleash the spell and it tears apart the armour in one great
 eruption!
@@ -3913,7 +4142,8 @@ The 'something' turns out to be a bell.
 you for safe keeping.
    "It's bound to be important," says Arliss. "We should keep hold of it."
 
->You move south.
+> s
+You move south.
 
 Gallery
 To say this room is supposed to be a gallery, you don't see a whole lot in
@@ -3933,7 +4163,8 @@ Arliss strides towards you from the north.
 
  Your companions enter from the north.
 
->You move south.
+> s
+You move south.
 
 Shadowy Hall
 This once impressive hall seems to have fallen to ruin long ago. Dust covers
@@ -3953,7 +4184,8 @@ Arliss strides towards you from the north.
 
  Your companions enter from the north.
 
->You move east.
+> e
+You move east.
 
 Art Room
 The walls of this room are decorated with portraits of the evil skeleton
@@ -3970,7 +4202,8 @@ Arliss strides towards you from the west.
 
  Your companions enter from the west.
 
->You move east.
+> e
+You move east.
 
 Portraits Room
 Wandering through this large room full of portraits of skeletons is weird in
@@ -3988,7 +4221,8 @@ Arliss strides towards you from the west.
 
  Your companions enter from the west.
 
->You move up.
+> u
+You move up.
 
 Empty Hall
 The only item of interest in this hall - which is roughly the size of a
@@ -4005,7 +4239,8 @@ Arliss strides towards you from below.
 
  Your companions enter from below.
 
->You move west.
+> w
+You move west.
 
 Crumbling Passage
 This passage looks like it has started to decay. The walls lean at an angle,
@@ -4020,7 +4255,8 @@ Arliss strides towards you from the east.
 
  Your companions enter from the east.
 
->You move west.
+> w
+You move west.
 
 Small Study
 The study you find yourself in seems quite cosy after the rest of the evil
@@ -4037,7 +4273,8 @@ Arliss strides towards you from the east.
 
  Your companions enter from the east.
 
->You read:
+> read scroll
+You read:
 "On Returning To Life & A Few Other Matters"
 
 "The secret of life beyond death should be mine before too much longer. I
@@ -4051,7 +4288,8 @@ back to life once I am deceased…"
 
 The scroll is signed Kridlor.
 
->The moment you go to cast the spell, Randle grabs your arm.
+> cast fire blast
+The moment you go to cast the spell, Randle grabs your arm.
    "Are you mad?" he gasps. "You can't cast a spell like that in a small room
 like this! You'll incinerate the lot of-"
    Too late! You've already started casting the spell!
@@ -4080,7 +4318,8 @@ thrust through the heart stopped him but I put it down to laziness myself."
    4: "What are you doing in this castle?"
    5: "How did you die?"
 
->You move east.
+> e
+You move east.
 
 Crumbling Passage
 This passage looks like it has started to decay. The walls lean at an angle,
@@ -4095,7 +4334,8 @@ Arliss strides towards you from the west.
 
  Your companions enter from the west.
 
->You move west.
+> w
+You move west.
 
 The study you find yourself in seems quite cosy after the rest of the evil
 skeleton lord's fortress you have seen today. A writing bureau is placed
@@ -4147,7 +4387,8 @@ Arliss strides towards you from the east.
 
  Your companions enter from the east.
 
->You move east.
+> e
+You move east.
 
 Crumbling Passage
 This passage looks like it has started to decay. The walls lean at an angle,
@@ -4162,7 +4403,8 @@ Arliss strides towards you from the west.
 
  Your companions enter from the west.
 
->You move east.
+> e
+You move east.
 
 Empty Hall
 The only item of interest in this hall - which is roughly the size of a
@@ -4179,7 +4421,8 @@ Arliss strides towards you from the west.
 
  Your companions enter from the west.
 
->You move down.
+> d
+You move down.
 
 Portraits Room
 Wandering through this large room full of portraits of skeletons is weird in
@@ -4197,7 +4440,8 @@ Arliss strides towards you from above.
 
  Your companions enter from above.
 
->You move west.
+> w
+You move west.
 
 Art Room
 The walls of this room are decorated with portraits of the evil skeleton
@@ -4214,7 +4458,8 @@ Arliss strides towards you from the east.
 
  Your companions enter from the east.
 
->You move west.
+> w
+You move west.
 
 Shadowy Hall
 This once impressive hall seems to have fallen to ruin long ago. Dust covers
@@ -4234,14 +4479,16 @@ Arliss strides towards you from the east.
 
  Your companions enter from the east.
 
->"Ah," says Dimm, cradling the orb in his hands. "I had hoped to recover this
+> give orb
+"Ah," says Dimm, cradling the orb in his hands. "I had hoped to recover this
 one day. Many thanks, child. And now, my gift..."
    He reaches out and places a hand on your brow and mutters a few words.
    Magical energy floods through your being.
    "Speak the word 'meteor strike' when you encounter my dear brother. He
 will, no doubt, be in for quite a surprise."
 
->You move east.
+> e
+You move east.
 
 Art Room
 The walls of this room are decorated with portraits of the evil skeleton
@@ -4258,7 +4505,8 @@ Arliss strides towards you from the west.
 
  Your companions enter from the west.
 
->You move east.
+> e
+You move east.
 
 Portraits Room
 Wandering through this large room full of portraits of skeletons is weird in
@@ -4276,7 +4524,8 @@ Arliss strides towards you from the west.
 
  Your companions enter from the west.
 
->You move up.
+> u
+You move up.
 
 Empty Hall
 The only item of interest in this hall - which is roughly the size of a
@@ -4293,7 +4542,8 @@ Arliss strides towards you from below.
 
  Your companions enter from below.
 
->The moment you set foot on the northwest corridor, a strange sensation sweeps
+> nw
+The moment you set foot on the northwest corridor, a strange sensation sweeps
 through your body and you give a cry not unlike a cat trying to wail.
    "What is it?" asks Snitch. "I don't see anything-"
    "GAAAH!" roars Grolsch. "LEMME AT 'EM! AH'LL WHACK 'EM WIV ME AXE!"
@@ -4381,7 +4631,8 @@ Snitch seems ready for trouble as he enters.
 
 Arliss strides towards you.
 
->The moment you utter the two words, a pall of dread crosses Brask's skeletal
+> meteor strike
+The moment you utter the two words, a pall of dread crosses Brask's skeletal
 face. "No!" he screams. "That fool Dimm told you the Words of Power..."
    He trails off as fiery clouds appear above him, their centres a mass of
 molten fire.
@@ -4389,7 +4640,8 @@ molten fire.
    And then the fiery clouds spew down death and destruction on him. Brask
 gives a cry of rage and pain and disappears amidst the rolling flames.
 
->"A deadly spell I think," says Brask, and starts casting his spell - a moment
+> cast implosion
+"A deadly spell I think," says Brask, and starts casting his spell - a moment
 before you hit him with a deadly spell of your own!
    Implosion rips into him, throwing him back as if a battering ram had
 struck him. The evil skeleton lord disappears in an explosion of skeletal
@@ -4399,7 +4651,8 @@ after a moment he lifts his head up.
    "CURSE YOU!" he roars. "AND CURSE THAT DAMN FOOL ARLISS FOR TEACHING YOU A
 SPELL LIKE THAT!"
 
->The moment Brask sees the crucifix he gives a snarl and a wave of energy
+> raise crucifix
+The moment Brask sees the crucifix he gives a snarl and a wave of energy
 lashes out, striking the crucifix from your grasp and destroying it!
    But you see from the look on his face that the crucifix has at least hurt
 him.
@@ -4614,4 +4867,5 @@ that's what you get for swearing.
 
 If you want to try again, type "restart" and hit enter.
 
->Do you really want to quit? [Y/N]
+> quit
+Do you really want to quit? [Y/N]

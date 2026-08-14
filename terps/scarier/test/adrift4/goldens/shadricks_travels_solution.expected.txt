@@ -14,12 +14,15 @@ road leads south, several days travel to Thorton, from whence we came, and
 north, several days travel to Willingsdale, our new home.  There is a grove
 of  trees to the northeast, the direction mum last seen Hanson.”
 
->"The dirt road is littered with pebbles of various sizes."  A medium sized
+> x road
+"The dirt road is littered with pebbles of various sizes."  A medium sized
 rock is on the road.
 
->You take the medium sized rock from the road.
+> take rock
+You take the medium sized rock from the road.
 
->You move east.
+> e
+You move east.
 
 Near Father, east of the road
 
@@ -30,12 +33,15 @@ small pile that lay on the ground near the stump."
 "Father is chopping wood, and starting to work up a good sweat.  Might want
 ot make sure I'm not down wind from him the rest of the trip."
 
->Please be more clear, what do you want to examine?  The pile of wood or the
+> x wood
+Please be more clear, what do you want to examine?  The pile of wood or the
 piece of wood?
 
->You take the piece of wood from the pile of wood.
+> take wood
+You take the piece of wood from the pile of wood.
 
->You move west.
+> w
+You move west.
 
 In the middle of the road
 
@@ -47,7 +53,8 @@ Willingsdale, and south, several days travel back to Thorton.  Father is
 chopping wood to the east and mum is setting up camp to the west.  A grove of
 trees lies northeast."
 
->You move west.
+> w
+You move west.
 
 Near Mum, who is setting up camp
 
@@ -57,12 +64,15 @@ scattered off to one side, while mum has already prepared a pit to build the
 fire for cooking."
 "Mum is getting a few things out of the wagon to prepare supper."
 
->"It is all piled together and hasn't been sorted out yet.  I'm sure mum will
+> x bedding
+"It is all piled together and hasn't been sorted out yet.  I'm sure mum will
 get to it after supper."  A rope is on the bedding.
 
->You take the rope from the bedding.
+> take rope
+You take the rope from the bedding.
 
->You move east.
+> e
+You move east.
 
 In the middle of the road
 
@@ -74,13 +84,16 @@ Willingsdale, and south, several days travel back to Thorton.  Father is
 chopping wood to the east and mum is setting up camp to the west.  A grove of
 trees lies northeast."
 
->(Your score has increased by 20)
+> tie rope to wood
+(Your score has increased by 20)
 "I string the rope around the piece of wood a couple of times and make it
 secure.  It is now a sturdy swing."
 
->You are carrying a medium sized rock and a swing.
+> i
+You are carrying a medium sized rock and a swing.
 
->You move northeast.
+> ne
+You move northeast.
 
 Grove of trees, near the road
 
@@ -95,22 +108,28 @@ supper if I let that happen."
 Hanson standing as far back as he can on a large rock, trying to keep his
 distance from the bear.
 
->Please be more clear, what do you want to climb?  The old oak tree or the
+> climb tree
+Please be more clear, what do you want to climb?  The old oak tree or the
 pine tree?
 
->You can't climb the old oak tree.
+> climb oak tree
+You can't climb the old oak tree.
 
->"I carefully climb the tree, and finally reach a sturdy branch."
+> up
+"I carefully climb the tree, and finally reach a sturdy branch."
 
->I don't understand what you want me to do with the swing.
+> tire swing to tree
+I don't understand what you want me to do with the swing.
 
->(Your score has increased by 20)
+> tie swing to tree
+(Your score has increased by 20)
 "I tie the other end of the rop to the branch and slowly let the swing dangle
 down."
 
->"I carefully climb down the tree, and finally reach the bottom."
+> d
+"I carefully climb down the tree, and finally reach the bottom."
 
->
+> l
 
 Grove of trees, near the road
 
@@ -125,13 +144,15 @@ supper if I let that happen."
 Hanson standing as far back as he can on a large rock, trying to keep his
 distance from the bear.
 
->(Your score has increased by 10)
+> throw rock at hive
+(Your score has increased by 10)
 "I throw the rock at the beehive and it falls to the ground.  Bees are
 swarming everwhere, but the bear doesn't seem to mind it and tries to get the
 honey inside.  Now is my chance to help Hanson, while the bear is
 distracted."
 
->(Your score has increased by 50)
+> swing on swing
+(Your score has increased by 50)
 "With the bear distracted, I jump on the swing and grab hold of my brother.
 We barely miss getting swiped by the massive claws of the black bear as we
 leap off of the swing and run out of the grove."

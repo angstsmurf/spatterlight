@@ -15,10 +15,12 @@ pecks. The show had already won 10 Tony awards.
 But this would be the final performance. You would stop the Evil Chicken of
 Doom once and for all.
 
->Going against any good judgement, you pull off a still-sticky piece of gum.
+> get gum
+Going against any good judgement, you pull off a still-sticky piece of gum.
 You really are a perfect example of hygeine.
 
->You light the match and toss it on the large man. The flames spread quickly
+> light man on fire
+You light the match and toss it on the large man. The flames spread quickly
 on the gas soaked jacket, yet the large man doesn't seem to notice.
 
 His wife pokes him in the side. "Harold, I think you're on fire."
@@ -29,11 +31,14 @@ go see a doctor about this."
 The large man then casually gets up and walks out of the theatre, his jacket
 still ablaze.
 
->You head into the Aisle to the East.
+> e
+You head into the Aisle to the East.
 
->You bend down and grab the crowbar off the floor.
+> take crowbar
+You bend down and grab the crowbar off the floor.
 
->You move north.
+> n
+You move north.
 
 Bottom of Stage
 You're standing at the edge of the stage, which towers over you. The ledge of
@@ -43,23 +48,29 @@ can hear the Evil Chicken continuing with his act up above.
 
 The Usher heads to the south.
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
 The Usher walks from the south.
 
->In the dark shadows at the bottom of the stage, you swipe the flashlight from
+> take flashlight
+In the dark shadows at the bottom of the stage, you swipe the flashlight from
 the Usher.
 
->Using the gum, you manage to reconnect the two loose wires, fixing the
+> fix flashlight
+Using the gum, you manage to reconnect the two loose wires, fixing the
 flashlight.
 
 The Usher heads to the south.
 
->With the flashlight on, you head under the stage.
+> n
+With the flashlight on, you head under the stage.
 
->Using the crowbar, you pry open the trapdoor, revealing the lights up in the
+> open trapdoor
+Using the crowbar, you pry open the trapdoor, revealing the lights up in the
 rafters above the stage. Thinking fast, you pull yourself up on the stage,
 the audience gasps in fear.
 

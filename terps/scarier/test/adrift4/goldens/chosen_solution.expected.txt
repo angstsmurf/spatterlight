@@ -54,7 +54,9 @@ no other exits.  The walls are also metal, but have a slight blue tinge to
 them.  Other than that, the room is bare.
 
 >
->You move north.
+
+> n
+You move north.
 
 In a short white-walled corridor
 You are in a small corridor, with creamy white walls.  To what your compass
@@ -71,9 +73,11 @@ height as this corridor, and a long steel cable hangs from the ceiling,
 connecting the two.  Also, a ladder seems to lead down the hole from the
 alcove in the opposite wall...
 
->You take your belt from your trousers.
+> take belt
+You take your belt from your trousers.
 
->(Your score has increased by 20)
+> attach belt to cable
+(Your score has increased by 20)
 You loop your belt over the greasy cable and clutch it with both hands before
 casting yourself over the edge.  The belt holds your weight easily, and you
 slide gracefully down the cord to the opposite alcove...
@@ -88,9 +92,11 @@ this side of the pit from this alcove to a second small alcove.
 
 Also here is a small key.
 
->You pick up the small key.
+> take key
+You pick up the small key.
 
->You move down.
+> d
+You move down.
 
 In a small corridor
 This corridor is quite short.  At the south end, it opens out into a deep
@@ -98,7 +104,8 @@ pit, up the north wall of which a ladder runs.  Two small alcoves are set in
 the east and west walls, with curiously glowing yellow floors, and a huge
 iron door is set in the north wall.
 
->You step into the east alcove, and are immediately surrounded by a bright
+> e
+You step into the east alcove, and are immediately surrounded by a bright
 white light.  The floor seems to drop away from underneath you, and you fall
 for a second or two before landing feet first on something hard...  Exactly
 like when you arrived here.
@@ -111,15 +118,18 @@ west to the room to the north.
 
 Also here is a battery.
 
->You move west.
+> w
+You move west.
 
 In a small, dimly lit room
 You are in a cupboard sized room, around which run several electrical wires.
 On the wall is a large lever, from which a wire leads out of the room.
 
->You pull the lever, but nothing interesting seems to happen.
+> pull lever
+You pull the lever, but nothing interesting seems to happen.
 
->You move east.
+> e
+You move east.
 
 In a round room
 This room is circular, with dark metal walls, and four corridors sprout from
@@ -129,7 +139,8 @@ west to the room to the north.
 
 Also here is a battery.
 
->You move north.
+> n
+You move north.
 
 In a bright, circular room
 This is a well lit, circular room.  Above is a cage.  From the edge of the
@@ -137,13 +148,16 @@ cage runs a wire down the corridor to the south.  A lever labelled "Cage
 Release" is set in the north wall.  In the cage are a very dead-looking tiger
 and a block of metal.
 
->(Your score has increased by 30)
+> pull lever
+(Your score has increased by 30)
 You pull the lever and the bottom of the cage drops open, allowing the dead
 tiger and the block of metal to drop to the floor.
 
->You pick up the A-shaped metal block.
+> take a-shaped metal block
+You pick up the A-shaped metal block.
 
->You move south.
+> s
+You move south.
 
 In a round room
 This room is circular, with dark metal walls, and four corridors sprout from
@@ -153,59 +167,71 @@ west to the room to the north.
 
 Also here is a battery.
 
->You pick up the battery.
+> take battery
+You pick up the battery.
 
->You move east.
+> e
+You move east.
 
 In a length of corridor
 You are in a length of corridor, from which four doorways sprout.  The
 passage is lit by a strip of luminous plastic along the ceiling, casting an
 eerie glow.
 
->You move north.
+> n
+You move north.
 
 In a supply room of some sort...
 This room is small, and bare.
 
 Also here is a clip of bullets and a harpoon.
 
->You pick up the clip of bullets.
+> take bullets
+You pick up the clip of bullets.
 
->You pick up the harpoon.
+> take harpoon
+You pick up the harpoon.
 
->You move south.
+> s
+You move south.
 
 In a length of corridor
 You are in a length of corridor, from which four doorways sprout.  The
 passage is lit by a strip of luminous plastic along the ceiling, casting an
 eerie glow.
 
->You move south.
+> s
+You move south.
 
 In a shooting gallery
 You are in a small room, in the south wall of which is a vision-slit, in
 which is mounted a large gun.  Through the slit, you can see a line of
 targets, each successively smaller from left to right.
 
->(Your score has increased by 10)
+> reload gun
+(Your score has increased by 10)
 You snap the clip into place in the side of the gun.
 
->(Your score has increased by 10)
+> shoot targets
+(Your score has increased by 10)
 You easily shoot each of the targets in turn, your targetting skills honed by
 your years in the army.  As soon as you've shot the final target, a panel
 opens in the ceiling above, and a block of metal drops out, narrowly missing
 you.
 
->You pick up the F-shaped metal block.
+> take f-shaped metal block
+You pick up the F-shaped metal block.
 
->You move north.
+> n
+You move north.
 
 In a length of corridor
 You are in a length of corridor, from which four doorways sprout.  The
 passage is lit by a strip of luminous plastic along the ceiling, casting an
 eerie glow.
 
->You move east.
+> e
+You move east.
 
 On the edge of a deep pit
 You are in a corridor that leads out from the face of a deep pit, at the
@@ -213,14 +239,17 @@ bottom of which you can see rows of deadly looking spikes.  There is an
 alcove in the opposite wall, above which is a small target.  A harpoon gun is
 mounted in the mouth of this corridor.
 
->(Your score has increased by 10)
+> reload gun
+(Your score has increased by 10)
 You fit the harpoon into the gun.
 
->(Your score has increased by 10)
+> fire gun at target
+(Your score has increased by 10)
 You fire the harpoon gun at the target across the gap, and score a perfect
 hit.
 
->You move east.
+> e
+You move east.
 
 In a little alcove above a pit of spikes
 You are in a small alcove above a pit of spikes.  There is a hole in the
@@ -229,21 +258,26 @@ yellow floor.
 
 Also here is an I-shaped metal block and a piece of string.
 
->You pick up the I-shaped metal block.
+> take i-shaped metal block
+You pick up the I-shaped metal block.
 
->You pick up the piece of string.
+> take string
+You pick up the piece of string.
 
->You move down.
+> d
+You move down.
 
 In a square room
 You are in a square room, illuminated by glow-strips.  The walls around you
 are perforated with strange little holes.  A pillar stands against the north
 wall.
 
->(Your score has increased by 15)
+> tie string to block
+(Your score has increased by 15)
 You tie one end of the string to the metal block atop the pillar.
 
->(Your score has increased by 15)
+> up
+(Your score has increased by 15)
 You climb up the ladder, holding the piece of string.  When you get to the
 top, you pull the block of metal after you, an action that is accompanied by
 a roar of gunfire from below.
@@ -253,7 +287,8 @@ You are in a small alcove above a pit of spikes.  There is a hole in the
 floor down which runs a ladder.  An alcove in the west wall has a glowing
 yellow floor.
 
->You step into the west alcove, onto the glowing yellow floor, and
+> w
+You step into the west alcove, onto the glowing yellow floor, and
 immediately, you are surrounded by a bright white light.  You feel as if you
 are falling, and after a second or two, you land on something feet first...
 It's exactly like when you arrived here!
@@ -265,7 +300,8 @@ door ahead, from which a soft light glows, enough to show that this room has
 no other exits.  The walls are also metal, but have a slight blue tinge to
 them.  Other than that, the room is bare.
 
->You move north.
+> n
+You move north.
 
 In a short white-walled corridor
 You are in a small corridor, with creamy white walls.  To what your compass
@@ -282,20 +318,24 @@ height as this corridor, and a long steel cable hangs from the ceiling,
 connecting the two.  Also, a ladder seems to lead down the hole from the
 alcove in the opposite wall...
 
->You move west.
+> w
+You move west.
 
 In a small, darkened room
 This is a very small, dark room, in which the only feature is a large metal
 box.
 
->(Your score has increased by 10)
+> unlock box
+(Your score has increased by 10)
 You unlock the large safe using the small silver key from the alcove, and
 open the door to reveal that the box is empty save for a block of metal
 carved into a bizarre shape.
 
->You take the D-shaped metal block from the metal box.
+> take d-shaped metal block
+You take the D-shaped metal block from the metal box.
 
->You move east.
+> e
+You move east.
 
 In a short white-walled corridor
 You are in a small corridor, with creamy white walls.  To what your compass
@@ -312,22 +352,26 @@ height as this corridor, and a long steel cable hangs from the ceiling,
 connecting the two.  Also, a ladder seems to lead down the hole from the
 alcove in the opposite wall...
 
->You move east.
+> e
+You move east.
 
 In a small room
 You are in a small, light room.  A block of ice stands against the east wall,
 in which is frozen some sort of object.  Beneath the ice is a small metal
 panel from which two wire run to a box on the wall.
 
->(Your score has increased by 20)
+> plug battery into box
+(Your score has increased by 20)
 You plug the battery into the wall-mounted box, and immediately, the metal
 panel beneath the ice-block glows red for several minutes, melting the ice
 away.  The water drains into a small orifice in the east wall, and the object
 that was inside drops to the floor.
 
->You pick up the T-shaped metal block.
+> take t-shaped metal block
+You pick up the T-shaped metal block.
 
->You move west.
+> w
+You move west.
 
 In a short white-walled corridor
 You are in a small corridor, with creamy white walls.  To what your compass
@@ -344,7 +388,8 @@ height as this corridor, and a long steel cable hangs from the ceiling,
 connecting the two.  Also, a ladder seems to lead down the hole from the
 alcove in the opposite wall...
 
->You loop your belt over the greasy cable and clutch it with both hands before
+> attach belt to cable
+You loop your belt over the greasy cable and clutch it with both hands before
 casting yourself over the edge.  The belt holds your weight easily, and you
 slide gracefully down the cord to the opposite alcove...
 
@@ -356,7 +401,8 @@ pit, and is bare of any furnishings.  Above, a steel cable runs upward from
 this alcove to the corridor in the opposite wall.  Also, a ladder runs down
 this side of the pit from this alcove to a second small alcove.
 
->You move down.
+> d
+You move down.
 
 In a small corridor
 This corridor is quite short.  At the south end, it opens out into a deep
@@ -364,27 +410,33 @@ pit, up the north wall of which a ladder runs.  Two small alcoves are set in
 the east and west walls, with curiously glowing yellow floors, and a huge
 iron door is set in the north wall.
 
->(Your score has increased by 10)
+> plug a block
+(Your score has increased by 10)
 You plug the A-shaped block into the first socket in the door.  As soon as
 you do this, the second socket opens.
 
->(Your score has increased by 10)
+> plug d block
+(Your score has increased by 10)
 You plug the D-shaped block into the second socket in the door.  As soon as
 you do this, the third socket opens.
 
->(Your score has increased by 10)
+> plug r block
+(Your score has increased by 10)
 You plug the R-shaped block into the third socket in the door.  As soon as
 you do this, the fourth socket opens.
 
->(Your score has increased by 10)
+> plug i block
+(Your score has increased by 10)
 You plug the I-shaped block into the fourth socket in the door.  As soon as
 you do this, the fifth socket opens.
 
->(Your score has increased by 10)
+> plug f block
+(Your score has increased by 10)
 You plug the F-shaped block into the fifth socket in the door.  As soon as
 you do this, the final socket opens.
 
->(Your score has increased by 100)
+> plug t block
+(Your score has increased by 100)
 You plug the T-shaped block into the final socket in the door.  As soon as
 you do this, the door groans open...
 You walk carefully through the door, not sure what you will find.  What you

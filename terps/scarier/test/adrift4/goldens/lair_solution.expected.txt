@@ -8,12 +8,14 @@ Intro
 2)  Read the background and instructions
 3)  Hidden features in the game
 
->Who are you?
+> 1
+Who are you?
 
 Before we begin...
 Just a simple question: are you male or female?
 
->   Male you are.
+> male
+   Male you are.
 -----Press a key-----
 
 Cell
@@ -34,41 +36,49 @@ Exits lie: nowhere (at present)
 
    YOUR JOURNAL HAS BEEN UPDATED - PAGEs 1, 2 & 3
 
->   You see: Vardo the priest, Steven Harris, Lara and Garrick.
+> x others
+   You see: Vardo the priest, Steven Harris, Lara and Garrick.
    You yawn suddenly, unable to help yourself. You wonder how long it has
 been since you last had a decent sleep.
 
->   "I don't want to be here," says Lara without looking at you. She walks her
+> talk to lara
+   "I don't want to be here," says Lara without looking at you. She walks her
 doll across the floor then sighs. "Me and Phoebe wanna go home!"
 
->   She looks at Harris for a moment then puts her head close to yours and
+> ask lara about harris
+   She looks at Harris for a moment then puts her head close to yours and
 whispers, "I saw him take something out of Garrick's pocket."
    You feel that you cannot continue for much longer without sleep.
 
->   "I think it was a key or something like that."
+> ask lara about something
+   "I think it was a key or something like that."
    A great weariness assails you. The desire to sleep is quite overpowering.
 
->   "What? But I haven't..." He breaks off angrily then looks around the cell
+> ask harris about key
+   "What? But I haven't..." He breaks off angrily then looks around the cell
 as if worried that someone might overhear him. Then he says to you in a
 hushed whisper, "it's not a key, it's a picklock. I found it in Garrick's
 pocket. I've been twiddling with it for the past hour trying to figure out
 how you use it to open things. Damned if I can figure out a thing."
 
->(Your score has increased by 3)
+> ask harris about picklock
+(Your score has increased by 3)
    He sighs and hands the picklock over. "But be careful with it," he
 whispers. "We don't know if the Count's watching us somehow and I for one
 don't want to spend the rest of my life in this cell."
    You yawn suddenly, unable to help yourself. You wonder how long it has
 been since you last had a decent sleep.
 
->   You insert the picklock into the lock on the door and begin to work...
+> open door
+   You insert the picklock into the lock on the door and begin to work...
 
    Several minutes pass by while you struggle with the complex locking
 mechanism on the door, sweat beading on your forehead. Eventually you are
 forced to admit defeat. Perhaps if you try again later you will be more
 successful...
 
->(Your score has increased by 4)
+> open door
+(Your score has increased by 4)
    You insert the picklock into the lock on the door and begin to work...
 
    After several minutes careful work, you hear a click and the door slowly
@@ -77,20 +87,23 @@ swings opens.
 
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 2
 
->   Sitting slumped against the cold stone wall, Vardo is not a well man. He
+> x vardo
+   Sitting slumped against the cold stone wall, Vardo is not a well man. He
 coughs frequently into a bloodstained rag, a deep racking cough that tells
 you he does not have long to live. His eyes are wide and pain-rimmed. He is
 dressed in deep brown robes which are torn and bloodied in numerous places.
 Clutched in his left hand, the fingers curled around it so tight the knuckles
 are bony white, is a crucifix.
 
->(Your score has increased by 4)
+> ask vardo about crucifix
+(Your score has increased by 4)
    He glances towards the open door, looks at you, and hands you the
 crucifix. "Be careful with it," he says. "Without it, we are lost..."
 
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 3
 
->   "Looks a little dangerous out there," says Harris as you move towards the
+> east
+   "Looks a little dangerous out there," says Harris as you move towards the
 door. "I think I'll stay right here."
    You stare at him in surprise. "You're not going to at least try and
 escape?"
@@ -119,7 +132,8 @@ there is little to see.
 
 Exits lie: west (to the cell), north (to a door) and southeast (to a hallway)
 
->You move southeast.
+> se
+You move southeast.
 
 Shadowy hallway
 
@@ -139,7 +153,8 @@ dismal place. Something tells you not to spend too much time here.
 Exits lie: northwest (to the laboratory), east (to the bend in the hallway)
 and southwest (to a further branching of the hallway)
 
->You move southwest.
+> sw
+You move southwest.
 
 Dark passageway
 
@@ -152,11 +167,13 @@ shore somewhere that you do not recognise.
 
 Exits lie: northeast (to the hallway) and south (to the dimly-lit room)
 
->   It depicts a dark shoreway, the moon washing over silver sand. In the sea,
+> x portrait
+   It depicts a dark shoreway, the moon washing over silver sand. In the sea,
 though mainly hidden, is what appears to be some kind of behemoth. You do not
 recognise the location.
 
->   As you lean forward to study the protrusion, you experience a sudden dizzy
+> x protrusion
+   As you lean forward to study the protrusion, you experience a sudden dizzy
 spell. Shaking your head in confusion appears to dispel this.
 
    But when you look again you find you are not standing in the dark
@@ -177,12 +194,14 @@ corners of the room yet when you look again there is nothing there.
 
 Exits lie: nowhere
 
->   Noticing something strange about the dust, you brush it aside with your
+> x dust
+   Noticing something strange about the dust, you brush it aside with your
 hands and come across a small book.
 
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 11
 
->   You flip open the log and read:
+> read book
+   You flip open the log and read:
 
 A strange madness has overtaken the castle. Since the arrival of the stranger
 two weeks past, I have noticed a marked change in the residents. The guards
@@ -192,7 +211,8 @@ anything is wrong); even Gladrin seems ill at ease. Where usually he is
 soft-spoken and courteous to a fault, now he seems almost a different man. I
 shall have to investigate and discover what I can.
 
->   You flip open the log and read:
+> read book
+   You flip open the log and read:
 
 A meeting with the stranger himself! He introduced himself as Vaslock, a
 traveller from different lands. He seemed perfectly pleasant company during
@@ -204,7 +224,8 @@ own questions. And the ones that he did answer he did so in such a way that
 they were never really answered at all. A strange and most perplexing man. He
 shall require watching.
 
->   You flip open the log and read:
+> read book
+   You flip open the log and read:
 
 This morning I was called to see Lord Havelock. He was not well. He has never
 been a hale and hearty man (despite the rumours of his sexual prowess with
@@ -216,7 +237,8 @@ some kind of charlatan. It seems Vaslock himself is now caring for my Lord's
 health and safety. Something, I have to confess, I find disturbing in the
 extreme.
 
->   You flip open the log and read:
+> read book
+   You flip open the log and read:
 
 Havelock worsens. I saw him at dawn today and hardly recognised him for who
 he is. He has lost weight, and most of his hair, and walks with a pronounced
@@ -226,7 +248,8 @@ I have confided my fears in Gladrin who seems to agree with me that something
 needs to be done. He will arrange matters, he says, to 'take care of
 Vaslock'. I do not ask him what he means to do. I do not wish to know.
 
->   You flip open the log and read:
+> read book
+   You flip open the log and read:
 
 Gladrin is dead! His body was found this morning in the courtyard, pale and
 bloodless. His sword lay by his side, unblooded. Whoever killed him was
@@ -245,7 +268,8 @@ without even being sure why I was doing so. His eyes were mesmerising and
 each time I tried to hold something back from him I found I was unable to do
 so. In the end he bid me go. I learnt nothing from him.
 
->   You flip open the log and read:
+> read book
+   You flip open the log and read:
 
 The changes I noted before occurring within the castle are more pronounced
 than ever. Tempers seem frayed and fights break out over the slightest thing.
@@ -254,7 +278,8 @@ bodies matching the ones I found on Gladrin just last week. I fear the worst.
 Something must be done and, as I now lack allies, it is to be I that does
 something.
 
->   You flip open the log and read:
+> read book
+   You flip open the log and read:
 
 An audience with Lord Havelock who appears to be a walking corpse. He sits on
 his throne - or slumps would be a more apt word - and is attended by Vaslock
@@ -274,7 +299,8 @@ Vaslock standing there! Yet no door had been opened and I was sure he could
 not have reached these chambers before me. He did nothing but merely looked
 at me and, my resolve broken, I fled.
 
->   You flip open the log and read:
+> read book
+   You flip open the log and read:
 
 They came for me in the middle of the night. I was in the act of fleeing the
 castle. I had no clear plan in mind, just the certain knowledge that if I
@@ -321,7 +347,8 @@ across the chamber. "Get that human out of here!" I heard him roar as he
 nursed his hand which, to my wonder, had turned an angry red colour as if
 burnt. I was dragged from Vaslock's presence.
 
->   You flip open the log and read:
+> read book
+   You flip open the log and read:
 
 I have heard much screaming in the past few hours and the sounds of fighting.
 There was what sounded like an explosion earlier today and the very
@@ -329,7 +356,8 @@ foundations of the castle seemed to shake. Afterwards I was aware of
 footsteps past my cell and the groans of injured people. My cries as to what
 was occurring went unaswered. I fear the worse.
 
->   You flip open the log and read:
+> read book
+   You flip open the log and read:
 
 My last journal entry, I fear. A strange development has occurred, one I
 never imagined in my worst nightmares. Vaslock came to visit me. He informed
@@ -368,12 +396,15 @@ it is that Vaslock has inflicted on me, I can only hope my mortal frame
 perishes before it overwhelms me utterly. I would hate to end my days as he
 is...
 
->   As you touch the robes, a collection of items held inside fall to the
+> x robes
+   As you touch the robes, a collection of items held inside fall to the
 floor, disturbing the dust that lies there.
 
->You pick up the smelling salts.
+> get salts
+You pick up the smelling salts.
 
->   Unable to discover a way to escape this room, you stand there and wait.....
+> wait
+   Unable to discover a way to escape this room, you stand there and wait.....
 
    A little time passes and then you hear a strange, grating sound and the
 floor at your feet spins around, moving you back to the dark passageway once
@@ -391,7 +422,8 @@ of the walls.
 
 Exits lie: northeast (to the hallway) and south (to the dimly-lit room)
 
->You move south.
+> south
+You move south.
 
 Dimly-lit room
 
@@ -412,27 +444,33 @@ Exits lie: north (to the dark passageway)
 
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 4
 
->   Sifting through the ashes, you come across a pair of worn, leather gloves.
+> x ashes
+   Sifting through the ashes, you come across a pair of worn, leather gloves.
 They appear incredibly old and it is difficult to say just how long they have
 been lying here. All the same, you take them with you.
 
->   A further sift through the ashes and you find a ring. Rubbing the ashes
+> x ashes
+   A further sift through the ashes and you find a ring. Rubbing the ashes
 from it, you discover it is gold in colour.
 
->   Dust is scattered liberally across the fireplace, indicating no one has
+> x mantle
+   Dust is scattered liberally across the fireplace, indicating no one has
 been here in a long, long time. At either end of the mantle are steel
 candleholders though minus any candles. In the hearth itself are the ashes of
 the last fire to burn here.
 
->(Your score has increased by 3)
+> pull candleholders
+(Your score has increased by 3)
    You pull down on one of the candleholders which turns under your hand with
 a creak. Faintly, you could swear you heard machinery moving.
 
->   The sixth chair sits at the head of the table and is the only chair in
+> x sixth chair
+   The sixth chair sits at the head of the table and is the only chair in
 here that is empty. It is covered with a fine satin weave that has survived
 the ravages of time surprisingly well.
 
->(Your score has increased by 3)
+> get weave
+(Your score has increased by 3)
    As you reach out to take the weave, a ghostly hand appears from nowhere
 and pushes your own hand aside.
    "I would not do that," says a voice. "You know not what you mess with."
@@ -444,7 +482,8 @@ spectre of what I once was. But I still have power, stranger, even in death."
 
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 4
 
->   "Ah, a poor shadow of my former self I am now," says the strange being. "I
+> talk to havelock's spectre
+   "Ah, a poor shadow of my former self I am now," says the strange being. "I
 was a fool. I see that now. But at the time... Oh, I did not understand what
 it was I faced. I had no comprehension of what manner of creature Vaslock
 was. Even now, these many long years after my death, I struggle to understand
@@ -453,7 +492,8 @@ clouded. Perhaps he is not sure of it himself. Whatever..." The spectre peers
 at you. "Ask me questions if you would. Perhaps I can shed some light on your
 current predicament."
 
->(Your score has increased by 2)
+> ask havelock's spectre about morlock
+(Your score has increased by 2)
    "A strange man, Morlock. He was my chief scribe and a far more intelligent
 man than I ever gave him credit for. He urged me to banish Vaslock from the
 castle and if I had done as he urged I might well have avoided the events
@@ -472,10 +512,12 @@ afterwards. I can tell you nothing more."
 
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 5
 
->   Peering into the dark, empty space you make out what appears to be a large
+> look under table
+   Peering into the dark, empty space you make out what appears to be a large
 box.
 
->You move north.
+> north
+You move north.
 
 Dark passageway
 
@@ -488,7 +530,8 @@ shore somewhere that you do not recognise.
 
 Exits lie: northeast (to the hallway) and south (to the dimly-lit room)
 
->You move northeast.
+> ne
+You move northeast.
 
 Shadowy hallway
 
@@ -509,7 +552,8 @@ of the walls.
 Exits lie: northwest (to the laboratory), east (to the bend in the hallway)
 and southwest (to a further branching of the hallway)
 
->You move northwest.
+> nw
+You move northwest.
 
 Laboratory
 
@@ -530,7 +574,8 @@ corners of the room yet when you look again there is nothing there.
 
 Exits lie: west (to the cell), north (to a door) and southeast (to a hallway)
 
->(Your score has increased by 3)
+> use salts
+(Your score has increased by 3)
    You hold the smelling salts before the face of the unconscious man and
 wait for something to happen.
 
@@ -576,7 +621,8 @@ castle in an unnatural way."
 stranger, but I cannot tarry here. If I am to escape, I must be gone soon. If
 you have any questions, ask them of me now."
 
->   "Aye, what Vaslock subjected me to. He sought to overcome his aversion to
+> ask lorgrim about experiments
+   "Aye, what Vaslock subjected me to. He sought to overcome his aversion to
 sunlight by... experimenting on me. He would inject me with foul substances
 that left me vomiting blood for days afterwards; other times he would bleed
 me and study my blood in case there had been some minute change that was not
@@ -584,12 +630,14 @@ outwardly visible. Always his experiments ended in failure. If not the pain
 they caused me, I would have rejoiced in this. But it seems his final
 experiment was too great. He killed me..."
 
->   "Or thought he did, at any rate. Needless to say, he would not have left
+> ask lorgrim about killed
+   "Or thought he did, at any rate. Needless to say, he would not have left
 me unlocked had he known I was still alive. I suspect whatever he did to me
 the last times - the herbs he made me swallow - they affected my metabolism
 somewhat so that I had no heartbeat or pulse and yet I still lived."
 
->(Your score has increased by 3)
+> ask lorgrim about herbs
+(Your score has increased by 3)
    "I have the key to the herbs box here," he says, and fetches a small iron
 key out of his pocket. "The herbs store itself is in a room in the castle
 that I have never visited but I know that Vaslock often kept some closeby
@@ -602,7 +650,8 @@ Farewell."
    You shake hands with Lorgrim before he leaves the laboratory, staggering
 weakly to the southeast.
 
->You move north.
+> north
+You move north.
 
 Study
 
@@ -619,11 +668,13 @@ you cannot say just what it is.
 
 Exits lie: south (to the laboratory)
 
->   Acting on Havelock's instructions, you look into the mirror. You see,
+> look into mirror
+   Acting on Havelock's instructions, you look into the mirror. You see,
 unsurprisingly, your own reflection. There appears to be nothing different or
 remarkable about this.
 
->(Your score has increased by 3)
+> x reflection
+(Your score has increased by 3)
    You study yourself as Havelock instructed. And slowly, oh so slowly, you
 begin to detect slight differences - your reflection has slightly longer
 hair, your reflection is shorter than you, your reflection has green eyes
@@ -634,11 +685,13 @@ before.
 
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 5
 
->   As you seek to leave the study, a sudden urge to turn around comes around
+> south
+   As you seek to leave the study, a sudden urge to turn around comes around
 you. You do so.   And see, floating by the desk, the shade of a man long
 dead.   "Welcome," says Morlock. "You have found me at last."
 
->   "You did well to find me," speaks the ghostly presence. "I had almost
+> talk to morlock's shade
+   "You did well to find me," speaks the ghostly presence. "I had almost
 given up hope."
    Its words echo around the small study in an unsettling manner. But you
 listen as intently as you are able. Something tells you that what the shade
@@ -697,7 +750,8 @@ it normally is. You have a chance, albeit a slim one. Ask me questions if you
 would. I have amassed much knowledge over the years and anything I can tell
 you that will aid you, I will do so gladly."
 
->(Your score has increased by 5)
+> ask morlock's shade about escape
+(Your score has increased by 5)
    "Ah, the one question I knew you would ask. How to escape. How indeed?
 Escape will not be easy, although that probably goes without saying. Vaslock
 is no fool and has not survived this long by making mistakes. He will be
@@ -729,7 +783,8 @@ items have lost none of their potent power.
 
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 5
 
->You move south.
+> south
+You move south.
 
 Laboratory
 
@@ -747,7 +802,8 @@ there is little to see.
 
 Exits lie: west (to the cell), north (to a door) and southeast (to a hallway)
 
->You move southeast.
+> se
+You move southeast.
 
 Shadowy hallway
 
@@ -767,7 +823,8 @@ dismal place. Something tells you not to spend too much time here.
 Exits lie: northwest (to the laboratory), east (to the bend in the hallway)
 and southwest (to a further branching of the hallway)
 
->You move southwest.
+> sw
+You move southwest.
 
 Dark passageway
 
@@ -780,7 +837,8 @@ shore somewhere that you do not recognise.
 
 Exits lie: northeast (to the hallway) and south (to the dimly-lit room)
 
->You move south.
+> south
+You move south.
 
 Dimly-lit room
 
@@ -802,11 +860,13 @@ Exits lie: north (to the dark passageway)
 
    Sitting under the table is a large box.
 
->(Your score has increased by 3)
+> open box
+(Your score has increased by 3)
    You unlock the box with the key given to you by Lorgrim. Inside are a
 collection of herbs which you decide to take with you.
 
->You move north.
+> north
+You move north.
 
 Dark passageway
 
@@ -819,7 +879,8 @@ shore somewhere that you do not recognise.
 
 Exits lie: northeast (to the hallway) and south (to the dimly-lit room)
 
->You move northeast.
+> ne
+You move northeast.
 
 Shadowy hallway
 
@@ -839,7 +900,8 @@ dismal place. Something tells you not to spend too much time here.
 Exits lie: northwest (to the laboratory), east (to the bend in the hallway)
 and southwest (to a further branching of the hallway)
 
->You move northwest.
+> nw
+You move northwest.
 
 Laboratory
 
@@ -858,7 +920,8 @@ corners of the room yet when you look again there is nothing there.
 
 Exits lie: west (to the cell), north (to a door) and southeast (to a hallway)
 
->You move west.
+> west
+You move west.
 
 Cell
 
@@ -876,7 +939,8 @@ warmth.
 
 Exits lie: east (through the now open door)
 
->(Your score has increased by 5)
+> use herbs
+(Your score has increased by 5)
    You rub some of the herbs into the unconscious man's skin.
    "Do you really think that's a good idea?" asks Harris.
    "At the worst it'll kill him," you say. "And in this place that might be a
@@ -917,9 +981,11 @@ You want me to follow you, just say so."
 
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 13
 
->   "Thought you'd never ask."
+> ask garrick to follow you
+   "Thought you'd never ask."
 
->You move east.
+> east
+You move east.
 
 Laboratory
 
@@ -939,7 +1005,8 @@ Exits lie: west (to the cell), north (to a door) and southeast (to a hallway)
 
 Garrick walks towards you from the west.
 
->You move southeast.
+> se
+You move southeast.
 
 Shadowy hallway
 
@@ -961,7 +1028,8 @@ and southwest (to a further branching of the hallway)
 
 Garrick walks towards you from the north-west.
 
->You move east.
+> east
+You move east.
 
 Eastern hallway
 
@@ -982,21 +1050,24 @@ Exits lie: west (to the shadowy hallway)
 
 Garrick walks towards you from the west.
 
->   Wrinkled and graying, the man carved in stone appears to be a wizard of
+> x statue
+   Wrinkled and graying, the man carved in stone appears to be a wizard of
 some sort judging by the staff he is carrying and the pointed hat set upon
 his brow. But there is little whimsical about his expression: it is one of
 stark dread.
    His left hand is held out as if grasping for something - or perhaps
 waiting for an offering...?
 
->(Your score has increased by 5)
+> put coin in statue's hand
+(Your score has increased by 5)
    The moment the coin touches the palm of the statue, the hand closes. The
 coin is crushed to dust.
    'The gift is received,' a voice in your mind whispers. 'The way is open.'
 
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 6
 
->You move south.
+> south
+You move south.
 
 Ruined Stairs
 
@@ -1012,7 +1083,8 @@ Exits lie: north (through the steel door) and up (the stairs)
 
 Garrick walks towards you from the north.
 
->   You move up.
+> up
+   You move up.
 
 Top of the stairs
 
@@ -1027,7 +1099,8 @@ Exits lie: down (the stairs) and north (through the door)
 
 Garrick walks towards you from below.
 
->You move north.
+> north
+You move north.
 
 Empty room
 
@@ -1047,7 +1120,8 @@ southeast (through an archway) and south (to the top of the stairs)
 
 Garrick walks towards you from the south.
 
->You move southeast.
+> se
+You move southeast.
 
 Library
 
@@ -1066,19 +1140,22 @@ Exits lie: northwest (to the empty room) and south (to a passageway)
 
 Garrick walks towards you from the north-west.
 
->   You begin a quick, but thorough, search of the bookshelves, beginning at
+> x bookshelves
+   You begin a quick, but thorough, search of the bookshelves, beginning at
 one end of the room and finishing at the other. In this time, you come across
 several books that have survived the carnage but none that appear to be of
 any use to you. The only item of note you decide to keep is a scroll which
 you get a feeling is very important indeed.
 
->   This scroll contains just a few lines of writing and, below, what looks to
+> x scroll
+   This scroll contains just a few lines of writing and, below, what looks to
 be a spell of some kind. The writing at the top informs you that reading the
 rest of the scroll will trigger the spell, but it fails to tell you just what
 it is the spell does. It also contains the cryptic line: "Touch the one you
 would summon to life and speak the words of might"
 
->You move south.
+> south
+You move south.
 
 Passageway
 
@@ -1095,7 +1172,8 @@ Exits lie: north (to the library) and south (along the passageway)
 
 Garrick walks towards you from the north.
 
->   As you approach the pit, a sudden wave of dizziness sweeps over you. You
+> south
+   As you approach the pit, a sudden wave of dizziness sweeps over you. You
 raise a hand to your head, stagger forward a few paces, and then you are
 falling...
 
@@ -1126,7 +1204,8 @@ anything like them.
 
 Garrick walks towards you.
 
->   "Ah, the wanderer arrives," says Vadris. "I always wondered when you would
+> talk to vadris
+   "Ah, the wanderer arrives," says Vadris. "I always wondered when you would
 make your way here."
    "What is this place?" you ask. Your words seem to be pulled away as if by
 a strange wind although you feel nothing.
@@ -1143,7 +1222,8 @@ this place."
    "As a weapon?"
    "As anything but. Go now. I can tell you nothing more."
 
->You move south.
+> south
+You move south.
 
 The Dream
 
@@ -1159,7 +1239,8 @@ Iridil is here.
 
 Garrick walks towards you from the north.
 
->You move west.
+> west
+You move west.
 
 The Dream
 
@@ -1175,12 +1256,14 @@ Sokan is here.
 
 Garrick walks towards you from the east.
 
->   Sokan takes the spear and gives you a surprised look. "Impressive. You
+> give spear to sokan
+   Sokan takes the spear and gives you a surprised look. "Impressive. You
 figured it out then, the purpose of this little game. Well done."
    "What happens now?" you ask.
    "Ah, but where would be the fun in telling you that?"
 
->   "What do you want?" hisses Sokan as you approach. "You would do well to
+> talk to sokan
+   "What do you want?" hisses Sokan as you approach. "You would do well to
 get out of here, friend. This is a strange and unsettling place. You would
 not want to be... caught here like the rest of us."
    "Caught here?" you ask.
@@ -1196,7 +1279,8 @@ to pick it up.
    "Whatever you want. It won't make any difference in the long run. No one
 will ever get the better of Vaslock."
 
->You move east.
+> east
+You move east.
 
 The Dream
 
@@ -1212,14 +1296,16 @@ Iridil is here.
 
 Garrick walks towards you from the west.
 
->   "Ah, my symbol of rulership is returned!" cries Iridil, snatching the
+> give crown to iridil
+   "Ah, my symbol of rulership is returned!" cries Iridil, snatching the
 crown from you and placing it upon his head. "Yes, this is much better! You
 may go now."
    "Go?" you say. "But some reward..."
    Iridil shrugs. "I don't recall any mention of a reward. Begone. I have no
 further use for you now."
 
->   "Ah, Marlon, I wondered when you would make it here," remarks Iridil.
+> talk to iridil
+   "Ah, Marlon, I wondered when you would make it here," remarks Iridil.
    "You know me?"
    "I know many things. I am, after all, the king of this place."
    You glance around at the dank and dismal and - scarcely real - location.
@@ -1235,7 +1321,8 @@ deserving of it."
    "Ah. But where would be the fun in telling you? That is something you have
 to discover for yourself."
 
->You move west.
+> west
+You move west.
 
 The Dream
 
@@ -1251,7 +1338,8 @@ Sokan is here.
 
 Garrick walks towards you from the east.
 
->You move northwest.
+> nw
+You move northwest.
 
 The Dream
 
@@ -1267,14 +1355,16 @@ Gabriel is here.
 
 Garrick walks towards you from the south-east.
 
->   Gabriel takes the sword and a slow smile spreads across his craggy face.
+> give sword to gabriel
+   Gabriel takes the sword and a slow smile spreads across his craggy face.
 "With this I was unbeatable. I never faced an enemy who could stand against
 my skill and might. Hmmm. Until Vaslock, of course, but that was an unfair
 fight at best. Perhaps if we meet again..." He sheathes the sword. "Best you
 go now. I thank you for returning my blade to me but do not presume to gain
 some reward for your doing so. That is not my way."
 
->   Gabriel turns to look at you as you approach, his head a full foot above
+> talk to gabriel
+   Gabriel turns to look at you as you approach, his head a full foot above
 your own. "You're not what I expected. Not by a long shot," he rumbles.
 "Bigger is what I expected. Bigger than me. Huh! Can't see you getting the
 better of Vaslock."
@@ -1288,7 +1378,8 @@ take a bit more than a little cross to get the better of him."
    "Then what is the cross for?"
    "Discover that and you might just be ready for Vaslock after all."
 
->You move southeast.
+> se
+You move southeast.
 
 The Dream
 
@@ -1304,7 +1395,8 @@ Sokan is here.
 
 Garrick walks towards you from the north-west.
 
->You move east.
+> east
+You move east.
 
 The Dream
 
@@ -1320,7 +1412,8 @@ Iridil is here.
 
 Garrick walks towards you from the west.
 
->You move north.
+> north
+You move north.
 
 The Dream
 
@@ -1336,7 +1429,8 @@ Vadris is here.
 
 Garrick walks towards you from the south.
 
->(Your score has increased by 3)
+> open coffin
+(Your score has increased by 3)
    As you move towards the coffin, Vadris blocks your path - then shies back
 in alarm as you raise the cross!
    "Very clever," he hisses as he backs away from you. "But best you keep
@@ -1349,7 +1443,8 @@ this place and you will never leave alive."
    You take the key - which at once vanishes from your hand.
    Vadris laughs.
 
->You move south.
+> south
+You move south.
 
 The Dream
 
@@ -1365,7 +1460,8 @@ Iridil is here.
 
 Garrick walks towards you from the north.
 
->You move west.
+> west
+You move west.
 
 The Dream
 
@@ -1381,7 +1477,8 @@ Sokan is here.
 
 Garrick walks towards you from the east.
 
->You move northwest.
+> nw
+You move northwest.
 
 The Dream
 
@@ -1397,7 +1494,8 @@ Gabriel is here.
 
 Garrick walks towards you from the south-east.
 
->You move southwest.
+> sw
+You move southwest.
 
 The Dream
 
@@ -1413,12 +1511,14 @@ Timon is here.
 
 Garrick walks towards you from the north-east.
 
->   "My faith is restored," says Timon as you hand him the cross. He cradles
+> give cross to timon
+   "My faith is restored," says Timon as you hand him the cross. He cradles
 it to his breast and whispers, "never will I be alone again!" He glances up
 at you and frowns. "Alas, I have nothing to offer you but my thanks. So thank
 you. Now begone. I have much catching up to do."
 
->   As you approach, Timon bows his head in your direction. "Are you the one
+> talk to timon
+   As you approach, Timon bows his head in your direction. "Are you the one
 foretold then? The one who will deliver us from the darkness and into the
 light?"
    You shake your head in confusion. "I'm not sure I understand what you-"
@@ -1432,7 +1532,8 @@ system."
    "Give it to the one whom needs it the most," replies Timon, and will say
 nothing more on the subject.
 
->You move southeast.
+> se
+You move southeast.
 
 The Dream
 
@@ -1448,14 +1549,16 @@ Volroar is here.
 
 Garrick walks towards you from the north-west.
 
->   "Hmmm, very nice," Volroar says upon sampling the content of the goblet.
+> give goblet to volroar
+   "Hmmm, very nice," Volroar says upon sampling the content of the goblet.
 "But quite frightfully poisonous. Ah well, such is life." He peers up at you.
 "Yes? Is there any reason you're still here?"
    "I found the goblet for you-"
    "And now you expect a reward? Pah! Take your expectations and go! You'll
 get no reward from me!"
 
->   Volroar glances up at you as you approach him then sneers. "Oh, you're
+> talk to volroar
+   Volroar glances up at you as you approach him then sneers. "Oh, you're
 here, are you? Can't say I'm happy to see you. Not at all. You'll be wanting
 this." He tosses a mirror to you which you deftly catch in your hand. "I
 don't have any use for it myself."
@@ -1463,7 +1566,8 @@ don't have any use for it myself."
    Volroar shrugs his capacious shoulders. "I neither know nor care to know.
 Do with it as you want. Only leave me be."
 
->You move east.
+> east
+You move east.
 
 The Dream
 
@@ -1479,12 +1583,14 @@ Selphaza is here.
 
 Garrick walks towards you from the west.
 
->   "My mirror!" cries Selphaza and snatches it from your hand. She peers into
+> give mirror to selphaza
+   "My mirror!" cries Selphaza and snatches it from your hand. She peers into
 it and breathes a sigh of relief. "Ah, my looks are unaffected. Thank heaven
 for that! What I would do without them I cannot imagine." She glances over to
 you. "Expect no reward from me, Marlon, just go before I lose my patience."
 
->   Selphaza spares you barely a glance as you approach. She says, "another
+> talk to selphaza
+   Selphaza spares you barely a glance as you approach. She says, "another
 one of you, is there? Well, I saw the others off. I'm sure I can see off one
 more."
    "I'm not sure I follow you," you say.
@@ -1499,7 +1605,8 @@ must."
    "Ha! I did not tell the others. I am hardly going to tell you. Do not
 bother me anymore."
 
->You move northeast.
+> ne
+You move northeast.
 
 The Dream
 
@@ -1515,7 +1622,8 @@ Iridil is here.
 
 Garrick walks towards you from the south-west.
 
->You move north.
+> north
+You move north.
 
 The Dream
 
@@ -1531,17 +1639,21 @@ Vadris is here.
 
 Garrick walks towards you from the south.
 
->   Vadris takes the stake with a smile. "And thus I am safe. There exists
+> give stake to vadris
+   Vadris takes the stake with a smile. "And thus I am safe. There exists
 only one stake in this little hellhole and I now possess it. Hence, none can
 stand against me. Thank you, Marlon, for this gift. But expect no reward from
 me. Best you go now, before I forget myself and rid this world of one more
 interfering do-gooder."
 
->No-one listens to your rabblings.
+> talk to vadris
+No-one listens to your rabblings.
 
->You cannot go in that direction. Try instead going northeast and south.
+> north
+You cannot go in that direction. Try instead going northeast and south.
 
->(Your score has increased by 20)
+> ne
+(Your score has increased by 20)
    A sudden gust of wind blows through this strange place and you feel the
 ground beneath your feet crumbling away. You try to step back from the edge
 but find only empty space behind you. You fall...
@@ -1558,12 +1670,14 @@ the Orb... Do with it what must be done..."
 
 Garrick walks towards you.
 
->You pick up the picklock, the wallet, the silver marble, your journal, the
+> get all
+You pick up the picklock, the wallet, the silver marble, your journal, the
 worn, leather gloves, the crucifix, the gold ring, the smelling salts, the
 verdigris key, the vial of holy water, the herbs, the scroll and the cobalt
 key.
 
->You move north.
+> north
+You move north.
 
 Library
 
@@ -1582,7 +1696,8 @@ Exits lie: northwest (to the empty room) and south (to a passageway)
 
 Garrick walks towards you from the south.
 
->You move northwest.
+> nw
+You move northwest.
 
 Empty room
 
@@ -1600,7 +1715,8 @@ southeast (through an archway) and south (to the top of the stairs)
 
 Garrick walks towards you from the south-east.
 
->You move northwest.
+> nw
+You move northwest.
 
 Passage
 
@@ -1619,17 +1735,21 @@ Exits lie: west (to the pit) and southeast (to the empty room)
 
 Garrick walks towards you from the south-east.
 
->   There are eight alcoves in total, each containing the statue of a beast
+> x statues
+   There are eight alcoves in total, each containing the statue of a beast
 from legend (or myth in some cases). The four alcoves on the southern side of
 the passage contain statues of a medusa, a dragon, an ogre and a goblin. The
 four alcoves to the north contain statues of a hydra, a basilisk, a horned
 devil and a zombie. What any of this signifies is beyond you.
 
->   You close your eyes but determine to open them if needs be.
+> close eyes
+   You close your eyes but determine to open them if needs be.
 
->   You lay a hand on the basilisk's paw hand. Nothing seems to happen.
+> touch basilisk
+   You lay a hand on the basilisk's paw hand. Nothing seems to happen.
 
->(Your score has increased by 1)
+> read scroll
+(Your score has increased by 1)
    You speak the words you memorised from the scroll.
 
    Under your hand, you feel a strange sensation - as if the statue were
@@ -1644,11 +1764,14 @@ exact same position it was in before. Nothing seems to have changed. But you
 know deep down that something has changed. You mull over the word it told you
 - end - and wonder what it signifies.
 
->   You close your eyes but determine to open them if needs be.
+> close eyes
+   You close your eyes but determine to open them if needs be.
 
->   You lay a hand on the medusa's hand. Nothing seems to happen.
+> touch medusa
+   You lay a hand on the medusa's hand. Nothing seems to happen.
 
->(Your score has increased by 1)
+> read scroll
+(Your score has increased by 1)
    You speak the words you memorised from the scroll.
 
    Under your hand, you feel a strange sensation - as if the statue were
@@ -1663,9 +1786,11 @@ exact same position it was in before. Nothing seems to have changed. But you
 know deep down that something has changed. You mull over the word it told you
 - life - and wonder what it signifies.
 
->   You lay a hand on the horned devil's hand. Nothing seems to happen.
+> touch devil
+   You lay a hand on the horned devil's hand. Nothing seems to happen.
 
->(Your score has increased by 1)
+> read scroll
+(Your score has increased by 1)
    You speak the words from the scroll.
 
    It seems at first that nothing has happened, but then you you feel a
@@ -1682,9 +1807,11 @@ fully understand it). The horned devil statue seems as it was before.
 Unmoving. All that seems to have changed is the word in the back of your mind
 - 'the'.
 
->   You lay a hand on the dragon's paw. Nothing seems to happen.
+> touch dragon
+   You lay a hand on the dragon's paw. Nothing seems to happen.
 
->(Your score has increased by 1)
+> read scroll
+(Your score has increased by 1)
    You speak the words from the scroll.
 
    It seems at first that nothing has happened, but then you you feel a
@@ -1699,9 +1826,11 @@ hand is released.
 fully understand it). The dragon statue remains as it was before. All that
 seems to have changed is the word in the back of your mind - 'at'.
 
->   You lay a hand on the ogre's hand. Nothing seems to happen.
+> touch ogre
+   You lay a hand on the ogre's hand. Nothing seems to happen.
 
->(Your score has increased by 1)
+> read scroll
+(Your score has increased by 1)
    You speak the words from the scroll.
 
    It seems at first that nothing has happened, but then you you feel a
@@ -1716,9 +1845,11 @@ released.
 fully understand it). The ogre statue seems as it was before. Unmoving. All
 that seems to have changed is the word in the back of your mind - 'only'.
 
->   You lay a hand on the goblin's hand. Nothing seems to happen.
+> touch goblin
+   You lay a hand on the goblin's hand. Nothing seems to happen.
 
->(Your score has increased by 1)
+> read scroll
+(Your score has increased by 1)
    You speak the words from the scroll.
 
    It seems at first that nothing has happened, but then you you feel a
@@ -1733,9 +1864,11 @@ releases your hand.
 fully understand it). The goblin statue seems as it was before. Unmoving. All
 that seems to have changed is the word in the back of your mind - 'of'.
 
->   You lay a hand on the zombie's hand. Nothing seems to happen.
+> touch zombie
+   You lay a hand on the zombie's hand. Nothing seems to happen.
 
->(Your score has increased by 1)
+> read scroll
+(Your score has increased by 1)
    You speak the words from the scroll.
 
    It seems at first that nothing has happened, but then you you feel a
@@ -1753,9 +1886,11 @@ fully understand it). The zombie statue seems as it was before. Unmoving. All
 that seems to have changed is the ominous word in the back of your mind -
 'death'.
 
->   You lay a hand on the medusa's paw. Nothing seems to happen.
+> touch hydra
+   You lay a hand on the medusa's paw. Nothing seems to happen.
 
->(Your score has increased by 1)
+> read scroll
+(Your score has increased by 1)
    You speak the words from the scroll.
 
    It seems at first that nothing has happened, but then you you feel a
@@ -1772,7 +1907,8 @@ that seems to have changed is the word in the back of your mind - 'lies'.
 
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 8
 
->You move west.
+> west
+You move west.
 
 The Pit
 
@@ -1792,12 +1928,14 @@ Exits lie:  east (to the passage)
 
 Garrick walks towards you from the east.
 
->   One of the figures looks at you with its strange, saucer-like eyes and
+> talk to figures
+   One of the figures looks at you with its strange, saucer-like eyes and
 mutters, "say the eight in sequence and the way shall be opened."
    The figure turns back to its chanting and nothing else you say seems to
 have any effect.
 
->(Your score has increased by 5)
+> say the eight in sequence
+(Your score has increased by 5)
    Acting on a hunch you speak the words "the eight in sequence."
 
    The figures cease their chanting and in unison turn to look at you.
@@ -1812,7 +1950,8 @@ interrupted them at all.
 
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 9
 
->You move north.
+> north
+You move north.
 
 Cells
 
@@ -1831,7 +1970,8 @@ Exits lie: south (to the pit)
 
 Garrick walks towards you from the south.
 
->(Your score has increased by 10)
+> raise orb
+(Your score has increased by 10)
    The moment you raise the orb, a strange thing happens. Each of the cell
 doors spring open!
    At first, the prisoners sit there and stare at you in shock, unable to
@@ -1897,7 +2037,8 @@ have to do next.
 
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 15
 
->You move south.
+> south
+You move south.
 
 The Pit
 
@@ -1918,7 +2059,8 @@ Exits lie:  north (to the openings) and east (to the passage)
 
 Garrick walks towards you from the north.
 
->You move east.
+> east
+You move east.
 
 Passage
 
@@ -1937,7 +2079,8 @@ Exits lie: west (to the pit) and southeast (to the empty room)
 
 Garrick walks towards you from the west.
 
->You move southeast.
+> se
+You move southeast.
 
 Empty room
 
@@ -1955,7 +2098,8 @@ southeast (through an archway) and south (to the top of the stairs)
 
 Garrick walks towards you from the north-west.
 
->You move south.
+> south
+You move south.
 
 Top of the stairs
 
@@ -1970,7 +2114,8 @@ Exits lie: down (the stairs) and north (through the door)
 
 Garrick walks towards you from the north.
 
->   You move down, stepping as carefully as you can. Alas, it seems, not
+> down
+   You move down, stepping as carefully as you can. Alas, it seems, not
 carefully enough. One of the steps gives way beneath your feet, sending you
 crashing to the bottom of the stairs.
 
@@ -1990,7 +2135,8 @@ Exits lie: north (through the steel door) and up (the stairs)
 
 Garrick walks towards you from above.
 
->You move north.
+> north
+You move north.
 
 Eastern hallway
 
@@ -2011,7 +2157,8 @@ Exits lie: west (to the shadowy hallway) and south (through the steel door)
 
 Garrick walks towards you from the south.
 
->You move west.
+> west
+You move west.
 
 Shadowy hallway
 
@@ -2033,7 +2180,8 @@ and southwest (to a further branching of the hallway)
 
 Garrick walks towards you from the east.
 
->You move northwest.
+> nw
+You move northwest.
 
 Laboratory
 
@@ -2053,7 +2201,8 @@ Exits lie: west (to the cell), north (to a door) and southeast (to a hallway)
 
 Garrick walks towards you from the south-east.
 
->Cell
+> west
+Cell
 
 The cell
 A dismal and dank room, the 'cell' you find yourself in is not large but
@@ -2093,9 +2242,11 @@ give chase but know you will never catch him - he runs like the wind.
 
 Garrick walks towards you from the east.
 
->   You get the doll.
+> get doll
+   You get the doll.
 
->You move east.
+> east
+You move east.
 
 Laboratory
 
@@ -2116,7 +2267,8 @@ Exits lie: west (to the cell), north (to a door) and southeast (to a hallway)
 
 Garrick walks towards you from the west.
 
->You move southeast.
+> se
+You move southeast.
 
 Shadowy hallway
 
@@ -2138,7 +2290,8 @@ and southwest (to a further branching of the hallway)
 
 Garrick walks towards you from the north-west.
 
->You move east.
+> east
+You move east.
 
 Eastern hallway
 
@@ -2159,7 +2312,8 @@ Exits lie: west (to the shadowy hallway) and south (through the steel door)
 
 Garrick walks towards you from the west.
 
->You move south.
+> south
+You move south.
 
 Ruined Stairs
 
@@ -2175,13 +2329,15 @@ Exits lie: north (through the steel door) and up (the stairs)
 
 Garrick walks towards you from the north.
 
->   You move up, stepping as carefully as you can. Alas, it seems, not
+> up
+   You move up, stepping as carefully as you can. Alas, it seems, not
 carefully enough. One of the steps gives way beneath your feet, sending you
 crashing to the bottom of the stairs.
 
    You grimly pick yourself up. You are winded but do not seem badly hurt.
 
->   You move up.
+> up
+   You move up.
 
 Top of the stairs
 
@@ -2197,7 +2353,8 @@ Exits lie: down (the stairs) and north (through the door)
 
 Garrick walks towards you from below.
 
->You move north.
+> north
+You move north.
 
 Empty room
 
@@ -2215,7 +2372,8 @@ southeast (through an archway) and south (to the top of the stairs)
 
 Garrick walks towards you from the south.
 
->You move east.
+> east
+You move east.
 
 Eastern passage
 
@@ -2231,11 +2389,13 @@ Exits lie: west (to the empty room) and east (to the shadowy archway)
 
 Garrick walks towards you from the west.
 
->   The moment you try to walk along the corridor, a bright light flares
+> east
+   The moment you try to walk along the corridor, a bright light flares
 around the chalk figure drawn on the floor. You cover your eyes until it dies
 down and when you can finally see again, you find you are not alone.
 
->(Your score has increased by 5)
+> throw vial at demon
+(Your score has increased by 5)
    Just as the demon lunges for you, you throw the vial of holy water at it,
 causing it to smash on the demon's gnarled face. At first nothing seems to
 happen-
@@ -2248,7 +2408,8 @@ in horror as the beast finally sinks to the floor, its death throes over.
 
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 16
 
->You move east.
+> east
+You move east.
 
 Sloping Corridor
 
@@ -2267,7 +2428,8 @@ Exits lie: west (to the passageway) and north (the sloping corridor)
 
 Garrick walks towards you from the west.
 
->You move north.
+> north
+You move north.
 
 Ancient Feasthall
 
@@ -2288,7 +2450,8 @@ archway) and south (to the sloping corridor)
 
 Garrick walks towards you from the south.
 
->You move north.
+> north
+You move north.
 
 Goblin Chamber
 
@@ -2305,11 +2468,13 @@ Exits lie: south (to the feasthall)
 
 Garrick walks towards you from the south.
 
->(Your score has increased by 1)
+> extinguish fire
+(Your score has increased by 1)
    You stamp on the fire until it goes out, leaving the room seeming quite a
 bit smaller afterwards.
 
->You move south.
+> south
+You move south.
 
 Ancient Feasthall
 
@@ -2330,7 +2495,8 @@ archway) and south (to the sloping corridor)
 
 Garrick walks towards you from the north.
 
->You move west.
+> west
+You move west.
 
 End of Corridor
 
@@ -2349,7 +2515,8 @@ feasthall
 
 Garrick walks towards you from the east.
 
->The Pool
+> south
+The Pool
 
 The Pool
 Light from a single glowing globe set into the ceiling of this room is
@@ -2366,11 +2533,13 @@ Exits lie: north (to the end of the corridor)
 
 Garrick walks towards you from the north.
 
->   The statue is carved in the figure of a woman, naked from the waist up,
+> x woman
+   The statue is carved in the figure of a woman, naked from the waist up,
 her mouth open in song. Water pours her mouth into the pool. Is it your
 imagination or is there something wrong with her eyes?
 
->   You lean forward to study the statue's eyes more closely - and are shocked
+> x eyes
+   You lean forward to study the statue's eyes more closely - and are shocked
 when they turn to look at you!
 
    FLEE THIS PLACE!!! a voice in your mind shrieks. FLEE NOW! BEFORE YOU
@@ -2381,7 +2550,8 @@ clarity and a moment later seem nothing more than stone once again.
 
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 12
 
->You move north.
+> north
+You move north.
 
 End of Corridor
 
@@ -2400,7 +2570,8 @@ feasthall
 
 Garrick walks towards you from the south.
 
->You move east.
+> east
+You move east.
 
 Ancient Feasthall
 
@@ -2421,16 +2592,19 @@ archway) and south (to the sloping corridor)
 
 Garrick walks towards you from the west.
 
->   The skeleton is a grisly reminder of what you face in this castle. It
+> x skeleton
+   The skeleton is a grisly reminder of what you face in this castle. It
 appears long dead and you have the distinct impression that it has sat here
 since the fall of the castle in the oh so distant past.
 
->   As you reach out your hand, the skeleton's head suddenly turns to look at
+> get broadsword
+   As you reach out your hand, the skeleton's head suddenly turns to look at
 you.
    "I would not do that if I were you," it hisses in a voice as cold as the
 grave. "You might not like the consequences."
 
->   "So you are the one who would bring Vaslock down, eh?" the skeleton says.
+> talk to havelock
+   "So you are the one who would bring Vaslock down, eh?" the skeleton says.
 "I was expecting someone a little... larger, I have to confess."
    "I'm just trying to get out of here," you reply. "I've no interest in
 fighting Vaslock."
@@ -2441,7 +2615,8 @@ carried out his experiments on, you who are his greatest hope? You are a fool
 if you think the vampire will let you go. No, you will escape from this place
 in only one way: by killing the evil that rules it."
 
->   "Ah, you have met Viralee," he says.
+> ask havelock about woman
+   "Ah, you have met Viralee," he says.
    "Viralee?"
    "The woman in the pool. Or statue, I should say for that is what she truly
 is now. She was a peasant girl from one of the surrounding villages whom
@@ -2464,7 +2639,8 @@ Havelock leans forward and hands to you a vial containing a reddish powder.
 
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 12
 
->   "Ah, my traitorous priest. The fool who threw his lot in with Vaslock in
+> ask havelock about toril
+   "Ah, my traitorous priest. The fool who threw his lot in with Vaslock in
 the misguided hope that that would save him. Little good it did him. Vaslock
 used him and then, when his usefulness was at an end, had him killed. As I
 always knew he would. In fact, Toril seemed to be the only one unaware of
@@ -2477,7 +2653,8 @@ chambers that you can use to fight Vaslock. But do not tarry too long there.
 The longer the wards are down, the more chance there is of Vaslock detecting
 their absence and coming to investigate."
 
->You move west.
+> west
+You move west.
 
 End of Corridor
 
@@ -2497,7 +2674,8 @@ feasthall
 
 Garrick walks towards you from the east.
 
->You move south.
+> south
+You move south.
 
 The Pool
 
@@ -2514,7 +2692,8 @@ Exits lie: north (to the end of the corridor)
 
 Garrick walks towards you from the north.
 
->(Your score has increased by 5)
+> use powder
+(Your score has increased by 5)
    Following the instructions you received from Havelock's skeletal remains,
 you sprinkle the vial of powder over the statue of the woman in the pool. At
 first it seems nothing will happen... and then her eyes open again and the
@@ -2526,7 +2705,8 @@ surprised to find her skin is no longer stone, it is human flesh once more.
 
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 12
 
->You move north.
+> north
+You move north.
 
 End of Corridor
 
@@ -2545,7 +2725,8 @@ feasthall
 
 Garrick walks towards you from the south.
 
->You move west.
+> west
+You move west.
 
 Strange Room
 
@@ -2562,14 +2743,16 @@ Exits lie: north and east (through doors)
 
 Garrick walks towards you from the east.
 
->(Your score has increased by 3)
+> climb walls
+(Your score has increased by 3)
    Climbing the slanting walls is not actually possible because the slant is
 only a few degrees and the walls are too smooth to allow you to gain any
 purchase on them, but you are able to scramble up a few feet before gravity
 takes its hold on you. In this time, you find what appears to be a small clay
 idol tucked into a crack in one wall.
 
->You move north.
+> north
+You move north.
 
 Toril's Chambers
 
@@ -2589,23 +2772,29 @@ Exits lie: south (to the strange room)
 
 Garrick walks towards you from the south.
 
->   The bed is at least three centuries old and has suffered badly from the
+> x bed
+   The bed is at least three centuries old and has suffered badly from the
 ravages of time. The middle has collapsed inwards and is now the home of a
 colony of woodlice.  A long, dark cloak is on the bed.
 
->You take the long, dark cloak from the bed.
+> get cloak
+You take the long, dark cloak from the bed.
 
->   No doubt this was worn by one of the defenders of the castle in olden
+> x suit of armour
+   No doubt this was worn by one of the defenders of the castle in olden
 times for it is unlikely that Toril himself ever wore it. It has a mighty
 broadsword clasped in one gauntletted fist.
 
->   The faceplate is dull and dusty. It is impossible to see even your own
+> x faceplate
+   The faceplate is dull and dusty. It is impossible to see even your own
 reflection in it.
 
->   You rub the faceplate with the cuff of your shirt until it is bright and
+> rub faceplate
+   You rub the faceplate with the cuff of your shirt until it is bright and
 shiny once more.
 
->   The faceplate is now clear and offers you a view inside the suit itself.
+> x faceplate
+   The faceplate is now clear and offers you a view inside the suit itself.
 However, there appears to be nothing in there. The suit does not contain a
 body, nor a hoard of valuables.
    But as you turn away you catch sight of something in the faceplate that
@@ -2613,18 +2802,23 @@ you never noticed before - a hood hanging on the wall by the shelves. You
 look at the wall and, sure enough, the hood is there. You feel a chill go
 through you that you never saw it before.
 
->You pick up the priest's hood.
+> get hood
+You pick up the priest's hood.
 
->You put on the priest's hood.
+> wear hood
+You put on the priest's hood.
 
->   The desk leans against the wall, one of its legs eaten through by
+> x desk
+   The desk leans against the wall, one of its legs eaten through by
 woodlice. There is a single drawer in the desk which at the moment is closed.
 
->(Your score has increased by 3)
+> open drawer
+(Your score has increased by 3)
    You slide the drawer open with an eerie groaning sound. Inside you find,
 seemingly unmarked by age, a silver dagger which you quickly take.
 
->Strange Room
+> south
+Strange Room
 
 Strange Room
 You find yourself in a room of strange proportions: the ceiling appears to
@@ -2642,7 +2836,8 @@ that the wards have reinstated themselves.
 
 Garrick walks towards you from the north.
 
->You move east.
+> east
+You move east.
 
 End of Corridor
 
@@ -2661,7 +2856,8 @@ feasthall
 
 Garrick walks towards you from the west.
 
->You move southwest.
+> sw
+You move southwest.
 
 Kitchen
 
@@ -2687,17 +2883,21 @@ Greera the cook is here, leaning on her staff.
 
 Garrick walks towards you from the north-east.
 
->(Your score has increased by 2)
+> give ring to greera
+(Your score has increased by 2)
    Greera takes the gold ring and coos, "ah, it is back, it is back! My
 precious!"
    She seems to forget you are even there.
 
->   You pull open the nearest cupboard and step back as an assortment of items
+> open cupboards
+   You pull open the nearest cupboard and step back as an assortment of items
 fall out, crashing to the floor in an unholy mess.
 
->You pick up the jug.
+> get jug
+You pick up the jug.
 
->You move northeast.
+> ne
+You move northeast.
 
 End of Corridor
 
@@ -2716,7 +2916,8 @@ feasthall
 
 Garrick walks towards you from the south-west.
 
->Ancient Feasthall
+> east
+Ancient Feasthall
 
 Ancient Feasthall
 Perhaps several centuries past, this was the main feasthall of the castle. A
@@ -2748,7 +2949,8 @@ done and will doubtless send someone to investigate very soon."
 
 Garrick walks towards you from the west.
 
->Room
+> east
+Room
 
 Room
 The walls of this small room are daubed with blood. The source is easy to
@@ -2770,7 +2972,8 @@ throat. "You've found me then? Now what are you going to do?"
 
 Garrick walks towards you from the west.
 
->(Your score has increased by 7)
+> throw dagger at chad
+(Your score has increased by 7)
    Acting on reflex, you throw the silver dagger at Chad. He has time for one
 brief howl of despair - and then the dagger strikes him solidly in the chest.
 Chad explodes. There is no other word for it. The magic of the dagger has
@@ -2778,15 +2981,19 @@ destroyed him utterly.
    "Is he dead?" asks Lara.
    "He's dead, honey," you say, trying to calm her. "He's dead."
 
->(Your score has increased by 3)
+> give doll to lara
+(Your score has increased by 3)
    Lara takes it and begins playing with it once more.
 
->You pick up the silver dagger.
+> get dagger
+You pick up the silver dagger.
 
->   You unlock it with the cobalt key. Inside are a pile of ashes and a note.
+> open chest
+   You unlock it with the cobalt key. Inside are a pile of ashes and a note.
 You pick the note up.
 
->(Your score has increased by 5)
+> read note
+(Your score has increased by 5)
    It reads:
 
    'Stranger, how glad I am that you have freed me. Know you that I was a
@@ -2796,7 +3003,8 @@ thank you for this.'
 
    The strange note is not signed.
 
->You move west.
+> west
+You move west.
 
 Ancient Feasthall
 
@@ -2817,7 +3025,8 @@ archway) and south (to the sloping corridor)
 
 Garrick walks towards you from the east.
 
->You move south.
+> south
+You move south.
 
 Sloping Corridor
 
@@ -2836,7 +3045,8 @@ Exits lie: west (to the passageway) and north (the sloping corridor)
 
 Garrick walks towards you from the north.
 
->You move west.
+> west
+You move west.
 
 Eastern passage
 
@@ -2853,7 +3063,8 @@ Exits lie: west (to the empty room) and east (to the shadowy archway)
 
 Garrick walks towards you from the east.
 
->You move west.
+> west
+You move west.
 
 Empty room
 
@@ -2873,7 +3084,8 @@ southeast (through an archway) and south (to the top of the stairs)
 
 Garrick walks towards you from the east.
 
->You move south.
+> south
+You move south.
 
 Top of the stairs
 
@@ -2889,7 +3101,8 @@ Exits lie: down (the stairs) and north (through the door)
 
 Garrick walks towards you from the north.
 
->   You move down, stepping as carefully as you can. Alas, it seems, not
+> down
+   You move down, stepping as carefully as you can. Alas, it seems, not
 carefully enough. One of the steps gives way beneath your feet, sending you
 crashing to the bottom of the stairs.
 
@@ -2909,7 +3122,8 @@ Exits lie: north (through the steel door) and up (the stairs)
 
 Garrick walks towards you from above.
 
->You move north.
+> north
+You move north.
 
 Eastern hallway
 
@@ -2930,7 +3144,8 @@ Exits lie: west (to the shadowy hallway) and south (through the steel door)
 
 Garrick walks towards you from the south.
 
->You move west.
+> west
+You move west.
 
 Shadowy hallway
 
@@ -2952,7 +3167,8 @@ and southwest (to a further branching of the hallway)
 
 Garrick walks towards you from the east.
 
->You move southwest.
+> sw
+You move southwest.
 
 Dark passageway
 
@@ -2967,7 +3183,8 @@ Exits lie: northeast (to the hallway) and south (to the dimly-lit room)
 
 Garrick walks towards you from the north-east.
 
->You move south.
+> south
+You move south.
 
 Dimly-lit room
 
@@ -2991,7 +3208,8 @@ Exits lie: north (to the dark passageway)
 
 Garrick walks towards you from the north.
 
->(Your score has increased by 5)
+> give cloak to toril
+(Your score has increased by 5)
    "Ah, so kind, so kind," murmurs Toril as you hand over his possession.
 "You are better than this place deserves, Marlon. You would destroy Vaslock
 would you not?"
@@ -3009,14 +3227,16 @@ now."
 
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 10
 
->(Your score has increased by 2)
+> ask gladrin about orb
+(Your score has increased by 2)
    "It lies within a dream, Marlon," Gladrin says.
    "A dream?"
    Gladrin nods. "Aye," he says, but will say no more.
 
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 10
 
->You move north.
+> north
+You move north.
 
 Dark passageway
 
@@ -3031,7 +3251,8 @@ Exits lie: northeast (to the hallway) and south (to the dimly-lit room)
 
 Garrick walks towards you from the south.
 
->You move northeast.
+> ne
+You move northeast.
 
 Shadowy hallway
 
@@ -3054,7 +3275,8 @@ and southwest (to a further branching of the hallway)
 
 Garrick walks towards you from the south-west.
 
->You move east.
+> east
+You move east.
 
 Eastern hallway
 
@@ -3075,7 +3297,8 @@ Exits lie: west (to the shadowy hallway) and south (through the steel door)
 
 Garrick walks towards you from the west.
 
->You move south.
+> south
+You move south.
 
 Ruined Stairs
 
@@ -3091,7 +3314,8 @@ Exits lie: north (through the steel door) and up (the stairs)
 
 Garrick walks towards you from the north.
 
->   You move up.
+> up
+   You move up.
 
 Top of the stairs
 
@@ -3106,7 +3330,8 @@ Exits lie: down (the stairs) and north (through the door)
 
 Garrick walks towards you from below.
 
->You move north.
+> north
+You move north.
 
 Empty room
 
@@ -3124,7 +3349,8 @@ southeast (through an archway) and south (to the top of the stairs)
 
 Garrick walks towards you from the south.
 
->You move east.
+> east
+You move east.
 
 Eastern passage
 
@@ -3141,7 +3367,8 @@ Exits lie: west (to the empty room) and east (to the shadowy archway)
 
 Garrick walks towards you from the west.
 
->You move east.
+> east
+You move east.
 
 Sloping Corridor
 
@@ -3159,7 +3386,8 @@ Exits lie: west (to the passageway) and north (the sloping corridor)
 
 Garrick walks towards you from the west.
 
->You move north.
+> north
+You move north.
 
 Ancient Feasthall
 
@@ -3180,7 +3408,8 @@ archway) and south (to the sloping corridor)
 
 Garrick walks towards you from the south.
 
->You move northeast.
+> ne
+You move northeast.
 
 Corridor
 
@@ -3200,7 +3429,8 @@ Garrick walks towards you from the south-west.
    To the northeast you hear the sound of a door slamming and footsteps
 heading in this direction.
 
->You move northeast.
+> ne
+You move northeast.
 
 The Statue
 
@@ -3232,7 +3462,8 @@ with."
 
 Garrick walks towards you from the south-west.
 
->(Your score has increased by 7)
+> kill torodim
+(Your score has increased by 7)
    Torodim eyes go wide as you raise the silver dagger.
    "Where did you get that?" he thunders.
    "I found it," you say, and slash at him with it.
@@ -3265,7 +3496,8 @@ himself into it, and disappears.
 
 YOUR JOURNAL HAS BEEN UPDATED - PAGE 17
 
->   You step through the archway...
+> north
+   You step through the archway...
 
 Press a key to continue
 
@@ -3280,9 +3512,11 @@ current of blood washes over them.
 
 Exits lie: north (along the passage) and south (through the dark archway)
 
->   You fill the jug with blood.
+> fill jug
+   You fill the jug with blood.
 
->You move north.
+> north
+You move north.
 
 Dark Passageway
 
@@ -3296,7 +3530,8 @@ feet in chains which are linked to each individual slave. Fierce looking men
 Exits lie: north (to the junction), south (to the deathly chamber) and east
 (to a small alcove)
 
->You move east.
+> east
+You move east.
 
 Small Alcove
 
@@ -3312,14 +3547,17 @@ Garrick is here, crouched amidst the remains of the statue.
 
 YOUR JOURNAL HAS BEEN UPDATED - PAGE 18
 
->   "It was not my fault!" Garrick wails. He seems to try and retreat further
+> talk to garrick
+   "It was not my fault!" Garrick wails. He seems to try and retreat further
 from you but there is no room in the alcove. "I did what he asked, but he
 asked too much, too much... I was not ready... I knew it was a mistake, knew
 it, knew it..."
 
->No-one listens to your rabblings.
+> talk to garrick
+No-one listens to your rabblings.
 
->(Your score has increased by 5)
+> ask garrick about mordrel
+(Your score has increased by 5)
    At the mention of Mordrel, Garrick looks at you.
    "Mordrel?" he murmurs.
    "You mentioned the name," you say. "After Torodim wounded you..."
@@ -3382,7 +3620,8 @@ oozes out of him.
 
 YOUR JOURNAL HAS BEEN UPDATED - PAGE 18
 
->You move west.
+> west
+You move west.
 
 Dark Passageway
 
@@ -3396,7 +3635,8 @@ feet in chains which are linked to each individual slave. Fierce looking men
 Exits lie: north (to the junction), south (to the deathly chamber) and east
 (to a small alcove)
 
->Junction
+> north
+Junction
 
 Junction
 Several passageways meet here, one from the north, one from the northeast,
@@ -3415,7 +3655,8 @@ Exits lie: north, northeast, south and east (along passageways)
 vampires from seeing you. You are free to move about - provided you do not
 make too much noise.
 
->You move northeast.
+> ne
+You move northeast.
 
 Top of Steps
 
@@ -3427,15 +3668,18 @@ the steps is a sign upon which is written several words.
 
 Exits lie: southwest (to the junction) and down (the steps)
 
->   An unholy wind blows from the bottom of the steps, throwing you back.
+> down
+   An unholy wind blows from the bottom of the steps, throwing you back.
    "The words of wisdom! Speak the words of wisdom or go no further!"
 whispers a spectral voice.
 
->(Your score has increased by 10)
+> say at the end of life lies only death
+(Your score has increased by 10)
    You utter the words. Nothing seems to change but you have the feeling that
 you have passed some kind of test.
 
->You move down.
+> down
+You move down.
 
 Crypt
 
@@ -3449,21 +3693,25 @@ collection of crosses of varying sizes and designs.
 
 Exits lie: up (the steps)
 
->   You struggle with the heavy lid for a while but eventually manage to get
+> open coffin
+   You struggle with the heavy lid for a while but eventually manage to get
 the heavy coffin open.
 
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 23
 
->   Lying in the coffin, his flesh deathly pale, is a tall, thin man clad in
+> x coffin
+   Lying in the coffin, his flesh deathly pale, is a tall, thin man clad in
 robes of darkest velvet. His head rests on a golden pillow and in his hands
 is clutched a globe of dark metal.
 
->   The moment you reach out your hand, the man's eyes slowly open.
+> get globe
+   The moment you reach out your hand, the man's eyes slowly open.
    "Ah," he says. "I wondered when you would get here."
 
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 23
 
->   "Marlon," says the man. "You come. Aah, but I knew you would. I foresaw
+> talk to man
+   "Marlon," says the man. "You come. Aah, but I knew you would. I foresaw
 it, in a dream of mine. I foresaw your coming. You are the one foretold,
 Marlon, the one who will deliver us from the evil that is Vaslock."
    "I just want to get out of here," you say. "Alive."
@@ -3523,7 +3771,8 @@ the correct questions, yes I could tell you many things.."
 
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 23
 
->(Your score has increased by 10)
+> ask mordrel about garrick
+(Your score has increased by 10)
    "Ah, my poor 'servant'. I knew he might die if I used him but knew he
 might die otherwise anyway and so considered the risk acceptable. I take it
 he is, indeed, dead?"
@@ -3546,7 +3795,8 @@ behalf. Instead, there must be blood somewhere in this castle. Bring it to
 me, and the way to Vaslock will be an open door to you. The rest, alas, you
 will have to deal with yourself."
 
->(Your score has increased by 10)
+> give jug to mordrel
+(Your score has increased by 10)
    You give the jug of blood to Mordrel. A smile creases his lips. "Ah," he
 murmurs. "I have waited a long, long time for this moment..."
    The ancient vampire raises the jug to his lips and drinks the blood, in
@@ -3573,7 +3823,8 @@ more than he anticipated.
 
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 23
 
->You move up.
+> up
+You move up.
 
 Top of Steps
 
@@ -3585,7 +3836,8 @@ the steps is a sign upon which is written several words.
 
 Exits lie: southwest (to the junction) and down (the steps)
 
->You move southwest.
+> sw
+You move southwest.
 
 Junction
 
@@ -3603,11 +3855,13 @@ suspicion in their eyes.
 
 Exits lie: north, northeast, south and east (along passageways)
 
->   The slaves appear to have gathered a little life after the defeat of their
+> x slaves
+   The slaves appear to have gathered a little life after the defeat of their
 vampire overseers. Alas, the majority of them are in such poor condition that
 you doubt they would be any use to you.
 
->   "What are you?" a slave hisses. "Are you one of them?"
+> talk to slaves
+   "What are you?" a slave hisses. "Are you one of them?"
    "No," you say. "I'm here to help."
    Though clearly the slaves do not believe you, it is also clear you are no
 vampire. One of them, a hulking fellow called Gragor, lumbers up close to
@@ -3626,7 +3880,8 @@ and will no doubt be a useful ally in this place.
 
 Gragor follows you.
 
->You move east.
+> east
+You move east.
 
 End of Passage
 
@@ -3640,12 +3895,14 @@ Exits lie: west (to the junction)
 
 Gragor follows you from the west.
 
->(Your score has increased by 2)
+> smash door
+(Your score has increased by 2)
    Together, you and Gragor smash the door off its hinges. It reveals a small
 room beyond.
    "The storeroom," Gragor says. "C'mon."
 
->   You move southeast.
+> se
+   You move southeast.
 
 Storeroom
 
@@ -3662,7 +3919,8 @@ Exits lie: northwest (to the end of the passage)
 Gragor follows you from the north-west.
    "I hid something beyond sacks in the corner," Gragor says.
 
->(Your score has increased by 1)
+> x sacks
+(Your score has increased by 1)
    You open one of the sacks to see what is inside - and back away in horror
 as you come face to face with a dead body!
    "That wasn't there before," Gragor hisses, sounding as shocked as you
@@ -3670,7 +3928,8 @@ feel. "Damnit!" He scrabbles in the sack, curses, and pulls out a single
 wooden stake. "I left half a dozen of these in here, and a bottle of holy
 water. Still, at least I've got a weapon now..."
 
->(Your score has increased by 1)
+> x shelves
+(Your score has increased by 1)
    Searching amidst the broken shelves, you come across a small amulet.
    "Ah!"says Gragor as he snatches it up. "It's here after all. I had a
 sinking feeling some swine might have found it by now, but no it's still
@@ -3679,7 +3938,8 @@ here."
    "An amulet of protection from the undead." Gragor puts it around his neck.
 "Now I feel a bit better prepared."
 
->You move northwest.
+> nw
+You move northwest.
 
 End of Passage
 
@@ -3693,7 +3953,8 @@ Exits lie: west (to the junction) and southeast (to the storeroom)
 
 Gragor follows you from the south-east.
 
->You move west.
+> west
+You move west.
 
 Junction
 
@@ -3713,7 +3974,8 @@ Exits lie: north, northeast, south and east (along passageways)
 
 Gragor follows you from the east.
 
->Dark Tunnel [1]
+> west
+Dark Tunnel [1]
 
 Dark Tunnel
 Just beyond the broken gateway, you find a tunnel, the walls of which are
@@ -3738,7 +4000,8 @@ you die, Marlon."
 
 Gragor follows you from the east.
 
->(Your score has increased by 5)
+> kill vampire
+(Your score has increased by 5)
    Shock is clearly written on the vampire's face as he sees you are carrying
 the orb.
    "The orb!" he shrieks. "Where did you get that from?"
@@ -3755,7 +4018,8 @@ dust.
 
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 24
 
->You move west.
+> west
+You move west.
 
 Dark Tunnel [2]
 
@@ -3772,7 +4036,8 @@ Exits lie: west and east (along tunnel)
 
 Gragor follows you from the east.
 
->You move west.
+> west
+You move west.
 
 Dark Tunnel [3]
 
@@ -3785,14 +4050,16 @@ Exits lie: east (along the tunnel)
 
 Gragor follows you from the east.
 
->(Your score has increased by 5)
+> raise orb
+(Your score has increased by 5)
    The moment you raise the orb, there is a grinding sound from the block of
 stone (as of ages old machinery suddenly coming to life) and then the block
 slides effortlessly to one side. A passage is revealed beyond.
 
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 19
 
->You move west.
+> west
+You move west.
 
 Passage
 
@@ -3805,7 +4072,8 @@ Exits lie: east (to the dark tunnel) and west (to the sloping passage)
 
 Gragor follows you from the east.
 
->You move west.
+> west
+You move west.
 
 Sloping Passage
 
@@ -3821,7 +4089,8 @@ Exits lie: east (to the passage) and west (to the lair of the vampire)
 
 Gragor follows you from the east.
 
->(Your score has increased by 5)
+> open door
+(Your score has increased by 5)
    "Let me," says Gragor, shouldering you aside. "I want first stab at the
 swine!"
    He strides over to the door and grasps the handle - and howls in pain!
@@ -3843,12 +4112,14 @@ to Vaslock's lair. All you have to do is go through it.
 
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 22
 
->(Your score has increased by 2)
+> x gragor
+(Your score has increased by 2)
    You come across the silver amulet Gragor was carrying, the one that he
 said would ward him against vampires. You take it, knowing he would wish you
 to have it.
 
->(Your score has increased by 10)
+> west
+(Your score has increased by 10)
 Lair of the Vampire
 
 Lair of the Vampire
@@ -3926,7 +4197,8 @@ walked the earth for close to two thousand years.
 
    2)  Fight him
 
->   Vaslock sighs. "I suspected as much. You fool. So be it then, you will die
+> 2
+   Vaslock sighs. "I suspected as much. You fool. So be it then, you will die
 and I will return to my experiments and the next one I offer the choice to
 will take it."
 
@@ -3938,13 +4210,15 @@ will to resist him is not as strong as it was a minute before.
    All this time, you are aware of Vaslock closing in on you and know you
 must defend yourself.
 
->   You rush at the drapes and tug them open. Vaslock gives a cry of pain and
+> open drapes
+   You rush at the drapes and tug them open. Vaslock gives a cry of pain and
 lashes out at you, catching you a solid blow to the side which sends you
 flying across the chamber.
    "Quick thinking, Marlon," he murmurs. "But it takes more than a little
 daylight to kill me!"
 
->   The moment you raise the orb, Vaslock gives a cry of rage and pain and
+> raise orb
+   The moment you raise the orb, Vaslock gives a cry of rage and pain and
 throws himself away from you.
    "Damn you, Mordrel!" he thunders. "DAMN YOU!!!"
    Vaslock shies away as you approach with the orb, then claps his hands
@@ -3956,18 +4230,21 @@ dust in your hand.
 arcane magic he employed to destroy the orb, but you have lost your most
 powerful weapon.
 
->   You brandish the crucifix at Vaslock and he gives a hiss of pain and rage
+> kill vaslock
+   You brandish the crucifix at Vaslock and he gives a hiss of pain and rage
 and backs away.
    "That won't keep me at bay forever, you fool," he hisses. "Sooner or
 later, you'll have to approach me if you want to do me any lasting harm."
   Despite his words, you sense that your attack has weakened him badly.
 
->   Once more you thrust the crucifix at Vaslock. This time he ignores the
+> kill vaslock
+   Once more you thrust the crucifix at Vaslock. This time he ignores the
 pain it causes him and seizes from your hand. Even as it burns his vampiric
 flesh, he crushes the crucifix to dust.
    "There! Now what of your protection?" he sneers.
 
->   You rush across the chamber and strike at Vaslock with the silver dagger.
+> kill vaslock
+   You rush across the chamber and strike at Vaslock with the silver dagger.
 His impassive countenance gives way to a look of morbid fear for a second
 before he manages to get his features under control. He strikes out at you,
 sending you crashing back across the chamber, but not before you have landed
@@ -3976,7 +4253,8 @@ vampire flesh.
    You pick yourself up, wounded but not badly hurt, as Vaslock closes in on
 you again.
 
->(Your score has increased by 20)
+> kill vaslock
+(Your score has increased by 20)
    Again you attack Vaslock with the silver dagger. This time, however,. he
 is ready for your attack and ducks easily to one side. Your blow misses,
 unbalancing you badly, and Vaslock strikes out at you, a blow of stunning
@@ -4012,7 +4290,8 @@ of the silver dagger has destroyed him.
 
    To the north, not noticeable before, you see a doorway has opened.
 
->   And so your adventure ends. Vaslock, the lord of the vampires, lies dead
+> north
+   And so your adventure ends. Vaslock, the lord of the vampires, lies dead
 by your hand. His reign of terror is over.
 
    What now for you, Marlon? A return to the civilian life you remember but
@@ -4041,4 +4320,5 @@ again: type "restart" and do just that.
 
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 26
 
->Do you really want to quit? [Y/N]
+> quit
+Do you really want to quit? [Y/N]

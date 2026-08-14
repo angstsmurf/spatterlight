@@ -18,7 +18,8 @@ will have to find another way to bring it out.
 [Type 'spells' or 'x me' to list the spells you still know.]
 [Type 'notes' for the author's notes.]
 
->This game was intended to be either a 1 hour or clever 1 room game.  However,
+> notes
+This game was intended to be either a 1 hour or clever 1 room game.  However,
 at the end of 1 hour, it was discovered that I was being too ambitious to get
 everything coded in an hour.  The 1 room game qualification also relied a
 little too heavily on specific interpretations of a 1 room game.  I.e. there
@@ -47,11 +48,13 @@ Daniel Hiebert (Tech)
 www.eipublishing.com
 eipub@eipublishing.com
 
->The following spells are still in your memory:
+> spells
+The following spells are still in your memory:
 Levitate
 Turn Undead
 
->Looking into the crypt you see...
+> look north
+Looking into the crypt you see...
 
 Crypt of Lord An
 Inside of an open stone sarcophagus, the ancient remains of Lord An stand.
@@ -61,7 +64,8 @@ Around his neck, the Lord An's blood red ruby amulet sparkles in the
 firelight.  Perched atop the stone sarcophagus is a mummified bat.  A thin
 unsheathed silver blade lies next to the remains.
 
->
+> l
+
 Crypt Anteroom
 Fifteen feet on a side, this is the anteroom to the crypt of the Lord An,
 legendary war mage.  The crypt can be seen to the north through an archway
@@ -73,23 +77,28 @@ crypt exit.  Runic markings are engraved around the doorway.
 A human skeleton lies half buried in the floor in the corner of the room.
 Perched atop the stone sarcophagus is a mummified bat.
 
->Poking through the remains of the skeleton, you find some iron fittings and a
+> examine human skeleton
+Poking through the remains of the skeleton, you find some iron fittings and a
 long piece of wood.  Both probably belonged to some weapon this adventurer
 carried.
 
->You find nothing more in the skeleton.
+> search human skeleton
+You find nothing more in the skeleton.
 
->You are carrying the spell book, a four foot piece wood and the iron
+> i
+You are carrying the spell book, a four foot piece wood and the iron
 fittings.
 
->Casting the levitate spell onto the amulet, you see the amulet rise from
+> cast levitate on ruby
+Casting the levitate spell onto the amulet, you see the amulet rise from
 around the Lord An's neck.  Momentarily hung up, the gold chain jostles the
 skeleton until the amulet floats free.
 Disturbing the amulet wakens the mummified bat from its perch atop the
 sarcophagus.  With a piercing shriek, it flies straight towards you with
 outstretched claws.
 
->
+> l
+
 Crypt Anteroom
 Fifteen feet on a side, this is the anteroom to the crypt of the Lord An,
 legendary war mage.  The crypt can be seen to the north through an archway
@@ -104,16 +113,19 @@ attempts to rake out your eyes and throat with each pass.
 On the last pass, the mummified bat barely misses digging its claws into your
 eye socket.
 
->A warm orange aura blazes from your outstreched hand towards the flying bat.
+> cast turn undead on bat
+A warm orange aura blazes from your outstreched hand towards the flying bat.
 Engulfing the bat, it shrieks in pain as the magic causes the bat to
 disintegrate mid-air.  Its ashes float down gently across the floor of the
 room.
 
->Using the four foot piece of wood, you're able to hook the amulet and bring
+> take ruby amulet
+Using the four foot piece of wood, you're able to hook the amulet and bring
 it over to you from the crypt.  Gleefully, you snatch the amulet from mid-air
 and quickly hang it around your neck.
 
->Bounding up the stone stairway two steps at a time, you feel the hair on your
+> u
+Bounding up the stone stairway two steps at a time, you feel the hair on your
 head and neck stand up straight.  Lightning arcs out from the runic markings
 along the wall and are warped to the around your body to where the ruby
 amulet hangs from your neck.  With a sharp crack and sizzle, the lightning is

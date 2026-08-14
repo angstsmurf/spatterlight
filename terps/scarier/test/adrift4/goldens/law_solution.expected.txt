@@ -207,7 +207,8 @@ know where I can go. From the look of things, west would take me to the
 lounge, where Tim is, east would take me to the workstations, where Calvin
 is, and north would take me to the rest of the space station.
 
->I move north.
+> n
+I move north.
 
 Corridor
 This corridor doesn't look much more impressive than the entrance lobby. In
@@ -219,7 +220,8 @@ been given permission to look around. East takes me to William's room, where
 he'll be, and due north is the computer room. South takes me back to the
 entrance lobby.
 
->I move west.
+> w
+I move west.
 
 Captain's room
 If it wasn't for the trauma surrounding this room, and the smell of corpse
@@ -230,21 +232,26 @@ room than my own. Obviously the most important thing in the room is Seth's
 body, which is sprawled over the bed. I feel sorry for him.
 East takes me back out to the corridor.
 
->He's sprawled over the bed with his mouth hanging open. A quick scan of his
+> x seth
+He's sprawled over the bed with his mouth hanging open. A quick scan of his
 body indicates no marks of any kind. No bullet-holes, stab wounds or signs of
 any sort of physical attack. It appears he simply fell down and died.
 
->Seth's bookcase contains everything, from poetry to science textbooks.
+> x bookcase
+Seth's bookcase contains everything, from poetry to science textbooks.
 Seth's Diary is on the Bookcase.
 
->I take Seth's Diary from the Bookcase.
+> get diary
+I take Seth's Diary from the Bookcase.
 
->I read through the diary entry. This is the passage that strikes me the most:
+> read 4th november
+I read through the diary entry. This is the passage that strikes me the most:
 "I was talking to V today. I'm beginngin to agree with Luke's suspicions,
 although I don't think I'll talk to him about it yet. I think V was lying to
 me. I don't know how or why, but I'm sure she was."
 
->I move east.
+> e
+I move east.
 
 Corridor
 This corridor doesn't look much more impressive than the entrance lobby. In
@@ -256,7 +263,8 @@ been given permission to look around. East takes me to William's room, where
 he'll be, and due north is the computer room. South takes me back to the
 entrance lobby.
 
->I move south.
+> s
+I move south.
 
 Entrance Lobby
 I'm standing in the entrance lobby. It's metallic and fairly bare. I guess on
@@ -266,7 +274,8 @@ know where I can go. From the look of things, west would take me to the
 lounge, where Tim is, east would take me to the workstations, where Calvin
 is, and north would take me to the rest of the space station.
 
->I move east.
+> e
+I move east.
 
 Workstations
 The workstations are five computers in a small room. It's safe to assume
@@ -276,7 +285,8 @@ station. Calvin is deep in his work, though I'm sure we both know I'll have
 to disturb him soon.
 To the west is the entrance lobby I came from.
 
->"I asked the computer about the corrupt data but it said it needed creativity
+> ask calvin about creativity
+"I asked the computer about the corrupt data but it said it needed creativity
 to be turned on first," I tell Calvin. He looks up from his work, again.
 "Somebody turned creativity off?" he says, clearly confused. "I wonder why.
 In any case, just ask her about creativity to turn it on."
@@ -284,7 +294,8 @@ In any case, just ask her about creativity to turn it on."
 Maybe I should find out something about this space station? I might find out
 how they got here in the first place.
 
->I move west.
+> w
+I move west.
 
 Entrance Lobby
 I'm standing in the entrance lobby. It's metallic and fairly bare. I guess on
@@ -294,7 +305,8 @@ know where I can go. From the look of things, west would take me to the
 lounge, where Tim is, east would take me to the workstations, where Calvin
 is, and north would take me to the rest of the space station.
 
->I move west.
+> w
+I move west.
 
 Lounge
 This seems to be the lounge. I guess even scientists need to relax away from
@@ -305,7 +317,8 @@ buried at the back. Luke is sitting on one of the sofas, obviously deep in
 thought.
 To the east is the entrace lobby.
 
->"I was using the computer earlier and it said it needed creativity turning
+> ask luke about password
+"I was using the computer earlier and it said it needed creativity turning
 on," I say to Luke.
 Luke sighs. "I guess you found about that then," he says.
 I draw myself up, slightly frustrated that Luke hid facts from me.
@@ -327,7 +340,8 @@ will know about it."
 "I guess that's the way it'll have to be," Luke says, and goes back to
 staring past me. Poor guy.
 
->I move east.
+> e
+I move east.
 
 Entrance Lobby
 I'm standing in the entrance lobby. It's metallic and fairly bare. I guess on
@@ -337,7 +351,8 @@ know where I can go. From the look of things, west would take me to the
 lounge, where Tim is, east would take me to the workstations, where Calvin
 is, and north would take me to the rest of the space station.
 
->I move north.
+> n
+I move north.
 
 Corridor
 This corridor doesn't look much more impressive than the entrance lobby. In
@@ -349,7 +364,8 @@ been given permission to look around. East takes me to William's room, where
 he'll be, and due north is the computer room. South takes me back to the
 entrance lobby.
 
->I move north.
+> n
+I move north.
 
 Computer room
 The computer room is something to behold. There are only two things in the
@@ -363,11 +379,13 @@ real person. It's very similar, but not the same as the computers I use at
 work. It's a really advanced piece of technology.
 To the south is the corridor I came from.
 
->"I want to enter the creativity password," I say to the computer.
+> enter creativity password
+"I want to enter the creativity password," I say to the computer.
 Text appears on the screen:
 "Speak it now."
 
->The screen pauses, and then suddenly teat appears on the screen:
+> grant
+The screen pauses, and then suddenly teat appears on the screen:
 C.R.E.A.T.I.V.I.T.Y
 engine loading...
 And then suddenly the screen is blank again. I wait, and then words appear on
@@ -393,7 +411,8 @@ is on, and the letters on the screen read:
 "I'm here to help, just talk to me when you want something, Joshua."
 To the south is the corridor I came from.
 
->I move south.
+> s
+I move south.
 
 Corridor
 This corridor doesn't look much more impressive than the entrance lobby. In
@@ -405,7 +424,8 @@ been given permission to look around. East takes me to William's room, where
 he'll be, and due north is the computer room. South takes me back to the
 entrance lobby.
 
->I move east.
+> e
+I move east.
 
 William's room
 William's room is surprisingly luxurious, but then these are top class
@@ -418,7 +438,8 @@ To the west is the corridor I came from.
 Maybe I should ask some of the crew members about each other? It's the best
 way to find out how the relationships worked.
 
->"What's behind that curtain of yours?" I ask William. His eyes open wide.
+> ask william about behind the curtain
+"What's behind that curtain of yours?" I ask William. His eyes open wide.
 "Nothing," he says. He's clearly lying. I take a step towards the curtain and
 suddenly he's sitting up-right and staring right at me. I make a mental note
 that Tim said something useful after all.
@@ -481,7 +502,8 @@ nicer room than my own. William is sitting on his bed, reading a book. Every
 now and then he looks up, presumably to see if I'm still there.
 To the west is the corridor I came from.
 
->I move west.
+> w
+I move west.
 
 Corridor
 This corridor doesn't look much more impressive than the entrance lobby. In
@@ -493,7 +515,8 @@ been given permission to look around. East takes me to William's room, where
 he'll be, and due north is the computer room. South takes me back to the
 entrance lobby.
 
->I move north.
+> n
+I move north.
 
 Computer room
 The computer room is something to behold. There are only two things in the
@@ -504,18 +527,21 @@ is on, and the letters on the screen read:
 "I'm here to help, just talk to me when you want something, Joshua."
 To the south is the corridor I came from.
 
->I'm done here. I think I know who killed Seth.
+> make verdict
+I'm done here. I think I know who killed Seth.
 That person's name was:
 
 (please enter the name of the character you think killed the Captain)
 
->I know how this character killed Seth. They locked him in his room and turned
+> V
+I know how this character killed Seth. They locked him in his room and turned
 off the oxygen. What I need to work out is why they killed him. What was
 their motive? I think the reason they killed Seth was:
 
 (please enter one word that sums up why the killer murdered the Captain)
 
->As I write the final details in my notepad, I run round the space station
+> mission
+As I write the final details in my notepad, I run round the space station
 getting everybody together. At last everybody, all six of us are in V's room
 together. There's barely time for a pause before I speak:
 "V, I arrest you for the murder of Captain Seth!"

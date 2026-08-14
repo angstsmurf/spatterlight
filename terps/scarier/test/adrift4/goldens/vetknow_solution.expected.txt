@@ -32,9 +32,11 @@ thrown out of your house. Every day you sit outside and beg for money or
 food, but even more importantly for any alcohol. Main Street continues to the
 north and south, with the park across the road to the east.
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
 You see a limousine passing by and you rush onto the road in front of it. The
 driver slams the brakes and you can hear curses inside. A young man emerges
@@ -48,7 +50,8 @@ sot. Go drink yourself to death, back in the alley where you belong." When
 you put out your hands for money, you are pushed out of the way to the side
 of the road. The limousine speeds off when the Youth is back inside.
 
->Time passes...
+> z
+Time passes...
 
 You remember a time when the Youth looked up to you, but now he does not even
 recognise you. Maybe it is time for you to make yourself known again. Once
@@ -59,9 +62,11 @@ pity you, you want them to fear you.
 As you contemplate the future, a breeze blows a flyer down the road and it
 lands at your feet.
 
->You pick up the flyer.
+> take flyer
+You pick up the flyer.
 
->The flyer is advertising the wrestling show tonight. Apparently your old
+> read flyer
+The flyer is advertising the wrestling show tonight. Apparently your old
 nemesis, the Star, has retired and vacated the World title. At the top of the
 card for the show is a four wrestler tournament to determine the new
 champion. The four wrestlers involved are the Youth, the High Flyer, the
@@ -78,7 +83,8 @@ can talk your way into the tournament, .
 
 It is time to become the Veteran again.
 
->You move west.
+> w
+You move west.
 
 An alley
 You have become accustomed to the filth in this alley. Living here can be
@@ -87,11 +93,14 @@ never cleaned, which is mainly because of the homeless beggars, such as you,
 in the way. You have hidden your remaining belongings in a garbage can. The
 exit is to the east.
 
->You open the garbage can.  A crowbar is inside the garbage can.
+> open can
+You open the garbage can.  A crowbar is inside the garbage can.
 
->You take the crowbar from the garbage can.
+> take crowbar
+You take the crowbar from the garbage can.
 
->You move east.
+> e
+You move east.
 
 Outside an alley
 The alley to the west has been your home in recent months after you were
@@ -99,7 +108,8 @@ thrown out of your house. Every day you sit outside and beg for money or
 food, but even more importantly for any alcohol. Main Street continues to the
 north and south, with the park across the road to the east.
 
->You move south.
+> s
+You move south.
 
 Outside the bar
 To the west is the bar where you spend all the money you earn from begging.
@@ -107,7 +117,8 @@ You try to stay away but you cannot resist the bar's siren call. Main Street
 continues with an alley to the north, and the bar's car park to the south.
 Across the road to the east is the park.
 
->You move southeast.
+> se
+You move southeast.
 
 Outside the convenience store
 To the east is a convenience store where you can acquire most of the items
@@ -115,7 +126,8 @@ you need for daily living, and any other random item that appeals to you.
 Main Street continues with the park to the north and the arena to the south.
 Across the road to the west is the car park next to the bar.
 
->You move east.
+> e
+You move east.
 
 The convenience store
 The owner of the convenience store stands behind the counter, waiting for
@@ -123,11 +135,14 @@ people to purchase the goods on the shelves. He is almost blind and you have
 no money, so you usually just steal the items you want. The exit is to the
 west.
 
->You take the can of black paint from the shelf.
+> take paint
+You take the can of black paint from the shelf.
 
->You take the box of sleeping pills from the shelf.
+> take pills
+You take the box of sleeping pills from the shelf.
 
->You move west.
+> w
+You move west.
 
 Outside the convenience store
 To the east is a convenience store where you can acquire most of the items
@@ -135,7 +150,8 @@ you need for daily living, and any other random item that appeals to you.
 Main Street continues with the park to the north and the arena to the south.
 Across the road to the west is the car park next to the bar.
 
->You move northwest.
+> nw
+You move northwest.
 
 Outside the bar
 To the west is the bar where you spend all the money you earn from begging.
@@ -143,7 +159,8 @@ You try to stay away but you cannot resist the bar's siren call. Main Street
 continues with an alley to the north, and the bar's car park to the south.
 Across the road to the east is the park.
 
->You move west.
+> w
+You move west.
 
 The bar
 You have considered this bar as your second home, and it is in only slightly
@@ -156,7 +173,8 @@ is to the east.  A free stool is next to the counter.
 There is only one customer here and it is the Brawler, drinking his beer
 whilst sitting on his normal stool.
 
->When the Brawler puts the glass down, you point outside and ask him if he can
+> put pills in beer
+When the Brawler puts the glass down, you point outside and ask him if he can
 see the cute girl across the road. He immediately turns around to look. The
 bartender is also distracted and you take the opportunity to slip one of the
 sleeping pills in the beer. The Brawler is annoyed at not seeing any girl, so
@@ -169,7 +187,8 @@ long gulp. You wait to see what the effect is, but the Brawler does not fall
 asleep, as you had hoped. However, he does appear to be drowsier, with his
 speech more slurred.
 
->As you leave the bar, you overhear two brats walking towards the park
+> e
+As you leave the bar, you overhear two brats walking towards the park
 discussing some fiery fun for tonight.
 
 Outside the bar
@@ -178,14 +197,16 @@ You try to stay away but you cannot resist the bar's siren call. Main Street
 continues with an alley to the north, and the bar's car park to the south.
 Across the road to the east is the park.
 
->You move east.
+> e
+You move east.
 
 Outside the park
 The south end of the park lies to the east and mainly consists of a lake.
 Main Street continues to the north and south, with a bar over the road to the
 west.
 
->You move east.
+> e
+You move east.
 
 South end of park
 A lake is the main feature of the southern section of the park, with the
@@ -195,13 +216,15 @@ back when you were young, which is a long, long while ago. In recent years
 the lake has deteriorated, and the ducks showed surprising intelligence by
 moving to a cleaner pond elsewhere in the town. The exit is to the west.
 
->(Your score has increased by 2)
+> swim
+(Your score has increased by 2)
 You run and dive deep within the lake. It feels good to be in the water,
 after spending too long in the grime of the alley. You swim back to the edge,
 and wash yourself through your clothes. You drip water everywhere after
 emerging, but you feel significantly cleaner.
 
->You move north.
+> n
+You move north.
 
 North end of park
 The northern section of the park is empty of trees, featuring a neat grass
@@ -214,7 +237,8 @@ wrestling. The exit is to the west.
 The red shirted brat and the blue shirted brat are here, with the red shirted
 brat holding a can of oil.
 
->You walk over to the brats and demand that they hand over the can of oil.
+> take oil
+You walk over to the brats and demand that they hand over the can of oil.
 They both laugh at you in reply. You smile too, before quickly reaching out
 and grabbing the brat with the can in a headlock. When the other brat
 approaches, you give him a hard kick to the stomach and knock him down. You
@@ -244,14 +268,16 @@ damage and forgotten about you. Your body feels a little battered but you
 have endured worse. You make a resolution that even if you do not get in the
 tournament tonight, the Monster is going to pay for doing this to you!
 
->You move west.
+> w
+You move west.
 
 Outside the park
 The north end of the park lies to the east and mainly consists of a grassy
 hill. Main Street continues to the north and south, with an alley over the
 road to the west.
 
->You move southwest.
+> sw
+You move southwest.
 
 Outside the bar
 To the west is the bar where you spend all the money you earn from begging.
@@ -259,14 +285,16 @@ You try to stay away but you cannot resist the bar's siren call. Main Street
 continues with an alley to the north, and the bar's car park to the south.
 Across the road to the east is the park.
 
->You move south.
+> s
+You move south.
 
 Outside the car park
 The car park to the west is attached to the bar. There is a lamp post on the
 north side of the driveway. Main Street continues with the employment agency
 to the south. Across the road to the east is the convenience store.
 
->You move south.
+> s
+You move south.
 
 Outside the employment agency
 To the west is the place of heartbreak. The place where you can suddenly find
@@ -275,7 +303,8 @@ to yourself that you should just burn the place down, the more you wonder if
 you are really joking. Main Street continues with the car park to the north
 and a large home to the south. Across the road to the east is the arena.
 
->As you near the house, you notice that in the backyard there is a masked man
+> s
+As you near the house, you notice that in the backyard there is a masked man
 jumping on a trampoline. As there is only one masked man in this town, it
 must be the High Flyer. You have heard that he is known for spectacular
 aerial maneuvers from the top turnbuckle. It looks like he is practicing now.
@@ -296,10 +325,12 @@ front window makes you angry at what you have lost. A gate leads to the
 backyard to the west. Main Street continues to the north and south. Across
 the road to the east is the arena.
 
->You use the crowbar to open the gate. You can now head west into the
+> open gate with crowbar
+You use the crowbar to open the gate. You can now head west into the
 backyard.
 
->You move west.
+> w
+You move west.
 
 The High Flyer's backyard
 The grass is neatly cut in this large backyard, so it is not at all like your
@@ -311,15 +342,20 @@ wrestling career you only owned one pair of trunks and you never washed them.
 Today's wrestlers are not as tough as they used to be. The exit is to the
 east.
 
->You move the trampoline under the balcony.
+> push trampoline
+You move the trampoline under the balcony.
 
->You stand on the trampoline.
+> stand on trampoline
+You stand on the trampoline.
 
->You jump up and grab a pair of trunks from the balcony.
+> get trunks
+You jump up and grab a pair of trunks from the balcony.
 
->You get off the trampoline.
+> get off trampoline
+You get off the trampoline.
 
->You move east.
+> e
+You move east.
 
 Outside the High Flyer's house
 You are next to the home of the High Flyer, who is one of the four World
@@ -328,7 +364,8 @@ front window makes you angry at what you have lost. A gate leads to the
 backyard to the west. Main Street continues to the north and south. Across
 the road to the east is the arena.
 
->You move northeast.
+> ne
+You move northeast.
 
 Outside the back of the arena
 The arena extends to the south, which is where the main entrance is located.
@@ -336,7 +373,8 @@ However, there is a path to the back entrance to the east. Main Street
 continues to the north with the convenience store, and to the south. Across
 the road to the west is the employment agency.
 
->You move east.
+> e
+You move east.
 
 The back entrance to the arena
 A locked door bars entry to the arena. This is where the wrestlers and other
@@ -344,21 +382,26 @@ staff for the promotion enter. You had to give your key back when you
 retired, but hopefully you can get a new key when you make a comeback. A
 garbage can sits next to the door. The exit is to the west.
 
->You open the garbage can.  A paintbrush is inside the garbage can.
+> open can
+You open the garbage can.  A paintbrush is inside the garbage can.
 
->You take the paintbrush from the garbage can.
+> take paintbrush
+You take the paintbrush from the garbage can.
 
->(Your score has increased by 8)
+> paint trunks
+(Your score has increased by 8)
 The trunks of the High Flyer are dominated by the colour white, which is
 lucky as your old trunk design was a white V on a black background. You open
 the can of black paint, dip in the brush and begin painting over the trunks.
 Soon only a white V remains blank, with these trunks now resembling your old
 pair. The paint soon dries in the current hot sunny weather.
 
->You take off the rags and change into the trunks. There is little point in
+> wear trunks
+You take off the rags and change into the trunks. There is little point in
 keeping the dirty rags, so you throw them away.
 
->You move west.
+> w
+You move west.
 
 Outside the back of the arena
 The arena extends to the south, which is where the main entrance is located.
@@ -366,14 +409,16 @@ However, there is a path to the back entrance to the east. Main Street
 continues to the north with the convenience store, and to the south. Across
 the road to the west is the employment agency.
 
->You move northwest.
+> nw
+You move northwest.
 
 Outside the car park
 The car park to the west is attached to the bar. There is a lamp post on the
 north side of the driveway. Main Street continues with the employment agency
 to the south. Across the road to the east is the convenience store.
 
->(Your score has increased by 10)
+> pour oil on driveway
+(Your score has increased by 10)
 You empty out the can of oil on the driveway and throw away the empty can
 afterwards. Overhearing the Brawler leaving the bar, you find a place to hide
 and watch. Walking towards his car the Brawler looks unsteady on his feet.
@@ -391,7 +436,8 @@ the other matches on the show tonight. You see him walk towards the
 employment office. Eventually after the area is cleared, with the ambulance
 leaving and the wrecked car being towed away, you emerge from hiding.
 
->You move south.
+> s
+You move south.
 
 Outside the employment agency
 To the west is the place of heartbreak. The place where you can suddenly find
@@ -400,7 +446,8 @@ to yourself that you should just burn the place down, the more you wonder if
 you are really joking. Main Street continues with the car park to the north
 and a large home to the south. Across the road to the east is the arena.
 
->You move west.
+> w
+You move west.
 
 The employment agency
 You have not been in here for a month, prior to today. Early after your
@@ -410,7 +457,8 @@ bad memories. A board listing new jobs is up on one wall. The exit is to the
 east. A counsellor is here to help.  The Promoter is standing here, and he is
 looking worried.
 
->"I need another wrestler to fill in for the injured Brawler. You might
+> talk to promoter
+"I need another wrestler to fill in for the injured Brawler. You might
 actually be a good choice. The fans still remember the Veteran and a match-up
 with the Youth could be a great first round match. A continuation of the
 family feud. I like that. I think I'm going to do it. You look better than
@@ -421,7 +469,8 @@ payment will be the standard rate and paid after the matches."
 
 After this statement the Promoter heads back to the arena.
 
->You move east.
+> e
+You move east.
 
 Outside the employment agency
 To the west is the place of heartbreak. The place where you can suddenly find
@@ -430,7 +479,8 @@ to yourself that you should just burn the place down, the more you wonder if
 you are really joking. Main Street continues with the car park to the north
 and a large home to the south. Across the road to the east is the arena.
 
->You move east.
+> e
+You move east.
 
 Outside the back of the arena
 The arena extends to the south, which is where the main entrance is located.
@@ -438,7 +488,8 @@ However, there is a path to the back entrance to the east. Main Street
 continues to the north with the convenience store, and to the south. Across
 the road to the west is the employment agency.
 
->You move east.
+> e
+You move east.
 
 The back entrance to the arena
 A locked door bars entry to the arena. This is where the wrestlers and other
@@ -446,9 +497,11 @@ staff for the promotion enter. You had to give your key back when you
 retired, but hopefully you can get a new key when you make a comeback. A
 garbage can sits next to the door. The exit is to the west.
 
->You unlock and open the door.
+> unlock door
+You unlock and open the door.
 
->As you enter the arena, you suddenly realise that this may not be a good idea
+> in
+As you enter the arena, you suddenly realise that this may not be a good idea
 after all. The three remaining wrestlers are all younger, faster and
 stronger. They may not have your brains and experience, but these advantages
 will not be enough to help you in the ring. Your poor fitness and unhealthy
@@ -472,14 +525,16 @@ floors of the arena is to the east. Your locker room is upstairs and you do
 not want to use the locker rooms to the south. You can also return back
 outside.
 
->As you walk east towards the door, a white crate, which was previously
+> e
+As you walk east towards the door, a white crate, which was previously
 stacked at shoulder height, crashes down in front of you. If you hadn't
 paused when you heard it start to move, it could have crushed you. You see
 someone in black running away but cannot determine any more details looking
 through the crates. No one notices the mess, which has left the white crate
 jammed in the stairway door.
 
->You use the crowbar to lever the crate away from the door. However, before
+> move crate with crowbar
+You use the crowbar to lever the crate away from the door. However, before
 you can move into the staircase you find yourself surrounded by the Evil
 Twins. You know from the flyer that the Evil Twins are the current World Tag
 Team champions.
@@ -504,10 +559,12 @@ Mysterious room
 This room is very dark. You can only tell that you are enclosed by walls on
 all four sides.
 
->You can feel a shelf on the east wall. The shelf firstly appears to be empty,
+> touch east wall
+You can feel a shelf on the east wall. The shelf firstly appears to be empty,
 but as you desperately search it, you find a hairpin.
 
->As quietly as possible, you pick the lock with the hairpin and open the door.
+> w
+As quietly as possible, you pick the lock with the hairpin and open the door.
 You leave the room, shutting the door behind you to hide your absence. As you
 look around you realise where you are.
 
@@ -522,14 +579,16 @@ an unfair fight. Much as you would like to teach them a lesson, you have
 other business for now. However, you need to find some way to get your
 crowbar back from them.
 
->You move north.
+> n
+You move north.
 
 Central corridor
 This is the central part of the corridor on the bottom floor of the building.
 The corridor extends with further rooms to the south and north. The south end
 of the car park is to the east.
 
->You move north.
+> n
+You move north.
 
 North corridor
 This is the northern end of the corridor on the bottom floor of the building.
@@ -537,7 +596,8 @@ The corridor extends with further rooms to the south. The staircase up is to
 the north. The north end of the car park is to the east. The security guard's
 room is to the west.
 
->You move west.
+> w
+You move west.
 
 Security guard's room
 The lone security guard for the arena can be normally found in this room. In
@@ -547,14 +607,16 @@ three guards deciding to leave. There are two exits. The hallway is to the
 east and the fireworks storeroom is to the south.
 The security guard is sitting at his desk, watching the small television.
 
->"Can I ask you a favour? I need someone to look after the room whilst I go to
+> talk to guard
+"Can I ask you a favour? I need someone to look after the room whilst I go to
 the car park to smoke. The Promoter will not allow me to smoke right next to
 the fireworks. You will do it! Thanks!"
 
 The security guard then quickly rushes out of the room before you can give
 any reply.
 
->You move south.
+> s
+You move south.
 
 Fireworks storeroom
 This storeroom contains a cupboard along the west wall. In the cupboard are
@@ -562,13 +624,15 @@ enough fireworks for a spectacular New Year's Eve, or in other words, barely
 enough for the Youth to make one entrance to the ring. The only exit is to
 the north.
 
->You pick the lock with the hairpin and open the cupboard. Inside are many
+> pick lock
+You pick the lock with the hairpin and open the cupboard. Inside are many
 varieties of fireworks that you would love to borrow. However, if they were
 later found missing the security guard is likely to unjustly suspect you. As
 you look at the range you cannot resist and take a firecracker. One won't be
 missed. You close the cupboard afterwards and it automatically locks.
 
->You move north.
+> n
+You move north.
 
 Security guard's room
 The lone security guard for the arena can be normally found in this room. In
@@ -577,7 +641,8 @@ wrestlers led the other guards to quit. You were personally responsible for
 three guards deciding to leave. There are two exits. The hallway is to the
 east and the fireworks storeroom is to the south.
 
->The security guard sees you entering the hallway and suddenly realises that
+> e
+The security guard sees you entering the hallway and suddenly realises that
 there is no one guarding the fireworks. He quickly runs back to his room. You
 notice the guard drop something before leaving the car park.
 
@@ -587,7 +652,8 @@ The corridor extends with further rooms to the south. The staircase up is to
 the north. The north end of the car park is to the east. The security guard's
 room is to the west.
 
->You move east.
+> e
+You move east.
 
 North end of car park
 This is the north end of the car park. The car park extends to the south,
@@ -599,9 +665,11 @@ these losses will be turned around when you win the title.
 
 Also here is a red cigarette lighter.
 
->You pick up the red cigarette lighter.
+> take lighter
+You pick up the red cigarette lighter.
 
->You move west.
+> w
+You move west.
 
 North corridor
 This is the northern end of the corridor on the bottom floor of the building.
@@ -609,14 +677,16 @@ The corridor extends with further rooms to the south. The staircase up is to
 the north. The north end of the car park is to the east. The security guard's
 room is to the west.
 
->You move south.
+> s
+You move south.
 
 Central corridor
 This is the central part of the corridor on the bottom floor of the building.
 The corridor extends with further rooms to the south and north. The south end
 of the car park is to the east.
 
->You move south.
+> s
+You move south.
 
 South corridor
 This is the southern end of the bottom floor of the arena. The corridor
@@ -629,7 +699,8 @@ an unfair fight. Much as you would like to teach them a lesson, you have
 other business for now. However, you need to find some way to get your
 crowbar back from them.
 
->(Your score has increased by 4)
+> light firecracker
+(Your score has increased by 4)
 You light the firecracker, place it on the ground and hide in the cupboard.
 In a few seconds you hear a tremendous BANG outside. Seats are pushed back as
 the Evil Twins stand up quickly in surprise. One of them tells the other, "I
@@ -642,7 +713,8 @@ You then hear the Evil Twins leave for upstairs. After they are gone you
 emerge from your hiding spot and return to the corridor. You throw away the
 now empty cigarette lighter.
 
->You move west.
+> w
+You move west.
 
 Empty storeroom
 This storeroom is empty apart from a table and two chairs sitting in the
@@ -653,23 +725,27 @@ east.
 
 Also here is a crowbar.
 
->You pick up the crowbar.
+> take crowbar
+You pick up the crowbar.
 
->You move east.
+> e
+You move east.
 
 South corridor
 This is the south part of the corridor on the bottom floor of the building.
 The corridor extends with further rooms to the north. The empty storage
 closet is to the east. The empty storeroom is to the west.
 
->You move north.
+> n
+You move north.
 
 Central corridor
 This is the central part of the corridor on the bottom floor of the building.
 The corridor extends with further rooms to the south and north. The south end
 of the car park is to the east.
 
->You move north.
+> n
+You move north.
 
 North corridor
 This is the northern end of the corridor on the bottom floor of the building.
@@ -677,7 +753,8 @@ The corridor extends with further rooms to the south. The staircase up is to
 the north. The north end of the car park is to the east. The security guard's
 room is to the west.
 
->You move north.
+> n
+You move north.
 
 Bottom level of stairs
 These stairs are connected to the bottom floor of the arena, which can be
@@ -685,14 +762,16 @@ reached to the south. The bottom floor mainly contains the car park for the
 arena, along with security and some empty rooms. You can head upstairs to the
 middle floor.
 
->You move up.
+> u
+You move up.
 
 Middle level of stairs
 These stairs are connected to the middle floor of the arena, which can be
 reached to the west. The locker rooms on this floor are for the minor
 wrestlers and non-wrestlers. You can head up or down the staircase.
 
->You move up.
+> u
+You move up.
 
 Top level of stairs
 You have reached the top floor of the arena. This is where the entrance to
@@ -701,7 +780,8 @@ stars of the promotion. As you are in the World title tournament you have
 been given one of these rooms. You can head back down the stairs, or south to
 enter this level.
 
->You move south.
+> s
+You move south.
 
 North corridor
 This is the northern end of the corridor on the top floor of the building.
@@ -709,7 +789,8 @@ The corridor extends with further rooms to the south. The staircase down is
 to the north. Your locker room is to the east. The Youth's locker room is to
 the west.
 
->You move east.
+> e
+You move east.
 
 Your locker room
 The room is empty apart from a bench on the east wall sitting next to a
@@ -719,13 +800,17 @@ player in the wrestling promotion. There were celebrations here when you won,
 but after you lost, everyone avoided you. The locker shows the reason why.
 The exit is west.
 
->You open the locker.  A flashlight is inside the locker.
+> open locker
+You open the locker.  A flashlight is inside the locker.
 
->You take the flashlight from the locker.
+> take flashlight
+You take the flashlight from the locker.
 
->You turn on the flashlight but decide you do not need it at the moment.
+> turn on flashlight
+You turn on the flashlight but decide you do not need it at the moment.
 
->You move west.
+> w
+You move west.
 
 North corridor
 This is the northern end of the corridor on the top floor of the building.
@@ -733,7 +818,8 @@ The corridor extends with further rooms to the south. The staircase down is
 to the north. Your locker room is to the east. The Youth's locker room is to
 the west.
 
->You move west.
+> w
+You move west.
 
 The Youth's locker room
 The Youth ignores you as he preens himself in front of a large mirror, which
@@ -743,9 +829,11 @@ from the Youth's female admirers stacked in a corner. The exit is east.
 
 Also here is a teddy bear and a bunch of flowers.
 
->You pick up the teddy bear.
+> take teddy bear
+You pick up the teddy bear.
 
->You move east.
+> e
+You move east.
 
 North corridor
 This is the northern end of the corridor on the top floor of the building.
@@ -753,21 +841,24 @@ The corridor extends with further rooms to the south. The staircase down is
 to the north. Your locker room is to the east. The Youth's locker room is to
 the west.
 
->You move south.
+> s
+You move south.
 
 Central corridor
 This is the central part of the corridor on the top floor of the building.
 The corridor extends with further rooms to the south and north. The
 Promoter's office is to the east. The ring entrance is to the west.
 
->You move south.
+> s
+You move south.
 
 South corridor
 This is the southern end of the corridor on the top floor of the building.
 The corridor extends with further rooms to the north. The Monster's locker
 room is to the east. The High Flyer's locker room is to the west.
 
->You move east and turn on your flashlight.
+> e
+You move east and turn on your flashlight.
 
 The Monster's locker room
 The Monster is sitting on the floor, brooding about his plans for the
@@ -778,13 +869,15 @@ Monster was not allowed furniture because he previously demolished any he was
 given. However, the room does not feel empty, with the Monster's tangible
 presence filling the void. The exit is west.
 
->The Monster grabs the teddy bear from you and hugs it to himself. This is
+> give teddy to monster
+The Monster grabs the teddy bear from you and hugs it to himself. This is
 surprising, as you thought he hated cute toys. Maybe he does have a soft side
 underneath the violent exterior. However, by the way the Monster bites into
 the bear, and starts to tear it apart with his teeth, maybe not. At least he
 is distracted now.
 
->(Your score has increased by 4)
+> hit monster with crowbar
+(Your score has increased by 4)
 You quietly walk over to the Monster. He is distracted by the remains of the
 teddy bear, which he is still happily tearing apart. You suddenly hit him
 over the head with your crowbar to knock him out. Even the Monster is not
@@ -802,21 +895,24 @@ hospital, where he should be fine in a few days. As he leaves, you notice a
 bottle of acid that he was carrying has fallen to the floor. You pick it up,
 as it may be useful.
 
->You move west and turn off the flashlight.
+> w
+You move west and turn off the flashlight.
 
 South corridor
 This is the southern end of the corridor on the top floor of the building.
 The corridor extends with further rooms to the north. The Monster's locker
 room is to the east. The High Flyer's locker room is to the west.
 
->You move north.
+> n
+You move north.
 
 Central corridor
 This is the central part of the corridor on the top floor of the building.
 The corridor extends with further rooms to the south and north. The
 Promoter's office is to the east. The ring entrance is to the west.
 
->You move west.
+> w
+You move west.
 
 Top of the ramp
 The ramp slopes down from your current position, next to the east exit to
@@ -825,7 +921,8 @@ of both the ring and the hundreds of empty chairs surrounding it. Standing
 here reminds you of the emotional rush from the fans chanting your name, even
 when they are attaching unflattering adjectives.
 
->You move west.
+> w
+You move west.
 
 Ringside area
 You are now standing next to the ring. There is a ramp leading away from here
@@ -838,13 +935,17 @@ far side of the ring is a small table, used by the timekeeper during the
 matches. A barrier separates the ringside area from the empty chairs for the
 crowd.
 
->You see a bag of tacks and a ladder under the ring.
+> look under ring
+You see a bag of tacks and a ladder under the ring.
 
->You pick up the bag of tacks.
+> take tacks
+You pick up the bag of tacks.
 
->You pick up the ladder.
+> take ladder
+You pick up the ladder.
 
->You move east.
+> e
+You move east.
 
 Top of the ramp
 The ramp slopes down from your current position, next to the east exit to
@@ -853,21 +954,24 @@ of both the ring and the hundreds of empty chairs surrounding it. Standing
 here reminds you of the emotional rush from the fans chanting your name, even
 when they are attaching unflattering adjectives.
 
->You move east.
+> e
+You move east.
 
 Central corridor
 This is the central part of the corridor on the top floor of the building.
 The corridor extends with further rooms to the south and north. The
 Promoter's office is to the east. The ring entrance is to the west.
 
->You move south.
+> s
+You move south.
 
 South corridor
 This is the southern end of the corridor on the top floor of the building.
 The corridor extends with further rooms to the north. The Monster's locker
 room is to the east. The High Flyer's locker room is to the west.
 
->You move west.
+> w
+You move west.
 
 The High Flyer's locker room
 This locker room has been cleared out apart from a mattress on the floor. The
@@ -877,17 +981,20 @@ in wrestling for these flashy stupid moves and would gladly outlaw them.
 However, the fans seem to want them, so they will continue to be both legal
 and used regularly. The exit is to the east.
 
->The High Flyer thanks you because he can now practice his new move from
+> give ladder to high flyer
+The High Flyer thanks you because he can now practice his new move from
 higher up. He immediately begins to jump from the ladder instead of from a
 standing position. The new move does look impressive.
 
->When the High Flyer jumps off the ladder you empty the bag of tacks onto the
+> throw tacks on mattress
+When the High Flyer jumps off the ladder you empty the bag of tacks onto the
 mattress. The High Flyer cannot change his course and he lands on his back in
 the middle of the pile of tacks. He is visibly in agony, as the tacks tear
 into him. It does not look like he will be moving anywhere soon, but he may
 recover in time for the matches tonight.
 
->(Your score has increased by 4)
+> get mask
+(Your score has increased by 4)
 You walk over to the High Flyer and remove his mask. He tries to stop you but
 in his weakened state, he is no match. You finally see the High Flyer's face
 and it is not much better looking than your own. Of course, that could be why
@@ -896,23 +1003,27 @@ know the mystery of his appearance. He cries and tells you that he will now
 have to retire out of shame. Oh well, there goes an opponent for the World
 title tournament.
 
->You decide to wear the jet mask for a disguise.
+> wear mask
+You decide to wear the jet mask for a disguise.
 
->You move east.
+> e
+You move east.
 
 South corridor
 This is the southern end of the corridor on the top floor of the building.
 The corridor extends with further rooms to the north. The Monster's locker
 room is to the east. The High Flyer's locker room is to the west.
 
->You move north.
+> n
+You move north.
 
 Central corridor
 This is the central part of the corridor on the top floor of the building.
 The corridor extends with further rooms to the south and north. The
 Promoter's office is to the east. The ring entrance is to the west.
 
->You move north.
+> n
+You move north.
 
 North corridor
 This is the northern end of the corridor on the top floor of the building.
@@ -920,7 +1031,8 @@ The corridor extends with further rooms to the south. The staircase down is
 to the north. Your locker room is to the east. The Youth's locker room is to
 the west.
 
->You move west.
+> w
+You move west.
 
 The Youth's locker room
 The Youth ignores you as he preens himself in front of a large mirror, which
@@ -930,7 +1042,8 @@ from the Youth's female admirers stacked in a corner. The exit is east.
 
 Also here is a bunch of flowers.
 
->(Your score has increased by 8)
+> throw acid at youth
+(Your score has increased by 8)
 The Youth soon recognises that you are not the High Flyer but it is still too
 late. You open the acid bottle and empty it on the Youth's face. He screams
 in agony as the acid burns and destroys his handsome looks. That will teach
@@ -982,7 +1095,8 @@ chants supporting the Star. The referee stands away from the action and is
 ready to officiate the end of the match. You can move out of the ring if you
 want to briefly escape the Star.
 
->You move out.
+> out
+You move out.
 
 Ringside area
 The Star does not want to follow you immediately, as he prefers his action
@@ -992,16 +1106,20 @@ Star within the ring to win the match. A ramp leads up to the east, or you
 can head back into the ring. A barrier separates the ringside area from the
 fans. The timekeeper is standing behind the small table.
 
->The ring has been restocked since you last looked. There is now a steel chair
+> look under ring
+The ring has been restocked since you last looked. There is now a steel chair
 and a fire extinguisher hidden beneath the ring. You also find your crowbar,
 which you carefully hid here when you realised that you were wrestling
 tonight. This crowbar was always your favourite way to finish your matches.
 
->You pick up the fire extinguisher.
+> take fire extinguisher
+You pick up the fire extinguisher.
 
->You pick up the crowbar.
+> take crowbar
+You pick up the crowbar.
 
->You move in.
+> in
+You move in.
 
 The Ring
 The rings transforms as soon as a match starts. It seems much smaller than
@@ -1014,13 +1132,15 @@ chants supporting the Star. The referee stands away from the action and is
 ready to officiate the end of the match. You can move out of the ring if you
 want to briefly escape the Star.
 
->You aim the fire extinguisher and fire it at the Star. The resulting spray
+> spray star
+You aim the fire extinguisher and fire it at the Star. The resulting spray
 covers his face and gets in his eyes, temporarily blinding him. You should
 not become too confident though. The Star could be only partially blinded, or
 he still might be able to sense you when you are near him. Despite the poor
 vision, you will be in trouble if he manages to grab hold of you.
 
->(Your score has increased by 10)
+> attack star with crowbar
+(Your score has increased by 10)
 It is finally time for you to achieve your destiny. The Star's impaired
 vision means that he is vulnerable and can no longer dodge your crowbar. You
 move towards the Star, holding out your crowbar in readiness. He stays out of

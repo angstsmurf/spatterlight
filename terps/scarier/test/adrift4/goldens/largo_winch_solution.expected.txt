@@ -28,14 +28,17 @@ A l'Ouest, vous pouvez voir un ascenseur qui est hors-service; une porte
 fermée sur laquelle vous pouvez lire "Entrée du salon V.I.P." se trouve au
 Nord. A l'Est, contre le mur, un canapé gène la circulation.
 
->(Your score has increased by 1)
+> regarder sous le canapé
+(Your score has increased by 1)
 Une clé se trouve sous le canapé.
 
->(Your score has increased by 1)
+> prendre la clé
+(Your score has increased by 1)
 Vous prenez la clé. "Il serait préférable que je conserve cette clé. A mon
 avis, elle me sera utile par la suite." pensez-vous.
 
->(Your score has increased by 1)
+> ouvrir la porte
+(Your score has increased by 1)
 Vous ouvrez la porte, permettant ainsi au gens d'entrer.  Vous pénétrez, à
 votre tour, dans le salon V.I.P. Il s'agit en réalité d'un couloir. Vous
 pouvez voir trois portes: une à l'Est, une à l'Ouest et une au Nord. Sur la
@@ -43,7 +46,8 @@ porte se trouvant à l'Est, vous pouvez lire "Premier compartiment"; sur celle
 se trouvant à l'Ouest, il est écrit "Second compartiment"; sur celle située
 au Nord, il est inscrit "Sortie en terrasse." Le couloir est situé au Sud.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 Dans le premier compartiment
 Vous êtes dans le premier compartiment. Il s'agit d'une grande salle de
@@ -52,7 +56,8 @@ Vous pouvez voir John Sullivan, le vice président du groupe W, ainsi que
 quelques personnes installés sur les tables présentes dans la salle. Le
 couloir principal se trouve à l'Ouest.
 
->Vous vous approchez de Sullivan. Il s'agit d'un homme bien portant (les
+> parler à sullivan
+Vous vous approchez de Sullivan. Il s'agit d'un homme bien portant (les
 cheveux bruns, les yeux bleus, environ cent kilogrammes, la cinquantaine...)
 Vous interpelez ce monsieur: "John?" "Oui Largo." "Alors John qu'avez-vous
 pensé de ma prestation?" "Vous avez été parfait Largo. Cette aide humanitaire
@@ -70,7 +75,8 @@ préférerais ne pas m'étendre sur le sujet." "Ne vous inquiétez pas John; je
 dirai à Simon de ne pas trop se faire remarquer ce soir." "Bonne idée!" "A
 plus tard John." "A plus tard Largo."
 
->Vous vous déplacez vers l'Ouest.
+> ouest
+Vous vous déplacez vers l'Ouest.
 
 Dans le salon V.I.P.
 Vous pénétrez dans le salon V.I.P. Il s'agit en réalité d'un couloir. Vous
@@ -79,7 +85,8 @@ compartiment."; une à l'Ouest sur laquelle vous pouvez lire "Second
 compartiment."; une au Nord, sur laquelle il est inscrit "Sortie en
 terrasse." Le couloir se trouve au Sud.
 
->Vous vous déplacez vers l'Ouest.
+> ouest
+Vous vous déplacez vers l'Ouest.
 
 Dans le second compartiment
 Vous vous retrouvez dans le second compartiment. Il s'agit du bar. Quelques
@@ -87,18 +94,23 @@ clients se font servir à boire par un barman. Vous pouvez voir un fauteuil à
 l'Est du bar sur lequel est posée une enveloppe puis, à l'Ouest, vous
 apercevez une table basse.
 
->(Your score has increased by 1)
+> prendre le badge
+(Your score has increased by 1)
 Vous prenez le badge se trouvant dans l'enveloppe.
 
->(Your score has increased by 1)
+> regarder sur la table basse
+(Your score has increased by 1)
 Une flûte à champagne (vide) et une bouteille de champagne (pleine) sont
 posées sur la table basse. "Tout objet est bon à prendre", pensez-vous.
 
->Vous prenez la flûte à champagne.
+> prendre la flûte à champagne
+Vous prenez la flûte à champagne.
 
->Vous prenez la bouteille de champagne.
+> prendre la bouteille de champagne
+Vous prenez la bouteille de champagne.
 
->Sur le pas de la porte du second compartiment, vous vous retrouvez nez à nez
+> est
+Sur le pas de la porte du second compartiment, vous vous retrouvez nez à nez
 avec Simon Ovronnaz, votre meilleur ami (vêtu d'un short et de tongs): "Hello
 Largo!" s'exclame Simon. "Salut mon vieux! Alors ces vacances?" "Pfff... Ne
 me parle plus jamais de Miami!" "Ne me dis pas qu'elle a 70 ans?" "Samantha?
@@ -119,7 +131,8 @@ mal. Elle voulait voir du beau monde; elle en voit pas vrai?" "Escroc tu ne
 changeras jamais!" Samantha vous rejoint: "Monsieur Winch?" "Oui Samantha."
 "Je voudrais aller aux toilettes. Pouvez-vous me donner la clé?"
 
->(Your score has increased by 1)
+> donner la clé à Samantha
+(Your score has increased by 1)
 Vous donnez la clé à Samantha: "Merci beaucoup monsieur Winch." vous dit la
 jeune femme en vous tendant la main. Puis elle se retourne vers Simon: "Je te
 rejoins plus tard mon Simon." lui dit-elle en l'embrassant. La jeune femme
@@ -129,7 +142,8 @@ de réception." vous déclare Simon. "Ok Simon. Je te rejoins plus tard." Le
 second compartiment se trouve à l'Ouest; le couloir principal du salon V.I.P.
 est situé à l'Est.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 Dans le salon V.I.P.
 Vous pénétrez dans le salon V.I.P. Il s'agit en réalité d'un couloir. Vous
@@ -138,13 +152,15 @@ compartiment."; une à l'Ouest sur laquelle vous pouvez lire "Second
 compartiment."; une au Nord, sur laquelle il est inscrit "Sortie en
 terrasse." Le couloir se trouve au Sud.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 En terrasse
 Vous arrivez sur une grande terrasse entourée de jardinières de fleurs. Vous
 pouvez voir Jenny Lucas, assise à l'une des quelques tables installées.
 
->Vous vous dirigez vers la table de Jenny: "Miss Lucas?" interrogez-vous.
+> parler à Jenny
+Vous vous dirigez vers la table de Jenny: "Miss Lucas?" interrogez-vous.
 "Jenny pour vous monsieur Winch. Je voudrais vous dire une chose."
 "Laquelle?" "J'ai trouvé votre discours très émouvant, très juste." "Vous
 avez décidé de me faire rougir Jenny?" "J'imagine qu'il en faut plus pour
@@ -160,7 +176,8 @@ du groupe W. Si elle veut vous voir, cela signifie qu'un scandale est
 imminent." "Merci John. J'arrive dans quelques instants." Le salon V.I.P. se
 trouve au Sud.
 
->Vous vous déplacez vers le Sud.
+> sud
+Vous vous déplacez vers le Sud.
 
 A l'intérieur
 Au moment où vous franchissez la porte de la terrasse, une femme entre par la
@@ -188,13 +205,15 @@ savez où me trouver." Sharon entre dans la salle de réception. Vous êtes donc
 dans le couloir du salon V.I.P. Vous pouvez voir Simon qui s'acharne sur la
 porte.
 
->"Tu vas y arriver Simon?" demandez-vous. "C'est une serrure très résistante
+> parler à Simon
+"Tu vas y arriver Simon?" demandez-vous. "C'est une serrure très résistante
 mais jl'aurai!" "Je vais essayer de trouver une autre issue. Tu me conseilles
 quoi?" "Crois-en mon expérience de voleur! Essaies du côté de la terrasse."
 "Ok je vais essayer. Merci Simon." La salle de réception se trouve à l'Est;
 le bar se situe à l'Ouest; la terrasse est située au Nord.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 Sur la terrasse
 Vous voilà de retour sur la terrasse. Jenny Lucas se tient debout près d'une
@@ -203,24 +222,28 @@ entourant la terrasse.
 
 Aussi voici un plantoir.
 
->(Your score has increased by 1)
+> prendre le plantoir
+(Your score has increased by 1)
 Vous ramassez le plantoir.
 
->(Your score has increased by 1)
+> enjamber rambarde
+(Your score has increased by 1)
 Vous enjambez la rambarde, à la grande surprise de Jenny: "Largo? Mais que
 faites-vous?" "Ne vous inquiétez pas Jenny. J'adore me livrer à des
 accrobaties en smoking!" "Oh Largo! Vous êtes le PDG le plus étonnant que
 j'ai jamais rencontré!" Vous êtes entre le mur de la terrasse et la rambarde.
 Vous pouvez vous déplacer vers l'Ouest.
 
->Vous vous déplacez vers l'Ouest.
+> ouest
+Vous vous déplacez vers l'Ouest.
 
 Devant la fenêtre
 Vous arrivez devant une fenêtre: "Cette fenêtre est fermée." vous dites-vous.
 Vous l'inspectez de plus près: "Il y a un léger décalage entre la fenêtre et
 le mur. Avec un objet relativement plat, je devrais pouvoir l'ouvrir."
 
->(Your score has increased by 1)
+> utiliser le badge
+(Your score has increased by 1)
 Vous glissez le badge entre la fenêtre et le mur puis vous forcez un peu.
 Vous entendez alors un craquement. La fenêtre s'ouvre. Vous entrez par la
 fenêtre qui, grâce à vous, est maintenant ouverte. Vous reconnaissez, sans
@@ -230,13 +253,15 @@ explorer les moindres recoins. Arrivé en fond de salle, vous entendez le
 tic-tac d'une minuterie. "La bombe est ici! Mais où?" Vous pouvez voir un
 gros tableau jaune.
 
->(Your score has increased by 1)
+> regarder sous le gros tableau jaune
+(Your score has increased by 1)
 Sous le gros tableau jaune, vous découvrez une cachette sous les dalles.
 "L'objet est probablement caché là. Il me faudrait utiliser un outil pour
 dénicher cette bombe. Il faut que je trouve une solution et vite car je ne
 sais pas combien de temps il reste avant que tout explose." pensez-vous.
 
->(Your score has increased by 1)
+> utiliser plantoir
+(Your score has increased by 1)
 Vous utilisez le plantoir sur les dalles. Vous finissez par dénicher l'objet.
 Il s'agit en réalité d'un réveil! "Un réveil! Un vulgaire réveil à 5 dollars!
 On a voulu m'éloigner des invités. Mais pourquoi? Bon dieu! Les documents de
@@ -245,7 +270,8 @@ vous courez vers le Nord, en direction d'une porte ouverte. Vous arrivez dans
 le couloir du rez-de-chaussée, là où vous avez débuté l'aventure. Samantha
 Winkle est là, assise sur le canapé!
 
->"Samantha? Que faites-vous là?" "Ben... euh... excusez-moi Largo." "Pourquoi
+> parler à Samantha
+"Samantha? Que faites-vous là?" "Ben... euh... excusez-moi Largo." "Pourquoi
 êtes-vous si confuse? (Vous réfléchissez un moment). Ca y est, tout
 s'éclaire. C'est vous qui avez verrouillé la porte, n'est-ce pas?" "Oui
 monsieur Winch. Je suis désol..." "Comment avez-vous pu faire ça? Simon vous
@@ -265,7 +291,8 @@ n'en ai aucune idée! Restez là je vais voir!" Vous êtes donc dans le couloir
 du rez-de-chaussée. Au Nord, vous pouvez voir la porte du salon V.I.P.
 légèrement ouverte grâce aux talents de Simon.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 Dans le salon
 Vous franchissez la porte du salon V.I.P. Derrière cette porte, vous voyez
@@ -281,13 +308,15 @@ que j'aille jeter un oeil en terrasse. A plus tard Simon." Les deux
 compartiments se trouvent à l'Est et à l'Ouest; la terrasse est située au
 Nord.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 La terrasse
 Vous revoilà sur la terrasse. Jenny Lucas est étendue sur le sol. Cette
 pauvre femme a l'air mal en point.
 
->Vous aidez Jenny à se relever: "Jenny? Vous allez bien? Rien de cassé?" "Oh
+> parler à Jenny
+Vous aidez Jenny à se relever: "Jenny? Vous allez bien? Rien de cassé?" "Oh
 ma tête... Ne vous inquiétez pas Largo. Je vais bien. Oh ma tête..." "Que
 s'est-il passé Jenny?" "Deux hommes masqués ont fait irruption sur la
 terrasse et ils m'ont bousculé sans ménagement! Oh ma tête... Je suis
@@ -302,28 +331,33 @@ les malfaiteurs étaient là pour intercepter ces documents." "C'est horrible!"
 êtes sûre que ça va aller?" "J'en suis certaine." "Bien. A plus tard alors."
 "A plus tard Largo." Le salon V.I.P. est situé au Sud.
 
->Vous vous déplacez vers le Sud.
+> sud
+Vous vous déplacez vers le Sud.
 
 Le salon
 Vous revoilà dans le couloir principal du salon V.I.P. Les deux compartiments
 se trouvent à l'Est et à l'Ouest; la terrasse est située au Nord.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 La salle de réception
 Vous entrez dans la salle de réception. Sharon est assise à une table. "Je
 dois la rassurer." vous dites-vous.
 
->Vous rejoignez Sharon: "Je suis de retour Sharon." Sharon est toute pâle:
+> parler à Sharon
+Vous rejoignez Sharon: "Je suis de retour Sharon." Sharon est toute pâle:
 "Que se passe-t-il Sharon?" demandez-vous. "Je... je n'aurais pas dû venir
 ici... j'aurais dû vous envoyer un e-mail... j'aurais dû..." "Bonsang elle ne
 sait plus où elle en est. Il faut que je lui trouve un petit remontant."
 pensez-vous.
 
->(Your score has increased by 1)
+> remplir la flûte à champagne
+(Your score has increased by 1)
 Vous remplissez la flûte à champagne.
 
->(Your score has increased by 1)
+> donner la flûte à champagne à Sharon
+(Your score has increased by 1)
 Vous tendez la flûte à Sharon: "Buvez un peu de champagne Sharon; vous vous
 sentirez mieux." "Merci monsieur Winch... merci... Puis... excusez-moi...
 j'ai paniqué." "Vous n'avez pas à vous excuser Sharon. Une alerte à la bombe
@@ -351,22 +385,27 @@ se trouvant à l'Ouest et se précipite vers vous: "On se fixe et on vide ses
 poches!" crie le voyou. "Ne bougez pas Sharon. Je m'occupe de cet individu."
 assurez-vous. Pour commencer le combat, tapez "combattre".
 
->(Your score has increased by 1)
+> combattre
+(Your score has increased by 1)
 Vous êtes face au truand. Vous ne possédez aucune arme. Tapez "coup de poing"
 pour donner un coup de poing à l'homme; tapez "coup de pied" pour le frapper
 d'un coup de pied.
 
->Vous frappez l'individu le blessant légèrement. L'homme vous donne un coup de
+> coup de poing
+Vous frappez l'individu le blessant légèrement. L'homme vous donne un coup de
 pied que vous esquivez sans mal.
 
->Vous frappez l'homme d'un coup de poing dans le ventre. Votre ennemi commence
+> coup de poing
+Vous frappez l'homme d'un coup de poing dans le ventre. Votre ennemi commence
 à s'affaiblir. Il parvient tout de même à vous blesser au visage d'un grand
 coup de poing.
 
->D'un nouveau coup de poing, vous "abîmez" le visage de votre adversaire. Ce
+> coup de poing
+D'un nouveau coup de poing, vous "abîmez" le visage de votre adversaire. Ce
 dernier tente de vous blesser d'un coup de pied, mais vous l'esquivez.
 
->(Your score has increased by 2)
+> coup de poing
+(Your score has increased by 2)
 Vous achevez votre ennemi d'un ultime coup de poing. "Ouf!" pensez-vous. Vous
 retournez auprès de Sharon. "Décidément, j'aurais dû rester chez moi ce
 soir!" dit Sharon. "Mais non. Ne dites pas ça!" répondez-vous. "Vous pensez
@@ -378,7 +417,8 @@ entrez dans un immeuble (se trouvant à l'Ouest) puis vous montez trois
 étages. Sharon s'arrête alors devant la porte 208. "Voilà mon petit chez
 moi!" vous déclare-t-elle. Votre "guide" entre dans l'appartement.
 
->(Your score has increased by 1)
+> entrer
+(Your score has increased by 1)
 Vous entrez dans l'appartement. "Vous aimez les roses à ce que je vois."
 supposez-vous. "Oui elles sont agréables à regarder mais elles piquent. C'est
 la définition de mon poste au sein du groupe W." "Montrez-moi ce dossier
@@ -390,7 +430,8 @@ l'appartement de Sharon. Au Nord, vous pouvez voir une porte ouverte menant
 au salon; la porte menant à la chambre de la jeune femme est située à
 l'Ouest; la cuisine se trouve à l'Est.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 Dans le salon
 Vous pénétrez dans le salon de Sharon. Il s'agit d'une petite pièce. Des
@@ -399,13 +440,16 @@ l'Ouest, vous pouvez voir un bureau sur lequel est posé un ordinateur. Un
 fauteuil se trouve à l'Est.
 Quelque chose dépasse de sous le coussin du fauteuil.
 
->(Your score has increased by 1)
+> regarder sous le coussin
+(Your score has increased by 1)
 Un CD se trouve sur le fauteuil.
 
->(Your score has increased by 1)
+> prendre le cd
+(Your score has increased by 1)
 Vous prenez le CD-ROM.
 
->(Your score has increased by 1)
+> insérer le cd dans l'ordinateur
+(Your score has increased by 1)
 Vous insérez le CD-ROM dans l'ordinateur de Sharon. Vous accédez au dossier
 du labo. Vous y trouvez, entre autres, un plan des lieux, des informations
 sur chacun des membres du personnel, l'histoire détaillée du laboratoire, des
@@ -427,7 +471,8 @@ retrouve à l'intérieur quand j'ai fini." "D'accord. A plus tard Joy." Joy
 part en direction des maisons voisines. Quant à vous, vous êtes dehors. Vous
 pouvez voir un vigile. L'entrée se trouve au Nord.
 
->"Bonjour. Je m'appelle Largo Winch. Je suis le PDG du groupe W." "Bonjour.
+> parler au vigile
+"Bonjour. Je m'appelle Largo Winch. Je suis le PDG du groupe W." "Bonjour.
 Moi je m'appelle Jerry Garcia." "Puis-je vous poser quelques questions
 Jerry?" "Oui." "Connaissiez-vous les deux victimes?" "Steve et Wallen
 travaillaient avec moi depuis 5 ans. C'étaient des personnes hors du commun.
@@ -438,7 +483,8 @@ laissé aucune chance." "Merci Jerry. Je vais tirer cette affaire au clair."
 "Bonne chance monsieur Winch." "Merci Jerry." L'entrée du labo se trouve au
 Nord.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 A l'accueil
 Vous entrez dans les locaux. Vous débouchez dans une petite salle. En fond de
@@ -447,7 +493,8 @@ l'Est, une secrétaire tape à l'ordinateur.
 "Je devrais peut-être jeter un oeil sur la table. Avec un peu de chance, je
 trouverai une photo de moi dans l'un des magazines." pensez-vous.
 
->Vous vous dirigez vers la secrétaire: "Bonjour." dites-vous. "Monsieur Maroto
+> parler à la secrétaire
+Vous vous dirigez vers la secrétaire: "Bonjour." dites-vous. "Monsieur Maroto
 ne reçoit personne aujourd'hui." répond sèchement la secrétaire. "Attendez,
 je suis Largo Winch, PDG du groupe W dont dépend ce laboratoire." "Largo
 Winch? Et moi je suis la reine d'Angleterre peut-être! Je vous conseille de
@@ -459,15 +506,18 @@ secrétaire."
 "Je devrais peut-être jeter un oeil sur la table. Avec un peu de chance, je
 trouverai une photo de moi dans l'un des magazines." pensez-vous.
 
->(Your score has increased by 1)
+> regarder sur la table
+(Your score has increased by 1)
 Vous examinez les magazines se trouvant sur la table. Vous finissez par en
 trouver un sur la couverture duquel est imprimée votre photo, accompagnée du
 titre: "Nouvelle soirée mondaine organisée par Largo Winch".
 
->(Your score has increased by 1)
+> prendre le magazine
+(Your score has increased by 1)
 Vous prenez le magazine.
 
->(Your score has increased by 1)
+> donner le magazine à la secrétaire
+(Your score has increased by 1)
 Vous donnez le magazine à la secrétaire. Celle-ci rougit en une seconde:
 "Je... je suis confuse monsieur Winch mais vous savez, depuis que la police
 est venue enquêter, les ordres..." "Oui je comprends. Pouvez-vous m'annoncer
@@ -497,13 +547,15 @@ qu'ils vous renseigneront mieux que moi." "D'accord. Merci monsieur Maroto."
 Vous êtes donc dans la salle d'accueil. Au Nord, vous pouvez voir une porte
 ouverte.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 Le couloir du rez-de-chaussée
 Vous pénétrez dans un petit couloir. Vous pouvez voir deux ascenseurs: un à
 l'Est et un à l'Ouest. Jenny Lucas sort de l'ascenseur situé à l'Est.
 
->(Your score has increased by 1)
+> parler à Jenny
+(Your score has increased by 1)
 "Bonjour Jenny!" dites-vous. "Bonjour Largo." "Que faites-vous ici?" "Je suis
 venue tenter de tirer toute cette affaire au clair. Et vous?" "Je suis là
 pour la même raison que vous. Je vais poser quelques questions au personnel.
@@ -522,21 +574,26 @@ que je fasse, ne bougez pas." En fond de salle, vous pouvez voir des
 étagères. L'aquarium étant situé au centre de la pièce, deux possibilités
 s'offrent à vous: contourner l'aquarium par l'Est ou par l'Ouest.
 
->Vous contournez lentement l'aquarium en passant par le côté Est. Vous
+> est
+Vous contournez lentement l'aquarium en passant par le côté Est. Vous
 atteignez sans mal le fond de salle. Sur l'une des étagères se trouvant à cet
 endroit, vous pouvez voir un brise-glace.
 
->(Your score has increased by 1)
+> prendre le brise-glace
+(Your score has increased by 1)
 Vous prenez le brise-glace et vous revenez près de Jenny. Vous pouvez voir un
 extincteur derrière une vitre.
 
->(Your score has increased by 1)
+> briser la vitre avec le brise-glace
+(Your score has increased by 1)
 Vous brisez la vitre avec le brise-glace.
 
->(Your score has increased by 1)
+> prendre l'extincteur
+(Your score has increased by 1)
 Vous prenez l'extincteur.
 
->(Your score has increased by 1)
+> dégoupiller l'extincteur sur les serpents
+(Your score has increased by 1)
 Vous gazez les serpents avec l'extincteur. Monsieur Maroto arrive alors en
 catastrophe: "Qu'est-ce qui se passe ici? Pourquoi la porte était
 verrouillée?" demande le directeur. "Tout va bien. J'ai la situation en main.
@@ -552,13 +609,15 @@ Largo. Tenez-moi au courant de l'avancement de cette affaire. A plus tard."
 A l'Est et à l'Ouest, vous pouvez voir les deux ascenseurs; l'accueil se
 trouve au Sud.
 
->Vous vous déplacez vers le Sud.
+> sud
+Vous vous déplacez vers le Sud.
 
 L'accueil
 Vous entrez dans la salle d'accueil. Vous pouvez voir le directeur et la
 secrétaire.
 
->"Votre laboratoire n'est pas sécurisé!" reprochez-vous au directeur. "Je ne
+> parler au directeur
+"Votre laboratoire n'est pas sécurisé!" reprochez-vous au directeur. "Je ne
 sais pas quoi vous dire monsieur Winch. Je ne comprends pas ce qui a pu se
 passer. Je suis pourtant très exigeant vis-à-vis de la sécurité." "Jenny
 Lucas et moi-même avons failli y laisser nos vies!" "Je suis désolé monsiur
@@ -568,7 +627,8 @@ Je veux ce rapport sur mon bureau demain matin! Et je vous prierai de veiller
 contraire, votre carrière au sein du groupe W pourrait rapidement arriver à
 son terme!"
 
->Vous tapottez sur l'épaule de la secrétaire. Celle-ci abandonne son
+> parler à la secrétaire
+Vous tapottez sur l'épaule de la secrétaire. Celle-ci abandonne son
 ordinateur et se retourne vers vous: "Mademoiselle?" "Oui monsieur Winch."
 "Dites-moi... mademoiselle..." "Carmen Aranda" répond la secrétaire.
 "Dites-moi Carmen, le comportement de certaines personnes vous a-t-il paru
@@ -579,19 +639,22 @@ policiers vont et viennent à cause de ce double meurtre." "C'est normal. Vous
 Winch. A bientôt." "A bientôt Carmen." Vous êtes donc à l'accueil. Au Nord,
 vous pouvez voir le couloir du rez-de-chaussée.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 Dans le couloir du rez-de-chaussée
 Vous revoilà dans le couloir du rez-de-chaussée du labo. A l'Est et à
 l'Ouest, vous pouvez voir les deux ascenseurs.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 L'ascenseur de droite
 Vous entrez dans l'ascenseur de droite. Tapez "haut" ou "bas" pour utiliser
 cet ascenseur.
 
->Vous vous déplacez vers le Haut.
+> haut
+Vous vous déplacez vers le Haut.
 
 Le couloir sombre
 Vous arrivez dans un long couloir sombre. Vous pouvez voir deux ascenseurs:
@@ -599,20 +662,23 @@ un à l'Ouest et un au Nord. L'ascenseur se trouvant à l'Ouest vous permet de
 redescendre; l'ascenseur situé au Nord vous offre la possibilité de continuer
 votre chemin.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 L'ascenseur du labo 2
 Vous entrez dans l'ascenseur. Tapez "haut" ou "bas" pour utiliser cet
 ascenseur.
 
->Vous vous déplacez vers le Haut.
+> haut
+Vous vous déplacez vers le Haut.
 
 Le labo 2
 Vous êtes dans le labo 2. Vous pouvez voir une commode et une paillasse
 derrière laquelle se trouve une scientifique. L'ascenseur est situé au Sud.
 Un mélangeur est posé sur une paillasse, derrière la scientifique.
 
->Vous vous approchez de la scientifique: "Bonjour. Je m'appelle Largo Winch.
+> parler à la scientifique
+Vous vous approchez de la scientifique: "Bonjour. Je m'appelle Largo Winch.
 Je suis le PDG du groupe W." "Bonjour monsiour Winch. Moi je m'appelle Salma
 Paz." "Puis-je vous poser quelques questions miss Paz?" "Oui monsieur Winch."
 "Connaissez-vous bien Jack Place?" "Oui je le connais très bien. Nous
@@ -627,16 +693,19 @@ reviendrai vous voir un peu plus tard." "D'accord monsieur Winch. A plus
 tard."
 Un mélangeur est posé sur une paillasse, derrière la scientifique.
 
->(Your score has increased by 1)
+> prendre le mélangeur
+(Your score has increased by 1)
 Vous prenez le mélangeur.
 
->Vous vous déplacez vers le Sud.
+> sud
+Vous vous déplacez vers le Sud.
 
 L'ascenseur du labo 2
 Vous entrez dans l'ascenseur. Tapez "haut" ou "bas" pour utiliser cet
 ascenseur.
 
->Vous vous déplacez vers le Bas.
+> bas
+Vous vous déplacez vers le Bas.
 
 Le couloir sombre
 Vous arrivez dans un long couloir sombre. Vous pouvez voir deux ascenseurs:
@@ -644,37 +713,43 @@ un à l'Ouest et un au Nord. L'ascenseur se trouvant à l'Ouest vous permet de
 redescendre; l'ascenseur situé au Nord vous offre la possibilité de continuer
 votre chemin.
 
->Vous vous déplacez vers l'Ouest.
+> ouest
+Vous vous déplacez vers l'Ouest.
 
 L'ascenseur de droite
 Vous entrez dans l'ascenseur de droite. Tapez "haut" ou "bas" pour utiliser
 cet ascenseur.
 
->Vous vous déplacez vers le Bas.
+> bas
+Vous vous déplacez vers le Bas.
 
 Dans le couloir du rez-de-chaussée
 Vous revoilà dans le couloir du rez-de-chaussée du labo. A l'Est et à
 l'Ouest, vous pouvez voir les deux ascenseurs.
 
->Vous vous déplacez vers l'Ouest.
+> ouest
+Vous vous déplacez vers l'Ouest.
 
 L'ascenseur de gauche
 Vous entrez dans l'ascenseur de gauche. Tapez "haut" ou "bas" pour utiliser
 cet ascenseur.
 
->Vous vous déplacez vers le Haut.
+> haut
+Vous vous déplacez vers le Haut.
 
 Le labo 1
 Vous êtes dans le labo 1. Vous pouvez voir deux scientifiques: un blond et un
 brun. L'ascenseur permettant de redescendre se trouve à l'Est.
 
->Vous vous dirigez vers le scientifique blond: "Bonjour. Je m'appelle Largo
+> parler au blond
+Vous vous dirigez vers le scientifique blond: "Bonjour. Je m'appelle Largo
 Winch." "O... c'est pas vrai... je... je l'ai bien mis quelque part..."
 "Puis-je vous poser quelques questions?" "C'est pas vrai... j'étais pourtant
 sûr de l'avoir laissé là..." L'ascenseur permettant de redescendre se trouve
 à l'Est.
 
->Vous interpelez le scientifique brun: "Bonjour. Je m'appelle Largo Winch. Je
+> parler au brun
+Vous interpelez le scientifique brun: "Bonjour. Je m'appelle Largo Winch. Je
 suis le PDG du groupe W dont dépend ce laboratoire." "Bonjour monsieur
 Winch." "Puis-je vous déranger une minute?" "Je vous en prie."
 "Connaissez-vous Jack Place?" "Jack? Bien sûr que je le connais." "Savez-vous
@@ -688,7 +763,8 @@ vivarium, c'était vous aussi?" "euh... Oui monsieur Winch." "Bravo! Vous
 n'êtes qu'un imbécile!" L'ascenseur permettant de redescendre se trouve à
 l'Est.
 
->(Your score has increased by 1)
+> donner le mélangeur au blond
+(Your score has increased by 1)
 Vous tendez le mélangeur au scientifique blond. "Ah merci! Merci beaucoup!
 Vous me sauvez la vie monsieur..." "Winch. Largo Winch." complétez-vous.
 "Merci beaucoup monsieur Winch. Je vais enfin pouvoir continuer mes
@@ -703,25 +779,29 @@ assurer qu'elle connait la nouvelle adresse de Jack." "Merci beaucoup." "Je
 vous en prie  monsieur Winch." L'ascenseur permettant de redescendre se
 trouve à l'Est.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 L'ascenseur de gauche
 Vous entrez dans l'ascenseur de gauche. Tapez "haut" ou "bas" pour utiliser
 cet ascenseur.
 
->Vous vous déplacez vers le Bas.
+> bas
+Vous vous déplacez vers le Bas.
 
 Dans le couloir du rez-de-chaussée
 Vous revoilà dans le couloir du rez-de-chaussée du labo. A l'Est et à
 l'Ouest, vous pouvez voir les deux ascenseurs.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 L'ascenseur de droite
 Vous entrez dans l'ascenseur de droite. Tapez "haut" ou "bas" pour utiliser
 cet ascenseur.
 
->Vous vous déplacez vers le Haut.
+> haut
+Vous vous déplacez vers le Haut.
 
 Le couloir sombre
 Vous arrivez dans un long couloir sombre. Vous pouvez voir deux ascenseurs:
@@ -729,19 +809,22 @@ un à l'Ouest et un au Nord. L'ascenseur se trouvant à l'Ouest vous permet de
 redescendre; l'ascenseur situé au Nord vous offre la possibilité de continuer
 votre chemin.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 L'ascenseur du labo 2
 Vous entrez dans l'ascenseur. Tapez "haut" ou "bas" pour utiliser cet
 ascenseur.
 
->Vous vous déplacez vers le Haut.
+> haut
+Vous vous déplacez vers le Haut.
 
 Le labo 2
 Vous êtes dans le labo 2. Vous pouvez voir une commode et une paillasse
 derrière laquelle se trouve une scientifique. L'ascenseur est situé au Sud.
 
->(Your score has increased by 1)
+> parler à salma paz
+(Your score has increased by 1)
 "Miss Paz?" "Oui monsieur Winch." "Je viens d'apprendre que vous connaissez
 sans doute l'adresse de Jack." "Qui vous a dit ça? Le vieux Hibou? Il ne sait
 même plus ce qu'il dit." "Ecoutez Salma; il est impératif que je connaisse
@@ -755,7 +838,8 @@ qui a fait le coup." "Jack Place? Ca tombe bien on va chez lui." Vous prenez
 un taxi jusqu'à l'adresse donnée par Salma. Arrivés sur place, vous vous
 trouvez dans une cour. Une porte fermée se trouve au Nord.
 
->(Your score has increased by 1)
+> ouvrir la porte
+(Your score has increased by 1)
 Vous ouvez la porte. Au moment où vous alliez entrer, Joy vous retient.
 "Attends Largo. Je trouve bizarre le fait que la porte ne soit pas fermée à
 clé. Laisses-moi entrer en premier. Je vais vérifier que personne n'est en
@@ -767,7 +851,8 @@ Quant à moi, je m'occupe du voisinage." "Ok Joy. Rejoins-moi ici quand tu
 auras terminé." "D'accord Largo. A tout à l'heure." L'appartement se trouve
 au Nord.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 Dans l'appartement
 Vous êtes dans l'appartement de Jack Place. A l'Est, contre le mur, vous
@@ -776,7 +861,8 @@ Nord; la chambre du chercheur est située à l'Ouest.
 "Je devrais pouvoir obtenir quelque chose en combinant certains objets entre
 eux." pensez-vous.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 Le salon
 Vous pénétrez dans le salon. Il s'agit d'une petite pièce pas très bien
@@ -789,25 +875,30 @@ y avoir derrière ce fauteuil?" vous demandez-vous.
 "Je devrais pouvoir obtenir quelque chose en combinant certains objets entre
 eux." pensez-vous.
 
->Une feuille de papier se trouve derrière le fauteuil. "Tout objet peut être
+> regarder derrière le fauteuil
+Une feuille de papier se trouve derrière le fauteuil. "Tout objet peut être
 utile." pensez-vous.
 "Je devrais pouvoir obtenir quelque chose en combinant certains objets entre
 eux." pensez-vous.
 
->(Your score has increased by 1)
+> prendre la feuille
+(Your score has increased by 1)
 Vous prenez la feuille de papier.
 "Je devrais pouvoir obtenir quelque chose en combinant certains objets entre
 eux." pensez-vous.
 
->Une cassette audio se trouve dans la corbeille à papier.
+> regarder dans la corbeille à papier
+Une cassette audio se trouve dans la corbeille à papier.
 "Je devrais pouvoir obtenir quelque chose en combinant certains objets entre
 eux." pensez-vous.
 
->Vous prenez la cassette audio.
+> prendre la cassette audio
+Vous prenez la cassette audio.
 "Je devrais pouvoir obtenir quelque chose en combinant certains objets entre
 eux." pensez-vous.
 
->Vous vous déplacez vers le Sud.
+> sud
+Vous vous déplacez vers le Sud.
 
 Dans l'appartement
 Vous êtes dans l'appartement de Jack Place. A l'Est, contre le mur, vous
@@ -816,7 +907,8 @@ Nord; la chambre du chercheur est située à l'Ouest.
 "Je devrais pouvoir obtenir quelque chose en combinant certains objets entre
 eux." pensez-vous.
 
->Vous mettez la cassette dans le répondeur. Une voix d'homme avec un léger
+> insérer la cassette audio dans le répondeur
+Vous mettez la cassette dans le répondeur. Une voix d'homme avec un léger
 accent russe se fait entendre: "Monsieur Place, je me permets de vous
 rappeler à propos du canon à électrons et du spectromètre que nous vous avons
 livré à crédit. Vous devez comprendre que nous allons être contraints
@@ -825,7 +917,8 @@ d'intervenir auprès de votre banque si vous persistez à ne pas honorer vos
 "Je devrais pouvoir obtenir quelque chose en combinant certains objets entre
 eux." pensez-vous.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 Le salon
 Vous pénétrez dans le salon. Il s'agit d'une petite pièce pas très bien
@@ -836,7 +929,8 @@ ordinateur. Sur l'écran de l'ordinateur, vous pouvez voir l'inscription
 "Je devrais pouvoir obtenir quelque chose en combinant certains objets entre
 eux." pensez-vous.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 La cuisine
 Vous êtes à présent dans la cuisine. A votre grande surprise, il n'y a qu'un
@@ -844,22 +938,26 @@ réfrigérateur dans cette pièce.
 "Je devrais pouvoir obtenir quelque chose en combinant certains objets entre
 eux." pensez-vous.
 
->(Your score has increased by 1)
+> ouvrir le réfrigérateur
+(Your score has increased by 1)
 Vous ouvrez la porte du réfrigérateur. Un tube à essai se trouve à
 l'intérieur.
 "Je devrais pouvoir obtenir quelque chose en combinant certains objets entre
 eux." pensez-vous.
 
->(Your score has increased by 1)
+> prendre le tube à essai
+(Your score has increased by 1)
 Vous prenez le tube à essai.
 "Je devrais pouvoir obtenir quelque chose en combinant certains objets entre
 eux." pensez-vous.
 
->(Your score has increased by 1)
+> combiner la feuille et le tube à essai
+(Your score has increased by 1)
 Grâce à cette combinaison, vous découvrez un mot: AGYLAP. "On dirait un mot
 de passe. C'est sûrement le mot de passe de l'ordinateur."
 
->Vous vous déplacez vers le Sud.
+> sud
+Vous vous déplacez vers le Sud.
 
 Le salon
 Vous pénétrez dans le salon. Il s'agit d'une petite pièce pas très bien
@@ -868,7 +966,8 @@ fauteuil, une corbeille à papier et un bureau sur lequel est posé un
 ordinateur. Sur l'écran de l'ordinateur, vous pouvez voir l'inscription
 "Veuillez taper le mot de passe système." La cuisine se trouve au Nord.
 
->(Your score has increased by 1)
+> taper agylap
+(Your score has increased by 1)
 Vous tapez "agylap" sur le clavier de l'ordinateur. "Bingo! J'ai accès à
 l'ordinateur de Jack!" pensez-vous. Vous fouillez dans les données
 personnelles du chercheur. Vous finissez par découvrir des e-mails suspects.
@@ -879,20 +978,24 @@ cagoulés. "Viens m'aider Boris! Il faut zigouiller cette ordure!" crie l'un
 des braqueurs. "Ok André! On va bousiller ce type!" répond Boris. Pour
 commencer le combat, tapez "combattre".
 
->(Your score has increased by 1)
+> combattre
+(Your score has increased by 1)
 Vous ne possédez aucune arme. Boris est armé d'une batte de baseball; André
 ne possède aucune arme. Tapez "coup de poing boris" pour donner un coup de
 poing à Boris; tapez "coup de pied boris" pour le frapper d'un coup de pied;
 tapez "coup de poing andré" pour donner un coup de poing à André; tapez "coup
 de pied andré" pour lui donner un coup de pied.
 
->Vous donnez un grand coup de pied dans le visage de Boris. Vous esquivez le
+> coup de pied boris
+Vous donnez un grand coup de pied dans le visage de Boris. Vous esquivez le
 coup de poing d'André ainsi que le coup de batte de Boris.
 
->Vous blessez Boris d'un second coup de pied. Vous réussissez une nouvelle
+> coup de pied boris
+Vous blessez Boris d'un second coup de pied. Vous réussissez une nouvelle
 fois à esquiver les attaques de vos ennemis.
 
->Vous achevez Boris d'un grand coup de pied. Pris de panique, André s'enfuit à
+> coup de pied boris
+Vous achevez Boris d'un grand coup de pied. Pris de panique, André s'enfuit à
 grandes enjambées. Joy se précipite alors vers vous: "Largo? Tu n'as rien de
 cassé?" "Non ça à l'air d'aller. Mais tu sais, tu arrives un peu tard. J'ai
 failli y rester!" "Oublies ces minables Largo. On a un énorme problème."
@@ -912,18 +1015,21 @@ Sullivan pour savoir ce qui est arrivé à Kerensky et je te rejoins." Vous
 êtes donc au rez-de-chaussée. A l'Est, vous pouvez voir votre bureau;
 l'ascenseur se trouve au Nord.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 L'ascenseur
 Vous entrez dans l'ascenseur. Tapez "salle du bigboard" pour aller dans la
 salle du bigboard; tapez "central informatique" pour vous rendre au central
 informatique; tapez "rez-de-chaussée" pour retourner au rez-de-chaussée.
 
->Vous arrivez dans la salle du bigboard. Il s'agit d'une grande salle de
+> salle du bigboard
+Vous arrivez dans la salle du bigboard. Il s'agit d'une grande salle de
 réunion. Vous apercevez John Sullivan et Sharon Green. L'ascenseur se trouve
 au Sud.
 
->Vous approchez de Sharon: "Salut Sharon!" dites-vous. La jeune femme vous
+> parler à Sharon
+Vous approchez de Sharon: "Salut Sharon!" dites-vous. La jeune femme vous
 attrape par le cou et vous embrasse: "Salut mon Largo! Comment s'est passé
 ton voyage au Mexique?" "C'était instructif. Tout le monde pense que c'est le
 chercheur disparu qui a fait le coup." "J'ai besoin d'être près de toi Largo.
@@ -932,16 +1038,19 @@ Peux-tu rester avec moi?" vous demande votre amie. "Non Sharon désolé."
 sont mes priorités." "Bien. Rejoins-moi dès que possible." "D'accord Sharon.
 A plus tard."
 
->Vous allez à la rencontre de John: "Bonjour John." "Bonjour Largo. Vous
+> parler à John
+Vous allez à la rencontre de John: "Bonjour John." "Bonjour Largo. Vous
 tombez à pique." "Pourquoi?" "Vous devez prendre une décision au sujet de la
 vente de la société de transport Mentek." Tapez "vendre" pour choisir de
 vendre la société; tapez "ne pas vendre" pour choisir de ne pas vendre.
 
->"Vendons cette société John." décidez-vous. "En êtes-vous sûr Largo?" "Oui
+> vendre
+"Vendons cette société John." décidez-vous. "En êtes-vous sûr Largo?" "Oui
 j'en suis sûr. Cette société ne nous apporte rien." "Bien. Ce sera fait."
 "Merci John. A plus tard." "A plus tard Largo."
 
->(Your score has increased by 1)
+> parler à John
+(Your score has increased by 1)
 "John?" "Oui Largo." "Qu'est-il arrivé à Kerensky?" "Il a été brutalisé par
 deux types. Selon Kerensky, il s'agissait de deux russes." "Quelle est la
 nature de ses blessures?" "Ils l'ont frappé violemment à la tête et ils lui
@@ -956,18 +1065,21 @@ Merci beaucoup." "De rien Largo." "Si vous voyez Simon Ovronnaz, dites-lui de
 me rejoindre dans le central informatique." "Ce sera fait Largo." "Merci
 John. A plus tard." "A plus tard Largo."
 
->Vous vous déplacez vers le Sud.
+> sud
+Vous vous déplacez vers le Sud.
 
 L'ascenseur
 Vous entrez dans l'ascenseur. Tapez "salle du bigboard" pour aller dans la
 salle du bigboard; tapez "central informatique" pour vous rendre au central
 informatique; tapez "rez-de-chaussée" pour retourner au rez-de-chaussée.
 
->Vous arrivez dans une grande pièce remplie d'ordinateurs: le central
+> central informatique
+Vous arrivez dans une grande pièce remplie d'ordinateurs: le central
 informatique. Joy est installée devant un ordinateur. L'ascenseur se trouve
 au Sud.
 
->(Your score has increased by 1)
+> parler à Joy
+(Your score has increased by 1)
 "Joy?" "Oui Largo." "Files à l'hôpital. Je n'aime pas savoir Kerensky sans
 surveillance." "Ok Largo." "Au fait, John a fait installé un PC dans la
 chambre de Kerensky. Il m'a dit que je pouvais communiquer avec Kerensky
@@ -982,10 +1094,12 @@ se trouve juste à côté de l'ordinateur devant lequel tu es assis. Prends ce
 cd et insères-le dans le lecteur." "Ok. Je vais localiser ce petit malin."
 Sur l'unité centrale de l'ordinateur, vous pouvez voir un CD.
 
->(Your score has increased by 1)
+> prendre cd
+(Your score has increased by 1)
 Vous prenez le CD.
 
->(Your score has increased by 1)
+> insérer le cd dans le lecteur
+(Your score has increased by 1)
 Vous insérer le CD dans l'ordinateur. Un programme se lance. Vous suivez
 alors toutes les instructions présentes dans le fichier d'aide du CD. Au bout
 d'un certain temps de bidouillage, vous parvenez à localiser le pirate. "Il
@@ -1010,14 +1124,16 @@ l'Est. "C'est sûrement l'appartement du consierge de l'immeuble. On devrait
 peut-être frapper à cette porte." déclare Simon en pointant la porte se
 trouvant à l'Est.
 
->Vous frappez à la porte. Un grand homme barbu vient ouvrir. "C'est pour
+> frapper à la porte
+Vous frappez à la porte. Un grand homme barbu vient ouvrir. "C'est pour
 quoi?" demande le type. "Connaissez-vous Vladimir Kostenko?" interrogez-vous.
 "Vous lui voulez quoi à Vladimir?" questionne l'homme. Vous avez le choix
 pour répondre à la question. Tapez "ami" pour vous faire passer pour un ami
 de Vladimir; tapez "frère" pour vous faire passer pour le frère du pirate;
 tapez "kgb" pour vous faire passer pour un agent du KGB.
 
->"Je suis un agent du KGB. Vladimir est soupçonné d'avoir piraté le réseau
+> kgb
+"Je suis un agent du KGB. Vladimir est soupçonné d'avoir piraté le réseau
 informatique d'un des plus grands groupes d'investissements de cette
 planète." déclarez-vous. "D'accord monsieur. Sachez que je ne veux pas
 d'ennuis." répond le russe. "Dans ce cas, vous allez me donner des infos sur
@@ -1027,7 +1143,8 @@ grand blond barbu avec une queue de cheval. Il habite au premier étage de cet
 immeuble, à la porte 3A." "Merci monsieur." "De rien." Le russe referme la
 porte.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 Le premier étage
 Vous êtes au premier étage. A l'Est et à l'Ouest, vous pouvez voir des
@@ -1035,22 +1152,26 @@ appartements dont les nupéros vont de 1A à 10A. Les escaliers permettant de
 monter se trouvent au Nord; ceux permettant de redescendre sont situés au
 Sud.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 5A
 Vous êtes devant la porte 5A.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 4A
 Vous êtes devant la porte 4A.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 3A
 Vous êtes devant la porte 3A.
 
->Vous clenchez la porte mais celle-ci est fermée à clé. Vous vous retournez
+> ouvrir la porte
+Vous clenchez la porte mais celle-ci est fermée à clé. Vous vous retournez
 vers Simon. "Simon?" "Oui Largo." "Tu peux me crocheter cette serrure?"
 demandez-vous. "C'est comme si c'était fait mon pote!" Vous reculez de
 quelques mètres afin de donner de l'espace à Simon. Après quelques instants
@@ -1058,17 +1179,20 @@ de bidouillage, votre ami se retourne vers vous, l'air angoissé: "Ce dingue a
 piégé la serrure. Je ne peux pas la crocheter. Tu dois trouver un autre moyen
 d'accès." déclare Simon.
 
->Vous vous déplacez vers l'Ouest.
+> ouest
+Vous vous déplacez vers l'Ouest.
 
 4A
 Vous êtes devant la porte 4A.
 
->Vous vous déplacez vers l'Ouest.
+> ouest
+Vous vous déplacez vers l'Ouest.
 
 5A
 Vous êtes devant la porte 5A.
 
->Vous vous déplacez vers l'Ouest.
+> ouest
+Vous vous déplacez vers l'Ouest.
 
 Le premier étage
 Vous êtes au premier étage. A l'Est et à l'Ouest, vous pouvez voir des
@@ -1076,29 +1200,34 @@ appartements dont les nupéros vont de 1A à 10A. Les escaliers permettant de
 monter se trouvent au Nord; ceux permettant de redescendre sont situés au
 Sud.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 Le deuxième étage
 Vous êtes au deuxième et dernier étage de l'immeuble. A l'Est et à l'Ouest,
 vous pouvez voir des portes d'appartements dont les numéros vont de 1B à 10B.
 Les escaliers permettant de redescendre se trouvent au Sud.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 5B
 Vous êtes devant la porte 5B.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 4B
 Vous êtes devant la porte 4B.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 3B
 Vous êtes devant la porte 3B.
 
->(Your score has increased by 1)
+> ouvrir la porte
+(Your score has increased by 1)
 Vous clenchez la porte mais celle-ci est fermée. Vous vous retournez vers
 Simon: "Simon?" "Oui Largo?" "Tu peux me crocheter cette serrure?" "No
 problem mon pote! Tu veux passer par cet appartement pour rejoindre celui de
@@ -1106,41 +1235,51 @@ Vladimir?" "Oui Simon." "Ok je m'en occupe." Vous reculez afin de permettre à
 Simon de "travailler" sur la porte. Après quelques instants de bidouillage,
 votre ami se retourne vers vous: "C'est bon Largo; on peut entrer."
 
->(Your score has increased by 1)
+> entrer
+(Your score has increased by 1)
 Vous entrez dans l'appartement. La cuisine est située au Nord; la chambre se
 trouve à l'Ouest; un balcon enneigé se trouve à l'Est.
 
->Vous vous déplacez vers l'Ouest.
+> ouest
+Vous vous déplacez vers l'Ouest.
 
 La chambre
 Vous entrez dans une petite chambre. Vous pouvez voir un lit et une armoire.
 
->Vous ouvrez l'armoire. Un drap propre se trouve à l'intérieur.
+> ouvrir l'armoire
+Vous ouvrez l'armoire. Un drap propre se trouve à l'intérieur.
 
->(Your score has increased by 1)
+> prendre le drap propre
+(Your score has increased by 1)
 Vous prenez le drap propre.
 
->Un drap sale se trouve sur le lit.
+> regarder sur le lit
+Un drap sale se trouve sur le lit.
 
->(Your score has increased by 1)
+> prendre le drap sale
+(Your score has increased by 1)
 Vous prenez le drap sale.
 
->(Your score has increased by 1)
+> combiner le drap propre et le drap sale
+(Your score has increased by 1)
 Grâce à cette combinaison, vous confectionnez une corde.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 L'appartement 3B
 Vous êtes dans un petit appartement pas très bien décoré. La cuisine est
 située au Nord; la chambre se trouve à l'Ouest; un balcon enneigé est situé à
 l'Est; la sortie est au Sud.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 Le balcon
 Vous voilà sur le balcon enneigé.
 
->(Your score has increased by 1)
+> utiliser la corde
+(Your score has increased by 1)
 Vous attachez la corde à la rambarde du balcon. "Attends Largo! Laisses faire
 le professionel!" plaisante Simon. Votre ami s'agrippe à la corde puis
 descend jusqu'au balcon du 3A. "On a un autre problème Largo." vous annonce
@@ -1151,36 +1290,42 @@ courant?" demandez-vous. "D'après mon expérience de voleur, je peux t'assurer
 avec une quasi certitude que le disjoncteur se trouve en bas." "Au
 rez-de-chaussée de l'immeuble?" "Oui." "Ok Simon. Je m'en occupe."
 
->Vous vous déplacez vers l'Ouest.
+> ouest
+Vous vous déplacez vers l'Ouest.
 
 L'appartement 3B
 Vous êtes dans un petit appartement pas très bien décoré. La cuisine est
 située au Nord; la chambre se trouve à l'Ouest; un balcon enneigé est situé à
 l'Est; la sortie est au Sud.
 
->Vous vous déplacez vers le Sud.
+> sud
+Vous vous déplacez vers le Sud.
 
 3B
 Vous êtes devant la porte 3B.
 
->Vous vous déplacez vers l'Ouest.
+> ouest
+Vous vous déplacez vers l'Ouest.
 
 4B
 Vous êtes devant la porte 4B.
 
->Vous vous déplacez vers l'Ouest.
+> ouest
+Vous vous déplacez vers l'Ouest.
 
 5B
 Vous êtes devant la porte 5B.
 
->Vous vous déplacez vers l'Ouest.
+> ouest
+Vous vous déplacez vers l'Ouest.
 
 Le deuxième étage
 Vous êtes au deuxième et dernier étage de l'immeuble. A l'Est et à l'Ouest,
 vous pouvez voir des portes d'appartements dont les numéros vont de 1B à 10B.
 Les escaliers permettant de redescendre se trouvent au Sud.
 
->Vous vous déplacez vers le Sud.
+> sud
+Vous vous déplacez vers le Sud.
 
 Le premier étage
 Vous êtes au premier étage. A l'Est et à l'Ouest, vous pouvez voir des
@@ -1188,20 +1333,24 @@ appartements dont les nupéros vont de 1A à 10A. Les escaliers permettant de
 monter se trouvent au Nord; ceux permettant de redescendre sont situés au
 Sud.
 
->Vous descendez les escaliers. Vous revoilà au rez-de-chaussée. A l'Ouest,
+> sud
+Vous descendez les escaliers. Vous revoilà au rez-de-chaussée. A l'Ouest,
 vous pouvez voir des boîtes à lettres et un disjoncteur. Les escaliers
 permettant de monter se trouvent au Nord.
 
->Sur le disjoncteur, vous apercevez deux grandes rangées de fusibles disposées
+> regarder le disjoncteur
+Sur le disjoncteur, vous apercevez deux grandes rangées de fusibles disposées
 l'une en dessous de l'autre. Sur la rangée du haut, vous pouvez voir les
 fusibles 1A à 10A; sur la rangée du bas, vous distinguez les fusibles 1B à
 10B.
 
->(Your score has increased by 1)
+> retirer le fusible 3A
+(Your score has increased by 1)
 Vous retirez le fusible 3A du disjoncteur. "Ca y est, le courant est coupé!"
 pensez-vous.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 Le premier étage
 Vous êtes au premier étage. A l'Est et à l'Ouest, vous pouvez voir des
@@ -1212,23 +1361,27 @@ Vous entendez la voix de Simon: "Largo! J'ai réussi à retirer l'explosif de
 la fenêtre! Je suis dans l'appartement de Vladimir. Tu peux m'y rejoindre par
 la porte 3A."
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 5A
 Vous êtes devant la porte 5A.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 4A
 Vous êtes devant la porte 4A.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 3A
 Vous êtes devant la porte 3A.
 La porte est ouverte. Simon est à l'intérieur.
 
->Vous entrez dans l'appartement de Vladimir. Simon est là, un livre dans les
+> entrer
+Vous entrez dans l'appartement de Vladimir. Simon est là, un livre dans les
 mains. "Que fais-tu Simon?" demandez-vous. "Je me divertis mon pote!"
 "Comment ça tu te divertis?" "Ben j'estime avoir fais du bon boulot donc
 j'admire un peu la beauté féminine!" "Tu ne changeras jamais mon vieux.
@@ -1237,7 +1390,8 @@ donc dans l'appartement du pirate. Il s'agit du même logement que le 3B. La
 salle de séjour se trouve au Nord; la chambre se trouve à l'Ouest; le balcon
 est situé à l'Est.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 La salle de séjour
 Vous pénétrez dans une pièce moyennement spacieuse. Vous pouvez voir une
@@ -1246,27 +1400,33 @@ une petite clé se trouvent par terre juste devant vous.
 
 Aussi voici une petite clé.
 
->(Your score has increased by 1)
+> prendre la petite clé
+(Your score has increased by 1)
 Vous ramassez la petite clé. "On dirait une clé de boîte à lettres."
 pensez-vous.
 
->(Your score has increased by 1)
+> regarder sur la table
+(Your score has increased by 1)
 Une pochette d'allumettes se trouve sur la table.
 
->(Your score has increased by 1)
+> prendre la pochette d'allumettes
+(Your score has increased by 1)
 Vous prenez la pochette d'allumettes. Une inscription attire votre attention:
 "On dirait l'adresse d'un bar" pensez-vous. Vous inspectez la pochette. "Oui
 c'est bien ça. Il s'agit de l'adresse du Gagarine Paradise." dites-vous.
 
->Vous ramassez la cassette audio.
+> prendre la cassette audio
+Vous ramassez la cassette audio.
 
->Vous insérez la cassette audio dans le répondeur. Une voix féminine se fait
+> insérer la cassette audio dans le répondeur
+Vous insérez la cassette audio dans le répondeur. Une voix féminine se fait
 entendre à travers l'appareil: "Bonjour Vladimir, c'est Olga de la société
 Omega. Je t'appelle pour te rappeler qu'il faut que tu me ramènes le devis
 que je t'ai envoyé par courrier. A plus tard Vladimir." "La société Omega est
 probablement le lieu de travail de Vladimir." pensez-vous.
 
->Vous vous déplacez vers le Sud.
+> sud
+Vous vous déplacez vers le Sud.
 
 Le domicile de Kostenko
 Vous êtes dans l'appartement du pirate. Il s'agit du même logement que le 3B.
@@ -1274,23 +1434,27 @@ La salle de séjour se trouve au Nord; la chambre est située à l'Ouest; le
 balcon se situe à L'Est; la sortie se trouve au Sud. Simon est adossé à la
 porte d'entrée.
 
->Vous vous déplacez vers le Sud.
+> sud
+Vous vous déplacez vers le Sud.
 
 3A
 Vous êtes devant la porte 3A.
 La porte est ouverte. Simon est à l'intérieur.
 
->Vous vous déplacez vers l'Ouest.
+> ouest
+Vous vous déplacez vers l'Ouest.
 
 4A
 Vous êtes devant la porte 4A.
 
->Vous vous déplacez vers l'Ouest.
+> ouest
+Vous vous déplacez vers l'Ouest.
 
 5A
 Vous êtes devant la porte 5A.
 
->Vous vous déplacez vers l'Ouest.
+> ouest
+Vous vous déplacez vers l'Ouest.
 
 Le premier étage
 Vous êtes au premier étage. A l'Est et à l'Ouest, vous pouvez voir des
@@ -1301,22 +1465,26 @@ Vous entendez la voix de Simon: "Largo! J'ai réussi à retirer l'explosif de
 la fenêtre! Je suis dans l'appartement de Vladimir. Tu peux m'y rejoindre par
 la porte 3A."
 
->Vous descendez les escaliers. Vous revoilà au rez-de-chaussée. A l'Ouest,
+> sud
+Vous descendez les escaliers. Vous revoilà au rez-de-chaussée. A l'Ouest,
 vous pouvez voir des boîtes à lettres et un disjoncteur. Les escaliers
 permettant de monter se trouvent au Nord.
 
->(Your score has increased by 1)
+> ouvrir la boîte à lettres 3A avec la petite clé
+(Your score has increased by 1)
 "Désolé d'ouvrir ta boîte à lettres Vladimir mais tu ne t'es pas gêné pour
 pirater mon réseau informatique." A l'aide de la petite clé, vous ouvrez la
 boîte à lettres de Kostenko. Une enveloppe se trouve à l'intérieur.
 
->(Your score has increased by 1)
+> prendre l'enveloppe
+(Your score has increased by 1)
 "L'adresse de la société Omega est écrite sur cette enveloppe. Bingo!"
 dites-vous à voix basse. Vous prenez l'enveloppe puis vous l'ouvrez afin
 d'emporter le devis se trouvant à l'intérieur. "Il ne me reste plus qu'à
 rejoindre Simon." pensez-vous.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 Le premier étage
 Vous êtes au premier étage. A l'Est et à l'Ouest, vous pouvez voir des
@@ -1327,23 +1495,27 @@ Vous entendez la voix de Simon: "Largo! J'ai réussi à retirer l'explosif de
 la fenêtre! Je suis dans l'appartement de Vladimir. Tu peux m'y rejoindre par
 la porte 3A."
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 5A
 Vous êtes devant la porte 5A.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 4A
 Vous êtes devant la porte 4A.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 3A
 Vous êtes devant la porte 3A.
 La porte est ouverte. Simon est à l'intérieur.
 
->Vous entrez à nouveau dans l'appartement: "Ca y est Simon, j'ai fais le
+> entrer
+Vous entrez à nouveau dans l'appartement: "Ca y est Simon, j'ai fais le
 tour." dites-vous à votre ami. "Ben c'est pas trop tôt!" "Je t'en prie
 Simon." "Bon d'accord j'arrête. As-tu trouvé quelque chose d'intéressant?"
 "Je n'en sais rien. J'ai trouvé un devis dans la boîte à lettres de Vladimir.
@@ -1352,7 +1524,8 @@ conserver au cas où. J'ai également trouvé l'adresse d'un bar écrite sur une
 pochette d'allumettes. On devrait peut-être aller y faire un tour." "T'as
 raison Largo. Donnes-moi cette adresse et je m'en occuperai."
 
->(Your score has increased by 1)
+> donner la pochette d'allumettes à Simon
+(Your score has increased by 1)
 Vous tendez la pochette d'allumettes à Simon: "Merci Largo. Je m'occuperai de
 cela un peu plus tard." "Pourquoi plus tard?" demandez-vous. "Ben parce que
 tu auras sans doute besoin de moi non?" "Mais non Simon. Files au Gagarine
@@ -1363,13 +1536,15 @@ jusqu'à la sortie de l'immeuble puis vous partez séparément. Au bout d'une
 petite demi-heure de route, vous arrivez devant la société Omega. L'entrée se
 trouve au Nord.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 Le hall d'entrée
 Vous êtes à présent dans le hall d'entrée de la société Omega. Des escaliers
 permettant de descendre se trouvent au Nord.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 En haut des escaliers
 Vous vous approchez des escaliers. Soudain, une femme déboule devant vous,
@@ -1386,7 +1561,8 @@ Olga.
 "Je devrais peut-être lui donner quelque chose pour lui prouver ma
 franchise." pensez-vous.
 
->(Your score has increased by 1)
+> donner le devis à la femme
+(Your score has increased by 1)
 Vous donnez le devis à Olga. Après quelques secondes, la femme vous regarde,
 l'air confu: "Pardonnez-moi monsieur Winch. Je... je suis désolée." "Ce n'est
 rien Olga. Pouvez-vous m'aider?" "Oui monsieur Winch mais puis-je vous poser
@@ -1398,7 +1574,8 @@ C'est la dernière porte à droite au fond du couloir." "Merci Olga." "De rien
 monsieur Winch." Vous descendez les escaliers. Vous pouvez voir une porte
 entrouverte au Nord mais un homme assis à une table bloque le passage.
 
->(Your score has increased by 1)
+> parler à l'homme
+(Your score has increased by 1)
 "Pourriez-vous me laisser passer?" demandez-vous à l'individu. Le barbu lève
 les yeux de son livre et vous fixe du regard: "Qui es-tu?" "Je suis Largo
 Winch. Je suis à la recherche de Vladimir Kostenko." répondez-vous.
@@ -1419,34 +1596,39 @@ pas." "Merci beaucoup pour ces informations. Vous m'avez beaucoup aidé." "De
 rien mec!" Le barbu vous tend un jeton en cuivre: "Tiens mec! Prends ce jeton
 en guise de cadeau d'adieu!"
 
->(Your score has increased by 1)
+> prendre le jeton en cuivre
+(Your score has increased by 1)
 Vous prenez le jeton en cuivre. "Merci mon vieux!" dites-vous en tapant dans
 la main du russe. "De rien mec! Si tu veux mon avis, ce jeton te sera très
 utile par la suite." "Ok merci. Aurevoir mon gars!" "Salut mec!" L'homme se
 lève puis recule afin de libérer le passage. Une porte ouverte se trouve au
 Nord; les escaliers permettant de remonter sont situés au Sud.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 Le couloir
 Vous êtes dans un couloir moyennement long et assez large. A l'Ouest, vous
 pouvez voir un technicien qui bricole la serrure d'une porte; le bureau de
 Vladimir se trouve à l'Est.
 
->Vous vous déplacez vers le Sud.
+> sud
+Vous vous déplacez vers le Sud.
 
 En bas des escaliers
 Vous revoilà en bas des escaliers, là où vous avez discuté avec le barbu. Les
 escaliers se trouvent au Sud; la porte du couloir est située au Nord.
 
->Vous vous déplacez vers le Sud.
+> sud
+Vous vous déplacez vers le Sud.
 
 Le hall
 Vous montez les escaliers. Vous vous retrouvez dans le hall d'entrée. A
 l'Est, vous pouvez voir une machine à café; les escaliers se trouvent au
 Nord.
 
->(Your score has increased by 1)
+> insérer le jeton en cuivre dans la machine à café
+(Your score has increased by 1)
 Vous insérez le jeton en cuivre dans la machine à café puis vous reculez afin
 de ne pas trop vous faire remarquer. Quelques minutes plus tard, Olga, venant
 prendre un café, se rend compte que la machine est en panne. La jeune femme
@@ -1457,34 +1639,41 @@ chance, je pourrai y trouver un objet qui me permettra d'ouvrir le tiroir de
 Vladimir." dites-vous à voix basse. Vous pouvez voir le technicien; les
 escaliers se trouvent au Nord.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 En bas des escaliers
 Vous revoilà en bas des escaliers, là où vous avez discuté avec le barbu. Les
 escaliers se trouvent au Sud; la porte du couloir est située au Nord.
 
->Vous êtes de retour dans le couloir. Vous pouvez voir une caisse à outils. Le
+> nord
+Vous êtes de retour dans le couloir. Vous pouvez voir une caisse à outils. Le
 bureau de Vladimir se trouve à l'Est.
 
->Un tournevis se trouve dans la caisse à outils.
+> regarder dans la caisse à outils
+Un tournevis se trouve dans la caisse à outils.
 
->(Your score has increased by 1)
+> prendre le tournevis
+(Your score has increased by 1)
 Vous prenez le tournevis.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 Dans le bureau de Vladimir
 Vous êtes à présent dans le bureau du pirate.A votre grande surprise, la
 pièce est presque déserte. Vous pouvez voir un bureau.
 
->(Your score has increased by 1)
+> ouvrir le tiroir du bureau avec le tournevis
+(Your score has increased by 1)
 Vous ouvrez le tiroir du bureau avec le tournevis. Vous découvrez alors
 l'ordinateur de Kostenko. "Bingo!" vous exclamez-vous. Vous allumez
 l'ordinateur puis vous l'inspectez. "Oh non! Cet ordinateur est protégé par
 un mot de passe. Avec le CD de Kerensky, je devrais pouvoir passer outre."
 dites-vous à voix basse.
 
->(Your score has increased by 1)
+> insérer le cd de Kerensky dans l'ordinateur
+(Your score has increased by 1)
 Vous insérez le cd de hacking dans l'ordinateur de Vladimir. Après un long
 moment de "bataille", vous parvenez à contourner le mot de passe. "Bien joué!
 J'ai accès aux données de l'ordinateur de Kostenko." dites-vous avec joie. De
@@ -1497,20 +1686,23 @@ prendre un taxi. Au bout d'une petite demi heure de route, le taxi vous
 dépose juste devant l'entrée du Gagarine Paradise. L'entrée se trouve au
 Nord.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 Le Gagarine Paradise
 Vous entrez dans le bar. Il s'agit d'une grande pièce dans laquelle sont
 installées quelques tables ainsi qu'une piste de danse. Vous pouvez voir une
 femme blonde, un poivrot assis à une table et le barman derrière le bar.
 
->Vous vous dirigez vers la blonde: "Bonjour." dites-vous. "Bonjour." répond la
+> parler à la femme blonde
+Vous vous dirigez vers la blonde: "Bonjour." dites-vous. "Bonjour." répond la
 femme. "Puis-je vous poser quelques questions?" "Non. J'ai beaucoup de
 travail." "Du travail? Quel genre de travail?" "Je suis serveuse." "Quel est
 votre nom?" demandez-vous. "Je m'appelle Tania. Maintenant, veuillez
 m'excuser mais je retourne travailler."
 
->Vous vous approchez du poivrot: "La vie est belle l'ami?" interrogez-vous
+> parler au poivrot
+Vous vous approchez du poivrot: "La vie est belle l'ami?" interrogez-vous
 dans le but de "réveiller" le gros poivrot. "Qu'est-ce que tu veux mec?"
 demande le type. "Je suis à la recherche d'un ami. Il est blond, grand, assez
 beau gosse... L'avez-vous vu?" "Oui. Le boss l'a emmené faire un petit tour à
@@ -1527,12 +1719,14 @@ sauter la cervelle." "Ne vous inquiétez pas, je ne vais pas monter. Je vais
 trouver un autre moyen." affirmez-vous. "Ok comme tu veux mon gars mais je
 t'aurai prévenu."
 
->Vous approchez du bar. "Bonsoir." dites-vous au barman. "Bonsoir. Vodka?"
+> parler au barman
+Vous approchez du bar. "Bonsoir." dites-vous au barman. "Bonsoir. Vodka?"
 propose le barman. Vous avez ici la possibilité de choisir une boisson. Tapez
 "café" pour demander un café; tapez "scotch" pour demander un scotch; tapez
 "ulla ulla" pour demander un ulla ulla, la spécialité du Gagarine Paradise.
 
->(Your score has increased by 1)
+> ulla ulla
+(Your score has increased by 1)
 "Je voudrais un ulla ulla s'il vous plaît." "Un ulla ulla? C'est très long à
 préparer. Vous en voulez vraiment un?" vous demande le barman. "Oui j'en veux
 un." "D'accord. Je vous prépare ça." Le barman se rend alors dans une pièce
@@ -1540,18 +1734,22 @@ voisine pour préparer votre boisson. Vous avez donc libre accès à la réserve.
 "Je dois trouver un moyen de sauver Simon." La réserve se trouve au Nord; la
 sortie est située au Sud.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 La réserve
 Vous vous trouvez dans la réserve du bar. Vous pouvez voir un placard
 pharmaceutique qui est ouvert.
 
->Un tube de somnifères se trouve dans le placard pharmaceutique.
+> regarder dans le placard pharmaceutique
+Un tube de somnifères se trouve dans le placard pharmaceutique.
 
->(Your score has increased by 1)
+> prendre le tube de somnifères
+(Your score has increased by 1)
 Vous prenez le tube de somnifères.
 
->Vous vous déplacez vers le Sud.
+> sud
+Vous vous déplacez vers le Sud.
 
 Le Gagarine Paradise
 Vous revoilà dans la grande salle. Au moment ot vous passez près du bar, le
@@ -1561,7 +1759,8 @@ demandez-vous. "Vous êtes solide mon vieux! Je vous prépare ça." Le barman
 repart pour vous préparer votre second cocktail. La réserve se trouve au
 Nord; la sortie est située au Sud.
 
->Vous vous déplacez vers le Sud.
+> sud
+Vous vous déplacez vers le Sud.
 
 Dehors
 Vous sortez du bar. "Puisque je ne peux pas monter à l'étage par l'intérieur,
@@ -1570,21 +1769,24 @@ monter depuis l'extérieur." pensez-vous. L'entrée du bar se trouve au Nord.
 Vous pouvez longer le mur face auquel vous vous trouvez par l'Est ou par
 l'Ouest.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 Au pied de l'échelle
 Vous longez le mur par le côté Est. Vous arrivez au pied d'une échelle.
 "Génial! Cela ne pouvait pas mieux tomber." Tapez "monter" pour grimper à
 l'échelle.
 
->Vous empruntez l'échelle. Arrivé en haut, vous entrez par une fenêtre
+> monter
+Vous empruntez l'échelle. Arrivé en haut, vous entrez par une fenêtre
 ouverte. Un alcoolique cuvant son vin bloque le passage. "Il m'est impossible
 de passer. Je dois trouver un moyen de me débarrasser de ce type."
 pensez-vous. Vous redescendez l'échelle. Vous êtes donc au pied de cette
 échelle. Vous pouvez remonter à l'étage en tapant "monter"; vous pouvez vous
 déplacer vers l'Ouest.
 
->Vous vous déplacez vers l'Ouest.
+> ouest
+Vous vous déplacez vers l'Ouest.
 
 Dehors
 Vous sortez du bar. "Puisque je ne peux pas monter à l'étage par l'intérieur,
@@ -1593,7 +1795,8 @@ monter depuis l'extérieur." pensez-vous. L'entrée du bar se trouve au Nord.
 Vous pouvez longer le mur face auquel vous vous trouvez par l'Est ou par
 l'Ouest.
 
->Vous entrez une nouvelle fois dans le bar. La serveuse (Tania) est assise à
+> nord
+Vous entrez une nouvelle fois dans le bar. La serveuse (Tania) est assise à
 une table, les yeux rivés sur un verre de Vodka posé sur cette même table.
 "Je parie que ce verre de Vodka est pour le poivrot de l'étage. J'en mettrais
 ma main au feu. Si je parviens à détourner l'attention de Tania, je pourrai
@@ -1602,37 +1805,44 @@ voir un téléphone sur lequel est inscrit "9002472832".
 "Le numéro qui est inscrit sur le téléphone est probablement le numéro de
 téléphone du bar."
 
->Vous décrochez le téléphone. Pour composer un numéro, tapez "composer" puis
+> regarder le téléphone
+Vous décrochez le téléphone. Pour composer un numéro, tapez "composer" puis
 le numéro que vous souhaitez composer; tapez "raccrocher" pour raccrocher le
 téléphone.
 "Le numéro qui est inscrit sur le téléphone est probablement le numéro de
 téléphone du bar."
 
->Vous composez le numéro du bar. Le barman décroche depuis la pièce voisine:
+> composer "9002472832"
+Vous composez le numéro du bar. Le barman décroche depuis la pièce voisine:
 "Allo?" faites-vous. "Vitali du Gagarine Paradise." répond le barman. "Tania
 est là? J'aimerais lui parler." dites-vous avec un accent russe. "De la part
 de qui?" demande le barman. Deux choix s'offrent à vous: tapez "père" pour
 vous faire passer pour le père de Tania; tapez "frère" pour vous faire passer
 pour son frère.
 
->"De la part de son frère. C'est très urgent." déclarez-vous. Vitali vous pose
+> frère
+"De la part de son frère. C'est très urgent." déclarez-vous. Vitali vous pose
 alors une question en russe. Tapez "tousser" pour détourner la question;
 tapez "da" pour répondre oui; tapez "je vais bien" pour dire au barman que
 vous allez bien.
 
->Vous toussez. Le barman vous pose une autre question en russe. Tapez
+> tousser
+Vous toussez. Le barman vous pose une autre question en russe. Tapez
 "tousser" pour tousser afin de détourner la question; tapez "da" pour
 répondre oui; tapez "je vais bien" pour dire à Vitali que vous allez bien.
 
->"Da" répondez-vous. "Très bien. Je te passe Tania." Tania rejoint alors
+> da
+"Da" répondez-vous. "Très bien. Je te passe Tania." Tania rejoint alors
 Vitali dans la pièce voisine (la pièce dans laquelle le barman prépare les
 ulla ulla). "Bingo! J'ai accès au verre de vodka." dites-vous à voix basse.
 
->(Your score has increased by 1)
+> vider le tube de somnifères dans le verre de vodka
+(Your score has increased by 1)
 Vous videz le tube de somnifères dans le verre de Vodka. "Bien joué Largo! Il
 ne reste plus qu'à rejoindre Simon." pensez-vous.
 
->Vous vous déplacez vers le Sud.
+> sud
+Vous vous déplacez vers le Sud.
 
 Dehors
 Vous sortez du bar. "Puisque je ne peux pas monter à l'étage par l'intérieur,
@@ -1641,24 +1851,29 @@ monter depuis l'extérieur." pensez-vous. L'entrée du bar se trouve au Nord.
 Vous pouvez longer le mur face auquel vous vous trouvez par l'Est ou par
 l'Ouest.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 Au pied de l'échelle
 Vous longez le mur par le côté Est. Vous arrivez au pied d'une échelle.
 "Génial! Cela ne pouvait pas mieux tomber." Tapez "monter" pour grimper à
 l'échelle.
 
->Vous empruntez de nouveau l'échelle. Vous entrez par la fenêtre ouverte. Vous
+> monter
+Vous empruntez de nouveau l'échelle. Vous entrez par la fenêtre ouverte. Vous
 tombez à pique pour admirer le spectacle! L'alcoolique boit son verre d'un
 trait puis s'écroule au sol. "A mon avis, il va faire une longue sieste!"
 remarquez-vous. A proximité du poivrot, vous pouvez voir un briquet et un
 pistolet. Une porte entrouverte se trouve au Nord.
 
->Vous ramassez le briquet.
+> prendre le briquet
+Vous ramassez le briquet.
 
->Vous ramassez le pistolet.
+> prendre le pistolet
+Vous ramassez le pistolet.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 La "salle du boss"
 Vous approchez lentement de la porte entrouverte afin d'écouter ce qu'il se
@@ -1673,17 +1888,20 @@ Aussi voici une bouteille de Vodka.
 "Je suis certain que pour ces mecs, l'argent est plus important que la vie
 d'un homme. Cela devrait jouer en ma faveur." pensez-vous.
 
->(Your score has increased by 1)
+> prendre la bouteille de vodka
+(Your score has increased by 1)
 Vous ramassez la bouteille de Vodka.
 "Je suis certain que pour ces mecs, l'argent est plus important que la vie
 d'un homme. Cela devrait jouer en ma faveur." pensez-vous.
 
->(Your score has increased by 1)
+> vider la bouteille sur la liasse de billets
+(Your score has increased by 1)
 Vous videz la bouteille de Vodka sur la liasse de billets.
 "Je suis certain que pour ces mecs, l'argent est plus important que la vie
 d'un homme. Cela devrait jouer en ma faveur." pensez-vous.
 
->(Your score has increased by 1)
+> allumer le briquet
+(Your score has increased by 1)
 Vous allumez le briquet en vous approchant des billets: "Tous ces beaux
 dollars imprégnés de Vodka... C'est pas prudent tout ça..." dites-vous en
 regardant le boss. "Tu es rusé américain. Tu sais bien que, pour nous,
@@ -1706,7 +1924,8 @@ Soudain, vous entendez des coups de feu. "C'est Vladimir!" "Donnes-moi ton
 pistolet Largo. Trois chargeurs ne seront pas de trop pour te couvrir." vous
 conseille Simon.
 
->(Your score has increased by 1)
+> donner le pistolet à Simon
+(Your score has increased by 1)
 Vous tendez votre pistolet à Simon: "Merci mon pote. Quoi qu'il arrive, je te
 couvre!" assure votre ami. Vous entrez, suivi de près par Simon. En face de
 vous, vous pouvez voir des grosses caisses en bois sur l'une desquelles est
@@ -1715,10 +1934,12 @@ posé un gros tonneau ainsi qu'une pelle délaissée à proximité de ces caisses.
 L'idéal serait de faire tomber ce tonneau mais je ne peux pas le déplacer à
 mains nues." pensez-vous.
 
->(Your score has increased by 1)
+> prendre la pelle
+(Your score has increased by 1)
 Vous ramassez la pelle.
 
->(Your score has increased by 1)
+> renverser le tonneau avec la pelle
+(Your score has increased by 1)
 A l'aide de la pelle, vous faites tomber le tonneau derrière les caisses,
 plus précisément sur le hacker. C'est alors que retentissent quelques coups
 de feu tirés par Vladimir et Simon. Le pirate sort alors de sa planque et
@@ -1728,14 +1949,18 @@ poussez la voiture bleue vers la nouvelle cachette du pirate. "Bien joué
 Largo! Il est coincé! Il ne te reste plus qu'à le neutraliser!" constate
 Simon. Par terre, vous pouvez voir une bouteille d'alcool et un chiffon.
 
->Vous ramassez la bouteille d'alcool.
+> prendre la bouteille d'alcool
+Vous ramassez la bouteille d'alcool.
 
->Vous prenez le chiffon.
+> prendre le chiffon
+Vous prenez le chiffon.
 
->(Your score has increased by 1)
+> combiner la bouteille d'alcool et le chiffon
+(Your score has increased by 1)
 Grâce à cette combinaison, vous obtenez un cocktail Molotov.
 
->(Your score has increased by 1)
+> jeter le cocktail molotov sur Vladimir
+(Your score has increased by 1)
 Vous jetez le cocktail Molotov à quelques centimètres de Vladimir. "Ne bouge
 plus!" ordonne Simon. Vous approchez de Vladimir: "Alors Vladimir; pourquoi
 as-tu piraté le réseau du groupe W?" demandez-vous. "C'était un jeu
@@ -1753,7 +1978,8 @@ nombreuses balles en direction de l'hélicoptère. Au bout de quelques
 instants, l'hélicoptère se pose et trois hommes en sortent, se précipitant
 vers vous. Tapez "combattre" pour débuter le combat.
 
->(Your score has increased by 1)
+> combattre
+(Your score has increased by 1)
 Vous êtes face aux trois tueurs. Deux d'entre eux (ennemis 1 et 2) ne
 possèdent aucune arme; le troisième (ennemi 3) est armé d'une massue. Tapez
 "coup de poing ennemi 1" pour donner un coup de poing à l'ennemi 1; tapez
@@ -1765,21 +1991,27 @@ lui donner un coup de pied. Vous ne possédez aucune arme. A la fin du combat,
 tapez "continuer" afin de poursuivre le jeu. Tapez "aide" pour obtenir de
 l'aide à propos de ce combat.
 
->Vous frappez violemment l'ennemi 1 d'un grand coup de pied dans le visage.
+> coup de pied ennemi 1
+Vous frappez violemment l'ennemi 1 d'un grand coup de pied dans le visage.
 
->Vous achevez l'ennemi 1 d'un ultime coup de pied.
+> coup de pied ennemi 1
+Vous achevez l'ennemi 1 d'un ultime coup de pied.
 
->Vous flanquez un coup de pied dans le ventre de l'ennemi 2.
+> coup de pied ennemi 2
+Vous flanquez un coup de pied dans le ventre de l'ennemi 2.
 
->Vous terrassez l'ennemi 2 d'un ultime coup de pied.
+> coup de pied ennemi 2
+Vous terrassez l'ennemi 2 d'un ultime coup de pied.
 
->Simon aperçoit une chaîne délaissée sur le sol. "Attends Largo! Je vais
+> coup de pied ennemi 3
+Simon aperçoit une chaîne délaissée sur le sol. "Attends Largo! Je vais
 t'aider!" assure votre ami. Simon se munit de la chaîne puis se jette sur
 l'ennemi 3. Grâce à la chaîne, votre ami "emprisonne" votre adversaire alors
 que vous le torturez en lui donnant de multiples coups de pieds. Vous frappez
 jusqu'à ce que l'ennemi ne réagisse plus.
 
->(Your score has increased by 1)
+> continuer
+(Your score has increased by 1)
 "Bon, fin de la conversation. On ne saura jamais pour qui Vladimir
 travaillait." déclare Simon. "Je n'ai pas dis mon dernier mot." assurez-vous
 en vous approchant du cadavre de Kostenko. Vous fouillez les poches de la
@@ -1796,17 +2028,20 @@ pour voir comment se porte Kerensky." répond Simon. Vous pénétrez dans le
 building. Vous vous trouvez à présent dans le hall d'accueil. Votre bureau
 est situé à l'Est; l'ascenseur se trouve au Nord.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 L'ascenseur
 Vous voilà dans l'ascenseur. Tapez "salle du bigboard" pour aller dans la
 salle du bigboard; tapez "central informatique" pour vous rendre au central
 informatique; tapez "accueil" pour retourner à l'accueil.
 
->Vous arrivez dans la salle du Bigboard. En fond de salle, vous pouvez voir
+> salle du bigboard
+Vous arrivez dans la salle du Bigboard. En fond de salle, vous pouvez voir
 John Sullivan. L'ascenseur se trouve au Sud.
 
->(Your score has increased by 1)
+> parler à John
+(Your score has increased by 1)
 Vous vous dirigez vers John: "Bonjour John." "Bonjour Largo. C'est bien que
 vous soyez là. Vous devez prendre une décision à propos de notre
 investissement dans la société MagnaGames." affirme Sullivan. "MagnaGames? La
@@ -1815,7 +2050,8 @@ Largo. Souhaitez-vous vous investir dans cette société?" Tapez "investir"
 pour vous investir dans la société MagnaGames; tapez "ne pas investir" pour
 ne pas vous investir.
 
->"Nous pouvons nous investir dans cette société John." déclarez-vous. "En
+> investir
+"Nous pouvons nous investir dans cette société John." déclarez-vous. "En
 êtes-vous sûr Largo?" "Oui John." "Bien. Au fait, votre voyage en Russie
 s'est-il bien passé?" questionne John. "C'était très instructif. A ce propos,
 puis-je vous poser une question?" demandez-vous. "Bien sûr Largo." "Nous
@@ -1831,17 +2067,20 @@ symbole." assure votre interlocuteur. "Où?" interrogez-vous. "Sur un tableau
 situé dans le bureau de Nerio, enfin votre bureau." "Quoi? Merci John. Je
 vais voir ça immédiatement." L'ascenseur se trouve au Sud.
 
->Vous vous déplacez vers le Sud.
+> sud
+Vous vous déplacez vers le Sud.
 
 L'ascenseur
 Vous voilà dans l'ascenseur. Tapez "salle du bigboard" pour aller dans la
 salle du bigboard; tapez "central informatique" pour vous rendre au central
 informatique; tapez "accueil" pour retourner à l'accueil.
 
->Vous revoilà à l'accueil. Votre bureau est situé à l'Est; l'ascenseur se
+> accueil
+Vous revoilà à l'accueil. Votre bureau est situé à l'Est; l'ascenseur se
 trouve au Nord.
 
->Vous êtes agréablement surpris en entrant dans votre bureau car la belle
+> est
+Vous êtes agréablement surpris en entrant dans votre bureau car la belle
 Sharon est là, assise sur le canapé. "Bonjour Sharon." "Bonjour Largo."
 répond votre compagne. "Tu vas bien?" "Oui ça va. Alors, comment s'est passé
 ton voyage en Russie? D'après Simon, les jeunes femmes ne vous ont pas fait
@@ -1858,7 +2097,8 @@ une bibliothèque et votre ordinateur qui est posé sur le bureau. Un tableau
 sur lequel est collée une photo de votre père est accroché au mur, à côté de
 la bibliothèque.
 
->(Your score has increased by 1)
+> regarder le tableau
+(Your score has increased by 1)
 Vous vous approchez du tableau. Sous la photo de votre père, vous découvrez
 un symbole d'oiseau, le même que celui qui est gravé sur la bague. Tout en
 haut du tableau, il est écrit "Nerio Winch, l'homme de Sarjevane." Sarjevane
@@ -1878,37 +2118,46 @@ pouvez voir une caisse à outils; une armoire électrique est installée au
 Nord, à proximité d'une grande grille fermée; une flèche métallique ainsi
 qu'une bague métallique se trouvent par terre, non loin de vous.
 
->(Your score has increased by 1)
+> ouvrir la caisse à outils
+(Your score has increased by 1)
 Un marteau se trouve dans la caisse à outils.
 
->(Your score has increased by 1)
+> prendre le marteau
+(Your score has increased by 1)
 Vous prenez le marteau.
 
->Vous ramassez la flèche métallique.
+> prendre la flèche métallique
+Vous ramassez la flèche métallique.
 
->Vous ramassez la bague métallique.
+> prendre la bague métallique
+Vous ramassez la bague métallique.
 
->(Your score has increased by 1)
+> forcer l'armoire électrique avec la flèche métallique
+(Your score has increased by 1)
 Vous forcez l'armoire électrique à l'aide de la flèche métallique. Vous
 remarquez qu'il manque un fusible dans cette armoire. "En plaçant un objet
 relativement plat à l'emplacement du fusible manquant, je devrais parvenir à
 faire réagir le système." pensez-vous.
 
->(Your score has increased by 1)
+> combiner le marteau et la bague métallique
+(Your score has increased by 1)
 Vous aplatissez la bague métallique à l'aide du marteau.
 
->(Your score has increased by 1)
+> insérer la bague métallique plate dans l'armoire électrique
+(Your score has increased by 1)
 Vous placez la bague métallique plate dans l'armoire électrique, à
 l'emplacement du fusible manquant. Grâce à cette nouvelle réussite de votre
 part, la grande grille s'ouvre. Vous pouvez à présent vous déplacer vers le
 Nord.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 La cour
 Vous arrivez dans une petite cour. Des escaliers se trouvent au Nord.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 La salle d'échec
 Vous montez les escaliers puis vous franchissez une double porte en bois.
@@ -1917,7 +2166,8 @@ un grand échiquier. "Le bureau de mon père ne doit pas être loin."
 pensez-vous. Une porte ouverte se trouve au Nord; les escaliers permettant de
 regagner la cour sont situés au Sud.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 Le bureau de Nerio
 Vous voilà enfin dans le bureau de votre défunt père. Vous pouvez voir un
@@ -1928,7 +2178,8 @@ secrète, elle n'est pas vraiment bien cachée!" remarquez-vous. Vous relisez
 l'inscription se trouvant sur la porte: "Danger de mort? Je reconnais bien
 mon père!" dites-vous.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 La salle secrète
 Vous voilà dans la salle secrète! Il s'agit d'une petite pièce carrée. Vous
@@ -1944,7 +2195,8 @@ Tapez "dalle inscription" pour inspecter la dalle sur laquelle vous apercevez
 une inscription; tapez "dalle photo" pour vous intéresser à celle contenant
 la photo de Nerio.
 
->(Your score has increased by 1)
+> dalle inscription
+(Your score has increased by 1)
 Vous vous penchez sur la dalle dans le but de déchiffrer l'inscription. Vous
 parvenez à lire un mot: AXIO. "AXIO? Qu'est-ce que cela signifie? S'agit-il
 d'un mot de passe? d'un nom code? Sullivan a travaillé pendant 30 ans pour
@@ -1957,7 +2209,8 @@ je vois Sullivan." pensez-vous. A présent, vous vous trouvez au
 rez-de-chaussée du building W. Votre bureau se trouve à l'Est; l'ascenseur
 est situé au Nord.
 
->Vous entrez dans votre bureau. Une fois de plus, Sharon vous attend, assise
+> est
+Vous entrez dans votre bureau. Une fois de plus, Sharon vous attend, assise
 sur le canapé: "Ah te revoilà toi!" s'exclame Sharon en vous regardant. "Que
 fais-tu ici Sharon?" demandez-vous. "Que pourrais-je bien faire dans ton
 bureau à part t'attendre?" "Sharon! Ce n'est pas le moment." "Evidemment, ce
@@ -1975,20 +2228,24 @@ constatez que votre boîte e-mail est saturée de messages d'insultes et de
 menaces à votre égard. "Qu'est-ce que c'est que ça? Il faut vraiment que je
 vois Sullivan." pensez-vous. La sortie se trouve à l'Ouest.
 
->Vous revoilà dans le hall d'accueil. Votre bureau se trouve à l'Est;
+> ouest
+Vous revoilà dans le hall d'accueil. Votre bureau se trouve à l'Est;
 l'ascenseur est situé au Nord.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 L'ascenseur
 Vous voilà dans l'ascenseur. Tapez "salle du bigboard" pour aller dans la
 salle du bigboard; tapez "central informatique" pour vous rendre au central
 informatique; tapez "accueil" pour retourner à l'accueil.
 
->Vous arrivez dans la salle du Bigboard. En fond de salle, vous pouvez voir
+> salle du bigboard
+Vous arrivez dans la salle du Bigboard. En fond de salle, vous pouvez voir
 John Sullivan. L'ascenseur se trouve au Sud.
 
->(Your score has increased by 1)
+> parler à John
+(Your score has increased by 1)
 Vous vous approchez de John Sullivan: "Bonjour John." dites-vous. "Dieu
 merci! Vous êtes là! On a un énorme problème!" s'exclame John. "Que se
 passe-t-il John?" "Cela concerne Simon et Joy." "Simon et Joy?" dites-vous
@@ -2034,7 +2291,8 @@ vous tournez vers Sullivan: "Nous devrons discuter à mon retour John."
 "D'accord Largo. Bonne chance et soyez prudent." L'ascenseur se trouve au
 Sud.
 
->(Your score has increased by 1)
+> sud
+(Your score has increased by 1)
 Vous entrez dans l'ascenseur puis vous descendez jusqu'à l'accueil. En
 sortant de l'ascenseur, vous tombez nez à nez avec Sharon. Vous prenez votre
 compagne dans vos bras puis vous l'embrassez. "Bonjour Sharon. Je te prie de
@@ -2059,7 +2317,8 @@ interlocuteur vous raccroche au nez. "Bande de salopards! Je vais vous
 montrer à quel point je me mets en colère lorsqu'on s'attaque à mes amis!"
 hurlez-vous. L'entrée de l'hôtel se trouve au Nord.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 A l'accueil de l'hôtel
 Vous êtes à présent à l'accueil de l'hôtel W Hospitality. Il s'agit d'un
@@ -2067,7 +2326,8 @@ grand hall. Vous pouvez voir deux ascenseurs situés à l'Est et à l'Ouest; une
 secrétaire est assise derrière un comptoir se trouvant au Nord; la sortie se
 trouve au Sud.
 
->(Your score has increased by 1)
+> parler à la secrétaire
+(Your score has increased by 1)
 Vous vous approchez du comptoir: "Bonjour." dites-vous. "Bonjour. Que puis-je
 faire pour vous?" demande la secrétaire. "Je suis Largo Winch, le PDG du
 groupe W. J'aurais besoin d'accéder à la chambre 208." dites-vous. La
@@ -2078,7 +2338,8 @@ La chambre 208 se trouve au bout du couloir." dit la secrétaire. "Merci
 beaucoup." répondez-vous en prenant le badge. L'ascenseur de droite est situé
 à l'Est; celui de gauche se trouve à l'Ouest.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 L'ascenseur de droite
 Vous vous trouvez à présent dans l'ascenseur de droite. Tapez "premier étage"
@@ -2086,56 +2347,67 @@ pour vous rendre au premier étage; tapez "deuxième étage" pour monter au
 deuxième; tapez "troisième étage pour monter jusqu'au troisième étage; tapez
 "accueil" pour vous rendre à l'accueil de l'hôtel.
 
->Vous montez jusqu'au deuxième étage. A votre sortie de l'ascenseur, vous
+> deuxième étage
+Vous montez jusqu'au deuxième étage. A votre sortie de l'ascenseur, vous
 arrivez dans une petite salle dans laquelle se trouvent quelques chaises. Le
 couloir se trouve à l'Est.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 200
 Vous êtes devant la porte de la chambre 200 qui est fermée.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 201
 Vous êtes devant la porte de la chambre 201 qui est fermée.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 202
 Vous êtes devant la porte de la chambre 202 qui est fermée.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 203
 Vous êtes devant la porte de la chambre 203 qui est fermée.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 204
 Vous êtes devant la perte de la chambre 204 qui est fermée.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 205
 Vous êtes devant la porte de la chambre 205 qui est fermée.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 206
 Vous êtes devant la porte de la chambre 206 qui est fermée.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 207
 Vous êtes devant la porte de la chambre 207 qui est fermée.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 208
 Vous êtes devant la porte de la chambre 208 qui est fermée.
 
->(Your score has increased by 1)
+> utiliser le badge
+(Your score has increased by 1)
 Vous ouvrez la porte de la chambre à l'aide du badge puis vous entrez. Vous
 découvrez, avec horreur, un homme gisant sur le sol. Vous ne tardez pas à
 reconnaître cet homme. Il s'agit de Michel Cardiniac, le président du conseil
@@ -2171,7 +2443,8 @@ vous suivez le couloir vers l'Ouest, en direction de l'ascenseur. Vous
 arrivez donc dans la petite salle dans laquelle se trouvent quelques chaises.
 L'ascenseur se trouve au Sud.
 
->Vous vous déplacez vers le Sud.
+> sud
+Vous vous déplacez vers le Sud.
 
 L'ascenseur de droite
 Vous vous trouvez à présent dans l'ascenseur de droite. Tapez "premier étage"
@@ -2179,57 +2452,68 @@ pour vous rendre au premier étage; tapez "deuxième étage" pour monter au
 deuxième; tapez "troisième étage pour monter jusqu'au troisième étage; tapez
 "accueil" pour vous rendre à l'accueil de l'hôtel.
 
->Vous vous rendez au premier étage. A votre sortie de l'ascenseur, vous vous
+> premier étage
+Vous vous rendez au premier étage. A votre sortie de l'ascenseur, vous vous
 trouvez dans une petite salle identique à celle du deuxième étage. Le couloir
 se trouve à l'Est.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 100
 Vous êtes devant la porte de la chambre 100 qui est fermée.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 101
 Vous vous trouvez à présent devant la porte de la chambre 101 qui est, une
 fois de plus, fermée.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 102
 Vous êtes devant devant la porte de la chambre 102. Celle-ci est fermée.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 103
 Vous êtes devant la porte de la chambre 103 qui est fermée.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 104
 Vous êtes devant la porte de la chambre 104 qui est fermée.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 105
 Vous êtes à présent devant la porte de la chambre 105. Celle-ci est fermée.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 106
 Vous voilà devant la porte de la chambre 106 qui est fermée.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 107
 Vous êtes devant la porte de la chambre 107. Celle-ci est fermée.
 
->Vous vous déplacez vers l'Est.
+> est
+Vous vous déplacez vers l'Est.
 
 108
 Vous vous trouvez devant la porte de la chambre 108. Celle-ci est fermée.
 
->(Your score has increased by 1)
+> utiliser le badge
+(Your score has increased by 1)
 Vous ouvrez la porte de la chambre à l'aide du badge. En entrant dans la
 pièce, vous apercevez Simon et Joy, tous deux ligotés: "Dieu soit loué vous
 êtes là!" vous exclamez-vous. "Largo? Je n'ai jamais été aussi heureux de te
@@ -2242,7 +2526,8 @@ sortent des couteaux. "Es-tu prêts à relever le défi Winch?" demande l'un des
 truands. "Plutôt deux fois qu'une!" répondez-vous avec assurance. Tapez
 "combattre" pour débuter le combat.
 
->(Your score has increased by 1)
+> combattre
+(Your score has increased by 1)
 Vous êtes donc face aux trois hommes, tous trois armés de couteaux. Votre
 premier réflexe est de vous saisir de l'extincteur accroché au mur, juste à
 côté de la porte de la chambre. Vous avez ainsi la possibilité d'utiliser cet
@@ -2259,32 +2544,41 @@ pied ennemi 2" pour le frapper d'un coup de pied; tapez "coup de poing ennemi
 ennemi 3" pour tenter de le blesser d'un coup de pied. A la fin du combat,
 tapez "continuer" pour poursuivre le jeu.
 
->Vous frappez violemment l'ennemi 1 d'un grand coup de pied dans le ventre.
+> coup de pied ennemi 1
+Vous frappez violemment l'ennemi 1 d'un grand coup de pied dans le ventre.
 Celui-ci tente de vous poignarder mais en vain.
 
->Vous achevez l'ennemi 1 en le frappant au visage d'un ultime coup de pied.
+> coup de pied ennemi 1
+Vous achevez l'ennemi 1 en le frappant au visage d'un ultime coup de pied.
 "Un de moins!" dites-vous.
 
->Vous frappez violemment l'ennemi 2 d'un grand coup de poing au visage.
+> coup de poing ennemi 2
+Vous frappez violemment l'ennemi 2 d'un grand coup de poing au visage.
 Celui-ci tente de vous blesser d'un coup de couteau mais en vain.
 
->Vous frappez une nouvelle fois l'ennemi 2 d'un coup de poing. Visiblement,
+> coup de poing ennemi 2
+Vous frappez une nouvelle fois l'ennemi 2 d'un coup de poing. Visiblement,
 cet homme ne résistera plus longtemps. Cet individu parvient tout de même à
 vous blesser à l'aide de son couteau.
 
->Vous achevez l'ennemi 2 d'un ultime coup de poing. "Un de moins!"
+> coup de poing ennemi 2
+Vous achevez l'ennemi 2 d'un ultime coup de poing. "Un de moins!"
 pensez-vous.
 
->Vous frappez violemment l'ennemi 3 d'un coup de pied. Celui-ci tente de vous
+> coup de pied ennemi 3
+Vous frappez violemment l'ennemi 3 d'un coup de pied. Celui-ci tente de vous
 blesser à l'aide de son couteau mais en vain.
 
->Vous frappez une nouvelle fois l'ennemi 3 d'un coup de pied. Celui-ci
+> coup de pied ennemi 3
+Vous frappez une nouvelle fois l'ennemi 3 d'un coup de pied. Celui-ci
 parvient à vous blesser légèrement.
 
->Vous terrassez l'ennemi 3 d'un ultime coup de pied. "Fais dodo mon gars! Un
+> coup de pied ennemi 3
+Vous terrassez l'ennemi 3 d'un ultime coup de pied. "Fais dodo mon gars! Un
 de moins!" dites-vous.
 
->(Your score has increased by 1)
+> continuer
+(Your score has increased by 1)
 Vous vous dirigez vers Joy: "Cette fois, c'est bel et bien terminé pour ces
 salopards de truands! Je vais vous libérer!" assurez-vous. Vous détachez Joy
 ainsi que Simon. "Merci beaucoup Largo. Sans toi, nous serions peut-être
@@ -2304,54 +2598,64 @@ pas, j'aimerais y aller." déclare Joy. "Ok. Suivez-moi." dites-vous. Vous
 sortez de la chambre en compagnie de vos deux amis. Le couloir se trouve à
 l'Ouest.
 
->Vous vous déplacez vers l'Ouest.
+> ouest
+Vous vous déplacez vers l'Ouest.
 
 107
 Vous êtes devant la porte de la chambre 107. Celle-ci est fermée.
 
->Vous vous déplacez vers l'Ouest.
+> ouest
+Vous vous déplacez vers l'Ouest.
 
 106
 Vous voilà devant la porte de la chambre 106 qui est fermée.
 
->Vous vous déplacez vers l'Ouest.
+> ouest
+Vous vous déplacez vers l'Ouest.
 
 105
 Vous êtes à présent devant la porte de la chambre 105. Celle-ci est fermée.
 
->Vous vous déplacez vers l'Ouest.
+> ouest
+Vous vous déplacez vers l'Ouest.
 
 104
 Vous êtes devant la porte de la chambre 104 qui est fermée.
 
->Vous vous déplacez vers l'Ouest.
+> ouest
+Vous vous déplacez vers l'Ouest.
 
 103
 Vous êtes devant la porte de la chambre 103 qui est fermée.
 
->Vous vous déplacez vers l'Ouest.
+> ouest
+Vous vous déplacez vers l'Ouest.
 
 102
 Vous êtes devant devant la porte de la chambre 102. Celle-ci est fermée.
 
->Vous vous déplacez vers l'Ouest.
+> ouest
+Vous vous déplacez vers l'Ouest.
 
 101
 Vous vous trouvez à présent devant la porte de la chambre 101 qui est, une
 fois de plus, fermée.
 
->Vous vous déplacez vers l'Ouest.
+> ouest
+Vous vous déplacez vers l'Ouest.
 
 100
 Vous êtes devant la porte de la chambre 100 qui est fermée.
 
->Vous vous déplacez vers l'Ouest.
+> ouest
+Vous vous déplacez vers l'Ouest.
 
 Au premier étage
 Vous êtes au premier étage de l'hôtel. Le couloir se trouve à l'Est;
 l'ascenseur est situé au Sud.
 
->Vous vous déplacez vers le Sud.
+> sud
+Vous vous déplacez vers le Sud.
 
 L'ascenseur de droite
 Vous vous trouvez à présent dans l'ascenseur de droite. Tapez "premier étage"
@@ -2359,15 +2663,18 @@ pour vous rendre au premier étage; tapez "deuxième étage" pour monter au
 deuxième; tapez "troisième étage pour monter jusqu'au troisième étage; tapez
 "accueil" pour vous rendre à l'accueil de l'hôtel.
 
->Vous revoilà à l'accueil de l'hôtel. Les deux ascenseurs se trouvent à l'Est
+> accueil
+Vous revoilà à l'accueil de l'hôtel. Les deux ascenseurs se trouvent à l'Est
 et à l'Ouest; la sortie est située au Sud.
 
->(Your score has increased by 1)
+> sud
+(Your score has increased by 1)
 Vous sortez de l'hôtel en compagnie de vos deux amis puis vous vous rendez au
 building W. Vous arrivez alors au rez-de-chaussée. Votre bureau est situé à
 l'Est; l'ascenseur se trouve au Nord.
 
->"Attendez-moi ici, je vais consulter mes e-mails." dites-vous à vos amis.
+> est
+"Attendez-moi ici, je vais consulter mes e-mails." dites-vous à vos amis.
 Vous entreo dans votre bureau. A votre grande surprise, vous y trouvez
 Kerensky. Celui-ci est assis à votre bureau et pianote sur votre ordinateur:
 "Yorgi? Que fais-tu ici?" demandez-vous. "Salut Largo. Pardonnes-moi si j'ai
@@ -2396,14 +2703,16 @@ continuer à travailler sur cette histoire d'e-mails et je te tiens au
 courant." répond Kerensky. "D'accord Yorgi. A plus tard." Vous sortez de
 votre bureau, suivi par Simon et Joy. L'ascenseur se trouve au Nord.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 L'ascenseur
 Vous voilà dans l'ascenseur. Tapez "salle du bigboard" pour aller dans la
 salle du bigboard; tapez "central informatique" pour vous rendre au central
 informatique; tapez "accueil" pour retourner à l'accueil.
 
->(Your score has increased by 1)
+> salle du bigboard
+(Your score has increased by 1)
 Vous arrivez dans la salle du bigboard en compagnie de vos deux amis. John
 Sullivan se précipite vers vous: "John? Je vous ramène du renfort!"
 dites-vous en riant. "Simon? Joy? Quel bonheur de vous revoir! Vous avez donc
@@ -2471,15 +2780,18 @@ Cette criminelle parlait de Sharon!" "Oh non!" s'exclame John. "Appelez du
 renfort John! Je vais chez Sharon!" déclarez-vous. L'ascenseur se trouve au
 Sud.
 
->Vous entrez dans l'ascenseur. Tapez "salle du bigboard" pour vous rendre à la
+> sud
+Vous entrez dans l'ascenseur. Tapez "salle du bigboard" pour vous rendre à la
 salle du bigboard; tapez "central informatique" pour aller au central
 informatique; tapez "accueil" pour vous rendre à l'accueil.
 
->Vous descendez au rez-de-chaussée puis vous quittez le building, en direction
+> accueil
+Vous descendez au rez-de-chaussée puis vous quittez le building, en direction
 de l'appartement de Sharon. Vous êtes à présent devant l'appartement de votre
 compagne. L'entrée se trouve au Nord.
 
->(Your score has increased by 1)
+> nord
+(Your score has increased by 1)
 Vous frappez à la porte de l'appartement. Sharon ne venant pas vous ouvrir,
 vous prenez l'initiative d'entrer. Horrifié, vous trouvez Sharon, étendue
 dans le salon. Vous remarquez que votre compagne a subi le même sort que
@@ -2559,16 +2871,19 @@ matière de combat. Je n'ai même pas besoin de mon arme!" s'écrie Jenny. Votre
 adversaire jette violemment son fusil derrière elle. Le fusil heurte une
 fenêtre qui se brise sous le choc. Tapez "combattre" pour débuter le combat.
 
->(Your score has increased by 1)
+> combattre
+(Your score has increased by 1)
 Vous êtes donc face à Helena Dekovar et vous ne possédez aucune arme. C'est
 donc à vous de frapper votre adversaire afin de l'immobiliser et de permettre
 à Rex et à son maître d'intervenir. Tapez "coup de poing" pour frapper Helena
 d'un coup de poing; tapez "coup de pied" pour la frapper d'un coup de pied.
 
->Vous frappez violemment Jenny d'un coup de pied au visage. Celle-ci parvient
+> coup de pied
+Vous frappez violemment Jenny d'un coup de pied au visage. Celle-ci parvient
 à vous blesser légèrement au visage, d'un coup de poing.
 
->Vous frappez votre adversaire d'un ultime coup de pied dans le ventre.
+> coup de pied
+Vous frappez votre adversaire d'un ultime coup de pied dans le ventre.
 Celle-ci s'écroule à terre. Rex et Brandtner pénètrent alors dans
 l'appartement. Le jeune commissaire sort ses menottes puis se dirige vers
 Helena: "Helena Dekovar, vous êtes en état d'arrestation. Tout ce que vous
@@ -2585,7 +2900,8 @@ dit Alex. Le commissaire sort de l'appartement, suivi par Rex et les
 ambulanciers. Vous êtes désormais seul dans l'appartement. La sortie se
 trouve au Sud.
 
->(Your score has increased by 1)
+> sud
+(Your score has increased by 1)
 Vous sortez de l'appartement. Alex et Rex attendent à quelques mètres de
 l'entrée. Vous vous dirigez vers eux. "Je suis désolé Largo." déclare Alex.
 "Pas autant que moi. Tu sais, Sharon était vraiment une fille géniale.
@@ -2621,16 +2937,19 @@ l'affaire du cargot. Je t'appelle dès que j'ai du nouveau." "Ok merci Alex."
 au rez-de-chaussée du building W. Votre bureau est situé à l'Est; l'ascenseur
 se trouve au Nord.
 
->Vous vous déplacez vers le Nord.
+> nord
+Vous vous déplacez vers le Nord.
 
 L'ascenseur
 Vous voilà dans l'ascenseur. Tapez "salle du bigboard" pour aller dans la
 salle du bigboard; tapez "central informatique" pour vous rendre au central
 informatique; tapez "accueil" pour retourner à l'accueil.
 
->Vous vous rendez dans la salle du bigboard. Vous pouvez voir John Sullivan.
+> salle du bigboard
+Vous vous rendez dans la salle du bigboard. Vous pouvez voir John Sullivan.
 
->Vous vous approchez de Sullivan: "Bonjour John." "Bonjour Largo. Alex
+> parler à john
+Vous vous approchez de Sullivan: "Bonjour John." "Bonjour Largo. Alex
 Brandtner m'a dit pour Sharon. Sachez que nous sommes tous avec vous."
 affirme Sullivan. "Merci John." "D'après Brandtner, vous êtes enfin parvenu à
 tirer cette affaire au clair." "C'est le cas." "Avez-vous démasqué le ou les
@@ -2648,11 +2967,13 @@ ce cargot sera bientôt de l'histoire ancienne. Prévenez-moi si vous avez du
 nouveau. Je dois vous laisser John. Je vais aller voir Joy." "Ok Largo. A
 plus tard." L'ascenseur se trouve au Sud.
 
->Vous entrez dans l'ascenseur. Tapez "salle du bigboard" pour vous rendre à la
+> sud
+Vous entrez dans l'ascenseur. Tapez "salle du bigboard" pour vous rendre à la
 salle du bigboard; tapez "central informatique" pour aller au central
 informatique; tapez "accueil" pour vous rendre à l'accueil.
 
->(Your score has increased by 1)
+> central informatique
+(Your score has increased by 1)
 Vous arrivez au central informatique. Joy est installée devant un ordinateur.
 Lorsqu'elle vous aperçoit, cette jeune femme se lève puis se hâte vers vous:
 "Tu es enfin de retour!" s'exclame Joy. "Et oui Joy! Tu voulais me voir?"
@@ -2701,14 +3022,16 @@ salle du bigboard de toute urgence." déclarez-vous. "Je viens avec toi. Tu
 auras peut-être besoin de moi." affirme Joy. "Ok Joy. Allons-y." L'ascenseur
 se trouve au Sud. Joy est à vos côtés.
 
->Vous vous déplacez vers le Sud.
+> sud
+Vous vous déplacez vers le Sud.
 
 L'ascenseur
 Vous entrez dans l'ascenseur. Tapez "salle du bigboard" pour aller dans la
 salle du bigboard; tapez "central informatique" pour vous rendre au central
 informatique; tapez "rez-de-chaussée" pour retourner au rez-de-chaussée.
 
->(Your score has increased by 1)
+> salle du bigboard
+(Your score has increased by 1)
 Vous vous rendez en salle du bigboard en compagnie de Joy. Dès l'ouverture de
 l'ascenseur, vous entendez des applaudissements: l'ensemble du personnel du
 groupe W s'est réuni dans la salle du bigboard, afin de vous accueillir comme

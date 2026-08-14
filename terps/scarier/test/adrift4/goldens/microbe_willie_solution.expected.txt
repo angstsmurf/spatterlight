@@ -16,79 +16,94 @@ just infested via its mouth. This is your story...
 Mouth
 You see a tongue and razor sharp teeth.
 
->(Your score has increased by 1)
+> get cheese
+(Your score has increased by 1)
 You now have the cheese.
 
->You move south.
+> s
+You move south.
 
 Stomach
 You are swimming in a vat of gastric juices. The smell is horrid, but
 thankfully, you can't smell.
 
->(Your score has increased by 1)
+> get worm
+(Your score has increased by 1)
 You now have the worm.
 
->You move east.
+> e
+You move east.
 
 Lungs
 The howling winds here would certainly ruffle your hair... if you had any.
 
 Also here is a alveoli.
 
->(Your score has increased by 1)
+> get alveoli
+(Your score has increased by 1)
 You now have the alveoli.
 
->You move west.
+> w
+You move west.
 
 Stomach
 You are swimming in a vat of gastric juices. The smell is horrid, but
 thankfully, you can't smell.
 
->You move south.
+> s
+You move south.
 
 Intestines
 Looks rather clean. Not much to see other than the lining.
 
->Kidneys
+> e
+Kidneys
 This is where all the bad stuff in an animal is filtered and cleansed -- such
 as you! You're in big trouble since as you entered, the opening behind you
 closed. Who knows who long you have to live in here?
 
 Cynthia is here.
 
->(Your score has increased by 1)
+> open alveoli
+(Your score has increased by 1)
 After opening the sac of air, the kidney expands, making a big enough opening
 back into the intestines, but who knows how long it will last! You discard
 the alveoli since it's now useless.
 
->(Your score has increased by 1)
+> talk to cynthia
+(Your score has increased by 1)
 "I'm afraid I haven't much longer in here to live. So here. Please take this
 so at least someone can remember me... if only for a couple minutes
 themselves." She hands you a virus and dies.
 
->You move west.
+> w
+You move west.
 
 Intestines
 Looks rather clean. Not much to see other than the lining.
 
->You move north.
+> n
+You move north.
 
 Stomach
 You are swimming in a vat of gastric juices. The smell is horrid, but
 thankfully, you can't smell.
 
->You move east.
+> e
+You move east.
 
 Lungs
 The howling winds here would certainly ruffle your hair... if you had any.
 
->You move north.
+> n
+You move north.
 
 Heart
 It's like an earthquake with ventricles and atriums all pushing blood around
 via their valves.
 
->You move north.
+> n
+You move north.
 
 Brain
 This is a hub of the rat. You can't help but notice how small it is. An open
@@ -96,12 +111,14 @@ synaptic nerve sits to one side.
 
 White Blood Cell is here.
 
->(Your score has increased by 1)
+> give virus to white blood cell
+(Your score has increased by 1)
 No sooner do you release the virus, than the White Blood Cell yells,
 "Intruder!" The virus's eyes widen as it takes off, with the White Blood Cell
 in hot pursuit.
 
->(Your score has increased by 1)
+> put cheese in nerve
+(Your score has increased by 1)
 
 No sooner do you place the piece of cheese into the synaptic nerve, than an
 immediate convulsion begins to take place. You giggle with delight as you

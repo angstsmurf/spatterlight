@@ -42,7 +42,9 @@ E-Mail Me at MrTencza@aol.com! I'd love to hear suggestions and/or comments.
 PRESS ANY KEY TO BEGIN THE ADVENTURE!
 
 Please enter your name:
+
 >
+
 In a busy street
 This is a busy street. You see the crowd here buzzing buy, murmuring to
 itself and buying things. There's a street lamp on the side of the road, and
@@ -56,8 +58,11 @@ talking.
 There are exits north, east, south and west.
 
 >
+
 >
->You move east.
+
+> e
+You move east.
 
 Inside Hartho's Golden Tavern
 This is a brightly lit tavern. People are jammed in here, and Harthro is
@@ -70,32 +75,40 @@ overall sense of loud peace.
 
 There is an exit west.
 
->You ask the store owner for some change. The owner agrees. You hand the owner
+> change a dollar into cents
+You ask the store owner for some change. The owner agrees. You hand the owner
 a dollar coin and they give you 100 cents. You have $499 and 100 cents.
 
->You holler out for a coffee in the loud, rambunctious tavern. Harthro hears
+> buy a coffee
+You holler out for a coffee in the loud, rambunctious tavern. Harthro hears
 your call and slides you down a warm coffee. You put down the money you've
 been charged ($1.50). You have $498 and 50 cents.
 
->You take the mug of coffee from the bar.
+> take the mug of coffee
+You take the mug of coffee from the bar.
 
->You tip the cup back and take a medium-sized gulp of the coffee. There is 85
+> gulp the coffee
+You tip the cup back and take a medium-sized gulp of the coffee. There is 85
 percent of the coffee left.
 
->You take a small sip from the mug of coffee.
+> sip the coffee
+You take a small sip from the mug of coffee.
 Harthro booms, "Where's all the dirty dishes? C'mon! They gotta get cleaned!"
 
->You yell out to Harthro that you'd like to order his best steak for 8
+> buy a steak
+You yell out to Harthro that you'd like to order his best steak for 8
 dollars. He slides down your plate, a few minutes later, and you pay the
 money. You have $490 and 50 cents.
 A few people leave the tavern together.
 Some drunken fool falls down, almost knocking over a table. A roar of
 laughter rises through the taver
 
->You take a decent bite out of the steak. It tastes delicious. Another
+> take a bite out of the steak
+You take a decent bite out of the steak. It tastes delicious. Another
 masterpiece from Harthro's grill.
 
->You move west.
+> w
+You move west.
 
 In a busy street
 This is a busy street. You see the crowd here buzzing buy, murmuring to
@@ -110,7 +123,8 @@ talking.
 
 You can move north, east, south and west.
 
->You move west.
+> w
+You move west.
 
 In Golapho's Armor
 You are in Golapho's Armor shop. There is a item sign here.
@@ -119,18 +133,22 @@ Golapho is here.
 
 You can only move east.
 
->You ask Golapho for the bronze helmet. He puts his book down, and with a
+> buy a bronze helmet
+You ask Golapho for the bronze helmet. He puts his book down, and with a
 grumble, gives you the helmet. He takes $24 from you. You have $466 and 50
 cents.
 
->You count out $90 to buy the armor. You mutter to Golapho that you'd like to
+> buy rawhide armor
+You count out $90 to buy the armor. You mutter to Golapho that you'd like to
 buy it. He mutters under his breath and reaches down, throws the armor to
 you, and takes the money, all without leaving his seat. You have $376 and 50
 cents.
 
->You put on the rawhide armor.
+> wear the rawhide armor
+You put on the rawhide armor.
 
->You move east.
+> e
+You move east.
 
 In a busy street
 This is a busy street. You see the crowd here buzzing buy, murmuring to
@@ -145,7 +163,8 @@ talking.
 
 You can move north, east, south and west.
 
->You move south.
+> s
+You move south.
 
 At Poel's Plaza
 This is a small plaza of shops and stalls. It was named after the first
@@ -155,7 +174,8 @@ the west is a road.
 
 You can move north, east, south, west and southeast.
 
->You move south.
+> s
+You move south.
 
 In Calado's Metal Works
 This is shop where you can buy metal items, such as swords, shields, and
@@ -166,13 +186,16 @@ Calado is here.
 
 You can only move north.
 
->You give $80 to Calado and ask for the hunting sword. He grins and hands you
+> buy a hunting sword
+You give $80 to Calado and ask for the hunting sword. He grins and hands you
 the sword. "Happy huntin!" He says, assuming that's why you're buying the
 sword. You have $296 and 50 cents.
 
->You wield the hunting sword.
+> wield the hunting sword
+You wield the hunting sword.
 
->You move north.
+> n
+You move north.
 
 At Poel's Plaza
 This is a small plaza of shops and stalls. It was named after the first
@@ -182,7 +205,8 @@ the west is a road.
 
 You can move north, east, south, west and southeast.
 
->You move southeast.
+> se
+You move southeast.
 
 In Gralle's Inn
 This is Gralle's Inn, the place for newcomers to stay. Gralle is the young
@@ -193,11 +217,13 @@ Gralle is here.
 
 You can only move northwest.
 
->You count out $50 and hand it to Gralle. She smiles and points to your room.
+> rent a room
+You count out $50 and hand it to Gralle. She smiles and points to your room.
 You now have $246 and 50 cents.
 You have 24 hours left at your room in Gralle's Inn.
 
->You move in.
+> in
+You move in.
 
 In a room at Gralle's Inn
 This is a small room, with a table, a chair, and a bed.  You currently have
@@ -205,13 +231,16 @@ room rented at Gralle's Inn.
 
 You can only move out.
 
->You lie down on the bed.
+> lie on the bed
+You lie down on the bed.
 
->You begin to take a short nap... You fall asleep...
+> nap on the bed
+You begin to take a short nap... You fall asleep...
 
 You feel a little better, after taking the nap.
 
->(Getting off the bed first)
+> out
+(Getting off the bed first)
 You move out.
 
 In Gralle's Inn
@@ -223,7 +252,8 @@ Gralle is here.  You currently have room rented at Gralle's Inn.
 
 You can move in and northwest.
 
->You move northwest.
+> nw
+You move northwest.
 
 At Poel's Plaza
 This is a small plaza of shops and stalls. It was named after the first
@@ -233,13 +263,16 @@ the west is a road.  You currently have room rented at Gralle's Inn.
 
 You can move north, east, south, west and southeast.
 
->These are your stats:
+> stats
+These are your stats:
 Wealth: $246, and 50 cents.
 Number of turns passed: 27
 
 For Stamina, Strength, and Defense values, type status.
 
->Money Status:                                                             You
+> wealth
+Money Status:                                                             You
 have $246.                                             You have ¢50.
 
->Do you really want to quit? [Y/N]
+> quit
+Do you really want to quit? [Y/N]

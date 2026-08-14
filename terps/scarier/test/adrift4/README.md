@@ -27,6 +27,12 @@ Mirrors `test/adrift5/` (same subfolder names, same policies):
   *Camp Windy Lake : Part 2* are sexually explicit, so their solution and golden
   are gitignored and only their `run_v4_walkthroughs.sh` row is committed. Those
   rows NOSCRIPT on a fresh clone, which is not a failure.
+  A golden echoes the command it fed at each prompt (`\n> command\n`, the shape
+  `a5run_dump` gives the ADRIFT 5 goldens), so a reply can be read against the
+  command that produced it without counting prompts by hand, and a route that
+  slips a turn out of sync shows up in the diff instead of hiding in it. The
+  echo is `os_ansi`'s `SCR_ECHO_INPUT`, set for you by `run_v4_walkthroughs.sh`,
+  `play.sh` and `safeplay.sh`.
 - `games/` — the `.taf` corpus. **Untracked** (`.gitignore`): third-party game
   data is never committed. Recreate it on another machine with
   `sh test/fetch_games.sh fetch adrift4`, or point `GAMES_DIR` / `ALT_DIRS`

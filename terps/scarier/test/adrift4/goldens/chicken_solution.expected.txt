@@ -37,7 +37,8 @@ him, he might use his evil powers to kill us."
 
 "Yeah, I'll stay here and look for a brick."
 
->You take the spade from off the wall and stick it in your enormously large
+> take the spade
+You take the spade from off the wall and stick it in your enormously large
 pocket.
 
 "Hey, that's my spade!" Steve screams at you.
@@ -53,9 +54,11 @@ reply calmly.
 "Well...ok. But for my birthday, you'd better get me a spade!" Steve replies,
 and then goes back to pointlessly looking for the brick.
 
->You're stupid, aren't you.
+> scratch back
+You're stupid, aren't you.
 
->You move north.
+> n
+You move north.
 
 Yard
 You're standing in the front yard of the old abandoned farm. Back in '78, the
@@ -65,19 +68,23 @@ shed, and the large rock in the center of the yard, which seems to be a comet
 that hit Earth. To the North is the house, to the East is the garden, and
 South is the Chicken Coop, where the chicken plans his evil deeds.
 
->You grab the key from the weeds and jam it into your pocket.
+> take key
+You grab the key from the weeds and jam it into your pocket.
 
 "Damn, I'm good," you say outloud, but no one's around to hear it.
 
->You unlock the door and enter the house.
+> n
+You unlock the door and enter the house.
 
->Looking around to see no one's watching, you grab the hammer and then begin
+> take hammer
+Looking around to see no one's watching, you grab the hammer and then begin
 dancing.
 
 "It's Hammer Time!" You shout, doing the worst MC Hammer impression the world
 has ever seen.
 
->You move south.
+> s
+You move south.
 
 Yard
 You're standing in the front yard of the old abandoned farm. Back in '78, the
@@ -87,7 +94,8 @@ shed, and the large rock in the center of the yard, which seems to be a comet
 that hit Earth. To the North is the house, to the East is the garden, and
 South is the Chicken Coop, where the chicken plans his evil deeds.
 
->You move east.
+> e
+You move east.
 
 Garden
 The small garden used to grow carrots, potatos, and a weird breed of
@@ -95,13 +103,15 @@ vegetable called "Muckshot", but now it's just a big pile of dirt. And this
 isn't even interesting dirt like you see at all the dirt farms, this is
 bottom of the barrell dirt, stuff that even a hobo wouldn't sleep on.
 
->You jam the spade into the dirt, and shovel like there's a big shoveling
+> dig in dirt
+You jam the spade into the dirt, and shovel like there's a big shoveling
 competition going on. Soon, you discover a large chainsaw at the bottom.
 (Note: Please, ignore the fact that finding a chainsaw at the bottom of a
 garden is illogical. A game about a two-nosed chicken isn't supposed to be
 realistic.)
 
->You move west.
+> w
+You move west.
 
 Yard
 You're standing in the front yard of the old abandoned farm. Back in '78, the
@@ -111,11 +121,13 @@ shed, and the large rock in the center of the yard, which seems to be a comet
 that hit Earth. To the North is the house, to the East is the garden, and
 South is the Chicken Coop, where the chicken plans his evil deeds.
 
->Using your great cutting skills, you manage to cut through the shed and free
+> use chainsaw on shed
+Using your great cutting skills, you manage to cut through the shed and free
 the door. If only your chainsaw instructor was alive to see this, he'd be
 proud.
 
->You move west.
+> w
+You move west.
 
 Shed
 The first thing you realize about the shed, is that it's not really a shed,
@@ -123,22 +135,27 @@ just a shelf. There's nothing else in here, even the floor is spotlessly
 clean. One measly shelf. Man, the farmer who owned this place was a big
 idiot.
 
->No, you don't feel like carrying that around in your pocket, you had enough
+> take toolbox
+No, you don't feel like carrying that around in your pocket, you had enough
 trouble sticking the chainsaw in there.
 
->You hit it with your fist, but that's not strong enough to break it. You then
+> hit lock
+You hit it with your fist, but that's not strong enough to break it. You then
 try kicking it, but you miss and fall. You're going to need something else to
 open this thing.
 
->Using your skills, you bash the hammer against the lock. The toolbox swings
+> hit lock with hammer
+Using your skills, you bash the hammer against the lock. The toolbox swings
 open, revealing a gun inside.
 
->You spin the gun in your finger and then slide it into your pocket.
+> take gun
+You spin the gun in your finger and then slide it into your pocket.
 
 "Mr. Chicken, prepare for your final cluck." You say in your action movie one
 liner tone.
 
->You move east.
+> e
+You move east.
 
 Yard
 You're standing in the front yard of the old abandoned farm. Back in '78, the
@@ -149,7 +166,8 @@ that hit Earth. To the North is the house, to the East is the garden, and
 South is the Chicken Coop, where the chicken plans his evil deeds.  The
 unpainted shed now lies open, ready to be entred to the West.
 
->You move south.
+> s
+You move south.
 
 Chicken Coop
 I'm standing here, for no apparent reason, with my good friend Steve. Steve
@@ -164,16 +182,20 @@ his evil magic powers to ruin Christmas (Oh wait, I guess I went a little too
 far with that one) I can see a door to the North that leads out of this coop.
 Steve looks wildly through the hay, almost crying because he can't find one.
 
->You hear the sound of a man dancing inside your brain. No, I don't know have
+> listen
+You hear the sound of a man dancing inside your brain. No, I don't know have
 any idea what that means.
 
->It smells bad, probaly because you're in the room.
+> smell
+It smells bad, probaly because you're in the room.
 
->You decide against that, since the chicken has mighty supernatural powers,
+> hit chicken with hammer
+You decide against that, since the chicken has mighty supernatural powers,
 he'd probaly manage to kill you before you could hit him. You'll need a
 better weapon.
 
->You pull out the gun and aim it at the chicken.
+> shoot chicken
+You pull out the gun and aim it at the chicken.
 
 "I hope you have a good time in chicken hell!" You shout aloud, pulling the
 trigger.

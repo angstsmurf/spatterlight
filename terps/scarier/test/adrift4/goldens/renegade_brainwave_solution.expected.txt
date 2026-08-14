@@ -47,18 +47,22 @@ gloom.
 Officer Donald McRonald stands nearby, paying scant attention to what is
 going on.
 
->You open the Mary Quant handbag.  A gun and a seventeen-foot boa constrictor
+> open handbag
+You open the Mary Quant handbag.  A gun and a seventeen-foot boa constrictor
 are inside the Mary Quant handbag.
 
 Now, how on Earth did that get in there? Probably a practical joke - the
 other cops are always ribbing you about your transvesitism.
 
->You drop the handbag rather hurridly, and the snake slithers away into the
+> drop handbag
+You drop the handbag rather hurridly, and the snake slithers away into the
 undergrowth.
 
->You take the gun from the Mary Quant handbag.
+> take gun
+You take the gun from the Mary Quant handbag.
 
->You move west.
+> west
+You move west.
 
 Yew tree
 You stand under the spreading shadow of a vast yew tree, gnarled and twisted
@@ -82,9 +86,11 @@ moonlight.
 
 Donald McRonald follows you from the east.
 
->You pick up the crowbar.
+> take crowbar
+You pick up the crowbar.
 
->You move east.
+> east
+You move east.
 
 Cemetary Entrance
 You stand at the entrance to the Restview Cemetary for Circus Folk, where a
@@ -102,7 +108,8 @@ Also here is a Mary Quant handbag.
 
 Donald McRonald follows you from the west.
 
->You move north.
+> north
+You move north.
 
 Outside the chapel
 Here, beneath a shroud of ivy, lurks the ruined chapel. The chapel has been
@@ -112,7 +119,8 @@ over the lowering clouds.
 
 Donald McRonald follows you from the south.
 
->You move west.
+> west
+You move west.
 
 Cemetary
 This is a shady corner of the cemetary. There are a fair scattering of
@@ -133,12 +141,14 @@ nice because that boa constrictor made off with your cigarettes.
 "C'mon," says the gorilla, waggling the cigar, "I'll bet you're gasping for a
 smoke!"
 
->"Don't mind if I do," you say. Very decent of the gorilla to offer you a
+> take cigar
+"Don't mind if I do," you say. Very decent of the gorilla to offer you a
 cigar - especially since that boa constrictor made off with your cigarettes.
 The gorilla sniggers as he hands it over, and then slopes off into the
 darkness whistling a merry tune.
 
->You move east.
+> east
+You move east.
 
 Outside the chapel
 Here, beneath a shroud of ivy, lurks the ruined chapel. The chapel has been
@@ -148,7 +158,8 @@ over the lowering clouds.
 
 Donald McRonald follows you from the west.
 
->You move south.
+> south
+You move south.
 
 Cemetary Entrance
 You stand at the entrance to the Restview Cemetary for Circus Folk, where a
@@ -166,7 +177,8 @@ Also here is a Mary Quant handbag.
 
 Donald McRonald follows you from the north.
 
->You move east.
+> east
+You move east.
 
 The Vault of Mandoo the Mystic
 Here lies the ivy-covered vault of Mandoo the Mystic, an ornate stone
@@ -186,14 +198,16 @@ shocking semblance of life by the mysterious space radiation!
 
 Donald McRonald follows you from the west.
 
->"Don't mind if I do," says the ventriloquist's dummy, though you're quite
+> give cigar to dummy
+"Don't mind if I do," says the ventriloquist's dummy, though you're quite
 sure you saw his lips move. Donald lights the cigar for him and you both
 retreat to a safe distance. A couple of puffs later there is a VERY LOUD
 EXPLOSION which sends you both temporalily deaf and takes the dummy
 permanently out of commission. In fact there is nothing left of him but a
 pair of white patent leather cuban-heeled shoes, size 2.
 
->You move in.
+> in
+You move in.
 
 Inside the Vault
 This is the vault of Mandoo the Mystic - the evil psychic and hypnotist who
@@ -204,9 +218,11 @@ skeleton of the evil Mandoo!
 
 Donald McRonald follows you from outside.
 
->You take the femur bone from the stone sarcophagus.
+> take bone
+You take the femur bone from the stone sarcophagus.
 
->You move out.
+> out
+You move out.
 
 The Vault of Mandoo the Mystic
 Here lies the ivy-covered vault of Mandoo the Mystic, an ornate stone
@@ -215,7 +231,8 @@ depths of the bog. The lead-lined door hangs open.
 
 Donald McRonald follows you from inside.
 
->You move west.
+> west
+You move west.
 
 Cemetary Entrance
 You stand at the entrance to the Restview Cemetary for Circus Folk, where a
@@ -233,7 +250,8 @@ Also here is a Mary Quant handbag.
 
 Donald McRonald follows you from the east.
 
->You move north.
+> north
+You move north.
 
 Outside the chapel
 Here, beneath a shroud of ivy, lurks the ruined chapel. The chapel has been
@@ -243,10 +261,12 @@ over the lowering clouds.
 
 Donald McRonald follows you from the south.
 
->You swiftly remove the wooden boards from the door of the chapel and push it
+> open chapel
+You swiftly remove the wooden boards from the door of the chapel and push it
 open. A musty smell and an eerie green glow issue from within.
 
->You move in.
+> in
+You move in.
 
 The Chapel
 The chapel has been completely wrecked by the object that fell from the sky.
@@ -256,7 +276,8 @@ cemetary.
 
 Donald McRonald follows you from outside.
 
->You move down.
+> down
+You move down.
 
 The Crypt
 A dismal crypt with vaulted ceiling, now largely destroyed. Sitting in the
@@ -269,7 +290,8 @@ Crumbling stone steps lead up into the chapel.
 
 Donald McRonald follows you from above.
 
->You move in.
+> in
+You move in.
 
 Inside the space module
 The inside of the space module is a mass of hissing tubes and fizzing cables.
@@ -285,7 +307,8 @@ features obscured by his mirrored helmet.
 
 Donald McRonald follows you from outside.
 
->You hurl the bone into the shimmering veil of light, whereupon it is swiftly
+> throw bone at curtain
+You hurl the bone into the shimmering veil of light, whereupon it is swiftly
 followed by one salivating chihuahua. As he enters the cosmic curtain there
 is a flash of light. As if a switch had been turned, as if an eye had been
 blinked, as if some phantom force in the universe had made a move eons beyond

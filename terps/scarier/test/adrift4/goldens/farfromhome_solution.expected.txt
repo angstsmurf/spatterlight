@@ -8,15 +8,19 @@ seemed to twist and disappear. Suddenly, the whole room and gone wavy. You
 had staggered about for a few seconds, and then blacked out. When you woke up, you were lying at the base of a large mountain. You must
 get home!
 Please enter your name:
->
+
+> x
+
 The base of the mountain
 A huge mountain looms in front of you, like a man before an ant. You can see
 a small hole at the base of a group of trees. There is a path that leads
 south, through a winding forest. A small, dilapidated cabin lies eastward.
 
->And what, exactly, in English, is that supposed to mean?
+> Sam
+And what, exactly, in English, is that supposed to mean?
 
->You move east.
+> e
+You move east.
 
 In the cabin
 The cabin is quite old, and the wood that composes its walls is also
@@ -26,19 +30,25 @@ cellar beneath. The floor is made of dirt, so grass also grows here.
 A cool breeze blows past. The grass and plants that surround you quiver as it
 caresses them.
 
->You open the woodbox.  An axe is inside the woodbox.
+> open wood box
+You open the woodbox.  An axe is inside the woodbox.
 
->You take the axe from the woodbox.
+> take axe
+You take the axe from the woodbox.
 You hear a small snap, as if a twig had been broken.
 
->You clamber down the ladder into the cellar.
+> down
+You clamber down the ladder into the cellar.
 
->You take the rusty bucket from the awful-smelling bed.
+> take bucket
+You take the rusty bucket from the awful-smelling bed.
 
->You grasp the ladder and climb back into the cabin.
+> up
+You grasp the ladder and climb back into the cabin.
 You hear a small snap, as if a twig had been broken.
 
->You move west.
+> w
+You move west.
 
 The base of the mountain
 A huge mountain looms in front of you, like a man before an ant. You can see
@@ -47,23 +57,27 @@ south, through a winding forest. A small, dilapidated cabin lies eastward.
 A cool breeze blows past. The grass and plants that surround you quiver as it
 caresses them.
 
->You move south.
+> s
+You move south.
 
 A huge forest
 The trees are quite varied. Some are pine, some oak, some live, some dead and
 rotting. The dirt path leads south and north. You can see footprints of small
 animals in the dust. Small twigs litter the grass.
 
->(Your score has increased by 3)
+> chop down tree
+(Your score has increased by 3)
 You whack the tree repeatedly with the axe. Soon, it crashes to the ground. A
 shovel dislodges from the branches.
 You hear a small snap, as if a twig had been broken.
 
->You pick up the shovel.
+> take shovel
+You pick up the shovel.
 A cool breeze blows past. The grass and plants that surround you quiver as it
 caresses them.
 
->You move south.
+> s
+You move south.
 
 A large field
 This field is so big that if you went anywhere but back north, you'd get
@@ -71,22 +85,26 @@ lost. The grass is taller here than anywhere else. It's almost up to your
 elbows. The grass moves occasionally, as a small creature moves through it.
 There is a large molehill near your right foot.
 
->(Your score has increased by 3)
+> dig
+(Your score has increased by 3)
 You sink the shovel into the soft earth of a molehill and start to remove the
 dirt. Soon, you expose a small hole leading down into the ground.
 You hear a small snap, as if a twig had been broken.
 
->You move down.
+> d
+You move down.
 
 Underground cave
 This is a small underground cave that you discovered. Stalactites that shine
 with an eerie glow hang from the ceiling. At your feet, a small river flows
 past. Light shines through the small hole that leads back to the surface.
 
->(Your score has increased by 3)
+> dip bucket in river
+(Your score has increased by 3)
 You dip the bucket into the river and scoop up some water.
 
->You move up.
+> u
+You move up.
 
 A large field
 This field is so big that if you went anywhere but back north, you'd get
@@ -96,7 +114,8 @@ Dirt is scattered about the field, and you can move down through a small hole
 into a cave.
 You hear a small snap, as if a twig had been broken.
 
->You move north.
+> n
+You move north.
 
 A huge forest
 The trees are quite varied. Some are pine, some oak, some live, some dead and
@@ -105,57 +124,67 @@ animals in the dust. Small twigs litter the grass.
 A cool breeze blows past. The grass and plants that surround you quiver as it
 caresses them.
 
->You move north.
+> n
+You move north.
 
 The base of the mountain
 A huge mountain looms in front of you, like a man before an ant. You can see
 a small hole at the base of a group of trees. There is a path that leads
 south, through a winding forest. A small, dilapidated cabin lies eastward.
 
->(Your score has increased by 3)
+> dump water into hole
+(Your score has increased by 3)
 You turn up the bucket and empty its contents into the hole. Suddenly,
 everything begins to shake. You watch as the cabin shatters and the trees
 disappear. The sky seems to boil and the grass burns beneath your feet. And
 then everything goes black... You wake up lying on the ground in a large
 castle.
 
->(Your score has increased by 3)
+> look behind tapestry
+(Your score has increased by 3)
 You shove the tapestry aside and a small key clatters to the floor, which you
 take.
 
->(Your score has increased by 3)
+> open door
+(Your score has increased by 3)
 You put the key in the lock and turn it. The lock clicks and the door swings
 open.
 
->You move north.
+> n
+You move north.
 
 The grand hall
 This is apparently the pride of the castle. There is a large table in the
 center of the room surrounded by chairs, and a balcony above where the king
 apparently sits. There are doorways, void of doors, to the south and west.
 
->You move west.
+> w
+You move west.
 
 The throne room
 This is the king's living area. Not only is there a throne, but there is also
 a bed, a table, and two chairs. The rug is nailed to the floor. The
 gem-enlaced doorway gives access to the room to the east.
 
->(Your score has increased by 3)
+> look throne
+(Your score has increased by 3)
 You look at the throne's ornate body and see a small button near the padded
 headrest.
 
->(Your score has increased by 3)
+> press button
+(Your score has increased by 3)
 You press the button. Suddenly, there is a great noise of clanking chains.
 
->You move east.
+> e
+You move east.
 
 The grand hall
 This is apparently the pride of the castle. There is a large table in the
 center of the room surrounded by chairs, and a balcony above where the king
 apparently sits. There are doorways, void of doors, to the south and west.
 
->You move south.
+> s
+You move south.
 
 The castle entrance
 This is the entrance to the castle. An elegant tapestry hangs above a door to
@@ -163,27 +192,31 @@ the north. The bricks in the wall are roughly hewn, and cold to the touch. A
 film of dirt coats the floor, and you can see your footprints in it.  The
 drawbridge has been lowered, exposing a large white wasteland to the south.
 
->You move south.
+> s
+You move south.
 
 On the clouds
 Mushy clouds rearrange themselves beneath your feet. The castle is to your
 north, and more cloud stretches around in every other direction.
 
->You move southwest.
+> sw
+You move southwest.
 
 By the beanstalk
 It's a beanstalk, but that castle wasn't a giant's. Good. The beanstalk
 stretches down, but you can't see where it's growing from. The only way to go
 is northeast to more clouds, or down the beanstalk to who-knows-where.
 
->(Your score has increased by 3)
+> climb beanstalk
+(Your score has increased by 3)
 You climb down the beanstalk. After about an hour of climbing, you stop and
 look around. You hear a small noise, and it sounds a bit like this:
 creeeeaaak... Then you hear it again. And again. And then you hear yourself
 screaming as you fall through the air, tumbling head over heel... You black
 out...You wake bobbing about in the middle of an ocean.
 
->You move west.
+> w
+You move west.
 
 The lighthouse
 You are on a sandy stretch of ground near a huge stone structure that appears
@@ -193,7 +226,8 @@ making shoe-prints that are almost immediately washed away by the tide. There
 doesn't appear to be much vegetation on the island except one thin tree at
 the back of the lighthouse.
 
->You move north.
+> n
+You move north.
 
 Behind the lighthouse
 Behind the lighthouse, the masonry is less dilapidated. The tide only washes
@@ -204,12 +238,15 @@ third floor.
 
 Also here is a pretty blue seashell.
 
->You open the pretty blue seashell.  A tiny pearl is inside the pretty blue
+> open seashell
+You open the pretty blue seashell.  A tiny pearl is inside the pretty blue
 seashell.
 
->You take the tiny pearl from the pretty blue seashell.
+> take pearl
+You take the tiny pearl from the pretty blue seashell.
 
->You move south.
+> s
+You move south.
 
 The lighthouse
 You are on a sandy stretch of ground near a huge stone structure that appears
@@ -219,7 +256,8 @@ making shoe-prints that are almost immediately washed away by the tide. There
 doesn't appear to be much vegetation on the island except one thin tree at
 the back of the lighthouse.
 
->You move in.
+> in
+You move in.
 
 In the lighthouse- 1st Floor
 The lighthouse floorboards squeak under your feet as you walk around. Dust
@@ -228,7 +266,8 @@ Sunlight shines in through a dusty window about seven feet over your head.
 You can see something on the window ledge, but you can't quite make out what
 it is in the dim light.
 
->You move up.
+> u
+You move up.
 
 In the lighthouse- 2nd floor
 The floor is less stable up here, and you can feel the floor bend under your
@@ -238,7 +277,8 @@ with a large knife protruding from his back. A trickle of dried blood (which
 obviously trickled across the floor before it dried) winds about the dusty
 floor and stops near your feet.
 
->You move up.
+> u
+You move up.
 
 In the lighthouse- 3rd floor
 The third floor is even less stable. Huge parts of it are dried, rotted, and
@@ -247,7 +287,8 @@ the floor. There doesn't appear to be much dust here, it having all fallen
 through the floorboards. The sunlight from a large hole in the stonework
 shines on the floor in a thick beam.
 
->You move up.
+> u
+You move up.
 
 In the lighthouse- 4th floor
 The room is a complete mess. Clothes lie strewn about the floor, and a
@@ -257,16 +298,19 @@ lies tucked into the corner, its sheets and blanket nowhere near made.
 An old pirate is here,searching through everything in the room, stopping and
 cursing every so often. "Where is it, where IS it, !%@$^%?!"
 
->(Your score has increased by 3)
+> give pearl to pirate
+(Your score has increased by 3)
 The pirate's eyes light up. "Hey, thanks, kid, this's what I've bin lookin'
 fer!" He pockets the pearl. "Aye, I said I'd give yer somethin' fer yer
 trouble, didn't I?" He searches his bag. "Ah, here you go, matey! May the
 seas be in yer favor!" He hands you a dirty coil of rope and scuttles away.
 You wonder where he would go, since there wasn't a boat outside.
 
->You take the tiny bronze key from the ruffled sheet.
+> take key
+You take the tiny bronze key from the ruffled sheet.
 
->You move down.
+> d
+You move down.
 
 In the lighthouse- 3rd floor
 The third floor is even less stable. Huge parts of it are dried, rotted, and
@@ -275,7 +319,8 @@ the floor. There doesn't appear to be much dust here, it having all fallen
 through the floorboards. The sunlight from a large hole in the stonework
 shines on the floor in a thick beam.
 
->You move out.
+> out
+You move out.
 
 The third floor balcony
 You're pretty sure that this was not intended to be a balcony. It only sticks
@@ -285,11 +330,13 @@ and down onto the beach. Seagulls fly around above the ocean, squawking
 incessantly. It gives you a headache. A metal bar protrudes from the wall of
 the lighthouse, slightly bent upwards.
 
->(Your score has increased by 3)
+> tie rope to bar
+(Your score has increased by 3)
 You knot the rope around the metal bar and drop it down over the edge of the
 balcony. You can now climb down to the beach, and the floors in between.
 
->You move down.
+> d
+You move down.
 
 Outside the second floor
 You are dangling from a rope outside the lighthouse, at about the second
@@ -297,7 +344,8 @@ floor level. You can stare straight into the palm tree, and observe the palm
 fronds in all their glory.  There seems to be a coconut dangling from the
 palm tree. Mmm... coconut... you're so hungry...
 
->You move down.
+> d
+You move down.
 
 Outside the first floor
 You are dangling on the rope about 10 feet above the ground. There is a
@@ -306,7 +354,8 @@ feel the spray of the ocean on your cheeks from here. A seagull is flying
 around over by the tree, squawking repeatedly. You'd like to hurt it, but you
 don't have a way to.
 
->You move down.
+> d
+You move down.
 
 Behind the lighthouse
 Behind the lighthouse, the masonry is less dilapidated. The tide only washes
@@ -316,7 +365,8 @@ length of rope hangs down from the third floor, allowing you to climb up.
 
 Also here is a pretty blue seashell.
 
->You move west.
+> w
+You move west.
 
 Western Beach
 You are standing at the base of a tall, rough-trunked palm tree. Seagulls fly
@@ -325,13 +375,16 @@ them... The wet sand smooshes around beneath your feet, making footprint
 molds that are washed away every so often.
 The tide washes in, splashing about your feet.
 
->You grasp the tree around its trunk and pull yourself up into the fronds,
+> climb tree
+You grasp the tree around its trunk and pull yourself up into the fronds,
 foot by foot.
 
->You reach out for the coconut to pick it, but as you touch it, it falls to
+> take coconut
+You reach out for the coconut to pick it, but as you touch it, it falls to
 the ground below. It must be rotten.
 
->You move down.
+> d
+You move down.
 
 Western Beach
 You are standing at the base of a tall, rough-trunked palm tree. Seagulls fly
@@ -341,10 +394,12 @@ molds that are washed away every so often.
 
 Also here is a rotten coconut.
 
->You pick up the rotten coconut.
+> take coconut
+You pick up the rotten coconut.
 The tide washes in, splashing about your feet.
 
->You move east.
+> e
+You move east.
 
 Behind the lighthouse
 Behind the lighthouse, the masonry is less dilapidated. The tide only washes
@@ -354,7 +409,8 @@ length of rope hangs down from the third floor, allowing you to climb up.
 
 Also here is a pretty blue seashell.
 
->You move up.
+> u
+You move up.
 
 Outside the first floor
 You are dangling on the rope about 10 feet above the ground. There is a
@@ -363,17 +419,20 @@ feel the spray of the ocean on your cheeks from here. A seagull is flying
 around over by the tree, squawking repeatedly. You'd like to hurt it, but you
 don't have a way to.
 
->(Your score has increased by 3)
+> hit window with coconut
+(Your score has increased by 3)
 You hold onto the rope with one hand while smashing the coconut against the
 clasp. After a while, the latch comes unstuck. Looking at the coconut, you
 see a large hole in the side. Having no more use of it, you toss it into the
 ocean where it promptly sinks, water filling in through the hole.
 
->You pluck at the clasp and it springs open. As you push the window open, it
+> open window
+You pluck at the clasp and it springs open. As you push the window open, it
 squeaks, and something falls into the lighthouse from the window ledge.
 Hmm... wonder what it could be?
 
->You move down.
+> d
+You move down.
 
 Behind the lighthouse
 Behind the lighthouse, the masonry is less dilapidated. The tide only washes
@@ -383,7 +442,8 @@ length of rope hangs down from the third floor, allowing you to climb up.
 
 Also here is a pretty blue seashell.
 
->You move south.
+> s
+You move south.
 
 The lighthouse
 You are on a sandy stretch of ground near a huge stone structure that appears
@@ -394,7 +454,8 @@ doesn't appear to be much vegetation on the island except one thin tree at
 the back of the lighthouse.
 The tide recedes from the island, leaving wet sand where there was water.
 
->You move in.
+> in
+You move in.
 
 In the lighthouse- 1st Floor
 The lighthouse floorboards squeak under your feet as you walk around. Dust
@@ -405,20 +466,24 @@ it is in the dim light.
 
 Also here is a gold-laced box.
 
->You pick up the gold-laced box.
+> take box
+You pick up the gold-laced box.
 
->(Your score has increased by 3)
+> unlock box
+(Your score has increased by 3)
 You insert the tiny key into the box's golden lock and twist it. You hear a
 click!, and at that instant, the key snaps off in your hands. You discard the
 useless piece of metal.
 
->(Your score has increased by 3)
+> open box
+(Your score has increased by 3)
 You lift the lid of the box, and peer inside. What you see makes you gasp.
 It's that $%#%* spiral! You slowly back away from the box, but the spiral
 rises up, and you feel as if you are in a vacuum. You are sucked into the
 vortex that the spiral creates, into another world...
 
->You move in.
+> in
+You move in.
 
 The Puzzlelord's realm
 The room is filled with a sense of foreboding. A large figure floats above
@@ -431,7 +496,8 @@ iridescent blueness that illuminates the room and reflects from the golden
 walls.  He is wearing a glass crown that is set with emeralds, sapphires, and
 rubies. It has a large "P" set in the center of it.
 
->Before you can open your mouth, he begins to speak. "Hello, x. Yes, I do know
+> ask man about riddle
+Before you can open your mouth, he begins to speak. "Hello, x. Yes, I do know
 your name. I like to know my victims."
 "Victims?" you ask.
 "Yes, victims. You see, down in the Labyrinth of Terror, I have imprisoned
@@ -454,9 +520,11 @@ fit my parts together.
 I am all your past,
 and you fear me in cold weather.
 
->Your score is 42 out of a maximum of 50.  (84%)
+> score
+Your score is 42 out of a maximum of 50.  (84%)
 
->(Your score has increased by 8)
+> lost
+(Your score has increased by 8)
 You think for a moment. And it hits you. You turn to the Puzzlelord and
 speak. "All fear being... LOST! Especially in cold weather!" The Puzzlelord
 gets a dejected look on his face and shoos the guards away. "How did you find

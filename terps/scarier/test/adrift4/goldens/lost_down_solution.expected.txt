@@ -22,7 +22,8 @@ parked your car in the gravel lot nearby but you didn't come here simply to
 drive straight home.  There's a table under the shelter. To the south is a
 path through the pines.
 
->From: MapMan@servtech.net
+> read note
+From: MapMan@servtech.net
 Date:  24 December 2000 20:06:08 EST
 Subject: Mystery Flags in Lakeshore
 To: Orienteering Club Members
@@ -31,21 +32,24 @@ and white nylon flag and some surveyor's tape in Lakeshore last weekend.
 Are these ours? The park rangers don't like litter. If anyone has a chance to
 see if they can find these items and retrieve them, let me know.
 
->You walk south.
+> s
+You walk south.
 
 Path through the pines
 The path is narrow. Pine branches brush your shoulders. Pine needles cushion
 your steps. The shelter is north or you can continue along the path
 southeast.
 
->You walk southeast.
+> se
+You walk southeast.
 
 Steep slope
 Descending a steep hill, the path is little more than a rut bisected by
 treacherous roots. Your foot slides. You nearly fall. You wish  you had
 brought your walking stick. The path runs northwest to southeast.
 
->You walk southeast.
+> se
+You walk southeast.
 
 Fork in the path
 At the bottom of the hill the path forks, going east and south. The path runs
@@ -53,7 +57,8 @@ back up the slope to the northwest.
 A gray squirrel digs through the leaves beside the path, oblivious to your
 presence..
 
->You walk east.
+> e
+You walk east.
 
 Swamp Trail
 The trail runs along a steep hill. In a few months, in the spring, the trail
@@ -62,7 +67,8 @@ whatever animal passed through here on the last warm day. You can walk west
 or follow the bend to the southeast. To the northeast there is a gap in the
 steep hill.
 
->You walk northeast.
+> ne
+You walk northeast.
 
 Bottom of the reentrant
 You are at the mouth of what orienteers refer to as a reentrant, a kind of
@@ -73,7 +79,8 @@ Everything here seems still, sheltered from the wind, quiet. It seems to you
 a soothing place,  beyond the reach of the world. Ridiculous of course, since
 the highway is a few minutes walk.
 
->You walk northeast.
+> ne
+You walk northeast.
 
 Top of the reentrant
 The ground rises sharply and the gap in the hills narrows.  A large log, the
@@ -81,17 +88,20 @@ remains of a fallen tree,  blocks your way. You can return southwest to the
 bottom of the reentrant.  The lingering twilight floods the top of the
 reentrant with a rusty glow.
 
->The fallen tree nearly spans the narrow top of the reentrant. It has begun to
+> x log
+The fallen tree nearly spans the narrow top of the reentrant. It has begun to
 crumble into the leaf mould, well on its way to becoming an earth mound. It
 is splotched with moss like practically everything else in these woods. A few
 tough, spikes which used to be limbs, protrude.  A ribbon is on the rotted
 log.
 
->You take the ribbon.
+> get ribbon
+You take the ribbon.
 
  You hear your name spoken. It seems. But when you turn no one is there.
 
->You walk southwest.
+> sw
+You walk southwest.
 
 Bottom of the reentrant
 You are at the mouth of what orienteers refer to as a reentrant, a kind of
@@ -112,7 +122,8 @@ The figure seems to sigh and begins to dissipate. You realize you are staring
 into a whorl of fog which glows dimly in the twilight. It was only your
 imagination. Just wishful thinking.
 
->You walk southwest.
+> sw
+You walk southwest.
 
 Swamp Trail
 The trail runs along a steep hill. In a few months, in the spring, the trail
@@ -121,7 +132,8 @@ whatever animal passed through here on the last warm day. You can walk west
 or follow the bend to the southeast. To the northeast there is a gap in the
 steep hill.
 
->You walk southeast.
+> se
+You walk southeast.
 
 Swamp
 The frozen swamp presents a bleak picture. Here and there  grassy hillocks
@@ -131,16 +143,19 @@ trail by walking northwest.  Nearby stands a dead sapling.
 
 Also here is a dead sapling.
 
->The swamp must have choked the life out of this  sapling long ago. It is
+> x sapling
+The swamp must have choked the life out of this  sapling long ago. It is
 devoid of branches and bark, nothing more than a straight stick, hardly as
 tall as you. It looks dry and brittle.
 
->The sapling breaks off near the bottom with a  startlingly loud crack that
+> break sapling
+The sapling breaks off near the bottom with a  startlingly loud crack that
 echoes in the cold still air. You are left holding a long, straight stick.
 
 A few snowflakes dance erratically in the cold air.
 
->You walk northwest.
+> nw
+You walk northwest.
 
 Swamp Trail
 The trail runs along a steep hill. In a few months, in the spring, the trail
@@ -149,7 +164,8 @@ whatever animal passed through here on the last warm day. You can walk west
 or follow the bend to the southeast. To the northeast there is a gap in the
 steep hill.
 
->You walk west.
+> w
+You walk west.
 
 Fork in the path
 At the bottom of the hill the path forks, going east and south. The path runs
@@ -162,14 +178,16 @@ the forecast, not that you've been paying much attention to such things
 today. Beth never did like the unpredictable weather here. She will probably
 take the kids elsewhere now.
 
->You walk south.
+> s
+You walk south.
 
 Bridge
 A  few planks form a bridge over a narrow stream. The path curves to the
 southwest where you see a glimmer of water through thick hemlocks. The fork
 in the path is to the north.
 
->You walk southwest.
+> sw
+You walk southwest.
 
 Path beside the pond
 The path runs along a  frozen pond which sits at the bottom of a  bowl in the
@@ -182,7 +200,8 @@ miss a storm report? As the driving snow begins to blot out the last of the
 twilight the park begins to seem like a wilderness. You're only a few minutes
 away from the shelter, and yet. . .
 
->You walk west.
+> w
+You walk west.
 
 Narrow track beside the pond
 The path runs from west to northwest but it's more like a narrow deer track
@@ -195,7 +214,8 @@ You slip on the fresh snow. As you get up, brushing yourself off, you see
 your wallet has fallen. You wondered where that was. It must've slipped down
 into the lining of your worn-out jacket again.
 
->Using the walking stick you manage to balance yourself and continue.
+> nw
+Using the walking stick you manage to balance yourself and continue.
 
 Far end of the pond
 At this end of the pond there is a gap in the hills, partly blocked by a
@@ -204,7 +224,8 @@ boulder.  Fresh snow clings to the boulder.
 
 Also here is a faded orienteering flag.
 
->You take the orienteering flag.
+> get flag
+You take the orienteering flag.
 
 A squall comes out of nowhere. A groaning wind gust whirls dry leaves into
 the air and whips stinging ice crystals across your face. The woods around
@@ -218,7 +239,8 @@ back to the shelter.
 You struggle through the blizzard. Branches you never see scratch your face.
 You fall, get up. You're not even sure if you're still on the trail.
 
->You walk north.
+> n
+You walk north.
 
 Snow covered fork in the trail
 
@@ -226,7 +248,8 @@ You can barely see through the blinding snow but it seems you have made it
 back to where the path forks to  the east and south and runs back up the
 slope to the northwest.
 
->You walk northwest.
+> nw
+You walk northwest.
 
 Snow covered slope
 
@@ -251,15 +274,20 @@ scintillating motes, ice crystals, a frozen fog. There is no clear way out.
 You know that you can't go in any direction in which the fog might start to
 thicken because then you would be utterly lost.
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
 A sudden chill sighs through the birches and a  hazy shape forms in the mist,
 undulating, disintegrating and coalescing like a reflection on windblown
@@ -268,15 +296,18 @@ tatters that seem to be carried away by a stray air current. You have lost
 all sense of direction. But it seemed almost that the ghostly shape was
 beckoning you to follow. Follow a ghost?
 
->You decide to go in the direction the misty shape went, although you have no
+> follow ghost
+You decide to go in the direction the misty shape went, although you have no
 idea what direction that might be.
 
 The phantom appears again,  more fully formed,  a woman,  almost familiar,
 mist and memories, beckoning you to follow.
 
->Time passes...
+> z
+Time passes...
 
->Again you decide to go in the same direction as the phantom.
+> follow ghost
+Again you decide to go in the same direction as the phantom.
 
 Rocky outcropping
 You find yourself on a  massive outcropping of rock . Only a few withered and
@@ -287,7 +318,7 @@ can see the glint of black water, a pool.
 The ghost  is a vague undulating shape. No matter where you turn it seems to
 be in front of you, blocking your way.
 
->
+> x ghost
 
 You feel an exhalation of unearthly cold. You see the hazy condensation
 forming continuously where the warmer winter air meets the frigidity within.
@@ -300,22 +331,26 @@ In your mind there is suddenly the faint final reverberation of a distant
 echo and you only recall the words that created it. The ghost spoke. It wants
 you to talk to it.  Talk to a ghost?
 
->Do you think I resemble Beth? The dead are all alike. And what about the
+> talk to ghost
+Do you think I resemble Beth? The dead are all alike. And what about the
 young man she married? Do you suppose he is any more alive? The ghost pauses.
 You sense it wants to continue.
 
->You know the young man you once were is dead as well, along with all his
+> talk to ghost
+You know the young man you once were is dead as well, along with all his
 dreams. They do not belong to the world you have come to. What a long hard
 journey to reach such a cold place. For a moment the echoes of words cease
 but you realize the ghost has more to tell you.
 
->Look at the pool -- you won't find it on a map. It was here when you were
+> talk to ghost
+Look at the pool -- you won't find it on a map. It was here when you were
 younger, in that world where everything you planned would have come true,
 where you left all your dreams. And it is here now, an easy step down. But,
 of course, you can always go up the path and back to your life. The ghost
 seems to flicker. Does it wish to talk more?.
 
->The ghost continues to hover but seems to have nothing more to say. Where the
+> talk to ghost
+The ghost continues to hover but seems to have nothing more to say. Where the
 mouth had moved there is only a formless shadow .
 
 The ghost moves, floats out over the outcropping. A tatter of fog seems to
@@ -324,7 +359,8 @@ toward the black water and vanish.
 
 The choice the ghost gave you echoes in your mind. Up or down.
 
->You pause at the edge of the outcropping. From here you can see more clearly
+> down
+You pause at the edge of the outcropping. From here you can see more clearly
 through the skin of ice across the pool, can see images of the past. You and
 Beth walking the park trails. Your first day on the job. The birth of your
 children. All those beginnings, new and full of promise once again. The ghost

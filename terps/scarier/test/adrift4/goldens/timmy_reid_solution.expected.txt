@@ -26,13 +26,15 @@ at the top of your lungs as you realize that the boy is your brother, Jon.
 
 So begins "The Timmy Reid Adventure"
 
->You don't know why, but you lean over and give your brother a big hug.  He
+> hug jon
+You don't know why, but you lean over and give your brother a big hug.  He
 seems surprised but returns the hug.  As you begin to let him go, he slips
 something into your hand.  You look down and discover a plastic thumb
 wrestler " Big John Stud".  You look up at your brother and he is smiling.
 You have been awarded 25 points for going beyond the call of duty.
 
->You move north.
+> n
+You move north.
 
 On the Cottage Deck
 You are standing on the front deck of the cottage.  Some of the boards are
@@ -43,7 +45,8 @@ front door.  There is a yellow bug light above the kitchen window and a
 clothes line running from a large silver colored pulley up to the telephone
 pole near the road.
 
->You remember that there is always a key to the cottage hanging on a brad
+> search for the cottage key
+You remember that there is always a key to the cottage hanging on a brad
 hidden above the kitchen door.  You reach you hand way up, sliding it back
 and fourth and you catch your finger on the brad and you hear a light
 clinking sound.  You're not hurt too bad but there will be blood.  You close
@@ -51,20 +54,24 @@ your fingers around the key and bring it down.  This looks like the key to
 your room at home.  You hope it unlocks the kitchen door.
 Your smarts have gained you 10 points.
 
->You slide the key into the lock and slowly turn it.  You  feel only slight
+> unlock the kitchen door
+You slide the key into the lock and slowly turn it.  You  feel only slight
 resistance and the door is unlocked.
 You've earned 5 points
 
->You grab hold of the clothesline just above the deck railing and pull it
+> pull the clothesline
+You grab hold of the clothesline just above the deck railing and pull it
 toward you bringing the white towel closer.
 Your ears are rudely awakened by the sound of a skill saw screaming and
 scraping through some lumber off  in the distance.
 
->You take the white towel from the white clothesline.
+> get towel from clothesline
+You take the white towel from the white clothesline.
 Electricity rips through your spine as your ears are attacked by one of Art's
 coughing fits.  It ends after several seconds and you wonder if he's dead.
 
->You move in.
+> in
+You move in.
 
 In the Cottage Kitchen
 You are standing in the smallest kitchen that you have ever seen on dry land.
@@ -77,28 +84,35 @@ chairs.  The sound of a skill saw ripping through some lumber can be heard
 intermittantly off in the distance.
 The sound of a skill saw ripping lumber finally fades to  stillness.
 
->You open the big white refrigerator.  Inside the big white refrigerator is an
+> open refrigerator
+You open the big white refrigerator.  Inside the big white refrigerator is an
 old bottle of milk (you think), old meat, a bottle of heinz ketchup, a large
 bottle of mustard and a moxie.
 
->You take old meat from the big white refrigerator.
+> get meat
+You take old meat from the big white refrigerator.
 
->You take all of the knives from the silverware drawer.
+> take the knives
+You take all of the knives from the silverware drawer.
 
->You open the kitchen cupboard.  Yummy pop-tarts and a can of corn are inside
+> open kitchen cupboard
+You open the kitchen cupboard.  Yummy pop-tarts and a can of corn are inside
 the kitchen cupboard.
 Electricity rips through your spine as your ears are attacked by one of Art's
 coughing fits.  It ends after several seconds and you wonder if he's dead.
 
->You take yummy pop-tarts from the kitchen cupboard.
+> get pop-tarts
+You take yummy pop-tarts from the kitchen cupboard.
 
->You move west.
+> w
+You move west.
 
 In the Cottage Living Room
 You are standing in the small cottage living room.  The living room is pitch
 dark.
 
->You stumble around in the dark for several minutes.  Your leg hits something
+> find the fuses
+You stumble around in the dark for several minutes.  Your leg hits something
 hard and searing pain envelopes you.  While you were jumping up and down on
 one leg, something brushes against your head.  Finally, you calm down enough
 to get back to the task at hand.  Your efforts are finally paid off as your
@@ -106,7 +120,8 @@ hand closes on the old fuses that were up on a shelf in the south west corner
 of the room.
 Your memory is quite good.  You earn 10 points for getting to work early.
 
->You slowly push the fuse cartridge into the slot in the fuse box.  There's a
+> push the fuses into the fuse box
+You slowly push the fuse cartridge into the slot in the fuse box.  There's a
 loud snap and a flash of blue light.  A fine stream of bluish smoke wafts
 upward from the fuse box.
 
@@ -119,7 +134,8 @@ You've earned 5 additional points for doing the right thing.
 Electricity rips through your spine as your ears are attacked by one of Art's
 coughing fits.  It ends after several seconds and you wonder if he's dead.
 
->You have successfully  turned on the living room light
+> turn on the living room light
+You have successfully  turned on the living room light
 
 In the Cottage Living Room
 You are standing in the small cottage living room.  The living room walls
@@ -134,7 +150,8 @@ end of the chain that dangles from the light above.
 Jon is here.
 You get only 2 points for doing something obvious.
 
->You move south.
+> s
+You move south.
 
 On the Cottage Porch
 The front porch looks exactly as you expected.  Against the far wall there is
@@ -152,16 +169,20 @@ Also here is a thin mattress.
 
 Kevin is here.
 
->You open the wooden storage chest.  Inside the wooden storage chest is a
+> open storage chest
+You open the wooden storage chest.  Inside the wooden storage chest is a
 skill saw, a crow bar, a crappy baseball glove and an old baseball bat.
 
->You take the old baseball bat from the wooden storage chest.
+> get old baseball bat
+You take the old baseball bat from the wooden storage chest.
 
->You take the crappy baseball glove from the wooden storage chest.
+> get crappy baseball glove
+You take the crappy baseball glove from the wooden storage chest.
 Electricity rips through your spine as your ears are attacked by one of Art's
 coughing fits.  It ends after several seconds and you wonder if he's dead.
 
->You move north.
+> n
+You move north.
 
 In the Cottage Living Room
 You are standing in the small cottage living room.  The living room walls
@@ -175,7 +196,8 @@ end of the chain that dangles from the light above.
 You hear a large dog barking off in the distance.  The sound seems to echo
 through the neighborhood.
 
->You move up.
+> up
+You move up.
 
 On the Cottage Stairway
 The cottage stairway is extremely narrow and steep.  The stairway is dark.  A
@@ -183,9 +205,11 @@ string fades away upstairs through a series of small eye hooks.
 
 Also here is an orange frisbee and an old trackball game set.
 
->You pull the light string and the stairway and upstairs lights up.
+> pull string
+You pull the light string and the stairway and upstairs lights up.
 
->You move up.
+> up
+You move up.
 
 Upstairs at the Cottage
 You are standing on the second floor of the cottage.  There are two double
@@ -198,21 +222,24 @@ hanging from the rafters in the center of the room.  Above the rafters are
 some thin sheets of plywood holding some stuffed plastic bags.  You have no
 idea what's in those bags.
 
->You poke around the bed for a while and notice the corner of what looks like
+> examine the bed
+You poke around the bed for a while and notice the corner of what looks like
 a magazine sticking out slightly from under the mattress.  A light goes on in
 your head and you get somewhat excited.  You wish your stinky brother wasn't
 here.
 Your ears are rudely awakened by the sound of a skill saw screaming and
 scraping through some lumber off  in the distance.
 
->You grab the corner of the magazine and pull it from under the mattress.  You
+> get the magazine
+You grab the corner of the magazine and pull it from under the mattress.  You
 are delighted to find that it is as you hoped.  A Playboy magazine.
 Hippee!!!
 You receive 10 points although the book is reward enough.
 Electricity rips through your spine as your ears are attacked by one of Art's
 coughing fits.  It ends after several seconds and you wonder if he's dead.
 
->You move down.
+> down
+You move down.
 
 On the Cottage Stairway
 The cottage stairway is extremely narrow and steep.  The twisty and narrow
@@ -227,7 +254,8 @@ skill saw ripping through some lumber can be heard intermittantly off in the
 distance.
 The sound of a skill saw ripping lumber finally fades to  stillness.
 
->You move down.
+> down
+You move down.
 
 In the Cottage Living Room
 You are standing in the small cottage living room.  The living room walls
@@ -245,7 +273,8 @@ Hovey shuffles off to the north.
 
 The faint odor of snappers wafts towards you from the east.
 
->You move north.
+> n
+You move north.
 
 In the Cottage Bathroom
 You are standing in the tiny bathroom.  You thought you were chlostraphobic
@@ -256,13 +285,15 @@ by taking  all the knives from the silverware drawer.)
 
 Hovey is here.
 
->You are able to convince grandpa to give you his shoes.  You sit down and
+> get grandpa's shoes
+You are able to convince grandpa to give you his shoes.  You sit down and
 lace 'em up.  You feel energized.
 You receive 10 points for being clever.
 
 The faint odor of snappers wafts towards you from the south.
 
->You move in.
+> in
+You move in.
 
 In the Shower Stall
 The metal shower stall is extremely tight and your arms brush up against the
@@ -270,13 +301,16 @@ sides of the stall causing a thunderous rumble.
 
 Also here is a soap-on-a-rope and strawberry shampoo.
 
->You pick up the soap-on-a-rope.
+> get soap
+You pick up the soap-on-a-rope.
 
->You pick up strawberry shampoo.
+> get shampoo
+You pick up strawberry shampoo.
 Electricity rips through your spine as your ears are attacked by one of Art's
 coughing fits.  It ends after several seconds and you wonder if he's dead.
 
->You move out.
+> out
+You move out.
 
 In the Cottage Bathroom
 You are standing in the tiny bathroom.  You thought you were chlostraphobic
@@ -289,11 +323,13 @@ Hovey and The faint odor of snappers are here.
 
 Hovey shuffles off to the south.
 
->You cleverly pull your pants down.  You are quite proud of yourself.
+> pull my pants down
+You cleverly pull your pants down.  You are quite proud of yourself.
 You hear a large dog barking off in the distance.  The sound seems to echo
 through the neighborhood.
 
->You close your eyes and relieve yourself right here and now.  A feeling of
+> piss
+You close your eyes and relieve yourself right here and now.  A feeling of
 total relief overcomes you.
 You are awarded 5 points for good hygene.
 
@@ -301,7 +337,8 @@ The faint odor of snappers wafts off to the south.
 Electricity rips through your spine as your ears are attacked by one of Art's
 coughing fits.  It ends after several seconds and you wonder if he's dead.
 
->You move south.
+> s
+You move south.
 
 In the Cottage Living Room
 You are standing in the small cottage living room.  The living room walls
@@ -315,7 +352,8 @@ end of the chain that dangles from the light above.
 
 The faint odor of snappers is here.
 
->You move east.
+> e
+You move east.
 
 In the Cottage Kitchen
 You are standing in the smallest kitchen that you have ever seen on dry land.
@@ -332,7 +370,8 @@ Hovey shuffles off to outside.
 
 The faint odor of snappers wafts towards you from the west.
 
->You move out.
+> out
+You move out.
 
 On the Cottage Deck
 You are standing on the front deck of the cottage.  Some of the boards are
@@ -347,7 +386,8 @@ Hovey is here.
 Your ears are rudely awakened by the sound of a skill saw screaming and
 scraping through some lumber off  in the distance.
 
->You move south.
+> s
+You move south.
 
 On Oakland Ave. @ Cottage
 You are standing in the road in front of the palacial summer estate of 4
@@ -363,7 +403,8 @@ Your grandfather eye's you and says, "Hey Timmy, would you run up to the
 store and get the paper and a box of plain donuts?  Just tell 'em 'paper for
 Reid'.  OK?"  You nod and say, "Ok Grandpa".
 
->You move west.
+> w
+You move west.
 
 On Oakland Ave. @ Art & Marge's
 You are standing directly in front of Art & Marge's house.  There is a large
@@ -376,14 +417,16 @@ Puppy is here.  The sound of a skill saw ripping through some lumber can be
 heard intermittantly off in the distance.
 The sound of a skill saw ripping lumber finally fades to  stillness.
 
->You reach into your pocket and pull out the old sandwich meat.  When you hold
+> feed the dog
+You reach into your pocket and pull out the old sandwich meat.  When you hold
 it out, Puppy lifts himself off of his haunches and rips it from your hand.
 He chews it ravinously, all the time eyeing you.  To your surprise, the
 colossal dog seems to smile at you.  The old dog nuzzles your hand, turns and
 prances up the concrete steps out of sight.
 Your score has gone up by 5 for making friends.
 
->You move east.
+> e
+You move east.
 
 On Oakland Ave. @ Cottage
 You are standing in the road in front of the palacial summer estate of 4
@@ -394,7 +437,8 @@ cottage.  Uncle George's cottage is on the south side of the road.
 
 The faint odor of snappers is here.
 
->You move east.
+> e
+You move east.
 
 On Oakland Ave. @ side yard
 You are standing on Oakland Ave at the top of the cottage side yard.  To the
@@ -406,7 +450,8 @@ Hovey shuffles off to the north.
 
 The faint odor of snappers wafts towards you from the west.
 
->You move north.
+> n
+You move north.
 
 On the Cottage Side Yard
 This is the side yard of the cottage.  This is where people sometimes park
@@ -418,7 +463,8 @@ Hovey is here.
 Electricity rips through your spine as your ears are attacked by one of Art's
 coughing fits.  It ends after several seconds and you wonder if he's dead.
 
->You move north.
+> n
+You move north.
 
 Behind the Cottage
 You are standing directly behind the cottage.  There is a slightly rotted
@@ -434,7 +480,8 @@ Your grandfather eye's you and says, "Hey Timmy, would you run up to the
 store and get the paper and a box of plain donuts?  Just tell 'em 'paper for
 Reid'.  OK?"  You nod and say, "Ok Grandpa".
 
->You move in.
+> in
+You move in.
 
 In the Cottage Cellar
 The extra traction that you got from wearing grandpa's shoes gave you just
@@ -445,7 +492,8 @@ or candle so that you could see better.
 You hear a large dog barking off in the distance.  The sound seems to echo
 through the neighborhood.
 
->You set your feet at the base of the wooden panels and get a good grip.  You
+> push the panels
+You set your feet at the base of the wooden panels and get a good grip.  You
 begin moving the panels when you hear a sudden clang.  You immediately drop
 the panels half expecting the cottage to come falling down.  You must have
 dislodged one of the cottage supports.  You bend over and look behind the
@@ -453,13 +501,17 @@ panels and discover that an old shovel has fallen from it's position on some
 nails when you moved the boards.  Phew!!!
 Your score has gone up by 10.
 
->You pick up the beat up shovel.
+> get shovel
+You pick up the beat up shovel.
 
->You pick up the old ratty stepladder.
+> get ladder
+You pick up the old ratty stepladder.
 
->You pick up the bladed golf club.
+> get golf club
+You pick up the bladed golf club.
 
->You move out.
+> out
+You move out.
 
 Behind the Cottage
 You are standing directly behind the cottage.  There is a slightly rotted
@@ -472,7 +524,8 @@ Hovey, Dad and The faint odor of snappers are here.
 Electricity rips through your spine as your ears are attacked by one of Art's
 coughing fits.  It ends after several seconds and you wonder if he's dead.
 
->You've always wanted to try using one of these bladed golf clubs.  When you
+> cut the grass
+You've always wanted to try using one of these bladed golf clubs.  When you
 swing it side to side, it makes a powerful whoosh sound.  The grass is quite
 long here and deserves a nice cut.  You begin swinging the blade back and
 fourth, leaving a trail of long green organic confetti.  In no time at all,
@@ -480,11 +533,13 @@ you have cut the grass on the side and back yards.  Dad will be so proud of
 you.
 Your score has gone up by 5 for helping your father out.
 
->You drop the bladed golf club.
+> drop golf club
+You drop the bladed golf club.
 Your ears are rudely awakened by the sound of a skill saw screaming and
 scraping through some lumber off  in the distance.
 
->You move south.
+> s
+You move south.
 
 On the Cottage Side Yard
 This is the side yard of the cottage.  This is where people sometimes park
@@ -495,7 +550,8 @@ off in the distance.
 Electricity rips through your spine as your ears are attacked by one of Art's
 coughing fits.  It ends after several seconds and you wonder if he's dead.
 
->You move south.
+> s
+You move south.
 
 On Oakland Ave. @ side yard
 You are standing on Oakland Ave at the top of the cottage side yard.  To the
@@ -503,7 +559,8 @@ south is the ball field behind the Salvation Army building.  The sound of a
 skill saw ripping through some lumber can be heard intermittantly off in the
 distance.
 
->You move south.
+> s
+You move south.
 
 In the Ball Field
 You are standing in the ballfield which is directly behind Uncle George's
@@ -516,9 +573,11 @@ Billy is here.  The sound of a skill saw ripping through some lumber can be
 heard intermittantly off in the distance.
 The sound of a skill saw ripping lumber finally fades to  stillness.
 
->You put on the crappy baseball glove.
+> wear crappy baseball glove
+You put on the crappy baseball glove.
 
->You look over at Billy who is flipping a ball up and down into his glove.
+> have a catch with billy
+You look over at Billy who is flipping a ball up and down into his glove.
 You call over to him and ask "Hey butt weaze, you wannt have a catch?"
 Billy's eyes light up and he immediately winds up and throws you a little
 wimpy throw that takes two bounces getting to you.  You have a catch with
@@ -526,7 +585,8 @@ billy for a few minutes then hand the glove over to Jon and let him take a
 few throws.  When he's done he hands you back the crappy glove and thanks
 you.  You hell over to Billy and tell him that you're done.
 
->You look at Jon and Billy and say "Let's play some baseball."  Billy & Jon
+> play baseball
+You look at Jon and Billy and say "Let's play some baseball."  Billy & Jon
 gladly jump at the opportunity to play some ball.  You yell, "I'm up!" and
 Billy immediately pipes up yelling, "I'm up next!"  Jon was a little too slow
 and will have to settle for hitting last.  Billy stands in the dirt spot that
@@ -548,22 +608,26 @@ for the ball.  You can't find the ball so you determine that it must have
 gone through the window and inside the Salvation Army building.  This sucks,
 game's over.
 
->You pick up the usable baseball glove.
+> get usable baseball glove
+You pick up the usable baseball glove.
 
->You move east.
+> e
+You move east.
 
 At the Salvation Army
 You are standing in front of the Salvation Army building just north of Union
 Ave.  A path leads north to the corner of Oakland Ave.
 
->You move in.
+> in
+You move in.
 
 In the Salvation Army
 You have entered the Salvation Army building.  You are standing in the lobby
 of the building.  To the north is the sanctuary and to the west is a hallway
 that leads to the rest rooms and the gymnasium.
 
->You move north.
+> n
+You move north.
 
 The Salvation Army sanctuary
 You are standing in the middle of the Salvation Army sanctuary.  There are
@@ -573,21 +637,24 @@ around the room with the letters IHS scribed on them.  There are two large
 candle fixtures, one on each side of the platfom.  Along the base of the
 platform is a long kneeling cushion.  There is noone here.
 
->You take a moment and bow your head and pray to God.  You pray that your
+> pray
+You take a moment and bow your head and pray to God.  You pray that your
 brother will get lost, and soon.  You pray that you will find your guitar.
 You pray that Grandpa doesn't ask you how far you would have been if he
 didn't call you back.  You pray that you can find your brand new baseball
 that you lost through the gym window.
 You are at peace with yourself and you begin to feel a bit lucky.
 
->You move south.
+> s
+You move south.
 
 In the Salvation Army
 You have entered the Salvation Army building.  You are standing in the lobby
 of the building.  To the north is the sanctuary and to the west is a hallway
 that leads to the rest rooms and the gymnasium.
 
->You move west.
+> w
+You move west.
 
 The Salvation Army Gym
 This is the Salvation Army gymnasium.  The gymnasium is somewhat dark and is
@@ -599,36 +666,45 @@ lately.
 
 Also here is a new baseball.
 
->You raise the old ratty step ladder and place it into the upright position.
+> open the ladder
+You raise the old ratty step ladder and place it into the upright position.
 You spread it apart and lock the stablizing bars.  You move it into a
 somewhat steady position.
 
->You check that the footing is solid and proceed gingerly up to the top of the
+> climb up the ladder
+You check that the footing is solid and proceed gingerly up to the top of the
 ladder.  Your fear of heights begins to bother you a little.
 
->You reach up and close your hands around the basketball.  You give a quick
+> get the basketball
+You reach up and close your hands around the basketball.  You give a quick
 tug and the ball becomes unstuck from between the rim and the hoop.  Awesome!
 
->You pick up the new baseball.
+> get baseball
+You pick up the new baseball.
 
->You gingerly climb down from the top of the old ratty step ladder.
+> climb down the ladder
+You gingerly climb down from the top of the old ratty step ladder.
 
->You pick up the old ratty stepladder.
+> get ladder
+You pick up the old ratty stepladder.
 
->You move east.
+> e
+You move east.
 
 In the Salvation Army
 You have entered the Salvation Army building.  You are standing in the lobby
 of the building.  To the north is the sanctuary and to the west is a hallway
 that leads to the rest rooms and the gymnasium.
 
->You move out.
+> out
+You move out.
 
 At the Salvation Army
 You are standing in front of the Salvation Army building just north of Union
 Ave.  A path leads north to the corner of Oakland Ave.
 
->You move south.
+> s
+You move south.
 
 On Union Ave. @ the Tabernacle
 The Tabernacle is a large menacing structure that's pretty beat up.  The
@@ -636,7 +712,8 @@ Salvation Army uses this for special events and Sunday morning meeting in the
 summer.  It stands at the top of Union Ave.  You can see the beach looking to
 the east down the street.  Traffic is zipping by in both directions.
 
->You move east.
+> e
+You move east.
 
 At the top of Union Ave.
 You are standing at the top of Union Ave.  To the west is the Tabernacle and
@@ -644,7 +721,8 @@ Union Ave. continues eastward down toward the beach.  There is a tiny little
 convenience store on the south side of the road.  Traffic is zipping by in
 both directions.
 
->You move in.
+> in
+You move in.
 
 In the convenience store
 This is a grimy little convenience store.  The unfinished wood floors are
@@ -654,7 +732,8 @@ here.
 
 Also here is a box of plain donuts.
 
->
+> look
+
 In the convenience store
 This is a grimy little convenience store.  The unfinished wood floors are
 gritty with sand.  There is a little checkout stand just before the door.
@@ -665,20 +744,25 @@ Also here is a box of plain donuts.
 
 Jon is here.
 
->You pick up the box of plain donuts.
+> take the box of plain donuts
+You pick up the box of plain donuts.
 
->You step up to the cash register and place the donuts on the counter.  The
+> buy some plain donuts
+You step up to the cash register and place the donuts on the counter.  The
 clerk says, "Will that be all today?" and nod your head.  The clerk asks for
 75 cents and you gladly place the money in his hands.  Transaction complete.
 
->You step up to the cash register and catch the gaze of the clerk.  You say,
+> paper for reid
+You step up to the cash register and catch the gaze of the clerk.  You say,
 "paper for Reid" with very little  confidence and the clerk says, "Paper for
 Reid...  OK here you go son."  You hand the clerk a quarter and he says
 "thank you".
 
->At the top of Union Ave.
+> out
+At the top of Union Ave.
 
->You suddenly have an uncontrollable urge to sing.  You quickly find your way
+> sing
+You suddenly have an uncontrollable urge to sing.  You quickly find your way
 to the bandshell and turn to face the grove.  You begin to sing  at the top
 of your lungs.  To your surprise, a few grove dwellers wander into view and
 sit to listen to your imprompto concert.  You suprisingly overcome the
@@ -690,21 +774,24 @@ applause.  You bow in appreciation and blow them a big kiss.  You wish that
 this moment would never end.  Unfortunately, it does and the crowd disperses.
 You've just earned 15 points for being ballsey.
 
->You move out.
+> out
+You move out.
 
 In the Grove
 You are standing in a grove of large pine trees.  Intermingled between the
 trees are some long wooden benches.  They are painted dark green and are
 blotched by pine sap stains.  There are pine needles littered about.
 
->You move east.
+> e
+You move east.
 
 On the Arched Walkway
 You are standing at the arched walkway which leads from the Band Shell to
 Washington Ave.  The sidewalk is about 20 slabs long and is very worn and
 cracked.  There is sand on everything.
 
->You move north.
+> n
+You move north.
 
 On Washington Ave. (S)
 You are on Washington Ave. near the Arched Walkway that leads to the
@@ -712,7 +799,8 @@ bandshell.  The road continues to your north where it meets up with Saco Ave.
  J. M. Wortman's, the old  hardware and 5 & 10 cent store, is on the west
 side of the street.  There is a soda machine just outside of Wortman's.
 
->You move in.
+> in
+You move in.
 
 J. M. Wortman's
 J. M. Wortman's is a hardware and a 5 & 10 cent store.  You can get anything
@@ -725,7 +813,8 @@ airplanes and all sorts of oddly colored cheap toys imported from Hong Kong.
 
 Mr. Wortman is here.
 
->
+> look
+
 J. M. Wortman's
 J. M. Wortman's is a hardware and a 5 & 10 cent store.  You can get anything
 from a hammer and nails to candy buttons.  Wortman runs the place and knows
@@ -737,27 +826,32 @@ airplanes and all sorts of oddly colored cheap toys imported from Hong Kong.
 
 Jon and Mr. Wortman are here.
 
->You found the matches and want to buy them.  You bring them up to the counter
+> buy matches
+You found the matches and want to buy them.  You bring them up to the counter
 and ask how much.  Mr. Wortman says 10 cents and you hand him the change.  He
 tosses the matches to you and says, "Thanks sonny".
 
->You find the roll of caps and bring it up to the counter.  Mr. Wortman
+> buy caps
+You find the roll of caps and bring it up to the counter.  Mr. Wortman
 dwarves you and timidly place the caps on the counter.  You ask, "How much?"
 Mr. Wortman replies, "10 cents.  Now you be careful with these sonny."  You
 place the change on the counter and Mr. Wortman flips the roll of caps back
 to you.
 
->You find the scotch tape and bring it up to the counter where Mr. Wortman
+> buy tape
+You find the scotch tape and bring it up to the counter where Mr. Wortman
 waits.  "How much for the tape?", you ask.  Wortman says, "That'll be 15
 cents sonny."  You place the change on the counter and he pushes the tape
 toward you.  "Thanks kid", he says and starts rearranging some displays.
 
->You follow Kevin's instructions on making a cap bomb to perfection.  You have
+> make a cap bomb
+You follow Kevin's instructions on making a cap bomb to perfection.  You have
 a tightly bound cap bomb that will certainly scare the kaka out of someone.
 Now the question is what should I do with it?
 Your score just went up by 10.
 
->You move out.
+> out
+You move out.
 
 On Washington Ave. (S)
 You are on Washington Ave. near the Arched Walkway that leads to the
@@ -765,7 +859,8 @@ bandshell.  The road continues to your north where it meets up with Saco Ave.
  J. M. Wortman's, the old  hardware and 5 & 10 cent store, is on the west
 side of the street.  There is a soda machine just outside of Wortman's.
 
->You start to do what you got to do.  Just as you reach the point where you
+> piss
+You start to do what you got to do.  Just as you reach the point where you
 can't stop, two Old Orchard Beach police officers come into view.  They see
 what you've done and are coming after you.  Each officer grabs an arm and
 says "You're coming downtown young man!".  You are dragged away and led to
@@ -773,7 +868,8 @@ the Old Orchard Beach Police Station.  You are very scared.
 After serving a one hour sentence for juvenile indecent exposure you are
 released and are free to go.
 
->
+> look
+
 OOB Police Station
 This is the Old Orchard Beach Police Station.  It looks much like the police
 station on the Andy Griffith Show.  There is a small table with a coffee
@@ -782,15 +878,18 @@ there is a counter on the west wall.
 
 Jon, Captain Miller and Wayne Tucker are here.
 
->You take the jelly donut from the small coffee table.
+> get jelly donut
+You take the jelly donut from the small coffee table.
 
->You attempt to get on the good side of Captain Miller and offer him the jelly
+> give captain miller a donut
+You attempt to get on the good side of Captain Miller and offer him the jelly
 filled donut.  He holds his stomach and puts on a great big smile.  He take
 the donut and pats you on the head with a white powdery hand.  A cloud of
 powder dust envelops your head.
 Your score has gone up by 5 because you're so nice to fat policemen.
 
->You find yourself uncontrollably drawn to the skeleton key dangling from a
+> steal the skeleton key
+You find yourself uncontrollably drawn to the skeleton key dangling from a
 fine string tied to Captain Miller's belt.  You reach for it just as he turns
 to get some coffee and a donut.  You quietly grip the key and yank it with
 all your might.  The string snaps and you have the key cupped in your palm.
@@ -809,7 +908,8 @@ zipping by in both directions.
 You may have just made an enemy, but you have the key that you so keenly
 desired.  Score 10 for timmy.
 
->You move east.
+> e
+You move east.
 
 On Old Orchard St. near Tattoo Parlor
 You are standing slightly down the hill from the top of Old Orchard St.  To
@@ -817,7 +917,8 @@ the north is a Tattoo Parlor.  The windows are dark but there is a sign
 hanging in the window closest to the door.  Upon further inspection, the sign
 reads "Open".  Traffic is zipping by in both directions.
 
->You move in.
+> in
+You move in.
 
 In the Tattoo Parlor
 The room is dank and dark.  There is a barber's chair in the center of the
@@ -825,14 +926,16 @@ room.  Around the room is a wall counter which is stained with ink blotches.
 So much so that Dr. Rorschach would be proud.  The walls are covered with 8.5
 x 11 sheets of paper with sample tattoos.
 
->You reach over and ring the service bell and wait in anticipation.  After
+> ring the bell for service
+You reach over and ring the service bell and wait in anticipation.  After
 several minutes, you hear some stirring from behind a curtain in the back of
 the parlour.  The curtain is pushed open by a strange looking character who
 you assume is the tattoo guy.
 
 Sting walks towards you.
 
->You look around the room at all the sample tattoos.  The one that catches
+> get a tattoo
+You look around the room at all the sample tattoos.  The one that catches
 your eye is the Red Sox logo with the two red socks crossed with "Red Sox"
 circling above.  You point and say "That one."  Sting nods his head in
 approval and sticks out his tongue, revealing the exact same tattoo right in
@@ -852,9 +955,11 @@ your arm.  There's some gauze, tape and some bandages in there."  You say
 "Thanks" in a low voice, still dealing with the pain.
 Add 5 points to your score for having some balls.
 
->You take the medical kit from the wall counter.
+> get medical kit
+You take the medical kit from the wall counter.
 
->You move out.
+> out
+You move out.
 
 On Old Orchard St. near Tattoo Parlor
 You are standing slightly down the hill from the top of Old Orchard St.  To
@@ -864,7 +969,8 @@ reads "Open".  Traffic is zipping by in both directions.
 
 A band of Harley's cruises toward you from the east.
 
->You move east.
+> e
+You move east.
 
 On Old Orchard St. near Emerson's Carmel Corn
 You are standing outside one of your favorite places in Old Orchard Beach.
@@ -872,7 +978,8 @@ Emerson's Carmel Corn.  In the front window winds a saltwater taffy machine
 that mixes and mixes the taffy.  Inside, you know that there is all sorts of
 confections.  Yum yum yum!!!  Traffic is zipping by in both directions.
 
->You move east.
+> e
+You move east.
 
 On Old Orchard St. near St. Tropez
 You are standing almost completely down the bottom of Old Orchard St.  The
@@ -881,7 +988,8 @@ and are immediately immersed with the feeling of chlostraphobia.  There are
 plastic manichins showing off tiny little bikini's and swim trunks in the
 windows.  Traffic is zipping by in both directions.
 
->You move east.
+> e
+You move east.
 
 On rr tracks @ Old Orchard St.
 You are standing at the intersection of Old Orchard St. and the railroad
@@ -890,12 +998,14 @@ the east and Old Orchard St. rolls up hill to the west.  There are some low
 bushes and vines along the west side of the tracks.  Traffic is zipping by in
 both directions.
 
->You reach your hands deep into the tangled grape vines and feel a nice bunch
+> pick some grapes
+You reach your hands deep into the tangled grape vines and feel a nice bunch
 of grapes.  You twist the stem and pull, retreiving some purple grapes.
 These grapes remind you of the grapes behind Colt's house.
 Your score went up by 100, sorry 5 and only the first time you do it!
 
->You gingerly wiggle your hand between throngs of painful prickers, reaching
+> take the apple-like fruit
+You gingerly wiggle your hand between throngs of painful prickers, reaching
 for one of the apples.  As you close your hand around one of them, you feel
 several prickers depressing into your arm.  You slowly pull and twist your
 hand hoping to easily remove the apple from the branch but to no avail.  You
@@ -903,7 +1013,8 @@ start getting frustrated and decide to YANK.  You yank the apple from the
 branch but draw  some blood in the process.  You now have two or three small
 but painful cuts just above your wrist.
 
->You move east.
+> e
+You move east.
 
 On Old Orchard St. & Grand Ave.
 You are standing on the corner of Old Orchard St. and Grand Ave.  Grand Ave.
@@ -913,21 +1024,24 @@ south and the expanse of Old Orchard St. leads up the hill to the west.
 There are many vacationers buzzing around like moths.  Traffic is zipping by
 in both directions.
 
->You move east.
+> e
+You move east.
 
 At the Pier (entrance)
 You are standing on the sloped wooden ramp which is the entrance to the Pier.
  The Pier leads eastward over the ocean.  Oh what fun lies on the Pier.
 There are some hungry seagulls soaring overhead searching for bits of food.
 
->You move east.
+> e
+You move east.
 
 On The Pier near Woolf's Souveniers
 You are standing at the top of the ramp that leads to the entrance of the
 pier.  Woolf's Souvenier shop is here.  The pier runs to the east from here.
 There are a few hungry seagulls soaring above looking for hand-outs.
 
->You move east.
+> e
+You move east.
 
 On The Pier near Dairy Twirl
 You are standing on western end of the pier.  There is a Dairy Twirl soft
@@ -936,7 +1050,8 @@ wonders.  There is a spin art booth here also.  A bunch of little mcgrubbits
 crowd around the booth trying to get a turn.  There are some seagulls
 circling the area.
 
->You move east.
+> e
+You move east.
 
 On the Pier near Pier French Fries
 You are standing somewhere in the middle of the pier near Pier French Fries.
@@ -952,7 +1067,8 @@ small red prop plane slowly following the coastline.  It is trailing a long
 tail of a sign which reads "Breakfast buffet $1.49 - The Golden Rooster,
 Saco".
 
->You walk up to the counter at Pier French Fries and ask for an order of
+> buy some french fries
+You walk up to the counter at Pier French Fries and ask for an order of
 french fries.  The guy behind the counter scoops out a bunch of thick piping
 hot french fries and puts them in a paper tray.  He asks, "Salt or ketchup
 with that?"  You reply, "I'll have some ketchup please."  He pushes them over
@@ -961,14 +1077,16 @@ over at you like a starving puppy.
 The small plane chuggs slowly by and fades out of sight toward the pier.
 It'll be back again before you know it.
 
->You decide to throw a few french fries to the hungry seagulls.  To your
+> feed the seagulls with french fries
+You decide to throw a few french fries to the hungry seagulls.  To your
 surprise, they ravinously jump at your offering.  The biggest gull pounces on
 one of  the one that happened to be misfortunate enough to catch the fry and
 rips it from it's beak.  The rest of the gulls fly down and pick up the
 scraps.  They seem unappreciative yet satisfied.
 You score 5 points for being a good guy.
 
->You move west.
+> w
+You move west.
 
 On The Pier near Dairy Twirl
 You are standing on western end of the pier.  There is a Dairy Twirl soft
@@ -977,21 +1095,24 @@ wonders.  There is a spin art booth here also.  A bunch of little mcgrubbits
 crowd around the booth trying to get a turn.  There are some seagulls
 circling the area.
 
->You move west.
+> w
+You move west.
 
 On The Pier near Woolf's Souveniers
 You are standing at the top of the ramp that leads to the entrance of the
 pier.  Woolf's Souvenier shop is here.  The pier runs to the east from here.
 There are a few hungry seagulls soaring above looking for hand-outs.
 
->You move west.
+> w
+You move west.
 
 At the Pier (entrance)
 You are standing on the sloped wooden ramp which is the entrance to the Pier.
  The Pier leads eastward over the ocean.  Oh what fun lies on the Pier.
 There are some hungry seagulls soaring overhead searching for bits of food.
 
->You move west.
+> w
+You move west.
 
 On Old Orchard St. & Grand Ave.
 You are standing on the corner of Old Orchard St. and Grand Ave.  Grand Ave.
@@ -1001,7 +1122,8 @@ south and the expanse of Old Orchard St. leads up the hill to the west.
 There are many vacationers buzzing around like moths.  Traffic is zipping by
 in both directions.
 
->You move south.
+> s
+You move south.
 
 Outside Wonderland Arcade
 You are stand just outside of the Wonderland Arcade.  You look up at the red
@@ -1012,7 +1134,8 @@ going off presumably from the arcade games inside.  To the east you can see
 all the rides in Palace Playland.  Old Orchard St. is to the north and Grand
 Ave. continues on south.  Traffic is zipping by in both directions.
 
->You move in.
+> in
+You move in.
 
 In the Wonderland Arcade
 This is one of your favorite places in the world outside of your bedroom at
@@ -1021,7 +1144,8 @@ counter loaded with all sorts of awesome prizes in the northwest corner.
 There are many many arcade games throughout the room but one stands out,
 "Line Drive", the absolute Holy Grail of arcade games is here.
 
->You reach into your pocket and pull out some money.  You drop a dime into the
+> play skeeball
+You reach into your pocket and pull out some money.  You drop a dime into the
 slot and pull down the metal lever with a "wizzzzz".  A second later you hear
 the balls start to roll and then stop as they "klopp" into view.  You grab
 the balls one at a time and roll them up the ramp underhanded.  You can't
@@ -1032,7 +1156,8 @@ to find that you rolled a score of 280 and about 10 tickets cascade down onto
 your feet.  You reach down and rip them from the machine.  You play the game
 a few more times until you run out of money.  That was fun.
 
->You scan the prizes for something interesting and something catches your eye.
+> buy the wiffle ball
+You scan the prizes for something interesting and something catches your eye.
  A brand new sparkling white wiffle ball.  Yea, that's what I want!  You hold
 out your tickets and ask the lady for the wiffle ball.  The lady takes what's
 left of your ticket supply, reaches over to get the whiffle ball and hands it
@@ -1041,7 +1166,8 @@ is one of your favorite things (The Reid Constant is now officially in
 effect).
 Your score has gone up by 10.
 
->You move out.
+> out
+You move out.
 
 Outside Wonderland Arcade
 You are stand just outside of the Wonderland Arcade.  You look up at the red
@@ -1052,7 +1178,8 @@ going off presumably from the arcade games inside.  To the east you can see
 all the rides in Palace Playland.  Old Orchard St. is to the north and Grand
 Ave. continues on south.  Traffic is zipping by in both directions.
 
->You move east.
+> e
+You move east.
 
 In Palace Playland (nw)
 You are standing in the northwest corner of Palace Playland.  The Sizzler is
@@ -1062,7 +1189,8 @@ large softball.  Boring!!!
 
 Dave the Guesser is here.
 
->You move south.
+> s
+You move south.
 
 In Palace Playland (w)
 You are standing in the west section of Palace Playland.  There is a kiddie
@@ -1070,7 +1198,8 @@ motorcycle ride here and a booth where you try to throw small colored rings
 onto the neck of one of the one hundred or so bottles.  You never win at that
 game.
 
->You move east.
+> e
+You move east.
 
 In Palace Playland (e)
 You are standing in the eastern section of Palace Playland.  The DODGE'M cars
@@ -1078,7 +1207,8 @@ bumper car ride is here and there is a booth where you have to completely
 shoot out a red star from a piece of paper with a bb sub-machine gun.  Very
 cool!
 
->You move in.
+> in
+You move in.
 
 At the DODGEM Cars
 This building houses one of your favorite playland rides.  The DODGEM Cars or
@@ -1093,24 +1223,28 @@ Also here is a fine black powder.
 
 Dodgem Cars attendant is here.
 
->You ask the attendant if you can have the key that is slung around his neck.
+> ask the attendant for the key
+You ask the attendant if you can have the key that is slung around his neck.
 He looks at you puzzled but grabs it and throws it to you.  He says, "Go get
 the push broom from the maintenance closet squirt!"
 
->You push the key into the lock and turn.  At first, you can't get the key in
+> open the maintenance closet
+You push the key into the lock and turn.  At first, you can't get the key in
 the slot but are finally able to persuade it in.  After jiggling it several
 times, you are finally able to unlock the door and open the maintenance
 closet.  You look inside and find some tools and a push broom.  You grab the
 broom and slam the closet behind you.
 
->You grab hold of the push broom and begin sweeping.  You start at one end of
+> clean the Dodgem car floor
+You grab hold of the push broom and begin sweeping.  You start at one end of
 the floor and work your way across.  This absolutely sucks!  You are creating
 big dark clouds of smoke as you sweep and it's getting in your mouth and
 eyes.  This isn't worth it.  After about 15 minutes, you have completely
 cleaned the floor.  The attendant is so pleased with you that he's going to
 let you ride for free the rest of the day.  Yippee!!!!!!!!
 
->You walk as fast as you can to the purple Dodge'm car and take a seat.  After
+> ride the dodgem cars
+You walk as fast as you can to the purple Dodge'm car and take a seat.  After
 the rest of the people are seated, the attendant walks over and belts you in.
  He finished belting everyone else in and walks over the the controls.  He
 gives a brief schpeel about safety or some other crap and then throws the
@@ -1125,7 +1259,8 @@ floor and you exhale as you are not getting shocked to death.  That was
 awesome.
 Your score has gone up by 10.
 
->You move out.
+> out
+You move out.
 
 In Palace Playland (e)
 You are standing in the eastern section of Palace Playland.  The DODGE'M cars
@@ -1133,7 +1268,8 @@ bumper car ride is here and there is a booth where you have to completely
 shoot out a red star from a piece of paper with a bb sub-machine gun.  Very
 cool!
 
->You move west.
+> w
+You move west.
 
 In Palace Playland (w)
 You are standing in the west section of Palace Playland.  There is a kiddie
@@ -1141,7 +1277,8 @@ motorcycle ride here and a booth where you try to throw small colored rings
 onto the neck of one of the one hundred or so bottles.  You never win at that
 game.
 
->You move south.
+> s
+You move south.
 
 In Palace Playland (sw)
 You are standing in the southwest corner of Palace Playland.  There is a
@@ -1149,7 +1286,8 @@ large roller coaster here and you see one or two four-seater cars wizzing
 around the track making an awesome rumble.  There is a booth here where you
 shoot a basketball at a hoop for prizes.
 
->You move west.
+> w
+You move west.
 
 On Grand Ave. near bar
 You are standing just outside of a biker bar.  It seems deserted but you
@@ -1160,14 +1298,16 @@ Bouncer is here.  Traffic is zipping by in both directions.
 
 A band of Harley's cruises toward you from the south.
 
->You move south.
+> s
+You move south.
 
 On Grand Ave. & Atlantic Ave.
 You are standing at the intersection of Grand Ave and Atlantic Ave.  There is
 a mini-golf course on the  north-west corner and a place that rents bicycles
 and double-wide bikes.  Traffic is zipping by in both directions.
 
->You move south.
+> s
+You move south.
 
 On Grand Ave. (mid)
 You are standing on Grand Ave. between Atlantic Ave. and Union Ave.  There is
@@ -1176,7 +1316,8 @@ is zipping by in both directions.
 
 A dual seater rental bike rolls away to the south.
 
->You move south.
+> s
+You move south.
 
 At Union & Grand Ave.
 You've come to the intersection of Union and Grand Avenues.  This is a pretty
@@ -1184,7 +1325,8 @@ busy intersection with the occasional car and rental double bike.  To the
 north are many motels and shops.  To the east is the beach and to the south
 is more motels and Ocean Park.  Traffic is zipping by in both directions.
 
->You move south.
+> s
+You move south.
 
 On Grand Ave near bookstore
 You are standing on Grand Ave. near a small used book store.  The sign in the
@@ -1193,7 +1335,8 @@ Traffic is zipping by in both directions.
 
 A dual seater rental bike rolls towards you from the north.
 
->You move south.
+> s
+You move south.
 
 On Grand Ave. & Odessa Ave.
 You are standing at the intersection of Grand Ave. and Odessa Ave.  Gregory's
@@ -1201,19 +1344,22 @@ Variety and Union Ave. are to the north.  The beach is to the east.  Ocean
 Park is to the south and you see your Uncle Joe's cottage to the west.  It is
 a funky light green color.  Traffic is zipping by in both directions.
 
->You move west.
+> w
+You move west.
 
 On Odessa Ave @ Uncle Joe's
 You are standing just in front of Uncle Joe's cottage.  It looks very well
 maintained.  There are many small American flags adorning the perimeter of
 the front porch.
 
->You tip-toe over to the front of Uncle Joe's cottage and peer into one of the
+> take the flags
+You tip-toe over to the front of Uncle Joe's cottage and peer into one of the
 screen windows.  Uncle Joe  and Auntie Esther are nowhere in sight.  You
 somehow convince yourself that they won't notice if you take all these flags.
  You scurry around, hunching over, and take all the american flags.
 
->You move east.
+> e
+You move east.
 
 On Grand Ave. & Odessa Ave.
 You are standing at the intersection of Grand Ave. and Odessa Ave.  Gregory's
@@ -1221,7 +1367,8 @@ Variety and Union Ave. are to the north.  The beach is to the east.  Ocean
 Park is to the south and you see your Uncle Joe's cottage to the west.  It is
 a funky light green color.  Traffic is zipping by in both directions.
 
->You move east.
+> e
+You move east.
 
 On the beach @ Odessa Ave.
 You are standing on the beach at the end of Odessa Ave.  There are many
@@ -1239,7 +1386,8 @@ buffet $1.49 - The Golden Rooster, Saco".
 The small plane chuggs slowly by and fades out of sight toward the pier.
 It'll be back again before you know it.
 
->You move in.
+> in
+You move in.
 
 In the ocean @ Odessa Ave.
 In the shallow water is a large rock outcropping.  It looks like it was
@@ -1247,9 +1395,11 @@ dropped here because it seems so out of place.  The rocks are called Googin's
 Rocks but you have no idea why.  There are some people inspecting the rocks
 for crabs and good stuff.
 
->You take the small marine animals from the googin's rocks.
+> get the marine animals
+You take the small marine animals from the googin's rocks.
 
->For some unknown reason, you raise the small marine animals to your mouth.
+> taste the small marine animals
+For some unknown reason, you raise the small marine animals to your mouth.
 Although some them are flopping around a few are just sitting there.  As you
 purse your lips a familiar smell hits your senses.  You trap one of the
 animals between your lips and bring your tongue into contact with it.  After
@@ -1260,7 +1410,8 @@ together, the pieces that aren't moving are really some INCREDIBLE EDIBLES!!!
 holding his stomach from laughing at you for eating the small marine animals
 and you give him a dirty look.
 
->You move out.
+> out
+You move out.
 
 On the beach @ Odessa Ave.
 You are standing on the beach at the end of Odessa Ave.  There are many
@@ -1274,7 +1425,8 @@ Sunbather is here.
 
 Canadian couple walks towards you from the north.
 
->You move west.
+> w
+You move west.
 
 On Grand Ave. & Odessa Ave.
 You are standing at the intersection of Grand Ave. and Odessa Ave.  Gregory's
@@ -1282,14 +1434,16 @@ Variety and Union Ave. are to the north.  The beach is to the east.  Ocean
 Park is to the south and you see your Uncle Joe's cottage to the west.  It is
 a funky light green color.  Traffic is zipping by in both directions.
 
->You move north.
+> n
+You move north.
 
 On Grand Ave near bookstore
 You are standing on Grand Ave. near a small used book store.  The sign in the
 window reads "Closed".  Oh well, you're not interested in reading anyway.
 Traffic is zipping by in both directions.
 
->You move north.
+> n
+You move north.
 
 At Union & Grand Ave.
 You've come to the intersection of Union and Grand Avenues.  This is a pretty
@@ -1297,21 +1451,24 @@ busy intersection with the occasional car and rental double bike.  To the
 north are many motels and shops.  To the east is the beach and to the south
 is more motels and Ocean Park.  Traffic is zipping by in both directions.
 
->You move north.
+> n
+You move north.
 
 On Grand Ave. (mid)
 You are standing on Grand Ave. between Atlantic Ave. and Union Ave.  There is
 nothing of interest here.  You can hear the ocean off to the east.  Traffic
 is zipping by in both directions.
 
->You move north.
+> n
+You move north.
 
 On Grand Ave. & Atlantic Ave.
 You are standing at the intersection of Grand Ave and Atlantic Ave.  There is
 a mini-golf course on the  north-west corner and a place that rents bicycles
 and double-wide bikes.  Traffic is zipping by in both directions.
 
->You move north.
+> n
+You move north.
 
 On Grand Ave. near bar
 You are standing just outside of a biker bar.  It seems deserted but you
@@ -1320,14 +1477,16 @@ from within and you can hear glass breaking occassionally.
 
 Bouncer is here.  Traffic is zipping by in both directions.
 
->You attempt to grease the bouncer's palm by offering him your 1975 Red Sox
+> bribe the bouncer
+You attempt to grease the bouncer's palm by offering him your 1975 Red Sox
 hat.  He quickly looks from side to side, making sure that none of his
 buddies see him taking it from you.  He quickly grabs the hat and fits it
 onto his head.  A perfect fit!  He mumbles, "Go Red Sox!" and turns his back
 to you.  You enter the bar cautiously.
 Your score has gone up by 5
 
->You take the cap bomb and matches from your pocket.  You are desperate for
+> light the cap bomb
+You take the cap bomb and matches from your pocket.  You are desperate for
 that guitar and will do anything to get it.  You take a deep breath and light
 the match.  You hold out the cap bomb and draw the lit match towards the end
 of the match that is sticking out of the cap bomb.  The cap bomb is now lit
@@ -1342,7 +1501,8 @@ with your hands on your knees panting for breath.  You got your guitar.
 Bravo!
 Your score has gone up by 10.
 
->You move south.
+> s
+You move south.
 
 On Washington Ave. (S)
 You are on Washington Ave. near the Arched Walkway that leads to the
@@ -1350,7 +1510,8 @@ bandshell.  The road continues to your north where it meets up with Saco Ave.
  J. M. Wortman's, the old  hardware and 5 & 10 cent store, is on the west
 side of the street.  There is a soda machine just outside of Wortman's.
 
->You move south.
+> s
+You move south.
 
 On the Arched Walkway
 You are standing at the arched walkway which leads from the Band Shell to
@@ -1359,14 +1520,16 @@ cracked.  There is sand on everything.  The sound of a skill saw ripping
 through some lumber can be heard intermittantly off in the distance.
 The sound of a skill saw ripping lumber finally fades to  stillness.
 
->You move west.
+> w
+You move west.
 
 In the Grove
 You are standing in a grove of large pine trees.  Intermingled between the
 trees are some long wooden benches.  They are painted dark green and are
 blotched by pine sap stains.  There are pine needles littered about.
 
->You move west.
+> w
+You move west.
 
 On Oakland Ave. @ corner
 You are standing on the corner of Oakland Ave. near the grove.  The cottage
@@ -1377,7 +1540,8 @@ newspaper and donuts every day.  You can see Billy casually riding his bike
 on the road near the cottage.  He's quite shakey due to the slow speed and
 tight turns but he doesn't falter.
 
->You move west.
+> w
+You move west.
 
 On Oakland Ave. @ side yard
 You are standing on Oakland Ave at the top of the cottage side yard.  To the
@@ -1391,7 +1555,8 @@ Hovey shuffles off to the north.
 Electricity rips through your spine as your ears are attacked by one of Art's
 coughing fits.  It ends after several seconds and you wonder if he's dead.
 
->You move west.
+> w
+You move west.
 
 On Oakland Ave. @ Cottage
 You are standing in the road in front of the palacial summer estate of 4
@@ -1402,7 +1567,8 @@ cottage.  Uncle George's cottage is on the south side of the road.  You can
 see Billy casually riding his bike on the road near the cottage.  He's quite
 shakey due to the slow speed and tight turns but he doesn't falter.
 
->
+> look
+
 On Oakland Ave. @ Cottage
 You are standing in the road in front of the palacial summer estate of 4
 Oakland Avenue.  The porch windows are large with wire screens.  There is an
@@ -1414,7 +1580,8 @@ Jon is here.  You can see Billy casually riding his bike on the road near the
 cottage.  He's quite shakey due to the slow speed and tight turns but he
 doesn't falter.
 
->
+> look
+
 On Oakland Ave. @ Cottage
 You are standing in the road in front of the palacial summer estate of 4
 Oakland Avenue.  The porch windows are large with wire screens.  There is an
@@ -1426,7 +1593,8 @@ Jon is here.  You can see Billy casually riding his bike on the road near the
 cottage.  He's quite shakey due to the slow speed and tight turns but he
 doesn't falter.
 
->
+> look
+
 On Oakland Ave. @ Cottage
 You are standing in the road in front of the palacial summer estate of 4
 Oakland Avenue.  The porch windows are large with wire screens.  There is an
@@ -1440,7 +1608,8 @@ doesn't falter.
 
 The faint odor of snappers wafts towards you from the north.
 
->
+> look
+
 On Oakland Ave. @ Cottage
 You are standing in the road in front of the palacial summer estate of 4
 Oakland Avenue.  The porch windows are large with wire screens.  There is an
@@ -1454,45 +1623,56 @@ slow speed and tight turns but he doesn't falter.
 Electricity rips through your spine as your ears are attacked by one of Art's
 coughing fits.  It ends after several seconds and you wonder if he's dead.
 
->You grab the thumb wrestler, skeleton key and wiffle ball from your stash and
+> put the items into the red bag
+You grab the thumb wrestler, skeleton key and wiffle ball from your stash and
 shove them into the red bag.
 
 The faint odor of snappers wafts off to the east.
 
->You deftly shove the garage key, sour grapes and usable glove into the orange
+> put the items into the orange bag
+You deftly shove the garage key, sour grapes and usable glove into the orange
 bag.
 
->You take the new baseball, many flags and beat up shovel and cram them into
+> put the items into the yellow bag
+You take the new baseball, many flags and beat up shovel and cram them into
 the yellow bag.
 
->You take the medical kit, soap-on-a-rope and strawberry shampoo and cram them
+> put the items into the green bag
+You take the medical kit, soap-on-a-rope and strawberry shampoo and cram them
 into the green bag.
 
->You take the white towel, push broom and tennis ball and cram them into the
+> put the items into the blue bag
+You take the white towel, push broom and tennis ball and cram them into the
 blue bag.
 Electricity rips through your spine as your ears are attacked by one of Art's
 coughing fits.  It ends after several seconds and you wonder if he's dead.
 
->You take the ABA basketball, Tim's key and the yummy pop-tarts and
+> put the items into the purple bag
+You take the ABA basketball, Tim's key and the yummy pop-tarts and
 reluctantly place them into the purple bag.
 
->You gently pick up your guitar, the playboy magazine and the incredible
+> put the items into the black bag
+You gently pick up your guitar, the playboy magazine and the incredible
 edibles and shove them into the black bag.
 
->You carefully take the red, orange and yellow bags and one-by-one, place them
+> put the bags into the glass box
+You carefully take the red, orange and yellow bags and one-by-one, place them
 into the colorful glass box and close it.
 Electricity rips through your spine as your ears are attacked by one of Art's
 coughing fits.  It ends after several seconds and you wonder if he's dead.
 
->You take the green and blue bags and stuff them into the colorful metal box
+> put the bags into the metal box
+You take the green and blue bags and stuff them into the colorful metal box
 and close it.
 
->You take the full purple and black bags, shove them into the wooden box and
+> put the bags into the wooden box
+You take the full purple and black bags, shove them into the wooden box and
 close it.
 You hear a large dog barking off in the distance.  The sound seems to echo
 through the neighborhood.
 
->You lift each box, one by one, into the garbage container and close the lid.
+> put the boxes into the garbage container
+You lift each box, one by one, into the garbage container and close the lid.
 You've worked up quite a sweat.
 You slowly turn your head toward Jon with the realization that you can now go
 back home.  You don't know why you know, but you KNOW that you can go home
@@ -1509,12 +1689,14 @@ brown nose or something...  Your score has gone up by 5 for good citizenship.
 Electricity rips through your spine as your ears are attacked by one of Art's
 coughing fits.  It ends after several seconds and you wonder if he's dead.
 
->You check that the footing is solid and proceed gingerly up to the top of the
+> climb up the ladder
+You check that the footing is solid and proceed gingerly up to the top of the
 ladder.  Your fear of heights begins to bother you a little.
 Your ears are rudely awakened by the sound of a skill saw screaming and
 scraping through some lumber off  in the distance.
 
->You reach a hand up and to your surprise, you feel an invisible solid ledge.
+> up
+You reach a hand up and to your surprise, you feel an invisible solid ledge.
 You yell to Jon, "Come on!  Let's go!!!" and you heave the heavy garbage
 container up onto the invisible ledge.  You hesitate but know you must go.
 You grab hold of the ledge with both hands and pull yourself up with all your

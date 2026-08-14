@@ -10,55 +10,70 @@ some moss.
 Dark Chamber
 You are lying flat on your back with your body bruised from the fall.
 
->You lie back down and close your eyes.  The rest does you good as you feel a
+> rest
+You lie back down and close your eyes.  The rest does you good as you feel a
 little better.
 
->You lie back down and close your eyes.  The rest does you good as you feel a
+> rest
+You lie back down and close your eyes.  The rest does you good as you feel a
 little better.
 
->You lift yourself off the floor and look around.
+> stand up
+You lift yourself off the floor and look around.
 
 Dark Chamber
 The room is pitch black...  except for some small blinking lights on a wall.
 (In an ancient temple?!?)
 
->As you look closer you realize they are like an old style computer panel,
+> x lights
+As you look closer you realize they are like an old style computer panel,
 except hundreds of small lights.  There is enough ambient light from them to
 display several push buttons.
 
->You see a red button with a black and blue button on opposite sides, a yellow
+> x buttons
+You see a red button with a black and blue button on opposite sides, a yellow
 button above, and a green button below.
 
->You hear a slight click as the button turns on...  as well as the lights.
+> press blue button
+You hear a slight click as the button turns on...  as well as the lights.
 
 Computer Chamber
 The chamber glows with a bluish light.  The east wall is a computer function
 display.  To the north is a long stairway leading up.
 
->You hear a slight click as the button turns on.
+> press green button
+You hear a slight click as the button turns on.
 
->The yellow button turns on for a short time, then turns back off.  Futher
+> press yellow button
+The yellow button turns on for a short time, then turns back off.  Futher
 along the wall a niche appears.
 
->The niche is a rectangular hollow in the wall.  Gold and silver touch pads
+> x niche
+The niche is a rectangular hollow in the wall.  Gold and silver touch pads
 are on the side of the niche
 
->The niche has a holographic image of a ceremonial knife.  Gold and silver
+> press silver pad
+The niche has a holographic image of a ceremonial knife.  Gold and silver
 touch pads are on the side of the niche.
 
->The niche has a holographic image of a glock pistol.  Gold and silver touch
+> again
+The niche has a holographic image of a glock pistol.  Gold and silver touch
 pads are on the side of the niche.
 
->The niche has a holographic image of a plastic gun.  Gold and silver touch
+> again
+The niche has a holographic image of a plastic gun.  Gold and silver touch
 pads are on the side of the niche.
 
->Both the silver and gold touch pads fade away.  The weapon4 becomes solid and
+> press gold pad
+Both the silver and gold touch pads fade away.  The weapon4 becomes solid and
 sits in the niche.
 
->You take the plastic gun from the rectangular niche.  As soon as you do that,
+> take gun
+You take the plastic gun from the rectangular niche.  As soon as you do that,
 the niche fades away.
 
->(Your score has increased by 2)
+> u
+(Your score has increased by 2)
 You feel the rush of wind as something carries you up the stairs so fast, the
 steps seem to vanish.  The inertial field slows and deposits you at the
 entrance of a small temple.
@@ -75,7 +90,8 @@ Before you can react, an old man dressed in a gaudy gown shouts at you, "You
 came from The Temple!  Death to you for defying THEY!"  He starts throwing
 sacks of gunpowder, which explode at your feet.
 
->(Your score has increased by 2)
+> shoot wizard with gun
+(Your score has increased by 2)
 You feel silly aiming a toy as a weapon, but as soon as you pull the trigger
 the wizard falls down.  As you look at the gun baffled, the villagers examine
 the wizard.
@@ -94,12 +110,14 @@ silent.
 
 The villagers look at you expectantly.
 
->"He is the wizard!"  "Dummy!  That guy wants to know his name!"  "I don't
+> ask villagers about wizard
+"He is the wizard!"  "Dummy!  That guy wants to know his name!"  "I don't
 know his name!"  "Not him, the wizard's!"  "I don't know his either!"  One of
 the people jumps up and shouts, "I know!  He is of the Politics!"  Someone
 grabs him and say's "Sit down!"
 
->As you leave the villagers to head west, they decide to stand up and get back
+> w
+As you leave the villagers to head west, they decide to stand up and get back
 to work in the fields.
 
 Communal Dining Hall
@@ -109,11 +127,13 @@ from the firepits to dissipate without interfering with the occupants.
 Several low tables are scattered around the room, where it appears you sit on
 the ground to eat.
 
->Both have hot coals from the wood and dung burning in the center.  One has a
+> x firepits
+Both have hot coals from the wood and dung burning in the center.  One has a
 large thick clay pot dangling over the fire, while the other has an animal
 roasting on a spit.
 
->You move east.
+> e
+You move east.
 
 Medieval Village
 The ruins you remember are in worse shape and occupied by peasants likened to
@@ -125,13 +145,15 @@ The wizard is here.
 The wizard starts to shake his head, blinking his eyes, as he begins to
 recover from being stunned.
 
->The old man is dressed in a gaudy gown reminiscent of cartoon magicians, with
+> x wizard
+The old man is dressed in a gaudy gown reminiscent of cartoon magicians, with
 magic symbols stitched into the cloth.    The wizard is lying unconscious.
 "Ancient One!" the wizard whispers at you.  "Forgive me!  I did not...  I
 assumed...  Please, come into my house that I might speak privately with
 you."  He walks toward the shack to the east, looking back at you hopefully.
 
->Wizard's House
+> e
+Wizard's House
 The shack is much like other impoverished shelters without any modern
 amenities.  A single bed and some pieces of furniture occupy the room.
 
@@ -156,7 +178,8 @@ of the wall to swivel outward.  Just outside the wall is a metal platform
 with a single bar wrapping three sides of the platform.  The wizard steps on
 it, gesturing you to stand on it with him.
 
->The wizard spreads his arms and chants, "Arise and Fly us to the home!
+> e
+The wizard spreads his arms and chants, "Arise and Fly us to the home!
 Deliver us to the base!"  The platform floats straight up to a height of
 about ten meters.  You think out loud, "voice activated hovercraft of some
 sort".  The wizard responds, "Surely you are an ancient one!  Only they
@@ -175,15 +198,18 @@ Looking at the southern horizon, you see a metallic glint beyond the
 mountains, occasionally obscured by clouds.
 The wizard is here.
 
->"We have been trained by teachings of the ancients to help prevent the old
+> ask wizard about politics
+"We have been trained by teachings of the ancients to help prevent the old
 knowledge from being used."  He pauses, with an unfocused gaze ahead, "When
 we are with the others, we can discuss this further."
 
->Time passes...
+> wait
+Time passes...
 The ravine has widened and a rocky beach on the eastern side is wide enough
 for the occasional river wake to lap only a small portion of the sand.
 
->Time passes...
+> wait
+Time passes...
 There is evidence of a paved road that came from the east and follows the
 river, but is now sadly deteriorated.
 (Your score has increased by 2)
@@ -201,7 +227,8 @@ The wizard is here.
 
 Wizard strides off to the east.
 
->You move east.
+> e
+You move east.
 
 Parking Lot
 It was once solid concrete, but now many cracks with wildflowers and weeds
@@ -211,7 +238,8 @@ The wizard is here.
 
 Wizard strides off to the east.
 
->You move east.
+> e
+You move east.
 
 Foyer
 A solitary couch frame with boards secured where the springs should have been
@@ -224,7 +252,8 @@ The wizard is here.
 
 Wizard strides off to the east.
 
->You move east.
+> e
+You move east.
 
 Main Floor Hall
 Interesting how some features of the hotel indicate great age, yet others of
@@ -239,7 +268,8 @@ The wizard is here.
 
 Wizard strides off to the north.
 
->You move north.
+> n
+You move north.
 
 Dining Hall
 Large enough to hold parties of thirty, the hall is set up for only twelve
@@ -249,13 +279,15 @@ west wall has a pair of swinging doors leading to the kitchen.
 Seven wizards are here, talking to each other with animation.
 The wizard is here.
 
->The wizard from the village announces, "Ancient one, may I introduce our
+> l
+The wizard from the village announces, "Ancient one, may I introduce our
 chief wizard, Brogo"
 Brogo turns to face you, and bows his head briefly, the tip of the hat just
 missing your nose.  He looks at you directly, "How may we assist the ancient
 one?"
 
->"Near the end of the age of the ancient ones, THEY arrived - the needle fell
+> ask brogo about they
+"Near the end of the age of the ancient ones, THEY arrived - the needle fell
 from the sky and pierced the blood of the earth.  All knowledge which should
 have been banned was attacked.  We keep the transport near the building to
 demonstrate that such knowledge should not be sought after.  Once the
@@ -265,12 +297,14 @@ pauses and lifts his head up and clasps his hand against his chest.  "It has
 been prophesied that an ancient one will protect us from THEY and restore the
 land to its former glory"
 
->Brogo quickly looks around the room, much like a guilty child who tries to
+> ask brogo about warlocks
+Brogo quickly looks around the room, much like a guilty child who tries to
 hide from mother, then with a voice that belies the words, "They are a
 renegade group of wizards who use the old knowledge against all
 prescriptions.  You should not trust them."
 
->Brogo looks at the wizard from the village, "Did you not tell the ancient one
+> ask brogo about temple
+Brogo looks at the wizard from the village, "Did you not tell the ancient one
 about that?"
 
 "I thought that your eminence should explain all, and not my humble self",
@@ -282,7 +316,8 @@ from there one of their own must come forth to protect us and rescue us from
 THEY.  It has been our sacred duty to keep desecrators out and await the
 arrival of you."
 
->"The early politics even in the time of the ancients, tried to keep too much
+> ask brogo about ancient ones
+"The early politics even in the time of the ancients, tried to keep too much
 knowledge from the people.  But the ancients kept pursuing beyond the
 boundaries of what should be known.  Different peoples tried to warn, and
 prophesied the destruction of the land.  THEY came and stopped the knowledge,
@@ -291,7 +326,8 @@ until we are ready for redemption.  Some ancient ones recognized the need to
 wait and prepared the present politics as wizards: we who enforce the law and
 teach what is permissible."
 
->Brogo quickly looks around the room, much like a guilty child who tries to
+> ask brogo about warlocks
+Brogo quickly looks around the room, much like a guilty child who tries to
 hide from mother, then with a voice that belies the words, "They are a
 renegade group of wizards who use the old knowledge against all
 prescriptions.  You should not trust them."
@@ -303,12 +339,14 @@ individual as they make room.  The person selects a chair and swings it from
 a table to sit near a wall, then sits down in a reclined slouch, hands folded
 over the waist.
 
->Under the hood you see a smirk as the warlock shakes the head slightly.  The
+> ask figure about warlocks
+Under the hood you see a smirk as the warlock shakes the head slightly.  The
 index finger of the right hand raises slightly then drops back to be folded
 on the waist.  You get the feeling the warlock will talk to you later, but
 not here.
 
->You work your way past the wizards and push through the swinging doors into
+> w
+You work your way past the wizards and push through the swinging doors into
 the kitchen.
 
 The brown cloaked figure follows you into the kitchen.  With a chuckle, she
@@ -335,7 +373,8 @@ The warlock is casually walking.
 
 Warlock saunters out to the south.
 
->You move south.
+> s
+You move south.
 
 Office
 The office are completely cleaned out of any business furniture.  The only
@@ -344,7 +383,8 @@ The warlock is casually walking.
 
 Warlock saunters out to the south.
 
->You move south.
+> s
+You move south.
 
 Foyer
 A solitary couch frame with boards secured where the springs should have been
@@ -357,7 +397,8 @@ The warlock is casually walking.
 
 Warlock saunters out to the east.
 
->You move east.
+> e
+You move east.
 
 Main Floor Hall
 Interesting how some features of the hotel indicate great age, yet others of
@@ -372,7 +413,8 @@ The warlock is casually walking.
 
 Warlock saunters out to the east.
 
->You move east.
+> e
+You move east.
 
 Main Floor Hall
 You are at the eastern side of the "L" shaped hall with the long part
@@ -384,7 +426,8 @@ directly at you.
 
 Warlock saunters out to the east.
 
->You move east.
+> e
+You move east.
 
 Room 10
 Two beds occupy most of the room.  The double bed has been made, while the
@@ -397,7 +440,8 @@ covered over with heavy drapes ensuring privacy.
 The warlock is seated on the foot of the double bed, her face looking
 directly at you.
 
->M'greet stretches out on the bed with her hands behind her head, and looks up
+> ask m'greet about they
+M'greet stretches out on the bed with her hands behind her head, and looks up
 at you.  "Ah, a history lesson.  Understand that even though I have been
 trained for this event, I don't know everything, but I'll explain the best I
 can.
@@ -427,7 +471,8 @@ left to build a device to literally cause the alien ship to leave the planet.
  I don't understand the technology, but it is up to you to acquire the
 components to be brought here and assembled before I send you to the tower."
 
->As you are about to leave the room, M'greet stands up and raises a hand
+> w
+As you are about to leave the room, M'greet stands up and raises a hand
 signaling you to wait.  "Somewhere near the village you came from, hidden in
 the earth, is a device to make a special part needed to implement the
 'ancients' plan.  Use the wizard's anti-gravity platform.  It's voice
@@ -443,7 +488,8 @@ extending east-west.  The hall continues directly north to rooms 11 through
 room 10.
 M'greet closes the door behind you and you hear the lock engage.
 
->You move west.
+> w
+You move west.
 
 Main Floor Hall
 Interesting how some features of the hotel indicate great age, yet others of
@@ -455,7 +501,8 @@ part extending east-west, then around the corner to the north.  Directly
 north of you is an open doorway to the dining hall, and to the west is the
 foyer.
 
->You move west.
+> w
+You move west.
 
 Foyer
 A solitary couch frame with boards secured where the springs should have been
@@ -465,21 +512,24 @@ are empty, and all evidence indicates that the hotel hasn't functioned as a
 public building for quite some time.  To the north is, or was, the manager's
 office.  The main hall continues to the east.
 
->You move west.
+> w
+You move west.
 
 Parking Lot
 It was once solid concrete, but now many cracks with wildflowers and weeds
 cover the ground.  One solitary pickup sits with the hood open near the
 loading dock at the north end of the lot.  To the east is the hotel itself.
 
->You move west.
+> w
+You move west.
 
 Anti-Gravity Platform
 The platform is at the far western end of the hotel parking lot.  The lot
 itself was once solid concrete, but now many cracks with wildflowers and
 weeds cover the ground.
 
->Below you is a deep ravine with a river running south, with slight bends and
+> rise fly to village
+Below you is a deep ravine with a river running south, with slight bends and
 twists.  The Peruvian forests cover the land on either side of the ravine.
 Looking at the southern horizon, you see a metallic glint beyond the
 mountains, occasionally obscured by clouds.  The platform follows the river
@@ -488,7 +538,8 @@ upstream towards the village.
 Anti-Gravity Platform
 The platform is at the north end of the village.
 
->You move south.
+> s
+You move south.
 
 Medieval Village
 The ruins you remember are in worse shape and occupied by peasants likened to
@@ -497,7 +548,8 @@ villagers who are talking - in English!
 
 The villagers are working their fields, and a few wave their hands at you.
 
->You move west.
+> w
+You move west.
 
 Communal Dining Hall
 Large trees denuded of branches form the main external framing with the walls
@@ -506,19 +558,24 @@ from the firepits to dissipate without interfering with the occupants.
 Several low tables are scattered around the room, where it appears you sit on
 the ground to eat.
 
->One of the villager's tending the spit, smiles and offers you to take a piece
+> x roast
+One of the villager's tending the spit, smiles and offers you to take a piece
 of meat.
 
->You gently tear off a piece of meat.
+> take meat
+You gently tear off a piece of meat.
 The villager nods his head as to offer another piece.
 
->You gently tear off a piece of meat.
+> take meat
+You gently tear off a piece of meat.
 
->You gently tear off a piece of meat.
+> take meat
+You gently tear off a piece of meat.
 The villager is starting to frown and you realize you might be getting
 greedy.
 
->You move east.
+> e
+You move east.
 
 Medieval Village
 The ruins you remember are in worse shape and occupied by peasants likened to
@@ -527,14 +584,16 @@ villagers who are talking - in English!
 
 The villagers are working their fields, and a few wave their hands at you.
 
->Animal hide and cloth bound by rope form the exterior of the tents the
+> x tents
+Animal hide and cloth bound by rope form the exterior of the tents the
 villagers live in.  The shacks are poorly constructed wood buildings, the
 largest appears to be the communal dining hall to the west.  To the east is a
 moderate size shack that has symbols painted near the door frame - symbols
 like on the wizard's robe.  As you look around in more detail, you see a
 narrow brush-covered trail to the southwest.
 
->You move southwest.
+> sw
+You move southwest.
 
 Mountain Path
 The mountain brush leans over the path, yet is clear enough to indicate that
@@ -542,7 +601,8 @@ individuals would walk single file along it.  Though the brush is high enough
 that you cannot see where it winds to, you can see back to the village to the
 northeast.  The trail bends downward toward the northwest.
 
->You move northwest.
+> nw
+You move northwest.
 
 Mountain Path
 The brush covered trail continues to wind downward toward the north.  It
@@ -550,25 +610,29 @@ bends up to the southeast behind you.  To the south some of the brush is low
 enough for you to see the horizon - and a metallic glint behind the
 mountains.
 
->You are not certain how far away it is, or it's height, but you can barely
+> x glint
+You are not certain how far away it is, or it's height, but you can barely
 make out what appears to be a needle-like structure.  An occasional cloud
 passes before object, so you surmise it might be hundreds of kilometers away.
 
->You move north.
+> n
+You move north.
 
 Mountain Path
 The mountain path is decreasing in inclination and you can see it becoming
 wider, not because of traffic, but the soil is more rocky as it winds
 northeast.  The trail rises behind you to the south.
 
->You move northeast.
+> ne
+You move northeast.
 
 Ravine Overlook
 No guard rail protects the novice from leaning too far over and falling into
 the deep ravine below you northward.  However you believe you could easily
 climb down with your experience.
 
->You move down.
+> d
+You move down.
 
 Cliffside
 Directly above you is the overlook.  You easily negotiate the rockface and
@@ -578,15 +642,18 @@ A flash of green-ish light appears to be reflecting off something below you
 to your left.  Moving a little closer you see it is a green gemstone
 partially buried in the stone and dirt.
 
->You pick up the green gemstone.
+> take green gemstone
+You pick up the green gemstone.
 
->You move east.
+> e
+You move east.
 
 Cliffside
 The rock face is fairly easy for you to negotiate along.  The only direction
 without any hand or foot holds is up.
 
->You move east.
+> e
+You move east.
 
 Cliffside
 The rock face is fairly easy for you to negotiate along.  However at this
@@ -596,27 +663,32 @@ A flash of greyish light appears to be reflecting off something above you to
 your left.  Moving a little closer you see it is a grey gemstone partially
 buried in the stone and dirt.
 
->You pick up the grey gemstone.
+> take grey gemstone
+You pick up the grey gemstone.
 
->You move west.
+> w
+You move west.
 
 Cliffside
 The rock face is fairly easy for you to negotiate along.  The only direction
 without any hand or foot holds is up.
 
->You move west.
+> w
+You move west.
 
 Cliffside
 Directly above you is the overlook.  You easily negotiate the rockface and
 can reach into your backback if you needed to.
 
->You move west.
+> w
+You move west.
 
 Cliffside
 The rock face is fairly easy for you to negotiate along.  Although you find
 you cannot proceed any further west or directly up.
 
->You move down.
+> d
+You move down.
 
 Cliffside
 The rock face is fairly easy for you to negotiate along, but to the west is a
@@ -626,15 +698,18 @@ A flash of light appears to be reflecting off something to your right.
 Moving a little closer you see it is a clear gemstone partially buried in the
 stone and dirt.
 
->You pick up the clear gemstone.
+> take clear gemstone
+You pick up the clear gemstone.
 
->You move east.
+> e
+You move east.
 
 Cliffside
 You proceed quickly and smoothly along the rock face, with all directions
 traversable.
 
->You move down.
+> d
+You move down.
 
 Cliffside
 The rockface is starting to increase in steepness and you consider getting
@@ -645,9 +720,11 @@ A flash of blue-ish light appears to be reflecting off something above you to
 your rightt.  Moving a little closer you see it is a blue gemstone partially
 buried in the stone and dirt.
 
->You pick up the blue gemstone.
+> take blue gemstone
+You pick up the blue gemstone.
 
->You move down.
+> d
+You move down.
 
 Cliffside
 Hand holds are harder to find and you consider going back up, but after
@@ -657,22 +734,30 @@ A flash of yellow-ish light appears to be reflecting off something above you
 to your left.  Moving a little closer you see it is a yellow gemstone
 partially buried in the stone and dirt.
 
->You pick up the yellow gemstone.
+> take yellow gemstone
+You pick up the yellow gemstone.
 
->You are not proceeding downward without a secured rope.
+> d
+You are not proceeding downward without a secured rope.
 
->You open the backpack.  A climbing rope and some pitons are inside the
+> open backpack
+You open the backpack.  A climbing rope and some pitons are inside the
 backpack.
 
->You take a piton out of your backpack.
+> take piton
+You take a piton out of your backpack.
 
->With a couple quick blows, you secure a piton into the rock face.
+> hit piton with hammer
+With a couple quick blows, you secure a piton into the rock face.
 
->You take a coil of rope out of your backpack.
+> take rope
+You take a coil of rope out of your backpack.
 
->You secure the rope to the piton and prepare to rappel down.
+> tie rope to piton
+You secure the rope to the piton and prepare to rappel down.
 
->(Your score has increased by 2)
+> d
+(Your score has increased by 2)
 With a few quick jumps, you proceed down the rockface to the limits of the
 rope.
 
@@ -686,9 +771,11 @@ A flash of brownish light appears to be reflecting off something directly
 below you.  Moving a little closer you see it is a brown gemstone partially
 buried in the stone and dirt.
 
->You pick up the brown gemstone.
+> take brown gemstone
+You pick up the brown gemstone.
 
->You move down.
+> d
+You move down.
 
 Small ledge on cliffside
 The ledge is large enough for you to sit down and take a breather.  Looking
@@ -698,7 +785,8 @@ for your skill level, especially without assistance.  What is odd is the cave
 opening on this north face - not too small for you to enter - but the fact
 that this strata is not where caves are usually found.
 
->You move south.
+> s
+You move south.
 
 Small cave
 In of itself, there is nothing special about it.  A small and narrow tunnel
@@ -707,42 +795,51 @@ corner of the cave.
 
 There is a small pile of cloth tucked in a corner of the cave.
 
->Someone had carefully folded this pile of cloth, maybe used as blankets and
+> x cloth
+Someone had carefully folded this pile of cloth, maybe used as blankets and
 pillows, however something inside the pile causes it to bulge up instead of
 lying flat.
 
->The neatly folded cloth disintigrates into a pile of thread-bare patches of
+> search cloth
+The neatly folded cloth disintigrates into a pile of thread-bare patches of
 cloth.  And a flashlight is revealed from under the stack.
 
->You pick up the flashlight.
+> take flashlight
+You pick up the flashlight.
 
->Small and narrow tunnel
+> s
+Small and narrow tunnel
 You can see a little light filtering into the tunnel from the cave you first
 entered.  Otherwise the tunnel is pitch black.
 
->You move south.
+> s
+You move south.
 
 Pitch Black
 It is pitch black.  Only by feeling the ground, you determine that you can
 continue south or return downward back north.  Further on you do hear
 dripping water.
 
->You move up.
+> u
+You move up.
 
 Pitch Black
 It is pitch black and for the first time you start to feel claustrophobic, as
 the walls literally are very tight around you.
 
->You move up.
+> u
+You move up.
 
 Pitch Black
 It is pitch black.
 
->The desk is a plain four leg table with a keyboard built into the surface.
+> x desk
+The desk is a plain four leg table with a keyboard built into the surface.
 Further examination of the keyboard shows a small blinking light next to a
 button labeled "Retrieve"
 
->(Your score has increased by 1)
+> press retrieve
+(Your score has increased by 1)
 
    "Wednesday, August seventh, twenty-three oh seven." announces a tired
 feminine voice.  "We hope that someone human is listening to this message.
@@ -779,7 +876,8 @@ from last recording, 310 years, 309 days, 4 hours, 11 minutes."
 
 Well that answered all your questions - Hah!
 
->You move down.
+> d
+You move down.
 
 Pitch Black
 It is pitch black and for the first time you start to feel claustrophobic, as
@@ -788,7 +886,8 @@ the walls literally are very tight around you.
 2307...  plus 310... plus 309...  June 13, 2618.  Well, now you know when you
 are.
 
->You move down.
+> d
+You move down.
 
 Pitch Black
 It is pitch black.  Only by feeling the ground, you determine that you can
@@ -798,7 +897,8 @@ dripping water.
 Politics?!  What kind of clue is that?  Conservative, liberal?  ...  Blue,
 red? ...
 
->You move south.
+> s
+You move south.
 
 Pitch Black
 It is pitch black, you stepped into a deep puddle of water, and at
@@ -807,68 +907,84 @@ area echos with the sound of flowing water.
 
 ... Left wing, right ...  wing ...  Ah!
 
->Winding Caverns
+> sw
+Winding Caverns
 Stalactites and stalagmites and the columns formed from merged ones make for
 negotiating the tunnel more difficult.  You came in from the northeast, and
 openings lead to the southwest and northwest.
 
->Winding Caverns
+> nw
+Winding Caverns
 Stalactites and stalagmites and the columns formed from merged ones make for
 negotiating the tunnel more difficult.  You came in from the southeast, and
 openings lead to the north and northeast.
 
->You move northeast.
+> ne
+You move northeast.
 
 Pitch Black
 It is pitch black.
 
->The machine is old.  Some of the material is simply tarnished, while some
+> x equipment
+The machine is old.  Some of the material is simply tarnished, while some
 parts are rusting.  Mineral deposits from the ceiling are starting to form
 stalagmites on the top surface.  There is a small status panel on the side of
 the machine that is still operational.  The machine is closed.
 
->STANDBY
+> read panel
+STANDBY
 
->The equipment is still operating and will not open.
+> open machine
+The equipment is still operating and will not open.
 
->You place all the gemstones you've found into the machine.
+> put all gemstones in machine
+You place all the gemstones you've found into the machine.
 
->The machine is now closed.
+> close machine
+The machine is now closed.
 The machine hums with power, and the accumulated mineral deposits flake off
 onto the floor.
 
->Time passes...
+> wait
+Time passes...
 (Your score has increased by 1)
 
 A base thrum passes from the machine through the floor pipes, and the machine
 goes silent.
 
->The machine is now opened.
+> open machine
+The machine is now opened.
 
->The machine is old.  Some of the material is simply tarnished, while some
+> x machine
+The machine is old.  Some of the material is simply tarnished, while some
 parts are rusting.  The small status panel on the side of the machine has
 gone dark.  The machine is open.  A YBCO object is inside the machine.
 
->You take the YBCO object from the machine.
+> take ybco object
+You take the YBCO object from the machine.
 
->Winding Caverns
+> sw
+Winding Caverns
 Stalactites and stalagmites and the columns formed from merged ones make for
 negotiating the tunnel more difficult.  You came in from the northeast, and
 openings lead to the southeast and north.
 
->Winding Caverns
+> se
+Winding Caverns
 Stalactites and stalagmites and the columns formed from merged ones make for
 negotiating the tunnel more difficult.  You came in from the northwest, and
 openings lead to the northeast and southwest.
 
->You move northeast.
+> ne
+You move northeast.
 
 Pitch Black
 It is pitch black, you stepped into a deep puddle of water, and at
 intermittant intervals, a drop of water falls on the back of your neck.  The
 area echos with the sound of flowing water.
 
->You move south.
+> s
+You move south.
 
 Pitch Dark
 The stone floor has been worn to a glass-like surface and with the water
@@ -879,7 +995,8 @@ For the moment, you have managed to regain control of your descent and come
 to a stop somewhere in the depths of this drain tube.    Now if only you
 could see where to go.
 
->You move northwest.
+> nw
+You move northwest.
 
 Slide pool
 Water from the drain tube accumulates into a pool of water about waist deep,
@@ -888,11 +1005,14 @@ partially surrounding the pool which you can walk on.
 
 A canoe is partly in the water.
 
->The canoe is floating in the water.
+> move canoe into water
+The canoe is floating in the water.
 
->You sit in the canoe, which displaces only slightly more into the water.
+> enter canoe
+You sit in the canoe, which displaces only slightly more into the water.
 
->With a few short strokes of the paddle, you glide out of the cave into the
+> n
+With a few short strokes of the paddle, you glide out of the cave into the
 river.
 
 Ravine River
@@ -905,7 +1025,8 @@ consuming.
 
 You are sitting in the canoe.
 
->A few strokes of the paddle pushes the canoe faster down the river.
+> e
+A few strokes of the paddle pushes the canoe faster down the river.
 Ravine River
 The river performs a gradual bend from west to south.  The cliffs of the
 ravine are unclimbable.  The narrow river banks have some vegetation, with an
@@ -914,7 +1035,8 @@ allowing you to drift down, however you don't want to move that slow.
 
 You are sitting in the canoe.
 
->A few strokes of the paddle pushes the canoe faster down the river, with most
+> s
+A few strokes of the paddle pushes the canoe faster down the river, with most
 of the strokes on the port side as the river bends south.
 Ravine River
 The ravine slightly widens and a rocky beach on the eastern side is wide
@@ -926,7 +1048,8 @@ You are sitting in the canoe.
 Some catfish were lingering on the river bed, when the shadow of the canoe
 causes them to swim away.
 
->You paddle a little bit faster down this stretch of the river.
+> s
+You paddle a little bit faster down this stretch of the river.
 
 Ravine River
 The river slightly widens and you see a dilapidated hotel approaching on the
@@ -935,7 +1058,8 @@ drops several meters down a waterfall.
 
 You are sitting in the canoe.
 
->A couple strokes brings you right next to the dock.
+> e
+A couple strokes brings you right next to the dock.
 
 Boat Dock
 A solitary dock extends into the river.  It is sheltered by a concrete wall
@@ -943,9 +1067,11 @@ and ceiling.  The dock connects to a door in the east wall.
 
 You are sitting in the canoe.
 
->You leave the canoe, which floats nearby the dock.
+> exit canoe
+You leave the canoe, which floats nearby the dock.
 
->You move east.
+> e
+You move east.
 
 Dark Room
 Very little light enters the room from the door to the west.
@@ -953,7 +1079,8 @@ Very little light enters the room from the door to the west.
 Several metal boxes sit on the middle of the floor.
 The warlock is sitting crosslegged on the floor near the metal boxes.
 
->(Your score has increased by 2)
+> give ybco object to warlock
+(Your score has increased by 2)
 "Good.  The YBCOVMR," she enunciates each letter.
 The warlock is seated cross-legged on the floor, then opens the boxes with
 her keycard and examines the contents, looks at the YBCO object, then back in
@@ -990,7 +1117,8 @@ meet me in the conference room."
 
 Warlock saunters out to above.
 
->You move up.
+> u
+You move up.
 
 Kitchen
 Someone is living much better than the villagers!  The commercial gas range
@@ -1004,7 +1132,8 @@ The warlock is casually walking.
 
 Warlock saunters out to the south.
 
->You move south.
+> s
+You move south.
 
 Office
 The office are completely cleaned out of any business furniture.  The only
@@ -1013,7 +1142,8 @@ The warlock is casually walking.
 
 Warlock saunters out to the south.
 
->You move south.
+> s
+You move south.
 
 Foyer
 A solitary couch frame with boards secured where the springs should have been
@@ -1026,7 +1156,8 @@ The warlock is casually walking.
 
 Warlock saunters out to the east.
 
->You move east.
+> e
+You move east.
 
 Main Floor Hall
 Interesting how some features of the hotel indicate great age, yet others of
@@ -1041,7 +1172,8 @@ The warlock is casually walking.
 
 Warlock saunters out to the east.
 
->You move east.
+> e
+You move east.
 
 Main Floor Hall
 You are at the eastern side of the "L" shaped hall with the long part
@@ -1052,7 +1184,8 @@ The warlock is casually walking.
 
 Warlock saunters out to above.
 
->You move up.
+> u
+You move up.
 
 Second Floor Hall
 You are at the eastern side of the "L" shaped hall with the long part
@@ -1063,15 +1196,18 @@ The warlock is casually walking.
 
 Warlock saunters out to the west.
 
->You move north.
+> n
+You move north.
 
 Second Floor Hall
 The hall continues north-south, with room 21 to the west, and room 22 to the
 east.
 
->You open the room 21 door.
+> open room 21 door
+You open the room 21 door.
 
->You move west.
+> w
+You move west.
 
 Room 21
 Two double beds occupy most of the room.  A night stand sits between the
@@ -1083,20 +1219,24 @@ facilities, it looks much like a typical hotel room.
 A suit is lying on the floor.  Searching among the suits you find one that
 looks like it would fit you.
 
->You pick up the suit.
+> take suit
+You pick up the suit.
 
->After removing your backpack and belt, you put the suit on over your clothes.
+> wear suit
+After removing your backpack and belt, you put the suit on over your clothes.
  Within seconds the most comfortable temperature and humidity brush against
 your body.  The suit provides no obstruction to your placing the backpack and
 belt back on.
 
->You move east.
+> e
+You move east.
 
 Second Floor Hall
 The hall continues north-south, with room 21 to the west, and room 22 to the
 east.
 
->You move south.
+> s
+You move south.
 
 Second Floor Hall
 You are at the eastern side of the "L" shaped hall with the long part
@@ -1104,7 +1244,8 @@ extending east-west.  The hall continues directly north to rooms 21 through
 24.  A stairwell near the corner goes down to the main floor.  To the east is
 room 20.
 
->You move west.
+> w
+You move west.
 
 Second Floor Hall
 The second floor hall is "L" shaped with the long part extending east-west,
@@ -1112,7 +1253,8 @@ then around the corner to the north.  The north side of the main corridor
 where you are at has an open doorway to a conference room.  To the south
 between the windows is a door to the deck.
 
->You move north.
+> n
+You move north.
 
 Conference Room
 Most of the north wall and the northern part of the east and west walls are
@@ -1123,21 +1265,27 @@ Except for an object you can only guess as a capsule.
 
 The warlock is crouched near the open capsule.
 
->The warlock kneels down by the capsule and somehow triggers it to open up.
+> l
+The warlock kneels down by the capsule and somehow triggers it to open up.
 "This unit is gravitic, like the platform is, but designed for very fast
 travel.  You will arrive very close to the alien ship.  Hopefully you'll be
 able find access and install the device.  Hightail it out of there as fast as
 possible, wouldn't want you to be launched as well."
 
->You put the unit inside the backpack.
+> put unit in backpack
+You put the unit inside the backpack.
 
->You put the power module inside the backpack.
+> put power module in backpack
+You put the power module inside the backpack.
 
->You remove the backpack.
+> remove backpack
+You remove the backpack.
 
->You put the backpack inside the capsule.
+> put backpack in capsule
+You put the backpack inside the capsule.
 
->(Your score has increased by 2)
+> lie on capsule
+(Your score has increased by 2)
 After you lay down inside the capsule, the warlock closes it.  The display in
 front of your face turns on, showing a three dimensional view of the capsule
 and the room around you.  "Levitation active," states a voice near your ears.
@@ -1161,11 +1309,14 @@ meters to where you will seriously start to climb instead of walking.
 
 Also here is a capsule.
 
->You take the backpack from the capsule.
+> take backpack
+You take the backpack from the capsule.
 
->You put on the backpack.
+> wear backpack
+You put on the backpack.
 
->(Getting off the capsule first)
+> e
+(Getting off the capsule first)
 You move east.
 
 Base of Climb
@@ -1175,30 +1326,40 @@ you will need to break out your tools to get started.  You don't look up too
 long since the metal surface towering thousands of kilometers above gives
 even you vertigo.
 
->You chew on the meat, savoring the flavor and feeling rejuvinated.
+> eat meat
+You chew on the meat, savoring the flavor and feeling rejuvinated.
 
->You'll need to start the climb up with a piton.
+> u
+You'll need to start the climb up with a piton.
 
->You take a piton out of your backpack.
+> take piton
+You take a piton out of your backpack.
 
->With a couple quick blows, you secure a piton into the wood.
+> hit piton with hammer
+With a couple quick blows, you secure a piton into the wood.
 
->The climb is slow as you search for hand and foot holds.  Three additional
+> u
+The climb is slow as you search for hand and foot holds.  Three additional
 times you need to pull out a piton to assist in the climb.
 
 Mid-Point
 About fifteen minutes of climbing and spiking pitons to get halfway up.  You
 look down about fifty meters.
 
->You take a coil of rope out of your backpack.
+> take rope
+You take a coil of rope out of your backpack.
 
->You secure a rope to a piton near you.
+> tie rope to piton
+You secure a rope to a piton near you.
 
->You take a piton out of your backpack.
+> take piton
+You take a piton out of your backpack.
 
->With a couple quick blows, you secure a piton into the wood.
+> hit piton with hammer
+With a couple quick blows, you secure a piton into the wood.
 
->The climb is slow as you search for hand and foot holds.  Again it takes
+> u
+The climb is slow as you search for hand and foot holds.  Again it takes
 three additional pitons to assist in the climb.
 
 Against Hull
@@ -1206,7 +1367,8 @@ You are now over a hundred meters above the ground.  One of the main tap
 roots emerges from a circular opening in the hull.  Coming from the opening
 is an odor like a composter.
 
->You move in.
+> in
+You move in.
 
 Inside - Below Controls
 The hull was very thin to what you thought it should be.  Whatever the aliens
@@ -1216,11 +1378,14 @@ is the only sign of any active controls, still requiring a steep climb.  You
 don't dwell too much on the thought that you have been hammering into an
 alien being.
 
->You take a piton out of your backpack.
+> take piton
+You take a piton out of your backpack.
 
->With a couple quick blows, you secure a piton into the wood.
+> hit piton with hammer
+With a couple quick blows, you secure a piton into the wood.
 
->The climb is slow as you search for hand and foot holds.  With the dead
+> u
+The climb is slow as you search for hand and foot holds.  With the dead
 "branches", it only takes your last two pitons.
 
 Control Area
@@ -1229,20 +1394,26 @@ you.  Still towering above you, possibly the full length of the ship, is the
 "trunk" of the alien.  The branches may have been it's appendages, but they
 show signs of rot.
 
->You chew on the meat, savoring the flavor and feeling rejuvinated.
+> eat meat
+You chew on the meat, savoring the flavor and feeling rejuvinated.
 
->You take a coil of rope out of your backpack.
+> take rope
+You take a coil of rope out of your backpack.
 
->You secure a rope to a piton near you.
+> tie rope to piton
+You secure a rope to a piton near you.
 
->The two pieces fit snugly together into one assembled unit.
+> put power module into unit
+The two pieces fit snugly together into one assembled unit.
 
->The assembled unit rips out of your hands and attaches itself above you to
+> turn on assembled unit
+The assembled unit rips out of your hands and attaches itself above you to
 the metal surface.
 A voice echos from the device, "Lançamento em dez minutos."  You don't know
 the language, but decide to leave fast!
 
->You proceed down the rope with large leaps as fast as you dare.
+> rappel d
+You proceed down the rope with large leaps as fast as you dare.
 
 Inside - Below Controls
 The hull was very thin to what you thought it should be.  Whatever the aliens
@@ -1253,26 +1424,31 @@ don't dwell too much on the thought that you have been hammering into an
 alien being.  A nylon rope is securely tied to a piton.
 Echoing in the room, the device recites "oito minutos".
 
->You pull on the release rope, and coil it back up to return it to the
+> pull rope
+You pull on the release rope, and coil it back up to return it to the
 backpack.
 "Seis minutos"
 
->You move out.
+> out
+You move out.
 
 Against Hull
 You are now over a hundred meters above the ground.  One of the main tap
 roots emerges from a circular opening in the hull.  Coming from the opening
 is an odor like a composter.
 
->You secure a rope to a piton near you.
+> tie rope to piton
+You secure a rope to a piton near you.
 
->You proceed down the rope with large leaps as fast as you dare.
+> rappel down
+You proceed down the rope with large leaps as fast as you dare.
 
 Mid-Point
 About fifteen minutes of climbing and spiking pitons to get halfway up.  You
 look down about fifty meters.  A nylon rope is securely tied to a piton.
 
->You proceed down the rope with large leaps as fast as you dare.
+> rappel down
+You proceed down the rope with large leaps as fast as you dare.
 
 Base of Climb
 You realize that the ground isn't rock but a root system, making the aliens
@@ -1281,7 +1457,8 @@ you will need to break out your tools to get started.  You don't look up too
 long since the metal surface towering thousands of kilometers above gives
 even you vertigo.  A nylon rope is securely tied to a piton.
 
->You reach the base of the mound and run like a bat out of hell to the
+> w
+You reach the base of the mound and run like a bat out of hell to the
 capsule.
 
 Alien Mound
@@ -1294,11 +1471,14 @@ meters to where you will seriously start to climb instead of walking.
 
 Also here is a capsule.
 
->You remove the backpack.
+> remove backpack
+You remove the backpack.
 
->You put the backpack inside the capsule.
+> put backpack in capsule
+You put the backpack inside the capsule.
 
->(Your score has increased by 2)
+> lie on capsule
+(Your score has increased by 2)
 The capsule automatically closes as you lay down inside the capsule.  The
 display in front of your face turns on, showing a three dimensional view of
 the capsule and the land near the alien ship.  "Levitation active," states

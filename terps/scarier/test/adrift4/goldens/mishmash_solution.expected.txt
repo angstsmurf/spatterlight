@@ -14,7 +14,7 @@ Type:
 Please type help at any time during the game for more information on commands
 used in this game.
 
->
+> 1
 
 *****************
 
@@ -51,7 +51,8 @@ carry it out.
 
 A voice in your mind says, "You're in the lead, Marcus, so make your move."
 
->The modified cold suit moves to the north, at your command.
+> n
+The modified cold suit moves to the north, at your command.
 
 The cold suit's cockpit
 Dots representing the enemy on the screen have surrounded your forces. The
@@ -63,11 +64,13 @@ diamond edged pickaxe are in both of your suits. However, your suit boasts a
 new weapon, with a psychic disruptor. You can activate any of these weapons
 with just a thought.
 
->You activate the grappling hooks. They fly out of your suit and latch on to
+> use hooks
+You activate the grappling hooks. They fly out of your suit and latch on to
 the traitor. Your aim has been improving with practice. Now you just have to
 wait for your suit to charge up.
 
->You activate the psychic disruptor, hoping that your plan works. The
+> use disruptor
+You activate the psychic disruptor, hoping that your plan works. The
 disruptor makes every enemy nearby and yourself stop moving on the display.
 You cannot control your suit, but it has already been pre-programmed. The
 traitor cannot remove the grappling hook with no controls and electricity is
@@ -76,7 +79,8 @@ destroyed by the attack, but you can see on the display that it has been
 damaged. What looks like a panel on one side has been knocked loose and
 fallen off. You have created an entry through the powerful armour.
 
->You activate the machine guns and they begin spraying bullets wildly. The
+> use guns
+You activate the machine guns and they begin spraying bullets wildly. The
 traitor dodges the initial bullets, but several then hit the suit. Most do no
 damage, but a couple hit the damaged section. The damage is worsened and the
 suit staggers backwards. You continue firing, aiming more carefully, until
@@ -116,7 +120,8 @@ school friends who were playing through the program with you, have already
 made it to this location. One greets you saying, "You're late surviveor.
 We've all been waiting for you."
 
->Before you can do anything, the node opens by itself and someone walks
+> z
+Before you can do anything, the node opens by itself and someone walks
 through. You hesitate in surprise, but as you recognise the person as
 memoryblam, you start to run. memoryblam enjoys annoying you, and you can
 hear the sound of gunfire behind you. You look over the shoulder and see the
@@ -166,14 +171,16 @@ and repairing parts. Conveyor belts in a wall lead to a storage room to the
 east. On the belts are crates being moved into storage. It seems to be
 nearing night and people are packing up.
 
->The node ripper looks like a small remote control. Its main purpose is to rip
+> x node ripper
+The node ripper looks like a small remote control. Its main purpose is to rip
 open nodes, so you can pass through to different points in the program. It
 can also be used to close nodes. On the node ripper is a display showing
 where nearby nodes can be found.
 
 A node is indicated towards the northeast.
 
->You get into the crate and hide under the pickaxes being packed in.
+> get in crate
+You get into the crate and hide under the pickaxes being packed in.
 Eventually the crate is full. The walls spring up and close. As they do so,
 you note the position of the button for opening the crate from the inside.
 
@@ -191,16 +198,20 @@ sides. As the stacking of the crates is a mechanised process, people rarely
 walk in here. This means it should be relatively safe compared to the rest of
 the complex.  An open door leads to the north.
 
->You remove the ghost cap.
+> remove cap
+You remove the ghost cap.
 
 Please note you can remove your ghost cap by typing rc and wear your ghost
 cap by typing wc.
 
->You open the door.
+> open door
+You open the door.
 
->You put on the ghost cap.
+> wc
+You put on the ghost cap.
 
->You move north.
+> n
+You move north.
 
 Hallway, southeast
 This is the southeastern corner of a hallway that follows a square pattern in
@@ -213,7 +224,8 @@ A security guard is currently in the location.
 
 The security guard marches out to the west.
 
->You move north.
+> n
+You move north.
 
 Hallway, east
 To the east behind the closed door is a factory. All of the cold suits are
@@ -225,7 +237,8 @@ place in the past, and plan to continue this policy now. The recreation room
 is through the open door to the west. The hallway continues to the north and
 south.
 
->You move west.
+> w
+You move west.
 
 Recreation room
 This is a small recreation room for cold suit pilots to relax just prior to
@@ -244,7 +257,8 @@ all have psychic abilities, they usually communicate telepathically. You
 think you can hear the conversations if you modify a version of the mind
 interpreting device that Sam is working on.
 
->You move west.
+> w
+You move west.
 
 Hallway, west
 There are two doors from this location, which are both open. One leads into
@@ -268,7 +282,8 @@ we won't be able to afford more losses. The competition from the People's
 Shareholdings has been hitting us pretty hard financially. I hope we're not
 out of jobs soon."
 
->You move north.
+> n
+You move north.
 
 Hallway, northwest
 A storage room for miscellaneous items that no longer need immediate
@@ -283,7 +298,8 @@ A security guard is currently in the location.
 
 The security guard marches out to the east.
 
->You move east.
+> e
+You move east.
 
 Hallway, north
 One of the two laboratories in this area is through the closed door to the
@@ -298,7 +314,8 @@ A security guard is currently in the location.
 
 The security guard marches out to the east.
 
->You move north.
+> n
+You move north.
 
 A laboratory
 This laboratory has been set up by Sam for an ambitious experiment. The
@@ -309,17 +326,22 @@ the robot will be controlled. You already know that this iteration of the
 experiment will succeed. A cupboard, with spare parts inside, is on the back
 wall. The exit is to the south.
 
->You remove the ghost cap.
+> rc
+You remove the ghost cap.
 
->You open the cupboard.  A earlier prototype and some spare parts are inside
+> open cupboard
+You open the cupboard.  A earlier prototype and some spare parts are inside
 the cupboard.
 
->You take the earlier prototype from the cupboard. You will need to attach it
+> get prototype
+You take the earlier prototype from the cupboard. You will need to attach it
 to a computer to modify the programming and make it useful.
 
->You put on the ghost cap.
+> wc
+You put on the ghost cap.
 
->You move south.
+> s
+You move south.
 
 Hallway, north
 One of the two laboratories in this area is through the closed door to the
@@ -333,7 +355,8 @@ continues to the east and west.
 
 The sound of footsteps is approaching.
 
->You move west.
+> w
+You move west.
 
 Hallway, northwest
 A storage room for miscellaneous items that no longer need immediate
@@ -348,11 +371,14 @@ A security guard is currently in the location.
 
 The security guard marches out to the east.
 
->You remove the ghost cap.
+> rc
+You remove the ghost cap.
 
->You open the door.
+> open door
+You open the door.
 
->You move north.
+> n
+You move north.
 
 Storage room
 This storage room is full of various items that no one wants to use at the
@@ -366,18 +392,22 @@ south.
 
 The most useful item that you can see is an old laptop computer.
 
->You pick up the laptop.
+> get laptop
+You pick up the laptop.
 
->You attach the wires of the early prototype to the laptop. You have knowledge
+> combine laptop with prototype
+You attach the wires of the early prototype to the laptop. You have knowledge
 about how this prototype works from your experiences whilst playing through
 the later episodes. After turning on the laptop, you write a quick program
 that will show any nearby thoughts sent out by a psychic on the screen of the
 laptop. This program is not perfect, but should give you a rough idea of what
 is going on.
 
->You put on the ghost cap.
+> wc
+You put on the ghost cap.
 
->You move south.
+> s
+You move south.
 
 Hallway, northwest
 A storage room for miscellaneous items that no longer need immediate
@@ -391,7 +421,8 @@ necessities. The hallway continues to the south and east.
 
 The security guard marches in from the south.
 
->You move south.
+> s
+You move south.
 
 Hallway, west
 There are two doors from this location, which are both open. One leads into
@@ -413,7 +444,8 @@ The man replies, "We might be. I don't have anywhere else to go either. If we
 could just control more of the mines around here. It's probably best not to
 dwell on it though."
 
->Time passes...
+> z
+Time passes...
 
 The man says, "These kids are a pain. They're so strange. They rarely speak,
 but they still manage to be incredibly noisy. I keep wanting to go in the rec
@@ -421,21 +453,26 @@ room, turn everything off and kick them out. Can't it all just be quiet."
 
 The woman nods sympathetically.
 
->Time passes...
+> z
+Time passes...
 
 The conversation has just turned to the weather, which is cold, the noise
 from the next room, and more mundane activities. None of which is very
 interesting to you.
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
 The sound of footsteps is approaching.
 
->You move east.
+> e
+You move east.
 
 Recreation room
 This is a small recreation room for cold suit pilots to relax just prior to
@@ -468,16 +505,20 @@ Lauren: We don't need you anyway.
 
 The teenagers leave the room, walking off to the west.
 
->You remove the ghost cap.
+> rc
+You remove the ghost cap.
 
->You turn on the stereo and it begins blaring out music loudly. Footsteps
+> turn on stereo
+You turn on the stereo and it begins blaring out music loudly. Footsteps
 begin approaching from the west.
 
->You put on the ghost cap.
+> wc
+You put on the ghost cap.
 
 A man and woman enter from the west. The man looks annoyed.
 
->You move west.
+> w
+You move west.
 
 Hallway, west
 There are two doors from this location, which are both open. One leads into
@@ -491,17 +532,21 @@ north and south.
 A passcard has been dropped unknowingly by one of the two people. It is
 almost hidden under the cupboard.
 
->You remove the ghost cap.
+> rc
+You remove the ghost cap.
 
->You pick up the passcard.
+> get passcard
+You pick up the passcard.
 
->You put on the ghost cap.
+> wc
+You put on the ghost cap.
 
 The sound of footsteps is approaching.
 
 You can hear someone approaching the area from the east.
 
->You move east.
+> e
+You move east.
 
 Recreation room
 This is a small recreation room for cold suit pilots to relax just prior to
@@ -516,7 +561,8 @@ A man and woman are having a conversation here.
 
 The man and woman exit to the west.
 
->You move east.
+> e
+You move east.
 
 Hallway, east
 To the east behind the closed door is a factory. All of the cold suits are
@@ -528,7 +574,8 @@ place in the past, and plan to continue this policy now. The recreation room
 is through the open door to the west. The hallway continues to the north and
 south.
 
->You move north.
+> n
+You move north.
 
 Hallway, northeast
 This corner of the hallway is the edge of this section of the complex. The
@@ -543,21 +590,27 @@ People's Shareholdings. The hallway continues to the west and south.
 
 The sound of footsteps is approaching.
 
->Time passes...
+> z
+Time passes...
 
 The security guard marches in from the west.
 
->Time passes...
+> z
+Time passes...
 
 The security guard marches out to the south.
 
->You remove the ghost cap.
+> rc
+You remove the ghost cap.
 
->You swipe the passcard through the slot. The door immediately opens up.
+> swipe card
+You swipe the passcard through the slot. The door immediately opens up.
 
->You put on the ghost cap.
+> wc
+You put on the ghost cap.
 
->You move northeast.
+> ne
+You move northeast.
 
 Garden, southwest
 The garden has two purposes, relating to aesthetics and self-sufficiency.
@@ -572,7 +625,8 @@ A gardener is tending to the vegetable patch.
 
 The door closes behind you.
 
->You move northeast.
+> ne
+You move northeast.
 
 Garden, northeast
 This section of the garden was designed to provide a place for the
@@ -586,7 +640,8 @@ slot is next to the door.
 There is a node here, which currently looks like a small blue sphere hovering
 in the air.
 
->You activate the node ripper, and the node widens into the shape of a
+> rip node
+You activate the node ripper, and the node widens into the shape of a
 doorway. You walk through the node into the next episode.
 
 (Press a key)
@@ -612,7 +667,8 @@ slot is next to the door.
 There is a node here, which currently looks like a small blue sphere hovering
 in the air.
 
->The node ripper looks like a small remote control. Its main purpose is to rip
+> x node ripper
+The node ripper looks like a small remote control. Its main purpose is to rip
 open nodes, so you can pass through to different points in the program. It
 can also be used to close nodes. On the node ripper is a display showing
 where nearby nodes can be found.
@@ -620,7 +676,8 @@ where nearby nodes can be found.
 One node is indicated in your location and another node is indicated towards
 the southwest.
 
->You move southwest.
+> sw
+You move southwest.
 
 Garden, southwest
 The garden has two purposes, relating to aesthetics and self-sufficiency.
@@ -632,19 +689,24 @@ heaters next to one wall. The walls of this room are made of glass, and you
 can see the early morning sky outside. The garden continues to the northeast,
 with a closed door leading to the southwest. A slot is next to the door.
 
->You remove the ghost cap.
+> rc
+You remove the ghost cap.
 
->You swipe the card through, but it does not work. The passcards must have
+> swipe card
+You swipe the card through, but it does not work. The passcards must have
 been updated since the time of Episode 1. You will need another way, or a new
 passcard, to open the door.
 
->The door looks strong, and won't be opened through force easily. There is a
+> x door
+The door looks strong, and won't be opened through force easily. There is a
 lock, which looks like it is screwed in on the hallway side. The lock is
 controlled by the slot on the wall next to the door.  The door is locked.
 
->You put on the ghost cap.
+> wc
+You put on the ghost cap.
 
->You move northeast.
+> ne
+You move northeast.
 
 Garden, northeast
 This section of the garden was designed to provide a place for the
@@ -658,7 +720,8 @@ slot is next to the door.
 There is a node here, which currently looks like a small blue sphere hovering
 in the air.
 
->You activate the node ripper, and the node widens into the shape of a
+> rip node
+You activate the node ripper, and the node widens into the shape of a
 doorway. You walk through the node into the previous episode.
 
 (Press a key)
@@ -683,13 +746,17 @@ slot is next to the door.
 There is a node here, which currently looks like a small blue sphere hovering
 in the air.
 
->You remove the ghost cap.
+> rc
+You remove the ghost cap.
 
->You swipe the passcard through the slot. The door immediately opens up.
+> swipe card
+You swipe the passcard through the slot. The door immediately opens up.
 
->You put on the ghost cap.
+> wc
+You put on the ghost cap.
 
->You move northeast.
+> ne
+You move northeast.
 
 Hallway, southwest
 The northwest section of the complex is more of an administrative centre
@@ -704,7 +771,8 @@ north.
 
 The door closes behind you.
 
->You move east.
+> e
+You move east.
 
 Hallway, south
 To the south of this section of the hallway is the communications room, which
@@ -716,7 +784,8 @@ of the war. Everything around here will go crazy, as people panic and/or
 organise. It would be best to leave before then. The hallway continues to the
 east and west.
 
->You move east.
+> e
+You move east.
 
 Hallway, southeast
 The monotony of the hallway is broken up here by the placement of a fire
@@ -727,7 +796,8 @@ stored in there. Fire safety is important in a complex that could be exposed
 to the freezing elements if there is a breach in the walls. The hallway
 continues to the north and west.
 
->You move south.
+> s
+You move south.
 
 Storage room
 This storage room is mainly for office supplies. There are shelves and boxes
@@ -739,15 +809,19 @@ Primitive tools that you wouldn't see if you were out of this simulation.
 An unlabelled box in the back corner attracts your attention. You have a
 feeling that you know what is inside it.
 
->You remove the ghost cap.
+> rc
+You remove the ghost cap.
 
->You open the unlabelled box to reveal only one remaining pocket spygear. You
+> open box
+You open the unlabelled box to reveal only one remaining pocket spygear. You
 decide to take it, along with the attached microexplosive. You put the box
 back where you found it afterwards.
 
->You put on the ghost cap.
+> wc
+You put on the ghost cap.
 
->You move north.
+> n
+You move north.
 
 Hallway, southeast
 The monotony of the hallway is broken up here by the placement of a fire
@@ -758,7 +832,8 @@ Fire safety is important in a complex that could be exposed to the freezing
 elements if there is a breach in the walls. The hallway continues to the
 north and west.
 
->You move north.
+> n
+You move north.
 
 Hallway, east
 The hallway is bare, as it is currently being worked on in the renovation
@@ -768,7 +843,8 @@ the conference room is to the west. The hallway leads north and south.
 A guard is standing around, whose job is to remind people not to enter the
 renovation area.
 
->You move east.
+> e
+You move east.
 
 Unfinished office
 The work on the floor, walls and ceiling of this room are almost complete.
@@ -777,7 +853,8 @@ where a ventilation shaft will be located. The hole does not lead anywhere at
 the moment. This room will become an office for one of the directors.
 However, there is no furniture in the room yet. The exit is to the west.
 
->You move west.
+> w
+You move west.
 
 Hallway, east
 The hallway is bare, as it is currently being worked on in the renovation
@@ -787,7 +864,8 @@ the conference room is to the west. The hallway leads north and south.
 A guard is standing around, whose job is to remind people not to enter the
 renovation area.
 
->You move north.
+> n
+You move north.
 
 Hallway, northeast
 The hallway is bare, as it is currently being worked on in the renovation
@@ -795,7 +873,8 @@ process. The workers have stopped working for the day and there is nothing
 notable in this area. The door to the north is taped off. The hallway leads
 west and south.
 
->You move west.
+> w
+You move west.
 
 Hallway, north
 The hallway is bare, as it is currently being worked on in the renovation
@@ -803,7 +882,8 @@ process. The workers have stopped working for the day and there is nothing
 notable in this area. The door to the north is taped off. The hallway leads
 east and west.
 
->You move west.
+> w
+You move west.
 
 Hallway, northwest
 The hallway is bare, as it is currently being worked on in the renovation
@@ -811,7 +891,8 @@ process. The workers have stopped working for the day and there is nothing
 notable in this area. The unfinished medical office is to the north. The
 hallway leads east and south.
 
->You move north.
+> n
+You move north.
 
 Unfinished medical office
 You know that this room is supposed to be a medical office. If you didn't
@@ -820,15 +901,19 @@ Currently there is only a cupboard and a table in the room. The bed has not
 arrived yet and there is not much clutter. Obviously, the doctor has not been
 in here, as clutter seems to follow him around. The exit is to the south.
 
->You remove the ghost cap.
+> rc
+You remove the ghost cap.
 
->You pick the lock with the pocket spygear and open the cupboard. Inside there
+> open cupboard
+You pick the lock with the pocket spygear and open the cupboard. Inside there
 is only a bottle of sleeping pills, which you take. You close the cupboard,
 as there is nothing else in there.
 
->You put on the ghost cap.
+> wc
+You put on the ghost cap.
 
->You move south.
+> s
+You move south.
 
 Hallway, northwest
 The hallway is bare, as it is currently being worked on in the renovation
@@ -836,7 +921,8 @@ process. The workers have stopped working for the day and there is nothing
 notable in this area. The unfinished medical office is to the north. The
 hallway leads east and south.
 
->You move south.
+> s
+You move south.
 
 Hallway, west
 Behind the closed door to the west is a walkway that leads to the
@@ -849,7 +935,8 @@ second closed door leads east into the conference room. The hallway leads
 north and south.
 A guard stands in front of the door to the accommodation area.
 
->You move south.
+> s
+You move south.
 
 Hallway, southwest
 The northwest section of the complex is more of an administrative centre
@@ -862,18 +949,24 @@ returning through the door to the southeast leading to the garden.  The door
 is currently closed. A slot is next to the door. The hallway leads east and
 north.
 
->You remove the ghost cap.
+> rc
+You remove the ghost cap.
 
->You unscrew the top of the lock and leave it hanging slightly off the door.
+> unscrew lock
+You unscrew the top of the lock and leave it hanging slightly off the door.
 
->You place the microexplosive within the lock and screw it back together to
+> put explosive in lock
+You place the microexplosive within the lock and screw it back together to
 hide the evidence.
 
->You swipe the passcard through the slot. The door immediately opens up.
+> swipe card
+You swipe the passcard through the slot. The door immediately opens up.
 
->You put on the ghost cap.
+> wc
+You put on the ghost cap.
 
->You move southwest.
+> sw
+You move southwest.
 
 Garden, northeast
 This section of the garden was designed to provide a place for the
@@ -889,7 +982,8 @@ in the air.
 
 The door closes behind you.
 
->You activate the node ripper, and the node widens into the shape of a
+> rip node
+You activate the node ripper, and the node widens into the shape of a
 doorway. You walk through the node into the next episode.
 
 (Press a key)
@@ -915,16 +1009,20 @@ slot is next to the door.
 There is a node here, which currently looks like a small blue sphere hovering
 in the air.
 
->You remove the ghost cap.
+> rc
+You remove the ghost cap.
 
->You activate the detonator. The microexplosive has not been found from the
+> use detonator
+You activate the detonator. The microexplosive has not been found from the
 first episode and with a very small bang it destroys the inside of the lock.
 Luckily, no one seems to notice the noise. You open the door, which now does
 not have a working lock.
 
->You put on the ghost cap.
+> wc
+You put on the ghost cap.
 
->You move northeast.
+> ne
+You move northeast.
 
 Hallway, southwest
 The northwest section of the complex is more of an administrative centre
@@ -939,7 +1037,8 @@ north.
 
 The door closes behind you, but it doesn't lock.
 
->You move east.
+> e
+You move east.
 
 Hallway, south
 To the south of this section of the hallway is the communications room, which
@@ -950,7 +1049,8 @@ officer. Unfortunately, communications with the wider world have been cut
 off. There is only static. It was believed that the People's Shareholdings
 were responsible. The hallway continues to the east and west.
 
->You move south.
+> s
+You move south.
 
 Communications room
 The communications room is set up to organise the communications capacity for
@@ -970,7 +1070,8 @@ and occasionally drinking from the mug of coffee on the desk as he works.
 
 You see a passcard sticking out of the pocket of the communications officer.
 
->You move north.
+> n
+You move north.
 
 Hallway, south
 To the south of this section of the hallway is the communications room, which
@@ -981,7 +1082,8 @@ officer. Unfortunately, communications with the wider world have been cut
 off. There is only static. It was believed that the People's Shareholdings
 were responsible. The hallway continues to the east and west.
 
->You move east.
+> e
+You move east.
 
 Hallway, southeast
 The monotony of the hallway is broken up here by the placement of a fire
@@ -992,7 +1094,8 @@ stored in there. Fire safety is important in a complex that could be exposed
 to the freezing elements if there is a breach in the walls. The hallway
 continues to the north and west.
 
->You move north.
+> n
+You move north.
 
 Hallway, east
 The conference room is through the closed door to the west. It is currently
@@ -1006,7 +1109,8 @@ hallway continues to the north and south.
 The guard is in front of the conference room door, to prevent anyone from
 entering.
 
->You move east.
+> e
+You move east.
 
 Director Howard Johnson's office
 Howard Johnson has a large office in this section of the complex, whereas the
@@ -1022,9 +1126,11 @@ banner is ugly and sadly the logo, which really is just the words United
 Institutions in a strange font, is also on the flag used by the United
 Institutions. The exit is to the west.
 
->You remove the ghost cap.
+> rc
+You remove the ghost cap.
 
->You try to move the banner, and successfully manage to pull half of it down,
+> move banner
+You try to move the banner, and successfully manage to pull half of it down,
 so it trails down the wall. By the time anyone comes in here to see the
 evidence of your actions, you should be gone.
 
@@ -1032,10 +1138,12 @@ A vent is revealed on the wall above the small desk. Howard always did
 dislike anything ugly being visible in his office. He was always proud of the
 banner though for some reason.
 
->You unscrew the vent with the screwdriver from the pocket spygear, and open
+> open vent
+You unscrew the vent with the screwdriver from the pocket spygear, and open
 up a entrance to the ventilation system.
 
->You climb into the ventilation system.
+> u
+You climb into the ventilation system.
 
 Ventilation shaft, above Director Howard Johnson's office
 From this location, you could exit back out the ventilation shaft, down
@@ -1046,7 +1154,8 @@ about the layout of the ventilation system, as you had little reason to
 venture through it in the past. It was easier just walking through the
 hallway when you were not an intruder.
 
->You move west.
+> w
+You move west.
 
 Ventilation shaft, above the conference room
 You can see the conference room through a vent. Down below there is a large
@@ -1063,7 +1172,8 @@ to fight, but we want to win. If we have advantages that an help all of us to
 victory, then we should make use of them. I hope that you agree and we can
 begin production of the modified cold suits. Thank you."
 
->Time passes...
+> z
+Time passes...
 
 Janet says, "I know this young man thinks he can aid us in the war effort.
 This may well be true, but it still isn't right. We shouldn't have kids
@@ -1075,7 +1185,8 @@ Edward says, "I think there were other alternatives, but this plan was judged
 to be the one with the highest likelihood of success. Maybe we should
 reconsider."
 
->Time passes...
+> z
+Time passes...
 
 Howard says, "People here may believe that we are not desperate, but we are.
 Maybe you haven't been paying attention to the growing food shortage, with no
@@ -1087,7 +1198,8 @@ Edward says, "I can see merit in choosing the plan that can help us win the
 war the fastest. These kids have grown up playing shooting video games and
 probably have as good reflexes as the miners."
 
->You move south.
+> s
+You move south.
 
 Ventilation shaft, above the communications room
 The area of the ventilation system that you can access ends here, with a
@@ -1097,9 +1209,11 @@ communications officer is working at the computer, not paying attention to
 anything else. A passcard sticks out of one of his pockets. Directly below
 the vent is a desk upon which the communication officer's coffee sits.
 
->You remove the vent, after unscrewing it with your pocket spygear.
+> open vent
+You remove the vent, after unscrewing it with your pocket spygear.
 
->You drop one of the sleeping pills into the room below. With your careful aim
+> drop pill in coffee
+You drop one of the sleeping pills into the room below. With your careful aim
 it lands in the cup of coffee on the desk. The communications officer is
 pre-occupied and does not notice your action. Soon he drinks from the coffee
 absently, as he works.
@@ -1136,7 +1250,8 @@ through headphones and working rapidly.
 The replacement officer removes the coffee, getting rid of the evidence for
 you
 
->You move north.
+> n
+You move north.
 
 Hallway, south
 To the south of this section of the hallway is the communications room, which
@@ -1147,7 +1262,8 @@ officer. Unfortunately, communications with the wider world have been cut
 off. There is only static. It was believed that the People's Shareholdings
 were responsible. The hallway continues to the east and west.
 
->You move west.
+> w
+You move west.
 
 Hallway, southwest
 The northwest section of the complex is more of an administrative centre
@@ -1160,11 +1276,14 @@ returning through the door to the southeast leading to the garden.  The door
 is currently closed. A slot is next to the door. The hallway leads east and
 north.
 
->You remove the ghost cap.
+> rc
+You remove the ghost cap.
 
->You open the door.
+> open door
+You open the door.
 
->You move southwest.
+> sw
+You move southwest.
 
 Garden, northeast
 This section of the garden was designed to provide a place for the
@@ -1177,7 +1296,8 @@ slot is next to the door.
 
 The door closes behind you, but it doesn't lock.
 
->You move southwest.
+> sw
+You move southwest.
 
 Garden, southwest
 The garden has two purposes, relating to aesthetics and self-sufficiency.
@@ -1189,11 +1309,14 @@ heaters next to one wall. The walls of this room are made of glass, and you
 can see the early morning sky outside. The garden continues to the northeast,
 with a closed door leading to the southwest. A slot is next to the door.
 
->You swipe the passcard through the slot. The door immediately opens up.
+> swipe card
+You swipe the passcard through the slot. The door immediately opens up.
 
->You put on the ghost cap.
+> wc
+You put on the ghost cap.
 
->You move southwest.
+> sw
+You move southwest.
 
 Hallway, northeast
 This corner of the hallway is the edge of this section of the complex. The
@@ -1208,7 +1331,8 @@ Shareholdings. The hallway continues to the west and south.
 
 The door closes behind you.
 
->You move west.
+> w
+You move west.
 
 Hallway, north
 One of the two laboratories in this area is through the closed door to the
@@ -1222,7 +1346,8 @@ the east and west.
 A guard stands outside the laboratory. Nobody is allowed in to see the
 technology unless they are participating in the experiments.
 
->You move west.
+> w
+You move west.
 
 Hallway, northwest
 A storage room for miscellaneous items that no longer need immediate
@@ -1234,7 +1359,8 @@ that there isn't much rubbish around. You don't actually remember much from
 your time playing through. Maybe the program edits out boring necessities.
 The hallway continues to the south and east.
 
->You move south.
+> s
+You move south.
 
 Hallway, west
 There are two doors from this location, which are both open. One leads into
@@ -1246,16 +1372,20 @@ cupboard is near the laboratory door. You are not sure what it contains, as
 you have never had the keys to it. The hallway continues to the north and
 south.
 
->You remove the ghost cap.
+> rc
+You remove the ghost cap.
 
->You pick the lock of the cupboard with the lockpick in the pocket spygear.
+> open cupboard
+You pick the lock of the cupboard with the lockpick in the pocket spygear.
 Inside are a few random experiments that have been left out for the mechanics
 to test their usefulness. The most interesting item are some sticky gloves,
 which you take. You close the cupboard afterwards.
 
->You put on the ghost cap.
+> wc
+You put on the ghost cap.
 
->You move south.
+> s
+You move south.
 
 Hallway, southwest
 The loading bay is through an open door to the south. It is busy inside as
@@ -1265,7 +1395,8 @@ during the day. It is not really a full-scale war at the moment, just a
 series of skirmishes. The hallway continues from this location to the north
 and east.
 
->You move south.
+> s
+You move south.
 
 Loading bay
 This is where all the cold suits are readied and sent out from. At this time
@@ -1279,7 +1410,8 @@ testing out the sticky gloves. He has climbed up a suit and is working on a
 final check near the suit's head. There are exits back to the hallway to the
 north and outside to the southwest.
 
->You move southwest.
+> sw
+You move southwest.
 
 Outside the base
 It is very cold outside the base. Your avatar can just manage to survive out
@@ -1293,7 +1425,8 @@ northeast and are heading off to the southwest nearer the mines.
 One cold suit has stopped, with the pilot having a dispute with the mechanic
 next to it.
 
->You put on the sticky gloves.
+> climb suit
+You put on the sticky gloves.
 
 Using the sticky gloves, you climb up on the suit. Just as you make it near
 the top, the pilot yells out, "Fine. I'll leave, but you can be sure that
@@ -1319,7 +1452,8 @@ the south and guarding the outside of the valley to the north.
 There is a node here, which currently looks like a small blue sphere hovering
 in the air.
 
->You activate the node ripper, and the node widens into the shape of a
+> rip node
+You activate the node ripper, and the node widens into the shape of a
 doorway. You walk through the node into the next episode.
 
 (Press a key)
@@ -1346,7 +1480,8 @@ on either side. The northern exit is blocked off by all the suits.
 There is a node here, which currently looks like a small blue sphere hovering
 in the air.
 
->The node ripper looks like a small remote control. Its main purpose is to rip
+> x node ripper
+The node ripper looks like a small remote control. Its main purpose is to rip
 open nodes, so you can pass through to different points in the program. It
 can also be used to close nodes. On the node ripper is a display showing
 where nearby nodes can be found.
@@ -1354,7 +1489,8 @@ where nearby nodes can be found.
 One node is indicated towards the southeast and another node is indicated in
 your location.
 
->You use the sticky gloves to climb up the cliff. It is not easy, especially
+> u
+You use the sticky gloves to climb up the cliff. It is not easy, especially
 with all the fighting and flying debris below. Eventually, you reach the top
 and find a good lookout position over the battlefield.
 
@@ -1375,7 +1511,8 @@ says, "Talk to me. Try to convince me out of killing you right here and now.
 I'm sure your efforts will be amusing. This time, I've shown that I am better
 than you."
 
->Just as you begin to open your mouth, a loud rumbling can be heard and the
+> talk to memoryblam
+Just as you begin to open your mouth, a loud rumbling can be heard and the
 ground begins shaking. The awakening has begun. Behind the barrier, next to
 the mine entrance, an alien ship is ripping up the ground, as it emerges from
 its long hiding.
@@ -1393,7 +1530,8 @@ to hold off the ship.
 memoryblam laughs and says, "That was entertaining. Now talk fast, as I'm
 getting bored."
 
->Before you can do anything, an alarm within the program is set off suddenly.
+> z
+Before you can do anything, an alarm within the program is set off suddenly.
 
 (Press a key)
 
@@ -1435,7 +1573,8 @@ and the crack blocking the other directions.
 
 Memoryblam is shooting drones, whilst following you.
 
->You move east.
+> e
+You move east.
 
 The mine entrance area, northeast
 Pieces of the broken barrier have managed to be spread around this area as
@@ -1453,7 +1592,8 @@ with cliffs blocking other directions.
 memoryblam keeps firing at the chasing drones, whilst following you from the
 west.
 
->You climb into the cockpit of the suit.
+> get in suit
+You climb into the cockpit of the suit.
 
 Inside the damaged cold suit
 The cockpit of the cold suit looks intact, although the layout is not
@@ -1470,13 +1610,17 @@ the suit.
 memoryblam keeps firing at the chasing drones, whilst following you from
 outside.
 
->You remove the cap.
+> rc
+You remove the cap.
 
->You make the suit put the barrier piece on top of the cart.
+> put barrier on cart
+You make the suit put the barrier piece on top of the cart.
 
->You put on the ghost cap.
+> wc
+You put on the ghost cap.
 
->You climb out of the cold suit.
+> out
+You climb out of the cold suit.
 
 The mine entrance area, northeast
 Pieces of the broken barrier have managed to be spread around this area as
@@ -1494,9 +1638,11 @@ There is a long, thin barrier piece balanced on the cart.
 memoryblam keeps firing at the chasing drones, whilst following you from
 inside.
 
->You remove the cap.
+> rc
+You remove the cap.
 
->You pull the lever and the cart starts rushing down the track. You see it
+> pull lever
+You pull the lever and the cart starts rushing down the track. You see it
 plunge into the crack to the west. The piece of barrier looks to have been
 stuck on top of the tracks.
 
@@ -1504,9 +1650,11 @@ To your surprise another cart suddenly appears on the track in front of you.
 You guess that the program has automatically generated it, not opting for
 realism in this instance.
 
->You put on the ghost cap.
+> wc
+You put on the ghost cap.
 
->You move west.
+> w
+You move west.
 
 The mine entrance area, northwest
 The barrier to the north of this location has been broken apart. What the
@@ -1522,7 +1670,8 @@ can only move east and south.
 memoryblam keeps firing at the chasing drones, whilst following you from the
 east.
 
->You move south.
+> s
+You move south.
 
 The mine entrance area, southwest
 The final barrier to stop easy access to the mine in the southwest is a large
@@ -1538,23 +1687,29 @@ to the east, so you can currently only return back north.
 memoryblam keeps firing at the chasing drones, whilst following you from the
 north.
 
->You position yourself in front of the door.
+> stand in front of door
+You position yourself in front of the door.
 
->You remove the cap.
+> rc
+You remove the cap.
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
 The laser gun on the alien ship begins to point in your direction.
 
->You put on the ghost cap.
+> wc
+You put on the ghost cap.
 
 The laser guns shoots at you. Luckily you put your cap on just in time. The
 laser hits the door and knocks a hole straight through it. The hole looks
 large enough that you could get inside.
 
->You make sure that your ghost cap is on securely, before heading inside the
+> in
+You make sure that your ghost cap is on securely, before heading inside the
 mine along with memoryblam. memoryblam suddenly laughs and says, "I just
 noticed. There are some parallels to the situation in this program and the
 situation for us. Former enemies, teaming together to defeat a common foe.
@@ -1594,7 +1749,8 @@ find some way to get rid of them for a while.
 
 memoryblam keeps firing at the chasing drones, whilst following you.
 
->The node ripper looks like a small remote control. Its main purpose is to rip
+> x node ripper
+The node ripper looks like a small remote control. Its main purpose is to rip
 open nodes, so you can pass through to different points in the program. It
 can also be used to close nodes. On the node ripper is a display showing
 where nearby nodes can be found.
@@ -1602,7 +1758,8 @@ where nearby nodes can be found.
 One node is indicated in your location and another node is indicated towards
 the south.
 
->You move south.
+> s
+You move south.
 
 The elevator, on the upper bridge
 There is a large chasm in this area, with a bridge built to cross it from the
@@ -1617,7 +1774,8 @@ An alien stands guard over the bridge controls.
 memoryblam keeps firing at the chasing drones, whilst following you from the
 north.
 
->You move south.
+> s
+You move south.
 
 The end of the corridor
 The corridor ends here, leading to two rooms to the east and the west. You
@@ -1631,7 +1789,8 @@ good condition. The rest have probably been blocked off.
 memoryblam keeps firing at the chasing drones, whilst following you from the
 north.
 
->As you enter the room you notice an alien pull a lever and then stand under a
+> e
+As you enter the room you notice an alien pull a lever and then stand under a
 scanner. The machine starts operating furiously until suddenly next to the
 alien, a second alien appears. This alien is smaller and has less
 intelligence in how it is looking around.
@@ -1656,7 +1815,8 @@ They are currently empty. The only exit is to the west.
 memoryblam keeps firing at the chasing drones, whilst following you from the
 west.
 
->You move west.
+> w
+You move west.
 
 The end of the corridor
 The corridor ends here, leading to two rooms to the east and the west. You
@@ -1670,7 +1830,8 @@ good condition. The rest have probably been blocked off.
 memoryblam keeps firing at the chasing drones, whilst following you from the
 east.
 
->You move west.
+> w
+You move west.
 
 Raw materials storage
 The best way to describe this room is a storage room for miscellaneous
@@ -1688,16 +1849,20 @@ back to the east.
 memoryblam keeps firing at the chasing drones, whilst following you from the
 east.
 
->You remove the cap.
+> rc
+You remove the cap.
 
->Most of the items must have been found around the mine when the aliens took
+> search crate
+Most of the items must have been found around the mine when the aliens took
 it over. You decide to search through them to see if there is anything worth
 taking. Amongst the broken rubbish you find a flashlight and a grappling
 hook, which you decide to take with you.
 
->You put on the ghost cap.
+> wc
+You put on the ghost cap.
 
->You move east.
+> e
+You move east.
 
 The end of the corridor
 The corridor ends here, leading to two rooms to the east and the west. You
@@ -1711,7 +1876,8 @@ good condition. The rest have probably been blocked off.
 memoryblam keeps firing at the chasing drones, whilst following you from the
 west.
 
->You move east.
+> e
+You move east.
 
 Cloning laboratory
 This room is mainly filled by the various parts of a single machine. From
@@ -1730,11 +1896,14 @@ the cart back to the west.
 memoryblam keeps firing at the chasing drones, whilst following you from the
 west.
 
->You remove the cap.
+> rc
+You remove the cap.
 
->You throw the grappling hook at the lever and it catches hold.
+> use hook with lever
+You throw the grappling hook at the lever and it catches hold.
 
->You pull the grappling hook and lever down. The grappling hook breaks with
+> pull hook
+You pull the grappling hook and lever down. The grappling hook breaks with
 the hook flying off, leaving you with just a rope. You move to wait under the
 scanner and suddenly memoryblam appears beside you.
 
@@ -1761,7 +1930,8 @@ episode."
 memoryblam frowns, "I don't have time to deal with you, with that system
 message. Let's get out of here as quickly as possible."
 
->You move west.
+> w
+You move west.
 
 The end of the corridor
 The corridor ends here, leading to two rooms to the east and the west. You
@@ -1774,7 +1944,8 @@ good condition. The rest have probably been blocked off.
 
 memoryblam follows you from the east.
 
->You move north.
+> n
+You move north.
 
 The elevator, on the upper bridge
 There is a large chasm in this area, with a bridge built to cross it from the
@@ -1792,7 +1963,8 @@ An alien stands guard over the bridge controls.
 
 memoryblam follows you from the south.
 
->You begin climbing down the ladder with memoryblam following behind you.
+> d
+You begin climbing down the ladder with memoryblam following behind you.
 Midway down, you suddenly feel something hit your head and knock the ghost
 cap off. The cap falls quickly out of reach and down into the chasm below.
 This is very bad for you. You cannot even see the nodes without the ghost
@@ -1815,7 +1987,8 @@ You remember that on the upper bridge, there is a guard standing next to
 where the ladder exits. Looking below, there is a guard standing a distance
 away from the ladder, next to one of the exits from the bridge.
 
->You move down.
+> d
+You move down.
 
 The elevator, on the lower bridge
 You remain on the ladder for the time being, as from this angle, the pillar
@@ -1827,7 +2000,8 @@ realise that it is not nearly as deep as you first thought it was. It is
 still too far to jump from here, but you can at least see the bottom. You can
 currently climb back up, or move out of hiding.
 
->You tie the rope to the ladder and lower it down into the chasm below.
+> use rope with ladder
+You tie the rope to the ladder and lower it down into the chasm below.
 
 You know that even if you managed to evade the guard, you would not make it
 much further inside the base without the ghost cap. Your only real chance is
@@ -1857,7 +2031,8 @@ wrong exit. You took a risk moving around as much as you have without light,
 given the likelihood of holes in the floor. That is probably where the rope
 has ended up.
 
->You turn on the flashlight. It lights up the area enough that you can
+> turn on flashlight
+You turn on the flashlight. It lights up the area enough that you can
 somewhat see where you are going. Now you have your ghost cap on, even if the
 guard sees the light, it cannot see you.
 
@@ -1881,7 +2056,8 @@ north and divides in two to the south. It heads off to the southeast and
 southwest, down separate passageways. You wish you had memorised the mine
 structure when you had the chance, so you would have some idea where you are.
 
->You move southwest.
+> sw
+You move southwest.
 
 Chasm at the end of the passageway
 The passageway is blocked ahead, with yet another chasm. Raising the alien
@@ -1895,11 +2071,14 @@ northeast.
 Next to the chasm is a long, thin rod, which looks like it is a broken off
 lever that used to be attached next to the tracks.
 
->You remove the ghost cap.
+> rc
+You remove the ghost cap.
 
->You pick up the rod.
+> get rod
+You pick up the rod.
 
->You move northeast.
+> ne
+You move northeast.
 
 Intersection in the original mine
 You can tell that this is a passageway from the original mine, as your
@@ -1908,7 +2087,8 @@ north and divides in two to the south. It heads off to the southeast and
 southwest, down separate passageways. You wish you had memorised the mine
 structure when you had the chance, so you would have some idea where you are.
 
->You move southeast.
+> se
+You move southeast.
 
 Boulder at the end of the passageway
 The tracks and passageway come to a stop at a dead end ahead. You thought
@@ -1919,7 +2099,8 @@ recently. Looking at the edges of the boulder there looks like there is a
 small passage behind it. However, you will not fit through this small gap, so
 you can only return to the northwest.
 
->You push the rod into the gap between the boulder and wall, and use it to
+> move boulder with rod
+You push the rod into the gap between the boulder and wall, and use it to
 lever out the boulder. Soon it is moved away from the hole. You take the
 opportunity to walk through the hole to find out where it goes.
 
@@ -1946,7 +2127,8 @@ cap, but he cannot open the door with the alien standing there. memoryblam
 has not noticed you, as he is too focussed on his own problems, staring
 absently at the door.
 
->You poke the rod through the grating, just above memoryblam. When it is in
+> push cap with rod
+You poke the rod through the grating, just above memoryblam. When it is in
 position, you use it to knock off his cap.
 
 (Press a key)
@@ -1961,7 +2143,8 @@ That was a suitable revenge for what memoryblam planned for you. He may
 suspect that it was your fault again, but he won't remember what happened
 here. Now, you only have to escape somehow.
 
->You move south.
+> s
+You move south.
 
 Grating above the passageway, south
 After a long period outside the alien base, you can finally see a way to get
@@ -1971,9 +2154,11 @@ completely close off the remains of the old mine. The passageway below ends
 at a closed door to the north. The area you are in ends here to the south, so
 you can only return to the north.
 
->You remove the ghost cap.
+> rc
+You remove the ghost cap.
 
->You open the trapdoor and lower yourself to the floor below. Following the
+> open trapdoor
+You open the trapdoor and lower yourself to the floor below. Following the
 passageway, you soon end up in the central room of the alien base.
 
 Central room
@@ -1992,7 +2177,8 @@ other.
 There is a node here, which currently looks like a small blue sphere hovering
 in the air.
 
->Time passes...
+> z
+Time passes...
 
 With the action about to start, you get out your thought reader, as you did
 not get to see this when you played through the program as Marcus. A
@@ -2019,7 +2205,8 @@ see her eyes go blank and she slumps to the ground. She has allowed the
 aliens in and they have taken over her mind. Two aliens take Lauren and leave
 the room in one direction. Some other aliens clean up the mess that was Chad.
 
->You activate the node ripper, and the node widens into the shape of a
+> rip node
+You activate the node ripper, and the node widens into the shape of a
 doorway. You walk through the node into the next episode.
 
 (Press a key)
@@ -2053,7 +2240,8 @@ in the area you are standing in. This is different to the east where you came
 from. The rocks stop at the base of the hill and the area is wide open to the
 east.
 
->You move southwest.
+> sw
+You move southwest.
 
 Path above climbable cliff
 The path here is enclosed by rocks on one side and a drop off a cliff on the
@@ -2065,7 +2253,8 @@ The cliff here looks like it could be climbed down. The rocks in the area
 prevent any other exits apart from back down the hill to the northeast, or
 across the top of the hill to the north.
 
->You move to the edge, looking for the best way to climb down. Suddenly from
+> climb cliff
+You move to the edge, looking for the best way to climb down. Suddenly from
 behind, you hear a voice talking to you, "Hi surviveor. I didn't expect to
 see you again."
 
@@ -2080,7 +2269,8 @@ happen again. In fact, I am going to kill you now."
 memoryblam is blocking the northern exit and he raises his gun in your
 direction. Running away might be a good option now.
 
->You move northeast.
+> ne
+You move northeast.
 
 Path above climbable cliff
 The path here is enclosed by rocks on one side and a drop off a cliff on the
@@ -2096,18 +2286,22 @@ memoryblam is here and he want to finally end this duel.
 memoryblam calls out after you, "You have to come back up here sooner or
 later. I'll be waiting."
 
->Time passes...
+> z
+Time passes...
 
 You hear memoryblam call out from the west, "Stop hiding."
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
 You hear memoryblam call out from the southwest, "I know you're still down
 there."
 
->You move west.
+> w
+You move west.
 
 Path above sheer cliff
 There is a boulder that is partially blocking the path in this location. At
@@ -2119,11 +2313,13 @@ are not watching where you are stepping. The rocks in the area prevent any
 exits apart from back down the hill to the east, or across the top of the
 hill to the south.
 
->You duck down behind the boulder on its northern side.
+> hide
+You duck down behind the boulder on its northern side.
 
 memoryblam enters the area, but he has not noticed you yet.
 
->You wait until memoryblam is starting to move past the boulder. As you begin
+> hit memoryblam with rod
+You wait until memoryblam is starting to move past the boulder. As you begin
 to jump out, unfortunately he hears you and he begins to aim. The rod has a
 decent length, so you swing it at memoryblam from a distance. He ducks and
 steps sideways to dodge the rod. Unfortunately for memoryblam, there is
@@ -2147,7 +2343,8 @@ brother. It is fun to rub in your gaming superiority though.
 
 The battle looks to be coming to a climax, so it is time to get down there.
 
->You move south.
+> s
+You move south.
 
 Path above climbable cliff
 The path here is enclosed by rocks on one side and a drop off a cliff on the
@@ -2159,7 +2356,8 @@ The cliff here looks like it could be climbed down. The rocks in the area
 prevent any other exits apart from back down the hill to the northeast, or
 across the top of the hill to the north.
 
->This time no one stops you, as you climb down the cliff. You arrive just in
+> climb cliff
+This time no one stops you, as you climb down the cliff. You arrive just in
 time, to see a repeat of events from long ago in your memory, although new in
 this timeline. Mirroring your earlier actions the traitor's opponent uses the
 grappling hook and disruptor to damage the traitor's cold suit, before
@@ -2185,4 +2383,5 @@ You have lived up to your name and survived again!
 The End
 Please restore, restart or quit.
 
->Do you really want to quit? [Y/N]
+> quit
+Do you really want to quit? [Y/N]

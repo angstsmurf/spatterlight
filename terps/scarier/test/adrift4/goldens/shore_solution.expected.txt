@@ -14,23 +14,29 @@ fluorescent flaps of the rapidly deflating vessel. Fog, wrapped around the
 sky, conceals the seascape. Nothing is here, nothing but the shadows of
 unseen entities, and they soon dart from sight as you turn on them.
 
->   The cymballine crash of the sea played by the percussionist wind mixes
+> listen
+   The cymballine crash of the sea played by the percussionist wind mixes
 disturbingly with whispers of unknown origin.
 
->   The metallic tang of the sea fused with the stench of salt and dying
+> smell
+   The metallic tang of the sea fused with the stench of salt and dying
 greenery tease you.
 
->   Although your mind is numbed of sense, you decide against stepping out of
+> e
+   Although your mind is numbed of sense, you decide against stepping out of
 the dinghy and into the sea.
 
->Time passes...
+> z
+Time passes...
 
    Unexpected by even yourself after days of drifting, the dinghy lands
 roughly upon a reef of stones - land leads east into the unknown.
 
->Time passes...
+> z
+Time passes...
 
->You move east.
+> e
+You move east.
 
 On a grey beach
    A lone tree weeps at the edge of the beach, its roots firmly planted in
@@ -40,10 +46,12 @@ sea washes upon the sand, the sting of icy spray hanging in the air.
    A hill leads up into the fog and your dinghy sits on the rocks to the
 west.
 
->   The tree hangs its fronds in shame, its black trunk holding it steadily to
+> x tree
+   The tree hangs its fronds in shame, its black trunk holding it steadily to
 the ground against the torment of the wind.
 
->You move up.
+> u
+You move up.
 
 Atop a hill
    With its summit firmly lost in the mesh of grey cloud and dirty fog, the
@@ -52,10 +60,12 @@ hill offers only a distressed signpost pointing south and west.
    Paths, or ragged lines of stones, lead off in said directions; another
 path leads down to the beach.
 
->   A wooden signpost firmly planted in the empty ground, rotten and plagued
+> x signpost
+   A wooden signpost firmly planted in the empty ground, rotten and plagued
 by a dark moss.
 
->You move west.
+> w
+You move west.
 
 By a ruined cabin
    Built from rough stones and rotten driftwood, a small cabin takes a
@@ -65,10 +75,12 @@ itself against the cabin again.
 
    A barely discernible path leads east into the fog.
 
->   A gruesome blend of harsh stone blocks stacked within a frame of gnarled
+> x cabin
+   A gruesome blend of harsh stone blocks stacked within a frame of gnarled
 driftwood, the cabin is a small outpost, the home of unseen entities.
 
->You move in.
+> in
+You move in.
 
 Inside the cabin
    Empty but for a small table, the cabin appears long forgotten - rotten
@@ -77,20 +89,26 @@ the corner.
 
    A doorway leads out to the filthy unknown.
 
->   A block of rough stone - crudely chiselled - topped with a collection of
+> x table
+   A block of rough stone - crudely chiselled - topped with a collection of
 wooden sticks, moss covered and rotten.
 
->   You are wearied by starvation and the onslaught of the elements - you
+> take basket
+   You are wearied by starvation and the onslaught of the elements - you
 couldn't hope to lift the basket.
 
->   You try to take one of the turnips but it is so rotten that it almost
+> take turnip
+   You try to take one of the turnips but it is so rotten that it almost
 fades in your hand, the soggy flesh crumbling into the basket.
 
->You take the leek from the basket.
+> take leek
+You take the leek from the basket.
 
->   You nibble the root of the leek, its foul taste matching its foul stench.
+> eat leek
+   You nibble the root of the leek, its foul taste matching its foul stench.
 
->You move out.
+> out
+You move out.
 
 By a ruined cabin
    Built from rough stones and rotten driftwood, a small cabin takes a
@@ -100,7 +118,8 @@ itself against the cabin again.
 
    A barely discernible path leads east into the fog.
 
->You move east.
+> e
+You move east.
 
 Atop a hill
    With its summit firmly lost in the mesh of grey cloud and dirty fog, the
@@ -109,7 +128,8 @@ hill offers only a distressed signpost pointing south and west.
    Paths, or ragged lines of stones, lead off in said directions; another
 path leads down to the beach.
 
->You move south.
+> s
+You move south.
 
 A barren field
    Guarded by fenceposts without any beams, you can only guess as to how vast
@@ -119,12 +139,14 @@ a dirty grey variety, grows in ragged patches around the field.
    A barely discernible path leads north into the fog.
    Tugging at the barren ground, a cow wanders aimlessly through the gloom.
 
->   The cow's bones audibly creak as it turns to sniff the leek. Tentatively
+> give leek to cow
+   The cow's bones audibly creak as it turns to sniff the leek. Tentatively
 it nibbles on the root before collecting the full vegetable from your hand.
 Finished chewing, it turns to you in expectation of another leek but ignores
 you when it realises no more offerings are forthcoming.
 
->You move north.
+> n
+You move north.
 
 Atop a hill
    With its summit firmly lost in the mesh of grey cloud and dirty fog, the
@@ -133,7 +155,8 @@ hill offers only a distressed signpost pointing south and west.
    Paths, or ragged lines of stones, lead off in said directions; another
 path leads down to the beach.
 
->You move down.
+> d
+You move down.
 
 On a grey beach
    A lone tree weeps at the edge of the beach, its roots firmly planted in
@@ -144,7 +167,8 @@ sea washes upon the sand, the sting of icy spray hanging in the air.
 west.
    A light, dim in the fog, shines in from the south.
 
->
+> s
+
    Hungry, confused, desperate, you stagger out towards the light. Could it
 be a boat? Are they looking for you? Questions, questions, questions - all of
 them racing through your mind.

@@ -3,15 +3,21 @@ Loading game...
 Undefined
 You are nowhere.
 Please enter your name:
->
->(Your score has increased by 1)
+
+> Undef
+
+> define the room
+(Your score has increased by 1)
 Here defined.
 
->(Your score has increased by 1)
+> define me
+(Your score has increased by 1)
 You are defined.
 
->(Your score has increased by 1)
+> define voice
+(Your score has increased by 1)
 I am now defined (thank you by the way).
 
->An end is defined.
+> define the end
+An end is defined.
 You are somewhere.

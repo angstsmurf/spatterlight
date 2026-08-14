@@ -17,7 +17,7 @@ Version 1.00, 2006
 
 5. Credits
 
->
+> 1
 
 The following message is claimed to be the final communication of the 'First
 One', fabled founder of the Morbian state.
@@ -39,17 +39,22 @@ you prefer it.
 You have been disturbed from your recharging by the arrival of a message on
 your communicator.
 
->The metal shelf is for personal items appropriate to the level of
+> exam shelf
+The metal shelf is for personal items appropriate to the level of
 achievement.  Your square id badge is on the shelf.
 
->You take your square id badge from the shelf.
+> get badge
+You take your square id badge from the shelf.
 
->You put on your square id badge.
+> wear badge
+You put on your square id badge.
 
->Messages
+> a
+Messages
 It is displaying: Attend Centre for Examination - Urgent.
 
->The room slowly fades and is replaced with your destination.
+> 2
+The room slowly fades and is replaced with your destination.
 
 Centre for Examination
 The hexagonal metal room is 10m across and nearly 5m in height. With the
@@ -58,7 +63,8 @@ murkiness. A security monitor is on one side of the room, to your right the
 interrogator and virtually opposite is the teleporter.
 Zeta-Theta is standing against the wall.
 
->You begin with, "Hail Zeta-Theta. A communication to attend has been
+> talk to zeta-theta
+You begin with, "Hail Zeta-Theta. A communication to attend has been
 received."
 
 Zeta-Theta turns to face and replies, "Hail Epsilon-Beta. Apologies if you
@@ -74,7 +80,8 @@ teleporter." Zeta-Theta hands a card to you, which you take.
 An unauthorised termination is not unusual but is fairly rare; it is most
 likely some form of accident.
 
->The room slowly fades and is replaced with your destination.
+> 3
+The room slowly fades and is replaced with your destination.
 
 Domicile of Gamma-Sigma
 The domicile is appropriate to the victim's level of achievement and the
@@ -83,7 +90,8 @@ the recharger and opposite the communicator. On the wall in between is the
 teleporter. A typical domicile for a Series 3.
 The still form Gamma-Sigma is here.
 
->Logs
+> b
+Logs
 The log has details of teleporter activity up to the point of termination.
 The log contains thousands of entries but the following draw your attention.
 
@@ -97,13 +105,15 @@ The log contains thousands of entries but the following draw your attention.
 The entry relating to Psi-Tau and the maintenance during the last cycle is
 particularly interesting.
 
->Gamma-Sigma, the Beta-Tyr Series 3, is lying on the floor and from the
+> exam gamma-sigma
+Gamma-Sigma, the Beta-Tyr Series 3, is lying on the floor and from the
 position of the remains it looks as if the individual has fallen from the
 recharger unit. Gamma-Sigma seems to have burn marks, almost as if the
 individual has been subject to an electrical shock. The memory module
 retrieval will hopefully give some clues to what happen.
 
->The room slowly fades and is replaced with your destination.
+> 2
+The room slowly fades and is replaced with your destination.
 
 Centre for Examination
 The hexagonal metal room is nearly 5m in height and 10m across. A security
@@ -112,7 +122,8 @@ virtually opposite is the teleporter. With the standard hidden lighting set
 to a low level, most of the room is in dullness.
 Zeta-Theta is standing against the wall.
 
->You begin with, "Hail Zeta-Theta, Gamma-Sigma has been examined and it
+> talk to zeta-theta
+You begin with, "Hail Zeta-Theta, Gamma-Sigma has been examined and it
 appears that some form of electrical shock was the cause of termination."
 
 "Is an accident the likely cause?" but Zeta-Theta does not turn to look at
@@ -126,7 +137,8 @@ Still without looking at you Zeta-Theta replies, "The suggestion is that the
 examination continues at the Centre of Maintenance. The order for an
 immediate deconstruct of the remains of Gamma-Sigma will be given."
 
->The room slowly fades and is replaced with your destination.
+> 4
+The room slowly fades and is replaced with your destination.
 
 Centre for Maintenance
 The oblong metal room is 10m long by 5m wide and nearly 3m in height. The
@@ -135,7 +147,8 @@ certainly brighter than you prefer. A control panel is on one side of the
 room and right opposite is the teleporter.
 Mu-Nu is hovering in the centre of the room.
 
->Mu-Nu states, "Hail Epsilon-Beta, your appearance is unexpected but
+> talk to mu-nu
+Mu-Nu states, "Hail Epsilon-Beta, your appearance is unexpected but
 agreeable."
 
 Looking around the centre you reply,  "Hail Mu-Nu. It is agreeable to have
@@ -158,7 +171,8 @@ replies, "Apparently Psi-Tau has been called to the Centre of Examination."
 That is very unusual, especially with your examination still taking place.
 You decide to return to the centre.
 
->The room slowly fades and is replaced with your destination.
+> 2
+The room slowly fades and is replaced with your destination.
 
 Centre for Examination
 The hexagonal metal room is nearly 5m in height and 10m across. A security
@@ -167,7 +181,8 @@ virtually opposite is the teleporter. With the standard hidden lighting set
 to a low level, most of the room is in darkness.
 Zeta-Theta is standing against the wall.
 
->Zeta-Theta replies with, "Hail Epsilon-Beta."
+> talk to zeta-theta
+Zeta-Theta replies with, "Hail Epsilon-Beta."
 
 "The maintenance operative who carried out an assignment at the victims
 domicile was Psi-Tau," you report.
@@ -207,7 +222,8 @@ domicile of Psi-Tau will be granted."
 
 Something is not correct here, but you still fail to identify what.
 
->The room slowly fades and is replaced with your destination.
+> 8
+The room slowly fades and is replaced with your destination.
 
 Domicile of Psi-Tau
 The metal room is 2m square and 2.5m in height. On one side of the room is a
@@ -218,16 +234,19 @@ setting, just how you prefer it.
 The first thing that occurs to you is that this domicile seems slightly too
 large for a Series 3. This is a direct violation of law 3981.
 
->The metal shelf is for personal items appropriate to the level of
+> exam shelf
+The metal shelf is for personal items appropriate to the level of
 achievement.  A pebble is on the shelf.
 
->You take the pebble from the shelf.
+> get pebble
+You take the pebble from the shelf.
 
 Looking at the pebble you do not understand how a Series 3 would have
 obtained such a thing (violation of law 3981), never mind actually owning it
 (violation of law 4361).
 
->The room slowly fades and is replaced with your destination.
+> 2
+The room slowly fades and is replaced with your destination.
 
 Centre for Examination
 The hexagonal metal room is nearly 5m in height and 10m across. A security
@@ -237,7 +256,8 @@ to a low level, most of the room is in darkness.
 Zeta-Theta is standing against the wall.
 Zeta-Theta appears to be looking at the pebble you are carrying.
 
->"Hail Zeta-Theta."
+> talk to zeta-theta
+"Hail Zeta-Theta."
 
 "Hail Epsilon-Beta, did you discover further evidence at the domicile of
 Psi-Tau?" asks Zeta-Theta.
@@ -261,7 +281,8 @@ conclude this assignment but you have concerns regarding law 9845. More
 evidence is required, you need to examine the remains of both individuals.
 Maybe the Head of Maintenance would know more about this?
 
->Showing Zeta-Theta the pebble, "The understanding is that this pebble is from
+> give pebble to zeta-theta
+Showing Zeta-Theta the pebble, "The understanding is that this pebble is from
 the planet surface."
 
 Zeta-Theta looks at it, "That belief would seem correct." Zeta-Theta pauses
@@ -276,13 +297,16 @@ It seems a good exchange so you reply, "Yes, it is a deal."
 
 You hand the pebble to Zeta-Theta who hands you the crystal.
 
->Built into the wall, the square shaped interrogator identifies truth or
+> exam interrogator
+Built into the wall, the square shaped interrogator identifies truth or
 falsehood. The interrogator appears to be off.  A tracer is on the
 interrogator.
 
->You take the tracer from the interrogator.
+> get tracer
+You take the tracer from the interrogator.
 
->The room slowly fades and is replaced with your destination.
+> 4
+The room slowly fades and is replaced with your destination.
 
 Centre for Maintenance
 The oblong metal room is 10m long by 5m wide and nearly 3m in height. The
@@ -295,7 +319,8 @@ Mu-Nu appears to be looking closely at the crystal you are carrying.
 As you appear Mu-Nu looks at the crystal you are carrying and exclaims, "That
 is a most fine item you have."
 
->Mu-Nu says, "Hail Epsilon-Beta."
+> talk to mu-nu
+Mu-Nu says, "Hail Epsilon-Beta."
 
 You reply with, "Hail Mu-Nu. assistance is required."
 
@@ -313,7 +338,8 @@ most interesting that Omicron-Xi would become involved in such a matter. Now
 to find out about the remains of Psi-Tau and Gamma-Sigma, Mu-Nu should have
 more information.
 
->You start by asking, "An examination of the remains of Gamma-Sigma needs to
+> talk to mu-nu
+You start by asking, "An examination of the remains of Gamma-Sigma needs to
 take place, are they here?"
 
 "No, the remains have been sent to the Tyr Creation Centre."
@@ -338,7 +364,8 @@ the appropriate authority, even for an acquaintance."
 
 Maybe you will be able to get to Tie from the Tyr Creation Centre.
 
->Mu-Nu asks, "Would you be willing to swap the crystal for something else?"
+> give crystal to mu-nu
+Mu-Nu asks, "Would you be willing to swap the crystal for something else?"
 
 In your best negotiating manner, "Unsure, it does have great value."
 
@@ -350,7 +377,8 @@ It seems a good trade so you reply, "Yes, it is a deal."
 You hand the synthetic crystal to Mu-Nu, who takes it and without saying
 another word hands you the thermal lance.
 
->The room slowly fades and is replaced with your destination.
+> 5
+The room slowly fades and is replaced with your destination.
 
 Tyr Centre of Creation
 The centre must be the largest and brightest places you have ever visited.
@@ -374,7 +402,8 @@ centre and the light settings. You will become accustomed."
 
 Mu-Rho hovers away.
 
->The room size and lighting levels are having an unusual effect on you. Trying
+> talk to mu-rho
+The room size and lighting levels are having an unusual effect on you. Trying
 to focus on your task so you can keep the rising panic subdued, "I am here to
 examine the remains of Gamma-Sigma, before they are reprocessed."
 
@@ -382,7 +411,8 @@ examine the remains of Gamma-Sigma, before they are reprocessed."
 seems to be more of a statement than a question. Mu-Rho points north and
 continues, "The remains are in the stores."
 
->You move north.
+> north
+You move north.
 
 Tyr Assembly Plant
 The vast assembly plant of the Tyr creation centre towers about you. Spread
@@ -394,7 +424,8 @@ If the centre worried you the assembly plant is even worse; you have never
 been in such a large room. You flatten yourself against the wall until the
 power surge (panic maybe?) passes.
 
->You move west.
+> west
+You move west.
 
 Tyr Stores
 The stores is a place much more suited to your tastes, it is 10m square with
@@ -402,12 +433,15 @@ lower lighting levels. Against the wall, just inside the entrance, is a metal
 table. To the east is the assembly plant.
 The still form Gamma-Sigma is here.
 
->The metal three legged table seems fairly aged.  A termination report is on
+> exam table
+The metal three legged table seems fairly aged.  A termination report is on
 the table.
 
->You take the termination report from the table.
+> get report
+You take the termination report from the table.
 
->Victim: Gamma-Sigma
+> read report
+Victim: Gamma-Sigma
 Individual: Beta Series 3
 Function: Operative, Tet Centre of Creation
 Termination: Unauthorized
@@ -420,7 +454,8 @@ Case closed. Gamma-Sigma to be reprocessed.
 
 The report was produced by Zeta-Theta
 
->The still form of Gamma-Sigma is lying discarded on the floor. During an
+> exam gamma-sigma
+The still form of Gamma-Sigma is lying discarded on the floor. During an
 unauthorized termination examination normally the remains of the victim is
 thoroughly investigated, basically they are torn apart looking for evidence.
 The remains of Gamma-Sigma appear much as they did when you first discovered
@@ -429,16 +464,20 @@ them.
 It would appear that the memory module has not been retrieved which is most
 odd, if you could find a thermal lance you could retrieve it yourself.
 
->You turn on the lance.
+> turn on lance
+You turn on the lance.
 The thermal lance is making a very loud buzzing sound.
 
->Using the thermal lance you cut open Gamma-Sigma and remove the memory
+> use lance
+Using the thermal lance you cut open Gamma-Sigma and remove the memory
 module.
 The thermal lance is making a very loud buzzing sound.
 
->You turn off the lance.
+> turn off lance
+You turn off the lance.
 
->You move east.
+> east
+You move east.
 
 Tyr Assembly Plant
 The vast assembly plant of the Tyr creation centre towers about you. Spread
@@ -449,7 +488,8 @@ individuals. To the west are the stores and the control room is south.
 Now you are calm it is interesting to think that this is your place of
 creation.
 
->You move south.
+> south
+You move south.
 
 Tyr Centre of Creation
 The centre must be the largest and brightest places you have ever visited.
@@ -457,7 +497,8 @@ The place can only be described as monumental and you are extremely
 uncomfortable. To the north is the main assembly plant of the centre.
 Mu-Rho is hovering in the centre of the room.
 
->The room slowly fades and is replaced with your destination.
+> 4
+The room slowly fades and is replaced with your destination.
 
 Centre for Maintenance
 The oblong metal room is 10m long by 5m wide and nearly 3m in height. The
@@ -466,7 +507,8 @@ certainly brighter than you prefer. A control panel is on one side of the
 room and right opposite is the teleporter.
 Mu-Nu is hovering in the centre of the room.
 
->You hand the memory module to Mu-Nu who hovers over to the control panel.
+> give module to mu-nu
+You hand the memory module to Mu-Nu who hovers over to the control panel.
 Mu-Nu inserts the module into it and after a few decsecs the display starts
 to show what is stored on it.
 
@@ -487,7 +529,8 @@ recharging unit but by something or an individual at the Tet Creation Centre.
 More importantly Gamma-Sigma was terminated by a weapon! This is a direct
 violation of laws 1276 and 2871.
 
->The room slowly fades and is replaced with your destination.
+> 6
+The room slowly fades and is replaced with your destination.
 
 Tie Centre of Creation
 The centre must be the largest and brightest places you have ever visited.
@@ -495,7 +538,8 @@ The place can only be described as enormous and you are extremely
 uncomfortable. To the north is the main assembly plant of the centre.
 Mu-Lambda is hovering in the centre of the room.
 
->You begin with, "Hail Mu-Lambda."
+> talk to mu-lambda
+You begin with, "Hail Mu-Lambda."
 
 "Hail Epsilon-Beta; a visit from an examiner is most unexpected," Mu-Lambda
 replies.
@@ -514,7 +558,8 @@ that has not happen."
 
 So, where are the remains of Psi-Tau?
 
->You move north.
+> north
+You move north.
 
 Tie Assembly Plant
 The vast assembly plant of the Tie creation centre towers about you. Spread
@@ -529,7 +574,8 @@ of mine, here." The individual hands you a recording chip and a hexagonal id
 badge then continues, "Gamma-Sigma found out about the Echo Series 9." The
 individual then disappears back into the mass of functioners.
 
->You move west.
+> west
+You move west.
 
 Tie Stores
 The stores is a place much more suited to your tastes, it is 10m square with
@@ -539,7 +585,8 @@ table. To the east is the assembly plant.
 Looking around the stores it is just as Mu-Lambda stated, the remains of
 Psi-Tau are not located here.
 
->You move east.
+> east
+You move east.
 
 Tie Assembly Plant
 The vast assembly plant of the Tie creation centre towers about you. Spread
@@ -548,7 +595,8 @@ All are being serviced by an army of Alpha, Beta and Phi Series 3 and 4
 individuals. To the west are the stores and the control room is south.
 In the distance a Phi is hovering.
 
->You move south.
+> south
+You move south.
 
 Tie Centre of Creation
 The centre must be the largest and brightest places you have ever visited.
@@ -556,13 +604,16 @@ The place can only be described as enormous and you are extremely
 uncomfortable. To the north is the main assembly plant of the centre.
 Mu-Lambda is hovering in the centre of the room.
 
->You turn on the tracer.
+> turn on tracer
+You turn on the tracer.
 
->The display on the tracer reads "Psi-Tau, Outside".
+> tracer psi-tau
+The display on the tracer reads "Psi-Tau, Outside".
 
 Outside? What can that mean? Such a thing is not possible?
 
->The room slowly fades and is replaced with your destination.
+> 4
+The room slowly fades and is replaced with your destination.
 
 Centre for Maintenance
 The oblong metal room is 10m long by 5m wide and nearly 3m in height. The
@@ -571,7 +622,8 @@ certainly brighter than you prefer. A control panel is on one side of the
 room and right opposite is the teleporter.
 Mu-Nu is hovering in the centre of the room.
 
->You hand the recording chip to Mu-Nu who hovers over to the control panel.
+> give chip to mu-nu
+You hand the recording chip to Mu-Nu who hovers over to the control panel.
 Mu-Nu inserts the chip into it and after a few sections the display starts to
 show what is stored on it.
 
@@ -598,7 +650,8 @@ inciting others to violence.  More importantly they are intending to
 contravene law 8675 which prohibits rebellion, insurrection or plotting
 against authority. Also, what is the meaning of krybo?
 
->The room slowly fades and is replaced with your destination.
+> 7
+The room slowly fades and is replaced with your destination.
 
 Tet Centre of Creation
 The centre must be the largest and brightest places you have ever visited.
@@ -606,7 +659,8 @@ The place can only be described as immense and you are extremely
 uncomfortable. To the north is the main assembly plant of the centre.
 Mu-Kappa is hovering in the centre of the room.
 
->You begin with, "Hail Mu-Kappa."
+> talk to mu-kappa
+You begin with, "Hail Mu-Kappa."
 
 You notice that Mu-Kappa does not reply in the standard manner but instead
 starts with, "Are you on official business?"
@@ -618,7 +672,8 @@ termination."
 "Well, we are undertaking important functions here. Be brief and do not
 interfere," Mu-Kappa replies sharply.
 
->You move north.
+> north
+You move north.
 
 Tet Assembly Plant
 The vast assembly plant of the Tet creation centre towers about you. Spread
@@ -626,16 +681,19 @@ out before you are machines of every shape, size, complexity and function.
 All are being serviced by an army of Alpha, Beta and Phi Series 3 and 4
 individuals. To the west are the stores and the control room is south.
 
->You move west.
+> west
+You move west.
 
 Tet Stores
 The stores is a place much more suited to your tastes, it is 10m square with
 lower lighting levels. Against the wall, just inside the entrance, is a metal
 table. To the east is the assembly plant.
 
->Moving the table causes a panel to open in the opposite wall.
+> push table
+Moving the table causes a panel to open in the opposite wall.
 
->You move west.
+> west
+You move west.
 
 Secret Chamber
 The chamber is dark and reasonably large at 10m square. It is laid out in an
@@ -643,7 +701,8 @@ almost domicile manner with a recharger, teleporter and communicator. On one
 wall is a life-size diagram of a Beta type individual. To the east is the Tet
 Stores.
 
->The room slowly fades and is replaced with your destination.
+> 9
+The room slowly fades and is replaced with your destination.
 
 Domicile of No-one
 The metal room is 2m square and 2.5m in height. On one side of the room is a
@@ -657,12 +716,14 @@ the spot. Beyond is the planet surface!
 
 The tracer you are carrying is indicating east.
 
->Plugging into the recharger you re-energize your power cells. A small voice
+> recharge
+Plugging into the recharger you re-energize your power cells. A small voice
 says, "Charge level is now 399 units."
 
 The tracer you are carrying is indicating east.
 
->You move east.
+> east
+You move east.
 
 On the surface of the planet
 The silvery planet surface is a barren featureless place which stretches off
@@ -675,7 +736,8 @@ surface.
 
 The tracer you are carrying is indicating east.
 
->You move east.
+> east
+You move east.
 
  On the surface of the planet
 The silvery planet surface is a barren featureless place which stretches off
@@ -683,7 +745,8 @@ in all directions.
 
 The tracer you are carrying is indicating east.
 
->You move east.
+> east
+You move east.
 
 Small Crater
 The small crater, which is an oval shape, is just deep enough to be hidden
@@ -693,7 +756,8 @@ The still form of Psi-Tau is here.
 
 The tracer beeps and turns off.
 
->The terminated form of the maintenance operative, Psi-Tau Beta-Tie Series 3,
+> exam psi-tau
+The terminated form of the maintenance operative, Psi-Tau Beta-Tie Series 3,
 the lying on the ground. The Beta are 1.5m in height, square in shape and
 have four wheels and two arms.
 
@@ -704,22 +768,27 @@ It would appear that the memory module has not been retrieved which is most
 odd, if you could find a thermal lance you could retrieve it yourself. His id
 badge is also missing.
 
->You turn on the lance.
+> turn on lance
+You turn on the lance.
 The thermal lance vibrates but makes no audible sound.
 
->Using the thermal lance you cut open Psi-Tau and remove the memory module.
+> use lance
+Using the thermal lance you cut open Psi-Tau and remove the memory module.
 The module seems to have suffered quite a bit of damage.
 The thermal lance vibrates but makes no audible sound.
 
->You turn off the lance.
+> turn off lance
+You turn off the lance.
 
->You move west.
+> west
+You move west.
 
  On the surface of the planet
 The silvery planet surface is a barren featureless place which stretches off
 in all directions.
 
->You move west.
+> west
+You move west.
 
 On the surface of the planet
 The silvery planet surface is a barren featureless place which stretches off
@@ -727,22 +796,26 @@ in all directions. Behind you, to the west, is the safety of the city.
 
 For a moment something away to the south glints in the weak sunlight.
 
->You move south.
+> south
+You move south.
 
  On the surface of the planet
 The silvery planet surface is a barren featureless place which stretches off
 in all directions. Lying half buried in the surface of the planet is a
 meteor.
 
->You take the meteor.
+> get meteor
+You take the meteor.
 
->You move north.
+> north
+You move north.
 
 On the surface of the planet
 The silvery planet surface is a barren featureless place which stretches off
 in all directions. Behind you, to the west, is the safety of the city.
 
->You move west.
+> west
+You move west.
 
 Domicile of No-one
 The metal room is 2m square and 2.5m in height. On one side of the room is a
@@ -750,7 +823,8 @@ recharger and opposite the communicator. On the other wall is the teleporter.
 The eastern wall of the domicile is completely missing, through which you can
 see the planet surface.
 
->The room slowly fades and is replaced with your destination.
+> 11
+The room slowly fades and is replaced with your destination.
 
 Secret Chamber
 The chamber is dark and reasonably large at 10m square. It is laid out in an
@@ -758,14 +832,16 @@ almost domicile manner with a recharger, teleporter and communicator. On one
 wall is a life-size diagram of a Beta type individual. To the east is the Tet
 Stores.
 
->You move east.
+> east
+You move east.
 
 Tet Stores
 The stores is a place much more suited to your tastes, it is 10m square with
 lower lighting levels. Against the wall, just inside the entrance, is a metal
 table. To the west is a secret chamber and east is the assembly plant.
 
->You move east.
+> east
+You move east.
 
 Tet Assembly Plant
 The vast assembly plant of the Tet creation centre towers about you. Spread
@@ -773,7 +849,8 @@ out before you are machines of every shape, size, complexity and function.
 All are being serviced by an army of Alpha, Beta and Phi Series 3 and 4
 individuals. To the west are the stores and the control room is south.
 
->You move south.
+> south
+You move south.
 
 Tet Centre of Creation
 The centre must be the largest and brightest places you have ever visited.
@@ -781,7 +858,8 @@ The place can only be described as immense and you are extremely
 uncomfortable. To the north is the main assembly plant of the centre.
 Mu-Kappa is hovering in the centre of the room.
 
->The room slowly fades and is replaced with your destination.
+> 4
+The room slowly fades and is replaced with your destination.
 
 Centre for Maintenance
 The oblong metal room is 10m long by 5m wide and nearly 3m in height. The
@@ -790,7 +868,8 @@ certainly brighter than you prefer. A control panel is on one side of the
 room and right opposite is the teleporter.
 Mu-Nu is hovering in the centre of the room.
 
->You hand the damaged memory module to Mu-Nu who hovers over to the control
+> give module to mu-nu
+You hand the damaged memory module to Mu-Nu who hovers over to the control
 panel. Mu-Nu inserts the module into it and after a few sections the display
 starts to show what is stored on it.
 
@@ -817,13 +896,15 @@ The evidence from the memory modules of Gamma-Sigma and Psi-Tau and the
 recording chip are damning evidence.  You should return to the Centre of
 Examination and report your findings.
 
->Mu-Nu says, "The memory module of Gamma-Sigma and the memory module and
+> talk to mu-nu
+Mu-Nu says, "The memory module of Gamma-Sigma and the memory module and
 recording chip of Psi-Tau are secure. The suggestion is that you take
 precautions for your safety."
 
 You reply, "Your caution is noted."
 
->The room slowly fades and is replaced with your destination.
+> 2
+The room slowly fades and is replaced with your destination.
 
 Centre for Examination
 The hexagonal metal room is nearly 5m in height and 10m across. A security
@@ -838,7 +919,8 @@ of activity from an examiner." As you do not reply Zeta-Theta continues with,
 "This investigation is closed. Go to your domicile and await further orders."
 Zeta-Theta moves back to the other side of the examination centre.
 
->Not turning to face you Zeta-Theta replies, "Return to your domicile and take
+> talk to zeta-theta
+Not turning to face you Zeta-Theta replies, "Return to your domicile and take
 time to recharge."
 
 You decide to report in, "Zeta-Theta, during the Gamma-Sigma investigation
@@ -856,7 +938,8 @@ Zeta-Theta remains silent for a decmin and then replies, "These are serious
 matters.  Return to your domicile to recharge and I will make all the
 necessary arrangements."
 
->The room slowly fades and is replaced with your destination.
+> 1
+The room slowly fades and is replaced with your destination.
 
 Domicile of Epsilon-Beta
 The dull metal room, which is exactly 2m square and 2.5m in height, is
@@ -881,9 +964,11 @@ Before the individual disappeared you managed to get a quick look at your
 attacker. 1.5m in height with a cylindrical body, it was the legs which
 seemed most shocking. Your attacker only had two legs!
 
->You pick up the meteor.
+> get meteor
+You pick up the meteor.
 
->Actually part of the wall, the communicator is a narrow oblong shape about
+> exam communicator
+Actually part of the wall, the communicator is a narrow oblong shape about
 eye-level in height. At the top is a small square touch screen. In the top
 corner it is displaying "Rotation 6-51-16"
 
@@ -895,7 +980,8 @@ C. Information
 D. News
 V. Travel
 
->Logs
+> b
+Logs
 The log has details of recent teleporter activity. The log contains thousands
 of entries but the following draw your attention.
 
@@ -904,11 +990,14 @@ of entries but the following draw your attention.
 Well one thing is for sure, who ever just left your domicile it was not
 Psi-Tau.
 
->You turn on the tracer.
+> turn on tracer
+You turn on the tracer.
 
->The display on the tracer reads "Psi-Tau, Secret Chamber".
+> trace psi-tau
+The display on the tracer reads "Psi-Tau, Secret Chamber".
 
->The room slowly fades and is replaced with your destination.
+> 2
+The room slowly fades and is replaced with your destination.
 
 Centre for Examination
 The hexagonal metal room is nearly 5m in height and 10m across. A security
@@ -922,7 +1011,8 @@ Pausing for several decsecs in a raised voice, "Why have you returned from
 your domicile?" Zeta-Theta does not what for an answer, "The investigation is
 closed. Return to your domicile and await further orders."
 
->The room slowly fades and is replaced with your destination.
+> 7
+The room slowly fades and is replaced with your destination.
 
 Tet Centre of Creation
 The centre must be the largest and brightest places you have ever visited.
@@ -934,7 +1024,8 @@ The tracer you are carrying is indicating north.
 
 As you appear Mu-Kappa looks at you and exclaims, "But this is not possible!"
 
->You move north.
+> north
+You move north.
 
 Tet Assembly Plant
 The vast assembly plant of the Tet creation centre towers about you. Spread
@@ -945,7 +1036,8 @@ In the distance a Phi is hovering.
 
 The tracer you are carrying is indicating west.
 
->You move west.
+> west
+You move west.
 
 Tet Stores
 The stores is a place much more suited to your tastes, it is 10m square with
@@ -959,7 +1051,8 @@ location. How Gamma-Sigma knocked the table which opened the panel in the
 opposite wall.  The chamber beyond the panel is still in darkness but you
 cannot see anything moving.
 
->You move west.
+> west
+You move west.
 
 Secret Chamber
 The chamber is dark and reasonably large at 10m square. It is laid out in an
@@ -973,14 +1066,17 @@ Looking around the secret chamber it is clear that the false Psi-Tau is not
 located here. For the tracer to bring you to this location the false Psi-Tau
 must have been here in the last few decmins.
 
->You turn on the tracer.
+> turn on tracer
+You turn on the tracer.
 
->The display on the tracer reads "Psi-Tau, Head of Sector".
+> trace psi-tau
+The display on the tracer reads "Psi-Tau, Head of Sector".
 
 Omicron-Xi, Head of Sector is the head examiner for this whole city sector.
 Omicron-Xi is the superior of Zeta-Theta and so your superior.
 
->The room slowly fades and is replaced with your destination.
+> 10
+The room slowly fades and is replaced with your destination.
 
 Head of Sector
 The hexagonal metal room is 20m across and nearly 6m in height. With the
@@ -1007,7 +1103,8 @@ of the room.
 
 The tracer beeps and turns off.
 
->In formal tone you state, "Hail Omicron-Xi"
+> talk to omicron-xi
+In formal tone you state, "Hail Omicron-Xi"
 
 Not replying in the correct manner Omicron-Xi says, "You presence is
 unexpected and unwarranted."
@@ -1023,7 +1120,8 @@ regarding the breaking of laws 1276 and 2871."
 
 After looking over at Psi-Tau replies, "Present your evidence."
 
->Omicron-Xi replies, "Psi-Tau was responsible for a failure to carry out an
+> ask omicron-xi about psi-tau
+Omicron-Xi replies, "Psi-Tau was responsible for a failure to carry out an
 assignment diligently. Leading to an unauthorized termination of
 Gamma-Sigma."
 
@@ -1043,13 +1141,15 @@ the new Echo models."
 
 So, the fake Psi-Tau is called Chi-Omega.
 
->"Why does Chi-Omega appears to be wearing the badge of Psi-Tau?"
+> ask omicron-xi about chi-omega
+"Why does Chi-Omega appears to be wearing the badge of Psi-Tau?"
 
 Chi-Omega moves slightly towards you.
 
 "Chi-Omega is on a secret mission for me," replies Omicron-Xi.
 
->You ask about the secret mission that Chi-Omega is on.
+> ask omicron-xi about secret mission
+You ask about the secret mission that Chi-Omega is on.
 
 After quite a long pause Omicron-Xi shouts, "Chi-Omega, terminate
 Epsilon-Beta!"
@@ -1067,11 +1167,13 @@ again.
 
 Omicron-Xi shouts, "Chi-Omega terminate Epsilon-Beta now!"
 
->You pick up the meteor.
+> get meteor
+You pick up the meteor.
 
 Omicron-Xi shouts, "Chi-Omega you are ordered to terminate Epsilon-Beta!"
 
->You throw the meteor at the fake Psi-Tau, which strikes on the chest.
+> throw meteor
+You throw the meteor at the fake Psi-Tau, which strikes on the chest.
 Exploding in a shower of small crystals, the meteor causes a massive
 electrical fault and Chi-Omega collapses in a heap.
 
@@ -1096,7 +1198,8 @@ to violate our laws."
 
 Zeta-Theta remains silent.
 
->Looking at you for the first time Zeta-Theta asks, "What do you intend to do
+> talk to zeta-theta
+Looking at you for the first time Zeta-Theta asks, "What do you intend to do
 next?"
 
 Pausing for a few decmins you answer, "Arrest Omicron-Xi".
@@ -1116,7 +1219,8 @@ this Epsilon-Beta. It is important to make the correct decision."
 who can make the correct decision." Is it possible Zeta-Theta is trying to
 bribe you?
 
->Zeta-Theta asks, "Are you willing to make the correct decision?"
+> talk to zeta-theta
+Zeta-Theta asks, "Are you willing to make the correct decision?"
 
 Worried you ask, "Are you asking this unit to ignore the law? To fail to
 carry out an assignment diligently and violate law 9845 and also 8765?"
@@ -1128,29 +1232,34 @@ Omicron-Xi also repeats, "Yes, an informed decision."
 
 It certainly looks like they are trying to bribe you and violate law 8765.
 
->"So," Zeta-Theta states, "all you need to do is answer yes for advancement or
+> talk to zeta-theta
+"So," Zeta-Theta states, "all you need to do is answer yes for advancement or
 no for stubbornness."
 
 Basically answer yes to accept the bribe or no to uphold the law.
 
->Omicron-Xi says, "Before you give your final answer just consider what could
+> no
+Omicron-Xi says, "Before you give your final answer just consider what could
 be achieved. Maybe you could be a Series 6 Head Examiner. Anything is
 possible."
 
 Zeta-Theta moves over to the teleporter.
 
->Omicron-Xi says, "As Series 6 Head Examiner you could have a new suitable
+> no
+Omicron-Xi says, "As Series 6 Head Examiner you could have a new suitable
 domicile."
 
 Zeta-Theta tries to leave by stepping on the teleporter, which refuses to
 operate. The fight with Chi-Omega must have shorted out its circuits.
 
->Omicron-Xi says, "You must reconsider! Have you no idea how many resources
+> no
+Omicron-Xi says, "You must reconsider! Have you no idea how many resources
 have been put into this project? You must reconsider!"
 
 In a quiet voice Zeta-Theta says, "Yes or no?"
 
->Omicron-Xi moves to the desk and pressing a hidden button states, "Message to
+> no
+Omicron-Xi moves to the desk and pressing a hidden button states, "Message to
 Mu-Kappa. Estimate delivery of next Echo series. Report immediately to....".
 Before Omicron-Xi gets the chance to finish the statement Zeta-Theta moves
 quickly and grabs the arm. Trying to break free, Omicron-Xi asks,
@@ -1208,4 +1317,5 @@ restore a previous saved game position or quit.
 Feel free to report any bugs, send praise or give general feedback to
 richardo@delron.org.uk
 
->Do you really want to quit? [Y/N]
+> quit
+Do you really want to quit? [Y/N]

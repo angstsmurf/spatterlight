@@ -25,7 +25,8 @@ smallish living area. The furniture is destroyed and everything is a mess.
 There are exits to the North, South, and East.  A door prevents access to the
 west.
 
->You move south.
+> s
+You move south.
 
 The Hangar Bay
 You are in the Hangar Bay. The Space Mobile is normally parked here but is
@@ -33,21 +34,24 @@ strangely absent. You notice several projects in various stages of
 completion...wires, parts, and pieces abound. There are exits to the north
 and southwest. You can get into the Transporter Unit here.
 
->You move southwest.
+> sw
+You move southwest.
 
 The Back Porch
 You are now standing on a well-built porch behind the house. There is a path
 to the west and an entrance to the northeast. A large tree rises to the
 south.
 
->You move south.
+> s
+You move south.
 
 The Oak Tree
 There is an old, old, oak tree here. Its top can be seen swaying in the
 breeze. The only exit here is to the north, although you could probably climb
 up if you wanted to.
 
->You climb up the old twisted branches and, after climbing for what seems like
+> climb up oak tree
+You climb up the old twisted branches and, after climbing for what seems like
 an eternity, you reach the top of the tree.
 
 Up the Oak Tree
@@ -59,26 +63,31 @@ straight down.
 
 There are a pair of shiny red boots here.
 
->(Your score has increased by 30)
+> take boots
+(Your score has increased by 30)
 Taken.
 
->You put on the pair of Flight Boots.
+> wear boots
+You put on the pair of Flight Boots.
 
->You move down.
+> climb down tree
+You move down.
 
 The Oak Tree
 There is an old, old, oak tree here. Its top can be seen swaying in the
 breeze. The only exit here is to the north, although you could probably climb
 up if you wanted to.
 
->You move north.
+> n
+You move north.
 
 The Back Porch
 You are now standing on a well-built porch behind the house. There is a path
 to the west and an entrance to the northeast. A large tree rises to the
 south.
 
->You move northeast.
+> ne
+You move northeast.
 
 The Hangar Bay
 You are in the Hangar Bay. The Space Mobile is normally parked here but is
@@ -86,7 +95,8 @@ strangely absent. You notice several projects in various stages of
 completion...wires, parts, and pieces abound. There are exits to the north
 and southwest. You can get into the Transporter Unit here.
 
->You move north.
+> n
+You move north.
 
 Living Room
 You are standing in the home of Space Boy and Wonder Dog. This is a rather
@@ -94,7 +104,8 @@ smallish living area. The furniture is destroyed and everything is a mess.
 There are exits to the North, South, and East.  A door prevents access to the
 west.
 
->You move east.
+> e
+You move east.
 
 The Front Yard
 You are standing to the west of a small white house. Your yard needs some
@@ -103,7 +114,8 @@ here! Mabye once your current crisis is over, you can hire that kid from down
 the way to take care of this for you. There is a large platform to the east
 that looks perfect for takeoff and landings.
 
->You move east.
+> e
+You move east.
 
 Landing Platform
 This is a large pad that is perfect for takeoffs and landings. Turning your
@@ -112,7 +124,8 @@ Halls. The eastern view shows the mountain peaks that are home to the
 Mountain Top Garage. South of here stands the Volcano Islands.  Using your
 Flight Boots, you can fly North, South, or East from the platform.
 
->Using your flight boots, you leap into the air heading to the old castle
+> fly north
+Using your flight boots, you leap into the air heading to the old castle
 ruins.
 
 Entrance to Castle
@@ -123,7 +136,8 @@ giving the appearance of old age, even though this place was built only a few
 years ago. There are entrances to the northeast, east, and southeast. If you
 look to the south, you can barely see a small white house.
 
->You move east.
+> e
+You move east.
 
 HUGE Hall
 You are standing in the middle of a HUGE hall! It stretches on forever in
@@ -133,7 +147,8 @@ massive, that your entire house could fit inside one of them! To the
 northwest, west, and southwest you can see daylight. There are exits to the
 northeast, east, and south.
 
->You move northeast.
+> ne
+You move northeast.
 
 Large Hall
 This is the Large Hall, it is not quite as big as the Huge hall though. On
@@ -141,11 +156,13 @@ the east wall is a very large, very old painting and though it is worn, you
 can still make out a painting of an odd assortment of colored tiles. The only
 exit is to the southwest.
 
->(Your score has increased by 5)
+> examine old painting
+(Your score has increased by 5)
 The painting, though old and faded shows some sort of control panel fitted
 with a multi-colored tile. The control panel is fitted to a locked safe.
 
->You move southwest.
+> sw
+You move southwest.
 
 HUGE Hall
 You are standing in the middle of a HUGE hall! It stretches on forever in
@@ -155,7 +172,8 @@ massive, that your entire house could fit inside one of them! To the
 northwest, west, and southwest you can see daylight. There are exits to the
 northeast, east, and south.
 
->You move east.
+> e
+You move east.
 
 Medium Hall
 This room is about half the size of the HUGE hall to the west. Looking about
@@ -164,12 +182,15 @@ desk and a chair.
 
 On the desk rests a single page torn from a book.
 
->You pick up the book page.
+> take book page
+You pick up the book page.
 
->Through the soot and burnt edges you can make out the words "...th. proper
+> read book page
+Through the soot and burnt edges you can make out the words "...th. proper
 sp.lli.g of the Fir. .od's n.me is ell; aay; vee; aay aay; ach..."
 
->You move west.
+> w
+You move west.
 
 HUGE Hall
 You are standing in the middle of a HUGE hall! It stretches on forever in
@@ -179,7 +200,8 @@ massive, that your entire house could fit inside one of them! To the
 northwest, west, and southwest you can see daylight. There are exits to the
 northeast, east, and south.
 
->You move south.
+> s
+You move south.
 
 Small Hall
 This is a Small Hall. It is quite a tight fit in here. It appears that this
@@ -189,13 +211,16 @@ see an exit to the north.
 As you sift through the rubble, your eyes catch the gleam off of a small
 bottle.
 
->You pick up the Small Bottle.
+> take small bottle
+You pick up the Small Bottle.
 
->(Your score has increased by 15)
+> drink orange liquid
+(Your score has increased by 15)
 As you swallow the liquid, the room suddenly becomes a vast cavern! What was
 in that bottle. You can now see an exit leading to the south.
 
->You move south.
+> s
+You move south.
 
 Tiny Hall
 This is a tiny hall. If you weren't so small, there is no way you could even
@@ -203,14 +228,17 @@ hope to fit in here. It is close enough quarters as it is. On the south wall
 is a large safe with wires running to a control panel beneath it. On the west
 wall is a bin. You can see an exit to the north. There is a tiny bottle here.
 
->You pick up the whiteredblue tile.
+> take whiteredblue tile
+You pick up the whiteredblue tile.
 
->(Your score has increased by 30)
+> put whiteredblue tile on control panel
+(Your score has increased by 30)
 You place the white, red, and blue tile on panel and from somewhere deep
 within the wall comes a click.
 The safe is open!
 
->You move in.
+> in
+You move in.
 
 The Safe
 This is a full-sized walk-in safe.
@@ -219,11 +247,14 @@ You can see a pair of funny looking gloves here. There is a note on the wall:
 "These gloves are the property the Mr. Freezy IceCube Company. If found
 please return to......" The rest has been lost to time.
 
->You pick up the set of Ice Gloves.
+> take gloves
+You pick up the set of Ice Gloves.
 
->You put on the set of Ice Gloves.
+> wear gloves
+You put on the set of Ice Gloves.
 
->You move out.
+> out
+You move out.
 
 Tiny Hall
 This is a tiny hall. If you weren't so small, there is no way you could even
@@ -231,13 +262,16 @@ hope to fit in here. It is close enough quarters as it is. On the south wall
 is a large safe with wires running to a control panel beneath it. On the west
 wall is a bin. You can see an exit to the north. There is a tiny bottle here.
 
->You pick up the Tiny Bottle.
+> take tiny bottle
+You pick up the Tiny Bottle.
 
->(Your score has increased by 15)
+> drink bluish liquid
+(Your score has increased by 15)
 You take a swig out of the tiny bottle and suddenly you are back to the small
 hall.
 
->You move north.
+> n
+You move north.
 
 HUGE Hall
 You are standing in the middle of a HUGE hall! It stretches on forever in
@@ -247,7 +281,8 @@ massive, that your entire house could fit inside one of them! To the
 northwest, west, and southwest you can see daylight. There are exits to the
 northeast, east, and south.
 
->You move west.
+> w
+You move west.
 
 Entrance to Castle
 You are standing at the entrance to The Castle of Halls. This castle was
@@ -257,7 +292,8 @@ giving the appearance of old age, even though this place was built only a few
 years ago. There are entrances to the northeast, east, and southeast. If you
 look to the south, you can barely see a small white house.
 
->You move south.
+> s
+You move south.
 
 Landing Platform
 This is a large pad that is perfect for takeoffs and landings. Turning your
@@ -266,7 +302,8 @@ Halls. The eastern view shows the mountain peaks that are home to the
 Mountain Top Garage. South of here stands the Volcano Islands.  Using your
 Flight Boots, you can fly North, South, or East from the platform.
 
->Using your flight boots, you leap into the air flying off towards the Volcano
+> fly south
+Using your flight boots, you leap into the air flying off towards the Volcano
 Islands.
 
 The Islands of LAVaaH
@@ -275,9 +312,11 @@ all sides by red-hot magma. There is a bridge leading to a small island to
 the west. A stone sign is here. If you look to the north, you can see a small
 white house.
 
->The sign reads: "To see the Fire God, shout his name!"
+> read sign
+The sign reads: "To see the Fire God, shout his name!"
 
->You move west.
+> w
+You move west.
 
 Statue Base Island
 This island is dedicated as a shrine to the Fire God. His statue once rested
@@ -287,41 +326,51 @@ one piece of the statue and hid them deep under the ground in secret caves.
 The only way to open these caves was to know the name of the Fire God. Next
 to the base is a plaque.
 
->The plaque reads: "Here stands L-A-V-aa-H! God of Fire!" A small hole opens
+> read plaque
+The plaque reads: "Here stands L-A-V-aa-H! God of Fire!" A small hole opens
 next to the base leading down into darkness.
 
->You move down.
+> d
+You move down.
 
 Under the Base
 You are standing in a dark, dank room shaped like a pentagon. In the light
 coming from above, you can just make out the letters "ell" on the northwest
 wall. There is an exit going up.
 
->(Your score has increased by 10)
+> shout ell
+(Your score has increased by 10)
 You shout ell and from somewhere deep underground there is a rumble.
 
->(Your score has increased by 15)
+> shout aay
+(Your score has increased by 15)
 You shout aay and from somewhere deep underground there is a rumble.
 
->(Your score has increased by 15)
+> shout vee
+(Your score has increased by 15)
 You shout vee and from somewhere deep underground there is a rumble.
 
->(Your score has increased by 20)
+> shout aay aay
+(Your score has increased by 20)
 You shout aay aay and from somewhere deep underground there is a rumble.
 
->(Your score has increased by 20)
+> shout ach
+(Your score has increased by 20)
 You shout ach and from somewhere deep underground there is a rumble.
 
->You move northwest.
+> nw
+You move northwest.
 
 ELL Room
 This room has been formed in the shape of an L.
 
 There seems to be a piece of statue here...it looks like a set of feet.
 
->You pick up the set of feet.
+> take feet
+You pick up the set of feet.
 
->You move southeast.
+> se
+You move southeast.
 
 Under the Base
 You are standing in a dark, dank room shaped like a pentagon. In the light
@@ -330,16 +379,19 @@ wall. There is an exit going up.   There is a door to the northwest open.
 There is a door the northeast open.  There is a door the southeast open.
 There is a door to the southwest open.  There is a door to the south open.
 
->You move northeast.
+> ne
+You move northeast.
 
 AAY Room
 This room is carved from the rock in the shape of the letter A.
 
 There is a piece of statue here...they look like legs.
 
->You pick up the pair of legs.
+> take legs
+You pick up the pair of legs.
 
->You move southwest.
+> sw
+You move southwest.
 
 Under the Base
 You are standing in a dark, dank room shaped like a pentagon. In the light
@@ -348,16 +400,19 @@ wall. There is an exit going up.   There is a door to the northwest open.
 There is a door the northeast open.  There is a door the southeast open.
 There is a door to the southwest open.  There is a door to the south open.
 
->You move southeast.
+> se
+You move southeast.
 
 VEE Room
 Someone has created this room to resemble a large V.
 
 There is a piece of statue here...it looks like a chest.
 
->You pick up the chest.
+> take chest
+You pick up the chest.
 
->You move northwest.
+> nw
+You move northwest.
 
 Under the Base
 You are standing in a dark, dank room shaped like a pentagon. In the light
@@ -366,16 +421,19 @@ wall. There is an exit going up.   There is a door to the northwest open.
 There is a door the northeast open.  There is a door the southeast open.
 There is a door to the southwest open.  There is a door to the south open.
 
->You move southwest.
+> sw
+You move southwest.
 
 AAY AAY Room
 This room is actually two rooms joined together making an odd aa shape.
 
 There is a piece of statue here...it looks like arms.
 
->You pick up the pair of arms.
+> take arms
+You pick up the pair of arms.
 
->You move northeast.
+> ne
+You move northeast.
 
 Under the Base
 You are standing in a dark, dank room shaped like a pentagon. In the light
@@ -384,7 +442,8 @@ wall. There is an exit going up.   There is a door to the northwest open.
 There is a door the northeast open.  There is a door the southeast open.
 There is a door to the southwest open.  There is a door to the south open.
 
->You move south.
+> s
+You move south.
 
 ACH Room
 Your view of this room indicates that it is constructed to look like the
@@ -392,9 +451,11 @@ letter H.
 
 There is a piece of statue here...it looks like a head.
 
->You pick up the head.
+> take head
+You pick up the head.
 
->You move north.
+> n
+You move north.
 
 Under the Base
 You are standing in a dark, dank room shaped like a pentagon. In the light
@@ -403,7 +464,8 @@ wall. There is an exit going up.   There is a door to the northwest open.
 There is a door the northeast open.  There is a door the southeast open.
 There is a door to the southwest open.  There is a door to the south open.
 
->You move up.
+> u
+You move up.
 
 Statue Base Island
 This island is dedicated as a shrine to the Fire God. His statue once rested
@@ -413,14 +475,16 @@ one piece of the statue and hid them deep under the ground in secret caves.
 The only way to open these caves was to know the name of the Fire God. Next
 to the base is a plaque.
 
->(Your score has increased by 20)
+> assemble statue
+(Your score has increased by 20)
 You carefully stack the legs on top of the feet. Then you place, ever so
 gently, the chest over the legs. Now, sweating profusely, you set the arms in
 place. At last, and with a great sigh on relief, you place the head atop the
 whole thing.
 You are now holding the Statue of the Fire God.
 
->(Your score has increased by 35)
+> put statue on base
+(Your score has increased by 35)
 You place the statue of LAVaaH on the base and...the eyes turn red....it
 begins to shake....you hear a cracking sound and....BOOM!!!! The statue
 explodes into millions of tiny fragments that land in the magma around you
@@ -428,11 +492,13 @@ melting back into their original forms.
 A small island rises to the south, but before you can go any further, a wall
 of magma shoots up blocking your path!
 
->(Your score has increased by 15)
+> freeze wall
+(Your score has increased by 15)
 You spray the magma with ice and for an instant it cools into a shell forming
 a small bridge to the southern island.
 
->You move south.
+> south
+You move south.
 
 Treasure Island
 This small island is in the shape of a pentagon with a small raised platform
@@ -440,7 +506,8 @@ in the middle.
 
 Resting on the platform is an odd looking pair of goggles.
 
->(Your score has increased by 30)
+> take goggles
+(Your score has increased by 30)
 As you take the goggles, the Fire God awakens and boy, is he mad! Some lowly
 adventurer has stolen his most valued treasure...
 
@@ -449,9 +516,11 @@ This small island is in the shape of a pentagon with a small raised platform
 in the middle.  The magma bridge melts and the wall of lava blocks your path
 to the north. You can see an island to the northeast.
 
->You put on the pair of Heat Goggles.
+> wear goggles
+You put on the pair of Heat Goggles.
 
->You leap over the boiling magma and land on solid ground.
+> fly ne
+You leap over the boiling magma and land on solid ground.
 
 The Islands of LAVaaH
 You are standing on the main Island of LAVaaH. The island is surrounded on
@@ -459,7 +528,8 @@ all sides by red-hot magma. There is a bridge leading to a small island to
 the west. A stone sign is here. If you look to the north, you can see a small
 white house.
 
->You move north.
+> n
+You move north.
 
 Landing Platform
 This is a large pad that is perfect for takeoffs and landings. Turning your
@@ -468,7 +538,8 @@ Halls. The eastern view shows the mountain peaks that are home to the
 Mountain Top Garage. South of here stands the Volcano Islands.  Using your
 Flight Boots, you can fly North, South, or East from the platform.
 
->You leap into the air heading for the giant mountains rising in the east.
+> fly east
+You leap into the air heading for the giant mountains rising in the east.
 
 Entrance to the Mountain Top Garage
 You are standing on a sandy area located on a small outcrop of rock perched
@@ -476,9 +547,11 @@ high atop the mountains. There is an entrance to a large cave here with a
 well lit sign standing next to it. To the west you can barely make out the
 form of a small white house.
 
->The well lit sign reads "The Mountain Top Garage!"
+> read sign
+The well lit sign reads "The Mountain Top Garage!"
 
->As you try to enter the cave, the air is filled with laughter and a bolt of
+> enter cave
+As you try to enter the cave, the air is filled with laughter and a bolt of
 lightning strikes the rocks causing a massive cave in! You can't go that way
 anymore.
 
@@ -490,20 +563,24 @@ barely make out the form of a small white house.
 
 There is a small shovel here.
 
->(Your score has increased by 15)
+> take small shovel
+(Your score has increased by 15)
 You have the shovel.
 
->The small sign reads "T-O-T-H-E-G-A-R-A-G-E"  with an arrow pointing to the
+> read small sign
+The small sign reads "T-O-T-H-E-G-A-R-A-G-E"  with an arrow pointing to the
 sand at your feet.
 
->(Your score has increased by 3)
+> dig a hole in sand
+(Your score has increased by 3)
 You begin to dig a shallow hole.
 
 Top of Hole
 You are standing about knee deep in a sandy hole. You can dig more or get
 out.
 
->(Your score has increased by 3)
+> dig more
+(Your score has increased by 3)
 You continue to dig, remembering why you became a Super Hero, not a
 ditchdigger.
 
@@ -512,7 +589,8 @@ You are standing at the bottom of a deep hole. You are surrounded by sand on
 all sides. There is light coming from above, but the sand doesn't look like
 it could take much movement before collapsing. You see a door to the west.
 
->You move west.
+> w
+You move west.
 
 Under the Mountain
 You are standing in a cool, dark room deep under the mountain. You can almost
@@ -523,46 +601,55 @@ there is not enough light to see much of anything else.
 As your eyes ajust to the dim light, you notice a wooden stick resting in the
 corner.  There is a note etched into the rockface here.
 
->You pick up the wooden stick.
+> take stick
+You pick up the wooden stick.
 
->The note reads "...look for the letters..."
+> read note
+The note reads "...look for the letters..."
 
->(Your score has increased by 18)
+> light stick with goggles
+(Your score has increased by 18)
 You squint and a small beam of heat lashes out igniting the stick.
 From the light cast off by the stick, you now can see a large letter "T"
 carved into the wall; and a narrow doorway leading west into darkness.
 
->You move west.
+> w
+You move west.
 
 O Room
 This room has exits to the four cardinal points. You can see an "O" on the
 wall
 
->You move south.
+> s
+You move south.
 
 T Room
 This room has exit to the four cardinal points. You can see an "T" on the
 wall
 
->You move west.
+> w
+You move west.
 
 H Room
 This room has exit to the four cardinal points. You can see an "H" on the
 wall
 
->You move west.
+> w
+You move west.
 
 E Room
 This room has exit to the four cardinal points. You can see an "E" on the
 wall
 
->You move north.
+> n
+You move north.
 
 G Room
 This room has exit to the four cardinal points. You can see an "G" on the
 wall  There is a large block of ice blocking the north and west exits.
 
->(Your score has increased by 30)
+> melt ice with goggles
+(Your score has increased by 30)
 Beams of heat streak out of your goggles melting the ice and allowing you to
 pass.
 
@@ -570,56 +657,65 @@ Dark Room
 As you melt the Ice Wall, a gust of wind blows out your light! It is now
 pitch black in here.
 
->(Your score has increased by 15)
+> light stick with goggles
+(Your score has increased by 15)
 A flash of light streaks out lighting the stick once more!
 
 G Room
 This room has exit to the four cardinal points. You can see an "G" on the
 wall  There is a large puddle here.
 
->You move north.
+> n
+You move north.
 
 A Room (first)
 This room has exit to the four cardinal points. You can see an "A" on the
 wall
 
->You move west.
+> w
+You move west.
 
 R Room
 This room has exit to the four cardinal points. You can see an "R" on the
 wall
 
->You move north.
+> n
+You move north.
 
 A Room (second)
 This room has exit to the four cardinal points. You can see an "A" on the
 wall  There is a large ball of fire blocking the paths leading north and
 east!
 
->(Your score has increased by 30)
+> freeze fire with ice gloves
+(Your score has increased by 30)
 You stretch your hands out and wave after wave of cold, hard ice flows into
 the heart of the fireball...soon it is out.
 
->You move east.
+> e
+You move east.
 
 G Room (second)
 This room has exit to the four cardinal points. You can see an "G" on the
 wall
 
->You move east.
+> e
+You move east.
 
 E Room (second)
 This room has exit to the east. You can see an "E" on the wall. There seems
 to be a light coming down a stair case.
 
->You move up.
+> u
+You move up.
 
 Garage Bay
 This is the Maintenance Bay for the Mountain Garage. You can see bins full of
 broken and rusty junk! There is a dark stairwell leading down, and an exit to
 the east.
 
->You move east.
+> e
+You move east.
 
 Garage Break Room
 This is the break room for the Mountian Garage. It is littered with all kinds
@@ -627,7 +723,8 @@ of stuff...none of it looks very useful though. The table are covered with
 magazines and old food wrappers. There is an exit west into the bay, and an
 office to the north.
 
->You move north.
+> n
+You move north.
 
 Garage Office
 This is the office for the Mountain Top Garage's Manager. The chair behind
@@ -638,10 +735,12 @@ There is a Phased Ion Bridge on the desk here.  There is a window here
 allowing a far view of the outside world.  The manager's desk is littered
 with diagrams, schematics, and repairs manuals for everything under the sun.
 
->(Your score has increased by 15)
+> take phased ion bridge
+(Your score has increased by 15)
 As you grab the Bridge, a window opens over-looking the Garage Entrance.
 
->You move out.
+> out
+You move out.
 
 The Cave-In
 You are standing on a sandy area located on a small outcrop of rock perched
@@ -649,7 +748,8 @@ high atop the mountains. The rubble of what used to be the Cave Entrance to
 the Garage is here. A small sign is laying at your feet. To the west you can
 barely make out the form of a small white house.
 
->You move west.
+> w
+You move west.
 
 Landing Platform
 This is a large pad that is perfect for takeoffs and landings. Turning your
@@ -658,7 +758,8 @@ Halls. The eastern view shows the mountain peaks that are home to the
 Mountain Top Garage. South of here stands the Volcano Islands.  Using your
 Flight Boots, you can fly North, South, or East from the platform.
 
->You move west.
+> w
+You move west.
 
 The Front Yard
 You are standing to the west of a small white house. Your yard needs some
@@ -667,7 +768,8 @@ here! Mabye once your current crisis is over, you can hire that kid from down
 the way to take care of this for you. There is a large platform to the east
 that looks perfect for takeoff and landings.
 
->You move west.
+> w
+You move west.
 
 Living Room
 You are standing in the home of Space Boy and Wonder Dog. This is a rather
@@ -675,7 +777,8 @@ smallish living area. The furniture is destroyed and everything is a mess.
 There are exits to the North, South, and East.  A door prevents access to the
 west.
 
->You move south.
+> s
+You move south.
 
 The Hangar Bay
 You are in the Hangar Bay. The Space Mobile is normally parked here but is
@@ -683,7 +786,8 @@ strangely absent. You notice several projects in various stages of
 completion...wires, parts, and pieces abound. There are exits to the north
 and southwest. You can get into the Transporter Unit here.
 
->You move in.
+> in
+You move in.
 
 The Transporter Unit
 This is a Matter Scatterer Personal Unit 1600. The unit is built like a giant
@@ -693,7 +797,8 @@ anything to its twin location!
 
 The controls for the unit consist of one push button marked "TO THE MOON."
 
->You move out.
+> out
+You move out.
 
 The Hangar Bay
 You are in the Hangar Bay. The Space Mobile is normally parked here but is
@@ -701,9 +806,11 @@ strangely absent. You notice several projects in various stages of
 completion...wires, parts, and pieces abound. There are exits to the north
 and southwest. You can get into the Transporter Unit here.
 
->You put the Phased Ion Bridge inside the Transporter Power Plant.
+> put bridge in power plant
+You put the Phased Ion Bridge inside the Transporter Power Plant.
 
->You move in.
+> in
+You move in.
 
 The Transporter Unit
 This is a Matter Scatterer Personal Unit 1600. The unit is built like a giant
@@ -713,7 +820,8 @@ anything to its twin location!
 
 The controls for the unit consist of one push button marked "TO THE MOON."
 
->(Your score has increased by 30)
+> push blue button
+(Your score has increased by 30)
 As you press the BLUE button, you are wisked away to the Moon Base Unit.
 
 Moon Base Transporter Room
@@ -722,7 +830,8 @@ replica of your Home Unit.
 
 The only difference is the button here is RED and marked "TO HOME."
 
->You move out.
+> out
+You move out.
 
 Moon Base Garage
 This is a large parking garage. There is an exit to the east with a sign
@@ -733,7 +842,8 @@ Transporter Unit here.
 There is a Matter Transference Beam Generator located in the roof of the Moon
 Base Unit.
 
->You move east.
+> e
+You move east.
 
 Mess Hall
 You are standing in the mess hall for the Moon Base. There are a few chairs
@@ -741,9 +851,11 @@ and one table.
 
 There is a fork here.
 
->You pick up the Fork.
+> take fork
+You pick up the Fork.
 
->You move west.
+> w
+You move west.
 
 Moon Base Garage
 This is a large parking garage. There is an exit to the east with a sign
@@ -754,7 +866,8 @@ Transporter Unit here.
 There is a Matter Transference Beam Generator located in the roof of the Moon
 Base Unit.
 
->(Your score has increased by 50)
+> use fork on hole
+(Your score has increased by 50)
 You insert the fork into the lock and it turns with ease. You are on an
 elevator going down!
 
@@ -764,16 +877,20 @@ up.
 
 There is a strange belt here.  There is a paper tacked to the wall here.
 
->This paper contains a photo of a large rock in a lovely garden and a
+> read paper
+This paper contains a photo of a large rock in a lovely garden and a
 note..."hide-a-key." What can it mean??
 
->(Your score has increased by 30)
+> take belt
+(Your score has increased by 30)
 As you pull the belt off the wall, you here a strange click from somewhere
 above.
 
->You put on the Strength Belt.
+> wear belt
+You put on the Strength Belt.
 
->You move up.
+> u
+You move up.
 
 Moon Base Garage
 This is a large parking garage. There is an exit to the east with a sign
@@ -784,7 +901,8 @@ Transporter Unit here.
 There is a Matter Transference Beam Generator located in the roof of the Moon
 Base Unit.
 
->You move in.
+> in
+You move in.
 
 Moon Base Transporter Room
 This is a Matter Scatterer Personal Unit 1600. This unit is an almost exact
@@ -792,7 +910,8 @@ replica of your Home Unit.
 
 The only difference is the button here is RED and marked "TO HOME."
 
->(Your score has increased by 30)
+> push red button
+(Your score has increased by 30)
 You press the red button and suddenly you are standing in the Home Base
 Transporter Unit.
 
@@ -804,7 +923,8 @@ anything to its twin location!
 
 The controls for the unit consist of one push button marked "TO THE MOON."
 
->You move out.
+> out
+You move out.
 
 The Hangar Bay
 You are in the Hangar Bay. The Space Mobile is normally parked here but is
@@ -812,14 +932,16 @@ strangely absent. You notice several projects in various stages of
 completion...wires, parts, and pieces abound. There are exits to the north
 and southwest. You can get into the Transporter Unit here.
 
->You move southwest.
+> sw
+You move southwest.
 
 The Back Porch
 You are now standing on a well-built porch behind the house. There is a path
 to the west and an entrance to the northeast. A large tree rises to the
 south.
 
->You move west.
+> w
+You move west.
 
 Backyard Garden
 This is a lovely backyard garden. Every inch of ground is covered with
@@ -829,11 +951,13 @@ standing here!
 
 There is a huge rock here!
 
->(Your score has increased by 30)
+> move huge rock
+(Your score has increased by 30)
 Using the Strength from your belt, you easily toss the huge rock aside
 revealing a room key!
 
->(Your score has increased by 40)
+> take key
+(Your score has increased by 40)
 You retrieve the Room Key form under the Huge rock.
 
 Backyard Garden
@@ -844,14 +968,16 @@ standing here!
 
 There is a huge rock here!
 
->You move east.
+> e
+You move east.
 
 The Back Porch
 You are now standing on a well-built porch behind the house. There is a path
 to the west and an entrance to the northeast. A large tree rises to the
 south.
 
->You move northeast.
+> ne
+You move northeast.
 
 The Hangar Bay
 You are in the Hangar Bay. The Space Mobile is normally parked here but is
@@ -859,7 +985,8 @@ strangely absent. You notice several projects in various stages of
 completion...wires, parts, and pieces abound. There are exits to the north
 and southwest. You can get into the Transporter Unit here.
 
->You move north.
+> n
+You move north.
 
 Living Room
 You are standing in the home of Space Boy and Wonder Dog. This is a rather
@@ -867,10 +994,12 @@ smallish living area. The furniture is destroyed and everything is a mess.
 There are exits to the North, South, and East.  A door prevents access to the
 west.
 
->(Your score has increased by 15)
+> unlock door
+(Your score has increased by 15)
 Using the key on the door lock, it twists and you here a click.
 
->You open the door and step inside.
+> open room door
+You open the door and step inside.
 
 Space Boy's Room
 This is your room! This place is the biggest mess you have ever seen! You
@@ -886,17 +1015,20 @@ and for all!" He lunges out tying to remove your head with the tip of his
 sword.
 Evil Man hits you.
 
->(Your score has increased by 105)
+> take cape
+(Your score has increased by 105)
 As you touch the cape,...POW!!!...the Power of Space returns to you...you are
 Space Boy once again. Your items drop to the floor, there power drained
 during your quest. The living room is to the east, and a door stands open to
 the west.
 Evil Man hits you, but it doesn't seem to do any damage.
 
->(Your score has increased by 250)
+> drop cape to the floor
+(Your score has increased by 250)
 Drop what?
 
->You move west.
+> w
+You move west.
 
 Space Boy's Secret Hide-Out
 This is the secret base for our hero...it seem that someone has been in here
@@ -904,7 +1036,8 @@ recently.
 
 There is a note scribbled on the wall here!
 
->(Your score has increased by 200)
+> read scribbled note
+(Your score has increased by 200)
 "Dear Space Boy, You think you have won? I still have your flea-ridden mutt
 side-kick Wonder Dog!!!!! You may have won the battle but you have not won
 the war.HAHAHAHAHAHAHAHAHAHA!!!!!!!!!!!!!!!!"

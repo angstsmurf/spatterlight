@@ -85,7 +85,9 @@ really too dark to make out which directions are clear for passing, but you
 can barely make out that the muddy road is back to the east.
 
 >
->You move north.
+
+> n
+You move north.
 
 Somewhere in the dark woods
 
@@ -95,7 +97,8 @@ once again.  The rain is pelting down like sharp shards of glass cutting at
 your already waterlogged skin.  Through the trees to the north, some sort of
 structure is visible when the sky lights.
 
->You move north.
+> n
+You move north.
 
 Near an old castle wall
 
@@ -112,18 +115,21 @@ direction.
 "Get back here!  Where's my daughter....." his voice overtaken by a splitting
 crack of thunder.
 
->You quickly shove your body into a crack that creases along the edge of a
+> in
+You quickly shove your body into a crack that creases along the edge of a
 tall tower, but quickly realise that your overcoat prevents your access.
 Removing it as fast as you can, you toss your over coat into the woods and
 slide into the dark crack and feel along the wall until you are clear of the
 crack and the sound of the angry storm that hammers the land.
 
->(Your score has increased by 2)
+> feel wall
+(Your score has increased by 2)
 Feeling along the wall in darkness, you find nothing.
 
 You feel around some more and discover a lever of some sort.
 
->(Your score has increased by 4)
+> pull lever
+(Your score has increased by 4)
 You pull the lever, but it doesn't seem to budge.  Using your body weight,
 you lean as hard as you can on the old lever.  With a loud crack, you feel it
 give way and cover your face as falling dust and bits of rock fall from the
@@ -140,9 +146,11 @@ of the stone corridor that runs north and south from here.  The western wall,
 from whence you entered the castle, shows no sign of being opened.  Easily
 visible from the placement of a nearby torch, a door lies to the east.
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
 A chilling rush of air moves past you as you catch a glimpse of something
 just around the corner.
@@ -158,12 +166,14 @@ your life.  She is a ghost.
 You get the distinct impression that the figure is well aware of your
 circumstances.
 
->
+> x table
+
 Two long tables run halfway across the large kitchen.  It is likely they
 could hold enough food for a couple hundred people.  A small candle is on the
 table.
 
->You take the small candle from the table.
+> take candle
+You take the small candle from the table.
 
 “A long time ago, two worlds existed side by side in peace.  A world of
 magical dragons, and the world of man.  Unrest and evil in the world of man
@@ -184,11 +194,13 @@ every family across the land, at the age of sixteen, to the lake, where they
 would die- and their spirits would haunt the lake, luring the next.”
 Saddened with her own words, the young spirit turns away.
 
->(Your score has increased by 2)
+> light candle
+(Your score has increased by 2)
 
 Using a nearby torch, you light the small candle.
 
->You move south.
+> s
+You move south.
 
 Great Hall
 
@@ -205,7 +217,8 @@ through the wall.
 
 A ghost hovers in from the north.
 
->The table is quite long, running the length of the Great Hall.  Large rats
+> x table
+The table is quite long, running the length of the Great Hall.  Large rats
 scurry about the table, searching for any remnants of feed that may have been
 left behind.  Though the carcass of  a fowl sits, picked clean, the rats are
 hopeful that it still holds some nourishment to contain their appetite.   The
@@ -230,9 +243,11 @@ Master Dracon is able to kill her, he will become full mortal-assuming the
 age he was at the time the curse was fist placed.  He will be at the mercy of
 man, and his fate decided by his peers.”
 
->You take the green potion from the long table.
+> take potion
+You take the green potion from the long table.
 
->You move south.
+> s
+You move south.
 
 Gallery
 
@@ -248,7 +263,8 @@ through the wall.
 
 A ghost hovers in from the north.
 
->You move south.
+> s
+You move south.
 
 Entrance Hall
 
@@ -275,7 +291,8 @@ world.”
 
 With a blast of freezing air, the young woman disappears through the wall.
 
->You move west.
+> w
+You move west.
 
 South Corridor West
 
@@ -283,7 +300,8 @@ Leading east and northwest, the corridor is fairly dark, lit by a couple of
 widely spaced torches.  Enough light is present to make a narrow wooden door
 on the north wall visible.
 
->You move north.
+> n
+You move north.
 
 SW Chamber
 
@@ -293,18 +311,22 @@ the south.
 
 Also here is a clear bottle.
 
->You pick up the clear bottle.
+> take bottle
+You pick up the clear bottle.
 
->(Your score has increased by 2)
+> move tile
+(Your score has increased by 2)
 
 You scrape away the edges of the tile and are able to move it far enough to
 see something is hidden beneath.  Unable to get the tile completely free, you
 reach in with the tip of your fingers and pull out something.  In the light,
 you can see that it is an old note.
 
->You are carrying a small candle, a poem, the green potion and a clear bottle.
+> i
+You are carrying a small candle, a poem, the green potion and a clear bottle.
 
->You move west.
+> w
+You move west.
 
 SW Corridor
 
@@ -312,7 +334,8 @@ Leading to the southeast and north, the outer walls of the corridor house a
 few widely spaced torches that leave small patches of darkness.  A door on
 the eastern wall is visible.
 
->You move north.
+> n
+You move north.
 
 West Corridor
 
@@ -321,7 +344,8 @@ of the stone corridor that runs north and south from here.  The western wall,
 from whence you entered the castle, shows no sign of being opened.  Easily
 visible from the placement of a nearby torch, a door lies to the east.
 
->You move east.
+> e
+You move east.
 
 Chapel
 
@@ -333,9 +357,11 @@ but by what is unknown. The door is to the west.
 
 Also here is the wood.
 
->You pick up the wood.
+> take wood
+You pick up the wood.
 
->You move west.
+> w
+You move west.
 
 West Corridor
 
@@ -344,7 +370,8 @@ of the stone corridor that runs north and south from here.  The western wall,
 from whence you entered the castle, shows no sign of being opened.  Easily
 visible from the placement of a nearby torch, a door lies to the east.
 
->You move south.
+> s
+You move south.
 
 SW Corridor
 
@@ -352,7 +379,8 @@ Leading to the southeast and north, the outer walls of the corridor house a
 few widely spaced torches that leave small patches of darkness.  A door on
 the eastern wall is visible.
 
->You move southeast.
+> se
+You move southeast.
 
 South Corridor West
 
@@ -360,7 +388,8 @@ Leading east and northwest, the corridor is fairly dark, lit by a couple of
 widely spaced torches.  Enough light is present to make a narrow wooden door
 on the north wall visible.
 
->You move east.
+> e
+You move east.
 
 Entrance Hall
 
@@ -373,7 +402,8 @@ the balcony, near the open archway to the north, is a suit of armor standing
 guard to what lies beyond.  The large main door to the castle lies to the
 south.
 
->You move up.
+> up
+You move up.
 
 Balcony
 
@@ -383,19 +413,22 @@ floor, coming to a stop beside two very large wyvern dragon statues  A couple
 of torches are located on either side of the corridor, which leads north from
 here.
 
->(Your score has increased by 2)
+> read floor
+(Your score has increased by 2)
 It reads:
 
 Seante livento morecado entern
 
->You move north.
+> n
+You move north.
 
 Corridor South
 
 Torches line the wide corridor that runs north, and leads to the balcony to
 the south.  A tall, narrow door leads east while a open doorway lies west.
 
->You move east.
+> e
+You move east.
 
 Bed Chamber
 
@@ -404,26 +437,31 @@ furnishing is an old bed that has been stripped of it’s coverings, and now
 lies in the center of the room with the remainder of a pile of straw that was
 left behind.  The door is to the west.
 
->The straw that is piled within the bedframe is old, dried, and very brittle.
+> x straw
+The straw that is piled within the bedframe is old, dried, and very brittle.
 A blue potion is inside the pile of straw.
 
->You take the blue potion from the pile of straw.
+> take potion
+You take the blue potion from the pile of straw.
 
->You move west.
+> w
+You move west.
 
 Corridor South
 
 Torches line the wide corridor that runs north, and leads to the balcony to
 the south.  A tall, narrow door leads east while a open doorway lies west.
 
->You move north.
+> n
+You move north.
 
 Corridor
 
 The torch lined corridor leads north and south from here.  A tall, narrow
 door is to the west, while a wide door leads east.
 
->You move west.
+> w
+You move west.
 
 Bed Chamber
 
@@ -432,16 +470,19 @@ door to the east is the only exit.
 
 An old piece of linen is lying on the floor.
 
->You pick up the old piece of linen.
+> take linen
+You pick up the old piece of linen.
 
->You move east.
+> e
+You move east.
 
 Corridor
 
 The torch lined corridor leads north and south from here.  A tall, narrow
 door is to the west, while a wide door leads east.
 
->You move north.
+> n
+You move north.
 
 Corridor North
 
@@ -449,7 +490,8 @@ The corridor seems to end here, leading back to the south.  A ornately carved
 door leads to the west, while a tall, wide door leads east.  Torches line the
 corridor, providing ample light.
 
->You move east.
+> e
+You move east.
 
 Storage
 
@@ -457,7 +499,8 @@ Large crates fill a good portion of the room, also accompanied by a couple of
 chests.  A large painting in tucked back in the corner is partially visible
 by the light of your candle. The door is to the west.
 
->You wipe the painting with the old piece of linen.  Beneath, you can make out
+> wipe painting
+You wipe the painting with the old piece of linen.  Beneath, you can make out
 letters, but they make no sense to you.  They read:
 
 Draconian esland tumock oshure
@@ -467,7 +510,8 @@ Gorgon almit barnoch sentual
 Omanta venuel resoch mortali
 Noomant vitali echon soman
 
->You move west.
+> w
+You move west.
 
 Corridor North
 
@@ -475,7 +519,8 @@ The corridor seems to end here, leading back to the south.  A ornately carved
 door leads to the west, while a tall, wide door leads east.  Torches line the
 corridor, providing ample light.
 
->You move west.
+> w
+You move west.
 
 Master Chamber
 
@@ -485,31 +530,41 @@ is off to the side, across from a large wardrobe.  The room is unusually
 clean, with not a speck of dust in the entire place.  The door is to the
 east.
 
->The table sits beside the bed, and is in excellent condition.  A wash bowl is
+> x table
+The table sits beside the bed, and is in excellent condition.  A wash bowl is
 on the bedside table.
 
->You take the wash bowl from the bedside table.
+> take bowl
+You take the wash bowl from the bedside table.
 
->You open the wardrobe.  A black cloak is inside the wardrobe.
+> open wardrobe
+You open the wardrobe.  A black cloak is inside the wardrobe.
 
->You take the black cloak from the wardrobe.
+> take cloak
+You take the black cloak from the wardrobe.
 
->You put on the black cloak.
+> wear cloak
+You put on the black cloak.
 
->The long desk sits along the wall and looks almost brand new, though you are
+> x desk
+The long desk sits along the wall and looks almost brand new, though you are
 certain it is over a hundred years old.  There are no drawers.  A glass vase
 is on the writing desk.
 
->(Your score has increased by 10)
+> look under desk
+(Your score has increased by 10)
 Looking under the desk, you discover a journal tucked up on a small ledge.
 You pull it out and place it on the desk.
 
->The vase is bulbous at the base, narrowing as it extends to the lip.  A
+> x vase
+The vase is bulbous at the base, narrowing as it extends to the lip.  A
 purple flower is inside the glass vase.
 
->You take the purple flower from the glass vase.
+> take flower
+You take the purple flower from the glass vase.
 
->You move east.
+> e
+You move east.
 
 Corridor North
 
@@ -517,21 +572,24 @@ The corridor seems to end here, leading back to the south.  A ornately carved
 door leads to the west, while a tall, wide door leads east.  Torches line the
 corridor, providing ample light.
 
->You move south.
+> s
+You move south.
 
 Corridor
 
 The torch lined corridor leads north and south from here.  A tall, narrow
 door is to the west, while a wide door leads east.
 
->You move south.
+> s
+You move south.
 
 Corridor South
 
 Torches line the wide corridor that runs north, and leads to the balcony to
 the south.  A tall, narrow door leads east while a open doorway lies west.
 
->You move south.
+> s
+You move south.
 
 Balcony
 
@@ -541,7 +599,8 @@ floor, coming to a stop beside two very large wyvern dragon statues  A couple
 of torches are located on either side of the corridor, which leads north from
 here.
 
->You move down.
+> d
+You move down.
 
 Entrance Hall
 
@@ -554,7 +613,8 @@ the balcony, near the open archway to the north, is a suit of armor standing
 guard to what lies beyond.  The large main door to the castle lies to the
 south.
 
->You move east.
+> e
+You move east.
 
 South Corridor East
 
@@ -562,7 +622,8 @@ Leading to the northeast and west, the corridor is faintly lit by widely
 spaced torches mounted to the outer walls.  A glint of light reflecting off a
 metal hinge indicates the presence of a door on the north wall.
 
->You move northeast.
+> ne
+You move northeast.
 
 SE Corridor
 
@@ -570,7 +631,8 @@ The outer walls hold widely spaced torches that leave areas of darkness that
 nearly conceal a door on the western wall.  The corridor extends to the north
 and curves around to the southwest from here.
 
->You move north.
+> n
+You move north.
 
 East Corridor
 
@@ -578,7 +640,8 @@ The corridor runs north and south from here.  The stone walls hold widely
 spaced torches that leave patches of darkness, nearly concealing a door on
 the west wall.
 
->You move west.
+> w
+You move west.
 
 The Library
 
@@ -591,20 +654,24 @@ leads east.
 
 There is a large book sitting all by itself on one of the shelves.
 
->The bookshelves line the entire western wall and are filled with many books
+> x shelf
+The bookshelves line the entire western wall and are filled with many books
 on various subjects.  Some of the books have been removed from the shelves
 and are scattered about the room.  A red potion is on the shelves.
 
->You take the red potion from the shelves.
+> take potion
+You take the red potion from the shelves.
 
->(Your score has increased by 4)
+> pull book
+(Your score has increased by 4)
 
 You grab a book from the bookshelf, but it doesn't budge.  Pulling on it a
 little harder, you hear a loud pop and the bookcase begins to shake and
 rumble.  Slowly the center unit of the library bookcase opens, revealing a
 dark passage.
 
->You move in.
+> in
+You move in.
 
 Library Passage
 
@@ -612,13 +679,15 @@ The passage is filled with cobwebs, and quite dark.  It smells musty and
 damp. It looks like the passage leads down and another leads out, back into
 the library.
 
->You move down.
+> d
+You move down.
 
 Secret Passage
 
 The passage is narrow and dark.  It leads up and east from here.
 
->You move east.
+> e
+You move east.
 
 The cave by the lake
 
@@ -632,20 +701,23 @@ cave.
 
 Also here is the young woman's body.
 
->(Your score has increased by 20)
+> take body
+(Your score has increased by 20)
 
 You carefully watch the people that are lurking about.  Their tears of
 anguish occupy them long enough for you to pull the sneak over and take the
 body of the young woman.  Hiding her white gown beneath that of the cloak,
 keeps both of you concealed in darkness.  You return to the cave.
 
->You move west.
+> w
+You move west.
 
 Secret Passage
 
 The passage is narrow and dark.  It leads up and east from here.
 
->You move up.
+> up
+You move up.
 
 Library Passage
 
@@ -653,7 +725,8 @@ The passage is filled with cobwebs, and quite dark.  It smells musty and
 damp. It looks like the passage leads down and another leads out, back into
 the library.
 
->You move out.
+> out
+You move out.
 
 The Library
 
@@ -666,7 +739,8 @@ if someone may have been looking for something.  A narrow door leads east.
 
 There is a large book sitting all by itself on one of the shelves.
 
->You move east.
+> e
+You move east.
 
 East Corridor
 
@@ -674,7 +748,8 @@ The corridor runs north and south from here.  The stone walls hold widely
 spaced torches that leave patches of darkness, nearly concealing a door on
 the west wall.
 
->You move north.
+> n
+You move north.
 
 NE Corridor
 
@@ -683,7 +758,8 @@ torches on the outer wall.  A door on the west wall would be very well hidden
 in the darkness if not for a slight glint of light reflected from the metal
 hinges that hold it in place.
 
->You move northwest.
+> nw
+You move northwest.
 
 North Corridor East
 
@@ -692,7 +768,8 @@ darkness between them.  It appears that the corridor leads west and curves
 around to the southeast.  In the dim light, a narrow door is visible on the
 southern wall.
 
->You move west.
+> w
+You move west.
 
 North Corridor
 
@@ -700,7 +777,8 @@ Leading both east and west, the corridor is a little better lit here; the
 outer stone wall lined with several torches.  An open archway is clearly
 visible in the south wall.
 
->You move south.
+> s
+You move south.
 
 Kitchen
 
@@ -710,47 +788,61 @@ length of the room.  A doorway leads north, while a large, wide doorway leads
 to the south. The kitchen is well lit, with moderately spaced torches
 throughout.
 
->You put the blue potion inside the cauldron.
+> put blue potion in pot
+You put the blue potion inside the cauldron.
 
->You put the green potion inside the cauldron.
+> put green potion in pot
+You put the green potion inside the cauldron.
 
->You put the red potion inside the cauldron.
+> put red potion in pot
+You put the red potion inside the cauldron.
 
->You put the purple flower inside the cauldron.
+> put flower in pot
+You put the purple flower inside the cauldron.
 
->You put the wood inside the pit.
+> put wood in pit
+You put the wood inside the pit.
 
->The cauldron hangs at one of the spit, over a large pit.  Inside the cauldron
+> x cauldron
+The cauldron hangs at one of the spit, over a large pit.  Inside the cauldron
 is a purple flower, a red potion, a blue potion and the green potion.
 
->
+> light fire
+
 You hold the candle under the dried wood for several minutes.  It smokes
 furiously, burning your eyes.  With a couple of puffs, you manage to ignite
 the wood. Moments later, the fire beings to come to life, filling the room
 with light and warmth.
 
->Two stone sinks take up a large area on the eastern wall of the kitchen.  It
+> x sink
+Two stone sinks take up a large area on the eastern wall of the kitchen.  It
 looks like they haven't been used in quite a long time.  A long, wooden spoon
 is inside the stone sink.
 
->You take the long, wooden spoon from the stone sink.
+> take spoon
+You take the long, wooden spoon from the stone sink.
 
->(Your score has increased by 25)
+> stir potion
+(Your score has increased by 25)
 
 You stir the potion continuously until it begins to boil.  It appears to be
 ready after only a couple of minutes.  Being very careful, you use the
 washbowl to scoop out some potion. It begins to cool almost instantly.  You
 pour the potion into an empty bottle.  You now have a new potion.
 
->You are wearing a black cloak, and you are carrying a small candle, a poem,
+> i
+You are wearing a black cloak, and you are carrying a small candle, a poem,
 an old piece of linen, the young woman's body, a long, wooden spoon and a
 purple potion.
 
->You drop the long, wooden spoon.
+> drop spoon
+You drop the long, wooden spoon.
 
->You drop the old piece of linen.
+> drop linen
+You drop the old piece of linen.
 
->You move south.
+> s
+You move south.
 
 Great Hall
 
@@ -762,7 +854,8 @@ Tapestries and paintings line the walls to either side, torches placed
 between to light the massive room.  Open doorways lead north and south from
 the Great Hall.
 
->You move south.
+> s
+You move south.
 
 Gallery
 
@@ -773,7 +866,8 @@ Above each statue a torch mounts the wall, giving the room ample light.
 Between each torch is a painting, most of which appear to be of the castle or
 surrounding areas. Only one of the paintings appears to be a portrait.
 
->You move south.
+> s
+You move south.
 
 Entrance Hall
 
@@ -786,14 +880,17 @@ the balcony, near the open archway to the north, is a suit of armor standing
 guard to what lies beyond.  The large main door to the castle lies to the
 south.
 
->The spear is as tall as the suit of armor, and points to the balcony above.
+> x spear
+The spear is as tall as the suit of armor, and points to the balcony above.
 
->(Your score has increased by 2)
+> pull spear
+(Your score has increased by 2)
 You grab the spear and pull it towards you.  It moves a little bit, but you
 are unable to take it as it appears to be stuck.  A loud, long scraping sound
 comes from north.
 
->You move north.
+> n
+You move north.
 
 Gallery
 
@@ -804,7 +901,8 @@ Above each statue a torch mounts the wall, giving the room ample light.
 Between each torch is a painting, most of which appear to be of the castle or
 surrounding areas. Only one of the paintings appears to be a portrait.
 
->You move north.
+> n
+You move north.
 
 Great Hall
 
@@ -816,32 +914,37 @@ revealing a hidden passage.  Tapestries and paintings line the walls to
 either side, torches placed between to light the massive room.  Open doorways
 lead north and south from the Great Hall.
 
->You move down.
+> d
+You move down.
 
 Great hidden passage
 
 The passage is narrow and leads to the north and up.
 
->You move north.
+> n
+You move north.
 
 The bottom of a stairwell
 
 You are at the bottom of a dark stairwell.  A spiral staircase winds up into
 the darkness.
 
->You move up.
+> up
+You move up.
 
 In the stairwall
 
 You are in a dark stairwell that spirals up and down from here.
 
->You move up.
+> up
+You move up.
 
 Top of stairwell
 
 You are at the top of a dark stairwell.  A narrow door lies to the north.
 
->You enter the tower.
+> n
+You enter the tower.
 
 The Tower
 
@@ -852,17 +955,21 @@ being held by it’s massive claws.  A fantastic orb is mounted at the head of
 the slab, glowing with a white light that illuminates the room.  A door to
 the south leads back to the stairwell.
 
->
+> x dragon
+
 The shrine is a large, stone dragon that appears to be holding a long slab.
 Near the head of the slab, a glowing orb illuminates the room.  The dragon is
 so detailed that it almost looks real.  The incantation scroll is on the
 dragon shrine.
 
->You take the incantation scroll from the dragon shrine.
+> take scroll
+You take the incantation scroll from the dragon shrine.
 
->You put the young woman's body onto the dragon shrine.
+> put body on slab
+You put the young woman's body onto the dragon shrine.
 
->
+> give potion to woman
+
 You part the lips of the young woman an slowly pour the potion into her
 mouth.  As soon as you are finished, the orb flashes out towards your hand
 and instantly pulls the bottle of potion into it.
@@ -871,7 +978,8 @@ A whisper fills the air.
 
 "You must read the incantation."
 
->(Your score has increased by 10)
+> read incantation
+(Your score has increased by 10)
 
 You begin reading from the scroll.   The thunder from outside rattles the
 tower like an earthquake and lightning flashes all around, sending flashes
@@ -907,7 +1015,8 @@ yours!
 A loud rumble within the belly of the castle gets your attention fast.  It
 can only mean that Master Dracon is coming to claim his prize.
 
->You move south.
+> s
+You move south.
 
 Top of stairwell
 
@@ -915,7 +1024,8 @@ You are at the top of a dark stairwell.  A narrow door lies to the north.
 For a second, you think you see him.  Surely he knows this castle like the
 back of his hand.
 
->You move down.
+> d
+You move down.
 
 In the stairwall
 
@@ -923,7 +1033,8 @@ You are in a dark stairwell that spirals up and down from here.
 For a second, you think you see him.  Surely he knows this castle like the
 back of his hand.
 
->You move down.
+> d
+You move down.
 
 The bottom of a stairwell
 
@@ -932,7 +1043,8 @@ the darkness.
 For a second, you think you see him.  Surely he knows this castle like the
 back of his hand.
 
->You move south.
+> s
+You move south.
 
 Great hidden passage
 
@@ -943,7 +1055,8 @@ Heavy footsteps echo through the castle.  Your heart pounds deep in your
 chest, knowing that if you can’t get Jenny to safety, both of you will die at
 the hands of a monster.
 
->You move up.
+> up
+You move up.
 
 Great Hall
 
@@ -958,7 +1071,8 @@ lead north and south from the Great Hall.
 For a second, you think you see him.  Surely he knows this castle like the
 back of his hand.
 
->You move south.
+> s
+You move south.
 
 Gallery
 
@@ -971,7 +1085,8 @@ surrounding areas. Only one of the paintings appears to be a portrait.
 For a second, you think you see him.  Surely he knows this castle like the
 back of his hand.
 
->You move south.
+> s
+You move south.
 
 Entrance Hall
 
@@ -989,9 +1104,11 @@ The weight of her limp body is taking it’s toll on your arms, as the become
 lower with each passing step.  You try adjusting her weight and continue on.
 You have not time to stop.
 
->Your score is 83 out of a maximum of 100.  (83%)
+> score
+Your score is 83 out of a maximum of 100.  (83%)
 
->(Your score has increased by 12)
+> open door
+(Your score has increased by 12)
 
 You lift the heavy beam from barring the door and heave it open with all your
 might, drawing the attention of searchers.

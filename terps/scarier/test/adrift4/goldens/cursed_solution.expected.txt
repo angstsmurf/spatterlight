@@ -30,27 +30,34 @@ leads south, away from your cottage, through the trees.
 
    An axe lies at your feet.
 
->You pick up the axe.
+> take axe
+You pick up the axe.
 
->You grip the axe firmly and try to bring it down as hard as you can on the
+> chop wood
+You grip the axe firmly and try to bring it down as hard as you can on the
 wood. But the axe head is unexpectedly heavy, and it flies out of your hands.
 
->You pick up the axe.
+> take axe
+You pick up the axe.
 
->You haven't done this very often - your father made sure there was always
+> chop wood
+You haven't done this very often - your father made sure there was always
 enough firewood whenever he left for war. It's harder than you think.
    You grip the axe as hard as you can and swing it over your head. You keep
 hold of the axe this time, but miss the wood completely. The head of the axe
 buries itself into the ground, and it takes a moment to pull it free.
 
->You swing the axe again, this time trying not to force it, but letting the
+> chop wood
+You swing the axe again, this time trying not to force it, but letting the
 swing of the axe carry it to the wood. It lands on the wood, and a small chip
 flies into the air.
 
->Once more you swing the axe, and manage to make it strike the same point on
+> chop wood
+Once more you swing the axe, and manage to make it strike the same point on
 the wood as the last chop. The cut is getting deeper.
 
->Again you swing the axe over your head and bring it down on the wood. There
+> chop wood
+Again you swing the axe over your head and bring it down on the wood. There
 is a resounding crack as a section of wood breaks free in a very satisfying
 manner.
 
@@ -95,16 +102,20 @@ leaping shadows around the rest of the room.
 
    Sitting on the desk near the scroll is a small cup.
 
->You pick up the cup and quickly swallow the contents. You feel your headache
+> drink liquid
+You pick up the cup and quickly swallow the contents. You feel your headache
 lifting almost instantly.
 
->You read a paragraph, but the words float before your eyes, defying meaning.
+> read scroll
+You read a paragraph, but the words float before your eyes, defying meaning.
 It’s very late, and you’ve been studying for several hours.
 
->You force your eyes to concentrate on the words printed on the page. A
+> read scroll
+You force your eyes to concentrate on the words printed on the page. A
 meaning starts to become clear. Something about having a servant’s heart.
 
->Again you read the words on the page, and slowly you begin to understand. A
+> read scroll
+Again you read the words on the page, and slowly you begin to understand. A
 true knight is a servant of the kingdom, willing to give his life to serve
 his king and, by extension, the people.
 
@@ -113,11 +124,14 @@ his king and, by extension, the people.
 the servant says, handing you a note. With a brief bow, the servant exits and
 closes the door.
 
->You are already holding the note.
+> take note
+You are already holding the note.
 
->You break the seal on the note and open it.
+> open note
+You break the seal on the note and open it.
 
->The note reads:
+> read note
+The note reads:
 
 "To Torrin, son of Bradda,
    Ever since you came into our family, we have been friends. You, Alsanter
@@ -152,7 +166,8 @@ Rylane.
 leads towards the throne room which is open. The other door in the eastern
 wall leads to the kitchen, and is currently closed.
 
->You climb up the stairway.
+> up
+You climb up the stairway.
 
 Landing
 The broad sweep of the marble stairway ends here at a surprisingly sparsely
@@ -161,7 +176,8 @@ wall, there is not much refinement here at all. Two archways, standing
 opposite each other in the northern and southern walls, provide exits, other
 than the stairs that lead back down.
 
->You move south.
+> s
+You move south.
 
 Corridor outside Rixomas' rooms
 A long corridor stretches away to the west, lit by a series of torches
@@ -171,7 +187,8 @@ the north.
    There is a door in the southern wall which you know to be the entrance to
 the wizard Rixomas' rooms. It is currently is closed.
 
->You move west.
+> w
+You move west.
 
 Corridor outside Lord Adath's rooms
 A long corridor stretches away to the east and west, lit provided by a series
@@ -180,7 +197,8 @@ entire length of the corridor, is a plush carpet. There is just sufficient
 light to see the door to Lord Adath's rooms in the southern wall, which is
 currently closed.
 
->You move west.
+> w
+You move west.
 
 Corridor outside Lord Sulanar's rooms
 A long corridor stretches away to the east and west, lit by a series of
@@ -197,7 +215,8 @@ demanding to speak with you."
    You sigh. "Very well. I’ll be right there."
    The servant hurries away to the east.
 
->You move east.
+> e
+You move east.
 
 Corridor outside Lord Adath's rooms
 A long corridor stretches away to the east and west, lit provided by a series
@@ -206,7 +225,8 @@ entire length of the corridor, is a plush carpet. There is just sufficient
 light to see the door to Lord Adath's rooms in the southern wall, which is
 currently closed.
 
->You move east.
+> e
+You move east.
 
 Corridor outside Rixomas' rooms
 A long corridor stretches away to the west, lit by a series of torches
@@ -216,7 +236,8 @@ the north.
    There is a door in the southern wall which you know to be the entrance to
 the wizard Rixomas' rooms. It is currently is closed.
 
->You move north.
+> n
+You move north.
 
 Landing
 The broad sweep of the marble stairway ends here at a surprisingly sparsely
@@ -225,7 +246,8 @@ wall, there is not much refinement here at all. Two archways, standing
 opposite each other in the northern and southern walls, provide exits, other
 than the stairs that lead back down.
 
->You move north.
+> n
+You move north.
 
 Corridor outside Prince Alsanter's rooms
 A long corridor stretches away to the west, lit by a series of torches
@@ -237,9 +259,11 @@ the archway, is a plaque featuring the emblem of the crown prince of Rylane.
 
    A guard is on duty here.
 
->You open the door.
+> open door
+You open the door.
 
->You walk through the open door.
+> n
+You walk through the open door.
 
 Prince Alsanter's rooms
 A standard table of unremarkable size stands in the centre of the room, on
@@ -261,7 +285,8 @@ entered, as he waves a parchment at you. His voice is slurring slightly.
    (1) "What are you talking about?"
    (2) "I don't know."
 
->   "I have no idea what you’re talking about," you reply.
+> 1
+   "I have no idea what you’re talking about," you reply.
    "This!" The prince steps closer and waves the parchment in your face.
 "Recognise this?"
 
@@ -269,7 +294,8 @@ entered, as he waves a parchment at you. His voice is slurring slightly.
    (1) "No."
    (2) "Yes." (sarcastic)
 
->   "No," you reply as calmly as you can. "I’ve never seen that before."
+> 1
+   "No," you reply as calmly as you can. "I’ve never seen that before."
    "This is your seal," the prince continues, pointing to the imprint in the
 wax. "This is your letter."
    "I have never seen that letter before in my life," you reply. "If it has
@@ -280,7 +306,8 @@ my seal, then someone has made a forgery."
    (1) "Yes, I deny trying to usurp the throne."
    (2) "No, I am trying to usurp the throne." (sarcastic)
 
->   "Of course I'm not trying to usurp the throne," you respond, your voice
+> 1
+   "Of course I'm not trying to usurp the throne," you respond, your voice
 rising a level. "Why on earth would I try to do that? You're my best friend,
 Tevona is my fiancé, and I love the king like a father. What have I got to
 gain?"
@@ -290,7 +317,8 @@ gain?"
    (1) "That's a complete lie."
    (2) "Goodbye."
 
->   "That's a complete lie, and you know it," you almost shout. "How dare you
+> 1
+   "That's a complete lie, and you know it," you almost shout. "How dare you
 insult me like that."
    "Get out!" the prince yells in your face. "This isn't over, Torrin! I'll
 deal with you later!"
@@ -304,7 +332,8 @@ leaves your legs and you fall to the floor. Darkness claims you.
 
    You wake up and find yourself lying on the floor.
 
->You stand up.
+> stand
+You stand up.
 
 Prince Alsanter's rooms
 You see all the things you expect to in the prince's rooms: the table and
@@ -315,18 +344,22 @@ the background.
    The prince is lying face down on the rug, unmoving, with a dagger stuck in
 the middle of his back.
 
->All you can see of it is the jewelled handle protruding from Prince
+> x dagger
+All you can see of it is the jewelled handle protruding from Prince
 Alsanter's back, but even so, you recognise it. It's the one the king gave to
 you on your birthday a few years ago.
 
->The body of the prince is lying face down near the edge of the rug,
+> x prince
+The body of the prince is lying face down near the edge of the rug,
 completely still. Blood has poured out of the wound in his back, pooling on
 the rug. There are no other injuries on Alsanter's body, other than the
 knife-wound.
 
->There is nothing in here that you want to take.
+> take dagger
+There is nothing in here that you want to take.
 
->You wait for something to happen.
+> z
+You wait for something to happen.
 
    The door suddenly bursts open and three guards rush into the room. They
 take in the situation at once, and they all seem to reach the same
@@ -363,7 +396,8 @@ end of the corridor of judgement, and the wizard Rixomas stands beside it.
 
    A guard is approaching, here to take you to your execution.
 
->You wait for something to happen.
+> z
+You wait for something to happen.
 
    "Wait!"
    The shout comes from the king, who is standing before the throne. All eyes
@@ -401,47 +435,56 @@ curse you by transforming you into either a rat, a fox, or a snake. All of
 these creatures are hunted and killed without remorse. You will be shunned by
 men, and your life may very well be short. But you must choose now."
 
->You wait for something to happen.
+> z
+You wait for something to happen.
 
     "You must make a choice," Rixomas says. "You must choose either a rat, a
 fox, or a snake. Choose now."
 
->You wait for something to happen.
+> z
+You wait for something to happen.
 
     "You must make a choice," Rixomas says. "You must choose either a rat, a
 fox, or a snake. Choose now."
 
->You wait for something to happen.
+> z
+You wait for something to happen.
 
     "You must make a choice," Rixomas says. "You must choose either a rat, a
 fox, or a snake. Choose now."
 
->You wait for something to happen.
+> z
+You wait for something to happen.
 
     "You must make a choice," Rixomas says. "You must choose either a rat, a
 fox, or a snake. Choose now."
 
->You wait for something to happen.
+> z
+You wait for something to happen.
 
     "You must make a choice," Rixomas says. "You must choose either a rat, a
 fox, or a snake. Choose now."
 
->You wait for something to happen.
+> z
+You wait for something to happen.
 
     "You must make a choice," Rixomas says. "You must choose either a rat, a
 fox, or a snake. Choose now."
 
->You wait for something to happen.
+> z
+You wait for something to happen.
 
     "You must make a choice," Rixomas says. "You must choose either a rat, a
 fox, or a snake. Choose now."
 
->You wait for something to happen.
+> z
+You wait for something to happen.
 
     "You must make a choice," Rixomas says. "You must choose either a rat, a
 fox, or a snake. Choose now."
 
->"So be it," the wizard says. "May God have mercy on your soul."
+> fox
+"So be it," the wizard says. "May God have mercy on your soul."
    An expectant silence falls on the throne room as the wizard moves to stand
 directly in front of you and closes his eyes. He raises his staff above his
 head, with the top of the staff pointing in your direction.
@@ -464,7 +507,8 @@ be able to help you."
 Once you leave, your fate is in your own hands."
    The wizard points northwards towards the doors, to the way of torment.
 
->You scramble to your feet and trot out of the throne room, surprising
+> n
+You scramble to your feet and trot out of the throne room, surprising
 yourself at how natural movement is. As you leave the guard closes the doors
 behind you. The noise as the doors shut seems so loud, as if they were
 slammed, and it makes you jump slightly.
@@ -500,7 +544,8 @@ they're miles away...
 recommended that you save the game at this point so you can easily restore it
 if necessary. ]
 
->You trot north.
+> n
+You trot north.
 
 Meeting hall
 A high ceiling and an enormous hearth give the meeting hall an imposing feel,
@@ -521,7 +566,8 @@ room.
    Your vulpine hearing detects some sounds -- voices on the other side of
 the door.
 
->Placing your paws against the side of the pedestal you give it a push, and it
+> push pedestal
+Placing your paws against the side of the pedestal you give it a push, and it
 rocks alarmingly back and forth. The vase tips one way, then another, and
 ends up balancing on the edge of the stand. Slowly, inexorably, it topples
 from the pedestal and smashes into a thousand pieces on the floor, and the
@@ -534,7 +580,8 @@ seen.
    Your vulpine hearing detects some sounds -- voices on the other side of
 the door.
 
->You grab the frayed curtain with your teeth and tug firmly, but nothing seems
+> pull curtain
+You grab the frayed curtain with your teeth and tug firmly, but nothing seems
 to happen. Again you pull and this time are rewarded with the sound of cloth
 tearing high above you. With one more firm pull the entire curtain rips away
 from the rail and ends up in a pile at your feet.
@@ -542,7 +589,8 @@ from the rail and ends up in a pile at your feet.
    Your vulpine hearing detects some sounds -- voices on the other side of
 the door.
 
->You grab one end of the fallen curtain with your teeth and drag it to the
+> put curtain in fire
+You grab one end of the fallen curtain with your teeth and drag it to the
 fire. With a toss of your head you manage to throw it onto the low burning
 fire, where it smoulders for a moment before bursting into flame. Smoke
 billows into the hall.
@@ -550,7 +598,8 @@ billows into the hall.
    Your vulpine hearing detects some sounds -- voices on the other side of
 the door.
 
->You wriggle your body behind the curtains. Your feet are still visible, but
+> hide behind curtain
+You wriggle your body behind the curtains. Your feet are still visible, but
 given the curtain colour you should be well enough concealed until you are
 reayd to unhide yourself.
 
@@ -573,11 +622,13 @@ and turns her attention to picking up pieces of the vase.
 
 [ Your score just went up by three. ]
 
->You wait for something to happen.
+> z
+You wait for something to happen.
 
    The servant exits to the south.
 
->You emerge from behind the curtains.
+> out
+You emerge from behind the curtains.
 
 Meeting hall
 A high ceiling and an enormous hearth give the meeting hall an imposing feel,
@@ -598,7 +649,8 @@ scattered shards of an ornamental vase.
 
    Your vulpine hearing detects some sounds -- movement to the south.
 
->You trot through the open door and descend the stone steps into the
+> n
+You trot through the open door and descend the stone steps into the
 courtyard.
 
 Southern end of the courtyard
@@ -623,10 +675,12 @@ approaches the cart.
 onto his shoulder, then disappears back to the west, heading for the castle
 storeroom.
 
->Your score is 3 out of a maximum of 101. Enter FULL SCORE to see a complete
+> score
+Your score is 3 out of a maximum of 101. Enter FULL SCORE to see a complete
 breakdown of the scoring items.
 
->You trot east.
+> e
+You trot east.
 
 Stables
 You are outside the stables, the doors to which are closed, except for the
@@ -639,13 +693,15 @@ northwest is the northern end, near the gatehouse.
    A horse is standing inside the stables but with its head sticking through
 the open stable door. It appears to be asleep.
 
->You place your paws on the barrel, and using all the leverage your body can
+> roll barrel
+You place your paws on the barrel, and using all the leverage your body can
 manage, you give it a push. It is so heavy that you wonder if you will be
 able to move it at all. But after a moment or two of straining, it finally
 starts to roll. And once started the barrel rolls easily, coming to rest
 against the castle wall.
 
->You leap up to grab the end of the rope with your teeth and the weight of
+> pull rope
+You leap up to grab the end of the rope with your teeth and the weight of
 your body unties the knot that is holding the door back. As it swings free
 you let go and drop back to the ground.
 
@@ -659,7 +715,8 @@ horse escape the stables and rush towards the northern end of the courtyard.
 stables closing the doors behind him, and then bolts after the escaped horse.
 He doesn't even glance in your direction.
 
->You trot west.
+> w
+You trot west.
 
 Southern end of the courtyard
 You are currently hiding in the shadow cast by an overhanging balcony at the
@@ -689,7 +746,8 @@ cart makes its way north.
    From the northern end of the courtyard comes the sound of a horse
 whinnying in distress.
 
->You wait for something to happen.
+> z
+You wait for something to happen.
 
    Your vulpine hearing detects some sounds -- movement to the south.
 
@@ -709,7 +767,8 @@ northern end of the courtyard.
    You can hear a horse neighing in distress coming from the northern end of
 the courtyard. You also hear hooves beating on the flagstones.
 
->You wait for something to happen.
+> z
+You wait for something to happen.
 
    Your vulpine hearing detects some sounds -- movement to the south.
 
@@ -730,7 +789,8 @@ northern end of the courtyard.
    From the northern end of the courtyard comes the sound of a horse
 whinnying in distress.
 
->You wait for something to happen.
+> z
+You wait for something to happen.
 
    To your ears comes the sound of a horse in distress, along with a few
 shouts of someone trying to calm the horse. The sounds are coming from the
@@ -747,7 +807,8 @@ whinnying in distress.
 shouts of someone trying to calm the horse. The sounds are coming from the
 northern end of the courtyard.
 
->You wait for something to happen.
+> z
+You wait for something to happen.
 
    Your vulpine hearing detects some sounds -- movement to the south.
 
@@ -764,7 +825,8 @@ northern end of the courtyard.
 shouts of someone trying to calm the horse. The sounds are coming from the
 northern end of the courtyard.
 
->You wait for something to happen.
+> z
+You wait for something to happen.
 
    You hear the sound of the portcullis being raised.
 
@@ -778,7 +840,8 @@ whinnying in distress.
    You can hear a horse neighing in distress coming from the northern end of
 the courtyard. You also hear hooves beating on the flagstones.
 
->You wait for something to happen.
+> z
+You wait for something to happen.
 
    To your ears comes the sound of a horse in distress, along with a few
 shouts of someone trying to calm the horse. The sounds are coming from the
@@ -802,7 +865,8 @@ northern end of the courtyard.
 shouts of someone trying to calm the horse. The sounds are coming from the
 northern end of the courtyard.
 
->With the archers distracted by the agitated horse, you slip unnoticed beneath
+> hide under cart
+With the archers distracted by the agitated horse, you slip unnoticed beneath
 the cart where its shadow and bulk conceal you. However, should the cart move
 you know you will be exposed.
 
@@ -826,7 +890,8 @@ cart.
    From the northern end of the courtyard comes the sound of a horse
 whinnying in distress.
 
->Knowing that timing is everything, you wait for the cart to move. If you can
+> follow cart
+Knowing that timing is everything, you wait for the cart to move. If you can
 stay under it, you might be able to avoid being seen.
    The servant rushes in from the west, and grabs another sack from the rear
 of the cart.
@@ -853,7 +918,8 @@ a horse whinnying in distress.
    From the northern end of the courtyard comes the sound of a horse
 whinnying in distress.
 
->You wait for something to happen.
+> z
+You wait for something to happen.
 
    From the northern end of the courtyard comes the sound of a horse
 whinnying in distress.
@@ -867,7 +933,8 @@ whinnying in distress.
    From the northern end of the courtyard comes the sound of a horse
 whinnying in distress.
 
->With the portcullis up, you leave the cover of the cart behind and dash out
+> n
+With the portcullis up, you leave the cover of the cart behind and dash out
 of the gatehouse, looking for the safety of distance from the castle. Before
 you is the long slope of the stone ramp that leads down and away from the
 castle gates. At the base of the ramp, spread out before you like a map, lies
@@ -908,10 +975,12 @@ the rocky base of the castle, but an alley that might provide sufficient
 cover can be seen to the northwest. There is also a small drainage pipe here,
 about a foot in diameter, which runs eastwards underneath the road.
 
->Your score is 8 out of a maximum of 101. Enter FULL SCORE to see a complete
+> score
+Your score is 8 out of a maximum of 101. Enter FULL SCORE to see a complete
 breakdown of the scoring items.
 
->You dash across the open space, looking for the concealment offered by the
+> nw
+You dash across the open space, looking for the concealment offered by the
 alley.
 
 Southern end of the alley
@@ -948,7 +1017,8 @@ knows what has happened to you, and finds the knowledge funny.
    Then, like a candle being snuffed, the ghost disappears, leaving you with
 the image of a man laughing at your fate burned in your mind.
 
->You trot north.
+> n
+You trot north.
 
 Alley behind markets
 The alley widens here to some degree, although the quality of the building
@@ -959,11 +1029,13 @@ building next to the corral is a plain, white door that has some blood-like
 stains near at the base. The alley continues to the northwest, and narrows to
 the south.
 
->You dart out of cover and race to the gate. Putting your front legs on top of
+> open latch
+You dart out of cover and race to the gate. Putting your front legs on top of
 the gate, you use your nose to lift the latch, before quickly returning to
 your position under the vines.
 
->You trot northwest.
+> nw
+You trot northwest.
 
 Northern end of the alley
 The alley runs into a road here and comes to an end. The road itself is not
@@ -985,17 +1057,20 @@ momentarily.
 
    The shopkeeper turns his head and faces the alley.
 
->You notice the shopkeeper is facing this way. Attempting to move in such an
+> drag rake se
+You notice the shopkeeper is facing this way. Attempting to move in such an
 obvious way is bound to attract his unwanted attention.
 
    Your vulpine hearing detects some sounds -- movement to the east.
 
->You notice the shopkeeper is facing this way. Attempting to move in such an
+> drag rake se
+You notice the shopkeeper is facing this way. Attempting to move in such an
 obvious way is bound to attract his unwanted attention.
 
    Your vulpine hearing detects some sounds -- movement to the east.
 
->You notice the shopkeeper is facing this way. Attempting to move in such an
+> drag rake se
+You notice the shopkeeper is facing this way. Attempting to move in such an
 obvious way is bound to attract his unwanted attention.
 
    A cold, northerly wind rushes down the alley and makes you shiver
@@ -1003,14 +1078,16 @@ momentarily.
 
    Your vulpine hearing detects some sounds -- movement to the east.
 
->You notice the shopkeeper is facing this way. Attempting to move in such an
+> drag rake se
+You notice the shopkeeper is facing this way. Attempting to move in such an
 obvious way is bound to attract his unwanted attention.
 
    Your vulpine hearing detects some sounds -- movement to the east.
 
    The shopkeeper turns his head and looks to the east.
 
->You grip the rake in your teeth and drag it to the southeast.
+> drag rake se
+You grip the rake in your teeth and drag it to the southeast.
 
    You sense some danger in the area and seek the limited concealment offered
 by the vine.
@@ -1025,7 +1102,8 @@ the south.
 
    Lying on the ground nearby is a rake.
 
->You trot northwest.
+> nw
+You trot northwest.
 
 Northern end of the alley
 The alley runs into a road here and comes to an end. The road itself is not
@@ -1043,22 +1121,26 @@ it is an ragged, burlap sack, full to bursting with leaves.
 
    The shopkeeper turns his head and faces the alley.
 
->Making any obvious movements will alert the shopkeeper to your presence.
+> rip open sack
+Making any obvious movements will alert the shopkeeper to your presence.
 
    A cold, northerly wind rushes down the alley and makes you shiver
 momentarily.
 
    Your vulpine hearing detects some sounds -- movement to the east.
 
->Making any obvious movements will alert the shopkeeper to your presence.
+> rip open sack
+Making any obvious movements will alert the shopkeeper to your presence.
 
    Your vulpine hearing detects some sounds -- movement to the east.
 
->Making any obvious movements will alert the shopkeeper to your presence.
+> rip open sack
+Making any obvious movements will alert the shopkeeper to your presence.
 
    Your vulpine hearing detects some sounds -- movement to the east.
 
->Making any obvious movements will alert the shopkeeper to your presence.
+> rip open sack
+Making any obvious movements will alert the shopkeeper to your presence.
 
    A cold, northerly wind rushes down the alley and makes you shiver
 momentarily.
@@ -1067,19 +1149,22 @@ momentarily.
 
    The shopkeeper turns his head and looks to the east.
 
->You tear the sack with your teeth, expanding the existing tears and spreading
+> rip open sack
+You tear the sack with your teeth, expanding the existing tears and spreading
 the leaves and debris inside around the general area.
 
    Your vulpine hearing detects some sounds -- movement to the east.
 
->The sack is already torn open. It would seem impossible to damage it any
+> rip open sack
+The sack is already torn open. It would seem impossible to damage it any
 further.
 
    Your vulpine hearing detects some sounds -- movement to the east.
 
    The shopkeeper turns his head and faces the alley.
 
->You trot southeast.
+> se
+You trot southeast.
 
 Alley behind markets
 The alley widens here to some degree, although the quality of the building
@@ -1097,7 +1182,8 @@ momentarily.
 The gust of wind brings with it a flurry of leaves that spread themselves
 around the area.
 
->You rush forward and push the small gate of the corral with your paws, and it
+> open gate
+You rush forward and push the small gate of the corral with your paws, and it
 swings open gently. The sheep back away into the far corner of the corral and
 start bleating in a far more urgent manner as the gate comes to a stop. You
 dart back to your position under the vines.
@@ -1115,10 +1201,12 @@ sheep, and the bleating of the sheep trying not to be caught.
 
 [ Your score just went up by two. ]
 
->Your score is 10 out of a maximum of 101. Enter FULL SCORE to see a complete
+> score
+Your score is 10 out of a maximum of 101. Enter FULL SCORE to see a complete
 breakdown of the scoring items.
 
->You trot northwest.
+> nw
+You trot northwest.
 
 Northern end of the alley
 The alley runs into a road here and comes to an end. The road itself is
@@ -1133,7 +1221,8 @@ it is the remains of an old, burlap sack, lying on the ground in tatters.
 
    Your vulpine hearing detects some sounds -- movement to the east.
 
->You trot west.
+> w
+You trot west.
 
 Church
 The road widens here and terminates in a cul-de-sac. Dominating the street is
@@ -1145,7 +1234,8 @@ is a workman who appears to be repairing some stonework.
 
    A harsh, cold wind whistles by, making you shiver.
 
->Wasting no time, you sprint across to the base of the scaffolding. The
+> dig under scaffolding
+Wasting no time, you sprint across to the base of the scaffolding. The
 workman above shows no signs of having seen you as you get to work. Your paws
 easily dig through the compacted dirt of the road as you undermine one of the
 bamboo poles holding up the structure. The hole is a foot deep by the time
@@ -1157,7 +1247,8 @@ excitement, mingled with a few bleats from excited sheep.
    You notice the scaffolding wobble slightly. The workman above looks
 around, but on seeing nothing, returns to his task.
 
->You wait for something to happen.
+> z
+You wait for something to happen.
 
    The scaffolding wobbles noticeably, and the workman steadies himself
 against the building. He looks nervous.
@@ -1173,7 +1264,8 @@ is left hanging by his arms, shouting for help. Then, with a resounding
 crash, the scaffolding smashes into the ground, spreading planks and bamboo
 around the area.
 
->You wait for something to happen.
+> z
+You wait for something to happen.
 
    Somewhere in the distance you hear the sound of voices raised in
 excitement, mingled with a few bleats from excited sheep.
@@ -1202,7 +1294,8 @@ as the guards congratulate themselves on a fine, but unorthodox, rescue. The
 workman soon turns his attention back to his job, and begins the task of
 sorting out the shattered remains of his scaffold.
 
->You trot east.
+> e
+You trot east.
 
 Northern end of the alley
 The alley runs into a road here and comes to an end. The road itself is
@@ -1220,7 +1313,8 @@ excitement, mingled with a few bleats from excited sheep.
 
    Your vulpine hearing detects some sounds -- movement to the west.
 
->You trot east.
+> e
+You trot east.
 
 City gates
 Noise and movement surround you. The main road through the city exits here at
@@ -1233,7 +1327,8 @@ south you can see the town square where a crowd of people has gathered.
 Between you and the crowd you can see a number of sheep running around,
 pursued by a few people who are not having much success in capturing them.
 
->You streak towards the gates and the comparative safety beckoning beyond.
+> n
+You streak towards the gates and the comparative safety beckoning beyond.
 Dodging around horses and people, each heartbeat brings you closer. Voices
 are raised: you have been seen. People are shouting and exclaiming, cries of
 "Look! A fox!" or "Quick! Kill it!"
@@ -1304,17 +1399,21 @@ with the only exit being a door in the west wall.
 [ Use "TOPICS" at any time to view a list of subjects that King Rithusar
 might want to discuss. Simply enter the topic name to ask about it. ]
 
->Your score is 20 out of a maximum of 101. Enter FULL SCORE to see a complete
+> score
+Your score is 20 out of a maximum of 101. Enter FULL SCORE to see a complete
 breakdown of the scoring items.
 
->You suspect the king might want to talk about some of the following things:
+> topics
+You suspect the king might want to talk about some of the following things:
    Torrin
    Princess Tevona
 
->A strange thought comes to your mind, but you quickly dismiss it. It really
+> yes
+A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
 
->A strange thought comes to your mind, but you quickly dismiss it. It really
+> yes
+A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
 
    An soft, eerie sound reaches your ears as the wind blows across the top of
@@ -1340,7 +1439,8 @@ used to be, when we were just good friends."
 answer. "Did I do the right thing, Rixomas?" he persists.
 [ You can respond by saying either Yes, No, or I don't know. ]
 
->"Rithusar, you achieved something I didn't believe possible," you reply.
+> yes
+"Rithusar, you achieved something I didn't believe possible," you reply.
 "Torrin was found guilty of murder. Every court in the world would have
 sentenced him to death. But you saved his life. Torrin is still alive because
 of you."
@@ -1349,13 +1449,16 @@ What life have I bestowed on him? What hope does he have for the future?"
    "Some life is better than no life," you answer philosophically. "As long
 as there is life, there is hope."
 
->A strange thought comes to your mind, but you quickly dismiss it. It really
+> yes
+A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
 
->A strange thought comes to your mind, but you quickly dismiss it. It really
+> yes
+A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
 
->A strange thought comes to your mind, but you quickly dismiss it. It really
+> yes
+A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
 
    You are almost cut in half by a sudden coughing fit that lasts a couple of
@@ -1366,24 +1469,29 @@ with some concern.
    The king looks at you with questions about the veracity of your answer
 clearly on his mind, but he doesn't pursue it.
 
->A strange thought comes to your mind, but you quickly dismiss it. It really
+> no
+A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
 
    "Please enjoy your wine," Rithusar reminds you. "Don't let it go to
 waste." He then returns his gaze to the fire.
 
->A strange thought comes to your mind, but you quickly dismiss it. It really
+> no
+A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
 
    One of the logs in the fire settles into the ash softly.
 
->A strange thought comes to your mind, but you quickly dismiss it. It really
+> no
+A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
 
->A strange thought comes to your mind, but you quickly dismiss it. It really
+> no
+A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
 
->A strange thought comes to your mind, but you quickly dismiss it. It really
+> no
+A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
 
    You are lost in contemplation of the fire when Rithusar breaks into your
@@ -1414,7 +1522,8 @@ you in the eye.
 he is waiting for your answer.
 [ You can respond by saying either Yes, No, or I don't know. ]
 
->"Well, it seems a little moot at this point to answer that, but, no, I don't
+> no
+"Well, it seems a little moot at this point to answer that, but, no, I don't
 believe he was guilty."
    Rithusar looks relieved. "I was beginning to think I was the only one."
    "However," you add, "whether we consider Torrin innocent or not, he was
@@ -1426,33 +1535,41 @@ happened."
 too much with talk," he says. "Drink your wine and enjoy it." His attention
 then returns to the fire.
 
->A strange thought comes to your mind, but you quickly dismiss it. It really
+> no
+A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
 
->A strange thought comes to your mind, but you quickly dismiss it. It really
+> no
+A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
 
    You feel a draft from under the door and it makes you shiver. You pull
 your cloak around yourself even tighter.
 
->A strange thought comes to your mind, but you quickly dismiss it. It really
+> no
+A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
 
->A strange thought comes to your mind, but you quickly dismiss it. It really
+> no
+A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
 
->A strange thought comes to your mind, but you quickly dismiss it. It really
+> no
+A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
 
->A strange thought comes to your mind, but you quickly dismiss it. It really
+> no
+A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
 
    An soft, eerie sound reaches your ears as the wind blows across the top of
 the chimney.
 
->You wait for something to happen.
+> z
+You wait for something to happen.
 
->You wait for something to happen.
+> z
+You wait for something to happen.
 
    The fire pops loudly, sending a few embers and ash whirling around the
 hearth.
@@ -1529,31 +1646,36 @@ All you can see are trees.
 
 Your vulpine hearing detects some sounds nearby.
 
->It is so hard to think, your mind wanders constantly, randomly...but you
+> think
+It is so hard to think, your mind wanders constantly, randomly...but you
 think you feel something...
 
 Your vulpine eyes detect movement nearby. Your vulpine senses detect an odour
 nearby.
 
->You can feel your feet.
+> feel
+You can feel your feet.
 
 Your vulpine hearing detects some sounds nearby. Your vulpine eyes detect
 movement nearby. Your vulpine senses detect an odour nearby.
 
->You can feel your feet, and beneath them you can feel the ground.
+> feel feet
+You can feel your feet, and beneath them you can feel the ground.
 
 Your vulpine senses detect an odour nearby. Your vulpine hearing detects some
 sounds nearby. Your vulpine eyes detect movement nearby. Your vulpine eyes
 detect movement nearby.
 
->The ground is covered in grass.
+> feel ground
+The ground is covered in grass.
 
 Your vulpine hearing detects some sounds nearby. Your vulpine eyes detect
 movement nearby. Your vulpine hearing detects some sounds nearby. Your
 vulpine hearing detects some sounds nearby. Your vulpine hearing detects some
 sounds nearby. Your vulpine senses detect an odour nearby.
 
->The grass is thick and soft, cool to the touch. In various places you can see
+> feel grass
+The grass is thick and soft, cool to the touch. In various places you can see
 clumps of small white flowers.
 
 Your vulpine eyes detect movement nearby. Your vulpine hearing detects
@@ -1562,7 +1684,8 @@ Your vulpine eyes detect movement nearby. Your vulpine hearing detects some
 sounds nearby. Your vulpine eyes detect movement nearby. Your vulpine senses
 detect an odour nearby.
 
->The flowers are giving off a gentle, sweet fragrance that mingles with the
+> smell
+The flowers are giving off a gentle, sweet fragrance that mingles with the
 crisp, alpine smell of the pines trees all around which you hear creaking in
 a strong wind.
 
@@ -1573,7 +1696,8 @@ detect movement nearby. Your vulpine hearing detects some sounds nearby. ...
 I can ... Your vulpine senses detect an odour nearby. Your vulpine eyes
 detect movement nearby.
 
->A wind is blowing through the forest making eerie howling sounds in the
+> listen
+A wind is blowing through the forest making eerie howling sounds in the
 trees. The branches of the trees are creaking as the wind pushes them, and
 you can hear leaves falling to the ground.
 
@@ -1592,7 +1716,8 @@ bunches of late blooming alpine flowers that are giving off a strong
 fragrance. Despite the undergrowth, you have freedom of movement in every
 direction, although the track itself leads north.
 
->
+> l
+
 Forest clearing
 The track you have been following through the forest widens here into a small
 clearing. You can see that some of the space has been created unnaturally -
@@ -1610,13 +1735,15 @@ south. And with it is the sound of a horn.
 
    You notice your scent has been left behind you.
 
->Your score is 24 out of a maximum of 101. Enter FULL SCORE to see a complete
+> score
+Your score is 24 out of a maximum of 101. Enter FULL SCORE to see a complete
 breakdown of the scoring items.
 
    Somewhere to the south, over the sound of the wind in the trees, you can
 hear dogs barking excitedly not far away.
 
->You trot north.
+> n
+You trot north.
 
 Forest
 Tall, primordial trees surround you on all sides, but you notice they have
@@ -1631,7 +1758,8 @@ that runs north/south, but you can move in any direction.
    Piercing through the sound of the wind, the howl of a hunting dog
 following a scent reaches your ears.
 
->You trot north.
+> n
+You trot north.
 
 Forest edge
 The forest comes to an end here, the last few trees petering out into open
@@ -1646,7 +1774,8 @@ direction.
    You hear the blast of a horn somewhere to the south, but closer now than
 it was.
 
->You position yourself in the centre of the creek. While not deep, you are
+> swim
+You position yourself in the centre of the creek. While not deep, you are
 only just able to keep your footing in the water. The water is icy; it feels
 like your body has been pierced with a thousand needles.
 
@@ -1662,7 +1791,8 @@ forbidding.
    The noise of a pack of dog barking with the excitement of a chase sounds
 loud in your ears, even above the sound of the wind.
 
->You move through the neck-deep water, moving with the flow towards the east.
+> e
+You move through the neck-deep water, moving with the flow towards the east.
 
 Forest edge (standing in the stream)
 You are standing in the narrow stream with icy water up to your neck. The
@@ -1676,7 +1806,8 @@ valley itself, you can move in any direction.
    Another howl cuts through the sound of the wind, followed almost
 immediately by a horn.
 
->You move through the neck-deep water, moving with the flow towards the east.
+> e
+You move through the neck-deep water, moving with the flow towards the east.
 
 Forest edge (standing in the stream)
 You are standing in the narrow stream with water up to your neck. The stream,
@@ -1696,7 +1827,8 @@ around trying to find your scent.
 
    The coldness of the water begins to sap your strength.
 
->You pass through the water of the stream and creep over the mass of loose
+> creep over stones
+You pass through the water of the stream and creep over the mass of loose
 shale, barely making a sound. As the wind strikes your soaking fur you find
 yourself shivering uncontrollably.
 
@@ -1709,11 +1841,14 @@ the east, and then narrows to the north, limiting any move further up the
 valley to just the northwest. The grasslands extend westwards, while to the
 south you can make out the line of trees marking the edge of the forest.
 
->You shake yourself vigorously, sending droplets of water in all directions.
+> shake
+You shake yourself vigorously, sending droplets of water in all directions.
 
->You wag your tail a few times.
+> wag tail
+You wag your tail a few times.
 
->You trot northwest, through the waving grass. A short time later you emerge
+> nw
+You trot northwest, through the waving grass. A short time later you emerge
 from it completely.
 
 Track
@@ -1727,10 +1862,12 @@ southern view entirely but stops quite unexpectedly a short distance away.
    You can hear a strong wind howling as it blows over the cliffs, but little
 of the wind can be felt below.
 
->Your score is 27 out of a maximum of 101. Enter FULL SCORE to see a complete
+> score
+Your score is 27 out of a maximum of 101. Enter FULL SCORE to see a complete
 breakdown of the scoring items.
 
->You trot north towards the rise, but stop suddenly when your vulpine senses
+> n
+You trot north towards the rise, but stop suddenly when your vulpine senses
 detect movement ahead. You creep forward and peer carefully over the rise.
    A short distance ahead you can see the village of Tallum. Closest to you
 is what looks like the village square, a large paved area that is probably
@@ -1801,7 +1938,8 @@ only a few light gusts reaching ground level.
 
    Your vulpine hearing detects some sounds -- movement to the west.
 
->You trot east.
+> e
+You trot east.
 
 Barns
 The eastern edge of the village is devoted solely to barns and grain storage.
@@ -1813,7 +1951,8 @@ currently shut.
    To the south you can see some animal stalls, and in the north you can see
 some fields. The village square lies to the west.
 
->You trot south.
+> s
+You trot south.
 
 Animal stalls
 Three large animal stalls have been constructed here, each one separated from
@@ -1826,10 +1965,12 @@ some time.
    Looking to the north you can see a large barn and silo, while the village
 square lies to the northwest.
 
->You attack the loop of rope with vigour, and in moments it lies at your feet
+> chew rope
+You attack the loop of rope with vigour, and in moments it lies at your feet
 in a shredded, tangled mess.
 
->You trot north.
+> n
+You trot north.
 
 Barns
 The eastern edge of the village is devoted solely to barns and grain storage.
@@ -1841,11 +1982,13 @@ currently shut.
    To the south you can see some animal stalls, and in the north you can see
 some fields. The village square lies to the west.
 
->The ground beneath the barn door is soft, and soon your paws are sending
+> dig under door
+The ground beneath the barn door is soft, and soon your paws are sending
 clods of earth flying behind you. In no time there is a serviceable tunnel
 under the barn door that is large enough to allow you through.
 
->You crawl through the tunnel under the door.
+> in
+You crawl through the tunnel under the door.
 
 Inside the barn
 A stack of hay bales dominates the interior of the barn, sitting just to the
@@ -1862,7 +2005,8 @@ rope that looks to be out of reach.
 
    Leaning up against the rear wall is a pick.
 
->You attack the disintegrating hay bale with vigour, ripping hay out with your
+> chew bale
+You attack the disintegrating hay bale with vigour, ripping hay out with your
 teeth and digging into it with your paws. You notice the sagging in the upper
 bales increasing, and just as they fall you jump out of the way to avoid
 being crushed. Two bales from near the top bounce across the floor, one
@@ -1872,26 +2016,31 @@ construction. The plank falls into the barn, and weak daylight filters
 through the opening. A third bale also falls, but it rolls to a stop not far
 from the stack.
 
->The hay bale that landed nearby provides you will the additional height you
+> pull rope
+The hay bale that landed nearby provides you will the additional height you
 need to allow you to jump up and grab the rope with your teeth. You hold on
 grimly as the weight of your body pulls the rope free and with a sudden bang
 the ladder drop down into place. You let go of the rope and land on the
 floor.
 
->Using your teeth, you drag the plank by one end and position it on the hay
+> pull plank to hay
+Using your teeth, you drag the plank by one end and position it on the hay
 bale at the rear of the barn so that one end is on the floor and the other is
 balanced on the bale, pointing towards the door.
 
->Grabbing the end of the pick with your teeth, you drag it to where the plank
+> pull pick to plank
+Grabbing the end of the pick with your teeth, you drag it to where the plank
 is currently sitting, balanced on the hay bale. You position the pick on the
 lower end of the plank, ready to be launched.
 
 [ Your score just went up by one. ]
 
->Your score is 28 out of a maximum of 101. Enter FULL SCORE to see a complete
+> score
+Your score is 28 out of a maximum of 101. Enter FULL SCORE to see a complete
 breakdown of the scoring items.
 
->You crawl through the tunnel under the door.
+> out
+You crawl through the tunnel under the door.
 
 Barns
 The eastern edge of the village is devoted solely to barns and grain storage.
@@ -1904,11 +2053,14 @@ undamaged barn, which looks large enough to allow entry to the barn.
    To the south you can see some animal stalls, and in the north you can see
 some fields. The village square lies to the west.
 
->You bark fiercely.
+> bark
+You bark fiercely.
 
->You bark fiercely.
+> bark
+You bark fiercely.
 
->You trot west.
+> w
+You trot west.
 
 Village square
 A broad area of stone pavement marks the centre of the village of Tallum. At
@@ -1925,15 +2077,18 @@ only a few light gusts reaching ground level.
 
    Your vulpine hearing detects some sounds -- movement to the west.
 
->You bark fiercely.
+> bark
+You bark fiercely.
 
    Your vulpine hearing detects some sounds -- movement to the west.
 
->You bark fiercely.
+> bark
+You bark fiercely.
 
    Your vulpine hearing detects some sounds -- movement to the west.
 
->You trot southeast.
+> se
+You trot southeast.
 
 Animal stalls
 Three large animal stalls have been constructed here, each one separated from
@@ -1948,7 +2103,8 @@ square lies to the northwest.
 
    A tangled mess of shredded rope lies on the ground near the gate.
 
->You place both paws on the top of the gate and give it a push. It swings open
+> open gate
+You place both paws on the top of the gate and give it a push. It swings open
 easily and then bangs into the wall, startling both yourself and the pigs
 within.
    There is a moment of sudden quietness. The pigs are all looking at you
@@ -1962,7 +2118,8 @@ joy from your heart.
    "Arrrgh! There is someone here! Find them!"
    That could only be the Ralyon guards. And they now know you're here.
 
->You trot north.
+> n
+You trot north.
 
 Barns
 The eastern edge of the village is devoted solely to barns and grain storage.
@@ -1975,7 +2132,8 @@ undamaged barn, which looks large enough to allow entry to the barn.
    To the south you can see some animal stalls, and in the north you can see
 some fields. The village square lies to the west.
 
->You crawl through the tunnel under the door.
+> in
+You crawl through the tunnel under the door.
 
 Inside the barn
 A stack of hay bales dominates the interior of the barn, sitting just to the
@@ -1995,7 +2153,8 @@ the rope that previously secured it hanging down beside the ladder.
    A wooden plank has been positioned on the hay bale underneath the loft,
 and a pick has been placed on one end of it.
 
->You clamber awkwardly up the ladder.
+> up
+You clamber awkwardly up the ladder.
 
 Loft
 The wide, wooden floor of the loft surrounds you, covered in dust and wheat
@@ -2007,15 +2166,18 @@ door and the window above it, and the stack of hay bales beside the door.
 
    Lying on its side nearby is an empty barrel.
 
->You wait for something to happen.
+> z
+You wait for something to happen.
 
->You bark fiercely.
+> bark
+You bark fiercely.
 
    From outside the barn you hear a cry, a guttural bellow that sounds like
 the precursor to an attack. A second later the door to the barn bursts open
 and the hulking form of a Ralyon warrior rushes in.
 
->You give the barrel a firm push with your paws and it trundles towards the
+> push barrel
+You give the barrel a firm push with your paws and it trundles towards the
 trapdoor before falling through it. You hear it strike the plank, and fire
 the pick through the air towards the door.
    From your position in the loft you see the warrior give a started look
@@ -2025,16 +2187,19 @@ and then falls still.
 
 [ Your score just went up by five. ]
 
->Your score is 33 out of a maximum of 101. Enter FULL SCORE to see a complete
+> score
+Your score is 33 out of a maximum of 101. Enter FULL SCORE to see a complete
 breakdown of the scoring items.
 
    Your vulpine hearing detects some sounds -- movement outside the barn.
 
->You wait for something to happen.
+> z
+You wait for something to happen.
 
    Your vulpine hearing detects some sounds -- movement outside the barn.
 
->You clamber awkwardly down the ladder.
+> d
+You clamber awkwardly down the ladder.
 
 Inside the barn
 A stack of hay bales dominates the interior of the barn, sitting just to the
@@ -2056,7 +2221,8 @@ the rope that previously secured it hanging down beside the ladder.
    The body of one of the Ralyon warriors lies on the floor just inside the
 barn door, a pick protruding from his head.
 
->You trot out.
+> out
+You trot out.
 
 Barns
 The eastern edge of the village is devoted solely to barns and grain storage.
@@ -2069,7 +2235,8 @@ door would be if it were closed.
    To the south you can see some animal stalls, and in the north you can see
 some fields. The village square lies to the west.
 
->You trot north.
+> n
+You trot north.
 
 Fields
 The northeastern side of the valley stretches out here and accommodates
@@ -2081,7 +2248,8 @@ disappearing somewhere beyond.
    To the south you can see a barn and silo, a tall building which looks like
 a mill lies to the west, while the village square lies to the southwest.
 
->You trot west.
+> w
+You trot west.
 
 Mill
 Made from oak and painted a dark brown colour, the mill is more of a
@@ -2097,13 +2265,15 @@ unclimbable.
 
    Your vulpine hearing detects some sounds -- movement to the southwest.
 
->You grab one of the handles with your teeth and pull back with all your
+> push wheelbarrow
+You grab one of the handles with your teeth and pull back with all your
 might. The barrow resists your efforts at first, but slowly it begins to
 swing around until at last it is clear of the mill door.
 
    Your vulpine hearing detects some sounds -- movement to the southwest.
 
->You trot southwest.
+> sw
+You trot southwest.
 
 Village Inn
 Before you stands the inn of the village Tallum, a large structure with
@@ -2121,7 +2291,8 @@ sharp incline.
 
    Your vulpine hearing detects some sounds -- movement to the south.
 
->You bark fiercely.
+> bark
+You bark fiercely.
 
    The horse reacts instantly to the noise, rearing away and screaming in
 equine terror. The rope tethering him to the stable breaks and now free, the
@@ -2135,7 +2306,8 @@ And after a moment or two you hear a crashing sound in that direction.
 
    Your vulpine hearing detects some sounds -- movement to the south.
 
->You trot northeast.
+> ne
+You trot northeast.
 
 Mill
 Made from oak and painted a dark brown colour, the mill is more of a
@@ -2152,7 +2324,8 @@ unclimbable.
 
    Your vulpine hearing detects some sounds -- movement to the south.
 
->The stream is not particularly wide, but it is quite deep and moving quickly.
+> x stream
+The stream is not particularly wide, but it is quite deep and moving quickly.
 On first glance the stream appears to flow in from the west, through the
 mill, and head east towards the fields. But on closer inspection, however,
 you see that the stream actually flows around the rear of the mill, and a
@@ -2161,10 +2334,12 @@ this channel by means of a small gate.
 
    Your vulpine hearing detects some sounds -- movement to the south.
 
->You place your paws on top of the gate and swing it into the open position.
+> open gate
+You place your paws on top of the gate and swing it into the open position.
 Immediately water flows through the channel and into the mill.
 
->You trot in.
+> in
+You trot in.
 
 Inside the mill
 The interior of the mill is quite dim, but your vulpine eyesight allows you
@@ -2175,30 +2350,35 @@ of gears connect the paddle wheel to an equally huge mill stone, and a short
 lever appears to control the machine. Overhead you can see a large, metal
 tray, suspended from the ceiling by a rope.
 
->You grab the lever with your teeth and pull back. It takes some effort, but
+> pull lever
+You grab the lever with your teeth and pull back. It takes some effort, but
 you are rewarded to feel it click into position. A moment or two later, the
 paddle wheel begins to turn slowly as the flowing water pushes it around.
 
->You run forward and jump onto one of the blades as it exits the water,
+> climb wheel
+You run forward and jump onto one of the blades as it exits the water,
 letting your forelegs hang over the edge to keep you in place.
 
 Inside the mill (riding the paddle wheel)
 You are positioned precariously on one of the blades on the paddle wheel and
 being lifted up slowly.
 
->You ready yourself to jump from the paddle wheel and onto the metal tray, but
+> jump on tray
+You ready yourself to jump from the paddle wheel and onto the metal tray, but
 you feel it is just out of reach. You decide to wait for a moment longer.
 
    As the paddle wheel turns, you move yourself into a better, more
 comfortable position.
 
->You ready yourself to jump from the paddle wheel and onto the metal tray, but
+> jump on tray
+You ready yourself to jump from the paddle wheel and onto the metal tray, but
 you feel it is just out of reach. You decide to wait for a moment longer.
 
    The paddle wheel turns and takes you higher. It is getting close to the
 top now.
 
->You move carefully into position, take a deep breath, before launching
+> jump on tray
+You move carefully into position, take a deep breath, before launching
 yourself through the air. There is a moment where you think you might have
 missed the platform entirely. But you land solidly in the centre, which
 starts it swinging slightly, but it slowly returns to stillness.
@@ -2211,13 +2391,15 @@ channel.
 
    Your vulpine hearing detects some sounds -- movement outside the mill.
 
->You bark fiercely.
+> bark
+You bark fiercely.
 
    From outside the mill you hear a cry, a guttural bellow that sounds like
 the precursor to an attack. A second later the hulking form of a Ralyon
 warrior rushes through the open door and into the mill.
 
->You bite into the rope, your teeth quickly cutting through the coarse braid.
+> chew rope
+You bite into the rope, your teeth quickly cutting through the coarse braid.
 Then the rope snaps and you feel yourself falling as the tray drops away
 beneath you, a yelp of alarm escaping your throat. There is a sickening
 crunch as the tray hits the floor, and you bounce off it, rolling into the
@@ -2227,7 +2409,8 @@ warrior, smashing him to the ground and crushing his head.
 
 [ Your score just went up by five. ]
 
->You trot out.
+> out
+You trot out.
 
 Mill
 Made from oak and painted a dark brown colour, the mill is more of a
@@ -2243,7 +2426,8 @@ while to the south you can see the village square. To the southwest, up a
 short incline, is the village inn, but to the west the hill becomes
 unclimbable.
 
->You trot southwest.
+> sw
+You trot southwest.
 
 Village Inn
 Before you stands the inn of the village Tallum, a large structure with
@@ -2259,7 +2443,8 @@ of the town, while a mill can also be seen to the northeast. A well-worn path
 leads east to the village square, but a less travelled path heads north up a
 sharp incline.
 
->You trot north.
+> n
+You trot north.
 
 Stone bridge
 A narrow but deep stream, that flows in from the west and departs to the east
@@ -2271,7 +2456,8 @@ protection of the cliffs to the east and west which are again closing. Apart
 from the northern direction presented by the bridge, to the south you can see
 the village inn.
 
->You trot north across the stone bridge.
+> n
+You trot north across the stone bridge.
 
 Mountain trail
 The ground here drops away to the north quite suddenly, leaving you standing
@@ -2283,7 +2469,8 @@ trail, if something so vague and indistinct can be called that, veers
 westward here, following a ridge as it rises upwards. To the south the trail
 heads back to a small stone bridge
 
->You trot west.
+> w
+You trot west.
 
 Pool
 A natural hollow off to one side of the ridge has become, over time, a
@@ -2296,13 +2483,15 @@ down.
    On the other side of the pool a vixen is standing, staring at you
 intently.
 
->You try to move but you seem unable at the moment.
+> w
+You try to move but you seem unable at the moment.
 
    I want to move, to tear my eyes away from her, but it is so hard. My eyes
 are drawn to her beauty, her presence. I am torn with longing and confusion.
 I try to think about Tevona, but my thoughts are scattered.
 
->You try to move again but you legs are refusing to obey you.
+> w
+You try to move again but you legs are refusing to obey you.
 
    Again I try to leave, to escape the tidal wave of emotions that threaten
 to overwhelm me completely. I try to focus my attention more on Tevona, to
@@ -2310,7 +2499,8 @@ remember her beauty, to recall the times we spent together, watching her comb
 her hair, riding our horses together, but my thoughts flee like minnows
 before a shark, and all I see is the wonder of this animal before me.
 
->
+> w
+
    With the greatest effort I pull my eyes away and depart. And with my
 departure comes another wave of emotion, a sadness so deep I wonder if any of
 it comes from me at all.
@@ -2330,18 +2520,22 @@ direction for movement is back along the trail eastwards.
 
    Your vulpine senses detect danger nearby.
 
->The boulders are huge, like a giant's marbles, and are piled up in groups
+> x rocks
+The boulders are huge, like a giant's marbles, and are piled up in groups
 near the entrance to the ravine.
 
->The gorse bushes are not very big, but their branches are quite dense. There
+> x bushes
+The gorse bushes are not very big, but their branches are quite dense. There
 are a number of bushes scattered around the plateau.
 
    You feel a tingling sensation as you stand and survey the area.
 
->The sound of the wind fills your ears, but you also hear a faint noise, like
+> listen
+The sound of the wind fills your ears, but you also hear a faint noise, like
 some ethereal music, coming from the gorse bushes.
 
->The gorse bushes are not very big, but their branches are quite dense. There
+> search bushes
+The gorse bushes are not very big, but their branches are quite dense. There
 are a number of bushes scattered around the plateau.
    However, on further examination, you notice that there appears to be
 something hidden within several of the bushes, something that looks like
@@ -2352,9 +2546,11 @@ somewhere.
 
 [ Your score just went up by one. ]
 
->There is a faint rotting smell coming from the ground.
+> smell
+There is a faint rotting smell coming from the ground.
 
->The ground is flat and mostly made from rock, but on further investigation
+> x ground
+The ground is flat and mostly made from rock, but on further investigation
 you begin to see a vague outline traced in the ground. The outline covers a
 wide, square area that you would have probably crossed if you travelled
 further north. You should now be able to avoid it.
@@ -2363,7 +2559,8 @@ still danger lurking nearby.
 
 [ Your score just went up by one. ]
 
->The boulders are huge, like a giant's marbles, and are piled up in groups
+> search rocks
+The boulders are huge, like a giant's marbles, and are piled up in groups
 near the entrance to the ravine.
    Since experiencing that odd tingling sensation, you focus a little more on
 the boulders. At first you don't notice anything, but then it strikes you -
@@ -2373,7 +2570,8 @@ boulders are set to fall, you can easily avoid them.
 
 [ Your score just went up by one. ]
 
->You trot north, stepping around the edge of the mysterious outline on the
+> n
+You trot north, stepping around the edge of the mysterious outline on the
 ground, and moving carefully past each of the bushes where blow darts are
 stationed, watching them fire their darts uselessly into the air. You also
 give the magically balanced boulders a wide birth, and they each fall to the
@@ -2405,7 +2603,8 @@ a fox."
 more than what you seem. I will give you one chance. Prove to me that you are
 more than just a fox, and I will spare your life."
 
->You lie down on the ground.
+> lie down
+You lie down on the ground.
    "Aha!" the warrior shouts, finally sheathing her sword. "You show trust
 and courage, revealing something of your true nature. That in itself is a
 mystery I am keen to unravel."
@@ -2480,7 +2679,8 @@ voice, you could probably ask them."
 [ Use "TOPICS" at any time to view a list of subjects that Master Limos might
 be willing to discuss. ]
 
->"Is there anything you can do about the curse?" you ask.
+> ask limos about curse
+"Is there anything you can do about the curse?" you ask.
    "Well, unfortunately not," Limos says. "That's the nature of a curse. If
 the curse was given with an escape clause, then it's in your power to remove
 it. But if not, then only the wizard who instituted the curse can lift it."
@@ -2488,7 +2688,8 @@ it. But if not, then only the wizard who instituted the curse can lift it."
    Limos nods. "Then Rixomas is the only one who can restore you. I can only
 help you in small ways."
 
->"Tell me, what do you know of Rixomas?"
+> ask limos about rixomas
+"Tell me, what do you know of Rixomas?"
    "He is a powerful wizard," Limos responds.
    "I know," you reply dryly.
    "I actually studied with Rixomas for a number of years," Limos says.
@@ -2518,7 +2719,8 @@ all."
 finish the thought.
    "I know," Limos replies.
 
->"I've always admired what the king has achieved," you say. "He's been through
+> ask limos about rithusar
+"I've always admired what the king has achieved," you say. "He's been through
 a lot."
    "He's a troubled man," Limos replies. "Very troubled."
    "Losing his only son will do that to you."
@@ -2529,7 +2731,8 @@ that. I think the burden of the crown has been weighing on him more lately."
 that doesn't mean I don't keep tabs on the state of the world. I am a wizard,
 remember."
 
->"Why do you live so remotely?" you ask.
+> ask limos about himself
+"Why do you live so remotely?" you ask.
    "I like being reclusive," Limos says. "It gives me time to think."
    "Isn't it lonely, though?"
    "A little. I can always relocate myself to somewhere more bustling if I
@@ -2540,7 +2743,8 @@ interferes too much in the flow of history. Some things were meant to happen.
 Trying to change them or prevent them only leads to greater calamity. My
 feeling is that we should let things take their natural course."
 
->"I never met Rithusar's father," you say.
+> ask limos about rithusar's father
+"I never met Rithusar's father," you say.
    "I only met him once," Limos responds. "He came to ask me if I'd be
 willing to come to court."
    "You were asked to be the court wizard?" you respond, surprised.
@@ -2550,7 +2754,8 @@ ready for that level of commitment."
    Limos sighs. "Not really. Oh, he made an eloquent speech about nobly
 serving the people of Rylane, but he never mentioned specifics."
 
->"Did you know Prince Alsanter at all?" you ask.
+> ask limos about prince alsanter
+"Did you know Prince Alsanter at all?" you ask.
    "Not really. His murder was a tragedy, though," Limos says, "but I don't
 think all the story has been told yet."
    "I didn't kill him," you put in.
@@ -2574,7 +2779,8 @@ opportunity..."
 possibilities. And maybe one of the possibilities to consider is our
 black-robed friend, Vetan."
 
->"So who is this other wizard? Vetan, I think you said?" you ask.
+> ask limos about vetan
+"So who is this other wizard? Vetan, I think you said?" you ask.
    "Ah, the mysterious young wizard who's trying to rid the world of me,"
 Limos laughs.
    "I've seen him a couple of times since becoming cursed. Why does he want
@@ -2613,7 +2819,8 @@ destabilise the throne of Rylane by removing all the heirs, then both
 Rithusar and Tevona are in danger, too."
    Limos nods. "That could well be."
 
->"Do you know much of Lord Sulanar?" you ask.
+> ask limos about lord sulanar
+"Do you know much of Lord Sulanar?" you ask.
    "I've never really liked him," Limos admits. "But that's largely because
 he doesn't like me."
    "I don't like him either. But Lord Sulanar doesn't like anyone who might
@@ -2621,7 +2828,8 @@ get in his way to power."
    "That may be. But in my case, I think he has a chip on his shoulder about
 wizards in general."
 
->"I'm worried now," you say. "If what you say is true, it may be Tevona's life
+> ask limos about princess tevona
+"I'm worried now," you say. "If what you say is true, it may be Tevona's life
 is in danger."
    "Yes," Limos agrees. "And I think it's clear that you need to return to
 the castle at Ryla to resolve all of this."
@@ -2639,32 +2847,37 @@ off the shelves. He mixes the contents on a silver plate and then places it
 at your feet. He then sits down again.
    "Drink this," he says.
 
->"I can't believe the Ralyon warriors have returned," you say, shaking your
+> ask limos about ralyon warriors
+"I can't believe the Ralyon warriors have returned," you say, shaking your
 head. "How long have you been dealing with them?"
    "Vetan has been sending them up the mountain for the last week trying to
 reach me," Master Limos says.
    "Have any of them gotten past your traps?" you ask.
    The wizard smiles grimly. "Not one."
 
->"What is it?" you ask, looking at it dubiously.
+> ask limos about potion
+"What is it?" you ask, looking at it dubiously.
    "It won't hurt, if that's what you're worried about," Limos explains.
    "But what is it, exactly?" you persist.
    "It's a potion that's going to give you a new skill."
    "You don't want to be more specific, do you?"
    Limos grins at you. "Think of it as a surprise."
 
->You drink the liquid, lapping it up quickly. It tastes very spicy and bitter.
+> drink potion
+You drink the liquid, lapping it up quickly. It tastes very spicy and bitter.
 You're not sure, but you think you feel a little different.
    "Now," Master Limos continues, "what I've done is given you a new skill.
 You should be able to turn yourself invisible. All you should need to do is
 think 'invisible' to make yourself vanish, and think 'visible' to make
 yourself appear again. Give it a try."
 
->You think about invisibility, and immediately you disappear. You turn your
+> think invisible
+You think about invisibility, and immediately you disappear. You turn your
 head to look back at your body, but don't see anything.
    "Excellent!" Master Limos says. "And now make yourself visible again."
 
->You concentrate on being visible and instantly your body reappears. You look
+> think visible
+You concentrate on being visible and instantly your body reappears. You look
 back at yourself for confirmation.
    "Very good," Master Limos says. "Now, there is one limitation. You
 probably won't be able to stay invisible for too long. Probably only a couple
@@ -2732,23 +2945,27 @@ to the area. Overhead, the roof is disintegrating; large stretches of night
 sky can be seen through it. There is an exit to the north which leads back to
 the street.
 
->Rubbish is scattered almost the entire length and breadth of the warehouse
+> search garbage
+Rubbish is scattered almost the entire length and breadth of the warehouse
 floor. Due to the overhead ventilation, most of what you can see is rotting
 away slowly, and the smell is atrocious. There is nothing useful in any of
 it.
    What does strike your attention is a small section of the floor where the
 debris has been cleared away.
 
->The ground is made of stone and covered with rotting detritus. One part of
+> x floor
+The ground is made of stone and covered with rotting detritus. One part of
 the floor, however, appears to be free of debris.
 
->You struggle to lift the metal plate, but finally manage to pull it away,
+> open trapdoor
+You struggle to lift the metal plate, but finally manage to pull it away,
 whereupon it slams into the ground with a resounding metallic clang. You make
 a mental note to be quieter in your future explorations.
    The metal plate was hiding a dark passage that leads down by means of a
 rusty ladder, and an evil smell wafts up to greet you.
 
->You gingerly grasp the rungs of the ladder and climb down into the vile
+> down
+You gingerly grasp the rungs of the ladder and climb down into the vile
 stench.
 
 Sewer
@@ -2758,7 +2975,8 @@ stream of brown-coloured water flows towards the east, while in the west you
 can hear a faint splashing sound. The rungs of a rusty ladder are visible
 here, leading up to a dark hole above you.
 
->You move east.
+> e
+You move east.
    Your hand twitches momentarily.
 
 Sewer
@@ -2770,9 +2988,11 @@ here.
 
    Near the blood-spattered walls lies a similarly blood-spattered saw.
 
->You drop the torch and the sword.
+> drop all
+You drop the torch and the sword.
 
->The southern wall of the pipe does look vaguely different, like there is a
+> s
+The southern wall of the pipe does look vaguely different, like there is a
 thin veil of dust in front of it. You step forward into the veil. There is a
 moment of bright, green light, followed by a brief feeling of disorientation,
 and you find yourself in...
@@ -2790,24 +3010,29 @@ and most of the eastern wall is taken up with an enormous picture window.
    You notice that an area beside the window is shimmering slightly.
 [ Your score just went up by one. ]
 
->If you had to guess, you would say the desk was made from mahogany. It is
+> x desk
+If you had to guess, you would say the desk was made from mahogany. It is
 pushed up against the wall next to the cabinet.
    Spread across the surface of the table are a vast assortment of papers.
 
->Most of what the papers say means nothing to you. There are mentions of
+> read papers
+Most of what the papers say means nothing to you. There are mentions of
 different weights and volumes, some complex formula whose parameters appear
 to be random squiggles, and there are also sections talking about potency.
 Only one word stands out in all the documents and makes any sense at all -
 'Ralyon'.
 
->You take the assorted papers from the desk.
+> take papers
+You take the assorted papers from the desk.
 As you move the papers around, you find a wax seal hidden underneath them.
 
 [ Your score just went up by one. ]
 
->You take the wax seal from the desk.
+> take seal
+You take the wax seal from the desk.
 
->The window provides a magnificent view over the city. Because night has
+> x window
+The window provides a magnificent view over the city. Because night has
 fallen, at first you assume that it would be too hard to pin-point exactly
 where you are just by observation. But then you notice the curve of the bay
 to the east, which reveals the place where you are has some elevation, and
@@ -2817,7 +3042,8 @@ the building you are in.
 
 [ Your score just went up by one. ]
 
->You move to step back through the strange veil of light, but are pushed back
+> e
+You move to step back through the strange veil of light, but are pushed back
 by a powerful force.
 
    Even as you try to comprehend the magical force preventing you from
@@ -2895,7 +3121,8 @@ of the garden are marked by the high, stone ramparts of the castle wall that
 you can see to the east and south, silhouetted against the black curtain of
 the night sky.
 
->You trot west.
+> w
+You trot west.
 
 Western end of the castle gardens
 The neat rows of vegetables and herbs end here against the solid, imposing
@@ -2906,23 +3133,27 @@ Your only option for movement is back to the east.
    Piled against the base of the castle wall is a large mound of what could
 only be described as rubbish.
 
->It's mostly made up of kitchen waste, dumped here possibly with the idea of
+> x rubbish
+It's mostly made up of kitchen waste, dumped here possibly with the idea of
 turning it into compost. That idea hasn't been developed very far, you think,
 given the general neglect the pile has been subjected to. It is shabby and
 sprawling, giving off a powerful aroma which is mostly unpleasant.
    The only thing that catches your eye is the corner of some sort of
 material that is protruding from the mound of rubbish.
 
->There's not much to see at present. It's only about two inches in size, so
+> x material
+There's not much to see at present. It's only about two inches in size, so
 it's hard to determine what it might be. You gauge that you could probably
 dig it out.
 
->You dig around in the pile of rubbish, and fully uncover the material which
+> dig material
+You dig around in the pile of rubbish, and fully uncover the material which
 you can now see is an old sack.
 
 [ Your score just went up by one. ]
 
->You grip the sack with your teeth and drag it to the east.
+> drag sack east
+You grip the sack with your teeth and drag it to the east.
 
 Eastern end of the castle gardens
 The darkness of night does not hide your location from your vulpine eyesight.
@@ -2937,7 +3168,8 @@ the night sky.
 
    An old, rather shabby-looking sack is lying on the ground here.
 
->You grip the sack with your teeth and drag it to the east, into the shed.
+> drag sack east
+You grip the sack with your teeth and drag it to the east, into the shed.
 
 Garden shed
 The darkness is deeper here in the confines of the shed, but still you have
@@ -2950,13 +3182,16 @@ is too high to see on top of.
    An old, rather shabby-looking sack is lying on the ground here.
    Leaning up against the bench nearby is a long-handled spade.
 
->Using your paws you push at the spade and it slides down the bench, coming to
+> push spade
+Using your paws you push at the spade and it slides down the bench, coming to
 rest lying on the floor.
 
->Using your paws you push at the spade, moving it from its current position
+> push spade onto sack
+Using your paws you push at the spade, moving it from its current position
 until it is positioned on top of the sack.
 
->You grip the sack with your teeth and drag it to the west, out of the shed.
+> drag sack w
+You grip the sack with your teeth and drag it to the west, out of the shed.
 
 Eastern end of the castle gardens
 The darkness of night does not hide your location from your vulpine eyesight.
@@ -2972,21 +3207,24 @@ the night sky.
    An old, rather shabby-looking sack is lying on the ground here. Lying on
 top of the sack is a long-handled spade.
 
->Grabbing the end of the spade in your jaws, you wedge the blade into the
+> pry door with spade
+Grabbing the end of the spade in your jaws, you wedge the blade into the
 small gap between the door and the jam. Then you push against the handle with
 your paws. You have to exert a surprising amount of force before the door
 finally opens with a sudden, jarring lurch.
 
 [ Your score just went up by one. ]
 
->You slip through the open door and into the castle.
+> n
+You slip through the open door and into the castle.
 
 Small vestibule
 This is little more than a convenience for the kitchen helpers who need to
 access the garden. Just a few feet square, the only exit, apart from the
 small door to the south, is into the kitchens to the west.
 
->You trot west.
+> w
+You trot west.
 
 Kitchen
 The kitchen is a mammoth room, luridly lit by the red, glowing embers of a
@@ -3007,7 +3245,8 @@ the spice rack.
    A large, hairy dog lies on the floor just inside the western door,
 sleeping.
 
->You push against the broom with your paws and send it skating across the wall
+> push broom
+You push against the broom with your paws and send it skating across the wall
 on a short journey to the ground. On the way down it rakes across the spice
 rack, sending all the jars tumbling to the ground where they smash in a
 spectacular display of coloured spices and shattered glass.
@@ -3015,16 +3254,19 @@ spectacular display of coloured spices and shattered glass.
 eddy, but slowly everything settles to stillness.
    The dog stirs briefly at the noise, but does not wake up.
 
->You position yourself on one side of the pile of spices, and blow on the
+> blow spices into fireplace
+You position yourself on one side of the pile of spices, and blow on the
 mound, sending a billow of particles towards the glowing remains of the fire.
 You continue to blow even as you see spice ignite on the live coals and burn.
 A powerful smell begins to spread out from the hearth, almost overwhelming
 your senses and causing your eyes to water. Soon the whole room is filled
 with the rich, acrid smell.
 
->You think about invisibility, and immediately you disappear.
+> invisible
+You think about invisibility, and immediately you disappear.
 
->You gingerly step past the dog, your invisible feet silent on the stone
+> w
+You gingerly step past the dog, your invisible feet silent on the stone
 floor, and your scent masked by the burnt spices. You slip through the door
 unnoticed.
 
@@ -3038,11 +3280,13 @@ Rylane.
 towards the throne room but the door is closed. The other door in the eastern
 wall leads to the kitchen, and is currently standing open.
 
->You can't go in that direction, but you can move east and up.
+> w
+You can't go in that direction, but you can move east and up.
 
    Your vulpine hearing detects some sounds -- movement to the east.
 
->You trot up the marble stairway.
+> u
+You trot up the marble stairway.
 
 Landing
 The broad sweep of the marble stairway ends here at a surprisingly sparsely
@@ -3055,7 +3299,8 @@ than the stairs that lead back down.
 
    Your vulpine hearing detects some sounds -- movement to the north.
 
->You trot south.
+> s
+You trot south.
 
 Corridor outside Rixomas' rooms
 A long dark corridor stretches away to the west, with occasion pools of light
@@ -3065,7 +3310,8 @@ archway marks the exit to the north.
    There is a door in the southern wall which you know to be the entrance to
 the wizard Rixomas' rooms. It is currently is closed.
 
->You trot west.
+> w
+You trot west.
 
 Corridor outside Lord Adath's rooms
 A long dark corridor stretches away to the east and west, with occasion pools
@@ -3074,7 +3320,8 @@ polished stone, running the entire length of the corridor, is a plush carpet.
 There is just sufficient light to see the door to Lord Adath's rooms in the
 southern wall, which is currently closed.
 
->You trot west.
+> w
+You trot west.
 
 Corridor outside Lord Sulanar's rooms
 A long dark corridor stretches away to the east and west, with occasion pools
@@ -3084,7 +3331,8 @@ There is just sufficient light to see the door to Lord Sulanar's rooms in the
 southern wall, while a banner in the colours of the region of Alallsia hangs
 on the opposite wall.
 
->You trot west.
+> w
+You trot west.
 
 Corridor outside Lady Hallyn's rooms
 A long dark corridor stretches away to the east and west, with occasion pools
@@ -3094,7 +3342,8 @@ There is just sufficient light to see the door to Lady Hallyn's rooms in the
 southern wall, while a banner in the colours of the region of Pethilia hangs
 on the opposite wall.
 
->You trot west.
+> w
+You trot west.
 
 Corridor outside Lord Gaxin's rooms
 A long dark corridor stretches away to the east and west, with occasion pools
@@ -3104,7 +3353,8 @@ There is just sufficient light to see the door to Lord Gaxin's rooms in the
 southern wall, which is closed, while a banner in the colours of the region
 of Sylaph hangs on the opposite wall.
 
->You trot west.
+> w
+You trot west.
 
 Corridor outside Lord Vonisor's rooms
 A long dark corridor stretches away to the east and west, with occasion pools
@@ -3116,7 +3366,8 @@ the opposite wall.
 
    Your vulpine hearing detects some sounds -- movement to the south.
 
->You push against the door with your paws and it swings open suddenly, banging
+> open door
+You push against the door with your paws and it swings open suddenly, banging
 into the wall with a resounding thud. Light from within the room floods out
 into the corridor, before it is blocked somewhat by the sudden appearance of
 Lord Vonisor in the doorway. On seeing you he leaps back and draws his sword.
@@ -3146,7 +3397,8 @@ door behind him.
 enter that you can't do for yourself will be automatically directed to Lord
 Vonisor. ]
 
->You trot east.
+> e
+You trot east.
 
 Corridor outside Lord Gaxin's rooms
 A long dark corridor stretches away to the east and west, with occasion pools
@@ -3158,7 +3410,8 @@ of Sylaph hangs on the opposite wall.
 
    Lord Vonisor enters from the west.
 
->You trot east.
+> e
+You trot east.
 
 Corridor outside Lady Hallyn's rooms
 A long dark corridor stretches away to the east and west, with occasion pools
@@ -3170,7 +3423,8 @@ on the opposite wall.
 
    Lord Vonisor enters from the west.
 
->You trot east.
+> e
+You trot east.
 
 Corridor outside Lord Sulanar's rooms
 A long dark corridor stretches away to the east and west, with occasion pools
@@ -3182,7 +3436,8 @@ on the opposite wall.
 
    Lord Vonisor enters from the west.
 
->You trot east.
+> e
+You trot east.
 
 Corridor outside Lord Adath's rooms
 A long dark corridor stretches away to the east and west, with occasion pools
@@ -3193,7 +3448,8 @@ southern wall, which is currently closed.
 
    Lord Vonisor enters from the west.
 
->You trot east.
+> e
+You trot east.
 
 Corridor outside Rixomas' rooms
 A long dark corridor stretches away to the west, with occasion pools of light
@@ -3205,7 +3461,8 @@ the wizard Rixomas' rooms. It is currently is closed.
 
    Lord Vonisor enters from the west.
 
->You trot north.
+> n
+You trot north.
 
 Landing
 The broad sweep of the marble stairway ends here at a surprisingly sparsely
@@ -3218,7 +3475,8 @@ than the stairs that lead back down.
 
    Your vulpine hearing detects some sounds -- movement to the north.
 
->You move forward as if to enter the northern archway, but Lord Vonisor stops
+> n
+You move forward as if to enter the northern archway, but Lord Vonisor stops
 you.
    "It might not be a great idea to expose yourself to the guards at this
 point," he says. "Let me deal with this."
@@ -3247,11 +3505,13 @@ the crown prince of Rylane.
 
    Lord Vonisor enters from the south.
 
->"Lord Vonisor," you begin, "would you open this door?"
+> open door
+"Lord Vonisor," you begin, "would you open this door?"
    "Absolutely," Lord Vonisor says, before stepping forward and opening the
 door.
 
->As you move to enter the door, Lord Vonisor steps forward and says, "It looks
+> n
+As you move to enter the door, Lord Vonisor steps forward and says, "It looks
 dark in there. I'd better go first with the candle." He moves into the room
 ahead of you.
 
@@ -3270,7 +3530,8 @@ open to the south.
    Lord Vonisor stands close by, his hand on the hilt of his sword, ready for
 action.
 
->You can smell a faint, but very distinct odour here, past the mustiness that
+> smell
+You can smell a faint, but very distinct odour here, past the mustiness that
 comes from two months of collected dust. It's a floral smell, like roses but
 with a sickly tinge to it. The source of the odour appears to be the cup on
 the table.
@@ -3282,13 +3543,16 @@ then disappears altogether.
 
    Lord Vonisor rubs the back of his head impatiently.
 
->The cup is made from gold and bears a royal seal that is imprinted in the
+> x cup
+The cup is made from gold and bears a royal seal that is imprinted in the
 side. It is empty.
 
->It is very dark and hard to see clearly in this light, but you know it is
+> x stain
+It is very dark and hard to see clearly in this light, but you know it is
 almost certainly dried blood.
 
->You trot out.
+> out
+You trot out.
 
 Corridor outside Prince Alsanter's rooms
 A long dark corridor stretches away to the west, with occasion pools of light
@@ -3301,7 +3565,8 @@ the crown prince of Rylane.
 
    Lord Vonisor enters from the north.
 
->You trot west.
+> w
+You trot west.
 
 Corridor
 A long dark corridor stretches away to the east and west, with occasion pools
@@ -3313,7 +3578,8 @@ No features of any sort mark the corridor walls here.
 
    Lord Vonisor crosses his arms and sighs deeply as he looks at you.
 
->You trot west.
+> w
+You trot west.
 
 Corridor outside Princess Tevona's rooms
 A long dark corridor stretches away to the east and west, with occasion pools
@@ -3325,7 +3591,8 @@ emblem of the crown princess of Rylane.
 
    Lord Vonisor enters from the east.
 
->"Lord Vonisor," you begin, "would you open this door?"
+> open door
+"Lord Vonisor," you begin, "would you open this door?"
    "Err," Lord Vonisor looks suddenly nervous. "Look, I think should keep the
 Princess out of this --"
    "She's not there," you break in. "I can't hear anyone inside right now."
@@ -3334,7 +3601,8 @@ to the door and knocks on it gently. When there is no answer he opens it very
 carefully and peers inside.
    "You're right," he says. "No one there. Be my guest."
 
->You trot in.
+> in
+You trot in.
 
 Princess Tevona's rooms
 A fire burns low in the hearth in the western wall, sending shadows leaping
@@ -3348,13 +3616,15 @@ a passage to the west.
 
    Lord Vonisor enters from the south.
 
->You can smell a couple of distinct odours here. There is a floral-like smell,
+> smell
+You can smell a couple of distinct odours here. There is a floral-like smell,
 almost like the smell of a rose in bloom, but with a sickly edge to it that
 feels wrong. And there is another strange smell, an acrid, burnt smell but
 not from the fire. Both seem to be coming from the buttress that rises up
 beside the window.
 
->The buttress is made from the same stone as the walls, but its additional
+> x buttress
+The buttress is made from the same stone as the walls, but its additional
 thickness breaks up the smooth line of the wall. It's about four feet wide,
 running from floor to ceiling, and extends about six inches into the room.
    However, the odours that you detect in the room draw your attention to the
@@ -3365,10 +3635,12 @@ looks alien, out of place.
    Lord Vonisor pulls out his sword and checks the blade for any marks and
 flaws. He returns the blade to the scabbard.
 
->The indentation is almost invisible, blending into the surrounding stonework
+> x indentation
+The indentation is almost invisible, blending into the surrounding stonework
 perfectly.
 
->"Lord Vonisor," you say, "can you see that small indentation in the wall
+> push indentation
+"Lord Vonisor," you say, "can you see that small indentation in the wall
 there, near the buttress?"
    Vonisor comes close and bends to examine the artefact. "Yes, I think I can
 see it."
@@ -3400,7 +3672,8 @@ her privacy.
 wood later."
    The servant girl leaves and the room descends into silence.
 
->As surreptitiously as you can, you look up at Lord Vonisor and catch his eye.
+> wink at vonisor
+As surreptitiously as you can, you look up at Lord Vonisor and catch his eye.
 You wink at him and see him wink back at you.
 
    Tevona's eyes pass from the trespassers to the open door of the cabinet
@@ -3416,7 +3689,8 @@ to come in here."
 responds, putting the candlestick down on the table. "No position is above
 the law when crimes have been committed."
 
->You wait for something to happen.
+> z
+You wait for something to happen.
 
    "I have nothing to say to you," Tevona replies, but you aren't sure to
 whom she is referring. "You can't do anything to me. I'm the Princess of
@@ -3440,7 +3714,8 @@ yourself staring at a black robed man.
 smiling evilly from behind him. "My name is Vetan, and I'm taking over the
 kingdom."
 
->You wait for something to happen.
+> z
+You wait for something to happen.
 
    There is a sudden commotion at the door as two guards burst in, followed
 quickly by King Rithusar. The guards take in the situation immediately and
@@ -3468,7 +3743,8 @@ home as your ward. But I must say, he makes a great fox. In any case, I've
 come back to take it all away from you, the same way you took it all away
 from me."
 
->You wait for something to happen.
+> z
+You wait for something to happen.
 
    "Your father started the war with us," Rithusar responds, his voice strong
 and unwavering. "He murdered my father, and tried to murder me."
@@ -3494,7 +3770,8 @@ insights into the court of Rylane for, oh, almost two years now. And she has
 also helped dispose of all the magical forces that might have been opposed to
 me. Like Rixomas."
 
->You hear some faint sounds coming from the fire in the hearth.
+> listen
+You hear some faint sounds coming from the fire in the hearth.
 
    Rithusar's face is stricken. "Tevona?" he asks.
    "Don't look at me like that, father," Tevona says. "I'm sick of the lip
@@ -3505,12 +3782,14 @@ concerned about looking after the needs of the kingdom than with looking
 after your own children."
    You sense that Vetan's attention has left you completely.
 
->You think about invisibility, and immediately you disappear.
+> invisible
+You think about invisibility, and immediately you disappear.
 
    There is an audible gasp from those around you as you disappear from
 sight.
 
->Leaping forward, you rush at Vetan's legs and sink your teeth into the flesh
+> attack vetan
+Leaping forward, you rush at Vetan's legs and sink your teeth into the flesh
 of his calf, drawing blood. Vetan cries out in pain and lashes out at you
 with his other leg, catching you in the hind quarters and spinning you away.
 You smash into the wall, and you belatedly realise you have become visible
@@ -3525,14 +3804,16 @@ starts to wail.
 
 [ Your score just went up by ten. ]
 
->You wait for something to happen.
+> z
+You wait for something to happen.
 
    "I'd better see if I can find a cure for Rixomas," Lord Vonisor says,
 sheathing his sword. He scans the jars and vials in the cabinet for a few
 minutes, before selecting one. "This should do it," he says, then departs
 hurriedly through the door to the south.
 
->You trot south.
+> s
+You trot south.
 
 Corridor outside Princess Tevona's rooms
 A long dark corridor stretches away to the east and west, with occasion pools
@@ -3544,7 +3825,8 @@ emblem of the crown princess of Rylane.
 
    Your vulpine hearing detects some sounds -- movement to the north.
 
->You trot east.
+> e
+You trot east.
 
 Corridor
 A long dark corridor stretches away to the east and west, with occasion pools
@@ -3552,7 +3834,8 @@ of light provided by a series of torches mounted on the wall. On the floor of
 polished stone, running the entire length of the corridor, is a plush carpet.
 No features of any sort mark the corridor walls here.
 
->You trot east.
+> e
+You trot east.
 
 Corridor outside Prince Alsanter's rooms
 A long dark corridor stretches away to the west, with occasion pools of light
@@ -3563,7 +3846,8 @@ wall which you know to be the entrance to Prince Alsanter's rooms. Mounted on
 the southern wall, beside the archway, is a plaque featuring the emblem of
 the crown prince of Rylane.
 
->You trot south.
+> s
+You trot south.
 
 Landing
 The broad sweep of the marble stairway ends here at a surprisingly sparsely
@@ -3572,7 +3856,8 @@ wall, there is not much refinement here at all. Two archways, standing
 opposite each other in the northern and southern walls, provide exits, other
 than the stairs that lead back down.
 
->You [playermove=Rithusar] south.
+> s
+You [playermove=Rithusar] south.
 
 Corridor outside Rixomas' rooms
 A long dark corridor stretches away to the west, with occasion pools of light
@@ -3626,7 +3911,8 @@ making this access corridor feel closed in and oppressive. There are one or
 two torches mounted on the walls providing light to the otherwise dark
 passage. A narrow, winding stairway leads upwards.
 
->You climb up the winding stairway leading up from the corridor and exit
+> up
+You climb up the winding stairway leading up from the corridor and exit
 through the doorway at the top.
    It is cold with the coming winter, but a magnificent sunset is glowing in
 the western sky, turning the scattered clouds bronze and gold. From the
@@ -3653,7 +3939,8 @@ on his walking stick as he does so.
 [ Use "TOPICS" at any time to view a list of subjects that Torrin might be
 willing to discuss. ]
 
->"How are you?" you ask with sincerity.
+> himself
+"How are you?" you ask with sincerity.
    "I'm fine, your Majesty," Torrin replies.
    You smile. "A patent lie," you say. "Not very convincing."
    You are rewarded to see the smallest part of a smile break on Torrin's
@@ -3663,11 +3950,13 @@ count."
    "I understand," you respond. "No ill effects from your transformation?"
    "No," Torrin says, shaking his head. "Everything worked perfectly."
 
->"What were you and Tholin talking about?" you ask, in what you hope is a
+> tholin
+"What were you and Tholin talking about?" you ask, in what you hope is a
 friendly tone.
    "Actually, Sire," Torrin replies, "we were talking about God."
 
->"God?" you ask.
+> god
+"God?" you ask.
    "Well, your Majesty," Torrin begins, "when I was convicted of killing
 Alsanter, I thought it was unfair. At most I thought that, if God did exist,
 he'd abandoned me. But when I started to see the bigger picture, about Vetan
@@ -3690,7 +3979,8 @@ comes down to what I believe the evidence says."
    "No, your Majesty," Torrin replies. "Not yet. I have a lot more thinking
 to do about it."
 
->"Tell me about your journey," you say.
+> journey
+"Tell me about your journey," you say.
    "What do you want to know, your Majesty," Torrin replies. "It's hard to
 know where to start."
    "How did you cope with being a fox?" you ask.
@@ -3703,7 +3993,8 @@ danger of being overwhelmed by animalistic urges."
    A wry smile touches Torrin's face. "Actually, Sire, I thought about
 Tevona."
 
->"Tell me about Tevona," you say.
+> tevona
+"Tell me about Tevona," you say.
    "What can I say, your Majesty," Torrin replies, with an edge in his voice.
 "I loved her. I was willing to give my life for her. The only reason I made
 it through this experience was because of her. But she..." His voice trails
@@ -3725,7 +4016,8 @@ sacrifices, but I was too willing to sacrifice my family for the kingdom.
 Tevona may have run away into the arms of my enemy, but it was largely
 because I hadn't shown her my love as her father."
 
->"I'm very glad you survived the curse," you say. "For the longest time I was
+> curse
+"I'm very glad you survived the curse," you say. "For the longest time I was
 worried I had saved you only for you to die again."
    "I must admit, it took some getting used to, Sire," Torrin replies. "I
 think initially I was confused by your decision, and I was wondering whether
@@ -3736,18 +4028,21 @@ that by allowing you to be cursed that would be the outcome. You've exceeded
 my expectations in every way."
    "I'm glad I could be of service," Torrin says.
 
->"I don't think Rixomas appreciated my blind-siding him by getting him to
+> rixomas
+"I don't think Rixomas appreciated my blind-siding him by getting him to
 curse you," you say. "I've never seen Rixomas look so stunned."
    "I think he got his own back by sending me to Master Limos," Torrin
 replies.
 
->"Tell me about Master Limos," you say. "I was deeply concerned when I heard
+> limos
+"Tell me about Master Limos," you say. "I was deeply concerned when I heard
 you'd been sent to him."
    "He was extremely helpful," Torrin replies. "At least, once I got to him.
 Because he was being threatened by Vetan he wasn't making it easy. But he
 gave me everything I needed to return here to uncover the plot."
 
->"Vetan seemed to have a personal vendetta against you, didn't he?" you say.
+> vetan
+"Vetan seemed to have a personal vendetta against you, didn't he?" you say.
    Torrin nods. "I think he was jealous of me, Sire," he replies. "We'd both
 lost a father, but I got to live like a prince."
    "I suppose it doesn't matter who you are, losing someone you love is
@@ -3761,9 +4056,11 @@ an example of the repercussions of war. The war doesn't end when the peace
 treaty is signed. War changes people. Nothing is the same afterwards."
    You nod thoughtfully.
 
->You wait for something to happen.
+> z
+You wait for something to happen.
 
->You wait for something to happen.
+> z
+You wait for something to happen.
 
    Torrin turns and leans against the battlement, looking out towards the
 setting sun, watching light fade from the land. There is a long pause.
@@ -3778,7 +4075,8 @@ sorry I failed you and the kingdom in not being a better father."
    As you look at Torrin you get a powerful sense that he is waiting for
 something more from you, something more than words.
 
->You reach out your hand and place it on Torrin's shoulder. His head turns
+> hug torrin
+You reach out your hand and place it on Torrin's shoulder. His head turns
 towards you. "You are my only son, now," you say. "I don't want to lose you
 the way I lost Alsanter and Tevona."
    "You won't, your Majesty."
@@ -3798,4 +4096,5 @@ You have completed the game. You achieved a score of 93 out of a possible
 101.
 Would you like to RESTART, RESTORE, UNDO a turn, or QUIT?
 
->Do you really want to quit? [Y/N]
+> quit
+Do you really want to quit? [Y/N]

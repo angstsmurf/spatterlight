@@ -12,22 +12,26 @@ Lily pad
 You are on the comfy lily pad.  It seems empty without Reggie at your side,
 flicking his tongue at passing insects. The pond water is to the east.
 
->You flick your prehensile tongue into the swarming insects and reel in a
+> flick tongue
+You flick your prehensile tongue into the swarming insects and reel in a
 juicy dragonfly. You feel much stronger.
 
->You hop off to confront the princess.
+> e
+You hop off to confront the princess.
 
 Pond
 You are immersed in the familiar murky water of your pond. Soft scum
 surrounds you.  The shore is to the east.
 
->You move east.
+> e
+You move east.
 
 Pond
 You are immersed in the familiar murky water of your pond. Soft scum
 surrounds you.  The shore is to the east.
 
->You move east.
+> e
+You move east.
 
 The Shore
 Your web feet sink into the fragrant mud of the shore. You can't tell which
@@ -35,15 +39,19 @@ of the openings int he weeds might be a path, or which direction to go in.
 
 Also here is a hat.
 
->You notice tracks in the mud, leading to the south.  That must be the path.
+> x mud
+You notice tracks in the mud, leading to the south.  That must be the path.
 
->You pick up the hat.
+> take hat
+You pick up the hat.
 
->You put on the hat.  It is rather large and does not make you look like
+> wear hat
+You put on the hat.  It is rather large and does not make you look like
 Jackie Kennedy. It does make you look vaguely human. At least to a guard
 that's a heron.
 
->You hop closer to your battle with the princess.
+> s
+You hop closer to your battle with the princess.
 
 Castle gate.
 This is the entrance to the castle.  The castle lies to the south.  A guard
@@ -51,7 +59,8 @@ blocks your way.
 
 Guard is here.
 
->You move south.
+> s
+You move south.
 
 The throne room
 You are in an elegant throne room that would probably impress you with its
@@ -61,7 +70,8 @@ at you. You had better do something. Fast.
 
 Reggie and Princess are here.
 
->You lash out with your tongue. You weren't actually aiming at the Princess'
+> flick tongue
+You lash out with your tongue. You weren't actually aiming at the Princess'
 nasty red sneering lips, but, well, your tongue was not exactly made for
 indoor use.
 

@@ -62,7 +62,8 @@ from the direction of the funhouse.
 "Ring toss!  Ring toss!" calls the carny. "Three tries, just one token!"
 A carny is here, working the ring toss game.
 
->You move north.
+> n
+You move north.
 
 Main Entrance
 You're at the entrance of the circus. There is a banner above the entrance,
@@ -73,10 +74,12 @@ stuffed animal won on the midway.  You smell freshly popped popcorn in the
 air.
 Marie is here, behind the ticket booth.
 
->You give Marie $2 and she sells you 4 tokens.  You have $0 left, which will
+> buy 4 tokens
+You give Marie $2 and she sells you 4 tokens.  You have $0 left, which will
 buy you up to 0 tokens.
 
->You move south.
+> s
+You move south.
 
 Midway
 You're at the Midway, where people can play all kinds of games.  You see the
@@ -93,7 +96,8 @@ the direction of the funhouse.
 "Win a Coke here!" calls the carny. "Just one token!"
 A carny is here, working the ring toss game.
 
->You move east.
+> e
+You move east.
 
 Midway East
 You're at the east end of the midway, where people can play all kinds of
@@ -109,25 +113,29 @@ calliope music coming from the direction of the funhouse.
 "Duck pond winner!" calls the carny. "Could be you - just one token!"
 A carny is here, working the duck pond game.
 
->"Duck pond!  Duck pond!" calls the carny. "Everyone wins!"
+> play duck pond
+"Duck pond!  Duck pond!" calls the carny. "Everyone wins!"
 
 You give the vendor a token and play the duck pond game.
 
 You won a plush duck toy!
 
->"Win the prize!" the carny says. "Just one token, play duck pond!"
+> play duck pond
+"Win the prize!" the carny says. "Just one token, play duck pond!"
 
 You give the vendor a token and play the duck pond game.
 
 You won a plastic clown!
 
->"Big prizes!" the carny says. "Everyone's a winner!"
+> play duck pond
+"Big prizes!" the carny says. "Everyone's a winner!"
 
 You give the vendor a token and play the duck pond game.
 
 You won a plush frog toy!
 
->(Your score has increased by 10)
+> play duck pond
+(Your score has increased by 10)
 "Be a winner!  Play duck pond!" calls the carny.
 
 You give the vendor a token and play the duck pond game.  You pick up a duck
@@ -137,7 +145,8 @@ circus!"
 
 He hands you a free ticket.
 
->You move west.
+> w
+You move west.
 
 Midway
 You're at the Midway, where people can play all kinds of games.  You see the
@@ -159,7 +168,8 @@ You feel someone bump into you in the crowd.  Suddenly you realize your
 camera case is gone, and your videocamera with it!  Oh no!  How will you tape
 the animals for PETA now?  Maybe if you can find it...
 
->You move north.
+> n
+You move north.
 
 Main Entrance
 You're at the entrance of the circus. There is a banner above the entrance,
@@ -173,21 +183,27 @@ There are seats to the northeast and northwest.  Due north is the center
 ring.
 Marie is here, behind the ticket booth.
 
->(Your score has decreased by 10)
+> sell 10 points
+(Your score has decreased by 10)
 Your score has been lowered by 10 points to 0, but you now have $1.
 
->You don't see the peanut vendor.
+> buy peanut
+You don't see the peanut vendor.
 
->You don't see the peanut vendor.
+> buy peanut
+You don't see the peanut vendor.
 
 the vendor arrives from the north-west.
 
->(Your score has increased by 3)
+> buy peanut
+(Your score has increased by 3)
 The vendor sells you a bag of peanuts for $1.
 
->I don't think that is for sale.
+> buy peanut
+I don't think that is for sale.
 
->You move northeast.
+> ne
+You move northeast.
 
 East Bleachers
 The portable bleachers are made of aluminum.  They aren't very comfortable.
@@ -201,11 +217,13 @@ Lance the ringmaster is here, announcing acts and working the crowd.
 
 Lance exits to the north-west.
 
->(Your score has increased by 5)
+> look under bleachers
+(Your score has increased by 5)
 You look under the east bleachers and think you can detect movement, a small
 dark figure.
 
->You move down.
+> down
+You move down.
 
 Under East Bleachers
 You're under the metal bleachers.  You can see the supports of the
@@ -213,13 +231,16 @@ collapsable bleachers here, criscrossing above your head.  You smell the
 freshly roasted peanuts being sold by the food vendor.
 Pringles the monkey is here.
 
->(Your score has increased by 10)
+> give peanut to pringles
+(Your score has increased by 10)
 Pringles greedily takes the bag of peanuts from you and starts eating them.
 She drops the toy knife and disappears to the north-west.
 
->You pick up the toy knife.
+> take knife
+You pick up the toy knife.
 
->You move up.
+> up
+You move up.
 
 East Bleachers
 The portable bleachers are made of aluminum.  They aren't very comfortable.
@@ -230,7 +251,8 @@ The townys are carrying the prizes they won at the games, while eating
 carnival food.  You see a young boy riding on his father's shoulders.  You
 smell the freshly roasted peanuts being sold by the food vendor.
 
->You move southwest.
+> sw
+You move southwest.
 
 Main Entrance
 You're at the entrance of the circus. There is a banner above the entrance,
@@ -243,20 +265,25 @@ There are seats to the northeast and northwest.  Due north is the center
 ring.
 Marie is here, behind the ticket booth.
 
->(Your score has increased by 5)
+> sell knife
+(Your score has increased by 5)
 "You want to sell that toy knife?" Marie says. "You know, that looks like it
 belongs to one of our performers.  I'll give you $2 for it."
 
->(Your score has decreased by 10)
+> sell 10 points
+(Your score has decreased by 10)
 Your score has been lowered by 10 points to 13, but you now have $3.
 
->(Your score has decreased by 10)
+> sell 10 points
+(Your score has decreased by 10)
 Your score has been lowered by 10 points to 3, but you now have $4.
 
->You give Marie $3 and she sells you 6 tokens.  You have $1 left, which will
+> buy 6 tokens
+You give Marie $3 and she sells you 6 tokens.  You have $1 left, which will
 buy you up to 2 tokens.
 
->You move south.
+> s
+You move south.
 
 Midway
 You're at the Midway, where people can play all kinds of games.  You see the
@@ -272,18 +299,21 @@ your way.  You hear calliope music coming from the direction of the funhouse.
 "Win a free Coke!" calls the carny. "Ring a bottle, win a Coke!"
 A carny is here, working the ring toss game.
 
->After paying 1 token to the midway worker, you move west.
+> w
+After paying 1 token to the midway worker, you move west.
 
 Funhouse
 The funhouse has numerous funny mirrors and moving floors.  It's fun.
 Skippy the Clown is here, laughing maniacly.  Bill is here, playing the
 calliope.
 
->(Your score has increased by 5)
+> show mirror to bill
+(Your score has increased by 5)
 You show Bill the funhouse mirror.  He stops playing the calliope and starts
 preening in the wavy mirror.  He laughs at his silly image.
 
->You move east.
+> e
+You move east.
 
 Midway
 You're at the Midway, where people can play all kinds of games.  You see the
@@ -301,7 +331,8 @@ game.
 
 the vendor is here.
 
->You move east.
+> e
+You move east.
 
 Midway East
 You're at the east end of the midway, where people can play all kinds of
@@ -316,14 +347,16 @@ air reminds you of when you were a kid.
 "Be a winner!" calls the carny loudly. "One play, one token!"
 A carny is here, working the duck pond game.
 
->You move east.
+> e
+You move east.
 
 Fortune Teller
 Amongst the heavy odor of incense and dim light, you make out the figure of
 the old gypsy fortune teller, the circus psychic.
 Madame Elsa the gypsy is here, gazing into a crystal ball.
 
->(Your score has increased by 6)
+> ask reading
+(Your score has increased by 6)
 Madame Elsa beckons for you to sit down.  She then hands you a deck of cards,
 and asks you to shuffle.  After shuffling, you return the cards to her and
 she slowly deals out three cards.
@@ -346,7 +379,8 @@ the old gypsy fortune teller, the circus psychic.  There are three tarot
 cards on the table.
 Madame Elsa the gypsy is here, gazing into a crystal ball.
 
->You move west.
+> w
+You move west.
 
 Midway East
 You're at the east end of the midway, where people can play all kinds of
@@ -361,7 +395,8 @@ peanuts being sold by the food vendor.
 "Duck pond!  Duck pond!" calls the carny. "Everyone wins!"
 A carny is here, working the duck pond game.
 
->You move west.
+> w
+You move west.
 
 Midway
 You're at the Midway, where people can play all kinds of games.  You see the
@@ -377,7 +412,8 @@ familiar odor of hot nachos wafts over to you.
 "Ring toss!  Ring toss!" calls the carny. "Three tries, just one token!"
 A carny is here, working the ring toss game.
 
->You move north.
+> n
+You move north.
 
 Main Entrance
 You're at the entrance of the circus. There is a banner above the entrance,
@@ -392,7 +428,8 @@ There are seats to the northeast and northwest.  Due north is the center
 ring.
 Marie is here, behind the ticket booth.
 
->You move north.
+> n
+You move north.
 
 Center Ring
 The center ring is where most of the circus performances take place.  To the
@@ -406,7 +443,8 @@ midway.  The odor of pizza wafts its way over to you.
 
 Lance strolls in from the north.
 
->You move north.
+> n
+You move north.
 
 Back door
 The back door is where the performers and animals enter the big top.  To the
@@ -415,7 +453,8 @@ southeast and southwest you see bleachers, to the south is the center ring.
 Patrons are talking amongst themselves.  Kids are running up and down the
 bleachers, giggling.  The odor of freshly popped popcorn hangs in the air.
 
->You move north.
+> n
+You move north.
 
 Backyard
 You're behind the circus tent, in an area where animals and performers
@@ -423,7 +462,8 @@ prepare.  There is a lot of straw and sawdust on the ground here.  To the
 south is the backdoor to the big top.  To the north you see some animal
 cages, to the east and west are trailers used as dressing rooms.
 
->You move east.
+> e
+You move east.
 
 Clown Dressing Room
 This trailer is where the clowns change their clothes.  You see racks of
@@ -432,20 +472,26 @@ is to the west.
 Zippo the cowboy clown is here, applying makeup.
 Zippo shoots you with the toy gun, but it doesn't seem to do any damage.
 
->You turn the lock to the number 13.
+> turn lock 13
+You turn the lock to the number 13.
 
->You turn the lock to the number 9.
+> turn lock 9
+You turn the lock to the number 9.
 Zippo shoots you with the toy gun, but it doesn't seem to do any damage.
 
->You turn the lock to the number 5.  There is a click as the lock opens.
+> turn lock 5
+You turn the lock to the number 5.  There is a click as the lock opens.
 
->(Your score has increased by 10)
+> open trunk
+(Your score has increased by 10)
 You open the trunk.
 Zippo shoots you with the toy gun, but it doesn't seem to do any damage.
 
->You take the videocamera from the trunk.
+> take videocamera
+You take the videocamera from the trunk.
 
->You move west.
+> w
+You move west.
 
 Backyard
 You're behind the circus tent, in an area where animals and performers
@@ -453,7 +499,8 @@ prepare.  There is a lot of straw and sawdust on the ground here.  To the
 south is the backdoor to the big top.  To the north you see some animal
 cages, to the east and west are trailers used as dressing rooms.
 
->You move north.
+> n
+You move north.
 
 Animal Cages
 This is where the animal cages are.  There is straw and sawdust on the ground
@@ -466,39 +513,52 @@ Barb is here.
 
 Barb strolls away to the south.
 
->Use the format "ask [character] about [subject]".
+> ask barb about tape
+Use the format "ask [character] about [subject]".
 
->Use the format "ask [character] about [subject]".
+> ask barb about tape
+Use the format "ask [character] about [subject]".
 
->Use the format "ask [character] about [subject]".
+> ask barb about tape
+Use the format "ask [character] about [subject]".
 
->Use the format "ask [character] about [subject]".
+> ask barb about tape
+Use the format "ask [character] about [subject]".
 
->Use the format "ask [character] about [subject]".
+> ask barb about tape
+Use the format "ask [character] about [subject]".
 
->Use the format "ask [character] about [subject]".
+> ask barb about tape
+Use the format "ask [character] about [subject]".
 
->Use the format "ask [character] about [subject]".
+> ask barb about tape
+Use the format "ask [character] about [subject]".
 
->Use the format "ask [character] about [subject]".
+> ask barb about tape
+Use the format "ask [character] about [subject]".
 
 Barb walks toward you from the south.
 
->(Your score has increased by 10)
+> ask barb about tape
+(Your score has increased by 10)
 "Oh, what's that doing there?" Barb says. She reaches into the lion cage and
 retrieves the video tape. "Is this yours?"
 
 She hands you the video tape.
 
->Barb does not respond to your question.
+> ask barb about tape
+Barb does not respond to your question.
 
->Barb does not respond to your question.
+> ask barb about tape
+Barb does not respond to your question.
 
->Barb does not respond to your question.
+> ask barb about tape
+Barb does not respond to your question.
 
 Barb walks away to the south.
 
->You move south.
+> s
+You move south.
 
 Backyard
 You're behind the circus tent, in an area where animals and performers
@@ -508,7 +568,8 @@ cages, to the east and west are trailers used as dressing rooms.
 
 Barb is here.
 
->You move south.
+> s
+You move south.
 
 Back door
 The back door is where the performers and animals enter the big top.  To the
@@ -519,7 +580,8 @@ Children are laughing with their parents.  You smell freshly popped popcorn
 in the air.
 Lance the ringmaster is here, announcing acts and working the crowd.
 
->You move south.
+> s
+You move south.
 
 Center Ring
 The center ring is where most of the circus performances take place.  To the
@@ -531,7 +593,8 @@ Locals are eating and drinking circus treats, trying to find good seats.
 Young kids are laughing at the clowns.  A woman wearing too much perfume
 walks past and you catch a whif.
 
->You move up.
+> u
+You move up.
 
 Platform
 You're standing on a platform about a hundred feet up, looking down on the
@@ -541,13 +604,17 @@ way down is of course, gravity.
 
 Also here is the battery.
 
->You pick up the battery.
+> take battery
+You pick up the battery.
 
->You put the battery inside the videocamera.
+> put battery in camera
+You put the battery inside the videocamera.
 
->You put the videotape inside the videocamera.
+> put tape in camera
+You put the videotape inside the videocamera.
 
->You move down.
+> d
+You move down.
 
 Center Ring
 The center ring is where most of the circus performances take place.  To the
@@ -560,7 +627,8 @@ carnival food.  Children are laughing with their parents.  You think back on
 fond memories of baseball games as the aroma of hot dogs drifts over to you.
 Lance the ringmaster is here, announcing acts and working the crowd.
 
->You move north.
+> n
+You move north.
 
 Back door
 The back door is where the performers and animals enter the big top.  To the
@@ -570,7 +638,8 @@ People attending the circus are laughing, talking, eating cotton candy.  Kids
 are running up and down the bleachers, giggling.  You smell the freshly
 roasted peanuts being sold by the food vendor.
 
->You move north.
+> n
+You move north.
 
 Backyard
 You're behind the circus tent, in an area where animals and performers
@@ -578,7 +647,8 @@ prepare.  There is a lot of straw and sawdust on the ground here.  To the
 south is the backdoor to the big top.  To the north you see some animal
 cages, to the east and west are trailers used as dressing rooms.
 
->You move north.
+> n
+You move north.
 
 Animal Cages
 This is where the animal cages are.  There is straw and sawdust on the ground
@@ -589,7 +659,8 @@ Pringles the monkey is here.
 
 Barb is here.
 
->(Your score has increased by 10)
+> use camera
+(Your score has increased by 10)
 You film the animals with the video camera.  Wow, it seems your mission is a
 success!  Congratulations!
 
@@ -598,7 +669,8 @@ any time.
 
 Barb exits to the south.
 
->(Your score has increased by 20)
+> home
+(Your score has increased by 20)
 Having successfully filmed the lions, tigers and bears (Oh my!) you mosey on
 your way toward the parking lot.
 

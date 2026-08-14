@@ -18,19 +18,26 @@ usual. Donald Wisker was dead, found in the backseat of his car near the
 town's college. You quickly hang up the phone and close the window. You wish
 you could just get lost in the serene sounds of the ocean, but duty calls.
 Please enter your name:
->Please choose the player's gender (male or female):
->
->(Your score has increased by 5)
+
+> Sam
+Please choose the player's gender (male or female):
+
+> male
+
+> open closet
+(Your score has increased by 5)
 You open the large closet and search through all the files you have from past
 cases. You remember alot of them, some of them you were almost killed in.
 But, danger comes with a detective's job. As you push the last file away, you
 pull out your gun that you had hidden underneath.
 
->(Your score has increased by 5)
+> open desk
+(Your score has increased by 5)
 You open the drawers in the desk looking for something useful. You pull your
 id out of the top drawer.
 
->You move south.
+> s
+You move south.
 
 Hallway
 The long hallway of your house always seems to be dirty, even though you
@@ -38,7 +45,8 @@ hardly ever walk down it. The walls have started to chip, but you never had
 time to fix them up. Your office is to the North, a pair of stairs can take
 you down.
 
->You move down.
+> d
+You move down.
 
 Living Room
 Your small living room is filled with only a few electronic devices, mainly
@@ -47,10 +55,12 @@ small stand, a couch sits in front of it. Your kitchen is to the East, you
 always leave the door wide open. The front door to the house is to the North,
 just like it always is.
 
->(Your score has increased by 5)
+> take baggies
+(Your score has increased by 5)
 You grab the box and slip it into your pocket.
 
->You move east.
+> e
+You move east.
 
 Kitchen
 The large kitchen of your house usually always has someone in it because you
@@ -59,7 +69,8 @@ use. Your large kitchen table gets filled regularily with friends who like
 your cooking.   You can see on the clock hanging off the wall that it's nine
 thirty in the morning.
 
->(Your score has increased by 5)
+> read book
+(Your score has increased by 5)
 Chapter 3: The Crimescene
 
 When you first enter a crimescene, make sure to instantly take a picture of
@@ -68,7 +79,8 @@ you must bag and collect all evidence you find. Make sure to go over
 everything with a  fine tooth comb. If any witnesse's or suspects, make sure
 to question them.
 
->You move west.
+> w
+You move west.
 
 Living Room
 Your small living room is filled with only a few electronic devices, mainly
@@ -77,7 +89,8 @@ small stand, a couch sits in front of it. Your kitchen is to the East, you
 always leave the door wide open. The front door to the house is to the North,
 just like it always is.
 
->You move north.
+> n
+You move north.
 
 4th Street
 4th Street is the street where you live. You can see the beach from here,
@@ -85,17 +98,20 @@ kids are shouting and laughing as they splash water at each other. You can
 see Dr. Ross Hagon's house to the West, his large house almost blocks out the
 sun. The town's square is to the North.
 
->You move west.
+> w
+You move west.
 
 Outside House
 You're standing outside Dr. Ross's house. You can see a large knocker lying
 on top of the door. His roses seem to have been planted poorly, they have
 begun to die already.
 
->(Your score has increased by 10)
+> take lipstick
+(Your score has increased by 10)
 You take the lipstick from the dirt and place it in your pocket carefully.
 
->You move east.
+> e
+You move east.
 
 4th Street
 4th Street is the street where you live. You can see the beach from here,
@@ -103,7 +119,8 @@ kids are shouting and laughing as they splash water at each other. You can
 see Dr. Ross Hagon's house to the West, his large house almost blocks out the
 sun. The town's square is to the North.
 
->You move north.
+> n
+You move north.
 
 Town Square
 The square of Great Falls seems to always be full of people. Tourists walk
@@ -111,7 +128,8 @@ down the streets with cameras on their necks and hats over their heads. To
 the North is Salson Road , East is to the college, and West is to the Great
 Falls Apartments. The smell of salt is strong here.
 
->You move north.
+> n
+You move north.
 
 Salson Road
 Salson road is where you'll find most buisnesses in the town of Great Falls.
@@ -119,7 +137,8 @@ Wisker Motors can be found to the East, the police department's to the North
 and the hospital's to the West. The sound of large machinery working makes
 you cover your ears.
 
->You move north.
+> n
+You move north.
 
 Department Entrance
 A sanitary smell hits your nose as you enter the police station. The white
@@ -127,19 +146,22 @@ walls are all very clean to promote cleansliness to all officers. To the
 North is the evidence dropoff area, to the East are the lockers, and to the
 West is Chief Ken Branis's office.
 
->You move east.
+> e
+You move east.
 
 Locker Room
 You're in the large locker room of the Great Falls Police Department. Lockers
 line the walls and take up a portion of the middle of the room. You can see
 your locker in the corner so you move over to it.
 
->(Your score has increased by 5)
+> open locker
+(Your score has increased by 5)
 You open your locker looking for anything that will help you on the case. You
 take your crimescene camera out of the top of the locker and place it in your
 coat.
 
->You move west.
+> w
+You move west.
 
 Department Entrance
 A sanitary smell hits your nose as you enter the police station. The white
@@ -147,7 +169,8 @@ walls are all very clean to promote cleansliness to all officers. To the
 North is the evidence dropoff area, to the East are the lockers, and to the
 West is Chief Ken Branis's office.
 
->You move south.
+> s
+You move south.
 
 Salson Road
 Salson road is where you'll find most buisnesses in the town of Great Falls.
@@ -155,7 +178,8 @@ Wisker Motors can be found to the East, the police department's to the North
 and the hospital's to the West. The sound of large machinery working makes
 you cover your ears.
 
->You move south.
+> s
+You move south.
 
 Town Square
 The square of Great Falls seems to always be full of people. Tourists walk
@@ -163,14 +187,16 @@ down the streets with cameras on their necks and hats over their heads. To
 the North is Salson Road , East is to the college, and West is to the Great
 Falls Apartments. The smell of salt is strong here.
 
->You move east.
+> e
+You move east.
 
 College Road
 You're standing on the road that leads into the college parking lot to the
 North. Birds fly overhead of you, each of them singing a song. You'd never
 expect that anyone would be found dead here.
 
->You move north.
+> n
+You move north.
 
 College Parking Lot
 The college parking lot is where students and teachers park their vehicles as
@@ -180,28 +206,34 @@ tape. You can see a body lying in the front seat. The trunk is open but
 there's nothing inside of it. Officer Jay Trip is writing something down in
 his notebook. The college is to the North.
 
->(Your score has increased by 5)
+> take hair
+(Your score has increased by 5)
 You take the hair carefully of the steering wheel of the car.
 
->(Your score has increased by 5)
+> open glove compartment
+(Your score has increased by 5)
 You open the glove compartment and search through it. You find a piece of gum
 stuck to the top.
 
->(Your score has increased by 5)
+> use baggie on gum
+(Your score has increased by 5)
 You slide the baggie over the gum and then seal it up.
 
->(Your score has increased by 5)
+> take picture of body
+(Your score has increased by 5)
 You pull out your camera and hold it up to the crimescene. You hit the button
 and take the photo that slides out the bottom.
 
->You move south.
+> s
+You move south.
 
 College Road
 You're standing on the road that leads into the college parking lot to the
 North. Birds fly overhead of you, each of them singing a song. You'd never
 expect that anyone would be found dead here.
 
->You move west.
+> w
+You move west.
 
 Town Square
 The square of Great Falls seems to always be full of people. Tourists walk
@@ -209,7 +241,8 @@ down the streets with cameras on their necks and hats over their heads. To
 the North is Salson Road , East is to the college, and West is to the Great
 Falls Apartments. The smell of salt is strong here.
 
->You move north.
+> n
+You move north.
 
 Salson Road
 Salson road is where you'll find most buisnesses in the town of Great Falls.
@@ -217,7 +250,8 @@ Wisker Motors can be found to the East, the police department's to the North
 and the hospital's to the West. The sound of large machinery working makes
 you cover your ears.
 
->You move east.
+> e
+You move east.
 
 Lobby
 The large lobby of Wisker Motors makes you feel like a small ant in a human's
@@ -226,16 +260,20 @@ flash pictures of new cars or classic cars. .  There's a reception desk  but
 the receptionist isn't in. You can go up to the top floor or North to Donald
 Wiskers office.
 
->(Your score has increased by 5)
+> take package
+(Your score has increased by 5)
 You take the package off the table and hide it in your jacket.
 
->It's a small parcel that's addressed to Rick Wisker. It doesn't say who it's
+> look package
+It's a small parcel that's addressed to Rick Wisker. It doesn't say who it's
 from.
 
->You're a member of the police, you don't go through people's mail for no
+> open package
+You're a member of the police, you don't go through people's mail for no
 reason.
 
->You move up.
+> u
+You move up.
 
 Hallway
 You're standing a short hallway that leads into Mr. Rick Wisker's office,
@@ -243,10 +281,12 @@ president of Wisker Motors and father of Donald Wisker. A security guard
 stands at the door to the North. It smells like a new car in this hallway,
 that's a bit odd.
 
->(Your score has increased by 10)
+> give package to guard
+(Your score has increased by 10)
 The guard looks at the package and lets you inside the giant office.
 
->You move south.
+> s
+You move south.
 
 Hallway
 You're standing a short hallway that leads into Mr. Rick Wisker's office,
@@ -254,7 +294,8 @@ president of Wisker Motors and father of Donald Wisker. A security guard
 stands at the door to the North. It smells like a new car in this hallway,
 that's a bit odd.
 
->You move down.
+> d
+You move down.
 
 Lobby
 The large lobby of Wisker Motors makes you feel like a small ant in a human's
@@ -263,7 +304,8 @@ flash pictures of new cars or classic cars. .  There's a reception desk  but
 the receptionist isn't in. You can go up to the top floor or North to Donald
 Wiskers office.
 
->You move west.
+> w
+You move west.
 
 Salson Road
 Salson road is where you'll find most buisnesses in the town of Great Falls.
@@ -271,7 +313,8 @@ Wisker Motors can be found to the East, the police department's to the North
 and the hospital's to the West. The sound of large machinery working makes
 you cover your ears.
 
->You move north.
+> n
+You move north.
 
 Department Entrance
 A sanitary smell hits your nose as you enter the police station. The white
@@ -279,29 +322,35 @@ walls are all very clean to promote cleansliness to all officers. To the
 North is the evidence dropoff area, to the East are the lockers, and to the
 West is Chief Ken Branis's office.
 
->You move north.
+> n
+You move north.
 
 Evidence Area
 The Evidence Area where all evidence is collected and tested. Jake Wilson
 stands behind metal bars and takes all evidence from a slot at the bottom.
 Jake looks impatient as he waits for any evidence from you.
 
->(Your score has increased by 10)
+> give gum to jake
+(Your score has increased by 10)
 "Hmmm...a piece of gum found in the victim's car. Okay, ask me about it
 tommorow and I should have a lab report on it."
 
->(Your score has increased by 10)
+> give hair to jake
+(Your score has increased by 10)
 "One piece of hair found on the steering wheel of victim's car. Talk to me
 tomorrow about the hair, I'll have something then."
 
->(Your score has increased by 5)
+> give photo to jake
+(Your score has increased by 5)
 "Photo of crimescene. I'll put it in the evidence folder."
 
->(Your score has increased by 5)
+> give lipstick to jake
+(Your score has increased by 5)
 "Hmmm...I guess I could take a sample off of this. I don't know how long
 it'll take though, come see me in a few days."
 
->You move south.
+> s
+You move south.
 
 Department Entrance
 A sanitary smell hits your nose as you enter the police station. The white
@@ -309,7 +358,8 @@ walls are all very clean to promote cleansliness to all officers. To the
 North is the evidence dropoff area, to the East are the lockers, and to the
 West is Chief Ken Branis's office.
 
->You move south.
+> s
+You move south.
 
 Salson Road
 Salson road is where you'll find most buisnesses in the town of Great Falls.
@@ -317,7 +367,8 @@ Wisker Motors can be found to the East, the police department's to the North
 and the hospital's to the West. The sound of large machinery working makes
 you cover your ears.
 
->You move west.
+> w
+You move west.
 
 Hospital Entrance
 The hospital seems to be pretty quiet today, you're quite surprised. There's
@@ -325,7 +376,8 @@ plenty of rooms to look through, but the only interesting one is Dr. Ross's,
 which is to the North. It smells like Drano has been poured in every drain in
 here.
 
->You move north.
+> n
+You move north.
 
 Dr. Ross's Office
 You're in the office of Dr. Ross Hagon, the best doctor in town.   He sits at
@@ -333,7 +385,8 @@ his desk and looks up to you as you enter. He looks back at his desk and
 begins to write more notes. You can hear the clicking of Dr. Ross's pen as he
 writes.
 
->(Your score has increased by 10)
+> ask ross about club
+(Your score has increased by 10)
 "Look detective. I'd stop investigating the club. All we did was read mystery
 books and talk about them. Nothing else happened. At least nothing that would
 concern you so I'll warn you once."
@@ -355,9 +408,11 @@ the evidence dropoff."
 
  Looks like you have your work cut out for you.
 
->Your score is 110 out of a maximum of 200.  (55%)
+> score
+Your score is 110 out of a maximum of 200.  (55%)
 
->You move south.
+> s
+You move south.
 
 Hallway
 The long hallway of your house always seems to be dirty, even though you
@@ -365,7 +420,8 @@ hardly ever walk down it. The walls have started to chip, but you never had
 time to fix them up. Your office is to the North, a pair of stairs can take
 you down.
 
->You move down.
+> d
+You move down.
 
 Living Room
 Your small living room is filled with only a few electronic devices, mainly
@@ -375,7 +431,8 @@ always leave the door wide open. The front door to the house is to the North,
 just like it always is.  You can see grey clouds from outside the window by
 the door.
 
->You move north.
+> n
+You move north.
 
 4th Street
 4th Street is the street where you live. You can see the beach from here,
@@ -384,31 +441,37 @@ see Dr. Ross Hagon's house to the West, his large house almost blocks out the
 sun. The town's square is to the North.  Grey clouds now cover the sky, it
 looks like it'll rain today.
 
->You move west.
+> w
+You move west.
 
 Outside House
 You're standing outside Dr. Ross's house. You can see a large knocker lying
 on top of the door. His roses seem to have been planted poorly, they have
 begun to die already.
 
->(Your score has increased by 5)
+> knock on door
+(Your score has increased by 5)
 You knock on the door and it swings open. Dr. Ross ushers you in and then
 slams the door shut.
 
->You don't want to ruin the cigarette with your hands.
+> take cigarette
+You don't want to ruin the cigarette with your hands.
 
->(Your score has increased by 5)
+> bag cigarette
+(Your score has increased by 5)
 You carefully bag the cigarette and place it in your pocket. Ross doesn't see
 you doing this.
 
->You move south.
+> s
+You move south.
 
 Outside House
 You're standing outside Dr. Ross's house. You can see a large knocker lying
 on top of the door. His roses seem to have been planted poorly, they have
 begun to die already.
 
->You move east.
+> e
+You move east.
 
 4th Street
 4th Street is the street where you live. You can see the beach from here,
@@ -417,7 +480,8 @@ see Dr. Ross Hagon's house to the West, his large house almost blocks out the
 sun. The town's square is to the North.  Grey clouds now cover the sky, it
 looks like it'll rain today.
 
->You move north.
+> n
+You move north.
 
 Town Square
 The square of Great Falls seems to always be full of people. Tourists walk
@@ -427,7 +491,8 @@ Falls Apartments. The smell of salt is strong here.  Grey Clouds Cover the
 sky today, you're surprised people would come out without a murderer
 somewhere in the town.
 
->You move north.
+> n
+You move north.
 
 Salson Road
 Salson road is where you'll find most buisnesses in the town of Great Falls.
@@ -436,7 +501,8 @@ and the hospital's to the West. The sound of large machinery working makes
 you cover your ears.  Grey clouds have come up and made the dark and dreary.
 You hate working on these kinds of days, it depresses you.
 
->You move north.
+> n
+You move north.
 
 Department Entrance
 A sanitary smell hits your nose as you enter the police station. The white
@@ -444,33 +510,39 @@ walls are all very clean to promote cleansliness to all officers. To the
 North is the evidence dropoff area, to the East are the lockers, and to the
 West is Chief Ken Branis's office.
 
->You move north.
+> n
+You move north.
 
 Evidence Area
 The Evidence Area where all evidence is collected and tested. Jake Wilson
 stands behind metal bars and takes all evidence from a slot at the bottom.
 Jake looks impatient as he waits for any evidence from you.
 
->(Your score has increased by 5)
+> give cigarette to jake
+(Your score has increased by 5)
 "Alright. One Miller brand light cigarette found in Dr. Ross Hagon's house. I
 should have it processed for you tomorrow."
 
->(Your score has increased by 5)
+> ask jake about hair
+(Your score has increased by 5)
 "I did the tests yesterday yesterday evening and this is what I got back.
 It's a long strand of blonde hair, most likely from a female, but could be
 from a male. It's definetely not from Donald Wisker though."
 
->(Your score has increased by 5)
+> ask jake about gum
+(Your score has increased by 5)
 "Ok, gum found in victim's car. It matches Donald Wisker's DNA and is not
 considred evidence. If you get something else that might contain saliva, I
 could tell you if it matches Mr. Wisker's."
 
->(Your score has increased by 5)
+> ask jake about lipstick
+(Your score has increased by 5)
 "This was an interesting piece of evidence. The lipstick belongs to Ms. Maria
 Clark. I'm not sure where she lives or works, her file is missing for some
 reason. You might want to look around."
 
->You move south.
+> s
+You move south.
 
 Department Entrance
 A sanitary smell hits your nose as you enter the police station. The white
@@ -478,7 +550,8 @@ walls are all very clean to promote cleansliness to all officers. To the
 North is the evidence dropoff area, to the East are the lockers, and to the
 West is Chief Ken Branis's office.
 
->You move west.
+> w
+You move west.
 
 Chief Branis's Office
 Chief Ken Branis stares at you as you enter his large office. He quickly
@@ -486,11 +559,13 @@ hangs up the phone he has up against his ear and waits to hear what you have
 to say to him. The sounds of men laughing echo's from the break room of the
 department.
 
->(Your score has increased by 5)
+> ask ken about maria
+(Your score has increased by 5)
 "Maria and I are good friends. She works at the college so you'd probaly find
 here there."
 
->You move east.
+> e
+You move east.
 
 Department Entrance
 A sanitary smell hits your nose as you enter the police station. The white
@@ -498,7 +573,8 @@ walls are all very clean to promote cleansliness to all officers. To the
 North is the evidence dropoff area, to the East are the lockers, and to the
 West is Chief Ken Branis's office.
 
->You move south.
+> s
+You move south.
 
 Salson Road
 Salson road is where you'll find most buisnesses in the town of Great Falls.
@@ -507,7 +583,8 @@ and the hospital's to the West. The sound of large machinery working makes
 you cover your ears.  Grey clouds have come up and made the dark and dreary.
 You hate working on these kinds of days, it depresses you.
 
->You move east.
+> e
+You move east.
 
 Lobby
 The large lobby of Wisker Motors makes you feel like a small ant in a human's
@@ -516,13 +593,16 @@ flash pictures of new cars or classic cars. .  The receptionist is once again
 missing, which shows just how good the hiring team is in this place. You can
 go North to Donald's office or up to the top floor.
 
->The guards let you into the office to search through it.
+> n
+The guards let you into the office to search through it.
 
->(Your score has increased by 10)
+> search through trash
+(Your score has increased by 10)
 You look through the trash can and pull out a note that seems different than
 the other ones in the office.
 
->You move south.
+> s
+You move south.
 
 Lobby
 The large lobby of Wisker Motors makes you feel like a small ant in a human's
@@ -531,7 +611,8 @@ flash pictures of new cars or classic cars. .  The receptionist is once again
 missing, which shows just how good the hiring team is in this place. You can
 go North to Donald's office or up to the top floor.
 
->You move west.
+> w
+You move west.
 
 Salson Road
 Salson road is where you'll find most buisnesses in the town of Great Falls.
@@ -540,7 +621,8 @@ and the hospital's to the West. The sound of large machinery working makes
 you cover your ears.  Grey clouds have come up and made the dark and dreary.
 You hate working on these kinds of days, it depresses you.
 
->You move west.
+> w
+You move west.
 
 Hospital Entrance
 The hospital seems to be pretty quiet today, you're quite surprised. There's
@@ -548,7 +630,8 @@ plenty of rooms to look through, but the only interesting one is Dr. Ross's,
 which is to the North. It smells like Drano has been poured in every drain in
 here.
 
->You move north.
+> n
+You move north.
 
 Dr. Ross's Office
 You're in the office of Dr. Ross Hagon, the best doctor in town.   Dr. Ross
@@ -556,10 +639,12 @@ Hagon's not in here right now, his desk sits in the middle of the room with
 no one behind it. The absence of the clicking of Dr. Ross's pen makes the
 room quiet.
 
->(Your score has increased by 5)
+> search desk
+(Your score has increased by 5)
 You search through the desk and find a letter inside the bottom drawer.
 
->You move south.
+> s
+You move south.
 
 Hospital Entrance
 The hospital seems to be pretty quiet today, you're quite surprised. There's
@@ -567,7 +652,8 @@ plenty of rooms to look through, but the only interesting one is Dr. Ross's,
 which is to the North. It smells like Drano has been poured in every drain in
 here.
 
->You move east.
+> e
+You move east.
 
 Salson Road
 Salson road is where you'll find most buisnesses in the town of Great Falls.
@@ -576,7 +662,8 @@ and the hospital's to the West. The sound of large machinery working makes
 you cover your ears.  Grey clouds have come up and made the dark and dreary.
 You hate working on these kinds of days, it depresses you.
 
->You move south.
+> s
+You move south.
 
 Town Square
 The square of Great Falls seems to always be full of people. Tourists walk
@@ -586,7 +673,8 @@ Falls Apartments. The smell of salt is strong here.  Grey Clouds Cover the
 sky today, you're surprised people would come out without a murderer
 somewhere in the town.
 
->You move west.
+> w
+You move west.
 
 Front Desk
 You're standing at the front desk of the apartment building. The owner of the
@@ -594,12 +682,14 @@ place, Sal Sindo, is sittng at the front desk watching you closely. The walls
 here are green and the smell is atrocious. You can almost feel grease
 floating in the air. There's a hallway to the North that has the apartments.
 
->(Your score has increased by 5)
+> ask sal about trey
+(Your score has increased by 5)
 "Yeah, Trey's been staying here for a couple of nights. He said he used to be
 here, he had to come back to meet some old friends. He'll be leaving tonight
 so if you have to talk to him, now's the time. He's in room 126."
 
->You move north.
+> n
+You move north.
 
 Dingy Hallway
 The small Dingy Hallway is filled with rooms that are probaly filled with low
@@ -607,7 +697,8 @@ payed part time workers. The smell of grease really fills your nostrils here.
   Trey's room is to the North of where you're standing. The front desk is
 back to the South.
 
->You move north.
+> n
+You move north.
 
 Trey's Apartment
 Trey's small apartment is filled with garbage and papers which are all strewn
@@ -618,7 +709,8 @@ this.
 
 Trey is here.
 
->(Your score has increased by 5)
+> ask trey about will
+(Your score has increased by 5)
 "Dammit, I knew someone would find out eventually. I guess I'd better tell
 you what happened. Fifteen years ago, our club, The Black Hats, scammed fifty
 thousand dollars out of the town. One man, Will,  found out and we had to
@@ -629,7 +721,8 @@ club. We arrange to meet and I drive into town. I go to meet Donald at the
 college and I find him dead in his car. I don't know who did it, but there's
 your motive. If you need to know more, ask Ross. He would know more than me."
 
->(Your score has increased by 5)
+> ask ross about will
+(Your score has increased by 5)
 "Well, we all knew Trey would spill the beans. Yes, we did kill Will but it's
 all history. In fact, only one of us actually did do it, problem is, none of
 us know. My guess is the person that killed Donald also killed Will. I swear
@@ -650,9 +743,11 @@ brought to the station. I'll see you later."
 
  It seems the killer has struck again...
 
->Your score is 175 out of a maximum of 200.  (87%)
+> score
+Your score is 175 out of a maximum of 200.  (87%)
 
->You move south.
+> s
+You move south.
 
 Hallway
 The long hallway of your house always seems to be dirty, even though you
@@ -660,7 +755,8 @@ hardly ever walk down it. The walls have started to chip, but you never had
 time to fix them up. Your office is to the North, a pair of stairs can take
 you down.
 
->You move down.
+> d
+You move down.
 
 Living Room
 Your small living room is filled with only a few electronic devices, mainly
@@ -670,7 +766,8 @@ always leave the door wide open. The front door to the house is to the North,
 just like it always is.  You can see that the sun has come out today through
 the window by the front door.
 
->You move north.
+> n
+You move north.
 
 4th Street
 4th Street is the street where you live. You can see the beach from here,
@@ -679,7 +776,8 @@ see Dr. Ross Hagon's house to the West, his large house almost blocks out the
 sun. The town's square is to the North.  The sun has come out today abd got
 rid of the grey clouds. It's about time.
 
->You move north.
+> n
+You move north.
 
 Town Square
 The square of Great Falls seems to always be full of people. Tourists walk
@@ -688,7 +786,8 @@ the North is Salson Road , East is to the college, and West is to the Great
 Falls Apartments. The smell of salt is strong here.  The sun has come out
 again today and more touritsts are out and about the town.
 
->You move west.
+> w
+You move west.
 
 Front Desk
 You're standing at the front desk of the apartment building. The owner of the
@@ -696,7 +795,8 @@ place, Sal Sindo, is sittng at the front desk watching you closely. The walls
 here are green and the smell is atrocious. You can almost feel grease
 floating in the air. There's a hallway to the North that has the apartments.
 
->You move north.
+> n
+You move north.
 
 Dingy Hallway
 The small Dingy Hallway is filled with rooms that are probaly filled with low
@@ -704,7 +804,8 @@ payed part time workers. The smell of grease really fills your nostrils here.
   Trey's room is to the North of where you're standing. The front desk is
 back to the South.
 
->You move north.
+> n
+You move north.
 
 Trey's Apartment
 Trey's small apartment is filled with garbage and papers which are all strewn
@@ -713,10 +814,12 @@ in the chest. Bloody papers are all around them from the gunshot wound.
 Officer Jay is once again writing notes in his notepad, you wonder if they'll
 come in handy.
 
->(Your score has increased by 5)
+> search body
+(Your score has increased by 5)
 You look through the body and find a piece of paper in his pocket.
 
->(Your score has increased by 10)
+> ask ken about trey
+(Your score has increased by 10)
 "Look, I want you to get some sleep. You've been working on this case nonstop
 for three days. Tommorow we'll go get the guy who did all this."
 
@@ -734,9 +837,11 @@ with Jay. You drive to the police station and then walk into a small white
 room filled with Ross, Ken and Rick. Looks like it's time to accuse
 someone...
 
->Your score is 190 out of a maximum of 200.  (95%)
+> score
+Your score is 190 out of a maximum of 200.  (95%)
 
->(Your score has increased by 10)
+> accuse ken
+(Your score has increased by 10)
 You throw Ken against the wall and quickly handcuff him. He screams he's not
 guilty but you carry him out of the room. A week later, there's a trial for
 the murders.

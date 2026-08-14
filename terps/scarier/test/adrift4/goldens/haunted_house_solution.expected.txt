@@ -16,18 +16,23 @@ After making that lonesome journey up the hill, you reach an ominous looking
 gate.  You pull it open - the gate making a creaking noise which would wake
 the dead - step inside the garden, and close the gate behind you.
 
->You violently shake the guttering.  Not surprisingly, a piece falls off, and
+> shake gutter
+You violently shake the guttering.  Not surprisingly, a piece falls off, and
 lands with a plop, by your feet.
 
->You pick up the piece of guttering.
+> take guttering
+You pick up the piece of guttering.
 
->You drop the packet of fags.
+> drop fags
+You drop the packet of fags.
 
->You grab hold of the handle, and twist hard.  It obviously hasn't been opened
+> open door
+You grab hold of the handle, and twist hard.  It obviously hasn't been opened
 for some time, as it is quite difficult.  With all your might, you finally
 manage to get the enormous door open.
 
->You move in.
+> in
+You move in.
 
 The reception area
 You are standing in the reception area of the house.  To your west is the
@@ -35,7 +40,8 @@ kitchen.  The main hall is to your north.  To the east, is the conservatory.
 The front door leads outside.  High above your head is a fantastic
 chandelier.
 
->You move north.
+> n
+You move north.
 
 The main hall
 You are standing in the main hall.  There is a majestic rug in the centre of
@@ -44,7 +50,8 @@ of the side walls leading down.  The reception area is to the south.  The
 dining room is to the north, the study to the east, and there is a spiral
 staircase leading up.
 
->You move east.
+> e
+You move east.
 
 The study
 You are in the study.  There is a majestic looking desk in the middle, and an
@@ -54,9 +61,11 @@ north.
 
 Also here is a long pencil.
 
->You pick up the long pencil.
+> take pencil
+You pick up the long pencil.
 
->You move west.
+> w
+You move west.
 
 The main hall
 You are standing in the main hall.  There is a majestic rug in the centre of
@@ -65,7 +74,8 @@ of the side walls leading down.  The reception area is to the south.  The
 dining room is to the north, the study to the east, and there is a spiral
 staircase leading up.
 
->You move south.
+> s
+You move south.
 
 The reception area
 You are standing in the reception area of the house.  To your west is the
@@ -73,7 +83,8 @@ kitchen.  The main hall is to your north.  To the east, is the conservatory.
 The front door leads outside.  High above your head is a fantastic
 chandelier.
 
->You move west.
+> w
+You move west.
 
 The kitchen
 You are standing in the kitchen.  It is quite a bare kitchen, apart from an
@@ -83,20 +94,27 @@ east, and there is a small doorway into the pantry.
 
 Also here is an empty pan and an old candle.
 
->You pick up the old candle.
+> take candle
+You pick up the old candle.
 
->You light the candle.
+> light candle
+You light the candle.
 
->You drop the box of matches.
+> drop matches
+You drop the box of matches.
 
->You stick the pencil up the tap and give it a good wiggle.  Moments later, a
+> unblock tap
+You stick the pencil up the tap and give it a good wiggle.  Moments later, a
 large dob of muck lands with a loud plop in the sink.
 
->You drop the long pencil.
+> drop pencil
+You drop the long pencil.
 
->You pick up the empty pan.
+> take pan
+You pick up the empty pan.
 
->You move in.
+> in
+You move in.
 
 The pantry
 You are standing in the pantry.  There are lots of shelves in here, but it is
@@ -104,9 +122,11 @@ very sparse.
 
 Also here is some grains of rice.
 
->You pick up the grains of rice.
+> take rice
+You pick up the grains of rice.
 
->You move out.
+> out
+You move out.
 
 The kitchen
 You are standing in the kitchen.  It is quite a bare kitchen, apart from an
@@ -116,7 +136,8 @@ east, and there is a small doorway into the pantry.
 
 Also here is a long pencil and a box of matches.
 
->You move east.
+> e
+You move east.
 
 The reception area
 You are standing in the reception area of the house.  To your west is the
@@ -124,7 +145,8 @@ kitchen.  The main hall is to your north.  To the east, is the conservatory.
 The front door leads outside.  High above your head is a fantastic
 chandelier.
 
->You move north.
+> n
+You move north.
 
 The main hall
 You are standing in the main hall.  There is a majestic rug in the centre of
@@ -133,7 +155,8 @@ of the side walls leading down.  The reception area is to the south.  The
 dining room is to the north, the study to the east, and there is a spiral
 staircase leading up.
 
->You move down.
+> down
+You move down.
 
 The cellar
 You are in a dark and dingy cellar.  A few mice run around by your feet.  You
@@ -142,15 +165,19 @@ a large rack for wine.
 
 Also here is a bottle of wine.
 
->You drop the grains of rice.  One of the mice runs up and grabs it, before
+> drop rice
+You drop the grains of rice.  One of the mice runs up and grabs it, before
 running into a little mouse hole.  As the mouse runs into its hole, you
 notice a glimmer of metal, and see a little key poking out of the hole.
 
->You pick up the fancy key.
+> take key
+You pick up the fancy key.
 
->You turn the tap.  Nothing seems to happen.
+> turn tap
+You turn the tap.  Nothing seems to happen.
 
->You move up.
+> up
+You move up.
 
 The main hall
 You are standing in the main hall.  There is a majestic rug in the centre of
@@ -159,7 +186,8 @@ of the side walls leading down.  The reception area is to the south.  The
 dining room is to the north, the study to the east, and there is a spiral
 staircase leading up.
 
->You move south.
+> s
+You move south.
 
 The reception area
 You are standing in the reception area of the house.  To your west is the
@@ -167,7 +195,8 @@ kitchen.  The main hall is to your north.  To the east, is the conservatory.
 The front door leads outside.  High above your head is a fantastic
 chandelier.
 
->You move west.
+> w
+You move west.
 
 The kitchen
 You are standing in the kitchen.  It is quite a bare kitchen, apart from an
@@ -177,12 +206,15 @@ east, and there is a small doorway into the pantry.
 
 Also here is a long pencil and a box of matches.
 
->You turn on the tap, and fill the pan with water.
+> fill pan
+You turn on the tap, and fill the pan with water.
 
->You turn on the stove and heat the pan up.  A couple of minutes later, the
+> heat water
+You turn on the stove and heat the pan up.  A couple of minutes later, the
 water inside the pan is bubbling furiously.  You take the pan off the stove.
 
->You move east.
+> e
+You move east.
 
 The reception area
 You are standing in the reception area of the house.  To your west is the
@@ -190,7 +222,8 @@ kitchen.  The main hall is to your north.  To the east, is the conservatory.
 The front door leads outside.  High above your head is a fantastic
 chandelier.
 
->You move out.
+> out
+You move out.
 
 Outside the house
 You are standing outside the old house.  It appears to be in very bad
@@ -202,7 +235,8 @@ stretches around to the east and west.  There is a closed gate to the south.
 
 Also here is a packet of fags.
 
->You move west.
+> w
+You move west.
 
 The West garden
 You are standing in the west end of the garden.  The house is to the east,
@@ -210,16 +244,20 @@ and there is a large hedge preventing you from going west.  The garden
 stretches north, and to the east.  There is a sinister looking statue in the
 garden here.
 
->You pour the pan of hot water over the statue.  Slowly the statue starts to
+> melt statue
+You pour the pan of hot water over the statue.  Slowly the statue starts to
 melt, as you realise it is actually made of ice.  Moments later, the fierce
 beast melts away into a small dog.  The dog has a ball in its mouth, which
 drops to the floor as the ice melts.
 
->You drop the empty pan.
+> drop pan
+You drop the empty pan.
 
->You pick up the small ball.
+> take ball
+You pick up the small ball.
 
->You move east.
+> e
+You move east.
 
 Outside the house
 You are standing outside the old house.  It appears to be in very bad
@@ -231,7 +269,8 @@ stretches around to the east and west.  There is a closed gate to the south.
 
 Also here is a packet of fags.
 
->You move in.
+> in
+You move in.
 
 The reception area
 You are standing in the reception area of the house.  To your west is the
@@ -239,13 +278,16 @@ kitchen.  The main hall is to your north.  To the east, is the conservatory.
 The front door leads outside.  High above your head is a fantastic
 chandelier.
 
->You throw the ball up at the chandelier.  It ricochets around it, before
+> throw ball
+You throw the ball up at the chandelier.  It ricochets around it, before
 falling back on the floor.  One of the crystal pieces falls off the
 chandelier, also dropping down on the ground.
 
->You pick up the small crystal.
+> take crystal
+You pick up the small crystal.
 
->You move north.
+> n
+You move north.
 
 The main hall
 You are standing in the main hall.  There is a majestic rug in the centre of
@@ -254,30 +296,35 @@ of the side walls leading down.  The reception area is to the south.  The
 dining room is to the north, the study to the east, and there is a spiral
 staircase leading up.
 
->You move up.
+> up
+You move up.
 
 The upstairs landing
 You are standing in the upstairs landing.  High above your head is some kind
 of hatch.  There is a bedroom to the north and south, and a bathroom to your
 west.  A spiral staircase leads down.
 
->You move west.
+> w
+You move west.
 
 The bathroom
 You are in the bathroom.  There is an old bath here (one of those ones with
 four legs), a toilet, and an old broken sink.  The upstairs landing is to the
 east.
 
->Well, I suppose this is the place to do it if anywhere is!
+> use toilet
+Well, I suppose this is the place to do it if anywhere is!
 
->You move east.
+> e
+You move east.
 
 The upstairs landing
 You are standing in the upstairs landing.  High above your head is some kind
 of hatch.  There is a bedroom to the north and south, and a bathroom to your
 west.  A spiral staircase leads down.
 
->You move north.
+> n
+You move north.
 
 The master bedroom
 You are in the master bedroom.  There is a four poster bed here, completely
@@ -286,18 +333,22 @@ the south.
 
 Also here is a pink nail file.
 
->You pick up the pink nail file.
+> take nail file
+You pick up the pink nail file.
 
->You take a nap for a while, and wake up feeling refreshed.
+> sleep
+You take a nap for a while, and wake up feeling refreshed.
 
->You move south.
+> s
+You move south.
 
 The upstairs landing
 You are standing in the upstairs landing.  High above your head is some kind
 of hatch.  There is a bedroom to the north and south, and a bathroom to your
 west.  A spiral staircase leads down.
 
->You move down.
+> down
+You move down.
 
 The main hall
 You are standing in the main hall.  There is a majestic rug in the centre of
@@ -306,7 +357,8 @@ of the side walls leading down.  The reception area is to the south.  The
 dining room is to the north, the study to the east, and there is a spiral
 staircase leading up.
 
->You move south.
+> s
+You move south.
 
 The reception area
 You are standing in the reception area of the house.  To your west is the
@@ -316,7 +368,8 @@ chandelier.
 
 Also here is a small ball.
 
->You move out.
+> out
+You move out.
 
 Outside the house
 You are standing outside the old house.  It appears to be in very bad
@@ -328,24 +381,30 @@ stretches around to the east and west.  There is a closed gate to the south.
 
 Also here is a packet of fags.
 
->You move east.
+> e
+You move east.
 
 The East garden
 You are standing at the east end of the garden.  To the west lies the old
 house.  There are thick bushes to your east which run all around the garden.
 The rear of the garden is to your north.  There is an old shed here.
 
->You take the nailfile, and file the end of the padlock, removing the vast
+> file padlock
+You take the nailfile, and file the end of the padlock, removing the vast
 majority of the rust.
 
->You slide the key into the padlock, and twist it.  It springs open.  You open
+> unlock padlock
+You slide the key into the padlock, and twist it.  It springs open.  You open
 the shed door.
 
->You drop the pink nail file.
+> drop nail file
+You drop the pink nail file.
 
->You drop the fancy key.
+> drop key
+You drop the fancy key.
 
->You move in.
+> in
+You move in.
 
 Inside the shed
 You are standing inside the shed.  It is very dirty in here.  There is a
@@ -353,9 +412,11 @@ shelf, but it is empty.
 
 Also here is an old tattered teddy.
 
->You pick up the old tattered teddy.
+> take teddy
+You pick up the old tattered teddy.
 
->You move out.
+> out
+You move out.
 
 The East garden
 You are standing at the east end of the garden.  To the west lies the old
@@ -364,7 +425,8 @@ The rear of the garden is to your north.  There is an old shed here.
 
 Also here is a pink nail file and a fancy key.
 
->You move west.
+> w
+You move west.
 
 Outside the house
 You are standing outside the old house.  It appears to be in very bad
@@ -376,7 +438,8 @@ stretches around to the east and west.  There is a closed gate to the south.
 
 Also here is a packet of fags.
 
->You move in.
+> in
+You move in.
 
 The reception area
 You are standing in the reception area of the house.  To your west is the
@@ -386,7 +449,8 @@ chandelier.
 
 Also here is a small ball.
 
->You move north.
+> n
+You move north.
 
 The main hall
 You are standing in the main hall.  There is a majestic rug in the centre of
@@ -395,7 +459,8 @@ of the side walls leading down.  The reception area is to the south.  The
 dining room is to the north, the study to the east, and there is a spiral
 staircase leading up.
 
->You move down.
+> down
+You move down.
 
 The cellar
 You are in a dark and dingy cellar.  A few mice run around by your feet.  You
@@ -404,9 +469,11 @@ a large rack for wine.
 
 Also here is a bottle of wine.
 
->You pick up the bottle of wine.
+> take wine
+You pick up the bottle of wine.
 
->You move up.
+> up
+You move up.
 
 The main hall
 You are standing in the main hall.  There is a majestic rug in the centre of
@@ -415,7 +482,8 @@ of the side walls leading down.  The reception area is to the south.  The
 dining room is to the north, the study to the east, and there is a spiral
 staircase leading up.
 
->You move south.
+> s
+You move south.
 
 The reception area
 You are standing in the reception area of the house.  To your west is the
@@ -425,7 +493,8 @@ chandelier.
 
 Also here is a small ball.
 
->You move out.
+> out
+You move out.
 
 Outside the house
 You are standing outside the old house.  It appears to be in very bad
@@ -437,7 +506,8 @@ stretches around to the east and west.  There is a closed gate to the south.
 
 Also here is a packet of fags.
 
->You move east.
+> e
+You move east.
 
 The East garden
 You are standing at the east end of the garden.  To the west lies the old
@@ -446,7 +516,8 @@ The rear of the garden is to your north.  There is an old shed here.
 
 Also here is a pink nail file and a fancy key.
 
->You move north.
+> n
+You move north.
 
 Behind the house
 You are in the back garden.  It must be a good few acres in size.  There are
@@ -454,33 +525,42 @@ various trees scattered around.  Also, in the ground, is a big lump of
 concrete.  There is a thick hedge preventing you from going outside the
 garden.  The garden stretches to the east and west.
 
->You find your footing in the small branches, and make your way up the tree.
+> climb tree
+You find your footing in the small branches, and make your way up the tree.
 
->You climb onto the branch.
+> go on branch
+You climb onto the branch.
 
->You somehow manage to position yourself on the long branch, and you take a
+> jump onto roof
+You somehow manage to position yourself on the long branch, and you take a
 big jump, trying desperately not to look down.  Somehow, you make it!
 
->You drop the bottle down the chimney.  You listen, and hear a crashing noise
+> drop wine down chimney
+You drop the bottle down the chimney.  You listen, and hear a crashing noise
 down below.  Well, the bottle must have cleared whatever was blocking the
 chimney.
 
->You move down.
+> down
+You move down.
 
 The attic
 You are in the attic.  There is a trapdoor in the floor.
 
 Also here is a smooth stick.
 
->You pick up the smooth stick.
+> take stick
+You pick up the smooth stick.
 
->You take the crystal, and place it in the small slot in the smooth stick.  It
+> put crystal in slot
+You take the crystal, and place it in the small slot in the smooth stick.  It
 fits perfectly.
 
->You open the trapdoor.  The ladder unfolds and spans down to the upstairs
+> open trapdoor
+You open the trapdoor.  The ladder unfolds and spans down to the upstairs
 landing.
 
->You move down.
+> down
+You move down.
 
 The upstairs landing
 You are standing in the upstairs landing.  High above your head is some kind
@@ -488,18 +568,21 @@ of hatch, which is open.  A ladder leads up towards the hatch, into the
 attic.  There is a bedroom to the north and south, and a bathroom to your
 west.  A spiral staircase leads down.
 
->You move south.
+> s
+You move south.
 
 The small bedroom
 You are in the small bedroom.  There is a small bed by one wall.  You jump as
 a ghost flies past your face.  The ghost flies round and round the room.  The
 upstairs landing is to the north.
 
->You hand the old teddy bear to the ghost.  She squeals, as now she can rest
+> give teddy to ghost
+You hand the old teddy bear to the ghost.  She squeals, as now she can rest
 in peace.  She hands you a strange object for her gratitude, cuddles the
 bear, and floats out the window.
 
->You move north.
+> n
+You move north.
 
 The upstairs landing
 You are standing in the upstairs landing.  High above your head is some kind
@@ -507,7 +590,8 @@ of hatch, which is open.  A ladder leads up towards the hatch, into the
 attic.  There is a bedroom to the north and south, and a bathroom to your
 west.  A spiral staircase leads down.
 
->You move down.
+> down
+You move down.
 
 The main hall
 You are standing in the main hall.  There is a majestic rug in the centre of
@@ -518,11 +602,14 @@ staircase leading up.
 
 Also here are some broken glass and a model boat.
 
->You pick up the model boat.
+> take boat
+You pick up the model boat.
 
->You sing a little song to yourself.  If nothing else, it cheers you up.
+> sing
+You sing a little song to yourself.  If nothing else, it cheers you up.
 
->You move south.
+> s
+You move south.
 
 The reception area
 You are standing in the reception area of the house.  To your west is the
@@ -532,7 +619,8 @@ chandelier.
 
 Also here is a small ball.
 
->You move east.
+> e
+You move east.
 
 The conservatory
 You are standing in the conservatory.  There are lots of windows here, but
@@ -540,41 +628,49 @@ you notice a strange round window, very high up.  In the floor, there is some
 sort of round hole.  The walls appear to be made up from lots of panels.  The
 study is to the north, and the reception area is to the west.
 
->You put the fancy rod into the hole.  Suddenly, a beam of light enters from
+> put rod in hole
+You put the fancy rod into the hole.  Suddenly, a beam of light enters from
 the strange window, and goes directly through the crystal in the rod.  The
 beam of light is then diverted to one of the panels in the wall, which
 somehow springs open.  You appear to have discovered a secret passage!
 
->You move in.
+> in
+You move in.
 
 The secret passage
 You are in a secret passage which runs east to west.  To the west lies the
 conservatory, whilst you can see a small room to the east.
 
->You move east.
+> e
+You move east.
 
 The underground cavern
 You are in a secret underground cavern.  The ground is very soft here.  The
 room is strangely lit by a soft green glow eminating from the cavern walls.
 The passage leads back west.
 
->You dig in the soft ground with the piece of guttering.  You uncover a small
+> dig
+You dig in the soft ground with the piece of guttering.  You uncover a small
 underground stream.
 
->You put the boat in the water.  It disappears underground.  Moments later it
+> put boat in water
+You put the boat in the water.  It disappears underground.  Moments later it
 re-appears, with the engines running.  A tiny man on the boat says "Ahoy
 there", throws a candle holder over to you, then disappears back underground.
  Who says this house isn't haunted?
 
->You pick up the old candle holder.
+> take candle holder
+You pick up the old candle holder.
 
->You move west.
+> w
+You move west.
 
 The secret passage
 You are in a secret passage which runs east to west.  To the west lies the
 conservatory, whilst you can see a small room to the east.
 
->You move west.
+> w
+You move west.
 
 The conservatory
 You are standing in the conservatory.  There are lots of windows here, but
@@ -584,7 +680,8 @@ and into the passage.  The walls appear to be made up from lots of panels.
 One of the panels has opened, revealing a secret passage.  The study is to
 the north, and the reception area is to the west.
 
->You move north.
+> n
+You move north.
 
 The study
 You are in the study.  There is a majestic looking desk in the middle, and an
@@ -592,7 +689,8 @@ old chair, and at the side of the study is a large bookcase.  The
 conservatory is to the south, the hall to the west, and the lounge is to the
 north.
 
->You move west.
+> w
+You move west.
 
 The main hall
 You are standing in the main hall.  There is a majestic rug in the centre of
@@ -603,39 +701,46 @@ staircase leading up.
 
 Also here are some broken glass.
 
->You move north.
+> n
+You move north.
 
 The dining room
 You are standing in the dining room.  There is a large table here.  To the
 east is the lounge, and the main hall is to the south.
 
->You place the candle holder in the middle of the table.  Suddenly, a skeleton
+> put candle holder on table
+You place the candle holder in the middle of the table.  Suddenly, a skeleton
 walks towards you from out of nowhere, looks at the table, and says to you;
 "That's better.  I always knew that table needed something!".  He hands you a
 pneumatic drill for making his day, and disappears!
 
->You move east.
+> e
+You move east.
 
 The lounge
 You are standing in the lounge.  There is a rocking chair in the corner.  The
 study is to the south, and the dining room to the west.
 
->You go over to the chair, and try to sit on it, but as soon as you do,
+> sit on chair
+You go over to the chair, and try to sit on it, but as soon as you do,
 something pushes you away.  On closer inspection of the chair, you realise
 that there is a ghost of an old woman sitting there, doing her knitting.
 
->You ask the old ghost about the object.  She tells you that it is a dream.
+> ask ghost about object
+You ask the old ghost about the object.  She tells you that it is a dream.
 You have to submit it to a magnetic field, and wish for what you like, and
 you will get it.  You look at her as if she's strange, but you don't say
 anything.
 
->You move west.
+> w
+You move west.
 
 The dining room
 You are standing in the dining room.  There is a large table here.  To the
 east is the lounge, and the main hall is to the south.
 
->You move south.
+> s
+You move south.
 
 The main hall
 You are standing in the main hall.  There is a majestic rug in the centre of
@@ -646,7 +751,8 @@ staircase leading up.
 
 Also here are some broken glass.
 
->You move south.
+> s
+You move south.
 
 The reception area
 You are standing in the reception area of the house.  To your west is the
@@ -656,7 +762,8 @@ chandelier.
 
 Also here is a small ball.
 
->You move out.
+> out
+You move out.
 
 Outside the house
 You are standing outside the old house.  It appears to be in very bad
@@ -668,7 +775,8 @@ stretches around to the east and west.  There is a closed gate to the south.
 
 Also here is a packet of fags.
 
->You move east.
+> e
+You move east.
 
 The East garden
 You are standing at the east end of the garden.  To the west lies the old
@@ -677,7 +785,8 @@ The rear of the garden is to your north.  There is an old shed here.
 
 Also here is a pink nail file and a fancy key.
 
->You move north.
+> n
+You move north.
 
 Behind the house
 You are in the back garden.  It must be a good few acres in size.  There are
@@ -685,17 +794,21 @@ various trees scattered around.  Also, in the ground, is a big lump of
 concrete.  There is a thick hedge preventing you from going outside the
 garden.  The garden stretches to the east and west.
 
->You take the drill, and place the bit into the concrete.  The drill starts to
+> drill concrete
+You take the drill, and place the bit into the concrete.  The drill starts to
 activate, bouncing you around the place a bit.  Moments later, you have
 created a large hole.  At the bottom of the hole, you can just make out a
 large magnet of some sort.  You haven't a clue why it would be buried here!
 
->You pick up the large magnet.
+> take magnet
+You pick up the large magnet.
 
->You hold the magnet up to the object, whilst thinking about the treasure.
+> magnetise object
+You hold the magnet up to the object, whilst thinking about the treasure.
 Suddenly, the object, stretches, and turns into a large chest of gold.
 
->You move west.
+> w
+You move west.
 
 The West garden
 You are standing in the west end of the garden.  The house is to the east,
@@ -705,7 +818,8 @@ garden here.
 
 Also here is an empty pan.
 
->You move east.
+> e
+You move east.
 
 Outside the house
 You are standing outside the old house.  It appears to be in very bad
@@ -717,9 +831,11 @@ stretches around to the east and west.  There is a closed gate to the south.
 
 Also here is a packet of fags.
 
->Your score is 900 out of a maximum of 1000.  (90%)
+> score
+Your score is 900 out of a maximum of 1000.  (90%)
 
->You swing the gate open, somehow managing to do this whilst carrying an
+> open gate
+You swing the gate open, somehow managing to do this whilst carrying an
 enourmously large chest of gold, and go outside.
 You've done it!  You went in, you got the treasure, and now you're free!  Ha,
 you can't wait to get back to your friends to tell them all about your

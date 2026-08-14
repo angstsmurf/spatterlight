@@ -8,7 +8,11 @@
 # interpreter until it has eaten all the machine's RAM, which is far more
 # annoying to recover from than a truncated transcript. Use play.sh once the
 # route is settled; the regression runner applies its own `ulimit -t 30`.
+#
+# Echoes commands after the '>' prompt like play.sh does; SCR_ECHO_INPUT=
+# (empty) suppresses it.
 HERE="$(cd "$(dirname "$0")" && pwd)"
+export SCR_ECHO_INPUT="${SCR_ECHO_INPUT-1}"
 SCARE="$HERE/scare"
 GAME="$1"; SOL="$2"; shift 2 2>/dev/null || true
 ( ulimit -t 12

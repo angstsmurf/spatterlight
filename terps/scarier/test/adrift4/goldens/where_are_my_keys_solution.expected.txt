@@ -15,7 +15,7 @@ Version 1.07, 2005
 
 4. Credits
 
->
+> 1
 
 The Lounge
 You are in Marks lovely lounge, well no it's actually horrible.  It seems to
@@ -30,7 +30,8 @@ John is currently slumped in the armchair.
 "I'd better go and find Mark, to ask him about my keys," you think to
 yourself.
 
->You move west.
+> west
+You move west.
 
 Hall
 You are in Marks small hall.  The front hall in a house is usually a warm and
@@ -42,7 +43,8 @@ the west.  Some stairs lead, well up.
 
 You can see a pair of boxer shorts.
 
->You move west.
+> west
+You move west.
 
 The Kitchen
 You are in Marks reasonable sized Kitchen.  It is nice to see that the theme
@@ -55,20 +57,25 @@ the room and on the floor near the back door is a small dog basket.  The hall
 is to the east, the door to the back garden south and what looks like a
 cupboard under the stairs is southeast.
 
->It is a small dog basket.  It is some sort of wicker affair with an ill
+> x basket
+It is a small dog basket.  It is some sort of wicker affair with an ill
 fitting cover.  A small plastic mouse is inside the dog basket.
 
->You take the small plastic mouse from the dog basket.
+> get mouse
+You take the small plastic mouse from the dog basket.
 
->You open the kitchen unit.  A large knife and a jar of coffee are inside the
+> open unit
+You open the kitchen unit.  A large knife and a jar of coffee are inside the
 kitchen unit.
 
->It is plugged into the wall and in any case it is not a good idea.
+> get all from unit
+It is plugged into the wall and in any case it is not a good idea.
 I do not think that is a good idea.
 
 You take the large knife and the jar of coffee from the kitchen unit.
 
->You move southeast.
+> se
+You move southeast.
 
 Under the Stairs
 You are in the tiny cupboard under the stairs.  Although it is tiny, very
@@ -77,11 +84,13 @@ Some of the floorboards seem to be loose and you can see a hole.  On the wall
 you can see a fuse box with a single switch in the On position.   You can
 only really go northwest back to the kitchen.
 
->Using the large knife you force one of the loose floorboards up.  Once you
+> pull floorboards
+Using the large knife you force one of the loose floorboards up.  Once you
 have moved one it makes it easier to lift the other loose ones.  You can now
 get under the floor.
 
->You climb down through the hole.
+> down
+You climb down through the hole.
 
 Under the Floorboards
 You are in a small space under the floor about 4ft in height.  It feels very
@@ -91,9 +100,11 @@ under the stairs.
 
 You can also see a pair of gloves.
 
->You pick up the pair of gloves.
+> get gloves
+You pick up the pair of gloves.
 
->You move up.
+> up
+You move up.
 
 Under the Stairs
 You are in the tiny cupboard under the stairs.  Although it is tiny, very
@@ -103,9 +114,11 @@ you can see a fuse box with a single switch in the On position.   You can see
 a very large hole in the floor, big enough to get through.  You can down the
 hole or northwest back to the kitchen.
 
->You switch off the fuse box.
+> turn off fuse
+You switch off the fuse box.
 
->You move northwest.
+> nw
+You move northwest.
 
 The Dark Kitchen
 You are in Marks reasonable sized Kitchen.  It is nice to see that the theme
@@ -119,31 +132,40 @@ is to the east, the door to the back garden south and what looks like a
 cupboard under the stairs is southeast.  The lights have gone out in the
 house and it seems a lot darker in here.
 
->You put on the pair of gloves.
+> wear gloves
+You put on the pair of gloves.
 
->It is an electric cooker.  At the moment the cooker appears to be switched
+> x cooker
+It is an electric cooker.  At the moment the cooker appears to be switched
 Off.  A saucepan and a frying pan are on the cooker.
 
->It is a well used (and little cleaned) metal saucepan.  A bone is inside the
+> x saucepan
+It is a well used (and little cleaned) metal saucepan.  A bone is inside the
 saucepan.
 
->You get the bone.
+> get bone
+You get the bone.
 
->You open the fridge and the light comes on.  Well that's something. A tub of
+> open fridge
+You open the fridge and the light comes on.  Well that's something. A tub of
 butter, a butter knife and a bottle of milk are inside the fridge.
 
->You put the bone into the fridge.
+> put bone in fridge
+You put the bone into the fridge.
 
->You move southeast.
+> se
+You move southeast.
 
 Under the Stairs
 An emergency light is on, otherwise it would be very dark in here.  You can
 see a very large hole in the floor, big enough to get through.  You can down
 the hole or northwest back to the kitchen.
 
->You switch on the fuse box.
+> turn on fuse box
+You switch on the fuse box.
 
->You move northwest.
+> nw
+You move northwest.
 
 The Kitchen
 You are in Marks reasonable sized Kitchen.  It is nice to see that the theme
@@ -156,7 +178,8 @@ the room and on the floor near the back door is a small dog basket.  The hall
 is to the east, the door to the back garden south and what looks like a
 cupboard under the stairs is southeast.
 
->You move east.
+> east
+You move east.
 
 Hall
 You are in Marks small hall.  The front hall in a house is usually a warm and
@@ -168,7 +191,8 @@ the west.  Some stairs lead, well up.
 
 You can see a pair of boxer shorts.
 
->You move up.
+> up
+You move up.
 
 On the Stairs
 You are on Marks stairs.  You can go up the stairs to the Landing and down to
@@ -177,7 +201,8 @@ On the wall is a gold framed picture.
 
 You can see a pair of old trousers.
 
->You move up.
+> up
+You move up.
 
 Landing
 You are on Marks landing.  This area has no window so it is quite dark here,
@@ -189,7 +214,8 @@ The small brown terrier is wandering around.
 
 The small brown terrier wandering around is growling at you.
 
->You move east.
+> east
+You move east.
 
 Bathroom
 You are in Marks small bathroom.  Along one side of the room is the bath
@@ -202,12 +228,15 @@ only go west from here back to the landing.
 You can also see a linen basket.
 Tom is currently sleeping in the bath.
 
->You open the medicine cabinet.  A headache packet is inside the medicine
+> open medicine cabinet
+You open the medicine cabinet.  A headache packet is inside the medicine
 cabinet.
 
->You take the headache packet from the medicine cabinet.
+> get headache packet
+You take the headache packet from the medicine cabinet.
 
->You move west.
+> west
+You move west.
 
 Landing
 You are on Marks landing.  This area has no window so it is quite dark here,
@@ -216,7 +245,8 @@ more terrible wallpaper and a very threadbare carpet. The main bedroom is to
 the north and the back bedroom is opposite.  You can just make out the
 bathroom to the east and you can go down to the hall.
 
->You move south.
+> south
+You move south.
 
 Back Bedroom
 You are in Marks fairly small back bedroom.  The room has a small looking
@@ -229,14 +259,17 @@ The small brown terrier is wandering around.
 
 The small dog wanders out to the north.
 
->The bookcase is one of those cheap DIY jobs.  In this case though even a cut
+> x bookcase
+The bookcase is one of those cheap DIY jobs.  In this case though even a cut
 price DIY shop would consider the quality too low.  Also it was obviously put
 together by someone who had never seen a bookcase before.  A coffee mug and a
 paperback book are on the bookcase.
 
->You take the coffee mug from the bookcase.
+> get mug
+You take the coffee mug from the bookcase.
 
->You move north.
+> north
+You move north.
 
 Landing
 You are on Marks landing.  This area has no window so it is quite dark here,
@@ -248,7 +281,8 @@ The small brown terrier is wandering around.
 
 The small dog wanders out to below.
 
->You move down.
+> down
+You move down.
 
 On the Stairs
 You are on Marks stairs.  You can go up the stairs to the Landing and down to
@@ -260,7 +294,8 @@ The small brown terrier is wandering around.
 
 The small brown terrier wandering around is whimpering at you.
 
->You move down.
+> down
+You move down.
 
 Hall
 You are in Marks small hall.  The front hall in a house is usually a warm and
@@ -272,7 +307,8 @@ the west.  Some stairs lead, well up.
 
 You can see a pair of boxer shorts.
 
->You move west.
+> west
+You move west.
 
 The Kitchen
 You are in Marks reasonable sized Kitchen.  It is nice to see that the theme
@@ -285,9 +321,11 @@ the room and on the floor near the back door is a small dog basket.  The hall
 is to the east, the door to the back garden south and what looks like a
 cupboard under the stairs is southeast.
 
->You get the bone.
+> get bone
+You get the bone.
 
->You move east.
+> east
+You move east.
 
 Hall
 You are in Marks small hall.  The front hall in a house is usually a warm and
@@ -299,7 +337,8 @@ the west.  Some stairs lead, well up.
 
 You can see a pair of boxer shorts.
 
->You move up.
+> up
+You move up.
 
 On the Stairs
 You are on Marks stairs.  You can go up the stairs to the Landing and down to
@@ -308,7 +347,8 @@ On the wall is a gold framed picture.
 
 You can see a pair of old trousers.
 
->You move up.
+> up
+You move up.
 
 Landing
 You are on Marks landing.  This area has no window so it is quite dark here,
@@ -317,7 +357,8 @@ more terrible wallpaper and a very threadbare carpet. The main bedroom is to
 the north and the back bedroom is opposite.  You can just make out the
 bathroom to the east and you can go down to the hall.
 
->You move south.
+> south
+You move south.
 
 Back Bedroom
 You are in Marks fairly small back bedroom.  The room has a small looking
@@ -330,11 +371,13 @@ The small brown terrier is wandering around.
 
 The small brown terrier wandering around is snarling at you.
 
->
+> give bone to dog
+
 You carefully (so as not to get bitten) hand the dog the bone.  The dog heads
 off towards the kitchen.
 
->You move north.
+> north
+You move north.
 
 Landing
 You are on Marks landing.  This area has no window so it is quite dark here,
@@ -343,7 +386,8 @@ more terrible wallpaper and a very threadbare carpet. The main bedroom is to
 the north and the back bedroom is opposite.  You can just make out the
 bathroom to the east and you can go down to the hall.
 
->You move down.
+> down
+You move down.
 
 On the Stairs
 You are on Marks stairs.  You can go up the stairs to the Landing and down to
@@ -352,7 +396,8 @@ On the wall is a gold framed picture.
 
 You can see a pair of old trousers.
 
->You move down.
+> down
+You move down.
 
 Hall
 You are in Marks small hall.  The front hall in a house is usually a warm and
@@ -364,7 +409,8 @@ the west.  Some stairs lead, well up.
 
 You can see a pair of boxer shorts.
 
->You move west.
+> west
+You move west.
 
 The Kitchen
 You are in Marks reasonable sized Kitchen.  It is nice to see that the theme
@@ -381,10 +427,12 @@ The small brown terrier is wandering around.
 The small brown terrier wandering around is snarling at you.
 The dog is standing near the back door waiting to go out.
 
->You open the back door.
+> open door
+You open the back door.
 The dog goes out of the Kitchen into the garden with its bone.
 
->You move south.
+> south
+You move south.
 
 Back Garden
 You are in Marks back garden.  The back door to the kitchen is north and to
@@ -392,7 +440,8 @@ the west seems to be some sort of vegetable patch.  The garden is surrounded
 by a very tall garden fence.  Just to one side of the back door is an old
 black plastic rubbish bin.
 
->You move west.
+> west
+You move west.
 
 Vegetable Patch
 You are in Marks vegetable patch, minus any vegetables.  It does look like
@@ -409,18 +458,23 @@ You hear a door slamming shut.
 The dog has been digging a hole for its bone and has unearthed something - a
 single slipper and  your car keys!  The dog must have buried them.
 
->You open the shed door.
+> open shed door
+You open the shed door.
 
 The small brown terrier wandering around is snarling at you.
 
->You throw the toy mouse which goes into the shed.  The dog chases after the
+> throw mouse
+You throw the toy mouse which goes into the shed.  The dog chases after the
 toy into the shed.
 
->You close the shed door.
+> close shed door
+You close the shed door.
 
->You take you car keys!
+> get keys
+You take you car keys!
 
->You move east.
+> east
+You move east.
 
 Back Garden
 You are in Marks back garden.  The back door to the kitchen is north and to
@@ -428,9 +482,11 @@ the west seems to be some sort of vegetable patch.  The garden is surrounded
 by a very tall garden fence.  Just to one side of the back door is an old
 black plastic rubbish bin.
 
->You open the back door.
+> open door
+You open the back door.
 
->You move north.
+> north
+You move north.
 
 The Kitchen
 You are in Marks reasonable sized Kitchen.  It is nice to see that the theme
@@ -444,24 +500,31 @@ is to the east, the door to the back garden south and what looks like a
 cupboard under the stairs is southeast.
 You can hear a dog howling.
 
->You turn on the kettle which starts to boil.
+> turn on kettle
+You turn on the kettle which starts to boil.
 
->You open the packet of headache tablets. You look inside the packet for
+> open headache packet
+You open the packet of headache tablets. You look inside the packet for
 tablets and can see six.
 You can hear a dog howling.
 
->You take a tablet from the packet.
+> get tablet
+You take a tablet from the packet.
 
->You take one of the headache tablets and swallow it.
+> eat tablet
+You take one of the headache tablets and swallow it.
 
->The kitchen sink is filled to the top with dirty dishes of every size and
+> x sink
+The kitchen sink is filled to the top with dirty dishes of every size and
 type.
 You can hear a dog howling.
 
->You try to lift the dirty dishes from the sink but you can't.  As you are
+> get dirty dishes
+You try to lift the dirty dishes from the sink but you can't.  As you are
 messing about with the dishes a teaspoon falls to the floor.
 
->It is plugged into the wall and in any case it is not a good idea.
+> get all
+It is plugged into the wall and in any case it is not a good idea.
 I do not think that is a good idea.
 
 You pick up the teaspoon.  You take the tub of butter, the butter knife and
@@ -469,18 +532,23 @@ the bottle of milk from the fridge.  You take the pizza box and the breadbin
 from the kitchen table.  You take the saucepan and the frying pan from the
 cooker.
 
->You put a spoonful of coffee in the mug. You pour hot water into the mug.
+> make coffee
+You put a spoonful of coffee in the mug. You pour hot water into the mug.
 The mug now contains hot black coffee.
 
->You drink the mug of coffee. You feel a little better.
+> drink coffee
+You drink the mug of coffee. You feel a little better.
 You can hear a dog howling.
 
->You put a spoonful of coffee in the mug. You pour hot water into the mug.
+> make coffee
+You put a spoonful of coffee in the mug. You pour hot water into the mug.
 The mug now contains hot black coffee.
 
->You drink the mug of coffee. You feel a little better.
+> drink coffee
+You drink the mug of coffee. You feel a little better.
 
->You move east.
+> east
+You move east.
 
 Hall
 You are in Marks small hall.  The front hall in a house is usually a warm and
@@ -492,10 +560,12 @@ the west.  Some stairs lead, well up.
 
 You can see a pair of boxer shorts.
 
->You open the front door.
+> open door
+You open the front door.
 You can hear a dog howling.
 
->You move north.
+> north
+You move north.
 
 Front Garden
 You are in Marks front garden.  It is quite obvious that Mark is not a very
@@ -506,10 +576,12 @@ it.  The front garden is surrounded by a very tall hedge.  Looking over the
 front gate you can see the traffic going by in Carter Street.  The front gate
 is closed.
 
->
+> open gate
+
 You open the front gate.
 
->
+> north
+
 You leave through the front gate, walk over to your car, take out the keys,
 unlock the door and climb in.
 

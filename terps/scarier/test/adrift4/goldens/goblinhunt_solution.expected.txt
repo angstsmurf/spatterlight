@@ -31,9 +31,13 @@ you don't know.
 There is an exit north.
 
 >
+
 >
+
 >
->You move north.
+
+> n
+You move north.
 
 The gravestones of several dozen dead goblin hunters are arrayed about you, a
 chilling reminder of just what fate awaits you if you fail today.  You can
@@ -42,10 +46,12 @@ move north, south, northeast and northwest.
 By one of the gravestones you catch sight of Blood, the goblin who you've
 been chasing. He gives a snarl and runs off to the north.
 
->Nosing around the gravestone of the great goblin hunter "Thugg the Evil Git",
+> x gravestone
+Nosing around the gravestone of the great goblin hunter "Thugg the Evil Git",
 you come across a whistle that must have been dropped by Blood.
 
->You move northwest.
+> nw
+You move northwest.
 
 Graveyard - West
 Here at the western edge of the graveyard, someone has lumped a few goblin
@@ -55,7 +61,8 @@ likely).
 
 You can move east, northeast and southeast.
 
->You move northeast.
+> ne
+You move northeast.
 
 Graveyard - North
 The only thing of interest in the northern part of the graveyard is the
@@ -65,7 +72,8 @@ the scrounge.
 
 You can move south, southeast and southwest.
 
->You rat-a-tat-tat on the door.
+> knock door
+You rat-a-tat-tat on the door.
 ...press a key...
 
 Nothing happens.
@@ -86,34 +94,43 @@ Bert the gravedigger is here.
    "All goblins are," you say.
    "I wasn't talkin' about the goblins."
 
->"No, I ain't helpin' you," he says. "You oughta leave them there poor lil
+> talk bert
+"No, I ain't helpin' you," he says. "You oughta leave them there poor lil
 goblins alone. They never hurt no one."
    "They burnt down the town of Bottum and killed fifty people," you say.
    "Bah. That's just statistics."
 
->"Harmless fellows goblins are," says Bert.
+> talk bert
+"Harmless fellows goblins are," says Bert.
    "They eat humans," you say.
    "Can't hold a fellow's dietary habits against him."
 
->"They love music and dance, do goblins," says Bert.
+> talk bert
+"They love music and dance, do goblins," says Bert.
    "They kill musicians and hang dancers from the rafters of their castle,"
 you say.
    "And I suppose you think that makes 'em bad?"
 
->"They'd offer their left arm to help out some poor unfortunate, would
+> talk bert
+"They'd offer their left arm to help out some poor unfortunate, would
 goblins," says Bert.
    "They threw Old Missus Crudgather down the stairs of her house," you say.
    "Probably just a lil misunderstanding."
 
->Bert sighs. "I ain't helpin' you and that's final."
+> talk bert
+Bert sighs. "I ain't helpin' you and that's final."
 
->"No, I said!"
+> talk bert
+"No, I said!"
 
->"Damnitall! How many times I have gotta tell you?"
+> talk bert
+"Damnitall! How many times I have gotta tell you?"
 
->"Take a hint! You ain't gettin' my help and that's final!"
+> talk bert
+"Take a hint! You ain't gettin' my help and that's final!"
 
->"Oh, hell with it!" Bert snatches up a shield and thrusts it into your hands
+> talk bert
+"Oh, hell with it!" Bert snatches up a shield and thrusts it into your hands
 before shoving you out of the door. "Go and kill the evil, murderin',
 arsonist git if you want. I ain't gonna speak up fer a lousy stinkin'
 goblin!"
@@ -125,7 +142,8 @@ gravedigger's hut. And this is a lot less interesting than you might think on
 account of it being locked up tighter than your wife's purse when you're on
 the scrounge.
 
->You move southeast.
+> se
+You move southeast.
 
 Graveyard - East
 The wall surrounding the graveyard has tumbled down here, allowing access to
@@ -134,7 +152,8 @@ on the vagaries of isometric shapes in a diagonal universe. Riveting stuff.
 
 You can move east, west, southwest and northwest.
 
->You move east.
+> e
+You move east.
 
 Cow Field
 There's a field here but on account of the cows who keep brushing past you
@@ -143,19 +162,23 @@ going on.
 
 You can only move west.
 
->The moment you toot! toot! on the whistle, the cows back away in bovinical
+> blow whistle
+The moment you toot! toot! on the whistle, the cows back away in bovinical
 fear. A few further blasts on your nifty new whistle get them running off as
 fast as the eye can see.
    Allowing you the opportunity to get a good look at the field for the first
 time.
 
->You quickly search the corpse and find a lot of dead skin, some dried blood,
+> x corpse
+You quickly search the corpse and find a lot of dead skin, some dried blood,
 a bit of brain matter... and some armour! You're so pleased by this final
 find that you leave the other stuff where it is.
 
->You put on the armour.
+> wear armour
+You put on the armour.
 
->You move west.
+> w
+You move west.
 
 Graveyard - East
 The wall surrounding the graveyard has tumbled down here, allowing access to
@@ -163,7 +186,8 @@ a field to the east that is now remarkably cow-free.
 
 You can move east, west, southwest and northwest.
 
->You move west.
+> w
+You move west.
 
 Here is a relatively empty spot in the graveyard, no doubt waiting for
 another would-be goblin hunter to get himself murdered so it can be filled.
@@ -182,7 +206,8 @@ Whew! Lucky save there!
 Blood gives a curse of disappointment at this unfortunate (for him) turn of
 events and runs off to the south.
 
->You move south.
+> s
+You move south.
 
 Graveyard - South
 The gravestones of several dozen dead goblin hunters are arrayed about you, a
@@ -190,7 +215,8 @@ chilling reminder of just what fate awaits you if you fail today.
 
 You can move north, south, northeast and northwest.
 
->You move south.
+> s
+You move south.
 
 Graveyard Gates
 The gates of the graveyard loom before you, nasty looking structures carved
@@ -206,7 +232,8 @@ even hollow it out and use it as a mug for drinking beer out of."
    Blood spits. "Bah! Civilisation makes me sick! C'mon then, let's get this
 over with!"
 
->Hefting your trusty axe, you lunge at Blood and stab him in the gut with it.
+> kill blood
+Hefting your trusty axe, you lunge at Blood and stab him in the gut with it.
 At the same time, the evil goblin lashes out, his hammer coming crashing down
 on you with stunning force; only the shield you're carrying manages to divert
 the force of the blow. You shove Blood away then attack again.

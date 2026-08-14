@@ -24,8 +24,12 @@ You decide that enough was enough. You convinced the Spirit God to change you
 from a spirit back into a living soul so that you can retrieve the elementals
 and return them to the Stone Circle where they belong.
 Please enter your name:
->Please choose the player's gender (male or female):
->
+
+> Hero
+Please choose the player's gender (male or female):
+
+> male
+
 Glade of Spirits
 The place is foggy. You can sense some supernatural beings -  like you
 floating around the place. This place is dead quiet.  A voice in your mind
@@ -34,7 +38,8 @@ must accompany you."
 
 There is an exit south.
 
->(Standing up first)
+> south
+(Standing up first)
 You walk south.
 
 Path to Stone Circle
@@ -44,7 +49,8 @@ Lamanluie is here.
 
 There are exits north and south.
 
->You walk south.
+> south
+You walk south.
 
 The Stone Circle
 A large crater on top of the mountain has a large rock tablet in the middle.
@@ -52,7 +58,8 @@ Five obelisks surround the tablet.  The place looks gloomy and dark
 
 You can move north and southeast.
 
->You walk southeast.
+> southeast
+You walk southeast.
 
 High Wizard'sTower
 The bottom part of the tower is open. Potions and books alike scatter the
@@ -62,25 +69,31 @@ Kilfuno is here.
 
 You can only move northwest.
 
->He jolts and disturbs some flasks of potions with a clink. A bolt of
+> wake kilfuno
+He jolts and disturbs some flasks of potions with a clink. A bolt of
 electricity sparks around the room. The High Wizard wakes up and stares at
 your spirit-like body. "What do you want?"
 
->You pick up Healing Potion.
+> get potion
+You pick up Healing Potion.
 
->(Your score has increased by 5)
+> examine shelf
+(Your score has increased by 5)
 One of the books are not books at all. It is a switch. A slight crack on the
 bottom of the shelf opens. You crawl in without Kilfuno spotting you.
 
->You pick up Volmor's Cake.
+> get cake
+You pick up Volmor's Cake.
 
->The glittering swirls on the cake turn into a liquid that flows into your
+> eat cake
+The glittering swirls on the cake turn into a liquid that flows into your
 throat with a tickly feeling. An unusual voice cackles from your throat,
 "Thank you for trying Volmor's high nutrition cake recipes...Your Stamina,
 Strength, and Defense is now better..."
 You fall to the floor as the flavour overwhelms.
 
->(Standing up first)
+> out
+(Standing up first)
 You move out.
 
 High Wizard'sTower
@@ -91,7 +104,8 @@ Kilfuno is here.
 
 You can only move northwest.
 
->You walk northwest.
+> northwest
+You walk northwest.
 
 The Stone Circle
 A large crater on top of the mountain has a large rock tablet in the middle.
@@ -101,9 +115,11 @@ Also here is The Spirit Dagger.
 
 You can move north and southeast.
 
->You pick up the Spirit Dagger.
+> get dagger
+You pick up the Spirit Dagger.
 
->You walk north.
+> north
+You walk north.
 
 Path to Stone Circle
 The path is paved with large gravel, and is lined on the sides with stones.
@@ -112,10 +128,12 @@ Lamanluie is here.
 
 You can move north and south.
 
->(Your score has increased by 5)
+> show dagger to lamanluie
+(Your score has increased by 5)
 She picks up her scimitar "Now,where to first?"
 
->You walk north.
+> north
+You walk north.
 
 Glade of Spirits
 The place is foggy. You can sense some supernatural beings -  like you
@@ -124,14 +142,16 @@ whispers "Wind is next, west you go."
 
 You can move south and west.
 
->You walk west.
+> west
+You walk west.
 
 Chirpy Forest
 The forest is filled with the sounds of birds. The tree tops obsure the light
 
 You can move east and southwest.
 
->You walk southwest.
+> southwest
+You walk southwest.
 
 Whistle Hamlet
 The place is full of pine trees. Log-houses dot the area.  People are locked
@@ -141,7 +161,8 @@ Fernipor is here.
 
 You can move south and northeast.
 
->You walk south.
+> south
+You walk south.
 
 Breezy Path
 The path leads to a cliff top to the south and Whistle Hamlet to the north.
@@ -149,10 +170,12 @@ A fierce wind blows.
 
 Moyru is here.
 
->You stab Moyru with the Spirit Dagger.
+> attack moyru
+You stab Moyru with the Spirit Dagger.
 Moyru cackles one last time before her body melts into a puddle of water.
 
->You walk south.
+> south
+You walk south.
 
 Cliff Top
 The cliff is high up in the clouds.  The wind blows downwards towards a
@@ -162,11 +185,14 @@ Also here is piece of cheese.
 
 You can move north and down.
 
->You pick up piece of cheese.
+> get cheese
+You pick up piece of cheese.
 
->This makes you satiated.
+> eat cheese
+This makes you satiated.
 
->You climb down.
+> down
+You climb down.
 
 Cavern of Echoes
 This place is so spacious and a steady wind blows through it. Every sound
@@ -174,7 +200,8 @@ that starts here echoes in a deafening way.
 
 You can only move up.
 
->You climb up.
+> up
+You climb up.
 
 Ridge of Storms
 You emerge from the cavern to find yourself up in the clouds on a ridge. This
@@ -185,7 +212,8 @@ Fergo is here.
 You can only move down.
 Fergo stabs you with Fletched Spear.
 
->(Your score has increased by 10)
+> attack fergo
+(Your score has increased by 10)
 You stab Fergo with the Spirit Dagger.
 Fergo stabs you with Fletched Spear.
 Lamanluie cuts Fergo with the old rusty broken blood-stained scimitar.
@@ -195,9 +223,11 @@ The Fletched Spear floats magically into your hands.
 The ridge is no longer windy. However, a gust of wind clears the clouds
 behind you, showing the path out.
 
->You pick up the Orb of Storms.
+> get orb
+You pick up the Orb of Storms.
 
->You move out.
+> out
+You move out.
 
 Cliff Top
 The cliff is high up in the clouds.  The cavern you went through does not
@@ -205,7 +235,8 @@ exist.
 
 You can only move north.
 
->You walk north.
+> north
+You walk north.
 
 Breezy Path
 The path leads to a cliff top to the south and Whistle Hamlet to the north.
@@ -215,12 +246,15 @@ Morana is here.
 
 You can only move south.
 
->You stab Morana with the Spirit Dagger.
+> attack morana
+You stab Morana with the Spirit Dagger.
 Morana screeches before she disappears in a puff of smoke.
 
->You are not making sense...
+> attack morana
+You are not making sense...
 
->You walk north.
+> north
+You walk north.
 
 Whistle Hamlet
 The place is full of pine trees. Log-houses dot the area.  People smile at
@@ -231,14 +265,16 @@ Fernipor is here.
 
 You can move south and northeast.
 
->You walk northeast.
+> northeast
+You walk northeast.
 
 Chirpy Forest
 The forest is filled with the sounds of birds. The tree tops obsure the light
 
 You can move east and southwest.
 
->You walk east.
+> east
+You walk east.
 
 Glade of Spirits
 The place is foggy. You can sense some supernatural beings -  like you
@@ -247,14 +283,16 @@ whispers, "East to water, then the others"
 
 You can move east, south and west.
 
->You walk east.
+> east
+You walk east.
 
 Misty Forest
 A hazy fog drifts across the tree branches. Frogs sound in random beats.
 
 You can move east and west.
 
->You walk east.
+> east
+You walk east.
 
 The Beach
 A long stretch of golden sand. Shells dot the place while a gentle cool wind
@@ -262,15 +300,18 @@ blows across your body.  The waves churn fiercely.
 
 You can only move west.
 
->(Your score has increased by 5)
+> break castle
+(Your score has increased by 5)
 The sand castle crumbles as you break it apart. By half-way, you notice the
 floor of the sand castle is the exact same plan of the Merfolk's Domain.
 You trace with your finger the route to the Sea Serpent's cave
 
->The clam closes up. It burps from it's digestion. This makes it move slightly
+> give spear to clam
+The clam closes up. It burps from it's digestion. This makes it move slightly
 off the Merfolk entrance, allowing you to squeeze in.
 
->You walk south.
+> south
+You walk south.
 
 The Merfolk's Domain
 The place is an amazing splendour of coral buildings and fish schools. The
@@ -281,7 +322,8 @@ Korishia is here.
 
 You can move north and south.
 
->You walk south.
+> south
+You walk south.
 
 Water Tunnel
 A thin tunnel under the water.
@@ -291,19 +333,23 @@ Serpanern is here.
 You can only move north.
 Lamanluie cuts Serpanern with the old rusty broken blood-stained scimitar.
 
->You stab Serpanern with the Spirit Dagger.
+> attack serpanern
+You stab Serpanern with the Spirit Dagger.
 It's body shrivels and is instantly consumed by fishes.
 
->You are not making sense...
+> attack serpanern
+You are not making sense...
 
->You climb up.
+> up
+You climb up.
 
 Cavern of Reflections
 The cavern is covered in reflective ice.  A mirror stands.
 
 You can move east and down.
 
->You walk east.
+> east
+You walk east.
 
 Cavern of Mirages
 The carvern is covered in translucent ice.  A mirror stands
@@ -312,7 +358,8 @@ Also here is Bent Mirror.
 
 You can move west and down.
 
->(Your score has increased by 5)
+> break mirror
+(Your score has increased by 5)
 The mirror shatters easily with the use of The Spirit Dagger.
 
 Cavern of Mirages
@@ -323,7 +370,8 @@ Also here is A snow flake.
 
 Lamanluie is here.
 
->You climb down.
+> down
+You climb down.
 
 Sea Serpent's Cave
 The cave is full of drawings of mystical sea creatures. Stalactites of
@@ -333,18 +381,22 @@ corner.
 Crynasalda is here.
 Crynasalda hits you.
 
->(Your score has increased by 10)
+> attack crynasalda
+(Your score has increased by 10)
 You stab Crynasalda with the Spirit Dagger.
 Lamanluie cuts Crynasalda with the old rusty broken blood-stained scimitar.
 Crynasalda collapses. The water elemental leaves her body and transforms
 itself into an object.
 The Sea Serpent's Scales floats magically onto your body.
 
->You are not making sense...
+> attack crynasalda
+You are not making sense...
 
->You are not making sense...
+> attack crynasalda
+You are not making sense...
 
->You climb up.
+> up
+You climb up.
 
 Cavern of Mirages
 The carvern is covered in translucent ice.  Borken pieces of the mirror are
@@ -354,21 +406,24 @@ Also here is A snow flake.
 
 You can move west and down.
 
->You walk west.
+> west
+You walk west.
 
 Cavern of Reflections
 The cavern is covered in reflective ice.  A mirror stands.
 
 You can move east and down.
 
->You climb down.
+> down
+You climb down.
 
 Water Tunnel
 A thin tunnel under the water.
 
 You can move north and up.
 
->You walk north.
+> north
+You walk north.
 
 The Merfolk's Domain
 The place is an amazing splendour of coral buildings and fish schools. The
@@ -379,7 +434,8 @@ Korishia is here.
 
 You can move north and south.
 
->You walk north.
+> north
+You walk north.
 
 The Beach
 A long stretch of golden sand. Shells dot the place while a gentle cool wind
@@ -387,14 +443,16 @@ blows across your body.  The waves churn fiercely.
 
 You can move south and west.
 
->You walk west.
+> west
+You walk west.
 
 Misty Forest
 A hazy fog drifts across the tree branches. Frogs sound in random beats.
 
 You can move east and west.
 
->You walk west.
+> west
+You walk west.
 
 Glade of Spirits
 The place is foggy. You can sense some supernatural beings -  like you
@@ -403,7 +461,8 @@ whispers, "East to water, then the others"
 
 You can move east, south, west and northwest.
 
->You walk northwest.
+> northwest
+You walk northwest.
 
 Dry Forest
 The forest is full of thin trees and burnt wood scraps. There seems to be an
@@ -412,7 +471,8 @@ eerie quite.
 You can move north and southeast.
 You feel cold.
 
->You walk north.
+> north
+You walk north.
 
 Desert Path
 The path is dry and cracked. The sun beats down on you hard. The air is hot
@@ -423,7 +483,8 @@ Slikerma is here.
 You can only move west.
 You feel cold.
 
->You walk west.
+> west
+You walk west.
 
 Vulcan's Forge
 A small clearing with only a hut. It appears to be a blacksmith's.  The hut
@@ -433,7 +494,8 @@ Afernoga is here.
 
 You can move north and east.
 
->You walk north.
+> north
+You walk north.
 
 Volcano Path
 The path to the volcano is tiled with natural igneous rocks. The heat become
@@ -443,7 +505,8 @@ and cools you down slightly.
 You can move south and northeast.
 You feel cold.
 
->You walk northeast.
+> northeast
+You walk northeast.
 
 Spiral Path
 This path is carved right onto the edge of the volcano. Looking down, you see
@@ -451,7 +514,8 @@ that the lava looks much more dangerous than you thought it would be.
 
 You can move east, in and southwest.
 
->You walk east.
+> east
+You walk east.
 
 Core of Volcano
 The magma is oozing everywhere and your body breaks into a sweat. Each drop
@@ -463,7 +527,8 @@ You can only move west.
 Lamanluie cuts Kelorano with the old broken scimitar.
 Kelorano hits you with Ever-burning torch.
 
->(Your score has increased by 10)
+> kelorano t1
+(Your score has increased by 10)
 Lava engulfs Kelorano's body. He screams and you only hope that he is
 destroyed. Something leaves his body and drops at your feet. The Ever-Burning
 torch flies at you and you grab it.
@@ -479,11 +544,13 @@ Lamanluie and Kelorano are here.
 You feels as though you should leave quickly.
 Kelorano hits you, but it doesn't seem to do any damage.
 
->You pick up the Amber of Flames.
+> get amber
+You pick up the Amber of Flames.
 Lamanluie cuts Kelorano with the old scimitar.
 Kelorano hits you, but it doesn't seem to do any damage.
 
->You walk west.
+> west
+You walk west.
 
 Spiral Path
 This path is carved right onto the edge of the volcano. Looking down, you see
@@ -491,7 +558,8 @@ that the lava looks much more dangerous than you thought it would be.
 
 You can move in and southwest.
 
->You walk southwest.
+> southwest
+You walk southwest.
 
 Volcano Path
 The path to the volcano is tiled with natural igneous rocks. The heat become
@@ -500,7 +568,8 @@ and cools you down slightly.
 
 You can only move south.
 
->You walk south.
+> south
+You walk south.
 
 Vulcan's Forge
 A small clearing with only a hut. It appears to be a blacksmith's.  The hut
@@ -510,7 +579,8 @@ Afernoga is here.
 
 You can move north and east.
 
->You walk east.
+> east
+You walk east.
 
 Desert Path
 The path is dry and cracked. The sun beats down on you hard. The air is hot
@@ -521,12 +591,15 @@ Slikerma is here.
 You can only move west.
 Lamanluie cuts Slikerma with the old scimitar.
 
->You stab Slikerma with the Spirit Dagger.
+> attack slikerma
+You stab Slikerma with the Spirit Dagger.
 Bright red blood oozes from Slikerma's fatal wound.
 
->You are not making sense...
+> attack slikerma
+You are not making sense...
 
->You walk south.
+> south
+You walk south.
 
 Dry Forest
 The forest is full of thin trees and burnt wood scraps. There seems to be an
@@ -534,7 +607,8 @@ eerie quite.
 
 You can move north and southeast.
 
->You walk southeast.
+> southeast
+You walk southeast.
 
 Glade of Spirits
 The place is foggy. You can sense some supernatural beings -  like you
@@ -543,6 +617,8 @@ whispers, "East to water, then the others"
 
 You can move north, east, south, west and northwest.
 
->Your score is 50 out of a maximum of 95.  (52%)
+> score
+Your score is 50 out of a maximum of 95.  (52%)
 
->Do you really want to quit? [Y/N]
+> quit
+Do you really want to quit? [Y/N]

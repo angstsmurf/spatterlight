@@ -25,7 +25,7 @@ between November & December 2005
 
 [7]        Known issues with the game
 
->
+> 2
 
 Introduction...
 
@@ -133,7 +133,7 @@ Time, you decide, you got to work.
 
 [7]        Known issues with the game
 
->
+> 1
 
 Outside Mrs Moog's Cottage
 A gnome standing by the side of the quaint path which leads to the front door
@@ -146,64 +146,80 @@ going to be possible. A fence encircles the property.
 
 A metal bar lies on the ground.
 
->You smash the gnome to pieces, scattering it into a thousand and one pieces
+> smash gnome
+You smash the gnome to pieces, scattering it into a thousand and one pieces
 across the ground… and revealing something that was previously hidden inside
 it. Brushing aside shards of shattered gnome, you pick up… a bug.
    Not the kind of bug you're likely to find in the English countryside but
 some kind of high-tech surveillance device.
 
->The fence is made from carved pieces of wood, each of them about two feet
+> x fence
+The fence is made from carved pieces of wood, each of them about two feet
 long and sharpened to a fine point. One of them looks a little out of place.
 
->You tug out a piece of the fence and now have a mighty fine spike.
+> get wood
+You tug out a piece of the fence and now have a mighty fine spike.
 
->The window is small and pokey. Even if you climbed up the side of the
+> x window
+The window is small and pokey. Even if you climbed up the side of the
 cottage, you doubt you'd have much chance of getting in there. Not to mention
 the fact that there are bars across it and-
    Hang on. What's that blinking red light you see behind the window?
 
->You're guessing it's some kind of camera but it's difficult to tell for
+> x light
+You're guessing it's some kind of camera but it's difficult to tell for
 certain.
 
->You take aim and throw. The spike hits the bars and bounces back, falling
+> throw spike at window
+You take aim and throw. The spike hits the bars and bounces back, falling
 onto the ground at your feet.
 
->You pick up the spike.
+> get spike
+You pick up the spike.
 
->You throw the spike again. This time, it actually clatters against the camera
+> throw spike at window
+You throw the spike again. This time, it actually clatters against the camera
 but as the blinking red light continues to blink at you, you're guessing you
 haven't caused it any actual damage.
    The spike drops at your feet.
 
->You pick up the spike.
+> get spike
+You pick up the spike.
 
->You throw the spike-
+> throw spike at window
+You throw the spike-
    And there comes the sound of something shattering in the room beyond the
 window.
    The spike lands at your feet a moment later.
 
->You pick up the spike.
+> get spike
+You pick up the spike.
 
->The door stands closed before you. Very closed. If doors could be said to be
+> x door
+The door stands closed before you. Very closed. If doors could be said to be
 things that had various degrees of closedness, then this door would be
 crowned king of closedness stuff.
    It's otherwise perfectly unremarkable aside from a letterbox halfway down.
 
->You peer through the letterbox and see-
+> look through letterbox
+You peer through the letterbox and see-
    A bomb.
    Or, more precisely, a wire leading to a bomb that Mrs Moog has rigged up
 just inside the front door in order to surprise unwary burglars.
 
->You jab the spike through the letterbox and nudge the wire.
+> poke spike through letterbox
+You jab the spike through the letterbox and nudge the wire.
    Something beyond the door makes a high-pitched whining sound, then a
 thunderous explosion is triggered inside the cottage.
    But you? Aside from a slight burn on your fingers, you're otherwise okay.
 
->You open the door, revealing an unremarkable hallway beyond it.
+> open door
+You open the door, revealing an unremarkable hallway beyond it.
 
->You pick up the metal bar.
+> get metal bar
+You pick up the metal bar.
 
->
+> n
 
 Hallway
 A short hallway lies before you, the walls decorated with portraits of the
@@ -215,9 +231,11 @@ the south) is the front door via which you entered the cottage.
 
 There is a basket here.
 
->You pick up the basket.
+> get basket
+You pick up the basket.
 
->The basket… something about it strikes you as wrong. It's made of metal for a
+> x basket
+The basket… something about it strikes you as wrong. It's made of metal for a
 start. A metal picnic basket? And since when does Mrs Moog go on picnics? She
 designs bombs and often…
    And suddenly you remember an article you read about her a while back: she
@@ -228,37 +246,45 @@ of your pushbike.
 its inside. There's even a clasp on the side for the basket to be attached to
 something, no doubt to keep it steady while it's being transported somewhere.
 
->There are four portraits, which you like to think of as the first portrait,
+> x portraits
+There are four portraits, which you like to think of as the first portrait,
 second portrait, third portrait and fourth portrait. Helps to distinguish
 them that way.
 
->A charming shot of Mrs Moog stroking a cat as she attaches a guided missile
+> x first portrait
+A charming shot of Mrs Moog stroking a cat as she attaches a guided missile
 to its back. The cat doesn't look unduly bothered by it; probably been
 promised a bowl of milk afterwards if it behaves.
    There are a series of strange marks on the ground beside the cat.
 
->The marks look like letters: B/S/L/B. Hmm… you wonder what they mean.
+> x marks
+The marks look like letters: B/S/L/B. Hmm… you wonder what they mean.
 
->This isn't a portrait as such, but instead a lever, a button and a switch.
+> x third portrait
+This isn't a portrait as such, but instead a lever, a button and a switch.
 The lever appears to be Mrs Moog's nose, the button one of her eyes (you
 guess she ran out of buttons or just fancied a portrait of her minus an eye)
 and the switch her chin. You can't help but feel that another switch for her
 mouth would be a good idea.
 
->You push the button.
+> push button
+You push the button.
    Somewhere deep in the ground there is a creaking sound.
 
->You flick the switch.
+> flick switch
+You flick the switch.
    You hear another creaking sound from down below.
 
->You pull the lever.
+> pull lever
+You pull the lever.
    A third consecutive creaking sound is heard.
 
->You push the button.
+> push button
+You push the button.
    Nothing happens. Until you hear a creaking sound from somewhere down below you and another
 creaking sound from the room off to the west.
 
->
+> w
 
 Mrs Moog's Study
 A desk of vast proportions occupies just about the entirety of this otherwise
@@ -269,7 +295,8 @@ alongside a cabinet and a wardrobe (a wardrobe in a study?) A panel in the
 far wall has opened, revealing a small cavity.
    A doorway, minus a door, leads back to the hallway to the east.
 
->It reveals a winter scene and…
+> look through window
+It reveals a winter scene and…
    A winter scene? Yet wasn't it sunny when you were outside just a few
 minutes before?
    You look again. A winter scene alright, complete with a snowman,
@@ -279,38 +306,47 @@ from side to side as he makes his way down…
 figure moving, and the snow falling, and the snowman is, of all things,
 smoking a pipe. Little trails of smoke float away from the pipe.
 
->The way they curl through the air strikes you as strange, almost as if
+> x smoke
+The way they curl through the air strikes you as strange, almost as if
 they're being directed and…
    And it almost looks like there might be words written there in the smoke.
 
->The words in the smoke twists this way and back but they look like: "noroc".
+> x words
+The words in the smoke twists this way and back but they look like: "noroc".
    You wonder what they mean.
 
->It's a strange bookcase in that while it could hold perhaps a couple hundred
+> x bookcase
+It's a strange bookcase in that while it could hold perhaps a couple hundred
 books, or maybe even half a thousand really thin books, it only holds a
 single, slim volume.
 
->You take the book from the bookcase.
+> get book
+You take the book from the bookcase.
 
->Now you've removed the only book that was on the bookcase, all that remains
+> x bookcase
+Now you've removed the only book that was on the bookcase, all that remains
 is… well, a small pile of dust. You guess Mrs Moog doesn't have the cleaners
 in often enough, and her own house keeping skills leave a lot to be desired.
 
->You wipe at it, but the dust seems pretty ingrained into the surface of the
+> wipe dust
+You wipe at it, but the dust seems pretty ingrained into the surface of the
 bookcase and you just succeed in smearing it into… a very peculiar shape.
 
->The dust seems to have been smeared into a word. Or, rather, there was a word
+> x dust
+The dust seems to have been smeared into a word. Or, rather, there was a word
 engraved into the surface of the bookshelf and your wiping the dust around
 has revealed this to be: "iggen". What the word means you don't know. Maybe
 something Mrs Moog is working on in her nuclear research role?
 
->A-ha! There's a magnifying glass lying on the floor beneath the cabinet. You
+> look under cabinet
+A-ha! There's a magnifying glass lying on the floor beneath the cabinet. You
 guess Mrs Moog must have dropped it there and never remembered to pick it
 back up again.
    You ferret it out and wipe the dust off it. A bit smudged but still ought
 to magnify okay.
 
->You peer through the magnifying glass and make out the words from the first
+> read book
+You peer through the magnifying glass and make out the words from the first
 page:"Well done, you're a burglar with a brain. Congratulations! I do so
 enjoy a good challenge!
    Bet you're wondering how to get into the room opposite this one, eh?
@@ -318,13 +354,16 @@ Without the chandelier dropping on your head and killing you outright?
 Well..."
    That's all that's written on the page.
 
->You turn to the next page in the book and read: "Try using the wardrobe door
+> turn page
+You turn to the next page in the book and read: "Try using the wardrobe door
 as a shield."
 
->You turn the page and read: "But try to disarm the bomb first. Throwing
+> turn page
+You turn the page and read: "But try to disarm the bomb first. Throwing
 something bookish against the wardrobe door ought to do the trick."
 
->You lob the book at the wardrobe and there is a tremendous explosion as the
+> throw book at wardrobe
+You lob the book at the wardrobe and there is a tremendous explosion as the
 wardrobe explodes!
    (Well, strictly speaking it's the bomb inside the wardrobe that explodes
 but as the wardrobe itself is blown up by the explosion, it's still
@@ -333,7 +372,8 @@ technically correct.)
 inside of the wardrobe. Which isn't really worth seeing as it's empty. An
 empty wardrobe in a study? Mrs Moog gets stranger all the time.
 
->
+> l
+
 Mrs Moog's Study
 A desk of vast proportions occupies just about the entirety of this otherwise
 smallish room, its edges actually bending the wall in places and the floor
@@ -345,9 +385,10 @@ far wall has opened, revealing a small cavity.
 
 Lying on the floor is a shield.
 
->You pick up the shield.
+> get shield
+You pick up the shield.
 
->
+> e
 
 Hallway
 A short hallway lies before you, the walls decorated with portraits of the
@@ -357,7 +398,8 @@ splits into two branches, one heading west, the other east while from the
 ceiling above you hangs an ornate and elaborate chandelier. At your back (to
 the south) is the front door via which you entered the cottage.
 
->You walk towards the room to the east, and then hear a tremendous creak!!!
+> e
+You walk towards the room to the east, and then hear a tremendous creak!!!
 from above and look up to see the chandelier, all of a tonne in weight, come
 crashing down. You've only time for one last curse before the full weight
 smashes down on you-
@@ -370,17 +412,19 @@ just wince a little.
 chandelier lying on the floor, smashed to pieces. Of your shield there is no
 sign.
 
->It lies in shattered fragments at your feet, broken like so many of the
+> x chandelier
+It lies in shattered fragments at your feet, broken like so many of the
 things that come against you in your line of-
    Hang on! What's that poking out from under the chandelier? Looks like
 there might be a note tangled up in the wreckage.
 
->You force one end of the bar under the edge of the chandelier and heave!
+> lift chandelier with metal bar
+You force one end of the bar under the edge of the chandelier and heave!
    There's a groan and the chandelier tips ever-so-slightly to one side. As
 if by coincidence, a sudden breeze blows and lifts free the note, blowing it
 out of the cottage via the still open front door.
 
->
+> e
 
 Gymnasium
 You've never heard of a cottage with a gymnasium before but apparently Mrs
@@ -395,13 +439,15 @@ is otherwise fairly dark.
 the north leads to the kitchen and there is a doorway with an actual door to
 the east marked "tech room".
 
->You approach the steps and-
+> x steps
+You approach the steps and-
    Stop.
    There's a bomb floating over the steps, held aloft by some kind of
 internal floatation device. It doesn't look like a particularly big bomb, but
 it certainly packs enough explosive power to tear a few dozen holes in you.
 
->You edge the basket under the bomb - carefully, steadily, trying not to
+> put bomb in basket
+You edge the basket under the bomb - carefully, steadily, trying not to
 picture yourself in two hundred different pieces - and then lift the basket-
 
 [MORE]
@@ -411,11 +457,13 @@ And when you're still alive a second later breathe a huge sigh of relief.
 in the basket and you daren't drop the basket in case the bomb explodes…
    Suddenly you're wondering if you breathed that sigh of relief too soon.
 
->One of the walls is meant for climbing in order to tone body muscle; the
+> x wall
+One of the walls is meant for climbing in order to tone body muscle; the
 others are just the normal, plain unadorned walls that you have seen in every
 other room in the cottage. Although one of them has a sign hanging from it.
 
->In bizarre looking font, you read the following:
+> x sign
+In bizarre looking font, you read the following:
 
 Exercise shall be performed the Esmeralda Moog way:
 1. The steps.
@@ -427,47 +475,55 @@ Exercise shall be performed the Esmeralda Moog way:
 7. The steps for a final time.
 8. Finish with the exercise machine.
 
->You climb the steps to the top and bottom without them falling over or even
+> climb steps
+You climb the steps to the top and bottom without them falling over or even
 swaying alarmingly from side to side. Despite appearances, they seem
 surprisingly sturdy.
    As you reach the bottom of them, you hear the sound of a bell ringing.
 
->Jumping on a trampoline with a huge hole in the middle would be a dangerous
+> use trampoline
+Jumping on a trampoline with a huge hole in the middle would be a dangerous
 escapade for anyone else, but you, as The Bulldog, just flex your muscles and
 bounce off the hole. (A neat trick you discovered once for impressing
 ladies.)
    As you dismount from the trampoline after a healthy bouncing up and down
 session, you hear a bell ringing.
 
->You climb the steps once more, fairly working up a sweat as you reach the top
+> climb steps
+You climb the steps once more, fairly working up a sweat as you reach the top
 and then the bottom again.
    You hear another bell ringing as you reach the floor.
 
->You climb the steps once more, fairly working up a sweat as you reach the top
+> climb steps
+You climb the steps once more, fairly working up a sweat as you reach the top
 and then the bottom again.
    You hear another bell ringing as you reach the floor.
 
->No one else would be able to climb this completely steep wall but you manage
+> climb wall
+No one else would be able to climb this completely steep wall but you manage
 it with ease. You just grab hold of it and force your way up it by sheer
 force of will. The wall protests at this unfair treatment of it but you don't
 tend to pay attention to such things.
    As you slide back down at the end of it, you hear a bell ring.
 
->Lifting the weights is simplicity in itself as they are already floating. You
+> lift weights
+Lifting the weights is simplicity in itself as they are already floating. You
 push them up a little then let them drop. They bob about a little. You push
 them up, let them drop.
    Easy as anything.
    As you finish with the weights, you hear a bell ring out somewhere in the
 cottage.
 
->Once more, you climb the steps. You practically jog up them this time and
+> climb steps
+Once more, you climb the steps. You practically jog up them this time and
 even consider doing a little dance at the top, but then reason that you're
 The Bulldog and The Bulldog has a reputation to remain which doesn't include
 dancing at the top of exercise steps. So you just flex your muscles before
 coming back down.
    As expected, a bell rings once you touch the floor.
 
->You climb onto the strange exercise machine… and find the next five minutes a
+> use exercise machine
+You climb onto the strange exercise machine… and find the next five minutes a
 surprisingly refreshing experience. The machine pulls you this way and that,
 tugs your muscles into better shape than they have ever been before, tones
 your body to the peak of perfection…
@@ -475,10 +531,11 @@ your body to the peak of perfection…
 time it's followed by the sound of another bell ringing somewhere else in the
 cottage and then, upstairs, a door opening.
 
->You use the clasp on the side of the basket to attach it to the weights. They
+> attach basket to weights
+You use the clasp on the side of the basket to attach it to the weights. They
 bob a little but otherwise remain where they were before.
 
->
+> w
 
 Hallway
 A short hallway lies before you, the walls decorated with portraits of the
@@ -489,7 +546,7 @@ from the ceiling is all that remains of the chandelier, now lying in
 shattered fragments at your feet. At your back (to the south) is the front
 door via which you entered the cottage.
 
->
+> w
 
 Mrs Moog's Study
 A desk of vast proportions occupies just about the entirety of this otherwise
@@ -500,7 +557,8 @@ alongside a cabinet and a wardrobe (a wardrobe in a study?) A panel in the
 far wall has opened, revealing a small cavity.
    A doorway, minus a door, leads back to the hallway to the east.
 
->The cavity is just large enough to contain a single item: a hand, formed from
+> x cavity
+The cavity is just large enough to contain a single item: a hand, formed from
 a block of gold.
    You reach into the cavity and pull it out. It's surprisingly heavy,
 several times what you would expect a hand of this size to weigh, but then
@@ -509,7 +567,7 @@ gold is a very heavy substance.
 gold hand in a cavity in the wall of her study, but in the house of Mrs Moog
 it seems that pretty much anything goes.
 
->
+> e
 
 Hallway
 A short hallway lies before you, the walls decorated with portraits of the
@@ -520,7 +578,7 @@ from the ceiling is all that remains of the chandelier, now lying in
 shattered fragments at your feet. At your back (to the south) is the front
 door via which you entered the cottage.
 
->
+> e
 
 Gymnasium
 You've never heard of a cottage with a gymnasium before but apparently Mrs
@@ -535,10 +593,12 @@ is otherwise fairly dark.
 the north leads to the kitchen and there is a doorway with an actual door to
 the east marked "tech room".
 
->The door carries a sign reading, in big bold print: "tech room". Currently
+> x door
+The door carries a sign reading, in big bold print: "tech room". Currently
 the door is closed.
 
->You reach out for the door - and hesitate. This strikes you as a perfectly
+> open door
+You reach out for the door - and hesitate. This strikes you as a perfectly
 good place to rig up a bomb. Open the door and BOOM! Exit one Bulldog.
    Maybe caution should be exercised…
 
@@ -552,17 +612,20 @@ weights drop down onto the roof of the cottage, and a few pieces of charred
 material even filter back down through the hole and land on the floor of the
 gym by your feet.
 
->You push the door open ever so slightly. A wire, previously hidden, slips
+> push door
+You push the door open ever so slightly. A wire, previously hidden, slips
 into view. It's attached to the wall to one side of the door.
 
->You snap the wire in two. It flares into sudden fire, burning fiercely for a
+> break wire
+You snap the wire in two. It flares into sudden fire, burning fiercely for a
 second, before dying out just as suddenly. One very small piece is still
 attached to the door, and another to the wall, but any connection between the
 two is now severed.
 
->You push the door open all the way, revealing the tech room beyond.
+> push door
+You push the door open all the way, revealing the tech room beyond.
 
->
+> e
 
 Tech Room
 From the brand new top of the range computer nestling on a gleaming desk in
@@ -573,28 +636,33 @@ occupied by the servers; the fourth contains the door (leading west) to the
 gymnasium. Light is provided by a glowing lump of ore nailed to one of the
 servers. A steady stream of radioactive gore oozes out of it.
 
->Extending the golden hand, you manage to scrape some of the ore from the
+> get ore
+Extending the golden hand, you manage to scrape some of the ore from the
 wall. It sizzles a little upon coming into contact with the hand but the hand
 itself remains largely intact.
 
->It's one of the new fangled stainless steel desks that looks like one gust of
+> x desk
+It's one of the new fangled stainless steel desks that looks like one gust of
 wind would knock it over. It even seems to sway ever so slightly from side to
 side as the weight of your gaze falls across it-
    But your gaze is then drawn to a newspaper poking out from under the edge
 of the desk. You fish it out, noting that the date on it is August 15th,
 1973. Mrs Moog clearly doesn't get out much.
 
->The headlines are interesting, albeit in a thirty-two-years-out-of-date kind
+> read newspaper
+The headlines are interesting, albeit in a thirty-two-years-out-of-date kind
 of way. But a crossword puzzle on page two hundred and seventy-five (they
 made big papers back then apparently) draws your attention.
 
->You peruse it with your eagle eye. Mrs Moog appears to be a dab hand at
+> x crossword
+You peruse it with your eagle eye. Mrs Moog appears to be a dab hand at
 crossword puzzles and has answered all but one of the eight hundred and
 ninety nine questions that comprise the crossword. The answer to the final
 one looks to be a difficult one and no mistake: "big animal with a trunk,
 grey, not likely to forget things (8 letters)".
 
->You run your eyes over the machine. You're not a computer man yourself
+> x computer
+You run your eyes over the machine. You're not a computer man yourself
 (although you did once brain someone with a computer box unit so they're
 definitely handy in certain situations) but this looks like the sort of
 computer that could well find a place in your own home alongside the
@@ -602,7 +670,8 @@ anti-tank rifle and the mortars and rocket launchers. The keyboard and
 monitor are both built into the computer itself, and the words "enter
 password: --------" are displayed on the screen.
 
->Remembering the unsolved puzzle from the crossword, you quickly solve said
+> enter password elephant
+Remembering the unsolved puzzle from the crossword, you quickly solve said
 puzzle and type in the word "elephant". PASSWORD ACCEPTED is displayed on the
 screen, then a series of options reveal themselves:
 
@@ -612,7 +681,8 @@ screen, then a series of options reveal themselves:
 (4)  A Day in the Life of Mrs Esmeralda Moog.
 (5)  Self destruct sequence.
 
->The screen swirls for a while then you see: 'The life of a burglar is often
+> 3
+The screen swirls for a while then you see: 'The life of a burglar is often
 one fraught with danger and despair. As such, I have decided to make my
 cottage particularly life threatening to those scoundrels who seek to rob me
 of my worldly possessions. By accessing this command, you have caused a
@@ -634,7 +704,8 @@ After a moment, the screen refreshes and displays the original menu again.
 (4)  A Day in the Life of Mrs Esmeralda Moog.
 (5)  Self destruct sequence.
 
->The screen swirls for a while then you see: 'Probably a risk putting this
+> 3
+The screen swirls for a while then you see: 'Probably a risk putting this
 information here but I'm tired of leaving myself notes and then losing them.
 The worst thing about that is that I might write something highly
 confidential on a note and then lose it and have some would-be burglar find
@@ -654,7 +725,8 @@ After a moment, the screen refreshes and displays the original menu again.
 (4)  A Day in the Life of Mrs Esmeralda Moog.
 (5)  Self destruct sequence.
 
->The screen swirls for a while then you see: 'Oh, darn! Forgot to write down
+> 3
+The screen swirls for a while then you see: 'Oh, darn! Forgot to write down
 the information in question. The password to the secret passage is… Oh. I
 forget. But it's precious, very precious. Some kind of stone? A girl's name?
 Damned if I can remember right now. A jewel of some kind? Darn this memory!
@@ -671,7 +743,8 @@ After a moment, the screen refreshes and displays the original menu again.
 (4)  A Day in the Life of Mrs Esmeralda Moog.
 (5)  Self destruct sequence.
 
->You study the blueprint. It's not actually on the wall itself, but instead
+> x blueprint
+You study the blueprint. It's not actually on the wall itself, but instead
 embedded in the wall and has now become visible due to the surface of the
 wall turning opaque. Quite a bit of impressive technology actually.
    Unfortunately, if you were expecting some kind of revelation here you're
@@ -684,7 +757,7 @@ present correct and…
 'password required' dash your hopes that it's going to be a simple case of
 just heading to the study and opening the secret passage.
 
->
+> w
 
 Gymnasium
 You've never heard of a cottage with a gymnasium before but apparently Mrs
@@ -700,7 +773,7 @@ the east marked "tech room".
 
 You see some charred material.
 
->
+> n
 
 Kitchen
 Mrs Moog's kitchen seems a bizarre mishmash of the ultra modern and the ultra
@@ -715,15 +788,18 @@ lead up to the cottage's second floor.
 
 There is some garlic here.
 
->The fridge is tall, gleaming and somewhat out of place in the kitchen. In
+> x fridge
+The fridge is tall, gleaming and somewhat out of place in the kitchen. In
 fact, it's somewhat out of place in the cottage as a whole. There are a
 number of glowing lights set into the front of the fridge, as well as a good
 number of strange lumps that baffle description. A sign attached to the front
 of the fridge is also quite strange.
 
->You crouch down.
+> duck
+You crouch down.
 
->You open the fridge. And see, about a foot above your head since you're
+> open fridge
+You open the fridge. And see, about a foot above your head since you're
 currently crouching down, a shotgun. There's a wire leading from the trigger
 to the fridge door you've just pulled open, and the click! sound you hear a
 fraction of a second later is a terrible, terrible sound.
@@ -742,24 +818,31 @@ and your enemy is a little old lady currently suffering a stroke due to the
 heat, you probably won't be needing a lethal weapon.
    You take the flask and close the fridge door.
 
->The stove itself is fairly plain and ordinary, although it looks to have
+> x stove
+The stove itself is fairly plain and ordinary, although it looks to have
 received a good knock recently judging by the sizeable dent in one side.
 
->The counter is almost spotless; it fairly gleams. Aside from a single wooden
+> x counter
+The counter is almost spotless; it fairly gleams. Aside from a single wooden
 spoon, of rather large proportions, it's also empty.
 
->You take the wooden spoon from the kitchen counter.
+> get spoon
+You take the wooden spoon from the kitchen counter.
 
->The fridge has been pushed up against the wall. There's not so much as a
+> look behind fridge
+The fridge has been pushed up against the wall. There's not so much as a
 finger's width behind it.
 
->You move the fridge a few inches so it's no longer pressed up against the
+> move fridge
+You move the fridge a few inches so it's no longer pressed up against the
 wall.
 
->Now you've moved the fridge slightly away from the wall, you can see a list
+> look behind fridge
+Now you've moved the fridge slightly away from the wall, you can see a list
 pinned to the back of it.
 
->It's awkward reading a list that's stuck to the back of the fridge, but you
+> x list
+It's awkward reading a list that's stuck to the back of the fridge, but you
 manage to turn your head at such an angle as to read what is written there:
 
 "Recipes:
@@ -771,74 +854,103 @@ manage to turn your head at such an angle as to read what is written there:
 5, 5, 6, start - bracelet
 6, 1, 4, start - a cob"
 
->You push the button. It makes a slight tinkling sound.
+> push 1
+You push the button. It makes a slight tinkling sound.
 
->You push the button. It makes a slight tinkling sound.
+> push 2
+You push the button. It makes a slight tinkling sound.
 
->You push the button. It makes a slight tinkling sound.
+> push 3
+You push the button. It makes a slight tinkling sound.
 
->You push the button. It makes a slight tinkling sound, the pressure cooker
+> push start
+You push the button. It makes a slight tinkling sound, the pressure cooker
 shakes, and then some dough slides out of the side.
 
->You push the button. It makes a slight tinkling sound.
+> push 2
+You push the button. It makes a slight tinkling sound.
 
->You push the button. It makes a slight tinkling sound.
+> push 3
+You push the button. It makes a slight tinkling sound.
 
->You push the button. It makes a slight tinkling sound.
+> push 4
+You push the button. It makes a slight tinkling sound.
 
->You push the button. It makes a slight tinkling sound, the pressure cooker
+> push start
+You push the button. It makes a slight tinkling sound, the pressure cooker
 shakes, and then some pastry slides out of the side.
 
->You push the button. It makes a slight tinkling sound.
+> push 3
+You push the button. It makes a slight tinkling sound.
 
->You push the button. It makes a slight tinkling sound.
+> push 5
+You push the button. It makes a slight tinkling sound.
 
->You push the button. It makes a slight tinkling sound.
+> push 6
+You push the button. It makes a slight tinkling sound.
 
->You push the button. It makes a slight tinkling sound, the pressure cooker
+> push start
+You push the button. It makes a slight tinkling sound, the pressure cooker
 shakes, and then some bread slides out of the side.
 
->You push the button. It makes a slight tinkling sound.
+> push 4
+You push the button. It makes a slight tinkling sound.
 
->You push the button. It makes a slight tinkling sound.
+> push 4
+You push the button. It makes a slight tinkling sound.
 
->You push the button. It makes a slight tinkling sound.
+> push 6
+You push the button. It makes a slight tinkling sound.
 
->You push the button. It makes a slight tinkling sound, the pressure cooker
+> push start
+You push the button. It makes a slight tinkling sound, the pressure cooker
 shakes, and then some jelly slides out of the side.
 
->You push the button. It makes a slight tinkling sound.
+> push 5
+You push the button. It makes a slight tinkling sound.
 
->You push the button. It makes a slight tinkling sound.
+> push 5
+You push the button. It makes a slight tinkling sound.
 
->You push the button. It makes a slight tinkling sound.
+> push 6
+You push the button. It makes a slight tinkling sound.
 
->You push the button. It makes a slight tinkling sound, the pressure cooker
+> push start
+You push the button. It makes a slight tinkling sound, the pressure cooker
 shakes, and then - of all things! - a bracelet slides out of the side.
 
->You push the button. It makes a slight tinkling sound.
+> push 6
+You push the button. It makes a slight tinkling sound.
 
->You push the button. It makes a slight tinkling sound.
+> push 1
+You push the button. It makes a slight tinkling sound.
 
->You push the button. It makes a slight tinkling sound.
+> push 4
+You push the button. It makes a slight tinkling sound.
 
->You push the button. It makes a slight tinkling sound, the pressure cooker
+> push start
+You push the button. It makes a slight tinkling sound, the pressure cooker
 shakes, and then a cob slides out of the side.
 
->You push the button. It makes a slight tinkling sound.
+> push 6
+You push the button. It makes a slight tinkling sound.
 
->You push the button. It makes a slight tinkling sound.
+> push 6
+You push the button. It makes a slight tinkling sound.
 
->You push the button. It makes a slight tinkling sound.
+> push 6
+You push the button. It makes a slight tinkling sound.
 
->You push the button. It makes a slight tinkling sound, the pressure cooker
+> push start
+You push the button. It makes a slight tinkling sound, the pressure cooker
 shakes, and then... How strange. A devil statue has popped out of the side of
 the cooker.
 
->You pick up the dough, the pastry, the bread, the jelly, the bracelet, the
+> get all
+You pick up the dough, the pastry, the bread, the jelly, the bracelet, the
 cob, the devil statue and the garlic.
 
->
+> s
 
 Gymnasium
 You've never heard of a cottage with a gymnasium before but apparently Mrs
@@ -854,7 +966,7 @@ the east marked "tech room".
 
 You see some charred material.
 
->
+> w
 
 Hallway
 A short hallway lies before you, the walls decorated with portraits of the
@@ -865,7 +977,8 @@ from the ceiling is all that remains of the chandelier, now lying in
 shattered fragments at your feet. At your back (to the south) is the front
 door via which you entered the cottage.
 
->Mrs Moog's StudyA desk of vast proportions occupies just about the entirety
+> w
+Mrs Moog's StudyA desk of vast proportions occupies just about the entirety
 of this otherwise smallish room, its edges actually bending the wall in
 places and the floor fairly groaning beneath it. A small window in one wall,
 barred, displays a desert scene beyond the cottage. Lurking in one corner is
@@ -878,7 +991,8 @@ the west wall where you spied the secret passage on the blueprint. Sure
 enough, there is a slight indentation on the surface which, when pressed,
 reveals a hidden passage. Unfortunately it's a locked hidden passage.
 
->The secret passage is just a vague indentation in the wall. There looks to be
+> x passage
+The secret passage is just a vague indentation in the wall. There looks to be
 some kind of hole at the top which at first you assume is a slot for things
 to be pushed into, but upon closer inspection it actually looks like it might
 be some kind of voice relay system. You've seen this sort of thing before.
@@ -886,13 +1000,15 @@ You speak into this end - a password or something - and whatever you speak
 unlocks the passage.
    The question, of course, is just what is the password?
 
->You say "jade". The voice relay system says "hey! You actually got it right!"
+> jade
+You say "jade". The voice relay system says "hey! You actually got it right!"
    There is a grinding sound and the secret passage opens up, revealing a
 tunnel behind it.
    You give yourself a little pat on the back, quite content that The Bulldog
 is a man of brains as well as brawn.
 
->Laboratory
+> w
+Laboratory
 Of all the places you expected to see in Mrs Moog's cottage, this wasn't one
 of them: a laboratory. And one that looks to have stepped straight from the
 Dark Ages. You see a cauldron on a stone plinth, a long table with a vial, a
@@ -902,10 +1018,12 @@ words "MINE!" written on it in biro. Light is provided by smoky torches which
 hang in sconces from the walls.
    A small passage leads away to the east back to the study.
 
->The scrolls have a macabre look to them that chills even your cold and
+> x scrolls
+The scrolls have a macabre look to them that chills even your cold and
 usually emotion free heart.
 
->Of course, you have no real idea how to go about invoking a ritual, but it
+> invoke ritual
+Of course, you have no real idea how to go about invoking a ritual, but it
 seems that merely thinking the words "invoke" and "ritual" in the same
 sentence are enough.
    Swirls of coloured smoke rush past you in the air, and you hear a voice
@@ -920,18 +1038,21 @@ Beard of ferret and ear of bat - stir!"
 The voice fades away, followed a moment later by the swirls of smoke
 vanishing.
 
->You shift it slightly so as not to send it crashing from the stone plinth and
+> move cauldron
+You shift it slightly so as not to send it crashing from the stone plinth and
 shatter on the floor, thus spilling its unspeakable contents over everything,
 and see, wedged beneath, a container. Curious, you pick the container up and
 then shift the cauldron back into place.
 
->The cauldron is the kind of large, ancient thing you fancy they had in
+> x cauldron
+The cauldron is the kind of large, ancient thing you fancy they had in
 castles back in the middle ages. It rests atop a stone plinth, no doubt to
 keep its heat (which you can feel from this distance) from spreading to the
 rest of the room. A sign is affixed to the side of the cauldron, while an
 unspeakable grunge floats around inside it.
 
->The sign reads:
+> x sign
+The sign reads:
 
 Thank you for buying the new Mark 5 Witch's Cauldron, designed to give you
 many hours of carefree cursing and witchcraft, all in the comfort of your own
@@ -947,63 +1068,82 @@ Again, many thanks for buying the new Mark 5 Witch's Cauldron and we here at
 Cauldrons R Us hope you have many satisfied hours of cursing and witchcraft
 with it!
 
->The unspeakable grunge, is quite simply, unspeakable. The smell alone is
+> x grunge
+The unspeakable grunge, is quite simply, unspeakable. The smell alone is
 enough to drive you away from it, and as for the taste…
    Well, let's just say that even The Bulldog, with an iron constitution that
 has allowed him to eat his way out of the side of a bison before (long story,
 don't ask) isn't up to this kind of punishment.
 
->You reach out and touch the grunge.
+> touch grunge
+You reach out and touch the grunge.
    It groans and a small piece of it breaks away in your hand. Although you
 notice as you jerk your hand back in dismay (mercifully it's still pretty
 much intact), that you're now clutching a small phial which was wedged inside
 the grunge. You guess Mrs Moog must have dropped it there while cooking one
 day.
 
->You sprinkle some of the eye of toad into the cauldron. The cauldron burbles.
+> sprinkle eye of toad into cauldron
+You sprinkle some of the eye of toad into the cauldron. The cauldron burbles.
 
->You sprinkle some of the ear of bat into the cauldron. The cauldron burbles.
+> sprinkle ear of bat into cauldron
+You sprinkle some of the ear of bat into the cauldron. The cauldron burbles.
 
->You stir the unspeakable grunge with the wooden spoon.
+> stir cauldron
+You stir the unspeakable grunge with the wooden spoon.
    The cauldron shudders and a puff of green smoke is emitted from one side.
 
->You sprinkle some of the toe of rat into the cauldron. The cauldron burbles.
+> sprinkle toe of rat into cauldron
+You sprinkle some of the toe of rat into the cauldron. The cauldron burbles.
 
->You sprinkle some of the nose of shrew into the cauldron. The cauldron emits
+> sprinkle nose of shrew into cauldron
+You sprinkle some of the nose of shrew into the cauldron. The cauldron emits
 a gurgling sound.
 
->You stir the unspeakable grunge with the wooden spoon.
+> stir cauldron
+You stir the unspeakable grunge with the wooden spoon.
    The cauldron shudders and a puff of orange smoke is emitted from one side.
 
->You sprinkle some of the ear of bat into the cauldron. The cauldron shakes
+> sprinkle ear of bat into cauldron
+You sprinkle some of the ear of bat into the cauldron. The cauldron shakes
 violently.
 
->You sprinkle some of the toe of rat into the cauldron. The cauldron emits a
+> sprinkle toe of rat into cauldron
+You sprinkle some of the toe of rat into the cauldron. The cauldron emits a
 gurgling sound.
 
->You sprinkle some of the beard of ferret into the cauldron. The cauldron
+> sprinkle beard of ferret into cauldron
+You sprinkle some of the beard of ferret into the cauldron. The cauldron
 shudders.
 
->You stir the unspeakable grunge with the wooden spoon.
+> stir cauldron
+You stir the unspeakable grunge with the wooden spoon.
    The cauldron shudders and a puff of blue smoke is emitted from one side.
 
->You sprinkle some of the knee of horse into the cauldron. The cauldron shakes
+> sprinkle knee of horse into cauldron
+You sprinkle some of the knee of horse into the cauldron. The cauldron shakes
 violently.
 
->You sprinkle some of the ankle of dog into the cauldron. The cauldron bubbles
+> sprinkle ankle of dog into cauldron
+You sprinkle some of the ankle of dog into the cauldron. The cauldron bubbles
 fiercely.
 
->You sprinkle some of the paw of cat into the cauldron. The cauldron burbles.
+> sprinkle paw of cat into cauldron
+You sprinkle some of the paw of cat into the cauldron. The cauldron burbles.
 
->You stir the unspeakable grunge with the wooden spoon.
+> stir cauldron
+You stir the unspeakable grunge with the wooden spoon.
    The cauldron shudders and a puff of cyan smoke is emitted from one side.
 
->You sprinkle some of the beard of ferret into the cauldron. The cauldron
+> sprinkle beard of ferret into cauldron
+You sprinkle some of the beard of ferret into the cauldron. The cauldron
 vibrates from side to side.
 
->You sprinkle some of the ear of bat into the cauldron. The cauldron shudders.
+> sprinkle ear of bat into cauldron
+You sprinkle some of the ear of bat into the cauldron. The cauldron shudders.
 
->You stir the unspeakable grunge with the wooden spoon.
+> stir cauldron
+You stir the unspeakable grunge with the wooden spoon.
    The cauldron shudders and a puff of black smoke is emitted from one side.
  At the same time, you become aware of something floating in the cauldron.
 Scooping it out (ignoring for a second that the grunge in the cauldron would
@@ -1012,7 +1152,8 @@ things, some smelling salts.
    You guess they must have been dropped in there by Mrs Moog one day while
 she was... doing whatever it is she does with this cauldron.
 
->Mrs Moog's Study
+> e
+Mrs Moog's Study
 A desk of vast proportions occupies just about the entirety of this otherwise
 smallish room, its edges actually bending the wall in places and the floor
 fairly groaning beneath it. A small window in one wall, barred, displays a
@@ -1022,7 +1163,7 @@ far wall has opened, revealing a small cavity.
    A doorway, minus a door, leads back to the hallway to the east, as well as
 a previously hidden passage to the west.
 
->
+> e
 
 Hallway
 A short hallway lies before you, the walls decorated with portraits of the
@@ -1033,7 +1174,8 @@ from the ceiling is all that remains of the chandelier, now lying in
 shattered fragments at your feet. At your back (to the south) is the front
 door via which you entered the cottage.
 
->Time passes...
+> z
+Time passes...
 
 The radioactive ooze dripping from the ore you are carrying hisses suddenly
 as it burns into the floor. You take a hurried step back, a moment before a
@@ -1042,7 +1184,8 @@ into the bowels of the cottage. A series of bolts had been driven into the
 carpet and were securing this previously hidden trapdoor, but the ore has
 eaten through them.
 
->Cellar
+> d
+Cellar
 It's a cliché, a terrible cliché, but the cellar of Mrs Moog's cottage has a
 pedestal in the centre, on the top of which is a coffin. You can’t actually
 see what's in the coffin from where you're standing, but you'd bet your
@@ -1053,14 +1196,16 @@ same, is emitted from a glowing panel on the other wall. Cobwebs cover almost
 every surface.
    A flight of stone steps lead upwards to the hallway.
 
->You shift the nearest barrel to one side and see, lying there in the dust,
+> move barrels
+You shift the nearest barrel to one side and see, lying there in the dust,
 some gloves.
    Frowning, you pick them up. They're probably Mrs Moog's. They look about
 the right size.
 
->You put on the gloves.
+> wear gloves
+You put on the gloves.
 
->
+> u
 
 Hallway
 A short hallway lies before you, the walls decorated with portraits of the
@@ -1072,7 +1217,7 @@ shattered fragments at your feet. At your back (to the south) is the front
 door via which you entered the cottage. There is a gaping hole in the floor,
 leading down to the cottage's cellar.
 
->
+> e
 
 Gymnasium
 You've never heard of a cottage with a gymnasium before but apparently Mrs
@@ -1088,7 +1233,7 @@ the east marked "tech room".
 
 You see some charred material.
 
->
+> n
 
 Kitchen
 Mrs Moog's kitchen seems a bizarre mishmash of the ultra modern and the ultra
@@ -1101,7 +1246,7 @@ light comes from the glowing fridge.
    A doorway to the south leads back to the gymnasium and a flight of stairs
 lead up to the cottage's second floor.
 
->
+> u
 
 Upstairs Landing
 After everything else you have seen in Mrs Moog's cottage, you might have
@@ -1114,28 +1259,32 @@ ceiling to one side of you looks normal.
 "bedroom" (which is currently open) and a corridor stretches away to the
 west.
 
->You carefully study the railing, sure you won't find anything unusual about
+> x railing
+You carefully study the railing, sure you won't find anything unusual about
 it at all... and then you see a dart. It's been carefully attached to the
 underside of the railing, hidden at a casual glance, but looks to be pointed
 to the west.
 
->You reach for the dart - and the light bulb above suddenly shakes, as if
+> get dart
+You reach for the dart - and the light bulb above suddenly shakes, as if
 blown by a harsh wind. It throws shadows all over the place and almost causes
 you to jab yourself on the tip of the dart.
    You cast a harsh glance at the bulb but it just hangs there innocently.
 
->You reach for the light bulb with your gloved hands, take hold of it - and
+> smash bulb
+You reach for the light bulb with your gloved hands, take hold of it - and
 then suppress a grunt (actually a scream but as The Bulldog you never scream
 out loud) as it explodes!
    Fortunately the gloves protect your hands from injury and though there's
 nothing protecting your face, your ruggedness countenance is so hard that it
 doesn't really need protecting.
 
->You reach for the dart and pluck it away from the railing. It's such a
+> get dart
+You reach for the dart and pluck it away from the railing. It's such a
 fragile thing (the dart that is, not the railing) and you quickly crush it to
 dust, disposing of it.
 
->
+> n
 
 Bedroom
 Mrs Moog's bedroom appears every bit as eccentric as most of the rooms in her
@@ -1147,7 +1296,8 @@ Moog's collection of diplomas, of which she seems to have more than just a
 few.
    Southwards lies the upstairs landing.
 
->A four poster bed, normal in every way aside from the slight fact that it's
+> x bed
+A four poster bed, normal in every way aside from the slight fact that it's
 on the ceiling. The legs look to be bolted in place, and from the way the
 sheets stick to the mattress you're guessing they're either glued or nailed
 in place. The single pillow is certainly nailed in place: there's a large
@@ -1155,22 +1305,26 @@ nail right through the middle of it (making it pretty uncomfortable to lie
 on, you guess). A series of straps crisscross the bed, no doubt to keep the
 sleeper in place against the laws of gravity.
 
->Your legs are built more for kicking down the doors of enemy strongholds than
+> jump
+Your legs are built more for kicking down the doors of enemy strongholds than
 they are for jumping up to beds, but you nevertheless make a valiant effort
 to jump up to the bed.
    And fail miserably.
 
 But you got quite close there. Maybe another go...
 
->Ah! Nearly!
+> jump
+Ah! Nearly!
 
 You just missed the edge of the bed by a fraction of an inch!
 
->You manage to grab hold of a corner of the bed for a brief second before
+> jump
+You manage to grab hold of a corner of the bed for a brief second before
 losing your grip. However, in that brief second, you tug back some of the
 sheets and cause something to drop to the floor.
 
->
+> l
+
 Bedroom
 Mrs Moog's bedroom appears every bit as eccentric as most of the rooms in her
 cottage. The bed, for instance, is actually on the ceiling and looks to have
@@ -1183,15 +1337,18 @@ few.
 
 Also here is a wand.
 
->You pick up the wand.
+> get wand
+You pick up the wand.
 
->You wave the wand in the general direction of the floating cabinet and, as if
+> wave wand at cabinet
+You wave the wand in the general direction of the floating cabinet and, as if
 by magic (which it might well be), the cabinet stops floating for a second.
 This allows you to grab hold of it, open it and then something spills out
 onto the floor. Before you can do anything else, the cabinet shuts itself and
 scoots out of reach.
 
->
+> l
+
 Bedroom
 Mrs Moog's bedroom appears every bit as eccentric as most of the rooms in her
 cottage. The bed, for instance, is actually on the ceiling and looks to have
@@ -1204,9 +1361,11 @@ few.
 
 Also here is a bell.
 
->You pick up the bell.
+> get bell
+You pick up the bell.
 
->The pool bubbles warmly. There look to be a number of coins lying on the
+> x pool
+The pool bubbles warmly. There look to be a number of coins lying on the
 bottom of it, similar to pools you have seen in amusement parks*. A cable is
 curled in the bottom of the pool, the other end plugged into the wall nearby.
 
@@ -1215,16 +1374,18 @@ terrorists have a day out sometimes and when they're stuck on top of the big
 wheel is often a good time to take a shot or two at them without them being
 able to escape.
 
->You grab hold of the cable and tug it out of the socket in the wall. It
+> unplug cable
+You grab hold of the cable and tug it out of the socket in the wall. It
 crackles in your hand, spitting electricity, but the glove you're wearing
 keeps you safe from harm.
 
->You reach into the pool and take some of the coins. You aren't sure what type
+> get coins
+You reach into the pool and take some of the coins. You aren't sure what type
 of coins they are as you don't recognise the denominations, but you've never
 been the sort of fellow who likes to see good money just lying around in
 electrified pools.
 
->
+> s
 
 Upstairs Landing
 After everything else you have seen in Mrs Moog's cottage, you might have
@@ -1236,7 +1397,7 @@ the walls and floor look normal.
 "bedroom" (which is currently open) and a corridor stretches away to the
 west.
 
->
+> w
 
 Corridor
 The angles of this corridor are strange and bewildering, making it appear
@@ -1248,7 +1409,7 @@ right is a portrait of none other than Mrs Moog herself. Her eyes seem to
 follow you around the corridor although you're sure this is just a flaw in
 the picture.
 
->
+> s
 
 Guest Room
 This room, generally reserved for any guests Mrs Moog has staying with her,
@@ -1259,23 +1420,28 @@ gaping cracks along the length and breadth of it. Lying on its side by the
 window is a camera, the lens shattered by you earlier on.
    To the north lies the strange corridor.
 
->You try to take the camera but it's in such a battered condition that it'll
+> move camera
+You try to take the camera but it's in such a battered condition that it'll
 probably crumble away to dust if you actually go ahead and pick it up. The
 lens tumbles out as you touch it, rolling across the floor and then out into
 the corridor.
 
->The first crack you peer into is empty.
+> x crack
+The first crack you peer into is empty.
 
->The second crack you peer into is empty.
+> x crack
+The second crack you peer into is empty.
 
->The third crack you peer into is... not empty.
+> x crack
+The third crack you peer into is... not empty.
    Frowning, you reach into the crack and pull out a some glasses. By the
 size of them, and the EM insignia, you're guessing these belong to none other
 than Esmeralda Moog herself. Quite why she's got some glasses hidden in the
 wall you don't know, but then she is eccentric so there's no reason to expect
 it to make sense.
 
->It's probably a bad idea, what with the world facing imminent destruction
+> lie on bed
+It's probably a bad idea, what with the world facing imminent destruction
 from nuclear meltdown, but the urge to lie down and close your eyes for a few
 moments is just too tempting to resist.
    So you lie down, close your eyes, and...
@@ -1293,7 +1459,7 @@ and wondering just what happened.
    Does the word mean anything? Or is it just one of those bizarre things
 that happen in dreams that don't actually mean a thing?
 
->
+> n
 
 Corridor
 The angles of this corridor are strange and bewildering, making it appear
@@ -1307,40 +1473,48 @@ the picture.
 
 Also here is a lens.
 
->You pick up the lens.
+> get lens
+You pick up the lens.
 
->Mrs Moog's very own glasses. It's probably too much to expect a mad old woman
+> x glasses
+Mrs Moog's very own glasses. It's probably too much to expect a mad old woman
 who designs nuclear bombs for a living to have much taste with regards to her
 glasses, but you'd never have guessed her for the sort to wear glasses with
 flower patterns and kittens around the frames.
    One of the lens has a massive crack across it, meaning that you won't be
 able to see a thing through it.
 
->You remove the cracked lens from the glasses and replace it with the lens
+> put lens in glasses
+You remove the cracked lens from the glasses and replace it with the lens
 from the camera.
    There! All fixed!
 
->You put the glasses on.
+> wear glasses
+You put the glasses on.
 
->Peering through Mrs Moog's glasses, you study the portrait. It's a strange
+> x portrait
+Peering through Mrs Moog's glasses, you study the portrait. It's a strange
 one and no mistake.
    It features Mrs Moog and a tap. And there seems to be something unusual
 about her eyes.
 
->Her eyes are moving. As you watch, halfway between amazement and disbelief,
+> x eyes
+Her eyes are moving. As you watch, halfway between amazement and disbelief,
 the eyes look three times to the left side of the portrait, four times to the
 right side, then at the tap. The process is repeated a few seconds later.
 
->You tap the left side of the portrait three times.
+> tap left side of portrait three times
+You tap the left side of the portrait three times.
    It might be your imagination, but you could swear Mrs Moog smiles at you
 briefly.
 
->You tap the right side of the portrait four times.
+> tap right side of portrait four times
+You tap the right side of the portrait four times.
    Mrs Moog gives you a quick nod and then the entire wall, along with the
 portrait, slides to one side. A previously concealed passage is revealed
 beyond.
 
->
+> n
 
 Bathroom
 You might have expected Mrs Moog's bathroom to display the same kind of
@@ -1349,52 +1523,63 @@ perfectly normal: toilet, sink, medicine cabinet, bath, laundry basket.
 Nothing bizarre or eccentric at all as far as you can see. Even the door,
 open to the south, is apparently ordinary.
 
->The sink looks so normal that you're just convinced there has to be something
+> x sink
+The sink looks so normal that you're just convinced there has to be something
 wrong with it. There are two taps - labelled Hot and Cold - and a plughole,
 but even the absence of a plug doesn't give any indication of just what is
 unusual about the sink.
 
->You turn the hot tap on. Surprisingly, no water. Not even a drop. Aha! You
+> turn hot tap
+You turn the hot tap on. Surprisingly, no water. Not even a drop. Aha! You
 knew there was something weird about this sink. It doesn't work.
    But even as you think that, you wonder if there's more to it. If, maybe,
 something has changed as a result of you turning this tap.
 
->You turn the tap a second time. Still nothing seems to happen, but again
+> turn hot tap
+You turn the tap a second time. Still nothing seems to happen, but again
 you're convinced that something has changed.
    You just don't know what.
 
->You turn the tap a third time. Nothing seems to happen but, overhead, perhaps
+> turn hot tap
+You turn the tap a third time. Nothing seems to happen but, overhead, perhaps
 in the attic, you hear a hissing sound.
 
->You turn the tap a fourth time.
+> turn hot tap
+You turn the tap a fourth time.
    Above, the hissing sound grows more pronounced. Then the bathroom ceiling
 begins to exhibit a wet patch.
 
->You turn the cold tap on but no water comes out. However, the tap seems to
+> turn cold tap
+You turn the cold tap on but no water comes out. However, the tap seems to
 vibrate under your hand and the vibration travels into the sink, through the
 wall, and upwards.
    Nothing else seems to happen.
 
->You turn the cold tap again. The same thing happens as before, but this time
+> turn cold tap
+You turn the cold tap again. The same thing happens as before, but this time
 you hear a hissing sound from above, such as might be heard by, say, flames
 being doused with cold eater.
    The hissing lasts for a second or two then fades away.
 
->You turn the cold tap a third time. The hissing you heard from above is more
+> turn cold tap
+You turn the cold tap a third time. The hissing you heard from above is more
 extreme now and you fancy you can faintly smell smoke.
    A wet patch begins to form on the bathroom ceiling.
 
->You turn the cold tap for a fourth time. The hissing from above reaches a
+> turn cold tap
+You turn the cold tap for a fourth time. The hissing from above reaches a
 crescendo, then dies abruptly away.
    The wet patch grows a little larger.
 
->Sturdy. That's the best way to describe the medicine cabinet. It radiates a
+> x medicine cabinet
+Sturdy. That's the best way to describe the medicine cabinet. It radiates a
 definite aura of sturdiness and looks to be the kind of medicine cabinet that
 could be hit with a battering ram and not even dent. It lacks any kind of
 mirror like most medicine cabinets you have seen; instead, it has a slot in
 the side.
 
->Acting on a hunch, you try to fit the coins into the slot. As it happens,
+> put coins in slot
+Acting on a hunch, you try to fit the coins into the slot. As it happens,
 they're a perfect match. You happily slide them all into the slot, then stand
 there with a fierce grin plastered across your battle-hardened face while you
 wait for something to happen.
@@ -1404,7 +1589,8 @@ the cabinet opens and out drops some suntan lotion and a small mirror. Both
 drop to the floor and as you scramble to pick them up, the cabinet seals
 itself once more.
 
->You open the laundry basket and peer inside. You see many frightening and
+> open laundry basket
+You open the laundry basket and peer inside. You see many frightening and
 distressing sights. Should a woman of Mrs Moog's advanced years be wearing
 that? With tassels on? And is it-
    But no. You force yourself to look away. You might be The Bulldog, capable
@@ -1415,7 +1601,7 @@ haven't got the stomach for the job.
 peeking out from behind some [unmentionables]. You hesitate for a second then
 quickly snatch it out before quickly closing the basket once more.
 
->
+> s
 
 Corridor
 The previous strange appearance of the corridor seems to have been fixed by
@@ -1425,7 +1611,7 @@ look normal as well. A feeble light is provided by a crackling panel set into
 the wall to your left while to the west is a passage, previously concealed
 behind a portrait of Mrs Moog.
 
->
+> e
 
 Upstairs Landing
 After everything else you have seen in Mrs Moog's cottage, you might have
@@ -1437,7 +1623,7 @@ the walls and floor look normal.
 "bedroom" (which is currently open) and a corridor stretches away to the
 west.
 
->
+> d
 
 Kitchen
 Mrs Moog's kitchen seems a bizarre mishmash of the ultra modern and the ultra
@@ -1450,7 +1636,7 @@ light comes from the glowing fridge.
    A doorway to the south leads back to the gymnasium and a flight of stairs
 lead up to the cottage's second floor.
 
->
+> s
 
 Gymnasium
 You've never heard of a cottage with a gymnasium before but apparently Mrs
@@ -1466,7 +1652,7 @@ the east marked "tech room".
 
 You see some charred material.
 
->
+> e
 
 Tech Room
 From the brand new top of the range computer nestling on a gleaming desk in
@@ -1478,15 +1664,18 @@ gymnasium. One wall, however, displays the blueprint you saw after typing the
 password into the computer. Light is provided by a glowing lump of ore nailed
 to one of the servers. A steady stream of radioactive gore oozes out of it.
 
->You type the word "noroc" on the computer.
+> enter noroc
+You type the word "noroc" on the computer.
 
 Nothing much seems to happen.
 
->You type the word "pagon" on the computer.
+> enter pagon
+You type the word "pagon" on the computer.
 
 Nothing much seems to happen.
 
->You type the word "iggen" on the computer.
+> enter iggen
+You type the word "iggen" on the computer.
 
 Nothing much seems to happen.
 
@@ -1516,7 +1705,7 @@ of the game's writer appears on screen.
 
 He fades away.
 
->
+> w
 
 Gymnasium
 You've never heard of a cottage with a gymnasium before but apparently Mrs
@@ -1532,7 +1721,7 @@ the east marked "tech room".
 
 You see some charred material.
 
->
+> w
 
 Hallway
 A short hallway lies before you, the walls decorated with portraits of the
@@ -1544,7 +1733,8 @@ shattered fragments at your feet. At your back (to the south) is the front
 door via which you entered the cottage. There is a gaping hole in the floor,
 leading down to the cottage's cellar.
 
->Cellar
+> d
+Cellar
 It's a cliché, a terrible cliché, but the cellar of Mrs Moog's cottage has a
 pedestal in the centre, on the top of which is a coffin. You can’t actually
 see what's in the coffin from where you're standing, but you'd bet your
@@ -1555,7 +1745,8 @@ same, is emitted from a glowing panel on the other wall. Cobwebs cover almost
 every surface.
    A flight of stone steps lead upwards to the hallway.
 
->You approach the coffin, your hackles raises. You're The Bulldog, scared of
+> open coffin
+You approach the coffin, your hackles raises. You're The Bulldog, scared of
 no man or beast, but the living dead have creeped you out ever since your
 father let you stay up as a toddler and watch Night Of The Living
 Bloodstained Gore From Hell Planet Five, which featured zombies, ghouls,
@@ -1569,7 +1760,8 @@ to make your acquaintance."
    You back away quickly from the coffin but Henry Moog, vampire, makes no
 effect to follow you.
 
->Henry sighs. "Oh, bother. Very well, ask me your questions."
+> talk to henry
+Henry sighs. "Oh, bother. Very well, ask me your questions."
 
 [1]   Grunt: ("Are you really a vampire?")
 [2]   Grunt: ("I'm looking for your wife, Henry. She's collapsed due to the
@@ -1580,20 +1772,23 @@ one of the beds upstairs?")
 [5]   Grunt: ("I need your help, Mr Moog, on a matter of national security.")
 [6]   Grunt: ("What's it like being a vampire?")
 
->"Well, I've been a vampire for quite some time now," says Henry with a sigh.
+> 4
+"Well, I've been a vampire for quite some time now," says Henry with a sigh.
 "It happened while I was out jogging one fine summery afternoon and this chap
 dressed all in black came up to me and said he needed to bite me on the neck
 and drain a litre or two of my blood. Strange request."
 
 [1]   Grunt: ("And you told him to go away, right?")
 
->"Heavens no! Poor fellow was positively anaemic. It was the least I could do,
+> 1
+"Heavens no! Poor fellow was positively anaemic. It was the least I could do,
 letting him have a smidgeon of my blood. Really perked him up a bit
 afterwards and he soon left."
 
 [1]   Grunt: ("By transforming into a bat and flying away?")
 
->"No. He said he would have transformed into a bat but he wasn't in the mood
+> 1
+"No. He said he would have transformed into a bat but he wasn't in the mood
 then, so instead he just hopped onto his scooter and headed off." Henry
 sighs. "And I've been a vampire ever since."
 
@@ -1601,12 +1796,14 @@ sighs. "And I've been a vampire ever since."
 [2]   Grunt: ("How come a vampire was out in the sunlight?")
 [3]   Grunt: ("You're mad!")
 
->"He…" Henry pauses and then frowns. "You know," he says slowly, "that's an
+> 2
+"He…" Henry pauses and then frowns. "You know," he says slowly, "that's an
 interesting point. One I'll have to give some serious thought to."
    Grun-
    "Shush!" says Henry. "I'm giving it serious thought."
 
->"I suspect I might have been lied to," says Henry with a thoughtful
+> talk to henry
+"I suspect I might have been lied to," says Henry with a thoughtful
 expression. "Yes, the more I think about it, the more I'm sure. The fellow in
 the park wasn't a vampire at all."
    Grunt.
@@ -1619,23 +1816,28 @@ to part with it."
    "Yes. Spending eternity in this miserable coffin in the cellar of the
 cottage is a bit of a downer, but at least I get to wear the cape all day."
 
->"What's this?" he says as you hand the mirror over. "Oh, a mirror. And that's
+> give mirror to henry
+"What's this?" he says as you hand the mirror over. "Oh, a mirror. And that's
 a frightfully handsome chap I see-" He frowns and looked more closely at the
 mirror. "Now, there's a funny thing. I'm a vampire yet I show up in a mirror.
 Must be another of the old legends that was wrong. Pfhhh! Ignorant peasants."
    He hands you the mirror back.
 
->"The Devil," says Henry. "A good friend of mine."
+> give devil statue to henry
+"The Devil," says Henry. "A good friend of mine."
    He takes the statue and conceals it about his person.
 
->"Garlic?" Henry gasps. "Good grief, man! Are you trying to kill me!"
+> give garlic to henry
+"Garlic?" Henry gasps. "Good grief, man! Are you trying to kill me!"
    But while he shies away from the garlic, you notice that it doesn't seem
 to be doing him any real harm.
 
->"Suntan lotion? What possible use could I have for that? I'm a vampire, man,
+> give suntan lotion to henry
+"Suntan lotion? What possible use could I have for that? I'm a vampire, man,
 so getting a tan is hardly a concern of mine."
 
->Grunt.
+> talk to henry
+Grunt.
    "Yes," says Henry. "What?"
    You explain the situation to him. This is kind of awkward what with your
 usual manner of speech being a series of grunts, groans and shakes of the
@@ -1649,7 +1851,8 @@ rotten from sunburn and-"
    "Suntan lotion?" Henry considers. "Yes, that might just do the trick.
 Fetch me some and I'll see what I can do."
 
->"Ah," says Henry, "this ought to do the trick. Slap a bit of it on me-" And
+> give suntan lotion to henry
+"Ah," says Henry, "this ought to do the trick. Slap a bit of it on me-" And
 he does. And more than a bit of it. So much of it, in fact, that you could
 probably set him alight and he wouldn't even notice. "Now I'm ready. So
 let's…" He frowns. "No, this isn't right."
@@ -1660,7 +1863,8 @@ let's…" He frowns. "No, this isn't right."
 bright today? I might be turned to dust in an instant. You'll have to find me
 something else."
 
->Henry takes the blanket and drapes it around himself.
+> give blanket to henry
+Henry takes the blanket and drapes it around himself.
    "I think I'm ready," he says.
    You don't have the heart to tell him what he looks like. You really don't.
    "I shall depart now," says Henry. "Don't follow me straight away or I
@@ -1669,16 +1873,19 @@ might forget myself and fang you anyway. Now…"
 or disappearing in a flash of light or a puff of smoke, but instead he just
 scurries up the steps out of the cellar.
 
->They look like old beer barrels, probably decades old that have been down
+> x barrels
+They look like old beer barrels, probably decades old that have been down
 here for longer than you have been alive. The cobwebs covering them and the
 dust would certainly indicate it has been a while since anyone last went
 anywhere near them.
    There is a lever on the side of one of them.
 
->You push the lever.
+> push lever
+You push the lever.
    A spray of beer shoots out.
 
->You push the lever and angle your mouth to catch some of the beer.
+> drink beer
+You push the lever and angle your mouth to catch some of the beer.
    And then spend a while gurgling in disgust and feeling like being
 violently ill. You've tasted some foul beer in your time, the type of stuff
 that could strip paint off the walls. You've even tasted beer that assassins
@@ -1689,19 +1896,23 @@ straighten up and give a long and satisfying belch. It might have tasted foul
 and has probably taken a year or two off your life, but at the end of the day
 it was still beer.
 
->The panel is just a transparent lump of plastic, slotted into the wall with
+> x panel
+The panel is just a transparent lump of plastic, slotted into the wall with
 remarkable precision so as to appear to be just another brick. If not for the
 fact that it's glowing, of course. There looks to be some kind of orb behind
 it which gives off the light.
    There is a noticeable crack running along the length of the panel.
 
->You pound on the panel with the spike you took from the front garden and
+> smash panel with spike
+You pound on the panel with the spike you took from the front garden and
 cause a visible crack, but the panel remains largely intact.
 
->You hit the panel again. The crack you made before grows more pronounced, but
+> smash panel with spike
+You hit the panel again. The crack you made before grows more pronounced, but
 the panel doesn't break altogether.
 
->You hit the panel and-
+> smash panel with spike
+You hit the panel and-
    It shatters!
    You have a moment to congratulate yourself on a well executed piece of
 mindless violence before the orb behind the panel that was emitting the light
@@ -1722,7 +1933,7 @@ shattered fragments at your feet. At your back (to the south) is the front
 door via which you entered the cottage. There is a gaping hole in the floor,
 leading down to the cottage's cellar.
 
->
+> e
 
 Gymnasium
 You've never heard of a cottage with a gymnasium before but apparently Mrs
@@ -1738,7 +1949,7 @@ the east marked "tech room".
 
 You see some charred material.
 
->
+> n
 
 Kitchen
 Mrs Moog's kitchen seems a bizarre mishmash of the ultra modern and the ultra
@@ -1751,7 +1962,7 @@ light comes from the glowing fridge.
    A doorway to the south leads back to the gymnasium and a flight of stairs
 lead up to the cottage's second floor.
 
->
+> u
 
 Upstairs Landing
 After everything else you have seen in Mrs Moog's cottage, you might have
@@ -1763,7 +1974,7 @@ the walls and floor look normal.
 "bedroom" (which is currently open) and a corridor stretches away to the
 west.
 
->
+> w
 
 Corridor
 The previous strange appearance of the corridor seems to have been fixed by
@@ -1773,7 +1984,8 @@ look normal as well. A feeble light is provided by a crackling panel set into
 the wall to your left while to the west is a passage, previously concealed
 behind a portrait of Mrs Moog.
 
->You tug open the panel with the handle - and immediately there is a blinding
+> open panel
+You tug open the panel with the handle - and immediately there is a blinding
 flash!
    (Fortunately that's only "blinding" in the literary sense and not the
 literal sense so after a few seconds of ferocious blinking you are able to
@@ -1781,11 +1993,12 @@ see again.)
    The panel is now dark. Whatever was powering it looks to have been
 destroyed when you opened it.
 
->You open the panel, slide the orb into place, and then close the panel up
+> put orb in panel
+You open the panel, slide the orb into place, and then close the panel up
 again. A second or two passes and then a brilliant light shines from the
 panel, lighting up the corridor brighter than the midday sun.
 
->
+> s
 
 Guest Room
 This room, generally reserved for any guests Mrs Moog has staying with her,
@@ -1796,7 +2009,8 @@ gaping cracks along the length and breadth of it. Lying on its side by the
 window is a camera, the lens shattered by you earlier on.
    To the north lies the strange corridor.
 
->Corridor
+> n
+Corridor
 The previous strange appearance of the corridor seems to have been fixed by
 you wearing Mrs Moog’s glasses. The top of the stairs is the normal distance
 away to the east and the bathroom to the north and guest room to the south
@@ -1820,7 +2034,7 @@ as you were leavin but that's neither here nor there."
    But Henry doesn't answer you this time. You look around for him but fail
 to see him anywhere.
 
->
+> s
 
 Guest Room
 This room, generally reserved for any guests Mrs Moog has staying with her,
@@ -1831,14 +2045,16 @@ gaping cracks along the length and breadth of it. Lying on its side by the
 window is a camera, the lens shattered by you earlier on.
    To the north lies the strange corridor.
 
->Curious about Henry's use of the word 'bedgin', you closely study the bed.
+> x bed
+Curious about Henry's use of the word 'bedgin', you closely study the bed.
 Actually, it doesn't take any real detective work to find the helm he left
 for you on the pillow. You scoop it up, sure that you'll find a use for it
 somewhere.
 
->You put on the helm.
+> wear helm
+You put on the helm.
 
->
+> n
 
 Corridor
 The previous strange appearance of the corridor seems to have been fixed by
@@ -1848,7 +2064,8 @@ look normal as well. Light is provided by a panel set into the wall to your
 left while to the west is a passage, previously concealed behind a portrait
 of Mrs Moog.
 
->You start westwards, into the previously hidden passageway. You move
+> w
+You start westwards, into the previously hidden passageway. You move
 cautiously, alert for traps and expecting them at every footfall. You're
 convinced that nothing will be able to surprise you now-
    So when you hear the thunderous roar and the cannon ball flies out of the
@@ -1857,7 +2074,8 @@ shadows and smashes into you, it comes as a shock to say the least.
 ball just sends you careening back out into the corridor with your head
 ringing and your helm dented.
 
->Warily, expecting another cannon ball to come flying out of nowhere and deal
+> w
+Warily, expecting another cannon ball to come flying out of nowhere and deal
 you another crushing blow, you creep into the passage. But no more cannon
 balls.
    You come to some stairs, climb quickly up them, and emerge into the attic
@@ -1879,7 +2097,7 @@ to be able to run past the remaining ones to reach Mrs Moog. The area of the
 attic where Mrs Moog is lying unconscious is over to the west while the
 concealed passage leads downwards.
 
->
+> w
 
 Western End Of Attic
 Mrs Moog lies on the floor here, more unconscious than you’ve ever seen
@@ -1887,12 +2105,14 @@ anyone before. In fact, she looks more unconscious than some dead people
 you’ve encountered. A mass of paperwork is scattered around her, no doubt
 dropped when she collapsed. The only piece of furniture is a bed.
 
->You let rip with the loudest scream you can manage, the kind of scream that
+> shout
+You let rip with the loudest scream you can manage, the kind of scream that
 would deafen a dinosaur at fifty paces and shatter stone at a hundred.
    But it doesn't wake Mrs Moog up. Although her sleep doesn't seem quite as
 deep as before.
 
->You ring the bell.
+> ring bell
+You ring the bell.
 
 Ding-a-ling-a-ling!
 
@@ -1900,7 +2120,8 @@ And wince at the sheer volume of it.
    Unfortunately, loud as it was, it hasn't awoken Mrs Moog. Although her
 sleep seems a little lighter than it was before.
 
->You hold the smelling salts near Mrs Moog's nose and wait for their pungent
+> use smelling salts
+You hold the smelling salts near Mrs Moog's nose and wait for their pungent
 aroma to bring her round.
    Unfortunately it doesn't seem to work - the woman must have the
 constitution of an ox! However, her breathing seems a little lighter than
@@ -1974,32 +2195,41 @@ will you?"
 Now, off and fetch me something to eat and don't look at me like that or it's
 straight to bed afterwards for you."
 
->It doesn't look very appetising to you, but Mrs Moog tucks into the dough and
+> give dough to mrs moog
+It doesn't look very appetising to you, but Mrs Moog tucks into the dough and
 even gives a satisfied belch afterwards!
 
->Mrs Moog takes the pastry and swallows it in one go.
+> give pastry to mrs moog
+Mrs Moog takes the pastry and swallows it in one go.
    Amazing mouth that old woman.
 
->"Ah, bread," says Mrs Moog. "It's been a while since I had some of this."
+> give bread to mrs moog
+"Ah, bread," says Mrs Moog. "It's been a while since I had some of this."
 
->Mrs Moog frowns. "Normally I don't go for jelly, but under the
+> give jelly to mrs moog
+Mrs Moog frowns. "Normally I don't go for jelly, but under the
 circumstances..."
    She eats it.
 
->"Oh, my bracelet," says Mrs Moog. "I was sure I'd lost that. Thanks. I'll be
+> give bracelet to mrs moog
+"Oh, my bracelet," says Mrs Moog. "I was sure I'd lost that. Thanks. I'll be
 sure to include you on my Christmas card list."
 
->"My glasses!" she cries. "Damnation! Did I put them in the wall again?"
+> give glasses to mrs moog
+"My glasses!" she cries. "Damnation! Did I put them in the wall again?"
    You nod.
    "I have to remember to stop doing that, but force of habit..."
 
->Mrs Moog takes the cob, stares at it carefully in case it might contain
+> give cob to mrs moog
+Mrs Moog takes the cob, stares at it carefully in case it might contain
 something lethal, then eats it slowly.
 
->"I hope you didn't go showing this to my husband," says Mrs Moog warningly as
+> give garlic to mrs moog
+"I hope you didn't go showing this to my husband," says Mrs Moog warningly as
 you hand the garlic over.
 
->"Very well," says Mrs Moog. "I think I'm able to walk. Hold your arm out."
+> talk to mrs moog
+"Very well," says Mrs Moog. "I think I'm able to walk. Hold your arm out."
    You do. Mrs Moog uses it to lever herself to her feet.
    "Oh my, this heat stroke," she says. "It'll be the death of me. Why, it
 reminds me of the time..."
@@ -2153,4 +2383,5 @@ missed out a good portion of it. And if you get 100, you'll know the password
 to the game so you can take a little look and see how it was all put
 together.
 
->Do you really want to quit? [Y/N]
+> quit
+Do you really want to quit? [Y/N]

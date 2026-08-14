@@ -32,18 +32,23 @@ painting of the old wooden bridge where you met him.
 
 Someone is knocking at the door.
 
->The coffee table is littered with hundreds of family photos.  Many of them
+> x table
+The coffee table is littered with hundreds of family photos.  Many of them
 have your ex-husband cut out.  An empty bottle of Jack Daniels lies turned
 over on its side on top of the photos.
 
->Most of the pictures on the coffee table are void of your ex-husband, Jack.
+> x pictures
+Most of the pictures on the coffee table are void of your ex-husband, Jack.
 The ones on the mantle are cracked and distored.
 
->It's empty, though you don't remember finishing it off.
+> x bottle
+It's empty, though you don't remember finishing it off.
 
->It's right here.  Someone is knocking on it.
+> x door
+It's right here.  Someone is knocking on it.
 
->You open the door and are greeted by a stocky, slightly balding man in a dark
+> open door
+You open the door and are greeted by a stocky, slightly balding man in a dark
 blue suit opened to reveal a gun in its harness just below his left arm.  In
 his right hand he briefly holds up a badge.
 
@@ -94,13 +99,15 @@ lawyer got there.  In a small, private room, your lawyer asks, "Jane, I want
 you to go over the events of that day with me.  Just start at the beginning."
  She began jotting notes down on a yellow legal pad.
 
->Time passes...
+> z
+Time passes...
 
 "I got up that morning and took a shower and left for work. The day went by
 like normal and I came home.  The phone was ringing when I walked in the
 door.  It was my son, Chad."
 
->“How old is Chad?” Carol asks, continuing to take notes on the legal pad.
+> z
+“How old is Chad?” Carol asks, continuing to take notes on the legal pad.
 
 "He is 24, as of last November.  Anyway, he called to tell me he was coming
 over.  He wanted his suit.  He had an engagement party to go to.  After a
@@ -118,7 +125,8 @@ over the floor and demanding I be his maid!"
 "Calm down, Jane.  This isn't helping your case."  A look of doubt crosses
 Carol's face; her eye's darting quickly to her pad.
 
->
+> z
+
 “I don’t care about this fucking case!  They arrested me, so the must have
 proof."  You knew that even if you confessed to Carol, she would still have
 to defend you, so you decided you may as wall confess.
@@ -133,7 +141,8 @@ what happened, Jane.  I need to know everything.  There might be a way to get
 you off the hook, or we might even be able to get a plea deal out of this,
 but you have to tell me everything."
 
->
+> z
+
 "After Chad called, I hung up the phone and had a couple of drinks.  I needed
 to calm my nerves.  Jack was getting married, and he was getting the house
 too.  I don’t know how he managed it, but the judge that handled our divorce
@@ -143,7 +152,8 @@ little bitch into MY house.  The house where I raised our son.  I wasn’t
 going to let him take everything away from me.  I deserve more than that."
 Pacing back and forth, you continue to tell your lawyer what happened.
 
->
+> z
+
 “I knew Jack was violently allergic to strawberries.  His engagement party
 wasn’t until 9, so I knew I had plenty of time to lure him away.  I called
 him and asked him to meet me at the Old Shakers Motel.  We used to do a
@@ -154,7 +164,8 @@ phone, using his credit card.  So if it was traced, it would be traced back
 to him.  I waited in the room, dressed as a French maid.  It was his favorite
 costume.”
 
->
+> z
+
 “What happened when Jack arrived?”  Carol asks, taking notes diligently.
 
 “I heard his car drive past.  I squeezed some strawberry juice into the
@@ -171,7 +182,8 @@ with me.  He almost didn’t take the bait, but I told him it was to
 congratulate him on his engagement.  He was a little taken back, but found it
 honorable.  I handed him the glasses and he poured the drink.”
 
->Carol shifts in her seat, and puts down her pen for a moment.
+> z
+Carol shifts in her seat, and puts down her pen for a moment.
 
 "It was perfect.  He gave me a kiss and walked to the door.  It was right
 about then the allergic reaction kicked in.  He was gasping for air, his face
@@ -182,7 +194,8 @@ shoved him backward into the tub and held him under water.  I laughed
 hysterically as I watched the bubbles rise from his mouth.  His eyes looking
 right into mine, I whispered , ‘I love you’."
 
->
+> z
+
 “I covered my tracks.  I left no evidence behind.  I took the sheets, I
 cleaned the room.  How did they find out?”
 
@@ -202,7 +215,8 @@ found a tape.”
 “Jane, there were at least forty other women on that tape.  The last one, was
 you.  They have everything on tape. ”
 
->
+> z
+
 Striking a plea deal, you narrowly avoided the death penalty.  The rest of
 your days you spend behind bars at the Midfield Women’s Correctional
 Facility.

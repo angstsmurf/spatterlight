@@ -32,7 +32,8 @@ have been closed for several months, if not years. The street extends east
 and west, both directions looking equally bleak, while south, over the road,
 there looks to have been some kind of incident.
 
->I head across the road. As I do, someone at the scene of the incident gives a
+> s
+I head across the road. As I do, someone at the scene of the incident gives a
 high-pitched scream that cuts straight through me: like fingers down a
 blackboard. I wince, check my watch for the time (forgetting that it isn't
 working) and so my attention is completely distracted away from what it
@@ -79,15 +80,20 @@ before. I notice in a distracted kind of way, that there is nothing beyond
 the walls of the room I am in, nothing that would seem to support it hundreds
 of feet above the ground.
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
 The sound of rushing wind fills the room and there is a flash of blinding
 light. When I can see again, I am not alone.
@@ -115,7 +121,8 @@ and not the way it DID go!"
    Mr ER himself stands there, almost as if he expects me to reach out and
 take one of the envelopes.
 
->I reach out my hand and take the first envelope.
+> envelope one
+I reach out my hand and take the first envelope.
    A shock ripples through my body as I touch the envelope and Mr ER cries
 out, "YES! And a good decision it was indeed! You see HOW you came to die!"
 
@@ -143,16 +150,19 @@ Right now I'm at the corner of Monk Terrace and Mormon Avenue, southwest to
 one, southeast to the other. I don't know diddly squat about either and don't
 care to know.
 
->I've got with me my clothes (naturally - I'm not stupid and go out with
+> i
+I've got with me my clothes (naturally - I'm not stupid and go out with
 nothin' on but what I was born in like some people I could mention) and my
 purse and my umbrella and my newspaper and some darned mobile me son got me.
 
->I ain't got a clue 'ow it works. More trouble 'n' it's worth anyway. Me
+> x mobile
+I ain't got a clue 'ow it works. More trouble 'n' it's worth anyway. Me
 eldest, Josh, says he's got it on "speed-dial" (whatever the hell that is)
 for the cops an' I oughta push the button if I'm in trouble. Huh! Waste o'
 bleedin' time if yer asks me.  A button is on the mobile phone.
 
->I head along to Mormon Avenue, my ankles givin' me the usual probs. Sometimes
+> se
+I head along to Mormon Avenue, my ankles givin' me the usual probs. Sometimes
 I hate bein' old. I'd have ran down here when I was a lass.
 
 Mormon Avenue
@@ -163,7 +173,8 @@ Little windy streets lead off south into the heart o' the city an' northwest
 back the way I came. Several fellers stand about twenty feet away, swearing
 at each other an' messin' around with knives. Shouldn't be allowed.
 
->I push it. Immediately there's some ringin' sound comin' from the mobile then
+> push button
+I push it. Immediately there's some ringin' sound comin' from the mobile then
 an official sounding voice on.
    "'Ere, bitch!" one of the thugs yells at me. "You callin' the fuckin' cops
 on us?"
@@ -215,7 +226,8 @@ wouldn't it? Let's move on, shall we?"
    1: "Move on? I don't follow..."
    2: "What the hell just happened back there?"
 
->"Move on INDEED!" Mr ER claps his hands and I notice he is now holding a key
+> 1
+"Move on INDEED!" Mr ER claps his hands and I notice he is now holding a key
 where before his hands were empty. "Where to now, I wonder? Where to
 indeed..."
    His voice is fading away even as he finishes speaking. Or is it that I am
@@ -242,7 +254,8 @@ She's always been pretty cold to me before and I've never made much progress
 with her but tonight I'm not taking no for an answer. Tonight we're going to
 do IT whether she wants to or not.
 
->
+> l
+
 Room
 I'm in my room at uni. I share it with a bozo called Doug who's into heavy
 metal and rock and think he's going to be a world class drummer one day
@@ -253,7 +266,8 @@ smell of vomit. A mirror in which I often pose hangs on the back of the door
 to the north. Other than that there's a desk, two chairs, two beds, a small
 table and a lamp. We sure don't live in style, me and the Dougster.
 
->Flash forward half an hour
+> open door
+Flash forward half an hour
 
 Party
 The party's in full swing and so loud I think my eardrums are about to
@@ -265,7 +279,8 @@ subtle nods, you clap people on the back, you check out the lay-deez…
    No sign of Jenny yet. Unless she's in one of the other rooms: northwest to
 the kitchen, east to the lounge, up to the bedrooms.
 
->
+> u
+
    I catch a glimpse out of the corner of my eye and see Jenny there. I head
 over to her. She looks hot.
 
@@ -273,13 +288,15 @@ over to her. She looks hot.
    2: Ask her about sex.
    3: Ask her how she's been.
 
->"Oh, not so bad," she says. "Damn, this party's loud. I can hardly hear
+> 3
+"Oh, not so bad," she says. "Damn, this party's loud. I can hardly hear
 myself think."
 
    1: Ask her about going upstairs?
    2: Ask if she wants to get out of this dump.
 
->"Sure, why not. Anything's gotta be better than this dead end party."
+> 2
+"Sure, why not. Anything's gotta be better than this dead end party."
 
 ... more ...
 
@@ -293,7 +310,8 @@ thought about things like that.
    2: Ask her to marry me.
    3: Kiss her.
 
->"Flattery'll get you nowhere, Walt. Don't you know that by now?"
+> 1
+"Flattery'll get you nowhere, Walt. Don't you know that by now?"
    "True all the same."
    She shakes her head though I can tell she's pleased I said that.
    "Have you thought about what happens when you finish uni?"
@@ -302,7 +320,8 @@ thought about things like that.
    2: Tell her I'm going to become a teacher.
    3: Tell her I've not thought about it yet.
 
->"Oh, I know what you mean," Jenny says. "I thought about being a model but I
+> 3
+"Oh, I know what you mean," Jenny says. "I thought about being a model but I
 dunno. Standing there with some guy with a camera taking shots of me in a
 bikini. Ugh!" She grimaces. "I'm too paranoid about how I look besides."
    "You look fine," I say automatically.
@@ -313,7 +332,8 @@ start modelling then have to quit it all when I get wrinkles."
    1: Tell her do to what she wants to do.
    2: Ask if she's got any shots of herself.
 
->"I will. I will. Y'know, I never even knew you had a sensitive side."
+> 1
+"I will. I will. Y'know, I never even knew you had a sensitive side."
    "I hide it well," I say. "When you're sharing a room with the Dougster you
 need to keep your sensitive side well hidden."
    Jenny grins. "I can imagine." She sticks her hand out. "Walk me home,
@@ -358,7 +378,8 @@ everything will be YOURS to decide."
    "Shake your-"
    Mr ER extends his hand. "Shake it."
 
->Mr ER encloses my hand in his own and pumps it vigorously. "A GOOD choice, Mr
+> shake hand
+Mr ER encloses my hand in his own and pumps it vigorously. "A GOOD choice, Mr
 Kramer. Let's go back a few years, shall we? To when your life changed..."
    I try to pull my hand away from Mr ER's but find myself falling...
 
@@ -377,7 +398,8 @@ looking up and seeing myself. Just freaked me out for some reason. A doorway
 in the south wall leads to the upstairs hallway. Downstairs, I can hear Walt
 getting things ready for the party.
 
->I leave the bedroom. Time for the party…
+> s
+I leave the bedroom. Time for the party…
 
 ... more ...
 
@@ -400,21 +422,24 @@ door in one wall leads through to the kitchen.
 
    1: "So tell me, Laurie, how have you been doing?"
 
->"We're fine," Laurie answers quickly. A little too quickly. "Keith got a
+> 1
+"We're fine," Laurie answers quickly. A little too quickly. "Keith got a
 promotion a few weeks ago so more money, more…" She shrugs. "More lots of
 things. He has to work more hours but I can live with that."
 
    1: "How are things between you and Keith?"
    2: "Tell me about Keith's promotion."
 
->"Fine. Just fine." Laurie casts an anxious glance out of the window to where
+> 1
+"Fine. Just fine." Laurie casts an anxious glance out of the window to where
 Walt and Keith are star spotting. "You think we should head out there? Keith
 doesn't like it when I'm…" Laurie trails off.
 
    1: "He doesn't like it when what?"
    2: "I know you and Keith have been having problems, Laurie."
 
->"Nothing, Jen. Look…" She looks out the window again. Keith is thirty feet
+> 1
+"Nothing, Jen. Look…" She looks out the window again. Keith is thirty feet
 away. "It's not been easy these last few years," she says quietly. "Keith…
 well, I think he's been seeing someone."
    I nod, urging her to go on.
@@ -423,7 +448,8 @@ girl."
 
    1: "You think he's seeing her?"
 
->"Oh, I don't know." Laurie shakes her head. "I mean, it might be nothing more
+> 1
+"Oh, I don't know." Laurie shakes her head. "I mean, it might be nothing more
 than he says it is: overtime. And she's got to work the overtime because
 she's his secretary. But…" Laurie shakes her head again. "I phone up
 sometimes to speak to him and she answers. I know there's something about the
@@ -434,7 +460,8 @@ she's rubbing my face in it."
    2: "Have you confronted him about it?"
    3: "Have you asked the girl outright if anything is going on?"
 
->Laurie looks at me. "Do you think so, Jen? Oh God, I hope there isn't."
+> 1
+Laurie looks at me. "Do you think so, Jen? Oh God, I hope there isn't."
    Deep down, I wonder what is going on - Keith has always seemed like the
 sort to cheat if I'm being perfectly honest - but does Laurie really need to
 hear this?
@@ -444,7 +471,8 @@ hear this?
    3: "I think you should check up on things beforehand - speak to his work
 colleagues, that sort of thing."
 
->Laurie nods her head. "That's the best thing to do. Thanks, Jen. I wished I'd
+> 3
+Laurie nods her head. "That's the best thing to do. Thanks, Jen. I wished I'd
 thought of it before."
    "He might have asked his workmates to lie for him," I say.
    "There's a filing clerk I know. She'll tell me the truth if no one else
@@ -504,7 +532,8 @@ table with Mr ER's briefcase on rests in the centre of the strange room.
    Mr ER is here, his personality so loud and overpowering there seems
 precious little room for anything else.
 
->"And YES it is!" cries Mr ER and before I can ask him just what he means, my
+> yes
+"And YES it is!" cries Mr ER and before I can ask him just what he means, my
 surroundings abruptly change once more...
 
 ... more ...
@@ -518,7 +547,8 @@ to find something positive to say about the music that won't sound like I'm
 just saying it because he's a friend and I don't want to hurt his feelings
 but instead that I genuinely love it. It's hard.
 
->I wait. The rehearsals go on. At a time when I'm sure people born without the
+> wait
+I wait. The rehearsals go on. At a time when I'm sure people born without the
 ability to hear are lucky, the rehearsals finally end. I muster up a few
 congratulatory words for Doug and we head into the dressing room.
 
@@ -533,7 +563,8 @@ decoration the dressing room has a scratched mirror on one wall and a stool
 on which Doug is currently sitting. The showbiz life, eh?
    A door to the east leads out of here.
 
->"And off to the party we go," says Doug. "Let's go get that pussy, man."
+> e
+"And off to the party we go," says Doug. "Let's go get that pussy, man."
 
 ... elsewhere ...
 
@@ -549,21 +580,24 @@ is. He wandered off when we got here and I haven't seen him since.
    I spy doorways to the northwest, west and east leading to different parts
 of the house.
 
->I move west.
+> w
+I move west.
 
 Hallway
 Ah, a bit of peace and quiet. Still noisy, of course (hell, they can probably
 hear this party on the Moon) but not so painfully loud that my head is
 throbbing. Stairs lead up to the bedrooms and a door leads east.
 
->There's nothing much happening at the top of the stairs. Several doorways -
+> u
+There's nothing much happening at the top of the stairs. Several doorways -
 west, northwest, north and east - lead into bedrooms while the stairs
 themselves lead down to the hallway.
 
    As I reach the top of the stairs, I hear what sounds like a scream,
 quickly muffled.
 
->I step into a bedroom where-
+> n
+I step into a bedroom where-
    "Doug!"
    Doug looks up and the girl he's holding down opens her mouth to yell. Doug
 quickly clamps his hand down on her, forcing her head into the pillows on the
@@ -575,19 +609,22 @@ Probably both. "Gerroutere, Walt. Me 'n' Liz jus' 'avin' bita fun."
    "Doug-"
    "GERROUT! Now! Or so 'elp me God I'll kill yer, Walt."
 
->"Fuck off!" he hisses, spraying the poor girl with saliva. "You 'eard me,
+> talk to doug
+"Fuck off!" he hisses, spraying the poor girl with saliva. "You 'eard me,
 pal. Ain't nuffin' bu' a bita fun…"
    "Let her go, Doug," I say. "You don't want to end up in prison."
    Doug shakes his head. "Ain't gonna 'appen. Me - gonna me famous I am. Big
 ro' star. Nobody touch me then."
 
->"You'll never be a big rock star if you carry on like this, Doug," I say.
+> talk to doug
+"You'll never be a big rock star if you carry on like this, Doug," I say.
 "They'll lock you up and throw away the key. Now let her go."
    The girl struggles and Doug raises his hand as if to hit her but then
 seems to think better of it.
    "No' fair," he mutters. "Jus' a bita fun."
 
->"Let her go, Doug. She won't say a thing about this if you let her go now," I
+> talk to doug
+"Let her go, Doug. She won't say a thing about this if you let her go now," I
 say. In all honesty, she'll probably run straight to the cops but I'd sooner
 take the risk of that happening than have Doug rape her. "Let her go."
    Doug shakes his head but lets the girl go. She struggles away from him and
@@ -617,7 +654,8 @@ don't know. The walls are decorated (if that's the word) with posters of her
 latest craze, some skinhead punk band who apparently vomit on the audience
 during concerts. Her door, also with a poster, lies to the east.
 
->I press the power button and wait for the computer to power on. Then a
+> turn on computer
+I press the power button and wait for the computer to power on. Then a
 message flashes on screen asking me to type my password.
 
 It was the letter from the school headmaster that got myself and Jenny
@@ -628,7 +666,8 @@ there was no chance of Antonia overhearing. We also knew she wasn't the ideal
 13 year old (we're realistic enough to know she's not the little angel she
 pretends to be) but we never really thought she was into drugs.
 
->I type Antonia backwards and the computer continues to load all its programs.
+> type ainotna
+I type Antonia backwards and the computer continues to load all its programs.
 After a minute, the opening screen (the desktop is it called?) is before me.
 
 The letter made us wonder just what else Antonia had been up to that we
@@ -639,7 +678,8 @@ over. Had she? Or was the truth something more sinister? I remember the CDs
 and videos she buys and often wonder just where she gets the money for them
 from.
 
->Several icons are displayed here.
+> x desktop
+Several icons are displayed here.
 
 So we decided, after Antonia left for school this morning, that I'd conduct a
 little search of her room. Jenny has gone to speak to the parents of one of
@@ -650,23 +690,27 @@ me feel a bit on the low side, as if I don't trust her or something, but
 right now I'm beginning to wonder if I can trust her. Hopefully I won't find
 anything suspicious and that will be the end of it.
 
->I see icons for "e-mail", "word processor", "internet explorer", "diary" and
+> x icons
+I see icons for "e-mail", "word processor", "internet explorer", "diary" and
 "my pictures". Another icon in the corner of the screen is marked "shut
 down". Apparently I have to click on one of these icons and it will run a
 program for me.
 
->I open the program and…
+> click picture
+I open the program and…
    Several seconds later I'm staring in shock and disgust at the naked
 pictures of Antonia displayed on the screen. Some are in extreme close up and
 even show her playing with herself. One photo has her sitting on a boy's lap
 while he fondles her. Disturbed, I close the program down.
 
->I click on the diary program. A page from a diary displays itself before me.
+> click diary
+I click on the diary program. A page from a diary displays itself before me.
 Today is blank but tomorrow has a note in about "snazzing" someone called
 "Claudia". I have a sinking feeling what "snazzing" means but just hope I'm
 wrong. Disturbed, I close the program down.
 
->The screen flickers several times then a website called "Stressed &
+> click internet explorer
+The screen flickers several times then a website called "Stressed &
 Depressed" displays itself. It looks to be some kind of forum for teenagers
 experiencing emotional problems who need someone to talk to. One particular
 thread called "pissed off with life an considerin suicide" jumps to my
@@ -675,7 +719,8 @@ attention as the last poster is "AntoniaStressed".
    1: Read it.
    2: Shut the program down.
 
->I click on the thread and read a few posts at random. AntoniaStressed seems
+> 1
+I click on the thread and read a few posts at random. AntoniaStressed seems
 to be complaining about the unfairness of life in which her "cunt parents"
 beat and abuse her, her friends torture her with cigarette lighters and even
 her teachers are out to get her. She seems to be considering suicide as an
@@ -685,23 +730,26 @@ morning no less, says she is planning to knife her "cunt parents" in their
 sleep over the next few days.
    Wishing I had never read this, I close down the program.
 
->I pull back the top sheet and find, lying there, a lacy red bra. Feeling a
+> make bed
+I pull back the top sheet and find, lying there, a lacy red bra. Feeling a
 little disgusted, I decide against picking it up. This is one thing I'll
 definitely want to be asking Antonia about.
 
->The groups Antonia seems to be into are all either rap or acid house and have
+> x posters
+The groups Antonia seems to be into are all either rap or acid house and have
 names like Fukker, Corpse and there is even a German thrash metal band called
 Bitch Smackers. I've listened to some dire stuff over the years, mainly due
 to my association with Doug Kincaid, but not even Doug would listen to the
 likes of Bitch Smackers. A calendar in the middle of the posters seems to
 take precedence.
 
->As I move the calendar to one side, something that was taped to the wall at
+> get calendar
+As I move the calendar to one side, something that was taped to the wall at
 the back of it drops to the floor. I stoop and pick it up. It turns out to be
 a ticket for a night club, one that myself and Jenny banned Antonia from
 visiting due to its reputation.
 
->
+> out
 
 ... more ...
 
@@ -800,7 +848,8 @@ table with Mr ER's briefcase on rests in the centre of the strange room.
    Mr ER is here, his personality so loud and overpowering there seems
 precious little room for anything else.
 
->I set off south, determined this time to avoid the fate which occurred
+> s
+I set off south, determined this time to avoid the fate which occurred
 before. I know the damn lorry's going to be coming at me, so this time I can
 avoid it. I can either wait till it passes before I cross the road or just
 dodge out of the way or...
@@ -845,4 +894,5 @@ death then you can feel justifiably proud that you reached a satisfactory
 ending. Are there better endings that you didn't find? Well, maybe you should
 type "restart" and see for yourself.
 
->Do you really want to quit? [Y/N]
+> quit
+Do you really want to quit? [Y/N]

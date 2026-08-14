@@ -25,7 +25,8 @@ the air. The room became quiet, as the guests listened for anymore sounds.
 After a few seconds of deathly silence, the chatter began again as people
 ignored the scream. I didn't however, I knew something was wrong...
 
->I move west.
+> w
+I move west.
 
 Hallway
 The long hallway leads to a few different places: to the West is Trey
@@ -35,7 +36,8 @@ to the North is the Janitor's Closet, which is currently locked.
 
 Nancy's here, chatting with some of the guests.  Barry patrols the area.
 
->I move southeast.
+> se
+I move southeast.
 
 Mens Bathroom
 The small Bathroom looks like garbage, and smells much worse. A broken mirror
@@ -44,7 +46,8 @@ who dares to touch them. On the opposite side of the room sits three urinals,
 one of them hanging off the wall at an angle.  Near the back of the room,
 sits a small stall, where a horrible smell dispenses from.
 
->(Your score has increased by 10)
+> open stall
+(Your score has increased by 10)
 I held my breath from the horrible stench, and pushed open the stall door.
 There was a loud creaking noise as it slowly swinged open. I entered the
 cramped stall and let out a loud scream. Sitting on the toilet, was the body
@@ -87,7 +90,8 @@ stop them...
 
 Act II
 
->I move west.
+> w
+I move west.
 
 Hallway
 The long hallway leads to a few different places: to the West is Trey
@@ -97,7 +101,8 @@ to the North is the Janitor's Closet, which is currently locked.
 
 Nancy's here, chatting with some of the guests.
 
->I move southeast.
+> se
+I move southeast.
 
 Mens Bathroom
 The small Bathroom looks like garbage, and smells much worse. A broken mirror
@@ -106,10 +111,12 @@ who dares to touch them. On the opposite side of the room sits three urinals,
 one of them hanging off the wall at an angle.  The stall door is now open in
 the back, Max Thurman's corpse can be seen lifelessly sitting on the toilet.
 
->(Your score has increased by 5)
+> x pocket
+(Your score has increased by 5)
 I stuck my hand into his pocket and pulled out a gold key.
 
->I move northwest.
+> nw
+I move northwest.
 
 Hallway
 The long hallway leads to a few different places: to the West is Trey
@@ -119,7 +126,8 @@ to the North is the Janitor's Closet, which is currently locked.
 
 Nancy's here, chatting with some of the guests.
 
->I move east.
+> e
+I move east.
 
 Plaza
 This is the plaza of floor 23, a large room which is now full of streamers,
@@ -134,7 +142,8 @@ Eric leans against the wall, smoking a cigarette.  Mary stands in the center
 of the room, admiring the fountain.  Gina stands away from the other guests,
 drinking some egg nog.
 
->I move east.
+> e
+I move east.
 
 Hallway
 The long hallway keeps on going to the East, which leads towards Thurman's
@@ -142,7 +151,8 @@ office. To the North are the computer labs. Chatting can be heard to the
 West, coming from the Plaza.
 Frank stares at the wall, admiring some artwork hanging from it.
 
->I move east.
+> e
+I move east.
 
 Outside Thurman's Office
 Right now, I'm standing in the small area outside Max Thurman's office. A
@@ -150,14 +160,16 @@ lone desk sits near the wall, a computer sits atop of it. Stuck into the
 walls, are large metallic letters that spell out the word "SinTex". Two large
 oak doors sit to the North, leading to Max Thurman's office.
 
->(Your score has increased by 5)
+> unlock door
+(Your score has increased by 5)
 You stick the key into the lock, and turn it.
 
 *Click*
 
 The door's now unlocked.
 
->(Your score has increased by 10)
+> n
+(Your score has increased by 10)
 I opened the recently unlocked door, and walked inside the dark room. A
 strange feeling of dread came over me as I walked through the dark, searching
 for a light to turn on. My hands slid against the wall, looking for the light
@@ -197,7 +209,8 @@ response. Someone had cut the phone lines...
 
 Act III
 
->I move east.
+> e
+I move east.
 
 Hallway
 The long hallway keeps on going to the East, which leads towards Thurman's
@@ -205,7 +218,8 @@ office. To the North are the computer labs. Chatting can be heard to the
 West, coming from the Plaza.
 Frank stares at the wall, admiring some artwork hanging from it.
 
->I move north.
+> n
+I move north.
 
 Computer Lab
 The large computer lab is where most of the computer work in the company is
@@ -216,11 +230,13 @@ near an out of place trash can, containing files and manuals on the usage of
 the computers. A metal door lies to the North, leading to the Archives, but
 it is currently locked.
 
->(Your score has increased by 5)
+> take file
+(Your score has increased by 5)
 You reach down into the trash can, and pull out the file. It's still warm,
 meaning someone recently just tried to destroy it...
 
->SynTex Meeting Log for December. 10
+> open file
+SynTex Meeting Log for December. 10
 
 Guests at Meeting: Mr. Thurman, Mr. Rose, Ms. Wilkon, Mr. Weeld, and Mrs.
 Janks
@@ -240,7 +256,8 @@ will occur in January to make up for lost profits.
 
 Next meeting scheduled for: January 8.
 
->I move south.
+> s
+I move south.
 
 Hallway
 The long hallway keeps on going to the East, which leads towards Thurman's
@@ -248,7 +265,8 @@ office. To the North are the computer labs. Chatting can be heard to the
 West, coming from the Plaza.
 Frank stares at the wall, admiring some artwork hanging from it.
 
->I move east.
+> e
+I move east.
 
 Outside Thurman's Office
 Right now, I'm standing in the small area outside Max Thurman's office. A
@@ -260,20 +278,23 @@ The computer that was off before, is now running. The program on the screen
 is a list of all the employees in the building. If you'd like to research an
 employee, type in "Research Bob".
 
->(Your score has increased by 10)
+> research alex
+(Your score has increased by 10)
 This file is missing from database. Please report to archives to fix the
 error.
 
 As I clicked the screen off, a scream echoed into the hall.
 
->I move west.
+> w
+I move west.
 
 Hallway
 The long hallway keeps on going to the East, which leads towards Thurman's
 office. To the North are the computer labs. Chatting can be heard to the
 West, coming from the Plaza.
 
->I move west.
+> w
+I move west.
 
 Plaza
 This is the plaza of floor 23, a large room which is now full of streamers,
@@ -287,7 +308,8 @@ the glass window, the only exit off the floor.
 Trey stands in the corner, smoking a cigarette.  Gina stands away from the
 other guests, drinking some egg nog.
 
->I move north.
+> n
+I move north.
 
 Staff Room
 During the day, the Staff Room is full of light, fun, and safety. But now, in
@@ -299,7 +321,8 @@ microwave.
 
 Looking closer, something can be seen inside the microwave.
 
->(Your score has increased by 10)
+> open microwave
+(Your score has increased by 10)
 Seeing the object from outside, I opened the door, expecting to find some
 food that someone left behind inside of it.
 
@@ -318,7 +341,8 @@ investigation...
 
 Act IV
 
->"Well, I knew someone would ask eventually. Yeah, I know about Alex, but I
+> ask eric about alex
+"Well, I knew someone would ask eventually. Yeah, I know about Alex, but I
 don't know much. Max called me a few days ago, and he invited me here to the
 party, to investigate and find out who this Alex Boss person was. He'd
 recently closed the fake Alex Boss account which was stealing money, and was
@@ -331,14 +355,16 @@ think you should do it. And remember, don't trust anyone."
 Eric handed me the keycard secretly, and then went off to talk with some
 guests...
 
->I move east.
+> e
+I move east.
 
 Hallway
 The long hallway keeps on going to the East, which leads towards Thurman's
 office. To the North are the computer labs. Chatting can be heard to the
 West, coming from the Plaza.
 
->I move east.
+> e
+I move east.
 
 Outside Thurman's Office
 Right now, I'm standing in the small area outside Max Thurman's office. A
@@ -350,7 +376,8 @@ The computer that was off before, is now running. The program on the screen
 is a list of all the employees in the building. If you'd like to research an
 employee, type in "Research Bob".
 
->(Your score has increased by 5)
+> use keycard on computer
+(Your score has increased by 5)
 I placed the keycard into a special slot in the computer, and the mainframe
 window popped up. This allowed me to read all information, included deleted
 files. I pulled up the Alex Boss file...
@@ -378,14 +405,16 @@ protect your soul.132.
 As I read the last of the note from Max, I could hear a piercing scream
 coming from the West...
 
->I move west.
+> w
+I move west.
 
 Hallway
 The long hallway keeps on going to the East, which leads towards Thurman's
 office. To the North are the computer labs. Chatting can be heard to the
 West, coming from the Plaza.
 
->I move west.
+> w
+I move west.
 
 Plaza
 This is the plaza of floor 23, a large room which is now full of streamers,
@@ -400,7 +429,8 @@ Nancy sits on the edge of the fountain, sipping from a drink.  Eric leans
 against the wall, smoking a cigarette.  Trey stands in the corner, smoking a
 cigarette.  Gina stands away from the other guests, drinking some egg nog.
 
->I move west.
+> w
+I move west.
 
 Hallway
 The long hallway leads to a few different places: to the West is Trey
@@ -410,7 +440,8 @@ to the North is the Janitor's Closet, which is currently locked.
 
 Mary stands by the closet, chatting with some of the other guests.
 
->I move southwest.
+> sw
+I move southwest.
 
 Womans Bathroom
 The woman's bathroom is in better shape than the men's, but that's not saying
@@ -421,7 +452,8 @@ unusable stalls. The bathrooms are clearly a lowpoint for the company.
 her mouth, and a syringe full of green liquid sticking out of her leg. It was
 a ghastly sight.
 
->(Your score has increased by 10)
+> take syringe
+(Your score has increased by 10)
 I cringed slightly, but bent me knees and grabbed the syringe. I slid it out,
 and it made a squishing noise as it popped out of her leg.
 
@@ -430,7 +462,8 @@ needle in hand, and a body nearby, it could spell trouble...
 
 Act V
 
->I move west.
+> w
+I move west.
 
 Hallway
 The long hallway leads to a few different places: to the West is Trey
@@ -440,7 +473,8 @@ to the North is the Janitor's Closet, which is currently locked.
 
 Mary stands by the closet, chatting with some of the other guests.
 
->I move west.
+> w
+I move west.
 
 Trey's Office
 Trey Steele's office gives off a cold vibe, just like the man himself. It's
@@ -452,15 +486,18 @@ wall,
 The graph of company sales that used to be on the wall, now sits on the
 floor, ripped up. On the wall where it used to be, is a safe.
 
->(Your score has increased by 5)
+> enter 132
+(Your score has increased by 5)
 You type in the numbers, and the safe swings open. You look inside, and find
 a long piece of paper. You pull it out, and then close the safe once again.
 
->(Your score has increased by 5)
+> read list
+(Your score has increased by 5)
 It seems to be a list of all the employees in the building: two names are
 highligted though, Trey Steele's and Alex Boss's...
 
->I move east.
+> e
+I move east.
 
 Hallway
 The long hallway leads to a few different places: to the West is Trey
@@ -470,7 +507,8 @@ to the North is the Janitor's Closet, which is currently locked.
 
 Mary stands by the closet, chatting with some of the other guests.
 
->I move east.
+> e
+I move east.
 
 Plaza
 This is the plaza of floor 23, a large room which is now full of streamers,
@@ -485,7 +523,8 @@ Nancy sits on the edge of the fountain, sipping from a drink.  Eric leans
 against the wall, smoking a cigarette.  Trey stands in the corner, smoking a
 cigarette.  Gina stands away from the other guests, drinking some egg nog.
 
->(Your score has increased by 5)
+> show list to trey
+(Your score has increased by 5)
 "Yeah, yeah. I know what you're thinking, I must be Alex Boss. Well, I'll
 tell you right now, you're wrong. A couple of days ago, Max approached me to
 help him out. He wanted me to check around a little bit, find out who this
@@ -501,7 +540,8 @@ you can use in there."
 
 Trey handed me the key, and then walked off.
 
->I move west.
+> w
+I move west.
 
 Hallway
 The long hallway leads to a few different places: to the West is Trey
@@ -511,7 +551,8 @@ to the North is the Janitor's Closet, which is currently locked.
 
 Mary stands by the closet, chatting with some of the other guests.
 
->I move west.
+> w
+I move west.
 
 Trey's Office
 Trey Steele's office gives off a cold vibe, just like the man himself. It's
@@ -523,12 +564,14 @@ wall,
 The graph of company sales that used to be on the wall, now sits on the
 floor, ripped up. On the wall where it used to be, is a safe.
 
->(Your score has increased by 5)
+> open desk
+(Your score has increased by 5)
 The desk clicks open, and you slide the top drawer out. It's a mess of papers
 inside, and you quickly scan through them. Near the bottom of the pile, you
 pull out a crumpled piece of white paper with some notes on it.
 
->Dec. 10 - Alex Boss = ???. Need more info. Planning to meet with source
+> read piece of paper
+Dec. 10 - Alex Boss = ???. Need more info. Planning to meet with source
 today.
 
 Dec. 11- Source never showed up. I think they're Alex Boss. Need more
@@ -540,7 +583,8 @@ away with stealing the funds. Need place to hide it.
 Dec. 13- Found front door of apartment broken in, entire place was searched.
 I already hid the evidence. It's behind the pile in JC.
 
->I move east.
+> e
+I move east.
 
 Hallway
 The long hallway leads to a few different places: to the West is Trey
@@ -549,7 +593,8 @@ the Mens Bathroom, and to the Southwest is the Women's Bathroom.   The
 janitor closet door is now slightly open, the lock on the door smashed off.
 Mary stands by the closet, chatting with some of the other guests.
 
->I move north.
+> n
+I move north.
 
 Janitor's Closet
 The janitor's closet is a complete mess, a wide variety of tools and supplies
@@ -558,11 +603,13 @@ place over. In the corner of the room, a pile of dirty shirts, jackets, and
 overalls form a pile. A large rack of supplies is on the floor beside it, all
 the supplies now all over the floor.
 
->(Your score has increased by 5)
+> move pile
+(Your score has increased by 5)
 Just like Trey's notes said, you push the pile of clothing out of the way.
 Behind the mess, you find a wooden panel cut into the wall.
 
->(Your score has increased by 5)
+> open panel
+(Your score has increased by 5)
 I stuck my fingers fingers in the slit cut around the panel, and pulled it
 out. It was dark and dank in the hole, but I manage to light a match and take
 a peek inside. I looked around, but the panel was empty. Someone beat me
@@ -571,7 +618,8 @@ here...
 As I pulled my  head out of the panel, I heard a smashing noise from the
 East...
 
->I move south.
+> s
+I move south.
 
 Hallway
 The long hallway leads to a few different places: to the West is Trey
@@ -580,7 +628,8 @@ the Mens Bathroom, and to the Southwest is the Women's Bathroom.   The
 janitor closet door is now slightly open, the lock on the door smashed off.
 Mary stands by the closet, chatting with some of the other guests.
 
->I move east.
+> e
+I move east.
 
 Plaza
 This is the plaza of floor 23, a large room which is now full of streamers,
@@ -595,14 +644,16 @@ Nancy sits on the edge of the fountain, sipping from a drink.  Eric leans
 against the wall, smoking a cigarette.  Trey stands in the corner, smoking a
 cigarette.  Gina stands away from the other guests, drinking some egg nog.
 
->I move east.
+> e
+I move east.
 
 Hallway
 The long hallway keeps on going to the East, which leads towards Thurman's
 office. To the North are the computer labs. Chatting can be heard to the
 West, coming from the Plaza.
 
->I move north.
+> n
+I move north.
 
 Computer Lab
 The large computer lab is where most of the computer work in the company is
@@ -619,7 +670,8 @@ of it.
 One of the bookcases has been tipped over, and behind it, a message has been
 written on the wall in some sort of red paint (or blood).
 
->(Your score has increased by 10)
+> x message
+(Your score has increased by 10)
 "Alex Boss was here."
 
 As I finished reading the message, I felt a chill down my spine. I'm running
@@ -635,7 +687,8 @@ I had already searched most of the floor, but yet I was still missing pieces
 to the puzzle. There was only one place I hadn't been yet: the archives. And
 somehow, I got a feeling I needed to get in there...
 
->(Your score has increased by 5)
+> ask gina about archives
+(Your score has increased by 5)
 "You need to get into the archives? Well..I'm not supposed to do this, but
 here, take the key for it. They give me keys to all the room, to clean them.
 But I have no use for it anymore, with everyone going missing, I'm starting
@@ -643,14 +696,16 @@ to think I won't be leaving this place alive!"
 
 She shakes a little bit, and then hands me the key.
 
->I move east.
+> e
+I move east.
 
 Hallway
 The long hallway keeps on going to the East, which leads towards Thurman's
 office. To the North are the computer labs. Chatting can be heard to the
 West, coming from the Plaza.
 
->I move north.
+> n
+I move north.
 
 Computer Lab
 The large computer lab is where most of the computer work in the company is
@@ -667,11 +722,13 @@ of it.
 One of the bookcases has been tipped over, and behind it, a message has been
 written on the wall in some sort of red paint (or blood).
 
->(Your score has increased by 5)
+> n
+(Your score has increased by 5)
 I stuck the key into the door, and twisted it. The lock opened, allowing me
 access into the archives.
 
->I move north.
+> n
+I move north.
 
 Archives
 I never liked the archives, the room always gave me a bad feeling. It was a
@@ -680,13 +737,15 @@ worse. The only light came from a small desk lamp, and this desk was in the
 far corner of the room. A bunch of cabinets, bookcases, and shelves cover the
 room, full of reports and files from years ago.
 
->Realizing that the scratch marks mean the bookcase has been pulled over the
+> push bookcases
+Realizing that the scratch marks mean the bookcase has been pulled over the
 ground, I began to push it.
 
 The bookcase slid quite easily out of the way, and a hole in the wall was
 revealed behind it...
 
->I move in.
+> in
+I move in.
 
 Hidden Room
 As I entred the hidden room, I knew I had uncovered what I was looking for
@@ -695,10 +754,12 @@ in the middle of the room provided some light. Covering the walls were
 reports and files from the company on Alex Boss, like the man was proud of
 being able to steal the money so easily.
 
->(Your score has increased by 5)
+> take journal
+(Your score has increased by 5)
 I grabbed the journal off the table. It could help me solve the murders.
 
->Dec. 12- They're getting close. No more hiding in the shadows. I need to
+> read journal
+Dec. 12- They're getting close. No more hiding in the shadows. I need to
 attack. God will help them die.
 
 Dec. 13- The money has been safetly stored away. I used to hide it here,
@@ -737,7 +798,8 @@ me on the roof. This was finally going to end...
 As I walked back into the Plaza, I noticed the open elevator doors. Alex was
 waiting for me...
 
->I entred the elevator, and pushed the button for the roof. There was a slight
+> s
+I entred the elevator, and pushed the button for the roof. There was a slight
 shake, and the elevator slowly began to rise, some quiet jazz music played
 out of the speakers.
 
@@ -789,9 +851,11 @@ they'll pin it all on you!  Meanwhile, I'll be back in my firm, with all the
 money I stole. So, any last requests before I send you back to your maker?"
 Eric asks, both hands grasping onto the pipe tightly.
 
->My score is 125 out of a maximum of 135.  (92%)
+> score
+My score is 125 out of a maximum of 135.  (92%)
 
->(Your score has increased by 10)
+> use needle on eric
+(Your score has increased by 10)
 I grabbed the needle, and jammed it into Eric's leg, pushing down onto it.
 The yellow liquid went into his blood stream, and he began to shake. Foam
 began to drip out of his mouth, and his eyes appeared to be glaze over. He

@@ -16,27 +16,32 @@ Leon is here.
 
 There is an exit south.
 
->(Your score has increased by 100)
+> point up
+(Your score has increased by 100)
 You gained 100 points
 
->(Your score has increased by 1000)
+> drink dragon potion
+(Your score has increased by 1000)
 You drink it.
 
->You move south.
+> s
+You move south.
 
 Outside
 It is a grassy meadow. The woods lay west of here.
 
 You can move north and west.
 
->You move west.
+> w
+You move west.
 
 Woods
 The trees are all around. The path leads North and south.
 
 You can move north, east and south.
 
->You move south.
+> s
+You move south.
 
 A dirt path
 The path moves forward and then splits into two. One going West and one goind
@@ -48,7 +53,8 @@ You can move north, east and west.
 Ugly thing hits you.
 Leon hits Ugly thing.
 
->You move east.
+> e
+You move east.
 
 Spooky area.
 The woods have gotten incredibly dark. A tower lies to the east. A town lies
@@ -56,7 +62,8 @@ to the south.
 
 You can move east, south and west.
 
->You move east.
+> e
+You move east.
 
 Tower Lobby
 You enter a room made with stone. Moss grows along the northern wall and can
@@ -65,7 +72,8 @@ here and there.
 
 You can move west and up.
 
->You move up.
+> u
+You move up.
 
 Tower Floor 2
 After climbing the moss it seems as if the tower has changed into a woodland
@@ -74,7 +82,8 @@ room. A spiral staircase is past it.
 
 You can move up and down.
 
->You move up.
+> u
+You move up.
 
 Tower Floor 3
 A bow sits in the center of the room guarded by yet another vine. Another
@@ -88,10 +97,12 @@ You can move up and down.
 Animated Vine hits Leon, but it doesn't seem to do any damage.
 Leon hits Animated Vine.
 
->You pick up the Bow of Icy Arrows.
+> get bow of icy arrows
+You pick up the Bow of Icy Arrows.
 Leon hits Animated Vine.
 
->You move up.
+> u
+You move up.
 
 Tower Floor 4
 The sides of the walls are rough and wet with due. A glowing door sits south
@@ -99,7 +110,8 @@ of you.
 
 You can move south and down.
 
->You move south.
+> s
+You move south.
 
 Room of portals
 The room has white walls and glowing doors are to the west south and east of
@@ -109,12 +121,15 @@ Genesi is here.
 
 You can move north, east and south.
 
->You drop the Bow of Icy Arrows.
+> drop bow of icy arrows
+You drop the Bow of Icy Arrows.
 
->(Your score has increased by 1000)
+> trikletarts
+(Your score has increased by 1000)
 Wee Ha
 
->You move south.
+> s
+You move south.
 
 Tree Land
 Trees are all around. You are walking on a vine. A tree with a vine that you
@@ -122,7 +137,8 @@ can walk up is just beyond an archer.
 
 You can move north and up.
 
->You move up.
+> u
+You move up.
 
 Final tower room.
 The tree has once again converted into a tower. A man with bushes all around
@@ -133,9 +149,12 @@ Tree Master is here.
 You can only move down.
 Tree Master hits Leon.
 
->(Your score has increased by 1000)
+> destroy tree master
+(Your score has increased by 1000)
 You killed the tree master!
 
->Your score is 3100 out of a maximum of 3400.  (91%)
+> score
+Your score is 3100 out of a maximum of 3400.  (91%)
 
->Do you really want to quit? [Y/N]
+> quit
+Do you really want to quit? [Y/N]

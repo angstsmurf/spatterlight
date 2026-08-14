@@ -99,27 +99,37 @@ Please read the readme before playing.
 press any key to continue
 
 Please enter your name:
->Please choose the player's gender (male or female):
->
+
+> Hero
+Please choose the player's gender (male or female):
+
+> male
+
 Introduction
 Please type one of the following races:
 Human
 Elf
 Dwarve
 
->You are now a human.
+> Human
+You are now a human.
 
->You are now a warrior.
+> Warrior
+You are now a warrior.
 
->You are now 180 centimeters tall.
+> height 180
+You are now 180 centimeters tall.
 
->You now weigh 80 kilograms.
+> weight 80
+You now weigh 80 kilograms.
 
->You are 25 years old.
+> age 25
+You are 25 years old.
 You may now embark on your quest, but remember, there are many dangers
 awaiting you...
 
->You move west.
+> west
+You move west.
 
 Outside Of Your Hut
 You are standing outside of your hut, which is to the east. A large oak tree
@@ -129,7 +139,8 @@ heads down to a small stream. The sun is shining in the sky.
 
 You can walk east, west and southeast.
 
->You move southeast.
+> southeast
+You move southeast.
 
 By The Stream
 You are standing at the end of the path by a quiet running stream. The water
@@ -139,10 +150,12 @@ the sky. (to drink the water type drink water)
 
 You can walk northwest.
 
->You kneel down on the ground and scoop up some water in your hand and drink
+> drink water
+You kneel down on the ground and scoop up some water in your hand and drink
 it. It tastes lovely, very refreshing.
 
->You move northwest.
+> northwest
+You move northwest.
 
 Outside Of Your Hut
 You are standing outside of your hut, which is to the east. A large oak tree
@@ -152,7 +165,8 @@ heads down to a small stream. The sun is shining in the sky.
 
 You can walk east, west and southeast.
 
->You move west.
+> west
+You move west.
 
 At The Front Gate
 You are standing at the front gate of your house. A small wooden mailbox with
@@ -162,7 +176,8 @@ and west onto the main road towards the city. The sun is shining in the sky.
 
 You can walk east and west.
 
->You move west.
+> west
+You move west.
 
 The Main Road
 You are standing on the main road, which goes north to the mountains and
@@ -172,13 +187,15 @@ shadow across the grass. The sun is shining in the sky.
 
 You can walk east.
 
->You start walking down the road, which heads to the town of Azeroth. Along
+> south
+You start walking down the road, which heads to the town of Azeroth. Along
 the way you admire the great pine forest which runs for miles down the main
 road. The occasional villager walks by carrying a sack of food he bought from
 town. About 20 minutes later you finally arrive near the town.
 A man walks by carrying a sack of food he bought from the town.
 
->You move south.
+> south
+You move south.
 
 Idan Road - Northern End
 You are standing at the northern end of Idan Road, a busy street full of
@@ -190,7 +207,8 @@ looking through shop windows.
 
 You can walk north and south.
 
->You move south.
+> south
+You move south.
 
 Idan Road - Middle
 You are standing in the middle Idan Road, which is surrounded by shops and
@@ -201,7 +219,8 @@ people walk down the streets looking through shop windows.
 
 You can walk north and south.
 
->You move south.
+> south
+You move south.
 
 At An Intersection
 You are standing in the middle of an intersection, which heads north, south,
@@ -211,18 +230,22 @@ Many people walk down the streets looking through shop windows.
 You can walk north, east, south and west.
 A crying little boy runs by being pursued by his mother.
 
->Date & Time
+> date
+Date & Time
 Time: 7:36
 Date: It is the 1st of January, 1236 A.D
 
->Vitals
+> vitals
+Vitals
 Energy Level: 283
 Food Level: 283
 Water Level: 213
 Stomach Capacity: 52 out of 200
 Alcohol Level: 0 out of 25
 
->Wealth
+> wealth
+Wealth
 Gold: 100
 
->Do you really want to quit? [Y/N]
+> quit
+Do you really want to quit? [Y/N]

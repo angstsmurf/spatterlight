@@ -30,15 +30,19 @@ There is a strange creature pacing back and forth in front of the arched
 doorway.
 
 >
->You pick up the tube of vanishing cream.
 
->(Your score has increased by 10)
+> take tube
+You pick up the tube of vanishing cream.
+
+> rub cream on
+(Your score has increased by 10)
         You squeeze the tube and out gushes the last bit of cream.  You
 manage to rub the cream all over your body and instantly disappear.  You toss
 the empty tube aside and it sinks beneath the dust like a concrete block in
 deep waters.
 
->(Your score has increased by 5)
+> in
+(Your score has increased by 5)
         You sneak past the strange creature, avoiding the roaming eyes that
 float about on the end of the tentacles.  As soon as you get past the
 creature, the vanishing cream starts to wear off.  You really start to wish
@@ -51,12 +55,15 @@ In a small corridor
 south, and a door with a sign above it is to the north.  There are a few
 hooks on the wall.
 
->        The hooks almost seem to be part of the wall itself.   A uniform is
+> x hook
+        The hooks almost seem to be part of the wall itself.   A uniform is
 on the hook.
 
->You take the uniform from the hook.
+> take uniform
+You take the uniform from the hook.
 
->(Your score has increased by 10)
+> wear uniform
+(Your score has increased by 10)
         You flip the uniform around every which way, trying to figure out how
 to put the darn thing on.  Noticing a rather menacing-looking hole on the
 underbelly, you look a little closer and are taken by surprise when the
@@ -64,7 +71,8 @@ toothy hole flies over your head, forcing you to the ground.  Next thing you
 know you are wearing the strange uniform....and can see out of every single
 eye at the same time!  "Cool!"
 
->        You enter the room and the door closes behind you and disappears
+> in
+        You enter the room and the door closes behind you and disappears
 seamlessly into the wall.
 
 Assembly line
@@ -73,14 +81,17 @@ significant portion of the room.  On the eastern wall there is a control
 panel with a couple of lights and buttons, while on the western wall a
 narrow, metal stairway rises up to meet an open doorway.
 
->        The control panel on the eastern wall has two buttons and two lights
+> x control panel
+        The control panel on the eastern wall has two buttons and two lights
 above them.
 
->(Your score has increased by 10)
+> press red button
+(Your score has increased by 10)
         You press the red button and the red light comes on. With a loud
 screech, the conveyor belt comes to a full stop.
 
->
+> l
+
 Assembly line
 Spanning from one side to the other, a large conveyor belt takes up a
 significant portion of the room.  On the eastern wall there is a control
@@ -88,26 +99,32 @@ panel with a couple of lights and buttons, while on the western wall a
 narrow, metal stairway rises up to meet an open doorway.  There is a remote
 control here.
 
->(Your score has increased by 10)
+> take remote
+(Your score has increased by 10)
         You grab the remote.
 
->You move up.
+> up
+You move up.
 
 Slide
         Just inside the doorway, a long slide leads into darkness.
 
->You are wearing a uniform, and you are carrying a remote control.
+> inventory
+You are wearing a uniform, and you are carrying a remote control.
 
->(Your score has increased by 10)
+> slide
+(Your score has increased by 10)
         You dive into the slide head first, and scream all the way down.  You
 go through twists and loops, banging yourself all around.  When it is finally
 done, you pick yourself up from the crimson dust and find yourself back
 outside the building.
 
->(Your score has increased by 10)
+> flip switch
+(Your score has increased by 10)
         You flip the switch into the ON position.
 
->(Your score has increased by 35)
+> press white button
+(Your score has increased by 35)
         You press the white button and are thrown on your backside, sending a
 cloud of crimson dust into the air.  Lighting-like enery is forced out of the
 antenna and strikes the creature that was pacing back and forth in front of

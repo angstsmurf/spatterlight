@@ -61,13 +61,15 @@ his head in dissmay, as he paces back and forth between the berry bushes. A
 path snakes off down the mountain to the south.
 "Somebody help me!" Cries Murky.
 
->You move south.
+> south
+You move south.
 
 Long winding path
 A long rocky mountain path twists and turns like a snake from north to south.
 Windswept clouds glide by high above.
 
->You move south.
+> south
+You move south.
 
 Outside Inn
 At the foot of the mountain, the path meets  the highway. The Inn is the only
@@ -76,7 +78,8 @@ wooden framed building, with walls of plaster and straw. A painted sign
 swings in the breeze just above the entrance, and by the side of the road
 stands a wooden post with a board nailed to it.
 
->You move in.
+> in
+You move in.
 
 In the Inn
 The cieling is surprisingly low, with thick wooden beams jutting out from it.
@@ -85,48 +88,60 @@ the landlord stands behind it and the rest of the room is filled with
 decrepid tables and chairs. A cork board with notices pinned to it hangs on
 the wall to the right of the entrance.
 
->(Your score has increased by 5)
+> show medallion to landlord
+(Your score has increased by 5)
 "The Chief gave me this. Said it was good for credit." You say.The landlord
 takes it in his hands and examines it closely. "It looks like his alright."
 He replies. "Ok, I'll put it on his account."
 
->(Your score has increased by 5)
+> buy ticket
+(Your score has increased by 5)
 The landlord puts his hand in his pocket and fumbles about a bit. (He seems
 to enjoy that a bit too much for your comfort.) Finally he pulls out a ticket
 and places it on the bar.
 
->(Your score has increased by 5)
+> buy beer
+(Your score has increased by 5)
 He scoops some warm, flat beer out of a barrel behind him with a tankard and
 slaps it on the bar.
 The landlord coughs up something vile and spits it on the floor.
 
->(Your score has increased by 5)
+> buy wine
+(Your score has increased by 5)
 The landlord ducks under the bar, rummages around, and returns holding a
 green bottle, slamming it on the bar.
 
->(Your score has increased by 5)
+> buy whiskey
+(Your score has increased by 5)
 The landlord turns around and grabs a bottle from behind him, then places it
 on the bar.
 
->You take the ticket from the bar.
+> get ticket
+You take the ticket from the bar.
 
->You take the tankard from the bar.
+> get beer
+You take the tankard from the bar.
 The landlord scratches himself (the less you know about where the better!)
 
->You take the green bottle from the bar.
+> get wine
+You take the green bottle from the bar.
 
->You take the brown bottle from the bar.
+> get whiskey
+You take the brown bottle from the bar.
 The landlord blows his nose on the rag.
 
->(Your score has increased by 5)
+> drink beer
+(Your score has increased by 5)
 Holding your nose with one hand, and the tankard with the other, you knock it
 back in one big gulp.
 
->(Your score has increased by 5)
+> drink wine
+(Your score has increased by 5)
 Pulling the cork out with your teeth and spitting it 5 horizontal feet, you
 pour the wine straight down your throat without swallowing.
 
->(Your score has increased by 5)
+> drink whiskey
+(Your score has increased by 5)
 You take a mouthful, slosh it around a bit, then swallow. It tastes like hot
 dish water and burns all the way down. Does wonders for your mouth ulcers
 though.
@@ -140,7 +155,8 @@ Before you know it, the day has turned into night and you have had more
 drinks than you can count.
 The sound of horses hoofs can be heard from outside.
 
->You move out.
+> out
+You move out.
 
 Outside Inn
 At the foot of the mountain, the path meets  the highway. The Inn is the only
@@ -151,10 +167,12 @@ stands a wooden post with a board nailed to it.
 
 Also here is the coach and a mangey horse.
 
->(Your score has increased by 5)
+> give ticket to jack
+(Your score has increased by 5)
 You hand Jack the ticket. He seems happy.
 
->(Your score has increased by 5)
+> get in coach
+(Your score has increased by 5)
 You pull down on the brass handle and swing the door wide open. With a little
 hop, you hop on inside, and with another, you bash your head on the roof.
 Freaky Jack takes this as a sign to get going, so with a crack of the whip,
@@ -172,7 +190,8 @@ grows by a path leading off to the north through a dense wood.
 The sun is creeping up in the morning sky, your stomach grumbles and your
 head is spinning.
 
->You move north.
+> north
+You move north.
 
 Outside the Tavern
 A tall, solid structure made of  timbers with a sloped roof, stands alone in
@@ -181,7 +200,8 @@ chimney, and a large oak door, framed by an pine arch, stands ajar in its
 west wall. Another wooden structure can be seen just off to the north west,
 while a trail leads further into the woods to the northwest.
 
->You move northeast.
+> ne
+You move northeast.
 
 A woodland Trail
 The muddy trail, covered with leaves of all different colours and shades,
@@ -190,7 +210,8 @@ strech upwards towards the sky, thier branches casting a patch work of
 shadows upon the ground.
 You feel hungry.
 
->You move north.
+> north
+You move north.
 
 Outside the store
 Under the canopy of the woods stands a short, stoney building, covered in
@@ -198,7 +219,8 @@ grass. A green painted door in between two circular windows appears to be the
 only way in or out. A large flat stone leans up against the building with
 writing carved into it.
 
->You move in.
+> in
+You move in.
 
 Inside Herbs' Herbs
 All manner of bottles and herbs and plants fill the place up and make it look
@@ -210,11 +232,13 @@ Herb is here.
 Your stomach growls.
 Your throat is sore.
 
->(Your score has increased by 5)
+> show medallion to herb
+(Your score has increased by 5)
 You show him the medallion. "You wish to use an account? no problem!" says
 Herb.
 
->(Your score has increased by 5)
+> buy backward burp berries
+(Your score has increased by 5)
 "Just one moment my green mountain friend." Says Herb. He runs his finger
 along the jars on the back wall, whispering the names of on the labels to
 himself. "Bracken bunch, boom weed,  bark bite..ah ha!" he cries. "Burp
@@ -224,9 +248,11 @@ please." he tells you, smiling.
 Your guts rumble.
 You feel thirsty.
 
->You take the backward burp berries.
+> get berries
+You take the backward burp berries.
 
->You move out.
+> out
+You move out.
 
 Outside the store
 Under the canopy of the woods stands a short, stoney building, covered in
@@ -236,7 +262,8 @@ writing carved into it.
 You feel hungry.
 Your head is spinning.
 
->You move south.
+> south
+You move south.
 
 A woodland Trail
 The muddy trail, covered with leaves of all different colours and shades,
@@ -244,7 +271,8 @@ branches off three ways. North, east or south east. The trees of the wood
 strech upwards towards the sky, thier branches casting a patch work of
 shadows upon the ground.
 
->You move southwest.
+> sw
+You move southwest.
 
 Outside the Tavern
 A tall, solid structure made of  timbers with a sloped roof, stands alone in
@@ -254,7 +282,8 @@ west wall. Another wooden structure can be seen just off to the north west,
 while a trail leads further into the woods to the northwest.
 Your stomach growls.
 
->You move in.
+> in
+You move in.
 
 Inside the Tavern
 It is just one large room with timber walls and sawdust on the floor. A
@@ -266,31 +295,37 @@ northern wall leads upwards. Sounds can be heard from behind a hatch in the
 south wall, while a serving wrench flitters around, cleaning and tidying.
 Sitting at one of the tables is a elderly fellow, sipping from a cup.
 
->You drop the tankard.
+> drop tankard
+You drop the tankard.
 Your guts rumble.
 Your throat is sore.
 Sid picks up his mug and drinks.
 
->You drop the green bottle.
+> drop green bottle
+You drop the green bottle.
 
->You drop the brown bottle.
+> drop brown bottle
+You drop the brown bottle.
 You feel hungry.
 You feel thirsty.
 Sid sips from his mug.
 
->(Your score has increased by 5)
+> show barman medallion
+(Your score has increased by 5)
 You dangle the medallion in front of the barman. "Ah! you're from the
 mountains aren't you. Your chief comes here quite often y'know. I'll bill
 your expenses to him."
 
->(Your score has increased by 5)
+> rent room
+(Your score has increased by 5)
 The barman opens up a drawer and hands you a key. "It's up the stairs there,
 room 2." He tells you.
 Your stomach growls.
 Your head is spinning.
 Sid sips from his mug.
 
->You move up.
+> up
+You move up.
 
 Hall
 The hall is narrow with a high roof and squeaky floorboards. At the far end
@@ -298,20 +333,24 @@ is a door with a wooden plaque on it, while running down both sides are other
 doors, none of which hold any interest to you, except one with the number 2
 carved into it, to the west.
 
->You move north.
+> north
+You move north.
 
 Water Closet
 It is no more than a wooden bench with a hole in it. An awful stench reeks
 from it. A shelf is on the east wall.
 Your guts rumble.
 
->A simple wooden shelf.  A wash basin is on the shelf.
+> x shelf
+A simple wooden shelf.  A wash basin is on the shelf.
 
->You take the wash basin from the shelf.
+> get basin
+You take the wash basin from the shelf.
 You feel hungry.
 Your throat is sore.
 
->You move south.
+> south
+You move south.
 
 Hall
 The hall is narrow with a high roof and squeaky floorboards. At the far end
@@ -319,15 +358,18 @@ is a door with a wooden plaque on it, while running down both sides are other
 doors, none of which hold any interest to you, except one with the number 2
 carved into it, to the west.
 
->(Your score has increased by 5)
+> w
+(Your score has increased by 5)
 The door is locked.
 Your stomach growls.
 You feel thirsty.
 
->(Your score has increased by 5)
+> unlock door
+(Your score has increased by 5)
 Using the key, you unlock the door.
 
->You move west.
+> west
+You move west.
 
 Your Room
 A wooden bed with a mattress of straw and a woolen blanket fills most of the
@@ -336,20 +378,26 @@ the western wall, looking out over the lake is a square window.
 Your guts rumble.
 Your head is spinning.
 
->It is sturdy and simple in design.  A drawer is inside the desk.
+> x desk
+It is sturdy and simple in design.  A drawer is inside the desk.
 
->You take the drawer from the desk.
+> get drawer
+You take the drawer from the desk.
 You feel hungry.
 
->You open the drawer.  A candle is inside the drawer.
+> open drawer
+You open the drawer.  A candle is inside the drawer.
 
->You take the candle from the drawer.
+> get candle
+You take the candle from the drawer.
 Your stomach growls.
 Your throat is sore.
 
->You drop the drawer.
+> drop drawer
+You drop the drawer.
 
->You move east.
+> east
+You move east.
 
 Hall
 The hall is narrow with a high roof and squeaky floorboards. At the far end
@@ -359,7 +407,8 @@ carved into it, to the west.
 Your guts rumble.
 You feel thirsty.
 
->You move down.
+> down
+You move down.
 
 Inside the Tavern
 It is just one large room with timber walls and sawdust on the floor. A
@@ -373,78 +422,96 @@ Sitting at one of the tables is a elderly fellow, sipping from a cup.
 
 Also here is a tankard, a green bottle and a brown bottle.
 
->(Your score has increased by 5)
+> sit at table
+(Your score has increased by 5)
 You pick a nice sturdy table with a nice solid chair and sit yourself down at
 it.
 You feel hungry.
 Your head is spinning.
 Sid sips from his mug.
 
->(Your score has increased by 5)
+> order lunch
+(Your score has increased by 5)
 You beckon over Mary with a finger, and tell her your order. "Yes Sir, right
 away." she says writing it on a piece of paper and scurrying off to the
 hatch. She slips the paper under it and returns to her duties.
 "ONE LUNCH COMING UP!" Shouts the cook.
 
->Time passes...
+> wait
+Time passes...
 Your stomach growls.
 Sid sips from his mug.
 
->Time passes...
+> wait
+Time passes...
 The cook shouts out many prothanities and curses the ovens.
 
->Time passes...
+> wait
+Time passes...
 Your guts rumble.
 Your throat is sore.
 Sid picks up his mug and drinks.
 
->Time passes...
+> wait
+Time passes...
 The sound of something being hit with a saucepan can be heard from behind the
 hatch.
 
->Time passes...
+> wait
+Time passes...
 You feel hungry.
 You feel thirsty.
 Sid sips from his mug.
 
->Time passes...
+> wait
+Time passes...
 The hatch opens. The face of the greasy cook lurks from out it. "Mary, One
 lunch!" She cries. Mary collects it and brings the meal over to you. "Here
 you are Sir." She says while putting it on the table, then scurries she
 surries off.
 
->You take the Hunters lunch from the tree table.
+> get lunch
+You take the Hunters lunch from the tree table.
 Your stomach growls.
 Your head is spinning.
 Sid sips from his mug.
 
->(Your score has increased by 5)
+> eat lunch
+(Your score has increased by 5)
 You garb handfuls of food and shove it into your face, chewing noisily. Bread
 crumbs fly all over the table.
 
->You drop the empty plate.
+> drop plate
+You drop the empty plate.
 Sid picks up his mug and drinks.
 
->(Your score has increased by 5)
+> take breadcrumbs
+(Your score has increased by 5)
 You take the breadcrumbs.
 
->The barman opens up a trap door in the floor. Inside is a pool of water. He
+> buy water
+The barman opens up a trap door in the floor. Inside is a pool of water. He
 scoops some into a cup and puts it on the counter.
 Your throat is sore.
 Sid sips from his mug.
 
->You take the cup of mineral water from the bar.
+> get water
+You take the cup of mineral water from the bar.
 
->You gulp down the water. Refreshing.
+> drink water
+You gulp down the water. Refreshing.
 Sid sips from his mug.
 
->You drop the empty cup.
+> drop cup
+You drop the empty cup.
 
->(Your score has increased by 5)
+> light candle on fire
+(Your score has increased by 5)
 You light the candle on the fire. surprisingly, the flame is a bright blue!
 Sid picks up his mug and drinks.
 
->You move out.
+> out
+You move out.
 
 Outside the Tavern
 A tall, solid structure made of  timbers with a sloped roof, stands alone in
@@ -453,7 +520,8 @@ chimney, and a large oak door, framed by an pine arch, stands ajar in its
 west wall. Another wooden structure can be seen just off to the north west,
 while a trail leads further into the woods to the northwest.
 
->You move northeast.
+> ne
+You move northeast.
 
 A woodland Trail
 The muddy trail, covered with leaves of all different colours and shades,
@@ -461,13 +529,15 @@ branches off three ways. North, east or south east. The trees of the wood
 strech upwards towards the sky, thier branches casting a patch work of
 shadows upon the ground.
 
->You move east.
+> east
+You move east.
 
 Ruins
 Piles of rubble lay in a circle, eroded by the weather and covered in moss.
 In the middle, worn stone steps decend into darkness.
 
->You move down.
+> down
+You move down.
 
 A Dungeon
 Walls of cold stone bricks, with trickles of water running down them and
@@ -477,14 +547,17 @@ the ground.  An archway leads off to the south, and a wall of bars separate
 this room from another to the east.  The bricks of the north wall appear to
 be of a different size to the rest.
 
->(Your score has increased by 5)
+> kick bars
+(Your score has increased by 5)
 You take a few steps back, run at them and throw your full weight at them,
 feet first. One of them shoots out and clangs noisily on the floor of the
 dungeon.
 
->You pick up the metal bar.
+> get bar
+You pick up the metal bar.
 
->You move south.
+> south
+You move south.
 
 Torture Room
 By the look of the blood stained stones and the rusty tools of torture,
@@ -493,13 +566,16 @@ unfortunate end here. A rotten wooden chair with leather straps on it  is
 bolted to the ground in the middle of the room. Beside it is a large iron
 bucket, also bolted to the ground.
 
->It's narrow and rivetted along the seams. It looks like hot coals used to be
+> x bucket
+It's narrow and rivetted along the seams. It looks like hot coals used to be
 placed in it, for the purpose of heating up pokers.  A poker is inside the
 iron bucket.
 
->You take the poker from the iron bucket.
+> get poker
+You take the poker from the iron bucket.
 
->You move north.
+> north
+You move north.
 
 A Dungeon
 Walls of cold stone bricks, with trickles of water running down them and
@@ -509,33 +585,42 @@ the ground.  An archway leads off to the south, and a wall of bars separate
 this room from another to the east.  The bricks of the north wall appear to
 be of a different size to the rest.
 
->The bricks are of a different size and it looks like it was built in a hurry.
+> x wall
+The bricks are of a different size and it looks like it was built in a hurry.
  A hole is inside the north wall.
 
->(Your score has increased by 5)
+> put poker in hole
+(Your score has increased by 5)
 You shove the poker in as far as it will go. Half of it sticks out.
 
->(Your score has increased by 5)
+> pull poker
+(Your score has increased by 5)
 Using the poker as a lever, you start pulling and pushing it up an down. The
 surrounding bricks start to crack and crumble. Soon the half the wall comes
 tumbling down in an almighty crash.
 
->You move north.
+> north
+You move north.
 
 Inside the wall
 Chained by both arms and feet, a skeleton hangs, still wearing armour.
 
 Also here is a sword blade.
 
->It's been here for a long while.  An old helmet is on the skeleton.
+> x skeleton
+It's been here for a long while.  An old helmet is on the skeleton.
 
->You take the old helmet from the skeleton.
+> get helmet
+You take the old helmet from the skeleton.
 
->You drop the poker.
+> drop poker
+You drop the poker.
 
->You pick up the sword blade.
+> get sword blade
+You pick up the sword blade.
 
->You move south.
+> south
+You move south.
 
 A Dungeon
 Walls of cold stone bricks, with trickles of water running down them and
@@ -545,13 +630,15 @@ the ground.  An archway leads off to the south, and a wall of bars separate
 this room from another to the east.  A pile of bricks lie in front of a hole
 in the north wall.
 
->You move up.
+> up
+You move up.
 
 Ruins
 Piles of rubble lay in a circle, eroded by the weather and covered in moss.
 In the middle, worn stone steps decend into darkness.
 
->You move west.
+> west
+You move west.
 
 A woodland Trail
 The muddy trail, covered with leaves of all different colours and shades,
@@ -559,12 +646,14 @@ branches off three ways. North, east or south east. The trees of the wood
 strech upwards towards the sky, thier branches casting a patch work of
 shadows upon the ground.
 
->You move southeast.
+> se
+You move southeast.
 
 Muddy Footprints
 In the muddy trail, a set of footprints are clearly visible, heading south.
 
->You move south.
+> south
+You move south.
 
 A Hole in A Hill
 The denseness of the canopy above prevents almost any light from getting in.
@@ -572,7 +661,8 @@ The ground is covered in weeds, squeezing the life out of wild flowers and
 anything else that chooses to try and grow here. A small hill (also covered
 in weeds) has a hole dug into its side.
 
->You move in.
+> in
+You move in.
 
 Weevils' Home
 A steep tunnel leads down into a cavern. The place is so cramped that you
@@ -584,11 +674,13 @@ the ground. lying on a couch with a bandage around his head, is the oddest
 looking fellow you've ever seen (by the look on his face, you must be the
 oddest he has seen).
 
->You suggest a trade to Weevil. The helmet for the firewater. Weevil studies
+> give helmet to weevil
+You suggest a trade to Weevil. The helmet for the firewater. Weevil studies
 the helmet and knocks it a few times. He puts it on his head, it's too big
 for him but he agrees to the trade and hands you a bottle.
 
->You move out.
+> out
+You move out.
 
 A Hole in A Hill
 The denseness of the canopy above prevents almost any light from getting in.
@@ -596,12 +688,14 @@ The ground is covered in weeds, squeezing the life out of wild flowers and
 anything else that chooses to try and grow here. A small hill (also covered
 in weeds) has a hole dug into its side.
 
->You move north.
+> north
+You move north.
 
 Muddy Footprints
 In the muddy trail, a set of footprints are clearly visible, heading south.
 
->You move northwest.
+> nw
+You move northwest.
 
 A woodland Trail
 The muddy trail, covered with leaves of all different colours and shades,
@@ -609,7 +703,8 @@ branches off three ways. North, east or south east. The trees of the wood
 strech upwards towards the sky, thier branches casting a patch work of
 shadows upon the ground.
 
->You move southwest.
+> sw
+You move southwest.
 
 Outside the Tavern
 A tall, solid structure made of  timbers with a sloped roof, stands alone in
@@ -618,27 +713,33 @@ chimney, and a large oak door, framed by an pine arch, stands ajar in its
 west wall. Another wooden structure can be seen just off to the north west,
 while a trail leads further into the woods to the northwest.
 
->You move south.
+> south
+You move south.
 
 Highway
 You're by the side of a wide, well worn track, stretching far off to the east
 and west. A large, gnarled tree with branches that hang like broken fingers
 grows by a path leading off to the north through a dense wood.
 
->It looks very old. The shape of it suggests it's a willow, but the branches
+> x tree
+It looks very old. The shape of it suggests it's a willow, but the branches
 are too thick and the leaves are wide and a deep, rich, green. A hangman's
 noose is tied to one of the lower branches.
 
->(Your score has increased by 5)
+> cut noose with sword blade
+(Your score has increased by 5)
 You shimmy up the tree and along the branch with the noose on. Using the
 sword blade in a sawing motion, you cut the noose free and it falls to the
 ground.
 
->You take the noose.
+> get noose
+You take the noose.
 
->You drop the room key.
+> drop key
+You drop the room key.
 
->You move north.
+> north
+You move north.
 
 Outside the Tavern
 A tall, solid structure made of  timbers with a sloped roof, stands alone in
@@ -647,7 +748,8 @@ chimney, and a large oak door, framed by an pine arch, stands ajar in its
 west wall. Another wooden structure can be seen just off to the north west,
 while a trail leads further into the woods to the northwest.
 
->You move in.
+> in
+You move in.
 
 Inside the Tavern
 It is just one large room with timber walls and sawdust on the floor. A
@@ -663,7 +765,8 @@ Also here is a tankard, a green bottle, a brown bottle, an empty plate and an
 empty cup.
 Sid picks up his mug and drinks.
 
->(Your score has increased by 5)
+> pour firewater into Sid's cup
+(Your score has increased by 5)
 You make an off the cuff comment about how much easier things where in the
 good 'ole days and Sid flares up like a volcano, spewing fourth such things
 as 'You lot don't know your even born!' and 'In my day we did a days work for
@@ -672,23 +775,30 @@ firewater into his cup without him knowing, then apologize about your remark.
 He soon quiets down again.
 Sid takes a sip from his cup.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 Sid takes another sip, his eyes start to glaze over.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 Sid gulps down the rest of his drink.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 Sid hiccups, and starts slurring his speech. The phrase 'legless' pops to
 mind.
 
->You bet Salty you can achieve where he has failed so many times, catching the
+> bet Sid with captain
+You bet Salty you can achieve where he has failed so many times, catching the
 captain. "Ha!" cries Sid, "You? catch the captain? HA HA HA HA HA! If yoush
 do that, I'll give thee a fortune in gold. But, if's you fail, You gives me
 that medal thing you've got there." He points to the medallion. You agree to
@@ -696,7 +806,8 @@ the terms and shake on it. "I'lls lend you me boat." says Sid, stumbling to
 his feet. "Meet me in me boat house whens your ready." And with that, he
 walks off (in a jagged line ) laughing to himself.
 
->You move out.
+> out
+You move out.
 
 Outside the Tavern
 A tall, solid structure made of  timbers with a sloped roof, stands alone in
@@ -705,7 +816,8 @@ chimney, and a large oak door, framed by an pine arch, stands ajar in its
 west wall. Another wooden structure can be seen just off to the north west,
 while a trail leads further into the woods to the northwest.
 
->You move northwest.
+> nw
+You move northwest.
 
 Outside the Boathouse
 It is a timber building, similar in look to the tavern, except it's
@@ -714,7 +826,8 @@ triangular in structure. It's walls slope gently down from a hieght of about
 into the lake, while on its side, a door in a porch leads in with a lantern
 attracting insects hanging from it.
 
->You move in.
+> in
+You move in.
 
 Inside the Boathouse
 All manner of fishing equipment is sprawled all over the place. Hanging from
@@ -723,11 +836,14 @@ boxes. A sea worthy rowing boat is placed on top of two rails sloping down
 and out through a hole in the wall  straight out to the lake.  Salty Sid is
 here, laying on a big pile of nets.
 
->It's a small rowboat made from oak.  A fishing net is on the boat.
+> x boat
+It's a small rowboat made from oak.  A fishing net is on the boat.
 
->You take the fishing net from the boat.
+> get net
+You take the fishing net from the boat.
 
->(Your score has increased by 5)
+> get in boat
+(Your score has increased by 5)
 "Yoush ready then, eh?, get in and I'll shove you off then." slurs Salty Sid.
 You climb into the boat and hold on to the sides. Sid gives the thing a push
 and it slides down the rails, splashes into the lake and drifts out towards
@@ -739,46 +855,60 @@ getting sea sick. (Trolls and water have never really got on, thats why they
 never take baths). The brown muddy water of the lake laps up against the
 sides.
 
->You put the lot of breadcrumbs inside the wash basin.
+> put breadcrumbs in basin
+You put the lot of breadcrumbs inside the wash basin.
 
->You pour half the bottle into the basin. Gently, you swish it around, until
+> put firewater in basin
+You pour half the bottle into the basin. Gently, you swish it around, until
 the breadcrumbs have soaked it all up.
 
->(Your score has increased by 5)
+> put breadcrumbs in basin
+(Your score has increased by 5)
 You place the breadcrumbs into the basin.
 
->(Your score has increased by 5)
+> tie sword to bar with noose
+(Your score has increased by 5)
 Tying the blade tightly to one end of the bar, you manage to make a rather
 decent spear.
 
->You throw the breadcrumbs over the side and watch them float on the water.
+> put soaked breadcrumbs in lake
+You throw the breadcrumbs over the side and watch them float on the water.
 
->(Your score has increased by 5)
+> put soaked breadcrumbs in lake
+(Your score has increased by 5)
 You throw the firewater drenched breadcrumbs over the side and watch them
 float on the water.
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 A huge omnious shape hangs just under the water's surface.
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 The head of a giant fish pops out from the water and starts munching on the
 breadcrumbs. It has to be the captain!
 
->(Your score has increased by 5)
+> spear captain
+(Your score has increased by 5)
 Firmly gripping your trusty spear, you lunge it at the great fishy beast. You
 strike a blow upon its head and lunge at it again and again. It tries to
 escape but the firewater has made it sluggish, the captain soon dies and
 floats on the surface.
 
->You pick up the dead captain.
+> get captain
+You pick up the dead captain.
 
->You paddle the boat back to shore, just outside the boathouse.
+> north
+You paddle the boat back to shore, just outside the boathouse.
 
->You move in.
+> in
+You move in.
 
 Inside the Boathouse
 All manner of fishing equipment is sprawled all over the place. Hanging from
@@ -788,12 +918,14 @@ and out through a hole in the wall  straight out to the lake.  All manner of
 fishing equipment is sprawled all over the place. Hanging from ceiling,
 hooked unto the walls, even heaped into piles and stuffed into boxes.
 
->(Your score has increased by 5)
+> give captain to Sid
+(Your score has increased by 5)
 Triumphantly, you throw the carcass of the captain to the ground. Salty sid
 is speechless. Without a word, he retrieves a sack from a hiding place and
 hands it to you. He sits down in astonishment and stares at the dead fish.
 
->You move out.
+> out
+You move out.
 
 Outside the Boathouse
 It is a timber building, similar in look to the tavern, except it's
@@ -803,7 +935,8 @@ into the lake, while on its side, a door in a porch leads in with a lantern
 attracting insects hanging from it.   Upon the shore of the lake, lies the
 boat.
 
->You move southeast.
+> se
+You move southeast.
 
 Outside the Tavern
 A tall, solid structure made of  timbers with a sloped roof, stands alone in
@@ -812,7 +945,8 @@ chimney, and a large oak door, framed by an pine arch, stands ajar in its
 west wall. Another wooden structure can be seen just off to the north west,
 while a trail leads further into the woods to the northwest.
 
->You move in.
+> in
+You move in.
 
 Inside the Tavern
 It is just one large room with timber walls and sawdust on the floor. A
@@ -827,11 +961,13 @@ Sitting at one of the tables is a elderly fellow, sipping from a cup.
 Also here is a tankard, a green bottle, a brown bottle, an empty plate and an
 empty cup.
 
->(Your score has increased by 5)
+> pay barman
+(Your score has increased by 5)
 wisely, you decide to settle your food and drink bill in cash, thus
 preventing the Chief being billed (and you being pummeled by him.)
 
->You move out.
+> out
+You move out.
 
 Outside the Tavern
 A tall, solid structure made of  timbers with a sloped roof, stands alone in
@@ -840,7 +976,8 @@ chimney, and a large oak door, framed by an pine arch, stands ajar in its
 west wall. Another wooden structure can be seen just off to the north west,
 while a trail leads further into the woods to the northwest.
 
->You move south.
+> south
+You move south.
 
 Highway
 You're by the side of a wide, well worn track, stretching far off to the east
@@ -850,7 +987,8 @@ is here, waiting to take you back.
 
 Also here is the coach, a room key and a mangey horse.
 
->(Your score has increased by 5)
+> get in coach
+(Your score has increased by 5)
 Happy to be going home, you hop on the coach and knock on the roof to tell
 Jack to get going. He cracks his whip and the coach speeds off down the road,
 shaking and rattling like mad.
@@ -862,7 +1000,8 @@ wooden framed building, with walls of plaster and straw. A painted sign
 swings in the breeze just above the entrance, and by the side of the road
 stands a wooden post with a board nailed to it.
 
->You move in.
+> in
+You move in.
 
 In the Inn
 The cieling is surprisingly low, with thick wooden beams jutting out from it.
@@ -873,12 +1012,14 @@ the wall to the right of the entrance.
 
 Also here is a cork and a pile of empty bottles and tankards.
 
->(Your score has increased by 5)
+> pay landlord
+(Your score has increased by 5)
 Thinking it best to pay your drinks bill yourself, instead of charging it to
 the chief, you fork over a large sum of money to the landlord.
 The landlord blows his nose on the rag.
 
->You move out.
+> out
+You move out.
 
 Outside Inn
 At the foot of the mountain, the path meets  the highway. The Inn is the only
@@ -887,13 +1028,15 @@ wooden framed building, with walls of plaster and straw. A painted sign
 swings in the breeze just above the entrance, and by the side of the road
 stands a wooden post with a board nailed to it.
 
->You move north.
+> north
+You move north.
 
 Long winding path
 A long rocky mountain path twists and turns like a snake from north to south.
 Windswept clouds glide by high above.
 
->You move north.
+> north
+You move north.
 
 The South Gate
 The frog monster is awake and munching heartily on the burp berries. Murky is
@@ -903,14 +1046,17 @@ berries then and let's get this over with, Murky's been whining and
 complaining all day and night."
 "Get this bloody frog off me!" Yells Murky.
 
->(Your score has increased by 5)
+> give chief backward burp berries
+(Your score has increased by 5)
 You give them to the chief, he seems very chuffed with your success and hands
 you a feather. " Right, I want you to go over there and tickle the monster so
 I can get a good shot at getting these berries down it's throat."
 
->Your score is 180 out of a maximum of 190.  (94%)
+> score
+Your score is 180 out of a maximum of 190.  (94%)
 
->(Your score has increased by 5)
+> tickle frog
+(Your score has increased by 5)
 Carefully you sneak up close, and start to tickle it on the belly. It starts
 to smirk, then chuckle, and then finally burst out laughing deep belly
 laughs.

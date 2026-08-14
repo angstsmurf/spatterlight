@@ -20,23 +20,28 @@ beside you, lines of light against the metal being picked out by the orange
 row of streetlights from the other side of the road. The wind seems to have
 dropped silent. All you can hear is the man's footsteps advancing.
 
->Time passes...
+> z
+Time passes...
 
 Small puddles of rainwater splash as the gunman strides nearer.
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
 The man steps up onto the pavement, just a few feet from you. He begins to
 speak.
 
->Time passes...
+> z
+Time passes...
 
 'This is the end, Harry. I'm sorry it had to be this way.' He raises the
 pistol, aiming at your head. You wince.
 
->Time passes...
+> z
+Time passes...
 
 -BANG-
 
@@ -51,9 +56,11 @@ Darkness
 You can see nothing but black. Darkness lies everywhere and smothers
 everything.
 
->The torch flicks on, and a halo of light is cast around your body.
+> turn on torch
+The torch flicks on, and a halo of light is cast around your body.
 
->You walk for a while, the torchlight seeking ahead, its light always wavering
+> n
+You walk for a while, the torchlight seeking ahead, its light always wavering
 around on the carpet ahead. Eventually, it comes upon a solid vertical
 surface, which you run up to.
 
@@ -62,20 +69,24 @@ You stand beside a vast wall. It stretches up and along for as far as you can
 see with the torchlight. The purple carpeted area continues to the north, or
 you can scale the wall to the east and west.
 
->You walk along the wall.
+> e
+You walk along the wall.
 
 Beside Shelf
 A small, wooden shelf juts out of the wall's surface. It is polished, so that
 it gleams in the light, and is curved at the edges. On it stands a glass of
 water. The wall goes back to the east and west.
 
->You take the glass of water from the smooth shelf.
+> take glass
+You take the glass of water from the smooth shelf.
 
->You gulp it down, realising as you do so that it is not water. You blink in
+> drink water
+You gulp it down, realising as you do so that it is not water. You blink in
 shock of the sharp taste, and when you reopen your eyes, a row of stairs
 leading upwards has materialised nearby.
 
->You start to walk up the stairs. Eventually, the darkness around you turns to
+> u
+You start to walk up the stairs. Eventually, the darkness around you turns to
 light, and a roaring sun bursts into the sky above. You begin to notice
 pieces of mist drift around, and as you get higher, they cling together,
 forming a permanent haze.
@@ -85,7 +96,8 @@ You are perched on a giant staircase, surrounded in a bright, white mist. A
 sun shines down from above, obscured slightly in the haze. The stairs carry
 on upwards or go back down.
 
->You walk on further, as the mist becomes more solid, forming into something
+> u
+You walk on further, as the mist becomes more solid, forming into something
 like clouds. This is proven correct, when you finally break the surface of
 them, and find yourself standing in the most breath-takingly beautiful scene
 you have ever experienced.
@@ -99,7 +111,8 @@ the sky. A bright sun shines down above.
 
 Floating in the air beside you is an arrow made out of cloud, pointing south.
 
->You set off amongst the cloud, and stride on until it begins to rise and form
+> s
+You set off amongst the cloud, and stride on until it begins to rise and form
 a solid room around you.
 
 Room of Cloud
@@ -110,7 +123,8 @@ There is a twinkling deep inside it. A sign hovers next to the wall.
 
 The exit seems to have merged back into the cloud.
 
->You reach out a hand, hesitantly, and run it down the sapphire's warm, blue
+> rub the sapphire
+You reach out a hand, hesitantly, and run it down the sapphire's warm, blue
 surface. A low voice rumbles out of it, and speaks thus:
 "Welcome. We hope your journey to the afterlife has been pleasant. Please
 choose your
@@ -121,7 +135,8 @@ enjoyed by all."
 
 A list of choices, next to buttons, materialise on the sapphire.
 
->Delicate golden letters are inscribed on the jewel's surface. They read:
+> x sapphire
+Delicate golden letters are inscribed on the jewel's surface. They read:
 
                 Please touch the number of your desired afterlife.
 
@@ -130,7 +145,7 @@ A list of choices, next to buttons, materialise on the sapphire.
         3        Reincarnation
         4        Zombification
 
->
+> press 1
 
 The moment you press it, the clouds above open, and you find yourself rising.
 

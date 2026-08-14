@@ -43,7 +43,8 @@ dank and not very spacious but it could be worse. No rats thankfully and no
 worms. And no, thank heavens, dung beetles!
    All you need to do is figure how you're going to get out of here.
 
->Gertrude, cheapskate that she is (it's one of the reasons you married her),
+> dig
+Gertrude, cheapskate that she is (it's one of the reasons you married her),
 hasn't even bothered with a coffin. She's just dug a hole, thrown you in it
 and then filled it up. So digging your way out should prove a doddle…
 
@@ -52,7 +53,8 @@ himself out of his own grave but a guy who makes a living selling curtain
 rings. After a minute's frantic digging, you're pretty near to exhaustion.
 Maybe there's another way out…?
 
->"Persevere," you tell yourself (or would, only there's a lot of soil around
+> dig
+"Persevere," you tell yourself (or would, only there's a lot of soil around
 and you don't want to swallow it by opening your mouth) and dig some more.
    You seem to make a little progress this time although whether that's
 really the case or simply a yearning desire to be out of this grave you can't
@@ -64,7 +66,8 @@ first location which is a bit more descriptive than "It's dark!" certain
 liberties have got to be taken. If it makes you feel any better, feel free to
 play this portion of the game with your eyes closed.
 
->"I'm coming for you, Gertrude," you mutter (and this time you do open your
+> dig
+"I'm coming for you, Gertrude," you mutter (and this time you do open your
 mouth so you do get a mouthful of soil. Normally this would be a terrible
 experience but after a lifetime of eating Gertrude's cooking, you're pretty
 much immune to foul tastes and so rather than do you in the soil just tastes
@@ -83,20 +86,24 @@ thing you married went and dug a great big flaming hole in the middle of
 them! South is the house you and your loved one share, down is the grave she
 tried to bury you in.
 
->Right in the middle of the damn petunias! Oh, the weeks you spent perfecting
+> x hole
+Right in the middle of the damn petunias! Oh, the weeks you spent perfecting
 them! Oh!
    You're not sure what's more annoying. That Gertrude tried to murder you or
 that she butchered your petunias in the process.
 
->Ruined! The lot of them! If you weren't already planning to brutally kill her
+> x petunias
+Ruined! The lot of them! If you weren't already planning to brutally kill her
 for her attempted murder, you'd be certain to want her dead for this.
 
->It's not much (actually you've seen better looking sheds) but it keeps the
+> x house
+It's not much (actually you've seen better looking sheds) but it keeps the
 rains off you (most of the time), has stable floors (a couple anyway) and is
 free of rats. You've seen a few hyenas running around the lounge after dark
 but at least they keep the rats out.
 
->You creep into the house.
+> s
+You creep into the house.
 
 --The Kitchen--
 
@@ -110,36 +117,44 @@ to the garden and there's another east to the lounge. Downwards is the murky
 cellar where that gem you married is too scared to set foot in case she gets
 eaten by giant rats.
 
->A peculiar smell emanates from the cooker and you notice, quite uneasily,
+> x cooker
+A peculiar smell emanates from the cooker and you notice, quite uneasily,
 that there is someone's leg smouldering on there. Quite why you didn't notice
 this before you don't know. You guess your powers of observation must be
 slipping.
 
->It's not one of yours which is quite a relief. You wonder who it belongs to.
+> x leg
+It's not one of yours which is quite a relief. You wonder who it belongs to.
 You make a mental note to keep a look out for someone with only one leg
 because it's probably a fairly good bet that it belongs to them.
 
->Ye Gods! It's full of blood! Buckets of the stuff!
+> x sink
+Ye Gods! It's full of blood! Buckets of the stuff!
    It looks like your lovely wife has massacred someone and drained them in
 the sink!
    You just hope she didn't wash the pots in this lot. It'd really put you
 off your food.
 
->You've always been a bit squeamish as far as blood is concerned so you'll
+> x blood
+You've always been a bit squeamish as far as blood is concerned so you'll
 just settle for calling the blood "blood" and leaving it at that.
 
->You can't see any in the sink. Just as well. You'd never look at a spoon
+> x pots
+You can't see any in the sink. Just as well. You'd never look at a spoon
 again if it had a great big blob of blood on it.
 
->It's covered with magnets. One of the wife's ideas, not yours. For some
+> x fridge
+It's covered with magnets. One of the wife's ideas, not yours. For some
 reason she thinks adding tacky magnets to the fridge gives it a certain
 'class'. You've never seen the point yourself but maybe when you pay her back
 for her little murdering attempt you'll ask her about it.
 
->They're so tacky you just find yourself unable to look at them for more than
+> x magnets
+They're so tacky you just find yourself unable to look at them for more than
 a few seconds.
 
->You open it, expecting to see the usual sights: milk a few months past its
+> open fridge
+You open it, expecting to see the usual sights: milk a few months past its
 sell by date, rotten meat, some cheese with its own colony of mould… instead
 you see the severed head of the milkman. Hmmm. You're sure this wasn't there
 yesterday. I mean, you'd have noticed right? Well, it's there now and by the
@@ -147,14 +162,16 @@ look of things it's not going anywhere. As you consider whether to take it or
 not, the head gives a little lurch and tumbles out onto the floor.
    You let the door swing shut.
 
->You never liked him much - his whistling always got on your nerves - but you
+> x head
+You never liked him much - his whistling always got on your nerves - but you
 really think that chopping his head off and putting it in the fridge was
 probably going a bit far. It seems your darling wife is intent on starting
 her own little bloodbath.
 
->You pick up the milkman's head.
+> take head
+You pick up the milkman's head.
 
->
+> e
 
 --The Lounge--
 
@@ -165,14 +182,15 @@ Your matchboxes! All gone! Ahhhh, the tragedy!
 stare in dismay at this and barely notice the exits, one to the west and one
 leading up.
 
->Ah. This brings back memories. You were unloading it from the van on the day
+> x tv
+Ah. This brings back memories. You were unloading it from the van on the day
 you brought it when a bird deposited a little present on your bald patch.
 While you were busy yelling insults at it, some kids came along with baseball
 bats and gave it a thorough clobbering in payback for the time you ratted on
 them to the police for selling bombs outside the local school.
    It's never worked since.
 
->
+> u
 
 --The Hallway--
 
@@ -183,7 +201,8 @@ there you are. The sound of someone singing can be heard from the bathroom.
 Steps lead down, though you've probably already guessed this considering you
 must have come up them to get here.
 
->You step into the bedroom.
+> w
+You step into the bedroom.
 
 --The Hallway--
 
@@ -213,7 +232,8 @@ him out of here before he makes a mess on the floor!"
    That commanding tone has ruled your life and so you find your body
 stepping out of the room before your mind even realises what has happened.
 
->--The Bathroom--
+> e
+--The Bathroom--
 
 Some people go for bathrooms with style, others for bathrooms with class.
 You, on the other hand, just decided "toilet, sink, that'll do me." You
@@ -235,7 +255,8 @@ relationship' lark so what say you pay me off and I'll leave you two
 lovebirds alone."
    Or, you consider, why not just kill him and be done with it?
 
->
+> look
+
 --The Bathroom--
 
 Some people go for bathrooms with style, others for bathrooms with class.
@@ -245,15 +266,18 @@ everything. However, the door leading west to the hallway is fully functional
 (aside from not closing that is).
 Some chap called Bob is here.
 
->Bob is kind of short for his height but remarkably ugly and definitely in
+> x Bob
+Bob is kind of short for his height but remarkably ugly and definitely in
 need of a good thump. Then again, you're pretty sure he's the guy your wife
 tried to kill you in favour of so you might well be a bit biased towards him.
 
->Ignoring the obvious smuttiness of the phrase "give head to bob", you attempt
+> give head to Bob
+Ignoring the obvious smuttiness of the phrase "give head to bob", you attempt
 it all the same. Bob, unfortunately, doesn't seem very impressed and kicks
 you in the nuts to serve you right.
 
->As you leave the bathroom, Bob resumes his singing.
+> w
+As you leave the bathroom, Bob resumes his singing.
 
 --The Hallway--
 
@@ -264,7 +288,7 @@ there you are. The sound of someone singing can be heard from the bathroom.
 Steps lead down, though you've probably already guessed this considering you
 must have come up them to get here.
 
->
+> d
 
 --The Lounge--
 
@@ -275,7 +299,7 @@ Your matchboxes! All gone! Ahhhh, the tragedy!
 stare in dismay at this and barely notice the exits, one to the west and one
 leading up.
 
->
+> w
 
 --The Kitchen--
 
@@ -289,7 +313,7 @@ to the garden and there's another east to the lounge. Downwards is the murky
 cellar where that gem you married is too scared to set foot in case she gets
 eaten by giant rats.
 
->
+> d
 
 --The Cellar--
 
@@ -300,15 +324,18 @@ your cellar you couldn't really say. He certainly wasn't here the last time
 you came down here to do some cleaning up. Some steps lead back up to the
 kitchen.
 
->You've never seen this plinth before but you guess it must always have been
+> x plinth
+You've never seen this plinth before but you guess it must always have been
 here. After all, it's not that likely you missed it, is it?
    Is it?
 
->It's a coffin. Erm… sorry if that description doesn't really do it justice
+> x coffin
+It's a coffin. Erm… sorry if that description doesn't really do it justice
 but you sell curtain rings for a living so your imagination is a little
 lacking. It's closed as well if you're interested.
 
->You inch open the coffin and-
+> open coffin
+You inch open the coffin and-
    Good grief! There's someone in here! What a surprise!
    Actually, it's not really a surprise because you just knew there'd be
 someone in there. But what is a surprise is that it isn't a vampire like
@@ -332,14 +359,16 @@ sigh.
 election… now there's a real puzzler."
    You have to admit he has a point there.
 
->He looks a bit like your Uncle Oswald. Strange but true.
+> x ghoul
+He looks a bit like your Uncle Oswald. Strange but true.
 
->It's one of those viciously sharp knives that looks sharp enough to cut you
+> x knife
+It's one of those viciously sharp knives that looks sharp enough to cut you
 just by looking at-
    Ouch!
    Damnit! You cut yourself.
 
->
+> u
 
 --The Kitchen--
 
@@ -353,7 +382,7 @@ to the garden and there's another east to the lounge. Downwards is the murky
 cellar where that gem you married is too scared to set foot in case she gets
 eaten by giant rats.
 
->
+> e
 
 --The Lounge--
 
@@ -364,11 +393,12 @@ Your matchboxes! All gone! Ahhhh, the tragedy!
 stare in dismay at this and barely notice the exits, one to the west and one
 leading up.
 
->Normally you wouldn't bother carrying a TV around with you but as your dear
+> get tv
+Normally you wouldn't bother carrying a TV around with you but as your dear
 beloved one tried to kill you today you're in a funny mood, so if you want to
 carry a TV around with you then, damnit, you'll carry a TV around with it.
 
->
+> u
 
 --The Hallway--
 
@@ -379,7 +409,7 @@ there you are. The sound of someone singing can be heard from the bathroom.
 Steps lead down, though you've probably already guessed this considering you
 must have come up them to get here.
 
->
+> e
 
 --The Bathroom--
 
@@ -390,12 +420,13 @@ everything. However, the door leading west to the hallway is fully functional
 (aside from not closing that is).
 Some chap called Bob is here.
 
->"Hey, great," says Bob as you hand over the TV. "A genuine TV what don't even
+> give tv to Bob
+"Hey, great," says Bob as you hand over the TV. "A genuine TV what don't even
 work! I'll be the envy of me friends with this."
    He heads out, chortling to himself over his remarkably good fortune.
    Now for your darling wife...
 
->
+> w
 
 --The Hallway--
 
@@ -406,7 +437,8 @@ there you are. The sound of silence can be heard from the bathroom. It’s a
 beautiful sound. Steps lead down, though you've probably already guessed this
 considering you must have come up them to get here.
 
->You step into the bedroom.
+> w
+You step into the bedroom.
 
 Congratulations!
 

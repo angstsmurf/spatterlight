@@ -105,9 +105,11 @@ se encontraba abriendo la verja de la casa
 
                                   - ¿Que hizo el asesino?
 
->Your score is 0 out of a maximum of 0.  (0%)
+> score
+Your score is 0 out of a maximum of 0.  (0%)
 
->- El asesino se abalanzó sobre Don Rodrigo mientras este se encontraba de
+> atacar al anciano
+- El asesino se abalanzó sobre Don Rodrigo mientras este se encontraba de
 espaldas buscando las llaves en sus bolsillos. Su mujer  era inválida así que
 no llamó por el portero automático para que esta le abriese, esos segundos
 preciosos fueron los que le perdieron. El asesino lo estranguló sin más
@@ -129,11 +131,13 @@ temiese que se diese la alarma demasiado pronto. Prefirió ocultar el cuerpo.
                                                                       - ¿Así
 que qué hizo?
 
->- Rapidamente el asesino cogió las llaves del fallecido. Habrió la verja y
+> examinar la casa
+- Rapidamente el asesino cogió las llaves del fallecido. Habrió la verja y
 metió el cadaver en el jardín. Era un sitio más resguardado pero necesitaba
 esconder el cadaver ya que se podia ver desde fuera.
 
->- Dos dias despues, la asistenta encontró a Don Rodrigo oculto entre unos
+> esconder el cuerpo
+- Dos dias despues, la asistenta encontró a Don Rodrigo oculto entre unos
 setos al lado de la entrada y a su mujer inconsciente y en avanzado estado de
 desnutrición tirada a un lado de la cama en su habitación. La pobre habia
 intentado arrastrarse hasta un teléfono ante la ausencia de su marido.
@@ -162,7 +166,8 @@ se hace cuando eres joven. El hijo de puta debió de acercárseles por la
 espalda  mientras estaban distraidos y entonces…
 ¿Qué pasó?
 
->5
+> atacar al chico
+5
 - El asesino asestó un golpe en la cabeza al muchacho con un piedra que debió
 de recoger del suelo, ya que se encontró una manchada de sangre cerca del
 lugar de los hechos. Entonces el pobre crio cayó hacia delante. Tal vez
@@ -174,7 +179,8 @@ abajo. Ahogado en un estanque que no me llega a ni a la altura de la rodilla
 ¡Joer, eso si que es mala suerte!
 - ¿Y que pasó con la chica?
 
->- No sé si la chica llegó a gritar en algún momento, pero eso poco importa
+> atacar a la chica
+- No sé si la chica llegó a gritar en algún momento, pero eso poco importa
 ya. Nadie acudió a ayudarla. El asesino la estranguló y la dejó allí mismo
 tirada.
 Debió de ser sobre las tres de la madrugada, a esas horas casi no hay nadie
@@ -218,7 +224,8 @@ dejar el cuerpo allí tirado a la vista que cualquiera.
 - No. También ocultó el cadáver. Y aquí viene el meollo de la cuestión ¿Cual
 es el mejor sitio para ocultar un cadáver en unos servicios públicos?
 
->7
+> meter el cuerpo en el servicio
+7
 - Dejarlo a la vista de todo el mundo.
 - Exacto, lo sentó en la taza de uno de los wáteres.
 - Luego simplemente se limitó a llegar la puerta del para que nadie lo viese
@@ -227,7 +234,8 @@ nada más entrar y se fue sin más. ¿Cierto?
 de la puerta? La víctima no tenia el "aspecto adecuado" para pasar por un
 tipo que estuviese vaciando las tripas. Faltaba un detalle esencial.
 
->- ¿Le bajó los pantalones?
+> bajar los pantalones
+- ¿Le bajó los pantalones?
 - Por supuesto. Si la gente viese unas perneras primorosamente planchadas
 empezaría a sospechar.
 - Si, comprensible. Es una vergüenza que tardasen tanto en darse cuenta.

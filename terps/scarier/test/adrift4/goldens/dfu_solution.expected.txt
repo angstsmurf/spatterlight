@@ -34,11 +34,14 @@ got to destroy it.
 Good luck Agent Wasp, and remember, you will shoot random people if you don't
 stop the fever.
 
->Even if your name just happened to be Bruno, the card would be useless.
+> take card
+Even if your name just happened to be Bruno, the card would be useless.
 
->It smells like Black Angus.
+> smell
+It smells like Black Angus.
 
->You move east.
+> e
+You move east.
 
 Alley
 Like most alley's, this one is dank and dark. Unlike most alleys, this one
@@ -47,20 +50,25 @@ club sign extends into the machine, which seems to be where the sign gets
 it's power. Along the walls of the alley, is a variety of graffiti, and lying
 on the floor of the alleyway, is a cat.
 
->"Hey you. Pee on the ground. Trust me on this. Just pee."
+> x graffiti
+"Hey you. Pee on the ground. Trust me on this. Just pee."
 
->You gently stroke the cat's fur, which causes his to start coughing. He lets
+> pet cat
+You gently stroke the cat's fur, which causes his to start coughing. He lets
 out a loud "Oorrggaaaaaaaaaaa" and a wrench flies out of his mouth and into
 your hands. Wow, now that's a hairball.
 
->Well, the wall told you to, so you do it. You pee on the ground.
+> pee on the ground
+Well, the wall told you to, so you do it. You pee on the ground.
 
 Absolutely nothing happens, except now there's a huge puddle of pee on the
 ground.
 
->You're proud of yourself.
+> x pee
+You're proud of yourself.
 
->Going against any good judgement, you push hard on the red button. A huge
+> push red button
+Going against any good judgement, you push hard on the red button. A huge
 bolt of electricity shoots down into the floor of the alley, and right into
 the fresh pee on the ground. Since you're standing in the pee, a huge bolt of
 electricity zaps into you, right into your head.
@@ -70,7 +78,8 @@ up, and check your body for any major damage. As you began to check your
 head, you notice something odd. You're hair's now standing up from the huge
 shock, giving you an afro. Groovy.
 
->You move west.
+> w
+You move west.
 
 Outside the Club
 You're standing outside the Flaming Flamingo, voted worst club by every
@@ -83,13 +92,17 @@ skull and crossbone signs near it.
 
 Bruno is here.
 
->Bruno notices your smoldering afro, and moves out of the way.
+> n
+Bruno notices your smoldering afro, and moves out of the way.
 
->It smells like a mixture of vodka and wet cat.
+> smell
+It smells like a mixture of vodka and wet cat.
 
->You hear nothing out of the ordinary. Oh wait, you do. Horrible music.
+> listen
+You hear nothing out of the ordinary. Oh wait, you do. Horrible music.
 
->Since you're undercover in the club, you decide to act like a regular guest,
+> dance
+Since you're undercover in the club, you decide to act like a regular guest,
 and began dancing. Within seconds of your dancing, loud sirens go off and
 confetti begins to drop down from the ceiling. The door to the North opens
 up, and a man in a bright orange suit walks out.
@@ -100,24 +113,32 @@ your price, a tissue!"
 The man hands you a tissue, and then walks back into the door he came in. You
 stand there, a look of horror and surprise on your face.
 
->You'd rather not get the battery acid on your hand.
+> take acid
+You'd rather not get the battery acid on your hand.
 
->You jab the tissue onto the battery acid, and soak some of it up.
+> use tissue on acid
+You jab the tissue onto the battery acid, and soak some of it up.
 
->You're not The Hulk, and if you were, you'd be going around punching people.
+> kick door
+You're not The Hulk, and if you were, you'd be going around punching people.
 
->While you're at it, why not use a toilet on a hippo. It makes about as much
+> use wrench on door
+While you're at it, why not use a toilet on a hippo. It makes about as much
 sense.
 
->You spread the acid over the door, and a huge hole is burned into it. Now you
+> use acid on door
+You spread the acid over the door, and a huge hole is burned into it. Now you
 can head North.
 
->You duck through the hole, and enter the next room.
+> n
+You duck through the hole, and enter the next room.
 
->You punch, claw, kick, tackle, and lick the batter, but it just won't budge.
+> hit pack
+You punch, claw, kick, tackle, and lick the batter, but it just won't budge.
 You'll need something a little stronger.
 
->(Your score has increased by 999999999)
+> hit battery with wrench
+(Your score has increased by 999999999)
 "Hey chowderhead, I oughta punch you in the noggin!" The computer screams
 out, obviously in Three Stooges mode
 

@@ -242,6 +242,8 @@ os_show_graphic (const scr_char *filepath, scr_int offset, scr_int length)
 scr_bool
 os_read_line (scr_char *buffer, scr_int length)
 {
+  scr_bool echo_input;
+
   full_flush ();
   if (feof (stdin))
     {
@@ -257,7 +259,24 @@ os_read_line (scr_char *buffer, scr_int length)
       exit (EXIT_SUCCESS);
     }
 
+  /*
+   * Derivation aid: with SCR_ECHO_INPUT set, echo the command back after the
+   * '>' prompt.  Piped input is not a terminal, so nothing else puts the
+   * command into the transcript, and pairing a response with the command that
+   * produced it otherwise means counting prompts by hand.
+   *
+   * The echoing prompt is laid out as "\n> command\n", which is the shape
+   * a5run_dump gives the ADRIFT 5 goldens, so both corpora's transcripts read
+   * the same way.  Without the echo the bare '>' stays glued to the front of
+   * the game's reply (">You move north.") the way it always has.
+   */
+  echo_input = getenv ("SCR_ECHO_INPUT") != NULL;
+
+  if (echo_input)
+    putchar ('\n');
   putchar ('>');
+  if (echo_input)
+    putchar (' ');
   fflush (stdout);
   if (!fgets (buffer, length, stdin))
     {
@@ -292,13 +311,8 @@ os_read_line (scr_char *buffer, scr_int length)
         }
     }
 
-  /*
-   * Derivation aid: with SCR_ECHO_INPUT set, echo the command back after the
-   * '>' prompt.  Piped input is not a terminal, so nothing else puts the
-   * command into the transcript, and pairing a response with the command that
-   * produced it otherwise means counting prompts by hand.
-   */
-  if (getenv ("SCR_ECHO_INPUT"))
+  /* The other half of the echo above: the command itself. */
+  if (echo_input)
     {
       fputs (buffer, stdout);
       if (buffer[0] != '\0' && buffer[strlen (buffer) - 1] != '\n')

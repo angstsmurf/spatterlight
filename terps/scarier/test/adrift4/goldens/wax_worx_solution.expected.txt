@@ -21,19 +21,21 @@ Antechamber
 From your prone position you can't see much more than the trembling patterns
 the red light makes on the floor.  The floor feels cool against your cheek.
 
->You begin to stand.  The pain beats harder and faster inside your skull.  You
+> stand
+You begin to stand.  The pain beats harder and faster inside your skull.  You
 stagger. Your foot hits something slick.  Slides.  You stumble, manage to
 remain upright. Barely.
 
 Looking down,  you see a flattened object on the floor. You pick it up.
 
->You insert  the credit card into the gap between door and frame and nudge the
+> open wooden door with credit card
+You insert  the credit card into the gap between door and frame and nudge the
 latch. With a bit of deft manipulation you convince the latch to slide back
 into the lock.
 
 You push the unlocked door open.
 
->
+> w
 
 You step through the doorway.
 
@@ -77,15 +79,18 @@ The lump of wax that is Madame Tussaud puts the finishing touches on the head
 of Marie Antoinette.  Professor Wily works on the wax model of Madame
 Tussaud.
 
->You see nothing beneath the shelf but some boxes piled against the wall.
+> look under shelf
+You see nothing beneath the shelf but some boxes piled against the wall.
 
->As soon as you push the boxes to one side you see an uncovered rectangular
+> move boxes
+As soon as you push the boxes to one side you see an uncovered rectangular
 opening in the wall.
 
 Of course.  The deus ex ventilation shaft. Just large enough to crawl
 through, naturally.
 
->You get down on your knees to crawl.
+> crawl
+You get down on your knees to crawl.
 You begin to bend down, in order to crawl through the opening in the wall.
 
 Something thumps onto the floor behind you.
@@ -97,7 +102,8 @@ like it's on wheels, glass eyes flashing as they catch the light. The head
 bumps into the wall, makes a peculiar bounce and comes to a rest, perched on
 the stump of  neck, directly in front of the open ventilation duct.
 
->From the painted mouth emerges a strangled moan, like a mournful wind,
+> ask marie about wily
+From the painted mouth emerges a strangled moan, like a mournful wind,
 carrying within it whispered words, so faint you realize you have heard them
 only after the sound, if indeed there was a sound outside your imagination,
 has passed.
@@ -106,11 +112,12 @@ has passed.
 me out of this place, I will let you pass. Pick me up if you are
 trustworthy."
 
->You reach for Marie Antoinette's head.
+> get marie
+You reach for Marie Antoinette's head.
 You're relieved to find it feels cool and waxen to the touch. Nothing like
 living, or dead, flesh.
 
->
+> crawl
 
 You manage to squeeze into the ventilation shaft and crawl. .
 
@@ -155,7 +162,8 @@ small end table sit at the back of the room, beneath a framed picture. A
 placard is propped up against the table, but what catches the eye is the body
 sprawled across the love seat.
 
->As you begin to step through the doorway a voice startles you.
+> e
+As you begin to step through the doorway a voice startles you.
 
 "Sir. Wait. Please."
 
@@ -177,11 +185,13 @@ Kill... Don't hestitate, or stop to think about what to use or who to use it
 on...if you're threatened. Just kill...and quickly...or you'll
 lose...everything. Don't forget.
 
->Gingerly you remove the axe  from Lizzie's grasp.  Her rigid  fingers remain
+> get axe
+Gingerly you remove the axe  from Lizzie's grasp.  Her rigid  fingers remain
 curled around the absent handle. Does her painted mouth move ever so subtly
 or is the smile only in your imagination?
 
->You step into a tangle of dark vegetation. Your foot hits a stone and you
+> e
+You step into a tangle of dark vegetation. Your foot hits a stone and you
 fall forward, grab a sapling to steady yourself. You must have stumbled out
 the back door of the Museum!
 
@@ -190,7 +200,8 @@ Dense brush and tall, rank grass blocks your vision. You're disoriented.  Not
 sure which direction you should go.  At least you're outside.  A large stone
 with a sign stuck to it juts up from the grass.
 
->You push a branch away from your face, move forward, and bang tour knee
+> e
+You push a branch away from your face, move forward, and bang tour knee
 painfully against an invisible barrier.
 
 Glass! You can make out the dim corridor beyond.
@@ -204,14 +215,16 @@ foliage to the east and west might indicate doorways. The glass barrier looms
 to one side but looking in the other direction, through the black filagree of
 leaves, you can make out a house.
 
->Dark leaves. Bushes. Aside from the fact its in your way, what does it
+> x bushes
+Dark leaves. Bushes. Aside from the fact its in your way, what does it
 matter? You're no gardener. Still.  There's something odd. Something about
 the smell.
 
 Also, there seems to be an opening, a sort of path, leading north toward the
 house.
 
->You push sharp pointed leaves aside and step forward.  When you pause the
+> n
+You push sharp pointed leaves aside and step forward.  When you pause the
 rustling noise continues.
 
 You freeze. Is that breathing?
@@ -227,7 +240,8 @@ supposed.
 The figment of your fears has vanished. You see what tripped you up. A
 figure, lying on its belly beneath the bushes.
 
->Words form, not on the motionless lips, but in your mind.
+> ask charlie about house
+Words form, not on the motionless lips, but in your mind.
 
 "What a pad.  We checked it all out.  Creepy crawled the whole thing.
 Couldn't just sneak up, or lurk in the shadows. Creepy crawl. That was the
@@ -236,7 +250,8 @@ only way to get close enough.
 We were looking in the windows, on the other side of the glass, and they
 never knew."
 
->You move east.
+> e
+You move east.
 
 The Yard
 You're in a yard in front of a white, wood frame house.  Or rather, some
@@ -250,7 +265,8 @@ from the lawn beside the door is what looks like a for sale sign.
 In the middle of the lawn stands the wax figure of a clown, weirdly out of
 place in this patch of faux suburbia.
 
->You squeeze the glob of wax into a slightly more spherical shape and stick it
+> put nose on clown
+You squeeze the glob of wax into a slightly more spherical shape and stick it
 onto the raw gap in the white-painted face. It clings there -- pink, hairy
 and disgusting.
 
@@ -261,7 +277,8 @@ The hands must have moved because you realize you are holding what appears to
 be a glowstick.  A reward for your act of cosmetic mercy.
 You feel Marie's head tremble against your chest.
 
->You step inside. Into cold. Like the inside of a freezer.  Or a morgue.
+> n
+You step inside. Into cold. Like the inside of a freezer.  Or a morgue.
 
 The Front Room
 
@@ -274,16 +291,19 @@ miasma fills the air.
 
 There is a photograph here.
 
->In the light from the glowstick you can see cracks between the floorboards.
+> x floorboards
+In the light from the glowstick you can see cracks between the floorboards.
 You guess there might be a crawlspace underneath the room.
 
->You grip the short axe haft with both hands and chop at the floorboards. The
+> hit floorboards with axe
+You grip the short axe haft with both hands and chop at the floorboards. The
 blade bites in with a dull thunk. Nothing like the sound of  a splitting
 skull. You jerk the blade free and bring it down again. Chips fly. Another
 blow and a board splinters. It doesn't take long until there's a jagged hole
 in the floor, leading down.
 
->You slide into darknes even colder than the empty room.  It is like slipping
+> d
+You slide into darknes even colder than the empty room.  It is like slipping
 through a skin of ice, into black water. You lie on your stomach.
 
 The Crawlspace
@@ -295,7 +315,8 @@ shadows of your movements flicker around you like half-seen phantoms. The
 light faintly illuminates the wall of the room above. It isn't clear what
 direction you might move in.  Down here the foetur is overpowering.
 
->You remember Charlie Manson's advice. Creepy crawl.  It all comes back.  He
+> creepy crawl
+You remember Charlie Manson's advice. Creepy crawl.  It all comes back.  He
 must've imparted the skill to you in some way because you begin to slither on
 your belly, hardly moving.  Just inching forward. Utterly silent.  Pulling
 yourself across the dust by your breathing.
@@ -324,7 +345,8 @@ not choose to enter, even if you could.
 A car is parked by the curb. From its prominent tail fins you judge it to be
 a remnant of the fifties.
 
->You move up.
+> u
+You move up.
 
 The Bedroom
 More a cavern than a room. Arcane grafitti -- like cave paintings of some
@@ -343,7 +365,8 @@ exhalation. The breath of some great beast.
 Or perhaps it is the breath of the monstrous black dog crouched in front of
 the window.
 
->You make a grab for Marie's head. She snaps at your fingers and somehow
+> give marie to dog
+You make a grab for Marie's head. She snaps at your fingers and somehow
 scuttles up to your shoulder.
 
 You grab her by the wig and pull but she hangs onto your shirt with her
@@ -351,13 +374,15 @@ teeth.
 
 "Do not betray me, monsieur!"
 
->Ignoring her pleas,  you yank Marie's head free of your shirt..  Holding it
+> g
+Ignoring her pleas,  you yank Marie's head free of your shirt..  Holding it
 by the beehive wig, you dangle the whimpering head in front of the black dog.
 The head jerks and turns. The dog's monstrous jaws open.
 
 "Non! Non! Do not do this terrible thing! I beg of you!"
 
->You drop the head.  What is it, after all, but a wax head?
+> g
+You drop the head.  What is it, after all, but a wax head?
 
 It appears almost to float downward.  You can see Marie's glass eyes staring
 up at you in disbelief. A horrible keening vibrates in your bones, as if the
@@ -365,7 +390,8 @@ gates of hell had opened to let out the screams of  the numberless damned.
 
 Then the black dog's head descends and the sound ceases.
 
->You sidle past the black dog. So close you can feel the heat from its heaving
+> s
+You sidle past the black dog. So close you can feel the heat from its heaving
 sides. Your heart jumps but true to its word, the creature makes no effort to
 stop you.  It's busy with Marie.  The wax head, that is.
 
@@ -387,7 +413,8 @@ This must be part of the corridor you glimpsed from the exhibit. There is no
 evidence of the display windows here, though. To the east and west, doorways
 lead into even more dimly lit spaces.
 
->The door comes open easily and you step forward...out of your
+> e
+The door comes open easily and you step forward...out of your
 nightmare...into a room which is almost familiar. A living room. An ordinary
 living room. Obviously ordinary, even in the dark.
 
@@ -397,15 +424,19 @@ if you could find the light switch.  A couch, a recliner. Light from
 somewhere - a partially drawn blind perhaps - falls across the polished top
 of a sideboard, the only thing in the room you can see clearly.
 
->You can't see much the sideboard, just the light glistening on the polished
+> x sideboard
+You can't see much the sideboard, just the light glistening on the polished
 top. Some pale wood. Pine, perhaps.  A wallet and the framed photograph are
 on the sideboard.
 
->You take the wallet from the sideboard.
+> get wallet
+You take the wallet from the sideboard.
 
->You open the wallet.  A driver's license is inside the wallet.
+> open wallet
+You open the wallet.  A driver's license is inside the wallet.
 
->The driver's license belongs to Paul Walker.
+> x license
+The driver's license belongs to Paul Walker.
 
 Of course.  Who else would it belong to?
 
@@ -414,9 +445,11 @@ a mustache, as if to make up for the premature baldness.
 
 What was that?  A sound.  A footstep?
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
 Movement on the stairs. Something small.  Fast. Too fast.
 
@@ -426,7 +459,8 @@ It's going to kill you!
 
 Like in a nightmare you're frozen
 
->There's a gun in your hand.
+> kill
+There's a gun in your hand.
 
 A deafening explosion.
 
@@ -452,15 +486,20 @@ electrodes stuck to your arms. Your head is partially covered by a cap and
 you feel dampness against your scalp. The air is alive with a faint buzzing
 which seems to impart a vague vibration to the chair.
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 Suddenly a voice fills the room, tinny and crackling, as if emerging from
 unseen loudspeakers. For some reason you are sure it is Professor Wily.
 

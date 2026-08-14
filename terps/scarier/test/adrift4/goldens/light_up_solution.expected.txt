@@ -63,11 +63,14 @@ anything particularly frightening about it.
 
 My lucky car is here, in all its 80s American glory.
 
->I open the trunk.  A flashlight is inside the trunk.
+> open trunk
+I open the trunk.  A flashlight is inside the trunk.
 
->I take the flashlight from the trunk.
+> get flashlight
+I take the flashlight from the trunk.
 
->I move north.
+> north
+I move north.
 
 Outside House
 The closer you get to a house, the more you start to see its soul. This soul
@@ -76,9 +79,11 @@ company it keeps. Overgrown shrubs and weeds. I would be surprised if there
 aren't snakes crawling around my feet. There's a door (north) and a window
 (in).
 
->I take the rock from the grass.
+> get rock
+I take the rock from the grass.
 
->(Your score has increased by 2)
+> break window
+(Your score has increased by 2)
 I crack the window with the rock and jump through. Actually, I don't jump; I
 take my time. I don't want to get cut. Getting injured in the middle of
 nowhere is a recipe for disaster.
@@ -95,15 +100,19 @@ clean, seemingly unaffected by the rest of the chaos in the room.
 
 A broken window behind me (out).
 
->I turn on the flashlight.
+> turn light on
+I turn on the flashlight.
 
->(Your score has increased by 2)
+> look under chair
+(Your score has increased by 2)
 I reach underneath the chair until I feel a metallic surface. I pull out...a
 saw.
 
->I've already got the saw!
+> take saw
+I've already got the saw!
 
->I move northeast.
+> ne
+I move northeast.
 
 House (Kitchen)
 Reminds me of why I divorced my ex-wife. (She could never keep the house
@@ -118,11 +127,14 @@ modern Bistro table and a few chairs.
 
 You could always go back to the (equally horrible) den (southwest).
 
->I open the refrigerator.  A blue vial is inside the refrigerator.
+> open refrigerator
+I open the refrigerator.  A blue vial is inside the refrigerator.
 
->I take the blue vial from the refrigerator.
+> take vial
+I take the blue vial from the refrigerator.
 
->I move southwest.
+> sw
+I move southwest.
 
 House (Den)
 Life does not belong here. Toys strewn everywhere, a broken television, a
@@ -133,7 +145,8 @@ clean, seemingly unaffected by the rest of the chaos in the room.
 
 A broken window behind me (out).
 
->I move north.
+> north
+I move north.
 
 House (Corridor)
 If incredibly tight spaces are bad for one's health, then it is a miracle
@@ -141,24 +154,29 @@ that I am alive right now. No points of interest. There's just a trail of
 blood leading to a door (north), what looks to be a bedroom to my left
 (west), and the crime-scene style den behind me (south).
 
->(Your score has increased by 2)
+> saw door
+(Your score has increased by 2)
 It takes some time, but I carve a nice spot for the doorknob to fall out. The
 door is now openable.
 
->I move west.
+> west
+I move west.
 
 House (Bedroom)
 One bed and a whole lot of junk: those are the occupants of this room. The
 smell of dead eggs and rotten meat is strong here; methinks it would be a
 good idea to leave. I could get an infection just standing here.
 
->(Your score has increased by 2)
+> dig
+(Your score has increased by 2)
 I ruffle through the clothes, throwing items here and there, to and fro,
 until I get my hands on something sturdy. I pull out...a laptop.
 
->I've already got the laptop!
+> take laptop
+I've already got the laptop!
 
->I move east.
+> east
+I move east.
 
 House (Corridor)
 If incredibly tight spaces are bad for one's health, then it is a miracle
@@ -166,16 +184,19 @@ that I am alive right now. No points of interest. There's just a trail of
 blood leading to a door (north), what looks to be a bedroom to my left
 (west), and the crime-scene style den behind me (south).
 
->I open the door.
+> open door
+I open the door.
 
->I move north.
+> north
+I move north.
 
 House (Steps)
 Narrow enclosures like this one are usually humid and stuffy, and this one is
 no exception. Wooden steps spiral poorly, as if done by an amateur, down into
 darkness.
 
->I move down.
+> down
+I move down.
 
 House (Secret Room)
 Circuits and wires run throughout the room. In the middle of everything is a
@@ -184,15 +205,19 @@ a bunch of funny-looking scientific things, and a small machine. Everything
 here is well-kept; little dust or dirt or grime. Almost as if someone has
 been here lately.
 
->(Your score has increased by 2)
+> 91020
+(Your score has increased by 2)
 I hear a ding noise. That must mean something good.
 
->I put the blue vial inside the small machine.
+> put vial in machine
+I put the blue vial inside the small machine.
 
->(Your score has increased by 3)
+> press button
+(Your score has increased by 3)
 I push the button and the big box in the front of the room opens.
 
->(Your score has increased by 5)
+> get in box
+(Your score has increased by 5)
 I get into the box, half-not-knowing-what-I'm-do and
 half-afraid-to-do-anything-else. I feel around the box a little bit. No dust.
 
@@ -228,13 +253,16 @@ anything of interest for some distance (north).
 It's unusally hard to breathe here. It's like the air is clogging my throat.
 
 >
->I move north.
+
+> north
+I move north.
 
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
 
->I move north.
+> north
+I move north.
 
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
@@ -242,43 +270,51 @@ anything of interest for some distance (north).
 
 The air...it really is choking me...
 
->I put my hands in the dirt and come up...with a gas mask.
+> dig
+I put my hands in the dirt and come up...with a gas mask.
 
->I put on the gas mask.
+> wear mask
+I put on the gas mask.
 
->I move north.
+> north
+I move north.
 
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
 
->I move north.
+> north
+I move north.
 
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (east).
 
->(Your score has increased by 2)
+> east
+(Your score has increased by 2)
 I forge eastward.
 
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (east).
 
->I move east.
+> east
+I move east.
 
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (east).
 A naked woman is here, chained to the ground.
 
->I move east.
+> east
+I move east.
 
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
 
->I move north.
+> north
+I move north.
 
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
@@ -286,37 +322,44 @@ anything of interest for some distance (north).
 
 A rock is here.
 
->I pick up the rock.
+> take rock
+I pick up the rock.
 
->I move north.
+> north
+I move north.
 
 Field
 Yellow grass, about knee-high, all around me. This is the end of the trail.
 
 Here lies a large gate (north).
 
->I put my hands in the dirt and come up...with an axe.
+> dig
+I put my hands in the dirt and come up...with an axe.
 
->I move south.
-
-Field
-Yellow grass, about knee-high, all around me. There doesn't seem to be
-anything of interest for some distance (north).
-
->I move south.
+> south
+I move south.
 
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
 
->I move west.
+> south
+I move south.
+
+Field
+Yellow grass, about knee-high, all around me. There doesn't seem to be
+anything of interest for some distance (north).
+
+> west
+I move west.
 
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (east).
 A naked woman is here, chained to the ground.
 
->(Your score has increased by 2)
+> break chain
+(Your score has increased by 2)
 "I'm going to cut away the chains now. Don't be afraid."
 
 She closes her eyes as I pull back and swing.
@@ -348,108 +391,131 @@ watched the movies.
 
 The woman disappears into the grass before I can give her my thoughts. Great.
 
->
+> look
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (east).
 
->
+> look
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (east).
 
->
+> look
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (east).
 
->
+> look
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (east).
 
->
+> look
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (east).
 
 A bird enters from the east.
 
->(Your score has increased by 2)
+> throw rock at bird
+(Your score has increased by 2)
 I toss the rock as hard as I can. It hits the bird in the face, which seems
 to disturb it for a bit. It flies very quickly southward.
 
->
-Field
-Yellow grass, about knee-high, all around me. There doesn't seem to be
-anything of interest for some distance (east).
-
->I move west.
+> look
 
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (east).
 
->
-Field
-Yellow grass, about knee-high, all around me. There doesn't seem to be
-anything of interest for some distance (east).
-
->Take what?
-
->I move west.
+> west
+I move west.
 
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (east).
 
->
+> look
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (east).
 
->Take what?
+> take medallion
+Take what?
 
->I move south.
+> west
+I move west.
+
+Field
+Yellow grass, about knee-high, all around me. There doesn't seem to be
+anything of interest for some distance (east).
+
+> look
+
+Field
+Yellow grass, about knee-high, all around me. There doesn't seem to be
+anything of interest for some distance (east).
+
+> take medallion
+Take what?
+
+> south
+I move south.
 
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
 
->
-Field
-Yellow grass, about knee-high, all around me. There doesn't seem to be
-anything of interest for some distance (north).
-
->Take what?
-
->I move south.
+> look
 
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
 
->
-Field
-Yellow grass, about knee-high, all around me. There doesn't seem to be
-anything of interest for some distance (north).
+> take medallion
+Take what?
 
->Take what?
-
->I move south.
+> south
+I move south.
 
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
 
->
+> look
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
 
->Take what?
+> take medallion
+Take what?
 
->I move south.
+> south
+I move south.
+
+Field
+Yellow grass, about knee-high, all around me. There doesn't seem to be
+anything of interest for some distance (north).
+
+> look
+
+Field
+Yellow grass, about knee-high, all around me. There doesn't seem to be
+anything of interest for some distance (north).
+
+> take medallion
+Take what?
+
+> south
+I move south.
 
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
@@ -458,7 +524,8 @@ anything of interest for some distance (north).
 A medallion is here.
 A woman is here, happy apparently.
 
->
+> look
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
@@ -466,57 +533,67 @@ anything of interest for some distance (north).
 A medallion is here.
 A woman is here, happy apparently.
 
->I pick up the medallion.
+> take medallion
+I pick up the medallion.
 
->I hold it out to give it to her and she snatches it away from me.
+> give medallion to woman
+I hold it out to give it to her and she snatches it away from me.
 
 "Idiot," she says, and spits in my face. She runs away (north).
 
 I might kill this woman.
 
->I move north.
+> north
+I move north.
 
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
 
->I move north.
+> north
+I move north.
 
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
 
->I move north.
+> north
+I move north.
 
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
 
->I move north.
+> north
+I move north.
 
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (east).
 
->I move east.
+> east
+I move east.
 
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (east).
 
->I move east.
+> east
+I move east.
 
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (east).
 
->I move east.
+> east
+I move east.
 
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
 
->I move north.
+> north
+I move north.
 
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
@@ -542,25 +619,30 @@ disrupted.
 
 The woman is gone.
 
->
+> look
+
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
 
 A medallion is here.
 
->I pick up the medallion.
+> take medallion
+I pick up the medallion.
 
->I put on the medallion.
+> wear medallion
+I put on the medallion.
 
->I move north.
+> north
+I move north.
 
 Field
 Yellow grass, about knee-high, all around me. This is the end of the trail.
 
 Here lies a large gate (north).
 
->(Your score has increased by 5)
+> open gate
+(Your score has increased by 5)
 I put my hands on the gate and push. It opens slowly. I don't have the
 strength to ensure that it opens completely. The gas mask filter seems to be
 filled up. I cannot breathe anymore. I put my hands to my neck and stumble
@@ -595,7 +677,9 @@ into the north wall. There is no visible door.
 A voice out of thin air: "I didn't expect this at all."
 
 >
->
+
+> look
+
 Cell 1
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 1 painted
@@ -605,13 +689,15 @@ into the north wall. There is no visible door.
 
 I look around for the source of the voice, but see nothing.
 
->
+> look
+
 Cell 1
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 1 painted
 into the north wall. There is no visible door.
 
->
+> look
+
 Cell 1
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 1 painted
@@ -626,13 +712,15 @@ seen a colored person before."
 
 "Please never say 'colored person' again."
 
->
+> look
+
 Cell 1
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 1 painted
 into the north wall. There is no visible door.
 
->
+> look
+
 Cell 1
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 1 painted
@@ -652,7 +740,8 @@ Still others--"
 
 "Can you drop the science fiction act, please?"
 
->
+> look
+
 Cell 1
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 1 painted
@@ -673,7 +762,8 @@ our fortune that they are mostly indifferent."
 yours. You are currently in a compound in our village. We let you live
 because you may have fulfilled the prophecy."
 
->
+> look
+
 Cell 1
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 1 painted
@@ -689,13 +779,15 @@ least once' because they sometimes revive us just so they can have the
 pleasure of killing or torturing or working us again. You didn't die so you
 must be special."
 
->
+> look
+
 Cell 1
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 1 painted
 into the north wall. There is no visible door.
 
->
+> look
+
 Cell 1
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 1 painted
@@ -711,7 +803,8 @@ luck."
 
 The ceiling opens and a box falls out of it, hitting the ground with a thud.
 
->
+> look
+
 Cell 1
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 1 painted
@@ -719,9 +812,11 @@ into the north wall. There is no visible door.
 
 Also here is a blue box.
 
->I close the blue box.
+> close blue box
+I close the blue box.
 
->
+> look
+
 Cell 1
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 1 painted
@@ -729,7 +824,8 @@ into the north wall. There is no visible door.
 
 Also here is a blue box.
 
->
+> look
+
 Cell 1
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 1 painted
@@ -737,7 +833,8 @@ into the north wall. There is no visible door.
 
 Also here is a blue box.
 
->
+> look
+
 Cell 1
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 1 painted
@@ -745,7 +842,8 @@ into the north wall. There is no visible door.
 
 Also here is a blue box.
 
->
+> look
+
 Cell 1
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 1 painted
@@ -757,7 +855,8 @@ Also here is a blue box.
 
 There is a beeping sound in the background.
 
->
+> look
+
 Cell 1
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 1 painted
@@ -765,7 +864,8 @@ into the north wall. There is no visible door.
 
 Also here is a blue box.
 
->
+> look
+
 Cell 1
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 1 painted
@@ -776,10 +876,15 @@ Also here is a blue box.
 I hear a beeping noise.
 
 >
+
 >
+
 >
+
 >
->(Your score has increased by 3)
+
+> look
+(Your score has increased by 3)
 
 Cell 1
 Metal walls on all sides, no padding, and a single dim light: that is what
@@ -813,7 +918,8 @@ I say, "Where is your voice coming from?"
 "You think I'm communicating to you verbally? What time are you from?
 Non-verbal communication is common knowledge here, even among us."
 
->
+> look
+
 Cell 2
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 2 painted
@@ -821,7 +927,8 @@ into the north wall. There is no visible door.
 
 Also here is a blanket.
 
->
+> look
+
 Cell 2
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 2 painted
@@ -837,7 +944,8 @@ work...whatever you have to do. The only limit to morality is the limit to
 what you can get away with, and in this world, you can get away with
 anything."
 
->
+> look
+
 Cell 2
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 2 painted
@@ -845,7 +953,8 @@ into the north wall. There is no visible door.
 
 Also here is a blanket.
 
->
+> look
+
 Cell 2
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 2 painted
@@ -860,7 +969,8 @@ Riven worked my son. My son was five. Do you understand that? The only reason
 I tell you this is because there is no God here. Let that sink in. I am going
 to need you to really understand that."
 
->
+> look
+
 Cell 2
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 2 painted
@@ -872,7 +982,8 @@ Also here is a blanket.
 
 A box appears in the corner.
 
->
+> look
+
 Cell 2
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 2 painted
@@ -880,9 +991,11 @@ into the north wall. There is no visible door.
 
 Also here is a red box and a blanket.
 
->I pick up the blanket.
+> take blanket
+I pick up the blanket.
 
->
+> look
+
 Cell 2
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 2 painted
@@ -890,7 +1003,8 @@ into the north wall. There is no visible door.
 
 Also here is a red box.
 
->
+> look
+
 Cell 2
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 2 painted
@@ -898,7 +1012,8 @@ into the north wall. There is no visible door.
 
 Also here is a red box.
 
->
+> look
+
 Cell 2
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 2 painted
@@ -906,7 +1021,8 @@ into the north wall. There is no visible door.
 
 Also here is a red box.
 
->
+> look
+
 Cell 2
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 2 painted
@@ -914,7 +1030,8 @@ into the north wall. There is no visible door.
 
 Also here is a red box.
 
->
+> look
+
 Cell 2
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 2 painted
@@ -922,7 +1039,8 @@ into the north wall. There is no visible door.
 
 Also here is a red box.
 
->
+> look
+
 Cell 2
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 2 painted
@@ -930,7 +1048,8 @@ into the north wall. There is no visible door.
 
 Also here is a red box.
 
->
+> look
+
 Cell 2
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 2 painted
@@ -938,7 +1057,8 @@ into the north wall. There is no visible door.
 
 Also here is a red box.
 
->
+> look
+
 Cell 2
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 2 painted
@@ -946,11 +1066,14 @@ into the north wall. There is no visible door.
 
 Also here is a red box.
 
->I open the red box.  A child is inside the red box.
+> open red box
+I open the red box.  A child is inside the red box.
 
->I take the child from the red box.
+> take child
+I take the child from the red box.
 
->(Your score has increased by 3)
+> use blanket on child
+(Your score has increased by 3)
 I wrap the child in the blanket. He stops shivering.
 
 I think back to when I was raising Cody. He was my only son, and the best one
@@ -980,13 +1103,15 @@ mental illness, you know."
 
 I can't stop crying.
 
->
+> look
+
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
 into the north wall. There is no visible door.
 
->
+> look
+
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
@@ -996,13 +1121,15 @@ into the north wall. There is no visible door.
 hologram. Really, the child is behind a wall, here, safe with me. It's
 playing right now."
 
->
+> look
+
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
 into the north wall. There is no visible door.
 
->
+> look
+
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
@@ -1019,13 +1146,15 @@ the life on every planet except one, so that those beings on that one planet
 would think that their lives had a special purpose or meaning. They don't.
 They're just lucky enough to be alive."
 
->
+> look
+
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
 into the north wall. There is no visible door.
 
->
+> look
+
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
@@ -1038,7 +1167,8 @@ Consider this next box a step toward reconciliation."
 
 A box appears out of nowhere.
 
->
+> look
+
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
@@ -1046,7 +1176,8 @@ into the north wall. There is no visible door.
 
 Also here is a purple box.
 
->
+> look
+
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
@@ -1054,7 +1185,8 @@ into the north wall. There is no visible door.
 
 Also here is a purple box.
 
->
+> look
+
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
@@ -1062,7 +1194,8 @@ into the north wall. There is no visible door.
 
 Also here is a purple box.
 
->
+> look
+
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
@@ -1070,7 +1203,8 @@ into the north wall. There is no visible door.
 
 Also here is a purple box.
 
->
+> look
+
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
@@ -1078,7 +1212,8 @@ into the north wall. There is no visible door.
 
 Also here is a purple box.
 
->
+> look
+
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
@@ -1086,7 +1221,8 @@ into the north wall. There is no visible door.
 
 Also here is a purple box.
 
->
+> look
+
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
@@ -1094,7 +1230,8 @@ into the north wall. There is no visible door.
 
 Also here is a purple box.
 
->
+> look
+
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
@@ -1102,7 +1239,8 @@ into the north wall. There is no visible door.
 
 Also here is a purple box.
 
->
+> look
+
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
@@ -1110,7 +1248,8 @@ into the north wall. There is no visible door.
 
 Also here is a purple box.
 
->
+> look
+
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
@@ -1118,7 +1257,8 @@ into the north wall. There is no visible door.
 
 Also here is a purple box.
 
->
+> look
+
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
@@ -1126,7 +1266,8 @@ into the north wall. There is no visible door.
 
 Also here is a purple box.
 
->
+> look
+
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
@@ -1134,7 +1275,8 @@ into the north wall. There is no visible door.
 
 Also here is a purple box.
 
->
+> look
+
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
@@ -1142,7 +1284,8 @@ into the north wall. There is no visible door.
 
 Also here is a purple box.
 
->
+> look
+
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
@@ -1150,7 +1293,8 @@ into the north wall. There is no visible door.
 
 Also here is a purple box.
 
->
+> look
+
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
@@ -1158,7 +1302,8 @@ into the north wall. There is no visible door.
 
 Also here is a purple box.
 
->
+> look
+
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
@@ -1166,7 +1311,8 @@ into the north wall. There is no visible door.
 
 Also here is a purple box.
 
->I open the box.
+> open box
+I open the box.
 
 It's the boy. He's alive.
 
@@ -1192,7 +1338,8 @@ Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 4 painted
 into the north wall. There is no visible door.
 
->
+> look
+
 Cell 4
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 4 painted
@@ -1211,13 +1358,15 @@ for a year."
 
 "Look, that's all I know."
 
->
+> look
+
 Cell 4
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 4 painted
 into the north wall. There is no visible door.
 
->
+> look
+
 Cell 4
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 4 painted
@@ -1238,7 +1387,8 @@ have to live in this hellish place. If we could escape this horrible world,
 we could live in a place where kindness and generosity were viable options.
 And you would get back to your son."
 
->
+> look
+
 Cell 4
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 4 painted
@@ -1257,13 +1407,15 @@ your son's name?"
 
 [Use the format his name is such-and-such.]
 
->
+> look
+
 Cell 4
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 4 painted
 into the north wall. There is no visible door.
 
->"shane, eh? Okay. Trial passed."
+> his name is Shane
+"shane, eh? Okay. Trial passed."
 
 I think he chuckled. There's giggling in the background.
 
@@ -1289,7 +1441,8 @@ be like ice in a desert."
 
 This is starting to sound like a suicide mission.
 
->
+> look
+
 Cell 5
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 5 painted
@@ -1300,13 +1453,15 @@ lower-grade Highers. It won't kill them, or even damage them; it will only
 direct their attention to something else. That's the best you can help for in
 this world. There is no real possibilty of killing or even crippling them."
 
->
+> look
+
 Cell 5
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 5 painted
 into the north wall. There is no visible door.
 
->
+> look
+
 Cell 5
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 5 painted
@@ -1319,13 +1474,15 @@ the only chance they have of escaping this place. Someone knows who you are;
 you were flagged not-to-be-killed as soon as you got on this planet. It is
 probably a high ranking Higher."
 
->
+> look
+
 Cell 5
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 5 painted
 into the north wall. There is no visible door.
 
->
+> look
+
 Cell 5
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 5 painted
@@ -1346,7 +1503,8 @@ colors. Order them according to vividness, or visibility: the most visible
 should contain all the others; the least visible should contain no other orb.
 When you are done, shout. And don't get it wrong, if you do."
 
->
+> look
+
 Cell 5
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 5 painted
@@ -1354,7 +1512,8 @@ into the north wall. There is no visible door.
 
 Also here is a blank box.
 
->
+> look
+
 Cell 5
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 5 painted
@@ -1362,7 +1521,8 @@ into the north wall. There is no visible door.
 
 Also here is a blank box.
 
->
+> look
+
 Cell 5
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 5 painted
@@ -1370,7 +1530,8 @@ into the north wall. There is no visible door.
 
 Also here is a blank box.
 
->
+> look
+
 Cell 5
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 5 painted
@@ -1378,7 +1539,8 @@ into the north wall. There is no visible door.
 
 Also here is a blank box.
 
->
+> look
+
 Cell 5
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 5 painted
@@ -1386,7 +1548,8 @@ into the north wall. There is no visible door.
 
 Also here is a blank box.
 
->
+> look
+
 Cell 5
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 5 painted
@@ -1394,36 +1557,51 @@ into the north wall. There is no visible door.
 
 Also here is a blank box.
 
->I open the blank box.  Inside the blank box is a red orb, an orange orb, a
+> open blank box
+I open the blank box.  Inside the blank box is a red orb, an orange orb, a
 yellow orb, a green orb, a blue orb, an indigo orb and a violet orb.
 
->I take the red orb from the blank box.
+> take red orb
+I take the red orb from the blank box.
 
->I take the orange orb from the blank box.
+> take orange orb
+I take the orange orb from the blank box.
 
->I take the yellow orb from the blank box.
+> take yellow orb
+I take the yellow orb from the blank box.
 
->I take the green orb from the blank box.
+> take green orb
+I take the green orb from the blank box.
 
->I take the blue orb from the blank box.
+> take blue orb
+I take the blue orb from the blank box.
 
->I take the indigo orb from the blank box.
+> take indigo orb
+I take the indigo orb from the blank box.
 
->I take the violet orb from the blank box.
+> take violet orb
+I take the violet orb from the blank box.
 
->I put the violet orb inside the indigo orb.
+> put violet orb in indigo orb
+I put the violet orb inside the indigo orb.
 
->I put the indigo orb inside the blue orb.
+> put indigo orb in blue orb
+I put the indigo orb inside the blue orb.
 
->I put the blue orb inside the green orb.
+> put blue orb in green orb
+I put the blue orb inside the green orb.
 
->I put the green orb inside the yellow orb.
+> put green orb in yellow orb
+I put the green orb inside the yellow orb.
 
->I put the yellow orb inside the orange orb.
+> put yellow orb in orange orb
+I put the yellow orb inside the orange orb.
 
->I put the orange orb inside the red orb.
+> put orange orb in red orb
+I put the orange orb inside the red orb.
 
->(Your score has increased by 3)
+> shout
+(Your score has increased by 3)
 "I am proud of you. Just one more trial."
 
 Thanks, I...can't breathe.
@@ -1441,13 +1619,15 @@ into the north wall. There is no visible door.
 
 "I am excited. No one has ever made it this far."
 
->
+> look
+
 Cell 6
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 6 painted
 into the north wall. There is no visible door.
 
->
+> look
+
 Cell 6
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 6 painted
@@ -1459,13 +1639,15 @@ serious interest in human affairs. He practices an old art which seeks total
 understanding of the universe, including mere sapients like us. And to get to
 him, you have to go through people who want to kill you."
 
->
+> look
+
 Cell 6
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 6 painted
 into the north wall. There is no visible door.
 
->
+> look
+
 Cell 6
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 6 painted
@@ -1483,7 +1665,8 @@ Are you sending me off to fight already?
 
 "No. First, I want you to meet someone."
 
->
+> look
+
 Cell 6
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 6 painted
@@ -1500,7 +1683,8 @@ A man materializes before me.
 
 I think they are appearing out of thin air.
 
->
+> look
+
 Cell 6
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 6 painted
@@ -1508,36 +1692,8 @@ into the north wall. There is no visible door.
 
 Also here is a green box.
 
->
-Cell 6
-Metal walls on all sides, no padding, and a single dim light: that is what
-this room is. The only distinct thing about it is the big numeral 6 painted
-into the north wall. There is no visible door.
+> look
 
-Also here is a green box.
-Chip is here.
-Chip hits you.
-
->
-Cell 6
-Metal walls on all sides, no padding, and a single dim light: that is what
-this room is. The only distinct thing about it is the big numeral 6 painted
-into the north wall. There is no visible door.
-
-Also here is a green box.
-Chip is here.
-
->
-Cell 6
-Metal walls on all sides, no padding, and a single dim light: that is what
-this room is. The only distinct thing about it is the big numeral 6 painted
-into the north wall. There is no visible door.
-
-Also here is a green box.
-Chip is here.
-Chip hits you, but it doesn't seem to do any damage.
-
->
 Cell 6
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 6 painted
@@ -1547,7 +1703,18 @@ Also here is a green box.
 Chip is here.
 Chip hits you.
 
->
+> look
+
+Cell 6
+Metal walls on all sides, no padding, and a single dim light: that is what
+this room is. The only distinct thing about it is the big numeral 6 painted
+into the north wall. There is no visible door.
+
+Also here is a green box.
+Chip is here.
+
+> look
+
 Cell 6
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 6 painted
@@ -1557,7 +1724,8 @@ Also here is a green box.
 Chip is here.
 Chip hits you, but it doesn't seem to do any damage.
 
->
+> look
+
 Cell 6
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 6 painted
@@ -1567,7 +1735,30 @@ Also here is a green box.
 Chip is here.
 Chip hits you.
 
->
+> look
+
+Cell 6
+Metal walls on all sides, no padding, and a single dim light: that is what
+this room is. The only distinct thing about it is the big numeral 6 painted
+into the north wall. There is no visible door.
+
+Also here is a green box.
+Chip is here.
+Chip hits you, but it doesn't seem to do any damage.
+
+> look
+
+Cell 6
+Metal walls on all sides, no padding, and a single dim light: that is what
+this room is. The only distinct thing about it is the big numeral 6 painted
+into the north wall. There is no visible door.
+
+Also here is a green box.
+Chip is here.
+Chip hits you.
+
+> look
+
 Cell 6
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 6 painted
@@ -1576,39 +1767,52 @@ into the north wall. There is no visible door.
 Also here is a green box.
 Chip is here.
 
->I open the green box.  A lighter is inside the green box.
+> open green box
+I open the green box.  A lighter is inside the green box.
 Chip hits you.
 
->I take the lighter from the green box.
+> take lighter
+I take the lighter from the green box.
 
->You throw the lighter at Chip.
+> attack chip
+You throw the lighter at Chip.
 Chip hits you, but it doesn't seem to do any damage.
 
->I pick up the lighter.
+> take lighter
+I pick up the lighter.
 Chip hits you, but it doesn't seem to do any damage.
 
->You throw the lighter at Chip.
+> attack chip
+You throw the lighter at Chip.
 Chip hits you, but it doesn't seem to do any damage.
 
->I pick up the lighter.
+> take lighter
+I pick up the lighter.
 Chip hits you, but it doesn't seem to do any damage.
 
->You throw the lighter at Chip.
+> attack chip
+You throw the lighter at Chip.
 
->I pick up the lighter.
+> take lighter
+I pick up the lighter.
 Chip hits you.
 
->You throw the lighter at Chip.
+> attack chip
+You throw the lighter at Chip.
 
->I pick up the lighter.
+> take lighter
+I pick up the lighter.
 Chip hits you, but it doesn't seem to do any damage.
 
->You throw the lighter at Chip.
+> attack chip
+You throw the lighter at Chip.
 Chip hits you, but it doesn't seem to do any damage.
 
->I pick up the lighter.
+> take lighter
+I pick up the lighter.
 
->(Your score has increased by 5)
+> attack chip
+(Your score has increased by 5)
 You throw the lighter at Chip.
 "Good job."
 
@@ -1674,10 +1878,12 @@ My skin gets unusually warm for a second. It feels like it's burning.
 
 It thunders in the distance. Streaks of green lightning are in the sky.
 
->(Your score has increased by 15)
+> hard
+(Your score has increased by 15)
 Hard difficulty level selected.
 
->I move north.
+> north
+I move north.
 
 The Death
 Blue rays or light illuminate the landscape from underneath me. Above, a
@@ -1702,24 +1908,28 @@ Tippant hits Ozgat.
 Ozgat manages to avoid Donna's attack.
 Ozgat manages to avoid Chip's attack.
 
->You throw the lighter at Ozgat.
+> attack ozgat
+You throw the lighter at Ozgat.
 Ozgat hits Lina.
 Scotty hits Ozgat.
 Ozgat manages to avoid Chip's attack.
 
->I pick up the lighter.
+> take lighter
+I pick up the lighter.
 Ozgat hits Donna.
 Lina hits Ozgat.
 Scotty hits Ozgat, but it doesn't seem to do any damage.
 Ozgat manages to avoid Donna's attack.
 
->You throw the lighter at Ozgat.
+> attack ozgat
+You throw the lighter at Ozgat.
 Ozgat hits you.
 Lina hits Ozgat.
 Scotty hits Ozgat, but it doesn't seem to do any damage.
 Ozgat manages to avoid Chip's attack.
 
->I pick up the lighter.
+> take lighter
+I pick up the lighter.
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
@@ -1736,32 +1946,40 @@ Scotty hits Ozgat.
 The ozgat explodes, flinging sharp metal fragments at my party. Everyone
 suffers damage.
 
->I don't understand what you mean.
+> attack ozgat
+I don't understand what you mean.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Rain comes down in large, thick globs. It also come up from the ground;
 smaller pellets escape through holes in the ground.
 
->I don't understand what you mean.
+> attack ozgat
+I don't understand what you mean.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 The sound of knives scraping against glass reverberate across the landscape.
 
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
 
->I don't understand what you mean.
+> attack ozgat
+I don't understand what you mean.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
 
->I don't understand what you mean.
+> attack ozgat
+I don't understand what you mean.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 I do not feel the ground underneath me. I look down and see that I am
 floating. I am lifted almost two meters off of the ground before I stop
@@ -1769,21 +1987,26 @@ floating and go crashing to the ground.
 
 My skin gets unusually warm for a second. It feels like it's burning.
 
->I don't understand what you mean.
+> attack ozgat
+I don't understand what you mean.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
 
->I don't understand what you mean.
+> attack ozgat
+I don't understand what you mean.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
 the ground long enough for it to calm to a breeze.
 
->I move east.
+> east
+I move east.
 
 The Death
 Blue rays or light illuminate the landscape from underneath me. Above, a
@@ -1801,7 +2024,8 @@ purple substance. I wipe my mouth.
 Lina hits Riven.
 Scotty hits Riven.
 
->You throw the lighter at Riven.
+> attack riven
+You throw the lighter at Riven.
 Lina hits Riven.
 Scotty hits Riven, but it doesn't seem to do any damage.
 Tippant hits Riven.
@@ -1809,7 +2033,8 @@ Donna hits Riven.
 Riven manages to avoid Chip's attack.
 Riven hits Donna.
 
->I pick up the lighter.
+> take lighter
+I pick up the lighter.
 
 The sound of knives scraping against glass reverberate across the landscape.
 
@@ -1818,7 +2043,8 @@ is spreading all over my body.
 Scotty hits Riven, but it doesn't seem to do any damage.
 Riven manages to avoid Chip's attack.
 
->You throw the lighter at Riven.
+> attack riven
+You throw the lighter at Riven.
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
@@ -1829,7 +2055,8 @@ Donna hits Riven.
 The riven falls to the ground, defeated. The surface of the earth absorbs its
 body, and soon there is no trace of it.
 
->I pick up the lighter.
+> take lighter
+I pick up the lighter.
 
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
@@ -1844,27 +2071,35 @@ before...with a plastic gloss.
 
 It thunders in the distance. Streaks of green lightning are in the sky.
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 I do not feel the ground underneath me. I look down and see that I am
 floating. I am lifted almost two meters off of the ground before I stop
@@ -1872,18 +2107,22 @@ floating and go crashing to the ground.
 
 My skin gets unusually warm for a second. It feels like it's burning.
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 The sound of knives scraping against glass reverberate across the landscape.
 
 Rain comes down in large, thick globs. It also come up from the ground;
 smaller pellets escape through holes in the ground.
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
@@ -1891,7 +2130,8 @@ engine is right next to me.
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
 
->I move north.
+> north
+I move north.
 
 The Death
 Blue rays or light illuminate the landscape from underneath me. Above, a
@@ -1907,7 +2147,8 @@ Chip hits Riven, but it doesn't seem to do any damage.
 Ozgat hits Scotty.
 Lina manages to avoid Riven's attack.
 
->You throw the lighter at Ozgat.
+> attack ozgat
+You throw the lighter at Ozgat.
 
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
@@ -1917,7 +2158,8 @@ purple substance. I wipe my mouth.
 Scotty hits Riven, but it doesn't seem to do any damage.
 Donna manages to avoid Ozgat's attack.
 
->I pick up the lighter.
+> take lighter
+I pick up the lighter.
 Lina hits Ozgat.
 Scotty hits Ozgat.
 Tippant hits Riven.
@@ -1926,7 +2168,8 @@ Ozgat manages to avoid Chip's attack.
 Ozgat hits Donna.
 You manage to avoid Riven's attack.
 
->You throw the lighter at Riven.
+> attack riven
+You throw the lighter at Riven.
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
@@ -1940,7 +2183,8 @@ Lina hits Ozgat.
 Scotty hits Riven, but it doesn't seem to do any damage.
 Ozgat hits Tippant.
 
->I pick up the lighter.
+> take lighter
+I pick up the lighter.
 Lina hits Ozgat.
 Scotty hits Riven, but it doesn't seem to do any damage.
 Riven manages to avoid Donna's attack.
@@ -1948,7 +2192,8 @@ Chip hits Riven, but it doesn't seem to do any damage.
 Ozgat hits you.
 Scotty manages to avoid Riven's attack.
 
->You throw the lighter at Ozgat.
+> attack ozgat
+You throw the lighter at Ozgat.
 
 The ozgat explodes, flinging sharp metal fragments at my party. Everyone
 suffers damage.
@@ -1961,14 +2206,16 @@ desperation and I stand up.
 Lina hits Riven.
 Scotty hits Riven, but it doesn't seem to do any damage.
 
->I pick up the lighter.
+> take lighter
+I pick up the lighter.
 Scotty hits Riven, but it doesn't seem to do any damage.
 Tippant hits Riven.
 Donna hits Riven.
 Riven manages to avoid Chip's attack.
 Lina manages to avoid Riven's attack.
 
->You throw the lighter at Riven.
+> attack riven
+You throw the lighter at Riven.
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
@@ -1980,7 +2227,8 @@ Lina hits Riven.
 The riven falls to the ground, defeated. The surface of the earth absorbs its
 body, and soon there is no trace of it.
 
->I pick up the lighter.
+> take lighter
+I pick up the lighter.
 
 Thick fog envelopes me and my surroundings. My vision is obscured for a short
 time...and then the smoke vanishes, and everything before me is clearer than
@@ -1988,9 +2236,11 @@ before...with a plastic gloss.
 
 It thunders in the distance. Streaks of green lightning are in the sky.
 
->I don't understand what you mean.
+> attack ozgat
+I don't understand what you mean.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
@@ -2001,16 +2251,20 @@ floating and go crashing to the ground.
 
 My skin gets unusually warm for a second. It feels like it's burning.
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
 
->I don't understand what you mean.
+> attack ozgat
+I don't understand what you mean.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
@@ -2018,19 +2272,25 @@ back, louder than ever.
 I lapse into a coughing fit, unable to control myself. I cough up a thick
 purple substance. I wipe my mouth.
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
->I don't understand what you mean.
+> attack ozgat
+I don't understand what you mean.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 The sound of knives scraping against glass reverberate across the landscape.
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
@@ -2038,17 +2298,21 @@ is spreading all over my body.
 Rain comes down in large, thick globs. It also come up from the ground;
 smaller pellets escape through holes in the ground.
 
->I don't understand what you mean.
+> attack ozgat
+I don't understand what you mean.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 I hear a popping noise, and suddenly all the air is sucked from my lungs. I
 drop to the ground, clutching at my neck. The air returns after seconds of
 desperation and I stand up.
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
@@ -2056,20 +2320,26 @@ engine is right next to me.
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
 
->I don't understand what you mean.
+> attack ozgat
+I don't understand what you mean.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
->I don't understand what you mean.
+> attack ozgat
+I don't understand what you mean.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 I do not feel the ground underneath me. I look down and see that I am
 floating. I am lifted almost two meters off of the ground before I stop
@@ -2080,14 +2350,17 @@ My skin gets unusually warm for a second. It feels like it's burning.
 Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
 the ground long enough for it to calm to a breeze.
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
 
->I move east.
+> east
+I move east.
 
 The Death
 Blue rays or light illuminate the landscape from underneath me. Above, a
@@ -2101,14 +2374,16 @@ Also here is a double-lighter.
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
 
->I pick up the double-lighter.
+> take double-lighter
+I pick up the double-lighter.
 
 The sound of knives scraping against glass reverberate across the landscape.
 
 I lapse into a coughing fit, unable to control myself. I cough up a thick
 purple substance. I wipe my mouth.
 
->I move west.
+> west
+I move west.
 
 The Death
 Blue rays or light illuminate the landscape from underneath me. Above, a
@@ -2120,9 +2395,11 @@ same...but everything is so different. It is not clear where I can go.
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
 
->I don't understand what you mean.
+> attack ozgat
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 Thick fog envelopes me and my surroundings. My vision is obscured for a short
 time...and then the smoke vanishes, and everything before me is clearer than
@@ -2130,14 +2407,17 @@ before...with a plastic gloss.
 
 It thunders in the distance. Streaks of green lightning are in the sky.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
@@ -2146,20 +2426,26 @@ I hear a popping noise, and suddenly all the air is sucked from my lungs. I
 drop to the ground, clutching at my neck. The air returns after seconds of
 desperation and I stand up.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
->I don't understand what you mean.
+> attack ozgat
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
@@ -2173,18 +2459,22 @@ My skin gets unusually warm for a second. It feels like it's burning.
 Rain comes down in large, thick globs. It also come up from the ground;
 smaller pellets escape through holes in the ground.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 The sound of knives scraping against glass reverberate across the landscape.
 
->I don't understand what you mean.
+> attack ozgat
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
@@ -2192,11 +2482,14 @@ engine is right next to me.
 I lapse into a coughing fit, unable to control myself. I cough up a thick
 purple substance. I wipe my mouth.
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
@@ -2204,11 +2497,14 @@ sand-like nature. I barely avoid it.
 Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
 the ground long enough for it to calm to a breeze.
 
->I don't understand what you mean.
+> attack ozgat
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
@@ -2217,20 +2513,25 @@ I hear a popping noise, and suddenly all the air is sucked from my lungs. I
 drop to the ground, clutching at my neck. The air returns after seconds of
 desperation and I stand up.
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 The sound of knives scraping against glass reverberate across the landscape.
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
 
->I don't understand what you mean.
+> attack ozgat
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
@@ -2241,7 +2542,8 @@ before...with a plastic gloss.
 
 It thunders in the distance. Streaks of green lightning are in the sky.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
@@ -2252,18 +2554,23 @@ floating and go crashing to the ground.
 
 My skin gets unusually warm for a second. It feels like it's burning.
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
->I don't understand what you mean.
+> attack ozgat
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
@@ -2271,11 +2578,14 @@ back, louder than ever.
 I lapse into a coughing fit, unable to control myself. I cough up a thick
 purple substance. I wipe my mouth.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 The sound of knives scraping against glass reverberate across the landscape.
 
@@ -2285,14 +2595,17 @@ is spreading all over my body.
 Rain comes down in large, thick globs. It also come up from the ground;
 smaller pellets escape through holes in the ground.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
 
->I don't understand what you mean.
+> attack ozgat
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
@@ -2301,13 +2614,17 @@ I hear a popping noise, and suddenly all the air is sucked from my lungs. I
 drop to the ground, clutching at my neck. The air returns after seconds of
 desperation and I stand up.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
@@ -2318,9 +2635,11 @@ sand-like nature. I barely avoid it.
 Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
 the ground long enough for it to calm to a breeze.
 
->I don't understand what you mean.
+> attack ozgat
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 I do not feel the ground underneath me. I look down and see that I am
 floating. I am lifted almost two meters off of the ground before I stop
@@ -2328,23 +2647,28 @@ floating and go crashing to the ground.
 
 My skin gets unusually warm for a second. It feels like it's burning.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 The sound of knives scraping against glass reverberate across the landscape.
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
 
->I move west.
+> west
+I move west.
 
 The Death
 Blue rays or light illuminate the landscape from underneath me. Above, a
@@ -2369,7 +2693,8 @@ Red Riven manages to avoid Chip's attack.
 Red Riven hits Tippant.
 Lina manages to avoid Blue Riven's attack.
 
->Please be more clear, who do you want to attack?  Red Riven or Blue Riven?
+> attack riven
+Please be more clear, who do you want to attack?  Red Riven or Blue Riven?
 
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
@@ -2377,7 +2702,8 @@ Lina hits Red Riven.
 Scotty hits Red Riven, but it doesn't seem to do any damage.
 Chip hits Red Riven.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
@@ -2391,11 +2717,13 @@ Blue Riven manages to avoid Donna's attack.
 Scotty manages to avoid Red Riven's attack.
 Donna manages to avoid Blue Riven's attack.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 Scotty hits Red Riven, but it doesn't seem to do any damage.
 Chip hits Blue Riven, but it doesn't seem to do any damage.
 
->Please be more clear, who do you want to attack?  Red Riven or Blue Riven?
+> attack riven
+Please be more clear, who do you want to attack?  Red Riven or Blue Riven?
 
 The sound of knives scraping against glass reverberate across the landscape.
 
@@ -2408,14 +2736,16 @@ Red Riven manages to avoid Donna's attack.
 Scotty manages to avoid Red Riven's attack.
 You manage to avoid Blue Riven's attack.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 Rain comes down in large, thick globs. It also come up from the ground;
 smaller pellets escape through holes in the ground.
 Scotty hits Blue Riven.
 Chip hits Red Riven.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
@@ -2427,7 +2757,8 @@ Chip hits Red Riven.
 Scotty manages to avoid Red Riven's attack.
 You manage to avoid Blue Riven's attack.
 
->Please be more clear, who do you want to attack?  Red Riven or Blue Riven?
+> attack riven
+Please be more clear, who do you want to attack?  Red Riven or Blue Riven?
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
@@ -2435,7 +2766,8 @@ Lina hits Red Riven.
 Scotty hits Red Riven, but it doesn't seem to do any damage.
 Chip hits Blue Riven, but it doesn't seem to do any damage.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
@@ -2450,7 +2782,8 @@ Blue Riven manages to avoid Donna's attack.
 Scotty manages to avoid Red Riven's attack.
 Blue Riven hits Scotty.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 Lina hits Red Riven.
 
 The riven falls to the ground, defeated. The surface of the earth absorbs its
@@ -2461,14 +2794,17 @@ Chip hits Blue Riven.
 The riven falls to the ground, defeated. The surface of the earth absorbs its
 body, and soon there is no trace of it.
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
 the ground long enough for it to calm to a breeze.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
@@ -2476,25 +2812,31 @@ back, louder than ever.
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 I lapse into a coughing fit, unable to control myself. I cough up a thick
 purple substance. I wipe my mouth.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 The sound of knives scraping against glass reverberate across the landscape.
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
@@ -2505,29 +2847,36 @@ before...with a plastic gloss.
 
 It thunders in the distance. Streaks of green lightning are in the sky.
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 I hear a popping noise, and suddenly all the air is sucked from my lungs. I
 drop to the ground, clutching at my neck. The air returns after seconds of
 desperation and I stand up.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
->I move north.
+> north
+I move north.
 
 The Death
 Blue rays or light illuminate the landscape from underneath me. Above, a
@@ -2547,7 +2896,8 @@ floating and go crashing to the ground.
 
 My skin gets unusually warm for a second. It feels like it's burning.
 
->I move north.
+> north
+I move north.
 
 The Death
 Blue rays or light illuminate the landscape from underneath me. Above, a
@@ -2558,9 +2908,11 @@ same...but everything is so different. It is not clear where I can go.
 I feel a presence. A higher is here.
 Scotty hits Higher.
 
->What do you want to attack Higher with?
+> attack higher
+What do you want to attack Higher with?
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 I lapse into a coughing fit, unable to control myself. I cough up a thick
 purple substance. I wipe my mouth.
@@ -2574,15 +2926,18 @@ Donna hits Higher.
 Chip hits Higher.
 Higher hits Chip.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
 Scotty hits Higher.
 
->What do you want to attack Higher with?
+> attack higher
+What do you want to attack Higher with?
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
@@ -2591,13 +2946,16 @@ Scotty hits Higher.
 Donna hits Higher, but it doesn't seem to do any damage.
 Chip hits Higher, but it doesn't seem to do any damage.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 Scotty hits Higher, but it doesn't seem to do any damage.
 Chip hits Higher, but it doesn't seem to do any damage.
 
->What do you want to attack Higher with?
+> attack higher
+What do you want to attack Higher with?
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
@@ -2611,7 +2969,8 @@ Tippant hits Higher.
 Donna hits Higher.
 Chip manages to avoid Higher's attack.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
@@ -2623,20 +2982,25 @@ Chip hits Higher.
 
 I no longer detect the Higher's presence.
 
->I don't understand what you mean.
+> attack higher
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 The sound of knives scraping against glass reverberate across the landscape.
 
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
 
->I don't understand what you mean.
+> attack higher
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
@@ -2647,11 +3011,14 @@ floating and go crashing to the ground.
 
 My skin gets unusually warm for a second. It feels like it's burning.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
->I don't understand what you mean.
+> attack higher
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 I lapse into a coughing fit, unable to control myself. I cough up a thick
 purple substance. I wipe my mouth.
@@ -2662,26 +3029,32 @@ before...with a plastic gloss.
 
 It thunders in the distance. Streaks of green lightning are in the sky.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
 
->I don't understand what you mean.
+> attack higher
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
 
->I don't understand what you mean.
+> attack higher
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 The sound of knives scraping against glass reverberate across the landscape.
 
@@ -2689,9 +3062,11 @@ I hear a popping noise, and suddenly all the air is sucked from my lungs. I
 drop to the ground, clutching at my neck. The air returns after seconds of
 desperation and I stand up.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
->
+> look
+
 The Death
 Blue rays or light illuminate the landscape from underneath me. Above, a
 couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
@@ -2704,7 +3079,8 @@ Lina, Scotty, Tippant, Donna and Chip are here.
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
 
->I move northeast.
+> northeast
+I move northeast.
 
 The Death
 Blue rays or light illuminate the landscape from underneath me. Above, a
@@ -2724,9 +3100,11 @@ Scotty hits Higher, but it doesn't seem to do any damage.
 Chip hits Ozgat.
 Scotty manages to avoid Ozgat's attack.
 
->What do you want to attack Ozgat with?
+> attack ozgat
+What do you want to attack Ozgat with?
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 I do not feel the ground underneath me. I look down and see that I am
 floating. I am lifted almost two meters off of the ground before I stop
@@ -2739,15 +3117,18 @@ Donna hits Riven.
 Ozgat hits Donna.
 Riven hits Tippant.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 Lina hits Ozgat.
 Scotty hits Ozgat.
 Chip hits Higher.
 Ozgat hits you.
 
->What do you want to attack Higher with?
+> attack higher
+What do you want to attack Higher with?
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
@@ -2759,7 +3140,8 @@ Ozgat hits Donna.
 Higher hits Chip.
 Chip manages to avoid Riven's attack.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
@@ -2768,9 +3150,11 @@ Scotty hits Riven.
 Chip hits Ozgat, but it doesn't seem to do any damage.
 Scotty manages to avoid Ozgat's attack.
 
->What do you want to attack Riven with?
+> attack riven
+What do you want to attack Riven with?
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
@@ -2786,7 +3170,8 @@ Ozgat manages to avoid Donna's attack.
 Ozgat hits Chip.
 Riven hits Donna.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 The sound of knives scraping against glass reverberate across the landscape.
 Lina hits Ozgat.
@@ -2794,9 +3179,11 @@ Scotty hits Riven, but it doesn't seem to do any damage.
 Ozgat manages to avoid Chip's attack.
 Ozgat hits Chip.
 
->What do you want to attack Ozgat with?
+> attack ozgat
+What do you want to attack Ozgat with?
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
@@ -2808,7 +3195,8 @@ Ozgat hits Chip.
 Higher hits Lina.
 Donna manages to avoid Riven's attack.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
@@ -2817,9 +3205,11 @@ Scotty hits Ozgat, but it doesn't seem to do any damage.
 Chip hits Riven, but it doesn't seem to do any damage.
 Ozgat hits you.
 
->What do you want to attack Higher with?
+> attack higher
+What do you want to attack Higher with?
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 I hear a popping noise, and suddenly all the air is sucked from my lungs. I
 drop to the ground, clutching at my neck. The air returns after seconds of
@@ -2830,7 +3220,8 @@ Chip hits Higher, but it doesn't seem to do any damage.
 Ozgat hits Tippant.
 Riven hits Lina.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Thick fog envelopes me and my surroundings. My vision is obscured for a short
 time...and then the smoke vanishes, and everything before me is clearer than
@@ -2843,9 +3234,11 @@ The ozgat explodes, flinging sharp metal fragments at my party. Everyone
 suffers damage.
 Scotty hits Riven.
 
->What do you want to attack Riven with?
+> attack riven
+What do you want to attack Riven with?
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
@@ -2855,16 +3248,19 @@ Donna hits Higher.
 Higher hits Donna.
 Lina manages to avoid Riven's attack.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
 Lina hits Riven.
 Scotty hits Higher, but it doesn't seem to do any damage.
 
->I don't understand what you mean.
+> attack ozgat
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
@@ -2880,15 +3276,18 @@ The riven falls to the ground, defeated. The surface of the earth absorbs its
 body, and soon there is no trace of it.
 Higher manages to avoid Donna's attack.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 The sound of knives scraping against glass reverberate across the landscape.
 Lina hits Higher.
 Scotty hits Higher.
 
->What do you want to attack Higher with?
+> attack higher
+What do you want to attack Higher with?
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
@@ -2901,7 +3300,8 @@ Higher manages to avoid Tippant's attack.
 Donna hits Higher, but it doesn't seem to do any damage.
 Tippant manages to avoid Higher's attack.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
@@ -2911,19 +3311,24 @@ purple substance. I wipe my mouth.
 Lina hits Higher.
 Scotty hits Higher, but it doesn't seem to do any damage.
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 Lina hits Higher.
 Scotty hits Higher.
 Donna hits Higher, but it doesn't seem to do any damage.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 Scotty hits Higher, but it doesn't seem to do any damage.
 
->I don't understand what you mean.
+> attack ozgat
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
@@ -2933,7 +3338,8 @@ Tippant hits Higher.
 Donna hits Higher, but it doesn't seem to do any damage.
 Donna manages to avoid Higher's attack.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
@@ -2947,15 +3353,18 @@ the ground long enough for it to calm to a breeze.
 Lina hits Higher.
 Scotty hits Higher, but it doesn't seem to do any damage.
 
->What do you want to attack Higher with?
+> attack higher
+What do you want to attack Higher with?
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 The sound of knives scraping against glass reverberate across the landscape.
 Scotty hits Higher.
 Donna hits Higher, but it doesn't seem to do any damage.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
@@ -2965,16 +3374,19 @@ toothpicks are trying to make their way into my body.
 Lina hits Higher.
 Scotty hits Higher, but it doesn't seem to do any damage.
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 Lina hits Higher.
 Scotty hits Higher, but it doesn't seem to do any damage.
 Tippant hits Higher.
 Donna hits Higher, but it doesn't seem to do any damage.
 Higher hits Tippant.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
@@ -2987,9 +3399,11 @@ My skin gets unusually warm for a second. It feels like it's burning.
 Lina hits Higher.
 Scotty hits Higher.
 
->I don't understand what you mean.
+> attack ozgat
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 Thick fog envelopes me and my surroundings. My vision is obscured for a short
 time...and then the smoke vanishes, and everything before me is clearer than
@@ -3000,16 +3414,19 @@ Lina hits Higher.
 Scotty hits Higher, but it doesn't seem to do any damage.
 Donna hits Higher, but it doesn't seem to do any damage.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
 Lina hits Higher.
 Scotty hits Higher, but it doesn't seem to do any damage.
 
->What do you want to attack Higher with?
+> attack higher
+What do you want to attack Higher with?
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 
 I lapse into a coughing fit, unable to control myself. I cough up a thick
 purple substance. I wipe my mouth.
@@ -3018,7 +3435,8 @@ Tippant hits Higher, but it doesn't seem to do any damage.
 Donna hits Higher.
 Higher hits Lina.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 The sound of knives scraping against glass reverberate across the landscape.
 
@@ -3027,14 +3445,17 @@ is spreading all over my body.
 Lina hits Higher.
 Scotty hits Higher, but it doesn't seem to do any damage.
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->I've already got the double-lighter!
+> take double-lighter
+I've already got the double-lighter!
 Lina hits Higher.
 Scotty hits Higher.
 Donna hits Higher.
 
->I've already got the lighter!
+> take lighter
+I've already got the lighter!
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
@@ -3048,9 +3469,11 @@ Lina hits Higher.
 
 I no longer detect the Higher's presence.
 
->I don't understand what you mean.
+> attack ozgat
+I don't understand what you mean.
 
->(Your score has increased by 15)
+> take double-lighter
+(Your score has increased by 15)
 I've already got the double-lighter!
 
 I hear a popping noise, and suddenly all the air is sucked from my lungs. I
@@ -3092,543 +3515,662 @@ islands of black-brown masses which stink like hell.
 
 I can go north.
 
->Take what?
+> take lighter
+Take what?
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->Take what?
+> take double-lighter
+Take what?
 
->Take what?
+> take lighter
+Take what?
 
->I don't understand what you mean.
+> attack ozgat
+I don't understand what you mean.
 
->Take what?
+> take double-lighter
+Take what?
 
->Take what?
+> take lighter
+Take what?
 
->I don't understand what you mean.
+> attack higher
+I don't understand what you mean.
 
->Take what?
+> take double-lighter
+Take what?
 
->Take what?
+> take lighter
+Take what?
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->Take what?
+> take double-lighter
+Take what?
 
->Take what?
+> take lighter
+Take what?
 
->I don't understand what you mean.
+> attack ozgat
+I don't understand what you mean.
 
->Take what?
+> take double-lighter
+Take what?
 
->Take what?
+> take lighter
+Take what?
 
->I don't understand what you mean.
+> attack higher
+I don't understand what you mean.
 
->Take what?
+> take double-lighter
+Take what?
 
->Take what?
+> take lighter
+Take what?
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->Take what?
+> take double-lighter
+Take what?
 
->Take what?
+> take lighter
+Take what?
 
->I don't understand what you mean.
+> attack ozgat
+I don't understand what you mean.
 
->Take what?
+> take double-lighter
+Take what?
 
->Take what?
+> take lighter
+Take what?
 
->I don't understand what you mean.
+> attack higher
+I don't understand what you mean.
 
->Take what?
+> take double-lighter
+Take what?
 
->Take what?
+> take lighter
+Take what?
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->Take what?
+> take double-lighter
+Take what?
 
->Take what?
+> take lighter
+Take what?
 
->I don't understand what you mean.
+> attack ozgat
+I don't understand what you mean.
 
->Take what?
+> take double-lighter
+Take what?
 
->Take what?
+> take lighter
+Take what?
 
->I don't understand what you mean.
+> attack higher
+I don't understand what you mean.
 
->Take what?
+> take double-lighter
+Take what?
 
->Take what?
+> take lighter
+Take what?
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->Take what?
+> take double-lighter
+Take what?
 
->Take what?
+> take lighter
+Take what?
 
->I don't understand what you mean.
+> attack ozgat
+I don't understand what you mean.
 
->Take what?
+> take double-lighter
+Take what?
 
->Take what?
+> take lighter
+Take what?
 
->I don't understand what you mean.
+> attack higher
+I don't understand what you mean.
 
->Take what?
+> take double-lighter
+Take what?
 
->Take what?
+> take lighter
+Take what?
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->Take what?
+> take double-lighter
+Take what?
 
->Take what?
+> take lighter
+Take what?
 
->I don't understand what you mean.
+> attack ozgat
+I don't understand what you mean.
 
->Take what?
+> take double-lighter
+Take what?
 
->Take what?
+> take lighter
+Take what?
 
->I don't understand what you mean.
+> attack higher
+I don't understand what you mean.
 
->Take what?
+> take double-lighter
+Take what?
 
->Take what?
+> take lighter
+Take what?
 
->I don't understand what you mean.
+> attack riven
+I don't understand what you mean.
 
->Take what?
+> take double-lighter
+Take what?
 
->Take what?
+> take lighter
+Take what?
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
 
 I can go north.
 
->I move north.
+> north
+I move north.
 
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
@@ -3636,7 +4178,8 @@ islands of black-brown masses which stink like hell.
 
 I can go east and south.
 
->I move east.
+> east
+I move east.
 
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
@@ -3656,7 +4199,8 @@ Yes. That's exactly what I've been told.
 I regret to inform you that it's a lie. I cannot help you with any such
 things.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
@@ -3676,7 +4220,8 @@ could not guarantee such a result). I gave you the ability to interpret the
 languages we speak into your native language. You probably think the people
 here speak English. They don't. I have given you that ability.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
@@ -3692,7 +4237,8 @@ I cannot do that.
 But that does not mean you can't escape this place. You can. It's already
 within your ability. It's only ignorance and fear that stops you.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
@@ -3707,7 +4253,8 @@ You want your son to be alive. You get fearful and teary-eyed when thinking
 about his death. But your fear is misplaced. Your son is already dead. If not
 in this world, in another one.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
@@ -3722,7 +4269,8 @@ something-that-shouldn't-happen.
 
 But I am here to end your worries. That, I can do.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
@@ -3746,7 +4294,8 @@ location.
 "I'm not the same in those other worlds. I'm a different person! I want to be
 with him, in this world!" I shout.
 
->
+> look
+
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.

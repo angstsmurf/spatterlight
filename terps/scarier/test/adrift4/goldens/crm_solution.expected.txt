@@ -8,36 +8,45 @@ eyes. A voice booms into the theatre:
 
 It's time to make 'em laugh.
 
->You rip one of the springs out of the couch, and stick it in your pocket.
+> take spring
+You rip one of the springs out of the couch, and stick it in your pocket.
 
 The audience gasp in suspense, knowing this is going to be a good prank.
 
->You try to think of someone to call, but your mind comes up blank.
+> use phone
+You try to think of someone to call, but your mind comes up blank.
 
->You call the number, and tell them the address. Within seconds, an actor
+> dial 555-5555
+You call the number, and tell them the address. Within seconds, an actor
 dressed up as a courier walks onto the stage and hands you a banana.
 
 The audience wonders what funny prank you'll do with the banana.
 
->You reach onto the TV and take the matches.
+> take matches
+You reach onto the TV and take the matches.
 
->Jojo lets out a small growl as you try to distract him from his precious TV.
+> talk to jojo
+Jojo lets out a small growl as you try to distract him from his precious TV.
 
->The audience silently watches as you try to hit Jojo with the spring.
+> use spring on jojo
+The audience silently watches as you try to hit Jojo with the spring.
 
 Come on, you have to have better pranks than that!
 
->You try pushing and shoving the sofa to break it, but it doesn't work. The
+> push sofa
+You try pushing and shoving the sofa to break it, but it doesn't work. The
 audience sighs at the attempt.
 
->(Your score has increased by 5)
+> hit jojo
+(Your score has increased by 5)
 You walk right up to Jojo and slap him across the face. The audience breaks
 out into  laughter as Jojo screams out his famous line,  "Oy, That's a Spicy
 Meatball of Pain!"
 
 You can almost feel the ratings of the show go up by 5.
 
->You move north.
+> n
+You move north.
 
 Kitchen
 The kitchen set was created hastily, so it's not fully furnished. There's a
@@ -48,21 +57,26 @@ room.
 
 You can go South into the Living Room.
 
->You open the oven and pull out a nice warm pie from within.
+> open oven
+You open the oven and pull out a nice warm pie from within.
 
->While you can't take the glue out of the fridge, you could probably put
+> take glue
+While you can't take the glue out of the fridge, you could probably put
 something in the glue.
 
->"Looking for the best fruits? Just 'dial 555-5555' when you're near a phone,
+> read box
+"Looking for the best fruits? Just 'dial 555-5555' when you're near a phone,
 and we'll deliver a free banana for you to test within seconds!"
 
->You jam the spring into the glue, holding it in place. Now whenever someone
+> put spring on glue
+You jam the spring into the glue, holding it in place. Now whenever someone
 opens the fridge door, the spring pops out.
 
 The audience realizes where you're going with the prank, and wait expectedly
 for big laughs...
 
->(Your score has increased by 10)
+> put pie on spring
+(Your score has increased by 10)
 You screw the pan of the pie onto the spring, and shut the fridge door. You
 wink to the audience, and quickly run off stage as Jojo enters the room. The
 audience snickers as they wait for the trap to go off.
@@ -86,7 +100,8 @@ heap. You know this'll give you a big boom in ratings.
 Jojo finally runs into the bathroom set, and puts his face into the sink to
 put out the burning.
 
->You move south.
+> s
+You move south.
 
 Living Room
 The cheap living room set was created for one purpose: to play pranks on Jojo
@@ -97,7 +112,8 @@ large audience watching silently, waiting for a laugh.
 You can go North into the Kitchen, East into the Bathroom, or West into the
 Garage.
 
->You move east.
+> e
+You move east.
 
 Bathroom
 The small bathroom is hardly ever used on the show, so it's filled with
@@ -109,7 +125,8 @@ Jojo is currently standing over the sink, throwing water onto his face to
 stop the burning. A huge puddle of water has gathered around his furry feet,
 and around the toilet.
 
->You take one of the matches, and strike it up. The audience waits in silence
+> light toilet on fire
+You take one of the matches, and strike it up. The audience waits in silence
 to see what happens. You flick the match with your finger, and it hits the
 paper toilet. The toilet goes up in flames as you run out of the room. Jojo
 sees the fire and shrieks. He races for the door but slips on the puddle of
@@ -125,7 +142,8 @@ extinguisher. Jojo, now furless and heavily melted, slowly gets up and runs
 out of the room. He kicks down the door to the garage and gets into his car
 to attempt to escape.
 
->You move west.
+> w
+You move west.
 
 Living Room
 The cheap living room set was created for one purpose: to play pranks on Jojo
@@ -136,11 +154,14 @@ large audience watching silently, waiting for a laugh.
 You can go North into the Kitchen, East into the Bathroom, or West into the
 Garage.
 
->You go through the broken door into the garage.
+> w
+You go through the broken door into the garage.
 
->Nah, that'd take too long.
+> hit car
+Nah, that'd take too long.
 
->(Your score has increased by 10)
+> put banana in pipe
+(Your score has increased by 10)
 You jam the banana into the exhaust pipe, and wait. Radioactive monkey's must
 really be affected by Carbon Monoxide, because within seconds Jojo is
 coughing and trying to get out. It doesn't work though, and soon Jojo

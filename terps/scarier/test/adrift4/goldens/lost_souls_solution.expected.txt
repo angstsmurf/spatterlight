@@ -18,14 +18,16 @@ home alone," I spoke to him, trying to sound happy.
 
 He remained silent. Something was wrong...
 
->I move north.
+> n
+I move north.
 
 Thin Hallway
 I stepped into the thin hallway. Dark green wallpaper covered the walls, but
 most of it was ripped off, revealing the cement on the other side. There's a
 doorway to the East, and a steep set of stairs lead up to the next floor.
 
->I move east.
+> e
+I move east.
 
 Bathroom
 I gagged in disgust as I stepped into the bathroom. Blood covered the walls
@@ -35,22 +37,26 @@ the blood seemed to have been from a freshly mutilated body which sat on the
 toilet. I tried the sink to maybe wash some of the blood away, but the sink
 just made a grinding noise and nothing came out.
 
->I shuddered in disgust as I pulled the note away from the bloody body.
+> take note
+I shuddered in disgust as I pulled the note away from the bloody body.
 
->
+> read note
 
 If you are reading this, then you will be dead soon. Please pray to god.
 
->I winced as I pulled the plug out of the bloody sink.
+> take plug
+I winced as I pulled the plug out of the bloody sink.
 
->I move west.
+> w
+I move west.
 
 Thin Hallway
 I stepped into the thin hallway. Dark green wallpaper covered the walls, but
 most of it was ripped off, revealing the cement on the other side. There's a
 doorway to the East, and a steep set of stairs lead up to the next floor.
 
->I move up.
+> u
+I move up.
 
 Bedroom
 I got a chill as I climbed up the last stair into the creepy bedroom. It
@@ -59,19 +65,23 @@ sunlight into the room. A gothic looking bed sat in the middle of the room,
 with long arches stretching out of the posts and gargoyles perched at the top
 of them. A desk sat in the corner, dust covered it like clothing.
 
->I opened the desk and pulled out a notebook from inside.
+> open desk
+I opened the desk and pulled out a notebook from inside.
 
->There's only paragraph written in the whole notebook:
+> read notebook
+There's only paragraph written in the whole notebook:
 
 What is it? I don't know. It could be a person, an animal, a thing, or
 nothing it all. It could be in my mind. I have no idea where it came from,
 but it's there, below me. I've found a place to hide, high above where it is,
 but I can still hear it. Hopefully my hiding spot is good enough.
 
->I reached up and stuck the rubber plug into the hole. A perfect fit. I pulled
+> use plug on hole
+I reached up and stuck the rubber plug into the hole. A perfect fit. I pulled
 the panel down, revealing a secret room up above me.
 
->I move up.
+> u
+I move up.
 
 Attic
 The attic was quiet, like the rest of the house. The sight of a body lying on
@@ -81,20 +91,24 @@ a trunk near the body, it didn't look like it had been used for years. A
 window in the center of the back wall looked out into the vast wasteland
 outside, where even more death lay.
 
->The less I touch that body, the better.
+> search body
+The less I touch that body, the better.
 
->As I reached down to pull off one of the stickers, I noticed a key had been
+> take sticker
+As I reached down to pull off one of the stickers, I noticed a key had been
 hidden underneath one. Realizing that a key is more important than a sticker,
 I pocketed it.
 
->I've seen enough death on the battlefield. No one else has to die.
+> take rifle
+I've seen enough death on the battlefield. No one else has to die.
 
->I jammed the key into the lock and popped open the trunk. Looking inside, I
+> unlock trunk
+I jammed the key into the lock and popped open the trunk. Looking inside, I
 found nothing but crumbs from old food and scraps of papers. One caught my
 attention though, as it had some blood on it. I pulled it out and slammed the
 trunk shut.
 
->
+> read scrap of paper
 
 Marcus is dead. I have no idea what happened to him. I went downstairs to
 stock up on some food to keep hiding, and he was dead in the bathroom,
@@ -106,7 +120,8 @@ to die because of that thing...
 As I put the scrap of paper back in my satchel, I heard a gunshot erupt from
 somewhere downstairs.
 
->I move down.
+> d
+I move down.
 
 Bedroom
 I got a chill as I climbed up the last stair into the creepy bedroom. It
@@ -115,14 +130,16 @@ sunlight into the room. A gothic looking bed sat in the middle of the room,
 with long arches stretching out of the posts and gargoyles perched at the top
 of them. A desk sat in the corner, dust covered it like clothing.
 
->I move down.
+> d
+I move down.
 
 Thin Hallway
 I stepped into the thin hallway. Dark green wallpaper covered the walls, but
 most of it was ripped off, revealing the cement on the other side. There's a
 doorway to the East, and a steep set of stairs lead up to the next floor.
 
->I move south.
+> s
+I move south.
 
 Kitchen
 The small kitchen was completely empty, with piles of rubble spread across
@@ -131,7 +148,8 @@ lay hunched over the chair. A handgun sat on the floor beneath the chair, the
 same kind of gun that was missing from Stevens' holster. I could see a thin
 doorway to the North, and a small hatch in the floor caught my attention.
 
->I pulled open the hatch, revealing a ladder leading into the darkness
+> d
+I pulled open the hatch, revealing a ladder leading into the darkness
 below...
 
 Trembling in fear, I started my descent...
@@ -143,7 +161,7 @@ chance for retreat.
 
 My hands trembled...I had to open the door...
 
->
+> open door
 
 I opened the door and stepped inside the darkness...
 

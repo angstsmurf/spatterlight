@@ -11,22 +11,28 @@ Now you have to get out, before someone sticks something in there and
 bombards you with the radioactive waves that will come with it.  Hurry, if
 you don't get out soon you'll suffocate!
 
->You pick up the aluminum clothes.
+> take clothes
+You pick up the aluminum clothes.
 
->You put on the aluminum clothes.
+> wear clothes
+You put on the aluminum clothes.
 
->You pick up the shard of glass.
+> take glass
+You pick up the shard of glass.
 
->You bang on the microwave door, praying for someone to notice you.  A few
+> bang on door
+You bang on the microwave door, praying for someone to notice you.  A few
 moments pass, and a large hand opens the door!  The man which opens the door
 looks at you, and smirks.  "Ah, so it's my old enemy the little little man!"
 he says with a cackle.  The man puts a coffee mug in the microwave and closes
 the door.
 Coffee Man closes the door and begins to press buttons on the microwave.
 
->You cut a big gash in the microwave door's protective cover.
+> chop door
+You cut a big gash in the microwave door's protective cover.
 
->You hold up the shard of glass, hoping the radioactive beams about to bombard
+> hold up glass
+You hold up the shard of glass, hoping the radioactive beams about to bombard
 you will reflect off it and blast down the door.  You grit your teeth as
 Coffee Man presses some buttons on the microwave and presses 'START'.
 Yes!  The beams shoot at you but bounce off of the glass!  You steer the
@@ -34,9 +40,11 @@ beams in the direction of the microwave door... and the door pops open!  The
 microwave shuts itself off when the door opens!
 Coffee Man is halfway through pressing the buttons!
 
->You take the small pistol from the aluminum clothes.
+> take gun
+You take the small pistol from the aluminum clothes.
 
->You move south.
+> south
+You move south.
 
 Kitchen counter
 The kitchen, a wide and wonderful place compared to the dark isolation of the
@@ -45,7 +53,8 @@ other fixtures in a kitchen (you know what a kitchen looks like!).
 
 Coffee Man is here.
 
->You shoot Coffee Man with your gun.  You win the game.
+> shoot man
+You shoot Coffee Man with your gun.  You win the game.
 You have destroyed Coffee Man and let now Microwave Man can live a life of
 peace.  Of course, Coffee Man would have gone on to negotiate World Peace,
 but hey, at least you're alive, right?

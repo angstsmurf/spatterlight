@@ -42,30 +42,36 @@ The Spider is crouched in a tree overhead. Watching you. It clacks its
 mandibles and waves it front legs around in an agitated fashion whenever you
 thrash around too much.
 
->An idea strikes and you struggle to get loose from from your jacket...with it
+> remove jacket
+An idea strikes and you struggle to get loose from from your jacket...with it
 gone you'd be free of the worst of the webbing and might be able to drop to
 the ground. Unfortunately in your original panic you got yourself tangled up
 good and proper, and the oversized jacket is twisted around you in such a way
 that you can't simply squirm out of it, though after considerable effort you
 at least manage to work your right hand loose.
 
->Various little things such as dead leaves and twigs have fallen and stuck to
+> x leaves
+Various little things such as dead leaves and twigs have fallen and stuck to
 the web over time. The only thing really notable is the largish branch that
 dangles nearby.
 
->You give the branch a little tug and it easily comes loose of the web. If
+> get stick
+You give the branch a little tug and it easily comes loose of the web. If
 only things could be so simple for you...
 
->Reaching down with the stick, you try to hook one of the orange straps. It
+> get pack
+Reaching down with the stick, you try to hook one of the orange straps. It
 takes a couple of attempts, but finally you manage and carefully tilt the
 branch upwards so that the pack slides down to your hand where you can grab
 it.
 
->Holding the backpack tight in your forearm, you reach around the side and
+> get knife
+Holding the backpack tight in your forearm, you reach around the side and
 fumble to pull the knife free, grinning as you rub your thumb lightly against
 the sharp edge. Now you're getting somewhere!
 
->In one swift motion the quivering grey bulk of the Spider is upon you.
+> kill spider
+In one swift motion the quivering grey bulk of the Spider is upon you.
 Screaming, you swing your knife wildly, ripping its soft clammy belly open as
 it exposes it to try and jab at you with its glistening stinger. A thick
 white goo gushes out, and it falls backwards off the web, spasmodically
@@ -80,17 +86,21 @@ As though on cue, at the time of the enormous spider's death the white sack
 that hangs nearby has taken on a life of its own, jerking and swaying as
 something inside it begins to move.
 
->Rummage around in your pack, you find your lighter at the bottom and take it.
+> get lighter
+Rummage around in your pack, you find your lighter at the bottom and take it.
 Dozens of little bulges rapidly appear and disappear beneath the wrapping as
 whatever's inside the sack squirms and twists about.
 
->You take the little flask out of your backpack.
+> get whiskey
+You take the little flask out of your backpack.
 
->Holding the flask pinned beneath your chin, you carefully unscrew the lid
+> pour whiskey on sack
+Holding the flask pinned beneath your chin, you carefully unscrew the lid
 with your free hand and then moving quickly take it and splash the amber
 liquid all over the writhing bundle.
 
->You flick the lighter on, trying hard to keep your hand from shaking. For one
+> burn sack
+You flick the lighter on, trying hard to keep your hand from shaking. For one
 gut-wrenching moment you get nothing but sparks, but on your second try a
 small flame appears and remains steady.
 

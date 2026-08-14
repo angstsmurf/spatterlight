@@ -23,13 +23,16 @@ Little did you suspect that the next day you would be standing in a
 mysterious tree with no inkling how you got there, because that's completely
 unrelated to the storyline established above.
 
->A previously hidden door slides open on the trunk of the tree with a
+> push the button
+A previously hidden door slides open on the trunk of the tree with a
 mechanical grinding noise.  Unfortunately, instead of an elevator, you see an
 empty shaft.  I guess the elevator isn't working properly.
 
->It looks pretty dangerous.  You're not sure you want to do this.
+> down
+It looks pretty dangerous.  You're not sure you want to do this.
 
->You leap off the tree limb and come crashing down on the ground quite
+> down
+You leap off the tree limb and come crashing down on the ground quite
 painfully.  You swear to yourself you'll never do anything like that again.
 Unless of course, you inexplicably find yourself in a tree with no other way
 down.
@@ -43,7 +46,8 @@ you were stupid enough to leap out of.
 
 You hear running water to the east.
 
->You move east.
+> e
+You move east.
 
 Brook
 This is a brook, a creek, a crick.  Whatever you want to call it, it is a
@@ -51,9 +55,11 @@ small body of running water.  The sound of the running water makes you want
 to pee.
 A giant leech is sitting on the shore, playing an accoustic guitar.
 
->You look more closely at the creek and notice a woman swimming in the water.
+> x brook
+You look more closely at the creek and notice a woman swimming in the water.
 
->The woman notices you and swims closer to the shore.  When she reaches the
+> x woman
+The woman notices you and swims closer to the shore.  When she reaches the
 shallows, she stands and steps out of the water, revealing her unashamed
 nudity and overwhelming beauty.
 
@@ -63,7 +69,8 @@ nudity and overwhelming beauty.
 After a moment, you manage to stammer out your own name, despite the fact
 that you are entranced by her.
 
->You start to cross the creek using the fallen tree as a bridge.  Although you
+> cross fallen tree
+You start to cross the creek using the fallen tree as a bridge.  Although you
 have remarkable balance, about halfway across you slip and fall into the
 creek.
 
@@ -87,7 +94,8 @@ You plunge into the icy water below... did you feel arms grab you around the
 shoulders?  Something... someone... pulls you to the surface... in a daze you
 wake up...
 
->You move south.
+> s
+You move south.
 
 Small Cabin
 You're inside a small cabin built entirely of plastic logs made from recycled
@@ -95,14 +103,18 @@ beverage bottles.  It's actually rather ugly.  You notice some wet footprints
 on the floor, as if someone was recently here before you.  There's a small
 wooden table here, beneath which is a trap door.
 
->You turn the crank and the box plays a satisfying song with its mechanical
+> turn crank
+You turn the crank and the box plays a satisfying song with its mechanical
 innards.  All of the sudden, the lid pops open and a silver sphere pops out.
 
->You look in the fireplace and notice a patch of light coming from above.
+> x the fireplace
+You look in the fireplace and notice a patch of light coming from above.
 
->Looks like a pretty tight fit.  I'm not sure you can get through.
+> climb chimney
+Looks like a pretty tight fit.  I'm not sure you can get through.
 
->Okay, you asked for it.  You manage to get into the fireplace and climb up
+> climb chimney
+Okay, you asked for it.  You manage to get into the fireplace and climb up
 the chimney.
 
 You're all covered in soot now.  Happy?
@@ -114,15 +126,18 @@ is a helium balloon.
 
 Sphere enters.
 
->You untie the helium balloon from the chimney and tie it to your hand.
+> take the balloon
+You untie the helium balloon from the chimney and tie it to your hand.
 Suddenly you feel the balloon gently tug you up... higher and higher...
 
 Sphere enters.
 
->
+> look
+
 Helium Balloon
 You're floating through the air above the trees.  There is a microwave oven
 here.
 The silver sphere is here.
 
->Do you really want to quit? [Y/N]
+> quit
+Do you really want to quit? [Y/N]

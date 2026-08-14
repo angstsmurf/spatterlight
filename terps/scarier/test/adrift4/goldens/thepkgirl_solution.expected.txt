@@ -26,7 +26,7 @@ CHAPTER 1
 
 An Evening of Incident
 
->
+> n
 
     The tires of your motorcycle roll to a halt on pavement.   As you switch
 off the engine, the hum decreases to a terminal choke that is replaced
@@ -52,7 +52,8 @@ heart of the metropolis that you've come to, or the equivalent for a city of
 this size.  The object of your interest, Majesty Mall, lies north.  Your
 motorcycle is properly parked on the pavement.
 
->(Getting off your motorcycle first)
+> n
+(Getting off your motorcycle first)
 You move north.
 
     Rittersburg may not be your hometown, but its nearness to your home has
@@ -68,7 +69,8 @@ one is always open late.  A steady bi-directional stream of shoppers bustles
 about the entrance, while now and then a vehicle pulls up momentarily to pick
 up passenger or party.
 
->    As you attempt to enter the mall, somebody bumps into you quite
+> n
+    As you attempt to enter the mall, somebody bumps into you quite
 intentionally.
     "Well, don't I know you?", asks a snide dry voice.
     It's Jerrick, the rich boy whose acquaintence you are only able to boast
@@ -80,7 +82,8 @@ kept."
 
 Enter your name.  (you are male)
 
->"Petter, was it?  No wonder I forgot.  Well, Petter, is it life in the loser
+> Petter
+"Petter, was it?  No wonder I forgot.  Well, Petter, is it life in the loser
 lane as usual?"  And without giving you space to retort, he continues, "No,
 don't answer.  I can tell just from looking at you.   Well, I didn't come
 here to dawdle with his kind.  Let's go, fellows."
@@ -100,7 +103,8 @@ to the north.  The mall's exit is south.
 
     A happy-looking couple walks by, the girl leaning on the guy's shoulder.
 
->You move north.
+> n
+You move north.
 
 Majesty Mall Center
     This, the center of the mall, is occupied and graced by a beautiful
@@ -110,7 +114,8 @@ parlor is to the west, a women's clothing store is to the east, and the mall
 continues on north and south.
     A girl is sitting on the bench with her hands in the lap of her dress.
 
->You move west.
+> w
+You move west.
 
 Ice Cream Parlor
     The ice cream served in this shop is excellent;  it more than justifies a
@@ -123,61 +128,79 @@ parlor is east.
 
     "Welcome!" says the shopkeeper in a highly friendly tone of voice.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
     Three girls enter the ice cream parlor and take a table a little ways
 off.  One of them is the girl you saw sitting by the fountain earlier.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
     You can hear the girls talking, although you can't tell exactly what they
 are saying.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
     The three girls are chatting and giggling away.
 
     The shopkeeper is wiping the counter.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
     The girls are still giggling but they seem to have quieted a bit.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
     In the corner of your vision you glimpse one of the girls eyeing you, but
 her head is turned by the time you take a look.
 
->Time passes...
+> wait
+Time passes...
 
     You're mostly sure you just caught another girl looking at you, but now
 they are talking amongst themselves quietly, smiles on their faces.
 
->Time passes...
+> wait
+Time passes...
 
    You feel the eyes of all three girls on you from across the room.
 
->Time passes...
+> wait
+Time passes...
 
     The shopkeeper is pacing back and forth behind the counter, performing
 various tasks.
@@ -192,7 +215,8 @@ kidnappers disappear out into the mall.  "Cassie!!!", they cry.
 
 Press enter to continue
 
->
+> wait
+
 The golden-haired girl comes running up to you and grabs hold of your arm.
 "Help!!", she pleads.
 
@@ -200,13 +224,16 @@ The golden-haired girl comes running up to you and grabs hold of your arm.
 2) "I'm sorry.  There's nothing I can do for you."
 3) "No time to chat, we've got to go after those men!"
 
->"Thank you", she replies emphatically.  "We must hurry."  She is ready to
+> 1
+"Thank you", she replies emphatically.  "We must hurry."  She is ready to
 follow you.
 
     "Be careful, Laurie!", her friend says from behind.
 
 >
->You rush out into the mall...
+
+> east
+You rush out into the mall...
 
 Majesty Mall Center
     This, the center of the mall, is occupied and graced by a beautiful
@@ -220,7 +247,8 @@ flurry of kidnappers exiting the mall.
 
     Laurie follows you from the west.
 
->You run in the direction that the kidnappers have fled...
+> south
+You run in the direction that the kidnappers have fled...
 
 Majesty Mall South End
     The interior of the mall is spacious, with several yards separating the
@@ -231,7 +259,8 @@ to the north.  The mall's exit is south.
 
     Laurie follows you from the north.
 
->You move south.
+> south
+You move south.
     As you leave the mall you can see a helicopter lifting off ahead.
 
 Mall Entrance
@@ -244,7 +273,8 @@ up passenger or party.
 
     Laurie follows you from the north.
 
->You move south.
+> south
+You move south.
     The helicopter elevates and turns to face west in the direction of the
 city.  Perhaps you could follow it on your...?!   Someone has sabotaged your
 motorcycle!
@@ -261,21 +291,25 @@ motorcycle is properly parked on the pavement.
 
     Laurie follows you from the north.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
     The helicopter shrinks as it continues westward.  Will the criminals get
 away so conveniently?
 
->Time passes...
+> wait
+Time passes...
 
     "Try starting the motorcycle anyway", says Laurie.
 
 1) "That would be pointless!"
 2) "I suppose I could try it again."
 
->(Sitting on the motorcycle first)
+> ride the motorcycle
+(Sitting on the motorcycle first)
 Laurie gets on behind you.
 Putting your faith in Laurie's improbable hope that the motorcycle will
 somehow work despite its current condition, you try starting up the
@@ -302,7 +336,8 @@ the air.  Langston Bridge, which you recently passed over, is to the east.
 Your motorcycle is parked here.
     Laurie is right beside you.
 
->(Getting off your motorcycle first)
+> east
+(Getting off your motorcycle first)
 You move east.
 
 Bridge Landing
@@ -315,7 +350,8 @@ barely see the lights of the city.
 
     Laurie has climbed down from your motorcycle.
 
->Laurie climbs over the railing with you...
+> north
+Laurie climbs over the railing with you...
 
 Top of the Hill
     You are at the top of a grassy hill that overlooks the city to the north
@@ -339,7 +375,8 @@ parents away.... " Her voice trails off.
 2) "Who are they?"
 3) "We'll get her back.  I promise."
 
->You move west.
+> west
+You move west.
 
 Bottom of the Hill
     Down here where the slope lessens, very little can be seen of the city,
@@ -349,7 +386,8 @@ can be reached by travelling to the west.
 
     Laurie follows you from the east.
 
->You move west.
+> west
+You move west.
 
 Vacant Lot
     This is a small parking lot, or something of that nature.  It is not
@@ -360,7 +398,8 @@ travellers and old ladies.
 
     Laurie follows you from the east.
 
->You move north.
+> north
+You move north.
 
 Deserted Street
     This back street runs through a mostly deserted part of town.  The
@@ -374,7 +413,8 @@ the east the river is almost visible.  The street continues on west.
     Laurie follows you from the south.   "I do not like this street.  It is
 too quiet", she whispers.
 
->You move west.
+> west
+You move west.
 
 Street in Front of Bar
     The street continues on east and west.   The area north is occupied by a
@@ -384,12 +424,14 @@ company.
 
     Laurie follows you from the east.
 
->Lights and sounds from within prove that the bar is still open.  You step up
+> north
+Lights and sounds from within prove that the bar is still open.  You step up
 to open the door but Laurie grabs your sleeve.
     "Please do not go in there."  She says.  Hoping that you will do the
 'right thing', she releases her grip.
 
->"I'll just wait out here", says a resigned Laurie.  You enter the bar, but
+> north
+"I'll just wait out here", says a resigned Laurie.  You enter the bar, but
 she does not enter with you.
 
 Bar
@@ -410,7 +452,8 @@ bartender seems to be in the middle of an anecdote.   "And of course, you
 know I wasn't going to take that.  Not from her", he says.
     "Yeah, so then what?", asks the bartender in a voice dry with boredom.
 
->He looks up at you as your approach.  "What's on your mind, chief?" he asks.
+> talk to dustin
+He looks up at you as your approach.  "What's on your mind, chief?" he asks.
 
 1) "I'm looking for the bathroom actually."
 2) "Nothing much."
@@ -425,7 +468,8 @@ her and save a dime in the process!  Geez."
 turning to him peevishly.  The stout man says nothing in reply.  There isn't
 a need, really, to acknowledge that one can hear another from a foot away.
 
->"Well that's downright serendipitous, your stumbling into me.  Yes, I can
+> 3
+"Well that's downright serendipitous, your stumbling into me.  Yes, I can
 help you.  And more than that, you're gonna help me."
 
 1) "Huh?  I've hardly told you anything yet."
@@ -439,7 +483,8 @@ shrugs and says, "Don't know what you mean.  I haven't but said the same
 thing I always say.  You get nothing new out of me."
    The bartender nods knowingly.
 
->"You don't have to.  The girl had PK, right?  You don't have to answer that
+> 1
+"You don't have to.  The girl had PK, right?  You don't have to answer that
 either."  He observes your shock.  "Stupefaction, Chief?  Look, we'll meet
 again.  But not tonight.  The name's 'Dustin'."   He says this while slapping
 your shoulder.  And then he is sweeping towards the door.
@@ -454,7 +499,8 @@ his money."
 maybe during Christmas."
     "Notin' else worth spendin' money on", grunts Samson explanatorily.
 
->You move south.
+> south
+You move south.
 
 Street in Front of Bar
     The street continues on east and west.   The area north is occupied by a
@@ -472,7 +518,8 @@ bars."
 2) "After just one more drink.  Hang on... Just kidding!"
 3) "Yes, I'm sorry about that."
 
->You move south.
+> south
+You move south.
 
 Alley East of Building
     This is the east side of the large grey building.  It is especially dark
@@ -483,12 +530,14 @@ by a brick wall.
 
     Laurie follows you from the north.
 
->Using hands and feet you clamber up onto the dumpster lid.  From there it is
+> get on dumpster
+Using hands and feet you clamber up onto the dumpster lid.  From there it is
 a simple matter to step over to the brick wall.  The small window is in
 reach.
 Laurie comes up after you.
 
->You press against the window and to your surprise it opens with the most
+> open window
+You press against the window and to your surprise it opens with the most
 minimal effort.  You crawl through it as quickly and nimbly as you can, then
 drop to the floor inside the foyer.  Laurie lands next to you a moment later.
  The security officer whirls around in a flash.
@@ -528,7 +577,8 @@ Laurie is waiting for you under the lamppost.
 
     A loud alarm is ringing.
 
->You move south.
+> south
+You move south.
 
 Long Hall South
    You are in the hallway of an office building running north to south and
@@ -541,7 +591,8 @@ junction up ahead.
 
     A loud alarm is ringing.
 
->You move south.
+> south
+You move south.
 
 Hallway Junction
     This is where the north-south hallway ends.  Running perpendicular to it
@@ -559,7 +610,8 @@ runs in your direction.
     You can hear the sound of more than one set of feet chasing you from
 behind.
 
->You move east.
+> east
+You move east.
 
 Long Hall East
     The hallway continues east and west, with the entrance to some darkened
@@ -575,7 +627,8 @@ in there!"
 
     A loud alarm is ringing.
 
->You move south.
+> south
+You move south.
 
 Supply Room
     Light from the hallway north of you allows you to quickly observe the
@@ -587,7 +640,8 @@ window with curtains stands to the south.
 
     An alarm can be heard in the halls outside.
 
->You push aside the curtains and step through the window.
+> south
+You push aside the curtains and step through the window.
 
 Standing Outside the East Window
     You are standing on a windowsill that continues to the west.  North
@@ -601,7 +655,8 @@ insignificant.
 
     Laurie looks like she is on the verge of screaming.
 
->You move west along the windowsill.  As you do so, you hear the curtains
+> west
+You move west along the windowsill.  As you do so, you hear the curtains
 close in the room you came from.
 
 On the Windowsill
@@ -621,7 +676,8 @@ closed."
     "Look somewhere else--hurry!"
     The voices fade out.
 
->You move west.
+> west
+You move west.
 
 Standing Outside the West Window
     You are standing on a windowsill that continues to the east.  North
@@ -630,7 +686,8 @@ of some other part of the building.
 
     Laurie follows you from the east.
 
->You step through the window.
+> north
+You step through the window.
 
     Laurie follows you through the window and then stops.
 
@@ -642,14 +699,16 @@ Laurie is waiting for you under the lamppost.
 
     An alarm can be heard in the halls outside.
 
->Time passes...
+> wait
+Time passes...
 
     An alarm can be heard in the halls outside.
 
     Laurie looks like her legs are about to give, and tears are beginning to
 well up in her eyes.  Finally, she falls to her knees.
 
->Time passes...
+> wait
+Time passes...
 
     An alarm can be heard in the halls outside.
 
@@ -659,12 +718,14 @@ well up in her eyes.  Finally, she falls to her knees.
 2) "What happened back there?"
 3) "But if we stay here they'll find us!"
 
->"You don't understand!", she bursts out.  But somehow, gradually, she manages
+> 1
+"You don't understand!", she bursts out.  But somehow, gradually, she manages
 to gather herself.
 
     An alarm can be heard in the halls outside.
 
->You move west.
+> west
+You move west.
 
 An Office
     This is a one-person office with a nice carpet and a desk.  There is a
@@ -674,12 +735,14 @@ A swivel chair is by the desk.
 
     Laurie follows you from the east.
 
->Moving the cardboard box reveals an open hatchway smack in the middle of the
+> move box
+Moving the cardboard box reveals an open hatchway smack in the middle of the
 carpet.  An underground vein of some sort can be seen below.
 
     Laurie eyes light up and she glances at you in astonishment.
 
->You hop down the hatch and help Laurie down afterwards...
+> down
+You hop down the hatch and help Laurie down afterwards...
 
 Press enter to continue
 
@@ -693,7 +756,8 @@ pipes.  This area appears to be a dead end from which the only way one can go
 is north.
 Laurie is waiting for you under the lamppost.
 
->As you move forward you can hear the cries of a girl from up ahead.  You and
+> north
+As you move forward you can hear the cries of a girl from up ahead.  You and
 Laurie crouch behind some furniture that is at hand and survey the scene.
 
 Behind the Furniture
@@ -707,13 +771,15 @@ Laurie is waiting for you under the lamppost.
 
     "Cassie!", gasps Laurie.
 
->You stand up and run to the west.
+> west
+You stand up and run to the west.
 
     Cassie sees you and gasps aloud.  The kidnappers notice you immediately.
 All three move to confront you, one after the other.  The last one has a
 blackjack in his hand.  Is this not an opportunity to be a hero?
 
->Time passes...
+> wait
+Time passes...
 
     The kidnappers quickly surround you.  You realize that you are about to
 be gang-beaten mercilessly.
@@ -738,7 +804,8 @@ rendered unconscious.
     Laurie sinks to her knees in relief while Cassie lets out a squeal of
 joy.
 
->Time passes...
+> wait
+Time passes...
 
     Cassie runs into her sister's arms.  "Laurie!", she cries.   "Are you all
 right?", asks Laurie.  "I'm fine!", Cassie responds.  "I'm so glad that you
@@ -748,7 +815,8 @@ feeling.  And then, "Um.. sister, who is he?  Wait", she says, turning to
 look at you again, "Weren't you the one in the ice cream parlor?"
     Laurie nods her head in enthusiastic affirmation.
 
->Time passes...
+> wait
+Time passes...
 
     Laurie thinks for a moment, then asks you, "I never learned your name,
 did I?"
@@ -767,7 +835,8 @@ modestly.
 2) "It's okay.  I basically had it figured out already."
 3) "How come you didn't use your power sooner?"
 
->    "I'm...sorry", she apologizes.  "I didn't know how you would take it.
+> 1
+    "I'm...sorry", she apologizes.  "I didn't know how you would take it.
 How could I know if you would have helped me then?  Although, thinking about
 it now, I think that you would have.  I'm sort of surprised that you didn't
 figure things out anyways.  I thought...I gave it away on many occasions.
@@ -779,7 +848,8 @@ motorcycle--I had to fix that, didn't I?"
 2) "Cassie, you did some amazing things tonight, too."
 3) "So which of you is stronger?"
 
->    Laurie just blushes and Cassie says, "That's my sister for you.  You're
+> 1
+    Laurie just blushes and Cassie says, "That's my sister for you.  You're
 going to keep teaching me how to do all the things that you can do, right,
 Laurie?  Like levitate things and bend metal.  I don't know if I'll ever be
 able to do all that."
@@ -788,7 +858,8 @@ able to do all that."
 1) "There's one thing I don't get--How come you needed me at all?"
 2) "C'mon, let's get you girls to safety."
 
->You move north.
+> north
+You move north.
 
 Cellar Annex
     Light cast from the large room to the south permits some visibility in
@@ -801,7 +872,8 @@ Also here is the chest freezer.
 
     Cassie follows you from the south.
 
->You move north.
+> north
+You move north.
 
 Passageway End
     The passageway ends here at a ladder ascending to a circular hatch on the
@@ -814,7 +886,8 @@ passage has had the feel of being in a damp, forgotten sewer all along.
 
     "We can go up that way", remarks Laurie, pointing to the ladder.
 
->As you come near the hatch, the manhole cover slides off seemingly by itself.
+> up
+As you come near the hatch, the manhole cover slides off seemingly by itself.
 The three of you climb up the ladder one after another, yourself in the lead.
 
     Laurie replaces the manhole cover.  "It isn't safe for us to be here
@@ -841,7 +914,8 @@ ice cream parlor.
 2) "For now let's get out of here."
 3) "I don't intend to leave you."
 
->Cassie looks sort of disappointed.  Laurie simply looks forlorn.
+> 1
+Cassie looks sort of disappointed.  Laurie simply looks forlorn.
 
     Laurie gazes at the sky, pondering.  By and by she turns to speak to you
 again.
@@ -850,7 +924,8 @@ will.  Until...until it is safe to go home again.  Petter, will you take us
 there?  I can show you the way to her house once we get to your motorcycle."
     "Let's hurry", agrees Cassie, "I've had enough of this place."
 
->The three of you make your way back to your motorcycle without further
+> north
+The three of you make your way back to your motorcycle without further
 incident.  Smaller than her sister, Cassie is able to squeeze into the seat
 with Laurie and hold onto her back while Laurie holds onto yours.  You start
 the engine and take off into the night, leaving Langston Bridge and its dark
@@ -879,7 +954,8 @@ Your motorcycle is parked close by.
 Laurie is waiting for you under the lamppost.
     Cassie is also beside you.
 
->Time passes...
+> wait
+Time passes...
 
     Laurie goes up to the front door, followed by her sister.
     "Will she be home?", asks Cassie.
@@ -887,17 +963,21 @@ Laurie is waiting for you under the lamppost.
 we were in the ice cream place.  She wouldn't have stayed there and she
 wouldn't have gone to the police either, I don't think."
 
->Time passes...
+> wait
+Time passes...
 
     Laurie knocks on the front door.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
     Cassie looks at her sister.  Laurie knocks on the door a little louder.
 
->Time passes...
+> wait
+Time passes...
 
     You hear the door being opened from the other side.  A moment later, a
 girl is standing there looking very surprised.  In fact, it is the same girl
@@ -906,12 +986,14 @@ that was in the ice cream parlor with Laurie and Cassie.
 it!"
     "Monika", Laurie responds.  An exchange of hugging ensues.
 
->Time passes...
+> wait
+Time passes...
 
     "Come in!", insists Monika.  Noticing you with a cordial smile she adds,
 "You too of course."  The girls enter the house.
 
->You enter the house.
+> east
+You enter the house.
 
 Living Room
     Monika's living room is satisfactorily filled with the amenities that any
@@ -937,7 +1019,8 @@ Laurie's friend."
 2) "Nice to meet you, Monika."
 3) "What were you saying about me?"
 
->Monika seems genuinely happy to hear this.  "Really?", she asks.
+> 1
+Monika seems genuinely happy to hear this.  "Really?", she asks.
 
     "So anyway", continues Laurie, "We found Cassie in the cellar of a
 suspicious-looking office building in a mostly deserted area of the city.  It
@@ -946,7 +1029,8 @@ was them of course..."
 transpired since Cassie was kidnapped up until the present hour.  Laurie and
 Monika sit down on the couch and Cassie sits down on the floor.
 
->Time passes...
+> wait
+Time passes...
 
     While relating the story, Laurie downplays her own heroic contributions
 to the rescue effort, resting the credit primarily on you.  It is not for
@@ -961,7 +1045,8 @@ talking about it in the cellar."
     "Thank goodness we found you before then."  Unconcealed relief shows in
 Laurie's voice.
 
->Time passes...
+> wait
+Time passes...
 
     "What will you do now?", asks Monika.
     "Monika,", Laurie addresses her best friend sincerely, "would you mind if
@@ -979,9 +1064,11 @@ tomorrow....If you don't mind, that is..."
 2) "You bet."
 3) "Oh, sure."
 
->    "Thank you so much", says Laurie.
+> 2
+    "Thank you so much", says Laurie.
 
->Time passes...
+> wait
+Time passes...
     "You're going to stay then?  Right on!", says Cassie.
     "Is it really okay?", asks Laurie.
     "Of course it's no problem, Laur!  You and Cassie can stay in that extra
@@ -990,21 +1077,26 @@ upstairs that one of you can sleep on.  And the other can sleep on the bed.
 Petter, will you come move the mattress?  I'll show you where it is."
     The girls all stand up.
 
->Time passes...
+> wait
+Time passes...
 
     Monika walks away to the east.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
     Laurie walks away to the east.
 
     Cassie walks away to the east.
 
->You lie down on the couch and try to fall asleep.  Although you are tired
+> sleep
+You lie down on the couch and try to fall asleep.  Although you are tired
 from the activities of the night, you remain awake for some time, tossing and
 turning.  It could be that part of your inability to sleep is due to the
 couch and the unfamiliar setting.  Likely, it has more to do with your mind's
@@ -1032,7 +1124,8 @@ east.  The front door is west.
 
     You become aware of the sounds and smells of....yes, breakfast.
 
->(Getting off the couch first)
+> south
+(Getting off the couch first)
 You move south.
 
 Dining Room
@@ -1044,7 +1137,8 @@ centerpiece.
 
     You smell good food nearby.
 
->You move east.
+> east
+You move east.
 
 Kitchen
     Monika's kitchen sports the usual accommodations, including a counter, a
@@ -1059,28 +1153,36 @@ Laurie is waiting for you under the lamppost.
 was thinking you might like some hashbrowns.  They should be done soon."
 The toaster is now on.
 
->Time passes...
+> wait
+Time passes...
 
     "Monika left early.  She said that she had to run some errands but that
 she would be back later today."
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
     You hear the toaster pop.
 
->Time passes...
+> wait
+Time passes...
 
     Laurie takes the bread from the toaster.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
     Cassie walks in from the north.
 
@@ -1088,26 +1190,31 @@ she would be back later today."
 stovetop.
     "Hang on Cassie, it's almost done", Laurie says to her.
 
->Time passes...
+> wait
+Time passes...
 
     "I may never become a great cook but at least there are some things I can
 sort of make with confidence", says Laurie.
 
->Time passes...
+> wait
+Time passes...
 
     Cassie walks away to the west.
 
     Laurie turns off the grill.  "I think it's done", she says.
 
->Time passes...
+> wait
+Time passes...
 
     Laurie puts the hashbrowns and toast onto a plate with an egg omelette.
 
->Time passes...
+> wait
+Time passes...
 
     Laurie walks away to the west.
 
->You move west.
+> west
+You move west.
 
 Dining Room
     A dining table stands before a broad window with curtains, which serves
@@ -1122,7 +1229,8 @@ Laurie is waiting for you under the lamppost.
 you.  She brings some food for herself and Cassie as well.  Then she sits
 down at the table.
 
->Time passes...
+> wait
+Time passes...
 
     "There's more bread in the cupboards if you want more toast after this",
 says Laurie.
@@ -1136,7 +1244,8 @@ ice cream.  Nothing is.  Except ice cream."
 2) "Cassie is a sweet tooth, huh."
 3) "So what do you need me for today?"
 
->    "Thank you", she replies appreciatively.
+> 1
+    "Thank you", she replies appreciatively.
     Cassie laughs.  "Well then, you can make breakfast for him anytime, right
 Laurie?"
     Laurie changes the subject.
@@ -1151,7 +1260,8 @@ tilts her head in thought.
 1) "...then they can't come after you anymore!"
 2) "Do you know where to find such records?"
 
->"Good idea, eh?", chimes Cassie, "Sis, you're brilliant."
+> 1
+"Good idea, eh?", chimes Cassie, "Sis, you're brilliant."
 
     Then Laurie says, "I have a friend that lives nearby whose name is Ethan.
  He can do anything with computers, or so he tells me.  Perhaps he can find a
@@ -1162,7 +1272,8 @@ if he can't help us?"
 2) "Is it all right if I just show up like that?"
 3) "Does he know that you have PK?"
 
->    At this Laurie laughs a little.  It is the first time that you have seen
+> 3
+    At this Laurie laughs a little.  It is the first time that you have seen
 her do so.
     "Oh, Ethan?  He knows everything there is to know about me, I think.
 Even the things I would never tell him in a million years."
@@ -1170,7 +1281,8 @@ Even the things I would never tell him in a million years."
 sisters quite like this before.  But it is a good sign that the both of them
 are able to laugh at all after last night's events.
 
->You move north.
+> north
+You move north.
 
 Living Room
     Monika's living room is satisfactorily filled with the amenities that any
@@ -1179,7 +1291,8 @@ wall decorations adorning the walls.  All that is lacking is the hearth.  The
 space opens up to a dining area to the south, and an area with a stairway
 east.  The front door is west.
 
->You leave the house, closing the door behind you.
+> west
+You leave the house, closing the door behind you.
 
 Front of Monika's House
     The house before you is not large, nor is it attractive in any way other
@@ -1188,7 +1301,8 @@ cleanliness and simple feminine decor.  A mat lies at the foot of the front
 door, which is east.  A mailbox is attached to the wall beside the door.
 Your motorcycle is parked close by.
 
->(Sitting on the motorcycle first)
+> ride the motorcycle
+(Sitting on the motorcycle first)
 
 Where will you go?
 a) Majesty Mall
@@ -1196,7 +1310,8 @@ b) Langston Bridge
 c) Monika's House
 d) Ethan's Apartment
 
->You start up your motorcycle and depart for Ethan's...
+> d
+You start up your motorcycle and depart for Ethan's...
 
 Press enter to continue
 
@@ -1209,7 +1324,8 @@ of you is where, according to Laurie's directions, Ethan lives.  There are
 also apartments to the west and east, spaced at a less than neighborly
 distance apart.  Your motorcycle is parked here.
 
->You open the door and enter the apartment.
+> south
+You open the door and enter the apartment.
 
 Inside Apartment
     The interior of Ethan's apartment is hopelessly messy.  Boxes of junk,
@@ -1221,7 +1337,8 @@ junk.  As it is, you can barely make your way down the stairway  from which
 you hear the sounds of typing at a keyboard.  The exit to the apartment is
 north.
 
->You move down.
+> down
+You move down.
 
 Ethan's Den
     The downstairs of Ethan's apartment is only slightly less cluttered than
@@ -1234,7 +1351,8 @@ a table on which sits a computer monitor.
     Gradually, Ethan turns in his seat to look at you dully, clearly
 wondering what kind of sale you have come to push today.
 
->    "You're a friend of Laurie's?  How is she?  You haveta tell me."
+> talk to ethan
+    "You're a friend of Laurie's?  How is she?  You haveta tell me."
     Ethan listens to your story with the highest interest.  Every time you
 mention Laurie's name he closes his eyes as if trying to visualize how she
 would have looked like at that particular time.
@@ -1246,14 +1364,16 @@ but....anyway, so why didn't she come in person?"
 2) "She feels safer not going out."
 3) "She had to work today."
 
->"Yeah, that makes sense.  Laurie cares a lot about her sister.  She wouldn't
+> 2
+"Yeah, that makes sense.  Laurie cares a lot about her sister.  She wouldn't
 want to leave her alone after that sort of an experience."
 
 1) "So can you help us?"
 2) "How do you know so much about Laurie?"
 3) "What are Laurie's three sizes?"
 
->    "Yes, of course.  I'm concerned about her."
+> 1
+    "Yes, of course.  I'm concerned about her."
     Ethan turns to his computer for a second and hits a few keys and then
 turns right back to you.
     "What do you know about these guys, this organization that is after
@@ -1262,7 +1382,8 @@ down.  Even just a single name might be enough.  If you can provide me with
 that, I'll tell you everything you want to know about this organization from
 what their taxes were last year to where they go to do their laundry."
 
->You move up.
+> up
+You move up.
 
 Inside Apartment
     The interior of Ethan's apartment is hopelessly messy.  Boxes of junk,
@@ -1274,7 +1395,8 @@ junk.  As it is, you can barely make your way down the stairway  from which
 you hear the sounds of typing at a keyboard.  The exit to the apartment is
 north.
 
->You leave the apartment, closing the door behind you.
+> north
+You leave the apartment, closing the door behind you.
 
 Front of Ethan's
     You stand at a plain concrete apartment complex.  The door to the south
@@ -1282,7 +1404,8 @@ of you is where, according to Laurie's directions, Ethan lives.  There are
 also apartments to the west and east, spaced at a less than neighborly
 distance apart.  Your motorcycle is parked here.
 
->(Sitting on the motorcycle first)
+> ride the motorcycle
+(Sitting on the motorcycle first)
 
 Where will you go?
 a) Majesty Mall
@@ -1290,7 +1413,8 @@ b) Langston Bridge
 c) Monika's House
 d) Ethan's Apartment
 
->You start up your motorcycle and depart for Monika's...
+> c
+You start up your motorcycle and depart for Monika's...
 
 Press enter to continue
 
@@ -1310,7 +1434,8 @@ cleanliness and simple feminine decor.  A mat lies at the foot of the front
 door, which is east.  A mailbox is attached to the wall beside the door.
 Your motorcycle is parked close by.
 
->You enter the house.
+> east
+You enter the house.
 
 Living Room
     Monika's living room is satisfactorily filled with the amenities that any
@@ -1319,7 +1444,8 @@ wall decorations adorning the walls.  All that is lacking is the hearth.  The
 space opens up to a dining area to the south, and an area with a stairway
 east.  The front door is west.
 
->You move east.
+> east
+You move east.
 
 By the Stairs
     The stairway here ascends up to a second floor.  To the west is the
@@ -1328,7 +1454,8 @@ to the east.
 
 An air freshener is on the wall here.
 
->You move south.
+> south
+You move south.
 
 Kitchen
     Monika's kitchen sports the usual accommodations, including a counter, a
@@ -1345,16 +1472,19 @@ Laurie is waiting for you under the lamppost.
     After hearing your report, Laurie puts her elbows on the counter and
 ponders the situation.  "There must be something else we can do... "
 
->Time passes...
+> wait
+Time passes...
 
     "Cassie, when you were being held by those men, did they say anything
 important?"
 
->Time passes...
+> wait
+Time passes...
 
     Cassie screws her face and tries to think.
 
->Time passes...
+> wait
+Time passes...
 
     "Y'know Laur, I do remember hearing them talk about some 'silo'.  I don't
 know what that could possibly be.  I figured maybe it was where they would be
@@ -1363,16 +1493,19 @@ taking me next."
 more about it?"
     "Nope, I only heard them mention it once."
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
     "Petter, do you think you could find out about this 'silo'?  That might
 tell us something we need to know."
     "But who would know about that, Laur?"
     "I cannot say..."  Laurie looks bewildered.
 
->Time passes...
+> wait
+Time passes...
 
     She looks up.  "The plaza--that's the busiest part of the city.  There
 must be  somebody there who knows something that can help us."
@@ -1383,10 +1516,12 @@ sees?  Well, hmm, I guess he could do that."
 2) "Well, don't expect a breakthrough but..."
 3) "Who should I ask?"
 
->"That is sweet of you, Petter.  Thank you again for helping us."  And she
+> 1
+"That is sweet of you, Petter.  Thank you again for helping us."  And she
 couldn't be more sincere about it.
 
->You move north.
+> north
+You move north.
 
 By the Stairs
     The stairway here ascends up to a second floor.  To the west is the
@@ -1395,7 +1530,8 @@ to the east.
 
 An air freshener is on the wall here.
 
->You move west.
+> west
+You move west.
 
 Living Room
     Monika's living room is satisfactorily filled with the amenities that any
@@ -1404,7 +1540,8 @@ wall decorations adorning the walls.  All that is lacking is the hearth.  The
 space opens up to a dining area to the south, and an area with a stairway
 east.  The front door is west.
 
->You leave the house, closing the door behind you.
+> west
+You leave the house, closing the door behind you.
 
 Front of Monika's House
     The house before you is not large, nor is it attractive in any way other
@@ -1413,7 +1550,8 @@ cleanliness and simple feminine decor.  A mat lies at the foot of the front
 door, which is east.  A mailbox is attached to the wall beside the door.
 Your motorcycle is parked close by.
 
->(Sitting on the motorcycle first)
+> ride the motorcycle
+(Sitting on the motorcycle first)
 
 Where will you go?
 a) Majesty Mall
@@ -1422,7 +1560,8 @@ c) Monika's House
 d) Ethan's Apartment
 e) The Plaza
 
->You start up your motorcycle and depart for the Plaza...
+> e
+You start up your motorcycle and depart for the Plaza...
 
 Press enter to continue
 
@@ -1442,7 +1581,8 @@ on both sides of you.  To the north there is a busy pedestrian intersection.
 It seems to be the fountain from which much of the traffic flows to or from.
 Your motorcycle is parked along the street.
 
->(Getting off your motorcycle first)
+> north
+(Getting off your motorcycle first)
 You move north.
 
 Intersection
@@ -1451,7 +1591,8 @@ only.  Numerous people walk past you in every which direction, their
 destinations not deducible from reading only their faces.  The patter of feet
 on pavement is heard continually.
 
->Time passes...
+> wait
+Time passes...
 
     In the thick of people going to and fro about their own business it is
 hardly possible to detect who it is that brushes against your shoulder.  You
@@ -1491,7 +1632,8 @@ only.  Numerous people walk past you in every which direction, their
 destinations not deducible from reading only their faces.  The patter of feet
 on pavement is heard continually.
 
->You move south.
+> south
+You move south.
 
 Avenue
     Small shops line the side of the walk through this, the trendier part of
@@ -1500,7 +1642,8 @@ on both sides of you.  To the north there is a busy pedestrian intersection.
 It seems to be the fountain from which much of the traffic flows to or from.
 Your motorcycle is parked along the street.
 
->You move east.
+> east
+You move east.
 
 By the Cafe
     The avenue from the west ends here beside a fashionable cafe with a row
@@ -1508,7 +1651,8 @@ of rose bushes in front.  A couple tables with chairs have been set up for
 the occasional outdoor diner, and there is a folded sign on the ground
 displaying the cafe's name.  The city continues to the north.
 
->You enter the cafe.
+> east
+You enter the cafe.
 
     "Have a seat", says the woman at the table.  She has not looked up but it
 is clear she is speaking to you.
@@ -1521,7 +1665,8 @@ and chairs.  A menu is displayed atop a counter.  The exit to the cafe is
 west.
     A mysterious woman is seated at a table facing the window.
 
->You sit down at the table.
+> sit
+You sit down at the table.
 
     "Don't worry", says the woman, "I told my man to leave."  She appraises
 you like a jeweler.  With a captivating smile she remarks, "Well now, you're
@@ -1531,7 +1676,8 @@ not a bad-looking young man."
 2) "Thanks, but what is the meaning of this?"
 3) "Neither are you."
 
->    "I knew you'd say so", she replies.
+> 3
+    "I knew you'd say so", she replies.
 "My name is Katryn.  And you are Petter.  I've been looking forward to
 meeting you ever since last night when I heard of your escapade.  That was
 quite the rescue, wasn't it?  No, you are not being patronized!  I'm rightly
@@ -1543,7 +1689,8 @@ would not hire the same men a second time."
 2) "How do you know about that?"
 3) "All right, kidnapper, state your game!"
 
->    "Those were my superior's men.  I would never hire their type.  How can
+> 1
+    "Those were my superior's men.  I would never hire their type.  How can
 you trust them to the job?  Well, clearly, they didn't complete theirs.  And
 I'm rather glad of it.  In fact, now that I've met you in person", she says
 while baring you in the eyes, "I wouldn't have had it any other way."
@@ -1556,13 +1703,15 @@ private.  We can have, in fact, all the privacy that we desire."
 2) "How can I trust you?"
 3) "Tell me why."
 
->"Enter by the front gate of Gammex Industrial.  I will meet you inside.  I'm
+> 1
+"Enter by the front gate of Gammex Industrial.  I will meet you inside.  I'm
 looking forward to it."
 
     She squeezes your hand in both of hers, stands up, and exits the cafe,
 turning back only once to make sure you are watching her leave.
 
->Time passes...
+> wait
+Time passes...
 
     "I shouldn't have to tell you that she can't be trusted, Chief."  You
 turn around to see the back of Dustin, sitting at another table not far away.
@@ -1572,19 +1721,22 @@ turn around to see the back of Dustin, sitting at another table not far away.
 2) "Do you know her?"
 3) "What are you doing here?"
 
->"Reckon I do.  That was Katryn Bellacue you were speaking to, second in
+> 2
+"Reckon I do.  That was Katryn Bellacue you were speaking to, second in
 command to the big cheese himself, Octal, leader of the organization known as
 R.O.S.A.  If you need me to explain any of that further, we're in big
 trouble."
 
->Before you can utter anything he spins around and says, "I got a job for you.
+> talk to dustin
+Before you can utter anything he spins around and says, "I got a job for you.
  You're going to get me some magnets.  I'm not talking about your dinky
 grade-school pin-collecting magnet that you attach to your refrigerator.  I'm
 talking about the kind of magnet that makes your refrigerator attach to it!
 I need two of them, Chief.  Can you get them for me?  Thanx, knew I could
 count on you."
 
->You leave the cafe.
+> west
+You leave the cafe.
 
     You do not see Katryn anywhere.
 
@@ -1594,7 +1746,8 @@ of rose bushes in front.  A couple tables with chairs have been set up for
 the occasional outdoor diner, and there is a folded sign on the ground
 displaying the cafe's name.  The city continues to the north.
 
->You move west.
+> west
+You move west.
 
 Avenue
     Small shops line the side of the walk through this, the trendier part of
@@ -1604,23 +1757,30 @@ It seems to be the fountain from which much of the traffic flows to or from.
 Your motorcycle is parked along the street.
     Monika is standing here.
 
->Time passes...
+> wait
+Time passes...
 
     Monika walks away to the east.
 
->Time passes...
+> wait
+Time passes...
 
     A nice breeze touches your face.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->(Sitting on the motorcycle first)
+> ride the motorcycle
+(Sitting on the motorcycle first)
 
 Where will you go?
 a) Majesty Mall
@@ -1630,7 +1790,8 @@ d) Ethan's Apartment
 e) The Plaza
 f) Gammex Industrial
 
->You start up your motorcycle and depart for Ethan's...
+> d
+You start up your motorcycle and depart for Ethan's...
 
 Press enter to continue
 
@@ -1643,7 +1804,8 @@ of you is where, according to Laurie's directions, Ethan lives.  There are
 also apartments to the west and east, spaced at a less than neighborly
 distance apart.  Your motorcycle is parked here.
 
->You open the door and enter the apartment.
+> south
+You open the door and enter the apartment.
 
 Inside Apartment
     The interior of Ethan's apartment is hopelessly messy.  Boxes of junk,
@@ -1655,7 +1817,8 @@ junk.  As it is, you can barely make your way down the stairway  from which
 you hear the sounds of typing at a keyboard.  The exit to the apartment is
 north.
 
->You move down.
+> down
+You move down.
 
 Ethan's Den
     The downstairs of Ethan's apartment is only slightly less cluttered than
@@ -1665,30 +1828,37 @@ see an open fish tank.  There is computer hardware lying all about.  There is
 a table on which sits a computer monitor.
     Ethan is seated at a chair in front of the computer.
 
->"Do you have information about this organization?  Like a name or something?"
+> talk to ethan
+"Do you have information about this organization?  Like a name or something?"
 
 1) "Yes"
 2) "No"
 
->"You do?  What is it?"
+> 1
+"You do?  What is it?"
 
 What do you tell him?
 
->    "'Rosa', huh?  Okay, I'll see what I can dig up.  Don't go anywhere, this
+> rosa
+    "'Rosa', huh?  Okay, I'll see what I can dig up.  Don't go anywhere, this
 won't take long..."
     Ethan spins back to his computer, brings up some new windows, and starts
 pounding keys.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
     Ethan leans down and picks up a piece of tissue, blows his nose on it,
 and chucks it back among the trash that constitutes the floor of his room.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
     "Okay!", announces Ethan, "I got something.  'ROSA central port'--that's
 probably what we're after.  If it's their main server like I think it is,
@@ -1698,7 +1868,8 @@ Cracking a password is like cracking an old walnut.  You never know if it
 will take ten seconds or a whole day.  That wasn't the greatest analogy, was
 it now.    Anyways, you may want to come back later."
 
->As you turn to go, Ethan says, "Bring Laurie with you next time.  I'd sure
+> up
+As you turn to go, Ethan says, "Bring Laurie with you next time.  I'd sure
 like to see her."
 
 Inside Apartment
@@ -1711,7 +1882,8 @@ junk.  As it is, you can barely make your way down the stairway  from which
 you hear the sounds of typing at a keyboard.  The exit to the apartment is
 north.
 
->You leave the apartment, closing the door behind you.
+> north
+You leave the apartment, closing the door behind you.
 
 Front of Ethan's
     You stand at a plain concrete apartment complex.  The door to the south
@@ -1719,7 +1891,8 @@ of you is where, according to Laurie's directions, Ethan lives.  There are
 also apartments to the west and east, spaced at a less than neighborly
 distance apart.  Your motorcycle is parked here.
 
->(Sitting on the motorcycle first)
+> ride the motorcycle
+(Sitting on the motorcycle first)
 
 Where will you go?
 a) Majesty Mall
@@ -1729,7 +1902,8 @@ d) Ethan's Apartment
 e) The Plaza
 f) Gammex Industrial
 
->You start up your motorcycle and depart for Monika's...
+> c
+You start up your motorcycle and depart for Monika's...
 
 Press enter to continue
 
@@ -1747,7 +1921,8 @@ cleanliness and simple feminine decor.  A mat lies at the foot of the front
 door, which is east.  A mailbox is attached to the wall beside the door.
 Your motorcycle is parked close by.
 
->You enter the house.
+> east
+You enter the house.
 
 Living Room
     Monika's living room is satisfactorily filled with the amenities that any
@@ -1760,7 +1935,8 @@ east.  The front door is west.
     "Petter, you're back!  How was the plaza?  Did you find any fun there?
 Sheesh, I've been so bored here."
 
->You move east.
+> east
+You move east.
 
 By the Stairs
     The stairway here ascends up to a second floor.  To the west is the
@@ -1769,7 +1945,8 @@ to the east.
 
 An air freshener is on the wall here.
 
->You move south.
+> south
+You move south.
 
 Kitchen
     Monika's kitchen sports the usual accommodations, including a counter, a
@@ -1780,11 +1957,13 @@ freezer stands against the opposite wall.  The dining room is west and the
 stairway north.  A granola bar is on the kitchen counter.
     Monika is standing here.
 
->Time passes...
+> wait
+Time passes...
 
     Monika puts down the grocery sack.
 
->Time passes...
+> wait
+Time passes...
 
     "Stick around for dinner, Petter.  I think you will like it.  Or that's
 what I'm hoping", she smiles.
@@ -1792,128 +1971,164 @@ what I'm hoping", she smiles.
     Monika begins taking vegetables out of the sack and placing them on the
 kitchen counter.
 
->Time passes...
+> wait
+Time passes...
 
     Monika gets out a cutting board and puts it on the counter.
 
->Time passes...
+> wait
+Time passes...
 
     Monika opens a drawer and takes out a knife.
 
->Time passes...
+> wait
+Time passes...
 
     Monika takes an onion and sets it on the cutting board.
 
->Time passes...
+> wait
+Time passes...
 
     Monika begins slicing the onion.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
     Monika takes a pepper and sets it on the cutting board.
 
->Time passes...
+> wait
+Time passes...
 
     Monika begins slicing the green pepper.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
     Monika takes a tomato and sets it on the board.
 
->Time passes...
+> wait
+Time passes...
 
     Monika begins slicing the tomato.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
     Monika puts the knife down.  She opens the refrigerator and retrieves a
 package of tortillas and some chicken strips.
 
->Time passes...
+> wait
+Time passes...
 
     Monika puts the skillet on the grill and turns on the grill.  She halts
 abruptly.  "Shoot, I forgot to buy fajita seasoning!  How could I forget such
 a thing?  I guess I just have to improvise somehow."
 
->Time passes...
+> wait
+Time passes...
 
     Monika begins frying tortillas lightly.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
     Monika puts the tortillas aside.  She begins frying the chicken strips.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
     Monika grabs the cutting board and adds the onion and pepper slices to
 the mix.  She also takes the knife and puts it away.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
     Monika adds the tomato slices to the mix.  She puts the cutting board
 back onto the counter.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
     Monika turns off the grill.  She begins adding the fajita mix to the
 tortillas and folding the tortillas.
 
->Time passes...
+> wait
+Time passes...
 
     "Cassie?  Will you help set the table?"
     "Sure", is heard Cassie's reply, muffled and delayed.
 
->Time passes...
+> wait
+Time passes...
 
     Cassie walks in from the west.
 
     Monika stacks the finished fajitas onto a plate.
 
->Time passes...
+> wait
+Time passes...
 
     Cassie takes plates and things wherewith to set the table.
 
->Time passes...
+> wait
+Time passes...
 
     Cassie walks away to the west.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
     "Let's eat already.  I'm getting thinner by the minute", hollers Cassie.
 
->Time passes...
+> wait
+Time passes...
 
     Monika walks away to the west.
 
->You move north.
+> north
+You move north.
 
 By the Stairs
     The stairway here ascends up to a second floor.  To the west is the
@@ -1922,7 +2137,8 @@ to the east.
 
 An air freshener is on the wall here.
 
->You move east.
+> east
+You move east.
 
 Bedroom
     This small room contains only a bed and a nightstand with a mirror.  All
@@ -1935,7 +2151,8 @@ Laurie is waiting for you under the lamppost.
     Laurie has recently risen and is stretching her arms.  "I needed that
 nap", she confesses.
 
->You move west.
+> west
+You move west.
 
 By the Stairs
     The stairway here ascends up to a second floor.  To the west is the
@@ -1946,7 +2163,8 @@ An air freshener is on the wall here.
 
     Laurie walks in from the east.
 
->You move west.
+> west
+You move west.
 
 Living Room
     Monika's living room is satisfactorily filled with the amenities that any
@@ -1955,7 +2173,8 @@ wall decorations adorning the walls.  All that is lacking is the hearth.  The
 space opens up to a dining area to the south, and an area with a stairway
 east.  The front door is west.
 
->You move south.
+> south
+You move south.
 
 Dining Room
     A dining table stands before a broad window with curtains, which serves
@@ -1966,7 +2185,8 @@ centerpiece.  A plate is on the dining table.
     Monika is standing here.
     Cassie is standing here.
 
->Time passes...
+> wait
+Time passes...
 
     Laurie walks in from the north.
 
@@ -1978,7 +2198,8 @@ cook among us."
     "I am sure it will taste no less delicious than always."  The girls sit
 down around the table.
 
->Time passes...
+> wait
+Time passes...
 
     Cassie reaches for a fajita but Laurie stays her hand while Monika says a
 silent prayer.  Then, raising her head, she speaks, "Chow down everyone."
@@ -1991,7 +2212,8 @@ Cassie is on her next several.
     "Thanks.  I love cooking.  It's one of those things that you have to do
 whether you enjoy it or not, but you can enjoy it all the same.  You know?"
 
->Time passes...
+> wait
+Time passes...
 
     "I can't decide which I like better, Chinese food or Mexican.  After ice
 cream, of course."  Cassie scarfs down the rest of her first fajita.
@@ -1999,14 +2221,16 @@ cream, of course."  Cassie scarfs down the rest of her first fajita.
 Laurie.
     Monika laughs.  "Ice cream will be the end of you yet, girl."
 
->You sit down on one of the chairs.
+> sit
+You sit down on one of the chairs.
 
     "So, Petter, how did it go at the plaza?", asks Laurie.
 
 1) (tell about your meeting with Katryn)
 2) (don't tell)
 
->    The girls can scarcely believe what you say.
+> 1
+    The girls can scarcely believe what you say.
     Cassie: "You met...the kidnappers' boss?"
     Monika: "Do you trust this woman?"
     Laurie: "Are you going to go meet her tonight just like that?"
@@ -2015,7 +2239,8 @@ Laurie.
 2) "Of course I don't trust her."
 3) "Well, maybe I'll go.
 
->   "What, are you trying to open up negotiations with this lady?", asks
+> 1
+   "What, are you trying to open up negotiations with this lady?", asks
 Cassie incredulously.
     "How do you even know that she is what she says she is?", asks Monika.
     Then Laurie speaks up.  "We need more information to know what to do to
@@ -2023,13 +2248,15 @@ get clear of this whole mess.  But I'm not sure if this is a great way to get
 the information we need.  How can we know what this woman is really after?  I
 fear what her true motive might be.  What to do...I do not know."
 
->Time passes...
+> wait
+Time passes...
 
     There is near silence in the room for some time.  Then Cassie asks her
 sister, "Will we ever really be safe?"
     "Cassie.... ", mutters Laurie introspectively.
 
->Time passes...
+> wait
+Time passes...
 
     Cassie takes another bite of her food and says, "As long as Petter stays
 with us nobody will put their hands on me agai--"
@@ -2052,23 +2279,28 @@ The Enemy Revealed
 apprehension, look blankly at one another and at you.  Even Cassie ceases to
 shift in her seat.
 
->Time passes...
+> wait
+Time passes...
 
     You hear another knock at the front door.
 
->Time passes...
+> wait
+Time passes...
 
     Someone is knocking at the door.
 
->Time passes...
+> wait
+Time passes...
 
     The knocking continues.
 
->Time passes...
+> wait
+Time passes...
 
     You hear one final knock.
 
->Time passes...
+> wait
+Time passes...
 
     The girls relax.  Laurie exhales as if she had been holding her breath a
 long while.
@@ -2078,7 +2310,8 @@ long while.
     "Sis, we don't even know who it was!  I bet it was only Jehovah's
 Witnesses."  Laurie tries to smile.
 
->Time passes...
+> wait
+Time passes...
 
     "Excuse me", says Monika, arising from her chair and grabbing things from
 the table.  "Petter, go ahead and eat as much as you like."
@@ -2087,7 +2320,8 @@ minutes, Monika."
     Cassie is considering another fajita like a roulette player considers
 another toss.
 
->(Getting off the chairs first)
+> north
+(Getting off the chairs first)
 You move north.
 
 Living Room
@@ -2097,7 +2331,8 @@ wall decorations adorning the walls.  All that is lacking is the hearth.  The
 space opens up to a dining area to the south, and an area with a stairway
 east.  The front door is west.
 
->You leave the house, closing the door behind you.
+> west
+You leave the house, closing the door behind you.
 
 Front of Monika's House
     The house before you is not large, nor is it attractive in any way other
@@ -2106,7 +2341,8 @@ cleanliness and simple feminine decor.  A mat lies at the foot of the front
 door, which is east.  A mailbox is attached to the wall beside the door.
 Your motorcycle is parked close by.
 
->(Sitting on the motorcycle first)
+> ride the motorcycle
+(Sitting on the motorcycle first)
 
 Where will you go?
 a) Majesty Mall
@@ -2116,7 +2352,8 @@ d) Ethan's Apartment
 e) The Plaza
 f) Gammex Industrial
 
->You start up your motorcycle and depart for Ethan's...
+> d
+You start up your motorcycle and depart for Ethan's...
 
 Press enter to continue
 
@@ -2129,7 +2366,8 @@ of you is where, according to Laurie's directions, Ethan lives.  There are
 also apartments to the west and east, spaced at a less than neighborly
 distance apart.  Your motorcycle is parked here.
 
->You open the door and enter the apartment.
+> south
+You open the door and enter the apartment.
 
 Inside Apartment
     The interior of Ethan's apartment is hopelessly messy.  Boxes of junk,
@@ -2141,7 +2379,8 @@ junk.  As it is, you can barely make your way down the stairway  from which
 you hear the sounds of typing at a keyboard.  The exit to the apartment is
 north.
 
->You move down.
+> down
+You move down.
 
 Ethan's Den
     The downstairs of Ethan's apartment is only slightly less cluttered than
@@ -2155,7 +2394,8 @@ a table on which sits a computer monitor.
 "This is lame!  Why is it taking so long?  What kind of word are they using
 for a password, 12-digit-long Navajo slang?!"
 
->Time passes...
+> wait
+Time passes...
 
     "I'll tell you what the problem is.  I don't like to admit it but the
 software I'm using is outdated.  Yeah, probably just by a few hours.  No, I'm
@@ -2165,7 +2405,8 @@ password could take a deathly long time to crack with some of the dinosaur
 programs I'm using.  Unless you've got something that could help speed up the
 process?  You probably wouldn't, huh."
 
->You move up.
+> up
+You move up.
 
 Inside Apartment
     The interior of Ethan's apartment is hopelessly messy.  Boxes of junk,
@@ -2177,7 +2418,8 @@ junk.  As it is, you can barely make your way down the stairway  from which
 you hear the sounds of typing at a keyboard.  The exit to the apartment is
 north.
 
->You leave the apartment, closing the door behind you.
+> north
+You leave the apartment, closing the door behind you.
 
 Front of Ethan's
     You stand at a plain concrete apartment complex.  The door to the south
@@ -2185,7 +2427,8 @@ of you is where, according to Laurie's directions, Ethan lives.  There are
 also apartments to the west and east, spaced at a less than neighborly
 distance apart.  Your motorcycle is parked here.
 
->(Sitting on the motorcycle first)
+> ride the motorcycle
+(Sitting on the motorcycle first)
 
 Where will you go?
 a) Majesty Mall
@@ -2195,7 +2438,8 @@ d) Ethan's Apartment
 e) The Plaza
 f) Gammex Industrial
 
->You start up your motorcycle and depart for the Industrial District...
+> f
+You start up your motorcycle and depart for the Industrial District...
 
 Press enter to continue
 
@@ -2214,7 +2458,8 @@ chimney-like structure or two.  There is a wide door set into this wall that
 does not open by the use of knob or handle, as these conventions are not
 present.  Your motorcycle is parked here.
 
->You enter the site.
+> west
+You enter the site.
 
 Industrial Square
     This large open area is punctuated here and there by oil drums, scattered
@@ -2226,7 +2471,8 @@ open wide.
 
     Upon your entering the door slides shut with force behind you.
 
->You enter the warehouse.
+> west
+You enter the warehouse.
 
 Warehouse
     This room is quite large.  The greater part of it is filled with tightly
@@ -2239,16 +2485,19 @@ It's rather dark in here.
 
     The door shuts behind you by itself.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
     Your eyes are beginning to adjust to the dim lighting.
     "And there you are.  Like a rat come to collect the cheese.  Yet you will
 find no cheese here."  This strong male voice is heard from the far end of
 the warehouse.
 
->Time passes...
+> wait
+Time passes...
 
     "Rats, they say, can learn from their mistakes.  Yes, even rats can learn
 to avoid the more imminent danger, to go where the threat of pain is not, be
@@ -2258,7 +2507,8 @@ experience, my friend rat."
 1) "Who are you?"
 2) "What are you going to do?"
 
->    "I am Octalus Percy Defoe, head of the organization known as R.O.S.A, an
+> 1
+    "I am Octalus Percy Defoe, head of the organization known as R.O.S.A, an
 organization dedicated to gaining knowledge of the marvelous supernormal,
 paranormal powers that lie dormant in our species.  The frontiers of our
 understanding of these singular phenomena broaden with every project of
@@ -2273,7 +2523,8 @@ am not mistaken."
 1) "What do you want with the girls?"
 2) "How do you know that?"
 
->    "Since R.O.S.A. was founded there has been one person whose gift in the
+> 1
+    "Since R.O.S.A. was founded there has been one person whose gift in the
 use of PK has been far stronger than anyone else who has the ability at all,
 and that's me.  Yet six weeks ago I first heard of another whose ability
 rivals my own.  This person knows little of the tremendous talent she
@@ -2287,7 +2538,8 @@ accept the opportunity I offer them."
 1) "You kidnap them!"
 2) "Why can't you take 'no' for an answer?"
 
->    "I do what is best for humanity", he rejoins.  "And for themselves.  They
+> 1
+    "I do what is best for humanity", he rejoins.  "And for themselves.  They
 are blind not to see it.  But their blindness is temporary."
     "Octal, do end this", says a woman that has stepped out on the ledge.  It
 appears to be Katryn.  What does she really think of this guy and what he is
@@ -2296,7 +2548,8 @@ doing?  It is impossible to read her from this distance.
     Octal jerks his head to a side and you start to hear a low running noise,
 the sound of something mechanical moving.
 
->Time passes...
+> wait
+Time passes...
 
     From the far end of the warehouse a vehicle turns and enters the corridor
 heading towards you--a steam roller!
@@ -2307,7 +2560,8 @@ you the chance to expiate for your meddlesomeness, and to save your own hide.
 1) "Okay, sure."
 2) "Forget it!"
 
->    "I expected as much.  Well I do not mind having to dispose of you.  I
+> 2
+    "I expected as much.  Well I do not mind having to dispose of you.  I
 have a promising lead anyways.  Less than an hour ago somebody tried to
 access our computer network, somebody who knows a lot about Laurie Hemmings,
 if the data and images that we found on his system are any indication.  He is
@@ -2324,19 +2578,22 @@ and a rock drill respectively.  They are also headed towards you.  A
 three-way collision is imminent!  The aisles are completely filled by these
 three monster vehicles, and you have nowhere to go to escape.
 
->You reach toward the nearest stack of crates and manage to dislodge one of
+> push crates
+You reach toward the nearest stack of crates and manage to dislodge one of
 them.  It topples into the path of the steam roller and is pushed forward
 along with it.
 
     The vehicles are approaching, from your left a bulldozer, from your front
 a steam roller, from your right a rock drill!
 
->The crate you already knocked over is sufficient to facilitate your escape!
+> push crates
+The crate you already knocked over is sufficient to facilitate your escape!
 
     The grating noise of their movement towards you becomes increasingly
 louder.
 
->By using the fallen crate as a step you are able to get atop the oncoming
+> climb over steam roller
+By using the fallen crate as a step you are able to get atop the oncoming
 steam roller and propel yourself to the aisle behind it, out of danger's way.
 
 Shortly thereafter the three vehicles collide with a great tumultuous crash.
@@ -2345,9 +2602,11 @@ to the ground around the area of the wreckage creating no small sound.  It is
 a little while before the engines of the wrecked vehicles fail and there is
 finally silence in the room.  You are unhurt in any way.
 
->You climb onto the ledge.
+> up
+You climb onto the ledge.
 
->You walk south along the ledge, through a doorway into the adjoining room.
+> south
+You walk south along the ledge, through a doorway into the adjoining room.
 
 Back Room
     The room adjoining the main warehouse is much smaller, but just as poorly
@@ -2357,7 +2616,8 @@ line of lockers covers the south wall, and some stacks of discarded sheet
 metal reflect back what little light manages to reach them.  You can move up
 or down by means of a length of chain.
 
->You step out onto several large mounds of scrap metal.  Your position is
+> east
+You step out onto several large mounds of scrap metal.  Your position is
 precarious so you skip your way down to the ground...
 
 Scrapyard
@@ -2366,7 +2626,8 @@ of them you experience the effect of falling endlessly down a pit with walls
 of glistening metal.  Beyond these mounds rise long buildings.  One of them
 closely borders some of the scrap piles.  An open area is north.
 
->You move north.
+> north
+You move north.
 
 Industrial Square
     This large open area is punctuated here and there by oil drums, scattered
@@ -2375,7 +2636,8 @@ that doubtless exist during the daytime are absent here now.  Set in a wall
 to the east is the doorway that marks the back entrance to this site.  To the
 immediate west lies a windowless brown building.
 
->You move east.
+> east
+You move east.
 
 Outside the Site
     This is the back entrance to an industrial site situated to the west,
@@ -2384,7 +2646,8 @@ chimney-like structure or two.  There is a wide door set into this wall that
 does not open by the use of knob or handle, as these conventions are not
 present.
 
->Having had no luck finding your motorcycle you start on the long trek back to
+> start walking
+Having had no luck finding your motorcycle you start on the long trek back to
 Monika's house by foot.  Maybe you'll get lucky and strike upon a bus stop
 along the way, but even if you did it's doubtful that any buses are running
 at this hour of night.  The new dawn will probably beat you to Monika's, but
@@ -2423,7 +2686,8 @@ your motorcycle is parked here.
 2) "Get off my bike this instant."
 3) "Why not?"
 
->Katryn slides her hips forward to make room for you on the motorcycle.  "You
+> 3
+Katryn slides her hips forward to make room for you on the motorcycle.  "You
 continue to impress me, my darling.  Of course I knew you would get out of
 that ridiculous trap.  Octal must have known also.  He does not underestimate
 you.  No, he does not.  Do you know that?"
@@ -2432,7 +2696,8 @@ you.  No, he does not.  Do you know that?"
 2) "Where are we going?"
 3) "How about yourself?"
 
->"Have you not hitherto manifested your courage and capability?  I will
+> 1
+"Have you not hitherto manifested your courage and capability?  I will
 recount your heroics up to this point in time.  So doing, my sentiments
 toward you will make more sense?  There is the whole night chase that
 followed the kidnapping of the previous evening.  It was not expected that
@@ -2450,7 +2715,8 @@ aside the snare.  You are not made of small stuff, my darling."
 
     Katryn has turned off the engine.
 
->You kiss Katryn on the lips.  She draws up to you and pulls your head in
+> kiss katryn
+You kiss Katryn on the lips.  She draws up to you and pulls your head in
 closer, pouring and mixing vitality, emotion, pleasure into the kiss like
 milk added to a batter.  She is no mean kisser.
     Ending the transaction suddenly she says, "That is only the beginning, my
@@ -2472,7 +2738,8 @@ darkened road, her pace calm and stately.  Soon she is out of sight
 completely, and there is just the silhouettes of your motorcycle and yourself
 to stand against the blackness of night.
 
->(Sitting on the motorcycle first)
+> ride the motorcycle
+(Sitting on the motorcycle first)
 You start up the motorcycle and head for Monika's...
 
 Press enter to continue
@@ -2489,7 +2756,8 @@ cleanliness and simple feminine decor.  A mat lies at the foot of the front
 door, which is east.  A mailbox is attached to the wall beside the door.
 Your motorcycle is parked close by.
 
->(Sitting on the motorcycle first)
+> ride the motorcycle
+(Sitting on the motorcycle first)
 
 Where will you go?
 a) Majesty Mall
@@ -2499,7 +2767,8 @@ d) Ethan's Apartment
 e) The Plaza
 f) Gammex Industrial
 
->You start up your motorcycle and depart for Ethan's...
+> d
+You start up your motorcycle and depart for Ethan's...
 
 Press enter to continue
 
@@ -2516,7 +2785,8 @@ of you is where, according to Laurie's directions, Ethan lives.  There are
 also apartments to the west and east, spaced at a less than neighborly
 distance apart.  Your motorcycle is parked here.
 
->You open the door and enter the apartment.
+> south
+You open the door and enter the apartment.
 
 Inside Apartment
     The interior of Ethan's apartment is hopelessly messy.  Boxes of junk,
@@ -2527,7 +2797,8 @@ continues to the south, but access is completely blocked by the piles of
 junk.  As it is, you can barely make your way down the stairway  partially
 concealed by the rummage.  The exit to the apartment is north.
 
->Yes, things are not right.  Coming down the stairs, you see the chair by the
+> down
+Yes, things are not right.  Coming down the stairs, you see the chair by the
 monitor vacant and know immediately that something has happened...
 
 Press enter to continue
@@ -2548,7 +2819,8 @@ floor, the fish beside it.  The computer monitor now has a large unsightly
 crack down the center of it.
     Ethan is lying unconscious near some computer hardware.
 
->Gradually Ethan comes to.   "They'll pay.....", he mutters queasily,
+> revive ethan
+Gradually Ethan comes to.   "They'll pay.....", he mutters queasily,
 "They'll...pay!....."  He leans forward and clutches your shoulders.  "He
 took her.  Took Laurie!  Didn't take her without a fight, though", he
 chuckles deliriously and squints at the damage done to the room.  The way in
@@ -2556,7 +2828,8 @@ which he says this attests to the likelihood that most or perhaps even all of
 the damage can be credited to Laurie.  From looking around the room it is
 amazing to think that anyone was able to lay a hand on her at all.
 
->You move up.
+> up
+You move up.
 
 Inside Apartment
     The interior of Ethan's apartment is hopelessly messy.  Boxes of junk,
@@ -2567,7 +2840,8 @@ continues to the south, but access is completely blocked by the piles of
 junk.  As it is, you can barely make your way down the stairway  partially
 concealed by the rummage.  The exit to the apartment is north.
 
->You leave the apartment, closing the door behind you.
+> north
+You leave the apartment, closing the door behind you.
 
 Front of Ethan's
     You stand at a plain concrete apartment complex.  The door to the south
@@ -2575,7 +2849,8 @@ of you is where, according to Laurie's directions, Ethan lives.  There are
 also apartments to the west and east, spaced at a less than neighborly
 distance apart.  Your motorcycle is parked here.
 
->(Sitting on the motorcycle first)
+> ride the motorcycle
+(Sitting on the motorcycle first)
 
 Where will you go?
 a) Majesty Mall
@@ -2585,7 +2860,8 @@ d) Ethan's Apartment
 e) The Plaza
 f) Gammex Industrial
 
->You start up your motorcycle and depart for the Plaza...
+> e
+You start up your motorcycle and depart for the Plaza...
 
 Press enter to continue
 
@@ -2603,7 +2879,8 @@ on both sides of you.  To the north there is a busy pedestrian intersection.
 It seems to be the fountain from which much of the traffic flows to or from.
 Your motorcycle is parked along the street.
 
->(Getting off your motorcycle first)
+> north
+(Getting off your motorcycle first)
 You move north.
 
 Intersection
@@ -2612,7 +2889,8 @@ only.  Numerous people walk past you in every which direction, their
 destinations not deducible from reading only their faces.  The patter of feet
 on pavement is heard continually.
 
->You move north.
+> north
+You move north.
 
 West Plaza
     This is the west end of a friendly cobblestone thoroughfare several yards
@@ -2623,7 +2901,8 @@ it.
     A girl in a green dress is sitting on the blanket with her legs
 stretched, watching people pass by dreamily.
 
->You move east.
+> east
+You move east.
 
 Center Plaza
     Colored cobblestones have been arranged on the ground so as to create a
@@ -2635,12 +2914,14 @@ A statue in the likeness of a man stands here.
     An umbrella peddler is here.
     A pervert is standing here.
 
->A dollar passes between you and the old peddler.  He pockets the money and
+> give money to peddler
+A dollar passes between you and the old peddler.  He pockets the money and
 beckons for you to lean in closer to ask your question, a thing more
 necessary for you than for him; it's difficult to make sense of that hoarse
 voice.
 
->    The peddler beckons you even closer, waiting until you are close enough
+> ask peddler about silo
+    The peddler beckons you even closer, waiting until you are close enough
 almost to rub noses before he tells all.  His bad breath his hard to ignore.
     "Ah, the R.O.S.A. research complex, the very place where all those poor
 young lasses are getting taken to.  Deep in a secluded valley, that's where
@@ -2652,7 +2933,8 @@ guard dogs, or anything like that.  After all, nobody has the slightest idea
 where this place is.  But I have.  Or I used to anyhow..."  He glances
 sidelong again.
 
->    The peddler beckons you even closer, waiting until you are close enough
+> ask peddler about valley
+    The peddler beckons you even closer, waiting until you are close enough
 almost to rub noses before he tells all.  His bad breath his hard to ignore.
     "You want to know where the valley is?  I can tell you..."
     He gives you directions on how to reach this valley where the research
@@ -2660,7 +2942,8 @@ complex is located.  It's two or so hours to get there by motorcycle.  You
 are told to look for a pass between the mountains that cannot easily be seen
 from the road.
 
->You move west.
+> west
+You move west.
 
 West Plaza
     This is the west end of a friendly cobblestone thoroughfare several yards
@@ -2671,7 +2954,8 @@ it.
     A girl in a green dress is sitting on the blanket with her legs
 stretched, watching people pass by dreamily.
 
->You move south.
+> south
+You move south.
 
 Intersection
     You stand in the midst of a spacious four-way crossing for pedestrians
@@ -2681,7 +2965,8 @@ on pavement is heard continually.
 
     A group of idle teens cross your path.
 
->You move south.
+> south
+You move south.
 
 Avenue
     Small shops line the side of the walk through this, the trendier part of
@@ -2690,7 +2975,8 @@ on both sides of you.  To the north there is a busy pedestrian intersection.
 It seems to be the fountain from which much of the traffic flows to or from.
 Your motorcycle is parked along the street.
 
->(Sitting on the motorcycle first)
+> ride the motorcycle
+(Sitting on the motorcycle first)
 
 Where will you go?
 a) Majesty Mall
@@ -2701,7 +2987,8 @@ e) The Plaza
 f) Gammex Industrial
 j) Wautomec Valley
 
->You start up your motorcycle and depart for Wautomec Valley, the valley where
+> j
+You start up your motorcycle and depart for Wautomec Valley, the valley where
 the R.O.S.A. research complex is rumored to be, the place where you hope to
 find Laurie.  It is midday when you set out, the sun shining brightly...
 
@@ -2721,11 +3008,13 @@ being a bright and sunny day, the road lies in shadow.  The mountains can be
 thanked for this; though not large, they loom over the road.  Your motorcycle
 is parked here.
 
->Sure enough, there is a pass behind where the rock juts out!  It was not
+> search mountains
+Sure enough, there is a pass behind where the rock juts out!  It was not
 difficult to locate, yet it would have been missed by anyone not expecting to
 find it.  The pass leads east through the mountains.
 
->You navigate through the canyon-esque pass, emerging after some time in a
+> east
+You navigate through the canyon-esque pass, emerging after some time in a
 spacious clearing...
 
     Some people wearing white are moving away from that building, spilling
@@ -2737,7 +3026,8 @@ mountains such as these.  The shrub becomes sparser as you move eastward, out
 from under the cover of the mountains into this vast clearing.  At the far
 end of the clearing you can see a building, beige in color, square in shape.
 
->You head east towards the building.  By the time that you reach it, those
+> east
+You head east towards the building.  By the time that you reach it, those
 people are all out of sight.
 
 The Silo
@@ -2748,7 +3038,8 @@ is shaped more like a silo, resting here at the far end of the clearing,
 enclosed partially by mountain cliffs.  An open doorway marks the entrance to
 the east.  Faint sounds of commotion can be heard from within.
 
->You enter the facility.  As you do so you begin to hear a voice on the
+> east
+You enter the facility.  As you do so you begin to hear a voice on the
 intercom.
 "...until further notice.  Again, there is an intruder on the premises.
 Evacuate immediately.  This is the final relay." (click)  You've heard that
@@ -2761,15 +3052,18 @@ entered by going around through the front.  However, there is no personnel on
 duty.  Mounted at one of the corners where the walls and ceiling meet is a
 small camera.  A narrow doorway empties into a corridor to the east.
 
->You enter the security booth.  There are six video monitors attached to the
+> enter booth
+You enter the security booth.  There are six video monitors attached to the
 wall here.
 
->Five of the six monitors display footage of hallways and other places within
+> x monitors
+Five of the six monitors display footage of hallways and other places within
 the building.  One of them shows the room you are in from a height and at an
 angle.  You can even see yourself moving behind the plexiglass in the
 picture.  One of the monitors displays no picture at all, static only.
 
->Time passes...
+> wait
+Time passes...
 
     The face of Katryn suddenly appears on the monitor that had previously
 displayed only static.  She speaks.
@@ -2784,23 +3078,28 @@ simply!  You see how easy I make it for you?"
 2) "Where do I find the girl?"
 3) "Does he have any supernormal powers?"
 
->"Oh, do not worry about the girl.  You will find her soon enough.  So, you
+> 2
+"Oh, do not worry about the girl.  You will find her soon enough.  So, you
 cannot wait to see her?"
 
 1) "Well yeah."
 2) "It's my duty to bring her back."
 3) "She'll do until the two of us can meet."
 
->"And we shall, my darling."
+> 3
+"And we shall, my darling."
 
     Katryn blows you a kiss, and then her face is replaced again by the
 static.
 
->You see no such thing, or else it is unimportant.
+> x katryn
+You see no such thing, or else it is unimportant.
 
->You step out of the security booth.
+> exit booth
+You step out of the security booth.
 
->You move east.
+> east
+You move east.
 
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
@@ -2809,7 +3108,8 @@ much the same.  There are scarcely any features to them; only a row of red
 dome-shaped lights that lines the outer wall at chin-height.  The corridor
 continues north and south, and there is a room to the west.
 
->You move north.
+> north
+You move north.
 
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
@@ -2823,7 +3123,8 @@ continues east and south.
 pusillanimous.  Most of the 'enemy' already ran.  Which leaves you free to go
 and find those magnets.  Yep, they're here.  Time for you to fetch me them."
 
->You move east.
+> east
+You move east.
 
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
@@ -2832,7 +3133,8 @@ much the same.  There are scarcely any features to them; only a row of red
 dome-shaped lights that lines the outer wall.  A door is to the south.  The
 corridor continues east and west, and branches to the north.
 
->You move east.
+> east
+You move east.
 
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
@@ -2842,7 +3144,8 @@ dome-shaped lights that lines the outer wall.  A door is to the south.  The
 corridor continues west and east.  However, a sliding wall blocks off further
 access to the east.
 
->You open the door and enter.
+> south
+You open the door and enter.
 
 Research Lab C
     There is a great deal of scientific equipment here, devices, instruments,
@@ -2853,11 +3156,14 @@ never recognize.  The exit is north.
 
 Also here is a striped lab-book.
 
->You find two heavy magnets on the ground behind one of the machines!
+> x equipment
+You find two heavy magnets on the ground behind one of the machines!
 
->You pick up two heavy magnets.
+> get magnets
+You pick up two heavy magnets.
 
->You move back into the corridor.  The door closes behind you.
+> north
+You move back into the corridor.  The door closes behind you.
 
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
@@ -2867,7 +3173,8 @@ dome-shaped lights that lines the outer wall.  A door is to the south.  The
 corridor continues west and east.  However, a sliding wall blocks off further
 access to the east.
 
->You move west.
+> west
+You move west.
 
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
@@ -2876,7 +3183,8 @@ much the same.  There are scarcely any features to them; only a row of red
 dome-shaped lights that lines the outer wall.  A door is to the south.  The
 corridor continues east and west, and branches to the north.
 
->You move west.
+> west
+You move west.
 
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
@@ -2886,11 +3194,13 @@ Mounted where the wall and ceiling meet is a small camera.  The corridor
 continues east and south.
     Dustin is standing here.
 
->"Found them, eh?  Now was that so hard?"  He takes the magnets and studies
+> give magnets to dustin
+"Found them, eh?  Now was that so hard?"  He takes the magnets and studies
 them approvingly.  "See here, you can leave the rest to me.  Just stay out of
 my way and the story will end nice and happy."
 
->You move south.
+> south
+You move south.
 
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
@@ -2901,7 +3211,8 @@ continues north and south, and there is a room to the west.
 
     Dustin walks in from the north.
 
->You move south.
+> south
+You move south.
 
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
@@ -2912,7 +3223,8 @@ corridor continues north and south.
 
     Dustin walks in from the north.
 
->You move south.
+> south
+You move south.
 
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
@@ -2923,7 +3235,8 @@ portion of the ceiling that opens and extends upwards some ways to where
 there is a hatch of some kind.  A ladder-like apparatus is attached near it.
 The corridor continues north and east.
 
->You move east.
+> east
+You move east.
 
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
@@ -2932,7 +3245,8 @@ much the same.  There are scarcely any features to them; only a row of red
 dome-shaped lights that lines the outer wall.  A door is to the north.  The
 corridor continues east and west.
 
->You move east.
+> east
+You move east.
 
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
@@ -2942,7 +3256,8 @@ dome-shaped lights that lines the outer wall.  A door is to the north.  The
 corridor continues east and west, and branches to the south.  However, a
 sliding wall blocks off further access to the east.
 
->You move south.
+> south
+You move south.
 
 Prep Corner
     This short hall originating from the north comes to an end beside a door
@@ -2950,7 +3265,8 @@ to the west.  There is a long wooden shelf high on the opposite wall that
 carries some boxes.  There are several hooks on the wall beneath it, on which
 are hanging ropes and cords of varying sizes.
 
->You open the door and enter.
+> west
+You open the door and enter.
 
 Detainment
     This room of average dimensions is entirely bare.  The exit is east.
@@ -2986,7 +3302,8 @@ is wearing on her forehead.  "It's why he uses this barrier.  It even
 explains why this room is so bare."  She waves her arms around.  "He can't
 have you PK'ing things around that you shouldn't be."
 
->You move east.
+> east
+You move east.
 
 Prep Corner
     This short hall originating from the north comes to an end beside a door
@@ -2994,7 +3311,8 @@ to the west.  There is a long wooden shelf high on the opposite wall that
 carries some boxes.  There are several hooks on the wall beneath it, on which
 are hanging ropes and cords of varying sizes.
 
->You move north.
+> north
+You move north.
 
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
@@ -3003,7 +3321,8 @@ much the same.  There are scarcely any features to them; only a row of red
 dome-shaped lights that lines the outer wall.  A door is to the north.  The
 corridor continues east and west, and branches to the south.
 
->You open the door and enter.
+> north
+You open the door and enter.
 
 Research Lab E
     There is a great deal of scientific equipment here, devices, instruments,
@@ -3012,13 +3331,16 @@ table with shackles attached to its sides.  The walls are covered with
 cabinets full of vials and containers, as well as strange gear that you would
 never recognize.  The exit is south.
 
->You open one of the cabinets to reveal more unfathomable instruments and
+> open cabinets
+You open one of the cabinets to reveal more unfathomable instruments and
 machinery, but hardly anything worth investigating.  A microwave transmitter
 is inside the cabinet.
 
->You take the microwave transmitter from the cabinet.
+> get transmitter
+You take the microwave transmitter from the cabinet.
 
->You move back into the corridor.  The door closes behind you.
+> south
+You move back into the corridor.  The door closes behind you.
 
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
@@ -3027,7 +3349,8 @@ much the same.  There are scarcely any features to them; only a row of red
 dome-shaped lights that lines the outer wall.  A door is to the north.  The
 corridor continues east and west, and branches to the south.
 
->You move east.
+> east
+You move east.
 
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
@@ -3036,7 +3359,8 @@ much the same.  A row of red dome-shaped lights lines the outer wall.
 Mounted up where the wall and ceiling meet is a small camera.  The corridor
 continues north and west.
 
->You move north.
+> north
+You move north.
 
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
@@ -3045,7 +3369,8 @@ much the same.  There are scarcely any features to them; only a row of red
 dome-shaped lights that lines the outer wall.  A door is to the east.  The
 corridor continues north and south.
 
->You move north.
+> north
+You move north.
 
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
@@ -3054,7 +3379,8 @@ much the same.  There are scarcely any features to them; only a row of red
 dome-shaped lights that lines the outer wall.  A door is to the east.  The
 corridor continues north and south.
 
->You move north.
+> north
+You move north.
 
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
@@ -3065,9 +3391,11 @@ continues west and south.
 
 A fire extinguisher is on one of the walls.
 
->You pick up the fire extinguisher.
+> get extinguisher
+You pick up the fire extinguisher.
 
->You move south.
+> south
+You move south.
 
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
@@ -3076,7 +3404,8 @@ much the same.  There are scarcely any features to them; only a row of red
 dome-shaped lights that lines the outer wall.  A door is to the east.  The
 corridor continues north and south.
 
->You open the door and see a tiny room with a switchboard occupying much of
+> east
+You open the door and see a tiny room with a switchboard occupying much of
 one of the walls.  Lights from the switchboard bathe the dark room in a mix
 of colors.  A man is seated at a chair.
 
@@ -3090,11 +3419,13 @@ headache you have ever experienced.  You stumble backwards...
 corridor.  A metallic scraping noise is audible from somewhere else in the
 corridor, but you are hardly conscious of it.  The pain is unbearable!
 
->You point the fire extinguisher at the man and start to spray.  He screams
+> spray chadwick
+You point the fire extinguisher at the man and start to spray.  He screams
 and turns away, hands covering face.  All of the pain you have been
 experiencing flickers out at that instant.
 
->You turn on the transmitter.  You begin to hear a steady humming sound.
+> turn on transmitter
+You turn on the transmitter.  You begin to hear a steady humming sound.
 
     Suddenly the pain vanishes altogether!  The man wears a confused
 expression at first, but as he stares at the device in your hands,
@@ -3102,7 +3433,8 @@ realization of what has happened dawns on him.  He puts his hands up in a
 defensive manner and begins to step away.
     "Don't hurt me", he pleads.
 
->You step up to the man, grab him by the collar, and strike him several times
+> attack chadwick
+You step up to the man, grab him by the collar, and strike him several times
 in succession.  He takes blow after blow without dealing any himself.
 Finally, he collapses to the floor and ceases to move.
 
@@ -3111,7 +3443,8 @@ scornful look.
 
     A steady humming sound fills the air.
 
->You find nothing of interest on the man.
+> search chadwick
+You find nothing of interest on the man.
 
     A steady humming sound fills the air.
 
@@ -3121,7 +3454,8 @@ position which he does not deserve.  Octal never was one to award leadership
 based on ability, unless it is psychic ability.   I am glad you dealt with
 him as you did, and I expected no less."
 
->You open the door and enter.
+> east
+You open the door and enter.
 
 Control Room
     This is a tiny room with a switchboard occupying much of one of the
@@ -3130,21 +3464,25 @@ room in a mix of colors.  The exit is west.
 
     A steady humming sound fills the air.
 
->You flip down the switch beside the symbol of a door.  You hear the sound of
+> flip door switch
+You flip down the switch beside the symbol of a door.  You hear the sound of
 metal scraping metal out in the corridor somewhere.  It lasts only a moment.
 
     A steady humming sound fills the air.
 
->You flip down the switch beside the symbol of a zigzag.
+> flip zigzag switch
+You flip down the switch beside the symbol of a zigzag.
 
     A steady humming sound fills the air.
 
->You flip down the switch beside the symbol of a ladder.  A noise is heard
+> flip ladder switch
+You flip down the switch beside the symbol of a ladder.  A noise is heard
 from far away.
 
     A steady humming sound fills the air.
 
->You move back into the corridor.
+> west
+You move back into the corridor.
 
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
@@ -3157,7 +3495,8 @@ corridor continues north and south.
 
     A steady humming sound fills the air.
 
->You move south.
+> south
+You move south.
 
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
@@ -3168,7 +3507,8 @@ corridor continues north and south.
 
     A steady humming sound fills the air.
 
->You move south.
+> south
+You move south.
 
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
@@ -3179,7 +3519,8 @@ continues north and west.
 
     A steady humming sound fills the air.
 
->You move west.
+> west
+You move west.
 
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
@@ -3193,7 +3534,8 @@ corridor continues east and west, and branches to the south.
 
     A steady humming sound fills the air.
 
->You move south.
+> south
+You move south.
 
 Prep Corner
     This short hall originating from the north comes to an end beside a door
@@ -3203,7 +3545,8 @@ are hanging ropes and cords of varying sizes.
 
     A steady humming sound fills the air.
 
->You open the door and enter.
+> west
+You open the door and enter.
 
 Detainment
     This room of average dimensions is entirely bare.  The exit is east.
@@ -3217,7 +3560,8 @@ Cassie does.  Take me out...please."
 
     A steady humming sound fills the air.
 
->Time passes...
+> wait
+Time passes...
 
     A steady humming sound fills the air.
 
@@ -3227,11 +3571,13 @@ even if you told her.
     "Oh, Petter, it will be so good to leave this awful place behind us.  Let
 us hurry and get out."
 
->Time passes...
+> wait
+Time passes...
 
     A steady humming sound fills the air.
 
->You remove the inhibitor band from Laurie's forehead.
+> get band
+You remove the inhibitor band from Laurie's forehead.
     "Thank you, Petter.  I'm not sure why, but with that thing around my head
 I wasn't able to use my power on anything.  What a dreadful device."
 
@@ -3240,7 +3586,8 @@ I wasn't able to use my power on anything.  What a dreadful device."
     "I wonder where that woman went?  And do you think she can really be
 trusted.  I'm not sure."
 
->You move east.
+> east
+You move east.
 
 Prep Corner
     This short hall originating from the north comes to an end beside a door
@@ -3252,7 +3599,8 @@ are hanging ropes and cords of varying sizes.
 
     A steady humming sound fills the air.
 
->You move north.
+> north
+You move north.
 
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
@@ -3265,7 +3613,8 @@ corridor continues east and west, and branches to the south.
 
     A steady humming sound fills the air.
 
->You move west.
+> west
+You move west.
 
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
@@ -3289,7 +3638,8 @@ need be made."  She hands you a peculiar device in the shape of a pyramid.
 
     A steady humming sound fills the air.
 
->You move west
+> west
+You move west
 
 Circular Corridor
     Three person widths across, this corridor runs a circuit around the
@@ -3314,12 +3664,13 @@ usual high level.
 
     The sound of a helicopter can be heard from above.
 
->You climb up the ladder, Laurie at your heels, moving towards the hatch and
+> up
+You climb up the ladder, Laurie at your heels, moving towards the hatch and
 the loud beating of helicopter blades . . .
 
 Press enter to continue
 
->
+> up
 
 You crawl out from the hatchway, followed closely by Laurie.
 
@@ -3346,7 +3697,8 @@ create a noise so loud it can be heard all across the surface of the silo.
 Laurie is waiting for you under the lamppost.
     Octal stands opposite and facing Dustin.
 
->Time passes...
+> wait
+Time passes...
 
     "PK is what I call cowardly", grunts Dustin, flinging the useless weapon
 aside.  But before it can hit the ground, the gun sails back up into the air,
@@ -3360,7 +3712,8 @@ then freely drops out of sight.  "Guns are cowardly", repeats Octal, "I
 prefer to work with knives, as you know."  Several knives emerge from the
 underside of his garment and move into formation in the air in front of him.
 
->Time passes...
+> wait
+Time passes...
 
     "You don't scare me, Skippy", says Dustin, who now begins to march
 forward.  Several of the knives fly speedily in his direction, but he brushes
@@ -3372,7 +3725,8 @@ of his attack.
     Katryn has come up the ladder now and stands not far away.  "Fool", she
 mutters under her breath.
 
->Time passes...
+> wait
+Time passes...
 
     Finally, all the knives have been spent and the two men stand within two
 feet of each other.  "I was kinda hoping it would come to this", admits
@@ -3385,7 +3739,8 @@ eachother.  But after a few minutes the reverse is true.
     Katryn comes to stand beside you and Laurie.  She watches the brawl
 intently.
 
->Time passes...
+> wait
+Time passes...
 
     The fight ensues until Octal gains the upper hand.  Then it becomes a
 one-sided beating.  He slugs Dustin again and again, in the belly, in the
@@ -3397,9 +3752,11 @@ the head one more time for good measure, then straightens himself.  He looks
 at the defeated man once, and turns his head away.  After all, Dustin is not
 a pretty sight to see.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
     In due time Octal gives his full attention to the three of you standing
 in the distance.  "I am not surprised to see you hear, Katryn.  Are these
@@ -3420,7 +3777,8 @@ qualified for?  Your power is the weakest of us all.  Come now, Katryn, I
 know that your respect is for the strong."
     "My respect is for the capable!"
 
->Time passes...
+> wait
+Time passes...
 
     Octal rebukes his assistant director with a reproving glare accompanied
 by words.  "You of all people least fit your own ideology.  I wonder that I
@@ -3434,7 +3792,8 @@ gave you the position at all.   Why, If I didn't love you as I do, I wou--"
     "NO!!  I love HIM!!", she screams.  Katryn runs towards you and clutches
 you.  This surprises Laurie as much as Octal.
 
->Time passes...
+> wait
+Time passes...
 
     "I love him not only because he is strong, but because he is brave,
 clever, resourceful, undaunted.  He is a better man than you ever were or
@@ -3447,14 +3806,16 @@ Several more knives emerge from underneath his garment and take a place in
 the air, hovering silently.  Octal's face is frightful; a twisted blend of
 hatred and of injury received in his recent brawl.
 
->Time passes...
+> wait
+Time passes...
 
     The knives shift position in the air but none have yet come flying your
 way.  "The cat will play with the rat", says Octal,  "But not for long."  He
 waves his arm and a few of the knives shoot forward.
     Laurie looks in the direction of the satellite dish.
 
->Time passes...
+> wait
+Time passes...
 
     "There!", says Laurie, grabbing your arm and running towards the
 satellite dish.  You take cover behind it.
@@ -3472,7 +3833,8 @@ around his head.
     Laurie says desperately, "He's coming!  What can we do?  I could fight
 back with my power if I only had objects to throw."
 
->Time passes...
+> wait
+Time passes...
 
     Octal is nearly upon the two of you.  "Go away!", screams Laurie,
 stepping out in front of him.  Objects begin to fly at the man, objects that
@@ -3490,7 +3852,8 @@ sight.
     Octal advances on Laurie, his eyes broiling with wrath.
     "Help me!", she calls.
 
->You lunge at Octal with the clear intention of pummeling him into submission.
+> punch octal
+You lunge at Octal with the clear intention of pummeling him into submission.
  Your first blow misses him wildly, while his connects with a portion of your
 jaw.  Regaining your footing you come at him again, more carefully this time.
  You land a blow beneath his right ear, but receive one in your belly.  The
@@ -3503,18 +3866,21 @@ of getting knocked backwards and finding yourself pinned against the ground
 face up.  Octal's bruised, but ever spiteful face leers over you.  His arms
 restrain your own, his knee presses above your groin.  This could be bad.
 
->You thrust your head upwards, smashing his face.  He reels backwards and
+> head butt octal
+You thrust your head upwards, smashing his face.  He reels backwards and
 releases his grip on you.  And that becomes the turning point of the
 struggle.  For the next few minutes you give more than you receive.  It gets
 to where Octal is so weakened that he can't connect with you at all.
 Realizing that he is beaten, he flees towards the helicopter.
 
->You pick up the inhibitor band.
+> get band
+You pick up the inhibitor band.
 
     Octal runs around to the side of the helicopter and climbs into the
 cockpit.
 
->I'm not sure she would appreciate that!
+> kiss katryn
+I'm not sure she would appreciate that!
 
     The helicopter begins to lift off from the ground.
 The helicopter then begins to turn in air until the cockpit is facing you.
@@ -3548,12 +3914,14 @@ seems regretful of the events she just participated in.  "What will we do
 with him?   We cannot leave him like this and we cannot allow him to escape
 either.  Petter, what will we do?"
 
->You embrace Katryn.  She wraps your arms around her body compactly, as if
+> hug katryn
+You embrace Katryn.  She wraps your arms around her body compactly, as if
 that is the natural place for them to be.
 
     Laurie tries to look the other way.
 
->You strap the inhibitor band onto Octal's head.  He eyes open as you do so,
+> put band on octal
+You strap the inhibitor band onto Octal's head.  He eyes open as you do so,
 and he glares upwards at you with the indignation of defeat.  But you know
 that he will not be harming anyone while the band is on him.  His PK power is
 in check.
@@ -3567,13 +3935,14 @@ first of many sunsets in a new world of hope for her and her sister.
 
 Press enter to continue
 
->
+> wait
 
 EPILOGUE
 
 One week later . . .
 
->
+> wait
+
     "You could have come sooner, Laurie.  I had the hardware replaced
 yesterday.  Everything was set up and ready for you."  Ethan can't seem to
 keep his eyes off of the girl.  The bandages on his head and shoulder make
@@ -3638,11 +4007,11 @@ Just be sure to call me over to see her."
 
 Press enter to continue
 
->
+> wait
 
 Two months later . . .
 
->
+> wait
 
     Katryn pushes open the door to the office room and steps aside to let you
 enter.  "There you are, darling, your new HQ.  Take a look around.  What do
@@ -3692,7 +4061,7 @@ as it will.  Perhaps the only thing one can be certain of is that one will be
 there to receive it.  That, in itself, is nothing to shrink from.
 THE END
 
->
+> wait
 
 YOUR SCORES THIS GAME
                   Laurie                          11
@@ -3708,6 +4077,6 @@ Congratulations!  You got Katryn's ending.
 
 Your Secret Letter is: E
 
->
+> quit
 
 Congratulations!

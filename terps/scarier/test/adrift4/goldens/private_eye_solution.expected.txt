@@ -12,7 +12,7 @@ Private Eye
 
 (3)  Play Private Eye
 
->
+> 3
 
 The first thing I did was read through the file she had left me. There was
 some interesting information here and I was pretty confident that all the
@@ -23,7 +23,8 @@ file.
 (2)  Read about Marcus Kavallon's business activities.
 (3)  See what he likes to eat for breakfast.
 
->
+> 1
+
 Interesting indeed. It seems Marcus Kavallon had ties with several figures
 known in the criminal underworld. I recognised the names of Luis Malazzi and
 Fiona Trobaggen from dealings I had had with police associates working murder
@@ -36,12 +37,14 @@ anything he desired.
 (1)  Read some more of the file.
 (2)  Leave the file for now.
 
->
+> 1
+
 (1)  Study the section marked "known associates".
 (2)  Read about Marcus Kavallon's business activities.
 (3)  See what he likes to eat for breakfast.
 
->
+> 2
+
 Marcus Kavallon was a major figure in the oil industry, owning no fewer than
 seven companies which deal in the extraction of oil from the ocean floor and
 the exporting it all around the world. The head office is actually in this
@@ -50,7 +53,8 @@ very city, on 14th Avenue, and might be a good place to start.
 (1)  Read some more of the file.
 (2)  Leave the file for now.
 
->
+> 2
+
 I push the file to one side and study the photo. At the moment, only the
 identity of Marcus Kavallon is known to me. Who the other four are - business
 associates, friends - I don't know.
@@ -75,7 +79,8 @@ best to start the day.
 (1)  Check in at the office.
 (2)  Start following up leads.
 
->
+> 2
+
 From my perusal of the file Layla Kavallon left me yesterday, I have
 uncovered quite a few possible leads.
 
@@ -84,7 +89,8 @@ uncovered quite a few possible leads.
 (3)  Check out the head office of Marcus Kavallon's company.
 (4)  Do some general snooping into the background of the oil company.
 
->
+> 1
+
 A police informant who I have sometimes leaned on in the past (he's short and
 the top of his head provides ideal leaning space for my elbow), fills me in
 on the lowdown regarding Luis Malazzi.
@@ -102,7 +108,8 @@ dinner in a seedy restaurant downtown: The Purple Poison Den.
 (1)  Head to the Purple Poison Den.
 (2)  Head into the office.
 
->
+> 1
+
 Despite the classy name, the Purple Poison Den proves to be a rundown dump
 that I wouldn't take my own mother to. Shady characters hang around outside
 and discuss nefarious matters in low tones (I overhear words like "baby
@@ -114,7 +121,8 @@ lied to me?
 (1)  Wait and see if Luis Malazzi shows up.
 (2)  Head back to the informant and lean on him some more.
 
->
+> 1
+
 Before long, none other than Luis Malazzi himself shows up. But he's not
 alone. Flanking him are the two biggest bodyguards I have ever seen. Malazzi
 clearly believes that bodyguards who stand seven feet tall and weigh eighteen
@@ -132,7 +140,8 @@ impression that Mr Malazzi dun like them as well.
 (1)  Try and force my way past the bodyguards.
 (2)  Call it quits here and make my way to the office.
 
->
+> 1
+
 Forcing past them is about as likely to succeed as trying to force a building
 to collapse by pushing on it. But Mr Malazzi apparently isn't in a mood to
 have his bodyguards splat a private detective, at least not while he's having
@@ -144,7 +153,8 @@ your skinny behind, detective," says the mafia boss. "Don't waste it."
 (2)  Say I've got my eye on him.
 (3)  Ask him where he was yesterday.
 
->
+> 2
+
 Malazzi pauses in the act of eating his soup and looks up at me. He smiles.
 "Perchance, detective, are you threatening me?" he asks politely. "You have
 come to my area of the city and entered my restaurant and now you are
@@ -154,7 +164,8 @@ you wind up in more trouble than you have ever encountered before."
 (1)  Apologise before he decides to have his goons stomp me into the floor.
 (2)  Say he doesn't scare me.
 
->There are a few moments of deadly silence. I imagine it's probably the same
+> 2
+There are a few moments of deadly silence. I imagine it's probably the same
 kind of silence that generally occurs when a mouse dares a cat to eat it.
    But then, surprisingly, Malazzi laughs!
    "Ah, you have nerve, detective," he says, chuckling. "Most of the ones who
@@ -216,7 +227,8 @@ chair. "You want to hear the good news or the bad news?"
 (1)  The good news.
 (2)  The bad news.
 
->
+> 1
+
 "Crap," he mutters. "I didn't think you'd ask for the good news and I was
 kinda bankin' on you not doing that."
    "Why?"
@@ -242,7 +254,8 @@ confession from him. What should I do, boss?"
 control and sold it for drugs.
 (3)  Tell him to check into the father's background.
 
->"Pressure him. Right." Jim pulls a pair of knuckledusters out of his pocket
+> 1
+"Pressure him. Right." Jim pulls a pair of knuckledusters out of his pocket
 and takes a few experimental jabs.
    "Gently," I say. "His mother's a client."
    He nods. "I'll be the model of gentleness," he adds and leaves my office.
@@ -289,7 +302,8 @@ not?"
 (1)  Tell her yes.
 (2)  Tell her no.
 
->
+> 1
+
 So I head over to the ex's house. It's a nice place in the suburbs. Ideal
 place for raising a family. I ought to know. I bought it.
    Charlotte opens the door to me and ushers me inside. The house looks the
@@ -320,7 +334,8 @@ can help him out? For old time's sake."
 (1)  Agree to speak to Ted.
 (2)  Laugh maniacally and depart.
 
->
+> 1
+
 Charlotte breathes a sigh of relief. "Thanks, Lep." On the way out, she says,
 "I'll stop spreading all those rumours about you and that waitress."
    "What waitress?" I ask but the door has already slammed shut.
@@ -346,7 +361,8 @@ shouts at me to go away. I can't tell if it's Ted or not.
 (2)  Sneak around the back and see if I can find an open door or window.
 (3)  Call it quits.
 
->
+> 2
+
 The office backs onto a grimy alley and here I manage to locate an old, but
 sturdy, box which I drag under a window and stand on. The window,
 fortunately, proves to be unlocked and a few seconds later I'm slipping down
@@ -361,7 +377,8 @@ trouble, too.
 (1)  Try and save him.
 (2)  Listen.
 
->I stealthily creep through the office until I find myself outside the room
+> 1
+I stealthily creep through the office until I find myself outside the room
 where the two men are. Ted is tied to a hair in the middle of the room and
 another man, one I don't recognise, is walking around him. The man has a gun
 in his hand. He looks about to start pointing it dangerously close to Ted's
@@ -455,7 +472,8 @@ all that."
 (1)  Keep him on the remote control case.
 (2)  Have him accompany me to the strip club.
 
->
+> 1
+
 Jim's face falls as I give him the news that I want him to stay on the remote
 control case and I watch him, feeling some slight regret, as he ambles from
 the office.
@@ -472,7 +490,8 @@ As I'm passing an alleyway, a voice hisses to me: "Oi! You! In here!"
 (1)  Head into the alley.
 (2)  Decide it's a mugger and head to the strip club.
 
->
+> 2
+
 The Mermaid is the hardest strip club on the waterfront and the sort of place
 where asking the wrong question can lead to an unfortunate and painful
 demise. No one enters The Mermaid without a weapon. Even the strippers carry
@@ -497,7 +516,8 @@ my next move.
 (2)  Check out the strippers.
 (3)  Mingle with drinkers and listen out for interesting rumours.
 
->
+> 1
+
 The customers are in various stages of inebriation from the mildly tipsy
 stage to the full blown
 howling-at-the-moon-and-believing-they're-a-small-tree stage. Getting
@@ -514,7 +534,8 @@ little kids who stumble into a candy store without the owner present.
 (3)  A morose fellow nursing a single beer who looks like he hasn't had a
 good meal in a long, long time.
 
->
+> 2
+
 "Wow!" says the spotty teenager as I sit at the table with him. He has a kind
 of country bumpkin look to him, now that I've seen him up close. Probably his
 first time in the city. "Those ladies… they ain't got no clothes on!"
@@ -550,7 +571,8 @@ obvious it's almost painful.
 (2)  Admit I was lying.
 (3)  Promise to fix him up then make a sharp exit.
 
->It costs me the best part of last week's pay packet to procure a couple of
+> 1
+It costs me the best part of last week's pay packet to procure a couple of
 the ladies to spend time with the teenager, but I feel bad about lying to
 him. The poor dork.
    "His spots burst all over us," one of them says to me, "we charging
@@ -599,7 +621,8 @@ about. Options can only be selected if I actually know about them.
 (5)  Return to the strip club and see if I can find the morose fellow.
 (6)  Decide against any of that and check in at the office.
 
->
+> 1
+
 I've never been to the cattle market before and if the ever present smell of
 dung is anything to go by, I won't be returning. The newspaper articles I
 received from Luis Malazzi mentioned a murder occurring here eight years ago.
@@ -614,7 +637,8 @@ go about finding information on the murder?
 (2)  Hang around the cattle market and see what shows up.
 (3)  See if I can get any information from the cops.
 
->
+> 1
+
 The owner of the Cowpat Café is a hulking, beefy woman called Gus who smokes
 heavily as she cooks someone's breakfast. I make a point of never eating
 anything from here after observing the way she often stubs out her cigarette
@@ -633,7 +657,8 @@ nose-" she gives me a demonstration "-and stuff. Unpleasant company he kept."
 (1)  Show her the photo of Marcus Kavallon and see if she recognises him.
 (2)  Ask if she can remember anything else about Gummage.
 
->"Nope. Don't recognise him," she says. "But him-" she jabs a greasy, bitten
+> 1
+"Nope. Don't recognise him," she says. "But him-" she jabs a greasy, bitten
 fingernail at the man sitting opposite to Marcus Kavallon "-that's Pedro
 Gummage."
    Ah. So Kavallon and Gummage knew each other before the murder, which
@@ -679,7 +704,8 @@ of my desk.
 (1)  Go for it.
 (2)  Decide it's too risky.
 
->
+> 2
+
 Holding up my hands, I come out from behind the desk and the man gestures me
 into the outer office. My secretary is still asleep and clearly isn't much
 use at picking up psychic signals as she just ignores the pair of us as we
@@ -714,7 +740,8 @@ there: a police car!
 (2)  Slam on the brakes.
 (3)  Do nothing.
 
->
+> 3
+
 Thinking I'm making a mistake by not signalling to the cops, I instead head
 onto the freeway. For a while mine is the only car I can see.
    "You going to tell me what this is all about?" I say to the man in the
@@ -785,7 +812,8 @@ Kavallon. (A bluff but if it gets me out of here and away from this machine
 gun-wielding madman it'll be worth it.)
 (3)  Refuse to say anything.
 
->
+> 1
+
 The man raises an eyebrow. "Really? I've been watching you, Lep, and I know
 you've met with Layla Kavallon. Is she in on it or are you trying to get
 money from her for the old man's safe return? Well?"
@@ -794,7 +822,8 @@ money from her for the old man's safe return? Well?"
 (2)  Tell him he's 100% correct.
 (3)  Refuse to say anything.
 
->
+> 1
+
 "Really? That's not what I heard from Progbanini."
    "I've never heard of Progbanini," I say.
    He shrugs. "I thought you might say that. The thing is, Lep, you ain't the
@@ -826,7 +855,8 @@ open and in bursts another man.
 (1)  Wait. Hopefully the feds will be in here soon and I'll be saved.
 (2)  Try and escape just in case the man decides to come back and kill me.
 
->
+> 2
+
 It's not difficult to free myself from the chair as I'm not tied very
 securely. My kidnappers clearly didn't expect to get attacked partway through
 my interrogation or they'd have done a better job of it. I struggle with the
@@ -838,7 +868,8 @@ I'm free.
 (2)  Head back the way I've come.
 (3)  Wait here and try to ambush the first person to enter the room.
 
->
+> 2
+
 I hurry along the corridor I was brought along at gunpoint, noticing that it
 looks a bit different when one doesn't have a machine gun barrel pointing at
 his face. I check the doors as I pass each one and finally find one that is
@@ -855,7 +886,8 @@ kidnappers are not up with the latest technology as I see evidence of Windows
 (2)  Search the rest of the room.
 (3)  Wait to be rescued.
 
->Leaving the computers alone, I conduct a quick but thorough search of the
+> 2
+Leaving the computers alone, I conduct a quick but thorough search of the
 room. Several things immediately come to life: there are no hidden guns
 anywhere in here and there are no other exits. On the positive side of
 things, I find myself holding a diary which seems to be some kind of account
@@ -974,7 +1006,8 @@ seeing what he wants.
 (1)  Go and see Bribe Magee.
 (2)  Leave it for another day.
 
->
+> 1
+
 The address Bribe gave me turns out to be in the real sleazy part of town.
 Here, the streets are ruled by vicious gangs and anyone bringing a half
 decent set of wheels into this neighbourhood is just asking for them to be
@@ -1003,7 +1036,8 @@ Instead I say, "what have you brought me here for, Bribe?"
 (1)  "But that's the biggest case of my career, Bribe. I can't drop it."
 (2)  "Why should I drop it?"
 
->
+> 1
+
 "That doesn't matter," Bribe says. "If you want to live a long life, Lep,
 you'll drop the case and walk away. Forget you ever heard about Marcus
 Kavallon and Layla Kavallon. Forget it all. Or else…"
@@ -1011,7 +1045,8 @@ Kavallon and Layla Kavallon. Forget it all. Or else…"
 (1)  "Or else what, Bribe? Are you threatening me?"
 (2)  "Give me a reason why I should drop it."
 
->
+> 2
+
 "Reasons don't matter, Lep. I'm asking you to. I taught you well, my boy.
 Fifteen years in the game and already you've got the eighty-fifth biggest
 detective agency on the east side of town. Remember what I've taught you and,
@@ -1025,7 +1060,8 @@ wrong about the Kavallon case?"
 biggest case of my career because you think it's bad."
 (2)  "What do you know about this case that you aren't telling me?"
 
->
+> 1
+
 Bribe hesitates and for a second or two, I think he might actually be going
 to tell me what's on his mind. But then he shakes his head.
    "No, Lep," he says. "I ain't telling you. Telling people can lead to
@@ -1041,7 +1077,8 @@ and common sense."
 (3)  Search this room.
 (4)  Leave for now but wait outside the building and see if anything happens.
 
->
+> 4
+
 I leave the building and stand on the far side of the street. And wait.
 Nothing seems to happen for several minutes but then a long, dark limousine
 pulls up outside and several men get out. They have the look of hard thugs
@@ -1055,7 +1092,8 @@ Bribe, I can't help thinking that that is precisely the reason they're here.
 (2)  Go and speak to the smoker.
 (3)  Call the police.
 
->
+> 2
+
 The smoker looks up at me as I tap on the window and, after staring at me for
 a bit, winds the window down.
    "What?" he barks.
@@ -1068,7 +1106,8 @@ would be a very bad idea.
 (3)  Attack him.
 (4)  Leave.
 
->
+> 3
+
 Without warning, I clench my hand into a fist and thump the smoker in the
 face. He's clearly not expecting this as he's out like a light before he can
 even reach for his gun. I grab it off him and consider my next move.
@@ -1077,7 +1116,8 @@ Fortunately no one seems to have witnessed my attacking him.
 (1)  Rush into the building.
 (2)  Wait for the men emerging.
 
->
+> 2
+
 I crouch down in the back of the car and keep an eye on the front of the
 building. I have the man's gun and hopefully the element of surprise will
 give me the edge I need on them. Just then, a walkie talkie carried by the
@@ -1087,7 +1127,8 @@ unconscious man blares into life: "Nobby, come in. You there? Nobby?"
 (2)  Answer it and pretend to be Nobby.
 (3)  Don't answer it at all.
 
->"The cops!" barks the voice on the walkie talkie. "Christ! Lads, we're
+> 1
+"The cops!" barks the voice on the walkie talkie. "Christ! Lads, we're
 rumbled! The cops have got Nobby! Abort the mission! We're outta here!"
    The walkie talkie goes dead.
    I decide it's common sense to get out of the car while I can as the men
@@ -1153,7 +1194,8 @@ but maybe there's someone else.
 (2)  Assign Sandra, the tea girl, to give him a hand.
 (3)  Tell him he's on his own.
 
->"I can work with Nathan," says Jim. "He's old and slow and a bit dim and he
+> 1
+"I can work with Nathan," says Jim. "He's old and slow and a bit dim and he
 smells and his war stories are made up and he eyes up female suspects and he
 sometimes wants to accuse people of being guilty 'cos they didn't fight in
 the War. But he's the best man we've got. I'll fill him in  and let you know
@@ -1176,7 +1218,8 @@ Murt.
 (6)  Or just spend a quiet afternoon in the office catching up on some
 paperwork.
 
->
+> 3
+
 St Mary's Hospital lies several miles south of the city and from a distance
 appears quite pleasant. It's to one side of a lengthy stretch of highway,
 with fields growing all around, birds singing… and then I get closer to it
@@ -1209,7 +1252,8 @@ Kavallon.
 (3)  Make an excuse and leave then try to find an unlocked door or window
 round the back and sneak inside.
 
->
+> 1
+
 The receptionist/rifle-toting guard raises an eyebrow.
    "Wait," he orders then ducks into a back room and has a whispered
 conversation with someone I cannot see. This goes on for several minutes
@@ -1230,7 +1274,8 @@ second later. I am alone.
 (1)  Try and break out.
 (2)  Wait - and hope - for tyre iron returning.
 
->
+> 2
+
 It's hard just waiting. I have visions of tyre iron being in cahoots with the
 kidnappers and returning any minute now with them in tow, all ready and eager
 to give me a telling off (with machine guns most likely) for getting away
@@ -1247,7 +1292,8 @@ disappeared." He smiles sadly. "As it was predicted many years ago."
 (2)  Ask what he's doing here.
 (3)  Ask what connection he has to Marcus Kavallon.
 
->
+> 3
+
 "We were friends, for many a long year," says Cedric. "Until they got him."
    I frown. "Who are they? What are you talking about?"
    "Them," says Cedric. "The ones who want to uncover the event. The ones
@@ -1263,7 +1309,8 @@ sought to discredit my opinions in the ears of anyone who would listen."
 
 (1)  "Why are you here? This is more than just a psychiatric hospital."
 
->"Why am I here?" Cedric smiles. It's not a nice smile. "Why, because I killed
+> 1
+"Why am I here?" Cedric smiles. It's not a nice smile. "Why, because I killed
 my wife." He laughs suddenly. "Took a hammer and gave her a good ol' Lizzie
 Borden with it. Then I went after my brother and his wife. Gave them Lizzie
 Borden twice over. Then-" He stops smiling and sighs. "They made me do it,
@@ -1346,7 +1393,8 @@ under pressure." Jim sighs. "We're beat, boss."
 office to do the filing.
 (2)  Pull him off the remote control case and assign him to something else.
 
->Jim nods wearily. "Sure thing, boss. I'll let you know how it goes."
+> 1
+Jim nods wearily. "Sure thing, boss. I'll let you know how it goes."
    Like a man with the weight of the world on his shoulders, he staggers from
 my office.
 
@@ -1366,7 +1414,8 @@ out.
 (7)  Do some more digging into Marcus Kavallon's business and see what shows
 up.
 
->I run some background checks on Marcus Kavallon with my informants and see
+> 7
+I run some background checks on Marcus Kavallon with my informants and see
 what I can find out about him. There's nothing major that comes to light that
 I wasn't already aware but one of my informants, a seedy fellow called Tick
 who has a strange obsession with the walls in his grimy apartment, mentions
@@ -1410,7 +1459,8 @@ willing to hand my notes over.
 (1)  Accept Aaron Spivvy's offer.
 (2)  Decline it.
 
->Aaron Spivvy sighs. "You're making a mistake, Mr Chimner. A big mistake.
+> 2
+Aaron Spivvy sighs. "You're making a mistake, Mr Chimner. A big mistake.
 You'd have got a nice trip for your trouble but now-" He stops himself,
 perhaps worrying if he has said too much.
    "Are you threatening me, Mr Spivvy?" I demand.
@@ -1446,7 +1496,8 @@ could well miss a vital clue that could ultimately prove fatal for the case."
 tedious legwork I don't have the time for and Jim is just too inept at.
 (2)  Keep him on the filing.
 
->"Sure thing, Nathan," I say. I shove some papers over to him. "There are some
+> 1
+"Sure thing, Nathan," I say. I shove some papers over to him. "There are some
 details about the Kavallon case that I haven't got round to checking yet. Let
 me know what you come up with."
    Nathan takes them as if they were made of gold and gives me a beaming
@@ -1495,7 +1546,8 @@ With many things to do today, I go straight from my apartment to…
 (3)  See if I can dig up some dirt on Vance Criminy, the chief of police.
 (4)  Head to the Plaza.
 
->
+> 2
+
 The Cringe Building is every bit as unimposing as its name suggests. It's
 even leaning slightly over at an angle that is quite bizarre to look at and,
 from the viewpoint of anyone actually living inside the building, quite
@@ -1512,7 +1564,8 @@ on the best way to handle this.
 living daylights out of him if he won't co-operate.
 (2)  Knock on the door and ask to speak to him.
 
->
+> 2
+
 A thin-faced man answers, sees me standing there, and tries to slam the door
 in my face! Fortunately I've had a lot of experience with people slamming
 doors in my face (one of the hazards of the job, you might say) and I've got
@@ -1524,7 +1577,8 @@ coming here, Chimner. You don't know what you've got yourself mixed up in."
 
 (1)  Tell him to enlighten me.
 
->
+> 1
+
 He snorts. "Yeah, right! Have you any idea what he'd do to me if I told you
 anything?"
    "What who would do to you?" I ask.
@@ -1536,7 +1590,8 @@ getting nothing from me."
 brain me at the Bourbon Bar."
 (2)  "Then let's hold this discussion down at the police station, shall we?"
 
->
+> 2
+
 Surprisingly, Mortimer laughs! "The police station? Chimner, you really
 haven't got a clue what's going on, have you?"
    "Tell me then."
@@ -1547,7 +1602,8 @@ far it gets you."
 (2)  Threaten to beat him up if he won't co-operate.
 (3)  Leave but wait outside then follow him.
 
->It takes a while for Mortimer to emerge and when he does, he makes a special
+> 3
+It takes a while for Mortimer to emerge and when he does, he makes a special
 point of checking all around him for potential snoopers. He doesn't see me,
 of course, as with my long history of snooping on people (starting with a
 girl in school called Michelle who I had the hots for and who later on took a
@@ -1638,7 +1694,8 @@ Time I was making a move, I decide. The only question is… where to?
 (3)  Head down to pier 13 at the docks.
 (4)  Call it quits for today and have the weekend off.
 
->
+> 1
+
 Bodango Bay is a good two hour drive. I take the interstate northwest out of
 the city and stop at a roadside diner for breakfast along the way. As I'm
 washing it all down  in the toilet out back, I hear a voice outside the
@@ -1650,7 +1707,8 @@ perhaps Criminy knows I'm onto him.
 (1)  Stay quiet.
 (2)  Admit I'm in here.
 
->
+> 2
+
 "Yes, I'm here," I say, seeing little point in denying it. Whoever's out
 there must know I'm here unless they've been going up and down the country
 knocking on cubicle doors on the off chance I'm in one of them. "Who is
@@ -1681,7 +1739,8 @@ poor chap. And then, one day, they came for me."
 
 (1)  "Are you going to tell me who they are this time?"
 
->
+> 1
+
 "They, Lep," says Bribe, "are Blurgle and his goons. Blurgle is one of
 Criminy's associates. Ex-CIA, ex-SAS, ex-FBI. Ex-human as well. He came to my
 office one day and poisoned my goldfish, turned off the fridge so the milk
@@ -1695,7 +1754,8 @@ better of that discussion."
 
 (1)  "What happened then? Did you go to the police?"
 
->
+> 1
+
 "The police weren't an option, not when you're investigating a murder
 committed by the chief of police. So I tried to handle matters myself. I
 fixed up my office, hired a new secretary and decided not to let Blurgle get
@@ -1708,7 +1768,8 @@ burnt down so the problem of not having a secretary just went away."
 
 (1)  "And after that…?"
 
->
+> 1
+
 Bribe runs a hand through his hair. "After that, I kind of lost it. Blurgle
 was having men follow me to make sure I didn't keep looking into the murder I
 suspected Criminy of committing. It got so I couldn't leave my apartment
@@ -1724,7 +1785,8 @@ investigating a kidnapping that might lead to him, he'd have you killed."
 
 (1)  "So you tried to warn me."
 
->
+> 1
+
 Bribe nods. "Sure did. I figured I could convince you to drop the case and
 step aside. That way, you'd be safe. Of course, when you came to see me I was
 in one of my horribly paranoid states and so you naturally didn't believe a
@@ -1742,7 +1804,8 @@ Criminy."
 (2)  "Great. Let's go."
 (3)  "I don't think so, Bribe. This is my case."
 
->"Good move, Lep. I knew you could be trusted." Bribe sketches out a rough
+> 2
+"Good move, Lep. I knew you could be trusted." Bribe sketches out a rough
 plan. "It'll be risky with just the two of us but we've got the element of
 surprise. What I propose is…"
    That the two of us travel to the beach house separately. That way, if one
@@ -1774,7 +1837,8 @@ of peeking through a few back windows.
 (1)  Check out each beach house until I come to the correct one.
 (2)  Knock on the door of the nearest one and ask for directions.
 
->
+> 2
+
 The helpful couple inside this beach house give me directions to where I can
 find Vance Criminy's place.
    "But you don't wanna go there, pal," says the man. "Guy's one nasty piece
@@ -1792,7 +1856,8 @@ of the security gates, they probably aren't required.
 (2)  Climb over the wall.
 (3)  Bang on the gates and demand entry.
 
->
+> 1
+
 The back of the beach house hangs, quite precariously, over the edge of a
 cliff with a sixty foot drop to sea-encroached rocks beneath it. It must be
 one hell of a view but I sure wouldn't like to live here if I was prone to
@@ -1805,7 +1870,8 @@ could try and reach that.
 (2)  Or if that doesn't appeal to me, I could head back around the front and
 try scaling that wall.
 
->
+> 1
+
 It's risky even approaching the window what with that drop looming but I
 realise this is perhaps my best - and only - chance of getting inside. The
 front of the beach house will be guarded even if the guards aren't evident.
@@ -1833,7 +1899,8 @@ other so it looks like a case of just choosing one and hoping for the best.
 (1)  Left.
 (2)  Right.
 
->
+> 2
+
 The right hand branch of the corridor leads along the length of the beach
 house before splitting up into three further corridors. One heads towards the
 front of the house, another leads to stairs going up and the final to stairs
@@ -1844,7 +1911,8 @@ the front of the house but nothing from the other two.
 (2)  Head up.
 (3)  Head down.
 
->I make my way to the upper floor. It seems mostly deserted and if Marcus
+> 2
+I make my way to the upper floor. It seems mostly deserted and if Marcus
 Kavallon is being held up here, he's been hidden extremely well. However, I
 do stumble across one useful piece of information, jotted down carelessly on
 a notepad: "Decided not to proceed with LK. Better deal surely to ransom MK
@@ -1887,7 +1955,8 @@ wide, and barred, the odds of me getting through there don't seem very good.
 overpower them.
 (3)  Wait and hope for the best.
 
->
+> 3
+
 Of all the faces I expected to see when the door was opened, Ted's wasn't one
 of them. I wondered at first if I was dreaming. It wouldn't, after all, be
 the first time I had had a dream in which Ted's face was prominent - usually
@@ -1912,7 +1981,8 @@ model citizen you think he is. He's a crook through and through."
 disappearance.
 (2)  Jump at Ted and overpower him.
 
->
+> 1
+
 Ted's eyes narrow as I relate to him what I know. He still looks suspicious
 in the end but I can sense he at least doesn't think I'm outright lying.
    "Charlotte always said you were honest to a fault," he admits.
@@ -1938,7 +2008,8 @@ him.
 (1)  Lie in wait for whoever enters the basement next.
 (2)  Shoot the lock off the door.
 
->
+> 1
+
 I crouch behind the door and wait… and wait… and-
    And then the door comes flying open and a morose looking fellow stalks
 into the room.
@@ -1954,7 +2025,8 @@ to shoot me then or what?"
 (1)  Ask him where Marcus Kavallon is being held.
 (2)  Order him to escort me out of here.
 
->
+> 1
+
 "He's here," says Murt, "but this isn't what it appears to be-"
    "Has he been kidnapped?" I ask.
    Murt nods.
@@ -2018,7 +2090,8 @@ chance later on. One way or another, it all comes down to this.
 (1)  Risk everything and shoot Criminy.
 (2)  Throw down the gun and wait for a better opportunity.
 
->Without even stopping to think if I'm making a terrible mistake here, I raise
+> 1
+Without even stopping to think if I'm making a terrible mistake here, I raise
 the gun and shoot Criminy in the head!
    I fancy that I see a moment's disbelief in his piggy little eyes just
 before the bullet strikes home. And then, abruptly, his face is gone and he's
@@ -2207,4 +2280,5 @@ point.
 Or I can simply float here and feel secure in the knowledge that I've reached
 the end of Private Eye.
 
->Do you really want to quit? [Y/N]
+> quit
+Do you really want to quit? [Y/N]

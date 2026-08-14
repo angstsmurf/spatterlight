@@ -35,7 +35,7 @@ Select from (1-5):
 
 For walkthrough, hidden extras, and further info go to 'www.mileout.org.uk'
 
->
+> 1
 
 "We are troubled on every side, yet not distressed; we are perplexed, but not
 in despair"
@@ -56,7 +56,8 @@ north. Eyes open, and intense in sculpture, the abused body of Christ, draped
 in thrall over the crude device of the crucifixion, surveys nothing from high
 behind the altar, accepting you without comment.
 
->You move west.
+> w
+You move west.
 
 The Altar
 
@@ -72,7 +73,8 @@ carnations adding a further deterioration to the ambience. Peering in from
 his glass imprisonment, the exalted form of Christ warps the moonlight,
 wrapping its lustre over wood, stone, and textile without division.
 
->(Your score has increased by 5)
+> x podium
+(Your score has increased by 5)
 Crafted from wood long warped, the uneasy podium pitches slightly to the
 left, a huge white drape dressing it. A small candleholder plays host to a
 burning candle; its wax slipping slowly down its length, the orange flicker
@@ -90,33 +92,39 @@ you, proffering it, waiting for acceptance. You duly accept.
 The old priest's sudden rattled cough is gathered by the heavy air and
 rapidly escorted into the heavens where its vim is soon diminished.
 
->Specks of softened crayon willow from the stale pages, decreasing the ability
+> read hymnbook
+Specks of softened crayon willow from the stale pages, decreasing the ability
 to read the black scrawl. Bizarrely, the flakes return to the page, forming
 new phrases. At the moment, before the small flakes readjust themselves, it
 reads: 'Five rats came running from the bricks, drawn by fear: three were
 white in innocence, the others a diseased black.'
 
->Specks of softened crayon willow from the stale pages, decreasing the ability
+> read hymnbook
+Specks of softened crayon willow from the stale pages, decreasing the ability
 to read the black scrawl. Bizarrely, the flakes return to the page, forming
 new phrases. At the moment it reads: 'First into the fray was a white rat,
 it's heavy paws carrying it halfway."
 
->Specks of softened crayon willow from the stale pages, decreasing the ability
+> read hymnbook
+Specks of softened crayon willow from the stale pages, decreasing the ability
 to read the black scrawl. Bizarrely, the flakes return to the page, forming
 new phrases. At the moment it reads: 'The second rat, rattus rattus, a filthy
 beast indeed, scurried quickly into play."
 
->Specks of softened crayon willow from the stale pages, decreasing the ability
+> read hymnbook
+Specks of softened crayon willow from the stale pages, decreasing the ability
 to read the black scrawl. Bizarrely, the flakes return to the page, forming
 new phrases. At the moment it reads: 'Another of the vermin, kindred to only
 that before, showed the most ambition, across the dusty floor."
 
->Specks of softened crayon willow from the stale pages, decreasing the ability
+> read hymnbook
+Specks of softened crayon willow from the stale pages, decreasing the ability
 to read the black scrawl. Bizarrely, the flakes return to the page, forming
 new phrases. At the moment it reads: 'The final rat found fear as it began to
 cross the floor, stopping abruptly, and moving on no more."
 
->Specks of softened crayon willow from the stale pages, decreasing the ability
+> read hymnbook
+Specks of softened crayon willow from the stale pages, decreasing the ability
 to read the black scrawl. Bizarrely, the flakes return to the page, forming
 new phrases. At the moment it reads: 'Penultimately, an innocent, started its
 eastward journey, and was crushed against the floor."
@@ -124,12 +132,14 @@ eastward journey, and was crushed against the floor."
 and in time, do. Small drips of blood ooze from stressed capillaries,
 manipulating the scars; recrafting them.
 
->Specks of softened crayon willow from the stale pages, decreasing the ability
+> read hymnbook
+Specks of softened crayon willow from the stale pages, decreasing the ability
 to read the black scrawl. Bizarrely, the flakes return to the page, forming
 new phrases. At the moment it reads: 'Each rat was crushed, by God, in this
 very order. This was His will."
 
->Preserved throughout the Industrial and Modern Ages the gargantuan body of
+> x organ
+Preserved throughout the Industrial and Modern Ages the gargantuan body of
 the organ shows no signs of imminent retirement. Its brass foundations are
 firmly rooted underneath the floorboards of the stage, their gloss capturing
 the candlelight; the distorted radiance making freak forms, demonic
@@ -138,26 +148,32 @@ polished, and eager to delight. And reaching up as if permanently yawning,
 the myriad pipes tease the darkness, offering nothing but the promise of
 sound.
 
->Although the polished keys beg to be played, the keyboard seems to be broken.
+> play organ
+Although the polished keys beg to be played, the keyboard seems to be broken.
 Small grunts fill the air as you try to press each key. The fifth octave,
 however, has five keys that seem to work: C, D#, F, G, and A#.
 
->On pressing the F key a harmonic tone rumbles through the pipes, rising to
+> press key f
+On pressing the F key a harmonic tone rumbles through the pipes, rising to
 the upper reaches of the cathedral.
 
->On pressing the D# key a harmonic tone winds upwards through the pipes,
+> play d#
+On pressing the D# key a harmonic tone winds upwards through the pipes,
 rising to the upper reaches of the cathedral.
 
      The translucent shimmer of a wraith filters into the room, glides a
 short distance, and is dissolved again, into the ether.
 
->On pressing the A# key a harmonic tone rumbles through the pipes, rising to
+> play a#
+On pressing the A# key a harmonic tone rumbles through the pipes, rising to
 the upper reaches of the cathedral.
 
->On pressing the G key a harmonic tone rumbles through the pipes, rising to
+> play g
+On pressing the G key a harmonic tone rumbles through the pipes, rising to
 the upper reaches of the cathedral.
 
->(Your score has increased by 5)
+> play c
+(Your score has increased by 5)
 On pressing the C key a harmonic tone, stronger than the previous four,
 rumbles through the pipes, rising to the upper reaches of the cathedral.
 Unseen reverberations occur in the higher gloom, evidenced only by strange
@@ -170,12 +186,14 @@ rubble falling from the upper reaches strikes the walls surrounding the organ
 uncovering a small passage, unseen for an indefinite period, that hungrily
 sucks the shifting light of the candle.
 
->(Your score has increased by 5)
+> get candleholder
+(Your score has increased by 5)
 Carefully, you take possession of the candleholder, holding it boldly before
 you. A few drips of wax splash neatly on the floor, resolving quickly to a
 state of cool.
 
->You move down.
+> d
+You move down.
 
 The Cellar
 
@@ -187,21 +205,27 @@ perch shabbily nailed to a dusty area of the northern wall; while a furious
 drip harangues the quiet, forming a sizable pool on the floor to the east.
 The old cleric holds a hand to his mouth, trying to suppress a painful cough.
 
->Slowly, surely, you unravel the rope from the perch.
+> get rope
+Slowly, surely, you unravel the rope from the perch.
 
->With a painful creak, the cabinet opens .
+> open cabinet
+With a painful creak, the cabinet opens .
 
->The warped cabinet - layered in dust; coated in cobwebs - hosts a number of
+> x cabinet
+The warped cabinet - layered in dust; coated in cobwebs - hosts a number of
 jars, their sloppy labels showing strange script in an almost illegible
 handwriting. The bottom half of the cabinet, almost rotted, somehow manages
 to keep hold of its open door, the rusty hinge showing incredible spirit.
 Inside, awash with cobwebs an old tin of grease begs to be taken.
 
->Reaching into the rotten cabinet you retrieve the tin of grease.
+> get tin of grease
+Reaching into the rotten cabinet you retrieve the tin of grease.
 
->You can't take the tins!
+> get tins
+You can't take the tins!
 
->You move up.
+> u
+You move up.
 
 The Altar
 
@@ -220,7 +244,8 @@ Father Wessels stands by the podium, rifling through a Bible as if composing
 his next sermon.  The old cleric holds a hand to his mouth, trying to
 suppress a painful cough.
 
->You move east.
+> e
+You move east.
 
 St. Venerius
 
@@ -237,7 +262,8 @@ in thrall over the crude device of the crucifixion, surveys nothing from high
 behind the altar, accepting you without comment.  The old cleric holds a hand
 to his mouth, trying to suppress a painful cough.
 
->You move north.
+> n
+You move north.
 
 Confessional
 
@@ -250,34 +276,43 @@ staring blindly into the next booth, the audible whispers of long neglected
 ghosts seek the solace of your ear.  The old cleric holds a hand to his
 mouth, trying to suppress a painful cough.
 
->Underneath the cushioned seat there are vast quantities of dust gathering in
+> look under seat
+Underneath the cushioned seat there are vast quantities of dust gathering in
 an almost level cushion. Cunningly strapped to the underside there is a rusty
 blade of approximately five inches.
 
->You loosen the rusty blade from its hiding place, pocketing it carefully.
+> get knife
+You loosen the rusty blade from its hiding place, pocketing it carefully.
 
->While being successful at levering the tin of grease open with the knife, the
+> open tin of grease with knife
+While being successful at levering the tin of grease open with the knife, the
 pressure passing through your hands causes them to erupt. Blood flows more
 comfortably from the open holes, splashes to the floor and is readily sucked
 into the ether by the spirits that lurk throughout the cathedral, or by the
 cathedral itself.
 
->Despite the tight hinge on the cabinet you manage to open it.
+> open cabinet
+Despite the tight hinge on the cabinet you manage to open it.
 
->The small cabinet lies open, a selection of hooks jut out from the felt
+> x cabinet
+The small cabinet lies open, a selection of hooks jut out from the felt
 lining. On one hook, a brass key gently wavers in an mysterious draught.
 
->Either the key, or the hook, has become rusted. The key does not slide over
+> get key
+Either the key, or the hook, has become rusted. The key does not slide over
 the end of the hook.
 
->(Your score has increased by 5)
+> use grease on hook
+(Your score has increased by 5)
 Taking the tin of grease in one bloody hand you apply some of its sticky
 contents to the hook.
 
->The key is slightly tricky to remove from its perch but soon, with the aid of
+> get key
+The key is slightly tricky to remove from its perch but soon, with the aid of
 the grease, slides off.
 
->You move south.
+> s
+You move south.
 
 St. Venerius
 
@@ -294,7 +329,8 @@ in thrall over the crude device of the crucifixion, surveys nothing from high
 behind the altar, accepting you without comment.  The old cleric holds a hand
 to his mouth, trying to suppress a painful cough.
 
->You move west.
+> w
+You move west.
 
 The Altar
 
@@ -313,31 +349,37 @@ Father Wessels stands by the podium, rifling through a Bible as if composing
 his next sermon.  The old cleric holds a hand to his mouth, trying to
 suppress a painful cough.
 
->Made from a dusty blue fibreglass the oversized casket sits uncomfortably
+> x coffin
+Made from a dusty blue fibreglass the oversized casket sits uncomfortably
 upon the table. Simple brass knuckles hang down to ease the pallbearers'
 purpose. A white cloth adourned with a cobalt thread, like the stains on fine
 China arches over the coffin's lid, a few tassles hanging over the brass
 lock.  .
 
->(Your score has increased by 5)
+> open coffin with key
+(Your score has increased by 5)
 Pushing the brass key into the coffin's lock, a few spurts of blood - from
 your seeping hands - splash out over the fibreglass shell as you turn the
 key, registering success with a reassuring 'click'.
 
->Taking hold of two brass knuckles on the coffin's edge you pull the lid
+> open coffin
+Taking hold of two brass knuckles on the coffin's edge you pull the lid
 smoothly open.
 
->Made from a dusty blue fibreglass the oversized casket sits uncomfortable
+> x coffin
+Made from a dusty blue fibreglass the oversized casket sits uncomfortable
 upon the table. Simple brass knuckles hang down to ease the pallbearer's
 purpose. The open lid of the coffin casts a light shadow over the
 well-dressed corpse that lies within, it's solemn repose surrealised through
 the large hammer it grips.  .
 
->With a tender respect for the dead you reach into the coffin and loosen the
+> get hammer
+With a tender respect for the dead you reach into the coffin and loosen the
 hammer from the corpse's grip. A few drops of blood from your hand land upon
 the dead man's finery, quickly staining.
 
->You move east.
+> e
+You move east.
 
 St. Venerius
 
@@ -354,21 +396,26 @@ in thrall over the crude device of the crucifixion, surveys nothing from high
 behind the altar, accepting you without comment.  The old cleric holds a hand
 to his mouth, trying to suppress a painful cough.
 
->Tying a small lasso from the rope it takes a few attempts at throwing it
+> throw rope at statue
+Tying a small lasso from the rope it takes a few attempts at throwing it
 upwards in the hope that the loop will latch onto the statue. During this
 attempt you are unlucky in your endeavour.
 
->You can't go in that direction (at present).
+> u
+You can't go in that direction (at present).
 
->High above, burning in an electric white, the marble eyes of the Christ
+> x eyes
+High above, burning in an electric white, the marble eyes of the Christ
 statue are blinded by starvation, desperation, and an awareness of impending
 death.
 
->I don't understand what you want to do with the eyes.
+> roll eyes
+I don't understand what you want to do with the eyes.
 
->You can't go in that direction, but you can move north and west.
+> d
+You can't go in that direction, but you can move north and west.
 
->
+> l
 
 St. Venerius
 
@@ -385,9 +432,11 @@ in thrall over the crude device of the crucifixion, surveys nothing from high
 behind the altar, accepting you without comment.  The old cleric holds a hand
 to his mouth, trying to suppress a painful cough.
 
->You can't take the eye!
+> get eye
+You can't take the eye!
 
->You move west.
+> w
+You move west.
 
 The Altar
 
@@ -406,7 +455,8 @@ Father Wessels stands by the podium, rifling through a Bible as if composing
 his next sermon.  The old cleric holds a hand to his mouth, trying to
 suppress a painful cough.
 
->You move down.
+> d
+You move down.
 
 The Cellar
 
@@ -418,17 +468,22 @@ nailed to a dusty area of the northern wall, juts out; while a furious drip
 harangues the quiet, forming a sizable pool on the floor to the east.  The
 old cleric holds a hand to his mouth, trying to suppress a painful cough.
 
->You don't have any eye that you can wash.
+> wash eye under drip
+You don't have any eye that you can wash.
 
->You see no such thing.
+> read eye
+You see no such thing.
 
->The wall is covered in loose dust, the soft cobwebs that cover it wrap
+> x wall
+The wall is covered in loose dust, the soft cobwebs that cover it wrap
 carefully over the small etches forming the word "Höhle."
 
->(Your score has increased by 5)
+> use hammer on wall
+(Your score has increased by 5)
 You smash the wall, revealing the path to Glory to the north.
 
->You move north.
+> n
+You move north.
 
 The Path to Glory
 
@@ -439,45 +494,56 @@ to cross them. Shaking in a hidden draught, a small sign hangs to the left,
 its script barely readable.  The old cleric holds a hand to his mouth, trying
 to suppress a painful cough.
 
->The sign reads: "Only those who are sure of the path of God may take the
+> read sign
+The sign reads: "Only those who are sure of the path of God may take the
 steps that lead to eternal life; all else shall be rewarded with death.
 
->The first row of flagstones each have a letter carved into their worn faces.
+> x flagstones
+The first row of flagstones each have a letter carved into their worn faces.
 The letters are 'T', 'S', 'W', 'L', and 'J'.
 
->Standing on the stone, you wait for any reaction - and find none. Carved
+> step on t
+Standing on the stone, you wait for any reaction - and find none. Carved
 letters are cut deeply into each stone, inviting the determined to cross
 them. Shaking in a hidden draught, a small sign hangs to the left, its script
 barely readable.
 
->The second row of flagstones each have a letter carved into their worn faces.
+> x flagstones
+The second row of flagstones each have a letter carved into their worn faces.
 The letters are 'T', 'R', 'A', 'E', and 'I'.
 
->Standing on the stone, you wait for any reaction - and find none. Carved
+> stand on r
+Standing on the stone, you wait for any reaction - and find none. Carved
 letters are cut deeply into each stone, inviting the determined to cross
 them. Shaking in a hidden draught, a small sign hangs to the left, its script
 barely readable.
 
->The second row of flagstones each have a letter carved into their worn faces.
+> x flagstones
+The second row of flagstones each have a letter carved into their worn faces.
 The letters are 'O', 'T', 'U', 'S', and 'G'.
 
->Standing on the stone, you wait for any reaction - and find none. Carved
+> stand on u
+Standing on the stone, you wait for any reaction - and find none. Carved
 letters are cut deeply into each stone, inviting the determined to cross
 them. Shaking in a hidden draught, a small sign hangs to the left, its script
 barely readable.
 
->The second row of flagstones each have a letter carved into their worn faces.
+> x flagstones
+The second row of flagstones each have a letter carved into their worn faces.
 The letters are 'N', 'T', 'E', 'H', and 'U'.
 
->Standing on the stone, you wait for any reaction - and find none. Carved
+> stand on t
+Standing on the stone, you wait for any reaction - and find none. Carved
 letters are cut deeply into each stone, inviting the determined to cross
 them. Shaking in a hidden draught, a small sign hangs to the left, its script
 barely readable.
 
->The second row of flagstones each have a letter carved into their worn faces.
+> x flagstones
+The second row of flagstones each have a letter carved into their worn faces.
 The letters are 'E', 'R', 'H', 'S', and 'T'.
 
->(Your score has increased by 5)
+> stand on h
+(Your score has increased by 5)
 Standing on the stone, you wait for any reaction - and find none.
 Press any key to continue
 
@@ -491,7 +557,8 @@ indefinite outline swallowed by the darkness. Nothing but the soft lapping of
 water plays to you, an audience of one. And God, you think, is He my audience
 of One?
 
->(Your score has increased by 5)
+> step into pool
+(Your score has increased by 5)
      Slowly, you descend into the water; its coldness evident as it soaks
 into your shoes, your socks, and the fabric of your trousers. The descent via
 the stairs is left incomplete as the water supports your weight, granting you

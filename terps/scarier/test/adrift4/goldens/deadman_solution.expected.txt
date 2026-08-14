@@ -81,17 +81,20 @@ awaken, open your eyes, and see a gun lying on the floor beside you.
 
 With your head still spinning you slowly stand up.
 
->(Your score has increased by 1)
+> roll over body
+(Your score has increased by 1)
 As you turn the body over the face of Capt. Mattingly stares back at you,
 dead from a single shot to the head.
 
->The Army greens worn by this man are made almost black by the blood that has
+> x body
+The Army greens worn by this man are made almost black by the blood that has
 seeped into them.  The body itself is slumped against the exit door, held up
 by a pair of handcuffs attached to the door handle.  The face of Capt.
 Mattingly stares into nothingness.  With the body turned over your search
 reveals some bullets.
 
->(Your score has increased by 1)
+> get all
+(Your score has increased by 1)
 BANG BANG
 As your hands touch the gun a shock runs through your hand and you drop it as
 if it were a living evil thing, a venomous snake coiling in your touch.
@@ -105,33 +108,43 @@ Armageddon.
 You take the code table and the ball point pen from the comunication console.
  You take the bullets from the body.
 
->You pick up the gun.
+> get gun
+You pick up the gun.
 
->You put the bullets inside the gun.
+> load gun
+You put the bullets inside the gun.
 
->(Your score has increased by 5)
+> shoot locker
+(Your score has increased by 5)
 With a loud report the bullet grazes the lock causing it to swing.  Staring
 at it as it slows to a stop you take aim and fire again. This time it is a
 direct hit and the lock explodes from the impact.
 
->(Your score has increased by 3)
+> open locker
+(Your score has increased by 3)
 You open the locker.
 
->You take the first aid kit from the locker.
+> get kit
+You take the first aid kit from the locker.
 
->You open the first aid kit.  Among the usual things you would find in a first
+> open kit
+You open the first aid kit.  Among the usual things you would find in a first
 aid kit you notice a large bandage roll, a pair of scissors and a syringe.
 
->You take the pair of scissors from the first aid kit.
+> get scissors
+You take the pair of scissors from the first aid kit.
 
->You take the large bandage roll from the first aid kit.
+> get bandage
+You take the large bandage roll from the first aid kit.
 
->(Your score has increased by 5)
+> open panel with scissors
+(Your score has increased by 5)
 Using the blunt tip of the scissors, a little luck and a lot of persistence,
 you manage to loosen the remaining screws, and open the panel.The guts of the
 radio appear torn out.Who have I been talking to?
 
->(Your score has increased by 3)
+> wear bandage on neck
+(Your score has increased by 3)
 You wrap the bandage tightly around your skull. Hopefully this will control
 the bleeding.
 
@@ -140,7 +153,8 @@ hands, you lay on the floor in the fetal position until the pain becomes
 subsides.
 [-00:53-]
 
->(Your score has increased by 1)
+> turn camera to camera 1
+(Your score has increased by 1)
 You turn the dial to camera 1.  The screen flickers above you.
 
 There is nothing but static on the screen, apparently the camera at the
@@ -166,9 +180,11 @@ After a final flash of white. The darkness fades in.
 
 You awaken on the control room floor.
 
->You take the syringe from the first aid kit.
+> get syringe
+You take the syringe from the first aid kit.
 
->(Your score has increased by 5)
+> use syringe
+(Your score has increased by 5)
 After tearing the package open with your teeth, you take the small syringe
 and place it gently against the vein.  A drop of sweat rolls down your
 forehead, but with the needle in your fist you are afraid to brush it off.
@@ -184,7 +200,8 @@ a flash of light enters your mind's eye and a euphoric rush comes over your
 entire body, strangely similar to an orgasm.  Suddenly, you've never felt
 better.
 
->(Your score has increased by 2)
+> use radio
+(Your score has increased by 2)
 Leaning closer to the radio you say:
 Blair Alpha this is Deadman Tango, come in over.
 Blair Alpha this is Deadman Tango, come in over.
@@ -209,9 +226,11 @@ I repeat T Minus 45 minutes until Deadman Launch. Please respond.
 You continue to wait but there is no response.
 God, you wish someone would answer.
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 Your thoughts are interrupted by harsh static.
 A loud voice fills the room.
 
@@ -225,15 +244,20 @@ Over.
 
 You stand in silence.
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 A small rush fills you with pleasure.
 
 Suddenly your head begins to spin and the lights fades in and out, slowly at
@@ -254,26 +278,36 @@ After a final flash of white. The darkness fades in.
 
 You awaken on the control room floor.
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 A small rush fills you with pleasure.
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
 Suddenly your head begins to spin and the lights fades in and out, slowly at
 first, but soon working its way up to a frenzied strobe. Then darkness.
@@ -292,15 +326,20 @@ After a final flash of white. The darkness fades in.
 
 You awaken on the control room floor.
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
 Suddenly your head begins to spin and the lights fades in and out, slowly at
 first, but soon working its way up to a frenzied strobe. Then darkness.
@@ -322,9 +361,11 @@ After a final flash of white. The darkness fades in.
 
 You awaken on the control room floor.
 
->Time passes...
+> z
+Time passes...
 
->You stand up.
+> stand
+You stand up.
 
 A banging on the door startles you and you turn to stare at the cold steel.
 A muffled voice fills the quite room,
@@ -344,7 +385,8 @@ silence.
 The door stands closed and latched.
 The pounding at the door returns.
 
->(Your score has increased by 2)
+> open door
+(Your score has increased by 2)
 Slowly you unlatch the steel door and pull it open just a crack.  Not seeing
 anyone, you open the door wider. Out of the corner of your eye something
 shines.
@@ -354,20 +396,25 @@ dull metallic thud.
 In a panic you quickly slam the door shut and re-latch it, leaving the axe
 inside.
 
->You pick up the axe.
+> get axe
+You pick up the axe.
 A small rush fills you with pleasure.
 
->(Your score has increased by 3)
+> chop off hand with axe
+(Your score has increased by 3)
 With a wild swing the axe arcs down at the wrist of Capt. Mattingly.  You
 hear a dull thud as it strikes the bone.  Pulling the axe head free you chop
 down again and again…
 The bloody hand falls to the floor wetly.
 
->You pick up the bloody hand.
+> get hand
+You pick up the bloody hand.
 
->You put the bloody hand onto the green plate.
+> put hand on green plate
+You put the bloody hand onto the green plate.
 
->(Your score has increased by 10)
+> put hand on green plate
+(Your score has increased by 10)
 The green glass goes dark, them pulses with a soft pink light.  The words
 "ABORT SUCSESFUL" appear on the monitor in front of you.
 Hoping that you have made the right decision you face the door as if seeing

@@ -31,10 +31,12 @@ completely out of sight.  The only light source is from high above to one
 corner. You appear to be standing on some very large round objects. This
 place has no visible exits.
 
->They are very large round coins. Even in the gloom you can clearly make out
+> exam coins
+They are very large round coins. Even in the gloom you can clearly make out
 the queens head on some of them. You find something hidden in the coins.
 
->
+> look
+
 High Sided Room
 The windowless and door-less room is about 5m square with metal walls. You
 cannot even guess at the height of the place as the ceiling is so high it is
@@ -44,12 +46,15 @@ place has no visible exits.
 
 You can also see an elastic band.
 
->You pick up the elastic band.
+> get band
+You pick up the elastic band.
 
->(Your score has increased by 1)
+> make lasso
+(Your score has increased by 1)
 From the elastic rope you make a rather good elastic lasso.
 
->(Your score has increased by 1)
+> up
+(Your score has increased by 1)
 Using the elastic lasso you climb up. The lasso falls back into the high
 sided room.
 
@@ -57,17 +62,20 @@ Machinery
 You seem are in the middle of some sort of machinery or mechanism. The only
 visible exit is down, to the coin store.
 
->The mechanism consists of a frame containing various cogs, gears, bars and
+> exam machinery
+The mechanism consists of a frame containing various cogs, gears, bars and
 levers. The frame has various horizontal metal bars welded across it.
 
->(Your score has increased by 1)
+> climb bars
+(Your score has increased by 1)
 You climb up the machinery.
 
 Slot Room
 The tall but narrow room has a bright slot at one end. Some sort of lever is
 attached to the wall. The only visible exist is down to the machinery room.
 
->(Your score has increased by 1)
+> pull lever
+(Your score has increased by 1)
 You pull the lever and the western wall gives way, you fall through it.
 
 Glass Room
@@ -76,7 +84,8 @@ glass. It appears that painted onto the other side of the glass are pictures
 of various cans of fizzy drinks. The only visible exit is east, to the bright
 slot room.
 
->(Your score has increased by 1)
+> climb wall
+(Your score has increased by 1)
 Using the cables against each picture as hand and foot holds, you climb down
 the glass wall.
 
@@ -85,11 +94,13 @@ As far as you can see are row upon row of round metal objects, 4 metres in
 diameter. Each row has another row on top, and so on as far into the air as
 you can see.
 
->The drinks cans are enormous; each must be 4m in diameter. It is almost as if
+> exam cans
+The drinks cans are enormous; each must be 4m in diameter. It is almost as if
 you are in a giant vending machine. You find something hidden amongst the
 can, which falls to the floor.
 
->
+> look
+
 Metal Drum Room
 As far as you can see are row upon row of round metal objects, 4 metres in
 diameter. Each row has another row on top, and so on as far into the air as
@@ -97,9 +108,11 @@ you can see.
 
 An enormous paperclip is laying on the floor.
 
->You pick up the paperclip.
+> get paperclip
+You pick up the paperclip.
 
->(Your score has increased by 1)
+> open can
+(Your score has increased by 1)
 Using the paperclip as a lever you open the nearest can. The force of the
 liquid escaping throws you against the wall.  As the pressure drops you fall
 to the floor and through a kind of trap door.
@@ -111,12 +124,15 @@ visible exits.
 
 An enormous paperclip is laying on the floor.
 
->You pick up the paperclip.
+> get paperclip
+You pick up the paperclip.
 
->(Your score has increased by 1)
+> open flap with paperclip
+(Your score has increased by 1)
 Using the paperclip you prop open the flap.
 
->(Your score has increased by 1)
+> out
+(Your score has increased by 1)
 Quickly, you jump through the open flap.
 
 Surprisingly you find yourself lying in your own bed, so it must have been a

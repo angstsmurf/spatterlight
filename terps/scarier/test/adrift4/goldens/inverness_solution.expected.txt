@@ -27,23 +27,28 @@ The heavy wooden door to Inverness Castle looms before you to the north, the
 castle looking ominous in dark grey stone.  The road to Forres is to the
 north-east.
 
->You hear the porter behind the door complaining: "Here's a knocking indeed!
+> knock
+You hear the porter behind the door complaining: "Here's a knocking indeed!
 If a man were porter of hell-gate, he should have got old turning the key."
 
->"Knock, knock knock!" says the Porter.  "Who's there, i' the name of
+> knock
+"Knock, knock knock!" says the Porter.  "Who's there, i' the name of
 Beelzebub? Here's a farmer, that hanged himself on the expectation of plenty:
 come in time; have napkins enow about you; here you'll sweat for't."
 
->"Knock knock!  Who's there, in the other devil's name?  Faith, here's an
+> knock
+"Knock knock!  Who's there, in the other devil's name?  Faith, here's an
 equivocator, that could swear in both the scales against either scale; who
 committed treason enough for God's sake, yet could not equivocate to heaven:
 O, come in, equivocator."
 
->"Knock knock! never at quiet! What are you? But this place is too cold for
+> knock
+"Knock knock! never at quiet! What are you? But this place is too cold for
 hell. I'll devil-porter it no further: I had thought to have let in some of
 all professions that go the primrose way to the everlasting bonfire."
 
->(Your score has increased by 5)
+> knock
+(Your score has increased by 5)
 "Anon, anon! I pray you, remember the porter."
 
 The door creaks slowly open.  You move north.
@@ -56,7 +61,8 @@ leads up to the upstairs hall.  You can also go north to the back hall, or
 leave the castle to the south.
 The porter is here.
 
->You move north.
+> n
+You move north.
 
 Back Hall
 From the back hall you can go north to the kitchen.  A narrow stone staircase
@@ -64,7 +70,8 @@ leads up to the upstairs hall.  You can also go east to the servant's
 quarters, north-east to the kitchen staff's quarters, south-east to the
 sitting room or south to the entrance hall.
 
->You move north.
+> n
+You move north.
 
 Kitchen
 You're in the kitchen.  There's an oven on the north wall and a pantry to the
@@ -72,12 +79,15 @@ east.  From the kitchen you can go south to the dining room or south-east to
 the back hall.  A staircase leads down to the cellar.  A back door leads out
 to the yard.
 
->You open the pantry.  Inside the pantry is a loaf of bread, a bag of rice, a
+> open pantry
+You open the pantry.  Inside the pantry is a loaf of bread, a bag of rice, a
 bottle of wine, a sack of flour and a spice rack.
 
->You take the loaf of bread from the pantry.
+> take bread
+You take the loaf of bread from the pantry.
 
->You move southeast.
+> se
+You move southeast.
 
 Back Hall
 From the back hall you can go north to the kitchen.  A narrow stone staircase
@@ -85,7 +95,8 @@ leads up to the upstairs hall.  You can also go east to the servant's
 quarters, north-east to the kitchen staff's quarters, south-east to the
 sitting room or south to the entrance hall.
 
->You move south.
+> s
+You move south.
 
 Entrance Hall
 This is the entrance hall of Inverness Castle, which is lit by torches on the
@@ -95,13 +106,16 @@ leads up to the upstairs hall.  You can also go north to the back hall, or
 leave the castle to the south.
 The porter is here.
 
->The porter takes the bread from you greedily, and heads north to the kitchen
+> give bread to porter
+The porter takes the bread from you greedily, and heads north to the kitchen
 to look for a drink to wash it down.
 
->(Your score has increased by 10)
+> get torch
+(Your score has increased by 10)
 You take the torch from the wall.
 
->You move east.
+> e
+You move east.
 
 Sitting Room
 The sitting room is lit by candles and oil lamps.  On the walls are a variety
@@ -111,21 +125,27 @@ painting of a man that looks a lot like an older version of Macbeth.
 The sitting room has exits to the north which leads to the back hall, or west
 to the entrance hall.
 
->(Your score has increased by 5)
+> push statue
+(Your score has increased by 5)
 You push the statue to the side, revealing a hole.
 
->You put the torch in the hole.  You hear a click from across the room as it
+> put torch in hole
+You put the torch in the hole.  You hear a click from across the room as it
 settles into the hole.
 
->(Your score has increased by 10)
+> look behind painting
+(Your score has increased by 10)
 You look behind the painting of Sinel and see a hollowed out area in the wall
 where a small wooden box has been hidden.
 
->You pick up the wooden box.
+> take box
+You pick up the wooden box.
 
->You can't seem to get the box open.  Perhaps someone can help you open it.
+> open box
+You can't seem to get the box open.  Perhaps someone can help you open it.
 
->You move west.
+> w
+You move west.
 
 Entrance Hall
 This is the entrance hall of Inverness Castle, which is lit by torches on the
@@ -135,28 +155,32 @@ leads up to the upstairs hall.  You can also go north to the back hall, or
 leave the castle to the south.
 The porter is here.
 
->You move south.
+> s
+You move south.
 
 Outside Inverness
 The heavy wooden door to Inverness Castle looms before you to the north, the
 castle looking ominous in dark grey stone.  The road to Forres is to the
 north-east.
 
->You move northeast.
+> ne
+You move northeast.
 
 Road to Forres
 The town of Forres is to the north-east.  The entrance to Inverness Castle is
 to the south-west, and the back of the castle is to the west.  You see a
 blasted heath to the south.
 
->You move south.
+> s
+You move south.
 
 A Blasted Heath near Forres
 This is a deserted, foul place.  You can go north to the road.
 Graymalkin the cat is here, skulking around.  Paddock the toad is here.
 Three Witches are here, dancing around a boiling cauldron.
 
->(Your score has increased by 5)
+> ask witches about box
+(Your score has increased by 5)
 "Ah," says the first witch, looking at the box. "This is a riddle box."
 
 Second witch chimes in:  "Thou'dst solve it to open the box."
@@ -174,27 +198,33 @@ Remove me to gather their wisdom to you.
 [hint, format the solution as "answer foo" or "say foo", where foo is your
 answer]
 
->(Your score has increased by 10)
+> answer bookmark
+(Your score has increased by 10)
 The box slowly opens.
 
->You take the old key from the wooden box.
+> take key
+You take the old key from the wooden box.
 
->You take the scroll from the wooden box.
+> take scroll
+You take the scroll from the wooden box.
 
->You move north.
+> n
+You move north.
 
 Road to Forres
 The town of Forres is to the north-east.  The entrance to Inverness Castle is
 to the south-west, and the back of the castle is to the west.  You see a
 blasted heath to the south.
 
->You move west.
+> w
+You move west.
 
 Behind Inverness
 The desolate area behind the castle is cold and windy.  You can go south to
 the kitchen.  You see the road to the east.
 
->You move south.
+> s
+You move south.
 
 Kitchen
 You're in the kitchen.  There's an oven on the north wall and a pantry to the
@@ -202,7 +232,8 @@ east.  From the kitchen you can go south to the dining room or south-east to
 the back hall.  A staircase leads down to the cellar.  A back door leads out
 to the yard.
 
->You move southeast.
+> se
+You move southeast.
 
 Back Hall
 From the back hall you can go north to the kitchen.  A narrow stone staircase
@@ -212,13 +243,15 @@ sitting room or south to the entrance hall.
 
 Porter saunters in from the south.
 
->You move up.
+> up
+You move up.
 
 North Upstairs Hall
 Bedroom doors are to the east and west, and the hallway continues to the
 south.  There is a narrow, stone staircase going down.
 
->You move west.
+> w
+You move west.
 
 Master Bedroom
 Macbeth and Lady Macbeth sleep in this room.  There is an exit on the east
@@ -226,15 +259,19 @@ wall, which leads to the hallway, and a dressing room to the south.  There's
 a wardrobe on the south wall and a bed in the middle of the room.  A small
 desk is on the west wall.
 
->(Your score has increased by 5)
+> unlock desk
+(Your score has increased by 5)
 You unlock the desk.
 
->(Your score has increased by 5)
+> open desk
+(Your score has increased by 5)
 You open the desk drawer.
 
->You take the letter from the desk.
+> take letter
+You take the letter from the desk.
 
->(Your score has increased by 20)
+> s
+(Your score has increased by 20)
 You move south.
 
 Dressing Room
@@ -289,9 +326,11 @@ hide what the false heart doth know."
 
 You hear Macbeth and his wife leave the room.
 
->Time passes...
+> z
+Time passes...
 
->
+> look
+
 Dressing Room
 This dressing room is like a large, walk-in closet.  Macbeth and Lady Macbeth
 use this room to change their clothes and other things.
@@ -312,10 +351,14 @@ Cellar
 The dark and dingy cellar is used to store food and wine.  A staircase leads
 up to the kitchen.  It's cold down here.
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
->Your score is 75 out of a maximum of 205.  (36%)
+> score
+Your score is 75 out of a maximum of 205.  (36%)
 
->Do you really want to quit? [Y/N]
+> quit
+Do you really want to quit? [Y/N]

@@ -69,7 +69,8 @@ that is carved out of the soft rock.
 
 There is a heavy wooden table set next to the doorway.
 
->You move east.
+> east
+You move east.
 
 Hallway
 This room is long and narrow, and acts as a hall from west to east.  The
@@ -77,7 +78,8 @@ walls are roughly hewn from the soft limestone, with the jagged marks from
 the tools that were used are still visable.  The floor is made from the same
 rough cut stone.
 
->You move east.
+> east
+You move east.
 
 Iron Doorway
 This room is carved out of the soft limestone.  The walls have been carefully
@@ -87,86 +89,103 @@ floor, cut from the same limestone, also has a smooth appearance.
 
 There is a small wooden bucket set on the floor.
 
->You pick up the wooden bucket.
+> get bucket
+You pick up the wooden bucket.
 
->You pull a rock out of the wooden bucket.
+> get rock from bucket, put rock in gold chain for letter G
+You pull a rock out of the wooden bucket.
 
 You put the smooth rock into the gold cup.  The gold chain is lowered by the
 weight of the stone, and now sits at the sixth hole on the wall.
 
->You pull a rock out of the wooden bucket.
+> get rock from bucket, put rock in gold chain for letter O
+You pull a rock out of the wooden bucket.
 
 You put the smooth rock into the gold cup.  The gold chain is lowered by the
 weight of the stone, and now sits at the fifth hole on the wall.
 
->You pull a rock out of the wooden bucket.
+> get rock from bucket, put rock in gold chain for letter L
+You pull a rock out of the wooden bucket.
 
 You put the smooth rock into the gold cup.  The gold chain is lowered by the
 weight of the stone, and now sits at the fourth hole on the wall.
 
->You pull a rock out of the wooden bucket.
+> get rock from bucket, put rock in gold chain for letter D
+You pull a rock out of the wooden bucket.
 
 You put the smooth rock into the gold cup.  The gold chain is lowered by the
 weight of the stone, and just as it reaches the third hole on the wall, you
 hear a soft click.
 
->You pull a rock out of the wooden bucket.
+> get rock from bucket, put rock in silver chain for leter S
+You pull a rock out of the wooden bucket.
 
 You put the smooth rock into the silver cup.  The silver chain is lowered by
 the weight of the stone, and now sits at the ninth hole on the wall.
 
->You pull a rock out of the wooden bucket.
+> get rock from bucket, put rock in silver chain for letter I
+You pull a rock out of the wooden bucket.
 
 You put the smooth rock into the silver cup.  The silver chain is lowered by
 the weight of the stone, and now sits at the eighth hole on the wall.
 
->You pull a rock out of the wooden bucket.
+> get rock from bucket, put rock in silver chain for letter L
+You pull a rock out of the wooden bucket.
 
 You put the smooth rock into the silver cup.  The silver chain is lowered by
 the weight of the stone, and now sits at the seventh hole on the wall.
 
->You pull a rock out of the wooden bucket.
+> get rock from bucket, put rock in silver chain for letter V
+You pull a rock out of the wooden bucket.
 
 You put the smooth rock into the silver cup.  The silver chain is lowered by
 the weight of the stone, and now sits at the sixth hole on the wall.
 
->You pull a rock out of the wooden bucket.
+> get rock from bucket, put rock in silver chain for letter E
+You pull a rock out of the wooden bucket.
 
 You put the smooth rock into the silver cup.  The silver chain is lowered by
 the weight of the stone, and now sits at the fifth hole on the wall.
 
->You pull a rock out of the wooden bucket.
+> get rock from bucket, put rock in silver chain for letter R
+You pull a rock out of the wooden bucket.
 
 You put the smooth rock into the silver cup.  The silver chain is lowered by
 the weight of the stone, and just as it reaches the fourth hole on the wall,
 you hear a soft click.
 
->You pull a rock out of the wooden bucket.
+> get rock from bucket, put rock in copper chain
+You pull a rock out of the wooden bucket.
 
 You put the smooth rock into the copper cup.  The copper chain is lowered by
 the weight of the stone, and now sits at the sixth hole on the wall.
 
->You pull a rock out of the wooden bucket.
+> get rock from bucket, put rock in copper chain
+You pull a rock out of the wooden bucket.
 
 You put the smooth rock into the copper cup.  The copper chain is lowered by
 the weight of the stone, and now sits at the fifth hole on the wall.
 
->You pull a rock out of the wooden bucket.
+> get rock from bucket, put rock in copper chain
+You pull a rock out of the wooden bucket.
 
 You put the smooth rock into the copper cup.  The copper chain is lowered by
 the weight of the stone, and now sits at the fourth hole on the wall.
 
->You pull a rock out of the wooden bucket.
+> get rock from bucket, put rock in copper chain
+You pull a rock out of the wooden bucket.
 
 You put the smooth rock into the copper cup.  The copper chain is lowered by
 the weight of the stone, and now sits at the third hole on the wall.
 
->You pull a rock out of the wooden bucket.
+> get rock from bucket, put rock in copper chain
+You pull a rock out of the wooden bucket.
 
 You put the smooth rock into the copper cup.  The copper chain is lowered by
 the weight of the stone, and now sits at the second hole on the wall.
 
->You pull a rock out of the wooden bucket.
+> get rock from bucket, put rock in copper chain
+You pull a rock out of the wooden bucket.
 
 You put the smooth rock into the copper cup.  The copper chain is lowered by
 the weight of the stone, and just as it reaches the first hole on the wall,
@@ -176,14 +195,16 @@ retracting into the ceiling, until they are out of sight.  The large iron
 door unlocks with a series of clicks.  The door swings open, hopefully
 revealing the exit to this place.
 
->You move north, passing the through the iron doorway.
+> north
+You move north, passing the through the iron doorway.
 
 Ladderway
 This room is dominated by a large iron door, which has opened into this room.
  In front of the door is a metal grate that acts as a drain.  To the south is
 another large room.  There is a steel ladder here, as well, that leads up.
 
->You climb the steel ladder, reaching a metal grate.  You push the grate out
+> up
+You climb the steel ladder, reaching a metal grate.  You push the grate out
 of the way, exit the little ladderway.  You made it out!
 You look around and see the sandy beach to the west.  There is a lot of
 commotion there, as you see an ambulance and police car, both with lights

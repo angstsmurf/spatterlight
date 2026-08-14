@@ -28,7 +28,8 @@ house.
 
 There are exits south, up and southwest.
 
->You move southwest.
+> sw
+You move southwest.
 
 Kitchen
 The kitchen of Desther's house is a pretty shoddy affair. It doesn't look
@@ -38,13 +39,17 @@ usual appliances you tend to find in a kitchen: oven, sink, fridge, etc.
 
 There are exits south, west and northeast.
 
->You take the knife from the sink.
+> take knife
+You take the knife from the sink.
 
->You open the oven.  A severed head is inside the oven.
+> open oven
+You open the oven.  A severed head is inside the oven.
 
->You take the severed head from the oven.
+> take severed head
+You take the severed head from the oven.
 
->You move northeast.
+> ne
+You move northeast.
 
 Entrance
 You're in the entrance of Desther's house, a large open area with a statue of
@@ -53,7 +58,8 @@ house.
 
 You can move south, up and southwest.
 
->As you make your way up the stairs, you see a hideous apparition appear out
+> u
+As you make your way up the stairs, you see a hideous apparition appear out
 of nowhere.
 
 "Get down those damn stairs, pizza face!" it yells at you.
@@ -64,12 +70,14 @@ The ghost takes a swing for your head with a meat cleaver it's carrying.
 "Same thing if you ask me, spot. Either way, I ain't letting you up these
 stairs until you're dead."
 
->The ghost takes one look at the head of the ugly fellow you found in the
+> show head
+The ghost takes one look at the head of the ugly fellow you found in the
 oven, gives a high pitched howl - and flees! Right through the nearest wall.
 Its meat cleaver hits the wall with a clang and drops onto the floor a bit
 further up the stairs.
 
->You move up.
+> u
+You move up.
 
 Upstairs hallway
 This hallway winds around the entire second floor of Desther's floor.
@@ -81,9 +89,11 @@ Also here is a meat cleaver.
 
 You can move west, down, southeast and northwest.
 
->You pick up the meat cleaver.
+> take cleaver
+You pick up the meat cleaver.
 
->You move down.
+> d
+You move down.
 
 Entrance
 You're in the entrance of Desther's house, a large open area with a statue of
@@ -92,7 +102,8 @@ house.
 
 You can move south, up and southwest.
 
->You move southwest.
+> sw
+You move southwest.
 
 Kitchen
 The kitchen of Desther's house is a pretty shoddy affair. It doesn't look
@@ -102,7 +113,8 @@ usual appliances you tend to find in a kitchen: oven, sink, fridge, etc.
 
 You can move south, west and northeast.
 
->You move west.
+> w
+You move west.
 
 Back yard
 You find yourself on the back yard. It is enclosed by tall fences which look
@@ -110,7 +122,8 @@ pretty much unclimbable. The yard extends to a small wood not far from here.
 
 You can move east and west.
 
->You move west.
+> w
+You move west.
 
 Small wood
 You're wandering around in a very dark location indeed. The ground is pretty
@@ -118,7 +131,8 @@ much hidden from view and all you can see for a long, long way are trees.
 
 You can move east, southeast and southwest.
 
->You move southwest.
+> sw
+You move southwest.
 
 Small wood
 You're wandering around in a very dark location indeed. The ground is pretty
@@ -126,7 +140,8 @@ much hidden from view and all you can see for a long, long way are trees.
 
 You can move south and northeast.
 
->You move south.
+> s
+You move south.
 
 Small wood
 You're wandering around in a very dark location indeed. The ground is pretty
@@ -136,7 +151,8 @@ Walter is here.
 
 You can move north and east.
 
->"Ah, I'll soon deal with the swines with this!" Walter cries and takes a
+> give cleaver to walter
+"Ah, I'll soon deal with the swines with this!" Walter cries and takes a
 swing at a nearby tree. "There! See him cringe!"
 
 "Very impressive," you say. "I think you've got 'em on the run there."
@@ -159,7 +175,8 @@ Ah, you!"
 
 Walter ignores you completely and gives another tree a few hearty thwacks.
 
->You move north.
+> n
+You move north.
 
 Small wood
 You're wandering around in a very dark location indeed. The ground is pretty
@@ -167,7 +184,8 @@ much hidden from view and all you can see for a long, long way are trees.
 
 You can move south and northeast.
 
->You move northeast.
+> ne
+You move northeast.
 
 Small wood
 You're wandering around in a very dark location indeed. The ground is pretty
@@ -175,7 +193,8 @@ much hidden from view and all you can see for a long, long way are trees.
 
 You can move east, southeast and southwest.
 
->You move east.
+> e
+You move east.
 
 Back yard
 You find yourself on the back yard. It is enclosed by tall fences which look
@@ -183,7 +202,8 @@ pretty much unclimbable. The yard extends to a small wood not far from here.
 
 You can move east and west.
 
->You move east.
+> e
+You move east.
 
 Kitchen
 The kitchen of Desther's house is a pretty shoddy affair. It doesn't look
@@ -193,7 +213,8 @@ usual appliances you tend to find in a kitchen: oven, sink, fridge, etc.
 
 You can move south, west and northeast.
 
->You move northeast.
+> ne
+You move northeast.
 
 Entrance
 You're in the entrance of Desther's house, a large open area with a statue of
@@ -202,7 +223,8 @@ house.
 
 You can move south, up and southwest.
 
->You move up.
+> u
+You move up.
 
 Upstairs hallway
 This hallway winds around the entire second floor of Desther's floor.
@@ -212,7 +234,8 @@ seriously gloomy location.
 
 You can move west, down, southeast and northwest.
 
->You move northwest.
+> nw
+You move northwest.
 
 Desther's bedroom
 To say that Desther spends his nights here, his bedroom is surprisingly
@@ -223,13 +246,16 @@ Cedrick is here.
 
 You can only move southeast.
 
->The moment Cedrick sees the bomb he cries, "oh sh-" before being blown up.
+> throw bomb
+The moment Cedrick sees the bomb he cries, "oh sh-" before being blown up.
 Very messily blown up as well. Bits of his ghostly essence litter the room
 afterwwards.
 
->You pick up the key.
+> take key
+You pick up the key.
 
->You move southeast.
+> se
+You move southeast.
 
 Upstairs hallway
 This hallway winds around the entire second floor of Desther's floor.
@@ -239,7 +265,8 @@ seriously gloomy location.
 
 You can move west, down, southeast and northwest.
 
->You move down.
+> d
+You move down.
 
 Entrance
 You're in the entrance of Desther's house, a large open area with a statue of
@@ -248,7 +275,8 @@ house.
 
 You can move south, up and southwest.
 
->You move southwest.
+> sw
+You move southwest.
 
 Kitchen
 The kitchen of Desther's house is a pretty shoddy affair. It doesn't look
@@ -258,7 +286,8 @@ usual appliances you tend to find in a kitchen: oven, sink, fridge, etc.
 
 You can move south, west and northeast.
 
->You move south.
+> s
+You move south.
 
 Top of cellar steps
 You're standing at the top of a flight of steps which lead down into the
@@ -266,7 +295,8 @@ darkness. At the side of you is a light switch.
 
 You can move north and down.
 
->You move down.
+> d
+You move down.
 
 Cellar
 The cellar of Desther's house is pretty much empty. Nothing in here at all.
@@ -277,15 +307,19 @@ of the room.
 
 You can only move up.
 
->Resting atop the pedestal, you fully expect to find a vampire inside. Alas,
+> x coffin
+Resting atop the pedestal, you fully expect to find a vampire inside. Alas,
 as the coffin is currently locked you don't see a whole lot inside.
 
->Using the key, you do just that. No members of the undead leap out and try to
+> open coffin
+Using the key, you do just that. No members of the undead leap out and try to
 fang you which you find quite a disappointment.
 
->Inside the coffin you find a comb which you decide to take with you.
+> x coffin
+Inside the coffin you find a comb which you decide to take with you.
 
->You move up.
+> u
+You move up.
 
 Top of cellar steps
 You're standing at the top of a flight of steps which lead down into the
@@ -293,7 +327,8 @@ darkness. At the side of you is a light switch.
 
 You can move north and down.
 
->You move north.
+> n
+You move north.
 
 Kitchen
 The kitchen of Desther's house is a pretty shoddy affair. It doesn't look
@@ -303,7 +338,8 @@ usual appliances you tend to find in a kitchen: oven, sink, fridge, etc.
 
 You can move south, west and northeast.
 
->You move northeast.
+> ne
+You move northeast.
 
 Entrance
 You're in the entrance of Desther's house, a large open area with a statue of
@@ -312,7 +348,8 @@ house.
 
 You can move south, up and southwest.
 
->You move up.
+> u
+You move up.
 
 Upstairs hallway
 This hallway winds around the entire second floor of Desther's floor.
@@ -322,7 +359,8 @@ seriously gloomy location.
 
 You can move west, down, southeast and northwest.
 
->You move west.
+> w
+You move west.
 
 Bathroom
 Ugh! This place looks like it hasn't been cleaned in years! It also looks
@@ -334,12 +372,14 @@ Claudia is here.
 
 You can only move east.
 
->"Ah, that's better," says Claudia. She runs the comb through her ghostly hair
+> give comb to claudia
+"Ah, that's better," says Claudia. She runs the comb through her ghostly hair
 a few times and sighs in delight. "I guess I can go now."
 
 She blows you a ghostly kiss and leaves via the closest wall.
 
->You move east.
+> e
+You move east.
 
 Upstairs hallway
 This hallway winds around the entire second floor of Desther's floor.
@@ -349,7 +389,8 @@ seriously gloomy location.
 
 You can move west, down, southeast and northwest.
 
->You move down.
+> d
+You move down.
 
 Entrance
 You're in the entrance of Desther's house, a large open area with a statue of
@@ -358,7 +399,8 @@ house.
 
 You can move south, up and southwest.
 
->Congratulations!
+> s
+Congratulations!
 
 Front porch
 The front porch of Desther's house is quite impressive. If you didn't know

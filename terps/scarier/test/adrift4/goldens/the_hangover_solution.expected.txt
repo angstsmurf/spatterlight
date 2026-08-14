@@ -6,9 +6,11 @@ A Red Conine Game
 
 Copyright @ 2009
 
->You take the two dollar bill from your closet.
+> take two dollar bill
+You take the two dollar bill from your closet.
 
->(Getting off your bathrobe first)
+> e
+(Getting off your bathrobe first)
 You move east.
 
 Your Bathroom
@@ -17,13 +19,16 @@ supposed a bathroom. I suppose because you have your toothbrush here on your
 sink and a... my god thats a toilet! I couldn't tell. You might want to look
 at your sink. Your proud of this? To the west is Your Bedroom.
 
->A white, rusted sink where you would brush your teeth. By the way you treat
+> x sink
+A white, rusted sink where you would brush your teeth. By the way you treat
 your apartment I highly doubt you treat teeth any better. You should take a
 look at your toothbrush.  Your toothbrush is on the sink.
 
->You take your toothbrush from the sink.
+> take toothbrush
+You take your toothbrush from the sink.
 
->You move west.
+> w
+You move west.
 
 Your Bedroom
 You have a horrid hangover and no asprin in the apartment. This is your
@@ -34,15 +39,20 @@ west is the rest of your apartment.
 
 Also here is your bathrobe.
 
->You pick up your bathrobe.
+> take bathrobe
+You pick up your bathrobe.
 
->You put on your bathrobe.
+> wear bathrobe
+You put on your bathrobe.
 
->You put your toothbrush inside your bathrobe.
+> put toothbrush in bathrobe
+You put your toothbrush inside your bathrobe.
 
->You put the two dollar bill inside your bathrobe.
+> put two dollar bill in bathrobe
+You put the two dollar bill inside your bathrobe.
 
->You move west.
+> w
+You move west.
 
 Your Living Room
 You living room wich also is your kitchen and dining room and just about
@@ -53,7 +63,8 @@ you pull that off? She must have been drunk and by your headache so were you.
 To the north is the exit. To the east is Your Bedroom.
 The women is here.
 
->You move north.
+> n
+You move north.
 
 Hallway
 This is a hallway. The dim lights help sooth your headache but the look of
@@ -66,9 +77,11 @@ a hard sleeper I suppose.
 
 Also here is your mail.
 
->You pick up your mail.
+> take mail
+You pick up your mail.
 
->You move north.
+> n
+You move north.
 
 Fedrick Avenue
 Now that you have left your slum of an apartment building you can gaze upon
@@ -78,7 +91,8 @@ should be avoided just by there look. The only one that seems safe is across
 the street. You should really move to somewhere else.  A "Burger Club" is to
 your north. To your east is a bus stop.
 
->You move north.
+> n
+You move north.
 
 Burger Club
 This horrid place that is coated with so much grease just standing in here
@@ -88,12 +102,14 @@ eating a burger. Behind the counter is a short women talking on her
 cellphone. Her nametag displays "Deby". There is a large menu but everything
 seems to just be either a burger, drink, or fries.
 
->(Your score has increased by 1)
+> give deby two dollar bill
+(Your score has increased by 1)
 Deby gives you the french fries and then goes back to ignoring you. The
 french fries are very greasy. Grats my friend, you should probably eat them
 before they get anything else greasy.
 
->You move south.
+> s
+You move south.
 
 Fedrick Avenue
 Now that you have left your slum of an apartment building you can gaze upon
@@ -103,7 +119,8 @@ should be avoided just by there look. The only one that seems safe is across
 the street. You should really move to somewhere else.  A "Burger Club" is to
 your north. To your east is a bus stop.
 
->You move west.
+> w
+You move west.
 
 Bus Stop
 This is the bus stop. This is the real slum. There are more posters all over
@@ -113,12 +130,14 @@ the west is Tennant Street.  There is a bum on the bench. You should really
 get him off the bench.
 The bum is here.
 
->(Your score has increased by 1)
+> kick bum
+(Your score has increased by 1)
 You have the kicked the bum right off the bench! He is in a terrible mood but
 simply walks over to Fredrick Avenue. The bus has arrived! You should get on
 the bus. Go north to get on the bus.
 
->You move north.
+> n
+You move north.
 
 Bus
 You are inside the bus. There is no one onboard except the bus driver who has
@@ -129,11 +148,13 @@ headache. You should just wait and get this ride over with.
 
 Driver is here.
 
->The bus has now arrived at Corperate Street where every snooty business man
+> wait
+The bus has now arrived at Corperate Street where every snooty business man
 works! This would include the offices the 42nd Bank of America. You can get
 off by going north.
 
->You move north.
+> n
+You move north.
 
 Corperate Street
 This street is clean and lined with gray office buildings with nothing else.
@@ -144,7 +165,8 @@ give him some food. The only place to go now is the 42nd Bank of America to
 the north.
 That dog is here.
 
->You move north.
+> n
+You move north.
 
 42nd Bank of America Lobby
 The lobby is covered in tile with waiting benches, a metal detector, and a
@@ -155,14 +177,17 @@ should ask the secretary about debit card.
 
 Secretary is here.
 
->You recieved a letter about your card in your mail. If you didn't bring your
+> ask secretary about mail
+You recieved a letter about your card in your mail. If you didn't bring your
 mail, I can't give you the form.
 
->(Your score has increased by 1)
+> give secretary mail
+(Your score has increased by 1)
 You have given the secretary your letter. She gives a form and tells you to
 procede to the Form Process Office. Her finger points to the east.
 
->You move east.
+> e
+You move east.
 
 Form Process Office
 This is a massive room with many many cubicles. There is a single desk in
@@ -174,12 +199,14 @@ desk reads Walter. The Lobby is to the east.
 
 Walter is here.
 
->I cannot process this form. You need the Card Name Replacement Form Approval
+> ask walter about debit card
+I cannot process this form. You need the Card Name Replacement Form Approval
 Form in triplicate. For direction on where the approval form is, please
 consult the secretary. Here is a note for permision. just give the letter to
 secretary.
 
->You move west.
+> w
+You move west.
 
 42nd Bank of America Lobby
 The lobby is covered in tile with waiting benches, a metal detector, and a
@@ -190,11 +217,13 @@ should ask the secretary about debit card.
 
 Secretary is here.
 
->Okay, the approval form office is downstairs in the cellar. No elevator goes
+> give the approval note to secretary
+Okay, the approval form office is downstairs in the cellar. No elevator goes
 down that far so you'll have to take the stairs to the west. The Director of
 Form Requests is... odd. You'll see. The stairs are west.
 
->You move west.
+> w
+You move west.
 
 Approval Form Office
 This "office" is really just a large cellar with some cubicles which have
@@ -207,14 +236,16 @@ platypus. To the east is back to the lobby.
 
 Platypus is here.
 
->Another person needs an approval form? Well, the certain form your looking,
+> ask platypus about approval note
+Another person needs an approval form? Well, the certain form your looking,
 uh, a credit card name replacement form approval form? You need that in
 triplicate I see as well. The problem with that is that they are in three
 different places. Well, I could just give you three but that wouldn't be any
 fun. The first one would be thorugh the door behind me to the north. I hope
 you have a terrible day.
 
->You move north.
+> n
+You move north.
 
 Storage Room
 The door locks behind you. This room is also like the cellar. Dark to help
@@ -222,18 +253,22 @@ your hangover. The room is crowded with random boxes and filing cabinets.
 There seems to be only one cabinet you can acess. You should look at the
 cabinet.
 
->This is a rusted filing cabinet and the only one even possible of opening in
+> x cabinet
+This is a rusted filing cabinet and the only one even possible of opening in
 this storage room. There is also a sign on it that reads "Beware of the
 Leopard". You should probably try to open the cabinet.  The cabinet is
 closed.
 
->(Your score has increased by 1)
+> open the filing cabinet
+(Your score has increased by 1)
 You open the cabinet.  Card name replacement approval form is inside the
 cabinet.
 
->You take card name replacement approval form from the cabinet.
+> take approval form
+You take card name replacement approval form from the cabinet.
 
->You move north.
+> n
+You move north.
 
 Utility Tunnel
 This is a long utility tunnel. There is water driping from the concrete
@@ -242,7 +277,8 @@ spewing out steam. Well, its better then your apartment. There is very little
 light down here which is good for your hangover. To the south is the storage
 room. To the north is deeper into the Utility Tunnel.
 
->You move north.
+> n
+You move north.
 
 Utility Tunnel
 This is a long utility tunnel. There is water driping from the concrete
@@ -251,17 +287,20 @@ spewing out steam. You seem to be at the end. There is a large metal door.
 There is very little light down here which is good for your hangover. To the
 south is deeper into the tunnel. To the north is a metal door.
 
->You move north.
+> n
+You move north.
 
 Psycho Hospital Room
 The door you went through seems to be a false wall and is one. The room is a
 white padded room. The only door is a locked steel door. It seems you are
 stuck for the rest of your life. It was a crappy run anyways.
 
->There is some tlaking behind the door followed by the clank of the steel door
+> wait
+There is some tlaking behind the door followed by the clank of the steel door
 unlocking. This is your chance! Go west to leave!
 
->You move west.
+> w
+You move west.
 
 Psycho Hospital Cafeteria
 You've made your way to the cafeteria. The entire room is white. The tables,
@@ -272,13 +311,16 @@ probably talk to him.
 
 Curly, Larry and Doctor are here.
 
->Its been awhile since someone has come thorugh here for the apporval form. If
+> ask doctor about approval form
+Its been awhile since someone has come thorugh here for the apporval form. If
 you give me some fries, I'll give you the keys out of here and the second
 approval form. If not, you can rot in here with those three pyschos.
 
->Give what?
+> give the doctor some french fries
+Give what?
 
->You move south.
+> s
+You move south.
 
 Country Road
 As you exit the Pyscho Hospital, a private jet begins to lands and stops in
@@ -288,7 +330,8 @@ for you to climb up. The massive roar of the jet brings a form of pain you
 never knew existed to your hangover. This just isn't your day. Go south to
 get in the jet.
 
->You move south.
+> s
+You move south.
 
 Jet
 The jet is very nice. There are layzboy chairs and a round table in the
@@ -300,22 +343,28 @@ really hope you brought your toothbrush. The man walks into the cockpit,
 leaving you alone with the box. The jet takes off, leaving you stuck in the
 jet with the box.
 
->You take your toothbrush from your bathrobe.
+> take toothbrush
+You take your toothbrush from your bathrobe.
 
->119-228-337-446
+> read toothbrush
+119-228-337-446
 
->(Your score has increased by 1)
+> type 119-228-337-446
+(Your score has increased by 1)
 The box opens, showing the third and final approval form. The piece of paper
 almost gleams as you have finally completed your task of getting three
 approval forms. You take the approval form with pride. Suddenly, the man
 comes from the cockpit explaning that the plane is going to crash. He takes
 the only parachute and jumps out.
 
->You drop your toothbrush.
+> drop toothbrush
+You drop your toothbrush.
 
->You remove your bathrobe.
+> take off bathrobe
+You remove your bathrobe.
 
->You move east.
+> e
+You move east.
 
 Corperate Street
 This street is clean and lined with gray office buildings with nothing else.
@@ -327,11 +376,14 @@ the north if you are wearing your robe. I highly doubt any of them would help
 you with a robe to cover up you pajamas.
 That dog is here.
 
->You put on your bathrobe.
+> wear bathrobe
+You put on your bathrobe.
 
->You can't go in that direction, but you can move north.
+> e
+You can't go in that direction, but you can move north.
 
->You move north.
+> n
+You move north.
 
 42nd Bank of America Lobby
 The lobby is covered in tile with waiting benches, a metal detector, and a
@@ -342,7 +394,8 @@ should ask the secretary about debit card.
 
 Secretary is here.
 
->You move east.
+> e
+You move east.
 
 Form Process Office
 This is a massive room with many many cubicles. There is a single desk in
@@ -352,8 +405,11 @@ approval notes to platypus.
 
 Walter is here.
 
->Give what?
+> give approval notes to platypus
+Give what?
 
->Your score is 5 out of a maximum of 7.  (71%)
+> score
+Your score is 5 out of a maximum of 7.  (71%)
 
->Do you really want to quit? [Y/N]
+> quit
+Do you really want to quit? [Y/N]

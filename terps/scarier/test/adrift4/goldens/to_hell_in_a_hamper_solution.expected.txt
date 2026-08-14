@@ -73,33 +73,41 @@ brass altimeter, the one and only piece of aeronautical equipment that has
 not been sacrificed.  The basket is otherwise completely empty.
 Hubert Booby stands in the corner of the basket, peering at me suspiciously.
 
->Hubert is a man of prodigious girth, pasty and unhealthy looking with slicked
+> x hubert
+Hubert is a man of prodigious girth, pasty and unhealthy looking with slicked
 down hair and beady little eyes that follow you about.  Hubert is wearing a
 large, bulky overcoat and a shapeless felt hat.
 
->Hubert habitually wears this huge black overcoat. It seems to have been
+> x overcoat
+Hubert habitually wears this huge black overcoat. It seems to have been
 designed with only a small breast pocket, but a larger side pocket has been
 crudely stitched to the side.  The overcoat is bursting at the seams; it is
 buttoned up but the buttons threaten to pop off under the strain. The
 occasional slight movement from within the bulk suggest something untoward is
 going on in there...
 
->A large pocket that seems not to have been part of the coat's original
+> x side pocket
+A large pocket that seems not to have been part of the coat's original
 design.  Despite Hubert's protestations, I am able to take a quick peek at
 its contents, which appear to consist of a tin box and a rubber mallet.
 
->In spite of Hubert's feeble efforts to stop me, I am able to wrest the sewing
+> get box
+In spite of Hubert's feeble efforts to stop me, I am able to wrest the sewing
 kit from the side pocket of his coat.
 
->Before Hubert has time to react, I snatch the rubber mallet from the side
+> get mallet
+Before Hubert has time to react, I snatch the rubber mallet from the side
 pocket of his coat.
 
->I open the sewing kit, finding inside a pair of sharp scissors, a ball of
+> open box
+I open the sewing kit, finding inside a pair of sharp scissors, a ball of
 yarn and a needle.
 
->I take the pair of sharp scissors from the sewing kit.
+> get scissors
+I take the pair of sharp scissors from the sewing kit.
 
->As soon as Hubert sees me approaching with the scissors he understandably
+> cut off buttons
+As soon as Hubert sees me approaching with the scissors he understandably
 backs away, but in the confines of the balloon I soon have him cornered. His
 vigourous attempts to fend me off are quite inneffectual.
 
@@ -111,9 +119,11 @@ basket! These items consist of a large framed painting, an enormous
 carpetbag, a bundle of twigs, a boomerang, an ear-trumpet, a toy donkey and a
 sleeping Saint Bernard dog...
 
->I pick up the large framed painting. 'Leave that alone!' cries Hubert.
+> get painting
+I pick up the large framed painting. 'Leave that alone!' cries Hubert.
 
->Without hesitation I fling the painting over the side, thereby consigning
+> throw painting
+Without hesitation I fling the painting over the side, thereby consigning
 that artistic abberration to oblivion. It seems the kindest thing to do.
 
 'You imbecile!' cries Hubert, tearing out great clumps of his own hair, 'I
@@ -123,10 +133,12 @@ room. You'll pay for this!'
 Unburdening the balloon of this quite large and heavy object causes a sudden
 and immediate gain in altitude of seven hundred feet.
 
->I pick up the toy donkey. 'If you damage that,' says Hubert, 'I shall tell my
+> get donkey
+I pick up the toy donkey. 'If you damage that,' says Hubert, 'I shall tell my
 Aunt Gertie!'
 
->I fling the toy donkey over the side of the balloon and watch as it spirals
+> throw donkey
+I fling the toy donkey over the side of the balloon and watch as it spirals
 to Earth. 'You maniac!' screams Hubert, wringing his hands and quivering all
 over like an oversized lemon jelly. 'The shopkeeper assured me that donkey
 was one-of-a-kind!'
@@ -134,52 +146,65 @@ was one-of-a-kind!'
 Unburdening the balloon of this quite large and heavy object causes a sudden
 and immediate gain in altitude of seven hundred feet.
 
->I take the ball of yarn and the needle from the sewing kit.
+> empty box
+I take the ball of yarn and the needle from the sewing kit.
 
->I toss the old tin box over the side of the basket. 'You maniac!' cries
+> throw box
+I toss the old tin box over the side of the basket. 'You maniac!' cries
 Hubert as it tumbles Earthwards.
 
 The equilibrium of a balloon in the air is so sensitive that the loss of an
 almost  insignificant weight can produce a very appreciable displacement. In
 this instance, the balloon gains around one hundred feet in altitude.
 
->Hubert habitually wears this huge black overcoat. It seems to have been
+> x overcoat
+Hubert habitually wears this huge black overcoat. It seems to have been
 designed with only a small breast pocket, but a larger side pocket has been
 crudely stitched to the side.  The overcoat is flapping open, the buttons
 having long since flown the coop. There is a peculiar bulge in the tartan
 lining, and I can now see that the overcoat has an inside pocket.
 
->Hubert's overcoat is lined with coarse tartan material.  There is a
+> x bulge
+Hubert's overcoat is lined with coarse tartan material.  There is a
 conspicuous bulge in the lining of the overcoat.
 
->I lunge with the scissors, slashing a large rent in the tartan fabric. A
+> cut lining with scissors
+I lunge with the scissors, slashing a large rent in the tartan fabric. A
 colourful vase drops out onto the floor of the basket. 'You lunatic!' shrieks
 Hubert, throwing up his hands in horror, 'My Auntie Gertie will have to mend
 that now!'
 
->I pick up the Ting dynasty vase.
+> get vase
+I pick up the Ting dynasty vase.
 
->It rattles!
+> shake vase
+It rattles!
 
->I hit the vase with the mallet. It shatters most obligingly, revealing a tiny
+> hit vase with mallet
+I hit the vase with the mallet. It shatters most obligingly, revealing a tiny
 key among the wreckage!
 
 'You maniac!' cries Hubert, 'that vase was a present for my Aunt Gertie! I'll
 never be able to find another one!'
 
->I pick up the tiny metal key.
+> get key
+I pick up the tiny metal key.
 
->This is by far the largest example of a carpetbag I have ever seen! It must
+> x bag
+This is by far the largest example of a carpetbag I have ever seen! It must
 contain enough carpet to carpet the Taj Mahal!  The carpetbag is padlocked.
 
->I unlock the carpetbag with the tiny metal key, tossing the padlock over the
+> unlock bag
+I unlock the carpetbag with the tiny metal key, tossing the padlock over the
 side of the basket. The bag falls open to reveal, to my astonishment, a pair
 of underpants, a trombone, and what appears to be an Egyptian mummy still in
 its original wrappings!
 
->I gingerly remove the pair of underpants from the carpetbag.
+> get underpants
+I gingerly remove the pair of underpants from the carpetbag.
 
->I toss the underpants over the side of the balloon. A warm air current sends
+> throw underpants
+I toss the underpants over the side of the balloon. A warm air current sends
 them floating off into the distance. 'You idiot!' cries Hubert, his eyes wide
 as coal-holes, 'My Aunt Gertie was very insistent that I always have clean
 underwear - I've been wearing my other pair ever since this infernal trip
@@ -189,30 +214,39 @@ The equilibrium of a balloon in the air is so sensitive that the loss of an
 almost  insignificant weight can produce a very appreciable displacement. In
 this instance, the balloon gains around one hundred feet in altitude.
 
->I take the trombone from the carpetbag.
+> get trombone
+I take the trombone from the carpetbag.
 
->A rather battered, but still serviceable trombone.  The trombone appears to
+> x trombone
+A rather battered, but still serviceable trombone.  The trombone appears to
 have something wedged in its funnel.
 
->I bash the trombone with the rubber mallet. To my surprise, a cricket ball
+> hit trombone with mallet
+I bash the trombone with the rubber mallet. To my surprise, a cricket ball
 pops out of the funnel. I must ask Hubert how that got in there...
 
->I pick up the cricket ball.
+> get ball
+I pick up the cricket ball.
 
->I pick up the ear-trumpet.
+> get ear-trumpet
+I pick up the ear-trumpet.
 
->I put the ear-trumpet in the Saint Bernard's ear.
+> put ear-trumpet in dog's ear
+I put the ear-trumpet in the Saint Bernard's ear.
 
->I place the trombone to my lips and blow. It emits a few strangulated notes.
+> play trombone
+I place the trombone to my lips and blow. It emits a few strangulated notes.
 The St. Bernard, upon hearing this leaps four feet into the air, sending the
 ear-trumpet flying into space. He seems to be fully alert now!
 
->Hubert's hat looks as though it might once have belonged to an admiral, but
+> x hat
+Hubert's hat looks as though it might once have belonged to an admiral, but
 it has lost much of its shape and the gold broccade is hanging off. When
 Hubert sees me eyeing his hat he reaches up and clutches the brim
 protectively. 'There's nothing concealed under here, I promise you!' he says.
 
->With a graceful arm movement I hurl the cricket ball at Hubert's hat. He
+> throw ball at hat
+With a graceful arm movement I hurl the cricket ball at Hubert's hat. He
 tries to duck but I had anticpated this and accounted for it in my
 trajectory. The ball knocks the hat clean off his head before rebounding and
 landing on the floor of the basket. The hat drops to the floor with a heavy
@@ -222,9 +256,11 @@ begins to chime...
 
 The clock chimes five times. 'CUCKOO! CUCKOO! CUCKOO! CUCKOO! CUCKOO!'
 
->I pick up the cuckoo clock. 'Leave that alone!' cries Hubert.
+> get clock
+I pick up the cuckoo clock. 'Leave that alone!' cries Hubert.
 
->I hurl the cuckoo clock over the side of the basket. It continues to chime
+> throw clock
+I hurl the cuckoo clock over the side of the basket. It continues to chime
 long after it has disappeared into the wreath of thin cloud that hovers below
 us.
 
@@ -238,9 +274,11 @@ gas is so delicate that jettisoning even a very light object causes an
 immediate vertical displacement. In this instance, the balloon gains around
 five hundred feet in altitude.
 
->I pick up the cricket ball.
+> get ball
+I pick up the cricket ball.
 
->I throw the cricket ball (overarm, naturally) over the side of the basket,
+> throw ball
+I throw the cricket ball (overarm, naturally) over the side of the basket,
 giving it plenty of topspin. It whistles off into the clouds, closely
 followed by the St. Bernard, which, like any dog, cannot resist chasing a
 thrown ball. Through a gap in the clouds I see the hapless hound land safely
@@ -249,22 +287,27 @@ in a snow-drift. At least he will be able to dig himself out.
 Unburdening the balloon of this large, heavy object causes a sudden and
 immediate gain in altitude of one thousand feet.
 
->I pick up the smudge stick.
+> get bundle
+I pick up the smudge stick.
 
->Hubert habitually wears this huge black overcoat. It seems to have been
+> x overcoat
+Hubert habitually wears this huge black overcoat. It seems to have been
 designed with only a small breast pocket, but a larger side pocket has been
 crudely stitched to the side.  The overcoat is flapping open, revealing an
 inside pocket. The tartan lining is badly torn. For all I know there may be
 still more hidden inside this incredible garment.
 
->A small pocket in the lining of Hubert's overcoat. The inside pocket contains
+> x inside pocket
+A small pocket in the lining of Hubert's overcoat. The inside pocket contains
 a cigarette lighter and a hatchet.
 
->I reach inside Hubert's overcoat and retrieve the lighter. 'Stop! Thief!'
+> get lighter
+I reach inside Hubert's overcoat and retrieve the lighter. 'Stop! Thief!'
 yells Hubert, presumably in the hope of attracting the attention of the local
 constabulary.
 
->Having no further use for it, I cast the trombone out of the basket. Hubert
+> throw trombone
+Having no further use for it, I cast the trombone out of the basket. Hubert
 merely sighs and rolls his eyes at me.
 
 The balance between the weight of the balloon and the lift provided by the
@@ -272,7 +315,8 @@ gas is so delicate that jettisoning even a very light object causes an
 immediate vertical displacement. In this instance, the balloon gains around
 five hundred feet in altitude.
 
->I fling the mallet over the side of the basket. 'You lunatic!' yells Hubert,
+> throw mallet
+I fling the mallet over the side of the basket. 'You lunatic!' yells Hubert,
 stamping his feet in distraction. 'That was an extremely useful mallet - I
 used it every day at breakfast to crack open my boiled eggs!'
 
@@ -281,7 +325,8 @@ gas is so delicate that jettisoning even a very light object causes an
 immediate vertical displacement. In this instance, the balloon gains around
 five hundred feet in altitude.
 
->Having no further use for the scissors, I toss them over the side of the
+> throw scissors
+Having no further use for the scissors, I toss them over the side of the
 basket. 'You idiot!' cries Hubert, 'how am I going to trim my nostril hair
 now?'
 
@@ -289,23 +334,27 @@ The equilibrium of a balloon in the air is so sensitive that the loss of an
 almost  insignificant weight can produce a very appreciable displacement. In
 this instance, the balloon gains around one hundred feet in altitude.
 
->I toss the smudge stick over the side of the basket. After all I can't
+> throw smudge stick
+I toss the smudge stick over the side of the basket. After all I can't
 imagine what I might have needed it for...
 
 The equilibrium of a balloon in the air is so sensitive that the loss of an
 almost  insignificant weight can produce a very appreciable displacement. In
 this instance, the balloon gains around one hundred feet in altitude.
 
->I reach inside Hubert's overcoat and retrieve the hatchet from his inside
+> get hatchet
+I reach inside Hubert's overcoat and retrieve the hatchet from his inside
 pocket, immediately recognising it as my own!
 
->I hack through the anchor rope with the hatchet and watch as the anchor
+> cut anchor rope with hatchet
+I hack through the anchor rope with the hatchet and watch as the anchor
 tumbles to earth.
 
 Unburdening the balloon of this quite large and heavy object causes a sudden
 and immediate gain in altitude of seven hundred feet.
 
->Reluctantly I throw my newly recovered hatchet over the side of the basket.
+> throw hatchet
+Reluctantly I throw my newly recovered hatchet over the side of the basket.
 It was a short-lived re-aquaintance, but a profitable one!
 
 The balance between the weight of the balloon and the lift provided by the
@@ -313,16 +362,19 @@ gas is so delicate that jettisoning even a very light object causes an
 immediate vertical displacement. In this instance, the balloon gains around
 three hundred feet in altitude.
 
->A small pocket on the front of the overcoat.  The corner of a handkerchief
+> x breast pocket
+A small pocket on the front of the overcoat.  The corner of a handkerchief
 can be seen poking out of Hubert's breast pocket.
 
->I take hold of the corner of the handkerchief and tug, whereupon, like some
+> get handkerchief
+I take hold of the corner of the handkerchief and tug, whereupon, like some
 infernal conjouring trick, the one handkerchief is attached to another, and
 another, until I am holding a huge bundle of coloured handkerchiefs all tied
 together at the corners. 'Leave those alone!' protests Hubert, 'my Aunt
 Gertie will be very annoyed when she finds out you've stolen my hankies!'
 
->Fortunately I was taught to sew by the overbearing nuns who educated me in
+> make parachute
+Fortunately I was taught to sew by the overbearing nuns who educated me in
 that convent school. Stitching the handkerchiefs together  I soon construct a
 parachute strong enough to support a reasonably lightweight person.
 
@@ -333,10 +385,12 @@ of that species swoops out of the sky, clutching something in its talons. It
 deposits this object at my feet and flies on. I look down to discover the
 very same smudge stick I threw out earlier lying at my feet!
 
->I carefully lift the Egyptian mummy from the carpetbag and heave it over my
+> get mummy
+I carefully lift the Egyptian mummy from the carpetbag and heave it over my
 shoulder. 'I wouldn't touch that if I were you,' says Hubert 'it's cursed!'
 
->I heave the mummy over the side of the balloon and watch as it plummets
+> throw mummy
+I heave the mummy over the side of the balloon and watch as it plummets
 earthwards.
 
 Unburdening the balloon of this large, heavy object causes a sudden and
@@ -365,9 +419,11 @@ tiny little old lady emerges from the overcoat.
 allowed!' She gives me a crack across the shins with her cane, just for the
 hell of it.
 
->I pick up the smudge stick.
+> get smudge stick
+I pick up the smudge stick.
 
->I light the smudge stick with the cigarette lighter, then blow it out,
+> light smudge stick
+I light the smudge stick with the cigarette lighter, then blow it out,
 allowing the scented smoke to  waft around the balloon. It could be my
 imagination, but from somewhere I hear the distant sound of drums and a
 Shoshone medicine man chanting. From above there is a raucous shriek, and I
@@ -376,7 +432,8 @@ something out of a dream...
 
 Red hot embers fly from the smudge stick...
 
->I toss the burning smudge stick over the side of the balloon.
+> throw smudge stick
+I toss the burning smudge stick over the side of the balloon.
 
 The equilibrium of a balloon in the air is so sensitive that the loss of an
 almost  insignificant weight can produce a very appreciable displacement. In
@@ -385,10 +442,12 @@ this instance, the balloon gains around one hundred feet in altitude.
 ashamed!' She gives me a crack across the shins with her cane, just for the
 hell of it.
 
->I wait 'til her back is turned, and swiftly tie the parachute to her apron
+> tie parachute to apron
+I wait 'til her back is turned, and swiftly tie the parachute to her apron
 strings!
 
->With a hearty shove, I push the old crone over the edge of the basket. The
+> push gertie
+With a hearty shove, I push the old crone over the edge of the basket. The
 parachute on her back opens instantly, slowing her rate of descent so that
 she drifts to earth as gently as a dandelion seed.
 
@@ -406,7 +465,8 @@ to my legs and arms and I begin to lose consciousness...
 
 I have just one chance. Unless I speedily descend, ALL IS LOST!
 
->The last thing I remember before passing out is falling upon the gas valve
+> pull gas valve rope
+The last thing I remember before passing out is falling upon the gas valve
 rope and pulling down on it with all the strength remaining to me...
 
 Press any key

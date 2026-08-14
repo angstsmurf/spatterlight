@@ -12,7 +12,8 @@ quest.
 You are outside the castle. The castle entrance is to the north. The small
 rock is also here.
 
->You move north.
+> north
+You move north.
 
 In the main hallway
 You are in the castle's main hallway. There are doors in the north, east and
@@ -21,7 +22,8 @@ along the hall.
 
 Also here is the 'welcome' mat.
 
->You move west.
+> west
+You move west.
 
 In the kitchen
 This is the castle kitchen. In the middle of the room stands a stove. There
@@ -30,7 +32,8 @@ hallway.
 
 Also here is the human brain.
 
->You move north.
+> north
+You move north.
 
 In the King's study
 This is King Thingalot's private study. In the middle of the room stand a
@@ -39,10 +42,12 @@ to the south leads back to the kitchen.
 
 Also here is the book.
 
->The green button has been pressed. Well done - that was something you had to
+> press green button
+The green button has been pressed. Well done - that was something you had to
 do. Now you can go through the north door in the main hallway.
 
->You move south.
+> south
+You move south.
 
 In the kitchen
 This is the castle kitchen. In the middle of the room stands a stove. There
@@ -51,7 +56,8 @@ hallway.
 
 Also here is the human brain.
 
->You move east.
+> east
+You move east.
 
 In the main hallway
 You are in the castle's main hallway. There are doors in the north, east and
@@ -60,7 +66,8 @@ along the hall.
 
 Also here is the 'welcome' mat.
 
->You move north.
+> north
+You move north.
 
 In the dining room
 You now stand in the castle dining room. A large table stands in the middle
@@ -69,31 +76,36 @@ the main hallway.
 
 Also here is the human lung.
 
->You move north.
+> north
+You move north.
 
 In the gallery
 You are in the castle gallery. However, there is only one painting here.
 There are doors in the north and west walls. To the east, there is a hall
 lined with brass. The south door leads back to the dining room.
 
->You move east.
+> east
+You move east.
 
 In the Brass Hall
 You now stand in the Brass Hall. To the east, a heavy iron portcullis blocks
 the way. Next to it are a blue lever and a black lever. One of these levers
 must be for raising the portcullis. The west door leads back to the gallery.
 
->As you pull the blue lever, the heavy iron portcullis slowly rises into the
+> pull blue lever
+As you pull the blue lever, the heavy iron portcullis slowly rises into the
 ceiling. Well done - that was something you had to do. Now you can proceed
 east.
 
->You move east.
+> east
+You move east.
 
 In the circular room
 This room is circular. There are doors in the north, south and east doors.
 The Brass Hall is to the west.
 
->You move south.
+> south
+You move south.
 
 On the balcony
 You are now standing on a balcony outside the castle. There are two
@@ -103,17 +115,20 @@ inside the castle.
 
 Also here is the beef sausage.
 
->When you stand on the red floorplate, it sinks into the floor. Well done -
+> stand on red floorplate
+When you stand on the red floorplate, it sinks into the floor. Well done -
 that was something you had to do. Now you can go through the east door in the
 circular room.
 
->You move north.
+> north
+You move north.
 
 In the circular room
 This room is circular. There are doors in the north, south and east doors.
 The Brass Hall is to the west.
 
->You move east.
+> east
+You move east.
 
 In the puzzle room
 This is the puzzle room. As you enter, the door slams shut behind you and
@@ -122,7 +137,8 @@ locks itself! Now you cannot retrace your steps. A disembodied voice booms,
 must answer this question. What is two to the power of three? The answer is
 either six or eight." When you have made your decision, type in your answer.
 
->You have answered correctly! Suddenly, you feel a strange tingling sensation
+> eight
+You have answered correctly! Suddenly, you feel a strange tingling sensation
 and your vision blurs. A second later, you find yourself in a triangular
 room, which will be described next. Well done!
 
@@ -133,7 +149,8 @@ You can hardly believe it - you've found the treasure!
 
 Also here is the hamburger.
 
->You pick up the treasure chest. Congratulations - you've found the hidden
+> take treasure chest
+You pick up the treasure chest. Congratulations - you've found the hidden
 treasure! I hope you enjoyed my game and hope you will download my future
 games too. Thanks for playing!
 Congratulations!

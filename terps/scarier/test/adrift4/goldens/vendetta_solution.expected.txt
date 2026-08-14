@@ -53,7 +53,8 @@ Roman-style coving around the edges. An oil painting hangs on the wall
 adjacent to your bed. On the opposite side of the room is a wardrobe, where
 your clothes are kept. To the east is the lounge.
 
->(Getting off the bed first)
+> e
+(Getting off the bed first)
 You move east.
 
 Lounge
@@ -66,27 +67,38 @@ table.
 
 Also here is the key card.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->(You switch on the videocom.)
+> answer videocom
+(You switch on the videocom.)
 
 You are immediately greeted by the face of your 'girlfriend', Sally
 Brunswick.
@@ -94,7 +106,8 @@ She looks elated.
 "Hi Jem, you wouldn't believe what an evening I've had. Are you okay?"
 "Yes thanks," you reply. "How did the dress rehearsal go?"
 
->Time passes...
+> wait
+Time passes...
 "It was absolutely fantastic! You should see my costume, it's absolutely
 beautiful. I just can't wait until tomorrow..."
 "That's good. Are you coming back now?" you ask her.
@@ -104,7 +117,8 @@ You pause, speculating what might be going on inside Sally's corrupt little
 mind.
 "Okay. What's the catch?"
 
->Time passes...
+> wait
+Time passes...
 "What do you mean? There's no catch, it's just that I haven't eaten all day
 and I'm absolutely starving. I thought it might be nice if we went out
 together, too. You haven't taken me out in ages..."
@@ -115,7 +129,8 @@ looking a little embarrassed; a sight you never thought possible. "I think
 I've left my credit card in my suitcase and it's a long walk back..."
 "Hah, I knew there had to be an ulterior motive somewhere."
 
->Time passes...
+> wait
+Time passes...
 "Oh come on, don't be like that. I was excited, I just...forgot." she moans.
 You know her better than that, though.
 "Where did you leave your suitcase?" you ask, glancing around the room.
@@ -134,16 +149,19 @@ to land."
 
 The videocom screen then goes blank.
 
->You pick up the key card.
+> get key
+You pick up the key card.
 
->You move south.
+> s
+You move south.
 
 Hotel Corridor (Central)
 You are in the middle of a long corridor, leading both east and west. It is
 clean and carpeted but sparsely decorated with doors on either side. To the
 north is your room, number 463.
 
->You move east.
+> e
+You move east.
 
 Hotel Corridor (East)
 You have reached the end of the corridor and there are two exits; the door to
@@ -151,7 +169,8 @@ the north leads to the landing pad, while to the south lies a massive
 stairwell, which presumably leads all the way down to the ground floor.
 Descending these would be a long and tiresome task indeed.
 
->(You use the key card to unlock the door and proceed onto the landing pad.)
+> n
+(You use the key card to unlock the door and proceed onto the landing pad.)
 
 Landing Pad
 This is a large, asphalt covered pad for helicopters and other aircraft to
@@ -162,13 +181,16 @@ exceptionally strong and cuts through you like a knife. Looking up, you
 notice that the sky is clear and the stars are twinkling brightly overhead;
 it looks like there is going to be a frost up here tonight...
 
->You open the cargo hold.  Sally's suitcase is inside the cargo hold.
+> open cargo hold
+You open the cargo hold.  Sally's suitcase is inside the cargo hold.
 An unexpectedly strong gust of wind roars across the landing pad, almost
 knocking you over.
 
->You take Sally's suitcase from the cargo hold.
+> get suitcase
+You take Sally's suitcase from the cargo hold.
 
->(There is a loud 'click' as the door locks behind you.)
+> s
+(There is a loud 'click' as the door locks behind you.)
 
 Hotel Corridor (East)
 You have reached the end of the corridor and there are two exits; the door to
@@ -176,14 +198,16 @@ the north leads to the landing pad, while to the south lies a massive
 stairwell, which presumably leads all the way down to the ground floor.
 Descending these would be a long and tiresome task indeed.
 
->You move west.
+> w
+You move west.
 
 Hotel Corridor (Central)
 You are in the middle of a long corridor, leading both east and west. It is
 clean and carpeted but sparsely decorated with doors on either side. To the
 north is your room, number 463.
 
->You move west.
+> w
+You move west.
 
 Hotel Corridor (West)
 This corridor is clean and carpeted but sparsely decorated with doors on
@@ -191,7 +215,8 @@ either side. You have reached the end of the corridor. There is a lift to the
 south, which seems to access all floors of the lithoid. Other than that, the
 only other exit lies east.
 
->This lift can be used to reach almost any floor. In the Dragon Lithoid, most
+> s
+This lift can be used to reach almost any floor. In the Dragon Lithoid, most
 of these areas are residential, so there is little point in exploring them.
 You call the lift and go inside. It descends to the ground floor.
 
@@ -228,7 +253,8 @@ terrorist organisation and there are bound to be a few people who want you
 dead. All of a sudden, the prospect of receiving your medal in public does
 not seem all that appealing.
 
->You move north.
+> n
+You move north.
 
 Outside the Dragon Lithoid
 The snow-covered streets are bustling with people coming to and from work, as
@@ -239,7 +265,8 @@ the east, outside which a large group of youths are congregating. To the
 south lies the entrance to the Dragon. To the north lies the main road,
 through which heavy traffic is flowing.
 
->You move east.
+> e
+You move east.
 
 City Streets
 Multitudes of young people wait outside nightclubs and other entertainment
@@ -248,7 +275,8 @@ air, yet this does not seem to affect the atmosphere of the place. Along the
 busy roadside are several taxi posts, marked out in yellow.
 A policeman is here, watching people as they walk by.
 
->A taxi post is just a small electronic box with a single button on top,
+> x taxi post
+A taxi post is just a small electronic box with a single button on top,
 mounted on a post. They are used to call taxis and autocabs. These posts are
 located next to the roadside and each one has their own dedicated parking
 space for a taxi to stop.
@@ -257,41 +285,51 @@ where he stands with is hands in his pockets, jigging up and down to keep
 warm. This was not the man who was spying on you; he is far too young.
 Whoever it was would have been long gone by now.
 
->You press the button on the taxi post and wait for something to show up.
+> push button
+You press the button on the taxi post and wait for something to show up.
 A tiny white snowflake flutters down from the sky and lands on your cheek.
 
->Time passes...
+> wait
+Time passes...
 The young man wanders over to one of the taxi posts and presses the button,
 watching the traffic as it rushes past.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 Several snowflakes drift down from the heavens. There could be many more
 where these came from.
 A green autocab pulls over near the young man and he hops inside. A few
 seconds later, the autocab starts moving again and rejoins the rest of the
 traffic.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 The freezing wind howls around you.
 
->Time passes...
+> wait
+Time passes...
 It is beginning to snow quite heavily, now.
 
->Time passes...
+> wait
+Time passes...
 It is snowing.
 An autocab moves out of the main body of traffic and into the parking lane;
 it looks like it is going to pull up nearby.
 
->Time passes...
+> wait
+Time passes...
 It is snowing.
 The autocab pulls up right alongside you and its gull-wing style doors open,
 beckoning you in.
 
->You get inside the autocab and the doors close before you have even sat down.
+> in
+You get inside the autocab and the doors close before you have even sat down.
 "The Palladium, please." you say.
 "Sorry, the destination you have requested is inside a pedestrianized zone."
 it replies, in a lucid female voice.
@@ -305,9 +343,11 @@ You are inside the autocab, sitting on one of six seats. You take advantage
 of this and stretch yourself out. It is snowing heavily outside.
 The autocab tilts a little to the right as the road bends north.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 While you are waiting for the cab to arrive, you cannot help thinking about
 your relationship with Sally.
 
@@ -322,7 +362,8 @@ puzzles you most of all is why Sally chose you, of all people. The two of you
 are like black and white and while it has been said that opposites attract,
 you know better than to believe such fairytales.
 
->Time passes...
+> wait
+Time passes...
 You look out of the window and watch the traffic on the other side of the
 road as it shoots past in a blaze of lights. Suddenly, an image enters your
 mind :
@@ -339,7 +380,8 @@ others, given time.”
 You are suddenly stirred from these thoughts by the sudden deceleration of
 the autocab...
 
->Time passes...
+> wait
+Time passes...
 The autocab pulls over to the side of the road and shudders to a halt. The
 doors open and you step out into the snow, carrying Sally's case.
 The autocab then speeds off into the distance and you are left alone in the
@@ -355,7 +397,8 @@ lithoids, each one as large as the Dragon. Considering the size of the
 shadows these things cast, this street must lie in perpetual darkness, even
 during the daytime. You can see the Palladium some distance to the east.
 
->You move east.
+> e
+You move east.
 
 Pedestrianised Zone
 Lit by antique, cast-iron street lamps, this area looks a little more lively,
@@ -363,7 +406,8 @@ even if most of the small shops around this area have closed for the evening.
 To the east is the Palladium.
 It is snowing.
 
->Outside the Palladium
+> e
+Outside the Palladium
 Although dwarfed by the builidings either side of it, this place looks
 magnificent. The Palladium has a row of enormous pillars running around the
 outside, with powerful floodlights shining upwards from the ground that
@@ -379,7 +423,8 @@ into the night.
 The freezing wind howls around you.
 It is snowing.
 
->You move north.
+> n
+You move north.
 
 Foyer
 The theatre is as beautiful on the inside as on the outside; the burgundy
@@ -392,7 +437,8 @@ which a young man stands, apparently sorting out some paperwork. Alongside
 the office is the concession stand, presently unmanned. Leaning against the
 wall to your left is an usher, who is looking bored.
 
->"Hello, I'm looking for the green room. I'm here for Sally Brunswick."
+> talk to usher
+"Hello, I'm looking for the green room. I'm here for Sally Brunswick."
 "You're here for the party ?" he asks, looking at you as if you were dressed
 in rags. "Please come this way..." The man opens a door to his left, which
 reveals a set of stairs leading down. "Enjoy yourself, but please remember
@@ -419,7 +465,8 @@ standing at the opposite side of the room, talking to Chloe, a close friend
 of hers.
 "Excuse me!" someone says, squeezing past you.
 
->
+> talk to sally
+
 You go over to greet Sally and her friend; her face lights up when she turns
 around and sees who it is. She throws her arms around you and then lets you
 go.
@@ -437,10 +484,12 @@ he will..."
 Chloe takes another sip of her wine as Sally gently eases her suitcase out of
 your hand and disappears into the changing rooms.
 
->Time passes...
+> wait
+Time passes...
 Chloe remains silent, deep in thought, glancing at you every now and again.
 
->Time passes...
+> wait
+Time passes...
 You hear the clinking of glasses.
 Chloe suddenly sparks up. "Why do you put up with her?" she asks. "Don't
 worry, you can tell me...I won't say anything."
@@ -459,7 +508,8 @@ by myself and it would make my life awkward."
 satisfied with how it is at the moment."
 "Hmm..." Chloe once again pauses for thought.
 
->Time passes...
+> wait
+Time passes...
 A hubbub of laughter erupts from the corner of the room.
 "I'll be truthful with you. I'm not into women, men, animals or anything
 else. I know that isn't normal, but then I'm not a normal person." you say to
@@ -492,7 +542,7 @@ of you are back at the Dragon lithoid...
 
 * Press Enter *
 
->
+> enter
 
 Restaurant
 The interestingly named "Dragon's Claw" restaurant has a quiet, warm and
@@ -544,7 +594,8 @@ like Fuyu Yu-"
 say his name...I still have nightmares about that maniac even now. But how
 come you didn't end up the same as he did ?" she asks.
 
->Time passes...
+> wait
+Time passes...
 "Because I was to be the prototype of the second generation and they had
 almost managed to perfect the writing process by that time, but like I said,
 the project was shut down completely after Professor Bitter was murdered. The
@@ -588,7 +639,8 @@ that you're getting it. I wish I could get an award like that..."
 I'm satisfied with what I've accomplished and that's enough for me. What
 about you, have you ever won anything?" you ask her.
 
->Time passes...
+> wait
+Time passes...
 "No, not since I finished my education. It'd really mean a lot to me if this
 performance goes well, tommorrow, though."
 "You deserve a medal just for having the courage to stand up in front of that
@@ -608,7 +660,8 @@ dance. You have seen her quite a few times and it is true, she is extremely
 talented, but what you dismissed as pure attention-seeking has turned out to
 be the burning ambition of a true artist...
 
->Time passes...
+> wait
+Time passes...
 After the pair of you have finished, you leave the restaurant and Sally leads
 you back up to your room. You can tell that she has enjoyed herself.
 
@@ -651,7 +704,8 @@ make me a better soldier. Then again, Professor Bitter didn't have all that
 much of a personality to remove."
 "What about him, did he ever have a girlfriend ?" Sally asks.
 
->Time passes...
+> wait
+Time passes...
 "No, definitely not. Professor Bitter was too absorbed in his work to bother
 with women; he just wasn't interested. For all those years science was all he
 lived for...anyway, does this mean that you still love me?" you ask, turning
@@ -669,12 +723,14 @@ o'clock in the morning and her performance is not until tomorrow evening.
 "And as for you being asexual, I'm sure I can fix that." she whispers,
 leaning over and kissing you gently on the cheek. Nice try, Sally, you think.
 
->Time passes...
+> wait
+Time passes...
 Sally stands up and walks towards the bedroom, unzipping her trousers as she
 does so. Just then, the door buzzer sounds. Sally stops dead in her tracks
 and goes over to answer it...
 
->Time passes...
+> wait
+Time passes...
 Sally opens the door and three men dressed in dark grey coats and wearing
 dark glasses charge into the room carrying handguns, each one pointed at you.
 Sally backs away and falls backwards on to the sofa, clinging to you in
@@ -711,9 +767,11 @@ people, doing this?
 Excellent...you look just like the professor too, only younger, of course. I
 do apologize. Let's get down to business, shall we?”
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 "I don't see what business I have with you." you reply.
 "I'll tell you what business I have," she says, her face contorting into a
 snarl. "My company's future is in jeopardy because of you."
@@ -742,7 +800,8 @@ is now threatening to overtake mine," she shouts. "And then you go and kill
 the men who have been supplying…" She stops and tries to compose herself.
 "Supplying what?" you ask her.
 
->Time passes...
+> wait
+Time passes...
 "That's not important! You and the rest of those fools have caused me no end
 of trouble and I intend to have the debt repaid in full."
 "If it's money you want, I'm afraid I'm not exactly what you'd call rich."
@@ -818,11 +877,13 @@ open window to the north. There is no furniture in this room and it has no
 decoration, just bare concrete walls. The only exit lies to the west; an old
 fashioned wooden door with a lever-like handle.
 
->The door is made of wood. Knocking on it suggests that it is fairly thick,
+> x door
+The door is made of wood. Knocking on it suggests that it is fairly thick,
 too. It is slightly rotten in places, though, and there are a few black marks
 on the bottom half of it.
 
->You carefully examine the door, noticing that parts of it have become
+> kick door
+You carefully examine the door, noticing that parts of it have become
 slightly rotten with age.
 
 Walking to the opposite side of the room, you turn around and charge at the
@@ -838,13 +899,15 @@ decoration, just bare concrete walls. The only exit lies to the west; an
 opening with what remains of a broken wooden door partially blocks the way.
 The opening is more than large enough for you to climb through.
 
->You move west.
+> w
+You move west.
 
 Passageway
 You are in a small, dark passageway that leads only south, to a well-lit
 corridor. To the east is the room you have just broken out of.
 
->You move south.
+> s
+You move south.
 
 Corridor (Central)
 You are in a well-lit corridor, running from east to west. There is something
@@ -853,7 +916,8 @@ of a museum. The floor is made of dark, oak panels that creak underfoot,
 while the walls are made of plaster, chipped and cracked in places. To the
 north is a dark passageway.
 
->You move west.
+> w
+You move west.
 
 Corridor (West)
 You are in a well-lit corridor, running to the east. There is something
@@ -863,7 +927,8 @@ while the walls are made of plaster, chipped and cracked in places. It is
 here that the corridor ends and a wooden stairway leads upwards, to another
 door.
 
->You creep up the stairs, trying to make as little noise as possible. As you
+> up
+You creep up the stairs, trying to make as little noise as possible. As you
 near the door, you hear a familiar bleeping sound coming from behind it, like
 that from a videocom. You push open the door slightly and peer through the
 gap. You were right; inside, you can see a man switching on a videocom. He is
@@ -902,7 +967,8 @@ west, from which a cold draft blows.
 
 Also here is the gun case.
 
->
+> hit man
+
 Perhaps a little interrogation would be in order...
 You charge into the room and pin the man to the floor so he cannot escape; he
 stares at you in terror.
@@ -934,13 +1000,16 @@ inside. You slam the door shut and there is a click as the lock engages. He
 is now trapped. I need to find a way out of here, you think to yourself,
 looking around the room.
 
->The sofa is old, worn and a little dirty. It looks like it used to be red in
+> x sofa
+The sofa is old, worn and a little dirty. It looks like it used to be red in
 colour, but time seems to have faded it into a grotesque pink.  The jetbike
 key is on the old sofa.
 
->You take the jetbike key from the old sofa.
+> get key
+You take the jetbike key from the old sofa.
 
->You move west.
+> w
+You move west.
 
 Snowy Landing Pad
 You stand on a snow-covered landing pad, the cold wind still nipping at you.
@@ -950,7 +1019,8 @@ grassy expanse you saw from the store room window. There are no vehicles out
 here; all you can see is a "lump" in the snow, which turns out to be
 something covered in a tarpaulin.
 
->You pull off the snow-covered tarpaulin to reveal a slick, black jetbike
+> move tarpaulin
+You pull off the snow-covered tarpaulin to reveal a slick, black jetbike
 underneath. This is just what you need to escape this place...
 
 However, as soon as you look at it, you receive a what feels like an electric
@@ -963,7 +1033,8 @@ putting on his helmet.
 
 The image fades and you are left alone in the snow...
 
->You climb on to the jetbike and use the key to start the engine. It takes a
+> ride bike
+You climb on to the jetbike and use the key to start the engine. It takes a
 few sparks to get it started, thanks to the cold, but with a piercing whine
 the engines kick in, lifting the bike off the floor. You climb a hundred feet
 into the air, not wishing to be recognised by the guards down below, and then
@@ -977,7 +1048,8 @@ can if you are to have any hope of rescuing Sally.
 You type in your destination in on the bike's GPS computer and it gives you
 the exact coordinates of Falcon Lithoid. Time is short.
 
->Time passes...
+> wait
+Time passes...
 Should I contact the police ? You think to yourself. No, there is no time but
 even if there was, nothing would put Sally's life more at risk than having
 the police hammering at the door. There is no way the EDF could help either.
@@ -996,11 +1068,13 @@ friend and Natalia has kidnapped her.
 
 You cannot let her win.
 
->Time passes...
+> wait
+Time passes...
 In the distance, you can just make out the edge of the forest. You are nearly
 there. You check your watch; it is almost nine o'clock.
 
->Time passes...
+> wait
+Time passes...
 A few seconds later, you catch a glimpse of the Falcon Lithoid as you speed
 over the forest, switching off the lights and staying low to avoid being
 spotted. There does not seem be any activity in the area; the only road
@@ -1020,7 +1094,8 @@ At the edge of the Woods
 Behind you lies miles of dense, snow-covered woodland. In front of you, some
 distance to the east, is the Falcon Lithoid.
 
->You move east.
+> e
+You move east.
 
 Outside the Falcon Lithoid
 The Falcon is surrounded by a ten-foot-tall fence topped with razor wire,
@@ -1031,7 +1106,8 @@ the building. You would be seen by these things even if you did manage to
 scale the fence.
 It is snowing.
 
->You move south.
+> s
+You move south.
 
 Outside the Falcon Lithoid
 The Falcon is surrounded by a ten-foot-tall fence topped with razor wire,
@@ -1042,7 +1118,8 @@ the building. You would be seen by these things even if you did manage to
 scale the fence.
 It is snowing.
 
->You move south.
+> s
+You move south.
 
 Outside the Falcon Lithoid
 The Falcon is surrounded by a ten-foot-tall fence topped with razor wire,
@@ -1053,7 +1130,8 @@ the building. You would be seen by these things even if you did manage to
 scale the fence.
 It is snowing.
 
->You move south.
+> s
+You move south.
 
 Outside the Falcon Lithoid
 The Falcon is surrounded by a ten-foot-tall fence, topped with razor wire,
@@ -1064,7 +1142,8 @@ be seen by these things even if you did manage to scale the fence. You are at
 the corner of the fence, which leads both to the north and to the east.
 It is snowing.
 
->You move east.
+> e
+You move east.
 
 Outside the Falcon Lithoid
 The Falcon is surrounded by a ten-foot-tall fence topped with razor wire,
@@ -1075,7 +1154,8 @@ building. You would be seen by these things even if you did manage to scale
 the fence.
 It is snowing.
 
->You move east.
+> e
+You move east.
 
 Outside the Falcon Lithoid
 The Falcon is surrounded by a ten-foot-tall fence topped with razor wire,
@@ -1086,7 +1166,8 @@ building. You would be seen by these things even if you did manage to scale
 the fence.
 It is snowing.
 
->You move east.
+> e
+You move east.
 
 The Main Entrance
 Here, there is a gap in the fence about twenty feet wide, which is sealed by
@@ -1096,7 +1177,8 @@ forest right up to the gate. The entrance to the lithoid lies behind the
 gate, to the north.
 It is snowing.
 
->You move in.
+> in
+You move in.
 
 Guard House
 The inside of the guard house is the same colour as the outside. There are a
@@ -1104,11 +1186,13 @@ set of security monitors on the wall furthest from you, each displaying a
 small section of the grounds that surround the Falcon Lithoid. There is a
 guard here, with his back to you, watching these monitors.
 
->Silently, you creep up behind the guard and whip your arm around his throat.
+> kill man
+Silently, you creep up behind the guard and whip your arm around his throat.
 He makes a feeble attempt to free himself from your grip but it is too late;
 within ten seconds he is dead.
 
->
+> look
+
 Guard House
 The inside of the guard house is the same colour as the outside. There are a
 set of security monitors on the wall furthest from you, each displaying a
@@ -1117,19 +1201,24 @@ dead.
 
 Also here is the mobile telephone.
 
->You pick up the mobile telephone.
+> get telephone
+You pick up the mobile telephone.
 
->They show nothing of interest, but underneath the bank of monitors is a
+> x monitors
+They show nothing of interest, but underneath the bank of monitors is a
 control panel with a switch.
 
->While there does not seem to be any way of switching off the fence, the gate
+> x control panel
+While there does not seem to be any way of switching off the fence, the gate
 can be opened and closed by means of a switch on the front of this control
 panel.
 
->You flick the switch up; there is a slight rattling sound as the main gate
+> flip switch
+You flick the switch up; there is a slight rattling sound as the main gate
 outside opens.
 
->You move out.
+> out
+You move out.
 
 The Main Entrance
 Here, there is a gap in the perimeter fence about twenty feet wide, which
@@ -1139,14 +1228,16 @@ long road that leads from deep into the forest right up to the base of the
 lithoid itself.
 It is snowing.
 
->Car Park Entrance
+> n
+Car Park Entrance
 The lithoid's main entrance opens up into a huge indoor car park lined with
 dim, yellow strip lights. Above your head are a network of water pipes, gas
 pipes and armoured electrical cables that run along the ceiling and disappear
 into the floors above you. The car park leads both to the east and west,
 while to the north is a door north marked "Reception".
 
->You move north.
+> n
+You move north.
 
 Reception
 This reception is far smaller than the Dragon's and there appears to be no
@@ -1156,32 +1247,38 @@ long corridor lies to the north, while a door marked "Waiting Room" lies to
 the west. To the south is the car park. Alongside each of these exits is a
 potted yucca plant.
 
->It is a wooden desk about four feet high. There are a few items of office
+> x desk
+It is a wooden desk about four feet high. There are a few items of office
 stationery lying on it, but nothing of interest.  The internal telephone
 directory is on receptionist's desk.
 
->You take the internal telephone directory from receptionist's desk.
+> get directory
+You take the internal telephone directory from receptionist's desk.
 
->You move north.
+> n
+You move north.
 
 Corridor
 This corridor leads from north to south. To the north is a room with a lift
 in the centre. To the south, the reception.
 
->You move north.
+> n
+You move north.
 
 Lift Room
 The three corridors that lead south, east and west all merge here. In each
 corner of the room is a tall earthenware vase filled with exotic flowers.
 Right in the centre of the room is a lift.
 
->You move west.
+> w
+You move west.
 
 Corridor
 You are in a featureless corridor that leads west, to a large office, and
 east to the room with the lift.
 
->You move west.
+> w
+You move west.
 
 Office
 You are in a large, open and well lit office that extends to the south.
@@ -1191,7 +1288,8 @@ and other equipment. There is far too much here for you to search through in
 the time that you have. On top of a table on the east wall is a large
 aquarium.
 
->You move south.
+> s
+You move south.
 
 Office
 You are in a large, open and well lit office that extends to the south.
@@ -1201,19 +1299,23 @@ and other equipment. There is far too much here for you to search through in
 the time that you have. To the east is an office cubicle, sectioned off from
 this one.
 
->You move east.
+> e
+You move east.
 
 Director's Office
 This office is sectioned off from the main one, which lies to the west.
 Inside is a single, curved desk that has a few pieces of paper scattered
 across it. There is nothing else of interest in this room.
 
->You open the desk drawer.  The purple key and the small note are inside the
+> open drawer
+You open the desk drawer.  The purple key and the small note are inside the
 desk drawer.
 
->You take the purple key from the desk drawer.
+> get key
+You take the purple key from the desk drawer.
 
->You move west.
+> w
+You move west.
 
 Office
 You are in a large, open and well lit office that extends to the south.
@@ -1223,7 +1325,8 @@ and other equipment. There is far too much here for you to search through in
 the time that you have. To the east is an office cubicle, sectioned off from
 this one.
 
->You move north.
+> n
+You move north.
 
 Office
 You are in a large, open and well lit office that extends to the south.
@@ -1233,20 +1336,23 @@ and other equipment. There is far too much here for you to search through in
 the time that you have. On top of a table on the east wall is a large
 aquarium.
 
->You move east.
+> e
+You move east.
 
 Corridor
 You are in a featureless corridor that leads west, to a large office, and
 east to the room with the lift.
 
->You move east.
+> e
+You move east.
 
 Lift Room
 The three corridors that lead south, east and west all merge here. In each
 corner of the room is a tall earthenware vase filled with exotic flowers.
 Right in the centre of the room is a lift.
 
->This lift is much larger than the one in the dragon and has a greater weight
+> in
+This lift is much larger than the one in the dragon and has a greater weight
 capacity. Perhaps this is used as a cargo lift too. Next to the door is a
 line of numbered buttons alongside a diagram of the Falcon, showing the
 location of each floor in relation to the whole of the building; the top
@@ -1262,19 +1368,22 @@ This room has only one significant feature; the lift that leads back to the
 ground floor. The only other exit is to the south, where four corridors
 intersect.
 
->You move south.
+> s
+You move south.
 
 Junction
 You are at an intersection with corridors leading in all directions. The one
 to the north leads back to the lift.
 
->You move west.
+> w
+You move west.
 
 West Corridor
 The corridor leading from the east bends to the north, to another room with a
 lift.
 
->You move north.
+> n
+You move north.
 
 Lift Room
 You peer around the doorframe briefly to see a lift protruding from the
@@ -1284,7 +1393,8 @@ handgun and wearing body armour similar to that worn by infantry. You will
 need to get rid of him if you are to reach the lift.
 A guard is here.
 
->As soon as you have finished dialing the number, the videocom on the wall
+> dial 788
+As soon as you have finished dialing the number, the videocom on the wall
 begins to bleep, which immediately attracts the guard's attention.
 "Not again." he mutters, walking over to the videocom. You decide to leave
 the phone ringing, just to see what he does.
@@ -1292,7 +1402,8 @@ The guard switches on the videocom and stands with his back to you. The
 screen reads "No Image Received".
 "Another audio-only? What is it this time?" He asks.
 
->As the guard listens to the inactive videocom, you creep up behind him and
+> kill man
+As the guard listens to the inactive videocom, you creep up behind him and
 whip your arm around his neck. Ten seconds later he is dead.
 Lift Room
 The main object of interest in here room is the lift, which protrudes from
@@ -1303,9 +1414,11 @@ neutralized.
 
 Also here is the hand gun.
 
->You drop the mobile telephone.
+> drop telephone
+You drop the mobile telephone.
 
->You get inside the lift and select the top floor. The doors close and the
+> in
+You get inside the lift and select the top floor. The doors close and the
 lift begins to move.
 
 There is a gentle chime as the doors open.
@@ -1315,20 +1428,23 @@ Other than the clock hanging on the west wall, a large marble statue standing
 in the corner and the lift set into the north wall, there is nothing in this
 room of any real interest.
 
->You move south.
+> s
+You move south.
 
 Corridor (West)
 You are in a  featureless corridor that runs to the east and to the south. To
 the north is a room with a lift. To the west seems to be some sort of machine
 shop.
 
->You move east.
+> e
+You move east.
 
 Corridor (Central)
 You are in a featureless corridor that runs east and west. There is a room to
 the north that has "Climate Control" written on the door.
 
->You move north.
+> n
+You move north.
 
 Climate Control Room
 You are in a dimly lit room. On the east wall is a long control panel, with
@@ -1338,10 +1454,12 @@ the tint in the glass that this is a "magic mirror"; a window that is
 transparent on your side and reflective, like a mirror on the other. In the
 south west corner of the room is an oriental-style dressing screen.
 
->Through the magic mirror, you can see a room with a lift set into the north
+> x mirror
+Through the magic mirror, you can see a room with a lift set into the north
 wall. Unfortunately, it is being guarded by two men.
 
->The touch screen is displaying a plan of this floor, along with the
+> x monitor
+The touch screen is displaying a plan of this floor, along with the
 temperature of each individual room. Underneath this plan is a numerical
 keypad, which allows you to enter a new temperature. At the moment, the
 temperature is set at 25 degrees centigrade. There does not seem to be any
@@ -1349,78 +1467,96 @@ way of altering the temperature in any specific room (attempting to do so
 gives an unusual error message), so presumably any changes will affect every
 room on this level.
 
->You change the temperature to 50 oC.
+> type in 50
+You change the temperature to 50 oC.
 No sooner have you done this, than the touch screen begins displaying a list
 of unusual characters before finally cutting out completely, showing nothing
 but a blank screen. You must have broken it.
 
->You quickly conceal yourself from view behind the screen.
+> hide behind screen
+You quickly conceal yourself from view behind the screen.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 This room is becoming noticably warmer.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 Through the magic mirror, you notice that the guards seem to have become
 agitated all of a sudden, unbuttoning their coats. You cannot make out what
 they are saying. One of them wipes the sweat from his brow.
 
->Time passes...
+> wait
+Time passes...
 One of the guards looks towards the room you are in for a moment, before
 turning around and walks towards the balcony. The other guard watches his
 colleague go outside and then decides to head down the corridor.
 It is now very hot in here, almost like the jungle.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
 Short Guard walks in from the south.
 As the guard enters the room, he walks over to the control panel and begins
 pressing buttons and flipping various switches, muttering to himself as he
 does so.
 
->Time passes...
+> wait
+Time passes...
 
->The guard is oblivious to your presence as you creep out from behind the
+> kill guard
+The guard is oblivious to your presence as you creep out from behind the
 screen and break his neck; you let go of him and he falls to the floor. There
 is one less problem you have to worry about.
 
->You move south.
+> s
+You move south.
 
 Corridor (Central)
 You are in a featureless corridor that runs east and west. There is a room to
 the north that has "Climate Control" written on the door.
 
->You move west.
+> w
+You move west.
 
 Corridor (West)
 You are in a  featureless corridor that runs to the east and to the south. To
 the north is a room with a lift. To the west seems to be some sort of machine
 shop.
 
->You move south.
+> s
+You move south.
 
 Intersection
 You are in a long corridor that leads from north to south. Either side of you
 is a door; the door to the west is marked with a number of chemical hazard
 stickers. The door to the east is unmarked.
 
->You move east.
+> e
+You move east.
 
 Space Research Laboratory
 You are inside what is quite a dusty lab which has very little furniture.
 What is left of an apparently abandoned project of some sort lies on a bench
 in the corner of the room.
 
->You have seen one of these before : It seems to be some sort of atmosphere
+> x project
+You have seen one of these before : It seems to be some sort of atmosphere
 purification device, a machine used for converting the atmospheres of alien
 planets into something more hospitable to humans. It is by far the smallest
 one of its kind you have ever seen and it has various switches on the side
@@ -1428,36 +1564,42 @@ for converting different types of environment. There is nothing to power it,
 however, and it is still too large to carry around with you.  The mirror is
 on the atmosphere purification device.
 
->You take the mirror from the atmosphere purification device.
+> get mirror
+You take the mirror from the atmosphere purification device.
 
->You move west.
+> w
+You move west.
 
 Intersection
 You are in a long corridor that leads from north to south. Either side of you
 is a door; the door to the west is marked with a number of chemical hazard
 stickers. The door to the east is unmarked.
 
->You move north.
+> n
+You move north.
 
 Corridor (West)
 You are in a  featureless corridor that runs to the east and to the south. To
 the north is a room with a lift. To the west seems to be some sort of machine
 shop.
 
->You move east.
+> e
+You move east.
 
 Corridor (Central)
 You are in a featureless corridor that runs east and west. There is a room to
 the north that has "Climate Control" written on the door.
 
->You move east.
+> e
+You move east.
 
 Corridor (East)
 You are at the end of a featureless corridor that runs to the west. To the
 north, you can see another room with a lift. To the south is what looks like
 an office, which appears to be locked.
 
->(You unlock the door.)
+> s
+(You unlock the door.)
 
 Lab Office
 This small office is somewhat untidy; a pile of dog-eared papers lie on a
@@ -1466,12 +1608,15 @@ other. Alongside the desk is chair with a white lab coat hanging on the back
 of it.
 There is a 'click' as the door locks behind you.
 
->It is mostly white, but has a few unidentifiable chemical stains on it.  The
+> x lab coat
+It is mostly white, but has a few unidentifiable chemical stains on it.  The
 electronic diary and the blue key are inside the lab coat.
 
->You take the blue key from the lab coat.
+> get key
+You take the blue key from the lab coat.
 
->(You unlock the door.)
+> n
+(You unlock the door.)
 
 Corridor (East)
 You are at the end of a featureless corridor that runs to the west. To the
@@ -1479,13 +1624,15 @@ north, you can see another room with a lift. To the south is what looks like
 an office, which appears to be locked.
 There is a 'click' as the door locks behind you.
 
->You move north.
+> n
+You move north.
 
 Lift Room
 The lift is no longer guarded. There is a door to the east, which presumably
 leads outside.
 
->Balcony
+> e
+Balcony
 The balcony outside the Lithoid is made of steel tube and is so small it is
 barely large enough for two people to stand on. The wind is less ferocious
 now, but still carries a deathly chill. The guard is here too, standing with
@@ -1493,19 +1640,22 @@ his back to you.
 A tall guard is here.
 It is snowing.
 
->Given his present position, you cannot resist the temptation of picking him
+> kill guard
+Given his present position, you cannot resist the temptation of picking him
 up by his legs and hurling him off the balcony. The howling of the wind
 drowns out his screams as he hits the snow-covered wing of the Falcon Lithoid
 and slides down it before plummeting six hundred feet to his death below.
 It is snowing.
 
->You move west.
+> w
+You move west.
 
 Lift Room
 The lift is no longer guarded. There is a door to the east, which presumably
 leads outside.
 
->You get inside the lift and select the top floor. The doors close and the
+> in
+You get inside the lift and select the top floor. The doors close and the
 lift begins to move.
 
 There is a gentle chime as the doors open.
@@ -1515,21 +1665,24 @@ This room appears to have no outstanding features other than a large digital
 clock, which hangs on the east wall and a lift that leads down to the floor
 below. The only other exit leads south, into what looks like a corridor.
 
->You move south.
+> s
+You move south.
 
 Corridor (East)
 You are at one end of a featureless corridor, south of the lift room. The
 corridor stretches to the west and there appears to be something interesting
 at the end of it.
 
->You move west.
+> w
+You move west.
 
 Corridor (Central)
 You are in a corridor that leads east and west that would be completely
 featureless, if it were not for the painting on the south wall. There is also
 a room to the north, which appears to be empty.
 
->You move west.
+> w
+You move west.
 
 Corridor (West)
 This corridor leads in three directions; north, south and east. The doors to
@@ -1539,7 +1692,8 @@ bulkeads on a spaceship. There is a yellow "biohazard" sign stuck  to the
 centre of each of these doors. Above your head is a red strobe light, but it
 is not flashing.
 
->You move south.
+> s
+You move south.
 
 Intersection
 You are in a corridor that leads north. To the west and to the east are two
@@ -1547,7 +1701,8 @@ laboratories that have the numbers '2' and '3' printed above their respective
 doorframes. To the south is a room from which a faint buzzing sound can be
 heard.
 
->You move south.
+> s
+You move south.
 
 Security Checkpoint
 This room has a line of blue laser beams running horizontally down one side
@@ -1557,7 +1712,8 @@ clearly something valuable inside that someone does not want you to get hold
 of. There is what looks like a thick power cable running from the base of the
 laser projectors to a box on the far wall.
 
->You take the mirror out of your pocket and touch it against one of the beams,
+> reflect laser beams at cable
+You take the mirror out of your pocket and touch it against one of the beams,
 holding it at arm's length. The laser beam bounces off the mirror and burns
 into the wall, leaving a thin trail of molten metal in its wake. You run the
 beam down the wall so that it begins to burn through cable just underneath
@@ -1566,7 +1722,8 @@ burns through the insulation and through the conductor. All of the lasers
 then splutter out simultaneously, leaving you free to walk to the other side
 of the room.
 
->
+> e
+
 You unlock the door and enter the Archive...
 
 Archive
@@ -1580,11 +1737,14 @@ particular folder marked 'GDV-T253' that stands alone from all of the others.
 Also here is the loose file.
 There is a 'click' as the door locks behind you.
 
->You open the disk box.  The startup disk is inside the disk box.
+> open box
+You open the disk box.  The startup disk is inside the disk box.
 
->You take the startup disk from the disk box.
+> get disk
+You take the startup disk from the disk box.
 
->
+> w
+
 You unlock the door and leave.
 
 Security Checkpoint
@@ -1594,7 +1754,8 @@ now been deactivated. There is a door to the east, which has the word
 cut through lies on the floor, sparking occasionally.
 There is a 'click' as the door locks behind you.
 
->You move north.
+> n
+You move north.
 
 Intersection
 You are in a corridor that leads north. To the west and to the east are two
@@ -1605,7 +1766,8 @@ are two laboratories that have the numbers '2' and '3' printed above their
 respective doorframes. The buzzing sound that came from the room to the south
 has now stopped.
 
->You move north.
+> n
+You move north.
 
 Corridor (West)
 This corridor leads in three directions; north, south and east. The doors to
@@ -1615,28 +1777,32 @@ bulkeads on a spaceship. There is a yellow "biohazard" sign stuck  to the
 centre of each of these doors. Above your head is a red strobe light, but it
 is not flashing.
 
->You move east.
+> e
+You move east.
 
 Corridor (Central)
 You are in a corridor that leads east and west that would be completely
 featureless, if it were not for the painting on the south wall. There is also
 a room to the north, which appears to be empty.
 
->You move east.
+> e
+You move east.
 
 Corridor (East)
 You are at one end of a featureless corridor, south of the lift room. The
 corridor stretches to the west and there appears to be something interesting
 at the end of it.
 
->You move north.
+> n
+You move north.
 
 Lift Room
 This room appears to have no outstanding features other than a large digital
 clock, which hangs on the east wall and a lift that leads down to the floor
 below. The only other exit leads south, into what looks like a corridor.
 
->You get inside the lift and select the bottom floor. The doors close and the
+> in
+You get inside the lift and select the bottom floor. The doors close and the
 lift begins to move.
 
 There is a gentle chime as the doors open.
@@ -1645,34 +1811,39 @@ Lift Room
 The lift is no longer guarded. There is a door to the east, which presumably
 leads outside.
 
->You move south.
+> s
+You move south.
 
 Corridor (East)
 You are at the end of a featureless corridor that runs to the west. To the
 north, you can see another room with a lift. To the south is what looks like
 an office, which appears to be locked.
 
->You move west.
+> w
+You move west.
 
 Corridor (Central)
 You are in a featureless corridor that runs east and west. There is a room to
 the north that has "Climate Control" written on the door.
 
->You move west.
+> w
+You move west.
 
 Corridor (West)
 You are in a  featureless corridor that runs to the east and to the south. To
 the north is a room with a lift. To the west seems to be some sort of machine
 shop.
 
->You move north.
+> n
+You move north.
 
 Lift Room
 Other than the clock hanging on the west wall, a large marble statue standing
 in the corner and the lift set into the north wall, there is nothing in this
 room of any real interest.
 
->You get inside the lift and select the bottom floor. The doors close and the
+> in
+You get inside the lift and select the bottom floor. The doors close and the
 lift begins to move.
 
 There is a gentle chime as the doors open.
@@ -1686,26 +1857,30 @@ neutralized.
 
 Also here is the mobile telephone and the hand gun.
 
->You move south.
+> s
+You move south.
 
 West Corridor
 The corridor leading from the east bends to the north, to another room with a
 lift.
 
->You move east.
+> e
+You move east.
 
 Junction
 You are at an intersection with corridors leading in all directions. The one
 to the north leads back to the lift.
 
->You move north.
+> n
+You move north.
 
 Lift Room
 This room has only one significant feature; the lift that leads back to the
 ground floor. The only other exit is to the south, where four corridors
 intersect.
 
->You get inside the lift and select the bottom floor. The doors close and the
+> in
+You get inside the lift and select the bottom floor. The doors close and the
 lift begins to move; it takes a while to reach your destination...
 
 There is a gentle chime as the doors open.
@@ -1715,14 +1890,16 @@ The three corridors that lead south, east and west all merge here. In each
 corner of the room is a tall earthenware vase filled with exotic flowers.
 Right in the centre of the room is a lift.
 
->You move east.
+> e
+You move east.
 
 Corridor
 You are in a plain corridor. To the west are the lifts, to the east is a door
 marked "Control Room", while to the south is a solid steel door with a
 warning sign stuck to it.
 
->You move east.
+> e
+You move east.
 
 Control Room
 In the corner of this room is what appears to be the control system for the
@@ -1730,7 +1907,8 @@ reactor. There are two supercomputers either side of a smaller base unit,
 which has a monitor and a keypad on top. To the south is a room with
 "Coolant" written on the door, to the west is a corridor.
 
->You slot the disk into the computer and it begins to load.  A few seconds
+> insert disk in computer
+You slot the disk into the computer and it begins to load.  A few seconds
 later, you are greeted with the following message :
 
 Security Code Accepted...
@@ -1746,24 +1924,28 @@ Status : Enabled
 3. Enable/Disable Passcode System (All Floors)                Current Status
 : Enabled
 
->
+> type in 3
+
 Passcodes : Disabled
 
->You move west.
+> w
+You move west.
 
 Corridor
 You are in a plain corridor. To the west are the lifts, to the east is a door
 marked "Control Room", while to the south is a solid steel door with a
 warning sign stuck to it.
 
->You move west.
+> w
+You move west.
 
 Lift Room
 The three corridors that lead south, east and west all merge here. In each
 corner of the room is a tall earthenware vase filled with exotic flowers.
 Right in the centre of the room is a lift.
 
->You get inside the lift and select the top floor. The doors close and the
+> in
+You get inside the lift and select the top floor. The doors close and the
 lift begins to move; it takes a while to reach your destination...
 
 There is a gentle chime as the doors open.
@@ -1773,19 +1955,22 @@ This room has only one significant feature; the lift that leads back to the
 ground floor. The only other exit is to the south, where four corridors
 intersect.
 
->You move south.
+> s
+You move south.
 
 Junction
 You are at an intersection with corridors leading in all directions. The one
 to the north leads back to the lift.
 
->You move west.
+> w
+You move west.
 
 West Corridor
 The corridor leading from the east bends to the north, to another room with a
 lift.
 
->You move north.
+> n
+You move north.
 
 Lift Room
 The main object of interest in here room is the lift, which protrudes from
@@ -1796,7 +1981,8 @@ neutralized.
 
 Also here is the mobile telephone and the hand gun.
 
->You get inside the lift and select the top floor. The doors close and the
+> in
+You get inside the lift and select the top floor. The doors close and the
 lift begins to move.
 
 There is a gentle chime as the doors open.
@@ -1806,33 +1992,38 @@ Other than the clock hanging on the west wall, a large marble statue standing
 in the corner and the lift set into the north wall, there is nothing in this
 room of any real interest.
 
->You move south.
+> s
+You move south.
 
 Corridor (West)
 You are in a  featureless corridor that runs to the east and to the south. To
 the north is a room with a lift. To the west seems to be some sort of machine
 shop.
 
->You move east.
+> e
+You move east.
 
 Corridor (Central)
 You are in a featureless corridor that runs east and west. There is a room to
 the north that has "Climate Control" written on the door.
 
->You move east.
+> e
+You move east.
 
 Corridor (East)
 You are at the end of a featureless corridor that runs to the west. To the
 north, you can see another room with a lift. To the south is what looks like
 an office, which appears to be locked.
 
->You move north.
+> n
+You move north.
 
 Lift Room
 The lift is no longer guarded. There is a door to the east, which presumably
 leads outside.
 
->You get inside the lift and select the top floor. The doors close and the
+> in
+You get inside the lift and select the top floor. The doors close and the
 lift begins to move.
 
 There is a gentle chime as the doors open.
@@ -1842,21 +2033,24 @@ This room appears to have no outstanding features other than a large digital
 clock, which hangs on the east wall and a lift that leads down to the floor
 below. The only other exit leads south, into what looks like a corridor.
 
->You move south.
+> s
+You move south.
 
 Corridor (East)
 You are at one end of a featureless corridor, south of the lift room. The
 corridor stretches to the west and there appears to be something interesting
 at the end of it.
 
->You move west.
+> w
+You move west.
 
 Corridor (Central)
 You are in a corridor that leads east and west that would be completely
 featureless, if it were not for the painting on the south wall. There is also
 a room to the north, which appears to be empty.
 
->You move north.
+> n
+You move north.
 
 Stairwell
 In the middle of this room is a stairway that leads up to the next level of
@@ -1864,7 +2058,8 @@ the Lithoid. It's entrance was blocked by a thick steel door, which has since
 slid up into the roof. Next to the door is keypad, which is currently
 displaying a message.
 
->You move up.
+> up
+You move up.
 
 Stairwell
 The stairs have lead you up to what appears to be a suite of some sort. This
@@ -1873,7 +2068,8 @@ it looks more like someone's living quarters. Could this be the top floor of
 the lithoid ? There is a hallway that leads south, while there is a room to
 the west that looks lavishly decorated from where you are standing.
 
->You move south.
+> s
+You move south.
 
 Hallway
 You are at a hallway that branches in all directions. On the floor under your
@@ -1882,7 +2078,8 @@ north lies the stairwell, to the east and west, a corridor. There is another
 room to the south, from which a woman's voice can be heard, but its door of
 frosted glass prevents you from seeing through.
 
->As you open the door, you realise that you have found what you were looking
+> s
+As you open the door, you realise that you have found what you were looking
 for...
 
 The Main Lounge
@@ -1902,7 +2099,8 @@ Natalia sees you, she stops stroking the animal and folds her arms; this is
 the first time you have ever seen her looking surprised; she is lost for
 words.
 
->You look at the monster, which is staring at you with malice in its eyes. You
+> kill griffon
+You look at the monster, which is staring at you with malice in its eyes. You
 stare back in a similar fashion.
 "Well hasn't this turned out to be an eventful evening..." you say, walking
 towards her. "I must say, Natalia, this little Shangri-La you've got up here
@@ -1922,7 +2120,8 @@ which is now going to cost me even more money. I think the best thing I can
 do now is to just kill you and use your DNA to further my research."
 Suddenly, the videocom on the wall begins to bleep.
 
->Time passes...
+> z
+Time passes...
 Natalia lazily plucks up a remote control by the side of her and switches it
 on. It is Darren, the man you met at the warehouse, who appears on the
 screen.
@@ -1941,7 +2140,8 @@ be created in my image, not Professor Bitter's. And as for your little
 butterfly here, I'm sure we can find some permanent accommodation for her in
 one of my vats, downstairs.”
 
->Time passes...
+> z
+Time passes...
 "But I'm not an easy man to kill, as several of you guards found out.” you
 say, cracking your knuckles.
 “I don't intend to kill you; I'll leave that job to my beloved pet...” she
@@ -1966,7 +2166,8 @@ his claws outstretched. Will you:-
 2 : Try to hit him in mid air.
 3 : Dodge to the side and attempt to counterattack.
 
->You wait until the last fraction of a second before darting to the side;
+> 3
+You wait until the last fraction of a second before darting to the side;
 Griff's claws miss you by a fraction of an inch and he sails past you.
 
 Griff lands, his claws biting into the persian run under your feet as he hits
@@ -1976,7 +2177,8 @@ Will you :-
 1 : Kick him in the back of the head.
 2 : Grab him around the neck.
 
->You dive forward and manage to wrap your arm around Griff's thick, muscular
+> 2
+You dive forward and manage to wrap your arm around Griff's thick, muscular
 neck.
 
 You maintain your grip on Griff's neck as he rears up and tries to throw you
@@ -1985,7 +2187,8 @@ off. Now do you wish to :-
 1 : Attempt to strangle Griff.
 2 : Attempt to break his neck.
 
->You squeeze Griff's throat as hard as you can, which is no easy task when his
+> 1
+You squeeze Griff's throat as hard as you can, which is no easy task when his
 neck is thicker than your body, but is it having little effect.
 
 Griff rears up one last time before lashing out at you with the back of his
@@ -1997,7 +2200,8 @@ tries to bite your head with its monstrously huge beak. Will you :-
 1 : Try to grab its beak to prevent it from biting you.
 2 : Try to kick him in the throat.
 
->Your kick, even though there was little force behind it, hit a sensitive part
+> 2
+Your kick, even though there was little force behind it, hit a sensitive part
 of Griff's neck, which stuns him enough for you to escape from his clutches.
 
 Battered from your fight with Griff, you glance at the suit of armour that
@@ -2052,6 +2256,7 @@ Jem." Sally whispers. "You really did love me after all...I was beginning to
 think that you didn't, but if you were willing to risk your life-"
 
 >
+
 "If I risked my life, it is because you are my friend and I don't like seeing
 my friends suffer; yours was a life that bitch had no right to take." The icy
 wind picks up a little, causing Sally to shiver. "When I was created, any

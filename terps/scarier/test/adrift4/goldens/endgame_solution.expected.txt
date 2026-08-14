@@ -12,12 +12,14 @@ objects in dis game!
 House
 Dis is ur house its big + good. You can only move north.
 
->You move north.
+> n
+You move north.
 
 Path
 U r on a long path with treez. You can move north and south.
 
->You move north.
+> n
+You move north.
 
 Dragun place
 in front of u is a sleepin dragon. dis is where u hav to get da crystal. wen
@@ -25,14 +27,17 @@ u get it take it bak to ur HOuse to win da game!!!! You can only move south.
 
 Also here is a crystal.
 
->You pick up the crystal.
+> take crystal
+You pick up the crystal.
 
->You move south.
+> s
+You move south.
 
 Path
 U r on a long path with treez. You can move north and south.
 
->You move south.
+> s
+You move south.
 
 U hav won da game hope u like it plz post a giod review!!!!
 
@@ -63,7 +68,8 @@ In front of you, the word ADRIFT glares at you, lighting up the endless dark
 of your surroundings. Bytes and lines of code zoom past around you. To the
 north, you can make out the link to the Adventures page.
 
->You dive into the link -
+> n
+You dive into the link -
 
 Then you remember a name...
 
@@ -81,13 +87,15 @@ up into the distance and below you. Random game names pop out at you from the
 text, and ratings and comments scream in your ears, shouting praise. At the
 bottom, the words Search jump out at you, pointing the way to the east.
 
->You jump eastwards...
+> e
+You jump eastwards...
 
 Search Page
 This is a blank, and rather desterted page, that is, apart from the huge
 Search Monster hovering majestically in front of you.
 
->The monster bends closer upon your request, inspecting your face with it's
+> search for unmasking the bold
+The monster bends closer upon your request, inspecting your face with it's
 thoughtful eyes. Then after a while, it produces a file and hands it to
 you... It is it. Unmasking the Bold.
 
@@ -115,7 +123,8 @@ of clean floor is underneath the desk which dominates the room. This desk
 holds the one peice of equipment that makes your life worth living - your PC.
 A door leads north, out to your hallway.
 
->The computer pulls your hand towards it, turning itself back on. Your body is
+> turn on pc
+The computer pulls your hand towards it, turning itself back on. Your body is
 forced back into the chair, and eventually the computer loads up. It's as if
 there are invisible strings controlling you, like a puppet.
 
@@ -159,7 +168,8 @@ of clean floor is underneath the desk which dominates the room. This desk
 holds the one peice of equipment that makes your life worth living - your PC.
 A door leads north, out to your hallway.
 
->You stare in horror, as the last few minutes events replay on screen... what
+> quit
+You stare in horror, as the last few minutes events replay on screen... what
 type of a game is this?
 
 turn on PC

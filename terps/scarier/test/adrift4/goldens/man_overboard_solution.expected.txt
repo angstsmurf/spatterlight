@@ -89,25 +89,33 @@ specifically requested a room with no view as you get terrible seasickness
 (hey, even Captain's positions are open to stringent equal opportunity
 policies). You can only move north.
 
->You see no such thing.
+> x beard
+You see no such thing.
 
->Wear what?
+> wear beard
+Wear what?
 
->You see no such thing.
+> x log
+You see no such thing.
 
->You see no such thing.
+> read log
+You see no such thing.
 
->Shiver me timbers! The lovely Kelly Brook in all her glory (well, without
+> x poster
+Shiver me timbers! The lovely Kelly Brook in all her glory (well, without
 many clothes on). You wipe away the drool from your mouth and vow to leave
 behind these distractions.
 
->You can't take the kelly brook poster!
+> take poster
+You can't take the kelly brook poster!
 
->You peer out of the window and start to feel violently ill from staring at
+> x window
+You peer out of the window and start to feel violently ill from staring at
 the sea. You wish that you'd bought your travel sickness medicine on this
 journey like your mum had told you too.
 
->You move north.
+> n
+You move north.
 
 Corridor
 You are standing in a long dark corridor that smells of mould. It is dimly
@@ -120,13 +128,15 @@ lead off the corridor and a rickety steel ladder leads up to the ships deck,
 and continues down to the cargo hold. You can move North, East, South, West,
 up or down.
 
->A puddle has formed on the floor from where the water is dripping. From where
+> x puddle
+A puddle has formed on the floor from where the water is dripping. From where
 you are standing, the puddle appears to be forming into the shape of Winston
 Churchill's head, with a cigar and everything. You wonder if this could be
 Winnie's second coming, but you take another look, and decide to stop being
 so silly...it's probably not.
 
->You move north.
+> n
+You move north.
 
 First Mate's Quarters
 You are standing in the first mate's quarters. The First Mate is nowhere in
@@ -141,22 +151,28 @@ quarters mirrors your room in nearly every way including the position of the
 bed and the window, except that the First Mate has a dubious George Michael
 calendar on the wall. You can only move south.
 
->You look closely at the George Michael calender which is held to the wall
+> x calender
+You look closely at the George Michael calender which is held to the wall
 with a drawing pin. It is open to the month of July, and shows George on the
 beach posing in some tight swimming trunks. You look dissaprovingly at the
 picture, but deep down, you think that George looks quite fetching.
 
->A small drawing pin, currently holding a calender in place on the wall.
+> x pin
+A small drawing pin, currently holding a calender in place on the wall.
 
->An uncomfy well worn bed that could do with a change.
+> x bed
+An uncomfy well worn bed that could do with a change.
 
->The drawers are made of a dark, red wood, and look expensive. You consider
+> x drawers
+The drawers are made of a dark, red wood, and look expensive. You consider
 scratching the surface of the drawers as you don't like the first mate very
 much, but decide against it.  The set of drawers are closed.
 
->The set of drawers are locked.
+> open drawers
+The set of drawers are locked.
 
->You move south.
+> s
+You move south.
 
 Corridor
 You are standing in a long dark corridor that smells of mould. It is dimly
@@ -169,7 +185,8 @@ lead off the corridor and a rickety steel ladder leads up to the ships deck,
 and continues down to the cargo hold. You can move North, East, South, West,
 up or down.
 
->You move west.
+> w
+You move west.
 
 Dormitory
 You are standing in the dormitory. There is a bunk bed in the centre of the
@@ -179,35 +196,46 @@ a window that overlooks the ocean and a light bulb in the ceiling. You can
 only move east.
 The Chef is lying on his bed.
 
->The Chef is lying on his bed scoffing a hamburger. He is more interested in
+> x chef
+The Chef is lying on his bed scoffing a hamburger. He is more interested in
 eating than talking to you.
 
->A large, greasy double hamburger with cheese...yum yum.
+> x hamburger
+A large, greasy double hamburger with cheese...yum yum.
 
->"Scoff, Scoff" The Chef munches hungrily on the burger.
+> ask chef about hamburger
+"Scoff, Scoff" The Chef munches hungrily on the burger.
 
->A large wooden wardrobe that is attached to the wall.  The wardrobe is
+> x wardrobe
+A large wooden wardrobe that is attached to the wall.  The wardrobe is
 closed.
 
->[open wardrobe]
+> open it
+[open wardrobe]
 You open the wardrobe.  A bar of chocolate is inside the wardrobe.
 
->A small bar of chocolate., that smells yummy!
+> x chocolate
+A small bar of chocolate., that smells yummy!
 
->[take a bar of chocolate]
+> take it
+[take a bar of chocolate]
 You take the bar of chocolate from the wardrobe.
 
->You look up at the bulb in the ceiling. Its a small glass bulb hanging from
+> x bulb
+You look up at the bulb in the ceiling. Its a small glass bulb hanging from
 the ceiling.
 
->[take the bulb]
+> take it
+[take the bulb]
 You reach up to grab the bulb, but you are not tall enough to get it. (Plus
 your back hurts when you stretch).
 
->Disgusting...mountains of crisp packets and rubbish are discarded on the
+> x rubbish
+Disgusting...mountains of crisp packets and rubbish are discarded on the
 floor. The Chef is such a pig.
 
->You move east.
+> e
+You move east.
 
 Corridor
 You are standing in a long dark corridor that smells of mould. It is dimly
@@ -220,7 +248,8 @@ lead off the corridor and a rickety steel ladder leads up to the ships deck,
 and continues down to the cargo hold. You can move North, East, South, West,
 up or down.
 
->You move east.
+> e
+You move east.
 
 Kitchen
 You are in the ships kitchen, and dining quarters. Despite being a "kitchen",
@@ -234,37 +263,47 @@ large mouse scuttle across the floor and vanish under the pantry. Damn it,
 you think as you curse to yourself, that pesky rodent could have made a tasty
 meal.
 
->It is a wooden dining table, with not much else to note about it really.  A
+> x table
+It is a wooden dining table, with not much else to note about it really.  A
 map is on the Table.
 
->Hmmm...interesting. You have found a map that tells you how to get  back to
+> x map
+Hmmm...interesting. You have found a map that tells you how to get  back to
 Piddlington on Sea!
 
->A grey steel pantry. It is filthy and covered in handprints and dirt. You
+> x pantry
+A grey steel pantry. It is filthy and covered in handprints and dirt. You
 assume that food was kept here once. The door to the pantry is closed.
 
->[open pantry]
+> open it
+[open pantry]
 You try opening the pantry door, but it is jammed shut. There is no lock, so
 you guess it must just be too stiff to open with just your puny arms.
 
->You lie down on the floor and look under the pantry. As you squint you think
+> look under pantry
+You lie down on the floor and look under the pantry. As you squint you think
 you can see something shiny. You reach for the item and pull it out from
 under the pantry. You look at the item. It's a tin opener. Suddenly, the
 mouse scuttles toward you from under the pantry! You jump out of the way, and
 observe the mouse stop in the middle of the room, and examine it's
 surroundings.
 
->A large rodent, who is obviously getting more food than you.
+> x mouse
+A large rodent, who is obviously getting more food than you.
 
->A small silver can opener.
+> x opener
+A small silver can opener.
 
->A small grey radio that is betling out tune after tune. The on/off knob
+> x radio
+A small grey radio that is betling out tune after tune. The on/off knob
 appears to be broken.
 
->Oh yeah baby....you listen to the radio for a while an do a little dance to
+> listen to radio
+Oh yeah baby....you listen to the radio for a while an do a little dance to
 the groovy tunes. You are one cool cat..
 
->You move west.
+> w
+You move west.
 
 Corridor
 You are standing in a long dark corridor that smells of mould. It is dimly
@@ -277,7 +316,8 @@ lead off the corridor and a rickety steel ladder leads up to the ships deck,
 and continues down to the cargo hold. You can move North, East, South, West,
 up or down.
 
->You move down.
+> d
+You move down.
 
 Cargo Hold
 You are in the Cargo hold, a large holding area in the belly of the ship. It
@@ -292,34 +332,42 @@ on the floor.
 The First Mate is passed out on his back in the centre of the room, snoring
 loudly. You can smell the booze from here...
 
->Nothing too interesting really. Just stacks and stacks of wooden boxes. It
+> x boxes
+Nothing too interesting really. Just stacks and stacks of wooden boxes. It
 would be interesting if the boxes suddenly burst open,and a hundred and one
 belly dancers jumped out and did a little dance to theme of Coca Cabana, but
 that's not very likely now, is it?
 
->You try and grab one of the boxes, but half way through bending down, your
+> open boxes
+You try and grab one of the boxes, but half way through bending down, your
 back gives in, and you have to stand up again. Ah well, I don't think the box
 would assist your plight anyway.
 
->You see no such thing.
+> x silver key
+You see no such thing.
 
->[take a key]
+> take it
+[take a key]
 You pick up the key.
 
->The first mate is a long beanpole of a man, who has more the appearance of a
+> x first mate
+The first mate is a long beanpole of a man, who has more the appearance of a
 hobo than a seaman. He is currently lying flat out in the middle of the room.
 
->It is a particulary potent whisky, marked "Devil's malt, 75 % proof" You look
+> x bottle
+It is a particulary potent whisky, marked "Devil's malt, 75 % proof" You look
 down at the first mate in disgust, and shake your head dissaprovingly in case
 anyone is watching you. You secretly yearn for just a single drop of the
 sweet liquor, but you've been sober for 12 hours, and don't want to fall off
 the wagon again.
 
->You reach for the bottle, and try to pull it from the first mates hand, but
+> take bottle
+You reach for the bottle, and try to pull it from the first mates hand, but
 he holds onto it with all his might, and clutches it close to his chest. This
 is one fight you're not going to win...
 
->You move up.
+> u
+You move up.
 
 Corridor
 You are standing in a long dark corridor that smells of mould. It is dimly
@@ -332,7 +380,8 @@ lead off the corridor and a rickety steel ladder leads up to the ships deck,
 and continues down to the cargo hold. You can move North, East, South, West,
 up or down.
 
->You move north.
+> n
+You move north.
 
 First Mate's Quarters
 You are standing in the first mate's quarters. The First Mate is nowhere in
@@ -347,23 +396,29 @@ quarters mirrors your room in nearly every way including the position of the
 bed and the window, except that the First Mate has a dubious George Michael
 calendar on the wall. You can only move south.
 
->You use the key to unlock and open the drawer.
+> open drawers
+You use the key to unlock and open the drawer.
 
->The drawers are made of a dark, red wood, and look expensive. You consider
+> look in drawers
+The drawers are made of a dark, red wood, and look expensive. You consider
 scratching the surface of the drawers as you don't like the first mate very
 much, but decide against it.  The set of drawers are open.  A deflated rubber
 boat and a pair of fluffy pink handcuffs are inside the set of drawers.
 
->You take the deflated rubber boat and the pair of fluffy pink handcuffs from
+> take all from drawers
+You take the deflated rubber boat and the pair of fluffy pink handcuffs from
 the set of drawers.
 
->A life raft that has been deflated and stuffed in a drawer. You can't see any
+> x boat
+A life raft that has been deflated and stuffed in a drawer. You can't see any
 noticable puncture marks on it.
 
->A set of fluffy pink handcuffs. You dread to think what these have been used
+> x handcuffs
+A set of fluffy pink handcuffs. You dread to think what these have been used
 for.
 
->You move south.
+> s
+You move south.
 
 Corridor
 You are standing in a long dark corridor that smells of mould. It is dimly
@@ -376,7 +431,8 @@ lead off the corridor and a rickety steel ladder leads up to the ships deck,
 and continues down to the cargo hold. You can move North, East, South, West,
 up or down.
 
->You move up.
+> u
+You move up.
 
 Ship's deck
 You are on the Ship's deck. The midday sun is beating down mercilessly,
@@ -390,28 +446,36 @@ also move down the ladder to below deck. To the West is a small gap that
 leads to a plank of wood leading off the ship.
 Bob is standing on deck staring blankly and picking his nose.
 
->A long white container that holds the life raft to the ship.  The container
+> x container
+A long white container that holds the life raft to the ship.  The container
 is closed.
 
->[open a container]
+> open it
+[open a container]
 You open the container.  A note is inside the container.
 
->The untidy writing is scrawled across the page in red marker pen. It reads
+> read note
+The untidy writing is scrawled across the page in red marker pen. It reads
 "IOU one life raft"
 
->A gawmless looking fella with protruding teeth, and greasy unkempt hair. Bob
+> x bob
+A gawmless looking fella with protruding teeth, and greasy unkempt hair. Bob
 is staring blankly into space.
 
->Bob stares at you for a moment, void of all expression, before scratching his
+> ask bob about bob
+Bob stares at you for a moment, void of all expression, before scratching his
 head and replying, "Duh, my name is Bob"
 
->You peer up at the Sun, shielding your eyes with your hand. The Sun throws a
+> x sun
+You peer up at the Sun, shielding your eyes with your hand. The Sun throws a
 friendly wink in your direction, and gives you a reassuring thumbs
 up...That's nice, you think. At least someone's on your side.
 
->The sea appears to stretch on for miles, without anything else in sight...
+> x sea
+The sea appears to stretch on for miles, without anything else in sight...
 
->You move north.
+> n
+You move north.
 
 Ship's Helm
 You are at the Ship's Helm behind the Ship's Wheel. Oh yeah, you think to
@@ -423,16 +487,20 @@ Directional Navigation and Nautical maneuvers. You don't know what that means
 or what the items do, but you learnt the words on your 3 week Captains
 course, and, boy, they sound impressive.  You can only move south.
 
->A sturdy wooden wheel, currently unmanned.
+> x wheel
+A sturdy wooden wheel, currently unmanned.
 
->Yuk... You remind yourself to get the First Mate to clean this off later.
+> x poo
+Yuk... You remind yourself to get the First Mate to clean this off later.
 
->You look closely at the various instruments, racking your brain as to what
+> x instrument
+You look closely at the various instruments, racking your brain as to what
 they are used for, but for the life of you, you can't remember. They are
 electornic equipment, that at the moment are turned off. You assume they must
 be used for some sort of navigation purpose.
 
->You move south.
+> s
+You move south.
 
 Ship's deck
 You are on the Ship's deck. The midday sun is beating down mercilessly,
@@ -446,7 +514,8 @@ also move down the ladder to below deck. To the West is a small gap that
 leads to a plank of wood leading off the ship.
 Bob is standing on deck staring blankly and picking his nose.
 
->You move up.
+> u
+You move up.
 
 Crows nest
 You are at the top of the ladder, standing in the Crow's Nest, the highest
@@ -460,22 +529,30 @@ here in the Crow's nest. Presumably left up here from the last time someone
 repaired the mast and flag that are also up here with you. You can only move
 down.
 
->The rigging spans form the Ship's desk up to the Crow's Nest.
+> x rigging
+The rigging spans form the Ship's desk up to the Crow's Nest.
 
->The wooden mast leads up from the Ship's deck to the Crow's nest.
+> x mast
+The wooden mast leads up from the Ship's deck to the Crow's nest.
 
->The ship's flag is attached to the mast, flying and blowing in the wind.
+> x flag
+The ship's flag is attached to the mast, flying and blowing in the wind.
 
->A small metal toolbox.  The toolbox is closed.
+> x toolbox
+A small metal toolbox.  The toolbox is closed.
 
->[open toolbox]
+> open it
+[open toolbox]
 You open the toolbox.  A crowbar is inside the toolbox.
 
->A silver crowbar, useful for jemmying!!!
+> x crowbar
+A silver crowbar, useful for jemmying!!!
 
->You take the crowbar from the toolbox.
+> take crowbar
+You take the crowbar from the toolbox.
 
->You move down.
+> d
+You move down.
 
 Ship's deck
 You are on the Ship's deck. The midday sun is beating down mercilessly,
@@ -489,7 +566,8 @@ also move down the ladder to below deck. To the West is a small gap that
 leads to a plank of wood leading off the ship.
 Bob is standing on deck staring blankly and picking his nose.
 
->You move down.
+> d
+You move down.
 
 Corridor
 You are standing in a long dark corridor that smells of mould. It is dimly
@@ -502,7 +580,8 @@ lead off the corridor and a rickety steel ladder leads up to the ships deck,
 and continues down to the cargo hold. You can move North, East, South, West,
 up or down.
 
->You move east.
+> e
+You move east.
 
 Kitchen
 You are in the ships kitchen, and dining quarters. Despite being a "kitchen",
@@ -515,17 +594,22 @@ out 80's classics sits on the worktop. You can only move west.
 A mouse is sitting next to the table eating something on the floor. Lucky
 bugger! At least he gets a meal!
 
->You place the crowbar at an angle to the door of the pantry and apply pressue
+> open pantry
+You place the crowbar at an angle to the door of the pantry and apply pressue
 to the other end of the crowbar. Easy does it....CRACK!!...The door to the
 pantry swings open! Inside the pantry is a can of Red Bull, and a foot pump.
 
->You take the can of red bull and the foot pump from the pantry.
+> take all from pantry
+You take the can of red bull and the foot pump from the pantry.
 
->A can of red bull.
+> x red bull
+A can of red bull.
 
->A small foot pump. Handy for pumping things up suprisingly enough.
+> x foot pump
+A small foot pump. Handy for pumping things up suprisingly enough.
 
->You move west.
+> w
+You move west.
 
 Corridor
 You are standing in a long dark corridor that smells of mould. It is dimly
@@ -538,7 +622,8 @@ lead off the corridor and a rickety steel ladder leads up to the ships deck,
 and continues down to the cargo hold. You can move North, East, South, West,
 up or down.
 
->You move up.
+> u
+You move up.
 
 Ship's deck
 You are on the Ship's deck. The midday sun is beating down mercilessly,
@@ -552,7 +637,8 @@ also move down the ladder to below deck. To the West is a small gap that
 leads to a plank of wood leading off the ship.
 Bob is standing on deck staring blankly and picking his nose.
 
->You move west.
+> w
+You move west.
 
 Walking the plank....
 You are standing on a wooden plank that leads off the Ship's Deck. You are
@@ -562,20 +648,26 @@ The plank faces west, and you can either step off the end of the plank to the
 West, or you can turn back to the Ship's Desk to the East.
 A shark is swimming below you, circling the plank in anticipation...
 
->It is a long plank of wood that leads over the edge of the boat from the
+> x plank
+It is a long plank of wood that leads over the edge of the boat from the
 Ships Deck.
 
->A shark is circling the water below you...
+> x shark
+A shark is circling the water below you...
 
->The shark shout's up to you, in a cockney accent  "Come on in, the water's
+> ask shark about shark
+The shark shout's up to you, in a cockney accent  "Come on in, the water's
 lovely, I won't hurt you, I promise..."
 
->You use the pump to blow up the boat...and voila!!! You now have yourself a
+> inflate boat
+You use the pump to blow up the boat...and voila!!! You now have yourself a
 fully inflated rubber life raft!
 
->A fully inflated rubber life raft.
+> x raft
+A fully inflated rubber life raft.
 
->You throw the life raft off the side of the boat, and watch it land in the
+> w
+You throw the life raft off the side of the boat, and watch it land in the
 sea. It bobs in the water for a moment before balancing and keeping afloat.
 You step to the edge of the ship and walk to the edge of the plank. You close
 your eyes and jump...

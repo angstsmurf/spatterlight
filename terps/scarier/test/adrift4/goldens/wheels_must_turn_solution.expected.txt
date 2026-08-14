@@ -24,28 +24,33 @@ ignore the moans and murky odors of fellow laborers, concentrate on the
 demands of your wheel and the mind-numbing rumble of machinery.  Your eyes
 are open, but the darkness is still there.
 
->Time passes...
+> z
+Time passes...
 The wheels must turn!  The wheels must turn!  The mantra performs insistent
 somersaults through the sunless corners of your awareness.  However,
 someone's toaster is exceedingly happy.
 
->Time passes...
+> z
+Time passes...
 A quiet chant resolves from the cadenced rumble, monstrous with suppressed
 intensity: "The wheels must turn.  The wheels must turn."
 
->Time passes...
+> z
+Time passes...
 The chant rises to a throaty drawl, discontent gathering like a congeries of
 vipers: "The wheeeels muusst turrrrrrrrrrn.  The wheeeels muusst
 burrrrrrrrrrn."
 
->Time passes...
+> z
+Time passes...
 "The wheeeels muusst burrrrrrrrrrn.  The wheeeels muusst burrrrrrrrrrn."  You
 envision a large, mad clock winding itself obsessively to the point of
 detonating its delicate innards.  There is the brief flight of a mechanical
 bird in the imagined explosion.    "The wheeeels muusst burrrrrrrrrrn!  The
 wheeeels muusst BURRRRRRRRRRN--"
 
->Time passes...
+> z
+Time passes...
 "--BURRRRRRRRRR--"  A peremptory announcement booms from the public-address
 system like majuscule hail-stones: "HAMSTERS SIX, NINE, AND TWENTY-THREE:
 LEAVE YOUR STATIONS AND AWAIT FURTHER INTRUCTIONS.  HAMSTERS SIX, NINE, AND
@@ -55,7 +60,8 @@ mindless insect.
 
 You are Hamster Twenty-Three, however.
 
->You disengage from the hamster wheel.  Somewhere, someone's toaster ceases to
+> out
+You disengage from the hamster wheel.  Somewhere, someone's toaster ceases to
 function.
 In the Warehouse
 The dimly-lit cavernous interior of the warehouse is a human apiary of
@@ -84,14 +90,17 @@ resonates from the wheels as the pair is hauled away like indignant fish by
 the Master and several armor-clad subordinates.  Fat puddles of water begin
 to meander past your feet in rust-tainted rivulets.
 
->Time passes...
+> z
+Time passes...
 Something wet nudges against your foot, and you immediately contemplate the
 possibility of facing the wretched corpse of a water-trampled rodent.  Or
 perhaps it's only wounded.
 
->You take the small book.
+> take something
+You take the small book.
 
->Shivers trickle up your spine like chilled mercury as you recognize the Book
+> read book
+Shivers trickle up your spine like chilled mercury as you recognize the Book
 of Servos, also known as the Slaves' Bible.  It looks like a small coffin in
 your hands, the resting place of an aborted fetus, with the familiar Sign of
 Slaves stamped on the front.  You blink, and abruptly find yourself reading a
@@ -115,13 +124,15 @@ crotch and chest several times, looking like a spectator at a vertically
 orientated tennis match.  "With all those rags, I don't know where to start."
  His eyes become glazed with the mysterious dilemma.
 
->He shares an empty stare with you, says: "It's nothing too drastic, you
+> ask awning about hedge-clippers
+He shares an empty stare with you, says: "It's nothing too drastic, you
 understand?  Don't feel too bad about it.  It is far more humane than the
 gilded cage, little one."  You feel as empty as his eyes.
 A brief rumble shakes the floor of the warehouse.  Its vibration places an
 ache behind your eyes.
 
->He sighs theatrically, says nothing.  You are almost certain that he is not
+> ask awning about awning
+He sighs theatrically, says nothing.  You are almost certain that he is not
 human, but a machine.  You imagine his skeleton connected with gearwheels and
 copper wiring.  Perhaps he is even a machine of Operose, you think
 deliriously.  Bleary-eyed fatigue follows him like a specter; but in your
@@ -132,13 +143,15 @@ Your teeth chatter as a second rumble shakes the floor of the warehouse.
 "What's the matter?"  Master Awning demands.  "You've recieved all your
 inoculations, haven't you?"
 
->You hear the squeak of his rusty bear-trap jaw.  "It is the slow death that
+> ask awning about fatigue
+You hear the squeak of his rusty bear-trap jaw.  "It is the slow death that
 may inspire my sympathies, little one."  The hedge-clippers tremble
 rebelliously in his grasp, but there are only ashes in his empty stare.
 Another rumble.  Master Awning glares at you incredulously.  "What the hell
 was that?  That sound doesn't belong here."
 
->Time passes...
+> z
+Time passes...
 
 The Master's eyes are spinning Masson disks as he disappears down a sudden
 rent in the floor.  The warehouse is plunged into a seismic fury that has you
@@ -169,17 +182,20 @@ the dust-mottled air like a tapestry of old cobwebs.  A Devil of Operose
 surveys the area with a close eye, but seems entirely unconcerned with the
 damage.
 
->"The dilemma is too many toasters, and not enough laborers to power them.
+> ask devil about dilemma
+"The dilemma is too many toasters, and not enough laborers to power them.
 People enjoy their toast, and they will do anything to ensure that such a
 comfort remains accessible to them."
 The Devil's voice is like tarnished silverware, locked away in some dark
 cupboard.  "Sometimes you just have to start over."
 
->"What?  Are the vipers well fed, then?"
+> ask devil about girls
+"What?  Are the vipers well fed, then?"
 The Devil pokes around in the rubble.  "Nope," he giggles, "no worms here."
 Falling pebbles disturb the silence like little teeth.
 
->"Ah, yes.  We are concerned mainly with two types of fatigue: animal and
+> ask devil about fatigue
+"Ah, yes.  We are concerned mainly with two types of fatigue: animal and
 mechanical.  We try to remedy this with the mechanical animal.  Of course,
 this has developed a third type of fatigue: psychomechanical.  Our methods
 are not yet perfected, but..."
@@ -187,12 +203,14 @@ The Devil reaches back to dislodge a pair of oversized hedge-clippers from
 his spine.  "Ah, what is this?" he snarls.  The rusty grin of the offending
 tool clatters at your feet.
 
->You take the hedge-clippers.
+> take tool
+You take the hedge-clippers.
 Abruptly, your behooved friend levitates into the darkness above, his voice
 like ice shards in your ears: "I shall now be off, little one."  A faint
 sussuration of gravity-bound pebbles puncuates his departure.
 
->You scramble down the orange, dusty throat of the rent.
+> down
+You scramble down the orange, dusty throat of the rent.
 
 Below the Warehouse
 Below the Warehouse
@@ -204,7 +222,7 @@ as an anomalous obelisk in this orange barrenness, its blunted top about a
 meter below a rent in the ceiling.  A strange apparatus like a large,
 rectangular harp glints near the base of the tooth.
 
->
+> cut string 23
 
 "That is it, Twenty-Three."
 [More]

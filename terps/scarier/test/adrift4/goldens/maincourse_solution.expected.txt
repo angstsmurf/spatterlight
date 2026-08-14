@@ -63,7 +63,8 @@ SoMorph not impressed.
 
 There is an exit north.
 
->(Standing up first)
+> north
+(Standing up first)
 SoMorph moves north.
 
 Corridor Alpha
@@ -89,7 +90,8 @@ Omorphos.
 
 Did Brian do this?
 
->
+> look
+
 Corridor Alpha
 
 SoMorph in cross corridor. Cross Corridor confuse SoMorph a little.
@@ -115,13 +117,15 @@ Brian when Somorph get home.
 
 You manage to avoid Cat's attack.
 
->You hit Cat.
+> attack cat
+You hit Cat.
 With a mighty swipe of tentacle, Somorph kill Mr. Jones till he dead!
 
 Somorph not stop thumping cat with tentacle till cat much flatter. Easier to
 eat that way...
 
->
+> look
+
 Corridor Alpha
 
 SoMorph in cross corridor. Cross Corridor confuse SoMorph a little.
@@ -148,9 +152,11 @@ Somorph on some ship. Must change course to go home.
 
 And have words with Brian.
 
->You hit Cat.
+> attack cat
+You hit Cat.
 
->
+> eat cat
+
 It takes a long while, but SeMorph eat cat.
 
 *burp*
@@ -160,17 +166,20 @@ SeMorph think Cat make fun appetiser...
 Cat sheepishly enters from the east.
 Somorph think he need loo now...
 
->SoMorph picks up the cat fur.
+> take cat fur
+SoMorph picks up the cat fur.
 
 Cat quietly exits to the south.
 SoMorph really need to go toilet...
 
->SoMorph opens the bathroom door.
+> open door
+SoMorph opens the bathroom door.
 
 Cat sheepishly enters from the south.
 SoMorph need loo badly!
 
->SoMorph moves east.
+> east
+SoMorph moves east.
 
 Bathroom
 
@@ -191,13 +200,16 @@ SoMorph see bathroom door is closed.
 SoMorph can only move west.
 SoMorph try hold it in...
 
->SoMorph closes the bathroom door.
+> close door
+SoMorph closes the bathroom door.
 
->SoMorph opens the toilet.
+> open loo
+SoMorph opens the toilet.
 
 Cat sheepishly enters from the west.
 
->SoMorph decide SoMorph *really* need to go the loo.
+> use toilet
+SoMorph decide SoMorph *really* need to go the loo.
 
 Cat quietly exits to the west.
 SoMorph squeeze his four sphincters and holds onto bathroom walls with
@@ -207,14 +219,16 @@ SoMorph wince several times, breathe quickly and often, and pushes.
 
 Several minutes later, SoMorph finally empty. Stench is overpowering...
 
->You put the cat fur over you, hoping to fool the human into not fighting
+> wear cat fur
+You put the cat fur over you, hoping to fool the human into not fighting
 back...
 SoMorph wonder why humans have no apparatus for SoMorph to wash tentacles
 with.
 
 Humans. Filfthy animals...
 
->
+> push button
+
 SoMorph hear Frank the computer's voice throughout ship.
 
 He loud and annoying!
@@ -229,9 +243,11 @@ SoMorph getting headache.
 
 SoMorph hopes sphincters will re-align soon. Makes SoMorph feel queesy...
 
->SoMorph opens the bathroom door.
+> open door
+SoMorph opens the bathroom door.
 
->SoMorph moves west.
+> west
+SoMorph moves west.
 
 Corridor Alpha
 
@@ -255,7 +271,8 @@ Cat sheepishly enters from the south.
 
 Human runs screaming to the west.
 
->SoMorph moves west.
+> west
+SoMorph moves west.
 
 Cryo Stasis Room
 
@@ -275,7 +292,8 @@ SoMorph can only move east.
 
 Cat sheepishly enters from the east.
 
->You hit Human.
+> attack human
+You hit Human.
 
 Cat quietly exits to the east.
 
@@ -284,7 +302,8 @@ With mighty swipe of tentacle, SoMorph kill Alan Davies till he dead!
 
 Then SoMorph poke Alan Davies with tentacle for few minutes. To be sure...
 
->
+> look
+
 Cryo Stasis Room
 
 SoMorph think this cryo stasis room.
@@ -303,7 +322,8 @@ Human is here.
 
 SoMorph can only move east.
 
->
+> look
+
 Cryo Stasis Room
 
 SoMorph think this cryo stasis room.
@@ -324,9 +344,11 @@ SoMorph can only move east.
 
 Human runs screaming to the east.
 
->I don't understand what you want me to do with the dead human.
+> attack human
+I don't understand what you want me to do with the dead human.
 
->I don't understand what you are trying to eat.
+> eat human
+I don't understand what you are trying to eat.
 SoMorph prepare for main course.
 
 Very slowly, SoMorph start at extremities.
@@ -339,7 +361,8 @@ Later, SoMorph put human head in mouth and bites it off body.
 
 There is much blood, which help SoMorph chew rest of human down.
 
->SoMorph removes the cat fur.
+> remove cat fur
+SoMorph removes the cat fur.
 SoMorph think SoMorph ate too much.
 
 SoMorph steady self against wall with tentacle, and hack up something.
@@ -348,7 +371,8 @@ SoMorph look down on floor. An eye look back up at SoMorph.
 
 SoMorph quickly pick up eye and eat it, burping loudly...
 
->SoMorph moves east.
+> east
+SoMorph moves east.
 
 Corridor Alpha
 
@@ -370,7 +394,8 @@ Cat sheepishly enters from the east.
 
 Human runs screaming from the east.
 
->SoMorph moves north.
+> north
+SoMorph moves north.
 
 Command Deck
 
@@ -395,7 +420,8 @@ SoMorph can only move south.
 
 Cat sheepishly enters from the south.
 
->
+> main course
+
 SeMorph hear screeching sound of brakes applied too suddenly, and whole ship
 lurch forward to a stop.
 

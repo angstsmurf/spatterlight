@@ -24,20 +24,26 @@ to the curb, tossing the trash down with perfect accuracy.
 You headed back to the house. Then stopped. You turned around. You could've
 sworn you just heard moaning coming from the shed...
 
->You are carrying a toy whistle.
+> i
+You are carrying a toy whistle.
 
->Stu's gonna be pissed. It's a whistle you got from his cereal.
+> x whistle
+Stu's gonna be pissed. It's a whistle you got from his cereal.
 
->It's a nice house...well, not really.
+> x house
+It's a nice house...well, not really.
 
->The fence is useful for keeping punks out of your yard. Unfortunately, most
+> x fence
+The fence is useful for keeping punks out of your yard. Unfortunately, most
 punks just enter your yard where the fence ends. That's a glaring design
 problem.
 
->The stone path was in much better condition before you and Stu started
+> x path
+The stone path was in much better condition before you and Stu started
 bashing it with baseball bats for fun.
 
->You move east.
+> e
+You move east.
 
 Shed
 The shed next to your house is usually warm and inviting, but today's it's
@@ -45,10 +51,12 @@ dark and terrifying. Ah well, nothing's perfect. A strange rustling sound can
 be heard from within, which is weird because you have nothing but heavy,
 tools in there, and those don't rustle at all! The yard is back to the South.
 
->It's a nice shed...well, not really. I guess you could say the same thing
+> x shed
+It's a nice shed...well, not really. I guess you could say the same thing
 about the house.
 
->You slowly opened the door and peeked inside.
+> open shed
+You slowly opened the door and peeked inside.
 
 "Uh...helloooo?" you said as you stuck your head in the door.
 
@@ -83,19 +91,26 @@ zombies. "Hey Stu, do you think we could make it through there?"
 Stu shook his head. "They'd probably tear us apart like G.I Joe's. But it's
 your decision, you lead, I'll follow."
 
->You love zombies in movies, but zombies in real life are real douchebags.
+> x zombies
+You love zombies in movies, but zombies in real life are real douchebags.
 
->Stu shakes his head, as if he doesn't understand the question.
+> ask stu about zombies
+Stu shakes his head, as if he doesn't understand the question.
 
->Stu shakes his head, as if he doesn't understand the question.
+> ask stu about gun
+Stu shakes his head, as if he doesn't understand the question.
 
->Stu shakes his head, as if he doesn't understand the question.
+> ask stu about whistle
+Stu shakes his head, as if he doesn't understand the question.
 
->Stu shakes his head, as if he doesn't understand the question.
+> ask stu about house
+Stu shakes his head, as if he doesn't understand the question.
 
->Stu shakes his head, as if he doesn't understand the question.
+> ask stu about shed
+Stu shakes his head, as if he doesn't understand the question.
 
->You move east.
+> e
+You move east.
 
 Shed
 The shed next to your house is usually warm and inviting, but today's it's
@@ -106,13 +121,17 @@ tools in there, and those don't rustle at all! The yard is back to the South.
 It seems that when the zombie came out of the shed, he dragged out your
 chainsaw too, because it's now lying on the ground.
 
->You see no such thing.
+> x zombie
+You see no such thing.
 
->You see no such thing.
+> x chainsaw
+You see no such thing.
 
->As you raise the chainsaw into the air, you feel as if your life is complete.
+> take chainsaw
+As you raise the chainsaw into the air, you feel as if your life is complete.
 
->You move west.
+> w
+You move west.
 
 Yard
 You're in the yard next to your small home. A wooden fence stretched all
@@ -122,18 +141,22 @@ kept most of your tools. Following the path to the south would take you back
 to the house, while heading North would take you to the street.
 Stu stands around looking tough with his rifle
 
->You head North to Wright Street.
+> n
+You head North to Wright Street.
 
->
+> look
+
 Wright Street
 Wright Street would be cool if it wasn't surrounded by zombies. But it is
 surounded by zombies, so it's terrifying. In fact, there's so many zombies,
 you can't even tell where you're going, it's like a maze of the undead.
 Stu stands around looking tough with his rifle
 
->You love zombies in movies, but zombies in real life are real douchebags.
+> x zombies
+You love zombies in movies, but zombies in real life are real douchebags.
 
->You rev the chainsaw and hold it high in the air. Stu cocks his rifle, and
+> kill zombies with chainsaw
+You rev the chainsaw and hold it high in the air. Stu cocks his rifle, and
 the two of you begin a slicin' and blastin' spree through the crowd of
 zombies. Blood and guts spray everywhere as you two take down the zombies.
 
@@ -146,7 +169,8 @@ All the zombies are dead.
 Stu points to a store down the street. "Hey, look, the pet shop. I bet we
 could hide in there!"
 
->
+> look
+
 Outside Pet Shop
 You and Stu are standing outside Pete's Pets, the oldest pet store in town.
 The front door seems to be locked, and the large glass window that leads into
@@ -154,39 +178,51 @@ the store is boarded up tight. The sidewalk outside the store isn't doing
 much better, it's cracked and covered in zombie blood.
 Stu stands around looking tough with his rifle
 
->Who locks their door when they're not around? What a crazy idea.
+> x door
+Who locks their door when they're not around? What a crazy idea.
 
->The window seems to have been broken, so Pete must've boarded it up. He did a
+> x window
+The window seems to have been broken, so Pete must've boarded it up. He did a
 good job, because these boards are really stuck on here tight.
 
->Sidewalks. They're wacky.
+> x sidewalk
+Sidewalks. They're wacky.
 
->Yech...zombie blood. The worst kind of blood.
+> x blood
+Yech...zombie blood. The worst kind of blood.
 
->Stu shakes his head, as if he doesn't understand the question.
+> ask stu about pet shop
+Stu shakes his head, as if he doesn't understand the question.
 
->Stu shakes his head, as if he doesn't understand the question.
+> ask stu about door
+Stu shakes his head, as if he doesn't understand the question.
 
->You go crazy on the door with everything you've got. For some reason, nothing
+> open door
+You go crazy on the door with everything you've got. For some reason, nothing
 works, not even your chainsaw. This is some sort of door of doom, because you
 can't seem to be able to open it.
 
->You cut the boards in half with the chainsaw. You can now climb In through
+> cut boards with chainsaw
+You cut the boards in half with the chainsaw. You can now climb In through
 the window to the pet shop.
 
->You enter the pet shop.
+> in
+You enter the pet shop.
 
->
+> look
+
 Pet Shop
 You have no time to look around because a vicious zombie dog is staring you
 down. Any second now he's going to jump and eat your juicy brain. Trust me,
 that'd really suck. You better stop him, and you better do it fast.
 
->Zombie dogs. Why did it have to be zombie dogs.
+> x dog
+Zombie dogs. Why did it have to be zombie dogs.
 
 The zombie dog jumps up and eats your face in one bite. What a douche.
 
->With no other options, you pull out the toy whistle and blow on it. The high
+> blow whistle
+With no other options, you pull out the toy whistle and blow on it. The high
 frequency pitch of the whistle sounds the dog yelping into the night, or in
 this case, into the middle of the afternoon.
 

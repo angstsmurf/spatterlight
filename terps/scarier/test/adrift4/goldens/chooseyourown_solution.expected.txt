@@ -32,8 +32,11 @@ uneasy.
 [2]  Go and investigate.
 
 >
+
 >
->Telling yourself that it was just a dream, or your overactive imagination,
+
+> 1
+Telling yourself that it was just a dream, or your overactive imagination,
 which woke you, you sit back in your seat and try to find your place in the
 paperwork. But your attention is lost and you find you cannot concentrate.
 Perhaps you should go and investigate. Maybe there is something wrong with
@@ -42,7 +45,8 @@ the train.
 [1]  Investigate.
 [2]  Remain where you are.
 
->You try to lose yourself in the paperwork: rows and columns and dates and
+> 2
+You try to lose yourself in the paperwork: rows and columns and dates and
 figures and numbers and…
    Before long, your head is spinning and you begin to feel decidedly ill.
 Putting down the papers, you rise to your feet. Or try to anyway. Only your
@@ -65,7 +69,8 @@ you?"
 [1]  "Carl Jacobson."
 [2]  "None of your business."
 
->"And a pleasure to meet you it is, Mr Jacobson. I am sure we shall work well
+> 1
+"And a pleasure to meet you it is, Mr Jacobson. I am sure we shall work well
 together, despite the unpleasant circumstances surrounding our first meeting.
 Now." He nods and one of the others unveils a projection screen on one wall.
 "Watch. And listen."
@@ -92,7 +97,8 @@ you need is this." He holds out a gun to you. "All you need is to kill him."
 [2]  Say you will do it.
 [3]  Ask him about von Lastmere.
 
->The man continues, "I give you a choice in the matter of whether you kill von
+> 1
+The man continues, "I give you a choice in the matter of whether you kill von
 Lastmere or not. A simple choice. You either agree and then, at a time of
 your own choosing, but no later than midnight tonight, you kill von Lastmere.
 Or you say no." The man points the gun at your face. "In which case, the
@@ -105,7 +111,8 @@ same."
 [3]  Shout for help.
 [4]  Ask about von Lastmeer.
 
->"I have told you everything you need to know about von Lastmeer," says the
+> 4
+"I have told you everything you need to know about von Lastmeer," says the
 man, and from his tone it is obvious he has no intention of telling you
 anything else. "Now. Your answer: will you kill von Lastmeer or not?"
 
@@ -113,7 +120,8 @@ anything else. "Now. Your answer: will you kill von Lastmeer or not?"
 [2]  Refuse to have anything to do with him.
 [3]  Shout for help.
 
->Your cries echo futilely around the room.
+> 3
+Your cries echo futilely around the room.
    "Come now," says the man with a mocking note to his tone. "Did you think
 we would be foolish enough to allow you to shout for help? Now." His tone
 turns harder again. "Your answer: will you kill von Lastmeer or not?"
@@ -121,7 +129,8 @@ turns harder again. "Your answer: will you kill von Lastmeer or not?"
 [1]  Say you will do it.
 [2]  Refuse to have anything to do with him.
 
->"Very well," you say. "Hand me the gun and von Lastmeer will be dead within
+> 1
+"Very well," you say. "Hand me the gun and von Lastmeer will be dead within
 the hour."
    Even as you say it, you know you really have no intention of going along
 with this madman and his assassination plans. You are a businessman, not an
@@ -160,7 +169,8 @@ ahead, letting your associates know you might be late for your meeting.
 [2]  Leave the train and head into Globrieska.
 [3]  Stay where you are.
 
->You make your way towards the front of the train, passing other passengers
+> 1
+You make your way towards the front of the train, passing other passengers
 who do not seem to be very happy about the train stopping either. A large
 businessman is making noises about lodging an official complaint while a
 woman with three squealing kids looks ready to throttle someone.
@@ -170,28 +180,32 @@ woman with three squealing kids looks ready to throttle someone.
 [2]  Leave the train and head into Globrieska.
 [3]  Return to your carriage and wait.
 
->Your knocking rings out hollowly. The door remains closed.
+> 1
+Your knocking rings out hollowly. The door remains closed.
 
 [1]  Call to the train driver.
 [2]  Try and break the door down.
 [3]  Leave the train and head into Globrieska.
 [4]  Return to your carriage and wait.
 
->You call out the driver and knock several more times but get no response.
+> 1
+You call out the driver and knock several more times but get no response.
 Either the driver is not in his cabin or he's somewhat on the deaf side.
 
 [1]  Try and break the door down.
 [2]  Leave the train and head into Globrieska.
 [3]  Return to your carriage and wait.
 
->The idea of breaking the door down occurs to you for a fraction of a second
+> 1
+The idea of breaking the door down occurs to you for a fraction of a second
 before you remember that you are an accountant and not some kind of thug who
 goes around trying to smash trains up. You wonder what came over you.
 
 [1]  Leave the train and head into Globrieska.
 [2]  Return to your carriage and wait.
 
->Globrieska is a small village nestled in the mountains, but even small
+> 1
+Globrieska is a small village nestled in the mountains, but even small
 villages nestled in mountains have been unable to escape the onset of
 technology. Satellite dishes sprout from the roofs of many of the buildings,
 indicating that while the village may be secluded it still has some means of
@@ -205,7 +219,8 @@ your associates know you will be late?
 [1]  Head into the hotel.
 [2]  Try and find a telephone.
 
->The hotel - Globrieska Royal the banner over the door boldly announces - is a
+> 1
+The hotel - Globrieska Royal the banner over the door boldly announces - is a
 small but cosy affair. The reception area opens into a bar to one side and a
 series of rooms to the others. A recreational area, complete with a pool
 table and several arcade machines, is on the far side of the bar.
@@ -222,7 +237,8 @@ a key.
 [2]  Ask who he is.
 [3]  Go to the bar.
 
->You follow the heavyset man into the room. He closes the door behind you and
+> 1
+You follow the heavyset man into the room. He closes the door behind you and
 gestures to a table he has set up in the centre of the room. A map of
 Globrieska is on top of the table.
    "I say we hit them here"- he jabs his finger at a point on the map marked
@@ -235,7 +251,8 @@ show up?"
 [2]  "No questions. I'm happy with it."
 [3]  "I'm leaving."
 
->"Good. You go have a drink in the bar. I will come and fetch you when the
+> 2
+"Good. You go have a drink in the bar. I will come and fetch you when the
 others arrive." He nods. "The target will never even know what has hit it."
    Eager to get away from this strange man, you merely nod and agree with him
 and then duck out of the room at the first opportunity you get.
@@ -264,7 +281,8 @@ had thought you might have… second thoughts."
 [1]  Tell her she has the wrong person.
 [2]  Ask who she is.
 
->"My name is Estelle Starnavik. I was told to meet you here." She looks into
+> 2
+"My name is Estelle Starnavik. I was told to meet you here." She looks into
 your eyes. "I was told you would speak the words to me and that everything
 would be alright after that."
    She pauses, as if waiting for you to speak the words in question.
@@ -272,7 +290,8 @@ would be alright after that."
 [1]  "I think you've got the wrong person."
 [2]  "What words am I supposed to speak?"
 
->"Is this… a test?" she asks. "To see if I am who you are assigned to meet?
+> 2
+"Is this… a test?" she asks. "To see if I am who you are assigned to meet?
 Very well, my name is Estelle Starnarvik. You are Carl Jacobson. I am to meet
 you in this bar at this time on this day and you are to speak the codewords
 to me and then I am to hand you…" She hesitates, glancing around the bar once
@@ -283,14 +302,16 @@ more. "The device. Now, tell me the words."
 [3]  "I don't think we have any need for the words. Just hand me the device
 and I'll be on my way."
 
->Estelle hesitates then she quickly rises to her feet. "I apologise. I must
+> 3
+Estelle hesitates then she quickly rises to her feet. "I apologise. I must
 have made a mistake. You are not…"
    She leaves the table and makes for the exit.
 
 [1]  Follow her.
 [2]  Stay where you are.
 
->You follow Estelle Starnavik from the hotel. She makes her way across the
+> 1
+You follow Estelle Starnavik from the hotel. She makes her way across the
 road outside the hotel, seemingly unaware she is being followed, and enters a
 small gift shop. The shop is dark inside and it is difficult to make out any
 details.
@@ -299,7 +320,8 @@ details.
 [2]  Wait outside for her to leave.
 [3]  Return to the bar.
 
->You open the door to the gift shop and make your way inside. Of Estelle
+> 1
+You open the door to the gift shop and make your way inside. Of Estelle
 Starnavik there is no sign.
    The gift shop is small and cramped but with a charm of itself. Little
 knick knacks, of interest to no one aside from a tourist, are displayed on
@@ -313,7 +335,8 @@ him perhaps hides a back room.
 [3]  Ask to use his telephone.
 [4]  Leave the gift shop.
 
->The man frowns. "Blonde woman? No blonde woman in here." He grins like a
+> 1
+The man frowns. "Blonde woman? No blonde woman in here." He grins like a
 child and gestures around his shop as if he might have Estelle hidden
 somewhere. "As you see. No blonde woman. Many gifts for your precious ones
 but nothing else."
@@ -325,7 +348,8 @@ him about it.
 [3]  Ask to use his telephone.
 [4]  Leave the gift shop.
 
->"No, no. My room. Nothing in there. Just my things."
+> 1
+"No, no. My room. Nothing in there. Just my things."
    Something about the man he says this, some gut feeling, makes you think he
 is lying.
 
@@ -334,7 +358,8 @@ is lying.
 [3]  Ask to use his telephone.
 [4]  Leave the gift shop.
 
->"So sorry but my room. Personal belongings." The man smiles in what he might
+> 1
+"So sorry but my room. Personal belongings." The man smiles in what he might
 think is a disarming manner but which looks to you to be some kind of leer.
 "No go back there."
 
@@ -343,7 +368,8 @@ think is a disarming manner but which looks to you to be some kind of leer.
 [3]  Ask to use his telephone.
 [4]  Leave the gift shop.
 
->The shopkeeper moves to stop you, blocking the way into the room with his
+> 1
+The shopkeeper moves to stop you, blocking the way into the room with his
 cane.
    "Please," he says. "My room. You no go back there."
 
@@ -352,7 +378,8 @@ cane.
 [3]  Ask to use his telephone.
 [4]  Leave the gift shop.
 
->Without giving him any kind of warning, you curl your hand into a fist and
+> 1
+Without giving him any kind of warning, you curl your hand into a fist and
 punch the shopkeeper in the jaw. He goes down before he even has chance to
 cry out.
    Stepping over his unconscious form, you move into the back area of the
@@ -370,7 +397,8 @@ of the room - distracts you.
 
 Press either [1] or [2].
 
->
+> 2
+
    A heavy weight comes swinging for your face but you duck aside at the last
 moment ands it catches you little more than a glancing blow.
    "Damn you, Jacobson!" snarls the short, squat beady-eyed fellow clutching
@@ -425,7 +453,8 @@ behind.
 [2]  Keep quiet.
 [3]  Head to the driver's cabin and see if you can get the train underway.
 
->"I don't remember much," she says, not meeting your eyes. "It's weird. I know
+> 1
+"I don't remember much," she says, not meeting your eyes. "It's weird. I know
 my name and I know how old I am, but I don't remember much from before I
 arrived in Globrieska. I remember…" She squeezes her eyes shut and thinks. "I
 remember a long street and several men in a car. I remember one of them
@@ -440,7 +469,8 @@ speaking of them."
 [1]  Ask what she knows about Gemmin.
 [2]  Keep quiet.
 
->"He's mad," she says with feeling. "And sick. He used to recite poetry to me
+> 1
+"He's mad," she says with feeling. "And sick. He used to recite poetry to me
 as he was… carrying out his experiments. That's what he called them. As if
 attaching electrodes to my head and cutting my arms open was some kind of
 experimentation." Sharon sighs. "If you hadn't come along when you had done,
@@ -450,11 +480,13 @@ I don't know what would have happened. I think Gemmin might have… killed me…"
 [1]  Reach out and comfort her.
 [2]  Keep quiet.
 
->You put a hand on Sharon's shoulder and lower your mouth onto hers…
+> 1
+You put a hand on Sharon's shoulder and lower your mouth onto hers…
 
 Press either [1] or [2].
 
->And what follows is, without a doubt, the most invigorating experience you
+> 1
+And what follows is, without a doubt, the most invigorating experience you
 have had all day. Sharon seems hesitant at first but quickly becomes almost
 as eager as you are, eagerly stripping her clothes off and-
    "Well, well, what have we here?" asks a voice.
@@ -478,7 +510,8 @@ exit, is closed.
 [2]  Call to the others.
 [3]  Wait.
 
->Several minutes pass by uneventfully. This gives you the opportunity to study
+> 3
+Several minutes pass by uneventfully. This gives you the opportunity to study
 the room but little comes to light that you have not already seen. The
 breathing of Hans, Clause and Stefan echoes eerily around the close confines
 of the room, setting your teeth on edge.
@@ -487,7 +520,8 @@ of the room, setting your teeth on edge.
 [2]  Call to the others.
 [3]  Wait some more.
 
->More time passes as you wait, futilely, for something to happen. But just
+> 3
+More time passes as you wait, futilely, for something to happen. But just
 after you have begun to despair of anything happening, the door swings open
 and in strides a tall, bespectacled man leaning on a cane. With him are half
 a dozen men who have the bearing of professional soldiers. All are armed with
@@ -498,7 +532,8 @@ is Erik von Lastmere. No doubt you have heard of me."
 [1]  Tell him you have.
 [2]  Tell him you have not.
 
->"Yes, I thought you would know who I was. Our meeting has been fated for a
+> 1
+"Yes, I thought you would know who I was. Our meeting has been fated for a
 long time. But, of course, what is the more relevant question here is not
 whether you have heard of me but what you are here for. Some believe you are
 here to kill me. Gemmin, my assistant, certainly believes that and would kill
@@ -508,7 +543,8 @@ friend, why are you here?"
 [1]  "To kill you."
 [2]  "To join you."
 
->Von Lastmere raises an eyebrow. "Really? Some might think you a fool for
+> 1
+Von Lastmere raises an eyebrow. "Really? Some might think you a fool for
 daring to admit such a thing. After all, I am hardly going to be well
 disposed towards someone who has travelled to this miserable little hellhole
 of a town to end my existence. Yet…" von Lastmere smiles softly. "I admire
@@ -523,7 +559,8 @@ else is required."
 [1]  "Yes."
 [2]  "No."
 
->"I… thought you might say that," replies von Lastmere. He sounds
+> 2
+"I… thought you might say that," replies von Lastmere. He sounds
 disappointed. "Very well. I respect your decision. I shall be going now."
    He turns and leaves, the others trailing behind him. The door slams shut a
 moment later, leaving you once more alone in the cold and emotionless room.
@@ -532,31 +569,36 @@ moment later, leaving you once more alone in the cold and emotionless room.
 [1]  Smash the door down.
 [2]  Pick the lock.
 
->The idea holds merit for all of two seconds before you realise that you have
+> 2
+The idea holds merit for all of two seconds before you realise that you have
 no idea how to pick a lock. You will have to come up with something else.
 
 [1]  Smash it down.
 [2]  Call for help.
 
->You retreat several feet then throw yourself at the door.
+> 1
+You retreat several feet then throw yourself at the door.
 
 Press either [1] or [2].
 
->And bounce off, your shoulder throbbing with pain. The door does not even
+> 1
+And bounce off, your shoulder throbbing with pain. The door does not even
 appear to be dented.
 
 [1]  Try again.
 [2]  Pick the lock.
 [3]  Call for help.
 
->Again you throw yourself at the door, and again you bounce off. Your shoulder
+> 1
+Again you throw yourself at the door, and again you bounce off. Your shoulder
 fairly throbs with pain this time and you suspect another attempt might well
 break a few bones.
 
 [1]   Pick the lock.
 [2]  Call for help.
 
->A moment before you can shout, the door swings open. Sharon Elson stands
+> 2
+A moment before you can shout, the door swings open. Sharon Elson stands
 there.
    "I heard you moving around in there," she says. "I knew they'd have put
 you in here somewhere. Come on." She reaches for your hand. "We have to get
@@ -565,13 +607,15 @@ going before they come back."
 [1]  Go with her.
 [2]  Question her.
 
->"We don't have time for this, Carl," she says desperately, grabbing at your
+> 2
+"We don't have time for this, Carl," she says desperately, grabbing at your
 hand. "We have to get out of here!"
 
 [1]  Go with her.
 [2]  Ask her some questions.
 
->Eager to get out of here, you take Sharon's hand and let her lead you out of
+> 1
+Eager to get out of here, you take Sharon's hand and let her lead you out of
 the room and along a lengthy corridor.
    "I woke up a few hours ago," she explains. "No idea where I was but I was
 alone. Weird, huh? They capture me, torture me, you free me and then they
@@ -583,7 +627,8 @@ None of it makes any sense at all and I wonder…"
 [1]  Ask her to continue.
 [2]  Concentrate on escaping.
 
->"I wonder if this is some kind of game." Her voice breaks as she speaks the
+> 1
+"I wonder if this is some kind of game." Her voice breaks as she speaks the
 words. "None of it makes sense. Nothing. But if it's a game, what's the
 purpose of it all? Why-"
    Her words are cut off as the two of you round a corner and find yourself
@@ -603,7 +648,8 @@ have you killed for no other reason than I wish it so."
 [1]  Attack Gemmin.
 [2]  Ask him what is going on.
 
->"An experiment. As I said." Gemmin looks at you. "Von Lastmere's idea. Not
+> 2
+"An experiment. As I said." Gemmin looks at you. "Von Lastmere's idea. Not
 mine. Me, I like to keep things simple. Quiet. He has a liking for the
 dramatic. Hence Globrieska and the attack on the hotel and the corpses you
 will find outside this warehouse. But I keep my complaints to myself if it
@@ -612,7 +658,8 @@ allows me to continue my experiments."
 [1]  Attack Gemmin.
 [2]  Demand to see von Lastmere.
 
->Gemmin raises an eyebrow. "Making demands are you? Well, well. I'm half
+> 2
+Gemmin raises an eyebrow. "Making demands are you? Well, well. I'm half
 minded to have you shot for that. But…" He sighs. "As it happens, von
 Lastmere wants to see you anyway and would be most disappointed with me if I
 had you shot. Come then. To the lion's den with you. But you." He nods at
@@ -649,7 +696,8 @@ stop listening to him. Something about his voice is hypnotic.
 [1]  Listen.
 [2]  Attack him.
 
->"A weapon of the mind," von Lastmere goes on, "capable of destroying anything
+> 1
+"A weapon of the mind," von Lastmere goes on, "capable of destroying anything
 I direct it against. Tonight I experimented and destroyed the hotel in
 Globrieska. Only a small target, true, but the beginning of something much
 larger. Just imagine how proficient I can become with years of practice ahead
@@ -660,7 +708,8 @@ if he is to be believed, so do you. You have only choice to make here.
 
 [1]  Kill him.
 
->You move to attack von Lastmere - but find yourself raising your hand to
+> 1
+You move to attack von Lastmere - but find yourself raising your hand to
 strike a wall instead.
    Puzzled, you turn to face him again, raise your fist - and send it
 slamming into the door!
@@ -674,7 +723,8 @@ your true target."
 [1]  "How do you do that?"
 [2]  "None of this makes any sense."
 
->"My powers, of course," says von Lastmere. "The powers that you yourself
+> 1
+"My powers, of course," says von Lastmere. "The powers that you yourself
 have, although whereas yours have lain dormant all these years, mine have
 been actively used."
    "What do you want?"
@@ -684,7 +734,8 @@ the use of your powers, and together we shall rule as kings."
 [1]  "I agree."
 [2]  "Forget it."
 
->Surprisingly, von Lastmere laughs!
+> 2
+Surprisingly, von Lastmere laughs!
    "Oh, how I hoped you would say that!" he says. "This way… I get to break
 you to my will."
    He raises his hands as if about to perform some magic trick. The air about
@@ -695,13 +746,15 @@ you grows cold and ragged.
 [3]  Do nothing.
 [4]  Flee.
 
->As you move, von Lastmere brings his hands together in a clap which resounds
+> 1
+As you move, von Lastmere brings his hands together in a clap which resounds
 far more loudly than it should do.
    A force similar to a tidal wave comes smashing into you.
 
 Press either [1] or [2].
 
->The force slams into you but your own powers fend off the worst of the
+> 2
+The force slams into you but your own powers fend off the worst of the
 attack, leading you weak and winded but still alive.
    "Impressive," says von Lastmere. "But I would have been disappointed if
 that feeble thing managed to destroy you."
@@ -712,7 +765,8 @@ that feeble thing managed to destroy you."
 [3]  Do nothing.
 [4]  Flee.
 
->Von Lastmere hesitates as you stand there, not even attempting to protect
+> 3
+Von Lastmere hesitates as you stand there, not even attempting to protect
 yourself. His hesitation is his undoing as he loses, only momentarily, his
 grasp of the strange powers he possesses. At that moment, you lunge forward
 and strike him across the temple. Not a hard blow, not even one possessing
@@ -747,4 +801,5 @@ have just reached is one of many.
 If you want another go: RESTART takes you back to the start of the game while
 LOAD will reload your last saved game position.
 
->Do you really want to quit? [Y/N]
+> quit
+Do you really want to quit? [Y/N]

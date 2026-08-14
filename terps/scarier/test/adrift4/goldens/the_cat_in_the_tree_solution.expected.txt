@@ -26,7 +26,8 @@ On a Sidewalk Under a Tree
 city. There is a woman - a very attractive woman - standing beside you
 looking up into the tree.
 
->   "I hope you don't mind but I would like to borrow your ladder to rescue
+> ask huey for ladder
+   "I hope you don't mind but I would like to borrow your ladder to rescue
 the cat in the tree," you say to Huey.
   He allows you to take the ladder.
   A car drives by on the street, hitting a small puddle near the curb that
@@ -35,7 +36,8 @@ splashes up, soaking your right foot.
 couple of steps, she asks, "I hear a squeaking noise! Is that a mouse?"
   "No," you reply with disdain, "it's my newly bathed foot."
 
->  You stagger over to the tree, your 5'-4" tall 110 pound frame dragging the
+> lean ladder against tree
+  You stagger over to the tree, your 5'-4" tall 110 pound frame dragging the
 ladder behind you, and place it against the trunk up into the branches.
 
 Huey the Contractor walks by and stops
@@ -44,32 +46,38 @@ Huey the Contractor walks by and stops
 A young boy arrives under the tree
 .
 
->  You thank the little girl as you take the cup of milk.
+> ask girl for milk
+  You thank the little girl as you take the cup of milk.
   "Your welcome. You owe me 25 cents!" she says, handing it to you.
 
->  You tenuously climb the rungs up to the top. Reaching up, the cat is still
+> climb up ladder
+  You tenuously climb the rungs up to the top. Reaching up, the cat is still
 out of reach.
   It turns, looks at you and hisses. Then the cute little pussy saunters a
 few feet, and jumps up higher into the tree.
 
->  Leaning over precariously, you grab onto a branch and carefully pull
+> climb up tree
+  Leaning over precariously, you grab onto a branch and carefully pull
 yourself up into the tree branches. Balancing carefully, you make your way to
 where the cat lies, watching you.
 
->(Your score has increased by 50)
+> offer cup of milk to cat
+(Your score has increased by 50)
   Offering the cupful of milk to the cat, it meows gently and approaches you.
 You wait, still as possible as the cat begins licking the milk. Reaching out
 gently, you grab the cat easily and bring it close to you.
   The crowd below you renders a hearty cheer...
   "Yay!"
 
->  Offering the cupful of milk to the cat, it meows gently and approaches you.
+> get cat
+  Offering the cupful of milk to the cat, it meows gently and approaches you.
 You wait, still as possible as the cat begins licking the milk. Reaching out
 gently, you grab the cat easily and bring it close to you.
   The crowd below you renders a hearty cheer...
   "Yay!"
 
->  As you carefully begin to lower yourself down the shaky ladder, you lose
+> climb down ladder
+  As you carefully begin to lower yourself down the shaky ladder, you lose
 your balance and end up sliding down the last few rungs to the sidewalk,
 bruising your shins.
   "Ow!" you holler.

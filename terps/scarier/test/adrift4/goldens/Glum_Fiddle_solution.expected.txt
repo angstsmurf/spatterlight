@@ -10,7 +10,9 @@ Read the Credits
 Restore a saved game
 
 >
->Tiny Gatehouse
+
+> game
+Tiny Gatehouse
 All around you gorse, gnarled trees and tough, spiky grass struggles to grow.
 A tiny cottage nestles between a couple of large boulders. Blackberry vines
 trail across the boulders and the mossy roof of the cottage. A sign in front
@@ -21,7 +23,8 @@ paint.
 
 An Irish Wolfhound is by the tiny gatehouse
 
->
+> say cow
+
 'A cow.' You say.
 
 'Is that your final answer?'
@@ -34,7 +37,8 @@ says, 'What kind of witch lives on the beach?'
 
 You think. Hard.
 
->
+> say sandwich
+
 'A sandwich!' you exclaim triumphantly.
 
 'Very good for you. You are a very intellegent organism.' The dog sits down
@@ -89,7 +93,8 @@ Press any key
 'What' asks the dog, 'Goes 'moo', produces milk, and eats grass?'
 (use format 'say ...')
 
->
+> say ache
+
 'Ache!' you shriek. This is almost as much fun as saving your parents will
 be.
 
@@ -99,15 +104,19 @@ wanted. He'll see you now.'
 A loud creaking noise causes you to jump, and the great iron gate opens wide,
 seemingly of it's own accord.
 
->'Um, er, hello?' you say timidly.
+> say hello
+'Um, er, hello?' you say timidly.
 
 'WRONG!' barks the dog and promptly disappears into his house.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 As you stare at the imposing and impossible gate, you hear a little bell
 ringing. Looking back along the path towards the village, you see a tiny pony
 and trap being driven towards you.
@@ -142,9 +151,10 @@ now.'
 With a screech and a groan, the gate opens, seemingly of it's own accord. As
 you gaze in wonder, the man and trap leave.
 
->Time passes...
+> wait
+Time passes...
 
->
+> e
 
 Cave entrance
 At least 20 feet high, the entrance to the cave has a massive wrought iron
@@ -154,7 +164,8 @@ the cave is pitch black, in stark contrast to the bright day outside.
 The tiny gatehouse is west, and giant's valley is east.
 An Ogre sits gloomily, his eyes shining redly.
 
->You move east.
+> e
+You move east.
 
 Pile of boulders
 Glum Fiddle's valley is a large space between steep cliff faces that reach up
@@ -175,47 +186,67 @@ grin and flourishes an arm. 'Please, sit in my parlor!' He exclaims, loudly
 enough to be heard as far as the great city. You try to find a boulder that
 isn't too sharp, but it's nearly impossible. Glum continues to stand.
 
->You take a branch by the cool end.
+> take branch
+You take a branch by the cool end.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
 Glum suddenly turns and heads south.
 
->You take the large pink, tasseled cushion.
+> take cushion
+You take the large pink, tasseled cushion.
 
->You take the lace doily.
+> take doily
+You take the lace doily.
 
->You take the oil lamp.
+> take lamp
+You take the oil lamp.
 
->You take the silver tray.
+> take tray
+You take the silver tray.
 
->You take the silver teapot.
+> take teapot
+You take the silver teapot.
 
->You take the set of china cups.
+> take cups
+You take the set of china cups.
 
->You take the wooden plank.
+> take plank
+You take the wooden plank.
 
->You light the lamp with the hot end of the branch you pulled out of the fire.
+> light lamp with branch
+You light the lamp with the hot end of the branch you pulled out of the fire.
 
->You put the large pink, tasseled cushion inside the hessian sack.
+> put cushion in sack
+You put the large pink, tasseled cushion inside the hessian sack.
 
->You put the lace doily inside the hessian sack.
+> put doily in sack
+You put the lace doily inside the hessian sack.
 
->You put the oil lamp inside the hessian sack.
+> put lamp in sack
+You put the oil lamp inside the hessian sack.
 
->You put the silver tray inside the hessian sack.
+> put tray in sack
+You put the silver tray inside the hessian sack.
 
->You put the silver teapot inside the hessian sack.
+> put teapot in sack
+You put the silver teapot inside the hessian sack.
 
->You put the set of china cups inside the hessian sack.
+> put cups in sack
+You put the set of china cups inside the hessian sack.
 
->You move north.
+> n
+You move north.
 
 Pigsty
 To the north of the boulders, at the lower end of the valley, is a simple
@@ -226,13 +257,16 @@ holding slops, are lined up on the outside of the sty.
 A cool breeze comes from the east, where a glacier terminates, pushing
 boulders ahead of it in its inexorable path down the mountain.
 
->You open the gate and the pigs, large friendly beasts, rush out and begin
+> open gate
+You open the gate and the pigs, large friendly beasts, rush out and begin
 rooting around outside the sty. One of them knocks over one of the barrels,
 which is partly full of barley, and the two pigs tuck in.
 
->You drop the plank across the crevasse.
+> drop plank
+You drop the plank across the crevasse.
 
->You move south.
+> s
+You move south.
 
 Pile of boulders
 Glum Fiddle's valley is a large space between steep cliff faces that reach up
@@ -245,7 +279,8 @@ large ring of stones encloses a smoldering fire.
 There's a pigsty to the north, a briar patch to the east, a patch of forest
 to the southeast, and a swamp to the south. The cave entrance is to the west.
 
->You move south.
+> s
+You move south.
 
 Swamp
 A swamp fills the lower end of the valley - it must be a sinkhole of
@@ -258,9 +293,11 @@ east.
 
 The giant is here, and let's out belch that makes you wince.
 
->You scoop up some slime from the marsh with the teapot.
+> take slime in teapot
+You scoop up some slime from the marsh with the teapot.
 
->You move north.
+> n
+You move north.
 
 Pile of boulders
 Glum Fiddle's valley is a large space between steep cliff faces that reach up
@@ -273,7 +310,8 @@ large ring of stones encloses a smoldering fire.
 There's a pigsty to the north, a briar patch to the east, a patch of forest
 to the southeast, and a swamp to the south. The cave entrance is to the west.
 
->You move west.
+> w
+You move west.
 
 Cave entrance
 At least 20 feet high, the entrance to the cave has a massive wrought iron
@@ -288,7 +326,8 @@ cavern.
 You can now see that there is a tunnel leading northward.
 An Ogre sits gloomily, his eyes shining redly.
 
->You take the lace doily from the hessian sack.
+> take doily from sack
+You take the lace doily from the hessian sack.
 
 The Ogre takes a deep breath, and, without preamble, goes:
 
@@ -309,10 +348,12 @@ Pretty cow, go there and dine.
 
 What is it with cows? You wonder.
 
->You pull on the frayed edge of the doily and unravel it to one very long,
+> unravel doily
+You pull on the frayed edge of the doily and unravel it to one very long,
 thin piece of cotton. It's been waxed, so it's particularly strong.
 
->You tie the cotton around the stalagmites at about waist height. If the giant
+> tie doily to stalagmites
+You tie the cotton around the stalagmites at about waist height. If the giant
 comes charging in here, hopefully it'll trip him up. You suddenly remember
 the Ogre, faithful enough to Glum to recite poetry to newcomers.
 
@@ -336,7 +377,8 @@ thought'a that.'
 The Ogre does as he's told, and your parents pat you on the back and say
 'chip off the old block' and 'I knew she'd be clever from the womb.'
 
->You move east.
+> e
+You move east.
 
 Pile of boulders
 Glum Fiddle's valley is a large space between steep cliff faces that reach up
@@ -349,7 +391,8 @@ large ring of stones encloses a smoldering fire.
 There's a pigsty to the north, a briar patch to the east, a patch of forest
 to the southeast, and a swamp to the south. The cave entrance is to the west.
 
->You move north.
+> n
+You move north.
 
 Pigsty
 To the north of the boulders, at the lower end of the valley, is a simple
@@ -362,7 +405,8 @@ boulders ahead of it in its inexorable path down the mountain.
 
 Also here is a wooden plank.
 
->Jubilant, you rush across the wooden plank, which creaks under your weight.
+> e
+Jubilant, you rush across the wooden plank, which creaks under your weight.
 
 Glacier
 A small glacier has slowly and achingly pushed its way down the mountain
@@ -395,10 +439,12 @@ out of here.'
 
 'Jolly good!' They say in unison.
 
->You quickly cut the ropes off your parents with the dagger, and they jump up
+> cut the ropes with the dagger
+You quickly cut the ropes off your parents with the dagger, and they jump up
 and smother you with hugs and thanks, then rub thier sore wrists.
 
->You and your now-unbound parents scurry across the creaking plank one by one.
+> w
+You and your now-unbound parents scurry across the creaking plank one by one.
 As your (not exactly small) mother totters across, you hear a loud crack, but
 the plank holds.
 
@@ -425,7 +471,8 @@ amenable nature could turn very bad very quickly.
 
 Glum Fiddle can be heard coming closer, humming a little ditty to himself.
 
->'I have an idea!' You stage-whisper to your agog parents. 'Get in the
+> get in barrel
+'I have an idea!' You stage-whisper to your agog parents. 'Get in the
 barrels! C'mon quick! Hide!'
 
 They shrug and agree, and the three of you climb in. Luckily the barrels is
@@ -446,30 +493,38 @@ giant didn't.
 You father sheilds his eyes when he sees Glum Fiddle's silver tea tray. 'Gad,
 that's bright.'
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
 You take a quick peek in the direction from which Glum is coming, and see the
 top of his carroty head coming over the rise.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 You hear a great roar as Glum, silly enough to step on the cracked plank
 instead of simply stepping over the chasm, falls into it's unknown depths.
 His continued roaring tells you he hasn't exactly died. He may not stay down
 there long.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->
+> get out of barrel
 
 You clamber out of the barrel and call to your parents to do the same. You
 aren't sure where the Giant is - perhaps he's fallen in the chasm, although
@@ -493,7 +548,8 @@ holding slops, are lined up on the outside of the sty.
 A cool breeze comes from the east, where a glacier terminates, pushing
 boulders ahead of it in its inexorable path down the mountain.
 
->You move south.
+> s
+You move south.
 
 Pile of boulders
 Glum Fiddle's valley is a large space between steep cliff faces that reach up
@@ -506,7 +562,8 @@ large ring of stones encloses a smoldering fire.
 There's a pigsty to the north, a briar patch to the east, a patch of forest
 to the southeast, and a swamp to the south. The cave entrance is to the west.
 
->You move west.
+> w
+You move west.
 
 Cave entrance
 At least 20 feet high, the entrance to the cave has a massive wrought iron
@@ -520,7 +577,8 @@ cavern.
 
 You can now see that there is a tunnel leading northward.
 
->You move north.
+> n
+You move north.
 
 Sloping tunnel
 The tunnel slopes upward, the stone around you slick and damp. You can barely
@@ -530,36 +588,44 @@ imagine that'll keep him back for too long.' Your father says. 'In fact, we
 may even be increasing his rage...'. But you don't care, you just want to get
 out of here.
 
->You take the silver teapot from the hessian sack.
+> take teapot from sack
+You take the silver teapot from the hessian sack.
 
->You pour the slime out of the teapot onto the smooth sloping floor of the
+> pour slime on the ground
+You pour the slime out of the teapot onto the smooth sloping floor of the
 tunnel. It oozes down the tunnel.
 
->You move north.
+> n
+You move north.
 
 Mountain Ridge
 This razor-backed mountain ridge stretches right up to the nearest peak of
 the mountains that ring Glum Fiddle's Valley. A narrow path leads downward,
 towards the river and the town.
 
->You take the set of china cups from the hessian sack.
+> take cups from sack
+You take the set of china cups from the hessian sack.
 You hear a Whoosh and a Crash and various curses in Giant as Glum Fiddle
 slides down the tunnel of slime. You and your parents dissolve into laughter.
 
->You throw the cups down the mountainside, where they roll around.
+> drop cups
+You throw the cups down the mountainside, where they roll around.
 
->You move down.
+> d
+You move down.
 
 Cliff
 The path down the mountain terminates at the end of a sheer cliff face. A
 hundred feet or so down, there is a ledge, and the path can be seen resuming
 its way into the forest.
 
->You take the silver tray from the hessian sack.
+> take tray from sack
+You take the silver tray from the hessian sack.
 Glum Fiddle shrieks when he sees his cups rolling all over the mountainside.
 Frantically he paws at them and chases them down the hill out of sight.
 
->You drop the tray on the mountain side, positioning it against the angle of
+> drop tray
+You drop the tray on the mountain side, positioning it against the angle of
 the sun reflecting down the mountain side. With any luck it will blind the
 giant, or at least distract him, as he climbs after you.
 Sure enough, as he charges up the slope after you, only marginally delayed by
@@ -567,12 +633,15 @@ the china cup-gathering, Glum sheilds his eyes from the glare of the sun off
 the silver tray, then runs off in the wrong direction, shouting
 unintelligably the entire time.
 
->You take the large pink, tasseled cushion from the hessian sack.
+> take cushion from sack
+You take the large pink, tasseled cushion from the hessian sack.
 
->You toss the cushion over the edge of the cliff. Luckily it's a very large
+> throw cushion
+You toss the cushion over the edge of the cliff. Luckily it's a very large
 cushion, and lands squarely below you.
 
->'Mother, father, if I don't land safely, I'd like you to know...'
+> jump
+'Mother, father, if I don't land safely, I'd like you to know...'
 
 Your mother interrupts you.'Dear, we will send notification to Prince
 Charmless that he is free to look elsewhere.' You all laugh, and you face the

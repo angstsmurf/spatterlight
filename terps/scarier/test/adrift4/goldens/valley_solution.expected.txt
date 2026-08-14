@@ -38,7 +38,8 @@ Directly to the north is an oak tree. To your east is a tiny, picturesque
 cottage, while to the west, a pitted stone cliff surrounded by a cluster of
 boulders slopes steeply upward.
 
->As you come up on the mine entrance you're accosted by a fat little gnome,
+> w
+As you come up on the mine entrance you're accosted by a fat little gnome,
 huffing and puffing in indignation and waving a list under your nose. "Now
 see here! As foreman of the Gnome Miners Union I'm here to say we've have had
 enough! We're tired of the way things are run around here and we aren't going
@@ -53,11 +54,13 @@ so-and-so to up and leave just as we get organized..." Then he crosses his
 arms and glares at you. "Doesn't change anything though, we're still on
 strike until our demands are met."
 
->"We're on strike! No gnome's going to do one bit of mining or have anything
+> ask foreman about strike
+"We're on strike! No gnome's going to do one bit of mining or have anything
 to do with adventurers until our demands are met! Even the dragon is fed up
 with how this place is run!"
 
->"We've got dozens of them!" the Foreman shouts, angrily stamping his foot.
+> ask foreman about demands
+"We've got dozens of them!" the Foreman shouts, angrily stamping his foot.
 "We're tired of being expected to sing while we work and be so jolly all the
 time, we're tired of always being the ones to hand out the low-level fetch
 quests, we're tired of having to work overtime every time some newbie gets
@@ -72,9 +75,11 @@ time being expected to run around in a mine all day hoping rocks don't fall
 on our heads. If you'll order us some proper construction hats, I'll bet I
 can talk the miners into at least giving you a chance."
 
->You pick up the pair of gardening gloves.
+> get gloves
+You pick up the pair of gardening gloves.
 
->You move east.
+> e
+You move east.
 
 Happy Valley
 You stand next to a large wooden sign at the end of a grassy, well-manicured
@@ -86,34 +91,43 @@ Directly to the north is an oak tree. To your east is a tiny, picturesque
 cottage, while to the west, a pitted stone cliff surrounded by a cluster of
 boulders slopes steeply upward.
 
->You reach down and tear one of the purple-spotted leaves off the plant. It's
+> get weeds
+You reach down and tear one of the purple-spotted leaves off the plant. It's
 kind of prickly.
 
->You move north.
+> n
+You move north.
 
 Beneath the Great Oak
 On closer inspection, you'd have to say the Great Oak could more accurately
 be called the Average Oak, but you suppose that doesn't have quite the same
 ring to it. It's still impressive though. Sort of. You guess. Yawn.
 
->Using a low-hanging branch to get started, you clamber awkwardly up the tree.
+> u
+Using a low-hanging branch to get started, you clamber awkwardly up the tree.
 
->A nest made of twigs and decorated with a fascinating array of old feathers
+> x nest
+A nest made of twigs and decorated with a fascinating array of old feathers
 and scraps of paper and bird droppings and oh yes, a shiny plastic pen.
 
->You notice that one of the scraps has the number 3436 scrawled on it and your
+> x scrap
+You notice that one of the scraps has the number 3436 scrawled on it and your
 puzzle sense starts tingling.
 
->You pocket the pen, mentally congratulating yourself. That stupid bird
+> get pen
+You pocket the pen, mentally congratulating yourself. That stupid bird
 probably thinks its so smart but you certainly showed it, now didn't you?
 
->You take the piece of bark, wishing you could think of something more
+> get bark
+You take the piece of bark, wishing you could think of something more
 interesting to do.
 
->Using the power of gravity, you're able to get down from the tree much more
+> d
+Using the power of gravity, you're able to get down from the tree much more
 quickly (and painfully) than you got up it.
 
->You move south.
+> s
+You move south.
 
 Happy Valley
 You stand next to a large wooden sign at the end of a grassy, well-manicured
@@ -125,7 +139,8 @@ Directly to the north is an oak tree. To your east is a tiny, picturesque
 cottage, while to the west, a pitted stone cliff surrounded by a cluster of
 boulders slopes steeply upward.
 
->You move east.
+> e
+You move east.
 
 Outside the Cottage
 The small cottage is made of sand-colored bricks and has a roof of wooden
@@ -134,7 +149,8 @@ round little bushes bearing ripe, succulent berries. Yellow flowers sprout
 from a basket that hangs next to the small window, and the whole place has a
 homey, welcoming atmosphere. There is a mailbox next to the door.
 
->You carefully select the ripest and tastiest looking berry, only to realize
+> get berry
+You carefully select the ripest and tastiest looking berry, only to realize
 that it's not quite as perfect as you thought. In fact, on closer inspection
 all of the berries have the same flaw, printed across them in tiny black
 letters. Warning: I am POISONOUS. You will die if you eat me!
@@ -142,7 +158,8 @@ letters. Warning: I am POISONOUS. You will die if you eat me!
 You marvel at the fact that so many letters were able to fit on such a tiny
 berry. Nature is truly a wondrous thing.
 
->You move east.
+> e
+You move east.
 
 Curator's Office
 It's rather jarring how the outwardly adorable little cottage loses its
@@ -152,11 +169,14 @@ room, making it feel rather cramped. There's a sorry excuse for a potted
 plant in one corner, and a tall file cabinet jammed in the other, half
 blocking the room's only window.  A bathroom is to the east.
 
->You open the file cabinet.  Some order forms are inside the file cabinet.
+> open file cabinet
+You open the file cabinet.  Some order forms are inside the file cabinet.
 
->You take the order forms from the file cabinet.
+> get order forms
+You take the order forms from the file cabinet.
 
->To Do List
+> x list
+To Do List
 
 embezzle funds
 
@@ -169,21 +189,26 @@ comes aga--
 
 The text trails off into an unreadable squiggle at the end.
 
->You take the empty plastic cup from the waste basket.
+> get cup
+You take the empty plastic cup from the waste basket.
 
->You move east.
+> e
+You move east.
 
 Bathroom
 A tiny cramped bathroom painted a fascinating shade of beige and containing a
 sink and a toilet. Your office is back to the west.
 
->You turn on the sink, and in a shocking turn of events water gushes out of
+> turn on sink
+You turn on the sink, and in a shocking turn of events water gushes out of
 it.
 
->You fill up the cup, then turn off the sink like the good water-preserving
+> fill cup
+You fill up the cup, then turn off the sink like the good water-preserving
 person you are.
 
->You move west.
+> w
+You move west.
 
 Curator's Office
 It's rather jarring how the outwardly adorable little cottage loses its
@@ -193,7 +218,8 @@ room, making it feel rather cramped. There's a sorry excuse for a potted
 plant in one corner, and a tall file cabinet jammed in the other, half
 blocking the room's only window.  A bathroom is to the east.
 
->"There you go, drink up little guy."
+> water plant
+"There you go, drink up little guy."
 
 You empty the cup of water onto the thirsty plant, and within moments the
 leaves have returned to a healthy shade of green and unfurled to reveal a
@@ -201,9 +227,11 @@ small white flower with five pointed petals.
 
 Wow, you're a better gardener than you thought.
 
->You carefully pluck the little white flower from the plant.
+> get flower
+You carefully pluck the little white flower from the plant.
 
->"All right, let's see here, I want a crate full of yellow construction
+> fill out forms
+"All right, let's see here, I want a crate full of yellow construction
 hats..."
 
 It takes some time; sounding out the words, going back and rereading certain
@@ -217,7 +245,8 @@ drawing a smiley face next to it just because you're a nice person like that.
 Just as you finish, a small bird-shaped blur swoops in, kicks you in the
 knee, pecks you in the eyeball, and flies off with your pen. What a dick.
 
->You move west.
+> w
+You move west.
 
 Outside the Cottage
 The small cottage is made of sand-colored bricks and has a roof of wooden
@@ -226,13 +255,16 @@ round little bushes bearing ripe, succulent berries. Yellow flowers sprout
 from a basket that hangs next to the small window, and the whole place has a
 homey, welcoming atmosphere. There is a mailbox next to the door.
 
->You toss the order form into the mailbox, then raise the little red flag.
+> mail form
+You toss the order form into the mailbox, then raise the little red flag.
 There is a flash of blue light, then a heavy crate drops on your foot and
 makes you scream like a little girl.
 
->You pick up the crate.
+> get crate
+You pick up the crate.
 
->You move west.
+> w
+You move west.
 
 Happy Valley
 You stand next to a large wooden sign at the end of a grassy, well-manicured
@@ -244,7 +276,8 @@ Directly to the north is an oak tree. To your east is a tiny, picturesque
 cottage, while to the west, a pitted stone cliff surrounded by a cluster of
 boulders slopes steeply upward.
 
->You move south.
+> s
+You move south.
 
 Thicket
 The path you're on meanders back and forth among tall, silver-barked trees,
@@ -253,9 +286,11 @@ bloom all over the place, despite the leaves and intricate twining of the
 branches overhead blocking out most of the sunlight.
 Armolas Blueleaf is perched in a tree.
 
->You put on the pair of gardening gloves.
+> wear gloves
+You put on the pair of gardening gloves.
 
->Cautiously, you sneak up on one of the wildflowers and then grab it from
+> get wildflowers
+Cautiously, you sneak up on one of the wildflowers and then grab it from
 behind. It puts up a hell of a fight, writhing and snapping at your fingers
 and squeaking curses at you in six different forgotten languages, but the
 fangs can't penetrate your gloves and finally it lets out an unearthly shriek
@@ -264,7 +299,8 @@ and falls limp as you rip it from the ground.
 That was fun! After all this is over you might just take up gardening after
 all...
 
->You move north.
+> n
+You move north.
 
 Happy Valley
 You stand next to a large wooden sign at the end of a grassy, well-manicured
@@ -276,7 +312,8 @@ Directly to the north is an oak tree. To your east is a tiny, picturesque
 cottage, while to the west, a pitted stone cliff surrounded by a cluster of
 boulders slopes steeply upward.
 
->You move west.
+> w
+You move west.
 
 Outside the Mine
 A lovely rock garden consisting of boulders of varying sizes has been
@@ -289,7 +326,8 @@ Goospaduggle hums cheerfully to herself while fussing over a cauldron near
 the entrance.  Foreman Fogofoogo is here, reading over a list of complaints
 and muttering to himself.
 
->"Say! What's this now?" Foreman Fogofoogo exclaims. "Yellow construction
+> give crate to foreman
+"Say! What's this now?" Foreman Fogofoogo exclaims. "Yellow construction
 hats, with lights and everything, aye? Well, maybe you aren't so bad after
 all!"
 
@@ -299,7 +337,8 @@ helmets now, and to have a boss who takes 'em seriously that they've agreed
 to end the strike! We'll all start working again just as soon as the Valley
 reopens."
 
->"You're in luck! Sleeping potions are my specialty!" The old gnome gleefully
+> ask granny about potion
+"You're in luck! Sleeping potions are my specialty!" The old gnome gleefully
 rubs her hands together. "Now let's see, it'll have to be strong enough to
 knock out a dragon, so I'll need...hmm..." Goospaduggle pulls a tattered
 scroll out of her robe and scrutinizes it a moment before handing it to you.
@@ -313,7 +352,8 @@ plants, so--"
 Goospaduggle cuts you off, makes a shooing motion. "You're a bright boy, I'm
 sure you'll figure it out. Run along now."
 
->Extra-Strength Sleeping Potion
+> x scroll
+Extra-Strength Sleeping Potion
 
 one red globe berry
 one purple spotted leaf
@@ -321,27 +361,33 @@ one starflower bloom
 one piece of boring bark
 one blossom of demonflower
 
->"Aha! Perfect, this is just what I need!" Goospaduggle takes the proferred
+> give purple leaf to granny
+"Aha! Perfect, this is just what I need!" Goospaduggle takes the proferred
 item with a toothy grin. "Now remember, I'll need some sort of container to
 put the potion in when you're ready."
 
->"Aha! Perfect, this is just what I need!" Goospaduggle takes the proferred
+> give berry to granny
+"Aha! Perfect, this is just what I need!" Goospaduggle takes the proferred
 item with a toothy grin. "Now remember, I'll need some sort of container to
 put the potion in when you're ready."
 
->"Aha! Perfect, this is just what I need!" Goospaduggle takes the proferred
+> give wildflower to granny
+"Aha! Perfect, this is just what I need!" Goospaduggle takes the proferred
 item with a toothy grin. "Now remember, I'll need some sort of container to
 put the potion in when you're ready."
 
->"Aha! Perfect, this is just what I need!" Goospaduggle takes the proferred
+> give bark to granny
+"Aha! Perfect, this is just what I need!" Goospaduggle takes the proferred
 item with a toothy grin. "Now remember, I'll need some sort of container to
 put the potion in when you're ready."
 
->"Aha! Perfect, this is just what I need!" Goospaduggle takes the proferred
+> give starflower to granny
+"Aha! Perfect, this is just what I need!" Goospaduggle takes the proferred
 item with a toothy grin. "Now remember, I'll need some sort of container to
 put the potion in when you're ready."
 
->"Here, will this do?"
+> give cup to granny
+"Here, will this do?"
 
 Goospaduggle take the cup, examines it briefly and nods. "Righto sonny, one
 extra-strength sleeping potion coming right up!"
@@ -354,7 +400,8 @@ of smoke shaped like a giant 'Z' rises lazily from the bubbling brew.
 the brim and presses it into your hands. "Now, just go give this to that
 cranky old dragon and it should send her off to dreamland for a bit."
 
->You move west.
+> w
+You move west.
 
 Gnomish Mines
 Here the cave widens out to a large, roughly triangular chamber. Twisty
@@ -367,7 +414,8 @@ marked with a small silver sign and a charred wooden signpost , respectively.
 Several little wheelbarrows filled with ore and mining tools sit abandoned
 here.
 
->The signpost said that Silverbeard's Smithy was down this tunnel, therefore
+> s
+The signpost said that Silverbeard's Smithy was down this tunnel, therefore
 you are a bit surprised when instead of a shop selling weapons and armor, you
 run smack into a wall.
 
@@ -389,7 +437,8 @@ seems to be just daring you to argue with her. "That's the entire point of my
 being here, since you apparently haven't figured it out yet. So if you were
 headed there for the sword, you're just out of luck."
 
->Hmm.
+> give potion to dragon
+Hmm.
 
 It occurs to you now that maybe you should have given a bit of thought to how
 you're going to convince the dragon to even drink this stuff, but hindsight
@@ -416,7 +465,8 @@ of hands takes a cup from you and drinks it down, all you know is that a
 moment later there is a massive THUD that makes the whole cavern shake, and
 when you look again the dragon is sprawled out and snoring.
 
->You move south.
+> s
+You move south.
 
 Silverbeard's Smithy
 As one might expect in a smithy, a large anvil and forge dominate the center
@@ -425,16 +475,19 @@ just slightly out of place, and hanging from the wall behind it is a
 disorganized collection of tools, weapons, and other odds and ends.
 Silverbeard is reclining with his feet on his desk, reading a magazine.
 
->Silverbeard either has an amazingly complicated organization system, or none
+> x tools
+Silverbeard either has an amazingly complicated organization system, or none
 at all. You suspect the latter.
 
 Weapons and tools and other things you can't identify seem to have been just
 randomly stuck to the wall, except for the crowbar that you notice has fallen
 off its hook and lies all alone and forgotten on the ground.
 
->You pick up the crowbar.
+> get crowbar
+You pick up the crowbar.
 
->Silverbeard glances up a little reluctantly from his magazine. "Ah yes,
+> ask silverbeard about sword
+Silverbeard glances up a little reluctantly from his magazine. "Ah yes,
 you'll be wanting the Dragonbane, broken blade of legend and the only weapon
 that can defeat Singewing." He hesitates, then shrugs. "There's this quest
 you're supposed to do, collecting all the pieces and whatnot before I give it
@@ -451,14 +504,16 @@ Silverbeard hands you the sword and waves you toward the door. "Now run
 along, I've got work to do..." he says, picking up his magazine again and
 thumbing through the pages.
 
->You exit the smithy, the newly acquired Dragonbane held proudly aloft...at
+> n
+You exit the smithy, the newly acquired Dragonbane held proudly aloft...at
 least until a tail whips out and sends the sword flying out of your hands as
 you go sprawling. Again.
 
 Singewing is awake. "As much as I enjoyed the nap, I'll have to ask you not
 to do that ever again..." she says with a dangerous glint in her eyes.
 
->After a mere two or three minutes of whimpering and checking yourself over
+> get sword
+After a mere two or three minutes of whimpering and checking yourself over
 for broken bones after your sudden impact with the floor, you dive for the
 sword and whirl to face the dragon, just like Conan would!
 
@@ -468,7 +523,8 @@ that the pointy end is facing her, then continue. "No more will you terrorize
 the gentle inhabitants of these mines by...uh...evilly sleeping in the wrong
 room, I guess! For the power of the Dragonbane shall defeat you!"
 
->Screaming a battle cry, you charge forward, raising the sword high and
+> defeat dragon
+Screaming a battle cry, you charge forward, raising the sword high and
 bringing it down on the dragon's neck as hard as you can...
 
 ...it bounces harmlessly off. Well, not quite harmlessly, since the force of
@@ -495,10 +551,12 @@ plastic flying in every direction. "Ahhh..." she sighs wistfully, staring off
 into space, "What I wouldn't give for something made out of actual silver or
 gold..."
 
->Singewing heaves a sigh. "I'm surrounded by cheap garbage. What I want is
+> ask dragon about treasure
+Singewing heaves a sigh. "I'm surrounded by cheap garbage. What I want is
 something real for my hoard."
 
->You move north.
+> n
+You move north.
 
 Gnomish Mines
 Here the cave widens out to a large, roughly triangular chamber. Twisty
@@ -511,12 +569,14 @@ marked with a small silver sign and a charred wooden signpost , respectively.
 Several little wheelbarrows filled with ore and mining tools sit abandoned
 here.
 
->As you step outside the mines, Goospaduggle glances up, looking amused. "I
+> e
+As you step outside the mines, Goospaduggle glances up, looking amused. "I
 take it you met our dragon? She can be a tough one when she has a mind
 to...sometimes there's just no reasoning with her and we have to give 'er a
 sleeping potion just to get by."
 
->You move east.
+> e
+You move east.
 
 Happy Valley
 You stand next to a large wooden sign at the end of a grassy, well-manicured
@@ -528,7 +588,8 @@ Directly to the north is an oak tree. To your east is a tiny, picturesque
 cottage, while to the west, a pitted stone cliff surrounded by a cluster of
 boulders slopes steeply upward.
 
->You move south.
+> s
+You move south.
 
 Thicket
 The path you're on meanders back and forth among tall, silver-barked trees,
@@ -537,7 +598,8 @@ bloom all over the place, despite the leaves and intricate twining of the
 branches overhead blocking out most of the sunlight.
 Armolas Blueleaf is perched in a tree.
 
->"My silver goblet? I couldn't possibly..." the elf hesitates and thinks for a
+> ask elf about goblet
+"My silver goblet? I couldn't possibly..." the elf hesitates and thinks for a
 moment, "...hmm, I don't know, on second thought I might consider letting you
 have it if you did a favor for me."
 
@@ -560,20 +622,24 @@ et it."
 
 "Oh...okay then."
 
->You enter the combination and the lock pops open with a satisfying click. Ha!
+> enter 3436 on lock
+You enter the combination and the lock pops open with a satisfying click. Ha!
 Take that, lock!
 
->Hmm...uh-oh. It seems that sitting out in the woods for who knows how long
+> open box
+Hmm...uh-oh. It seems that sitting out in the woods for who knows how long
 and getting rained on is not very good for iron things. The box is rusted
 quite firmly shut.
 
->You slip the crowbar under the lip of the iron lid and with a grunt and a
+> pry box open
+You slip the crowbar under the lip of the iron lid and with a grunt and a
 squeal and a few other bizarre noises mange to pry it open.
 
 Inside is a CD player hooked up to some wires that run into a pipe in the
 ground.
 
->You reach in and switch off the player. The display flickers, dies, and
+> turn off cd player
+You reach in and switch off the player. The display flickers, dies, and
 blessed silence fills the air.
 
 That was easy.
@@ -583,7 +649,8 @@ That was easy.
 you the empty goblet. "Here you go, as promised. Please take it as a token of
 my gratitude."
 
->As you walk away you hear the still ecstatic Armolas break into song.
+> n
+As you walk away you hear the still ecstatic Armolas break into song.
 
 Here grass is still growing,
 And leaves are yet swinging,
@@ -593,7 +660,8 @@ And the box has stopped singing!
 He's actually much louder than the bird recordings were in the first place,
 but you have to admit he has a lovely singing voice. Eunuch?
 
->You move west.
+> w
+You move west.
 
 Outside the Mine
 A lovely rock garden consisting of boulders of varying sizes has been
@@ -606,7 +674,8 @@ Goospaduggle hums cheerfully to herself while fussing over a cauldron near
 the entrance.  Foreman Fogofoogo is here, reading over a list of complaints
 and muttering to himself.
 
->You move west.
+> w
+You move west.
 
 Gnomish Mines
 Here the cave widens out to a large, roughly triangular chamber. Twisty
@@ -619,7 +688,8 @@ marked with a small silver sign and a charred wooden signpost , respectively.
 Several little wheelbarrows filled with ore and mining tools sit abandoned
 here.
 
->You move south.
+> s
+You move south.
 
 Tunnel
 This otherwise non-descript tunnel is currently packed so tightly with dragon
@@ -628,7 +698,8 @@ movement south seems impossible. You can, however, reenter the Gnomish Mines
 to the north.
 Singewing is poised majestically here.
 
->"Is that...is that what I think it is?" The dragon snatches the goblet from
+> give goblet to dragon
+"Is that...is that what I think it is?" The dragon snatches the goblet from
 you and hunches down to examine it with quivering claws. "It is! Silver! Real
 silver!" You've never noticed silver having a distinctive smell, but clearly
 it must to a dragon because she's now snuffling all over it, her eyes closed
@@ -646,7 +717,8 @@ goblet in herself (no one dared touch it after the first guy got eaten) and
 settles down on her platform to admire it while you finish straightening up
 the piles of foil coins.
 
->As you walk out of the dragon's lair and through the mines, you can't help
+> s
+As you walk out of the dragon's lair and through the mines, you can't help
 but admire your handiwork. You weren't too sure about this job when it was
 first thrust upon you, but now all the gnomes are content, the elf is
 happier, the dragon is back where she belongs, all the quests are in working
@@ -662,4 +734,5 @@ your first customer...
 
                       THE END
 
->Do you really want to quit? [Y/N]
+> quit
+Do you really want to quit? [Y/N]

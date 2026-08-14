@@ -16,7 +16,8 @@ east.
 
 Wilkens frowns and sighs.
 
->"The Glastonbury Thorn is quite interesting. Supposedly, it blooms only at
+> ask wilkens about thorn
+"The Glastonbury Thorn is quite interesting. Supposedly, it blooms only at
 Christmas, outside Glastonbury Abbey.  Legend has it the thorn grew where the
 saintly Joseph of Arimathea thrust  his staff into the ground.  I can't vouch
 for the supernatural properties of the Glastonbury Thorn myself,  but I have
@@ -24,7 +25,8 @@ seen one very like, located near a ruined abbey in the Fens.  I wouldn't look
 at that thorn bush again for anything in the world. Or the abbey for that
 matter."
 
->"This ruined abbey was in the fens, a few miles south of a village modern map
+> ask wilkens about abbey
+"This ruined abbey was in the fens, a few miles south of a village modern map
 makers have apparently given up for dead. I tracked down the location through
 Ordnance Survey maps and correspondence with several vicars in the
 surrounding country. I would not give you directions  any sooner than I would
@@ -34,7 +36,8 @@ give you directions to your own grave site.
 going out there. Just drink your scotch and forget I mentioned it." It seems
 to you that Wilkens glances, reflexively, toward the closed desk.
 
->As you take a sip from the tumbler you feel a warmth in the back of your
+> drink scotch
+As you take a sip from the tumbler you feel a warmth in the back of your
 throat matching the warmth radiated by the fire
 
 "Would you care to try the Lagavulin?"  Wilkens says suddenly" I have a
@@ -42,14 +45,17 @@ bottle of that out in the kitchen
 You watch as Wilkens walks out the door. You hear his footsteps going down
 the hall
 
->Feeling like a schoolboy risking a caning you quietly open Professor Wilkens'
+> open desk
+Feeling like a schoolboy risking a caning you quietly open Professor Wilkens'
 desk.
 
 Inside the otherwise empty desk is what appars to be a map.
 
->You take the map from the desk.
+> take map
+You take the map from the desk.
 
->You move east.
+> east
+You move east.
 
 Beside the Road
 The road you've parked your van beside is little more than a dirt track,
@@ -57,7 +63,8 @@ running north, through the fens Snow covers the ground but mists still hang
 above the ditches which take the place of hedgerows in the area. To the east,
 a stone vicarage and church are outlined against the sky.
 
->You move east.
+> east
+You move east.
 
 In Front of the Vicarage
 The area between the road and the vicarage to the east appears to be nothing
@@ -66,7 +73,8 @@ snow coating the landscape is not deep enough to conceal  the remains of a
 summer garden, had there been one. The church is just a black  rectangular
 mass from here. A churchyard lies to the north.
 
->You move north.
+> north
+You move north.
 
 The Churchyard
 This part of the churchyard, dusted in snow, appears nearly empty.  Here and
@@ -74,23 +82,27 @@ there the wind has scoured the snow from one of the flat  gravestones but the
 rest are concealed. The churchyard  extends to the north.  The church looms
 to the east
 
->You move east.
+> east
+You move east.
 
 Inside the Church
 Weak light from the gray rectangle of the door to the west and from the tall,
 pointed windows along the walls, reveal a gutted interior. A stone staircase
 leads up into the tower.
 
->You move up.
+> up
+You move up.
 
 Inside the Church Tower
 The tower is an empty shell, like the rest of the church.
 
 A book lies in one corner. Discarded and forgotten perhaps.
 
->You pick up the composition book.
+> take book
+You pick up the composition book.
 
->Opening the composition book, you read the handwritten entry:
+> read book
+Opening the composition book, you read the handwritten entry:
 
 "As Vicar here, I have naturally taken an interest in the history of this
 place and lately, having been ill, I've had more time to study. What I
@@ -106,14 +118,16 @@ thorn were different from those of the Glastonbury Thorn."
 
 There is nothing more. Either the story was never continued or was discarded.
 
->You move down.
+> down
+You move down.
 
 Inside the Church
 Weak light from the gray rectangle of the door to the west and from the tall,
 pointed windows along the walls, reveal a gutted interior. A stone staircase
 leads up into the tower.
 
->You move west.
+> w
+You move west.
 
 The Churchyard
 This part of the churchyard, dusted in snow, appears nearly empty.  Here and
@@ -121,7 +135,8 @@ there the wind has scoured the snow from one of the flat  gravestones but the
 rest are concealed. The churchyard  extends to the north.  The church looms
 to the east
 
->You hear the snow crunch underfoot as you walk further into the churchyard.
+> n
+You hear the snow crunch underfoot as you walk further into the churchyard.
 Suddenly a figure appears from the darkness. Then, from the corner of your
 eye, you see another...and another. In an instant you realize you are
 surrounded, not by phantoms, but cross-shaped monuments.
@@ -131,7 +146,8 @@ The End of the Churchyard
 cross-shaped monuments. To the west, in the growing shadows, you can make out
 what might be a ruin. The churchyard extends to the south.
 
->You move west.
+> w
+You move west.
 
 In Front of the Abbey
 The remains of an ancient abbey. A single wall, part  of the cloister
@@ -140,11 +156,14 @@ snow at some distance from the wall, while scouring the frozen earth  at the
 base  as bare as the floor of a mausoleum. Some brush clings to one spot
 along the wall. The wall continues west  The churchyard lies to the east.
 
->Just some half dead brush. On the ground beneath lie some dry sticks.
+> x brush
+Just some half dead brush. On the ground beneath lie some dry sticks.
 
->You pick up the dry sticks.
+> get sticks
+You pick up the dry sticks.
 
->You move west.
+> w
+You move west.
 
 The Ruined Wall
 The short jagged length of wall points like a skeletal finger toward the
@@ -152,7 +171,8 @@ empty fens where ghostly exhalations of mist shimmer in the darkness.
 Growing from the weeds and rubble at the wall's end is a deformed and stunted
 looking thorn bush. The ruin extends back to the east.
 
->Shoulder-high. Hawthorn-like. Black.  Its limbs are arthritic and swollen,
+> x thorn
+Shoulder-high. Hawthorn-like. Black.  Its limbs are arthritic and swollen,
 devoid of any hint of leaf or bud, let alone blossom. The thorns are at least
 an inch long.
 
@@ -166,11 +186,14 @@ fingers - or a frozen branch.
 You look at the bush again. It is motionless, unaffected by the movement of
 the air around it. You are at least half a meter from any of the branches
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
 A pale wisp of motion catches your attention. A figure appears, seeming
 almost to coalesce from the twilight and shadows as it approaches.
@@ -195,11 +218,13 @@ fireplace.
 
 The vicar lets out a soft sigh.
 
->You put the sticks into the fireplace.  They are light as ancient bones. To
+> make fire
+You put the sticks into the fireplace.  They are light as ancient bones. To
 your surprise they burst into flames.  In moments firelight has pushed the
 night into the corners of the room
 
->"The ruined abbey dates to an ancient time, before even King Lucius, who was
+> ask vicar about abbey
+"The ruined abbey dates to an ancient time, before even King Lucius, who was
 our first Christian King.. The church and vicarage were built after the abbey
 had fallen into ruin or been demolished. The villagers used stones scavenged
 from the ruins. A common practice. At any rate, I believe those stones were
@@ -211,7 +236,8 @@ his breath although your own breath forms clouds in the still frosty air
 inside the viacrage. "When you step into the church or the vicarage you might
 as well be stepping into that accursed abbey"
 
->
+> ask vicar about thorn
+
 "The bush you were looking at just now really did grow from a cutting from
 the sacred thorn at Glastonbury. But it did not have the same...properties.
 It was cursed.
@@ -287,7 +313,8 @@ room and the spent ashes in the firplace. On one  plaster wall a ghostly
 cross shape shows where a crucifix had protected the plaster beneath from
 smoke. The only way out is the door to the west.
 
->You move west.
+> w
+You move west.
 
 The Ruined Wall at Dawn
 
@@ -316,7 +343,8 @@ to examine it.  The way home is to the south.
 There is nothing left for you to do but to look at the thorn or leave. The
 thorn and the black branch are before you.  The way home is to the south.
 
->
+> x thorn
+
 You see what you feared, on what had been the  bare branches of the thorn,
 just below the cut made by the vicar, a thing you will never dare to look at
 again - a single bright green bud.

@@ -63,9 +63,11 @@ wallet, which contains some loose change, and a plastic card you used to
 check into your hotel last night. The front door to the street is to the
 east. The exit leading to the back alley is to the west.
 
->You take the wallet, which contains the hotel keycard and the loose change.
+> take wallet
+You take the wallet, which contains the hotel keycard and the loose change.
 
->Being a gentleman, you walk over to the counter and pay the owner before you
+> pay Steve
+Being a gentleman, you walk over to the counter and pay the owner before you
 make your escape. Steve nods at you in thanks.
 
 "Come again"
@@ -75,7 +77,8 @@ He says
 Something tells you that your going to have to avoid this place for a little
 while.
 
->You move west.
+> w
+You move west.
 
 Alley
 
@@ -103,11 +106,14 @@ alley to the north, there is an exit to the street.
 
 There is a number spraypainted on the walls.
 
->It is a police officer, wearing full uniform. He is out cold.
+> x officer
+It is a police officer, wearing full uniform. He is out cold.
 
->It is a police uniform
+> x uniform
+It is a police uniform
 
->Looking at the spraypainted number on the wall causes memories to start
+> look at number
+Looking at the spraypainted number on the wall causes memories to start
 flooding into your mind.
 
 '104'
@@ -117,12 +123,15 @@ something important. Something in preperation.
 
 Remember the number 104.
 
->Scrabbling desperately, you remove the uniform from the officer.
+> take uniform
+Scrabbling desperately, you remove the uniform from the officer.
 
->The uniform fits. You should now be sufficiently disguised to make your
+> wear uniform
+The uniform fits. You should now be sufficiently disguised to make your
 escape.
 
->You move north.
+> n
+You move north.
 
 Front of shop
 You move cautiously into the street. A couple and a few children are standing
@@ -149,7 +158,8 @@ you can
 1.)  Talk to the man.
 2.)  Exit the street
 
->You approach the man. He is dressed in fairly pedestrian clothes - a coat and
+> 1.)
+You approach the man. He is dressed in fairly pedestrian clothes - a coat and
 jeans. He talks to you directly, but he never allows your eyes to meet.
 
 "Theres more to this than you think"
@@ -172,7 +182,8 @@ have a choice
 
 There may be another way....
 
->
+> 104
+
 The coin!
 
 You memory was all shadows. Shadows and a face you never want to see again.

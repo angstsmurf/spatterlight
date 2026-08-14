@@ -8,16 +8,20 @@ at the Pennington Nightclub and it is your job to arrest him. Your boss
 Freddy Bigmouth is going to send Don Tootyfrooty, your partner, along with
 you to finish this operation. The story will start outside the nightclub.
 
->You are wearing spiffy tuxedo, and you are carrying kodak camera, poison pen,
+> i
+You are wearing spiffy tuxedo, and you are carrying kodak camera, poison pen,
 9.mm handgun and laser writer.
 
->Your score is 0 out of a maximum of 155.  (0%)
+> score
+Your score is 0 out of a maximum of 155.  (0%)
 
->(Your score has increased by 15)
+> add yourself to the guestlist
+(Your score has increased by 15)
 You take out your laser writer and scribble your name on the guest list, oh
 yeah, and Don's.
 
->You move north.
+> n
+You move north.
 
 Dancefloor of Nightclub
 You are on the dance floor of the nightclub. Go back south to get outside. To
@@ -27,7 +31,8 @@ This place sure is packed.
 
 You can move east, south, west and up.
 
->You move east.
+> e
+You move east.
 
 The Bar
 This is the bar. There are some drunk people sitting on there bar stools
@@ -38,11 +43,14 @@ Also here is wad of gum.
 
 You can only move west.
 
->You were ordered by your boss not to have any alcohol tonight. Damn!
+> buy a drink
+You were ordered by your boss not to have any alcohol tonight. Damn!
 
->You pick up wad of gum.
+> take gum
+You pick up wad of gum.
 
->You move west.
+> w
+You move west.
 
 Dancefloor of Nightclub
 You are on the dance floor of the nightclub. Go back south to get outside. To
@@ -52,7 +60,8 @@ This place sure is packed.
 
 You can move east, south, west and up.
 
->You move west.
+> w
+You move west.
 
 Mens Toilets
 This is the Gents, and a stinky gents at that. There are a few, ahem,
@@ -61,7 +70,8 @@ cubicles. The cubicles are to the west.
 
 You can move east and west.
 
->You move west.
+> w
+You move west.
 
 Cubicle
 An unocupied cubicle with a crapper.  There is an air vent above the toilet
@@ -69,21 +79,25 @@ that looks a little loose.
 
 You can move east and west.
 
->(Your score has increased by 10)
+> use toilet
+(Your score has increased by 10)
 You unzip your fly and let the good times role.
 
->(Your score has increased by 15)
+> remove air vent
+(Your score has increased by 15)
 You stand on the dunny and remove the air vent cover. It seems to lead
 upwards.
 
->You move west.
+> w
+You move west.
 
 Air Vent
 A long airvent tunneling all the way to the north.
 
 You can move north and east.
 
->You move north.
+> n
+You move north.
 
 Air Vent Section
 After a few minutes of crawling you arrive at a section which has another
@@ -91,24 +105,29 @@ grate. You remove it. It isn't a long drop to the ground.
 
 You can only move south.
 
->(Your score has increased by 10)
+> chew gum
+(Your score has increased by 10)
 You do the unthinkable and chew the old wad of gum. You find a coin in it.
 For being brave and chewing the unthinable, I will award you with a bonus 10
 points.
 
->(Your score has increased by 20)
+> blow bubble
+(Your score has increased by 20)
 You blow a bubble, you get an idea. You squeeze through the vent and drop
 down. Your bubble acts as a parachute and you slowly drop down to the office
 floor.
 
->(Your score has increased by 10)
+> yes
+(Your score has increased by 10)
 Hi, this is Don. I've just spotted Ivana, he's upstairs in the secret lab.
 Come quickly! To get out of the office type beam me up scotty.
 
->(Your score has increased by 10)
+> beam me up scotty
+(Your score has increased by 10)
 Strangley enough it works! You warp back into the dancefloor!
 
->You move up.
+> u
+You move up.
 
 Upstairs
 Upstairs is a large door guarded by a guard. He is looking tired and there is
@@ -117,17 +136,21 @@ only 10 cents!"
 
 You can only move down.
 
->(Your score has increased by 10)
+> buy coffee
+(Your score has increased by 10)
 You put the coin into the slot and get out your plastic cup of coffee.
 
->You squirt some poison into the coffee. You now have a poison potion!
+> use poison pen with coffee
+You squirt some poison into the coffee. You now have a poison potion!
 Muhahahah, uh, well, getting back to the game.
 
->(Your score has increased by 20)
+> give coffee to guard
+(Your score has increased by 20)
 You give the coffee to the guard and he takes a sip. He falls over instanly
 paralyzed. Time to make your sneak!
 
->You move north.
+> n
+You move north.
 
 Secret Lab
 The long secret lab! In the corner is Ihava! He is sitting near a Wapromatic
@@ -138,9 +161,11 @@ with peanut butter! Come closer and I'll blast you, you filthy git!"
 
 You can only move south.
 
->Your score is 120 out of a maximum of 155.  (77%)
+> score
+Your score is 120 out of a maximum of 155.  (77%)
 
->(Your score has increased by 35)
+> shoot Ihava
+(Your score has increased by 35)
 You pull out your gun and start firing. Bad aim, you hit the ceiling, the
 floor, the walls but miss Ihava by a good 75cm! He quickly jumps into the
 Warpomatic and zooms away!

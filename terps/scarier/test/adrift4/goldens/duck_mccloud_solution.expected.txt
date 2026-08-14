@@ -5,27 +5,34 @@ Duck is on his way to San Francisco for his only holiday of the year, he
 hopes that nothing bad will happen on his holiday. Then disaster strikes
 .......
 
->Inside your breifcase there is a 9mm Walter PPK with suppresser and a picture
+> open breifcase
+Inside your breifcase there is a 9mm Walter PPK with suppresser and a picture
 of your wife,book and documents.
 
->you now have your trusty gun.
+> get gun
+you now have your trusty gun.
 
->The document has a lot of information on my previous Bomb Defusing Mission.
+> look at documents
+The document has a lot of information on my previous Bomb Defusing Mission.
 Under extreme pressure I managed to defuse the bomb by clipping the blue
 wire,( lucky i did not clip the red one).
 
->The bomb looks powerful and has many wires but from experiance you know it is
+> look at bomb
+The bomb looks powerful and has many wires but from experiance you know it is
 either the red, blue,green or purple wire that you cut. But which is it now ?
 
->Well done you have defused the bomb!!!!!. But while this was happening you
+> cut blue wire
+Well done you have defused the bomb!!!!!. But while this was happening you
 hear gun shots from the front of the plane and you become suspicious. And you
 hear foot steps coming towards you. Do you hide or try to shoot them?
 
->Good Idea, you hide behind your chair with your gun drawn luckily the guy
+> hide
+Good Idea, you hide behind your chair with your gun drawn luckily the guy
 does not see you, but you notice them talking about another bomb on the
 plane. And you realise you have to get off. But How?
 
->You move east.
+> east
+You move east.
 
 Passage
 It is a small passage, north is the cockpit south is the toilet. And in the
@@ -33,7 +40,8 @@ corner is the boarding door.
 
 You can move north and west.
 
->You move north.
+> north
+You move north.
 
 Cockpit
 Straight ahead of you are many dials which mean absolutly nothing to you.  In
@@ -51,9 +59,11 @@ Also here is second bomb 2 and your parachute.
 
 You can only move south.
 
->You have taken the parachute.
+> take parachute
+You have taken the parachute.
 
->You move south.
+> south
+You move south.
 
 Passage
 It is a small passage, north is the cockpit south is the toilet. And in the
@@ -61,11 +71,14 @@ corner is the boarding door.
 
 You can move north and west.
 
->We need more force to open that door.
+> open door
+We need more force to open that door.
 
->The door is open
+> kick door
+The door is open
 
->You jump from the plane just in time and you survive the huge explosion that
+> jump
+You jump from the plane just in time and you survive the huge explosion that
 occurs behind you. Unfortunatly your parachute is caught by the explotion.
 Does Duck McCloud survive? Do you want to know more? Well just E-Mail me at
 BuzzinAsh@ukgateway.net and tell me what you think. Thanks For Playing

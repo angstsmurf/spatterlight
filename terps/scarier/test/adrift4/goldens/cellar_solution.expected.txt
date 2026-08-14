@@ -68,33 +68,42 @@ In a box under the bed, that's where your father keeps the key. You should
 grab it and quickly. He won't return for many hours... but even so, it never
 pays to take chances.
 
->You are Nevare. 11 years old. A quiet, solitary boy who lives with his father
+> x me
+You are Nevare. 11 years old. A quiet, solitary boy who lives with his father
 in a dusty old house in the middle of nowhere. You don't have many friends
 and have taken to exploring the house and grounds on days when you have
 little to do... which is often.
 
->You are carrying nothing of any great importance.
+> i
+You are carrying nothing of any great importance.
 
->On your hands and knees, you peer under the bed and see an old wooden box,
+> look under bed
+On your hands and knees, you peer under the bed and see an old wooden box,
 dusty and crumpled.
 
->There is not enough room to open the box while it is still under the bed.
+> open box
+There is not enough room to open the box while it is still under the bed.
 
->You tug the box out from under the bed but it is in too poor a condition to
+> take box
+You tug the box out from under the bed but it is in too poor a condition to
 be lifted without breaking apart.
 
->The box would tear apart if you were to attempt to pick it up.
+> pull box
+The box would tear apart if you were to attempt to pick it up.
 
->You move it slightly away from the wall but it is too heavy to move far.
+> move bed
+You move it slightly away from the wall but it is too heavy to move far.
 
->Almost choking on the dust, you open the box. It is, frustratingly, empty.
+> open box
+Almost choking on the dust, you open the box. It is, frustratingly, empty.
 
 It seems your father has found a better hiding place for the key to the
 cellar.
 
->You move it slightly away from the wall but it is too heavy to move far.
+> move bed
+You move it slightly away from the wall but it is too heavy to move far.
 
->
+> l
 
 l l l Father's Room l l l
 
@@ -107,7 +116,8 @@ box by the side of the bed. A door to the east leads to the hallway at the
 top of the stairs. In an alcove in one wall are your father's collection of
 journals.
 
->You glance at the papers...
+> read papers
+You glance at the papers...
 
 "... lost Penwright today. Bad omen for the rest of the expedition. Expected
 he would outlast us all but it wasn't to be. But we are optimistic of our
@@ -125,7 +135,8 @@ said we would miss the gruff old fellow.
 
 "We continue. The village cannot be far..."
 
->You glance at the papers...
+> read papers
+You glance at the papers...
 
 "... lost Penwright today. Bad omen for the rest of the expedition. Expected
 he would outlast us all but it wasn't to be. But we are optimistic of our
@@ -143,44 +154,59 @@ said we would miss the gruff old fellow.
 
 "We continue. The village cannot be far..."
 
->Your father only lets you peruse his journals when he is present, and he has
+> read journals
+Your father only lets you peruse his journals when he is present, and he has
 an uncanny knack of knowing when you have studied them in his absence.
 
->You see nothing more interesting than the floor.
+> look under table
+You see nothing more interesting than the floor.
 
->You see nothing special about the floor.
+> x floor
+You see nothing special about the floor.
 
->You cannot move the floorboards.
+> move floorboard
+You cannot move the floorboards.
 
->The floorboards are a little dusty but you see nothing of interest about
+> x floorboard
+The floorboards are a little dusty but you see nothing of interest about
 them.
 
->You cannot move the floorboards.
+> push floorboard
+You cannot move the floorboards.
 
->The walls aren't as ordinary as you'd expect them to be.
+> x walls
+The walls aren't as ordinary as you'd expect them to be.
 
->You examine the ceiling but see nothing special about it.
+> x ceiling
+You examine the ceiling but see nothing special about it.
 
->The bed seems shorter than you would expect considering your father's height,
+> x bed
+The bed seems shorter than you would expect considering your father's height,
 but if he has any complaints about the size of his bed he never voices them
 to you.
 
->You see no such thing.
+> x mattress
+You see no such thing.
 
->You see no such thing.
+> look under papers
+You see no such thing.
 
->The window is nailed shut (making the room unbearably stuffy in summer), as
+> x window
+The window is nailed shut (making the room unbearably stuffy in summer), as
 is every other window in the house. You once asked your father what the
 reason for this was and he mumbled something vague about "security" and then
 would say no more.
 
->The door is pretty much standard as far as doors go.
+> x door
+The door is pretty much standard as far as doors go.
 
->You don't need to concern yourself with opening or closing the door.
+> close door
+You don't need to concern yourself with opening or closing the door.
 
->You see no such thing.
+> x dresser
+You see no such thing.
 
->
+> l
 
 l l l Father's Room l l l
 
@@ -193,104 +219,143 @@ box by the side of the bed. A door to the east leads to the hallway at the
 top of the stairs. In an alcove in one wall are your father's collection of
 journals.
 
->Not so much an alcove as a slight depression in the wall, barely deep enough
+> x alcove
+Not so much an alcove as a slight depression in the wall, barely deep enough
 to step into.
 
->There's no point in leaving before you've found the key.
+> e
+There's no point in leaving before you've found the key.
 
->The walls aren't as ordinary as you'd expect them to be.
+> search walls
+The walls aren't as ordinary as you'd expect them to be.
 
->You can't touch the floorboards.
+> touch floorboards
+You can't touch the floorboards.
 
->You can't touch the walls.
+> touch walls
+You can't touch the walls.
 
->The bed seems shorter than you would expect considering your father's height,
+> search bed
+The bed seems shorter than you would expect considering your father's height,
 but if he has any complaints about the size of his bed he never voices them
 to you.
 
->You can't touch that.
+> touch me
+You can't touch that.
 
->You are carrying nothing of any great importance.
+> i
+You are carrying nothing of any great importance.
 
->The box is open but there is nothing inside.
+> x box
+The box is open but there is nothing inside.
 
->You see no such thing.
+> x lid
+You see no such thing.
 
->I don't understand what you want me to do with the box.
+> reach in box
+I don't understand what you want me to do with the box.
 
->The box is open but there is nothing inside.
+> search box
+The box is open but there is nothing inside.
 
->You close the dusty box up.
+> close box
+You close the dusty box up.
 
->The box is closed, its contents hidden from you.
+> x box
+The box is closed, its contents hidden from you.
 
->Almost choking on the dust, you open the box. It is, frustratingly, empty.
+> open box
+Almost choking on the dust, you open the box. It is, frustratingly, empty.
 
 It seems your father has found a better hiding place for the key to the
 cellar.
 
->You see no such thing.
+> x dust
+You see no such thing.
 
->You close the dusty box up.
+> close box
+You close the dusty box up.
 
->The bed cannot be taken.
+> get on bed
+The bed cannot be taken.
 
->Now is not the time. You need to find the key before your father returns.
+> lie on bed
+Now is not the time. You need to find the key before your father returns.
 
->Once lavishly-bound, now the years have begun to take their toll on these
+> x journals
+Once lavishly-bound, now the years have begun to take their toll on these
 journals and they are a pale shadow of their former self. For the most part,
 they detail your father's exploration of Africa and his findings there,
 delivered in somewhat tight and unflattering prose. Your father was, after
 all, an historian and not a storyteller.
 
->Once lavishly-bound, now the years have begun to take their toll on these
+> search journals
+Once lavishly-bound, now the years have begun to take their toll on these
 journals and they are a pale shadow of their former self. For the most part,
 they detail your father's exploration of Africa and his findings there,
 delivered in somewhat tight and unflattering prose. Your father was, after
 all, an historian and not a storyteller.
 
->You cannot move the journals.
+> move journals
+You cannot move the journals.
 
->Numerous papers, marked by your father's meticulous handwriting.
+> x paper
+Numerous papers, marked by your father's meticulous handwriting.
 
->You cannot move the papers.
+> move paper
+You cannot move the papers.
 
->Numerous papers, marked by your father's meticulous handwriting.
+> search paper
+Numerous papers, marked by your father's meticulous handwriting.
 
->Father would not be happy if he discovered you had taken his papers.
+> take paper
+Father would not be happy if he discovered you had taken his papers.
 
->The table is too heavy for you to move.
+> move table
+The table is too heavy for you to move.
 
->You can't stand on the table.
+> stand on table
+You can't stand on the table.
 
->You can't stand on the bed.
+> stand on bed
+You can't stand on the bed.
 
->On your hands and knees, you peer under the bed and see a dusty space.
+> look under bed
+On your hands and knees, you peer under the bed and see a dusty space.
 
->You see no such thing.
+> x dusty space
+You see no such thing.
 
->You see no such thing.
+> x space
+You see no such thing.
 
->You see no such thing.
+> x drawer
+You see no such thing.
 
->You can't open the table!
+> open table
+You can't open the table!
 
->One of the table's legs seems slightly shorter than the others and has been
+> x leg
+One of the table's legs seems slightly shorter than the others and has been
 propped up with some cloth wadded beneath it.
 
->It looks to have been torn from some clothing and wadded under the table leg
+> x cloth
+It looks to have been torn from some clothing and wadded under the table leg
 to make it the same length as the others.
 
->You tug it out from under the table, and a key tumbles free.
+> take cloth
+You tug it out from under the table, and a key tumbles free.
 
 A-ha! The key to the cellar! Your father is certainly improving when it comes
 to concealing things from you.
 
 You scoop it up and slip it into your pocket.
 
->An unmarked key, cold to the touch.
+> x key
+An unmarked key, cold to the touch.
 
->Clutching the key, you leave the room.
+> e
+Clutching the key, you leave the room.
 
 [MORE]
 
@@ -324,18 +389,24 @@ The cellar extends to the north along a dusty passageway which slopes
 downwards. There are old barrels, themselves little more than dust, in one
 corner. Steps lead upwards.
 
->You see no such thing.
+> x barreks
+You see no such thing.
 
->At one time these barrels contained beer, but they are now bone dry.
+> x barrels
+At one time these barrels contained beer, but they are now bone dry.
 
->It it nothing more than dust.
+> x dust
+It it nothing more than dust.
 
->The light is already on.
+> turn on light
+The light is already on.
 
->There is a light breeze blowing through the cellar but you are unable to tell
+> x breeze
+There is a light breeze blowing through the cellar but you are unable to tell
 where it is coming from.
 
->To the north you walk, following the dusty passageway as it winds into the
+> n
+To the north you walk, following the dusty passageway as it winds into the
 depths of the cellar. It seems to take a while, far longer than you remember
 it taking from the last time you were down here. The darkness encroaches on
 you at all times, and there are often moments when you feel certain that
@@ -375,18 +446,22 @@ light. "Hello, nephew."
 
 You stare in dismay at your Uncle Gavin.
 
->To say he has changed from when you last saw him would be a terrible
+> x Gavin
+To say he has changed from when you last saw him would be a terrible
 understatement. He seems like a different man, though sickly and deformed. It
 is hard to picture the way he is now with the man you remember from your
 childhood.
 
->It is hard to focus on the bed. Your attention is constantly drawn to the...
+> x bed
+It is hard to focus on the bed. Your attention is constantly drawn to the...
 the thing on top of it.
 
->"Leave the cabinets be, nephew," says your uncle. "There is nothing for you
+> x cabinets
+"Leave the cabinets be, nephew," says your uncle. "There is nothing for you
 in them."
 
->You say-
+> talk to uncle
+You say-
 
 "I've a story to tell you, Nevare," says your uncle, interrupting you. "A...
 horror story, if you will. But a true one all the same. Then again..." A soft
@@ -462,57 +537,75 @@ which chugs away to itself in the corner.
 
 And then you see the door leading down into the cellar.
 
->The fridge is overly large and seems to loom over everything else in the
+> x fridge
+The fridge is overly large and seems to loom over everything else in the
 kitchen. You're not sure that yourself and your father, neither of you big
 eaters, need a fridge this large and it's seldom fully stocked in any event.
 It is closed.
 
->You open the fridge. There is a single egg inside. Your father clearly does
+> open fridge
+You open the fridge. There is a single egg inside. Your father clearly does
 not intend you to overfeed yourself in his absence.
 
->The egg appears to have gone off. It was perhaps fresh and edible several
+> x egg
+The egg appears to have gone off. It was perhaps fresh and edible several
 weeks ago but now it is the sort of thing that you couldn't force down if you
 were starving.
 
->You take the egg out of the fridge.
+> take egg
+You take the egg out of the fridge.
 
->You close the fridge.
+> close fridge
+You close the fridge.
 
->A little battered, a little rusty and in desperate need of a good clean. It's
+> x oven
+A little battered, a little rusty and in desperate need of a good clean. It's
 a little disheartening to think that all your meals are prepared here.  The
 ancient oven is closed.
 
->You open the ancient oven. There is a cob inside, probably left there by your
+> open oven
+You open the ancient oven. There is a cob inside, probably left there by your
 father sometime ago and then forgotten about. It looks barely edible.
 
->Bits of mould have begun to turn the cob an unsightly greenish shade. The
+> x cob
+Bits of mould have begun to turn the cob an unsightly greenish shade. The
 thought of eating it makes your stomach cringe.
 
->You take the cob out of the oven.
+> take cob
+You take the cob out of the oven.
 
->You close the ancient oven.
+> close oven
+You close the ancient oven.
 
->It's seldom your father cooks food with the stove and the light smattering on
+> x stove
+It's seldom your father cooks food with the stove and the light smattering on
 dust on it indicates it. You suspect it is many months, if not years, since
 it was last switched on.  There is a sandwich on the stove, left for you
 there by your father.
 
->An edible sandwich left for you by your father. You don't know what he puts
+> x sandwich
+An edible sandwich left for you by your father. You don't know what he puts
 in the sandwiches he makes, but they all carry an unpleasant smell.
 
->[smell a sandwich]
+> smell it
+[smell a sandwich]
 The sandwich smells normal.
 
->You take the sandwich.
+> take sandwich
+You take the sandwich.
 
->The sink is far from clean. You are a little horrified to realise just how
+> x sink
+The sink is far from clean. You are a little horrified to realise just how
 dirty the place where your father prepares his (and your!) meals is.
 
->You see no such thing.
+> x drain
+You see no such thing.
 
->Sorry. That is not understood.
+> do dishes
+Sorry. That is not understood.
 
->Clutching the food in hand, you head down the cellar steps.
+> d
+Clutching the food in hand, you head down the cellar steps.
 
 [MORE]
 
@@ -570,16 +663,20 @@ on the bed.
 "Not a pleasant tale, is it, Nevare?" he murmurs once, then says nothing
 more.
 
->You are carrying nothing of any great importance.
+> i
+You are carrying nothing of any great importance.
 
->Interesting.
+> no
+Interesting.
 
->"Are you ready for the next part, nephew? Ready to hear what happened when we
+> talk to uncle
+"Are you ready for the next part, nephew? Ready to hear what happened when we
 ventured further? Ready to know... know the truth?"
 
 A simple question. Requiring a simple answer.
 
->"No? Ah, Nevare. You are assuming you have a choice in the matter..."
+> no
+"No? Ah, Nevare. You are assuming you have a choice in the matter..."
 
 [MORE]
 
@@ -654,29 +751,36 @@ your father sits to read, though the appalling creaking sound it makes at the
 lightest touch is enough to set your teeth on edge. There is a door to the
 east.
 
->The chair is a horribly creaky affair, prone to emitting a sound not unlike a
+> x chair
+The chair is a horribly creaky affair, prone to emitting a sound not unlike a
 screech when someone seats themselves in it. Why your father does not replace
 it with a better one you cannot say.
 
 However, tucked under it you discover the satchel your uncle sent you for.
 You snatch it up quickly, disliking how clammy it feels to your touch.
 
->The satchel is old and worn, though still whole. It was once white, yet the
+> x satchel
+The satchel is old and worn, though still whole. It was once white, yet the
 years have treated it unkindly, leaving it now a filthy brown colour.
 
->[open a satchel]
+> open it
+[open a satchel]
 You fumble with the satchel but can find no way of opening it.
 
->The chair is creaky and the sound it makes chills you. You have no desire to
+> sit on chair
+The chair is creaky and the sound it makes chills you. You have no desire to
 sit in it.
 
->Ancient books, some of them first editions, all of them worth a fortune in
+> x tomes
+Ancient books, some of them first editions, all of them worth a fortune in
 the right hands. Your father has spent his lifetime collecting them, though
 seldom seems to read them. For him, owning them is enough.
 
->The only exit is to the east.
+> d
+The only exit is to the east.
 
->Clutching the satchel, you return to the cellar.
+> e
+Clutching the satchel, you return to the cellar.
 
 [MORE]
 
@@ -744,22 +848,28 @@ time, you find yourself clammering to hear what he might say next.
 But he falls silent and again the only sound in the chamber is his laboured
 breathing.
 
->To say he has changed from when you last saw him would be a terrible
+> x uncle
+To say he has changed from when you last saw him would be a terrible
 understatement. He seems like a different man, though sickly and deformed. It
 is hard to picture the way he is now with the man you remember from your
 childhood.
 
->Time passes...
+> wait
+Time passes...
 
->Open what?
+> open satchel
+Open what?
 
->"Leave the cabinets be, nephew," says your uncle. "There is nothing for you
+> x cabinets
+"Leave the cabinets be, nephew," says your uncle. "There is nothing for you
 in them."
 
->"Leave the cabinets be, nephew," says your uncle. "There is nothing for you
+> open cabinets
+"Leave the cabinets be, nephew," says your uncle. "There is nothing for you
 in them."
 
->You start to ask a question - about what happened next to your father and
+> talk to uncle
+You start to ask a question - about what happened next to your father and
 your uncle during the expedition - but Uncle Gavin groans and turns painfully
 to one side.
 
@@ -777,7 +887,8 @@ Though I find it hard to imagine what gift there can be in being like this."
 "You should." Your uncle sucks in a deep breath then expels it painfully.
 "But then you won't hear the end of my tale, will you?"
 
->"No? Ah, Nevare. You are assuming you have a choice in the matter..."
+> no
+"No? Ah, Nevare. You are assuming you have a choice in the matter..."
 
 [MORE]
 
@@ -852,27 +963,34 @@ your father sits to read, though the appalling creaking sound it makes at the
 lightest touch is enough to set your teeth on edge. There is a door to the
 east.
 
->The chair is a horribly creaky affair, prone to emitting a sound not unlike a
+> x chair
+The chair is a horribly creaky affair, prone to emitting a sound not unlike a
 screech when someone seats themselves in it. Why your father does not replace
 it with a better one you cannot say.
 
->Take what?
+> take satchel
+Take what?
 
->You can't leave without your uncle's satchel.
+> e
+You can't leave without your uncle's satchel.
 
->
+> undo
+
 [The previous turn has been undone.]
 
->
+> undo
+
 [The previous turn has been undone.]
 
->
+> undo
+
 [The previous turn has been undone.]
 
->
+> undo
+
 [The previous turn has been undone.]
 
->
+> l
 
 l l l Hidden Chamber l l l
 
@@ -883,7 +1001,8 @@ cabinets around it, but it is the... the thing lying on the bed that draws
 your attention. Seen barely in the dismal light, it is a grotesque mockery of
 a man, bloated and distorted, pale flesh spotted with tufts of coarse hair.
 
->"To the next part then..."
+> talk to uncle
+"To the next part then..."
 
 [MORE]
 
@@ -927,7 +1046,8 @@ Again as your uncle finishes speaking, there is silence in the chamber.
 "We are nearing the end of my little tale now," says your uncle. He sounds
 weary, as if the very effort of speaking is too much for him.
 
->"Is that why we live out here?" you ask.
+> talk to uncle
+"Is that why we live out here?" you ask.
 
 You've found your voice, found the will to ask a question. You remind
 yourself that the thing on the bed (and you feel wrong for calling it that)
@@ -947,7 +1067,8 @@ be asked. They would wonder that how the same thing which had befallen me had
 not befallen him. They might, if they asked the right questions, even
 discover..." Your uncle hesitates for long moments.
 
->"Discover what?" you ask softly, but your uncle, if he hears you, does not
+> talk to uncle
+"Discover what?" you ask softly, but your uncle, if he hears you, does not
 respond. You try a different question: "What is in the satchel?"
 
 There is movement from the bed. "It is... something I thought I had lost... a
@@ -975,7 +1096,8 @@ You had never heard of anyone called Annie, though you remember your uncle
 had many lady friends that your father used to disapprove of. Annie must have
 been one of them.
 
->"Let us finish it," says your uncle. "Let me tell you the final part of my
+> talk to uncle
+"Let us finish it," says your uncle. "Let me tell you the final part of my
 little horor story."
 
 [MORE]
@@ -1029,7 +1151,8 @@ Your uncle beckons you to approach him. You remain where you are.
 would wonder that there was something wrong with you. You see, you have good
 reason to be afraid of me. I have done terrible things."
 
->"What terrible things?" you ask.
+> talk to uncle
+"What terrible things?" you ask.
 
 "I never meant to do them," says your uncle. "At least, I don't think I did.
 But it's hard to say sometimes. My memory… is not what it used to be. I have
@@ -1051,7 +1174,8 @@ case I seek to wander around and kill you. As I killed Simonson."
 
 You blink. Did he just say…?
 
->"You killed Simonson," you say, not so much a question as a statement of
+> talk to uncle
+"You killed Simonson," you say, not so much a question as a statement of
 fact.
 
 "Did I?" Your uncle frowns. "I can't say for certain. My memory is… hazy."
@@ -1094,9 +1218,11 @@ You nod, tearful.
 
 Your father holds out his hand. "Come. We have much to discuss."
 
->"That doesn't concern you now, son," says your father. "Take my hand."
+> cry
+"That doesn't concern you now, son," says your father. "Take my hand."
 
->You take your father's hand.
+> take hand
+You take your father's hand.
 
 He leads you from the kitchen and up the stairs to his room. He sits you down
 on the bed then seats himself beside you. You become aware of an unpleasant
@@ -1104,7 +1230,8 @@ smell - has something died in here?
 
 "How much did he tell you?" your father asks.
 
->You tell your father what your uncle said.
+> talk to dad
+You tell your father what your uncle said.
 
 He sighs and shakes his head. "I feared as much. Your uncle is… not well,
 Nevare."
@@ -1130,7 +1257,8 @@ protests, I saw him return to our camp one night with blood around his mouth.
 Later, I discovered Simonson's pocket watch in his possessions. He denied he
 had killed Simonson and taken it but I don't believe him."
 
->"Why didn't you go to the police?" you ask.
+> talk to dad
+"Why didn't you go to the police?" you ask.
 
 "Because he is my brother," says your father harshly. He almost spits the
 last word out. "He is my brother," he adds more quietly, "and I swore I would
@@ -1154,7 +1282,8 @@ cure..."
 You remember your uncle, hideous and bloated, a corpse manacled to a bed in
 the cellar, and shudder.
 
->"Why did Penwright let you go, father? How did you escape?"
+> talk to dad
+"Why did Penwright let you go, father? How did you escape?"
 
 Your father does not answer at first. He still stares into the distance. Then
 he shakes his head slowly and sighs.
@@ -1184,8 +1313,10 @@ http://www.shadowvault.net/cellar.htm
 
 David Whyld
 
->The game has ended.
+> quit
+The game has ended.
 
->The game has ended.
+> y
+The game has ended.
 
 >

@@ -20,7 +20,7 @@ Or click on Adventure/Open Game in the menu above to open a saved game.
 
 Introduction
 
->
+> 3
 
 All around you is desolation, torture, and...
 
@@ -67,17 +67,21 @@ ornate oak desk occupies the center of the office. On one wall is an
 assortment of plaques, on another a book shelf crammed with a variety of
 texts. To the north is the door out of your office.
 
->An elegant, large, and heavy oak desk, stained a dark mahogany, dominates the
+> x desk
+An elegant, large, and heavy oak desk, stained a dark mahogany, dominates the
 office. A computer fills the front left corner of the desk, and a phone sits
 on the right.  A Palm and manilla folder are on the desk.
 
->A Palm z575, the latest model with a 600x600 pixel high-resolution color
+> x palm
+A Palm z575, the latest model with a 600x600 pixel high-resolution color
 screen, 64 MB memory, and stamp-sized expansion cards that can add another
 512 MB of memory.  The Palm is Off.
 
->You take the Palm from the desk.
+> take palm
+You take the Palm from the desk.
 
->Your Palm turns on, revealing today's schedule. It shows "Herb's Big Day!" at
+> turn on palm
+Your Palm turns on, revealing today's schedule. It shows "Herb's Big Day!" at
 9 am. That was about five minutes ago.
 
 It also shows that 1 pm is your deadline to e-mail the article you've been
@@ -85,14 +89,18 @@ working on for Time Magazine to the editors. You make a mental note to take
 the folder with you so you can mark it up with final changes for your
 secretary to make.
 
->A typed label on the manilla folder reads, "Time Magazine draft article."
+> x folder
+A typed label on the manilla folder reads, "Time Magazine draft article."
 Manilla folder is closed.
 
->You take manilla folder from the desk.
+> take folder
+You take manilla folder from the desk.
 
->You open manilla folder.
+> open folder
+You open manilla folder.
 
->Time magazine has asked you to write an article in layman's terms explaining
+> x folder
+Time magazine has asked you to write an article in layman's terms explaining
 the science behind the work you're doing, work that when successful will
 change the world. If you make the deadline, the article should run next week,
 probably in the back of the issue somewhere. You figure that within two
@@ -160,7 +168,8 @@ too.
 
 The phone rings.
 
->You put the receiver to your ear and answer with your usual warmth:  "Markson
+> answer the phone
+You put the receiver to your ear and answer with your usual warmth:  "Markson
 here."
       "Gabe, this is Mike. It's Herb's big day, what are you doing still in
 your office? Three years of preparation for this day, and you're late?"
@@ -170,9 +179,11 @@ months; a few more minutes isn't going to kill him."
      You hang up the phone. Maybe Mike is right, though. It probably is about
 time to get down to the lab and see how Herb is doing.
 
->You open lab office door.
+> open door
+You open lab office door.
 
->(Getting off the chair first)
+> n
+(Getting off the chair first)
 You move north.
 
 Lab hallway
@@ -182,7 +193,8 @@ The long hallway runs east-west. To the west are the doors into the lab
 proper, and to the east are the MagLab's one classroom and the exit out of
 the building. The door to your office is to the south.
 
->As you walk down the hallway towards the MagLab, you thoughts wander away
+> w
+As you walk down the hallway towards the MagLab, you thoughts wander away
 from Herb, to Claudia....
 
 (press any key)
@@ -201,7 +213,8 @@ could relax further and drift off to sleep, but Claudia always likes to talk
 for awhile, her own way of luxuriating in the afterglow. She rolls up onto
 one elbow and looks at you, something clearly on her mind.
 
->
+> look
+
 In Claudia's bedroom
 
 In Claudia's bedroom
@@ -215,7 +228,8 @@ bathroom is to the south.
 
 Claudia is here.
 
->Running your hand further up her leg and over her stomach, you ask her what's
+> talk to claudia
+Running your hand further up her leg and over her stomach, you ask her what's
 the matter.
      "Oh, it's not that anything is the matter. I'm just worried about
 tomorrow's test. I still wish we knew what was causing the disorientation
@@ -241,7 +255,8 @@ field on yourselves in increasingly longer durations.
      3) It's either push on or give up; or
      4) Not to say anything at all.
 
->     "You worry too much sometimes, I think," you tell her. "I'm still
+> 1
+     "You worry too much sometimes, I think," you tell her. "I'm still
 convinced it's simple disorientation from people or objects in the lab having
 moved while you're under. To you, it looks like they've moved
 instantaneously. Magical teleportation -- your brain just has a hard time
@@ -254,7 +269,8 @@ you, of course. The disorientation as you came out of the field was
 nauseating, but bearable. You're not too concerned.
      Claudia seems like she has more to say, unsurprisingly.
 
->     "I know this may seem strange this far into things, but do you ever
+> talk to claudia
+     "I know this may seem strange this far into things, but do you ever
 wonder if we're pushing things too far?" she asks. You give her your patented
 "what on earth are you talking about?" look.
      "I mean," she says, "I guess what's really making me nervous is I can't
@@ -272,7 +288,8 @@ religion has never come up. You ponder telling her:
      3. No, God clearly doesn't exist; or
      4. Say nothing at all.
 
->     "Of course I believe in God," you tell her. "How could I not? I look
+> 1
+     "Of course I believe in God," you tell her. "How could I not? I look
 around me and I see His works everywhere, and I'm constantly amazed by them."
      You see immediately that this is indeed what she wanted to hear. You
 decide not to add that you sincerely hope the traditional view of God isn't
@@ -288,7 +305,8 @@ rules, like we're unraveling God himself."
      You had no idea Claudia had such strong religious feelings. It's pretty
 obvious she wants to keep talking about this.
 
->     "Unraveling God?" you chuckle. "That sounds awfully ominous."
+> talk to claudia
+     "Unraveling God?" you chuckle. "That sounds awfully ominous."
      "I'm serious, Gabe. Despite having become a scientist, I can't help but
 wonder if the medieval and renaissance theologians didn't have the right
 idea. Before then, priests and monks were expected to be well educated and
@@ -308,7 +326,8 @@ rules stay broken? What if we're the one's to make that break?"
      3. That makes no sense at all; or
      4. Say nothing at all.
 
->     "Well, that's an interesting thought," you tell her. "You're saying that
+> 1
+     "Well, that's an interesting thought," you tell her. "You're saying that
 altering physical laws might not be temporary? So, say someone figures out a
 way to create anti-gravity, suddenly there'd be no gravity?"
      She grins at the obvious absurdity of the idea.
@@ -337,7 +356,8 @@ Ten days later....
 
 You are in the MagLab.
 
->
+> look
+
 MagLab
 
 MagLab
@@ -354,7 +374,8 @@ Mike's loud voice makes it hard not to notice he's in the room.
 
 Claudia is here.
 
->You climb the rungs up the side of the large field generator and stand on the
+> climb on machine
+You climb the rungs up the side of the large field generator and stand on the
 platform. Even though you've done this several times before, you can feel a
 little adrenaline quickening your blood. This will be the first test of more
 than a few hours; at 110 hours, you'll be under for just over four and a half
@@ -363,7 +384,8 @@ and looking at you expectantly. All that remains is to give one of them the
 word and they'll turn on the machine. In four days, they'll wake you up and
 your place in history will be secured.
 
->     You wish briefly that the extra ten days of testing had paid off. The
+> talk to claudia
+     You wish briefly that the extra ten days of testing had paid off. The
 disorientation you and the others experience when the field is shut off is
 still inexplicable. You conclude for the thousandth time that it must simply
 be caused by people or equipment in the room having moved at least a little
@@ -411,7 +433,8 @@ run off, though, you stop him by handing him the stack of exams.
 to grade these for me by tomorrow morning."
      He just grins and runs off.
 
->You move south.
+> s
+You move south.
 
 End of hallway
 
@@ -420,7 +443,8 @@ The doors out of the laboratory building are to the east, and the lab's
 single classroom is to the north. Your office and the main MagLab are to the
 west.
 
->You move west.
+> w
+You move west.
 
 Lab hallway
 
@@ -429,7 +453,8 @@ The long hallway runs east-west. To the west are the doors into the lab
 proper, and to the east are the MagLab's one classroom and the exit out of
 the building. The door to your office is to the south.
 
->You move west.
+> w
+You move west.
 
 MagLab
 
@@ -445,7 +470,8 @@ on a table. The hallway out of the MagLab is to the east.
 
 Justin is here.
 
->     "All right, Justin, what's all the excitement about?" You smile
+> talk to justin
+     "All right, Justin, what's all the excitement about?" You smile
 indulgently, returning Justin's goofy grin. Justin is one of those people who
 is just too happy and quick to smile to be able to work up a good dislike of
 him, even if you wanted to. His enthusiasm for science in general and
@@ -467,7 +493,8 @@ diamagnetic field, usually while sticking a finger up its nose or some other
 unfortunate place. You're expecting that Justin has called you in because
 Herb has finally mastered the quadruple twisting back flip.
 
->     "Look, Professor Markson, check out Herb! Look at that! Have you ever
+> talk to Justin
+     "Look, Professor Markson, check out Herb! Look at that! Have you ever
 seen anything like it?"
      As you figured, Herb has a new trick.
      "So, Justin, you've taught the little ankle biter to hold still. I must
@@ -481,7 +508,8 @@ he isn't even breathing. More than a little surprised, you exclaim:
      3. I am not having the University buy you another monkey.
      4. Well, I guess it's back to floating squirrels.
 
->     Herb is clearly dead, and you know Justin is going to be upset, but you
+> 1
+     Herb is clearly dead, and you know Justin is going to be upset, but you
 can't help yourself.
      "What in the hell have you done to him, Justin? Did you do something
 that killed him, or do you think he's had a heart attack?"
@@ -500,7 +528,8 @@ alter the field in the slightest, he wakes up and acts like everything is
 fine. It's like some sort of suspended animation."
      Yeah, exactly like, you think.
 
->     "Well, Professor Markson, what do you think?" Justin asks. He taps on
+> talk to justin
+     "Well, Professor Markson, what do you think?" Justin asks. He taps on
 the keyboard, adjusting the field, and Herb suddenly freezes in
 mid-somersault.
      You've not felt your brain whirling around this fast since you were
@@ -531,7 +560,8 @@ read my paper over and we can figure out what to do next, okay?"
 field, and walks out of the lab, Herb sitting on his shoulder and holding
 onto his hair.
 
->You move east.
+> e
+You move east.
 
 Lab hallway
 
@@ -540,7 +570,8 @@ The long hallway runs east-west. To the west are the doors into the lab
 proper, and to the east are the MagLab's one classroom and the exit out of
 the building. The door to your office is to the south.
 
->You move east.
+> e
+You move east.
 
 End of hallway
 
@@ -563,7 +594,8 @@ late at night. One thing is for sure, though: you'll be cancelling all of
 your classes for the rest of the week, and you and Justin will be locking
 yourselves in the MagLab starting tomorrow morning.
 
->You move east.
+> e
+You move east.
 
 Outside the MagLab
 
@@ -575,7 +607,8 @@ as it is, though, this isn't a good time for enjoying the sunshine. Nor is it
 a good time to let your nerves get the better of you. It is time, right now,
 to get down to the lab proper and get on with the long-duration suspension.
 
->You move south.
+> s
+You move south.
 
 Parking lot
 
@@ -587,10 +620,12 @@ the north.
 
 Your Ford Mustang is sitting here, looking damn good, as always.
 
->You climb inside the car and sit down on the fine leather of the driver's
+> get in car
+You climb inside the car and sit down on the fine leather of the driver's
 seat. Once again you are ready to drive the car.
 
->You pull out of the parking lot, and wind your way through town. You pass
+> drive
+You pull out of the parking lot, and wind your way through town. You pass
 college bar after college bar, endless pizza joints and cheap pasta places,
 and the occasional eatery worth entering. Students litter the streets. Most
 of them seem to be dressed in the current 90s retro fashion you can't stand
@@ -599,7 +634,8 @@ through the center of town and move onto the suburbs. Eventually, you turn
 down your street, the blissfully quiet Oak Point Drive, and pull into your
 driveway.
 
->You climb out of the car.
+> get out of car
+You climb out of the car.
 
 Driveway
 
@@ -620,7 +656,8 @@ passengers at least, how long it took the ship to reach its destination. With
 a shudder of awesome near disbelief, you realize that you could be the man
 who gives the stars to the human race. Or rather, you and Justin.
 
->You move north.
+> n
+You move north.
 
 Front porch
 
@@ -629,12 +666,15 @@ You are standing on the front porch of your home. On nice nights, you like to
 bring a chair out here and relax with a little scotch and soda. The door into
 your house, which you keep locked religiously, is to the north.
 
->You unlock the front door with your house keys (on the ring with your car
+> unlock door
+You unlock the front door with your house keys (on the ring with your car
 keys).
 
->You open front door.
+> open door
+You open front door.
 
->You move north.
+> n
+You move north.
 
 Hallway
 
@@ -654,16 +694,19 @@ beyond all imagination. It just isn't right, or fair, even if he has no
 choice but to share the glory with his professor. Not that you're overly
 excited about sharing the coming limelight.
 
->No time to look around, eh?
+> skip delay
+No time to look around, eh?
 The doorbell rings.
 
->You open the front door; Justin's goofy grin is staring you in the face when
+> answer the door
+You open the front door; Justin's goofy grin is staring you in the face when
 you do.  His eyes seem a tad less bright than normal, and you catch a whiff
 of Jack Daniels as he says,"Hey, professor!" and steps into the hallway,
 swinging your front door shut behind him.
      "Well, did you read my paper?" he asks.
 
->     "Of course I've read it, " you respond. "And I'm very excited about the
+> talk to Justin
+     "Of course I've read it, " you respond. "And I'm very excited about the
 possibilities..."
      Justin is trying with difficulty to remove his denim jacket, but the
 task seems to be beyond him.
@@ -697,7 +740,8 @@ this discovery yourself. After all, you were still trying to run at least one
 new experiment a month yourself. Sure, it might have been another year or
 two, but it was really only a matter of time. Damn, damn, damn.
 
->     Blood is already trickling out of his mouth, as he gasps in air and
+> talk to Justin
+     Blood is already trickling out of his mouth, as he gasps in air and
 tries to talk.
      "Oh god, professor, I can't feel my arms, I can't move my feet!" He
 begins to hyperventilate with panic, but his breath is a wet rasping sound in
@@ -708,13 +752,15 @@ trying to move."
 know what to do, help, you've got to get help, call for help, phone in the
 kitchen....
 
->His long body is broken, his neck canted at a severe angle. Two splintered
+> x Justin
+His long body is broken, his neck canted at a severe angle. Two splintered
 ribs are sticking out of his left side, a stain of blood growing on his
 shirt. His right leg is twisted up behind him. His nose is broken, and
 probably his jaw, although that seems trivial compared to the rest of his
 injuries.
 
->You move north.
+> n
+You move north.
 
 As you run down the hallway toward the kitchen, Justin's fall replays itself
 in your mind. It happened so fast, was so unexpected, so violent and
@@ -737,7 +783,8 @@ in the middle of the kitchen. A small table with four chairs sits in the
 corner of the room, and a phone is attached to the wall next to the fridge.
 The hallway is to the south.
 
->You shakily grab the phone, and dial  911....
+> call 911
+You shakily grab the phone, and dial  911....
 
 You can't change the past, Gabriel, and that is not what happened, is it? No,
 what happened was this:
@@ -766,7 +813,8 @@ brown leather chair and large couch for ease of reading. A small table rests
 beside the chair. The hallway is to the east.
 The doorbell rings.
 
->(Getting off leather chair first)
+> e
+(Getting off leather chair first)
 You move east.
 
 Hallway
@@ -780,7 +828,8 @@ the door out of the house is to the south.
 
 Justin is here.
 
->You open the front door. Claudia is standing there.
+> answer the door
+You open the front door. Claudia is standing there.
      "Hello, professor," she starts. "Justin said he had something really
 important to tell me and to meet him over here, and..."
      She pauses, finally looking at your ashen face. You step back and she
@@ -794,7 +843,8 @@ his hand.
      "It's okay, honey," she tells him. "Help is on the way." He doesn't
 respond, and she glares up at you.
 
->At first, you're not sure what to say. It's clear she thinks you've failed in
+> talk to Claudia
+At first, you're not sure what to say. It's clear she thinks you've failed in
 some way, that help wasn't already on the way. You kneel down beside her. You
 finally decide to say:
      1. He just fell;
@@ -802,7 +852,8 @@ finally decide to say:
      3. He'd been drinking; or
      4. I'm sure he's going to be all right.
 
->    "Claudia, listen to me. He just fell, seconds before you got here. I was
+> 1
+    "Claudia, listen to me. He just fell, seconds before you got here. I was
 still in shock, hell I still am, I was about to call for help when you rang
 the doorbell."
      She looks at you, and her harsh eyes soften just a little.
@@ -832,7 +883,8 @@ Day of the test....
 
 You are standing on an endless plain of short, burnt grass.
 
->
+> look
+
 A field
 
 A field
@@ -843,31 +895,39 @@ people, as naked as you are, walking aimlessly, as far as you can tell. A
 wall of cliffs line the distant horizon, but you're not sure what direction
 they are from here.
 
->As you walk along, the cliffs get a little closer.
+> n
+As you walk along, the cliffs get a little closer.
 
->As you walk along, the cliffs begin to loom a little higher.
+> n
+As you walk along, the cliffs begin to loom a little higher.
 
->As you walk along, you realize that the cliffs you are approaching must be
+> n
+As you walk along, you realize that the cliffs you are approaching must be
 immensely high.
 
->As you walk along, the cliffs are now towering over you. In front of you
+> n
+As you walk along, the cliffs are now towering over you. In front of you
 seems to be an enormous gate carved into the rock.
 
->As you walk along, you get to where you have to arch your neck back to see
+> n
+As you walk along, you get to where you have to arch your neck back to see
 the tops of the cliffs, and the closed gates in front of you are as high as a
 ten story building.
 
->At least 80 feet high, the stone gates set into the rock of the cliff itself
+> x gate
+At least 80 feet high, the stone gates set into the rock of the cliff itself
 are the only distinguishing feature for as far as you can see. In letters 10
 feet high are the words, "Abandon all hope, ye who enter." Somehow, this does
 not surprise you.  Stone gate is closed.
 
->Time passes...
+> z
+Time passes...
 With a rumbling groan of mammoth rock grinding against the massive cliff
 walls, felt in the rattle of your bones more than heard, the gates swing open
 wide.
 
->
+> look
+
 A field
 
 A field
@@ -881,7 +941,8 @@ easily make out the writing chisled into the granite of the gate. Through the
 open gates, you can see an immense hall lit by torches, stretching off into
 distant darkness.
 
->Calm for no good reason at all, you walk between the towering gates, and into
+> n
+Calm for no good reason at all, you walk between the towering gates, and into
 the hall behind them. The gates grind shut behind you.
 
 Entrance Hall
@@ -894,7 +955,8 @@ into the gray walls, providing meager, intermittent lighting, but it  is
 enough for you to see down the length of the hall to it's far northern end,
 where a large object you can't quite make out sits on the floor.
 
->You move north.
+> n
+You move north.
 
 The Throne
 
@@ -902,21 +964,25 @@ The Throne
 At the end of the hall sits a large stone throne, runes you do not recognize
 carved into its surfaces. A man sits on the throne.
 
->Long black hair slicked back into a ponytail, eyes like obsidian, slim but
+> x man
+Long black hair slicked back into a ponytail, eyes like obsidian, slim but
 muscular, he is wearing an elegant black wool suit and black cowboy boots.
 
->     "Where am I?" you ask the man.
+> talk to man
+     "Where am I?" you ask the man.
      He shakes his head, and says, "I think you know the answer to that,
 Gabriel." His voice is deep and resonant. "You are a learned man. I would
 have thought a Dante-style setting would be apropos for you."
 
->     "Who are you?" you ask this strange man.
+> talk to man
+     "Who are you?" you ask this strange man.
      "I think you know the answer to that one, too, Gabriel," he tells you,
 the calm timbre of his voice allaying your apprehension somewhat. "My list of
 names is long, but I have more recently been known as Satan, the Devil, and
 Lucifer. You can call me 'Lou' for short, if it will make you feel better."
 
->     "But I'm not dead. What am I doing here?" you ask him.
+> talk to lou
+     "But I'm not dead. What am I doing here?" you ask him.
      "Ah, now that is an interesting question," he says, his lips curling
 into a smile, white canines showing. "Let's see: your body is not breathing,
 your heart is not beating, your brain is not functioning. How do you define
@@ -937,7 +1003,8 @@ days from now, though, you are going to wake up, fine and dandy, as good as
 ever. That's something that hasn't happened in over two-thousand years, and I
 must say, I'm quite looking forward to it."
 
->      "Don't you see?" Lou asks you. "In your shorter tests, your soul was
+> talk to lou
+      "Don't you see?" Lou asks you. "In your shorter tests, your soul was
 just hovering near you, like all souls do during a near-death experience,
 waiting to see if their body has truly died. The disorientation you always
 felt was from your soul returning to your body. This time, though, you stayed
@@ -952,7 +1019,8 @@ the entire Host may stand against me, but my army is not insignificant, and
 another war will be far more entertaining than even one more minute down
 here."
 
->     "So what happens to me, now?" you ask him.
+> talk to lou
+     "So what happens to me, now?" you ask him.
      "Contrary to popular belief, Gabriel," he replies. "I am not an
 ungracious person. And I offer you a grateful choice: join me willingly, and
 in life wealth, fame, glory, and power beyond imagining will be yours. And
@@ -1013,7 +1081,7 @@ to go back to:
 1. The river of blood;
 2. The MagLab.
 
->
+> 1
 
 "Put me back in the river."
 
@@ -1057,4 +1125,5 @@ Bob Finger, and Keri Libbe.
 To start a new game, restore a saved game, or quit, click on the Adventure
 menu option above.
 
->Do you really want to quit? [Y/N]
+> quit
+Do you really want to quit? [Y/N]

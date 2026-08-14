@@ -38,7 +38,9 @@ the edge of your vision, digitized whispers rebounding through your brain.
 You spot the Reviews forum over to the east.
 
 >
->You leap eastwards into the forum.
+
+> e
+You leap eastwards into the forum.
 
 Review Forum
 The walls of this forum have been whitewashed, and are now dull and dusty.
@@ -47,7 +49,8 @@ with the selection of reviews this forum once had. Along one wall hang three
 long review scrolls, labelled one to three. You wonder where the glitch that
 Campbell talked about is.
 
->This is a review of a strange game called 'Forum'. You read through swiftly,
+> x scroll three
+This is a review of a strange game called 'Forum'. You read through swiftly,
 but there is nothing of interest - wait. Towards the bottom left corner,
 there is a small rip. You bend down to look at it closer, and tentatively
 reach out a hand to touch it.
@@ -67,16 +70,19 @@ alley.
 
 The guard doesn't look the slightest bit startled by your sudden appearance.
 
->You send a blow to his stomach, but he merely rocks backwards from it, then
+> attack guard
+You send a blow to his stomach, but he merely rocks backwards from it, then
 forwards, before coming to a stop.
 
 Maybe another one would have more effect?
 
->Again, you deliver a blow to his chest. This time, he tips to one side, and
+> attack guard
+Again, you deliver a blow to his chest. This time, he tips to one side, and
 falls onto the floor with a clunk, whilst remaining in exactly the same pose.
 The words 'Exhibit 24: Tough Guard Plastercast' are printed on his left foot.
 
->You run stealthily through the alleyway until you reach a doorway. Slipping
+> n
+You run stealthily through the alleyway until you reach a doorway. Slipping
 through it, you find yourself in a room.
 
 Fountain Hall
@@ -86,7 +92,8 @@ sides and back into the grey basin in an endless cycle. Behind the fountain
 stands a wooden staircase that widens as it goes up, onto an open landing at
 the top. The dark doorway to the alley lies back south.
 
->You move up.
+> u
+You move up.
 
 Landing
 The landing is filled with bright sunshine that spills in through the wide
@@ -96,9 +103,11 @@ interest to take advantage of this light, save two doors at each end - a blue
 one to the east, and a green one to the west. A row of wooden stairs lead
 back down to the fountain.
 
->You open the blue door.
+> open blue door
+You open the blue door.
 
->You run east, through the doorway.
+> e
+You run east, through the doorway.
 
 Landing
 This is a simple but stylish study, with a huge white desk in the center of
@@ -119,11 +128,14 @@ n...nearly all of it. I wish you luck, Bob.'
 And with that, he falls back on the floorboards, his fluffy arms falling limp
 at his sides.
 
->You open the white desk.  A piece of paper is inside the white desk.
+> open desk
+You open the white desk.  A piece of paper is inside the white desk.
 
->You take the piece of paper from the white desk.
+> take paper
+You take the piece of paper from the white desk.
 
->You run back into the landing.
+> w
+You run back into the landing.
 
 Landing
 The landing is filled with bright sunshine that spills in through the wide
@@ -133,7 +145,8 @@ interest to take advantage of this light, save two doors at each end - a blue
 one to the east, and a green one to the west. A row of wooden stairs lead
 back down to the fountain.
 
->You move down.
+> d
+You move down.
 
 Fountain Hall
 This room has a lavish black-and-white marble floor, with a stone fountain in
@@ -142,16 +155,19 @@ sides and back into the grey basin in an endless cycle. Behind the fountain
 stands a wooden staircase that widens as it goes up, onto an open landing at
 the top. The dark doorway to the alley lies back south.
 
->You tip the single drop of potion into the water. It immediatley breaks into
+> pour potion in fountain
+You tip the single drop of potion into the water. It immediatley breaks into
 an expanding cloud of red, until the whole fountain is churning out vivid red
 water into a red basin. You only hope that the potion is still strong enough
 for it to have any effect on you.
 
->You scoop some up in your hands, and gulp it down. Deep inside you, there is
+> drink fountain water
+You scoop some up in your hands, and gulp it down. Deep inside you, there is
 a feeling of churning and frothing, followed by contentment. It seems to have
 worked.
 
->You move up.
+> u
+You move up.
 
 Landing
 The landing is filled with bright sunshine that spills in through the wide
@@ -161,9 +177,11 @@ interest to take advantage of this light, save two doors at each end - a blue
 one to the east, and a green one to the west. A row of wooden stairs lead
 back down to the fountain.
 
->You smash the glass into a sizeable hole for you to climb out of.
+> smash window
+You smash the glass into a sizeable hole for you to climb out of.
 
->You hoist yourself up and out of the window.
+> out
+You hoist yourself up and out of the window.
 
 Window Ledge
 You are much higher up above ground than you thought was possible. Streets
@@ -172,7 +190,8 @@ breeze which ruffles your hair, and you are having a hard time balancing on
 this thin ledge. You can move back in through the smashed window, or further
 west along the ledge where it continues around the building.
 
->You move west.
+> w
+You move west.
 
 Further Along Ledge
 One of the several collosal pillars that decorate the building at certain
@@ -180,14 +199,16 @@ points blocks your way further to the west. Its smooth round surface, offers
 no means of getting past it any further, and you wouldn't want to risk
 endangering yourself any more. The ledge leads back east.
 
->As you get ready to strike, some movement past the pillar catches your eye.
+> punch pillar
+As you get ready to strike, some movement past the pillar catches your eye.
 It is a guard - real, this time - climbing out of a window, and looking your
 way! Without pause, you knock a hole straight through the pillar. The chunk
 of rock flies out the other side, and catches the guard off balance, causing
 him to tumble down from the ledge to the street below. Wow. Looks like the
 potion worked.
 
->You move west.
+> w
+You move west.
 
 Outside Window
 An open window is in the building next to you, just before the ledge comes to
@@ -195,7 +216,8 @@ an abrupt halt. The room within is shrouded in darkness, so you can't see
 anything inside. Further to the east, the ledge leads back to the pillar.
 Sounds of everyday life reach your ears from the strees below.
 
->You move in.
+> in
+You move in.
 
 Cell Corridor
 This is a short corridor, with bare walls, and not much in the way of
@@ -205,7 +227,8 @@ beside it, is a small speaker panel, with a plaque above it. At the other end
 of the corridor, to the east, there is a green door - presumably the one you
 saw on the landing.
 
->You say 'shoehorn' loud and clearly into the speaker. There is a click, and
+> say shoehorn
+You say 'shoehorn' loud and clearly into the speaker. There is a click, and
 the door swings open. You hear a gasp from inside, hurried footsteps, then
 Campbell emerges around the door!
 
@@ -254,4 +277,5 @@ you cease to exist.
 You scored full points.
 Type Restore, Restart, Quit, or Cease To Exist.
 
->Do you really want to quit? [Y/N]
+> quit
+Do you really want to quit? [Y/N]

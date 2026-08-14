@@ -26,7 +26,8 @@ On the wall there is a poster of a naked woman.
 
 Also here is a table and a chair.
 
->(Your score has increased by 1)
+> x stains
+(Your score has increased by 1)
 As you realise that the stains are blood stains, you have a flash of memory,
 and you remember a girl, lying in this same mattress... but... the
 mattress... was somewhere else... in a luxury condo. Her head is strangely
@@ -46,34 +47,43 @@ Finally an unending inhuman animalistic scream comes out from your throat.
 The memory is gone as fast as it came, but somehow you know the diary page
 has changed, and it is nearer the end.
 
->In a fit of rage, you rip the poster out of the wall. You feel a perverse
+> break poster
+In a fit of rage, you rip the poster out of the wall. You feel a perverse
 pleasure when you rip it by the cleavage.
 
->(Getting off the table first)
+> e
+(Getting off the table first)
 You move east.
 
 Room
 This is the only other room in the cottage. It is poorly furnished with an
 old armchair. To the west is your bedroom. To the east the door out.
 
->You move the wooden plank to a side.
+> open door
+You move the wooden plank to a side.
 
->You take the flashlight from the armchair.
+> get flashlight
+You take the flashlight from the armchair.
 
->You move east.
+> e
+You move east.
 
 Forest Clearing
 This is a small muddy and trampled clearing in the forest, in front of your
 cottage. There is some assorted trash in the ground. To the north there is a
 tool shack. To the south the forest deepens. To the east you can see a river.
 
->You take the straight iron from the pile of trash.
+> get iron
+You take the straight iron from the pile of trash.
 
->You take the battery from the pile of trash.
+> get battery
+You take the battery from the pile of trash.
 
->You insert the battery into the flashlight and it turns on.
+> put battery in flashlight
+You insert the battery into the flashlight and it turns on.
 
->You move north.
+> n
+You move north.
 
 A tool shack
 A small wooden cluttered tool shack that contains iron working tools and wood
@@ -81,23 +91,29 @@ working tools.
 
 There is an axe hung on the wall.  A rope lies on the ground.
 
->You pick up the axe.
+> get axe
+You pick up the axe.
 
->You pick up the rope.
+> get rope
+You pick up the rope.
 
->Using the tools in your shack you manage to bend the iron into the shape of
+> bend iron
+Using the tools in your shack you manage to bend the iron into the shape of
 an S, and now have a makeshift hook.
 
->You now have the hook firmly tied to the rope.
+> tie rope to hook
+You now have the hook firmly tied to the rope.
 
->You move south.
+> s
+You move south.
 
 Forest Clearing
 This is a small muddy and trampled clearing in the forest, in front of your
 cottage. There is some assorted trash in the ground. To the north there is a
 tool shack. To the south the forest deepens. To the east you can see a river.
 
->You move south.
+> s
+You move south.
 
 Deep Forest
 The forest deepens. You walk between majestic trees that have seen lots of
@@ -106,43 +122,51 @@ west you can see a dark cave.
 
 Also here is old tree.
 
->Chop, chop, chop, you methodically cut down the tree. Once cut, you cut off
+> cut tree
+Chop, chop, chop, you methodically cut down the tree. Once cut, you cut off
 the branches until you are left with a manageable log.
 
->You pick up the log.
+> get log
+You pick up the log.
 
->You move north.
+> n
+You move north.
 
 Forest Clearing
 This is a small muddy and trampled clearing in the forest, in front of your
 cottage. There is some assorted trash in the ground. To the north there is a
 tool shack. To the south the forest deepens. To the east you can see a river.
 
->You move north.
+> n
+You move north.
 
 A tool shack
 A small wooden cluttered tool shack that contains iron working tools and wood
 working tools.
 
->(Your score has increased by 1)
+> work wood
+(Your score has increased by 1)
 After patiently working for a long time, a lot of cutting and polishing, you
 have what could pass for a canoe.
 
->You move south.
+> s
+You move south.
 
 Forest Clearing
 This is a small muddy and trampled clearing in the forest, in front of your
 cottage. There is some assorted trash in the ground. To the north there is a
 tool shack. To the south the forest deepens. To the east you can see a river.
 
->You move south.
+> s
+You move south.
 
 Deep Forest
 The forest deepens. You walk between majestic trees that have seen lots of
 things in this world. They grow so dense that it is almost dark here. To the
 west you can see a dark cave.
 
->(Your score has increased by 1)
+> w
+(Your score has increased by 1)
 You move west.
 
 Dark Cave
@@ -167,7 +191,8 @@ killed again!
 
 Once again, I know I have accessed new information in my diary.
 
->You move down.
+> d
+You move down.
 
 Cave Pit
 The pit looks like if it was once intended to be a well, but it contains no
@@ -175,29 +200,34 @@ water.
 
 Also here is a fire extinguisher.
 
->You pick up the fire extinguisher.
+> get extinguisher
+You pick up the fire extinguisher.
 
->You move up.
+> u
+You move up.
 
 Dark Cave
 The cave interior is cool. When your light hits the walls, there seem to be a
 miriad stars. In the back of the cave there is a deep pit going down.
 
->You move east.
+> e
+You move east.
 
 Deep Forest
 The forest deepens. You walk between majestic trees that have seen lots of
 things in this world. They grow so dense that it is almost dark here. To the
 west you can see a dark cave.
 
->You move north.
+> n
+You move north.
 
 Forest Clearing
 This is a small muddy and trampled clearing in the forest, in front of your
 cottage. There is some assorted trash in the ground. To the north there is a
 tool shack. To the south the forest deepens. To the east you can see a river.
 
->(Your score has increased by 1)
+> e
+(Your score has increased by 1)
 You cross the river in your canoe.
 The water is chilly, but very placid, so we both removed our clothes,
 dropping them carelessly by the cottage and swam across the river in our
@@ -215,7 +245,8 @@ notice that it starts a small fire.
 
 I know I have new information in my diary.
 
->(Your score has increased by 1)
+> extinguish fire
+(Your score has increased by 1)
 You pull the pin in the extinguisher, and then aim its nozzle at the base of
 the flames. You gently, but surely, squeeze the trigger whilst you hold the
 extinguisher upright and sweep it from side to side, covering the area of the
@@ -223,7 +254,8 @@ fire with foam.
 At first the fire seems to be impossible to extinguish, but slowly you
 overpower it. With a final human like sigh the fire is extinguished.
 
->You move south.
+> s
+You move south.
 
 Indian Cemetery
 An old indian cemetery. This is sacred ground. There are some ugly totems
@@ -232,9 +264,11 @@ you?
 
 Also here is a totem.
 
->Your score is 5 out of a maximum of 6.  (83%)
+> score
+Your score is 5 out of a maximum of 6.  (83%)
 
->(Your score has increased by 1)
+> destroy totem
+(Your score has increased by 1)
 With all your pent up anger you hit the totem with your axe and cut it time
 after time, slowly chopping away the features. There is a moment where you
 almost stop, wondering why are you destroying a work of art, a sacred object?

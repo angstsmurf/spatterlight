@@ -25,16 +25,21 @@ The quest for SPAM©!
 So, how do you intend to find out what's in SPAM©?
 
 >
->You pick up the can of SPAM©.
 
->You move north.
+> take spam
+You pick up the can of SPAM©.
+
+> north
+You move north.
 
 Driveway
 Your car is here.
 
->You don't have your car keys!
+> enter car
+You don't have your car keys!
 
->You move south.
+> south
+You move south.
 
 Kitchen
 The usual refrigerator, stove, and the like are all here, along with
@@ -42,40 +47,49 @@ groceries, and a can of SPAM©.
 
 Oh, and your car keys are on the counter.
 
->You pick up car keys.
+> take keys
+You pick up car keys.
 
->You move north.
+> north
+You move north.
 
 Driveway
 Your car is here.
 
->(Your score has increased by 10)
+> enter car
+(Your score has increased by 10)
 You get in your car.
 
->You start the car, and head for the address printed on the label of the can
+> start car
+You start the car, and head for the address printed on the label of the can
 of SPAM©.
 
->You move north.
+> north
+You move north.
 
 Inside SPAM© Headquarters
 You are at a desk. There is a receptionist here, typing away at a computer.
 
 The Receptionist is here.
 
->(Your score has increased by 10)
+> ask about ingredients
+(Your score has increased by 10)
 The receptionist looks up at you. "Did you say...." "Say what," you say, "
 Ingredients?\”  She gasps, and hits a button. An alarm starts going off! Gas
 starts to fill the room, and the next thing you know, you are in a cell
 shackled to the wall.
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
 A guard comes in, unshackles you, and escorts you to the office of the C.E.O.
 of SPAM©, Inc.
 
->Time passes...
+> z
+Time passes...
 
 The CEO walks in. "So, you want to know what's in SPAM(©), eh? Did you know
 you are the first person to ask the question?" You shake your head.  "Ever?"
@@ -92,7 +106,8 @@ it. Soon SPAM©, Inc. will have a monopoly on all potted lunchmeat products
 all over the world! MUHAHAHA!" Quick! Do something! He's getting out his
 SPAMRAY©!!!!!
 
->You tackle the CEO, open his jaws and force the SPAM© down his piehole.
+> ask ceo about spam
+You tackle the CEO, open his jaws and force the SPAM© down his piehole.
 Within minutes, he is under control of the drug. You manage to get him to
 give you control of the company. Now YOU will have a monopoly on potted
 lunchmeat products!

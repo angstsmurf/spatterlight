@@ -23,37 +23,44 @@ dream, recall wrenching away from the deadly  grasp and falling onto the
 rocky ground. You woke with a shock, your left hand throbbing, to find the
 nightmare creature was still there.
 
->You take the jagged rock.
+> get rock
+You take the jagged rock.
 
 The beast lashes out with a clawed hand, just missing as you step away.
 Giving a low, gurgling growl of displeasure it continues to advance.
 
->(Your score has increased by 10)
+> kill beast with rock
+(Your score has increased by 10)
 You strike at the shadow with the jagged rock. The  weapon meets resistance
 and the beast lets out a nearly human shriek. Driven by fear you strike again
 and again until your attacker lies still and silent at your feet.
 Pain shoots through your left hand. You feel disoriented. Not quite sure who
 you are. No idea where you are. Or why you are here.
 
->Looking more closely at the crumpled form, you see that it is not a beast but
+> x creature
+Looking more closely at the crumpled form, you see that it is not a beast but
 a human of bestial and debased appearance - heavily muscled, swarthy, hair
 and beard tangled masses. The dead man is dressed in filthy animal hides.
 Out of keeping with the dead creature's appearance is the golden ring it
 wears.
 
->You gingerly remove the gold ring from the dead creature. Unlike some of your
+> get ring
+You gingerly remove the gold ring from the dead creature. Unlike some of your
 thieving colleagues, you have never much enjoyed robbing corpses.
 Your left hand continues to throb.
 
->An object resembling a faceted gem appears to be partially embedded in the
+> x left hand
+An object resembling a faceted gem appears to be partially embedded in the
 back of your hand. It emits a pulsating glow which faintly illuminates your
 surroundings.
 
->The gem is covered with a spiderweb of cracks. It must have struck a rock
+> x gem
+The gem is covered with a spiderweb of cracks. It must have struck a rock
 when you fell. However, beneath the cracks you can make out what appears to
 be a red  eye  The eye glares with malevolence.
 
->The square of parchment bears a message penned in some strange ink which
+> x note
+The square of parchment bears a message penned in some strange ink which
 gives off a faint glow:
 
 To Whom it May Concern
@@ -76,24 +83,28 @@ and was rendered ineffective. You are gripped by a desire for revenge. Of
 course, your first encounter with Malevol was none too successful. Returning
 to Heliopoli might not be the wisest course.
 
->Examining the surrounding bushes,  you notice what appear to be freshly
+> search clearing
+Examining the surrounding bushes,  you notice what appear to be freshly
 broken branches to the north. Perhaps the creature which attacked you entered
 the clearing from that direction. You may have entered that way also. You
 can't remember.
 
->(Your score has increased by 5)
+> north
+(Your score has increased by 5)
 Pushing the broken branches aside you find yourself on a narrow weed choked
 path which runs north but also branches east.  Walls of rank vegetation press
 in all around.
 
->You move east.
+> east
+You move east.
 
 A narrowing forest path
 A dead end, abrupt as the end of an alleyway. The forest seems to tighten
 around you here.  The path only runs west. But there is also, to the south, a
 slight gap in the thick bushes, maybe an animal track.
 
->You move south.
+> south
+You move south.
 
 Animal Track
 This is surely an animal track rather than a path. You can barely squeeze
@@ -102,7 +113,8 @@ your head. Still, it is large enough to accomodate you. The track wasn't made
 by a rabbit. The path runs north and south. Also, there is an opening to the
 east.
 
->You move east.
+> east
+You move east.
 
 A cliff
 The path here runs north. To the south vegetation blocks any progress. A
@@ -111,23 +123,27 @@ cliff. In one place, the rocks form an overhang. It  appears that you might
 be able to step down and into the shadowy space underneath. You can also make
 out some indentations in the cliff face.
 
->You move down.
+> down
+You move down.
 
 The cave
 The overhanging rock forms a sort of small cave, the opening a few steps up.
 Against the dripping back wall lies a skeleton.
 
->A badly decayed pile of bones. The skull and ribs have collapsed inward.
+> x skeleton
+A badly decayed pile of bones. The skull and ribs have collapsed inward.
 Looking more closely you see that the skull hasn't actually collapsed. The
 back half has been hewn off. You also see something glinting underneath the
 bones -- a sword -- probably the weapon the man wasn't able to defend himself
 with.
 
->(Your score has increased by 5)
+> get sword
+(Your score has increased by 5)
 You take the sword.  Although it is large and appears to be forged of bronze,
 it is oddly light.
 
->You move up.
+> up
+You move up.
 
 A cliff
 The path here runs north. To the south vegetation blocks any progress. A
@@ -136,20 +152,23 @@ cliff. In one place, the rocks form an overhang. It  appears that you might
 be able to step down and into the shadowy space underneath. You can also make
 out some indentations in the cliff face.
 
->You move north.
+> north
+You move north.
 
 Path along the cliff
 The path continues north and south along the base of the cliff which here is
 sheer and unclimbable. The vegetation along the path is impassable.
 
->You move north.
+> north
+You move north.
 
 Path Through the Swamp
 Here the north/south path runs through what looks to be the end of a swamp. A
 few tall cattails sway in some unfelt breeze. There is also a path running
 east and west.
 
->You move west.
+> west
+You move west.
 
 Copse
 Here the trees have formed a copse littered with rotting, fallen trunks. A
@@ -157,13 +176,16 @@ huge boulder sits in the center of the  clearing. The boulder, surrounded by
 weeds and green with moss, is twice your height. There seem to be openings to
 the east and west.
 
->So far as you tell they're just weeds -- green, with leaves -- of no
+> x weeds
+So far as you tell they're just weeds -- green, with leaves -- of no
 interest.  What does interest you is the leather  pouch you see lying there.
 
->(Your score has increased by 5)
+> get pouch
+(Your score has increased by 5)
 You take the leather pouch.
 
->You move west.
+> west
+You move west.
 
 A widening forest path
 The path widens in this direction. Although it is dark, you think you can
@@ -171,21 +193,24 @@ make out, to the north, an opening, where the impenetrable black of the
 surrounding trees and bushes gives way to the lighter darkness  of the night
 sky. There also is an opening in the bushes to the east.
 
->You move north.
+> north
+You move north.
 
 The Highway
 A wide highway paved with massive concrete slabs runs east and  west.
 Although, here and there, great trees lean out over the thoroughfare,  the
 forest has made no inroads. There is a path leading south.
 
->You move east.
+> east
+You move east.
 
 The highway
 Here the highway is blocked by a towering pile of deadfall which appears at
 first glance to be impassable. The side of the roadway is littered with
 rubble.
 
->On closer inspection the towering pile of enormous tree trunks and forest
+> x deadfall
+On closer inspection the towering pile of enormous tree trunks and forest
 debris seems rather carefully constructed to be deadfall. Someone must have
 placed it there, as a barrier. As far as you can see -- not very far given
 the density of the vegetation - the obstacle extends out from the highway and
@@ -193,7 +218,8 @@ into the forest.  However, at one spot along the base, there seems to be an
 opening, like the entrance to a burrow. You might be able to go down into the
 opening.
 
->You squeeze yourself down into the opening and manage to crawl through a
+> down
+You squeeze yourself down into the opening and manage to crawl through a
 tight, narrow burrow.
 
 Under the deadfall
@@ -202,19 +228,24 @@ forest debris. A dark patch of shadow to the south might indicate an opening.
 You can also go back to the west.
 A small red snake fixes you with its sharp gaze.
 
->(Your score has increased by 10)
+> kill snake with sword
+(Your score has increased by 10)
 The sword seems to have a life of its own.  It moves practically before
 you've made up your mind to strike. The snake springs, spitting venom,  but
 the sword catches the creature in mid-leap, slicing it in half.
 
->You open the pouch.
+> open pouch
+You open the pouch.
 
->You carefully pick  up the dead snake. Fresh venom drips from its fangs.
+> get snake
+You carefully pick  up the dead snake. Fresh venom drips from its fangs.
 
->(Your score has increased by 5)
+> put snake in pouch
+(Your score has increased by 5)
 Carefully you put the dead snake into the pouch.
 
->You crawl through the narrow opening and move further into the massive pile
+> south
+You crawl through the narrow opening and move further into the massive pile
 of deadfall.
 
 The lair
@@ -222,11 +253,14 @@ This must be the lair of some carnivore. It is practically filled with a
 ghastly heap of remains. The sort of  debris left by a cave weasel -- or
 worse.
 
->You find a scrap of cloth amid the putrefying mass.
+> x debris
+You find a scrap of cloth amid the putrefying mass.
 
->You take the scrap of cloth.
+> get cloth
+You take the scrap of cloth.
 
->A scrap of heavily embroidered  cloth -- the sort of thing a rich man might
+> x cloth
+A scrap of heavily embroidered  cloth -- the sort of thing a rich man might
 carry in his pocket as a handkerchief.. The remains of a person most likely.
 The only bit the weasel or wolf, or bear, or whatever lives here, didn't eat.
 Maybe it  found the gold thread unpalatable.
@@ -234,28 +268,32 @@ Maybe it  found the gold thread unpalatable.
  The scrap contains most of a gold rondel,  filled with three elaborately
 worked letters: YAH. Perhaps the owner's initials.
 
->You move north.
+> north
+You move north.
 
 Under the deadfall
 You are in a cramped hollow space  walled by tree trunks, sticks and other
 forest debris. A dark patch of shadow to the south might indicate an opening.
 You can also go back to the west.
 
->You move up.
+> up
+You move up.
 
 The highway
 Here the highway is blocked by a towering pile of deadfall which appears at
 first glance to be impassable. The side of the roadway is littered with
 rubble.
 
->You move west.
+> west
+You move west.
 
 The Highway
 A wide highway paved with massive concrete slabs runs east and  west.
 Although, here and there, great trees lean out over the thoroughfare,  the
 forest has made no inroads. There is a path leading south.
 
->You move south.
+> south
+You move south.
 
 A widening forest path
 The path widens in this direction. Although it is dark, you think you can
@@ -263,7 +301,8 @@ make out, to the north, an opening, where the impenetrable black of the
 surrounding trees and bushes gives way to the lighter darkness  of the night
 sky. There also is an opening in the bushes to the east.
 
->You move east.
+> east
+You move east.
 
 Copse
 Here the trees have formed a copse littered with rotting, fallen trunks. A
@@ -271,14 +310,16 @@ huge boulder sits in the center of the  clearing. The boulder, surrounded by
 weeds and green with moss, is twice your height. There seem to be openings to
 the east and west.
 
->You move east.
+> east
+You move east.
 
 Path Through the Swamp
 Here the north/south path runs through what looks to be the end of a swamp. A
 few tall cattails sway in some unfelt breeze. There is also a path running
 east and west.
 
->You move north.
+> north
+You move north.
 
 The Highway
 The broad highway built of concrete slabs runs east and west, glimmering
@@ -286,7 +327,8 @@ white, like a frozen stream, in the darkness.  To the west it is blocked by
 an impassable wall of deadfall.  A path leads south into the forest. An
 eroded pillar stands near the edge of the road.
 
->The pillar is a road marker with a carved arrow on top. The inscription on
+> x pillar
+The pillar is a road marker with a carved arrow on top. The inscription on
 the arrow indicates that Heliopoli lies about 15 ryds to the west. To the
 east, the inscription claims,  the highway leads to Xycanthus.
 
@@ -294,29 +336,34 @@ Lost Xycanthus. Fabled Xycanthus. Doomed Xycanthus. A place of untold riches
 -- before the Doom. It might be easier to take revenge on Malevol if you
 weren't totally coinless.
 
->As you continue along the highway you hear a thin, high-pitched sound, like
+> east
+As you continue along the highway you hear a thin, high-pitched sound, like
 the faint cry of a cicada. "Fool! Go back!" it seems to be saying. Surely you
 must be imagining things.
 
->You move east.
+> east
+You move east.
 
 The Gate
 The highway ends before an immense, masonry wall.   Set into the wall is an
 equally enormous metal door which is closed.
 
->The door is twice your height, made of some sort of dull metal you cannot
+> x door
+The door is twice your height, made of some sort of dull metal you cannot
 readily identify but which  gives an impression of impregnability -- exactly
 the sort of door you would expect to find on a storehouse of untold treasure.
 The metal's surface  has been worked into an impossibly intricate, but
 seemingy meaningless, pattern. In the center of the door is a brass panel.
 
->A brass panel on which is written in raised letters:
+> x panel
+A brass panel on which is written in raised letters:
 
 X-Y-C-A-N-T-H-U-S
 
 Each letter looks as if it might move if you press it.
 
->You feel a vibration beneath your fingertips and the Y of brass  begins to
+> press y
+You feel a vibration beneath your fingertips and the Y of brass  begins to
 glow.
 
 A  nearly inaudible, insectoid voice, reaches your ears.
@@ -326,11 +373,14 @@ A  nearly inaudible, insectoid voice, reaches your ears.
 The voice seems to be emanating from the gem i the back of your hand. And it
 sounds rather like a wasp-sized  Malevol.
 
->The A begins to glow brightly.
+> press a
+The A begins to glow brightly.
 
->The H lights up and as it does the gate creaks open.
+> press h
+The H lights up and as it does the gate creaks open.
 
->(Your score has increased by 15)
+> east
+(Your score has increased by 15)
 You stride through the open gateway.
 
 Deserted Square
@@ -352,9 +402,11 @@ mysterious doom however.
 As you enter the city, as if by some enchantment, the two moons of your
 world, only recently risen, appear from behind a tattered veil of clouds.
 
->There is no watcher here.
+> give ring to watcher
+There is no watcher here.
 
->You move north.
+> north
+You move north.
 
 Colonnaded Thoroughfare
 The remains of a colonnaded thoroughfare, twice as wide as the Avenue of the
@@ -365,7 +417,8 @@ ruined structure.
 
 You can also see a marble bust.
 
->You move north.
+> north
+You move north.
 
 Ruined Villa
 Here the remains of a villa, little more than foundations, are laid out like
@@ -375,9 +428,11 @@ Gardens lie to the east. You can also move south.
 
 You can also see a paperweight.
 
->You take the paperweight.
+> get paperweight
+You take the paperweight.
 
->You move east.
+> east
+You move east.
 
 Gardens
 This place was once an elaborate, decorative garden.  Now the grass grows
@@ -389,13 +444,15 @@ that not even the moonlight can penetrate. You can also move west.
 
 You can also see a gold dinner plate.
 
->A life sized marble statue of the love goddess one vanished civilization
+> x woman
+A life sized marble statue of the love goddess one vanished civilization
 called Aphrodite. Only a few flecks of paint remain on her slender arms and
 graceful legs. The pale stone  glows in the moonlight, surrounding the
 perfect, frozen figure in a faint nimbus. How can you not be reminded of
 Marivelle? Will your lips ever again touch hers?
 
->(Your score has increased by 5)
+> kiss aphrodite
+(Your score has increased by 5)
 You kiss the still, white lips of Aphrodite. They are cool,  unyielding, and
 unresponsive. Then, it seems, you feel a slight tremor.
 
@@ -405,9 +462,11 @@ the ground.
 Suddenly you feel a warmth at your ear. Like Marivelle's breath. You are
 alone, yet  in your mind lingers a memory of a whisper. "XYZZY"
 
->You take the iron key.
+> get key
+You take the iron key.
 
->"Xyzzy." You whisper the strange combination of letters. What put them into
+> xyzzy
+"Xyzzy." You whisper the strange combination of letters. What put them into
 your head?
 
 In an instant your question is answered. Like father like daughter, it seems,
@@ -418,7 +477,8 @@ the Southern Sea.
 So that is where Malevol sent her. Far from Heliopoli. She  must have given
 you the spell so you would be able to find her.
 
->You move south.
+> south
+You move south.
 
 Temple Courtyard
 This courtyard must have been colonnaded once, but now only a few stumps of
@@ -427,16 +487,19 @@ appears to be polished black obsidian, perfectly reflecting beneath your
 feet, the two moons overhead. The only structure standing here is a temple,
 to the east. You can also move north or south.
 
->The shrine is an enormous likeness of Batrachius, the obscene toad idol of
+> x temple
+The shrine is an enormous likeness of Batrachius, the obscene toad idol of
 ancient Xycanthus. Carved from stone the color of brackish water at midnight,
 the squat, bulbous abomination, with its hideously distended and distorted
 features, resembles more a bloated corpse which has floated to the top of a
 foetid pool than anything a sane person would think to worship. There is a
 door in the corpulent stone belly of the thing.
 
->You unlock the temple door.
+> unlock door
+You unlock the temple door.
 
->You move east.
+> east
+You move east.
 
 Temple of the Toad God
 The interior of the temple is suffused with a watery green effulgence which
@@ -449,7 +512,8 @@ the pool. You realize, somehow, that you will not be able to get past the
 creatures.  Actually, to pass them you'd have to risk touching them and you
 don't want to do that.
 
->That's it! Poison the pool from which the toads draw their very substance.
+> throw pouch in pool
+That's it! Poison the pool from which the toads draw their very substance.
 You knew there had to be some reason you'd been carting around a dead snake
 in a venom saturated pouch!
 
@@ -459,14 +523,16 @@ invisible filaments tethering the toads to the pool crumble into nothingness
 and one by one the toads shrivel and implode in tiny puffs of glittering dust
 leaving behind no trace.
 
->You move east.
+> east
+You move east.
 
 The Onyx Stairs
 This immense staircase of black and gray striped onyx leads down into a kind
 of crater from the center of which rises a gargantuan dome. The stairs also
 go east  to the temple.
 
->You move down.
+> down
+You move down.
 
 A Desolate Crater
 A crater, an expanse of blasted, barren earth in which not even a hardy weed
@@ -477,21 +543,24 @@ stairway.  Some of the taller ruins of Xycanthus can be discerned beyond the
 rim of the crater.  None can match the massive, domed edifice at the center.
 You can go up the stairs or move east or south, around the dome.
 
->You move east.
+> east
+You move east.
 
 A Desolate Crater
 The crater looks to be entirely empty, save for the towering dome in the
 middle. The packed earth is devoid even of dust. You can go south or west
 around the dome in the center of the crater.
 
->You move south.
+> south
+You move south.
 
 A Desolate Crater
 In this dead crater, starkly lit by the light of the moons, there is nothing
 but packed earth, hard and unyielding as pavement. The great dome rises from
 the center. You can go north or west.
 
->At one place a fissure angles down the side of the dome, large enough to form
+> x dome
+At one place a fissure angles down the side of the dome, large enough to form
 a sort of path by which you might be able to make your way upwards. There
 appears to be a shadowy gap at the end of the fissure.
 
@@ -499,7 +568,8 @@ A small movement catches your attention. It is the malevolent eye in the gem
 embedded in your hand. The eye is blinking rapidly. Is is possible for a
 disembodied eye to look wide with terror?
 
->You move up.
+> up
+You move up.
 
 A cavern
 This is a sort of cavity in what appears to be plain rock, more like a
@@ -508,31 +578,36 @@ The dome's shell must be of a thickness to match its monstrous size. Here and
 there rocky columns run from floor to ceiling. There are openings to the
 south and east as well as the exit leading down.
 
->You drop the jagged rock, the note, the scrap of cloth, the gold ring, the
+> drop all but sword
+You drop the jagged rock, the note, the scrap of cloth, the gold ring, the
 iron key and the paperweight.
 
->You move east.
+> east
+You move east.
 
 Dim Passageway
 A wide, tubular passageway. Here and there some kind of nacreous mineral,
 half embedded in the curving walls,  glimmers dimly. In one spot there
 appears to be  scratchings on the wall. Exits lie to the north and west.
 
->You move north.
+> north
+You move north.
 
 Dim Passageway
 You can barely see in the dim light but you sense a pulsation, like a
 heartbeat, coming from. . .where? The walls? The passageway ahead? The exits
 are south and west.
 
->You move west.
+> west
+You move west.
 
 Dim Passageway
 There is nothing to see in the gloom but the rough conglomerate of the walls.
 However, clearly, the pulsating thump filling the air comes from the opening
 to the north. There is also an exit to the east.
 
->You move north.
+> north
+You move north.
 
 A Grotto
 This grotto looks no less natural than the cave which lies beyond the
@@ -545,7 +620,8 @@ might lie beyond because stretched tightly across the opening is a purplish,
 pulsating membrane. Perhaps this beating membrane is the source of the
 thumping that fills the grotto and passageways all around.
 
->(Your score has increased by 10)
+> cut membrane with sword
+(Your score has increased by 10)
 You slash at the membrane. The bronze sword blade meets taut resistance for
 an instant, then the membrane tears, with an audible noise. Pulsing veins,
 ripped apart, dangle and wave, spurting blood wildly and the ragged, rent
@@ -560,14 +636,16 @@ the shell below which glisten fiery eyes and slathering mandibles.
 Is this the doom that came to Xycanthus? As it moves swiftly toward you on
 hideously writhing tenacles, you're sorry you asked.
 
->You sprint out of the Grotto. You've always run well. A valuable skill for a
+> south
+You sprint out of the Grotto. You've always run well. A valuable skill for a
 thief.
 
 Dim Passageway
 Perhaps it is your panic that makes the passage seem darker than before.
 There is only  the slightest glimmer of light to the east.
 
->You run.
+> east
+You run.
 
 Dim Passageway
 Stygian darkness chokes the passageway and you can barely discern the exits
@@ -577,7 +655,8 @@ You must be opening up some distance between yourself and your
 pursuer.Although you don't dare pause to look behind, the giant crab's
 hideous chattering sounds fainter.
 
->You push yourself to run faster. Though your lungs begin to burn with the
+> south
+You push yourself to run faster. Though your lungs begin to burn with the
 effort there's no doubt you are leaving the monstrosity behind. The
 scrabbling of its tentacles along the passageway has definitely faded.
 
@@ -585,7 +664,8 @@ Dim Passageway
 You are drowning in an inky darkness. The exits to the north and west are
 more recalled than seen.
 
->Your legs are weak but you seem to have outrun the horror.
+> west
+Your legs are weak but you seem to have outrun the horror.
 
 Cavern
 The cavern leading out of the great dome has been transformed. In addition to
@@ -596,9 +676,11 @@ you're standing in which is moving.
 
 You can also see a paperweight.
 
->You take the paperweight.
+> get paperweight
+You take the paperweight.
 
->(Your score has increased by 15)
+> jump
+(Your score has increased by 15)
 You fling yourself down through the gap in the floor. In a book, your last
 thought would be of the lovely Marivelle.  In reality you are only wondering
 what the fatal impact of flesh on unyeilding stone will feel like.

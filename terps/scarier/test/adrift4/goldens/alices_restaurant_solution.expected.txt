@@ -15,24 +15,30 @@ and she makes a Thanksgiving dinner that can't be beat.  You have pulled your
 red VW Microbus up to the side of the building and you are now standing in
 front of the church.
 
->The mailbox is open.
+> open mailbox
+The mailbox is open.
 When you open the mailbox an envelope falls out and lands at your feet.
 
->You have the envelope.
+> take envelope
+You have the envelope.
 
->Opening the envelope reveals a letter.
+> open envelope
+Opening the envelope reveals a letter.
 
->The letter informs you that you are to report to Whitehall Street in New York
+> read letter
+The letter informs you that you are to report to Whitehall Street in New York
 for your army physical a week from today.
 
->You move north.
+> north
+You move north.
 
 At the Church Door
 You are at a wooden gothic arched doorway.
 
 You can move east, south and out.
 
->Knock.  Knock.
+> knock on church door
+Knock.  Knock.
 The door opens and reveals Alice.  She immediately hugs you and welcomes you
 inside.  She apologizes for the mess.  Having all this room where the pews
 used to be, she hasn't taken out her garbage for a very long time.  It is
@@ -46,22 +52,27 @@ things in the yard.  Alice gestures towards a table set with a Thanksgiving
 dinner that couldn't be beat.  There is stuffing, cranberry sauce, and an
 impressive turkey.
 
->You are now seated.
+> sit
+You are now seated.
 
->As you enjoy the Thanksgiving Dinner That Couldn't Be Beat, Alice tells you
+> eat turkey
+As you enjoy the Thanksgiving Dinner That Couldn't Be Beat, Alice tells you
 that she has opened a restaurant.  "A restaurant?" you say.  "Not just any
 restaurant," she says.  "This is a special restaurant.  There will be no
 square meals there.  You should go see it later.  It's just a half a mile
 from the railroad track."  "Far out," you say, and finish your feast leaving
 only a large turkey bone on your plate.
 
->You pick up the bone.
+> take bone
+You pick up the bone.
 
->With a delighted bark, the dog grabs the bone and heads outside.  "You've
+> give dog bone
+With a delighted bark, the dog grabs the bone and heads outside.  "You've
 made her day," says Alice.  "There she goes to dig in my yard again."  In a
 few moments, Facha returns, tracking in a fair ammount of dirt.
 
->You move south.
+> south
+You move south.
 
 In Front of the Church
 You are in front of a gothic wooden church.  The paint is peeling and the
@@ -75,7 +86,8 @@ way.  It's too far to walk.  There is a mailbox here.
 
 You can move north and east.
 
->You move east.
+> east
+You move east.
 
 Alice's Garden
 You are in Alice's garden.   Although the growing season has largely passed
@@ -90,9 +102,11 @@ Also here is an implement of destruction.
 
 You can move north and west.
 
->You pick up the implement of destruction.
+> take implement of destruction
+You pick up the implement of destruction.
 
->You move north.
+> north
+You move north.
 
 The Stable
 You are at the stable.  Back in the days when this was an active church, it
@@ -103,11 +117,13 @@ Horse is here.
 
 You can only move south.
 
-> Maybe it's just your imagination, but it seems like the horse is listening.
+> play guitar
+ Maybe it's just your imagination, but it seems like the horse is listening.
 It has stopped eating for the moment and is swaying its head in time to the
 music.
 
->You move south.
+> south
+You move south.
 
 Alice's Garden
 You are in Alice's garden.   Although the growing season has largely passed
@@ -122,9 +138,11 @@ You can move north and west.
 
 Horse walks towards you from the north.
 
->Ok, you're not playing any more.
+> stop playing
+Ok, you're not playing any more.
 
->You move north.
+> north
+You move north.
 
 The Stable
 You are at the stable.  Back in the days when this was an active church, it
@@ -133,11 +151,14 @@ In the back of the stable there is an old cabinet of some kind.
 
 You can only move south.
 
->The cabinet opens and a shovel falls out, nearly bonking you on the head.
+> open cabinet
+The cabinet opens and a shovel falls out, nearly bonking you on the head.
 
->You have the shovel.
+> take shovel
+You have the shovel.
 
->You move south.
+> south
+You move south.
 
 Alice's Garden
 You are in Alice's garden.   Although the growing season has largely passed
@@ -152,7 +173,8 @@ Horse is here.
 
 You can move north and west.
 
->You move west.
+> west
+You move west.
 
 In Front of the Church
 You are in front of a gothic wooden church.  The paint is peeling and the
@@ -166,10 +188,12 @@ way.  It's too far to walk.  There is a mailbox here.
 
 You can move north and east.
 
->You are behind the wheel of the red VW microbus.  To steer, type "drive" and
+> get in bus
+You are behind the wheel of the red VW microbus.  To steer, type "drive" and
 the direction you would like to go.
 
->You drive north.
+> drive north
+You drive north.
 
 In front of the Town Dump
 You are in front of the Town Dump.  There are roads leading northeast, east
@@ -177,21 +201,26 @@ and south.   You can not continue to the dump itself because there is a fence
 and a chain across the road with a sign on it that you can't quite make out
 from the driver's seat of the Red VW microbus.
 
->You're now on foot.
+> get out of bus
+You're now on foot.
 
->You have stolen the sign that says "Closed on Thanksgiving."  Don't let
+> take sign
+You have stolen the sign that says "Closed on Thanksgiving."  Don't let
 Officer Obie catch you.
 
->You're in the red VW microbus.
+> get in bus
+You're in the red VW microbus.
 
->You drive east.
+> drive east
+You drive east.
 
 Parking Area
 You are in the red VW microbus in the parking area near Alice's Restaurant.
 There is a sidewalk heading to the restaurant.  The road goes to the west
 from here.
 
->You are on foot.
+> get out of bus
+You are on foot.
 
 In Front of Alice's Restaurant
 This is the front of Alice's famous restaurant.  It looks like a
@@ -202,13 +231,16 @@ hippie perversion?"  he asks.
 
 Rude Customer is here.
 
->The rude man looks at the sign and slowly reads "closed on Thanksgiving."  He
+> put sign on window
+The rude man looks at the sign and slowly reads "closed on Thanksgiving."  He
 seems to be processing the information.  "Oh, it's closed," he says finally.
 The man shrugs and goes home.
 
->The door is open.
+> open restaurant door
+The door is open.
 
->You move in.
+> in
+You move in.
 
 Alice's Restaurant
 It looks like your basic diner except for a few homey decorations over the
@@ -218,9 +250,11 @@ Also here is a brownie.
 
 You can only move out.
 
->You pick up the brownie.
+> take brownie
+You pick up the brownie.
 
->You move out.
+> out
+You move out.
 
 In Front of Alice's Restaurant
 This is the front of Alice's famous restaurant.  It looks like a
@@ -233,26 +267,30 @@ Also here is a sign.
 
 You can only move in.
 
->You hop in.
+> get in bus
+You hop in.
 
 Parking Area
 You are in the red VW microbus in the parking area near Alice's Restaurant.
 There is a sidewalk heading to the restaurant.  The road goes to the west
 from here.
 
->You drive west.
+> drive west
+You drive west.
 
 In front of the Town Dump
 You are in front of the Town Dump.  There are roads leading northeast, east
 and south.  The dump is closed on Thanksgiving.
 
->You drive south.
+> drive south
+You drive south.
 
 Red VW Microbus
 You are in your red VW microbus which is parked in front of the church.  The
 road leads to the north from here.
 
->You're on foot.
+> get out of bus
+You're on foot.
 
 In Front of the Church
 You are in front of a gothic wooden church.  The paint is peeling and the
@@ -264,14 +302,16 @@ can make out Alice's garden.  Your VW microbus is parked here on a road
 heading north.  You'll have to get back in the bus if you want to go that
 way.  It's too far to walk.  There is a mailbox here.
 
->You move north.
+> north
+You move north.
 
 At the Church Door
 You are at a wooden gothic arched doorway.
 
 You can move north, east, south, in and out.
 
->You move north.
+> north
+You move north.
 
 The Sanctuary
 The sanctuary has a high arched roof.  A few of the stained glass windows
@@ -286,7 +326,8 @@ Alice and Facha are here.
 
 You can move south, west and out.
 
->The brownie has a rich chocolate flavor.  Your thought that this may be the
+> eat brownie
+The brownie has a rich chocolate flavor.  Your thought that this may be the
 best brownie you ever tasted is interrupted by another thought... or is it a
 feeling.  Yes, it is more like a feeling.  You feel... light.  You are sure
 you have powers.  You are pretty sure that you can walk right through the
@@ -300,7 +341,8 @@ fly?  You start to come down.  You sit in one of the booths for a while
 before things seem pretty much normal again.  You decide to save the other
 half the brownie for another occasion.
 
->You move west.
+> west
+You move west.
 
 Beneath the Bell Tower
 You are below the bell tower.    As you look up you can see the floor of a
@@ -309,7 +351,8 @@ nothing.  Apparently they haven't got done building that part yet.
 
 You can only move east.
 
->You feel yourself swirling up among colorful sparkles.  Chicken flying
+> eat half brownie
+You feel yourself swirling up among colorful sparkles.  Chicken flying
 everywhere around the bell tower.  You're going up and up.  You think you
 know what it is like to be a leaf in the fall.  Oh, no, except leaves fall
 down and you're floating up.  Well, sometimes leave float up, when there's an
@@ -325,11 +368,14 @@ variety of junk stored up here.
 
 Also here is a rake.
 
->You pick up the rake.
+> take rake
+You pick up the rake.
 
->You shout but Alice doesn't seem to hear you.
+> call for help
+You shout but Alice doesn't seem to hear you.
 
->You pull the cord and the heavy bell swings from side to side.  The weight of
+> ring bell
+You pull the cord and the heavy bell swings from side to side.  The weight of
 it nearly pulls you over.  You're afraid it might come crashing down on you.
 After two rings though you hear a voice from below.  It's Alice.  "Is someone
 ringing the bell?!"  You go to the hole where the stairs used to be and look
@@ -342,7 +388,8 @@ clattering through the door and finally Alice arrives with a ladder.  She
 puts it where the stairs used to be and you are free to come down from the
 tower if you like.  Alice's expression says she highly recommends it.
 
->You move down.
+> down
+You move down.
 
 Beneath the Bell Tower
 You are below the bell tower.    They will probably repair the stairway soon.
@@ -351,7 +398,8 @@ Also here is a ladder.
 
 You can move east and up.
 
->You move east.
+> east
+You move east.
 
 The Sanctuary
 The sanctuary has a high arched roof.  A few of the stained glass windows
@@ -366,11 +414,14 @@ Alice and Facha are here.
 
 You can move south, west and out.
 
->The shovel is under the pile of garbage.
+> put shovel under garbage
+The shovel is under the pile of garbage.
 
->The rake is on top of the pile of garbage.
+> put rake on garbage
+The rake is on top of the pile of garbage.
 
->Congratulations.  You have picked up the half a ton of garbage.   In a
+> take garbage
+Congratulations.  You have picked up the half a ton of garbage.   In a
 balancing act that would impress the flying Walendas, you manage to get the
 half a ton of garbage out of the church only to discover that it is far to
 bulky to fit in your red VW microbus.  You are left standing outside the
@@ -386,30 +437,37 @@ can make out Alice's garden.  Your VW microbus is parked here on a road
 heading north.  You'll have to get back in the bus if you want to go that
 way.  It's too far to walk.  There is a mailbox here.
 
->The garbage is now mashed, crushed, smashed and compacted to a much more
+> break garbage with implement of destruction
+The garbage is now mashed, crushed, smashed and compacted to a much more
 manageable size.
 
->You are behind the wheel of the red VW microbus.  To steer, type "drive" and
+> get in bus
+You are behind the wheel of the red VW microbus.  To steer, type "drive" and
 the direction you would like to go.
 
->You drive north.
+> drive north
+You drive north.
 
 In front of the Town Dump
 You are in front of the Town Dump.  There are roads leading northeast, east
 and south.  The dump is closed on Thanksgiving.
 
->You drive northeast.
+> drive northeast
+You drive northeast.
 
 Side Road
 This is a narrow side road that will soon be too narrow for you to pass.  You
 can turn around and go back by driving southwest.  Off to the east there
 seems to be a little footpath.  It can only be visited on foot.
 
->Ok, you're not in the red VW microbus any more.
+> get out of bus
+Ok, you're not in the red VW microbus any more.
 
->You have the garbage.
+> take garbage out of bus
+You have the garbage.
 
->You move east.
+> east
+You move east.
 
 15 Foot Cliff
 Off to the side of the side road is a 15 foot cliff.    At the botton of the
@@ -417,12 +475,15 @@ cliff is a little pile of garbage.
 
 You can only move west.
 
->The garbage tumbles down the side of the 15 foot cliff with a satisfying
+> dump garbage
+The garbage tumbles down the side of the 15 foot cliff with a satisfying
 clatter.  Mission accomplished.
 
->You've put that envelope under that garbage.
+> put envelope under garbage
+You've put that envelope under that garbage.
 
->You move west.
+> west
+You move west.
 
 On foot on the Side Road
 You are outside the red VW microbus on a side road.  You can walk down a
@@ -431,26 +492,30 @@ west.
 
 You can only move east.
 
->You're back in the red VW microbus.
+> get in bus
+You're back in the red VW microbus.
 
 Side Road
 This is a narrow side road that will soon be too narrow for you to pass.  You
 can turn around and go back by driving southwest.  Off to the east there
 seems to be a little footpath.  It can only be visited on foot.
 
->You drive southwest.
+> drive southwest
+You drive southwest.
 
 In front of the Town Dump
 You are in front of the Town Dump.  There are roads leading northeast, east
 and south.  The dump is closed on Thanksgiving.
 
->You drive south.
+> drive south
+You drive south.
 
 Red VW Microbus
 You are in your red VW microbus which is parked in front of the church.  The
 road leads to the north from here.
 
->You're on foot.
+> get out of bus
+You're on foot.
 
 In Front of the Church
 You are in front of a gothic wooden church.  The paint is peeling and the
@@ -462,14 +527,16 @@ can make out Alice's garden.  Your VW microbus is parked here on a road
 heading north.  You'll have to get back in the bus if you want to go that
 way.  It's too far to walk.  There is a mailbox here.
 
->You move north.
+> north
+You move north.
 
 At the Church Door
 You are at a wooden gothic arched doorway.
 
 You can move north, east, south, in and out.
 
->You move north.
+> north
+You move north.
 
 The Sanctuary
 The sanctuary has a high arched roof.  A few of the stained glass windows
@@ -502,12 +569,14 @@ to hang myself for littering?"  Obie is not as amused by this comment as
 future audiences might be.  He puts you in the cell and removes the toilet
 seat for good measure.  He closes the cell door behind you.
 
->Time passes...
+> wait
+Time passes...
 You are in the cell.
 
 Officer Obie walks towards you.
 
->You call Alice and ask her to bail you out of jail.  Alice has a few thoughts
+> call Alice
+You call Alice and ask her to bail you out of jail.  Alice has a few thoughts
 to share with you on the subject of dumping a half a ton of garbage and
 getting arrested while you're a guest at her house, but finally she arrives
 with bail money and you are released.
@@ -519,7 +588,8 @@ Officer Obie says, "Well, you're free to go, kid.  Don't forget to show up in
 court.  And take whatever stuff you're going to need with you.  I don't want
 to see you back here again."
 
->You leave the station, prepared for your day in court.
+> leave station
+You leave the station, prepared for your day in court.
 
 In District Court, Lee, Massachusetts
 The court room is in an old colonial building with uncomfortable wooden
@@ -532,7 +602,8 @@ with circles and arrows and a paragraph on the back of each one explaining
 what each one is to be used as evidence against you.  And his seeing eye dog
 Susie is color blind.  Judge Hannon addresses you, "Son, how do you plead?"
 
->You are found guilty of the illegal disposal of rubbish and sentenced to a
+> guilty
+You are found guilty of the illegal disposal of rubbish and sentenced to a
 fine of $25 and ordered to pick up the garbage, which you do on the following
 day under an an icy rain.  You try to convince Officer Obie, who is
 overseeing the task, that you should only have to pick up the garbage that
@@ -548,7 +619,8 @@ he is inspecting any other piece of government property.  You believe you see
 a brief smirk on his face as he looks at your hair.  He hands you a piece of
 paper and says, "Kid, see the psychiatrist, room 604."
 
->You move north.
+> north
+You move north.
 
 Hall 1
 This is a sterile military cooridor lined with doors that do not appear to be
@@ -556,7 +628,8 @@ in any particular numerical order.
 
 You can move north and south.
 
->You move north.
+> north
+You move north.
 
 Hall 2
 This is a sterile military cooridor lined with doors that do not appear to be
@@ -564,7 +637,8 @@ in any particular numerical order.
 
 You can move north, east and south.
 
->You move north.
+> north
+You move north.
 
 Hall 3
 This is a sterile military cooridor lined with doors that do not appear to be
@@ -572,7 +646,8 @@ in any particular numerical order.
 
 You can move north, east and south.
 
->You move east.
+> east
+You move east.
 
 Hall 8
 This is a sterile military cooridor lined with doors that do not appear to be
@@ -580,7 +655,8 @@ in any particular numerical order.
 
 You can move north, east and west.
 
->You move east.
+> east
+You move east.
 
 Hall 7
 This is a sterile military cooridor lined with doors that do not appear to be
@@ -588,7 +664,8 @@ in any particular numerical order.
 
 You can move north, east and south.
 
->You move east.
+> east
+You move east.
 
 Hall 6
 This is a sterile military cooridor lined with doors that do not appear to be
@@ -596,7 +673,8 @@ in any particular numerical order.
 
 You can move east and west.
 
->You move east.
+> east
+You move east.
 
 Hall 5
 This is a sterile military cooridor lined with doors that do not appear to be
@@ -604,12 +682,14 @@ in any particular numerical order.
 
 You can move north, east, south and west.
 
->You move south.
+> south
+You move south.
 
 Outside Room 604
 You are at a door with a sign on it that says "Room 604."
 
->The door is now open.
+> open door
+The door is now open.
 
 In Room 604.
 The room is barren except for the psychiatrist's desk.
@@ -622,7 +702,8 @@ you hear him muttering something about "non-conformist," but maybe it's your
 imagination.  You sit down.  The shrink asks you some questions about your
 mother then asks you.  "Son, what do you want to do with your life?"
 
->"Kill," you say.  "I want to kill.  I want to see blood and gore and guts and
+> kill
+"Kill," you say.  "I want to kill.  I want to see blood and gore and guts and
 veins in my teeth.  Eat dead burnt bodies.  I mean kill."  And you start
 jumping up and down yelling "kill, kill..."  The psychiatrist starts jumping
 up and down with you yelling "kill, kill."  Now you're both jumping up and
@@ -644,7 +725,8 @@ after committing your special crime.
 There on the bench are mother rapers, father stabbers, father rapers, all
 sitting on the bench there next to you.
 
->Time passes...
+> wait
+Time passes...
 
 Father Raper walks towards you.
 The meanest, nastiest, most horrible criminal of them all is summing you up.
@@ -653,9 +735,11 @@ he doesn't want to.  "So, what did you get?"  He asks you.  "I didn't get
 anything," you say, "I had to pay $25 and pick up the garbage."  "What was
 you arrested for?" he asks.
 
->They all move away from you on the Group W bench.
+> littering
+They all move away from you on the Group W bench.
 
->They all move back and you have a great time talking about crime, mother
+> and creating a nuissance
+They all move back and you have a great time talking about crime, mother
 stabbing father raping, until the Sargeant comes in.  He refers you to the
 paper you were given when you arrived at Whitehall Street.  He says,
 "Kidsthispieceofpapersgot47words37sentenceswewanttoknowthedetailsofthe
@@ -664,7 +748,8 @@ talked like that for 45 minutes.  You fill out most of the paper with the
 details of your special crime, but then you turn the paper over and see the
 words "Kid, have you rehabilitiated yourself?"
 
->You go up to the Sargeant and say, "Sargeant, you've got a lot of damn gall
+> ask Sargeant about paper
+You go up to the Sargeant and say, "Sargeant, you've got a lot of damn gall
 to ask me if I've rehabilitated myself.  I mean, I mean, I mean I'm sitting
 here on the bench.  I mean, I'm sitting here on the Group W bench, 'cos you
 want to know if I'm moral enough to join the army, burn women and children's

@@ -9,9 +9,11 @@ it's hard to see your hand in front of your face. A door... somewhere...
 leads outside but as it's nice and warm in here and not so nice and very cold
 outside you don't see any great need to leave right now.
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
 Somewhere a door opens and in strides Throgbert, your second-in-command.
    "Sire!" he cries. "I have been speaking to the men and we feel the time
@@ -34,7 +36,8 @@ rewards as such but on the plus side it'll give the men a much needed boost
 of confidence knowing there's someone they can push around without getting a
 kicking."
 
->"A wise decision, sire," says Throgbert. "I shall give the orders to the men
+> 1
+"A wise decision, sire," says Throgbert. "I shall give the orders to the men
 and report back later."
    Throgbert departs.
 
@@ -53,7 +56,8 @@ head along this route and I think we should..."
    3: "Instruct the men to take no risks and only get what they can."
    4: "Instruct the men to sit out this one."
 
->"A wise decision, sire," says Throgbert. "I shall give the orders to the men
+> 1
+"A wise decision, sire," says Throgbert. "I shall give the orders to the men
 and report back later."
    Throgbert departs.
 
@@ -73,7 +77,8 @@ and see what we can get in the way of ransom."
    1: "A good plan. Set it in motion."
    2: "We're warriors, not kidnappers. Let this one pass."
 
->"A wise decision, sire," says Throgbert. "I shall give the orders to the men
+> 2
+"A wise decision, sire," says Throgbert. "I shall give the orders to the men
 and report back later."
    Throgbert departs.
 
@@ -90,7 +95,8 @@ wealth. It would be a resounding victory if we succeed, sire."
    2: "Proceed with utmost caution."
    3: "Sounds too risky. Let's leave it."
 
->"A wise decision, sire," says Throgbert. "I shall give the orders to the men
+> 1
+"A wise decision, sire," says Throgbert. "I shall give the orders to the men
 and report back later."
    Throgbert departs.
 
@@ -122,7 +128,8 @@ getting caught in the first place. Besides, the missus always did say I
 mollycoddled the lad and I reckon a twenty year stretch in prison ought to
 toughen him up a bit."
 
->"I have give the orders at once," says Throgbert.
+> 1
+"I have give the orders at once," says Throgbert.
    Throgbert departs.
 
 Throgbert returns.
@@ -139,7 +146,8 @@ should try again and see if you can fare better the next time."
 
 Well done! You're a prince among vikings!
 
->A moment later and you're scratching your head in confusion, having no idea
+> y
+A moment later and you're scratching your head in confusion, having no idea
 how to do that.
 
 >

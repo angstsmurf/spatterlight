@@ -19,13 +19,17 @@ For info and contacts you can type "info" or "about" anytime during the game.
 
 Type "money" to see the current amount of dollars in your pockets.
 
->You stand up from your watch.
+> stand up
+You stand up from your watch.
 
->You take your clothes.
+> get clothes
+You take your clothes.
 
->You put on your clothes.
+> wear clothes
+You put on your clothes.
 
->You walk out.
+> out
+You walk out.
 
 In the corridor
 The corridor is dark and gloomy, covered only with a dim light coming from
@@ -33,31 +37,36 @@ old bulbs hanging from the ceiling. There's a couple flowers and a lot of
 spider webs. The elevator is right before you and the stairway may be entered
 on the far end of the corridor.
 
->You step onto the stairway. Better don't look down, you'd get sick from the
+> enter stairway
+You step onto the stairway. Better don't look down, you'd get sick from the
 height...
 
->You walk down.
+> down
+You walk down.
 
 On the stairs
 The stairway is dark and the walls are framed with spider webs.
 
 You can go west, up and down.
 
->You walk down.
+> down
+You walk down.
 
 On the stairs
 The stairway is dark and the walls are framed with spider webs.
 
 You can go west, up and down.
 
->You walk down.
+> down
+You walk down.
 
 On the stairs
 The stairway is dark and the walls are framed with spider webs.
 
 You can go west and up.
 
->You walk west.
+> west
+You walk west.
 
 In the hall
 The entrance hall of your house is a large and dark one. The guarding person
@@ -66,7 +75,8 @@ the side walls.
 
 You can go east and out.
 
->You walk out.
+> out
+You walk out.
 
 In the street
 The street is cold and dark. No moon is shining and the only street-light is
@@ -77,7 +87,8 @@ the edge of the street stands a phone booth.
 
 You can only go in.
 
->You walk in.
+> in
+You walk in.
 
 In the phone booth
 The phone booth is old and all sprayed up by the punkers. There's a phone and
@@ -87,32 +98,38 @@ There is also an ad.
 
 You can only go out.
 
->(Your score has increased by 10)
+> call 777-777
+(Your score has increased by 10)
 You dial 777-777 and wait. Then you hear a laughing voice offering you
 virtually any way of phone sex. Well, it might be interesting, but not now
 when the police is after you.
 
->(Your score has increased by 10)
+> call random
+(Your score has increased by 10)
 You dial random number and wait for someone to answer the phone. You say "I
 still know what you did last summer" and they hang up on you.
 
->(Your score has increased by 10)
+> call police
+(Your score has increased by 10)
 You dial the police number. It's good that you still remember it. You get an
 automated answer saying the line is busy and you can try again later.
 
->(Your score has increased by 10)
+> call mother
+(Your score has increased by 10)
 You dial your mother's number. After a while of waiting you hear her sleepy
 voice:
 "What do you want? Don't you know how late it is? Whatever it is that you
 want, it'll wait until tomorrow."
 And with that she hangs up. How typical, you think.
 
->(Your score has increased by 10)
+> call lawyer
+(Your score has increased by 10)
 You dial your lawyer's home number. He answers immediately, to your surprise.
 "Call tomorrow, I have work to do now."
 You hear some woman's laugh and then nothing more.
 
->You walk out.
+> out
+You walk out.
 
 In the street
 The street is cold and dark. No moon is shining and the only street-light is
@@ -123,16 +140,20 @@ the edge of the street stands a phone booth.
 
 You can only go in.
 
->You get into the taxi and command the driver to speed up as fast as he can.
+> get taxi
+You get into the taxi and command the driver to speed up as fast as he can.
 Soon you're on the way to wherever...
 
->(Your score has increased by 10)
+> fight
+(Your score has increased by 10)
 You punch the taxi driver right in the face and he decides to give it up. He
 runs away, leaving his pistol on the seat!
 
->You take the pistol.
+> get pistol
+You take the pistol.
 
->You step out of the taxi.
+> out
+You step out of the taxi.
 
 In the streets
 The maze of streets is a dangerous place on a night like this, with only a
@@ -142,7 +163,8 @@ staggering along the street.  You can hear distant police sirens from behind.
 your eyes for a second.  Cold raindrops are falling down like the blood from
 a victim's neck.
 
->You walk south.
+> south
+You walk south.
 
 In the streets
 The maze of streets is a dangerous place on a night like this, with only a
@@ -154,7 +176,8 @@ a victim's neck.
 
 You can go north, south and west.
 
->You walk south.
+> south
+You walk south.
 
 In the streets
 The maze of streets is a dangerous place on a night like this, with only a
@@ -165,7 +188,8 @@ falling down like the blood from a victim's neck.
 
 You can go north, east and south.
 
->You walk east.
+> east
+You walk east.
 
 In the streets
 The maze of streets is a dangerous place on a night like this, with only a
@@ -180,15 +204,19 @@ and don't hesitate to beat you up and steal everything they find on you. You
 promptly take out a pistol and shoot one of them, setting the others on the
 run.
 
->You take the can of beer from the dead punker.
+> get beer
+You take the can of beer from the dead punker.
 
->You open the can of beer.
+> open can
+You open the can of beer.
 
->(Your score has increased by 10)
+> drink beer
+(Your score has increased by 10)
 You drink the beer and throw away the empty can.
 You're getting pretty drunk...
 
->You walk west.
+> west
+You walk west.
 
 In the streets
 The maze of streets is a dangerous place on a night like this, with only a
@@ -199,7 +227,8 @@ falling down like the blood from a victim's neck.
 
 You can go north, east and south.
 
->You walk south.
+> south
+You walk south.
 
 In the streets
 The maze of streets is a dangerous place on a night like this, with only a
@@ -210,7 +239,8 @@ second.  Cold raindrops are falling down like the blood from a victim's neck.
 
 You can go north, east and west.
 
->You walk west.
+> west
+You walk west.
 
 In the streets
 The maze of streets is a dangerous place on a night like this, with only a
@@ -222,7 +252,8 @@ falling down like the blood from a victim's neck.
 
 You can go north and east.
 
->You walk north.
+> north
+You walk north.
 
 In the streets
 The maze of streets is a dangerous place on a night like this, with only a
@@ -235,7 +266,8 @@ from a victim's neck.
 You can go south and west.
 The alcohol is slowly disappearing from your head.
 
->You walk west.
+> west
+You walk west.
 
 In the streets
 The maze of streets is a dangerous place on a night like this, with only a
@@ -247,7 +279,8 @@ from a victim's neck.
 
 You can go east and west.
 
->You walk west.
+> west
+You walk west.
 
 In the streets
 The maze of streets is a dangerous place on a night like this, with only a
@@ -259,7 +292,8 @@ falling down like the blood from a victim's neck.
 You can go east and south.
 The state of blindness is almost gone and you're getting sober.
 
->You walk south.
+> south
+You walk south.
 
 In the streets
 The maze of streets is a dangerous place on a night like this, with only a
@@ -271,7 +305,8 @@ Cold raindrops are falling down like the blood from a victim's neck.
 You can go north and east.
 You can now see clear again.
 
->You walk east.
+> east
+You walk east.
 
 In the streets
 The maze of streets is a dangerous place on a night like this, with only a
@@ -283,7 +318,8 @@ falling down like the blood from a victim's neck.
 
 You can go south and west.
 
->You walk south.
+> south
+You walk south.
 
 In the station
 The railway station looks abandoned and breathes the air of ages. A couple of
@@ -292,16 +328,20 @@ A couple of lonely passers-by appears time from time.
 
 You can only go north.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
 The train is coming to station from the west.
 
->You jump into the train just when it is leaving the station. You just hope
+> get in train
+You jump into the train just when it is leaving the station. You just hope
 that nobody noticed.
 
->You jump out of the train going at full speed and you get hurt a little. Not
+> jump out
+You jump out of the train going at full speed and you get hurt a little. Not
 knowing where you are or where to go, you walk on and on until you don't
 remember anymore...
 
@@ -310,13 +350,16 @@ fell from the trees. It's a cold October morning, you're hungry and your
 whole body aches with pain. You recall little bits from the previous night,
 but still you wonder how you got here.
 
->The ground is covered with leaves of all autumn colors. Some of them have
+> x ground
+The ground is covered with leaves of all autumn colors. Some of them have
 been lying there for weeks but some are fresh-fallen.  A strong branch is on
 the ground.
 
->You take the strong branch from the ground.
+> get branch
+You take the strong branch from the ground.
 
->You walk southeast.
+> se
+You walk southeast.
 
 In the woods
 The woods are deep and cold with frost lying on the ground, light rain drops
@@ -330,23 +373,30 @@ You notice there's a soldier on the guard and you must act quickly. Before he
 spots you you get in his back and hit him with a branch you found. He falls
 to the ground so silently that nobody notices.
 
->The soldier is wearing a khaki uniform and heavy boots. His face is painted
+> x soldier
+The soldier is wearing a khaki uniform and heavy boots. His face is painted
 with black stripes, as if he was going to a battle.  A pistol, a knife and an
 assault rifle are on the unconscious soldier.
 
->You take the pistol from the unconscious soldier.
+> get pistol
+You take the pistol from the unconscious soldier.
 
->You take the knife from the unconscious soldier.
+> get knife
+You take the knife from the unconscious soldier.
 
->You take the assault rifle from the unconscious soldier.
+> get rifle
+You take the assault rifle from the unconscious soldier.
 
->(Your score has increased by 10)
+> get boots
+(Your score has increased by 10)
 You get the soldier's heavy boots.
 
->(Your score has increased by 10)
+> undress soldier
+(Your score has increased by 10)
 You undress the soldier and take his uniform.
 
->You walk east.
+> east
+You walk east.
 
 In the woods
 The woods are deep and cold with frost lying on the ground, light rain drops
@@ -356,7 +406,8 @@ Everything is bathing in cold morning light.
 
 You can go east and west.
 
->You walk east.
+> east
+You walk east.
 
 In the woods
 The woods are deep and cold with frost lying on the ground, light rain drops
@@ -367,10 +418,12 @@ nearby - with a bit of luck you could get out of here.
 
 You can only go west.
 
->You climb into the jeep and hope that nobody will notice and come to kill
+> get in jeep
+You climb into the jeep and hope that nobody will notice and come to kill
 you.
 
->Time passes...
+> wait
+Time passes...
 
 Suddenly out of nowhere a soldier appears. You don't like killing, but you
 know that if you don't kill him he will kill you. You shoot him with your
@@ -379,7 +432,8 @@ pistol and he falls to the ground.
 You start up the engine and drive a long way to the nearest city. You stop
 the car beside the road as you see first tall houses in front of you.
 
->You walk out.
+> out
+You walk out.
 
 On the Main Street
 The Main Street is a wide road going through the town's center, connecting
@@ -390,15 +444,18 @@ People are rushing along, occasionally bumping into each other.
 
 You can go north and in.
 
->(Your score has increased by 10)
+> wear uniform
+(Your score has increased by 10)
 You undress your clothes in exchange for a soldier's uniform. It suits you
 pretty well. You throw away your own clothes, they wouldn't be useful right
 now anyway.
 
->(Your score has increased by 10)
+> wear boots
+(Your score has increased by 10)
 You put on the boots. Now you look like a real soldier.
 
->You walk north.
+> north
+You walk north.
 
 On the Main Street
 The Main Street is a wide road going through the town's center, connecting
@@ -409,7 +466,8 @@ People are rushing along, occasionally bumping into each other.
 
 You can go north, south and west.
 
->You walk north.
+> north
+You walk north.
 
 On the Main Street
 The Main Street is a wide road going through the town's center, connecting
@@ -420,7 +478,8 @@ People are rushing along, occasionally bumping into each other.
 
 You can go north, east, south and west.
 
->You walk east.
+> east
+You walk east.
 
 On the South Street
 The South Street is in the south-east part of the town, featuring tall
@@ -430,7 +489,8 @@ People are rushing along, occasionally bumping into each other.
 
 You can go east and west.
 
->You walk east.
+> east
+You walk east.
 
 On the South Street
 The South Street is in the south-east part of the town, featuring tall
@@ -440,7 +500,8 @@ People are rushing along, occasionally bumping into each other.
 
 You can go east and west.
 
->You walk east.
+> east
+You walk east.
 
 On the South Street
 The South Street is in the south-east part of the town, featuring tall
@@ -451,7 +512,8 @@ occasionally bumping into each other.  The phone is ringing.
 
 You can go north, east, west and in.
 
->You walk north.
+> north
+You walk north.
 
 Outside the restaurant
 Before you stands a building in which the restaurant finds place. The
@@ -460,7 +522,8 @@ People are rushing along, occasionally bumping into each other.
 
 You can go east, south, in and northwest.
 
->You walk northwest.
+> nw
+You walk northwest.
 
 By the fountain
 The fountain looks really pretty with clean blue water, which falls and flows
@@ -469,10 +532,12 @@ lay some coins at the bottom of the well.  You are weakened by the hunger.
 
 You can go northeast and southeast.
 
->(Your score has increased by 10)
+> dive
+(Your score has increased by 10)
 You sink your hand down the well and grab a few coins from its bottom.
 
->You walk northeast.
+> ne
+You walk northeast.
 
 Outside the gunshop
 The sign on the right side of the entry gate says that the gunshop is opened
@@ -481,7 +546,8 @@ hunger.  People are rushing along, occasionally bumping into each other.
 
 You can go north, east, in and southwest.
 
->You walk in.
+> in
+You walk in.
 
 Inside the gunshop
 The gunshop is a small room with all kinds of heavy artillery displayed in
@@ -491,16 +557,20 @@ hunger.
 
 You can only go out.
 
->(Your score has increased by 10)
+> sell rifle
+(Your score has increased by 10)
 You sell the assault rifle for 2000 dollars.
 
->(Your score has increased by 10)
+> sell knife
+(Your score has increased by 10)
 You sell the knife for 50 dollars.
 
->(Your score has increased by 10)
+> sell pistol
+(Your score has increased by 10)
 You sell the pistol for 200 dollars.
 
->You walk out.
+> out
+You walk out.
 
 Outside the gunshop
 The sign on the right side of the entry gate says that the gunshop is opened
@@ -509,7 +579,8 @@ hunger.  People are rushing along, occasionally bumping into each other.
 
 You can go north, east, in and southwest.
 
->You walk north.
+> north
+You walk north.
 
 On the Acacia Avenue
 The Acacia Avenue is a wide sunny alley framed with trees and bushes,
@@ -519,7 +590,8 @@ restlessly.  People are rushing along, occasionally bumping into each other.
 
 You can go east, south and west.
 
->You walk west.
+> west
+You walk west.
 
 On the Acacia Avenue
 The Acacia Avenue is a wide sunny alley framed with trees and bushes,
@@ -529,7 +601,8 @@ restlessly.  People are rushing along, occasionally bumping into each other.
 
 You can go east and west.
 
->You walk west.
+> west
+You walk west.
 
 On the Acacia Avenue
 The Acacia Avenue is a wide sunny alley framed with trees and bushes,
@@ -540,7 +613,8 @@ rushing along, occasionally bumping into each other.
 
 You can go north, east and west.
 
->You walk north.
+> north
+You walk north.
 
 Outside the bar
 The Wayne's Bar looks like a small, pleasant place to spend the evening. The
@@ -549,7 +623,8 @@ People are rushing along, occasionally bumping into each other.
 
 You can go south, west and in.
 
->You walk west.
+> west
+You walk west.
 
 On the Main Street
 The Main Street is a wide road going through the town's center, connecting
@@ -560,7 +635,8 @@ People are rushing along, occasionally bumping into each other.
 
 You can go north, east, south and west.
 
->You walk west.
+> west
+You walk west.
 
 Outside the restaurant
 Before you stands a building in which the restaurant finds place. The
@@ -569,7 +645,8 @@ are rushing along, occasionally bumping into each other.
 
 You can go east, south and in.
 
->You walk in.
+> in
+You walk in.
 
 Inside the restaurant
 The restaurant is convenient and pleasant, offering a hideaway and a restful
@@ -578,10 +655,12 @@ The waiter is servicing the customers.  You are weakened by the hunger.
 
 You can only go out.
 
->(Your score has increased by 10)
+> buy food
+(Your score has increased by 10)
 You buy a good piece of pizza which leaves your hunger satisfied.
 
->You sit down to the only table where someone is, recalling what your mother
+> talk to bruce
+You sit down to the only table where someone is, recalling what your mother
 was saying about talking to strangers. Bruce notices your worries and says:
 "Don't be afraid of me. There are others that you should fear more..." he
 smiles and continues, "but you've seen that for yourself, haven't you? This
@@ -594,7 +673,8 @@ you'll find another link in the chain."
 Not glad but you agree, and you ask if you'll meet again.
 "Of course. Don't look for me - I will find you."
 
->You walk out.
+> out
+You walk out.
 
 Outside the restaurant
 Before you stands a building in which the restaurant finds place. The
@@ -603,7 +683,8 @@ bumping into each other.
 
 You can go east, south and in.
 
->You walk south.
+> south
+You walk south.
 
 On the Alexander Street
 The Alexander Street is wide and busy, with tall buildings and countless
@@ -612,7 +693,8 @@ People are rushing along, occasionally bumping into each other.
 
 You can go north, east, south and west.
 
->You walk south.
+> south
+You walk south.
 
 Outside the bookstore
 The sign says that the bookstore is opened from 7:00 to 18:00 and that they
@@ -621,7 +703,8 @@ bumping into each other.
 
 You can go north, east and in.
 
->You walk in.
+> in
+You walk in.
 
 Inside the bookstore
 The bookstore is a small and dark room with bookshelves along each of the
@@ -630,11 +713,13 @@ The shop assistant is standing behind the counter.
 
 You can only go out.
 
->(Your score has increased by 10)
+> buy map
+(Your score has increased by 10)
 You buy the map of this unknown town, to realize that you still don't know
 where you are.
 
->You walk out.
+> out
+You walk out.
 
 Outside the bookstore
 The sign says that the bookstore is opened from 7:00 to 18:00 and that they
@@ -643,7 +728,8 @@ bumping into each other.
 
 You can go north, east and in.
 
->You walk east.
+> east
+You walk east.
 
 On the Main Street
 The Main Street is a wide road going through the town's center, connecting
@@ -654,7 +740,8 @@ occasionally bumping into each other.
 
 You can go north, south and west.
 
->You walk south.
+> south
+You walk south.
 
 On the Main Street
 The Main Street is a wide road going through the town's center, connecting
@@ -665,7 +752,8 @@ occasionally bumping into each other.
 
 You can go north and south.
 
->You walk south.
+> south
+You walk south.
 
 On the Main Street
 The Main Street is a wide road going through the town's center, connecting
@@ -676,7 +764,8 @@ occasionally bumping into each other.
 
 You can go north, south and west.
 
->You walk west.
+> west
+You walk west.
 
 In the park
 The park is full of tall trees which almost cover the sight of the sky, and
@@ -685,7 +774,8 @@ An old man is sitting on a bench, giving bread to pigeons.
 
 You can go east, south and west.
 
->You walk west.
+> west
+You walk west.
 
 By the fountain
 The fountain looks really pretty with clean blue water, which falls and flows
@@ -694,10 +784,12 @@ lay some coins at the bottom of the well.
 
 You can only go east.
 
->(Your score has increased by 10)
+> dive
+(Your score has increased by 10)
 You sink your hand down the well and grab a few coins from its bottom.
 
->You walk east.
+> east
+You walk east.
 
 In the park
 The park is full of tall trees which almost cover the sight of the sky, and
@@ -706,7 +798,8 @@ An old man is sitting on a bench, giving bread to pigeons.
 
 You can go east, south and west.
 
->You walk south.
+> south
+You walk south.
 
 On the Madison Avenue
 The Madison Avenue is a wide, clean and well maintained street, which could
@@ -717,7 +810,8 @@ occasionally bumping into each other.  The phone is ringing.
 
 You can go north, east, south, west and in.
 
->You walk west.
+> west
+You walk west.
 
 On the Madison Avenue
 The Madison Avenue is a wide, clean and well maintained street, which could
@@ -727,7 +821,8 @@ People are rushing along, occasionally bumping into each other.
 
 You can go east and west.
 
->You walk west.
+> west
+You walk west.
 
 On the Madison Avenue
 The Madison Avenue is a wide, clean and well maintained street, which could
@@ -739,7 +834,8 @@ into each other.
 
 You can go east, south and west.
 
->You walk south.
+> south
+You walk south.
 
 Outside the morgue
 The entrance to the large building of the morgue says the working hours are
@@ -748,7 +844,8 @@ other.
 
 You can go north and in.
 
->You walk in.
+> in
+You walk in.
 
 Inside the morgue
 The hall is all painted white and the whole place is solitary and deadly
@@ -757,16 +854,20 @@ The doctor is walking through the corridor.
 
 You can only go out.
 
->The body is in terrible state, it is even hard to recognize that it was once
+> x dead body
+The body is in terrible state, it is even hard to recognize that it was once
 a human being. The face is bloody, torn apart and has a deathly scream on his
 lips.  An ad is on the dead body.
 
->You take the ad from the dead body.
+> get ad
+You take the ad from the dead body.
 
->Underneath a picture of a pretty naked girl the ad says "For a good time call
+> read ad
+Underneath a picture of a pretty naked girl the ad says "For a good time call
 777-777". Then there's written "Go to the Lotus Night-club and ask for Thel."
 
->You walk out.
+> out
+You walk out.
 
 Outside the morgue
 The entrance to the large building of the morgue says the working hours are
@@ -775,7 +876,8 @@ other.
 
 You can go north and in.
 
->You walk north.
+> north
+You walk north.
 
 On the Madison Avenue
 The Madison Avenue is a wide, clean and well maintained street, which could
@@ -785,7 +887,8 @@ People are rushing along, occasionally bumping into each other.
 
 You can go east, south and west.
 
->You walk east.
+> east
+You walk east.
 
 On the Madison Avenue
 The Madison Avenue is a wide, clean and well maintained street, which could
@@ -795,7 +898,8 @@ People are rushing along, occasionally bumping into each other.
 
 You can go east and west.
 
->You walk east.
+> east
+You walk east.
 
 On the Madison Avenue
 The Madison Avenue is a wide, clean and well maintained street, which could
@@ -806,7 +910,8 @@ occasionally bumping into each other.  The phone is ringing.
 
 You can go north, east, south, west and in.
 
->You walk in.
+> in
+You walk in.
 
 In the phone booth
 The phone booth is old, but surprisingly in order. There's a phone and a
@@ -824,7 +929,8 @@ The uninvited friend states:
 "Bruce."
 Then he hangs up.
 
->(Your score has increased by 10)
+> call mother
+(Your score has increased by 10)
 You dial your mother's number. After a while of waiting you hear her upset
 voice:
 "Honey, do you know you were in the T.V. last night? I wish I remembered what
@@ -832,7 +938,8 @@ they said...Ah, yes, something about a murder! Oh, that's just terrible!
 Nobody's safe from violence these days, all those thieves and murderers...".
 Then you hear your mother calling her dog, so you better hang up.
 
->(Your score has increased by 10)
+> call lawyer
+(Your score has increased by 10)
 You dial your lawyer's office number. He answers with a long delay and sounds
 upset.
 "How dare you call after all that you've done? I won't be risking to get you
@@ -840,7 +947,8 @@ out of your trouble this time, I don't care whether you help yourself or
 surrender to the police. Also, I'm sure they're listening now, so good luck."
 And he hangs up.
 
->You walk out.
+> out
+You walk out.
 
 On the Madison Avenue
 The Madison Avenue is a wide, clean and well maintained street, which could
@@ -851,7 +959,8 @@ occasionally bumping into each other.
 
 You can go north, east, south, west and in.
 
->You walk north.
+> north
+You walk north.
 
 In the park
 The park is full of tall trees which almost cover the sight of the sky, and
@@ -860,7 +969,8 @@ An old man is sitting on a bench, giving bread to pigeons.
 
 You can go east, south and west.
 
->You walk east.
+> east
+You walk east.
 
 On the Main Street
 The Main Street is a wide road going through the town's center, connecting
@@ -871,7 +981,8 @@ occasionally bumping into each other.
 
 You can go north, south and west.
 
->You walk north.
+> north
+You walk north.
 
 On the Main Street
 The Main Street is a wide road going through the town's center, connecting
@@ -882,7 +993,8 @@ occasionally bumping into each other.
 
 You can go north and south.
 
->You walk north.
+> north
+You walk north.
 
 On the Main Street
 The Main Street is a wide road going through the town's center, connecting
@@ -893,7 +1005,8 @@ occasionally bumping into each other.
 
 You can go north, south and west.
 
->You walk north.
+> north
+You walk north.
 
 On the Main Street
 The Main Street is a wide road going through the town's center, connecting
@@ -904,7 +1017,8 @@ occasionally bumping into each other.
 
 You can go north, east, south and west.
 
->You walk north.
+> north
+You walk north.
 
 On the Main Street
 The Main Street is a wide road going through the town's center, connecting
@@ -915,7 +1029,8 @@ occasionally bumping into each other.
 
 You can go north, east, south and west.
 
->You walk north.
+> north
+You walk north.
 
 On the Main Street
 The Main Street is a wide road going through the town's center, connecting
@@ -926,7 +1041,8 @@ occasionally bumping into each other.
 
 You can go north and south.
 
->You walk north.
+> north
+You walk north.
 
 On the Main Street
 The Main Street is a wide road going through the town's center, connecting
@@ -937,7 +1053,8 @@ occasionally bumping into each other.
 
 You can go north, south and west.
 
->You walk north.
+> north
+You walk north.
 
 On the Main Street
 The Main Street is a wide road going through the town's center, connecting
@@ -948,7 +1065,8 @@ occasionally bumping into each other.
 
 You can go north, east, south and west.
 
->You walk east.
+> east
+You walk east.
 
 On the Venice Bridge
 The Venice Bridge seems to perfectly fit its name - such a bridge you would
@@ -958,7 +1076,8 @@ restlessly.
 
 You can go east and west.
 
->You walk east.
+> east
+You walk east.
 
 On the Venice Street
 The Venice Street leads to the Venice Bridge on the west and to the Topaz
@@ -968,7 +1087,8 @@ People are rushing along, occasionally bumping into each other.
 
 You can go east and west.
 
->You walk east.
+> east
+You walk east.
 
 On the Venice Street
 The Venice Street leads to the Venice Bridge on the west and to the Topaz
@@ -978,7 +1098,8 @@ People are rushing along, occasionally bumping into each other.
 
 You can go north, east, south and west.
 
->You walk east.
+> east
+You walk east.
 
 On the crossroads
 The crossroads divides Venice Street on the west, Topaz Road on the east and
@@ -988,7 +1109,8 @@ People are rushing along, occasionally bumping into each other.
 
 You can go east, south and west.
 
->You walk east.
+> east
+You walk east.
 
 On the Topaz Road
 The Topaz Road leads from the east end of the city to the highway. Signs
@@ -997,7 +1119,8 @@ The road is full of trafficking cars, moving on and on restlessly.
 
 You can go north, east and west.
 
->You walk east.
+> east
+You walk east.
 
 On the Topaz Road
 The Topaz Road leads from the east end of the city to the highway. Signs
@@ -1006,7 +1129,8 @@ The road is full of trafficking cars, moving on and on restlessly.
 
 You can go east and west.
 
->You walk east.
+> east
+You walk east.
 
 On the Topaz Road
 The Topaz Road leads from the east end of the city to the highway. Signs
@@ -1015,7 +1139,8 @@ The road is full of trafficking cars, moving on and on restlessly.
 
 You can go south and west.
 
->You walk south.
+> south
+You walk south.
 
 Outside the motel
 A large parking area leads to a building that carries a big sign of Holiday
@@ -1024,7 +1149,8 @@ good service.
 
 You can go north and in.
 
->You walk in.
+> in
+You walk in.
 
 Inside the motel
 The hall is large and clean, with simple equipment and a reception counter.
@@ -1032,11 +1158,13 @@ The receptionist is sitting behind the counter.
 
 You can only go out.
 
->(Your score has increased by 10)
+> pay
+(Your score has increased by 10)
 You agree on 50 dollars for a night and get a key to your room, which, as you
 are told, is upstairs.
 
->You walk up.
+> up
+You walk up.
 
 Upstairs
 The upstairs corridor lies in twilight, but the place is nice and clean.
@@ -1045,10 +1173,12 @@ There are some doors leading to the rooms, numbers on them reach from 9 to
 
 You can only go down.
 
->(Your score has increased by 10)
+> unlock 13
+(Your score has increased by 10)
 You unlock and open the door to your room.
 
->You walk in.
+> in
+You walk in.
 
 In your room
 The room is simple with only the necessary furniture: a bed, a table with two
@@ -1057,23 +1187,28 @@ walls.
 
 You can only go out.
 
->(Your score has increased by 10)
+> watch tv
+(Your score has increased by 10)
 You turn on the T.V. and watch some nasty commercials.
 
->You lie down on the bed.
+> lie on bed
+You lie down on the bed.
 
->(Your score has increased by 10)
+> sleep
+(Your score has increased by 10)
 You fall asleep to be chased by unpleasant dreams, nightmares probably coming
 from your real life, but transformed into monstrous shapes in a really weird
 way. You wake up in sweat, trying to forget them.
 
->You answer the phone and hear Bruce's voice, again.
+> answer
+You answer the phone and hear Bruce's voice, again.
 "Come to the gardens on Eden Avenue, I'll be waiting for you."
 Sleepily you ask:
 "Now?" and Bruce says:
 "Now!"
 
->(Getting off the bed first)
+> out
+(Getting off the bed first)
 You walk out.
 
 Upstairs
@@ -1083,7 +1218,8 @@ There are some doors leading to the rooms, numbers on them reach from 9 to
 
 You can go down and in.
 
->You walk down.
+> down
+You walk down.
 
 Inside the motel
 The hall is large and clean, with simple equipment and a reception counter.
@@ -1091,7 +1227,8 @@ The receptionist is sitting behind the counter.
 
 You can go up and out.
 
->You walk out.
+> out
+You walk out.
 
 Outside the motel
 A large parking area leads to a building that carries a big sign of Holiday
@@ -1100,7 +1237,8 @@ good service.
 
 You can go north and in.
 
->You walk north.
+> north
+You walk north.
 
 On the Topaz Road
 The Topaz Road leads from the east end of the city to the highway. Signs
@@ -1109,7 +1247,8 @@ The road is occassionally crossed by a lonely car.
 
 You can go south and west.
 
->You walk west.
+> west
+You walk west.
 
 On the Topaz Road
 The Topaz Road leads from the east end of the city to the highway. Signs
@@ -1118,7 +1257,8 @@ The road is occassionally crossed by a lonely car.
 
 You can go east and west.
 
->You walk west.
+> west
+You walk west.
 
 On the Topaz Road
 The Topaz Road leads from the east end of the city to the highway. Signs
@@ -1127,7 +1267,8 @@ The road is occassionally crossed by a lonely car.
 
 You can go north, east and west.
 
->You walk west.
+> west
+You walk west.
 
 On the crossroads
 The crossroads divides Venice Street on the west, Topaz Road on the east and
@@ -1137,7 +1278,8 @@ walks alongside you and disappears behind the corner.
 
 You can go east, south and west.
 
->You walk west.
+> west
+You walk west.
 
 On the Venice Street
 The Venice Street leads to the Venice Bridge on the west and to the Topaz
@@ -1147,7 +1289,8 @@ walks alongside you and disappears behind the corner.
 
 You can go north, east, south and west.
 
->You walk west.
+> west
+You walk west.
 
 On the Venice Street
 The Venice Street leads to the Venice Bridge on the west and to the Topaz
@@ -1157,7 +1300,8 @@ walks alongside you and disappears behind the corner.
 
 You can go east and west.
 
->You walk west.
+> west
+You walk west.
 
 On the Venice Bridge
 The Venice Bridge seems to perfectly fit its name - such a bridge you would
@@ -1166,7 +1310,8 @@ the pearly river.  The road is occassionally crossed by a lonely car.
 
 You can go east and west.
 
->You walk west.
+> west
+You walk west.
 
 On the Main Street
 The Main Street is a wide road going through the town's center, connecting
@@ -1177,7 +1322,8 @@ behind the corner.
 
 You can go north, east, south and west.
 
->You walk west.
+> west
+You walk west.
 
 On the Eden Avenue
 The Eden Avenue is a nice and quiet street, framed with low houses in colors
@@ -1187,7 +1333,8 @@ disappears behind the corner.
 
 You can go north, east, south, west and in.
 
->You walk west.
+> west
+You walk west.
 
 On the Eden Avenue
 The Eden Avenue is a nice and quiet street, framed with low houses in colors
@@ -1197,7 +1344,8 @@ and disappears behind the corner.
 
 You can go east and west.
 
->You walk west.
+> west
+You walk west.
 
 On the Eden Avenue
 The Eden Avenue is a nice and quiet street, framed with low houses in colors
@@ -1208,7 +1356,8 @@ corner.
 
 You can go north, east and west.
 
->You walk north.
+> north
+You walk north.
 
 Outside the gardens
 The City Gardens are surrounded by a tall fence, hiding the place away from
@@ -1217,7 +1366,8 @@ behind the corner.
 
 You can go south and in.
 
->You walk in.
+> in
+You walk in.
 
 Inside the gardens
 The gardens are large, with many kinds of flowers, trees and bushes. There's
@@ -1227,14 +1377,16 @@ Bruce is watching you.
 
 You can only go out.
 
->Bruce says:
+> talk to bruce
+Bruce says:
 "Nice place, isn't it? Now, this is my offer: There's an old abandoned
 factory down on the corner of Riverside and Industrial, where illegal trading
 takes place. Hi-tech weapons, mostly. And we need to destroy that factory, no
 matter what the losses will be. The decision is yours, accept or reject."
 He stops talking and awaits your answer.
 
->(Your score has increased by 10)
+> accept
+(Your score has increased by 10)
 "Good decision."
 Bruce takes something out of his pocket and hands it to you.
 "This is a precious amulet, a symbol of our association. The shopkeeper in
@@ -1242,7 +1394,8 @@ the gunshop is a friend of ours, he'll give you a bomb for a good price. When
 you have it, go to the factory and destroy it. Be careful, it's a dangerous
 mission."
 
->You walk out.
+> out
+You walk out.
 
 Outside the gardens
 The City Gardens are surrounded by a tall fence, hiding the place away from
@@ -1251,7 +1404,8 @@ behind the corner.
 
 You can go south and in.
 
->You walk south.
+> south
+You walk south.
 
 On the Eden Avenue
 The Eden Avenue is a nice and quiet street, framed with low houses in colors
@@ -1262,7 +1416,8 @@ corner.
 
 You can go north, east and west.
 
->You walk east.
+> east
+You walk east.
 
 On the Eden Avenue
 The Eden Avenue is a nice and quiet street, framed with low houses in colors
@@ -1272,7 +1427,8 @@ and disappears behind the corner.
 
 You can go east and west.
 
->You walk east.
+> east
+You walk east.
 
 On the Eden Avenue
 The Eden Avenue is a nice and quiet street, framed with low houses in colors
@@ -1282,7 +1438,8 @@ disappears behind the corner.
 
 You can go north, east, south, west and in.
 
->You walk north.
+> north
+You walk north.
 
 Outside the bar
 The "Old Jim's Bar" looks like an old-fashioned pub, a low wooden house on
@@ -1291,7 +1448,8 @@ figure walks alongside you and disappears behind the corner.
 
 You can go east, south and in.
 
->(Your score has increased by 10)
+> in
+(Your score has increased by 10)
 You walk in.
 
 Inside the bar
@@ -1306,9 +1464,11 @@ You come to the bar, order a drink and sit down, when to your great surprise
 down the stage come the Iron Maiden and begin playing "No prayer for the
 dying"!
 
->You leave the bar.
+> out
+You leave the bar.
 
->You walk east.
+> east
+You walk east.
 
 On the Main Street
 The Main Street is a wide road going through the town's center, connecting
@@ -1319,7 +1479,8 @@ behind the corner.
 
 You can go south and west.
 
->You walk south.
+> south
+You walk south.
 
 On the Main Street
 The Main Street is a wide road going through the town's center, connecting
@@ -1330,7 +1491,8 @@ behind the corner.
 
 You can go north, east, south and west.
 
->You walk east.
+> east
+You walk east.
 
 On the Venice Bridge
 The Venice Bridge seems to perfectly fit its name - such a bridge you would
@@ -1339,7 +1501,8 @@ the pearly river.  The road is occassionally crossed by a lonely car.
 
 You can go east and west.
 
->You walk east.
+> east
+You walk east.
 
 On the Venice Street
 The Venice Street leads to the Venice Bridge on the west and to the Topaz
@@ -1349,7 +1512,8 @@ walks alongside you and disappears behind the corner.
 
 You can go east and west.
 
->You walk east.
+> east
+You walk east.
 
 On the Venice Street
 The Venice Street leads to the Venice Bridge on the west and to the Topaz
@@ -1359,7 +1523,8 @@ walks alongside you and disappears behind the corner.
 
 You can go north, east, south and west.
 
->You walk east.
+> east
+You walk east.
 
 On the crossroads
 The crossroads divides Venice Street on the west, Topaz Road on the east and
@@ -1369,7 +1534,8 @@ walks alongside you and disappears behind the corner.
 
 You can go east, south and west.
 
->You walk east.
+> east
+You walk east.
 
 On the Topaz Road
 The Topaz Road leads from the east end of the city to the highway. Signs
@@ -1378,7 +1544,8 @@ The road is occassionally crossed by a lonely car.
 
 You can go north, east and west.
 
->You walk north.
+> north
+You walk north.
 
 Outside the nightclub
 The house has a sign saying "Lotus Night-club" above the entrance, red neon
@@ -1388,7 +1555,8 @@ alongside you and disappears behind the corner.
 
 You can go south and in.
 
->You walk in.
+> in
+You walk in.
 
 Inside the nightclub
 The night-club is a large room, consisting of a bar, many tables to sit by
@@ -1396,15 +1564,18 @@ and a stage. Everything is covered with red light and smoke.
 
 You can only go out.
 
->(Your score has increased by 10)
+> show amulet
+(Your score has increased by 10)
 You show your amulet to Thel. She stops dancing for a while and says:
 "I'll tell you anything you want to know, but I have to finish here first.
 Wait for me at the library, it's just across the road."
 Thel turns away and on she dances her beautiful dance.
 
->Thel pays no more attention to you, except for a sexy wink.
+> talk to thel
+Thel pays no more attention to you, except for a sexy wink.
 
->You walk out.
+> out
+You walk out.
 
 Outside the nightclub
 The house has a sign saying "Lotus Night-club" above the entrance, red neon
@@ -1414,7 +1585,8 @@ alongside you and disappears behind the corner.
 
 You can go south and in.
 
->You walk south.
+> south
+You walk south.
 
 On the Topaz Road
 The Topaz Road leads from the east end of the city to the highway. Signs
@@ -1423,7 +1595,8 @@ The road is occassionally crossed by a lonely car.
 
 You can go north, east and west.
 
->You walk west.
+> west
+You walk west.
 
 On the crossroads
 The crossroads divides Venice Street on the west, Topaz Road on the east and
@@ -1433,7 +1606,8 @@ walks alongside you and disappears behind the corner.
 
 You can go east, south and west.
 
->You walk south.
+> south
+You walk south.
 
 On the Riverside Road
 The Riverside Road is an ordinary street, with tall and a bit too old houses,
@@ -1443,7 +1617,8 @@ figure walks alongside you and disappears behind the corner.
 
 You can go north, south, west and in.
 
->You walk west.
+> west
+You walk west.
 
 Outside the library
 The library is a large building of a strange modern architecture and the sign
@@ -1455,9 +1630,11 @@ You can go north and east.
 You attempt to open the library's door, but it's closed and locked as it's
 night. But then Thel appears so silently as if she came from heavens.
 
->You can't go in that direction (at present).
+> in
+You can't go in that direction (at present).
 
->You ask her:
+> talk to thel
+You ask her:
 "Can you tell me what all of this is about?" but Thel stops your whinings.
 "We don't have time for this, they're watching me."
 She takes a small key which she was wearing as a necklace and hands it to
@@ -1467,7 +1644,8 @@ a grave of the unborn. There you'll find what you seek."
 After this a whole army of killers appear and they start shooting, leaving
 you just enough time to run away.
 
->You walk north.
+> north
+You walk north.
 
 On the Riverside Road
 The Riverside Road is an ordinary street, with tall and a bit too old houses,
@@ -1477,7 +1655,8 @@ figure walks alongside you and disappears behind the corner.
 
 You can go north, south, west and in.
 
->You walk west.
+> west
+You walk west.
 
 Outside the library
 The library is a large building of a strange modern architecture and the sign
@@ -1486,11 +1665,13 @@ A dark figure walks alongside you and disappears behind the corner.
 
 You can go north and east.
 
->(Your score has increased by 10)
+> x thel
+(Your score has increased by 10)
 Thel's dead body is lying on the ground, beautiful like a fairy in her
 infinite sleep. It makes one wonder why everything has to pass away...
 
->You walk east.
+> east
+You walk east.
 
 On the Riverside Road
 The Riverside Road is an ordinary street, with tall and a bit too old houses,
@@ -1500,7 +1681,8 @@ figure walks alongside you and disappears behind the corner.
 
 You can go north, south, west and in.
 
->You walk south.
+> south
+You walk south.
 
 On the Riverside Road
 The Riverside Road is an ordinary street, with tall and a bit too old houses,
@@ -1510,7 +1692,8 @@ corner.
 
 You can go north and south.
 
->You walk south.
+> south
+You walk south.
 
 On the Riverside Road
 The Riverside Road is an ordinary street, with tall and a bit too old houses,
@@ -1520,7 +1703,8 @@ corner.
 
 You can go north, east and south.
 
->You walk south.
+> south
+You walk south.
 
 On the crossroads
 The crossroads divides Riverside Road on the north, Industrial Street on the
@@ -1531,7 +1715,8 @@ corner.
 
 You can go north, east, south and west.
 
->You walk south.
+> south
+You walk south.
 
 On the Hyde Street
 The Hyde Street is an dark and gloomy, with old, not maintained houses and
@@ -1540,7 +1725,8 @@ car.  A dark figure walks alongside you and disappears behind the corner.
 
 You can go north, south and west.
 
->You walk west.
+> west
+You walk west.
 
 Outside the gunshop
 The sign on the right side of the entry gate says that the gunshop is opened
@@ -1549,7 +1735,8 @@ alongside you and disappears behind the corner.
 
 You can go north, east, in and southwest.
 
->You walk in.
+> in
+You walk in.
 
 Inside the gunshop
 The gunshop is a small room with all kinds of heavy artillery displayed in
@@ -1558,16 +1745,19 @@ The shop assistant is standing behind the counter.
 
 You can only go out.
 
->(Your score has increased by 10)
+> show amulet
+(Your score has increased by 10)
 You show the shopkeeper your amulet and he says:
 "I see a good friend sent you. I'll give you a special price: 500 dollars for
 a piece!"
 
->(Your score has increased by 10)
+> buy bomb
+(Your score has increased by 10)
 You pay the nasty shopkeeper what he asks and get a bomb in exchange. Good
 deal.
 
->You walk out.
+> out
+You walk out.
 
 Outside the gunshop
 The sign on the right side of the entry gate says that the gunshop is opened
@@ -1576,7 +1766,8 @@ alongside you and disappears behind the corner.
 
 You can go north, east, in and southwest.
 
->You walk north.
+> north
+You walk north.
 
 On the Acacia Avenue
 The Acacia Avenue is a wide picturesque alley framed with trees and bushes,
@@ -1586,7 +1777,8 @@ disappears behind the corner.
 
 You can go east, south and west.
 
->You walk east.
+> east
+You walk east.
 
 On the crossroads
 The crossroads divides Riverside Road on the north, Industrial Street on the
@@ -1597,7 +1789,8 @@ corner.
 
 You can go north, east, south and west.
 
->You walk north.
+> north
+You walk north.
 
 On the Riverside Road
 The Riverside Road is an ordinary street, with tall and a bit too old houses,
@@ -1607,7 +1800,8 @@ corner.
 
 You can go north, east and south.
 
->You walk north.
+> north
+You walk north.
 
 On the Riverside Road
 The Riverside Road is an ordinary street, with tall and a bit too old houses,
@@ -1617,7 +1811,8 @@ corner.
 
 You can go north and south.
 
->You walk north.
+> north
+You walk north.
 
 On the Riverside Road
 The Riverside Road is an ordinary street, with tall and a bit too old houses,
@@ -1627,7 +1822,8 @@ figure walks alongside you and disappears behind the corner.
 
 You can go north, south, west and in.
 
->You walk north.
+> north
+You walk north.
 
 On the crossroads
 The crossroads divides Venice Street on the west, Topaz Road on the east and
@@ -1637,7 +1833,8 @@ walks alongside you and disappears behind the corner.
 
 You can go east, south and west.
 
->You walk west.
+> west
+You walk west.
 
 On the Venice Street
 The Venice Street leads to the Venice Bridge on the west and to the Topaz
@@ -1647,7 +1844,8 @@ walks alongside you and disappears behind the corner.
 
 You can go north, east, south and west.
 
->You walk north.
+> north
+You walk north.
 
 Outside the casino
 The sign says it's the "Lucky 7 Casino" and the opening time is from 21:00 to
@@ -1656,7 +1854,8 @@ The sign says it's the "Lucky 7 Casino" and the opening time is from 21:00 to
 
 You can go south and in.
 
->You walk in.
+> in
+You walk in.
 
 Inside the casino
 The porter won't let you enter the casino in your outfit, but there's a
@@ -1664,11 +1863,13 @@ couple of slot machines in the hall - you could try your luck on them.
 
 You can only go out.
 
->(Your score has increased by 10)
+> play
+(Your score has increased by 10)
 You pull the lever and watch various images of fruit roll in the slots. Then
 they stop... After this game you have 204 dollars.
 
->You walk out.
+> out
+You walk out.
 
 Outside the casino
 The sign says it's the "Lucky 7 Casino" and the opening time is from 21:00 to
@@ -1677,7 +1878,8 @@ The sign says it's the "Lucky 7 Casino" and the opening time is from 21:00 to
 
 You can go south and in.
 
->You walk south.
+> south
+You walk south.
 
 On the Venice Street
 The Venice Street leads to the Venice Bridge on the west and to the Topaz
@@ -1687,7 +1889,8 @@ walks alongside you and disappears behind the corner.
 
 You can go north, east, south and west.
 
->You walk east.
+> east
+You walk east.
 
 On the crossroads
 The crossroads divides Venice Street on the west, Topaz Road on the east and
@@ -1699,7 +1902,8 @@ corner.
 
 You can go east, south and west.
 
->You walk south.
+> south
+You walk south.
 
 On the Riverside Road
 The Riverside Road is an ordinary street, with tall and a bit too old houses,
@@ -1711,7 +1915,8 @@ corner.
 
 You can go north, south, west and in.
 
->You walk south.
+> south
+You walk south.
 
 On the Riverside Road
 The Riverside Road is an ordinary street, with tall and a bit too old houses,
@@ -1721,7 +1926,8 @@ corner.
 
 You can go north and south.
 
->You walk south.
+> south
+You walk south.
 
 On the Riverside Road
 The Riverside Road is an ordinary street, with tall and a bit too old houses,
@@ -1731,7 +1937,8 @@ corner.
 
 You can go north, east and south.
 
->You walk east.
+> east
+You walk east.
 
 Outside the factory
 A decaying building of the old abandoned factory spreads before you. There's
@@ -1739,7 +1946,8 @@ a noise and voices coming from inside.
 
 You can go south, west and in.
 
->You walk in.
+> in
+You walk in.
 
 Inside the factory
 The factory is a large hall full of big wooden boxes, covered with inches of
@@ -1755,7 +1963,8 @@ taken out of this world. Along with the present people, unfortunately.
 You set the bomb's timer at two minutes and run like hell. Then you get a
 nice sight of explosion and the building disappears in flames.
 
->You walk west.
+> west
+You walk west.
 
 On the crossroads
 The crossroads divides Riverside Road on the north, Industrial Street on the
@@ -1766,7 +1975,8 @@ car.  A dark figure walks alongside you and disappears behind the corner.
 
 You can go north, east, south and west.
 
->You walk south.
+> south
+You walk south.
 
 On the Hyde Street
 The Hyde Street is an dark and gloomy, with old, not maintained houses and
@@ -1775,7 +1985,8 @@ car.  A dark figure walks alongside you and disappears behind the corner.
 
 You can go north, south and west.
 
->You walk south.
+> south
+You walk south.
 
 On the Hyde Street
 The Hyde Street is an dark and gloomy, with old, not maintained houses and
@@ -1784,7 +1995,8 @@ car.  A dark figure walks alongside you and disappears behind the corner.
 
 You can go north, east and south.
 
->You walk east.
+> east
+You walk east.
 
 Outside the church
 The ancient sign above the large iron gate says this is the "Trinity Church".
@@ -1795,7 +2007,8 @@ A nun is standing there, watching.
 
 You can go west and in.
 
->You walk in.
+> in
+You walk in.
 
 Inside the church
 The church is equipped with ancient but well-maintained furniture - two rows
@@ -1805,7 +2018,8 @@ The priest is kneeling before the altar.
 
 You can only go out.
 
->(Your score has increased by 16)
+> wait
+(Your score has increased by 16)
 Time passes...
 
 The void, deathly shadow appears and from behind the priest's back, embraces
@@ -1814,7 +2028,8 @@ to hell.
 (Your score has increased by 16)
 (Your score has increased by 16)
 
->You walk out.
+> out
+You walk out.
 
 Outside the church
 The ancient sign above the large iron gate says this is the "Trinity Church".
@@ -1824,11 +2039,13 @@ the cemetery.
 
 You can go west and in.
 
->(Your score has increased by 10)
+> unlock
+(Your score has increased by 10)
 You unlock the gate which opens before you, uncovering a dim view of the
 graveyard.
 
->You walk south.
+> south
+You walk south.
 
 In the cemetery
 The cemeery is a dark and scary place, with sparse rays of moonlight falling
@@ -1839,14 +2056,18 @@ There is also a shovel.  A dark figure moves in the shadows and disappears.
 
 You can only go north.
 
->You take the shovel.
+> get shovel
+You take the shovel.
 
->(Your score has increased by 10)
+> dig grave
+(Your score has increased by 10)
 You dig up the ground and discover a dirty, sealed envelope, which you take.
 
->Your score is 346 out of a maximum of 666.  (51%)
+> score
+Your score is 346 out of a maximum of 666.  (51%)
 
->(Your score has increased by 310)
+> break seal
+(Your score has increased by 310)
 You break the seal and take out many printed sheets, secret documents along
 with photographs, proving the corruption of people of the highest positions,
 who kill for gain, for their own truth. This is the proof of innocence you've

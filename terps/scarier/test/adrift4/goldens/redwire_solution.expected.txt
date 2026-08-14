@@ -14,7 +14,8 @@ back a crowd of sightseers eager to see a bomb disposal expert blown to
 pieces.
    A red wire and a blue wire dangle from the side of the bomb.
 
->You undo the last command, which was the one that moved you here in the first
+> undo
+You undo the last command, which was the one that moved you here in the first
 place.
 
 From outside the warehouse, you quickly sound an alert, evacuating the place
@@ -40,7 +41,8 @@ back a crowd of sightseers eager to see a bomb disposal expert blown to
 pieces.
    A red wire and a blue wire dangle from the side of the bomb.
 
->Whatever that was, it won't be done.
+> quit
+Whatever that was, it won't be done.
 
 [MORE]
 
@@ -63,7 +65,8 @@ back a crowd of sightseers eager to see a bomb disposal expert blown to
 pieces.
    A red wire and a blue wire dangle from the side of the bomb.
 
->Whatever that was, it won't be done.
+> y
+Whatever that was, it won't be done.
 
 [MORE]
 

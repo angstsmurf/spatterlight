@@ -36,7 +36,8 @@ Before me lies an interactive fiction magazine.
 
 There are exits south and west.
 
->I move south.
+> s
+I move south.
 
 Home
 
@@ -51,9 +52,11 @@ Before me lies a broom and a dustpan.
 
 There is an exit north.
 
->I pick up the broom and the dustpan.
+> get all
+I pick up the broom and the dustpan.
 
->I move north.
+> n
+I move north.
 
 Home
 
@@ -71,13 +74,17 @@ Before me lies an interactive fiction magazine.
 
 I can move south and west.
 
->I open the chest of drawers.  My apron is inside the chest of drawers.
+> open drawers
+I open the chest of drawers.  My apron is inside the chest of drawers.
 
->I take my apron from the chest of drawers.
+> get apron
+I take my apron from the chest of drawers.
 
->I put on my apron.
+> wear apron
+I put on my apron.
 
->I move west.
+> w
+I move west.
 
 Home
 
@@ -91,7 +98,8 @@ because he's so secretive about things.
 
 I can move east, up and down.
 
->I move down.
+> d
+I move down.
 
 Home
 
@@ -108,7 +116,8 @@ Dad is here, lounging on the couch and smoking a cigarette.
 
 I can move north, east and up.
 
->I move east.
+> e
+I move east.
 
 Home
 
@@ -121,16 +130,21 @@ bathtub.
 
 I can only move west.
 
->I open the sink drawer.  A light bulb is inside the sink drawer.
+> open drawer
+I open the sink drawer.  A light bulb is inside the sink drawer.
 
->I take the light bulb from the sink drawer.
+> get bulb
+I take the light bulb from the sink drawer.
 
->I open the medicine cabinet.  A bottle of Tylenol is inside the medicine
+> open cabinet
+I open the medicine cabinet.  A bottle of Tylenol is inside the medicine
 cabinet.
 
->I take the bottle of Tylenol from the medicine cabinet.
+> get tylenol
+I take the bottle of Tylenol from the medicine cabinet.
 
->I move west.
+> w
+I move west.
 
 Home
 
@@ -147,7 +161,8 @@ Dad is here, lounging on the couch and smoking a cigarette.
 
 I can move north, east and up.
 
->I move up.
+> u
+I move up.
 
 Home
 
@@ -161,7 +176,8 @@ because he's so secretive about things.
 
 I can move east, up and down.
 
->I move up.
+> u
+I move up.
 
 Home
 
@@ -173,7 +189,8 @@ before I can do anything up here besides stumble around in the dark.
 
 I can only move down.
 
->(Your score has increased by 10)
+> replace bulb
+(Your score has increased by 10)
 Ahh... that's much better.  I can see now.
 
 (press any key to continue)
@@ -189,7 +206,8 @@ ceiling, many with their own little spider smack-dab in the middle.  A heavy
 chest sits in the eastern corner, and Christmas decorations are piled up
 against the western wall.
 
->(Your score has increased by 10)
+> clean attic
+(Your score has increased by 10)
 
 This sucks...
 
@@ -217,7 +235,8 @@ and cozy up here, with the possible reason being that it just received a good
 cleaning.  A heavy chest sits in the eastern corner, and Christmas
 decorations are piled up against the western wall.
 
->(Your score has increased by 10)
+> open chest
+(Your score has increased by 10)
 I'll have to say this right now...  This is probably the single most
 important thing I will do in my entire life.  Everything that happens to me
 from here on out will be a result of my unlocking this chest.
@@ -273,7 +292,8 @@ and cozy up here, with the possible reason being that it just received a good
 cleaning.  A heavy chest sits in the eastern corner, and Christmas
 decorations are piled up against the western wall.
 
->I move down.
+> d
+I move down.
 
 Home
 
@@ -287,7 +307,8 @@ because he's so secretive about things.
 
 I can move east, up and down.
 
->I move down.
+> d
+I move down.
 
 Home
 
@@ -304,7 +325,8 @@ Dad is here, lounging on the couch and smoking a cigarette.
 
 I can move north, east, south and up.
 
->I move south.
+> s
+I move south.
 
 Home
 
@@ -321,7 +343,8 @@ or the other off in the distance.
 
 I can move north and east.
 
->I move east.
+> e
+I move east.
 
 Poplar Street
 
@@ -340,7 +363,8 @@ hear laughter coming from the south.
 
 I can move north, east, south and west.
 
->I move south.
+> s
+I move south.
 
 Poplar Street
 
@@ -355,7 +379,8 @@ pitch to Sally.  Alice is here, drawing on the street with chalk.
 
 I can move north and south.
 
->I move south.
+> s
+I move south.
 
 Poplar Street
 
@@ -370,7 +395,8 @@ skin me alive if I went further than this.
 
 I can move north, east and west.
 
->I move west.
+> w
+I move west.
 
 Mystery's General Store
 
@@ -383,10 +409,12 @@ Mystery is here, standing behind the counter.
 
 I can only move east.
 
->"Oooh!  I've got such a splitting headache!"  Mystery says.  "I wish I hadn't
+> talk to mystery
+"Oooh!  I've got such a splitting headache!"  Mystery says.  "I wish I hadn't
 left my Tylenol at the house."
 
->(Your score has increased by 10)
+> give tylenol to mystery
+(Your score has increased by 10)
 "Oh, thank you," Mystery says.  "Maria, you're a lifesaver!  I've got to do
 something to reward you for such kindness.  Wait a second, I've got an idea."
 
@@ -394,7 +422,8 @@ Mystery pulls a large jar of honey out from behind the counter.
 
 "Sweets for a sweetheart," she says, and gives me the honey.
 
->I move east.
+> e
+I move east.
 
 Poplar Street
 
@@ -409,7 +438,8 @@ skin me alive if I went further than this.
 
 I can move north, east and west.
 
->I move east.
+> e
+I move east.
 
 Adrift's Aquatic Pets
 
@@ -423,13 +453,15 @@ Campbell is here, standing behind the counter.
 
 I can move east and west.
 
->"Ahh, my child,"  Campbell says in his strange accent.  "I see that you are
+> talk to campbell
+"Ahh, my child,"  Campbell says in his strange accent.  "I see that you are
 about to embark on a great quest.  Perhaps, to get you started, I can have
 you perform a task for me.  You see, I've lost my pet salamander, and I don't
 know where he went.  If you could find him for me, I'd be sure to reward
 you."
 
->I move east.
+> e
+I move east.
 
 Adrift's Aquatic Pets
 
@@ -443,15 +475,19 @@ wandering in here without his permission.
 
 I can only move west.
 
->It's a really nasty looking toilet.  I'd be afraid to sit down on it, as my
+> x toilet
+It's a really nasty looking toilet.  I'd be afraid to sit down on it, as my
 bottom might rot off.  I think that Campbell needs to get in here and take a
 scrub brush to the thing.  Campbell's toilet is closed.
 
->I open Campbell's toilet.  A tiny salamander is inside Campbell's toilet.
+> open toilet
+I open Campbell's toilet.  A tiny salamander is inside Campbell's toilet.
 
->I take the tiny salamander from Campbell's toilet.
+> get salamander
+I take the tiny salamander from Campbell's toilet.
 
->I move west.
+> w
+I move west.
 
 Adrift's Aquatic Pets
 
@@ -465,7 +501,8 @@ Campbell is here, standing behind the counter.
 
 I can move east and west.
 
->(Your score has increased by 10)
+> give salamander to campbell
+(Your score has increased by 10)
 "Wonderful!" Campbell says.  "Where'd you find it?" ... "There?!!  What in
 heaven's name was it doing in the bloody loo?  Come here, my little baby..."
 
@@ -479,7 +516,8 @@ the mongoose if you want it.  Say hello to your new owner, Mr. Mongoose."
 
 Campbell gives me the cute little mongoose.
 
->I move west.
+> w
+I move west.
 
 Poplar Street
 
@@ -494,7 +532,8 @@ skin me alive if I went further than this.
 
 I can move north, east and west.
 
->I move north.
+> n
+I move north.
 
 Poplar Street
 
@@ -509,7 +548,8 @@ pitch to Sally.  Alice is here, drawing on the street with chalk.
 
 I can move north and south.
 
->I move north.
+> n
+I move north.
 
 Poplar Street
 
@@ -528,7 +568,8 @@ hear laughter coming from the south.
 
 I can move north, east, south and west.
 
->I move east.
+> e
+I move east.
 
 Devon's House
 
@@ -545,7 +586,8 @@ Devon is here, sitting on the swing.
 
 I can move south and west.
 
->I move south.
+> s
+I move south.
 
 Devon's House
 
@@ -561,7 +603,8 @@ open.
 
 I can move north and in.
 
->I move in.
+> in
+I move in.
 
 Devon's House
 
@@ -577,9 +620,11 @@ Before me lies a one-handed pickaxe and a zippo lighter.
 
 I can only move out.
 
->I pick up the one-handed pickaxe and the zippo lighter.
+> get all
+I pick up the one-handed pickaxe and the zippo lighter.
 
->I move out.
+> out
+I move out.
 
 Devon's House
 
@@ -595,7 +640,8 @@ open.
 
 I can move north and in.
 
->I move north.
+> n
+I move north.
 
 Devon's House
 
@@ -612,7 +658,8 @@ Devon is here, sitting on the swing.
 
 I can move south and west.
 
->I move west.
+> w
+I move west.
 
 Poplar Street
 
@@ -631,7 +678,8 @@ hear laughter coming from the south.
 
 I can move north, east, south and west.
 
->I move north.
+> n
+I move north.
 
 State Highway
 
@@ -645,7 +693,8 @@ support my wilderness activities.
 
 I can move east and south.
 
->I move east.
+> e
+I move east.
 
 County Road 549
 
@@ -659,7 +708,8 @@ treasure map mentioned.
 
 I can move east and west.
 
->I move east.
+> e
+I move east.
 
 County Road 549
 
@@ -673,7 +723,8 @@ to go.
 
 I can move east and west.
 
->I move east.
+> e
+I move east.
 
 Splintered Rock State Park
 
@@ -686,7 +737,8 @@ rotting railroad ties define the boundary.
 
 I can move north and west.
 
->I move north.
+> n
+I move north.
 
 Splintered Rock State Park
 
@@ -699,7 +751,8 @@ the south is the entrance to the trail.
 
 I can move north and south.
 
->I move north.
+> n
+I move north.
 
 Splintered Rock State Park
 
@@ -715,7 +768,8 @@ here leads directly down to the falls.
 
 I can move south and down.
 
->I move down.
+> d
+I move down.
 
 Splintered Rock State Park
 
@@ -730,7 +784,8 @@ along to get behind the waterfall.
 
 I can move up and in.
 
->I move in.
+> in
+I move in.
 
 Splintered Rock State Park
 
@@ -745,7 +800,8 @@ cemented into the cliff's wall.
 
 I can only move out.
 
->(Your score has increased by 10)
+> use pickaxe on wall
+(Your score has increased by 10)
 
 I can see now why people say that mining is a tough job.  I'm not used to
 this kind of physical labor, but there's gold in those caves.  I'm just sure
@@ -765,7 +821,8 @@ behind a waterfall.  Of course, I can't stand around here enjoying the
 scenery all day, now can I?  Before me lies a pile of rubble and a nice
 little hole in the cliff wall.
 
->I move in.
+> in
+I move in.
 
 The Caves
 
@@ -779,7 +836,8 @@ mushrooms these are, as I've never seen anything quite like them.
 
 I can move north, east, south and out.
 
->I move south.
+> s
+I move south.
 
 The Caves
 
@@ -793,7 +851,8 @@ gold I'll tell my music teacher about it.
 
 I can move north and south.
 
->I move south.
+> s
+I move south.
 
 The Caves
 
@@ -806,7 +865,8 @@ the hall multiple times.
 
 I can move north and east.
 
->I move east.
+> e
+I move east.
 
 The Caves
 
@@ -820,7 +880,8 @@ others they are brown and dried up.
 
 I can only move west.
 
->(Your score has increased by 10)
+> burn vines
+(Your score has increased by 10)
 Striking up the lighter, I set the flame to the vines.
 
 With a big whoosh they go up in flames, and are soon reduced to a pile of ash
@@ -843,7 +904,8 @@ many years ago.
 
 Before me lies a pile of ash.
 
->I move east.
+> e
+I move east.
 
 The Caves
 
@@ -858,9 +920,11 @@ Before me lies a sturdy rope.
 
 I can only move west.
 
->I pick up the sturdy rope.
+> get rope
+I pick up the sturdy rope.
 
->I move west.
+> w
+I move west.
 
 The Caves
 
@@ -875,7 +939,8 @@ Before me lies a pile of ash.
 
 I can move east and west.
 
->I move west.
+> w
+I move west.
 
 The Caves
 
@@ -888,7 +953,8 @@ the hall multiple times.
 
 I can move north and east.
 
->I move north.
+> n
+I move north.
 
 The Caves
 
@@ -902,7 +968,8 @@ gold I'll tell my music teacher about it.
 
 I can move north and south.
 
->I move north.
+> n
+I move north.
 
 The Caves
 
@@ -916,7 +983,8 @@ mushrooms these are, as I've never seen anything quite like them.
 
 I can move north, east, south and out.
 
->I move north.
+> n
+I move north.
 
 The Caves
 
@@ -931,9 +999,11 @@ Before me lies an antique gold watch.
 
 I can only move south.
 
->I pick up the antique gold watch.
+> get watch
+I pick up the antique gold watch.
 
->I move south.
+> s
+I move south.
 
 The Caves
 
@@ -947,7 +1017,8 @@ mushrooms these are, as I've never seen anything quite like them.
 
 I can move north, east, south and out.
 
->I move east.
+> e
+I move east.
 
 The Caves
 
@@ -960,7 +1031,8 @@ downward as it travels east.
 
 I can move north, east, south and west.
 
->I move south.
+> s
+I move south.
 
 The Caves
 
@@ -976,9 +1048,11 @@ Before me lies an antique cross.
 
 I can only move north.
 
->I pick up the antique cross.
+> get cross
+I pick up the antique cross.
 
->I move north.
+> n
+I move north.
 
 The Caves
 
@@ -991,7 +1065,8 @@ downward as it travels east.
 
 I can move north, east, south and west.
 
->I move north.
+> n
+I move north.
 
 The Caves
 
@@ -1007,9 +1082,11 @@ Before me lies an antique china plate.
 
 I can only move south.
 
->I pick up the antique china plate.
+> get plate
+I pick up the antique china plate.
 
->I move south.
+> s
+I move south.
 
 The Caves
 
@@ -1022,7 +1099,8 @@ downward as it travels east.
 
 I can move north, east, south and west.
 
->I move east.
+> e
+I move east.
 
 The Caves
 
@@ -1038,7 +1116,8 @@ Before me lies the snake.
 
 I can only move west.
 
->(Your score has increased by 10)
+> unleash the mongoose
+(Your score has increased by 10)
 My precious little baby...  Campbell must have known I would need you, and I
 surely do!  Thank God for you!
 
@@ -1061,7 +1140,8 @@ I now dub this room the Riki Tiki Cavern, in honor of the glorious battle
 that my mongoose fought.  I'm so proud of that little thing!  The rattlesnake
 is gone, and now I can explore further through the caves.
 
->I move east.
+> e
+I move east.
 
 The Caves
 
@@ -1076,7 +1156,8 @@ could tie the rope to the stalagmite and throw it down into the pit.
 
 I can only move west.
 
->(Your score has increased by 10)
+> tie the rope to the stalagmite
+(Your score has increased by 10)
 
 Good thing I found this rope.
 
@@ -1097,7 +1178,8 @@ to its side, there is a stalagmite, reaching up towards the ceiling.  My rope
 is tied to the stalagmite, and it is also hanging down into the pit, so now I
 can descend downward if I wish.
 
->I move down.
+> d
+I move down.
 
 The Caves
 
@@ -1110,11 +1192,14 @@ three million dollars worth of gold.
 
 I can move east and up.
 
->I open the treasure chest.  An antique compass is inside the treasure chest.
+> open chest
+I open the treasure chest.  An antique compass is inside the treasure chest.
 
->I take the antique compass from the treasure chest.
+> get compass
+I take the antique compass from the treasure chest.
 
->I move east.
+> e
+I move east.
 
 The Caves
 
@@ -1132,7 +1217,8 @@ Before me lies the hungry cave bear.
 
 I can only move west.
 
->(Your score has increased by 10)
+> feed the honey to the bear
+(Your score has increased by 10)
 
 I toss the jar of honey to the bear, which sniffs at it and then begins to
 devour it.  It's cute to watch, and I almost forget for a minute that I'm in
@@ -1152,7 +1238,8 @@ the rest of the cave.  The gold is near, I can feel it in my bones.  I'm just
 a little way away from becoming the richest kid in Splintered Rock!  I can't
 wait to find it!
 
->I move east.
+> e
+I move east.
 
 The Caves
 
@@ -1291,7 +1378,8 @@ The Trask boys live in a nasty house, and this is a nasty closet.  I can't
 believe that they actually expected me to stay in here the rest of my life!
 Well, I'm not about to give them that pleasure.  I'm getting out of here!
 
->I move west.
+> w
+I move west.
 
 The Trask House
 
@@ -1307,7 +1395,8 @@ them to get back.
 
 I can move east and west.
 
->I move west.
+> w
+I move west.
 
 Torncloth
 
@@ -1319,7 +1408,8 @@ getting to the police now.  I'm sure they'd love to hear my story.
 
 I can move north and east.
 
->I move north.
+> n
+I move north.
 
 Torncloth
 
@@ -1333,7 +1423,8 @@ As I stand here, in the street, I take deep breaths of free air.
 
 I can move east, south and west.
 
->I move west.
+> w
+I move west.
 
 The Old Antique Shop
 
@@ -1346,23 +1437,28 @@ Barlow is here, wishing someone might give him some antique items for trade.
 
 I can only move east.
 
->(Your score has increased by 5)
+> give watch to barlow
+(Your score has increased by 5)
 "Oh, this?  Ooh, this is worth quite a bit!  I can't pay you now, but I can
 give you credit and you can get the money later, how does that sound?"
 
->(Your score has increased by 5)
+> give plate to barlow
+(Your score has increased by 5)
 "Oh, this?  Ooh, this is worth quite a bit!  I can't pay you now, but I can
 give you credit and you can get the money later, how does that sound?"
 
->(Your score has increased by 5)
+> give cross to barlow
+(Your score has increased by 5)
 "Oh, this?  Ooh, this is worth quite a bit!  I can't pay you now, but I can
 give you credit and you can get the money later, how does that sound?"
 
->(Your score has increased by 5)
+> give compass to barlow
+(Your score has increased by 5)
 "Oh, this?  Ooh, this is worth quite a bit!  I can't pay you now, but I can
 give you credit and you can get the money later, how does that sound?"
 
->I move east.
+> e
+I move east.
 
 Torncloth
 
@@ -1376,7 +1472,8 @@ As I stand here, in the street, I take deep breaths of free air.
 
 I can move east, south and west.
 
->I move east.
+> e
+I move east.
 
 The Police Station
 
@@ -1384,7 +1481,7 @@ This is just the place I need to be.  The police can help me now, I've just
 got to tell them what happened.
 Sheriff Marcus is here.
 
->
+> talk to sheriff marcus
 
 "What seems to be the problem, little lady?" the Sheriff asks.
 
@@ -1487,7 +1584,7 @@ approaching my bed, and I can hear his ragged breathing and can smell the
 scent of alcohol on his breath.  I can't do anything.  Where's that deputy?
 I need him.  I can't find my call button.  What to do?
 
->
+> shout
 
 Well, I haven't lost the use of my voice, that's for sure.  My loud scream
 startles the intruder, and he makes a gallop towards the window.  He doesn't

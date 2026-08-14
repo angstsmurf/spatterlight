@@ -6,29 +6,35 @@ don't know who it is that's making the footsteps, but you doubt it's human,
 most likely some furry animal because of how soft it sounds. You peer into
 the blackness, but there's nothing for you to see there.
 
->
+> look
+
 Dark place
 Around you is a blackness you've never known before, completely covering
 every part of the area.
 
->You are carrying nothing.
+> i
+You are carrying nothing.
 
->You decide to try to find your way out of this darkness and you move in some
+> n
+You decide to try to find your way out of this darkness and you move in some
 direction. You can't really be sure what direction you're moving in as you've
 got no visual guidelines, but you move none the less. Suddenly you are hit in
 the head with a hard object and you fall to the ground. The last things you
 hear before going unconcious are : Oooh ooh ahh ahh! Oooh ah! Oooh ah eeeh
 ah!!
 
->"Hey, monkey!"
+> talk to monkey
+"Hey, monkey!"
 Monkey: "Oooh, ah!! Oooh, ah!!"
 "Let me out, I'm hungry!"
 Monkey: "Oooh, ah, eeeh eh!! Eeeh eh!" The monkey's hostile attitude towards
 you is frightening, so you decide not to talk to him.
 
->But you had decided not to talk to it. Don't go back on your word now!
+> talk to monkey
+But you had decided not to talk to it. Don't go back on your word now!
 
->Ah, who cares if the monkey gets angry!
+> talk to monkey
+Ah, who cares if the monkey gets angry!
 
 "Hey, pee-brain, let me out of here! I want out, you hear me!!!"
 Monkey: "Oooooooh aaahhh," the monkey screams at you while getting up from
@@ -36,22 +42,28 @@ the chair, then walks over to you. "Eeeeehh aahhh!!!" it then yells in your
 face, leaving a few unwelcome drops of mouthwater on your face. It then
 returns to its desk and continues reading the newspaper.
 
->After your last conversation with the monkey you decide for life that you
+> talk to monkey
+After your last conversation with the monkey you decide for life that you
 will never talk to another monkey ever again!
 
->You are carrying a magnet.
+> i
+You are carrying a magnet.
 
->Using your stupifyingly strong magnet you manage to attrack the pistol into
+> use magnet on pistol
+Using your stupifyingly strong magnet you manage to attrack the pistol into
 the cell. The monkey is paying too much attention to the newspaper to notice.
 
->Using your stupifyingly strong magnet you manage to attract the key from the
+> use magnet on key
+Using your stupifyingly strong magnet you manage to attract the key from the
 desk. Luckily the monkey is too absorbed by the newspaper to notice.
 
->(Your score has increased by 10)
+> shoot monkey
+(Your score has increased by 10)
 You point the gun at the monkey's head, then for some reason say: "Dodge
 this!" You pull the trigger and watch as the monkey's head explodes in a
 shower of blood, skull fractures and brain jelly.
 
->(Your score has increased by 15)
+> unlock door with key
+(Your score has increased by 15)
 Hooray! You've made it through the game!
 Congratulations!

@@ -24,14 +24,18 @@ fields roll into the distance.
 
 Something glimmers in the mud, some way to the north.
 
->Slippery brown mud is pounded by the rain, streaming under your feets.
+> x mud
+Slippery brown mud is pounded by the rain, streaming under your feets.
 
->The bushes that line either side of the path have been ravaged by the wind,
+> x bushes
+The bushes that line either side of the path have been ravaged by the wind,
 and are now only leaveless branches blowing back and forth.
 
->The bare fields stretch far into the distance.
+> x fields
+The bare fields stretch far into the distance.
 
->You bow your head against the rain, and move north.
+> n
+You bow your head against the rain, and move north.
 
 Muddy Path
 You are halted in the middle of the trail, the storm beating down upon you.
@@ -40,13 +44,15 @@ extremely thick and slippery - it is all you can do to keep your balance
 against the tremendous force of the wind. The path leads onwards to the
 north. Something shines gold amongst the mud at your feet.
 
->You see no such thing.
+> x clouds
+You see no such thing.
 
->You bend down, to get a closer look at whatever is buried within the mud.
+> x gold
+You bend down, to get a closer look at whatever is buried within the mud.
 There is no doubting that the material glinting in the pale light is gold.
 Possibly, you'd be able to get a grip on it and pull it out.
 
->
+> take gold
 
 You crouch in the wet mud, and close your cold fingers around the gold
 surface. It takes you a few pulls to loosen it from the ground, but you can
@@ -68,15 +74,19 @@ you are falling into darkness, falling into nothingness...
 Darkness
 Everywhere is blackness.
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
->You see nothing special about the glow.
+> x glow
+You see nothing special about the glow.
 
 A gentle orange glow ignites itself a few feet away to the west.
 
->You follow the glow.
+> w
+You follow the glow.
 
 Darkness
 The sword lies on the floor, a soft amber glow shining from the jewel in its
@@ -85,12 +95,14 @@ stretches beyond the glow.
 
 Also here is a Topaz.
 
->The sword is now clean of mud and dirt, and its blade is glinting from the
+> x sword
+The sword is now clean of mud and dirt, and its blade is glinting from the
 light it gives off. The jewel in its golden shaft glows strangely, making the
 bird engraved upon its surface blaze with light. It looks magnificant, even
 in this semi-darkness.
 
->You pick it up.
+> take sword
+You pick it up.
 
 Like before, it seems to thrum with life. Suddenly, your mind is sent reeling
 with shock as you sense an acute probing from the sword. Words seem to flow
@@ -105,7 +117,8 @@ The words arrive in your head as if someone were saying them aloud.
 
 Choose an option to speak.
 
->
+> 1
+
 Who am I?  You notice that the jewel pulsates as the sword 'speaks' to you.
 
 I am Topaz, of course. Smithed in the iron-works of Modgul, assistant to the
@@ -114,12 +127,14 @@ throne, and commander of the... wait! What is this place?
 1. No idea...
 2. I can only see darkness.
 
->
+> 1
+
 The sword, Topaz, is silent for a moment. Then he speaks in your mind.
 
 Hmmm. How odd. You will explore now, mortal. I will guide you with my light.
 
->You set off into the darkness, with only the glow of Topaz to aid you.
+> n
+You set off into the darkness, with only the glow of Topaz to aid you.
 Holding the sword ahead of you, you move it catiously back and forth as you
 walk, checking for obstacles. After a moment or two of walking, there is a
 sudden clatter.
@@ -146,10 +161,12 @@ darkness stretches in all directions, beyond him.
 The sword cries shamelessly over the skeleton, his sobs echoing around your
 brain.
 
->The skeleton is stretched out upon the ground, his bones corroded by age, and
+> x skeleton
+The skeleton is stretched out upon the ground, his bones corroded by age, and
 smothered with dust. You notice a silver ring on one skeletal finger.
 
->The ring is of simple design, but bears a bird similar to the one on Topaz.
+> x silver ring
+The ring is of simple design, but bears a bird similar to the one on Topaz.
 
 Paragon... Topaz trails off. Eventually his sobbing descends into silence.
 When he next speaks, his voice is hard with determination.
@@ -164,19 +181,23 @@ And now we have been claimed. For it is well known that once someone is
 sucked below, there is no escape... We will suffer the same end as my dear
 and noble friend, Paragon...
 
->You'd rather leave him to his grief...
+> talk to topaz
+You'd rather leave him to his grief...
 
->You reach out, to break the ring away from the finger.
+> take silver ring
+You reach out, to break the ring away from the finger.
 
 No! cries Topaz, You will leave him! Paragon, my dear, my love... what's
 this? Our ring? Yes... Mortal, take the ring, we may yet live.
 
->The ring comes away from the bone easily, which crumbles to dust upon your
+> g
+The ring comes away from the bone easily, which crumbles to dust upon your
 touch.
 
 Try it on, whispers Topaz.
 
->You slip the ring on your finger, and your surroundings disappear, and
+> wear ring
+You slip the ring on your finger, and your surroundings disappear, and
 rearrange themselves.
 Congratulations!
 

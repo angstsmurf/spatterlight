@@ -9,184 +9,218 @@ wrong that will be perpetrated before your very eyes.
 
 You are in a dirty, old arcade with a few decent machines.
 
->You move south.
+> south
+You move south.
 
 Sidewalk infront of arcade
 A car comes screeching around the corner! Someone jumps out and grabs Mrs
 Fenwick out of the telephone booth near the arcade and drives off! A arcade
 token dispenser is here.
 
->You move south.
+> south
+You move south.
 
 Gravel Parking lot
 Gravel Parking lot
 
 Also here is an advertisement.
 
->You move south.
+> south
+You move south.
 
 Concrete parking lot
 Concrete parking lot
 
->You move south.
+> south
+You move south.
 
 In the middle of a street
 In the middle of a street
 
->You move south.
+> south
+You move south.
 
 On the sidewalk infront of the Fenwick house
 On the sidewalk infront of the Fenwick house
 
->You move west.
+> west
+You move west.
 
 West corner
 On the west corner of the Fenwick house
 
->You move west.
+> west
+You move west.
 
 North-south street
 In the middle of a north-south street
 
->You move west.
+> west
+You move west.
 
 Parking lot behind restaurant
 In the parking lot behind the restaurant
 
 Also here is a shovel.
 
->You move west.
+> west
+You move west.
 
 Restaurant
 In a restaurant
 
 Also here is a fortune cookie.
 
->You pick up the fortune cookie.
+> get cookie
+You pick up the fortune cookie.
 
->You break it and pull out the paper inside "Mrs Fenwick is underground
+> break cookie
+You break it and pull out the paper inside "Mrs Fenwick is underground
 somewhere. Try looking somewhere with a golf green. Putt the golf ball. You
 will then be in a underground world"
 
->You move east.
+> east
+You move east.
 
 Parking lot behind restaurant
 In the parking lot behind the restaurant
 
 Also here is a shovel.
 
->You move east.
+> east
+You move east.
 
 North-south street
 In the middle of a north-south street
 
->You move east.
+> east
+You move east.
 
 West corner
 On the west corner of the Fenwick house
 
->You move east.
+> east
+You move east.
 
 On the sidewalk infront of the Fenwick house
 On the sidewalk infront of the Fenwick house
 
->You move south.
+> south
+You move south.
 
 Stoop
 On the porch of the Fenwick house
 
->You move south.
+> south
+You move south.
 
 Foyer
 In the Foyer of the Fenwick house
 
 Also here is a hat.
 
->You move west.
+> west
+You move west.
 
 Hallway
 In the hallway of the Fenwick house
 
 Also here is a picture.
 
->You move west.
+> west
+You move west.
 
 Master bedroom
 In the master bedroom of the Fenwick house
 
 Also here is a diary.
 
->You turn to todays entry, it says "Today our phone went out of order so I'll
+> read diary
+You turn to todays entry, it says "Today our phone went out of order so I'll
 have to take a trip down to the booth and call for a repairman. I'am making
 stew tonight."
 
->You move east.
+> east
+You move east.
 
 Hallway
 In the hallway of the Fenwick house
 
 Also here is a picture.
 
->You move north.
+> north
+You move north.
 
 Spare bedroom
 In spare bedroom of Fenwicks house. There is a dresser here.
 
->You open the dresser.
+> open dresser
+You open the dresser.
 
->You take the penny from the dresser.
+> get penny
+You take the penny from the dresser.
 
->You take the golf ball from the dresser.
+> get golf ball
+You take the golf ball from the dresser.
 
->You move south.
+> south
+You move south.
 
 Hallway
 In the hallway of the Fenwick house
 
 Also here is a picture.
 
->You move east.
+> east
+You move east.
 
 Foyer
 In the Foyer of the Fenwick house
 
 Also here is a hat.
 
->You move north.
+> north
+You move north.
 
 Stoop
 On the porch of the Fenwick house
 
->You move north.
+> north
+You move north.
 
 On the sidewalk infront of the Fenwick house
 On the sidewalk infront of the Fenwick house
 
->You move north.
+> north
+You move north.
 
 In the middle of a street
 In the middle of a street
 
->You move north.
+> north
+You move north.
 
 Concrete parking lot
 Concrete parking lot
 
->You move north.
+> north
+You move north.
 
 Gravel Parking lot
 Gravel Parking lot
 
 Also here is an advertisement.
 
->You move north.
+> north
+You move north.
 
 Sidewalk infront of arcade
 A car comes screeching around the corner! Someone jumps out and grabs Mrs
 Fenwick out of the telephone booth near the arcade and drives off! A arcade
 token dispenser is here.
 
->You move north.
+> north
+You move north.
 
 Arcade
 You are in a dirty, old arcade with a few decent machines including a Casino
@@ -194,107 +228,130 @@ machine.
 
 Also here is a casino.
 
->A cash is inside the casino.
+> x casino
+A cash is inside the casino.
 
->You put the penny in the machine and give the lever a pull. All of a sudden
+> use penny on machine
+You put the penny in the machine and give the lever a pull. All of a sudden
 £30.00 comes flying out.
 
->You grab the £30.00 from the machine
+> get cash
+You grab the £30.00 from the machine
 
->You take the cash from the casino.
+> get cash
+You take the cash from the casino.
 
->You move south.
+> south
+You move south.
 
 Sidewalk infront of arcade
 A car comes screeching around the corner! Someone jumps out and grabs Mrs
 Fenwick out of the telephone booth near the arcade and drives off! A arcade
 token dispenser is here.
 
->You move east.
+> east
+You move east.
 
 On sidewalk infront of shoe store
 On sidewalk infront of shoe store
 
->You move north.
+> north
+You move north.
 
 Shoe Store
 In the shoe store.
 
 Also here is a pair of golf shoes.
 
->You get the shoes of the self and give your money to the lady at the
+> buy shoes
+You get the shoes of the self and give your money to the lady at the
 checkout.
 
->You wear the golf shoes
+> wear golf shoes
+You wear the golf shoes
 
->You remove the pair of golf shoes.
+> remove shoes
+You remove the pair of golf shoes.
 
->You wear the golf shoes
+> wear golf shoes
+You wear the golf shoes
 
->You move south.
+> south
+You move south.
 
 On sidewalk infront of shoe store
 On sidewalk infront of shoe store
 
->You move west.
+> west
+You move west.
 
 Sidewalk infront of arcade
 A car comes screeching around the corner! Someone jumps out and grabs Mrs
 Fenwick out of the telephone booth near the arcade and drives off! A arcade
 token dispenser is here.
 
->You move south.
+> south
+You move south.
 
 Gravel Parking lot
 Gravel Parking lot
 
 Also here is an advertisement.
 
->You move south.
+> south
+You move south.
 
 Concrete parking lot
 Concrete parking lot
 
->You move south.
+> south
+You move south.
 
 In the middle of a street
 In the middle of a street
 
->You move south.
+> south
+You move south.
 
 On the sidewalk infront of the Fenwick house
 On the sidewalk infront of the Fenwick house
 
->You move south.
+> south
+You move south.
 
 Stoop
 On the porch of the Fenwick house
 
->You move south.
+> south
+You move south.
 
 Foyer
 In the Foyer of the Fenwick house
 
 Also here is a hat.
 
->You move west.
+> west
+You move west.
 
 Hallway
 In the hallway of the Fenwick house
 
 Also here is a picture.
 
->You move south.
+> south
+You move south.
 
 Junction
 At a junction in the Fenwick home
 
->You move south.
+> south
+You move south.
 
 Back Porch
 On the back porch of the Fenwick house
 
->You move east.
+> east
+You move east.
 
 Kitchen
 In the kitchen of the Fenwick house
@@ -302,37 +359,52 @@ In the kitchen of the Fenwick house
 Also here is a carrots, a onions, a meat, a potatoes, a kettle, a saucepan
 and a  cookery book.
 
->It says "To stew - Find saucepan, get carrots, onions, potatoes, meat and put
+> read book
+It says "To stew - Find saucepan, get carrots, onions, potatoes, meat and put
 on low boil"
 
->You pick up the saucepan.
+> get saucepan
+You pick up the saucepan.
 
->You pick up the carrots.
+> get carrots
+You pick up the carrots.
 
->You put the carrots inside the saucepan.
+> put carrots in saucepan
+You put the carrots inside the saucepan.
 
->You pick up the onions.
+> get onions
+You pick up the onions.
 
->You put the onions inside the saucepan.
+> put onions in saucepan
+You put the onions inside the saucepan.
 
->You pick up the potatoes.
+> get potatoes
+You pick up the potatoes.
 
->You put the potatoes inside the saucepan.
+> put potatoes in saucepan
+You put the potatoes inside the saucepan.
 
->You pick up the meat.
+> get meat
+You pick up the meat.
 
->You put the meat inside the saucepan.
+> put meat in saucepan
+You put the meat inside the saucepan.
 
->You switch on the oven to low boil.
+> switch on cooker
+You switch on the oven to low boil.
 
->Time passes...
+> wait
+Time passes...
 The oven has finnished making the stew
 
->You switch off the oven
+> switch off cooker
+You switch off the oven
 
->You drop the cash.
+> drop cash
+You drop the cash.
 
->You move north.
+> north
+You move north.
 
 Dining room
 In the dining room of the Fenwick House
@@ -341,51 +413,65 @@ Also here is a putter.
 
 Mr Fenwick is here.
 
->You give the stew to Mr Fenwick. He enjoys it so much that he decides to give
+> give food to mr fenwick
+You give the stew to Mr Fenwick. He enjoys it so much that he decides to give
 you the putter.
 
->You drop the golf ball.
+> drop golf ball
+You drop the golf ball.
 
->You pick up the saucepan.
+> get saucepan
+You pick up the saucepan.
 
->You give him the stew. He enjoys it so much that he decides to give you the
+> give stew to mr fenwick
+You give him the stew. He enjoys it so much that he decides to give you the
 putter.
 
->You pick up the golf ball.
+> get golf ball
+You pick up the golf ball.
 
->You move west.
+> west
+You move west.
 
 Junction
 At a junction in the Fenwick home
 
->You move south.
+> south
+You move south.
 
 Back Porch
 On the back porch of the Fenwick house
 
->You move south.
+> south
+You move south.
 
 Back yard
 In the back yard of the Fenwick house. You can see a green, and a flag
 
->You place the ball on the ground and with one steady  breath you place it in
+> putt golf ball
+You place the ball on the ground and with one steady  breath you place it in
 the middle of the hole.. In doing this, the hole begins to grow untill it is
 just about big enough for you to get in to.
 
->You drop the putter.
+> drop putter
+You drop the putter.
 
->You drop the golf ball.
+> drop golf ball
+You drop the golf ball.
 
->You move down.
+> down
+You move down.
 
 Underground Passage
 In a underground passage.
 
 Also here is a penny.
 
->You open the door.
+> open door
+You open the door.
 
->You move north.
+> north
+You move north.
 
 Room
 You close the door behind you and enter this wierd room. There is a ceiling
@@ -393,13 +479,17 @@ with a hole big enough for you.
 
 Also here is a chair.
 
->You pick up the chair.
+> get chair
+You pick up the chair.
 
->You move the chair under the ceiling hole.
+> move chair under ceiling
+You move the chair under the ceiling hole.
 
->Your score is 75 out of a maximum of 95.  (78%)
+> score
+Your score is 75 out of a maximum of 95.  (78%)
 
->You stand on  the chair and see that Mrs Fenwick is there safe and sound.
+> stand on chair
+You stand on  the chair and see that Mrs Fenwick is there safe and sound.
 Well there you have it. Mrs Fenwick was in no danger at all, it was a friend
 who picked her up at the booth (she was in a rush).
 

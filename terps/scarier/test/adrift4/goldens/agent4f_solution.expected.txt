@@ -31,11 +31,13 @@ You are sitting at the controls of a "borrowed" Model M-7-double-Oh space
 ship.  The control panel includes a gyro-guide, a red button, a green button,
 and a fibroid restraint. There is a viewer portal above the control panel.
 
->
+> tighten restraint
+
 You cross one end of the restaint over and under the other, and bring it back
 again. That should do it.
 
->Time passes...
+> z
+Time passes...
 
 You have it planned perfectly. And your plan is perfect. Why couldn't they
 see that? They are all in a blither about the ship incinerating from the
@@ -48,7 +50,8 @@ its own sources of photonic and thermal energy at such times.
 In a flash of brilliance, you have timed your arrival on the surface of the
 solarity to coincide with such a time.
 
->Time passes...
+> z
+Time passes...
 
 That's strange. The solarity is directly ahead, and there does not seem to be
 any sign of reduction in its generation of photon-thermal energies. You check
@@ -66,7 +69,8 @@ part!
 
 ^^ CHHT CHH!  CHHHT CHH CHH CHHZZCHT CHHHTCCHS!? ^^
 
->Time passes...
+> z
+Time passes...
 
 Unfortunately, most of the ship's systems are no longer functioning. It is
 impossible to tell what your spatial co-ordinates are. You spin the
@@ -91,4 +95,5 @@ back on mars
 
 You wake with a start.  What a terrible dream!
 
->Congratulations!
+> z
+Congratulations!

@@ -6,8 +6,12 @@ him about your quest once you meat him, and he will inform you.  Its been a
 wile since you have been called on for you detective skills.  You arn't
 "technicaly" a detective, but you did sleep in a Holliday Inn last night.
 Please enter your name:
->Please choose the player's gender (male or female):
->
+
+> Hero
+Please choose the player's gender (male or female):
+
+> male
+
 Waiting room
 This is the waiting room, for people to stand in line to see the king about
 important things, and you just happen to be at the end of that line.  You
@@ -18,9 +22,12 @@ people ahead of you.  Yup, its still the first day.
 There are exits north and south.
 
 >
->You sneek the note out of the midgets back pocket.
 
->You move north.
+> take note
+You sneek the note out of the midgets back pocket.
+
+> n
+You move north.
 
 Hall
 The hall leads far down.  At one end is the kings throne room, the other, the
@@ -31,12 +38,14 @@ draft.  Yup, its still the first day.
 
 You can move north and south.
 
->(Your score has increased by 1)
+> open window
+(Your score has increased by 1)
 The window is broken and you can't seam to open the window in its present
 state.
 You can see a shadow of somthing behind the window.
 
->You move north.
+> n
+You move north.
 
 Kings throne room.
 This is the Kings throne room.  About 20 feet away is the kings chair.  There
@@ -48,12 +57,14 @@ west.  Yup, its still the first day.
 
 You can move south and west.
 
->(Your score has increased by 1)
+> give note to king
+(Your score has increased by 1)
 You give the note to the king.  "Gee thanks," he mumbles.  He reads it, then
 looks at you.  "hmm you aint no midget... but Whatever."  Stupid harry gives
 you 100 gold pieces.
 
->You move south.
+> s
+You move south.
 
 Hall
 The hall leads far down.  At one end is the kings throne room, the other, the
@@ -64,7 +75,8 @@ draft.  Yup, its still the first day.
 
 You can move north and south.
 
->You move south.
+> s
+You move south.
 
 Waiting room
 This is the waiting room, for people to stand in line to see the king about
@@ -76,7 +88,8 @@ stupid king.  Yup, its still the first day.
 
 You can move north and south.
 
->You move south.
+> s
+You move south.
 
 Courtyard
 You're just south of the castle.  Trimmed, dolphin-shaped hedges abound on
@@ -87,7 +100,8 @@ The Dumb old guy stares at you.  Yup, its still the first day.
 
 You can move north, east and west.
 
->You move east.
+> e
+You move east.
 
 Armory
 Woo hoo, now you've entered the armory.  Shields and Weapons and crap
@@ -96,11 +110,14 @@ over there in the corner too.  Yup, its still the first day.
 
 You can move west and in.
 
->You take Kinda Sharp Sword from Weapon Rack.
+> take sword
+You take Kinda Sharp Sword from Weapon Rack.
 
->You wield Kinda Sharp Sword.
+> wield sword
+You wield Kinda Sharp Sword.
 
->You move west.
+> w
+You move west.
 
 Courtyard
 You're just south of the castle.  Trimmed, dolphin-shaped hedges abound on
@@ -111,7 +128,8 @@ The Dumb old guy stares at you.  Yup, its still the first day.
 
 You can move north, east and west.
 
->You move north.
+> n
+You move north.
 
 Waiting room
 This is the waiting room, for people to stand in line to see the king about
@@ -123,7 +141,8 @@ stupid king.  Yup, its still the first day.
 
 You can move north and south.
 
->You move north.
+> n
+You move north.
 
 Hall
 The hall leads far down.  At one end is the kings throne room, the other, the
@@ -134,7 +153,8 @@ draft.  Yup, its still the first day.
 
 You can move north and south.
 
->You move north.
+> n
+You move north.
 
 Kings throne room.
 This is the Kings throne room.  About 20 feet away is the kings chair.  There
@@ -146,7 +166,8 @@ west.  Yup, its still the first day.
 
 You can move south and west.
 
->You move west.
+> w
+You move west.
 
 Royal Shower Room
 This is where the king takes showers.  Unfortunately he hasnt taken one for
@@ -155,13 +176,15 @@ tiles in the corner look new.  Yup, its still the first day.
 
 You can only move east.
 
->(Your score has increased by 2)
+> push tile
+(Your score has increased by 2)
 You push the tile in.  Veeerry smart of you.  Now what.  So you pushed it in.
  You wait a bit...  nothing happens.  Wait...   you hear a click.
 You start to wonder what the click came from, it didn't sound like it came
 from this room though.
 
->You move east.
+> e
+You move east.
 
 Kings throne room.
 This is the Kings throne room.  About 20 feet away is the kings chair.  There
@@ -173,7 +196,8 @@ west.  Yup, its still the first day.
 
 You can move south and west.
 
->You move south.
+> s
+You move south.
 
 Hall
 The hall leads far down.  At one end is the kings throne room, the other, the
@@ -187,18 +211,22 @@ Jackass Trying to Kill You is here.  Yup, its still the first day.
 You can move north and south.
 Jackass Trying to Kill You hits you, but it doesn't seem to do any damage.
 
->(Your score has increased by 2)
+> attack guy
+(Your score has increased by 2)
 You cut Jackass Trying to Kill You with Kinda Sharp Sword.
 You killed the Bastard Trying to Kill You.  It wasn't hard, but it was sure
 fun.  Now that he is dead, you can search his body or somthing, right?
 
->(Your score has increased by 10)
+> search guy
+(Your score has increased by 10)
 You search him and find THE GOLDEN SOAP!  Better pick it up soon, and take it
 to the king.
 
->You've already got Golden soap!
+> take golden soap
+You've already got Golden soap!
 
->You move north.
+> n
+You move north.
 
 Kings throne room.
 This is the Kings throne room.  About 20 feet away is the kings chair.  There
@@ -210,13 +238,15 @@ west.  Yup, its still the first day.
 
 You can move south and west.
 
->(Your score has increased by 5)
+> give the golden soap to king
+(Your score has increased by 5)
 You give the golden soap to the king and he yells loudly "I HAVE THE GOLDEN
 SOAP, I HAVE THE GOLDEN SOAP!"  and you slowly back away.  He also sais, "By
 they way, did you get the non-golden soap on a rope?" (if you did say "yes"
 if you didn't say "no")
 
->You move south.
+> s
+You move south.
 
 Hall
 The hall leads far down.  At one end is the kings throne room, the other, the
@@ -230,17 +260,21 @@ Jackass Trying to Kill You (dead) is here.  Yup, its still the first day.
 You can move north and south.
 The day is half over.
 
->You take the Soap on a rope from Cracked Broken Window.
+> take soap on a rope
+You take the Soap on a rope from Cracked Broken Window.
 
->Hey, this window is broken.  Who would do such a dastardly, dastardly deed?
+> x window
+Hey, this window is broken.  Who would do such a dastardly, dastardly deed?
 Cracked Broken Window is open.
 
->(Your score has increased by 1)
+> close window
+(Your score has increased by 1)
 You can close the thing very easily, and as you do, it locks back into place
 and is now un-openable from here.
 You hear a click from a different room.
 
->You move north.
+> n
+You move north.
 
 Kings throne room.
 The king sees your soap on a rope and says, "give me that you bastard."
@@ -249,16 +283,19 @@ west.  Yup, its still the first day.
 
 You can move south and west.
 
->(Your score has increased by 5)
+> give soap on a rope to king
+(Your score has increased by 5)
 You give the soap to the king and he gladly accepts it.  In fact he's jumping
 up and down for joy.  as he runs to the shower room, he tosses you a key to
 the armory.  "take any weapon you want as a reward."
 
->(Your score has increased by 3)
+> take doughnut
+(Your score has increased by 3)
 You snatch a doughnut while the king takes a shower.  Goodness.
 You see Guido look at you.  I think he wants one of the doughnuts.
 
->You move south.
+> s
+You move south.
 
 Hall
 The hall leads far down.  At one end is the kings throne room, the other, the
@@ -271,7 +308,8 @@ Jackass Trying to Kill You (dead) is here.  Yup, its still the first day.
 
 You can move north and south.
 
->You move south.
+> s
+You move south.
 
 Waiting room
 This is the waiting room, for people to stand in line to see the king about
@@ -284,7 +322,8 @@ The Dumb old guy stares at you.  Yup, its still the first day.
 
 You can move north and south.
 
->You move south.
+> s
+You move south.
 
 Courtyard
 You're just south of the castle.  Trimmed, dolphin-shaped hedges abound on
@@ -294,7 +333,8 @@ fountain.  A locked gate is to the south.  Yup, its still the first day.
 
 You can move north, east and west.
 
->You move west.
+> w
+You move west.
 
 Giant fountain
 There is a giant fountain here, it is big, and huge, both big AND huge.  Some
@@ -304,7 +344,8 @@ about the fountain.  There is a sign here that says things on it.  There are
 
 You can move north and east.
 
->You move north.
+> n
+You move north.
 
 Out side a BIIIIG house.
 You are outside a BIIIIG house.  You don't know who lives there, you don't
@@ -313,7 +354,8 @@ know is, is its kinda Spook-key-y.  Yup, its still the first day.
 
 You can move south and west.
 
->You move west.
+> w
+You move west.
 
 Sculpto's House
 This is Sculpto's house, complete with sculpts, scultures, and sculpys.  This
@@ -326,9 +368,12 @@ Sculpto is here.  Yup, its still the first day.
 
 You can only move east.
 
->(Your score has increased by 1)
+> use radio
+(Your score has increased by 1)
 Whoa, you get some kind of stupid african music.  Wow!
 
->Your score is 31 out of a maximum of 37.  (83%)
+> score
+Your score is 31 out of a maximum of 37.  (83%)
 
->Do you really want to quit? [Y/N]
+> quit
+Do you really want to quit? [Y/N]

@@ -17,13 +17,15 @@ before you.
 All you can do now is wander around trying to find some answers for what is
 going on, or at least recover some of the memories that are eluding you.
 
->You move west.
+> w
+You move west.
 
 Cliff Path
 Loose rocks and a stiff wind make footing along this rocky passage perilous.
 The path wraps around the cliff, continuing  to the south.
 
->You move south.
+> s
+You move south.
 
 Grove
 It is quite pleasant here in this small grove of trees.  The wind is barely
@@ -31,28 +33,33 @@ noticeable, while the air is warm and carries the fragrance of many flowers
 growing along  the lush grassy soil.  There is also soft music, sounds that
 defy definition.
 
->The sounds are ethereal, like a warm fire on a long, cold winter's evening.
+> listen
+The sounds are ethereal, like a warm fire on a long, cold winter's evening.
 It is very relaxing. "Do you like my music?" a gentle voice says, as a fairy
 flies out from her resting place up in one of the trees.  "My warmest
 welcome, friend.  My name is Gale," she greets with a smile.
 
->Gale sighs, as her cheerful disposition momentarily fades.  "It would be best
+> ask gale about mansion
+Gale sighs, as her cheerful disposition momentarily fades.  "It would be best
 if you didn't need to think about that dreadful place...  But I fear it may
 be your only hope of rescue from the Twilight."  She smiles again, as best
 she can to comfort you.  "I will come with you, and do my best to help."
 
->"The music they produce warms my heart... Love is their sunshine," Gale
+> ask gale about flower
+"The music they produce warms my heart... Love is their sunshine," Gale
 replies, beaming.  "I have a special one you can have," she offers,
 retrieving a white poppy growing under one of the trees.  "It's not a musical
 one, but please take this as a token of my friendship."
 
->You move north.
+> n
+You move north.
 
 Cliff Path
 Loose rocks and a stiff wind make footing along this rocky passage perilous.
 The path wraps around the cliff, continuing  to the south.
 
->You move east.
+> e
+You move east.
 
 Cliff Top
 A wispy fog creeps along the ground toward you, guided by a cold, steady
@@ -61,17 +68,20 @@ wind.  Below there is only darkness, while above the floating mansion looms.
 You hear a voice, more of a whisper.  The words it speaks are
 indistinguishable, yet there is an eerie familarity to it.
 
->"Wait," Gale says,  flying off just beyond the cliff's edge.  "There is a
+> w
+"Wait," Gale says,  flying off just beyond the cliff's edge.  "There is a
 cavern here--I never saw it before.  Maybe we can find a way to the mansion
 in there," she says, pointing downward.
 
->You move down.
+> down
+You move down.
 
 Rock Ledge
 Above the cliff top is just in reach, while the entrance to a cave carved
 deep into the rockface is before you.
 
->You move south.
+> s
+You move south.
 
 Cavern
 Pools of water collected along the uneven terrain reflect images of light
@@ -80,13 +90,16 @@ droplets of water fall into the pools from the darkened ceiling above.
 
 Also here is a plastic pirate knife.
 
->You notice that one of the pools does not cast a reflection.  Upon further
+> look pools
+You notice that one of the pools does not cast a reflection.  Upon further
 inspection, you realize that it's not even water at all!  Only an illusion.
 There is a passage leading downward.
 
->You pick up the plastic pirate knife.
+> take knife
+You pick up the plastic pirate knife.
 
->You move down.
+> down
+You move down.
 
 Large Pit
 The light orbs reveal a barren area with exits leading out in all directions
@@ -95,49 +108,57 @@ iron bars, which slid into place the moment you entered from the cavern.
 There is a cystal lock in the north passage, just out of reach.
 a monkey is here.
 
->You hunch over, arms drooping to your sides, and do your best monkey
+> act like monkey
+You hunch over, arms drooping to your sides, and do your best monkey
 impression.  Gale starts laughing at your antics, which the monkey apparently
 finds amusing as well; it drops the crystal key and dances around wildly.
 
->You pick up the small crystal key.
+> take key
+You pick up the small crystal key.
 
 A brilliant flash of white light momentarily blinds you.  In that instance, a
 vague memory exists in your mind, the key to the mystery of how you got here.
  But as quickly as it came, it is gone again.
 
->"Sure!  I'm small enough to fit through the bars," Gale says, taking the
+> give key to gale
+"Sure!  I'm small enough to fit through the bars," Gale says, taking the
 crystal key and flying to the north passage.  She inserts the key in the
 lock, and the bars retract, opening the exits again.  Then both lock and key
 turn into a ghostly apparitions, which disappear through the rock..
 "Servants of the Sentinel," Gale notes.  "He has taken notice, and will try
 to stop us..."
 
->You move east.
+> e
+You move east.
 
 Cavern Lake
 A lake fills most of this large cavern.  In the middle is a small island.
 Under the illumination of the light orbs, you can make out a walkable ridge,
 leading east around the edge of the lake, to a barely visible waterfall.
 
->You move east.
+> e
+You move east.
 
 Cavern Waterfall
 A small waterfall flows through a crack in the rock, and  underneath the rock
 bridge you are standing on.  It feeds the lake, though you suspect there is
 another source as well.
 
->Crouching down along the edge of the bridge, you check underneath.  You you
+> look under bridge
+Crouching down along the edge of the bridge, you check underneath.  You you
 find a piece of driftwood floating in the water, lodged between a rock.
 Careful not to lose your balance, you reach in and retrieve it.
 
->You move west.
+> w
+You move west.
 
 Cavern Lake
 A lake fills most of this large cavern.  In the middle is a small island.
 Under the illumination of the light orbs, you can make out a walkable ridge,
 leading east around the edge of the lake, to a barely visible waterfall.
 
->You move west.
+> w
+You move west.
 
 Large Pit
 The light orbs reveal a barren area with exits leading out in all directions
@@ -146,26 +167,31 @@ iron bars, which slid into place the moment you entered from the cavern.
 There is a cystal lock in the north passage, just out of reach.
 a monkey is here.
 
->You move south.
+> s
+You move south.
 
 Rocky Cave
 Large rocks as scattered throughout the cave.  Exits lead in all directions.
 
->You move down.
+> down
+You move down.
 
 Small Nook
 A narrow space underneath two converging masses of rock.
 
 Also here is a fishing pole.
 
->You pick up the fishing pole.
+> take pole
+You pick up the fishing pole.
 
->You move up.
+> up
+You move up.
 
 Rocky Cave
 Large rocks as scattered throughout the cave.  Exits lead in all directions.
 
->You move north.
+> n
+You move north.
 
 Large Pit
 The light orbs reveal a barren area with exits leading out in all directions
@@ -174,19 +200,22 @@ iron bars, which slid into place the moment you entered from the cavern.
 There is a cystal lock in the north passage, just out of reach.
 a monkey is here.
 
->You move east.
+> e
+You move east.
 
 Cavern Lake
 A lake fills most of this large cavern.  In the middle is a small island.
 Under the illumination of the light orbs, you can make out a walkable ridge,
 leading east around the edge of the lake, to a barely visible waterfall.
 
->You swing the pole back, and thrust forward as hard as you can, releasing the
+> cast at island
+You swing the pole back, and thrust forward as hard as you can, releasing the
 line.  The hook sails just across the island.  As you reel in the line, the
 hook scrapes across the rock until latching onto something.  "Good job!" Gale
 remarks, as you haul in your catch, a metal toy car.
 
->You move west.
+> w
+You move west.
 
 Large Pit
 The light orbs reveal a barren area with exits leading out in all directions
@@ -195,7 +224,8 @@ iron bars, which slid into place the moment you entered from the cavern.
 There is a cystal lock in the north passage, just out of reach.
 a monkey is here.
 
->You move west.
+> w
+You move west.
 
 Fire Wells
 Wells of fire are scattered throughout the cave, though the air remains cool
@@ -203,26 +233,31 @@ despite the heat source.  On the far side of the cave, to the west,  you see
 what appears to be a huge petrified mushroom.
 A fire elemental is here.
 
->"You throw the waterlogged piece of driftwood at the elemental.  It tries to
+> throw wood at elemental
+"You throw the waterlogged piece of driftwood at the elemental.  It tries to
 burn the wood, but ends up fizzling out, and fading away."
 
->You move west.
+> w
+You move west.
 
 Petrified Mushroom
 The large fossil, is surrounded by smaller stone mushrooms along the ground.
 
 Also here is a wrist watch.
 
->You pick up the wrist watch.
+> take watch
+You pick up the wrist watch.
 
->You move east.
+> e
+You move east.
 
 Fire Wells
 Wells of fire are scattered throughout the cave, though the air remains cool
 despite the heat source.  On the far side of the cave, to the west,  you see
 what appears to be a huge petrified mushroom.
 
->You move east.
+> e
+You move east.
 
 Large Pit
 The light orbs reveal a barren area with exits leading out in all directions
@@ -231,17 +266,20 @@ iron bars, which slid into place the moment you entered from the cavern.
 There is a cystal lock in the north passage, just out of reach.
 a monkey is here.
 
->You move north.
+> n
+You move north.
 
 Long Tunnel
 At the end of this long, narrow tunnel is a solid steel door
 
->You reach out to pull on the handle, and are utterly amazed to find it swings
+> open door
+You reach out to pull on the handle, and are utterly amazed to find it swings
 open with little effort.  Beyond you see the main entrance of a large house,
 which you assume is the mansion.  You must have activated a portal of some
 sort, allowing you a way to cross the void.
 
->You move north.
+> n
+You move north.
 
 Main Entrance
 A grand split staircase wraps around the side walls to a balcony overlooking
@@ -249,7 +287,8 @@ the room.  Hanging on the wall are many paintings along with a single, framed
 portrait, while tall ornate vases rest on marble pedestals.  Overhead, a
 candle-lit brass chandelier hangs from the ceiling, looming high above.
 
->You move north.
+> n
+You move north.
 
 Sitting Room
 Flames crackle in the fireplace, which is flanked by a long leather couch,
@@ -258,89 +297,110 @@ and row of luxurious high-backed chairs.
 Also here is a fire poker.
 A ghost is here.
 
->You pick up the fire poker.
+> take poker
+You pick up the fire poker.
 
->You move north.
+> n
+You move north.
 
 Dining Room
 Spanning the oblong room, is a long, strecthed out oak table topped by golden
 candelabra and surrounded by twenty or so chairs.
 
->You move east.
+> e
+You move east.
 
 Kitchen
 An otherwise large kitchen is cramped with every imaginable appliance used in
 cooking, including a large stove and refrigerator.
 
->On top of the refrigerator you see a metal spatula.
+> look on refrigerator
+On top of the refrigerator you see a metal spatula.
 
->You pick up the spatula.
+> take spatula
+You pick up the spatula.
 
->You open the refrigerator.  The moldy cheese is inside the refrigerator.
+> open refrigerator
+You open the refrigerator.  The moldy cheese is inside the refrigerator.
 
->You take the moldy cheese from the refrigerator.
+> take cheese
+You take the moldy cheese from the refrigerator.
 
->You open the gas stove.
+> open stove
+You open the gas stove.
 
->You put the moldy cheese inside the gas stove.
+> put cheese in stove
+You put the moldy cheese inside the gas stove.
 
->Finding a match in a small tin on top of the stove, you fire it up, and cook
+> cook cheese
+Finding a match in a small tin on top of the stove, you fire it up, and cook
 the moldy cheese in the oven.  It turns a nice brown color.
 
->You take the moldy cheese from the gas stove.
+> take cheese
+You take the moldy cheese from the gas stove.
 
->You move north.
+> n
+You move north.
 
 Pantry
 The shelving covering the walls are filed with long oudated canned food, and
 jars of unidentified perserves--none of which look particularly appetizing.
 A set of rickety old stairs lead downward.
 
->You move down.
+> down
+You move down.
 
 Basement
 A dreary, dank space, with exposed wooden supports and a dirt floor.
 
->Using the spatula, you thrust into the floor, scooping up a bladeful of
+> dig
+Using the spatula, you thrust into the floor, scooping up a bladeful of
 compacted dirt.  A little more digging and you uncover a yellow balloon,
 which is in surprisingly good condition.
 
->You pick up the yellow balloon.
+> take balloon
+You pick up the yellow balloon.
 
 For a second, a strong fragrance is in the air.  A fleeting image in your
 mind of another place and time is triggered by the smell, only to disappear
 as quickly as it arrived.
 
->You move up.
+> up
+You move up.
 
 Pantry
 The shelving covering the walls are filed with long oudated canned food, and
 jars of unidentified perserves--none of which look particularly appetizing.
 A set of rickety old stairs lead downward.
 
->You move south.
+> s
+You move south.
 
 Kitchen
 An otherwise large kitchen is cramped with every imaginable appliance used in
 cooking, including a large stove and refrigerator.
 
->After stretching the balloon opening over the faucet, you fill fill the
+> fill balloon
+After stretching the balloon opening over the faucet, you fill fill the
 balloon with water.
 
->You move west.
+> w
+You move west.
 
 Dining Room
 Spanning the oblong room, is a long, strecthed out oak table topped by golden
 candelabra and surrounded by twenty or so chairs.
 
->You move south.
+> s
+You move south.
 
 Sitting Room
 Flames crackle in the fireplace, which is flanked by a long leather couch,
 and row of luxurious high-backed chairs.
 A ghost is here.
 
->You move south.
+> s
+You move south.
 
 Main Entrance
 A grand split staircase wraps around the side walls to a balcony overlooking
@@ -348,18 +408,21 @@ the room.  Hanging on the wall are many paintings along with a single, framed
 portrait, while tall ornate vases rest on marble pedestals.  Overhead, a
 candle-lit brass chandelier hangs from the ceiling, looming high above.
 
->You move up.
+> up
+You move up.
 
 Balcony
 Below is the main entrance to the mansion, while a hallway leads back into
 the heart of the second story.
 
->You move north.
+> n
+You move north.
 
 Second Story Hallway - South End
 A row of closed  doors lines the hallway on either side of you.
 
->You move west.
+> w
+You move west.
 
 Master Bedroom
 The lavish furnishings are a stark contrast to the otherwise modest decor of
@@ -367,21 +430,26 @@ the mansion, highlighted by layered drapery covering the windows, a silky
 canopy surrounding the four-poster bed, and a vanity of intricately carved
 wood.  There is also a large closet.
 
->You open the closet.  A porcelain doll is inside the closet.
+> open closet
+You open the closet.  A porcelain doll is inside the closet.
 
->You take the porcelain doll from the closet.
+> take doll
+You take the porcelain doll from the closet.
 
->"Careful..." Gale urges as you take off the dolls head.  Inside you find what
+> pull doll head
+"Careful..." Gale urges as you take off the dolls head.  Inside you find what
 appears to be a dagger blade, which you pull out through the neck hole. Then
 at Gale's insistance, you push the doll's head back in place when you are
 finished.
 
->You move east.
+> e
+You move east.
 
 Second Story Hallway - South End
 A row of closed  doors lines the hallway on either side of you.
 
->You move east.
+> e
+You move east.
 
 Bathroom
 The tiled walls and floor sweat with droplets of water.  A round mirror hangs
@@ -389,52 +457,65 @@ above a porcelain sink, next to a commode.  There is also a deep claw-footed
 tub.    Underneath the tub, there appears to be a partially-visible white
 object.
 
->You discover a white cue ball underneath the tub.
+> look under tub
+You discover a white cue ball underneath the tub.
 
->You pick up the cue ball.
+> take ball
+You pick up the cue ball.
 
->You move west.
+> w
+You move west.
 
 Second Story Hallway - South End
 A row of closed  doors lines the hallway on either side of you.
 
->You move north.
+> n
+You move north.
 
 Second Story Hallway - North End
 The hallway contiues to the south, while a staircase leads up to the third
 level.
 
->You move east.
+> e
+You move east.
 
 Guest Room
 A simple bedroom with a  twin-sized bed, small dresser, and wardrobe.
 
->You open the wardrobe.  A cheap suit is inside the wardrobe.
+> open wardrobe
+You open the wardrobe.  A cheap suit is inside the wardrobe.
 
->You take the cheap suit from the wardrobe.
+> take suit
+You take the cheap suit from the wardrobe.
 
->You open the small dresser.  A faded photo is inside the small dresser.
+> open dresser
+You open the small dresser.  A faded photo is inside the small dresser.
 
->You take the faded photo from the small dresser.
+> take photo
+You take the faded photo from the small dresser.
 
->You move west.
+> w
+You move west.
 
 Second Story Hallway - North End
 The hallway contiues to the south, while a staircase leads up to the third
 level.
 
->You move south.
+> s
+You move south.
 
 Second Story Hallway - South End
 A row of closed  doors lines the hallway on either side of you.
 
->You move south.
+> s
+You move south.
 
 Balcony
 Below is the main entrance to the mansion, while a hallway leads back into
 the heart of the second story.
 
->You move down.
+> down
+You move down.
 
 Main Entrance
 A grand split staircase wraps around the side walls to a balcony overlooking
@@ -442,18 +523,21 @@ the room.  Hanging on the wall are many paintings along with a single, framed
 portrait, while tall ornate vases rest on marble pedestals.  Overhead, a
 candle-lit brass chandelier hangs from the ceiling, looming high above.
 
->You move north.
+> n
+You move north.
 
 Sitting Room
 Flames crackle in the fireplace, which is flanked by a long leather couch,
 and row of luxurious high-backed chairs.
 A ghost is here.
 
->"At the end of the war, each surviving member of my unit got one when we
+> ask ghost about suit
+"At the end of the war, each surviving member of my unit got one when we
 returned home." he replies, before letting out a startling laugh.  "Please
 feel free to keep it--I wouldn't be caught dead in that."
 
->You show the faded photo to the ghostly old man.  A smile crosses his face,
+> show photo to ghost
+You show the faded photo to the ghostly old man.  A smile crosses his face,
 and it seems a tear forms in his eye. "I had forgotten that day.  The last
 mission I ever flew.  It was the end of the war, and my commrades all rushed
 over to welcome me back.  It was the most profound day of my life," he
@@ -464,27 +548,32 @@ appreciation, before being engulfed by a brillant burst of light.  "I hope
 you two, will also find your way," he says, as both he and the light fade
 away.
 
->You move east.
+> e
+You move east.
 
 Game Room
 Dominating the room is a full-sized pool table, surrounded by other games of
 amusement.
 
->The ball drops into one of the pockets.  You can hear it rolling along the
+> put ball in pocket
+The ball drops into one of the pockets.  You can hear it rolling along the
 rail inside the table, before smacking into something.  Then there is a
 jingling noise as a large sleigh bell pops out of the ball return and falls
 on the floor.  When the cue ball fails to follow behind, you can only assume
 it was knocked off track.
 
->You pick up the sleigh bell.
+> take bell
+You pick up the sleigh bell.
 
->You move west.
+> w
+You move west.
 
 Sitting Room
 Flames crackle in the fireplace, which is flanked by a long leather couch,
 and row of luxurious high-backed chairs.
 
->You move south.
+> s
+You move south.
 
 Main Entrance
 A grand split staircase wraps around the side walls to a balcony overlooking
@@ -492,104 +581,125 @@ the room.  Hanging on the wall are many paintings along with a single, framed
 portrait, while tall ornate vases rest on marble pedestals.  Overhead, a
 candle-lit brass chandelier hangs from the ceiling, looming high above.
 
->You move up.
+> up
+You move up.
 
 Balcony
 Below is the main entrance to the mansion, while a hallway leads back into
 the heart of the second story.
 
->You move north.
+> n
+You move north.
 
 Second Story Hallway - South End
 A row of closed  doors lines the hallway on either side of you.
 
->You move north.
+> n
+You move north.
 
 Second Story Hallway - North End
 The hallway contiues to the south, while a staircase leads up to the third
 level.
 
->You move west.
+> w
+You move west.
 
 Study
 A large oak desk sits in front of the window, while  a broken clock hangs on
 the wall nearby.
 
->You remove the glass panel in front, and hang the bell on the chain, where
+> use bell on clock
+You remove the glass panel in front, and hang the bell on the chain, where
 the missing counterweight would normally go.  The clock immediately starts
 ticking again, and as you replace the panel, it starts chiming.  On the
 twelfth chime, a secret compartment slides open underneath the clock,
 revealing a silver dagger hilt.
 
->A secret compartment is open underneath the clock.
+> look in compartment
+A secret compartment is open underneath the clock.
 
->You pick up the silver hilt.
+> take hilt
+You pick up the silver hilt.
 
->You snap the blade into the hilt, forming a complete dagger.
+> make dagger
+You snap the blade into the hilt, forming a complete dagger.
 
->You move east.
+> e
+You move east.
 
 Second Story Hallway - North End
 The hallway contiues to the south, while a staircase leads up to the third
 level.
 
->You move up.
+> up
+You move up.
 
 Third Floor Hallway
 The short hallway leads to another staircase, as well as rooms on either
 side.
 
->You move west.
+> w
+You move west.
 
 Music Room
 A grand piano sits atop a platform, surrounded by other instruments resting
 on stands.  There is a shelf mounted on the wall filled with music books.
 
->You force the tip of the poker underneath the top, and pry it open.  Inside a
+> pry piano with poker
+You force the tip of the poker underneath the top, and pry it open.  Inside a
 crystal amulet is revealed!
 
->You pick up the crystal amulet.
+> take amulet
+You pick up the crystal amulet.
 
->You move east.
+> e
+You move east.
 
 Third Floor Hallway
 The short hallway leads to another staircase, as well as rooms on either
 side.
 
->You move east.
+> e
+You move east.
 
 Library
 The room is crammed with endless volumes of old books, filling rows of cases.
  There is a small reading area off on one side, where a reading lamp emits an
 intensly bright light.
 
->As soon as the  dagger blade touches the light, beams of light shoot out in
+> use dagger on lamp
+As soon as the  dagger blade touches the light, beams of light shoot out in
 all directions.  Moments later a bright aura of white light forms around the
 dagger, remaining even when withdrawn from the light.
 
->You move west.
+> w
+You move west.
 
 Third Floor Hallway
 The short hallway leads to another staircase, as well as rooms on either
 side.
 
->You move south.
+> s
+You move south.
 
 Attic stairs
 The stairs lead up to the attic.
 A ghostly apparition is here.
 
->Upon sight of the cystal amulet, the ghostly apparition howls in agony,
+> use amulet
+Upon sight of the cystal amulet, the ghostly apparition howls in agony,
 before disappearing.
 
->You move up.
+> up
+You move up.
 
 Attic
 Dusty boxes of junk, and broken furniture fill the space between the rafters.
  Along the south wall there is a toy box.
 The Sentinel is here.
 
->"What is this?!" The sentinel cries out, as the blade of light pierces his
+> use dagger
+"What is this?!" The sentinel cries out, as the blade of light pierces his
 dark aura.  "Your will is stronger than I anticipated," he notes, grabbing
 the dagger away, which dissolves in his hand into a black vapor.  "I will be
 back to deal with you!" he vows, rushing out down the steps to attend to his
@@ -599,7 +709,8 @@ wound.
 returns, I fear," Gale says with some urgency.  "For him to appear here, must
 indicate some thing of importance--maybe the way out."
 
->You put it in the toy box.  Almost immediately, a white vortex of light
+> put knife in box
+You put it in the toy box.  Almost immediately, a white vortex of light
 appears, sucking it inside.  Then the other two toys you recovered from the
 cavern area, are pulled in as well; Together, the knife, car, and watch form
 the catalyst for a reaction, which rips an opening  out of the south wall,
@@ -611,7 +722,8 @@ rather than the dark space you would expect.
 she speculations,  looking at the opening. "Is it truly the way out of this
 dark place?"
 
->"Shall we try seeing where it goes?" you ask Gale, who nods.
+> s
+"Shall we try seeing where it goes?" you ask Gale, who nods.
 
 "It might be our only way to escape," she replies.
 
@@ -621,16 +733,18 @@ her wings as fast as she can--to no avail--she can not escape the shadow's
 grasp.  "I'm losing my strength..." Gale says.  "I fear I am about to be
 dragged into the void!"
 
->"My flower." Gale says, with a smile, though  too weak to accept your
+> give flower to gale
+"My flower." Gale says, with a smile, though  too weak to accept your
 offering.  "Your kindness warms my heart."  As she says this, a blinding
 light envelops both Gale and the shadowy figure.  "What's happening?" she
 then asks as the light dims, and finds she is no longer a fairy, rather the
 ghost of a young girl.  "I think at least I'm safe now."  She then drifts off
 to the other house, beyond the wall.
 
->Your score is 500 out of a maximum of 500.  (100%)
+> score
+Your score is 500 out of a maximum of 500.  (100%)
 
->
+> s
 
 After stepping through the opening in the wall, you feel the sensation of
 being sucked into a vacuum.  At first you fear it's the void, but then you
@@ -641,7 +755,8 @@ struck when it hit you.  Other than a sharp headache, you seem alright.
 Standing up, you test all extremeities and find nothing broken or otherwise
 injured; just a nasty bump to the back of your head.
 
->Gale follows as you leave the ruins of the house.  Then she stops, as you
+> e
+Gale follows as you leave the ruins of the house.  Then she stops, as you
 start down an overgrown path leading through the woods.  "I hope you don't
 mind..." she says.
 

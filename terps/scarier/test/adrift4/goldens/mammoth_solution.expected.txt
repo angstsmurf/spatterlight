@@ -10,9 +10,11 @@ cake. It reads 'THERE WILL BE CAKE, SO YOU SHOULD EAT IT. From Father'.
 Blatant Portal (TM) reference aside, I reckon 'Father' is onto something. Any
 excuse to eat cake right?
 
->You eat half of the delicious cake, revealing a small key in the other half.
+> eat cake
+You eat half of the delicious cake, revealing a small key in the other half.
 
->BOOM! I'm dead! Just kidding. I took the key (just like that sly jock from
+> grab key
+BOOM! I'm dead! Just kidding. I took the key (just like that sly jock from
 highschool called 'TOM' took your sisters virginity). Wait...WHAT'S
 HAPPENING!?!? Oh...I'm just waking up...
 
@@ -24,10 +26,12 @@ DOOR. Metal. Cold. Featureless (apart from the tiny keyhole). Void of
 personality (much like your wife). Ugly (refer to previous). My main
 road-block to freedom.
 
->Unlocked! The dim, grey glimmer of light from the hallway sails into your
+> unlock cell
+Unlocked! The dim, grey glimmer of light from the hallway sails into your
 cramped asylum cell.
 
->I move north.
+> n
+I move north.
 
 Utterly Pointless Hallway
 Seriously? Why do they even put these hallways in games? It's simply a bore
@@ -40,7 +44,8 @@ self-imposed time restraints. So make your damn choice. You can either go
 south, and wallow in self-pity in your pathetic little cell, or GO NORTH TO
 ENTER THE GUARD STATION.
 
->I move north.
+> n
+I move north.
 
 Guard Station
 A guard sits infront of a row of buttons, of which one is clearly labelled in
@@ -51,7 +56,8 @@ need to solve some kind of nonsensical puzzle to open it, unless I kill
 myself out of frustration at the incredibly impossible-without-a-walkthrough
 difficulty first. I guess I could always start by talking to the guard?
 
->Turns out all those long night shifts has turned this guard's sexuality
+> strip
+Turns out all those long night shifts has turned this guard's sexuality
 sideways. He's passing out in his excitement, right infront of my rockin'
 naked body. I don't even want to guess what he's dreaming about.
 
@@ -61,13 +67,16 @@ for the pushing! With the guard out of the way, you also spot a small blue
 button, which upon further inspection is labelled 'Mammoth Vacuum'.
 Hmm.....sounds dangerous....
 
->I remove the guards clothes (doing a better job than your sister, despite all
+> strip guard
+I remove the guards clothes (doing a better job than your sister, despite all
 her experience), and put them on myself.
 
->The security door leading west is now unlocked. And all it took was losing
+> press unlock button
+The security door leading west is now unlocked. And all it took was losing
 all dignity and credibility in the eyes of your peers.
 
->I move west.
+> w
+I move west.
 
 Utterly Pointless Hallway #2
 Are you kidding me? No seriously? ARE YOU KIDDING ME? Was there too much
@@ -84,7 +93,8 @@ designer's pathetically short game?
                     Hmm, na, can't be that. Regardless, the exit to the foyer
 is to the south.
 
->I move south.
+> s
+I move south.
 
 Foyer
 A typical foyer. You know the kind. The type that you waited in while Aunt
@@ -92,7 +102,8 @@ Maggie had one of her kidneys removed, or while Grandpa Joe acquired a new
 set of false teeth. There's an ENTIRELY HETEROSEXUAL guard sitting behind the
 desk, keeping an eye on the exit to the west (a.k.a your freedom).
 
->I'm free. After many testing trials, I'm finally free. But who is this
+> w
+I'm free. After many testing trials, I'm finally free. But who is this
 mysterious 'Father' who delivered the key to my cell in my dream? There's
 something strange about this. I must investigate. I will find you 'Father',
 or my name ain't Luke Skywalker.

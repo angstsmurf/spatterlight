@@ -47,12 +47,18 @@ Also here is a BOOK COVER.
 There are exits north, south, northeast and northwest.
 
 >
->
->
->
->You pick up the BOOK COVER.
 
->You move north.
+>
+
+>
+
+>
+
+> get book cover
+You pick up the BOOK COVER.
+
+> n
+You move north.
 
 Faust Street Junction
 You are standing beneath a street sign - an ornate, Victorian -looking piece
@@ -63,7 +69,8 @@ street.
 
 You can move north and south.
 
->You move north.
+> n
+You move north.
 
 Lower Faust Street
 This area of the street is dedicated mostly to an open air CAFE to the west.
@@ -73,9 +80,11 @@ You can see the bulging silver form of a FISH in the gutter.
 
 You can move north, south and west.
 
->The fish squirms slimily in your grip.
+> take fish
+The fish squirms slimily in your grip.
 
->You move west.
+> w
+You move west.
 
 Cafe
 Outside the entrance of a small edifice is a single circular TABLE and CHAIR
@@ -88,12 +97,15 @@ A WAITER is here.
 
 You can only move east.
 
->The placemat is actually one of the pages from your book.
+> x placemat
+The placemat is actually one of the pages from your book.
 
->(Your score has increased by 5)
+> get placemat
+(Your score has increased by 5)
 The placemat slides from under the plate easily.
 
->You move east.
+> e
+You move east.
 
 Lower Faust Street
 This area of the street is dedicated mostly to an open air CAFE to the west.
@@ -101,7 +113,8 @@ The wood SIDEWALK is lined with young TREES that bear PURPLE FRUIT.
 
 You can move north, south and west.
 
->You move north.
+> n
+You move north.
 
 Middle Faust Street
 Here is a area dedicated to warehouses, mostly wooden buildings, but one or
@@ -115,7 +128,8 @@ You can move north, south and in.
  Up ahead, you glimpse a black robed figure - a hooded man -  walking in the
 distance, but he disappears into the swirling fog.
 
->You move north.
+> n
+You move north.
 
 Upper Faust Street
 This is upper Faust Street.  The street widens somewhat to accommodate a
@@ -128,17 +142,21 @@ A SILVER ORB is held in the SKELETON's prone hand.
 
 You can move north and south.
 
->(Your score has increased by 5)
+> take silver orb
+(Your score has increased by 5)
 You've already got the SILVER ORB!
 
->The fish leaps from your grip into the dark water and disappears from sight.
+> put fish in fountain
+The fish leaps from your grip into the dark water and disappears from sight.
 After a few moments he reappears near the surface.
 The fish swims in small circles near the edge of the fountain. A wet page has
 floated to the surface of the water.
 
->You take the WET PAGE from the FOUNTAIN.
+> take wet page
+You take the WET PAGE from the FOUNTAIN.
 
->(Your score has increased by 5)
+> read wet page
+(Your score has increased by 5)
 "The day after I had my catherization, the entire thing being video recorded,
 the heart specialist
 came to my room while my folks were there. He dropped the bomb on all of us:
@@ -185,7 +203,8 @@ me proud because my dad is a quiet man of few words and had never said
 anything like that to
 me before".
 
->You move north.
+> n
+You move north.
 
 Park
 Here is a small but most unusual park, perhaps a hundred yards wide. The
@@ -199,7 +218,8 @@ by a string no thicker than a human hair.
 
 You can move north, south, southeast and southwest.
 
->You move southwest.
+> sw
+You move southwest.
 
 Upper Nemo Boulevard
 The scenery takes a bizarre turn at this point. There are buildings, but they
@@ -211,12 +231,14 @@ into the street.
 
 You can move south, in and northeast.
 
->(Your score has increased by 5)
+> give silver orb to gargoyle
+(Your score has increased by 5)
 You place the orb on the gargoyle's small perch and it exclaims
 "For me? Thank you! Now I can move about freely. I can go HOME!" The gargoyle
 flexes his wings and flies off like a bird from a roost.
 
->You move south.
+> s
+You move south.
 
 Middle Nemo Boulevard
 Many of the buildings are non-descript. Their WINDOWS dark panes of inky
@@ -231,7 +253,8 @@ You can move north, south and in.
 A line of tiny naked mice, each with a perfectly formed human ear growing on
 its back, runs across the street a few feet ahead of you.
 
->You move south.
+> s
+You move south.
 
 Lower Nemo Boulevard
 Several open-air shops and stores line this part of the street, and their
@@ -243,7 +266,8 @@ You can move north and south.
  Somewhere in the distance, you can hear the low, flat toll of a bell. It
 sounds strangely warped and slow.
 
->You move south.
+> s
+You move south.
 
 Nemo Boulevard Junction
 This street is proclaimed by the sign beneath the gaslight as  "NEMO BLVD."
@@ -254,9 +278,11 @@ A crumpled page is on the street.
 
 You can move north and southeast.
 
->You pick up the CRUMPLED PAGE.
+> get crumpled page
+You pick up the CRUMPLED PAGE.
 
->(Your score has increased by 5)
+> read crumpled page
+(Your score has increased by 5)
 "...I was walking down the hospital corridor with several other people -
 patients, nurses and
 orderlies - and wondering why the lights were out. There was still enough
@@ -282,7 +308,8 @@ puddle on the floor. The smell of the urine burned my nostrils..."
  Up ahead, you glimpse a black robed figure - a hooded man -  walking in the
 distance, but he disappears into the swirling fog.
 
->You move southeast.
+> se
+You move southeast.
 
 Mist-shrouded junction
 You are standing, naked, damp and chilled, at the intersection of three
@@ -293,7 +320,8 @@ shapes are moving about unseen in it.  It is twilight. The rest is silence.
 
 You can move north, south, northeast and northwest.
 
->You move northeast.
+> ne
+You move northeast.
 
 Romarico Avenue Junction
 The street sign here, a ornate but rusted affair that tilts drunkenly among a
@@ -306,9 +334,11 @@ A muddy page with a footprint on it lies on the cobblestones.
 
 You can move north and southwest.
 
->You pick up the MUDDY PAGE.
+> get muddy page
+You pick up the MUDDY PAGE.
 
->(Your score has increased by 5)
+> read muddy page
+(Your score has increased by 5)
 " They took me to an examining room, made me lie down, and they hooked me up
 to a heart
 monitor. The doctor on call remarked that the readings were erratic. I lay
@@ -335,7 +365,8 @@ starring at my dangling feet. The doctor was reaching for that big syringe,
 but he checked the
 readings on the monitor and must have decided he didn't need it... "
 
->You move north.
+> n
+You move north.
 
 Lower Romarico Avenue
 Here the buildings appear in disrepair. Doors and shutters hang drunkenly on
@@ -345,7 +376,8 @@ letters.
 
 You can move north, south and in.
 
->You move north.
+> n
+You move north.
 
 Middle Romarico Avenue
 The street is deserted. The few shops here are boarded up. You can hear the
@@ -357,11 +389,14 @@ CANS litter the GUTTER.
 
 You can move north and south.
 
->A TIN CAN and a WHEEL are inside the GUTTER.
+> x gutter
+A TIN CAN and a WHEEL are inside the GUTTER.
 
->You take the WHEEL from the GUTTER.
+> get wheel
+You take the WHEEL from the GUTTER.
 
->You move north.
+> n
+You move north.
 
 Upper Romarico Avenue
 The cobblestones here are broken and scattered in piles. A fire must have
@@ -372,7 +407,8 @@ reads "Ye Olde Curiosities & Toys."
 
 You can move south, in and northwest.
 
->You move in.
+> in
+You move in.
 
 Ye Olde Curiosities & Toys
 The interior of the little shop is dark and dingy, the light coming in
@@ -388,20 +424,25 @@ SHOPKEEPER is here.
 
 You can only move out.
 
->"Ah, I knew this would be important to SOMEONE around here. It is,..ah..not
+> ask about glass framed page
+"Ah, I knew this would be important to SOMEONE around here. It is,..ah..not
 for sale, hehe, but I may be willing to TRADE it for something."
 
->(Your score has increased by 5)
+> take glass framed page
+(Your score has increased by 5)
 The Shopkeeper hands you the framed page with a grateful smile.
 "It is yours with our thanks. My Gargoyle friend told me how kind you were to
 help him."
 
->You open the GLASS FRAMED PAGE.  A BLOODY PAGE is inside the GLASS FRAMED
+> open glass framed page
+You open the GLASS FRAMED PAGE.  A BLOODY PAGE is inside the GLASS FRAMED
 PAGE.
 
->You take the BLOODY PAGE from the GLASS FRAMED PAGE.
+> get bloody page
+You take the BLOODY PAGE from the GLASS FRAMED PAGE.
 
->(Your score has increased by 5)
+> read bloody page
+(Your score has increased by 5)
 "I awoke with a start in the hospital bed. Everything was silent. No hushed
 talking in the hallway
 or hurried padded footsteps to be heard. Even the television in my private
@@ -424,7 +465,8 @@ mixed in with my intestines, was assorted hospital waste - tubes, gauze,
 syringes, clamps,
 sutures, and IV bags."
 
->You move out.
+> out
+You move out.
 
 Upper Romarico Avenue
 The cobblestones here are broken and scattered in piles. A fire must have
@@ -435,7 +477,8 @@ reads "Ye Olde Curiosities & Toys."
 
 You can move south, in and northwest.
 
->You move northwest.
+> nw
+You move northwest.
 
 Park
 Here is a small but most unusual park, perhaps a hundred yards wide. The
@@ -449,7 +492,8 @@ by a string no thicker than a human hair.
 
 You can move north, south, southeast and southwest.
 
->You move north.
+> n
+You move north.
 
 Citadel stairs
 Wide polished marble stairs lead up to two huge oak DOORS. The doors are
@@ -463,21 +507,27 @@ probably an inch deep in places, is spread under the corpse.
 
 You can only move south.
 
->The pile of dust  is probably composed of dead skin, bone marrow and rotted
+> x pile of dust
+The pile of dust  is probably composed of dead skin, bone marrow and rotted
 cloth, and is almost an inch deep in places. There is a RING inside the PILE
 OF DUST.
 
->You take the RING from the PILE OF DUST.
+> take ring
+You take the RING from the PILE OF DUST.
 
->You drop the RING.
+> drop ring
+You drop the RING.
 
->(Your score has increased by 5)
+> take ring
+(Your score has increased by 5)
 You've already got the RING!
 
->(Your score has increased by 5)
+> take silver key
+(Your score has increased by 5)
 Take what?
 
->You move south.
+> s
+You move south.
 
 Park
 Here is a small but most unusual park, perhaps a hundred yards wide. The
@@ -491,7 +541,8 @@ by a string no thicker than a human hair.
 
 You can move north, south, southeast and southwest.
 
->You move southeast.
+> se
+You move southeast.
 
 Upper Romarico Avenue
 The cobblestones here are broken and scattered in piles. A fire must have
@@ -502,7 +553,8 @@ reads "Ye Olde Curiosities & Toys."
 
 You can move south, in and northwest.
 
->You move south.
+> s
+You move south.
 
 Middle Romarico Avenue
 The street is deserted. The few shops here are boarded up. You can hear the
@@ -514,7 +566,8 @@ CANS litter the GUTTER.
 
 You can move north and south.
 
->You move south.
+> s
+You move south.
 
 Lower Romarico Avenue
 Here the buildings appear in disrepair. Doors and shutters hang drunkenly on
@@ -524,7 +577,8 @@ letters.
 
 You can move north, south and in.
 
->You move in.
+> in
+You move in.
 
 Town Crier
 The interior of the little building is bare, except for a straightback chair
@@ -535,15 +589,18 @@ A BRIDE is here.
 
 You can only move out.
 
->"He did love me!," she screams, snatching the ring from you. "Now I can go on
+> give ring to bride
+"He did love me!," she screams, snatching the ring from you. "Now I can go on
 with my life!..."
 As the pathetic old woman's last word fades into the air, she collapses into
 a pile of bones and dust that goes tumbling off the surface of the chair.
 A old SILVER KEY lies among the rubble of the disintergrated bride.
 
->You pick up the SILVER KEY.
+> take silver key
+You pick up the SILVER KEY.
 
->You move out.
+> out
+You move out.
 
 Lower Romarico Avenue
 Here the buildings appear in disrepair. Doors and shutters hang drunkenly on
@@ -555,7 +612,8 @@ You can move north, south and in.
  Up ahead, you glimpse a black robed figure - a hooded man -  walking in the
 distance, but he disappears into the swirling fog.
 
->You move north.
+> n
+You move north.
 
 Middle Romarico Avenue
 The street is deserted. The few shops here are boarded up. You can hear the
@@ -567,7 +625,8 @@ CANS litter the GUTTER.
 
 You can move north and south.
 
->You move north.
+> n
+You move north.
 
 Upper Romarico Avenue
 The cobblestones here are broken and scattered in piles. A fire must have
@@ -578,7 +637,8 @@ reads "Ye Olde Curiosities & Toys."
 
 You can move south, in and northwest.
 
->You move northwest.
+> nw
+You move northwest.
 
 Park
 Here is a small but most unusual park, perhaps a hundred yards wide. The
@@ -592,7 +652,8 @@ by a string no thicker than a human hair.
 
 You can move north, south, southeast and southwest.
 
->You move south.
+> s
+You move south.
 
 Upper Faust Street
 This is upper Faust Street.  The street widens somewhat to accommodate a
@@ -603,7 +664,8 @@ also marks the entrance to a park further north.
 
 You can move north and south.
 
->You move south.
+> s
+You move south.
 
 Middle Faust Street
 Here is a area dedicated to warehouses, mostly wooden buildings, but one or
@@ -615,7 +677,8 @@ coming from a roofed open area under a large tree.
 
 You can move north, south and in.
 
->You move in.
+> in
+You move in.
 
 Village Smythe
 Under a spreading Chestnut tree, a village Smythe stands. This is no more
@@ -629,14 +692,16 @@ BLACKSMITH is here.
 
 You can move north and out.
 
->(Your score has increased by 5)
+> give wheel to blacksmith
+(Your score has increased by 5)
 The Blacksmith smiles gratefully.
 "thanks mister!," he says with a shrug. "This will save me a lot of time.
 Edna's been drivin' me crazy to get out on the street again. Now I can start
 repairing the stall properly. You can have that piece of paper now, if you
 want it..."
 
->You move north.
+> n
+You move north.
 
 Stall
 The stall is occupied by a large grey mare, which stands on a small wheeled
@@ -648,10 +713,12 @@ You can't read it from here.
 
 You can only move south.
 
->(Your score has increased by 5)
+> take rat-chewed page
+(Your score has increased by 5)
 You've already got the RAT-CHEWED PAGE!
 
->(Your score has increased by 5)
+> read rat-chewed page
+(Your score has increased by 5)
 "Disconnected.
 Disassociated
 Floating in cold blackness, like eyes without a head, or
@@ -679,7 +746,8 @@ mouth was free of plastic tubing, saying, "I'm going to beat this."
 I don't know if anyone heard
 me..."
 
->You move south.
+> s
+You move south.
 
 Village Smythe
 Under a spreading Chestnut tree, a village Smythe stands. This is no more
@@ -693,7 +761,8 @@ BLACKSMITH is here.
 
 You can move north and out.
 
->You move out.
+> out
+You move out.
 
 Middle Faust Street
 Here is a area dedicated to warehouses, mostly wooden buildings, but one or
@@ -707,7 +776,8 @@ You can move north, south and in.
  Somewhere in the distance, you can hear the low, flat toll of a bell. It
 sounds strangely warped and slow.
 
->You move north.
+> n
+You move north.
 
 Upper Faust Street
 This is upper Faust Street.  The street widens somewhat to accommodate a
@@ -718,7 +788,8 @@ also marks the entrance to a park further north.
 
 You can move north and south.
 
->You move north.
+> n
+You move north.
 
 Park
 Here is a small but most unusual park, perhaps a hundred yards wide. The
@@ -732,7 +803,8 @@ by a string no thicker than a human hair.
 
 You can move north, south, southeast and southwest.
 
->You move north.
+> n
+You move north.
 
 Citadel stairs
 Wide polished marble stairs lead up to two huge oak DOORS. The doors are
@@ -746,7 +818,8 @@ probably an inch deep in places, is spread under the corpse.
 
 You can only move south.
 
->(Your score has increased by 10)
+> unlock door
+(Your score has increased by 10)
 The huge wooden doors swing open with a echoing groan. It is dark inside as
 you step into the foyer.
 
@@ -755,11 +828,13 @@ The inside of the Citadel towers here like a ten story Gothic cave. Its
 spires and turrets are capped with copper. Its windows are stained-glass
 jigsaw puzzles of various saints and sinners you recall from history.
 
->Suddenly, hundreds of candles leap to life! Their flames flicker on,
+> in
+Suddenly, hundreds of candles leap to life! Their flames flicker on,
 illuminating the room. The candles, on decorative iron stands, fill the room
 front to back, giving the ornate  interior a soft, warm glow.
 
->You move west.
+> w
+You move west.
 
 Outside confessional
 The confessional is aproximately five foot high and five foot wide. It is
@@ -768,7 +843,8 @@ side facing you, and an identical one on the opposite side.
 
 You can move east and in.
 
->You move in.
+> in
+You move in.
 
 Inside confessional
 The tiny cramped space is barely as wide as your shoulders. A small sliding
@@ -785,9 +861,11 @@ dare..."
 
 You can only move out.
 
->Your score is 75 out of a maximum of 100.  (75%)
+> score
+Your score is 75 out of a maximum of 100.  (75%)
 
->(Your score has increased by 10)
+> take mask
+(Your score has increased by 10)
 As you pull the mask away, a stunning arc or light begins to pour from
 beneath  the hood. The Worm That Walks is revealed to be the being of beauty
 who dropped you into Sommeril.

@@ -13,21 +13,27 @@ Wood
 The city has transformed itself - there is only a big wood. Oh no! That`s a
 crazy planet.I see wood, wood and wood.
 
->It`s a large, boring tree.
+> x tree
+It`s a large, boring tree.
 
->Later, Babe! Wrong Place!
+> climb tree
+Later, Babe! Wrong Place!
 
->Ouch..... my leg......
+> kick tree
+Ouch..... my leg......
 
->Und du meinst ernsthaft, der versteht deutsch?
+> Sprich Deutsch mit Baum
+Und du meinst ernsthaft, der versteht deutsch?
 
->I move north.
+> n
+I move north.
 
 Wood
 There is more wood. Any more, any more, any more wood. I can`t see any
 civilisation here.
 
->I move east.
+> e
+I move east.
 
 Wood
 There is a chicken. Isn`t that the chicken, which has stolen my starship? The
@@ -35,85 +41,105 @@ chicken is blocking your way.
 
 Chicken is here.
 
->Thank you.... uh, there was a key inside.
+> give easteregg to chicken
+Thank you.... uh, there was a key inside.
 
->I am carrying a key and a easteregg.
+> i
+I am carrying a key and a easteregg.
 
->I move north.
+> n
+I move north.
 
 Wood
 Wow, everywhere wood.
 
->I move west.
+> w
+I move west.
 
 Outside Cave
 There is a cave. And a keyhole in the cave. No. A keyhole in a cave? Ok, a
 keyhole in a cave.
 
->The Cave opens.....
+> unlock keyhole
+The Cave opens.....
 
->I move north.
+> n
+I move north.
 
 Cave
 I am in the cave. He.... I`ve seen him in space before: Roger W.
 
 Roger is here.
 
->Roger W. shows you the nothern way
+> ask roger about way
+Roger W. shows you the nothern way
 
->I move north.
+> n
+I move north.
 
 Big tree
 He, it looks like the biggest tree in RON!
 
 Big tree is here.
 
->Now you can go up.
+> climb big tree
+Now you can go up.
 
->I move up.
+> u
+I move up.
 
 Alley in the forest
 It`s the alley. Something is missing here....
 
->I move east.
+> e
+I move east.
 
 Sea
 It`s a small ocean!?
 
->OK, I am going to start diving! Now I can see a way up...
+> dive
+OK, I am going to start diving! Now I can see a way up...
 
->I move up.
+> u
+I move up.
 
 YAHTZEEBRAND
 Oh, there is the shop.... and the clerk?
 
 Also here is a Needle.
 
->Iget the needle and somebody opens the door behind me. I can go south now.
+> get needle
+Iget the needle and somebody opens the door behind me. I can go south now.
 
->I move south.
+> s
+I move south.
 
 Church
 A holy place....
 
->I move north.
+> n
+I move north.
 
 Under church
 I go upstairs. WWAAAAHHH, a Snake is here! Don`t go north.....
 
->I should run.... The Snake don`t want to talk with me.
+> talk to snake
+I should run.... The Snake don`t want to talk with me.
 
->I move up.
+> u
+I move up.
 
 Farm
 Hm, a farm.
 
->A human girl appears. She says: "Hi, I am Mika.... It seems, that the city is
+> enter farm
+A human girl appears. She says: "Hi, I am Mika.... It seems, that the city is
 not longer a big wood.... We have our REALITY-ON-THE-NORM back. But I have
 never seen you before. Are you an Alien? Please follow me!" Mika goes the
 northern way.
 
->I move north.
+> n
+I move north.
 
 Jail
 Ok, the people of RON are thinking, that I`ve transformed the city to a
@@ -121,11 +147,13 @@ forest.... and NOW I am sitting here..... forever? Maybe not. But this game
 is ending now..... Type in "show end" to see the rest (important). And thank
 you for playing RON: FOREST ON THE NORM....
 
->Thank you for playing my Aliengame...... The next release will come....
+> show end
+Thank you for playing my Aliengame...... The next release will come....
 Thanks to ADRIFT, thanks to REALITY ON THE NORM, thanks to ALL PLAYERS,
 thanks to NO DOUBT and thanks to THOMAS AND STEFFEN DINGEL, the producer of
 MISSION SUPERNOVA and ANDROMEDAS ERBE for the guest starring of Roger W.
 (more about that at my fanpage www.mission-supernova.de.vu).... To contact
 me: tobi__as@lycos.de // official homepage: www.tobi-as.de.vu
 
->Do you really want to quit? [Y/N]
+> quit
+Do you really want to quit? [Y/N]

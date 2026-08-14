@@ -25,16 +25,20 @@ entered.  At the southern end of the corridor is a stone wall with a carved
 scene depicting a man being beheaded.
 
 >
->You open the southern wall.
 
->You move through into the short passage. You feel the stone you stand on
+> open southern wall
+You open the southern wall.
+
+> s
+You move through into the short passage. You feel the stone you stand on
 shift slightly down and hear a strange almost clockwork sound coming from the
 wall.
 
 Short passage
 A short passageway south from the entrance chamber.
 
->You move south.
+> s
+You move south.
 
 Golden Chamber
 By comparison with the early parts of this construction, this golden chamber
@@ -44,7 +48,8 @@ ceremonials.
 
 You can move north and east.
 
->You move east.
+> e
+You move east.
 
 Side Chamber
 A small chamber, the walls are a slighly yellowed white, and again lined with
@@ -53,12 +58,15 @@ is a raised platform on which stands a huge stone sarcophagos.
 
 You can only move west.
 
->You open the magnificent sarcophagos.  The golden coffin and a golden beetle
+> open sarcophagos
+You open the magnificent sarcophagos.  The golden coffin and a golden beetle
 are inside the magnificent sarcophagos.
 
->You take the golden beetle from the magnificent sarcophagos.
+> take beetle
+You take the golden beetle from the magnificent sarcophagos.
 
->You move west.
+> w
+You move west.
 
 Golden Chamber
 By comparison with the early parts of this construction, this golden chamber
@@ -68,14 +76,16 @@ ceremonials.
 
 You can move north and east.
 
->You move north.
+> n
+You move north.
 
 Short passage
 A short passageway south from the entrance chamber.
 
 You can move north and south.
 
->You move north.
+> n
+You move north.
 
 Entrance Chamber
 You are just inside the pyramid.  Beside you is the stone which opened and
@@ -88,7 +98,8 @@ scene depicting a man being beheaded.
 
 You can only move south.
 
->(Your score has increased by 100)
+> put beetle in depression
+(Your score has increased by 100)
 You put the golden beetle inside the depression.
 The beetle presses home into the depression and the stone blocking the exit
 moves out of your way allowing you to make a hasty retreat.

@@ -30,32 +30,40 @@ it is stretched painfully across your chest.  The front window is smashed but
 the dashboard and glovebox seem intact - although they are smeared with your
 blood...
 
->You open the glovebox.  Inside the glovebox is your penknife, your mobile
+> open glovebox
+You open the glovebox.  Inside the glovebox is your penknife, your mobile
 phone and your mobile phone charger.
 
->You take your penknife, your mobile phone and your mobile phone charger from
+> get all from glovebox
+You take your penknife, your mobile phone and your mobile phone charger from
 the glovebox.
 
->(Your score has increased by 2)
+> x dashboard
+(Your score has increased by 2)
 
 You see your car keys, dangling from the ignition.
 
->You pick up the car keys.
+> get keys
+You pick up the car keys.
 
->You open your penknife.
+> open penknife
+You open your penknife.
 
->(Your score has increased by 5)
+> cut seatbelt
+(Your score has increased by 5)
 
 You saw through the seatbelt in a frenzy.  As you cut the last strand it
 snaps apart and coils back inside the mechanism...
 
->(Your score has increased by 5)
+> open door
+(Your score has increased by 5)
 
 You force the door open and stagger out of the car.
 
 Blood is pouring from a wound on your head.
 
->You move north.
+> north
+You move north.
 
 Standing by the roadside.
 
@@ -67,7 +75,8 @@ anyone about.
 
 The road stretches east to west.
 
->You move west.
+> west
+You move west.
 
 On the road.
 
@@ -78,14 +87,16 @@ grassy verge leading into the woods
 
 The road continues west.
 
->
+> x footprints
+
 You bend down to examine the footprints in the mud.  They are small and
 perfectly formed, like that of a child running barefoot.  They must belong to
 the girl that ran out into the road, and lead down the bank into the woods.
 You are relieved that she seems to be all right - but what was she doing out
 here, barefoot in the middle of a downpour?
 
->(Your score has increased by 5)
+> follow footprints
+(Your score has increased by 5)
 
 You decide to follow the footprints.  It'll give you peace of mind to check
 that the girl is OK, and she might be able to help you.
@@ -110,19 +121,24 @@ night here would be a very bad idea indeed...
 
 Also here is a first aid box.
 
->You pick up the first aid box.
+> get box
+You pick up the first aid box.
 
->You open the first aid box.  Some old bandages are inside the first aid box.
+> open box
+You open the first aid box.  Some old bandages are inside the first aid box.
 
->You take the old bandages from the first aid box.
+> get bandages
+You take the old bandages from the first aid box.
 
->(Your score has increased by 5)
+> bandage self
+(Your score has increased by 5)
 
 You wind the bandages around your bleeding head.  Your first aid skills are
 poor, but you do enough to stem the bleeding.  You immediately feel a bit
 more comfortable.
 
->You move south.
+> south
+You move south.
 
 A clearing in the woods.
 
@@ -130,7 +146,8 @@ To your eternal relief you notice that in this particular area the trees thin
 out a little and you can, despite the darkness, make out a clear path leading
 south.  The ground is also a little firmer.
 
->You move south.
+> south
+You move south.
 
 Path out of woods.
 
@@ -141,12 +158,14 @@ your left.  It looks as though it has been freshly dug.
 
 The path continues down a slight incline to the south.
 
->
+> x mound
+
 As you approach the mound you see that it looks like something large has been
 buried here recently.  A chill runs down your neck as you notice that it
 looks about the same size and shape as a human being...
 
->You move south.
+> south
+You move south.
 
 Steep path.
 
@@ -159,7 +178,8 @@ can see a large, Victorian style house.  It looks dark and empty.  There's
 something about it that unsettles you, but you seem to have no choice but to
 try and reach it...
 
->You move south.
+> south
+You move south.
 
 By a steep decline.
 
@@ -175,9 +195,11 @@ you think about this, something at the back of your mind suggests that you
 should check that your inventory is not going to cause a problem before you
 do this...
 
->You close your penknife.
+> close penknife
+You close your penknife.
 
->
+> climb down
+
 You begin by slowly edging down the steep bank.  Under normal circumstances
 this would be an easy task for you.  But these are not normal circumstances.
 You are tired, hungry and weak from blood loss.  It doesn't take much for
@@ -190,7 +212,8 @@ and checking that you haven't broken anything.  Then, with an act of supreme
 willpower, you raise yourself to your feet.  Your legs are unsteady but you
 think that you can make it to the house.  It's been a very bad day so far.
 
->You move west.
+> west
+You move west.
 
 In front of a house.
 
@@ -205,7 +228,8 @@ path, a light went on in one of the ground floor windows.
 The drive continues west to the front door. You rock slowly on your heels,
 summoning up the courage to proceed.  You feel a little sick.
 
->You move west.
+> west
+You move west.
 
 By the front door.
 
@@ -215,7 +239,8 @@ the door itself is a large brass knocker in the shape of a lion's head.  The
 porch itself is as worn and damaged as the rest of the house.  You wait for a
 second to see if anything happens, but it doesn't.
 
->(Your score has increased by 5)
+> use knocker
+(Your score has increased by 5)
 
 You lift the brass door knocker and let it fall against the door.  It strikes
 with a satisfying THUD.  The sound echoes through your head and seems to
@@ -250,7 +275,8 @@ to investigating your surroundings and thanking your host.  That's when you
 notice that your pockets are empty and everything that you were carrying when
 you arrived seems to have been taken...
 
->You move west.
+> west
+You move west.
 
 Guest Bathroom.
 
@@ -265,14 +291,17 @@ the bath.
 
 The door in the east wall takes you back to the bedroom.
 
->(Your score has increased by 1)
+> x sink
+(Your score has increased by 1)
 
 As you peer into the dusty sink you notice an old, frayed flannel sitting in
 it.
 
->You pick up the old flannel.
+> get flannel
+You pick up the old flannel.
 
->(Your score has increased by 2)
+> x mirror
+(Your score has increased by 2)
 
 You stare into the mirror.  You look a little dark around the eyes and bit
 paler than normal but apart from that you look, all things considered, quite
@@ -289,7 +318,8 @@ You whirl around to face her but when you turn she is gone.  The doorway is
 empty.  You look back in the mirror but all you can is your own haunted and
 terrified look.  What is going on here?
 
->You move east.
+> east
+You move east.
 
 Guest Room.
 
@@ -309,21 +339,26 @@ oversized, as though this room were specially prepared for a giant.
 In the west wall you can see an open door, leading into what looks like an en
 suite bathroom.  The room's exit is on the south wall.
 
->(Your score has increased by 2)
+> x bedside table
+(Your score has increased by 2)
 
 A chunky bedside table with one draw.  On it rests a tray.
 
->You open the bedside drawer.  A heavy book is inside the bedside drawer.
+> open drawer
+You open the bedside drawer.  A heavy book is inside the bedside drawer.
 
->You take the heavy book from the bedside drawer.
+> get book
+You take the heavy book from the bedside drawer.
 
->(Your score has increased by 2)
+> x desk
+(Your score has increased by 2)
 
 A writing desk with many drawers.  A quick rummage reveals them all to be
 empty.  There is nothing on the desk apart from a local newspaper - The
 Mid-Sussex Times.
 
->(Your score has increased by 5)
+> read paper
+(Your score has increased by 5)
 
 It's a recent paper, only dated a few days ago.  You don't get past the front
 page.  The headline "SEARCH CONTINUES FOR MISSING LOCAL GIRL" screams at you.
@@ -348,23 +383,29 @@ You don't want to read the paper any further.  The story about Trisha has
 unsettled you a little.  An inner voice tells you that there is something
 strange going on in this house, and you want to get to the bottom of it.
 
->You unlock the wardrobe with the small key.
+> unlock wardrobe with small key
+You unlock the wardrobe with the small key.
 
->You open the wardrobe.  A broken wire coathanger is inside the wardrobe.
+> open wardrobe
+You open the wardrobe.  A broken wire coathanger is inside the wardrobe.
 
->You take the broken wire coathanger from the wardrobe.
+> get coathanger
+You take the broken wire coathanger from the wardrobe.
 
->(Your score has increased by 2)
+> bend coathanger
+(Your score has increased by 2)
 
 An idea strikes you.  Grabbing the broken coathanger you bend it so that it
 no longer resembles a coathanger.  Now it is just a long, thin piece of metal
 wire.
 
->(Your score has increased by 1)
+> put paper under door
+(Your score has increased by 1)
 
 You carefully slide a couple of sheets of newspaper under the door.
 
->(Your score has increased by 2)
+> insert wire
+(Your score has increased by 2)
 
 When you were younger you played a lot of adventure games on your computer.
 You know how this is supposed to go.  You slowly and carefully slot the wire
@@ -372,7 +413,8 @@ through the keyhole until it meets resistance.  Then with a firm (but not too
 firm) push you force the key out of the lock.  You are rewarded with the
 sound of a metal key falling onto a sheet of newspaper...
 
->(Your score has increased by 2)
+> pull paper
+(Your score has increased by 2)
 
 A single bead of sweat drops down your forehead as you carefully pull the
 sheets of newspaper back through to your side of the door.  After what seems
@@ -381,11 +423,14 @@ through.  Taking a deep breath you slowly finish pulling the sheets.  With a
 sigh of relief you see a metal key sitting squarely on the paper.  You scoop
 it up and kick the newspaper aside.
 
->You unlock the door with the doorkey.
+> unlock door with doorkey
+You unlock the door with the doorkey.
 
->You open the door.
+> open door
+You open the door.
 
->You move south.
+> south
+You move south.
 
 Second Floor Landing.
 
@@ -401,7 +446,8 @@ the south where you can see another door.  There is also a door in the west
 wall, with a plaque marked Library displayed.  There are also stairs leading
 down.
 
->You move west.
+> west
+You move west.
 
 Library.
 
@@ -414,16 +460,19 @@ and worn themselves.  They haven't been read for some time.
 The only exit appears to be the way that you came, east back on to the
 landing.
 
->(Your score has increased by 2)
+> put book on bookshelves
+(Your score has increased by 2)
 
 You put the book back on the shelf in its intended place.  You step back and
 then hear an ominous creaking.  Suddenly the shelf that you have just put the
 book on buckles under the weight and snaps.  Books are scattered all over the
 ground and lumps of wood crash to the floor.  Whoops.
 
->You pick up the long piece of wood.
+> get wood
+You pick up the long piece of wood.
 
->You move east.
+> east
+You move east.
 
 Second Floor Landing.
 
@@ -439,7 +488,8 @@ the south where you can see another door.  There is also a door in the west
 wall, with a plaque marked Library displayed.  There are also stairs leading
 down.
 
->You move south.
+> south
+You move south.
 
 Attic.
 
@@ -449,7 +499,8 @@ memories stored here.  The question is, of course, whose memories are they?
 
 The way out is to the north.
 
->
+> x cases
+
 You open the first packing case you come to.  It looks fairly new.  Inside is
 a pile of photos spanning the past hundred years.  You flick through them at
 random but they don't seem to be in any order.  Two photos stand out to you.
@@ -462,14 +513,16 @@ hand-written note at the bottom says Me and Keith, caught short again! -
 South Downs Feb 1980.  The unnerving thing is that the figure on the right is
 the spitting image of the man who opened the door to you last night...
 
->
+> x boxes
+
 You sift through a few boxes at random.  There are documents, books, school
 reports, trophies, photos and all sorts of things here.  Some of it dates
 back hundreds of years.  The one uniting factor is the surname 'Chatfield'.
 You make an educated guess that this house belongs to the Chatfield family.
 But who is the current occupant?
 
->You move north.
+> north
+You move north.
 
 Second Floor Landing.
 
@@ -485,7 +538,8 @@ the south where you can see another door.  There is also a door in the west
 wall, with a plaque marked Library displayed.  There are also stairs leading
 down.
 
->You move down.
+> down
+You move down.
 
 First Floor Landing.
 
@@ -498,7 +552,8 @@ flowers and there are yet more paintings.
 There are stairs leading both up and down here, and the landing runs north
 and south.
 
->You move north.
+> north
+You move north.
 
 First Floor Landing.
 
@@ -507,7 +562,8 @@ You are at the north end of the first floor landing.
 There are doors in the east and west walls, and a closet door in the north
 wall.  The landing leads back south.
 
->(Your score has increased by 2)
+> open closet
+(Your score has increased by 2)
 
 You tug the worn handle, half-expecting it to fall off.  It doesn't and the
 door swings open.  Hanging in the closet are two small dresses, one with a
@@ -517,7 +573,8 @@ from both, making small puddles on the floor.
 Something about the scene chills you to the core and you quickly slam the
 closet shut again.
 
->You move west.
+> west
+You move west.
 
 Bathroom.
 
@@ -531,7 +588,8 @@ next to a bidet.  The toilet and bidet look in surprisingly good condition.
 
 The only exit is back the way you came through the door on the east wall.
 
->(Your score has increased by 1)
+> x cabinet
+(Your score has increased by 1)
 
 You examine yourself in the mirror for a while.  You're holding up pretty
 well.  You swing the door of the cabinet open.  It's broken so it won't shut
@@ -544,13 +602,15 @@ like days ago.  With a scream you jump back and the face vanishes as quickly
 as it appeared.  Then it's just you again, staring at yourself reflected in
 the limply hanging mirrored door of the cabinet.
 
->(Your score has increased by 5)
+> wet flannel
+(Your score has increased by 5)
 
 The tap gurgles for a while, but soon dirty water begins to flow.  You wash
 the flannel under the tap and get it soaking wet.  After squeezing the excess
 water out of it you turn the tap off.  A flannel was made to be wet.
 
->You move east.
+> east
+You move east.
 
 First Floor Landing.
 
@@ -559,7 +619,8 @@ You are at the north end of the first floor landing.
 There are doors in the east and west walls, and a closet door in the north
 wall.  The landing leads back south.
 
->You move south.
+> south
+You move south.
 
 First Floor Landing.
 
@@ -572,7 +633,8 @@ flowers and there are yet more paintings.
 There are stairs leading both up and down here, and the landing runs north
 and south.
 
->You move south.
+> south
+You move south.
 
 First Floor Landing.
 
@@ -581,7 +643,8 @@ and west wall.  The door in the west wall has a plaque on it, which reads
 Display Room.  North takes you back to the stairs, while south takes you to
 the end of the landing.
 
->You move east.
+> east
+You move east.
 
 Bedroom.
 
@@ -593,11 +656,14 @@ your face in a room like this.  There's not much else in this room.
 
 The door in the west wall is open, leading back to the landing.
 
->You open the wooden chest.  A diary is inside the wooden chest.
+> open chest
+You open the wooden chest.  A diary is inside the wooden chest.
 
->You take the diary from the wooden chest.
+> get diary
+You take the diary from the wooden chest.
 
->(Your score has increased by 2)
+> read diary
+(Your score has increased by 2)
 
 You open the diary.  It belongs to a girl named Tabitha Seabourne, who has
 helpfully filled in her personal details.  Eye Colour: Brown, Hair Colour:
@@ -630,7 +696,8 @@ IT'S TOO LATE AFTER DEATH TO MAKE UP FOR WHAT YOU DID IN YOUR LIFE.
 What a morbid thought for a twelve year old to record in her diary.  You
 close the book.
 
->You move west.
+> west
+You move west.
 
 First Floor Landing.
 
@@ -639,7 +706,8 @@ and west wall.  The door in the west wall has a plaque on it, which reads
 Display Room.  North takes you back to the stairs, while south takes you to
 the end of the landing.
 
->You move west.
+> west
+You move west.
 
 Display Room.
 
@@ -656,7 +724,8 @@ The exit is to the east.
 
 Also here is a beautiful urn.
 
->
+> x cabinets
+
 You spend a few minutes moving from cabinet to cabinet.  There are articles
 in this room that must be hundreds of years old.  There are sporting
 trophies, photos of great moments and many things like that.  Many of the
@@ -673,15 +742,18 @@ The saddest find, however, is a small cabinet tucked away in the corner of
 the room.  It bears the name 'Gerald Chatfield' and contains nothing more
 than two school trophies for cross-country running.
 
->
+> x plaque
+
 The plaque, by its own admission, lists the owners of Chatfield Manor.  The
 names stretch back hundreds of years.  The last name on the list says Gerald
 Chatfield:  1978 - .  The current head of Chatfield Manor, this Gerald
 Chatfield, must still be alive.
 
->You pick up the beautiful urn.
+> get urn
+You pick up the beautiful urn.
 
->You move east.
+> east
+You move east.
 
 First Floor Landing.
 
@@ -690,7 +762,8 @@ and west wall.  The door in the west wall has a plaque on it, which reads
 Display Room.  North takes you back to the stairs, while south takes you to
 the end of the landing.
 
->You move south.
+> south
+You move south.
 
 First Floor Landing.
 
@@ -698,7 +771,8 @@ You are at the end of the landing in front of a blank wall.  There is a door
 to the east with a plaque reading Study on it.  The door on the west wall has
 no markings.  The landing leads back north.
 
->You move east.
+> east
+You move east.
 
 Study.
 
@@ -716,7 +790,8 @@ The exit is to the west.
 
 Also here is an old trophy.
 
->
+> x papers
+
 You spend a moment sifting through the papers in this study.  It's a strange
 assortment of details.  You find some bank statements, shopping lists, the
 first draft of a novel called The Planet of Destiny, half-written letters,
@@ -729,9 +804,11 @@ find, however, is a single piece of letter paper with the words I'm sorry dad
 scrawled all over it.  It is signed Gerald Chatfield. You push the papers
 aside and get back to the matter in hand.
 
->You pick up the old trophy.
+> get trophy
+You pick up the old trophy.
 
->(Your score has increased by 3)
+> clean trophy with flannel
+(Your score has increased by 3)
 
 You begin to work on the trophy with the damp flannel.  After a few minutes
 hard work you've cleaned the trophy enough to read the inscription.  The
@@ -744,7 +821,8 @@ the trophy has broken off.  You pick it up and examine it to find that it's a
 metal fishing hook, no doubt part of the trophy's decoration.  You put it
 into your pocket.
 
->You move west.
+> west
+You move west.
 
 First Floor Landing.
 
@@ -752,7 +830,8 @@ You are at the end of the landing in front of a blank wall.  There is a door
 to the east with a plaque reading Study on it.  The door on the west wall has
 no markings.  The landing leads back north.
 
->You move west.
+> west
+You move west.
 
 Bedroom.
 
@@ -767,24 +846,31 @@ with mould.  Several landscape paintings are scattered around for effect.
 
 The exit is to the east.
 
->
+> x bedside table
+
 It's a fairly plain wooden bedside table.  It looks like a piece of
 flatpacked furniture, cheap and made of chipboard.  It looks very out of
 place in this room.  There is a draw in the table, which is closed.
 
->You open the bedside drawer.  A can of pickled herrings is inside the bedside
+> open drawer
+You open the bedside drawer.  A can of pickled herrings is inside the bedside
 drawer.
 
->You take the can of pickled herrings from the bedside drawer.
+> get can
+You take the can of pickled herrings from the bedside drawer.
 
->You open the tall wardrobe.  Some socks and some shoes are inside the tall
+> open wardrobe
+You open the tall wardrobe.  Some socks and some shoes are inside the tall
 wardrobe.
 
->You take the socks from the tall wardrobe.
+> get socks
+You take the socks from the tall wardrobe.
 
->You take the shoes from the tall wardrobe.
+> get shoes
+You take the shoes from the tall wardrobe.
 
->You move east.
+> east
+You move east.
 
 First Floor Landing.
 
@@ -795,7 +881,8 @@ no markings.  The landing leads back north.
 You pause, a chill running down your spine.  Did you just hear a child
 giggling or was it your imagination?
 
->You move north.
+> north
+You move north.
 
 First Floor Landing.
 
@@ -804,7 +891,8 @@ and west wall.  The door in the west wall has a plaque on it, which reads
 Display Room.  North takes you back to the stairs, while south takes you to
 the end of the landing.
 
->You move west.
+> west
+You move west.
 
 Display Room.
 
@@ -818,7 +906,8 @@ of names.  In the centre of the room is a tall pedestal.
 
 The exit is to the east.
 
->(Your score has increased by 2)
+> put trophy in cabinet
+(Your score has increased by 2)
 
 You locate the cabinet belonging to Henry Wilson Chatfield and open the door.
  It creaks and the cabinet shakes, and for a moment you fear that the whole
@@ -826,7 +915,8 @@ thing is going to collapse.  It doesn't, however, and you carefully place the
 trophy into the cabinet and shut it again.  That just seemed like the right
 thing to do.
 
->You move east.
+> east
+You move east.
 
 First Floor Landing.
 
@@ -835,7 +925,8 @@ and west wall.  The door in the west wall has a plaque on it, which reads
 Display Room.  North takes you back to the stairs, while south takes you to
 the end of the landing.
 
->You move north.
+> north
+You move north.
 
 First Floor Landing.
 
@@ -848,7 +939,8 @@ flowers and there are yet more paintings.
 There are stairs leading both up and down here, and the landing runs north
 and south.
 
->(Your score has increased by 5)
+> throw urn over bannister
+(Your score has increased by 5)
 
 A thought comes to you.  A vandal's thought.  With all your strength you hurl
 the urn over the bannister and lean over to watch it fall.  Sure enough it
@@ -857,7 +949,8 @@ the hard wooden floor in the entrance hall.
 
 You notice something white amongst the debris.
 
->You move down.
+> down
+You move down.
 
 Entrance Hall.
 
@@ -878,7 +971,8 @@ up, you can also go north, west and south.
 
 Also here is a tied-up piece of parchment.
 
->(Your score has increased by 2)
+> take parchment
+(Your score has increased by 2)
 
 You bend down and pick up the paper.  It's been rolled up into a tube and
 tied in place with a long length of thin twine.  You snap the twine and
@@ -923,7 +1017,8 @@ Trish
 
 You fold the letter up and put it into your pocket.
 
->(Your score has increased by 1)
+> open door
+(Your score has increased by 1)
 
 You try the handle of the door.  It doesn't surprise you at all to find it
 locked.  You give way to your frustration, grab the handle with both hands
@@ -945,16 +1040,19 @@ what she is thinking.
 Without a single word she glances at the inscription above the door, turns
 and walks away.  You are left, trembling, alone again.
 
->(Your score has increased by 1)
+> wear socks
+(Your score has increased by 1)
 
 You pull on the socks.  They are not your style, but beggars can't be
 choosers.
 
->(Your score has increased by 2)
+> wear shoes
+(Your score has increased by 2)
 
 You put on the shoes and tie the laces.  That's better.
 
->You move west.
+> west
+You move west.
 
 Corridor.
 
@@ -970,7 +1068,8 @@ You can go east to the front hall and south into the kitchen.
 Your breath catches in your throat as you turn suddenly.  You swear that, out
 of the corner of your eye, you saw a man standing beside you.
 
->You move south.
+> south
+You move south.
 
 Kitchen.
 
@@ -986,13 +1085,17 @@ door to the south and to the west you can see a back door leading outside.
 
 Also here is a tin opener and a packet of bread.
 
->You pick up the tin opener.
+> get tin opener
+You pick up the tin opener.
 
->You open the pantry.  Some cheese is inside the pantry.
+> open pantry
+You open the pantry.  Some cheese is inside the pantry.
 
->You take the cheese from the pantry.
+> get cheese
+You take the cheese from the pantry.
 
->You move north.
+> north
+You move north.
 
 Corridor.
 
@@ -1005,7 +1108,8 @@ problem.
 
 You can go east to the front hall and south into the kitchen.
 
->You move east.
+> east
+You move east.
 
 Entrance Hall.
 
@@ -1024,7 +1128,8 @@ around, pondering your next move.
 The front door of the house is to the east.  As well as the stairs leading
 up, you can also go north, west and south.
 
->You move south.
+> south
+You move south.
 
 Living Room.
 
@@ -1040,30 +1145,36 @@ The exit is to the north.
 
 Also here is a rusty mousetrap.
 
->You pick up the rusty mousetrap.
+> get mousetrap
+You pick up the rusty mousetrap.
 
->(Your score has increased by 2)
+> open can with tin opener
+(Your score has increased by 2)
 
 You place the tin opener on the lid and begin to twist the handle.  You must
 have only done about three full revolutions before there is a snapping noise
 and the handle comes off.  Great.  The tin opener is broken, and now you've
 got fish juice leaking out over your hand.
 
->(Your score has increased by 2)
+> pour oil on mousetrap
+(Your score has increased by 2)
 
 You carefully drip some of the herring oil on to the mousetrap.  After a
 little lubrication the trap works perfectly.
 
->(Your score has increased by 1)
+> set trap
+(Your score has increased by 1)
 
 You carefully set the trap.
 
->(Your score has increased by 1)
+> put cheese in trap
+(Your score has increased by 1)
 
 Trying not to breath, you carefully place the cheese on the trap.  You now
 hold in your hand a fully functioning mousetrap - instant death for vermin.
 
->(Your score has increased by 3)
+> put trap on floor
+(Your score has increased by 3)
 
 You are ready to declare war on mousekind.  Carefully placing the trap by the
 mousehole you retreat to just outside the room.
@@ -1072,7 +1183,8 @@ You only have to wait for a few minutes until you are rewarded with a sharp
 SNAP and a pitiful squeak.  You rub your hands together in glee and chuckle
 to yourself.  You head back into the room.
 
->(Your score has increased by 2)
+> put hand in hole
+(Your score has increased by 2)
 
 You carefully reach into the hole, expecting  any second to feel your hand
 being attacked by the mouse's vengeful kin.  Your fingers clutch at something
@@ -1105,7 +1217,8 @@ when you pulled it out of the mousehole.  A small padlock key.  You reach
 down and pick it up, all the while wondering what is going on in this house
 and - more importantly - what your role is in this Danse Macabre.
 
->You move north.
+> north
+You move north.
 
 Entrance Hall.
 
@@ -1124,7 +1237,8 @@ around, pondering your next move.
 The front door of the house is to the east.  As well as the stairs leading
 up, you can also go north, west and south.
 
->You move west.
+> west
+You move west.
 
 Corridor.
 
@@ -1137,7 +1251,8 @@ problem.
 
 You can go east to the front hall and south into the kitchen.
 
->You move south.
+> south
+You move south.
 
 Kitchen.
 
@@ -1153,7 +1268,8 @@ door to the south and to the west you can see a back door leading outside.
 
 Also here is a packet of bread.
 
->You move west.
+> west
+You move west.
 
 Garden Path.
 
@@ -1163,7 +1279,8 @@ surround by a high brick wall - to a lake.
 
 The path continues west to a jetty by the lake.
 
->You move west.
+> west
+You move west.
 
 Jetty.
 
@@ -1176,13 +1293,15 @@ jetty is a small rowing boat.
 
 The path leads back east.
 
->(Your score has increased by 3)
+> unlock padlock
+(Your score has increased by 3)
 
 You try the key and it fits.  There is a click and the padlock opens.  The
 chain unravels from the jetty and boat and falls into the water with a
 resounding SPLASH, taking the padlock and key with it.
 
->(Your score has increased by 1)
+> go boat
+(Your score has increased by 1)
 
 You climb into the boat, which rocks gently beneath you.  Having made
 yourself comfortable and taken a few deep breaths, you grasp the oars and
@@ -1195,14 +1314,17 @@ standing to your west.
 
 The jetty is to the east, and you can also go west, north and south.
 
->
+> tie twine to hook
+
 You tie the twine to the fishing hook with a tight knot.
 
->
+> tie twine to wood
+
 You tie the twine to the long piece of wood and before you know it you have
 your very own fishing rod.  Not a good one, mind.
 
->You move west.
+> west
+You move west.
 
 The Lake.
 
@@ -1214,7 +1336,8 @@ sitting in a boat in the centre of the lake, wondering what to do next.
 There's something about this place that feels different...
 You can row north, south, east or west.
 
->(Your score has increased by 5)
+> go fishing
+(Your score has increased by 5)
 
 Driven by some unknown urge, you slowly lower the twine into the water.  You
 peer around, wondering if you are going to get a bite from a fish.  The lake
@@ -1232,7 +1355,8 @@ box.  It must have been at the bottom of the lake for years, as it's rusty
 and filthy.  You gaze around the lake to see if Mercy and Tabitha are
 anywhere to be seen, but you're alone.
 
->You move west.
+> west
+You move west.
 
 The Lake.
 
@@ -1242,7 +1366,8 @@ see a road.  You think that it must be the road where you crashed your car.
 
 You can row west, east, north and south.
 
->
+> west
+
 A thrill surges through your body.  If you can just make it to the shore then
 you can get back on to the road and away from this house.  You begin to row
 with renewed strength, the taste of freedom tingles on your tongue.
@@ -1256,7 +1381,8 @@ sense screams at you to get away from her.
 You grip the oars with your sweaty hands and begin to row back, all the while
 watching her as you go.
 
->You move east.
+> east
+You move east.
 
 The Lake.
 
@@ -1264,7 +1390,8 @@ You are sitting in a boat in the middle of the lake.
 
 You can row north, south, east or west.
 
->You move east.
+> east
+You move east.
 
 The Lake.
 
@@ -1272,11 +1399,13 @@ You are at the east side of the lake.
 
 The jetty is to the east, and you can also go west, north and south.
 
->
+> east
+
 You row back to the jetty and climb out of the boat, glad to be back on soild
 ground again - well, as solid as the rotting planks of the jetty can be.
 
->You move east.
+> east
+You move east.
 
 Garden Path.
 
@@ -1286,7 +1415,8 @@ surround by a high brick wall - to a lake.
 
 The path continues west to a jetty by the lake.
 
->You move east.
+> east
+You move east.
 
 Kitchen.
 
@@ -1302,7 +1432,8 @@ door to the south and to the west you can see a back door leading outside.
 
 Also here is a packet of bread.
 
->You move north.
+> north
+You move north.
 
 Corridor.
 
@@ -1315,7 +1446,8 @@ problem.
 
 You can go east to the front hall and south into the kitchen.
 
->You move east.
+> east
+You move east.
 
 Entrance Hall.
 
@@ -1334,7 +1466,8 @@ around, pondering your next move.
 The front door of the house is to the east.  As well as the stairs leading
 up, you can also go north, west and south.
 
->You move north.
+> north
+You move north.
 
 Dining Room.
 
@@ -1346,14 +1479,16 @@ with the relentless assault of landscapes that you have hithertoo endured.
 
 There are doors in the east, west and south walls.
 
->
+> x portraits
+
 You examine the portraits.  They are a succession of men, obviously detailing
 the heads of the Chatfield family through the ages.  The portrait labelled
 Gerald Chatfield is that of a young man.  Gazing into the image you see the
 same kind eyes that greeted you on the doorstep.  This is the same man, but
 at an earlier time in his life.
 
->You move east.
+> east
+You move east.
 
 Music Room.
 
@@ -1368,7 +1503,8 @@ the garden at the front of the house.
 
 A door leads west.
 
->
+> open music box
+
 You look around at the dead musical instruments.  What better place to open a
 dead music box?  You know that, logically, there is no way on earth that this
 box should work after having sat at the bottom of a lake for probably twenty
@@ -1428,9 +1564,11 @@ when she said "I'm glad you're staying"?
 It's then that you notice the large iron key is still on the floor where
 Tabitha discarded it.
 
->You pick up the large iron key.
+> get iron key
+You pick up the large iron key.
 
->You move west.
+> west
+You move west.
 
 Dining Room.
 
@@ -1442,7 +1580,8 @@ with the relentless assault of landscapes that you have hithertoo endured.
 
 There are doors in the east, west and south walls.
 
->You move south.
+> south
+You move south.
 
 Entrance Hall.
 
@@ -1461,7 +1600,8 @@ around, pondering your next move.
 The front door of the house is to the east.  As well as the stairs leading
 up, you can also go north, west and south.
 
->You move west.
+> west
+You move west.
 
 Corridor.
 
@@ -1474,7 +1614,8 @@ problem.
 
 You can go east to the front hall and south into the kitchen.
 
->You move south.
+> south
+You move south.
 
 Kitchen.
 
@@ -1490,11 +1631,14 @@ door to the south and to the west you can see a back door leading outside.
 
 Also here is a packet of bread.
 
->You unlock the metal door with the large iron key.
+> unlock metal door
+You unlock the metal door with the large iron key.
 
->You open the metal door.
+> open metal door
+You open the metal door.
 
->You move south.
+> south
+You move south.
 
 Cellar Stairway.
 
@@ -1504,7 +1648,8 @@ underneath the house.
 You feel something brush against your shoulder.  You spin round in shock.
 There's nothing there.
 
->You move down.
+> down
+You move down.
 
 Cellar.
 
@@ -1519,7 +1664,8 @@ something on the floor over there.
 
 The stairs lead back up, whilst you can head also north towards the light.
 
->You move north.
+> north
+You move north.
 
 Cellar.
 
@@ -1528,7 +1674,8 @@ The pieces of this morbid puzzle are fitting together in your head,
 everything finally falling into place.  There is just one thing left to do.
 One thing that you need to do to be absolutely sure...
 
->(Your score has increased by 5)
+> x body
+(Your score has increased by 5)
 
 You bend down to look, the bleached white amongst the rags confirming what
 you already knew.  It's a skeleton.  It must have lain undiscovered for some
@@ -1573,7 +1720,8 @@ survived, grew older and lived a normal life.  Until...until a few days ago.
 The picture is complete.  You have to get out of this house as soon as you
 can!
 
->Time passes...
+> z
+Time passes...
 
 Your heart is pounding.  The walls seem to be closing in.  You have to get
 out of here!
@@ -1644,15 +1792,18 @@ a figure throw itself against the door.  THUD!  THUD!
 
 "You and I are the same!  We're the SAME!" shouts Gerald Chatfield.
 
->Time passes...
+> z
+Time passes...
 
 "There's no way out!" screams Gerald Chatfield.  THUD!  THUD!
 
 THUD!  The door shakes.  THUD!
 
->Your score is 99 out of a maximum of 109.  (90%)
+> score
+Your score is 99 out of a maximum of 109.  (90%)
 
->(Your score has increased by 10)
+> smash window
+(Your score has increased by 10)
 
 THUD THUD THUD on the door behind you.  In a panic you grab the chair at the
 desk and heave it through the window.  The window shatters, showering you

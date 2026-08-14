@@ -29,14 +29,19 @@ me, though. Everything's too comfortable.
 Maybe I can do something to get kicked out of here...
 
 >
->It's a tiny little table, made of marble which seems to rearrange the little
+
+> x table
+It's a tiny little table, made of marble which seems to rearrange the little
 lines before my very eyes.  A bottle of bubbles is on the little table.
 
->It's a little bottle of bubble bath soap, kindly provided by heaven.
+> x bottle
+It's a little bottle of bubble bath soap, kindly provided by heaven.
 
->I take the bottle of bubbles from the little table.
+> take bottle
+I take the bottle of bubbles from the little table.
 
->I move north.
+> n
+I move north.
 
 Cloud 9
 Cloud 9 is supposedly the nicest place that ever could exist, excluding the
@@ -44,7 +49,8 @@ Garden of Eden, which is convieniently to the direct north. The cloud
 squishes under my feet, but never enough to allow me to go through. To the
 north is God's administrative building, where all the crap work goes on.
 
->I move north.
+> n
+I move north.
 
 Garden of Eden
 This place is just ENTIRELY too nice for me. The flowers are very fragrant,
@@ -53,18 +59,22 @@ is a great fountain, which only spits a bubble occasionally now. A gardener
 flits about the place on his wings, tending to the flower beds with an apple
 shaped watering can.
 
->It's shooting into the air a jet of water that seems to change colors and arc
+> x fountain
+It's shooting into the air a jet of water that seems to change colors and arc
 and splash and all that nice stuff.
 
->(Your score has increased by 5)
+> put bubbles in fountain
+(Your score has increased by 5)
 I stealthily uncork the bubbles and dump them into the fountain. At once, the
 fountain sends up a jet of bubbles. The gardener drops his watering can and
 begins to tend the fountain. After a while, he has the bubbles under control,
 and goes back to the garden.
 
->I pick up the apple-shaped watering can.
+> take can
+I pick up the apple-shaped watering can.
 
->I move south.
+> s
+I move south.
 
 Cloud 9
 Cloud 9 is supposedly the nicest place that ever could exist, excluding the
@@ -72,21 +82,25 @@ Garden of Eden, which is convieniently to the direct north. The cloud
 squishes under my feet, but never enough to allow me to go through. To the
 north is God's administrative building, where all the crap work goes on.
 
->(Your score has increased by 5)
+> water plant
+(Your score has increased by 5)
 I sprinkle some water from the can onto the little potted plant. Suddenly, it
 springs to life, grows a great set of teeth, and chases away the angel at the
 door to God's building.
 
->I walk into God's administrative building...
+> go entry
+I walk into God's administrative building...
 
 In the Big Man's office!
 Well, I've gotten in to meet God. Now, what should I do? Can I convince him
 to send me to Hell? I sure hope so. All the clouds and marble buildings are
 getting to me. God himself sits before me at a desk.
 
->I can't really tell, all that divine light is impairing my vision.
+> x god
+I can't really tell, all that divine light is impairing my vision.
 
->(Your score has increased by 5)
+> fuck
+(Your score has increased by 5)
 "How DARE you?!" bellows God. He points a divine finger at me (the middle
 one) and a trap door opens beneath my feet. I plummet down into Hell. As I
 drop into a lake of lava, and feel my skin melting, I think, "Ah... that's

@@ -36,9 +36,11 @@ to the south leads into the kitchen.
 
 Also here are some old crumbled magazines.
 
->You pick up the old crumbled magazines.
+> take magazines
+You pick up the old crumbled magazines.
 
->The magazines and newspapers are crumbled and greasy from slices of Pizza and
+> read magazines
+The magazines and newspapers are crumbled and greasy from slices of Pizza and
 other indefinable things…
 You try to read part of it...
 Ohh wow! Looks like they have a great sale down at Joe's Diner... All you can
@@ -47,9 +49,11 @@ Ohh Darn… That was November last year…
 As you continue you shift through the magazines something falls out and lands
 on the ground with a soft thud.
 
->You pick up the remote control.
+> take control
+You pick up the remote control.
 
->You really wish you had cable, or maybe a satellite disc.
+> turn on tv
+You really wish you had cable, or maybe a satellite disc.
 There isn't much to see on the TV at this hour of the night so you restlessly
 change the channels until you find a football game that seems interesting.
 Just as you sit down on the couch to watch the game a news flash interrupts
@@ -67,7 +71,8 @@ And the weather….."                      Press any key
 You slowly get up from the couch…
 Duff's Waterhole? Why... that's here!!!
 
->You move south.
+> south
+You move south.
 
 The kitchen
 The smell of old food lingers in the air, heavy and foul.
@@ -83,25 +88,30 @@ layer covering most of the surfaces.
 
 An old pizza slice is more or less stuck to one of the dishes in the sink.
 
->The stench from the cupboard almost knocks you out as you bend down to pull
+> open cupboard
+The stench from the cupboard almost knocks you out as you bend down to pull
 the handle and as the door swings open it's like being hit with an iron fist
 right between your eyes.
 
->Holding your breath you grab the two handles of the garbage can and pull it
+> take can
+Holding your breath you grab the two handles of the garbage can and pull it
 from the cabinet.
 With eyes that water and lungs that are about to burst you manage to get the
 can out and placed on the kitchen floor.
 
->The cabinet under the counter is scratched and bruised from many years of
+> look in cupboard
+The cabinet under the counter is scratched and bruised from many years of
 being slammed or kicked open and shut.
 There are two doors and they are slightly a jar letting out a foul stench
 from whatever it is that is behind them.
   The kitchen cupboard is open.
 
->The crust is bone dry and the topping has definitely seen better days. You
+> take pizza
+The crust is bone dry and the topping has definitely seen better days. You
 pick up the slice of pizza.
 
->You move north.
+> north
+You move north.
 
 The living room
 The living room is not exactly a suite at the Ritz, far from it.
@@ -119,7 +129,8 @@ looking like a kitchen rag.
 A closed door in the western wall leads into the bedroom and a door opening
 to the south leads into the kitchen.
 
->You know she's in there, waiting...
+> open bedroom door
+You know she's in there, waiting...
 Reluctantly you turn the door knob and open the door.
 No sooner have you entered the bedroom before your wife starts nagging at
 you.
@@ -163,7 +174,9 @@ An open door in the western wall leads into the bedroom and a door opening to
 the south leads into the kitchen.
 
 >
->Ignoring your wifes high pitched voice you quietly go out the door onto the
+
+> out
+Ignoring your wifes high pitched voice you quietly go out the door onto the
 porch.
 
 The porch
@@ -176,8 +189,10 @@ A few steps down are the northern end of the yard, and it stretches south
 towards the forest that lies black and threatening in the pale moonlight.
 Behind you to the west is the entrance to the house.
 
->You can't leave the porch....
+> down
+You can't leave the porch....
 This is as far as this adventure will take you at this point.
 Take care ;-)
 
->Do you really want to quit? [Y/N]
+> quit
+Do you really want to quit? [Y/N]

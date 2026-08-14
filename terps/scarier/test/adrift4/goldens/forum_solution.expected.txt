@@ -50,22 +50,29 @@ trials to the north. Good luck, Bob - I will be watching over you.
 And with that, he is gone.
 
 >
->It is a huge, bright yellow hand, slightly chubby and similar to the sort of
+
+> x hand
+It is a huge, bright yellow hand, slightly chubby and similar to the sort of
 thing you see amongst crowds at football matches. Ideal for smacking.
 
->You step onto the path, and immediately dissapear, your body dissolving into
+> n
+You step onto the path, and immediately dissapear, your body dissolving into
 fragments suspended in the air for a fleeting moment, before being whisked
 away on the breeze, into complete darkness. After a moment, light clouds your
 vision, and you observe your new surroundings.
 
->The altar is made of a retangular block of wood, and faces the fire.  A glass
+> x altar
+The altar is made of a retangular block of wood, and faces the fire.  A glass
 bowl is on the wooden altar.
 
->You take the glass bowl from the wooden altar.
+> take bowl
+You take the glass bowl from the wooden altar.
 
->Time passes...
+> z
+Time passes...
 
->Time passes...
+> z
+Time passes...
 
 A sudden noise at the doorway makes you glance up in alarm. A small figure is
 highlighted against the doorway. His bowl haircut, and brown robes give him
@@ -75,7 +82,8 @@ He staggers towards you, gurgling incoherently, and living up to his name.
 You glimpse his face in the firelight, and gasp. Green and hideous, he wears
 an expression of hate and disgust, advancing. You'd better act quickly.
 
->You thrust the bowl of holy water at Monk, the liquid splashing over his head
+> throw water at monk
+You thrust the bowl of holy water at Monk, the liquid splashing over his head
 and body. An expression of bliss crosses his face, and the green tinge to it
 dissapears. He shakes himself off, and smiles at you.
 
@@ -86,11 +94,14 @@ there, you should stand a pretty good chance against him. Good luck!'
 
 He waves, then vanishes.
 
->You put on the pair of wooden clogs.
+> wear clogs
+You put on the pair of wooden clogs.
 
->You step out of the room into a short corridor.
+> n
+You step out of the room into a short corridor.
 
->The clogs shielding your feet from the fiery coals, you cross the pile of
+> e
+The clogs shielding your feet from the fiery coals, you cross the pile of
 them, making your way to the room the other side. You finally reach safety,
 and look around at the room in apprehension.
 
@@ -108,13 +119,16 @@ of his orange, perfectly circular face - his eyes small black dots, and his
 nose and ears gone. You swallow, then try to get your breath back. 'It's
 smacking time!' he shouts insanely, and limps towards you.
 
->You bring the huge hand back, then deal Ds a stinging smack to the face. He
+> smack ds with the giant yellow rubber hand
+You bring the huge hand back, then deal Ds a stinging smack to the face. He
 is knocked to the floor, and struggles back to his feet, looking considerably
 weaker.
 
->You remove the pair of wooden clogs.
+> remove clogs
+You remove the pair of wooden clogs.
 
->You grab a better hold on the clogs, then bring your arm around the whack Ds
+> smack ds with the wooden clogs
+You grab a better hold on the clogs, then bring your arm around the whack Ds
 squarely in the jaw. He screams with rage, and you note the huge dent in his
 orange chin with pleasure.
 
@@ -133,7 +147,8 @@ your shoulder, 'Hostess Pie and Wang will always be with you.'
 With these reassuring words of advice, Ds vanishes, leaving you alone in the
 room.
 
->Catiously, you open the door, and step into the room beyond.
+> n
+Catiously, you open the door, and step into the room beyond.
 
 The Third Trial - Mystery Riddle
 Your surroundings are surrouded in complete and utter darkness - not a thing
@@ -153,7 +168,8 @@ body. What am I?'
 
 Type your answer.
 
->Mystery's giant head is thrown back, and she lets out a long scream of
+> a coin
+Mystery's giant head is thrown back, and she lets out a long scream of
 despair. Then there is a bright flash, and she is gone, leaving no trace at
 all, making your surroundings utterly devoid of any light or objects. Then
 Mystery's calm voice begins to talk, now completely back to normal, as if
@@ -169,7 +185,8 @@ There is a wooshing of wind, and she is gone. Then, as if being writting by
 an invisible hand, a row of bright red neon letters appear in the air before
 you, and a small rectangular stand appears below them.
 
->You push the coin into the slot, and there is a soft ring. Then there is
+> pay a coin
+You push the coin into the slot, and there is a soft ring. Then there is
 another bright flash, and everything around you dissapears.
 
 Then, slowly, bright green lines start to travel across your vision, joining
@@ -200,7 +217,8 @@ Do you want to:
 1) Smack Woodfish with hand
 2) Smack Woodfish with clogs
 
->You pull out the rubber hand, and deliver a huge blow to the side of
+> 1
+You pull out the rubber hand, and deliver a huge blow to the side of
 Woodfish's head. Infuriated, he retaliates by summoning a huge elephant to
 his side, which tramples towards you...
 
@@ -208,14 +226,16 @@ What do you do:
 1) Trip up the elephant
 2) Turn the elephant around and send it back to Woodfish
 
->You stick out your leg in the elephant's path, but he simply tramples over it
+> 1
+You stick out your leg in the elephant's path, but he simply tramples over it
 on his way past. Your leg stinging, you turn back to Woodfish.
 
 Do you want to:
 1) Kick Woodfish
 2) Shoot him with a sawn-off shotgun
 
->You bring your foot up, and knock Woodfish backwards. Fuming, he deals a hard
+> 1
+You bring your foot up, and knock Woodfish backwards. Fuming, he deals a hard
 smack to your upper body and you feel a couple of bones crack under the
 pressure.
 
@@ -223,7 +243,8 @@ Do you want to:
 1) Show him Lancer's hair
 2) Hit him with Jim the purple penguin
 
->You pull out Lancer Sykera from the depths of your pockets. Woodfish recoils
+> 1
+You pull out Lancer Sykera from the depths of your pockets. Woodfish recoils
 at the sight of his hair. 'No! My one weakness!' he cries, his eyes blinded.
  Woodfish falls to the ground, burying his face in his hands, finally
 defeated. As he falls, he seems to melt, and by the time he hits the floor,

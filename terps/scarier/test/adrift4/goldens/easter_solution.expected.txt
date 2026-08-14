@@ -20,40 +20,51 @@ wares.  The wall to the west is lined with conveniences, such as a pay phone,
 newspaper rack, umbrella stand, gumball machine, and a chair.  A lighted
 display case runs along the wall to the east, filled with candy.
 
->You are feeling quite chipper!  It is a beautiful spring day and you are
+> x me
+You are feeling quite chipper!  It is a beautiful spring day and you are
 looking forward to celebrating Easter with your family this weekend.  You're
 out of the office and engaging in one of your favorite activities:
 brainstorming ways to make Max happy!
 
->You are carrying an Easter basket, your wallet and a keychain.  A few bills
+> i
+You are carrying an Easter basket, your wallet and a keychain.  A few bills
 and a couple of photographs are inside your wallet.
 
->The window display consists of a large ceramic rabbit holding out a serving
+> x window
+The window display consists of a large ceramic rabbit holding out a serving
 plate, a golden goose, and abundant quantities of both plastic and painted
 Easter eggs nestled in copious green grass which lines the bottom of the
 storefront window.  Gold letters form an arc above the main display which
 cheers, "Happy Easter!!!" to those peeking in from out-of-doors.
 
->The golden goose is not only golden, she's also alive!  She seems to be
+> x goose
+The golden goose is not only golden, she's also alive!  She seems to be
 sitting on something in quite a protective manner.
 
->The goose pecks at your hand sharply.  Apparently, she doesn't wish to be
+> look under goose
+The goose pecks at your hand sharply.  Apparently, she doesn't wish to be
 disturbed.
 
->The newspaper rack is clearly more functional than aesthetic, constructed of
+> x newspaper rack
+The newspaper rack is clearly more functional than aesthetic, constructed of
 metal and glass.  A newspaper and a lollipop are on the newspaper rack.
 
->You take the lollipop from the newspaper rack.
+> take lollipop
+You take the lollipop from the newspaper rack.
 
->You put the lollipop inside the Easter basket.
+> put lollipop in basket
+You put the lollipop inside the Easter basket.
 
->You take the newspaper from the newspaper rack.
+> take newspaper
+You take the newspaper from the newspaper rack.
 
 You hear a clucking noise emanating from the window display.
 
->The business section of today's paper.
+> x newspaper
+The business section of today's paper.
 
->AT&T Inc.                                T                1-1/1
+> read newspaper
+AT&T Inc.                                T                1-1/1
 ONEOK Inc.                                OKE                1-3/3
 Inco Ltd.                                N                1-1/1
 Unilever NV                                UN                1-2/2
@@ -63,7 +74,8 @@ Oakley Inc.                                OO                1-2/2
 LS Starrett Co.                        S(CX)                1-1/3
 E*TRADE Financial Corp.                E(T)                1-1/2
 
->The window display consists of a large ceramic rabbit holding out a serving
+> x window
+The window display consists of a large ceramic rabbit holding out a serving
 plate, a golden goose, and abundant quantities of both plastic and painted
 Easter eggs nestled in copious green grass which lines the bottom of the
 storefront window.  Gold letters form an arc above the main display which
@@ -72,21 +84,27 @@ cheers, "Happy Easter!!!" to those peeking in from out-of-doors.
 "You must be shopping for somebody pretty special, I'd say!"  The shopkeeper
 glances at you knowingly.
 
->The ceramic rabbit in the storefront window puts you very much in mind of
+> x rabbit
+The ceramic rabbit in the storefront window puts you very much in mind of
 "Alice in Wonderland."  His fur is white and he dons a blue waistcoat.  He is
 holding a serving plate.
 
->You see some butterscotch drizzled on the plate.  It appears to be script of
+> x plate
+You see some butterscotch drizzled on the plate.  It appears to be script of
 some sort.
 
->"Look up"
+> read plate
+"Look up"
 
->You see a large pinata hanging from the high ceiling of the candy store.
+> look up
+You see a large pinata hanging from the high ceiling of the candy store.
 
->You're going to need some kind of tool to help you reach the pinata.  Right
+> hit pinata
+You're going to need some kind of tool to help you reach the pinata.  Right
 now it is too high for you to hit.
 
->
+> look
+
 Candy store
 Cheerful images of colorful eggs, chicks, rabbits, carrots, and
 ribbon-festooned Easter baskets adorn the candy store.  To the north, the
@@ -96,24 +114,30 @@ wares.  The wall to the west is lined with conveniences, such as a pay phone,
 newspaper rack, umbrella stand, gumball machine, and a chair.  A lighted
 display case runs along the wall to the east, filled with candy.
 
->The umbrella stand is rather uninteresting.  It is black in color and looks
+> x stand
+The umbrella stand is rather uninteresting.  It is black in color and looks
 like it may be made of iron.  It is cylindrical in shape, with a solid
 circular base and two circular bands of metal providing structural
 reinforcement above the base.  An umbrella is inside the umbrella stand.
 
->Taken.
+> take umbrella
+Taken.
 
->A good-sized umbrella with a curved wooden handle.  Its swirls of black
+> x umbrella
+A good-sized umbrella with a curved wooden handle.  Its swirls of black
 material are held in place with a loop of material and a snap when the
 umbrella is closed.  The umbrella is closed.
 
->(with umbrella)  The pinata sways, suspended by a piece of twine.
+> hit pinata with umbrella
+(with umbrella)  The pinata sways, suspended by a piece of twine.
 
 "Ah... I think you're on the right track, there" the shopkeeper encourages.
 
->(with umbrella)  A strip of candy dots flutters to the floor.
+> g
+(with umbrella)  A strip of candy dots flutters to the floor.
 
->(with umbrella)  JACKPOT!  A deluge of candy comes raining down from the
+> g
+(with umbrella)  JACKPOT!  A deluge of candy comes raining down from the
 burst pinata.  The stash that has fallen from the pinata includes a creme
 egg, tiny chocolate eggs wrapped in pastel-colored foil, yellow marshmallow
 chicks, and a sack of jelly beans.
@@ -125,7 +149,8 @@ He tugs a nearby stool over and climbs upon it, detaching the empty burst
 pinata shell from the ceiling, and then disposing of it somewhere behind the
 counter.
 
->You pick up the strip of candy dots.
+> take candy dots
+You pick up the strip of candy dots.
 
 "Once you have some candy in your basket, bring it to me and we'll check it
 against Max's list," the shopkeeper offers amiably.
@@ -133,18 +158,23 @@ against Max's list," the shopkeeper offers amiably.
 "Max's list???" you think.  Had you told the man your son's name?  Or what
 sort of candy he likes?
 
->You pick up the creme egg.
+> take egg
+You pick up the creme egg.
 
->You pick up the tiny chocolate eggs.
+> take eggs
+You pick up the tiny chocolate eggs.
 
->You pick up the yellow marshmallow chicks.
+> take chicks
+You pick up the yellow marshmallow chicks.
 The shopkeeper retrieves a wind-up chick from beneath the counter, winds it
 up, and sets it down.  The toy gyrates jubilantly across the wooden surface,
 while the whirring sound of the wind-up mechanism drones from inside it.
 
->You pick up the sack of jelly beans.
+> take beans
+You pick up the sack of jelly beans.
 
->
+> look
+
 Candy store
 Cheerful images of colorful eggs, chicks, rabbits, carrots, and
 ribbon-festooned Easter baskets adorn the candy store.  To the north, the
@@ -154,44 +184,54 @@ wares.  The wall to the west is lined with conveniences, such as a pay phone,
 newspaper rack, umbrella stand, gumball machine, and a chair.  A lighted
 display case runs along the wall to the east, filled with candy.
 
->You are carrying a newspaper, an umbrella, a strip of candy dots, an Easter
+> i
+You are carrying a newspaper, an umbrella, a strip of candy dots, an Easter
 basket, a creme egg, your wallet, a keychain, the tiny chocolate eggs, the
 yellow marshmallow chicks and a sack of jelly beans.  A lollipop is inside
 the Easter basket.  A few bills and a couple of photographs are inside your
 wallet.
 
->You put the strip of candy dots inside the Easter basket.
+> put dots in basket
+You put the strip of candy dots inside the Easter basket.
 
->You put the creme egg inside the Easter basket.
+> put egg in basket
+You put the creme egg inside the Easter basket.
 
->You put the tiny chocolate eggs inside the Easter basket.
+> put eggs in basket
+You put the tiny chocolate eggs inside the Easter basket.
 
->You put the yellow marshmallow chicks inside the Easter basket.
+> put chicks in basket
+You put the yellow marshmallow chicks inside the Easter basket.
 
->You put the sack of jelly beans inside the Easter basket.
+> put beans in basket
+You put the sack of jelly beans inside the Easter basket.
 
 Outside, a little girl tugs on her father's arm, straining in the direction
 of the candy store, but he hustles her along past the door.
 
->You are carrying a newspaper, an umbrella, an Easter basket, your wallet and
+> i
+You are carrying a newspaper, an umbrella, an Easter basket, your wallet and
 a keychain.  Inside the Easter basket is a strip of candy dots, a creme egg,
 the tiny chocolate eggs, the yellow marshmallow chicks, a sack of jelly beans
 and a lollipop.  A few bills and a couple of photographs are inside your
 wallet.
 
->"Well, you've made a good start, but there are still some items on Max's list
+> show basket to shopkeeper
+"Well, you've made a good start, but there are still some items on Max's list
 that you haven't found yet.  Not to worry... 'well begun is half done,' as
 the old saying goes."
 
 "Here," he says, handing you Max's list.
 
->You are carrying a newspaper, an umbrella, an Easter basket, your wallet, a
+> i
+You are carrying a newspaper, an umbrella, an Easter basket, your wallet, a
 keychain and Max's list.  Inside the Easter basket is a strip of candy dots,
 a creme egg, the tiny chocolate eggs, the yellow marshmallow chicks, a sack
 of jelly beans and a lollipop.  A few bills and a couple of photographs are
 inside your wallet.
 
->Your heart melts as you recognize your son's crude printing in orange crayon
+> x list
+Your heart melts as you recognize your son's crude printing in orange crayon
 on a yellow piece of construction paper.
 
 a candy coin
@@ -203,7 +243,8 @@ a macaroon
 tiny chocolate eggs
 yellow marshmallow chicks
 
->(in the display case)  The lighted case is filled with candy of all sorts.
+> x candy
+(in the display case)  The lighted case is filled with candy of all sorts.
 You see some pastel-colored petit fors, marzipan carrots, macaroons decorated
 to resemble painted Easter eggs, pink marshmallow chicks, coconut eggs,
 buttercream eggs, peanut butter eggs, milk chocolate rabbits, and rock candy
@@ -211,29 +252,35 @@ skewered on polished wooden dowels.  There is a floral vase full of Pixie
 Stix in the case with a pile of "pixie dust" (aka "colored sugar!") in front
 of it.
 
->Moist, glossy macaroons.  They are decorated with icing to resemble painted
+> x macaroons
+Moist, glossy macaroons.  They are decorated with icing to resemble painted
 Easter eggs.
 
->"Certainly!  Here you are," he says, opening the display case with ease.  He
+> ask shopkeeper about macaroon
+"Certainly!  Here you are," he says, opening the display case with ease.  He
 plucks a macaroon out of the case with a pair of tongs and deftly writes
 "Max" on it with a thin line of icing.  He then wraps it in tissue paper and
 presents it to you with a flourish.
 
->You are carrying a newspaper, an umbrella, an Easter basket, your wallet, a
+> i
+You are carrying a newspaper, an umbrella, an Easter basket, your wallet, a
 keychain, a macaroon and Max's list.  Inside the Easter basket is a strip of
 candy dots, a creme egg, the tiny chocolate eggs, the yellow marshmallow
 chicks, a sack of jelly beans and a lollipop.  A few bills and a couple of
 photographs are inside your wallet.
 
->You put the macaroon inside the Easter basket.
+> put macaroon in basket
+You put the macaroon inside the Easter basket.
 
->You are carrying a newspaper, an umbrella, an Easter basket, your wallet, a
+> i
+You are carrying a newspaper, an umbrella, an Easter basket, your wallet, a
 keychain and Max's list.  Inside the Easter basket is a strip of candy dots,
 a creme egg, the tiny chocolate eggs, the yellow marshmallow chicks, a sack
 of jelly beans, a macaroon and a lollipop.  A few bills and a couple of
 photographs are inside your wallet.
 
->Your heart melts as you recognize your son's crude printing in orange crayon
+> x list
+Your heart melts as you recognize your son's crude printing in orange crayon
 on a yellow piece of construction paper.
 
 a candy coin
@@ -245,7 +292,8 @@ a macaroon
 tiny chocolate eggs
 yellow marshmallow chicks
 
->
+> look
+
 Candy store
 Cheerful images of colorful eggs, chicks, rabbits, carrots, and
 ribbon-festooned Easter baskets adorn the candy store.  To the north, the
@@ -255,33 +303,43 @@ wares.  The wall to the west is lined with conveniences, such as a pay phone,
 newspaper rack, umbrella stand, gumball machine, and a chair.  A lighted
 display case runs along the wall to the east, filled with candy.
 
->It's just a normal pay phone, like any other you'd see in a public place.
+> x phone
+It's just a normal pay phone, like any other you'd see in a public place.
 The bulky receiver obscures the touch-tone dialing pad behind it, and a shiny
 metallic door that bears the word "CHANGE" swings over a small metal chute.
 You check simply out of habit, but...  A crumpled note and a candy coin are
 inside the pay phone.
 
->Taken.
+> take candy coin
+Taken.
 
->Taken.
+> take note
+Taken.
 
->You put the candy coin inside the Easter basket.
+> put candy coin in basket
+You put the candy coin inside the Easter basket.
 
->The crumpled note bears a column of numbers.
+> x note
+The crumpled note bears a column of numbers.
 
->1.19.11.19.8.15.16.11.5.5.16.5.18.6.15.18.13.1.3.1.18.15.15.14
+> read note
+1.19.11.19.8.15.16.11.5.5.16.5.18.6.15.18.13.1.3.1.18.15.15.14
 
->Just a simple slab of wood separating the shopkeeper's area from the rest of
+> x counter
+Just a simple slab of wood separating the shopkeeper's area from the rest of
 the store.  It looks like it may be made of the same dark hardwood as the
 floor.  A serving tray is on the counter.
 
->Since the candy samples have already been enjoyed, you can see that the
+> x serving tray
+Since the candy samples have already been enjoyed, you can see that the
 silver tray bears an inscription on its top surface.
 
->"One code's as easy as A-B-C,
+> read serving tray
+"One code's as easy as A-B-C,
 The other uses phone digits, 1-2-3."
 
->(in the display case)  The lighted case is filled with candy of all sorts.
+> x candy
+(in the display case)  The lighted case is filled with candy of all sorts.
 You see some pastel-colored petit fors, marzipan carrots, macaroons decorated
 to resemble painted Easter eggs, pink marshmallow chicks, coconut eggs,
 buttercream eggs, peanut butter eggs, milk chocolate rabbits, and rock candy
@@ -289,19 +347,23 @@ skewered on polished wooden dowels.  There is a floral vase full of Pixie
 Stix in the case with a pile of "pixie dust" (aka "colored sugar!") in front
 of it.
 
->You can see white linoleum gleaming through the colored powder in places.
+> x pixie dust
+You can see white linoleum gleaming through the colored powder in places.
 There is something scrawled in the pixie dust.
 
->"/3../3./3./3/__/2../2/6./3/9../__/3/6../8/7../__/8/6../__/4/6../6../7../3./."
+> read pixie dust
+"/3../3./3./3/__/2../2/6./3/9../__/3/6../8/7../__/8/6../__/4/6../6../7../3./."
  has been traced in the pixie dust.
 
->You are carrying a newspaper, an umbrella, an Easter basket, a crumpled note,
+> i
+You are carrying a newspaper, an umbrella, an Easter basket, a crumpled note,
 your wallet, a keychain and Max's list.  Inside the Easter basket is a strip
 of candy dots, a candy coin, a creme egg, the tiny chocolate eggs, the yellow
 marshmallow chicks, a sack of jelly beans, a macaroon and a lollipop.  A few
 bills and a couple of photographs are inside your wallet.
 
->He leans forward conspiratorially, even though you and he are clearly the
+> ask shopkeeper about goose
+He leans forward conspiratorially, even though you and he are clearly the
 only ones in the shop at the moment.  He whispers, "I'll tell you a secret
 about that goose.  She likes candy dots.  They're her favorite food, in
 fact!"
@@ -310,40 +372,48 @@ fact!"
 where things may be hiding in this store, so you'll have to look around
 carefully."  The shopkeeper's helpful voice rings out across the store.
 
->The goose stands and pecks at the candy dots contentedly, revealing a token
+> feed candy dots to goose
+The goose stands and pecks at the candy dots contentedly, revealing a token
 beneath her.  You take the bronze token.
 
->You are carrying a newspaper, an umbrella, an Easter basket, a crumpled note,
+> i
+You are carrying a newspaper, an umbrella, an Easter basket, a crumpled note,
 your wallet, a keychain, a token and Max's list.  Inside the Easter basket is
 a candy coin, a creme egg, the tiny chocolate eggs, the yellow marshmallow
 chicks, a sack of jelly beans, a macaroon and a lollipop.  A few bills and a
 couple of photographs are inside your wallet.
 
->A metal pole supports the classic-looking machine, a clear glass globe atop a
+> x gumball machine
+A metal pole supports the classic-looking machine, a clear glass globe atop a
 shiny red support.  The globe reveals heaps of huge, soft gumballs.  Each
 gumball is stamped with the words "Happy Easter" in white script.  A slot and
 knob assembly is engraved with the words, "Insert Token Here" and a swinging
 door covering a small chute reads, "Thank You!"
 
->You put the token in the slot and turn the knob.  You hear a slight clunking
+> insert token in gumball machine
+You put the token in the slot and turn the knob.  You hear a slight clunking
 noise in the metal chute below, so you put your hand beneath it to catch a
 purple gumball as it rolls out.
 
->You are carrying a newspaper, an umbrella, an Easter basket, a crumpled note,
+> i
+You are carrying a newspaper, an umbrella, an Easter basket, a crumpled note,
 your wallet, a keychain, a gumball and Max's list.  Inside the Easter basket
 is a candy coin, a creme egg, the tiny chocolate eggs, the yellow marshmallow
 chicks, a sack of jelly beans, a macaroon and a lollipop.  A few bills and a
 couple of photographs are inside your wallet.
 
->You put the gumball inside the Easter basket.
+> put gumball in basket
+You put the gumball inside the Easter basket.
 
->You are carrying a newspaper, an umbrella, an Easter basket, a crumpled note,
+> i
+You are carrying a newspaper, an umbrella, an Easter basket, a crumpled note,
 your wallet, a keychain and Max's list.  Inside the Easter basket is a candy
 coin, a creme egg, the tiny chocolate eggs, the yellow marshmallow chicks, a
 sack of jelly beans, a macaroon, a gumball and a lollipop.  A few bills and a
 couple of photographs are inside your wallet.
 
->Your heart melts as you recognize your son's crude printing in orange crayon
+> x list
+Your heart melts as you recognize your son's crude printing in orange crayon
 on a yellow piece of construction paper.
 
 a candy coin
@@ -355,7 +425,8 @@ a macaroon
 tiny chocolate eggs
 yellow marshmallow chicks
 
->Congratulations!  You have put together a marvelous Easter basket that will
+> show basket to shopkeeper
+Congratulations!  You have put together a marvelous Easter basket that will
 undoubtedly please Max greatly.  The shopkeeper wraps it beautifully in
 cellophane and attaches a festive bow.  You carry the basket back to your
 office, anticipating the holiday weekend ahead.  You can almost picture Max's

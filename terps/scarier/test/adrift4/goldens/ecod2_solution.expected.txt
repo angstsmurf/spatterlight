@@ -30,12 +30,17 @@ sits in the corner of the roon, your hero.
 You can go East into the outside hallway.
 
 >
+
 >
+
 >
->You pull the evil chicken book from the shelf, and place it in your
+
+> take book
+You pull the evil chicken book from the shelf, and place it in your
 abnormally large pants.
 
->Chapter 12: Ghosts of Evil Chickens of Doom
+> read book
+Chapter 12: Ghosts of Evil Chickens of Doom
 
 Who you're gonna call? Not the Ghostbusters because they're all dead. No,
 only you can stop evil chicken ghosts, and I'm going to explain how.
@@ -55,7 +60,8 @@ chicken right where you want him.
 Caution: Eating ghost of chicken not recommended. If consumed, contact
 mortician.
 
->You raise the ice high above your head, and drop it to the ground. As it
+> break ice
+You raise the ice high above your head, and drop it to the ground. As it
 shatters, a loud cluck eerily echos through the room. A misty figure appears
 of you, the evil chicken of doom. His ghostly face slowly looks at you, and
 then vanishes as he moves on to terrorize the world.
@@ -63,23 +69,27 @@ then vanishes as he moves on to terrorize the world.
 Oh crap. That's not good. You have to catch the ghost of the evil chicken of
 doom, before he gets revenge with a curse!
 
->You open your wallet and pull out you trusty credit card.
+> open wallet
+You open your wallet and pull out you trusty credit card.
 
->You move east.
+> e
+You move east.
 
 Main Hall
 This is the main hall of the compound, that connects all the rooms together.
 To the West is your apartment, the bathroom is to the North, and Donny's Dump
 is to the East.
 
->You move east.
+> e
+You move east.
 
 Donny's Dump
 Donny's not the sharpest tool in the shack, which explains why he'd open up a
 store that sold garbage. The room is littered with useless trash and junk,
 with Donny sitting behind a desk with a large toothless grin on his face.
 
->"Howday pardner, welcome to Donny's Dump. What can I do for you today?"
+> talk to donny
+"Howday pardner, welcome to Donny's Dump. What can I do for you today?"
 
 1. "Why do you sell junk?"
 
@@ -87,22 +97,26 @@ with Donny sitting behind a desk with a large toothless grin on his face.
 
 3. "You should get some dentures."
 
->"As a matter of fact, we do. I'll sell you a strong metal saw that I found in
+> 2
+"As a matter of fact, we do. I'll sell you a strong metal saw that I found in
 a Denny's dumpster, for $12,000."
 
->"Alright then, I'll just charge it to your credit card. Here you go sir, your
+> 4
+"Alright then, I'll just charge it to your credit card. Here you go sir, your
 saw."
 
 Donny hands you the saw he promised.
 
->You move west.
+> w
+You move west.
 
 Main Hall
 This is the main hall of the compound, that connects all the rooms together.
 To the West is your apartment, the bathroom is to the North, and Donny's Dump
 is to the East.
 
->You move north.
+> n
+You move north.
 
 Bathroom
 This bathroom was voted 'Best of the Best' by National Toiletries Weekly. It
@@ -112,13 +126,15 @@ monkey usually sits, and he's there right now with his banjo in hand.
 
 You can go West to the Hall, or North into a stall.
 
->You move north.
+> n
+You move north.
 
 Stall
 The small stall is quite normal, except for the large staircase that leads
 downstairs into Big Al's Bathroom Diner.
 
->You move down.
+> d
+You move down.
 
 Big Al's Bathroom Diner
 Big Al created the diner after he realized he got hungry after going to the
@@ -129,21 +145,26 @@ ahead, where Big Al seems to have set up some of his equipment. A large TV
 screen takes up the entire west wall, showing the latest Air Hocket Playoff
 game.
 
->You walk over to the TV, and pick the remote off the floor in front of it.
+> take remote
+You walk over to the TV, and pick the remote off the floor in front of it.
 
->That was easy. You unscrew the screw with your hand, and pull the battery out
+> use saw on remote
+That was easy. You unscrew the screw with your hand, and pull the battery out
 from within the remote.
 
->You place the battery in the microwave, and let it slowly melt. After a few
+> put battery in microwave
+You place the battery in the microwave, and let it slowly melt. After a few
 minutes, you pull the melted battery mess out and stick it into your pocket.
 
->You move up.
+> u
+You move up.
 
 Stall
 The small stall is quite normal, except for the large staircase that leads
 downstairs into Big Al's Bathroom Diner.
 
->You move south.
+> s
+You move south.
 
 Bathroom
 This bathroom was voted 'Best of the Best' by National Toiletries Weekly. It
@@ -153,14 +174,16 @@ monkey usually sits, and he's there right now with his banjo in hand.
 
 You can go West to the Hall, or North into a stall.
 
->You move south.
+> s
+You move south.
 
 Main Hall
 This is the main hall of the compound, that connects all the rooms together.
 To the West is your apartment, the bathroom is to the North, and Donny's Dump
 is to the East.
 
->You move west.
+> w
+You move west.
 
 Apartment
 Your small apartment smells like a mixture of wet sock and burnt plastic.
@@ -171,17 +194,21 @@ metal statue of Abe Vigoda sits in the corner of the roon, your hero.
 
 You can go East into the outside hallway.
 
->You quickly saw through the metal of the statue, and find yourself with the
+> use saw on statue
+You quickly saw through the metal of the statue, and find yourself with the
 top half of the spear.
 
->You add together the two items like the book said, and come up with the
+> combine battery and spear
+You add together the two items like the book said, and come up with the
 C.A.G. Now you just need to put it on the smell-o-matic.
 
->You attach the C.A.G to the smell-o-matic and wait for something to happen.
+> use CAG on smell-o-matic
+You attach the C.A.G to the smell-o-matic and wait for something to happen.
 
 Nothing does.
 
->Pushing the button gives a sudden jolt of power to the C.A.G, and it suddenly
+> push button
+Pushing the button gives a sudden jolt of power to the C.A.G, and it suddenly
 begins to vibrate. A loud cluck squawks loudly, and the ghost of the evil
 chicken suddenly appears in front of you. The C.A.G begins to suck the
 chicken in, and soon everything is back to normal.

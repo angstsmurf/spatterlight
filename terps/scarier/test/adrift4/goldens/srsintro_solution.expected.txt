@@ -53,12 +53,14 @@ leading to the high citadel. Pillars of brick and a high dome indicate the
 Khan's palace which towers above the fortification wall that surrounds the
 city.
 
->This game has been reduced to three rooms for the ADRIFT Intro Comp, 2005.
+> info
+This game has been reduced to three rooms for the ADRIFT Intro Comp, 2005.
 Eventual completion of this game (to be the first of two parts) is expected
 sometime this year. Type 'map' to bring up the Silk Road map, included simply
 for the curious.
 
->You move east.
+> east
+You move east.
 
 Citadel
 From the top of the citadel, the city of Samarkand stretches out in front of
@@ -110,7 +112,8 @@ return when I give you the Sword of Nismus.'
 
 The Khan holds the scabbard out to you.
 
->You graciously accept the sword with two hands and bow to the Khan,
+> take sword from khan
+You graciously accept the sword with two hands and bow to the Khan,
 disappointed, but grateful for a weapon at least.
 
 Suddenly the Khan reaches for the sword, grasping it in the middle between
@@ -142,7 +145,8 @@ There must be someone who can tell you more - at least some rumour of what is
 so important to the Khan, that he would give up the Sword of Nismus,
 presumably buried in one of his vaults somewhere.
 
->You move west.
+> west
+You move west.
 
 Marketplace
 The market continues to hum and bustle with activity. The smell of cooking
@@ -155,7 +159,8 @@ Mosque is off somewhere to your right, but as a non-Muslim, you would not be
 allowed to enter. Scanning the buildings through thier screen of trees, you
 manage to locate the city's Zoroastrian Shrine to the northeast.
 
->You move northeast.
+> ne
+You move northeast.
 
 Zoroastrian Shrine
 The shrine is small and humble, showing its inferior status to the recently
@@ -174,11 +179,13 @@ similar shrine, stop you on the threshold. You have not been in sight of a
 sacred flame since you left your family lands - and you feel a familiar rush
 of awe and mystery in the presence of the old priest and his gentle flame.
 
->'I cannot discuss your quest with you. Besides, I don't know what will happen
+> ask priest about mission
+'I cannot discuss your quest with you. Besides, I don't know what will happen
 to you.' The priest looks at you for the first time, out of the corner of his
 eye.
 
->The man takes the pipe out of his mouth.
+> ask priest about beasts
+The man takes the pipe out of his mouth.
 
 'Those horses, its all a big sham. It was started by the Prince of Erh-Shih
 before Zoroaster was given the holy prophesies. They have started wars,
@@ -192,7 +199,8 @@ You would be more successful if you forgot about these horses and thought
 instead of the omens for anticipating danger, and the articles of protection
 for preventing it.
 
->The priest dips a finger in the oil channel, checking its depth.
+> ask priest about omens
+The priest dips a finger in the oil channel, checking its depth.
 
 'There are signs, given to us by nature, that you may or may not know. I
 cannot tell you what they mean for you, in particular, but I want you to keep
@@ -205,7 +213,8 @@ know that this is an omen of death by violence. It could be you, a friend or
 an enemy, but take heed in any case. The fly - keep watch in your environment
 (although it may also indicate your state of cleanliness). '
 
->Lifting a sandaled foot, the priest strikes a match on it and relights his
+> ask priest about articles of protection
+Lifting a sandaled foot, the priest strikes a match on it and relights his
 pipe, which has gone out in a sudden gust of wind. He seems nervous and looks
 over his left shoulder, then his right.
 
@@ -216,11 +225,13 @@ He brings it out and you see a small object on his creased palm.
 somewhere, hidden. If the Issyk-Kul find this on you, they will burn you
 alive, for they believe it to be the gift of a demon.'
 
->'The Khan is not of our religion, but he seems to have the teachings of
+> ask priest about khan
+'The Khan is not of our religion, but he seems to have the teachings of
 Zoroaster at heart. You should trust him. But be warned - he is in some
 trouble around here.'
 
->You sit down and shift your sword behind you.
+> sit on ledge
+You sit down and shift your sword behind you.
 
 The priest gazes at the flickering flame, which is only about 5 inches high.
 'There is so much you don't know Beghram.'
@@ -230,7 +241,8 @@ The priest gazes at the flickering flame, which is only about 5 inches high.
 The priest sighs again. 'You don't want to know. I wish I didn't. And all for
 the beasts they call 'Heavenly''. He snorts and pulls out a pipe.
 
->You move southwest.
+> sw
+You move southwest.
 
 Marketplace
 The market continues to hum and bustle with activity. The smell of cooking
@@ -243,4 +255,5 @@ Mosque is off somewhere to your right, but as a non-Muslim, you would not be
 allowed to enter. Scanning the buildings through thier screen of trees, you
 manage to locate the city's Zoroastrian Shrine to the northeast.
 
->Do you really want to quit? [Y/N]
+> quit
+Do you really want to quit? [Y/N]

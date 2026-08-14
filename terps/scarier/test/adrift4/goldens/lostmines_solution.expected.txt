@@ -7,26 +7,30 @@ rumoured to be buried somewhere in the mines. Deciding that the treasure
 could be found by anyone, you set off to the mines to see if you could be the
 lucky man that would become the richest gold digger in town.
 
->You move south.
+> s
+You move south.
 
 Path
 The long path continues South through the forest and North to the Mines. Tall
 trees reach up into the heavens, their large limbs swaying in motion with the
 wind.
 
->(Your score has increased by 5)
+> read poster
+(Your score has increased by 5)
 WANTED: LOST GOLD RING
 
 A GOLD RING WAS STOLEN FROM THE BLUE KEG PUB. IF FOUND, PLEASE RETURN FOR A
 REWARD.
 
->You move south.
+> s
+You move south.
 
 Edge of Road
 The lonely edge of the road where people used to pass. The lonely road
 stretches far East and West, but the only place around here is to the West.
 
->You move west.
+> w
+You move west.
 
 Outside Cabin
 A lone cabin sits abandoned at the edge of the road. It's long uncut grass
@@ -34,7 +38,8 @@ sways in the gusting wind. A small pile of logs pile against the side of the
 building, cut down from the forest trees. The road continues West and East.
 A small bird flies overhead in the bright blue sky.
 
->You move in.
+> in
+You move in.
 
 Cabin
 You stand shivering in the doorway of the cold cabin. The old fireplace that
@@ -43,17 +48,21 @@ A small table sits beside it, empty bowls gather dust on top of it.   A
 rattling noise comes from a box that's shaking atop a wooden cabinet. An open
 trapdoor in the corner of the room leads down into the cellar.
 
->You open the cabinet.  A brass key is inside the cabinet.
+> open cabinet
+You open the cabinet.  A brass key is inside the cabinet.
 
->You take the brass key from the cabinet.
+> take key
+You take the brass key from the cabinet.
 
->(Your score has increased by 5)
+> open box
+(Your score has increased by 5)
 You open the box and a small rat leaps out. He scurries around the floor and
 runs out the open door to freedom. You look back in the box to find a small
 piece of cheese lying at the bottom of the box. You decide to take it as the
 rat wouldn't need it anymore.
 
->You move down.
+> d
+You move down.
 
 Cellar
 As you climb down the rickety stairs to the cellar, you notice how dark it
@@ -61,7 +70,8 @@ is. In the shadows, you can make out a few object. A fridge sits alone near
 the back, dust covering it just like everything else. Some crates sit beside
 a desk, they all have the mining unions symbol on them.
 
->(Your score has increased by 5)
+> open fridge
+(Your score has increased by 5)
 You jam the key into the lock and twist it clicking it open. You throw the
 lock into the shadows of the cellar and pull open the fridge. There's no
 power to the fridge which makes the smell inside the fridge awful. Pieces of
@@ -70,11 +80,13 @@ animals. A large axe leaning against the side is presumably what the animals
 were cut up with. You quickly grab the axe thinking it will be useful and
 close the fridge before the smell takes over the cellar.
 
->(Your score has increased by 5)
+> open desk
+(Your score has increased by 5)
 You slide open the desk drawer and look inside. Near the bottom of the paper
 pile, you find a coupon. Thinking it'll come in handy, you decide to take it.
 
->You move up.
+> u
+You move up.
 
 Cabin
 You stand shivering in the doorway of the cold cabin. The old fireplace that
@@ -84,34 +96,41 @@ small box atop the cabinet now lies open, the rat inside has left stopping
 the shaking from before. An open trapdoor in the corner of the room leads
 down into the cellar.
 
->You move out.
+> out
+You move out.
 
 Outside Cabin
 A lone cabin sits abandoned at the edge of the road. It's long uncut grass
 sways in the gusting wind. A small pile of logs pile against the side of the
 building, cut down from the forest trees. The road continues West and East.
 
->(Your score has increased by 5)
+> up c
+(Your score has increased by 5)
 You climb up the logs like stairs and soon are standing on the shaky roof of
 the cabin.
 
->(Your score has increased by 10)
+> use axe on boards
+(Your score has increased by 10)
 You raise the axe high in the air and swing it down onto the boards,
 shattering them in half. Underneath them is a small hole where a metal box
 had been hidden.
 
->You open the metal box.  A stick of Dynamite is inside the metal box.
+> open box
+You open the metal box.  A stick of Dynamite is inside the metal box.
 
->You take the stick of Dynamite from the metal box.
+> take dynamite
+You take the stick of Dynamite from the metal box.
 
->You move down.
+> d
+You move down.
 
 Outside Cabin
 A lone cabin sits abandoned at the edge of the road. It's long uncut grass
 sways in the gusting wind. A small pile of logs pile against the side of the
 building, cut down from the forest trees. The road continues West and East.
 
->You move west.
+> w
+You move west.
 
 Outside Blue Keg Pub
 At the edge of a small town, the Blue Keg Pub is the one place in the area
@@ -119,7 +138,8 @@ where you can find the latest information on any treasure findings in the
 mines. The long road heads back East, and also continues farther into town to
 the West.
 
->You move west.
+> w
+You move west.
 
 Outside your home
 This is the only other part of this town you'd bother to stop by. Your home
@@ -128,7 +148,8 @@ now, but just wait until you find that treasure. The long stretch of road
 continues West here, but you're not going any farther unless you want to head
 out of state.
 
->You move in.
+> in
+You move in.
 
 Home
 Your home is probaly the worst in town. Consisting of only one room, you're
@@ -138,18 +159,24 @@ closet, it's top rarely covered in food. A small lamp sitting in the corner
 of the room sits atop a cabinet, it's small light barely strong enough to
 keep the shadows off of it.
 
->You open the closet.  A hard hat is inside the closet.
+> open closet
+You open the closet.  A hard hat is inside the closet.
 
->You take the hard hat from the closet.
+> take hat
+You take the hard hat from the closet.
 
->You open the pillow.  A deck of cards is inside the pillow.
+> open pillow
+You open the pillow.  A deck of cards is inside the pillow.
 
->You take the deck of cards from the pillow.
+> take cards
+You take the deck of cards from the pillow.
 
->(Your score has increased by 5)
+> wear hat
+(Your score has increased by 5)
 You stick the hard hat on your head and do up the straps.
 
->You move out.
+> out
+You move out.
 
 Outside your home
 This is the only other part of this town you'd bother to stop by. Your home
@@ -158,7 +185,8 @@ now, but just wait until you find that treasure. The long stretch of road
 continues West here, but you're not going any farther unless you want to head
 out of state.
 
->You move east.
+> e
+You move east.
 
 Outside Blue Keg Pub
 At the edge of a small town, the Blue Keg Pub is the one place in the area
@@ -166,7 +194,8 @@ where you can find the latest information on any treasure findings in the
 mines. The long road heads back East, and also continues farther into town to
 the West.
 
->You move in.
+> in
+You move in.
 
 Blue Keg Pub
 The Blue Keg Pub, home of the drunks of the town. Although it used to be
@@ -175,7 +204,8 @@ everyone else has headed up to the mines. The bartender sits behind the bar,
 a rag over his shoulder.   There are some stairs that lead upstairs to the
 gambling room.
 
->You move up.
+> u
+You move up.
 
 Gambling Room
 This is where the action is. Four men sit quiet at the table in the middle of
@@ -184,14 +214,16 @@ other suspiciously. If anyone one of them thought someone was cheating, all
 hell would break loose in here. You notice that one of the men has a
 matchbook under his arm as he scans his cards.
 
->(Your score has increased by 5)
+> use cards on table
+(Your score has increased by 5)
 As the men eye each other suspiciously, you take your deck and switch it with
 the one on the table. One of the men notices the different desk and soon the
 table is thrown up and the men pull out their guns. With the matchbook thrown
 to the ground, you pick it up and run down the stairs before you get shot
 yourself.
 
->You move out.
+> out
+You move out.
 
 Outside Blue Keg Pub
 At the edge of a small town, the Blue Keg Pub is the one place in the area
@@ -199,27 +231,31 @@ where you can find the latest information on any treasure findings in the
 mines. The long road heads back East, and also continues farther into town to
 the West.
 
->You move east.
+> e
+You move east.
 
 Outside Cabin
 A lone cabin sits abandoned at the edge of the road. It's long uncut grass
 sways in the gusting wind. A small pile of logs pile against the side of the
 building, cut down from the forest trees. The road continues West and East.
 
->You move east.
+> e
+You move east.
 
 Edge of Road
 The lonely edge of the road where people used to pass. The lonely road
 stretches far East and West, but the only place around here is to the West.
 
->You move north.
+> n
+You move north.
 
 Path
 The long path continues South through the forest and North to the Mines. Tall
 trees reach up into the heavens, their large limbs swaying in motion with the
 wind.
 
->You move north.
+> n
+You move north.
 
 Mine Entrance
 The mine stands in front of you to the North, beckoning you to enter and find
@@ -227,13 +263,16 @@ it's treasures.  Large boulders are strewn about the soft grass, pulled away
 by shovels days ago. Grass not covered by the boulders sway in the gentle
 breeze of the wind. A small path leads South to the road.
 
->(Your score has increased by 5)
+> in
+(Your score has increased by 5)
 You walk inside of the mines in hope of finding the treasure.
 
->(Your score has increased by 10)
+> take ring
+(Your score has increased by 10)
 You pull the ring out of the crevice and stick it in your pocket.
 
->You move north.
+> n
+You move north.
 
 Tunnel
 A long dark tunnel in the deep mine. South leads you back to the shaft
@@ -242,11 +281,13 @@ This isn't an ordinary rat, living in this mine for years must've done
 something to him because he's as big as a dog. Normally you wouldn't be
 afraid of a rat, but this thing could maul you if you tried to pass.
 
->(Your score has increased by 5)
+> use cheese on rat
+(Your score has increased by 5)
 You grab the chunk of cheese and throw it behind you. The large rat runs
 after it squeaking in joy as it runs away with its food.
 
->You move south.
+> s
+You move south.
 
 Shaft Entrance
 The entrance to the mine shafts is dark and dank. The rocks are moist from
@@ -255,7 +296,8 @@ rock in front of him with a pick, pieces of stone fly up at your face. A
 broken minecart stands on top of the rails that lead deeper into the mines to
 the North.
 
->You move south.
+> s
+You move south.
 
 Mine Entrance
 The mine stands in front of you to the North, beckoning you to enter and find
@@ -263,27 +305,31 @@ it's treasures.  Large boulders are strewn about the soft grass, pulled away
 by shovels days ago. Grass not covered by the boulders sway in the gentle
 breeze of the wind. A small path leads South to the road.
 
->You move south.
+> s
+You move south.
 
 Path
 The long path continues South through the forest and North to the Mines. Tall
 trees reach up into the heavens, their large limbs swaying in motion with the
 wind.
 
->You move south.
+> s
+You move south.
 
 Edge of Road
 The lonely edge of the road where people used to pass. The lonely road
 stretches far East and West, but the only place around here is to the West.
 
->You move west.
+> w
+You move west.
 
 Outside Cabin
 A lone cabin sits abandoned at the edge of the road. It's long uncut grass
 sways in the gusting wind. A small pile of logs pile against the side of the
 building, cut down from the forest trees. The road continues West and East.
 
->You move west.
+> w
+You move west.
 
 Outside Blue Keg Pub
 At the edge of a small town, the Blue Keg Pub is the one place in the area
@@ -291,7 +337,8 @@ where you can find the latest information on any treasure findings in the
 mines. The long road heads back East, and also continues farther into town to
 the West.
 
->You move in.
+> in
+You move in.
 
 Blue Keg Pub
 The Blue Keg Pub, home of the drunks of the town. Although it used to be
@@ -301,14 +348,16 @@ a rag over his shoulder.   The door at the top of the stairs is now closed
 and locked, you're guessing they don't want you messing up their game
 anymore.
 
->(Your score has increased by 5)
+> give ring to bartender
+(Your score has increased by 5)
 "THE RING! YOU FOUND THE RING! Oh, thank you very much. My wife's going to be
 so pleased to get the ring back. Look, if there's anything I could do for
 you, just tell me. I used to be a miner so I'm strong, and I read a lot so
 I'm pretty smart. Just come ask me about something and I might be able to
 help you with it."
 
->(Your score has increased by 5)
+> ask bartender about boulder
+(Your score has increased by 5)
 "Hmm...a boulder blocking a shovel. Let's see what I can do."
 
 Before you know it, the bartender has run out of the bar towards the mines. A
@@ -318,14 +367,17 @@ few minutes later he rushes back in panting.
 problem. The shovel was kinda broken in two. But hey, here's a free pencil.
 It's no shovel, but at least its something."
 
->(Your score has increased by 5)
+> sign coupon
+(Your score has increased by 5)
 You quickly pull out the pencil and write your name on the signature.
 
->(Your score has increased by 5)
+> give coupon to bartender
+(Your score has increased by 5)
 "Alrighty. Here's your free bottle of beer. Enjoy. Oh, and next time buy the
 drink you cheapskate."
 
->You move out.
+> out
+You move out.
 
 Outside Blue Keg Pub
 At the edge of a small town, the Blue Keg Pub is the one place in the area
@@ -333,27 +385,31 @@ where you can find the latest information on any treasure findings in the
 mines. The long road heads back East, and also continues farther into town to
 the West.
 
->You move east.
+> e
+You move east.
 
 Outside Cabin
 A lone cabin sits abandoned at the edge of the road. It's long uncut grass
 sways in the gusting wind. A small pile of logs pile against the side of the
 building, cut down from the forest trees. The road continues West and East.
 
->You move east.
+> e
+You move east.
 
 Edge of Road
 The lonely edge of the road where people used to pass. The lonely road
 stretches far East and West, but the only place around here is to the West.
 
->You move north.
+> n
+You move north.
 
 Path
 The long path continues South through the forest and North to the Mines. Tall
 trees reach up into the heavens, their large limbs swaying in motion with the
 wind.
 
->You move north.
+> n
+You move north.
 
 Mine Entrance
 The mine stands in front of you to the North, beckoning you to enter and find
@@ -362,28 +418,34 @@ side, the shovel that was underneath it is broken in two. A small path leads
 South into the dense forest behind you. A small path leads South to the road.
 A small path leads South to the road.
 
->You walk inside of the mines in hope of finding the treasure.
+> in
+You walk inside of the mines in hope of finding the treasure.
 
->You move north.
+> n
+You move north.
 
 Tunnel
 A long dark tunnel in the deep mine. South leads you back to the shaft
 entrance.   With the rat now gone, you can now travel further into the mines
 to the North.
 
->You move north.
+> n
+You move north.
 
 Blockage in Tunnel
 You now stand at the end of the mines. Hundreds of rocks are piled together
 to form a barricade in the tunnel.   A miner who introduces himself as Gus,
 tries to shovel away the rocks but with no success.
 
->(Your score has increased by 5)
+> give beer to gus
+(Your score has increased by 5)
 Gus grabs the bottle from you and wanders off to take a break.
 
->Your score is 90 out of a maximum of 100.  (90%)
+> score
+Your score is 90 out of a maximum of 100.  (90%)
 
->(Your score has increased by 10)
+> use dynamite on blockage
+(Your score has increased by 10)
 You quickly light the fuse of the dynamite with the matches and stick it in
 an open hole in the rocks. You quickly run out of the mine shouting to
 everyone else to get out. There's a loud explosion and a shaking from inside

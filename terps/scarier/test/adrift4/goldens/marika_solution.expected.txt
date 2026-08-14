@@ -37,7 +37,8 @@ is larger than it is.  A rickety wooden chair has been placed beside the
 mirror.  The air is musty and offends my nostrils.  My remaining life can be
 measured in heartbeats.  I must act!
 
->
+> x hair
+
 Driven by some unknown prompting I begin to run my hand through my hair.  As
 my finger touches something sharp I withdraw it hastily.  A second, more
 cautious check reveals a hairpin that shouldn't be there.  Unbidden, the
@@ -47,11 +48,13 @@ but it seems that she had ulterior motives.  Thanking God for her ingenuity I
 place the hairpin carefully on the shelf above the fireplace and ponder on a
 use for it.
 
->
+> close window
+
 It seems like the most obvious thing to do.  I walk over to the window, reach
 out and shut it.
 
->
+> lock window
+
 I reach out and take the hairpin from the shelf.  The hairpin is too small to
 use on the door so I make my way across the room to the window and, having
 pulled the window so it is as shut as I can make it, I begin to work on the
@@ -68,7 +71,8 @@ his entry.
 
 I respectfully place the hairpin back on the shelf and ponder my next move.
 
->
+> x bed
+
 Wary, for it is almost as if the bed whispers a siren song as I look at it, I
 begin to examine the cot.  The blanket is tucked in tightly but yields to a
 sharp tug from me.  I find nothing unusual under it.  The mattress is thick
@@ -77,7 +81,8 @@ into it and forget all of my troubles.  As I lift the pillow a small piece of
 paper wafts out from underneath it and floats gently to the ground.  I
 replace the pillow and turn my attention back to the room.
 
->
+> read note
+
 I reach down and take the piece of paper in my hands.  I force my gaze to
 focus on the neat handwriting that has been marked on the paper.  The message
 reads...
@@ -90,7 +95,8 @@ message was clearly meant for me to find, but who left it?  And why?  My head
 aches but I have the feeling that within the message is a hidden meaning that
 I must endeavour to find.
 
->
+> breathe on mirror
+
 Driven by a sudden flash of inspiration I move over to the mirror and, as the
 message on the paper predicted, find myself gazing into my own eyes.
 
@@ -107,7 +113,8 @@ LOOK UNDER MATTRESS
 
 I commit it to memory as the mirror slowly clears.
 
->
+> look under mattress
+
 I prod the mattress.  It is thick and packed tightly with something soft but
 dense.  This makes it deceptively heavy.  I manage, with some difficulty, to
 get my hands into a position to facilitate the lifting of the mattress and
@@ -126,7 +133,8 @@ drops back onto the bedframe with a thud.  Panting heavily I lean against the
 wall to regain some strength before considering the role that the metal rod
 will play in my survival.
 
->
+> x floor
+
 The tightly-packed, perfectly square flagstones are cold and hard under my
 bare feet.  I kneel and run my fingers across the stones, searching for
 something unusual.  My breath catches in my throat as my fingers stumble
@@ -136,7 +144,8 @@ except for the fact that it is definitely loose.  However, it's too heavy and
 my fingers are too thick to prise it up.  There must be something in here
 that can help me!
 
->
+> lift flagstone with rod
+
 I decide to try and move the loose flagstone and it occurs to me that the
 iron rod might be perfectly suited to this task.  I grip it tightly and
 slowly work the flat end into the thin gap between the flagstones.
@@ -149,7 +158,8 @@ to prise it out of the floor.
 I cast the rod aside and begin to wonder what, if anything, might be
 contained within the dark cavity that I have uncovered...
 
->
+> x hole
+
 I lie beside the hole in the floor and, with due prudence, put my hand into
 the darkness.
 
@@ -173,7 +183,8 @@ sole inhabitant of the cloth.  I toss the rag to one aside, as it appears to
 have had no other purpose than to serve as a container for the parchment.  I
 wipe my hand across my tired eyes and consider my next decision.
 
->
+> read letter
+
 I pick up the parchment from the floor and begin to read...
 
 My Dearest Marika,
@@ -222,7 +233,8 @@ good down there.  My one chance to turn the tables and I have lost it before
 I even knew what it was that I was losing!  I scream in frustration and throw
 the letter to the ground.  What hope do I have now?
 
->
+> break chair
+
 I decide that the chair would be more of use to me if it were broken down to
 its component parts.  With this in mind I grab the iron rod and swing
 violently at the wooden seat.
@@ -231,7 +243,8 @@ There is a splintering noise as the chair collapses under my assault.  In
 three strikes it has been reduced to a pile of rough looking wood.  I throw
 the rod to one side and survey my handiwork.
 
->
+> put wood in fireplace
+
 I pile up an armful of wood and carry it across the room to deposit it in the
 fireplace.  I repeat the process two more times to complete the task.
 
@@ -241,7 +254,8 @@ the flame is not furious enough to catch the wood.  If I want to start a fire
 I will need to find something that will burn well and provide a more
 substantial conflagration.
 
->
+> burn letter
+
 It suddenly occurs to me that the parchment could be very useful, just not in
 the way that was originally intended.  I scoop the parchment from the floor
 and hold it over the candle on the shelf for a second.  It catches and
@@ -257,7 +271,8 @@ I throw the candle onto the fire for the sake of it and rub my weeping eyes.
 I am feeling warmer already, and my body is driven even closer to the
 dangerous state of slumber.
 
->
+> put blanket under door
+
 A flash of inspiration strikes me and with a great sense of urgency I yank
 the thick blanket from the bed and pull it over to the door.  The gap under
 the door is nowhere big enought for a human to crawl under but until I have a
@@ -269,7 +284,8 @@ under the door making a barrier of sorts.  As it stands nothing will be able
 to come through the breach and I pray that The Count will lack the necessary
 strength to remove it swiftly.
 
->
+> put rag in keyhole
+
 I remember a rumour that The Count possesses the ability to change his shape.
  The keyhole in the door is sizeable, possibly big enough to allow him entry
 through it.
@@ -280,114 +296,148 @@ into the keyhole until I am sure that it will no easy task to remove it.  I
 can only pray that The Count will not be resourceful enough or strong enough
 to excavate it.
 
->
+> move flagstone back
+
 Grabbing the corners of the stone and heaving mightily I manage to return it
 to the hole in the floor.  It crashes back to its original place with a
 satisfying crack.  For some reason performing this action settles an unease
 that I had in my spirit.
 
->
+> z
+
 I wait for my death.
 
->
+> z
+
 I wait for my death.
 
->
+> z
+
 I wait for my death.
 
->
+> z
+
 I wait for my death.
 
->
+> z
+
 I wait for my death.
 
->
+> z
+
 I wait for my death.
 
->
+> z
+
 I wait for my death.
 
->
+> z
+
 I wait for my death.
 
 I yawn.  I am finding it difficult to fight off sleep.
 
->
+> z
+
 I wait for my death.
 
->
+> z
+
 I wait for my death.
 
->
+> z
+
 I wait for my death.
 
->
+> z
+
 I wait for my death.
 
->
+> z
+
 I wait for my death.
 
->
+> z
+
 I wait for my death.
 
->
+> z
+
 I wait for my death.
 
->
+> z
+
 I wait for my death.
 
->
+> z
+
 I wait for my death.
 
->
+> z
+
 I wait for my death.
 
->
+> z
+
 I wait for my death.
 
->
+> z
+
 I wait for my death.
 
->
+> z
+
 I wait for my death.
 
->
+> z
+
 I wait for my death.
 
->
+> z
+
 I wait for my death.
 
 My body aches with weariness.  I don't think that I can resist sleep for much
 longer!
 
->
+> z
+
 I wait for my death.
 
->
+> z
+
 I wait for my death.
 
->
+> z
+
 I wait for my death.
 
->
+> z
+
 I wait for my death.
 
->
+> z
+
 I wait for my death.
 
->
+> z
+
 I wait for my death.
 
->
+> z
+
 I wait for my death.
 
->
+> z
+
 I wait for my death.
 
->
+> z
+
 I wait for my death.
 
->
+> z
+
 I wait for my death.
 
 I am feeling dizzy and weak.  My body is giving in to the demand for rest.  I

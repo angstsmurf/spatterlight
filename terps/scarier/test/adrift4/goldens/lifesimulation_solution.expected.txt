@@ -37,12 +37,18 @@ bank. You might not have any money for food.
 * It is a good idea to get a credit card, otherwise you cannot access your
 account where you get your pay from.
 Please enter your name:
->Please choose the player's gender (male or female):
->
->This is your watch. It is 24 hour time and it says that the time right now is
+
+> Hero
+Please choose the player's gender (male or female):
+
+> male
+
+> look at watch
+This is your watch. It is 24 hour time and it says that the time right now is
 [TIME=12]. It has been 0 days since you have moved in.
 
->You move west.
+> west
+You move west.
 
 The Upstairs Landing
 This is the upstairs landing, which has a cupboard full of towels. To the
@@ -50,7 +56,8 @@ east is your bedroom and downstairs is the lounge room.
 
 You can move east and down.
 
->You move down.
+> down
+You move down.
 
 The Lounge Room
 This is the lounge room. To the west, is your front garden. To the east, is
@@ -58,17 +65,22 @@ your kitchen. In here is a Couch and a TV.
 
 You can move east, west and up.
 
->You press the button and your TV turns on. Choose either channel 1 or channel
+> turn on tv
+You press the button and your TV turns on. Choose either channel 1 or channel
 7.
 
->You change to Channel 1. It is the Star Wars marathon, which is playing
+> channel 1
+You change to Channel 1. It is the Star Wars marathon, which is playing
 Episode 1 right now.
 
->You switch to channel 7. It is playing the game show right now. [TV=0].
+> channel 7
+You switch to channel 7. It is playing the game show right now. [TV=0].
 
->You can't turn that.
+> turn off tv
+You can't turn that.
 
->You move west.
+> west
+You move west.
 
 Front Garden
 You are in your front garden. Your mailbox is here, which sometimes contains
@@ -76,7 +88,8 @@ mail. To the west is the "Main Street", the road you live on.
 
 You can only move west.
 
->You move west.
+> west
+You move west.
 
 Main Street - Centre
 You are at the Centre of Main Street. To the east is your appartment. The
@@ -85,7 +98,8 @@ Shopping Centre.
 
 You can move north, east, south and west.
 
->You move west.
+> west
+You move west.
 
 Hudson Shopping Centre
 This is the Hudson Shopping Centre. To the north is the Supermarket, To the
@@ -93,7 +107,8 @@ South is the Newsagent and to the West is Bank.
 
 You can move north, east, south and west.
 
->You move north.
+> north
+You move north.
 
 Hudson Supermarket
 This is the Hudson Supermarket, there are counters all around and shelves of
@@ -102,9 +117,11 @@ Lisa is leaning over the counter serving customers.
 
 You can only move south.
 
->You give Lisa $2 and she hands you a pack of chips.
+> buy chips
+You give Lisa $2 and she hands you a pack of chips.
 
->You move south.
+> south
+You move south.
 
 Hudson Shopping Centre
 This is the Hudson Shopping Centre. To the north is the Supermarket, To the
@@ -112,13 +129,16 @@ South is the Newsagent and to the West is Bank.
 
 You can move north, east, south and west.
 
->
+> look
+
 Hudson Shopping Centre
 This is the Hudson Shopping Centre. To the north is the Supermarket, To the
 South is the Newsagent and to the West is Bank.
 
 You can move north, east, south and west.
 
->Your score is 0 out of a maximum of 0.  (0%)
+> score
+Your score is 0 out of a maximum of 0.  (0%)
 
->Do you really want to quit? [Y/N]
+> quit
+Do you really want to quit? [Y/N]

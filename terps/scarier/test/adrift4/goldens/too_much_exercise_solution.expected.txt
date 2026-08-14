@@ -16,24 +16,32 @@ walk there though, as it is a long climb.
 You have just eaten a meal. However, as you are a big man who needs lots of
 food, you are already starting to feel hungry again.
 
->You are a big person. Not big, as in tall, but big, as in wide. You have
+> x me
+You are a big person. Not big, as in tall, but big, as in wide. You have
 always been too fond of eating and not fond enough of exercise. This
 lifestyle isn't ideal for your current location.
 
->A simple, small cottage is in the area, with a chimney poking out of the
+> x cottage
+A simple, small cottage is in the area, with a chimney poking out of the
 roof. This cottage is where you live at the moment.
 
->The wooden sign reads BUBBLE 3927.
+> x sign
+The wooden sign reads BUBBLE 3927.
 
->You are standing in a valley between some grassy hills.
+> x hill
+You are standing in a valley between some grassy hills.
 
->There is a tree at the top of one hill.
+> x tree
+There is a tree at the top of one hill.
 
->The cave enters into the mountain to the west.
+> x cave
+The cave enters into the mountain to the west.
 
->The boulders are above the cave entrance.
+> x boulders
+The boulders are above the cave entrance.
 
->You move in.
+> in
+You move in.
 
 Inside the cottage
 The cottage is a small one-room building. The room is fairly empty, with a
@@ -46,28 +54,36 @@ back outside to the valley.
 
 Next to the bed is a suitcase
 
->This is a small room, and having a large bed means that there is little space
+> x bed
+This is a small room, and having a large bed means that there is little space
 for anything else in here. The bed is not particularly comfortable, but it is
 somewhere you can sleep.
 
->The fireplace is where cooking takes place. It will automatically light up
+> x fireplace
+The fireplace is where cooking takes place. It will automatically light up
 once it is filled with wood.
 
->The suitcase is full of your belongings. Not many of the items will be of use
+> x suitcase
+The suitcase is full of your belongings. Not many of the items will be of use
 to you at the moment.  The suitcase is closed.
 
->You open the suitcase.
+> open suitcase
+You open the suitcase.
 
->The suitcase is full of your belongings. Not many of the items will be of use
+> look in suitcase
+The suitcase is full of your belongings. Not many of the items will be of use
 to you at the moment.  The suitcase is open.  A wallet is inside the
 suitcase.
 
->You take the wallet from the suitcase.
+> take wallet
+You take the wallet from the suitcase.
 
->The wallet holds some money. You were trying to save your money, but you have
+> x wallet
+The wallet holds some money. You were trying to save your money, but you have
 never been good at saving.
 
->You move out.
+> out
+You move out.
 
 The valley
 This is a quiet grassy valley, with a small cottage in the centre. The open
@@ -82,7 +98,8 @@ walk there though, as it is a long climb.
 You have just eaten a meal. However, as you are a big man who needs lots of
 food, you are already starting to feel hungry again.
 
->You move west.
+> w
+You move west.
 
 Inside the cave
 The cave is not very long, and opens up into an unnaturally smooth chamber,
@@ -93,18 +110,23 @@ get food delivered are continually changing. You wish that they could just
 make up their mind. A locked door is closed on the western wall.  You can
 exit the cave back to the valley in the east.
 
->The altar is decorated with a monitor and a coin slot.
+> x altar
+The altar is decorated with a monitor and a coin slot.
 
->The monitor reads MAKE AN OFFERING TO GAIN FOOD.
+> x monitor
+The monitor reads MAKE AN OFFERING TO GAIN FOOD.
 
->The door is the exit to this place, but you cannot leave yet.  The door is
+> x door
+The door is the exit to this place, but you cannot leave yet.  The door is
 locked.
 
->You put a coin in the slot. Instead of food emerging from the altar, the
+> put coin in slot
+You put a coin in the slot. Instead of food emerging from the altar, the
 message on the monitor changes to DANCE FOR FOOD. You hate it when people
 start playing with you.
 
->It is humiliating that you have to dance in order to get food. If you weren't
+> dance
+It is humiliating that you have to dance in order to get food. If you weren't
 so hungry right now, you would never think of doing this. But you are hungry
 and there is no person watching. You hope.
 
@@ -135,11 +157,14 @@ back outside to the valley.
 
 Next to the bed is a suitcase
 
->The meat looks like it will be tasty, once it has been cooked.
+> x meat
+The meat looks like it will be tasty, once it has been cooked.
 
->You drop the wallet and the piece of meat.
+> drop all
+You drop the wallet and the piece of meat.
 
->You move out.
+> out
+You move out.
 
 The valley
 This is a quiet grassy valley, with a small cottage in the centre. The open
@@ -151,7 +176,8 @@ blocking the only way underground. At the top of the hills, you can see a
 lone tree that you can walk up to. You don't really want to walk there
 though, as it is a long climb.
 
->You struggle up the hill. It doesn't look that far, but you are very unfit
+> u
+You struggle up the hill. It doesn't look that far, but you are very unfit
 and it is a huge effort for you to reach the top. You take a quick break at
 the top to recover your breath.
 
@@ -166,20 +192,26 @@ small to be useful.
 
 Embedded in the ground is an abandoned axe.
 
->The wall is the boundary of this area, and it is coloured in as if it was
+> x wall
+The wall is the boundary of this area, and it is coloured in as if it was
 part of the sky.
 
->The tree is large and has plenty of wood on it. You wish it didn't need to be
+> x tree
+The tree is large and has plenty of wood on it. You wish it didn't need to be
 quite so large, as it will be hard work to chop down.
 
->There are a few bushes and baby trees around, but these are too small to have
+> x bushes
+There are a few bushes and baby trees around, but these are too small to have
 sufficient wood for your needs.
 
->The axe is new and looks sharp.
+> x axe
+The axe is new and looks sharp.
 
->You pick up the axe.
+> take axe
+You pick up the axe.
 
->You begin chopping at the base of the tree with the axe.
+> chop tree
+You begin chopping at the base of the tree with the axe.
 
 (Press a key)
 
@@ -190,14 +222,17 @@ A while later, you are still chopping.
 After a lot of exhausting work, you finally finish and the tree falls over.
 The tree is balanced precariously at the top of the slope leading downwards.
 
->You drop the axe.
+> drop axe
+You drop the axe.
 
->You push the tree and it begins rolling down the hill. It quickly reaches the
+> push tree
+You push the tree and it begins rolling down the hill. It quickly reaches the
 bottom and  settles near the cottage. Seeing how fast the tree made it down
 gives you an idea of how you can get down quickly. You are too tired to walk
 much further at the moment.
 
->You decide to try rolling down the hill. It looks faster and the tree seemed
+> roll down hill
+You decide to try rolling down the hill. It looks faster and the tree seemed
 to get down intact. You lie on your side and begin rolling down. As you roll
 down and pick up speed, you wonder if you are moving a little too fast. Not
 that there is much you can do now apart from enjoy the ride. Or not enjoy it,
@@ -220,7 +255,8 @@ Next to the bed is a suitcase
 
 You can see a wallet and a piece of meat.
 
->You move out.
+> out
+You move out.
 
 The valley
 This is a quiet grassy valley, with a small cottage in the centre. The open
@@ -233,16 +269,21 @@ next to the cottage.
 
 You can see a long sturdy stick and a bunch of small branches.
 
->This stick is close to your height in length, and thick enough that it will
+> x stick
+This stick is close to your height in length, and thick enough that it will
 not break easily.
 
->You pick up the long sturdy stick.
+> take stick
+You pick up the long sturdy stick.
 
->This bunch of small branches looks like it would make good firewood.
+> x branches
+This bunch of small branches looks like it would make good firewood.
 
->You pick up the bunch of small branches.
+> take branches
+You pick up the bunch of small branches.
 
->You move in.
+> in
+You move in.
 
 Inside the cottage
 The cottage is a small one-room building. The room is fairly empty, with a
@@ -257,9 +298,11 @@ Next to the bed is a suitcase
 
 You can see a wallet and a piece of meat.
 
->You pick up the piece of meat.
+> take meat
+You pick up the piece of meat.
 
->You load all the branches into the fireplace. A fire automatically starts
+> put branches in fireplace
+You load all the branches into the fireplace. A fire automatically starts
 with a tray for cooking emerging out the back. You put the meat on the tray
 and wait for it to cook.
 
@@ -273,9 +316,11 @@ belongings."
 
 You hear a slight rumbling noise outside.
 
->You pick up the suitcase and the wallet.
+> take all
+You pick up the suitcase and the wallet.
 
->You move out.
+> out
+You move out.
 
 The valley
 This is a quiet grassy valley, with a small cottage in the centre. The open
@@ -289,12 +334,14 @@ and the cave entrance. It would be enough for a skinny person to get through.
 You think it is meant as a hint that you have not lost enough weight here.
 The remains of the lone tree are sitting next to the cottage.
 
->Now that the boulder has moved slightly, you can fit the sturdy stick behind
+> move boulders
+Now that the boulder has moved slightly, you can fit the sturdy stick behind
 it. You use the stick to lever the boulder away from the entrance. Being
 smart is better than being thin. The stick breaks in the effort, but you no
 longer need it.
 
->You move west.
+> w
+You move west.
 
 Inside the cave
 The cave is not very long, and opens up into an unnaturally smooth chamber,
@@ -305,7 +352,8 @@ delivered are continually changing. You wish that they could just make up
 their mind. The door on the western wall is now open. You can exit the cave
 back to the valley in the east.
 
->You exit out of your prison of the last few weeks. As you walk into the
+> w
+You exit out of your prison of the last few weeks. As you walk into the
 hallway, you have a good view of the interstellar ship you have travelled
 upon. The ship is made up of thousands of bubbles, connected by tubes. It
 looks like a complicated chemical molecule.

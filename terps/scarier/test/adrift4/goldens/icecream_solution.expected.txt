@@ -28,15 +28,19 @@ Ronald is here.
 attention. You look at him with vacant eyes, and as you wipe the drool from
 your lower lip, he says, "I'd like an ice cream cone, please."
 
->You reach down and get a scoop of ice cream.
+> scoop ice cream
+You reach down and get a scoop of ice cream.
 
->  Holding the cone in one hand, you place the scooped ice cream carefully on
+> put ice cream in cone
+  Holding the cone in one hand, you place the scooped ice cream carefully on
 the top with the other.
   "What's taking so long up there? I've got to get to a funeral!" some guy
 shouts from the end of the line.
 
->  You reach out to give the cone to the customer. Ronald takes the money from
+> give cone to customer
+  You reach out to give the cone to the customer. Ronald takes the money from
 the counter with a grin.
   You take a cone from the box.
 
->Do you really want to quit? [Y/N]
+> quit
+Do you really want to quit? [Y/N]

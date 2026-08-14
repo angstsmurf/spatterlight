@@ -30,7 +30,8 @@ The Tunnel is not crowded with overeager buyers, and the few customers that
 wander about appear to vibrate like the rapid flitter of hummingbirds' wings,
 grey and black figures smudged into the air with peculiar smoke.
 
->You climb up awkwardly into the hanging forest of fabrics, grappling sturdy
+> up
+You climb up awkwardly into the hanging forest of fabrics, grappling sturdy
 sailcloths and worming upwards from one oversized bolt to the next.  The soft
 orange walls undulate gently with your passage.  Silks as light as smoke
 swirl about like eels.  Lanterns are distant glows behind the layers, a queue
@@ -50,10 +51,12 @@ of blue fabric, contrasting vividly against the orange light, and suspended
 from the textile ceiling in the center of the clearing.  A silver tray of
 roasted beetles hangs beside the King.
 
->(You would like to have that key, indeed.  But the grotesque presence of the
+> get key
+(You would like to have that key, indeed.  But the grotesque presence of the
 Silk King makes you hesitate.  If you don't first succeed...)
 
->(And the task of obtaining the key presents a severe problem of
+> get key
+(And the task of obtaining the key presents a severe problem of
 accessibility, as the King is suspended in the middle of the clearing.)  You
 fidget nervously.
 Reclining in his harness, the King takes a pinch of roasted beetles from his
@@ -61,14 +64,16 @@ tray, sprinkles the delicacy onto his outstretched tongue, and commences to
 chew noisily, his jowls quivering in salivary delight.  The movement reveals
 a glittering key at his throat, hanging from a thin chain.
 
->The Silk King regards you suspiciously.  Several tiny flesh-colored
+> get key
+The Silk King regards you suspiciously.  Several tiny flesh-colored
 somethings begin to crawl over his naked bulk like spiders.  "What are you up
 to, little one?" he says warningly.  The somethings are tiny women, you
 realize, unclothed creatures traversing the grotesque geography of the Silk
 King.  You suddenly feel extremely vulnerable, hanging high above the
 promenade.  "Say hello to the little one, little ones."
 
->"You're not a paying customer!" the Silk King cries, clutching the key in a
+> get key
+"You're not a paying customer!" the Silk King cries, clutching the key in a
 tight fist.  He floats away from you, carried by his hanging girdle of blue
 fabrics to the far end of the clearing, where he squeezes out of his harness
 and into a tight orifice between textiles.  You hear giggles and a terrible
@@ -113,16 +118,20 @@ The Tunnel is not crowded with overeager buyers, and the few customers that
 wander about appear to vibrate like the rapid flitter of hummingbirds' wings,
 grey and black figures smudged into the air with peculiar smoke.
 
->A muffled whimper is heard somewhere overhead as you pull gently on the bolt
+> pull bolt
+A muffled whimper is heard somewhere overhead as you pull gently on the bolt
 of blue fabric.
 
->A low, muffled moan is heard somewhere overhead as you pull firmly on the
+> pull bolt
+A low, muffled moan is heard somewhere overhead as you pull firmly on the
 bolt of blue fabric.
 
->A muffled grumble is heard somewhere overhead as you pull hard on the bolt of
+> pull bolt
+A muffled grumble is heard somewhere overhead as you pull hard on the bolt of
 blue fabric: "Who is pulling on my testicles?"
 
->Delightfully, you grasp the bolt of blue fabric with both hands and swing
+> pull bolt
+Delightfully, you grasp the bolt of blue fabric with both hands and swing
 from it.  You disengage from the bolt and back away quickly from the sound of
 something big tumbling about overhead like an elephant.  A bloated testicle
 of a man comes crashing and cursing out of the hanging fabrics, landing with
@@ -140,7 +149,8 @@ By the Green Door
 This is the end of the Tunnel, and it is dark here.  And quiet.  The green
 door awaits, luminous, lending a chlorophyll tinge to the darkness.
 
->The green door opens, and a bloated testicle of a man oozes into the room.
+> unlock door with key
+The green door opens, and a bloated testicle of a man oozes into the room.
 
 "Ah, not again!" he says.  "Get back in that Tunnel and be a good customer
 like the rest of them, will you?"

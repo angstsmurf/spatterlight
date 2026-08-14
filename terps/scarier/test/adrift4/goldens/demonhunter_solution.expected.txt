@@ -23,7 +23,8 @@ Destruction runs rampant here; a gigantic fissure splits the once-strong wall
 into two, and the gate is missing entirely. The pitiful remnants of the
 village lie north, through the wall.
 
->You move north.
+> n
+You move north.
 
 The Center of the Village
 This is the center of the village, which apparently served as a trading post
@@ -33,14 +34,16 @@ north is a church; a church that gives off such an aura that, were you to
 assume that it was not the source of this trouble, your mentor would belt you
 one up the head.
 
->You move east.
+> e
+You move east.
 
 Near Some Houses
 Nearby are two houses. There is one to the north, which really isn't so much
 a house anymore as it is a foundation, and one to the south, which is at
 least intact, if not habitable. The center of the village lies back west.
 
->You move south.
+> s
+You move south.
 
 A House
 This house, while burnt and broken, is still standing. The stench of rotten
@@ -49,31 +52,37 @@ under the lone piece of furniture--a table. It is probably weeks old. Even
 the flies won't come here, though. The evil is too strong. You can exit to
 the north.
 
->You take the ceramic plate from the table.
+> take plate
+You take the ceramic plate from the table.
 
->You move north.
+> n
+You move north.
 
 Near Some Houses
 Nearby are two houses. There is one to the north, which really isn't so much
 a house anymore as it is a foundation, and one to the south, which is at
 least intact, if not habitable. The center of the village lies back west.
 
->You move north.
+> n
+You move north.
 
 A Foundation
 This house is long gone. The only thing left is the stone foundation that the
 house was built on. You can pick your way back out to the south.
 
->You take the small flask of water from the stone foundation.
+> take water
+You take the small flask of water from the stone foundation.
 
->You move south.
+> s
+You move south.
 
 Near Some Houses
 Nearby are two houses. There is one to the north, which really isn't so much
 a house anymore as it is a foundation, and one to the south, which is at
 least intact, if not habitable. The center of the village lies back west.
 
->You move west.
+> w
+You move west.
 
 The Center of the Village
 This is the center of the village, which apparently served as a trading post
@@ -83,7 +92,8 @@ north is a church; a church that gives off such an aura that, were you to
 assume that it was not the source of this trouble, your mentor would belt you
 one up the head.
 
->You move north.
+> n
+You move north.
 
 Inside the Church
 This church is dead; you felt it as soon as you stepped in. What appears to
@@ -91,14 +101,17 @@ be a pile of the pews lies against the wall, blackened and charred. The
 pulpit is gone, leaving a gaping hole in the floor. The altar seems to be the
 only thing left untouched; in fact, it still radiates a warm aura.
 
->You take the mysterious black orb from the pulpit.
+> take orb
+You take the mysterious black orb from the pulpit.
 
->(Your score has increased by 2)
+> put orb in water
+(Your score has increased by 2)
 You dribble the water onto the orb, which promptly explodes in a maelstrom of
 swirling black light and smoke. An evil aura spreads out from here, and you
 hear a demonic cackle from the far western part of the village.
 
->You move south.
+> s
+You move south.
 
 The Center of the Village
 This is the center of the village, which apparently served as a trading post
@@ -108,7 +121,8 @@ north is a church; a church that gives off such an aura that, were you to
 assume that it was not the source of this trouble, your mentor would belt you
 one up the head.
 
->(Your score has increased by 1)
+> w
+(Your score has increased by 1)
 You move west.
 
 A Field of Corn
@@ -125,7 +139,8 @@ Springing to your feet, you dash off to the village. Not knowing why, you
 find yourself entering the church. The demon is obviously not impressed, and
 it enters after you, blocking the exit. Looks like it's do or die.
 
->(Your score has increased by 3)
+> hit demon with plate
+(Your score has increased by 3)
 Dancing around the room, you avoid several furious blows from the demon.
 Somehow, you manage to get him between you and the altar, and you know the
 time is right. Slipping the ceramic plate into your hand, you wind up and

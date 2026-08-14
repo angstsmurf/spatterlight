@@ -31,18 +31,22 @@ Oscuridad, vacio, nada.
 
              Frio.
 
->Forcejeo un poco pero lo único que consigo es cortarme con las tiras de
+> desatarse
+Forcejeo un poco pero lo único que consigo es cortarme con las tiras de
 cuero... creo que uno de mis brazos sangra, pero eso ya no importa. Solo la
 oscuridad y el frio.
 
->Por un momento se me pasó por la cabeza cortar las tiras, luego me di cuenta
+> cortar tiras
+Por un momento se me pasó por la cabeza cortar las tiras, luego me di cuenta
 que era completamente imposible ¿con que podria  hacerlo? ¿con la lengua? la
 imagen me hizo reir durante un buen rato... creo que me estoy volviendo loca.
 
->Rezar no sirve de nada... solo queda el frio y el dolor y luego de eso la
+> reza
+Rezar no sirve de nada... solo queda el frio y el dolor y luego de eso la
 nada.
 
->El tiempo pasa...
+> esperar
+El tiempo pasa...
 Luz.
 
                                         Debo de estar soñando... solo frio y
@@ -64,7 +68,8 @@ negra, adornado por un único ojo cerrado tejido en plata.
 
                            PULSA C PARA CONTINUAR
 
->   -A esto renuncias- dijo colocando la yema de sus dedos sobre mis parpados-
+> c
+   -A esto renuncias- dijo colocando la yema de sus dedos sobre mis parpados-
 a aquello que te encadena.-
 
    -A que la vida anide en este cuerpo- Sus dedos rozaron mis pechos y mi
@@ -90,7 +95,8 @@ tumbada en una especie de pasillo, un tubo circular de metal azul, liso y
 junturas, que se extiende infinitamente a mis espaldas hasta desaparecer en
 un lejano horizonte. A diez pasos frente a mí hay una puerta.
 
->La puerta esta hecha en el mismo material azulado con el que esta construido
+> ex puerta
+La puerta esta hecha en el mismo material azulado con el que esta construido
 el tubo en el que me encuentro. Sus bordes se fusionan perfectamente con las
 paredes del pasillo, de hecho solo puedo suponer que es una puerta debido a
 que hay una línea que la divide simétricamente en dos mitades iguales. La
@@ -101,7 +107,8 @@ borde de un precipicio. El último hombre de la comitiva parece que duda en
 seguir a sus compañeros y mira hacia mi derecha en dirección a una Renuntio,
 la cual camina dándoles la espalda internándose en un desierto infinito.
 
->Tremulamente apoyo una mano en la superficie de la puerta. De pronto, la
+> abrir puerta
+Tremulamente apoyo una mano en la superficie de la puerta. De pronto, la
 puerta comienza vibrar. Doy un paso atras y contemplo como un triangulo de
 oscuridad se abre paso desde la parte de arriba del grabado.
 
@@ -114,7 +121,8 @@ ninguna luz... nada.   Ni si quiera la tremula luz del pasillo es capaz de
 atravesar las densas tinieblas, las cuales se llerguen como un muro sólido
 ante mi.
 
->Cubos
+> entrar
+Cubos
 Me encuentro en medio de una especie de red tridimensional formada por un sin
 fin de espacios cúbicos unidos entre si. Los cubos no tienen paredes, son un
 simple esqueleto delimitado por doce vigas de metal azulado. Cada arista del
@@ -133,21 +141,25 @@ de ellas esta situada a cinco cubos de distancia desde donde me encuentro. La
 únicas salidas que veo son una serie de puertas situadas en cada pared, allí
 donde una viga termina muriendo.
 
->Estan hechas del mismo metal azulado que ya he visto anteriormente.
+> ex vigas
+Estan hechas del mismo metal azulado que ya he visto anteriormente.
 
->Cierro los ojos y... no se, todo parece diferente pero nada parece haber
+> cierra ojos
+Cierro los ojos y... no se, todo parece diferente pero nada parece haber
 cambiado. No se si me explico pero me siento más firme, más real.
 
 Ojos  cerrados
 Tengo los ojos cerrados.
 
->Me dirijo hacia el norte.
+> n
+Me dirijo hacia el norte.
 
 Ojos  cerrados
 Tremulamente he dado un paso... no ha sucedido nada, los cubos permanecen
 firmes y no giran.
 
->Abro los ojos.
+> abrir ojos
+Abro los ojos.
 
 Pasillo
 Ahora me encuentro en un pasillo muy parecido al que ya he dejado atras,
@@ -157,7 +169,8 @@ desaparecer en un lejano horizonte. A diez pasos frente a mí hay una puerta.
 Toda la escena esta iluminada por una tenue luz azulada que parece emanar de
 las paredes.
 
->Es una inmensa puerta de doble hoja, la cual al igual que la anterior esta
+> ex puerta
+Es una inmensa puerta de doble hoja, la cual al igual que la anterior esta
 adornada por una serie de tallas. La imagen que representan estas tallas es
 la de una Renuntio completamente desnuda, todo salvo su rostro el cual esta
 cubierto por la capucha ceremonial Su cuerpo está envuelto en un brillante
@@ -171,7 +184,8 @@ debajo de ella. Su filo parece embotado.
 Nuestra Señora del Dolor con la salvedad de que la Renuntio no sostiene el
 cadaver de su hijo recien nacido entre sus brazos.
 
->De forma quieta y si producir el más mínimo ruido la puerte comienza a
+> abrir puerta
+De forma quieta y si producir el más mínimo ruido la puerte comienza a
 resquebrajarse. Miles de lineas recorren rapidamente su superficie como rayos
 en una noche de verano. De pronto la puerta se colapsa y estalla, miles de
 astillas de metal azulado flajelan mi cuerpo, miles de frias agujas
@@ -203,13 +217,15 @@ reptangulo al cual le calculo unos tres pasos de ancho y cinco de largo.
 Delante mio hay una puerta, a mi derecha canturrea una fuente y a mi izquerda
 hay un extraño aparato.
 
->Me dirijo hacia el Este.
+> e
+Me dirijo hacia el Este.
 
 Fuente
 Adosada en este extremo de la sala hay una fuente, la cual emite un pequeño
 hilo de agua que cae ininterrumpidamente dentro de una concavidad del suelo.
 
->Un rostro... como de niña, liso, puro y frio como el metal del que esta
+> ex fuente
+Un rostro... como de niña, liso, puro y frio como el metal del que esta
 hecho, diria que tiene trece años. Su pelo se desparrama por la pared como si
 los rayos del sol se tratasen.. e... era rubia, habia un pozo, ella cogia
 agua, no se... la conocia, pero... solo son imagenes, no puedo recordarla,
@@ -219,11 +235,13 @@ borrado.
          El agua surge de su boca,... co...como aquella vez, su rostro
 azul... las hojas en su rostro.
 
->Me pongo de rodillas y sorbo el agua de la concabidad hasta hinchar mis
+> coger agua con la boca
+Me pongo de rodillas y sorbo el agua de la concabidad hasta hinchar mis
 carrillos. Espero que no me de la risa por el camino, pienso en un acceso
 histérico e incongruente.
 
->Me dirijo hacia el Oeste.
+> o
+Me dirijo hacia el Oeste.
 
 Sala
 La sala donde me encuentro en estos momentos es un reptangulo al cual le
@@ -231,12 +249,14 @@ calculo unos tres pasos de ancho y cinco de largo. Delante mio hay una
 puerta, a mi derecha canturrea una fuente y a mi izquerda hay un extraño
 aparato.
 
->Me dirijo hacia el Oeste.
+> o
+Me dirijo hacia el Oeste.
 
 Ingenio mecánico
 En este extremo de la sala hay un extraño aparato adosado a la pared.
 
->Creo que la palabra "recargado" se hizo pensando en lo que tengo delante.
+> ex aparato
+Creo que la palabra "recargado" se hizo pensando en lo que tengo delante.
 Aproximadamente a la altura de mi pecho surge de la pared de forma horizontal
 lo que creo que es una cabeza de hipopotamo con las mandibulas abiertas, esta
 se encuentra al reves como si el hipotamo estubiese panza arriba. De si nariz
@@ -248,14 +268,16 @@ pájaros, gordos cerditos bailando,..etc.  Todo esto se asemeja a la barroca
 tecnologia de los Relojeros, llena de elementos inecesarios y visuales, nada
 de la fria eficiencia Eclesiastica.
 
->Escupo el agua dentro de la boca del Hipopótamo. De pronto, la lengua de este
+> dejar el agua de la boca en la boca
+Escupo el agua dentro de la boca del Hipopótamo. De pronto, la lengua de este
 se eleva revelando un pequeño orificio a traves del cual se filtra el agua...
 espera la oigo recorrer los tubos, ha caido un contra peso y ahora,.. ahora
 las ruedas se ponen en movimiento... clang, chasquido, clang, chasquido,
 clang, chasqui... un momento, va cada vez más lento, creo que necesita más
 agua.
 
->Me dirijo hacia el Este.
+> e
+Me dirijo hacia el Este.
 
 Sala
 La sala donde me encuentro en estos momentos es un reptangulo al cual le
@@ -263,17 +285,20 @@ calculo unos tres pasos de ancho y cinco de largo. Delante mio hay una
 puerta, a mi derecha canturrea una fuente y a mi izquerda hay un extraño
 aparato.
 
->Me dirijo hacia el Este.
+> e
+Me dirijo hacia el Este.
 
 Fuente
 Adosada en este extremo de la sala hay una fuente, la cual emite un pequeño
 hilo de agua que cae inenterrumpidamente dentro de una concavidad del suelo.
 
->Me pongo de rodillas y sorbo el agua de la concabidad hasta hinchar mis
+> coger agua con la boca
+Me pongo de rodillas y sorbo el agua de la concabidad hasta hinchar mis
 carrillos. Espero que no me de la risa por el camino, pienso en un acceso
 histérico e incongruente.
 
->Me dirijo hacia el Oeste.
+> o
+Me dirijo hacia el Oeste.
 
 Sala
 La sala donde me encuentro en estos momentos es un reptangulo al cual le
@@ -281,19 +306,22 @@ calculo unos tres pasos de ancho y cinco de largo. Delante mio hay una
 puerta, a mi derecha canturrea una fuente y a mi izquerda hay un extraño
 aparato.
 
->Me dirijo hacia el Oeste.
+> o
+Me dirijo hacia el Oeste.
 
 Ingenio mecánico 1
 En este extremo de la sala hay un extraño aparato adosado a la pared.
 
->Escupo el agua dentro de la boca del Hipopótamo. De pronto, la lengua de este
+> dejar el agua de la boca en la boca
+Escupo el agua dentro de la boca del Hipopótamo. De pronto, la lengua de este
 se eleva revelando un pequeño orificio a traves del cual se filtra el agua...
 espera, la oigo recorrer los tubos, ha caido un contra peso y ahora,.. ahora
 las ruedas se ponen en movimiento... clang, chasquido, clang, chasquido,
 clang, chasquido... parecen que van cogiendo buen ritmo aunque  creo que
 necesita más agua.
 
->Me dirijo hacia el Este.
+> e
+Me dirijo hacia el Este.
 
 Sala
 La sala donde me encuentro en estos momentos es un reptangulo al cual le
@@ -301,17 +329,20 @@ calculo unos tres pasos de ancho y cinco de largo. Delante mio hay una
 puerta, a mi derecha canturrea una fuente y a mi izquerda hay un extraño
 aparato.
 
->Me dirijo hacia el Este.
+> e
+Me dirijo hacia el Este.
 
 Fuente
 Adosada en este extremo de la sala hay una fuente, la cual emite un pequeño
 hilo de agua que cae inenterrumpidamente dentro de una concavidad del suelo.
 
->Me pongo de rodillas y sorbo el agua de la concabidad hasta hinchar mis
+> coger agua con la boca
+Me pongo de rodillas y sorbo el agua de la concabidad hasta hinchar mis
 carrillos. Espero que no me de la risa por el camino, pienso en un acceso
 histérico e incongruente.
 
->Me dirijo hacia el Oeste.
+> o
+Me dirijo hacia el Oeste.
 
 Sala
 La sala donde me encuentro en estos momentos es un reptangulo al cual le
@@ -319,12 +350,14 @@ calculo unos tres pasos de ancho y cinco de largo. Delante mio hay una
 puerta, a mi derecha canturrea una fuente y a mi izquerda hay un extraño
 aparato.
 
->Me dirijo hacia el Oeste.
+> o
+Me dirijo hacia el Oeste.
 
 Ingenio mecánico 2
 En este extremo de la sala hay un extraño aparato adosado a la pared.
 
->Escupo el agua dentro de la boca del Hipopótamo. La lengua de este se eleva
+> dejar el agua de la boca en la boca
+Escupo el agua dentro de la boca del Hipopótamo. La lengua de este se eleva
 revelando un pequeño orificio a traves del cual se filtra el agua... espera,
 la oigo recorrer los tubos, ha caido un contra peso y ahora,.. ahora las
 ruedas se ponen en movimiento... clang, chasquido, clang, chasquido, clang,
@@ -350,7 +383,8 @@ aproximadamente cinco pasos, el suelo tiene una ligera pendiente hacia abajo
 hasta terminar en una inmensa puerta cerrada que al igual que todas sus
 hermanas está recubierta de tallas.
 
->Las tallas representan la pasión de San Nicolas de las Cruces. Cuenta la
+> ex puerta
+Las tallas representan la pasión de San Nicolas de las Cruces. Cuenta la
 historia que hace más de mil ciclos se produjo una brecha en la cúpula que
 proteje Nueva Jerusalén y la Niebla penetró con fuerza, ávida y poderosa.
 Miles de barrios calleron bajo su toque corruptor, alli por donde pasaba
@@ -400,7 +434,8 @@ la montaña, desnudo, sin dejar de luchar y rezar.
 siguiente: "Por amada y mortal que sea la espada, esta siempre enlentece el
 brazo que la porta."
 
->Pozo
+> abrir puerta
+Pozo
 ¡Agh!... Dios. Ella, es ella, su rostro... su rostro pegado al mio, cerca,
 sus ojos grandes como un mundo, todo es igual... los gritos, gritamos las
 dos, un solo grito. Ella se agarra con firmeza, sus uñas se clavan en mi
@@ -410,7 +445,8 @@ en mi estómago, no puedo más... estoy de puntillas, grito y en mi histerismo
 golpeo con uno de los pies uno de los cantaros, oigo como se rompe, gritos,
 el grito es un bucle, todo es igual pero..
 
->Su cabeza, gritos, la cojo, abarco su rostro con las manos, gritos, cierro
+> soltar a la chica
+Su cabeza, gritos, la cojo, abarco su rostro con las manos, gritos, cierro
 los ojos, gritos, presiono con los pulgares, gritos, calided entre mis dedos,
 sonido blando, gritos... luego nada, gritos y luego el agua suena como una
 campanada... se ha soltado, se ha soltado y ha caido al agua, no la oigo, me
@@ -424,14 +460,16 @@ su contorno es circular, asi que es un poco dificil mantener el equilibrio.
 Cosa extraña, esta vez no hay puerta, el pasillo termina en una especie de
 pozo.
 
->Es una construción circular cuyo radio mide aproximadamente dos pasos, sus
+> ex pozo
+Es una construción circular cuyo radio mide aproximadamente dos pasos, sus
 bordes estan delimitados por un aro de un palmo de altura en cuya superficie
 grabada se puede leer la siguiente inscripción: "Abandona este luminoso y
 falaz escenario en el que las candilejas te impiden te impiden ver la
 oscuridad más alla y solo en la más completa oscuridad una mente puede
 brillar poderosa."
 
->Con decisión salto dentro del pozo
+> saltar al pozo
+Con decisión salto dentro del pozo
 
 A aquello que te encadena.
 Yazco envuelta en la más completa negrura, mi espalda está helada y mis
@@ -445,7 +483,8 @@ sueños, tal vez fuesen eso: meros sueños. Tengo frio.
 sobre mi, un cono de luz azulado ilumina una especie de mesa pequeña, más
 alla del círculo de luz solo hay oscuridad.
 
->Sonrio, al fin lo comprendo "solo en la más absoluta oscuridad una mente
+> arrancarse los ojos con las manos
+Sonrio, al fin lo comprendo "solo en la más absoluta oscuridad una mente
 puede brillar poderosa" Lentamente, cumpliendo la ceremonia subo mis manos y
 poso las yemas de mis dedos sobre los ojos, poco a poco ejerzo presión
 clavando mis uñas alrededor del globo, la sangre mana cálida entre mis dedos

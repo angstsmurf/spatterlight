@@ -34,7 +34,8 @@ smoking a bit.  It doesn't bother you much, because you are St. Nick.
 
 Dasher, Dancer, Prancer, Vixen, Comet, Cupid, Donder and Blitzen are here.
 
->As you try to do that, you lose your balance and fall on the slippery roof.
+>
+As you try to do that, you lose your balance and fall on the slippery roof.
 With a horrid scream, you slide at great speed towards the edge of the roof.
 The last thing you see is the amused faces of your reindeer as you fall over
 the edge. You land hard on the front steps of the house, and all goes
@@ -62,19 +63,24 @@ Mystery is talking with some Drifters, making sure everyone is having a good
 time.
 
 >
->(Your score has increased by 5)
+
+> kiss mystery
+(Your score has increased by 5)
 You lay a Happy Holidays kiss on Mystery.  Turns out that Mystery didn't
 appreciate it much and belts you right in the kisser.
 
->(Your score has increased by 5)
+> make snowball
+(Your score has increased by 5)
 You gather a large handful of snow and form it into a loosly packed ball.
 Taking careful aim, you throw the ball at your intended target and miss.
 
->(Your score has increased by 5)
+> make snowman
+(Your score has increased by 5)
 You build a masterpiece in no time, but are disappointed that it doesn't seem
 to stay together, and ends up with back where it started.
 
->You move north.
+> n
+You move north.
 
 Covered Entry
 Tall pillars rise up on both sides of the covered entry.  Tall double doors
@@ -84,7 +90,8 @@ dome light provides ample lighting for the front area of the house.
 
 You can only move south.
 
->(Your score has increased by 10)
+> pee in snow
+(Your score has increased by 10)
 You look around for a minute to make sure there isn't anyone looking.  You
 know that you shouldn't have had that last glass of milk at the last stop.
 You whip it out and manage to write S A N T A  in cursive.  Being quite
@@ -92,9 +99,11 @@ pleased with your efforts, you decide that someone might not think that is
 funny, so you promptly kick some snow over the yellow stain, and quickly move
 away from that spot.
 
->You open the double door.
+> open door
+You open the double door.
 
->You move north.
+> n
+You move north.
 
 Foyer
 Opening to the dining room to the east and the study to the west, highly
@@ -109,11 +118,13 @@ davidw is standing here looking for someone to antagonize.
 
 You can move north, east, south, west and out.
 
->(Your score has increased by 5)
+> look under table
+(Your score has increased by 5)
 Looking under the small table, you find a piece of chewed bubble gum and take
 it.
 
->(Your score has increased by 5)
+> chew gum
+(Your score has increased by 5)
 You look around to make sure no one is looking as you pop the sticky gum into
 your mouth.  As you chew you have a flashback to when.......
 
@@ -131,7 +142,8 @@ were forced to scrub every inch of the reindeer stalls with toothbrushes.
 You decided that you are not so fond of gum after all and remove it from your
 mouth.
 
->You move north.
+> n
+You move north.
 
 Hall
 Standing in the hall is the bust of Rob Roy MacGregor and a pink rug that
@@ -148,7 +160,8 @@ The Invisible Man sidles unobtrusively into the room from the south-west.
 
 Nick Grimson wanders in from the south-west.
 
->You move west.
+> w
+You move west.
 
 Kitchen
 This modern kitchen is quite charming.  Granite countertops spread throughout
@@ -158,7 +171,8 @@ counter, with cabinets above the sink is located in the southwest portion.
 
 You can move north, east, south and west.
 
->You move south.
+> s
+You move south.
 
 Kitchen Hall
 The hall runs east and west, and is void of any decoration.  To the northwest
@@ -172,9 +186,11 @@ hunched, trying not to be noticed.
 
 You can move north and northwest.
 
->You open the closet door.
+> open closet door
+You open the closet door.
 
->You move south.
+> s
+You move south.
 
 Kitchen Hall Closet
 Being in this small closet reminds you of the time that the elves locked you
@@ -185,15 +201,19 @@ Also here is the broom and the bucket.
 
 You can only move north.
 
->You pick up the broom.
+> get broom
+You pick up the broom.
 
->(Your score has increased by 5)
+> sweep floor
+(Your score has increased by 5)
 You give the floor quick sweep, wishing the elves were here to do it for you.
 
->(Your score has increased by 10)
+> put gum on broom
+(Your score has increased by 10)
 You stick the piece of chewed bubble gum on the end of the broom handle.
 
->You move north.
+> n
+You move north.
 
 Kitchen Hall
 The hall runs east and west, and is void of any decoration.  To the northwest
@@ -206,7 +226,8 @@ KF stands hunched, trying not to be noticed.
 
 You can move north, south and northwest.
 
->You move north.
+> n
+You move north.
 
 Kitchen
 This modern kitchen is quite charming.  Granite countertops spread throughout
@@ -216,13 +237,16 @@ counter, with cabinets above the sink is located in the southwest portion.
 
 You can move north, east, south and west.
 
->You open the cabinet.  The nutmeg and Campbell's soup are inside the cabinet.
+> open cabinet
+You open the cabinet.  The nutmeg and Campbell's soup are inside the cabinet.
 
 KF walks in from the south.
 
->You take the nutmeg from the cabinet.
+> get nutmeg
+You take the nutmeg from the cabinet.
 
->(Your score has increased by 5)
+> eat nutmeg
+(Your score has increased by 5)
 Against your better judgment, you open up the nutmeg and dump it down your
 throat.  Moments later you start feeling a bit strange.
 
@@ -243,7 +267,8 @@ wall and land flat on your back in the middle of the room.
 water.   Soon after the circles begin to disappear and you regain your
 senses.
 
->You move north.
+> n
+You move north.
 
 Game Room
 The walls are kind of WILD in here, as opposed to the rest of the house.  In
@@ -256,7 +281,8 @@ the room, lip-synching with others present.
 
 You can move east, south and out.
 
->(Your score has increased by 10)
+> ask samantha about shower
+(Your score has increased by 10)
 "I guess I can take my break now.  She heads off toward the east, presumably
 to take a shower.  You wait a few minutes before you decide to follow.  You
 arrive in the master bathroom, which is full of steam.  That is when you
@@ -276,7 +302,8 @@ What was the gift?  Well Samantha used to be a Sam! You should have know
 something like this would get you into trouble.  Perhaps you might learn some
 self control.
 
->You move north.
+> n
+You move north.
 
 Master Bath
 Upon entering the master bathroom, the first thing that catches your eye is
@@ -287,7 +314,8 @@ crystal light fixtures, softening the mood of the room.
 
 You can move north, south, west, northeast and northwest.
 
->You move northwest.
+> nw
+You move northwest.
 
 Master Suite
 Tall arched windows rise high on the north wall, breaking up the blue of the
@@ -299,7 +327,8 @@ EdS is here, looking for more silverware to sneak into his pockets.
 
 You can move southeast and southwest.
 
->You move southwest.
+> sw
+You move southwest.
 
 Hall
 Standing in the hall is the bust of Rob Roy MacGregor and a pink rug that
@@ -308,7 +337,8 @@ foyer.
 
 You can move north, south, west, northeast, southeast and southwest.
 
->You move north.
+> n
+You move north.
 
 Living Room
 A fine leather sofa sits facing the east wall on which there is a fireplace
@@ -324,11 +354,13 @@ deep in thought about how to finish his ADRIFT game.
 
 You can move south and west.
 
->(Your score has increased by 5)
+> take key
+(Your score has increased by 5)
 You use the gum on the stick and carefully retrieve the key from the top of
 the tree.
 
->You move west.
+> w
+You move west.
 
 Game Room
 The walls are kind of WILD in here, as opposed to the rest of the house.  In
@@ -343,7 +375,8 @@ You can move east, south and out.
 
 KF walks in from the south.
 
->(Your score has increased by 5)
+> put nutmeg in absinthe
+(Your score has increased by 5)
 You wait for MileOut to look away, then slip a fair amount of nutmeg into his
 bottle of Absinthe. After a few minutes of drinking MileOut begins spouting
 off something about a pink elephant and the bartender in compromising
@@ -352,7 +385,8 @@ the air....for some unseen reason.  He then mumbles something about pool.
 
 Nick Grimson wanders in from the east.
 
->(Your score has increased by 5)
+> ask mileout about pool
+(Your score has increased by 5)
 "You want to play, 'eh?  Alright."  He slurs as he staggers towards the
 billiards table.  He racks the balls up and nearly falls over.  As you play
 you can't help but be amused at MileOut's strange fascination with the color
@@ -370,7 +404,8 @@ cash from MileOut.
 "You can take my money, but you'll never take my absinthe!" He yells while
 staggering back to where he was before you ambushed him.
 
->You move east.
+> e
+You move east.
 
 Living Room
 A fine leather sofa sits facing the east wall on which there is a fireplace
@@ -385,7 +420,8 @@ comfortably around the room.
 
 You can move south and west.
 
->You move south.
+> s
+You move south.
 
 Hall
 Standing in the hall is the bust of Rob Roy MacGregor and a pink rug that
@@ -394,7 +430,8 @@ foyer.
 
 You can move north, south, west, northeast, southeast and southwest.
 
->You move southeast.
+> se
+You move southeast.
 
 Study
 A large corner desk takes up space on the north and eastern wall, accompanied
@@ -412,7 +449,8 @@ You can move west and northwest.
 
 Davidw goes  to the north-west.
 
->(Your score has increased by 5)
+> give money to dave
+(Your score has increased by 5)
 You hand Dave the money and he begins doing his reading.
 ...."Well, well, well, Santa.  It seems you've gotten yourself into a mess.
 So you need to know how to get back on the roof where all the presents are?"
@@ -428,7 +466,8 @@ little spring in your step."
 You restrain from complaining about the reading, since it was only $10.
 You're not so sure about what he says, though.
 
->You move northwest.
+> nw
+You move northwest.
 
 Hall
 Standing in the hall is the bust of Rob Roy MacGregor and a pink rug that
@@ -441,7 +480,8 @@ You can move north, south, west, northeast, southeast and southwest.
 
 Lancer Sykera floats away through the air to the west.
 
->You move southwest.
+> sw
+You move southwest.
 
 Dining Room
 The dining room is elegantly furnished with a dark cherry wood table
@@ -453,13 +493,17 @@ lighting to the beautiful room.
 
 You can move east and northeast.
 
->You unlock the right drawer with the shiny key.
+> unlock right drawer with key
+You unlock the right drawer with the shiny key.
 
->You open the right drawer.  The springs are inside the right drawer.
+> open right drawer
+You open the right drawer.  The springs are inside the right drawer.
 
->You take the springs from the right drawer.
+> get springs
+You take the springs from the right drawer.
 
->You move northeast.
+> ne
+You move northeast.
 
 Hall
 Standing in the hall is the bust of Rob Roy MacGregor and a pink rug that
@@ -472,7 +516,8 @@ DuoDave is here.
 
 You can move north, south, west, northeast, southeast and southwest.
 
->You move northeast.
+> ne
+You move northeast.
 
 Master Suite
 Tall arched windows rise high on the north wall, breaking up the blue of the
@@ -485,7 +530,8 @@ balancing five platefuls of food about his person.
 
 You can move southeast and southwest.
 
->You move southeast.
+> se
+You move southeast.
 
 Master Bath
 Upon entering the master bathroom, the first thing that catches your eye is
@@ -496,7 +542,8 @@ crystal light fixtures, softening the mood of the room.
 
 You can move north, south, west, northeast and northwest.
 
->You move south.
+> s
+You move south.
 
 Second Master Closet
 The closet is quite large and has a large wraparound shelf that encompasses
@@ -505,20 +552,27 @@ long clothing rod, from which Campbell's clothing hangs.
 
 You can only move north.
 
->You open the wardrobe.  A leather jacket and an assortment of shoes are
+> open wardrobe
+You open the wardrobe.  A leather jacket and an assortment of shoes are
 inside the wardrobe.
 
->You take the suitcase from the wardrobe.
+> get suitcase
+You take the suitcase from the wardrobe.
 
->You unlock the suitcase with the shiny key.
+> unlock suitcase with key
+You unlock the suitcase with the shiny key.
 
->You open the suitcase.
+> open suitcase
+You open the suitcase.
 
->You put the springs inside the suitcase.
+> put springs in suitcase
+You put the springs inside the suitcase.
 
->You close the suitcase.
+> close suitcase
+You close the suitcase.
 
->You move north.
+> n
+You move north.
 
 Master Bath
 Upon entering the master bathroom, the first thing that catches your eye is
@@ -529,7 +583,8 @@ crystal light fixtures, softening the mood of the room.
 
 You can move north, south, west, northeast and northwest.
 
->You move northwest.
+> nw
+You move northwest.
 
 Master Suite
 Tall arched windows rise high on the north wall, breaking up the blue of the
@@ -542,7 +597,8 @@ balancing five platefuls of food about his person.
 
 You can move southeast and southwest.
 
->You move southwest.
+> sw
+You move southwest.
 
 Hall
 Standing in the hall is the bust of Rob Roy MacGregor and a pink rug that
@@ -555,7 +611,8 @@ DuoDave is here.
 
 You can move north, south, west, northeast, southeast and southwest.
 
->You move south.
+> s
+You move south.
 
 Foyer
 Opening to the dining room to the east and the study to the west, highly
@@ -568,7 +625,8 @@ carved double doors that lead to the outside.
 
 You can move north, east, south, west and out.
 
->You move south.
+> s
+You move south.
 
 Covered Entry
 Tall pillars rise up on both sides of the covered entry.  Tall double doors
@@ -578,7 +636,8 @@ dome light provides ample lighting for the front area of the house.
 
 You can move north, south and in.
 
->You move south.
+> s
+You move south.
 
 Front Steps
 These stone steps lead up to a covered entry, just outside the front door. A
@@ -589,18 +648,23 @@ lights make you feel cheerful and bright.
 
 You can only move north.
 
->You drop the suitcase.
+> drop suitcase
+You drop the suitcase.
 
->(Your score has increased by 5)
+> jump on suitcase
+(Your score has increased by 5)
 You jump on the suitcase and are flung high into the air.  After a few more
 jumps, you manage to jump high enough to reach the roof.....So high, in fact
 that you overshoot and land hard on Blitzen.
 
->You take the bag of presents from your sleigh.
+> get presents
+You take the bag of presents from your sleigh.
 
->Your score is 90 out of a maximum of 100.  (90%)
+> score
+Your score is 90 out of a maximum of 100.  (90%)
 
->(Your score has increased by 10)
+> go down chimney
+(Your score has increased by 10)
 You finally recover enough magic to make your way down the chimney.  Arriving
 in the Living room, you are greeted by several Drifters.  You happily hand
 out gifts to everyone, and enjoy seeing the bright looks on everyone's face

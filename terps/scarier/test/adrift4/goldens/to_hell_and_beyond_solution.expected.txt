@@ -13,11 +13,14 @@ through.
 
 Zifan is here.
 
->"I am Zifan. Any questions?" says Zifan.
+> greet zifan
+"I am Zifan. Any questions?" says Zifan.
 
->You open the big door.
+> open door
+You open the big door.
 
->You move south.
+> s
+You move south.
 
 Oran entrance
 You have entered the town of Oran. This place does not look very friendly.
@@ -28,4 +31,5 @@ Nekar is here.
 
 You can move east and south.
 
->Do you really want to quit? [Y/N]
+> quit
+Do you really want to quit? [Y/N]

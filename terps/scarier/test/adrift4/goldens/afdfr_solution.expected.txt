@@ -17,7 +17,7 @@ Any similarities to anything you have witnessed, written or anyone you know
 is purely coincidental.  Frankly I'd find it incredible if you've ever
 witnessed any of the situations in this game.
 
->
+> 3
 
 The Living Room of Death
 
@@ -31,7 +31,8 @@ It's not a great view, but it's something to look at.
 
 Exits: East
 
->You move east.
+> e
+You move east.
 
 The Hallway of Death
 
@@ -47,7 +48,8 @@ Exits: East, South and West
 
 You can see some mail.
 
->
+> read mail
+
 You bend down and scoop up your mail.  It's one of life's great mysteries.
 If you have any work that day your Supervisors mail it to you in the morning.
  In all your time you have never once met the postman.  Sometimes you wonder
@@ -100,7 +102,8 @@ Splong5b - Nevada, USA
 
 You pocket the list.  Let's go to work.
 
->You move south.
+> s
+You move south.
 
 The Garden Path of Death
 
@@ -110,7 +113,8 @@ from your house to the stable where Horse lives.
 
 Exits: North and South
 
->You move south.
+> s
+You move south.
 
 The Stable of Death
 
@@ -126,9 +130,11 @@ Exits: North
 You can see The Grim Reaper's Scythe.
 Horse waits here, looking quite majestic.
 
->You pick up the Grim Reaper's Scythe.
+> take scythe
+You pick up the Grim Reaper's Scythe.
 
->
+> say kenya to horse
+
 You climb on to Horse's back.  He/She climbs into the air and you travel, at
 an incredible speed, to your destination.
 
@@ -220,7 +226,8 @@ Exits: South
 
 Jimiyu Wangai is grinning at you from his chair.
 
->You move south.
+> s
+You move south.
 
 Village (Near Wajir, Kenya)
 
@@ -237,7 +244,8 @@ Exits: North, East and West
 
 Horse waits here, looking quite majestic.
 
->You move east.
+> e
+You move east.
 
 By a Lake (Near Wajir, Kenya)
 
@@ -249,9 +257,11 @@ Exits: West
 
 You can see a sturdy branch.
 
->You pick up the sturdy branch.
+> take branch
+You pick up the sturdy branch.
 
->You move west.
+> w
+You move west.
 
 Village (Near Wajir, Kenya)
 
@@ -268,7 +278,8 @@ Exits: North, East and West
 
 Horse waits here, looking quite majestic.
 
->
+> say nevada to horse
+
 You climb on to Horse's back.  He/She climbs into the air and you travel, at
 an incredible speed, to your destination.
 
@@ -372,7 +383,8 @@ Exits: North, South and West
 Private Kline stands in front of the double doors, blocking your way.  He
 looks determined to keep you out.
 
->You move west.
+> w
+You move west.
 
 Storage Cupboard (Area 51, Nevada)
 
@@ -388,9 +400,11 @@ Exits:  East
 You can see a shovel blade.
 Horse waits here, looking quite majestic.
 
->You pick up the shovel blade.
+> take blade
+You pick up the shovel blade.
 
->You move east.
+> e
+You move east.
 
 Corridor (Area 51, Nevada)
 
@@ -405,7 +419,8 @@ Exits: North, South and West
 Private Kline stands in front of the double doors, blocking your way.  He
 looks determined to keep you out.
 
->You move north.
+> n
+You move north.
 
 Corridor (Area 51, Nevada)
 
@@ -417,7 +432,8 @@ Nice of them to label the doors for you.
 
 Exits: North, South, East and West
 
->You move north.
+> n
+You move north.
 
 Security Room (Area 51, Nevada)
 
@@ -432,14 +448,17 @@ Exits: South and East
 
 You can see the cigarette lighter.
 
->
+> push button
+
 You begin to fiddle with the various controls on the panel.  Nothing
 particularly interesting happens until you press one button and a message
 flickers on one of the computer screens briefly - LABORATORY DOOR UNLOCKED
 
->You pick up the cigarette lighter.
+> take lighter
+You pick up the cigarette lighter.
 
->You move south.
+> s
+You move south.
 
 Corridor (Area 51, Nevada)
 
@@ -451,7 +470,8 @@ Nice of them to label the doors for you.
 
 Exits: North, South, East and West
 
->You move south.
+> s
+You move south.
 
 Corridor (Area 51, Nevada)
 
@@ -466,7 +486,8 @@ Exits: North, South and West
 Private Kline stands in front of the double doors, blocking your way.  He
 looks determined to keep you out.
 
->You move west.
+> w
+You move west.
 
 Storage Cupboard (Area 51, Nevada)
 
@@ -481,7 +502,8 @@ Exits:  East
 
 Horse waits here, looking quite majestic.
 
->
+> say manchester to horse
+
 You climb on to Horse's back.  He/She climbs into the air and you travel, at
 an incredible speed, to your destination.
 
@@ -611,9 +633,11 @@ You can see Ernest Busset's shoe.
 Horse waits here, looking quite majestic.  Thomas Brewer stands here, looking
 around the cellar thoughtfully.
 
->You pick up Ernest Busset's shoe.
+> take shoe
+You pick up Ernest Busset's shoe.
 
->
+> x workbench
+
 You've never been one for DIY (other than in the scythe department) so you
 don't have a clue what most of the tools here are even called, let alone what
 they do.  The only things you have any confidence about are a large roll of
@@ -623,7 +647,8 @@ has rotted to ruins, all things - in a metaphorical way - belong to you.  At
 least that's what you tell yourself whenever your rampant kleptomania
 overtakes you.
 
->
+> repair shovel
+
 You have a crazy idea.  They're often the best kind.  Reaching into your robe
 you pull out the shovel blade and the sturdy branch.  Placing the items on
 the workbench you grab the masking tape and begin work.
@@ -633,7 +658,8 @@ masking tape.  You examine your work and grunt in approval.  Not a bad job if
 you do say so yourself.  Of course, it looks like an ancient torture device
 but at least it should work.
 
->You move up.
+> u
+You move up.
 
 Hallway (Manchester)
 
@@ -646,7 +672,8 @@ is a - shock! - telephone.
 
 Exits: North, South, West and Down
 
->You move south.
+> s
+You move south.
 
 Living Room (Manchester)
 
@@ -660,7 +687,8 @@ saying "You call this living?".
 
 Exits: North
 
->
+> x papers
+
 You shuffle through the pages.  Some of the papers and drawings make perfect
 sense to you (such as the angry red bill from the telephone company
 threatening to cut off service, or the sketched picture of a man with an
@@ -674,7 +702,8 @@ Having done this you file your collection of paperwork into one of the
 pockets in your robe.  This stuff might help you get your scythe on Ernest's
 soul.
 
->You move north.
+> n
+You move north.
 
 Hallway (Manchester)
 
@@ -687,7 +716,8 @@ is a - shock! - telephone.
 
 Exits: North, South, West and Down
 
->You move down.
+> d
+You move down.
 
 Cellar (Manchester)
 
@@ -703,7 +733,8 @@ Exits: Up
 Horse waits here, looking quite majestic.  Thomas Brewer stands here, looking
 around the cellar thoughtfully.
 
->
+> say san francisco to horse
+
 You climb on to Horse's back.  He/She climbs into the air and you travel, at
 an incredible speed, to your destination.
 
@@ -747,7 +778,8 @@ Exits: East and South
 
 Horse waits here, looking quite majestic.
 
->You move east.
+> e
+You move east.
 
 High Street (San Francisco)
 
@@ -762,7 +794,8 @@ as you've recently started using their services.
 
 Exits: East, West, South and North
 
->You move north.
+> n
+You move north.
 
 Hardware Store (San Francisco)
 
@@ -778,13 +811,15 @@ Exits: South
 
 Standing behind the counter is a fat bearded man wearing overalls.
 
->
+> x counter
+
 The counter, like all counters everywhere, is home to a till.  As well as the
 till you can see a sign which says "CASH ONLY.  NO CREDIT CARDS OR OTHER
 FORMS OF ELECTRONIC PAYMENTS ACCEPTED".  Resting on the counter is also a
 small coil of wire.
 
->
+> take wire
+
 For some reason you feel a strong urge to take the coil of wire, as though
 some sixth sense is warning you that you might need it later on.  A cunning
 plan formulates in your mind.
@@ -805,7 +840,8 @@ that the wire is gone.
 "Never mind.  It wath nothing." You feel very pleased with yourself.  You
 shouldn't.  That whole thing was lame.
 
->You move south.
+> s
+You move south.
 
 High Street (San Francisco)
 
@@ -820,7 +856,8 @@ as you've recently started using their services.
 
 Exits: East, West, South and North
 
->You move east.
+> e
+You move east.
 
 Book Shop (San Francisco)
 
@@ -835,13 +872,15 @@ that you can see.
 
 Exits: West
 
->
+> read chess guide
+
 You pick up the chess guide and flick through the pages.  It only takes about
 five minutes to read the entire pamphlet but after having done so you feel
 that you've got a much better grasp of the game of chess.  You feel confident
 about your ability to play the game and win, even as black...
 
->You move west.
+> w
+You move west.
 
 High Street (San Francisco)
 
@@ -856,7 +895,8 @@ as you've recently started using their services.
 
 Exits: East, West, South and North
 
->You move west.
+> w
+You move west.
 
 High Street (San Francisco)
 
@@ -871,7 +911,8 @@ Exits: East and South
 
 Horse waits here, looking quite majestic.
 
->You move south.
+> s
+You move south.
 
 Costume Shop (San Francisco)
 
@@ -886,7 +927,8 @@ Exits: North
 The owner of the shop is here, rummaging through various piles of clothing
 and checking them against a list.
 
->
+> give shoe to man
+
 Without saying a word you pull out the shoe that you found in Manchester and
 offer it to the shop owner.  He looks up from his list and pauses.  Slowly he
 reaches out and takes the shoe from you.
@@ -914,10 +956,12 @@ happy to give you in exchange for the shoe."
 or...or...aha...here we are.  Yes, this lovely white wedding gown.  Would you
 like the mask or the gown?" the man asks.
 
->
+> mask
+
 The costume shop owner smiles and hands you a gruesome looking rubber mask.
 
->You move north.
+> n
+You move north.
 
 High Street (San Francisco)
 
@@ -932,7 +976,8 @@ Exits: East and South
 
 Horse waits here, looking quite majestic.
 
->
+> say nevada to horse
+
 You climb on to Horse's back.  He/She climbs into the air and you travel, at
 an incredible speed, to your destination.
 
@@ -949,7 +994,8 @@ Exits:  East
 
 Horse waits here, looking quite majestic.
 
->
+> wear mask
+
 An idea occurs to you.  You try the mask on.  It fits quite snugly.  A little
 too snugly, in fact.  If you had to wear this for a long time then you'd
 probably suffocate...if that were possible for you.
@@ -974,7 +1020,8 @@ back of the neck.
 
 "Good boy...or girl." you smile.
 
->You move east.
+> e
+You move east.
 
 Corridor (Area 51, Nevada)
 
@@ -986,7 +1033,8 @@ the south end is a set of unmarked double doors.
 
 Exits: North, South and West
 
->
+> s
+
 Autopsy Room (Area 51, Nevada)
 
 You are in a gleaming metallic room.  Various computers and pieces of
@@ -1000,7 +1048,8 @@ Exits: North
 
 Splong5b lies on the table in a pool of yellow blood, totally still.
 
->
+> reap soul
+
 You bring your Scythe round in a sweep and slice through Splong5b's corpse.
 There is the usual tinkling sound that you associate with the task, and then
 silence.
@@ -1012,7 +1061,8 @@ him a friendly nod.  He waves back.
 
 Another name to be crossed off the list.
 
->You move north.
+> n
+You move north.
 
 Corridor (Area 51, Nevada)
 
@@ -1024,7 +1074,8 @@ the south end is a set of unmarked double doors.
 
 Exits: North, South and West
 
->You move north.
+> n
+You move north.
 
 Corridor (Area 51, Nevada)
 
@@ -1036,7 +1087,8 @@ Nice of them to label the doors for you.
 
 Exits: North, South, East and West
 
->
+> w
+
 Laboratory (Area 51, Nevada)
 
 You are standing in a large spotless room.  The first thing you notice is a
@@ -1048,7 +1100,8 @@ the room seem to be one or two unfinished experiments.
 
 Exits: East
 
->
+> enter machine
+
 You awkwardly clamber inside the time machine.
 
 Inside Time Machine (Area 51, Nevada)
@@ -1065,17 +1118,20 @@ paper which is chained to the inside of the machine, clearly to avoid theft.
 
 Exits: Exit
 
->
+> repair machine
+
 After checking the time machine plans you manage to fit the small coil of
 wire where you believe it should go.  As if to confirm your action, there is
 a humming noise and a few extra lights go on.  It looks as if you have
 managed to repair the time machine...
 
->
+> push red button
+
 You press the red button.  The light next to AD flickers and goes off, while
 the light next to BC glows.
 
->
+> 10097
+
 The lights inside the machine dim, the door slides closed and something
 inside the machine begins to hum.  There is a flash of light, a momentary
 sensation of movement and then silence.  The door slides open and you step
@@ -1113,7 +1169,8 @@ Exits: No Exits
 Ernest Busset is standing, marvelling at the sights and sounds around him.
 He doesn't seem at all worried.
 
->
+> reap soul
+
 You swing the scythe in a circular motion, slicing right through Ernest
 Busset.  He looks down at himself and then crumples to the ground in a heap.
 The shade of Ernest Busset remains behind, looking first down at his body and
@@ -1130,7 +1187,8 @@ your eyes.
 
 Another soul reaped.  Another soul closer to finishing work.
 
->
+> enter machine
+
 You climb back into the time machine, and just as you sit down the machine
 begins to vibrate.  In a few seconds you find yourself back in 2007.  You get
 out of the machine, back into the laboratory.
@@ -1146,7 +1204,8 @@ the room seem to be one or two unfinished experiments.
 
 Exits: East
 
->You move east.
+> e
+You move east.
 
 Corridor (Area 51, Nevada)
 
@@ -1158,7 +1217,8 @@ Nice of them to label the doors for you.
 
 Exits: North, South, East and West
 
->You move south.
+> s
+You move south.
 
 Corridor (Area 51, Nevada)
 
@@ -1170,7 +1230,8 @@ the south end is a set of unmarked double doors.
 
 Exits: North, South and West
 
->You move west.
+> w
+You move west.
 
 Storage Cupboard (Area 51, Nevada)
 
@@ -1186,7 +1247,8 @@ Exits:  East
 Horse waits here, looking quite majestic.  Private Kline is here, slumped in
 a heap on the floor.
 
->
+> say nepal to horse
+
 You climb on to Horse's back.  He/She climbs into the air and you travel, at
 an incredible speed, to your destination.
 
@@ -1252,7 +1314,8 @@ Exits: No Exits
 
 Horse waits here, looking quite majestic.
 
->
+> dig snowdrift
+
 You roll up your sleeves and grab your shovel.
 
 "Don't thay anything," you speak sternly to Horse, who you suspect is
@@ -1275,7 +1338,8 @@ Exits: No Exits
 Horse waits here, looking quite majestic.  Lord Nigel McWorthington is here,
 lying on the rocky ground.
 
->
+> reap soul
+
 You swing your scythe in a downward arc, slicing through Lord Nigel
 McWorthington.  There is a tinkling noise in the background and the departed
 soul of Lord McWorthington rises from his body.  He stands and looks down at
@@ -1288,7 +1352,8 @@ vanishes.  It really annoys you when people blame you for their death.  Maybe
 in this case Lord McWorthington had a point, but still.  You're just doing
 your job.  And now you're one soul closer to finishing for the day.
 
->
+> say kenya to horse
+
 You climb on to Horse's back.  He/She climbs into the air and you travel, at
 an incredible speed, to your destination.
 
@@ -1307,7 +1372,8 @@ Exits: North, East and West
 
 Horse waits here, looking quite majestic.
 
->You move north.
+> n
+You move north.
 
 Hut (Near Wajir, Kenya)
 
@@ -1321,7 +1387,7 @@ Exits: South
 
 Jimiyu Wangai is grinning at you from his chair.
 
->
+> play chess
 
 "I'm ready.  Let'th play," you take your seat behind the black pieces.
 
@@ -1350,7 +1416,8 @@ you care.
 
 "I'm ready then.  Let us do this." Jimiyu smiles again.
 
->
+> reap soul
+
 You swing the scythe and it cleaves through Jimiyu Wangai.  He is still
 smiling as his body crumples to the floor, leaving behind the shade of his
 soul.
@@ -1362,7 +1429,8 @@ You nod.
 He begins to fade out of sight, gives one last laugh and waves at you.  You
 wave back.  Another soul reaped.
 
->You move south.
+> s
+You move south.
 
 Village (Near Wajir, Kenya)
 
@@ -1379,7 +1447,8 @@ Exits: North, East and West
 
 Horse waits here, looking quite majestic.
 
->
+> say france to horse
+
 You climb on to Horse's back.  He/She climbs into the air and you travel, at
 an incredible speed, to your destination.
 
@@ -1491,7 +1560,8 @@ Exits: East
 
 Agathe Laurent lounges on the bed, pouting playfully at you.
 
->
+> use lighter
+
 You casually move over to the smoke alarm while Agathe watches you like a
 hawk.
 
@@ -1512,7 +1582,8 @@ screams in frustration as you discard the lighter.
 It doesn't take long for the chalk circle to be totally erased, and as the
 sprinkler suddenly ceases its job Agathe looks terrified.  You are grinning.
 
->
+> reap soul
+
 You swing your scythe through the screaming Agathe Laurent.  Her lifeless
 body falls back onto the bed and leaves her departed soul standing behind.
 She looks at you in terror as she vanishes.

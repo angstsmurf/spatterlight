@@ -18,7 +18,7 @@ An ADRIFT text adventure by David Whyld
 
         6:  Information for players new to ADRIFT
 
->
+> 1
 
 "We're going to kill him, aren't we?"
 
@@ -37,7 +37,8 @@ it) stand around waiting for the inevitable "filling-in" process.
    The footpath leads away to the east.
    Stephanie stands to one side of me.
 
->It wouldn't really be appropriate for myself and Stephanie to walk hand in
+> e
+It wouldn't really be appropriate for myself and Stephanie to walk hand in
 hand from her husband's funeral so she walks ahead and I follow closely
 behind. The curves of her buttocks show through her long black dress and
 despite the surroundings and the occasion, I find myself growing aroused.
@@ -110,7 +111,8 @@ However, later...
    2: "An accident."
    3: "A faked burglary."
 
->"He's old and senile," I say, "so an accident is the most likely way for him
+> 2
+"He's old and senile," I say, "so an accident is the most likely way for him
 to die. The way he still totters around, up and down stairs, without a care
 in the world... well, he's just asking for it."
    "Will it be soon?"
@@ -141,7 +143,8 @@ have been termed a "throne" in ancient times.
 view of the mansion grounds while a closed door to the south leads out to a
 long and dusty corridor.
 
->I hear the tapping of his cane before Wilfred Gamble limps into the room. My
+> wait
+I hear the tapping of his cane before Wilfred Gamble limps into the room. My
 first impression of him brings a twinge of pity but I keep it from my face.
 If there's one thing I have heard about him it's that he detests pity.
    "You Rogers?" he barks, his voice waspish and frail. The way he asks tends
@@ -158,7 +161,8 @@ for, Rogers?"
    3: "I'm here for the page boy job."
    4: "I was just passing through."
 
->"Yes, I was." I get the impression, right from the start, that he doesn't
+> 1
+"Yes, I was." I get the impression, right from the start, that he doesn't
 care for me. He doesn't say so in as many words but the feeling is definitely
 there that he would like nothing more than to throw me out on my ass. "I was
 indeed, Rogers. You can handle yourself in a fight, I take it?"
@@ -202,7 +206,8 @@ you keep her safe, Rogers?"
    1: "Yes."
    2: "No."
 
->"Good. You start now. You'll find Stephanie upstairs in her room."
+> 1
+"Good. You start now. You'll find Stephanie upstairs in her room."
    And with that he turns away, the meeting apparently over.
    I wait for a few seconds to make sure I haven't misread the situation then
 nod quickly, rise to my feet, and leave the room.
@@ -258,7 +263,8 @@ wake - generally a sombre, morose affair - no one seems especially down.
 Doorways lead to many other rooms in the mansion, to the north, west and
 southeast. Of Stephanie I see no sign.
 
->I leave the dining room and step out onto a balcony overlooking the gardens.
+> se
+I leave the dining room and step out onto a balcony overlooking the gardens.
 After a few moments, I sense Stephanie join me.
    "We got away with it, didn't we?" she says quietly, looking out over the
 gardens.
@@ -300,7 +306,8 @@ ear. "That's not what I asked. Are you gay?"
    2: "Yes."
    3: "None of your damn business."
 
->For a moment there was dead silence from the back of the car. Then,
+> 3
+For a moment there was dead silence from the back of the car. Then,
 surprisingly, Stephanie Gamble laughed!
    "Oh, you've got balls, Steve," she said. "You really fucking have. Anyone
 else would have given a meek 'yes' or 'no'. God, people are so fucking
@@ -324,7 +331,8 @@ let me inside with her. "I'll be a couple of hours, Steve," she said as she
 got out of the car. "Don't wait up for me."
    That was three hours ago.
 
->I step out of the car. The night is cool. No, not cool. Cold. Downright
+> out
+I step out of the car. The night is cool. No, not cool. Cold. Downright
 freezing. Considering what Stephanie was wearing, it's a wonder she didn't
 freeze to death before she got into the club.
    I approach the entrance, nod once to each of the bouncers who eye me up as
@@ -346,7 +354,8 @@ themselves about with wild abandon. Of Stephanie I see no sign although a
 couple of doorways - northwest and northeast - lead deeper into the club. The
 door I entered through is at my back to the south.
 
->I step through the doorway and find myself in another room, roughly the same
+> ne
+I step through the doorway and find myself in another room, roughly the same
 size as the first. More people throw themselves about as is in some kind of-
    A sudden scream tears through the club, shockingly loud. Strangely, no one
 else seems unduly bothered by it. Stephanie? Or someone else?
@@ -390,7 +399,8 @@ understand what he was doing half the time."
 his wake, Mr Crimmons."
    3: "Tell me more. I've always been interested in the subject."
 
->Crimmons frowns at me and looks about to say something but Stephanie flashes
+> 2
+Crimmons frowns at me and looks about to say something but Stephanie flashes
 him a warning glance.
    "Yes, Samuel," she says, her voice cold and hard. "I don't think this is
 the time or the place. My husband is dead. Today we buried him and tonight
@@ -438,7 +448,8 @@ if ye know what's good for ye."
    Stephanie gives a terrified gasp and I realise I have a split second to
 act.
 
->The boxer sees me coming but he's too slow on his feet to do anything about
+> hit boxer
+The boxer sees me coming but he's too slow on his feet to do anything about
 it. My fist connects solidly with his jaw and he's down before he even knows
 what has hit him. The punk takes a step toward me but something makes him
 stop.
@@ -474,7 +485,8 @@ The bedroom is dark, illuminated only by the dim light from the moon hanging
 in the sky outside the window. Stephanie lies on the bed at my side, still
 asleep. A door, closed, is the room's only exit.
 
->I creep out of bed, eager not to disturb Stephanie, and make my way to the
+> open door
+I creep out of bed, eager not to disturb Stephanie, and make my way to the
 door. I hesitate there for a second, holding my breath. I hear Stephanie's
 breathing but nothing else-
    Ah. But then I hear the sound I heard before. Someone moving around in the
@@ -486,16 +498,20 @@ the north I can just about make out the main staircase leading down to the
 ground floor. The other way leads to where the attic is. Stephanie's bedroom
 is back to the west.
 
->I move south.
+> s
+I move south.
 
 Above me is a trapdoor in the ceiling which leads to the attic. A corridor
 stretches away north back to the area outside Stephanie's room.
 
->I see a chain hanging down.
+> x trapdoor
+I see a chain hanging down.
 
->I tug on the chain and the trapdoor opens, allowing a ladder to slide down.
+> pull chain
+I tug on the chain and the trapdoor opens, allowing a ladder to slide down.
 
->I climb the ladder and step into the attic.
+> u
+I climb the ladder and step into the attic.
 
 Strangely enough, the attic light is on though I have never set foot up here
 and neither has Stephanie (to my knowledge). I know for a fact Gamble never
@@ -503,7 +519,7 @@ came up in the recent months before his death as there was no way someone as
 fragile as he could have climbed that ladder. So how long has the light been
 on? Or is there a more sinister explanation for why it is on?
 
->
+> l
 
 The attic is large but gives the impression of being so much smaller due to
 its incredibly cramped state. All manner of junk has been piled in here -
@@ -513,7 +529,8 @@ believed in hoarding stuff and never throwing anything out.
    What caused the sound I heard earlier on I cannot say as there does not
 appear to be anyone else here.
 
->The moment I reach my hand out, I experience a churning sensation from the
+> get boxes
+The moment I reach my hand out, I experience a churning sensation from the
 pit of my stomach and something - I do not see what - slams into me from
 behind. Thinking I am about to be attacked, I spin, fists at the ready… and
 find myself facing the same empty attic as before. Of my attacker there is no
@@ -542,14 +559,16 @@ views on how Mr Gamble died?"
    2: "I suspect foul play."
    3: "I really don't have an opinion on the matter."
 
->"That's what I thought," says the inspector. "Mr Gamble was - and let's not
+> 1
+"That's what I thought," says the inspector. "Mr Gamble was - and let's not
 beat about the bush - not in the best of health, was he? It might even be
 true to say that he was going a little senile?"
 
    1: "I would guess so."
    2: "I doubt it. He seemed competent when I last saw him."
 
->The inspector shrugs but makes no further comment to that. "What of you, Miss
+> 2
+The inspector shrugs but makes no further comment to that. "What of you, Miss
 Gamble? Do you think your husband… sorry, ex-husband was a little senile?"
    "I hardly think that's an appropriate question to ask, officer," says
 Stephanie, looking him full in the eye. "I loved my husband and I'll thank
@@ -575,7 +594,8 @@ bodyguard. And as you can see, she is in perfect health."
 was old and his death was an accident. Some things just can't be guarded
 against."
 
->"I'm sure," says the inspector, sounding anything but. "Mr Rogers, where were
+> 2
+"I'm sure," says the inspector, sounding anything but. "Mr Rogers, where were
 you on the night Mr Gamble died?"
    "Right here in the mansion. I walked my rounds-"
    "Your rounds?"
@@ -592,7 +612,8 @@ the inspector that.
    1: "After that I went and checked on Mrs Gamble."
    2: "I went to see Mr Gamble."
 
->"And?"
+> 2
+"And?"
    "And he was fine."
    The inspector looks at me and I look back at him.
    "That's nice," says the inspector. "And Mrs Gamble, was she fine?"
@@ -615,7 +636,8 @@ if it is no big deal and turns to me.
    2: "Mrs Gamble did."
    3: "One of the servants did."
 
->"And what did you do then?"
+> 1
+"And what did you do then?"
    "I checked him for a pulse and, upon finding none, I called the police."
    "Ah." The inspector taps his pen on his knee as he says this.
 "Interesting."
@@ -628,7 +650,8 @@ that occurred to me when I saw him like that is that he had surprised a
 burglar."
    2: "I had my suspicions."
 
->The inspector looks at me. I can't tell for certain but I get the feeling he
+> 1
+The inspector looks at me. I can't tell for certain but I get the feeling he
 is disappointed with my answer, as if he expected me to say something else.
 He frowns. "I don't believe I have any other questions for now." He nods to
 the two of us and rises to his feet. "Oh, one last thing…"
@@ -656,7 +679,8 @@ questions. He can't prove a thing."
    3: "I agree but what can we do? I suggest we sit tight and hope for the
 best."
 
->"The waiting's the worse part," Stephanie says. "Sitting here and wondering
+> 3
+"The waiting's the worse part," Stephanie says. "Sitting here and wondering
 just how much they know. Fuck, Steve, they could know enough to put away for
 fucking years!"
    "Calm down," I say. I sound calmer than her but I'm worried all the same.
@@ -691,13 +715,17 @@ The Night Of The Murder
 I'm crouched partway down the stairs. They're wide, fifteen feet or so, and
 too narrow to be deemed safe.
 
->A little time passes.
+> wait
+A little time passes.
 
->A little time passes.
+> wait
+A little time passes.
 
->A little time passes.
+> wait
+A little time passes.
 
->A little time passes.
+> wait
+A little time passes.
 
 I duck back into the shadows as Gamble starts down the stairs, his cane
 thumping as he moves. He walks quickly, surprisingly quickly for a man of his
@@ -775,7 +803,8 @@ itself is small and unremarkable: there are no windows and nothing in the way
 of decoration or scenery. A table pushed against one wall holds the chest
 that was delivered this morning.
 
->It takes several attempts to get the chest open. The hinges are stiff and at
+> open chest
+It takes several attempts to get the chest open. The hinges are stiff and at
 first I think it might even be locked, but then when I exert a bit of extra
 pressure I manage to force it open.
    A rancid smell shoots out and I choke on dust. Waving my hands to clear
@@ -783,7 +812,8 @@ it, I open wide the door to let the dust disperse. Then I approach the chest.
 It is empty aside from a scattering of the dust which flew out when I opened
 it, and a book, perhaps a diary of some sort, lying in the bottom.
 
->I flip through the pages, all of which seem blank. Ah! Near the back are a
+> get diary
+I flip through the pages, all of which seem blank. Ah! Near the back are a
 few entries:
 
 8th June 2005
@@ -836,7 +866,8 @@ rest of it."
    1: "You never told me he hit you."
    2: "We need to decide what we're going to do about this."
 
->"Do? Nothing. I'm not paying a fucking thing." Stephanie reads over the final
+> 2
+"Do? Nothing. I'm not paying a fucking thing." Stephanie reads over the final
 diary entry. "This isn't much of a fucking blackmail tool anyway. So Wilfred
 knew I was cheating on him? So what? It's hardly going to stand up in a court
 of law as proof that we killed him. That's assuming it's even his
@@ -919,14 +950,16 @@ and the dining room to the east.
 I hear someone call my name from the dining room. One of the servants? It
 certainly wasn't Stephanie.
 
->I step into the dining room. It is empty. But as I look around uneasily, I
+> e
+I step into the dining room. It is empty. But as I look around uneasily, I
 catch sight of the door on the far side of the room swinging shut.
 
 Dining Room
 A table occupies most of the floor space in the dining room. Other than that,
 the furnishings are irrelevant aside from the doors to the west and north.
 
->I hurry through the door and find myself in another short corridor. But this
+> n
+I hurry through the door and find myself in another short corridor. But this
 one is dark. The bulb must have failed. As I look around, squinting in the
 darkness, I catch sight of a figure standing over by a covered window.
    "Hello, Rogers," says a voice I know all too well. "So nice to see you
@@ -952,7 +985,8 @@ Gamble is dead."
 you know what's good for you."
    3: Attack him and be done with it.
 
->Almost before I realise what I'm doing, I lunge at the figure in the shadows
+> 3
+Almost before I realise what I'm doing, I lunge at the figure in the shadows
 and grab him by the throat. Or try to anyway. For the moment I seize hold of
 him, a stunning blow catches me on the back of the head and I find the
 shadows around me growing darker and darker and…
@@ -1073,7 +1107,8 @@ And there are blind spots. Mr Gamble was just unlucky."
    2: "Mr Gamble wasn't killed, inspector. He was merely old and he died of
 natural causes. As simple as that."
 
->"My friend is a coroner," says the inspector. "Nice fellow. Has a couple of
+> 2
+"My friend is a coroner," says the inspector. "Nice fellow. Has a couple of
 dogs. Good with children. I had dinner with him last evening and we talked
 over the case, as we often do. It's good to air your views and listen to what
 others have to say about them. He's not entirely convinced that Mr Gamble's
@@ -1089,7 +1124,8 @@ reference to you, Rogers, in Mr Gamble's will."
 
    1: "I was mentioned in Mr Gamble's will? You must be mistaken."
 
->"No. Not mistaken at all, Rogers. You seem surprised. Why, if I didn't know
+> 1
+"No. Not mistaken at all, Rogers. You seem surprised. Why, if I didn't know
 better I'd swear you'd read it."
    I say nothing and keep my face carefully neutral.
    Unfortunately, the inspector doesn't care to enlighten me any further.
@@ -1099,7 +1135,8 @@ digging and you're hardly an angel, now are you?"
    1: "I've served in the police, the army and the SAS, inspector. I've been
 called upon to do some… unpleasant things. It goes with the job."
 
->"Yes. Impressive record. But it's not the things you've been called upon to
+> 1
+"Yes. Impressive record. But it's not the things you've been called upon to
 do that interests me, Rogers, but, rather, the things you've decided to do
 that I'm sure you never ordered to."
    "Such as?" I have to admit, he has me rattled now. That comment about me
@@ -1109,7 +1146,8 @@ about my background being chequered. I just wonder how much he knows.
 
    1: "Seamus O'Riley."
 
->"Yes, that's the fellow. You killed him in a pub brawl from what I gather."
+> 1
+"Yes, that's the fellow. You killed him in a pub brawl from what I gather."
    I shrug. "It was unfortunate what happened but the courts exonerated me
 afterwards. It was self defence."
    "Lucky for you I wasn't on the jury," the inspector says, and the smile
@@ -1124,7 +1162,8 @@ guilty. End of story."
    2: "Why don't you cut to the chase and tell me what's really on your mind,
 inspector."
 
->The inspector studies me closely without any expression registering on his
+> 2
+The inspector studies me closely without any expression registering on his
 face. Then, finally, he says, "I could arrest you now, Rogers, and drag you
 down the station and question you in a horrible little room we call 'The
 Box'. It's quite dark in there as the light doesn't work very well. It's also
@@ -1190,21 +1229,24 @@ would be just about empty.
 corridor running along the length of the mansion. Both are currently closed.
    Stephanie is here, looking more agitated than I have ever seen her before.
 
->"That miserable old cunt," she says. "That… miserable… old… cunt!" The last
+> talk to stephanie
+"That miserable old cunt," she says. "That… miserable… old… cunt!" The last
 word is almost shouted. "I hate him, I hate him, I hate him. God, give me a
 fucking gun and so help me god I'd-"
 
    1: "What did he do?"
    2: "You need to calm down."
 
->"What didn't he do? He's always been a sick old pervert, but today…" She
+> 1
+"What didn't he do? He's always been a sick old pervert, but today…" She
 shakes her head. "Let's just say that there are certain things I'm not doing,
 and I don't give a fuck if he divorces me and kicks me out into the street
 without a damn thing, I'm not doing them!"
 
    1: "You need to calm down."
 
->"Don't tell me to fucking calm down, Steve! You don't tell me what to do! I'm
+> 1
+"Don't tell me to fucking calm down, Steve! You don't tell me what to do! I'm
 in fucking charge here! I'm…" And then, like a balloon being burst, the anger
 just goes out of her and she sinks into a chair and puts her head in her
 hands. She mutters something.
@@ -1223,14 +1265,16 @@ eavesdrop on Stephanie's conversations.
    1: "I hate him as well."
    2: Say something non-committal.
 
->Stephanie looks at me. I'm not sure what to make of the look on her face.
+> 1
+Stephanie looks at me. I'm not sure what to make of the look on her face.
 It's cold, calculating. I can see her thinking about something.
    Then she says, "you've killed men before haven't you, Steve?"
 
    1: "One man. Years ago. In self defence."
    2: Say nothing.
 
->Stephanie leans forward, resting her elbows on her knees. She's wearing a low
+> 1
+Stephanie leans forward, resting her elbows on her knees. She's wearing a low
 cut dress (the only kind of dress she ever seems to wear) and her breasts
 strain against the fabric.
    "What was it like?" she asks.
@@ -1243,7 +1287,8 @@ what's it really like?"
 sickness. The regret when I met the man's parents.
    2: Say it was the best damn thing I ever did.
 
->"Fuck, I bet it was," says Stephanie, eyes aglow. "I've read about it, of
+> 2
+"Fuck, I bet it was," says Stephanie, eyes aglow. "I've read about it, of
 course. There's a bit in your file about it, but it's all cold and lifeless.
 It's not like being there. Nothing like it." She walks over to me and sits in
 my lap. I can feel her body pressing against my own and, damnit, I can feel
@@ -1271,7 +1316,8 @@ in the air. Somewhere, someone is dancing a jig and people are laughing and
 clapping and someone else is playing an instrument. Everything seems very
 jolly.
 
->I leave my seat and go to stand by the bar.
+> stand
+I leave my seat and go to stand by the bar.
 
 I am by the bar, along with four other customers who do such a good job of
 ignoring me it's like I have been suddenly struck invisible. The bartender, a
@@ -1279,11 +1325,14 @@ gruff fellow with ruddy cheeks, does his likewise best to pretend he has not
 even seen me, despite the fact that he served me a drink not more than ten
 minutes ago. A door to the west leads outwards.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
 The door bangs open and in staggers none other than Seamus O'Riley, the local
 hothead. I was warned about him when I was posted to this small village in
@@ -1304,7 +1353,8 @@ size. He might be ten years my junior but he tops me by a good six inches.
    And the rest of the tavern, predictably, goes on doing its level best to
 pretend I am not even there.
 
->It seems Seamus intends to cause trouble and, right now, I'm more than happy
+> kill seamus
+It seems Seamus intends to cause trouble and, right now, I'm more than happy
 to oblige. I raise my hands in a placating gesture, then draw them together
 over my head and slam them down into Seamus' forehead. The blow should drive
 him to his knees or knock him outright unconscious. Either suits me fine.
@@ -1359,13 +1409,17 @@ Stephanie stands to one side of me.
 "I'm frightened," says Stephanie.
    I don't respond.
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
->Time passes...
+> wait
+Time passes...
 
 A cool wind blows and suddenly I am aware that someone else is here. Where
 before there was just the two of us, Stephanie and myself, now there is a
@@ -1375,7 +1429,8 @@ long overcoat.
 
    1: "Who are you?"
 
->The figure takes a step forward, and the light from the moon shines on the
+> 1
+The figure takes a step forward, and the light from the moon shines on the
 face of Wilfred Gamble.
    Stephanie gives a cry and sinks to her knees on the ground.
    "You seem surprised to see me, Rogers," says Gamble, looking at me with a
@@ -1383,33 +1438,38 @@ sneer. "Did you think I was dead?"
 
    1: "I know for a fact you're dead. I killed you."
 
->"And yet here I stand, to all intents and purposes alive. It seems you were
+> 1
+"And yet here I stand, to all intents and purposes alive. It seems you were
 mistaken when you thought you'd killed me-"
 
    1: "You're not Wilfred Gamble. I don't know who the hell you are but
 Wilfred Gamble is dead."
 
->The figure smiles. It's the same smile Gamble used to display when he was
+> 1
+The figure smiles. It's the same smile Gamble used to display when he was
 amused about something. "Yes. He is. Or, rather, I am. Or was." He smiles
 again. "It gets so confusing. You'd think after this many times, I'd get the
 terminology right."
 
    1: "You're making no sense, Gamble."
 
->"Ah, so you're calling me 'Gamble' now. That's a start at least."
+> 1
+"Ah, so you're calling me 'Gamble' now. That's a start at least."
    I take a step back as the figure moves towards me. He looks like Gamble,
 he talks like Gamble, he even has Gamble's mannerisms, but…
 
    1: "You never died, did you?"
 
->"Oh, but I did. I died, Rogers. You killed me. I'm hurt you seem to forget
+> 1
+"Oh, but I did. I died, Rogers. You killed me. I'm hurt you seem to forget
 the incident, but then you weren't the one pushed down the stairs, were you?
 You bastard. I'd hate you, Rogers, if I hadn't had the same thing planned for
 you all along."
 
    1: "What are you talking about?"
 
->Gamble laughs. "Why don't you tell him, Stephanie?"
+> 1
+Gamble laughs. "Why don't you tell him, Stephanie?"
    I look at Stephanie where she kneels on the ground. Her face is downcast.
 Her hands curled into fists.
    "I thought you were really dead this time," she says.
@@ -1421,14 +1481,16 @@ him. "You just moved faster than I thought."
 
    1: "What was planned all along?"
 
->"I'm old," says Gamble. "Old and dying. I hate this body. This withered,
+> 1
+"I'm old," says Gamble. "Old and dying. I hate this body. This withered,
 twisted, decaying, desiccated corpse. It's weak, it's painful to keep
 breathing, to keep moving. To keep… alive. But you, Rogers. You're young and
 healthy. Yours is a body I could live in quite easily."
 
    1: "What-"
 
->"Do it, Stephanie," says Gamble, and I turn as I sense a movement behind me.
+> 1
+"Do it, Stephanie," says Gamble, and I turn as I sense a movement behind me.
    Stephanie stands there, an iron bar in her hands. "Wilfred-"
    "Do it, you stupid whore!" Gamble hisses. "Do it now, or so help me god,
 you'll suffer the same fate as this fool!"
@@ -1474,7 +1536,8 @@ the half of it."
    1: "What was he planning to do with me?"
    2: "Was that really Wilfred Gamble we buried last night?"
 
->"His body was dying. He wanted another one." She looks at me and says, "he
+> 1
+"His body was dying. He wanted another one." She looks at me and says, "he
 wanted yours."
    "As simple as that? He just intended to… what, rip my soul out and step
 into it himself?"
@@ -1482,7 +1545,8 @@ into it himself?"
 
    1: "And what would have happened to me?"
 
->"He never told me, but I think the whole process involves some kind of…
+> 1
+"He never told me, but I think the whole process involves some kind of…
 transfer."
    "I don't follow you."
    "A transfer. If his soul goes into your body, I think yours goes into
@@ -1492,7 +1556,8 @@ his."
 
    1: "How does he do these things?"
 
->"You think he told me? He didn't. He was paranoid as hell about stuff like
+> 1
+"You think he told me? He didn't. He was paranoid as hell about stuff like
 that. But I used to sneak into his study when he wasn't there, and I had
 spares cut of all his keys, and I found a lot of stuff that put two and two
 together for me."
@@ -1500,7 +1565,8 @@ together for me."
    1: "Such as?"
    2: "Forget that. Why didn't you tell me about this beforehand?"
 
->"Books. Really old books. Some were hundreds of years old and there were a
+> 1
+"Books. Really old books. Some were hundreds of years old and there were a
 couple that felt like…" She grimaces. "Like they were made from flesh. Human
 flesh. I felt sick just touching them. There were passages in each of them
 that Wilfred had marked, passages on resurrection and soul transfer and life
@@ -1508,7 +1574,8 @@ after death. There was your name there as well."
 
    1: "He'd been planning this since I first came to work for him?"
 
->Stephanie nods. "He said you were ideal. Young, strong, no history of disease
+> 1
+Stephanie nods. "He said you were ideal. Young, strong, no history of disease
 or disability in your family. You didn't smoke or drink heavily. You didn't
 do drugs. No heart problems and you were very rarely ill."
    "I feel like something he saw in a shop window and decided to buy."
@@ -1520,7 +1587,8 @@ needed, so you got the job."
 
    1: "Why didn't you tell me about this beforehand?"
 
->"You wouldn't have believed me. I can see it in your eyes, Steve. You don't
+> 1
+"You wouldn't have believed me. I can see it in your eyes, Steve. You don't
 really believe it now. Even though you saw Wilfred last night, a man you
 killed and who was buried two months ago, you're still trying to figure out
 if this is some kind of elaborate hoax. Well, it's not. It's real. It
@@ -1528,7 +1596,8 @@ happened. Deal with it."
 
    1: "That's not the whole reason you didn't tell me."
 
->"No, it isn't." Stephanie looks away and sighs. "I was afraid. I hated him. I
+> 1
+"No, it isn't." Stephanie looks away and sighs. "I was afraid. I hated him. I
 fucking did. I hated everything about him. The way he was, the way he talked
 to me, the things he made me do…" She winces. "I wanted him dead and I wanted
 you to be the one to help me kill him."
@@ -1536,7 +1605,8 @@ you to be the one to help me kill him."
    1: "But why not tell me the truth about him? Even after he was dead, you
 didn't tell me what was going on."
 
->"Like I said, you wouldn't have believed me. If I'd come to you, Steve, the
+> 1
+"Like I said, you wouldn't have believed me. If I'd come to you, Steve, the
 day after we killed Wilfred and told you he wasn't really dead. That we might
 have killed his body but his soul, or his spirit, or whatever, was still
 alive, would you have believed me? No. You'd have thought I was mad. Or that
@@ -1549,14 +1619,16 @@ figure out just what the fuck we did next."
    2: "You could have warned me, Stephanie. Damnit, I could have died last
 night and would have without the slightest clue what was going on."
 
->"I wish I knew. I thought that when he died, that would be it. I wasn't sure,
+> 1
+"I wish I knew. I thought that when he died, that would be it. I wasn't sure,
 of course, as I'd read his journals and his other books, but I hoped it was
 true. That he was dead. That I was rid of him. I don't know how he managed to
 come back. Maybe…"
 
    1: "Maybe what?"
 
->"The graveyard. Was his body really in the coffin?"
+> 1
+"The graveyard. Was his body really in the coffin?"
    I shrug. "I don't know. It was a closed coffin funeral so no one saw
 inside the coffin. But what are you suggesting? That he crawled out of the
 coffin and filled it with someone else's body so none of the pallbearers
@@ -1567,7 +1639,8 @@ himself another body. Or found one and changed it so it looked like his."
    1: "And now… is he well and truly gone or are we going to face him again
 soon?"
 
->"I…" Stephanie shrugs and I can see in that one small gesture just how scared
+> 1
+"I…" Stephanie shrugs and I can see in that one small gesture just how scared
 she really is. "I don't know. Shit, I don't. We burnt the body but whether
 that killed his soul, I don't know. I… I guess we just wait, and hope, that
 this time he's really gone."
@@ -1575,7 +1648,8 @@ this time he's really gone."
    1: "Let's talk about last night. You had that iron bar with you, and if
 I'm not mistaken, you were going to use it on me. What changed your mind?"
 
->Stephanie frowns. She doesn't say anything for almost a minute. She just sits
+> 1
+Stephanie frowns. She doesn't say anything for almost a minute. She just sits
 there, marshalling her thoughts. Then she says, "I think I fell in love with
 you, Steve."
    I wait, sure there's more.
@@ -1587,7 +1661,8 @@ agreed."
 
    1: "After I'd killed him for you, you agreed to kill me for him."
 
->"But I didn't!" she says. "I couldn't. Not at the end. It was either him or
+> 1
+"But I didn't!" she says. "I couldn't. Not at the end. It was either him or
 you, Steve, and I chose you. I chose you!" She comes to me, kneels before me,
 puts her hands on my legs. "Don't leave me, Steve. Not now. I killed him for
 you. For us. So we could be together…"
@@ -1603,7 +1678,8 @@ lie. She is treacherous, I realise. Beautiful but treacherous.
    1: "I think this is where we go our separate ways, Stephanie. Goodbye."
    2: "Let's give it another try."
 
->Stephanie smiles. "You won't regret this, Steve. I promise you you won't."
+> 2
+Stephanie smiles. "You won't regret this, Steve. I promise you you won't."
    I lift her up and kiss her. "I know I won't, Stephanie. Not for a second."
 
 ...press a key...
@@ -1628,4 +1704,5 @@ managed to reach one of the two good endings in the game.
 
 Thanks for playing and I hope you enjoyed it!
 
->Do you really want to quit? [Y/N]
+> quit
+Do you really want to quit? [Y/N]

@@ -14,16 +14,19 @@ Or I could rob him, it's not like he'd mind.
 
 NOTE: Type "Talk to character" instead of "ask someone about something"
 
->(Your score has increased by 5)
+> turn on tv
+(Your score has increased by 5)
 Hmm...only thing on is a Who's the Boss marathon. But I'll give you 5 points
 for trying the TV.
 
->(Your score has increased by 5)
+> open crate
+(Your score has increased by 5)
 I swung open the crate door and looked inside. Ahh, my hidden stash of money
 was still there. I'd tell you how much, but you'd laugh. And, to make your
 job easier. I'll take the money for you.
 
->I move north.
+> n
+I move north.
 
 Hallway
 The small, cramped hallway smells like wet cat. My place is to the South,
@@ -31,7 +34,8 @@ there's an elevator that I can take Down to the street. The landlord's room
 is to the East, he leaves the door open during the day so everyone's allowed
 in (He would lock it but someone stole the locks)
 
->I move east.
+> e
+I move east.
 
 Landlord's Room
 It's my landlords room. It's a very nice place, much nicer than my hole in
@@ -40,11 +44,13 @@ right beside the door for some reason.   Your landlord sits on a large velvet
 chair yelling at you for his rent. I'd pay him, he can get pretty shotgunny
 when he doesn't get his money.
 
->(Your score has increased by 5)
+> talk to landlord
+(Your score has increased by 5)
 "You punk, you owe me twenty thousand dollars for the rent. I ain't kidding
 anymore, I want the money today or you'll be sleeping on the street tonight."
 
->I move west.
+> w
+I move west.
 
 Hallway
 The small, cramped hallway smells like wet cat. My place is to the South,
@@ -52,7 +58,8 @@ there's an elevator that I can take Down to the street. The landlord's room
 is to the East, he leaves the door open during the day so everyone's allowed
 in (He would lock it but someone stole the locks)
 
->I move down.
+> d
+I move down.
 
 Main Street
 The Main street of Sleaze City. It goes on for miles, but this part of the
@@ -62,7 +69,8 @@ dumpsters, a garage to the North where mechanics charge high prices for even
 just looking at a tire, and to the West is Archer Street where you can find
 even more interesting stuff that I don't feel like talking about here.
 
->I move north.
+> n
+I move north.
 
 Garage
 It's Mick's Garage, odd since there was never anyone named Mick that worked
@@ -72,19 +80,23 @@ hood of a car, not noticing he's dented it.   One of the other workers tries
 lifting the car with a jack, but fails with Red on it and throws the car jack
 to the ground in anger
 
->It's a car jack, you know, the things you use to lift heavy objects like cars
+> look at jack
+It's a car jack, you know, the things you use to lift heavy objects like cars
 and such.
 
->(Your score has increased by 5)
+> take car jack
+(Your score has increased by 5)
 I picked the jack up off the ground and stashed it away as Red turned to look
 at me suspiciously.
 
->(Your score has increased by 5)
+> talk to red
+(Your score has increased by 5)
 "Hey, you wanna buy a tire. I got a good deal, eight grand. Or hey, I can
 hook you up with some guys that can get you some illegal weapons. Oopps, heh,
 forget about that one."
 
->I move south.
+> s
+I move south.
 
 Main Street
 The Main street of Sleaze City. It goes on for miles, but this part of the
@@ -94,7 +106,8 @@ dumpsters, a garage to the North where mechanics charge high prices for even
 just looking at a tire, and to the West is Archer Street where you can find
 even more interesting stuff that I don't feel like talking about here.
 
->I move west.
+> w
+I move west.
 
 Archer Street
 Archer Street is where the more presentable areas of this part of the city
@@ -103,7 +116,8 @@ Convience store to the South where you can pick up some good candy. Back to
 the East is Main street, known as the street with the most corpses to people
 who write the world records.
 
->I move south.
+> s
+I move south.
 
 Convience Store
 This very conveinent convience store has only been open for a couple of days
@@ -112,13 +126,16 @@ store, while a large sign indicates their price. A clerk eyed me from behind
 the large counter, his hand probaly ready to pull out a gun if I tried to do
 anything remotely strange.
 
->(Your score has increased by 5)
+> buy tickets
+(Your score has increased by 5)
 I gave the money to the clerk and took a lottery ticket.
 
->(Your score has increased by 10)
+> take wirecutters
+(Your score has increased by 10)
 I took a free wirecutter and stuck it in my pocket.
 
->I move north.
+> n
+I move north.
 
 Archer Street
 Archer Street is where the more presentable areas of this part of the city
@@ -127,7 +144,8 @@ Convience store to the South where you can pick up some good candy. Back to
 the East is Main street, known as the street with the most corpses to people
 who write the world records.
 
->I move east.
+> e
+I move east.
 
 Main Street
 The Main street of Sleaze City. It goes on for miles, but this part of the
@@ -137,7 +155,8 @@ dumpsters, a garage to the North where mechanics charge high prices for even
 just looking at a tire, and to the West is Archer Street where you can find
 even more interesting stuff that I don't feel like talking about here.
 
->I move south.
+> s
+I move south.
 
 Alley
 It's a dingy alley that I like because it's cleaner than my apartment. A few
@@ -146,16 +165,19 @@ with rabid cats that have mutated from the toxic waste floating in the air.
 A large dumpster sits in the corner. It's been locked shut with a giant chain
 that has been welded all around it
 
->(Your score has increased by 5)
+> cut chain
+(Your score has increased by 5)
 I snipped off the chain and swung open the dumpster. I searched around inside
 and pulled out a newspaper from today. I hit gold.
 
->(Your score has increased by 5)
+> read newspaper
+(Your score has increased by 5)
 5 34 46 7 89...The lottery ticket, those are the sane numbers...I WON!!! I'VE
 WON 20,000 DOLLARS!!! Ahem...now that I'm filthy rich, there must be some use
 to this thing.
 
->I move north.
+> n
+I move north.
 
 Main Street
 The Main street of Sleaze City. It goes on for miles, but this part of the
@@ -165,7 +187,8 @@ dumpsters, a garage to the North where mechanics charge high prices for even
 just looking at a tire, and to the West is Archer Street where you can find
 even more interesting stuff that I don't feel like talking about here.
 
->I move up.
+> u
+I move up.
 
 Hallway
 The small, cramped hallway smells like wet cat. My place is to the South,
@@ -173,7 +196,8 @@ there's an elevator that I can take Down to the street. The landlord's room
 is to the East, he leaves the door open during the day so everyone's allowed
 in (He would lock it but someone stole the locks)
 
->I move south.
+> s
+I move south.
 
 Apartment
 It's my apartment in the beautiful downtown area of the city. Two windows lie
@@ -184,16 +208,19 @@ atop a crate in front of the couch, I found it in a dumpster. A dirty
 mattress sits behind the couch, my trusty bed. A flimsy door to the North
 leads out of this dump.
 
->(Your score has increased by 10)
+> use jack on couch
+(Your score has increased by 10)
 I jammed the car jack under the couch and began pushing down on the other
 side. The couch lifted up and I pulled the dictionary from under the couch. I
 pulled the jack away and stashed it away again.
 
->(Your score has increased by 5)
+> read book
+(Your score has increased by 5)
 I quickly picked up the dictionary and began reading. After thiry eight
 hours, I was finished and I found myself seeming smarter.
 
->I move north.
+> n
+I move north.
 
 Hallway
 The small, cramped hallway smells like wet cat. My place is to the South,
@@ -201,7 +228,8 @@ there's an elevator that I can take Down to the street. The landlord's room
 is to the East, he leaves the door open during the day so everyone's allowed
 in (He would lock it but someone stole the locks)
 
->I move down.
+> d
+I move down.
 
 Main Street
 The Main street of Sleaze City. It goes on for miles, but this part of the
@@ -211,7 +239,8 @@ dumpsters, a garage to the North where mechanics charge high prices for even
 just looking at a tire, and to the West is Archer Street where you can find
 even more interesting stuff that I don't feel like talking about here.
 
->I move west.
+> w
+I move west.
 
 Archer Street
 Archer Street is where the more presentable areas of this part of the city
@@ -220,7 +249,8 @@ Convience store to the South where you can pick up some good candy. Back to
 the East is Main street, known as the street with the most corpses to people
 who write the world records.
 
->I move north.
+> n
+I move north.
 
 Cafe
 Gimpy's Cafe, a cafe like no other. Actually, it's exactly like all the
@@ -229,13 +259,15 @@ sits behind the counter, his large white apron is greasey like always. Some
 patrons sit around the large room, but it's pretty much empty. Now I just
 have to get Gimpy to give me a job.
 
->(Your score has increased by 10)
+> talk to gimpy
+(Your score has increased by 10)
 "Hey, you actually spoke in a complete sentance. I guess that dictionary you
 read made you smarter.  You know what, you're hired. Get in the back room and
 cook something up. If it tastes good, I'll let you be the chef. When you're
 done, just serve (Type serve when you're done)"
 
->I move out.
+> out
+I move out.
 
 Archer Street
 Archer Street is where the more presentable areas of this part of the city
@@ -246,7 +278,8 @@ who write the world records.  You decide it would be better that you do not
 go into the cafe through the front entrance if Gimpy thinks you're cooking so
 you'd rather go In through the window.
 
->I move east.
+> e
+I move east.
 
 Main Street
 The Main street of Sleaze City. It goes on for miles, but this part of the
@@ -256,7 +289,8 @@ dumpsters, a garage to the North where mechanics charge high prices for even
 just looking at a tire, and to the West is Archer Street where you can find
 even more interesting stuff that I don't feel like talking about here.
 
->I move up.
+> u
+I move up.
 
 Hallway
 The small, cramped hallway smells like wet cat. My place is to the South,
@@ -264,7 +298,8 @@ there's an elevator that I can take Down to the street. The landlord's room
 is to the East, he leaves the door open during the day so everyone's allowed
 in (He would lock it but someone stole the locks)
 
->I move east.
+> e
+I move east.
 
 Landlord's Room
 It's my landlords room. It's a very nice place, much nicer than my hole in
@@ -273,14 +308,17 @@ right beside the door for some reason.   Your landlord sits on a large velvet
 chair yelling at you for his rent. I'd pay him, he can get pretty shotgunny
 when he doesn't get his money.
 
->(Your score has increased by 10)
+> give ticket to landlord
+(Your score has increased by 10)
 "WOOOOOHOOOOO...I mean, yes I'll take this as your rent. Execuse me, but I
 have to go to the bank for a second."
 
->(Your score has increased by 5)
+> take sandwich
+(Your score has increased by 5)
 I grabbed the sandwich and forced myself not to eat it.
 
->I move west.
+> w
+I move west.
 
 Hallway
 The small, cramped hallway smells like wet cat. My place is to the South,
@@ -288,7 +326,8 @@ there's an elevator that I can take Down to the street. The landlord's room
 is to the East, he leaves the door open during the day so everyone's allowed
 in (He would lock it but someone stole the locks)
 
->I move down.
+> d
+I move down.
 
 Main Street
 The Main street of Sleaze City. It goes on for miles, but this part of the
@@ -298,7 +337,8 @@ dumpsters, a garage to the North where mechanics charge high prices for even
 just looking at a tire, and to the West is Archer Street where you can find
 even more interesting stuff that I don't feel like talking about here.
 
->I move west.
+> w
+I move west.
 
 Archer Street
 Archer Street is where the more presentable areas of this part of the city
@@ -309,7 +349,8 @@ who write the world records.  You decide it would be better that you do not
 go into the cafe through the front entrance if Gimpy thinks you're cooking so
 you'd rather go In through the window.
 
->I move in.
+> in
+I move in.
 
 Kitchen
 Before I knew it, I was inside the greasy kitchen. Pots lined the walls and
@@ -320,9 +361,11 @@ be white but are now a french fry brown. There's a window over the sink that
 leads Out into the street. I'm sure Gimpy wouldn't mind if I took a break
 once in awhile.
 
->My score is 90 out of a maximum of 100.  (90%)
+> score
+My score is 90 out of a maximum of 100.  (90%)
 
->(Your score has increased by 10)
+> serve
+(Your score has increased by 10)
 I jammed the sandwich onto a plate and then walked back out into the cafe. I
 gave it to Gimpy who took a bite.
 

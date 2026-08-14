@@ -16,7 +16,8 @@ several computers and screens here mainly for navigation and mostly inactive
 
 There is an exit down.
 
->You move down.
+> d
+You move down.
 
 In your ship's crew courters
 You are in the part of your ship where you slept and ate for the past 4 days
@@ -29,11 +30,14 @@ Also here is body armour.
 
 There are exits up and down.
 
->You pick up body armour.
+> take armour
+You pick up body armour.
 
->You put on body armour.
+> wear armour
+You put on body armour.
 
->You move down.
+> d
+You move down.
 
 In your ship's storage hull
 You are in the area where all the food , drink and outside equipment is
@@ -46,14 +50,18 @@ Also here is a space suit and a colt 45.
 
 You can only move up.
 
->You pick up the colt 45.
+> take colt 45
+You pick up the colt 45.
 The gas is really starting to affect you!
 
->You are not holding the space suit.
+> wear space suit
+You are not holding the space suit.
 
->You push the button near the door to open it .
+> open door
+You push the button near the door to open it .
 
->You move out.
+> out
+You move out.
 
 On the planet
 You are on the planet looking towards a large building and a small tunnel
@@ -64,7 +72,8 @@ clouds its very cold down here .
 
 You can move north, east and in.
 
->You move north.
+> n
+You move north.
 
 In the tunnel
 You are in a tunnel not that deep underground , it is covered by aluminum to
@@ -74,7 +83,8 @@ aluminum .
 
 You can move north and south.
 
->You move north.
+> n
+You move north.
 
 Near the tunnel's upper exit
 You can see a pale green light coming from down from a room you can't quite
@@ -87,7 +97,8 @@ An alien is here.
 You can move south and up.
 An alien hits you, but it doesn't seem to do any damage.
 
->You move up.
+> u
+You move up.
 
 In the waste disposal area
 You are now standing in one of the more unpleasant areas , the sewer . I
@@ -97,9 +108,11 @@ Also here is climbing equipment.
 
 You can only move down.
 
->You pick up climbing equipment.
+> take climbing equipment
+You pick up climbing equipment.
 
->You move down.
+> d
+You move down.
 
 Near the tunnel's upper exit
 You can see a pale green light coming from down from a room you can't quite
@@ -112,7 +125,8 @@ An alien is here.
 You can move south and up.
 An alien hits you, but it doesn't seem to do any damage.
 
->You move south.
+> s
+You move south.
 
 In the tunnel
 You are in a tunnel not that deep underground , it is covered by aluminum to
@@ -122,7 +136,8 @@ aluminum .
 
 You can move north and south.
 
->You move south.
+> s
+You move south.
 
 On the planet
 You are on the planet looking towards a large building and a small tunnel
@@ -135,7 +150,8 @@ You can move north, east and in.
 A streak of lightning flashes on the horizon and a whirl of flame spits from
 the sky where the lightning went down .
 
->You move east.
+> e
+You move east.
 
 Near the cliff
 You are standing near the cliff , there is a sturdy steel catwalk that leads
@@ -144,7 +160,8 @@ small tunnel .
 
 You can move north and west.
 
->You move north.
+> n
+You move north.
 
 On the catwalk
 You are standing on the metal catwalk that is suspended from an overhead bar
@@ -154,12 +171,14 @@ up a cliff that would be suicide without equipment .
 
 You can only move south.
 
->(Your score has increased by 20)
+> climb cliff
+(Your score has increased by 20)
 You climb the cliff but almost slip , you quickly recover with the pick in
 the equipment . You make your way up and you are standing at the foot of the
 building .
 
->You move east.
+> e
+You move east.
 
 East of the main entrance
 There is a ladder going up , it looks in bad shape but it might support your
@@ -168,7 +187,8 @@ west is just another part of the building .
 
 You can move west and up.
 
->You move up.
+> u
+You move up.
 
 On the roof
 You are on the roof that appears to be a launch pad for small ships , there
@@ -183,7 +203,8 @@ A streak of lightning flashes on the horizon and a whirl of flame spits from
 the sky where the lightning went down .
 A small alien hits you, but it doesn't seem to do any damage.
 
->You move in.
+> in
+You move in.
 
 In the bottom of the tower
 You are inside the cracked , rusted elevator shaft of the tower , the shaft
@@ -193,26 +214,32 @@ elevator but a large hole is in the floor .
 
 You can move down and out.
 
->(Your score has increased by 30)
+> climb cable
+(Your score has increased by 30)
 You climb the steel cable to the tower top .
 A large alien hits you.
 
->You pick up the light helmet.
+> take light helmet
+You pick up the light helmet.
 A large alien hits you.
 
->You pick up explode on inmpact bullets.
+> take bullets
+You pick up explode on inmpact bullets.
 A large alien hits you.
 
->You put on the light helmet.
+> wear light helmet
+You put on the light helmet.
 A streak of lightning flashes on the horizon and a whirl of flame spits from
 the sky where the lightning went down .
 A large alien hits you, but it doesn't seem to do any damage.
 
->(Your score has increased by 50)
+> load bullets
+(Your score has increased by 50)
 You put the eoi bullets into the gun.
 A large alien hits you, but it doesn't seem to do any damage.
 
->You move down.
+> d
+You move down.
 
 In the bottom of the tower
 You are inside the cracked , rusted elevator shaft of the tower , the shaft
@@ -222,14 +249,16 @@ elevator but a large hole is in the floor .
 
 You can move down and out.
 
->You move down.
+> d
+You move down.
 
 In the mine entrance
 The mine is very dirty and there is a lot of rubble .
 
 You can move north and south.
 
->You move south.
+> s
+You move south.
 
 Near a large pile of rubble
 There is a large pile of rubble here that seem like it can be blasted by a
@@ -237,10 +266,12 @@ powerful enough beam!
 
 You can only move north.
 
->(Your score has increased by 100)
+> shoot rubble
+(Your score has increased by 100)
 You pull the trigger and the bullet explodes sending rubble everywhere!
 
->You move south.
+> s
+You move south.
 
 In the waste disposal area
 You are now standing in one of the more unpleasant areas , the sewer . I
@@ -248,7 +279,8 @@ don't think you want to know what it looks like !!
 
 You can move north and down.
 
->You move down.
+> d
+You move down.
 
 Near the tunnel's upper exit
 You can see a pale green light coming from down from a room you can't quite
@@ -261,7 +293,8 @@ An alien is here.
 You can move south and up.
 An alien hits you, but it doesn't seem to do any damage.
 
->You move south.
+> s
+You move south.
 
 In the tunnel
 You are in a tunnel not that deep underground , it is covered by aluminum to
@@ -271,7 +304,8 @@ aluminum .
 
 You can move north and south.
 
->You move south.
+> s
+You move south.
 
 On the planet
 You are on the planet looking towards a large building and a small tunnel
@@ -282,7 +316,8 @@ clouds its very cold down here .
 
 You can move north, east and in.
 
->You move east.
+> e
+You move east.
 
 Near the cliff
 You are standing near the cliff , there is a sturdy steel catwalk that leads
@@ -293,7 +328,8 @@ You can move north and west.
 A streak of lightning flashes on the horizon and a whirl of flame spits from
 the sky where the lightning went down .
 
->You move north.
+> n
+You move north.
 
 On the catwalk
 You are standing on the metal catwalk that is suspended from an overhead bar
@@ -303,11 +339,13 @@ up a cliff that would be suicide without equipment .
 
 You can only move south.
 
->You climb the cliff but almost slip , you quickly recover with the pick in
+> climb cliff
+You climb the cliff but almost slip , you quickly recover with the pick in
 the equipment . You make your way up and you are standing at the foot of the
 building .
 
->You move east.
+> e
+You move east.
 
 East of the main entrance
 There is a ladder going up , it looks in bad shape but it might support your
@@ -316,7 +354,8 @@ west is just another part of the building .
 
 You can move west and up.
 
->You move up.
+> u
+You move up.
 
 On the roof
 You are on the roof that appears to be a launch pad for small ships , there
@@ -329,6 +368,7 @@ A small alien is here.
 You can move down and in.
 A small alien hits you, but it doesn't seem to do any damage.
 
->You get in the ship and take control , right after you leave the atmosphere
+> fly ship
+You get in the ship and take control , right after you leave the atmosphere
 the planet turns into nothing but a sector of astroids .
 Congratulations!

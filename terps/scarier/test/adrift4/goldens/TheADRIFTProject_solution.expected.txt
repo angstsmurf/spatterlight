@@ -53,13 +53,22 @@ Beta-Drifter. You quickly run your hands across your face and discover that
 you are in one piece, letting a sigh of relief escape you.
 
 Please enter your name:
->Please choose the player's gender (male or female):
->Please answer "male" or "female".
-Please choose the player's gender (male or female):
->Please answer "male" or "female".
-Please choose the player's gender (male or female):
+
 >
->You take the gravity suit from the captain's chair.
+Please choose the player's gender (male or female):
+
+>
+Please answer "male" or "female".
+Please choose the player's gender (male or female):
+
+> Drifter
+Please answer "male" or "female".
+Please choose the player's gender (male or female):
+
+> male
+
+> take suit
+You take the gravity suit from the captain's chair.
 
 The ADRIFT Project
 Classified
@@ -81,12 +90,15 @@ several flat-screen control panels that flicker randomly.  The door to the
 ADRIFT-O-Lift is to the south, near a small vent that lies at ground level
 and appears to have some writing just above it.
 
->[wear a gravity suit]
+> wear it
+[wear a gravity suit]
 You put on the gravity suit.
 
->You open the Adrift-O-Lift door.
+> open door
+You open the Adrift-O-Lift door.
 
->You move south.
+> s
+You move south.
 
 The ADRIFT-O-Lift
 
@@ -100,7 +112,8 @@ fancy ship.
 
 You can move north, south, southeast and southwest.
 
->You move south.
+> s
+You move south.
 
 Central Communications Core
 
@@ -115,9 +128,11 @@ doors allows the ADRIFT-O-Sweep access to the CCC.
 
 You can move north and south.
 
->You stand on the DRIFT-O-Com.
+> stand on phone
+You stand on the DRIFT-O-Com.
 
->(Your score has increased by 5)
+> put battery in charger
+(Your score has increased by 5)
 The charger flashes repeatedly, giving the room the appearance of being a lit
 by a strobe light.  You take the opportunity to do your best John Travolta
 impression, from the movie Saturday Night Fever.  A couple of moments later,
@@ -126,7 +141,8 @@ catch it, but lose your balance in the process and fall from the Drift-O-Com.
 
 DARWIN enters from the south.
 
->(Standing up first)
+> n
+(Standing up first)
 You move north.
 
 The ADRIFT-O-Lift
@@ -141,7 +157,8 @@ fancy ship.
 
 You can move north, south, southeast and southwest.
 
->You move southwest.
+> sw
+You move southwest.
 
 Objectorium
 
@@ -157,19 +174,24 @@ There is a black box firmly attached to the outside of a cabinet.
 
 You can only move northeast.
 
->Made out of some sort of heavy-duty crystal, the table looks as if it has
+> x table
+Made out of some sort of heavy-duty crystal, the table looks as if it has
 little tiny bubbles floating about within it.   A blue Drift-O-Sphere and a
 coffee cup are on the coffee table.
 
->You take the coffee cup from the coffee table.
+> take cup
+You take the coffee cup from the coffee table.
 
->The long, purple sofa, that is bolted to the floor, sits below a viewing
+> x sofa
+The long, purple sofa, that is bolted to the floor, sits below a viewing
 window, which gives you a lovely view of the earth.   The Drift-O-Jump tin
 and a piece of string are on the sofa.
 
->You take the Drift-O-Jump tin and the piece of string from the sofa.
+> take string and tin
+You take the Drift-O-Jump tin and the piece of string from the sofa.
 
->You move northeast.
+> ne
+You move northeast.
 
 The ADRIFT-O-Lift
 
@@ -186,7 +208,8 @@ concerned at all about your presence.
 
 You can move north, south, southeast and southwest.
 
->You move southeast.
+> se
+You move southeast.
 
 Captain's Quarters
 
@@ -202,12 +225,15 @@ it.
 
 You can only move northwest.
 
->You open the wardrobe.  A green Drift-O-Sphere and a piece of gum are inside
+> open wardrobe
+You open the wardrobe.  A green Drift-O-Sphere and a piece of gum are inside
 the wardrobe.
 
->You take the green Drift-O-Sphere and the piece of gum from the wardrobe.
+> take gum and orb
+You take the green Drift-O-Sphere and the piece of gum from the wardrobe.
 
->(Your score has increased by 5)
+> chew gum
+(Your score has increased by 5)
 
 You chew the gum and are shocked that it tastes just like carpet!  Reminds
 you of the time you passed out after having to lick Roger 'Budda' Johnson's
@@ -216,10 +242,12 @@ armpit during college hazing.
 As much as you are enjoying the experience, you take the gum out of your
 mouth.
 
->(Your score has increased by 5)
+> put gum on string
+(Your score has increased by 5)
 You stick the gum to the end of the string.
 
->(Your score has increased by 5)
+> put gum in drain
+(Your score has increased by 5)
 You carefully dangle the string blindly down the narrow drain.  After a few
 moments you finally hear something tinking the sides.  Slowly, you pull the
 string up and discover a small silver key stuck to the piece of gum.  Pulling
@@ -227,7 +255,8 @@ the key, the gum sticks to it, and the string falls down the drain and
 disappears.  You remove the gum from the key and notice the key has some
 writing on it.
 
->You move northwest.
+> nw
+You move northwest.
 
 The ADRIFT-O-Lift
 
@@ -242,7 +271,8 @@ The ADRIFT-O-Sweep is zooming around the room.
 
 You can move north, south, southeast and southwest.
 
->You move southwest.
+> sw
+You move southwest.
 
 Objectorium
 
@@ -258,20 +288,27 @@ There is a black box firmly attached to the outside of a cabinet.
 
 You can only move northeast.
 
->You can't open the black box as it is locked!
+> open box
+You can't open the black box as it is locked!
 
->You unlock the black box with the silver key.
+> unlock box
+You unlock the black box with the silver key.
 
->[open the black box]
+> open it
+[open the black box]
 You open the black box.  The remote control is inside the black box.
 
->You take the remote control from the black box.
+> take remote
+You take the remote control from the black box.
 
->I don't understand what you want me to do with the remote control.
+> put batter in remote
+I don't understand what you want me to do with the remote control.
 
->You put the small battery inside the remote control.
+> put battery in remote
+You put the small battery inside the remote control.
 
->You move northeast.
+> ne
+You move northeast.
 
 The ADRIFT-O-Lift
 
@@ -285,7 +322,8 @@ fancy ship.
 
 You can move north, south, southeast and southwest.
 
->You push the lever into the DOWN position and all of a sudden the spot right
+> d
+You push the lever into the DOWN position and all of a sudden the spot right
 under your feet turns mushy and you slowly sink downward.  It reminds you of
 the old movies and a guy falls into quicksand and is about to sink completely
 when someone arrives with a vine or short stick to save him...Anyway....  A
@@ -301,7 +339,8 @@ control panel on the wall that flickers with multicolored lights.
 There is a lever on the wall, though it seems a little primative for such a
 fancy ship.
 
->You move south.
+> s
+You move south.
 
 The Corridor
 
@@ -311,7 +350,8 @@ has some writing just above it.
 
 You can move north and south.
 
->You move south.
+> s
+You move south.
 
 ADRIFT-O-Dump
 
@@ -328,17 +368,22 @@ concerned at all about your presence.
 
 You can only move north.
 
->Take what?
+> take pill
+Take what?
 
 DARWIN exits to the north.
 
->You open the Drift-O-Jump tin.  A small pill is inside the Drift-O-Jump tin.
+> open tin
+You open the Drift-O-Jump tin.  A small pill is inside the Drift-O-Jump tin.
 
->You take the small pill from the Drift-O-Jump tin.
+> take pill
+You take the small pill from the Drift-O-Jump tin.
 
->You put the small pill inside the coffee cup.
+> put pill in cup
+You put the small pill inside the coffee cup.
 
->(Your score has increased by 10)
+> take slime
+(Your score has increased by 10)
 Trying not to touch it, you manage to scoop the bulk of the slime into the
 cup.
 The second the slime and the pill come in contact with each other, the slime
@@ -347,7 +392,8 @@ Coughing and gasping for air, you wave your arms to clear some of the smoke.
 Once it settles, the slime in the cup is a bright green and bubbling
 fantastically.
 
->You move north.
+> n
+You move north.
 
 The Corridor
 
@@ -357,7 +403,8 @@ has some writing just above it.
 
 You can move north and south.
 
->You move north.
+> n
+You move north.
 
 ADRIFT-O-Lift
 
@@ -373,7 +420,8 @@ concerned at all about your presence.
 
 You can only move south.
 
->You push the lever into the Up position and the ADRIFT-O-Lift begins to rise
+> up
+You push the lever into the Up position and the ADRIFT-O-Lift begins to rise
 upward, but the ceiling isn't moving.  As the space gets more and more
 cramped, you try and scramble over to the lever to push it back down, but it
 is too late!  Expecting to be crushed to death, you begin to scream.  When
@@ -396,7 +444,8 @@ concerned at all about your presence.
 
 DARWIN enters.
 
->You move south.
+> s
+You move south.
 
 Central Communications Core
 
@@ -411,7 +460,8 @@ doors allows the ADRIFT-O-Sweep access to the CCC.
 
 You can move north and south.
 
->You move south.
+> s
+You move south.
 
 The Laboratory
 
@@ -424,31 +474,39 @@ north from here. There is also a control panel on the wall, near the door.
 
 You can only move north.
 
->(Your score has increased by 5)
+> pour slime in box
+(Your score has increased by 5)
 The slime gurgles and bubbles down the funnel and disappears, leaving no
 residue behind.
 
->(Your score has increased by 5)
+> put green orb in tube
+(Your score has increased by 5)
 You put the green orb into the tube it sputters a few times and spews out a
 puff of green smoke.  When it clears, you discover something in the tray.
 
->The tray is long and silver, and firmly attached to the wall.  A green
+> x tray
+The tray is long and silver, and firmly attached to the wall.  A green
 Drift-O-Sphere is inside the tray.
 
->You take the green Drift-O-Sphere from the tray.
+> take orb
+You take the green Drift-O-Sphere from the tray.
 
->I don't understand what you want me to do with the green Drift-O-Sphere.
+> activate orb
+I don't understand what you want me to do with the green Drift-O-Sphere.
 
->(Your score has increased by 10)
+> twist green orb
+(Your score has increased by 10)
 You twist the green Drift-O-Sphere until you hear a click.  It then begins to
 vibrate slightly and flicker with a greenish light.
 "I activated the bomb.  I wonder how much time I have until it blows."
 
->ADRIFT-O-Sweep --
+> where is sweeper
+ADRIFT-O-Sweep --
 The ADRIFT-O-Lift
 .
 
->You move north.
+> n
+You move north.
 
 Central Communications Core
 
@@ -463,7 +521,8 @@ doors allows the ADRIFT-O-Sweep access to the CCC.
 
 You can move north and south.
 
->You move north.
+> n
+You move north.
 
 The ADRIFT-O-Lift
 
@@ -480,7 +539,8 @@ concerned at all about your presence.
 
 You can move north, south, southeast and southwest.
 
->You push the lever into the DOWN position and all of a sudden the spot right
+> d
+You push the lever into the DOWN position and all of a sudden the spot right
 under your feet turns mushy and you slowly sink downward.  It reminds you of
 the old movies and a guy falls into quicksand and is about to sink completely
 when someone arrives with a vine or short stick to save him...Anyway....  A
@@ -499,9 +559,11 @@ fancy ship.
 "The bomb.....time must be getting short.  I wish it had a precise timer on
 it."
 
->You can't go in that direction, but you can move south.
+> n
+You can't go in that direction, but you can move south.
 
->You push the lever into the Up position and the ADRIFT-O-Lift begins to rise
+> up
+You push the lever into the Up position and the ADRIFT-O-Lift begins to rise
 upward, but the ceiling isn't moving.  As the space gets more and more
 cramped, you try and scramble over to the lever to push it back down, but it
 is too late!  Expecting to be crushed to death, you begin to scream.  When
@@ -519,11 +581,13 @@ control panel on the wall that flickers with multicolored lights.
 There is a lever on the wall, though it seems a little primative for such a
 fancy ship.
 
->ADRIFT-O-Sweep --
+> where is sweeper
+ADRIFT-O-Sweep --
 The Bridge
 .
 
->You move north.
+> n
+You move north.
 
 The Bridge
 
@@ -537,7 +601,8 @@ The ADRIFT-O-Sweep is zooming around the room.
 
 You can only move south.
 
->You move south.
+> s
+You move south.
 
 The ADRIFT-O-Lift
 
@@ -555,72 +620,87 @@ ADRIFT-O-Sweep zooms in through the vent from the north.
 "The bomb has to blow soon.  I just know it.  I probably shouldn't have
 activated it yet."
 
->You push the button and the ADRIFT-O-Sweep makes a strange noise then creates
+> push button
+You push the button and the ADRIFT-O-Sweep makes a strange noise then creates
 a vacuum so powerful that it literally rips everything from your hands,
 sucking it up.
 
->DARWIN --
+> where is darwin
+DARWIN --
 The Laboratory
 .
 
->Time passes...
+> z
+Time passes...
 
 "I activated the bomb.  I wonder how much time I have until it blows."
 
->Time passes...
+> z
+Time passes...
 
 ADRIFT-O-Sweep zooms out through the vent to the south.
 
 "The bomb.....time must be getting short.  I wish it had a precise timer on
 it."
 
->Time passes...
+> z
+Time passes...
 
 "The bomb has to blow soon.  I just know it.  I probably shouldn't have
 activated it yet."
 
->Time passes...
+> z
+Time passes...
 
 DARWIN enters from the south.
 
 "I activated the bomb.  I wonder how much time I have until it blows."
 
->Time passes...
+> z
+Time passes...
 
 DARWIN exits.
 
 "The bomb.....time must be getting short.  I wish it had a precise timer on
 it."
 
->Time passes...
+> z
+Time passes...
 
->DARWIN --
+> where is darwin
+DARWIN --
 The Corridor
 .
 
->Time passes...
+> z
+Time passes...
 "The bomb has to blow soon.  I just know it.  I probably shouldn't have
 activated it yet."
 
->Run that by me agian- I didn't understand what you meant!
+> zz
+Run that by me agian- I didn't understand what you meant!
 
->Time passes...
+> z
+Time passes...
 "I activated the bomb.  I wonder how much time I have until it blows."
 
 ADRIFT-O-Sweep zooms in through the vent from the south.
 
->DARWIN --
+> where is darwin
+DARWIN --
 ADRIFT-O-Dump
 .
 
->Time passes...
+> z
+Time passes...
 
 "The bomb.....time must be getting short.  I wish it had a precise timer on
 it."
 
 ADRIFT-O-Sweep zooms out through the vent.
 
->Time passes...
+> z
+Time passes...
 
 "The bomb has to blow soon.  I just know it.  I probably shouldn't have
 activated it yet."
@@ -634,9 +714,11 @@ door, which must have blown off during the explosion.
 
 You did it!.  Now you need to get in touch with the captain.
 
->You can't go in that direction, but you can move south.
+> n
+You can't go in that direction, but you can move south.
 
->You move south.
+> s
+You move south.
 
 The ADRIFT-O-Lift
 
@@ -650,7 +732,8 @@ fancy ship.
 
 You can move north, south, southeast and southwest.
 
->You push the lever into the DOWN position and all of a sudden the spot right
+> d
+You push the lever into the DOWN position and all of a sudden the spot right
 under your feet turns mushy and you slowly sink downward.  It reminds you of
 the old movies and a guy falls into quicksand and is about to sink completely
 when someone arrives with a vine or short stick to save him...Anyway....  A
@@ -666,7 +749,8 @@ control panel on the wall that flickers with multicolored lights.
 There is a lever on the wall, though it seems a little primative for such a
 fancy ship.
 
->You move south.
+> s
+You move south.
 
 The Corridor
 
@@ -679,11 +763,13 @@ has some writing just above it.
 
 You can move north and up.
 
->The vent is really more of a small open space for the ADRIFT-O-Sweep to gain
+> x vent
+The vent is really more of a small open space for the ADRIFT-O-Sweep to gain
 access to several areas of the ship.  It is too small for you to move
 through, and too dark for you to see through to the other side.
 
->You move up.
+> up
+You move up.
 
 Secret DRIFT-O-Com
 
@@ -692,11 +778,14 @@ a little button on it.  An opening leads down.
 
 You can only move down.
 
->It has an 8-inch screen with a button on it.
+> x screen
+It has an 8-inch screen with a button on it.
 
->Your score is 80 out of a maximum of 100.  (80%)
+> score
+Your score is 80 out of a maximum of 100.  (80%)
 
->(Your score has increased by 10)
+> push button
+(Your score has increased by 10)
 You push the button and the Captain Wild appears on the static filled screen.
 
 "Anonymous, you made it!  Is everything ok?"

@@ -28,7 +28,8 @@ sus estantes y un tamborilero de hojalata me dedica una burlona sonrisa en
 una esquina de la habitación. Encontrè un mi lado hay una mesita de noche
 encima de la cual reposa un vaso y una botella de agua.
 
->Mi hija Maria. Es lo ùnico que tengo desde que su madre fallecio durante el
+> x hija
+Mi hija Maria. Es lo ùnico que tengo desde que su madre fallecio durante el
 parto. Es casi tan hermosa como ella... pequeña y menuda como una muñeca de
 porcelana. Viste su camison preferido, una tela de nivea blancura que
 contrasta con la negrura de su cabello.
@@ -43,11 +44,13 @@ flores puedan crecer libremente.
 mitigar un poco su dolor, si consiguiese que al menos durmiese un poco, que
 lo olvidase todo por un instante...
 
->Contemplo la espalda de me hija ¿Dios es esta la forma que tienes de ponerme
+> x rosas
+Contemplo la espalda de me hija ¿Dios es esta la forma que tienes de ponerme
 a prueba? Cinco Rosas surgen de la espalda de Maria, grandes y bellas, rojas
 como el mas oscuro de los vinos, rojas como la sangre de la que se alimentan.
 
->Sus labios marchitos intentan ofrecerme una sonrisa ante mis palabras, pero
+> hablar hija
+Sus labios marchitos intentan ofrecerme una sonrisa ante mis palabras, pero
 pronto se transforman en una mueca de dolor.
 
   Con suma delicadeza poso un dedo sobre sus labios.
@@ -58,20 +61,25 @@ tranquila pronto podras dormir."
                      Un gemido de dolor se escapa de la boca de mi hija.
 Tranquila mi niña... tranquila, pronto dormiras y tu dolor se acabarà.
 
->Es una mesita de noche de madera de baoba primorosamente adornada. Tiene un
+> x mesita
+Es una mesita de noche de madera de baoba primorosamente adornada. Tiene un
 pequeño cajon.
 
->The cajon is closed.
+> x cajon
+The cajon is closed.
 
->Extendiendo mi mano abrì el cajon.  Encontrè un Fenix de laton dentro del
+> abrir cajon
+Extendiendo mi mano abrì el cajon.  Encontrè un Fenix de laton dentro del
 cajon.
 
                      Un gemido de dolor se escapa de la boca de mi hija.
 Tranquila mi niña... tranquila, pronto dormiras y tu dolor se acabarà.
 
->You take the Fenix de laton de el cajon.
+> coger fenix
+You take the Fenix de laton de el cajon.
 
->Es un juguete de laton, uno de los quinientos que fabriquè para el rey. Todo
+> x fenix
+Es un juguete de laton, uno de los quinientos que fabriquè para el rey. Todo
 comenzo con un capricho de reina consorte, esta habia enfermado y el rey para
 complacerla mando construir un hermoso jardin donde gracias a las artes
 magicas de los Magus de la corte siempre era primavera. Se me encargo la
@@ -92,15 +100,18 @@ inspirado en la leyenda griega, de abigarrado plumaje rojo como el fuego,
 altanera cabeza  y encrestada cola. De su panza sobresale una pequeña cuerda,
 si tirase de ella lo pondria en funcionamiento.
 
->Con un suspiro la cuerda se rasga y queda prendida entre mis dedos...
+> tirar cuerda
+Con un suspiro la cuerda se rasga y queda prendida entre mis dedos...
 
->Un trozo desilachado de la cuerda que permite hacer funcionar al Fenix de
+> x trozo
+Un trozo desilachado de la cuerda que permite hacer funcionar al Fenix de
 latòn.
 
                      Un gemido de dolor se escapa de la boca de mi hija.
 Tranquila mi niña... tranquila, pronto dormiras y tu dolor se acabarà.
 
->Con sumo cuidado ato los dos extremos de la cuerda y tiro suavemente.
+> arreglar fenix
+Con sumo cuidado ato los dos extremos de la cuerda y tiro suavemente.
 
 Del interior del juguete surge el cadencioso ronroneo de la maquinaria
 dormida que vuelve a la vida. Me arrodillo al lado de mi hija y acomodando al

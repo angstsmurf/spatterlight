@@ -72,11 +72,17 @@ doors are in front of you. A woman is there, but first you'd better establish
 your bearings and look around you.
 
 >
+
 >
+
 >
+
 >
+
 >
->(Your score has increased by 10)
+
+> talk to charity
+(Your score has increased by 10)
 You stride down the long length of the foyer avoiding the injured as you go.
 Charity purses her lips as you approach.
     "Took you long enough, Mr. Garden."
@@ -144,9 +150,13 @@ jaws. All about you innumerable eyes slowly begin to turn in your direction.
 This doesn't feel right.
 
 >
+
 >
+
 >
->You move north.
+
+> n
+You move north.
 
 Merciless Walkways
 You stand on a dimly-lit but clearly intricate walkway, reminiscentof
@@ -160,7 +170,8 @@ waving at you...
 
 You can only move south.
 
->(Your score has increased by 5)
+> closely examine figure
+(Your score has increased by 5)
 You just barely discern an African American man holding a large bazooka-like
 weapon on the balcony above you.
 
@@ -175,8 +186,11 @@ You have no way to go but deeper into the hospital...
 The doorway in front of you has clicked open and is now clear.
 
 >
+
 >
->You move north.
+
+> n
+You move north.
 
 Waiting Room
 You are in a small room lit by a flickering fluorescent light. The floor is
@@ -192,18 +206,23 @@ top.
 
 You can move north and south.
 
->You ring the bell but nothing appears to happen.
+> ring bell
+You ring the bell but nothing appears to happen.
 From somewhere far off you can hear the sound of inhuman laughter...
 
 >
->Time passes...
+
+> z
+Time passes...
 The receptionist's window quickly opens and you hear a fleshy thud as
 something hits the floor. The window closes before you can turn around to see
 if anyone was ever there.
 
->You take the gold ring from the severed hand.
+> take ring
+You take the gold ring from the severed hand.
 
->You move north.
+> n
+You move north.
 
 Grand Corridor
 You step into a long hallway decorated with portraits on either side and lit
@@ -217,10 +236,12 @@ strange contraption next to it.
 
 You can move east, south and west.
 
->A black mist spirals out of your chest and jettisons towards your hand,
+> summon scythe
+A black mist spirals out of your chest and jettisons towards your hand,
 hardening, and forming the Soul Scythe.
 
->You move west.
+> w
+You move west.
 
 The Core of Beauty
 A large room of flat gray colors and stone. Littered about the floor are the
@@ -231,7 +252,8 @@ sprays an iridescent sweet smelling fluid.
 
 You can only move east.
 
->(Your score has increased by 5)
+> drink water
+(Your score has increased by 5)
       "Wes! Glad to see you made it out alive," Charity exclaims as she walks
 from behind a largely destroyed gargantuan image of Aphrodite.
       "Did you know those people would attack me, Charity?" You ask seething.
@@ -305,21 +327,37 @@ disintegrate. Pushing it from your mind you start to contemplate your next
 move.
 
 >
+
 >
+
 >
+
 >
+
 >
+
 >
+
 >
+
 >
+
 >
+
 >
+
 >
+
 >
+
 >
+
 >
+
 >
->You move east.
+
+> e
+You move east.
 
 Grand Corridor
 You step into a long hallway decorated with portraits on either side and lit
@@ -333,7 +371,8 @@ strange contraption next to it.
 
 You can move east, south and west.
 
->You move east.
+> e
+You move east.
 
 The Halting Chapel
 Cobwebs and thick dust coat every surface of the room and indicate that it
@@ -346,7 +385,8 @@ Hope is here.
 
 You can only move west.
 
->     "Oh my stars and garters," Hope says as she turns around to look you
+> talk to hope
+     "Oh my stars and garters," Hope says as she turns around to look you
 over, "Why...why you must be Mr. Wes Garden." She does a slight bow before
 extending her hand towards you, presumably for you to shake.
       You look her over as well and try to decide whether she's one of the
@@ -381,11 +421,17 @@ answering a question or two?"
 as peaches to help ya."
 
 >
+
 >
+
 >
+
 >
+
 >
->     "Why, Wes, shugah, what do you think you are doin'?" Hope says with a
+
+> take candle
+     "Why, Wes, shugah, what do you think you are doin'?" Hope says with a
 curious expression on her face.
      "I think this candle is a part of something I need to do. Something to
 get the answers I need," you tell her as you look over the candle in your
@@ -418,31 +464,40 @@ has delivered to your belly.
 rest...well I'm afraid I'm gonna have to tan your hide," Hope states with a
 grim look in her pretty eyes...
 
->You cut Hope with the Soul Scythe.
+> attack hope
+You cut Hope with the Soul Scythe.
 Hope hits you.
 
->You cut Hope with the Soul Scythe.
+> attack hope
+You cut Hope with the Soul Scythe.
 
->You cut Hope with the Soul Scythe.
+> attack hope
+You cut Hope with the Soul Scythe.
 Hope hits you.
 
->You cut Hope with the Soul Scythe.
+> attack hope
+You cut Hope with the Soul Scythe.
 
->You cut Hope with the Soul Scythe.
+> attack hope
+You cut Hope with the Soul Scythe.
 Hope hits you.
 
->You cut Hope with the Soul Scythe.
+> attack hope
+You cut Hope with the Soul Scythe.
 
->You cut Hope with the Soul Scythe.
+> attack hope
+You cut Hope with the Soul Scythe.
 Hope hits you.
 
->(Your score has increased by 10)
+> attack hope
+(Your score has increased by 10)
 You cut Hope with the Soul Scythe.
 
 "I...I'll never return to that box!!!" Hope says trembling as she takes a
 step back. A bright white light flashes and she is gone.
 
->You move west.
+> w
+You move west.
 
 Grand Corridor
 You step into a long hallway decorated with portraits on either side and lit
@@ -456,7 +511,8 @@ strange contraption next to it.
 
 You can move east, south and west.
 
->You move west.
+> w
+You move west.
 
 The Core of Beauty
 A large room of flat gray colors and stone. Littered about the floor are the
@@ -467,16 +523,20 @@ sprays an iridescent sweet smelling fluid.
 
 You can only move east.
 
->(Your score has increased by 20)
+> give ring and candle to fountain
+(Your score has increased by 20)
 The room trembles hard and white dust from the stones streaks into the air.
 You start to cough and shield your face from the spray. You can hear the
 sound of stone grinding against stone and when the noise stops you open your
 eyes to find the fountain has changed.
 
 >
->You pick up the vial.
 
->You move north.
+> take vial
+You pick up the vial.
+
+> n
+You move north.
 
 Radiology Chamber
 The stark whiteness of the room is unsettling. The walls are flat and
@@ -488,7 +548,8 @@ Dr. Micheals is here and looking pensive.
 
 You can only move south.
 
->    Dr. Micheals nods in your direction and begins pacing back and forth as
+> talk to micheals
+    Dr. Micheals nods in your direction and begins pacing back and forth as
 he runs a hand through his almost non-existent hair, "Well, looks like you
 made it here okay despite Hope and Charity running around the place. That was
 a pretty spectacular kick Hope gave you, I didn't think that girl had it in
@@ -540,8 +601,11 @@ ask. Now you're getting somewhere...
 you want to get passed that optical scanner."
 
 >
+
 >
->You move south.
+
+> s
+You move south.
 
 The Core of Beauty
 A large room of flat gray colors and stone. Littered about the floor are the
@@ -552,7 +616,8 @@ sprays an iridescent sweet smelling fluid.
 
 You can move north and east.
 
->You move east.
+> e
+You move east.
 
 Grand Corridor
 You step into a long hallway decorated with portraits on either side and lit
@@ -566,18 +631,24 @@ strange contraption next to it.
 
 You can move east, south and west.
 
->(Your score has increased by 5)
+> slash dr micheals portrait
+(Your score has increased by 5)
 You lift your scythe and then swing hard at the portrait. It cracks in two
 and a small space is revealed behind the frame. You reach inside and pull out
 a small bundle. It seems that is all there is inside of the hole.
 
 >
+
 >
->You unlock the grand corridor door with the eyeball.
 
->You open the grand corridor door.
+> unlock door with eyeball
+You unlock the grand corridor door with the eyeball.
 
->You move north.
+> open door
+You open the grand corridor door.
+
+> n
+You move north.
 
 The Medicine Cabinet
 This enormous room's floor is completely obscured by knee-deep water. Out of
@@ -591,7 +662,8 @@ Charity Bell is here and eyeing you with a smile.
 
 You can only move south.
 
->(Your score has increased by 10)
+> talk to charity
+(Your score has increased by 10)
      "Greetings, Wes," Charity nods her head in recognition, "your talk with
 Dr. Micheals was...satisfactory?"
      You feel dizzy just looking at her. Here's a woman standing before you,
@@ -674,26 +746,35 @@ She smiles from ear to ear as she lunges at the both of you...
 Hope manages to avoid Charity Bell's attack.
 
 >
+
 >
+
 >
->You cut Hope with the Soul Scythe.
+
+> attack hope
+You cut Hope with the Soul Scythe.
 Hope attacks Charity Bell with the Stripper Sword, but Charity Bell manages
 to avoid it.
 
->You cut Hope with the Soul Scythe.
+> attack hope
+You cut Hope with the Soul Scythe.
 Hope manages to avoid Charity Bell's attack.
 
->You cut Hope with the Soul Scythe.
+> attack hope
+You cut Hope with the Soul Scythe.
 Hope cuts you with the Stripper Sword, but it doesn't seem to do any damage.
 
->You cut Hope with the Soul Scythe.
+> attack hope
+You cut Hope with the Soul Scythe.
 Hope manages to avoid Charity Bell's attack.
 
->You cut Hope with the Soul Scythe.
+> attack hope
+You cut Hope with the Soul Scythe.
 Hope manages to avoid Charity Bell's attack.
 Hope cuts you with the Stripper Sword, but it doesn't seem to do any damage.
 
->(Your score has increased by 10)
+> attack hope
+(Your score has increased by 10)
 You cut Hope with the Soul Scythe.
 
      "Y...ya'll think ya'll 're so smart don't you?!" Hope exclaims as she
@@ -730,11 +811,14 @@ that in mind."
 And with a jaunty flip of her hair Charity walks out of the room and leaves
 you alone to contemplate the challenges ahead of you.
 
->You unlock the medicine cabinet door with the vial.
+> unlock door with vial
+You unlock the medicine cabinet door with the vial.
 
->You open the medicine cabinet door.
+> open door
+You open the medicine cabinet door.
 
->You move north.
+> n
+You move north.
 
 Maternaless Ward
 The most conventionally hospital-esque place you've seen thus far. The
@@ -750,13 +834,17 @@ for one at the end of the hall.
 
 You can only move south.
 
->(Your score has increased by 5)
+> knock on door
+(Your score has increased by 5)
 You knock on the door and hear cacophonous splashing echoing down the hall
 from the medicine cabinet.
 
 >
+
 >
->You move south.
+
+> s
+You move south.
 
 The Medicine Cabinet
 This enormous room's floor is completely obscured by knee-deep water. Out of
@@ -771,9 +859,11 @@ Also here is La Virgencita key.
 
 You can move north and south.
 
->You pick up La Virgencita key.
+> take key
+You pick up La Virgencita key.
 
->You move south.
+> s
+You move south.
 
 Grand Corridor
 You step into a long hallway decorated with portraits on either side and lit
@@ -787,7 +877,8 @@ strange contraption next to it.
 
 You can move north, east, south and west.
 
->You move west.
+> w
+You move west.
 
 The Core of Beauty
 A large room of flat gray colors and stone. Littered about the floor are the
@@ -798,7 +889,8 @@ sprays an iridescent sweet smelling fluid.
 
 You can move north and east.
 
->You move north.
+> n
+You move north.
 
 Radiology Chamber
 The stark whiteness of the room is unsettling. The walls are flat and
@@ -812,9 +904,11 @@ Dr. Micheals is here and looking pensive.
 
 You can only move south.
 
->You pick up the Woebegotten scalpel.
+> take scalpel
+You pick up the Woebegotten scalpel.
 
->You move south.
+> s
+You move south.
 
 The Core of Beauty
 A large room of flat gray colors and stone. Littered about the floor are the
@@ -825,7 +919,8 @@ sprays an iridescent sweet smelling fluid.
 
 You can move north and east.
 
->You move east.
+> e
+You move east.
 
 Grand Corridor
 You step into a long hallway decorated with portraits on either side and lit
@@ -839,7 +934,8 @@ strange contraption next to it.
 
 You can move north, east, south and west.
 
->You move north.
+> n
+You move north.
 
 The Medicine Cabinet
 This enormous room's floor is completely obscured by knee-deep water. Out of
@@ -852,7 +948,8 @@ of the figure.
 
 You can move north and south.
 
->You move north.
+> n
+You move north.
 
 Maternaless Ward
 The most conventionally hospital-esque place you've seen thus far. The
@@ -868,14 +965,18 @@ for one at the end of the hall.
 
 You can only move south.
 
->The Soul Scythe explodes in a flash of indigo light. Small particles of black
+> unsummon scythe
+The Soul Scythe explodes in a flash of indigo light. Small particles of black
 dust float down from where the blade once was.
 
->You unlock the Magna Mater door with La Virgencita key.
+> unlock door with key
+You unlock the Magna Mater door with La Virgencita key.
 
->You open the Magna Mater door.
+> open door
+You open the Magna Mater door.
 
->(Your score has increased by 5)
+> walk through magna mater door
+(Your score has increased by 5)
 
     When you opened the Magna Mater room you expected to find another place
 in the hospital or at least a room. However, where something should have been
@@ -985,7 +1086,8 @@ and lift it out...
 
 You are back in the Maternaless Ward.
 
->You move south.
+> s
+You move south.
 
 The Medicine Cabinet
 This enormous room's floor is completely obscured by knee-deep water. Out of
@@ -998,7 +1100,8 @@ of the figure.
 
 You can move north and south.
 
->You move south.
+> s
+You move south.
 
 Grand Corridor
 You step into a long hallway decorated with portraits on either side and lit
@@ -1012,7 +1115,8 @@ strange contraption next to it.
 
 You can move north, east, south and west.
 
->You move south.
+> s
+You move south.
 
 Waiting Room
 You are in a small room lit by a flickering fluorescent light. The floor is
@@ -1030,9 +1134,11 @@ A vase of Sighing Prudence sits on the magazine table with an attached note.
 
 You can move north and south.
 
->You pick up the Sighing Prudence.
+> take prudence
+You pick up the Sighing Prudence.
 
->You move north.
+> n
+You move north.
 
 Grand Corridor
 You step into a long hallway decorated with portraits on either side and lit
@@ -1046,7 +1152,8 @@ strange contraption next to it.
 
 You can move north, east, south and west.
 
->You move east.
+> e
+You move east.
 
 The Halting Chapel
 Cobwebs and thick dust coat every surface of the room and indicate that it
@@ -1058,7 +1165,8 @@ A black shrine sits opposite the wooden altar.
 
 You can only move west.
 
->(Your score has increased by 5)
+> give sigh prudence to hope
+(Your score has increased by 5)
      "Wha," Hope exclaims as she clutches her chest, "what is this?"
      "I believe it's for you. To help you get home," you tell her gently.
      Hope drops her sword, slowly takes the flowers into her hands, and her
@@ -1092,11 +1200,16 @@ Luck'.
 floor...the final answer to Mercy.
 
 >
->
->
->You pick up Hope's Spirit.
 
->(Your score has increased by 10)
+>
+
+>
+
+> take spirit
+You pick up Hope's Spirit.
+
+> put hope's spirit into box
+(Your score has increased by 10)
      The room begins to spin around you and nausea rises out of the pit of
 your stomach as you struggle to hold yourself together.
 

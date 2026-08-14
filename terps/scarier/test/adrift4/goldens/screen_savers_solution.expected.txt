@@ -28,7 +28,8 @@ adjusting cameras and setting up lights.  You also notice Russ and Josette,
 the line producers,  running around frantically waving their arms. To the
 north is the studio's main hall.  To the east is the snack room.
 
->You move north.
+> n
+You move north.
 
 Main hall
 You are standing in a long, white hall.  To the west is the Netcam Cineplex,
@@ -38,7 +39,8 @@ south.
 
 Megan is here.
 
->You move east.
+> e
+You move east.
 
 Lab Area A
 This area is for hardware testing and experimentation.  The charred remains
@@ -48,11 +50,14 @@ here.
 
 Also here is a Linux disc and a music megaphone.
 
->You pick up the Linux disc.
+> take disc
+You pick up the Linux disc.
 
->You pick up the music megaphone.
+> take megaphone
+You pick up the music megaphone.
 
->You climb inside the teleporter and with a blinding flash of light you find
+> enter teleporter
+You climb inside the teleporter and with a blinding flash of light you find
 yourself in the TechTV offices.
 
 Meeting room
@@ -62,7 +67,8 @@ Savers' office cubes.
 
 Also here are some meeting notes and some crumpled paper.
 
->You move north.
+> n
+You move north.
 
 By the cubes
 You are standing besides the seemingly endless rows of office cubes where The
@@ -70,7 +76,8 @@ Screen Savers do their non-studio work.   No one's here now.  To the east you
 notice what must be Patrick's cube.  The meeting room lies south, and a
 kitchen lies north.
 
->You move east.
+> e
+You move east.
 
 Patrick's cube
 This is Patrick's cube.  West will take you back to being by the cubes, while
@@ -78,9 +85,11 @@ to the north you spot Martin's cube.  Patrick's stuff fills the cube.
 
 Also here is a punk tape.
 
->You pick up the punk tape.
+> take tape
+You pick up the punk tape.
 
->You move north.
+> n
+You move north.
 
 Martin's cube
 This is Martin's cube.  A tad bit untidy, but nothing compared to Patrick's
@@ -88,15 +97,18 @@ cube's natural state.  South will take you back to Patrick's cube.
 
 Also here is a video.
 
->You pick up the video.
+> take video
+You pick up the video.
 
->You move south.
+> s
+You move south.
 
 Patrick's cube
 This is Patrick's cube.  West will take you back to being by the cubes, while
 to the north you spot Martin's cube.  Patrick's stuff fills the cube.
 
->You move west.
+> w
+You move west.
 
 By the cubes
 You are standing besides the seemingly endless rows of office cubes where The
@@ -104,7 +116,8 @@ Screen Savers do their non-studio work.   No one's here now.  To the east you
 notice what must be Patrick's cube.  The meeting room lies south, and a
 kitchen lies north.
 
->You move north.
+> n
+You move north.
 
 Kitchen
 The office kitchen is beset by a burned popcorn smell.   Apparently someone
@@ -113,9 +126,11 @@ refrigerator here.  South will take you back by the cubes.
 
 Also here is a banana peel.
 
->You pick up the banana peel.
+> take peel
+You pick up the banana peel.
 
->You move south.
+> s
+You move south.
 
 By the cubes
 You are standing besides the seemingly endless rows of office cubes where The
@@ -123,7 +138,8 @@ Screen Savers do their non-studio work.   No one's here now.  To the east you
 notice what must be Patrick's cube.  The meeting room lies south, and a
 kitchen lies north.
 
->You move south.
+> s
+You move south.
 
 Meeting room
 This is the room where The Screen Savers shows are planned. The teleporter to
@@ -132,13 +148,16 @@ Savers' office cubes.
 
 Also here are some meeting notes and some crumpled paper.
 
->You climb inside the teleporter and with a blinding flash of light you find
+> enter teleporter
+You climb inside the teleporter and with a blinding flash of light you find
 yourself back in Lab Area A.
 
->You put the punk tape in the megaphone.   It's a  tight fit, so it's unlikely
+> put tape in megaphone
+You put the punk tape in the megaphone.   It's a  tight fit, so it's unlikely
 you'll be able to get it out again.
 
->You move west.
+> w
+You move west.
 
 Main hall
 You are standing in a long, white hall.  To the west is the Netcam Cineplex,
@@ -148,7 +167,8 @@ south.
 
 Megan is here.
 
->(Your score has increased by 10)
+> install disc
+(Your score has increased by 10)
 You start to install Galaxy Linux on Megan's G4. The screen displays, "You
 are not Megan Morrone.  You may not....Oh, Galaxy Linux?  Wow!  I'm sure she
 won't mind!"  The G4 happily accomodates you and soon a smiling galactic Tux
@@ -159,7 +179,8 @@ herself off and then says, "Thanks!  You saved me from a truly annoying
 experience.   I better run to the set."   With a smile and a wave, she trots
 off to the set.
 
->You move south.
+> s
+You move south.
 
 Outside the set
 You are in a room that's directly outside the studio's live set.  A large
@@ -169,7 +190,8 @@ the line producers,  running around frantically waving their arms. To the
 north is the studio's main hall.  To the east is the snack room.  You can see
 Megan on the set, trying to get her Download of the Day to work.
 
->You move east.
+> e
+You move east.
 
 Snack room
 This is a small snack room.   West leads to outside the set.  Jessica is
@@ -179,7 +201,8 @@ the corner.
 
 Jessica is here.
 
->(Your score has increased by 10)
+> drop peel
+(Your score has increased by 10)
 You put the banana peel on the floor.   Jessica almost finishes her coffee
 and as usual, the servobot wheels its way out of the corner to give her a
 refill.  However, on its way it slips on the banana peel, loses its balance,
@@ -188,7 +211,8 @@ Jessica finishes the last drop of her coffee and says, "Whew!  I think I've
 had enough caffeine.  I better get to the studio.  I'll see you there."  She
 sprints off to the set.
 
->You move west.
+> w
+You move west.
 
 Outside the set
 You are in a room that's directly outside the studio's live set.  A large
@@ -199,7 +223,8 @@ north is the studio's main hall.  To the east is the snack room.  You can see
 Megan on the set, trying to get her Download of the Day to work.  You can see
 Jessica on the set, looking at her Site of the Nite.
 
->You move north.
+> n
+You move north.
 
 Main hall
 You are standing in a long, white hall.  To the west is the Netcam Cineplex,
@@ -207,14 +232,16 @@ to the east is the Lab area, to the north is the studio lobby, and the set is
 south.
   The penguins are happily dancing around Megan's G4.
 
->You move north.
+> n
+You move north.
 
 Studio lobby
 You are standing in the lobby of the Planet X TV studio.  The studio's main
 hall is south, and going north will take you outside.  There is an odd device
 here.
 
->You move north.
+> n
+You move north.
 
 Outside studio
 You are standing outside the studio.  The sky is a purplish hue and the
@@ -223,7 +250,8 @@ twisty path leads east of here, a road leads north, and a hill lies to the
 west, behind which you hear some kind of commotion.  South will lead you back
 into the studio.
 
->You move west.
+> w
+You move west.
 
 On top of a hill
 You are standing on top of a rocky hill.  To the west is a building bedecked
@@ -232,7 +260,8 @@ Fantabulous Mr. Universe Contest."     You hear a lot of cheering and cheesy
 music emanating from the building.  East will take you to the entrance of the
 studio.
 
->You move west.
+> w
+You move west.
 
 Mr. Universe Contest
 You are inside the building where the Fantabulous Mr. Universe Contest is
@@ -250,7 +279,8 @@ with his speech.
 
 Martin is here.
 
->(Your score has increased by 10)
+> play video
+(Your score has increased by 10)
 You plop the video into the slot.  You immediately hear some clicking and
 whirling sounds from behind the wall.  Suddenly the screen covering the back
 of the stage flickers to life, revealing an image of Martin in a speedo.  The
@@ -259,7 +289,8 @@ is able to slip off the stage and run out the door.As he leaves, he glances
 back at you says, "Thanks, but try a less embarassing form of rescue next
 time, huh?"
 
->You move east.
+> e
+You move east.
 
 On top of a hill
 You are standing on top of a rocky hill.  To the west is a building bedecked
@@ -267,7 +298,8 @@ with garish flashing lights.  A sign on top of the building reads "The
 Fantabulous Mr. Universe Contest."     The building is now quite silent.
 East will take you to the entrance of the studio.
 
->You move east.
+> e
+You move east.
 
 Outside studio
 You are standing outside the studio.  The sky is a purplish hue and the
@@ -275,7 +307,8 @@ ground is composed of a redish sand.  A hot wind blows dust on you.     A
 twisty path leads east of here, a road leads north, and a hill lies to the
 west.  South will lead you back into the studio.
 
->You move east.
+> e
+You move east.
 
 Twisty path
 You are on a twisty path full of annoying curlicues and knots.  A sign point
@@ -283,7 +316,8 @@ south says, "To the Rocket Pad" while another sign pointing east says, "To
 the Dusty Sea of Dust."  West will lead you back to the entrance to the
 studio.
 
->You move east.
+> e
+You move east.
 
 By the Dusty Sea of Dust
 The Dusty Sea of Dust certainly lives up to its name.   It is a huge mass of,
@@ -291,7 +325,8 @@ well, dust, billowing about in an immense canyon that you're standing at the
 edge of.  There's a bronze telescope here.  It seems like you can just barely
 make out a speck of something floating on the Sea in the distance.
 
->(Your score has increased by 10)
+> play megaphone
+(Your score has increased by 10)
 The megaphone blasts out tunes from "12 Punk Songs You Don't Know But Love
 Anyway" at an incredibly high volume.
 The music seems to reach Patrick and inspires him to turn his sailboat your
@@ -300,7 +335,8 @@ rocks!  I've been looking for it forever!" he says.  You fill him in on the
 situation and he says, "Thanks!  I'll see you on the set." and runs off in
 the direction of the studio.
 
->You move west.
+> w
+You move west.
 
 Twisty path
 You are on a twisty path full of annoying curlicues and knots.  A sign point
@@ -308,7 +344,8 @@ south says, "To the Rocket Pad" while another sign pointing east says, "To
 the Dusty Sea of Dust."  West will lead you back to the entrance to the
 studio.
 
->You move west.
+> w
+You move west.
 
 Outside studio
 You are standing outside the studio.  The sky is a purplish hue and the
@@ -316,14 +353,16 @@ ground is composed of a redish sand.  A hot wind blows dust on you.     A
 twisty path leads east of here, a road leads north, and a hill lies to the
 west.  South will lead you back into the studio.
 
->You move north.
+> n
+You move north.
 
 Crossroads
 You are standing at a dustry crossroads.  To the west you see a metal
 building.  To the east is something that looks like a cheap hotel.  The
 studio is south of here.
 
->You move east.
+> e
+You move east.
 
 Outside hotel
 You are standing outside the Planet X Luxury Hotel.   To the north is the
@@ -331,7 +370,8 @@ Desert Planet Cafe, moving east will take you inside the Hotel, while west
 will take you to the crossroads.  An immense robotic bulldozer is slowly
 making its way towards the Hotel.
 
->You move east.
+> e
+You move east.
 
 Hotel lobby
 This is the lobby of the Planet X Luxury Hotel.  West takes you back outside,
@@ -341,7 +381,8 @@ is a glass case here.
 
 Joshua is here.
 
->You move north.
+> n
+You move north.
 
 Game room
 This is the Planet X Luxury Hotel's game room.  South takes you back to the
@@ -349,7 +390,8 @@ lobby.  There is an Asteroids game here.
 
 Darci is here.
 
->(Your score has increased by 10)
+> flip switch
+(Your score has increased by 10)
 Darci is so engrossed that she doesn't notice you flipping the switch.
 "What!?" she suddenly exclaims.  "This lousy thing's difficulty switch must
 be broken.   What a cheap piece of garbage!"
@@ -359,7 +401,8 @@ lobby.  You hear a loud smashing and shattering noise as it lands.
 leaves.  Amazingly, Joshua seems to have slept through it all -- you can just
 barely hear his continued snoring.
 
->You move south.
+> s
+You move south.
 
 Hotel lobby
 This is the lobby of the Planet X Luxury Hotel.  West takes you back outside,
@@ -370,14 +413,18 @@ Also here are the game tokens, a bazooka and broken glass.
 
 Joshua is here.  The Asteroids game is here.
 
->You pick up the bazooka.
+> take bazooka
+You pick up the bazooka.
 
->You pick up the game tokens.
+> take tokens
+You pick up the game tokens.
 
->The shards of glass would surely cut your fingers.  You decide to leave them
+> take glass
+The shards of glass would surely cut your fingers.  You decide to leave them
 alone.
 
->(Your score has increased by 10)
+> shoot bulldozer
+(Your score has increased by 10)
 You take aim at the bulldozer as it's just about to topple the hotel.  You
 fire and the bazooka makes a cool "ZAP" noise as a green ray shoots through
 the door which strikes the bulldozer, instantly shrinking it to toy size.  It
@@ -390,11 +437,14 @@ nevermind."  You tell him the situation on the set.  "Allright, I better get
 over there," he says.  He puts on his mirrored shades, thanks you, and
 leaves.
 
->You pick up the miniaturized robotic bulldozer.
+> take bulldozer
+You pick up the miniaturized robotic bulldozer.
 
->You drop the bazooka.
+> drop bazooka
+You drop the bazooka.
 
->You move west.
+> w
+You move west.
 
 Outside hotel
 You are standing outside the Planet X Luxury Hotel.   To the north is the
@@ -402,28 +452,32 @@ Desert Planet Cafe, moving east will take you inside the Hotel, while west
 will take you to the crossroads.  An immense robotic bulldozer is slowly
 making its way towards the Hotel.
 
->You move west.
+> w
+You move west.
 
 Crossroads
 You are standing at a dustry crossroads.  To the west you see a metal
 building.  To the east is something that looks like a cheap hotel.  The
 studio is south of here.
 
->You move west.
+> w
+You move west.
 
 Outside the Library
 You are outside a roundish metal building with a sign on it reading, "Planet
 X Public Library."  North will take you inside the Library, while east leads
 to the crossroads.
 
->You move north.
+> n
+You move north.
 
 The Library
 Apparently this Library isn't used much.   There are hardly any books on the
 shelves and there's no librarians present.  South will take you back outside,
 while a suspicious-looking door lies to the north.
 
->You walk into the dark room.  Suddenly the door slams behind you.   You can
+> n
+You walk into the dark room.  Suddenly the door slams behind you.   You can
 just barely make out the figure of the Web Lab Master Tom sitting in the
 darkness. "I'm sorry to do this to you, but you've got to help me!" he cries.
 "I can't remember the name of the first president of the U.S. Congress and
@@ -436,44 +490,53 @@ descends from a slit in the ceiling.
 
 Tom is here.
 
->(Your score has increased by 6)
+> search room
+(Your score has increased by 6)
 You feel along the wall of the dark room and discover a shelf.  There's
 hardly anything on it except for one book.
 
->You pick up the book.
+> take book
+You pick up the book.
 
->You stand in the shaft of light.
+> stand in light
+You stand in the shaft of light.
 
->You open up the book to read it, and a sticky note falls from one of the
+> read book
+You open up the book to read it, and a sticky note falls from one of the
 pages and onto the floor in the shaft of light.
 
->(Your score has increased by 10)
+> talk to Tom about John Hanson
+(Your score has increased by 10)
 "By Crackey!  That's right!  Good ol' John Hanson!  Man, that's a load off my
 mind.  Alright, I guess we can go now."  He stands up, unlocks the door in
 the south wall, and leaves.
 
->You move south.
+> s
+You move south.
 
 The Library
 Apparently this Library isn't used much.   There are hardly any books on the
 shelves and there's no librarians present.  South will take you back outside,
 while a suspicious-looking door lies to the north.
 
->You move south.
+> s
+You move south.
 
 Outside the Library
 You are outside a roundish metal building with a sign on it reading, "Planet
 X Public Library."  North will take you inside the Library, while east leads
 to the crossroads.
 
->You move east.
+> e
+You move east.
 
 Crossroads
 You are standing at a dustry crossroads.  To the west you see a metal
 building.  To the east is something that looks like a cheap hotel.  The
 studio is south of here.
 
->You move east.
+> e
+You move east.
 
 Outside hotel
 You are standing outside the Planet X Luxury Hotel.   To the north is the
@@ -481,7 +544,8 @@ Desert Planet Cafe, moving east will take you inside the Hotel, while west
 will take you to the crossroads.  An immense robotic bulldozer is slowly
 making its way towards the Hotel.
 
->You move north.
+> n
+You move north.
 
 Desert cafe
 You are inside the delightfully quaint Planet X Desert Cafe.
@@ -490,9 +554,11 @@ Also here is Roger's ID.
 
 Roger is here.
 
->You pick up Roger's ID.
+> take ID
+You pick up Roger's ID.
 
->You move south.
+> s
+You move south.
 
 Outside hotel
 You are standing outside the Planet X Luxury Hotel.   To the north is the
@@ -500,14 +566,16 @@ Desert Planet Cafe, moving east will take you inside the Hotel, while west
 will take you to the crossroads.  An immense robotic bulldozer is slowly
 making its way towards the Hotel.
 
->You move west.
+> w
+You move west.
 
 Crossroads
 You are standing at a dustry crossroads.  To the west you see a metal
 building.  To the east is something that looks like a cheap hotel.  The
 studio is south of here.
 
->You move south.
+> s
+You move south.
 
 Outside studio
 You are standing outside the studio.  The sky is a purplish hue and the
@@ -515,20 +583,24 @@ ground is composed of a redish sand.  A hot wind blows dust on you.     A
 twisty path leads east of here, a road leads north, and a hill lies to the
 west.  South will lead you back into the studio.
 
->You move south.
+> s
+You move south.
 
 Studio lobby
 You are standing in the lobby of the Planet X TV studio.  The studio's main
 hall is south, and going north will take you outside.  There is an odd device
 here.
 
->You put Roger's ID in the tube.   The ID is briskly whisked away to the
+> put ID in tube
+You put Roger's ID in the tube.   The ID is briskly whisked away to the
 innards of the machine, then is spit back out into your hand.  A printout
 slowly rolls out of the Match Maker and falls to the floor.
 
->You pick up the printout.
+> take printout
+You pick up the printout.
 
->You move north.
+> n
+You move north.
 
 Outside studio
 You are standing outside the studio.  The sky is a purplish hue and the
@@ -536,14 +608,16 @@ ground is composed of a redish sand.  A hot wind blows dust on you.     A
 twisty path leads east of here, a road leads north, and a hill lies to the
 west.  South will lead you back into the studio.
 
->You move north.
+> n
+You move north.
 
 Crossroads
 You are standing at a dustry crossroads.  To the west you see a metal
 building.  To the east is something that looks like a cheap hotel.  The
 studio is south of here.
 
->You move east.
+> e
+You move east.
 
 Outside hotel
 You are standing outside the Planet X Luxury Hotel.   To the north is the
@@ -551,20 +625,23 @@ Desert Planet Cafe, moving east will take you inside the Hotel, while west
 will take you to the crossroads.  An immense robotic bulldozer is slowly
 making its way towards the Hotel.
 
->You move north.
+> n
+You move north.
 
 Desert cafe
 You are inside the delightfully quaint Planet X Desert Cafe.
 
 Roger is here.
 
->(Your score has increased by 10)
+> show printout to Roger
+(Your score has increased by 10)
 Roger yanks the printout from your hand and quickly scans it.   "Wow!  This
 is great!" he exclaims.  "This is sure to get me a hot date!   Now I have the
 strength to produce my segments again.  I'll see you on the set."  He stands
 up and leaves
 
->You move south.
+> s
+You move south.
 
 Outside hotel
 You are standing outside the Planet X Luxury Hotel.   To the north is the
@@ -572,14 +649,16 @@ Desert Planet Cafe, moving east will take you inside the Hotel, while west
 will take you to the crossroads.  An immense robotic bulldozer is slowly
 making its way towards the Hotel.
 
->You move west.
+> w
+You move west.
 
 Crossroads
 You are standing at a dustry crossroads.  To the west you see a metal
 building.  To the east is something that looks like a cheap hotel.  The
 studio is south of here.
 
->You move south.
+> s
+You move south.
 
 Outside studio
 You are standing outside the studio.  The sky is a purplish hue and the
@@ -587,14 +666,16 @@ ground is composed of a redish sand.  A hot wind blows dust on you.     A
 twisty path leads east of here, a road leads north, and a hill lies to the
 west.  South will lead you back into the studio.
 
->You move south.
+> s
+You move south.
 
 Studio lobby
 You are standing in the lobby of the Planet X TV studio.  The studio's main
 hall is south, and going north will take you outside.  There is an odd device
 here.
 
->You move south.
+> s
+You move south.
 
 Main hall
 You are standing in a long, white hall.  To the west is the Netcam Cineplex,
@@ -602,7 +683,8 @@ to the east is the Lab area, to the north is the studio lobby, and the set is
 south.
   The penguins are happily dancing around Megan's G4.
 
->You move east.
+> e
+You move east.
 
 Lab Area A
 This area is for hardware testing and experimentation.  The charred remains
@@ -610,7 +692,8 @@ of some glorious experiments litter the floor .  The main hall is to the
 west, while an additional lab area is to the east.  A teleporter is set up
 here.
 
->You climb inside the teleporter and with a blinding flash of light you find
+> enter teleporter
+You climb inside the teleporter and with a blinding flash of light you find
 yourself in the TechTV offices.
 
 Meeting room
@@ -620,7 +703,8 @@ Savers' office cubes.
 
 Also here are some meeting notes and some crumpled paper.
 
->You move north.
+> n
+You move north.
 
 By the cubes
 You are standing besides the seemingly endless rows of office cubes where The
@@ -628,13 +712,15 @@ Screen Savers do their non-studio work.   No one's here now.  To the east you
 notice what must be Patrick's cube.  The meeting room lies south, and a
 kitchen lies north.
 
->You move east.
+> e
+You move east.
 
 Patrick's cube
 This is Patrick's cube.  West will take you back to being by the cubes, while
 to the north you spot Martin's cube.  Patrick's stuff fills the cube.
 
->(Your score has increased by 6)
+> drop bulldozer
+(Your score has increased by 6)
 As you put the miniaturized bulldozer down, blue lights on its back light up
 and it twirls around, as if examining the area.  As it faces Patrick's cube
 it says, "Trash detected.  Commencing demolition."
@@ -650,7 +736,8 @@ Patrick's cube
 This is Patrick's cube.  West will take you back to being by the cubes, while
 to the north you spot Martin's cube.  Patrick's stuff fills the cube.
 
->You move west.
+> w
+You move west.
 
 By the cubes
 You are standing besides the seemingly endless rows of office cubes where The
@@ -658,7 +745,8 @@ Screen Savers do their non-studio work.   No one's here now.  To the east you
 notice what must be Patrick's cube.  The meeting room lies south, and a
 kitchen lies north.
 
->You move south.
+> s
+You move south.
 
 Meeting room
 This is the room where The Screen Savers shows are planned. The teleporter to
@@ -667,10 +755,12 @@ Savers' office cubes.
 
 Also here are some meeting notes and some crumpled paper.
 
->You climb inside the teleporter and with a blinding flash of light you find
+> enter teleporter
+You climb inside the teleporter and with a blinding flash of light you find
 yourself back in Lab Area A.
 
->You move west.
+> w
+You move west.
 
 Main hall
 You are standing in a long, white hall.  To the west is the Netcam Cineplex,
@@ -678,14 +768,16 @@ to the east is the Lab area, to the north is the studio lobby, and the set is
 south.
   The penguins are happily dancing around Megan's G4.
 
->You move north.
+> n
+You move north.
 
 Studio lobby
 You are standing in the lobby of the Planet X TV studio.  The studio's main
 hall is south, and going north will take you outside.  There is an odd device
 here.
 
->You move north.
+> n
+You move north.
 
 Outside studio
 You are standing outside the studio.  The sky is a purplish hue and the
@@ -693,7 +785,8 @@ ground is composed of a redish sand.  A hot wind blows dust on you.     A
 twisty path leads east of here, a road leads north, and a hill lies to the
 west.  South will lead you back into the studio.
 
->You move east.
+> e
+You move east.
 
 Twisty path
 You are on a twisty path full of annoying curlicues and knots.  A sign point
@@ -701,7 +794,8 @@ south says, "To the Rocket Pad" while another sign pointing east says, "To
 the Dusty Sea of Dust."  West will lead you back to the entrance to the
 studio.
 
->You move south.
+> s
+You move south.
 
 Rocket Pad
 You are standing besides a gleaming Launch Pad, on which stands a small
@@ -711,19 +805,24 @@ Twisty Path.
 
 Also here is a spacesuit.
 
->You pick up the spacesuit.
+> take spacesuit
+You pick up the spacesuit.
 
->You put on the spacesuit.
+> wear spacesuit
+You put on the spacesuit.
 
->You climb into the rocket.
+> enter rocket
+You climb into the rocket.
 
 In Rocket
 You are in the small, crowded cockpit of the rocket.    The rocket is resting
 on the Launch Pad.  There is a console here.
 
->You turn the dial to 1119.
+> set dial to 1119
+You turn the dial to 1119.
 
->You press the green button and the ship takes off with a roar, quickly
+> push green button
+You press the green button and the ship takes off with a roar, quickly
 blasting its way out of Planet X's atmosphere.  Within minutes you approach a
 small, rotating space station that has a huge neon sign attached that reads,
 "Galactic Quick-e Mart."   The Rocket automatically docks with the Galactic
@@ -734,14 +833,16 @@ You are in the small, crowded cockpit of the Rocket.  There is a console
 here.  The Rocket is docked with the Galactic Quick-e Mart, which you can
 enter by going west.
 
->You move west.
+> w
+You move west.
 
 Galactic Quick-e Mart
 The Galactic Quick-e Mart is a huge, shiny, overwhelming affair filled with
 mind-boggling products you can't afford.  There is, however, a bargain bin
 here.  East will take you back to the rocket.
 
->(Your score has increased by 10)
+> buy modulator
+(Your score has increased by 10)
 You take out the game tokens, and a shop bot whizzes toward you.  "Yes," is
 says with disdain.  "You just barely have enough."  With a little nozzle, it
 sucks the tokens out of your hand.  It then picks up the Modulator, hands it
@@ -754,14 +855,16 @@ research is all done so, uh, so, uh...I'll guess I'll go back to the show
 now."  He gives you a guilty smile and then slinks away.  In fact, he seems
 to disappear in a flash of light.  Did he just teleport away?  Hmmm....
 
->You move east.
+> e
+You move east.
 
 In Rocket near Galactic Mart
 You are in the small, crowded cockpit of the Rocket.  There is a console
 here.  The Rocket is docked with the Galactic Quick-e Mart, which you can
 enter by going west.
 
->You press the blue button and abruptly  the rocket spins around and blasts
+> push blue button
+You press the blue button and abruptly  the rocket spins around and blasts
 off towards Planet X.  The speed of its descent is frightening, and you are
 almost sure you are going to crash into the Launch Pad instead of landing on
 it, but at the last possible moment the rocket does a graceful flip that
@@ -772,9 +875,11 @@ In Rocket
 You are in the small, crowded cockpit of the rocket.    The rocket is resting
 on the Launch Pad.  There is a console here.
 
->You turn the dial to 3071.
+> set dial to 3071
+You turn the dial to 3071.
 
->You press the green button and the ship takes off with a roar, quickly
+> push green button
+You press the green button and the ship takes off with a roar, quickly
 blasting its way out of Planet X's atmosphere.  Within minutes you approach a
 what looks to be a rip in the fabric of space and time, and slow to a stop.
 
@@ -784,14 +889,16 @@ here.  Through the window you can see a gaping rift in the space time
 continuum.   You may exit the rocket to go into space (provided you are
 properly attired).
 
->You exit the rocketship.
+> exit rocket
+You exit the rocketship.
 
 In space by the rift
 You are floating in space, just a short distance from the rocketship.   There
 is a space/time rift here.  You may enter the rocket or, if you are brave,
 the rift.
 
->With no small amount of fear, you plunge head first into the rift.  You are
+> enter rift
+With no small amount of fear, you plunge head first into the rift.  You are
 spiral down a long purplish tunnel and then are spit out into a strange room.
 
 Flying Saucer Storage Room
@@ -800,26 +907,33 @@ A pale green glow from an unidentifiable source fills the area.   There is a
 red crate and a yellow crate here.  Going south will take you through the
 space/time rift and back into space.
 
->You take the sticker from the yellow crate.
+> take sticker
+You take the sticker from the yellow crate.
 
->You firmly afix the sticker to the red crate.  As you do, something that was
+> put sticker on red crate
+You firmly afix the sticker to the red crate.  As you do, something that was
 hidden on the wall above flutters to the floor.
 
->You pick up the space/time patch.
+> take patch
+You pick up the space/time patch.
 
->You climb into the rift and are zapped back to a place in space near the
+> south
+You climb into the rift and are zapped back to a place in space near the
 rocket.
 
->You apply the patch and it immediately expands to a huge size, like a giant
+> fix rift
+You apply the patch and it immediately expands to a huge size, like a giant
 band aid, covering the rift.
 
->(Your score has increased by 10)
+> enter rocket
+(Your score has increased by 10)
 You float over to the rocket and climb back inside.   Once you enter, you
 hear Cat's voice from the console.  "Hey, whatever you did fixed the
 transmission problem!" she says.  "The Netcam Cineplex is rocking full-on!
 I'm going to the set now!  Thanks!"  Her transmission ends.
 
->You press the blue button and abruptly  the rocket spins around and blasts
+> push blue button
+You press the blue button and abruptly  the rocket spins around and blasts
 off towards Planet X.  The speed of its descent is frightening, and you are
 almost sure you are going to crash into the Launch Pad instead of landing on
 it, but at the last possible moment the rocket does a graceful flip that
@@ -830,9 +944,11 @@ In Rocket
 You are in the small, crowded cockpit of the rocket.    The rocket is resting
 on the Launch Pad.  There is a console here.
 
->You turn the dial to 4692.
+> set dial to 4692
+You turn the dial to 4692.
 
->You press the green button and the ship takes off with a roar, quickly
+> push green button
+You press the green button and the ship takes off with a roar, quickly
 blasting its way out of Planet X's atmosphere.  Within minutes you approach a
 small artificial satellite above Planet X, and slow to a stop.
 
@@ -841,19 +957,23 @@ You are in the small, crowded cockpit of the rocket.  There is a console
 here.  Outside the window you can see a satellite.  You may exit the rocket
 to go into space (provided you are properly attired).
 
->You exit the rocketship.
+> exit rocket
+You exit the rocketship.
 
 In space by Satellite
 You are floating outside the Rocketship in space.  You are right next to a
 satellite.  You may enter the rocket.
 
->(Your score has increased by 10)
+> kick satellite
+(Your score has increased by 10)
 With some effort, you are able to adjust the satellite's position.   Its
 display changes to read "Proper Alignment" in green LED letters.
 
->You float over to the rocket and climb back inside.
+> enter rocket
+You float over to the rocket and climb back inside.
 
->You press the blue button and abruptly  the rocket spins around and blasts
+> push blue button
+You press the blue button and abruptly  the rocket spins around and blasts
 off towards Planet X.  The speed of its descent is frightening, and you are
 almost sure you are going to crash into the Launch Pad instead of landing on
 it, but at the last possible moment the rocket does a graceful flip that
@@ -864,21 +984,25 @@ In Rocket
 You are in the small, crowded cockpit of the rocket.    The rocket is resting
 on the Launch Pad.  There is a console here.
 
->As you climb out of the rocket, you notice Morgan walking by.  "Hey," she
+> exit rocket
+As you climb out of the rocket, you notice Morgan walking by.  "Hey," she
 says, "I was SO lost out there.  It was like the whole planet's GPS satellite
 system was messed up.  Luckily, it just started working again, so my trusty
 Palm was able to lead me back here.  Well, see you on the set."  She waves
 goodbye and walks off to the studio.
 
->You climb into the rocket.
+> enter rocket
+You climb into the rocket.
 
 In Rocket
 You are in the small, crowded cockpit of the rocket.    The rocket is resting
 on the Launch Pad.  There is a console here.
 
->You turn the dial to 7438.
+> set dial to 7438
+You turn the dial to 7438.
 
->You press the green button and the ship takes off with a roar, quickly
+> push green button
+You press the green button and the ship takes off with a roar, quickly
 blasting its way out of Planet X's atmosphere.  Within minutes you approach a
 what looks to be a flying saucer, and slow to a stop.
 
@@ -887,13 +1011,15 @@ You are in the small, crowded cockpit of the Rocket.  There is a console
 here.  Through the glass you can see a flying saucer.  You can exit the
 rocket to investigate the saucer (if you are properly protected.)
 
->You exit the rocketship.
+> exit rocket
+You exit the rocketship.
 
 In space by Saucer
 You are floating in space near the rocketship.   A flying saucer is nearby.
 You may enter either the saucer or the rocket.
 
->(Your score has increased by 10)
+> enter saucer
+(Your score has increased by 10)
 You slip inside the flying saucer through one of its air ducts.
 When you enter, you see the alien leader saying, "Hey, doesn't it seem hot in
 here to you guys?"  Suddenly, his fan sputters to a halt.  "Hey!" he says,
@@ -918,14 +1044,16 @@ studio.
 In the distance, you see the rocket returning to the Launch Pad by autopilot.
   Why isn't it that smart when you're in it?
 
->You move south.
+> s
+You move south.
 
 Studio lobby
 You are standing in the lobby of the Planet X TV studio.  The studio's main
 hall is south, and going north will take you outside.  There is an odd device
 here.
 
->You move south.
+> s
+You move south.
 
 Main hall
 You are standing in a long, white hall.  To the west is the Netcam Cineplex,
@@ -933,7 +1061,8 @@ to the east is the Lab area, to the north is the studio lobby, and the set is
 south.
   The penguins are happily dancing around Megan's G4.
 
->You move east.
+> e
+You move east.
 
 Lab Area A
 This area is for hardware testing and experimentation.  The charred remains
@@ -941,7 +1070,8 @@ of some glorious experiments litter the floor .  The main hall is to the
 west, while an additional lab area is to the east.  A teleporter is set up
 here.
 
->You move east.
+> e
+You move east.
 
 Lab Area B
 This is the second of two rooms set up for equipment testing. West will take
@@ -949,14 +1079,16 @@ you back to Lab Area A.  UGM 3.0 is set up here.
 
 Yosh is here.
 
->(Your score has increased by 10)
+> install modulator
+(Your score has increased by 10)
 You install the Illdium PU-49 Space Modulator on UGM.  UGM's monitor suddenly
 turns blue, then a message reading "Clarice 2000 Activation Successful"
 spills across the screen.
 "Alright!" says Yosh.  "Way to go!  Watch it for a bit to see what it does
 and I'll head over to the studio.  Thanks!"  Yosh leaves.
 
->You've managed to get everyone to the set!  Congratulations!
+> look
+You've managed to get everyone to the set!  Congratulations!
 You and The Screen Savers end up being so entertaining that the show gains
 Galaxy-wide syndication!   You become such a popular star even Leo becomes
 jealous of you!  Good job!

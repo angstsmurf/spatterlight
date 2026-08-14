@@ -24,9 +24,11 @@ you to fit through.
 
 Also here is a drumstick.
 
->You pick up the drumstick.
+> take drumstick
+You pick up the drumstick.
 
->(Your score has decreased by 2)
+> hit bars with drumstick
+(Your score has decreased by 2)
 A guard comes in from out of nowhere and hits you over the head with a club.
 
 "ARGH! No leave! No Noise!"
@@ -34,14 +36,16 @@ A guard comes in from out of nowhere and hits you over the head with a club.
 With your head spinning, you watch as the three guards (at least that is what
 you see) leave the cave, leaving you alone once again."
 
->(Your score has increased by 25)
+> feed beaver the drumstick
+(Your score has increased by 25)
 
 You hold the drumstick up to the beaver and barely able to pull your arm away
 in time.  He eats the drumstick in one bite, then looks to you for more.  He
 leaps out toward you, but drops in midair.  He looks to be very sick.  He
 reminds you of the nurse you saw on your way in.  Well, her hair, anyway.
 
->You pick up the sick beaver.  You suddenly get an idea.  You throw yourself
+> take beaver
+You pick up the sick beaver.  You suddenly get an idea.  You throw yourself
 on the ground and start screaming.  The guard quickly rushes in and notices
 that the drumstick is gone.  He rushes you to the infirmary where you wait
 for the nurse to come back on duty.
@@ -54,22 +58,28 @@ except this one leads to freedom.  There is a slab, which the patient is to
 lie on, and a rock table nearby.  A cubby hole in the wall, looks to be some
 sort of storage space.
 
->You take the medicine from the rock table.
+> get medicine
+You take the medicine from the rock table.
 
->(Your score has increased by 25)
+> wear beaver
+(Your score has increased by 25)
 You plop the the sick beaver on your head.  It looks like you have created
 the first caveman mullet!
 
->You take the nurse dress from the cubby hole.
+> get dress
+You take the nurse dress from the cubby hole.
 
->You put on the nurse dress.
+> wear dress
+You put on the nurse dress.
 
->(Your score has increased by 25)
+> feed the beaver the medicine
+(Your score has increased by 25)
 
 You feed the beaver and bring him back to health.  He still isn't feeling so
 hot, but manages to chew through the bamboo bars, making his escape.
 
->(Your score has increased by 25)
+> south
+(Your score has increased by 25)
 
         Making sure the coast is clear, you are able to escape the Boulder
 Rock Prison and are finally able to reveal your invention, which you named

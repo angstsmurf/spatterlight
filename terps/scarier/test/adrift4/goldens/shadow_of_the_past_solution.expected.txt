@@ -27,14 +27,18 @@ books."
 Passages in the ruined walls of this place lie to the north and west.
 
 >
->(Your score has increased by 5)
+
+> climb statue
+(Your score has increased by 5)
 You reach the crown of the statue without incident.  It was touch and go for
 a moment or two when you thought the whole thing was going to crumble under
 you.  But you made it to the crown.
 
->You are now standing on the floor next to the ruined statue.
+> get down
+You are now standing on the floor next to the ruined statue.
 
->You move north.
+> n
+You move north.
 
 Ancient Gallery
 The walls about you are ancient and crumbling, yet modern looking portraits
@@ -46,15 +50,18 @@ imprisoned the form of… something.
 A passage lies away to the south and another to the northeast, at the end of
 which a light shines faintly.
 
->(Your score has increased by 10)
+> listen
+(Your score has increased by 10)
 You strain to hear the cries that are seeming to fill the room.  You can't
 make out specifically what they are saying, but you get the feeling they are
 warning you to not touch the crystal.
 
->(Your score has increased by 15)
+> remove portraits
+(Your score has increased by 15)
 All of the portraits are leaning against the wall.
 
->You move south.
+> s
+You move south.
 
 Ruined Statue
 You are on top of the ruined statue, which has been ravaged by the passage of
@@ -66,7 +73,8 @@ thing I read those Hardy Boys books."
 
 Passages in the ruined walls of this place lie to the north and west.
 
->You move west.
+> w
+You move west.
 
 Cage
 The centre of this circular chamber is a cage. Claw marks on the bars of the
@@ -77,13 +85,16 @@ To the west there is a large chamber from which a humming sound emanates; to
 the east you can make out a statue.  The cage is sunken into the floor, in
 which the remains of some beast lie decomposing.
 
->(Your score has increased by 5)
+> pull lever
+(Your score has increased by 5)
 The lever is in the down position.  You hear the creaking of chains as the
 cage slowly rises.
 
->You open the door.
+> open door
+You open the door.
 
->You move west.
+> w
+You move west.
 
 Humming Chamber
 Once this was doubtless some kind of meeting hall. Rows of seats spiral
@@ -96,12 +107,14 @@ heard, emanating from somewhere in the chamber.
 
 A passage extends northwest and another to the east.
 
->(Your score has increased by 5)
+> examine good book
+(Your score has increased by 5)
 As you examine the book, it begins to crumble in your hands.  It wasn't
 burned, but it is old.  As the book turns to dust before your eyes, you
 notice a key on a chain fall from it.
 
->You move northwest.
+> nw
+You move northwest.
 
 Blocked Passage
 The ceiling has collapsed, and the stones are blocking further access along
@@ -110,11 +123,13 @@ although the drop looks to be formidable and you doubt you could survive it.
 
 The passage leads back to the southeast.
 
->(Your score has increased by 10)
+> hang rope on hooks
+(Your score has increased by 10)
 The rope ladder is securely fastened on the hooks.  It looks as though it
 could hold your weight.
 
->You move down.
+> d
+You move down.
 
 The Ledge
 You are standing on a small ledge.  You must be careful, or you could easily
@@ -127,10 +142,12 @@ the ledge next to your foot.
 
 Also here is a tuning fork.
 
->(Your score has increased by 10)
+> get tuning fork
+(Your score has increased by 10)
 You now have the tuning fork.
 
->You move up.
+> u
+You move up.
 
 Blocked Passage
 The ceiling has collapsed, and the stones are blocking further access along
@@ -139,7 +156,8 @@ although the drop looks to be formidable and you doubt you could survive it.
 
 The passage leads back to the southeast.
 
->You move southeast.
+> se
+You move southeast.
 
 Humming Chamber
 Once this was doubtless some kind of meeting hall. Rows of seats spiral
@@ -152,7 +170,8 @@ heard, emanating from somewhere in the chamber.
 
 A passage extends northwest and another to the east.
 
->You move east.
+> e
+You move east.
 
 Cage
 The centre of this circular chamber is a cage. Claw marks on the bars of the
@@ -163,12 +182,14 @@ To the west there is a large chamber from which a humming sound emanates; to
 the east you can make out a statue.  The cage is now raised and the bottom is
 level with the floor.
 
->(Your score has increased by 5)
+> get crown
+(Your score has increased by 5)
 As you grab the crown, you notice the beast inside start to stir. Your left
 index finger starts to tingle.  The Beast lunges at you.
 Beast hits you, but it doesn't seem to do any damage.
 
->You move east.
+> e
+You move east.
 
 Ruined Statue
 You are on top of the ruined statue, which has been ravaged by the passage of
@@ -180,7 +201,8 @@ thing I read those Hardy Boys books."
 
 Passages in the ruined walls of this place lie to the north and west.
 
->You move north.
+> n
+You move north.
 
 Ancient Gallery
 The walls about you are ancient and crumbling, yet modern looking portraits
@@ -192,7 +214,8 @@ imprisoned the form of… something.
 A passage lies away to the south and another to the northeast, at the end of
 which a light shines faintly.
 
->(Your score has increased by 15)
+> touch tuning fork to crystal
+(Your score has increased by 15)
 Something seems familiar as you approach the crystal.  After hitting the
 tuning fork on the floor, you touch the tuning fork to the crystal.  The
 crystal starts to vibrate and the sound of the vibration becomes deafening.
@@ -207,7 +230,8 @@ You begin to notice that there is a wet substance running down your face.
 You reach up and touch it and discover that you are bleeding.  It does not
 seem too bad, nothing a stitch or two can fix.
 
->You move northeast.
+> ne
+You move northeast.
 
 Passage
 The broken bones of tiny rodents crunch underfoot as you make your way along
@@ -220,7 +244,8 @@ to the northeast.
 
 There is a small dagger lying on the stone floor.
 
->(Your score has increased by 10)
+> ne
+(Your score has increased by 10)
 You now realize that the statue was you from a past life.  You were indeed
 reborn and fate allowed you to finish what you could not.  You now know what
 was missing in your life.  It was the unfinished business.  Will this ever

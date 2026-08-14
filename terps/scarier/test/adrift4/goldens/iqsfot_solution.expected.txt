@@ -43,7 +43,7 @@ TITLE SCREEN
         Welcome, space cadet!  Please type the name of your selection and
 press enter.
 
->
+> play
 
 CHAPTER ONE:
 
@@ -57,7 +57,8 @@ literacy and the controls for Irvine's companion, the hovering retrieval bot
 
 Have you played interactive fiction before?  (Y/N)
 
->For ADRIFT users, help messages will appear in this separate font.  read the
+> no
+For ADRIFT users, help messages will appear in this separate font.  read the
 room description that follows to determine Irvine's surroundings.  Then take
 inventory by typing "inventory."
 
@@ -102,31 +103,39 @@ For available game commands type "verb" and press enter.
 
 For puzzle-solving hints, type "hint" and press enter.
 
->A negative attitude won't help much here.
+> no
+A negative attitude won't help much here.
 
->Sometimes stuff shows up atop this thing after going through weird gravity
+> x shelf
+Sometimes stuff shows up atop this thing after going through weird gravity
 things, which is unfortunate since Irvine can't really reach the top.  A pair
 of glasses is on the annoyingly high shelf.
 
->Irvine presses HiRBy's deploy button.  A pair of needle-thick arms with
+> deploy
+Irvine presses HiRBy's deploy button.  A pair of needle-thick arms with
 pincers unfold from inside HiRBy.
 
->A simple pair of glasses used to correct visual impairments, such as Irvine's
+> x glasses
+A simple pair of glasses used to correct visual impairments, such as Irvine's
 reading-specific astigmatism.
 
->[take a pair of glasses]
+> take it
+[take a pair of glasses]
 HiRBy takes the pair of glasses in its pincers.
 
->[take a pair of glasses]
+> take it
+[take a pair of glasses]
 Irvine plucks the pair of glasses from HiRBy's pincers.
 Irvine mumbles something and dons his glasses again quickly, hoping he won't
 lose them.
 
 A buzz emits from the door.  Someone must be outside.
 
->Irvine presses HiRBy's deploy button.  HiRBy's arms fold back in.
+> deploy
+Irvine presses HiRBy's deploy button.  HiRBy's arms fold back in.
 
->The door slides open with a swoosh and Irvine goes out.
+> out
+The door slides open with a swoosh and Irvine goes out.
 
 OUTSIDE IRVINE'S CABIN
 The hall continues aft towards the ship's lounge and port towards the bridge.
@@ -149,7 +158,8 @@ population "just humans."
 
 HiRBy hovers over from the south.
 
->Irvine goes port.
+> port
+Irvine goes port.
 
 OUTSIDE SHIP'S BRIDGE
 A corridor of ultralight titanium.  Most importantly, the door to the ship's
@@ -159,7 +169,8 @@ artificial gravity core.
 
 HiRBy hovers over from the south.
 
->The door slides open with a swoosh and Irvine goes forward.
+> forward
+The door slides open with a swoosh and Irvine goes forward.
 
 SHIP'S BRIDGE
 The I.S.C. Sagittarian is piloted from this room.  A large, cushy chair in
@@ -200,7 +211,8 @@ training.  Your task is to land the ship on Traglea.
 
 "Think you know how to do it, meow?" (Y/N)
 
->"You can land the ship two different ways, meow.  The usual way would be to
+> no
+"You can land the ship two different ways, meow.  The usual way would be to
 help me guide it in by reading coordinates off the computer goggles.  Meow.
 Just wear them to get started.
 
@@ -210,15 +222,18 @@ on the flight panel which will help you tell what is what.
 
 "If you have any trouble, just ask for help."
 
->A raised surface with a lot of instruments.  On the port side is the ship's
+> x flight panel
+A raised surface with a lot of instruments.  On the port side is the ship's
 computer.  On the starboard side are the simplified emergency controls,
 consisting of (from port to starboard) a blue button, a red button, a green
 button, a small switch surrounded by a glass cover, a lever, and a pedal.
 The flight panel is closed.  A flight sheet is on the flight panel.
 
->Irvine picks up the flight sheet from the flight panel.
+> get flight sheet
+Irvine picks up the flight sheet from the flight panel.
 
->The sheet reads:
+> read flight sheet
+The sheet reads:
 
                                 FLIGHT SHEET
                                 R        B        G
@@ -241,13 +256,17 @@ stimulation
 And then there follow some instructions on reconfiguring the internal
 diodanator detection valves that go way over Irvine's head.
 
->Irvine depresses the green button.
+> press green
+Irvine depresses the green button.
 
->Irvine depresses the blue button.
+> press blue
+Irvine depresses the blue button.
 
->Irvine unclosess the glass cover.
+> open cover
+Irvine unclosess the glass cover.
 
->Irvine flicks the switch on.
+> flick switch
+Irvine flicks the switch on.
 
 Captain Gatts lights up.  "So, you did it Irv...ine..."  His expression melts
 away as he looks about, and he swishes his tongue around inside his mouth.
@@ -269,7 +288,8 @@ goggles, if you want.  Meow."
 
 The buttons automatically reset themselves.
 
->"Aha!"  Captain Gatts snatches the sheet from Irvine.  "This ought to tell us
+> give flight sheet to captain
+"Aha!"  Captain Gatts snatches the sheet from Irvine.  "This ought to tell us
 how to do this meow..."
 
 The Captain leans over the flight panel with the sheet and starts to fiddle
@@ -289,7 +309,8 @@ the third rule for space cadets: 'When you can, help.'
 
 (NOTE TO CADETS: The exit hatch is just outside the Captain's cabin.)
 
->The door slides open with a swoosh and Irvine goes aft.
+> aft
+The door slides open with a swoosh and Irvine goes aft.
 
 OUTSIDE SHIP'S BRIDGE
 A corridor of ultralight titanium.  Most importantly, the door to the ship's
@@ -301,7 +322,8 @@ The door closes behind Irvine.
 
 HiRBy hovers over from the east.
 
->Irvine goes starboard.
+> starboard
+Irvine goes starboard.
 
 OUTSIDE IRVINE'S CABIN
 The hall continues aft towards the ship's lounge and port towards the bridge.
@@ -309,7 +331,8 @@ The hall continues aft towards the ship's lounge and port towards the bridge.
 
 HiRBy hovers over from the north.
 
->The door slides open with a swoosh and Irvine goes starboard.
+> starboard
+The door slides open with a swoosh and Irvine goes starboard.
 
 IRVINE'S CABIN
 An annoyingly high shelf hangs over Irvine's bunk.  A keypad on the wall
@@ -325,32 +348,40 @@ The door closes behind Irvine.
 
 HiRBy hovers over from the north.
 
->Irvine unclosess the small compartment.  A strip of papyr is inside the small
+> open compartment
+Irvine unclosess the small compartment.  A strip of papyr is inside the small
 compartment.
 
->Irvine picks up the strip of papyr from the small compartment.
+> get papyr
+Irvine picks up the strip of papyr from the small compartment.
 
->The strip of papyr reads:
+> read papyr
+The strip of papyr reads:
 
 "3142-- locker code-- remember!"
 
 On the other side is a little note reminding Irvine to press deploy again
 when he's finished using the HiRBy.
 
->Irvine enters 3-1-4-2 on the keypad.  It beeps happily in response, unlocks,
+> press 3142
+Irvine enters 3-1-4-2 on the keypad.  It beeps happily in response, unlocks,
 and swings open.
 
 Now you can type x locker to see what it contains!
 
->A metal cabinet bulging from the forewall where Irvine keeps some of his
+> x locker
+A metal cabinet bulging from the forewall where Irvine keeps some of his
 stuff.  It is locked electronically by a small keypad.  The combination is
 3142.  The locker is open.  A pack is inside the locker.
 
->Irvine picks up the pack from the locker.
+> get pack
+Irvine picks up the pack from the locker.
 
->Irvine dons the pack.
+> wear pack
+Irvine dons the pack.
 
->The door slides open with a swoosh and Irvine moves port.
+> port
+The door slides open with a swoosh and Irvine moves port.
 
 OUTSIDE IRVINE'S CABIN
 The hall continues aft towards the ship's lounge and port towards the bridge.
@@ -360,7 +391,8 @@ The door closes behind Irvine.
 
 HiRBy hovers over from the south.
 
->Irvine goes port.
+> port
+Irvine goes port.
 
 OUTSIDE SHIP'S BRIDGE
 A corridor of ultralight titanium.  Most importantly, the door to the ship's
@@ -370,7 +402,8 @@ artificial gravity core.
 
 HiRBy hovers over from the south.
 
->Irvine goes port.
+> port
+Irvine goes port.
 
 EXIT HATCH
 The corridor continues aft to the kitchens and starboard toward the bridge.
@@ -380,7 +413,8 @@ First Mate Silthen attends the exit hatch.
 
 HiRBy hovers over from the south.
 
->Irvine goes aft.
+> aft
+Irvine goes aft.
 
 OUTSIDE SHIP'S CLOSET
 The hall continues forward toward the bridge and aft toward the kitchens.  A
@@ -388,7 +422,8 @@ door to port reads: "Closet."
 
 HiRBy hovers over from the east.
 
->The door slides open with a swoosh and Irvine goes port.
+> port
+The door slides open with a swoosh and Irvine goes port.
 
 SHIP'S CLOSET
 Oddly, it looks about the same size and style as all the other rooms on the
@@ -404,13 +439,17 @@ The door closes behind Irvine.
 
 HiRBy hovers over from the south.
 
->Irvine picks up the tiger coat.
+> get coat
+Irvine picks up the tiger coat.
 
->Irvine places the tiger coat inside the pack.
+> put coat in pack
+Irvine places the tiger coat inside the pack.
 
->Irvine shuts the pack.
+> close pack
+Irvine shuts the pack.
 
->The door slides open with a swoosh and Irvine goes starboard.
+> starboard
+The door slides open with a swoosh and Irvine goes starboard.
 
 OUTSIDE SHIP'S CLOSET
 The hall continues forward toward the bridge and aft toward the kitchens.  A
@@ -420,7 +459,8 @@ The door closes behind Irvine.
 
 HiRBy hovers over from the north.
 
->Irvine goes forward.
+> forward
+Irvine goes forward.
 
 EXIT HATCH
 The corridor continues aft to the kitchens and starboard toward the bridge.
@@ -430,7 +470,8 @@ First Mate Silthen attends the exit hatch.
 
 HiRBy hovers over from the west.
 
->Irvine moves out the exit and down the ship's gangplank.
+> down
+Irvine moves out the exit and down the ship's gangplank.
 
 SPACEPORT, TRAGLEA
 Amidst a high, transparent dome covering miles, and surrounded inside and out
@@ -490,7 +531,8 @@ work.
 
 HiRBy hovers over from above.
 
->Irvine goes east.
+> e
+Irvine goes east.
 
 JUNGLE GROVE
 A circle of tall, broad-leafed trees grows here, surrounded by ridiculously
@@ -520,7 +562,8 @@ The monkey chitters laughingly, pawing at its newfound thingy.
 
 Irvine sighs.  "Oh... drezz."
 
->Irvine goes south.
+> s
+Irvine goes south.
 
 BROOK
 A tame, friendly jungle thrives all around this area.  A brook flows by here,
@@ -536,10 +579,12 @@ It won't work."
 
 Brim points at the brook.
 
->A small brook full of sparkling fresh water.  A snoozing Fish of Traglea is
+> x brook
+A small brook full of sparkling fresh water.  A snoozing Fish of Traglea is
 inside the brook.
 
->Irvine picks up the snoozing Fish of Traglea from the brook.
+> get fish from brook
+Irvine picks up the snoozing Fish of Traglea from the brook.
 
 Aw, crud!  It's just a red herring.
 
@@ -552,7 +597,8 @@ The red herring stares at him unblinkingly.
 "What are you lookin' at?" Irvine asks.  His shoulders droop further than
 usual.
 
->Irvine goes north.
+> n
+Irvine goes north.
 
 JUNGLE GROVE
 A circle of tall, broad-leafed trees grows here, surrounded by ridiculously
@@ -565,7 +611,8 @@ Also here is a red fruit.
 
 HiRBy hovers over from the south.
 
->Irvine goes east.
+> e
+Irvine goes east.
 
 OUTSIDE CITY GATE
 The path to the west is overrun by the thick, verdant grasses of the jungle.
@@ -591,7 +638,8 @@ Geez.  Just Irvine's luck.  "But I'm with the Interstellar League--"
 
 "Yeesh," Irvine mutters.  "What a bunch of bureaucats."
 
->Irvine goes south.
+> s
+Irvine goes south.
 
 A BUSH OF TRAGLENIP
 A small, flat plot of green has been cleared from the jungle here, while the
@@ -602,9 +650,11 @@ A bush of Traglenip is busy growing here.
 
 HiRBy hovers over from the north.
 
->Irvine picks up a sprig of Traglenip from the bush.
+> get traglenip
+Irvine picks up a sprig of Traglenip from the bush.
 
->Irvine goes north.
+> n
+Irvine goes north.
 
 OUTSIDE CITY GATE
 The path to the west is overrun by the thick, verdant grasses of the jungle.
@@ -615,7 +665,8 @@ Drash the Guard stands at the ready here.  Grastor the Champion is here.
 
 HiRBy hovers over from the south.
 
->Irvine reaches up and slaps Grastor on the nose with a red herring.
+> challenge grastor
+Irvine reaches up and slaps Grastor on the nose with a red herring.
 
 Grastor grimaces and flexes his muscles.  "Puny mouse!  I'll rip you to
 shreds, RAWR!"
@@ -634,7 +685,8 @@ Drash appears distracted.
 Grastor eyes Irvine intensely and twitches, apparently exercising some
 restraint.
 
->Grastor takes Irvine to the ceremonial arena.
+> y
+Grastor takes Irvine to the ceremonial arena.
 
 CEREMONIAL ARENA
 The tight cave walls to the south fall away into this open area, where a
@@ -652,14 +704,16 @@ book.
 
 HiRBy hovers over.
 
->Irvine sets downs the sprig of Traglenip.
+> drop traglenip
+Irvine sets downs the sprig of Traglenip.
 
 Grastor feints experimentally at Irvine with his paws.
 
 Grastor freezes and his ears perk up.  He leaps upon the Traglenip and begins
 to chew with reckless abandon.
 
->... but never surrender!  Irvine flees south.
+> retreat
+... but never surrender!  Irvine flees south.
 
 CAVE TUNNEL
 The tunnels in this cave are dark and patched with mosses and mildew.  The
@@ -671,7 +725,8 @@ regroup seems the most prudent course.
 
 HiRBy hovers over from the north.
 
->Irvine goes south.
+> s
+Irvine goes south.
 
 CAVE MOUTH
 The dark, foreboding jungle to the west gives way to a small, dark clearing
@@ -684,9 +739,11 @@ A clumsy stalagmite juts out of the ground.
 
 HiRBy hovers over from the north.
 
->Irvine bangs his shin on a stalagmite and falls over, cursing.
+> w
+Irvine bangs his shin on a stalagmite and falls over, cursing.
 
->(Standing up first)
+> w
+(Standing up first)
 Irvine goes west.
 
 CROOKED TREES
@@ -698,7 +755,8 @@ south.
 
 HiRBy hovers over from the east.
 
->Irvine flees south.
+> s
+Irvine flees south.
 
 From somewhere behind Irvine, Grastor shouts, "Puny mouse!  Get back here and
 fight!"
@@ -714,7 +772,8 @@ frantic questions.
 
 HiRBy hovers over.
 
->Irvine goes south.
+> s
+Irvine goes south.
 
 CROOKED TREES
 The jungle grows wild here, its trees no longer glowing.  A natural opening
@@ -725,7 +784,8 @@ south.
 
 HiRBy hovers over from the north.
 
->Irvine goes south.
+> s
+Irvine goes south.
 
 JUNGLE GROVE
 A circle of tall, broad-leafed trees grows here, surrounded by ridiculously
@@ -738,7 +798,8 @@ Also here is a red fruit.
 
 HiRBy hovers over from the north.
 
->Irvine goes east.
+> e
+Irvine goes east.
 
 OUTSIDE CITY GATE
 The path to the west is overrun by the thick, verdant grasses of the jungle.
@@ -751,7 +812,8 @@ HiRBy hovers over from the west.
 
 Irvine's health recovers slightly.
 
->Irvine goes south.
+> s
+Irvine goes south.
 
 A BUSH OF TRAGLENIP
 A small, flat plot of green has been cleared from the jungle here, while the
@@ -762,7 +824,8 @@ A bush of Traglenip is busy growing here.
 
 HiRBy hovers over from the north.
 
->Irvine goes south.
+> s
+Irvine goes south.
 
 WATERFALL
 A tall cliff rises from the ground, spewing water from its crown into a deep
@@ -775,7 +838,8 @@ lump.
 
 HiRBy hovers over from the north.
 
->Irvine pushes the crate north.
+> push crate n
+Irvine pushes the crate north.
 
 A BUSH OF TRAGLENIP
 A small, flat plot of green has been cleared from the jungle here, while the
@@ -788,7 +852,8 @@ Also here is the crate.
 
 HiRBy hovers over from the south.
 
->Irvine pushes the crate north.
+> push crate n
+Irvine pushes the crate north.
 
 OUTSIDE CITY GATE
 The path to the west is overrun by the thick, verdant grasses of the jungle.
@@ -803,7 +868,8 @@ Also here is the crate.
 
 HiRBy hovers over from the south.
 
->Irvine pushes the crate west.
+> push crate w
+Irvine pushes the crate west.
 
 JUNGLE GROVE
 A circle of tall, broad-leafed trees grows here, surrounded by ridiculously
@@ -822,25 +888,32 @@ HiRBy hovers over from the east.
 
 Irvine's health recovers slightly.
 
->Irvine clambers atop the crate.
+> climb crate
+Irvine clambers atop the crate.
 
->Irvine presses HiRBy's deploy button.  A pair of needle-thick arms with
+> deploy
+Irvine presses HiRBy's deploy button.  A pair of needle-thick arms with
 pincers unfold from inside HiRBy.
 
->HiRBy hovers up to the monkey, who turns slack-jawed and marvels at the bot
+> get pack
+HiRBy hovers up to the monkey, who turns slack-jawed and marvels at the bot
 in a stunned monkey sort of way.  In its gawking, the monkey's grip loosens
 on the pack, so that it is hanging by just a few digits.  HiRBy gingerly
 relieves the monkey of it and cheerfully floats back down to Irvine's
 shoulder level.
 
->[get a knapsack]
+> get it
+[get a knapsack]
 Irvine plucks the pack from HiRBy's pincers.
 
->Irvine presses HiRBy's deploy button.  HiRBy's arms fold back in.
+> deploy
+Irvine presses HiRBy's deploy button.  HiRBy's arms fold back in.
 
->Irvine picks up the tiger coat from the pack.
+> get coat
+Irvine picks up the tiger coat from the pack.
 
->(Getting off the crate first)
+> e
+(Getting off the crate first)
 Irvine goes east.
 
 OUTSIDE CITY GATE
@@ -852,7 +925,8 @@ Drash the Guard stands at the ready here.
 
 HiRBy hovers over from the west.
 
->Irvine shows the tiger coat to Drash.
+> give coat to drash
+Irvine shows the tiger coat to Drash.
 
 "What is this?" Drash asks.
 
@@ -868,7 +942,8 @@ city..."
 The cat guard opens the gate to Ki'parandazar and walks in, letting his final
 sentence trail off.
 
->Irvine goes east.
+> e
+Irvine goes east.
 
 KI'PARANDAZAR, GATES
 Nice city.  A lane laid in shining stone leads east from here.  The city gate
@@ -885,7 +960,8 @@ Nice city.  A lane laid in shining stone leads east from here.  The city gate
 is to the west.
 HiRBy hovers nearby.
 
->Irvine goes east.
+> e
+Irvine goes east.
 
 MASTER MOJI'S DOJO
 A dragon statue stands near the door of Master Moji's Dojo.  The Shining Lane
@@ -893,7 +969,8 @@ continues west and north.
 
 HiRBy hovers over from the west.
 
->Irvine enters Master Moji's Dojo.
+> in
+Irvine enters Master Moji's Dojo.
 
 TRAGLEAN KARATE LESSONS
 Matted floors and training equipment fill this room.  A practice dummy is set
@@ -905,7 +982,8 @@ HiRBy hovers over from outside.
 "Ah, Young Rabbit..." says the old Master.  "Have you come to learn martial
 arts?" (Y/N)
 
->Irvine nods.
+> yes
+Irvine nods.
 
 Master Moji bows to Irvine.  "Seek your inner courage, Young Rabbit.  Kick,
 punch... all in the mind, in Traglean karate."  His expression grows
@@ -922,16 +1000,19 @@ PUNCH        KICK        SWEEP        THROW
 
 Oh, boy, new verbs!  Try 'em out on the practice dummy...
 
->Irvine punches the dummy.  It hurts his hand.
+> punch dummy
+Irvine punches the dummy.  It hurts his hand.
 
 "Using different attacks is important, Young Rabbit.  In Traglean karate, an
 opponent's style lets them block two moves, but makes them weak against two
 others."
 
->Irvine feebly pushes at the dummy with his feet, smacking at it uselessly
+> kick dummy
+Irvine feebly pushes at the dummy with his feet, smacking at it uselessly
 with all his sole.
 
->[sweep the Practice Dummy]
+> sweep him
+[sweep the Practice Dummy]
 Irvine struggles at the resiliently balanced practice dummy.  Eventually, it
 turns a little flip over his leg and falls over.
 
@@ -940,7 +1021,8 @@ Sproing!  It stands back up.
 "If you have courage, you will never need to block.  To teach you courage, I
 will not teach you to block."
 
->[throw the Practice Dummy]
+> throw him
+[throw the Practice Dummy]
 Irvine grapples the practice dummy and stumbles around with it, eventually
 sending it to the floor with a thud.
 
@@ -963,7 +1045,8 @@ Irvine leaves scratching his head.
 
 What was that supposed to mean?
 
->Irvine goes west.
+> w
+Irvine goes west.
 
 KI'PARANDAZAR, GATES
 Nice city.  A lane laid in shining stone leads east from here.  The city gate
@@ -971,7 +1054,8 @@ is to the west.
 
 HiRBy hovers over.
 
->Irvine goes west.
+> w
+Irvine goes west.
 
 OUTSIDE CITY GATE
 The path to the west is overrun by the thick, verdant grasses of the jungle.
@@ -981,7 +1065,8 @@ A cleared plot is to the south.
 
 HiRBy hovers over from the east.
 
->Irvine goes west.
+> w
+Irvine goes west.
 
 JUNGLE GROVE
 A circle of tall, broad-leafed trees grows here, surrounded by ridiculously
@@ -996,7 +1081,8 @@ Also here is a red fruit.
 
 HiRBy hovers over from the east.
 
->Irvine goes north.
+> n
+Irvine goes north.
 
 CROOKED TREES
 The jungle grows wild here, its trees no longer glowing.  A natural opening
@@ -1007,7 +1093,8 @@ south.
 
 HiRBy hovers over from the south.
 
->Irvine goes north.
+> n
+Irvine goes north.
 
 DARK, FOREBODING JUNGLE
 Eyes of predators and insects glow flicker through shadows.  The thick,
@@ -1030,7 +1117,8 @@ weak-looking attacks at Grastor.  "I'm warning you, I know karate!"
 
 Grastor only laughs.
 
->Irvine bumbles around for a second, imitating an insect or bird or something
+> punch grastor
+Irvine bumbles around for a second, imitating an insect or bird or something
 with broad gestures while he tries the attack.
 
 Grastor erupts in a super secret whirlwind claw attack!  It throws Irvine
@@ -1048,18 +1136,21 @@ only affected by the claw if Irvine faces no other enemies.
 
 Irvine can claw after making any three attacks.
 
->Irvine makes a lunge, but Grastor bounds away, nearly tripping Irvine over
+> kick grastor
+Irvine makes a lunge, but Grastor bounds away, nearly tripping Irvine over
 again.
 
 Irvine's health recovers slightly.
 
 When you see "CLAW!" in your status bar, type "CLAW" to defeat Grastor.
 
->Irvine shoots out his leg for the move, but Grastor picks Irvine's leg up off
+> throw grastor
+Irvine shoots out his leg for the move, but Grastor picks Irvine's leg up off
 the ground and throws him backwards.  HiRBy staggers to keep up with all of
 the fast-paced action!
 
->Irvine leaps, erupting into a secret claw attack combo!
+> claw
+Irvine leaps, erupting into a secret claw attack combo!
 
 Grastor goes hurtling through the air and tumbles to the forest floor in a
 heap!
@@ -1069,7 +1160,8 @@ without a collar.  You must breathe."
 
 Breathing restores HP in combat.
 
->Irvine tries to breathe deeply, but he starts to hyperventilate.  Grastor
+> breathe
+Irvine tries to breathe deeply, but he starts to hyperventilate.  Grastor
 lays a paw on him.
 
 "Try when you are alone.  For now, you are the only cat without a collar.
@@ -1084,7 +1176,8 @@ Irvine stands there looking at the flower in his hand.  He looks at HiRBy... and
 
 "Back to the spaceship, I guess."
 
->(Standing up first)
+> s
+(Standing up first)
 Irvine goes south.
 
 CROOKED TREES
@@ -1096,7 +1189,8 @@ south.
 
 HiRBy hovers over from the north.
 
->Irvine goes south.
+> s
+Irvine goes south.
 
 JUNGLE GROVE
 A circle of tall, broad-leafed trees grows here, surrounded by ridiculously
@@ -1113,7 +1207,8 @@ HiRBy hovers over from the north.
 
 Irvine's health recovers slightly.
 
->Irvine goes west.
+> w
+Irvine goes west.
 
 SPACEPORT, TRAGLEA
 Amidst a high, transparent dome covering miles, and surrounded inside and out
@@ -1126,7 +1221,8 @@ gangplank leads up into the hull of the ship.
 
 HiRBy hovers over from the east.
 
->Irvine moves up the gangplank and into the Sagittarian.
+> u
+Irvine moves up the gangplank and into the Sagittarian.
 
 EXIT HATCH
 The corridor continues aft to the kitchens and starboard toward the bridge.
@@ -1136,7 +1232,8 @@ First Mate Silthen attends the exit hatch.
 
 HiRBy hovers over from below.
 
->Irvine goes starboard.
+> s
+Irvine goes starboard.
 
 OUTSIDE SHIP'S BRIDGE
 A corridor of ultralight titanium.  Most importantly, the door to the ship's
@@ -1146,7 +1243,8 @@ artificial gravity core.
 
 HiRBy hovers over from the north.
 
->Irvine goes down.
+> d
+Irvine goes down.
 
 SHIP'S BELLY
 The very inside of the I.S.C. Sagittarian.  No room is more inside the ship
@@ -1156,7 +1254,8 @@ ship.
 
 HiRBy hovers over from above.
 
->The door slides open with a swoosh and Irvine goes starboard.
+> s
+The door slides open with a swoosh and Irvine goes starboard.
 
 LABORATORY
 This is the ship's laboratory.  A single specimen table stands in the centre
@@ -1183,7 +1282,8 @@ Irvine picks up the specimen analysis.
 
 Irvine's health recovers slightly.
 
->"From Grashtor, you shay?" Smitty the Cat takes the flower from Irvine.  He
+> give flower to smitty
+"From Grashtor, you shay?" Smitty the Cat takes the flower from Irvine.  He
 begins to pluck its petals and eats it, motioning for Irvine to come closer.
 "The reshishtance needsh you."
 
@@ -1221,7 +1321,8 @@ not: I will supervise the feline diplomat's convalescence.  Carry on, cadet."
 
 HiRBy hovers over from the east.
 
->Irvine goes forward.
+> forward
+Irvine goes forward.
 
 LABORATORY
 This is the ship's laboratory.  A single specimen table stands in the centre
@@ -1236,12 +1337,14 @@ Also here is a hairball.
 
 HiRBy hovers over from the west.
 
->Irvine picks up the hairball.
+> get hairball
+Irvine picks up the hairball.
   He disposes of it as quickly as possible and notices something inside of
 it... a magnetic card key!  He takes this with him (but he totally cleans it
 off, first, because that's gross).
 
->The door slides open with a swoosh and Irvine goes port.
+> port
+The door slides open with a swoosh and Irvine goes port.
 
 SHIP'S BELLY
 The very inside of the I.S.C. Sagittarian.  No room is more inside the ship
@@ -1253,7 +1356,8 @@ The door closes behind Irvine.
 
 HiRBy hovers over from the south.
 
->Irvine goes up.
+> up
+Irvine goes up.
 
 OUTSIDE SHIP'S BRIDGE
 A corridor of ultralight titanium.  Most importantly, the door to the ship's
@@ -1268,7 +1372,8 @@ HiRBy hovers over from below.
 
 Irvine's health recovers slightly.
 
->Irvine goes port.
+> port
+Irvine goes port.
 
 EXIT HATCH
 The corridor continues aft to the kitchens and starboard toward the bridge.
@@ -1278,7 +1383,8 @@ The CAS droid is here.  First Mate Silthen attends the exit hatch.
 
 HiRBy hovers over from the south.
 
->Irvine moves out the exit and down the ship's gangplank.
+> down
+Irvine moves out the exit and down the ship's gangplank.
 
 SPACEPORT, TRAGLEA
 Amidst a high, transparent dome covering miles, and surrounded inside and out
@@ -1291,7 +1397,8 @@ gangplank leads up into the hull of the ship.
 
 HiRBy hovers over from above.
 
->Irvine goes east.
+> e
+Irvine goes east.
 
 JUNGLE GROVE
 A circle of tall, broad-leafed trees grows here, surrounded by ridiculously
@@ -1306,7 +1413,8 @@ Also here is a red fruit.
 
 HiRBy hovers over from the west.
 
->Irvine goes north.
+> n
+Irvine goes north.
 
 CROOKED TREES
 The jungle grows wild here, its trees no longer glowing.  A natural opening
@@ -1317,7 +1425,8 @@ south.
 
 HiRBy hovers over from the south.
 
->Irvine goes north.
+> n
+Irvine goes north.
 
 DARK, FOREBODING JUNGLE
 Eyes of predators and insects glow flicker through shadows.  The thick,
@@ -1330,7 +1439,8 @@ frantic questions.
 
 HiRBy hovers over from the south.
 
->Irvine goes west.
+> w
+Irvine goes west.
 
 TOP SECRET ENTRANCE
 Low amongst the leafy lightlessness, a bit of stainless steel glints in the
@@ -1340,16 +1450,19 @@ HiRBy hovers over from the east.
 
 Irvine's health recovers slightly.
 
->A pad with numbers on it from 0 to 9.  Apparently, this keypad is a sort of
+> x keypad
+A pad with numbers on it from 0 to 9.  Apparently, this keypad is a sort of
 backdoor for those who have lost their key cards.
 
 To enter a code, type "press [whatever number(s) you want to enter]."  (i.e.
 "press 12345")
 
->Irvine enters "9-8-8-4-3" on the keypad, and the metal door slides open with
+> press 98843
+Irvine enters "9-8-8-4-3" on the keypad, and the metal door slides open with
 an ultra-quick grating noise.
 
->Irvine enters the high-security bunker, and the metal door closes behind him.
+> in
+Irvine enters the high-security bunker, and the metal door closes behind him.
 
 PALACE BACKDOOR
 It is clear from its construction of steel and concrete that this is an
@@ -1393,9 +1506,11 @@ The metal door swings shut and locks behind Irvine!
 
 Irvine's health recovers slightly.
 
->Irvine socks the sentinel in his furry face, and he goes out cold.
+> punch sentinel
+Irvine socks the sentinel in his furry face, and he goes out cold.
 
->Irvine crosses the room to the descending corridor.
+> n
+Irvine crosses the room to the descending corridor.
 
 CORRIDOR
 This dim, steel corridor is built on a slight decline, and moves gradually
@@ -1407,10 +1522,12 @@ A sentry is here, brandishing a beam weapon!
 
 HiRBy hovers over from the south.
 
->Irvine palm strikes the sentry in his furry face, knuckles him in the rib
+> punch sentry
+Irvine palm strikes the sentry in his furry face, knuckles him in the rib
 cage, and elbows him down to the floor, out cold.
 
->Irvine goes north.
+> n
+Irvine goes north.
 
 TUNNEL
 The black tube follows the curve to the east.
@@ -1422,22 +1539,26 @@ his cyborg fists!
 
 HiRBy hovers over from the south.
 
->Irvine grabs the guard's pike, closes in, and trips the guard to the ground.
+> sweep guard
+Irvine grabs the guard's pike, closes in, and trips the guard to the ground.
 
->Irvine grabs the patrol by his uniform, pulls him left, and then right,
+> sweep patrol
+Irvine grabs the patrol by his uniform, pulls him left, and then right,
 sweeping him over his foot, to the ground with a loud thud.
 
 Patrol charges after Irvine.
 
 Irvine's health recovers slightly.
 
->Irvine grabs the patrol by the wrist and yanks his body off-balance, then
+> throw patrol
+Irvine grabs the patrol by the wrist and yanks his body off-balance, then
 sends his wrist into a clockwise spin, causing the patrol's body to follow
 and fall in pain.
 
 The patrol doesn't get up.
 
->Irvine goes east.
+> e
+Irvine goes east.
 
 TUNNEL
 The black tube from the west turns south here.
@@ -1448,10 +1569,12 @@ A soldier is here, brandishing an electro ray!
 
 HiRBy hovers over from the west.
 
->Irvine strikes the soldier in the throat with his fingers, then takes him
+> punch soldier
+Irvine strikes the soldier in the throat with his fingers, then takes him
 down to the ground with a backhand.
 
->Irvine goes south.
+> s
+Irvine goes south.
 
 TUNNEL
 A black tube runs south along the ceiling.
@@ -1462,7 +1585,8 @@ HiRBy hovers over from the north.
 
 Irvine's health recovers slightly.
 
->Irvine goes south.
+> s
+Irvine goes south.
 
 TUNNEL
 A black tube runs south along the ceiling.
@@ -1472,10 +1596,12 @@ EXITS: NORTH and SOUTH
 HiRBy hovers over from the north.
 A sentry charges in, brandishing a beam weapon!
 
->Irvine punches the sentry in the stomach, then takes him out with an
+> punch sentry
+Irvine punches the sentry in the stomach, then takes him out with an
 uppercut.
 
->Irvine goes south.
+> s
+Irvine goes south.
 
 TUNNEL
 A black tube hangs on the ceiling here, running east into the next room.
@@ -1484,7 +1610,8 @@ EXITS: NORTH and EAST.
 
 HiRBy hovers over from the north.
 
->Irvine goes east.
+> e
+Irvine goes east.
 
 STORAGE ROOM
 A black tube from the west snakes along the ceiling here, ending in a vacuum
@@ -1494,38 +1621,45 @@ EXITS: WEST.
 
 HiRBy hovers over from the west.
 
->Stacks of big, impenetrable crates holding who-knows-what.  Keys, maybe?  An
+> x crates
+Stacks of big, impenetrable crates holding who-knows-what.  Keys, maybe?  An
 important-looking key is on the giant metal crates.
 
->Irvine presses HiRBy's deploy button.  A pair of needle-thick arms with
+> deploy
+Irvine presses HiRBy's deploy button.  A pair of needle-thick arms with
 pincers unfold from inside HiRBy.
 
 A patrol charges in, brandishing cyborg fists!
 
->HiRBy takes the important-looking key in its pincers.
+> get key
+HiRBy takes the important-looking key in its pincers.
 
 The HiRBy droid continues to hover with its arms deployed, bobbing up and
 down in the air contentedly.
 
 The patrol strikes Irvine with a robotic arm.  Oof!
 
->Irvine plucks the important-looking key from HiRBy's pincers.
+> get key
+Irvine plucks the important-looking key from HiRBy's pincers.
 
 A guard charges in, brandishing a shock staff!
 
->Irvine presses HiRBy's deploy button.  HiRBy's arms fold back in.
+> deploy
+Irvine presses HiRBy's deploy button.  HiRBy's arms fold back in.
 
 A soldier charges in, brandishing an electro ray!
 
 Irvine's health recovers slightly.
 
->Irvine leaps and kicks the guard in the chin, then lands and takes out the
+> kick guard
+Irvine leaps and kicks the guard in the chin, then lands and takes out the
 sentry's knees.  The guard doesn't get up.
 
 The patrol strikes Irvine with a robotic arm.  Oof!
 A sentry charges in, brandishing a beam weapon!
 
->Irvine grabs the patrol by the shoulders and throws him into the wall.
+> throw patrol
+Irvine grabs the patrol by the shoulders and throws him into the wall.
 
 The patrol doesn't get back up.
 
@@ -1533,17 +1667,21 @@ Patrol charges after Irvine.
 
 The soldier shocks Irvine with an electro ray.  Ouch!
 
->Irvine dodges behind the soldier, grabs him from the armpit, and flips him
+> throw soldier
+Irvine dodges behind the soldier, grabs him from the armpit, and flips him
 over his back onto the floor.
 The sentry shoots Irvine with a beam weapon.  Eek!
 
->Irvine knocks the sentry out with a simple punch-to-elbow combination.
+> punch sentry
+Irvine knocks the sentry out with a simple punch-to-elbow combination.
 
 The patrol strikes Irvine with a robotic arm.  Oof!
 
->Irvine grabs the patrol and flips him easily to the floor.
+> throw patrol
+Irvine grabs the patrol and flips him easily to the floor.
 
->Irvine goes west.
+> w
+Irvine goes west.
 
 TUNNEL
 A black tube hangs on the ceiling here, running east into the next room.
@@ -1554,7 +1692,8 @@ HiRBy hovers over from the east.
 
 Irvine's health recovers slightly.
 
->Irvine goes north.
+> n
+Irvine goes north.
 
 TUNNEL
 A black tube runs south along the ceiling.
@@ -1563,7 +1702,8 @@ EXITS: NORTH and SOUTH
 
 HiRBy hovers over from the south.
 
->Irvine goes north.
+> n
+Irvine goes north.
 
 TUNNEL
 A black tube runs south along the ceiling.
@@ -1572,7 +1712,8 @@ EXITS: NORTH and SOUTH.
 
 HiRBy hovers over from the south.
 
->Irvine goes north.
+> n
+Irvine goes north.
 
 TUNNEL
 The black tube from the west turns south here.
@@ -1594,7 +1735,8 @@ EXITS: NORTH and SOUTH.
 
 HiRBy hovers nearby.
 
->Irvine goes north.
+> n
+Irvine goes north.
 
 TUNNEL
 EXITS: SOUTH and WEST.
@@ -1605,53 +1747,62 @@ A patrol charges in, brandishing cyborg fists!
 
 Irvine's health recovers slightly.
 
->Irvine crouches low and throws a reverse heel at the patrol's ankle, knocking
+> sweep patrol
+Irvine crouches low and throws a reverse heel at the patrol's ankle, knocking
 him to the floor.
 
 Patrol charges after Irvine.
 
 The patrol strikes Irvine with a robotic arm.  Oof!
 
->Irvine shoots into a crouch and sweeps his left foot across in front of him,
+> sweep patrol
+Irvine shoots into a crouch and sweeps his left foot across in front of him,
 taking the patrol down.  Irvine comes back to a standing position with a back
 handspring.
 A sentry charges in, brandishing a beam weapon!
 
->Irvine palm strikes the sentry in his furry face, knuckles him in the rib
+> punch sentry
+Irvine palm strikes the sentry in his furry face, knuckles him in the rib
 cage, and elbows him down to the floor, out cold.
 
 A soldier charges in, brandishing an electro ray!
 
->Irvine grabs the soldier by the wrist and yanks his body off-balance, then
+> throw soldier
+Irvine grabs the soldier by the wrist and yanks his body off-balance, then
 sends his wrist into a clockwise spin, causing the soldier's body to follow,
 and fall in pain.
 
 The soldier does not get back up.
 
->Irvine kicks, but nothing happens.
+> kick guard
+Irvine kicks, but nothing happens.
 
 A guard charges in, brandishing a shock staff!
 
 Irvine's health recovers slightly.
 
->Irvine kicks the guard with a one-two combination, throwing his heel hard
+> kick guard
+Irvine kicks the guard with a one-two combination, throwing his heel hard
 into the guard's ribs, then into his temple.  The guard goes down.
 
->Irvine goes west.
+> w
+Irvine goes west.
 
 TUNNEL
 EXITS: EAST and NORTH.
 
 HiRBy hovers over from the east.
 
->Irvine goes north.
+> n
+Irvine goes north.
 
 TUNNEL
 EXITS: SOUTH and WEST.
 
 HiRBy hovers over from the south.
 
->Irvine goes west.
+> w
+Irvine goes west.
 
 THRONE HALL ENTRANCE
 An important-looking door is set in the west wall.
@@ -1661,43 +1812,51 @@ An elite is here, brandishing a heat gun!
 
 HiRBy hovers over from the east.
 
->No wonder they both looked important.  The door opens to the west.
+> unlock door
+No wonder they both looked important.  The door opens to the west.
 
 Irvine's health recovers slightly.
 
->Irvine bursts into a super-secret clawing shockwave attack!
+> claw elite
+Irvine bursts into a super-secret clawing shockwave attack!
 
 DOUBLE KA-POW!!  The elite stumbles... and falls over, defeated.
 A sentry charges in, brandishing a beam weapon!
 
 A patrol charges in, brandishing cyborg fists!
 
->Irvine strikes the sentry in the throat with his fingers, then takes him down
+> punch sentry
+Irvine strikes the sentry in the throat with his fingers, then takes him down
 to the ground with a backhand.
 
 The patrol strikes Irvine with a robotic arm.  Oof!
 
->Irvine tangles the patrol's arms, closes in, and trips the patrol to the
+> sweep patrol
+Irvine tangles the patrol's arms, closes in, and trips the patrol to the
 ground.
 
 Patrol charges after Irvine.
 
 The patrol strikes Irvine with a robotic arm.  Oof!
 
->Irvine grabs the patrol by his uniform, pulls him left, and then right,
+> sweep patrol
+Irvine grabs the patrol by his uniform, pulls him left, and then right,
 sweeping him over his foot, to the ground with a loud thud.
 
->guard is not here.
+> kick guard
+guard is not here.
 
 A soldier charges in, brandishing an electro ray!
 
 Irvine's health recovers slightly.
 
->Irvine grabs the soldier by the shoulders and throws him into the wall.
+> throw soldier
+Irvine grabs the soldier by the shoulders and throws him into the wall.
 
 The soldier doesn't get back up.
 
->Irvine goes west.
+> w
+Irvine goes west.
 
 ROYAL THRONE ROOM
 A giant throne of pointed, synthetic wicker dominates this room.  West to the
@@ -1733,25 +1892,29 @@ HiRBy hovers over from the east.
 
 "So cool," says the fan.
 
->Irvine shows the fan how to punch and kick.
+> teach fan karate
+Irvine shows the fan how to punch and kick.
 
 The fan starts throwing out some goofy attacks, looking about as ridiculous
 as Irvine, but having a grand time of it.
 
 "Just... awesome," adores the fan.
 
->Irvine hands his jacket over to the fan servant.
+> give jacket to fan
+Irvine hands his jacket over to the fan servant.
 
 The fan goes, "Yessss!" and then runs off to tell everyone about it.
 
->"Me...?"  The fan's eyes go wide.
+> ask for help
+"Me...?"  The fan's eyes go wide.
 
 "Get the police!" Irvine urges.  "Get anyone who can help!"
 
 The fan servant bounds out of the palace and into the city, screaming for
 justice!
 
->Irvine goes west.
+> w
+Irvine goes west.
 
 ROYAL CHAMBERS
 Nothing here is within reach, certainly not royal bed nor bookshelf, all
@@ -1764,7 +1927,8 @@ HiRBy hovers over from the east.
 
 Irvine's health recovers slightly.
 
->Fat as his name suggests, the planetary plutocrat bristles with hate and
+> x fat cat
+Fat as his name suggests, the planetary plutocrat bristles with hate and
 fear.  The Fat Cat is wearing a top hat!  He's also wielding a microwave
 cannon in his power-grubbing paws that's he's got pointed right at Irvine's
 head-- oh no!
@@ -1777,14 +1941,16 @@ sent."
 
 "I-I don't know," stammers Irvine.  "Exploring somewhere?"
 
->Sinister!
+> x top hat
+Sinister!
 
 "You'll tell the world that Dr. Voss stole my cloning apparatus," the Fat Cat
 growls.  "And you will fall under my command.  Surrender!"
 
 Irvine stammers.  "Have to d-do what?  I'm here about the fish..."
 
->A short table, built in an ostentatious style only the rich could appreciate
+> x end table
+A short table, built in an ostentatious style only the rich could appreciate
 or afford.  The fancy end table is closed.  A stylized mirror is on the fancy
 end table.
 
@@ -1792,7 +1958,8 @@ end table.
 cloning apparatus.  A day when no Traglean in the galaxy may oppose my
 will... when my will is the will of the galaxy!"
 
->A gold-framed hand mirror with delicate nonsense images etched into its
+> x mirror
+A gold-framed hand mirror with delicate nonsense images etched into its
 surface.  Triple treated reflector ion glass sheens brilliantly.
 
 Irvine does his best to protest.  "You'd be a... an interstellar cat robot
@@ -1809,7 +1976,8 @@ you will tell them that I actually built Dr. Voss's machine!"
 
 Irvine's health recovers slightly.
 
->Irvine presses HiRBy's deploy button.  A pair of needle-thick arms with
+> deploy
+Irvine presses HiRBy's deploy button.  A pair of needle-thick arms with
 pincers unfold from inside HiRBy.
 
 "Surrender now to my power!" Rrasharshan demands.  "The fish are mine-- and
@@ -1821,7 +1989,8 @@ will be our food, jewelry, glue, lubricants, pets..."
 Rrasharshan eyes HiRBy suspiciously.  "Don't think I'm not watching the both
 of you.  No sudden moves from the bot, either!"
 
->HiRBy makes a bee line for the mirror and just about has its pincers clamped
+> get mirror
+HiRBy makes a bee line for the mirror and just about has its pincers clamped
 when Rrasharshan blasts with the cannon, bursting half of the room into
 sparks, fried circuits, and electrical smoke.
 
@@ -1834,7 +2003,7 @@ Fat Cat Rrasharshan laughs maniacally at his evil scheme.
 
 Okay.  Okay.  Uh.  Irvine panics!
 
->
+> look
 
 ROYAL CHAMBERS
 Nothing here is within reach, certainly not royal bed nor bookshelf, all
@@ -1852,12 +2021,14 @@ Rrasharshan fires a wave of focused microheat just over Irvine's head.
 "I'm warning you," the Fat Cat growls.  "I did not mean to miss.  You are
 next..."
 
->Irvine leans, leaps, and grabs the stylized mirror just as Fat Cat
+> get mirror
+Irvine leans, leaps, and grabs the stylized mirror just as Fat Cat
 Rrasharshan lets loose a barrage of microwave rays which bounce off of the
 mirror and strike the chandelier hanging in the centre of the room, causing
 it to fall and pin the Fat Cat!
 
->Irvine goes north.
+> n
+Irvine goes north.
 
 SECRET AQUARIUM
 A reservoir dominates the room.  Truly a technological wonder, though Irvine
@@ -1870,20 +2041,24 @@ of Dr. Voss's cloning apparatus.
 
 Irvine's health recovers slightly.
 
->From its condition, there's no doubt the villainous chieftain once housed
+> x reservoir
+From its condition, there's no doubt the villainous chieftain once housed
 some sort of monster fish in here before hatching his current evil plan.  A
 tranquil Fish of Traglea and a drowsy Fish of Traglea are inside the
 reservoir.
 
->Irvine scoops the drowsy Fish of Traglea out of the reservoir without a
+> get drowsy fish
+Irvine scoops the drowsy Fish of Traglea out of the reservoir without a
 struggle.
 He names it "Drowser."
 
->Irvine scoops the tranquil Fish of Traglea out of the reservoir without a
+> get tranquil fish
+Irvine scoops the tranquil Fish of Traglea out of the reservoir without a
 struggle.
 He names it "Gillbert."
 
->Irvine goes south.
+> s
+Irvine goes south.
 
 ROYAL CHAMBERS
 A chandelier pins the obese tyrannical Traglean in the centre of the room,
@@ -1894,13 +2069,15 @@ The throne room is to the east.  North is a secret room.
 
 Also here are the broken glass, some wreckage and a top hat.
 
->Irvine goes east.
+> e
+Irvine goes east.
 
 ROYAL THRONE ROOM
 A giant throne of pointed, synthetic wicker dominates this room.  West to the
 royal chambers, a spiral staircase leads out.
 
->Irvine goes out.
+> o
+Irvine goes out.
 
 PALACE GATES
 Walls, walls everywhere.  From here, one cannot here the city.

@@ -15,7 +15,8 @@ here.
 
 There are exits north, east, south and west.
 
->You move east.
+> e
+You move east.
 
 Outside the Shack
 There's a shack here. It's made of bright blue wood and has a purple door.
@@ -24,7 +25,8 @@ flames illuminating them. Wonder what's inside?
 
 There are exits west and in.
 
->You move in.
+> in
+You move in.
 
 Inside the Shack
 It's a cramped and cluttered little shack with various trinkets lying all
@@ -35,11 +37,14 @@ outside world.
 
 You can only move out.
 
->You take the shiny bracelet from the wooden table.
+> take bracelet
+You take the shiny bracelet from the wooden table.
 
->You take the star statue from the bookshelf.
+> take statue
+You take the star statue from the bookshelf.
 
->You move out.
+> out
+You move out.
 
 Outside the Shack
 There's a shack here. It's made of bright blue wood and has a purple door.
@@ -48,7 +53,8 @@ flames illuminating them. Wonder what's inside?
 
 You can move west and in.
 
->You move west.
+> w
+You move west.
 
 Open Area
 What a weird place. It looks like you stepped right into another dimension!
@@ -59,7 +65,8 @@ here.
 
 You can move north, east, south and west.
 
->You move west.
+> w
+You move west.
 
 Merchant's Stand
 In the vast land of checkerboards, you come to something of interest. There
@@ -70,13 +77,16 @@ Merchant is here.
 
 You can move east and west.
 
->"You can ask me about these 'ere items, if you like."
+> talk to merchant
+"You can ask me about these 'ere items, if you like."
 
->"Why, I'm afraid all that's worth is this candy I've got here. Very well.
+> give merchant the bracelet
+"Why, I'm afraid all that's worth is this candy I've got here. Very well.
 Let's trade. I don't need this anyway." The merchant accepts your bracelet
 and in exchange, gives you the candy.
 
->You move west.
+> w
+You move west.
 
 By the Banana Moon Statue
 There is a statue here of a big banana. Or maybe its a crescent moon. Hell, I
@@ -86,7 +96,8 @@ Old Man is here.
 
 You can move east and west.
 
->As you approach the old man, you can hear him babbling to himself. "... back
+> talk to old man
+As you approach the old man, you can hear him babbling to himself. "... back
 in the day I killed me an army o' demons, zombies, vampires, weres, and the
 like, and I was the king of the slayers, and everybody loved and respected
 me, and now all I have is this Old Nanner, she's been my only friend for
@@ -94,7 +105,8 @@ decades, and I don't know what I'da done without her, 'cause ..." He just
 keeps going on with his run-on sentence, completely ignoring you. That'll
 really help your self-esteem.
 
->You move west.
+> w
+You move west.
 
 Outside the Outhouse
 Oh, how nice, an outhouse. Why don't you go inside and relieve yourself? Or
@@ -102,7 +114,8 @@ not. It kind of smells.
 
 You can move east and in.
 
->You move in.
+> in
+You move in.
 
 Outhouse
 It's really cramped in here. And it smells. Do you really have to go to the
@@ -113,11 +126,14 @@ Also here is some TP.
 
 You can only move out.
 
->You pick up the TP.
+> take tp
+You pick up the TP.
 
->You take the piece of paper from the hole.
+> take paper
+You take the piece of paper from the hole.
 
->You move out.
+> out
+You move out.
 
 Outside the Outhouse
 Oh, how nice, an outhouse. Why don't you go inside and relieve yourself? Or
@@ -125,7 +141,8 @@ not. It kind of smells.
 
 You can move east and in.
 
->You move east.
+> e
+You move east.
 
 By the Banana Moon Statue
 There is a statue here of a big banana. Or maybe its a crescent moon. Hell, I
@@ -135,7 +152,8 @@ Old Man is here.
 
 You can move east and west.
 
->You move east.
+> e
+You move east.
 
 Merchant's Stand
 In the vast land of checkerboards, you come to something of interest. There
@@ -146,7 +164,8 @@ Merchant is here.
 
 You can move east and west.
 
->You move east.
+> e
+You move east.
 
 Open Area
 What a weird place. It looks like you stepped right into another dimension!
@@ -157,7 +176,8 @@ here.
 
 You can move north, east, south and west.
 
->You move south.
+> s
+You move south.
 
 Tree
 There is a huge dead tree here.
@@ -166,21 +186,27 @@ Squirrel is here.
 
 You can move north and south.
 
->"Oh, man! I'm so hungry. So hungry I cant MOVE. I mean oh my GOD. Hey, you?
+> talk to squirrel
+"Oh, man! I'm so hungry. So hungry I cant MOVE. I mean oh my GOD. Hey, you?
 Do you have anything to eat? I'm freakin' STARVIN' over here!" Wow. A talking
 squirrel. Groovy.
 
->You take the branch from the tree.
+> take branch
+You take the branch from the tree.
 
->The squirrel hops down and gobbles down half of your candy. "Thanks a lot! I
+> give candy to squirrel
+The squirrel hops down and gobbles down half of your candy. "Thanks a lot! I
 feel like I can take on the world now! Why don't I you let me come with ya, I
 might be able to help you out some."
 
->"Let's get this show on the road, people!"
+> talk to squirrel
+"Let's get this show on the road, people!"
 
->You eat some candy and save the rest for later.
+> eat candy
+You eat some candy and save the rest for later.
 
->You move south.
+> s
+You move south.
 
 Tea Time
 There is a frilly pink table with two chairs and a pink tea pot, sitting out
@@ -193,9 +219,11 @@ You can move north and south.
 
 Squirrel scampers up from the north.
 
->You pick up the tea cup.
+> take cup
+You pick up the tea cup.
 
->You move north.
+> n
+You move north.
 
 Tree
 There is a huge dead tree here.
@@ -204,7 +232,8 @@ You can move north and south.
 
 Squirrel scampers up from the south.
 
->You move north.
+> n
+You move north.
 
 Open Area
 What a weird place. It looks like you stepped right into another dimension!
@@ -217,7 +246,8 @@ You can move north, east, south and west.
 
 Squirrel scampers up from the south.
 
->You move north.
+> n
+You move north.
 
 Outside the Mansion
 There is a huge mansion before you, it is a dark violet color and looks very
@@ -229,13 +259,15 @@ You can only move south.
 
 Squirrel scampers up from the south.
 
->The door is locked, but the squirrel senses your frustration and perks up.
+> enter mansion
+The door is locked, but the squirrel senses your frustration and perks up.
 "Hey, hey, I can help you out here! Watch this!" It scampers up the wall and
 into the open window. In a moment there is a click and the door opens. The
 squirrel pokes its head out and it has a grin on its face. "See? See? Hells
 yah!"
 
->You move west.
+> w
+You move west.
 
 Sewing Room
 This small, quarter-circular room was used for sewing. There is a chair, as
@@ -246,11 +278,14 @@ You can only move east.
 
 Squirrel scampers up from the east.
 
->You take the sharp needle from the desk.
+> take needle
+You take the sharp needle from the desk.
 
->You take the needle box from the desk.
+> take needle box
+You take the needle box from the desk.
 
->You move east.
+> e
+You move east.
 
 Mansion Entrance
 Inside, it is very dark. There are cobwebs and dust everywhere. It is eerily
@@ -261,7 +296,8 @@ You can move north, east, west and out.
 
 Squirrel scampers up from the west.
 
->You move east.
+> e
+You move east.
 
 Tea Room
 This is a circular room where people have tea. There is a comfy chair, a
@@ -272,9 +308,11 @@ You can only move west.
 
 Squirrel scampers up from the west.
 
->You take the tea packet from the table.
+> take tea packet
+You take the tea packet from the table.
 
->You move west.
+> w
+You move west.
 
 Mansion Entrance
 Inside, it is very dark. There are cobwebs and dust everywhere. It is eerily
@@ -285,7 +323,8 @@ You can move north, east, west and out.
 
 Squirrel scampers up from the east.
 
->You move out.
+> out
+You move out.
 
 Outside the Mansion
 There is a huge mansion before you, it is a dark violet color and looks very
@@ -297,7 +336,8 @@ You can only move south.
 
 Squirrel scampers up.
 
->You move south.
+> s
+You move south.
 
 Open Area
 What a weird place. It looks like you stepped right into another dimension!
@@ -310,7 +350,8 @@ You can move north, east, south and west.
 
 Squirrel scampers up from the north.
 
->You move south.
+> s
+You move south.
 
 Tree
 There is a huge dead tree here.
@@ -319,7 +360,8 @@ You can move north and south.
 
 Squirrel scampers up from the north.
 
->You move south.
+> s
+You move south.
 
 Tea Time
 There is a frilly pink table with two chairs and a pink tea pot, sitting out
@@ -330,20 +372,26 @@ You can move north and south.
 
 Squirrel scampers up from the north.
 
->You prick your finger over the tea pot and a drop falls in. The tea pot fills
+> prick finger
+You prick your finger over the tea pot and a drop falls in. The tea pot fills
 with blood.
 
->You pour the blood into the cup. Great, now you have a cup of blood. How
+> pour blood
+You pour the blood into the cup. Great, now you have a cup of blood. How
 freakishly morbid.
 
->You use the tea packet and make tea. You don't have any water, but it seems
+> make tea
+You use the tea packet and make tea. You don't have any water, but it seems
 to work anyway. Congradulations. You must be God or something.
 
->You pour the tea into the cup. Looks delicious.
+> pour tea
+You pour the tea into the cup. Looks delicious.
 
->You place the cup to your lips and drink the tea. Mm, tasty.
+> drink tea
+You place the cup to your lips and drink the tea. Mm, tasty.
 
->You move north.
+> n
+You move north.
 
 Tree
 There is a huge dead tree here.
@@ -352,7 +400,8 @@ You can move north and south.
 
 Squirrel scampers up from the south.
 
->You move north.
+> n
+You move north.
 
 Open Area
 What a weird place. It looks like you stepped right into another dimension!
@@ -365,7 +414,8 @@ You can move north, east, south and west.
 
 Squirrel scampers up from the south.
 
->You move north.
+> n
+You move north.
 
 Outside the Mansion
 There is a huge mansion before you, it is a dark violet color and looks very
@@ -377,14 +427,16 @@ You can only move south.
 
 Squirrel scampers up from the south.
 
->Mansion Entrance
+> enter mansion
+Mansion Entrance
 Inside, it is very dark. There are cobwebs and dust everywhere. It is eerily
 quiet. The walls are blue-gray and the floors are black marble.  Above is an
 extravagent chandeleir, but it is not lit.
 
 Squirrel is here.
 
->You move north.
+> n
+You move north.
 
 Ballroom
 This room is very large. As you walk through it you can hear your footsteps
@@ -398,23 +450,28 @@ You can move north and south.
 
 Squirrel scampers up from the south.
 
->You show the star statue to the mirror and it brings you through to the other
+> use statue
+You show the star statue to the mirror and it brings you through to the other
 side...
 
->"Oh, hello there. I live here. But I'm not doing so good. You see, it's been
+> talk to vampy
+"Oh, hello there. I live here. But I'm not doing so good. You see, it's been
 a long time since I've had any blood. I think I might die soon if I don't get
 any. Could I have some of yours? ...Didn't think so. Well, could you please
 bring me some blood?"
 
->Vampy takes the cup of blood. "Wow! You sure are nice! Thanks a bunch." He
+> give cup to vampy
+Vampy takes the cup of blood. "Wow! You sure are nice! Thanks a bunch." He
 hungrily slurps it down and wipes off his mouth. "I feel so much better now.
 I'd come with you, but there's this creepy ghost in the next room that won't
 let me leave. Can you get rid of it for me?"
 
->You offer some candy to the vampire and he smiles happily. "Why, thank you
+> give candy to vampy
+You offer some candy to the vampire and he smiles happily. "Why, thank you
 very much, Jillian!"
 
->You move south.
+> s
+You move south.
 
 Mirror Mansion Entrance
 Just like the real one, except that the door won't open. Guess you'll have to
@@ -424,7 +481,8 @@ You can move north, east and west.
 
 Squirrel scampers up from the north.
 
->You move west.
+> w
+You move west.
 
 Music Room
 This is where people come to play or practice music. It is neater than most
@@ -438,9 +496,11 @@ You can only move east.
 
 Squirrel scampers up from the east.
 
->You pick up the flute.
+> take flute
+You pick up the flute.
 
->You move east.
+> e
+You move east.
 
 Mirror Mansion Entrance
 Just like the real one, except that the door won't open. Guess you'll have to
@@ -450,7 +510,8 @@ You can move north, east and west.
 
 Squirrel scampers up from the west.
 
->You move east.
+> e
+You move east.
 
 Library
 This is a library. It is full of books, what were you expecting? You don't
@@ -461,9 +522,11 @@ You can only move west.
 
 Squirrel scampers up from the west.
 
->You take the spellbook from the table.
+> take spellbook
+You take the spellbook from the table.
 
->You move west.
+> w
+You move west.
 
 Mirror Mansion Entrance
 Just like the real one, except that the door won't open. Guess you'll have to
@@ -473,7 +536,8 @@ You can move north, east and west.
 
 Squirrel scampers up from the east.
 
->You move north.
+> n
+You move north.
 
 Mirror Ballroom
 How strange... It's just like the other ballroom, except creepier and
@@ -485,7 +549,8 @@ You can move east and south.
 
 Squirrel scampers up from the south.
 
->You move east.
+> e
+You move east.
 
 Corridor
 This is a cold, narrow, dead-end corridor that the ghost likes to haunt. The
@@ -497,17 +562,20 @@ You can only move west.
 
 Squirrel scampers up from the west.
 
->"Hey there sweet thaaang. Don't see many lovely ladies in here these days.
+> talk to ghost
+"Hey there sweet thaaang. Don't see many lovely ladies in here these days.
 Well it's been about 500 years actually. Say, you wouldn't happen to know any
 tunes, would'ya?"
 
->The ghost listens intently as you play "Song of Spirits" on the flute. When
+> play music
+The ghost listens intently as you play "Song of Spirits" on the flute. When
 you are done, it starts clapping and hollering and cheering. "That rocked!!
 Okay, I've GOT to go tell my friends now. You can take that silly dude out
 there with you, he's getting on my nerves anyway." And he disappears. So much
 for an encore.
 
->You move west.
+> w
+You move west.
 
 Mirror Ballroom
 How strange... It's just like the other ballroom, except creepier and
@@ -519,14 +587,17 @@ You can move east and south.
 
 Squirrel scampers up from the east.
 
->"You got rid of the ghost for me? Thank you! That was so helpful! Here, I'll
+> talk to vampy
+"You got rid of the ghost for me? Thank you! That was so helpful! Here, I'll
 take us out of the mirror." He waves his hand and you are all teleported back
 to the normal ballroom.
 
->You put the star statue atop the branch and make a crappy "walking stick."
+> make walking stick with star statue and branch
+You put the star statue atop the branch and make a crappy "walking stick."
 Great! Kinda dumb though.
 
->You move south.
+> s
+You move south.
 
 Mansion Entrance
 Inside, it is very dark. There are cobwebs and dust everywhere. It is eerily
@@ -539,7 +610,8 @@ Squirrel scampers up from the north.
 
 Vampy glides in from the north.
 
->You move out.
+> out
+You move out.
 
 Outside the Mansion
 There is a huge mansion before you, it is a dark violet color and looks very
@@ -553,7 +625,8 @@ Squirrel scampers up.
 
 Vampy glides in.
 
->You move south.
+> s
+You move south.
 
 Open Area
 What a weird place. It looks like you stepped right into another dimension!
@@ -568,7 +641,8 @@ Squirrel scampers up from the north.
 
 Vampy glides in from the north.
 
->You move west.
+> w
+You move west.
 
 Merchant's Stand
 In the vast land of checkerboards, you come to something of interest. There
@@ -583,7 +657,8 @@ Squirrel scampers up from the east.
 
 Vampy glides in from the east.
 
->You move west.
+> w
+You move west.
 
 By the Banana Moon Statue
 There is a statue here of a big banana. Or maybe its a crescent moon. Hell, I
@@ -597,12 +672,14 @@ Squirrel scampers up from the east.
 
 Vampy glides in from the east.
 
->The old man sees your lame excuse for a walking stick and grins heartily. He
+> give walking stick to old man
+The old man sees your lame excuse for a walking stick and grins heartily. He
 accepts it and expresses his thanks. "Thank you so much, m'girl! Now I can go
 live my dreams of becoming the world's greatest piano repairman... and help
 you, I guess. Let's go on an adventure! Ow, my hip!"
 
->As you approach the old man, he takes one look at Vampy and stops his
+> talk to old man
+As you approach the old man, he takes one look at Vampy and stops his
 babbling. However, he replaces it with loud yelling. "Oh no, oh no, it's
 another onna them vampires... I thought I took care a them when I had my
 youth... This one must want revenge! Help! Help!" he starts crying in fear.
@@ -616,10 +693,12 @@ I'm afraid I can't right now. I've lost my walking stick, and without it I'm
 too weak to carry on." That thing with that statue is really starting to
 creep me out.
 
->The Old Man takes the candy wordlessly and pops it into his mouth without
+> give candy to old man
+The Old Man takes the candy wordlessly and pops it into his mouth without
 even a thank you. What manners.
 
->You move east.
+> e
+You move east.
 
 Merchant's Stand
 In the vast land of checkerboards, you come to something of interest. There
@@ -636,7 +715,8 @@ Vampy glides in from the west.
 
 Old Man hobbles up from the west.
 
->You move east.
+> e
+You move east.
 
 Open Area
 What a weird place. It looks like you stepped right into another dimension!
@@ -653,7 +733,8 @@ Vampy glides in from the west.
 
 Old Man hobbles up from the west.
 
->You move south.
+> s
+You move south.
 
 Tree
 There is a huge dead tree here.
@@ -666,7 +747,8 @@ Vampy glides in from the north.
 
 Old Man hobbles up from the north.
 
->You move south.
+> s
+You move south.
 
 Tea Time
 There is a frilly pink table with two chairs and a pink tea pot, sitting out
@@ -681,13 +763,16 @@ Vampy glides in from the north.
 
 Old Man hobbles up from the north.
 
->The old man sees the lake and cries out with joy. He runs up to the purple
+> s
+The old man sees the lake and cries out with joy. He runs up to the purple
 liquid and starts drinking, and drinking, and pretty soon he has lowered the
 water level by like, a whole lot! Hey... I think I see something down there.
 
->You take the spellbook's missing page from the lake.
+> take missing page
+You take the spellbook's missing page from the lake.
 
->You move north.
+> n
+You move north.
 
 Tea Time
 There is a frilly pink table with two chairs and a pink tea pot, sitting out
@@ -702,7 +787,8 @@ Vampy glides in from the south.
 
 Old Man hobbles up from the south.
 
->You move north.
+> n
+You move north.
 
 Tree
 There is a huge dead tree here.
@@ -715,7 +801,8 @@ Vampy glides in from the south.
 
 Old Man hobbles up from the south.
 
->You move north.
+> n
+You move north.
 
 Open Area
 What a weird place. It looks like you stepped right into another dimension!
@@ -732,7 +819,8 @@ Vampy glides in from the south.
 
 Old Man hobbles up from the south.
 
->You move west.
+> w
+You move west.
 
 Merchant's Stand
 In the vast land of checkerboards, you come to something of interest. There
@@ -749,7 +837,8 @@ Vampy glides in from the east.
 
 Old Man hobbles up from the east.
 
->You move west.
+> w
+You move west.
 
 By the Banana Moon Statue
 There is a statue here of a big banana. Or maybe its a crescent moon. Hell, I
@@ -763,7 +852,8 @@ Vampy glides in from the east.
 
 Old Man hobbles up from the east.
 
->You move west.
+> w
+You move west.
 
 Outside the Outhouse
 Oh, how nice, an outhouse. Why don't you go inside and relieve yourself? Or
@@ -777,7 +867,8 @@ Vampy glides in from the east.
 
 Old Man hobbles up from the east.
 
->You move in.
+> in
+You move in.
 
 Outhouse
 It's really cramped in here. And it smells. Do you really have to go to the
@@ -792,12 +883,15 @@ Vampy glides in from outside.
 
 Old Man hobbles up from outside.
 
->You flush the toilet. Now maybe it won't smell so bad in here.
+> flush toilet
+You flush the toilet. Now maybe it won't smell so bad in here.
 
->You put the needle in the box. Smart move. I think you just saved yourself a
+> put needle in box
+You put the needle in the box. Smart move. I think you just saved yourself a
 pin-prick.
 
->You move out.
+> out
+You move out.
 
 Outside the Outhouse
 Oh, how nice, an outhouse. Why don't you go inside and relieve yourself? Or
@@ -811,7 +905,8 @@ Vampy glides in from inside.
 
 Old Man hobbles up from inside.
 
->You move east.
+> e
+You move east.
 
 By the Banana Moon Statue
 There is a statue here of a big banana. Or maybe its a crescent moon. Hell, I
@@ -825,7 +920,8 @@ Vampy glides in from the west.
 
 Old Man hobbles up from the west.
 
->You move east.
+> e
+You move east.
 
 Merchant's Stand
 In the vast land of checkerboards, you come to something of interest. There
@@ -842,7 +938,8 @@ Vampy glides in from the west.
 
 Old Man hobbles up from the west.
 
->You move east.
+> e
+You move east.
 
 Open Area
 What a weird place. It looks like you stepped right into another dimension!
@@ -859,7 +956,8 @@ Vampy glides in from the west.
 
 Old Man hobbles up from the west.
 
->You move north.
+> n
+You move north.
 
 Outside the Mansion
 There is a huge mansion before you, it is a dark violet color and looks very
@@ -875,7 +973,8 @@ Vampy glides in from the south.
 
 Old Man hobbles up from the south.
 
->Mansion Entrance
+> enter mansion
+Mansion Entrance
 Inside, it is very dark. There are cobwebs and dust everywhere. It is eerily
 quiet. The walls are blue-gray and the floors are black marble.  Above is an
 extravagent chandeleir, but it is not lit.
@@ -886,7 +985,8 @@ Vampy glides in from outside.
 
 Old Man hobbles up from outside.
 
->You move north.
+> n
+You move north.
 
 Ballroom
 This room is very large. As you walk through it you can hear your footsteps
@@ -904,7 +1004,8 @@ Vampy glides in from the south.
 
 Old Man hobbles up from the south.
 
->You move north.
+> n
+You move north.
 
 Garden
 You step outside into the moonlight and find yourself in a beautiful,
@@ -919,10 +1020,12 @@ Vampy glides in from the south.
 
 Old Man hobbles up from the south.
 
->You pull out the red slip of paper and hold it out in front of the fountain.
+> use tp
+You pull out the red slip of paper and hold it out in front of the fountain.
 The wearing, gold letters start to glow. Time to say the magic words!
 
->"Blabber flabber boogie gaboo!" you say, and there is a flash of light.
+> blabber flabber boogie gaboo
+"Blabber flabber boogie gaboo!" you say, and there is a flash of light.
 Suddenly, the statue of the woman is filled with color and she starts moving.
 The water stops flowing from the pitcher plant and she sets it down. "Thank
 you so much for releasing me!" she says, smiling warmly and stepping down
@@ -931,12 +1034,15 @@ and I'll repay you if I can."
 
 Plant Lady prances along.
 
->She laughs but does not accept the candy. "All I need is water and moonlight,
+> give candy to plant lady
+She laughs but does not accept the candy. "All I need is water and moonlight,
 but thanks anyway!"
 
->"Isn't there something you have to do?" she asks with a bright disposition.
+> talk to plant lady
+"Isn't there something you have to do?" she asks with a bright disposition.
 
->You move south.
+> s
+You move south.
 
 Ballroom
 This room is very large. As you walk through it you can hear your footsteps
@@ -956,7 +1062,8 @@ Old Man hobbles up from the north.
 
 Plant Lady prances along from the north.
 
->You move south.
+> s
+You move south.
 
 Mansion Entrance
 Inside, it is very dark. There are cobwebs and dust everywhere. It is eerily
@@ -973,7 +1080,8 @@ Old Man hobbles up from the north.
 
 Plant Lady prances along from the north.
 
->You move out.
+> out
+You move out.
 
 Outside the Mansion
 There is a huge mansion before you, it is a dark violet color and looks very
@@ -991,7 +1099,8 @@ Old Man hobbles up.
 
 Plant Lady prances along.
 
->You move south.
+> s
+You move south.
 
 Open Area
 What a weird place. It looks like you stepped right into another dimension!
@@ -1011,7 +1120,8 @@ Old Man hobbles up from the north.
 
 Plant Lady prances along from the north.
 
->You walk past the sign from the area you first arrived in. Suddenly, you are
+> sw
+You walk past the sign from the area you first arrived in. Suddenly, you are
 in a strange room in the middle of space. It has no walls, and no ceiling.
 "This place looks hella weird!" exclaims the squirrel. "I've never seen
 anything like this. What could it mean?" asks Vampy. "Never in my long and

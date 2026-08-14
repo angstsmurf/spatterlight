@@ -30,10 +30,12 @@ graphics wiindow rather than inline graphics.
 
 Square 1
 
->A simple red painted cube of wood with gold spots on the sides. The spots of
+> x dice
+A simple red painted cube of wood with gold spots on the sides. The spots of
 the opposite sides add up to seven.
 
->You roll a six and move to square seven.
+> r
+You roll a six and move to square seven.
 
 Square 7
 
@@ -41,7 +43,8 @@ The next six spaces are shown below:
 ....L.
 (Key: . Clear L Ladder S Snake)
 
->You roll a five and move to square twelve.
+> r
+You roll a five and move to square twelve.
 
 You climb steadily up a ladder and find yourself on square 26.
 Square 26
@@ -50,7 +53,8 @@ The next six spaces are shown below:
 ..L...
 (Key: . Clear L Ladder S Snake)
 
->You roll a five and move to square 31.
+> r
+You roll a five and move to square 31.
 
 Square 31
 
@@ -58,7 +62,8 @@ The next six spaces are shown below:
 ......
 (Key: . Clear L Ladder S Snake)
 
->You roll a five and move to square 36.
+> r
+You roll a five and move to square 36.
 
 Square 36
 
@@ -66,7 +71,8 @@ The next six spaces are shown below:
 ..S.L.
 (Key: . Clear L Ladder S Snake)
 
->You roll a six and move to square 42.
+> r
+You roll a six and move to square 42.
 
 Square 42
 
@@ -74,7 +80,8 @@ The next six spaces are shown below:
 ......
 (Key: . Clear L Ladder S Snake)
 
->You roll a three and move to square 45.
+> r
+You roll a three and move to square 45.
 
 Square 45
 
@@ -82,7 +89,8 @@ The next six spaces are shown below:
 .....S
 (Key: . Clear L Ladder S Snake)
 
->You roll a two and move to square 47.
+> r
+You roll a two and move to square 47.
 
 Square 47
 
@@ -90,7 +98,8 @@ The next six spaces are shown below:
 ...SL.
 (Key: . Clear L Ladder S Snake)
 
->You roll a three and move to square 50.
+> r
+You roll a three and move to square 50.
 
 Square 50
 
@@ -98,7 +107,8 @@ The next six spaces are shown below:
 SL.S..
 (Key: . Clear L Ladder S Snake)
 
->You roll a five and move to square 55.
+> r
+You roll a five and move to square 55.
 
 Square 55
 
@@ -106,7 +116,8 @@ The next six spaces are shown below:
 .L..S.
 (Key: . Clear L Ladder S Snake)
 
->You roll a four and move to square 59.
+> r
+You roll a four and move to square 59.
 
 Square 59
 
@@ -114,7 +125,8 @@ The next six spaces are shown below:
 S.....
 (Key: . Clear L Ladder S Snake)
 
->You roll a six and move to square 65.
+> r
+You roll a six and move to square 65.
 
 Square 65
 
@@ -122,7 +134,8 @@ The next six spaces are shown below:
 ....L.
 (Key: . Clear L Ladder S Snake)
 
->You roll a four and move to square 69.
+> r
+You roll a four and move to square 69.
 
 Square 69
 
@@ -130,7 +143,8 @@ The next six spaces are shown below:
 L.....
 (Key: . Clear L Ladder S Snake)
 
->You roll a three and move to square 72.
+> r
+You roll a three and move to square 72.
 
 Square 72
 
@@ -138,7 +152,8 @@ The next six spaces are shown below:
 ...SS.
 (Key: . Clear L Ladder S Snake)
 
->You roll a four and move to square 76.
+> r
+You roll a four and move to square 76.
 
 With an uncomfortable slither you exit down a snake, landing with a thud on
 13 knowing you will have to retrace your previous path.
@@ -148,7 +163,8 @@ The next six spaces are shown below:
 ......
 (Key: . Clear L Ladder S Snake)
 
->You roll a two and move to square fifteen.
+> r
+You roll a two and move to square fifteen.
 
 Square 15
 
@@ -156,7 +172,8 @@ The next six spaces are shown below:
 .....S
 (Key: . Clear L Ladder S Snake)
 
->You roll a one and move to square sixteen.
+> r
+You roll a one and move to square sixteen.
 
 Square 16
 
@@ -164,7 +181,8 @@ The next six spaces are shown below:
 ....S.
 (Key: . Clear L Ladder S Snake)
 
->You roll a two and move to square eighteen.
+> r
+You roll a two and move to square eighteen.
 
 Square 18
 
@@ -172,7 +190,8 @@ The next six spaces are shown below:
 ..S...
 (Key: . Clear L Ladder S Snake)
 
->You roll a six and move to square 24.
+> r
+You roll a six and move to square 24.
 
 Square 24
 
@@ -180,7 +199,8 @@ The next six spaces are shown below:
 ....L.
 (Key: . Clear L Ladder S Snake)
 
->You roll a five and move to square 29.
+> r
+You roll a five and move to square 29.
 
 You climb steadily up a ladder and find yourself on square 48.
 Square 48
@@ -189,7 +209,8 @@ The next six spaces are shown below:
 ..SL.S
 (Key: . Clear L Ladder S Snake)
 
->You roll a three and move to square 51.
+> r
+You roll a three and move to square 51.
 
 With an uncomfortable slither you exit down a snake, landing with a thud on
 30 knowing you will have to retrace your previous path.
@@ -199,7 +220,8 @@ The next six spaces are shown below:
 ......
 (Key: . Clear L Ladder S Snake)
 
->You roll a one and move to square 31.
+> r
+You roll a one and move to square 31.
 
 Square 31
 
@@ -207,7 +229,8 @@ The next six spaces are shown below:
 ......
 (Key: . Clear L Ladder S Snake)
 
->You roll a three and move to square 34.
+> r
+You roll a three and move to square 34.
 
 Square 34
 
@@ -215,7 +238,8 @@ The next six spaces are shown below:
 ....S.
 (Key: . Clear L Ladder S Snake)
 
->You roll a three and move to square 37.
+> r
+You roll a three and move to square 37.
 
 Square 37
 
@@ -223,7 +247,8 @@ The next six spaces are shown below:
 .S.L..
 (Key: . Clear L Ladder S Snake)
 
->You roll a six and move to square 43.
+> r
+You roll a six and move to square 43.
 
 Square 43
 
@@ -231,7 +256,8 @@ The next six spaces are shown below:
 ......
 (Key: . Clear L Ladder S Snake)
 
->You roll a four and move to square 47.
+> r
+You roll a four and move to square 47.
 
 Square 47
 
@@ -239,7 +265,8 @@ The next six spaces are shown below:
 ...SL.
 (Key: . Clear L Ladder S Snake)
 
->You roll a six and move to square 53.
+> r
+You roll a six and move to square 53.
 
 Square 53
 
@@ -247,7 +274,8 @@ The next six spaces are shown below:
 S..L..
 (Key: . Clear L Ladder S Snake)
 
->You roll a five and move to square 58.
+> r
+You roll a five and move to square 58.
 
 Square 58
 
@@ -255,7 +283,8 @@ The next six spaces are shown below:
 .S....
 (Key: . Clear L Ladder S Snake)
 
->You roll a six and move to square 64.
+> r
+You roll a six and move to square 64.
 
 Square 64
 
@@ -263,7 +292,8 @@ The next six spaces are shown below:
 .....L
 (Key: . Clear L Ladder S Snake)
 
->You roll a six and move to square 70.
+> r
+You roll a six and move to square 70.
 
 You climb steadily up a ladder and find yourself on square 85.
 Square 85
@@ -272,7 +302,8 @@ The next six spaces are shown below:
 S.S.L.
 (Key: . Clear L Ladder S Snake)
 
->You roll a four and move to square 89.
+> r
+You roll a four and move to square 89.
 
 Square 89
 
@@ -280,7 +311,8 @@ The next six spaces are shown below:
 L.L...
 (Key: . Clear L Ladder S Snake)
 
->You roll a one and move to square 90.
+> r
+You roll a one and move to square 90.
 
 You climb steadily up a ladder and find yourself on square 100.
 Yes! You have made it to the end of the game. It is completed and you have

@@ -26,7 +26,8 @@ You look up and down the street.  You figgure that it would be good to go get
 a bite to eat.  You can only
 walk north.
 
->You stride north and find yourself being lifted off the ground, by an
+> north
+You stride north and find yourself being lifted off the ground, by an
 invisible force.   Hey!, you say.  You fly for a while until you start to
 fall.
 
@@ -43,7 +44,8 @@ and is reeking habic on the world.  Oh that's rite!  You don't Super powers
 yet.  I almost Forgot.  I need you cause your the only one who can do it.  A
 chain then apears from the time of the ceiling.  He says "Pull this chain."
 
->You pull the chain.  You float up in the air.  You feel kind of quezy but
+> pull chain
+You pull the chain.  You float up in the air.  You feel kind of quezy but
 that's the way these things are.  You land on the ground, and you find
 yourself dressed in a costume, and holding a lasser gun.  You feel yourself
 floating up and away.  You land with a thud
@@ -53,7 +55,8 @@ You are standing outside a large grocery store.  You look at the door.  On
 the door is a sign that reads, "Merry's Store.  Closed!"  Oh man, you think.
 You really wanted a bite to eat.  Oh well.
 
->You move east.
+> east
+You move east.
 
 At the city pool
 you walk for a few minutes, and end up standing outside the city pool.  You
@@ -61,7 +64,8 @@ look, and realize no one is here.
 
 You can move west and in.
 
->You move in.
+> in
+You move in.
 
 In the pool
 You dive in to the pool.  Wow.  Summer break is fun already.  You ponder
@@ -72,7 +76,8 @@ water looks calm and clear.
 
 You can move down and out.
 
->You move down.
+> down
+You move down.
 
 At the bottom  of the pool
 You swim down, and are at the bottom of the pool.  Wow, this place sure is
@@ -80,7 +85,8 @@ strange.  I mean there's a tunnel.  wow!  That's odd, you think.
 
 You can move up and down.
 
->You move down.
+> down
+You move down.
 
 In the hidden City
 You have gone down the tunnel, and have ended up in a water world.  There are
@@ -91,7 +97,8 @@ The Mermaid is here.
 
 You can move north and up.
 
->You move north.
+> north
+You move north.
 
 Next to the under water house
 You have swam north, and found a house.  I wonder who, if anyone lives here.
@@ -99,7 +106,8 @@ Check it out.
 
 You can move south and in.
 
->You move in.
+> in
+You move in.
 
 In the house
 You open the door and go in.  You see, a bass sitting in a chair.  He is
@@ -112,9 +120,11 @@ Bob the bass is here.
 
 You can only move out.
 
->You pick up the necklace.
+> take necklace
+You pick up the necklace.
 
->You move out.
+> out
+You move out.
 
 Next to the under water house
 You have swam north, and found a house.  I wonder who, if anyone lives here.
@@ -122,7 +132,8 @@ Check it out.
 
 You can move south and in.
 
->You move south.
+> south
+You move south.
 
 In the hidden City
 You have gone down the tunnel, and have ended up in a water world.  There are
@@ -133,12 +144,14 @@ The Mermaid is here.
 
 You can move north and up.
 
->It's nice,  says the mermaid.  She then says, I don't think to highly of
+> give necklace to mermaid
+It's nice,  says the mermaid.  She then says, I don't think to highly of
 humans but you are nice. Unlike popular myths.  I can walk on land.  I have a
 question, she says, could I maybe, follow you?  You hesitate and think.  You
 know that having a companion would be good, so you say yes.  She then laughs.
 
->You move up.
+> up
+You move up.
 
 At the bottom  of the pool
 You swim down, and are at the bottom of the pool.  Wow, this place sure is
@@ -148,7 +161,8 @@ You can move up and down.
 
 The Mermaid follows you from below.
 
->You move up.
+> up
+You move up.
 
 In the pool
 You dive in to the pool.  Wow.  Summer break is fun already.  You ponder
@@ -161,7 +175,8 @@ You can move down and out.
 
 The Mermaid follows you from below.
 
->You move out.
+> out
+You move out.
 
 At the city pool
 you walk for a few minutes, and end up standing outside the city pool.  You
@@ -171,7 +186,8 @@ You can move west and in.
 
 The Mermaid follows you from inside.
 
->You move west.
+> west
+You move west.
 
 In front of the grocery store
 You are standing outside a large grocery store.  You look at the door.  On
@@ -182,7 +198,8 @@ You can move east and west.
 
 The Mermaid follows you from the east.
 
->You move west.
+> west
+You move west.
 
 In front of a door
 You are standing in front of a door.  You look at the door and you notice
@@ -193,10 +210,12 @@ You can only move east.
 
 The Mermaid follows you from the east.
 
->c-r-e-e-k it opens, you see a long hallway.  Good job
+> open door
+c-r-e-e-k it opens, you see a long hallway.  Good job
 the mermaid blows you a kiss and then giggles, you ignore her.
 
->You move in.
+> in
+You move in.
 
 Long hall
 You are in a dimly lit hall.  there is not much to see.  There are some
@@ -206,7 +225,8 @@ You can move north and out.
 
 The Mermaid follows you from outside.
 
->You move north.
+> north
+You move north.
 
 The stair well
 You are standing at the top of a stair well, you see a piano sitting in front
@@ -217,12 +237,14 @@ You can only move south.
 
 The Mermaid follows you from the south.
 
->clunk clunk clunk.  twinkle twinkle.  crash!  The piano goes flying down the
+> push piano
+clunk clunk clunk.  twinkle twinkle.  crash!  The piano goes flying down the
 stairs.  Wow.  that was cool.  it busted open the door, and you can see
 daylight.  Good Job
 A cat runs out from under the reckage of the piano
 
->You walk down the stairs and feel your self pass out.  You fall asleep.  You
+> down
+You walk down the stairs and feel your self pass out.  You fall asleep.  You
 dream of a voice in your head saying.  Fear Julian.  Fear Julian.  He is
 evil.  Then you are shaken by the mermaid.  You are awake in flint Lock?
 
@@ -235,7 +257,8 @@ a cute little goat, you think.
 
 The Mermaid follows you.
 
->You move north.
+> north
+You move north.
 
 In Flintlock
 You are standing next to the pump.  All around you, you can see the
@@ -249,7 +272,8 @@ You can move north, east, south and west.
 
 The Mermaid follows you from the south.
 
->You move east.
+> east
+You move east.
 
 Outside the Icecream Parlor.
 You are standing on the porch, that leads in to the icecream Parlor.  there,
@@ -259,7 +283,8 @@ You can move west and in.
 
 The Mermaid follows you from the west.
 
->You move in.
+> in
+You move in.
 
 Inside the icecream parlor
 You are standing inside the icecream parlor.  You see a freezer, a counter,
@@ -271,15 +296,19 @@ You can only move out.
 
 The Mermaid follows you from outside.
 
->You pick up the pack of necko wafers .
+> take necko wafers
+You pick up the pack of necko wafers .
 
->you eat the necko wafers.  You then see a flash of light.  And on the floor
+> eat necko wafers
+you eat the necko wafers.  You then see a flash of light.  And on the floor
 sits a sash.  Wow.
 Junior runs in and drinks some root beer.  He then runs out
 
->You pick up the sash.
+> take sash
+You pick up the sash.
 
->You move out.
+> out
+You move out.
 
 Outside the Icecream Parlor.
 You are standing on the porch, that leads in to the icecream Parlor.  there,
@@ -289,7 +318,8 @@ You can move west and in.
 
 The Mermaid follows you from inside.
 
->You move west.
+> west
+You move west.
 
 In Flintlock
 You are standing next to the pump.  All around you, you can see the
@@ -303,7 +333,8 @@ You can move north, east, south and west.
 
 The Mermaid follows you from the east.
 
->You move north.
+> north
+You move north.
 
 Outside the Merckentile
 You are standing by the lemon shake up table outside the Merckentile.  The
@@ -316,7 +347,8 @@ You can move south and in.
 
 The Mermaid follows you from the south.
 
->You move in.
+> in
+You move in.
 
 In the Merckentile
 You stride in to the merckentile.  You see Pavlov sitting behind the counter.
@@ -328,12 +360,15 @@ You can only move out.
 
 The Mermaid follows you from outside.
 
->You give him the sash.  He says, cool thanks man.  He then runs off and
+> give sash to pavlov
+You give him the sash.  He says, cool thanks man.  He then runs off and
 leaves you in the store.
 
->You pick up the gold key.
+> take gold key
+You pick up the gold key.
 
->You move out.
+> out
+You move out.
 
 Outside the Merckentile
 You are standing by the lemon shake up table outside the Merckentile.  The
@@ -346,7 +381,8 @@ You can move south and in.
 
 The Mermaid follows you from inside.
 
->You move south.
+> south
+You move south.
 
 In Flintlock
 You are standing next to the pump.  All around you, you can see the
@@ -360,7 +396,8 @@ You can move north, east, south and west.
 
 The Mermaid follows you from the north.
 
->You move west.
+> west
+You move west.
 
 Outside the Sasafrass Saloon
 You are standing outside the Sassafrass Saloon.  You can see that inside
@@ -371,9 +408,11 @@ You can only move east.
 
 The Mermaid follows you from the east.
 
->you unlock the door and it swings open.
+> unlock door
+you unlock the door and it swings open.
 
->You move in.
+> in
+You move in.
 
 Inside the Saloon
 You step inside.  The door swings shut and locks it's self.  The room is
@@ -385,7 +424,8 @@ Julian is here.
 
 The Mermaid follows you.
 
->boom.  He blows up with a loud explosion.  Then everything starts to blur.
+> shoot julian
+boom.  He blows up with a loud explosion.  Then everything starts to blur.
 You find yourself standing, in a lit chamber.
 
 Flintlock Chamber
@@ -394,7 +434,8 @@ worry know what to do.
 
 The Mermaid follows you.
 
->You push the button, and you feel yourself lift into the air.  You float
+> press button
+You push the button, and you feel yourself lift into the air.  You float
 away.
 
 In the radio station
@@ -405,7 +446,8 @@ Mr. Shaphren is here.
 
 The Mermaid follows you.
 
->You move south.
+> south
+You move south.
 
 The music Library
 You are in the music library.  There are old Spike Jones records, and a
@@ -417,9 +459,11 @@ You can only move north.
 
 The Mermaid follows you from the north.
 
->You pick up large wire.
+> take large wire
+You pick up large wire.
 
->You move north.
+> north
+You move north.
 
 In the radio station
 You are in w m t h radio.  You have know idea what you are doing here.  Maybe
@@ -431,7 +475,8 @@ You can move east, south and west.
 
 The Mermaid follows you from the south.
 
->You move east.
+> east
+You move east.
 
 In the Controll Room
 You ar standing in a room full of equipment.  Everything from microphones, to
@@ -443,9 +488,11 @@ You can only move west.
 
 The Mermaid follows you from the west.
 
->thanks, says Ben.
+> give wire to ben
+thanks, says Ben.
 
->You move west.
+> west
+You move west.
 
 In the radio station
 You are in w m t h radio.  You have know idea what you are doing here.  Maybe
@@ -457,7 +504,8 @@ You can move east, south and west.
 
 The Mermaid follows you from the east.
 
->You move west.
+> west
+You move west.
 
 E wing
 This is the fine Arts section, of Main West.  there is no one here, odd.
@@ -466,7 +514,8 @@ You can move east and down.
 
 The Mermaid follows you from the east.
 
->You move down.
+> down
+You move down.
 
 The pit
 This is where people work out.  There are a few rooms here.
@@ -475,7 +524,8 @@ You can move east, south and up.
 
 The Mermaid follows you from above.
 
->You move east.
+> east
+You move east.
 
 Exercise room
 This is the excercise room.  There are a multitude of things here like
@@ -487,14 +537,17 @@ You can only move west.
 
 The Mermaid follows you from the west.
 
->You get on the bike and start to ride.  The Mermaid gives you a puzzled look.
+> ride bike
+You get on the bike and start to ride.  The Mermaid gives you a puzzled look.
  You keep riding for a while, when all of a sudden, you hear a pop, and the
 bike falls apart.  Well, all the pieces decinigrate except for a key. /A key?
 That's odd
 
->You pick up the brass key.
+> take brass key
+You pick up the brass key.
 
->You move west.
+> west
+You move west.
 
 The pit
 This is where people work out.  There are a few rooms here.
@@ -503,7 +556,8 @@ You can move east, south and up.
 
 The Mermaid follows you from the east.
 
->You move south.
+> south
+You move south.
 
 Locker room
 This is the locker room.  This is the only locker room that is open.  It is
@@ -516,11 +570,13 @@ You can move north and down.
 
 The Mermaid follows you from the north.
 
->You put the key in the lock and it fits.  Alright.  The locker swings open
+> unlock locker
+You put the key in the lock and it fits.  Alright.  The locker swings open
 and a minny disc falls out.    You pick it up and look at it.  The label says
 "Coral Minny disc."
 
->You move north.
+> north
+You move north.
 
 The pit
 This is where people work out.  There are a few rooms here.
@@ -529,7 +585,8 @@ You can move east, south and up.
 
 The Mermaid follows you from the south.
 
->You move up.
+> up
+You move up.
 
 E wing
 This is the fine Arts section, of Main West.  there is no one here, odd.
@@ -538,7 +595,8 @@ You can move east and down.
 
 The Mermaid follows you from below.
 
->You move east.
+> east
+You move east.
 
 In the radio station
 You are in w m t h radio.  You have know idea what you are doing here.  Maybe
@@ -550,9 +608,11 @@ You can move east, south and west.
 
 The Mermaid follows you from the west.
 
->Thanks he says.  He then hands you a note
+> give minny disc to mr shaphren
+Thanks he says.  He then hands you a note
 
->You move west.
+> west
+You move west.
 
 E wing
 This is the fine Arts section, of Main West.  there is no one here, odd.
@@ -561,9 +621,11 @@ You can move east and down.
 
 The Mermaid follows you from the east.
 
->You can't go in that direction, but you can move east and down.
+> west
+You can't go in that direction, but you can move east and down.
 
->You move down.
+> down
+You move down.
 
 The pit
 This is where people work out.  There are a few rooms here.
@@ -572,7 +634,8 @@ You can move east, south and up.
 
 The Mermaid follows you from above.
 
->You move south.
+> south
+You move south.
 
 Locker room
 This is the locker room.  This is the only locker room that is open.  It is
@@ -585,7 +648,8 @@ You can move north and down.
 
 The Mermaid follows you from the north.
 
->You move down.
+> down
+You move down.
 
 In the crawl space
 You are standing in a long hallway.  There is a gravel floor.  You notice
@@ -596,7 +660,8 @@ You can move west and up.
 
 The Mermaid follows you from above.
 
->You move west.
+> west
+You move west.
 
 Further in the crawl space
 You walk down the path and find yourself deeper under the school.  How wierd
@@ -606,7 +671,8 @@ You can move east and west.
 
 The Mermaid follows you from the east.
 
->You move west.
+> west
+You move west.
 
 In the crawl space worm's layer
 You are standing in a large room.  It is empty eccept for pipes and wires.
@@ -622,7 +688,8 @@ Worm is here.
 
 The Mermaid follows you.
 
->The worm glares at you.  I even ate the female swedish basketball players
+> shoot worm
+The worm glares at you.  I even ate the female swedish basketball players
 too.  You explode with rage.  First you stole our cameras, then you ate the
 only decent visitors Main West has had all year.  That's too much.  You then
 fire your laser gun, and the worm explodes in a burst of light.  Good, you
@@ -634,7 +701,8 @@ button.  It is red.  There is nothing else of interest here.
 
 The Mermaid follows you.
 
->whoosh.  Now you are flying away.  Wee!  you think.
+> press red button
+whoosh.  Now you are flying away.  Wee!  you think.
 
 The Main Frame
 You are stand in a large room.  The cieling reaches 20 feet in to the air,
@@ -643,7 +711,8 @@ examination, it says.  Welcome to the Main Frame.  Wow.
 
 The Mermaid follows you.
 
->You move north.
+> north
+You move north.
 
 Adrift web site
 You are standing in a room.  Wow!  Wierd.  You see a sign that says  "Adrift
@@ -654,7 +723,8 @@ You can move east and south.
 
 The Mermaid follows you from the south.
 
->You move east.
+> east
+You move east.
 
 Micro land
 You are standing in a large room.  There are wierd contraptions in this room.
@@ -668,9 +738,11 @@ You can only move west.
 
 The Mermaid follows you from the west.
 
->You pick up the virus.
+> take virus
+You pick up the virus.
 
->You move west.
+> west
+You move west.
 
 Adrift web site
 You are standing in a room.  Wow!  Wierd.  You see a sign that says  "Adrift
@@ -681,7 +753,8 @@ You can move east and south.
 
 The Mermaid follows you from the east.
 
->You move south.
+> south
+You move south.
 
 The Main Frame
 You are stand in a large room.  The cieling reaches 20 feet in to the air,
@@ -692,7 +765,8 @@ You can move north and south.
 
 The Mermaid follows you from the north.
 
->You move south.
+> south
+You move south.
 
 The Information Super Highway
 You stand on a street.  You see space ships flying by.  Wow!  You look around
@@ -704,7 +778,8 @@ You can move north and west.
 
 The Mermaid follows you from the north.
 
->You move west.
+> west
+You move west.
 
 Outside the Virus Center
 You  are standing outside a building.  It has stain glass windows on three
@@ -714,7 +789,8 @@ You can move east and in.
 
 The Mermaid follows you from the east.
 
->You move in.
+> in
+You move in.
 
 Inside the Virus Center
 You are standing in a poorly furnished room.  On the wall you see some
@@ -726,9 +802,11 @@ You can only move out.
 
 The Mermaid follows you from outside.
 
->Thank you, blip blip.  He says
+> give virus to blurp
+Thank you, blip blip.  He says
 
->You move out.
+> out
+You move out.
 
 Outside the Virus Center
 You  are standing outside a building.  It has stain glass windows on three
@@ -738,7 +816,8 @@ You can move east and in.
 
 The Mermaid follows you from inside.
 
->You move east.
+> east
+You move east.
 
 The Information Super Highway
 You stand on a street.  You see space ships flying by.  Wow!  You look around
@@ -750,7 +829,8 @@ You can move north and west.
 
 The Mermaid follows you from the west.
 
->You move north.
+> north
+You move north.
 
 The Main Frame
 You are stand in a large room.  The cieling reaches 20 feet in to the air,
@@ -761,7 +841,8 @@ You can move north and south.
 
 The Mermaid follows you from the south.
 
->You move north.
+> north
+You move north.
 
 Adrift web site
 You are standing in a room.  Wow!  Wierd.  You see a sign that says  "Adrift
@@ -772,7 +853,8 @@ You can move east and south.
 
 The Mermaid follows you from the south.
 
->You move east.
+> east
+You move east.
 
 Micro land
 You are standing in a large room.  There are wierd contraptions in this room.
@@ -784,7 +866,8 @@ You can only move west.
 
 The Mermaid follows you from the west.
 
->zoom You are carried away.  You land in a dark room
+> press button
+zoom You are carried away.  You land in a dark room
 
 In a dark room
 You are standing in a dark room.  You can see a ladder.  So all you can do is
@@ -793,7 +876,8 @@ a cat runs out of a door, and sings a song
 
 The Mermaid follows you.
 
->Oh no!  You are being sucked up threw a tunnel.  You stand in a room.  A huge
+> up
+Oh no!  You are being sucked up threw a tunnel.  You stand in a room.  A huge
 robot comes forward and says.  Ha Ha, I am going to enjoy killing you Liam.
 Ha! Ha!.  He then aims his hand at the mermaid, and she explodes.  You are
 filled with a rage that is unimaginable.
@@ -805,10 +889,12 @@ X1 raising his gunlike arms and aims at you.  Do something now!
 
 The Mermaid follows you.
 
->there is a huge explosion that shakes the whole room.  The next instant x1 is
+> shoot x1
+there is a huge explosion that shakes the whole room.  The next instant x1 is
 gone.  YOu see a door appear to your east.
 
->You walk east.  Congratulations!!!
+> east
+You walk east.  Congratulations!!!
 You stand in a sparkling room.  Around you on the walls we see the words,
 "congradulation you have defeated x1!"
 

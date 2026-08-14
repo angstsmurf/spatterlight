@@ -38,113 +38,141 @@ probes the splendid curtains: searching, feeling, shaping...
 There is an exit out.
 
 >
+
 >
->   All this dust is a slur on her name, on her lifestyle - my Emanuelle was
+
+> x dust
+   All this dust is a slur on her name, on her lifestyle - my Emanuelle was
 as close to perfection as any woman could be. Who couldn't deny her a clean
 memory in death?
 
->   Such a beautiful bed was Emanuelle's. Each poster would rise up like her
+> x bed
+   Such a beautiful bed was Emanuelle's. Each poster would rise up like her
 arms when she yawned and, in waking, the sheets would retain the warm
 crescent of her body, the pillows preserving the happy heart shape of her
 head.
 
->   Soft and silken are the sheets reminding me of my Emanuelle's beautiful
+> x sheets
+   Soft and silken are the sheets reminding me of my Emanuelle's beautiful
 skin - not overly pale, yet untanned - as fragile and colourful as an ancient
 parchment.
 
->   Soft and luxurious like her smile - the pillows often tended her gentle
+> x pillows
+   Soft and luxurious like her smile - the pillows often tended her gentle
 head in dreams, their colour matching that of the silken sheets.
 
->   In a roundabout way the posters of the bed remind me of my Emanuelle's
+> x posters
+   In a roundabout way the posters of the bed remind me of my Emanuelle's
 legs - their sturdy yet graceful form and the way that they rise and rise
 adding an admirable height to the overall beauty.
 
->   Paintings of my Emanuelle's ancestors dating back a few hundred years
+> x portraits
+   Paintings of my Emanuelle's ancestors dating back a few hundred years
 although I don't see the resemblance but the paintings in their age still
 shine with beauty and I'm sure as age closed in around her she would stll
 have shone by similar means.
 
->   A wonderful patchwork of colour, her blooms resemble her sense of humour -
+> x blooms
+   A wonderful patchwork of colour, her blooms resemble her sense of humour -
 varied, fun, and always warm. There were days when she would sit with her
 flowers, lovingly quenching their thirst, and conversing with them, asking
 unanswerable questions on life. On love.
 
->   The window betrays her nature: its transparency an ill reflection of the
+> x window
+   The window betrays her nature: its transparency an ill reflection of the
 complexities her mind would cloud. Looking through I see her garden, the
 autumn emptiness of the trees seemingly mourning her passing in concert with
 the darkest of daytime skies.
 
->   The wind's cold streak is invisible. It was much the same with my
+> x wind
+   The wind's cold streak is invisible. It was much the same with my
 Emanuelle, I never saw her cold temperament - maybe her nature would never
 allow such imperfection.
 
->   Her curtains are a wonderful shade of violet, their thick velvet nature
+> x curtains
+   Her curtains are a wonderful shade of violet, their thick velvet nature
 drifting aimlessly in the breeze from the window almost like the mystique of
 her free spirit nature.
 
->   Crammed with her myriad clothing, the wardrobes remind me of her many
+> x wardrobes
+   Crammed with her myriad clothing, the wardrobes remind me of her many
 faceted nature, of the way she would always surprise you with a comment when
 you thought her opinions were spent.
 
->   Numerous outfits that she collected over the years: cocktail dresses,
+> x clothing
+   Numerous outfits that she collected over the years: cocktail dresses,
 ballgowns, and the softest silk leisurewear. A melee of colour, the clothes
 remind me of her gentle nature, her easygoing ways - their colours reflecting
 her warmth and humour.
 
->   Trim and elegant, her cocktail addresses come in a small variety of
+> x dresses
+   Trim and elegant, her cocktail addresses come in a small variety of
 colours such as black and shades of red and lilac. Although I never saw her
 wear them, never had the chance, I can picture her now walking any catwalk
 anywhere in the world such was her beauty and grace.
 
->   Long and elegant, her ballgowns come in a large variety of colours such as
+> x gowns
+   Long and elegant, her ballgowns come in a large variety of colours such as
 black, blue, orange, and a wonderful silver. Although I rarely saw her wear
 them, rarely had the chance, I can picture her now dancing on any dancefloor
 anywhere in the world such was her beauty and grace.
 
->   Casual yet elegant, her leisurewear comes in a vast range of colours such
+> x leisurewear
+   Casual yet elegant, her leisurewear comes in a vast range of colours such
 as red, purple, blue and brown and covered with numerous designer labels.
 Although I often saw her wear them, it seemed all that she had at times, I
 can picture her now walking any catwalk anywhere in the world such was her
 beauty and grace.
 
->   My Emanuelle's dressing table with its huge mirror and chest of drawers
+> x table
+   My Emanuelle's dressing table with its huge mirror and chest of drawers
 was her favourite treasure. Sitting on its accompanying stool and playing
 with her many hairbrushes, perfumes, and creams she would sculpt herself for
 me to love and for others to envy.
 
->   Many were the days when she would sit at the stool and stare dolefully
+> x mirror
+   Many were the days when she would sit at the stool and stare dolefully
 into the mirror, rolling her eyes over the reflection, and working on
 sculpting a greater beauty than how it interpreted her.
 
->   Such a fancy stool. Designed in a style to match her dressing table, the
+> x stool
+   Such a fancy stool. Designed in a style to match her dressing table, the
 soft cushion of the seat is, like the way she was with all people,
 comfortable.
 
->   Her hairbrushes are the finest I've ever seen - their silver handles
+> x hairbrushes
+   Her hairbrushes are the finest I've ever seen - their silver handles
 moulded into the forms of Classical gods - of course, I wouldn't expect less
 from the finest woman I've ever seen.
 
->   Her perfumes are numerous in quantity and Italian and French in scents,
+> x perfumes
+   Her perfumes are numerous in quantity and Italian and French in scents,
 the perfect reminder of reaching in to kiss her and havng my senses awarded
 with such a taste.
 
->   The creams are smooth like her wonderful complexion. Days wouldn't pass
+> x creams
+   The creams are smooth like her wonderful complexion. Days wouldn't pass
 without these exotic vials softening her face, softening her cheeks as I
 would hold them when we kissed.
 
->   I can't leave my Emanuelle's bed chamber just yet, there are too many
+> n
+   I can't leave my Emanuelle's bed chamber just yet, there are too many
 questions that remain unanswered.
 
->   I can't leave my Emanuelle's bed chamber just yet, there are too many
+> u
+   I can't leave my Emanuelle's bed chamber just yet, there are too many
 questions that remain unanswered.
 
->   Reaching down, I take the drawer's handle and pull on it almost like the
+> open top drawer
+   Reaching down, I take the drawer's handle and pull on it almost like the
 way she would take a man's hand and lead him to the dancefloor.
 
->   Reaching down, I take the drawer's handle and pull on it almost like the
+> open middle drawer
+   Reaching down, I take the drawer's handle and pull on it almost like the
 way she would take a man's hand and lead him to the dancefloor.
 
->   Reaching down, I take the drawer's handle and pull on it almost like the
+> open bottom drawer
+   Reaching down, I take the drawer's handle and pull on it almost like the
 way she would take a man's hand and lead him to the dancefloor.
 
    A wig! What devilry is this? But that's my Emanuelle's hair. That's her
@@ -156,51 +184,63 @@ ends and letting them cascade back over her fine shoulders.
 within her middle drawer and not hanging around her sweet neck the way I
 would hang on her every thought.
 
->   Many were the days when she would sit at the stool and stare dolefully
+> x mirror
+   Many were the days when she would sit at the stool and stare dolefully
 into the mirror, rolling her eyes over the reflection, and working on
 sculpting a greater beauty than how it interpreted her.
 
->   That's her raven curls, the sheen surely is evidence. And I have ran my
+> x wig
+   That's her raven curls, the sheen surely is evidence. And I have ran my
 hands through those locks suspecting nothing, run my hands through softly,
 collecting the ends and letting them cascade back over her fine shoulders.
 
->   The necklace that I gave her as a token of my love and since that day it
+> x necklace
+   The necklace that I gave her as a token of my love and since that day it
 would always hang around her sweet neck the way I would hang on her every
 thought. Strange that I should never have noticed the small key that depends
 from it.
 
->   It's a small key attached to her necklace like a pendant, attached tightly
+> x key
+   It's a small key attached to her necklace like a pendant, attached tightly
 like the moments we would shudder together in the most comforting embrace.
 
->   Reaching down, I take the drawer's handle and push it away into the recess
+> close top drawer
+   Reaching down, I take the drawer's handle and push it away into the recess
 like the way she would force a man's intentions back when he meant more than
 a dance.
 
->   Reaching down, I take the drawer's handle and push it away into the recess
+> close middle drawer
+   Reaching down, I take the drawer's handle and push it away into the recess
 like the way she would force a man's intentions back when he meant more than
 a dance.
 
->   Reaching down, I take the drawer's handle and push it away into the recess
+> close bottom drawer
+   Reaching down, I take the drawer's handle and push it away into the recess
 like the way she would force a man's intentions back when he meant more than
 a dance.
 
->   Lifting her pillow, almost the way I would lift her chin to search deep in
+> look under pillow
+   Lifting her pillow, almost the way I would lift her chin to search deep in
 her eyes, I find her diary asleep in the comfort the pillow offers. Arousing
 it from its slumber, I take it in my hands.
 
->I am carrying her diary.
+> i
+I am carrying her diary.
 
->   Slipping the key into the diary's small lock takes my mind to our sexual
+> open diary with key
+   Slipping the key into the diary's small lock takes my mind to our sexual
 expression: the passion, the excitement, and the sense of discovery.
 
->   There is much within its perfumed pages written in her sweet scrawl.
+> read diary
+   There is much within its perfumed pages written in her sweet scrawl.
 Elaborately detailed are excitable accounts of our romantic exchanges, of our
 sexual appetites, and...hold on! What is this? Who is Etienne? And why does
 her words allude to him as a partner, as a lover, when it was I that consumed
 her heart? And I was with her that very day! Bitch! But my heart says
 differently...she was the world to me, the world and more...who was I to her?
 
->   I could never spend another minute in my nay! Emanuelle's room - the
+> out
+   I could never spend another minute in my nay! Emanuelle's room - the
 perfume that floats around is no longer innocent but stings the eyes with my
 hopeless tears, the beauty that I saw in everything has warped, twisting all
 perceptions of her into something more unsaintly.
