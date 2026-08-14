@@ -18,3 +18,7 @@
 /quest4/games/
 /quest5/games/
 /quest5/downloaded/
+
+# Archives downloaded by fetch_games.sh on the way to the game corpora
+# (see GAMES.md); the corpora themselves are ignored above.
+/.game-cache/

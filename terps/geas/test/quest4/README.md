@@ -22,6 +22,10 @@ self-contained, so they are the ones worth wiring into CI.
   since each game is checked by its win marker instead.
 - `games/` — the `.asl`/`.cas` corpus. **Untracked** (`../.gitignore`):
   third-party game data is never committed.
+- `games.manifest.tsv` — the committed sha256 pin for every file in `games/`,
+  with its source URL where one exists. This is what makes the corpus
+  reproducible without redistributing it; see `../GAMES.md` and
+  `../fetch_games.sh`.
 - `harness/` — the runner, the unit tests and the two shell drivers. Binaries
   build here and are gitignored.
 

@@ -9,11 +9,12 @@ mirrored subfolders in each half (the layout `terps/scarier/test` uses):
 | [`quest5/`](quest5/README.md) | Quest 5 (`.aslx`/`.quest`) — the aslx engine and its QuestViva oracle |
 
 Each half holds `fixtures/` (small hand-written games that are ours, committed),
-`goldens/` (the committed answer keys), `harness/` (the tooling), and an
-untracked `games/` for the third-party corpus. Only engine-agnostic things stay
-at this level: this README, the `Makefile` that builds both halves,
-`questglk_unit_tests.cc` (the helpers both Glk frontends share, `../questglk-common.inc`)
-and `glkdrive.py`.
+`goldens/` (the committed answer keys), `harness/` (the tooling), an untracked
+`games/` for the third-party corpus, and the `games.manifest.tsv` that pins it.
+Only engine-agnostic things stay at this level: this README,
+[`GAMES.md`](GAMES.md) and `fetch_games.sh` (the corpora, for both engines), the
+`Makefile` that builds both halves, `questglk_unit_tests.cc` (the helpers both
+Glk frontends share, `../questglk-common.inc`) and `glkdrive.py`.
 
 ## Build
 
@@ -23,6 +24,9 @@ make syntax     # per-file syntax check of every engine source (see below)
 make check      # syntax, + the unit tests, + the Quest 4 fixture games
 make asan       # same under AddressSanitizer/UBSan -- see quest4/README.md
 make clean
+
+make gamescheck # verify both game corpora against their manifests
+make gamesfetch # download whatever of them is still online
 ```
 
 Everything `make check` runs is self-contained — no game corpus — so it is the

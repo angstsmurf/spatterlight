@@ -169,4 +169,17 @@ asan: $(SRC) $(TESTSRC) $(DEPS)
 clean:
 	rm -f $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN) $(QGLKBIN) $(ASLXLINKBIN)
 
-.PHONY: all syntax check asan clean
+# Check the (untracked) game corpora against their committed manifests.  Not a
+# prerequisite of `check`: that suite is deliberately corpus-free, and this one
+# says nothing at all on a machine that has no corpus.  See GAMES.md.
+gamescheck:
+	@Q4_GAMES_DIR="$(Q4_GAMES_DIR)" Q5_GAMES_DIR="$(Q5_GAMES_DIR)" \
+	  sh ./fetch_games.sh verify
+
+# Download every corpus row that still has a live source, verifying each against
+# the manifest.  Hits the network, so it is never wired into anything.
+gamesfetch:
+	@Q4_GAMES_DIR="$(Q4_GAMES_DIR)" Q5_GAMES_DIR="$(Q5_GAMES_DIR)" \
+	  sh ./fetch_games.sh fetch
+
+.PHONY: all syntax check asan clean gamescheck gamesfetch
