@@ -1768,6 +1768,53 @@ task_start_npc_walks (scr_gameref_t game, scr_int task)
 
 
 /*
+ * task_suppresses_additional_message()
+ *
+ * TRUE if this Runner would drop the task's AdditionalMessage because the
+ * turn's output already ends in two spaces.  3.80 games only.
+ *
+ * The Runners build a turn's text by concatenating onto one string, two
+ * spaces between the pieces, and check first whether the string already ends
+ * in a separator.  run380 bundled that check with the "is there a message at
+ * all" one and put the append inside both, so an AdditionalMessage is lost
+ * whenever what came before ended in two spaces:
+ *
+ *   0004D001  If AdditionalMessage <> "" And Right(out, 2) <> "  " Then
+ *   0004D04F      out = out & "  " & AdditionalMessage
+ *   0004D074  End If
+ *
+ * Its neighbours in the same sub are written correctly -- the CompleteText at
+ * 0004CF26 and the room description at 0004CFB4 guard only the separator, and
+ * append (or call viewroom) either way.  run370 at 00041C60 has no check at
+ * all and always appends.  3.90 and 4.00 moved the test into a sub of its own
+ * (Form1.pspace at 0002C880 in run390, General.Sub_22_58 at 0004A948 in
+ * run400) that the callers invoke before appending, which fixes it.
+ *
+ * Measured live in run380 on jb2000.taf, whose task 14 ends its CompleteText
+ * with 42 spaces and whose AdditionalMessage the Runner never shows.  Probes
+ * hijacking its four unrestricted tasks pin the rule down: one trailing space
+ * prints, two or more do not; a trailing tab prints; 42 trailing dots print,
+ * so it is not length; spaces in the middle of the text print; leading spaces
+ * on the AdditionalMessage itself change nothing; and turning on "show room
+ * description" restores the message, because the room description lands in
+ * between and the string no longer ends in spaces.  See RUNNER_TESTS_TODO.md
+ * section 4.
+ */
+static scr_bool
+task_suppresses_additional_message (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[1];
+
+  vt_key[0].string = "Version";
+  if (prop_get_integer (bundle, "I<-s", vt_key) != TAF_VERSION_380)
+    return FALSE;
+
+  return pf_ends_with_double_space (gs_get_filter (game));
+}
+
+
+/*
  * task_run_task_unrestricted()
  *
  * Run a task, providing restrictions permit, in the given direction.  Return
@@ -1927,7 +1974,8 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
 
   vt_key[2].string = "AdditionalMessage";
   additionalmessage = prop_get_string (bundle, "S<-sis", vt_key);
-  if (!scr_strempty (additionalmessage))
+  if (!scr_strempty (additionalmessage)
+      && !task_suppresses_additional_message (game))
     {
       pf_buffer_paragraph_line (filter, additionalmessage);
       status |= TRUE;

@@ -1184,6 +1184,40 @@ pf_undo_auto_break (scr_filterref_t filter)
 
 
 /*
+ * pf_ends_with_double_space()
+ *
+ * TRUE if the text buffered so far ends in two spaces, ignoring a trailing
+ * newline that pf_buffer_paragraph_line() supplied of its own accord.
+ *
+ * The Runners assemble a turn's output by concatenating onto one string, and
+ * separate the pieces with two spaces.  Before adding that separator they ask
+ * whether the string already ends in one, so an author's own trailing spaces
+ * are not doubled up.  run380 wrote the test for the task's AdditionalMessage
+ * the wrong way round -- see task_run_task_unrestricted() -- and that is the
+ * only caller so far.  The auto-break is skipped because it is ours and not
+ * the Runner's: it stands where the Runner's string simply stopped.
+ */
+scr_bool
+pf_ends_with_double_space (scr_filterref_t filter)
+{
+  size_t length;
+
+  assert (pf_is_valid (filter));
+
+  length = filter->buffer.size ();
+  if (filter->auto_break_at >= 0
+      && (size_t) filter->auto_break_at == length
+      && length > 0
+      && filter->buffer[length - 1] == '\n')
+    length--;
+
+  return length >= 2
+         && filter->buffer[length - 1] == ' '
+         && filter->buffer[length - 2] == ' ';
+}
+
+
+/*
  * pf_text_trailing_breaks()
  * pf_buffer_paragraph_break()
  *

@@ -302,7 +302,6 @@ You pick up the pack of necko wafers .
 > eat necko wafers
 you eat the necko wafers.  You then see a flash of light.  And on the floor
 sits a sash.  Wow.
-Junior runs in and drinks some root beer.  He then runs out
 
 > take sash
 You pick up the sash.
