@@ -499,27 +499,8 @@ How will you defend against your opponent?
 3) Right block
 4) High block
 5) Low block
-[choice] 5
-You attempt to block your opponents upward slash.
-You block your opponents attack!
-You take no damage!
-How will you attack your opponent?
-1) Thrust
-2) Left slash
-3) Right slash
-4) Overhead slash
-5) Uppercut
-[choice] 4
-You slash downward at your opponent.
-You sneak past your opponents guard and land a nasty blow!
-How will you defend against your opponent?
-1) Parry
-2) Left block
-3) Right block
-4) High block
-5) Low block
-[choice] 3
-You attempt to block your opponents attack from the right.
+[choice] 2
+You attempt to block your opponents attack from the left.
 You block your opponents attack!
 You take no damage!
 How will you attack your opponent?
@@ -537,27 +518,8 @@ How will you defend against your opponent?
 3) Right block
 4) High block
 5) Low block
-[choice] 4
-You attempt to block your opponents downward thrust.
-You block your opponents attack!
-You take no damage!
-How will you attack your opponent?
-1) Thrust
-2) Left slash
-3) Right slash
-4) Overhead slash
-5) Uppercut
-[choice] 4
-You slash downward at your opponent.
-You sneak past your opponents guard and land a nasty blow!
-How will you defend against your opponent?
-1) Parry
-2) Left block
-3) Right block
-4) High block
-5) Low block
-[choice] 4
-You attempt to block your opponents downward thrust.
+[choice] 2
+You attempt to block your opponents attack from the left.
 You block your opponents attack!
 You take no damage!
 How will you attack your opponent?
@@ -568,6 +530,44 @@ How will you attack your opponent?
 5) Uppercut
 [choice] 3
 You slash at your opponent from the right.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 1
+You attempt to parry your opponents thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 2
+You slash at your opponent from the left.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 1
+You attempt to parry your opponents thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 4
+You slash downward at your opponent.
 You sneak past your opponents guard and land a nasty blow!
 You have defeated the pirate! His body slumps down at your feet.
 You have become stronger and able to take more damage!
@@ -743,6 +743,25 @@ How will you defend against your opponent?
 3) Right block
 4) High block
 5) Low block
+[choice] 1
+You attempt to parry your opponents thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 5
+You swing your sword upwards at your opponent.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
 [choice] 5
 You attempt to block your opponents upward slash.
 You block your opponents attack!
@@ -753,9 +772,9 @@ How will you attack your opponent?
 3) Right slash
 4) Overhead slash
 5) Uppercut
-[choice] 3
-You slash at your opponent from the right.
-You sneak past your opponents guard and land a nasty blow!
+[choice] 2
+You slash at your opponent from the left.
+You slip past your opponents guard and land a clean hit!
 How will you defend against your opponent?
 1) Parry
 2) Left block
@@ -781,27 +800,8 @@ How will you defend against your opponent?
 3) Right block
 4) High block
 5) Low block
-[choice] 4
-You attempt to block your opponents downward thrust.
-You block your opponents attack!
-You take no damage!
-How will you attack your opponent?
-1) Thrust
-2) Left slash
-3) Right slash
-4) Overhead slash
-5) Uppercut
-[choice] 3
-You slash at your opponent from the right.
-You sneak past your opponents guard and land a nasty blow!
-How will you defend against your opponent?
-1) Parry
-2) Left block
-3) Right block
-4) High block
-5) Low block
-[choice] 1
-You attempt to parry your opponents thrust.
+[choice] 5
+You attempt to block your opponents upward slash.
 You block your opponents attack!
 You take no damage!
 How will you attack your opponent?
@@ -819,8 +819,8 @@ How will you defend against your opponent?
 3) Right block
 4) High block
 5) Low block
-[choice] 4
-You attempt to block your opponents downward thrust.
+[choice] 3
+You attempt to block your opponents attack from the right.
 You block your opponents attack!
 You take no damage!
 How will you attack your opponent?
@@ -829,8 +829,8 @@ How will you attack your opponent?
 3) Right slash
 4) Overhead slash
 5) Uppercut
-[choice] 3
-You slash at your opponent from the right.
+[choice] 2
+You slash at your opponent from the left.
 You sneak past your opponents guard and land a nasty blow!
 You have defeated the villager! His body slumps down by your feet.
 You have become stronger and able to take more damage!
@@ -1909,46 +1909,8 @@ How will you attack your opponent?
 3) Right slash
 4) Overhead slash
 5) Uppercut
-[choice] 2
-You slash at your opponent from the left.
-You slip past your opponents guard and land a clean hit!
-How will you defend against your opponent?
-1) Parry
-2) Left block
-3) Right block
-4) High block
-5) Low block
-[choice] 5
-You attempt to block your opponents upward slash.
-You block your opponents attack!
-You take no damage!
-How will you attack your opponent?
-1) Thrust
-2) Left slash
-3) Right slash
-4) Overhead slash
-5) Uppercut
-[choice] 2
-You slash at your opponent from the left.
-You slip past your opponents guard and land a clean hit!
-How will you defend against your opponent?
-1) Parry
-2) Left block
-3) Right block
-4) High block
-5) Low block
-[choice] 5
-You attempt to block your opponents upward slash.
-You block your opponents attack!
-You take no damage!
-How will you attack your opponent?
-1) Thrust
-2) Left slash
-3) Right slash
-4) Overhead slash
-5) Uppercut
-[choice] 4
-You slash downward at your opponent.
+[choice] 3
+You slash at your opponent from the right.
 You sneak past your opponents guard and land a nasty blow!
 How will you defend against your opponent?
 1) Parry
@@ -1975,46 +1937,8 @@ How will you defend against your opponent?
 3) Right block
 4) High block
 5) Low block
-[choice] 1
-You attempt to parry your opponents thrust.
-You block your opponents attack!
-You take no damage!
-How will you attack your opponent?
-1) Thrust
-2) Left slash
-3) Right slash
-4) Overhead slash
-5) Uppercut
-[choice] 2
-You slash at your opponent from the left.
-You slip past your opponents guard and land a clean hit!
-How will you defend against your opponent?
-1) Parry
-2) Left block
-3) Right block
-4) High block
-5) Low block
 [choice] 5
 You attempt to block your opponents upward slash.
-You block your opponents attack!
-You take no damage!
-How will you attack your opponent?
-1) Thrust
-2) Left slash
-3) Right slash
-4) Overhead slash
-5) Uppercut
-[choice] 3
-You slash at your opponent from the right.
-You sneak past your opponents guard and land a nasty blow!
-How will you defend against your opponent?
-1) Parry
-2) Left block
-3) Right block
-4) High block
-5) Low block
-[choice] 4
-You attempt to block your opponents downward thrust.
 You block your opponents attack!
 You take no damage!
 How will you attack your opponent?
@@ -2032,8 +1956,8 @@ How will you defend against your opponent?
 3) Right block
 4) High block
 5) Low block
-[choice] 4
-You attempt to block your opponents downward thrust.
+[choice] 5
+You attempt to block your opponents upward slash.
 You block your opponents attack!
 You take no damage!
 How will you attack your opponent?
@@ -2044,7 +1968,7 @@ How will you attack your opponent?
 5) Uppercut
 [choice] 2
 You slash at your opponent from the left.
-You slip past your opponents guard and land a clean hit!
+You sneak past your opponents guard and land a nasty blow!
 How will you defend against your opponent?
 1) Parry
 2) Left block
@@ -2063,6 +1987,44 @@ How will you attack your opponent?
 5) Uppercut
 [choice] 2
 You slash at your opponent from the left.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 3
+You attempt to block your opponents attack from the right.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 2
+You slash at your opponent from the left.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 2
+You attempt to block your opponents attack from the left.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 5
+You swing your sword upwards at your opponent.
 You sneak past your opponents guard and land a nasty blow!
 You have killed the dead thing!
 (how do you do that? oh well)
@@ -2630,25 +2592,6 @@ How will you attack your opponent?
 3) Right slash
 4) Overhead slash
 5) Uppercut
-[choice] 5
-You swing your sword upwards at your opponent.
-You sneak past your opponents guard and land a nasty blow!
-How will you defend against your opponent?
-1) Parry
-2) Left block
-3) Right block
-4) High block
-5) Low block
-[choice] 3
-You attempt to block your opponents attack from the right.
-You block your opponents attack!
-You take no damage!
-How will you attack your opponent?
-1) Thrust
-2) Left slash
-3) Right slash
-4) Overhead slash
-5) Uppercut
 [choice] 2
 You slash at your opponent from the left.
 You sneak past your opponents guard and land a nasty blow!
@@ -2658,27 +2601,8 @@ How will you defend against your opponent?
 3) Right block
 4) High block
 5) Low block
-[choice] 5
-You attempt to block your opponents upward slash.
-You block your opponents attack!
-You take no damage!
-How will you attack your opponent?
-1) Thrust
-2) Left slash
-3) Right slash
-4) Overhead slash
-5) Uppercut
 [choice] 4
-You slash downward at your opponent.
-You sneak past your opponents guard and land a nasty blow!
-How will you defend against your opponent?
-1) Parry
-2) Left block
-3) Right block
-4) High block
-5) Low block
-[choice] 5
-You attempt to block your opponents upward slash.
+You attempt to block your opponents downward thrust.
 You block your opponents attack!
 You take no damage!
 How will you attack your opponent?
@@ -2690,158 +2614,6 @@ How will you attack your opponent?
 [choice] 3
 You slash at your opponent from the right.
 You sneak past your opponents guard and land a nasty blow!
-How will you defend against your opponent?
-1) Parry
-2) Left block
-3) Right block
-4) High block
-5) Low block
-[choice] 1
-You attempt to parry your opponents thrust.
-You block your opponents attack!
-You take no damage!
-How will you attack your opponent?
-1) Thrust
-2) Left slash
-3) Right slash
-4) Overhead slash
-5) Uppercut
-[choice] 2
-You slash at your opponent from the left.
-You slip past your opponents guard and land a clean hit!
-How will you defend against your opponent?
-1) Parry
-2) Left block
-3) Right block
-4) High block
-5) Low block
-[choice] 1
-You attempt to parry your opponents thrust.
-You block your opponents attack!
-You take no damage!
-How will you attack your opponent?
-1) Thrust
-2) Left slash
-3) Right slash
-4) Overhead slash
-5) Uppercut
-[choice] 5
-You swing your sword upwards at your opponent.
-You sneak past your opponents guard and land a nasty blow!
-How will you defend against your opponent?
-1) Parry
-2) Left block
-3) Right block
-4) High block
-5) Low block
-[choice] 3
-You attempt to block your opponents attack from the right.
-You block your opponents attack!
-You take no damage!
-How will you attack your opponent?
-1) Thrust
-2) Left slash
-3) Right slash
-4) Overhead slash
-5) Uppercut
-[choice] 4
-You slash downward at your opponent.
-You sneak past your opponents guard and land a nasty blow!
-How will you defend against your opponent?
-1) Parry
-2) Left block
-3) Right block
-4) High block
-5) Low block
-[choice] 4
-You attempt to block your opponents downward thrust.
-You block your opponents attack!
-You take no damage!
-How will you attack your opponent?
-1) Thrust
-2) Left slash
-3) Right slash
-4) Overhead slash
-5) Uppercut
-[choice] 2
-You slash at your opponent from the left.
-You sneak past your opponents guard and land a nasty blow!
-How will you defend against your opponent?
-1) Parry
-2) Left block
-3) Right block
-4) High block
-5) Low block
-[choice] 1
-You attempt to parry your opponents thrust.
-You block your opponents attack!
-You take no damage!
-How will you attack your opponent?
-1) Thrust
-2) Left slash
-3) Right slash
-4) Overhead slash
-5) Uppercut
-[choice] 2
-You slash at your opponent from the left.
-You sneak past your opponents guard and land a nasty blow!
-How will you defend against your opponent?
-1) Parry
-2) Left block
-3) Right block
-4) High block
-5) Low block
-[choice] 5
-You attempt to block your opponents upward slash.
-You block your opponents attack!
-You take no damage!
-How will you attack your opponent?
-1) Thrust
-2) Left slash
-3) Right slash
-4) Overhead slash
-5) Uppercut
-[choice] 5
-You swing your sword upwards at your opponent.
-You sneak past your opponents guard and land a nasty blow!
-How will you defend against your opponent?
-1) Parry
-2) Left block
-3) Right block
-4) High block
-5) Low block
-[choice] 1
-You attempt to parry your opponents thrust.
-You block your opponents attack!
-You take no damage!
-How will you attack your opponent?
-1) Thrust
-2) Left slash
-3) Right slash
-4) Overhead slash
-5) Uppercut
-[choice] 5
-You swing your sword upwards at your opponent.
-You sneak past your opponents guard and land a nasty blow!
-How will you defend against your opponent?
-1) Parry
-2) Left block
-3) Right block
-4) High block
-5) Low block
-[choice] 4
-You attempt to block your opponents downward thrust.
-You block your opponents attack!
-You take no damage!
-How will you attack your opponent?
-1) Thrust
-2) Left slash
-3) Right slash
-4) Overhead slash
-5) Uppercut
-[choice] 2
-You slash at your opponent from the left.
-You slip past your opponents guard and land a clean hit!
 How will you defend against your opponent?
 1) Parry
 2) Left block
@@ -2858,8 +2630,27 @@ How will you attack your opponent?
 3) Right slash
 4) Overhead slash
 5) Uppercut
-[choice] 2
-You slash at your opponent from the left.
+[choice] 5
+You swing your sword upwards at your opponent.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 4
+You attempt to block your opponents downward thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 3
+You slash at your opponent from the right.
 You sneak past your opponents guard and land a nasty blow!
 How will you defend against your opponent?
 1) Parry
@@ -2869,6 +2660,120 @@ How will you defend against your opponent?
 5) Low block
 [choice] 3
 You attempt to block your opponents attack from the right.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 3
+You slash at your opponent from the right.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 4
+You attempt to block your opponents downward thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 4
+You slash downward at your opponent.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 5
+You attempt to block your opponents upward slash.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 4
+You slash downward at your opponent.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 4
+You attempt to block your opponents downward thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 2
+You slash at your opponent from the left.
+You slip past your opponents guard and land a clean hit!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 5
+You attempt to block your opponents upward slash.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 2
+You slash at your opponent from the left.
+You slip past your opponents guard and land a clean hit!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 5
+You attempt to block your opponents upward slash.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 2
+You slash at your opponent from the left.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 4
+You attempt to block your opponents downward thrust.
 You block your opponents attack!
 You take no damage!
 How will you attack your opponent?
@@ -2896,25 +2801,6 @@ How will you attack your opponent?
 3) Right slash
 4) Overhead slash
 5) Uppercut
-[choice] 2
-You slash at your opponent from the left.
-You sneak past your opponents guard and land a nasty blow!
-How will you defend against your opponent?
-1) Parry
-2) Left block
-3) Right block
-4) High block
-5) Low block
-[choice] 3
-You attempt to block your opponents attack from the right.
-You block your opponents attack!
-You take no damage!
-How will you attack your opponent?
-1) Thrust
-2) Left slash
-3) Right slash
-4) Overhead slash
-5) Uppercut
 [choice] 3
 You slash at your opponent from the right.
 You sneak past your opponents guard and land a nasty blow!
@@ -2924,8 +2810,8 @@ How will you defend against your opponent?
 3) Right block
 4) High block
 5) Low block
-[choice] 1
-You attempt to parry your opponents thrust.
+[choice] 4
+You attempt to block your opponents downward thrust.
 You block your opponents attack!
 You take no damage!
 How will you attack your opponent?
@@ -2934,8 +2820,46 @@ How will you attack your opponent?
 3) Right slash
 4) Overhead slash
 5) Uppercut
-[choice] 2
-You slash at your opponent from the left.
+[choice] 5
+You swing your sword upwards at your opponent.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 4
+You attempt to block your opponents downward thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 5
+You swing your sword upwards at your opponent.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 4
+You attempt to block your opponents downward thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 4
+You slash downward at your opponent.
 You sneak past your opponents guard and land a nasty blow!
 How will you defend against your opponent?
 1) Parry
@@ -2972,8 +2896,46 @@ How will you attack your opponent?
 3) Right slash
 4) Overhead slash
 5) Uppercut
-[choice] 3
-You slash at your opponent from the right.
+[choice] 2
+You slash at your opponent from the left.
+You slip past your opponents guard and land a clean hit!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 4
+You attempt to block your opponents downward thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 4
+You slash downward at your opponent.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 1
+You attempt to parry your opponents thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 5
+You swing your sword upwards at your opponent.
 You sneak past your opponents guard and land a nasty blow!
 How will you defend against your opponent?
 1) Parry
@@ -2991,8 +2953,65 @@ How will you attack your opponent?
 3) Right slash
 4) Overhead slash
 5) Uppercut
-[choice] 2
-You slash at your opponent from the left.
+[choice] 3
+You slash at your opponent from the right.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 5
+You attempt to block your opponents upward slash.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 3
+You slash at your opponent from the right.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 3
+You attempt to block your opponents attack from the right.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 4
+You slash downward at your opponent.
+You sneak past your opponents guard and land a nasty blow!
+How will you defend against your opponent?
+1) Parry
+2) Left block
+3) Right block
+4) High block
+5) Low block
+[choice] 4
+You attempt to block your opponents downward thrust.
+You block your opponents attack!
+You take no damage!
+How will you attack your opponent?
+1) Thrust
+2) Left slash
+3) Right slash
+4) Overhead slash
+5) Uppercut
+[choice] 4
+You slash downward at your opponent.
 You sneak past your opponents guard and land a nasty blow!
 How will you defend against your opponent?
 1) Parry
@@ -3019,8 +3038,8 @@ How will you defend against your opponent?
 3) Right block
 4) High block
 5) Low block
-[choice] 1
-You attempt to parry your opponents thrust.
+[choice] 2
+You attempt to block your opponents attack from the left.
 You block your opponents attack!
 You take no damage!
 How will you attack your opponent?
@@ -3029,8 +3048,8 @@ How will you attack your opponent?
 3) Right slash
 4) Overhead slash
 5) Uppercut
-[choice] 4
-You slash downward at your opponent.
+[choice] 3
+You slash at your opponent from the right.
 You sneak past your opponents guard and land a nasty blow!
 How will you defend against your opponent?
 1) Parry
@@ -3038,8 +3057,8 @@ How will you defend against your opponent?
 3) Right block
 4) High block
 5) Low block
-[choice] 1
-You attempt to parry your opponents thrust.
+[choice] 5
+You attempt to block your opponents upward slash.
 You block your opponents attack!
 You take no damage!
 How will you attack your opponent?
@@ -3086,65 +3105,8 @@ How will you attack your opponent?
 3) Right slash
 4) Overhead slash
 5) Uppercut
-[choice] 4
-You slash downward at your opponent.
-You sneak past your opponents guard and land a nasty blow!
-How will you defend against your opponent?
-1) Parry
-2) Left block
-3) Right block
-4) High block
-5) Low block
-[choice] 5
-You attempt to block your opponents upward slash.
-You block your opponents attack!
-You take no damage!
-How will you attack your opponent?
-1) Thrust
-2) Left slash
-3) Right slash
-4) Overhead slash
-5) Uppercut
-[choice] 5
-You swing your sword upwards at your opponent.
-You sneak past your opponents guard and land a nasty blow!
-How will you defend against your opponent?
-1) Parry
-2) Left block
-3) Right block
-4) High block
-5) Low block
-[choice] 5
-You attempt to block your opponents upward slash.
-You block your opponents attack!
-You take no damage!
-How will you attack your opponent?
-1) Thrust
-2) Left slash
-3) Right slash
-4) Overhead slash
-5) Uppercut
 [choice] 2
 You slash at your opponent from the left.
-You slip past your opponents guard and land a clean hit!
-How will you defend against your opponent?
-1) Parry
-2) Left block
-3) Right block
-4) High block
-5) Low block
-[choice] 1
-You attempt to parry your opponents thrust.
-You block your opponents attack!
-You take no damage!
-How will you attack your opponent?
-1) Thrust
-2) Left slash
-3) Right slash
-4) Overhead slash
-5) Uppercut
-[choice] 3
-You slash at your opponent from the right.
 You sneak past your opponents guard and land a nasty blow!
 The creature breaths his last breath and crashes down onto the floor of the cavern!
 He must have landed on a pressure plate because the door opens!

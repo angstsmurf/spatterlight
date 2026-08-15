@@ -3,7 +3,7 @@ Barbarian (by Wonderjudge, QDK Pro 4.1.1, ASL 410)
 Game system: Quest 4.  Win marker: "You have finished Barbarian!".
 Needs GEAS_SEED=1: eight scripted fights are won with fixed menu answers, and
 one five-stage trap sequence has a fixed answer per stage.
-Final score 250 out of 250, in 508 turns (633 script lines; the extra
+Final score 250 out of 250, in 508 turns (636 script lines; the extra
 lines are menu answers, which the runner does not count as turns).
 
 You are Tandum, heir to the chieftainship of the village of Golsiv.  Thorgin,
@@ -24,22 +24,26 @@ thing in the whole procedure that clears that flag - short of your own death -
 is the Vault (`define procedure <thorgincombat>`).  So the game is unwinnable
 unless maxhealth reaches 17 before the council scene, which means the orc, the
 bear, the graveyard skeleton, the crypt skeletons, the mercenary, the six
-goblins and the ogre all have to be beaten.  Hence lines 105-124 and 129-149:
+goblins and the ogre all have to be beaten.  Hence lines 105-125 and 130-150:
 the merchant's orc and the mounted bear look optional and are not.
 
 COMBAT IS FULLY DETERMINISTIC.  Every round draws one `$rand(1; 4)$` for the
-enemy's response, and geas's test build seeds plain `srand(atoi(GEAS_SEED))`, so
-under GEAS_SEED=1 the whole stream is known in advance.  `combat` and `mcombat`
+enemy's response, and geas draws through `erkyrath_random()` (xoshiro128**, the
+same generator the Spatterlight build uses) seeded from GEAS_SEED, so under
+GEAS_SEED=1 the whole stream is known in advance.  `combat` and `mcombat`
 consume one draw per round; `multicombat` (two foes at once, used by the crypt
 skeletons and the goblin lair) consumes two, the second one unconditionally.
 Your menu answer is read *before* that round's draw, so a fight can be planned
 offline round by round, and because no non-combat turn touches the generator,
 inserting or removing map moves anywhere in the script cannot invalidate a plan.
-Two tactical facts drive most of the answer sequences below: a thrust (2) does
-no damage but leaves the enemy off balance, and a Cleave (4) against an
-off-balance enemy does 6, so 2-then-4 is six damage every two rounds at no risk;
-and a Cleave against a shield-block mode permanently rewrites that slot of the
-enemy's mode table to the weakest mode, which is why the ogre collapses so fast.
+Changing the *number of rounds* a fight takes does, though - every round eats a
+draw - so the eight blocks below were planned in order, each one behind the
+already-fixed blocks in front of it.  Two tactical facts drive most of the
+sequences: a thrust (2) does no damage but leaves the enemy off balance, and a
+Cleave (4) against an off-balance enemy does 6, so 2-then-4 is six damage every
+two rounds at no risk; and a thrust is harmless against every enemy response
+except 3, 9 and 10, so against a foe whose mode table avoids those three it is a
+free pass whenever the round would otherwise cost health.
 
   1. Golsiv, day one (lines 1-104).  The vase on the parlour mantle has to be
      SHAKEn and then BROKEn for the chisel; the chisel opens your own bedroom
@@ -49,38 +53,38 @@ enemy's mode table to the weakest mode, which is why the ogre collapses so fast.
      cabbage, and the cabbage is the one thing the wild horse in the corner
      stall will eat.  Hardin's "Hi there Hardin!" at 103-104 only checks the axe,
      but that is what unlocks the roads west and south out of the crossroads.
-  2. The orc and the bear (105-128).  The traveling merchant on the western
-     road is being robbed: `attack orc` then 3,2,3,1,1.  The black bear on the
-     southern road is fought from horseback: 1,1,1,2,1.  Take the head and the
+  2. The orc and the bear (105-129).  The traveling merchant on the western
+     road is being robbed: `attack orc` then 3,1,1,1,1.  The black bear on the
+     southern road is fought from horseback: 1,1,1,2,1,2.  Take the head and the
      skin.
-  3. Armour (129-155).  Gak makes the studs, Inga the tanner turns studs + skin
+  3. Armour (130-156).  Gak makes the studs, Inga the tanner turns studs + skin
      into the studded leather and the bear head into a helmet.  With axe, horse
      and armour all three, Hardin creates the exit to Chantly graveyard - a
      "place" exit, so the command is `go to chantly graveyard`, not the bare
      name.
-  4. Chantly graveyard (156-199).  EXAMINE GRAVESTONES in each of the nine
+  4. Chantly graveyard (157-200).  EXAMINE GRAVESTONES in each of the nine
      plots turns up the props; the tree branch, the cloth and the flint and
      steel make the torch.  Pressing the plate in each of the four corner
      graveyards opens the crypt in the middle, and pressing them again in the
      same order at 291-302 is what reopens the gate on the way out.  The
-     graveyard skeleton: 2,4,4.  TAKE PILE OF BONES - those bones are used
+     graveyard skeleton: 2,4,1.  TAKE PILE OF BONES - those bones are used
      three separate times later and are never consumed.
-  5. The crypt (200-248).  Four tombs, each with a coffin and a rock.  EXAMINE
+  5. The crypt (201-249).  Four tombs, each with a coffin and a rock.  EXAMINE
      COFFIN in a tomb before you can do anything with it; the mummy in Tomb2
      wants the torch (its timer kills you in a handful of turns otherwise) and
      leaves the silver coin and the dusty scroll.  Each rock has to be carried
      to the coffin of a *different* tomb - the four PUT ROCK IN COFFIN lines
-     are the long walks at 216-248.
-  6. The ring puzzle (253-260).  EXAMINE STONE DOOR, answer yes, then the six
+     are the long walks at 217-249.
+  6. The ring puzzle (254-261).  EXAMINE STONE DOOR, answer yes, then the six
      rings in the order 1,3,3,5,5,7.
-  7. The Eye of the East (261-271).  The statue holds the wooden shield; the
+  7. The Eye of the East (262-272).  The statue holds the wooden shield; the
      large tomb holds the sack.  PUT PILE OF BONES IN SACK, then USE SACK ON
      PEDESTAL: the pedestal will only trade the eye for the sack while
      `is <#Pile of bones:parent#; Sack>` holds, and springs a lethal trap
      otherwise.  You must be wielding the shield when the red cloaked figure
      appears in the doorway, hence the axe/shield swap either side of it.
-  8. Out of the crypt (272-290).  PULL LEVER, then the two crypt skeletons in
-     `multicombat`: 3,2,4,3,4,1,4.  The Note they leave is the first of the
+  8. Out of the crypt (273-290).  PULL LEVER, then the two crypt skeletons in
+     `multicombat`: 4,4,4,1,1,3.  The Note they leave is the first of the
      three pieces of evidence.  UNWIELD TORCH is safe here and only here: the
      game block's afterturn drops any unwielded torch and it goes out, and the
      crypt is behind you.
@@ -88,27 +92,31 @@ enemy's mode table to the weakest mode, which is why the ogre collapses so fast.
      chieftan's chamber for the Parchment (evidence two); Marta puts you up for
      the night; in the morning Thorgin takes the eye, Gak teaches the Cleave,
      and Selma and Hardin between them point you at the wizard's tower.
- 10. The wizard and the mercenary (359-388).  KNOCK ON DOORS, GIVE DUSTY SCROLL
+ 10. The wizard and the mercenary (359-386).  KNOCK ON DOORS, GIVE DUSTY SCROLL
      TO WIZARD for the blue potion (the only thing that will get you past the
      dragon's breath).  The imposing figure on the way to Fang mountain is a
-     Red Scorpion assassin: 3,2,3,1,2,1,1,1.  EXAMINE DEAD MAN, then TAKE EYE
-     OF THE EAST - that second eye is evidence three, and the game will not let
-     you leave until you have searched him.
- 11. Spiked boots (389-411).  Gak's spikes plus Inga make the spiked boots,
+     Red Scorpion assassin, met on horseback: 2,1,5,4,1,4.  He unhorses you in
+     round 2, which swaps the four-option mounted menu for the six-option one -
+     so the 5 in round 3 is Unseat, knocking *him* off his horse and off
+     balance, and the Cleave that follows lands for 6.  EXAMINE DEAD MAN, then
+     TAKE EYE OF THE EAST - that second eye is evidence three, and the game
+     will not let you leave until you have searched him.
+ 11. Spiked boots (387-409).  Gak's spikes plus Inga make the spiked boots,
      without which the ice on the great stair is fatal.
- 12. Fang mountain and Fred (412-440).  USE PILE OF BONES ON IRON DOOR, DRINK
+ 12. Fang mountain and Fred (410-441).  USE PILE OF BONES ON IRON DOOR, DRINK
      BLUE POTION *before* entering the cavern (its script kills you outright
      without the potion's 40-turn timer), then SPEAK TO DRAGON and say yes:
      Fred is friendly, and will hand over a scale in exchange for the two
      treasures the goblins and the wizards stole from him.  The first is behind
-     the wooden door: the goblin lair, six goblins in three pairs, thirteen
-     rounds of `multicombat`, 1,2,4,2,4,2,4,4,2,4,4,4,3.
- 13. The altar trap (441-447).  REMOVE LARGE RUBY FROM LARGE ALTAR, yes, and
+     the wooden door: the goblin lair, six goblins in three pairs, sixteen
+     rounds of `multicombat`, 1,1,4,1,4,4,3,1,1,4,1,1,1,3,4,3, at no cost in
+     health.
+ 13. The altar trap (442-448).  REMOVE LARGE RUBY FROM LARGE ALTAR, yes, and
      then five dodges in a row - 1 (shield up, against the darts), 4 (duck,
      ceiling blade), 5 (jump, blade at your feet), 2 (dodge, the axe from the
      altar top), 3 (run, the ceiling comes down).  Every other answer at every
      stage is instant death.
- 14. The wizards' diamond (448-476).  Fred trades the ruby for the magic ring.
+ 14. The wizards' diamond (449-477).  Fred trades the ruby for the magic ring.
      Through the portal: USE PILE OF BONES ON IRON DOOR again, take the diamond
      off the pedestal to raise the portcullis, and RUB MAGIC RING *before*
      putting it back - the alarm brings a red cloaked figure whose magical
@@ -117,48 +125,53 @@ enemy's mode table to the weakest mode, which is why the ogre collapses so fast.
      portcullis open so the diamond can leave the room.  USE BATTLE AXE ON
      CEILING at the end of the tunnel brings it down behind you and stops the
      pursuit timer - going east with the diamond instead is death.
- 15. Home with the scale (477-504).  Fred *tosses* the scale on the floor, so
+ 15. Home with the scale (478-505).  Fred *tosses* the scale on the floor, so
      TAKE DRAGON SCALE is not optional: the crossroads nightfall scene checks
      `got <Dragon scale>` and packs you straight back to Fang mountain without
      it.  Hardin's second option is the accusation; Marta's daughter Megan is
      missing, and Gak's "other way in" hint reveals the loose stone behind the
      great hall fireplace.
- 16. The hedge maze (505-547).  Twenty rooms and four dead ends, each dead end
+ 16. The hedge maze (506-548).  Twenty rooms and four dead ends, each dead end
      holding one part of the well winch: metal bar, chain, bucket, handle.  USE
      CHAIN ON METAL BAR, USE BUCKET ON BAR AND CHAIN, USE HANDLE ON BAR CHAIN
      AND BUCKET, USE BAR CHAIN AND BUCKET ON WELL.  Each stage re-parents the
      handle to the new well object and TURN HANDLE checks
      `is <#handle:parent#; Well4>`, so the four USEs have to be done in exactly
      this order.
- 17. Carrying Megan out (548-577).  Megan refuses to be picked up while
+ 17. Carrying Megan out (549-578).  Megan refuses to be picked up while
      anything at all is wielded, so both the axe and the shield go away first;
      `wield` refuses while you are carrying her, so they stay away.  Going down
      at Hedge maze6 while carrying her makes her hand over the iron key, which
      unlocks the gate at Hedge maze1 - she is dropped for the ogre fight and
      collected again afterwards.
- 18. The ogre (578-597).  `attack ogre` then 2,2,2,4,2,4,3,3,2,4,3,2,4:
-     thirteen rounds, no damage taken at all.  Its mode table is 1,5,7,11 and
-     the Cleave in round 4 rewrites the 5 (shield block) slot to 1, after which
-     thrust-then-Cleave finishes it.  Then back for Megan and south twice to
-     the village center, where walking in with her while Marta is there is the
-     reunion: +40 points and health restored to maxhealth.
- 19. The council (598-610).  Gak teaches the Behead and the Vault (maxhealth is
+ 18. The ogre (579-600).  `attack ogre` then 2,2,4,4,4,2,2,2,2,2,2,3,4,2,4:
+     fifteen rounds, no damage taken at all.  Its mode table is 1,5,7,11, and
+     none of those four is one of the three responses that can punish a thrust,
+     so every round whose roll cannot be turned into damage is answered with a
+     2 and simply costs nothing - the club arc (11) in particular is deflected
+     outright.  Nine of the fifteen rounds are that stall.  Then back for Megan
+     and south twice to the village center, where walking in with her while
+     Marta is there is the reunion: +40 points and health restored to
+     maxhealth.
+ 19. The council (601-613).  Gak teaches the Behead and the Vault (maxhealth is
      17 by now), Thorgin concedes the second task, and in the dining hall you
      SPEAK TO MEMBERS OF THE COUNCIL first - the give handlers all refuse until
      you have addressed them - then hand over the note, the parchment and the
      eye.  Marta and Megan are the fourth piece of evidence, and Thorgin throws
      down the gauntlet.
- 20. The duel (611-633).  Mount up, wield the axe *and* the shield, and say yes
+ 20. The duel (614-636).  Mount up, wield the axe *and* the shield, and say yes
      to Hardin at the crossroads.  Mounted phase: answer 4, the Vault, which
      unhorses both of you in one round and is the only exit from that loop.  On
-     foot, Thorgin wears a healing ring - the round after his health drops
-     below 10 he jumps back and resets it to 25 - so no amount of damage can
-     kill him.  What the heal does do is set the flag whose branch lets a
-     thrust knock him off balance, and a Behead against an off-balance opponent
-     sets his health to 0 outright.  Hence 4,4,1,1,3,4,1,2,6: chip him to 9,
-     let him heal, thrust, behead.  The shield matters because it blocks the
-     whole `enemyatt2` = 4 branch of every attack mode; without it this route
-     costs six extra health.
+     foot, Thorgin wears a healing ring - the round his health is found below
+     10 he jumps back and resets it to 25 - so no amount of damage can kill
+     him.  What the heal does do is set the `hack1` flag, and in that one
+     following round every attack lands unopposed: a thrust knocks him off
+     balance, and a Behead against an off-balance opponent sets his health to 0
+     outright.  Hence 4,4,1,4,4,3,4,4,2,6: chip him from 25 to 9, spend the
+     heal round, thrust, behead.  The shield is worth the second wield slot -
+     eight branches of the duel check `got <Wooden shield (wielded)>` and turn
+     a wound into a clean block - and even so the duel is the only fight after
+     the crypt that costs health, 17 down to 13.
 
 Two engine divergences turned up here, both now fixed with fixtures.  The
 game's own `unwield` command computes `$left(#command1#; %length1%)$` over
@@ -278,8 +291,8 @@ speak to hardin
 west
 attack orc
 3
-2
-3
+1
+1
 1
 1
 coins
@@ -293,6 +306,7 @@ attack bear
 1
 2
 1
+2
 take bear head
 take bear skin
 dismount
@@ -368,7 +382,7 @@ southwest
 attack skeleton
 2
 4
-4
+1
 take pile of bones
 down
 east
@@ -451,13 +465,12 @@ south
 unwield torch
 wield wooden shield
 attack skeletons
-3
-2
 4
-3
+4
 4
 1
-4
+1
+3
 take note
 read note
 take pile of bones
@@ -538,14 +551,12 @@ speak to hardin
 go to fang mountain
 speak to figure
 attack figure
-3
-2
-3
-1
 2
 1
+5
+4
 1
-1
+4
 examine dead man
 take gold coin
 take eye of the east
@@ -599,16 +610,19 @@ use battle axe on wooden door
 west
 west
 1
-2
+1
 4
-2
-4
-2
+1
 4
 4
-2
+3
+1
+1
 4
-4
+1
+1
+1
+3
 4
 3
 remove large ruby from large altar
@@ -752,15 +766,17 @@ south
 attack ogre
 2
 2
-2
+4
+4
 4
 2
-4
-3
-3
 2
-4
+2
+2
+2
+2
 3
+4
 2
 4
 north
@@ -796,11 +812,11 @@ yes
 attack thorgin
 4
 4
+1
 4
-1
-1
+4
 3
 4
-1
+4
 2
 6

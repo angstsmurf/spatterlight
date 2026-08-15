@@ -1045,7 +1045,7 @@ This tower is made purely of ice and the domed ceiling houses a large floating b
 You turn the mirror to catch the light above.
 
 > look at mirror
-The mirror's reflection shows you the number: 6808.
+The mirror's reflection shows you the number: 3688.
 
 > north
 You are in the ice hall.

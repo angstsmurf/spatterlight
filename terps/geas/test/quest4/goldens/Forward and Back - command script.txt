@@ -19,8 +19,8 @@ The lose test is checked first, so the tie needs every remaining die to come up
 player/dice combination, so the losing ending is the one the script drives to.
 
 The script answers the startscript's three prompts (3 players; Marc, Anna, Bo;
-2 dice each) and then rolls twelve times, which is exactly how long the match
-lasts at this seed: Bo's last 6 leaves Anna holding the only die.
+2 dice each) and then rolls twenty-one times, which is exactly how long the
+match lasts at this seed: Anna's last 6 leaves Marc holding the only die.
 
 Worth knowing while reading the transcript:
 
@@ -52,6 +52,15 @@ Marc
 Anna
 Bo
 2
+ok
+ok
+ok
+ok
+ok
+ok
+ok
+ok
+ok
 ok
 ok
 ok

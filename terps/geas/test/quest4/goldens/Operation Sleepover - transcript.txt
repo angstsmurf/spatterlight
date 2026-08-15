@@ -9,7 +9,7 @@ You finish up a paragraph on your English paper and lean back in your chair. You
 You look in the direction of the strange, high-pitched voice and see a small woman, only six inches tall, and with wings, sitting on top of your desk. You've definitely been spending too long on your homework.  
 "I am Amy's guardian faery, Amisael. You know that she and her dance company friends are having a sleepover downstairs tonight, and I know that you want to spy on all those pretty girls. I won't let you ruin their party." 
 You stare at her a moment longer, still not believing what you're seeing. Suddenly, there's a flash of light, and she's gone. 
-You are in Hayden's bedroom.
+You are in Kaden's bedroom.
 Your room features the normal setup for a fifteen year old boy.
 You can go northwest.
 You can see your bed, your dresser and a desk.
@@ -64,7 +64,7 @@ You can go south or west.
 The kitchen is to the west, the living room to the south.
 
 > speak to amy
-"Hey, Hayden, can you help me carry these snack trays downstairs?"  
+"Hey, Kaden, can you help me carry these snack trays downstairs?"  
 You grab one of the trays and follow Amy downstairs. You hand the tray to one of her friends, and are quickly rushed out of the room.  
 You stand in the hall for a moment thinking about all the cute girls you just saw in their PJs before Amisael comes into view.  
 "I don't know how you got out of your room, but you've had your peek at the party. Now leave them alone."  
@@ -245,7 +245,7 @@ You can go northeast, northwest, southeast or down.
 You stand in the upstairs hallway. The master bedroom is northwest, Amy's room is northeast, and your room is southeast.
 
 > se
-You are in Hayden's bedroom.
+You are in Kaden's bedroom.
 Your bedroom hasn't changed at all, but it sure looks different from this angle.
 You can go northwest.
 You can see your bed, your dresser, a desk, your English homework, a book, a lamp, a bust of Mozart, electrical outlets and the heating vent.
@@ -481,10 +481,10 @@ The girl asking the question looks at you and frowns.
 The faery nods her head and grins. Once again the strange light comes at you again, followed by the dizziness.  
 Then there's something different, two more flashes of light. You open your eyes and see all the girls crowded around Amy, looking at the digital camera.  
 You look down at your body and realize that you're still dressed like a girl, complete with make up and a wig. Amy must have taken pictures of you like this!  
-"Now, Hayden, if you don't do everything your big sister wants from now on, I'll make sure these pictures find their way out. Understood?"  
+"Now, Kaden, if you don't do everything your big sister wants from now on, I'll make sure these pictures find their way out. Understood?"  
 You nod your head, but you can't believe that your own big sister would black mail you. Wait. Big sister? That's right. She's always been your big sister, hasn't she?  
 You obey quickly when the girls send you away. You don't want Mom and Dad to see those pictures. What if she showed your friends at school? They'll be calling you a sissy all the way into high school.
-You finished this game as Hayden, a 9 year old boy.
+You finished this game as Kaden, a 9 year old boy.
 You were wearing cow jammies, a Supergirl cami, red panties.
 You were carrying: a black sweater, sewing kit, lighter, cookies, a pair of red shorts, screwdriver.
 

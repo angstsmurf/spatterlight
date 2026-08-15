@@ -590,10 +590,10 @@ How will you attack?
 4) 
 5) 
 6) 
-[choice] 2
-You thrust with your axe.
-Your enemy tries to move in for a close attack.
-You knock him off balance.
+[choice] 1
+You swing your axe.
+The enemy tries to dodge.
+You land a nasty blow.
 
 How will you attack?
 1) Swing axe
@@ -602,9 +602,10 @@ How will you attack?
 4) 
 5) 
 6) 
-[choice] 3
-You hack downward with your axe.
-Your enemy is off balance and suffers a very deep wound!
+[choice] 1
+You swing your axe.
+The enemy tries to dodge.
+You land a nasty blow.
 
 How will you attack?
 1) Swing axe
@@ -627,9 +628,8 @@ How will you attack?
 6) 
 [choice] 1
 You swing your axe.
-The enemy tries to dodge.
-You land a nasty blow.
-
+The enemy swings at you.
+You both suffer wounds.
 You have defeated your opponent!
 You have become stronger!
 
@@ -666,18 +666,8 @@ How will you attack?
 4) 
 [choice] 1
 You swing your axe.
-The enemy swings at you.
-You both suffer wounds.
-
-How will you attack?
-1) Swing with axe
-2) Downward hack
-3) 
-4) 
-[choice] 1
-You swing your axe.
-The enemy swings at you.
-You both suffer wounds.
+The enemy tries to dodge.
+You land a nasty blow.
 
 How will you attack?
 1) Swing with axe
@@ -687,6 +677,16 @@ How will you attack?
 [choice] 1
 You swing your axe.
 The enemy tries to dodge.
+You land a nasty blow.
+
+How will you attack?
+1) Swing with axe
+2) Downward hack
+3) 
+4) 
+[choice] 1
+You swing your axe.
+The enemy tries to move in for a close attack.
 You land a nasty blow.
 
 How will you attack?
@@ -706,8 +706,18 @@ How will you attack?
 4) 
 [choice] 1
 You swing your axe.
-The enemy tries to move in for a close attack.
-You land a nasty blow.
+The enemy swings at you.
+You both suffer wounds.
+
+How will you attack?
+1) Swing with axe
+2) Downward hack
+3) 
+4) 
+[choice] 2
+You hack downward from the horse with your axe.
+
+You enemy jumps back but not in time. He suffers a light wound.
 
 You have defeated your opponent!
 You have become stronger!
@@ -1095,10 +1105,9 @@ How will you attack?
 4) Cleave
 5) 
 6) 
-[choice] 4
-You swing your axe with a mighty swing!
-The enemy swings at you.
-His blow glances off your armor but yours connects, dealing a very nasty blow!
+[choice] 1
+You swing your axe.
+The enemy thrusts with it's sword. You suffer a light wound but your axe still connects and the enemy suffers a nasty wound.
 You have defeated your opponent!
 You have become stronger!
 
@@ -1623,23 +1632,11 @@ How will you attack?
 4) Cleave
 5) 
 6) 
-[choice] 3
-You hack downward with your axe.
-Your enemy attempts to block with it's shield but you still connect.
-The second foe thrusts at you.
-His attack hits your shield squarely in the center.
-How will you attack?
-1) Swing axe
-2) Thrust with axe
-3) Downward hack
-4) Cleave
-5) 
-6) 
-[choice] 2
-You thrust with your axe.
-The enemy thrusts. With a great 'CLANG!' your weapons collide in the middle.
-The second foe thrusts at you.
-His attack hits your shield squarely in the center.
+[choice] 4
+You swing your axe with a mighty swing!
+The enemy swings at you.
+His blow glances off your armor but yours connects, dealing a very nasty blow!
+The second foe tries to dodge your mighty swing as it crashes into him. He still suffers a light wound.
 How will you attack?
 1) Swing axe
 2) Thrust with axe
@@ -1660,13 +1657,10 @@ How will you attack?
 4) Cleave
 5) 
 6) 
-[choice] 3
-You hack downward with your axe.
-Your enemy swings at you.
-Your enemy suffers a nasty wound!
-Your armor absorbs his blow.
-The second foe thrusts at you.
-His attack hits your shield squarely in the center.
+[choice] 4
+You swing your axe with a mighty swing!
+Your enemy tries to dodge but can't manage to get out of the way and suffers a nasty wound!
+The second foe tries to dodge your mighty swing as it crashes into him. He still suffers a light wound.
 How will you attack?
 1) Swing axe
 2) Thrust with axe
@@ -1674,10 +1668,10 @@ How will you attack?
 4) Cleave
 5) 
 6) 
-[choice] 4
-You swing your axe with a mighty swing!
-Your enemy tries to dodge but can't manage to get out of the way and suffers a nasty wound!
-The second foe tries to dodge your mighty swing as it crashes into him. He still suffers a light wound.
+[choice] 1
+You swing your axe.
+The enemy thrusts with it's sword. You suffer a light wound but your axe still connects and the enemy suffers a nasty wound.
+Your second foe tries to block with his shield but there is no blow to block.
 You have defeated a foe!
 How will you attack?
 1) Swing axe
@@ -1688,9 +1682,7 @@ How will you attack?
 6) 
 [choice] 1
 You swing your axe.
-The enemy tries to dodge.
-You land a nasty blow.
-
+The enemy thrusts with it's sword. You suffer a light wound but your axe still connects and the enemy suffers a nasty wound.
 How will you attack?
 1) Swing axe
 2) Thrust with axe
@@ -1698,10 +1690,11 @@ How will you attack?
 4) Cleave
 5) 
 6) 
-[choice] 4
-You swing your axe with a mighty swing!
-The enemy swings at you.
-His blow glances off your armor but yours connects, dealing a very nasty blow!
+[choice] 3
+You hack downward with your axe.
+Your enemy swings at you.
+Your enemy suffers a nasty wound!
+Your armor absorbs his blow.
 You have defeated your opponent!
 You have become stronger!
 
@@ -2144,14 +2137,6 @@ How will you attack?
 2) Downward hack
 3) Unseat
 4) 
-[choice] 3
-The enemy tries to unseat you as well.
-Your weapons meet with a great 'CLANG' but you both stay mounted.
-How will you attack?
-1) Swing with axe
-2) Downward hack
-3) Unseat
-4) 
 [choice] 2
 You hack downward from the horse with your axe.
 
@@ -2161,59 +2146,54 @@ How will you attack?
 2) Downward hack
 3) Unseat
 4) 
-[choice] 3
-The enemy tries to hack downward at you.
-But you are faster and knock him to the ground!
-How will you attack?
-1) Swing with axe
-2) Downward hack
-3) Unseat
-4) 
 [choice] 1
 You swing your axe.
-The enemy swings at you.
-You both suffer wounds.
-
+Your enemy hits you with flat of his blade.
+You score a wound with your axe but he has managed to unhorse you. You fall from the horse but quickly get to your feet.
 How will you attack?
-1) Swing with axe
-2) Downward hack
-3) Unseat
-4) 
-[choice] 2
-You hack downward from the horse with your axe.
-
-You enemy jumps back but not in time. He suffers a light wound.
-
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 5
+You attempt to unseat your foe.
+Your opponent does a donward hack.
+You get there first and knock him to the dust! He slowly regains his feet but is slightly off balance.
 How will you attack?
-1) Swing with axe
-2) Downward hack
-3) Unseat
-4) 
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 4
+You swing your axe with a mighty swing.
+Your enemy is off balance and can't defend himself and suffer a grievous wound.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
 [choice] 1
 You swing your axe.
 The enemy tries to move in for a close attack.
 You land a nasty blow.
 
 How will you attack?
-1) Swing with axe
-2) Downward hack
-3) Unseat
-4) 
-[choice] 1
-You swing your axe.
-The enemy tries to dodge.
-You land a nasty blow.
-
-How will you attack?
-1) Swing with axe
-2) Downward hack
-3) Unseat
-4) 
-[choice] 1
-You swing your axe.
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 4
+You swing your axe with a mighty swing!
 The enemy swings at you.
-You both suffer wounds.
-
+His blow glances off your armor but yours connects, dealing a very nasty blow!
 You have defeated your opponent!
 You have become stronger!
 
@@ -2480,7 +2460,9 @@ How will you attack?
 6) 
 [choice] 1
 You swing your axe.
-The enemy jumps back out of the way then back and score a hit on you. Your armor saved you from a nasty wound but you still get wounded.
+The enemy tries to dodge.
+You land a nasty blow.
+
 The second foe dodges then swings at you.
 You armor protects you.
 How will you attack?
@@ -2490,133 +2472,13 @@ How will you attack?
 4) Cleave
 5) Unseat
 6) 
-[choice] 2
-You thrust with your axe.
-Your enemy tries to move in for a close attack.
-You knock him off balance.
-
-Your second foe jumps back out of the way.
-How will you attack?
-1) Swing axe
-2) Thrust with axe
-3) Downward hack
-4) Cleave
-5) Unseat
-6) 
-[choice] 4
-You swing your axe with a mighty swing.
-Your enemy is off balance and can't defend himself and suffer a grievous wound.
-Your second foe jumps back out of the way.
-You have defeated a foe!
-As you defeat one of the goblins another one joins the fray.
-How will you attack?
-1) Swing axe
-2) Thrust with axe
-3) Downward hack
-4) Cleave
-5) Unseat
-6) 
-[choice] 2
-You thrust with your axe.
-Your enemy tries to move in for a close attack.
-You knock him off balance.
-
-Your second foe jumps back out of the way.
-How will you attack?
-1) Swing axe
-2) Thrust with axe
-3) Downward hack
-4) Cleave
-5) Unseat
-6) 
-[choice] 4
-You swing your axe with a mighty swing.
-Your enemy is off balance and can't defend himself and suffer a grievous wound.
-The second foe sneaks in for a close attack.
-You block his attack with your shield!
-You have defeated a foe!
-As you defeat one of the goblins another one joins the fray.
-How will you attack?
-1) Swing axe
-2) Thrust with axe
-3) Downward hack
-4) Cleave
-5) Unseat
-6) 
-[choice] 2
-You thrust with your axe.
-Your enemy swings at you.
-You knock him off balance.
+[choice] 1
+You swing your axe.
+The enemy tries to dodge.
+You land a nasty blow.
 
 The second foe sneaks in for a close attack.
 You block his attack with your shield!
-How will you attack?
-1) Swing axe
-2) Thrust with axe
-3) Downward hack
-4) Cleave
-5) Unseat
-6) 
-[choice] 4
-You swing your axe with a mighty swing.
-Your enemy is off balance and can't defend himself and suffer a grievous wound.
-The second opponent swings at you.
-He lands a clean hit!
-You have defeated a foe!
-As you defeat one of the goblins another one joins the fray.
-How will you attack?
-1) Swing axe
-2) Thrust with axe
-3) Downward hack
-4) Cleave
-5) Unseat
-6) 
-[choice] 4
-You swing your axe with a mighty swing!
-Your enemy jumps back but still gets hit by your great swing and suffers a light wound.
-The second foe tries to dodge your mighty swing as it crashes into him. He still suffers a light wound.
-How will you attack?
-1) Swing axe
-2) Thrust with axe
-3) Downward hack
-4) Cleave
-5) Unseat
-6) 
-[choice] 2
-You thrust with your axe.
-Your enemy tries to move in for a close attack.
-You knock him off balance.
-
-The second foe sneaks in for a close attack.
-You block his attack with your shield!
-How will you attack?
-1) Swing axe
-2) Thrust with axe
-3) Downward hack
-4) Cleave
-5) Unseat
-6) 
-[choice] 4
-You swing your axe with a mighty swing.
-Your enemy is off balance and can't defend himself and suffer a grievous wound.
-The second opponent swings at you.
-He lands a clean hit!
-You have defeated a foe!
-As you defeat one of the goblins another one joins the fray.
-How will you attack?
-1) Swing axe
-2) Thrust with axe
-3) Downward hack
-4) Cleave
-5) Unseat
-6) 
-[choice] 4
-You swing your axe with a mighty swing!
-The enemy swings at you.
-His blow glances off your armor but yours connects, dealing a very nasty blow!
-The second opponent swings at you.
-Your mighty swing crashes into him as well as his swing bounces off your shield.
-The second foe suffers a nasty wound.
 How will you attack?
 1) Swing axe
 2) Thrust with axe
@@ -2639,13 +2501,178 @@ How will you attack?
 4) Cleave
 5) Unseat
 6) 
+[choice] 1
+You swing your axe.
+The enemy tries to dodge.
+You land a nasty blow.
+
+The second foe sneaks in for a close attack.
+You block his attack with your shield!
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 4
+You swing your axe with a mighty swing!
+Your enemy tries to dodge but can't manage to get out of the way and suffers a nasty wound!
+The second opponent swings at you.
+Your mighty swing crashes into him as well as his swing bounces off your shield.
+The second foe suffers a nasty wound.
+You have defeated a foe!
+As you defeat one of the goblins another one joins the fray.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 4
+You swing your axe with a mighty swing!
+Your enemy jumps back but still gets hit by your great swing and suffers a light wound.
+The second opponent swings at you.
+Your mighty swing crashes into him as well as his swing bounces off your shield.
+The second foe suffers a nasty wound.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 3
+You hack downward with your axe.
+You enemy jumps back but not in time. He suffers a light wound.
+
+Your second foe jumps back out of the way.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 1
+You swing your axe.
+The enemy tries to dodge.
+You land a nasty blow.
+
+The second foe dodges then swings at you.
+You armor protects you.
+You have defeated a foe!
+As you defeat one of the goblins another one joins the fray.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 1
+You swing your axe.
+The enemy tries to dodge.
+You land a nasty blow.
+
+The second foe sneaks in for a close attack.
+You block his attack with your shield!
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 4
+You swing your axe with a mighty swing!
+The enemy swings at you.
+His blow glances off your armor but yours connects, dealing a very nasty blow!
+The second opponent swings at you.
+Your mighty swing crashes into him as well as his swing bounces off your shield.
+The second foe suffers a nasty wound.
+You have defeated a foe!
+As you defeat one of the goblins another one joins the fray.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 1
+You swing your axe.
+The enemy tries to dodge.
+You land a nasty blow.
+
+Your second foe jumps back out of the way.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 1
+You swing your axe.
+The enemy tries to move in for a close attack.
+You land a nasty blow.
+
+The second foe dodges then swings at you.
+You armor protects you.
+You have defeated a foe!
+As you defeat one of the goblins another one joins the fray.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 1
+You swing your axe.
+The enemy tries to move in for a close attack.
+You land a nasty blow.
+
+Your second foe jumps back out of the way.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 3
+You hack downward with your axe.
+You enemy jumps back but not in time. He suffers a light wound.
+
+The second foe sneaks in for a close attack.
+You block his attack with your shield!
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 4
+You swing your axe with a mighty swing!
+Your enemy jumps back but still gets hit by your great swing and suffers a light wound.
+The second foe tries to dodge your mighty swing as it crashes into him. He still suffers a light wound.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
 [choice] 3
 You hack downward with your axe.
 Your enemy swings at you.
 Your enemy suffers a nasty wound!
 Your armor absorbs his blow.
-The second foe dodges then swings at you.
-You armor protects you.
+Your second foe jumps back out of the way.
 You have defeated a foe!
 As you defeat one of the goblins another one joins the fray.
 The goblins see that there is no end to your wrath and the rest of them flee like the cowardly creatures they are. They scurry halfhazzardly down the tiny goblin holes in all directions.
@@ -3420,6 +3447,61 @@ How will you attack?
 6) 
 [choice] 2
 You thrust with your axe.
+Your enemy does a downward hack.
+You barely deflect the stroke with your thrust.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 2
+You thrust with your axe.
+Your enemy swings at you.
+You knock him off balance.
+
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 4
+You swing your axe with a mighty swing.
+Your enemy is off balance and can't defend himself and suffer a grievous wound.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 4
+You swing your axe with a mighty swing!
+The enemy swings at you.
+His blow glances off your armor but yours connects, dealing a very nasty blow!
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 4
+You swing your axe with a mighty swing!
+The enemy swings at you.
+His blow glances off your armor but yours connects, dealing a very nasty blow!
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 2
+You thrust with your axe.
 Your enemy swings his club in a great curving arc! Your thrust throws his swing off and he misses. Both of you are unharmed.
 How will you attack?
 1) Swing axe
@@ -3450,10 +3532,50 @@ How will you attack?
 4) Cleave
 5) Unseat
 6) 
+[choice] 2
+You thrust with your axe.
+Your enemy swings his club in a great curving arc! Your thrust throws his swing off and he misses. Both of you are unharmed.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 2
+You thrust with your axe.
+Your enemy swings his club in a great curving arc! Your thrust throws his swing off and he misses. Both of you are unharmed.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 2
+You thrust with your axe.
+Your enemy swings his club in a great curving arc! Your thrust throws his swing off and he misses. Both of you are unharmed.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
+[choice] 3
+You hack downward with your axe.
+Your enemy attempts to block with it's shield but you still connect.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) 
 [choice] 4
 You swing your axe with a mighty swing!
-The enemy tries to block with it's shield.
-With a great crunch his shield is shattered to bits!
+The enemy swings at you.
+His blow glances off your armor but yours connects, dealing a very nasty blow!
 How will you attack?
 1) Swing axe
 2) Thrust with axe
@@ -3463,9 +3585,7 @@ How will you attack?
 6) 
 [choice] 2
 You thrust with your axe.
-Your enemy swings at you.
-You knock him off balance.
-
+Your enemy swings his club in a great curving arc! Your thrust throws his swing off and he misses. Both of you are unharmed.
 How will you attack?
 1) Swing axe
 2) Thrust with axe
@@ -3474,82 +3594,9 @@ How will you attack?
 5) Unseat
 6) 
 [choice] 4
-You swing your axe with a mighty swing.
-Your enemy is off balance and can't defend himself and suffer a grievous wound.
-How will you attack?
-1) Swing axe
-2) Thrust with axe
-3) Downward hack
-4) Cleave
-5) Unseat
-6) 
-[choice] 3
-You hack downward with your axe.
-Your enemy attempts to block with it's shield but you still connect.
-How will you attack?
-1) Swing axe
-2) Thrust with axe
-3) Downward hack
-4) Cleave
-5) Unseat
-6) 
-[choice] 3
-You hack downward with your axe.
-Your enemy attempts to block with it's shield but you still connect.
-How will you attack?
-1) Swing axe
-2) Thrust with axe
-3) Downward hack
-4) Cleave
-5) Unseat
-6) 
-[choice] 2
-You thrust with your axe.
-Your enemy swings at you.
-You knock him off balance.
-
-How will you attack?
-1) Swing axe
-2) Thrust with axe
-3) Downward hack
-4) Cleave
-5) Unseat
-6) 
-[choice] 4
-You swing your axe with a mighty swing.
-Your enemy is off balance and can't defend himself and suffer a grievous wound.
-How will you attack?
-1) Swing axe
-2) Thrust with axe
-3) Downward hack
-4) Cleave
-5) Unseat
-6) 
-[choice] 3
-You hack downward with your axe.
-Your enemy attempts to block with it's shield but you still connect.
-How will you attack?
-1) Swing axe
-2) Thrust with axe
-3) Downward hack
-4) Cleave
-5) Unseat
-6) 
-[choice] 2
-You thrust with your axe.
-Your enemy swings at you.
-You knock him off balance.
-
-How will you attack?
-1) Swing axe
-2) Thrust with axe
-3) Downward hack
-4) Cleave
-5) Unseat
-6) 
-[choice] 4
-You swing your axe with a mighty swing.
-Your enemy is off balance and can't defend himself and suffer a grievous wound.
+You swing your axe with a mighty swing!
+The enemy swings at you.
+His blow glances off your armor but yours connects, dealing a very nasty blow!
 You have defeated your opponent!
 You have become stronger!
 
@@ -3795,30 +3842,8 @@ How will you attack?
 6) Behead
 [choice] 4
 You swing your axe with a mighty swing!
-Thorgin swings at you. He is faster and scores a nasty wound on you but your swing still connects inflicting a grievous wound on him!
-There is a 'Ooooooooo!' from the crowd.
-How will you attack?
-1) Swing axe
-2) Thrust with axe
-3) Downward hack
-4) Cleave
-5) Unseat
-6) Behead
-[choice] 4
-You swing your axe with a mighty swing!
-Thorgin swings at you. He is faster and scores a nasty wound on you but your swing still connects inflicting a grievous wound on him!
-There is a 'Ooooooooo!' from the crowd.
-How will you attack?
-1) Swing axe
-2) Thrust with axe
-3) Downward hack
-4) Cleave
-5) Unseat
-6) Behead
-[choice] 1
-You swing your axe.
 Thorgin tries to dodge your attack but can't get out of the way.
-He suffers a nasty wound!
+He suffers a very nasty wound!
 There is a great cheer from the audience!
 How will you attack?
 1) Swing axe
@@ -3831,6 +3856,29 @@ How will you attack?
 You swing your axe.
 Thorgin parries your attack then swings at you!
 You block his attack with your shield.
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) Behead
+[choice] 4
+You swing your axe with a mighty swing!
+Thorgin tries to dodge your attack but can't get out of the way.
+He suffers a very nasty wound!
+There is a great cheer from the audience!
+How will you attack?
+1) Swing axe
+2) Thrust with axe
+3) Downward hack
+4) Cleave
+5) Unseat
+6) Behead
+[choice] 4
+You swing your axe with a mighty swing!
+Thorgin swings at you. He is faster and scores a nasty wound on you but your swing still connects inflicting a grievous wound on him!
+There is a 'Ooooooooo!' from the crowd.
 How will you attack?
 1) Swing axe
 2) Thrust with axe
@@ -3860,7 +3908,7 @@ How will you attack?
 4) Cleave
 5) Unseat
 6) Behead
-[choice] 1
+[choice] 4
 Thorgin jumps back before you can attack him then fiddles with somthing on his finger. You see he wounds heal!
 "Coward!" you yell and close in on him.
 How will you attack?

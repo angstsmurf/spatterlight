@@ -13,10 +13,10 @@ garment per point and call playerwin / playerlose at 5.
 
 The girl's rolls come from one $rand(1; 3)$ per round and do not depend on what
 the player picks, so under a fixed seed the whole match is a known sequence.  At
-GEAS_SEED=1 she plays paper, scissors, scissors, paper, scissors -- so scissors,
-rock, rock, scissors, rock beats her 5-0 without a single garment lost.  (A sixth
-rand is drawn before the match, in the intro procedure, to pick which underwear
-the "panties" string holds -- pink thong under this seed.)
+GEAS_SEED=1 she plays rock, scissors, scissors, scissors, paper -- so paper,
+rock, rock, rock, scissors beats her 5-0 without a single garment lost.  (A
+sixth rand is drawn before the match, in the intro procedure, to pick which
+underwear the "panties" string holds.)
 
 How the input lines pair up, which is not obvious from the file:
 
@@ -33,12 +33,12 @@ Start:
 look at schoolgirl
 speak to schoolgirl
 1
+2
+speak to schoolgirl
+1
+speak to schoolgirl
+1
+speak to schoolgirl
+1
+speak to schoolgirl
 3
-speak to schoolgirl
-1
-speak to schoolgirl
-1
-speak to schoolgirl
-3
-speak to schoolgirl
-1

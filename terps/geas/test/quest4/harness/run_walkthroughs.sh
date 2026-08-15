@@ -22,9 +22,10 @@
 #
 # Builds the runner if needed.  Uses a fixed RNG seed for reproducibility;
 # World's End's two random fights are won by --save-scum regardless of seed.
-# The runner substitutes its own generator for the C library's rand() so that
-# the seeded draws -- and so the transcripts -- are the same on every platform;
-# see the comment in geas_walkthrough_runner.cc.
+# geas draws its $rand(a;b)$ from erkyrath_random() (common_utils/randomness.c),
+# which is xoshiro128** once seeded, so a seeded run makes the same draws here
+# as in the Spatterlight build and the same draws on every platform -- which is
+# what lets these transcripts be diffed at all.
 
 set -u
 here=$(cd "$(dirname "$0")" && pwd)

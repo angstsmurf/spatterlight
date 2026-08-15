@@ -35,7 +35,18 @@ BIN := $(Q4)/geas_walkthrough_runner
 SRC := $(Q4)/geas_walkthrough_runner.cc
 TESTBIN := $(Q4)/geas_unit_tests
 TESTSRC := $(Q4)/geas_unit_tests.cc
-DEPS := $(wildcard ../*.cc ../*.hh)
+DEPS = $(wildcard ../*.cc ../*.hh) $(RANDSRC)
+
+# The engine draws its random numbers from erkyrath_random() -- xoshiro128**
+# when seeded -- so that a seeded run gives the same numbers here, in the app
+# and on any other platform, which is what makes the corpus transcripts
+# diffable.  That lives in common_utils, and its header includes glk.h, hence
+# the CheapGlk include path (no Glk function is called or linked).
+# It is C, and the engine declares it extern "C", so it has to be compiled by
+# the C driver and linked in as an object rather than fed to clang++.
+RANDSRC := ../../common_utils/randomness.c
+RANDOBJ := $(Q4)/randomness.o
+RANDFLAGS = -I../../common_utils -I$(CHEAPGLK)
 
 # Quest 5 (.aslx / .quest) milestone-1 loader test. It compiles ../quest5/aslx.cc via a
 # unity include and links libexpat + zlib (the loader's only external deps).
@@ -85,11 +96,14 @@ ASLXLINKSRC := $(Q5)/aslxglk_link_tests.cc
 
 all: $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN) $(QGLKBIN) $(ASLXLINKBIN)
 
-$(BIN): $(SRC) $(DEPS)
-	$(CXX) $(CXXFLAGS) $(SRC) -o $@
+$(RANDOBJ): $(RANDSRC)
+	$(CC) -O2 -w $(RANDFLAGS) -c $(RANDSRC) -o $@
 
-$(TESTBIN): $(TESTSRC) $(DEPS)
-	$(CXX) $(CXXFLAGS) $(TESTSRC) -o $@
+$(BIN): $(SRC) $(DEPS) $(RANDOBJ)
+	$(CXX) $(CXXFLAGS) $(RANDFLAGS) $(SRC) $(RANDOBJ) -o $@
+
+$(TESTBIN): $(TESTSRC) $(DEPS) $(RANDOBJ)
+	$(CXX) $(CXXFLAGS) $(RANDFLAGS) $(TESTSRC) $(RANDOBJ) -o $@
 
 $(ASLXBIN): $(ASLXSRC) $(ASLXDEPS)
 	$(CXX) $(CXXFLAGS) $(ASLXSRC) $(ASLXLIBS) -o $@
@@ -131,7 +145,7 @@ $(ASLXGLK): $(ASLXGLK).cc ../quest5/aslxglk.cc ../quest5/aslxglk-map.inc \
 SYNTAXCXX := $(wildcard ../*.cc) $(wildcard ../quest5/*.cc)
 SYNTAXC := $(wildcard ../*.c)
 # -I$(CHEAPGLK) is only for glk.h; the frontends are never linked here.
-SYNTAXFLAGS := -w -I.. -I$(CHEAPGLK)
+SYNTAXFLAGS := -w -I.. -I$(CHEAPGLK) -I../../common_utils
 
 syntax:
 	@fail=0; \
@@ -154,9 +168,9 @@ check: syntax $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN) $(QGLKBIN) $(ASLXLINKBIN
 	cd $(Q5) && ./aslxglk_link_tests
 	$(Q4)/run_fixtures.sh
 
-asan: $(SRC) $(TESTSRC) $(DEPS)
-	$(CXX) $(ASANFLAGS) $(TESTSRC) -o $(TESTBIN)
-	$(CXX) $(ASANFLAGS) $(SRC) -o $(BIN)
+asan: $(SRC) $(TESTSRC) $(DEPS) $(RANDOBJ)
+	$(CXX) $(ASANFLAGS) $(RANDFLAGS) $(TESTSRC) $(RANDOBJ) -o $(TESTBIN)
+	$(CXX) $(ASANFLAGS) $(RANDFLAGS) $(SRC) $(RANDOBJ) -o $(BIN)
 	$(CXX) $(ASANFLAGS) $(ASLXSRC) $(ASLXLIBS) -o $(ASLXBIN)
 	$(CXX) $(ASANFLAGS) $(ASLXRTSRC) $(ASLXLIBS) -o $(ASLXRTBIN)
 	$(CXX) $(ASANFLAGS) -I$(CHEAPGLK) $(QGLKSRC) $(CHEAPGLK)/libcheapglk.a -o $(QGLKBIN)
@@ -167,7 +181,8 @@ asan: $(SRC) $(TESTSRC) $(DEPS)
 	$(Q4)/run_fixtures.sh
 
 clean:
-	rm -f $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN) $(QGLKBIN) $(ASLXLINKBIN)
+	rm -f $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN) $(QGLKBIN) $(ASLXLINKBIN) \
+	      $(RANDOBJ)
 
 # Check the (untracked) game corpora against their committed manifests.  Not a
 # prerequisite of `check`: that suite is deliberately corpus-free, and this one

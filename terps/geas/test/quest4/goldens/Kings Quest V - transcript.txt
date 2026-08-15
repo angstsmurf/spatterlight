@@ -1830,32 +1830,6 @@ You can go north or west.
 In this area of the maze, it is evident that a creature has roamed through here.
 
 > use tambourine on monster
-I can't see that here.
-
-> take hair pin
-You don't see any hair pin.
-
-> s
-You are in a maze of seemingly identical corridors
-You can go north or west.
-
-> n
-In this area of the maze, it is evident that a creature has roamed through here.
-
-> use tambourine on monster
-I can't see that here.
-
-> take hair pin
-You don't see any hair pin.
-
-> s
-You are in a maze of seemingly identical corridors
-You can go north or west.
-
-> n
-In this area of the maze, it is evident that a creature has roamed through here.
-
-> use tambourine on monster
 Graham shakes the tambourine and the creature becomes entranced with it and grabs it from Graham's hands.
 As it bounders off down the hallway, a small hair pin flies off of the creature's hairy back.
 
@@ -1871,6 +1845,34 @@ You can go north or west.
 
 > n
 In this area of the maze, it is evident that a creature has roamed through here.
+
+> use tambourine on monster
+You don't have that.
+
+> take hair pin
+You already have it.
+
+> s
+You are in a maze of seemingly identical corridors
+You can go north or west.
+
+> n
+
+As Graham walks into this section of the maze, he is quite startled at the sight of a creature here!
+
+> use tambourine on monster
+You don't have that.
+
+> take hair pin
+You already have it.
+
+> s
+You are in a maze of seemingly identical corridors
+You can go north or west.
+
+> n
+
+As Graham walks into this section of the maze, he is quite startled at the sight of a creature here!
 
 > use tambourine on monster
 You don't have that.
@@ -3616,9 +3618,14 @@ This must be Mordack's treasure room.  Large, intricate statues fill this room s
 > throw fish to cat
 Graham tosses the dead fish to the black cat and it immediately starts eating and is now completely distracted from what Graham is doing.
 
+A black cat is in the room!
 
 > use empty bag on cat
-I can't see that here.
+Graham steps quietly behind the black cat while it eats the dead fish.
+
+
+With one quick motion, Graham slips the bag over the cat and ties it closed.
+
 
 > up
 You are in the upstairs hallway
@@ -4283,7 +4290,7 @@ Graham and his family walk hand in hand toward their castle and they lived HAPPI
 …until King's Quest VI
 
 
-You had a final score of 259 out of 260 and I thank you for playing.
+You had a final score of 260 out of 260 and I thank you for playing.
 
 
 CREDITS:

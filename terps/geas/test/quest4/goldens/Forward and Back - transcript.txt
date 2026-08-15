@@ -23,19 +23,39 @@ Bo has 2 dice.
 0 out of a total of 6 dice are out of the game.
 
 > ok
-Marc, your dice show: 2 2.
+Marc, your dice show: 6 1.
 Anna, it is your turn.
 
 > ok
-Anna, your dice show: 6 3.
+Anna, your dice show: 3 3 3.
 Bo, it is your turn.
 
 > ok
-Bo, your dice show: 5 3 1 3.
+Bo, your dice show: 5 3.
+Anna, it is your turn.
+
+> ok
+Anna, your dice show: 6 2 1.
+Bo, it is your turn.
+
+> ok
+Bo, your dice show: 6 3 5.
 Marc, it is your turn.
 
 > ok
-Marc, your dice show: 6.
+Marc, your dice show: 2.
+Bo, it is your turn.
+
+> ok
+Bo, your dice show: 5 4 2.
+Anna, it is your turn.
+
+> ok
+Anna, your dice show: 3.
+Bo, it is your turn.
+
+> ok
+Bo, your dice show: 4 4.
 Anna, it is your turn.
 
 > ok
@@ -43,30 +63,46 @@ Anna, your dice show: 2.
 Bo, it is your turn.
 
 > ok
-Bo, your dice show: 1 6 1.
+Bo, your dice show: 1 2.
 Marc, it is your turn.
 
 > ok
-Marc, your dice show: 3 4 6.
-Marc, it is your turn.
-
-> ok
-Marc, your dice show: 2 2.
-Bo, it is your turn.
-
-> ok
-Bo, your dice show: 5 5.
-Bo, it is your turn.
-
-> ok
-Bo, your dice show: 4 2.
+Marc, your dice show: 1 2.
 Anna, it is your turn.
 
 > ok
-Anna, your dice show: 4.
+Anna, your dice show: 2 6.
 Bo, it is your turn.
 
 > ok
-Bo, your dice show: 6.
-Anna, you lost!
-[runner] turns=12 leftover=0 running=false WON=YES
+Bo, your dice show: 3.
+Marc, it is your turn.
+
+> ok
+Marc, your dice show: 4.
+Bo, it is your turn.
+
+> ok
+Bo, your dice show: 1.
+Marc, it is your turn.
+
+> ok
+Marc, your dice show: 3 5.
+Marc, it is your turn.
+
+> ok
+Marc, your dice show: 3 2.
+Bo, it is your turn.
+
+> ok
+Bo, your dice show: 1.
+Marc, it is your turn.
+
+> ok
+Marc, your dice show: 1 3.
+Anna, it is your turn.
+
+> ok
+Anna, your dice show: 6.
+Marc, you lost!
+[runner] turns=21 leftover=0 running=false WON=YES

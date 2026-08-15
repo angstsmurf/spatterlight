@@ -16,32 +16,20 @@ From which company do you wish to purchase stock?
 6) Skull Crusher Pain Reliever
 7) Sinead O Conner Hair Tonic
 8) Tough Luck Bail Bonds
-[choice] 6
+[choice] 1
 How many shares do you wish to purchase?
 
 > next
 
 Here is the present stock report...
-Bloated Colon Baked Beans: 8 dollars/share (-2)
-Laughing Jacks Antidepressants: 5 dollars/share (-5)
-Pizza Face Pimple Cream: 7 dollars/share (-3)
-Psycho Mutt Dog Treats: 11 dollars/share (1)
-Sea Bass Feminine Deodorant: 9 dollars/share (-1)
-Skull Crusher Pain Reliever: 11 dollars/share (1)
-Sinead O Connor Hair Tonic: 11 dollars/share (1)
-Tough Luck Bail Bonds: 4 dollars/share (-6)
-
-> next
-
-Here is the present stock report...
-Bloated Colon Baked Beans: 9 dollars/share (1)
-Laughing Jacks Antidepressants: 6 dollars/share (1)
-Pizza Face Pimple Cream: 8 dollars/share (1)
-Psycho Mutt Dog Treats: 13 dollars/share (2)
-Sea Bass Feminine Deodorant: 10 dollars/share (1)
-Skull Crusher Pain Reliever: 14 dollars/share (3)
-Sinead O Connor Hair Tonic: 10 dollars/share (-1)
-Tough Luck Bail Bonds: 5 dollars/share (1)
+Bloated Colon Baked Beans: 11 dollars/share (1)
+Laughing Jacks Antidepressants: 8 dollars/share (-2)
+Pizza Face Pimple Cream: 5 dollars/share (-5)
+Psycho Mutt Dog Treats: 7 dollars/share (-3)
+Sea Bass Feminine Deodorant: 5 dollars/share (-5)
+Skull Crusher Pain Reliever: 8 dollars/share (-2)
+Sinead O Connor Hair Tonic: 4 dollars/share (-6)
+Tough Luck Bail Bonds: 6 dollars/share (-4)
 
 > sell
 To which company do you wish to sell back stock?
@@ -53,7 +41,7 @@ To which company do you wish to sell back stock?
 6) Skull Crusher Pain Reliever
 7) Sinead O Conner Hair Tonic
 8) Tough Luck Bail Bonds
-[choice] 6
+[choice] 1
 How many shares do you wish to sell back?
 
 > buy
@@ -72,14 +60,90 @@ How many shares do you wish to purchase?
 > next
 
 Here is the present stock report...
-Bloated Colon Baked Beans: 15 dollars/share (6)
-Laughing Jacks Antidepressants: 10 dollars/share (4)
-Pizza Face Pimple Cream: 5 dollars/share (-3)
-Psycho Mutt Dog Treats: 13 dollars/share (0)
+Bloated Colon Baked Beans: 6 dollars/share (-5)
+Laughing Jacks Antidepressants: 12 dollars/share (4)
+Pizza Face Pimple Cream: 1 dollars/share (-5)
+Psycho Mutt Dog Treats: 7 dollars/share (0)
+Sea Bass Feminine Deodorant: 7 dollars/share (2)
+Skull Crusher Pain Reliever: 3 dollars/share (-5)
+Sinead O Connor Hair Tonic: 4 dollars/share (0)
+Tough Luck Bail Bonds: 2 dollars/share (-4)
+
+> sell
+To which company do you wish to sell back stock?
+1) Bloated Colon Baked Beans
+2) Laughin Jacks Antidepressants
+3) Pizza Face Pimple Cream
+4) Psycho Mutt Dog Treats
+5) Sea Bass Feminine Deodorant
+6) Skull Crusher Pain Reliever
+7) Sinead O Conner Hair Tonic
+8) Tough Luck Bail Bonds
+[choice] 2
+How many shares do you wish to sell back?
+
+> buy
+From which company do you wish to purchase stock?
+1) Bloated Colon Baked Beans
+2) Laughin Jacks Antidepressants
+3) Pizza Face Pimple Cream
+4) Psycho Mutt Dog Treats
+5) Sea Bass Feminine Deodorant
+6) Skull Crusher Pain Reliever
+7) Sinead O Conner Hair Tonic
+8) Tough Luck Bail Bonds
+[choice] 5
+How many shares do you wish to purchase?
+
+> next
+
+Here is the present stock report...
+Bloated Colon Baked Beans: 5 dollars/share (-1)
+Laughing Jacks Antidepressants: 10 dollars/share (-2)
+Pizza Face Pimple Cream: 1 dollars/share (-1)
+Psycho Mutt Dog Treats: 6 dollars/share (-1)
+Sea Bass Feminine Deodorant: 10 dollars/share (3)
+Skull Crusher Pain Reliever: 3 dollars/share (0)
+Sinead O Connor Hair Tonic: 5 dollars/share (1)
+Tough Luck Bail Bonds: 1 dollars/share (-2)
+
+> sell
+To which company do you wish to sell back stock?
+1) Bloated Colon Baked Beans
+2) Laughin Jacks Antidepressants
+3) Pizza Face Pimple Cream
+4) Psycho Mutt Dog Treats
+5) Sea Bass Feminine Deodorant
+6) Skull Crusher Pain Reliever
+7) Sinead O Conner Hair Tonic
+8) Tough Luck Bail Bonds
+[choice] 5
+How many shares do you wish to sell back?
+
+> buy
+From which company do you wish to purchase stock?
+1) Bloated Colon Baked Beans
+2) Laughin Jacks Antidepressants
+3) Pizza Face Pimple Cream
+4) Psycho Mutt Dog Treats
+5) Sea Bass Feminine Deodorant
+6) Skull Crusher Pain Reliever
+7) Sinead O Conner Hair Tonic
+8) Tough Luck Bail Bonds
+[choice] 7
+How many shares do you wish to purchase?
+
+> next
+
+Here is the present stock report...
+Bloated Colon Baked Beans: 2 dollars/share (-3)
+Laughing Jacks Antidepressants: 12 dollars/share (2)
+Pizza Face Pimple Cream: 1 dollars/share (0)
+Psycho Mutt Dog Treats: 1 dollars/share (-5)
 Sea Bass Feminine Deodorant: 16 dollars/share (6)
-Skull Crusher Pain Reliever: 19 dollars/share (5)
-Sinead O Connor Hair Tonic: 13 dollars/share (3)
-Tough Luck Bail Bonds: 7 dollars/share (2)
+Skull Crusher Pain Reliever: 4 dollars/share (1)
+Sinead O Connor Hair Tonic: 9 dollars/share (4)
+Tough Luck Bail Bonds: 1 dollars/share (-4)
 
 > sell
 To which company do you wish to sell back stock?
@@ -91,45 +155,7 @@ To which company do you wish to sell back stock?
 6) Skull Crusher Pain Reliever
 7) Sinead O Conner Hair Tonic
 8) Tough Luck Bail Bonds
-[choice] 2
-How many shares do you wish to sell back?
-
-> buy
-From which company do you wish to purchase stock?
-1) Bloated Colon Baked Beans
-2) Laughin Jacks Antidepressants
-3) Pizza Face Pimple Cream
-4) Psycho Mutt Dog Treats
-5) Sea Bass Feminine Deodorant
-6) Skull Crusher Pain Reliever
-7) Sinead O Conner Hair Tonic
-8) Tough Luck Bail Bonds
-[choice] 8
-How many shares do you wish to purchase?
-
-> next
-
-Here is the present stock report...
-Bloated Colon Baked Beans: 12 dollars/share (-3)
-Laughing Jacks Antidepressants: 10 dollars/share (0)
-Pizza Face Pimple Cream: 4 dollars/share (-1)
-Psycho Mutt Dog Treats: 11 dollars/share (-2)
-Sea Bass Feminine Deodorant: 16 dollars/share (0)
-Skull Crusher Pain Reliever: 21 dollars/share (2)
-Sinead O Connor Hair Tonic: 13 dollars/share (0)
-Tough Luck Bail Bonds: 9 dollars/share (2)
-
-> sell
-To which company do you wish to sell back stock?
-1) Bloated Colon Baked Beans
-2) Laughin Jacks Antidepressants
-3) Pizza Face Pimple Cream
-4) Psycho Mutt Dog Treats
-5) Sea Bass Feminine Deodorant
-6) Skull Crusher Pain Reliever
-7) Sinead O Conner Hair Tonic
-8) Tough Luck Bail Bonds
-[choice] 8
+[choice] 7
 How many shares do you wish to sell back?
 
 > buy
@@ -148,140 +174,14 @@ How many shares do you wish to purchase?
 > next
 
 Here is the present stock report...
-Bloated Colon Baked Beans: 12 dollars/share (0)
-Laughing Jacks Antidepressants: 9 dollars/share (-1)
-Pizza Face Pimple Cream: 5 dollars/share (1)
-Psycho Mutt Dog Treats: 12 dollars/share (1)
-Sea Bass Feminine Deodorant: 17 dollars/share (1)
-Skull Crusher Pain Reliever: 21 dollars/share (0)
-Sinead O Connor Hair Tonic: 12 dollars/share (-1)
-Tough Luck Bail Bonds: 9 dollars/share (0)
-
-> sell
-To which company do you wish to sell back stock?
-1) Bloated Colon Baked Beans
-2) Laughin Jacks Antidepressants
-3) Pizza Face Pimple Cream
-4) Psycho Mutt Dog Treats
-5) Sea Bass Feminine Deodorant
-6) Skull Crusher Pain Reliever
-7) Sinead O Conner Hair Tonic
-8) Tough Luck Bail Bonds
-[choice] 3
-How many shares do you wish to sell back?
-
-> buy
-From which company do you wish to purchase stock?
-1) Bloated Colon Baked Beans
-2) Laughin Jacks Antidepressants
-3) Pizza Face Pimple Cream
-4) Psycho Mutt Dog Treats
-5) Sea Bass Feminine Deodorant
-6) Skull Crusher Pain Reliever
-7) Sinead O Conner Hair Tonic
-8) Tough Luck Bail Bonds
-[choice] 8
-How many shares do you wish to purchase?
-
-> next
-
-Here is the present stock report...
-Bloated Colon Baked Beans: 11 dollars/share (-1)
-Laughing Jacks Antidepressants: 8 dollars/share (-1)
-Pizza Face Pimple Cream: 4 dollars/share (-1)
-Psycho Mutt Dog Treats: 9 dollars/share (-3)
-Sea Bass Feminine Deodorant: 12 dollars/share (-5)
-Skull Crusher Pain Reliever: 24 dollars/share (3)
-Sinead O Connor Hair Tonic: 13 dollars/share (1)
-Tough Luck Bail Bonds: 11 dollars/share (2)
-
-> sell
-To which company do you wish to sell back stock?
-1) Bloated Colon Baked Beans
-2) Laughin Jacks Antidepressants
-3) Pizza Face Pimple Cream
-4) Psycho Mutt Dog Treats
-5) Sea Bass Feminine Deodorant
-6) Skull Crusher Pain Reliever
-7) Sinead O Conner Hair Tonic
-8) Tough Luck Bail Bonds
-[choice] 8
-How many shares do you wish to sell back?
-
-> next
-
-Here is the present stock report...
-Bloated Colon Baked Beans: 10 dollars/share (-1)
-Laughing Jacks Antidepressants: 6 dollars/share (-2)
-Pizza Face Pimple Cream: 3 dollars/share (-1)
-Psycho Mutt Dog Treats: 8 dollars/share (-1)
-Sea Bass Feminine Deodorant: 11 dollars/share (-1)
-Skull Crusher Pain Reliever: 22 dollars/share (-2)
-Sinead O Connor Hair Tonic: 11 dollars/share (-2)
-Tough Luck Bail Bonds: 10 dollars/share (-1)
-
-> buy
-From which company do you wish to purchase stock?
-1) Bloated Colon Baked Beans
-2) Laughin Jacks Antidepressants
-3) Pizza Face Pimple Cream
-4) Psycho Mutt Dog Treats
-5) Sea Bass Feminine Deodorant
-6) Skull Crusher Pain Reliever
-7) Sinead O Conner Hair Tonic
-8) Tough Luck Bail Bonds
-[choice] 2
-How many shares do you wish to purchase?
-
-> next
-
-Here is the present stock report...
-Bloated Colon Baked Beans: 13 dollars/share (3)
-Laughing Jacks Antidepressants: 12 dollars/share (6)
-Pizza Face Pimple Cream: 1 dollars/share (-7)
-Psycho Mutt Dog Treats: 5 dollars/share (-3)
-Sea Bass Feminine Deodorant: 12 dollars/share (1)
-Skull Crusher Pain Reliever: 21 dollars/share (-1)
-Sinead O Connor Hair Tonic: 9 dollars/share (-2)
-Tough Luck Bail Bonds: 17 dollars/share (7)
-
-> sell
-To which company do you wish to sell back stock?
-1) Bloated Colon Baked Beans
-2) Laughin Jacks Antidepressants
-3) Pizza Face Pimple Cream
-4) Psycho Mutt Dog Treats
-5) Sea Bass Feminine Deodorant
-6) Skull Crusher Pain Reliever
-7) Sinead O Conner Hair Tonic
-8) Tough Luck Bail Bonds
-[choice] 2
-How many shares do you wish to sell back?
-
-> buy
-From which company do you wish to purchase stock?
-1) Bloated Colon Baked Beans
-2) Laughin Jacks Antidepressants
-3) Pizza Face Pimple Cream
-4) Psycho Mutt Dog Treats
-5) Sea Bass Feminine Deodorant
-6) Skull Crusher Pain Reliever
-7) Sinead O Conner Hair Tonic
-8) Tough Luck Bail Bonds
-[choice] 3
-How many shares do you wish to purchase?
-
-> next
-
-Here is the present stock report...
-Bloated Colon Baked Beans: 15 dollars/share (2)
-Laughing Jacks Antidepressants: 12 dollars/share (0)
-Pizza Face Pimple Cream: 5 dollars/share (4)
-Psycho Mutt Dog Treats: 9 dollars/share (4)
-Sea Bass Feminine Deodorant: 14 dollars/share (2)
-Skull Crusher Pain Reliever: 22 dollars/share (1)
-Sinead O Connor Hair Tonic: 11 dollars/share (2)
-Tough Luck Bail Bonds: 16 dollars/share (-1)
+Bloated Colon Baked Beans: 1 dollars/share (-1)
+Laughing Jacks Antidepressants: 11 dollars/share (-1)
+Pizza Face Pimple Cream: 2 dollars/share (1)
+Psycho Mutt Dog Treats: 1 dollars/share (-3)
+Sea Bass Feminine Deodorant: 15 dollars/share (-1)
+Skull Crusher Pain Reliever: 3 dollars/share (-1)
+Sinead O Connor Hair Tonic: 8 dollars/share (-1)
+Tough Luck Bail Bonds: 1 dollars/share (-1)
 
 > sell
 To which company do you wish to sell back stock?
@@ -312,14 +212,14 @@ How many shares do you wish to purchase?
 > next
 
 Here is the present stock report...
-Bloated Colon Baked Beans: 17 dollars/share (2)
-Laughing Jacks Antidepressants: 13 dollars/share (1)
-Pizza Face Pimple Cream: 2 dollars/share (-3)
-Psycho Mutt Dog Treats: 8 dollars/share (-1)
-Sea Bass Feminine Deodorant: 15 dollars/share (1)
-Skull Crusher Pain Reliever: 22 dollars/share (0)
-Sinead O Connor Hair Tonic: 10 dollars/share (-1)
-Tough Luck Bail Bonds: 13 dollars/share (-3)
+Bloated Colon Baked Beans: 6 dollars/share (5)
+Laughing Jacks Antidepressants: 13 dollars/share (2)
+Pizza Face Pimple Cream: 5 dollars/share (3)
+Psycho Mutt Dog Treats: 6 dollars/share (5)
+Sea Bass Feminine Deodorant: 18 dollars/share (3)
+Skull Crusher Pain Reliever: 10 dollars/share (7)
+Sinead O Connor Hair Tonic: 13 dollars/share (5)
+Tough Luck Bail Bonds: 5 dollars/share (4)
 
 > sell
 To which company do you wish to sell back stock?
@@ -333,7 +233,45 @@ To which company do you wish to sell back stock?
 8) Tough Luck Bail Bonds
 [choice] 1
 How many shares do you wish to sell back?
-Your final score is 920 points!
+
+> buy
+From which company do you wish to purchase stock?
+1) Bloated Colon Baked Beans
+2) Laughin Jacks Antidepressants
+3) Pizza Face Pimple Cream
+4) Psycho Mutt Dog Treats
+5) Sea Bass Feminine Deodorant
+6) Skull Crusher Pain Reliever
+7) Sinead O Conner Hair Tonic
+8) Tough Luck Bail Bonds
+[choice] 8
+How many shares do you wish to purchase?
+
+> next
+
+Here is the present stock report...
+Bloated Colon Baked Beans: 1 dollars/share (-6)
+Laughing Jacks Antidepressants: 11 dollars/share (-2)
+Pizza Face Pimple Cream: 3 dollars/share (-2)
+Psycho Mutt Dog Treats: 5 dollars/share (-1)
+Sea Bass Feminine Deodorant: 16 dollars/share (-2)
+Skull Crusher Pain Reliever: 5 dollars/share (-5)
+Sinead O Connor Hair Tonic: 14 dollars/share (1)
+Tough Luck Bail Bonds: 6 dollars/share (1)
+
+> sell
+To which company do you wish to sell back stock?
+1) Bloated Colon Baked Beans
+2) Laughin Jacks Antidepressants
+3) Pizza Face Pimple Cream
+4) Psycho Mutt Dog Treats
+5) Sea Bass Feminine Deodorant
+6) Skull Crusher Pain Reliever
+7) Sinead O Conner Hair Tonic
+8) Tough Luck Bail Bonds
+[choice] 8
+How many shares do you wish to sell back?
+Your final score is 944 points!
 YOU DID IT! Congratulations! Now you can put your kids in college...for a week, maybe...at a community college. Man, what a lousy ending! Oh, well. Thanks for playing.
 
-[runner] turns=26 leftover=0 running=false WON=YES
+[runner] turns=21 leftover=0 running=false WON=YES

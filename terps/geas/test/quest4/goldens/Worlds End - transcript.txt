@@ -757,18 +757,14 @@ A laser misses you!
 
 > take vial2
 You already have it.
-A laser misses you!
-
-> use vial1 on cube
-The vial misses the cube but you catch it.
-A laser hits you!
-
-> use vial2 on cube
-The vial hits the cube. The assid eats through half of it!
 A laser hits you!
 
 > use vial1 on cube
 The vial hits the cube! The assid eats through half of it.
+A laser hits you!
+
+> use vial2 on cube
+The vial hits the cube. The assid eats through half of it!
 The cube explodes! You hurl yourself out of the way as it hits the ground! A security chip flies from the huge crator and lands in front of you.
 
 > take dumbville chip
@@ -1009,46 +1005,10 @@ The alien warlord's laser hits you hurting you for 10 damage!
 
 > use laser pistol on warlord
 Your laser misses the warlord!
-The alien warlord's laser misses you!
-
-> use laser pistol on warlord
-Your laser misses the warlord!
-The alien warlord's laser misses you!
-
-> use laser pistol on warlord
-Your laser hits the alien warlord hurting it for 10 damage!
-The alien warlord's laser misses you!
-
-> use laser pistol on warlord
-Your laser misses the warlord!
-The alien warlord's laser hits you hurting you for 10 damage!
-
-> use laser pistol on warlord
-Your laser misses the warlord!
 The alien warlord's laser hits you hurting you for 10 damage!
 
 > use laser pistol on warlord
 Your laser hits the alien warlord hurting it for 10 damage!
-The alien warlord's laser misses you!
-
-> use laser pistol on warlord
-Your laser misses the warlord!
-The alien warlord's laser misses you!
-
-> use laser pistol on warlord
-Your laser misses the warlord!
-The alien warlord's laser hits you hurting you for 10 damage!
-
-> use laser pistol on warlord
-Your laser misses the warlord!
-The alien warlord's laser misses you!
-
-> use laser pistol on warlord
-Your laser hits the alien warlord hurting it for 10 damage!
-The alien warlord's laser hits you hurting you for 10 damage!
-
-> use laser pistol on warlord
-Your laser misses the warlord!
 The alien warlord's laser hits you hurting you for 10 damage!
 
 > use laser pistol on warlord
@@ -1064,8 +1024,20 @@ Your laser misses the warlord!
 The alien warlord's laser hits you hurting you for 10 damage!
 
 > use laser pistol on warlord
-Your laser misses the warlord!
+Your laser hits the alien warlord hurting it for 10 damage!
 The alien warlord's laser misses you!
+
+> use laser pistol on warlord
+Your laser misses the warlord!
+The alien warlord's laser hits you hurting you for 10 damage!
+
+> use laser pistol on warlord
+Your laser hits the alien warlord hurting it for 10 damage!
+The alien warlord's laser hits you hurting you for 10 damage!
+
+> use laser pistol on warlord
+Your laser hits the alien warlord hurting it for 10 damage!
+The alien warlord's laser hits you hurting you for 10 damage!
 
 > use laser pistol on warlord
 Your laser misses the warlord!
@@ -1073,6 +1045,10 @@ The alien warlord's laser hits you hurting you for 10 damage!
   GAME OVER!
 
 You are in an arena! The chief of the aliens is shooting you!
+
+> use laser pistol on warlord
+Your laser hits the alien warlord hurting it for 10 damage!
+The alien warlord's laser misses you!
 
 > use laser pistol on warlord
 Your laser hits the alien warlord hurting it for 10 damage!
@@ -1090,17 +1066,10 @@ You are in an arena! The chief of the aliens is shooting you!
 
 > use laser pistol on warlord
 Your laser misses the warlord!
-The alien warlord's laser hits you hurting you for 10 damage!
-  GAME OVER!
-
-You are in an arena! The chief of the aliens is shooting you!
-
-> use laser pistol on warlord
-Your laser misses the warlord!
 The alien warlord's laser misses you!
 
 > use laser pistol on warlord
-Your laser misses the warlord!
+Your laser hits the alien warlord hurting it for 10 damage!
 The alien warlord's laser hits you hurting you for 10 damage!
   GAME OVER!
 
@@ -1119,25 +1088,6 @@ The alien warlord's laser hits you hurting you for 10 damage!
   GAME OVER!
 
 You are in an arena! The chief of the aliens is shooting you!
-
-> use laser pistol on warlord
-Your laser hits the alien warlord hurting it for 10 damage!
-The alien warlord's laser misses you!
-
-> use laser pistol on warlord
-Your laser hits the alien warlord hurting it for 10 damage!
-The alien warlord's laser misses you!
-
-> use laser pistol on warlord
-Your laser misses the warlord!
-The alien warlord's laser hits you hurting you for 10 damage!
-  GAME OVER!
-
-You are in an arena! The chief of the aliens is shooting you!
-
-> use laser pistol on warlord
-Your laser hits the alien warlord hurting it for 10 damage!
-The alien warlord's laser misses you!
 
 > use laser pistol on warlord
 Your laser hits the alien warlord hurting it for 10 damage!
@@ -1162,6 +1112,24 @@ The alien warlord's laser hits you hurting you for 10 damage!
 You are in an arena! The chief of the aliens is shooting you!
 
 > use laser pistol on warlord
+Your laser hits the alien warlord hurting it for 10 damage!
+The alien warlord's laser hits you hurting you for 10 damage!
+  GAME OVER!
+
+You are in an arena! The chief of the aliens is shooting you!
+
+> use laser pistol on warlord
+Your laser misses the warlord!
+The alien warlord's laser hits you hurting you for 10 damage!
+  GAME OVER!
+
+You are in an arena! The chief of the aliens is shooting you!
+
+> use laser pistol on warlord
+Your laser hits the alien warlord hurting it for 10 damage!
+The alien warlord's laser misses you!
+
+> use laser pistol on warlord
 Your laser misses the warlord!
 The alien warlord's laser hits you hurting you for 10 damage!
   GAME OVER!
@@ -1170,7 +1138,10 @@ You are in an arena! The chief of the aliens is shooting you!
 
 > use laser pistol on warlord
 Your laser misses the warlord!
-The alien warlord's laser misses you!
+The alien warlord's laser hits you hurting you for 10 damage!
+  GAME OVER!
+
+You are in an arena! The chief of the aliens is shooting you!
 
 > use laser pistol on warlord
 Your laser hits the alien warlord hurting it for 10 damage!

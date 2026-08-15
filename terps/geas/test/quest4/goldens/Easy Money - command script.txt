@@ -87,95 +87,87 @@ covers.
 
 The route
 ---------
-Eight round trips, ten NEXTs, and the win lands on the tenth.  Prices are per
-share, at the turn named:
+Seven round trips, seven NEXTs, and the win lands on the seventh -- which is as
+early as this seed allows.  The market path depends on nothing but the number of
+NEXTs, so the whole price table can be read off a run of bare NEXTs and the best
+route solved for exactly: at every turn, hold the one stock that buys the most
+dollars back later.  Prices are per share, at the turn named:
 
-    turn  0  buy  10 Skull Crusher   @10  -- 100 dollars, all of it
-    turn  2  sell                    @14  ->  140
-    turn  2  buy  23 Laughin Jacks   @ 6
-    turn  3  sell                    @10  ->  232
-    turn  3  buy  33 Tough Luck      @ 7
-    turn  4  sell                    @ 9  ->  298
-    turn  4  buy  74 Pizza Face      @ 4
-    turn  5  sell                    @ 5  ->  372
-    turn  5  buy  41 Tough Luck      @ 9
-    turn  6  sell                    @11  ->  454
-    turn  6  (hold -- turn 7 is down across the board)
-    turn  7  buy  75 Laughin Jacks   @ 6
-    turn  8  sell                    @12  ->  904
-    turn  8  buy 904 Pizza Face      @ 1   -- the one that decides the game
-    turn  9  sell                    @ 5  -> 4520
-    turn  9  buy 301 Bloated Colon   @15
-    turn 10  sell                    @17  -> 5122, and the win fires
+    turn  0  buy  10 Bloated Colon   @10  -- 100 dollars, all of it
+    turn  1  sell                    @11  ->  110
+    turn  1  buy  13 Laughin Jacks   @ 8
+    turn  2  sell                    @12  ->  162
+    turn  2  buy  23 Sea Bass        @ 7
+    turn  3  sell                    @10  ->  231
+    turn  3  buy  46 Sinead O Conner @ 5
+    turn  4  sell                    @ 9  ->  415
+    turn  4  buy 415 Pizza Face      @ 1  -- the clamp floor
+    turn  5  sell                    @ 2  ->  830
+    turn  5  buy 830 Bloated Colon   @ 1  -- and again, which decides the game
+    turn  6  sell                    @ 6  -> 4980
+    turn  6  buy 996 Tough Luck      @ 5
+    turn  7  sell                    @ 6  -> 5976, and the win fires
 
-Pizza Face Pimple Cream bottoming out at the clamp floor of 1 on turn 8 is what
-makes ten turns enough: a dollar a share turns 904 dollars into 904 shares, and
-four turns later they are worth five times that.  Without it the same seed still
-wins, just later.
+Two stocks hitting the clamp floor of 1 on consecutive turns is what makes seven
+turns enough: a dollar a share turns 415 dollars into 415 shares, and 830 into
+830, and the two doublings-and-then-some compound into a sixfold turn.  Turn 6
+still lands 20 dollars short of the target -- 4980 is the most any route holds
+there -- so the last round trip is forced rather than a flourish.
 
 The ending
 ----------
-`winner` prints "Your final score is ~Score~ points!" -- 920, since ten NEXTs
+`winner` prints "Your final score is ~Score~ points!" -- 944, since seven NEXTs
 cost 8 points each -- and then `playerwin`, which shows the game's `define text
 <win>`: "YOU DID IT! Congratulations! Now you can put your kids in college...for
 a week, maybe...at a community college."
 
 Start:
 buy
-6
-10
-next
-next
-sell
-6
-10
-buy
-2
-23
-next
-sell
-2
-23
-buy
-8
-33
-next
-sell
-8
-33
-buy
-3
-74
-next
-sell
-3
-74
-buy
-8
-41
-next
-sell
-8
-41
-next
-buy
-2
-75
-next
-sell
-2
-75
-buy
-3
-904
-next
-sell
-3
-904
-buy
 1
-301
+10
 next
 sell
 1
-301
+10
+buy
+2
+13
+next
+sell
+2
+13
+buy
+5
+23
+next
+sell
+5
+23
+buy
+7
+46
+next
+sell
+7
+46
+buy
+3
+415
+next
+sell
+3
+415
+buy
+1
+830
+next
+sell
+1
+830
+buy
+8
+996
+next
+sell
+8
+996

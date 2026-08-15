@@ -17,11 +17,8 @@ Organize tournament
 For years, you and your companions have been  knights in your liege lord's army, and never has there been such bravery than when you lowered the lances.
 And now, for to reward you, your liege has given you a fief, with a handful of villages for you and your companions to watch over. Good luck, and type info to read the help file if it is your first time.
 
-> Fire knight
-Are you sure you want to part with one of your companions, my Lord?
-1) Yes
-2) No
-[choice] 1
+> Ask more funds from liege
+Though I would like to help a fledgling kingdom, I have a tight budget this year and cannot do so.
 Village1 has been sacked.
 The leader of Village1 has died and his son has taken over.
 The leader of Village1 has died and his son has taken over.
@@ -94,7 +91,6 @@ The leader of Village1 has died and his son has taken over.
 The leader of Village1 has died and his son has taken over.
 The leader of Village1 has died and his son has taken over.
 The leader of Village1 has died and his son has taken over.
-"Village1 has a slumping economy recently"
 Village2 has been sacked.
 The leader of Village2 has died and his son has taken over.
 The leader of Village2 has died and his son has taken over.
@@ -167,7 +163,6 @@ The leader of Village2 has died and his son has taken over.
 The leader of Village2 has died and his son has taken over.
 The leader of Village2 has died and his son has taken over.
 The leader of Village2 has died and his son has taken over.
-"The mood of Village2 seems to have gone up."
 The leader of village2 is here mine lord, with the tribute. Will you receive him?
 1) Yes
 2) No
@@ -177,7 +172,181 @@ My Lord, Village2 can give you 1 gold in tribute
 2) That will be fine
 3) No Taxes this season
 [choice] 2
-My Lord, I would like to request around 10 gold pieces for to open a workshop in Village2.
+Village3 has been sacked.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+The leader of Village3 has died and his son has taken over.
+A small warband from afar has been lurking around Village3 and is preparing to atack.
+The leader of village3 is here mine lord, with the tribute. Will you receive him?
+1) Yes
+2) No
+[choice] 1
+My Lord, Village3 can give you 1 gold pieces.
+1) Ask for double
+2) That will be fine
+3) No taxes this season
+[choice] 2
+My Lord, I would like to request around 10 gold pieces for to open a workshop in Village3.
+1) Yes
+2) No
+[choice] 2
+
+> Send knight on an adventure
+Your knight has come back covered in fame and riches.
+The army of Village1 has defeated its besiegers but suffered losses.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+The leader of Village1 has died and his son has taken over.
+Village1 has grown and local economy has improved.
+The army of Village2 has defeated its besiegers but suffered losses.
+" Village2 has grown and the local church has been increased."
+"The economy of Village2 seems to be going well recently"
+The leader of village2 is here mine lord, with the tribute. Will you receive him?
+1) Yes
+2) No
+[choice] 1
+My Lord, Village2 can give you 1 gold in tribute
+1) Ask for double
+2) That will be fine
+3) No Taxes this season
+[choice] 2
+My Lord, I would like to request around 10 gold pieces for to fertilize the land around Village2.
 1) Yes
 2) No
 [choice] 2
@@ -253,7 +422,8 @@ The leader of Village3 has died and his son has taken over.
 The leader of Village3 has died and his son has taken over.
 The leader of Village3 has died and his son has taken over.
 The leader of Village3 has died and his son has taken over.
-Some fields have gone fallow around Village3
+Village3 has grown and local economy has improved.
+The leader of Village3 seems to have gained wisdom from his years as a leader.
 The leader of village3 is here mine lord, with the tribute. Will you receive him?
 1) Yes
 2) No
@@ -263,93 +433,238 @@ My Lord, Village3 can give you 1 gold pieces.
 2) That will be fine
 3) No taxes this season
 [choice] 2
-My Lord, I would like to request around 10 gold pieces for to open a workshop in Village3.
+
+> Travel to Village1
+The local leader is a very intelligent man.
+There are 1 knights defending Village1.
+Food seems to be plentiful here and the peasents are healthy!
+Village1 seems reasonably rich.
+The village is stable.
+There are 20 serfs living in Village1.
+The army of Village1 has defeated its besiegers but suffered losses.
+"Several new fields have been cleared around Village1"
+The army of Village2 has defeated its besiegers but suffered losses.
+The leader of village2 is here mine lord, with the tribute. Will you receive him?
+1) Yes
+2) No
+[choice] 1
+My Lord, Village2 can give you 1 gold in tribute
+1) Ask for double
+2) That will be fine
+3) No Taxes this season
+[choice] 2
+My Lord, I would like to request around 10 gold pieces for to open a workshop in Village2.
+1) Yes
+2) No
+[choice] 2
+The army of Village3 has defeated its besiegers but suffered losses.
+Village3 has grown and local economy has improved.
+The leader of village3 is here mine lord, with the tribute. Will you receive him?
+1) Yes
+2) No
+[choice] 1
+My Lord, Village3 can give you 1 gold pieces.
+1) Ask for double
+2) That will be fine
+3) No taxes this season
+[choice] 2
+
+> Travel to Village2
+The local leader doesn't seem that intelligent.
+There are 0.5 knights defending Village2.
+Food seems to be plentiful here and the peasents are healthy!
+Village2 seems reasonably rich.
+The village is stable.
+There are 20 serfs living in Village2.
+The army of Village1 has defeated its besiegers but suffered losses.
+ Village1 has grown and new fields have been cleared.
+"The economy of Village1 seems to be going well recently"
+The army of Village2 has defeated its besiegers but suffered losses.
+ Village2 has grown and new fields have been cleared.
+The leader of village2 is here mine lord, with the tribute. Will you receive him?
+1) Yes
+2) No
+[choice] 1
+My Lord, Village2 can give you 1 gold in tribute
+1) Ask for double
+2) That will be fine
+3) No Taxes this season
+[choice] 2
+My Lord, I would like to request around 10 gold pieces for to organize a feast in your honor in Village2.
+1) Yes
+2) No
+[choice] 2
+The army of Village3 has defeated its besiegers but suffered losses.
+"The economy of Village3 seems to be going well recently"
+The leader of village3 is here mine lord, with the tribute. Will you receive him?
+1) Yes
+2) No
+[choice] 1
+My Lord, Village3 can give you 1.5 gold pieces.
+1) Ask for double
+2) That will be fine
+3) No taxes this season
+[choice] 2
+My Lord, I would like to request around 10 gold pieces for to organize a feast in your honor in Village3.
+1) Yes
+2) No
+[choice] 2
+
+> Travel to Village3
+The local leader is a very intelligent man.
+There are 1 knights defending Village3.
+The local peasentry has sufficint food not to starve.
+Village3 seems reasonably rich.
+The village is stable.
+There are 30 serfs living in Village3.
+The army of Village1 has defeated its besiegers but suffered losses.
+"The economy of Village1 seems to be going well recently"
+The army of Village2 has defeated its besiegers but suffered losses.
+The leader of village2 is here mine lord, with the tribute. Will you receive him?
+1) Yes
+2) No
+[choice] 1
+My Lord, Village2 can give you 1 gold in tribute
+1) Ask for double
+2) That will be fine
+3) No Taxes this season
+[choice] 2
+My Lord, I would like to request around 10 gold pieces for to open a workshop in Village2.
+1) Yes
+2) No
+[choice] 2
+The army of Village3 has defeated its besiegers but suffered losses.
+The leader of village3 is here mine lord, with the tribute. Will you receive him?
+1) Yes
+2) No
+[choice] 1
+My Lord, Village3 can give you 1.5 gold pieces.
+1) Ask for double
+2) That will be fine
+3) No taxes this season
+[choice] 2
+My Lord, I would like to request around 10 gold pieces for to fertilize the land around Village3.
 1) Yes
 2) No
 [choice] 2
 
 > Travel to Village1
-The local leader doesn't seem that intelligent.
+The local leader is a very intelligent man.
 There are 1 knights defending Village1.
-Food seems to be plentiful here and the peasents are healthy!
-Village1 is very rich!
+The local peasentry has sufficint food not to starve.
+Village1 seems reasonably rich.
 The village is stable.
-There are 10 serfs living in Village1.
+There are 30 serfs living in Village1.
 The army of Village1 has defeated its besiegers but suffered losses.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-" Village1 has grown and the local church has been increased."
+"The economy of Village1 seems to be going well recently"
 The army of Village2 has defeated its besiegers but suffered losses.
 Village2 has grown and local economy has improved.
+A large warband from afar is lurking around Village2 and is preparing for atack.
+The leader of village2 is here mine lord, with the tribute. Will you receive him?
+1) Yes
+2) No
+[choice] 1
+My Lord, Village2 can give you 1.5 gold in tribute
+1) Ask for double
+2) That will be fine
+3) No Taxes this season
+[choice] 2
+The army of Village3 has defeated its besiegers but suffered losses.
+Village3 has grown and local economy has improved.
+The leader of village3 is here mine lord, with the tribute. Will you receive him?
+1) Yes
+2) No
+[choice] 1
+My Lord, Village3 can give you 1.5 gold pieces.
+1) Ask for double
+2) That will be fine
+3) No taxes this season
+[choice] 2
+
+> Travel to Village1
+The local leader is a very intelligent man.
+There are 1 knights defending Village1.
+The local peasentry has sufficint food not to starve.
+Village1 seems reasonably rich.
+The village is stable.
+There are 30 serfs living in Village1.
+The army of Village1 has defeated its besiegers but suffered losses.
+The leader of Village1 has died and his son has taken over.
+"One of Village1's knights has died."
+Village2 has been sacked.
+The leader of Village2 has died and his son has taken over.
+The leader of village2 is here mine lord, with the tribute. Will you receive him?
+1) Yes
+2) No
+[choice] 1
+My Lord, Village2 can give you 1 gold in tribute
+1) Ask for double
+2) That will be fine
+3) No Taxes this season
+[choice] 2
+My Lord, I would like to request around 10 gold pieces for to organize a feast in your honor in Village2.
+1) Yes
+2) No
+[choice] 2
+The army of Village3 has defeated its besiegers but suffered losses.
+A roving blade has joined Village3's guards.
+The leader of village3 is here mine lord, with the tribute. Will you receive him?
+1) Yes
+2) No
+[choice] 1
+My Lord, Village3 can give you 1.5 gold pieces.
+1) Ask for double
+2) That will be fine
+3) No taxes this season
+[choice] 2
+
+> Travel to Village1
+The local leader is a very intelligent man.
+There are 1 knights defending Village1.
+The local peasentry has sufficint food not to starve.
+Village1 seems reasonably rich.
+The village is stable.
+There are 30 serfs living in Village1.
+The army of Village1 has defeated its besiegers but suffered losses.
+"The economy of Village1 seems to be going well recently"
+The army of Village2 has defeated its besiegers but suffered losses.
+Village2 has grown and a new knight has added himself to the local nobility
+The leader of Village2 has died and his son has taken over.
+"One of Village2's knights has died."
+The leader of village2 is here mine lord, with the tribute. Will you receive him?
+1) Yes
+2) No
+[choice] 1
+My Lord, Village2 can give you 1 gold in tribute
+1) Ask for double
+2) That will be fine
+3) No Taxes this season
+[choice] 2
+My Lord, I would like to request around 10 gold pieces for to organize a feast in your honor in Village2.
+1) Yes
+2) No
+[choice] 2
+The army of Village3 has defeated its besiegers but suffered losses.
+"The economy of Village3 seems to be going well recently"
+The leader of village3 is here mine lord, with the tribute. Will you receive him?
+1) Yes
+2) No
+[choice] 1
+My Lord, Village3 can give you 2 gold pieces.
+1) Ask for double
+2) That will be fine
+3) No taxes this season
+[choice] 2
+
+> Travel to Village1
+The local leader is a very intelligent man.
+There are 1 knights defending Village1.
+The local peasentry has sufficint food not to starve.
+Village1 seems reasonably rich.
+The village is stable.
+There are 30 serfs living in Village1.
+The army of Village1 has defeated its besiegers but suffered losses.
+The army of Village2 has defeated its besiegers but suffered losses.
 "Several new fields have been cleared around Village2"
 The leader of village2 is here mine lord, with the tribute. Will you receive him?
 1) Yes
@@ -360,175 +675,36 @@ My Lord, Village2 can give you 1 gold in tribute
 2) That will be fine
 3) No Taxes this season
 [choice] 2
+My Lord, I would like to request around 10 gold pieces for to fertilize the land around Village2.
+1) Yes
+2) No
+[choice] 2
 The army of Village3 has defeated its besiegers but suffered losses.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-The leader of Village3 has died and his son has taken over.
-Village3 has grown and a new knight has added himself to the local nobility
+"One of Village3's knights has died."
 The leader of village3 is here mine lord, with the tribute. Will you receive him?
 1) Yes
 2) No
 [choice] 1
-My Lord, Village3 can give you 1 gold pieces.
+My Lord, Village3 can give you 2 gold pieces.
 1) Ask for double
 2) That will be fine
 3) No taxes this season
 [choice] 2
-My Lord, I would like to request around 10 gold pieces for to fertilize the land around Village3.
+My Lord, I would like to request around 10 gold pieces for to organize a feast in your honor in Village3.
 1) Yes
 2) No
 [choice] 2
 
-> Fire knight
-Are you sure you want to part with one of your companions, my Lord?
-1) Yes
-2) No
-[choice] 1
+> Travel to Village1
+The local leader is a very intelligent man.
+There are 1 knights defending Village1.
+The local peasentry has sufficint food not to starve.
+Village1 seems reasonably rich.
+The village is stable.
+There are 30 serfs living in Village1.
 The army of Village1 has defeated its besiegers but suffered losses.
-Village1 has grown and local economy has improved.
-Very grave news. The Black Death has been in Village1 and the town has been harshly hit by it! 
-The leader of Village1 has died and his son has taken over.
 The army of Village2 has defeated its besiegers but suffered losses.
- Village2 has grown and new fields have been cleared.
-The mood of Village2 seems to have darkened recently.
+" Village2 has grown and the local church has been increased."
 The leader of village2 is here mine lord, with the tribute. Will you receive him?
 1) Yes
 2) No
@@ -538,18 +714,13 @@ My Lord, Village2 can give you 1 gold in tribute
 2) That will be fine
 3) No Taxes this season
 [choice] 2
-My Lord, I would like to request around 10 gold pieces for to organize a feast in your honor in Village2.
-1) Yes
-2) No
-[choice] 2
 The army of Village3 has defeated its besiegers but suffered losses.
-"There has been an influx of immigrants from afar into Village3."
-" Village3 has grown and new fields have been cleared."
+The mood of Village3 seems to have darkened recently.
 The leader of village3 is here mine lord, with the tribute. Will you receive him?
 1) Yes
 2) No
 [choice] 1
-My Lord, Village3 can give you 1 gold pieces.
+My Lord, Village3 can give you 2 gold pieces.
 1) Ask for double
 2) That will be fine
 3) No taxes this season
@@ -559,88 +730,15 @@ My Lord, I would like to request around 20 gold pieces for to hire a new knight 
 2) No
 [choice] 2
 
-> Travel to Village2
-The local leader doesn't seem that intelligent.
-There are 0.5 knights defending Village2.
+> Travel to Village1
+The local leader is a very intelligent man.
+There are 1 knights defending Village1.
 The local peasentry has sufficint food not to starve.
-Village2 is very rich!
+Village1 seems reasonably rich.
 The village is stable.
-There are 30 serfs living in Village2.
+There are 30 serfs living in Village1.
 The army of Village1 has defeated its besiegers but suffered losses.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-The leader of Village1 has died and his son has taken over.
-Village1 has grown and local economy has improved.
 The army of Village2 has defeated its besiegers but suffered losses.
-The mood of Village2 seems to have darkened recently.
 The leader of village2 is here mine lord, with the tribute. Will you receive him?
 1) Yes
 2) No
@@ -655,18 +753,25 @@ My Lord, I would like to request around 10 gold pieces for to organize a feast i
 2) No
 [choice] 2
 The army of Village3 has defeated its besiegers but suffered losses.
-The leader of Village3 has died and his son has taken over.
-"One of Village3's knights has died."
-Village3 has overthrown thine authority and the leader hasn't come in this season.
-
-> Fire knight
-Are you sure you want to part with one of your companions, my Lord?
+The leader of village3 is here mine lord, with the tribute. Will you receive him?
 1) Yes
 2) No
 [choice] 1
+My Lord, Village3 can give you 2 gold pieces.
+1) Ask for double
+2) That will be fine
+3) No taxes this season
+[choice] 2
+
+> Organize tournament
+My Lord, the organization of a tournament would cost around 45 gold pieces. Can we afford it?
+1) Yes
+2) No
+[choice] 2
 The army of Village1 has defeated its besiegers but suffered losses.
- Village1 has grown and new fields have been cleared.
 The army of Village2 has defeated its besiegers but suffered losses.
+Very grave news. The Black Death has been in Village2 and the town has been harshly hit by it! 
+The leader of Village2 has died and his son has taken over.
 The leader of village2 is here mine lord, with the tribute. Will you receive him?
 1) Yes
 2) No
@@ -676,7 +781,7 @@ My Lord, Village2 can give you 1 gold in tribute
 2) That will be fine
 3) No Taxes this season
 [choice] 2
-My Lord, I would like to request around 20 gold pieces for to hire a new knight for village2.
+My Lord, I would like to request around 10 gold pieces for to organize a feast in your honor in Village2.
 1) Yes
 2) No
 [choice] 2
@@ -687,4 +792,4 @@ Village3 has overthrown thine authority and the leader hasn't come in this seaso
 We have been defeated by Village3's army.
 And thus ends your rule.
 
-[runner] turns=6 leftover=0 running=false WON=YES
+[runner] turns=13 leftover=0 running=false WON=YES

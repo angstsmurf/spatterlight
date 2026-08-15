@@ -54,7 +54,7 @@ You hear your Magic Teachers's voice; "Nicely done. Now your real challenge come
 
 > use flam spell on mage
 Fire blasts through him. You can see it hurts quite a bit.
-He uses the Air Rush Spell on you. You just get blown sharply backwards about a metre.
+He uses the Flam Spell on you. You bear the pain.
 
 > use flam spell on mage
 Fire blasts through him. You can see it hurts quite a bit.
@@ -202,15 +202,15 @@ The thing bashes you with its large club.
 
 > use flam spell on golomoshk
 Fire blasts from your staff. Golomoshk roars in pain.
+It swings its club round......and hits itself in the side of the head!
+
+> use flam spell on golomoshk
+Fire blasts from your staff. Golomoshk roars in pain.
+It swings its club round......and hits itself in the side of the head!
+
+> use flam spell on golomoshk
+Fire blasts from your staff. Golomoshk roars in pain.
 The thing bashes you with its large club.
-
-> use flam spell on golomoshk
-Fire blasts from your staff. Golomoshk roars in pain.
-It swings its club round......and hits itself in the side of the head!
-
-> use flam spell on golomoshk
-Fire blasts from your staff. Golomoshk roars in pain.
-It swings its club round......and hits itself in the side of the head!
 
 > use flam spell on golomoshk
 Fire blasts from your staff. Golomoshk roars in pain.
@@ -295,6 +295,15 @@ You are just about to walk into Fennat, when you are hit in the side with a cros
 
 > throw dagger at sniper
 You take a run-up, then throw your dagger at the sniper...
+The dagger misses him, but luckily falls down back to you.
+The sniper fires a bolt...
+The bolt hits you!
+
+> take dagger
+You reclaim your dagger.
+
+> throw dagger at sniper
+You take a run-up, then throw your dagger at the sniper...
 The dagger hits him!
 The sniper fires a bolt...
 You dodge the sniper's bolt!
@@ -361,6 +370,14 @@ There is an Archer Sprite here.
 You can go west or southeast.
 
 > throw dagger at archer sprite
+You throw your dagger, but it misses the target.
+It fires an arrow at you
+You dodge the arrow!
+
+> take dagger
+You reclaim your dagger.
+
+> throw dagger at archer sprite
 Your dagger hits it, then falls to the ground.
 It fires an arrow at you
 You dodge the arrow!
@@ -372,14 +389,6 @@ You reclaim your dagger.
 You throw your dagger, but it misses the target.
 It fires an arrow at you
 You dodge the arrow!
-
-> take dagger
-You reclaim your dagger.
-
-> throw dagger at archer sprite
-You throw your dagger, but it misses the target.
-It fires an arrow at you
-Its arrow hits you!
 
 > take dagger
 You reclaim your dagger.
@@ -731,29 +740,6 @@ Minion Sporogia roars and leashes out at you.
 > use air rush spell on sporogia
 A rush of wind flies at Sporogia affecting the being quite badly.
 Sporogia uses Blink Spore
-Sporogia uses Blink Spore
-Sporogia roars and charges at you.
-
-> use air rush spell on sporogia
-A rush of wind flies at Sporogia affecting the being quite badly.
-Sporogia hits you with its tail.
-
-> use air rush spell on sporogia
-A rush of wind flies at Sporogia affecting the being quite badly.
-Sporogia barges you with its shell.
-
-> use air rush spell on sporogia
-A rush of wind flies at Sporogia affecting the being quite badly.
-Sporogia barges you with its shell.
-
-> use air rush spell on sporogia
-A rush of wind flies at Sporogia affecting the being quite badly.
-Sporogia uses Blink Spore
-Sporogia uses Blink Spore
-Sporogia hits you with its tail.
-
-> use air rush spell on sporogia
-A rush of wind flies at Sporogia affecting the being quite badly.
 Sporogia uses Heal Spore
 
 > use air rush spell on sporogia
@@ -762,7 +748,33 @@ Sporogia roars and charges at you.
 
 > use air rush spell on sporogia
 A rush of wind flies at Sporogia affecting the being quite badly.
+Sporogia barges you with its shell.
+
+> use air rush spell on sporogia
+A rush of wind flies at Sporogia affecting the being quite badly.
+Sporogia hits you with its tail.
+
+> use air rush spell on sporogia
+A rush of wind flies at Sporogia affecting the being quite badly.
+Sporogia barges you with its shell.
+
+> use air rush spell on sporogia
+A rush of wind flies at Sporogia affecting the being quite badly.
+Sporogia uses Blink Spore
+Sporogia uses Blink Spore
+Sporogia barges you with its shell.
+
+> use air rush spell on sporogia
+A rush of wind flies at Sporogia affecting the being quite badly.
+Sporogia uses Blink Spore
+Sporogia uses Blink Spore
+Sporogia uses Blink Spore
+Sporogia uses Blink Spore
 Sporogia roars and charges at you.
+
+> use air rush spell on sporogia
+A rush of wind flies at Sporogia affecting the being quite badly.
+Sporogia hits you with its tail.
 
 > use air rush spell on sporogia
 Sporogia lets out a mighty roar and collapses then rots away into the ground.
@@ -847,4 +859,4 @@ For now:
 You Win!
 
 
-[runner] turns=170 leftover=0 running=false WON=YES
+[runner] turns=172 leftover=0 running=false WON=YES

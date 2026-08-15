@@ -36,13 +36,16 @@
 #include "general.hh"
 #include "istring.hh"
 
-#ifdef SPATTERLIGHT
 /* Use the shared erkyrath_random() RNG (xoshiro128** when seeded, native
    otherwise), like scott/comprehend/plus/taylor.  The headless walkthrough
-   runner has no Glk, so it keeps the C library rand() below. */
+   runner links common_utils/randomness.c too, so a seeded run draws the same
+   numbers there as in the app -- and, xoshiro128** being a fixed algorithm,
+   the same numbers on any platform.  That is what lets the corpus transcripts
+   in test/quest4/goldens be diffed at all. */
 extern "C" {
 #include "randomness.h"
 }
+#ifdef SPATTERLIGHT
 extern "C" int gli_determinism;
 #endif
 
@@ -2204,21 +2207,20 @@ void geas_implementation::set_game (const string &s)
   story_filename = s;
   load_method_ = "normal";   /* a fresh game (reset on restart) */
   /* Seed the RNG once per game.  Real Quest randomises every run; geas used to
-   * leave rand() unseeded, so any random fight played out identically each time
-   * -- which left World's End's final fight permanently unwinnable.  GEAS_SEED
-   * overrides the seed for reproducible testing. */
+   * leave the generator unseeded, so any random fight played out identically
+   * each time -- which left World's End's final fight permanently unwinnable.
+   * Seed 0 means "true" randomness; GEAS_SEED overrides it for reproducible
+   * testing, and so does the app's determinism mode. */
   {
     const char *envseed = getenv ("GEAS_SEED");
-#ifdef SPATTERLIGHT
     if (envseed)
       set_erkyrath_random ((glui32) atoi (envseed));
+#ifdef SPATTERLIGHT
     else if (gli_determinism)
       set_erkyrath_random (1234);
+#endif
     else
       set_erkyrath_random (0);
-#else
-    srand (envseed ? (unsigned) atoi (envseed) : (unsigned) time (nullptr));
-#endif
   }
   try
     {
@@ -6905,13 +6907,8 @@ string geas_implementation::run_function (const string &pname)
        * and games cannot depend on specific draws.  The modulo mapping is kept
        * deliberately: the seeded walkthrough corpus was derived against this
        * exact draw sequence, and xoshiro128** has full-quality low bits, so
-       * the classic low-bits worry only ever applied to the plain rand()
-       * fallback below. */
-#ifdef SPATTERLIGHT
+       * the classic low-bits worry does not apply. */
       return string_int (lower + (long long) (erkyrath_random() % range));
-#else
-      return string_int (lower + (long long) (rand() % range));
-#endif
     }
   else if (pname == "speechenabled")
     {

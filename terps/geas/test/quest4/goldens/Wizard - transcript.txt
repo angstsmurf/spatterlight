@@ -962,103 +962,11 @@ You pick your nose for awhile then stop.
 
 
 > wait
-You look at your spellbook then throw it in frustration.
-
-
-> wait
-You stare at your hands as if you have never seen them before.
-
-
-> wait
-You stare at your hands as if you have never seen them before.
-
-
-> wait
-You bumble around and suck on your thumb for a bit.
-
-
-> wait
-You pick your nose for awhile then stop.
-
-
-> wait
-You look at your spellbook then throw it in frustration.
-
-
-> wait
-You stare at your hands as if you have never seen them before.
-
-
-> wait
-You stare at your hands as if you have never seen them before.
-
-
-> wait
-You look at your spellbook then throw it in frustration.
-
-
-> wait
-You bumble around and suck on your thumb for a bit.
-
-
-> wait
-You bumble around and suck on your thumb for a bit.
-
-
-> wait
 You pick your nose for awhile then stop.
 
 
 > wait
 You pick your nose for awhile then stop.
-
-
-> wait
-You pick your nose for awhile then stop.
-
-
-> wait
-You stare at your hands as if you have never seen them before.
-
-
-> wait
-You pick your nose for awhile then stop.
-
-
-> wait
-You look at your spellbook then throw it in frustration.
-
-
-> wait
-You bumble around and suck on your thumb for a bit.
-
-
-> wait
-You pick your nose for awhile then stop.
-
-
-> wait
-You stare at your hands as if you have never seen them before.
-
-
-> wait
-You look at your spellbook then throw it in frustration.
-
-
-> wait
-You look at your spellbook then throw it in frustration.
-
-
-> wait
-You pick your nose for awhile then stop.
-
-
-> wait
-You bumble around and suck on your thumb for a bit.
-
-
-> wait
-You stare at your hands as if you have never seen them before.
 
 
 > wait
@@ -1074,7 +982,7 @@ You drool a little then sit down for a bit.
 
 
 > wait
-You bumble around and suck on your thumb for a bit.
+You stare at your hands as if you have never seen them before.
 
 
 > wait
@@ -1086,7 +994,31 @@ You drool a little then sit down for a bit.
 
 
 > wait
+You stare at your hands as if you have never seen them before.
+
+
+> wait
 You pick your nose for awhile then stop.
+
+
+> wait
+You drool a little then sit down for a bit.
+
+
+> wait
+You bumble around and suck on your thumb for a bit.
+
+
+> wait
+You look at your spellbook then throw it in frustration.
+
+
+> wait
+You bumble around and suck on your thumb for a bit.
+
+
+> wait
+You bumble around and suck on your thumb for a bit.
 
 
 > wait
@@ -1098,11 +1030,43 @@ You bumble around and suck on your thumb for a bit.
 
 
 > wait
+You bumble around and suck on your thumb for a bit.
+
+
+> wait
+You drool a little then sit down for a bit.
+
+
+> wait
 You stare at your hands as if you have never seen them before.
 
 
 > wait
-You look at your spellbook then throw it in frustration.
+You drool a little then sit down for a bit.
+
+
+> wait
+You bumble around and suck on your thumb for a bit.
+
+
+> wait
+You drool a little then sit down for a bit.
+
+
+> wait
+You drool a little then sit down for a bit.
+
+
+> wait
+You bumble around and suck on your thumb for a bit.
+
+
+> wait
+You pick your nose for awhile then stop.
+
+
+> wait
+You bumble around and suck on your thumb for a bit.
 
 
 > wait
@@ -1122,11 +1086,15 @@ You pick your nose for awhile then stop.
 
 
 > wait
-You pick your nose for awhile then stop.
+You stare at your hands as if you have never seen them before.
 
 
 > wait
-You stare at your hands as if you have never seen them before.
+You bumble around and suck on your thumb for a bit.
+
+
+> wait
+You pick your nose for awhile then stop.
 
 
 > wait
@@ -1135,6 +1103,38 @@ You drool a little then sit down for a bit.
 
 > wait
 You bumble around and suck on your thumb for a bit.
+
+
+> wait
+You look at your spellbook then throw it in frustration.
+
+
+> wait
+You bumble around and suck on your thumb for a bit.
+
+
+> wait
+You stare at your hands as if you have never seen them before.
+
+
+> wait
+You look at your spellbook then throw it in frustration.
+
+
+> wait
+You bumble around and suck on your thumb for a bit.
+
+
+> wait
+You pick your nose for awhile then stop.
+
+
+> wait
+You pick your nose for awhile then stop.
+
+
+> wait
+You look at your spellbook then throw it in frustration.
 
 
 > wait

@@ -44,61 +44,61 @@ You crack open the shotgun and pop an extra shell into the barrel.
 You shout "pull", and Bob releases the clay pigeon!
 
 > fire
+You hit the clay pigeon, scoring 3 points for a first barrel kill!
+
+> load
+You crack open the shotgun and pop an extra shell into the barrel.
+
+> pull
+You shout "pull", and Bob releases the clay pigeon!
+
+> fire
+You hit the clay pigeon, scoring 3 points for a first barrel kill!
+
+> load
+You crack open the shotgun and pop an extra shell into the barrel.
+
+> pull
+You shout "pull", and Bob releases the clay pigeon!
+
+> fire
+You hit the clay pigeon, scoring 3 points for a first barrel kill!
+
+> load
+You crack open the shotgun and pop an extra shell into the barrel.
+
+> pull
+You shout "pull", and Bob releases the clay pigeon!
+
+> fire
+You hit the clay pigeon, scoring 3 points for a first barrel kill!
+
+> load
+You crack open the shotgun and pop an extra shell into the barrel.
+
+> pull
+You shout "pull", and Bob releases the clay pigeon!
+
+> fire
+You hit the clay pigeon, scoring 3 points for a first barrel kill!
+
+> load
+You crack open the shotgun and pop an extra shell into the barrel.
+
+> pull
+You shout "pull", and Bob releases the clay pigeon!
+
+> fire
+You hit the clay pigeon, scoring 3 points for a first barrel kill!
+
+> load
+You crack open the shotgun and pop an extra shell into the barrel.
+
+> pull
+You shout "pull", and Bob releases the clay pigeon!
+
+> fire
 You shoot at the clay pigeon but miss!
-
-> load
-You crack open the shotgun and pop an extra shell into the barrel.
-
-> pull
-You shout "pull", and Bob releases the clay pigeon!
-
-> fire
-You shoot at the clay pigeon but miss!
-
-> load
-You crack open the shotgun and pop an extra shell into the barrel.
-
-> pull
-You shout "pull", and Bob releases the clay pigeon!
-
-> fire
-You hit the clay pigeon, scoring 3 points for a first barrel kill!
-
-> load
-You crack open the shotgun and pop an extra shell into the barrel.
-
-> pull
-You shout "pull", and Bob releases the clay pigeon!
-
-> fire
-You hit the clay pigeon, scoring 3 points for a first barrel kill!
-
-> load
-You crack open the shotgun and pop an extra shell into the barrel.
-
-> pull
-You shout "pull", and Bob releases the clay pigeon!
-
-> fire
-You hit the clay pigeon, scoring 3 points for a first barrel kill!
-
-> load
-You crack open the shotgun and pop an extra shell into the barrel.
-
-> pull
-You shout "pull", and Bob releases the clay pigeon!
-
-> fire
-You hit the clay pigeon, scoring 3 points for a first barrel kill!
-
-> load
-You crack open the shotgun and pop an extra shell into the barrel.
-
-> pull
-You shout "pull", and Bob releases the clay pigeon!
-
-> fire
-You hit the clay pigeon, scoring 3 points for a first barrel kill!
 
 > load
 You crack open the shotgun and pop an extra shell into the barrel.
@@ -117,8 +117,8 @@ You shout "pull", and Bob releases the clay pigeon!
 This was the last bird!
 
 > fire
-You shoot at the clay pigeon but miss!
+You hit the clay pigeon, scoring 3 points for a first barrel kill!
 
 > speak to bob
-"Your score for today's shooting is 15.  Now we should head back to the cabin for a scotch!"
+"Your score for today's shooting is 21.  Now we should head back to the cabin for a scotch!"
 [runner] turns=34 leftover=0 running=false WON=YES

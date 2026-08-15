@@ -46,9 +46,9 @@ harness/run_fixtures.sh --bless   # regenerate the .expected files
 
 The transcripts must be reproducible, so the seed is fixed, and no fixture
 prints a raw random number: one asserting a random value checks a *range*
-instead (see `fixtures/functions.asl`). That convention predates the runner
-pinning its own generator — which now makes a raw draw reproducible too — and
-is kept because a range says what the fixture is actually testing.
+instead (see `fixtures/functions.asl`). That convention predates the engine
+pinning its generator — which now makes a raw draw reproducible too — and is
+kept because a range says what the fixture is actually testing.
 
 > **Watch out:** several of the bugs these guard are undefined behaviour, and a
 > plain `-O2` build does not fault on them — it silently returns garbage. A
@@ -150,13 +150,20 @@ diff is for is the change nobody intended — and its size is itself the signal,
 since a fix to one message should not move sixty games.
 
 Two things make the transcripts stable enough to diff. The seed is fixed
-(`GEAS_SEED=1`), and the runner substitutes its own Park-Miller generator for
-the C library's `rand()`, because the seeded draws decide the outcome of 14 of
-these games and `rand()` is not the same function on two C libraries. The
-substitute reproduces the macOS sequence the walkthroughs were derived against
-exactly — 200 000 draws from each of nine seeds agree value for value — so
-pinning it changed no transcript here and makes them reproducible off this
-machine.
+(`GEAS_SEED=1`), and `$rand(a;b)$` draws from `erkyrath_random()`
+(`common_utils/randomness.c`) rather than the C library's `rand()`, because the
+seeded draws decide the outcome of 14 of these games and `rand()` is not the
+same function on two C libraries. Seeded, `erkyrath_random()` is xoshiro128** —
+a fixed algorithm with the same output everywhere — and it is the generator the
+Spatterlight build already used, so the headless runner and the app now make
+the same draws from the same seed. The harness links `randomness.c` as an
+object rather than reimplementing it, which is what keeps the two from drifting
+apart.
+
+Switching to it moved the draw sequence, so it re-derived eight of the
+walkthroughs: Schoolgirl Jan Ken Pon, Forward and Back, Easy Money, Blight of
+Elantria, Shipwrecked, Barbarian, MagicSword Part 1 and Kingdom. Each command
+script's header says what its fights and rolls now turn on.
 
 The games are copyrighted and stay local-only (`games/` is gitignored), so point
 the script elsewhere if you keep them somewhere else:

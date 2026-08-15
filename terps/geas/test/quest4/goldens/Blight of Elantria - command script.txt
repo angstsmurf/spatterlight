@@ -73,8 +73,8 @@ Orb of Blood never appears.  The number is legitimately discoverable in-game:
 `turn mirror` in the tower of light aims the Mirror of Enlightenment at the ball
 of energy overhead, and `look at mirror` then reads it out.  This script does
 both (the transcript prints "The mirror's reflection shows you the number:
-6808.") and then answers 6808, because the `enter` prompt needs a literal.  That
-6808 is the first and only value the RNG is asked for in the whole game, so it
+3688.") and then answers 3688, because the `enter` prompt needs a literal.  That
+3688 is the first and only value the RNG is asked for in the whole game, so it
 is a pure function of the seed: under a different seed the mirror will report a
 different number and the line after `take scrolls` must be changed to match.
 `enter` consumes the following script line without spending a turn, which is why
@@ -454,7 +454,7 @@ use blue crystal on monolith
 use red crystal on monolith
 east
 take scrolls
-6808
+3688
 take scroll
 west
 west

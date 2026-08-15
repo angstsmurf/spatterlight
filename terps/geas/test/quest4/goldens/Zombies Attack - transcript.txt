@@ -621,7 +621,7 @@ Fight the zombies?
 1) Yes
 2) No
 [choice] 1
-Conveniently you shot one of the zombies in the head, and with a bit of a gurgly sound it falls to the ground. The other one takes a few more shots.
+You manage to shoot one of the zombies in the head, but it didn't go down instantly and manages to slash you. With a bit of a gurgly sound it falls to the ground. The other one takes a few more shots, but it goes down.
 
 > north
 You are in the Apartment building Entrance

@@ -49,7 +49,6 @@
 */
 
 #include <cctype>
-#include <cstdint>
 #include <cstdlib>
 #include <cstring>
 #include <deque>
@@ -66,29 +65,14 @@
 #include "../../../geasfile.cc"
 #include "../../../geas-state.cc"
 
-/* Portable rand(): the transcripts in ../goldens are byte-compared, and the
-   engine's `rand` script function is the one thing in a replay that is not
-   fixed by the game and the script.  A seeded C library rand() is reproducible
-   on one machine but not across C libraries -- glibc's generator is nothing
-   like the BSD one -- so 14 of the corpus games would produce a different
-   transcript, and 5 of them a different *outcome*, on Linux.
-   Substituting the generator the walkthroughs were derived against keeps every
-   platform on that sequence.  This is Park-Miller/Lehmer, x' = 16807x mod
-   2^31-1, seeded directly, which is exactly what macOS rand() computes: over
-   200000 draws from each of nine seeds the two agree value for value.
-   Only geas-runner.cc calls rand(), and nothing below this point uses it. */
-namespace {
-uint32_t g_rand_state = 1;
-inline void geas_srand (unsigned s) { g_rand_state = (uint32_t) s; }
-inline int geas_rand ()
-{
-  g_rand_state = (uint32_t) (((uint64_t) g_rand_state * 16807u) % 2147483647u);
-  return (int) g_rand_state;
-}
-}
-#define srand geas_srand
-#define rand geas_rand
-
+/* The engine's `rand` script function is the one thing in a replay that is not
+   fixed by the game and the script, and the transcripts in ../goldens are
+   byte-compared -- so the draws have to be the same everywhere.  geas-runner.cc
+   draws from erkyrath_random() (common_utils/randomness.c), the same generator
+   the Spatterlight build uses: seeded, it is xoshiro128**, a fixed algorithm
+   that gives identical numbers on every platform and in the app.  The Makefile
+   compiles randomness.c alongside this file; nothing here has to substitute a
+   generator of its own. */
 #include "../../../geas-runner.cc"
 
 namespace {

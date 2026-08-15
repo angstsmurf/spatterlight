@@ -1,7 +1,7 @@
 Shipwrecked (by Wonderjudge, version 1.3, QDK Pro 4.1.1, ASL 410)
 - raw command script for geas_walkthrough_runner.
 Game system: Quest 4.  Win marker: "You have completed Shipwrecked".
-Needs GEAS_SEED=1: three of the fights below are won with fixed menu answers.
+Needs GEAS_SEED=1: the four fights below are won with fixed menu answers.
 
 A big, generous treasure hunt across three islands.  You wash up on the west
 shore of island A with nothing; you leave on a repaired sail boat.  In between:
@@ -86,15 +86,22 @@ continuous run of 419 turns; the section markers are the only comments.
 
 Deterministic combat.  Every fight is the same two-step loop: `combat` rolls
 $rand(1;5)$ into tt1, asks how you attack, then rolls again and asks how you
-defend.  For the attack, the choice that scores 2 damage is tt1-dependent
-(1->2, 2->3, 3->2, 4->5, 5->4); for the defence, picking the number equal to
-tt1 blocks completely.  Under GEAS_SEED=1 the whole $rand stream is macOS
-libc srand(1)/rand(), so the runs below (11 answers for the drunken pirate,
-11 for the angry villager, 17 for the dead thing, 55 for Manbearpig) take zero
-damage and never miss.  They are position-dependent: every `gain do <invent1>`
-- that is, every treasure or tile you pick up - burns one more $rand, so
-inserting or removing a TAKE anywhere above will desynchronise every fight
-after it.
+defend.  Matching tt1 is exactly wrong on the attack - `blow1`, the case the
+matching choice runs, is "Your opponent blocks your attack" for 0 damage - and
+exactly right on the defence, where `hit1` blocks completely.  So the attack
+wants the number that lands `blow2` for 2 damage (tt1 2->3, 3->2, 4->5, 5->4;
+a tt1 of 1 has no such choice and the best available is 1 damage), and the
+defence wants tt1 itself.  Under GEAS_SEED=1 the draws come from
+erkyrath_random(), so the runs below (9 answers for the drunken pirate, 11 for
+the angry villager, 13 for the dead thing, 55 for Manbearpig) take zero damage
+and never miss.  They are position-dependent: every `gain do <invent1>` - that
+is, every treasure or tile you pick up - burns one more $rand, so inserting or
+removing a TAKE anywhere above will desynchronise every fight after it.
+
+Re-deriving them is mechanical, because prompt k always reads the k'th roll of
+its fight whatever you answer: probe a position with 4 and then with 2 and the
+outcome message names tt1 outright unless both come back "slips past", which
+means tt1 is 1.
 
 Inventory.  `invent1` also enforces a limit of 14 carried items, not counting
 the lantern, the spiked boots, the monkey, or anything inside a container you
@@ -241,14 +248,14 @@ raise ship's flag
 take cutlass
 kill drunken pirate
 5
-5
-4
-3
 2
-4
-4
-4
+2
+2
 3
+1
+2
+1
+4
 examine dead pirate
 take iron key
 tea bag dead pirate
@@ -286,16 +293,16 @@ east
 east
 kill angry villager
 4
-5
-3
-3
-2
-4
-3
 1
+5
+5
 2
-4
 3
+2
+5
+2
+3
+2
 east
 give sack of rum to angry villagers
 take bottle of rum
@@ -503,23 +510,19 @@ take lantern
 i
 east
 kill dead thing
-2
-5
-2
-5
-4
-2
-2
-1
-2
-5
 3
-4
+2
+2
 5
-4
+5
+5
 2
 3
 2
+3
+2
+2
+5
 south
 look at stone sarcophagus
 open stone sarcophagus
@@ -613,61 +616,61 @@ yes
 use ceramic tile5 on indentation
 south
 kill huge monsterous creature
-5
+2
+4
 3
 2
 5
 4
-5
 3
-1
-2
-1
-5
+3
 3
 4
 4
+5
+4
+4
 2
+5
+2
+5
+2
+4
+2
+3
+3
+4
+5
+4
+5
+4
+4
+2
+3
 1
 2
-5
-5
+4
+4
 1
 5
+4
+3
+5
+3
+3
+4
+4
 4
 2
 2
 2
 3
-2
-3
-2
-3
-3
-1
-2
-2
-3
-1
-3
-4
-2
-2
-2
-1
-4
-1
+5
 3
 3
 5
 1
-4
-5
-5
-5
 2
-1
-3
 take main sail
 take black pearl
 north

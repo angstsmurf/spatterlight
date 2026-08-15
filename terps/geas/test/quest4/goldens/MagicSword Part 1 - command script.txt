@@ -76,9 +76,16 @@ flash spell on the wraith, sword on ordinary bodies (bandit, sprite,
 warsprites), thrown dagger on the ranged ones who otherwise shoot you while
 you close (the Sniper, the Archer Sprite -- throw, then TAKE DAGGER, then
 throw again), and dagger on the Oggy-Waggi plant's tendrils and body.  The
-counts below are the exact number of hits each enemy's HP needs at seed 1;
-a surplus cast just says "You don't see any...", but a shortfall leaves the
-enemy alive and hitting back.  Health is bought back three astrals at a time
+counts below are the exact number of throws or casts each enemy needs at
+seed 1; a surplus one just says "I can't see that here" or nothing at all,
+but a shortfall leaves the enemy alive and hitting back.  The game rolls
+`$rand$` twenty-five times, but only two of those rolls decide whether your
+own blow lands: the two thrown-dagger fights.  Everything else takes fixed
+damage per hit, so its count is arithmetic and does not move with the
+generator - geas draws through `erkyrath_random()` (xoshiro128**, the same
+generator the Spatterlight build uses) seeded from GEAS_SEED, and switching
+to it changed exactly one number in this route.  At seed 1 the Sniper takes
+three throws (miss, hit, hit) and the Archer Sprite four straight hits.  Health is bought back three astrals at a time
 by taking a room at an inn -- the Sword and Staff in Calamatra, the Jolly
 Woodman in Fennat -- which is why the route detours to them twice.
 
@@ -142,7 +149,7 @@ doctor stops for Health -> stone clearing -> FDO -> Underground Den
 on the Evil Druidess -> Ferran House 2, illness cured, staff back -> back
 across the forest to GH1 -> gatehouse -> Guardian of Maren -> yes.
 
-Verified: 170 turns, `--win "You Win!"`, seed 1.
+Verified: 172 turns, `--win "You Win!"`, seed 1.
 
 Start:
 Sassanka
@@ -201,6 +208,8 @@ north
 north
 north
 northwest
+throw dagger at sniper
+take dagger
 throw dagger at sniper
 take dagger
 throw dagger at sniper

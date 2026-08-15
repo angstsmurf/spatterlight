@@ -205,7 +205,7 @@ But you pick it up anyway.
 
 > drop vase
 You drop the vase on the floor and the contents spill...
-You find 4 gold coins and a Clove of Figari!
+You find 5 gold coins and a Clove of Figari!
 
 > take pieces of ceramic
 You pick up the tiny pieces of ceramic. You suppose you better clean up the mess you made so the giant won't notice the vase is gone...
