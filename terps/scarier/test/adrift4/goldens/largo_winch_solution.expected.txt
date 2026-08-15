@@ -2996,6 +2996,6 @@ Je t'aime ma chérie!" "Moi aussi je t'aime." répond Joy. Vous serrez Joy dans
 vos bras puis vous l'embrassez. Tout le monde vous applaudi une nouvelle
 fois. "Bon ben c'est pas grave! Je me contenterai d'une bombasse russe!"
 s'exclame Simon.
-Votre score est de 96 sur un maximum de 97!
-C'est 98% du jeu!
-You finished 1 points short.
+Votre score est de 97 sur un maximum de 97!
+C'est 99% du jeu!
+Well done - you scored maximum points!

@@ -597,6 +597,6 @@ You smile, and put a finger to your lips, shushing him. There will be plenty
 of time for explanations later. Explanations, and perhaps another trip in the
 transfer booth...
 
-You scored 700 out of the maximum 1000!
-That is 70% of the game!
-You finished 300 points short.
+You scored 1000 out of the maximum 1000!
+That is 100% of the game!
+Well done - you scored maximum points!

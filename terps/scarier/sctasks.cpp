@@ -1336,16 +1336,37 @@ task_print_end_game_summary (scr_gameref_t game, scr_bool is_win)
 
 
 /*
- * task_run_end_game_action()
+ * task_print_end_game_message()
  *
- * End of game task action.
+ * Print the ending armed by an EndGame task action, if any, and clear it.
+ *
+ * The Runners do this at the *end of the turn*, not where the action ran.
+ * run400's turn driver is
+ *
+ *     If gameover = 0 Then Form1.evaluate       ' 0005C65C
+ *     If gameover > 0 Then Form1.endmessage     ' 0005C681
+ *
+ * so the EndGame action only sets the gameover byte -- Var1 + 1, which is why
+ * this holds the same biased value -- and every score, variable and text
+ * change the rest of the turn makes lands *before* the summary is composed.
+ * Form1.endmessage (0005DDAC) then reads MaxScore and score for itself.
+ * Measured live: chicago.taf task 23 is "end game (win)" followed by "+10
+ * points", and run390 finishes on 75 where printing at the action gives 65.
+ * The corpus has 42 tasks in 32 games that put an EndGame action somewhere
+ * other than last.  See RUNNER_TESTS_TODO.md section 4.
  */
-static scr_bool
-task_run_end_game_action (scr_gameref_t game, scr_int var1)
+void
+task_print_end_game_message (scr_gameref_t game)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_bool status = FALSE;
+  scr_int var1;
+
+  if (game->pending_endgame == 0)
+    return;
+
+  var1 = game->pending_endgame - 1;
+  game->pending_endgame = 0;
 
   /* Print a message based on var1. */
   switch (var1)
@@ -1382,20 +1403,17 @@ task_run_end_game_action (scr_gameref_t game, scr_int var1)
         res_handle_resource (game, "ss", vt_key);
 
         task_print_end_game_summary (game, TRUE);
-        status = TRUE;
         break;
       }
 
     case 1:
       pf_buffer_string (filter, "Better luck next time.\n");
       task_print_end_game_summary (game, FALSE);
-      status = TRUE;
       break;
 
     case 2:
       pf_buffer_string (filter, "I'm afraid you are dead!\n");
       task_print_end_game_summary (game, FALSE);
-      status = TRUE;
       break;
 
     case 3:
@@ -1403,14 +1421,35 @@ task_run_end_game_action (scr_gameref_t game, scr_int var1)
       break;
 
     default:
-      scr_fatal ("task_run_end_game_action: invalid type, %ld\n", var1);
+      scr_fatal ("task_print_end_game_message: invalid type, %ld\n", var1);
     }
+}
+
+
+/*
+ * task_run_end_game_action()
+ *
+ * End of game task action.  Arms the ending and stops the game; the message
+ * and the score summary are printed at the end of the turn, by
+ * task_print_end_game_message() above.  A second EndGame action in the same
+ * turn does not displace the first -- run400's EndGame handler tests the
+ * gameover byte before writing it (0008D621).
+ */
+static scr_bool
+task_run_end_game_action (scr_gameref_t game, scr_int var1)
+{
+  if (var1 < 0 || var1 > 3)
+    scr_fatal ("task_run_end_game_action: invalid type, %ld\n", var1);
+
+  if (game->pending_endgame == 0)
+    game->pending_endgame = var1 + 1;
 
   /* Stop the game, and note that it's not resumeable. */
   game->is_running = FALSE;
   game->has_completed = TRUE;
 
-  return status;
+  /* "Just stop" prints nothing, so it reports nothing done. */
+  return var1 != 3;
 }
 
 
@@ -1818,7 +1857,14 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
       task_start_npc_walks (game, task);
     }
 
-  /* Append any room description and additional message for the task. */
+  /*
+   * Append any room description and additional message for the task.  Both
+   * are printed even when an action above has just ended the game: measured
+   * live on topaz.taf (run400), whose task 22 "wear ring" is a single "end
+   * game (win)" action with a room description and "The two of you set out
+   * into the forest." as its AdditionalMessage, and the Runner shows both,
+   * ahead of the ending.  marooned.taf task 29 says the same for run380.
+   */
   vt_key[2].string = "ShowRoomDesc";
   showroomdesc = prop_get_integer (bundle, "I<-sis", vt_key);
   if (showroomdesc != 0)

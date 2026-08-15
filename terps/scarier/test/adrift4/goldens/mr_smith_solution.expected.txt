@@ -626,6 +626,6 @@ you've done to save the world won't sink in until later, and for right now
 you're going home to catch up on some lost sleep.
 Congratulations! I hope you liked our game. If you didn't get 100%, you
 should go back and try for it!
-You scored 80 out of the maximum 100!
-That is 80% of the game!
-You finished 20 points short.
+You scored 90 out of the maximum 100!
+That is 90% of the game!
+You finished 10 points short.

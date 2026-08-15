@@ -815,6 +815,7 @@ Eggbert is here.
 You can only move up.
 
 Horace lurches in from above.
+You hear the chiming of the grandfather clock.
 You drop down into the laboratory, Horace following you. Eggbert freezes,
 then drops the test tube he was carrying. Uncle Horace fixes Eggbert with a
 blank gaze, then lurches toward him, hands outstretched. Eggbert shrinks back
@@ -877,4 +878,3 @@ NO? Better try again then...
 You scored 84 out of the maximum 84!
 That is 100% of the game!
 Well done - you scored maximum points!
-You hear the chiming of the grandfather clock.

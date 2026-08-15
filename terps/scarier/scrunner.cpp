@@ -2452,7 +2452,23 @@ run_main_loop (scr_gameref_t game)
               debug_turn_update (game);
             }
         }
+
+      /*
+       * End of turn: if an EndGame task action armed an ending, print it now.
+       * The Runner's turn driver does exactly this, testing its gameover byte
+       * only after Form1.evaluate has returned (0005C681), so anything the
+       * rest of the turn did to the score is already in the summary.
+       */
+      task_print_end_game_message (game);
     }
+
+  /*
+   * Catch an ending armed before the loop ever ran -- evt_start_load_events()
+   * and the startup evt_tick_events() above can both fire a task.  Harmless
+   * when the loop already printed it; the pending ending is cleared as it
+   * goes.
+   */
+  task_print_end_game_message (game);
 
   /*
    * Final status update, for games that vary it on completion, then notify

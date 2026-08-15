@@ -443,6 +443,6 @@ bags. Surprisingly, no one gets suspicious.
  Congratulations, you have found the lost gold. And old Gus, well he finally
 cleared the blockage in the tunnel and found a rusty tin can on the other
 side.
-You scored 90 out of the maximum 100!
-That is 90% of the game!
-You finished 10 points short.
+You scored 100 out of the maximum 100!
+That is 100% of the game!
+Well done - you scored maximum points!

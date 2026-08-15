@@ -124,6 +124,6 @@ ship. As you lie hidden in the cargo hold, you wonder to yourself where this
 ship could be going and what adventures await you there...
 
 The End
-You scored 0 out of the maximum 1!
-That is 0% of the game!
-You finished 1 points short.
+You scored 1 out of the maximum 1!
+That is 100% of the game!
+Well done - you scored maximum points!

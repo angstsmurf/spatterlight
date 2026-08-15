@@ -835,6 +835,6 @@ It seems you restored order back into the town of Great Falls. With the Chief
 in jail, you're promoted to his spot and you finally have a job that could
 pay off the money you owe on your house. Plus, the chief's office comes with
 a nice view of the beach...
-You scored 190 out of the maximum 200!
-That is 95% of the game!
-You finished 10 points short.
+You scored 200 out of the maximum 200!
+That is 100% of the game!
+Well done - you scored maximum points!

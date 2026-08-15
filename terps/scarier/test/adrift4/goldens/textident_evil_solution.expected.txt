@@ -430,6 +430,6 @@ begins to grow...but a part of you is still relieved, after all, this
 Could it?
 
 Congratulations! You've successfully beaten Textident Evil.
-You scored 80 out of the maximum 100!
-That is 80% of the game!
-You finished 20 points short.
+You scored 100 out of the maximum 100!
+That is 100% of the game!
+Well done - you scored maximum points!

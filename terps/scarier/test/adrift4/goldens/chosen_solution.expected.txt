@@ -488,6 +488,6 @@ To be continued...
 
 Press a key...
 
-You scored 200 out of the maximum 300!
-That is 66% of the game!
-You finished 100 points short.
+You scored 300 out of the maximum 300!
+That is 100% of the game!
+Well done - you scored maximum points!

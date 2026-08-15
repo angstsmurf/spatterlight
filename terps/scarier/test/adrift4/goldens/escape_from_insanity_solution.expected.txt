@@ -88,6 +88,6 @@ all to my good friend fire, maybe I should start some fires now, to let other
 people know how much fire can help them...
 
 Congratulations psychopath, you're now a pyro. I hope you're happy.
-You scored 0 out of the maximum 1000!
-That is 0% of the game!
-You finished 1000 points short.
+You scored 1000 out of the maximum 1000!
+That is 100% of the game!
+Well done - you scored maximum points!

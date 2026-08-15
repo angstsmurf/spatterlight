@@ -416,6 +416,8 @@ You manage to avoid Ivill Getyou's attack.
 You go over to the dead boss. His massive stomach is hypnotic as you touch
 it, waves move randomly across his body. You dig in his bellybutton with the
 spoon. With a little effort, the jewel pops out.
+You hand the jewel to Anita. She is so grateful that she tells you to keep
+the money that was in the sack, for your services.
 You successfully complete your assignment. You accompany Miss Fortune back to
 Destination, then decide that a nice vacation is what you need. Maybe a
 cruise on the high seas, or a trip to one of the wonders of the world. Who
@@ -423,5 +425,3 @@ Knows. You will have to see.
 You scored 300 out of the maximum 300!
 That is 100% of the game!
 Well done - you scored maximum points!
-You hand the jewel to Anita. She is so grateful that she tells you to keep
-the money that was in the sack, for your services.

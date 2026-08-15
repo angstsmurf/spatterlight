@@ -380,6 +380,6 @@ sunlight of a new day...
 You shield your eyes from the glaring brightness of the unfamiliar light, and
 suddenly you hear a voice calling to you…"Well done, my good and faithful
 servant."
-You scored 170 out of the maximum 200!
-That is 85% of the game!
-You finished 30 points short.
+You scored 200 out of the maximum 200!
+That is 100% of the game!
+Well done - you scored maximum points!

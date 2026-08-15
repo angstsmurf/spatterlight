@@ -370,6 +370,6 @@ Well Done! You have saved Crystal's life. Even as you feed the clover leaves
 to your daughter, you notice her perk up. After only a few days she has fully
 recovered. You decide to keep a few of the leaves in case they are needed in
 the future.
-You scored 90 out of the maximum 140!
-That is 64% of the game!
-You finished 50 points short.
+You scored 140 out of the maximum 140!
+That is 100% of the game!
+Well done - you scored maximum points!

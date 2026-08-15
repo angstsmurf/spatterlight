@@ -184,6 +184,6 @@ will never be completed. Rest assured, if the game was done, it would've been
 released commericaly and would've generated trillions in profits.
 
 Thank you, and good night.
-You scored 0 out of the maximum 999999999!
-That is 0% of the game!
-You finished 999999999 points short.
+You scored 999999999 out of the maximum 999999999!
+That is 100% of the game!
+Well done - you scored maximum points!

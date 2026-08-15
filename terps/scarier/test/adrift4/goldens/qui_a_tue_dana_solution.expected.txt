@@ -742,6 +742,12 @@ Vous donnez le dossier Dana MULDER à votre adjoint MALKOWITCH
 Vous lui déclarez:
 " tiens, porte ce dossier à la section " enquêtes mystérieuses " du FBI,
 pour nous, l'affaire est classée!"
+[Appuyer sur une touche pour continue]            John retourna dans son bureau, il s'ASSIT sur son fauteuil, et
+resta comme cela, comme groguis.
+            Il ne retrouvera jamais l'agresseur de Dana, pas plus que la
+section " enquêtes mystérieuses " du F BI.
+
+[Appuyer sur une touche pour continuer]
 Bravo!! Vous avez gagné!
 
 Vous êtes arrivé au bout de vos peines...Le jeu est fini!
@@ -760,9 +766,3 @@ une touche pour continuer]
 Votre score est de 100 sur un maximum de 100!
 C'est 100% du jeu!
 Well done - you scored maximum points!
-[Appuyer sur une touche pour continue]            John retourna dans son bureau, il s'ASSIT sur son fauteuil, et
-resta comme cela, comme groguis.
-            Il ne retrouvera jamais l'agresseur de Dana, pas plus que la
-section " enquêtes mystérieuses " du F BI.
-
-[Appuyer sur une touche pour continuer]

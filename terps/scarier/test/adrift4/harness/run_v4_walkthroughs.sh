@@ -492,7 +492,7 @@ enquete_a_hauts_risques_solution.txt|EnqueteAHautsRisques.taf|Votre score est de
 # hit the disambiguator, and `tire swing to tree` is a typo for `tie`).  They
 # are kept because ADRIFT's "Please be more clear" does NOT consume the next
 # line, so they cost nothing and the transcript stays faithful to the source.
-shadricks_travels_solution.txt|ShadricksTravels.taf|You scored 50 out of the maximum 100!
+shadricks_travels_solution.txt|ShadricksTravels.taf|You scored 100 out of the maximum 100!
 # Monsters (Release 2), Daniel Hiebert -- WIN, 40/40, which the SCR_DUMP_TASKS
 # ACT type=4 total (40 over 8 tasks) confirms is the maximum; all 8 fire here.
 # The upstream file is another real-Runner session transcript, command-then-
@@ -620,7 +620,7 @@ mortality_solution.txt|mortality.taf|one of the two good endings|SCR_SKIP_WAITKE
 # No waitkeys: the transcript is byte-identical with and without
 # SCR_SKIP_WAITKEY, so the row carries no env.  The score reads 96/97 one
 # command before the end and the last `salle du bigboard` is the 97th point.
-largo_winch_solution.txt|largo-winch.taf|Votre score est de 96 sur un maximum de 97!
+largo_winch_solution.txt|largo-winch.taf|Votre score est de 97 sur un maximum de 97!
 # Three Monkeys, One Cage (Robert Goodwin, 2003) -- WIN, 98/100, and 98 is the
 # ceiling: every one of the game's 23 scoring actions is banked.  The author
 # wrote a `# jump out` chain whose +2 sits AFTER the two Execute-Task actions
@@ -1833,7 +1833,7 @@ vampire_solution.txt|Vampire.taf|Now you are the most powerful vampire alive.|SC
 # janitor's closet never unlocks; and T46 `n` in the Computer Lab only unlocks
 # the archive door, so a second `n` is needed to walk through it.  The row needs
 # SCR_SKIP_WAITKEY=1 for the six act-transition <waitkey>s.
-merry_murders_solution.txt|Merry_Murders.taf|You scored 125 out of the maximum 135!|SCR_SKIP_WAITKEY=1
+merry_murders_solution.txt|Merry_Murders.taf|You scored 135 out of the maximum 135!|SCR_SKIP_WAITKEY=1
 EOF
 }
 

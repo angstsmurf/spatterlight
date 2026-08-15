@@ -1027,6 +1027,31 @@ into space in a dustbin, for the second time, and you can't.
 
 You slide off the lid and start to clamber out of the dustbin.
 
+Alien Spaceship
+You are stood on the alien space-ship's bridge. It is a large and open space,
+lined with banks of computers and strange, alien devices. A shiny, mirrored
+rubbish chute, and what looks like a microwave break up the complex
+technology. An impressive-looking chair sits in the centre of the room,
+facing a large computer panel. In front of the panel is a huge bay window,
+from which you can see the remains of the planet Jupiter. The rest of the
+ship lies behind you, to the west, and there are locked doors where the
+escape pod used to be.
+
+A hideous and headless alien corpse is here.
+
+The ship is disintegrating around you, the aliens obviously decided that they
+were going to take you, and it, with them.
+
+'I didn't want to get flushed out of the garbage chute anyway,' you mutter
+darkly.'
+
+'Garbage chute emptying,' the Computer explains calmly.
+
+You pause, half-way out of the dustbin, lid in hand.
+'What-'
+
+WHOOOOOSH
+
 Hit Any Key to Continue
 
         *                        *                *
@@ -1158,28 +1183,3 @@ cruise around the-
 You tear up the junk mail. You remove the helmet and kick of your shoes. With
 great effort you tear off your gloves and the shrunken, battered, child's
 space-suit. Then, still dripping, you walk up your stairs, to bed.
-
-Alien Spaceship
-You are stood on the alien space-ship's bridge. It is a large and open space,
-lined with banks of computers and strange, alien devices. A shiny, mirrored
-rubbish chute, and what looks like a microwave break up the complex
-technology. An impressive-looking chair sits in the centre of the room,
-facing a large computer panel. In front of the panel is a huge bay window,
-from which you can see the remains of the planet Jupiter. The rest of the
-ship lies behind you, to the west, and there are locked doors where the
-escape pod used to be.
-
-A hideous and headless alien corpse is here.
-
-The ship is disintegrating around you, the aliens obviously decided that they
-were going to take you, and it, with them.
-
-'I didn't want to get flushed out of the garbage chute anyway,' you mutter
-darkly.'
-
-'Garbage chute emptying,' the Computer explains calmly.
-
-You pause, half-way out of the dustbin, lid in hand.
-'What-'
-
-WHOOOOOSH
