@@ -28,8 +28,11 @@ HERE="$(cd "$(dirname "$0")" && pwd)"
 # below it (terps/scarier/test/adrift4/harness).
 SCARE="${SCARE_DIR:-$(cd "$HERE/../../.." && pwd)}"
 GAMES="${GAMES_DIR:-$HERE/../games}"
-# Extra dirs searched (by basename) when a game isn't in GAMES.
-ALT_DIRS="$HOME/adrift-battle/games"
+# Extra dirs searched (by basename) when a game isn't in GAMES. The whole corpus
+# now lives in GAMES (the ~/adrift-battle/games working mirror was folded into it
+# on 2026-07-22), so this is only a hook for a machine that keeps its .taf files
+# somewhere else -- set it in the environment there, as run_v4_walkthroughs.sh does.
+ALT_DIRS="${ALT_DIRS:-}"
 GOLDEN="$HERE/scproj_regress.golden"
 BIN="$HERE/scproj_det"
 
