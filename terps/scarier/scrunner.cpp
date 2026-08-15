@@ -405,10 +405,25 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"save", lib_cmd_save},
   {"[restore/load]", lib_cmd_restore},
   {"restart", lib_cmd_restart},
+  /*
+   * The Runner takes six words for "do that again", tested as a set on the
+   * whole input line before anything else looks at it:
+   *
+   *   00089FE2  If s = "!!" Or s = "again" Or s = "last" Or s = "previous"
+   *                Or s = "!" Or s = "g" Then
+   *
+   * (mdlSpreadTheLoad.Sub_20_62 in run400).  All six measured live in run400
+   * on easter.taf -- "previous" repeats an examine, "!!" repeats it again --
+   * with one wrinkle worth knowing: the history scan that follows skips only
+   * entries *identical* to the word just typed, so "last" straight after
+   * "previous" repeats the literal word "previous" and is refused.  "!" and
+   * "!!" are Scarier's own history shorthand as well, and keep the richer
+   * SCARE forms ("!5", "!take") the Runner has no equivalent of.
+   */
 #ifdef SCARIER_NO_ABBREVIATIONS
-  {"[again]", lib_cmd_again},
+  {"[again/last/previous]", lib_cmd_again},
 #else
-  {"[again/g]", lib_cmd_again},
+  {"[again/g/last/previous]", lib_cmd_again},
 #endif
   {"[redo /!]%number%", lib_cmd_redo_number},
   {"[redo /!]%text%", lib_cmd_redo_text},

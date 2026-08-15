@@ -170,13 +170,28 @@ refusal splits the same way (and 4.0 has no "else" form at all). Ported as
 `lib_is_version_400()` in `sclibrar.cpp`; 71 goldens re-blessed, all of them
 4.0 games, full suite green. See §4 of `RUNNER_TESTS_TODO.md`.
 
-### `g` does not echo the command it repeats
+### The `g` echo is a checkbox, not a divergence — SETTLED 2026-08-15
 
-The Runner answers `g` with `(hit pinata with umbrella)` on its own line
-before the response; scarier prints only the implicit-tool line
-`(with umbrella)`. The *semantics* are identical and correct — see
-`scare-g-means-get`, where the Runner's Auto complete once faked a `g`
-divergence that was not there. Only the echo is missing.
+`EasterWalk.txt` answers `g` with `(hit pinata with umbrella)` on its own line
+before the response, and this note used to record that as a missing echo.
+It is not: run400 replaying this game out of the box prints only the reply,
+exactly as scarier does. The bracket line comes from **Options → Display &
+Media → Appearance → "References in brackets"**, which is unticked by default
+and, like the other three boxes on that tab, never persists — the registry can
+say `showbrackets=1` and the box still comes up clear. Tick it and the line
+appears, in the typed colour: `g` → `(hit pinata with umbrella)`, `drop it` →
+`(an umbrella)`. It echoes *what a reference resolved to*, not just `g`.
+
+Two other things in this file are the same author's settings rather than the
+game's: the `>`-like character before each command is "Prompt for typed
+commands", and the `verbose` line we dropped as a non-command really is the
+Ctrl+V menu toggle. And the game's own `(with umbrella)` — the parenthetical
+scarier prints — is authored text, the first characters of task 14's
+CompleteText; it is not an echo of anything.
+
+See §4 of `RUNNER_TESTS_TODO.md`, and `scare-g-means-get` for the earlier
+occasion when a Runner display setting faked a `g` divergence that was not
+there.
 
 ### Ambient events land on different turns
 
