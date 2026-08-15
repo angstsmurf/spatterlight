@@ -241,6 +241,20 @@ static const NSInteger kMaxDuplicateDirs = 20;
     return nil;
 }
 
+// YES if `dir` carries an identity marker naming this very game, i.e. it is a
+// game folder the organiser created for `game`. The library root, group
+// folders and the user's own folders never carry a marker.
+- (BOOL)directory:(NSURL *)dir isOwnedByGame:(Game *)game {
+    NSURL *idFile = [dir URLByAppendingPathComponent:kIdentityFilename];
+    NSString *stored = [NSString stringWithContentsOfURL:idFile
+                                               encoding:NSUTF8StringEncoding
+                                                  error:NULL];
+    if (!stored.length)
+        return NO;                // someone else's (or an unmarked) folder
+    NSString *mine = [self identityForGame:game];
+    return mine.length && [stored isEqualToString:mine];
+}
+
 // YES if `dir` is free to use for `game`: it either does not exist yet, or it
 // exists and its identity marker names this same game.
 - (BOOL)directory:(NSURL *)dir isAvailableForGame:(Game *)game {
@@ -251,14 +265,7 @@ static const NSInteger kMaxDuplicateDirs = 20;
     if (!isDir)
         return NO;                // a file is in the way
 
-    NSURL *idFile = [dir URLByAppendingPathComponent:kIdentityFilename];
-    NSString *stored = [NSString stringWithContentsOfURL:idFile
-                                               encoding:NSUTF8StringEncoding
-                                                  error:NULL];
-    if (!stored.length)
-        return NO;                // someone else's (or an unmarked) folder
-    NSString *mine = [self identityForGame:game];
-    return mine.length && [stored isEqualToString:mine];
+    return [self directory:dir isOwnedByGame:game];
 }
 
 - (void)writeIdentityForGame:(Game *)game inDirectory:(NSURL *)dir {
@@ -374,9 +381,19 @@ static const NSInteger kMaxDuplicateDirs = 20;
         return YES;
 
     NSURL *sourceDir = sourceURL.URLByDeletingLastPathComponent;
-    BOOL sourceInsideLibrary = [self url:sourceURL isInsideRoot:root];
 
-    if (sourceInsideLibrary && ![sourceDir.path.lowercaseString isEqualToString:destDir.path.lowercaseString]) {
+    // Emptying and removing the source folder is only safe when it is a game
+    // folder the organiser created for this very game: it must carry this
+    // game's identity marker, and the destination must not be nested inside
+    // it. A game sitting loose in the library root (e.g. when the user points
+    // the library at a folder that already holds their games) fails this test
+    // and takes the copying path below, which never touches the originals.
+    BOOL sourceIsOwnGameDir = [self url:sourceURL isInsideRoot:root] &&
+        ![sourceDir.path.lowercaseString isEqualToString:destDir.path.lowercaseString] &&
+        ![self url:destDir isInsideRoot:sourceDir] &&
+        [self directory:sourceDir isOwnedByGame:game];
+
+    if (sourceIsOwnGameDir) {
         // Reorganisation within the library: move the game and its companion
         // files out of the old game folder into the new one.
         NSArray<NSURL *> *contents =
@@ -390,11 +407,20 @@ static const NSInteger kMaxDuplicateDirs = 20;
                 [fm removeItemAtURL:target error:NULL];
             [fm moveItemAtURL:item toURL:target error:NULL];
         }
-        // Remove the now-empty old folder.
-        [fm removeItemAtURL:sourceDir error:NULL];
+        // Remove the old folder, but only once it is verifiably empty:
+        // removeItemAtURL: deletes recursively, so it must never see a folder
+        // that still has anything in it.
+        NSArray<NSURL *> *remaining =
+        [fm contentsOfDirectoryAtURL:sourceDir
+          includingPropertiesForKeys:nil
+                             options:0
+                               error:NULL];
+        if (remaining && remaining.count == 0)
+            [fm removeItemAtURL:sourceDir error:NULL];
     } else {
-        // Import from outside the library: copy the game file and any sibling
-        // files that share its name (companion data files, cover art, etc.).
+        // Anything else: copy the game file and any sibling files that share
+        // its name (companion data files, cover art, etc.), leaving the
+        // originals in place.
         if (![self copyGameFileAndSiblings:sourceURL intoDirectory:destDir error:outError])
             return NO;
     }
