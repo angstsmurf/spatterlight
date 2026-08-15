@@ -821,7 +821,9 @@ battle_kill (scr_gameref_t game, scr_int npc, scr_bool visible)
 
   if (npc < 0)
     {
-      pf_buffer_string (filter, "\nI'm afraid you are dead!\n");
+      pf_buffer_character (filter, '\n');
+      pf_buffer_string (filter, lib_get_death_message (game));
+      pf_buffer_character (filter, '\n');
       game->is_running = FALSE;
       game->has_completed = TRUE;
       return;

@@ -1262,6 +1262,8 @@ task_run_set_task_action (scr_gameref_t game, scr_int var1, scr_int var2)
  *   win    WinText / the two lines / "You finished 5 points short." / blank
  *   lose   "Better luck next time." / the two lines / blank
  *   dead   "I'm afraid you are dead!" / the two lines / blank
+ *          (pre-4.0 words that sentence from the perspective; see
+ *          lib_get_death_message())
  *   ended  nothing at all
  *   MaxScore 0, win: run400 prints the banner and nothing else, not even the
  *                    blank line; run390 prints the summary anyway, at 100%
@@ -1459,7 +1461,9 @@ task_print_end_game_message (scr_gameref_t game)
     case 2:
       if (is_pre_400)
         pf_undo_auto_break (filter);
-      pf_buffer_string (filter, "\n\nI'm afraid you are dead!\n");
+      pf_buffer_string (filter, "\n\n");
+      pf_buffer_string (filter, lib_get_death_message (game));
+      pf_buffer_character (filter, '\n');
       task_print_end_game_summary (game, FALSE);
       break;
 

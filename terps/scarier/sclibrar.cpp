@@ -671,6 +671,44 @@ lib_is_version_400 (scr_gameref_t game)
 
 
 /*
+ * lib_get_death_message()
+ *
+ * The sentence a Runner prints when the player dies, either from an EndGame
+ * task action or from losing a Battle System fight.
+ *
+ * The pre-4.0 Runners build it around the perspective, "I'm afraid " & Ary(5)
+ * & " " & Ary(4) & " dead!"; 4.0 replaced the whole thing with one fixed
+ * literal and no longer varies it.  In run390 that assembly appears twice, in
+ * the EndGame printer at 0003F5C8 and again in Form1.chardohit at 00042B14, so
+ * the battle death is worded the same way as the task death.  run400 holds
+ * "I'm afraid you are dead!" as a single literal in General.Sub_22_70
+ * (000523DC), and Battles.Sub_12_1 calls that same sub (0004AE95), so 4.0 says
+ * "you are" even in the first person.  A UTF-16LE census agrees: the assembled
+ * pair is in all four Runners, the finished sentence only in run400.
+ *
+ * Measured live on the same EndGame with Perspective flipped: run370 on
+ * castle.taf (its "south" death task rewired to a trivially runnable "zdie")
+ * and run380 on wrecked.taf (task 42 rewired the same way) and run390 on the
+ * synthetic p39end probe all answer "I'm afraid I am dead!" at Perspective 0
+ * and "I'm afraid you are dead!" at Perspective 1.  Perspective 2 answers like
+ * 1 pre-4.0, which lib_get_perspective() already folds in.
+ *
+ * The status line stays "You are dead!" throughout -- that is a separate fixed
+ * literal, present unchanged in all four Runners.  See RUNNER_TESTS_TODO.md
+ * section 4.
+ */
+const scr_char *
+lib_get_death_message (scr_gameref_t game)
+{
+  if (!lib_is_version_400 (game)
+      && lib_get_perspective (game) == LIB_FIRST_PERSON)
+    return "I'm afraid I am dead!";
+
+  return "I'm afraid you are dead!";
+}
+
+
+/*
  * lib_select_response()
  * lib_select_plurality()
  *
