@@ -640,8 +640,7 @@ You see Michelle here. Your heart skips a beat.
 You can move north and south.
 
 > ask out michelle
-Ypu ask her out
-You win
+Ypu ask her outYou win
 You scored 32020 out of the maximum 32020!
 That is 100% of the game!
 Well done - you scored maximum points!

@@ -836,10 +836,9 @@ Your score is 900 out of a maximum of 1000.  (90%)
 
 > open gate
 You swing the gate open, somehow managing to do this whilst carrying an
-enourmously large chest of gold, and go outside.
-You've done it!  You went in, you got the treasure, and now you're free!  Ha,
-you can't wait to get back to your friends to tell them all about your
-adventure.
+enourmously large chest of gold, and go outside.  You've done it!  You went
+in, you got the treasure, and now you're free!  Ha, you can't wait to get
+back to your friends to tell them all about your adventure.
 
 Congratulations!  You've completed this adventure!
 You scored 1000 out of the maximum 1000!

@@ -1091,8 +1091,8 @@ Your score is 90 out of a maximum of 100.  (90%)
 
 > burn report
 The report slowly begins to smoulder and then quickly goes up in flames. You
-whoop with joy as you realise you have done it!
-Congratulations you have been victorious. That's not a bad effort really.
+whoop with joy as you realise you have done it!Congratulations you have been
+victorious. That's not a bad effort really.
 
   Greg went on to become Tiger Wood's caddy.
   Luke became the most infamous fashion designer ever to plague the catwalks

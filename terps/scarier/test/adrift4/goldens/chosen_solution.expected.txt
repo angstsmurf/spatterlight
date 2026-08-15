@@ -422,15 +422,14 @@ you do this, the final socket opens.
 
 > plug t block
 You plug the T-shaped block into the final socket in the door.  As soon as
-you do this, the door groans open...
-You walk carefully through the door, not sure what you will find.  What you
-do see rather impresses you.  You are standing in a vast chamber, lit
-tastefully by flickering candles suspended in great, crystal chandeliers.
-Standing around you in a wide circle are about twenty men and women, each
-staring at you intently.  One or two are smiling, which makes you nervous...
-From amongst these people steps a tall man with dark blonde hair, his face
-marked by a long scar that runs from his forehead to his neck, a knife wound
-by the look of it.
+you do this, the door groans open...You walk carefully through the door, not
+sure what you will find.  What you do see rather impresses you.  You are
+standing in a vast chamber, lit tastefully by flickering candles suspended in
+great, crystal chandeliers.  Standing around you in a wide circle are about
+twenty men and women, each staring at you intently.  One or two are smiling,
+which makes you nervous...  From amongst these people steps a tall man with
+dark blonde hair, his face marked by a long scar that runs from his forehead
+to his neck, a knife wound by the look of it.
    "Greetings," he welcomes you.  "No doubt you'll want to know what the
 hell's going on?"
    You nod.

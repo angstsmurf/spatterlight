@@ -1333,13 +1333,12 @@ here leading up to a small hole in the roof.
 Your score is 900 out of a maximum of 1000.  (90%)
 
 > read parchment
-You read the parchment aloud.
-Suddenly, in front of you, the rock face slides open revealing an enormous
-room.  Everywhere, there are jewels and crystals and pearls and gold and
-everything anyone could ever want if their ambition was to be rich.  The roof
-is coated in stalactite crystals which glow, lighting up the room.  There are
-pots, pans, cups, goblets, necklaces and other good stuff.  In fact, it looks
-a lot like the cave in Aladdin.
+You read the parchment aloud.Suddenly, in front of you, the rock face slides
+open revealing an enormous room.  Everywhere, there are jewels and crystals
+and pearls and gold and everything anyone could ever want if their ambition
+was to be rich.  The roof is coated in stalactite crystals which glow,
+lighting up the room.  There are pots, pans, cups, goblets, necklaces and
+other good stuff.  In fact, it looks a lot like the cave in Aladdin.
 
 So, you found it.  The Cave of Wonders.  Now all you'll have to do is bag it,
 and take it to the bank, and hope that you don't have to fill out too many

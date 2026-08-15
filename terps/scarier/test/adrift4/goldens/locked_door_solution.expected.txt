@@ -205,10 +205,10 @@ another large room.  There is a steel ladder here, as well, that leads up.
 
 > up
 You climb the steel ladder, reaching a metal grate.  You push the grate out
-of the way, exit the little ladderway.  You made it out!
-You look around and see the sandy beach to the west.  There is a lot of
-commotion there, as you see an ambulance and police car, both with lights
-flashing.  Steve and Sarah are both there, talking to the police.
+of the way, exit the little ladderway.  You made it out!You look around and
+see the sandy beach to the west.  There is a lot of commotion there, as you
+see an ambulance and police car, both with lights flashing.  Steve and Sarah
+are both there, talking to the police.
 
 You run towards the beach, reaching the warm sand.  Steve looks up and sees
 you.  "Look," he says to Sarah with a grin on his face.  "Where have you

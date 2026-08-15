@@ -126,7 +126,7 @@ inverness_solution.txt|inverness.taf|Your score is 75 out of a maximum of 205.
 les_feux_solution.txt|Les Feux de l'enfer.taf|Votre score est 25 sur un maximum de 115.|SCR_SEED=138
 lifesimulation_solution.txt|lifesimulation.taf|Your score is 0 out of a maximum of 0.
 matts_house_solution.txt|Matt's House.taf|Your score is 5 out of a maximum of 5.
-mr_smith_solution.txt|The_Search_For_Mr_Smith.taf|Congratulations! I hope you liked our game.
+mr_smith_solution.txt|The_Search_For_Mr_Smith.taf|You scored 90 out of the maximum 100!
 phoenix_destiny_solution.txt|Phoenix_Destiny.taf|Gold: 100
 questi_solution.txt|QuestI.taf|Your score is 10 out of a maximum of 10.
 shadow_of_the_past_solution.txt|Shadow_Of_The_Past.taf|You now realize that the statue was you from a past life.
@@ -206,9 +206,9 @@ shardsofmemory_solution.txt|shardsofmemory.taf|My adventure has ended, and in vi
 TheADRIFTProject_solution.txt|TheADRIFTProject.taf|the entire ADRIFT community greet you
 ShadricksUnderground_solution.txt|ShadricksUnderground.taf|the robbers were caught red handed in the vault
 ticket_solution.txt|ticket.taf|You won and managed to score 110 out of a possible 110
-cleft_solution.txt|cleft.taf|You have successfully completed the Cleft in the Rock
+cleft_solution.txt|cleft.taf|You scored 100 out of the maximum 100!
 Tear_solution.txt|Tear.taf|Suddenly the world seems a brighter place, and you feel there is a good
-tq3_solution.txt|tq3.taf|you have sucessfully completed my first IF game
+tq3_solution.txt|tq3.taf|Please forward your comments to chris@jons.org.
 yeh_solution.txt|yeh.taf|Your score is 3100 out of a maximum of 3400.
 ADRIFTMAS_Party_solution.txt|ADRIFTMAS_Party.taf|"Merry ADRIFTMAS TO ALL!  And to all a good night!"
 Glum_Fiddle_solution.txt|Glum Fiddle.taf|Your score:100 out of 100.
@@ -1073,17 +1073,17 @@ afdfr_solution.txt|AFDFR.taf|Life is good for Death.|SCR_SKIP_WAITKEY=1
 # run370.exe), so both now sit in games/ with the rest of the corpus and both
 # load and run -- see ../ADRIFT_370.md and RUNNER_TESTS_TODO.md section 6.
 akron_solution.txt|akron.taf|you brave adventurer, saved yourself
-cave_solution.txt|cave.taf|Suddenly, in front of you, the rock face slides open revealing an enormous
-haunt_solution.txt|haunt.taf|You drop down into the laboratory, Horace following you
+cave_solution.txt|cave.taf|You scored 1000 out of the maximum 1000!
+haunt_solution.txt|haunt.taf|You scored 84 out of the maximum 84!
 twilight_solution.txt|twilight.taf|Your score is 500 out of a maximum of 500
-haunted_house_solution.txt|haunted.taf|You went in, you got the treasure, and now you
+haunted_house_solution.txt|haunted.taf|You scored 1000 out of the maximum 1000!
 great_escape_solution.txt|great.taf|cry of joy, you have made it, you have escaped!!
 tom_ceader_solution.txt|secret.taf|you did good work escaping from the town
 timmy_reid_solution.txt|tra.taf|Thanks for getting us back home!
 duck_mccloud_solution.txt|duck.taf|You jump from the plane just in time and you survive the huge
 fistandantalus_solution.txt|first.taf|Congradulations you have won the game
 james_bond_solution.txt|jb2000.taf|YOU COMPLEATED THE MISSION! YOU LANDED WELL
-microwave_man_solution.txt|microwaveman.taf|You have destroyed Coffee Man
+microwave_man_solution.txt|microwaveman.taf|You scored 100 out of the maximum 100!
 life_of_mike_solution.txt|mikes.taf|Ypu ask her out
 super_liam_solution.txt|superliam.taf|congradulation you have defeated x1
 alices_restaurant_solution.txt|arlo.taf|recording an album that will be that hit record
@@ -1302,7 +1302,7 @@ forest_on_the_norm_solution.txt|forest.taf|Thank you for playing my Aliengame
 # `take gum` in The Bar is the one non-obvious step: `chew gum` is a
 # where=anywhere task that just answers "You don't have the right equipment"
 # until you are holding the wad, and the coin it yields is the only money.
-bob_bobsly_solution.txt|BobBobsly.taf|Be sure to play, Adventures of Bob Bobsly 2
+bob_bobsly_solution.txt|BobBobsly.taf|You scored 155 out of the maximum 155!
 # Druggy Lane -- a Dope Wars clone: one room, 23 variables, 30 days.  Prices
 # are re-randomised by `next day`, so the route is a seed-specific trading
 # plan derived offline from a measured price table; the filler turns are
@@ -1363,7 +1363,7 @@ morning_headache_solution.txt|A_Morning_with_a_Headache.taf|This has turned out 
 # winning ticket to the landlord) plus the cafe door reversing direction:
 # EXIT room=6 N is gateTask=18 wantDone=0 and IN is wantDone=1, so `talk to
 # gimpy` closes the front entrance and opens the kitchen window behind you.
-sleaze_solution.txt|sleaze.taf|Good job, you somehow managed to survive Sleaze City.
+sleaze_solution.txt|sleaze.taf|You scored 100 out of the maximum 100!
 # Albridge Manor: 50/50.  A 27-room haunted house whose endgame is a burial --
 # T26 `bury crucifix` carries six restrictions (crucifix + shovel held, and
 # T22..T25 all done), so the doll, necklace, pipe and ball go into the Secret
@@ -1394,7 +1394,7 @@ darktower_solution.txt|DarkTower.taf|restored power to the building.
 # door` / w / `close door` / n; re-opening does not re-score.  Mrs Walsh is the
 # one wandering NPC and T10 needs her present, so the Correspondence Set is
 # handed over on the Deck at the exact turn she is standing there.
-report_solution.txt|report.taf|Congratulations you have been victorious.
+report_solution.txt|report.taf|You scored 100 out of the maximum 100!
 # Far From Home: 50/50 -- fourteen +3 tasks plus +8 for the riddle.  Two
 # <waitkey> pauses eat a script line, so the file starts with a bare `x`
 # BEFORE the name (the intro pauses before the name prompt) and carries a
@@ -1403,7 +1403,7 @@ report_solution.txt|report.taf|Congratulations you have been victorious.
 # and the box to the Puzzlelord -- nothing can be fetched back afterwards.
 # The pirate walks away after one turn, so `give pearl to pirate` has to be
 # the first command on the lighthouse's 4th floor.
-farfromhome_solution.txt|FarFromHome.taf|you realize something. This is your home!
+farfromhome_solution.txt|FarFromHome.taf|You scored 50 out of the maximum 50!
 # S Tar Dus T: no score anywhere in the file, so the goal is the richest of
 # the four `sw` endings.  All four are gated on T31 (the magic words) and
 # then picked in file order by what else you did: T33 wants the lake water
@@ -1530,7 +1530,7 @@ hhorror_solution.txt|hhorror.taf|It has been a long and frightful night|SCR_SKIP
 # entirely.  `eat cupcake` is the trap: it poisons you (VAR 5 Health) and
 # EVENT 10 keeps incrementing it, which locks out the washer, the rope, the
 # pail and the pick.
-richard_solution.txt|Richard.taf|Rich smiles as you hand him the recall beacon|SCR_SKIP_WAITKEY=1
+richard_solution.txt|Richard.taf|You scored 1000 out of the maximum 1000!|SCR_SKIP_WAITKEY=1
 # Camp Windy Lake : Part 2 is AIF (Christopher Cole again, the author of
 # diarystrip.taf), so like Diary of a Stripper and Archie's Birthday its
 # solution and golden are deliberately NOT committed -- they are in

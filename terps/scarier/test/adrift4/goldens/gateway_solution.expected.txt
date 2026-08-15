@@ -390,7 +390,6 @@ EXIT:   east.
 
 > end game
 Thank you for playing Gateway: Guardian Child.
-
 CONGRADULATIONS!!!
 
 You have completed the game. This game does not go any farther than this. The

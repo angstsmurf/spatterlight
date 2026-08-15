@@ -1346,10 +1346,10 @@ task_print_end_game_summary (scr_gameref_t game, scr_bool is_win)
  *     If gameover = 0 Then Form1.evaluate       ' 0005C65C
  *     If gameover > 0 Then Form1.endmessage     ' 0005C681
  *
- * so the EndGame action only sets the gameover byte -- Var1 + 1, which is why
- * this holds the same biased value -- and every score, variable and text
- * change the rest of the turn makes lands *before* the summary is composed.
- * Form1.endmessage (0005DDAC) then reads MaxScore and score for itself.
+ * so the EndGame action only sets the gameover byte (0008D66E, mapping Var1
+ * 0,1,2,3 to 1,3,2,4) and every score, variable and text change the rest of
+ * the turn makes lands *before* the summary is composed.  Form1.endmessage
+ * (0005DDAC) then reads MaxScore and score for itself.
  * Measured live: chicago.taf task 23 is "end game (win)" followed by "+10
  * points", and run390 finishes on 75 where printing at the action gives 65.
  * The corpus has 42 tasks in 32 games that put an EndGame action somewhere
@@ -1360,6 +1360,8 @@ task_print_end_game_message (scr_gameref_t game)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_version;
+  scr_bool is_pre_400;
   scr_int var1;
 
   if (game->pending_endgame == 0)
@@ -1367,6 +1369,14 @@ task_print_end_game_message (scr_gameref_t game)
 
   var1 = game->pending_endgame - 1;
   game->pending_endgame = 0;
+
+  /* Every message below is concatenated onto the turn's accumulated text with
+     no separator of its own, so whether that text is already terminated is the
+     whole difference between the versions: 4.0 ends a task's text block with a
+     line terminator, pre-4.0 does not.  Ours always does (pf_buffer_paragraph_
+     line), so for a pre-4.0 game take that terminator back first. */
+  vt_version.string = "Version";
+  is_pre_400 = prop_get_integer (bundle, "I<-s", &vt_version) < TAF_VERSION_400;
 
   /* Print a message based on var1. */
   switch (var1)
@@ -1381,7 +1391,31 @@ task_print_end_game_message (scr_gameref_t game)
         vt_key[1].string = "WinText";
         wintext = prop_get_string (bundle, "S<-ss", vt_key);
 
-        /* Print WinText, if any is defined.  There is no default: the Runners'
+        /* run400's endmessage is, for a win, exactly
+         *
+         *     out = out & WinText & vbCrLf                  ' 0005DDF8
+         *
+         * -- no separator of any kind, and the line terminator regardless of
+         * whether the WinText is empty.  The terminator is measured in run400
+         * itself: microbe_willie.taf has an empty WinText, and run400 leaves a
+         * blank line between the winning task's text and the score summary.
+         *
+         * Whether WinText lands on a line of its own therefore depends on what
+         * the turn's accumulated text already ends with, and that is where the
+         * versions part company.  4.0 terminates a task's text block, so run400
+         * finishing ptbad.taf prints "...a few more minutes of your time." and
+         * then "You Win! Yay!" underneath -- and that task's CompleteText ends
+         * at the full stop, with no trailing <br> of its own (taftool.py unpack
+         * of ptbad.taf), so the break is the Runner's.  Pre-4.0 does not, so run380
+         * finishing microwaveman.taf runs the two together as "You win the
+         * game.You have destroyed Coffee Man...", and run390 finishing
+         * ECOD3.taf, whose task text ends "<br><br>", leaves *two* blank lines
+         * before the summary rather than one.  All three measured live.
+         *
+         * So for a pre-4.0 game take our own section terminator back, and in
+         * every version add one after.
+         *
+         * Print WinText, if any is defined.  There is no default: the Runners'
            "Congratulations!" is a *status bar caption*, not a line of game text.
            run400's endmessage writes it to Form1.StatusBar1 panel 1 (decompiled
            at 0x000571AC, immediately alongside "You are dead!" at 0x00057205),
@@ -1391,11 +1425,11 @@ task_print_end_game_message (scr_gameref_t game)
            winning task's own CompleteText and then go straight to the score
            summary, with the location panel switched to "Congratulations!".  See
            RUNNER_TESTS_TODO.md section 4. */
+        if (is_pre_400)
+          pf_undo_auto_break (filter);
         if (!scr_strempty (wintext))
-          {
-            pf_buffer_string (filter, wintext);
-            pf_buffer_character (filter, '\n');
-          }
+          pf_buffer_string (filter, wintext);
+        pf_buffer_character (filter, '\n');
 
         /* Handle any associated WinRes resource. */
         vt_key[0].string = "Globals";
@@ -1406,13 +1440,26 @@ task_print_end_game_message (scr_gameref_t game)
         break;
       }
 
+    /* Both losing endings open with two line breaks of their own, on top of
+     * whatever the turn's text left behind -- run400 builds them as
+     * "out & vbCrLf & vbCrLf & <message> & vbCrLf", the lose branch inline at
+     * 0005DFDC and the death branch in the shared General.Sub_22_70
+     * (000523BF), which is also where a Battle System death lands.  So a 4.0
+     * game shows *two* blank lines before the message: measured live on
+     * QuestI.taf, whose task 3 "#Check for Death from Hunger" is an ACT type=6
+     * v1=2, where run400 leaves three line pitches between the task's text and
+     * "I'm afraid you are dead!". */
     case 1:
-      pf_buffer_string (filter, "Better luck next time.\n");
+      if (is_pre_400)
+        pf_undo_auto_break (filter);
+      pf_buffer_string (filter, "\n\nBetter luck next time.\n");
       task_print_end_game_summary (game, FALSE);
       break;
 
     case 2:
-      pf_buffer_string (filter, "I'm afraid you are dead!\n");
+      if (is_pre_400)
+        pf_undo_auto_break (filter);
+      pf_buffer_string (filter, "\n\nI'm afraid you are dead!\n");
       task_print_end_game_summary (game, FALSE);
       break;
 
@@ -1432,8 +1479,9 @@ task_print_end_game_message (scr_gameref_t game)
  * End of game task action.  Arms the ending and stops the game; the message
  * and the score summary are printed at the end of the turn, by
  * task_print_end_game_message() above.  A second EndGame action in the same
- * turn does not displace the first -- run400's EndGame handler tests the
- * gameover byte before writing it (0008D621).
+ * turn displaces the first: run400's handler (0008D66E) writes its gameover
+ * byte unconditionally, and it is the "execute task" action, not this one,
+ * that first tests the byte and skips (0008D621).
  */
 static scr_bool
 task_run_end_game_action (scr_gameref_t game, scr_int var1)
@@ -1441,8 +1489,7 @@ task_run_end_game_action (scr_gameref_t game, scr_int var1)
   if (var1 < 0 || var1 > 3)
     scr_fatal ("task_run_end_game_action: invalid type, %ld\n", var1);
 
-  if (game->pending_endgame == 0)
-    game->pending_endgame = var1 + 1;
+  game->pending_endgame = var1 + 1;
 
   /* Stop the game, and note that it's not resumeable. */
   game->is_running = FALSE;

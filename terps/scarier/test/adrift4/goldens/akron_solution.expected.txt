@@ -322,9 +322,9 @@ the door.
 
 > knock
 You rap on the door of 37 Kumquat Avenue. After a minute or two, the door
-opens. "FRED!" It's your wife, Martha. "Oh, Fred, it really is you!"
-   As Martha ushers you into her living room, smippets of memory start to
-come back. You recognize this place... YES!
+opens. "FRED!" It's your wife, Martha. "Oh, Fred, it really is you!"   As
+Martha ushers you into her living room, smippets of memory start to come
+back. You recognize this place... YES!
    Last night, you, Fred Johnson, owner of the Johnson Automotive Plant, had
 gone to Cleveland in your '57 Valiant to a dinner given by the Auto Workers
 Union for Elizabeth Dole. The theme had been the 1920s, and everyone was

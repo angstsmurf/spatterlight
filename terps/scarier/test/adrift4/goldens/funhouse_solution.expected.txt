@@ -178,6 +178,7 @@ Your score is 310 out of a maximum of 410.  (75%)
 
 > give ticket man cassette
 thank you for bravely protecting this important information
+
 You scored 310 out of the maximum 410!
 That is 75% of the game!
 You finished 100 points short.

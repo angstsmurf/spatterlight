@@ -489,9 +489,9 @@ You move the chair under the ceiling hole.
 Your score is 75 out of a maximum of 95.  (78%)
 
 > stand on chair
-You stand on  the chair and see that Mrs Fenwick is there safe and sound.
-Well there you have it. Mrs Fenwick was in no danger at all, it was a friend
-who picked her up at the booth (she was in a rush).
+You stand on  the chair and see that Mrs Fenwick is there safe and sound.Well
+there you have it. Mrs Fenwick was in no danger at all, it was a friend who
+picked her up at the booth (she was in a rush).
 
 I hoped you liked my game
 If you do then e-mail me with some feedback mwhitmore12@yahoo.co.uk

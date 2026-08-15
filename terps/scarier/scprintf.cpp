@@ -117,6 +117,10 @@ typedef struct scr_filter_s
   scr_bool new_sentence;
   scr_bool is_muted;
   scr_bool needs_filtering;
+  /* Buffer length just after pf_buffer_paragraph_line() supplied a trailing
+     newline of its own; -1 if the last one did not, or if anything has been
+     buffered since.  See pf_undo_auto_break(). */
+  scr_int auto_break_at;
 } scr_filter_t;
 
 
@@ -169,6 +173,7 @@ pf_create (void)
   filter->new_sentence = FALSE;
   filter->is_muted = FALSE;
   filter->needs_filtering = FALSE;
+  filter->auto_break_at = -1;
 
   return filter;
 }
@@ -963,6 +968,14 @@ pf_transfer_buffer (scr_filterref_t filter)
       filter->is_muted = FALSE;
       filter->needs_filtering = FALSE;
 
+      /*
+       * Deliberately not resetting auto_break_at: task running transfers the
+       * buffer out, runs task actions, then prepends it back, and the note of
+       * our own trailing newline has to survive that round trip.  It stays
+       * meaningless while the buffer is empty, since it can only match a
+       * buffer length equal to the transferred text's own.
+       */
+
       /* Return the allocated buffered text. */
       return retval;
     }
@@ -986,6 +999,7 @@ pf_empty (scr_filterref_t filter)
   filter->new_sentence = FALSE;
   filter->is_muted = FALSE;
   filter->needs_filtering = FALSE;
+  filter->auto_break_at = -1;
 }
 
 
@@ -1018,6 +1032,9 @@ pf_buffer_string (scr_filterref_t filter, const scr_char *string)
       /* Clear new sentence, and note as currently needing filtering. */
       filter->needs_filtering = TRUE;
       filter->new_sentence = FALSE;
+
+      /* Anything buffered invalidates a note of our own trailing newline. */
+      filter->auto_break_at = -1;
     }
 }
 
@@ -1111,9 +1128,58 @@ pf_buffer_paragraph_line (scr_filterref_t filter, const scr_char *string)
 
   pf_buffer_paragraph (filter, string);
 
+  filter->auto_break_at = -1;
   buffered = pf_get_buffer (filter);
   if (!buffered || !pf_text_ends_with_break (buffered))
-    pf_buffer_character (filter, '\n');
+    {
+      size_t before = filter->buffer.size ();
+
+      pf_buffer_character (filter, '\n');
+
+      /* Note the terminator as ours, so that pf_undo_auto_break() can take it
+         back.  Muting makes the call above a no-op, hence the length test. */
+      if (filter->buffer.size () > before)
+        filter->auto_break_at = (scr_int) filter->buffer.size ();
+    }
+}
+
+
+/*
+ * pf_undo_auto_break()
+ *
+ * Take back the line terminator that the last pf_buffer_paragraph_line()
+ * supplied of its own accord, if it is still the last thing in the buffer.
+ * Returns TRUE if one was removed.
+ *
+ * The pre-4.0 Runners do not terminate a task's text: whatever is printed
+ * next either supplies its own separator or runs straight on from where the
+ * text stopped.  (4.0 does terminate it, which is why the one caller so far,
+ * task_print_end_game_message(), asks for this on a pre-4.0 game only.)
+ * SCARIER instead ends each section with a newline, which is right for almost
+ * every caller but wrong for the ones that the Runner butts up against the
+ * text with nothing in between.  Measured live in run380 finishing
+ * microwaveman.taf, where the winning task's "You win the game." and the
+ * game's WinText appear as one run-on line, "You win the game.You have
+ * destroyed Coffee Man...".  Only that section's own terminator is taken
+ * back; a break the author wrote is left alone, which is why the position is
+ * recorded rather than a flag.
+ */
+scr_bool
+pf_undo_auto_break (scr_filterref_t filter)
+{
+  assert (pf_is_valid (filter));
+
+  if (filter->auto_break_at >= 0
+      && (size_t) filter->auto_break_at == filter->buffer.size ()
+      && !filter->buffer.empty ()
+      && filter->buffer[filter->buffer.size () - 1] == '\n')
+    {
+      filter->buffer.erase (filter->buffer.size () - 1);
+      filter->auto_break_at = -1;
+      return TRUE;
+    }
+
+  return FALSE;
 }
 
 
@@ -1225,6 +1291,11 @@ pf_prepend_string (scr_filterref_t filter, const scr_char *string)
   /* Ignore the call if the printfilter is muted. */
   if (!filter->is_muted)
     {
+      /* Prepending leaves the tail of the buffer alone, so a note of our own
+         trailing newline survives it -- including down the empty-buffer path
+         below, which routes through pf_buffer_string() and would clear it. */
+      const scr_int auto_break_at = filter->auto_break_at;
+
       if (!filter->buffer.empty ())
         {
           /* Take a copy of the current buffered string. */
@@ -1248,6 +1319,8 @@ pf_prepend_string (scr_filterref_t filter, const scr_char *string)
       else
         /* No data, so the call is equivalent to a normal buffer. */
         pf_buffer_string (filter, string);
+
+      filter->auto_break_at = auto_break_at;
     }
 }
 

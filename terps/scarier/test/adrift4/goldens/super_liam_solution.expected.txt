@@ -894,9 +894,8 @@ there is a huge explosion that shakes the whole room.  The next instant x1 is
 gone.  YOu see a door appear to your east.
 
 > east
-You walk east.  Congratulations!!!
-You stand in a sparkling room.  Around you on the walls we see the words,
-"congradulation you have defeated x1!"
+You walk east.  Congratulations!!!    You stand in a sparkling room.  Around
+you on the walls we see the words, "congradulation you have defeated x1!"
 
 You aren't happy though.  a few questions go through your mind.  what
 happened to the mer?

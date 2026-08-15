@@ -727,7 +727,6 @@ The beach shower is here to allow visitors to wash the sand off their feet.
 
 > use shower
 You wash the sand off your feet.  There, isn't that better?
-
 Congratulations!
 
 You successfully completed the original game Melbourne Beach, ©2001 by David
