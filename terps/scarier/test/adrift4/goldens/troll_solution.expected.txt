@@ -112,17 +112,17 @@ The landlord turns around and grabs a bottle from behind him, then places it
 on the bar.
 
 > get ticket
-You take the ticket from the bar.
+You take a ticket from the bar.
 
 > get beer
-You take the tankard from the bar.
+You take a tankard from the bar.
 The landlord scratches himself (the less you know about where the better!)
 
 > get wine
-You take the green bottle from the bar.
+You take a green bottle from the bar.
 
 > get whiskey
-You take the brown bottle from the bar.
+You take a brown bottle from the bar.
 The landlord blows his nose on the rag.
 
 > drink beer
@@ -331,7 +331,7 @@ Your guts rumble.
 A simple wooden shelf.  A wash basin is on the shelf.
 
 > get basin
-You take the wash basin from the shelf.
+You take a wash basin from the shelf.
 You feel hungry.
 Your throat is sore.
 
@@ -366,14 +366,14 @@ Your head is spinning.
 It is sturdy and simple in design.  A drawer is inside the desk.
 
 > get drawer
-You take the drawer from the desk.
+You take a drawer from the desk.
 You feel hungry.
 
 > open drawer
 You open the drawer.  A candle is inside the drawer.
 
 > get candle
-You take the candle from the drawer.
+You take a candle from the drawer.
 Your stomach growls.
 Your throat is sore.
 
@@ -476,7 +476,7 @@ Your throat is sore.
 Sid sips from his mug.
 
 > get water
-You take the cup of mineral water from the bar.
+You take a cup of mineral water from the bar.
 
 > drink water
 You gulp down the water. Refreshing.
@@ -550,7 +550,7 @@ placed in it, for the purpose of heating up pokers.  A poker is inside the
 iron bucket.
 
 > get poker
-You take the poker from the iron bucket.
+You take a poker from the iron bucket.
 
 > north
 You move north.
@@ -587,7 +587,7 @@ Also here is a sword blade.
 It's been here for a long while.  An old helmet is on the skeleton.
 
 > get helmet
-You take the old helmet from the skeleton.
+You take an old helmet from the skeleton.
 
 > drop poker
 You drop the poker.
@@ -814,7 +814,7 @@ here, laying on a big pile of nets.
 It's a small rowboat made from oak.  A fishing net is on the boat.
 
 > get net
-You take the fishing net from the boat.
+You take a fishing net from the boat.
 
 > get in boat
 "Yoush ready then, eh?, get in and I'll shove you off then." slurs Salty Sid.

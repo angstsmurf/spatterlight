@@ -300,10 +300,10 @@ You open the loose box.  Inside the loose box is a Hard hat, a length of rope
 and a lamp.
 
 > get rope
-You take the length of rope from the loose box.
+You take a length of rope from the loose box.
 
 > get lamp
-You take the lamp from the loose box.
+You take a lamp from the loose box.
 
 > w
 You move west.

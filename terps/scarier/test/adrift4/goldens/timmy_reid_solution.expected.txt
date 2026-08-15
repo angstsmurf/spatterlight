@@ -66,7 +66,7 @@ Your ears are rudely awakened by the sound of a skill saw screaming and
 scraping through some lumber off  in the distance.
 
 > get towel from clothesline
-You take the white towel from the white clothesline.
+You take a white towel from the white clothesline.
 Electricity rips through your spine as your ears are attacked by one of Art's
 coughing fits.  It ends after several seconds and you wonder if he's dead.
 
@@ -174,10 +174,10 @@ You open the wooden storage chest.  Inside the wooden storage chest is a
 skill saw, a crow bar, a crappy baseball glove and an old baseball bat.
 
 > get old baseball bat
-You take the old baseball bat from the wooden storage chest.
+You take an old baseball bat from the wooden storage chest.
 
 > get crappy baseball glove
-You take the crappy baseball glove from the wooden storage chest.
+You take a crappy baseball glove from the wooden storage chest.
 Electricity rips through your spine as your ears are attacked by one of Art's
 coughing fits.  It ends after several seconds and you wonder if he's dead.
 
@@ -879,7 +879,7 @@ there is a counter on the west wall.
 Jon, Captain Miller and Wayne Tucker are here.
 
 > get jelly donut
-You take the jelly donut from the small coffee table.
+You take a jelly donut from the small coffee table.
 
 > give captain miller a donut
 You attempt to get on the good side of Captain Miller and offer him the jelly
@@ -956,7 +956,7 @@ your arm.  There's some gauze, tape and some bandages in there."  You say
 Add 5 points to your score for having some balls.
 
 > get medical kit
-You take the medical kit from the wall counter.
+You take a medical kit from the wall counter.
 
 > out
 You move out.
@@ -1396,7 +1396,7 @@ Rocks but you have no idea why.  There are some people inspecting the rocks
 for crabs and good stuff.
 
 > get the marine animals
-You take the small marine animals from the googin's rocks.
+You take some small marine animals from the googin's rocks.
 
 > taste the small marine animals
 For some unknown reason, you raise the small marine animals to your mouth.

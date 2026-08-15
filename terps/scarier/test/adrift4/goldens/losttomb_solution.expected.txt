@@ -49,13 +49,13 @@ a notebook, a water bottle, a rope and a stick of dynamite.
 You take the lamp from your nightstand.
 
 > take matches
-You take the box of matches from your rucksack.
+You take a box of matches from your rucksack.
 
 > light lamp
 If flames into life.
 
 > take bottle
-You take the water bottle from your rucksack.
+You take a water bottle from your rucksack.
 
 > empty bottle
 You pour the water onto the ground.
@@ -64,7 +64,7 @@ You pour the water onto the ground.
 The water bottle is now filled with sand, and feels heavier for being so.
 
 > take cork
-You take the cork from the water bottle.
+You take a cork from the water bottle.
 
 > out
 You move out.
@@ -100,7 +100,7 @@ The pictures of flowers must of been a dazzling sight of colour, before they
 faded into pale pastels. You notice a crack in the east wall.
 
 > take dynamite
-You take the stick of dynamite from your rucksack.
+You take a stick of dynamite from your rucksack.
 
 > put dynamite in hole
 You put the stick of dynamite inside the crack in the wall.
@@ -291,7 +291,7 @@ a full five feet and is very imposing.  The mouth with all its teeth is
 slightly open, enough for you to reach in. Inside you see something shining.
 
 > take pencil
-You take the pencil from your rucksack.
+You take a pencil from your rucksack.
 
 > put pencil in mouth
 As you do so, the jaws slam shut snapping the pencil. But they also smash
@@ -436,7 +436,7 @@ You both manage to push the heavy lid onto the floor.
 He packs it all back up and looks ready for more adventuring.
 
 > take sapphire
-You take the sapphire from the sarcophagus.
+You take a sapphire from the sarcophagus.
 
 > nw
 You move northwest.
@@ -451,13 +451,13 @@ the centre circle.
 Also here is the cat, the vulture, the snake and the dung beetle.
 
 > take notebook
-You take the notebook from your rucksack.
+You take a notebook from your rucksack.
 
 > open notebook
 You open the notebook.  Some paper is inside the notebook.
 
 > take paper
-You take the paper from the notebook.
+You take some paper from the notebook.
 
 > put paper on inscription
 You put the paper onto the inscription.
@@ -529,7 +529,7 @@ rampantly upon the mortar between them. A stone well with a wooden frame has
 been built in the middle.
 
 > take rope
-You take the rope from your rucksack.
+You take a rope from your rucksack.
 
 > tie rope to beam
 After firmly securing the rope, it dangles down into the darkness of the

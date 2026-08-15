@@ -266,7 +266,7 @@ As the coin splashes into the water of the fountain there is a bright flash
 and you see the gold coin has become a golden flute.
 
 > take flute
-You take the golden flute from the water fountain.
+You take a golden flute from the water fountain.
 
 > w
 You move west.

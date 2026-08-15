@@ -12,10 +12,10 @@ bombards you with the radioactive waves that will come with it.  Hurry, if
 you don't get out soon you'll suffocate!
 
 > take clothes
-You pick up the aluminum clothes.
+You pick up some aluminum clothes.
 
 > wear clothes
-You put on the aluminum clothes.
+You put on some aluminum clothes.
 
 > take glass
 You pick up the shard of glass.
@@ -41,7 +41,7 @@ microwave shuts itself off when the door opens!
 Coffee Man is halfway through pressing the buttons!
 
 > take gun
-You take the small pistol from the aluminum clothes.
+You take a small pistol from some aluminum clothes.
 
 > south
 You move south.

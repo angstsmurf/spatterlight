@@ -104,7 +104,7 @@ You can only move north.
 You open the desk.  Inside the desk is a pen, a calculator and a key.
 
 > take key
-You take the key from the desk.
+You take a key from the desk.
 
 > unlock cabinet
 You put the key in the cabinet and turn it, to your suprise it opens.
@@ -189,10 +189,10 @@ the room and a large workbench in the center.
 You can only move south.
 
 > take pliers
-You take the pliers from tool racks.
+You take some pliers from tool racks.
 
 > take crowbar
-You take the crowbar from work table.
+You take a crowbar from work table.
 
 > s
 You move south.

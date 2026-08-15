@@ -65,7 +65,7 @@ You can only move out.
 The bar tender doesn't even charge you , he might know who you are!!!!
 
 > take beer
-You take the glass of beer from the bar.
+You take a glass of beer from the bar.
 
 > drink beer
 You drink the beer , the beer tasted good considering you haven't drank

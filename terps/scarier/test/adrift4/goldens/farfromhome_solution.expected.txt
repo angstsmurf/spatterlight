@@ -34,14 +34,14 @@ caresses them.
 You open the woodbox.  An axe is inside the woodbox.
 
 > take axe
-You take the axe from the woodbox.
+You take an axe from the woodbox.
 You hear a small snap, as if a twig had been broken.
 
 > down
 You clamber down the ladder into the cellar.
 
 > take bucket
-You take the rusty bucket from the awful-smelling bed.
+You take a rusty bucket from the awful-smelling bed.
 
 > up
 You grasp the ladder and climb back into the cabin.
@@ -234,7 +234,7 @@ You open the pretty blue seashell.  A tiny pearl is inside the pretty blue
 seashell.
 
 > take pearl
-You take the tiny pearl from the pretty blue seashell.
+You take a tiny pearl from the pretty blue seashell.
 
 > s
 You move south.
@@ -297,7 +297,7 @@ seas be in yer favor!" He hands you a dirty coil of rope and scuttles away.
 You wonder where he would go, since there wasn't a boat outside.
 
 > take key
-You take the tiny bronze key from the ruffled sheet.
+You take a tiny bronze key from the ruffled sheet.
 
 > d
 You move down.

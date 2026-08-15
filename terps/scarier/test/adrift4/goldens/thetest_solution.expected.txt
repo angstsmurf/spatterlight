@@ -41,7 +41,7 @@ hear nothing, taste nothing and feel nothing.
 You unzip the pocket.  Some more fluff is inside your clothes.
 
 > take fluff
-You take the more fluff from your clothes.
+You take some more fluff from your clothes.
 
 > drop fluff
 You drop the fluff.
@@ -51,7 +51,7 @@ The fluff is dragged away into the machine.  It sneezes loudly.
 Time passes...
 
 > take fluff
-You take the more fluff from your clothes.
+You take some more fluff from your clothes.
 
 > drop fluff
 You drop the fluff.
@@ -61,7 +61,7 @@ The fluff is dragged away into the machine.  It sneezes loudly.
 Time passes...
 
 > take fluff
-You take the more fluff from your clothes.
+You take some more fluff from your clothes.
 
 > drop fluff
 You drop the fluff.
@@ -75,7 +75,7 @@ the opposite wall.
 Time passes...
 
 > take key
-You take the blue key from the machine.
+You take a blue key from the machine.
 
 > unlock door
 You insert the white key into the lock but instead of unlocking the door

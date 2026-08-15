@@ -35,10 +35,10 @@ Greg is here, annoying you with his mere presence.
 The desk drawer slides open.
 
 > take set
-You take the Correspondence Set from Shane's Desk.
+You take a Correspondence Set from Shane's Desk.
 
 > take cards
-You take the pack of cards from the Revolving Table.
+You take a pack of cards from the Revolving Table.
 
 > s
 You move south.
@@ -142,7 +142,7 @@ Room dominates your southern vista.  The library door is closed.
 Mr B is here.
 
 > take apple
-You take the half-eaten apple from the rubbish bin.
+You take a half-eaten apple from the rubbish bin.
 
 > e
 You move east.

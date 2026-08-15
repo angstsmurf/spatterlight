@@ -7,7 +7,7 @@ A Red Conine Game
 Copyright @ 2009
 
 > take two dollar bill
-You take the two dollar bill from your closet.
+You take a two dollar bill from your closet.
 
 > e
 (Getting off your bathrobe first)

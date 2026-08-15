@@ -48,10 +48,10 @@ The librarian looks at your card, and nods. Immediately, someone else comes
 in and drops two books onto the return cart.
 
 > take thick book
-You take the thick book from the return cart.
+You take a thick book from the return cart.
 
 > take thin book
-You take the thin book from the return cart.
+You take a thin book from the return cart.
 
 > south
 You move south.

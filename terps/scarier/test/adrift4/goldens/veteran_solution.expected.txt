@@ -43,7 +43,7 @@ You open the bag.  A crowbar is inside the bag.
 A crowbar
 
 > take crowbar
-You take the crowbar from the bag.
+You take a crowbar from the bag.
 
 > n
 You move north.

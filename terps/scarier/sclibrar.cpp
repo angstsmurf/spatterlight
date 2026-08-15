@@ -431,14 +431,27 @@ lib_print_room_name (scr_gameref_t game, scr_int room)
  * Convenience functions to print out an object's name, with a "normalized"
  * prefix -- any "a"/"an"/"some" is replaced by "the" -- and with the full
  * prefix.
+ *
+ * "some" joined that list in 3.9.  3.7 and 3.8 normalize "a"/"an" only and
+ * leave a "some" prefix exactly as the author wrote it.  Measured live on one
+ * game carried across three .taf versions by the ADRIFT generators, so the
+ * data is provably identical in all three: microwaveman.taf (3.80) upconverted
+ * with gen390 and gen400, `take clothes` on an object whose Prefix is "some"
+ * -- run380 "You pick up some aluminum clothes.", run390 "You pick up the
+ * aluminum clothes.", run400 "You take the aluminum clothes."  3.70 answers
+ * like 3.80: a copy of arlo.taf with the bone's "a" prefix rewritten to "some"
+ * gives "You pick up some bone." in run370.  See RUNNER_TESTS_TODO.md
+ * section 4.
  */
 void
 lib_print_object_np (scr_gameref_t game, scr_int object)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[3];
+  scr_vartype_t vt_key[3], vt_version[1];
   const scr_char *prefix, *normalized, *name;
+
+  vt_version[0].string = "Version";
 
   /* Get the object's prefix. */
   vt_key[0].string = "Objects";
@@ -476,7 +489,8 @@ lib_print_object_np (scr_gameref_t game, scr_int object)
       normalized = prefix + 3;
       pf_buffer_string (filter, "the");
     }
-  else if (scr_compare_word (prefix, "some", 4))
+  else if (scr_compare_word (prefix, "some", 4)
+           && prop_get_integer (bundle, "I<-s", vt_version) >= TAF_VERSION_390)
     {
       normalized = prefix + 4;
       pf_buffer_string (filter, "the");
@@ -4716,11 +4730,23 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
                 pf_buffer_string (filter, total == 0 ? "\n" : "  ");
               /*
                * 4.0 reworded the loose-in-the-room take; the from-container
-               * branch reads the same in every version.  Measured live on a
-               * bare `take rock` / `get rock` / `take all`: run370 and run390
-               * answer "You pick up the rock.", run400 "You take the rock."
-               * (run380 shows the pre-4.0 half of the same handler through
-               * its "nothing to pick up here" refusal.)
+               * branch keeps the same verb in every version.  Measured live on
+               * a bare `take rock` / `get rock` / `take all`: run370 and
+               * run390 answer "You pick up the rock.", run400 "You take the
+               * rock."  (run380 shows the pre-4.0 half of the same handler
+               * through its "nothing to pick up here" refusal.)
+               *
+               * What 4.0 did change in the from-container branch is the
+               * *taken* object's prefix: pre-4.0 prints it raw, 4.0 normalizes
+               * it like everything else.  The container is normalized in both.
+               * Measured on the one game carried across three .taf versions by
+               * the generators (see lib_print_object_np above): `take gun` out
+               * of a "some"-prefixed container holding an "a"-prefixed pistol
+               * gives run380 "You take a small pistol from some aluminum
+               * clothes.", run390 "You take a small pistol from the aluminum
+               * clothes.", run400 "You take the small pistol from the aluminum
+               * clothes."  Only the pistol's own prefix moves at 4.0; the
+               * clothes move at 3.9, which is the "some" rule, not this one.
                */
               if (parent == -1)
                 pf_buffer_string (filter,
@@ -4739,7 +4765,10 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
                                                        "You take ",
                                                        "I take ",
                                                        "%player% takes "));
-              lib_print_list (game, list, lib_print_object_np, " and ");
+              lib_print_list (game, list,
+                              parent == -1 || lib_is_version_400 (game)
+                              ? lib_print_object_np : lib_print_object,
+                              " and ");
               if (parent != -1)
                 {
                   pf_buffer_string (filter, " from ");

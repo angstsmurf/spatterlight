@@ -158,10 +158,10 @@ In spare bedroom of Fenwicks house. There is a dresser here.
 You open the dresser.
 
 > get penny
-You take the penny from the dresser.
+You take a penny from the dresser.
 
 > get golf ball
-You take the golf ball from the dresser.
+You take a golf ball from the dresser.
 
 > south
 You move south.
@@ -239,7 +239,7 @@ You put the penny in the machine and give the lever a pull. All of a sudden
 You grab the £30.00 from the machine
 
 > get cash
-You take the cash from the casino.
+You take a cash from the casino.
 
 > south
 You move south.

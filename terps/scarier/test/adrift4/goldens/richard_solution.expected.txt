@@ -70,7 +70,7 @@ small, open closet here.
 You can go east, south and west.
 
 > get pail
-You take the watering pail from the hall closet.
+You take a watering pail from the hall closet.
 
 > w
 You move west.
@@ -97,7 +97,7 @@ corner.
 You can go north and east.
 
 > get backpack
-You take the backpack from the master bedroom closet.
+You take a backpack from the master bedroom closet.
 
 > e
 You move east.

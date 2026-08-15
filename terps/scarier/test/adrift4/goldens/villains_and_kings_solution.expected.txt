@@ -255,7 +255,7 @@ You can move north and south.
 The day is half over.
 
 > take soap on a rope
-You take the Soap on a rope from Cracked Broken Window.
+You take a Soap on a rope from Cracked Broken Window.
 
 > x window
 Hey, this window is broken.  Who would do such a dastardly, dastardly deed?

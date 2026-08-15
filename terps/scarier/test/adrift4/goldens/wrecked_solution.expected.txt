@@ -88,7 +88,7 @@ The bench is made from several planks of wood, and has been varnished a deep
 brown colour.  A tweed jacket is on the bench.
 
 > get jacket
-I take the tweed jacket from the bench.
+I take a tweed jacket from the bench.
 
 > x it
 [x a tweed jacket]
@@ -96,7 +96,7 @@ The tweed jacket is a delightful brown colour.  It looks a bit worn,
 especially at the elbows.  A small key is inside the tweed jacket.
 
 > get key
-I take the small key from the tweed jacket.
+I take a small key from the tweed jacket.
 
 > x lockers
 There are lockers running down the whole wall.  All are a different colour.
@@ -119,7 +119,7 @@ locking mechanism in the locker requires a coin to lock it.  The red locker
 is open.  A small silver coin is inside the red locker.
 
 > get coin
-I take the small silver coin from the red locker.
+I take a small silver coin from the red locker.
 
 > out
 I move out.
@@ -168,7 +168,7 @@ as he takes the coin.  "Here you go."  He places a pint of lager onto the
 bar.
 
 > get pint
-I take the pint of lager from the bar.
+I take a pint of lager from the bar.
 
 > out
 I move out.
@@ -226,7 +226,7 @@ sweety wrappers, and the odd bit of chewing gum stuffed inside it.  An
 application form is inside the leaflet rack.
 
 > get form
-I take the application form from the leaflet rack.
+I take an application form from the leaflet rack.
 
 > x it
 [x an application form]
@@ -455,7 +455,7 @@ The tray is marked "Unclaimed mail."  A manilla envelope is inside the post
 office tray.
 
 > get envelope
-I take the manilla envelope from the post office tray.
+I take a manilla envelope from the post office tray.
 
 > open it
 [open a manilla envelope]
@@ -567,7 +567,7 @@ I push the plaque firmly.  The plaque clicks, and then springs open,
 revealing a juicy pork chop.
 
 > get chop
-I take the juicy pork chop from the small plaque.
+I take a juicy pork chop from the small plaque.
 
 > east
 I move east.
@@ -755,13 +755,13 @@ I hand Arthur my Gold card.  He swipes it on his till and hands it back to
 me. "There you go mate."  Arthur places another pint on the counter.
 
 > get pint
-I take the pint of lager from the bar.
+I take a pint of lager from the bar.
 
 > x tables
 Just round wooden tables.  A small ticket is on the tables.
 
 > get ticket
-I take the small ticket from the tables.
+I take a small ticket from the tables.
 
 > out
 I move out.
@@ -1243,7 +1243,7 @@ inside the old wooden cabinet.
 
 > get all from it
 [get all from the old wooden cabinet]
-I take the old log book and the large bronze key from the old wooden cabinet.
+I take an old log book and a large bronze key from the old wooden cabinet.
 
 > out
 I move out.

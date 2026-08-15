@@ -83,7 +83,7 @@ You open the pantry.  Inside the pantry is a loaf of bread, a bag of rice, a
 bottle of wine, a sack of flour and a spice rack.
 
 > take bread
-You take the loaf of bread from the pantry.
+You take a loaf of bread from the pantry.
 
 > se
 You move southeast.
@@ -197,10 +197,10 @@ answer]
 The box slowly opens.
 
 > take key
-You take the old key from the wooden box.
+You take an old key from the wooden box.
 
 > take scroll
-You take the scroll from the wooden box.
+You take a scroll from the wooden box.
 
 > n
 You move north.
@@ -260,7 +260,7 @@ You unlock the desk.
 You open the desk drawer.
 
 > take letter
-You take the letter from the desk.
+You take a letter from the desk.
 
 > s
 You move south.

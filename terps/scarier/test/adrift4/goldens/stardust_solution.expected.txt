@@ -38,10 +38,10 @@ outside world.
 You can only move out.
 
 > take bracelet
-You take the shiny bracelet from the wooden table.
+You take a shiny bracelet from the wooden table.
 
 > take statue
-You take the star statue from the bookshelf.
+You take a star statue from the bookshelf.
 
 > out
 You move out.
@@ -130,7 +130,7 @@ You can only move out.
 You pick up the TP.
 
 > take paper
-You take the piece of paper from the hole.
+You take a piece of paper from the hole.
 
 > out
 You move out.
@@ -192,7 +192,7 @@ Do you have anything to eat? I'm freakin' STARVIN' over here!" Wow. A talking
 squirrel. Groovy.
 
 > take branch
-You take the branch from the tree.
+You take a branch from the tree.
 
 > give candy to squirrel
 The squirrel hops down and gobbles down half of your candy. "Thanks a lot! I
@@ -279,10 +279,10 @@ You can only move east.
 Squirrel scampers up from the east.
 
 > take needle
-You take the sharp needle from the desk.
+You take a sharp needle from the desk.
 
 > take needle box
-You take the needle box from the desk.
+You take a needle box from the desk.
 
 > e
 You move east.
@@ -309,7 +309,7 @@ You can only move west.
 Squirrel scampers up from the west.
 
 > take tea packet
-You take the tea packet from the table.
+You take a tea packet from the table.
 
 > w
 You move west.
@@ -523,7 +523,7 @@ You can only move west.
 Squirrel scampers up from the west.
 
 > take spellbook
-You take the spellbook from the table.
+You take a spellbook from the table.
 
 > w
 You move west.

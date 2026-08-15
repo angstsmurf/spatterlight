@@ -30,7 +30,7 @@ west.
 You open the dresser.  A pair of jeans is inside the dresser.
 
 > get jeans
-You take the pair of jeans from the dresser.
+You take a pair of jeans from the dresser.
 
 > wear jeans
 OK, you're now wearing the jeans. They are a little snug but seem to fit for
@@ -42,7 +42,7 @@ Kitty saunters in.
 You open the closet.  A shirt is inside the closet.
 
 > get shirt
-You take the shirt from the closet.
+You take a shirt from the closet.
 
 > wear shirt
 The shirt fits just fine. It has a pocket you can put small items in.
@@ -75,10 +75,10 @@ You open the instrument case.  Inside the instrument case is a small bottle,
 a spit rag and a Monette trumpet.
 
 > get trumpet
-You take the Monette trumpet from the instrument case.
+You take a Monette trumpet from the instrument case.
 
 > get bottle
-You take the small bottle from the instrument case.
+You take a small bottle from the instrument case.
 
 > open bottle
 You open the small bottle.  Some oil is inside the small bottle.
@@ -145,7 +145,7 @@ Judy is here, whistling happily.
 You open the leather purse.  A set of car keys is inside the leather purse.
 
 > get keys
-You take the set of car keys from the leather purse.
+You take a set of car keys from the leather purse.
 
 > n
 You move north.
@@ -503,7 +503,7 @@ You set the dryer for an appropriate period of time and turn it on.  It spins
 the clothes around for a while, humming merrily, then stops.
 
 > get dry clothes
-You take the dry clothes from the dryer.
+You take some dry clothes from the dryer.
 
 > fold clothes
 What a great guest you are!  You do laundry, fold clothes, you should stay

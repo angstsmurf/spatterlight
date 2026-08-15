@@ -28,8 +28,8 @@ a cellar too.
 A magic cube appears in your hands.
 
 > take all
-You take the diary, the brass lantern, the woven cloak and the nice food from
-the old oak table.
+You take a diary, a brass lantern, a woven cloak and some nice food from the
+old oak table.
 
 > wear cloak
 You put on the woven cloak.
@@ -43,7 +43,7 @@ This dark little room has lots of shelves with little on them.
 You can also see a gold coin.
 
 > take oil
-You take the bottle of oil from the shelves.
+You take a bottle of oil from the shelves.
 
 > take coin
 You pick up the gold coin and put it in your purse.
@@ -362,7 +362,7 @@ you back into the small cave.
 Serond follows you from the east.
 
 > take spade
-You take the metal spade from the holes in the wall.
+You take a metal spade from the holes in the wall.
 
 > e
 You move east.
@@ -575,7 +575,7 @@ You open the wooden desk.  A small jacket and a pile of gold coins are inside
 the wooden desk.
 
 > take jacket
-You take the small jacket from the wooden desk.
+You take a small jacket from the wooden desk.
 
 > take coins
 You pick up the gold coins and put them in your purse.
@@ -669,7 +669,7 @@ Serond follows you from the north-west.
 The cupboard creaks open and the objects inside glitter and shine.
 
 > take elven armour
-You take the elven armour from the elven cupboard.
+You take some elven armour from the elven cupboard.
 
 > wear elven armour
 You put on the elven armour.
@@ -825,7 +825,7 @@ The chest's lock slowly turns and with a clunk, the chest is unlocked.
 The large chest is already open!
 
 > take longmore chest plate
-You take the longmore chest plate from the large chest.
+You take a longmore chest plate from the large chest.
 
 > wear longmore chest plate
 You put on the longmore chest plate.
@@ -1122,7 +1122,7 @@ Serond follows you from the south.
 Haron follows you from the south.
 
 > take all
-You take the small key from the long table.
+You take a small key from the long table.
 
 > s
 You move south.
@@ -1171,7 +1171,7 @@ chest unlocks.
 The chest creaks open.
 
 > take all
-You take the large key from the large chest.
+You take a large key from the large chest.
 
 > d
 You move down.

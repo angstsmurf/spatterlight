@@ -199,7 +199,7 @@ promptly take out a pistol and shoot one of them, setting the others on the
 run.
 
 > get beer
-You take the can of beer from the dead punker.
+You take a can of beer from the dead punker.
 
 > open can
 You open the can of beer.
@@ -349,7 +349,7 @@ been lying there for weeks but some are fresh-fallen.  A strong branch is on
 the ground.
 
 > get branch
-You take the strong branch from the ground.
+You take a strong branch from the ground.
 
 > se
 You walk southeast.
@@ -372,13 +372,13 @@ with black stripes, as if he was going to a battle.  A pistol, a knife and an
 assault rifle are on the unconscious soldier.
 
 > get pistol
-You take the pistol from the unconscious soldier.
+You take a pistol from the unconscious soldier.
 
 > get knife
-You take the knife from the unconscious soldier.
+You take a knife from the unconscious soldier.
 
 > get rifle
-You take the assault rifle from the unconscious soldier.
+You take an assault rifle from the unconscious soldier.
 
 > get boots
 You get the soldier's heavy boots.
@@ -842,7 +842,7 @@ a human being. The face is bloody, torn apart and has a deathly scream on his
 lips.  An ad is on the dead body.
 
 > get ad
-You take the ad from the dead body.
+You take an ad from the dead body.
 
 > read ad
 Underneath a picture of a pretty naked girl the ad says "For a good time call

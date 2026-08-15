@@ -123,7 +123,7 @@ very sparse.
 Also here is some grains of rice.
 
 > take rice
-You pick up the grains of rice.
+You pick up some grains of rice.
 
 > out
 You move out.

@@ -51,7 +51,7 @@ trapdoor in the corner of the room leads down into the cellar.
 You open the cabinet.  A brass key is inside the cabinet.
 
 > take key
-You take the brass key from the cabinet.
+You take a brass key from the cabinet.
 
 > open box
 You open the box and a small rat leaps out. He scurries around the floor and
@@ -113,7 +113,7 @@ had been hidden.
 You open the metal box.  A stick of Dynamite is inside the metal box.
 
 > take dynamite
-You take the stick of Dynamite from the metal box.
+You take a stick of Dynamite from the metal box.
 
 > d
 You move down.
@@ -157,13 +157,13 @@ keep the shadows off of it.
 You open the closet.  A hard hat is inside the closet.
 
 > take hat
-You take the hard hat from the closet.
+You take a hard hat from the closet.
 
 > open pillow
 You open the pillow.  A deck of cards is inside the pillow.
 
 > take cards
-You take the deck of cards from the pillow.
+You take a deck of cards from the pillow.
 
 > wear hat
 You stick the hard hat on your head and do up the straps.

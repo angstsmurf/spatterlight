@@ -68,7 +68,7 @@ You open the large chest.  A rusty old axe and a rusty poker are inside the
 large chest.
 
 > take axe
-You take the rusty old axe from the large chest.
+You take a rusty old axe from the large chest.
 
 > out
 You move out.
@@ -203,7 +203,7 @@ you chop it up into managable sized pieces.
 You drop the rusty old axe.
 
 > take wood
-You pick up the planks of wood.
+You pick up some planks of wood.
 
 > w
 You move west.
@@ -335,7 +335,7 @@ You untie the rope from the raft.
 You drop the length of rope.
 
 > drop wood
-You drop the planks of wood.
+You drop some planks of wood.
 
 > e
 You move east.
@@ -426,10 +426,10 @@ You are standing inside a small garage.  There are shelves running along the
 sides of the walls.  There is an old run down car in here.
 
 > take nails
-You take the bag of nails from the shelves.
+You take a bag of nails from the shelves.
 
 > take oil
-You take the small can of oil from the shelves.
+You take a small can of oil from the shelves.
 
 > out
 You move out.
@@ -466,7 +466,7 @@ small market.
 Also here is some planks of wood and a length of rope.
 
 > take wood
-You pick up the planks of wood.
+You pick up some planks of wood.
 
 > e
 You move east.
@@ -729,7 +729,7 @@ hatch in the floor.
 Also here is some sellotape.
 
 > take sellotape
-You pick up the sellotape.
+You pick up some sellotape.
 
 > down
 You move down.
@@ -786,7 +786,7 @@ You drop the star shaped amulet.
 You drop the baby dragon.
 
 > drop sellotape
-You drop the sellotape.
+You drop some sellotape.
 
 > s
 You move south.
@@ -874,7 +874,7 @@ a parchment and some sellotape.
 You pick up half of a parchment.
 
 > take sellotape
-You pick up the sellotape.
+You pick up some sellotape.
 
 > n
 You move north.

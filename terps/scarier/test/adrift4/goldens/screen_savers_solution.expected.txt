@@ -897,7 +897,7 @@ red crate and a yellow crate here.  Going south will take you through the
 space/time rift and back into space.
 
 > take sticker
-You take the sticker from the yellow crate.
+You take a sticker from the yellow crate.
 
 > put sticker on red crate
 You firmly afix the sticker to the red crate.  As you do, something that was

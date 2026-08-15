@@ -717,7 +717,7 @@ Surely your friend wasn't so foolish as to forget that CyberCows cannot read?
 You open the envelope.  A new letter is inside the envelope.
 
 > take new letter
-You take the new letter from the envelope.
+You take a new letter from the envelope.
 
 > read new letter
 

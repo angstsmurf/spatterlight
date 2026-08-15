@@ -9,8 +9,7 @@ You realize that it is thursday which translates to "Payday"  you decide to
 get dressed and head to WORK.
 
 > take all from dresser
-You take the socks, the shirt, the underwear and the pair of pants from the
-dresser.
+You take a socks, a shirt, a underwear and a pair of pants from the dresser.
 
 > wear underwear
 You put on the underwear.
@@ -52,7 +51,7 @@ You can only move east.
 You open the toilet.  A poop is inside the toilet.
 
 > take poop
-You take the poop from the toilet.
+You take a poop from the toilet.
 
 > east
 You move east.
@@ -114,7 +113,7 @@ This is your brother's room. To the west is the hallway.
 You can only move west.
 
 > take mustang keys
-You take the mustang keys from the night stand.
+You take a mustang keys from the night stand.
 
 > west
 You move west.
@@ -179,7 +178,7 @@ important.
 You can only move east.
 
 > take truck keys
-You take the truck keys from the closet.
+You take a truck keys from the closet.
 
 > east
 You move east.
@@ -576,13 +575,13 @@ This is a mail box.  A small box is inside the mailbox.
 You can't open the small box!
 
 > take case
-You take the neat carrying case from the small box.
+You take a neat carrying case from the small box.
 
 > open case
 You can't open the neat carrying case!
 
 > take balls
-You take the brass balls from the neat carrying case.
+You take some brass balls from the neat carrying case.
 
 > north
 You move north.

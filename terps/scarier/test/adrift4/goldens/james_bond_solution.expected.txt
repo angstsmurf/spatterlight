@@ -75,7 +75,7 @@ You open the brown suitcase.  Inside the brown suitcase is a 9mm hand gun, a
 lazer watch and a mind learner.
 
 > take learner
-You take the mind learner from the brown suitcase.
+You take a mind learner from the brown suitcase.
 
 > 1
 (IT'S Q) HELLO AGAIN 007... NEED MY HELP AGAIN! OK. WELL THIS MIND LEARNER,

@@ -434,7 +434,7 @@ wood.  There is also a large closet.
 You open the closet.  A porcelain doll is inside the closet.
 
 > take doll
-You take the porcelain doll from the closet.
+You take a porcelain doll from the closet.
 
 > pull doll head
 "Careful..." Gale urges as you take off the dolls head.  Inside you find what
@@ -486,13 +486,13 @@ A simple bedroom with a  twin-sized bed, small dresser, and wardrobe.
 You open the wardrobe.  A cheap suit is inside the wardrobe.
 
 > take suit
-You take the cheap suit from the wardrobe.
+You take a cheap suit from the wardrobe.
 
 > open dresser
 You open the small dresser.  A faded photo is inside the small dresser.
 
 > take photo
-You take the faded photo from the small dresser.
+You take a faded photo from the small dresser.
 
 > w
 You move west.

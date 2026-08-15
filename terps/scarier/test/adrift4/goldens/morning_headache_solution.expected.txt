@@ -66,7 +66,7 @@ You turn off your buzzer.
 You take the bottle from the coffee table.
 
 > take invitation
-You take the invitation from the bookshelf.
+You take an invitation from the bookshelf.
 The woman has almost finished dressing.
 
 > n
@@ -82,7 +82,7 @@ north is the staircase down to the first floor, but you have no reason to
 leave the apartment.
 
 > take pepsi
-You take the glass of pepsi from the kitchen bench.
+You take a glass of pepsi from the kitchen bench.
 
 > put pepsi in bottle
 You pour the pepsi into the empty  "Bushmills 16 years old premium Irish
@@ -117,7 +117,7 @@ have your bed, a dresser and a small night table here. You can go west to the
 living room, or north to the bathroom.
 
 > take cellular phone
-You take the cellular phone from the night table.
+You take a cellular phone from the night table.
 
 > take suit
 You take the suit from the chair.

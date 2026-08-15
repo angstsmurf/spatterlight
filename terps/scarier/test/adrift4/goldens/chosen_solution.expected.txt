@@ -323,7 +323,7 @@ open the door to reveal that the box is empty save for a block of metal
 carved into a bizarre shape.
 
 > take d-shaped metal block
-You take the D-shaped metal block from the metal box.
+You take a D-shaped metal block from the metal box.
 
 > e
 You move east.

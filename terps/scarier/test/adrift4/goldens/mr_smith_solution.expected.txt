@@ -147,7 +147,7 @@ be some items of some use around.
 You open wooden box.  A flak jacket is inside wooden box.
 
 > take flak jacket
-You take the flak jacket from wooden box.
+You take a flak jacket from wooden box.
 
 > wear flak jacket
 You put on the flak jacket.
@@ -478,7 +478,7 @@ walls.
 You open the refrigerator.  A gourmet sandwich  is inside the refrigerator.
 
 > take sandwich
-You take the gourmet sandwich  from the refrigerator.
+You take a gourmet sandwich  from the refrigerator.
 
 > eat sandwich
 You eat the sandwich. You have never EVER tasted anything so good.
@@ -512,7 +512,7 @@ The gun cabinet is locked, you cannot open it.
 You open the gun cabinet.  An AUG assault rifle is inside the gun cabinet.
 
 > take rifle
-You take the AUG assault rifle from the gun cabinet.
+You take an AUG assault rifle from the gun cabinet.
 
 > e
 You move east.
@@ -559,13 +559,13 @@ is one pair of muddy footprints leading up it.
 You open the automobile.  Some dynamite is inside the automobile.
 
 > take dynamite
-You take the dynamite from the automobile.
+You take some dynamite from the automobile.
 
 > open cab
 You open the taxi cab.  A pack of matches is inside the taxi cab.
 
 > take matches
-You take the pack of matches from the taxi cab.
+You take a pack of matches from the taxi cab.
 
 > n
 You move north.

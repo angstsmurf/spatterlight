@@ -329,7 +329,7 @@ As you say the word, a strange creaking sound comes from within the chimney,
 then suddenly,  in a puff of soot, something falls down.
 
 > take blunderbuss
-You take the blunderbuss from the fireplace.
+You take a blunderbuss from the fireplace.
 You hear a strange, spine chilling groan.
 
 > put ball in blunderbuss
@@ -873,7 +873,7 @@ against the sides of the u bend.
 You drop the plunger.
 
 > take gold bar
-You take the gold bar from the toilet.
+You take a gold bar from the toilet.
 
 > take emerald ring
 You pick up the emerald ring.
@@ -1015,7 +1015,7 @@ Zombie Stumbles away from you to the north.
 You drop the blunderbuss.
 
 > take doubloons
-You take the bag of doubloons from the dead zombie.
+You take a bag of doubloons from the dead zombie.
 
 > d
 You move down.
