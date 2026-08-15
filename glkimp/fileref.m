@@ -102,7 +102,19 @@ void getautosavedir(char *file)
 
         dirname = [dirname stringByAppendingPathComponent:@"Autosaves"];
 
-        NSString *signature = gamepath.signatureFromFile;
+        /* Prefer the signature handed to us by the host app, which can fall
+         * back to the library's stored hash when the game file itself is
+         * unreadable (e.g. an evicted iCloud file). This also guarantees the
+         * GUI and interpreter agree on the autosave directory. We only
+         * recompute it from the file when running without the app, as in the
+         * headless test harnesses. */
+        NSString *signature = nil;
+        const char *envsignature = getenv("SPATTERLIGHT_AUTOSAVE_SIGNATURE");
+        if (envsignature != NULL && envsignature[0] != '\0')
+            signature = @(envsignature);
+
+        if (signature.length == 0)
+            signature = gamepath.signatureFromFile;
 
         if (signature.length == 0) {
             NSLog(@"getautosavedir: Could not create file signature from file at \"%@\"", gamepath);
@@ -188,6 +200,11 @@ int create_workdir(void) {
 int create_autosavedir(char *file) {
     int retval = 0;
     getautosavedir(file);
+    /* getautosavedir fails silently, e.g. when the game file cannot be read
+     * to compute a signature. Boxing the NULL path below would throw
+     * NSInvalidArgumentException and abort the interpreter. */
+    if (autosavedir == NULL)
+        return retval;
     @autoreleasepool {
         NSURL *autoSaveURL = [NSURL fileURLWithPath:@(autosavedir) isDirectory:YES];
         NSError *error = nil;

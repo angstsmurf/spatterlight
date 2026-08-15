@@ -1074,6 +1074,19 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     task.launchPath = terppath;
     task.arguments = @[ _gamefile ];
 
+    // Hand the interpreter the same per-game signature the GUI uses for its
+    // autosave directory. Unlike us, the interpreter cannot fall back to the
+    // library's stored hash when the game file is unreadable (e.g. an evicted
+    // iCloud file), and letting it recompute the signature independently
+    // could make the two processes disagree on the directory.
+    NSString *signature = self.gameSignature;
+    if (signature.length) {
+        NSMutableDictionary<NSString *, NSString *> *environment =
+            [NSProcessInfo.processInfo.environment mutableCopy];
+        environment[@"SPATTERLIGHT_AUTOSAVE_SIGNATURE"] = signature;
+        task.environment = environment;
+    }
+
     // Bocfel (Z-machine interpreter) accepts extra options:
     // -n: set the interpreter number reported to the game
     // -N: set the interpreter letter

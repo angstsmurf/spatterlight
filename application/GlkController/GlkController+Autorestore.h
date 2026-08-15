@@ -7,6 +7,7 @@
 - (GlkTextGridWindow *)findGridWindowIn:(NSView *)theView;
 - (Theme *)findThemeByName:(NSString *)name;
 
+- (NSString *)gameSignature;
 - (NSString *)buildAppSupportDir;
 - (NSString *)autosaveFileGUI;
 - (NSString *)autosaveFileTerp;

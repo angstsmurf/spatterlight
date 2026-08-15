@@ -158,6 +158,13 @@ bool spatterlight_restore_autosave(enum SaveOpcode *saveopcode)
             getautosavedir(const_cast<char *>(game_file.c_str()));
         }
 
+        // getautosavedir can fail and leave autosavedir NULL; boxing NULL
+        // below would throw NSInvalidArgumentException and abort.
+        if (autosavedir == NULL) {
+            win_showerror("Could not create autosave directory name.");
+            return false;
+        }
+
         NSString *dirname = @(autosavedir);
         if (!dirname.length) {
             win_showerror("Could not create autosave directory name.");

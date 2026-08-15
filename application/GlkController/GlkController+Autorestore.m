@@ -285,6 +285,18 @@
 }
 
 
+// The per-game signature used to name the autosave directory. Falls back to
+// the hash stored in the library when the game file itself cannot be read,
+// e.g. an evicted iCloud file. This value is also passed to the interpreter
+// process (which has no library to fall back on) so that both processes
+// always agree on the directory.
+- (NSString *)gameSignature {
+    NSString *signature = self.gamefile.signatureFromFile;
+    if (signature.length == 0)
+        signature = self.game.hashTag;
+    return signature;
+}
+
 - (NSString *)buildAppSupportDir {
     NSDictionary *gFolderMap = @{@"adrift" : @"SCARE",
                                      @"advsys" : @"AdvSys",
@@ -339,14 +351,11 @@
             return nil;
         }
 
-        NSString *signature = self.gamefile.signatureFromFile;
+        NSString *signature = self.gameSignature;
 
         if (signature.length == 0) {
-            signature = game.hashTag;
-            if (signature.length == 0) {
-                NSLog(@"GlkController appSupportDir: Could not create signature from game file \"%@\"!", self.gamefile);
-                return nil;
-            }
+            NSLog(@"GlkController appSupportDir: Could not create signature from game file \"%@\"!", self.gamefile);
+            return nil;
         }
 
         NSString *terpFolder =
