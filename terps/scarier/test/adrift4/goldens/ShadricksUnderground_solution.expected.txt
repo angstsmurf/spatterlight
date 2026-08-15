@@ -75,7 +75,6 @@ home.
 My Mum is scrubbing the floor, right over there.
 
 > give lantern to mum
-(Your score has increased by 2)
 I give the lantern to my Mum.  She stops scrubbing the floor long enough to
 pull a flask of oil from her apron, and fills the lantern.
 
@@ -105,7 +104,6 @@ A trapdoor in the floor leads down to the cellar.
 I open the trap door.
 
 > d
-(Your score has increased by 2)
 “Ahhh!”
 
 Right, that was a smart move.  I was steadying myself with an old crate when
@@ -196,7 +194,6 @@ bricks or so.  A brick is on the pile of bricks.
 One is all I need.
 
 > in
-(Your score has increased by 2)
 I stick the lantern through the hole first, checking for spiders and rats.
 I'm not very fond of 'nightly creatures', as mum calls them.  I look around
 for Hanson, but don't see him anywhere.
@@ -225,7 +222,6 @@ from here, but there is a very large, hairy spider blocking my way.  The
 tunnel also leads south.
 
 > smash spider
-(Your score has increased by 4)
 Realizing I have a heavy brick, I begin to smash as many of the little
 spiders as I can.  That very large spider, blocking my way, doesn't seem to
 be too happy about that and comes at me very quickly.
@@ -254,7 +250,6 @@ I pull as hard as I can and the lever moves half way down, but nothing
 happens.
 
 > again
-(Your score has increased by 2)
 I again pull as hard as I can and the lever moves into the down position and
 the grate slowly swings open.
 
@@ -278,14 +273,12 @@ with hundreds of rats that scurry about.  The tunnel runs south from here and
 west.  Man, there are a lot of rats!
 
 > feed rats
-(Your score has increased by 3)
 I throw the egg down the tunnel a little ways, and the rats scurry on over,
 climbing over each other to get a piece.
 
 There are still too many rats to pass.  They look very hungry.
 
 > again
-(Your score has increased by 9)
 I throw the pickled pigs foot down the tunnel a little ways, and the rats
 race over to it as quickly as they can.
 
@@ -311,7 +304,6 @@ attached to the wall, it would be far below the hole.
 Also here is an old ladder.
 
 > climb ladder
-(Your score has increased by 3)
 I'm steadying myself at the bottom and begin to climb upward, towards the
 direction of the light.  I'm almost there.
 
@@ -341,7 +333,6 @@ steps in, the rope begins to untwine and I am barely able to jump back to
 safety before it snaps, disappearing somewhere into the pit.
 
 > put ladder over pit
-(Your score has increased by 3)
 Steadying the ladder at the edge of the pit, I slowly lower it, making
 contact with the other side.  It seems to have worked.  I might be able to
 get to the other side now.
@@ -399,7 +390,6 @@ differing in height.  I can see a tall plinth, a medium plinth, and a short
 plinth. Wow, it really smells bad in here.
 
 > put boulder on tall plinth
-(Your score has increased by 8)
 "Mmmmgggphh."
 
  Ok, that wasn't so bad.  It weighs about as much as a sack of grain.  It's
@@ -534,7 +524,6 @@ differing in height.  I can see a tall plinth, a medium plinth, and a short
 plinth. Wow, it really smells bad in here.
 
 > put boulder on medium plinth
-(Your score has increased by 11)
 "Mmmmgggphh. Oooh.  Oh.  Whoa! Almost dropped it.  A little more.  Come on.
 There!"
 
@@ -699,7 +688,6 @@ floor is piled high with bat droppings, and the stench is quite nauseating.
 Also here is a large boulder.
 
 > push boulder w
-(Your score has increased by 10)
 "Grrrr. Hhhrrrmmmmmmmmmppphhhh."
 
 I pushed the boulder to the west.
@@ -714,7 +702,6 @@ plinth. Wow, it really smells bad in here.
 Also here is a large boulder.
 
 > put large boulder on short plinth
-(Your score has increased by 13)
 "Mmmmgggphh. Uuuuugghhh.  Whoy boy.  Easy does it.  Oh!  Ahh!  Grrruuummmph.
 Ok."
 
@@ -949,13 +936,11 @@ has disappeared somewhere into the pit.  The tunnel leads east.
 "Hanson is here, looking at me for direction."
 
 > put ladder over pit
-(Your score has increased by 3)
 Steadying the ladder at the edge of the pit, I slowly lower it, making
 contact with the other side.  It seems to have worked.  I might be able to
 get to the other side now.
 
 > cross ladder
-(Your score has increased by 10)
 "I easily make it across, looking like an expert in the eyes of my younger
 brother."
 
@@ -1064,7 +1049,6 @@ Hanson follows me in.
 My score is 85 out of a maximum of 0.  (0%)
 
 > up
-(Your score has increased by 15)
 "The trapdoor is stuck! We still can't get out, Hanson."
 
 "Don't be such a crybaby, Shadrick.  MOM! MOM! SHADRICK IS BEATING ON ME!"

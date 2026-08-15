@@ -23,7 +23,6 @@ There is an exit north.
 You open the teleporter.
 
 > use teleporter
-(Your score has increased by 50)
 you are teleported!
 
 BluDeath Mountains
@@ -51,7 +50,6 @@ a different demension, often called a Cyber Warp.
 You can only move east.
 
 > enter warp
-(Your score has increased by 50)
 you enter the cyber warp, but the amount of electricity is too much for
 Lightning! He is sucked in!
 
@@ -102,7 +100,6 @@ You are in a large building, where two guards are.
 You can move north and south.
 
 > use fireball
-(Your score has increased by 50)
 You use fireball, and you kill the guards.
 
 > bring lightning home
@@ -167,3 +164,5 @@ closes! OH NO!!!!!!!!!!!!
 THE END,or is it?
 
 Better luck next time.
+You scored 150 out of the maximum 150!
+That is 100% of the game!

@@ -28,7 +28,6 @@ Also here is a drumstick.
 You take the drumstick.
 
 > hit bars with drumstick
-(Your score has decreased by 2)
 A guard comes in from out of nowhere and hits you over the head with a club.
 
 "ARGH! No leave! No Noise!"
@@ -37,7 +36,6 @@ With your head spinning, you watch as the three guards (at least that is what
 you see) leave the cave, leaving you alone once again."
 
 > feed beaver the drumstick
-(Your score has increased by 25)
 
 You hold the drumstick up to the beaver and barely able to pull your arm away
 in time.  He eats the drumstick in one bite, then looks to you for more.  He
@@ -62,7 +60,6 @@ sort of storage space.
 You take the medicine from the rock table.
 
 > wear beaver
-(Your score has increased by 25)
 You plop the the sick beaver on your head.  It looks like you have created
 the first caveman mullet!
 
@@ -73,13 +70,11 @@ You take the nurse dress from the cubby hole.
 You put on the nurse dress.
 
 > feed the beaver the medicine
-(Your score has increased by 25)
 
 You feed the beaver and bring him back to health.  He still isn't feeling so
 hot, but manages to chew through the bamboo bars, making his escape.
 
 > south
-(Your score has increased by 25)
 
         Making sure the coast is clear, you are able to escape the Boulder
 Rock Prison and are finally able to reveal your invention, which you named
@@ -90,3 +85,6 @@ life of ARGH.  The beaver didn't have it so well either.  He became very sick
 and also died.  His fangs were mounted on the outside of Boulder Rock Prison
 in your honor.
 Congratulations!
+You scored 98 out of the maximum 125!
+That is 78% of the game!
+You finished 27 points short.

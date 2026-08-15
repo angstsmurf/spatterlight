@@ -284,7 +284,6 @@ lead down.
 A postal clerk is busy sorting the mail.
 
 > down
-(Your score has increased by 20)
 You go down the steps.
 
 You have found the mail room.
@@ -325,7 +324,6 @@ You close the suitcase.
 The postal clerk is reading the address on a parcel.
 
 > give receipt to clerk
-(Your score has increased by 20)
 You hand the receipt to the clerk who looks at it for a moment and says,
 "This should be easy to find, hang on I'll go and look."
 He disappears for a moment and then returns with a parcel which he hands to
@@ -995,7 +993,6 @@ moment it does not look like he has seen you. You will need some sort of
 disguise if you are going to get passed him.
 
 > west
-(Your score has increased by 20)
 You move west.
 
 Aft Staircase, F Deck
@@ -1145,7 +1142,6 @@ You open the wooden box.  An axe is inside the wooden box.
 You take the axe from the wooden box.
 
 > smash gate
-(Your score has increased by 3)
 Using the axe you smash open the metal gate. The third class passengers, now
 free, push through the gate and head off up the stairs.
 
@@ -1376,7 +1372,6 @@ Infirmary.  The staircase has developed quite a slope.
 The worried looking ship's purser is here.
 
 > give key to purser
-(Your score has increased by 4)
 Coughing once you say to the Purser, "Excuse me, I think this belongs to
 you." You hold out the key you found. With an enormous look of relief on his
 face his replies, "Thank you! I thought I had lost this in all the
@@ -1653,7 +1648,6 @@ enormous explosion making everyone nearby shout with alarm. 5th Officer Lowe
 comes over to see what is going on, looks like he has been distracted.
 
 > north
-(Your score has increased by 33)
 As quickly as you possible, you clamber into the lifeboat and hide as best
 you can.
 

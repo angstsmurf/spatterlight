@@ -45,7 +45,6 @@ is the exit to the control room patio.
 Mark is standing in the room with you.
 
 > use print pod
-(Your score has increased by 5)
 Passing your hand over the touch pod, the control room doors have unlocked
 and opened.
 
@@ -167,7 +166,6 @@ Time passes...
 Jeriah Eldon enters from the south.
 
 > give id pass to jeriah
-(Your score has increased by 10)
 Looking relieved, Jeriah takes the ID pass from you.
 
 "Thank you," he says, "Where did you find it?"
@@ -185,7 +183,6 @@ me know what you think, ok?"
 "I look forward to it, Jeriah," you reply.
 
 > x pdd
-(Your score has increased by 5)
 Ten by twelve inches in size and a half inch thick, this personal data device
 has an attached pen for writing.  An inventory of the electronic contents of
 the device reveals a research document outlining how to pinpoint founder DNA
@@ -203,13 +200,11 @@ You take the genetic sampler from the stainless steel lab table.
 Jeriah Eldon exits to the south.
 
 > get sample from me
-(Your score has increased by 5)
 Pressing the genetic sampler to your arm, you feel a slight tingle.  Examing
 the sampler, a cannister presents itself out of the head.  You snap it off
 and take it with you.
 
 > get sample from limb
-(Your score has increased by 5)
 Pressing the genetic sampler to the founder limb, you take a genetic sample.
 Examing the sampler, a cannister presents itself out of the head.  You snap
 it off and take it with you.
@@ -254,7 +249,6 @@ monitors and computer terminals allow checking in on any area of the grounds.
 Malthew stands here at attention.
 
 > take grenade
-(Your score has increased by 5)
 Taking a momentary opportunity while Malthew monitors the video cameras and
 talks with some roving security detail, you deftly detach the grenade from
 his belt and conceal it on your person.
@@ -333,7 +327,6 @@ cafeteria.  I think you'll like my ideas on some recombination techniques we
 can try."
 
 > ask mark to follow me
-(Your score has increased by 5)
 "Ok," he replies, "I'll follow you.  Lead on."
 
 > e
@@ -364,7 +357,6 @@ Mark Eridian walks in from above.
 Jeriah Eldon exits to the north.
 
 > n
-(Your score has increased by 5)
 You move north.
 
 Genetics Lab
@@ -411,7 +403,6 @@ Time passes...
 You can hear the wail of a distant emergency siren.
 
 > z
-(Your score has increased by 5)
 Time passes...
 A previously non-descript red light blinks to life in the center of the
 ceiling.
@@ -482,7 +473,6 @@ Skyrv manages to avoid Mark Eridian's attack.
 Skynd hits you.
 
 > get sample from skyrv
-(Your score has increased by 5)
 Pressing the genetic sampler to its arm, you take Skyrv's genetic sample.
 Examing the sampler, a cannister presents itself out of the head.  You snap
 it off and take it with you.
@@ -494,7 +484,6 @@ You manage to avoid Skyrv's attack.
 Skynd hits you, but it doesn't seem to do any damage.
 
 > get sample from orgaan soldier
-(Your score has increased by 5)
 Pressing the genetic sampler to its arm, you take that Orgaan's genetic
 sample.  Examing the sampler, a cannister presents itself out of the head.
 You snap it off and take it with you.
@@ -505,7 +494,6 @@ You manage to avoid Skyrv's attack.
 You manage to avoid Skynd's attack.
 
 > get sample from guard
-(Your score has increased by 5)
 Pressing the genetic sampler to his arm, you take Mhentsh's genetic sample.
 Examing the sampler, a cannister presents itself out of the head.  You snap
 it off and take it with you.
@@ -516,7 +504,6 @@ Skynd manages to avoid Mark Eridian's attack.
 Mark Eridian manages to avoid Skyrv's attack.
 
 > get sample from mark
-(Your score has increased by 5)
 Pressing the genetic sampler to his arm, you take Marks genetic sample.
 Examing the sampler, a cannister presents itself out of the head.  You snap
 it off and take it with you.
@@ -548,7 +535,6 @@ Skynd manages to avoid Mark Eridian's attack.
 Skynd hits you, but it doesn't seem to do any damage.
 
 > get sample from orgaan soldier
-(Your score has increased by 5)
 Pressing the genetic sampler to its arm, you take that Orgaan's genetic
 sample.  Examing the sampler, a cannister presents itself out of the head.
 You snap it off and take it with you.
@@ -603,7 +589,6 @@ Skyrv hits you, but it doesn't seem to do any damage.
 Skynd hits you, but it doesn't seem to do any damage.
 
 > answer vidcom
-(Your score has increased by 10)
 Answering the vidcom, a Kantan security guard appears on the small monitor.
 Behind him you can see a group of four other guards arming themselves
 heavily.
@@ -645,7 +630,6 @@ Skyrv manages to avoid Mark Eridian's attack.
 You manage to avoid Skynd's attack.
 
 > download data
-(Your score has increased by 10)
 Setting the data chip on the desk next to the computer, you begin speaking to
 the computer.
 
@@ -702,7 +686,6 @@ Skynd manages to avoid Mark Eridian's attack.
 Skynd hits Mark Eridian, but it doesn't seem to do any damage.
 
 > throw grenade
-(Your score has increased by 10)
 Taking the element of surprise, you prime the grenade and roll it down the
 hall at the Orgaans.  Busy building a fortified position and expecting a more
 direct attack from the opposite direction, they recognize too late the
@@ -752,7 +735,6 @@ Skynd manages to avoid Mark Eridian's attack.
 Skyrv hits you.
 
 > get sample from nadine
-(Your score has increased by 5)
 Pressing the genetic sampler to her arm, you take Nadine's genetic sample.
 Examing the sampler, no cannister presents itself.  Then you remember that
 you cannot obtain a genetic sample off of Antonai.
@@ -781,7 +763,6 @@ Malthew manages to avoid Skynd's attack.
 Malthew hits Skynd.
 
 > talk to malthew
-(Your score has increased by 10)
 Sitting down next to him, Malthew looks over at you.
 
 "Tangee, see, I told you that I wouldn't leave you behind," he says with a
@@ -810,7 +791,6 @@ Skynd hits Malthew, but it doesn't seem to do any damage.
 Malthew hits Skynd.
 
 > get sample from malthew
-(Your score has increased by 5)
 Pressing the genetic sampler to his arm, you take Malthew's genetic sample.
 Examing the sampler, a cannister presents itself out of the head.  You snap
 it off and take it with you.
@@ -919,3 +899,6 @@ after the adrenaline wears off.
 men.  Giving you a hand into the vehicle, the rest of the marines load up and
 the vehicle  surges forward.
 Congratulations!
+You scored 125 out of the maximum 145!
+That is 86% of the game!
+You finished 20 points short.

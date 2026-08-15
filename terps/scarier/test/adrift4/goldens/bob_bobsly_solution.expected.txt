@@ -16,7 +16,6 @@ You are wearing spiffy tuxedo, and you are carrying kodak camera, poison pen,
 Your score is 0 out of a maximum of 155.  (0%)
 
 > add yourself to the guestlist
-(Your score has increased by 15)
 You take out your laser writer and scribble your name on the guest list, oh
 yeah, and Don's.
 
@@ -80,11 +79,9 @@ that looks a little loose.
 You can move east and west.
 
 > use toilet
-(Your score has increased by 10)
 You unzip your fly and let the good times role.
 
 > remove air vent
-(Your score has increased by 15)
 You stand on the dunny and remove the air vent cover. It seems to lead
 upwards.
 
@@ -106,24 +103,20 @@ grate. You remove it. It isn't a long drop to the ground.
 You can only move south.
 
 > chew gum
-(Your score has increased by 10)
 You do the unthinkable and chew the old wad of gum. You find a coin in it.
 For being brave and chewing the unthinable, I will award you with a bonus 10
 points.
 
 > blow bubble
-(Your score has increased by 20)
 You blow a bubble, you get an idea. You squeeze through the vent and drop
 down. Your bubble acts as a parachute and you slowly drop down to the office
 floor.
 
 > yes
-(Your score has increased by 10)
 Hi, this is Don. I've just spotted Ivana, he's upstairs in the secret lab.
 Come quickly! To get out of the office type beam me up scotty.
 
 > beam me up scotty
-(Your score has increased by 10)
 Strangley enough it works! You warp back into the dancefloor!
 
 > u
@@ -137,7 +130,6 @@ only 10 cents!"
 You can only move down.
 
 > buy coffee
-(Your score has increased by 10)
 You put the coin into the slot and get out your plastic cup of coffee.
 
 > use poison pen with coffee
@@ -145,7 +137,6 @@ You squirt some poison into the coffee. You now have a poison potion!
 Muhahahah, uh, well, getting back to the game.
 
 > give coffee to guard
-(Your score has increased by 20)
 You give the coffee to the guard and he takes a sip. He falls over instanly
 paralyzed. Time to make your sneak!
 
@@ -165,7 +156,6 @@ You can only move south.
 Your score is 120 out of a maximum of 155.  (77%)
 
 > shoot Ihava
-(Your score has increased by 35)
 You pull out your gun and start firing. Bad aim, you hit the ceiling, the
 floor, the walls but miss Ihava by a good 75cm! He quickly jumps into the
 Warpomatic and zooms away!
@@ -173,3 +163,6 @@ Ihava got away and you closley escaped a peanut buttery fate, but its not
 over yet! Be sure to play, Adventures of Bob Bobsly 2, coming soon... Oh
 yeah, if you would like to talk to the creator of Bob Bobsly, please e-mail
 him at diablo@dragonslave.com for or your fan or hate mail. I'll Be Back!
+You scored 155 out of the maximum 155!
+That is 100% of the game!
+Well done - you scored maximum points!

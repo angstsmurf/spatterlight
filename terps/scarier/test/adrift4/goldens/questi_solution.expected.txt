@@ -30,7 +30,6 @@ dumpster trash are inside the large green metal dumpster.
 Your stomach growls with hunger.
 
 > eat cat
-(Your score has increased by 5)
 Without remorse, you snatch the cat out of the dumpster and begin to dine.
 You barely notice its complaints.  Your hunger subsides ever so much.  When
 you are done, you feel the hunger return...
@@ -38,7 +37,6 @@ you are done, you feel the hunger return...
 Your stomach growls with hunger.
 
 > eat man
-(Your score has increased by 5)
 Sifting through the trash, a thin man scrambles to escape your search.
 However, you catch him by the shoulder and throw him down.  Before you know
 it, you are having the most savage of lunches.  Your hunger decreases
@@ -101,3 +99,5 @@ With great ainguish, the hunger brings you to your knees.  Desperately you
 attempt to get up but without the strength.  Your hunger pains eat you from
 the inside out...  You didn't find the flesh you desperately sought.
 I'm afraid you are dead!
+You scored 10 out of the maximum 10!
+That is 100% of the game!

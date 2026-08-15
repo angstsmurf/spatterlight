@@ -89,30 +89,25 @@ decrepid tables and chairs. A cork board with notices pinned to it hangs on
 the wall to the right of the entrance.
 
 > show medallion to landlord
-(Your score has increased by 5)
 "The Chief gave me this. Said it was good for credit." You say.The landlord
 takes it in his hands and examines it closely. "It looks like his alright."
 He replies. "Ok, I'll put it on his account."
 
 > buy ticket
-(Your score has increased by 5)
 The landlord puts his hand in his pocket and fumbles about a bit. (He seems
 to enjoy that a bit too much for your comfort.) Finally he pulls out a ticket
 and places it on the bar.
 
 > buy beer
-(Your score has increased by 5)
 He scoops some warm, flat beer out of a barrel behind him with a tankard and
 slaps it on the bar.
 The landlord coughs up something vile and spits it on the floor.
 
 > buy wine
-(Your score has increased by 5)
 The landlord ducks under the bar, rummages around, and returns holding a
 green bottle, slamming it on the bar.
 
 > buy whiskey
-(Your score has increased by 5)
 The landlord turns around and grabs a bottle from behind him, then places it
 on the bar.
 
@@ -131,17 +126,14 @@ You take the brown bottle from the bar.
 The landlord blows his nose on the rag.
 
 > drink beer
-(Your score has increased by 5)
 Holding your nose with one hand, and the tankard with the other, you knock it
 back in one big gulp.
 
 > drink wine
-(Your score has increased by 5)
 Pulling the cork out with your teeth and spitting it 5 horizontal feet, you
 pour the wine straight down your throat without swallowing.
 
 > drink whiskey
-(Your score has increased by 5)
 You take a mouthful, slosh it around a bit, then swallow. It tastes like hot
 dish water and burns all the way down. Does wonders for your mouth ulcers
 though.
@@ -168,11 +160,9 @@ stands a wooden post with a board nailed to it.
 Also here is the coach and a mangey horse.
 
 > give ticket to jack
-(Your score has increased by 5)
 You hand Jack the ticket. He seems happy.
 
 > get in coach
-(Your score has increased by 5)
 You pull down on the brass handle and swing the door wide open. With a little
 hop, you hop on inside, and with another, you bash your head on the roof.
 Freaky Jack takes this as a sign to get going, so with a crack of the whip,
@@ -233,12 +223,10 @@ Your stomach growls.
 Your throat is sore.
 
 > show medallion to herb
-(Your score has increased by 5)
 You show him the medallion. "You wish to use an account? no problem!" says
 Herb.
 
 > buy backward burp berries
-(Your score has increased by 5)
 "Just one moment my green mountain friend." Says Herb. He runs his finger
 along the jars on the back wall, whispering the names of on the labels to
 himself. "Bracken bunch, boom weed,  bark bite..ah ha!" he cries. "Burp
@@ -311,13 +299,11 @@ You feel thirsty.
 Sid sips from his mug.
 
 > show barman medallion
-(Your score has increased by 5)
 You dangle the medallion in front of the barman. "Ah! you're from the
 mountains aren't you. Your chief comes here quite often y'know. I'll bill
 your expenses to him."
 
 > rent room
-(Your score has increased by 5)
 The barman opens up a drawer and hands you a key. "It's up the stairs there,
 room 2." He tells you.
 Your stomach growls.
@@ -359,13 +345,11 @@ doors, none of which hold any interest to you, except one with the number 2
 carved into it, to the west.
 
 > w
-(Your score has increased by 5)
 The door is locked.
 Your stomach growls.
 You feel thirsty.
 
 > unlock door
-(Your score has increased by 5)
 Using the key, you unlock the door.
 
 > west
@@ -423,7 +407,6 @@ Sitting at one of the tables is a elderly fellow, sipping from a cup.
 Also here is a tankard, a green bottle and a brown bottle.
 
 > sit at table
-(Your score has increased by 5)
 You pick a nice sturdy table with a nice solid chair and sit yourself down at
 it.
 You feel hungry.
@@ -431,7 +414,6 @@ Your head is spinning.
 Sid sips from his mug.
 
 > order lunch
-(Your score has increased by 5)
 You beckon over Mary with a finger, and tell her your order. "Yes Sir, right
 away." she says writing it on a piece of paper and scurrying off to the
 hatch. She slips the paper under it and returns to her duties.
@@ -477,7 +459,6 @@ Your head is spinning.
 Sid sips from his mug.
 
 > eat lunch
-(Your score has increased by 5)
 You garb handfuls of food and shove it into your face, chewing noisily. Bread
 crumbs fly all over the table.
 
@@ -486,7 +467,6 @@ You drop the empty plate.
 Sid picks up his mug and drinks.
 
 > take breadcrumbs
-(Your score has increased by 5)
 You take the breadcrumbs.
 
 > buy water
@@ -506,7 +486,6 @@ Sid sips from his mug.
 You drop the empty cup.
 
 > light candle on fire
-(Your score has increased by 5)
 You light the candle on the fire. surprisingly, the flame is a bright blue!
 Sid picks up his mug and drinks.
 
@@ -548,7 +527,6 @@ this room from another to the east.  The bricks of the north wall appear to
 be of a different size to the rest.
 
 > kick bars
-(Your score has increased by 5)
 You take a few steps back, run at them and throw your full weight at them,
 feet first. One of them shoots out and clangs noisily on the floor of the
 dungeon.
@@ -590,11 +568,9 @@ The bricks are of a different size and it looks like it was built in a hurry.
  A hole is inside the north wall.
 
 > put poker in hole
-(Your score has increased by 5)
 You shove the poker in as far as it will go. Half of it sticks out.
 
 > pull poker
-(Your score has increased by 5)
 Using the poker as a lever, you start pulling and pushing it up an down. The
 surrounding bricks start to crack and crumble. Soon the half the wall comes
 tumbling down in an almighty crash.
@@ -727,7 +703,6 @@ are too thick and the leaves are wide and a deep, rich, green. A hangman's
 noose is tied to one of the lower branches.
 
 > cut noose with sword blade
-(Your score has increased by 5)
 You shimmy up the tree and along the branch with the noose on. Using the
 sword blade in a sawing motion, you cut the noose free and it falls to the
 ground.
@@ -766,7 +741,6 @@ empty cup.
 Sid picks up his mug and drinks.
 
 > pour firewater into Sid's cup
-(Your score has increased by 5)
 You make an off the cuff comment about how much easier things where in the
 good 'ole days and Sid flares up like a volcano, spewing fourth such things
 as 'You lot don't know your even born!' and 'In my day we did a days work for
@@ -843,7 +817,6 @@ It's a small rowboat made from oak.  A fishing net is on the boat.
 You take the fishing net from the boat.
 
 > get in boat
-(Your score has increased by 5)
 "Yoush ready then, eh?, get in and I'll shove you off then." slurs Salty Sid.
 You climb into the boat and hold on to the sides. Sid gives the thing a push
 and it slides down the rails, splashes into the lake and drifts out towards
@@ -863,11 +836,9 @@ You pour half the bottle into the basin. Gently, you swish it around, until
 the breadcrumbs have soaked it all up.
 
 > put breadcrumbs in basin
-(Your score has increased by 5)
 You place the breadcrumbs into the basin.
 
 > tie sword to bar with noose
-(Your score has increased by 5)
 Tying the blade tightly to one end of the bar, you manage to make a rather
 decent spear.
 
@@ -875,7 +846,6 @@ decent spear.
 You throw the breadcrumbs over the side and watch them float on the water.
 
 > put soaked breadcrumbs in lake
-(Your score has increased by 5)
 You throw the firewater drenched breadcrumbs over the side and watch them
 float on the water.
 
@@ -895,7 +865,6 @@ The head of a giant fish pops out from the water and starts munching on the
 breadcrumbs. It has to be the captain!
 
 > spear captain
-(Your score has increased by 5)
 Firmly gripping your trusty spear, you lunge it at the great fishy beast. You
 strike a blow upon its head and lunge at it again and again. It tries to
 escape but the firewater has made it sluggish, the captain soon dies and
@@ -919,7 +888,6 @@ fishing equipment is sprawled all over the place. Hanging from ceiling,
 hooked unto the walls, even heaped into piles and stuffed into boxes.
 
 > give captain to Sid
-(Your score has increased by 5)
 Triumphantly, you throw the carcass of the captain to the ground. Salty sid
 is speechless. Without a word, he retrieves a sack from a hiding place and
 hands it to you. He sits down in astonishment and stares at the dead fish.
@@ -962,7 +930,6 @@ Also here is a tankard, a green bottle, a brown bottle, an empty plate and an
 empty cup.
 
 > pay barman
-(Your score has increased by 5)
 wisely, you decide to settle your food and drink bill in cash, thus
 preventing the Chief being billed (and you being pummeled by him.)
 
@@ -988,7 +955,6 @@ is here, waiting to take you back.
 Also here is the coach, a room key and a mangey horse.
 
 > get in coach
-(Your score has increased by 5)
 Happy to be going home, you hop on the coach and knock on the roof to tell
 Jack to get going. He cracks his whip and the coach speeds off down the road,
 shaking and rattling like mad.
@@ -1013,7 +979,6 @@ the wall to the right of the entrance.
 Also here is a cork and a pile of empty bottles and tankards.
 
 > pay landlord
-(Your score has increased by 5)
 Thinking it best to pay your drinks bill yourself, instead of charging it to
 the chief, you fork over a large sum of money to the landlord.
 The landlord blows his nose on the rag.
@@ -1047,7 +1012,6 @@ complaining all day and night."
 "Get this bloody frog off me!" Yells Murky.
 
 > give chief backward burp berries
-(Your score has increased by 5)
 You give them to the chief, he seems very chuffed with your success and hands
 you a feather. " Right, I want you to go over there and tickle the monster so
 I can get a good shot at getting these berries down it's throat."
@@ -1056,7 +1020,6 @@ I can get a good shot at getting these berries down it's throat."
 Your score is 180 out of a maximum of 190.  (94%)
 
 > tickle frog
-(Your score has increased by 5)
 Carefully you sneak up close, and start to tickle it on the belly. It starts
 to smirk, then chuckle, and then finally burst out laughing deep belly
 laughs.
@@ -1080,3 +1043,6 @@ have any trouble, or more importantly, piss anyone off?"
 "Good, so you can get back to work! There's a pile of dirty plates inside
 reaching from the ground to the roof! Get cracking, and if they ain't all
 clean by dinner time, I'll bust your head in!"
+You scored 180 out of the maximum 190!
+That is 94% of the game!
+You finished 10 points short.

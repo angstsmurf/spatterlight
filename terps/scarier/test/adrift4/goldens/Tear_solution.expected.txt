@@ -27,7 +27,6 @@ On the wall there is a poster of a naked woman.
 Also here is a table and a chair.
 
 > x stains
-(Your score has increased by 1)
 As you realise that the stains are blood stains, you have a flash of memory,
 and you remember a girl, lying in this same mattress... but... the
 mattress... was somewhere else... in a luxury condo. Her head is strangely
@@ -145,7 +144,6 @@ A small wooden cluttered tool shack that contains iron working tools and wood
 working tools.
 
 > work wood
-(Your score has increased by 1)
 After patiently working for a long time, a lot of cutting and polishing, you
 have what could pass for a canoe.
 
@@ -166,7 +164,6 @@ things in this world. They grow so dense that it is almost dark here. To the
 west you can see a dark cave.
 
 > w
-(Your score has increased by 1)
 You move west.
 
 Dark Cave
@@ -227,7 +224,6 @@ cottage. There is some assorted trash in the ground. To the north there is a
 tool shack. To the south the forest deepens. To the east you can see a river.
 
 > e
-(Your score has increased by 1)
 You cross the river in your canoe.
 The water is chilly, but very placid, so we both removed our clothes,
 dropping them carelessly by the cottage and swam across the river in our
@@ -246,7 +242,6 @@ notice that it starts a small fire.
 I know I have new information in my diary.
 
 > extinguish fire
-(Your score has increased by 1)
 You pull the pin in the extinguisher, and then aim its nozzle at the base of
 the flames. You gently, but surely, squeeze the trigger whilst you hold the
 extinguisher upright and sweep it from side to side, covering the area of the
@@ -268,7 +263,6 @@ Also here is a totem.
 Your score is 5 out of a maximum of 6.  (83%)
 
 > destroy totem
-(Your score has increased by 1)
 With all your pent up anger you hit the totem with your axe and cut it time
 after time, slowly chopping away the features. There is a moment where you
 almost stop, wondering why are you destroying a work of art, a sacred object?
@@ -287,3 +281,6 @@ feel there is a good reason to carry on.
 
 Suddenly the world seems a brighter place, and you feel there is a good
 reason to carry on.
+You scored 6 out of the maximum 6!
+That is 100% of the game!
+Well done - you scored maximum points!

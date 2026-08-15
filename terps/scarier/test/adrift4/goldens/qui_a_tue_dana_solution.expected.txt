@@ -61,19 +61,15 @@ Aussi voici Un jean et Un pull.
 Vous vous levez.
 
 > prendre jean
-(Your score has increased by 2)
 Vous ramassez votre jean.
 
 > enfiler jean
-(Your score has increased by 1)
 Vous enfilez votre jean.
 
 > prendre pull
-(Your score has increased by 2)
 Vous ramassez votre pull.
 
 > enfiler pull
-(Your score has increased by 1)
 Vous enfilez votre pull.
 
 La Chambre de John
@@ -103,7 +99,6 @@ Vous êtes maintenant en possession d'une cigarete.
 Vous vous saisisez du briquet.
 
 > pousser bouton
-(Your score has increased by 5)
 Vous appuyez sur le bouton pour un expresso.
 Attention, c'est chaud!
 Un expresso est maintenant posé sur le bar.
@@ -113,12 +108,10 @@ Il n'attend plus que votre gosier affamé et sec du matin.
 Vous prenez Un expresso de Un bar.
 
 > boire expresso
-(Your score has increased by 2)
 Ah! Quel délice! Votre machine restera toujours votre fierté! ça fait du bien
 par où ça passe
 
 > smoke cigarette
-(Your score has increased by 7)
 Accompagnant le café, il n'y a rien de tel!
 Bon, par contre, maintenant faudrait vous bouger!
 Vous entendez un vrombissement qui vient en direction de votre porte.
@@ -188,7 +181,6 @@ La Médecin légiste est ici.
 La Chef scientifique est là.
 
 > parler
-(Your score has increased by 2)
 -Bonjour, Mulder, des moeurs, que pouvez-vous me dire?
 -La victime s'appelle Dana Mulder, elle a 19 ans
 -comment dites-vous qu'elle s'appelle ?
@@ -199,7 +191,6 @@ La Chef scientifique est là.
 L'autre flic, apparemment gêné ne répondit pas.
 
 > soulever drap
-(Your score has increased by 5)
 Vous soulevez un drap et...
 Vous pouvez voir un corps inerte sous le drap!
 
@@ -209,7 +200,6 @@ visage de votre nièce.
 C'est la première fois que vous êtes écoeuré à la vue d'un corps.
 
 > parler
-(Your score has increased by 6)
 -Salut doc., alors, ça dit quoi ?
 -Salut John, la victime a été étranglée d'une façon très violente. Le larynx
 est broyé.
@@ -252,7 +242,6 @@ La Chef scientifique est là.
 Un drap est ici.
 
 > parler
-(Your score has increased by 2)
 -Salut,  vous avez des prélèvements ?
 -oui, on a toutes les traces du viole, par contre, aucune trace de pas, rien
 sur l'agresseur
@@ -422,7 +411,6 @@ Vous remarquez différents boutons sur sa surface.
 téléphone.
 
 > appuyer 3
-(Your score has increased by 3)
 
 Vous enfoncez la mémoire 3 de votre téléphone.
 Une tonalité se fait entendre, puis le numéro se compose automatiquement.
@@ -484,7 +472,6 @@ Vous jetez un coup d'oeil à votre montre.
 Les rapports sont pas prêts d'arriver!
 
 > prendre photos
-(Your score has increased by 2)
 Vous prenez des photos.
 
 > w
@@ -523,7 +510,6 @@ café...  Une cigarette est on Une table.
 Vous prenez Une cigarette de Une table.
 
 > light cigarette
-(Your score has increased by 7)
 Vous fumez une cigarette.
 Vous vous reposez mais ne vous endormez pas.
 Vous tournez dans tous les sens les éléments de l'enquête mais, rien à faire,
@@ -567,7 +553,6 @@ vous concerne, est toujours bien mis en évidence.
   Le rapport est on Le bureau.
 
 > prendre rapport
-(Your score has increased by 1)
 Vous récupérez le rapport du légiste.
 
 > x rapport
@@ -612,7 +597,6 @@ Un beau bureau trône ici.
 Vous pouvez seulement vous déplacer vers l'Est.
 
 > appuyer 2
-(Your score has increased by 5)
 
 Vous décrochez.Vous enfoncez la seconde mémoire de votre téléphone et,
 aussitôt une voix vous répond:
@@ -639,7 +623,6 @@ grands points de mes conclusions.
 Vous raccrochez.
 
 > appuyer 9
-(Your score has increased by 1)
 
 Vous décrochez, enfoncez la mémoire 9 de votre téléphone.
 Une voix se fit entendre, vous répondez alors de suite:
@@ -670,7 +653,6 @@ victime.
 Le combiné tomba sur le téléphone.
 
 > appuyer 1
-(Your score has increased by 4)
 Vous pressez la mémoire1 du téléphone.
 Le responsable du FBI décroche en disant:
 -Allô j'écoute, que vous arrive-t-il MULDER?
@@ -756,7 +738,6 @@ Vous pouvez seulement vous déplacer vers l'Ouest.
 Vous fermez Le dossier.
 
 > donner malkowitch dossier
-(Your score has increased by 42)
 Vous donnez le dossier Dana MULDER à votre adjoint MALKOWITCH
 Vous lui déclarez:
 " tiens, porte ce dossier à la section " enquêtes mystérieuses " du FBI,
@@ -776,6 +757,9 @@ MERCI A TOI CHRISTOPHE SANS QUI CE JEU N'AURAIT JAMAIS VU LE JOUR!
 MERCI A CEUX QI M'ONT FAIT DECOUVRIR CE LOGICIEL DE CREATION!!![Appuyer sur
 une touche pour continuer]
 
+Votre score est de 100 sur un maximum de 100!
+C'est 100% du jeu!
+Well done - you scored maximum points!
 [Appuyer sur une touche pour continue]            John retourna dans son bureau, il s'ASSIT sur son fauteuil, et
 resta comme cela, comme groguis.
             Il ne retrouvera jamais l'agresseur de Dana, pas plus que la

@@ -123,13 +123,11 @@ slide into the dark crack and feel along the wall until you are clear of the
 crack and the sound of the angry storm that hammers the land.
 
 > feel wall
-(Your score has increased by 2)
 Feeling along the wall in darkness, you find nothing.
 
 You feel around some more and discover a lever of some sort.
 
 > pull lever
-(Your score has increased by 4)
 You pull the lever, but it doesn't seem to budge.  Using your body weight,
 you lean as hard as you can on the old lever.  With a loud crack, you feel it
 give way and cover your face as falling dust and bits of rock fall from the
@@ -195,7 +193,6 @@ would die- and their spirits would haunt the lake, luring the next.”
 Saddened with her own words, the young spirit turns away.
 
 > light candle
-(Your score has increased by 2)
 
 Using a nearby torch, you light the small candle.
 
@@ -315,7 +312,6 @@ Also here is a clear bottle.
 You take the clear bottle.
 
 > move tile
-(Your score has increased by 2)
 
 You scrape away the edges of the tile and are able to move it far enough to
 see something is hidden beneath.  Unable to get the tile completely free, you
@@ -414,7 +410,6 @@ of torches are located on either side of the corridor, which leads north from
 here.
 
 > read floor
-(Your score has increased by 2)
 It reads:
 
 Seante livento morecado entern
@@ -552,7 +547,6 @@ certain it is over a hundred years old.  There are no drawers.  A glass vase
 is on the writing desk.
 
 > look under desk
-(Your score has increased by 10)
 Looking under the desk, you discover a journal tucked up on a small ledge.
 You pull it out and place it on the desk.
 
@@ -663,7 +657,6 @@ and are scattered about the room.  A red potion is on the shelves.
 You take the red potion from the shelves.
 
 > pull book
-(Your score has increased by 4)
 
 You grab a book from the bookshelf, but it doesn't budge.  Pulling on it a
 little harder, you hear a loud pop and the bookcase begins to shake and
@@ -702,7 +695,6 @@ cave.
 Also here is the young woman's body.
 
 > take body
-(Your score has increased by 20)
 
 You carefully watch the people that are lurking about.  Their tears of
 anguish occupy them long enough for you to pull the sneak over and take the
@@ -823,7 +815,6 @@ is inside the stone sink.
 You take the long, wooden spoon from the stone sink.
 
 > stir potion
-(Your score has increased by 25)
 
 You stir the potion continuously until it begins to boil.  It appears to be
 ready after only a couple of minutes.  Being very careful, you use the
@@ -884,7 +875,6 @@ south.
 The spear is as tall as the suit of armor, and points to the balcony above.
 
 > pull spear
-(Your score has increased by 2)
 You grab the spear and pull it towards you.  It moves a little bit, but you
 are unable to take it as it appears to be stuck.  A loud, long scraping sound
 comes from north.
@@ -979,7 +969,6 @@ A whisper fills the air.
 "You must read the incantation."
 
 > read incantation
-(Your score has increased by 10)
 
 You begin reading from the scroll.   The thunder from outside rattles the
 tower like an earthquake and lightning flashes all around, sending flashes
@@ -1108,7 +1097,6 @@ You have not time to stop.
 Your score is 83 out of a maximum of 100.  (83%)
 
 > open door
-(Your score has increased by 12)
 
 You lift the heavy beam from barring the door and heave it open with all your
 might, drawing the attention of searchers.
@@ -1157,3 +1145,7 @@ The Mad Monk
 Astridian
 
 Game creation began March 18, 2004
+
+You scored 95 out of the maximum 100!
+That is 95% of the game!
+You finished 5 points short.

@@ -38,7 +38,6 @@ You try pushing and shoving the sofa to break it, but it doesn't work. The
 audience sighs at the attempt.
 
 > hit jojo
-(Your score has increased by 5)
 You walk right up to Jojo and slap him across the face. The audience breaks
 out into  laughter as Jojo screams out his famous line,  "Oy, That's a Spicy
 Meatball of Pain!"
@@ -76,7 +75,6 @@ The audience realizes where you're going with the prank, and wait expectedly
 for big laughs...
 
 > put pie on spring
-(Your score has increased by 10)
 You screw the pan of the pie onto the spring, and shut the fridge door. You
 wink to the audience, and quickly run off stage as Jojo enters the room. The
 audience snickers as they wait for the trap to go off.
@@ -161,7 +159,6 @@ You go through the broken door into the garage.
 Nah, that'd take too long.
 
 > put banana in pipe
-(Your score has increased by 10)
 You jam the banana into the exhaust pipe, and wait. Radioactive monkey's must
 really be affected by Carbon Monoxide, because within seconds Jojo is
 coughing and trying to get out. It doesn't work though, and soon Jojo
@@ -173,3 +170,6 @@ haven't laughed this hard since the episode where Jojo got a flaming enema.
 You take a long bow as the curtains close for the show, and the dead body of
 Jojo is carted off.
 Congratulations!
+You scored 25 out of the maximum 25!
+That is 100% of the game!
+Well done - you scored maximum points!

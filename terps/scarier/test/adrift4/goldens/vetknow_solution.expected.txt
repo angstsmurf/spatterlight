@@ -217,7 +217,6 @@ the lake has deteriorated, and the ducks showed surprising intelligence by
 moving to a cleaner pond elsewhere in the town. The exit is to the west.
 
 > swim
-(Your score has increased by 2)
 You run and dive deep within the lake. It feels good to be in the water,
 after spending too long in the grime of the alley. You swim back to the edge,
 and wash yourself through your clothes. You drip water everywhere after
@@ -389,7 +388,6 @@ You open the garbage can.  A paintbrush is inside the garbage can.
 You take the paintbrush from the garbage can.
 
 > paint trunks
-(Your score has increased by 8)
 The trunks of the High Flyer are dominated by the colour white, which is
 lucky as your old trunk design was a white V on a black background. You open
 the can of black paint, dip in the brush and begin painting over the trunks.
@@ -418,7 +416,6 @@ north side of the driveway. Main Street continues with the employment agency
 to the south. Across the road to the east is the convenience store.
 
 > pour oil on driveway
-(Your score has increased by 10)
 You empty out the can of oil on the driveway and throw away the empty can
 afterwards. Overhearing the Brawler leaving the bar, you find a place to hide
 and watch. Walking towards his car the Brawler looks unsteady on his feet.
@@ -700,7 +697,6 @@ other business for now. However, you need to find some way to get your
 crowbar back from them.
 
 > light firecracker
-(Your score has increased by 4)
 You light the firecracker, place it on the ground and hide in the cupboard.
 In a few seconds you hear a tremendous BANG outside. Seats are pushed back as
 the Evil Twins stand up quickly in surprise. One of them tells the other, "I
@@ -877,7 +873,6 @@ the bear, and starts to tear it apart with his teeth, maybe not. At least he
 is distracted now.
 
 > hit monster with crowbar
-(Your score has increased by 4)
 You quietly walk over to the Monster. He is distracted by the remains of the
 teddy bear, which he is still happily tearing apart. You suddenly hit him
 over the head with your crowbar to knock him out. Even the Monster is not
@@ -994,7 +989,6 @@ into him. It does not look like he will be moving anywhere soon, but he may
 recover in time for the matches tonight.
 
 > get mask
-(Your score has increased by 4)
 You walk over to the High Flyer and remove his mask. He tries to stop you but
 in his weakened state, he is no match. You finally see the High Flyer's face
 and it is not much better looking than your own. Of course, that could be why
@@ -1043,7 +1037,6 @@ from the Youth's female admirers stacked in a corner. The exit is east.
 Also here is a bunch of flowers.
 
 > throw acid at youth
-(Your score has increased by 8)
 The Youth soon recognises that you are not the High Flyer but it is still too
 late. You open the acid bottle and empty it on the Youth's face. He screams
 in agony as the acid burns and destroys his handsome looks. That will teach
@@ -1140,7 +1133,6 @@ he still might be able to sense you when you are near him. Despite the poor
 vision, you will be in trouble if he manages to grab hold of you.
 
 > attack star with crowbar
-(Your score has increased by 10)
 It is finally time for you to achieve your destiny. The Star's impaired
 vision means that he is vulnerable and can no longer dodge your crowbar. You
 move towards the Star, holding out your crowbar in readiness. He stays out of
@@ -1177,3 +1169,6 @@ money from the match payment, maybe you should have just one drink to
 celebrate.
 
 Congratulations!
+You scored 50 out of the maximum 50!
+That is 100% of the game!
+Well done - you scored maximum points!

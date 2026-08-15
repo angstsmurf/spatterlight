@@ -36,7 +36,6 @@ You take the environmental suit from the small storage compartment.
 You put on the environmental suit.
 
 > open hatch
-(Your score has increased by 10)
 The events leading up to this moment must have confused your thoughts.  You
 realize your mistake as the small amount of atmosphere in the pod explodes
 the hatch outwards and you are flung hundreds of meters directly into deep
@@ -44,7 +43,6 @@ space.  Fortunately, the environmental suit protects from the affects of such
 a manuever.  You find yourself floating among the debris field.
 
 > attach cable to suit
-(Your score has increased by 10)
 Taking grasp of the drifting steel cable, you hook it through the suits
 safety harness and tie it securely to you.  Your drifting away from the
 escape pod ends.
@@ -53,11 +51,9 @@ escape pod ends.
 You take the repairbot.
 
 > turn on the repairbot
-(Your score has increased by 10)
 More lights activate on the repairbot and it begins to hum.
 
 > tell repairbot to cut the tong
-(Your score has increased by 10)
 Moving towards the launch tube debris, the repairbot springs to life.
 Several of its arms extend, one with a torch that quickly slices through the
 embedded tong.  The launch tube debris floats free from the escape pod.
@@ -66,7 +62,6 @@ embedded tong.  The launch tube debris floats free from the escape pod.
 Entering the pod, you detach the cable from your environmental suit.
 
 > use the computer
-(Your score has increased by 10)
 Finally, you get the pod to react to your commands.  Thrusters roar to life
 and the pod begins to turn away from its plunge into the star.  Gravity
 threatens to overwhelm you as pod attempts to gain enough inertia to pull
@@ -80,3 +75,6 @@ course, you finally breath easier knowing that you've rescued yourself.
 Congratulations!
 
 Congratulations!
+You scored 50 out of the maximum 50!
+That is 100% of the game!
+Well done - you scored maximum points!

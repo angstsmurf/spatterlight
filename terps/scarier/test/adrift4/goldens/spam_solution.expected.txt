@@ -57,7 +57,6 @@ Driveway
 Your car is here.
 
 > enter car
-(Your score has increased by 10)
 You get in your car.
 
 > start car
@@ -73,7 +72,6 @@ You are at a desk. There is a receptionist here, typing away at a computer.
 The Receptionist is here.
 
 > ask about ingredients
-(Your score has increased by 10)
 The receptionist looks up at you. "Did you say...." "Say what," you say, "
 Ingredients?\”  She gasps, and hits a button. An alarm starts going off! Gas
 starts to fill the room, and the next thing you know, you are in a cell
@@ -115,3 +113,6 @@ lunchmeat products!
 Your rank for this game is Spam King
 ...The highest rank of all! You rule!
 Congratulations!
+You scored 20 out of the maximum 20!
+That is 100% of the game!
+Well done - you scored maximum points!

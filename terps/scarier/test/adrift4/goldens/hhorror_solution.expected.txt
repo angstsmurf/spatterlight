@@ -452,7 +452,6 @@ Giant rats scurry all over the floor.
 You can move south and up.
 
 > give poisoned cheese to rats
-(Your score has increased by 5)
 The rats eat the cheese in a feeding frenzy.
 You hear a creaking noise.
 
@@ -526,7 +525,6 @@ A plant monster grows here.
 You can move north and south.
 
 > pour weedkiller on plant
-(Your score has increased by 5)
 You pour the weedkiller all over it.
 
 > take hammer
@@ -728,7 +726,6 @@ alight and burning.
 You can only move west.
 
 > throw molotov
-(Your score has increased by 5)
 You throw the lit molotov at the puppet.
 The bottle explodes, spraying flaming vodka all over the puppet.
 You hear a strange, spine chilling groan.
@@ -785,7 +782,6 @@ Ghost disappears to below.
 You hear a creaking noise.
 
 > blow whistle
-(Your score has increased by 5)
 You blow as hard as you can into the whistle. It drives the bats into an
 angry fury, you continue to blow. They fly around in a whirlwind of terror
 before escaping through the round window.
@@ -809,7 +805,6 @@ Also here is a bottle of bleach.
 You can only move north.
 
 > pour holy water on skeleton
-(Your score has increased by 20)
 You pour the water onto the skeleton. The bones dimly glow and you hear a
 strange noise.
 
@@ -854,7 +849,6 @@ from the walls.
 You can move north, east, south and west.
 
 > pour bleach on monster
-(Your score has increased by 5)
 You spray the bleach all over the slimy monster.
 The monster starts to bubble.
 
@@ -1009,7 +1003,6 @@ Zombie stumbles towards you from the west.
 You hear a strange, spine chilling groan.
 
 > fire blunderbuss
-(Your score has increased by 20)
 Summoning up all your courage, you approach the zombie and fire point blank.
 The snooker ball comes out of the gun in an almighty blast and punches a hole
 big enough for you to put your fist into in the zombie's chest. In gasping,
@@ -1192,7 +1185,9 @@ necklace, a property deed, a bundle of money, an emerald ring, a gold
 braclet, a gold bar, a bag of doubloons and your car.
 
 > wait
-(Your score has increased by 80)
 Time passes...
 It has been a long and frightful night. The long boney fingers of terror
 streched out and clasped you, but you escaped...for now.
+You scored 145 out of the maximum 155!
+That is 93% of the game!
+You finished 10 points short.

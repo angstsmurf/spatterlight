@@ -168,7 +168,6 @@ south.
 Megan is here.
 
 > install disc
-(Your score has increased by 10)
 You start to install Galaxy Linux on Megan's G4. The screen displays, "You
 are not Megan Morrone.  You may not....Oh, Galaxy Linux?  Wow!  I'm sure she
 won't mind!"  The G4 happily accomodates you and soon a smiling galactic Tux
@@ -202,7 +201,6 @@ the corner.
 Jessica is here.
 
 > drop peel
-(Your score has increased by 10)
 You put the banana peel on the floor.   Jessica almost finishes her coffee
 and as usual, the servobot wheels its way out of the corner to give her a
 refill.  However, on its way it slips on the banana peel, loses its balance,
@@ -280,7 +278,6 @@ with his speech.
 Martin is here.
 
 > play video
-(Your score has increased by 10)
 You plop the video into the slot.  You immediately hear some clicking and
 whirling sounds from behind the wall.  Suddenly the screen covering the back
 of the stage flickers to life, revealing an image of Martin in a speedo.  The
@@ -326,7 +323,6 @@ edge of.  There's a bronze telescope here.  It seems like you can just barely
 make out a speck of something floating on the Sea in the distance.
 
 > play megaphone
-(Your score has increased by 10)
 The megaphone blasts out tunes from "12 Punk Songs You Don't Know But Love
 Anyway" at an incredibly high volume.
 The music seems to reach Patrick and inspires him to turn his sailboat your
@@ -391,7 +387,6 @@ lobby.  There is an Asteroids game here.
 Darci is here.
 
 > flip switch
-(Your score has increased by 10)
 Darci is so engrossed that she doesn't notice you flipping the switch.
 "What!?" she suddenly exclaims.  "This lousy thing's difficulty switch must
 be broken.   What a cheap piece of garbage!"
@@ -424,7 +419,6 @@ The shards of glass would surely cut your fingers.  You decide to leave them
 alone.
 
 > shoot bulldozer
-(Your score has increased by 10)
 You take aim at the bulldozer as it's just about to topple the hotel.  You
 fire and the bazooka makes a cool "ZAP" noise as a green ray shoots through
 the door which strikes the bulldozer, instantly shrinking it to toy size.  It
@@ -491,7 +485,6 @@ descends from a slit in the ceiling.
 Tom is here.
 
 > search room
-(Your score has increased by 6)
 You feel along the wall of the dark room and discover a shelf.  There's
 hardly anything on it except for one book.
 
@@ -506,7 +499,6 @@ You open up the book to read it, and a sticky note falls from one of the
 pages and onto the floor in the shaft of light.
 
 > talk to Tom about John Hanson
-(Your score has increased by 10)
 "By Crackey!  That's right!  Good ol' John Hanson!  Man, that's a load off my
 mind.  Alright, I guess we can go now."  He stands up, unlocks the door in
 the south wall, and leaves.
@@ -634,7 +626,6 @@ You are inside the delightfully quaint Planet X Desert Cafe.
 Roger is here.
 
 > show printout to Roger
-(Your score has increased by 10)
 Roger yanks the printout from your hand and quickly scans it.   "Wow!  This
 is great!" he exclaims.  "This is sure to get me a hot date!   Now I have the
 strength to produce my segments again.  I'll see you on the set."  He stands
@@ -720,7 +711,6 @@ This is Patrick's cube.  West will take you back to being by the cubes, while
 to the north you spot Martin's cube.  Patrick's stuff fills the cube.
 
 > drop bulldozer
-(Your score has increased by 6)
 As you put the miniaturized bulldozer down, blue lights on its back light up
 and it twirls around, as if examining the area.  As it faces Patrick's cube
 it says, "Trash detected.  Commencing demolition."
@@ -842,7 +832,6 @@ mind-boggling products you can't afford.  There is, however, a bargain bin
 here.  East will take you back to the rocket.
 
 > buy modulator
-(Your score has increased by 10)
 You take out the game tokens, and a shop bot whizzes toward you.  "Yes," is
 says with disdain.  "You just barely have enough."  With a little nozzle, it
 sucks the tokens out of your hand.  It then picks up the Modulator, hands it
@@ -926,7 +915,6 @@ You apply the patch and it immediately expands to a huge size, like a giant
 band aid, covering the rift.
 
 > enter rocket
-(Your score has increased by 10)
 You float over to the rocket and climb back inside.   Once you enter, you
 hear Cat's voice from the console.  "Hey, whatever you did fixed the
 transmission problem!" she says.  "The Netcam Cineplex is rocking full-on!
@@ -965,7 +953,6 @@ You are floating outside the Rocketship in space.  You are right next to a
 satellite.  You may enter the rocket.
 
 > kick satellite
-(Your score has increased by 10)
 With some effort, you are able to adjust the satellite's position.   Its
 display changes to read "Proper Alignment" in green LED letters.
 
@@ -1019,7 +1006,6 @@ You are floating in space near the rocketship.   A flying saucer is nearby.
 You may enter either the saucer or the rocket.
 
 > enter saucer
-(Your score has increased by 10)
 You slip inside the flying saucer through one of its air ducts.
 When you enter, you see the alien leader saying, "Hey, doesn't it seem hot in
 here to you guys?"  Suddenly, his fan sputters to a halt.  "Hey!" he says,
@@ -1080,7 +1066,6 @@ you back to Lab Area A.  UGM 3.0 is set up here.
 Yosh is here.
 
 > install modulator
-(Your score has increased by 10)
 You install the Illdium PU-49 Space Modulator on UGM.  UGM's monitor suddenly
 turns blue, then a message reading "Clarice 2000 Activation Successful"
 spills across the screen.
@@ -1096,3 +1081,6 @@ jealous of you!  Good job!
 Now that you've finished the game, you can use ADRIFT Generator to see how
 the game was made.  You can add to or change this game or make your own.
 Enjoy!
+You scored 142 out of the maximum 142!
+That is 100% of the game!
+Well done - you scored maximum points!

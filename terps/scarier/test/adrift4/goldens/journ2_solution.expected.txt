@@ -117,7 +117,6 @@ sturdy.
 full length deep into the darkness so far that you cannot see its end.
 
 > down
-(Your score has increased by 5)
 The Well Pit
         Jagged rock points downward, like the sharp spikes that normally run
 along the driveway entrance to a secure parking lot.  The barbs of these
@@ -199,7 +198,6 @@ object appears in the mud within the cavity you’ve just created.
 You pick up the King of Clubs.
 
 > climb
-(Your score has increased by 10)
         You place your foot deeply into the cavity in the side of the pit and
 work your way up it’s steep sides to the top.  As you pull yourself up, the
 thick brambles and thorns cut into your flesh.  The ascent is painful, but
@@ -208,7 +206,6 @@ ground.  However, your footing remains precarious, and the tiny, narrow path
 seems to be completely blocked out by heavy thorny scrub.
 
 > chop brush with shovel
-(Your score has increased by 5)
         You hack at the thick underbrush with your makeshift machete and a
 path begins to clear.  After a long, tiresome labor, your have cleared enough
 of the entanglement to proceed northwest along the path.
@@ -307,7 +304,6 @@ Also here are two small stones.
 You pick up two small stones.
 
 > strike stones
-(Your score has increased by 10)
         You strike the stones together over the torch you've dismounted from
 the wall.  Although it takes several tries, a tiny spark manages to land
 perfectly on the reeds.  After blowing a few times, your torch ignites.

@@ -187,7 +187,6 @@ You are in front of a house, it looks kind of funny, as if it's run down, but
 yet something is different, it doesn't appear to be totally ran down.
 
 > open door
-(Your score has increased by 15)
 The heavy door opens when you just touch the door knob.
 
 > n
@@ -262,7 +261,6 @@ Also here is healing water.
 You pick up healing water.
 
 > shicknaw
-(Your score has increased by 5)
 The crystal glows brightly, you are soon surrounded in blue light. Before you
 know it, the light is gone, and you are at the mouth of the cave.
 
@@ -290,7 +288,6 @@ You take unlit latern from wooden box.
 You turn on the latern, and it starts to emit light.
 
 > tie rope to rock
-(Your score has increased by 5)
 You tie the rope to the rock, and throw the rope down. You should be able to
 go down now.
 
@@ -313,7 +310,6 @@ a door to the south and an exit to  the north. To the south you hear water
 rushing by very quickly.
 
 > push river button
-(Your score has increased by 20)
 You push the river button. To the south of you, you can not hear the sound of
 water any more. After a few seconds, the door to the south opens.
 
@@ -361,7 +357,6 @@ just barely open.
 Your score is 45 out of a maximum of 2400.  (1%)
 
 > give water to unicorn
-(Your score has increased by 15)
 You pour the water into the unicorn's mouth, and you see it's burns quickly
 disappears. After a few minutes, it starts taking deeper breaths, and then
 stands up. You hear in your head: "Thank you Adventurer, you have saved me
@@ -375,3 +370,6 @@ Please forward your comments to chris@jons.org.
 Thank you,
 
 Chris
+You scored 60 out of the maximum 2400!
+That is 2% of the game!
+You finished 2340 points short.

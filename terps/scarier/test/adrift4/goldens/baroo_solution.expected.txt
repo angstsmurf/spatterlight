@@ -73,7 +73,6 @@ You take the plastic gun from the rectangular niche.  As soon as you do that,
 the niche fades away.
 
 > u
-(Your score has increased by 2)
 You feel the rush of wind as something carries you up the stairs so fast, the
 steps seem to vanish.  The inertial field slows and deposits you at the
 entrance of a small temple.
@@ -91,7 +90,6 @@ came from The Temple!  Death to you for defying THEY!"  He starts throwing
 sacks of gunpowder, which explode at your feet.
 
 > shoot wizard with gun
-(Your score has increased by 2)
 You feel silly aiming a toy as a weapon, but as soon as you pull the trigger
 the wizard falls down.  As you look at the gun baffled, the villagers examine
 the wizard.
@@ -212,7 +210,6 @@ for the occasional river wake to lap only a small portion of the sand.
 Time passes...
 There is evidence of a paved road that came from the east and follows the
 river, but is now sadly deteriorated.
-(Your score has increased by 2)
 The river slightly widens and you see a dilapidated hotel approaching.
 Further south the river drops several meters down a waterfall.  The platform
 approaches the abandoned parking lot and settles down at the far west corner
@@ -223,7 +220,6 @@ The platform is at the far western end of the hotel parking lot.  The lot
 itself was once solid concrete, but now many cracks with wildflowers and
 weeds cover the ground.
 The wizard is here.
-(Your score has increased by 2)
 
 Wizard strides off to the east.
 
@@ -757,7 +753,6 @@ You take a coil of rope out of your backpack.
 You secure the rope to the piton and prepare to rappel down.
 
 > d
-(Your score has increased by 2)
 With a few quick jumps, you proceed down the rockface to the limits of the
 rope.
 
@@ -839,7 +834,6 @@ Further examination of the keyboard shows a small blinking light next to a
 button labeled "Retrieve"
 
 > press retrieve
-(Your score has increased by 1)
 
    "Wednesday, August seventh, twenty-three oh seven." announces a tired
 feminine voice.  "We hope that someone human is listening to this message.
@@ -947,7 +941,6 @@ onto the floor.
 
 > wait
 Time passes...
-(Your score has increased by 1)
 
 A base thrum passes from the machine through the floor pipes, and the machine
 goes silent.
@@ -1080,7 +1073,6 @@ Several metal boxes sit on the middle of the floor.
 The warlock is sitting crosslegged on the floor near the metal boxes.
 
 > give ybco object to warlock
-(Your score has increased by 2)
 "Good.  The YBCOVMR," she enunciates each letter.
 The warlock is seated cross-legged on the floor, then opens the boxes with
 her keycard and examines the contents, looks at the YBCO object, then back in
@@ -1285,7 +1277,6 @@ You remove the backpack.
 You put the backpack inside the capsule.
 
 > lie on capsule
-(Your score has increased by 2)
 After you lay down inside the capsule, the warlock closes it.  The display in
 front of your face turns on, showing a three dimensional view of the capsule
 and the room around you.  "Levitation active," states a voice near your ears.
@@ -1478,7 +1469,6 @@ You remove the backpack.
 You put the backpack inside the capsule.
 
 > lie on capsule
-(Your score has increased by 2)
 The capsule automatically closes as you lay down inside the capsule.  The
 display in front of your face turns on, showing a three dimensional view of
 the capsule and the land near the alien ship.  "Levitation active," states
@@ -1498,3 +1488,6 @@ threat final gone.  I hope you'll help me re-introduce the knowledge of the
 past!"  You look up in the sky and see a final glitter of light as the ship
 vacates the atmosphere heading back into space.
 Congratulations!
+You scored 16 out of the maximum 16!
+That is 100% of the game!
+Well done - you scored maximum points!

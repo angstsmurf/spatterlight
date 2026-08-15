@@ -48,7 +48,6 @@ hell. I'll devil-porter it no further: I had thought to have let in some of
 all professions that go the primrose way to the everlasting bonfire."
 
 > knock
-(Your score has increased by 5)
 "Anon, anon! I pray you, remember the porter."
 
 The door creaks slowly open.  You move north.
@@ -111,7 +110,6 @@ The porter takes the bread from you greedily, and heads north to the kitchen
 to look for a drink to wash it down.
 
 > get torch
-(Your score has increased by 10)
 You take the torch from the wall.
 
 > e
@@ -126,7 +124,6 @@ The sitting room has exits to the north which leads to the back hall, or west
 to the entrance hall.
 
 > push statue
-(Your score has increased by 5)
 You push the statue to the side, revealing a hole.
 
 > put torch in hole
@@ -134,7 +131,6 @@ You put the torch in the hole.  You hear a click from across the room as it
 settles into the hole.
 
 > look behind painting
-(Your score has increased by 10)
 You look behind the painting of Sinel and see a hollowed out area in the wall
 where a small wooden box has been hidden.
 
@@ -180,7 +176,6 @@ Graymalkin the cat is here, skulking around.  Paddock the toad is here.
 Three Witches are here, dancing around a boiling cauldron.
 
 > ask witches about box
-(Your score has increased by 5)
 "Ah," says the first witch, looking at the box. "This is a riddle box."
 
 Second witch chimes in:  "Thou'dst solve it to open the box."
@@ -199,7 +194,6 @@ Remove me to gather their wisdom to you.
 answer]
 
 > answer bookmark
-(Your score has increased by 10)
 The box slowly opens.
 
 > take key
@@ -260,18 +254,15 @@ a wardrobe on the south wall and a bed in the middle of the room.  A small
 desk is on the west wall.
 
 > unlock desk
-(Your score has increased by 5)
 You unlock the desk.
 
 > open desk
-(Your score has increased by 5)
 You open the desk drawer.
 
 > take letter
 You take the letter from the desk.
 
 > s
-(Your score has increased by 20)
 You move south.
 
 Dressing Room

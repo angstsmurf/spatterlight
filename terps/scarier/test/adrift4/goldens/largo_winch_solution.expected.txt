@@ -29,16 +29,13 @@ fermée sur laquelle vous pouvez lire "Entrée du salon V.I.P." se trouve au
 Nord. A l'Est, contre le mur, un canapé gène la circulation.
 
 > regarder sous le canapé
-(Your score has increased by 1)
 Une clé se trouve sous le canapé.
 
 > prendre la clé
-(Your score has increased by 1)
 Vous prenez la clé. "Il serait préférable que je conserve cette clé. A mon
 avis, elle me sera utile par la suite." pensez-vous.
 
 > ouvrir la porte
-(Your score has increased by 1)
 Vous ouvrez la porte, permettant ainsi au gens d'entrer.  Vous pénétrez, à
 votre tour, dans le salon V.I.P. Il s'agit en réalité d'un couloir. Vous
 pouvez voir trois portes: une à l'Est, une à l'Ouest et une au Nord. Sur la
@@ -95,11 +92,9 @@ l'Est du bar sur lequel est posée une enveloppe puis, à l'Ouest, vous
 apercevez une table basse.
 
 > prendre le badge
-(Your score has increased by 1)
 Vous prenez le badge se trouvant dans l'enveloppe.
 
 > regarder sur la table basse
-(Your score has increased by 1)
 Une flûte à champagne (vide) et une bouteille de champagne (pleine) sont
 posées sur la table basse. "Tout objet est bon à prendre", pensez-vous.
 
@@ -132,7 +127,6 @@ changeras jamais!" Samantha vous rejoint: "Monsieur Winch?" "Oui Samantha."
 "Je voudrais aller aux toilettes. Pouvez-vous me donner la clé?"
 
 > donner la clé à Samantha
-(Your score has increased by 1)
 Vous donnez la clé à Samantha: "Merci beaucoup monsieur Winch." vous dit la
 jeune femme en vous tendant la main. Puis elle se retourne vers Simon: "Je te
 rejoins plus tard mon Simon." lui dit-elle en l'embrassant. La jeune femme
@@ -223,11 +217,9 @@ entourant la terrasse.
 Aussi voici un plantoir.
 
 > prendre le plantoir
-(Your score has increased by 1)
 Vous ramassez le plantoir.
 
 > enjamber rambarde
-(Your score has increased by 1)
 Vous enjambez la rambarde, à la grande surprise de Jenny: "Largo? Mais que
 faites-vous?" "Ne vous inquiétez pas Jenny. J'adore me livrer à des
 accrobaties en smoking!" "Oh Largo! Vous êtes le PDG le plus étonnant que
@@ -243,7 +235,6 @@ Vous l'inspectez de plus près: "Il y a un léger décalage entre la fenêtre et
 le mur. Avec un objet relativement plat, je devrais pouvoir l'ouvrir."
 
 > utiliser le badge
-(Your score has increased by 1)
 Vous glissez le badge entre la fenêtre et le mur puis vous forcez un peu.
 Vous entendez alors un craquement. La fenêtre s'ouvre. Vous entrez par la
 fenêtre qui, grâce à vous, est maintenant ouverte. Vous reconnaissez, sans
@@ -254,14 +245,12 @@ tic-tac d'une minuterie. "La bombe est ici! Mais où?" Vous pouvez voir un
 gros tableau jaune.
 
 > regarder sous le gros tableau jaune
-(Your score has increased by 1)
 Sous le gros tableau jaune, vous découvrez une cachette sous les dalles.
 "L'objet est probablement caché là. Il me faudrait utiliser un outil pour
 dénicher cette bombe. Il faut que je trouve une solution et vite car je ne
 sais pas combien de temps il reste avant que tout explose." pensez-vous.
 
 > utiliser plantoir
-(Your score has increased by 1)
 Vous utilisez le plantoir sur les dalles. Vous finissez par dénicher l'objet.
 Il s'agit en réalité d'un réveil! "Un réveil! Un vulgaire réveil à 5 dollars!
 On a voulu m'éloigner des invités. Mais pourquoi? Bon dieu! Les documents de
@@ -353,11 +342,9 @@ sait plus où elle en est. Il faut que je lui trouve un petit remontant."
 pensez-vous.
 
 > remplir la flûte à champagne
-(Your score has increased by 1)
 Vous remplissez la flûte à champagne.
 
 > donner la flûte à champagne à Sharon
-(Your score has increased by 1)
 Vous tendez la flûte à Sharon: "Buvez un peu de champagne Sharon; vous vous
 sentirez mieux." "Merci monsieur Winch... merci... Puis... excusez-moi...
 j'ai paniqué." "Vous n'avez pas à vous excuser Sharon. Une alerte à la bombe
@@ -386,7 +373,6 @@ poches!" crie le voyou. "Ne bougez pas Sharon. Je m'occupe de cet individu."
 assurez-vous. Pour commencer le combat, tapez "combattre".
 
 > combattre
-(Your score has increased by 1)
 Vous êtes face au truand. Vous ne possédez aucune arme. Tapez "coup de poing"
 pour donner un coup de poing à l'homme; tapez "coup de pied" pour le frapper
 d'un coup de pied.
@@ -405,7 +391,6 @@ D'un nouveau coup de poing, vous "abîmez" le visage de votre adversaire. Ce
 dernier tente de vous blesser d'un coup de pied, mais vous l'esquivez.
 
 > coup de poing
-(Your score has increased by 2)
 Vous achevez votre ennemi d'un ultime coup de poing. "Ouf!" pensez-vous. Vous
 retournez auprès de Sharon. "Décidément, j'aurais dû rester chez moi ce
 soir!" dit Sharon. "Mais non. Ne dites pas ça!" répondez-vous. "Vous pensez
@@ -418,7 +403,6 @@ entrez dans un immeuble (se trouvant à l'Ouest) puis vous montez trois
 moi!" vous déclare-t-elle. Votre "guide" entre dans l'appartement.
 
 > entrer
-(Your score has increased by 1)
 Vous entrez dans l'appartement. "Vous aimez les roses à ce que je vois."
 supposez-vous. "Oui elles sont agréables à regarder mais elles piquent. C'est
 la définition de mon poste au sein du groupe W." "Montrez-moi ce dossier
@@ -441,15 +425,12 @@ fauteuil se trouve à l'Est.
 Quelque chose dépasse de sous le coussin du fauteuil.
 
 > regarder sous le coussin
-(Your score has increased by 1)
 Un CD se trouve sur le fauteuil.
 
 > prendre le cd
-(Your score has increased by 1)
 Vous prenez le CD-ROM.
 
 > insérer le cd dans l'ordinateur
-(Your score has increased by 1)
 Vous insérez le CD-ROM dans l'ordinateur de Sharon. Vous accédez au dossier
 du labo. Vous y trouvez, entre autres, un plan des lieux, des informations
 sur chacun des membres du personnel, l'histoire détaillée du laboratoire, des
@@ -507,17 +488,14 @@ secrétaire."
 trouverai une photo de moi dans l'un des magazines." pensez-vous.
 
 > regarder sur la table
-(Your score has increased by 1)
 Vous examinez les magazines se trouvant sur la table. Vous finissez par en
 trouver un sur la couverture duquel est imprimée votre photo, accompagnée du
 titre: "Nouvelle soirée mondaine organisée par Largo Winch".
 
 > prendre le magazine
-(Your score has increased by 1)
 Vous prenez le magazine.
 
 > donner le magazine à la secrétaire
-(Your score has increased by 1)
 Vous donnez le magazine à la secrétaire. Celle-ci rougit en une seconde:
 "Je... je suis confuse monsieur Winch mais vous savez, depuis que la police
 est venue enquêter, les ordres..." "Oui je comprends. Pouvez-vous m'annoncer
@@ -555,7 +533,6 @@ Vous pénétrez dans un petit couloir. Vous pouvez voir deux ascenseurs: un à
 l'Est et un à l'Ouest. Jenny Lucas sort de l'ascenseur situé à l'Est.
 
 > parler à Jenny
-(Your score has increased by 1)
 "Bonjour Jenny!" dites-vous. "Bonjour Largo." "Que faites-vous ici?" "Je suis
 venue tenter de tirer toute cette affaire au clair. Et vous?" "Je suis là
 pour la même raison que vous. Je vais poser quelques questions au personnel.
@@ -580,20 +557,16 @@ atteignez sans mal le fond de salle. Sur l'une des étagères se trouvant à cet
 endroit, vous pouvez voir un brise-glace.
 
 > prendre le brise-glace
-(Your score has increased by 1)
 Vous prenez le brise-glace et vous revenez près de Jenny. Vous pouvez voir un
 extincteur derrière une vitre.
 
 > briser la vitre avec le brise-glace
-(Your score has increased by 1)
 Vous brisez la vitre avec le brise-glace.
 
 > prendre l'extincteur
-(Your score has increased by 1)
 Vous prenez l'extincteur.
 
 > dégoupiller l'extincteur sur les serpents
-(Your score has increased by 1)
 Vous gazez les serpents avec l'extincteur. Monsieur Maroto arrive alors en
 catastrophe: "Qu'est-ce qui se passe ici? Pourquoi la porte était
 verrouillée?" demande le directeur. "Tout va bien. J'ai la situation en main.
@@ -694,7 +667,6 @@ tard."
 Un mélangeur est posé sur une paillasse, derrière la scientifique.
 
 > prendre le mélangeur
-(Your score has increased by 1)
 Vous prenez le mélangeur.
 
 > sud
@@ -764,7 +736,6 @@ n'êtes qu'un imbécile!" L'ascenseur permettant de redescendre se trouve à
 l'Est.
 
 > donner le mélangeur au blond
-(Your score has increased by 1)
 Vous tendez le mélangeur au scientifique blond. "Ah merci! Merci beaucoup!
 Vous me sauvez la vie monsieur..." "Winch. Largo Winch." complétez-vous.
 "Merci beaucoup monsieur Winch. Je vais enfin pouvoir continuer mes
@@ -824,7 +795,6 @@ Vous êtes dans le labo 2. Vous pouvez voir une commode et une paillasse
 derrière laquelle se trouve une scientifique. L'ascenseur est situé au Sud.
 
 > parler à salma paz
-(Your score has increased by 1)
 "Miss Paz?" "Oui monsieur Winch." "Je viens d'apprendre que vous connaissez
 sans doute l'adresse de Jack." "Qui vous a dit ça? Le vieux Hibou? Il ne sait
 même plus ce qu'il dit." "Ecoutez Salma; il est impératif que je connaisse
@@ -839,7 +809,6 @@ un taxi jusqu'à l'adresse donnée par Salma. Arrivés sur place, vous vous
 trouvez dans une cour. Une porte fermée se trouve au Nord.
 
 > ouvrir la porte
-(Your score has increased by 1)
 Vous ouvez la porte. Au moment où vous alliez entrer, Joy vous retient.
 "Attends Largo. Je trouve bizarre le fait que la porte ne soit pas fermée à
 clé. Laisses-moi entrer en premier. Je vais vérifier que personne n'est en
@@ -882,7 +851,6 @@ utile." pensez-vous.
 eux." pensez-vous.
 
 > prendre la feuille
-(Your score has increased by 1)
 Vous prenez la feuille de papier.
 "Je devrais pouvoir obtenir quelque chose en combinant certains objets entre
 eux." pensez-vous.
@@ -939,20 +907,17 @@ réfrigérateur dans cette pièce.
 eux." pensez-vous.
 
 > ouvrir le réfrigérateur
-(Your score has increased by 1)
 Vous ouvrez la porte du réfrigérateur. Un tube à essai se trouve à
 l'intérieur.
 "Je devrais pouvoir obtenir quelque chose en combinant certains objets entre
 eux." pensez-vous.
 
 > prendre le tube à essai
-(Your score has increased by 1)
 Vous prenez le tube à essai.
 "Je devrais pouvoir obtenir quelque chose en combinant certains objets entre
 eux." pensez-vous.
 
 > combiner la feuille et le tube à essai
-(Your score has increased by 1)
 Grâce à cette combinaison, vous découvrez un mot: AGYLAP. "On dirait un mot
 de passe. C'est sûrement le mot de passe de l'ordinateur."
 
@@ -967,7 +932,6 @@ ordinateur. Sur l'écran de l'ordinateur, vous pouvez voir l'inscription
 "Veuillez taper le mot de passe système." La cuisine se trouve au Nord.
 
 > taper agylap
-(Your score has increased by 1)
 Vous tapez "agylap" sur le clavier de l'ordinateur. "Bingo! J'ai accès à
 l'ordinateur de Jack!" pensez-vous. Vous fouillez dans les données
 personnelles du chercheur. Vous finissez par découvrir des e-mails suspects.
@@ -979,7 +943,6 @@ des braqueurs. "Ok André! On va bousiller ce type!" répond Boris. Pour
 commencer le combat, tapez "combattre".
 
 > combattre
-(Your score has increased by 1)
 Vous ne possédez aucune arme. Boris est armé d'une batte de baseball; André
 ne possède aucune arme. Tapez "coup de poing boris" pour donner un coup de
 poing à Boris; tapez "coup de pied boris" pour le frapper d'un coup de pied;
@@ -1050,7 +1013,6 @@ j'en suis sûr. Cette société ne nous apporte rien." "Bien. Ce sera fait."
 "Merci John. A plus tard." "A plus tard Largo."
 
 > parler à John
-(Your score has increased by 1)
 "John?" "Oui Largo." "Qu'est-il arrivé à Kerensky?" "Il a été brutalisé par
 deux types. Selon Kerensky, il s'agissait de deux russes." "Quelle est la
 nature de ses blessures?" "Ils l'ont frappé violemment à la tête et ils lui
@@ -1079,7 +1041,6 @@ informatique. Joy est installée devant un ordinateur. L'ascenseur se trouve
 au Sud.
 
 > parler à Joy
-(Your score has increased by 1)
 "Joy?" "Oui Largo." "Files à l'hôpital. Je n'aime pas savoir Kerensky sans
 surveillance." "Ok Largo." "Au fait, John a fait installé un PC dans la
 chambre de Kerensky. Il m'a dit que je pouvais communiquer avec Kerensky
@@ -1095,11 +1056,9 @@ cd et insères-le dans le lecteur." "Ok. Je vais localiser ce petit malin."
 Sur l'unité centrale de l'ordinateur, vous pouvez voir un CD.
 
 > prendre cd
-(Your score has increased by 1)
 Vous prenez le CD.
 
 > insérer le cd dans le lecteur
-(Your score has increased by 1)
 Vous insérer le CD dans l'ordinateur. Un programme se lance. Vous suivez
 alors toutes les instructions présentes dans le fichier d'aide du CD. Au bout
 d'un certain temps de bidouillage, vous parvenez à localiser le pirate. "Il
@@ -1227,7 +1186,6 @@ Vous vous déplacez vers l'Est.
 Vous êtes devant la porte 3B.
 
 > ouvrir la porte
-(Your score has increased by 1)
 Vous clenchez la porte mais celle-ci est fermée. Vous vous retournez vers
 Simon: "Simon?" "Oui Largo?" "Tu peux me crocheter cette serrure?" "No
 problem mon pote! Tu veux passer par cet appartement pour rejoindre celui de
@@ -1236,7 +1194,6 @@ Simon de "travailler" sur la porte. Après quelques instants de bidouillage,
 votre ami se retourne vers vous: "C'est bon Largo; on peut entrer."
 
 > entrer
-(Your score has increased by 1)
 Vous entrez dans l'appartement. La cuisine est située au Nord; la chambre se
 trouve à l'Ouest; un balcon enneigé se trouve à l'Est.
 
@@ -1250,18 +1207,15 @@ Vous entrez dans une petite chambre. Vous pouvez voir un lit et une armoire.
 Vous ouvrez l'armoire. Un drap propre se trouve à l'intérieur.
 
 > prendre le drap propre
-(Your score has increased by 1)
 Vous prenez le drap propre.
 
 > regarder sur le lit
 Un drap sale se trouve sur le lit.
 
 > prendre le drap sale
-(Your score has increased by 1)
 Vous prenez le drap sale.
 
 > combiner le drap propre et le drap sale
-(Your score has increased by 1)
 Grâce à cette combinaison, vous confectionnez une corde.
 
 > est
@@ -1279,7 +1233,6 @@ Le balcon
 Vous voilà sur le balcon enneigé.
 
 > utiliser la corde
-(Your score has increased by 1)
 Vous attachez la corde à la rambarde du balcon. "Attends Largo! Laisses faire
 le professionel!" plaisante Simon. Votre ami s'agrippe à la corde puis
 descend jusqu'au balcon du 3A. "On a un autre problème Largo." vous annonce
@@ -1345,7 +1298,6 @@ fusibles 1A à 10A; sur la rangée du bas, vous distinguez les fusibles 1B à
 10B.
 
 > retirer le fusible 3A
-(Your score has increased by 1)
 Vous retirez le fusible 3A du disjoncteur. "Ca y est, le courant est coupé!"
 pensez-vous.
 
@@ -1401,16 +1353,13 @@ une petite clé se trouvent par terre juste devant vous.
 Aussi voici une petite clé.
 
 > prendre la petite clé
-(Your score has increased by 1)
 Vous ramassez la petite clé. "On dirait une clé de boîte à lettres."
 pensez-vous.
 
 > regarder sur la table
-(Your score has increased by 1)
 Une pochette d'allumettes se trouve sur la table.
 
 > prendre la pochette d'allumettes
-(Your score has increased by 1)
 Vous prenez la pochette d'allumettes. Une inscription attire votre attention:
 "On dirait l'adresse d'un bar" pensez-vous. Vous inspectez la pochette. "Oui
 c'est bien ça. Il s'agit de l'adresse du Gagarine Paradise." dites-vous.
@@ -1471,13 +1420,11 @@ vous pouvez voir des boîtes à lettres et un disjoncteur. Les escaliers
 permettant de monter se trouvent au Nord.
 
 > ouvrir la boîte à lettres 3A avec la petite clé
-(Your score has increased by 1)
 "Désolé d'ouvrir ta boîte à lettres Vladimir mais tu ne t'es pas gêné pour
 pirater mon réseau informatique." A l'aide de la petite clé, vous ouvrez la
 boîte à lettres de Kostenko. Une enveloppe se trouve à l'intérieur.
 
 > prendre l'enveloppe
-(Your score has increased by 1)
 "L'adresse de la société Omega est écrite sur cette enveloppe. Bingo!"
 dites-vous à voix basse. Vous prenez l'enveloppe puis vous l'ouvrez afin
 d'emporter le devis se trouvant à l'intérieur. "Il ne me reste plus qu'à
@@ -1525,7 +1472,6 @@ pochette d'allumettes. On devrait peut-être aller y faire un tour." "T'as
 raison Largo. Donnes-moi cette adresse et je m'en occuperai."
 
 > donner la pochette d'allumettes à Simon
-(Your score has increased by 1)
 Vous tendez la pochette d'allumettes à Simon: "Merci Largo. Je m'occuperai de
 cela un peu plus tard." "Pourquoi plus tard?" demandez-vous. "Ben parce que
 tu auras sans doute besoin de moi non?" "Mais non Simon. Files au Gagarine
@@ -1562,7 +1508,6 @@ Olga.
 franchise." pensez-vous.
 
 > donner le devis à la femme
-(Your score has increased by 1)
 Vous donnez le devis à Olga. Après quelques secondes, la femme vous regarde,
 l'air confu: "Pardonnez-moi monsieur Winch. Je... je suis désolée." "Ce n'est
 rien Olga. Pouvez-vous m'aider?" "Oui monsieur Winch mais puis-je vous poser
@@ -1575,7 +1520,6 @@ monsieur Winch." Vous descendez les escaliers. Vous pouvez voir une porte
 entrouverte au Nord mais un homme assis à une table bloque le passage.
 
 > parler à l'homme
-(Your score has increased by 1)
 "Pourriez-vous me laisser passer?" demandez-vous à l'individu. Le barbu lève
 les yeux de son livre et vous fixe du regard: "Qui es-tu?" "Je suis Largo
 Winch. Je suis à la recherche de Vladimir Kostenko." répondez-vous.
@@ -1597,7 +1541,6 @@ rien mec!" Le barbu vous tend un jeton en cuivre: "Tiens mec! Prends ce jeton
 en guise de cadeau d'adieu!"
 
 > prendre le jeton en cuivre
-(Your score has increased by 1)
 Vous prenez le jeton en cuivre. "Merci mon vieux!" dites-vous en tapant dans
 la main du russe. "De rien mec! Si tu veux mon avis, ce jeton te sera très
 utile par la suite." "Ok merci. Aurevoir mon gars!" "Salut mec!" L'homme se
@@ -1628,7 +1571,6 @@ l'Est, vous pouvez voir une machine à café; les escaliers se trouvent au
 Nord.
 
 > insérer le jeton en cuivre dans la machine à café
-(Your score has increased by 1)
 Vous insérez le jeton en cuivre dans la machine à café puis vous reculez afin
 de ne pas trop vous faire remarquer. Quelques minutes plus tard, Olga, venant
 prendre un café, se rend compte que la machine est en panne. La jeune femme
@@ -1654,7 +1596,6 @@ bureau de Vladimir se trouve à l'Est.
 Un tournevis se trouve dans la caisse à outils.
 
 > prendre le tournevis
-(Your score has increased by 1)
 Vous prenez le tournevis.
 
 > est
@@ -1665,7 +1606,6 @@ Vous êtes à présent dans le bureau du pirate.A votre grande surprise, la
 pièce est presque déserte. Vous pouvez voir un bureau.
 
 > ouvrir le tiroir du bureau avec le tournevis
-(Your score has increased by 1)
 Vous ouvrez le tiroir du bureau avec le tournevis. Vous découvrez alors
 l'ordinateur de Kostenko. "Bingo!" vous exclamez-vous. Vous allumez
 l'ordinateur puis vous l'inspectez. "Oh non! Cet ordinateur est protégé par
@@ -1673,7 +1613,6 @@ un mot de passe. Avec le CD de Kerensky, je devrais pouvoir passer outre."
 dites-vous à voix basse.
 
 > insérer le cd de Kerensky dans l'ordinateur
-(Your score has increased by 1)
 Vous insérez le cd de hacking dans l'ordinateur de Vladimir. Après un long
 moment de "bataille", vous parvenez à contourner le mot de passe. "Bien joué!
 J'ai accès aux données de l'ordinateur de Kostenko." dites-vous avec joie. De
@@ -1726,7 +1665,6 @@ propose le barman. Vous avez ici la possibilité de choisir une boisson. Tapez
 "ulla ulla" pour demander un ulla ulla, la spécialité du Gagarine Paradise.
 
 > ulla ulla
-(Your score has increased by 1)
 "Je voudrais un ulla ulla s'il vous plaît." "Un ulla ulla? C'est très long à
 préparer. Vous en voulez vraiment un?" vous demande le barman. "Oui j'en veux
 un." "D'accord. Je vous prépare ça." Le barman se rend alors dans une pièce
@@ -1745,7 +1683,6 @@ pharmaceutique qui est ouvert.
 Un tube de somnifères se trouve dans le placard pharmaceutique.
 
 > prendre le tube de somnifères
-(Your score has increased by 1)
 Vous prenez le tube de somnifères.
 
 > sud
@@ -1837,7 +1774,6 @@ Vitali dans la pièce voisine (la pièce dans laquelle le barman prépare les
 ulla ulla). "Bingo! J'ai accès au verre de vodka." dites-vous à voix basse.
 
 > vider le tube de somnifères dans le verre de vodka
-(Your score has increased by 1)
 Vous videz le tube de somnifères dans le verre de Vodka. "Bien joué Largo! Il
 ne reste plus qu'à rejoindre Simon." pensez-vous.
 
@@ -1889,19 +1825,16 @@ Aussi voici une bouteille de Vodka.
 d'un homme. Cela devrait jouer en ma faveur." pensez-vous.
 
 > prendre la bouteille de vodka
-(Your score has increased by 1)
 Vous ramassez la bouteille de Vodka.
 "Je suis certain que pour ces mecs, l'argent est plus important que la vie
 d'un homme. Cela devrait jouer en ma faveur." pensez-vous.
 
 > vider la bouteille sur la liasse de billets
-(Your score has increased by 1)
 Vous videz la bouteille de Vodka sur la liasse de billets.
 "Je suis certain que pour ces mecs, l'argent est plus important que la vie
 d'un homme. Cela devrait jouer en ma faveur." pensez-vous.
 
 > allumer le briquet
-(Your score has increased by 1)
 Vous allumez le briquet en vous approchant des billets: "Tous ces beaux
 dollars imprégnés de Vodka... C'est pas prudent tout ça..." dites-vous en
 regardant le boss. "Tu es rusé américain. Tu sais bien que, pour nous,
@@ -1925,7 +1858,6 @@ pistolet Largo. Trois chargeurs ne seront pas de trop pour te couvrir." vous
 conseille Simon.
 
 > donner le pistolet à Simon
-(Your score has increased by 1)
 Vous tendez votre pistolet à Simon: "Merci mon pote. Quoi qu'il arrive, je te
 couvre!" assure votre ami. Vous entrez, suivi de près par Simon. En face de
 vous, vous pouvez voir des grosses caisses en bois sur l'une desquelles est
@@ -1935,11 +1867,9 @@ L'idéal serait de faire tomber ce tonneau mais je ne peux pas le déplacer à
 mains nues." pensez-vous.
 
 > prendre la pelle
-(Your score has increased by 1)
 Vous ramassez la pelle.
 
 > renverser le tonneau avec la pelle
-(Your score has increased by 1)
 A l'aide de la pelle, vous faites tomber le tonneau derrière les caisses,
 plus précisément sur le hacker. C'est alors que retentissent quelques coups
 de feu tirés par Vladimir et Simon. Le pirate sort alors de sa planque et
@@ -1956,11 +1886,9 @@ Vous ramassez la bouteille d'alcool.
 Vous prenez le chiffon.
 
 > combiner la bouteille d'alcool et le chiffon
-(Your score has increased by 1)
 Grâce à cette combinaison, vous obtenez un cocktail Molotov.
 
 > jeter le cocktail molotov sur Vladimir
-(Your score has increased by 1)
 Vous jetez le cocktail Molotov à quelques centimètres de Vladimir. "Ne bouge
 plus!" ordonne Simon. Vous approchez de Vladimir: "Alors Vladimir; pourquoi
 as-tu piraté le réseau du groupe W?" demandez-vous. "C'était un jeu
@@ -1979,7 +1907,6 @@ instants, l'hélicoptère se pose et trois hommes en sortent, se précipitant
 vers vous. Tapez "combattre" pour débuter le combat.
 
 > combattre
-(Your score has increased by 1)
 Vous êtes face aux trois tueurs. Deux d'entre eux (ennemis 1 et 2) ne
 possèdent aucune arme; le troisième (ennemi 3) est armé d'une massue. Tapez
 "coup de poing ennemi 1" pour donner un coup de poing à l'ennemi 1; tapez
@@ -2011,7 +1938,6 @@ que vous le torturez en lui donnant de multiples coups de pieds. Vous frappez
 jusqu'à ce que l'ennemi ne réagisse plus.
 
 > continuer
-(Your score has increased by 1)
 "Bon, fin de la conversation. On ne saura jamais pour qui Vladimir
 travaillait." déclare Simon. "Je n'ai pas dis mon dernier mot." assurez-vous
 en vous approchant du cadavre de Kostenko. Vous fouillez les poches de la
@@ -2041,7 +1967,6 @@ Vous arrivez dans la salle du Bigboard. En fond de salle, vous pouvez voir
 John Sullivan. L'ascenseur se trouve au Sud.
 
 > parler à John
-(Your score has increased by 1)
 Vous vous dirigez vers John: "Bonjour John." "Bonjour Largo. C'est bien que
 vous soyez là. Vous devez prendre une décision à propos de notre
 investissement dans la société MagnaGames." affirme Sullivan. "MagnaGames? La
@@ -2098,7 +2023,6 @@ sur lequel est collée une photo de votre père est accroché au mur, à côté de
 la bibliothèque.
 
 > regarder le tableau
-(Your score has increased by 1)
 Vous vous approchez du tableau. Sous la photo de votre père, vous découvrez
 un symbole d'oiseau, le même que celui qui est gravé sur la bague. Tout en
 haut du tableau, il est écrit "Nerio Winch, l'homme de Sarjevane." Sarjevane
@@ -2119,11 +2043,9 @@ Nord, à proximité d'une grande grille fermée; une flèche métallique ainsi
 qu'une bague métallique se trouvent par terre, non loin de vous.
 
 > ouvrir la caisse à outils
-(Your score has increased by 1)
 Un marteau se trouve dans la caisse à outils.
 
 > prendre le marteau
-(Your score has increased by 1)
 Vous prenez le marteau.
 
 > prendre la flèche métallique
@@ -2133,18 +2055,15 @@ Vous ramassez la flèche métallique.
 Vous ramassez la bague métallique.
 
 > forcer l'armoire électrique avec la flèche métallique
-(Your score has increased by 1)
 Vous forcez l'armoire électrique à l'aide de la flèche métallique. Vous
 remarquez qu'il manque un fusible dans cette armoire. "En plaçant un objet
 relativement plat à l'emplacement du fusible manquant, je devrais parvenir à
 faire réagir le système." pensez-vous.
 
 > combiner le marteau et la bague métallique
-(Your score has increased by 1)
 Vous aplatissez la bague métallique à l'aide du marteau.
 
 > insérer la bague métallique plate dans l'armoire électrique
-(Your score has increased by 1)
 Vous placez la bague métallique plate dans l'armoire électrique, à
 l'emplacement du fusible manquant. Grâce à cette nouvelle réussite de votre
 part, la grande grille s'ouvre. Vous pouvez à présent vous déplacer vers le
@@ -2196,7 +2115,6 @@ une inscription; tapez "dalle photo" pour vous intéresser à celle contenant
 la photo de Nerio.
 
 > dalle inscription
-(Your score has increased by 1)
 Vous vous penchez sur la dalle dans le but de déchiffrer l'inscription. Vous
 parvenez à lire un mot: AXIO. "AXIO? Qu'est-ce que cela signifie? S'agit-il
 d'un mot de passe? d'un nom code? Sullivan a travaillé pendant 30 ans pour
@@ -2245,7 +2163,6 @@ Vous arrivez dans la salle du Bigboard. En fond de salle, vous pouvez voir
 John Sullivan. L'ascenseur se trouve au Sud.
 
 > parler à John
-(Your score has increased by 1)
 Vous vous approchez de John Sullivan: "Bonjour John." dites-vous. "Dieu
 merci! Vous êtes là! On a un énorme problème!" s'exclame John. "Que se
 passe-t-il John?" "Cela concerne Simon et Joy." "Simon et Joy?" dites-vous
@@ -2292,7 +2209,6 @@ vous tournez vers Sullivan: "Nous devrons discuter à mon retour John."
 Sud.
 
 > sud
-(Your score has increased by 1)
 Vous entrez dans l'ascenseur puis vous descendez jusqu'à l'accueil. En
 sortant de l'ascenseur, vous tombez nez à nez avec Sharon. Vous prenez votre
 compagne dans vos bras puis vous l'embrassez. "Bonjour Sharon. Je te prie de
@@ -2327,7 +2243,6 @@ secrétaire est assise derrière un comptoir se trouvant au Nord; la sortie se
 trouve au Sud.
 
 > parler à la secrétaire
-(Your score has increased by 1)
 Vous vous approchez du comptoir: "Bonjour." dites-vous. "Bonjour. Que puis-je
 faire pour vous?" demande la secrétaire. "Je suis Largo Winch, le PDG du
 groupe W. J'aurais besoin d'accéder à la chambre 208." dites-vous. La
@@ -2407,7 +2322,6 @@ Vous vous déplacez vers l'Est.
 Vous êtes devant la porte de la chambre 208 qui est fermée.
 
 > utiliser le badge
-(Your score has increased by 1)
 Vous ouvrez la porte de la chambre à l'aide du badge puis vous entrez. Vous
 découvrez, avec horreur, un homme gisant sur le sol. Vous ne tardez pas à
 reconnaître cet homme. Il s'agit de Michel Cardiniac, le président du conseil
@@ -2513,7 +2427,6 @@ Vous vous déplacez vers l'Est.
 Vous vous trouvez devant la porte de la chambre 108. Celle-ci est fermée.
 
 > utiliser le badge
-(Your score has increased by 1)
 Vous ouvrez la porte de la chambre à l'aide du badge. En entrant dans la
 pièce, vous apercevez Simon et Joy, tous deux ligotés: "Dieu soit loué vous
 êtes là!" vous exclamez-vous. "Largo? Je n'ai jamais été aussi heureux de te
@@ -2527,7 +2440,6 @@ truands. "Plutôt deux fois qu'une!" répondez-vous avec assurance. Tapez
 "combattre" pour débuter le combat.
 
 > combattre
-(Your score has increased by 1)
 Vous êtes donc face aux trois hommes, tous trois armés de couteaux. Votre
 premier réflexe est de vous saisir de l'extincteur accroché au mur, juste à
 côté de la porte de la chambre. Vous avez ainsi la possibilité d'utiliser cet
@@ -2578,7 +2490,6 @@ Vous terrassez l'ennemi 3 d'un ultime coup de pied. "Fais dodo mon gars! Un
 de moins!" dites-vous.
 
 > continuer
-(Your score has increased by 1)
 Vous vous dirigez vers Joy: "Cette fois, c'est bel et bien terminé pour ces
 salopards de truands! Je vais vous libérer!" assurez-vous. Vous détachez Joy
 ainsi que Simon. "Merci beaucoup Largo. Sans toi, nous serions peut-être
@@ -2668,7 +2579,6 @@ Vous revoilà à l'accueil de l'hôtel. Les deux ascenseurs se trouvent à l'Est
 et à l'Ouest; la sortie est située au Sud.
 
 > sud
-(Your score has increased by 1)
 Vous sortez de l'hôtel en compagnie de vos deux amis puis vous vous rendez au
 building W. Vous arrivez alors au rez-de-chaussée. Votre bureau est situé à
 l'Est; l'ascenseur se trouve au Nord.
@@ -2712,7 +2622,6 @@ salle du bigboard; tapez "central informatique" pour vous rendre au central
 informatique; tapez "accueil" pour retourner à l'accueil.
 
 > salle du bigboard
-(Your score has increased by 1)
 Vous arrivez dans la salle du bigboard en compagnie de vos deux amis. John
 Sullivan se précipite vers vous: "John? Je vous ramène du renfort!"
 dites-vous en riant. "Simon? Joy? Quel bonheur de vous revoir! Vous avez donc
@@ -2791,7 +2700,6 @@ de l'appartement de Sharon. Vous êtes à présent devant l'appartement de votre
 compagne. L'entrée se trouve au Nord.
 
 > nord
-(Your score has increased by 1)
 Vous frappez à la porte de l'appartement. Sharon ne venant pas vous ouvrir,
 vous prenez l'initiative d'entrer. Horrifié, vous trouvez Sharon, étendue
 dans le salon. Vous remarquez que votre compagne a subi le même sort que
@@ -2872,7 +2780,6 @@ adversaire jette violemment son fusil derrière elle. Le fusil heurte une
 fenêtre qui se brise sous le choc. Tapez "combattre" pour débuter le combat.
 
 > combattre
-(Your score has increased by 1)
 Vous êtes donc face à Helena Dekovar et vous ne possédez aucune arme. C'est
 donc à vous de frapper votre adversaire afin de l'immobiliser et de permettre
 à Rex et à son maître d'intervenir. Tapez "coup de poing" pour frapper Helena
@@ -2901,7 +2808,6 @@ ambulanciers. Vous êtes désormais seul dans l'appartement. La sortie se
 trouve au Sud.
 
 > sud
-(Your score has increased by 1)
 Vous sortez de l'appartement. Alex et Rex attendent à quelques mètres de
 l'entrée. Vous vous dirigez vers eux. "Je suis désolé Largo." déclare Alex.
 "Pas autant que moi. Tu sais, Sharon était vraiment une fille géniale.
@@ -2973,7 +2879,6 @@ salle du bigboard; tapez "central informatique" pour aller au central
 informatique; tapez "accueil" pour vous rendre à l'accueil.
 
 > central informatique
-(Your score has increased by 1)
 Vous arrivez au central informatique. Joy est installée devant un ordinateur.
 Lorsqu'elle vous aperçoit, cette jeune femme se lève puis se hâte vers vous:
 "Tu es enfin de retour!" s'exclame Joy. "Et oui Joy! Tu voulais me voir?"
@@ -3031,7 +2936,6 @@ salle du bigboard; tapez "central informatique" pour vous rendre au central
 informatique; tapez "rez-de-chaussée" pour retourner au rez-de-chaussée.
 
 > salle du bigboard
-(Your score has increased by 1)
 Vous vous rendez en salle du bigboard en compagnie de Joy. Dès l'ouverture de
 l'ascenseur, vous entendez des applaudissements: l'ensemble du personnel du
 groupe W s'est réuni dans la salle du bigboard, afin de vous accueillir comme
@@ -3093,3 +2997,6 @@ vos bras puis vous l'embrassez. Tout le monde vous applaudi une nouvelle
 fois. "Bon ben c'est pas grave! Je me contenterai d'une bombasse russe!"
 s'exclame Simon.
 Congratulations!
+Votre score est de 96 sur un maximum de 97!
+C'est 98% du jeu!
+You finished 1 points short.

@@ -15,12 +15,10 @@ Or I could rob him, it's not like he'd mind.
 NOTE: Type "Talk to character" instead of "ask someone about something"
 
 > turn on tv
-(Your score has increased by 5)
 Hmm...only thing on is a Who's the Boss marathon. But I'll give you 5 points
 for trying the TV.
 
 > open crate
-(Your score has increased by 5)
 I swung open the crate door and looked inside. Ahh, my hidden stash of money
 was still there. I'd tell you how much, but you'd laugh. And, to make your
 job easier. I'll take the money for you.
@@ -45,7 +43,6 @@ chair yelling at you for his rent. I'd pay him, he can get pretty shotgunny
 when he doesn't get his money.
 
 > talk to landlord
-(Your score has increased by 5)
 "You punk, you owe me twenty thousand dollars for the rent. I ain't kidding
 anymore, I want the money today or you'll be sleeping on the street tonight."
 
@@ -85,12 +82,10 @@ It's a car jack, you know, the things you use to lift heavy objects like cars
 and such.
 
 > take car jack
-(Your score has increased by 5)
 I picked the jack up off the ground and stashed it away as Red turned to look
 at me suspiciously.
 
 > talk to red
-(Your score has increased by 5)
 "Hey, you wanna buy a tire. I got a good deal, eight grand. Or hey, I can
 hook you up with some guys that can get you some illegal weapons. Oopps, heh,
 forget about that one."
@@ -127,11 +122,9 @@ the large counter, his hand probaly ready to pull out a gun if I tried to do
 anything remotely strange.
 
 > buy tickets
-(Your score has increased by 5)
 I gave the money to the clerk and took a lottery ticket.
 
 > take wirecutters
-(Your score has increased by 10)
 I took a free wirecutter and stuck it in my pocket.
 
 > n
@@ -166,12 +159,10 @@ A large dumpster sits in the corner. It's been locked shut with a giant chain
 that has been welded all around it
 
 > cut chain
-(Your score has increased by 5)
 I snipped off the chain and swung open the dumpster. I searched around inside
 and pulled out a newspaper from today. I hit gold.
 
 > read newspaper
-(Your score has increased by 5)
 5 34 46 7 89...The lottery ticket, those are the sane numbers...I WON!!! I'VE
 WON 20,000 DOLLARS!!! Ahem...now that I'm filthy rich, there must be some use
 to this thing.
@@ -209,13 +200,11 @@ mattress sits behind the couch, my trusty bed. A flimsy door to the North
 leads out of this dump.
 
 > use jack on couch
-(Your score has increased by 10)
 I jammed the car jack under the couch and began pushing down on the other
 side. The couch lifted up and I pulled the dictionary from under the couch. I
 pulled the jack away and stashed it away again.
 
 > read book
-(Your score has increased by 5)
 I quickly picked up the dictionary and began reading. After thiry eight
 hours, I was finished and I found myself seeming smarter.
 
@@ -260,7 +249,6 @@ patrons sit around the large room, but it's pretty much empty. Now I just
 have to get Gimpy to give me a job.
 
 > talk to gimpy
-(Your score has increased by 10)
 "Hey, you actually spoke in a complete sentance. I guess that dictionary you
 read made you smarter.  You know what, you're hired. Get in the back room and
 cook something up. If it tastes good, I'll let you be the chef. When you're
@@ -309,12 +297,10 @@ chair yelling at you for his rent. I'd pay him, he can get pretty shotgunny
 when he doesn't get his money.
 
 > give ticket to landlord
-(Your score has increased by 10)
 "WOOOOOHOOOOO...I mean, yes I'll take this as your rent. Execuse me, but I
 have to go to the bank for a second."
 
 > take sandwich
-(Your score has increased by 5)
 I grabbed the sandwich and forced myself not to eat it.
 
 > w
@@ -365,7 +351,6 @@ once in awhile.
 My score is 90 out of a maximum of 100.  (90%)
 
 > serve
-(Your score has increased by 10)
 I jammed the sandwich onto a plate and then walked back out into the cafe. I
 gave it to Gimpy who took a bite.
 
@@ -378,3 +363,6 @@ They even made a TV movie about me starring Sir Tony Danza. And my landlord,
 he sold the apartment building to a rich oil tycoon so now I finally got the
 bathroom I always wanted in the place.
 Good job, you somehow managed to survive Sleaze City.
+You scored 90 out of the maximum 100!
+That is 90% of the game!
+You finished 10 points short.

@@ -154,3 +154,6 @@ You pick up the treasure chest. Congratulations - you've found the hidden
 treasure! I hope you enjoyed my game and hope you will download my future
 games too. Thanks for playing!
 Congratulations!
+You scored 50 out of the maximum 50!
+That is 100% of the game!
+Well done - you scored maximum points!

@@ -57,7 +57,6 @@ You take the small stick.
 Jenny follows you .
 
 > dig dirt
-(Your score has increased by 20)
 You use the stick as a makeshift shovel and dig the passage out.  The stick
 breaks and is no longer usable, so you toss it up out of the hole.
 
@@ -79,17 +78,14 @@ You take the piece of dental floss.
 You take the small rock.
 
 > tie the string to the rock
-(Your score has increased by 20)
 You wrap the floss around the rock and make a grappling rock.
 
 > throw rock at spoon
-(Your score has increased by 20)
 You throw the grappling rock at the spoon and miss several times.  One last
 try....and it land on the wooden spoon.  You are then able to pull it near.
 It looks like there is just enough room for you and the little girl.
 
 > stand on spoon
-(Your score has increased by 20)
 You climb onto the spoon and carefully held the little girl on.  She loses
 her balance and nearly falls in, kicking the rock into the dark water.
 
@@ -104,7 +100,6 @@ You open the nut shell.  A ring is inside the nut shell.
 You take the ring from the nut shell.
 
 > give ring to girl
-(Your score has increased by 20)
 You hand the little girl the ring and she exclaims in excitement, "Oh, thank
 you!  Mommy will surely be happy now!"    She removes the bow from her curly,
 blond hair and asks, "But how will I get back home?"
@@ -116,3 +111,6 @@ air as if nothing ever happened.
 Was this all just in your imagination?  Or was it in hers?
 
 Congratulations!
+You scored 100 out of the maximum 100!
+That is 100% of the game!
+Well done - you scored maximum points!

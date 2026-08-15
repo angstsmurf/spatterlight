@@ -20,11 +20,9 @@ The Garden - Near the old oak tree
 Also here is the bone.
 
 > piss on the tree
-(Your score has increased by 5)
 Pissing on my old oak is one of my favourite sports. Good... I needed it.
 
 > take doll
-(Your score has increased by 5)
 I take the doll from the oak.
 Got the doll. Emily will be happy!
 
@@ -32,7 +30,6 @@ Got the doll. Emily will be happy!
 I take the bone.
 
 > eat the bone
-(Your score has increased by 5)
 I eat the bone.  Not bad, but it could do with a pinch of salt!
 Ahhh... The bone was very good.
 
@@ -44,7 +41,6 @@ Bizet the cat is here... I hate her.
 Bizet the Cat hisses at me...
 
 > chase cat
-(Your score has increased by 5)
 I start grinding... Bizet, you're mine!
 "Woof!"
 "Pfff...."
@@ -68,7 +64,6 @@ I move west.
 The Garden - Near my basket
 
 > put mouse in basket
-(Your score has increased by 5)
 I put the dead mouse inside the basket.
 Well done!
 
@@ -88,7 +83,6 @@ A thief has got into the house while i was chasing Bizet! The window is
 broken!
 
 > drop ball
-(Your score has increased by 5)
 I drop the ball.
 Drop the ball under the window... The thief gets out from the window and
 slips on the ball!
@@ -118,3 +112,6 @@ Time passes...
 Time passes...
 "Rex!!!! I'm back."
 Rex I love you!
+You scored 30 out of the maximum 30!
+That is 100% of the game!
+Well done - you scored maximum points!

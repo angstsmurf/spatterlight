@@ -7,17 +7,17 @@ Please enter your name:
 > Undef
 
 > define the room
-(Your score has increased by 1)
 Here defined.
 
 > define me
-(Your score has increased by 1)
 You are defined.
 
 > define voice
-(Your score has increased by 1)
 I am now defined (thank you by the way).
 
 > define the end
 An end is defined.
 You are somewhere.
+You scored 3 out of the maximum 3!
+That is 100% of the game!
+Well done - you scored maximum points!

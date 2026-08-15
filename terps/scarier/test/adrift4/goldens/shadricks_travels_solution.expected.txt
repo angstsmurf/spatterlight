@@ -85,7 +85,6 @@ chopping wood to the east and mum is setting up camp to the west.  A grove of
 trees lies northeast."
 
 > tie rope to wood
-(Your score has increased by 20)
 "I string the rope around the piece of wood a couple of times and make it
 secure.  It is now a sturdy swing."
 
@@ -122,7 +121,6 @@ You can't climb the old oak tree.
 I don't understand what you want me to do with the swing.
 
 > tie swing to tree
-(Your score has increased by 20)
 "I tie the other end of the rop to the branch and slowly let the swing dangle
 down."
 
@@ -145,14 +143,12 @@ Hanson standing as far back as he can on a large rock, trying to keep his
 distance from the bear.
 
 > throw rock at hive
-(Your score has increased by 10)
 "I throw the rock at the beehive and it falls to the ground.  Bees are
 swarming everwhere, but the bear doesn't seem to mind it and tries to get the
 honey inside.  Now is my chance to help Hanson, while the bear is
 distracted."
 
 > swing on swing
-(Your score has increased by 50)
 "With the bear distracted, I jump on the swing and grab hold of my brother.
 We barely miss getting swiped by the massive claws of the black bear as we
 leap off of the swing and run out of the grove."
@@ -162,3 +158,6 @@ angry at Hanson for running off, that he's not had supper and is supposed to
 be sleeping.  I know that he isn't though.  I can see him making faces at me
 while I eat my stew.  Father thinks I'm a hero."
 Congratulations!
+You scored 50 out of the maximum 100!
+That is 50% of the game!
+You finished 50 points short.

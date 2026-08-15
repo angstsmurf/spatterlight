@@ -324,7 +324,6 @@ Child's Bedroom
 It is dark here. You cannot see anything.
 
 > give food to cat
-(Your score has increased by 5)
 You drop the tin of cat food in the corner of the room, and the cat races
 over to it and begins its feast.
 
@@ -402,7 +401,6 @@ that leads north from the room.
 You can also see Theo's cellphone.
 
 > unlock door
-(Your score has increased by 5)
 You unlock the secret door with the brass key.
 
 > in
@@ -428,7 +426,6 @@ that leads north from the room.
 You can also see Theo's cellphone.
 
 > light candelabra
-(Your score has increased by 5)
 You place the candelabra down and light it with the match.
 
 > n
@@ -468,26 +465,21 @@ rough stone, seemingly carved out of the ground and not part of the original
 house. It is very cold here, and you get a sense of something... evil.
 
 > bury doll
-(Your score has increased by 5)
 You use the shovel to bury the doll.
 
 > bury necklace
-(Your score has increased by 5)
 You use the shovel to bury the necklace.
 
 > bury pipe
-(Your score has increased by 5)
 You use the shovel to bury the pipe.
 
 > bury ball
-(Your score has increased by 5)
 You use the shovel to bury the ball.
 
 > score
 Your score is 35 out of a maximum of 50.  (70%)
 
 > bury crucifix
-(Your score has increased by 15)
 You bury the crucifix with the other items. Suddenly the walls begin to shake
 and you hear a loud unearthly moan. You turn and flee, your hands covering
 your ears. You run to the foyer, the paintings falling off the walls and a
@@ -503,3 +495,7 @@ You spend the rest of your days in a mental institution, haunted nightly by
 Theo and Angie. At least you made it out alive...
 
 At least you made it.
+
+You scored 50 out of the maximum 50!
+That is 100% of the game!
+Well done - you scored maximum points!

@@ -105,7 +105,6 @@ only thing left untouched; in fact, it still radiates a warm aura.
 You take the mysterious black orb from the pulpit.
 
 > put orb in water
-(Your score has increased by 2)
 You dribble the water onto the orb, which promptly explodes in a maelstrom of
 swirling black light and smoke. An evil aura spreads out from here, and you
 hear a demonic cackle from the far western part of the village.
@@ -122,7 +121,6 @@ assume that it was not the source of this trouble, your mentor would belt you
 one up the head.
 
 > w
-(Your score has increased by 1)
 You move west.
 
 A Field of Corn
@@ -140,7 +138,6 @@ find yourself entering the church. The demon is obviously not impressed, and
 it enters after you, blocking the exit. Looks like it's do or die.
 
 > hit demon with plate
-(Your score has increased by 3)
 Dancing around the room, you avoid several furious blows from the demon.
 Somehow, you manage to get him between you and the altar, and you know the
 time is right. Slipping the ceramic plate into your hand, you wind up and
@@ -151,3 +148,6 @@ that, the demon has ceased to exist. Righteous. You spend the night in the
 church, napping on the stack of pews, and in the morning, you start out on
 your journey back to your mentor. Not only your journey back, but your
 journey to the beginning of your new life. You're a demonhunter.
+You scored 6 out of the maximum 5!
+That is 120% of the game!
+You finished -1 points short.

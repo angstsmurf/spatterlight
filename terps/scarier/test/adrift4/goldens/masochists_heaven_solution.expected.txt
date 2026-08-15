@@ -64,7 +64,6 @@ It's shooting into the air a jet of water that seems to change colors and arc
 and splash and all that nice stuff.
 
 > put bubbles in fountain
-(Your score has increased by 5)
 I stealthily uncork the bubbles and dump them into the fountain. At once, the
 fountain sends up a jet of bubbles. The gardener drops his watering can and
 begins to tend the fountain. After a while, he has the bubbles under control,
@@ -83,7 +82,6 @@ squishes under my feet, but never enough to allow me to go through. To the
 north is God's administrative building, where all the crap work goes on.
 
 > water plant
-(Your score has increased by 5)
 I sprinkle some water from the can onto the little potted plant. Suddenly, it
 springs to life, grows a great set of teeth, and chases away the angel at the
 door to God's building.
@@ -100,9 +98,11 @@ getting to me. God himself sits before me at a desk.
 I can't really tell, all that divine light is impairing my vision.
 
 > fuck
-(Your score has increased by 5)
 "How DARE you?!" bellows God. He points a divine finger at me (the middle
 one) and a trap door opens beneath my feet. I plummet down into Hell. As I
 drop into a lake of lava, and feel my skin melting, I think, "Ah... that's
 more like it!"
 Congratulations!
+You scored 15 out of the maximum 15!
+That is 100% of the game!
+Well done - you scored maximum points!

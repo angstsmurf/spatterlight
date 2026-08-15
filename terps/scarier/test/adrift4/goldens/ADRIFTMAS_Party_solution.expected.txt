@@ -65,17 +65,14 @@ time.
 >
 
 > kiss mystery
-(Your score has increased by 5)
 You lay a Happy Holidays kiss on Mystery.  Turns out that Mystery didn't
 appreciate it much and belts you right in the kisser.
 
 > make snowball
-(Your score has increased by 5)
 You gather a large handful of snow and form it into a loosly packed ball.
 Taking careful aim, you throw the ball at your intended target and miss.
 
 > make snowman
-(Your score has increased by 5)
 You build a masterpiece in no time, but are disappointed that it doesn't seem
 to stay together, and ends up with back where it started.
 
@@ -91,7 +88,6 @@ dome light provides ample lighting for the front area of the house.
 You can only move south.
 
 > pee in snow
-(Your score has increased by 10)
 You look around for a minute to make sure there isn't anyone looking.  You
 know that you shouldn't have had that last glass of milk at the last stop.
 You whip it out and manage to write S A N T A  in cursive.  Being quite
@@ -119,12 +115,10 @@ davidw is standing here looking for someone to antagonize.
 You can move north, east, south, west and out.
 
 > look under table
-(Your score has increased by 5)
 Looking under the small table, you find a piece of chewed bubble gum and take
 it.
 
 > chew gum
-(Your score has increased by 5)
 You look around to make sure no one is looking as you pop the sticky gum into
 your mouth.  As you chew you have a flashback to when.......
 
@@ -205,11 +199,9 @@ You can only move north.
 You take the broom.
 
 > sweep floor
-(Your score has increased by 5)
 You give the floor quick sweep, wishing the elves were here to do it for you.
 
 > put gum on broom
-(Your score has increased by 10)
 You stick the piece of chewed bubble gum on the end of the broom handle.
 
 > n
@@ -246,7 +238,6 @@ KF walks in from the south.
 You take the nutmeg from the cabinet.
 
 > eat nutmeg
-(Your score has increased by 5)
 Against your better judgment, you open up the nutmeg and dump it down your
 throat.  Moments later you start feeling a bit strange.
 
@@ -282,7 +273,6 @@ the room, lip-synching with others present.
 You can move east, south and out.
 
 > ask samantha about shower
-(Your score has increased by 10)
 "I guess I can take my break now.  She heads off toward the east, presumably
 to take a shower.  You wait a few minutes before you decide to follow.  You
 arrive in the master bathroom, which is full of steam.  That is when you
@@ -355,7 +345,6 @@ deep in thought about how to finish his ADRIFT game.
 You can move south and west.
 
 > take key
-(Your score has increased by 5)
 You use the gum on the stick and carefully retrieve the key from the top of
 the tree.
 
@@ -376,7 +365,6 @@ You can move east, south and out.
 KF walks in from the south.
 
 > put nutmeg in absinthe
-(Your score has increased by 5)
 You wait for MileOut to look away, then slip a fair amount of nutmeg into his
 bottle of Absinthe. After a few minutes of drinking MileOut begins spouting
 off something about a pink elephant and the bartender in compromising
@@ -386,7 +374,6 @@ the air....for some unseen reason.  He then mumbles something about pool.
 Nick Grimson wanders in from the east.
 
 > ask mileout about pool
-(Your score has increased by 5)
 "You want to play, 'eh?  Alright."  He slurs as he staggers towards the
 billiards table.  He racks the balls up and nearly falls over.  As you play
 you can't help but be amused at MileOut's strange fascination with the color
@@ -450,7 +437,6 @@ You can move west and northwest.
 Davidw goes  to the north-west.
 
 > give money to dave
-(Your score has increased by 5)
 You hand Dave the money and he begins doing his reading.
 ...."Well, well, well, Santa.  It seems you've gotten yourself into a mess.
 So you need to know how to get back on the roof where all the presents are?"
@@ -652,7 +638,6 @@ You can only move north.
 You drop the suitcase.
 
 > jump on suitcase
-(Your score has increased by 5)
 You jump on the suitcase and are flung high into the air.  After a few more
 jumps, you manage to jump high enough to reach the roof.....So high, in fact
 that you overshoot and land hard on Blitzen.
@@ -664,7 +649,6 @@ You take the bag of presents from your sleigh.
 Your score is 90 out of a maximum of 100.  (90%)
 
 > go down chimney
-(Your score has increased by 10)
 You finally recover enough magic to make your way down the chimney.  Arriving
 in the Living room, you are greeted by several Drifters.  You happily hand
 out gifts to everyone, and enjoy seeing the bright looks on everyone's face
@@ -705,3 +689,6 @@ permission to use his song, "Holy Shit It's Christmas".  THANKS RED!
 I apologize if I have forgotten anyone...so just in case...THANK YOU
 EVERYONE!
 Congratulations!
+You scored 90 out of the maximum 100!
+That is 90% of the game!
+You finished 10 points short.

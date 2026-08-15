@@ -17,11 +17,9 @@ Leon is here.
 There is an exit south.
 
 > point up
-(Your score has increased by 100)
 You gained 100 points
 
 > drink dragon potion
-(Your score has increased by 1000)
 You drink it.
 
 > s
@@ -125,7 +123,6 @@ You can move north, east and south.
 You drop the Bow of Icy Arrows.
 
 > trikletarts
-(Your score has increased by 1000)
 Wee Ha
 
 > s
@@ -150,7 +147,6 @@ You can only move down.
 Tree Master hits Leon.
 
 > destroy tree master
-(Your score has increased by 1000)
 You killed the tree master!
 
 > score

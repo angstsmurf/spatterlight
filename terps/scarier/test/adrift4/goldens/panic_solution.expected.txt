@@ -74,7 +74,6 @@ his glass imprisonment, the exalted form of Christ warps the moonlight,
 wrapping its lustre over wood, stone, and textile without division.
 
 > x podium
-(Your score has increased by 5)
 Crafted from wood long warped, the uneasy podium pitches slightly to the
 left, a huge white drape dressing it. A small candleholder plays host to a
 burning candle; its wax slipping slowly down its length, the orange flicker
@@ -173,7 +172,6 @@ On pressing the G key a harmonic tone rumbles through the pipes, rising to
 the upper reaches of the cathedral.
 
 > play c
-(Your score has increased by 5)
 On pressing the C key a harmonic tone, stronger than the previous four,
 rumbles through the pipes, rising to the upper reaches of the cathedral.
 Unseen reverberations occur in the higher gloom, evidenced only by strange
@@ -187,7 +185,6 @@ uncovering a small passage, unseen for an indefinite period, that hungrily
 sucks the shifting light of the candle.
 
 > get candleholder
-(Your score has increased by 5)
 Carefully, you take possession of the candleholder, holding it boldly before
 you. A few drips of wax splash neatly on the floor, resolving quickly to a
 state of cool.
@@ -303,7 +300,6 @@ Either the key, or the hook, has become rusted. The key does not slide over
 the end of the hook.
 
 > use grease on hook
-(Your score has increased by 5)
 Taking the tin of grease in one bloody hand you apply some of its sticky
 contents to the hook.
 
@@ -357,7 +353,6 @@ China arches over the coffin's lid, a few tassles hanging over the brass
 lock.  .
 
 > open coffin with key
-(Your score has increased by 5)
 Pushing the brass key into the coffin's lock, a few spurts of blood - from
 your seeping hands - splash out over the fibreglass shell as you turn the
 key, registering success with a reassuring 'click'.
@@ -479,7 +474,6 @@ The wall is covered in loose dust, the soft cobwebs that cover it wrap
 carefully over the small etches forming the word "Höhle."
 
 > use hammer on wall
-(Your score has increased by 5)
 You smash the wall, revealing the path to Glory to the north.
 
 > n
@@ -543,7 +537,6 @@ The second row of flagstones each have a letter carved into their worn faces.
 The letters are 'E', 'R', 'H', 'S', and 'T'.
 
 > stand on h
-(Your score has increased by 5)
 Standing on the stone, you wait for any reaction - and find none.
 Press any key to continue
 
@@ -558,7 +551,6 @@ water plays to you, an audience of one. And God, you think, is He my audience
 of One?
 
 > step into pool
-(Your score has increased by 5)
      Slowly, you descend into the water; its coldness evident as it soaks
 into your shoes, your socks, and the fabric of your trousers. The descent via
 the stairs is left incomplete as the water supports your weight, granting you
@@ -593,3 +585,6 @@ down upon the Second Coming without comment.
 You completed the game in 68 turns.
 
 Your rating is Messiah.
+You achieved 40 points from a possible 60!
+That is 66% of 'Panic. I pray you'll play again.!
+You finished 20 in deficit..

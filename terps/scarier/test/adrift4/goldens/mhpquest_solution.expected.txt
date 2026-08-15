@@ -110,7 +110,6 @@ road.
 An angry Orc is here blocking your path to the east.
 
 > kill orc
-(Your score has increased by 10)
 You thrust the knife deep into the heart of the orc. It screems and writhes
 about in agony for a few seconds and then falls dead on the floor in a pool
 of blood. Two other orcs run out of the nearby trees and drag the body away.
@@ -194,7 +193,6 @@ once lived here. There are bits and pieces scattered everywhere. The cave
 entrance is to the South.
 
 > search bits
-(Your score has increased by 10)
 You discover a small gold coin.
 
 > take coin
@@ -230,7 +228,6 @@ The forest is less dense here. There is a little light breaking through the
 treetops. A few feet away you can see the remains of a small fire.
 
 > search fire
-(Your score has increased by 10)
 As you rummage through the ashes of the fire you discover an old torn note.
 
 > take note
@@ -265,7 +262,6 @@ ornate water fountain here. It seems to have been put here for weary
 travellers in need of a drink.
 
 > throw coin in fountain
-(Your score has increased by 20)
 As the coin splashes into the water of the fountain there is a bright flash
 and you see the gold coin has become a golden flute.
 
@@ -301,7 +297,6 @@ You stand on the edge of the forest. There is a vertical wall of stone to the
 west.
 
 > play flute
-(Your score has increased by 20)
 As you begin to play the flute a small opening gradually appears in the rock
 wall.
 
@@ -314,7 +309,6 @@ of all kinds. There must be well over a thousand different types of plants
 here.
 
 > take clover
-(Your score has increased by 20)
 You take some of the magic clover leaves.
 
 > e
@@ -372,8 +366,10 @@ the south wall of the cottage is a small squage window.
 Crystal is here.
 
 > feed clover to crystal
-(Your score has increased by 50)
 Well Done! You have saved Crystal's life. Even as you feed the clover leaves
 to your daughter, you notice her perk up. After only a few days she has fully
 recovered. You decide to keep a few of the leaves in case they are needed in
 the future.
+You scored 90 out of the maximum 140!
+That is 64% of the game!
+You finished 50 points short.

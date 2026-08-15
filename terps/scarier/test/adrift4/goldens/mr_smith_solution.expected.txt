@@ -84,7 +84,6 @@ Library
 This is the Library. Many bookcases cover its walls.
 
 > open bookcase with poker
-(Your score has increased by 5)
 As you use the poker to pry open the bookcase, it falls to the floor
 revealing a secret passage.
 
@@ -122,7 +121,6 @@ Here is the study. Many papers lay about it, and a fire burns in the
 fireplace.  It appears that someone in a hurry has been here recently.
 
 > light torch in fireplace
-(Your score has increased by 5)
 The torch sparks into flame
 
 > w
@@ -161,7 +159,6 @@ You open cardboard box.  Brown potatoes are inside cardboard box.
 You take brown potatoes from cardboard box.
 
 > eat potatoes
-(Your score has increased by 5)
 You ate the potatoes. Not bad, but they could do  with a pinch of salt.
 
 > e
@@ -180,11 +177,9 @@ horrible stench and many muffled noises coming from behind the shower
 curtain.
 
 > open curtain
-(Your score has increased by 5)
 A girl is tied up behind it!!!!
 
 > untie girl
-(Your score has increased by 5)
 The girl is now untied and is free to talk.
 
 > w
@@ -225,7 +220,6 @@ and take a deep breath. It is the middle of the night. Now you take notice of
 your surroundings.
 
 > drink water
-(Your score has increased by 5)
 You drink some of the water from the fountain, and almost immediatly you feel
 stronger.
 
@@ -312,7 +306,6 @@ Another dungeon. Nothing remarkable, only some old skeletons in the area.
 An old butler is here, chained against the wall.
 
 > unchain butler
-(Your score has increased by 5)
 You have unchained the Butler. He falls to the floor in a slump. Perhaps he
 has been malnourished and has fainted. You check his pulse...no reading...
 the butler is dead.
@@ -355,7 +348,6 @@ bed. It appears to you that a fight of some sort took place. There are
 strange noises coming from under the bed...
 
 > lie on bed
-(Your score has increased by 5)
 Following the strange sounds, you lie down on the bed to listen to what's
 coming from under it. As you are lying there, listening to what seems like
 muffled voices, the bed slowly begins to tilt up. A hole opens in the floor
@@ -458,7 +450,6 @@ Also here is a wine bottle and an ID card.
 You pick up the wine bottle.
 
 > break bottle
-(Your score has increased by 5)
 You shatter the wine bottle on the floor. The wine goes everywhere, and the
 front door key also comes out.
 
@@ -490,7 +481,6 @@ You open the refrigerator.  A gourmet sandwich  is inside the refrigerator.
 You take the gourmet sandwich  from the refrigerator.
 
 > eat sandwich
-(Your score has increased by 5)
 You eat the sandwich. You have never EVER tasted anything so good.
 
 > w
@@ -511,13 +501,11 @@ friends. There is a pool table in the center and a sofa that wraps around the
 entire room, except where the entrance is and where the fireplace is.
 
 > kick cabinet
-(Your score has increased by 5)
 You kick the gun cabinet. Your foot goes right through the door leaving a
 hole. You wonder if it really is made of solid oak. You kick it a second time
 towards the middle and it finally opens.
 
 > open cabinet
-(Your score has increased by 5)
 The gun cabinet is locked, you cannot open it.
 
 > open cabinet
@@ -543,7 +531,6 @@ You enter the front hall. It is coated in a tasteful color of white paint,
 with a door at one end. There are some hooks used for holding coats.
 
 > open door
-(Your score has increased by 5)
 The door opens and sunlight floods the room.
 
 > n
@@ -557,7 +544,6 @@ A vicious guard dog is in the yard.
 Dog hits you, but it doesn't seem to do any damage.
 
 > give bone to dog
-(Your score has increased by 10)
 The dog now calms down and begins to chew on the bone.
 
 > n
@@ -602,7 +588,6 @@ your path is blocked by a boulder.
 Also here is a boulder.
 
 > destroy boulder
-(Your score has increased by 5)
 After laying the dynamite you take cover behind a tree. You count to your
 self  "3.....2.....1......." BOOOOMMMMMMM!!!!!! The boulder explodes folowed
 by a shower of rocks. Now you move up the path. All of the sudden a
@@ -635,10 +620,12 @@ out over the edge and see a breathtaking view of the whole city.
 Unfortunately, there is no time. You must stop Mr. Jones before he gets away.
 
 > snipe fuel tank with rifle
-(Your score has increased by 10)
 After taking careful aim you pull the trigger of the rifle. After almost no
 delay, the helicopter explodes and falls from the sky. An awesome sight. What
 you've done to save the world won't sink in until later, and for right now
 you're going home to catch up on some lost sleep.
 Congratulations! I hope you liked our game. If you didn't get 100%, you
 should go back and try for it!
+You scored 80 out of the maximum 100!
+That is 80% of the game!
+You finished 20 points short.

@@ -39,7 +39,6 @@ draft.  Yup, its still the first day.
 You can move north and south.
 
 > open window
-(Your score has increased by 1)
 The window is broken and you can't seam to open the window in its present
 state.
 You can see a shadow of somthing behind the window.
@@ -58,7 +57,6 @@ west.  Yup, its still the first day.
 You can move south and west.
 
 > give note to king
-(Your score has increased by 1)
 You give the note to the king.  "Gee thanks," he mumbles.  He reads it, then
 looks at you.  "hmm you aint no midget... but Whatever."  Stupid harry gives
 you 100 gold pieces.
@@ -177,7 +175,6 @@ tiles in the corner look new.  Yup, its still the first day.
 You can only move east.
 
 > push tile
-(Your score has increased by 2)
 You push the tile in.  Veeerry smart of you.  Now what.  So you pushed it in.
  You wait a bit...  nothing happens.  Wait...   you hear a click.
 You start to wonder what the click came from, it didn't sound like it came
@@ -212,13 +209,11 @@ You can move north and south.
 Jackass Trying to Kill You hits you, but it doesn't seem to do any damage.
 
 > attack guy
-(Your score has increased by 2)
 You cut Jackass Trying to Kill You with Kinda Sharp Sword.
 You killed the Bastard Trying to Kill You.  It wasn't hard, but it was sure
 fun.  Now that he is dead, you can search his body or somthing, right?
 
 > search guy
-(Your score has increased by 10)
 You search him and find THE GOLDEN SOAP!  Better pick it up soon, and take it
 to the king.
 
@@ -239,7 +234,6 @@ west.  Yup, its still the first day.
 You can move south and west.
 
 > give the golden soap to king
-(Your score has increased by 5)
 You give the golden soap to the king and he yells loudly "I HAVE THE GOLDEN
 SOAP, I HAVE THE GOLDEN SOAP!"  and you slowly back away.  He also sais, "By
 they way, did you get the non-golden soap on a rope?" (if you did say "yes"
@@ -268,7 +262,6 @@ Hey, this window is broken.  Who would do such a dastardly, dastardly deed?
 Cracked Broken Window is open.
 
 > close window
-(Your score has increased by 1)
 You can close the thing very easily, and as you do, it locks back into place
 and is now un-openable from here.
 You hear a click from a different room.
@@ -284,13 +277,11 @@ west.  Yup, its still the first day.
 You can move south and west.
 
 > give soap on a rope to king
-(Your score has increased by 5)
 You give the soap to the king and he gladly accepts it.  In fact he's jumping
 up and down for joy.  as he runs to the shower room, he tosses you a key to
 the armory.  "take any weapon you want as a reward."
 
 > take doughnut
-(Your score has increased by 3)
 You snatch a doughnut while the king takes a shower.  Goodness.
 You see Guido look at you.  I think he wants one of the doughnuts.
 
@@ -369,7 +360,6 @@ Sculpto is here.  Yup, its still the first day.
 You can only move east.
 
 > use radio
-(Your score has increased by 1)
 Whoa, you get some kind of stupid african music.  Wow!
 
 > score

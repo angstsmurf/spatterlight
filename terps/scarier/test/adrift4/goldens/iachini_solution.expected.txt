@@ -82,7 +82,6 @@ leading down to the basement are impassable, since it looks like there's a
 broken step down there.
 
 > open drawer
-(Your score has increased by 5)
 Rifling through the kitchen drawers, you discover an electric garage door
 opener among the junk.
 
@@ -97,7 +96,6 @@ refrigerator.
 You take the tasty-looking food from the large refrigerator.
 
 > eat food
-(Your score has increased by 5)
 Ahh!  That was delicious.
 
 > e
@@ -113,7 +111,6 @@ After about three minutes, the computer comes to life.  Several icons appear
 on the screen.
 
 > click breakout
-(Your score has increased by 5)
 You sit down and play the fast-action arcade game for thirty minutes or so.
 You lose quickly in the first few games, but eventually start doing much
 better.  You feel a sense of accomplishment and coordination when you finish.
@@ -193,7 +190,6 @@ You spray some of the glass cleaner onto the mirror and scrub vigorously.
 After a few minutes, you've got it shining immaculately.
 
 > read card in mirror
-(Your score has increased by 10)
 You hold the index card up to the mirror and read the reflection.  You can
 now clearly make out the message: "PUSH KEY 80"
 
@@ -228,7 +224,6 @@ You open the clothes hamper.  A pair of weights is inside the clothes hamper.
 You take the pair of weights from the clothes hamper.
 
 > exercise
-(Your score has increased by 5)
 You grunt and sweat for a little while.  You can almost feel your muscles
 bulging from the additional strength.
 
@@ -306,14 +301,12 @@ here.  The garage is to the north, and the front porch is up the stairs.  The
 garage door is closed.
 
 > open door
-(Your score has increased by 5)
 You press the button on the garage door opener, and the door grinds open.
 
 > drop opener
 You drop the electric garage door opener.
 
 > shoot hoops
-(Your score has increased by 5)
 You shoot -- you score!  And a screwdriver that was perched on the back of
 the rim clatters to the pavement.
 
@@ -344,7 +337,6 @@ You take the box of acidic tablets from the sturdy shelves.
 You take the jug of basic discs from the sturdy shelves.
 
 > move chest
-(Your score has increased by 5)
 With much grunting and sweating, you manage to shove the massive tool chest
 off to the side.  The doorway is now clear.
 
@@ -363,7 +355,6 @@ broken, making it impossible to go up to the kitchen.  You could probably fix
 it, if you had the right tool.
 
 > fix stair
-(Your score has increased by 5)
 You manage to fix the broken stair.  You can use the door to the kitchen now.
 
 > drop screwdriver
@@ -477,7 +468,6 @@ You drop an acidic tablet into the hot tub.  After a few moments of bubbling,
 it dissolves completely into the water and is mixed by the tub's own bubbles.
 
 > add acid
-(Your score has increased by 5)
 You drop an acidic tablet into the hot tub.  After a few moments of bubbling,
 it dissolves completely into the water and is mixed by the tub's own bubbles.
  The pH meter now reads 7.  You have successfully balanced the pH!
@@ -654,7 +644,6 @@ bed in the room.  The hallway is to the northeast.  There is a loose panel
 above you.
 
 > move panel
-(Your score has increased by 5)
 You hit the loose panel a few times with the claw hammer, and manage to get
 it out of the way.
 
@@ -754,7 +743,6 @@ radio.  There are six wooden chairs around the table.  The archway to the
 living room is south of you, and the kitchen is to the east.
 
 > look under table
-(Your score has increased by 5)
 Looking under the dining room table, you discover a box of dryer sheets.
 What kind of a moron would put dryer sheets in a place like that?
 
@@ -864,7 +852,6 @@ here.  In addition, this room extends to the south.
 You light a match.
 
 > light fire
-(Your score has increased by 5)
 You hold the match to the edge of the newspaper, and blow carefully on your
 new blaze.  The newspaper heats the firewood, whic, after much encouragement
 on your part, finally alights.  The flames spread throughout your little wood
@@ -900,7 +887,6 @@ The entrance hall is to the east, and the dining room is to the north,
 through an archway.
 
 > push key 80
-(Your score has increased by 10)
 You count 80 keys up from the left hand side of the keyboard and push firmly
 on key number 80.  You hear a "clunk" from inside the piano, as if something
 were jarred loose.
@@ -909,7 +895,6 @@ were jarred loose.
 You open the console piano.  A television remote is inside the console piano.
 
 > get remote
-(Your score has increased by 5)
 You take the television remote from the console piano.
 
 > e
@@ -949,7 +934,6 @@ there is a comfortably large shower here, and towel bar hanging on the wall.
 The exit is to the southwest.
 
 > take shower
-(Your score has increased by 10)
 You strip down, get into the shower, and turn on the water.  After a few
 minutes of just adjusting the temperature, you finally get the balance right.
  You take your time, enjoying the warm spray, shampooing your hair, and
@@ -1048,7 +1032,6 @@ You drop a dryer sheet into the clothes dryer.
 You close the clothes dryer.
 
 > dry afghan
-(Your score has increased by 10)
 You flip the switch on the dryer, and it comes to life!
 
 > z
@@ -1066,7 +1049,6 @@ Time passes...
 > z
 Time passes...
 The dryer's motion is slowing.
-(Your score has increased by 10)
 The dryer slows to a stop.  Your laundry is done!
 
 > z
@@ -1135,3 +1117,6 @@ completed, you crumple it up and toss it into the fire, where it is quickly
 incinerated in a satisfying burst of flames.  The selection of cable channels
 is good here, and you've earned the break.  You sink into the couch and find
 a favorite show to watch as you doze off into a well-deserved nap.
+You scored 115 out of the maximum 115!
+That is 100% of the game!
+Well done - you scored maximum points!

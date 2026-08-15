@@ -83,7 +83,6 @@ aren't snakes crawling around my feet. There's a door (north) and a window
 I take the rock from the grass.
 
 > break window
-(Your score has increased by 2)
 I crack the window with the rock and jump through. Actually, I don't jump; I
 take my time. I don't want to get cut. Getting injured in the middle of
 nowhere is a recipe for disaster.
@@ -104,7 +103,6 @@ A broken window behind me (out).
 I turn on the flashlight.
 
 > look under chair
-(Your score has increased by 2)
 I reach underneath the chair until I feel a metallic surface. I pull out...a
 saw.
 
@@ -155,7 +153,6 @@ blood leading to a door (north), what looks to be a bedroom to my left
 (west), and the crime-scene style den behind me (south).
 
 > saw door
-(Your score has increased by 2)
 It takes some time, but I carve a nice spot for the doorknob to fall out. The
 door is now openable.
 
@@ -168,7 +165,6 @@ smell of dead eggs and rotten meat is strong here; methinks it would be a
 good idea to leave. I could get an infection just standing here.
 
 > dig
-(Your score has increased by 2)
 I ruffle through the clothes, throwing items here and there, to and fro,
 until I get my hands on something sturdy. I pull out...a laptop.
 
@@ -206,18 +202,15 @@ here is well-kept; little dust or dirt or grime. Almost as if someone has
 been here lately.
 
 > 91020
-(Your score has increased by 2)
 I hear a ding noise. That must mean something good.
 
 > put vial in machine
 I put the blue vial inside the small machine.
 
 > press button
-(Your score has increased by 3)
 I push the button and the big box in the front of the room opens.
 
 > get in box
-(Your score has increased by 5)
 I get into the box, half-not-knowing-what-I'm-do and
 half-afraid-to-do-anything-else. I feel around the box a little bit. No dust.
 
@@ -291,7 +284,6 @@ Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (east).
 
 > east
-(Your score has increased by 2)
 I forge eastward.
 
 Field
@@ -359,7 +351,6 @@ anything of interest for some distance (east).
 A naked woman is here, chained to the ground.
 
 > break chain
-(Your score has increased by 2)
 "I'm going to cut away the chains now. Don't be afraid."
 
 She closes her eyes as I pull back and swing.
@@ -424,7 +415,6 @@ anything of interest for some distance (east).
 A bird enters from the east.
 
 > throw rock at bird
-(Your score has increased by 2)
 I toss the rock as hard as I can. It hits the bird in the face, which seems
 to disturb it for a bit. It flies very quickly southward.
 
@@ -642,7 +632,6 @@ Yellow grass, about knee-high, all around me. This is the end of the trail.
 Here lies a large gate (north).
 
 > open gate
-(Your score has increased by 5)
 I put my hands on the gate and push. It opens slowly. I don't have the
 strength to ensure that it opens completely. The gas mask filter seems to be
 filled up. I cannot breathe anymore. I put my hands to my neck and stumble
@@ -884,7 +873,6 @@ I hear a beeping noise.
 >
 
 > look
-(Your score has increased by 3)
 
 Cell 1
 Metal walls on all sides, no padding, and a single dim light: that is what
@@ -1073,7 +1061,6 @@ I open the red box.  A child is inside the red box.
 I take the child from the red box.
 
 > use blanket on child
-(Your score has increased by 3)
 I wrap the child in the blanket. He stops shivering.
 
 I think back to when I was raising Cody. He was my only son, and the best one
@@ -1601,7 +1588,6 @@ I put the yellow orb inside the orange orb.
 I put the orange orb inside the red orb.
 
 > shout
-(Your score has increased by 3)
 "I am proud of you. Just one more trial."
 
 Thanks, I...can't breathe.
@@ -1812,7 +1798,6 @@ Chip hits you, but it doesn't seem to do any damage.
 I take the lighter.
 
 > attack chip
-(Your score has increased by 5)
 You throw the lighter at Chip.
 "Good job."
 
@@ -1879,7 +1864,6 @@ My skin gets unusually warm for a second. It feels like it's burning.
 It thunders in the distance. Streaks of green lightning are in the sky.
 
 > hard
-(Your score has increased by 15)
 Hard difficulty level selected.
 
 > north
@@ -3473,7 +3457,6 @@ I no longer detect the Higher's presence.
 I don't understand what you mean.
 
 > take double-lighter
-(Your score has increased by 15)
 I've already got the double-lighter!
 
 I hear a popping noise, and suddenly all the air is sucked from my lungs. I

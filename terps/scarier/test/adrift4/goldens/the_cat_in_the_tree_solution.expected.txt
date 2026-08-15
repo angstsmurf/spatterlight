@@ -62,7 +62,6 @@ yourself up into the tree branches. Balancing carefully, you make your way to
 where the cat lies, watching you.
 
 > offer cup of milk to cat
-(Your score has increased by 50)
   Offering the cupful of milk to the cat, it meows gently and approaches you.
 You wait, still as possible as the cat begins licking the milk. Reaching out
 gently, you grab the cat easily and bring it close to you.
@@ -92,3 +91,6 @@ Where's my quarter?
   "Mister, you don't look so good," the little boy says.
 
 Congratulations!
+You scored 50 out of the maximum 50!
+That is 100% of the game!
+Well done - you scored maximum points!

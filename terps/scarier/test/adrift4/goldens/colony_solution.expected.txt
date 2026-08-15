@@ -172,7 +172,6 @@ up a cliff that would be suicide without equipment .
 You can only move south.
 
 > climb cliff
-(Your score has increased by 20)
 You climb the cliff but almost slip , you quickly recover with the pick in
 the equipment . You make your way up and you are standing at the foot of the
 building .
@@ -215,7 +214,6 @@ elevator but a large hole is in the floor .
 You can move down and out.
 
 > climb cable
-(Your score has increased by 30)
 You climb the steel cable to the tower top .
 A large alien hits you.
 
@@ -234,7 +232,6 @@ the sky where the lightning went down .
 A large alien hits you, but it doesn't seem to do any damage.
 
 > load bullets
-(Your score has increased by 50)
 You put the eoi bullets into the gun.
 A large alien hits you, but it doesn't seem to do any damage.
 
@@ -267,7 +264,6 @@ powerful enough beam!
 You can only move north.
 
 > shoot rubble
-(Your score has increased by 100)
 You pull the trigger and the bullet explodes sending rubble everywhere!
 
 > s
@@ -372,3 +368,6 @@ A small alien hits you, but it doesn't seem to do any damage.
 You get in the ship and take control , right after you leave the atmosphere
 the planet turns into nothing but a sector of astroids .
 Congratulations!
+You scored 200 out of the maximum 200!
+That is 100% of the game!
+Well done - you scored maximum points!

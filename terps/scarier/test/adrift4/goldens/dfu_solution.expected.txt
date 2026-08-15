@@ -138,7 +138,6 @@ You punch, claw, kick, tackle, and lick the batter, but it just won't budge.
 You'll need something a little stronger.
 
 > hit battery with wrench
-(Your score has increased by 999999999)
 "Hey chowderhead, I oughta punch you in the noggin!" The computer screams
 out, obviously in Three Stooges mode
 
@@ -185,3 +184,6 @@ will never be completed. Rest assured, if the game was done, it would've been
 released commericaly and would've generated trillions in profits.
 
 Thank you, and good night.
+You scored 0 out of the maximum 999999999!
+That is 0% of the game!
+You finished 999999999 points short.

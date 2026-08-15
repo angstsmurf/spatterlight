@@ -77,7 +77,6 @@ alcove in the opposite wall...
 You take your belt from your trousers.
 
 > attach belt to cable
-(Your score has increased by 20)
 You loop your belt over the greasy cable and clutch it with both hands before
 casting yourself over the edge.  The belt holds your weight easily, and you
 slide gracefully down the cord to the opposite alcove...
@@ -149,7 +148,6 @@ Release" is set in the north wall.  In the cage are a very dead-looking tiger
 and a block of metal.
 
 > pull lever
-(Your score has increased by 30)
 You pull the lever and the bottom of the cage drops open, allowing the dead
 tiger and the block of metal to drop to the floor.
 
@@ -209,11 +207,9 @@ which is mounted a large gun.  Through the slit, you can see a line of
 targets, each successively smaller from left to right.
 
 > reload gun
-(Your score has increased by 10)
 You snap the clip into place in the side of the gun.
 
 > shoot targets
-(Your score has increased by 10)
 You easily shoot each of the targets in turn, your targetting skills honed by
 your years in the army.  As soon as you've shot the final target, a panel
 opens in the ceiling above, and a block of metal drops out, narrowly missing
@@ -240,11 +236,9 @@ alcove in the opposite wall, above which is a small target.  A harpoon gun is
 mounted in the mouth of this corridor.
 
 > reload gun
-(Your score has increased by 10)
 You fit the harpoon into the gun.
 
 > fire gun at target
-(Your score has increased by 10)
 You fire the harpoon gun at the target across the gap, and score a perfect
 hit.
 
@@ -273,11 +267,9 @@ are perforated with strange little holes.  A pillar stands against the north
 wall.
 
 > tie string to block
-(Your score has increased by 15)
 You tie one end of the string to the metal block atop the pillar.
 
 > up
-(Your score has increased by 15)
 You climb up the ladder, holding the piece of string.  When you get to the
 top, you pull the block of metal after you, an action that is accompanied by
 a roar of gunfire from below.
@@ -326,7 +318,6 @@ This is a very small, dark room, in which the only feature is a large metal
 box.
 
 > unlock box
-(Your score has increased by 10)
 You unlock the large safe using the small silver key from the alcove, and
 open the door to reveal that the box is empty save for a block of metal
 carved into a bizarre shape.
@@ -361,7 +352,6 @@ in which is frozen some sort of object.  Beneath the ice is a small metal
 panel from which two wire run to a box on the wall.
 
 > plug battery into box
-(Your score has increased by 20)
 You plug the battery into the wall-mounted box, and immediately, the metal
 panel beneath the ice-block glows red for several minutes, melting the ice
 away.  The water drains into a small orifice in the east wall, and the object
@@ -411,32 +401,26 @@ the east and west walls, with curiously glowing yellow floors, and a huge
 iron door is set in the north wall.
 
 > plug a block
-(Your score has increased by 10)
 You plug the A-shaped block into the first socket in the door.  As soon as
 you do this, the second socket opens.
 
 > plug d block
-(Your score has increased by 10)
 You plug the D-shaped block into the second socket in the door.  As soon as
 you do this, the third socket opens.
 
 > plug r block
-(Your score has increased by 10)
 You plug the R-shaped block into the third socket in the door.  As soon as
 you do this, the fourth socket opens.
 
 > plug i block
-(Your score has increased by 10)
 You plug the I-shaped block into the fourth socket in the door.  As soon as
 you do this, the fifth socket opens.
 
 > plug f block
-(Your score has increased by 10)
 You plug the F-shaped block into the fifth socket in the door.  As soon as
 you do this, the final socket opens.
 
 > plug t block
-(Your score has increased by 100)
 You plug the T-shaped block into the final socket in the door.  As soon as
 you do this, the door groans open...
 You walk carefully through the door, not sure what you will find.  What you
@@ -503,3 +487,7 @@ choice.  Allow me to introduce myself.  The name's Wild.  Campbell Wild."
 To be continued...
 
 Press a key...
+
+You scored 200 out of the maximum 300!
+That is 66% of the game!
+You finished 100 points short.

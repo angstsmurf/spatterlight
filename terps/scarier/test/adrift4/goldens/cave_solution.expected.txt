@@ -1346,3 +1346,6 @@ and take it to the bank, and hope that you don't have to fill out too many
 forms.
 
 But still, that's life.  Well done.
+You scored 1000 out of the maximum 1000!
+That is 100% of the game!
+Well done - you scored maximum points!

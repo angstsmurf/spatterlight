@@ -11,7 +11,6 @@ alarming feeling that you are supposed to do something. And that it needs to
 be done right away. But what is it?
 
 > look under bed
-(Your score has increased by 5)
 You find an old dirty trouser here.
 
 > take trouser
@@ -21,7 +20,6 @@ You pick up the old unwashed trouser.
 You take the alarm clock from the dresser.
 
 > w
-(Your score has increased by 3)
 (Getting off the Bed first)
 You move west.
 
@@ -37,7 +35,6 @@ north to the kitchen.  The alarm clock buzzes.
 The buzzing of the clock doesn't seem to have any effect on the woman.
 
 > put trouser on woman
-(Your score has increased by 10)
 She sure wakes up. You quickly hide the trousers before she understands what
 is going on. "Oh, my head", she whimpers. She looks up at you, a small
 grimace spreads across her face. She shakes her head a little. "Well, I'd
@@ -49,25 +46,20 @@ slept for a minute otherwise." She gets up and starts to dress.
 dressed.
 
 > ask woman about phone
-(Your score has increased by 10)
 "Sure, its 555-35700. Give me a ring. No wait, here is my card, so you won't
 forget it."
 
 > kiss woman
-(Your score has increased by 2)
 "No, not now. I'm having the worst hangover ever."
 
 > eat woman
-(Your score has increased by 2)
 "You never get enough, do you?", she grunts. "I'm to tired. You can eat me
 out some other time."
 
 > fuck woman
-(Your score has increased by 2)
 "I'm to tired", she says. "We can do it again some other time."
 
 > turn off alarm clock
-(Your score has increased by 5)
 You turn off your buzzer.
 
 > take bottle
@@ -93,7 +85,6 @@ leave the apartment.
 You take the glass of pepsi from the kitchen bench.
 
 > put pepsi in bottle
-(Your score has increased by 5)
 You pour the pepsi into the empty  "Bushmills 16 years old premium Irish
 whisky" bottle. The mixture from the glass has almost the same color as the
 bottles original content. It's a little darker though.
@@ -101,7 +92,6 @@ bottles original content. It's a little darker though.
 the kitchen door.
 
 > put water in bottle
-(Your score has increased by 5)
 Ah, now it looks like Bushmills again. This really makes you feel better. Now
 you can place it on the bookshelf in the living room and pretend that it was
 never opened.
@@ -144,7 +134,6 @@ room in the apartment, even the staircase is bigger. A shower cabinet, a sink
 and a toilet barely fits in here. You can go south to the bedroom.
 
 > wash me
-(Your score has increased by 5)
 You wash off the BO from last night. You feel better already.
 
 > s
@@ -206,7 +195,6 @@ have your bed, a dresser and a small night table here. You can go west to the
 living room, or north to the bathroom.
 
 > look
-(Your score has increased by 10)
 
 Your Bedroom
 This is your bedroom. Of all the rooms in the apartment, you like this best.
@@ -232,7 +220,6 @@ leave the apartment.
 Hanna is here.
 
 > eat hanna
-(Your score has increased by 10)
 You eat your girlfriend out on the kitchen table.  You're definitely
 forgiven. With a  boyfriend who gives head like that, Hanna let her
 suspicions rest. She walks into the bathroom to take a shower.
@@ -268,12 +255,10 @@ and a toilet barely fits in here. You can go south to the bedroom.
 Hanna is here.
 
 > ask hanna about invitation
-(Your score has increased by 10)
 "Have you spilled coffee on the invitation to Jonas and Anettes wedding? You
 are such a slob. You are late, aren't you?"
 
 > call jonas
-(Your score has increased by 11)
 You deside to dial up the groom on the cellular. "Where the hell are you? You
 better be here soon. That's just so incredible. My best man being late for my
 wedding. You still have the ring on your hand right? OK, just get your ass
@@ -338,7 +323,6 @@ staircase, or west to the street if you open the front door.
 Your landlord is here. He looks as furious as ever.
 
 > give bottle to landlord
-(Your score has increased by 10)
 "Bushmills, eh?", he lightens up. "I love Bushmills! OK, if you give me this
 bottle as a token of good will, I'll give you a few days to come up with the
 rent." You agree, and he walks into his apartment.
@@ -347,7 +331,6 @@ rent." You agree, and he walks into his apartment.
 Your score is 105 out of a maximum of 115.  (91%)
 
 > open door
-(Your score has increased by 10)
 You leap out the door and head for the wedding.
 You arrive late, but at least you got there. Jonas and his bride is here,
 ready for the best man.
@@ -361,3 +344,7 @@ pepsi and water. He is going to evict you for sure. Well, you can handle him,
 as you can get yourself out of any tight spot. You always do.
 
 This has turned out to be an altogether OK morning.
+
+You scored 115 out of the maximum 115!
+That is 100% of the game!
+Well done - you scored maximum points!

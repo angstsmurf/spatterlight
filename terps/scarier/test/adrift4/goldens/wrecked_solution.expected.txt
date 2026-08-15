@@ -1695,3 +1695,7 @@ get this chest out of the sewer!  Then you'll probably end up losing most of
 it to pay off you credit card bill, but that's not my problem.
 
 Hope you enjoyed playing Wrecked.
+
+You scored 250 out of the maximum 250!
+That is 100% of the game!
+Well done - you scored maximum points!

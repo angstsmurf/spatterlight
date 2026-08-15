@@ -36,11 +36,9 @@ with a computer sitting on it.
 There are exits east, south and west.
 
 > turn on computer
-(Your score has increased by 100)
 You turn the computer on. After a few moments the screen lights up.
 
 > type qwertyuiop
-(Your score has increased by 100)
 The screen flashes.
 You hear a humming noise from somewhere above your head, and the overhead
 light dims for a moment.
@@ -56,7 +54,6 @@ open closet in the corner.
 You can go north and west.
 
 > sleep
-(Your score has increased by 50)
 You lie down on the bed, close your eyes, and very quickly fall into a deep
 slumber. As you sleep, you dream about your friend Rich. You get the feeling
 he needs your help, but you don't know where he is. You are determined to
@@ -136,7 +133,6 @@ under the windows. There is a closet in the corner.
 You can go north, east and west.
 
 > water plants
-(Your score has increased by 50)
 That should help them quite a bit, and you're sure Richard will appreciate
 your effort... if you can ever find him to tell him about it.
 
@@ -171,7 +167,6 @@ the screen.
 You can go east, south and west.
 
 > type 001 001 002
-(Your score has increased by 100)
 The screen flashes again and you hear more beeping noises.
 
 > w
@@ -252,7 +247,6 @@ so hot, you can't even get near them to see what lies beyond.
 You can only go south.
 
 > put mat on fire
-(Your score has increased by 100)
 You put the yoga mat on the flames.
 The mat sizzles and melts, but it looks like you could get past the fire now.
 
@@ -308,7 +302,6 @@ A large spider-like creature sits blocking the corridor.
 You can only go north.
 
 > give cupcake to spider
-(Your score has increased by 100)
 You toss the cupcake to the spider. It seems curious, but wary. After a few
 moments, it nibbles on the cupcake, then gulps it down. Then the spider
 begins to twitch, and skitter around in circles. It's movements become more
@@ -496,7 +489,6 @@ A pile of ugly green goo is quivering on the path in front of you.
 You can only go east.
 
 > feed goo berries
-(Your score has increased by 100)
 You drop the berries into the goo's orifice and jump back as a puff of stinky
 gas billows out. The goo starts to dissolve. In seconds nothing is left but a
 puddle of slime. Sitting in the middle of the puddle is the recall beacon.
@@ -588,7 +580,6 @@ You can only go north.
 Your score is 700 out of a maximum of 1000.  (70%)
 
 > press button
-(Your score has increased by 300)
 The door opens and you return to the staging area.
 Rich smiles as you hand him the recall beacon. He presses one side of it and
 there is a flash of light and a ZZZAPPP sound like you heard before. You are
@@ -605,3 +596,7 @@ stairs, and get him to lie down on the bed while you call for an ambulance.
 You smile, and put a finger to your lips, shushing him. There will be plenty
 of time for explanations later. Explanations, and perhaps another trip in the
 transfer booth...
+
+You scored 700 out of the maximum 1000!
+That is 70% of the game!
+You finished 300 points short.

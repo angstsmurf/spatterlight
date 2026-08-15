@@ -15,7 +15,6 @@ Please choose the player's gender (male or female):
 > male
 
 > login to think.com
-(Your score has increased by 5)
 You have logged into think.com but something catches your eye,a new game
 perhaps'you click  on it and are send into the depths of think.com....
 
@@ -49,7 +48,6 @@ Mrs Mac Intires page
 A page with super herald weapons Mrs Mac Intire leers at you....
 
 > put paper on Mrs Mac Intire
-(Your score has increased by 10)
 You put the sticky paper on Mrs Mac Intires face and she suddenly hugs
 you."thanks for saving me!You must stop herald immediatly."
 
@@ -66,7 +64,6 @@ with a machine gun!!!!!!
 Mrs Assface is here.
 
 > 2
-(Your score has increased by 5)
 You duck!BANG!
 Mrs Assface tripsBANG! Mrs Assface is dead!
 
@@ -102,9 +99,11 @@ kidding)  3)Avoid his attacks then counter  4)Defend
 Herald the dog hits you.
 
 > 4
-(Your score has increased by 15)
 You defend with a purple shield herald pants and your shield turns to a
 bright green aurora it blasts herald into tiny bits! Bam! Bam! Game over
 herald!
 Think.com has been restored and everyone got their icons back all hail  your
 name
+You scored 35 out of the maximum 35!
+That is 100% of the game!
+Well done - you scored maximum points!

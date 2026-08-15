@@ -11,11 +11,9 @@ parents will have left months ago, leaving this land to you alone, for a
 growing mangiasaur needs all the food it can find.
 
 > eat pollen
-(Your score has increased by 1)
 It's like sweet dust.  Kinda nice, but not much to it.
 
 > eat fly
-(Your score has increased by 1)
 They fill the air around you and it's easy to pounce on one.
 There is a satisfying crunch as you snap your mouth shut on its squishy
 little body.  A little rumination and the fly slides down your gullet into
@@ -64,7 +62,6 @@ Though you were already full of food when you ate, your stomach makes room
 for the food. While you digest the bug, your body grows a little bit larger.
 
 > eat bud
-(Your score has increased by 1)
 You stoop to bite one off the branch and catch a whiff of the sweet pollen in
 the air around it.
 
@@ -168,7 +165,6 @@ already full of food when you ate, your stomach makes room for the food.  You
 will never grow fat on these little treats though.
 
 > eat caterpillar
-(Your score has increased by 1)
 The nearest caterpillar is enjoying a feast of its own as you approach.
 Whether it sees you or knows your purpose is unclear, but it keeps chewing on
 its leaf up until the moment you squish it in your capable jaws.
@@ -257,7 +253,6 @@ makes room for the food. While you digest the bug, your body grows a little
 bit larger.
 
 > eat cocoon
-(Your score has increased by 3)
 It's not like it can run away.  You scrape the dry little thing off its
 branch and chew.  It tastes pretty awful.  In fact, it almost seems to hurt!
 Besides the dry, stringiness of it, you feel a mild stinging sensation in
@@ -285,7 +280,6 @@ Looking closely at the foliage around you, you see a small green bird hiding
 in the leaves.
 
 > eat bird
-(Your score has increased by 2)
 You can't catch them in the air, but you can certainly catch one standing
 idly on a branch.
 You close your jaws on the feathery food before it even sees you.
@@ -308,7 +302,6 @@ While you're by no means starving, You could certainly fit a bit more food in
 there.
 
 > eat bug
-(Your score has increased by 1)
 It's not like to you need to know where these bugs are to eat them.  The air
 is so saturated that you need only open your mouth to catch one.
 You crunch the tiny morsel to nothing and digest it in seconds.  Though you
@@ -316,7 +309,6 @@ were already full of food when you ate, your stomach makes room for the food.
 Unfortunately, it's too little food to help you grow at all.
 
 > eat moss
-(Your score has increased by 1)
 You munch on a nearby patch of moss.
 Though you were already full of food when you ate, your stomach makes room
 for the food.
@@ -360,7 +352,6 @@ for the food.
 You hear a flapping of wings as a bat approaches.
 
 > eat bat
-(Your score has increased by 4)
 You snap your mouth shut, crushing the bat instantly.  It's a little more
 than a mouthful.
 You enjoy the delicious bat, spitting out the wings as you chew and swallow.
@@ -379,7 +370,6 @@ The echoing chirp shows you a scurrying rodent digging its way into the wall
 of the cavern nearby.
 
 > eat rodent
-(Your score has increased by 3)
 You spot a rodent nearby and leap for it.
 The creature is dumb and easy to catch once you've found it.
 The creature is dumb and easy to catch once you've found it.  Moments after
@@ -425,7 +415,6 @@ One of the many little green & brown caterpillars in these treetops is
 feasting on a nearby leaf.
 
 > eat moth
-(Your score has increased by 5)
 As the moth flies by, it takes little more than knowing where it is and
 opening your mouth to catch it.
 The hairy, crunchy body of the caterpillar moth is hardly a match for the
@@ -459,13 +448,11 @@ sometimes on four.  It picks little slugs up from the ground and grimaces
 while eating them.
 
 > eat slug
-(Your score has increased by 1)
 You stoop to lap up a slimy little slug.
 It tastes digusting.  It does ease your hunger a little, but is it really
 worth it?
 
 > eat scale crawler
-(Your score has increased by 2)
 You can pretty much walk right up to it.  It turns its head sideways and
 stares at you, and you jump on it!  It's an easy thing to kill, despite its
 armored shell.  Getting at the meat is a different story.
@@ -494,7 +481,6 @@ The moon has reached its peak on this short summer night.  The air is cool
 and the stars shine in the night sky.
 
 > eat grass
-(Your score has increased by 1)
 You munch it for a while.  It's no good, really.   Tough and devoid of
 nutrition.  Tastes mildly bitter, but that's not a big deal.  As you move
 down the stalk, however, you notice some things beneath the grass.
@@ -504,7 +490,6 @@ At the base of the grass stalks are some kind of air-filled sacs.
 Crawling all over those sacs are little hard shelled beetles.
 
 > eat beetles
-(Your score has increased by 1)
 You slurp one up and chew.  It really doesn't have much flavor but after a
 little chewing, you feel a fine powder on your tongue and gums.  Spitting
 some out, you realize it's from your teeth!  The beetle's shell is so hard
@@ -515,20 +500,17 @@ You feel a little tickling on your legs, when you push the grass aside, you
 see a small hard-shelled beetle crawling off your leg onto the grass.
 
 > eat bark
-(Your score has increased by 1)
 With your newly sharpened teeth, it's a breeze.  You gnaw the bark raw on the
 nearest tree. Though you were already full of food when you ate, your stomach
 makes room for the food.  You look back to the tree where you bit into it and
 notice that a funny yellow sap is leaking from the porous wood.
 
 > eat sap
-(Your score has increased by 1)
 You lick up a bit of the sap.  You decide immediately that it's nowhere near
 as good a snack as the tree bark that held it in.  It's interesting though.
 It has an oiliness about it.  It's not very sticky though.
 
 > eat herd beast
-(Your score has increased by 1)
 They are too slow to escape you.  If they have ever dealt with predators
 before, probably their smell is the only thing that could save them.
 It's nasty, but you power through it, eating every last bit of flesh.
@@ -547,7 +529,6 @@ of the floor.
 A hut dweller is standing in here, wondering what you are.
 
 > eat torch
-(Your score has increased by 3)
 You snatch the torch off the wall and chomp it to bits.  You are just about
 finished eating it when you realize it's still lit!  Even as it makes it's
 way into your gut you feel its dull warmth.  You are no less hungry than you
@@ -556,13 +537,11 @@ The hut dweller extends an offering to you.  It appears to be some kind of
 food.
 
 > eat food
-(Your score has increased by 1)
 You munch on the food for a bit, determining that it is meat of a smelly herd
 beast, but it tastes a little different.  It's pretty good, though, and
 filling too!
 
 > eat rug
-(Your score has increased by 1)
 You gobble up the rug.  It's only as good as its constituent parts, which
 aren't very good.  At least it got something in your stomach.  Then you
 notice the hole in the dirt floor under the rug.
@@ -592,7 +571,6 @@ You feel a little tickling on your legs, when you push the grass aside, you
 see a small hard-shelled beetle crawling off your leg onto the grass.
 
 > eat air sac
-(Your score has increased by 2)
 These little brown sacs are really not much better than the grass they're
 attached to!  They're bland, and being full of air, they don't do much to
 fill your stomach.
@@ -623,7 +601,6 @@ Distension is a natural thing for a mangiasaur's belly, but you are aware of
 your stomach returning to normal as you process your excess of food.
 
 > eat shrimp
-(Your score has increased by 3)
 You swim toward a small group of tiny sentient shrimp, and open your mouth
 wide to scoop them up.  They all stop their dancing and poetry recitals and
 stare.  At least you think they're staring.  They're too tiny for you to be
@@ -633,12 +610,10 @@ late to let them get away 'cuz they might warn the other shrimp.  It's
 delicious.
 
 > eat wispy stalk plant
-(Your score has increased by 2)
 They're leafy and bland, but it fills your stomach alright.  Though you were
 already full of food when you ate, your stomach makes room for the food.
 
 > eat tentacle net
-(Your score has increased by 2)
 They're quite an easy catch just drifting around like that.
 You slice through the glowing rubbery tentacle meat with your new sharp
 teeth, reducing it quickly to little floating bite-sized pieces.  It's a
@@ -662,7 +637,6 @@ Air is bubbling up in your gut, looking for an out.
 A small shark is swimming around in the deeper water near the swaying stalks.
 
 > eat shark
-(Your score has increased by 5)
 Aren't sharks supposed to be scary?  You just swim right up to this one and
 tear it to pieces.  It's a regular shark smörgåsbord, with little tasty bits
 of shark meat drifting around in the water.  Your stomach is full of fish
@@ -744,7 +718,6 @@ The landing is rough, but you survive.  The rocket tree burns up after it's
 done spinning around in the red mesa dust.
 
 > eat slither hopper
-(Your score has increased by 1)
 Their hides are tough, making them hard to disable, hard to chew, and hard to
 swallow.  What little bits of meat you get from them, though, are quite
 tasty!
@@ -754,7 +727,6 @@ Distension is a natural thing for a mangiasaur's belly, but you are aware of
 your stomach returning to normal as you process your excess of food.
 
 > eat buzz bird
-(Your score has increased by 1)
 You approach the buzz birds cautiously, more than a little worried about what
 might happen if they all decided to fight you at once.  When you are close
 enough, you leap at the nearest one, catching its gangly feet in your mouth
@@ -762,27 +734,23 @@ as the rest of the family flies off, buzzing loudly.  After a minute of
 wrestling with this buzz bird, you can eat your meal in silence.
 
 > eat carcass
-(Your score has increased by 5)
 It's bearable only because you don't inhale.  The meat is definitely rancid,
 and you manage a few bites before vomitting.  You are hungrier than you were
 before you ate this. Now you know why the buzz birds didn't bother protecting
 their meal.
 
 > eat vomit
-(Your score has increased by 3)
 Maybe something has changed since you partially digested this stuff?  It's no
 less gross, but it stays down this time.  Your hunger is even mitigated.
 While you're by no means starving, You could certainly fit a bit more food in
 there.
 
 > eat bristle bush
-(Your score has increased by 1)
 It's really not very good.
 Though you were already full of food when you ate, your stomach makes room
 for the food.
 
 > eat roots
-(Your score has increased by 2)
 The groud is hard to dig, but with your advanced rodent-like claws, you make
 short work of it, and munch on the roots of a bristle bush.
 Compared to the bushes themselves, the roots are almost juicy!  Though you
@@ -850,3 +818,7 @@ original soundtrack, fewer typos, and more stuff to eat!
 
 Special thanks to Foam for his rocket trees and to Po Prune for his
 competition!
+
+You scored 63 out of the maximum 74!
+That is 85% of the game!
+You finished 11 points short.

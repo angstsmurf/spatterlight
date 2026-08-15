@@ -366,11 +366,9 @@ have everything you could want!
 Trabula is here.
 
 > give diamond ring to trabula
-(Your score has increased by 75)
 You've given the diamond ring to Trabula!  He rewards you handsomly.
 
 > give gold to trabula
-(Your score has increased by 50)
 You've given the gold coins to Trabula!  He rewards you handsomly.
 
 > quit

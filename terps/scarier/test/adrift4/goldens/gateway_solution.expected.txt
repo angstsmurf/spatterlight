@@ -153,7 +153,6 @@ The Temple Gardener is busy tending the gardens.
 EXIT:   north.
 
 > pick flower
-(Your score has increased by 10)
 You took the purple flower.
 
 > north
@@ -208,7 +207,6 @@ An old Woman has knelt here and is praying.
 EXIT:   west.
 
 > get flower
-(Your score has increased by 10)
 You took the purple flower.
 
 > west
@@ -279,7 +277,6 @@ A Rapist is here.
 A Rapist hits you with the rock.
 
 > get flower
-(Your score has increased by 10)
 You get the purple flower.
 A Rapist hits you with the rock.
 
@@ -410,3 +407,7 @@ temple zone however, is complete to explore and try things in.
 
 By Michael R. Grice (Kinvadren)
 THE END
+
+You scored 30 out of the maximum 30!
+That is 100% of the game!
+Well done - you scored maximum points!

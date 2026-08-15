@@ -833,6 +833,78 @@ CONFIGS = {
              ("a","lamp",4,0,0,0,0,0,0),
              ("a","gem",1,0,0,0,0,0,0)],
     npcs=[]),
+ # End-of-game score summary (RUNNER_TESTS_TODO section 4, the "End-of-game
+ # score summary" row).  run400 prints two or three lines of its own AFTER the
+ # game's ending text; Scarier prints none of them.  The row had the five
+ # literals censused in all four binaries but the *assembly* had never been
+ # captured live -- specifically the rounding of the percentage, whether the
+ # block is printed unconditionally, and what selects "Well done - you scored
+ # maximum points!" over "You finished N points short."
+ #
+ # Read off Form1.endmessage in run400 (@0005DDAC; the gameover flag is the
+ # same import slot 0x4F that section 4's end-game-action row pinned, and the
+ # two I4 globals it reads are slot 0x50 = MaxScore, 0x51 = score):
+ #
+ #   If gameOver > 0 Then
+ #     If MaxScore = 0 Then pct = 100 Else pct = Int(score * (100 / MaxScore))
+ #     If gameOver = 1 Then                          ' EndGame Var1=0, the win
+ #        <win banner>
+ #        If MaxScore > 0 Then                       ' @0005DE16 loads slot 0x50
+ #           t &= "You scored" & Str(score) & " out of the maximum" & Str(MaxScore) & "!" & CRLF
+ #           t &= "That is" & Str(pct) & "% of the game!" & CRLF
+ #           If score = MaxScore Then t &= "Well done - you scored maximum points!" & CRLF & CRLF
+ #                              Else t &= "You finished " & CStr(MaxScore - score) & " points short." & CRLF & CRLF
+ #        End If
+ #        t &= "[Press any key to end]"
+ #     ElseIf gameOver = 3 Then                      ' EndGame Var1=1, the loss
+ #        t &= CRLF & CRLF & "Better luck next time." & CRLF
+ #        <the same MaxScore > 0 block>              ' @0005E01A loads slot 0x50
+ #        t &= "[Press any key to end]"
+ #     ElseIf gameOver = 2 Then General.Sub_22_70    ' EndGame Var1=2, the death
+ #     ElseIf gameOver = 4 Then <menus only>         ' EndGame Var1=3, no message
+ #
+ # VB's Str() prepends a space to a non-negative number, which is why the
+ # literals are "You scored" and " out of the maximum" with no space of their
+ # own; CStr() in the "points short" arm does not, hence its trailing space.
+ #
+ # MaxScore=8 with a +3 score is the discriminating cell: 3/8 = 37.5%, so
+ # Int() reads 37 where any rounding reads 38, and the same ending exercises
+ # the "points short" arm (8 - 3 = 5).  The 100% / "Well done" and 0% cells
+ # are already live from the `EG` probe above (7/7 and 0/7), so they are not
+ # repeated here.  One ending per session, so each command is its own launch.
+ #   scwin   -- +3 then EndGame Var1=0.  [win banner + the three lines]
+ #   sclose  -- +3 then EndGame Var1=1.  [Better luck next time. + the same]
+ #   scdead  -- +3 then EndGame Var1=2.  [does Sub_22_70 print a summary?]
+ #   scend   -- +3 then EndGame Var1=3.  [expected: no message at all]
+ # `SC0` is the same probe with MaxScore=0, to confirm the guard: `scwin`
+ # there should print the win banner and NOTHING else.
+ 'SC': dict(name="Probe SC", persp=1, maxscore=8,
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    objects=[], npcs=[],
+    tasks=[dict(commands=["scwin"],  complete="SC scwin.",
+                actions=[(4,3), (6,0,0,0)]),
+           dict(commands=["sclose"], complete="SC sclose.",
+                actions=[(4,3), (6,1,0,0)]),
+           dict(commands=["scdead"], complete="SC scdead.",
+                actions=[(4,3), (6,2,0,0)]),
+           dict(commands=["scend"],  complete="SC scend.",
+                actions=[(4,3), (6,3,0,0)]),
+           # Not an ending: a bare +3 on an ordinary turn.  run400 is the only
+           # Runner whose binary carries "(Your score has increased by " (it is
+           # absent from run370/380/390), and it printed no such line on the
+           # scoring turns above -- but those turns also ended the game, so this
+           # separates "never notifies" from "does not notify on the last turn".
+           dict(commands=["scpoint"], complete="SC scpoint.",
+                actions=[(4,3)])]),
+ 'SC0': dict(name="Probe SC0", persp=1, maxscore=0,
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    objects=[], npcs=[],
+    tasks=[dict(commands=["scwin"],  complete="SC0 scwin.",
+                actions=[(4,3), (6,0,0,0)]),
+           dict(commands=["sclose"], complete="SC0 sclose.",
+                actions=[(4,3), (6,1,0,0)])]),
 }
 
 if __name__ == '__main__':

@@ -33,7 +33,6 @@ These are some important papers.  You wouldn't want the wrong hands to get
 ahold of them!
 
 > turn on shredder
-(Your score has increased by 5)
 You turn on the shredder.  It hums satisfyingly.
 
 > take files
@@ -41,7 +40,6 @@ You take the files from the filing cabinet.
 
 > shred them
 [shred some files]
-(Your score has increased by 10)
 You feed the pages into the shredder. Grind! Grind! Grind!  They are now
 confetti.
 
@@ -74,10 +72,12 @@ You take the files from the filing cabinet.
 
 > shred them
 [shred some files]
-(Your score has increased by 50)
 You feed the pages into the shredder. Grind! Grind! Grind!  They are now
 confetti.
 The SEC Investigator bursts into the room!  Luckily, you've shredded all of
 the incriminating evidence.  Whew!  That was close.
 Due to lack of evidence, the SEC is unable to prosecute your boss.  She gives
 you a promotion, and a raise!  Woohoo!
+You scored 65 out of the maximum 65!
+That is 100% of the game!
+Well done - you scored maximum points!

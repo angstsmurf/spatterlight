@@ -25,6 +25,7 @@
  */
 
 #include <assert.h>
+#include <math.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -1231,6 +1232,92 @@ task_run_set_task_action (scr_gameref_t game, scr_int var1, scr_int var2)
 
 
 /*
+ * task_print_end_game_summary()
+ *
+ * Print the Runner's end-of-game score summary.  Form1.endmessage builds it as
+ *
+ *   If MaxScore > 0 Then
+ *     t &= "You scored" & Str(score) & " out of the maximum" & Str(MaxScore)
+ *          & "!" & CRLF
+ *     t &= "That is" & Str(Int(score * (100 / MaxScore))) & "% of the game!"
+ *          & CRLF
+ *     If <the win branch> Then                       ' NOT on a loss or death
+ *       If score = MaxScore Then t &= "Well done - you scored maximum points!"
+ *                           Else t &= "You finished " & CStr(MaxScore - score)
+ *                                     & " points short."
+ *       t &= CRLF & CRLF
+ *   t &= "[Press any key to end]"
+ *
+ * VB's Str() prepends a space for a non-negative number, which is where the
+ * single spaces around the two figures come from; CStr() does not, hence the
+ * literal trailing space in "You finished ".  The percentage divides in
+ * floating point and truncates with Int(), so 3 out of 8 is 37%, not 38 -- the
+ * `score` command's integer (score * 100) / MaxScore agrees here but is not the
+ * same expression, so keep this one as written.
+ *
+ * Measured live, MaxScore 8 and score 3, in run400 (arena config SC in
+ * make_arena_probe.py, plus SC0 for MaxScore 0) and in run390
+ * (make_39_endprobe.py), which agree line for line:
+ *
+ *   win    WinText / the two lines / "You finished 5 points short." / blank
+ *   lose   "Better luck next time." / the two lines / blank
+ *   dead   "I'm afraid you are dead!" / the two lines / blank
+ *   ended  nothing at all
+ *   MaxScore 0, win: the banner and nothing else, not even the blank line
+ *
+ * A UTF-16LE census puts every string of the summary in all four Runners
+ * (run370/380/390/400), so this is not gated on 4.0; 3.7 and 3.8 have not been
+ * driven live.  See RUNNER_TESTS_TODO.md section 4.
+ */
+static void
+task_print_end_game_summary (scr_gameref_t game, scr_bool is_win)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[2];
+  scr_int max_score, percent;
+  scr_char buffer[32];
+
+  vt_key[0].string = "Globals";
+  vt_key[1].string = "MaxScore";
+  max_score = prop_get_integer (bundle, "I<-ss", vt_key);
+
+  /* A game that scores nothing gets no summary, and no trailing blank line. */
+  if (max_score <= 0)
+    return;
+
+  percent = (scr_int) floor (game->score * (100.0 / max_score));
+
+  pf_buffer_string (filter, "You scored ");
+  snprintf (buffer, sizeof (buffer), "%ld", game->score);
+  pf_buffer_string (filter, buffer);
+  pf_buffer_string (filter, " out of the maximum ");
+  snprintf (buffer, sizeof (buffer), "%ld", max_score);
+  pf_buffer_string (filter, buffer);
+  pf_buffer_string (filter, "!\n");
+
+  pf_buffer_string (filter, "That is ");
+  snprintf (buffer, sizeof (buffer), "%ld", percent);
+  pf_buffer_string (filter, buffer);
+  pf_buffer_string (filter, "% of the game!\n");
+
+  /* Only the win branch weighs the score against the maximum. */
+  if (is_win)
+    {
+      if (game->score == max_score)
+        pf_buffer_string (filter, "Well done - you scored maximum points!\n");
+      else
+        {
+          pf_buffer_string (filter, "You finished ");
+          snprintf (buffer, sizeof (buffer), "%ld", max_score - game->score);
+          pf_buffer_string (filter, buffer);
+          pf_buffer_string (filter, " points short.\n");
+        }
+    }
+}
+
+
+/*
  * task_run_end_game_action()
  *
  * End of game task action.
@@ -1269,21 +1356,25 @@ task_run_end_game_action (scr_gameref_t game, scr_int var1)
         vt_key[1].string = "WinRes";
         res_handle_resource (game, "ss", vt_key);
 
+        task_print_end_game_summary (game, TRUE);
         status = TRUE;
         break;
       }
 
     case 1:
       pf_buffer_string (filter, "Better luck next time.\n");
+      task_print_end_game_summary (game, FALSE);
       status = TRUE;
       break;
 
     case 2:
       pf_buffer_string (filter, "I'm afraid you are dead!\n");
+      task_print_end_game_summary (game, FALSE);
       status = TRUE;
       break;
 
     case 3:
+      /* "Just stop": the Runner prints no message and no summary either. */
       break;
 
     default:

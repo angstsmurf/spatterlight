@@ -78,7 +78,6 @@ will die.
 GOOD LUCK!
 
 > search wrecked street
-(Your score has increased by 5)
 
 The only thing of note is a big hunk of brick lying on the road. It looks
 like it could do a lot of property damage...
@@ -87,7 +86,6 @@ like it could do a lot of property damage...
 You pick up the hunk of brick.
 
 > use brick
-(Your score has increased by 10)
 
 You toss the brick into the only thing that isn't broken.
 
@@ -129,7 +127,6 @@ east; a short scramble through a ditch would get you there. You can also
 continue to follow the highway either to the north or south.
 
 > search highway
-(Your score has increased by 5)
 
 You suddenly spot a crumpled police car and rush over, looking for anything
 that might help you. Pulling open a door reveals an empty seat. The shotgun
@@ -154,7 +151,6 @@ outside, while another door to the east reads: "No Entry."  To the south, a
 broken window also provides a way out.
 
 > search pawn shop
-(Your score has increased by 5)
 A hurried search reveals...a pistol under the counter! It looks loaded, too.
 
 A mangled zombie has found you! It's countenance is feral and hungry, and its
@@ -164,7 +160,6 @@ eyes promise only a painful death!
 You pick up the rugged pistol.
 
 > shoot zombie
-(Your score has increased by 10)
 
 You blast several rounds into the horrific creature!
 
@@ -191,7 +186,6 @@ cabinets. The smell of cigarette smoke seems infused in the walls here. A
 door to the west leads back out.
 
 > search office
-(Your score has increased by 5)
 
 You rifle through the various papers...and come up with an old newspaper. For
 some reason, the article on the front page fills you with dread... You also
@@ -264,7 +258,6 @@ You realize that it has you trapped. It moves faster, and doesn't look
 willing to let you go without a fight.
 
 > shoot dog
-(Your score has increased by 10)
 
 You track the dog with your pistol, aiming for one hellish red eye...and then
 it leaps at you!
@@ -290,7 +283,6 @@ glimpsed), or into a sagging tenement building to the north: all other exits
 are blocked, either deliberately or through an accumulation of rubble.
 
 > search quiet street
-(Your score has increased by 5)
 
 You look around...and see a green herb sticking through a crack in the
 asphault! You've heard of these; taken orally, they will provide useful
@@ -320,7 +312,6 @@ soaked the front of the uniform.  Wait! You can see his chest moving, he's
 still alive! If only you could revive him...
 
 > use adrenalin
-(Your score has increased by 10)
 
 You kneel beside the stricken soldier and quickly press the syringe into his
 side, hoping you're doing it right. There doesn't appear to be a
@@ -372,7 +363,6 @@ A mangled zombie has found you! It's countenance is feral and hungry, and its
 eyes promise only a painful death!
 
 > blast zombie
-(Your score has increased by 10)
 
 You blast the zombie with the shotgun!
 
@@ -384,7 +374,6 @@ its knees...and then slumps onto the floor. A pool of blood spills out from
 its neck.
 
 > open window
-(Your score has increased by 5)
 
 You brace yourself and shove against the top of the window. With the scraping
 sound of wood rubbing wood, the window slowly slides up. You step back,
@@ -406,7 +395,6 @@ weight. Just a few flights up, however, and you'll be on the roof.
 Your score is 80 out of a maximum of 100.  (80%)
 
 > up
-(Your score has increased by 20)
 
 You start up the fire-escape, holding your breath each time you hear it groan
 under your weight. Twenty feet from the roof, then ten...finally you climb up
@@ -442,3 +430,6 @@ begins to grow...but a part of you is still relieved, after all, this
 Could it?
 
 Congratulations! You've successfully beaten Textident Evil.
+You scored 80 out of the maximum 100!
+That is 80% of the game!
+You finished 20 points short.

@@ -1311,3 +1311,7 @@ The writers of online tutorials for Adrift
 and...
 
 You for playing this game.
+
+You scored 55 out of the maximum 65!
+That is 84% of the game!
+You finished 10 points short.

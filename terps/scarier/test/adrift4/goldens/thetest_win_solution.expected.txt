@@ -64,7 +64,6 @@ Time passes...
 You take the more fluff from your clothes.
 
 > drop fluff
-(Your score has increased by 5)
 You drop the fluff.
 The fluff rolls away into the machine.  You wait. The machine starts crying
 and sneezing.  It breaks into a fit of coughs then shudders.  It stops.
@@ -559,7 +558,6 @@ You insert the bright orange key into the lock but instead of unlocking the
 door turns bright orange.
 
 > unlock door
-(Your score has increased by 5)
 You insert the bright orange key into the lock but instead of unlocking the
 door turns green.
 You hear the key fall into some storage space, and the door click open.  You
@@ -583,7 +581,6 @@ Them: Bye.
 Robot Guard stamps out to the east.
 
 > enter 9303235
-(Your score has increased by 5)
 You enter 9303235 into the door panel, a click, and the door slides upwards
 into a slot in the wall above.  The door has gone.  You can now leave to the
 east.
@@ -629,7 +626,6 @@ Robot Guard storms in.
 Robot Guard hits you with the robot's chain.
 
 > shout 1
-(Your score has increased by 5)
 You shout one and the robot scurries off.
 
 Robot Guard storms in.
@@ -780,3 +776,6 @@ And you did understand the plot didn't you?  If not email me.
 No animals or teachers were hurt in the making of this game.
 Any references to characters living or dead excluding my brother's physics
 teacher are entirely coincidental.
+You scored 20 out of the maximum 25!
+That is 80% of the game!
+You finished 5 points short.

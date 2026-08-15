@@ -64,7 +64,6 @@ straight down.
 There are a pair of shiny red boots here.
 
 > take boots
-(Your score has increased by 30)
 Taken.
 
 > wear boots
@@ -157,7 +156,6 @@ can still make out a painting of an odd assortment of colored tiles. The only
 exit is to the southwest.
 
 > examine old painting
-(Your score has increased by 5)
 The painting, though old and faded shows some sort of control panel fitted
 with a multi-colored tile. The control panel is fitted to a locked safe.
 
@@ -215,7 +213,6 @@ bottle.
 You take the Small Bottle.
 
 > drink orange liquid
-(Your score has increased by 15)
 As you swallow the liquid, the room suddenly becomes a vast cavern! What was
 in that bottle. You can now see an exit leading to the south.
 
@@ -232,7 +229,6 @@ wall is a bin. You can see an exit to the north. There is a tiny bottle here.
 You take the whiteredblue tile.
 
 > put whiteredblue tile on control panel
-(Your score has increased by 30)
 You place the white, red, and blue tile on panel and from somewhere deep
 within the wall comes a click.
 The safe is open!
@@ -266,7 +262,6 @@ wall is a bin. You can see an exit to the north. There is a tiny bottle here.
 You take the Tiny Bottle.
 
 > drink bluish liquid
-(Your score has increased by 15)
 You take a swig out of the tiny bottle and suddenly you are back to the small
 hall.
 
@@ -339,23 +334,18 @@ coming from above, you can just make out the letters "ell" on the northwest
 wall. There is an exit going up.
 
 > shout ell
-(Your score has increased by 10)
 You shout ell and from somewhere deep underground there is a rumble.
 
 > shout aay
-(Your score has increased by 15)
 You shout aay and from somewhere deep underground there is a rumble.
 
 > shout vee
-(Your score has increased by 15)
 You shout vee and from somewhere deep underground there is a rumble.
 
 > shout aay aay
-(Your score has increased by 20)
 You shout aay aay and from somewhere deep underground there is a rumble.
 
 > shout ach
-(Your score has increased by 20)
 You shout ach and from somewhere deep underground there is a rumble.
 
 > nw
@@ -476,7 +466,6 @@ The only way to open these caves was to know the name of the Fire God. Next
 to the base is a plaque.
 
 > assemble statue
-(Your score has increased by 20)
 You carefully stack the legs on top of the feet. Then you place, ever so
 gently, the chest over the legs. Now, sweating profusely, you set the arms in
 place. At last, and with a great sigh on relief, you place the head atop the
@@ -484,7 +473,6 @@ whole thing.
 You are now holding the Statue of the Fire God.
 
 > put statue on base
-(Your score has increased by 35)
 You place the statue of LAVaaH on the base and...the eyes turn red....it
 begins to shake....you hear a cracking sound and....BOOM!!!! The statue
 explodes into millions of tiny fragments that land in the magma around you
@@ -493,7 +481,6 @@ A small island rises to the south, but before you can go any further, a wall
 of magma shoots up blocking your path!
 
 > freeze wall
-(Your score has increased by 15)
 You spray the magma with ice and for an instant it cools into a shell forming
 a small bridge to the southern island.
 
@@ -507,7 +494,6 @@ in the middle.
 Resting on the platform is an odd looking pair of goggles.
 
 > take goggles
-(Your score has increased by 30)
 As you take the goggles, the Fire God awakens and boy, is he mad! Some lowly
 adventurer has stolen his most valued treasure...
 
@@ -564,7 +550,6 @@ barely make out the form of a small white house.
 There is a small shovel here.
 
 > take small shovel
-(Your score has increased by 15)
 You have the shovel.
 
 > read small sign
@@ -572,7 +557,6 @@ The small sign reads "T-O-T-H-E-G-A-R-A-G-E"  with an arrow pointing to the
 sand at your feet.
 
 > dig a hole in sand
-(Your score has increased by 3)
 You begin to dig a shallow hole.
 
 Top of Hole
@@ -580,7 +564,6 @@ You are standing about knee deep in a sandy hole. You can dig more or get
 out.
 
 > dig more
-(Your score has increased by 3)
 You continue to dig, remembering why you became a Super Hero, not a
 ditchdigger.
 
@@ -608,7 +591,6 @@ You take the wooden stick.
 The note reads "...look for the letters..."
 
 > light stick with goggles
-(Your score has increased by 18)
 You squint and a small beam of heat lashes out igniting the stick.
 From the light cast off by the stick, you now can see a large letter "T"
 carved into the wall; and a narrow doorway leading west into darkness.
@@ -649,7 +631,6 @@ This room has exit to the four cardinal points. You can see an "G" on the
 wall  There is a large block of ice blocking the north and west exits.
 
 > melt ice with goggles
-(Your score has increased by 30)
 Beams of heat streak out of your goggles melting the ice and allowing you to
 pass.
 
@@ -658,7 +639,6 @@ As you melt the Ice Wall, a gust of wind blows out your light! It is now
 pitch black in here.
 
 > light stick with goggles
-(Your score has increased by 15)
 A flash of light streaks out lighting the stick once more!
 
 G Room
@@ -688,7 +668,6 @@ wall  There is a large ball of fire blocking the paths leading north and
 east!
 
 > freeze fire with ice gloves
-(Your score has increased by 30)
 You stretch your hands out and wave after wave of cold, hard ice flows into
 the heart of the fireball...soon it is out.
 
@@ -736,7 +715,6 @@ allowing a far view of the outside world.  The manager's desk is littered
 with diagrams, schematics, and repairs manuals for everything under the sun.
 
 > take phased ion bridge
-(Your score has increased by 15)
 As you grab the Bridge, a window opens over-looking the Garage Entrance.
 
 > out
@@ -821,7 +799,6 @@ anything to its twin location!
 The controls for the unit consist of one push button marked "TO THE MOON."
 
 > push blue button
-(Your score has increased by 30)
 As you press the BLUE button, you are wisked away to the Moon Base Unit.
 
 Moon Base Transporter Room
@@ -867,7 +844,6 @@ There is a Matter Transference Beam Generator located in the roof of the Moon
 Base Unit.
 
 > use fork on hole
-(Your score has increased by 50)
 You insert the fork into the lock and it turns with ease. You are on an
 elevator going down!
 
@@ -882,7 +858,6 @@ This paper contains a photo of a large rock in a lovely garden and a
 note..."hide-a-key." What can it mean??
 
 > take belt
-(Your score has increased by 30)
 As you pull the belt off the wall, you here a strange click from somewhere
 above.
 
@@ -911,7 +886,6 @@ replica of your Home Unit.
 The only difference is the button here is RED and marked "TO HOME."
 
 > push red button
-(Your score has increased by 30)
 You press the red button and suddenly you are standing in the Home Base
 Transporter Unit.
 
@@ -952,12 +926,10 @@ standing here!
 There is a huge rock here!
 
 > move huge rock
-(Your score has increased by 30)
 Using the Strength from your belt, you easily toss the huge rock aside
 revealing a room key!
 
 > take key
-(Your score has increased by 40)
 You retrieve the Room Key form under the Huge rock.
 
 Backyard Garden
@@ -995,7 +967,6 @@ There are exits to the North, South, and East.  A door prevents access to the
 west.
 
 > unlock door
-(Your score has increased by 15)
 Using the key on the door lock, it twists and you here a click.
 
 > open room door
@@ -1016,7 +987,6 @@ sword.
 Evil Man hits you.
 
 > take cape
-(Your score has increased by 105)
 As you touch the cape,...POW!!!...the Power of Space returns to you...you are
 Space Boy once again. Your items drop to the floor, there power drained
 during your quest. The living room is to the east, and a door stands open to
@@ -1024,7 +994,6 @@ the west.
 Evil Man hits you, but it doesn't seem to do any damage.
 
 > drop cape to the floor
-(Your score has increased by 250)
 Drop what?
 
 > w
@@ -1037,10 +1006,12 @@ recently.
 There is a note scribbled on the wall here!
 
 > read scribbled note
-(Your score has increased by 200)
 "Dear Space Boy, You think you have won? I still have your flea-ridden mutt
 side-kick Wonder Dog!!!!! You may have won the battle but you have not won
 the war.HAHAHAHAHAHAHAHAHAHA!!!!!!!!!!!!!!!!"
 
 STAY TUNED FOR MORE EXCITING EPISODES OF ACTION WITH SPACE BOY AND WONDER
 DOG!
+You scored 1184 out of the maximum 1374!
+That is 86% of the game!
+You finished 190 points short.

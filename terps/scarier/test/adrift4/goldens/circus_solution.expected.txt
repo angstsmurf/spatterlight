@@ -135,7 +135,6 @@ You give the vendor a token and play the duck pond game.
 You won a plush frog toy!
 
 > play duck pond
-(Your score has increased by 10)
 "Be a winner!  Play duck pond!" calls the carny.
 
 You give the vendor a token and play the duck pond game.  You pick up a duck
@@ -184,7 +183,6 @@ ring.
 Marie is here, behind the ticket booth.
 
 > sell 10 points
-(Your score has decreased by 10)
 Your score has been lowered by 10 points to 0, but you now have $1.
 
 > buy peanut
@@ -196,7 +194,6 @@ You don't see the peanut vendor.
 the vendor arrives from the north-west.
 
 > buy peanut
-(Your score has increased by 3)
 The vendor sells you a bag of peanuts for $1.
 
 > buy peanut
@@ -218,7 +215,6 @@ Lance the ringmaster is here, announcing acts and working the crowd.
 Lance exits to the north-west.
 
 > look under bleachers
-(Your score has increased by 5)
 You look under the east bleachers and think you can detect movement, a small
 dark figure.
 
@@ -232,7 +228,6 @@ freshly roasted peanuts being sold by the food vendor.
 Pringles the monkey is here.
 
 > give peanut to pringles
-(Your score has increased by 10)
 Pringles greedily takes the bag of peanuts from you and starts eating them.
 She drops the toy knife and disappears to the north-west.
 
@@ -266,16 +261,13 @@ ring.
 Marie is here, behind the ticket booth.
 
 > sell knife
-(Your score has increased by 5)
 "You want to sell that toy knife?" Marie says. "You know, that looks like it
 belongs to one of our performers.  I'll give you $2 for it."
 
 > sell 10 points
-(Your score has decreased by 10)
 Your score has been lowered by 10 points to 13, but you now have $3.
 
 > sell 10 points
-(Your score has decreased by 10)
 Your score has been lowered by 10 points to 3, but you now have $4.
 
 > buy 6 tokens
@@ -308,7 +300,6 @@ Skippy the Clown is here, laughing maniacly.  Bill is here, playing the
 calliope.
 
 > show mirror to bill
-(Your score has increased by 5)
 You show Bill the funhouse mirror.  He stops playing the calliope and starts
 preening in the wavy mirror.  He laughs at his silly image.
 
@@ -356,7 +347,6 @@ the old gypsy fortune teller, the circus psychic.
 Madame Elsa the gypsy is here, gazing into a crystal ball.
 
 > ask reading
-(Your score has increased by 6)
 Madame Elsa beckons for you to sit down.  She then hands you a deck of cards,
 and asks you to shuffle.  After shuffling, you return the cards to her and
 she slowly deals out three cards.
@@ -483,7 +473,6 @@ Zippo shoots you with the toy gun, but it doesn't seem to do any damage.
 You turn the lock to the number 5.  There is a click as the lock opens.
 
 > open trunk
-(Your score has increased by 10)
 You open the trunk.
 Zippo shoots you with the toy gun, but it doesn't seem to do any damage.
 
@@ -540,7 +529,6 @@ Use the format "ask [character] about [subject]".
 Barb walks toward you from the south.
 
 > ask barb about tape
-(Your score has increased by 10)
 "Oh, what's that doing there?" Barb says. She reaches into the lion cage and
 retrieves the video tape. "Is this yours?"
 
@@ -660,7 +648,6 @@ Pringles the monkey is here.
 Barb is here.
 
 > use camera
-(Your score has increased by 10)
 You film the animals with the video camera.  Wow, it seems your mission is a
 success!  Congratulations!
 
@@ -670,7 +657,6 @@ any time.
 Barb exits to the south.
 
 > home
-(Your score has increased by 20)
 Having successfully filmed the lions, tigers and bears (Oh my!) you mosey on
 your way toward the parking lot.
 
@@ -698,3 +684,7 @@ Congratulations.  You completed the game, but pretty much didn't do much more
 than the required tasks.  Maybe you would like to play again and figure out
 what scoring opprotunities you missed?  I bet you didn't even notice one or
 two puzzles.
+
+You scored 64 out of the maximum 140!
+That is 45% of the game!
+You finished 76 points short.

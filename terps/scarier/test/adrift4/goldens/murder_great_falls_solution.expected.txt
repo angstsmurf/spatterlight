@@ -25,14 +25,12 @@ Please choose the player's gender (male or female):
 > male
 
 > open closet
-(Your score has increased by 5)
 You open the large closet and search through all the files you have from past
 cases. You remember alot of them, some of them you were almost killed in.
 But, danger comes with a detective's job. As you push the last file away, you
 pull out your gun that you had hidden underneath.
 
 > open desk
-(Your score has increased by 5)
 You open the drawers in the desk looking for something useful. You pull your
 id out of the top drawer.
 
@@ -56,7 +54,6 @@ always leave the door wide open. The front door to the house is to the North,
 just like it always is.
 
 > take baggies
-(Your score has increased by 5)
 You grab the box and slip it into your pocket.
 
 > e
@@ -70,7 +67,6 @@ your cooking.   You can see on the clock hanging off the wall that it's nine
 thirty in the morning.
 
 > read book
-(Your score has increased by 5)
 Chapter 3: The Crimescene
 
 When you first enter a crimescene, make sure to instantly take a picture of
@@ -107,7 +103,6 @@ on top of the door. His roses seem to have been planted poorly, they have
 begun to die already.
 
 > take lipstick
-(Your score has increased by 10)
 You take the lipstick from the dirt and place it in your pocket carefully.
 
 > e
@@ -155,7 +150,6 @@ line the walls and take up a portion of the middle of the room. You can see
 your locker in the corner so you move over to it.
 
 > open locker
-(Your score has increased by 5)
 You open your locker looking for anything that will help you on the case. You
 take your crimescene camera out of the top of the locker and place it in your
 coat.
@@ -207,20 +201,16 @@ there's nothing inside of it. Officer Jay Trip is writing something down in
 his notebook. The college is to the North.
 
 > take hair
-(Your score has increased by 5)
 You take the hair carefully of the steering wheel of the car.
 
 > open glove compartment
-(Your score has increased by 5)
 You open the glove compartment and search through it. You find a piece of gum
 stuck to the top.
 
 > use baggie on gum
-(Your score has increased by 5)
 You slide the baggie over the gum and then seal it up.
 
 > take picture of body
-(Your score has increased by 5)
 You pull out your camera and hold it up to the crimescene. You hit the button
 and take the photo that slides out the bottom.
 
@@ -261,7 +251,6 @@ the receptionist isn't in. You can go up to the top floor or North to Donald
 Wiskers office.
 
 > take package
-(Your score has increased by 5)
 You take the package off the table and hide it in your jacket.
 
 > look package
@@ -282,7 +271,6 @@ stands at the door to the North. It smells like a new car in this hallway,
 that's a bit odd.
 
 > give package to guard
-(Your score has increased by 10)
 The guard looks at the package and lets you inside the giant office.
 
 > s
@@ -331,21 +319,17 @@ stands behind metal bars and takes all evidence from a slot at the bottom.
 Jake looks impatient as he waits for any evidence from you.
 
 > give gum to jake
-(Your score has increased by 10)
 "Hmmm...a piece of gum found in the victim's car. Okay, ask me about it
 tommorow and I should have a lab report on it."
 
 > give hair to jake
-(Your score has increased by 10)
 "One piece of hair found on the steering wheel of victim's car. Talk to me
 tomorrow about the hair, I'll have something then."
 
 > give photo to jake
-(Your score has increased by 5)
 "Photo of crimescene. I'll put it in the evidence folder."
 
 > give lipstick to jake
-(Your score has increased by 5)
 "Hmmm...I guess I could take a sample off of this. I don't know how long
 it'll take though, come see me in a few days."
 
@@ -386,7 +370,6 @@ begins to write more notes. You can hear the clicking of Dr. Ross's pen as he
 writes.
 
 > ask ross about club
-(Your score has increased by 10)
 "Look detective. I'd stop investigating the club. All we did was read mystery
 books and talk about them. Nothing else happened. At least nothing that would
 concern you so I'll warn you once."
@@ -450,7 +433,6 @@ on top of the door. His roses seem to have been planted poorly, they have
 begun to die already.
 
 > knock on door
-(Your score has increased by 5)
 You knock on the door and it swings open. Dr. Ross ushers you in and then
 slams the door shut.
 
@@ -458,7 +440,6 @@ slams the door shut.
 You don't want to ruin the cigarette with your hands.
 
 > bag cigarette
-(Your score has increased by 5)
 You carefully bag the cigarette and place it in your pocket. Ross doesn't see
 you doing this.
 
@@ -519,24 +500,20 @@ stands behind metal bars and takes all evidence from a slot at the bottom.
 Jake looks impatient as he waits for any evidence from you.
 
 > give cigarette to jake
-(Your score has increased by 5)
 "Alright. One Miller brand light cigarette found in Dr. Ross Hagon's house. I
 should have it processed for you tomorrow."
 
 > ask jake about hair
-(Your score has increased by 5)
 "I did the tests yesterday yesterday evening and this is what I got back.
 It's a long strand of blonde hair, most likely from a female, but could be
 from a male. It's definetely not from Donald Wisker though."
 
 > ask jake about gum
-(Your score has increased by 5)
 "Ok, gum found in victim's car. It matches Donald Wisker's DNA and is not
 considred evidence. If you get something else that might contain saliva, I
 could tell you if it matches Mr. Wisker's."
 
 > ask jake about lipstick
-(Your score has increased by 5)
 "This was an interesting piece of evidence. The lipstick belongs to Ms. Maria
 Clark. I'm not sure where she lives or works, her file is missing for some
 reason. You might want to look around."
@@ -560,7 +537,6 @@ to say to him. The sounds of men laughing echo's from the break room of the
 department.
 
 > ask ken about maria
-(Your score has increased by 5)
 "Maria and I are good friends. She works at the college so you'd probaly find
 here there."
 
@@ -597,7 +573,6 @@ go North to Donald's office or up to the top floor.
 The guards let you into the office to search through it.
 
 > search through trash
-(Your score has increased by 10)
 You look through the trash can and pull out a note that seems different than
 the other ones in the office.
 
@@ -640,7 +615,6 @@ no one behind it. The absence of the clicking of Dr. Ross's pen makes the
 room quiet.
 
 > search desk
-(Your score has increased by 5)
 You search through the desk and find a letter inside the bottom drawer.
 
 > s
@@ -683,7 +657,6 @@ here are green and the smell is atrocious. You can almost feel grease
 floating in the air. There's a hallway to the North that has the apartments.
 
 > ask sal about trey
-(Your score has increased by 5)
 "Yeah, Trey's been staying here for a couple of nights. He said he used to be
 here, he had to come back to meet some old friends. He'll be leaving tonight
 so if you have to talk to him, now's the time. He's in room 126."
@@ -710,7 +683,6 @@ this.
 Trey is here.
 
 > ask trey about will
-(Your score has increased by 5)
 "Dammit, I knew someone would find out eventually. I guess I'd better tell
 you what happened. Fifteen years ago, our club, The Black Hats, scammed fifty
 thousand dollars out of the town. One man, Will,  found out and we had to
@@ -722,7 +694,6 @@ college and I find him dead in his car. I don't know who did it, but there's
 your motive. If you need to know more, ask Ross. He would know more than me."
 
 > ask ross about will
-(Your score has increased by 5)
 "Well, we all knew Trey would spill the beans. Yes, we did kill Will but it's
 all history. In fact, only one of us actually did do it, problem is, none of
 us know. My guess is the person that killed Donald also killed Will. I swear
@@ -815,11 +786,9 @@ Officer Jay is once again writing notes in his notepad, you wonder if they'll
 come in handy.
 
 > search body
-(Your score has increased by 5)
 You look through the body and find a piece of paper in his pocket.
 
 > ask ken about trey
-(Your score has increased by 10)
 "Look, I want you to get some sleep. You've been working on this case nonstop
 for three days. Tommorow we'll go get the guy who did all this."
 
@@ -841,7 +810,6 @@ someone...
 Your score is 190 out of a maximum of 200.  (95%)
 
 > accuse ken
-(Your score has increased by 10)
 You throw Ken against the wall and quickly handcuff him. He screams he's not
 guilty but you carry him out of the room. A week later, there's a trial for
 the murders.
@@ -867,3 +835,6 @@ It seems you restored order back into the town of Great Falls. With the Chief
 in jail, you're promoted to his spot and you finally have a job that could
 pay off the money you owe on your house. Plus, the chief's office comes with
 a nice view of the beach...
+You scored 190 out of the maximum 200!
+That is 95% of the game!
+You finished 10 points short.

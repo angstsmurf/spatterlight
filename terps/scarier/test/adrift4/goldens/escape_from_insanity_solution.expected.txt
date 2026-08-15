@@ -74,7 +74,6 @@ Using the rock, you manage to sharpen the blade of the knife. Damn this rock
 is useful.
 
 > cut cord
-(Your score has increased by 1000)
 You pull out the knife, making a clever *swish* noise as you do, and held it
 against the cord. You shout a weird warcry, and slash the cord across the
 middle. The cord rips in half, shooting sparks all over the place. That was
@@ -89,3 +88,6 @@ all to my good friend fire, maybe I should start some fires now, to let other
 people know how much fire can help them...
 
 Congratulations psychopath, you're now a pyro. I hope you're happy.
+You scored 0 out of the maximum 1000!
+That is 0% of the game!
+You finished 1000 points short.

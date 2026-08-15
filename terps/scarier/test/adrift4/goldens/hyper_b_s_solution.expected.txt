@@ -536,7 +536,6 @@ Your HP: 73
 Flare Rat's HP: 3
 
 > p
-(Your score has increased by 100)
 
 You punch the Flare Rat with all your feeble might. You deal some damage,
 leaving him with only 0 HP! However, he retaliates. He deals you some damage
@@ -558,3 +557,6 @@ disease. The disease is known as "Combustial Rabies".
 
 The Flare Rat is dead! Mission complete!
 Congratulations!
+You scored 100 out of the maximum 100!
+That is 100% of the game!
+Well done - you scored maximum points!

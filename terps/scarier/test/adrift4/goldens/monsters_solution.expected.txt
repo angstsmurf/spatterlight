@@ -21,7 +21,6 @@ Pooky stands nearby carefully watching for your next move.  Sissy is sleeping
 here on her bed.
 
 > jump to sissys bed
-(Your score has increased by 5)
 Holding my breath, I bounce on the bed and leap over the several feet gap to
 Sissy's bed.  Too late, long green tentacles shoot out from under the bed
 attempting to grab me midair.  They miss.  HA!  Sissy barely moves as I land
@@ -36,7 +35,6 @@ pink plastic kitchen knife is on Sissy's four poster bed.
 I take the four inch pink plastic kitchen knife from Sissy's four poster bed.
 
 > open the shade
-(Your score has increased by 5)
 Pulling on the shade, it opens with a quick flap around the top.  Light pours
 in from the neighbor's backyard light.
 
@@ -48,7 +46,6 @@ Pulling on the shade, it opens with a quick flap around the top.  Light pours
 in from the neighbor's backyard light.
 
 > wake sissy
-(Your score has increased by 5)
 Shaking Sissy awake, she sits up sleepily on the bed.
 
 "What is it, Chloe-bear?"
@@ -85,14 +82,12 @@ A hoarse whisper calls from the closet, "Chloe, come here.  Come into the
 closet...  Chloe, I've got something for you..."
 
 > give knife to pooky
-(Your score has increased by 5)
 Taking the knife in his paw and wielding it over his head like a sword, Pooky
 shouts, "I go to do battle!"
 
 "Come on, let's go get that monster!"
 
 > lure monster from the closet
-(Your score has increased by 5)
 Throwing the cracker down near the entrance to the closet; I hear the monster
 begin to sniff the air cautiously.
 
@@ -171,7 +166,6 @@ I drop the pink plastic chair.
 I stand on the pink plastic chair.
 
 > open the door
-(Your score has increased by 5)
 Standing on the chair, I'm able to reach, unlock and open the bedroom door.
 
 > ne
@@ -233,7 +227,6 @@ Mommy looks just like me.  Except older.  A horrible looking brain with eyes
 sits perched on her hair.
 
 > shine flashlight on the brainsucker
-(Your score has increased by 5)
 The brainsucker shrinks from the beam of light.  It tries to scuttle back
 against the wall.
 
@@ -279,7 +272,6 @@ A cozy coupe ride on awaits to take you to destinations unknown.
 You can also see a pink plastic chair.
 
 > drive cozy coupe
-(Your score has increased by 5)
 Sissy pedals down the hallway while I steer.  Swooping down on leathery black
 wings, the flying monsters screetch futively as their claws scratch the top
 of the coupe.
@@ -330,3 +322,6 @@ What does he mean, "bed bugs"?
 
 I sit bolt upright and scream...
 Congratulations!
+You scored 40 out of the maximum 40!
+That is 100% of the game!
+Well done - you scored maximum points!

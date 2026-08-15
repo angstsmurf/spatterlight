@@ -101,7 +101,6 @@ You can only move east.
 The placemat is actually one of the pages from your book.
 
 > get placemat
-(Your score has increased by 5)
 The placemat slides from under the plate easily.
 
 > e
@@ -143,7 +142,6 @@ A SILVER ORB is held in the SKELETON's prone hand.
 You can move north and south.
 
 > take silver orb
-(Your score has increased by 5)
 You've already got the SILVER ORB!
 
 > put fish in fountain
@@ -156,7 +154,6 @@ floated to the surface of the water.
 You take the WET PAGE from the FOUNTAIN.
 
 > read wet page
-(Your score has increased by 5)
 "The day after I had my catherization, the entire thing being video recorded,
 the heart specialist
 came to my room while my folks were there. He dropped the bomb on all of us:
@@ -232,7 +229,6 @@ into the street.
 You can move south, in and northeast.
 
 > give silver orb to gargoyle
-(Your score has increased by 5)
 You place the orb on the gargoyle's small perch and it exclaims
 "For me? Thank you! Now I can move about freely. I can go HOME!" The gargoyle
 flexes his wings and flies off like a bird from a roost.
@@ -282,7 +278,6 @@ You can move north and southeast.
 You take the CRUMPLED PAGE.
 
 > read crumpled page
-(Your score has increased by 5)
 "...I was walking down the hospital corridor with several other people -
 patients, nurses and
 orderlies - and wondering why the lights were out. There was still enough
@@ -338,7 +333,6 @@ You can move north and southwest.
 You take the MUDDY PAGE.
 
 > read muddy page
-(Your score has increased by 5)
 " They took me to an examining room, made me lie down, and they hooked me up
 to a heart
 monitor. The doctor on call remarked that the readings were erratic. I lay
@@ -429,7 +423,6 @@ You can only move out.
 for sale, hehe, but I may be willing to TRADE it for something."
 
 > take glass framed page
-(Your score has increased by 5)
 The Shopkeeper hands you the framed page with a grateful smile.
 "It is yours with our thanks. My Gargoyle friend told me how kind you were to
 help him."
@@ -442,7 +435,6 @@ PAGE.
 You take the BLOODY PAGE from the GLASS FRAMED PAGE.
 
 > read bloody page
-(Your score has increased by 5)
 "I awoke with a start in the hospital bed. Everything was silent. No hushed
 talking in the hallway
 or hurried padded footsteps to be heard. Even the television in my private
@@ -519,11 +511,9 @@ You take the RING from the PILE OF DUST.
 You drop the RING.
 
 > take ring
-(Your score has increased by 5)
 You've already got the RING!
 
 > take silver key
-(Your score has increased by 5)
 Take what?
 
 > s
@@ -693,7 +683,6 @@ BLACKSMITH is here.
 You can move north and out.
 
 > give wheel to blacksmith
-(Your score has increased by 5)
 The Blacksmith smiles gratefully.
 "thanks mister!," he says with a shrug. "This will save me a lot of time.
 Edna's been drivin' me crazy to get out on the street again. Now I can start
@@ -714,11 +703,9 @@ You can't read it from here.
 You can only move south.
 
 > take rat-chewed page
-(Your score has increased by 5)
 You've already got the RAT-CHEWED PAGE!
 
 > read rat-chewed page
-(Your score has increased by 5)
 "Disconnected.
 Disassociated
 Floating in cold blackness, like eyes without a head, or
@@ -819,7 +806,6 @@ probably an inch deep in places, is spread under the corpse.
 You can only move south.
 
 > unlock door
-(Your score has increased by 10)
 The huge wooden doors swing open with a echoing groan. It is dark inside as
 you step into the foyer.
 
@@ -865,7 +851,6 @@ You can only move out.
 Your score is 75 out of a maximum of 100.  (75%)
 
 > take mask
-(Your score has increased by 10)
 As you pull the mask away, a stunning arc or light begins to pour from
 beneath  the hood. The Worm That Walks is revealed to be the being of beauty
 who dropped you into Sommeril.
@@ -921,3 +906,6 @@ infection."
 
 Visit the official "Sommeril" website at:
 www.angelfire.com/games5/sommeril
+You scored 85 out of the maximum 100!
+That is 85% of the game!
+You finished 15 points short.

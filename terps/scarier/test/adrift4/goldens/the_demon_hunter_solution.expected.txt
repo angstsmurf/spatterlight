@@ -29,7 +29,6 @@ closely at them.
 Passages in the ruined walls of this place lie to the north and west.
 
 > push statue
-(Your score has increased by 20)
 Straining your muscles to their limit, you manage to maneuver the statue down
 the grooves cut into the floor, doing so apparently pulls a hidden rope,
 opening a small hole in the ceiling letting a ray of sunshine in.
@@ -79,7 +78,6 @@ Sifting through the rubble, all you can find is one fragile scrap of
 parchment.
 
 > move pile
-(Your score has increased by 10)
 You manage to clear away part of the debris and in doing so reveal a small
 ladder leading down in to darkness.
 
@@ -102,7 +100,6 @@ In the corner your eyes latch on to a newly cleaned and very well taken care
 of spear.
 
 > get spear
-(Your score has increased by 2)
 You take the spear feeling its cool weight in your hands.
 
 > s
@@ -127,7 +124,6 @@ mist and vapors of eternity.
 You take the monk's prayer book.
 
 > read book
-(Your score has increased by 15)
 You read "To kill the demon, you must use a Sacred Spear…a spear that has
 been anointed with Holy Water."
 
@@ -188,7 +184,6 @@ caused by the small stream trickling down from a small crack in the wall. The
 water is collecting in a small pool before running off to the abyss below.
 
 > fill bowl
-(Your score has increased by 15)
 You kneel down and carefully fill the small bowl with water from the pool at
 you feet.
 
@@ -197,14 +192,12 @@ Flexing your fingers, you stretch your left hand out over the surface of the
 bowl.
 
 > bless water
-(Your score has increased by 20)
 As you recite the blessing, you can feel the water getting warmer; you look
 and the water's surface has begun to sparkle and shimmer; the sweet fragrance
 of olive oil comes wafting up from the bowl. As you conclude the blessing you
 discover that the water had been transformed into Holy Anointing Water!
 
 > anoint spear
-(Your score has increased by 30)
 You take the spear in one hand, and with the other you pour the Anointing
 Water on the tip and cover the entire length of the shaft until the whole
 spear is glistening.
@@ -274,7 +267,6 @@ stand, you notice the mist whirling and convulsing around the demon inside
 that has begun to shudder and fidget,   - as if it is being hurt somehow.
 
 > pray prayer of freedom
-(Your score has increased by 15)
 You kneel on the floor and pray the Monks prayer of Freedom. As you pray, you
 feel waves of heat flowing off of the crystal. You can hear the demon inside
 writhing and shouting in pain. You can hear creaking and cracking as the
@@ -351,7 +343,6 @@ and spin behind him. You are able hit the demon-spawn in the back of his head
 with the blunt end of your spear before he swings around again.
 
 > kill hajar
-(Your score has increased by 43)
 Lashing out with all your might, you slice a deep gash in Hajar's side,
 causing him to reel in pain.
 
@@ -383,10 +374,12 @@ around you...all you are sure of is that the exit to the southwest leads back
 to darkness but ahead of you shine the light of a new day.
 
 > northeast
-(Your score has increased by 30)
 You head through the previously blocked path, and step out into the bright
 sunlight of a new day...
 
 You shield your eyes from the glaring brightness of the unfamiliar light, and
 suddenly you hear a voice calling to you…"Well done, my good and faithful
 servant."
+You scored 170 out of the maximum 200!
+That is 85% of the game!
+You finished 30 points short.

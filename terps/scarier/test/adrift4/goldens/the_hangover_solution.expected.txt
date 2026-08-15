@@ -103,7 +103,6 @@ cellphone. Her nametag displays "Deby". There is a large menu but everything
 seems to just be either a burger, drink, or fries.
 
 > give deby two dollar bill
-(Your score has increased by 1)
 Deby gives you the french fries and then goes back to ignoring you. The
 french fries are very greasy. Grats my friend, you should probably eat them
 before they get anything else greasy.
@@ -131,7 +130,6 @@ get him off the bench.
 The bum is here.
 
 > kick bum
-(Your score has increased by 1)
 You have the kicked the bum right off the bench! He is in a terrible mood but
 simply walks over to Fredrick Avenue. The bus has arrived! You should get on
 the bus. Go north to get on the bus.
@@ -182,7 +180,6 @@ You recieved a letter about your card in your mail. If you didn't bring your
 mail, I can't give you the form.
 
 > give secretary mail
-(Your score has increased by 1)
 You have given the secretary your letter. She gives a form and tells you to
 procede to the Form Process Office. Her finger points to the east.
 
@@ -260,7 +257,6 @@ Leopard". You should probably try to open the cabinet.  The cabinet is
 closed.
 
 > open the filing cabinet
-(Your score has increased by 1)
 You open the cabinet.  Card name replacement approval form is inside the
 cabinet.
 
@@ -350,7 +346,6 @@ You take your toothbrush from your bathrobe.
 119-228-337-446
 
 > type 119-228-337-446
-(Your score has increased by 1)
 The box opens, showing the third and final approval form. The piece of paper
 almost gleams as you have finally completed your task of getting three
 approval forms. You take the approval form with pride. Suddenly, the man

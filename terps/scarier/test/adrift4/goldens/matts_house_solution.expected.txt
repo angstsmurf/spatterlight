@@ -53,7 +53,6 @@ You open the Refridgerator.  Inside the Refridgerator is a Root Beer, a
 Apple, a Turkey and a Soup Container.
 
 > eat apple
-(Your score has increased by 5)
 You ate the apple!
 
 > score

@@ -33,7 +33,6 @@ You open the dresser.  A pair of jeans is inside the dresser.
 You take the pair of jeans from the dresser.
 
 > wear jeans
-(Your score has increased by 1)
 OK, you're now wearing the jeans. They are a little snug but seem to fit for
 now.  The pair of jeans has four pockets you can put small items in.
 
@@ -46,11 +45,9 @@ You open the closet.  A shirt is inside the closet.
 You take the shirt from the closet.
 
 > wear shirt
-(Your score has increased by 1)
 The shirt fits just fine. It has a pocket you can put small items in.
 
 > pet kitty
-(Your score has increased by 1)
 You reach down to pet the kitty. She feels nice and soft. She purrs at you.
 You come away with a handful of fur, which seems to cling to your hand like
 glue. She must be shedding.
@@ -87,7 +84,6 @@ You take the small bottle from the instrument case.
 You open the small bottle.  Some oil is inside the small bottle.
 
 > oil trumpet
-(Your score has increased by 5)
 The trumpet valves seem to move much more easily now.
 
 > e
@@ -182,7 +178,6 @@ and another small door is on the south wall.  A spare refrigerator is on the
 west wall, as is the garage door opener.
 
 > unlock car
-(Your score has increased by 1)
 The car door is unlocked.
 
 > open car
@@ -270,7 +265,6 @@ Also here is an instrument case.
 Judy is here, whistling happily.
 
 > give trumpet to judy
-(Your score has increased by 5)
 You give the trumpet to Judy. She thanks you.
 
 Putting the horn to her lips she plays a little ditty.
@@ -333,7 +327,6 @@ Give what?
 Give what?
 
 > give music to judy
-(Your score has increased by 10)
 Judy says: "You found my music! Now I can go practice!" She sets her music on
 a music stand you hadn't noticed before and proceeds to practice.
 
@@ -428,7 +421,6 @@ on the west wall.  A window looks out on the front yard to the east.  You can
 go west to the hallway.
 
 > read book
-(Your score has increased by 2)
 You browse a variety of computer reference books, which include an A+ exam
 study guide to a Windows 98 Secrets book as well as a Microsoft Office 2000
 manual.  You study the computer books and feel smarter.
@@ -514,7 +506,6 @@ the clothes around for a while, humming merrily, then stops.
 You take the dry clothes from the dryer.
 
 > fold clothes
-(Your score has increased by 5)
 What a great guest you are!  You do laundry, fold clothes, you should stay
 here more often!
 
@@ -542,7 +533,6 @@ You pour the coffee into the yellow coffee cup and pick it up. Mmm, it's nice
 and warm and smells nice.
 
 > drink coffee
-(Your score has increased by 1)
 Mmm!  That sure tasted good.  You feel all warm inside.
 
 > ne
@@ -569,7 +559,6 @@ hall is to the south-east.
 Also here is a chess table.
 
 > play chess
-(Your score has increased by 1)
 David strolls into the room.  You two sit down and play chess. You lost the
 game.  Too bad.  Better luck next time!
 
@@ -640,7 +629,6 @@ You pick up the garage-door opener.
 You hear the garage door open.
 
 > drive car
-(Your score has increased by 1)
 You start up the car and back out of the garage.  After following Judy's
 directions, you find the beach.
 
@@ -689,7 +677,6 @@ You play volleyball for a while with the other beachgoers. You are an
 excellent player.
 
 > play volleyball
-(Your score has increased by 2)
 You play volleyball for a while with the other beachgoers. You are an
 excellent player.
 
@@ -739,7 +726,6 @@ Beach shower
 The beach shower is here to allow visitors to wash the sand off their feet.
 
 > use shower
-(Your score has increased by 2)
 You wash the sand off your feet.  There, isn't that better?
 
 Congratulations!
@@ -749,3 +735,6 @@ D. Good <duoing@bigfoot.com>.  Please feel free to contact me with comments
 on this game.
 
 -dave
+You scored 38 out of the maximum 41!
+That is 92% of the game!
+You finished 3 points short.

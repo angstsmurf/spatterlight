@@ -82,7 +82,6 @@ your bearings and look around you.
 >
 
 > talk to charity
-(Your score has increased by 10)
 You stride down the long length of the foyer avoiding the injured as you go.
 Charity purses her lips as you approach.
     "Took you long enough, Mr. Garden."
@@ -171,7 +170,6 @@ waving at you...
 You can only move south.
 
 > closely examine figure
-(Your score has increased by 5)
 You just barely discern an African American man holding a large bazooka-like
 weapon on the balcony above you.
 
@@ -253,7 +251,6 @@ sprays an iridescent sweet smelling fluid.
 You can only move east.
 
 > drink water
-(Your score has increased by 5)
       "Wes! Glad to see you made it out alive," Charity exclaims as she walks
 from behind a largely destroyed gargantuan image of Aphrodite.
       "Did you know those people would attack me, Charity?" You ask seething.
@@ -490,7 +487,6 @@ You cut Hope with the Soul Scythe.
 Hope hits you.
 
 > attack hope
-(Your score has increased by 10)
 You cut Hope with the Soul Scythe.
 
 "I...I'll never return to that box!!!" Hope says trembling as she takes a
@@ -524,7 +520,6 @@ sprays an iridescent sweet smelling fluid.
 You can only move east.
 
 > give ring and candle to fountain
-(Your score has increased by 20)
 The room trembles hard and white dust from the stones streaks into the air.
 You start to cough and shield your face from the spray. You can hear the
 sound of stone grinding against stone and when the noise stops you open your
@@ -632,7 +627,6 @@ strange contraption next to it.
 You can move east, south and west.
 
 > slash dr micheals portrait
-(Your score has increased by 5)
 You lift your scythe and then swing hard at the portrait. It cracks in two
 and a small space is revealed behind the frame. You reach inside and pull out
 a small bundle. It seems that is all there is inside of the hole.
@@ -663,7 +657,6 @@ Charity Bell is here and eyeing you with a smile.
 You can only move south.
 
 > talk to charity
-(Your score has increased by 10)
      "Greetings, Wes," Charity nods her head in recognition, "your talk with
 Dr. Micheals was...satisfactory?"
      You feel dizzy just looking at her. Here's a woman standing before you,
@@ -774,7 +767,6 @@ Hope manages to avoid Charity Bell's attack.
 Hope cuts you with the Stripper Sword, but it doesn't seem to do any damage.
 
 > attack hope
-(Your score has increased by 10)
 You cut Hope with the Soul Scythe.
 
      "Y...ya'll think ya'll 're so smart don't you?!" Hope exclaims as she
@@ -835,7 +827,6 @@ for one at the end of the hall.
 You can only move south.
 
 > knock on door
-(Your score has increased by 5)
 You knock on the door and hear cacophonous splashing echoing down the hall
 from the medicine cabinet.
 
@@ -976,7 +967,6 @@ You unlock the Magna Mater door with La Virgencita key.
 You open the Magna Mater door.
 
 > walk through magna mater door
-(Your score has increased by 5)
 
     When you opened the Magna Mater room you expected to find another place
 in the hospital or at least a room. However, where something should have been
@@ -1166,7 +1156,6 @@ A black shrine sits opposite the wooden altar.
 You can only move west.
 
 > give sigh prudence to hope
-(Your score has increased by 5)
      "Wha," Hope exclaims as she clutches her chest, "what is this?"
      "I believe it's for you. To help you get home," you tell her gently.
      Hope drops her sword, slowly takes the flowers into her hands, and her
@@ -1209,7 +1198,6 @@ floor...the final answer to Mercy.
 You take Hope's Spirit.
 
 > put hope's spirit into box
-(Your score has increased by 10)
      The room begins to spin around you and nausea rises out of the pit of
 your stomach as you struggle to hold yourself together.
 
@@ -1240,3 +1228,6 @@ easy but if you stand strong its a possibility that you can save everyone."
 The end.
 You've Won the Game!
 Congratulations!
+You scored 90 out of the maximum 100!
+That is 90% of the game!
+You finished 10 points short.

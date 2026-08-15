@@ -99,23 +99,19 @@ There is also an ad.
 You can only go out.
 
 > call 777-777
-(Your score has increased by 10)
 You dial 777-777 and wait. Then you hear a laughing voice offering you
 virtually any way of phone sex. Well, it might be interesting, but not now
 when the police is after you.
 
 > call random
-(Your score has increased by 10)
 You dial random number and wait for someone to answer the phone. You say "I
 still know what you did last summer" and they hang up on you.
 
 > call police
-(Your score has increased by 10)
 You dial the police number. It's good that you still remember it. You get an
 automated answer saying the line is busy and you can try again later.
 
 > call mother
-(Your score has increased by 10)
 You dial your mother's number. After a while of waiting you hear her sleepy
 voice:
 "What do you want? Don't you know how late it is? Whatever it is that you
@@ -123,7 +119,6 @@ want, it'll wait until tomorrow."
 And with that she hangs up. How typical, you think.
 
 > call lawyer
-(Your score has increased by 10)
 You dial your lawyer's home number. He answers immediately, to your surprise.
 "Call tomorrow, I have work to do now."
 You hear some woman's laugh and then nothing more.
@@ -145,7 +140,6 @@ You get into the taxi and command the driver to speed up as fast as he can.
 Soon you're on the way to wherever...
 
 > fight
-(Your score has increased by 10)
 You punch the taxi driver right in the face and he decides to give it up. He
 runs away, leaving his pistol on the seat!
 
@@ -211,7 +205,6 @@ You take the can of beer from the dead punker.
 You open the can of beer.
 
 > drink beer
-(Your score has increased by 10)
 You drink the beer and throw away the empty can.
 You're getting pretty drunk...
 
@@ -388,11 +381,9 @@ You take the knife from the unconscious soldier.
 You take the assault rifle from the unconscious soldier.
 
 > get boots
-(Your score has increased by 10)
 You get the soldier's heavy boots.
 
 > undress soldier
-(Your score has increased by 10)
 You undress the soldier and take his uniform.
 
 > east
@@ -445,13 +436,11 @@ People are rushing along, occasionally bumping into each other.
 You can go north and in.
 
 > wear uniform
-(Your score has increased by 10)
 You undress your clothes in exchange for a soldier's uniform. It suits you
 pretty well. You throw away your own clothes, they wouldn't be useful right
 now anyway.
 
 > wear boots
-(Your score has increased by 10)
 You put on the boots. Now you look like a real soldier.
 
 > north
@@ -533,7 +522,6 @@ lay some coins at the bottom of the well.  You are weakened by the hunger.
 You can go northeast and southeast.
 
 > dive
-(Your score has increased by 10)
 You sink your hand down the well and grab a few coins from its bottom.
 
 > ne
@@ -558,15 +546,12 @@ hunger.
 You can only go out.
 
 > sell rifle
-(Your score has increased by 10)
 You sell the assault rifle for 2000 dollars.
 
 > sell knife
-(Your score has increased by 10)
 You sell the knife for 50 dollars.
 
 > sell pistol
-(Your score has increased by 10)
 You sell the pistol for 200 dollars.
 
 > out
@@ -656,7 +641,6 @@ The waiter is servicing the customers.  You are weakened by the hunger.
 You can only go out.
 
 > buy food
-(Your score has increased by 10)
 You buy a good piece of pizza which leaves your hunger satisfied.
 
 > talk to bruce
@@ -714,7 +698,6 @@ The shop assistant is standing behind the counter.
 You can only go out.
 
 > buy map
-(Your score has increased by 10)
 You buy the map of this unknown town, to realize that you still don't know
 where you are.
 
@@ -785,7 +768,6 @@ lay some coins at the bottom of the well.
 You can only go east.
 
 > dive
-(Your score has increased by 10)
 You sink your hand down the well and grab a few coins from its bottom.
 
 > east
@@ -930,7 +912,6 @@ The uninvited friend states:
 Then he hangs up.
 
 > call mother
-(Your score has increased by 10)
 You dial your mother's number. After a while of waiting you hear her upset
 voice:
 "Honey, do you know you were in the T.V. last night? I wish I remembered what
@@ -939,7 +920,6 @@ Nobody's safe from violence these days, all those thieves and murderers...".
 Then you hear your mother calling her dog, so you better hang up.
 
 > call lawyer
-(Your score has increased by 10)
 You dial your lawyer's office number. He answers with a long delay and sounds
 upset.
 "How dare you call after all that you've done? I won't be risking to get you
@@ -1159,7 +1139,6 @@ The receptionist is sitting behind the counter.
 You can only go out.
 
 > pay
-(Your score has increased by 10)
 You agree on 50 dollars for a night and get a key to your room, which, as you
 are told, is upstairs.
 
@@ -1174,7 +1153,6 @@ There are some doors leading to the rooms, numbers on them reach from 9 to
 You can only go down.
 
 > unlock 13
-(Your score has increased by 10)
 You unlock and open the door to your room.
 
 > in
@@ -1188,14 +1166,12 @@ walls.
 You can only go out.
 
 > watch tv
-(Your score has increased by 10)
 You turn on the T.V. and watch some nasty commercials.
 
 > lie on bed
 You lie down on the bed.
 
 > sleep
-(Your score has increased by 10)
 You fall asleep to be chased by unpleasant dreams, nightmares probably coming
 from your real life, but transformed into monstrous shapes in a really weird
 way. You wake up in sweat, trying to forget them.
@@ -1386,7 +1362,6 @@ matter what the losses will be. The decision is yours, accept or reject."
 He stops talking and awaits your answer.
 
 > accept
-(Your score has increased by 10)
 "Good decision."
 Bruce takes something out of his pocket and hands it to you.
 "This is a precious amulet, a symbol of our association. The shopkeeper in
@@ -1449,7 +1424,6 @@ figure walks alongside you and disappears behind the corner.
 You can go east, south and in.
 
 > in
-(Your score has increased by 10)
 You walk in.
 
 Inside the bar
@@ -1565,7 +1539,6 @@ and a stage. Everything is covered with red light and smoke.
 You can only go out.
 
 > show amulet
-(Your score has increased by 10)
 You show your amulet to Thel. She stops dancing for a while and says:
 "I'll tell you anything you want to know, but I have to finish here first.
 Wait for me at the library, it's just across the road."
@@ -1666,7 +1639,6 @@ A dark figure walks alongside you and disappears behind the corner.
 You can go north and east.
 
 > x thel
-(Your score has increased by 10)
 Thel's dead body is lying on the ground, beautiful like a fairy in her
 infinite sleep. It makes one wonder why everything has to pass away...
 
@@ -1746,13 +1718,11 @@ The shop assistant is standing behind the counter.
 You can only go out.
 
 > show amulet
-(Your score has increased by 10)
 You show the shopkeeper your amulet and he says:
 "I see a good friend sent you. I'll give you a special price: 500 dollars for
 a piece!"
 
 > buy bomb
-(Your score has increased by 10)
 You pay the nasty shopkeeper what he asks and get a bomb in exchange. Good
 deal.
 
@@ -1864,7 +1834,6 @@ couple of slot machines in the hall - you could try your luck on them.
 You can only go out.
 
 > play
-(Your score has increased by 10)
 You pull the lever and watch various images of fruit roll in the slots. Then
 they stop... After this game you have 204 dollars.
 
@@ -2019,14 +1988,11 @@ The priest is kneeling before the altar.
 You can only go out.
 
 > wait
-(Your score has increased by 16)
 Time passes...
 
 The void, deathly shadow appears and from behind the priest's back, embraces
 him in a flaming coat, and in screams and fury takes him away, on a long road
 to hell.
-(Your score has increased by 16)
-(Your score has increased by 16)
 
 > out
 You walk out.
@@ -2040,7 +2006,6 @@ the cemetery.
 You can go west and in.
 
 > unlock
-(Your score has increased by 10)
 You unlock the gate which opens before you, uncovering a dim view of the
 graveyard.
 
@@ -2060,14 +2025,12 @@ You can only go north.
 You take the shovel.
 
 > dig grave
-(Your score has increased by 10)
 You dig up the ground and discover a dirty, sealed envelope, which you take.
 
 > score
 Your score is 346 out of a maximum of 666.  (51%)
 
 > break seal
-(Your score has increased by 310)
 You break the seal and take out many printed sheets, secret documents along
 with photographs, proving the corruption of people of the highest positions,
 who kill for gain, for their own truth. This is the proof of innocence you've
@@ -2077,3 +2040,7 @@ The choice is yours, go after justice and tell the judge and everyone, or be
 silent forever and know your little secret. No matter which way you choose
 and how your story ends, nothing can ever be the same again and you will
 begin a new life, on a different place and with different people.
+
+You scored 346 out of the maximum 666!
+That is 51% of the game!
+You finished 320 points short.

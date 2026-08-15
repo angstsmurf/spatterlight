@@ -121,7 +121,6 @@ You take the rope.
 You attach the hook to the rope.
 
 > use rope with cliff
-(Your score has increased by 3)
 You throw the hooked rope up to the ledge. Success. You can now go up.
 
 > w
@@ -292,7 +291,6 @@ Nimf is here.
 You can only move west.
 
 > give meat package to nimf
-(Your score has increased by 10)
 Nimf accepts the package and gives you 75 gold coins.
 
 > w
@@ -382,7 +380,6 @@ Dog is here.
 You can move north and west.
 
 > give meat to dog
-(Your score has increased by 5)
 You throw the meat at the dog. The dog starts eating it.
 
 > e
@@ -472,7 +469,6 @@ Trace is here.
 You can move north and west.
 
 > use crowbar with manhole
-(Your score has increased by 5)
 You use the crowbar and manage to lift the manhole. Now do you really want to
 go down there?
 
@@ -1199,7 +1195,6 @@ see a wagon full of armor.
 You can move north and in.
 
 > ^^aquired armor^^
-(Your score has increased by 17)
 You hit Theeve one final time before he drops down. You get 50 gold coins.
 You go over to Nilo and untie the ropes. He thanks you and then takes off
 with his delivery.
@@ -1559,7 +1554,6 @@ Mika, a city close by can help you get a new ship.
 You can move north, south, west and down.
 
 > n
-(Your score has increased by 5)
 You move north.
 
 Grassland
@@ -1572,7 +1566,6 @@ Enevez hits Big scorpion with the Staff.
 You kill the scorpion and collect your bounty. 75 gold coins.
 
 > n
-(Your score has increased by 10)
 You move north.
 
 Grassland
@@ -1602,7 +1595,6 @@ Just to the east of here is a ship.
 You can move east and west.
 
 > e
-(Your score has increased by 10)
 You move east.
 
 Grassland
@@ -1834,7 +1826,6 @@ Trace hits Xozim with the Whip.
 Enevez hits Xozim with the Staff.
 Enevez hits Xozim with the Staff.
 Xozim hits Trace.
-(Your score has increased by 50)
 Trace hits Xozim with the Whip.
 You thrust your sword into the demon´s chest one final time. The demon
 screams in pain as he turns to dust.                  "You have killed Xozim.
@@ -1897,10 +1888,12 @@ Time passes...
 Time passes...
 
 > claim the throne
-(Your score has increased by 150)
 You say to Trace : "I want to claim the throne." She points at a place in the
 cave where there´s a throne and says : "All you have to do is sit down in
 that throne over there."  You walk slowly towards the throne and then you
 take a seat. And then suddenly as if by magic the big cave transforms into a
 big palace like throne room. You are now ruler of Beyond.......
 Congratulations!
+You scored 265 out of the maximum 373!
+That is 71% of the game!
+You finished 108 points short.

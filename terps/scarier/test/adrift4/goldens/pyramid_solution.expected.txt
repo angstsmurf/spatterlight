@@ -99,7 +99,6 @@ scene depicting a man being beheaded.
 You can only move south.
 
 > put beetle in depression
-(Your score has increased by 100)
 You put the golden beetle inside the depression.
 The beetle presses home into the depression and the stone blocking the exit
 moves out of your way allowing you to make a hasty retreat.
@@ -107,3 +106,6 @@ moves out of your way allowing you to make a hasty retreat.
 Unfortunately as you want to get out, you have to leave the beetle in its
 place rather than take it as you had hoped.
 Congratulations!
+You scored 100 out of the maximum 100!
+That is 100% of the game!
+Well done - you scored maximum points!

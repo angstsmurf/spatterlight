@@ -58,3 +58,6 @@ You shoot Coffee Man with your gun.  You win the game.
 You have destroyed Coffee Man and let now Microwave Man can live a life of
 peace.  Of course, Coffee Man would have gone on to negotiate World Peace,
 but hey, at least you're alive, right?
+You scored 100 out of the maximum 100!
+That is 100% of the game!
+Well done - you scored maximum points!

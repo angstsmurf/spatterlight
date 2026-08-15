@@ -94,23 +94,19 @@ You take Your Coffee Mug, Gun Holster, Your Cell Phone, Neatly Wrapped Gift,
 Your Badge and the Memo from Your Desk.
 
 > clean desk
-(Your score has increased by 1)
 Oh, good for you, Agent Mulder!
 
 > burn memo
-(Your score has increased by 1)
 You incinerate the The Memo with a Zippo you found somewhere.  It gives you a
 warm feeling inside.
 
 > strip
-(Your score has increased by 1)
 You're now naked.  Congratulations, you're a rip snortin' hottie, woof!
 
 > wear holster
 You put on Gun Holster.
 
 > drink coffee
-(Your score has increased by 1)
 Gross . . . you drank the half-solidified, week-old coffee.  Just goes to
 prove that drummers will drink or eat anything for . . .  no reason at all.
 
@@ -164,7 +160,6 @@ curiosity."
 were dead, you would be, too."
 
 > take case file
-(Your score has increased by 25)
 You take the case file from Cancer Man.  "Everything you need to find them
 can be found in the information in this file.  I'll be in touch again . . .
 Trust No One, Agent Mulder."
@@ -183,7 +178,6 @@ Cancerman leaves.
 You take the Warehouse Key from Case File 10193.
 
 > examine warehouse key
-(Your score has increased by 25)
 This is a labeled key.  The label reads,"Davis Storage, Baltimore, MD. / 5"
 Completing further research, you find directions to the site.
 
@@ -234,7 +228,6 @@ out of place.    You can use the warehouse key to enter the building.
 You can only move south.
 
 > use key
-(Your score has increased by 25)
 The garage door begins to groan open as the key twists in the lock with a
 click.
 There's little help here, but you may want to look around anyway.
@@ -277,13 +270,11 @@ Volunteer is here.
 You can move north, east, south and in.
 
 > examine nameplate
-(Your score has increased by 25)
 Running your finger over the nameplate, you here a click and it comes off to
 reveal a small indentation that has been carved into the plastic.  You take
 the letter that is inside.
 
 > donate to the poor
-(Your score has increased by 10)
 Always caring about the goodwill of others, you pull a few dollars from your
 wallet and place it in the bucket.  The man ringing the bell smiles.  "God
 bless you, sir," he says and goes back to ringing the bell.
@@ -317,7 +308,6 @@ Nick is here.
 You can move up and out.
 
 > play jukebox
-(Your score has increased by 1)
 You take a quarter from your pocket and pop it into the machine.  An old
 classic,  "One" by Filter starts drifting through the air and you return to a
 seat at the bar.
@@ -348,7 +338,6 @@ You take Tiny Fish Food Pellet from Fish Food Container.
 You open Your Massive Fish Tank.
 
 > feed fish
-(Your score has increased by 1)
 Your fish happily gobble the pellet up.  You receive a warm feeling of
 self-satisfaction.
 
@@ -414,7 +403,6 @@ falling on the street.  The lights are on, so someone must be home.
 You can move east and northeast.
 
 > knock
-(Your score has increased by 25)
 Hesitantly, you knock on the door.  After a moment's delay, John Doggett
 answers the door.  Albeit older now and shorter by your changed perception,
 he's still the same man who used to bring you candy when you were a kid.  He
@@ -463,7 +451,6 @@ Also here is VW Van.
 You can move east and south.
 
 > look at camera
-(Your score has increased by 25)
 Peering closely into the lens of the video camera above the doorway and
 grinning, you hear an audible click from the locks on the doorway.  Funny
 they should leave you in after just seeing your face.
@@ -478,7 +465,6 @@ Langly is here.
 Byers, Frohike and Skinner are here.
 
 > call ruth
-(Your score has increased by 10)
 Thinking back on the events of the last few hours, you decide to call Ruth.
 You speedial and wait for her to pick up.  "Hello."  "Hey, Ruth, it's me.
 Did you get in okay?"  "Yeah, how'd your meeting go?"  You relate the events
@@ -507,7 +493,6 @@ Also here is VW Van.
 You can move east, south and in.
 
 > get in the van
-(Your score has increased by 25)
 You open the door on the passenger side of the van, surprised to find it
 unlocked, and roll down the window.  The boys are not far behind and Byers
 takes the driver's seat beside you.  Langly grumbles something about you
@@ -621,7 +606,6 @@ Also here is A Buzzer.
 You can only move out.
 
 > buzzer
-(Your score has increased by 10)
 Your incurable curiosity gets the better part of you again and you reach out
 and push the buzzer.
 
@@ -671,7 +655,6 @@ There's a counter here, too.
 Arroway is here.
 
 > take directions
-(Your score has increased by 25)
 You take the directions from Mr. Arroway and note them mentally.
 
 You hear a ringing in the establishment and realize that it's coming from
@@ -701,7 +684,6 @@ Byers, Frohike and Skinner are here.
 You can move south, in and southwest.
 
 > get in the van
-(Your score has increased by 25)
 The man in the dark car watches you silently as you climb in the van.  Langly
 slams the door shut and Frohike wheels out of the parking lot.  You give the
 directions to Skinner.
@@ -716,7 +698,6 @@ trip to Bellefleur."  Skinner remembers and confirms.  "Yeah, their car
 died.. and they lost nine minutes."
 
 > look
-(Your score has increased by 10)
 
 Outside Arroway Hardware Store - Bellefleur, OR
 You stand outside of the only legitimate shop left in Bellefleur and it seems
@@ -734,7 +715,6 @@ Frohike looks to you and your companions and you all get out of the van.
 himself.  "This is creepy," he says.  You draw your gun in agreement.
 
 > enter the forest
-(Your score has increased by 25)
 Without notifying the Gunmen, you draw your gun, turn on your flashlight, and
 venture into the woods.
 
@@ -830,3 +810,6 @@ to be such a strong and smart young man, or to be sad that I can't protect
 you anymore.  Either way," your father says as he extends his hand to you,
 "Welcome to the Resistance."  You smile without knowing why as you grip it in
 return.
+You scored 296 out of the maximum 299!
+That is 98% of the game!
+You finished 3 points short.

@@ -132,7 +132,6 @@ You can move north and south.
 You stand on the DRIFT-O-Com.
 
 > put battery in charger
-(Your score has increased by 5)
 The charger flashes repeatedly, giving the room the appearance of being a lit
 by a strobe light.  You take the opportunity to do your best John Travolta
 impression, from the movie Saturday Night Fever.  A couple of moments later,
@@ -233,7 +232,6 @@ the wardrobe.
 You take the green Drift-O-Sphere and the piece of gum from the wardrobe.
 
 > chew gum
-(Your score has increased by 5)
 
 You chew the gum and are shocked that it tastes just like carpet!  Reminds
 you of the time you passed out after having to lick Roger 'Budda' Johnson's
@@ -243,11 +241,9 @@ As much as you are enjoying the experience, you take the gum out of your
 mouth.
 
 > put gum on string
-(Your score has increased by 5)
 You stick the gum to the end of the string.
 
 > put gum in drain
-(Your score has increased by 5)
 You carefully dangle the string blindly down the narrow drain.  After a few
 moments you finally hear something tinking the sides.  Slowly, you pull the
 string up and discover a small silver key stuck to the piece of gum.  Pulling
@@ -383,7 +379,6 @@ You take the small pill from the Drift-O-Jump tin.
 You put the small pill inside the coffee cup.
 
 > take slime
-(Your score has increased by 10)
 Trying not to touch it, you manage to scoop the bulk of the slime into the
 cup.
 The second the slime and the pill come in contact with each other, the slime
@@ -475,12 +470,10 @@ north from here. There is also a control panel on the wall, near the door.
 You can only move north.
 
 > pour slime in box
-(Your score has increased by 5)
 The slime gurgles and bubbles down the funnel and disappears, leaving no
 residue behind.
 
 > put green orb in tube
-(Your score has increased by 5)
 You put the green orb into the tube it sputters a few times and spews out a
 puff of green smoke.  When it clears, you discover something in the tray.
 
@@ -495,7 +488,6 @@ You take the green Drift-O-Sphere from the tray.
 I don't understand what you want me to do with the green Drift-O-Sphere.
 
 > twist green orb
-(Your score has increased by 10)
 You twist the green Drift-O-Sphere until you hear a click.  It then begins to
 vibrate slightly and flicker with a greenish light.
 "I activated the bomb.  I wonder how much time I have until it blows."
@@ -704,7 +696,6 @@ Time passes...
 
 "The bomb has to blow soon.  I just know it.  I probably shouldn't have
 activated it yet."
-(Your score has increased by 30)
 
 A loud rumble shakes the ship, lights flickering, warning sirens blaring.
 Trying to gain your balance, you make your way to the bridge of the
@@ -785,7 +776,6 @@ It has an 8-inch screen with a button on it.
 Your score is 80 out of a maximum of 100.  (80%)
 
 > push button
-(Your score has increased by 10)
 You push the button and the Captain Wild appears on the static filled screen.
 
 "Anonymous, you made it!  Is everything ok?"
@@ -810,3 +800,6 @@ chanting your name.
 "Anonymous! Anonymous! Anonymous!"
 
 Congratulations!
+You scored 80 out of the maximum 100!
+That is 80% of the game!
+You finished 20 points short.

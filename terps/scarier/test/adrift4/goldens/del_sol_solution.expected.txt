@@ -33,20 +33,16 @@ table by the end of class."  Bob is definetly the class idiot.  How can you
 refuse such stupidity?
 
 > work
-(Your score has increased by 2)
 You set to work on your project.  This is going to be the best slingshot ever
 
 > help
-(Your score has increased by 2)
 Grudgingly, you go over to where Bob is and help him figure out whatever he
 was rambling about.
 
 > yes
-(Your score has increased by 1)
 The weed makes you feel loopy.   This not the best stuff you've had.
 
 > make out with jarvin
-(Your score has increased by 1)
 Ah man, this is good stuff!  There's nothing like some sweet woodshop lovin!
 You better hope that Hina doesn't catch wind of this or else she really will
 drop you forever
@@ -315,7 +311,6 @@ The hottest girl in the universe is sitting beside you.
 I don't understand what you mean!
 
 > take notes
-(Your score has increased by 2)
 Staring at the direction of the teacher, you write the stuff you see on the
 board.
 All of your hard work has been rewarded...The only thing you manage to get
@@ -323,7 +318,6 @@ out of the lecture is that you need to shoot straight at the monkey.  Not
 above and not below.  Whatever that means...
 
 > pay attention
-(Your score has increased by 2)
 You nod your head as Mr. Ech rambles off some physics junk.
 
 > no
@@ -332,16 +326,13 @@ deserve to have your brain sucked out!"  Hina screams.   Man life isn't going
 to well...
 
 > pass note
-(Your score has increased by 1)
 Noslen grabs the note and passes it on.
 
 > write note to hina
-(Your score has increased by 5)
 You write Hina a note.  "hey Hina, do you like me?"  Underneath, you draw to
 boxes that are labeled YES  and NO.  You ask some kid to pass it to her.
 
 > gamble
-(Your score has increased by 1)
 Sweet!  Playing with these morons you can win big money!
 
 > chill out
@@ -360,7 +351,6 @@ I don't understand what you mean!
 I don't understand what you mean!
 
 > help
-(Your score has increased by 1)
 You look at Joshuas' notes and try and make some sense of it all.  Joshua
 really is a moron.  Mr Ech is teaching the kids how to add...He needs help on
 this?
@@ -494,22 +484,18 @@ I don't understand what you mean!
 I don't understand what you mean!
 
 > chill out
-(Your score has increased by 1)
 You go to the back and chill out with the loosers at the back of the room.
 man..this is so awesome...and lame...
 
 > practice
-(Your score has increased by 5)
 You start to practice and man!  you feel so much awesomer!  Hina is going to
 totaly want to make out with you now...
 
 > check out
-(Your score has increased by 1)
 She is so FINE!   You and her could   WAIT...this is a PG game!  What are you
 trying to do, blow the rating?!...she is nice though.
 
 > make out
-(Your score has increased by 1)
 You go witht the random hot chick under the bleachers and start to
 smooch....mmm.its so nice...home Hina doesn't find out about this...
 

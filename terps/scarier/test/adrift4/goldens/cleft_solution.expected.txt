@@ -53,7 +53,6 @@ Also here is a sweaty smell.
 A topiary attendant is here, fast asleep.
 
 > wake attendant
-(Your score has increased by 10)
 The topiary attendant opens his eyes, gathers his thoughts, and runs
 screaming from the room.
 
@@ -149,7 +148,6 @@ the staircase.
 Merthyr is here.
 
 > give ticket to merthyr
-(Your score has increased by 10)
 You hand the ticket to the oblationary, who appears to remove an unseen rope
 from before the stairs and gestures toward them.
 
@@ -292,7 +290,6 @@ Dungeon Dressing Suppliers Inc" .  Most appear sealed.
 Also here is a sealed box.
 
 > cut tape
-(Your score has increased by 5)
 You cut the duct tape.
 
 > drop knife
@@ -339,7 +336,6 @@ smooth bored shaft in the centre.
 Also here is a rusty pedestal compass.
 
 > tie rope to compass
-(Your score has increased by 15)
 You've tied the rope! It descends into the pothole.
 
 > drop all
@@ -349,7 +345,6 @@ You drop the length of rope and the lamp.
 You pick up the rusty pedestal compass.
 
 > eat compass
-(Your score has increased by 3)
 That's going to hurt in a few hours.
 
 > get lamp
@@ -367,7 +362,6 @@ Also here is a battery.
 You pick up the battery.
 
 > put battery in lamp
-(Your score has increased by 5)
 The lamp shines like a champion.
 
 > u
@@ -436,7 +430,6 @@ You depress the red button.
 You depress the blue button.
 
 > pull lever
-(Your score has increased by 12)
 You pull the lever.
 You hear a klaxon sounding in the far distance.
 
@@ -545,8 +538,10 @@ small slot cut into one wall, about 2 inches long and half an inch wide.
 Your score is 60 out of a maximum of 100.  (60%)
 
 > put coin in slot
-(Your score has increased by 40)
 You put the coin in the slot.
 Congratulations! You have successfully completed the Cleft in the Rock.  I
 hope you got the full points (100 are available in the game), and trust you
 enjoyed it.
+You scored 100 out of the maximum 100!
+That is 100% of the game!
+Well done - you scored maximum points!

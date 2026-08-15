@@ -48,3 +48,6 @@ another poor soul to kill.
 > 0
 Good job then!
 Congratulations!
+You scored 0 out of the maximum 1000!
+That is 0% of the game!
+You finished 1000 points short.

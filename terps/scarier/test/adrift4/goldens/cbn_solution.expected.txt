@@ -60,7 +60,6 @@ agitated to waste time on such things now.
 >
 
 > open door
-(Your score has increased by 5)
 Utilising your years of adventure game writing, you reach out your hand
 and... open the door.
    "Wow!" you say. "It's every bit as easy in real life as it is in the games
@@ -91,7 +90,6 @@ don't come back. We don't need your sort around here."
    Rudolph shrugs. "We're not trying to."
 
 > give cd to rudolph
-(Your score has increased by 5)
 Rudolph takes one look at your offering and explodes.
    While you've written about this strange occurrence in several of your
 games - most notably The Explodin Peeple! - you never knew it happened in
@@ -124,7 +122,6 @@ Your eagle eye sweeps over the desk and finds... nothing!
    Darn! You were sure there'd be something there!
 
 > x desk
-(Your score has increased by 5)
 Again you look and... this time you find a pen!
    It seems you weren't paying attention enough the first time.
 
@@ -166,13 +163,11 @@ detailed scribblings are visible scattered about the surface.
    Exits lie: west (to the entrance) and south (through an open door).
 
 > x notepads
-(Your score has increased by 5)
 From a few scribbled notes that catch your eye, you discover the password
 seems to be "um". It doesn't say where this password needs to be typed just
 that it does need to be typed. How strange.
 
 > um
-(Your score has increased by 5)
 You utter the word.
    And then, as if by magic (or maybe just poor programming), a crowbar
 appears in your hand!
@@ -204,7 +199,6 @@ could 'change' a few of the rules to make your games eligible (as it is they
 discriminate against any games widely regarded as crap).
 
 > change rules
-(Your score has increased by 5)
 You quickly amend the rules to the effect that it will now be impossible for
 anyone to ban you.
 
@@ -234,13 +228,11 @@ puzzles..." and "...password looks to be non-existent..."
    Meaningless rambling by the look of things.
 
 > type eject
-(Your score has increased by 5)
 The moment your fingers touch the keyboard, a game shoots out of one of the
 computers and flies into your hand. It looks to be a tawdry collection of
 non-CBN games.
 
 > smash 101 classics
-(Your score has increased by 5)
 You unleash your rage on it - which results in 101 Classics being reduced to
 little more than a pile of fragments.
    Afterwards, you feel so much better for doing that.
@@ -303,7 +295,6 @@ prise it open and get your games inside.
    Exits lie: west (to the open area).
 
 > prise container
-(Your score has increased by 5)
 Usinf the crowbar, you manage to force open one end of the container for long
 enough to deposit your life's work inside. Then, wiping a tear away from your
 eye, you close the container in such a way that no one will ever know what
@@ -362,3 +353,6 @@ Classics.
    All in all, you excelled yourself and reached the best possible ending in
 the game! Well done!
 Congratulations!
+You scored 45 out of the maximum 45!
+That is 100% of the game!
+Well done - you scored maximum points!

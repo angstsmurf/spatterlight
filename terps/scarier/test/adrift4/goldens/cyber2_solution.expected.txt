@@ -62,7 +62,6 @@ You can only move north.
 You open the Teleporter.
 
 > use teleporter
-(Your score has increased by 50)
 you are teleported!
 
 Teleporter booth
@@ -85,7 +84,6 @@ You see the Cyber Warp right here. There are a lot of people here, too.
 You can only move east.
 
 > enter warp
-(Your score has increased by 50)
 You run into the warp and everyone applauses.
 
 Bisstonia
@@ -102,11 +100,9 @@ Hooded figrure is here.
 You can move in and southwest.
 
 > reveal hooded figure
-(Your score has increased by 50)
 Its really Lightning!
 
 > give electric uniform to lightning
-(Your score has increased by 50)
 you give him the electric suit and he looks better.
 
 > in
@@ -120,7 +116,6 @@ You can move east and out.
 Ninja Chef attacks you with Chinese Death Stars, but you manage to avoid it.
 
 > shoot chef
-(Your score has increased by 50)
 You shoot the ninja chef.
 
 > e
@@ -150,7 +145,6 @@ A Couple of Guards are here.
 You can only move south.
 
 > shoot guards
-(Your score has increased by 50)
 the guards fall to the floor, dead.
 
 > u
@@ -180,7 +174,6 @@ You are in a room with one guard ready for attack!
 You can only move east.
 
 > shoot guard
-(Your score has increased by 50)
 You shoot the guard, and as he is dieing, you ask him the password, and he
 replies the pass is...NEVER!
 
@@ -194,7 +187,6 @@ screen. Blinking on the computer screen: What is the password to the door?
 You can move west and down.
 
 > never
-(Your score has increased by 5)
 Blinking on the computer screen: Password correct! you may pass.
 
 Mr. Bissoff's Room
@@ -215,3 +207,6 @@ will end!
 Congrtulatons, you have beaton Cyber Warp 2!
 
                                                THE END, or is it?
+You scored 355 out of the maximum 355!
+That is 100% of the game!
+Well done - you scored maximum points!

@@ -122,7 +122,6 @@ Fetlar the overly fetid is here.
 You can move north, south, west, southeast and southwest.
 
 > give fet egg
-(Your score has increased by 10)
 You do so, and Fetlar grabs it, stuffs it into his mouth, snaps his teeth
 shut, gurgles on the yoke, and finally swallows it.
 "Mmm, that was nice," Fetlar says, wiping his lipless mouth, "One good turn
@@ -147,14 +146,12 @@ You can move north, east, south and west.
 Fetlar the overly fetid flutters down from the south.
 
 > fet read runes
-(Your score has increased by 5)
 "It’s a riddle; if you answer correctly, the stones may help you," Fetlar
 says while scratching his foul-smelling bottom. He clears his throat of any
 unwanted phlegm, and announces, "The runes say, \’What is the only thing you
 can be sure to achieve in your life?\’."
 
 > death
-(Your score has increased by 5)
 The henge glows and hums momentarily, then stops. A shield appears out of
 thin air, and clatters to the ground.
 
@@ -162,7 +159,6 @@ thin air, and clatters to the ground.
 You take the Shield.
 
 > hide from dragon
-(Your score has increased by 10)
 You manage to find a decent place to hide, and Shade, the black dragon, pulls
 up into the sky and moves on.
 
@@ -348,7 +344,6 @@ exceptionally long fingers, and before you know it, the sword vanishes in a
 cloud of muck.
 
 > give rose to rossi
-(Your score has increased by 10)
 Rossi grabs hold of the rose with its nasty elongated fingers, but no sooner
 has it grabbed hold of it, than Rossi shrieks in terror, "AHHHH, the smell!
 That dreaded perfume-y smell," it growls. With this, Rossi backs off,
@@ -438,7 +433,6 @@ You put on the chain attached to a medallion.
 Seeker hums!
 
 > w
-(Your score has increased by 10)
 You move west.
 
 The Basilisks cave.
@@ -607,7 +601,6 @@ You stand on the sarcophagus.
 Seeker hums!
 
 > turn handle
-(Your score has increased by 10)
 As you reach up and turn the handle, it jams into position, and a secret
 passage is revealed in the northern wall.
 Seeker hums!
@@ -624,7 +617,6 @@ north wall.
 You can only move south.
 
 > turn wheel
-(Your score has increased by 10)
 As you do so, you hear a grinding noise coming from the burial chamber.
 The stone wall blocking your exit from the burial chamber room seems to have
 moved. Your exit is clear.
@@ -720,7 +712,6 @@ The group of fairies seem to have cast some type of magical spell barring you
 from going any further into the cave.
 
 > open vial
-(Your score has increased by 10)
 You open the vial.
 The group of fairies seem to have cast some type of magical spell barring you
 from going any further into the cave.
@@ -979,11 +970,9 @@ You are feeling very tired, indeed, and realise you should find somewhere to
 sleep!
 
 > roll oak tree
-(Your score has increased by 5)
 You heave the tree to one side, revealing a crushed villager underneath.
 
 > move villager
-(Your score has increased by 5)
 You heave the dead villager to one side,  revealing a pair of leather boots
 and pants.
 
@@ -1008,7 +997,6 @@ It is raining...
 You can move west, up, down and northwest.
 
 > fly
-(Your score has increased by 10)
 The ring glows and you float up into the air. The cold wind blows you
 southward across the chasm, to the other side, where you land safely. The
 copper ring turns to dust and blows away in the wind.
@@ -1052,7 +1040,6 @@ Boris lumbers in from the south.
 Seeker hums!
 
 > attack holga
-(Your score has increased by 10)
 You stab Holga with the sword.
 Holga keels over and is at last put to rest. Her undead hand is loosely
 holding a garlic bud.
@@ -1210,7 +1197,6 @@ Jarris staggers in from below.
 Seeker hums!
 
 > attack jarris
-(Your score has increased by 10)
 You stab Jarris with the sword.
 Jarris slumps to the floor and dies with his toothy grin still imprinted on
 his face.
@@ -1536,7 +1522,6 @@ Seeker hums!
 Arthur pulls himself away to the south.
 
 > attack boris
-(Your score has increased by 10)
 You stab Boris with the sword.
 Boris falls down, quite dead.
 
@@ -2154,7 +2139,6 @@ Seeker hums!
 You manage to avoid Bambi's attack.
 
 > attack bambi
-(Your score has increased by 10)
 You stab Bambi with the sword.
 The poor child keels over and finally dies.
 
@@ -2284,7 +2268,6 @@ back the way you came.
 Seeker hums!
 
 > give leg of lamb to wolves
-(Your score has increased by 10)
 One of the wolves grabs the leg of lamb in its jaws and makes off with it.
 The other wolves soon follow.
 
@@ -2340,7 +2323,6 @@ half-laughing voice, "Who is he who enters my abode? Speak now or be turned
 into a toad."
 
 > say loralang
-(Your score has increased by 5)
 Upon hearing your name, Horamis smiles, and his face brightens. He tells you
 to look out of the window. As you look, you see the old village graveyard,
 and something else too. The lost spirits of the villagers are roaming the
@@ -2358,7 +2340,6 @@ promptly disappears.
 You take the smoking pipe and weed from the altar.
 
 > put bottle on altar
-(Your score has increased by 10)
 The bottle briefly glows, and you feel an aura of holiness in the church.
 
 > take bottle
@@ -2431,7 +2412,6 @@ thick and very sticky.
 Seeker hums!
 
 > burn web
-(Your score has increased by 5)
 You burn the web away with the lit pipe. Your free again!.
 Seeker hums!
 
@@ -2505,7 +2485,6 @@ Seeker hums!
 Haraxis hits you, but it doesn't seem to do any damage.
 
 > attack haraxis
-(Your score has increased by 30)
 You stab Haraxis with the sword.
 The giant spider slumps to the ground with a loud squelch. The horrible
 creature is dead.
@@ -2696,7 +2675,6 @@ You can move north, east, west, southeast and northwest.
 Seeker Hums!
 
 > give coin to madam evenov
-(Your score has increased by 10)
 She quickly puts the coin in her robes. " To the east lies the lair of
 Haraxis the giant spider " she sputters. " She has been troubling me of late.
 If you can kill her, I will cast a spell on you to neutralize the effects of
@@ -2713,7 +2691,6 @@ four in her hands in a fan like shape, and rasps, "Pick a number, one, two,
 three, or four, to see your future and where you must go."
 
 > one
-(Your score has increased by 5)
 "You have chosen the queen of spades," she gasps. "The prize you seek is
 hidden deep in the depths of Shadowpeak; find the crypts, and you shall find
 your prize in the dark queen’s coffin."
@@ -2764,7 +2741,6 @@ of Morac, has arrived. She blocks your entrance into the castle.
 Seeker hums!
 
 > z
-(Your score has increased by 5)
 Time passes...
 Maretta, vampire wife, recoils from the stench of garlic, but refuses to let
 you enter the castle.
@@ -2785,7 +2761,6 @@ Time passes...
 Seeker hums!
 
 > throw bottle at maretta
-(Your score has increased by 10)
 You throw the bottle of holy water over Maretta. The bottle smashes on
 impact, and she screams in pain as the holy water melts into her skin,
 burning to the bone. Suddenly she turns into a thin mist and is swept away by
@@ -2911,7 +2886,6 @@ water.
 Also here is a altar to Horamis.
 
 > put pipe on altar
-(Your score has increased by 10)
 You put the smoking pipe and weed onto the altar to Horamis.
 As you do so, the pipe and weed suddenly disappear from the altar and are
 replaced by the unbroken staff of Borantha.
@@ -3356,7 +3330,6 @@ You can move east and south.
 Seeker hums!
 
 > destroy painting #6
-(Your score has increased by 5)
 The painting is ripped open, revealing a secret passage leading northward.
 Seeker hums!
 
@@ -3386,7 +3359,6 @@ Seeker hums!
 Seeker hums!
 
 > attack cat with sword
-(Your score has increased by 10)
 You stab Shadow with the sword.
 As you kill the cat, the witch drops to the floor in a heap, screaming in
 agony. Slowly she decays away to nothing.
@@ -3473,7 +3445,6 @@ Seeker hums!
 The demon’s eyes watch you as you move about the room.
 
 > say nomorey palenvoid
-(Your score has increased by 5)
 Zandos suddenly backs off. He eyes you cautiously. The scroll burns away as
 the spell is cast.
 Seeker hums!
@@ -3481,7 +3452,6 @@ Seeker hums!
 The demon’s eyes watch you as you move about the room.
 
 > chip pentagram with chisel
-(Your score has increased by 10)
 Zandos shouts, "Free, free at last!" He heaves his great body out into the
 main hall and up the stairs. You hear a loud bang and the crackling of
 energy.
@@ -3596,7 +3566,6 @@ password after all, the golem attempts to squash you with its huge fists.
 Seeker hums!
 
 > say carom
-(Your score has increased by 5)
 BOOM! The golem explodes in a shower of dust.
 
 Gargoyle #1 flies in.
@@ -3947,7 +3916,6 @@ You can only move west.
 Seeker hums!
 
 > kiss lady
-(Your score has increased by 10)
 By kissing her, you appear to have a broken some sort of spell. Her eyes
 open, and she whispers, "Thank you, brave sir knight. I am Rosanah. I have
 been suspended here for a long, long time, by Morac. He murdered my beloved
@@ -4018,7 +3986,6 @@ Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
 damage.
 
 > n
-(Your score has increased by 5)
 You move north.
 
 Morac’s laboratory.
@@ -4037,14 +4004,12 @@ Seeing that his fireball spell has been thwarted, Morac decides on a new
 tactic. His eyes fix on your own as he tries to hypnotize you.
 
 > look away
-(Your score has increased by 5)
 You do so, thwarting Morac’s attack yet again.
 Seeker hums!
 Morac’s face turns red with rage. He suddenly holds one hand up, palm open,
 as you feel a tugging sensation from your chest.
 
 > attack morac with sceptre
-(Your score has increased by 10)
 You catch Morac on the side of his head with the sceptre. There is a flash of
 light, followed by the sound of Morac crashing through the shuttered window.
 You rush to the window to watch him fall to the courtyard below, but he does
@@ -4091,7 +4056,6 @@ Seeker hums!
 The ballista is ready to fire.
 
 > fire
-(Your score has increased by 20)
 You fire the ballista. The ballista bolt shoots forth and punctures the black
 dragon’s neck. The dragon tumbles down outside the castle walls and into the
 ocean. Morac seems to have vanished. Then you catch a glimpse of a bat flying
@@ -4191,7 +4155,6 @@ magical portal as opened up on the north wall.
 You feel almost safe in here.
 
 > enter portal
-(Your score has increased by 5)
 You do so, and arrive back at the stone henge. Through the portal you can now
 see the family crypt.
 
@@ -4208,7 +4171,6 @@ It is raining...  There is a portal here.
 Seeker hums!
 
 > kill morac
-(Your score has increased by 50)
 You cleave Morac’s skull with the sceptre. A white flash of light, followed
 by a loud bang, fills the area. Morac explodes into dust. You have finally
 defeated him.
@@ -4301,20 +4263,17 @@ riddles three.
 Seeker hums!
 
 > g
-(Your score has increased by 5)
 Andro looks rather surprised, and speaks again, "#2: What do you break by
 saying just one word?"
 Seeker hums!
 
 > silence
-(Your score has increased by 10)
 Andro looks at you with a rather disdainful look in its eyes, and says, "Well
 done, and now for the final riddle! #3: What is too much for one, enough for
 two, but nothing at all for three?"
 Seeker hums!
 
 > secret
-(Your score has increased by 15)
 The sphinx’s eyes widen, and it says, "Very well done; you shall pass, wise
 one." With this, Andro steps to one side.
 Seeker hums!
@@ -4340,7 +4299,6 @@ Seeker hums!
 Seeker hums!
 
 > move tree trunk
-(Your score has increased by 50)
 Upon moving the tree trunk, the boulders creak into motion and bounce down
 the mountainside towards the undead hoards. It seems you have set off a chain
 reaction, as a dozen or so other stacks of boulders that you never noticed
@@ -4546,7 +4504,6 @@ bottom of the east wall, just big enough to crawl through.
 Seeker hums!
 
 > crawl
-(Your score has increased by 10)
 You manage to nip in and crawl eastward just before the boulder blocks off
 the opening of the panel.
 This crawl way runs from west to east, although the western exit is blocked
@@ -4603,7 +4560,6 @@ damage.
 You manage to avoid Edna's attack.
 
 > attack edna
-(Your score has increased by 20)
 You stab Edna with the sword.
 Edna keels over and collapses to the floor. The magical energy that held its
 body together pours out, leaving only a fleshy mound of rotten flesh.
@@ -4646,7 +4602,6 @@ You can move north and south.
 Seeker hums!
 
 > throw flesh
-(Your score has increased by 20)
 As you do so, the copper plates crackle, and a bolt of electricity bursts
 from them. The fleshy mound is instantly fried, leaving just the charred
 remains.
@@ -4673,7 +4628,6 @@ Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
 damage.
 
 > say alam nadeer
-(Your score has increased by 20)
 You do so, and strangely feel a bit relieved.
 Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
@@ -4690,7 +4644,6 @@ You can only move south.
 Seeker hums!
 
 > rub lamp
-(Your score has increased by 5)
 The lamp shudders slightly, then a cloud of smoke whooshes out of it. When
 the smoke clears, a tall blue man stands in front of you, arms folded, and
 wearing a loincloth.
@@ -4706,7 +4659,6 @@ Make your choice: a, b, or c."
 Seeker hums!
 
 > say b
-(Your score has increased by 5)
 Olmo says, "So be it!"
  You feel a sudden rush of joy, and feel blessed by this whole experience.
 Olmo and the lamp have vanished!
@@ -4771,7 +4723,6 @@ Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 > blue
-(Your score has increased by 20)
 You step onto a blue tile, and the wall of fire disappears.
 Seeker hums!
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
@@ -5116,7 +5067,6 @@ Seeker Hums!
 You manage to avoid Damastus's attack.
 
 > attack damastus
-(Your score has increased by 25)
 You stab Damastus with the sword.
 Damastus screams in pain, and, with that, falls to the ground with a loud
 thud!
@@ -5183,7 +5133,6 @@ You can move south and west.
 Seeker hums!
 
 > press bronze button
-(Your score has increased by 10)
 Click! You do so.
 Seeker hums!
 
@@ -5261,7 +5210,6 @@ You can only move down.
 Seeker hums!
 
 > catch the wind
-(Your score has increased by 15)
 The wind suddenly swirls around you, and, as if by magic, you are lifted from
 the top of the mountain and realise you are standing on a grey-coloured
 cloud. The cloud gently floats you back down to ground level.
@@ -5305,13 +5253,11 @@ You can move north, east, south and west.
 Seeker hums!
 
 > say borantha
-(Your score has increased by 20)
 The staff that you are holding glows a brilliant white. You have a feeling
 that it’s waiting for you to do something.
 Seeker hums!
 
 > snap staff
-(Your score has increased by 50)
 As you break the staff, you see the stone henge fade from view, and a new
 scene appears.
 The gates of Hades.
@@ -5480,7 +5426,6 @@ Seeker Hums!
 You manage to avoid Cerberus's attack.
 
 > attack cerberus
-(Your score has increased by 20)
 You stab Cerberus with the sword.
 Cerberus yelps, and falls to the hot cavernous floor, dead. Its body slowly
 fades away.

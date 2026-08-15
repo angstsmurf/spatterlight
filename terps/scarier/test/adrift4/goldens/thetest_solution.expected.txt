@@ -64,7 +64,6 @@ Time passes...
 You take the more fluff from your clothes.
 
 > drop fluff
-(Your score has increased by 5)
 You drop the fluff.
 The fluff rolls away into the machine.  You wait. The machine starts crying
 and sneezing.  It breaks into a fit of coughs then shudders.  It stops.

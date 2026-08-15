@@ -62,7 +62,6 @@ pocket. I've been twiddling with it for the past hour trying to figure out
 how you use it to open things. Damned if I can figure out a thing."
 
 > ask harris about picklock
-(Your score has increased by 3)
    He sighs and hands the picklock over. "But be careful with it," he
 whispers. "We don't know if the Count's watching us somehow and I for one
 don't want to spend the rest of my life in this cell."
@@ -78,7 +77,6 @@ forced to admit defeat. Perhaps if you try again later you will be more
 successful...
 
 > open door
-(Your score has increased by 4)
    You insert the picklock into the lock on the door and begin to work...
 
    After several minutes careful work, you hear a click and the door slowly
@@ -96,7 +94,6 @@ Clutched in his left hand, the fingers curled around it so tight the knuckles
 are bony white, is a crucifix.
 
 > ask vardo about crucifix
-(Your score has increased by 4)
    He glances towards the open door, looks at you, and hands you the
 crucifix. "Be careful with it," he says. "Without it, we are lost..."
 
@@ -460,7 +457,6 @@ candleholders though minus any candles. In the hearth itself are the ashes of
 the last fire to burn here.
 
 > pull candleholders
-(Your score has increased by 3)
    You pull down on one of the candleholders which turns under your hand with
 a creak. Faintly, you could swear you heard machinery moving.
 
@@ -470,7 +466,6 @@ here that is empty. It is covered with a fine satin weave that has survived
 the ravages of time surprisingly well.
 
 > get weave
-(Your score has increased by 3)
    As you reach out to take the weave, a ghostly hand appears from nowhere
 and pushes your own hand aside.
    "I would not do that," says a voice. "You know not what you mess with."
@@ -493,7 +488,6 @@ at you. "Ask me questions if you would. Perhaps I can shed some light on your
 current predicament."
 
 > ask havelock's spectre about morlock
-(Your score has increased by 2)
    "A strange man, Morlock. He was my chief scribe and a far more intelligent
 man than I ever gave him credit for. He urged me to banish Vaslock from the
 castle and if I had done as he urged I might well have avoided the events
@@ -575,7 +569,6 @@ corners of the room yet when you look again there is nothing there.
 Exits lie: west (to the cell), north (to a door) and southeast (to a hallway)
 
 > use salts
-(Your score has increased by 3)
    You hold the smelling salts before the face of the unconscious man and
 wait for something to happen.
 
@@ -637,7 +630,6 @@ the last times - the herbs he made me swallow - they affected my metabolism
 somewhat so that I had no heartbeat or pulse and yet I still lived."
 
 > ask lorgrim about herbs
-(Your score has increased by 3)
    "I have the key to the herbs box here," he says, and fetches a small iron
 key out of his pocket. "The herbs store itself is in a room in the castle
 that I have never visited but I know that Vaslock often kept some closeby
@@ -674,7 +666,6 @@ unsurprisingly, your own reflection. There appears to be nothing different or
 remarkable about this.
 
 > x reflection
-(Your score has increased by 3)
    You study yourself as Havelock instructed. And slowly, oh so slowly, you
 begin to detect slight differences - your reflection has slightly longer
 hair, your reflection is shorter than you, your reflection has green eyes
@@ -751,7 +742,6 @@ would. I have amassed much knowledge over the years and anything I can tell
 you that will aid you, I will do so gladly."
 
 > ask morlock's shade about escape
-(Your score has increased by 5)
    "Ah, the one question I knew you would ask. How to escape. How indeed?
 Escape will not be easy, although that probably goes without saying. Vaslock
 is no fool and has not survived this long by making mistakes. He will be
@@ -861,7 +851,6 @@ Exits lie: north (to the dark passageway)
    Sitting under the table is a large box.
 
 > open box
-(Your score has increased by 3)
    You unlock the box with the key given to you by Lorgrim. Inside are a
 collection of herbs which you decide to take with you.
 
@@ -940,7 +929,6 @@ warmth.
 Exits lie: east (through the now open door)
 
 > use herbs
-(Your score has increased by 5)
    You rub some of the herbs into the unconscious man's skin.
    "Do you really think that's a good idea?" asks Harris.
    "At the worst it'll kill him," you say. "And in this place that might be a
@@ -1059,7 +1047,6 @@ stark dread.
 waiting for an offering...?
 
 > put coin in statue's hand
-(Your score has increased by 5)
    The moment the coin touches the palm of the statue, the hand closes. The
 coin is crushed to dust.
    'The gift is received,' a voice in your mind whispers. 'The way is open.'
@@ -1430,7 +1417,6 @@ Vadris is here.
 Garrick walks towards you from the south.
 
 > open coffin
-(Your score has increased by 3)
    As you move towards the coffin, Vadris blocks your path - then shies back
 in alarm as you raise the cross!
    "Very clever," he hisses as he backs away from you. "But best you keep
@@ -1653,7 +1639,6 @@ No-one listens to your rabblings.
 You cannot go in that direction. Try instead going northeast and south.
 
 > ne
-(Your score has increased by 20)
    A sudden gust of wind blows through this strange place and you feel the
 ground beneath your feet crumbling away. You try to step back from the edge
 but find only empty space behind you. You fall...
@@ -1749,7 +1734,6 @@ devil and a zombie. What any of this signifies is beyond you.
    You lay a hand on the basilisk's paw hand. Nothing seems to happen.
 
 > read scroll
-(Your score has increased by 1)
    You speak the words you memorised from the scroll.
 
    Under your hand, you feel a strange sensation - as if the statue were
@@ -1771,7 +1755,6 @@ know deep down that something has changed. You mull over the word it told you
    You lay a hand on the medusa's hand. Nothing seems to happen.
 
 > read scroll
-(Your score has increased by 1)
    You speak the words you memorised from the scroll.
 
    Under your hand, you feel a strange sensation - as if the statue were
@@ -1790,7 +1773,6 @@ know deep down that something has changed. You mull over the word it told you
    You lay a hand on the horned devil's hand. Nothing seems to happen.
 
 > read scroll
-(Your score has increased by 1)
    You speak the words from the scroll.
 
    It seems at first that nothing has happened, but then you you feel a
@@ -1811,7 +1793,6 @@ Unmoving. All that seems to have changed is the word in the back of your mind
    You lay a hand on the dragon's paw. Nothing seems to happen.
 
 > read scroll
-(Your score has increased by 1)
    You speak the words from the scroll.
 
    It seems at first that nothing has happened, but then you you feel a
@@ -1830,7 +1811,6 @@ seems to have changed is the word in the back of your mind - 'at'.
    You lay a hand on the ogre's hand. Nothing seems to happen.
 
 > read scroll
-(Your score has increased by 1)
    You speak the words from the scroll.
 
    It seems at first that nothing has happened, but then you you feel a
@@ -1849,7 +1829,6 @@ that seems to have changed is the word in the back of your mind - 'only'.
    You lay a hand on the goblin's hand. Nothing seems to happen.
 
 > read scroll
-(Your score has increased by 1)
    You speak the words from the scroll.
 
    It seems at first that nothing has happened, but then you you feel a
@@ -1868,7 +1847,6 @@ that seems to have changed is the word in the back of your mind - 'of'.
    You lay a hand on the zombie's hand. Nothing seems to happen.
 
 > read scroll
-(Your score has increased by 1)
    You speak the words from the scroll.
 
    It seems at first that nothing has happened, but then you you feel a
@@ -1890,7 +1868,6 @@ that seems to have changed is the ominous word in the back of your mind -
    You lay a hand on the medusa's paw. Nothing seems to happen.
 
 > read scroll
-(Your score has increased by 1)
    You speak the words from the scroll.
 
    It seems at first that nothing has happened, but then you you feel a
@@ -1935,7 +1912,6 @@ mutters, "say the eight in sequence and the way shall be opened."
 have any effect.
 
 > say the eight in sequence
-(Your score has increased by 5)
    Acting on a hunch you speak the words "the eight in sequence."
 
    The figures cease their chanting and in unison turn to look at you.
@@ -1971,7 +1947,6 @@ Exits lie: south (to the pit)
 Garrick walks towards you from the south.
 
 > raise orb
-(Your score has increased by 10)
    The moment you raise the orb, a strange thing happens. Each of the cell
 doors spring open!
    At first, the prisoners sit there and stare at you in shock, unable to
@@ -2395,7 +2370,6 @@ around the chalk figure drawn on the floor. You cover your eyes until it dies
 down and when you can finally see again, you find you are not alone.
 
 > throw vial at demon
-(Your score has increased by 5)
    Just as the demon lunges for you, you throw the vial of holy water at it,
 causing it to smash on the demon's gnarled face. At first nothing seems to
 happen-
@@ -2469,7 +2443,6 @@ Exits lie: south (to the feasthall)
 Garrick walks towards you from the south.
 
 > extinguish fire
-(Your score has increased by 1)
    You stamp on the fire until it goes out, leaving the room seeming quite a
 bit smaller afterwards.
 
@@ -2693,7 +2666,6 @@ Exits lie: north (to the end of the corridor)
 Garrick walks towards you from the north.
 
 > use powder
-(Your score has increased by 5)
    Following the instructions you received from Havelock's skeletal remains,
 you sprinkle the vial of powder over the statue of the woman in the pool. At
 first it seems nothing will happen... and then her eyes open again and the
@@ -2744,7 +2716,6 @@ Exits lie: north and east (through doors)
 Garrick walks towards you from the east.
 
 > climb walls
-(Your score has increased by 3)
    Climbing the slanting walls is not actually possible because the slant is
 only a few degrees and the walls are too smooth to allow you to gain any
 purchase on them, but you are able to scramble up a few feet before gravity
@@ -2813,7 +2784,6 @@ You put on the priest's hood.
 woodlice. There is a single drawer in the desk which at the moment is closed.
 
 > open drawer
-(Your score has increased by 3)
    You slide the drawer open with an eerie groaning sound. Inside you find,
 seemingly unmarked by age, a silver dagger which you quickly take.
 
@@ -2884,7 +2854,6 @@ Greera the cook is here, leaning on her staff.
 Garrick walks towards you from the north-east.
 
 > give ring to greera
-(Your score has increased by 2)
    Greera takes the gold ring and coos, "ah, it is back, it is back! My
 precious!"
    She seems to forget you are even there.
@@ -2973,7 +2942,6 @@ throat. "You've found me then? Now what are you going to do?"
 Garrick walks towards you from the west.
 
 > throw dagger at chad
-(Your score has increased by 7)
    Acting on reflex, you throw the silver dagger at Chad. He has time for one
 brief howl of despair - and then the dagger strikes him solidly in the chest.
 Chad explodes. There is no other word for it. The magic of the dagger has
@@ -2982,7 +2950,6 @@ destroyed him utterly.
    "He's dead, honey," you say, trying to calm her. "He's dead."
 
 > give doll to lara
-(Your score has increased by 3)
    Lara takes it and begins playing with it once more.
 
 > get dagger
@@ -2993,7 +2960,6 @@ You take the silver dagger.
 You pick the note up.
 
 > read note
-(Your score has increased by 5)
    It reads:
 
    'Stranger, how glad I am that you have freed me. Know you that I was a
@@ -3209,7 +3175,6 @@ Exits lie: north (to the dark passageway)
 Garrick walks towards you from the north.
 
 > give cloak to toril
-(Your score has increased by 5)
    "Ah, so kind, so kind," murmurs Toril as you hand over his possession.
 "You are better than this place deserves, Marlon. You would destroy Vaslock
 would you not?"
@@ -3228,7 +3193,6 @@ now."
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 10
 
 > ask gladrin about orb
-(Your score has increased by 2)
    "It lies within a dream, Marlon," Gladrin says.
    "A dream?"
    Gladrin nods. "Aye," he says, but will say no more.
@@ -3463,7 +3427,6 @@ with."
 Garrick walks towards you from the south-west.
 
 > kill torodim
-(Your score has increased by 7)
    Torodim eyes go wide as you raise the silver dagger.
    "Where did you get that?" he thunders.
    "I found it," you say, and slash at him with it.
@@ -3557,7 +3520,6 @@ it, knew it..."
 No-one listens to your rabblings.
 
 > ask garrick about mordrel
-(Your score has increased by 5)
    At the mention of Mordrel, Garrick looks at you.
    "Mordrel?" he murmurs.
    "You mentioned the name," you say. "After Torodim wounded you..."
@@ -3674,7 +3636,6 @@ Exits lie: southwest (to the junction) and down (the steps)
 whispers a spectral voice.
 
 > say at the end of life lies only death
-(Your score has increased by 10)
    You utter the words. Nothing seems to change but you have the feeling that
 you have passed some kind of test.
 
@@ -3772,7 +3733,6 @@ the correct questions, yes I could tell you many things.."
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 23
 
 > ask mordrel about garrick
-(Your score has increased by 10)
    "Ah, my poor 'servant'. I knew he might die if I used him but knew he
 might die otherwise anyway and so considered the risk acceptable. I take it
 he is, indeed, dead?"
@@ -3796,7 +3756,6 @@ me, and the way to Vaslock will be an open door to you. The rest, alas, you
 will have to deal with yourself."
 
 > give jug to mordrel
-(Your score has increased by 10)
    You give the jug of blood to Mordrel. A smile creases his lips. "Ah," he
 murmurs. "I have waited a long, long time for this moment..."
    The ancient vampire raises the jug to his lips and drinks the blood, in
@@ -3896,7 +3855,6 @@ Exits lie: west (to the junction)
 Gragor follows you from the west.
 
 > smash door
-(Your score has increased by 2)
    Together, you and Gragor smash the door off its hinges. It reveals a small
 room beyond.
    "The storeroom," Gragor says. "C'mon."
@@ -3920,7 +3878,6 @@ Gragor follows you from the north-west.
    "I hid something beyond sacks in the corner," Gragor says.
 
 > x sacks
-(Your score has increased by 1)
    You open one of the sacks to see what is inside - and back away in horror
 as you come face to face with a dead body!
    "That wasn't there before," Gragor hisses, sounding as shocked as you
@@ -3929,7 +3886,6 @@ wooden stake. "I left half a dozen of these in here, and a bottle of holy
 water. Still, at least I've got a weapon now..."
 
 > x shelves
-(Your score has increased by 1)
    Searching amidst the broken shelves, you come across a small amulet.
    "Ah!"says Gragor as he snatches it up. "It's here after all. I had a
 sinking feeling some swine might have found it by now, but no it's still
@@ -4001,7 +3957,6 @@ you die, Marlon."
 Gragor follows you from the east.
 
 > kill vampire
-(Your score has increased by 5)
    Shock is clearly written on the vampire's face as he sees you are carrying
 the orb.
    "The orb!" he shrieks. "Where did you get that from?"
@@ -4051,7 +4006,6 @@ Exits lie: east (along the tunnel)
 Gragor follows you from the east.
 
 > raise orb
-(Your score has increased by 5)
    The moment you raise the orb, there is a grinding sound from the block of
 stone (as of ages old machinery suddenly coming to life) and then the block
 slides effortlessly to one side. A passage is revealed beyond.
@@ -4090,7 +4044,6 @@ Exits lie: east (to the passage) and west (to the lair of the vampire)
 Gragor follows you from the east.
 
 > open door
-(Your score has increased by 5)
    "Let me," says Gragor, shouldering you aside. "I want first stab at the
 swine!"
    He strides over to the door and grasps the handle - and howls in pain!
@@ -4113,13 +4066,11 @@ to Vaslock's lair. All you have to do is go through it.
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 22
 
 > x gragor
-(Your score has increased by 2)
    You come across the silver amulet Gragor was carrying, the one that he
 said would ward him against vampires. You take it, knowing he would wish you
 to have it.
 
 > west
-(Your score has increased by 10)
 Lair of the Vampire
 
 Lair of the Vampire
@@ -4254,7 +4205,6 @@ vampire flesh.
 you again.
 
 > kill vaslock
-(Your score has increased by 20)
    Again you attack Vaslock with the silver dagger. This time, however,. he
 is ready for your attack and ducks easily to one side. Your blow misses,
 unbalancing you badly, and Vaslock strikes out at you, a blow of stunning

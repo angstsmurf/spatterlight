@@ -66,7 +66,6 @@ rotting. The dirt path leads south and north. You can see footprints of small
 animals in the dust. Small twigs litter the grass.
 
 > chop down tree
-(Your score has increased by 3)
 You whack the tree repeatedly with the axe. Soon, it crashes to the ground. A
 shovel dislodges from the branches.
 You hear a small snap, as if a twig had been broken.
@@ -86,7 +85,6 @@ elbows. The grass moves occasionally, as a small creature moves through it.
 There is a large molehill near your right foot.
 
 > dig
-(Your score has increased by 3)
 You sink the shovel into the soft earth of a molehill and start to remove the
 dirt. Soon, you expose a small hole leading down into the ground.
 You hear a small snap, as if a twig had been broken.
@@ -100,7 +98,6 @@ with an eerie glow hang from the ceiling. At your feet, a small river flows
 past. Light shines through the small hole that leads back to the surface.
 
 > dip bucket in river
-(Your score has increased by 3)
 You dip the bucket into the river and scoop up some water.
 
 > u
@@ -133,7 +130,6 @@ a small hole at the base of a group of trees. There is a path that leads
 south, through a winding forest. A small, dilapidated cabin lies eastward.
 
 > dump water into hole
-(Your score has increased by 3)
 You turn up the bucket and empty its contents into the hole. Suddenly,
 everything begins to shake. You watch as the cabin shatters and the trees
 disappear. The sky seems to boil and the grass burns beneath your feet. And
@@ -141,12 +137,10 @@ then everything goes black... You wake up lying on the ground in a large
 castle.
 
 > look behind tapestry
-(Your score has increased by 3)
 You shove the tapestry aside and a small key clatters to the floor, which you
 take.
 
 > open door
-(Your score has increased by 3)
 You put the key in the lock and turn it. The lock clicks and the door swings
 open.
 
@@ -167,12 +161,10 @@ a bed, a table, and two chairs. The rug is nailed to the floor. The
 gem-enlaced doorway gives access to the room to the east.
 
 > look throne
-(Your score has increased by 3)
 You look at the throne's ornate body and see a small button near the padded
 headrest.
 
 > press button
-(Your score has increased by 3)
 You press the button. Suddenly, there is a great noise of clanking chains.
 
 > e
@@ -208,7 +200,6 @@ stretches down, but you can't see where it's growing from. The only way to go
 is northeast to more clouds, or down the beanstalk to who-knows-where.
 
 > climb beanstalk
-(Your score has increased by 3)
 You climb down the beanstalk. After about an hour of climbing, you stop and
 look around. You hear a small noise, and it sounds a bit like this:
 creeeeaaak... Then you hear it again. And again. And then you hear yourself
@@ -299,7 +290,6 @@ An old pirate is here,searching through everything in the room, stopping and
 cursing every so often. "Where is it, where IS it, !%@$^%?!"
 
 > give pearl to pirate
-(Your score has increased by 3)
 The pirate's eyes light up. "Hey, thanks, kid, this's what I've bin lookin'
 fer!" He pockets the pearl. "Aye, I said I'd give yer somethin' fer yer
 trouble, didn't I?" He searches his bag. "Ah, here you go, matey! May the
@@ -331,7 +321,6 @@ incessantly. It gives you a headache. A metal bar protrudes from the wall of
 the lighthouse, slightly bent upwards.
 
 > tie rope to bar
-(Your score has increased by 3)
 You knot the rope around the metal bar and drop it down over the edge of the
 balcony. You can now climb down to the beach, and the floors in between.
 
@@ -420,7 +409,6 @@ around over by the tree, squawking repeatedly. You'd like to hurt it, but you
 don't have a way to.
 
 > hit window with coconut
-(Your score has increased by 3)
 You hold onto the rope with one hand while smashing the coconut against the
 clasp. After a while, the latch comes unstuck. Looking at the coconut, you
 see a large hole in the side. Having no more use of it, you toss it into the
@@ -470,13 +458,11 @@ Also here is a gold-laced box.
 You pick up the gold-laced box.
 
 > unlock box
-(Your score has increased by 3)
 You insert the tiny key into the box's golden lock and twist it. You hear a
 click!, and at that instant, the key snaps off in your hands. You discard the
 useless piece of metal.
 
 > open box
-(Your score has increased by 3)
 You lift the lid of the box, and peer inside. What you see makes you gasp.
 It's that $%#%* spiral! You slowly back away from the box, but the spiral
 rises up, and you feel as if you are in a vacuum. You are sucked into the
@@ -524,7 +510,6 @@ and you fear me in cold weather.
 Your score is 42 out of a maximum of 50.  (84%)
 
 > lost
-(Your score has increased by 8)
 You think for a moment. And it hits you. You turn to the Puzzlelord and
 speak. "All fear being... LOST! Especially in cold weather!" The Puzzlelord
 gets a dejected look on his face and shoos the guards away. "How did you find
@@ -542,3 +527,6 @@ road... It's almost too much to stand. You joyfully open the door and enter
 your home. As you plop down in your chair, you look at the clock. You've only
 been gone for ten minutes! How very strange. Oh, well, you'll try and figure
 it out tomorrow... Tomorrow after a long nap...
+You scored 50 out of the maximum 50!
+That is 100% of the game!
+Well done - you scored maximum points!

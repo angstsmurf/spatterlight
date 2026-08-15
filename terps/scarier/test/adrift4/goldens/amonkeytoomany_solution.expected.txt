@@ -58,12 +58,13 @@ Using your stupifyingly strong magnet you manage to attract the key from the
 desk. Luckily the monkey is too absorbed by the newspaper to notice.
 
 > shoot monkey
-(Your score has increased by 10)
 You point the gun at the monkey's head, then for some reason say: "Dodge
 this!" You pull the trigger and watch as the monkey's head explodes in a
 shower of blood, skull fractures and brain jelly.
 
 > unlock door with key
-(Your score has increased by 15)
 Hooray! You've made it through the game!
 Congratulations!
+You scored 25 out of the maximum 25!
+That is 100% of the game!
+Well done - you scored maximum points!

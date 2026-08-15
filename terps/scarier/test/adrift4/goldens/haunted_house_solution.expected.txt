@@ -842,3 +842,6 @@ you can't wait to get back to your friends to tell them all about your
 adventure.
 
 Congratulations!  You've completed this adventure!
+You scored 1000 out of the maximum 1000!
+That is 100% of the game!
+Well done - you scored maximum points!

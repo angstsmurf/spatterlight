@@ -1181,10 +1181,18 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
   game->playerwield = -1;
   memset (&game->playerbattle, 0, sizeof (game->playerbattle));
 
-  /* Initialize score notifications from game properties. */
-  vt_key[0].string = "Globals";
-  vt_key[1].string = "NoScoreNotify";
-  game->notify_score_change = !prop_get_boolean (bundle, "B<-ss", vt_key);
+  /* Score-change notifications start off.  The TAF does carry a NoScoreNotify
+     global, but no Runner reads it: "(Your score has increased by N)" exists
+     only in run400.exe -- run370/380/390 have no such string at all -- and
+     run400 gates it on Options -> High Scores/Scoring -> "Notify when score
+     changes", a persisted *user* preference read at startup as
+     GetSetting("ADRIFT", "Runner", "NotifyScore", CStr(False)) and saved back
+     by notify_Click.  A fresh installation therefore never notifies, which is
+     the state to match here; the `notify` command stands in for the menu item.
+     Verified live in run400 and run390 (make_arena_probe.py config SC and
+     make_39_endprobe.py both score +3 on an ordinary turn, in silence).  See
+     RUNNER_TESTS_TODO.md section 4. */
+  game->notify_score_change = FALSE;
 
   /* Miscellaneous state defaults. */
   game->turns = 0;

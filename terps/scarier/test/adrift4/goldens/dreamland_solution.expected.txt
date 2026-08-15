@@ -98,8 +98,10 @@ to read.
 You dip the waterskin into the water and fill it up.
 
 > pour water from waterskin into basin
-(Your score has increased by 50)
 You pour the clear, dreamy water into the basin of life. As the water of
 dreams is returned to it's rightful place the shadow that had entered the
 Timeplan gives a hasty retreat and flees to where it belongs.
 You have saved the Dreamworld, and thus you have saved all life.
+You scored 50 out of the maximum 50!
+That is 100% of the game!
+Well done - you scored maximum points!

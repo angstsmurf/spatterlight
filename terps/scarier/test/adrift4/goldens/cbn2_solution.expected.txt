@@ -65,7 +65,6 @@ before anyone could stop you.
    Exits lie: southeast (to the open area).
 
 > x desk
-(Your score has increased by 5)
 The surface of Bogg's desk is completely empty. Aside, that is, from an empty cup you find. You swipe it in the hope he
 might find it gone and spontaneously combust as a result.
 
@@ -90,7 +89,6 @@ it might be useable but as things stand...
    Exits lie: north (to the open area).
 
 > fill cup
-(Your score has increased by 5)
 Acting on a hunch that you sometimes get when writing an epic masterpiece -
 the 2.5 KB Plopp being a prime example - you dip the cup into the toilet and
 fill it up. Disgusting as this seems, the stuff contained within the cup is
@@ -127,7 +125,6 @@ Lisa.
    Snarf sighs. "Pity."
 
 > give coffee
-(Your score has increased by 5)
 Lisa takes it, sips it, and smiles.
    "Hey, not bad!" she says. "Not bad at all. I mean, it's got a definitely
 toilety edge to it but it's certainly better than the stuff I usually get out
@@ -136,7 +133,6 @@ of the coffee machine. Here, they'll be wanting to speak to you, Mr Gobodi."
 amend that to: "Mr Gobodi indeed." You take the passcard. "Many thanks."
 
 > talk to snarf
-(Your score has increased by 5)
 "Who the hell are you, loser?" he barks. "I'm off to my office, Lisa. If my
 wife calls, tell her I'm seeing my mistress."
    He goes storming off up the stairs.
@@ -153,7 +149,6 @@ none of them are marked it's difficult to say just what is in them.
 various offices) and south (to the toilets).
 
 > tell journalists about the wife
-(Your score has increased by 5)
 "My wife?" yells Snarf. "Christ above! And I've just lit a cigar and I know
 she hates smoking! I'd better-"
    There is the sound of a window smashing.
@@ -196,7 +191,6 @@ stories. One fire here and...
    Exits lie: southwest (to the open area).
 
 > light match
-(Your score has increased by 5)
 You light it - and the archives room goes up in flames!
    Cackling hysterically, you race from the building, a cry of "Clueless Bob
 Newbie strikes again!" erupting from you and baffling the dazed journalists
@@ -211,3 +205,6 @@ quiet word" about "a little case of arson", but you're so elated by your
 victory today that you don't even notice when they reach for their handcuffs
 and read you your rights...
 Congratulations!
+You scored 30 out of the maximum 30!
+That is 100% of the game!
+Well done - you scored maximum points!

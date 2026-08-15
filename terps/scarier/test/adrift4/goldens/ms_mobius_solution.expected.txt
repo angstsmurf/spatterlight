@@ -89,7 +89,6 @@ inability to free them and contemplate resigning from the job of
 Parliamentary mercenary.
 
 > throw something
-(Your score has increased by 1)
 You take the... the something into your hand and throw it down the corridor.
 Soon, as it continues through the gravity-forsaken corridor, it smashes into
 the window of the blockade (lucky!). The astronauts are free to climb through
@@ -110,7 +109,6 @@ obviously not trained to do anything except be there, is not the one to solve
 your problem.
 
 > vir fix comm
-(Your score has increased by 1)
 You produce the communicator and ask Virgil to work his mojomagic engineering
 powers and make it all groovy again so we can talk to the old farts at the
 UP. He looks confused.
@@ -182,7 +180,6 @@ Virgil is here.  Chelsea is here.  Bo is here.
 Your score is 2 out of a maximum of 3.  (66%)
 
 > board ship
-(Your score has increased by 1)
 You ascend the ramp into the ship, and prepare to have a nice long nap
 (again). "Sorry, folks," says the pilot, "but there's only room for three
 passengers. One of you can't come with."
@@ -200,3 +197,6 @@ running through open plains and grassy fields, up mountains and down canyons.
 That little TV screen for the inside of your hat was a good investment.
 
 Congratulations!
+You scored 3 out of the maximum 3!
+That is 100% of the game!
+Well done - you scored maximum points!

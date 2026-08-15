@@ -35,14 +35,12 @@ doorway.
 You take the tube of vanishing cream.
 
 > rub cream on
-(Your score has increased by 10)
         You squeeze the tube and out gushes the last bit of cream.  You
 manage to rub the cream all over your body and instantly disappear.  You toss
 the empty tube aside and it sinks beneath the dust like a concrete block in
 deep waters.
 
 > in
-(Your score has increased by 5)
         You sneak past the strange creature, avoiding the roaming eyes that
 float about on the end of the tentacles.  As soon as you get past the
 creature, the vanishing cream starts to wear off.  You really start to wish
@@ -63,7 +61,6 @@ on the hook.
 You take the uniform from the hook.
 
 > wear uniform
-(Your score has increased by 10)
         You flip the uniform around every which way, trying to figure out how
 to put the darn thing on.  Noticing a rather menacing-looking hole on the
 underbelly, you look a little closer and are taken by surprise when the
@@ -86,7 +83,6 @@ narrow, metal stairway rises up to meet an open doorway.
 above them.
 
 > press red button
-(Your score has increased by 10)
         You press the red button and the red light comes on. With a loud
 screech, the conveyor belt comes to a full stop.
 
@@ -100,7 +96,6 @@ narrow, metal stairway rises up to meet an open doorway.  There is a remote
 control here.
 
 > take remote
-(Your score has increased by 10)
         You grab the remote.
 
 > up
@@ -113,18 +108,15 @@ Slide
 You are wearing a uniform, and you are carrying a remote control.
 
 > slide
-(Your score has increased by 10)
         You dive into the slide head first, and scream all the way down.  You
 go through twists and loops, banging yourself all around.  When it is finally
 done, you pick yourself up from the crimson dust and find yourself back
 outside the building.
 
 > flip switch
-(Your score has increased by 10)
         You flip the switch into the ON position.
 
 > press white button
-(Your score has increased by 35)
         You press the white button and are thrown on your backside, sending a
 cloud of crimson dust into the air.  Lighting-like enery is forced out of the
 antenna and strikes the creature that was pacing back and forth in front of
@@ -158,3 +150,6 @@ Crimson Detritus until the next victim comes along to take your place.
 Thank you for playing this short game.  And do remember to not get caught
 playing with ADRIFT while you're at work.  You don't want to be the next
 Grossnitch!
+You scored 65 out of the maximum 100!
+That is 65% of the game!
+You finished 35 points short.

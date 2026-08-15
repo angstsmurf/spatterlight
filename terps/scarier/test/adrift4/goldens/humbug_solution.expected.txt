@@ -98,7 +98,6 @@ cold.  Grandad says he's a genius.  Frankly, I think he's a few coupons short
 of a toast rack.
 
 > Hug Horace
-(Your score has increased by 10)
 Don't be daft!
 
 > Get shovel
@@ -115,7 +114,6 @@ Okay.  I have taken the banana from the dustbin.
 A metal can smelling of petrol.  Some petrol is inside the can.
 
 > Drink petrol
-(Your score has increased by 10)
 Heh heh.  I think not.
 
 > Ask Horace about petrol
@@ -164,7 +162,6 @@ I can only move south.
 I press the button firmly and wait for someone to open the door..
 
 > X letterbox
-(Your score has increased by 10)
 A small brass letterbox built into the bottom of the door.  An envelope is
 inside the letterbox.
 
@@ -177,7 +174,6 @@ Addressed to Grandad Widdershins, Attervist Manor, Windmill Lane, Kent.  It
 is still sealed.
 
 > Open door
-(Your score has increased by 10)
 With a creak the door swings open.  That's strange.  It's not like Grandad to
 leave the door unlocked.
 
@@ -201,7 +197,6 @@ hangs from the ceiling of the alcove.
 Exits are south and down.
 
 > Pull cord
-(Your score has increased by 10)
 I pull the cord and a naked light bulb illuminates the staircase.
 
 > D
@@ -238,7 +233,6 @@ the chute.
 The chute is quite narrow and made out of wood.  It leads down into darkness.
 
 > Give banana to chimp
-(Your score has increased by 10)
 The chimpanzee happily gulps down the banana.  There is an appreciative burp.
 
 > U
@@ -282,7 +276,6 @@ down directions.
 Exits are west, up and down.
 
 > W
-(Your score has increased by 20)
 I push the door fully open as I enter.  Without warning a large bag of flour
 falls from the doortop and splits open on my head.  I groan out loud as a
 cloud of white flour billows around me.  Every year Grandad does this, it's
@@ -298,7 +291,6 @@ Grandad seems to have forgotten to actually put a bed in the spare bedroom.
 There is a small tabby cat here, watching me intently.
 
 > Get coin
-(Your score has increased by 10)
 Okay.  I have taken the coin from the cat.
 
 > X hair
@@ -399,7 +391,6 @@ Exits are north, south and west.
 I dig through the snow and uncover a wooden trapdoor.
 
 > Open trapdoor
-(Your score has increased by 10)
 I use all my might to heave the trapdoor open.  A narrow shaft is revealed,
 leading downwards into the gloom.
 
@@ -421,7 +412,6 @@ kitsch; it has been decorated with a sloping slate roof and synthetic bird
 droppings.
 
 > Wish
-(Your score has increased by 10)
 The ground shakes beneath me as a thunderous voice shouts: "I don't know how
 you've got the nerve"
 
@@ -443,14 +433,12 @@ well's brick wall looks as though it has been weakened greatly by damp over
 the years.
 
 > Dig
-(Your score has increased by 10)
 I dig around in the mud and uncover a carrot.
 
 > Get carrot
 Okay.  I have taken the carrot.
 
 > Hit wall
-(Your score has increased by 10)
 I give the wall a hearty thwack.  A few bricks fall way, revealing a gloomy
 tunnel to my east.
 
@@ -472,7 +460,6 @@ Exits are east, south and west.
 Okay.  I turn the torch off.
 
 > Get crowbar
-(Your score has increased by 10)
 Okay.  I have taken the crowbar.
 
 > S
@@ -490,7 +477,6 @@ The statue is of some chap called Robespierre.  There is a hexagonal yellow
 button built into the bottom of the statue.
 
 > Push button
-(Your score has increased by 10)
 Okay.  I press the button.  With a whirr an ultraviolet light slides out of
 the wall.  I move to turn it on, but before I can reach the switch the light
 slides back into the wall.  Darn it!
@@ -595,7 +581,6 @@ There is a small chimpanzee here.
 Exits are east and up.
 
 > Open crate with crowbar
-(Your score has increased by 20)
 With a crack of splintering wood I manage to open the crate.  I reach inside
 the crate and pull out a chair.  There is a whirr from the corner of the
 cellar and the robot springs into life.  Slowly but surely it makes its way
@@ -704,7 +689,6 @@ face.  Blood trickles from his forehead.  He seems to be unconcious.  The
 miner is carrying a lamp.
 
 > Kick miner
-(Your score has increased by 10)
 I kick the miner's unconscious body.  It doesn't achieve very much but it
 makes me feel just great.
 
@@ -763,7 +747,6 @@ gap I can see the clear blue sky.  The central chamber is to my south.
 I can only move south.
 
 > Lean ladder on wall
-(Your score has increased by 10)
 Okay.  I lean the ladder against the wall.
 
 > X table
@@ -778,7 +761,6 @@ The tennis racquet has seen much use as a snow show by alternative comedians.
  Some wag has carved the words "Hilda the Rhinocerous" into its handle.
 
 > Wear racquet
-(Your score has increased by 10)
 Heh heh.  You should have your own series on Channel 4.
 
 > X slate
@@ -944,7 +926,6 @@ into an empty glass.
 barman hands me some beer.
 
 > Give beer to digger
-(Your score has increased by 10)
 The grave-digger snatches the beer out of my hand and downs it in one gulp.
 
 > Give musket to barman
@@ -953,7 +934,6 @@ work of craftsmanship.  Here, have this in exchange".  The barman hands me
 some beer.
 
 > Give beer to digger
-(Your score has increased by 10)
 The grave-digger snatches the beer out of my hand and downs it in one gulp.
 He burps loudly and immediately falls asleep.
 
@@ -968,7 +948,6 @@ There is a horse and cart here.
 Exits are north and in.
 
 > Open coffin
-(Your score has increased by 10)
 Okay.  I have opened the coffin.  A body is inside the coffin.
 
 > Put key in coffin
@@ -1156,7 +1135,6 @@ on the desk.
 Okay.  I have taken the nailfile from the desk.
 
 > Open door with nailfile
-(Your score has increased by 10)
 I slip the nailfile into the rusty lock and twist it around.  There is a
 gentle click and the door swings open.
 
@@ -1294,7 +1272,6 @@ difficult to see through.  There is a small button marked "Open" on the side
 of the display case.
 
 > Push button
-(Your score has increased by 30)
 Click.  The display case springs open.
 
 > X case
@@ -1490,7 +1467,6 @@ distorted shapes and squiggles.  No wonder Grandad has such a strange view of
 the world.
 
 > Read runes
-(Your score has increased by 10)
 The rune's squiggles have transformed into readable letters: "Deposit the
 treasures and say the magic word "Jisanajen" at the allotted position".  Hmm,
 weird.
@@ -1503,7 +1479,6 @@ A strange chill runs down my spine.  Are you sure you want me to go that way?
 (Y/N)
 
 > Y
-(Your score has increased by 10)
 Okay.
 
 Games Room
@@ -1540,7 +1515,6 @@ shield.  Beneath the shield I can see the octopus's large protruding eyes.
 The octopus is carrying a jigsaw and a dweezil.
 
 > Drop amphora
-(Your score has increased by 20)
 Okay.  I have dropped the amphora.  The amphora shatters into thousands of
 tiny pieces.  A thick black fog blows like a tornado out of the amphora's
 remains and fills the air, making it very difficult to see.
@@ -1584,7 +1558,6 @@ sweet and begins to howl.  The octopus sniffs and passes me the jigsaw,
 "Here, you won, take this.  Now bog off out of here - you've ruined my day"
 
 > Read sign
-(Your score has increased by 20)
 Wubble-A-Gloop is a game for two players.  Fourteen sweets are placed on a
 plinth.  Each player must take turns to take some of the sweets away. The
 player who takes the last sweet loses.
@@ -1596,7 +1569,6 @@ awarded with a dweezil of their choice.
 3. The loser has to give the winner a goodie of some value.
 
 > Say moccasin beehive
-(Your score has increased by 10)
 The octopus sniffs and hands over the dweezil.
 
 > Drop dweezil
@@ -1723,7 +1695,6 @@ Oh dear.  The computer seems to have thrown a wobbly.  The display is full of
 strange characters.
 
 > Hit computer
-(Your score has increased by 10)
 Congratulations!  You have discovered the answer to all computer problems.
 Hasn't achieved much, mind you.
 
@@ -1734,14 +1705,12 @@ Hasn't achieved much, mind you.
 Okay.  I have taken the humbug.
 
 > Ask hacker about humbug
-(Your score has increased by 10)
 The hacker jumps up and down in his anorak and looks excited, "Great game
 isn't it?  Oh, alright..  Anyway, my name is Alex McLean.  I registered my
 copy of JACARANDA JIM, and after I had begged and grovelled for a while Mr
 Cluley put me in HUMBUG!  Pretty good eh?  Fame!"
 
 > Play humbug on computer
-(Your score has increased by 10)
 I thought I already was!  Arf arf.
 
 > Drop humbug
@@ -2062,7 +2031,6 @@ prickly brambles and are covered with frosty cobwebs.
 Exits are north, east, south and west.
 
 > E
-(Your score has increased by 10)
 
 Centre of the Maze
 I am at the centre of the maze.  This part of the maze is completely
@@ -2084,7 +2052,6 @@ popcorn, Josephine.  Can you dig it?"
 Well.  I expect that means as much to you as it does to me!
 
 > Dig
-(Your score has increased by 100)
 I dig around the base of the statue and uncover an emerald.
 
 > Get emerald
@@ -2160,7 +2127,6 @@ one blue and one orange.
 A waistcoated rabbit leans drunkenly against a wall.
 
 > Give carrot to rabbit
-(Your score has increased by 10)
 Dylan the rabbit smiles, "Gee thanks bud."  He begins to chew on the carrot.
 
 > N
@@ -2169,11 +2135,9 @@ I try and crawl further into the burrow, but I am too large to squeeze
 through.
 
 > Kneel
-(Your score has increased by 10)
 Nope.  My name's Sidney.
 
 > Eat orange flower
-(Your score has increased by 10)
 I eat the orange flower.  I feel a strange sensation inside me.  Before my
 very eyes my body gets smaller and smaller.  As I shrink I drop all my
 belongings.  Eventually I stop shrinking - but only when I am less than two
@@ -2330,7 +2294,6 @@ Okay.  I have taken the document from Grandad.
 
 > Read it
 [Read a document]
-(Your score has increased by 10)
 It is addressed to Grandad, and is from the solicitors of Grandad's neighbour
 Jasper Slake:
 
@@ -2504,17 +2467,14 @@ An aardvark is curled up on top of the washing machine.
 Exits are east, south and west.
 
 > Wake aardvark
-(Your score has increased by 10)
 I shake the aardvark vigorously, and with a lazy yawn it wakes up.
 
 > Give termites to aardvark
-(Your score has increased by 10)
 With a loud slurp the aardvark gobbles down the termites.  The aardvark's
 mouth moves but no sound comes out.  It makes strange gestures and movements
 with its paws.
 
 > Give feather to aardvark
-(Your score has increased by 10)
 The aardvark dips the feather in his ear wax and scrawls something on the
 wall.
 
@@ -2625,7 +2585,6 @@ Okay.  I press button number four.  Its light goes out.
 Okay.  I press button number five.  It lights up.
 
 > push button 7
-(Your score has increased by 20)
 Okay.  I press button number seven.
 Beep.  The liquid crystal display flickers.
 The metal door to my west slides open.
@@ -2661,7 +2620,6 @@ There are 3 buttons on the dispenser, each with a number and legend:
 (3) Turkey Surprise
 
 > Push button 3
-(Your score has increased by 10)
 Okay.  I press button number three.  A turkey leg falls out of the dispenser.
 
 > Get leg
@@ -2812,7 +2770,6 @@ Also here is a kettle.
 Exits are south and west.
 
 > Open door
-(Your score has increased by 10)
 The door swings open.
 
 > E
@@ -2835,7 +2792,6 @@ A fine red wine.  It has been a good year for Chateau Widdershins.  A golden
 casket and a fish are inside the wine.
 
 > Put leg in barrel
-(Your score has increased by 30)
 Plop.  The turkey leg slowly sinks into the wine.  The waters bubble and
 splash as the fish attacks the turkey leg.  Slowly the waters quieten and the
 fish bobs to the surface.
@@ -2845,7 +2801,6 @@ A fine red wine.  It has been a good year for Chateau Widdershins.  Inside
 the wine is a golden casket, a fish and a bone.
 
 > Get casket
-(Your score has increased by 10)
 Okay.  I have taken the golden casket from the wine.
 
 > Get fish
@@ -2880,7 +2835,6 @@ don't think it can be him though.  If it is, it's not a very good disguise.
 From inside the kennel there is a deep growl.
 
 > Give bone to dog
-(Your score has increased by 10)
 The dog howls with delight and clamps its jaws into the bone.
 From inside the kennel there is a contented gnawing.
 
@@ -3032,7 +2986,6 @@ rather natty number he picked up at the local Marks and Sparks) is coloured a
 mushy mix of white and chocolate brown.  Sven is carrying a filofax.
 
 > Give jigsaw to viking
-(Your score has increased by 10)
 With a hearty roar of delight Sven snatches the jigsaw off me.  He turns to
 put the pieces on the table.  Busy assembling the jigsaw, Sven doesn't seem
 to notice the small filofax drop from his back pocket.
@@ -3067,7 +3020,6 @@ The podgy sea-lion has rather a large squidgy tummy.  It looks rather hungry.
  The sea-lion is carrying a tuck box.
 
 > Give fish to sealion
-(Your score has increased by 10)
 The sea-lion puts his tuck box on the ground and happily chomps at the fish.
 The sea-lion gulps and rubs his tummy.
 
@@ -3110,7 +3062,6 @@ Okay.  I press button number five.  The dispenser shakes for a second and
 then goes silent.
 
 > Hit machine
-(Your score has increased by 20)
 Thud.  Clunk.. whirr.  A ticket falls out of the dispenser.
 
 > Get ticket
@@ -3213,7 +3164,6 @@ The dog sees the cat but does nothing, preferring to gnaw on its bone
 instead.
 
 > W
-(Your score has increased by 10)
 There is a movement from behind one of the taller mounds of marzipan and a
 shark totters around on his hind fins.  The shark smiles benignly at me,
 "Hello my little precious."  The shark paternally pats me on the head with a
@@ -3279,11 +3229,9 @@ against one of the mounds of marzipan.  He gives me a knowing wink.
 I can only move east.
 
 > Get mouse
-(Your score has increased by 20)
 Okay.  I have taken the mouse.
 
 > Stroke cat
-(Your score has increased by 10)
 The cat miaows happily.
 
 > Get caddy
@@ -3395,11 +3343,9 @@ Also here is a hedgehog.
 I can only move east.
 
 > Get hedgehog
-(Your score has increased by 10)
 Okay.  I have taken the hedgehog.
 
 > X boiler
-(Your score has increased by 20)
 The boiler creaks and groans in an effort to heat the manor.  Behind the
 boiler I can see an electrical socket.
 
@@ -3416,7 +3362,6 @@ friends.  What a fine fettle of quiche this is.  There is a plug attached to
 the bottom of the kettle.  The kettle contains some water.
 
 > Plug in kettle
-(Your score has increased by 10)
 Okay.  I plug the kettle into the socket.  The water in the kettle begins to
 boil.
 
@@ -3451,13 +3396,11 @@ Exits are east, west and up.
 Clouds of steam billow from the kettle's spout and slowly drift upwards.
 
 > Give mouse to owl
-(Your score has increased by 10)
 The owl hoots appreciatively and takes the dead mouse in its beak.  The owl
 steps off its rafter and flies into the darker part of the attic.
 Clouds of steam billow from the kettle's spout and slowly drift upwards.
 
 > Open skylight
-(Your score has increased by 10)
 I open the skylight.
 Clouds of steam billow from the kettle's spout and slowly drift upwards.
 The kettle stops boiling.
@@ -3485,7 +3428,6 @@ I can only move west.
 Okay.  I have taken the balloon.
 
 > Jump
-(Your score has increased by 10)
 Such inane behaviour doesn't actually achieve anything, but it makes me feel
 a lot better.
 
@@ -3634,7 +3576,6 @@ A giant slug slurps around between me and the chest.
 I can only move north.
 
 > Throw salt at slug
-(Your score has increased by 10)
 Okay.  I have thrown the salt.  With a harrowing cry of pain the slug begins
 to shrivel up.  It gives a few helpless slurps before falling silent.
 
@@ -3739,7 +3680,6 @@ small dirt yard.
 Exits are south and down.
 
 > Cut fence with clippers
-(Your score has increased by 10)
 I carefully snip a large hole in the wire fence with the clippers.
 
 > Drop clippers
@@ -3772,7 +3712,6 @@ A small door in the back of the hen-house.  Someone has chalked the words ""A
 disturbing..." onto it.
 
 > Open door
-(Your score has increased by 10)
 With a squeak of rusty hinges the door swings open.
 
 > N
@@ -3832,7 +3771,6 @@ Exits are north and south.
 Okay.  I have dropped the chain.
 
 > Dig
-(Your score has increased by 10)
 I dig in the snow and into the hard earth below.  Suddenly the earth gives
 way.  There seems to be a small room down there.  It is quite a drop down to
 the floor though.
@@ -3850,7 +3788,6 @@ on something.
 Exits are north and out.
 
 > Say boo
-(Your score has increased by 10)
 The goose looks quite scared.  It squawks loudly at me and jumps into a
 corner of the hen-house, uncovering the small object it was keeping warm.
 
@@ -3979,7 +3916,6 @@ Okay.  I have taken the sheets from the bed.
 Okay.  I am now wearing the clothes peg.
 
 > Get longjohns
-(Your score has increased by 30)
 I manage to pick up the longjohns for a few seconds, and then with a sigh of
 relief let them go.  A buss pass drops from the pile of laundry.
 
@@ -4182,7 +4118,6 @@ The familiar figure of Grandad slouches in the armchair snoring loudly.
 I can only move west.
 
 > Blow trombone
-(Your score has increased by 10)
 Parrppp!  I blow the trombone straight into Grandad's left ear.  He leaps out
 of the chair with a scream, affects an agressive Aikidopose, and prepares to
 attack.  I smile weakly and Grandad comes to his senses, "Ah!  Sidney my
@@ -4193,14 +4128,12 @@ you have there.  May I?"
 I pass Grandad the trombone.
 
 > Give card to Grandad
-(Your score has increased by 10)
 Grandad reads the Christmast card and smiles, "Thanks my lad.  And a bonny
 hoots McGonagall to you too"
 Grandad flamboyantly takes a sock out of his breast pocket and begins to
 polish the trombone with it.
 
 > Give scarf to Grandad
-(Your score has increased by 10)
 "Thank you", Grandad puts on the scarf.
 Having finished polishing the outside of the trombone, Grandad turns his
 attention to the inside.
@@ -4492,7 +4425,6 @@ Grandad stands nearby.
 Exits are north, east, south and west.
 
 > S
-(Your score has increased by 10)
 The bouncer moves to stop me, but Grandad's voice calls back "Don't worry.
 He's with me".  The bouncer waves me in with a grunt.
 
@@ -4679,7 +4611,6 @@ A strange chill runs down my spine.  Are you sure you want me to go that way?
 (Y/N)
 
 > Y
-(Your score has increased by 10)
 Okay.  There is a blinding flash, and for a brief few seconds I feel as if I
 am trying to walk through a plate of bangers and mash.  I quickly come to my
 senses - How can this be happening?  I don't even like sausages.
@@ -4721,7 +4652,6 @@ The coach belongs to the Real World Parallel Dimension Interface Corporation.
  I think it is waiting for me to get inside.
 
 > Enter coach
-(Your score has increased by 20)
 I get onto the coach and sit down close to the driver.  The coach is quite
 full of passengers, most of them elderly ladies.  What is particularly odd is
 that all the passengers share a similarly blank expression.  It is quite
@@ -4749,7 +4679,6 @@ I dig a small hole.
 I dig a little deeper.
 
 > Dig
-(Your score has increased by 20)
 My shovel hits something solid.  I clear the earth with my hands and uncover
 a coffin.
 
@@ -4758,18 +4687,15 @@ With a loud creak the coffin opens.  A bronze key is inside the coffin and a
 zombie.  There is a piercing roar and the zombie leaps out of the coffin.
 
 > Give claw to zombie
-(Your score has increased by 10)
 The zombie snatches the claw from my hands and begins to munch on it.
 
 > Get key
 Okay.  I have taken the bronze key from the coffin.
 
 > Give lump to horse
-(Your score has increased by 10)
 The horse happily chomps on the sugar lump.
 
 > Ride horse
-(Your score has increased by 10)
 I mount the horse.  With a gleeful neigh the horse jumps over the hedge into
 the grounds of Attervist manor.  With a gentle pat of thanks I jump down to
 the ground.  I have never like riding horses.  I remember one summer I spent
@@ -4842,7 +4768,6 @@ Exits are north, south and down.
 Okay.  I have taken the chain.
 
 > D
-(Your score has increased by 10)
 With a cry of "Geronimo" I leap down the gap.  Unfortunately the floor seems
 even further away than I had originally estimated.  Wumph!  Luckily there is
 a soft mattress to break my fall.  I stand up, dust myself down, and examine
@@ -4880,7 +4805,6 @@ chain.
 I can only move north.
 
 > Open door with key
-(Your score has increased by 10)
 The door swings open.
 
 > Drop key
@@ -4930,7 +4854,6 @@ the hi-fi to mayhem and slaughter.  The wumpus looks very distressed inside
 the tube.  It scratches pathetically at the perspex.
 
 > Push button
-(Your score has increased by 10)
 The pressure dial flickers into life.  A loud humming pervades the crypt as
 the dial's needle rises.
 
@@ -5047,11 +4970,9 @@ I can only move south.
 Okay.  I turn the tap on.  Water gurgles into the basin.
 
 > Wash hands
-(Your score has increased by 10)
 Okay.  I wash my hands in the water and shake them dry.
 
 > Wash hair
-(Your score has increased by 10)
 Okay.  I wash all the flour out of my hair.  I shake my head dry.
 
 > Turn off tap
@@ -5102,7 +5023,6 @@ Okay.  I have taken the hedgehog.
 Schrodinger wanders to the north.
 
 > Comb hair with hedgehog
-(Your score has increased by 30)
 Okay.  I comb my hair with the hedgehog.  Ouch!  Its not easy..
 
 Schrodinger wanders towards me from the north.
@@ -5159,12 +5079,10 @@ knowing wink.
 I can only move east.
 
 > Say please
-(Your score has increased by 10)
 "Herummph", the shark clears his throat, "Well at least you're being polite
 now"
 
 > Get caddy
-(Your score has increased by 10)
 Okay.  I have taken the caddy.
 
 > Open caddy
@@ -5290,7 +5208,6 @@ Suddenly, without warning, a small, furry wumpus leaps over the bramble hedge
 and lands with a soft thud at my feet.
 
 > Give mousse to wumpus
-(Your score has increased by 30)
 The wumpus eagerly scoffs the chocolate mousse, licks its lips, and..
 THUD!.. keels over.
 
@@ -5308,7 +5225,6 @@ sort of thick, black tar.
 I can only move up.
 
 > Drop wumpus
-(Your score has increased by 10)
 Okay.  I have dropped the wumpus.  The wumpus yawns and rolls over in a pool
 of oil.
 
@@ -5354,7 +5270,6 @@ good, or else he wouldn't need all those gold teeth.  No wonder he's always
 so unpleasant to people.
 
 > Give toffee to Jasper
-(Your score has increased by 10)
 Jasper pops the toffee in his mouth and begins to chew.
 Jasper looks over the snowy lawn towards the manor, "And you can tell the old
 boy I'm having this estate.. whatever it takes.."
@@ -5404,8 +5319,6 @@ Time passes...
 > Wait
 Time passes...
 
-(Your score has increased by 20)
-
 Jasper looks fed up, "Bah Humbug!  I'm never going to catch that blasted
 vermin".  Scowling he clambers back over the hedge.  Something falls out of
 his cloak as he pulls himself over.
@@ -5423,7 +5336,6 @@ Also here is a polaroid.
 Exits are north, south and west.
 
 > Get polaroid
-(Your score has increased by 10)
 Okay.  I have taken the polaroid.
 
 > Open trapdoor
@@ -5632,7 +5544,6 @@ number!  I know it's ridiculous Hic! but all I can remember is her National
 Insurance number, and that's.. Hic!"
 
 > Pop balloon
-(Your score has increased by 20)
 With a loud BANG! I burst the balloon.  Olaf looks up with a start, "My
 hiccups!  They've gone!"
 
@@ -5698,7 +5609,6 @@ careful, they're a dangerous breed.  Alex is wearing an anorak, and is
 carrying a stanley knife.
 
 > Give package to hacker
-(Your score has increased by 10)
 The hacker smiles, "Cor thanks!  How did you know it was my birthday?".  The
 hacker tears easily into the package with his stanley knife.  Inside there is
 a sparkling new computer.  The hacker almost kisses me in excitement, "Wow.
@@ -5716,7 +5626,6 @@ number has been written in bright green ink: "Viking Contact Society:
 010473736401."
 
 > Type 010473736401 on computer
-(Your score has increased by 20)
 I type on the computer.  There is a bleep from the computer and it logs onto
 the Viking Contact Society.
 
@@ -5727,7 +5636,6 @@ Bulletin Board.  It is waiting for a National Insurance number to be typed on
 the keyboard.
 
 > Type 60318897 on computer
-(Your score has increased by 10)
 I type on the computer.  There is a bleep from the computer and it finds the
 address and telephone number of Olaf's aunty.
 
@@ -5740,7 +5648,6 @@ Olaf's aunty.  Her telephone number is 010473470651.
 Okay.  I have dropped the filofax.
 
 > Type Log Off on computer
-(Your score has increased by 10)
 I type on the computer.  The computer logs off the Viking Society Bulletin
 Board.
 
@@ -5794,7 +5701,6 @@ Exits are north and south.
 Olaf sniffs.
 
 > Say 010473470651
-(Your score has increased by 30)
 Olaf leaps up with a start, "That's it!  That's my aunty's telephone
 number!".  He pushes past me and begins dialling on the telephone.  A broad
 smile crosses his face, and he starts talking loudly in Norwegian.  His
@@ -5874,7 +5780,6 @@ Exits are north and west.
 I sit down on the marble pedestal.
 
 > Push button
-(Your score has increased by 20)
 There is a tinkling sound and the tunnel slowly fades away..
 
 Rubbish Tip
@@ -5901,7 +5806,6 @@ A magic wand.  It has a silver star on the end.  The wand is broken.
 "I sat on it by mistake!"
 
 > Give plaster to fairy
-(Your score has increased by 10)
 The fairy perks up and smiles at me.  "How clever you are!", she exclaims,
 tying the plaster around the broken part of the wand.  She jumps for joy and
 gives me a warm hug, "Thank you so much!". The fairy gives the wand a
@@ -5927,7 +5831,6 @@ A fairy sits on a pile of junk nearby.  She doesn't look very happy.
 Okay.  I have taken the raspberry.
 
 > Blow raspberry at fairy
-(Your score has increased by 10)
 Prrrrppp!  The fairy chuckles at my antics and clicks her fingers, "There",
 she says, "Have another ten points"
 
@@ -5935,13 +5838,11 @@ she says, "Have another ten points"
 Okay.  I have dropped the raspberry.
 
 > Kiss fairy
-(Your score has increased by 20)
 I give the fairy a gentle kiss on the cheek.  She smiles..  The fairy floats
 over to a large pile of rubbish and pulls out a sparkling diamond, "Here,
 have this"
 
 > Give tooth to fairy
-(Your score has increased by 10)
 The fairy beams, "Thank you!  Now shut your eyes and I'll give you a
 surprise."  I shut my eyes, after all, who argues with fairies?  I hear a
 tinkling bell in the back of my mind and the fairy's voice fading into the
@@ -5970,7 +5871,6 @@ stool here.
 Exits are south and west.
 
 > Put bag on stool
-(Your score has increased by 10)
 Okay.  I put the bag of porridge on the stool.  There is a harsh grating
 noise from the east.  Slowly but surely the metal door begins to slide open.
 
@@ -6027,14 +5927,12 @@ Okay.  I put the wumpus inside the washing machine.
 I close the washing machine.
 
 > Push button
-(Your score has increased by 10)
 The washing machine begins to whirr.  From inside the machine there is a
 spinning sound and I can see water collecting behind the door.  The water
 begins to turn into frothy bubbles of soap.  After a few more spins the water
 drains away, and the washing machine falls silent once more.
 
 > Open door
-(Your score has increased by 50)
 The door to the washing machine swings open.  The washing machine contains a
 wumpus.  With a loud whoop of joy the wumpus jumps out of the washing
 machine.  It does a little tapdance and shows off its sparkling clean fur.
@@ -6234,7 +6132,6 @@ Okay.  I have taken the hammer.
 A small, red fire alarm.  A message says: "Break glass with hammer".
 
 > Break glass with hammer
-(Your score has increased by 10)
 I smash the alarm glass with the hammer.  Immediately the alarm begins to
 ring loudly.
 
@@ -6295,12 +6192,10 @@ Dennis is a rather overweight fireman.  Dennis is wearing a uniform and a
 helmet, and is carrying a pelican.
 
 > Give mug to Dennis
-(Your score has increased by 10)
 Dennis takes his helmet off, "Don't mind if I do.. thanks very much."  He
 sips thoughtfully on the tea.
 
 > Hit Dennis
-(Your score has increased by 10)
 Before he can react I take a swing at the side of Dennis's head.  With a
 groan Dennis falls to the ground, unconscious.  The pelican jumps out of his
 hands and flies west.
@@ -6312,7 +6207,6 @@ Okay.  I have taken the helmet from Dennis.
 Okay.  I have taken the uniform from Dennis.
 
 > Tie Dennis with sheets
-(Your score has increased by 10)
 Okay.  I tie Dennis up with the sheets.
 
 > X Dennis
@@ -6323,11 +6217,9 @@ ground.  Dennis is wearing his underwear, and is carrying a mug.
 I couldn't even begin to describe Dennis's underwear.
 
 > Smell underwear
-(Your score has increased by 10)
 Don't be disgusting!  Heh heh.  Okay, have another ten points.
 
 > Sign form
-(Your score has increased by 10)
 Okay.  I sign my name on the form.
 
 > Wear uniform
@@ -6344,7 +6236,6 @@ A fireman's uniform.  It is made from an asbestos-like material to prevent
 burns.
 
 > S
-(Your score has increased by 10)
 As I walk through the wall of fire even the fireman's protective uniform
 burns away.
 
@@ -6358,7 +6249,6 @@ way northwards.
 A pile of ash rests on the ground.  The fire alarm is ringing loudly.
 
 > Turn off wheel
-(Your score has increased by 10)
 I turn the wheel.  The wall of fire to my north goes out almost immediately.
 
 > X chute
@@ -6511,7 +6401,6 @@ Corporation.  There is a small compartment in the torch for a battery.  The
 torch is closed.
 
 > Open torch
-(Your score has increased by 10)
 Okay.  I open the torch.  As soon as the Instant Karma battery comes into
 contact with the open air it begins to disintegrate.  A gust of air blows the
 last dusty fragments away.
@@ -6601,7 +6490,6 @@ front an ornate letter "A" has been engraved.
 Okay.  I put the amethyst inside the A chute.
 
 > Pull lever
-(Your score has increased by 10)
 I pull the lever.  There is a whooshing sound from the chute and the amethyst
 disappears from view.  There is a faint tinkling sound from further down in
 the chute.
@@ -6703,7 +6591,6 @@ Okay.  I put the sapphire inside the S chute.
 "No time to lose," cries Dennis, "We've got a fire to put out."
 
 > Pull lever
-(Your score has increased by 10)
 I pull the lever.  There is a whooshing sound from the chute and the sapphire
 disappears from view.  There is a faint tinkling sound from further down in
 the chute.
@@ -6771,7 +6658,6 @@ front an ornate letter "D" has been engraved.
 Okay.  I put the diamond inside the D chute.
 
 > Pull lever
-(Your score has increased by 10)
 I pull the lever.  There is a whooshing sound from the chute and the diamond
 disappears from view.  There is a faint tinkling sound from further down in
 the chute.
@@ -6834,7 +6720,6 @@ front an ornate letter "E" has been engraved.
 Okay.  I put the emerald inside the E chute.
 
 > Pull lever
-(Your score has increased by 10)
 I pull the lever.  There is a whooshing sound from the chute and the emerald
 disappears from view.  There is a faint tinkling sound from further down in
 the chute.
@@ -6874,7 +6759,6 @@ front an ornate letter "R" has been engraved.
 Okay.  I put the ruby inside the R chute.
 
 > Pull lever
-(Your score has increased by 10)
 I pull the lever.  There is a whooshing sound from the chute and the ruby
 disappears from view.  There is a faint tinkling sound from further down in
 the chute.
@@ -6900,7 +6784,6 @@ front an ornate letter "Z" has been engraved.
 Okay.  I put the zircon inside the Z chute.
 
 > Pull lever
-(Your score has increased by 10)
 I pull the lever.  There is a whooshing sound from the chute and the zircon
 disappears from view.  There is a faint tinkling sound from further down in
 the chute.
@@ -7038,7 +6921,6 @@ returns to its corner of the cellar.  There is a loud whooshing sound from
 the chute.
 
 > Say Jisanajen
-(Your score has increased by 50)
 With a gurgle a map is spat out of the chute.
 There is a whirr from the corner of the cellar and the robot springs into
 life.  Slowly but surely it makes its way over to the hedgehog and drags it
@@ -7257,7 +7139,6 @@ Okay.  I pour the honey in the trombone.  With a gurgle the honey disappears
 down the trombone.
 
 > Drop trombone
-(Your score has increased by 20)
 Okay.  I have dropped the trombone.  The baby bear edges nervously towards
 the trombone and sniffs it cautiously.  WIth a look of excitement it puts its
 tiny paw down the trombone and drags out the sock with its claws.  The bear
@@ -7273,7 +7154,6 @@ Okay.  I have taken the sock.
 A natty purple sock.  This sort of thing is lethal in the wrong hands.
 
 > Wear sock
-(Your score has increased by 10)
 If it's all the same to you I'd rather not.
 
 > S
@@ -7310,7 +7190,6 @@ snow.  Mumbling under his breath, Horace slowly picks himself up, blows the
 last flakes of snow out of his nostrils and lumbers away.
 
 > Drop sock
-(Your score has increased by 10)
 Okay.  I have dropped the sock.  At once I feel a heavy hand upon my
 shoulder.  I turn round and see a stocky figure warmly wrapped up against the
 cold.  It is Horace, Grandad's gardener.  He is stooping under the not
@@ -7722,7 +7601,6 @@ thumb.  This he unceremoniously snorts up his nostrils.  Slowly his nose
 begins to twitch, and then... Achoooo!
 
 > Get can
-(Your score has increased by 30)
 Okay.  I have taken the can.
 He picks up the tin and puts it in his back pocket.
 
@@ -7795,7 +7673,6 @@ The familiar figure of Grandad slouches in the armchair snoring loudly.
 Exits are north, east, south and west.
 
 > Blow trombone
-(Your score has increased by 20)
 Parrppp!  With a start Grandad wakes up.  He leaps up (knocking his head on
 the ultraviolet light first), "Ah yes.  Sidney my lad.  Glad you could make
 it.  Now how about rustling up a little escape plan, eh?"  Grandad looks at
@@ -7808,7 +7685,6 @@ Okay.  I have dropped the trombone.
 Okay.  I have taken the chain.
 
 > Tie chain to bars
-(Your score has increased by 10)
 I try and tie the chain to the bars.  "Good idea Sidney", Grandad reaches
 through the bars and helps me tie the chain.
 
@@ -7885,7 +7761,6 @@ is ominously marked "Ignition".
 A metal can smelling of petrol.  Some petrol is inside the can.
 
 > Pour petrol in funnel
-(Your score has increased by 10)
 Okay.  I pour the petrol in the funnel.  With a gurgle the petrol disappears
 down the funnel.
 
@@ -7893,7 +7768,6 @@ down the funnel.
 Okay.  I have dropped the can.
 
 > Push button
-(Your score has increased by 280)
 I press the button on the side of the bath.  With a roar the bath speeds
 northwards, the chain tightening as it does so.  The bath is straining to
 pull the chain.  With a loud wrenching sound the bath shoots forwards into a
@@ -7953,3 +7827,7 @@ won!
 You scored 2000 out of a possible 2000 and managed to complete 100% of this
 adventure.  Grandad would probably describe you as a winner.. or a cheat.
 [Press a key to continue...]
+
+You scored 2000 out of the maximum 2000!
+That is 100% of the game!
+Well done - you scored maximum points!

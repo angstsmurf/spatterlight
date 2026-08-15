@@ -3249,3 +3249,6 @@ what evils were committed in my name.  Farewell Hero," the dragon says as he
 weakly climbs to his feet and leaps into the air winging north in to lands
 unknown.
 Congratulations!
+You scored 0 out of the maximum 500!
+That is 0% of the game!
+You finished 500 points short.

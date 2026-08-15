@@ -44,7 +44,6 @@ It sounds like something is being eaten or maybe the flesh-sack is taking a
 drink?
 
 > infect tonsils
-(Your score has increased by 1)
 They are now Infected!
 
 The Infected Throat
@@ -77,7 +76,6 @@ It looks like a mushroom growing in the lining of the stomach. "Now that
 looks nasty," you smile to yourself.
 
 > infect polyp
-(Your score has increased by 1)
 It is now Infected!
 
 The Infected Stomach
@@ -108,7 +106,6 @@ the ear canal you can see a tiny cut.
 Already looks nasty.
 
 > infect cut
-(Your score has increased by 1)
 It is now Infected!
 
 The Ear
@@ -139,7 +136,6 @@ It is a lovely bad tooth.
 It is a break of the skin on inside of the mouth. It looks painful.
 
 > infect ulcer
-(Your score has increased by 1)
 It is now Infected!
 
 The Infected Mouth
@@ -196,7 +192,6 @@ Ahh! You have given your victim a nose bleed! The day just gets better and
 better.
 
 > infect vessels
-(Your score has increased by 1)
 It is now Infected!
 
 The Infected Nose
@@ -209,7 +204,6 @@ nose bleed and must be in a lot of discomfort.
 Well that is everything infected.  Time to leave.
 
 > smash adenoids
-(Your score has increased by 1)
 You give the adenoids a good hard bang.  It looks like the flesh-sack is
 going to sneeze.
 

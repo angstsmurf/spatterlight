@@ -190,7 +190,6 @@ before I can do anything up here besides stumble around in the dark.
 I can only move down.
 
 > replace bulb
-(Your score has increased by 10)
 Ahh... that's much better.  I can see now.
 
 (press any key to continue)
@@ -207,7 +206,6 @@ chest sits in the eastern corner, and Christmas decorations are piled up
 against the western wall.
 
 > clean attic
-(Your score has increased by 10)
 
 This sucks...
 
@@ -236,7 +234,6 @@ cleaning.  A heavy chest sits in the eastern corner, and Christmas
 decorations are piled up against the western wall.
 
 > open chest
-(Your score has increased by 10)
 I'll have to say this right now...  This is probably the single most
 important thing I will do in my entire life.  Everything that happens to me
 from here on out will be a result of my unlocking this chest.
@@ -414,7 +411,6 @@ I can only move east.
 left my Tylenol at the house."
 
 > give tylenol to mystery
-(Your score has increased by 10)
 "Oh, thank you," Mystery says.  "Maria, you're a lifesaver!  I've got to do
 something to reward you for such kindness.  Wait a second, I've got an idea."
 
@@ -502,7 +498,6 @@ Campbell is here, standing behind the counter.
 I can move east and west.
 
 > give salamander to campbell
-(Your score has increased by 10)
 "Wonderful!" Campbell says.  "Where'd you find it?" ... "There?!!  What in
 heaven's name was it doing in the bloody loo?  Come here, my little baby..."
 
@@ -801,7 +796,6 @@ cemented into the cliff's wall.
 I can only move out.
 
 > use pickaxe on wall
-(Your score has increased by 10)
 
 I can see now why people say that mining is a tough job.  I'm not used to
 this kind of physical labor, but there's gold in those caves.  I'm just sure
@@ -881,7 +875,6 @@ others they are brown and dried up.
 I can only move west.
 
 > burn vines
-(Your score has increased by 10)
 Striking up the lighter, I set the flame to the vines.
 
 With a big whoosh they go up in flames, and are soon reduced to a pile of ash
@@ -1117,7 +1110,6 @@ Before me lies the snake.
 I can only move west.
 
 > unleash the mongoose
-(Your score has increased by 10)
 My precious little baby...  Campbell must have known I would need you, and I
 surely do!  Thank God for you!
 
@@ -1157,7 +1149,6 @@ could tie the rope to the stalagmite and throw it down into the pit.
 I can only move west.
 
 > tie the rope to the stalagmite
-(Your score has increased by 10)
 
 Good thing I found this rope.
 
@@ -1218,7 +1209,6 @@ Before me lies the hungry cave bear.
 I can only move west.
 
 > feed the honey to the bear
-(Your score has increased by 10)
 
 I toss the jar of honey to the bear, which sniffs at it and then begins to
 devour it.  It's cute to watch, and I almost forget for a minute that I'm in
@@ -1438,22 +1428,18 @@ Barlow is here, wishing someone might give him some antique items for trade.
 I can only move east.
 
 > give watch to barlow
-(Your score has increased by 5)
 "Oh, this?  Ooh, this is worth quite a bit!  I can't pay you now, but I can
 give you credit and you can get the money later, how does that sound?"
 
 > give plate to barlow
-(Your score has increased by 5)
 "Oh, this?  Ooh, this is worth quite a bit!  I can't pay you now, but I can
 give you credit and you can get the money later, how does that sound?"
 
 > give cross to barlow
-(Your score has increased by 5)
 "Oh, this?  Ooh, this is worth quite a bit!  I can't pay you now, but I can
 give you credit and you can get the money later, how does that sound?"
 
 > give compass to barlow
-(Your score has increased by 5)
 "Oh, this?  Ooh, this is worth quite a bit!  I can't pay you now, but I can
 give you credit and you can get the money later, how does that sound?"
 
@@ -1632,3 +1618,6 @@ telling, though, and I am weary.  Good night!  I'm off to bed.
 The End
 
 Congratulations.  You've beaten Black Sheep's Gold!
+You scored 120 out of the maximum 120!
+That is 100% of the game!
+Well done - you scored maximum points!

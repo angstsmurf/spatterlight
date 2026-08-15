@@ -308,7 +308,6 @@ A young girl wanders out to the west.
 "I only brought one rattle with me, but I can't see it at the moment."
 
 > give rattle to mrs peters
-(Your score has increased by 5)
 You hand the rattle over to Mrs Peters.  "Oh my! I didn't realise that I'd
 dropped it."
 
@@ -541,7 +540,6 @@ The shaking feels like it is never going to stop.
 "next train 4.00pm."
 
 > give pipe to station master
-(Your score has increased by 5)
 You hand the pipe to the Station Master explaining how you found it.  He says
 "thanks, I bet I know who hid it!"  He leaves the room. He could return at
 any moment so you want anything you had better be quick.
@@ -923,7 +921,6 @@ It sounds like a train is at platform 2.
 It sounds like a train is at platform 2.
 
 > give card to bearded chap
-(Your score has increased by 5)
 You hand your business card to the Bearded Man. "Thanks, I'll be in touch."
 For the first time today you feel a little happier.
 
@@ -1181,7 +1178,6 @@ A Trainspotter dressed in wet weather gear is watching you.
 You appear to be able to move northeast and southeast.
 
 > give notepad to trainspotter
-(Your score has increased by 5)
 You hand the notepad to the trainspotter.  His little eyes really light up.
 
 > ask trainspotter about tights
@@ -1192,7 +1188,6 @@ You take the pair of tights from the bag of shopping.
 The Trainspotters says "People do not realise how much fun trainspotting is."
 
 > give tights to trainspotter
-(Your score has increased by 5)
 You hand the tights to the Trainspotter.  His little eyes light up.
 
 > ask trainspotter about gloves
@@ -1250,7 +1245,6 @@ A young girl wanders in from the east.
 The young girl says "to donningby?"
 
 > give flowers to young girl
-(Your score has increased by 5)
 You hand the flowers to the young girl.  Even though they are only plastic
 she seems quite pleased.
 The young girl says "need help."
@@ -1274,7 +1268,6 @@ whistling.  You then hear Colesworth followed by something like "running
 approximately 5 minutes late."
 
 > say donningby bahnhof umsteigen grantby to young girl
-(Your score has increased by 10)
 The girl replies "vielen dank!"  The girl heads for Platform 2.
 Hurrah! you actually spoke to the girl and she understood you.  What a day
 this is turning out to be.
@@ -1357,7 +1350,6 @@ You appear to be able to move north, east and southwest.
 You can see that the Colesworth train is at platform 1.
 
 > throw donut at pigeon
-(Your score has increased by 5)
 
 You throw the stale donut at the pigeon.  The donut flies through the air and
 connects with the pigeon on the back of its head.  The pigeon is obviously
@@ -1577,7 +1569,6 @@ The Station Master is standing to one side.
 The door out of the room is west.
 
 > give iou to station master
-(Your score has increased by 5)
 You hand the IOU to the Station Master explaining how you found it.  He says
 "thanks, I will have a word with the Porter about this."  He leaves the room.
 He could return at any moment so you want anything you had better be quick.
@@ -1993,7 +1984,6 @@ You take the bell from the cat.
 The cat seems to be following you.
 
 > put food in pocket
-(Your score has increased by 10)
 You carefully put the cat food in the Business Man's pocket.  The cat jumps
 up at the pocket and the man nearly jumps out of his skin.
 
@@ -2352,7 +2342,6 @@ A train thunders through the station and it doesn't sound like it is going to
 stop.
 
 > give chocolate to business woman
-(Your score has increased by 5)
 You hand the bar of chocolate to the Tall Woman.  She appears to go all weak
 at the knees. Throwing her coat to you she grabs the chocolate bar. I guess
 she was hungry.
@@ -2361,7 +2350,6 @@ she was hungry.
 It is a black fake fur, leopard pattern coat. It looks nice and warm.
 
 > cover drunk with coat
-(Your score has increased by 5)
 You cover the drunk with the coat.  The drunk drops something onto the
 platform.
 
@@ -2373,13 +2361,11 @@ It's a bottle of 'Wonder White'.  The excellent correcting fluid. To correct
 your mistakes just "use the bottle on whatever".
 
 > use bottle on note
-(Your score has increased by 5)
 
 You use Wonder White on the note and careful cover the word Draycot.  It is
 now ready to 'write something on the note'.
 
 > write colesworth on note
-(Your score has increased by 5)
 You write the name 'Colesworth' on the note.
 
 > nw
@@ -2430,7 +2416,6 @@ The Station Master is standing to one side.
 The door out of the room is west.
 
 > give note to station master
-(Your score has increased by 5)
 You hand the note to the Station Master.  "thanks, I thought I'd lost that.
 I must get it to the Signal Man now."
 
@@ -2438,7 +2423,6 @@ I must get it to the Signal Man now."
 "I've handed it to the Signalman."
 
 > give pen to station master
-(Your score has increased by 5)
 You hand the pen to the Station Master.  "I thought I'd lost this.  My wife
 gave it me you know."
 
@@ -3024,7 +3008,6 @@ You appear to be able to move north, east and southwest.
 You take the credit card.
 
 > give credit card to john tailer
-(Your score has increased by 20)
 You hand the credit card to John Tailer and explain how you found it.
 
 I have a feeling that Super Stationary will not be getting the business now!

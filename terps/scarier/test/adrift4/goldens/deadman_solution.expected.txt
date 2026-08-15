@@ -82,7 +82,6 @@ awaken, open your eyes, and see a gun lying on the floor beside you.
 With your head still spinning you slowly stand up.
 
 > roll over body
-(Your score has increased by 1)
 As you turn the body over the face of Capt. Mattingly stares back at you,
 dead from a single shot to the head.
 
@@ -94,7 +93,6 @@ Mattingly stares into nothingness.  With the body turned over your search
 reveals some bullets.
 
 > get all
-(Your score has increased by 1)
 BANG BANG
 As your hands touch the gun a shock runs through your hand and you drop it as
 if it were a living evil thing, a venomous snake coiling in your touch.
@@ -115,13 +113,11 @@ You take the gun.
 You put the bullets inside the gun.
 
 > shoot locker
-(Your score has increased by 5)
 With a loud report the bullet grazes the lock causing it to swing.  Staring
 at it as it slows to a stop you take aim and fire again. This time it is a
 direct hit and the lock explodes from the impact.
 
 > open locker
-(Your score has increased by 3)
 You open the locker.
 
 > get kit
@@ -138,13 +134,11 @@ You take the pair of scissors from the first aid kit.
 You take the large bandage roll from the first aid kit.
 
 > open panel with scissors
-(Your score has increased by 5)
 Using the blunt tip of the scissors, a little luck and a lot of persistence,
 you manage to loosen the remaining screws, and open the panel.The guts of the
 radio appear torn out.Who have I been talking to?
 
 > wear bandage on neck
-(Your score has increased by 3)
 You wrap the bandage tightly around your skull. Hopefully this will control
 the bleeding.
 
@@ -154,7 +148,6 @@ subsides.
 [-00:53-]
 
 > turn camera to camera 1
-(Your score has increased by 1)
 You turn the dial to camera 1.  The screen flickers above you.
 
 There is nothing but static on the screen, apparently the camera at the
@@ -184,7 +177,6 @@ You awaken on the control room floor.
 You take the syringe from the first aid kit.
 
 > use syringe
-(Your score has increased by 5)
 After tearing the package open with your teeth, you take the small syringe
 and place it gently against the vein.  A drop of sweat rolls down your
 forehead, but with the needle in your fist you are afraid to brush it off.
@@ -201,7 +193,6 @@ entire body, strangely similar to an orgasm.  Suddenly, you've never felt
 better.
 
 > use radio
-(Your score has increased by 2)
 Leaning closer to the radio you say:
 Blair Alpha this is Deadman Tango, come in over.
 Blair Alpha this is Deadman Tango, come in over.
@@ -386,7 +377,6 @@ The door stands closed and latched.
 The pounding at the door returns.
 
 > open door
-(Your score has increased by 2)
 Slowly you unlatch the steel door and pull it open just a crack.  Not seeing
 anyone, you open the door wider. Out of the corner of your eye something
 shines.
@@ -401,7 +391,6 @@ You take the axe.
 A small rush fills you with pleasure.
 
 > chop off hand with axe
-(Your score has increased by 3)
 With a wild swing the axe arcs down at the wrist of Capt. Mattingly.  You
 hear a dull thud as it strikes the bone.  Pulling the axe head free you chop
 down again and again…
@@ -414,10 +403,13 @@ You take the bloody hand.
 You put the bloody hand onto the green plate.
 
 > put hand on green plate
-(Your score has increased by 10)
 The green glass goes dark, them pulses with a soft pink light.  The words
 "ABORT SUCSESFUL" appear on the monitor in front of you.
 Hoping that you have made the right decision you face the door as if seeing
 it for the first time.  You remember what you did to your colleagues and you
 are ready to face the consequences.  Opening the door you walk down the hall
 to the exit, ready to face the world. Or what there is left of it.
+
+You scored 31 out of the maximum 43!
+That is 72% of the game!
+You finished 12 points short.
