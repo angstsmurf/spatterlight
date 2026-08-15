@@ -1,5 +1,5 @@
 
-A certain Oscar., v1.00 Ido Angel
+A certain Oscar., v1.00 | Ido Angel
 
 A tingling sensation at the end of your forehead wakes you up. Your ears seem to have catched the last moment of a dissolving echo, an eerie sound of metal crashing against the ground... but by the second you think you recognise the meaning of it all - all disappears.
 
@@ -13,6 +13,7 @@ And as if out of sudden concern, the frozen world kindly folds himself into an i
 
 And you remain alone.
 
+Press any key to continue...
 
 
 
@@ -21,6 +22,7 @@ Version 1.00
 Author: Ido Angel
 Copyright: AI42 Ltd.
 A memorable identity search game.
+
 
 
 This a large and quietly white hospital room. Your bed seems to be the only one here, which is strange, considering the size of the room. The total whiteness of the room makes your eyes hurt.  The only non-white object in this room is an expensive looking TV set, which is mounted on the north wall, just infront of you. A window, located west to you,  is overlooking the hospital garden. To the east there is a door, which is locked. You are currently lying on the bed.
@@ -52,14 +54,16 @@ The window can't be opened, or closed, for that matter. You can look through it,
 > close window
 The window can't be opened, or closed, for that matter. You can look through it, though.
 
+
 > take all
 
 > inventory
-You are carrying nothing.
+You are not carrying anything.
 
 > get up
 You get up from the bed.
 This a large and quietly white hospital room. Your bed seems to be the only one here, which is strange, considering the size of the room. The total whiteness of the room makes your eyes hurt.  The only non-white object in this room is an expensive looking TV set, which is mounted on the north wall, just infront of you. A window, located west to you,  is overlooking the hospital garden. To the east there is a door, which is locked.
+
 
 > look
 This a large and quietly white hospital room. Your bed seems to be the only one here, which is strange, considering the size of the room. The total whiteness of the room makes your eyes hurt.  The only non-white object in this room is an expensive looking TV set, which is mounted on the north wall, just infront of you. A window, located west to you,  is overlooking the hospital garden. To the east there is a door, which is locked.
@@ -81,7 +85,7 @@ The remote has only two buttons, marked "ON" and "OFF".
 You take the remote control in your hand.
 
 > inventory
-You are carrying nothing.
+You are not carrying anything.
 
 > look
 This a large and quietly white hospital room. Your bed seems to be the only one here, which is strange, considering the size of the room. The total whiteness of the room makes your eyes hurt.  The only non-white object in this room is an expensive looking TV set, which is mounted on the north wall, just infront of you. A window, located west to you,  is overlooking the hospital garden. To the east there is a door, which is locked.
@@ -89,6 +93,7 @@ This a large and quietly white hospital room. Your bed seems to be the only one 
 > return to bed
 You lie down on the bed.
 This a large and quietly white hospital room. Your bed seems to be the only one here, which is strange, considering the size of the room. The total whiteness of the room makes your eyes hurt.  The only non-white object in this room is an expensive looking TV set, which is mounted on the north wall, just infront of you. A window, located west to you,  is overlooking the hospital garden. To the east there is a door, which is locked. You are currently lying on the bed.
+
 
 > look at bed
 It's a fairly large hospital bed. The sheets are white, and smell like a strange combination of lanolin and aspirin. You are in the bed.

@@ -1,11 +1,11 @@
 
-Metal Sonic's Quest, v4.0 Jordan
+Metal Sonic's Quest, v4.0 | Jordan
 
 Welcome, mortal! To a text adventure game like no other! Sure, it's easy like no other, but it's got lots of story, more than one game mode, and lots and lots and lots and lots and lots of secrets! But, the Main Game is 1p mode, so ya know.
 ---------(Metal Sonic's Quest)----------
 To get to the 2 important game modes, talk to the clerk at the lobby desk. Unlockable Hall holds *most* of the secrets, once you unlock them!
 
-You are in Multiplayer Lobby
+You are in Multiplayer Lobby.
 There is Lobby Desk and Strange Man here.
 You can go to Unlockable Hall.
 Welcome player, to the Metal Sonic's Quest Lobby!
@@ -25,8 +25,8 @@ So, you want to start a new game?
 Have fun in the world of Mobius,
  and try to unlock the secret chapter!
 "Uhh.... my head.... scan for errors...."
-You can go north.
 You can go to gate Knothole Junkyard- Gatekeeper.
+You can go north.
 "Systems Online..... running diagnostics check..... all systems functional....."
 You notice You are in a junkyard.... in Knothole village..... you are
 Metal Sonic. 
@@ -42,10 +42,10 @@ We'll start Chapter 1: Metal Sonic's Basic Training, in the Junkyard...
 
 
 > n
-You are in Knothole Junkyard- Gatekeeper
+You are in Knothole Junkyard- Gatekeeper.
 There is gate here.
-You can go south.
 You can go to knottheplace Knothole- South or wakemeup Knothole Junkyard- Wake point.
+You can go south.
 Hmm.... there's a gate..... go though it?
 
 S. H. (scanning horizons)
@@ -54,7 +54,7 @@ wakemeup
 knottheplace
 
 > go to Knothole- South
-You are in Knothole- South
+You are in Knothole- South.
 There is foxy and south to north here.
 You can go to down Knothole- Downtown.
 There's a gate, a fox and an alleyway.
@@ -65,7 +65,7 @@ foxy
 alleyway
 
 > go to Knothole- Downtown
-You are in Knothole- Downtown
+You are in Knothole- Downtown.
 There is monorail 01 here.
 You can go to Knothole- South.
 You are in a big wasteland known as Knothole....
@@ -81,7 +81,7 @@ The north.
    I guess I'd better start moving....
 
 > take monorail 01
-You are in Monorail 01- Indoors section 1
+You are in Monorail 01- Indoors section 1.
 There is ladder here.
 This seems like a room, yet it's a vehicle.... very odd.....
 I hope we arrive soon....
@@ -90,7 +90,7 @@ S.H.
 A few seats, a ladder and a door.
 
 > take ladder
-You are in Monorail 01- Outside
+You are in Monorail 01- Outside.
 There is map and ladder for climbing here.
 Hmm.... I see the North sector ahead! and a map! I'd better take it....
 
@@ -98,12 +98,12 @@ Hmm.... I see the North sector ahead! and a map! I'd better take it....
 Okay.... got it! Better enjoy the ride!
 
 > take ladder for climbing
-You are in Monorail 01- Indoors 2
+You are in Monorail 01- Indoors 2.
 There is chair here.
 Well, I sealed the ladder exit shut. I'd better just go to seep mode til we're there....
 
 > take chair
-You are in Knothole- North
+You are in Knothole- North.
 You can go to Sonic's House.
 You awake at the north sector.
 It's just....quiet.... there's a house over there!
@@ -111,7 +111,7 @@ Hold on.... scanners indicate that the enemy is in the house! I'm going in!
 
 
 > go to Sonic's House
-You are in Sonic's House
+You are in Sonic's House.
 Here I am. Hmm? !!!!!! That hedgehog looks like the symbol on the monorail!
 Scanners indicate that he's the enemy.... what to use?
 W.L. (weapons list)
@@ -124,7 +124,7 @@ Choose a weapon!
 1) Shotgun
 2) Uzi
 [choice] 2
-You are in Killed Sonic
+You are in Killed Sonic.
 You can go to Egg Base- Hallway.
 And so, I shot the hedgehog, and he died. Before he did, he said:
 " Metal Sonic, take this chaos emerald.... it'll tell you about your past...."
@@ -139,7 +139,7 @@ I scratched his hand off and got the emerald....
 
 
 > go to Egg Base- Hallway
-You are in Egg Base- Hallway
+You are in Egg Base- Hallway.
 You can go to Egg Base- Mess Hall or Egg Base- Lab.
 Hmm.... a hallway.....
 it seems familiar......
@@ -158,7 +158,7 @@ CHAPTER 2:   METAL SONIC MEETS HIS MAKER
 
 
 > go to Egg Base- Mess Hall
-You are in Egg Base- Mess Hall
+You are in Egg Base- Mess Hall.
 There is bench here.
 You can go to Egg Base- Hallway.
 The mess hall.... it's empty.... I doubt I'll find the batteries in here....
@@ -172,7 +172,7 @@ Bench
 > take bench
 I'm just... takin a small.....
 nap.....
-You are in Egg Base- Locked Room
+You are in Egg Base- Locked Room.
 Uhh, my head, what? I'm on a table?
 What the? A shadowy figure?
 S.F: Hello, Metal!
@@ -193,7 +193,7 @@ Do you want to play as Tails in this mission?
 2) No
 [choice] yes
 Here we go:
-You are in Egg Base- Lab later
+You are in Egg Base- Lab later.
 There is desk, cupboard and vault here.
 Key, key, where is that key?
 Let's see, desk, cupboard, and a vault....
@@ -211,7 +211,7 @@ door...mat.....DANG IT!
 > take key
 Oh, there it is. Time to go
 inside.... but wait.....
-You are in Locked Room part 2
+You are in Locked Room part 2.
 T: Sorry I'm late, I had to go to Wal-Mart and see if they had any enchil-- HOLY BURRITOS!
 M: Hello, Tails.... (cracks robot knuckles)
 T: Okay... I'm dead, unless I can get to that off button....
@@ -219,7 +219,7 @@ Who wins?
 1) Metal Sonic
 2) Tails
 [choice] 1
-You are in The fight- Metal Sonic side
+You are in The fight- Metal Sonic side.
 You can go to Top Story Tonight.
 Metal jumps up, Tails flies, BOOSH BANG BAM BIM POW PISHOOSH!!!
 TIKIODKGXFKLJGHSDFIBHCF DS SDZGDGS  JIZJGDG HDXIF JI GFVJIO FD ZJOX
@@ -234,7 +234,7 @@ Hyper Form
 Metal Overlord
 
 > go to Top Story Tonight
-You are in Top Story Tonight
+You are in Top Story Tonight.
 You can go to To court.
 Good Evening, and welcome to Evening News @ 7:00
 Today, we have a special guest, Metal Sonic! Metal Sonic, it has been said
@@ -254,7 +254,7 @@ CHAPTER 3 1 half: Metal Sonic Takes the Cake-- to COURT
 
 
 > go to To court
-You are in To court
+You are in To court.
 You can go to Choose.
 I hope I decide soon, I could end up in jail! 
 Okay, this obviously requires some sophistication, patience, and no killing....
@@ -280,14 +280,14 @@ O: I'm outta here!
 ZIP!
 
 > go to Choose
-You are in Choose
+You are in Choose.
 Finish this stuff.
 Choose a character
 1) Metal Sonic
 2) Shadow
 3) Meta Tails
 [choice] 3
-You are in Meta Tails
+You are in Meta Tails.
 You can go to Operation 1 or Operation 2.
 Systems...... online........ MUST ELIMINATE
 HYPER METAL SONIC! Current location: 2 miles away. More like 2 milliseconds away,
@@ -299,7 +299,7 @@ HYPER METAL SONIC! Current location: 2 miles away. More like 2 milliseconds away
     Operation: W.ait for W.hole W.orld 2. C. (see
 
 > go to Operation 1
-You are in Operation 1
+You are in Operation 1.
 You can go to Battle Royale.
 I boosted forward, using my scanning programs, and located a hostage!
 Incoming message from creator: KILL ALL HOSTAGES
@@ -308,7 +308,7 @@ I boosted forward and slammed into the sewers, only to find exactly what I expec
    Target Practice.
 
 > go to Battle Royale
-You are in Battle Royale
+You are in Battle Royale.
 Turns out that you need to be Metal to win the game, so... choose a weapon!
 You're Metal! Choose a weapon.
 1) Flamethrower
@@ -316,7 +316,7 @@ You're Metal! Choose a weapon.
 3) Bazooka
 4) Sniper Rifle
 [choice] 4
-You are in Finished Battle Royale
+You are in Finished Battle Royale.
 You can go to Angel Island- Entrance.
 You've aimed carefully to choose the Sniper Rifle! Because that's how
  you win! You get an emerald from Shadow. And a message from Meta Tails.
@@ -333,7 +333,7 @@ You've aimed carefully to choose the Sniper Rifle! Because that's how
                   "The Phrase"
 
 > go to Angel Island- Entrance
-You are in Angel Island- Entrance
+You are in Angel Island- Entrance.
 You can go to Angel Island- Caves or Angel Island- Forest.
 What?
 Now where am I?
@@ -345,8 +345,8 @@ Caves
 Forest
 
 > go to Angel Island- Caves
-You are in Angel Island- Caves
-You can go to Angel Island- Entrance, Angel Island- Town, or Angel Island- Lost Caves.
+You are in Angel Island- Caves.
+You can go to Angel Island- Entrance, Angel Island- Town or Angel Island- Lost Caves.
 Wow..... a cave......
 I wonder where it leads to?
 
@@ -355,9 +355,9 @@ Town
 
 
 > go to Angel Island- Town
-You are in Angel Island- Town
+You are in Angel Island- Town.
 There is Echidna Male and Echidna Female here.
-You can go to Angel Island- Caves, Angel Island- Forest, or Angel Island- Gate.
+You can go to Angel Island- Caves, Angel Island- Forest or Angel Island- Gate.
 What the?
  A town?
 There are 2 people out right now....
@@ -377,8 +377,8 @@ Accept the mission?
 1) Yes
 2) No
 [choice] yes
-You are in Angel Island- Caves
-You can go to Angel Island- Entrance, Angel Island- Town, or Angel Island- Lost Caves.
+You are in Angel Island- Caves.
+You can go to Angel Island- Entrance, Angel Island- Town or Angel Island- Lost Caves.
 Wow..... a cave......
 I wonder where it leads to?
 
@@ -387,7 +387,7 @@ Town
 
 
 > go to Angel Island- Lost Caves
-You are in Angel Island- Lost Caves
+You are in Angel Island- Lost Caves.
 You can go to Angel Island- Burned Village.
 The lost caves......
  there's a skeleton of an echidna.... let's see.....
@@ -421,7 +421,7 @@ D: I'll come with you, to prove
  it.
 
 > go to Angel Island- Burned Village
-You are in Angel Island- Burned Village
+You are in Angel Island- Burned Village.
 You can go to Angel Island- Burned Gate.
 What the?
 M: The town is burned down!
@@ -434,7 +434,7 @@ E: Ice.....Cap...... {dies}
 M: Come on, dragon, let's go!
 
 > go to Angel Island- Burned Gate
-You are in Angel Island- Burned Gate
+You are in Angel Island- Burned Gate.
 You can go to Angel Island- Lost Woods.
 G: HALT!
 M: You're not dead?
@@ -444,7 +444,7 @@ G: The only way to get in is to.... take me to my house in the lost woods!
 M: What!? Oh, fine..... come on.....
 
 > go to Angel Island- Lost Woods
-You are in Angel Island- Lost Woods
+You are in Angel Island- Lost Woods.
 You can go to deep or deeper.
 The Lost Woods.....
 M: Alright you 2, let's make our way through!
@@ -454,8 +454,8 @@ deeper
 deep
 
 > go to deeper
-You are in deeper
-You can go to Angel Island- Lost Woods, cave, or web.
+You are in deeper.
+You can go to Angel Island- Lost Woods, cave or web.
 Alright, we're going deeper into the woods.....
  what next?
 G: Careful, Metal, there's said to be a dangerous Turantula around here....
@@ -474,7 +474,7 @@ web
 Which to choose?
 
 > go to web
-You are in web
+You are in web.
 You can go to treetop.
 Wow.....
 M: There's no one here....
@@ -486,7 +486,7 @@ M: Let's start climbing.
 Treetop
 
 > go to treetop
-You are in treetop
+You are in treetop.
 You can go to Burned Hewewe.
 M: Well, we're on the treetop....
 G: And there's my house!
@@ -501,7 +501,7 @@ D: Hmm.... yeah, what is that?
 M: It looks like...... an echidna! Let's go, NOW!
 
 > go to Burned Hewewe
-You are in Burned Hewewe
+You are in Burned Hewewe.
 You can go to Ice Cap- Foot.
 M: Pant.... pant.....
 D: Woo boy....
@@ -528,7 +528,7 @@ BOOM! It knocks 2 HP outta
  Knuckles and he's dead!
 
 > go to Ice Cap- Foot
-You are in Ice Cap- Foot
+You are in Ice Cap- Foot.
 You can go to Ice Cap- Ski Lift.
 M: Well Dragon, we're at the foot of the mountain. Better get moving!
 Let's see, and the usual path up.
@@ -540,7 +540,7 @@ CHAPTER 5: Metal Sonic on Ice
 
 
 > go to Ice Cap- Ski Lift
-You are in Ice Cap- Ski Lift
+You are in Ice Cap- Ski Lift.
 There is ski lift here.
 You can go to Ice Cap- Foot.
 D: There's a ski lift! Let's use it to get to the top!
@@ -554,7 +554,7 @@ M: Yeah, you're right....
  it works fine!
 D: Great! I wonder how high it
  goes.....
-You are in Ice Cap- Head
+You are in Ice Cap- Head.
 You can go to Ice Cap- Snowboard.
 M: Wow. It's just a ski lift.
 D: Yeah..... we're at the top......
@@ -573,7 +573,7 @@ K: PREPARE TO DIE IN 30 SECONDS!!
 M: GRAB A SNOWBOARD AND RUN!
 
 > go to Ice Cap- Snowboard
-You are in Ice Cap- Snowboard
+You are in Ice Cap- Snowboard.
 SNOWBOARD FOR YOUR LIVES!
 Choose a character, QUICK!
 1) Metal Sonic
@@ -599,7 +599,7 @@ Last ones!
 SCREECH!
 Woo boy...
 I JUST dodged a cabin.
-You are in Ice Cap- Finale
+You are in Ice Cap- Finale.
 You can go to Cemetary.
 WHOOSH!
 M: We made it down!
@@ -611,7 +611,7 @@ M: (This is it..... this is the end....)
 {Heroes faint}
 
 > go to Cemetary
-You are in Cemetary
+You are in Cemetary.
 You can go to Morph.
 {Metal wakes up}
 M: What the? Shadow?
@@ -645,7 +645,7 @@ Chapter 5: BOSS
 
 
 > go to Morph
-You are in Morph
+You are in Morph.
 Sonic Spirit: Form Of The feet and Face!
 Tails Spirit: Form Of The Tails and Fur-things!
 Knux Sirit: Form of The Hands and Spikes!
@@ -661,7 +661,7 @@ SAC: Oh. He's not?
 S: NO! I'm not scared!
 SAC: Oh. Then never mind....
 See ya!
-You are in Egg Fortress- Hallway
+You are in Egg Fortress- Hallway.
 You can go to Egg Fortress- Receptionists Room or Egg Fortress- Mess Hall.
 Metal warps to a hallway.
 M: SCANNING HORIZONS:
@@ -682,7 +682,7 @@ CHAPTER 6: Metal Sonic's Maker Meets His Maker
 
 
 > go to Egg Fortress- Receptionists Room
-You are in Egg Fortress- Receptionists Room
+You are in Egg Fortress- Receptionists Room.
 You can go to Egg Fortress- Elevator.
 The Receptionist's room.
 M: Hello.
@@ -700,8 +700,8 @@ M: Oh, no you don't!
 Hallway
 
 > go to Egg Fortress- Elevator
-You are in Egg Fortress- Elevator
-You can go to E.F.- Restroom, E.F.- File Room, E.F.- Creation Room, or E.F.- Elevator 2.
+You are in Egg Fortress- Elevator.
+You can go to E.F.- Restroom, E.F.- File Room, E.F.- Creation Room or E.F.- Elevator 2.
 {A.F. goes up elevator}
 M: Drat! That was the only one....
 'ding'!
@@ -728,7 +728,7 @@ Creation Room
 Elevator2
 
 > go to E.F.- Restroom
-You are in E.F.- Restroom
+You are in E.F.- Restroom.
 You can go to E.F- 3rd Floor.
 Hmm? Helllloooooooooo?
 E: No one here.
@@ -750,7 +750,7 @@ M: Nonononono, it's me, Metal.
 E: Oh.... we need to go to my office! On the 3rd floor!
 
 > go to E.F- 3rd Floor
-You are in E.F- 3rd Floor
+You are in E.F- 3rd Floor.
 You can go to E.F.- Eggman's Office.
 M&E: WHAT IN THE NAME OF DOCTOR GERALD ROBOTNIK!?!?!?!?!?!?
 {turn camera to thousands of destroyed robot guards}
@@ -765,7 +765,7 @@ M: Well, if Sonic thinks he can just destroy my creator's prized possessions the
  DEAD AND DEAD WRONG! Here I come, Sonic....
 
 > go to E.F.- Eggman's Office
-You are in E.F.- Eggman's Office
+You are in E.F.- Eggman's Office.
 You can go to E.F.-Boss.
 M: I may be making a HUGE mistake, but I MUST kill Sonic!  AGAIN!
 Sonic: Hello, Metal! Prepare to meet your maker!
@@ -792,7 +792,7 @@ R: Hello Metal.
 M: Time to die.
 
 > go to E.F.-Boss
-You are in E.F.-Boss
+You are in E.F.-Boss.
 Fight Rouge!
 Fight Rouge!
 1) From above
@@ -833,7 +833,7 @@ M: Mekaku.....
 {reaches into Eggman's pocket}
 M: The 6th emerald....
  only 1 left....
-You are in Area 51-Gate
+You are in Area 51-Gate.
 There is Box here.
 Metal teleports to outside Area 51.
 Gaurd: HALT! Wait, Metal?
@@ -863,7 +863,7 @@ We now follow Metal, who has been teleported to the mysterious Area 51.....
 It says "This Side Up", with an arrow pointing up. Look! A window!
 
 > take a window
-You are in Area 51- Bathroom
+You are in Area 51- Bathroom.
 There is Door? here.
 You can go to Area 51.
 You lift the window up, and jump through-- SPLASH! And land in a toilet.
@@ -883,7 +883,7 @@ Wait. It's not a door, it's a briefcase.
 Wow, a briefcase! Wonder what's inside? DANGIT! Need a key.
 
 > go to Area 51
-You are in Area 51
+You are in Area 51.
 You can go north, south, east, west, northeast, northwest, southeast or southwest.
 This is the interior of Area 51!
 M: Hmm.... it's quiet here..... TOO quiet....
@@ -898,7 +898,7 @@ M: ?
 MK: 2 rooms to your right. You MUST use the compass!
 
 > w
-You are in Area 51 SECRET ROOM
+You are in Area 51 SECRET ROOM.
 There is Hidden Key here.
 You can go east.
 You stumble upon THE SECRET ROOM!
@@ -906,7 +906,7 @@ What happens in here? You'll find out soon....
 1 thing's for sure, this place is the most eerie room I've ever seen! Let's get outta here!
 
 > e
-You are in Area 51
+You are in Area 51.
 You can go north, south, east, west, northeast, northwest, southeast or southwest.
 This is the interior of Area 51!
 M: Hmm.... it's quiet here..... TOO quiet....
@@ -921,7 +921,7 @@ M: ?
 MK: 2 rooms to your right. You MUST use the compass!
 
 > e
-You are in Area 51 Screening Room
+You are in Area 51 Screening Room.
 There is lamppost and statue here.
 You can go west.
 The sreening room....
@@ -955,7 +955,7 @@ MK: Well, well... looks like you've solved the puzzle. Not a hard one, huh? Well
 A door opens, the Artifacts Room!
 
 > take a door
-You are in Area 51 Rosswell, New Mexico Artifacts Room
+You are in Area 51 Rosswell, New Mexico Artifacts Room.
 You can go to Area 51- Boss.
 M: I'm here Mecha Knuckles, now where's my coo....k....i....e.....?
 {turn camera to huge shadow of a robot that is shaped like Knuckles}
@@ -977,7 +977,7 @@ MK: ...
 M: Ok, I'll engage attack mode now.
 
 > go to Area 51- Boss
-You are in Area 51- Boss
+You are in Area 51- Boss.
 You can go to Area 51 Boss part2.
 Engaging Attack Mode!
 Fight! Quickly!
@@ -987,7 +987,7 @@ Fight! Quickly!
 Punch!
 
 > go to Area 51 Boss part2
-You are in Area 51 Boss part2
+You are in Area 51 Boss part2.
 You can go to Area 51 FINAL boss.
 Hurry!
 Fight! Quickly!
@@ -997,7 +997,7 @@ Fight! Quickly!
 Punch!
 
 > go to Area 51 FINAL boss
-You are in Area 51 FINAL boss
+You are in Area 51 FINAL boss.
 You can go to Game Complete!.
 Last one!
 Fight! Quickly!
@@ -1007,7 +1007,7 @@ Fight! Quickly!
 Punch!
 
 > go to Game Complete!
-You are in Game Complete!
+You are in Game Complete!.
 Congratulations!
 You have defeated Mecha Knuckles and gotten all 7 chaos emeralds! What about Metal's past? You'll find out when you've earned it....
 Metal Sonic's Quest
@@ -1044,7 +1044,7 @@ Thanks for Playing!
 Congrats! Now you can look at an extra in the lobby!
 
 > use Hidden Key
-You are in Extra-start
+You are in Extra-start.
 There is Control Pad and Dock here.
 {rumble rumble}
 M: What the?
@@ -1085,7 +1085,7 @@ You enter the rocket and throw the stick at the control panel. The rocket takes 
  the room away. He's traveling
  to the city to blow it up! You've
  got to beat him there!
-You are in Extra- Robotropolis
+You are in Extra- Robotropolis.
 There is military helecopter, sattelite and elevator here.
 Welcome to Robobtropolis! You beat him there alright, then you got to a rooftop and
  smacked his face! It barely hurt him, though.
@@ -1101,7 +1101,7 @@ go down the elevator
 military helecopter
 
 > take elevator
-You are in Extra- Hotel
+You are in Extra- Hotel.
 You can go to Extra- Tornado.
 I had to take the elevator.
 M: Now, anything here?
@@ -1123,7 +1123,7 @@ MC then made a tornado in the center of the city.
 M: Uh-oh.
 
 > go to Extra- Tornado
-You are in Extra- Tornado
+You are in Extra- Tornado.
 You can go to Extra- MC's head.
 You're swirling around in a tornado.
 M: Is that the best you can do?
@@ -1141,7 +1141,7 @@ MC: NO YOU.... oh, never mind... I rule.
 (okay, this guy is stupid. Maybe I should remove the helmet, then go inside that empty head of his.) Metal jumps up, and does what he just thought.
 
 > go to Extra- MC's head
-You are in Extra- MC's head
+You are in Extra- MC's head.
 M: Wow. I'm inside his head. Nothing in here. I'm not suprised. (rim shot)
 MC: Fine, so you want to play? Ok! Antibodies, GET HIM!
 (few moments later)
@@ -1156,7 +1156,7 @@ Which side?
 [choice] 2
 You dodge thee fist, and MC gets hurt by his fist. You get out of MC's head, but have to go to space,
 for the final battle!
-You are in Extra- Space
+You are in Extra- Space.
 You can go to Extra- Finished.
 Welcome to space! No air! You don't care, though, you don't breathe.
 M: Well, Mecha Conqueror, you're going down....
@@ -1170,7 +1170,7 @@ MO: (evil smile)
 BOSS DEFEATED!
 
 > go to Extra- Finished
-You are in Extra- Finished
+You are in Extra- Finished.
 You can go to Multiplayer Lobby.
 MO turns back to M, and the 7 emeralds return to Angel Island.
 Mecha Knuckles lies in the dirt, dead.
@@ -1208,7 +1208,7 @@ Now you can read the second part
  of Unlocked Goodies!
 
 > go to Multiplayer Lobby
-You are in Multiplayer Lobby
+You are in Multiplayer Lobby.
 There is Lobby Desk, Unlockable and Strange Man here.
 You can go to Unlockable Hall.
 Welcome player, to the Metal Sonic's Quest Lobby!
@@ -1232,7 +1232,7 @@ So, you want to play the exciting campaign mode?
 2) No
 [choice] yes
 Okay! See you in 30 years!
-You are in Campaign Select
+You are in Campaign Select.
 Choose your side.
 
 
@@ -1245,7 +1245,7 @@ Select a force!
 3) FF Boot Camp
 4) RW boot camp
 [choice] 2
-You are in Campaign mode- Start point, Metal
+You are in Campaign mode- Start point, Metal.
 You can go to Campaign Mode- Plan room.
 Welcome to the ultimate showdown with Sonic the Hedgehog!
 Your commander's name is Recycled Metal, what happened, was Sonic smashed him down,
@@ -1260,7 +1260,7 @@ M: Move, move, move, MOVE!
 M: To the plan room, NOW!
 
 > go to Campaign Mode- Plan room
-You are in Campaign Mode- Plan room
+You are in Campaign Mode- Plan room.
 You can go to Campaign Mode- Target Achiever-034.
 MekakuKnux: Alright guys, 'bots on left are Team Alpha, Commander Metal is their leader.
 MK: Right siders are Team Beta, I am their leader.
@@ -1277,7 +1277,7 @@ Now, you, you, you, you and you, shall be The Rebels. Your job is to distract
  When you're inside the base, I'll tell you what to do via transmissions. Now MOVE!
 
 > go to Campaign Mode- Target Achiever-034
-You are in Campaign Mode- Target Achiever-034
+You are in Campaign Mode- Target Achiever-034.
 You can go to Campaign Mode- Skydive.
 Later, on the hovercraft-jet.
 Y: So, I'm the Reporter?
@@ -1288,170 +1288,170 @@ MK: Now listen, all you need to do is wait till I give the signal, then sneak in
  backup. Oh, we're almost there!
 
 > go to Campaign Mode- Skydive
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 
 > look
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 
 > look
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 
 > look
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 
 > look
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 
 > look
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 
 > look
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 
 > look
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 
 > look
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 
 > look
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 
 > look
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 
 > look
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 
 > look
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 
 > look
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 
 > look
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 
 > look
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 
 > look
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 
 > look
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 
 > look
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 
 > look
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 
 > look
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 
 > look
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 
 > look
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 
 > look
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 
 > look
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 
 > look
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 
 > look
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 
 > look
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 
 > look
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 
 > look
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 
 > look
-You are in Campaign Mode- Skydive
+You are in Campaign Mode- Skydive.
 MK: Wait, once we're over the target point, you'll jump down.
 MK: O400 hours is when we do.
 MK: Here we are, JUMP!
 
 > take JUMP!
-You are in Campaign Mode- Rendevous Point
+You are in Campaign Mode- Rendevous Point.
 You can go to Campaign Mode- Start point mission.
 After the jump:
 MK: Well, we landed safely. Now listen, this is the safe point, we'll meet here when we're done with the mission. For now, get recharged, get ready, and if you want, chat, and give each other weapons and ammo. When you're ready, come to the entrance so we can start
  the mission.
 
 > go to Campaign Mode- Start point mission
-You are in Campaign Mode- Start point mission
+You are in Campaign Mode- Start point mission.
 You can go to Campaign Mode- Behind MAMS.
 MK: Okay, Rebels, GO!
 R: HEY! YOU! IN THE BASE! WE HATE YOU! ( random insults)
@@ -1461,14 +1461,14 @@ MK: Okay, Reporter, GO!
 Y: Time to go.
 
 > go to Campaign Mode- Behind MAMS
-You are in Campaign Mode- Behind MAMS
+You are in Campaign Mode- Behind MAMS.
 You can go to Campaign Mode- Sonikku's Room.
 Y: Okay, sneaking in. Uh-oh.... guards are coming....
 MAMS: Don't worry Reporter, we'll take care of them.
 MAMS distracted the guards, now RUN!
 
 > go to Campaign Mode- Sonikku's Room
-You are in Campaign Mode- Sonikku's Room
+You are in Campaign Mode- Sonikku's Room.
 You can go to Campaign Mode- The lab.
 Y: Well, here I am.... Sonikku's room. Now, to call for help.
 [dialing]
@@ -1483,7 +1483,7 @@ Y: Reporter out.
  A robot grabbed you and teleported you out.
 
 > go to Campaign Mode- The lab
-You are in Campaign Mode- The lab
+You are in Campaign Mode- The lab.
 You can go to Campaign Mode- Mess Hall.
 5 days have passed since Mission Breakling, and no one noticed any differences, until.....
 Robot: Commander Metal, a transmission has arrived. Shall I bring it on screen?
@@ -1501,7 +1501,7 @@ R: Yes sir.
 CM: ( oh, no....)
 
 > go to Campaign Mode- Mess Hall
-You are in Campaign Mode- Mess Hall
+You are in Campaign Mode- Mess Hall.
 You can go to Campaign Mode- the next day.
 After the little "secret", the mess hall became quiet.
 Y: Hello? Hellloooooo? No one's here.
@@ -1522,7 +1522,7 @@ CM: Why? Why? WHY? I miss my mercy.exe..... why must it be this way? I must kill
 Y: Well, hopefully something will happen tommorow.... Initiate sleep mode.
 
 > go to Campaign Mode- the next day
-You are in Campaign Mode- the next day
+You are in Campaign Mode- the next day.
 You can go to Campaign Mode- Plan.
 All these incidents..... happening so fast..... now for the next mission!
 Get ready for a BIG mission! Okay, not that big, but it requires some work!
@@ -1537,7 +1537,7 @@ R: Why, yes. Yeah. Let's go with that! (oh, thank you...)
  To the planning room!
 
 > go to Campaign Mode- Plan
-You are in Campaign Mode- Plan
+You are in Campaign Mode- Plan.
 You can go to Campaign Mode- Target Achiever.
 R: Okay, people, Commander Metal has something to say, so QUIET DOWN!
 CM: Ahem. Well, you all may of noticed that MekakuKnux had some..... problems.....
@@ -1576,7 +1576,7 @@ CM: Weird. I wasn't even trying to hurt ANY of these guys.
  Um..... medic-bot? Heal this guy.
 
 > go to Campaign Mode- Target Achiever
-You are in Campaign Mode- Target Achiever
+You are in Campaign Mode- Target Achiever.
 There is fully loaded shotgun and fully loaded handgun here.
 You can go to Campaign Mode- Roof.
 Later......
@@ -1592,7 +1592,7 @@ CM: Get ready.....
 You pick it up.
 
 > go to Campaign Mode- Roof
-You are in Campaign Mode- Roof
+You are in Campaign Mode- Roof.
 There is Window here.
 You landed safely, and quietly on the roof.
 Y: This is Scary Maggot, I have landed on enemy's roof. Over.
@@ -1602,14 +1602,14 @@ Y: Where is the window?
 CM: On the other side of the building!
 
 > take Window
-You are in Campaign Mode- Indoors
+You are in Campaign Mode- Indoors.
 There is door here.
 Y: This is Scary Maggot, I am inside the building. Over.
 CM: Excellent. Now, get into Miles' bedroom and shoot him!
 Y: Got it.
 
 > take door
-You are in Campaign Mode- Tails' room
+You are in Campaign Mode- Tails' room.
 You can go to Campaign Mode- Lab 2.
 M: Here I am..... gotta make sure I have my weapon!
 CM: Now, you MUST shoot Miles! First, wake him up, THEN shoot!
@@ -1621,7 +1621,7 @@ Y: Mission accomplished, commander!
 CM: Great job! We'll take care of the rest!
 
 > go to Campaign Mode- Lab 2
-You are in Campaign Mode- Lab 2
+You are in Campaign Mode- Lab 2.
 You can go to Campaign Mode- FINAL MISSION.
 Right after the mission, inside Commander Metal's lab......
 [ Miles Prower is inside a VERY small cage, suspended 3 feet above hot plasma]
@@ -1660,7 +1660,7 @@ CM: I can't give you anything but death, Tails.... without my mercy.exe.... that
 CM: What have I done? ............
 
 > go to Campaign Mode- FINAL MISSION
-You are in Campaign Mode- FINAL MISSION
+You are in Campaign Mode- FINAL MISSION.
 There is the door here.
 Now, be prepared for TOUGH stuff! Keep your weapon with you, you'll need it in:
 
@@ -1690,32 +1690,32 @@ R: Alright, you guys...... when the door opens, shoot as hard as you can......
 N: Click door when you want to continue...
 
 > take the door
-You are in Campaign Mode- Fight
+You are in Campaign Mode- Fight.
 You can go to Campaign Mode- Commander Metal's Final Online Time.
 The door knob is shaking......
 
 > look
-You are in Campaign Mode- Fight
+You are in Campaign Mode- Fight.
 You can go to Campaign Mode- Commander Metal's Final Online Time.
 The door knob is shaking......
 
 > look
-You are in Campaign Mode- Fight
+You are in Campaign Mode- Fight.
 You can go to Campaign Mode- Commander Metal's Final Online Time.
 The door knob is shaking......
 
 > look
-You are in Campaign Mode- Fight
+You are in Campaign Mode- Fight.
 You can go to Campaign Mode- Commander Metal's Final Online Time.
 The door knob is shaking......
 
 > look
-You are in Campaign Mode- Fight
+You are in Campaign Mode- Fight.
 You can go to Campaign Mode- Commander Metal's Final Online Time.
 The door knob is shaking......
 
 > look
-You are in Campaign Mode- Fight
+You are in Campaign Mode- Fight.
 You can go to Campaign Mode- Commander Metal's Final Online Time.
 The door knob is shaking......
 BOOM!
@@ -1730,7 +1730,7 @@ R: There's no commander to them...
 Y: Hold on. If these guys have no commander, then that crash..... those emeralds...... that THING! Commander Metal is doomed.....
 
 > go to Campaign Mode- Commander Metal's Final Online Time
-You are in Campaign Mode- Commander Metal's Final Online Time
+You are in Campaign Mode- Commander Metal's Final Online Time.
 There is FINAL BATTLE here.
 N: With the Freedom Fighters destroyed, and that thing crashed, we move on to the toughest part of the game.
 Mission 3 act 2: Operation Shut Down
@@ -1763,7 +1763,7 @@ Remember, you're Metal Sonic! What move?
 [choice] 1
 Metal: Let's finish this, Stardust Speedway Act 3 style!
 Sonic: Gotcha. First one to the goal room is the winner!
-You are in Campaign Mode- Sonic CD
+You are in Campaign Mode- Sonic CD.
 There is Racetrack here.
 3.... 2... 1....
 M: GO!
@@ -1780,7 +1780,7 @@ Be prepared....
 1) JUMP!
 [choice] 1
 You jump over Sonic's head, and a spike patch, and win the race!
-You are in Campaign Mode- Complete
+You are in Campaign Mode- Complete.
 You can go to Multiplayer Lobby.
 M: I win, Sonikku! Now, you can die slowly and painfully....
 S: (gulps) Okay Metal, I accept this death.
@@ -1799,7 +1799,7 @@ CONGRATULATIONS!!!!!!
 You have unlocked some pretty good stuff!
 
 > go to Multiplayer Lobby
-You are in Multiplayer Lobby
+You are in Multiplayer Lobby.
 There is Lobby Desk, Unlockable and Strange Man here.
 You can go to Unlockable Hall.
 Welcome player, to the Metal Sonic's Quest Lobby!
@@ -1807,7 +1807,7 @@ This is where you can chat, challenge others and get help in the game!
 Or get into the single player adventure! Choose now!
 
 > take Unlockable
-You are in Metal's Past- Egg Fleet
+You are in Metal's Past- Egg Fleet.
 You can go to Metal's Past- Seaside Hill or Multiplayer Lobby.
 { Right after Sonic Heroes}
 {Metal awakens}
@@ -1829,7 +1829,7 @@ M: I'm outta here.
 M: Ahhh..... Sonic.... you are going DOWN!
 
 > go to Metal's Past- Seaside Hill
-You are in Metal's Past- Seaside Hill
+You are in Metal's Past- Seaside Hill.
 There is Locked here.
 You can go to Metal's Past- Egg Fleet or Multiplayer Lobby.
 M: Hello, Sonic!
@@ -1849,7 +1849,7 @@ M: Try me!
 Try to unlock more!
 
 > take Locked
-You are in Metal's Past- Egg Base
+You are in Metal's Past- Egg Base.
 You can go to Metal's Past- Knothole.
 M: Grr... that Sonic makes me so MAD! You could disintegrate the sun on my head!
 E: Hello, Metal! How was YOUR time?
@@ -1867,7 +1867,7 @@ M: Okay, see ya!
 ( later...)
 
 > go to Metal's Past- Knothole
-You are in Metal's Past- Knothole
+You are in Metal's Past- Knothole.
 There is also Locked here.
 You can go to Multiplayer Lobby.
 M: Ahh.... Tails.....
@@ -1886,7 +1886,7 @@ M: I've sent the invitations, Sonic should be coming....
 Try to unlock more!
 
 > take also Locked
-You are in Metal's Past- The thing
+You are in Metal's Past- The thing.
 S: Hiya Metal!
 M: Hello, Sonic. Are you ready to die?
 S: Nope, are you?
@@ -1941,7 +1941,7 @@ Sonic, Tails, Knuckles   as   Sonaickles
 Sonic the Hedgehog   as   SuperSonic the Hedgehog
 Jordan Dooling   as   Mr. Metalism
 Game Created with:  QDK, Quest
-Sonic, Tails, and everyone else copyright SEGA© and SONICTEAM©.
+Sonic, Tails, and everyone else copyright SEGAÂ© and SONICTEAMÂ©.
 
 
 THE    END!

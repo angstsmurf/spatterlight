@@ -1,5 +1,5 @@
 
-Escape the Prison! Tomsa
+Escape the Prison! | Tomsa
 
 You awaken in a damp cell. Your party companions Tara the Thief and Hans the Cleric are here as well, but somebody is missing. Yes...that must be it - your other companion, Grogh the Orcish Berzerker, must have fallen asleep on his guard post the other night, that inexcusable sod. Even Donk, your pet donkey who carries your inventory, is here, which is kind of odd since his meat would have made an excellent stew.
 
@@ -32,6 +32,7 @@ You give the rotten apple to Donk, which he happily eats. It does not take long 
 
 > look at leather pouch
 It is a pouch made of deer hide. It smells.
+It contains lock pick.
 
 > take lock pick
 (first removing it from leather pouch)

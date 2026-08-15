@@ -1,0 +1,17 @@
+
+Hashesc
+
+You are in Room #1.
+There is sign here.
+You can go east.
+
+> hash
+cmd: A # B and 100% sure
+
+> look at sign
+look: A # B and 100% sure
+
+> e
+You are in Room ##2.
+You can go west.
+[runner] turns=3 leftover=0 running=true

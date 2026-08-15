@@ -1,14 +1,13 @@
 
-Exits of The World, v1 Jim R. Harbis
+Exits of The World, v1 | Jim R. Harbis
 
 You are The Doctor. You are a Timelord, and the last of your kind. Your self-applied goal in life is to preserve the human race. Davros, an evil scientist, has begun enslaving humans, some of which were close to you at one time. You must regain your belongings; they were scattered after you last regenerated. Good luck.
+ Any key to continue 
 
 
 You are at The World.
 There is a group of Enslaved Humans and an extremely long stretch of space here.
-You can go out to Davros' Lair.
-You can go north, south, east, west, northeast, northwest, southeast, southwest, up or down.
-You can go to Davros' Lair.
+You can go out, north, south, east, west, northwest, northeast, southwest, southeast, up, down or to Davros' Lair.
 
 > x enslaved humans
 All of humanity lost to being mindless slaves. Only the Daleks could have pulled something like this off... and they must be being led by Davros, the Dalek scientist...
@@ -42,8 +41,7 @@ Even though you want to confront Davros right now, you need to upgrade your ship
 
 > up
 You are at the Exits of The World.
-You can go out to Skarro.
-You can go down.
+You can go out or down.
 These are indeed the ends of the earth...
 
 > out
@@ -52,21 +50,17 @@ This leads to Skarro. home planet of the Daleks. You need a ship to get there.
 > down
 You are at The World.
 There is a group of Enslaved Humans and an extremely long stretch of space here.
-You can go out to Davros' Lair.
-You can go north, south, east, west, northeast, northwest, southeast, southwest, up or down.
-You can go to Davros' Lair.
+You can go out, north, south, east, west, northwest, northeast, southwest, southeast, up, down or to Davros' Lair.
 
 > down
 You are at the Exits of The World.
-You can go out to J'doon Impound.
-You can go up.
+You can go out or up.
 These are indeed the ends of the earth...
 
 > out
 You are in the J'doon Impound.
 There is your Type 40 TARDIS here.
-You can go out to Exits of The World.
-You can go to The World or Skarro.
+You can go out, to The World or to the planet Skarro.
 
 > x type 40 tardis
 Boogie! One of your scattered belongings. This is your time machine and spaceship, the TARDIS. TARDIS stands for Time And Relative Dimensions In Space. Not only is this a machine, it is a living organism.
@@ -77,8 +71,7 @@ You used the Sonic Screwdriver to free your impounded TARDIS.
 > go to Skarro
 You are on the planet Skarro.
 There is a number of Dalek Shells here.
-You can go out to Exits of The World.
-You can go to The World or J'doon Impound.
+You can go out, to The World or to the J'doon Impound.
 
 > x dalek shells
 These are empty shells the Daleks wear, if you had a tool, you could remove the Dalekanium Panels and use them on your ship.
@@ -92,14 +85,12 @@ You pick them up.
 > go to The World
 You are at The World.
 There is a group of Enslaved Humans and an extremely long stretch of space here.
-You can go out to Davros' Lair.
-You can go north, south, east, west, northeast, northwest, southeast, southwest, up or down.
-You can go to Davros' Lair.
+You can go out, north, south, east, west, northwest, northeast, southwest, southeast, up, down or to Davros' Lair.
 
 > go to Davros' Lair
-You are in Davros' Lair
+You are in Davros' Lair.
 There is Davros here.
-You can go out to The World.
+You can go out.
 
 > x davros
 The evil Dalek scientist in person. You must defeat him and save the humans! But first you must work out how...
@@ -135,9 +126,7 @@ You pick it up.
 > out
 You are at The World.
 There is a group of Enslaved Humans and an extremely long stretch of space here.
-You can go out to Davros' Lair.
-You can go north, south, east, west, northeast, northwest, southeast, southwest, up or down.
-You can go to Davros' Lair.
+You can go out, north, south, east, west, northwest, northeast, southwest, southeast, up, down or to Davros' Lair.
 
 > use re-configured radar device on enslaved humans
 You hit the slaves with sonar waves from the device, and they suddenly snap back into normality.

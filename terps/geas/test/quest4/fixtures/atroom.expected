@@ -2,11 +2,13 @@
 Atroom
 
 You are in the study.
+There is nobody here.
 There is book here.
 You can go to the Hall.
 
 > look
 You are in the study.
+There is nobody here.
 There is book here.
 You can go to the Hall.
 
@@ -15,6 +17,7 @@ Tried to hide the book in the hall.
 
 > look
 You are in the study.
+There is nobody here.
 There is book here.
 You can go to the Hall.
 
@@ -26,19 +29,20 @@ You take the book.
 
 > i
 You are carrying:
-book
+Book.
 
 > look
 You are in the study.
+There is nobody here.
 You can go to the Hall.
 
 > go to hall
 You are in the hall.
-There is Linda here.
+You can see Linda here.
 You can go to the Study.
 
 > look
 You are in the hall.
-There is Linda here.
+You can see Linda here.
 You can go to the Study.
 [runner] turns=9 leftover=0 running=true

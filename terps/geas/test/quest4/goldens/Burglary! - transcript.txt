@@ -1,12 +1,14 @@
 
-Burglary!, v69.105 Himself
+Burglary!, v69.105 | Himself
 
 Welcome to Burglary!  This text based game puts you inside a modern American with the intent to steal a very desirable item... if you don't get caught.  Explore the environments and carefully plan your actions to pull off a successful heist.  You can type "help" to see the help menu with a list of all the controls in this game.  If you're at a loss for ideas be sure to check it out.
 
+Press any key...
 
 
 It's a starry night and the moon is out, slightly illuminating the yard.  After scoping the place out during the day and calculating the family's typical bedtime you have finally arrived to collect what you've waited months for.  It's tucked safely away in one of the rooms inside this house.  You silently climb up the gate and jump over...
 
+Press any key to start playing...
 
 
 
@@ -124,6 +126,7 @@ You no longer have any need for the toweled trowel so you expertly toss it into 
 > west
 It's really dark in here.  If only there was a way you could shine a light out of the palm of your hand with only your will power to... oh!  You suddenly remember you brought your flashlight!  I guess you didn't need it outside.  You can now see all around the inside of the house.  No room is safe from the revealing power of your Coleman.
 
+Press any key...
 
 You are inside the living room.  The open window lets in a slight breeze.  There are various lamps in here, a television set, stereo equipment, a rocking chair, and "L" shaped couch.  Next to the lamps are various framed pictures.  You can move northwest into the porch, southeast into the library, southwest into the foyer, or west into the kitchen.
 

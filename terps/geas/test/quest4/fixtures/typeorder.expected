@@ -1,0 +1,20 @@
+
+typeorder
+
+You are in Shop.
+There is a sweater and a black coat here.
+A dim little shop.
+
+> look
+You are in Shop.
+There is a sweater and a black coat here.
+A dim little shop.
+
+> report
+sweater prefix: a
+sweater colour: grey
+coat prefix: a black
+coat colour: black
+You rub the jacket type's script.
+You rub the coat's own script.
+[runner] turns=2 leftover=0 running=true

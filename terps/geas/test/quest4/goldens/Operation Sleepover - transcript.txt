@@ -1,5 +1,5 @@
 
-Operation: Sleepover, v2.0 Justin Bailey
+Operation: Sleepover, v2.0 | Justin Bailey
 
 Operation: Sleepover
 A Text-Based AR/TG Adventure game - version 2.0
@@ -25,12 +25,12 @@ It's called 1001 Arabian Nights.
 The words seemed to work, and the door magically opens.
 
 > nw
-You are in the upstairs hallway
+You are in the upstairs hallway.
 You can go northeast, northwest, southeast or down.
 You stand in the upstairs hallway. The master bedroom is northwest, Amy's room is northeast, and your room is southeast.
 
 > nw
-You are in the Master Bedroom
+You are in the Master Bedroom.
 There is a dresser, a king-sized bed and a closet here.
 You can go east or southeast.
 Your parents' bedroom. The master bath is to the east.
@@ -42,23 +42,23 @@ The drawers are all locked, so you can't open them, but on top you can see Mom's
 You pick it up.
 
 > se
-You are in the upstairs hallway
+You are in the upstairs hallway.
 You can go northeast, northwest, southeast or down.
 You stand in the upstairs hallway. The master bedroom is northwest, Amy's room is northeast, and your room is southeast.
 
 > down
-You are in the Hallway
+You are in the Hallway.
 You can go north, east, up or down.
 The living room is to the east, the bathroom is to the north. There are stairs leading up and down.
 
 > e
-You are in the Living Room
-There is Mom, Dad, the television, a knitting needle, a spool of yarn and a black sweater here.
+You are in the Living Room.
+There is Mom, Dad, the television, a knitting needle, a spool of yarn and a sweater here.
 You can go north or west.
 The dining room is to the north, the hallway to the west.
 
 > n
-You are in the Dining Room
+You are in the Dining Room.
 There is Amy, snack trays, the dinner table and orange juice here.
 You can go south or west.
 The kitchen is to the west, the living room to the south.
@@ -69,34 +69,34 @@ You grab one of the trays and follow Amy downstairs. You hand the tray to one of
 You stand in the hall for a moment thinking about all the cute girls you just saw in their PJs before Amisael comes into view.  
 "I don't know how you got out of your room, but you've had your peek at the party. Now leave them alone."  
 The faery turns and vanishes.
-You are in the Downstairs Hallway
+You are in the Downstairs Hallway.
 You can go south, east or west.
 The laundry room is to the west, the party is to the east.
 
 > s
-You are in the Foyer
+You are in the Foyer.
 You can go north, south or up.
 This is the main entryway to the house. Stairs lead up, and a hallway leads north. The front door is to the south.
 
 > up
-You are in the Hallway
+You are in the Hallway.
 You can go north, east, up or down.
 The living room is to the east, the bathroom is to the north. There are stairs leading up and down.
 
 > e
-You are in the Living Room
-There is Mom, Dad, the television, a knitting needle, a spool of yarn and a black sweater here.
+You are in the Living Room.
+There is Mom, Dad, the television, a knitting needle, a spool of yarn and a sweater here.
 You can go north or west.
 The dining room is to the north, the hallway to the west.
 
 > n
-You are in the Dining Room
+You are in the Dining Room.
 There is the dinner table and orange juice here.
 You can go south or west.
 The kitchen is to the west, the living room to the south.
 
 > w
-You are in the Kitchen
+You are in the Kitchen.
 There is the fridge, the oven, cabinets and the junk drawer here.
 You can go east.
 
@@ -113,34 +113,34 @@ You pick it up.
 You fill the lighter with fluid.
 
 > e
-You are in the Dining Room
+You are in the Dining Room.
 There is the dinner table and orange juice here.
 You can go south or west.
 The kitchen is to the west, the living room to the south.
 
 > s
-You are in the Living Room
-There is Mom, Dad, the television, a knitting needle, a spool of yarn and a black sweater here.
+You are in the Living Room.
+There is Mom, Dad, the television, a knitting needle, a spool of yarn and a sweater here.
 You can go north or west.
 The dining room is to the north, the hallway to the west.
 
 > w
-You are in the Hallway
+You are in the Hallway.
 You can go north, east, up or down.
 The living room is to the east, the bathroom is to the north. There are stairs leading up and down.
 
 > down
-You are in the Foyer
+You are in the Foyer.
 You can go north, south or up.
 This is the main entryway to the house. Stairs lead up, and a hallway leads north. The front door is to the south.
 
 > n
-You are in the Downstairs Hallway
+You are in the Downstairs Hallway.
 You can go south, east or west.
 The laundry room is to the west, the party is to the east.
 
 > w
-You are in the Laundry Room
+You are in the Laundry Room.
 There is the washing machine and the dryer here.
 You can go north or east.
 Nothing too special about the laundry room, except for the small door in the north wall leading into the crawlspace.
@@ -152,7 +152,7 @@ It's dark in here. Just the way the grues like it. You stumble around and get co
 
 > use lighter
 You light the lighter so you can see a little in the dark.
-You are in the crawl space
+You are in the crawl space.
 You can go south or east.
 It's hard to make out too much in the dim light, but you can see a large box near the doorway.
 
@@ -160,7 +160,7 @@ It's hard to make out too much in the dim light, but you can see a large box nea
 You cut open the box and empty it out.
 
 > e
-You are in the crawl space
+You are in the crawl space.
 You can go west.
 There's a tiny bit of light coming in through a vent in the south wall.
 
@@ -173,34 +173,34 @@ She waves her hands and you see a strange light come at you.
 You close your eyes as the room starts to spin around you. 
 "Let's see if this helps you grow up."  
 You slowly open your eyes. Somehow, you've been sent back to the laundry room. It's bigger now than it was before. Actually, you're smaller. It looks like the faery somehow regressed you into a toddler to teach you a lesson. Everything you were carrying is gone, too. 
-You are in the Laundry Room
+You are in the Laundry Room.
 There is the washing machine and the dryer here.
 You can go north or east.
 Nothing too special about the laundry room, except for the small door in the north wall leading into the crawlspace.
 
 > e
-You are in the Downstairs Hallway
+You are in the Downstairs Hallway.
 You can go south, east or west.
 The laundry room is to the west, the party is to the east.
 
 > s
-You are in the Foyer
+You are in the Foyer.
 You can go north, south or up.
 This is the main entryway to the house. Stairs lead up, and a hallway leads north. The front door is to the south.
 
 > up
-You are in the Hallway
+You are in the Hallway.
 You can go north, east, up or down.
 The living room is to the east, the bathroom is to the north. There are stairs leading up and down.
 
 > e
-You are in the Living Room
-There is a knitting needle, a spool of yarn, a black sweater, the television and a pocket watch here.
+You are in the Living Room.
+There is a knitting needle, a spool of yarn, a sweater, the television and a pocket watch here.
 You can go north or west.
 The dining room is to the north, the hallway to the west.
 
 > n
-You are in the Dining Room
+You are in the Dining Room.
 There is the dinner table and orange juice here.
 You can go south or west.
 The kitchen is to the west, the living room to the south.
@@ -209,7 +209,7 @@ The kitchen is to the west, the living room to the south.
 You pick it up.
 
 > w
-You are in the Kitchen
+You are in the Kitchen.
 There is the fridge, the oven, cabinets and the junk drawer here.
 You can go east.
 
@@ -223,24 +223,24 @@ You pick it up.
 Using your drink mixing skills, you make a screwdriver. That type of tool could come in handy.
 
 > e
-You are in the Dining Room
+You are in the Dining Room.
 There is the dinner table here.
 You can go south or west.
 The kitchen is to the west, the living room to the south.
 
 > s
-You are in the Living Room
-There is a knitting needle, a spool of yarn, a black sweater, the television and a pocket watch here.
+You are in the Living Room.
+There is a knitting needle, a spool of yarn, a sweater, the television and a pocket watch here.
 You can go north or west.
 The dining room is to the north, the hallway to the west.
 
 > w
-You are in the Hallway
+You are in the Hallway.
 You can go north, east, up or down.
 The living room is to the east, the bathroom is to the north. There are stairs leading up and down.
 
 > up
-You are in the upstairs hallway
+You are in the upstairs hallway.
 You can go northeast, northwest, southeast or down.
 You stand in the upstairs hallway. The master bedroom is northwest, Amy's room is northeast, and your room is southeast.
 
@@ -278,7 +278,7 @@ With a wave of her hand, the faery vanishes. You look into Amy's mirror and conf
 You twist the lock on the back of the doorknob and open the door.
 
 > sw
-You are in the upstairs hallway
+You are in the upstairs hallway.
 You can go northeast, northwest, southeast or down.
 You stand in the upstairs hallway. The master bedroom is northwest, Amy's room is northeast, and your room is southeast.
 
@@ -295,18 +295,18 @@ Most of these clothes are far too large to fit you, but you manage to find an ol
 You pick them up.
 
 > nw
-You are in the upstairs hallway
+You are in the upstairs hallway.
 You can go northeast, northwest, southeast or down.
 You stand in the upstairs hallway. The master bedroom is northwest, Amy's room is northeast, and your room is southeast.
 
 > down
-You are in the Hallway
+You are in the Hallway.
 You can go north, east, up or down.
 The living room is to the east, the bathroom is to the north. There are stairs leading up and down.
 
 > e
-You are in the Living Room
-There is a knitting needle, a spool of yarn, a black sweater, the television and a pocket watch here.
+You are in the Living Room.
+There is a knitting needle, a spool of yarn, a sweater, the television and a pocket watch here.
 You can go north or west.
 The dining room is to the north, the hallway to the west.
 
@@ -318,13 +318,13 @@ It looks like Mom left her sewing kit under the sweater.
 You pick it up.
 
 > n
-You are in the Dining Room
+You are in the Dining Room.
 There is the dinner table here.
 You can go south or west.
 The kitchen is to the west, the living room to the south.
 
 > w
-You are in the Kitchen
+You are in the Kitchen.
 There is the fridge, the oven, cabinets and the junk drawer here.
 You can go east.
 
@@ -350,34 +350,34 @@ The drawer contains a pair of scissors, a roll of tape, a box of markers, a roll
 You pick it up.
 
 > e
-You are in the Dining Room
+You are in the Dining Room.
 There is the dinner table here.
 You can go south or west.
 The kitchen is to the west, the living room to the south.
 
 > s
-You are in the Living Room
+You are in the Living Room.
 There is a knitting needle, a spool of yarn, the television and a pocket watch here.
 You can go north or west.
 The dining room is to the north, the hallway to the west.
 
 > w
-You are in the Hallway
+You are in the Hallway.
 You can go north, east, up or down.
 The living room is to the east, the bathroom is to the north. There are stairs leading up and down.
 
 > down
-You are in the Foyer
+You are in the Foyer.
 You can go north, south or up.
 This is the main entryway to the house. Stairs lead up, and a hallway leads north. The front door is to the south.
 
 > n
-You are in the Downstairs Hallway
+You are in the Downstairs Hallway.
 You can go south, east or west.
 The laundry room is to the west, the party is to the east.
 
 > w
-You are in the Laundry Room
+You are in the Laundry Room.
 There is the washing machine and the dryer here.
 You can go north or east.
 Nothing too special about the laundry room, except for the small door in the north wall leading into the crawlspace.
@@ -389,7 +389,7 @@ It's dark in here. Just the way the grues like it. You stumble around and get co
 
 > use lighter
 You light the lighter so you can see a little in the dark.
-You are in the crawl space
+You are in the crawl space.
 There is an old Atari 400, cow jammies, a skirt and some Spider-man action figures here.
 You can go south or east.
 It's hard to make out too much in the dim light, but you can see a large box near the doorway.
@@ -401,28 +401,28 @@ You add the Atari to your inventory.
 You take the pajamas.
 
 > s
-You are in the Laundry Room
+You are in the Laundry Room.
 There is the washing machine and the dryer here.
 You can go north or east.
 Nothing too special about the laundry room, except for the small door in the north wall leading into the crawlspace.
 
 > e
-You are in the Downstairs Hallway
+You are in the Downstairs Hallway.
 You can go south, east or west.
 The laundry room is to the west, the party is to the east.
 
 > s
-You are in the Foyer
+You are in the Foyer.
 You can go north, south or up.
 This is the main entryway to the house. Stairs lead up, and a hallway leads north. The front door is to the south.
 
 > up
-You are in the Hallway
+You are in the Hallway.
 You can go north, east, up or down.
 The living room is to the east, the bathroom is to the north. There are stairs leading up and down.
 
 > e
-You are in the Living Room
+You are in the Living Room.
 There is a knitting needle, a spool of yarn, the television and a pocket watch here.
 You can go north or west.
 The dining room is to the north, the hallway to the west.
@@ -445,17 +445,17 @@ You sewed up that rip so well, you can't even tell it was there to begin with. A
 These are so much cuter without that big rip in them. And they fit just perfect!
 
 > w
-You are in the Hallway
+You are in the Hallway.
 You can go north, east, up or down.
 The living room is to the east, the bathroom is to the north. There are stairs leading up and down.
 
 > down
-You are in the Foyer
+You are in the Foyer.
 You can go north, south or up.
 This is the main entryway to the house. Stairs lead up, and a hallway leads north. The front door is to the south.
 
 > n
-You are in the Downstairs Hallway
+You are in the Downstairs Hallway.
 You can go south, east or west.
 The laundry room is to the west, the party is to the east.
 
@@ -485,8 +485,8 @@ You look down at your body and realize that you're still dressed like a girl, co
 You nod your head, but you can't believe that your own big sister would black mail you. Wait. Big sister? That's right. She's always been your big sister, hasn't she?  
 You obey quickly when the girls send you away. You don't want Mom and Dad to see those pictures. What if she showed your friends at school? They'll be calling you a sissy all the way into high school.
 You finished this game as Kaden, a 9 year old boy.
-You were wearing cow jammies, a Supergirl cami, red panties.
-You were carrying: a black sweater, sewing kit, lighter, cookies, a pair of red shorts, screwdriver.
+You were wearing cow jammies, a cami, a pair of panties.
+You were carrying: a sweater, sewing kit, lighter, cookies, a pair of shorts, screwdriver.
 
 The End
 Congratulations on a job well done. Now, a new quest will begin for you. Say Justin Bailey in your bedroom next time you play.

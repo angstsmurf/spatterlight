@@ -1,12 +1,12 @@
 
 GainScript
 
-You are in Beach
+You are in Beach.
 There is pebble, shell, twig and reed here.
 A flat grey beach.
 
 > look
-You are in Beach
+You are in Beach.
 There is pebble, shell, twig and reed here.
 A flat grey beach.
 
@@ -30,7 +30,5 @@ The reed rattles.
 
 > i
 You are carrying:
-pebble
-shell
-reed
+pebble, shell and reed.
 [runner] turns=7 leftover=0 running=true

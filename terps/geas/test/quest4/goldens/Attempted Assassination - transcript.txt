@@ -1,5 +1,5 @@
 
-Attempted Assassination, v3.15 Matt Slotnick
+Attempted Assassination, v3.15 | Matt Slotnick
 
 Welcome to Attempted Assassination
 ----------------------------------------------------------------------------
@@ -9,30 +9,34 @@ If at any time you feel that you are stuck and there is possibly no way out of y
 
 If you have any other questions or comments about this game, then you can contact me through e-mail at mslot722@yahoo.com.
 
+Press a key
 
 
 You awake one sunny morning. You look at the time and notice that it is already 8:05! You are late to work again! This is the third time this month, your boss is definitly going to fire you now. You quickly change into your work clothes and jump into your car. Upon getting into your car, you notice a note lying on the passenger side seat. "How did that get there?" You open it up and read the note:
 
+Press a key
 
 
 "Your car will detonate at 8:08 this morning. Have a nice day!"
 
 Woah! You quickly jump out of the car, and not a minute too soon. You hear a giant explosion and a rush of wind wooshes by you. You turn around to see only bits of metal that is left of your car. Thankfully, you only got minor bruises from the jump out of the car.
 
+Press a key
 
 
 You get up and walk back into your house. You tell yourself that you should call your boss and tell him what happened, but then again, he will probably never believe you. So much for that idea.
 
+Press a key
 
 
 
 
-You are in Your House
+You are in Your House.
 You can go south, west or up.
 A table and chairs sit in the dining room infront of the hallway to the door. A stairway leads to the second floor. Also, a kitchen lies to your west.
 
 > up
-You are in bedroom
+You are in bedroom.
 There is pocket knife here.
 You can go down.
 You see a bed and a chair with a table next to it. On the table is a light that is currently turned off. Also on the table is your trusty pocket knife.
@@ -41,12 +45,12 @@ You see a bed and a chair with a table next to it. On the table is a light that 
 You pick it up.
 
 > down
-You are in Your House
+You are in Your House.
 You can go south, west or up.
 A table and chairs sit in the dining room infront of the hallway to the door. A stairway leads to the second floor. Also, a kitchen lies to your west.
 
 > west
-You are in kitchen
+You are in kitchen.
 There is cabinets here.
 You can go east.
 A normal counter top with cabinets over hanging them. A sink is in the middle of the table filled with dishes. You must make a mental note to wash those later today.
@@ -58,17 +62,17 @@ You open the cabinets to find a gun lying under some paper plates.
 You pick up the gun for safe keeping.
 
 > east
-You are in Your House
+You are in Your House.
 You can go south, west or up.
 A table and chairs sit in the dining room infront of the hallway to the door. A stairway leads to the second floor. Also, a kitchen lies to your west.
 
 > south
-You are in front yard
+You are in front yard.
 You can go north or west.
 You stand in your front yard. Infront of the yard, you can see what little remains of your car.
 
 > west
-You are in corner store
+You are in corner store.
 There is Man and Car here.
 You can go east or up.
 You step inside of a corner store. Five rows of food and other accessories lie infront of you. A counter is also on your left.
@@ -80,18 +84,22 @@ The man behind the counter says, "Can I help you?"
 You say, "Did you see anyone around my car this morning?"
 
 
+Press a key
 
 
 The man says, "Actually, I did. But I could not figure out who it was, he was dressed in dark clothes, and he probably came around at about 8:00 or so, and left a couple minutes later."
 
+Press a key
 
 
 You say, "Could you tell what he was doing with my car?"
 
+Press a key
 
 
 The man says, "Sorry, I'm too far away to tell. But here, take this key. It leads to a room on the second floor of this building. Up in the room, is a telescope. See if that will help you detect anything funny."
 
+Press a key
 
 
 You say, "Thanks for your help, I'll see if the telescope can help." as the man puts the key on the table.
@@ -100,7 +108,7 @@ You say, "Thanks for your help, I'll see if the telescope can help." as the man 
 You pick it up.
 
 > up
-You are in 2nd floor
+You are in 2nd floor.
 There is Door here.
 You can go down.
 All that is up here is a door that is locked. If only you had the key...
@@ -109,7 +117,7 @@ All that is up here is a door that is locked. If only you had the key...
 The door is unlocked by the key.
 
 > north
-You are in telescope room
+You are in telescope room.
 There is Telescope here.
 You can go out to 2nd floor.
 A room with a table that has some papers cluttered around on it. A telescope sits on the left window looking out into the city.
@@ -118,13 +126,13 @@ A room with a table that has some papers cluttered around on it. A telescope sit
 You look through the telescope and adjust the lenses so it comes in much clearer. You scan the town to see if anything seems out of the ordinary. You then come across a building that you do not recognize. At the same time, a man with dark clothes gets out of a taxi.
 
 > out
-You are in 2nd floor
+You are in 2nd floor.
 There is Door here.
 You can go north or down.
 All that is up here is a door that is locked. If only you had the key...
 
 > down
-You are in corner store
+You are in corner store.
 There is Man and Car here.
 You can go east or up.
 You step inside of a corner store. Five rows of food and other accessories lie infront of you. A counter is also on your left.
@@ -135,12 +143,12 @@ The man behind the counter says, "Can I help you?"
 The car starts up!
 
 > north
-You are in Mysterious Building
+You are in Mysterious Building.
 You can go north or south.
 You pull up to the mysterious building that you spotted through the microscope. It is painted in a grey color, and it is wierd that you have never noticed it before. The taxi that you spotted here earlier is long gone, and the man in the dark clothing is no where in site.
 
 > north
-You are in 1 Floor
+You are in 1 Floor.
 You can go south.
 You arrive inside the building into a wide room that is completely empty besides the desk sitting infront of you. Behind the desk is a woman sitting down staring into a computer screen.
 
@@ -148,12 +156,12 @@ You arrive inside the building into a wide room that is completely empty besides
 You jump over the desk and quickly cut the throat of the woman sitting behind the desk. You quickly scan the computer monitor to discover that it is a security camera. It is currently scanning the second floor, and a man in dark clothes rushes by the camera!
 
 > up
-You are in 2 Floor
+You are in 2 Floor.
 You can go east, west, southeast or southwest.
 You come out of the elevator shaft and find yourself in a hallway. On each side of the hallway are two doors. The dark clothed man is no where in side.
 
 > southwest
-You are in room03
+You are in room03.
 There is Door here.
 You can go northeast.
 As you enter in the room, you see a another door as it closes instantly. The dark clothed man must have gone into that door. You quickly run over there, but the door is locked. He must have locked it when he closed it behind him. There must be some way to open it.
@@ -162,13 +170,13 @@ As you enter in the room, you see a another door as it closes instantly. The dar
 The door is now open because you shot the door handle off.
 
 > north
-You are in Mysterious Room
+You are in Mysterious Room.
 You can go out to room03.
 You can go north.
 You shoot out the door handle and quickly open up the door, only to see the dark clothed man jump out of the window! You can't believe your eyes. You run over to the window and look down. The man is no where in sight. There is a trash can below the window, just big enough for someone to jump into.
 
 > north
-You are in Side Exit
+You are in Side Exit.
 There is Dark Clothed Man here.
 You can go east or west.
 You jump out the window and land in the trash can. Luckily it was under you or you would have been done foor. You get up to see the dark clothed man crouched down on the ground.
@@ -177,29 +185,36 @@ You jump out the window and land in the trash can. Luckily it was under you or y
 
 As you approach the man, he looks up at you and seems frightened to see you. He shouts out, "Don't come any closer! I'm warning you"
 
+Press a key
 
 
 You reply back, "I know what you have done. Don't think you can get away with what you have done to me this morning. Of course you would have had to know that I would discover that it was you who put the car bomb in my car."
 
+Press a key
 
 
 The man looks back up at you and says, "What are you talking about? I have never seen you in my life."
 
+Press a key
 
 
 You say, "What? Didn't you try to kill me this morning when you put a bomb in my car?"
 
+Press a key
 
 
 The man says, "I don't know of any bombing on your car. I jumped out of that window because I dropped my watch."
+Press a key
 
 
 You reply back, "Oh, sorry to have bothered you then. But out of curiosity, did you see anyone around the apartment building this morning that was messing around with my car?"
 
+Press a key
 
 
 The man says, "Yes I did, he had a kind of grey colored mustache, and he was wearing a hat that was tilted to the side a little bit, and a pair of blue jeans. Thats all I could see."
 
+Press a key
 
 
 You say, "That's my boss! How could he do such a thing! Thanks for the information man."
@@ -208,12 +223,12 @@ You say, "That's my boss! How could he do such a thing! Thanks for the informati
 You pick it up.
 
 > west
-You are in Back Alley
+You are in Back Alley.
 You can go east or west.
 You run out into a back alley. Good thing you know this town like the back of your hand. You know very well that this back alley leads to the back entrance of your workplace.
 
 > west
-You are in side door
+You are in side door.
 There is Door here.
 You can go east.
 You come upon the side door of your work place. But the door is locked, if only you had something to use against the door.
@@ -222,7 +237,7 @@ You come upon the side door of your work place. But the door is locked, if only 
 The door is now unlocked!
 
 > north
-You are in work
+You are in work.
 There is Boss here.
 You can go south.
 You walk into work and the first person you see is your boss. Good, now to settle things for trying to kill you this morning.
@@ -231,6 +246,7 @@ You walk into work and the first person you see is your boss. Good, now to settl
 
 You say, "YOU! You were the one who tried to kill me this morning. You were the one who has put me through this whole mess of trying to find out who tried to kill me. You are going to pay big time now."
 
+Press a key
 
 
 Your boss says, "Oh ya? So what if it was me who tried to kill you. I am sick and tired of you being late to work. So I knew you would be late again so I placed a bomb in your car. But unfortunatly, it didn't kill you. But what are you gonna do about it?"

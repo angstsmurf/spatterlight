@@ -1,5 +1,5 @@
 
-Escape the Elevator Andrew Trewin
+Escape the Elevator | Andrew Trewin
 
 .-  Welcome -.
 In this game you must simply Escape the Elevator. Simple? Nope. If you are having trouble understanding any of this, please type in Story for furthur... Um, story. Thanks!
@@ -44,12 +44,14 @@ The Ashtray is bolted to the wall, so you remove the Cigar instead.
 
 > i
 You are carrying:
-Burning Cigar
+A Burning Cigar.
 
 > use control panel
 You push the big pointy arrow. A computerized voice, neither male nor female, says: "Going Up."
+Press Any Key
 
 The Elevator starts to move, but suddenly the lights go out and it jerks to a stop. The light on the Control Panel goes out.
+Press Any Key
 
 You are in a Dark Elevator.
 There is a Mirror showing your reflection (Very faintly), an Ashtray with a burning cigar in it, a Control Panel for the Elevator, some Golden Hand Rails and an Emergency Exit Panel on the Roof here.

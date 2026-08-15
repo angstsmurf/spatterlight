@@ -1,33 +1,35 @@
 
 ContainerVis
 
-You are in Room
+You are in Room.
 There is case here.
 A plain room.
 
 > look
-You are in Room
+You are in Room.
 There is case here.
 A plain room.
 
 > take hammer
-You don't see any hammer.
+I can't see that here.
 
 > reveal hammer
 
 > look
-You are in Room
+You are in Room.
 There is case and hammer here.
 A plain room.
 
 > take hammer
+You can't take it - inside closed case.
 
 > i
-You are carrying:
-hammer
+You are not carrying anything.
 
 > open case
 You open it.
+A wooden case.
+It contains hammer, knife and nail.
 
 > take knife
 (first removing it from case)
@@ -41,12 +43,12 @@ You put knife in case.
 You close it.
 
 > take knife
-You don't see any knife.
+I can't see that here.
 
 > reveal nail
 
 > look
-You are in Room
+You are in Room.
 There is case and nail here.
 A plain room.
 
@@ -54,9 +56,10 @@ A plain room.
 A wooden case.
 
 > take nail
-You don't see any nail.
+I can't see that here.
 
 > reveal nail
 
 > take nail
+You can't take it - inside closed case.
 [runner] turns=17 leftover=0 running=true

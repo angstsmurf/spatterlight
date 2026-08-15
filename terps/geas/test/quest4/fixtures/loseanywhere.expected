@@ -1,0 +1,37 @@
+
+Loseanywhere
+
+You are in Hall.
+There is a rock here.
+The hall.
+
+> i
+You are carrying:
+A lamp.
+
+> one
+The spade clatters down.
+
+> look
+You are in Hall.
+There is a rock and a spade here.
+The hall.
+
+> two
+
+> look
+You are in Hall.
+There is a rock, a spade and a fork here.
+The hall.
+
+> three
+You put the lamp down.
+
+> look
+You are in Hall.
+There is a rock, a lamp, a spade and a fork here.
+The hall.
+
+> i
+You are not carrying anything.
+[runner] turns=8 leftover=0 running=true

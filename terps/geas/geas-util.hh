@@ -72,9 +72,23 @@ extern std::string trim_braces (const std::string &s);
  * joined by + - * / with the usual precedence (* and / before + and -), left
  * to right.  Used by Quest's $round(...)$ and other floating-point math. */
 extern double eval_double (const std::string &s);
-/* Format a numeric value the way Quest displays one: an integral value prints
- * with no decimal point ("37", "-5"), otherwise with trailing zeros trimmed
- * ("0.498", "14.8"). */
+/* The arithmetic `set numeric` does below ASL 3.91.  ExpressionHandler is not
+ * reached at those versions: ExecSetVar finds one operator -- the first "+",
+ * else the first "*", else the first "/", else a "-" anywhere but the front --
+ * and performs that single operation, reading each side with VB's Val(), which
+ * takes as much of a number as it finds and stops (V4Game.cs:7286-7343).  So
+ * "10*3/4" is thirty, and there is no precedence to speak of.  DIV_BY_ZERO is
+ * set when a division was refused, which Quest logs and answers with zero. */
+extern double eval_double_pre391 (const std::string &expr, bool &div_by_zero);
+/* Format a numeric value the way .NET's Double.ToString() does, which is the
+ * form Quest's ExpressionHandler hands an arithmetic result back in: the
+ * shortest decimal that reads back as the same double, plain digits between
+ * exponent -4 and 16 and scientific outside that ("0.3333333333333333",
+ * "1E+18"). */
+extern std::string fmt_double_net (double d);
+/* Format a numeric value the way Quest *displays* one -- VB's Str(), which is
+ * fmt_double_net minus the leading zero of a fraction (".3333333333333333",
+ * "-.5"); an integral value prints with no decimal point at all ("37", "-5"). */
 extern std::string fmt_double (double d);
 /* Evaluate a string as a complete arithmetic expression, the way Quest's
  * ExpressionHandler does: true (and the formatted value in RESULT) only if the
@@ -86,6 +100,22 @@ extern bool eval_numeric_expr (const std::string &s, std::string &result);
 extern std::string pcase (std::string s);
 extern std::string ucase (std::string s);
 extern std::string lcase (std::string s);
+
+/* Re-encode a line of game text from Windows-1252 to UTF-8.  Quest is a VB6
+ * program: it reads its files a byte at a time through Chr(), which maps them
+ * through the thread's ANSI code page, and on the Windows the games were
+ * written for that is always 1252.  So an author's `©`, `£`, `—` or curly
+ * quote is one byte in the file, and the eight-bit range 0x80-0x9F -- which
+ * Latin-1 leaves as control codes -- carries the typographic characters QDK
+ * inserts on its own.  Passing those bytes through to Glk shows mojibake, and
+ * a Latin-1 reading turns the QDK ones into nothing at all. */
+extern std::string cp1252_to_utf8 (const std::string &s);
+
+/* True when the whole string is already well-formed UTF-8 (pure ASCII counts).
+ * Overlong forms and surrogates are not rejected: this is the sniff that keeps
+ * cp1252_to_utf8 off a file some later author saved as UTF-8, not a
+ * validator. */
+extern bool text_is_utf8 (const std::string &s);
 
 //ostream &operator<< (ostream &o, const vector<string> &v);
 //template<class T> std::ostream &operator<< (std::ostream &o, const std::vector<T> &v) { return o;}

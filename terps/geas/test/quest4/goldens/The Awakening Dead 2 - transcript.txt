@@ -5,18 +5,17 @@ You curse as you notice your gas meter hit the 'E'. The suburbs are a little bit
 
 You will have to find fuel and shelter before continuing your journey to the highway. You pull up in an eerily quiet neighbourhood. Most of the houses show signs of attack but no zombies in sight. A secure building to sleep in and a gas can with fuel is all that you need. You are anxious to start searching. The sun's absence has unsettled you.
 
-You are in your Car
+You are in your Car.
 There is a Knife here.
-You can go out to Street.
+You can go out.
 This old car has faithfully served you for the past few harrowing minutes but now, it has no fuel and is completely useless.
 
 > take knife
 You grab the knife and put it in your back pocket.
 
 > out
-You are in the Street
-You can go north.
-You can go to Car.
+You are in the Street.
+You can go north or to your Car.
 On both sides of the street are suburban homes destroyed and ravaged by the zombie horde. A few devoured bodies are left on the front lawns with numerous flies swarming them.
 
 > north
@@ -25,7 +24,7 @@ You can go north, south, east or west.
 Several cars lay here, abandoned by their owners. The traffic lights flash green, orange and red seemingly at random. It is awfully quiet.
 
 > east
-You are in Vesterlit Avenue
+You are in Vesterlit Avenue.
 There is an Ambulance, a Wounded Police Officer and a Looter here.
 You can go west.
 An empty road that leads to the highway. Trees line either side of the road.
@@ -49,12 +48,12 @@ You can go north, south, east or west.
 Several cars lay here, abandoned by their owners. The traffic lights flash green, orange and red seemingly at random. It is awfully quiet.
 
 > west
-You are in Nitwin Road
+You are in Nitwin Road.
 You can go south or east.
 Nitwin Road used to be a busy street lined with shops on either side. You have shopped here before on several occassions. Cars lie abandoned and devoured bodies can be seen almost everywhere.
 
 > south
-You are in a Gas Station
+You are in a Gas Station.
 There is a Zombie here.
 You can go north.
 The gas station is filled with cars waiting to get a refill, all abandoned. There is no fuel left here. Disappointed, you enter the convenience store attached to see if you can find something else that might aid you. Some of the windows are shattered and the place has been looted thorougly.
@@ -66,7 +65,7 @@ You whistle and the zombie turns around, coming face to face with the barrel of 
 You pick it up.
 
 > north
-You are in Nitwin Road
+You are in Nitwin Road.
 You can go south or east.
 Nitwin Road used to be a busy street lined with shops on either side. You have shopped here before on several occassions. Cars lie abandoned and devoured bodies can be seen almost everywhere.
 
@@ -76,12 +75,12 @@ You can go north, south, east or west.
 Several cars lay here, abandoned by their owners. The traffic lights flash green, orange and red seemingly at random. It is awfully quiet.
 
 > north
-You are in Jewel Street
+You are in Jewel Street.
 You can go south or west.
 Jewel Street is a residential area. Ravaged suburban homes blot the sides of the street. Cars are left in their driveways, their owners nowhere to be seen.
 
 > west
-You are in a Boarded Up House
+You are in a Boarded Up House.
 There is Big Joe with a shotgun and a Mattress on the floor here.
 You can go east.
 As you enter this boarded up house, you sigh in relief as another human being comes into view from the shadows. From the looks of things, the house has been boarded up with planks and two mattresses are on the floor. A single gas lamp is on the floor between the two makeshift beds. This would be a nice place to take a rest.

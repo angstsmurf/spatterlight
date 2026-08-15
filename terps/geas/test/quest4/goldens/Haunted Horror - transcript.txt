@@ -1,5 +1,5 @@
 
-Haunted Horror, v2.00 FINAL Matt Slotnick
+Haunted Horror, v2.00 FINAL | Matt Slotnick
 
 Welcome to Haunted Horror
 
@@ -10,7 +10,7 @@ What is your name?
 Welcome, n, your game will begin momentarily...
 
 
-You are in the front Porch
+You are in the front Porch.
 There is Door here.
 You can go south.
 You are standing on the front porch of the supposedly haunted house. There is a door infront of you with a doorbell next to it.
@@ -21,7 +21,7 @@ You ring the doorbell. A man inside the house opens the door and greets you.
 "Good evening, sir. You must be the detective that I have called for. Please, do come in. I hope this is not a bad time."
 
 > n
-You are in Living Room
+You are in Living Room.
 There is Man here.
 You can go north, south, east or west.
 
@@ -56,7 +56,7 @@ You are in the Kitchen.
 You can go east or northwest.
 
 > e
-You are in Living Room
+You are in Living Room.
 There is Man here.
 You can go north, south, east or west.
 
@@ -80,7 +80,7 @@ You can go west or northeast.
 You are standing in the East Hallway. There are several paintings lined up on both sides of the hallway. The paintings are famous pieces of art.
 
 > w
-You are in Living Room
+You are in Living Room.
 There is Man here.
 You can go north, south, east or west.
 
@@ -130,7 +130,7 @@ You open the door to find that it is a storage closet. Searching the shelves mig
 You search the shelves and find a notebook!
 
 > get notebook
-You already have it.
+I can't see that anywhere.
 
 > read notebook
 You flip through the pages of the notebook and stop at some writing. It says:
@@ -285,12 +285,12 @@ You can go north, south or up.
 You walk into the Main Hallway of the house. There are pictures of people lined up on both sides of the hallway.
 
 > s
-You are in Living Room
+You are in Living Room.
 There is Man here.
 You can go north, south, east or west.
 
 > s
-You are in the front Porch
+You are in the front Porch.
 There is Door here.
 You can go north or south.
 You are standing on the front porch of the supposedly haunted house. There is a door infront of you with a doorbell next to it.

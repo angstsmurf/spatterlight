@@ -86,7 +86,12 @@ public:
    * array's upper bound. */
   size_t max() const { return size() ? size() - 1 : 0; }
   void set (size_t i, const std::string &val) { if (i >= size()) data.resize(i+1); data[i] = val; }
-  std::string get (size_t i) const { if (i < size()) return data[i]; return "!";}
+  /* An index past the end reads as the empty string, not as a sentinel:
+   * GetStringContents logs "Array index ... too big" and returns ""
+   * (V4Game.Part2.cs:2637-2643).  It used to answer "!", which is a marker for
+   * a missing *property*, and it went straight into game text -- Wizard's
+   * spell menu printed "4) !" for each of its nine empty slots. */
+  std::string get (size_t i) const { if (i < size()) return data[i]; return "";}
   void set (const std::string &val) { data[0] = val; }
   std::string get() const { return data[0]; }
 };

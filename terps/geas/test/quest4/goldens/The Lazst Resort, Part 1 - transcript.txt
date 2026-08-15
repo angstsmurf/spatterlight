@@ -1,5 +1,5 @@
 
-The Lazst Resort, Part 1, valpha B.J. Best
+The Lazst Resort, Part 1, valpha | B.J. Best
 
 Welcome to The Lazst Resort, Part 1.  Type HELP at any time for some general assistance regarding the game.
 
@@ -22,8 +22,8 @@ The bed is a comfortable king-size.  The sheets are clean but starting to yellow
 > go to hotel room
 You are standing in your hotel room, room 209.
 There is an oak nightstand, a clock radio, a table lamp, a telephone and an oak dresser here.
-You can go west.
 You can go to your bed or the bathroom.
+You can go west.
 You find your room is well-appointed, but showing the weariness of years.  From the decor, you would guess that it was last remodeled in the late 60's or early 70's.  The walls are all covered in a dark oak paneling, which may very well be fake.  A few cheap pictures hang crookedly.  They depict vaguely rustic scenes such as a autumn wheat field or a wheelbarrow rusting next to a barn using the earth-tones palette that matches everything else in the room.  The ceiling is comprised of dingy white tiles, some of which have waterspots.  The furniture--table, dresser, and nightstand--are made of solid oak.  The carpeting is rust-colored, avoiding further patheticness by having been installed either just before or just after the shag craze.
 
 > use telephone
@@ -52,8 +52,8 @@ Nah, you took a shower two weeks ago.
 > go to hotel room
 You are standing in your hotel room, room 209.
 There is an oak nightstand, a clock radio, a table lamp, a telephone and an oak dresser here.
-You can go west.
 You can go to your bed or the bathroom.
+You can go west.
 You find your room is well-appointed, but showing the weariness of years.  From the decor, you would guess that it was last remodeled in the late 60's or early 70's.  The walls are all covered in a dark oak paneling, which may very well be fake.  A few cheap pictures hang crookedly.  They depict vaguely rustic scenes such as a autumn wheat field or a wheelbarrow rusting next to a barn using the earth-tones palette that matches everything else in the room.  The ceiling is comprised of dingy white tiles, some of which have waterspots.  The furniture--table, dresser, and nightstand--are made of solid oak.  The carpeting is rust-colored, avoiding further patheticness by having been installed either just before or just after the shag craze.
 
 > west
@@ -86,8 +86,8 @@ You can go north or south.
 > south
 You are standing at the top of a landing of a flight of stairs.
 There is a sign here.
-You can go north or east.
 You can go to the downstairs landing.
+You can go north or east.
 The top stair creaks if you step on it.  The steps are bare, and the middle of each stair is quite worn.  The banister is rather ornate, hand-carved, apparently, out of mahogany or some other dark, sturdy wood.
 
 > east
@@ -114,8 +114,8 @@ You grope blindly along the brick wall, and eventually discover a lightswitch to
 You flip the switch, and suddenly a single white beam shoots out from somewhere in the ceiling.  It hits a mirror ball, and instantly the ballroom is dimly lit by a thousand swirling sparkles.  Soon thereafter, a stage at the far end of the room is lit up by blue and red gels.  Most eerily, "Moonlight Serenade" beings playing through the room's PA system.
 You are standing at one end of an enormous ballroom.
 There is a lightswitch here.
-You can go north.
 You can go to the stage.
+You can go north.
 The room is cavernous, a feeling redoubled every time you take a step, as your shoes echo off of the wooden floor.  In the dim light, you can see that the entire room is empty--no tables, no chairs--except for a bar in the southeast corner of the room.  There is neither liquor nor stools at the bar, and the feeling you get is that this room has not been used in years.  The music and the mirror ball give the room a sad, lonely atmosphere.
 
 > go to the stage
@@ -134,8 +134,8 @@ What a shame you don't see an amp to plug the microphone into anywhere.
 > go to the ballroom
 You are standing at one end of an enormous ballroom.
 There is a lightswitch here.
-You can go north.
 You can go to the stage.
+You can go north.
 The room is cavernous, a feeling redoubled every time you take a step, as your shoes echo off of the wooden floor.  In the dim light, you can see that the entire room is empty--no tables, no chairs--except for a bar in the southeast corner of the room.  There is neither liquor nor stools at the bar, and the feeling you get is that this room has not been used in years.  The music and the mirror ball give the room a sad, lonely atmosphere.
 
 > north
@@ -152,16 +152,16 @@ A simple white, wooden, chest-high railing prevents mishaps.  Looking down, you 
 > west
 You are standing at the top of a landing of a flight of stairs.
 There is a sign here.
-You can go north or east.
 You can go to the downstairs landing.
+You can go north or east.
 The top stair creaks if you step on it.  The steps are bare, and the middle of each stair is quite worn.  The banister is rather ornate, hand-carved, apparently, out of mahogany or some other dark, sturdy wood.
 
 > go to the downstairs landing
 You descend the creaking stairs.
 You are standing at the bottom of a landing of a flight of stairs.
 There is small sign here.
-You can go north, south or east.
 You can go to the upstairs landing.
+You can go north, south or east.
 The bottom stair creaks if you step on it.  The steps are bare, and the middle of each stair is quite worn.  The banister is rather ornate, hand-carved, apparently, out of mahogany or some other dark, sturdy wood.
 
 > south
@@ -508,13 +508,7 @@ Soon, you have nothing but an empty glass.
 
 > i
 You are carrying:
-microphone
-newspaper
-clue 1
-clue 2
-instructions
-quarters
-empty glass
+A microphone, newspaper, clue 1, clue 2, the mystery instructions, two quarters and an empty glass.
 
 > west
 You are standing in the hotel's barroom.
@@ -530,16 +524,16 @@ The lobby is fairly small, and decorated with the same rustic charm as the rest 
 > north
 You are standing at the bottom of a landing of a flight of stairs.
 There is small sign here.
-You can go north, south or east.
 You can go to the upstairs landing.
+You can go north, south or east.
 The bottom stair creaks if you step on it.  The steps are bare, and the middle of each stair is quite worn.  The banister is rather ornate, hand-carved, apparently, out of mahogany or some other dark, sturdy wood.
 
 > go to the upstairs landing
 You climb the creaking stairs.
 You are standing at the top of a landing of a flight of stairs.
 There is a sign here.
-You can go north or east.
 You can go to the downstairs landing.
+You can go north or east.
 The top stair creaks if you step on it.  The steps are bare, and the middle of each stair is quite worn.  The banister is rather ornate, hand-carved, apparently, out of mahogany or some other dark, sturdy wood.
 
 > east
@@ -597,16 +591,16 @@ A simple white, wooden, chest-high railing prevents mishaps.  Looking down, you 
 > west
 You are standing at the top of a landing of a flight of stairs.
 There is a sign here.
-You can go north or east.
 You can go to the downstairs landing.
+You can go north or east.
 The top stair creaks if you step on it.  The steps are bare, and the middle of each stair is quite worn.  The banister is rather ornate, hand-carved, apparently, out of mahogany or some other dark, sturdy wood.
 
 > go to the downstairs landing
 You descend the creaking stairs.
 You are standing at the bottom of a landing of a flight of stairs.
 There is small sign here.
-You can go north, south or east.
 You can go to the upstairs landing.
+You can go north, south or east.
 The bottom stair creaks if you step on it.  The steps are bare, and the middle of each stair is quite worn.  The banister is rather ornate, hand-carved, apparently, out of mahogany or some other dark, sturdy wood.
 
 > south
@@ -657,8 +651,8 @@ The lobby is fairly small, and decorated with the same rustic charm as the rest 
 > north
 You are standing at the bottom of a landing of a flight of stairs.
 There is small sign here.
-You can go north, south or east.
 You can go to the upstairs landing.
+You can go north, south or east.
 The bottom stair creaks if you step on it.  The steps are bare, and the middle of each stair is quite worn.  The banister is rather ornate, hand-carved, apparently, out of mahogany or some other dark, sturdy wood.
 
 > north
@@ -750,8 +744,8 @@ This hallway and its decor are identical to the one that leads to the rooms on t
 > south
 You are standing at the bottom of a landing of a flight of stairs.
 There is small sign here.
-You can go north, south or east.
 You can go to the upstairs landing.
+You can go north, south or east.
 The bottom stair creaks if you step on it.  The steps are bare, and the middle of each stair is quite worn.  The banister is rather ornate, hand-carved, apparently, out of mahogany or some other dark, sturdy wood.
 
 > east
@@ -766,8 +760,8 @@ You decide that you'll push around the cart for awhile.
 > west
 You are standing at the bottom of a landing of a flight of stairs.
 There is small sign here.
-You can go north, south or east.
 You can go to the upstairs landing.
+You can go north, south or east.
 The bottom stair creaks if you step on it.  The steps are bare, and the middle of each stair is quite worn.  The banister is rather ornate, hand-carved, apparently, out of mahogany or some other dark, sturdy wood.
 
 > north
@@ -821,8 +815,8 @@ This hallway and its decor are identical to the one that leads to the rooms on t
 > south
 You are standing at the bottom of a landing of a flight of stairs.
 There is small sign here.
-You can go north, south or east.
 You can go to the upstairs landing.
+You can go north, south or east.
 The bottom stair creaks if you step on it.  The steps are bare, and the middle of each stair is quite worn.  The banister is rather ornate, hand-carved, apparently, out of mahogany or some other dark, sturdy wood.
 
 > east
@@ -854,8 +848,8 @@ You are also glad to finally get rid of this ladder.  You don't feel you'll need
 > south
 You are in the hotel's kitchen.
 There is a large freezer, a large refrigerator, a long counter and several magnets on the refrigerator here.
-You can go north.
 You can go to the basement stairs.
+You can go north.
 Here is where they prepare the food for the resort's dining room.  This is another of one of those rare places where everything has been thoroughly modernized.  The kitchen swims in stainless steel:  counters, ovens, stoves, refrigerators, and freezers.  Numerous bowls, pans and utensils are stored on stainless steel carts that can be wheeled around for maximum mobility.  In one corner, there is a set of narrow stone stairs that disappear down around the corner, presumably to the basement.  Near the stairs is your string-and-toilet-paper-roll device that worked so admirably in opening the door.
 
 > use freezer
@@ -902,8 +896,8 @@ You take one of the magnets.
 > go to the basement stairs
 You shuffle down the old, cold stairs to the basement.
 You are standing at the bottom of the basement stairs.
-You can go north.
 You can go to the kitchen.
+You can go north.
 The basement of the resort is unfurnished, damp, and cold.  Everything has stone walls, the outermost walls simply being the foundation for the building.  Inner walls are made of old, cream-colored brick.  There is no proper ceiling above you, and cobwebs dominate the network of pipes and wires that run overhead.  Bare lightbulbs glow along the western wall at irregular intervals.
 
 > north
@@ -935,16 +929,16 @@ You can go north or south.
 
 > south
 You are standing at the bottom of the basement stairs.
-You can go north.
 You can go to the kitchen.
+You can go north.
 The basement of the resort is unfurnished, damp, and cold.  Everything has stone walls, the outermost walls simply being the foundation for the building.  Inner walls are made of old, cream-colored brick.  There is no proper ceiling above you, and cobwebs dominate the network of pipes and wires that run overhead.  Bare lightbulbs glow along the western wall at irregular intervals.
 
 > go to the kitchen
 You ascend the stairs and appreciate how much warmer it is on the first floor.
 You are in the hotel's kitchen.
 There is a large freezer, a large refrigerator, a long counter and several magnets on the refrigerator here.
-You can go north.
 You can go to the basement stairs.
+You can go north.
 Here is where they prepare the food for the resort's dining room.  This is another of one of those rare places where everything has been thoroughly modernized.  The kitchen swims in stainless steel:  counters, ovens, stoves, refrigerators, and freezers.  Numerous bowls, pans and utensils are stored on stainless steel carts that can be wheeled around for maximum mobility.  In one corner, there is a set of narrow stone stairs that disappear down around the corner, presumably to the basement.  Near the stairs is your string-and-toilet-paper-roll device that worked so admirably in opening the door.
 
 > north
@@ -966,8 +960,8 @@ This hall connects the stairway and the dining room.
 > west
 You are standing at the bottom of a landing of a flight of stairs.
 There is small sign here.
-You can go north, south or east.
 You can go to the upstairs landing.
+You can go north, south or east.
 The bottom stair creaks if you step on it.  The steps are bare, and the middle of each stair is quite worn.  The banister is rather ornate, hand-carved, apparently, out of mahogany or some other dark, sturdy wood.
 
 > south
@@ -993,8 +987,8 @@ You can go north or south.
 
 > north
 You are standing in the hotel's parking lot.
-You can go south.
 You can go to your car.
+You can go south.
 About a dozen cars are parked in the gravel lot here, including yours.  From here, it is about a half-hour drive to the nearest major highway.  However, due to the fog and general miserable weather, it might take a little longer today.
 
 > go to your car
@@ -1020,8 +1014,8 @@ You drive your car to Milwaukee and back, but it seems that little has changed.
 
 > out
 You are standing in the hotel's parking lot.
-You can go south.
 You can go to your car.
+You can go south.
 About a dozen cars are parked in the gravel lot here, including yours.  From here, it is about a half-hour drive to the nearest major highway.  However, due to the fog and general miserable weather, it might take a little longer today.
 
 > south
@@ -1120,8 +1114,8 @@ You pick them up.
 
 > out
 You are standing near a small shed by the waterfront.
-You can go east.
 You can go to shed.
+You can go east.
 The shed is rather small, constructed of some cheap, unpainted wood.  There is no indication what might be inside.  The door to the shed is locked with a padlock.  From here, you can see a few feet out into the bay, but the fog is quite thick.
 
 > east
@@ -1203,8 +1197,8 @@ You can go north, south, east, northeast or southeast.
 > out
 You tie the bow of the rowboat loosely around one of the pier's planks, and step onto the pier.
 Your are standing on the island's pier.
-You can go west.
 You can go to the rowboat near island.
+You can go west.
 The pier is of poor construction, consisting simply of two long planks that are barely suspended above the water by vertical posts at irregular intervals.  The wood appears to be rotten, and is extremely slippery, as waves from the bay constantly wash over it.
 
 > west
@@ -1236,8 +1230,8 @@ The ice pick has a wooden handle and is about six inches long.  Resting on the s
 
 > out
 You are standing on the north side of the island.
-You can go south, southeast or southwest.
 You can go to island shed.
+You can go south, southeast or southwest.
 From here, you can look out over the bay back in the general direction of the resort, but the fog limits your visibility to only a few feet in front of you.
 
 > southeast
@@ -1247,8 +1241,8 @@ The island is quite small, and is rather overgrown with tall plants and bushes. 
 
 > east
 Your are standing on the island's pier.
-You can go west.
 You can go to the rowboat near island.
+You can go west.
 The pier is of poor construction, consisting simply of two long planks that are barely suspended above the water by vertical posts at irregular intervals.  The wood appears to be rotten, and is extremely slippery, as waves from the bay constantly wash over it.
 
 > go to the rowboat near island
@@ -1288,8 +1282,8 @@ You can go south, east, southeast or southwest.
 > out
 You are standing on a small pier.
 There is the bay here.
-You can go north.
 You can go to rowboat.
+You can go north.
 The pier is narrow and short, only extending about five feet over the water.  You are amazed at how thick the fog has gotten, and it is especially bad over the bay.  From here, you can make out no discernible features of the bay, besides being able to follow the western shoreline briefly to the south before it, too, is hidden by fog.
 
 > north
@@ -1343,8 +1337,8 @@ As you enter the hotel lobby, Bobbie Jones, the receptionist, looks anxiously at
 > north
 You are standing at the bottom of a landing of a flight of stairs.
 There is small sign here.
-You can go north, south or east.
 You can go to the upstairs landing.
+You can go north, south or east.
 The bottom stair creaks if you step on it.  The steps are bare, and the middle of each stair is quite worn.  The banister is rather ornate, hand-carved, apparently, out of mahogany or some other dark, sturdy wood.
 
 > east
@@ -1366,15 +1360,15 @@ This is nothing more than a nook, really.  A solitary eastern window looks out i
 > south
 You are in the hotel's kitchen.
 There is a large freezer, a large refrigerator, a long counter and several magnets on the refrigerator here.
-You can go north.
 You can go to the basement stairs.
+You can go north.
 Here is where they prepare the food for the resort's dining room.  This is another of one of those rare places where everything has been thoroughly modernized.  The kitchen swims in stainless steel:  counters, ovens, stoves, refrigerators, and freezers.  Numerous bowls, pans and utensils are stored on stainless steel carts that can be wheeled around for maximum mobility.  In one corner, there is a set of narrow stone stairs that disappear down around the corner, presumably to the basement.  Near the stairs is your string-and-toilet-paper-roll device that worked so admirably in opening the door.
 
 > go to the basement stairs
 You shuffle down the old, cold stairs to the basement.
 You are standing at the bottom of the basement stairs.
-You can go north.
 You can go to the kitchen.
+You can go north.
 The basement of the resort is unfurnished, damp, and cold.  Everything has stone walls, the outermost walls simply being the foundation for the building.  Inner walls are made of old, cream-colored brick.  There is no proper ceiling above you, and cobwebs dominate the network of pipes and wires that run overhead.  Bare lightbulbs glow along the western wall at irregular intervals.
 
 > north
@@ -1384,18 +1378,23 @@ You can go north or south.
 
 > use door key on office door
 You slide the key into the lock on the door and it turns easily.  You walk into the office and fumble around for a lightswitch.  Lying on the ground near his desk is Ray Lazst, pretending to be dead.
+Press any key to continue...
 
 
 Ray is dressed in his employee's plaid shirt, but is covered with stage blood.  He lies face down.  His "death" was apparently a blow to the head, and Ray has gone to great lengths to be sure a grotesque bit of broken skull is visible among his curly white hair, matted with blood.  A red pool surrounds his head, and appears to have run out his ears.
+Press any key to continue...
 
 
 It's all a bit much for your conservative tastes, but you've come to expect this. "Ha, Ray, I've found you!"  you shout to the corpse.   The corpse does not respond.  "Ray?  It's Pat Conroy!  You've really outdone yourself this time.  Well done."  Ray still does not move.
+Press any key to continue...
 
 
 Suddenly you have an intense wave of nausea and dread wash over you.  "Ray?" you ask feebly, instantly light-headed.  Your mouth is parched dry and you are close to hyperventilating.  You manage to shuffle a few feet forward and look at Ray's torso.  He is clearly not breathing.  
+Press any key to continue...
 
 
 You think about reaching for one of his arms and checking for a pulse, but unspeakable fear and panic strike you like a lightning bolt.  All you can do is scream and scream and scream.  Judy rushes in shortly, followed by a woman you think was the one from Room 105, and then Jack.  You continue screaming, your voice growing hoarse, until you quickly and quietly slump to the floor, your mouth still open in sheer terror, slipping into the welcome blankness of unconsciousness.
+Press any key to continue...
 
 
 * * * * * * *

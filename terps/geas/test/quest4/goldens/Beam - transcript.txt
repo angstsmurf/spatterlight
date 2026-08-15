@@ -1,5 +1,5 @@
 
-Beam, v1.10 Madrone Eddy (pe8283 at yahoo)
+Beam, v1.10 | Madrone Eddy (pe8283 at yahoo)
 
 You wake up wincing and put your hands to your head. You have the ringing remnant of a strange headache and an itchy sensation on the back of your neck. After a moment you can feel the pain diminishing and you blink your eyes open. You flinch as you see a large claw looming directly over your head. Right before you jump out of the way, you realize you're lying on your back looking up at tree branches. You get up and rub your neck and see that you're on a grassy hill... That's right. You remember now. You went for a hike and stopped for a rest. You must have fallen asleep under this tree.
 
@@ -8,6 +8,7 @@ You are on a grassy hill under a tree.
 > up
 You grab hold of a low branch and pull yourself up into the tree.
 You are in the lower branches of the tree. Looking out you see a sort of hazy reflection.
+
 
 > get branch
 You put one foot onto the dead branch and slowly shift your weight until suddenly it snaps off and falls to the ground.
@@ -19,9 +20,11 @@ You are on a grassy hill under a tree.
 > get branch
 You pick it up.
 
+
 > up
 You grab hold of a low branch and pull yourself up into the tree.
 You are in the lower branches of the tree. Looking out you see a sort of hazy reflection.
+
 
 > up
 You continue to climb even higher in the tree's branches.
@@ -126,280 +129,216 @@ You are inside the container docking machine under a mess of unidentifiable equi
 There seems to be a pocket of breathable air in here and after a few panicked gasps, your breathing returns to normal.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
+
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
+
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
+
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
+
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
+
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
+
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
+
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
+
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
+
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
+
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
+
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
+
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
+
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
+
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 WITH A JOLT and a loud whining noise, the machine begins to move down the tracks. You can't see where you're going; all you see is a view of the room's floor moving. As you're watching, a blue-green field appears glowing over the opening.
 
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
+
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
+
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
+
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
+
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
+
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 You see the light fade through the opening until all you see is black. After a while your eyes adjust and you can see crystal clear dots of light.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
+
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
+
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
+
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
+
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
+
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 Your view through the opening gets bright and orange as flames start shooting by outside. You feel a marked increase in temperature but so far it's only really uncomfortable.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
-
-> look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
-
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
 > look
-You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. Even so you have just enough room to crab around - bumping your face and every possible appendage - until your head is facing the opening again.
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
+
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
+
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
+
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
+
+> look
+You are inside the container docking machine under a mess of unidentifiable equipment in a crawlspace that probably was not intended as such. There is an opening near your head.
 Outside the opening, you see the inverted peaks of mountains coming into view. Moments later you feel a deceleration. You can see a forest clearing outside just a few feet below the machine.
 
 > out
 You slide out the opening and land on the ground with a THUD.
 
 
-[runner] turns=102 leftover=0 running=false WON=YES
+[runner] turns=103 leftover=0 running=false WON=YES

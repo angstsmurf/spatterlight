@@ -1,9 +1,9 @@
 
-Mystery Quest, v1.0 Christian Draper
+Mystery Quest, v1.0 | Christian Draper
 
 On a cold, dark night, you sit in your chair by the fire. Once again, you gaze up at the old house on the hill. Every Friday night for the past few weeks, you have seen shadows moving up there. That old man and his butler never come out of that house. It is a Saturday night and since nobody is moving around, you decide to investigate. You sneak up to the house under the guise of darkness and open the front door. You close the door and look around. Suddenly, you hear footsteps. You slip into the Living Room and hide behind a curtain. The footsteps, belonging to the butler, soon pass and die away. Now you find yourself in an unknown house, and a mission before you...
 
-You are in The Living Room
+You are in The Living Room.
 There is a Sofa, a Fireplace and a Painting here.
 You can go east.
 This is a quite fancy living room. It appears to be Victorian style.
@@ -27,12 +27,12 @@ You pick it up.
 You put a stick in the fire and make a torch.
 
 > east
-You are in The Hall
+You are in The Hall.
 You can go north, east or west.
 On the left is the Living Room, on the right is the Kitchen, and to the north is the front door.
 
 > east
-You are in The Kitchen
+You are in The Kitchen.
 There is a Stove, an Ice Box and an Oven here.
 You can go west.
 It is an old-fashioned kitchen with before-the-times technology.
@@ -44,15 +44,15 @@ You see that there is some coal in the reservoir.
 You pick t up.
 
 > west
-You are in The Hall
+You are in The Hall.
 You can go north, east or west.
 On the left is the Living Room, on the right is the Kitchen, and to the north is the front door.
 
 > north
-You are in The Front Lawn
+You are in The Front Lawn.
 There is a Pickup Truck, a Birdbath and a Lawn Gnome here.
-You can go south.
 You can go to Hall.
+You can go south.
 It is a very unkempt lawn and hasn't been mowed in quite a while.
 
 > open truck
@@ -69,7 +69,7 @@ You look under the bird bath tub and notice deep scratch marks where the tub and
 
 > turn birdbath
 You grasp the bowl firmly and with a jolt you turn it clockwise. A trap door pops up in the ground. A secret cavern is revealed in the ground. You crawl inside...
-You are in a Secret Cavern
+You are in a Secret Cavern.
 There is a Dumb Waiter here.
 It is dark and moist.
 

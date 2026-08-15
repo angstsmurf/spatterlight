@@ -211,6 +211,7 @@ void GeasFile::ensure_cached (const GeasBlock &b) const
 		  GeasBlock::cmd_entry e;
 		  e.patterns = split_param (param_contents (p));
 		  e.script = (c2 + 1 < line.length ()) ? line.substr (c2 + 1) : "";
+		  e.is_lib = (tok == "lib");
 		  b.commands.push_back (std::move (e));
 		}
 	      else
@@ -270,6 +271,23 @@ void GeasFile::ensure_cached (const GeasBlock &b) const
 		b.type_prop.push_back (d);
 	      }
 	}
+      /* A tag line whose value never went through Quest's property list, and so
+       * was never `;`-split: one property, the whole "name=value"
+       * (readfile.cc's tag_property_splits). */
+      else if (ci_equal (tok, "tagproperty"))
+	{
+	  string p = next_token (line, c1, c2);
+	  std::string::size_type idx;
+	  if (is_param (p) &&
+	      (idx = param_contents (p).find ('=')) != string::npos)
+	    {
+	      string item = param_contents (p);
+	      GeasBlock::dir d = {false, trim (item.substr (0, idx)),
+				  trim (item.substr (idx + 1)), true};
+	      b.obj_prop.push_back (d);
+	      b.type_prop.push_back (d);
+	    }
+	}
       /* Action lines: object-style keeps the script after "<name> " (substr
        * c2+1); type-style keeps it from c2 -- matching the two original loops. */
       else if (ci_equal (tok, "action"))
@@ -278,9 +296,19 @@ void GeasFile::ensure_cached (const GeasBlock &b) const
 	  if (is_param (p))
 	    {
 	      string name = param_contents (p);
-	      b.obj_act.push_back ({false, name,
-				    (c2 + 1 < line.length ()) ? line.substr (c2 + 1) : "",
-				    true});
+	      string script = (c2 + 1 < line.length ())
+		? line.substr (c2 + 1) : "";
+	      /* An action with nothing after the closing ">" is thrown away, not
+	       * registered empty: AddToObjectActions logs "No script given for
+	       * '<name>' action data" and returns (V4Game.cs:3934-3939).  The
+	       * loader has already trimmed the line (V4Game.cs:1335), so "the
+	       * first '>' is the last character" and "no script" are the same
+	       * test.  Registering it shadowed the object's like-named
+	       * `properties <verb = ...>` text, and the verb printed nothing --
+	       * Sutekh Is Hiding In Your Priory has both on its television. */
+	      if (trim (script).empty ())
+		continue;
+	      b.obj_act.push_back ({false, name, script, true});
 	      b.type_act.push_back ({false, name, line.substr (c2), true});
 	    }
 	}
@@ -369,6 +397,15 @@ void GeasFile::get_obj_keys (const string &obj, set<string> &rv) const
 		}
 	    }
 	}
+      /* An unsplit tag property (see ensure_cached): always "name=value". */
+      else if (ci_equal (tok, "tagproperty"))
+	{
+	  tok = next_token (line, c1, c2);
+	  std::string::size_type k;
+	  if (is_param (tok) &&
+	      (k = param_contents (tok).find ('=')) != string::npos)
+	    rv.insert (trim (param_contents (tok).substr (0, k)));
+	}
       else if (ci_equal (tok, "type"))
 	{
 	  tok = next_token (line, c1, c2);
@@ -432,16 +469,21 @@ bool GeasFile::block_property (const GeasBlock &block, const string &propname, s
 {
   bool bool_rv = false;
   ensure_cached (block);
-  /* A property set directly on the object always wins over one it inherits from
-   * a type, as in Quest -- regardless of whether the `type <...>` line precedes
-   * or follows the property line in the source.  So resolve inherited types
-   * first, then let the object's own properties override.  (For the common
-   * type-first ordering this is identical to a single in-order pass.) */
+  /* One pass, in source order: last writer wins.  Quest reads a define block a
+   * line at a time and applies each line where it stands, and a `type <...>`
+   * line is a property source like any other -- it pushes the whole type
+   * through the same AddToObjectProperties a `properties <...>` line uses, and
+   * that overwrites an entry of the same name (InitialiseObject,
+   * V4Game.Part2.cs:3398-3405; V4Game.cs:4042-4069).  So a type named *below* a
+   * tag beats it, and only a tag below the type survives.  For the usual
+   * type-first ordering this is the same answer as resolving the types first,
+   * which is what geas used to do unconditionally; Operation: Sleepover writes
+   * the other order eight times, and lost an adjective off each garment
+   * ("a black sweater" for Quest's "a sweater"). */
   for (const GeasBlock::dir &d: block.obj_prop)
     if (d.is_type)
       get_type_property (d.a, propname, bool_rv, string_rv);
-  for (const GeasBlock::dir &d: block.obj_prop)
-    if (!d.is_type && ci_equal (d.a, propname))
+    else if (ci_equal (d.a, propname))
       {
 	string_rv = d.b;
 	bool_rv = d.bv;
@@ -590,14 +632,15 @@ bool GeasFile::block_action (const GeasBlock &block, const string &actname, stri
 {
   bool bool_rv = false;
   ensure_cached (block);
-  /* As with properties (see block_property), an action defined directly on the
-   * object overrides one inherited from a type irrespective of source order:
-   * resolve inherited types first, then the object's own actions. */
+  /* One pass in source order, as in block_property: AddObjectAction overwrites
+   * a like-named action just as AddToObjectProperties overwrites a property
+   * (V4Game.cs:3784-3816), and the loader runs both from the same `type <...>`
+   * line, so an `action <rub>` written above a type that also defines `rub`
+   * loses to it. */
   for (const GeasBlock::dir &d: block.obj_act)
     if (d.is_type)
       get_type_action (d.a, actname, bool_rv, string_rv);
-  for (const GeasBlock::dir &d: block.obj_act)
-    if (!d.is_type && ci_equal (d.a, actname))
+    else if (ci_equal (d.a, actname))
       {
 	string_rv = d.b;
 	bool_rv = true;
@@ -665,7 +708,8 @@ bool GeasFile::get_obj_default_action (const string &objname, string &string_rv)
       /* CI, so a mixed-case keyword line is never mistaken for the anonymous
        * default action. */
       if (tok == "" || ci_equal (tok, "alt") || ci_equal (tok, "alias") ||
-	  ci_equal (tok, "properties") || ci_equal (tok, "action") ||
+	  ci_equal (tok, "properties") || ci_equal (tok, "tagproperty") ||
+	  ci_equal (tok, "action") ||
 	  ci_equal (tok, "type") || ci_equal (tok, "drop"))
 	continue;
       string_rv = trim (line);
@@ -926,6 +970,18 @@ string GeasFile::static_eval (const string &input) const
 	      debug_print ("Line parameter <" + input + "> has missing #");
 	      return input;
 	    }
+	  /* Two conversion characters in a row are a literal one: Quest's
+	   * ConvertParameter has an explicit empty-name case that appends the
+	   * character and moves on (V4Game.cs:6704-6708).  eval_string has it
+	   * (geas-runner.cc:7895-7896); this, its load-time twin, did not, so a
+	   * room aliased "Room ##1" -- RiddleRun's five are -- looked up a string
+	   * variable with no name and came out as "Room 1". */
+	  if (j == i + 1)
+	    {
+	      rv += "#";
+	      i = j;
+	      continue;
+	    }
 	  size_t k;
 	  for (k = i + 1; k < j && input[k] != ':'; k ++)
 	    ;
@@ -975,8 +1031,28 @@ string GeasFile::static_eval (const string &input) const
 	      debug_print ("Line parameter <" + input + "> has missing %");
 	      return input;
 	    }
-	  rv += static_ivar_lookup (input.substr (i+1, j-i-1));
+	  /* Same empty-name case as the '#' branch above -- and louder here,
+	   * because a numeric variable that does not exist reads as "-32768",
+	   * so "100%% sure" came out as "100-32768 sure". */
+	  if (j == i + 1)
+	    rv += "%";
+	  else
+	    rv += static_ivar_lookup (input.substr (i+1, j-i-1));
 	  i = j;
+	}
+      /* The fourth conversion character.  GetParameter runs a dollar pass too
+       * (ConvertType.Functions, V4Game.cs:1897), and we cannot: it calls user
+       * functions, which need a running game, and this is load time.  The
+       * empty-name case, though, needs no game at all -- a doubled dollar is a
+       * literal one (V4Game.cs:6705-6708) -- and it is the half that reaches
+       * the player, because a definition-level "$name$" is a rarity while
+       * prices are not.  Pure Chaos describes a hoard as "It's about
+       * $1000000."; the pair used to survive into the room description
+       * verbatim. */
+      else if (input.compare (i, 2, "$$") == 0)
+	{
+	  rv += "$";
+	  i ++;
 	}
       else
 	rv += input[i];

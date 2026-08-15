@@ -1,0 +1,15 @@
+
+Doorways400
+
+You are in Hall.
+You can go to Work Truck or the Shed.
+You can go out to Yard.
+You can go north or up.
+A hall.
+
+> dump
+folded []
+dirs [north or up]
+places [Work Truck or the Shed]
+out [Yard] display [Yard]
+[runner] turns=1 leftover=0 running=true

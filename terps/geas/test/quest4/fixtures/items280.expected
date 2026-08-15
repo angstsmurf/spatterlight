@@ -1,7 +1,7 @@
 
 Items280
 
-You are in Room
+You are in Room.
 There is slot here.
 A plain room.
 
@@ -15,7 +15,7 @@ got coin: yes
 
 > i
 You are carrying:
-coin
+coin.
 
 > use coin on slot
 The coin drops into the slot.
@@ -26,7 +26,7 @@ The coin drops into the slot.
 got coin: no
 
 > i
-You are carrying nothing.
+You are not carrying anything.
 
 > use coin on slot
 You don't have that.
@@ -34,17 +34,17 @@ You don't have that.
 > phantom
 
 > i
-You are carrying nothing.
+You are not carrying anything.
 
 > arm
 
 > disarm
 
 > i
-You are carrying nothing.
+You are not carrying anything.
 
 > look
-You are in Room
+You are in Room.
 There is slot and coin here.
 A plain room.
 [runner] turns=15 leftover=0 running=true

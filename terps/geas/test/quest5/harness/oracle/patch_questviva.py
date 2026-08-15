@@ -305,3 +305,114 @@ elif el_anchor in eltext:
     print("[patch] patched: Element.cs -> same-value changed<field> guard")
 else:
     sys.exit("[patch] anchor not found in Element.cs (upstream changed?)")
+
+# 8. Quest 4 RNG. The V4 engine has its own generator (`V4Game._random`) and its
+# own mapping, `Str(Int(Rnd * (b-a+1)) + a)` (V4Game.cs:6982-6988). Route it
+# through ErkyrathRandomV4 -- xoshiro128** on the same seed as the Quest 5 half,
+# with geas's modulo mapping -- so that a Quest 4 corpus game replayed against
+# this oracle draws exactly what the native engine drew and any transcript
+# divergence is an ENGINE divergence. The `Conversion.Str` wrapper is left in
+# place on purpose: VB's Str() prefixes a space to non-negative numbers, and
+# whether geas reproduces that is one of the things being checked.
+legacy = qv / "src" / "Legacy"
+shutil.copy2(oracle / "ErkyrathRandomV4.cs", legacy / "ErkyrathRandomV4.cs")
+
+v4 = legacy / "V4Game.cs"
+v4text = v4.read_text()
+v4_edits = [
+    ("    private readonly Random _random = new();",
+     "    private readonly ErkyrathRandomV4 _random = ErkyrathRandomV4.FromEnv();"),
+    ("""            return Conversion.Str(
+                Conversion.Int(_random.NextDouble() *
+                               (Conversions.ToDouble(parameters[2]) - Conversions.ToDouble(parameters[1]) + 1d)) +
+                Conversions.ToDouble(parameters[1]));""",
+     """            return Conversion.Str(_random.Rand(
+                Conversions.ToDouble(parameters[1]), Conversions.ToDouble(parameters[2])));"""),
+]
+v4_already = "ErkyrathRandomV4.FromEnv()" in v4text
+for old, new in v4_edits:
+    if old in v4text:
+        v4text = v4text.replace(old, new, 1)
+    elif not v4_already:
+        sys.exit(f"[patch] V4 anchor not found (upstream changed?):\n  {old}")
+v4.write_text(v4text)
+print(f"[patch] {'already patched' if v4_already else 'patched'}: "
+      f"V4Game.cs -> ErkyrathRandomV4 (geas mapping, seed 1234 / QVH_SEED)")
+
+# 9. VB's Chr/Asc must use code page 1252, not the host's. Strings.Chr maps
+# 0-255 through the thread's ANSI code page: 1252 on Windows, which is what VB6
+# Quest assumed, but 65001 (UTF-8) on macOS and Linux, where the lone byte 0xFD
+# is not valid UTF-8 and Chr(253) comes back as U+FFFD. V4Game reads .cas files
+# as 1252 and then searches them for Chr(253)/Chr(254) record delimiters, so
+# off-Windows the delimiters are never found and EVERY CAS game dies in
+# LoadCASFile ("Argument 'Length' must be greater or equal to zero" -- the
+# InStr miss returns 0, so the following Mid length goes negative). That is 35
+# of the 111 Quest 4 corpus games. DecryptString and the two QSG decoders share
+# the bug without crashing, quietly mangling any byte above 0x7F. QvhChars
+# pins both directions to 1252.
+shutil.copy2(oracle / "QvhChars.cs", legacy / "QvhChars.cs")
+
+for name in ("V4Game.cs", "V4Game.Part2.cs"):
+    path = legacy / name
+    text = path.read_text()
+    if "QvhChars." in text:
+        print(f"[patch] already patched: {name} -> QvhChars (cp1252 Chr/Asc)")
+        continue
+    if "Strings.Chr(" not in text and "Strings.Asc(" not in text:
+        sys.exit(f"[patch] no Strings.Chr/Asc in {name} (upstream changed?)")
+    text = text.replace("Strings.Chr(", "QvhChars.Chr(")
+    text = text.replace("Strings.Asc(", "QvhChars.Asc(")
+    path.write_text(text)
+    print(f"[patch] patched: {name} -> QvhChars (cp1252 Chr/Asc)")
+
+# 10. Begin() must arm the turn-suspension handshake like every other entry
+# point. SendCommand/Tick/FinishWait/SetMenuResponse/SetQuestionResponse all do
+# `_turnSuspendedTcs = new(); _ = <run game code>; await _turnSuspendedTcs.Task`,
+# so they return when the turn PARKS. Begin() instead awaits DoBeginAsync
+# straight through with _turnSuspendedTcs still null, so an opening that parks
+# -- `wait`, `choose`, `ask`, or an `enter` reading the player's name -- never
+# completes the Begin task and the driver deadlocks. Riddle Run ("The game will
+# start as soon as you answer this question: What is your name?") and The Legend
+# of Cyrn are the corpus cases. A real Player never notices, because its DoWait
+# runs on the UI thread and can call FinishWait from inside the same Begin
+# await; a headless driver cannot.
+part2 = legacy / "V4Game.Part2.cs"
+p2text = part2.read_text()
+begin_anchor = """    public async Task Begin()
+    {
+        await DoBeginAsync();"""
+begin_repl = """    public async Task Begin()
+    {
+        // qvh: park-aware Begin -- see patch_questviva.py section 10.
+        _turnSuspendedTcs = new TaskCompletionSource();
+        _ = QvhBeginAsync();
+        await _turnSuspendedTcs.Task;
+    }
+
+    private async Task QvhBeginAsync()
+    {
+        try
+        {
+            await DoBeginAsync();"""
+if "QvhBeginAsync" in p2text:
+    print("[patch] already patched: V4Game.Part2.cs -> park-aware Begin()")
+elif begin_anchor in p2text:
+    p2text = p2text.replace(begin_anchor, begin_repl, 1)
+    # Close the try/catch: the original body's closing brace now ends
+    # QvhBeginAsync, so give it a catch that still releases the driver.
+    tail_anchor = begin_repl + "\n    }\n"
+    if tail_anchor not in p2text:
+        sys.exit("[patch] Begin() body is not the single line it was")
+    p2text = p2text.replace(tail_anchor, begin_repl + """
+        }
+        catch (Exception ex)
+        {
+            LogException(ex);
+            SignalTurnSuspended();
+        }
+    }
+""", 1)
+    part2.write_text(p2text)
+    print("[patch] patched: V4Game.Part2.cs -> park-aware Begin()")
+else:
+    sys.exit("[patch] Begin() anchor not found in V4Game.Part2.cs (upstream changed?)")

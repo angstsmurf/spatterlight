@@ -3,7 +3,7 @@ Where's my cell phone
 
 You hear your cell phone ring and reach into your pocket for it. It is not there. Where is it? You will need to go on a search through the house and find it. Happy hunting. The cell phone is the only phone you have so it is important to find it.
 
-You are in the kitchen
+You are in the kitchen.
 There is a fridge, a cupboard, a table, Rosey, candy bar and waste can here.
 You can go north.
 this is a plain kitchen. The bedroom is to the north
@@ -13,6 +13,8 @@ You may have to do some wierd things to win this game.
 
 > open fridge
 You open it.
+A white refridgerator sits in the corner, humming quietly.
+It contains a can of pepsi and an apple.
 
 > take pepsi
 (first removing it from fridge)
@@ -27,9 +29,13 @@ You can't take it.
 
 > open cupboard
 You open it.
+a cupboard with one door, it may contain something useful.
+It contains a cereal box with cereal inside..
 
 > open cereal box
 you open it to see if something extra might be inside.Surprise.
+The box contains Corn flakes, your favorite.
+It contains the bedroom key.
 
 > take bedroom key
 (first removing it from cereal box)
@@ -59,7 +65,7 @@ The exit is locked.
 > push button
 
 > north
-You are in the bedroom
+You are in the bedroom.
 There is your bed, dresser and a ladder here.
 You can go south, east, west or up.
 This bedroom has only a bed and a dresser for furniture. There is a ladder that you can go up to the attic.
@@ -69,12 +75,17 @@ Upon further checking out the bed you find your cell phone case. What luck. Is y
 
 > open cell phone case
 you open it and are disappointed to find it empty. Keep looking.
+It is your cell phone case. Is the phone inside? Maybe you should open it and see.
 
 > open drawer
 You open it.
+It is the drawer you keep some of your things in.
+It contains your clothes.
 
 > open door
 you open it to see what is in the dresser.
+the door in the dresser that can be opened. you could open it and see what is inside.
+It contains a notepad and the office key.
 
 > take notepad
 (first removing it from door)
@@ -92,18 +103,21 @@ You pick it up.
 > push square
 
 > up
-You are in the attic
+You are in the attic.
 There is a cardboard box here.
 You can go down.
 The attic is small and is fairly bright as it has a sunlight on the roof to let in light from the outside.
 
 > open cardboard box
 You open it.
+It is a large box that you have put some things in that you want to store. May you have accidently put your cell phone in it when you were going through it the other day?
+It contains an old jacket. and a dream game book.
 
 > take old jacket.
 (first removing it from cardboard box)
 Done.
 You pick it up.
+
 
 > examine old jacket.
 You search through the pockets and find nothing in them.
@@ -112,13 +126,13 @@ You search through the pockets and find nothing in them.
 Some games I have thought of creating: a braille game, a riddle game
 
 > down
-You are in the bedroom
+You are in the bedroom.
 There is your bed, dresser, your clothes and a ladder here.
 You can go south, east, west or up.
 This bedroom has only a bed and a dresser for furniture. There is a ladder that you can go up to the attic.
 
 > west
-You are in the bathroom
+You are in the bathroom.
 There is a toilet here.
 You can go east.
 It is a simple bathroom.
@@ -127,13 +141,13 @@ It is a simple bathroom.
 you sit for awhile then get up. What a relief, you feel much better now.
 
 > east
-You are in the bedroom
+You are in the bedroom.
 There is your bed, dresser, your clothes and a ladder here.
 You can go south, east, west or up.
 This bedroom has only a bed and a dresser for furniture. There is a ladder that you can go up to the attic.
 
 > east
-You are in the office
+You are in the office.
 There is a desk and a computer here.
 You can go west.
 This office is where you keep your basic office needs.
@@ -146,6 +160,7 @@ You should find your cell phone if you really try hard. However if you are ready
 
 > open desk drawer
 You open it.
+It contains a pen and a record book.
 
 > take record book
 (first removing it from desk drawer)

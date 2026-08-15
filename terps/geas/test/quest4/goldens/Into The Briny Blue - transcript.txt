@@ -1,5 +1,5 @@
 
-Into The Briny Blue Scott Lange and Abigail Auner
+Into The Briny Blue | Scott Lange and Abigail Auner
 
 The president has gone missing. As Shane Georgeson, a secret service agent, it's your task to find him. He was last seen somewhere around here babbling about the lost city of Atlantis. You and your trusty companion Darrel get on the USS Secret Service and drive out to where the president was last seen, swimming three hundred miles offshore of Florida. Thus begins your quest.... 
 
@@ -9,13 +9,13 @@ INTO THE BRINY BLUE
 By Scott Lange and Abigail Auner. Type "VERBS" to see a list of all twelve of the verbs the game accepts. Type  "HELP" to see some hints. Type "CREDITS" to see information about this game's creators. Type  "ABOUT" to see other information. Press ENTER to begin.
 
 
-You are in the office of the USS Secret Service
+You are in the office of the USS Secret Service.
 There is your bed and your computer here.
 You can go south.
 This is your office that doubles as a bedroom aboard the mighty galleon, the USS Secret Service. Looking around, you see your bed, your computer, and your reflection in the mirror hanging on the wall. The room is cramped, but has a mighty presence in your heart for being your home away from home while on duty in the mighty USS Secret Service. The main area of the USS Secret Service is south from here. There is a sign hanging on the door.
 
 > look
-You are in the office of the USS Secret Service
+You are in the office of the USS Secret Service.
 There is your bed here.
 You can go south.
 This is your office that doubles as a bedroom aboard the mighty galleon, the USS Secret Service. Looking around, you see your bed, your computer, and your reflection in the mirror hanging on the wall. The room is cramped, but has a mighty presence in your heart for being your home away from home while on duty in the mighty USS Secret Service. The main area of the USS Secret Service is south from here. There is a sign hanging on the door.
@@ -45,12 +45,12 @@ It's already immaculate, considering the marine platoon that came by to make it 
 This is no time for lollygagging, soldier! You have a president to find!
 
 > south
-You are in the boat's hallway
+You are in the boat's hallway.
 You can go north, south, east, west, up or down.
 This is the central hub of the USS Secret Service. To the north from here is your own quarters, east of here is the captain's quarters, where you can check in on the latest news with Darrel, the captain of this mighty vessel. West of here is the loading area of the boat, where you can hop on into the water to explore the briny blue. South of here is the storeroom of the USS Secret Service. Up is the crow's nest. Down is a floor.
 
 > south
-You are in the storage room
+You are in the storage room.
 You can go north or south.
 This is a small white walled room in the south side of the boat. There is a sign on the door, as well as rows and rows of shelves, drawers, and other storage devices, all of which are totally empty. The few things that you do need are south of here, in your own private closet area of the storage compartment.
 
@@ -66,7 +66,7 @@ This is a small white walled room in the south side of the boat. There is a sign
 They're all empty. Every single one of them. The room is deserted.
 
 > south
-You are in Shane's Private Storage Room
+You are in Shane's Private Storage Room.
 There is your gun and a note here.
 You can go north.
 This is where the good stuff is. This is where you, Shane Georgeson, store all your belongings. Be sure to pick them up before entering the water and continuing your mission!
@@ -98,17 +98,17 @@ It says:
 "LOVE, YOUR COMMANDER."
 
 > north
-You are in the storage room
+You are in the storage room.
 You can go north or south.
 This is a small white walled room in the south side of the boat. There is a sign on the door, as well as rows and rows of shelves, drawers, and other storage devices, all of which are totally empty. The few things that you do need are south of here, in your own private closet area of the storage compartment.
 
 > north
-You are in the boat's hallway
+You are in the boat's hallway.
 You can go north, south, east, west, up or down.
 This is the central hub of the USS Secret Service. To the north from here is your own quarters, east of here is the captain's quarters, where you can check in on the latest news with Darrel, the captain of this mighty vessel. West of here is the loading area of the boat, where you can hop on into the water to explore the briny blue. South of here is the storeroom of the USS Secret Service. Up is the crow's nest. Down is a floor.
 
 > east
-You are in the captain's quarters
+You are in the captain's quarters.
 There is bed, Captain Darrel's desk, the USS Secret Service's controls and Captain Darrel here.
 You can go west.
 The captain's quarters is the most elegant room on the USS Secret Service. In fact, the decor seems almost regal in how well-kept and fancy it is. Even the corners of his bookshelf are ornately carved into the shape of curling philodendron leaves. The hardwood floor is adorned with an Oriental rug of great antiquity, and the bedspread (lying inert on the bed on the east wall) is of the deepest maroon. 
@@ -155,14 +155,13 @@ The computer kinda wonders what exactly it was you wanted to know about a rug.
 The bullet simply ricochets right off of him with a loud "PING", amazingly enough. It's as if Darrel is bulletproof! Wow!
 
 > west
-You are in the boat's hallway
+You are in the boat's hallway.
 You can go north, south, east, west, up or down.
 This is the central hub of the USS Secret Service. To the north from here is your own quarters, east of here is the captain's quarters, where you can check in on the latest news with Darrel, the captain of this mighty vessel. West of here is the loading area of the boat, where you can hop on into the water to explore the briny blue. South of here is the storeroom of the USS Secret Service. Up is the crow's nest. Down is a floor.
 
 > up
-You are in the crow's nest
-You can go out to hallway.
-You can go down.
+You are in the crow's nest.
+You can go out or down.
 This is the crow's nest of the USS Secret Service! The view offers a view of layer upon layer upon layer of briny blue waves. Some seagulls are flying around above you, and some waves are in the ocean. All in all, another great day to be the Secret Service's foremost ocean-going dashing rogue. Below you is the ladder  to get back to the main boat area.
 
 > look at seagulls
@@ -175,12 +174,12 @@ The motley crue of avian creatures flies high above you, searching for food. The
 Dang! You missed this time!
 
 > down
-You are in the boat's hallway
+You are in the boat's hallway.
 You can go north, south, east, west, up or down.
 This is the central hub of the USS Secret Service. To the north from here is your own quarters, east of here is the captain's quarters, where you can check in on the latest news with Darrel, the captain of this mighty vessel. West of here is the loading area of the boat, where you can hop on into the water to explore the briny blue. South of here is the storeroom of the USS Secret Service. Up is the crow's nest. Down is a floor.
 
 > west
-You are in the boat's diving deck
+You are in the boat's diving deck.
 There is an air tank, the wetsuit and the exit ladder here.
 You can go east.
 As you step out of the interior of the boat, you are overwhelmed by the salty wind around you. You've entered the diving deck, where the finest in scuba diving equipment lies. Resting against the wall is an air tank, and hanging above that on a hook is your (very nicely monogrammed) wetsuit. The ladder that allows an individual to enter the water needs to be lowered before you can begin diving. Once it is lowered, make sure you have all your equipment and hop on in!
@@ -209,8 +208,7 @@ You lowered the ladder, so you may now go down into the ocean!
 > down
 You are at a depth of 15 Feet.
 There is the fish here.
-You can go out to diving deck.
-You can go north, south, east, west, northeast, northwest, southeast, southwest, up or down.
+You can go out, north, south, east, west, northwest, northeast, southwest, southeast, up or down.
 The readout on your air tank indicates you are fifteen feet below the ocean's surface. You'd expect that being underwater would be a loud affair - you always do - but as always, the only sound you hear is your own nervous breathing. Below you see the top of a submerged cliff. You cannot see how far down the cliff face goes. Small fish of a pink and black hue dart here and there around you. The light filtering down through the waves makes the shadows of yourself, the boat, and the fish waver constantly. Swimming upwards would lead back to the safety of the USS Secret Service. The briny blue continues all around you for miles, however you can go down to explore the ocean further. Onwards to the president!
 
 > look at fish
@@ -228,8 +226,7 @@ The computer tells you that they look like fish.
 > down
 You are at a depth of 75 feet.
 There is the hermit crabs here.
-You can go out to 15 Feet.
-You can go north, south, east, west, northeast, northwest, southeast, southwest, up or down.
+You can go out, north, south, east, west, northwest, northeast, southwest, southeast, up or down.
 The readout on your scuba tank indicates that you are swimming at a depth of 75 feet. You are hovering above a rocky surface beneath the sea. It's covered in colorful coral and exotic plants you've never seen before. Several hermit crabs scuttle between them. If you go any farther down, you won't be able to see the seafloor, but the option is open. Swimming toward the surface would lead you closer to the surface.
 
 > look at plants
@@ -257,13 +254,12 @@ You can go northeast, southwest, up or down.
 You are very close to the cliff now. In fact, you can reach out and touch it, it's so close. The cliff keeps extending up and down, but at this depth you notice that there is a tunnel going into the cliff, to the northeast. The president always was talking about the tunnel to Atlantis. This must be it!
 
 > northeast
-You are in the tunnel to Atlantis
-You can go out to cliff entrance.
-You can go northwest or southwest.
+You are in the tunnel to Atlantis.
+You can go out, northwest or southwest.
 You have entered a northeast-southwest tunnel. While you personally fit fairly comfortably in the (obviously man-made) tunnel, someone with much more girth probably could not make it through. You can see that there's a corner coming up in the tunnel, for you see light streaming in from what must be the southwest. Otherwise, the tunnel is entirely dark.
 
 > northwest
-You are in another tunnel to Atlantis
+You are in another tunnel to Atlantis.
 There is the president's tracking bracelet here.
 You can go north or southeast.
 You are in another part of the man-made tunnel. The light streaming in through this section of the tunnel is due to the presence of the tunnel's exit to the north. Beyond that is, obviously, the pearly gates to Atlantis.
@@ -303,26 +299,24 @@ You slam the tracking bracelet against the markings, only to find out that nothi
 
 > north
 You are at a depth of 200 feet.
-You can go north, south, east, west, northeast, northwest, southeast, southwest, up or down.
+You can go north, south, east, west, northwest, northeast, southwest, southeast, up or down.
 You emerge from the tunnel to find more open water far as the eye can see, totally blue. Your depth finder says that you are at a depth of 200 feet, and the pressure from such a feat is really making your head throb. You can go down into more open water, or you can float around a bit. Looking around a bit, you turn 360 degrees and realise that the cave from whence you came has seemingly mysteriously vanished. You can see literally nothing but blue anywhere, far as the eye can see.
 
 > down
 You are at a depth of 250 feet.
-You can go out to nothing.
-You can go north, south, east, west, northeast, northwest, southeast, southwest, up or down.
+You can go out, north, south, east, west, northwest, northeast, southwest, southeast, up or down.
 Your air tank readout begins blinking, along with displaying a message saying, "WARNING: GOING ANY DEEPER INTO THE WATER WILL CAUSE YOUR AIR TANK TO EXPLODE, AND WILL CAUSE YOU TO DIE OF DECOMPRESSION SICKNESS WHEN YOU SURFACE." Your surroundings (mostly consisting of water) are frightening, but your knowledge that the president is in peril drives you onward. You are a Secret Serviceman, after all.
 
 
 > down
 You are at a depth of 272 feet.
-You can go out to nothing.
-You can go up or down.
+You can go out, up or down.
 Youre winded and aghast. You are in pure darkness at an incredible 272 feet. It seems there's only one place left to go: down. That is, if you could justifiably tell up from down.
 Your air tank explodes, the shrapnel from it missing killing you by inches. You hold your breath, not having many other options, and continue onwards.
 
 > down
 You are at a depth of ERROR- UNKNOWN VALUE.
-You can go north, south, east, west, northeast, northwest, southeast, southwest, up or down.
+You can go north, south, east, west, northwest, northeast, southwest, southeast, up or down.
 Despite the fact that your depth meter can no longer tell you how far down you are, you know that Atlantis must be close by. Atlantis - your ticket to becoming a national hero! If only you can delve a bit deeper into the unknown, your instincts tell you that your president, your grateful motherland, and your retirement checks will all be within your grasp.
 Your trusty diving computer, the lovely Tandy that's been with you all along, feeding you all this information, finally can't handle the pressure and implodes on itself, much like a lesser man than yourself's body would. You are saddened by the loss, but nonetheless see it as a necessary sacrifice in your relentless pursuit of the president of the United States of America and the lost city of Atlantis.
 
@@ -467,7 +461,7 @@ The walls and roof of the house and attached garage are made of huge scallop she
 The large neon sign out front says, "KING NEPTUNE'S HUMBLE ABODE"
 
 > northwest
-You are in King Neptune's living room
+You are in King Neptune's living room.
 There is King Neptune's trident here.
 You can go east, southeast or up.
 This is the place where the great King Neptune must have spent most of his time. There is a comfortable-looking recliner in one corner and a trident hanging up on the wall, unbolted, easily within arm's reach. Neptune's modest two-car garage is to the east, and his bedroom is upstairs.

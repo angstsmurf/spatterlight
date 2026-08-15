@@ -1,5 +1,5 @@
 
-Gathered In Darkness, v1.0 Michael "Dr.Froth" Millsap
+Gathered In Darkness, v1.0 | Michael "Dr.Froth" Millsap
 
 
 
@@ -39,11 +39,13 @@ You barely make it back into your room before falling down.  The intense drowsin
 
 > sleep
 You crash...hard.  The soft blankets almost seem to fold themselves around you and instantly a groggy, drug-induced sleep takes you under.  When you finally awaken in the morning it seems like no time has passed at all and your only clue to how long you have been out is the morning sunlight pouring in from the window.  Time to go get some answers.
+press any key to continue
 
 
 Welcome to:
 G A T H E R E D   I N   D A R K N E S S
 by Michael "Dr.Froth" Millsap
+press any key to continue
 
 
 Chapter 1:
@@ -85,6 +87,7 @@ The hallway is dimly lit by an overhead fixture swinging on a chain.  The light,
 
 > south
 As you open the door to the guest room that belongs to Kitty a gust of her perfume vapors floats past your nose and takes you back to earlier yesterday evening...
+press any key to continue
 
 ...She looks at you and smiles seductively.  "So tell me," she asks "what does Domou Island hold for a professor of history anyway.  You do know that this resort has not been open to the public for many years."  She had been strangely inquisitive since you met her at the dinner gathering downstairs.  Polite conversation had lead to a more detailed verbal exchange which had in turn led to you being invited here, to her room.  She said she was a doctor of anthropology named Kitty Donovon, and had been hired here by the current owner of the property to do something that she had been very vague about.  "I'd assume that I was brought here because of my history background," you reply "But to be honest, no one has asked me any questions yet."
 "I have a question for you," her eyes flutter as the words ease out like breath, "are you going to insist on wearing that dinner jacket for the entire evening."
@@ -92,6 +95,7 @@ Her boldness makes an impression on you, and so you obey, laying your jacket acr
 
 You force the memories of last night, the final good ones that you can recall before waking up to the intruder, and focus on the task at hand.
 
+press any key to continue
 
 Kitty's Room
 You are disappointed though not surprised to discover Kitty's room to be empty.  Fear for her safety creeps into your gut as you realize that her passing out might be a side effect of the exact same poison that is working on killing you right now.  Though the curtains on her window are closed, the sunlight is still strong enough to shine through and coat the room in a soft greenish glow.  Her bed is not made, perhaps the maid has disappeared as well.  You feel a small amount of hope when you notice that your coat is still laying on her dresser where you left it last night.  The hallway is north.
@@ -233,6 +237,7 @@ The following words flicker across the screen:
 ...Important.  This passcode for entry into Lab A-1 will only be good for 24 hours.  After that time period, return here to get a new passcode.  If you are working after hours and can not open the music lock, page Barry Danvers for assistance...
 
 (your journal has been updated)
+press any key to continue
 
 What do you wish to do?
 1) Generate Lab Passcode
@@ -270,6 +275,8 @@ You take the left half of the music.
 
 > open desk
 You open it.
+The desk is a lackluster metal one that might have been found in a mechanics office back in the sixties.  It has a wood laminate top and metal frame with a single, unlocked drawer in the center.  You wonder if they did not care for the curator very much because instead of a chair, there is only an unpaded barstool.
+It contains the Dim Hall Key and the Curator's Notes.
 
 > take key
 (first removing it from Desk)
@@ -337,10 +344,6 @@ The smaller table here in the breakfast room could seat about eight to ten peopl
 As you flip through the music you can only find one that is scored for piano.  Everything else is either for voice or trumpet and is not useful to you.  Unfortunately, the piano music is missing the left half.
 
 > take music
-Which music do you mean?
-1) The left half
-2) The right half
-[choice] 2
 You take the right half of the music.
 (your journal has been updated)
 
@@ -385,6 +388,7 @@ You place "Contrapunctus I" on the holder in front of the keys, nod respectfully
 
 > enter code
 You put in the code that you generated in the office on the third floor and the green light that begins flashing upon completion of the entry lets you know that you have succeeded in doing something.  A few moments later the black couch that had seemed out of place to you at first suddenly flips into the wall.  The couch had been attached to the section of floor that it rested on, so when it flipped upwards into the wall it took that part of the floor with it revealing a set of steps that lead downwards.  This must be the hidden entrance to the lab, perhaps you can find an antidote down there.  With curiosity and hope you descend the steps to see.
+press any key to continue
 
 
 Chapter 3:
@@ -418,6 +422,7 @@ What information would you like to look up?
 [choice] 3
 NASSIC is the compound that we devised here in the lab as a failsafe for our gene splicing experiments.  Though the powers of darkness want very much to enter the world, I am not entirely nieve to the possibility of betrayal.  NASSIC can be administered at any point during the lifecycle of the beast to dissolve its genes at the cellular level.  Currently the NASSIC that remains here is in storage off the room close to the Tower.  The access code is 5827.
 (your journal has been updated)
+press any key to continue
 
 What information would you like to look up?
 1) Try for an internet connection
@@ -428,6 +433,7 @@ What information would you like to look up?
 6) Log Off
 [choice] 5
 You press the selection and the computer indicates that the electronic locks on the containment room door have now been released.
+press any key to continue
 
 What information would you like to look up?
 1) Try for an internet connection
@@ -442,6 +448,7 @@ What information would you like to look up?
 > examine shelves
 You begin to cross the elaborate office of Dr. Skinn to check out the items he has stored in the curious compartments by the large steel plate when you hear it.  Pausing, you tilt your head slightly and hold your breath...could it be...yes, you hear it again and this time you are positive.  There are the muffled sounds of voices and footsteps coming from what seems to be behind the metal plate.  The sounds are growing louder and you are sure that the source of the noise will be upon you in mere moments.  Franticly you begin to search the room for a place to hide but the wide open space of the large office does not lend you many options for concealment.  A brightly striped, exotic fish watches you with mild disinterest as you run and leap over the couch, landing behind the only obstruction in the entire office just as the metal plate begins to rise upwards.  You hope that the noise of the opening plate covers up any of the racket you might have made in obtaining your position, a position that in truth you find to be very weak.  It will not take much of a search to find you, but despite the danger you still can not seem to resist peeking around the very bottom of the couch to see exactly who or what comes through the opening in the wall where the plate used to be.
 
+What will happen? Press any key to find out.
 
 You think that you can actually hear your own heartbeat throbbing in your ears as you watch the opening intently.  Moments later you see two people enter the office from the opening in the wall.  They are dressed in black hooded robes, very similar to the ones worn by the other people you have encountered today.  In fact, as you hear them speak you are positive that they are the ones that you saw in the central hub earlier.  You concentrate on their conversation.
 "So, now that they have Dr. Funderburk cornered in the facility I thought we would be finished with our tasks." the man's voice is gruff but not deep.  The reply you hear seems to come from a woman.
@@ -546,6 +553,7 @@ Heath sits on the bench as you enter the cell.  "I'm starving, were you able to 
 You hold the golden apple in your hands and watch the expression on Heath's face as you pass it towards him.
 "Thank you friend...Thank you so much" he says as he takes the fruit and consumes it vigorously.  When he has finished his snack, he sits on the bench for a few moments, apparently composing himself.  After a long silence he looks up to you and shakes his head.
 "Okay" he says "come with me and I will get you the skin samples.  You have saved me and the least I can do is try to help you save yourself."  You thank him and both of you exit his cell into the stone corridor.
+press any key to go on
 
 You step into the corridor with Heath when suddenly he begins walking toward the northern cell.  "They took some stuff from me when they incarcerated me.  I'm going to see if they stored it in one of these other cells."  You try to yell at him to stop but it is already to late.  He throws open the door to the north cell and all hell breaks loose.  Your scream joins in with the one that Heath just let loose as a small three foot monster with red, leathery skin and wearing nothing but a furry loincloth leaps from the cell and grapples onto the stunned scientist.  You watch in horror as it smiles devilishly before sinking its teeth into Heath's throat and ripping it free.  A rapid spray of blood spews from the gaping wound in Heath's neck, drenching the cackling beast as the mortality wounded man sinks to the floor of the stone corridor and dies.  The demonic imp regards you with a mild bit of interest for a moment more until it grunts and flees east into the cell that used to house Heath.  Amazingly, the devil bashes through the brick wall in the back of cell, causing it to cave in on itself, and dives outside.   As the smoke and dust clears...you stand there dumfounded.
 
@@ -580,6 +588,8 @@ This room is a storage area for non-perishable goods.  The floor is bare concret
 
 > open trunk
 You open it.
+The trunk is about as long as a footlocker and made out of steel.  The trunk has been painted with a glossy black finish.  You can see that someone has put an identification sticker on the trunk that reads "NASSIC".
+It contains the NASSIC Syringe.
 
 > take syringe
 You take the syringe filled with NASSIC.
@@ -639,6 +649,7 @@ His voice trails off and his eyes close.
 
 "All I need to do is WHAT" you shout as you begin to shake him violently.  Suddenly both eyes open and he gasps deeply of air, but only for a moment and then he is gone.  You stare at the body for a short time, feeling defeated and frustrated.  But he did allude to a way to reverse the effects of the poision...and you know that you must find it...or die.
 
+press any key to continue
 
 Thanks for playing this introductory segment to "Gathered in Darkness."  The entire portion of the game (all nine chapters) will be uploaded to the archive the day the contest has ended.  Come back and have all your questions answered....
 Congrats.

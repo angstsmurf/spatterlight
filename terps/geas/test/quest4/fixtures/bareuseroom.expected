@@ -1,7 +1,7 @@
 
 bareuseroom
 
-You are in r1
+You are in r1.
 There is torch and lamp here.
 You can go west.
 Room one.
@@ -19,7 +19,7 @@ The room handler ran.
 The lamp's own handler ran.
 
 > west
-You are in r2
+You are in r2.
 You can go east.
 Room two.
 

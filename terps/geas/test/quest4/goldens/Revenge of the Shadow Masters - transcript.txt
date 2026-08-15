@@ -1,7 +1,8 @@
 
-Revenge of the Shadow Masters, vDemo 0.5.2 Slackers Inc.
+Revenge of the Shadow Masters, vDemo 0.5.2 | Slackers Inc.
 
 With Alexendre Bartolomeu defeated, complete anarchy reigned over the Shadow Masters. They have wrecked havoc all through the little towns South and West of the Dark Hills in an attempt to seek revenge on the one who abandoned them and then returned to defeat their leader. Luckily for you, after winning your battle with Bartolomeu, you managed a narrow escape and have been hiding in a cave on just the other side of the Dark Hills for the last couple of weeks. During the time you've been sitting in the cave alone, you've thought about everything that has gone on. Somehow, you feel that the recent destruction is all your fault and that you have a responsibility to fix all of the wrong which has been done. You know you can't stay in hiding for the rest of your life so you decide that you must embark on a new journey to confront the Shadow Masters and remedy all the problems which you have caused.
+Press any key to continue...
 
 
 The warm sun shines brightly through the open exit to your hideout for the past few weeks. Your little campfire from the night before has been neatly put out and your backpack, which is still filled with a few supplies, has been safely stowed away under a nearby rock. Your towel, which is currently spread out on the cold ground, has really come in handy as a make-shift bed since you've been in hiding. On the wall, nearest your temporary bed, there are a couple of interesting shapes and symbols etched into the stone.
@@ -17,15 +18,14 @@ You figure that most everything you'll need can be found in your back pack. You 
 > open back pack
 You open it.
 
+You look at your backpack, and note that it's been through a lot. Dispite this fact, you trust that it will last you many years to come.
+It contains The Towel: 101 Fun & Practical Uses, the Hair Pin, a Pocket Knife, a First Aid Kit and the Necklace.
+
 > take pocket knife
-(first removing it from Back Pack)
-Done.
-You pick it up.
+You already have that.
 
 > take first aid kit
-(first removing it from Back Pack)
-Done.
-You pick it up.
+You already have that.
 
 > take shield
 You pick it up.
@@ -185,6 +185,7 @@ Which book do you mean?
 [choice] 2
 
 Getting a little curious about the content of your manual to immortality, you open it and begin to peruse the pages. The book is impressively clear due to the incredibly well-done illustrations and neatly written notes in the margins. One or two of the hand-written notes are comments on errors the reader has found in the book. As you begin to read the actual text, you see a recipe for something.
+Press any key to continue...
 
 
 Ingredients:
@@ -192,10 +193,12 @@ Ingredients:
 Mug o' Grog
 1 pinch Salt
 1 Mela Oak Leaf
+Press any key to continue...
 
 Directions:
 
 Place the leaf of a Mela Oak and the pinch of salt into the mug with the grog. Wait patiently a few seconds as the grog dissolves the other two items. Your Brew of Immortality should be a bit spicy as it goes down and is good for one use only.
+Press any key to continue...
 
 ***Disclaimer: 
 
@@ -206,6 +209,12 @@ If not made properly, some of the possible side effects are indigestion, upset s
 Gazing at the intriguing plant, you observe the large green leaves and the dark purple flowers sprouting from a few places.
 
 > eat leaf
+
+Taking a bite of the leaf, you note the minty taste. Out of nowhere, the room around you begins to spin...or so you think. You feel very dizzy as you watch all the colors in the room mixing and spiraling together. After what seems like an eternity, it all comes to a sudden halt. A strange voice inside your head whispers:
+"A riddle you have and wish solve,
+A pretty gem you must revolve.
+Hour by hour, the nights turns to days, 
+You may need a mirror to see what it says."
 
 > look at phone
 
@@ -343,7 +352,7 @@ Linda Hood
 and
 Steve Lingle
 
-©2011 by: Slackers Inc.™ all rights reserved.
+Â©2011 by: Slackers Inc.â„¢ all rights reserved.
 
 > speak to lucy
 
@@ -356,14 +365,15 @@ Taking a moment to look up from the ground, the young lady looks at you and asks
 
 The only thing powerful enough to defeat the Shadow Masters is the Wizards Grid. Thats why their trying to find it first.. to destory it
 and create a new one. One that will cause a disbalance within the  magical comunity and outside of it. You must find it before them.
+Press any key to continue...
 
 
-When the original grid was created there was a conjurer’s disturbance  which created an illusionary fluctuation in time and placed you in an  elemental shell. That's why you have a hard time remembering things
+When the original grid was created there was a conjurerâ€™s disturbance  which created an illusionary fluctuation in time and placed you in an  elemental shell. That's why you have a hard time remembering things
 about your past.
 
 > sw
 
-Continuing on your journey, you enter what is known as the Abyss of the Wise.  An elderly man is standing by a tree nearby.  By the look in his eyes you can tell that he isn’t any ordinary man, but rather one whose fate is shadowed. After a very brief moment of thought it comes to you, could this man be a Shadow Master? You aren’t sure whether or not you can trust this man, but at this point it seems you haven’t got much of a choice if you want information about what’s going on.
+Continuing on your journey, you enter what is known as the Abyss of the Wise.  An elderly man is standing by a tree nearby.  By the look in his eyes you can tell that he isnâ€™t any ordinary man, but rather one whose fate is shadowed. After a very brief moment of thought it comes to you, could this man be a Shadow Master? You arenâ€™t sure whether or not you can trust this man, but at this point it seems you havenâ€™t got much of a choice if you want information about whatâ€™s going on.
 
 > speak to mortimer
 
@@ -374,10 +384,12 @@ Continuing on your journey, you enter what is known as the Abyss of the Wise.  A
 3) Do you know anything about the Wizards Grid?
 [choice] 3
 
-You watch as Mortimer’s face turns a shade of pale white. "Do I know about the Grid?" He responds as though almost to himself. "Of course I do. I know more about it than anybody.
+You watch as Mortimerâ€™s face turns a shade of pale white. "Do I know about the Grid?" He responds as though almost to himself. "Of course I do. I know more about it than anybody.
+Press any key to continue...
 
 
 Lucky enough for you I happen to know who you are. You're Kitzue, the only one that can bring back order to these parts. In order to do so however, you'll need to reconstruct the grid so listen up.
+Press any key to continue...
 
 
 The grid is constructed up of the five elements.. wood, fire, earth, metal, and water. Find these elements and combine them to make the grid. You must do this in the right order though or it won't work!

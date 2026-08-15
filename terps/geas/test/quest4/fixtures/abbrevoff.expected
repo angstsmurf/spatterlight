@@ -1,14 +1,14 @@
 
 Abbrevoff
 
-You are in Lab
+You are in Lab.
 There is Man in a black suit and heavy oak door here.
 
 > x oak
-You don't see any oak.
+I can't see that here.
 
 > x door
-You don't see any door.
+I can't see that here.
 
 > x heavy oak door
 A heavy oak door.
@@ -17,5 +17,5 @@ A heavy oak door.
 There's nothing special about the man.
 
 > x suit
-You don't see any suit.
+I can't see that here.
 [runner] turns=5 leftover=0 running=true

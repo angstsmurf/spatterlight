@@ -1,5 +1,5 @@
 
-Shipwrecked, v1.3 Wonderjudge
+Shipwrecked, v1.3 | Wonderjudge
 
 You set out for a nice fishing trip for the day.
 Yep just you and your small boat with nothing to do but relax. 
@@ -14,6 +14,7 @@ By Wonderjudge. Version 1.2
 Save often. Good luck.
 
 Send questions or comments to wonderjudge22@yahoo.com
+Press any key to continue.....
 
 You are at the West shore.
 There is a pile of timber  here.
@@ -411,13 +412,14 @@ You drop it.
 You drop it.
 
 > i
-You are carrying nothing.
+You are not carrying anything.
 
 > sail
 You set sail in your makeshift raft. As you approach the vessel you notice that it is a small pirate sloop. Someone in the crows nest is looking down at you with a spyglass.
 
 He seems to notice that you have a large chest of gold coins with you. You make it to the ship and they hoist you from the water.
 They then take your chest and throw you in the brig!
+Press any key to continue.
 
 After awhile you hear the captain come in and announce that they are going ashore. He tells one of the crew to remain here and keep an eye on the prisoner.
 You are in the Brig.
@@ -1035,7 +1037,7 @@ You are walking along the outskirts of a small native village. The village itsel
 > south
 Welcome to the Jungle.
 There is a Monkey swinging in the trees here.
-You can go north, south, east, west, southeast or southwest.
+You can go north, south, east, west, southwest or southeast.
 You are in an overgrown, steamy jungle. Paths lead off in many directions.
 A monkey swings into view here.
 
@@ -1048,12 +1050,12 @@ Seeing that he is not getting to you anymore the monkey comes down and climb up 
 
 > south
 Welcome to the Jungle.
-You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You can go north, south, east, west, northwest, northeast, southwest or southeast.
 You are in an overgrown, steamy jungle. Paths lead off in many directions.
 
 > southwest
 Welcome to the Jungle.
-You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You can go north, south, east, west, northwest, northeast, southwest or southeast.
 You are in an overgrown, steamy jungle. Paths lead off in many directions.
 
 > west
@@ -1065,6 +1067,7 @@ You have come to a dead end in the jungle. The vegitation is just too thick to t
 > look at monkey nest
 It's a large nest made of leaves and twigs. 
 hmmm. I didn't think monkeys made nests.
+It contains a pair of Spiked boots, Ceramic tile3 and a * Large diamond *.
 
 > take spiked boots
 You pick them up.
@@ -1082,18 +1085,18 @@ You have become stronger and able to take more damage!
 
 > east
 Welcome to the Jungle.
-You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You can go north, south, east, west, northwest, northeast, southwest or southeast.
 You are in an overgrown, steamy jungle. Paths lead off in many directions.
 
 > east
 Welcome to the Jungle.
-You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You can go north, south, east, west, northwest, northeast, southwest or southeast.
 You are in an overgrown, steamy jungle. Paths lead off in many directions.
 
 > southeast
 You are in some Ruins.
 There is a Stone building here.
-You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You can go north, south, east, west, northwest, northeast, southwest or southeast.
 You have discovered some old ruins nestled in the jungle. Several dilapitated stone buildings are here, overgrown with ivy. Paths lead off into the jungle in many directions. The ruins continue to the south.
 
 > examine stone building
@@ -1187,11 +1190,12 @@ You drop it.
 > go to stone building
 You are in a Stone building.
 There is a Stone box here.
-You can go out to Ruins.
+You can go out.
 You are inside a large stone building set in the center of the ruins here. The room has several crude drawings all over the walls and seems to have been some sort of shrine.
 
 > look at stone box
 It's a large stone box set in the center of the room.
+The box is closed.
 
 > open stone box
 You open the box.
@@ -1205,19 +1209,18 @@ You take the tile.
 > out
 You are in some Ruins.
 There is a stone rod here.
-You can go north, south, east, west, northeast, northwest, southeast or southwest.
-You can go to Stone building.
+You can go north, south, east, west, northwest, northeast, southwest, southeast or to Stone building.
 You have discovered some old ruins nestled in the jungle. Several dilapitated stone buildings are here, overgrown with ivy. Paths lead off into the jungle in many directions. The ruins continue to the south.
 
 > south
 You are in some Ruins.
-You can go north, south, east, west, northeast, northwest, southeast, southwest or down.
+You can go north, south, east, west, northwest, northeast, southwest, southeast or down.
 You have discovered some old ruins nestled in the jungle. Several dilapitated stone buildings, overgrown with ivy are here. Paths lead off into the jungle in several directions. The ruins continue to the north and south. In the center of the ruins here is a stone pyramid half buried into the ground. There is an opening in the top with a staircase leading down into darkness.
 
 > south
-You are in Ruins
+You are in Ruins.
 There is a Stone dais here.
-You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You can go north, south, east, west, northwest, northeast, southwest or southeast.
 You have discovered some old ruins nestled in the jungle. Several dilapitated stone buildings, overgrown with ivy are here. Paths lead off into the jungle in several directions. The ruins continue to the north.
 
 > use rope on stone dais
@@ -1225,7 +1228,7 @@ You tie the rope to the metal bar.
 
 > northeast
 Welcome to the Jungle.
-You can go north, south, east, west, southeast or southwest.
+You can go north, south, east, west, southwest or southeast.
 You are in an overgrown, steamy jungle. Paths lead off in many directions.
 
 > north
@@ -1266,6 +1269,7 @@ You pry it open.
 
 > look at large crate
 It's a large crate.
+It contains a Box of nails and a Diary.
 
 > take box of nails
 You take the box of nails.
@@ -1275,8 +1279,7 @@ You drop it.
 
 > north
 You are at the East shore.
-You can go north, south or west.
-You can go to Sail boat.
+You can go north, south, west or to Sail boat.
 You have come the large eastern shore of the island. Across the sea to the east you can see a small volcanic island. The shore continues to the north and south. A small sail boat floats in the shallows here.
 
 > north
@@ -1296,14 +1299,13 @@ You drop it.
 
 > south
 You are at the East shore.
-You can go north, south or west.
-You can go to Sail boat.
+You can go north, south, west or to Sail boat.
 You have come the large eastern shore of the island. Across the sea to the east you can see a small volcanic island. The shore continues to the north and south. A small sail boat floats in the shallows here.
 
 > go to sail boat
 You are on a Sail boat.
 There is a Wheel stand, some Rigging and a Pirate captain here.
-You can go down.
+You can go out or down.
 You are on the deck of a small sail boat. A ladder leads down below deck.
 The sailboat is floating in the shallows just off shore to the east of a large island.
 You could probably SAIL if you could get the boat in good working order.
@@ -1322,8 +1324,7 @@ You could probably SAIL to the other island across the way now that you have som
 > out
 You clamber out of the boat and go ashore.
 You are at the East shore.
-You can go north, south or west.
-You can go to Sail boat.
+You can go north, south, west or to Sail boat.
 You have come the large eastern shore of the island. Across the sea to the east you can see a small volcanic island. The shore continues to the north and south. A small sail boat floats in the shallows here.
 
 > west
@@ -1429,8 +1430,7 @@ You are walking along a grassy plain. The plain continues to the south. You can 
 
 > east
 You are at the East shore.
-You can go north, south or west.
-You can go to Sail boat.
+You can go north, south, west or to Sail boat.
 You have come the large eastern shore of the island. Across the sea to the east you can see a small volcanic island. The shore continues to the north and south. A small sail boat floats in the shallows here.
 
 > drop box of matches
@@ -1439,7 +1439,7 @@ You drop it.
 > go to sail boat
 You are on a Sail boat.
 There is a Pistol, a Steering wheel and some Rigging here.
-You can go down.
+You can go out or down.
 You are on the deck of a small sail boat. A ladder leads down below deck.
 The sailboat is floating in the shallows just off shore to the east of a large island.
 You have a wheel and some smaller sails. You could probably SAIL to the other island across the way. But you are not going to get too much farther than that without a main sail.
@@ -1450,8 +1450,7 @@ You manage to sail to the other island.
 > out
 You clamber out of the boat and go ashore.
 You are on a Rocky beach.
-You can go east.
-You can go to Sail boat.
+You can go east or to Sail boat.
 You standing on a rocky beach. Your sailboat floats just offshore in the shallows. To the west you can see the larger island and a path leads up a hillside to the top of a volcano.
 
 > east
@@ -1561,14 +1560,13 @@ You are standing on the rim of a dormant (or at least you think so) volcano. The
 
 > west
 You are on a Rocky beach.
-You can go east.
-You can go to Sail boat.
+You can go east or to Sail boat.
 You standing on a rocky beach. Your sailboat floats just offshore in the shallows. To the west you can see the larger island and a path leads up a hillside to the top of a volcano.
 
 > go to sail boat
 You are on a Sail boat.
 There is a Pistol, a Steering wheel and some Rigging here.
-You can go down.
+You can go out or down.
 You are on the deck of a small sail boat. A ladder leads down below deck.
 The sail boat is floating in the shallows just offshore to the west of a small volcanic island.
 You have a wheel and some smaller sails. You could probably SAIL to the other island across the way. But you are not going to get too much farther than that without a main sail.
@@ -1580,8 +1578,7 @@ You manage to sail to the other island.
 You clamber out of the boat and go ashore.
 You are at the East shore.
 There is a Box of matches here.
-You can go north, south or west.
-You can go to Sail boat.
+You can go north, south, west or to Sail boat.
 You have come the large eastern shore of the island. Across the sea to the east you can see a small volcanic island. The shore continues to the north and south. A small sail boat floats in the shallows here.
 
 > take box of matches
@@ -1640,34 +1637,33 @@ You are walking along the outskirts of a small native village. The village itsel
 
 > south
 Welcome to the Jungle.
-You can go north, south, east, west, southeast or southwest.
+You can go north, south, east, west, southwest or southeast.
 You are in an overgrown, steamy jungle. Paths lead off in many directions.
 
 > south
 Welcome to the Jungle.
-You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You can go north, south, east, west, northwest, northeast, southwest or southeast.
 You are in an overgrown, steamy jungle. Paths lead off in many directions.
 
 > southwest
 Welcome to the Jungle.
-You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You can go north, south, east, west, northwest, northeast, southwest or southeast.
 You are in an overgrown, steamy jungle. Paths lead off in many directions.
 
 > east
 Welcome to the Jungle.
-You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You can go north, south, east, west, northwest, northeast, southwest or southeast.
 You are in an overgrown, steamy jungle. Paths lead off in many directions.
 
 > southeast
 You are in some Ruins.
 There is a stone rod here.
-You can go north, south, east, west, northeast, northwest, southeast or southwest.
-You can go to Stone building.
+You can go north, south, east, west, northwest, northeast, southwest, southeast or to Stone building.
 You have discovered some old ruins nestled in the jungle. Several dilapitated stone buildings are here, overgrown with ivy. Paths lead off into the jungle in many directions. The ruins continue to the south.
 
 > south
 You are in some Ruins.
-You can go north, south, east, west, northeast, northwest, southeast, southwest or down.
+You can go north, south, east, west, northwest, northeast, southwest, southeast or down.
 You have discovered some old ruins nestled in the jungle. Several dilapitated stone buildings, overgrown with ivy are here. Paths lead off into the jungle in several directions. The ruins continue to the north and south. In the center of the ruins here is a stone pyramid half buried into the ground. There is an opening in the top with a staircase leading down into darkness.
 
 > southeast
@@ -1685,19 +1681,18 @@ You pick him up.
 
 > northwest
 You are in some Ruins.
-You can go north, south, east, west, northeast, northwest, southeast, southwest or down.
+You can go north, south, east, west, northwest, northeast, southwest, southeast or down.
 You have discovered some old ruins nestled in the jungle. Several dilapitated stone buildings, overgrown with ivy are here. Paths lead off into the jungle in several directions. The ruins continue to the north and south. In the center of the ruins here is a stone pyramid half buried into the ground. There is an opening in the top with a staircase leading down into darkness.
 
 > north
 You are in some Ruins.
 There is a stone rod here.
-You can go north, south, east, west, northeast, northwest, southeast or southwest.
-You can go to Stone building.
+You can go north, south, east, west, northwest, northeast, southwest, southeast or to Stone building.
 You have discovered some old ruins nestled in the jungle. Several dilapitated stone buildings are here, overgrown with ivy. Paths lead off into the jungle in many directions. The ruins continue to the south.
 
 > southeast
 Welcome to the Jungle.
-You can go north, south, east, west, southeast or southwest.
+You can go north, south, east, west, southwest or southeast.
 You are in an overgrown, steamy jungle. Paths lead off in many directions.
 
 > north
@@ -1776,7 +1771,7 @@ A north-south ravine cuts through the cliffside here and dead ends to the north.
 
 > north
 The spiked boots give you better traction. You clamber up the cliff.
-You are in Cliff top
+You are in Cliff top.
 There is a Lantern here.
 You can go south.
 You have come to the top of a large cliff on the north side of the island. You can see out to sea to the north for miles from here.
@@ -1800,34 +1795,33 @@ You are walking along the outskirts of a small native village. The village itsel
 
 > south
 Welcome to the Jungle.
-You can go north, south, east, west, southeast or southwest.
+You can go north, south, east, west, southwest or southeast.
 You are in an overgrown, steamy jungle. Paths lead off in many directions.
 
 > south
 Welcome to the Jungle.
-You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You can go north, south, east, west, northwest, northeast, southwest or southeast.
 You are in an overgrown, steamy jungle. Paths lead off in many directions.
 
 > southwest
 Welcome to the Jungle.
-You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You can go north, south, east, west, northwest, northeast, southwest or southeast.
 You are in an overgrown, steamy jungle. Paths lead off in many directions.
 
 > east
 Welcome to the Jungle.
-You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You can go north, south, east, west, northwest, northeast, southwest or southeast.
 You are in an overgrown, steamy jungle. Paths lead off in many directions.
 
 > southeast
 You are in some Ruins.
 There is a stone rod here.
-You can go north, south, east, west, northeast, northwest, southeast or southwest.
-You can go to Stone building.
+You can go north, south, east, west, northwest, northeast, southwest, southeast or to Stone building.
 You have discovered some old ruins nestled in the jungle. Several dilapitated stone buildings are here, overgrown with ivy. Paths lead off into the jungle in many directions. The ruins continue to the south.
 
 > south
 You are in some Ruins.
-You can go north, south, east, west, northeast, northwest, southeast, southwest or down.
+You can go north, south, east, west, northwest, northeast, southwest, southeast or down.
 You have discovered some old ruins nestled in the jungle. Several dilapitated stone buildings, overgrown with ivy are here. Paths lead off into the jungle in several directions. The ruins continue to the north and south. In the center of the ruins here is a stone pyramid half buried into the ground. There is an opening in the top with a staircase leading down into darkness.
 
 > down
@@ -1842,13 +1836,13 @@ You light all the torches. They flicker in the updraft.
 
 > up
 You are in some Ruins.
-You can go north, south, east, west, northeast, northwest, southeast, southwest or down.
+You can go north, south, east, west, northwest, northeast, southwest, southeast or down.
 You have discovered some old ruins nestled in the jungle. Several dilapitated stone buildings, overgrown with ivy are here. Paths lead off into the jungle in several directions. The ruins continue to the north and south. In the center of the ruins here is a stone pyramid half buried into the ground. There is an opening in the top with a staircase leading down into darkness.
 
 > south
-You are in Ruins
+You are in Ruins.
 There is a Stone dais and a coil of Rope tied to the metal bar on the dais here.
-You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You can go north, south, east, west, northwest, northeast, southwest or southeast.
 You have discovered some old ruins nestled in the jungle. Several dilapitated stone buildings, overgrown with ivy are here. Paths lead off into the jungle in several directions. The ruins continue to the north.
 
 > use small basket on rope
@@ -1862,7 +1856,7 @@ You lower the basket into the opening.
 
 > north
 You are in some Ruins.
-You can go north, south, east, west, northeast, northwest, southeast, southwest or down.
+You can go north, south, east, west, northwest, northeast, southwest, southeast or down.
 You have discovered some old ruins nestled in the jungle. Several dilapitated stone buildings, overgrown with ivy are here. Paths lead off into the jungle in several directions. The ruins continue to the north and south. In the center of the ruins here is a stone pyramid half buried into the ground. There is an opening in the top with a staircase leading down into darkness.
 
 > down
@@ -1883,17 +1877,7 @@ You take the lantern from the basket.
 
 > i
 You are carrying:
-Cutlass
-* Large ruby *
-Monkey (on your back)
-* Large diamond *
-Spiked boots (worn)
-* Large emerald *
-Box of matches
-Ceramic tile6
-* Large Sapphire *
-Empty jar
-Lantern (lit)
+A Cutlass, a * Large ruby *, Monkey (on your back), a * Large diamond *, Spiked boots (worn), a * Large emerald *, a Box of matches, a Ceramic tile6, a * Large Sapphire *, an Empty jar and a Lantern (lit).
 
 > east
 You are in the East wing.
@@ -2164,12 +2148,12 @@ You have entered into some kind of ancient tomb. You seem to be in the antechamb
 
 > up
 You are in some Ruins.
-You can go north, south, east, west, northeast, northwest, southeast, southwest or down.
+You can go north, south, east, west, northwest, northeast, southwest, southeast or down.
 You have discovered some old ruins nestled in the jungle. Several dilapitated stone buildings, overgrown with ivy are here. Paths lead off into the jungle in several directions. The ruins continue to the north and south. In the center of the ruins here is a stone pyramid half buried into the ground. There is an opening in the top with a staircase leading down into darkness.
 
 > northeast
 Welcome to the Jungle.
-You can go north, south, east, west, southeast or southwest.
+You can go north, south, east, west, southwest or southeast.
 You are in an overgrown, steamy jungle. Paths lead off in many directions.
 
 > north
@@ -2210,8 +2194,7 @@ You are walking along a grassy plain. The plain continues to the south. You can 
 > east
 You are at the East shore.
 There is a Ceramic tile1, a Ceramic tile2, Ceramic tile3, a Ceramic tile4, an Empty bottle and a Ceramic tile5 here.
-You can go north, south or west.
-You can go to Sail boat.
+You can go north, south, west or to Sail boat.
 You have come the large eastern shore of the island. Across the sea to the east you can see a small volcanic island. The shore continues to the north and south. A small sail boat floats in the shallows here.
 
 > take ceramic tile1
@@ -2232,7 +2215,7 @@ You take the tile.
 > go to sail boat
 You are on a Sail boat.
 There is a Pistol, a Steering wheel and some Rigging here.
-You can go down.
+You can go out or down.
 You are on the deck of a small sail boat. A ladder leads down below deck.
 The sailboat is floating in the shallows just off shore to the east of a large island.
 You have a wheel and some smaller sails. You could probably SAIL to the other island across the way. But you are not going to get too much farther than that without a main sail.
@@ -2249,7 +2232,7 @@ You pick up the gunpowder.
 > up
 You are on a Sail boat.
 There is a Pistol, a Steering wheel and some Rigging here.
-You can go down.
+You can go out or down.
 You are on the deck of a small sail boat. A ladder leads down below deck.
 The sailboat is floating in the shallows just off shore to the east of a large island.
 You have a wheel and some smaller sails. You could probably SAIL to the other island across the way. But you are not going to get too much farther than that without a main sail.
@@ -2260,8 +2243,7 @@ You manage to sail to the other island.
 > out
 You clamber out of the boat and go ashore.
 You are on a Rocky beach.
-You can go east.
-You can go to Sail boat.
+You can go east or to Sail boat.
 You standing on a rocky beach. Your sailboat floats just offshore in the shallows. To the west you can see the larger island and a path leads up a hillside to the top of a volcano.
 
 > east
@@ -2576,6 +2558,7 @@ As you enter the cavern the door closes behind you!
 A huge creature is at the other end of the cavern. It looks as if he was lying on a large ship's sail!
 
 Your ticket out of here!
+Press any key to continue.
 
 
 The monkey on your back decides to throw some poo at the thing making it angry!
@@ -3170,14 +3153,13 @@ You are standing on the rim of a dormant (or at least you think so) volcano. The
 
 > west
 You are on a Rocky beach.
-You can go east.
-You can go to Sail boat.
+You can go east or to Sail boat.
 You standing on a rocky beach. Your sailboat floats just offshore in the shallows. To the west you can see the larger island and a path leads up a hillside to the top of a volcano.
 
 > go to sail boat
 You are on a Sail boat.
 There is a Pistol, a Steering wheel and some Rigging here.
-You can go down.
+You can go out or down.
 You are on the deck of a small sail boat. A ladder leads down below deck.
 The sail boat is floating in the shallows just offshore to the west of a small volcanic island.
 You have a wheel and some smaller sails. You could probably SAIL to the other island across the way. But you are not going to get too much farther than that without a main sail.
@@ -3192,6 +3174,7 @@ After a bit you set off to sea. You come around the island and come upon the war
 They board your boat and take you aboard their vessel. You are brought before their captain. 
 He tells you that there has been alot of pirate activity in the area lately and that he is questioning anyone he comes upon. You almost have him convinced that you are not in fact a pirate and that you were shipwrecked and are happy to be off again.
 He is just about to let you get back aboard your sail boat when.....
+Press any key to continue.
 
 
 The monkey on your back decides to pee all over him!
@@ -3200,6 +3183,7 @@ In the end he decides that you are not a pirate and decides to let you go. But n
 He tells you that these are the king's waters and anything found here belongs to the king.
 He does pay you a small finders fee though.
 
+Press any key to continue.
 
 
 You return home and sell the monkey to a local zoo.
@@ -3211,6 +3195,7 @@ You have finished shipwrecked!
 You score is 30/400.
 That give you the rank of...
 Shark Bait.
+
 Congratulations.....
 
 You have completed Shipwrecked...

@@ -3,7 +3,7 @@ Pyramid Of Terror, v1
 
 Things were fine in your Victorian folly.  But one day, you started having visions of Sutekh, the Egyptian god of destruction and dust.  Then you receive a scroll in the post, telling you that you must enter the under-realm of the Pyramid of Terror.  Will Sutekh be there?  So you follow the scroll's instructions, and climb down a manhole cover and into the sewer, the starting place of your quest...
 
-You are in the sewer
+You are in the sewer.
 There is a blob of lichen, a brass ring and a rat here.
 You can go north.
 It's not very nice down here.  The sewage flows away into the dim and dank distance.  The walls are coated in patches of moss and lichen.  Looks like someone's been here before you.  You can see a rat's eye gleaming in the murkiness.
@@ -21,7 +21,7 @@ You pick up the ring.
 You pick up the green, furry blob.
 
 > n
-You are in a gloomy stone passageway
+You are in a gloomy stone passageway.
 There is a trendy pair of sunglasses and a blind man's white cane here.
 You can go north or south.
 It is dim now, and the walls enclose, a bit like at the end of Batman, when He and Robin are being squeezed into a nail-walled cell, designed and controlled by the Joker, or some such.
@@ -37,7 +37,7 @@ You take up the cane, and seem to take on the air of Gerald Harper as you do.
 You strut like Ray Charles, then swing your head about like Stevie Wonder, and then look to David Blunkett for a role-model, and become increasingly dissatisfied with your menu...
 
 > n
-You are in the sarcophagus chamber
+You are in the sarcophagus chamber.
 There is a sarcophagus here.
 You can go north, south or northwest.
 This is the sarcophagus chamber.  Before you, there is a bejewelled rug with a large letter M at its centre, nesting like a spider within red and purple spirals.  Beyond there is a tapestry hanging, and then just behind, a looming, ornate sarcophagus.
@@ -58,13 +58,13 @@ She accepts it with a smile and slips it on a finger.
 You notice she is carrying a book.
 
 > take jane eyre book
-Do you normally go around snatching books off pretty girls?  It might be on her reading list, for her course.  Don't steal books, don't be so spineless.  I wonder though, how would she respond if you gave it back (give book to goth might do it).  She might have an invitation for you.  And if she does, I'd say yes goth...
+You can't take it - inside closed goth.
 
 > give jane eyre book to goth
-She takes it from you, saying, 'Thank you, I'm only halfway through it, and I'm enjoying it a lot.  Have you read The Tenant of Wildfell Hall by Anne Bronte?  Actually, you look quite nice, would you like to go for a coffee?'
+You don't have that.
 
 > n
-You are in an underground kitchen
+You are in an underground kitchen.
 There is an oven here.
 You can go north or south.
 It looks as if someone lodged here for a while.  There's a full mesh bin here, so full that most of the rubbish in it has petrified.  Now who'd have lived in a place like this?
@@ -91,14 +91,14 @@ You glance at the bin, and it reminds you of a ruined life, a lilting life.
 You are now the proud owner of a ruined and empty Lilt can.
 
 > drop gingerbread man
-You are in the sarcophagus chamber
-There is a brass ring, a sarcophagus and a goth here.
+You are in the sarcophagus chamber.
+There is a brass ring, a sarcophagus, a goth and a jane eyre book here.
 You can go north, south or northwest.
 This is the sarcophagus chamber.  Before you, there is a bejewelled rug with a large letter M at its centre, nesting like a spider within red and purple spirals.  Beyond there is a tapestry hanging, and then just behind, a looming, ornate sarcophagus.
 You're back in the sarcophagus room.  Seems dropping gingerbread in this world sets you back a bit.  But it looks slightly different in here...
 
 > nw
-You are in the chamber of fire
+You are in the chamber of fire.
 You can go southeast or down.
 This room smells of sulphur.  There are three tall blazing orange flames burning from three grills in the floor, and between them there seems to be a hole with a ladder leading down.  There is a sign on the back wall, and a cobweb hanging ominously in the corner where the walls meet the moss-clad ceiling.
 
@@ -115,7 +115,7 @@ The spiders wants you to know that there is a letter I in the word that murders 
 You pick him up.
 
 > down
-You are in a hermit's cell
+You are in a hermit's cell.
 There is a bearded hermit and a mouldy Snickers bar here.
 You can go up.
 This is quite a depressing little cell, just bricks, dampness, and a straw-filled mattress on the floor.  Don't know what its council tax band would be.
@@ -134,24 +134,24 @@ You bite off a chunk, and swallow.
 You throw up the out-of-date confection, and the mummy vision seems to assuage, and your pool of vomit is before you on the floor.
 
 > up
-You are in the chamber of fire
+You are in the chamber of fire.
 You can go southeast or down.
 This room smells of sulphur.  There are three tall blazing orange flames burning from three grills in the floor, and between them there seems to be a hole with a ladder leading down.  There is a sign on the back wall, and a cobweb hanging ominously in the corner where the walls meet the moss-clad ceiling.
 
 > se
-You are in the sarcophagus chamber
-There is a brass ring, a sarcophagus and a goth here.
+You are in the sarcophagus chamber.
+There is a brass ring, a sarcophagus, a goth and a jane eyre book here.
 You can go north, south or northwest.
 This is the sarcophagus chamber.  Before you, there is a bejewelled rug with a large letter M at its centre, nesting like a spider within red and purple spirals.  Beyond there is a tapestry hanging, and then just behind, a looming, ornate sarcophagus.
 
 > n
-You are in an underground kitchen
+You are in an underground kitchen.
 There is an oven here.
 You can go north or south.
 It looks as if someone lodged here for a while.  There's a full mesh bin here, so full that most of the rubbish in it has petrified.  Now who'd have lived in a place like this?
 
 > n
-You are in the temple of enticement
+You are in the temple of enticement.
 There is the cursed pipe of Albion here.
 You can go south or east.
 This is Sutekh's awful shrine to all decadence.  Concoctions line the shelves around the walls, and there are jars and test-tubes along a crowded, diabolical workbench.
@@ -166,11 +166,10 @@ Probably a good idea, your pulse is galloping away like a frightened stallion...
 You guzzle on a bottle and nothing happens for a moment, and then before you a vision of a marble sparrow in an apothecary's bottle hangs in the air before you, gauze-edged and foggy...
 
 > take marble sparrow
-(first removing it from concoctions)
-You can't remove that.
+You can't take it - inside closed concoctions.
 
 > e
-You are in the chequered chessboard room
+You are in the chequered chessboard room.
 There is a granite queen and a stone king here.
 You can go east or west.
 Well, this is the chessboard room.  The light here comes in through a skylight, or is it a manhole cover?  The floor is a chessboard, with all the pieces set out as if at the beginning of the game.  They are stone pieces, and the taller ones reach up to your shoulder.  Nice feature.
@@ -183,20 +182,20 @@ His granite lips quiver into action, 'There is a zip in that which kills Sutekh,
 
 
 > w
-You are in the temple of enticement
+You are in the temple of enticement.
 There is the cursed pipe of Albion and a dainty marble sparrow here.
 You can go south or east.
 This is Sutekh's awful shrine to all decadence.  Concoctions line the shelves around the walls, and there are jars and test-tubes along a crowded, diabolical workbench.
 
 > s
-You are in an underground kitchen
+You are in an underground kitchen.
 There is an oven here.
 You can go north or south.
 It looks as if someone lodged here for a while.  There's a full mesh bin here, so full that most of the rubbish in it has petrified.  Now who'd have lived in a place like this?
 
 > s
-You are in the sarcophagus chamber
-There is a brass ring, a sarcophagus and a goth here.
+You are in the sarcophagus chamber.
+There is a brass ring, a sarcophagus, a goth and a jane eyre book here.
 You can go north, south or northwest.
 This is the sarcophagus chamber.  Before you, there is a bejewelled rug with a large letter M at its centre, nesting like a spider within red and purple spirals.  Beyond there is a tapestry hanging, and then just behind, a looming, ornate sarcophagus.
 
@@ -206,7 +205,7 @@ This is the sarcophagus chamber.  Before you, there is a bejewelled rug with a l
 
 > yes goth
 You accept her invitation, and the two of you are transported, as you are, to the coffee-shop of mystic interludes.  Fancy a frappe?
-You are in the coffee-shop of mystic interludes
+You are in the coffee-shop of mystic interludes.
 There is some Robusta beans, some Arabica beans, some special Sutekh beans and a gleaming self-service cafetiere here.
 .You find yourself, with your gothfriend, in a high-up, mystic coffee-bar.  It seems to look out over Seattle Sound, a la Frasier and Niles.  The place is decorated with bookish understatedness.
 
@@ -236,7 +235,7 @@ You pick it up.
 
 > drink Americano
 You sip the Americano, and before you can take a meaningful gulp, you are whizzed'n'whirled into a room you've not seen before...
-You are in a seemingly empty room
+You are in a seemingly empty room.
 There is a yellowy blob and a vending machine here.
 You can go east or west.
 This room seems fairly bland, four magnolia walls surround you.
@@ -245,7 +244,7 @@ This room seems fairly bland, four magnolia walls surround you.
 Magnolia begins with an M.
 
 > look at vending machine
-Nothing out of the ordinary.
+It contains some Maltesers, some monster munch and a tartrazine-laced raspberry slushpuppy.
 
 > wave cane
 You are correct to think that the white cane is a kind of wand.  You wave it gracefully before the vending machine, and suddenly you can take whichever of the treats you please...go ahead, take my treats...
@@ -273,7 +272,7 @@ I am from Marz, it whispers.
 You pick it up.
 
 > e
-You are in the swimming-pool
+You are in the swimming-pool.
 There is a wedding-cake and a diving-board here.
 You can go west.
 The pool looks deep, and yearns like a rosebud for the morning sun.  The ceiling is high, and a blue mist drifts above the gently undulating water.  Wanna dip?
@@ -283,7 +282,7 @@ In the middle of the pool, an island-cum-cakestand, containing one wedding cake,
 
 > dive in
 You plunge into the deep blue vortex, swimming'n'spiralling into infinity.  Down, down, deeper on down, you plummet, the ghost of Francis Rossie haunting you as you descend.  Then, almost in relief, you clatter to the floor in a dark, diabolical lair...
-You are in Sutekh's Chamber Of Cruelty
+You are in Sutekh's Chamber Of Cruelty.
 There is a magnifying glass and Sutekh here.
 You can go up.
 Jets of irridescent green flame roar at intervals from ornate brass funnels, and the walls, jet black, are studded with the occasional ruby, gleaming dark scarlet in the drear, like blood-eyes gazing from a world behind glass...nice feature.
@@ -303,7 +302,7 @@ Aha, you drop the yellowy blob, that you and Sutekh both know to be marzipan, to
 
 
 > up
-You are in your drawing-room
+You are in your drawing-room.
 There is a globe and a record player here.
 You can go down.
 Yes, you're back in the drawing-room of your Victorian folly.  William Morris drapes hang in the bay-window, a globe on a stand before them.  Your Observer crossword awaits you.  Might need the magnifying glass for that.  It is a cosy, bookish room, a lava-lamp and a beanbag in the corner by the CDs.  Yes, this is home, such as it is...it's where you are.....

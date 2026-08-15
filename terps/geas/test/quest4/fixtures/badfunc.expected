@@ -1,0 +1,29 @@
+
+badfunc
+
+You are in Lab.
+There is glass beaker and flask here.
+A white room.
+
+> d
+one [ERROR] two
+
+> e
+cost is [ERROR]6
+
+> f
+price is $1000000
+
+> g
+interval is [ 7] and [!]
+
+> h
+plain: bold and red
+
+> i
+exit is []
+
+> j
+It is beaker, alias glass beaker, this beaker.
+It is flask, alias [flask].
+[runner] turns=7 leftover=0 running=true

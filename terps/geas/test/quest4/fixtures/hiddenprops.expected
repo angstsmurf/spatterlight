@@ -1,7 +1,7 @@
 
 HiddenProps
 
-You are in bar
+You are in bar.
 There is viaprops and viatype here.
 The bar.
 
@@ -23,7 +23,7 @@ viatype: not hidden
 both: not hidden
 
 > look
-You are in bar
+You are in bar.
 There is bare, viaprops, viatype and both here.
 The bar.
 
@@ -36,7 +36,7 @@ viatype: not hidden
 both: not hidden
 
 > look
-You are in bar
+You are in bar.
 There is bare, viatype and both here.
 The bar.
 [runner] turns=8 leftover=0 running=true

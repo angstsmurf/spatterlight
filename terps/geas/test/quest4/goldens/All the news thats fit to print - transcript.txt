@@ -1,7 +1,7 @@
 
 All the news that's fit to print
 
-You are in Introduction
+You are in Introduction.
 You can go to The Field.
 [Welcome to the Daily Objective, Northern California's up-and-coming newspaper in the age of the blog. My name is Eddie Ditter and I run the place. Some folks say that the newspaper is dead. I say there will always be a market for solid, reigonal news.]
 
@@ -14,8 +14,8 @@ You are our newest reporter. Your job is to go out into the field and bring back
 [Note: Turns were not implemented properly. When you have 8 items in your inventory, "go to editor" from the field.]
 
 > go to the field
-You are in The Field
-You can go to Administration, Police, Protestors, Students, Business Sector, Activist organizations, Professors, or editor.
+You are in The Field.
+You can go to Administration, to Police, to Protestors, to Students, to Business Sector, to Activist organizations, to Professors or to editor.
 
 [Welcome to The Field, your main menu on your assignment. From here you may select]
 
@@ -35,7 +35,7 @@ Professors
 [What will you do?]
 
 > go to administration
-You are in Administration
+You are in Administration.
 There is Chancellor, President and Communications director here.
 You can go to The Field.
 [You have selected the category Administration. Who will you interview?]
@@ -100,15 +100,11 @@ The video of a police officer spraying students does raise serious concerns abou
 
 > i
 You are carrying:
-chancellor pepper spray
-chancellor protest
-president pepper spray
-president protest
-director pepper spray
+chancellor pepper spray, chancellor protest, president pepper spray, president protest and director pepper spray.
 
 > go to the field
-You are in The Field
-You can go to Administration, Police, Protestors, Students, Business Sector, Activist organizations, Professors, or editor.
+You are in The Field.
+You can go to Administration, to Police, to Protestors, to Students, to Business Sector, to Activist organizations, to Professors or to editor.
 
 [Welcome to The Field, your main menu on your assignment. From here you may select]
 
@@ -128,7 +124,7 @@ Professors
 [What will you do?]
 
 > go to police
-You are in Police
+You are in Police.
 There is Directly involved officer, Other officer at the scene and Chief here.
 You can go to The Field.
 [You have selected the category Police. Who will you interview?]
@@ -197,8 +193,8 @@ Ask Nettie if officer was following orders?
 Nettie: I do not know all the details at this time but I am confident that if the use of force was inappropriate, it was the fault of an individual officer's decision and not training, policy, or our institution.
 
 > go to the field
-You are in The Field
-You can go to Administration, Police, Protestors, Students, Business Sector, Activist organizations, Professors, or editor.
+You are in The Field.
+You can go to Administration, to Police, to Protestors, to Students, to Business Sector, to Activist organizations, to Professors or to editor.
 
 [Welcome to The Field, your main menu on your assignment. From here you may select]
 
@@ -218,7 +214,7 @@ Professors
 [What will you do?]
 
 > go to protestors
-You are in Protestors
+You are in Protestors.
 There is protestors at random, Press tent and Fringe here.
 You can go to The Field.
 [You have selected the category Protestors. Who will you interview?]
@@ -296,8 +292,8 @@ Elsa: It's really unfortunate that the police chose to pepper spray sitting, non
 > speak to fringe
 
 > go to the field
-You are in The Field
-You can go to Administration, Police, Protestors, Students, Business Sector, Activist organizations, Professors, or editor.
+You are in The Field.
+You can go to Administration, to Police, to Protestors, to Students, to Business Sector, to Activist organizations, to Professors or to editor.
 
 [Welcome to The Field, your main menu on your assignment. From here you may select]
 
@@ -317,7 +313,7 @@ Professors
 [What will you do?]
 
 > go to students
-You are in Students
+You are in Students.
 There is Cellphones, on campus and far away here.
 You can go to The Field.
 [You have selected the category Students. Who will you interview?]
@@ -370,8 +366,8 @@ Ask student about pepper spray?
 Student: Well, he must have done something. The police wouldn't pepper spray a guy for no reason.
 
 > go to the field
-You are in The Field
-You can go to Administration, Police, Protestors, Students, Business Sector, Activist organizations, Professors, or editor.
+You are in The Field.
+You can go to Administration, to Police, to Protestors, to Students, to Business Sector, to Activist organizations, to Professors or to editor.
 
 [Welcome to The Field, your main menu on your assignment. From here you may select]
 
@@ -391,7 +387,7 @@ Professors
 [What will you do?]
 
 > go to business sector
-You are in Business Sector
+You are in Business Sector.
 There is Student loans bankers and Business professionals here.
 You can go to The Field.
 [You have selected the category Business Sector because... you'll think of something. Who will you interview?]
@@ -427,8 +423,8 @@ Ask Rena Pavon about protest?
 Rena: Ouch, tuition fees. I remember those. I graduated about seven years ago and I only just payed off my student loans. Let me tell you, they were a nightmare.
 
 > go to the field
-You are in The Field
-You can go to Administration, Police, Protestors, Students, Business Sector, Activist organizations, Professors, or editor.
+You are in The Field.
+You can go to Administration, to Police, to Protestors, to Students, to Business Sector, to Activist organizations, to Professors or to editor.
 
 [Welcome to The Field, your main menu on your assignment. From here you may select]
 
@@ -448,7 +444,7 @@ Professors
 [What will you do?]
 
 > go to activist organizations
-You are in Activist organizations
+You are in Activist organizations.
 There is ACLU and Debt free here.
 You can go to The Field.
 [You have selected the category Activist Organizations. Who will you interview?]
@@ -470,8 +466,8 @@ CSDFE: Universities don't have the guts to tell students to go to a less expensi
 [Sallie March is a chief advertiser for The Daily Objective.]
 
 > go to the field
-You are in The Field
-You can go to Administration, Police, Protestors, Students, Business Sector, Activist organizations, Professors, or editor.
+You are in The Field.
+You can go to Administration, to Police, to Protestors, to Students, to Business Sector, to Activist organizations, to Professors or to editor.
 
 [Welcome to The Field, your main menu on your assignment. From here you may select]
 
@@ -491,7 +487,7 @@ Professors
 [What will you do?]
 
 > go to professors
-You are in Professors
+You are in Professors.
 There is Communications studies, Psychology and Economics here.
 You can go to The Field.
 [You have selected the category Professors. Who will you interview?]
@@ -519,42 +515,11 @@ Michael: Frankly, I don't understand why this protest even occurred at UC Cashel
 
 > i
 You are carrying:
-chancellor pepper spray
-chancellor protest
-president pepper spray
-president protest
-director pepper spray
-directly pepper spray
-shawna protest
-mario pepper spray
-mario follow up
-chief protest
-chief follow up
-mercedes protest
-mercedes pepper spray
-miguel protest
-miguel pepper spray
-latasha protest
-latasha pepper spray
-press protest
-press pepper spray
-marcus protest
-cellphone pepper spray
-cellphone follow up
-on campus protest
-student loan debt
-student loan follow up
-killinger protest
-rena protest
-Debt free debt
-comm prof
-Psychology protest
-economics protest
-ACLU protest
+chancellor pepper spray, chancellor protest, president pepper spray, president protest, director pepper spray, directly pepper spray, shawna protest, mario pepper spray, mario follow up, chief protest, chief follow up, mercedes protest, mercedes pepper spray, miguel protest, miguel pepper spray, latasha protest, latasha pepper spray, press protest, press pepper spray, marcus protest, cellphone pepper spray, cellphone follow up, on campus protest, student loan debt, student loan follow up, killinger protest, rena protest, Debt free debt, comm prof, Psychology protest, economics protest and ACLU protest.
 
 > go to the field
-You are in The Field
-You can go to Administration, Police, Protestors, Students, Business Sector, Activist organizations, Professors, or editor.
+You are in The Field.
+You can go to Administration, to Police, to Protestors, to Students, to Business Sector, to Activist organizations, to Professors or to editor.
 
 [Welcome to The Field, your main menu on your assignment. From here you may select]
 
@@ -574,7 +539,7 @@ Professors
 [What will you do?]
 
 > go to editor
-You are in editor
+You are in editor.
 You can go to the end.
 [Now that you have your raw material for your article, here's where you put them into paragraphs.]
 
@@ -585,8 +550,8 @@ You can go to the end.
 [Put X in Paragraph Y, for paragraphs one to six]
 
 > go to the end
-You are in the end
+You are in the end.
 
 > look
-You are in the end
+You are in the end.
 [runner] turns=39 leftover=0 running=true WON=YES

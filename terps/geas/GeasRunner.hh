@@ -74,6 +74,8 @@ enum GeasResult
 /*  Callback object used to pass information from GeasCore
  *  to the interface objects
  */
+class GeasRunner;
+
 class GeasInterface
 {
 private:
@@ -83,6 +85,12 @@ private:
   //string fgcolor, bgcolor;
 
 public:
+  /* The runner this interface is attached to, set by GeasRunner's constructor
+   * and cleared by its destructor.  print_formatted needs it for one thing
+   * only: the |w code is a `wait', and a wait suspends the turn, which is
+   * where Quest ticks its timers (see GeasRunner::turn_suspended). */
+  GeasRunner *runner = nullptr;
+
   /* Takes 1 argument, a string with Quest markup
    * Will output it to the user interface
    * If the with_newline flag is set, it will print a newline afterwords
@@ -194,11 +202,21 @@ protected:
   GeasInterface *gi;
 
 public:
-  GeasRunner (GeasInterface *_gi) : gi (_gi) {}
+  GeasRunner (GeasInterface *_gi) : gi (_gi) { if (gi) gi->runner = this; }
+
+  /* Called at each point where the turn suspends and the interface itself is
+   * what suspended it -- the |w code inside a printed string.  The script-level
+   * `wait' and `pause' reach the same place through the engine directly. */
+  virtual void turn_suspended () { }
 
   virtual bool is_running() const = 0;
   virtual std::string get_banner() = 0;
-  virtual void run_command(const std::string &) = 0;
+  /* Run one turn.  tick_this_turn is Quest's SendCommand elapsedTime > 0: tick
+   * the timers once as part of the turn, at the point where it suspends -- its
+   * first `wait`/`pause`, or its end.  A host that drives tick_timers from a
+   * real-time heartbeat (as Quest 4 does, and as the Glk frontend does) leaves
+   * it false and keeps ticking on its own clock. */
+  virtual void run_command(const std::string &, bool tick_this_turn = false) = 0;
 
   virtual v2string get_inventory() = 0;
   /* The visible things here.  Each entry is {display name, display type,
@@ -225,7 +243,7 @@ public:
 
   virtual void tick_timers() = 0;
 
-  virtual ~GeasRunner() {  }
+  virtual ~GeasRunner() { if (gi && gi->runner == this) gi->runner = nullptr; }
   virtual void set_game(const std::string &s) = 0;
 
   /* Save the whole game state to a self-contained string, or restore it from

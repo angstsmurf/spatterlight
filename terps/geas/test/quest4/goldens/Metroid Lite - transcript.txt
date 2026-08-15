@@ -1,5 +1,5 @@
 
-DJay32's "Metroid" Lite DJay32
+DJay32's "Metroid" Lite | DJay32
 
 It is the year 23X0; the galaxy is at peace.
 
@@ -19,6 +19,7 @@ DJay32's
          Lite Edition
 
 You are in the GFS Theseus, in a Boardroom.
+Press Any Key to Continue
 
 You arrive in the meeting room, and are prompted to sit down.
 
@@ -99,6 +100,7 @@ This lasted for a few more seconds, before Samus lowered her gun.
 
 Rlge chuckled, and spoke, "Wise choice. Now be a good girl and STAY that way."
 
+Press any key to continue
 
 You look around the room for anything that might save Dane as well as the remains. You see a steam pipe above Rlge's head, and an airlock behind him.
 
@@ -210,6 +212,7 @@ You give Samus the Heat-Seeking Plasma Rifle version 2.6, and she enters the pip
 "What the hell is THAT thing?" Rlge asks.
 
 Samus just fires it, and it strikes him in the jaw, making him fall over. She grabs the safe, and runs back to the boardroom. You follow.
+Press any key to continue
 
 Samus enters the boardroom, carrying the safe. You quietly slip in, as well.
 
@@ -236,12 +239,14 @@ Samus and I both raised our hands, albeit I raised mine a little nervously.
 "Sir, yes, SIR!" I said, saluted, and ran out the door.
 
 This is the GFS Theseus' boardroom.
+Press any key to continue
 
 
 > go to your ship
 Your ship's targeting computers have detected the enemy ship going towards an uncharted planet far off the trade routes! If he makes it there, nobody'll ever find him!
 
 According to the on-board computers, you have.... 1 minute before he exits the charted Galactic Trade zone.
+Press any key to continue, and start the timer
 
 
 > take rlge's ship

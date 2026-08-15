@@ -97,6 +97,10 @@ class geas_implementation : public GeasRunner
   std::string current_command;
   mutable std::string oops_before, oops_after;
   mutable bool oops_ready = false;
+  /* Set for a turn whose host asked for a timer tick, and spent by the first
+   * suspend_turn() -- the turn's first `wait`/`pause`, or its end.  Purely
+   * within one turn, so it is no part of the saved state. */
+  bool turn_tick_pending = false;
   v2string current_places;
   bool is_running_;
   std::string story_filename;   /* used as the save-file's game tag */
@@ -174,8 +178,21 @@ public:
 
   bool is_running () const;
   std::string get_banner ();
-  void run_command (const std::string &);
-  bool try_game_verb (const std::string &cmd, bool is_internal);
+  void run_command (const std::string &, bool tick_this_turn = false);
+  /* The body of a turn, without the timer tick that closes it: `oops` re-runs
+   * the corrected command through this, since the two of them are one turn. */
+  void run_command_body (const std::string &);
+  /* Quest's turn does not run to its end and stop -- it *suspends*, at its
+   * first `wait` or `pause` as much as at its close, and SendCommand ticks the
+   * timers the moment it does (V4Game.Part2.cs:78-88).  Called at each such
+   * point; the first one in the turn spends the tick and the rest are no-ops,
+   * exactly as TrySetResult on a completed TaskCompletionSource is. */
+  void suspend_turn ();
+  /* The |w code inside a printed string is a wait like any other, but it is
+   * GeasInterface::print_formatted that performs it, so the interface calls
+   * back through here (GeasRunner::turn_suspended). */
+  void turn_suspended () override { suspend_turn (); }
+  bool try_game_verb (const std::string &cmd, bool is_internal, bool lib_pass = false);
   bool try_match (std::string s, bool, bool);
   match_rv match_command (const std::string &input, const std::string &action) const;
   match_rv match_command (const std::string &input, uint ichar,
@@ -188,9 +205,26 @@ public:
 			 bool quiet_notfound = false) const;
   bool match_object (const std::string &text, const std::string &name, bool is_internal = false, bool allow_partial = true) const;
   void set_vars (const std::vector<match_binding> &v);
-  bool run_commands (std::string, const GeasBlock *, bool is_internal = false);
+  bool run_commands (std::string, const GeasBlock *, bool is_internal = false, bool lib_pass = false);
 
   void display_error (std::string errorname, std::string object = "");
+  /* Quest's PlayerErrorMessage_ExtendInfo (V4Game.cs:7652-7667): the same error
+   * message with a reason glued on -- the trailing full stop is dropped, " - "
+   * and the reason take its place, and a new full stop closes the sentence.
+   * Only the container-accessibility refusals use it. */
+  void display_error_info (std::string errorname, std::string object,
+			   const std::string &extra);
+  /* Quest's _playerErrorMessageString array, built once per game: the built-in
+   * texts overwritten by the game block's "error <name; text>" lines.  Empty
+   * until the first display_error fills it. */
+  std::vector<std::string> error_messages_;
+  std::vector<bool> error_pcase_;
+  void init_error_messages ();
+
+  /* The pre-2.80 "You can see ... here." / "There is nobody here." line, built
+   * by regen_var_objects alongside quest.characters.  Empty above 2.80, where
+   * Quest has no separate character table and prints no such line. */
+  std::string characters_display_;
 
   std::string substitute_synonyms (std::string) const;
 
@@ -238,6 +272,10 @@ public:
   void regen_var_room ();
 
   void look();
+  /* The right-hand side of a `set numeric`, evaluated the way the game's own
+   * ASL version does -- the full expression from 3.91, a single binary
+   * operation below it.  See the definition. */
+  double eval_set_numeric (const std::string &expr);
 
   std::string displayed_name (const std::string &object) const;
   //std::string get_obj_name (const std::vector<std::string> &args) const;
@@ -324,9 +362,19 @@ public:
    * property has to be written alongside the move or such a check never
    * matches.  Only the container statements and verbs route through here:
    * Quest's MoveThing (rooms) leaves the property alone.  TAKE reaches it
-   * indirectly, by running "remove <object>" first -- see the take handler. */
+   * indirectly, by running "remove <object>" first -- see the take handler.
+   *
+   * From ASL 4.10 the container is also marked "seen" -- one of the engine's
+   * only two places that write that property, the other being DoLook.  Quest's
+   * comment says why: otherwise you could LOOK AT the object you just put in
+   * and have disambiguation fail (V4Game.cs:2125-2131).  It applies to a
+   * removal as well, which is not a slip: the test sits outside DoAddRemove's
+   * add/remove branch.  `discover_parent` is how the one caller Quest does
+   * *not* route through DoAddRemove -- the bare `remove <object>` statement,
+   * which has no parent to name (ExecAddRemoveScript, V4Game.cs:2686-2697) --
+   * opts out of it. */
   void do_add_remove (const std::string &child, const std::string &parent,
-		      bool adding);
+		      bool adding, bool discover_parent = true);
   /* Takes room by value on purpose: a caller may pass a reference into
    * current_places, which regen_var_dirs() reallocates partway through. */
   bool room_exists (const std::string &room) const;
@@ -341,13 +389,41 @@ public:
   /* True if "name" is a reachable, non-hidden, *open* container object (so its
    * contents are reachable too). */
   bool container_in_scope (const std::string &name, const std::vector<std::string> &where) const;
+  /* Quest's PlayerCanAccessObject (V4Game.Part2.cs:7727-7795): can the player
+   * reach whatever this object sits in?  Walks the "parent" property chain and
+   * stops at the first container that is neither a `surface` nor `opened`,
+   * setting errmsg to "inside closed <that container's display name>" -- the
+   * text the caller appends to its refusal.  From ASL 3.91 `take` asks this
+   * before it does anything else. */
+  bool player_can_access (const std::string &obj, std::string &errmsg) const;
+  /* True if `obj` sits, however deeply, inside something the player is
+   * carrying.  Quest has no such walk: it keeps a contained object's
+   * ContainerRoom in step with its container's, so from ASL 3.91 -- when
+   * MoveThing began recursing into children (V4Game.cs:6643-6653) -- picking up
+   * a bag puts everything in it in the inventory scope as well.  geas models
+   * containment the other way round (the content's location *is* the
+   * container), so it has to walk the chain to ask the same question. */
+  bool held_in_container (const std::string &obj) const;
   /* A container's open/closed state: open if opened at runtime or declared
    * "opened", closed if closed at runtime, and (per Quest) closed by default. */
   bool container_is_open (const std::string &name) const;
   /* True if object `obj` is declared inside container `name` (bare "<name>"). */
   bool declared_inside (const std::string &obj, const std::string &name) const;
-  /* Display names of the objects currently inside container/surface `name`. */
-  std::vector<std::string> container_contents (const std::string &name) const;
+  /* Quest's ListContents (V4Game.cs:3298-3431): the sentence an object's
+   * contents add to its description, and the one place the `list`,
+   * `list closed` and `list empty` lines are read.  Empty for anything that is
+   * not a container, and "<script>" -- Quest's own sentinel -- when one of
+   * those lines was a script, which this has already run and whose output is
+   * therefore not the caller's to print. */
+  std::string list_contents (const std::string &name);
+  /* Quest's DoLook (V4Game.cs:2136-2237): describe an object.  Runs its `look`
+   * action or property and, from ASL 3.91, follows it with list_contents --
+   * every description ends in the object's contents, which is why opening a
+   * container shows what is in it.  `examine_error` picks defaultexamine over
+   * defaultlook for the description it has none of, and `show_default`
+   * suppresses that fallback entirely (the open path passes false). */
+  void do_look (const std::string &obj, bool examine_error = false,
+		bool show_default = true);
   /* Parent object name of `obj` ("" if unplaced). */
   std::string obj_parent (const std::string &obj) const;
   /* The room/inventory an object ultimately sits in, walking up through any
@@ -384,6 +460,17 @@ public:
   /* "close <container>": mark it closed (its contents leave scope) and re-hide
    * any bare-line contents still inside.  Returns false if not a container. */
   bool close_container (const std::string &name);
+  /* Quest's DoOpenClose (V4Game.cs:2238-2251), the state half of the open/close
+   * verbs from ASL 3.91 on: set (or clear) "opened", and on an open also show
+   * the container -- DoLook with the default description suppressed, which is
+   * what marks it "seen" and so brings its contents into scope.  Only the
+   * *property* branch of ExecOpenClose reaches this; a game's own action
+   * <open> script changes nothing by itself.  `show_look` is Quest's own
+   * argument of that name: the open *verb* passes true and so describes the
+   * container it has just opened, while the `open <obj>` script command passes
+   * false and opens it silently (V4Game.Part2.cs:574). */
+  void do_open_close (const std::string &name, bool opening,
+		      bool show_look = false);
   /* Quest's half of "remove <child>" / "remove <child> from <parent>": the
    * *container* decides, through its "remove" action (which is handed the item
    * in quest.remove.object.name and is responsible for the removal itself) or

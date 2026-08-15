@@ -1,7 +1,7 @@
 
 Usescope
 
-You are in Bar
+You are in Bar.
 There is Jim-n-Ginger, Jim-n-Ginger, Jim-n-Ginger, napkin, napkin, hex circle and wallet here.
 The bar. Drinks everywhere.
 
@@ -19,9 +19,7 @@ You pick it up.
 
 > inventory
 You are carrying:
-Jim-n-Ginger
-napkin
-wallet
+Jim-n-Ginger, napkin and wallet.
 
 > use jim-n-ginger on hex circle
 You tip your Jim-n-Ginger over the hex circle.

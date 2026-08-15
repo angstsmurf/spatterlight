@@ -1,12 +1,12 @@
 
 ExitParam410
 
-You are in Start
+You are in Start.
 You can go north or south.
 The starting room.
 
 > look
-You are in Start
+You are in Start.
 You can go north or south.
 The starting room.
 
@@ -14,17 +14,17 @@ The starting room.
 The vault is locked.
 
 > north
-You are in Town
+You are in Town.
 You can go south.
 A small town.
 
 > look
-You are in Town
+You are in Town.
 You can go south.
 A small town.
 
 > south
-You are in Start
+You are in Start.
 You can go north or south.
 The starting room.
 [runner] turns=5 leftover=0 running=true

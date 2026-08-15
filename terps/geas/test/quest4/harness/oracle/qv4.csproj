@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>qv4</AssemblyName>
+    <RootNamespace>qv4</RootNamespace>
+    <!-- Path to a pristine QuestViva ("Quest Viva", textadventures/quest branch
+         main) checkout — the same clone the Quest 5 oracle uses, patched by
+         ../../../quest5/harness/oracle/patch_questviva.py.  Override with:
+           dotnet build -c Release -p:QuestVivaDir=/path/to/questviva
+         build.sh sets this for you. -->
+    <QuestVivaDir Condition="'$(QuestVivaDir)' == ''">$(HOME)/questviva-oracle/questviva</QuestVivaDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Legacy *is* the Quest 4 engine: V4Game handles .asl/.cas/.qsg, and it
+         references only Common, never Engine (the Quest 5 world model). -->
+    <ProjectReference Include="$(QuestVivaDir)/src/Legacy/Legacy.csproj" />
+  </ItemGroup>
+</Project>

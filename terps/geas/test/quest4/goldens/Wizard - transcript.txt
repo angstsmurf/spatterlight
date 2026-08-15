@@ -1,5 +1,5 @@
 
-Wizard, v1.3 Wonderjudge
+Wizard, v1.3 | Wonderjudge
 
 Wizard!
 
@@ -21,7 +21,7 @@ Press any key to continue....
 
 
 
-You are in Your Bedroom (in almost total darkness)
+You are in Your Bedroom (in almost total darkness).
 You are in your bedroom. the only light comes dimly in from the edges of your closed door. You do notice you have gone to sleep holding your spellbook again.
 
 > memorize
@@ -29,15 +29,15 @@ Please select a spell.
 1) Illuminate
 2) Unlock
 3) Scribe
-4) !
-5) !
-6) !
-7) !
-8) !
-9) !
-10) !
-11) !
-12) !
+4) 
+5) 
+6) 
+7) 
+8) 
+9) 
+10) 
+11) 
+12) 
 [choice] 1
 You memorize the Illuminate spell.
 
@@ -76,15 +76,15 @@ Please select a spell.
 1) Illuminate
 2) Unlock
 3) Scribe
-4) !
-5) !
-6) !
-7) !
-8) !
-9) !
-10) !
-11) !
-12) !
+4) 
+5) 
+6) 
+7) 
+8) 
+9) 
+10) 
+11) 
+12) 
 [choice] 3
 You memorize the Scribe spell.
 
@@ -98,14 +98,14 @@ Please select a spell.
 2) Unlock
 3) Scribe
 4) Detect magic
-5) !
-6) !
-7) !
-8) !
-9) !
-10) !
-11) !
-12) !
+5) 
+6) 
+7) 
+8) 
+9) 
+10) 
+11) 
+12) 
 [choice] 2
 You memorize the Unlock spell.
 
@@ -312,14 +312,14 @@ Please select a spell.
 2) Unlock
 3) Scribe
 4) Detect magic
-5) !
-6) !
-7) !
-8) !
-9) !
-10) !
-11) !
-12) !
+5) 
+6) 
+7) 
+8) 
+9) 
+10) 
+11) 
+12) 
 [choice] 3
 You memorize the Scribe spell.
 
@@ -363,7 +363,7 @@ You are walking along the great spiral staircase that runs all the way up the to
 > southwest
 You are on a Spiral Staircase.
 There is a Collapsed wall blocking the stairs here.
-You can go northeast or northwest.
+You can go northwest or northeast.
 You are walking along the great spiral staircase that runs all the way up the tower. The stair continues up to the northeast and downward toward the northwest. However there is a large section of wall that is collapsed into the stair (I wonder what happened there?) blocking the way down.
 
 > memorize
@@ -373,13 +373,13 @@ Please select a spell.
 3) Scribe
 4) Detect magic
 5) Levitate
-6) !
-7) !
-8) !
-9) !
-10) !
-11) !
-12) !
+6) 
+7) 
+8) 
+9) 
+10) 
+11) 
+12) 
 [choice] 5
 You memorize the Levitate spell.
 
@@ -393,7 +393,7 @@ Do you want to pass under the wall?
 You quickly pass under the wall.
 You are on a Spiral Staircase.
 There is a Collapsed wall blocking the stairs here.
-You can go south, southeast or southwest.
+You can go south, southwest or southeast.
 You are walking along the great spiral staircase that runs all the way up the tower. The stair continues upwards to the southwest and downwards to the southeast. There is also a doorway to the south. However there is a large section of wall that is collapsed into the stair (I wonder what happened there?) blocking the way up.
 
 > south
@@ -409,13 +409,13 @@ Please select a spell.
 3) Scribe
 4) Detect magic
 5) Levitate
-6) !
-7) !
-8) !
-9) !
-10) !
-11) !
-12) !
+6) 
+7) 
+8) 
+9) 
+10) 
+11) 
+12) 
 [choice] 5
 You memorize the Gravitate spell.
 
@@ -426,12 +426,12 @@ The large chandelier creaks with pressure then snaps from the ceiling and crashe
 > north
 You are on a Spiral Staircase.
 There is a Collapsed wall blocking the stairs here.
-You can go south, southeast or southwest.
+You can go south, southwest or southeast.
 You are walking along the great spiral staircase that runs all the way up the tower. The stair continues upwards to the southwest and downwards to the southeast. There is also a doorway to the south. However there is a large section of wall that is collapsed into the stair (I wonder what happened there?) blocking the way up.
 
 > southeast
 You are on a Spiral Staircase.
-You can go north, northeast or northwest.
+You can go north, northwest or northeast.
 You are walking along the great spiral staircase that runs all the way up the tower. The stair continues upwards to the northeast and downwards to the northwest. There is also a doorway to the north.
 
 
@@ -543,15 +543,11 @@ A scroll pops up out of the control desk.
 You pick it up.
 
 > take yellow bead
-Which yellow bead do you mean?
-1) Yellow Bead
-2) Yellow Bead
-[choice] 2
 You pick it up.
 
 > south
 You are on a Spiral Staircase.
-You can go north, northeast or northwest.
+You can go north, northwest or northeast.
 You are walking along the great spiral staircase that runs all the way up the tower. The stair continues upwards to the northeast and downwards to the northwest. There is also a doorway to the north.
 
 
@@ -814,12 +810,6 @@ This must be where the more advanced students bunk. The only exit is to the sout
 You search all the beds and find a small yellow bead.
 
 > take yellow bead
-Which yellow bead do you mean?
-1) Yellow Bead
-2) Yellow Bead
-3) Yellow Bead
-4) Yellow Bead
-[choice] 4
 You pick it up.
 
 > examine night stands
@@ -835,16 +825,7 @@ Hmmm sounds like directions.. You wonder what it could mean.
 
 > i
 You are carrying:
-Spellbook
-Robe (worn)
-Broom
-Empty bucket
-Yellow Bead
-Secret library scroll
-Yellow Bead
-Yellow Bead
-Yellow Bead
-small note
+A Spellbook, Robe (worn), a Broom, an Empty bucket, a Yellow Bead, a Secret library scroll, a Yellow Bead, a Yellow Bead, a Yellow Bead and a small note.
 
 > southeast
 You are in a Dormitory.
@@ -884,13 +865,6 @@ You pick it up.
 The rest of the note is far too smudged to make anything out.
 
 > take yellow bead
-Which yellow bead do you mean?
-1) Yellow Bead
-2) Yellow Bead
-3) Yellow Bead
-4) Yellow Bead
-5) Yellow Bead
-[choice] 4
 You pick it up.
 
 > memorize
@@ -900,13 +874,13 @@ Please select a spell.
 3) Scribe
 4) Detect magic
 5) Levitate
-6) !
-7) !
-8) !
-9) !
-10) !
-11) !
-12) !
+6) 
+7) 
+8) 
+9) 
+10) 
+11) 
+12) 
 [choice] 3
 You memorize the Scribe spell.
 
@@ -922,12 +896,12 @@ Please select a spell.
 4) Detect magic
 5) Levitate
 6) Enfeeble
-7) !
-8) !
-9) !
-10) !
-11) !
-12) !
+7) 
+8) 
+9) 
+10) 
+11) 
+12) 
 [choice] 3
 You memorize the Scribe spell.
 
@@ -944,11 +918,11 @@ Please select a spell.
 5) Levitate
 6) Enfeeble
 7) Bremoval
-8) !
-9) !
-10) !
-11) !
-12) !
+8) 
+9) 
+10) 
+11) 
+12) 
 [choice] 6
 You memorize the Enfeeble spell.
 
@@ -1157,11 +1131,11 @@ Please select a spell.
 5) Levitate
 6) Enfeeble
 7) Bremoval
-8) !
-9) !
-10) !
-11) !
-12) !
+8) 
+9) 
+10) 
+11) 
+12) 
 [choice] 6
 You memorize the Enlighten spell.
 
@@ -1180,11 +1154,11 @@ Please select a spell.
 5) Levitate
 6) Enfeeble
 7) Bremoval
-8) !
-9) !
-10) !
-11) !
-12) !
+8) 
+9) 
+10) 
+11) 
+12) 
 [choice] 7
 You memorize the Bremoval spell.
 
@@ -1197,11 +1171,11 @@ Please select a spell.
 5) Levitate
 6) Enfeeble
 7) Bremoval
-8) !
-9) !
-10) !
-11) !
-12) !
+8) 
+9) 
+10) 
+11) 
+12) 
 [choice] 7
 You memorize the Bremoval spell.
 
@@ -1214,11 +1188,11 @@ Please select a spell.
 5) Levitate
 6) Enfeeble
 7) Bremoval
-8) !
-9) !
-10) !
-11) !
-12) !
+8) 
+9) 
+10) 
+11) 
+12) 
 [choice] 7
 You memorize the Badder spell.
 
@@ -1231,11 +1205,11 @@ Please select a spell.
 5) Levitate
 6) Enfeeble
 7) Bremoval
-8) !
-9) !
-10) !
-11) !
-12) !
+8) 
+9) 
+10) 
+11) 
+12) 
 [choice] 7
 You memorize the Badder spell.
 
@@ -1248,11 +1222,11 @@ Please select a spell.
 5) Levitate
 6) Enfeeble
 7) Bremoval
-8) !
-9) !
-10) !
-11) !
-12) !
+8) 
+9) 
+10) 
+11) 
+12) 
 [choice] 7
 You memorize the Badder spell.
 
@@ -1546,18 +1520,18 @@ Please select a spell.
 5) Levitate
 6) Enfeeble
 7) Bremoval
-8) !
-9) !
-10) !
-11) !
-12) !
+8) 
+9) 
+10) 
+11) 
+12) 
 [choice] 1
 You memorize the Deluminate spell.
 
 > east
 You are in a Crystal cavern.
 There is a Yellow Bead and an Icy scroll here.
-You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You can go north, south, east, west, northwest, northeast, southwest or southeast.
 You are in a small cavern. Ice shines in the light coming from the ceiling. The light reflects everywhere giving it the look of crystal. It is difficult to tell where the exit is because of all the reflections.
 
 
@@ -1565,14 +1539,6 @@ You are in a small cavern. Ice shines in the light coming from the ceiling. The 
 You pick it up.
 
 > take yellow bead
-Which yellow bead do you mean?
-1) Yellow Bead
-2) Yellow Bead
-3) Yellow Bead
-4) Yellow Bead
-5) Yellow Bead
-6) Yellow Bead
-[choice] 6
 You pick it up.
 
 > deluminate
@@ -1626,11 +1592,11 @@ Please select a spell.
 5) Levitate
 6) Enfeeble
 7) Bremoval
-8) !
-9) !
-10) !
-11) !
-12) !
+8) 
+9) 
+10) 
+11) 
+12) 
 [choice] 3
 You memorize the Scribe spell.
 
@@ -1648,10 +1614,10 @@ Please select a spell.
 6) Enfeeble
 7) Bremoval
 8) Charm
-9) !
-10) !
-11) !
-12) !
+9) 
+10) 
+11) 
+12) 
 [choice] 8
 You memorize the Charm spell.
 
@@ -1973,22 +1939,12 @@ Which red marble do you mean?
 You pick it up.
 
 > take red marble
-Which red marble do you mean?
-1) Red marble
-2) Red marble
-[choice] 2
 You pick it up.
 
+> 2
+I don't understand your command. Type HELP for a list of valid commands.
+
 > take yellow bead
-Which yellow bead do you mean?
-1) Yellow Bead
-2) Yellow Bead
-3) Yellow Bead
-4) Yellow Bead
-5) Yellow Bead
-6) Yellow Bead
-7) Yellow Bead
-[choice] 7
 You pick it up.
 
 > memorize
@@ -2001,10 +1957,10 @@ Please select a spell.
 6) Enfeeble
 7) Bremoval
 8) Charm
-9) !
-10) !
-11) !
-12) !
+9) 
+10) 
+11) 
+12) 
 [choice] 8
 You memorize the Charm spell.
 
@@ -2052,9 +2008,7 @@ A bottle of disgusting sludge.
 
 
 > take label
-(first removing it from Bottle of sludge)
-Done.
-You pick it up.
+You already have that.
 
 > badder label
 You cast Badder on the Label.
@@ -2080,16 +2034,6 @@ Well, you don't find a needle but you do notice a yellow bead.
 
 
 > take yellow bead
-Which yellow bead do you mean?
-1) Yellow Bead
-2) Yellow Bead
-3) Yellow Bead
-4) Yellow Bead
-5) Yellow Bead
-6) Yellow Bead
-7) Yellow Bead
-8) Yellow Bead
-[choice] 8
 You pick it up.
 
 > take oat
@@ -2256,10 +2200,10 @@ Please select a spell.
 6) Enfeeble
 7) Bremoval
 8) Charm
-9) !
-10) !
-11) !
-12) !
+9) 
+10) 
+11) 
+12) 
 [choice] 3
 You memorize the Scribe spell.
 
@@ -2273,10 +2217,10 @@ Please select a spell.
 6) Enfeeble
 7) Bremoval
 8) Charm
-9) !
-10) !
-11) !
-12) !
+9) 
+10) 
+11) 
+12) 
 [choice] 5
 You memorize the Levitate spell.
 
@@ -2290,10 +2234,10 @@ Please select a spell.
 6) Enfeeble
 7) Bremoval
 8) Charm
-9) !
-10) !
-11) !
-12) !
+9) 
+10) 
+11) 
+12) 
 [choice] 4
 You memorize the Detect magic spell.
 
@@ -2381,9 +2325,9 @@ Please select a spell.
 7) Bremoval
 8) Charm
 9) Bind
-10) !
-11) !
-12) !
+10) 
+11) 
+12) 
 [choice] 9
 You memorize the Bind spell.
 
@@ -2440,11 +2384,10 @@ You open the purse.
 
 > look at purse
 a small coin pouch.
+It contains a small Copper coin.
 
 > take copper coin
-(first removing it from Small purse)
-Done.
-You pick it up.
+You already have that.
 
 > southeast
 You are in a Market.
@@ -2461,6 +2404,9 @@ Do you want to play the shell game?
 1) Yes
 2) No
 [choice] yes
+You remove the coin from the purse.
+
+
 You are at a Game table.
 There is a Table, a Left Shell, a Center Shell and a Right Shell here.
 You can go up.
@@ -2524,20 +2470,9 @@ The Yellow Bead glows briefly.
 > look at basket
 A small basket.
 
+It contains a pile Lemon drops in the basket and a Yellow Bead.
 
 > take yellow bead
-Which yellow bead do you mean?
-1) Yellow Bead
-2) Yellow Bead
-3) Yellow Bead
-4) Yellow Bead
-5) Yellow Bead
-6) Yellow Bead
-7) Yellow Bead
-8) Yellow Bead
-9) Yellow Bead
-10) Yellow Bead
-[choice] 9
 (first removing it from Basket)
 Done.
 You pick it up.
@@ -2643,9 +2578,9 @@ Please select a spell.
 7) Bremoval
 8) Charm
 9) Bind
-10) !
-11) !
-12) !
+10) 
+11) 
+12) 
 [choice] 9
 You memorize the Unbind spell.
 
@@ -2662,9 +2597,6 @@ You are in a large labratory used by the wizard's to teach the art of summoning 
 
 The mist in the portal is currently black.
 
-
-> wait
-Time passes.
 The mist in the portal changes color.
 
 
@@ -2782,6 +2714,9 @@ Time passes.
 > wait
 Time passes.
 
+> wait
+Time passes.
+
 > drink yellow potion
 You drink the yellow potion.
 You feel gills pop out of the side of you neck.
@@ -2871,19 +2806,6 @@ You sift through the silt and find a yellow bead.
 
 
 > take yellow bead
-Which yellow bead do you mean?
-1) Yellow Bead
-2) Yellow Bead
-3) Yellow Bead
-4) Yellow Bead
-5) Yellow Bead
-6) Yellow Bead
-7) Yellow Bead
-8) Yellow Bead
-9) Yellow Bead
-10) Yellow Bead
-11) Yellow Bead
-[choice] 11
 You pick it up.
 
 > up
@@ -3135,9 +3057,9 @@ Please select a spell.
 7) Bremoval
 8) Charm
 9) Bind
-10) !
-11) !
-12) !
+10) 
+11) 
+12) 
 [choice] 3
 You memorize the Scribe spell.
 You feel the effects of the yellow potion wear off.
@@ -3171,9 +3093,6 @@ Time passes.
 
 > wait
 Time passes.
-
-> wait
-Time passes.
 The mist in the portal changes color.
 
 
@@ -3223,6 +3142,9 @@ Time passes.
 Time passes.
 The mist in the portal changes color.
 
+
+> wait
+Time passes.
 
 > wait
 Time passes.
@@ -3267,11 +3189,11 @@ Time passes.
 
 > wait
 Time passes.
+The mist in the portal changes color.
+
 
 > wait
 Time passes.
-The mist in the portal changes color.
-
 
 > wait
 Time passes.
@@ -3497,8 +3419,8 @@ Please select a spell.
 8) Charm
 9) Bind
 10) Enchant
-11) !
-12) !
+11) 
+12) 
 [choice] 10
 You memorize the Disenchant spell.
 
@@ -3514,8 +3436,8 @@ Please select a spell.
 8) Charm
 9) Bind
 10) Enchant
-11) !
-12) !
+11) 
+12) 
 [choice] 10
 You memorize the Enchant spell.
 
@@ -4499,8 +4421,8 @@ Please select a spell.
 8) Charm
 9) Bind
 10) Enchant
-11) !
-12) !
+11) 
+12) 
 [choice] 5
 You memorize the Levitate spell.
 
@@ -4516,14 +4438,14 @@ You are walking along the great spiral staircase that runs all the way up the to
 
 > southeast
 You are on a Spiral Staircase.
-You can go north, northeast or northwest.
+You can go north, northwest or northeast.
 You are walking along the great spiral staircase that runs all the way up the tower. The stair continues upwards to the northeast and downwards to the northwest. There is also a doorway to the north.
 
 
 > northeast
 You are on a Spiral Staircase.
 There is a Collapsed wall blocking the stairs here.
-You can go south, southeast or southwest.
+You can go south, southwest or southeast.
 You are walking along the great spiral staircase that runs all the way up the tower. The stair continues upwards to the southwest and downwards to the southeast. There is also a doorway to the south. However there is a large section of wall that is collapsed into the stair (I wonder what happened there?) blocking the way up.
 
 > levitate collapsed wall
@@ -4536,7 +4458,7 @@ Do you want to pass under the wall?
 You quickly pass under the wall.
 You are on a Spiral Staircase.
 There is a Collapsed wall blocking the stairs here.
-You can go northeast or northwest.
+You can go northwest or northeast.
 You are walking along the great spiral staircase that runs all the way up the tower. The stair continues up to the northeast and downward toward the northwest. However there is a large section of wall that is collapsed into the stair (I wonder what happened there?) blocking the way down.
 
 > northeast
@@ -4566,7 +4488,7 @@ You drink the indigo potion.
 You see the area around you growing bigger and bigger.
 
 You are in an Enormous Area.
-You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You can go north, south, east, west, northwest, northeast, southwest or southeast.
 You find yourself in a wide open enormous area.
 
 
@@ -4593,8 +4515,7 @@ The mouse helps you push the ball out of the mouse hole.
 > west
 You are in an Enormous Area.
 There is a Yellow ball here.
-You can go north, south, east, west, northeast, northwest, southeast or southwest.
-You can go to Large mouse hole.
+You can go north, south, east, west, northwest, northeast, southwest, southeast or to Large mouse hole.
 You find yourself in a wide open enormous area.
 
 
@@ -4839,20 +4760,6 @@ You can go west.
 You are in a small dingy closet. Various old torn robes and broken vials lie strewn on the floor. The only exit is to the west.
 
 > take yellow bead
-Which yellow bead do you mean?
-1) Yellow Bead
-2) Yellow Bead
-3) Yellow Bead
-4) Yellow Bead
-5) Yellow Bead
-6) Yellow Bead
-7) Yellow Bead
-8) Yellow Bead
-9) Yellow Bead
-10) Yellow Bead
-11) Yellow Bead
-12) Yellow Bead
-[choice] 1
 You pick it up.
 
 > spells
@@ -4873,8 +4780,8 @@ Please select a spell.
 8) Charm
 9) Bind
 10) Enchant
-11) !
-12) !
+11) 
+12) 
 [choice] 5
 You memorize the Levitate spell.
 
@@ -4892,7 +4799,7 @@ You are walking along the great spiral staircase that runs all the way up the to
 > southwest
 You are on a Spiral Staircase.
 There is a Collapsed wall blocking the stairs here.
-You can go northeast or northwest.
+You can go northwest or northeast.
 You are walking along the great spiral staircase that runs all the way up the tower. The stair continues up to the northeast and downward toward the northwest. However there is a large section of wall that is collapsed into the stair (I wonder what happened there?) blocking the way down.
 
 > levitate collapsed wall
@@ -4905,12 +4812,12 @@ Do you want to pass under the wall?
 You quickly pass under the wall.
 You are on a Spiral Staircase.
 There is a Collapsed wall blocking the stairs here.
-You can go south, southeast or southwest.
+You can go south, southwest or southeast.
 You are walking along the great spiral staircase that runs all the way up the tower. The stair continues upwards to the southwest and downwards to the southeast. There is also a doorway to the south. However there is a large section of wall that is collapsed into the stair (I wonder what happened there?) blocking the way up.
 
 > southeast
 You are on a Spiral Staircase.
-You can go north, northeast or northwest.
+You can go north, northwest or northeast.
 You are walking along the great spiral staircase that runs all the way up the tower. The stair continues upwards to the northeast and downwards to the northwest. There is also a doorway to the north.
 
 
@@ -4944,9 +4851,6 @@ Time passes.
 
 > wait
 Time passes.
-
-> wait
-Time passes.
 The mist in the portal changes color.
 
 
@@ -5043,6 +4947,9 @@ Time passes.
 Time passes.
 The mist in the portal changes color.
 
+
+> wait
+Time passes.
 
 > wait
 Time passes.
@@ -5111,9 +5018,6 @@ You are in a large labratory used by the wizard's to teach the art of summoning 
 
 The mist in the portal is currently blue.
 
-
-> wait
-Time passes.
 The mist in the portal changes color.
 
 
@@ -5163,6 +5067,9 @@ Time passes.
 Time passes.
 The mist in the portal changes color.
 
+
+> wait
+Time passes.
 
 > wait
 Time passes.
@@ -5262,21 +5169,6 @@ You are in a dense forest. The trees form a sort of canopy here.  A lone path le
 You pick it up.
 
 > take yellow bead
-Which yellow bead do you mean?
-1) Yellow Bead
-2) Yellow Bead
-3) Yellow Bead
-4) Yellow Bead
-5) Yellow Bead
-6) Yellow Bead
-7) Yellow Bead
-8) Yellow Bead
-9) Yellow Bead
-10) Yellow Bead
-11) Yellow Bead
-12) Yellow Bead
-13) Yellow Bead
-[choice] 9
 You pick it up.
 
 > north
@@ -5323,11 +5215,11 @@ Time passes.
 
 > wait
 Time passes.
+The mist in the portal changes color.
+
 
 > wait
 Time passes.
-The mist in the portal changes color.
-
 
 > wait
 Time passes.
@@ -5441,6 +5333,7 @@ You smash the shelf to tiny bits.
 
 > take broken shelf
 You pick it up.
+
 
 
 > south
@@ -5610,22 +5503,6 @@ You are in a very large underground temple. By the looks of things this temple o
 
 
 > take yellow bead
-Which yellow bead do you mean?
-1) Yellow Bead
-2) Yellow Bead
-3) Yellow Bead
-4) Yellow Bead
-5) Yellow Bead
-6) Yellow Bead
-7) Yellow Bead
-8) Yellow Bead
-9) Yellow Bead
-10) Yellow Bead
-11) Yellow Bead
-12) Yellow Bead
-13) Yellow Bead
-14) Yellow Bead
-[choice] 14
 You pick it up.
 
 > north
@@ -5636,23 +5513,6 @@ You are in the north wing of a large sunken temple. This room looks to be like a
 
 
 > take yellow bead
-Which yellow bead do you mean?
-1) Yellow Bead
-2) Yellow Bead
-3) Yellow Bead
-4) Yellow Bead
-5) Yellow Bead
-6) Yellow Bead
-7) Yellow Bead
-8) Yellow Bead
-9) Yellow Bead
-10) Yellow Bead
-11) Yellow Bead
-12) Yellow Bead
-13) Yellow Bead
-14) Yellow Bead
-15) Yellow Bead
-[choice] 15
 You take it.
 
 
@@ -5670,24 +5530,6 @@ You can go north.
 You are in the south wing of a sunken temple. This room looks like an annex to the larger room to the north.
 
 > take yellow bead
-Which yellow bead do you mean?
-1) Yellow Bead
-2) Yellow Bead
-3) Yellow Bead
-4) Yellow Bead
-5) Yellow Bead
-6) Yellow Bead
-7) Yellow Bead
-8) Yellow Bead
-9) Yellow Bead
-10) Yellow Bead
-11) Yellow Bead
-12) Yellow Bead
-13) Yellow Bead
-14) Yellow Bead
-15) Yellow Bead
-16) Yellow Bead
-[choice] 16
 You pick it up.
 
 > take penned note
@@ -5754,8 +5596,8 @@ Please select a spell.
 8) Charm
 9) Bind
 10) Enchant
-11) !
-12) !
+11) 
+12) 
 [choice] 6
 You memorize the Enlighten spell.
 
@@ -5777,8 +5619,8 @@ Please select a spell.
 8) Charm
 9) Bind
 10) Enchant
-11) !
-12) !
+11) 
+12) 
 [choice] 7
 You memorize the Bremoval spell.
 
@@ -5793,11 +5635,13 @@ You enter the room.
 
 You are in a Room.
 There is a Strange Table here.
+You can go out.
 You are in a plain and unardorned room. It seems more like a rift in space than a place.
 
 > look
 You are in a Room.
 There is a Strange Table here.
+You can go out.
 You are in a plain and unardorned room. It seems more like a rift in space than a place.
 
 > use yellow bead on strange table
@@ -6090,6 +5934,7 @@ You hear a grinding noise from the table and a shiny new scroll pops out of the 
 > look
 You are in a Room.
 There is a Strange Table and a Shiny scroll here.
+You can go out.
 You are in a plain and unardorned room. It seems more like a rift in space than a place.
 
 > take shiny scroll
@@ -6123,8 +5968,8 @@ Please select a spell.
 8) Charm
 9) Bind
 10) Enchant
-11) !
-12) !
+11) 
+12) 
 [choice] 3
 You memorize the Scribe spell.
 
@@ -6145,7 +5990,7 @@ Please select a spell.
 9) Bind
 10) Enchant
 11) Stabilize
-12) !
+12) 
 [choice] 11
 You memorize the Stabilize spell.
 
@@ -6174,7 +6019,7 @@ Please select a spell.
 9) Bind
 10) Enchant
 11) Stabilize
-12) !
+12) 
 [choice] 2
 You memorize the Unlock spell.
 
@@ -6191,7 +6036,7 @@ Please select a spell.
 9) Bind
 10) Enchant
 11) Stabilize
-12) !
+12) 
 [choice] 10
 You memorize the Disenchant spell.
 
@@ -6208,7 +6053,7 @@ Please select a spell.
 9) Bind
 10) Enchant
 11) Stabilize
-12) !
+12) 
 [choice] 5
 You memorize the Gravitate spell.
 
@@ -6225,7 +6070,7 @@ Please select a spell.
 9) Bind
 10) Enchant
 11) Stabilize
-12) !
+12) 
 [choice] 3
 You memorize the Scribe spell.
 
@@ -6261,8 +6106,7 @@ The gate unlocks with a click.
 > east
 You are on the Castle grounds.
 There is a large Drawbridge here.
-You can go east or west.
-You can go to Moat.
+You can go east, west or to Moat.
 You are in the grounds outside the castle. The way out is to the west. A large moat surrounds the entire castle. You can see the main entrance to the east.
 
 The drawbridge is up.
@@ -6276,8 +6120,7 @@ The drawbridge comes down.
 
 > go to moat
 You are swimming in the Moat.
-You can go out to Castle grounds.
-You can go southeast.
+You can go out or southeast.
 You are swimming in the castle moat. You can get out of the moat here or swim around the moat to the southeast.
 
 
@@ -6317,16 +6160,14 @@ You are swimming in the moat along the side of the castle. The drawbridge is bac
 
 > northwest
 You are swimming in the Moat.
-You can go out to Castle grounds.
-You can go southeast.
+You can go out or southeast.
 You are swimming in the castle moat. You can get out of the moat here or swim around the moat to the southeast.
 
 
 > out
 You are on the Castle grounds.
 There is a large Drawbridge here.
-You can go east or west.
-You can go to Moat.
+You can go east, west or to Moat.
 You are in the grounds outside the castle. The way out is to the west. A large moat surrounds the entire castle. You can see the main entrance to the east.
 
 The drawbridge is down.
@@ -6460,8 +6301,7 @@ You are standing at the front gates leading to the grounds of a castle. You can 
 > east
 You are on the Castle grounds.
 There is a large Drawbridge here.
-You can go east or west.
-You can go to Moat.
+You can go east, west or to Moat.
 You are in the grounds outside the castle. The way out is to the west. A large moat surrounds the entire castle. You can see the main entrance to the east.
 
 The drawbridge is down.
@@ -6552,8 +6392,7 @@ The others are trying to get around it. You use this opportunity to run out the 
 
 You are on the Castle grounds.
 There is a large Drawbridge and a bunch of Red scorpions hot on you heels here.
-You can go east or west.
-You can go to Moat.
+You can go east, west or to Moat.
 You are in the grounds outside the castle. The way out is to the west. A large moat surrounds the entire castle. You can see the main entrance to the east.
 
 The drawbridge is down.
@@ -6621,4 +6460,4 @@ You have finished Wizard!!
 Play Wizard2 by wonderjudge!
 
 
-[runner] turns=1088 leftover=0 running=false WON=YES
+[runner] turns=1089 leftover=0 running=false WON=YES

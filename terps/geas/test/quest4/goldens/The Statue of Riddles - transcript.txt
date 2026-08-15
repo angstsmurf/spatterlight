@@ -1,5 +1,5 @@
 
-The Statue of Riddles Thanatos // Andrew Trewin
+The Statue of Riddles | Thanatos // Andrew Trewin
 
 Your are at the Ruin Entrance.
 There is some Runes besides and above the temple door, a slight bulge behind some Vines and a Huge Door leading into the temple here.
@@ -27,8 +27,10 @@ A perfectly circular room. Despite the corrosion of time on the rest of the temp
 
 > speak to statue of riddles
 A voice thunders into your head: "Answer correctly and live. Answer incorrectly and die. Here is thy question."
+Continue
 
 "Used as a hammer to break myself. I am untouched by earth, melted by fire, and moulded by water."
+Continue
 
 Choose an Answer
 1) Clay
@@ -74,8 +76,10 @@ A perfectly circular room. Despite the corrosion of time on the rest of the temp
 
 > speak to statue of riddles
 A voice thunders into your head: "Answer correctly and live. Answer incorrectly and die. Here is thy question."
+Continue
 
 "The dance I dance is a spirited jig. Wind feeds me, and water is the bane of my existance."
+Continue
 
 Choose an Answer
 1) A cave
@@ -127,8 +131,10 @@ A perfectly circular room. Despite the corrosion of time on the rest of the temp
 
 > speak to statue of riddles
 A voice thunders into your head: "Answer correctly and live. Answer incorrectly and die. Here is thy question."
+Continue
 
 "I weigh nothing, but placed in a box it becomes all the lighter."
+Continue
 
 Choose an Answer
 1) Air
@@ -177,8 +183,10 @@ A perfectly circular room. Despite the corrosion of time on the rest of the temp
 
 > speak to statue of riddles
 A voice thunders into your head: "Answer correctly and live. Answer incorrectly and die. Here is thy question."
+Continue
 
 "No beginning. No end. I am the symbol of the worlds cycles."
+Continue
 
 Choose an Answer
 1) A candle
@@ -221,8 +229,10 @@ A perfectly circular room. Despite the corrosion of time on the rest of the temp
 
 > speak to statue of riddles
 A voice thunders into your head: "Answer correctly and live. Answer incorrectly and die. Here is thy question."
+Continue
 
 "A man in a wood came and stepped upon me. He then sat down to try and find me. Unable to do so, he left with me."
+Continue
 
 Choose an Answer
 1) A splinter
@@ -267,8 +277,10 @@ A perfectly circular room. Despite the corrosion of time on the rest of the temp
 
 > speak to statue of riddles
 A voice thunders into your head: "Answer correctly and live. Answer incorrectly and die. Here is thy question."
+Continue
 
 "Captures a picture as clear as day, in the light it was then. Kept with you forever, but gone when your dead."
+Continue
 
 Choose an Answer
 1) A photo
@@ -314,8 +326,10 @@ A perfectly circular room. Despite the corrosion of time on the rest of the temp
 
 > speak to statue of riddles
 A voice thunders into your head: "Answer correctly and live. Answer incorrectly and die. Here is thy question."
+Continue
 
 "Not your average dirt nor grime, stand in me and its a matter of time. Struggle and I'll pull you deep, or give in and embrace eternal sleep."
+Continue
 
 Choose an Answer
 1) Air
@@ -361,8 +375,10 @@ A perfectly circular room. Despite the corrosion of time on the rest of the temp
 
 > speak to statue of riddles
 A voice thunders into your head: "Answer correctly and live. Answer incorrectly and die. Here is thy question."
+Continue
 
 "Qaz Wsx Edc Rfv Tgb Yhn Ujm Ik Ol?"
+Continue
 
 Choose an Answer
 1) The letter D
@@ -395,6 +411,8 @@ This place is absolutely massive, larger than any cathedral, with intricate rune
 
 > open sarcophagus
 You push the lid off of the Sarcophagus. It slides to the floor loudly.
+It is covered in dust and moss. Its lid is open slightly, and you can see something glinting inside.
+It contains the Skeleton of Thanatos.
 
 > speak to skeleton
 The eye shifts its focus to you, and its mouth creaks as it says: "My sword, my armour, my helmet, my shield. These you bring me so the path I shall yield." Then with a sigh, he and his equipment turn to sand and are blown away by a wind you don't feel.
@@ -484,8 +502,10 @@ A perfectly circular room. Despite the corrosion of time on the rest of the temp
 
 > speak to statue of riddles
 A voice thunders into your head: "Answer correctly and live. Answer incorrectly and die. Here is thy question."
+Continue
 
 "Alive as you but without breath, as cold in my life as in my death; never a thirst though I always drink, dressed in a mail but never a clink."
+Continue
 
 Choose an Answer
 1) A paladin
@@ -517,6 +537,8 @@ The ladder dissapears as you reach the strange bridge you stand upon. It is made
 
 > speak to thanatos
 From within his helmet comes a creaking sound, then he rasps the words: "My sword, my armour, my helmet, my shield. These you brought me yet the path I won't yield. One riddle, two riddles, a riddle three. Answer them correctly to defeat me."
+
+You have no choice but to complete the three riddles. Press any key to continue.
 
 From within his helmet comes a creaking sound, then he rasps the words: "A princess is as old as a prince will be when the princess is twice the age as the prince was when the princess' age was half the sum of their present age. Which of the following, then, could be true?"
 Choose an Answer
@@ -561,7 +583,11 @@ This massive dome is completely blank. Yep, 100% empty. It's like you just walke
 > speak to overlord
 "Nyah! Welcome, beast, to my dominion! Nyah! You have made it through the temple! Nyah! Well, it looks like you didn't get what you were expecting! Nyah! So guess what! Nyah!"
 
+Press any key to continue to the ending...
+
 Suddenly, in a massive explosion of epicness, Chuck Norris drops down from the heavens, points at you and screams: You just got PUNKED! WHOO!
+
+Hurray! Press any key to continue to the Credits!
 
 -=[ Credits ]=-
 

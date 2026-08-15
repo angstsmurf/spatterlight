@@ -1,11 +1,12 @@
 
-The Mansion, v1.0 Nick Dablin
+The Mansion, v1.0 | Nick Dablin
 
 It's 3:30 in the morning. The phone's ringing. Who could it be at this time of night? You stretch, yawn, and reach for the receiver lying on your bedside table.
 "Hello. Who is this?" you ask impatiently.
 A voice at the other end says that it's the police. Your uncle, a noted scientist, has been found dead.
 Shocked, you quickly pull on some clothes. It's quite a drive to the station, but you get there and identify the body. You feel quite sick to the stomach. Your uncle was your only living relative. Something isn't right though. Apparently, he died of a heart attack. But he was only 55, and had never had any history of heart problems.
 A few days later, you learn that you have inherited everything your uncle owned - his wealth and his huge mansion in the country. Wearily, you pull up on the gravel drive outside the house. Time to investigate the house for any clues to his death...
+Press any key
 
 
 
@@ -24,8 +25,8 @@ The front door is SOUTH.
 > east
 You are standing at the eastern end of the Entrance Hall.
 There is a Staircase here.
-You can go east or west.
 You can go to Cupboard under the stairs.
+You can go east or west.
 You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
 
 You can also go WEST to the other side of the entrance hall from here.
@@ -40,8 +41,8 @@ This cramped cupboard contains little of any value.
 > out
 You are standing at the eastern end of the Entrance Hall.
 There is a Staircase here.
-You can go east or west.
 You can go to Cupboard under the stairs.
+You can go east or west.
 You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
 
 You can also go WEST to the other side of the entrance hall from here.
@@ -258,8 +259,8 @@ The front door is SOUTH.
 > east
 You are standing at the eastern end of the Entrance Hall.
 There is a Staircase here.
-You can go east or west.
 You can go to Cupboard under the stairs.
+You can go east or west.
 You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
 
 You can also go WEST to the other side of the entrance hall from here.
@@ -287,7 +288,7 @@ With some effort, you manage to push the table against the south wall.
 The carving of the bull's head is quite shallow, except for the horns, where the carving is deep and rounded, as if you could fit some real horns in the holes.
 
 > east
-You are in Dining Hall
+You are in Dining Hall.
 There is the Drinks Cabinet here.
 You can go east or west.
 You are standing at the eastern end of the mansion's dining hall. This appears to be where your uncle kept his alcohol, as there is a large cabinet against the north wall. 
@@ -359,8 +360,8 @@ A set of double doors is NORTH of here.
 > west
 You are standing at the eastern end of the Entrance Hall.
 There is a Staircase here.
-You can go east or west.
 You can go to Cupboard under the stairs.
+You can go east or west.
 You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
 
 You can also go WEST to the other side of the entrance hall from here.
@@ -660,8 +661,8 @@ Do you wish to descend the staircase?
 You walk down the stairs and find yourself in the entrance hall.
 You are standing at the eastern end of the Entrance Hall.
 There is a Staircase here.
-You can go east or west.
 You can go to Cupboard under the stairs.
+You can go east or west.
 You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
 
 You can also go WEST to the other side of the entrance hall from here.
@@ -741,8 +742,8 @@ The front door is SOUTH.
 > east
 You are standing at the eastern end of the Entrance Hall.
 There is a Staircase here.
-You can go east or west.
 You can go to Cupboard under the stairs.
+You can go east or west.
 You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
 
 You can also go WEST to the other side of the entrance hall from here.
@@ -801,8 +802,8 @@ A set of double doors is NORTH of here.
 > west
 You are standing at the eastern end of the Entrance Hall.
 There is a Staircase here.
-You can go east or west.
 You can go to Cupboard under the stairs.
+You can go east or west.
 You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
 
 You can also go WEST to the other side of the entrance hall from here.
@@ -918,8 +919,8 @@ Do you wish to descend the staircase?
 You walk down the stairs and find yourself in the entrance hall.
 You are standing at the eastern end of the Entrance Hall.
 There is a Staircase here.
-You can go east or west.
 You can go to Cupboard under the stairs.
+You can go east or west.
 You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
 
 You can also go WEST to the other side of the entrance hall from here.
@@ -1005,8 +1006,8 @@ The front door is SOUTH.
 > east
 You are standing at the eastern end of the Entrance Hall.
 There is a Staircase here.
-You can go east or west.
 You can go to Cupboard under the stairs.
+You can go east or west.
 You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
 
 You can also go WEST to the other side of the entrance hall from here.
@@ -1069,8 +1070,8 @@ A set of double doors is NORTH of here.
 > west
 You are standing at the eastern end of the Entrance Hall.
 There is a Staircase here.
-You can go east or west.
 You can go to Cupboard under the stairs.
+You can go east or west.
 You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
 
 You can also go WEST to the other side of the entrance hall from here.
@@ -1260,8 +1261,8 @@ The front door is SOUTH.
 > east
 You are standing at the eastern end of the Entrance Hall.
 There is a Staircase here.
-You can go east or west.
 You can go to Cupboard under the stairs.
+You can go east or west.
 You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
 
 You can also go WEST to the other side of the entrance hall from here.
@@ -1392,8 +1393,8 @@ Do you wish to descend the staircase?
 You walk down the stairs and find yourself in the entrance hall.
 You are standing at the eastern end of the Entrance Hall.
 There is a Staircase here.
-You can go east or west.
 You can go to Cupboard under the stairs.
+You can go east or west.
 You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
 
 You can also go WEST to the other side of the entrance hall from here.
@@ -1420,7 +1421,7 @@ The ivory horn slots neatly into one of the hollows in the bull's head.
 You slot the ebony horn neatly into the other horn hollow. It fits neatly. There is a loud click, and the carving on the floor turns on a previously unseen turntable until it faces the drawing room doors to the east. The drawing room doors swing open.
 
 > east
-You are in Dining Hall
+You are in Dining Hall.
 There is the Drinks Cabinet here.
 You can go east or west.
 You are standing at the eastern end of the mansion's dining hall. This appears to be where your uncle kept his alcohol, as there is a large cabinet against the north wall. 
@@ -1560,7 +1561,7 @@ You can go WEST through a door with a bull's head carved on it.
 The drawing room continues NORTH.
 
 > west
-You are in Dining Hall
+You are in Dining Hall.
 There is the Drinks Cabinet here.
 You can go east or west.
 You are standing at the eastern end of the mansion's dining hall. This appears to be where your uncle kept his alcohol, as there is a large cabinet against the north wall. 
@@ -1581,8 +1582,8 @@ A set of double doors is NORTH of here.
 > west
 You are standing at the eastern end of the Entrance Hall.
 There is a Staircase here.
-You can go east or west.
 You can go to Cupboard under the stairs.
+You can go east or west.
 You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
 
 You can also go WEST to the other side of the entrance hall from here.
@@ -1618,7 +1619,7 @@ Removing the picture from it's frame causes security shutters to slam down on al
 You can only go WEST to the other side of the gallery.
 
 > west
-You are in Gallery
+You are in Gallery.
 There is a Security Shutter here.
 You can go north, east or west.
 You are in the gallery, at the western end. Security shutters have blocked all the exits.
@@ -1661,8 +1662,8 @@ The front door is SOUTH.
 > east
 You are standing at the eastern end of the Entrance Hall.
 There is a Staircase here.
-You can go east or west.
 You can go to Cupboard under the stairs.
+You can go east or west.
 You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
 
 You can also go WEST to the other side of the entrance hall from here.
@@ -1679,7 +1680,7 @@ A door lies to the WEST.
 A set of double doors is NORTH of here.
 
 > east
-You are in Dining Hall
+You are in Dining Hall.
 There is the Drinks Cabinet here.
 You can go east or west.
 You are standing at the eastern end of the mansion's dining hall. This appears to be where your uncle kept his alcohol, as there is a large cabinet against the north wall. 
@@ -1722,7 +1723,7 @@ You can go WEST through a door with a bull's head carved on it.
 The drawing room continues NORTH.
 
 > west
-You are in Dining Hall
+You are in Dining Hall.
 There is the Drinks Cabinet here.
 You can go east or west.
 You are standing at the eastern end of the mansion's dining hall. This appears to be where your uncle kept his alcohol, as there is a large cabinet against the north wall. 
@@ -1743,8 +1744,8 @@ A set of double doors is NORTH of here.
 > west
 You are standing at the eastern end of the Entrance Hall.
 There is a Staircase here.
-You can go east or west.
 You can go to Cupboard under the stairs.
+You can go east or west.
 You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
 
 You can also go WEST to the other side of the entrance hall from here.
@@ -2053,8 +2054,8 @@ The front door is SOUTH.
 > east
 You are standing at the eastern end of the Entrance Hall.
 There is a Staircase here.
-You can go east or west.
 You can go to Cupboard under the stairs.
+You can go east or west.
 You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
 
 You can also go WEST to the other side of the entrance hall from here.
@@ -2350,8 +2351,8 @@ Do you wish to descend the staircase?
 You walk down the stairs and find yourself in the entrance hall.
 You are standing at the eastern end of the Entrance Hall.
 There is a Staircase here.
-You can go east or west.
 You can go to Cupboard under the stairs.
+You can go east or west.
 You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
 
 You can also go WEST to the other side of the entrance hall from here.
@@ -2697,8 +2698,8 @@ The front door is SOUTH.
 > east
 You are standing at the eastern end of the Entrance Hall.
 There is a Staircase here.
-You can go east or west.
 You can go to Cupboard under the stairs.
+You can go east or west.
 You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
 
 You can also go WEST to the other side of the entrance hall from here.
@@ -2890,8 +2891,8 @@ Do you wish to descend the staircase?
 You walk down the stairs and find yourself in the entrance hall.
 You are standing at the eastern end of the Entrance Hall.
 There is a Staircase here.
-You can go east or west.
 You can go to Cupboard under the stairs.
+You can go east or west.
 You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
 
 You can also go WEST to the other side of the entrance hall from here.
@@ -3241,8 +3242,8 @@ The front door is SOUTH.
 > east
 You are standing at the eastern end of the Entrance Hall.
 There is a Staircase here.
-You can go east or west.
 You can go to Cupboard under the stairs.
+You can go east or west.
 You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
 
 You can also go WEST to the other side of the entrance hall from here.
@@ -3403,8 +3404,8 @@ Do you wish to descend the staircase?
 You walk down the stairs and find yourself in the entrance hall.
 You are standing at the eastern end of the Entrance Hall.
 There is a Staircase here.
-You can go east or west.
 You can go to Cupboard under the stairs.
+You can go east or west.
 You are on the eastern side of the entrance Hall. A gloomy portrait of your late uncle glares down at you from the wall here.
 
 You can also go WEST to the other side of the entrance hall from here.
@@ -3582,6 +3583,7 @@ You step out of the elevator and find yourself in a huge laboratory. Chemicals a
 You are just about to investigate, when the lift suddenly rattles upwards! You run to stop it, but it's too late. You listen carefully. Presently, you hear someone getting into the elevator and coming down.
 At the bottom, a man in a black suit steps out and takes off his dark glasses. He starts to speak:
 "Thank you. You have been most helpful. We could not get into this lab because your uncle left such a complex series of locks and puzzles to stop us. Now you have opened the way for us. We need valuable chemicals from this lab to further our research. With your help, we have got them. Now we must decide what to do with you. You know too much for us to let you go. You can either come and work for us (your brilliant mind would be most useful to us.) or you can die, just like your uncle. The choice is yours..."
+Press any key when ready
 
 You are in the Lab.
 There is a Man in a black suit here.

@@ -477,9 +477,7 @@ She hands you a cabbage.
 
 > i
 You are carrying:
-Battle axe (wielded)
-Chisel
-Cabbage
+A Battle axe (wielded), a Chisel and a head of Cabbage.
 
 > south
 You are in the Dining hall 
@@ -646,7 +644,7 @@ Councilman Hardin is here.
 You can go north, south or west.
 
 > take horse
-You already have it.
+You already have that.
 
 > mount horse
 You mount the horse.
@@ -987,14 +985,10 @@ You light the cloth wrapped tree branch on fire. You go to wield it.
 You wield the Torch.
 
 
+
 > i
 You are carrying:
-Battle axe (wielded)
-Studded leather (worn)
-Helmet (worn)
-Chisel
-Torch (wielded)
-Flint and steel
+A Battle axe (wielded), some Studded leather (worn) armor, a bear skull Helmet (worn), a Chisel, a Torch (wielded) and a set of Flint and steel.
 
 > south
 You are standing inside the Graveyard 
@@ -1168,6 +1162,14 @@ A mummy slowly rises from the coffin.
 
 > use torch on mummy
 You set the mummy on fire. It wails for a few momment then is reduced to ashes.
+
+> x coffin
+Written on the back of the coffin is the phrase..
+' A wolf flees from the burning sunset.'
+
+> look at coffin
+A heavy stone coffin.
+It contains a Dusty scroll and a Silver coin.
 
 > take silver coin
 You remove the silver coin from the coffin and put it in your pocket. 
@@ -1798,7 +1800,7 @@ You mount the horse.
 > west
 You are at the Cross roads (mounted on the horse)
 You are at the crossing of many roads. The village is to the north and the main road leads off to the south.
-You can go north, south, west or Chantly Graveyard.
+You can go north, south, west or to Chantly Graveyard.
 
 > north
 You are at the South end of the village (mounted on the horse)
@@ -1897,6 +1899,7 @@ You are at the local inn. The doorway to the east leads back to the village cent
 Marta the innkeeper is here.
 You can go east.
 
+
 > east
 You are in the Village center 
 You are in the center of your home village of Golsiv. You can go the north or south from here. The market is to the east and the inn is west.
@@ -1969,7 +1972,7 @@ You can go north, south, east or west.
 You are at the Cross roads 
 You are at the crossing of many roads. The village is to the north and the main road leads off to the south.
 Councilman Hardin is here.
-You can go north, south, west or Chantly Graveyard.
+You can go north, south, west or to Chantly Graveyard.
 
 > speak to hardin
 What will you say to hardin?
@@ -2017,7 +2020,7 @@ You can go north, south, east or west.
 You are at the Cross roads 
 You are at the crossing of many roads. The village is to the north and the main road leads off to the south.
 Councilman Hardin is here.
-You can go north, south, west or Chantly Graveyard.
+You can go north, south, west or to Chantly Graveyard.
 
 > speak to hardin
 What will you say to hardin?
@@ -2063,7 +2066,7 @@ You can go north, south, east or west.
 You are at the Cross roads (mounted on the horse)
 You are at the crossing of many roads. The village is to the north and the main road leads off to the south.
 Councilman Hardin is here.
-You can go north, south, west, Chantly Graveyard or Wizard's tower.
+You can go north, south, west, to Chantly Graveyard or to The Wizard's tower.
 
 > go to wizard's tower
 The Wizard's tower (mounted on the horse)
@@ -2077,10 +2080,12 @@ You knock on the doors. After a few minutes a young wizard, probably about the s
 "Hello I'm Tandum. I'm from Golsiv and am in desperate need of a blue potion." you say.
 "Well met Tandum my name is....."
 There will now be a pause for drama as you learn the name of the wizard from this author's game 'wizard'.
+Press any key to continue.
 
 "Mantis and I am rather new here. I have only been here a month and haven't taken any potion making classes yet." he says.
 "Mercoz will know what to do if I can get his attention. He has been acting even stranger than usual lately, walking around with a broom and talking to himself. I will go see him." he goes on.
 He turns to go into the tower then turns back and says "Please wait here if you come in an alarm will sound and the front doors will lock and it's a nightmare trying to open them again."
+Press any key to continue.
 
 
 After several minutes Mantis returns.
@@ -2102,7 +2107,7 @@ To find out your rank type 'score'.
 You are at the Cross roads (mounted on the horse)
 You are at the crossing of many roads. The village is to the north and the main road leads off to the south.
 Councilman Hardin is here.
-You can go north, south, west, Chantly Graveyard or Wizard's tower.
+You can go north, south, west, to Chantly Graveyard or to The Wizard's tower.
 
 > speak to hardin
 What will you say to hardin?
@@ -2232,7 +2237,7 @@ You mount the horse.
 > south
 You are at the Cross roads (mounted on the horse)
 You are at the crossing of many roads. The village is to the north and the main road leads off to the south.
-You can go north, south, west, Chantly Graveyard, Wizard's tower or Fang mountain.
+You can go north, south, west, to Chantly Graveyard, to The Wizard's tower or to Fang mountain.
 
 > north
 You are at the South end of the village (mounted on the horse)
@@ -2341,7 +2346,7 @@ You mount the horse.
 > south
 You are at the Cross roads (mounted on the horse)
 You are at the crossing of many roads. The village is to the north and the main road leads off to the south.
-You can go north, south, west, Chantly Graveyard, Wizard's tower or Fang mountain.
+You can go north, south, west, to Chantly Graveyard, to The Wizard's tower or to Fang mountain.
 
 > go to fang mountain
 Fang mountain (mounted on the horse)
@@ -2959,7 +2964,7 @@ You mount the horse.
 You are at the Cross roads (mounted on the horse)
 You are at the crossing of many roads. The village is to the north and the main road leads off to the south.
 Councilman Hardin is here.
-You can go north, south, west, Chantly Graveyard, Wizard's tower or Fang mountain.
+You can go north, south, west, to Chantly Graveyard, to The Wizard's tower or to Fang mountain.
 
 As you approach you village you notice that night has fallen. Hardin is waiting for you by the crossroads.
 "Tandum, so glad am I to see you!" he says.
@@ -3644,6 +3649,7 @@ After a while she returns.
 "We will!" she says. "And I hope that 'Thorgin' gets whats coming to him!"
 "He will." you reply. "One way or the other!"
 With that Marta shows you to your room and you go to sleep for the night....
+Press any key to continue.
 
 
 You wake up feeling refreshed. When you come downstairs Marta greets you and tells you she will meet you at the great hall.
@@ -3651,6 +3657,7 @@ You step outside and Marta starts to lock up.
 You are in the Village center 
 You are in the center of your home village of Golsiv. You can go the north or south from here. The market is to the east and the inn is west.
 You can go north, south, east or west.
+
 Your score just went up!
 To find out your rank type 'score'.
 
@@ -3803,7 +3810,7 @@ You can go north, south, east or west.
 You are at the Cross roads (mounted on the horse)
 You are at the crossing of many roads. The village is to the north and the main road leads off to the south.
 Councilman Hardin is here.
-You can go north, south, west, Chantly Graveyard, Wizard's tower or Fang mountain.
+You can go north, south, west, to Chantly Graveyard, to The Wizard's tower or to Fang mountain.
 
 > speak to hardin
 What will you say to hardin?
@@ -3970,4 +3977,4 @@ The end.
 Well Done!
 You have finished Barbarian!
 
-[runner] turns=508 leftover=0 running=false WON=YES
+[runner] turns=510 leftover=0 running=false WON=YES

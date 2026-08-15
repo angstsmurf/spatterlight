@@ -123,8 +123,14 @@ three prods on the way past each room, which costs no extra movement.
 `burn down priory` also `lock`s the road's south exit and `show`s the priory object, so
 after it fires you are outside for good -- which is fine, because everything left to do
 (rose, monk) is out there.  The alternative exit is `rub brass lantern`, which teleports
-you to the road and locks the same exit; the lantern on the eastern lawn is what
-Stonehouse means by "the eastern lawn holds the key" when the gate refuses you.
+you to the road and locks the same exit; the lantern is what Stonehouse means by "the
+eastern lawn holds the key" when the gate refuses you.
+
+The lantern starts on the eastern lawn but is not picked up there, because by then it has
+moved: `kiss statuette` does `lose <brass lantern>` before its `goto`, and `lose` puts the
+object in the room you are standing in, so the lantern follows you into the orchard and is
+lying there when you come back through the arch.  That is the whole point of the `lose` --
+otherwise the kiss would have no reason to touch the lantern at all.
 
 
 THE CHILD, WHICH IS THE ONE OPTIONAL BIT THIS SCRIPT KEEPS
@@ -224,6 +230,7 @@ kiss statuette
 hide under arch
 look at arrow
 walk through arch
+take brass lantern
 north
 read newspaper
 4
@@ -317,7 +324,6 @@ south
 east
 shout help
 shout jim bowen
-take brass lantern
 east
 read issue of the priesthole
 1

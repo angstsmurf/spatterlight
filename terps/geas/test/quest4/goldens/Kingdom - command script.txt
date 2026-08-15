@@ -7,134 +7,99 @@ inventory, no object anywhere in the file, and -- this is the important part --
 no way to win.  `playerwin' does not appear in the source, `define text <win>'
 is an empty block, and the eight endings the game does have are all `playerlose'.
 So this entry is a furthest-reachable-state pin in the mould of Blade Sentinel,
-Theses of Canada and Incident of the Undead: the marker is a line of the
-game's own text at the end of the route, not a victory.
+Theses of Canada and Incident of the Undead: the marker is a line of the game's
+own text at the end of the route, not a victory.
 
 
-WHY IT CANNOT BE WON, AND WHY IT BARELY CAN BE SURVIVED
+THE BALANCE SHEET
 
-The whole game is one balance sheet, and the author tilted it.  `beforeturn'
-recomputes some seventy-five numeric variables -- per-village growth, riot
-pressure, prosperity, siege strength -- and then does this:
+Everything in Kingdom is arithmetic.  You start with
+
+        define variable <Army>  value <$rand(10;20)$>
+        define variable <Gold>  value <$rand(30;60)$>
+
+which under seed 1 is twelve knights and sixty gold -- both rolled as the file
+is read, which is what Quest does with a variable block's `value' and what geas
+does since finding 17.  `beforeturn' then recomputes some seventy-five numeric
+variables -- per-village growth, riot pressure, prosperity, siege strength --
+and charges upkeep:
 
         set numeric <Gold; %Gold%-%Army%>
 
-Upkeep is one gold per knight per season.  The author meant to start you with
-enough of both to feel it: the blocks say `value <$rand(30;60)$>' for Gold and
-`value <$rand(10;20)$>' for Army.  Neither is a number.  geas reads a variable
-block's initial `value' with parse_int (geas-state.cc:708-728), which is VB's
-Val() -- the leading numeric part of the string, 0 if there isn't one -- so both
-variables start at 0 and `[status]' says so before the first command of any run,
-at any seed.  (Whether Quest 4 evaluates a function there is untested; the
-Val()-shaped read is what geas does today, and it is what this route is derived
-against.)
-
-That zero is the whole game.  With no knights there is no upkeep, so the
-subtraction is a no-op and the treasury only moves on income -- and the treasury
-starts empty, which walks straight into `afterturn':
+One gold per knight per season.  `afterturn' checks the till:
 
         if ( %gold% <= 0 ) then ...
 
-That is checked at the end of every season, exiling you with a one-in-three
-reprieve of $rand(5;15)$ gold from the liege.  A season that brings in nothing
-is a two-in-three loss, and season one has to find a coin from somewhere before
-it ends or the run is over on turn 1.  Income is thin: the three villages'
-tributes are %V<N>econ% gold each, clamped to %V<N>max% = %V<N>pop%/2, which in
-practice is the one gold a season each you see below; "Ask more funds from
-liege" pays $rand(10;30)$ but ends the game outright on a 1-in-4 and quite
-often just answers "I have a tight budget this year"; "Send knight on an
-adventure" is the one reliable purse; and "Organize tournament" and every
-village funding proposal only spend.
-
-The other half of the zero is what makes the ending reachable.  `V<N>battle
-riot' compares %Army% against the village garrison:
-
-        if ( %Army% > %V3army% ) then ... else { msg <We have been defeated ...>
-                                                 set numeric <Army; 0>
-                                                 playerlose }
-
-With no army you can never be on the winning side of that comparison, so the
-moment Village3 revolts, riding out to it is a guaranteed defeat.  That is the
-marker, and it is why this route never hires a knight and never summons one
-home from a village: a single knight would retake Village3 instead, reset
-%V3rioting% to 0, and the ending would have to be waited for all over again.
+and exiles you, with a one-in-three reprieve of $rand(5;15)$ gold from the
+liege.  So a large army is a large bill, and the treasury is the clock.
 
 
 WHAT THE ROUTE DOES
 
-Thirteen seasons, seventy-four script lines, and every menu answered.
+Twelve seasons, sixty script lines, and every menu answered.  Eleven of the
+twelve commands are `Fire knight' -- the army goes 12, 11, 10 ... 1 -- and the
+twelfth rides out to Village3.
 
-  * Season 1 (lines 1-6) begs the liege.  It pays nothing this time, but the
-    two tributes that arrive in the same `afterturn' are what keep the treasury
-    off zero and out of the exile branch.
-  * Season 2 (7-12) sends a knight on an adventure -- "Your knight has come back
-    covered in fame and riches" -- which is the run's real income.  There is no
-    knight to send; the command does not check.
-  * Seasons 3-5 (13-18, 19-25, 26-32) tour all three villages.  "Travel to
-    VillageN" costs $rand(2;4)$ gold and is the only way to see a village's
-    numbers: V<N>inspection reads out the leader's competence, food,
-    prosperity, riot pressure and population.
-  * Seasons 6-11 (33-37, 38-43, 44-49, 50-56, 57-62, 63-68) keep an eye on
-    Village1 while Village3's riot pressure climbs.  `V3riot' rolls
-    $rand(1;500)$ against %V3riot% once a season, so the revolt has to be waited
-    out; touring is the cheapest way to spend a season that still prints
-    something.
-  * Season 12 (69-73) is offered a tournament for 45 gold and declines it, and
-    Village3 revolts at the end of that same season: "Village3 has overthrown
-    thine authority and the leader hasn't come in this season."
-  * Line 74 rides out.
+The ending is in `V3battle riot':
 
-        We have been defeated by Village3's army.
-        And thus ends your rule.
-
-That first line is the marker.  "And thus ends your rule." is `define text
-<lose>' and prints for all eight endings, so it would match a run that regressed
-into a turn-one bankruptcy just as happily; the battle line is specific to this
-route.
-
-Every menu in between is answered the same way, and the answers are forced
-rather than chosen.  Receive every village leader who turns up with the tribute
--- refusing him prints "He has left, sorely insulted" and costs happiness, and
-happiness is what riot pressure is computed from.  Take the standard tribute,
-"That will be fine": "Ask for double" pays %V<N>econ2% but subtracts $rand(1;3)$
-happiness, the same bad trade as insulting the leader.  Refuse every funding
-proposal -- each wants ten to forty gold for a field, a workshop, a knight or a
-shrine, and the treasury does not have it.
-
-
-THE THREE HUNDRED AND FIFTY-NINE LINES OF SUCCESSION
-
-Most of this transcript -- 359 of its 795 lines -- is one sentence repeated:
-
-        The leader of Village1 has died and his son has taken over.
-
-That is faithful, and it is worth explaining because it is what task #1's geas
-fix was about.  When a village is sacked its population drops by $rand(5;20)$,
-and `V<N>pop's own onchange floors it at 1 -- so %V<N>max%, which is
-%V<N>pop%/2 in integer arithmetic, becomes 0.  Now look at V<N>army's handler:
-
-        onchange {
-                if ( %V1army% > %V1max% ) then set numeric <V1army; %V1max%>
-                if ( %V1army% < 1 ) then {
-                        set numeric <V1army; 1>
-                        msg <The leader of Village1 has died and his son has taken over.>
-                        set numeric <V1comp; $rand(10;70)$>
-                }
+        if ( %Army% > %V3army% ) then { ...we retake the village... }
+        else {
+                msg <We have been defeated by Village3's army.>
+                set numeric <Army; 0>
+                playerlose
         }
 
-With max at 0 the two clauses fight each other: the clamp writes 0, which is
-below 1, so the second clause writes 1 and announces the succession -- and that
-assignment re-enters onchange, where the clamp writes 0 again.  Quest has no
-re-entrancy guard whatsoever; SetNumericVariableContents runs the handler
-unconditionally on every write
+`Fire knight' guards on `not ( %Army% = 1 )', so one knight is the floor, and
+V3army's own onchange floors the garrison at 1 as well.  With one knight against
+one or more, `%Army% > %V3army%' cannot be true, and riding out to a village
+that has revolted is a guaranteed defeat.  That is the whole plan: shrink the
+army until the comparison is lost in advance.
 
-        if (!string.IsNullOrEmpty(_numericVariable[numNumber].OnChangeScript) & !_gameIsRestoring)
-            await ExecuteScript(script, ctx);
+The money is the other half.  Every leader who arrives with a tribute is
+received (answer 1) and asked for double (answer 1 again), and every funding
+proposal is refused (answer 2).  `Ask for double' pays %V<N>econ2%, which is
+twice the standard tribute, and costs the village $rand(1;3)$ happiness; riot
+pressure is
 
-(V4Game.Part2.cs:526-530), so Quest 4 ping-pongs here too and keeps ping-ponging
-until VB6 runs out of stack.  geas used to follow it off that cliff; now the
-recursion is bounded and the game continues.  The repeated line is the visible
-shape of that bound, which makes this walkthrough its regression test.
+        V<N>riot = (10 * (%V<N>pop% - %V<N>happ%) / (%V<N>pop%+1)) ^ 2
+
+rolled against $rand(1;500)$ once a season.  So the double tribute is both the
+treasury and the fuse: the gold climbs from 60 to a peak of 163 in season 6 and
+still stands at 143 at the end, while all three villages revolt -- Village3 in
+season 5, Village2 in 6, Village1 in 7 -- and from then on a season is just
+the three overthrow lines and a knight being let go.
+
+
+WHY VILLAGE1 IS IN THIS TRANSCRIPT AT ALL
+
+Village1's season is the one behind a wrapper:
+
+        define procedure <V1report>
+                if not ( %V1pop% <= 0 ) then do <V1riot>
+        end define
+
+Village2 and Village3 call `V2riot'/`V3riot' straight from `beforeturn'; only
+Village1 is guarded, and the guard is always true, since V1pop's onchange floors
+the population at 1.  geas nevertheless never ran it.  Quest's ConvertFriendlyIfs
+rewrites a parenthesised condition following any of "if (", "until (", "while (",
+"not (", "and (" or "or (" into `is <a;lt=;b>', and geas's preprocess knew only
+four of the six; after an unconverted `not', the surviving raw "<" opened a
+<parameter> as far as the tokeniser was concerned, the search for `then' ran off
+the end of the line, and the entire if-statement was dropped.  Village1 never
+rioted, never sent its leader with the tribute, and never appeared in the season
+report -- in a game whose whole content is the season report.  That is finding
+70, fixed in readfile.cc, and this walkthrough is its regression test: Village1's
+tributes in seasons 1 to 5 and its "Village1  has overthrown thine authority"
+from season 7 on are the visible proof.
+
+The route this file used to hold was derived before that fix and before finding
+17, when Gold and Army both started at 0 and no knight was ever hired or fired.
+It also used to print "The leader of Village1 has died and his son has taken
+over." three hundred and fifty-nine times, because a sacked village's population
+floor left %V1max% at 0 and V1army's two clamps then wrote 0 and 1 to each other
+until geas's recursion bound stopped them.  With the villages solvent that
+oscillation no longer happens here; the bound is tested directly by
+fixtures/scriptdepth.asl, which reduces the Kingdom shape to one variable.
 
 
 QUIRKS
@@ -155,95 +120,80 @@ QUIRKS
     season carries on.  --echo's `[choice] N' lines are the only way to tell an
     answered menu from a defaulted one, and every menu in this script has one.
   * Menu answers draw from the RNG stream, so changing one answer changes every
-    roll after it -- and so does changing a command, which is why the route had
-    to be re-derived line by line when geas moved its `$rand(a;b)$' onto
-    erkyrath_random() (xoshiro128**, the same generator the Spatterlight build
-    uses) seeded from GEAS_SEED.  Under the old draws the same shape of route
-    took six seasons; under these it takes thirteen, because Village3 sits on
-    its riot roll for six of them.
+    roll after it, and so does changing a command.  geas draws its $rand(a;b)$
+    from erkyrath_random() (xoshiro128**, the same generator the Spatterlight
+    build uses) seeded from GEAS_SEED, so this route is reproducible but seed 1
+    is not optional.
   * Two copy-paste bugs, both preserved: `command <Summon knight from Village3>'
     guards on `not ( %V1rioting% = 3 )' where it means %V3rioting%, and
     V2taxes' "Ask for double" credits the happiness penalty to V1happ instead of
     V2happ.
   * The author's typos are load-bearing for the marker text, so leave them
-    alone: "Village3 can give you 1 gold pieces.", "for to hire a new knight",
-    "simoly", "sufficint", "knigdom", "unsuccesses".
+    alone: "Village3 can give you 8 gold pieces.", "for to hire a new knight",
+    "simoly", "sufficint", "knigdom", "unsuccesses", "The local pries has
+    starved too."
 
-Verified: 13 turns, 74 script lines, marker "We have been defeated by Village3's
+Verified: 12 turns, 60 script lines, marker "We have been defeated by Village3's
 army", seed 1.  No win: there is none to reach.
 
 Start:
-Ask more funds from liege
+Fire knight
+1
+1
+1
+1
 1
 2
 1
-2
-2
-Send knight on an adventure
 1
-2
-2
+Fire knight
 1
-2
-Travel to Village1
 1
-2
-2
 1
-2
-Travel to Village2
 1
-2
-2
 1
-2
-2
-Travel to Village3
 1
-2
-2
 1
-2
-2
-Travel to Village1
+Fire knight
+1
+1
+1
+1
 1
 2
 1
-2
-Travel to Village1
 1
 2
-2
+Fire knight
 1
-2
-Travel to Village1
 1
-2
-2
-1
-2
-Travel to Village1
-1
-2
-2
-1
-2
-2
-Travel to Village1
 1
 2
 1
-2
-2
-Travel to Village1
 1
 2
-2
+1
 1
 2
-Organize tournament
-2
+Fire knight
+1
+1
+1
+1
+1
+Fire knight
+1
+1
 1
 2
-2
+Fire knight
+1
+Fire knight
+1
+Fire knight
+1
+Fire knight
+1
+Fire knight
+1
 Travel to Village3

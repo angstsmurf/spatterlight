@@ -1,0 +1,28 @@
+
+placelocked
+
+You are in Lobby.
+You can go to Shop, to Vault or to Cellar.
+A bare lobby.
+
+> go to vault
+The vault is sealed.
+
+> go to cellar
+The exit is locked.
+
+> k
+
+> go to shop
+The exit is locked.
+
+> u
+
+> go to vault
+You are in Vault.
+Stacks of bullion.
+
+> look
+You are in Vault.
+Stacks of bullion.
+[runner] turns=7 leftover=0 running=true

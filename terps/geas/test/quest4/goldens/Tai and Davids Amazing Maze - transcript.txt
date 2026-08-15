@@ -1,5 +1,5 @@
 
-Tai & David's Amazing Maze, v1 Tai & David
+Tai & David's Amazing Maze, v1 | Tai & David
 
 
 Welcome! This message will only be displayed at the beginning of the game, or if you type in "intro message" (no quotes).
@@ -19,7 +19,7 @@ The maze portion of this game is the portion that you will be in the majority of
 
 Good luck, and one more thing- this is REALLY important. If you would like to save, make sure you are not in the middle of the maze, because SAVING WILL REDIRECT YOU TO THE BEGINNING(The main room. Progress will still be saved, just in a different room)**. This is because this will prevent you from saving while you are in the maze (which would be cheating). So, enjoy, and talk to the gate master (the man by the entrance to the start of the maze).
 
-You are in The Main Room
+You are in The Main Room.
 There is The Gatekeeper and Moneybag here.
 You can go north, east or west.
 Around you is open empty space, and plain white walls.
@@ -28,7 +28,7 @@ Visit the cafe if you are bored, looking for answers, or you just want a hot cup
 
 
 > look
-You are in The Main Room
+You are in The Main Room.
 There is The Gatekeeper and Moneybag here.
 You can go north, east or west.
 Around you is open empty space, and plain white walls.
@@ -97,12 +97,12 @@ You take the moneybag.
 You open the bag, and gain 10 coins.
 
 > e
-You are in The Vault
+You are in The Vault.
 You can go west.
 The Vault is well lit, with a smooth tile floor.  Glass shelves line the walls, covered in objects. Some look old and rustic, while others appear new.  Some of these objects you collected yourself! (unless of course this is your first time visiting here).
 
 > look
-You are in The Vault
+You are in The Vault.
 You can go west.
 The Vault is well lit, with a smooth tile floor.  Glass shelves line the walls, covered in objects. Some look old and rustic, while others appear new.  Some of these objects you collected yourself! (unless of course this is your first time visiting here).
 
@@ -115,7 +115,7 @@ Are you sure you want to return to the Cafe?
 2) No
 [choice] 1
 Redirected.
-You are in The Cafe
+You are in The Cafe.
 There is Trunk, Jill, Fireplace, man and Gold Key here.
 You can go east.
 Welcome to the glorious cafe. There are several chairs and tables here, as well as a trunk in the corner. The floor is rustic hardwood, and the walls are painted warm colors. The fireplace smolders quietly. A window shows you nothing but rock wall. The lady at the counter (Jill) will serve you and can help you get the document of approval for The Amazing Maze.
@@ -217,9 +217,7 @@ Thank you for the transaction.
 
 > i
 You are carrying:
-Document of Approval
-Coffee
-Smoothie
+Document of Approval, Coffee and Smoothie.
 
 > look at coffee
 Its a cup of delicious-looking coffee.
@@ -237,7 +235,7 @@ Its a dark brown wooden trunk, sitting with dust in the corner of the cafe.
 You jiggle the handle, but it is locked.
 
 > look at creepy guy
-You don't see any creepy guy.
+I can't see that here.
 
 > speak to man
 What do you want to say to him?
@@ -269,7 +267,7 @@ Its a small gold key you found on a table at the cafe.
 You took the gold key! Yay!
 
 > e
-You are in The Main Room
+You are in The Main Room.
 There is The Gatekeeper and Moneybag here.
 You can go north, east or west.
 Around you is open empty space, and plain white walls.

@@ -1,7 +1,8 @@
 
 gameblockuse
 
-You are in r1
+You are in r1.
+There is nobody here.
 There is torch, flask, lamp and candle here.
 You can go west.
 Room one.
@@ -31,7 +32,8 @@ You might want to, but you can't.
 The game-block handler for the candle ran.
 
 > west
-You are in r2
+You are in r2.
+There is nobody here.
 You can go east.
 Room two.
 

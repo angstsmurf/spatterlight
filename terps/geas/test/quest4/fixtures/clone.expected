@@ -1,9 +1,9 @@
 
 Clone
 
-You are in Market
+You are in Market.
 There is Tomato here.
-You can go out to Larder.
+You can go out.
 The market.
 
 > check tomato
@@ -12,9 +12,9 @@ tomato is green.
 > here
 
 > look
-You are in Market
+You are in Market.
 There is Tomato and Tomato3 here.
-You can go out to Larder.
+You can go out.
 The market.
 
 > look at tomato3
@@ -49,18 +49,18 @@ You pick it up.
 
 > i
 You are carrying:
-Tomato3
+Tomato3.
 
 > out
-You are in Larder
+You are in Larder.
 There is Tomato2 here.
-You can go out to Market.
+You can go out.
 The larder.
 
 > look
-You are in Larder
+You are in Larder.
 There is Tomato2 here.
-You can go out to Market.
+You can go out.
 The larder.
 
 > take tomato2
@@ -68,6 +68,5 @@ You pick it up.
 
 > i
 You are carrying:
-Tomato3
-Tomato2
+Tomato3 and Tomato2.
 [runner] turns=19 leftover=0 running=true

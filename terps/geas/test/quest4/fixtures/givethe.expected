@@ -1,13 +1,13 @@
 
 Givethe
 
-You are in Gate
+You are in Gate.
 There is the gatekeeper and an apple here.
 A gate, and a man in front of it.
 
 > i
 You are carrying:
-letter
+A letter.
 
 > give letter to gatekeeper
 "That's the one," he says, and stands aside.
@@ -25,6 +25,5 @@ letter
 You don't have that.
 
 > give the officer the letter to sign
-You don't see any the officer the letter.
-You don't see any sign.
+You don't have that.
 [runner] turns=7 leftover=0 running=true

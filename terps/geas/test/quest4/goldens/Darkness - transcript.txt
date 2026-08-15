@@ -1,18 +1,18 @@
 
-Darkness Sarah
+Darkness | Sarah
 
-You are in Your saloon
+You are in Your saloon.
 There is David, Chloe, David's bed, Chloe's bed and Exit door key here.
 You can go south.
 Your in the saloon you have to work in. Everyone is asleep. You might leave, if you can...
 
 > s
-You are in Hallway
+You are in Hallway.
 There is Exit door here.
 You can go north, east, west or northeast.
 
 > w
-You are in Janitor
+You are in Janitor.
 There is Case here.
 You can go east.
 You are in the janitor room. Isnt it weird that there is a case?
@@ -22,7 +22,7 @@ You are in the janitor room. Isnt it weird that there is a case?
 > take hammer
 
 > e
-You are in Hallway
+You are in Hallway.
 There is Exit door here.
 You can go north, east, west or northeast.
 
@@ -30,6 +30,6 @@ You can go north, east, west or northeast.
 You broke the glass and open the door from outside.
 
 > s
-You are in Exit
+You are in Exit.
 You succesfully get out the creppy hospital. After how much you seen, you do belive in ghosts. The next day you try to phone your boss, but no-one answers. You decide not to go in that hospital for the rest of your life, even tough Chloe and David we're your best friends ever. Who knows what happened to them...
 [runner] turns=7 leftover=0 running=false WON=YES

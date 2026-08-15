@@ -1,5 +1,5 @@
 
-Mario Is Missing 2: Ultimate Quest Jordan
+Mario Is Missing 2: Ultimate Quest | Jordan
 
 One day, Mario was kidnapped! Luigi searched around the world for him, but was trapped in the Glitz Pit!!! If Luigi makes it out alive, he'll have to search deeper, harder areas and fight bigger bosses, just for Mario!
 
@@ -10,7 +10,7 @@ Ultimate Quest
 While stuck in the Glitz Pit, Luigi gets ready for a fight he'll never forget.
 PROLOUGE: Matches With Light
 
-You are in Glitz Pit- Locker Room
+You are in Glitz Pit- Locker Room.
 There is GBA here.
 This is the Glitz Pit's red Major League locker room.
 
@@ -18,7 +18,7 @@ This is the Glitz Pit's red Major League locker room.
 L: I'm ready for my next fight!
 D: Ah, yes, Luigi! But first, do some training to get ready!
 L: (sigh), okay...
-You are in Training- Looking
+You are in Training- Looking.
 There is Bench here.
 TRAINING: YOU MUST LEARN TO LOOK.
 Try 'look at _____', 'examine ______', 'take _______', and 'speak to ________', make sure to check out everything!
@@ -53,7 +53,7 @@ RH: Alright, let's RAAAAAAAAWK!
 ..........................R A W K   H A W K.......................
 [Features: Yellow feathers, stupid attitude, muscles]
 [Abilities: Wrestling moves]
-You are in Training- Fighting
+You are in Training- Fighting.
 There is Rawk Hawk here.
 RH: LET'S RAAAAAAWK!
 TRAINING: Defeat Rawk Hawk! Try all the things you learned, although this is the easiest boss.
@@ -63,7 +63,7 @@ TRAINING: Defeat Rawk Hawk! Try all the things you learned, although this is the
 RH: Oof... the Hawk's been... Rawked....
 D: VERY good! Now, you're ready for the Champion fight! The Title Match! You're fighting...
 MAGNUS VON GRAPPLE DELUXE!
-You are in BOSS- Magnus
+You are in BOSS- Magnus.
 There is Magnus here.
 D: Everyone, it's time for the TITLE MATCH!!!!! Our up-and-comer, SUPER LUIGI, versus our new champ: MAGNUS VON GRAPPLE DELUXE!
 L: HA! A short, chubby guy?
@@ -93,7 +93,7 @@ LC: You ACTUALLY think you've won?
 L: Yeah, actually.
 LC: Well, EAT THIS!!!
 [Lord Crump presses another button, and Magnus turns black, the white X turns yellow, a red 2 appears over it, and Magnus gets a lot stronger]
-You are in BOSS- Magnus 2
+You are in BOSS- Magnus 2.
 There is Magnus 2 here.
 LC: BUH! BUH! BUH HUH HUHHH!!! Taste the fury of....
 
@@ -122,13 +122,13 @@ LC: Um... well..... uh... grr!
 D: Under lousy circumstances, Lord Crush LOSES!
 L: Thank you very much!
 D: Now, you're the new champ!
-You are in Glitz Pit- Champ's Room
+You are in Glitz Pit- Champ's Room.
 There is Air Vent here.
 This is the Champion's room.
 
 > take air vent
 [Luigi opens the air vent, and crawls through]
-You are in Glitz Pit- Promoter's Room
+You are in Glitz Pit- Promoter's Room.
 You can go to Glitz Pit- Arena.
 [Luigi busts open the air vent]
 D: WHOA!!!
@@ -142,7 +142,7 @@ D: Right, of course! Let's go, slick!
 L: They're going to the Pit! Say, what's a Save Block doing here?
 
 > go to glitz pit- arena
-You are in Glitz Pit- Arena
+You are in Glitz Pit- Arena.
 You can go to BOSS- Giga BowZer.
 [Luigi runs into the Pit, only to see a bunch of wondering people in the crowd, and Doopliss and BowZer]
 D: Ladies and Goombas! Listen up! What you're about to see may be too ugly for some freaks, but you're watching anyway! Press it, BowZer!
@@ -192,7 +192,7 @@ D: Alright, slick! But, this Machine doesn't JUST turn people into X-Nauts, it A
 
 
 > go to boss- giga bowzer
-You are in BOSS- Giga BowZer
+You are in BOSS- Giga BowZer.
 There is Giga BowZer here.
 D: And now, our "If He Wins, Everyone Loses, Or If HE Wins, Everyone Lives" Match! Featuring... our CHAMP, the guy who put the Lu-igi in Lo-se: SUPER LUIGI!
 [Crowd Cheers]
@@ -237,7 +237,7 @@ DP: THAAAAAT"S right, slicks! It's ME.....
 [Features: Toad with dark energy]
 [Abilities: Unknown]
 DP: And now, Luigi, GEEET ready to.... DIIIIIIIIIEEEEEEEEEEEEEEEE!!!!!!!!!!
-You are in BOSS- Dark Prince
+You are in BOSS- Dark Prince.
 There is Dark Prince here.
 BOSS: Dark Prince
 
@@ -248,7 +248,7 @@ DP: Huh? NO! Fool! The FIRST transformation is SUPER! The second is-- GAACK!
 TM: THE SECOND.... IS FUSION. ROOOOOOOOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARRRRRR!!!!
 L: Oh, now, shouldn't you have told me that BEFORE I swung the light?
 TM: ROAR! NO, I QUITE LIIIIKE THIS FORM!
-You are in BOSS- The Machine
+You are in BOSS- The Machine.
 There is The Machine here.
 BOSS: The Machine
 L: I've got to shut this thing down!
@@ -287,10 +287,10 @@ M: Just wanted to hear your newest plan.
 M: Fourth wall!
 ?: Oh, right! GAAAACK ACK ACK ACK ACK ACK!! (Gack) (wheeze) GAAAAAACK ACK ACK ACK ACK ACK!!!
 
-You are in Toad Town- Main Sqaure
+You are in Toad Town- Main Sqaure.
 There is Shroom Market here.
-You can go northwest.
 You can go to Toad Town- Item Shop.
+You can go northwest.
 This is Toad Town's Main Square.
 Originally Paper Mario's main town, it moved on to Mario Is Missing 2's main town! It's got many places to explore, so why not explore now? TOAD TOWN
 
@@ -298,12 +298,12 @@ Originally Paper Mario's main town, it moved on to Mario Is Missing 2's main tow
 > take shroom market
 
 > northwest
-You are in Toad Town- Pipe Expressway
+You are in Toad Town- Pipe Expressway.
 There is Green Pipe, Poster and Yellow Pipe here.
 You can go southeast.
 
 > take green pipe
-You are in Petal Meadows
+You are in Petal Meadows.
 There is Stone Warp Pipe here.
 You can go east.
 This is Petal Meadows.
@@ -314,7 +314,7 @@ CHAPTER 1: Kidnapper and Dragon
 
 
 > east
-You are in Petalburg
+You are in Petalburg.
 There is Mayor Kroop here.
 You can go west.
 Koopa: Welcome, traveller, to Petalburg!
@@ -329,7 +329,7 @@ L: Ooh... that doesn't sound too good...
 MK: Ah, but if yer anything like this one guy, Murphy, you can beat her! Here, these Stone Keys'll get you to Hooktail Castle.
 
 > west
-You are in Petal Meadows
+You are in Petal Meadows.
 There is Stone Warp Pipe here.
 You can go east.
 This is Petal Meadows.
@@ -341,14 +341,14 @@ CHAPTER 1: Kidnapper and Dragon
 
 > take stone warp pipe
 [the stone warp pipe turns into a regular warp pipe, and Luigi rides it down]
-You are in Hooktail Castle- Front
+You are in Hooktail Castle- Front.
 You can go to Hooktail Castle- Main Hall.
 There is a magnificant, dark castle towering in front of you.
 Originating in Paper Mario: The Thousand-Year Door, Hooktail Castle has nothing but traps, bones, and a big dragon! HOOKTAIL CASTLE
 
 
 > go to hooktail castle- main hall
-You are in Hooktail Castle- Main Hall
+You are in Hooktail Castle- Main Hall.
 There is stairs here.
 You can go to Hooktail Castle- Mural Room.
 This is Hooktail Castle's main hall.
@@ -367,7 +367,7 @@ XN: The top floor, to get there, make it to the Third Floor, then go up the tall
 L: Oh, okay! Thanks!
 
 > go to hooktail castle- third floor
-You are in Hooktail Castle- Third Floor
+You are in Hooktail Castle- Third Floor.
 There is box1, box2, box3, box4, box5, box6, box7, box8, box9 and box10 here.
 You can go to Hooktail Castle- Second Floor.
 
@@ -384,7 +384,7 @@ L: Whoops!
 [the pedestal becomes visible, and a staircase appears]
 
 > take tallest tower
-You are in BOSS- Hooktail
+You are in BOSS- Hooktail.
 There is Hooktail here.
 ............................................H O O K T A I L................................................
 [Features: Hook-tail, red, female, huge]
@@ -410,7 +410,7 @@ H: ROOOOOOOOOAAAAAAAAAAARRR!!! No! Why? There's still so much I wanted to do wit
 L: Whoa.
 
 > go to hooktail castle- secret room
-You are in Hooktail Castle- Secret Room
+You are in Hooktail Castle- Secret Room.
 There is Radio here.
 You can go to Toad Town- Main Sqaure.
 L: There's nothing here. Hmm... well isn't that odd? Oh, wait! A radio!
@@ -419,16 +419,16 @@ L: There's nothing here. Hmm... well isn't that odd? Oh, wait! A radio!
 You pick it up.
 
 > go to toad town- main sqaure
-You are in Toad Town- Main Sqaure
+You are in Toad Town- Main Sqaure.
 There is Shroom Market here.
-You can go northwest.
 You can go to Toad Town- Item Shop.
+You can go northwest.
 This is Toad Town's Main Square.
 Originally Paper Mario's main town, it moved on to Mario Is Missing 2's main town! It's got many places to explore, so why not explore now? TOAD TOWN
 
 
 > go to toad town- item shop
-You are in Toad Town- Item Shop
+You are in Toad Town- Item Shop.
 There is Dull T here.
 You can go out to Toad Town- Main Sqaure.
 It's Dull T's item shop!
@@ -445,13 +445,13 @@ D: Alright since you have the radio you may now have this Toy Box that you sold 
 
 > use toy box
 [Luigi jumps into the Toy Box]
-You are in Toy Box- Central
+You are in Toy Box- Central.
 There is Shy Guy and Spring here.
 You can go east.
 L: Whoa, this place changed. Hang on, why is a Save Block here?
 
 > east
-You are in Toy Box- Shy Guy's Playground
+You are in Toy Box- Shy Guy's Playground.
 There is Dark shadow here.
 You can go west.
 This is the Shy Guy Playground.
@@ -515,7 +515,7 @@ GG: You may og won this time, Luigi....
 [General Guy disappears]
 
 > go to toy box- blue station
-You are in Toy Box- Blue Station
+You are in Toy Box- Blue Station.
 There is Train Toad here.
 You can go to Toy Box- Shy Guy's Playground.
 This is the Blue Station.
@@ -534,12 +534,12 @@ AG: Yes, sir!
 [Anti-Guy goes to the Pink Station]
 
 > go to toy box- blue to pink
-You are in Toy Box- Blue to Pink
+You are in Toy Box- Blue to Pink.
 You can go to Toy Box- Pink Station or Toy Box- Blue Station.
 It's a hallway.
 
 > go to toy box- pink station
-You are in Toy Box- Pink Station
+You are in Toy Box- Pink Station.
 There is Anti Guy here.
 You can go to Toy Box- Blue to Pink.
 This is the Toy Box's Pink Station.
@@ -561,21 +561,21 @@ AG: Oh, okay! Bye!
 L: Nice guy.
 
 > go to toy box- pink to green
-You are in Toy Box- Pink to Green
+You are in Toy Box- Pink to Green.
 You can go to Toy Box- Pink Station or Toy Box- Green Station.
 This is another hallway.
 
 > go to toy box- green station
-You are in Toy Box- Green Station
+You are in Toy Box- Green Station.
 You can go to Toy Box- Green to Red or Toy Box- Pink to Green.
 This is the Green Station.
 
 > go to toy box- green to red
-You are in Toy Box- Green to Red
+You are in Toy Box- Green to Red.
 You can go to Toy Box- Green Station or Toy Box- Red Station.
 
 > go to toy box- red station
-You are in Toy Box- Red Station
+You are in Toy Box- Red Station.
 You can go to Toy Box- Red to Blue or Toy Box- Pre-War Room.
 This is the Red Station.
 The war room is here.
@@ -584,7 +584,7 @@ The war room is here.
 This is the Pre-War room. It's a large hallway with a Save Block.
 
 > go to toy box- war room
-You are in Toy Box- War Room
+You are in Toy Box- War Room.
 There is General Guy and Cannon here.
 GG: Excellent, Luigi! You made it...
 L: Why am I here, again? I'm looking for Mario, not you!
@@ -615,7 +615,7 @@ L: What? When?
 GG: A few minutes ago! I saw you come in and kill Anti-Guy with this big paintbrush thing! You had red eyes, though... are you bloodshot?
 L: NO! I was in the Blue Ststion a few minutes ago!
 GG: Hmm... why don't we go check Anti-Guy? C'mon!
-You are in Toy Box- Grey Room
+You are in Toy Box- Grey Room.
 There is Anti-Guy here.
 This is General Guy's Grey room. The same he died in.
 
@@ -632,7 +632,7 @@ L: 2.0!?!?!?!?!?! WHY would you think of upgrading him?
 GG: You will never find out.
 
 > go to toy box- secret plans room
-You are in Toy Box- Secret Plans Room
+You are in Toy Box- Secret Plans Room.
 There is The Culprit here.
 This is where General Death is, the Secret plans room.
 
@@ -663,12 +663,12 @@ GD: BEGIN KILLING.
 TC: Hmm... D'OH! AAAHHH!!!
 [The Culprit paints a hallway and runs through it]
 [The 3 chase him]
-You are in Toy Box- ???
+You are in Toy Box- ???.
 You can go to BOSS- Shadow Luigi.
 This is a strange hallway. There's a Save Block waaaaaaaaaaaay at the other side.
 
 > go to boss- shadow luigi
-You are in BOSS- Shadow Luigi
+You are in BOSS- Shadow Luigi.
 There is Bowser jr here.
 GG: We've got you cornered, culprit! You have tresspassed our Toy Box, and for that, like Luigi, you will be killed!
 [the culprit spins and jumps, revealing Bowser Jr.]
@@ -719,7 +719,7 @@ GG: Of course, you won't be fighting us all at once. Here are the rules to the G
 GG: Do you agree?
 L: Oh, yeah. Let us begin.
 
-You are in BOSS- Shy Guy Army
+You are in BOSS- Shy Guy Army.
 There is Shy Squad here.
 
 > take shy squad
@@ -755,7 +755,7 @@ GG: Hmm... attempt to fight, or be killed, Luigi.
 
 > use lights on lightbulb
 [the lights break the light, and the lights go out]
-You are in BOSS- Darkness
+You are in BOSS- Darkness.
 [with the lights out, Luigi can't see! But how will he beat Tank?]
 
 > take tank
@@ -795,16 +795,16 @@ D: Relax, slick! Everything's fine, my soldiers will warn me of any breakouts!
 D: The koopa king's doing fine! With that disguise, nobody'll notice him!
 ?: Excellent. Luigi won't survive.
 
-You are in Toad Town- Main Sqaure
+You are in Toad Town- Main Sqaure.
 There is Shroom Market here.
-You can go northwest.
 You can go to Toad Town- Item Shop.
+You can go northwest.
 This is Toad Town's Main Square.
 Originally Paper Mario's main town, it moved on to Mario Is Missing 2's main town! It's got many places to explore, so why not explore now? TOAD TOWN
 
 
 > go to toad town- item shop
-You are in Toad Town- Item Shop
+You are in Toad Town- Item Shop.
 There is Dull T here.
 You can go out to Toad Town- Main Sqaure.
 It's Dull T's item shop!
@@ -820,10 +820,10 @@ DT: Which one do you want?
 DT: Okay you have 20 Gooms keep the 20 I'll just give you this yellow binary I wonder what it does.
 
 > out
-You are in Toad Town- Main Sqaure
+You are in Toad Town- Main Sqaure.
 There is Shroom Market here.
-You can go northwest.
 You can go to Toad Town- Item Shop.
+You can go northwest.
 This is Toad Town's Main Square.
 Originally Paper Mario's main town, it moved on to Mario Is Missing 2's main town! It's got many places to explore, so why not explore now? TOAD TOWN
 
@@ -844,7 +844,7 @@ This is Goomba City's main street.
 This is Goomba City's 1st Avenue.
 
 > go to goomba city- lab
-You are in Goomba City- Lab
+You are in Goomba City- Lab.
 There is Goombella here.
 You can go to Goomba City- 1st Avenue.
 
@@ -858,7 +858,7 @@ This is Goomba City's main street.
 This is Goomba City's 2nd Avenue.
 
 > north
-You are in Goomba City- Highway
+You are in Goomba City- Highway.
 There is Machines here.
 You can go north, south, east, west, northeast or northwest.
 This is Highway Gembo 3.
@@ -867,9 +867,9 @@ This is Highway Gembo 3.
 [Luigi and Goombella head north to Highway Gorber 7]
 
 > east
-You are in Goomba City
-You can go west.
+You are in Goomba City.
 You can go to Goomba City- City Hall.
+You can go west.
 This is big-time Goomba City! If Doopliss wasn't here, you could enjoy it here!
 
 > go to goomba city- city hall
@@ -929,7 +929,7 @@ GBL: Uh-oh!
 [the 2nd looks like Goombella]
 
 > take luigi dooplighost
-You are in Luigi Duplighost
+You are in Luigi Duplighost.
 There is Luigi and Luigi? here.
 You're Goombella! Smack which Luigi? Ask them which one is real!
 
@@ -998,7 +998,7 @@ D: DARN! You're good... well, K-- um... Bowser, is planning on killing Mario in 
 L: This place is big!
 
 > take goombella duplighost
-You are in GBL Duplighost
+You are in GBL Duplighost.
 There is GBL and GBL? here.
 There are two Goombellas! Which one is which?
 
@@ -1068,30 +1068,30 @@ D: I take over the weapons research facility! HYUK YUK YUK YUK YUK YUK YUK YUK Y
 L: Oh...... great!
 
 > go to goomba city
-You are in Goomba City
-You can go west.
+You are in Goomba City.
 You can go to Goomba City- City Hall or Goomba City- Weapons Research.
+You can go west.
 This is big-time Goomba City! If Doopliss wasn't here, you could enjoy it here!
 
 > go to goomba city- weapons research
-You are in Goomba City- Weapons Research
+You are in Goomba City- Weapons Research.
 There is door here.
 You can go to Goomba City.
 This is Goomba City's top secret weapons research facility, where Doopliss ran to.
 [Doopliss turned off the lights! HYUK YUK YUK YUK!!]
 
 > take door
-You are in Goomba City- Spiral Staircase
+You are in Goomba City- Spiral Staircase.
 You can go to Goomba City- Weapons Research or Goomba City- Rooftop.
 Luckily there are windows here, so the lights are on.
 
 > go to goomba city- rooftop
-You are in Goomba City- Rooftop
+You are in Goomba City- Rooftop.
 You can go to Goomba City- Spiral Staircase or BOSS- Doopliss.
 This is the Weapons Research rooftop. There's a Save Block here.
 
 > go to boss- doopliss
-You are in BOSS- Doopliss
+You are in BOSS- Doopliss.
 There is Doopliss here.
 FIGHT Doopliss!
 [Goombella and Luigi back Doopliss to the top of a Neuclear Silo]
@@ -1151,35 +1151,35 @@ L: Oops...
 D: RUUUUUUUUN!!!!!
 
 > go to goomba city- spiral staircase
-You are in Goomba City- Spiral Staircase
+You are in Goomba City- Spiral Staircase.
 You can go to Goomba City- Weapons Research or Goomba City- Rooftop.
 Luckily there are windows here, so the lights are on.
 
 > go to goomba city- weapons research
-You are in Goomba City- Weapons Research
+You are in Goomba City- Weapons Research.
 There is door here.
 You can go to Goomba City.
 This is Goomba City's top secret weapons research facility, where Doopliss ran to.
 [Doopliss turned off the lights! HYUK YUK YUK YUK!!]
 
 > go to goomba city
-You are in Goomba City
-You can go west.
+You are in Goomba City.
 You can go to Goomba City- City Hall or Goomba City- Weapons Research.
+You can go west.
 This is big-time Goomba City! If Doopliss wasn't here, you could enjoy it here!
 
 > west
-You are in Goomba City- Highway
+You are in Goomba City- Highway.
 There is Machines here.
 You can go out to Toad Town- Main Sqaure.
 You can go north, south, east, west, northeast or northwest.
 This is Highway Gembo 3.
 
 > out
-You are in Toad Town- Main Sqaure
+You are in Toad Town- Main Sqaure.
 There is Shroom Market and Bomb Shelter here.
-You can go northwest.
 You can go to Toad Town- Item Shop.
+You can go northwest.
 This is Toad Town's Main Square.
 Originally Paper Mario's main town, it moved on to Mario Is Missing 2's main town! It's got many places to explore, so why not explore now? TOAD TOWN
 
@@ -1226,7 +1226,7 @@ XN: Yes, sir!
 
 
 > northwest
-You are in Toad Town- Pipe Expressway
+You are in Toad Town- Pipe Expressway.
 There is Green Pipe, Poster and Yellow Pipe here.
 You can go southeast.
 
@@ -1355,21 +1355,21 @@ gone. Anyway, what time is it?
 XN: Sometime around 9-11, we don't have a clock.
 ?: Then our plan is succeeding. Ready our next plan! Luigi will never survive as soon as the two hands hit directly upwards. GAAACK ACK ACK-- I gotta stop that.
 
-You are in Toad Town- Pipe Expressway
+You are in Toad Town- Pipe Expressway.
 There is Green Pipe, Poster and Yellow Pipe here.
 You can go southeast.
 
 > southeast
-You are in Toad Town- Main Sqaure
+You are in Toad Town- Main Sqaure.
 There is Shroom Market and Bomb Shelter here.
-You can go northwest.
 You can go to Toad Town- Item Shop or Toad Town- Forever Gate.
+You can go northwest.
 This is Toad Town's Main Square.
 Originally Paper Mario's main town, it moved on to Mario Is Missing 2's main town! It's got many places to explore, so why not explore now? TOAD TOWN
 
 
 > go to toad town- forever gate
-You are in Toad Town- Forever Gate
+You are in Toad Town- Forever Gate.
 There is Toad Guard and Big Rock here.
 You can go to Toad Town- Main Sqaure.
 This is the Forever Gate, where a toad is standing guard for Boos.
@@ -1393,9 +1393,9 @@ something different from what Mario described. There is also a Save Block.
 More fog stands behind you.
 
 > go to boo mansion- foyer
-You are in Boo Mansion- Foyer
+You are in Boo Mansion- Foyer.
 There is Couch here.
-You can go to Boo Mansion- 2nd Floor, Room, or Room2.
+You can go to Boo Mansion- 2nd Floor, Room or Room2.
 [Luigi steps in, but suddenly, his trusty lights
 float into the air and disappear!!! Faint
 laughter os heard]
@@ -1410,9 +1410,9 @@ May as well...
 [Luigi sucks up the dust and uncovers a Bob-omb doll]
 
 > go to boo mansion- foyer
-You are in Boo Mansion- Foyer
+You are in Boo Mansion- Foyer.
 There is Couch here.
-You can go to Boo Mansion- 2nd Floor, Room, or Room2.
+You can go to Boo Mansion- 2nd Floor, Room or Room2.
 This is the 1st Floor Foyer of the Boo Mansion. You can faintly hear what sounds like
 a Vintage recording of the Super mario Bros. theme.
 

@@ -1,0 +1,20 @@
+
+HeldContainer
+
+You are in Cellar.
+There is bag here.
+A damp cellar.
+
+> x bag
+A canvas bag.
+It contains key.
+
+> take bag
+You pick it up.
+
+> take key
+Look in your inventory, you greedy pig!
+
+> take bag
+Look in your inventory, you greedy pig!
+[runner] turns=4 leftover=0 running=true

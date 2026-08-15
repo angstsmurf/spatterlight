@@ -2,7 +2,7 @@ Sir Loin 3: The Quest for the Holy Quail ("Solo Hands", CJ, QDK Pro 4.03, ASL 40
 - raw command script for geas_walkthrough_runner.
 Game system: Quest 4.  Win marker: "COMPLETED THE GAME".  REQUIRES --tick.
 
-Full verified playthrough (exit 0, 404 turns).  The intro is skipped at the
+Full verified playthrough (exit 0, 405 turns).  The intro is skipped at the
 startscript's "if ask <Do you want to skip the intro>" -- that is the leading 1 --
 and the game's own TASKS command is the in-game hint list if the route below ever
 needs re-deriving.
@@ -19,7 +19,14 @@ Worth knowing while reading the transcript:
     for readability, and anything the route actually depends on is written LOOK AT.
     The combination lock in the Outer Sanctum is the one place it matters: its
     "look" script is what asks for the code and creates the exits north and south
-    (decompiled line 3231), so the script says LOOK AT COMBINATION LOCK.
+    (decompiled line 3231), so the script says LOOK AT COMBINATION LOCK.  The code
+    is the `manysteps` variable, `value <$rand(212;252)$>`, and that roll happens
+    while the game is loading -- so the answer below (242) is the one seed 1 gives,
+    and COUNT STEPS on the Steppes is the in-game way to read it back.
+  * The route out of the Haunted Grove goes through the forest, which drops the
+    player at one of three places on a die roll (`forestran1`).  Under seed 1 that
+    is the Gravel Path, hence NORTHWEST then WEST to reach the Market Square; a
+    different draw would need a different pair of moves.
   * Several ask/get_string prompts consume the following line, which is why bare
     YES / yes / 1 answers appear between commands.
 
@@ -374,7 +381,7 @@ use pot of ants on banquet
 north
 look at combination lock
 yes
-0
+242
 south
 south
 south
@@ -437,7 +444,8 @@ speak to ghost
 give skull to ghost
 take spirit ball
 out
-e
+northwest
+west
 speak to dragon
 yes
 wear blanket

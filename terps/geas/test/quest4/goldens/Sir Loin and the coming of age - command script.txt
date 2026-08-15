@@ -139,7 +139,6 @@ go to stable
 use glasses
 x hay
 take key
-1
 out
 n
 n

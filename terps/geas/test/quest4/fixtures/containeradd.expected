@@ -1,7 +1,7 @@
 
 containeradd
 
-You are in Hold
+You are in Hold.
 There is basket, sack, crate, lantern, rope and pebble here.
 The hold of a boat.
 
@@ -21,7 +21,8 @@ The basket is only big enough for the lantern.
 The lantern settles into the basket.
 
 > look in basket
-Inside you see lantern.
+A small basket.
+It contains lantern.
 
 > report
 cargo = [lantern]
@@ -30,11 +31,13 @@ cargo = [lantern]
 You stuff it into the sack.
 
 > look in sack
-Inside you see rope.
+A canvas sack.
+It contains rope.
 
 > put pebble in crate
 You put pebble in crate.
 
 > look in crate
-Inside you see pebble.
+A wooden crate.
+It contains pebble.
 [runner] turns=11 leftover=0 running=true

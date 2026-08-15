@@ -1,10 +1,10 @@
 
-Uranus or Bust! Episode 1:Escort , v Sam Bickley
+Uranus or Bust! Episode 1:Escort , v | Sam Bickley
 
 Sam Bickley Production Presents...
 
 Uranus or Bust! 
-
+|s9|
 
 
 
@@ -12,7 +12,7 @@ Uranus or Bust!
 
 
 You are standing in the station, waiting for your orders from Head General Tondy. The room is quiet, and big.
-There is Head General Tondy here.
+You can see Head General Tondy here.
 
 > talk to head general tondy
 "Lt. Bickley, as you know Mars, is starting to, well, change, and not for the better. Our scientist think, well, know, it will be destroyed."
@@ -30,7 +30,8 @@ There is Head General Tondy here.
 "You may leave now, Lt."
                            Three Months Later
 You are standing on the boarding pad for the Terra Esta Colony ship. It's HUGE! All the familys are boarding. You and your squads ships are much smaller. They're over to the right.
-There is Your Ship, Fighting for Newbies Book, Lt. Simon, Sgt. Tads and Pvt. Hugo here.
+You can see Lt. Simon, Sgt. Tads and Pvt. Hugo here.
+There is Your Ship and Fighting for Newbies Book here.
 
 > take fighting for newbies book
 
@@ -41,16 +42,19 @@ Get in?
 [choice] 1
 You climb aboard, waiting for the Head General to give the commands. Radio chatter. "Hey, this is Lt. Simon, how's everybody?" "We're al good!" everyone answers. "Good to know," she replies. "This is Head General Tondy, lock 'n load, we're ready to go!" he yells over the radio. "Yes Sir!" everyone replies. You all lift off. The thrust from the Colony ship almost flips your shipo. "Whoa!" you yell, redirecting the ship. Your now in space.
 Isn't it gorgious? The stars, the sun, the galaxies.
+There is nobody here.
 There is The Colony Ship here.
 You can go north.
 
 > north
 Same as before.
+There is nobody here.
 There is Asteroid and Colony Ship here.
 You can go north.
 
 > north
 Your now getting closer towards an asteroid belt.
+There is nobody here.
 There is Asteroids in the Distance here.
 You can go to Asteroid Belt.
 
@@ -73,6 +77,7 @@ Radio the ships?
 
 > go to asteroid belt
 The Belt is large, lager than regular ones. It's a weird shape, too.
+There is nobody here.
 There is Your Squad and Asteroid here.
 
 > take asteroid
@@ -82,7 +87,8 @@ Try and destroy?
 [choice] 2
 Yea..good choice, too big. "Now what guys? Land on it and drill a hole and launch a nuke?" you say. "Thats a good idea Lt." Simon says. "All in favor, says I," you say. "I!" everyone says.
 you land on the Surface, still in your ships. "Guys, get your suits on, Hugo, you bring the nuke." you say. You are now on the surface with your squad.
-There is Nuke Buggy, Simon, Hugo and Tads here.
+You can see Simon, Hugo and Tads here.
+There is Nuke Buggy here.
 You can go to Asteroid Surface.
 
 > talk to tads
@@ -90,7 +96,7 @@ You can go to Asteroid Surface.
 
 > go to asteroid surface
 Your ships are in the background.
-There is Simon, Hugo and Tads here.
+You can see Simon, Hugo and Tads here.
 You can go to Asteroid Surface.
 
 > talk to tads
@@ -98,6 +104,7 @@ You can go to Asteroid Surface.
 
 > go to asteroid surface
 You, Hugo, and Tads run.
+There is nobody here.
 There is Metal Hull in the Distance here.
 
 > look at metal hull in the distance
@@ -114,7 +121,7 @@ Attack?
 [choice] 1
 You and the squad (Hugo, Tads) fire at them. YES!! They're turning back!
 You leave the battle area, and head toward Simon.
-There is Simon here.
+You can see Simon here.
 You can go to Asteroid Surface.
 
 > talk to simon
@@ -122,6 +129,7 @@ You can go to Asteroid Surface.
 
 > go to asteroid surface
 You run towards your ship, hoping it'll work.
+There is nobody here.
 There is Your ship here.
 
 > look at your ship

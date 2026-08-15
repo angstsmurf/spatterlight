@@ -1,14 +1,16 @@
 
-Black Forest, vAlpha Devon Oratz
+Black Forest, vAlpha | Devon Oratz
 
 
 
 You're wallowing in the darkness
+There is nobody here.
 There is Knob here.
 It is difficult to tell exactly when you came to, in the absence of all light and sound, smothered by cloying shadow, there's no way to tell if you're awake or asleep. Except for the ache, the one constant, droning dully in your brain.  A rust red in your forehead, the color just imagined since there is nothing but blackness. Conciousness has returned, but with no direction or purpose. Where are you, what is happening? You feel something poking into your ribs but you can't see a thing.
 
 > look
 You're wallowing in the darkness
+There is nobody here.
 There is Knob here.
 It is difficult to tell exactly when you came to, in the absence of all light and sound, smothered by cloying shadow, there's no way to tell if you're awake or asleep. Except for the ache, the one constant, droning dully in your brain.  A rust red in your forehead, the color just imagined since there is nothing but blackness. Conciousness has returned, but with no direction or purpose. Where are you, what is happening? You feel something poking into your ribs but you can't see a thing.
 
@@ -18,6 +20,7 @@ You can't see it but you can feel it, and you DO feel it, drilling into your sid
 > turn knob
 As the knob gives and turns, a burst of light blinds you and you tumble forward.
 You're in some sort of basement.
+There is nobody here.
 There is Glistening Metal and Gate Door here.
 You can go north, east or west.
 The room is dim and drab, lit by one hanging light bulb attached to a rafter on the ceiling, appears to be some kind of basement or storage room. The floor and walls are rough uneven grey bricks, and the ceiling sturdy wooden beams.  On the west wall is an empty metal shelf and a darkened opening. To the east is an open door leading to some kind of closet. To the north is a wire mesh gate door.
@@ -26,6 +29,7 @@ You hit a hard stone floor, scrabing your knees, and bruising every bart of your
 
 > look
 You're in some sort of basement.
+There is nobody here.
 There is Glistening Metal and Gate Door here.
 You can go north, east or west.
 The room is dim and drab, lit by one hanging light bulb attached to a rafter on the ceiling, appears to be some kind of basement or storage room. The floor and walls are rough uneven grey bricks, and the ceiling sturdy wooden beams.  On the west wall is an empty metal shelf and a darkened opening. To the east is an open door leading to some kind of closet. To the north is a wire mesh gate door.
@@ -55,12 +59,14 @@ The key turns in the lock, and the door creaks open, revealing a staircase leadi
 
 > east
 It appears to be a storage closet.
+There is nobody here.
 There is Light Cord here.
 You can go west.
 The room you were in before, the room, incidentally you have no idea how you got to be in, was some kind of a closet. The weak light from the other part of the room barely pierces the small closet's darkness. All you can see is a light cord dangling from the ceiling.
 
 > look
 It appears to be a storage closet.
+There is nobody here.
 There is Light Cord here.
 You can go west.
 The room you were in before, the room, incidentally you have no idea how you got to be in, was some kind of a closet. The weak light from the other part of the room barely pierces the small closet's darkness. All you can see is a light cord dangling from the ceiling.
@@ -89,17 +95,20 @@ A black plastic flashlight, after a quick check it is evident there are no batte
 
 > west
 You're in some sort of basement.
+There is nobody here.
 You can go north, east or west.
 The room is dim and drab, lit by one hanging light bulb attached to a rafter on the ceiling, appears to be some kind of basement or storage room. The floor and walls are rough uneven grey bricks, and the ceiling sturdy wooden beams.  On the west wall is an empty metal shelf and a darkened opening. To the east is an open door leading to some kind of closet. To the north is a wire mesh gate door.
 
 > north
 You're in a dingy wooden hallway.
+There is nobody here.
 You can go south, east or west.
 A cheap wooden paneling hall runs east to west. The walls are totally unadorned with decoration, furniture, clock or picture. The floor, walls and ceiling are all dirty, and water stained, the walls cracked and spotted with holes, the air in the room unsatisfying and unclean. A staircase leads down to the south, and the hall goes east and west.
 
 > east
 You're in a run down and ruined living room
-There is Candle and a Black Cat here.
+You can see a Black Cat here.
+There is Candle here.
 You can go south or west.
 Whoever owned this houses sure wasn't planning on entertaining. Disaster area is a  nice word for this craphole. An unadorned and unpainted stucco ceiling is acompanied by plain pale blue wallpaper, and a gnarly matted green carpet. Stains one can only assume are urine are all over the place. You hope to God this isn't your house, though for the life of you, you can't remember. But no, it can't be, otherwise why would you be locked in the closet, hit over the head? Wait, were you hit over the head? Can't....remember. A brown unfinish wooden table is shattered in the middle of the floor. A brown crate holds a small, old fashioned t.v. atop it, the kind with the "rabbit ears" antenna's, but the screen is smashed in. On top of the T.V. is a lit candle. the only other furniture consists of a torn, cheap green couch with the stuffing coming out. A black cat lounges on the couch. A broken screen door to the south leads outside.
 
@@ -121,16 +130,19 @@ You carefully pick up the candle.
 
 > west
 You're in a dingy wooden hallway.
+There is nobody here.
 You can go south, east or west.
 A cheap wooden paneling hall runs east to west. The walls are totally unadorned with decoration, furniture, clock or picture. The floor, walls and ceiling are all dirty, and water stained, the walls cracked and spotted with holes, the air in the room unsatisfying and unclean. A staircase leads down to the south, and the hall goes east and west.
 
 > south
 You're in some sort of basement.
+There is nobody here.
 You can go north, east or west.
 The room is dim and drab, lit by one hanging light bulb attached to a rafter on the ceiling, appears to be some kind of basement or storage room. The floor and walls are rough uneven grey bricks, and the ceiling sturdy wooden beams.  On the west wall is an empty metal shelf and a darkened opening. To the east is an open door leading to some kind of closet. To the north is a wire mesh gate door.
 
 > west
 You are in the boiler room.
+There is nobody here.
 There is Boiler here.
 You can go east.
 The feeble light of the candle casts more shadows then it does dispel them, as you creep into the dusty and dank boiler room. The room is small, the floor sloping down, crumbling rock on the ceiling and walls, loosely packed dirt underfoot. The sole feature of the room exept the encroaching darkness is a large copper boiler.
@@ -143,22 +155,26 @@ The flame ignites the gas and a fire flares up as the wood snaps, crackles and p
 The blackness fades everslowly, like the receding tide or the waning moon, leaving you a broadening window. In this gap in the consistency of the surrounding darkness, you see yourself, in the past, at a gathering of some kind, no, not so inspecific. It was your graduation, from Harberry Medical College. You see your friends in the crowd, John Alan, Eliza Morgenstern, and you, still so young and naive then, walking up onto the stage to recieve your long and hard fought for diploma, and credentials. License to practie, psychology......... Pulled suddenly back from the warm, yet inexplicable familiarity of this (memory?) you are yanked into the cold vaccuum of the darkness.
 
 You're in some sort of basement.
+There is nobody here.
 You can go north, east or west.
 The room is dim and drab, lit by one hanging light bulb attached to a rafter on the ceiling, appears to be some kind of basement or storage room. The floor and walls are rough uneven grey bricks, and the ceiling sturdy wooden beams.  On the west wall is an empty metal shelf and a darkened opening. To the east is an open door leading to some kind of closet. To the north is a wire mesh gate door.
 You awaken, with a brutally sadistic mindgraine headache, on the rough stone floor of the central room of the basement. Strangely, the fire from the candle and the boiler have both gone out.
 
 > look
 You're in some sort of basement.
+There is nobody here.
 You can go north, east or west.
 The room is dim and drab, lit by one hanging light bulb attached to a rafter on the ceiling, appears to be some kind of basement or storage room. The floor and walls are rough uneven grey bricks, and the ceiling sturdy wooden beams.  On the west wall is an empty metal shelf and a darkened opening. To the east is an open door leading to some kind of closet. To the north is a wire mesh gate door.
 
 > north
 You're in a dingy wooden hallway.
+There is nobody here.
 You can go south, east or west.
 A cheap wooden paneling hall runs east to west. The walls are totally unadorned with decoration, furniture, clock or picture. The floor, walls and ceiling are all dirty, and water stained, the walls cracked and spotted with holes, the air in the room unsatisfying and unclean. A staircase leads down to the south, and the hall goes east and west.
 
 > west
 You're in a dilapidated, smelly kitchen
+There is nobody here.
 There is a Refrigerator here.
 You can go east or southwest.
 The kitchen looks like it hasn't been touched in years, countertops are stained and covered with slim, the floor is muddy brown broken tile, and a broken enamel topped table lies smashes in the center of the floor.Chairs are tossed about into corners. There is a microwave and a toaster, both stained with all sorts of crusty ancient foodstuffs but not a traditional stove. The cabinets, those with doors at least are open, revealing   that there is nothing inside but towels and rags in those under the rust covered, dishless sink. The smell of rotten meat, nauseating wafts towards you from the refrigerator. The hallway goes back to the east, and a wooden door, cracked open, is to the southwest. You don't remember ever having been to this disgusting place in your life, yet you don't remember ever having been anywhere or done anything. You don't remember a thing.
@@ -168,6 +184,7 @@ Opening the handle-less refridgerator is not worth the store, inside are rotten 
 
 > southwest
 This is a disgustingly dirty bathroom, not used in a long long time.
+There is nobody here.
 There is a Mirror and a Metal Rod here.
 You can go northeast.
 A rusted, seatless toilet, stinking of sewage is in one corner of the room. Slammed in the dirty pale green tile of the floor near the toilet is a rusted metal rod, bending around to a sharp end. Bubbling brown mud, or perhaps something worse, fills the sink, which has no faucet handles. A cracked mirror hangs above the sink. Allthough a spidery crack distends from one corner, you can still make out your totally alien features.
@@ -183,23 +200,26 @@ With some effort, you wrench it out of the floor,, with some cracking of tile, a
 
 > northeast
 You're in a dilapidated, smelly kitchen
+There is nobody here.
 There is a Refrigerator here.
 You can go east or southwest.
 The kitchen looks like it hasn't been touched in years, countertops are stained and covered with slim, the floor is muddy brown broken tile, and a broken enamel topped table lies smashes in the center of the floor.Chairs are tossed about into corners. There is a microwave and a toaster, both stained with all sorts of crusty ancient foodstuffs but not a traditional stove. The cabinets, those with doors at least are open, revealing   that there is nothing inside but towels and rags in those under the rust covered, dishless sink. The smell of rotten meat, nauseating wafts towards you from the refrigerator. The hallway goes back to the east, and a wooden door, cracked open, is to the southwest. You don't remember ever having been to this disgusting place in your life, yet you don't remember ever having been anywhere or done anything. You don't remember a thing.
 
 > east
 You're in a dingy wooden hallway.
+There is nobody here.
 You can go south, east or west.
 A cheap wooden paneling hall runs east to west. The walls are totally unadorned with decoration, furniture, clock or picture. The floor, walls and ceiling are all dirty, and water stained, the walls cracked and spotted with holes, the air in the room unsatisfying and unclean. A staircase leads down to the south, and the hall goes east and west.
 
 > east
 You're in a run down and ruined living room
-There is a Black Cat here.
+You can see a Black Cat here.
 You can go south or west.
 Whoever owned this houses sure wasn't planning on entertaining. Disaster area is a  nice word for this craphole. An unadorned and unpainted stucco ceiling is acompanied by plain pale blue wallpaper, and a gnarly matted green carpet. Stains one can only assume are urine are all over the place. You hope to God this isn't your house, though for the life of you, you can't remember. But no, it can't be, otherwise why would you be locked in the closet, hit over the head? Wait, were you hit over the head? Can't....remember. A brown unfinish wooden table is shattered in the middle of the floor. A brown crate holds a small, old fashioned t.v. atop it, the kind with the "rabbit ears" antenna's, but the screen is smashed in. On top of the T.V. is a lit candle. the only other furniture consists of a torn, cheap green couch with the stuffing coming out. A black cat lounges on the couch. A broken screen door to the south leads outside.
 
 > south
 You're in the backyard of a rundown one floor house.
+There is nobody here.
 There is Swingset here.
 You can go north, east or west.
 A house is to the north, little more then a trailer, with boarded up windows. The yard is small, littered with garbage, and sparse clumps of yellowing grass. A rusted, dented and bent metal swingset and seasaw  is rooted into the ground to the left. The dirty, broken in many places, picket fence was once white, and opens directly onto a one lane black top road that goes east and west.
@@ -209,16 +229,19 @@ The sight of this ruined child's play-set disturbs you. One swing remains, the l
 
 > east
 You're on a road in the forest.
+There is nobody here.
 You can go east or west.
 The dark of night surrounds you, and the sound of crickets and cicadas chirping can be faintly heard. A full moon sheds some minimal light, casting shadows through the trees. The road, slanting up very slightly but not curving cotinues east, and goes back to the west.
 
 > east
 The road you're on curves south, heading up a hill at the bend.
+There is nobody here.
 You can go south or west.
 The darkness of night, eerily silent, and subtly dangerous recedes slightly, and as the road curves south around a hill, it leaves you a view of an early dawn sky, above the horizon of the black trees. A fiery red sky burns brightly, silhouetting the angular trees of the forest in the distance, turning them starkest black against the red light. The vista of black and red is quite beautiful. the road goes upwards to the south, or back to the west.
 
 > south
 The road ends. So does the forest. So does existance.
+There is nobody here.
 There is The Abyss here.
 You can go north or south.
 As if someone had take a great pair of scissors and sheared off part of the world, everything comes to a sudden and jagged end. An abyss of mysty blackness exists where the road should continue,  or rather, it doesn't exist. The whole world seems to come to an end, dropping off into an absence of everything. Standing at the edge, and looking to either side, the border between forest and blackness runs as far as the eye can see, and you wouldn't be surprised if it went on forever. On one side of the road, a tree is cut in half, one half of the tree standing near the edge, and the other just gone. This can't be happening. The world doesn't just end. This must be a dream (Nightmare?)
@@ -232,27 +255,32 @@ Trying to continue would be suicidal and futile, the darkness would just swallow
 
 > north
 The road you're on curves south, heading up a hill at the bend.
+There is nobody here.
 You can go south or west.
 The darkness of night, eerily silent, and subtly dangerous recedes slightly, and as the road curves south around a hill, it leaves you a view of an early dawn sky, above the horizon of the black trees. A fiery red sky burns brightly, silhouetting the angular trees of the forest in the distance, turning them starkest black against the red light. The vista of black and red is quite beautiful. the road goes upwards to the south, or back to the west.
 
 > west
 You're on a road in the forest.
+There is nobody here.
 You can go east or west.
 The dark of night surrounds you, and the sound of crickets and cicadas chirping can be faintly heard. A full moon sheds some minimal light, casting shadows through the trees. The road, slanting up very slightly but not curving cotinues east, and goes back to the west.
 
 > west
 You're in the backyard of a rundown one floor house.
+There is nobody here.
 There is Swingset here.
 You can go north, east or west.
 A house is to the north, little more then a trailer, with boarded up windows. The yard is small, littered with garbage, and sparse clumps of yellowing grass. A rusted, dented and bent metal swingset and seasaw  is rooted into the ground to the left. The dirty, broken in many places, picket fence was once white, and opens directly onto a one lane black top road that goes east and west.
 
 > west
 You're on a road in the woods.
+There is nobody here.
 You can go east or west.
 It's dark out, the pit of the night, midnight black. The long curving road winds through the thick, dark forest heading to the west and back to the east. The air is cool and crisp, the tall dark evergreen trees seeming to be encroaching on the road, leaning in to block the feeble light of the sickle like, icy crescent moon, casting there hunched shadows over you.
 
 > west
 The road turns to dirt and comes to an end.
+There is nobody here.
 There is Manhole here.
 You can go east.
 The paved road turns into dirt after a mile or so, and comes to an end, with no warning sign in sight. Partitoned off from the road by orange divider sawhorses, is a rusted manhole cover. The road goes back to the east.
@@ -297,6 +325,7 @@ Will you use your rope to climb down?
 [choice] 1
 You tie one end of your rope around a metal ring near the rim of the hole, and drop the other down into the hole.
 You are in a sewage passageway.
+There is nobody here.
 You can go west.
 The sewers are dark, claustrophobic, and foul smelling. The stinky, cold water is ankle deep, and more waste water drips from pipes in the ceiling. There is a rope here, leading back up to the surface. The passage, and the nauseating air continures to the left, not widening at all.
 
@@ -305,6 +334,7 @@ The white ropes end is about waist high, and it goes up through a hole in the ce
 
 > west
 You're in a sewer passage.
+There is nobody here.
 There is a Grate here.
 You can go east or west.
 The stinking, dirty, cramped sewers come to an end to the west. To the north and south are concrete platforms. The one to the north is 2ft. high above the ground, and the one to the south is 9 ft. above the ground and totally unreachable. On top of the north platform is a concrete section of the brick western wall, in which is a 2ft by 2ft metal ventillation grill . Atop the 9ft tall concrete platform is a 1 ft high gap, that cannot be reached. The passageway goes back to the east.
@@ -325,17 +355,20 @@ You unsrew the four screws, leaving the grating behind.
 
 > west
 Getting on your hands and knees you crawl through the hole in the wall, crawling along for maybe a hundred yards before coming to an opening in the ceiling, a drainage pipe.
-You are in Crawlway
+You are in Crawlway.
+There is nobody here.
 You can go east or west.
 The narrow, 2x2ft concrete passage is cramped, with only enough room to crawl on hands and knees over the hard stone floor. A drainage pipe opens up to the west, and the passage goes back to the east.
 
 > west
 You're on a two-lane road in a dark, dark woods, running north and south.
+There is nobody here.
 You can go north, south or east.
 A two lane road stetches and curves through a nighttime forest, the black trees leafless and barren, casting their shadows across the double yellow lines of the road. To the east, just slight off the roadway is a drainage pipe leading down, the circumference of the opening about 2 feet across. The road goes to the north and to the south. The wind is harsh and bitter cold, stinging your ears and exposed skin.
 
 > south
 The road you're on ends abruptly, in front of you is a high concrete wall.
+There is nobody here.
 There is a Drainage Pipe and some Graphitti here.
 You can go north.
 The road comes to an end to the south after several red and yellow warning signs, and runs through a U-turn to head back in the other direction. The concrete wall behind the U-turn guard rails is almost 20 feet high, whatever may be behind it totally invisible. The wall runs into the mounds of dirt beside it on either side, built into the ground of the forest. It is graffiti covered, three pieces in particular striking interest. In the enter is a very large drainage pipe. You wonder why you've seen no one on these roads all night? Is this a dream? Are you dead, you wonder, is the world beyond, heaven, or Hell? What is happening, what is this place, WHO AM I? The answers feel like they are just beyond your reach, hidden somewhere in the dark.
@@ -350,31 +383,37 @@ In spray  painted dark green under the opening, it reads "BEWARE THE BeASt, On o
 
 > north
 You're on a two-lane road in a dark, dark woods, running north and south.
+There is nobody here.
 You can go north, south or east.
 A two lane road stetches and curves through a nighttime forest, the black trees leafless and barren, casting their shadows across the double yellow lines of the road. To the east, just slight off the roadway is a drainage pipe leading down, the circumference of the opening about 2 feet across. The road goes to the north and to the south. The wind is harsh and bitter cold, stinging your ears and exposed skin.
 
 > north
 You're on a two-lane road in a dark, dark woods.
+There is nobody here.
 You can go north or south.
 A cold wind cuts into your ears and face like an icy razor, and you shiver violently. The wide, well paved road you're on stands in stark contrast to the primevil forest standing as if in wait on either side of it. The road stretches to the north and south.     You wonder why you've seen no one on these roads all night? Is this a dream? Are you dead, you wonder, is the world beyond, heaven, or Hell? What is happening, what is this place, WHO AM I? The answers feel like they are just beyond your reach, hidden somewhere in the dark.
 
 > north
 The road you are on crosses a bridge above a frozen lake.
+There is nobody here.
 You can go north, south or east.
 The sterile cold of November air chills to the bone, as bare, spidery trees creak and crack leaning to and fro in the wind. The road you were walking along crosses a wide bride, perhaps some kind of dam, as you can see it's massive stonework walls descend to an expansive frozen lake, going for as far as the eye can see in this midnight darkness, rimmed by mounds of leafless trees and evergreens. The road goes on to the north, and back to the south, and to the east on top of the bridge or dam, but off the road is a large, but squat building, made of dull red bricks. The building has many long windows, and two metal doors. It looks to be some kind of reservoir or drainage control system, but knowing what you've seen tonight, there's almost nothing it couldn't be inside that building. The road goes north and back south.
 
 > north
 You're on a two-lane road in a dark, dark woods.
+There is nobody here.
 You can go north or south.
 The two lane road stretches on and on to the north through the bitter cold November forest. The road heads straight, with not a turn or landmark in site.You are very, very cold.
 
 > south
 The road you are on crosses a bridge above a frozen lake.
+There is nobody here.
 You can go north, south or east.
 The sterile cold of November air chills to the bone, as bare, spidery trees creak and crack leaning to and fro in the wind. The road you were walking along crosses a wide bride, perhaps some kind of dam, as you can see it's massive stonework walls descend to an expansive frozen lake, going for as far as the eye can see in this midnight darkness, rimmed by mounds of leafless trees and evergreens. The road goes on to the north, and back to the south, and to the east on top of the bridge or dam, but off the road is a large, but squat building, made of dull red bricks. The building has many long windows, and two metal doors. It looks to be some kind of reservoir or drainage control system, but knowing what you've seen tonight, there's almost nothing it couldn't be inside that building. The road goes north and back south.
 
 > east
 You're in a large red brick building.
+There is nobody here.
 There is Lever here.
 You can go west.
 The building is indeed very large, easily big enough to be any kind of warehouse, and the vertical windows huge, centered by steel cross beams. The building also, very disconcertingl, is empty. Utterly empty, devoid of even a tumbleweed or the sound of crickets. No, not entrirely. There were a few things hard to see in the near total darkness. On the ceiling on a metal track attached to the rafters is a hydraulic crane. On the left wall is a stack of metal crates, all of which look hugely heavy and otherwise impregnable. And directly ahead of you is some kind of loading platform. A slight depression in a square section of floor, with a large lever next to the depression.
@@ -387,6 +426,7 @@ Will you pull the lever?
 [choice] 1
 Much to your huge surprise, a loud groan of hydraulics comes from beneath you, and the platform you're on begins to descent like an elevator, with a hiss of escaping air. The air gets colder and colder as you go down.
 You're in a freezing cold, refrigerated room, at the bottom of an elevator shaft.
+There is nobody here.
 There is a Button here.
 You can go north.
 The room is small, and square, with cold steel walls, the floor is a folded steel platform, which you now know is an elevator. On one of the walls is a red button, with an arrow pointing up mounted into a plastic yellow console. The room opens into, A FOREST! To the north, the room opens into a wide, grassy forest. A beautifu, frozen forest. Just frozen dew glistens on the grass, turning to frost. The thin, spindly fingers of the hundreds of bair trees are frozen at the tips, overlapping branches weaving towards the ceiling into a magnificent crystal mosaic.
@@ -396,23 +436,27 @@ The large red button is marked with an arrow pointing up, and is set into a plas
 
 > north
 You are in a beautiful iced over forest.
+There is nobody here.
 You can go north or south.
 As you take your first few steps over the beautifully glistening, shimmering grass, you realize that it's not just frosted. The grass doesn't give at all. it's been iced of over, with sheet after sheet, of pure, transparent ice. The trees must also be frozen in a similar way.
  You realize something, else, much more amazing. It's much lighter down here then it was on the surface, the quality of light like that of late afternoon on a grey winter day. While, up on the roads above, it looked to be midnight. How could it be colder, but lighter down here? And why was there a totally different climate in the same place anyway? Your mind is made up, this must be a dream. Right? Or you could be d... No, can't even consider that.
 
 > north
 You're in an ice crystallized forest.
+There is nobody here.
 There is a Stump here.
 You can go north or south.
 The shining, frozen forest, comes to a wide, grassy clearing, the bare, but ice coated trees stretching and parting back to a circular opening. In the center of the clearing, is a large, wide tree stump, surprisingly totally untouched by ice or frost. From above, grey light sparkles on the glassy branches of trees. Something has just occured to you. Could you be underneath the lake. Could that cover of ice not be a lake at all. What is this place? (That's simple it's a dream, or heaven, or hell, ok, maybe not that simple, but it can't be real.) Can't it?
 
 > north
 You are at the end of a path in an icy forest.
+There is nobody here.
 You can go south.
 The beautiful icicle hung path comes to an end to the north, the clearing turning into  thicker woods. As pretty as the shimmering trees are, you don't want to chance getting lost with this temperature, and your own less then adequate winter clothing.
 
 > south
 You're in an ice crystallized forest.
+There is nobody here.
 There is a Stump here.
 You can go north or south.
 The shining, frozen forest, comes to a wide, grassy clearing, the bare, but ice coated trees stretching and parting back to a circular opening. In the center of the clearing, is a large, wide tree stump, surprisingly totally untouched by ice or frost. From above, grey light sparkles on the glassy branches of trees. Something has just occured to you. Could you be underneath the lake. Could that cover of ice not be a lake at all. What is this place? (That's simple it's a dream, or heaven, or hell, ok, maybe not that simple, but it can't be real.) Can't it?
@@ -441,6 +485,7 @@ Will you climb down the ladder?
 [choice] 1
 Climbing into the stump, and taking a firm hold on the rungs, you descend into a cavern.
 You're in an iced cold subterranean chamber.
+There is nobody here.
 There is Globe, Tubing, two Trees and Ladder here.
 You can go east or west.
 Compared to the forest above, this "cavern" looks surprisingly hi-tech, and sterile. Certain structures are clearly man made, like the tree stump doubling as an entrance hatch. What on god's earth could this place possibly be? Everything about your experiences tonight seem impossible. Dreamlike, yet, terrifyingly grounded in reality. The center piece of the semi-circular, smooth cut rock chamber is a ladder leading up. Several thick blue plastic and rubber tubes run into the central chamber from the east and west passages, looping over arches in the walls, and down and around to a large, clear globe set into the floor in front of the ladder. The huge globe, made of frosted glass, with swirling icy vapors floating inside, is connected to all of the tubes, and they pump something into it. In the northwest and northeast cornes are huge trees, there tops ascending into the forest. Passages ringed with thick tubes head east and west further into the cavern.
@@ -470,6 +515,7 @@ Will you climb up the ladder?
 
 > east
 You are on the east side of a freezing cold, manmade cavern.
+There is nobody here.
 There is A Shiny Blue Crystal here.
 You can go west.
 The walls in this freezing cold chamber, are smooth, almost polished cut rock, probably some type of marble or refined limestone. The cavern is clearly man made, and located centrally is a wide pedestal platform. On the platform is a sliver of glistening dark blue crystal. Pipes, tubing, and hoses all connect to the bottom of the pedestal, running out of the chamber attached to the walls, to connect to the frost fusion globe in the cental chamber. The blue crystal shard is held in place by a thin, three pronged silver clamp which connects to the ceiling, into a large metal box. Thin electrical wires run from this box, down into a small hole in the wall. The passage goes back to the west, into the cental room.
@@ -484,12 +530,14 @@ The light in the room blinks out for a moment, and the humming in the pipes cuts
 
 > west
 You're in an iced cold subterranean chamber.
+There is nobody here.
 There is Globe, Tubing and Ladder here.
 You can go east or west.
 Compared to the forest above, this "cavern" looks surprisingly hi-tech, and sterile. Certain structures are clearly man made, like the tree stump doubling as an entrance hatch. What on god's earth could this place possibly be? Everything about your experiences tonight seem impossible. Dreamlike, yet, terrifyingly grounded in reality. The center piece of the semi-circular, smooth cut rock chamber is a ladder leading up. Several thick blue plastic and rubber tubes run into the central chamber from the east and west passages, looping over arches in the walls, and down and around to a large, clear globe set into the floor in front of the ladder. The huge globe, made of frosted glass, with swirling icy vapors floating inside, is connected to all of the tubes, and they pump something into it. In the northwest and northeast cornes are huge trees, there tops ascending into the forest. Passages ringed with thick tubes head east and west further into the cavern.
 
 > west
 You're in the west side of the cavern under the frozen forest.
+There is nobody here.
 There is A Blue Crystal here.
 You can go east.
 The walls in this freezing cold chamber, are smooth, almost polished cut rock, probably some type of marble or refined limestone. The cavern is clearly man made, and located centrally is a wide pedestal platform. On the platform is a sliver of glistening dark blue crystal. Pipes, tubing, and hoses all connect to the bottom of the pedestal, running out of the chamber attached to the walls, to connect to the frost fusion globe in the cental chamber. The blue crystal shard is held in place by a thin, three pronged silver clamp which connects to the ceiling, into a large metal box. Thin electrical wires run from this box, down into a small hole in the wall. The passage goes back to the east.
@@ -504,6 +552,7 @@ All light leaves the room as the Frost Fusion globe powers down. Dripping water 
 
 > east
 You're in an iced cold subterranean chamber.
+There is nobody here.
 There is Globe, Tubing and Ladder here.
 You can go east or west.
 Compared to the forest above, this "cavern" looks surprisingly hi-tech, and sterile. Certain structures are clearly man made, like the tree stump doubling as an entrance hatch. What on god's earth could this place possibly be? Everything about your experiences tonight seem impossible. Dreamlike, yet, terrifyingly grounded in reality. The center piece of the semi-circular, smooth cut rock chamber is a ladder leading up. Several thick blue plastic and rubber tubes run into the central chamber from the east and west passages, looping over arches in the walls, and down and around to a large, clear globe set into the floor in front of the ladder. The huge globe, made of frosted glass, with swirling icy vapors floating inside, is connected to all of the tubes, and they pump something into it. In the northwest and northeast cornes are huge trees, there tops ascending into the forest. Passages ringed with thick tubes head east and west further into the cavern.
@@ -516,6 +565,7 @@ Will you climb up the ladder?
 2) No
 [choice] 1
 You're in an ice crystallized forest.
+There is nobody here.
 There is a Stump, Depression and Spiral here.
 You can go north or south.
 The shining, frozen forest, comes to a wide, grassy clearing, the bare, but ice coated trees stretching and parting back to a circular opening. In the center of the clearing, is a large, wide tree stump, surprisingly totally untouched by ice or frost. From above, grey light sparkles on the glassy branches of trees. Something has just occured to you. Could you be underneath the lake. Could that cover of ice not be a lake at all. What is this place? (That's simple it's a dream, or heaven, or hell, ok, maybe not that simple, but it can't be real.) Can't it?
@@ -523,6 +573,7 @@ Something has changed, the glassy surface on top of the grass, and the ice which
 
 > south
 You are in a beautiful iced over forest.
+There is nobody here.
 You can go north or south.
 As you take your first few steps over the beautifully glistening, shimmering grass, you realize that it's not just frosted. The grass doesn't give at all. it's been iced of over, with sheet after sheet, of pure, transparent ice. The trees must also be frozen in a similar way.
 Water steadily drips from the trees overhead, as the fingers of ice around the frail branches and the small hanging icicles melt. The ground is now wet pathches of grass and mud submerged in nearly an inch of standing cold water. The frozen forest is thawing.
@@ -531,23 +582,27 @@ Water steadily drips from the trees overhead, as the fingers of ice around the f
 To  your horror, you realize that the elevator is already flooded, but not enough for you to swim up, just enough to destroy the hydraulic motor. As you wait impatiently in the freezing cold ankle high water for it to fill, you see wate beginning to drip down from above as well, which can mean only one thing, the dam has overflown.
 Just as you hear a tremendous cracking and settling of ice from overhead in the forest, the water in the elevator shaft reaches a level marked with a red line, and an emergency ladder drops down from an unseen recess. You scramble up the wet rungs, running out onto the dam.
 As you had feared, the frozen lake below is now a much larger mass of liquid water.
+There is nobody here.
 You can go north or south.
 While the icy surface of the lake had been a long way down, the water in it's place, still floating some chunks of ice reaches the edge of the brick wall and is beginning to spill over on the northern side of the bridge, where the shallower banks help it. You doubt your chances to live is you are washed over the sides. Water bubbles from the doors of the elevator warehouse.
 
 > south
 You run down the road to the small drainage pipe you came in through.
+There is nobody here.
 You can go north, south or east.
 A veritable tidal wave of water cascades down the road behind you, ready to wash you away if you stop moving. Apparently, when the frozen lake and the frozen forest underneath in combined, drainage holes designed into the dam to stop it from being burst let the water up to the surface. Anyway, a flowing 5 foot wall of water floods behind you.
 
 > east
 The water pressure building behind you forces you through the 100 yard crawlway like a champagne cork easily popping off a well shaken bottle, allowing you to swim through the uncomfotable 2 foot high passage without having to crawl, but with the added risk of drowing. You come out the other side.
 The sewers you've come through are filled with flood water.
+There is nobody here.
 You can go south or east.
 Now the water level in the sewers is nearly up to the ceiling, 8 feet, stinking much less of human feces, however from the additon of an ocean of freezing cold flood water. The gap between the southern concrete passage and the stone roof is accessible now with the heightened water level. To the east, a shadowy form ripples in the water, some dark green protrusions waving around in the rippling liquid depths.
 
 > south
 You swim frantickly into the one foot gap in the wall, as the water rushes in, cool and dark, from behind you to propel you forward, forward into the blackness.
-You are in Black Gate
+You are in Black Gate.
+There is nobody here.
 Thank you for playing Part I of Devon Oratz's Black Forest, it's time to open up the Black Forest Part II file and continue playing. The password for Black Forest Part II is 'cheese' Type this in at the first screen, just 'cheese' and you can continue from there. Don't have Black Forest Part II, just download it. It's FREE! So, remember, the password is 'cheese'
 Please open file 'BlackForest2'
 

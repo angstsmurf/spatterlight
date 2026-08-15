@@ -20,6 +20,16 @@
 /quest5/games/
 /quest5/downloaded/
 
+# Four of the corpus games are pornographic, and a transcript is nothing but
+# the game's own prose, so these four are kept local-only like the games they
+# came from. The command scripts beside them stay committed: those are ours,
+# and they describe the machinery without reproducing any of the text.
+# run_walkthroughs.sh --bless regenerates the transcripts from a local corpus.
+/quest4/goldens/Enterprising in space - transcript.txt
+/quest4/goldens/Freshman Fantastic Boy - transcript.txt
+/quest4/goldens/Posh - transcript.txt
+/quest4/goldens/Schoolgirl Jan Ken Pon - transcript.txt
+
 # Archives downloaded by fetch_games.sh on the way to the game corpora
 # (see GAMES.md); the corpora themselves are ignored above.
 /.game-cache/

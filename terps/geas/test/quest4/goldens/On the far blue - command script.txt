@@ -270,6 +270,7 @@ wait
 wait
 wait
 wait
+wait
 use dagger on shark
 use axe on wounded shark
 wait

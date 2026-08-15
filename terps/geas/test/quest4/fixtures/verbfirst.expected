@@ -1,7 +1,7 @@
 
 VerbFirst
 
-You are in Room
+You are in Room.
 There is widget, rope, lever, cushion and rock here.
 A plain room.
 
@@ -18,7 +18,7 @@ The lever clunks.
 You can't use that.
 
 > use widget on rock
-You don't see any widget on rock.
+I can't see that here.
 
 > poke cushion
 The cushion wobbles.
@@ -39,5 +39,5 @@ You pick it up.
 
 > i
 You are carrying:
-rock
+rock.
 [runner] turns=12 leftover=0 running=true

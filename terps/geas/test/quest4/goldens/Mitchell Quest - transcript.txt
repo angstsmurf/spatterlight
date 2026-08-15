@@ -1,5 +1,5 @@
 
-Mitchell Quest, v1.1 Robert "Torgo" Sedler
+Mitchell Quest, v1.1 | Robert "Torgo" Sedler
 
 WELCOME TO MITCHELL QUEST
 Your head spins as you slowly regain conciousness. You shake off the cobwebs and wonder where the hell you are. Then it all comes back.......... the stakeout......... Deaney................ what a good deal "Old Country Buffet" really is........ all of it.
@@ -12,20 +12,20 @@ Deaney must have taken it when he bopped you over the head!
 
 Ok smart guy....... NOW what are you going to do!?
 
-You are in Mitchell's Ford LTD
+You are in Mitchell's Ford LTD.
 There is a crowbar and an Empty Schlitz Can here.
 You can go south or west.
 You are in Mitchell's trusty Ford LTD. A patchwork quilt of smells assaults your senses.
 If the radio were on, you'd probably hear Waka-Ju-Waka music.
 
 > look
-You are in Mitchell's Ford LTD
+You are in Mitchell's Ford LTD.
 There is a crowbar and an Empty Schlitz Can here.
 You can go south or west.
 You are in Mitchell's trusty Ford LTD. A patchwork quilt of smells assaults your senses.
 
 > take crowbar
-Consider it tooken......... er, I mean taken.
+You pick it up.
 
 > examine empty schlitz can
 You squeeze and squeeze, but you can't get a single drop of beer out of the can. It's dryer than a covered bridge.
@@ -45,7 +45,7 @@ Searching the car proves two things without a doubt........
 2) You are an absolute hog.
 
 > west
-You are in the Driveway
+You are in the Driveway.
 You can go south or east.
 You are standing in the driveway at Deaney's house. Occasionally someone drives by and beeps. You are about as inconspicuous as a trash fire in a darkened theater.
 
@@ -54,11 +54,11 @@ To the west are 2 great iron gates.
 Not GREAT in a sense that they are excellent, just farkin' huge.
 
 > look
-You are in the Driveway
+You are in the Driveway.
 You can go south or east.
 
 > south
-You are in the Garage
+You are in the Garage.
 You can go north, south or east.
 This is the first bay of Deaney's garage. For some odd reason, it is completely empty. There isn't even an oil slick on the floor. The lack of clutter makes you very uneasy.
 
@@ -66,7 +66,7 @@ This is the first bay of Deaney's garage. For some odd reason, it is completely 
 Hey look......... there's an old bicycle! No wait, it's still completely empty. Sorry to get you excited.
 
 > look
-You are in the Garage
+You are in the Garage.
 You can go north, south or east.
 This is the first bay of Deaney's garage. For some odd reason, it is completely empty. There isn't even an oil slick on the floor. The lack of clutter makes you very uneasy.
 
@@ -86,7 +86,7 @@ Pure Gold.......
 Tough Guy Tea............
 
 > take can o schlitz
-Consider it tooken......... er, I mean taken.
+You pick it up.
 That golden Mana from above is now within your grasp. All is well once again in the universe.
 
 > speak to can o schlitz
@@ -102,7 +102,7 @@ You stole it from Deaney's house.
 Life is good. Go ahead on.
 
 > take sammich
-Consider it tooken......... er, I mean taken.
+You pick it up.
 
 > eat sammich
 You stuff the delicate sammich into your gaping maw. Within seconds it is mashed up into goo and swallowed down into your massive gullet.
@@ -113,7 +113,7 @@ But it sure was tasty.
 It's open, you knucklehead!
 
 > south
-You are in the Rear Entrance
+You are in the Rear Entrance.
 There is some Aluminum Foil here.
 You can go north or west.
 You are standing at the rear entrance to the house of Deaney- King of Guns, but a crappy dune-buggy driver.
@@ -137,14 +137,14 @@ You can go north, south, east or west.
 Ah, the fancy kitchen of a modern day (70s) rich, white guy on the go. The floor looks clean enough to eat off of, which is good because you think the 5-second rule is just a big load of crap.
 
 > north
-You are in the Front Entrance
+You are in the Front Entrance.
 There is a Key, a Remote- Lattice, a Remote- Front Gates and a locked door to the west here.
 You can go north, south or east.
 You are in the front entranceway of Casa Deaney, home of your nemesis.
 The place seems pretty quiet. You hope Deaney is not home, as he is a better shot than you, and usually not as drunk.
 
 > take key
-Consider it tooken......... er, I mean taken.
+You pick it up.
 
 > examine key
 Actually it's a nice key. My suggestion to you would be to NOT leave it in the Gun Room.
@@ -152,10 +152,10 @@ Actually it's a nice key. My suggestion to you would be to NOT leave it in the G
 That's all I'm saying.
 
 > take remote- lattice
-Consider it tooken......... er, I mean taken.
+You pick it up.
 
 > take remote- front gates
-Consider it tooken......... er, I mean taken.
+You pick it up.
 
 > examine locked door
 Door.... check.
@@ -168,7 +168,7 @@ Beyond that it's nothing special.
 The door swings open, allowing entry. You're good at this!
 
 > west
-You are in the Gun Room
+You are in the Gun Room.
 There is a chalk outline on the floor, another chalk outline on the floor, yet another chalk outline on the floor and some fancy cabinets here.
 You can go east.
 This small room looks like how Charlton Heston might decorate a baby's room. Gun cabinets line each wall, and behind the glass of each one are a varied assortment of pistols, rifles, bazookas, cannons, flame-throwers, machineguns, and a blunderbuss.
@@ -206,7 +206,7 @@ What's with you, anyway?
 It's ammo for a .38, just like Mitchell (that's you) carries!
 
 > take .38 ammo
-Consider it tooken......... er, I mean taken.
+You pick it up.
 
 > examine .38 ammo
 Just a few odd bullets left in the box........ let's hope that Deaney doesn't have hourdes of minions lurking around here. Damn, Andy Kaufman alone is going to take several shots to bring down.
@@ -217,7 +217,7 @@ Yep. Someone took the time to cut the trees, saw the lumber, plane the boards, s
 And you went postal on it. Nice.
 
 > east
-You are in the Front Entrance
+You are in the Front Entrance.
 You can go north, south, east or west.
 You are in the front entranceway of Casa Deaney, home of your nemesis.
 The place seems pretty quiet. You hope Deaney is not home, as he is a better shot than you, and usually not as drunk.
@@ -235,10 +235,10 @@ Opening the small present reveals a pair of ladies underwear. French cut. Crotch
 Opening the big present reveals a 13 inch Goldstar television. Wow!
 
 > take panties
-Consider it tooken......... er, I mean taken.
+You pick it up.
 
 > take goldstar
-Consider it tooken......... er, I mean taken.
+You pick it up.
 
 > examine christmas tree
 Upon closer examination, you realize that the Christmas tree is actually..........
@@ -282,13 +282,13 @@ Oh come on, you know that sound. Just play along, will ya?
 You use the tip of the pencil to push the button. It goes "click" in the traditional button-y way that most buttons will "click". You hear a rumbling sound coming from outdoors. It makes you want to have a beer, but then again, so does everything else.
 
 > north
-You are in a small Hallway
+You are in a small Hallway.
 You can go north, south, east or west.
 The exit to the east is a small stairway going DOWN.
 
 
 > east
-You are in the Basement
+You are in the Basement.
 There is a Small door and a dead guy here.
 You can go west.
 A large open basement is here under Deaney's home. The exit to the West is a stairway going UP.
@@ -304,7 +304,7 @@ It's Johnny Mathis!
 Stop that.
 
 > west
-You are in a small Hallway
+You are in a small Hallway.
 You can go north, south, east or west.
 The exit to the east is a small stairway going DOWN.
 
@@ -316,7 +316,7 @@ You can go south, east or west.
 This is a pretty nice room for a bad guy! Looks pretty comfortable.
 
 > east
-You are in an Upstairs Hallway
+You are in an Upstairs Hallway.
 There is the Big Yellow Thing here.
 You can go north, south, east or west.
 The exit to the south is a stairway going DOWN.
@@ -327,7 +327,7 @@ You are standing in a hallway. To the west there is some cedar lattice.
 Last time you saw this it was swinging off the end of a rope, smashing all hell out of a boat. How the heck did Deaney get it? Is there anything the man can't do? What kind of powers does he have?
 
 > east
-You are in a Computer Room
+You are in a Computer Room.
 There is a Computer and piles of junk here.
 You can go west.
 You are standing in Deaney's computer room. It's a mess, with piles of junk everywhere. There is a glowing computer terminal here.
@@ -336,13 +336,13 @@ You are standing in Deaney's computer room. It's a mess, with piles of junk ever
 Digging through the piles of junk reveals many interesting items (yawn), but one strange looking rusty key seems more interesting than the rest of this crap.
 
 > take rusty key
-Consider it tooken......... er, I mean taken.
+You pick it up.
 
 > examine computer
 Upon closer inspection you see that it's actually an old AMIGA computer running a popular old Public Domain game called "I Rescued Elvis from Communist Alien Jerks". It actually looks pretty cool.
 
 > west
-You are in an Upstairs Hallway
+You are in an Upstairs Hallway.
 There is the Big Yellow Thing here.
 You can go north, south, east or west.
 The exit to the south is a stairway going DOWN.
@@ -350,7 +350,7 @@ The exit to the south is a stairway going DOWN.
 You are standing in a hallway. To the west there is some cedar lattice.
 
 > north
-You are in the Upstairs Bathroom
+You are in the Upstairs Bathroom.
 There is a medicine chest, a Toilet and a Microwave here.
 You can go south.
 This is the Master Bathroom, where Deaney could surround himself in luxury and comfort, all the while probably whistling a happy tune (you know the type. Rich. Smug.) It's pretty swanky, but then you are used to living in conditions of filth.
@@ -362,7 +362,7 @@ It's locked up pretty tight. It's flimsy metal, and you could probably break it 
 Manufactured by DUKE'S NUKERS. Interesting.
 
 > south
-You are in an Upstairs Hallway
+You are in an Upstairs Hallway.
 There is the Big Yellow Thing here.
 You can go north, south, east or west.
 The exit to the south is a stairway going DOWN.
@@ -370,7 +370,7 @@ The exit to the south is a stairway going DOWN.
 You are standing in a hallway. To the west there is some cedar lattice.
 
 > west
-You are in Deaney's Bedroom
+You are in Deaney's Bedroom.
 There is a Mirror, Linda Evans, a bed and a bottle of Baby oil here.
 You can go east.
 Deaney lives like a king, and it shows everywhere in his house. This large bedroom looks like something out of "Lifestyles of the Rich and Evil".
@@ -384,7 +384,7 @@ She's a tall blonde drink of water, she's Linda Evans. And remember, this is a 1
 "oh, Hi Mitchell", she replies, "Look, I'm really stoned, I'd just like to lay here and read something trippy. Can't you find me something to read?"
 
 > take baby oil
-Consider it tooken......... er, I mean taken.
+You pick it up.
 
 > examine mirror
 It's a large, reflective surface. When you look into it, it shows you a negative reflection of everything around it.
@@ -400,7 +400,7 @@ Oh for God's sake, it's a MIRROR!
 This isn't just some tiny KING sized bed, this is one of those new EMPEROR sized beds! Deaney must be loaded (but not in the same sense that you usually are).
 
 > east
-You are in an Upstairs Hallway
+You are in an Upstairs Hallway.
 There is the Big Yellow Thing here.
 You can go north, south, east or west.
 The exit to the south is a stairway going DOWN.
@@ -414,7 +414,7 @@ You can go south, east or west.
 This is a pretty nice room for a bad guy! Looks pretty comfortable.
 
 > south
-You are in a small Hallway
+You are in a small Hallway.
 You can go north, south, east or west.
 The exit to the east is a small stairway going DOWN.
 
@@ -426,7 +426,7 @@ You can go north, south, east or west.
 Ah, the fancy kitchen of a modern day (70s) rich, white guy on the go. The floor looks clean enough to eat off of, which is good because you think the 5-second rule is just a big load of crap.
 
 > west
-You are in the Garage
+You are in the Garage.
 You can go north, south or east.
 This is the first bay of Deaney's garage. For some odd reason, it is completely empty. There isn't even an oil slick on the floor. The lack of clutter makes you very uneasy.
 
@@ -434,7 +434,7 @@ This is the first bay of Deaney's garage. For some odd reason, it is completely 
 Hey look......... there's an old bicycle! No wait, it's still completely empty. Sorry to get you excited.
 
 > south
-You are in the rear of garage
+You are in the rear of garage.
 There is a Chest and some Aluminum foil here.
 You can go north or east.
 Back here in the rear of the garage is where things really get exciting. Did I say exciting? I meant duller than a friday afternoon at the DMV. Still, there is an old chest here. I guess that's something.
@@ -449,7 +449,7 @@ The chest does seem to have a keyhole in it.
 It's a Big Freakin' Hammer
 
 > take BFH
-Consider it tooken......... er, I mean taken.
+You pick it up.
 
 > speak to BFH
 Stop. Hammer time.
@@ -457,7 +457,7 @@ Stop. Hammer time.
 Groan. I can't believe I used an MC Hammer reference in this game. God I suck.
 
 > north
-You are in the Garage
+You are in the Garage.
 You can go north, south or east.
 This is the first bay of Deaney's garage. For some odd reason, it is completely empty. There isn't even an oil slick on the floor. The lack of clutter makes you very uneasy.
 
@@ -471,13 +471,13 @@ You can go north, south, east or west.
 Ah, the fancy kitchen of a modern day (70s) rich, white guy on the go. The floor looks clean enough to eat off of, which is good because you think the 5-second rule is just a big load of crap.
 
 > east
-You are in a small Hallway
+You are in a small Hallway.
 You can go north, south, east or west.
 The exit to the east is a small stairway going DOWN.
 
 
 > east
-You are in the Basement
+You are in the Basement.
 There is a Small door and a dead guy here.
 You can go west.
 A large open basement is here under Deaney's home. The exit to the West is a stairway going UP.
@@ -489,24 +489,24 @@ Winding up the BFH in slow motion, looking like everything from the Wrathful Bud
 With a mighty swing you obliterate the small door, revealing a small crawlspace to the south!
 
 > south
-You are in a cramped Crawlspace
+You are in a cramped Crawlspace.
 You can go north or south.
 It's a tight fit in here, making you wonder why passages like this are always put into silly text adventures like this. It certainly doesn't help this particular game. Oh by the way, it runs north to south (and vice versa).
 
 > south
-You are in the Well Room
+You are in the Well Room.
 There is a gold key and a Well here.
 You can go north, east or west.
 You are in a rough stone cavern. The rock almost gives off some kind of eerie glow that makes it possible to see where you are going. In the center of this large stone cavern is a large well made out of rough stones. The stones around the rim are so jagged and pointy that they resemble teeth.
 
 > look
-You are in the Well Room
+You are in the Well Room.
 There is a gold key and a Well here.
 You can go north, east or west.
 You are in a rough stone cavern. The rock almost gives off some kind of eerie glow that makes it possible to see where you are going. In the center of this large stone cavern is a large well made out of rough stones. The stones around the rim are so jagged and pointy that they resemble teeth.
 
 > take gold key
-Consider it tooken......... er, I mean taken.
+You pick it up.
 
 > examine gold key
 There are initials on the key! The initials read "W.D."
@@ -515,13 +515,13 @@ There are initials on the key! The initials read "W.D."
 It's a very deep well, so deep that you can't see the bottom. You get the impression that it's fairly deep. Have I mentioned yet that it's deep? Well if not, it's seriously deep. Yep, pretty deep.
 
 > west
-You are in the Torch Room
+You are in the Torch Room.
 There is a Coil of rope and a Torch stub here.
 You can go east.
 A large rough stone cavern (yeah, alot of them are like that down here in the stinky underworld beneath Deaney's house).
 
 > take coil of rope
-Consider it tooken......... er, I mean taken.
+You pick it up.
 
 > examine coil of rope
 Oh crap, it's sort of old and starting to fray. If you make it to the end of this adventure without it snapping like a piece of linguini being tugged by 2 Saint Bernards, it'll be a miracle!
@@ -529,10 +529,10 @@ Oh crap, it's sort of old and starting to fray. If you make it to the end of thi
 I thought it was a good analogy, actually.
 
 > take torch stub
-Consider it tooken......... er, I mean taken.
+You pick it up.
 
 > east
-You are in the Well Room
+You are in the Well Room.
 There is a Well here.
 You can go north, east or west.
 You are in a rough stone cavern. The rock almost gives off some kind of eerie glow that makes it possible to see where you are going. In the center of this large stone cavern is a large well made out of rough stones. The stones around the rim are so jagged and pointy that they resemble teeth.
@@ -546,19 +546,19 @@ Anyway, at the bottom of the well you find an early Compact Disk prototype......
 It's in pretty bad shape. Looks like it's been played at alot of parties.
 
 > north
-You are in a cramped Crawlspace
+You are in a cramped Crawlspace.
 You can go north or south.
 It's a tight fit in here, making you wonder why passages like this are always put into silly text adventures like this. It certainly doesn't help this particular game. Oh by the way, it runs north to south (and vice versa).
 
 > north
-You are in the Basement
+You are in the Basement.
 There is a dead guy here.
 You can go south or west.
 A large open basement is here under Deaney's home. The exit to the West is a stairway going UP.
 Something in here smells funny.
 
 > west
-You are in a small Hallway
+You are in a small Hallway.
 You can go north, south, east or west.
 The exit to the east is a small stairway going DOWN.
 
@@ -570,7 +570,7 @@ You can go south, east or west.
 This is a pretty nice room for a bad guy! Looks pretty comfortable.
 
 > east
-You are in an Upstairs Hallway
+You are in an Upstairs Hallway.
 There is the Big Yellow Thing here.
 You can go north, south, east or west.
 The exit to the south is a stairway going DOWN.
@@ -578,7 +578,7 @@ The exit to the south is a stairway going DOWN.
 You are standing in a hallway. To the west there is some cedar lattice.
 
 > north
-You are in the Upstairs Bathroom
+You are in the Upstairs Bathroom.
 There is a medicine chest, a Toilet and a Microwave here.
 You can go south.
 This is the Master Bathroom, where Deaney could surround himself in luxury and comfort, all the while probably whistling a happy tune (you know the type. Rich. Smug.) It's pretty swanky, but then you are used to living in conditions of filth.
@@ -587,7 +587,7 @@ This is the Master Bathroom, where Deaney could surround himself in luxury and c
 You try the gold key in the lock..... and it works!! Mama Mitchell would be so proud of you!!!
 
 > take matches
-Consider it tooken......... er, I mean taken.
+You pick it up.
 
 > examine matches
 A matchbook from "The Smirking Honkey", Deaney's favorite 70s type bar and hangout.
@@ -614,7 +614,7 @@ Examining the toilet proves one thing beyond a doubt.
 It's a toilet.
 
 > south
-You are in an Upstairs Hallway
+You are in an Upstairs Hallway.
 There is the Big Yellow Thing here.
 You can go north, south, east or west.
 The exit to the south is a stairway going DOWN.
@@ -628,25 +628,25 @@ You can go south, east or west.
 This is a pretty nice room for a bad guy! Looks pretty comfortable.
 
 > south
-You are in a small Hallway
+You are in a small Hallway.
 You can go north, south, east or west.
 The exit to the east is a small stairway going DOWN.
 
 
 > east
-You are in the Basement
+You are in the Basement.
 There is a dead guy here.
 You can go south or west.
 A large open basement is here under Deaney's home. The exit to the West is a stairway going UP.
 Something in here smells funny.
 
 > south
-You are in a cramped Crawlspace
+You are in a cramped Crawlspace.
 You can go north or south.
 It's a tight fit in here, making you wonder why passages like this are always put into silly text adventures like this. It certainly doesn't help this particular game. Oh by the way, it runs north to south (and vice versa).
 
 > south
-You are in the Well Room
+You are in the Well Room.
 There is a Well here.
 You can go north, east or west.
 You are in a rough stone cavern. The rock almost gives off some kind of eerie glow that makes it possible to see where you are going. In the center of this large stone cavern is a large well made out of rough stones. The stones around the rim are so jagged and pointy that they resemble teeth.
@@ -664,7 +664,7 @@ Footprints coming, footprints going......... some large..... some small.........
 Upon closer inspection, you put 2 and 2 together and instead of normally coming up with "beer", you realize that all of the footprints are traveling in a northern direction. moving a few rocks around, you discover a small passage in the wall going North!
 
 > north
-You are in a path
+You are in a path.
 You can go north or south.
 You are on a narrow path through the rock running north and south. It's a tight fit for a super-sized cop-on-the-go, but your clothes are greasy enough to let you slide through. Somewhere you hear water running.
 
@@ -687,7 +687,7 @@ You can go south.
 Beneath you lies the churning river. To the west you can see another small ledge. It's too far to jump across here. Maybe it could be done if you had Johnny Mathis cat-burglar reflexes......... maybe.
 
 > south
-You are in a path
+You are in a path.
 You can go north or south.
 You are on a narrow path through the rock running north and south. It's a tight fit for a super-sized cop-on-the-go, but your clothes are greasy enough to let you slide through. Somewhere you hear water running.
 
@@ -697,7 +697,7 @@ You can go north or east.
 You are standing on the east bank of a huge river that is cutting through the rock. The water looks colder than a six pack in a snowbank, and pretty deep as well. You can bet that if you fell in there you'd be a Mitchell-sized boat anchor. On the far side you can see the west bank.
 
 > east
-You are in the Torture Chamber Entrance
+You are in the Torture Chamber Entrance.
 There is a red sign and some crazy old bastard here.
 You can go north, east or west.
 This large stone room is pretty much like many other large stone rooms here in the Great Underground Empire (oops! Copyright infringement!) beneath Deaney's house. Next to the door going North there is a sign.
@@ -726,7 +726,7 @@ He resumes his mumbling.
 Sorry Mitchell, the door going that way is locked. Does that make you mad? Does that make you MEAN MAD? You gonna cry, huh? You gonna cry Mitchell?
 
 > east
-You are in a Stone Passage
+You are in a Stone Passage.
 There is a Big sign here.
 You can go east or west.
 A rough stone passage (surprise!) running EAST to WEST (and then back again). Whoever designed this place was probably getting sick of typing.
@@ -735,7 +735,7 @@ A rough stone passage (surprise!) running EAST to WEST (and then back again). Wh
 It reads, "watch out for falling rocks".
 
 > east
-You are in the Sign Room
+You are in the Sign Room.
 There is a large wooden sign laying here.
 You can go north, east or west.
 You are in a rough stone passage with doorways leading in 3 directions. In the center of the room is a large wooden sign that looks like it was once in the ground but has been kicked over by someone (freakin' kids these days anyway).
@@ -744,7 +744,7 @@ You are in a rough stone passage with doorways leading in 3 directions. In the c
 There seems to be 3 directional arrows on the sign. One of them reads- HOME, another reads- DAMNATION, and a third one reads- DARKNESS FALLS.
 
 > north
-You are in the Entrance to Hell
+You are in the Entrance to Hell.
 There is an inscription here.
 You can go north or south.
 You are in a large room that looks like it has been clawed out of the rock by huge hands. In the distance is a moaning and wailing that sounds much like you do after a night at the OLD COUNTRY BUFFET. Over the north exit there is a large stone arch with some writing on it.
@@ -758,7 +758,7 @@ Klaatu. Baradas. Nicto.
 You start to walk onto the plains of HELL, when suddenly you are held back by an invisible force of some kind! It's not unlike that time you tried to walk out of OLD COUNTRY BUFFET after only eating six plates! Try as you might, you can't seem to enter the land of Hades.
 
 > south
-You are in the Sign Room
+You are in the Sign Room.
 There is a large wooden sign laying here.
 You can go north, east or west.
 You are in a rough stone passage with doorways leading in 3 directions. In the center of the room is a large wooden sign that looks like it was once in the ground but has been kicked over by someone (freakin' kids these days anyway).
@@ -772,27 +772,27 @@ Look, you've seen this shit in movies before, you know what I am talking about. 
 
 > south
 Your torch lights up the room, and you feel icy cold hands of evil just beyond the range of the light, reaching for you. Trust me, it's pretty spooky.
-You are in a Tunnel
+You are in a Tunnel.
 You can go north, south, east or west.
 You are in a dark, spooky tunnel. Seeing in here is like trying to see with a garbage can stuffed over your head. Could it be you are lost?
 
 > south
-You are in a Tunnel
+You are in a Tunnel.
 You can go north, south, east or west.
 You are in a dark, spooky tunnel. Seeing in here is like trying to see with a garbage can stuffed over your head. Could it be you are lost?
 
 > west
-You are in a Tunnel
+You are in a Tunnel.
 You can go north, south, east or west.
 You are in a dark, spooky tunnel. Seeing in here is like trying to see with a garbage can stuffed over your head. Could it be you are lost?
 
 > north
-You are in a Tunnel
+You are in a Tunnel.
 You can go north, south, east or west.
 You are in a dark, spooky tunnel. Seeing in here is like trying to see with a garbage can stuffed over your head. Could it be you are lost?
 
 > west
-You are in the Teleportation Room
+You are in the Teleportation Room.
 There is a Weird Machine and a small fly buzzing around here.
 You can go east.
 You are in a large rough stone chamber. In the middle of it all is a strange and fascinating contraption (let's face it, to you a marble is a strange and fascinating contraption). It seems weird to have a high-tech gizo right here in the middle of a dank cavern, but there you go.
@@ -806,12 +806,12 @@ Upon closer inspection, you see that there is a funnel shaped opening in the sid
 
 > use can o schlitz on fuel funnel
 Reluctantly, you pour some of your precious Schlitz into the fuel funnel on the weird machine, and enter the contraption. Before you can say "Jeff Goldblum" you are broken up into several billion stinky molecules and whisked........
-You are in the Satellite of Love
+You are in the Satellite of Love.
 There is a Weird Machine, a Fuel Funnel and Crow here.
 You are on the bridge of a wonky space vessel of some kind. It looks like it's made out of cardboard, yet is obviously high-tech. There is a strange looking machine here identical to the one in the last room.
 
 > look
-You are in the Satellite of Love
+You are in the Satellite of Love.
 There is a Weird Machine, a Fuel Funnel and Crow here.
 You are on the bridge of a wonky space vessel of some kind. It looks like it's made out of cardboard, yet is obviously high-tech. There is a strange looking machine here identical to the one in the last room.
 
@@ -826,7 +826,7 @@ You say, "Hey! You're one of those lousy MST3K bastards that ruined my career! M
 Crow runs away into the theater, and doing so drops a copy of a screenplay he was working on.
 
 > take screenplay
-Consider it tooken......... er, I mean taken.
+You pick it up.
 
 > examine screenplay
 You flip through the pages of the screenplay and stop at a random section here and there. Each chapter has something to do with Peter Graves. Why, you don't know.
@@ -836,7 +836,7 @@ You try to add your own brilliance to the ridiculous screenplay, but it's alread
 
 > use can o schlitz on fuel funnel
 Reluctantly, you pour some of your precious Schlitz into the fuel funnel on the weird machine, and enter the contraption. Before you can say "Jeff Goldblum" you are broekn up into several billion stinky molecules and whisked........
-You are in the Teleportation Room
+You are in the Teleportation Room.
 There is a Weird Machine and a Fuel Funnel here.
 You can go east.
 You are in a large rough stone chamber. In the middle of it all is a strange and fascinating contraption (let's face it, to you a marble is a strange and fascinating contraption). It seems weird to have a high-tech gizo right here in the middle of a dank cavern, but there you go.
@@ -845,22 +845,22 @@ Upon entering the room, the contraption starts to hum and vibrate.
 Hey, where did that fly go?
 
 > east
-You are in a Tunnel
+You are in a Tunnel.
 You can go north, south, east or west.
 You are in a dark, spooky tunnel. Seeing in here is like trying to see with a garbage can stuffed over your head. Could it be you are lost?
 
 > east
-You are in a Tunnel
+You are in a Tunnel.
 You can go north, south, east or west.
 You are in a dark, spooky tunnel. Seeing in here is like trying to see with a garbage can stuffed over your head. Could it be you are lost?
 
 > east
-You are in a Tunnel
+You are in a Tunnel.
 You can go north, south, east or west.
 You are in a dark, spooky tunnel. Seeing in here is like trying to see with a garbage can stuffed over your head. Could it be you are lost?
 
 > east
-You are in a Tunnel
+You are in a Tunnel.
 You can go north, south, east or west.
 You are in a dark, spooky tunnel. Seeing in here is like trying to see with a garbage can stuffed over your head. Could it be you are lost?
 
@@ -872,19 +872,19 @@ The darkness in this room seems unnatural, as where most of the other caverns ar
 Look, you've seen this shit in movies before, you know what I am talking about. I could describe it all damn day and it would hardly matter.
 
 > west
-You are in the Sign Room
+You are in the Sign Room.
 There is a large wooden sign laying here.
 You can go north, east or west.
 You are in a rough stone passage with doorways leading in 3 directions. In the center of the room is a large wooden sign that looks like it was once in the ground but has been kicked over by someone (freakin' kids these days anyway).
 
 > west
-You are in a Stone Passage
+You are in a Stone Passage.
 There is a Big sign here.
 You can go east or west.
 A rough stone passage (surprise!) running EAST to WEST (and then back again). Whoever designed this place was probably getting sick of typing.
 
 > west
-You are in the Torture Chamber Entrance
+You are in the Torture Chamber Entrance.
 There is a red sign and some crazy old bastard here.
 You can go north, east or west.
 This large stone room is pretty much like many other large stone rooms here in the Great Underground Empire (oops! Copyright infringement!) beneath Deaney's house. Next to the door going North there is a sign.
@@ -895,7 +895,7 @@ You can go north or east.
 You are standing on the east bank of a huge river that is cutting through the rock. The water looks colder than a six pack in a snowbank, and pretty deep as well. You can bet that if you fell in there you'd be a Mitchell-sized boat anchor. On the far side you can see the west bank.
 
 > north
-You are in a path
+You are in a path.
 You can go north or south.
 You are on a narrow path through the rock running north and south. It's a tight fit for a super-sized cop-on-the-go, but your clothes are greasy enough to let you slide through. Somewhere you hear water running.
 
@@ -915,7 +915,7 @@ You can go south.
 Beneath you lies the churning river. To the east you can see another small ledge. It's too far to jump across here. Maybe it could be done if you had Johnny Mathis cat-burglar reflexes......... maybe.
 
 > south
-You are in a path
+You are in a path.
 You can go north or south.
 You are on a narrow path through the rock running north and south. It's a tight fit for a super-sized cop-on-the-go, but your clothes are greasy enough to let you slide through. Somewhere you hear water running.
 
@@ -926,25 +926,25 @@ You can go north or west.
 You are standing on the west bank of a huge river that is cutting through the rock. The water looks colder than a six pack in a snowbank, and pretty deep as well. You can bet that if you fell in there you'd be a Mitchell-sized boat anchor. On the far side you can see the east bank.
 
 > west
-You are in the Well Room
+You are in the Well Room.
 There is a Well here.
 You can go north, east or west.
 You are in a rough stone cavern. The rock almost gives off some kind of eerie glow that makes it possible to see where you are going. In the center of this large stone cavern is a large well made out of rough stones. The stones around the rim are so jagged and pointy that they resemble teeth.
 
 > north
-You are in a cramped Crawlspace
+You are in a cramped Crawlspace.
 You can go north or south.
 It's a tight fit in here, making you wonder why passages like this are always put into silly text adventures like this. It certainly doesn't help this particular game. Oh by the way, it runs north to south (and vice versa).
 
 > north
-You are in the Basement
+You are in the Basement.
 There is a dead guy here.
 You can go south or west.
 A large open basement is here under Deaney's home. The exit to the West is a stairway going UP.
 Something in here smells funny.
 
 > west
-You are in a small Hallway
+You are in a small Hallway.
 You can go north, south, east or west.
 The exit to the east is a small stairway going DOWN.
 
@@ -956,7 +956,7 @@ You can go south, east or west.
 This is a pretty nice room for a bad guy! Looks pretty comfortable.
 
 > east
-You are in an Upstairs Hallway
+You are in an Upstairs Hallway.
 There is the Big Yellow Thing here.
 You can go north, south, east or west.
 The exit to the south is a stairway going DOWN.
@@ -964,7 +964,7 @@ The exit to the south is a stairway going DOWN.
 You are standing in a hallway. To the west there is some cedar lattice.
 
 > east
-You are in a Computer Room
+You are in a Computer Room.
 There is a Computer, piles of junk and a fly buzzing around here.
 You can go west.
 You are standing in Deaney's computer room. It's a mess, with piles of junk everywhere. There is a glowing computer terminal here.
@@ -976,7 +976,7 @@ Hey, it's that stupid fly again!
 You try to catch the fly but it flies out the door!
 
 > west
-You are in an Upstairs Hallway
+You are in an Upstairs Hallway.
 There is the Big Yellow Thing here.
 You can go north, south, east or west.
 The exit to the south is a stairway going DOWN.
@@ -984,7 +984,7 @@ The exit to the south is a stairway going DOWN.
 You are standing in a hallway. To the west there is some cedar lattice.
 
 > west
-You are in Deaney's Bedroom
+You are in Deaney's Bedroom.
 There is a Mirror, Linda Evans and a bed here.
 You can go east.
 Deaney lives like a king, and it shows everywhere in his house. This large bedroom looks like something out of "Lifestyles of the Rich and Evil".
@@ -994,13 +994,13 @@ Hey, I love to read when I'm stoned, and this looks pretty trippy! Thanks Mitche
 Linda reaches for the screenplay and in doing so, drops a tiny key. She's too stoned to even notice.
 
 > take tiny key
-Consider it tooken......... er, I mean taken.
+You pick it up.
 
 > examine tiny key
 It's a key! (oh, that's original)
 
 > east
-You are in an Upstairs Hallway
+You are in an Upstairs Hallway.
 There is the Big Yellow Thing here.
 You can go north, south, east or west.
 The exit to the south is a stairway going DOWN.
@@ -1014,25 +1014,25 @@ You can go south, east or west.
 This is a pretty nice room for a bad guy! Looks pretty comfortable.
 
 > south
-You are in a small Hallway
+You are in a small Hallway.
 You can go north, south, east or west.
 The exit to the east is a small stairway going DOWN.
 
 
 > east
-You are in the Basement
+You are in the Basement.
 There is a dead guy here.
 You can go south or west.
 A large open basement is here under Deaney's home. The exit to the West is a stairway going UP.
 Something in here smells funny.
 
 > south
-You are in a cramped Crawlspace
+You are in a cramped Crawlspace.
 You can go north or south.
 It's a tight fit in here, making you wonder why passages like this are always put into silly text adventures like this. It certainly doesn't help this particular game. Oh by the way, it runs north to south (and vice versa).
 
 > south
-You are in the Well Room
+You are in the Well Room.
 There is a Well and a fly buzzing around here.
 You can go north, east or west.
 You are in a rough stone cavern. The rock almost gives off some kind of eerie glow that makes it possible to see where you are going. In the center of this large stone cavern is a large well made out of rough stones. The stones around the rim are so jagged and pointy that they resemble teeth.
@@ -1041,19 +1041,19 @@ You are in a rough stone cavern. The rock almost gives off some kind of eerie gl
 You try to catch the fly but since you are slower than dirt it flies out the North door.
 
 > north
-You are in a cramped Crawlspace
+You are in a cramped Crawlspace.
 You can go north or south.
 It's a tight fit in here, making you wonder why passages like this are always put into silly text adventures like this. It certainly doesn't help this particular game. Oh by the way, it runs north to south (and vice versa).
 
 > north
-You are in the Basement
+You are in the Basement.
 There is a dead guy here.
 You can go south or west.
 A large open basement is here under Deaney's home. The exit to the West is a stairway going UP.
 Something in here smells funny.
 
 > west
-You are in a small Hallway
+You are in a small Hallway.
 There is a fly buzzing around here.
 You can go north, south, east or west.
 The exit to the east is a small stairway going DOWN.
@@ -1071,19 +1071,19 @@ Too bad you squished it when you did, ya dope.
 Must be you were so anxious to catch it that you squished it. That was smart, you probably needed it to finish the game. Or not. I guess you'll find out.
 
 > east
-You are in the Basement
+You are in the Basement.
 There is a dead guy here.
 You can go south or west.
 A large open basement is here under Deaney's home. The exit to the West is a stairway going UP.
 Something in here smells funny.
 
 > south
-You are in a cramped Crawlspace
+You are in a cramped Crawlspace.
 You can go north or south.
 It's a tight fit in here, making you wonder why passages like this are always put into silly text adventures like this. It certainly doesn't help this particular game. Oh by the way, it runs north to south (and vice versa).
 
 > south
-You are in the Well Room
+You are in the Well Room.
 There is a Well here.
 You can go north, east or west.
 You are in a rough stone cavern. The rock almost gives off some kind of eerie glow that makes it possible to see where you are going. In the center of this large stone cavern is a large well made out of rough stones. The stones around the rim are so jagged and pointy that they resemble teeth.
@@ -1095,7 +1095,7 @@ You can go north or west.
 You are standing on the west bank of a huge river that is cutting through the rock. The water looks colder than a six pack in a snowbank, and pretty deep as well. You can bet that if you fell in there you'd be a Mitchell-sized boat anchor. On the far side you can see the east bank.
 
 > north
-You are in a path
+You are in a path.
 You can go north or south.
 You are on a narrow path through the rock running north and south. It's a tight fit for a super-sized cop-on-the-go, but your clothes are greasy enough to let you slide through. Somewhere you hear water running.
 
@@ -1115,7 +1115,7 @@ You can go south.
 Beneath you lies the churning river. To the west you can see another small ledge. It's too far to jump across here. Maybe it could be done if you had Johnny Mathis cat-burglar reflexes......... maybe.
 
 > south
-You are in a path
+You are in a path.
 You can go north or south.
 You are on a narrow path through the rock running north and south. It's a tight fit for a super-sized cop-on-the-go, but your clothes are greasy enough to let you slide through. Somewhere you hear water running.
 
@@ -1125,26 +1125,26 @@ You can go north or east.
 You are standing on the east bank of a huge river that is cutting through the rock. The water looks colder than a six pack in a snowbank, and pretty deep as well. You can bet that if you fell in there you'd be a Mitchell-sized boat anchor. On the far side you can see the west bank.
 
 > east
-You are in the Torture Chamber Entrance
+You are in the Torture Chamber Entrance.
 There is a red sign and some crazy old bastard here.
 You can go north, east or west.
 This large stone room is pretty much like many other large stone rooms here in the Great Underground Empire (oops! Copyright infringement!) beneath Deaney's house. Next to the door going North there is a sign.
 
 > north
 You use the Tiny Key that Linda Evans (remember her?) gave you in the doorway going north. It unlocks the door, and you stroll through confident, dry, secure.
-You are in the Torture Chamber
+You are in the Torture Chamber.
 There is a Harpoon gun, the Rack, an Iron maiden and a wooden Suggestion Box here.
 You can go north or south.
 Wow. What a nice Torture Chamber! It's got it all. Man, Deaney has all the coolest stuff!
 
 > look
-You are in the Torture Chamber
+You are in the Torture Chamber.
 There is a Harpoon gun, the Rack, an Iron maiden and a wooden Suggestion Box here.
 You can go north or south.
 Wow. What a nice Torture Chamber! It's got it all. Man, Deaney has all the coolest stuff!
 
 > take harpoon gun
-Consider it tooken......... er, I mean taken.
+You pick it up.
 
 > examine harpoon gun
 All things considered it's a pretty nice harpoon gun. It's one loaded harpoon seems to be very sharp, in exactly the same way that you aren't.
@@ -1159,7 +1159,7 @@ The nice part about this Iron Maiden was that it was made to fit any normal pers
 You haul off and smash the suggestion box to pieces (that's so like you, isn't it?) and  small piece of paper flutters to the ground.
 
 > take paper
-Consider it tooken......... er, I mean taken.
+You pick it up.
 
 > examine paper
 It's a suggestion (surprise, surprise) that reads.......
@@ -1167,7 +1167,7 @@ It's a suggestion (surprise, surprise) that reads.......
 Please bring back casual fridays in the Fiendish chamber of Torture and Horrors. Us victims will vollunteer to bring in junk food on those days as well.
 
 > north
-You are in the Torturer's Office
+You are in the Torturer's Office.
 There is Benton the Lousy Butler here.
 You can go south.
 This room looks like an office. It's probably where the head torturer slaves over the hours of paperwork associated with flaying the flesh off of losers and primitive screwheads.
@@ -1191,31 +1191,31 @@ Upon closer inspection, the amulet has some writing on it that reads, "Hell yes!
 *Author's Note- While providing a vital clue needed to beat this game, the Author would like to apologize for just how bad that joke really was. We now return to your puffy adventure, already in progress.
 
 > south
-You are in the Torture Chamber
+You are in the Torture Chamber.
 There is the Rack, an Iron maiden and a wooden Suggestion Box here.
 You can go north or south.
 Wow. What a nice Torture Chamber! It's got it all. Man, Deaney has all the coolest stuff!
 
 > south
-You are in the Torture Chamber Entrance
+You are in the Torture Chamber Entrance.
 There is a red sign and some crazy old bastard here.
 You can go north, east or west.
 This large stone room is pretty much like many other large stone rooms here in the Great Underground Empire (oops! Copyright infringement!) beneath Deaney's house. Next to the door going North there is a sign.
 
 > east
-You are in a Stone Passage
+You are in a Stone Passage.
 There is a Big sign here.
 You can go east or west.
 A rough stone passage (surprise!) running EAST to WEST (and then back again). Whoever designed this place was probably getting sick of typing.
 
 > east
-You are in the Sign Room
+You are in the Sign Room.
 There is a large wooden sign laying here.
 You can go north, east or west.
 You are in a rough stone passage with doorways leading in 3 directions. In the center of the room is a large wooden sign that looks like it was once in the ground but has been kicked over by someone (freakin' kids these days anyway).
 
 > north
-You are in the Entrance to Hell
+You are in the Entrance to Hell.
 There is an inscription here.
 You can go north or south.
 You are in a large room that looks like it has been clawed out of the rock by huge hands. In the distance is a moaning and wailing that sounds much like you do after a night at the OLD COUNTRY BUFFET. Over the north exit there is a large stone arch with some writing on it.
@@ -1233,7 +1233,7 @@ You can go south or east.
 You are on a large firey plain. In all directions nothing but fire and ash can be seen. Needless to say, it's pretty toasty in here. The souls of the damned loom around you like a Mitchell family reunion party around a beer keg. To the East you see a large stone building with a large neon sign on it.
 
 > take mitchell's gun
-Consider it tooken......... er, I mean taken.
+You pick it up.
 
 > examine mitchell's gun
 It looks as if whoever took it didn't hurt it or anything, but it's not loaded anymore.
@@ -1250,7 +1250,7 @@ it's a large neon sign, like something you might see in Las Vegas, or maybe Lond
 "Da Man".
 
 > east
-You are in the Throne Room
+You are in the Throne Room.
 There is Deaney here.
 You can go west.
 You enter a large chamber with a massive throne in the center of it. Pentagrams and black scorch marks cover the walls and the floor. Seated on the throne, smiling with deep malice. Is Deaney.

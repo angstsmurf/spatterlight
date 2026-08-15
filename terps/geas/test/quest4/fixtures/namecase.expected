@@ -1,7 +1,7 @@
 
 Namecase
 
-You are in Lobby
+You are in Lobby.
 There is LampPost here.
 The lobby.
 
@@ -14,7 +14,7 @@ The lobby.
 [action: rubbed]
 
 > hop
-You are in EDock
+You are in EDock.
 The dock.
 [room script ran]
 [runner] turns=3 leftover=0 running=true

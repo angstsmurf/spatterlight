@@ -1,12 +1,12 @@
 
 Createexitdup
 
-You are in Hall
+You are in Hall.
 You can go to Cellar.
 The hall.
 
 > look
-You are in Hall
+You are in Hall.
 You can go to Cellar.
 The hall.
 
@@ -15,42 +15,42 @@ The hall.
 > mkloft
 
 > look
-You are in Hall
-You can go to Cellar, Attic, or Loft.
+You are in Hall.
+You can go to Cellar, Attic or Loft.
 The hall.
 
 > mkattic
 
 > look
-You are in Hall
-You can go to Cellar, Attic, or Loft.
+You are in Hall.
+You can go to Cellar, Attic or Loft.
 The hall.
 
 > mkcellar
 
 > look
-You are in Hall
-You can go to Cellar, Attic, or Loft.
+You are in Hall.
+You can go to Cellar, Attic or Loft.
 The hall.
 
 > mklowercellar
 
 > look
-You are in Hall
-You can go to Cellar, Attic, or Loft.
+You are in Hall.
+You can go to Cellar, Attic or Loft.
 The hall.
 
 > rmattic
 
 > look
-You are in Hall
+You are in Hall.
 You can go to Cellar or Loft.
 The hall.
 
 > mkattic
 
 > look
-You are in Hall
-You can go to Cellar, Loft, or Attic.
+You are in Hall.
+You can go to Cellar, Loft or Attic.
 The hall.
 [runner] turns=14 leftover=0 running=true

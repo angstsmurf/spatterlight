@@ -9,8 +9,11 @@
 
   Beyond plain playback it can reproduce two things a real session relies on:
 
-    --tick        Call tick_timers () once per turn, like the geasglk frontend
-                  does after every line of input.  Required for games with
+    --tick        Tick the timers once per turn -- Quest's SendCommand with an
+                  elapsedTime of one second, which the engine places at the
+                  turn's first `wait`/`pause` or at its end.  A real session
+                  ticks on the wall clock instead; one tick a turn is what
+                  makes a transcript reproducible.  Required for games with
                   real-time/turn timers (e.g. World's End's dynamite fuse,
                   whose explosion reveals an item the rest of the game needs).
 
@@ -136,7 +139,16 @@ protected:
     if (getenv ("GEAS_DEBUG"))
       std::cerr << "[geas] " << s << std::endl;
   }
-  GeasResult wait_keypress (const std::string &) override { return r_success; }
+  /* There is no key to press here, but the message that asks for one is real
+   * output: the Glk frontend prints it (GeasGlkInterface::wait_keypress,
+   * geasglk.cc:1135-1141) and so does Quest, and a `wait <...>` whose message
+   * runs to several lines through |n hid all of them from the transcript. */
+  GeasResult wait_keypress (const std::string &msg) override
+  {
+    if (!msg.empty ())
+      print_formatted (msg);
+    return r_success;
+  }
   GeasResult pause (int) override { return r_success; }
   /* Inherit GeasInterface::clear_screen (), which emits a blank-line separator
    * in place of an actual screen wipe, so the transcript reflects it. */
@@ -246,13 +258,13 @@ seen (const std::string &marker)
   return e.second;
 }
 
-/* One turn: run the command, then (optionally) tick timers once. */
+/* One turn: run the command, (optionally) ticking the timers once as part of
+   it.  The engine places that tick where Quest's SendCommand does -- at the
+   turn's first `wait`/`pause` if it has one, at its end otherwise. */
 void
 runturn (const std::string &cmd)
 {
-  gr->run_command (cmd);
-  if (opt_tick && gr->is_running ())
-    gr->tick_timers ();
+  gr->run_command (cmd, opt_tick);
 }
 
 /* Run one turn; if it ends the game without `win_marker` (a death, in either

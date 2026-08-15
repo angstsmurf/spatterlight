@@ -31,6 +31,7 @@
 #include "reserved_words.hh"
 #include "GeasRunner.hh"
 #include "general.hh"
+#include "stdverbs_builtin.hh"
 #include "typelib_builtin.hh"
 
 using namespace std;
@@ -164,6 +165,49 @@ static vector<string> split_lines (const string &data);
 
 static reserved_words dir_tag_property ("north", "south", "east", "west", "northwest", "northeast", "southeast", "southwest", "up", "down", "out", (char *) NULL);
 
+/* Whether a tag line's value is fed through Quest's property list -- and so
+ * cut off at its first semicolon -- at this ASL version.
+ *
+ * A tag like `look <...>` is read into a field of the room or object record
+ * first; only afterwards, and only from the version that introduced the
+ * behaviour, is the same text pushed through AddToObjectProperties as
+ * "look=<value>", which splits a `;`-separated list (V4Game.cs:4011-4040).
+ * Below that version the field is all there is, and the field holds the whole
+ * value: what the player reads still has its semicolons in it.
+ *
+ * Every one of a room's tags crossed over at 3.50 (SetUpRoomData,
+ * V4Game.Part2.cs:989-1200), and an object's descriptive ones at 3.11
+ * (InitialiseObject, ibid. 3271-3392).  An object's container tags -- `open`,
+ * `close`, `add`, `remove`, `parent` -- were properties from the start and are
+ * cut at every version, because what those print is the property
+ * (ExecOpenClose reads it with GetObjectProperty, V4Game.cs:2814-2830).
+ *
+ * `take` is the one tag that is a property and yet never cut: ExecTake prints
+ * the field, `Print(t.Data)` (V4Game.Part2.cs:5226-5228), and below 3.11 it
+ * does not even do that -- it goes back to the source line and runs what
+ * follows the keyword (ibid. 5242-5255).  The truncated "take" property is
+ * still written, but nothing reads it for its text.
+ *
+ * geas has no field/property split: a tag becomes a property whatever the
+ * version, or exits, aliases and prefixes would stop working below 3.50.  So
+ * what the gate decides here is only whether the value is split, which is the
+ * half of the difference a game can see.  Magic Sword (2.17) is the corpus
+ * game that needs it: its training room's `look` names two rooms in one
+ * sentence each, "...replicas of enemys; using weapons.|n And...", of which
+ * geas used to print the first eight words and stop. */
+static bool tag_property_splits (const string &blocktype, const string &tag,
+				 int version)
+{
+  if (blocktype == "room")
+    return version >= 350;
+  if (tag == "take")
+    return false;
+  static reserved_words late_object_tags
+    ("look", "examine", "speak", "displaytype", "alias", "prefix", "suffix",
+     "detail", "gender", "article", (char *) NULL);
+  return !late_object_tags[tag] || version >= 311;
+}
+
 void GeasFile::read_into (const vector<string> &in_data,
 			  const string &in_parent, uint cur_line, bool recurse,
 			  const reserved_words &props, 
@@ -233,7 +277,19 @@ void GeasFile::read_into (const vector<string> &in_data,
     {
       out_data.push_back ("type <default>");
     }
-      
+  /* From ASL 3.91 every object is created with the "list" property already set,
+     right after the `default` type has been folded in and before its own
+     definition lines are read (V4Game.Part2.cs:3240-3252).  That property is
+     what ListContents asks about before it will list anything, so the default
+     is what makes an ordinary container describe its contents at all -- and
+     `list off`, which the loader below records as "not list", is how a game
+     opts out.  Pushed here, in Quest's own order, so a `list <header>` line of
+     the object's own still overrides it. */
+  if (blocktype == "object" && asl_version >= 391)
+    {
+      out_data.push_back ("properties <list>");
+    }
+
   cur_line ++;
   uint depth = 1;
   while (cur_line < in_data.size() && depth > 0)
@@ -349,7 +405,13 @@ void GeasFile::read_into (const vector<string> &in_data,
 	    }
 	  else if (props[ltok] && is_param(rest))
 	    {
-	      line = "properties <" + ltok + "=" + param_contents(rest) + ">";
+	      /* "tagproperty" is the same thing as "properties" with the
+	       * `;`-splitting left out -- see tag_property_splits, and
+	       * GeasFile::ensure_cached, which files it as the one property it
+	       * names. */
+	      string kw = tag_property_splits (blocktype, ltok, asl_version)
+		? "properties <" : "tagproperty <";
+	      line = kw + ltok + "=" + param_contents(rest) + ">";
 	    }
 	  /* The use/give forms and their on/to/anything sub-keywords are all CI:
 	   * AddToUseInfo/AddToGiveInfo read them with BeginsWith
@@ -357,6 +419,15 @@ void GeasFile::read_into (const vector<string> &in_data,
 	  else if (actions[ltok] &&
 		   (ltok == "use" || ltok == "give" || !is_param(rest)))
 	    {
+	      /* The partner object's name is trimmed here for the same reason the
+	       * `define` header above trims its own.  Quest trims neither: both
+	       * ObjectName and UseData().UseObject are raw GetParameter results
+	       * (V4Game.Part2.cs:3229, V4Game.cs:4257-4283), so its two spellings
+	       * of a padded name agree and the use succeeds.  geas trimmed only
+	       * the declaration, so an object written "<Warrior >" was registered
+	       * as "Warrior" while its partner's handler was filed under
+	       * "use on Warrior " and get_obj_action missed -- Londe Perplex's
+	       * Rage lost its whole scripted attack that way.  */
 	      if (ltok == "use")
 		{
 		  string lhs = "action <use ";
@@ -370,7 +441,7 @@ void GeasFile::read_into (const vector<string> &in_data,
 			}
 		      else if (is_param (rest))
 			{
-			  line = lhs + "on " + param_contents(rest) + "> " + rhs;
+			  line = lhs + "on " + trim (param_contents(rest)) + "> " + rhs;
 			}
 		      else
 			{
@@ -383,7 +454,7 @@ void GeasFile::read_into (const vector<string> &in_data,
 		    }
 		  else if (is_param(rest))
 		    {
-		      line = lhs + param_contents(rest) +"> " +line.substr(t2);
+		      line = lhs + trim (param_contents(rest)) +"> " +line.substr(t2);
 		    }
 		  else
 		    {
@@ -400,7 +471,7 @@ void GeasFile::read_into (const vector<string> &in_data,
 		      if (ci_equal (rest, "anything"))
 			line = lhs + "to anything> " + rhs;
 		      else if (is_param(rest))
-			line = lhs + "to " + param_contents(rest) + "> " + rhs;
+			line = lhs + "to " + trim (param_contents(rest)) + "> " + rhs;
 		      else
 			{
 			  GEAS_DBG << "Error handling '" << line << "'" << endl;
@@ -413,7 +484,7 @@ void GeasFile::read_into (const vector<string> &in_data,
 		    }
 		  else if (is_param(rest))
 		    {
-		      line = lhs + param_contents(rest) +"> " +line.substr(t2);
+		      line = lhs + trim (param_contents(rest)) +"> " +line.substr(t2);
 		    }
 		  else
 		    {
@@ -447,6 +518,17 @@ void GeasFile::read_into (const vector<string> &in_data,
 		  out_data.push_back ("ERROR " + line);
 		}
 	    }
+	  /* One property, semicolons and all -- but otherwise the same line the
+	   * split form emits, static_eval included. */
+	  else if (ci_equal (tok, "tagproperty"))
+	    {
+	      rest = next_token (line, t1, t2);
+	      if (is_param (rest))
+		out_data.push_back ("tagproperty <" +
+				    static_eval (param_contents (rest)) + ">");
+	      else
+		out_data.push_back ("ERROR " + line);
+	    }
 	  else if (!drop_line)
 	    {
 	      out_data.push_back(line);
@@ -461,6 +543,23 @@ void GeasFile::read_into (const vector<string> &in_data,
 GeasFile::GeasFile (const vector<string> &v, GeasInterface *_gi) : gi(_gi)
 {
   uint depth = 0;
+
+  /* The version has to be known before the first block is read, because
+   * read_into's tag rewriting is version-dependent (tag_property_splits).
+   * Quest reads the line out of the game block (V4Game.cs:1489-1503); the
+   * scan here is over the raw file, which reaches the same line -- the only
+   * "asl-version" a game file has is the game block's, a library's being
+   * spelt "!asl-version". */
+  for (const string &vline: v)
+    {
+      std::string::size_type c1, c2;
+      if (!ci_equal (first_token (vline, c1, c2), "asl-version"))
+	continue;
+      string p = next_token (vline, c1, c2);
+      if (is_param (p))
+	asl_version = atoi (param_contents (p).c_str());
+      break;
+    }
 
   string parentname, parenttype;
 
@@ -606,6 +705,28 @@ GeasFile read_geas_file (GeasInterface *gi, const string &filename)
 
   if (success)
     {
+      /* One transcoding pass over the whole game, after the .cas decoder (which
+	 works on raw bytes) and after !include has pulled every other file in.
+	 Quest reads its files through VB's Chr(), which is code page 1252 on the
+	 Windows these games were written for, so that is the encoding the text
+	 is in; geas used to hand the bytes straight to Glk, where they were read
+	 as Latin-1 and every ©, £, dash and curly quote came out wrong.
+	 Skipped when the file is already well-formed UTF-8: a game saved that
+	 way by a later author would only be double-encoded by the conversion.
+	 (Quest itself has no such escape hatch and would mangle such a file --
+	 this is one of the few places geas is deliberately kinder than the
+	 original.)  The decision is taken for the game as a whole, since a mixed
+	 file is a corrupt file either way.  */
+      bool utf8 = true;
+      for (const string &line: data)
+	if (!text_is_utf8 (line))
+	  {
+	    utf8 = false;
+	    break;
+	  }
+      if (!utf8)
+	for (string &line: data)
+	  line = cp1252_to_utf8 (line);
       return GeasFile (data, gi);
     }
   
@@ -930,12 +1051,11 @@ bool is_balanced (string str)
   return depth == 0;
 }
 
-/* The standard Quest libraries ship with Quest itself, not with the games.
- * stdverbs.lib only supplies the standard verbs/commands that Geas already
- * implements natively, and net.lib is the multiplayer/networking library which
- * is irrelevant to single-player play.  Recognise them by name so we don't
- * fruitlessly look for a file (which would print a "Couldn't open ..." error)
- * when a game !includes one. */
+/* net.lib is Quest's multiplayer/networking library.  It ships with Quest
+ * rather than with the games, so it is never on disk for us to load, and
+ * nothing in it means anything to a single-player replay.  Recognise it by
+ * name so we don't fruitlessly look for the file (which would print a
+ * "Couldn't open ..." error) when a game !includes it. */
 static bool is_builtin_quest_library (const string &name)
 {
   string base = name;
@@ -943,7 +1063,23 @@ static bool is_builtin_quest_library (const string &name)
   if (slash != string::npos)
     base = base.substr (slash + 1);
   base = lcase (base);
-  return base == "stdverbs.lib" || base == "net.lib";
+  return base == "net.lib";
+}
+
+/* stdverbs.lib, Quest's "Additional verbs" library, ships with Quest too, but
+ * unlike net.lib it is all content: default responses for verbs the engine has
+ * none for, a handful of extra commands, and the splitter that makes
+ * "north, then east" two turns.  Splice in the bundled copy (see
+ * geas_builtin_stdverbs in stdverbs_builtin.hh) rather than dropping the
+ * include, or a game that !includes it plays differently from Quest. */
+static bool is_stdverbs (const string &name)
+{
+  string base = name;
+  std::string::size_type slash = base.find_last_of ("/\\");
+  if (slash != string::npos)
+    base = base.substr (slash + 1);
+  base = lcase (base);
+  return base == "stdverbs.lib";
 }
 
 /* MaDbRiT's Type Library (typelib.qlb / typelib.lib) is another standard Quest
@@ -963,14 +1099,87 @@ static bool is_typelib (const string &name)
   return base == "typelib.qlb" || base == "typelib.lib";
 }
 
+/* A library's own asl-version, which decides how its !addto game lines merge
+ * into the game block.  Quest reads it only when the file opens with
+ * "!library"; a file that does not is a pre-3.x library and counts as 100, and
+ * a !library with no version line counts as 200 (V4Game.cs:1445-1470). */
+static int library_asl_version (const vector<string> &lines)
+{
+  std::string::size_type c1, c2;
+  bool is_library = false;
+  for (uint i = 0; i < lines.size(); i ++)
+    {
+      string tok = first_token (lines[i], c1, c2);
+      if (tok == "")
+	continue;
+      is_library = (tok == "!library");
+      break;
+    }
+  if (!is_library)
+    return 100;
+  for (uint i = 0; i < lines.size(); i ++)
+    {
+      std::string::size_type d1, d2;
+      if (first_token (lines[i], d1, d2) != "!asl-version")
+	continue;
+      string p = next_token (lines[i], d1, d2);
+      if (is_param (p))
+	return atoi (param_contents (p).c_str());
+    }
+  return 200;
+}
+
+/* Prefix a library's !addto game lines with "lib " where Quest does.
+ *
+ * The prefix is what makes a library's contribution lose to the game's own:
+ * ExecCommand runs the game's commands, then the game's verbs, then the
+ * commands tagged "lib command", then the verbs tagged "lib verb"
+ * (V4Game.Part2.cs:4224-4241), and startscript is prefixed so a library's
+ * initialisation runs before the game's (V4Game.cs:1553-1567).  Without it
+ * stdverbs.lib's `command <ask #stdverbs.command#>` would answer "You get no
+ * reply." to a game's own ASK command, and its `command <#stdverbs.command#.>`
+ * splitter would swallow every command a player ended with a full stop.
+ *
+ * Lines already carrying the prefix belong to a library this one !included,
+ * and were tagged by that library's own version; leave them alone. */
+static void mark_library_addtos (vector<string> &lines, int libver)
+{
+  std::string::size_type c1, c2;
+  bool in_addto_game = false;
+  for (uint i = 0; i < lines.size(); i ++)
+    {
+      string tok = first_token (lines[i], c1, c2);
+      if (tok == "!addto")
+	{
+	  in_addto_game = (next_token (lines[i], c1, c2) == "game");
+	  continue;
+	}
+      if (tok == "!end")
+	{
+	  in_addto_game = false;
+	  continue;
+	}
+      if (!in_addto_game || tok == "lib")
+	continue;
+      if ((libver >= 311 && tok == "startscript") ||
+	  (libver >= 392 && (tok == "command" || tok == "verb")))
+	lines[i] = "lib " + lines[i];
+    }
+}
+
 /* `open` holds the files whose !includes are currently being expanded, from the
  * top-level game file down.  A file that !includes something already on that
  * list -- itself, most simply -- would otherwise recurse until the stack blows,
  * so we report the cycle and skip that one include instead. */
-static void handle_includes (const vector<string> &in_data, const string &filename, vector<string> &out_data, GeasInterface *gi, vector<string> &open)
+static void handle_includes (const vector<string> &in_data_arg, const string &filename, vector<string> &out_data, GeasInterface *gi, vector<string> &open)
 {
   string line, tok;
   std::string::size_type tok_start, tok_end;
+  /* An empty `open` means this is the game file itself; anything below it is a
+   * library, whose !addto game lines need Quest's "lib" tagging. */
+  vector<string> in_data (in_data_arg);
+  if (!open.empty ())
+    mark_library_addtos (in_data, library_asl_version (in_data));
   open.push_back (lcase (filename));
   for (uint ln = 0; ln < in_data.size(); ln ++)
     {
@@ -984,13 +1193,22 @@ static void handle_includes (const vector<string> &in_data, const string &filena
 	      gi->debug_print ("Expected parameter after !include");
 	      continue;
 	    }
-	  /* The standard Quest verb libraries are built into Geas; don't try to
-	   * load them from disk. */
+	  /* The networking library means nothing to a single-player replay; don't
+	   * try to load it from disk. */
 	  if (is_builtin_quest_library (param_contents (tok)))
 	    continue;
-	  /* The type library isn't on disk either, but we do need its content:
+	  /* The verb library isn't on disk either, but we do need its content:
 	   * splice in the bundled copy (run through the same include pipeline so
 	   * its own directives are processed normally). */
+	  if (is_stdverbs (param_contents (tok)))
+	    {
+	      if (std::find (open.begin(), open.end(), string ("stdverbs.lib"))
+		  == open.end())
+		handle_includes (split_lines (geas_builtin_stdverbs), "stdverbs.lib",
+				 out_data, gi, open);
+	      continue;
+	    }
+	  /* Likewise the type library. */
 	  if (is_typelib (param_contents (tok)))
 	    {
 	      if (std::find (open.begin(), open.end(), string ("typelib.qlb"))
@@ -1067,6 +1285,16 @@ bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
 	    addtos[tok].push_back (v2[line ++]);
 	}
     }
+  /* One entry per open "define" block: the addtos key whose lines are owed to
+   * that block when it closes, or "" for a block nothing is owed to.  Quest
+   * splices an !addto's lines in immediately *before* the block's "end define"
+   * (V4Game.cs:1497-1568), not after its header, and that is not cosmetic:
+   * within a block Quest matches commands and verbs in file order, so lines
+   * put at the front would beat the author's own.
+   *
+   * TODO: What if there's a !addto for a block other than game, synonyms,
+   * default, defaultroom? */
+  vector<string> owed;
   for (uint line = 0; line < v2.size(); line ++)
     {
       tok = first_token (v2[line], tok_start, tok_end);
@@ -1075,29 +1303,31 @@ bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
 	  while (line < v2.size() && 
 		 first_token (v2[line], tok_start, tok_end) != "!end")
 	    line ++;
+	  continue;
 	}
-      else
+      if (tok == "define")
 	{
+	  string key = next_token (v2[line], tok_start, tok_end);
+	  if (key == "type")
+	    key = key + " " + next_token (v2[line], tok_start, tok_end);
 	  v.push_back (v2[line]);
-	  if (tok == "define")
+	  owed.push_back (addtos.find (key) != addtos.end() ? key : string ());
+	  continue;
+	}
+      if (tok == "end" && next_token (v2[line], tok_start, tok_end) == "define"
+	  && !owed.empty())
+	{
+	  string key = owed.back();
+	  owed.pop_back();
+	  if (key != "")
 	    {
-	      // TODO: What if there's a !addto for a block other than
-	      // game, synonyms, default, defaultroom?
-	      //
-	      // Also, do the !addto'ed lines go at the front or end?
-	      tok = next_token (v2[line], tok_start, tok_end);
-	      if (tok == "type")
-		tok = tok + " " + next_token (v2[line], tok_start, tok_end);
-
-	      if (addtos.find(tok) != addtos.end())
-		{
-		  vector<string> &lines = addtos[tok];
-		  for (uint line2 = 0; line2 < lines.size(); line2 ++)
-		    v.push_back (lines[line2]);
-		  addtos.erase(tok);
-		}
+	      vector<string> &lines = addtos[key];
+	      for (uint line2 = 0; line2 < lines.size(); line2 ++)
+		v.push_back (lines[line2]);
+	      addtos.erase (key);
 	    }
 	}
+      v.push_back (v2[line]);
     }
   v2.clear();
 
@@ -1114,14 +1344,30 @@ bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
   // Loop through the lines.  Look for "if/and/or (.. <.. )" or the like
   // If there is such a pair, convert the second to "if/and/or is <..;lt;..>"
 
+  /* The words a parenthesised condition may follow are Quest's six:
+   * ConvertFriendlyIfs (V4Game.cs:353-380) looks for "if (", "until (",
+   * "while (", "not (", "and (" and "or (".  "not" and "while" were missing
+   * here, and their absence does not merely leave the condition unconverted:
+   * the raw "<" that survives opens a <parameter> as far as the tokeniser is
+   * concerned, so the search for "then" runs off the end of the line and the
+   * whole if-statement is dropped -- neither branch runs.  Kingdom's
+   * `if not ( %V1pop% <= 0 ) then do <V1riot>' was the game that showed it:
+   * Village1 never rioted, never sent its leader with the tribute, and never
+   * appeared in the season report at all, and `repeat while ( %p% < 3 )' did
+   * not loop even once. */
   for (uint line = 0; line < v.size(); line ++)
     {
       tok_end = 0;
-      while (tok_end < v[line].length()) 
+      while (tok_end < v[line].length())
 	{
 	  tok = next_token (v[line], tok_start, tok_end, false);
-	  if (tok == "if" || tok == "repeat" || tok == "until" || 
-	      tok == "and" || tok == "or")
+	  /* A while loop rather than an if: the word that follows one of these
+	   * may be another of them ("if not (", "repeat while ("), and Quest,
+	   * which looks for the six pairs as plain substrings, sees the inner
+	   * one either way. */
+	  while (tok == "if" || tok == "repeat" || tok == "until" ||
+		 tok == "while" || tok == "not" ||
+		 tok == "and" || tok == "or")
 	    {
 	      tok = next_token (v[line], tok_start, tok_end, true);
 	      if (tok.length() > 2 && tok[0] == '(' && 
@@ -1143,6 +1389,7 @@ bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
 			v[line] = str;
 			tok_end = tok_start; // old value of tok_end invalid
 		      }
+		  break;   /* the parenthesised group ends this condition */
 		}
 	    }
 	}

@@ -1,9 +1,9 @@
 
-The Former, v1.0 Derek W.
+The Former, v1.0 | Derek W.
 
 **THE FORMER**
 
-You are in Factory Center
+You are in Factory Center.
 You can go south, east or west.
 You awaken in the middle of a large factory, and cannot remember who or where you are, and what exactly you are doing there. As your system begins to reboot, your Data Assistant kicks in. Because of her built-in programming, she may be able to tell you more. Be sure to ask her the following before continuing:
 
@@ -30,8 +30,8 @@ You awaken in the middle of a large factory, and cannot remember who or where yo
 
 > south
 You are at the entrance of the Factory.
-You can go north or south.
 You can go to Pantry.
+You can go north or south.
 More and more machinery. Against the wall is a large pantry. It does not appear to be locked. The factory exit lies to the south.
 
 > go to pantry
@@ -49,8 +49,8 @@ You pick up the box.
 > out
 You close the pantry.
 You are at the entrance of the Factory.
-You can go north or south.
 You can go to Pantry.
+You can go north or south.
 More and more machinery. Against the wall is a large pantry. It does not appear to be locked. The factory exit lies to the south.
 
 > north
@@ -79,8 +79,8 @@ This is where you woke up. You notice on the floor a broken PDA you had previous
 
 > south
 You are at the entrance of the Factory.
-You can go north or south.
 You can go to Pantry.
+You can go north or south.
 More and more machinery. Against the wall is a large pantry. It does not appear to be locked. The factory exit lies to the south.
 
 > south
@@ -185,12 +185,12 @@ You pick up the key.
 > north
  Living Room.
 There is Stairs here.
-You can go south.
 You can go to Chair.
+You can go south.
 This is your living room. Not really much here, just your chair, T.V., and phone. The T.V. is on for some reason, getting nothing but static. For a split second you hope no one's broke in, then you realise no robot can. The mess is no one's fault but your own.
 
 > go to chair
-You are in Chair
+You are in Chair.
 There is Chair Pocket here.
 You can go out to Living Room.
 You sit down. You can clearly see the T.V.
@@ -204,8 +204,8 @@ You take the cash. Sweet.
 > out
  Living Room.
 There is Stairs here.
-You can go south.
 You can go to Chair.
+You can go south.
 This is your living room. Not really much here, just your chair, T.V., and phone. The T.V. is on for some reason, getting nothing but static. For a split second you hope no one's broke in, then you realise no robot can. The mess is no one's fault but your own.
 
 > south
@@ -245,8 +245,8 @@ The door opens.
 > south
 You have entered the Back room.
 There is Beureau here.
-You can go north.
 You can go to Your Computer.
+You can go north.
 Your back room is even more of a mess, if thats possible. You have a computer here, your interactive database. There is also a beureau against the wall.
 
 > x beureau
@@ -271,9 +271,9 @@ You can go north, east or west.
 More city. There are bright lights and television screens everywhere. Its very noisy. a car honks at you from behind, and padestrians line the streets.
 
 > east
-You are in City Pub
-You can go east or west.
+You are in City Pub.
 You can go to Interrogate Bartender or Interrogate Barfly.
+You can go east or west.
 This is the city pub, the largest distributor of fine oils on the island. Nice place, as long as you ignore the stench of old oil, the thick atmosphere, and the drunkards that line the bar. This is where the robot wanted to meet you, better look around. There is a very old-looking bartender here, along with a few barflies.
 
 > go to interrogate bartender
@@ -304,9 +304,9 @@ You wonder why bribery would be allowed in his programming. Well, might as well 
 "Thanks. Here's the key. Just remember to give it back, please."
 
 > out
-You are in City Pub
-You can go east or west.
+You are in City Pub.
 You can go to Interrogate Bartender or Interrogate Barfly.
+You can go east or west.
 This is the city pub, the largest distributor of fine oils on the island. Nice place, as long as you ignore the stench of old oil, the thick atmosphere, and the drunkards that line the bar. This is where the robot wanted to meet you, better look around. There is a very old-looking bartender here, along with a few barflies.
 
 > go to interrogate barfly
@@ -324,17 +324,18 @@ Have you seen me talking to anyone?
 He passes out in front of you.
 
 You have found a clue.
+Press any key.
 
-You are in City Pub
-You can go east or west.
+You are in City Pub.
 You can go to Interrogate Bartender or Interrogate Barfly.
+You can go east or west.
 This is the city pub, the largest distributor of fine oils on the island. Nice place, as long as you ignore the stench of old oil, the thick atmosphere, and the drunkards that line the bar. This is where the robot wanted to meet you, better look around. There is a very old-looking bartender here, along with a few barflies.
 
 > use bar key
 The back door opens. You give the key back before heading out.
 
 > east
-You are in Allyway
+You are in Allyway.
 There is Large Dumpster here.
 You can go west.
 This is a very dark and foul-smelling allyway, tall buildings run on both sides. It dosn't look like anyone really comes back here.
@@ -353,9 +354,9 @@ You remember looking at a body. Presumably the body that this motherboard goes t
 You have found a clue.
 
 > west
-You are in City Pub
-You can go east or west.
+You are in City Pub.
 You can go to Interrogate Bartender.
+You can go east or west.
 This is the city pub, the largest distributor of fine oils on the island. Nice place, as long as you ignore the stench of old oil, the thick atmosphere, and the drunkards that line the bar. This is where the robot wanted to meet you, better look around. There is a very old-looking bartender here, along with a few barflies.
 
 > west
@@ -387,13 +388,13 @@ You walk in. This is your kitchen. There are some files on the table. It is very
 > north
  Living Room.
 There is Stairs here.
-You can go south.
 You can go to Chair.
+You can go south.
 This is your living room. Not really much here, just your chair, T.V., and phone. The T.V. is on for some reason, getting nothing but static. For a split second you hope no one's broke in, then you realise no robot can. The mess is no one's fault but your own.
 
 > look at stairs
 You go upstairs.
-You are in Bedroom
+You are in Bedroom.
 There is Stairs and a Dresser here.
 This is your bedroom. Well, not really 'bed' per sey, since you are a robot you require no sleep. It does, however, contain a few maintanence devices, they hum and purr. One beeps. You find it extremely irritating so you unplug it.
 
@@ -406,8 +407,8 @@ You take the key.
 > look at stairs
  Living Room.
 There is Stairs here.
-You can go south.
 You can go to Chair.
+You can go south.
 This is your living room. Not really much here, just your chair, T.V., and phone. The T.V. is on for some reason, getting nothing but static. For a split second you hope no one's broke in, then you realise no robot can. The mess is no one's fault but your own.
 You go downstairs.
 
@@ -504,9 +505,9 @@ You can go north or east.
 These are the Ghettos, an area of substandard housing. Most the bots that live here work in the factories. Poor guys. Basically all the houses here are apartments, some of the windows are barred or planked up. It seems quite dark here, probably from the smog from the industrial region.
 
 > east
-You are in Weapons Shop
-You can go east or west.
+You are in Weapons Shop.
 You can go to Interrogate Weapons Lady.
+You can go east or west.
 As you step in, you wonder why this place would be allowed to exist. the place is lined with swords, guns, and other items you've never seen before. The bot here has a scar on her eye, and walks with a limp.
 
 > go to interrogate weapons lady
@@ -537,6 +538,7 @@ You have found a clue.
 
 > does the word latter mean anything to you?
 No. Get out of my shop.
+Press a key.
 
 You are in The Ghettos.
 You can go north or east.
@@ -560,8 +562,8 @@ Wow, looks like you have an office. How nice. You must be be pretty popular, bec
 > south
 You have entered the Back room.
 There is Beureau and Messy Files here.
-You can go north.
 You can go to Your Computer.
+You can go north.
 Your back room is even more of a mess, if thats possible. You have a computer here, your interactive database. There is also a beureau against the wall.
 
 > go to your computer
@@ -579,8 +581,8 @@ You have a flashback. You can see the twisted remains of a bot, and remember it 
 > out
 You have entered the Back room.
 There is Beureau and Messy Files here.
-You can go north.
 You can go to Your Computer.
+You can go north.
 Your back room is even more of a mess, if thats possible. You have a computer here, your interactive database. There is also a beureau against the wall.
 
 > north
@@ -647,9 +649,9 @@ You can go north, south, east, west or northwest.
 This is the bustling city. There are shops and things everywhere. If you had any money, it would probably be gone within ten minutes here. There are people everywhere, and as near as you can tell the traffic is jammed.
 
 > east
-You are in System Reapir Shop
-You can go west.
+You are in System Reapir Shop.
 You can go to Interrogate Repair Droid.
+You can go west.
 This is the System Repair shop. Mysterious parts and devices line the walls, many are very dusty. A dim light hangs overhead, and a Service Bot stands behind the desk with a dumb look on his face, hunched forward a little.
 
 > go to interrogate repair droid
@@ -662,6 +664,7 @@ Does the word Latter mean anything to you?
 Do you sell flashlights here?
 
 > what model did this motherboard chip come from?
+That? Hmm.... Well, it has Dectyne-type wiring, so this had to have come from a 7.
 
 You have found a clue.
 
@@ -685,9 +688,9 @@ You have found a clue.
 Yes, I do. What, you want to buy one? Fine, here you go.....
 
 > out
-You are in System Reapir Shop
-You can go west.
+You are in System Reapir Shop.
 You can go to Interrogate Repair Droid.
+You can go west.
 This is the System Repair shop. Mysterious parts and devices line the walls, many are very dusty. A dim light hangs overhead, and a Service Bot stands behind the desk with a dumb look on his face, hunched forward a little.
 
 > west
@@ -835,8 +838,8 @@ This is the place where most the robots in this city live. A lot of the houses l
 
 > north
 You are in the Housing Office.
-You can go south.
 You can go to Interrogate Housing Officer.
+You can go south.
 This is the housing office. It contains the directory of every bot living here. The Directory Bot stands behind the counter
 
 > go to interrogate housing officer
@@ -851,8 +854,8 @@ The only model 5 on 3rd is 5-201, he lives at house 14.
 
 > out
 You are in the Housing Office.
-You can go south.
 You can go to Interrogate Housing Officer.
+You can go south.
 This is the housing office. It contains the directory of every bot living here. The Directory Bot stands behind the counter
 
 > south
@@ -1055,13 +1058,13 @@ You walk in. This is your kitchen. There are some files on the table. It is very
 > north
  Living Room.
 There is Stairs here.
-You can go south.
 You can go to Chair.
+You can go south.
 This is your living room. Not really much here, just your chair, T.V., and phone. The T.V. is on for some reason, getting nothing but static. For a split second you hope no one's broke in, then you realise no robot can. The mess is no one's fault but your own.
 
 > look at stairs
 You go upstairs.
-You are in Bedroom
+You are in Bedroom.
 There is Stairs, a Dresser and a Chest Underneith Your Dresser here.
 This is your bedroom. Well, not really 'bed' per sey, since you are a robot you require no sleep. It does, however, contain a few maintanence devices, they hum and purr. One beeps. You find it extremely irritating so you unplug it.
 
@@ -1094,7 +1097,7 @@ You can go north.
 You run through the gate into the utility region, It closes behind you, and beeps red. Your antenna begins to vibrate. Already the process is beginning.
 
 > north
-You are in Utility Outside
+You are in Utility Outside.
 You can go north, south, east, west or southeast.
 You continue up the path to the factory. No turning back now.
 
@@ -1114,6 +1117,7 @@ You look at the PDA, And quickly remember how you woke up. You must have dodged 
 
 You call out for Data to clear your memory, and she does so. You fall to the floor. With no evidence you've done anything wrong left on your hard drive, the deletion process stops.
 
+Press a Key.
 
 Factory Center
 You can go south or west.
@@ -1136,8 +1140,8 @@ THHat's Up tO yOu. ITs yoUUr chOiVCe Whatt to Do wiTH youRsElF.
 
 > south
 You are at the entrance of the Factory.
-You can go north or south.
 You can go to Pantry.
+You can go north or south.
 More and more machinery. Against the wall is a large pantry. It does not appear to be locked. The factory exit lies to the south.
 
 > go to pantry
@@ -1155,8 +1159,8 @@ You pick up the box.
 > out
 You close the pantry.
 You are at the entrance of the Factory.
-You can go north or south.
 You can go to Pantry.
+You can go north or south.
 More and more machinery. Against the wall is a large pantry. It does not appear to be locked. The factory exit lies to the south.
 
 > north
@@ -1185,8 +1189,8 @@ This is where you woke up again.
 
 > south
 You are at the entrance of the Factory.
-You can go north or south.
 You can go to Pantry.
+You can go north or south.
 More and more machinery. Against the wall is a large pantry. It does not appear to be locked. The factory exit lies to the south.
 
 > south
@@ -1245,18 +1249,19 @@ This is the place where most the robots in this city live. A lot of the houses l
 
 > east
 You are on the ground floor of the Science Center.
-You can go south or west.
 You can go to Elevator 5.
+You can go south or west.
 This is the science center, where all the reaserch and development gets done. The walls, floor, ceiling, and everything else are colored white. A few white robots whizz by, you assume they're scientists untill you hear one of them say 'dude'. You wonder what the kids are doing here.
 
 > go to elevator 5
-You are in Elevator 5
+You are in Elevator 5.
 There is Small Keyhole here.
 This is the elevator in the science center, there are many buttons flasing. There is a small keyhold beneth the buttons.
 
 > use latter h.q. key on small keyhole
 It fits, and the elevator doors close.
 
+Press a key.
 
 
 The elevator goes down to a small complex, formerly that of the Latter. The light here is insufficient at best. You exit the elevator, and immidiately in front of you is a wooden door with the image of a CPU carved into it. You walk in, expecting to see a mob of criminals, but instead see no one. The database was right, the Latter had long since disbanded, but for what reason you do not know. On a nearby shelf, you see a note.

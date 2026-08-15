@@ -1,5 +1,5 @@
 
-ESPER: The Secret of Drom Bennacht, vv.1.2 ESPER
+ESPER: The Secret of Drom Bennacht, vv.1.2 | ESPER
 
 
 
@@ -8,24 +8,30 @@ ESPER: The Secret of Drom Bennacht, vv.1.2 ESPER
   You have been called by Laird Jonathan Winters, master of the fabulous castle of Drom Bennacht in the small Scottish township of Ceadhannon. His father, Angus, who lies dying in the castle, claims to have heard the Bean Sidhe, the mythological Banshee whose mournful cries herald the coming of death to a family. 
 
    You finally pull up to the front gate, which swings slowly inward to allow you passage. As soon as you drive through, it shuts tightly and leaves you in front of the mighty fortress of Drom Bennacht, alone with your thoughts. 
+Hit any key to continue...
 
 
-You are in the
-You can go north or south.
-You can go to your Jeep.
+You are in the  Front Yard.
 You are standing in the front yard of Drom Bennacht. The rain here is falling so hard that you can barely see, but the great spotlights looking up at the tall stone walls of the castle give you some sense of direction.
 
+You can move north or south.
+You can go to your Jeep.
+
 > s
-You are sitting in
-There is an EMF Detector lying on the seat here and a File Folder here.
-You can go out to the Front Yard.
+You are sitting in your Jeep.
 You are currently inside your Jeep, protected from the storm. You can barely see out the windshield, but for the spots of bright light from the spotlights shining up on the front facce of the castle of Drom Bennacht.
+
+You can see an EMF Detector and a File Folder here.
+
+You can go out to the Front Yard.
 
 > look at detector
 This is a small device used to detect electromagnetic fields.
 
+
 > examine detector
 This device has three small green lights and a red light in order up the device, and a a speaker for the audio alarm.
+
 
 > take EMF Detector
 Taken.
@@ -42,28 +48,34 @@ The castle of Drom Bennacht has for years been the ancestral home of the Winters
 
 The current residents of Drom Bennacht include Laird Winters himself; Angus Winters, the oldest living member and patriarch of the Winters clan; Jennifer Winters, sixteen-year-old daughter of Jonathan Winters; Moira McKinney, the head maid at Drom Bennacht, and James Monroe, active butler since the later days of Laird Angus' headship of the castle.
  
+Press any key to continue...
 
 ESPER has been called to investigate Drom Bennacht because, of late, old Angus Winters has from his deathbed heard the calls of the Bean Sidhe, the Banshee of traditional Celtic lore. In such stories, the howls of the Banshee signify the impending death of a member of the family. 
   
 The investigator to whom this case is given has one job: discover whether or not the sounds attributed to the Banshee are real, and perhaps attempt to gain evidence of said creature.
 
 > out
-You are in the
-You can go north or south.
-You can go to your Jeep.
+You are in the  Front Yard.
 You are standing in the front yard of Drom Bennacht. The rain here is falling so hard that you can barely see, but the great spotlights looking up at the tall stone walls of the castle give you some sense of direction.
+
+You can move north or south.
+You can go to your Jeep.
 
 > look at jeep
 This is your Jeep Wrangler, standing black against the black night of the Scottish highland.
 
+
 > examine jeep
 You have seen this Jeep enough times to not need to examine it again.
 
+
 > n
-You are on the
-There is the doorbell here.
-You can go south.
+You are on the  Porch.
 You are standing on the porch of Drom Bennacht. The wall of rain falling outside the stone balcony above is coming down in sheets which halt your view more than five feet out, obscuring your Jeep and most of the yard.
+
+You can see the doorbell here.
+
+You can move south.
 
 > n
 You can't go there.
@@ -73,6 +85,7 @@ You knock on the door. Despite bruised knuckles, you achieve nothing.
 
 > look at doorbell
 This is a small brass-plated doorbell.
+
 
 > ring doorbell
 You ring the doorbell.
@@ -85,10 +98,12 @@ You ring the doorbell.
 The butler comes back to the door and looks at you. "I fail to see your reasoning for ringing the bell again, sir." He turns around and heads back inside.
 
 > n
-You are in Lobby
-There is a Butler here.
-You can go north, south, east or west.
+You are in  Lobby.
 You are in the lobby of Drom Bennacht. This is one of the most majestic looking buildings you have ever seen in your life. Everything is all hardwood, except the crimson carpetting which runs all throughout the walkways through the house and up the grand staircase before you to the north. There are crystal chandeliers hanging above every twenty feet, and the light they give off into the room is ethereal and bright.
+
+You can see a Butler here.
+
+You can move north, south, east or west.
 
 You follow the butler into the lobby, and he turns again to face you.
 
@@ -135,37 +150,46 @@ You follow the butler into the lobby, and he turns again to face you.
 "Oh, yes, sir... Go west through this hallway and then follow it north to the very end. Your room is at the end of the corridor."
 
 > e
-You are in the
-You can go north, east or west.
+You are in the  East Hall.
 You are in the eastern hallway of Drom Bennacht, where the crimson-carpetted hall continues throughout the eastern wing of the castle.
 
+You can move north, east or west.
+
 > e
-You are in
-You can go west.
+You are in  James' Room.
 You are in the private chamber of the head butler, James Monroe. His room is decorated in dark and earth-tones, and is very underfurnished for such a rich home. The only furnishings in the entire room are the small bed and the wardrobe pushed against the far wall next to it.
+
+You can move west.
 
 > look at wardrobe
 This seems to be a regular oak wardrobe, where one might keep their clothing. However, there is a strangely engraved tin seal covering the doors and holding them shut.
 
+
 > examine wardrobe
 The wardrobe is an old fashioned armoire-style wardrobe with two doors on either side. It is sealed shut with a small tin seal which is between the two doors.
+
 
 > look at seal
 The seal is a small tin-fashioned circle upon which is engraved an open hand in which is the head of a dragon.
 
+
 > examine bed
 You look closely at the bed, but see nothing out of place.
 
+
 > w
-You are in the
-You can go north, east or west.
+You are in the  East Hall.
 You are in the eastern hallway of Drom Bennacht, where the crimson-carpetted hall continues throughout the eastern wing of the castle.
 
+You can move north, east or west.
+
 > n
-You are in the
-There is a Moira here.
-You can go north or south.
+You are in the  Dining Room.
 You are in the long Dining Room of Drom Bennacht, where the family would eat around the fine eighteenth century table. Rather than having many chandeliers like in the hall and foyer, this room contains one large chandelier directly above the dinner table. Although not spread, the table still is decorated with bowls of fruit, candlesticks, and silver pitchers and bowls.
+
+Moira is here.
+
+You can move north or south.
 
 > speak to Moira
 "Pardon me, Ms. McKinney..."
@@ -206,74 +230,92 @@ Well, there's James. 'E's a good man, 'e is. Been long my only friend 'round thi
 > look at table
 This is a very old dining room table made of solid oak and overlaid with a red silken tablecloth upon which is the Winters family crest.
 
+
 > look at chandelier
 This is a huge crystal chandelier. It gives off enough light to make this room bright and bring out the beauty of its design and decoration.
 
+
 > n
-You are in the
-You can go south or west.
+You are in the  Captain's Room.
 You are in the so-called "Captain's Room." Although it is most likely that the master of this castle never was a captain of anything, per se, he must greatly have loved the sea. for this is simply a sitting room decorated in things of the days of sailing ships.
 
 This is the scene of the death of Laird Winters. His body, although recently removed, obviously once sat in the chair on the east end of the room, as the blood from his murder is still splattered on the wall it rests against.
+
+You can move south or west.
 
 > look at blood
 The blood is splashed all over the east wall.
 
+
 > examine blood
 Interesting... Now that you look at it, the chair Laird Winters obviously was sitting in is facing south, toward the only exit. That must mean the shooter was a welcome guest in the room, or else was hiding in the music room to the west and snuck in.
 
+
 > w
-You are in the
-You can go east.
+You are in the  Music Room.
 You are in the music room. It is small, but packed full of interesting decorations and bric-a-brac. Above, a great skylight allows a view of the stormy, black sky. The main highlight of this room, however, is the large record player in the middle of the room.
+
+You can move east.
 
 > examine phonograph
 It is large and set on wheels, but it looks too rickety to move by way of them.
 
+
 > e
-You are in the
-You can go south or west.
+You are in the  Captain's Room.
 You are in the so-called "Captain's Room." Although it is most likely that the master of this castle never was a captain of anything, per se, he must greatly have loved the sea. for this is simply a sitting room decorated in things of the days of sailing ships.
 
 This is the scene of the death of Laird Winters. His body, although recently removed, obviously once sat in the chair on the east end of the room, as the blood from his murder is still splattered on the wall it rests against.
 
+You can move south or west.
+
 > s
-You are in the
-There is a Moira here.
-You can go north or south.
+You are in the  Dining Room.
 You are in the long Dining Room of Drom Bennacht, where the family would eat around the fine eighteenth century table. Rather than having many chandeliers like in the hall and foyer, this room contains one large chandelier directly above the dinner table. Although not spread, the table still is decorated with bowls of fruit, candlesticks, and silver pitchers and bowls.
 
+Moira is here.
+
+You can move north or south.
+
 > s
-You are in the
-You can go north, east or west.
+You are in the  East Hall.
 You are in the eastern hallway of Drom Bennacht, where the crimson-carpetted hall continues throughout the eastern wing of the castle.
 
+You can move north, east or west.
+
 > w
-You are in Lobby
-There is a Butler here.
-You can go north, south, east or west.
+You are in  Lobby.
 You are in the lobby of Drom Bennacht. This is one of the most majestic looking buildings you have ever seen in your life. Everything is all hardwood, except the crimson carpetting which runs all throughout the walkways through the house and up the grand staircase before you to the north. There are crystal chandeliers hanging above every twenty feet, and the light they give off into the room is ethereal and bright.
 
+You can see a Butler here.
+
+You can move north, south, east or west.
+
 > n
-You are on the main
-You can go north or south.
+You are on the main  Stairs.
 You are on the main stairway of Drom Bennacht leading up to the main concourse and down to the foyer.
 
+You can move north or south.
+
 > n
-You are on the
-You can go north or south.
+You are on the  Upstairs Landing.
 You are on the upstairs landing atop the great staircase. The main hallway stretches out to the north, through a pair of suits of armor which guard the stairs.
 
+You can move north or south.
+
 > n
-You are in the upstairs
-You can go north, south, east or west.
+You are in the upstairs  Main Hall.
 You are in the upstairs main hallway, which is lined with the portraits of past patriarchs of the Winters family and fancy electric torch sconces which give this hall a little more modern appearance than the rest of the house but do not detract from its attractiveness. The hall leads to  the stairway to the south and has doors in each of the other cardinal directions.
 
+You can move north, south, east or west.
+
 > e
-You are in
-There is a Angus Winters here.
-You can go west.
+You are in  Angus' Room.
 You are in the room of Angus Winters, the patriarch of the Winters' family. The room is completely empty of any decoration, including wallpaper, and contains only the hospital bed belonging to Angus.
+
+Angus Winters is here.
+
+You can move west.
 
 > speak to Angus
 "Damned... Bean Sidhe... Coming for me... Heard her... Every night... For the past fortnight... Coming... to take me... to Hell..."
@@ -281,16 +323,20 @@ You are in the room of Angus Winters, the patriarch of the Winters' family. The 
 > examine Angus
 "Never... seen... an old man... dying... before...?"
 
-> w
-You are in the upstairs
-You can go north, south, east or west.
-You are in the upstairs main hallway, which is lined with the portraits of past patriarchs of the Winters family and fancy electric torch sconces which give this hall a little more modern appearance than the rest of the house but do not detract from its attractiveness. The hall leads to  the stairway to the south and has doors in each of the other cardinal directions.
 
 > w
-You are in
-There is a Jenny Winters here.
-You can go east.
+You are in the upstairs  Main Hall.
+You are in the upstairs main hallway, which is lined with the portraits of past patriarchs of the Winters family and fancy electric torch sconces which give this hall a little more modern appearance than the rest of the house but do not detract from its attractiveness. The hall leads to  the stairway to the south and has doors in each of the other cardinal directions.
+
+You can move north, south, east or west.
+
+> w
+You are in  Jenny's Room.
 You are in the private room of Jenny Winters. The room is small, but nicely decorated in very feminine colors and designs. The only real furnishings are the bed and the wardrobe.
+
+Jenny Winters is here.
+
+You can move east.
 
 > speak to Jenny
 "Ms. Winters, I was wondering if you could help me..."
@@ -317,57 +363,66 @@ You are in the private room of Jenny Winters. The room is small, but nicely deco
 "I don't know about all that... Some wierd spirit woman that comes and screams knowin' that someone in the house is about to die... It's all ridiculous if you ask me. I heard what they were calling the 'Screams of the Bean Sidhe,' and I'll tell you, it sounded pretty scary and all...  But there's no way it was the Banshee... It sounded more like the house just being old..."
 
 > e
-You are in the upstairs
-You can go north, south, east or west.
+You are in the upstairs  Main Hall.
 You are in the upstairs main hallway, which is lined with the portraits of past patriarchs of the Winters family and fancy electric torch sconces which give this hall a little more modern appearance than the rest of the house but do not detract from its attractiveness. The hall leads to  the stairway to the south and has doors in each of the other cardinal directions.
 
+You can move north, south, east or west.
+
 > n
-You are in the
-You can go south.
+You are in the  Master Bedroom.
 You are in the master bedroom of Drom Bennacht, a large room that cannot possibly be anything but the largest and most luxurious room you've ever seen. The bed is definitely the biggest you've ever seen, and all around it are marble Corinthian columns upon which are many varieties of plants. Above and in between them are portraits of many of the children of Drom Bennacht's past masters.
+
+You can move south.
 
 > look at bed
 There are a whole lot of things in this room. You don't feel the need to investigate every one of them, which, even if you did, would be a near-endless task.
 
+
 > s
-You are in the upstairs
-You can go north, south, east or west.
+You are in the upstairs  Main Hall.
 You are in the upstairs main hallway, which is lined with the portraits of past patriarchs of the Winters family and fancy electric torch sconces which give this hall a little more modern appearance than the rest of the house but do not detract from its attractiveness. The hall leads to  the stairway to the south and has doors in each of the other cardinal directions.
 
+You can move north, south, east or west.
+
 > s
-You are on the
-You can go north or south.
+You are on the  Upstairs Landing.
 You are on the upstairs landing atop the great staircase. The main hallway stretches out to the north, through a pair of suits of armor which guard the stairs.
 
+You can move north or south.
+
 > s
-You are on the main
-You can go north or south.
+You are on the main  Stairs.
 You are on the main stairway of Drom Bennacht leading up to the main concourse and down to the foyer.
 
+You can move north or south.
+
 > s
-You are in Lobby
-There is a Butler here.
-You can go north, south, east or west.
+You are in  Lobby.
 You are in the lobby of Drom Bennacht. This is one of the most majestic looking buildings you have ever seen in your life. Everything is all hardwood, except the crimson carpetting which runs all throughout the walkways through the house and up the grand staircase before you to the north. There are crystal chandeliers hanging above every twenty feet, and the light they give off into the room is ethereal and bright.
 
-> w
-You are in the
-You can go north, east or west.
-You are in the West Hall of Drom Bennacht, where the kingly looking crimson carpetted hall continues all throughout the western wing of the castle.
+You can see a Butler here.
+
+You can move north, south, east or west.
 
 > w
-You are in
-You can go east.
+You are in the  West Hall.
+You are in the West Hall of Drom Bennacht, where the kingly looking crimson carpetted hall continues all throughout the western wing of the castle.
+
+You can move north, east or west.
+
+> w
+You are in  Moira's Room.
 You are in the servant's quarters of the head maid for Drom Bennacht. This room is decorated in drab colors and is underfurnished, containing only a bed in earth-tone coverings... Very unusual for such a rich house.
+
+You can move east.
 
 > examine bed
 You examine the bed, but there is not much interesting about it. However, on looking underneath it, you find a small necklace. You pull it out...
 
+
 > i
 You are carrying:
-EMF Detector
-File Folder
-Necklace
+An EMF Detector lying on the seat here, a File Folder and a Necklace.
 
 > wear necklace
 You put on the necklace.
@@ -375,46 +430,57 @@ You put on the necklace.
 > examine necklace
 The necklace is not unusual, but the charm attached to it is. It is an open hand with a lion's head etched in its palm. **It's not actually good for anything. It was going to be, but I never wound up implementing it. I never wound up deleting it, either, so I just made it an Easter Egg!**
 
+
 > e
-You are in the
-You can go north, east or west.
+You are in the  West Hall.
 You are in the West Hall of Drom Bennacht, where the kingly looking crimson carpetted hall continues all throughout the western wing of the castle.
 
-> n
-You are in the
-You can go north or south.
-You are in the back hall of Drom Bennacht which runs through the western wing of the castle. This area, being used mainly by the servants of the house, is decorated less grandly than the other areas of the house and bears carpetting which looks very worn.
+You can move north, east or west.
 
 > n
-You are in the
-There is a bookshelf here.
-You can go south.
+You are in the  Back Hall.
+You are in the back hall of Drom Bennacht which runs through the western wing of the castle. This area, being used mainly by the servants of the house, is decorated less grandly than the other areas of the house and bears carpetting which looks very worn.
+
+You can move north or south.
+
+> n
+You are in the  Guest Room.
 You are in the guest room of Drom Bennacht, a sparsely furnished but nicely decorated little room, the central piece of which is the four-poster bed.
+
+You can see a bookshelf here.
+
+You can move south.
 
 > examine bookshelf
 The bookshelf seems a little too large, but the fact that there are enough books to completely fill it makes this a little less out-of-the-ordinary.
 
+
 > examine walden
 Walden, the classic piece of transcendentalist literature written by Henry David Thoreau, gives testimony of his life in the woods outside Walden Pond in Massachussetts. You much prefer The Catcher in the Rye, but do not see it among the multitudinous volumes.
+
 
 > take walden
 You search for Walden among the many titles on the shelf, and upon finding it pull it slowly out. Once you get to a certain point, you hear a click and the book retracts quickly back into the shelf. Among moans and creaks from the ancient architecture of the castle, you witness a great ominous hole appear as the bookshelf moves away along some unseen mechanical track. Behind it, a set of stairs lead up into the darkness of the north tower.
 
 > up
-You are on
-You can go southeast, southwest or down.
+You are on  Top of North Tower.
 You are in the middle of the great northern tower, seemingly the only tower still accessible from the castle. Although the rest of the staircase has collapsed here, you are just above the second floor, and there are two doors here leading outside to the roof.
 
+You can move southeast, southwest or down.
+
 > sw
-You are in the
-You can go northeast.
+You are in the  Secret Chamber.
 You are outside the castle on the roof, but have come to a place under an overhang which is invisible from the ground. This place seems to be someone's personal space, where a great tome atop a marble pedestal has been hidden away from the prying eyes of the other residents of the house.
+
+You can move northeast.
 
 > look at pedestal
 This is a black marble pedestal, built to resemble the pulpits used by preachers. Upon it rests a book of great antiquity.
 
+
 > examine grimoire
 You scan the cover, taking note of the runes there. With the best of your knowledge of the arcane, you cannot decipher the unknown figures. The book, however, is written in English.
+
 
 > read grimoire
 You flip around through the spellbook, noting several sections which seem interesting.
@@ -515,118 +581,144 @@ Which selection do you read?
 You aren't about to read this entire section, because it is the most expansive in the entire book. You do skim it, however, and take note that this is not the type of material you want falling into the wrong hands. The ritual given is a Rite of Summonation to summon the Seven Gods of Chaos, or the Elder Gods, to destroy and reform the world that once was theirs aeons ago. Definitely not pleasant reading... Apparently, once the ritual starts, the attending sorcerers must hold concentration for one minute and thirty seconds, chanting a phrase so profane you are physically pained just looking at it written. Then, the end comes...
 
 > ne
-You are on
-You can go southeast, southwest or down.
+You are on  Top of North Tower.
 You are in the middle of the great northern tower, seemingly the only tower still accessible from the castle. Although the rest of the staircase has collapsed here, you are just above the second floor, and there are two doors here leading outside to the roof.
 
+You can move southeast, southwest or down.
+
 > se
-You are on the roof
-You can go northwest.
+You are on the roof  Above Angus' Room.
 You are on the roof of Drom Bennacht, having passed through the rain to come under the shelter of a stone overhang. You can see another of these overhangs off to the west, but cannot make it there from here. Under it there seems to be some sort of pulpit or pedestal. Running all the way from over there to over here there appears to be some sort of pulley system set up.
+
+You can move northwest.
 
 > examine pulley
 This is strange... The pulleys actually seem to be fully hooked up, although not running anywhere in particular. There is an old crank attached to it here.
 
+
 > examine crank
 Not much to see... Perhaps you should try to TURN the CRANK.
+
 
 > turn crank
 You begin to turn the aged crank. It is very difficult at first, but after not too terribly long it begins to give to you and the ancient ropes start to move. It produces the most horrible sound you've ever heard in your life! It's almost like... like... the howls of the Banshee! Yes! This rope seems to be vibrating in such a way that old Angus in the room below you could probably hear it very clearly, but one so superstitious and on the verge of dying could very easily mistake such a sound as the howling of the mythic creature!!!
 
 > nw
-You are on
-You can go southeast, southwest or down.
+You are on  Top of North Tower.
 You are in the middle of the great northern tower, seemingly the only tower still accessible from the castle. Although the rest of the staircase has collapsed here, you are just above the second floor, and there are two doors here leading outside to the roof.
 
+You can move southeast, southwest or down.
+
 > down
-You are in the
-There is a bookshelf here.
-You can go south or up.
+You are in the  Guest Room.
 You are in the guest room of Drom Bennacht, a sparsely furnished but nicely decorated little room, the central piece of which is the four-poster bed.
 
+You can see a bookshelf here.
+
+You can move south or up.
+
 > s
-You are in the
-You can go north or south.
+You are in the  Back Hall.
 You are in the back hall of Drom Bennacht which runs through the western wing of the castle. This area, being used mainly by the servants of the house, is decorated less grandly than the other areas of the house and bears carpetting which looks very worn.
 
+You can move north or south.
+
 > s
-You are in the
-You can go north, east or west.
+You are in the  West Hall.
 You are in the West Hall of Drom Bennacht, where the kingly looking crimson carpetted hall continues all throughout the western wing of the castle.
 
+You can move north, east or west.
+
 > e
-You are in Lobby
-There is a Butler here.
-You can go north, south, east or west.
+You are in  Lobby.
 You are in the lobby of Drom Bennacht. This is one of the most majestic looking buildings you have ever seen in your life. Everything is all hardwood, except the crimson carpetting which runs all throughout the walkways through the house and up the grand staircase before you to the north. There are crystal chandeliers hanging above every twenty feet, and the light they give off into the room is ethereal and bright.
 
+You can see a Butler here.
+
+You can move north, south, east or west.
+
 > n
-You are on the main
-You can go north or south.
+You are on the main  Stairs.
 You are on the main stairway of Drom Bennacht leading up to the main concourse and down to the foyer.
 
+You can move north or south.
+
 > n
-You are on the
-You can go north or south.
+You are on the  Upstairs Landing.
 You are on the upstairs landing atop the great staircase. The main hallway stretches out to the north, through a pair of suits of armor which guard the stairs.
 
+You can move north or south.
+
 > n
-You are in the upstairs
-You can go north, south, east or west.
+You are in the upstairs  Main Hall.
 You are in the upstairs main hallway, which is lined with the portraits of past patriarchs of the Winters family and fancy electric torch sconces which give this hall a little more modern appearance than the rest of the house but do not detract from its attractiveness. The hall leads to  the stairway to the south and has doors in each of the other cardinal directions.
 
+You can move north, south, east or west.
+
 > e
-You are in
-There is a Angus Winters here.
-You can go west.
+You are in  Angus' Room.
 You are in the room of Angus Winters, the patriarch of the Winters' family. The room is completely empty of any decoration, including wallpaper, and contains only the hospital bed belonging to Angus.
+
+Angus Winters is here.
+
+You can move west.
 
 > speak to Angus
 "Heard... her... again!!! Didn't... <wheeze
 
 > w
-You are in the upstairs
-You can go north, south, east or west.
+You are in the upstairs  Main Hall.
 You are in the upstairs main hallway, which is lined with the portraits of past patriarchs of the Winters family and fancy electric torch sconces which give this hall a little more modern appearance than the rest of the house but do not detract from its attractiveness. The hall leads to  the stairway to the south and has doors in each of the other cardinal directions.
 
+You can move north, south, east or west.
+
 > s
-You are on the
-You can go north or south.
+You are on the  Upstairs Landing.
 You are on the upstairs landing atop the great staircase. The main hallway stretches out to the north, through a pair of suits of armor which guard the stairs.
 
+You can move north or south.
+
 > s
-You are on the main
-You can go north or south.
+You are on the main  Stairs.
 You are on the main stairway of Drom Bennacht leading up to the main concourse and down to the foyer.
 
+You can move north or south.
+
 > s
-You are in Lobby
-There is a Butler here.
-You can go north, south, east or west.
+You are in  Lobby.
 You are in the lobby of Drom Bennacht. This is one of the most majestic looking buildings you have ever seen in your life. Everything is all hardwood, except the crimson carpetting which runs all throughout the walkways through the house and up the grand staircase before you to the north. There are crystal chandeliers hanging above every twenty feet, and the light they give off into the room is ethereal and bright.
 
+You can see a Butler here.
+
+You can move north, south, east or west.
+
 > e
-You are in the
-You can go north, east or west.
+You are in the  East Hall.
 You are in the eastern hallway of Drom Bennacht, where the crimson-carpetted hall continues throughout the eastern wing of the castle.
 
-> n
-You are in the
-There is a Moira here.
-You can go north or south.
-You are in the long Dining Room of Drom Bennacht, where the family would eat around the fine eighteenth century table. Rather than having many chandeliers like in the hall and foyer, this room contains one large chandelier directly above the dinner table. Although not spread, the table still is decorated with bowls of fruit, candlesticks, and silver pitchers and bowls.
+You can move north, east or west.
 
 > n
-You are in the
-You can go south or west.
+You are in the  Dining Room.
+You are in the long Dining Room of Drom Bennacht, where the family would eat around the fine eighteenth century table. Rather than having many chandeliers like in the hall and foyer, this room contains one large chandelier directly above the dinner table. Although not spread, the table still is decorated with bowls of fruit, candlesticks, and silver pitchers and bowls.
+
+Moira is here.
+
+You can move north or south.
+
+> n
+You are in the  Captain's Room.
 You are in the so-called "Captain's Room." Although it is most likely that the master of this castle never was a captain of anything, per se, he must greatly have loved the sea. for this is simply a sitting room decorated in things of the days of sailing ships.
 
 This is the scene of the death of Laird Winters. His body, although recently removed, obviously once sat in the chair on the east end of the room, as the blood from his murder is still splattered on the wall it rests against.
 
+You can move south or west.
+
 > w
-You are in the
-You can go east.
+You are in the  Music Room.
 You are in the music room. It is small, but packed full of interesting decorations and bric-a-brac. Above, a great skylight allows a view of the stormy, black sky. The main highlight of this room, however, is the large record player in the middle of the room.
+
+You can move east.
 
 > zacar
 You say the word of command loudly and firmly, and before your very eyes you watch as the record player begins to shift across the floor, eventually revealing the dark hole underneath it...
@@ -662,6 +754,7 @@ You notice the second green light come on on your EMF detector, and the red ligh
 
 > look at Jenny
 Poor Jenny. Suitably a virgin and the daughter of the head of the Winters clan, she has been targetted for this sacrifice. She lies prostrate on the altar in the middle of the room.
+
 The chanting of the robed couple fills the room.
 
 > speak to Jenny
@@ -674,6 +767,7 @@ You have alerted the robed figures!
 "What are you doing here!" the man cries. The woman comes up alongside and says "Where did he come from?"
 
 You stand before the very gate of darkness, in a standoff between its two servants.
+Press any key...
 
 
 "Fool," the robed man says. "I do not know how you came to infiltrate the inner sanctum of the Elder Gods, but you will suffer greatly for it!"
@@ -725,6 +819,7 @@ She holds out an ancient device to him, and he gasps. You have never seen one be
 
 Obviously upset that they were not freed, the Elder Gods move upon their once-faithful servants. What happens next should never occur in front of the eyes of any man. You thank whatever powers of good might exist in this world that poor, innocent Jenny was not awake to see what the gods now do to James Monroe and Moira McKinney.
 
+Press any key...
 
 The next morning comes, and the rain has stopped. Jenny wakes up, and looks up at you, wondering why you bear her in your arms out of the house.
 

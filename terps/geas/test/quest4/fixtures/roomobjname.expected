@@ -1,7 +1,7 @@
 
 roomobjname
 
-You are in r1
+You are in r1.
 There is a cedar desk here.
 Room one.
 
@@ -22,10 +22,10 @@ gettag desk suffix = [, gathering dust]
 You can't go there.
 
 > look
-You are in r1
+You are in r1.
 There is a cedar desk here.
 Room one.
 
 > x photos
-You don't see any photos.
+I can't see that here.
 [runner] turns=5 leftover=0 running=true

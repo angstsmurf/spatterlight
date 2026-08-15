@@ -1,7 +1,7 @@
 
 OutLocked
 
-You are in Cell
+You are in Cell.
 You can go out to Yard.
 You can go north, south or down.
 A cell.  Doors lead out, north, south and down.
@@ -31,7 +31,7 @@ The guard shakes his head.
 > bribe
 
 > out
-You are in Yard
+You are in Yard.
 You can go out to Cell.
 The prison yard.
 [runner] turns=10 leftover=0 running=true

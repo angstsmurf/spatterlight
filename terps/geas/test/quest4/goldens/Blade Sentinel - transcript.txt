@@ -1,5 +1,5 @@
 
-The Blade Sentinel, v0.1 Mihalis "DarkAng3l " Georgostathis
+The Blade Sentinel, v0.1 | Mihalis "DarkAng3l " Georgostathis
 
 Total darkness...
 
@@ -15,6 +15,7 @@ But things were not allways like that (What a cliche, you say to yourself). It a
 
 
 
+Press key when ready
 
 
  Sunrays hit your eyes. An alarm clock rings by you. Yes, you have to wake up. Another long day at work waits for you. Better take a shower, get dressed and get to work ASAP.
@@ -117,6 +118,7 @@ Primordial energy runs through your palm, arm, your entire body. Pure force fill
 
 
 
+Press a key to continue
 
 
 
@@ -137,6 +139,7 @@ The world around you comes and goes, constantly coming, then again fading away..
 The robes are hear talking to eachother. You can figure some words: "danger... stabilise... death... live...".
 Soon the world around you fades away once more, sending you once more in the sweet, yet fatal torpor of unconsiousness.
 
+Press key to continue
 
 
 
@@ -195,6 +198,7 @@ Alice Morgan  would never act like that, but the Blade Sentinel will. The Blade 
 
 
 
+Press any key to continue
 
  Blinding lights...
 
@@ -221,6 +225,7 @@ Alice Morgan  would never act like that, but the Blade Sentinel will. The Blade 
 
 
 
+Press any key to continue.
 
 
  This dark alley is almost deserted.  Only a man is here, probably waiting for Torrenti. Apart for him, there is nothing of interest here.
@@ -288,6 +293,7 @@ As you read the message, you realise that this was a trap. You run to get away, 
 
 
 
+press a key to continue
 
 You creak your eyes. You can hear a voice. It says: "The hilt is lost. She is useless. Give her this injection we talked about."
 
@@ -295,6 +301,7 @@ You creak your eyes. You can hear a voice. It says: "The hilt is lost. She is us
 
 
 
+Press a key to continue
 
  As far as the eye sees, a delightfull green surrounds you. The only exception is to the south, where a tall wall stands. A big golden  gate is on it. Perhaps a way out from here... or further inside...
 

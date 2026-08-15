@@ -1,0 +1,28 @@
+
+TakeAccess
+
+You are in Study.
+There is strongbox and candle here.
+A study.
+
+> x strongbox
+A squat box.
+It contains jar and coin.
+
+> x jar
+A glass jar.
+It contains pearl.
+
+> take coin
+You can't take it - inside closed strongbox.
+
+> take pearl
+You can't take it - inside closed strongbox.
+
+> take candle
+You pick it up.
+
+> i
+You are carrying:
+candle.
+[runner] turns=6 leftover=0 running=true

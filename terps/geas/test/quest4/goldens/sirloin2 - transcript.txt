@@ -1,5 +1,5 @@
 
-loin2 cj
+loin2 | cj
 
 
 
@@ -10,6 +10,7 @@ THE PHANTOM DENNIS
 
 
 
+press a key
 
 
 
@@ -19,6 +20,7 @@ After completing several tasks, he finally had his wish come true.
 
 
 
+press a key
 
 "Arise Sir Loin, Defender of the realm" Said King Arnold as you knelt before him
 
@@ -35,13 +37,14 @@ And with that the Knights rush off, leaving you and the King waiting in the Thro
 
 
 And now the conclusion....
+press a key
 
 
 
 Chapter 1: A Lonely Knight Ahead
 
 
-You are in the Throne Room
+You are in the Throne Room.
 There is King Arnold and a Throne here.
 You can go south, east or west.
 You are standing in the throne room.  There is a large door to the south leading to the main hall.  There are smaller doors to the East and West.
@@ -60,10 +63,10 @@ Why not make yourself useful, Loin.  Check out the Queen's private chamber to se
 And with that he hands you the Chamber Key.
 
 > take chamber key
-You already have it.
+I can't see that here.
 
 > s
-You are in the Hall
+You are in the Hall.
 There is a Guard, a Statue, a Vase, a Painting and a barrel of Gunpowder here.
 You can go north, south, east or west.
 You are standing in the main hall of the Castle.  It is adorned with many works of art.  There is a large doorway to the North leading to the throne room.  There are smaller doors to the East and West and a the main castle doors to the south.
@@ -72,7 +75,7 @@ The guard is standing by the doors to the south.
 
 > e
 You unlock the door to the Queen's private chamber and enter.
-You are in the Queen's private chamber
+You are in the Queen's private chamber.
 There is Totty's Tank, a Diving suit and Fishing nets and tackle here.
 You can go west.
 The Queen's private chamber houses many items of interest to  her.  It has a strange aquatic theme, with a diving suit and nets hanging high on the walls.
@@ -101,13 +104,13 @@ You pick it up.
 You notice something stuffed inside the shell of the tortoise.  It is a letter.
 
 > take letter
-You already have it.
+I can't see that here.
 
 > take tortoise
 You take the tortoise.
 
 > w
-You are in the Hall
+You are in the Hall.
 There is a Guard, a Statue, a Vase, a Painting and a barrel of Gunpowder here.
 You can go north, south, east or west.
 You are standing in the main hall of the Castle.  It is adorned with many works of art.  There is a large doorway to the North leading to the throne room.  There are smaller doors to the East and West and a the main castle doors to the south.
@@ -122,6 +125,7 @@ You wait for the tortoise to crawl it's way from behind the statue....
 (The tortoise is slow after all)
 
 Eventually the guard notices it.
+press a key
 
 "Damn you Totty"says the guard.  "You're always escaping you cheeky little bugger.  I'd better take you back to the tank."
 With that the guard picks the tortoise up and enters the Queen's chamber.
@@ -135,7 +139,7 @@ As you do so a small object falls from behind it.
 You pick it up.
 
 > e
-You are in the Queen's private chamber
+You are in the Queen's private chamber.
 There is Totty's Tank, a Diving suit, Fishing nets and tackle and Totty the Tortoise here.
 You can go west.
 The Queen's private chamber houses many items of interest to  her.  It has a strange aquatic theme, with a diving suit and nets hanging high on the walls.
@@ -144,7 +148,7 @@ The Queen's private chamber houses many items of interest to  her.  It has a str
 As you look at the tortoise in the tank you notice something odd on it's shell.  The blue light from the tank has made some words appear on it.  The words read "Search the urn".
 
 > w
-You are in the Hall
+You are in the Hall.
 There is a Guard, a Statue, a Vase, a Painting and a barrel of Gunpowder here.
 You can go north, south, east or west.
 You are standing in the main hall of the Castle.  It is adorned with many works of art.  There is a large doorway to the North leading to the throne room.  There are smaller doors to the East and West and a the main castle doors to the south.
@@ -159,7 +163,7 @@ You do as the message instructed and search the urn.  Inside you find a small ru
 You pick it up.
 
 > n
-You are in the Throne Room
+You are in the Throne Room.
 There is King Arnold and a Throne here.
 You can go south, east or west.
 You are standing in the throne room.  There is a large door to the south leading to the main hall.  There are smaller doors to the East and West.
@@ -183,13 +187,13 @@ You pull the lever in the back of the throne and a small door opens in the North
 You have revealed a secret passage.
 
 > n
-You are in a Secret passage
+You are in a Secret passage.
 You can go north or south.
 You are in a secret passage which leads from the Throne room.
 The passage connects the Throne room to the North gate of the Castle.
 
 > n
-You are in the North Gate
+You are in the North Gate.
 You can go out to World Map.
 You can go south.
 You are at the Small North Gate of the Castle Cum-Ere-A-Lot.  The gate is normally used as a private gateway to then outside world by the royal family.
@@ -198,32 +202,32 @@ This is the Gateway to the World Map
 > out
 You leave the area of Castle Cum-Ere-A-Lot and enter the outside world.
 
-You are in the World Map
+You are in the World Map.
 You can go to Castle Cum-Ere-A-Lot's North Gate.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to north gate
-You are in the North Gate
+You are in the North Gate.
 You can go out to World Map.
 You can go south.
 You are at the Small North Gate of the Castle Cum-Ere-A-Lot.  The gate is normally used as a private gateway to then outside world by the royal family.
 This is the Gateway to the World Map
 
 > s
-You are in a Secret passage
+You are in a Secret passage.
 You can go north or south.
 You are in a secret passage which leads from the Throne room.
 The passage connects the Throne room to the North gate of the Castle.
 
 > s
-You are in the Throne Room
+You are in the Throne Room.
 There is a Throne here.
 You can go north, south, east or west.
 You are standing in the throne room.  There is a large door to the south leading to the main hall.  There are smaller doors to the East and West.
 
 > e
-You are in the Study
+You are in the Study.
 There is King Arnold, a Desk and a Bin here.
 You can go west.
 You are in a small oak panelled study.  It is very well lit due to a large lamp overlooking a wooden writing desk.
@@ -262,19 +266,19 @@ So the King has gone to the village of Century.  He may need  help. So that is w
 A new location has been added to the world map!
 
 > w
-You are in the Throne Room
+You are in the Throne Room.
 There is a Throne here.
 You can go north, south, east or west.
 You are standing in the throne room.  There is a large door to the south leading to the main hall.  There are smaller doors to the East and West.
 
 > n
-You are in a Secret passage
+You are in a Secret passage.
 You can go north or south.
 You are in a secret passage which leads from the Throne room.
 The passage connects the Throne room to the North gate of the Castle.
 
 > n
-You are in the North Gate
+You are in the North Gate.
 You can go out to World Map.
 You can go south.
 You are at the Small North Gate of the Castle Cum-Ere-A-Lot.  The gate is normally used as a private gateway to then outside world by the royal family.
@@ -283,13 +287,13 @@ This is the Gateway to the World Map
 > out
 You leave the area of Castle Cum-Ere-A-Lot and enter the outside world.
 
-You are in the World Map
+You are in the World Map.
 You can go to Castle Cum-Ere-A-Lot's North Gate or Century Gate.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to century gate
-You are in Century Gate
+You are in Century Gate.
 You can go out to World Map.
 You can go south.
 The Village of Century.
@@ -300,7 +304,7 @@ This is commonly referred to as the Sail of the Century.
 
 
 > s
-You are in Century Square
+You are in Century Square.
 There is a Pool, a Mast and a boy here.
 You can go north or west.
 You are in Century Square, the main focal point of the village.  In the centre of the square there is a pool with a large mast rising out of it.  On top of the mast there is a small crude weather vane.
@@ -335,6 +339,7 @@ Well, that's the introductions over with
 
 "Yes I saw where they went?" Colin replies
 
+press a key
 
 "They?  He wasn't alone?" You ask.
 
@@ -389,7 +394,7 @@ You thrust the rod into one of the grooves holes in the metal ring.  It sticks f
 You now have a rod with a hoop on the end!
 
 > w
-You are in the Surgery
+You are in the Surgery.
 There is a receptionists desk here.
 You can go south or east.
 Century houses one of the most well known surgery's in the kingdom- run by Doctor Oo.
@@ -428,14 +433,14 @@ You pick it up.
 A small sachet of some very strong shampoo.  It's for greasy hair!
 
 > e
-You are in Century Square
+You are in Century Square.
 There is a Pool, a Mast, a fish and Colin here.
 You can go north or west.
 You are in Century Square, the main focal point of the village.  In the centre of the square there is a pool with a large mast rising out of it.  On top of the mast there is a small crude weather vane.
 To the West is the Surgery.
 
 > n
-You are in Century Gate
+You are in Century Gate.
 You can go out to World Map.
 You can go south.
 The Village of Century.
@@ -448,32 +453,32 @@ This is commonly referred to as the Sail of the Century.
 > out
 You leave the Village of Century and enter the World Map.
 
-You are in the World Map
+You are in the World Map.
 You can go to Castle Cum-Ere-A-Lot's North Gate or Century Gate.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to north gate
-You are in the North Gate
+You are in the North Gate.
 You can go out to World Map.
 You can go south.
 You are at the Small North Gate of the Castle Cum-Ere-A-Lot.  The gate is normally used as a private gateway to then outside world by the royal family.
 This is the Gateway to the World Map
 
 > s
-You are in a Secret passage
+You are in a Secret passage.
 You can go north or south.
 You are in a secret passage which leads from the Throne room.
 The passage connects the Throne room to the North gate of the Castle.
 
 > s
-You are in the Throne Room
+You are in the Throne Room.
 There is a Throne here.
 You can go north, south, east or west.
 You are standing in the throne room.  There is a large door to the south leading to the main hall.  There are smaller doors to the East and West.
 
 > s
-You are in the Hall
+You are in the Hall.
 There is a Guard, a Statue, a Vase, a Painting and a barrel of Gunpowder here.
 You can go north, south, east or west.
 You are standing in the main hall of the Castle.  It is adorned with many works of art.  There is a large doorway to the North leading to the throne room.  There are smaller doors to the East and West and a the main castle doors to the south.
@@ -481,7 +486,7 @@ You are standing in the main hall of the Castle.  It is adorned with many works 
 The guard is standing by the doors to the south.
 
 > e
-You are in the Queen's private chamber
+You are in the Queen's private chamber.
 There is Totty's Tank, a Diving suit, Fishing nets and tackle and Totty the Tortoise here.
 You can go west.
 The Queen's private chamber houses many items of interest to  her.  It has a strange aquatic theme, with a diving suit and nets hanging high on the walls.
@@ -517,7 +522,7 @@ You attach the net to the hoop and form some kind of fishing net.
 The net is not permanently attached, so it can be removed.
 
 > w
-You are in the Hall
+You are in the Hall.
 There is a Guard, a Statue, a Vase, a Painting and a barrel of Gunpowder here.
 You can go north, south, east or west.
 You are standing in the main hall of the Castle.  It is adorned with many works of art.  There is a large doorway to the North leading to the throne room.  There are smaller doors to the East and West and a the main castle doors to the south.
@@ -525,19 +530,19 @@ You are standing in the main hall of the Castle.  It is adorned with many works 
 The guard is standing by the doors to the south.
 
 > n
-You are in the Throne Room
+You are in the Throne Room.
 There is a Throne here.
 You can go north, south, east or west.
 You are standing in the throne room.  There is a large door to the south leading to the main hall.  There are smaller doors to the East and West.
 
 > n
-You are in a Secret passage
+You are in a Secret passage.
 You can go north or south.
 You are in a secret passage which leads from the Throne room.
 The passage connects the Throne room to the North gate of the Castle.
 
 > n
-You are in the North Gate
+You are in the North Gate.
 You can go out to World Map.
 You can go south.
 You are at the Small North Gate of the Castle Cum-Ere-A-Lot.  The gate is normally used as a private gateway to then outside world by the royal family.
@@ -546,13 +551,13 @@ This is the Gateway to the World Map
 > out
 You leave the area of Castle Cum-Ere-A-Lot and enter the outside world.
 
-You are in the World Map
+You are in the World Map.
 You can go to Castle Cum-Ere-A-Lot's North Gate or Century Gate.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to century gate
-You are in Century Gate
+You are in Century Gate.
 You can go out to World Map.
 You can go south.
 The Village of Century.
@@ -563,7 +568,7 @@ This is commonly referred to as the Sail of the Century.
 
 
 > s
-You are in Century Square
+You are in Century Square.
 There is a Pool, a Mast, a fish and Colin here.
 You can go north or west.
 You are in Century Square, the main focal point of the village.  In the centre of the square there is a pool with a large mast rising out of it.  On top of the mast there is a small crude weather vane.
@@ -590,6 +595,7 @@ As you make the bubbles, Colin watches in awe and wonder.
 After a while he comes up to you..
  "Can I have a go with that?"
 "Of course you can" You reply and you hand Colin the Rod and hoop.
+press a key
 
 After a while you decide to ask Colin about the King. "Where did he go?" you ask
 
@@ -600,7 +606,7 @@ With that Colin disappears.
 A new location has been added to your World Map.
 
 > n
-You are in Century Gate
+You are in Century Gate.
 You can go out to World Map.
 You can go south.
 The Village of Century.
@@ -613,13 +619,13 @@ This is commonly referred to as the Sail of the Century.
 > out
 You leave the Village of Century and enter the World Map.
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, or Grove Entrance.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate or Grove Entrance.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to grove entrance
-You are in the Forest Grove Entrance
+You are in the Forest Grove Entrance.
 There is Colin here.
 You can go out to World Map.
 You can go north.
@@ -635,18 +641,20 @@ You are at the entrance to the huge Forest Grove.  The grove is said to be home 
 And with that Colin hands you back the Rod and hoop and disappears.
 
 > n
-You are in the Meadow grove
+You are in the Meadow grove.
 You can go north, south, east, west, northeast or northwest.
 You enter the Meadow Grove with trepidation not knowing what you might find.  Will the King be there?  Will the mysterious Phantom Dennis be there?  Or will you be too late?
 ....
 ....
 ....
+press a key
 
 As you enter the grove, you spy a lone figure in the centre of the grove.... but it doesn't look like the King.
 As you approach the figure, it turns round and you are surprised to find that it is ....
 .....
 .... 
 .... Marlon the Wizard.
+press a key
 
 "Ah Loin" He exclaims, obviously surpised to see you.  "Something terrible has happened"
 
@@ -661,11 +669,13 @@ Will you find the knights and get them here?"
 
 "Excellent" Marlon replies "  So your task is this.  Find all the Knights of the Brown Table, Sir LankyLegs, Sir Halibut and Sir Dwane, show them that letter from the Phantom Dennis and tell them to come here"
 
+press a key
 
  " Now I don't know were Dwane and Halibut are, but I do know that Sir Lanky Legs was heading for the Abbey of Carnivora- the home of the Vegetable Virgins.  Seek him out first"
 And with that Marlon disappears.
 
 A new location has been added to your world map.
+press a key
 
 
 
@@ -673,7 +683,7 @@ Chapter 2: A Good Knight Out!
 
 
 > s
-You are in the Forest Grove Entrance
+You are in the Forest Grove Entrance.
 You can go out to World Map.
 You can go north.
 You are at the entrance to the huge Forest Grove.  The grove is said to be home to many strange animals and plants...... so you should fit right in!
@@ -681,13 +691,13 @@ You are at the entrance to the huge Forest Grove.  The grove is said to be home 
 > out
 You leave the forest grove and enter the World Map.
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, or Carnivora.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance or Carnivora.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to Carnivora
-You are in Carnivora
+You are in Carnivora.
 There is a stern looking Novice here.
 You can go out to World Map.
 You can go north.
@@ -702,6 +712,7 @@ A stern looking nun is guarding the entrance to the Abbey
 You approach the Novice.
 "Can you help me?" you ask "I am looking for one of the Knights of the Brown Table"
 "We have been visitted by a few ungodly heathens of recent times.  One of which is as you've described."
+press a key
 
 "Is he here?" you ask.
 "He was spouting blasphemous remarks and is now languishing in our 'rehabilitation centre'
@@ -716,7 +727,7 @@ Do you wish to see Sir Lankylegs?
 You follow the Novice as she winds her way through many corridors in the Abbey.
 
 Eventually you are taken to a small, cold, stone room
-You are in the rehabilitation centre
+You are in the rehabilitation centre.
 There is the Novice, a rack, a cage and Sir Lankylegs here.
 You can go north.
 This small, cold and damp room may be called a 'rehabilitation centre' but it has all the hallmarks of a torture chamber!
@@ -765,7 +776,7 @@ Are you ready to leave the rehabilitation centre?
 2) No
 [choice] Yes
 The Novice leads you back out of the Abbey
-You are in Carnivora
+You are in Carnivora.
 There is a stern looking Novice here.
 You can go out to World Map.
 You can go north.
@@ -776,8 +787,8 @@ Carnivora: The home of the Vegetable Virgins, a holy group of devout and religio
 > out
 You leave the Abbey of Carnivora and enter the World Map
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, or Fool's Bypass.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora or Fool's Bypass.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
@@ -827,23 +838,23 @@ The nail is quite sharp but also quite rusty.
 > out
 You leave the Fool's Bypass and enter the World Map
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, or Fool's Bypass.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora or Fool's Bypass.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to grove entrance
-You are in the Forest Grove Entrance
+You are in the Forest Grove Entrance.
 You can go out to World Map.
 You can go north.
 You are at the entrance to the huge Forest Grove.  The grove is said to be home to many strange animals and plants...... so you should fit right in!
 
 > n
-You are in the Meadow grove
+You are in the Meadow grove.
 You can go north, south, east, west, northeast or northwest.
 
 > e
-You are in the Wild grove
+You are in the Wild grove.
 There is some wild vegetation here.
 You can go north, west or northwest.
 The wild grove is overrun with wild bushes and plants.  It is difficult to make your way through them
@@ -859,12 +870,12 @@ It is a rather sorry looking, vegetable.  It is quite heavy and about the size o
 You pick it up.
 
 > w
-You are in the Meadow grove
+You are in the Meadow grove.
 You can go north, south, east, west, northeast or northwest.
 There is a pixie in this grove.
 
 > s
-You are in the Forest Grove Entrance
+You are in the Forest Grove Entrance.
 You can go out to World Map.
 You can go north.
 You are at the entrance to the huge Forest Grove.  The grove is said to be home to many strange animals and plants...... so you should fit right in!
@@ -872,13 +883,13 @@ You are at the entrance to the huge Forest Grove.  The grove is said to be home 
 > out
 You leave the forest grove and enter the World Map.
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, or Fool's Bypass.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora or Fool's Bypass.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to carnivora
-You are in Carnivora
+You are in Carnivora.
 There is a stern looking Novice here.
 You can go out to World Map.
 You can go north.
@@ -903,24 +914,24 @@ You pick it up.
 > out
 You leave the Abbey of Carnivora and enter the World Map
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, or Fool's Bypass.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora or Fool's Bypass.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to grove entrance
-You are in the Forest Grove Entrance
+You are in the Forest Grove Entrance.
 You can go out to World Map.
 You can go north.
 You are at the entrance to the huge Forest Grove.  The grove is said to be home to many strange animals and plants...... so you should fit right in!
 
 > n
-You are in the Meadow grove
+You are in the Meadow grove.
 There is a pixie here.
 You can go north, south, east, west, northeast or northwest.
 
 > ne
-You are in the Swampy grove
+You are in the Swampy grove.
 There is Swampy Water here.
 You can go south, west or southwest.
 The grove lies on the edge of a huge swamp.  There are many climbing plants here and the air is thick with flying insects.  The swampy water is still and filled with algae, and it smells disgusting.
@@ -932,11 +943,11 @@ The water is green with algae.  You'd be surprsied if anything lives in there.
 You dip the Handkerchief into the swampy water.  That will surely make the hankie stink!
 
 > sw
-You are in the Meadow grove
+You are in the Meadow grove.
 You can go north, south, east, west, northeast or northwest.
 
 > s
-You are in the Forest Grove Entrance
+You are in the Forest Grove Entrance.
 You can go out to World Map.
 You can go north.
 You are at the entrance to the huge Forest Grove.  The grove is said to be home to many strange animals and plants...... so you should fit right in!
@@ -944,8 +955,8 @@ You are at the entrance to the huge Forest Grove.  The grove is said to be home 
 > out
 You leave the forest grove and enter the World Map.
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, or Fool's Bypass.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora or Fool's Bypass.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
@@ -983,13 +994,13 @@ With that, the doctor pulls his wagon away, with Sir Halibut on top.
 > out
 You leave the Fool's Bypass and enter the World Map
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, or Fool's Bypass.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora or Fool's Bypass.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to carnivora
-You are in Carnivora
+You are in Carnivora.
 There is a stern looking Novice here.
 You can go out to World Map.
 You can go north.
@@ -1012,7 +1023,7 @@ Do you wish to visit Sir Lankylegs?
 You follow the Novice as she winds her way through many corridors in the Abbey.
 
 Eventually you are taken to a small, cold, stone room
-You are in the rehabilitation centre
+You are in the rehabilitation centre.
 There is the Novice, a rack, a cage, Sir Lankylegs and man here.
 You can go north.
 This small, cold and damp room may be called a 'rehabilitation centre' but it has all the hallmarks of a torture chamber!
@@ -1023,6 +1034,7 @@ You wave the smelly handkerchief under the mans nose and he wakes with a start.
 You briefly tell him about his predicament.
 "My name is Shiversword and I am a bard.  I was going door to door, singing my favourite song 'Greensleeves' when they threw me in here."
 
+press a key
 
 At that the Novice huffs
 "Foul words spout from your song.  Singing about greens and leaves- probably of the salad variety.  It is unholy"
@@ -1042,7 +1054,7 @@ Are you ready to leave the rehabilitation centre?
 2) No
 [choice] Yes
 The Novice leads you back out of the Abbey
-You are in Carnivora
+You are in Carnivora.
 There is a small Swede and a stern looking Novice here.
 You can go out to World Map.
 You can go north.
@@ -1053,23 +1065,23 @@ Carnivora: The home of the Vegetable Virgins, a holy group of devout and religio
 > out
 You leave the Abbey of Carnivora and enter the World Map
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, or Fool's Bypass.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora or Fool's Bypass.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to grove entrance
-You are in the Forest Grove Entrance
+You are in the Forest Grove Entrance.
 You can go out to World Map.
 You can go north.
 You are at the entrance to the huge Forest Grove.  The grove is said to be home to many strange animals and plants...... so you should fit right in!
 
 > n
-You are in the Meadow grove
+You are in the Meadow grove.
 You can go north, south, east, west, northeast or northwest.
 
 > n
-You are in the Central grove
+You are in the Central grove.
 There is a ring of Stones here.
 You can go south, east, west, southeast or southwest.
 The central grove is quite clear with the exception of a few bushes.  However, the focus of the grove appears to be a set of eight stones arranged in a circular pattern.
@@ -1087,7 +1099,7 @@ This stone has three bumps on it.
 You manage to lift the stone.  Underneath you find a leather case.
 
 > look at leather case
-You don't see any leather case.
+I can't see that here.
 
 > open case
 You open the case and inside you find the Bard's Lute and a set of small ties.
@@ -1105,12 +1117,12 @@ The ties are made of rubber so they can stretch.  There are clips on the ends as
 You pick it up.
 
 > s
-You are in the Meadow grove
+You are in the Meadow grove.
 You can go north, south, east, west, northeast or northwest.
 There is a pixie in this grove.
 
 > s
-You are in the Forest Grove Entrance
+You are in the Forest Grove Entrance.
 You can go out to World Map.
 You can go north.
 You are at the entrance to the huge Forest Grove.  The grove is said to be home to many strange animals and plants...... so you should fit right in!
@@ -1118,13 +1130,13 @@ You are at the entrance to the huge Forest Grove.  The grove is said to be home 
 > out
 You leave the forest grove and enter the World Map.
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, or Fool's Bypass.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora or Fool's Bypass.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to century gate
-You are in Century Gate
+You are in Century Gate.
 You can go out to World Map.
 You can go south.
 The Village of Century.
@@ -1135,7 +1147,7 @@ This is commonly referred to as the Sail of the Century.
 
 
 > s
-You are in Century Square
+You are in Century Square.
 There is a Pool, a Mast, a bowl full of water, fish and Colin here.
 You can go north or west.
 You are in Century Square, the main focal point of the village.  In the centre of the square there is a pool with a large mast rising out of it.  On top of the mast there is a small crude weather vane.
@@ -1151,7 +1163,7 @@ One day I am going to join the circus, like the one that is  in Chipper's Field.
 
 
 > w
-You are in the Surgery
+You are in the Surgery.
 There is a receptionists desk, bell and a Magazine here.
 You can go south or east.
 Century houses one of the most well known surgery's in the kingdom- run by Doctor Oo.
@@ -1198,7 +1210,7 @@ Hmmmm..... I think we may have a new destination.
 A new destination has been added to the world map.
 
 > n
-You are in the Surgery
+You are in the Surgery.
 There is a receptionists desk, bell and a Magazine here.
 You can go south or east.
 Century houses one of the most well known surgery's in the kingdom- run by Doctor Oo.
@@ -1206,14 +1218,14 @@ You are in a small waiting room.   There are several benches here and a desk.
 As you leave you remove the face mask.
 
 > e
-You are in Century Square
+You are in Century Square.
 There is a Pool, a Mast, a bowl full of water, fish and Colin here.
 You can go north or west.
 You are in Century Square, the main focal point of the village.  In the centre of the square there is a pool with a large mast rising out of it.  On top of the mast there is a small crude weather vane.
 To the West is the Surgery.
 
 > n
-You are in Century Gate
+You are in Century Gate.
 You can go out to World Map.
 You can go south.
 The Village of Century.
@@ -1226,13 +1238,13 @@ This is commonly referred to as the Sail of the Century.
 > out
 You leave the Village of Century and enter the World Map.
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, or Chipper's Field.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass or Chipper's Field.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to chipper's field
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master and Candi Floss here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
@@ -1251,7 +1263,7 @@ Candi Floss is a rather attractive looking young girl with bright pink hair.  Sh
 "Buy some candyfloss, only a penny a bag!"
 
 > w
-You are in Stalls area
+You are in Stalls area.
 There is Stella the Whack-a-Rat attendant, a tube, Joey the wannabe stallsman and a table here.
 You can go east.
 This part of the field has been sectioned off for different types of stalls and games.
@@ -1309,14 +1321,14 @@ Will you listen to Joey's story?
 If you can get me some things that will help me set up a stall, I will give you a ticket that will get you into the big top"
 
 > e
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master and Candi Floss here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
 Chipper's Field used to be an old farming ground but due to recent hard times, the farmer Old Mr Chipper, has had to rent it out to various people.  At the moment it is being used by Oxford's Circus.
 
 > e
-You are in Junk Heap
+You are in Junk Heap.
 There is a Pile of Junk and a swarm of flies here.
 You can go west.
 This area of the field has obviously been used as a rubbish dump.  There is a huge pile of junk here that has obviously been collecting over a large period of time.  It smells bad and the smell seems to have attracted a large number of flies.
@@ -1351,7 +1363,7 @@ The cup is quite dirty and will need to be cleaned before it can be used.
 You pick it up.
 
 > look at bicycle
-You don't see any bicycle.
+I can't see that here.
 
 > take wheel
 You take the wheel off the frame
@@ -1395,7 +1407,7 @@ You have now created a very basic unicycle.
 The crude unicycle has been made from a crutch with a saddle on the top and a tricycle's wheel at the base.  It is too small for you, but a child might enjoy it.
 
 > w
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master and Candi Floss here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
@@ -1404,13 +1416,13 @@ Chipper's Field used to be an old farming ground but due to recent hard times, t
 > out
 You leave Chippers filed and enter the world map
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, or Chipper's Field.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass or Chipper's Field.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to century gate
-You are in Century Gate
+You are in Century Gate.
 You can go out to World Map.
 You can go south.
 The Village of Century.
@@ -1421,7 +1433,7 @@ This is commonly referred to as the Sail of the Century.
 
 
 > s
-You are in Century Square
+You are in Century Square.
 There is a Pool, a Mast, a bowl full of water, fish and Colin here.
 You can go north or west.
 You are in Century Square, the main focal point of the village.  In the centre of the square there is a pool with a large mast rising out of it.  On top of the mast there is a small crude weather vane.
@@ -1443,7 +1455,7 @@ With that, Colin rides off into the distance on his new toy.
 It is a set of small colourful juggling balls.
 
 > n
-You are in Century Gate
+You are in Century Gate.
 You can go out to World Map.
 You can go south.
 The Village of Century.
@@ -1456,20 +1468,20 @@ This is commonly referred to as the Sail of the Century.
 > out
 You leave the Village of Century and enter the World Map.
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, or Chipper's Field.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass or Chipper's Field.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to chipper's field
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master and Candi Floss here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
 Chipper's Field used to be an old farming ground but due to recent hard times, the farmer Old Mr Chipper, has had to rent it out to various people.  At the moment it is being used by Oxford's Circus.
 
 > w
-You are in Stalls area
+You are in Stalls area.
 There is Joey the wannabe stallsman and a table here.
 You can go east.
 This part of the field has been sectioned off for different types of stalls and games.
@@ -1484,17 +1496,17 @@ You give the juggling balls to Joey.
 "That's great.  They can use these to throw."
 
 > e
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master and Candi Floss here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
 Chipper's Field used to be an old farming ground but due to recent hard times, the farmer Old Mr Chipper, has had to rent it out to various people.  At the moment it is being used by Oxford's Circus.
 
 > se
-You are in Caravan site
+You are in Caravan site.
 There is a Campfire, a Cooking pot, a Pygmy, the large caravan's window and a pile of boxes here.
-You can go northwest.
 You can go to large caravan.
+You can go northwest.
 
 > look at campfire
 The campfire is burning bright and hot.  There is a cooking pot stewing over the top of it.
@@ -1537,7 +1549,7 @@ The window is closed.
 There are a pile of boxes just under the window of the caravan.
 
 > nw
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master and Candi Floss here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
@@ -1546,72 +1558,72 @@ Chipper's Field used to be an old farming ground but due to recent hard times, t
 > out
 You leave Chippers filed and enter the world map
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, or Chipper's Field.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass or Chipper's Field.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to grove entrance
-You are in the Forest Grove Entrance
+You are in the Forest Grove Entrance.
 You can go out to World Map.
 You can go north.
 You are at the entrance to the huge Forest Grove.  The grove is said to be home to many strange animals and plants...... so you should fit right in!
 
 > n
-You are in the Meadow grove
+You are in the Meadow grove.
 There is a pixie here.
 You can go north, south, east, west, northeast or northwest.
 
 > w
-You are in the Grassy grove
+You are in the Grassy grove.
 You can go north, east or northeast.
 The grassy grove is covered with long grass that comes up to your shins.  It really could do with a cut.
 There is a pixie in this grove.
 
 > look
-You are in the Grassy grove
+You are in the Grassy grove.
 There is a pixie here.
 You can go north, east or northeast.
 The grassy grove is covered with long grass that comes up to your shins.  It really could do with a cut.
 
 > look
-You are in the Grassy grove
+You are in the Grassy grove.
 There is a pixie here.
 You can go north, east or northeast.
 The grassy grove is covered with long grass that comes up to your shins.  It really could do with a cut.
 
 > look
-You are in the Grassy grove
+You are in the Grassy grove.
 There is a pixie here.
 You can go north, east or northeast.
 The grassy grove is covered with long grass that comes up to your shins.  It really could do with a cut.
 
 > look
-You are in the Grassy grove
+You are in the Grassy grove.
 There is a pixie here.
 You can go north, east or northeast.
 The grassy grove is covered with long grass that comes up to your shins.  It really could do with a cut.
 
 > look
-You are in the Grassy grove
+You are in the Grassy grove.
 There is a pixie here.
 You can go north, east or northeast.
 The grassy grove is covered with long grass that comes up to your shins.  It really could do with a cut.
 
 > look
-You are in the Grassy grove
+You are in the Grassy grove.
 There is a pixie here.
 You can go north, east or northeast.
 The grassy grove is covered with long grass that comes up to your shins.  It really could do with a cut.
 
 > look
-You are in the Grassy grove
+You are in the Grassy grove.
 There is a pixie here.
 You can go north, east or northeast.
 The grassy grove is covered with long grass that comes up to your shins.  It really could do with a cut.
 
 > look
-You are in the Grassy grove
+You are in the Grassy grove.
 There is a pixie here.
 You can go north, east or northeast.
 The grassy grove is covered with long grass that comes up to your shins.  It really could do with a cut.
@@ -1627,11 +1639,11 @@ You try hard to strike a conversation and after a while he starts to listen.  Yo
 He heeds your words and leaves.
 
 > e
-You are in the Meadow grove
+You are in the Meadow grove.
 You can go north, south, east, west, northeast or northwest.
 
 > s
-You are in the Forest Grove Entrance
+You are in the Forest Grove Entrance.
 You can go out to World Map.
 You can go north.
 You are at the entrance to the huge Forest Grove.  The grove is said to be home to many strange animals and plants...... so you should fit right in!
@@ -1639,13 +1651,13 @@ You are at the entrance to the huge Forest Grove.  The grove is said to be home 
 > out
 You leave the forest grove and enter the World Map.
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, or Chipper's Field.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass or Chipper's Field.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to carnivora
-You are in Carnivora
+You are in Carnivora.
 There is a small Swede and a stern looking Novice here.
 You can go out to World Map.
 You can go north.
@@ -1671,23 +1683,23 @@ You pick it up.
 > out
 You leave the Abbey of Carnivora and enter the World Map
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, or Chipper's Field.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass or Chipper's Field.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to chipper's field
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master and Candi Floss here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
 Chipper's Field used to be an old farming ground but due to recent hard times, the farmer Old Mr Chipper, has had to rent it out to various people.  At the moment it is being used by Oxford's Circus.
 
 > se
-You are in Caravan site
+You are in Caravan site.
 There is a Campfire, a Cooking pot, the large caravan's window, a pile of boxes, Caribou the pygmy and Crusoe here.
-You can go northwest.
 You can go to large caravan.
+You can go northwest.
 
 > speak to caribou
 "Thank you for getting Crusoe back.  I is so grateful"
@@ -1697,7 +1709,7 @@ With that she gives you a gift.  It is a book!
 It is a book of Amazonion poisons and antidotes.
 
 > nw
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master and Candi Floss here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
@@ -1706,13 +1718,13 @@ Chipper's Field used to be an old farming ground but due to recent hard times, t
 > out
 You leave Chippers filed and enter the world map
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, or Chipper's Field.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass or Chipper's Field.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to century gate
-You are in Century Gate
+You are in Century Gate.
 You can go out to World Map.
 You can go south.
 The Village of Century.
@@ -1723,7 +1735,7 @@ This is commonly referred to as the Sail of the Century.
 
 
 > s
-You are in Century Square
+You are in Century Square.
 There is a Pool, a Mast, a bowl full of water and fish here.
 You can go north or west.
 You are in Century Square, the main focal point of the village.  In the centre of the square there is a pool with a large mast rising out of it.  On top of the mast there is a small crude weather vane.
@@ -1733,7 +1745,7 @@ To the West is the Surgery.
 You wash the dirty cup in the soapy water.
 
 > w
-You are in the Surgery
+You are in the Surgery.
 There is a receptionists desk, bell and a Magazine here.
 You can go south or east.
 Century houses one of the most well known surgery's in the kingdom- run by Doctor Oo.
@@ -1759,21 +1771,21 @@ The doctor hands you a beaker.
 The beaker that the Doctor gave you is made of glass.
 
 > n
-You are in the Surgery
+You are in the Surgery.
 There is a receptionists desk, bell and a Magazine here.
 You can go south or east.
 Century houses one of the most well known surgery's in the kingdom- run by Doctor Oo.
 You are in a small waiting room.   There are several benches here and a desk.
 
 > e
-You are in Century Square
+You are in Century Square.
 There is a Pool, a Mast, a bowl full of water and fish here.
 You can go north or west.
 You are in Century Square, the main focal point of the village.  In the centre of the square there is a pool with a large mast rising out of it.  On top of the mast there is a small crude weather vane.
 To the West is the Surgery.
 
 > n
-You are in Century Gate
+You are in Century Gate.
 You can go out to World Map.
 You can go south.
 The Village of Century.
@@ -1786,26 +1798,26 @@ This is commonly referred to as the Sail of the Century.
 > out
 You leave the Village of Century and enter the World Map.
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, or Chipper's Field.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass or Chipper's Field.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to chipper's field
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master and Candi Floss here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
 Chipper's Field used to be an old farming ground but due to recent hard times, the farmer Old Mr Chipper, has had to rent it out to various people.  At the moment it is being used by Oxford's Circus.
 
 > se
-You are in Caravan site
+You are in Caravan site.
 There is a Campfire, a Cooking pot, the large caravan's window, a pile of boxes, Caribou the pygmy and Crusoe here.
-You can go northwest.
 You can go to large caravan.
+You can go northwest.
 
 > go to large caravan
-You are in a large caravan
+You are in a large caravan.
 There is a Window, Donna, a Chair, some Cushions and a Hip flask here.
 You can go out to Caravan site.
 You enter the large caravan.  It is adorned with many pink cushions and soft furnishings.  There is a large lady in here, sitting in a chair.  There is a single window in the caravan.
@@ -1848,10 +1860,10 @@ Eventually Donna sits back down., and after a while starts to compain about the 
 With that she gets up and opens the window.
 
 > out
-You are in Caravan site
+You are in Caravan site.
 There is a Campfire, a Cooking pot, the large caravan's window, a pile of boxes, Caribou the pygmy and Crusoe here.
-You can go northwest.
 You can go to large caravan.
+You can go northwest.
 
 > use rat on window
 Climbing on one of the boxes, you manage to reach the window which is now open.
@@ -1859,7 +1871,7 @@ Climbing on one of the boxes, you manage to reach the window which is now open.
 You drop the toy rat through it.
 
 > go to large caravan
-You are in a large caravan
+You are in a large caravan.
 There is a Window, Donna, a Chair, some Cushions, a Hip flask and the rat here.
 You can go out to Caravan site.
 You enter the large caravan.  It is adorned with many pink cushions and soft furnishings.  There is a large lady in here, sitting in a chair.  There is a single window in the caravan.
@@ -1872,6 +1884,7 @@ You point to the rat which you dropped through the window.
 And as an instant reaction she throws the nearest thing to hand at it..... her hip flask.
 
 However, her aim is bad and the flask sails straight through the open window.
+press a key
 
 "It must have come through the window" you tell her. "Don't wory, I'll get rid of it"
 
@@ -1886,10 +1899,10 @@ You strum the lute but all you do is make a horrific noise.
 "Oh my god" says Donna holding her ears.  "That noise is absolutely ghaaaastly.  Come back when you learn how to play"
 
 > out
-You are in Caravan site
+You are in Caravan site.
 There is a Campfire, a Cooking pot, the large caravan's window, a pile of boxes, Caribou the pygmy and Crusoe here.
-You can go northwest.
 You can go to large caravan.
+You can go northwest.
 
 > search boxes
 You search the boxes.
@@ -1903,7 +1916,7 @@ You pick it up.
 The hip flask belonged to Donna the large singer.  It is a very large hip flask, but then she did have very large hips! There appears to be quite a substantial amount of alcohol in there.
 
 > nw
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master and Candi Floss here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
@@ -1912,32 +1925,32 @@ Chipper's Field used to be an old farming ground but due to recent hard times, t
 > out
 You leave Chippers filed and enter the world map
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, or Chipper's Field.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass or Chipper's Field.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to north gate
-You are in the North Gate
+You are in the North Gate.
 You can go out to World Map.
 You can go south.
 You are at the Small North Gate of the Castle Cum-Ere-A-Lot.  The gate is normally used as a private gateway to then outside world by the royal family.
 This is the Gateway to the World Map
 
 > s
-You are in a Secret passage
+You are in a Secret passage.
 You can go north or south.
 You are in a secret passage which leads from the Throne room.
 The passage connects the Throne room to the North gate of the Castle.
 
 > s
-You are in the Throne Room
+You are in the Throne Room.
 There is a Throne here.
 You can go north, south, east or west.
 You are standing in the throne room.  There is a large door to the south leading to the main hall.  There are smaller doors to the East and West.
 
 > s
-You are in the Hall
+You are in the Hall.
 There is a Guard, a Statue, a Vase, a Painting and a barrel of Gunpowder here.
 You can go north, south, east or west.
 You are standing in the main hall of the Castle.  It is adorned with many works of art.  There is a large doorway to the North leading to the throne room.  There are smaller doors to the East and West and a the main castle doors to the south.
@@ -1960,7 +1973,7 @@ You strum the lute.  Hmm, you're not too bad.  Those lessons are paying off!
 "Ahh.  That's my boy!" says the guard with pride.
 
 > e
-You are in the Queen's private chamber
+You are in the Queen's private chamber.
 There is Totty's Tank, a Diving suit, Fishing nets and tackle, Totty the Tortoise and a Shelf here.
 You can go west.
 The Queen's private chamber houses many items of interest to  her.  It has a strange aquatic theme, with a diving suit and nets hanging high on the walls.
@@ -1969,7 +1982,7 @@ The Queen's private chamber houses many items of interest to  her.  It has a str
 You take the tortoise.
 
 > w
-You are in the Hall
+You are in the Hall.
 There is a Guard, a Statue, a Vase, a Painting and a barrel of Gunpowder here.
 You can go north, south, east or west.
 You are standing in the main hall of the Castle.  It is adorned with many works of art.  There is a large doorway to the North leading to the throne room.  There are smaller doors to the East and West and a the main castle doors to the south.
@@ -1984,6 +1997,7 @@ You wait for the tortoise to crawl it's way from behind the statue....
 (The tortoise is slow after all)
 
 Eventually the guard notices it.
+press a key
 
 "Damn you Totty"says the guard.  "You're always escaping you cheeky little bugger.  I'd better take you back to the tank."
 With that the guard picks the tortoise up and enters the Queen's chamber.
@@ -1997,22 +2011,22 @@ You lift the painting slightly.
 There is nothing else hidden behind the painting.
 
 > take silver key
-You already have it.
+I can't see that here.
 
 > n
-You are in the Throne Room
+You are in the Throne Room.
 There is a Throne here.
 You can go north, south, east or west.
 You are standing in the throne room.  There is a large door to the south leading to the main hall.  There are smaller doors to the East and West.
 
 > n
-You are in a Secret passage
+You are in a Secret passage.
 You can go north or south.
 You are in a secret passage which leads from the Throne room.
 The passage connects the Throne room to the North gate of the Castle.
 
 > n
-You are in the North Gate
+You are in the North Gate.
 You can go out to World Map.
 You can go south.
 You are at the Small North Gate of the Castle Cum-Ere-A-Lot.  The gate is normally used as a private gateway to then outside world by the royal family.
@@ -2021,26 +2035,26 @@ This is the Gateway to the World Map
 > out
 You leave the area of Castle Cum-Ere-A-Lot and enter the outside world.
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, or Chipper's Field.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass or Chipper's Field.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to chipper's field
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master and Candi Floss here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
 Chipper's Field used to be an old farming ground but due to recent hard times, the farmer Old Mr Chipper, has had to rent it out to various people.  At the moment it is being used by Oxford's Circus.
 
 > se
-You are in Caravan site
+You are in Caravan site.
 There is a Campfire, a Cooking pot, the large caravan's window, a pile of boxes, Caribou the pygmy and Crusoe here.
-You can go northwest.
 You can go to large caravan.
+You can go northwest.
 
 > go to large caravan
-You are in a large caravan
+You are in a large caravan.
 There is a Window, Donna, a Chair and some Cushions here.
 You can go out to Caravan site.
 You enter the large caravan.  It is adorned with many pink cushions and soft furnishings.  There is a large lady in here, sitting in a chair.  There is a single window in the caravan.
@@ -2051,13 +2065,13 @@ You strum the lute.  Hmm, you're not too bad.  Those lessons are paying off!
 And with that she hands you a sheet of music
 
 > out
-You are in Caravan site
+You are in Caravan site.
 There is a Campfire, a Cooking pot, the large caravan's window, a pile of boxes, Caribou the pygmy and Crusoe here.
-You can go northwest.
 You can go to large caravan.
+You can go northwest.
 
 > nw
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master and Candi Floss here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
@@ -2066,32 +2080,32 @@ Chipper's Field used to be an old farming ground but due to recent hard times, t
 > out
 You leave Chippers filed and enter the world map
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, or Chipper's Field.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass or Chipper's Field.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to north gate
-You are in the North Gate
+You are in the North Gate.
 You can go out to World Map.
 You can go south.
 You are at the Small North Gate of the Castle Cum-Ere-A-Lot.  The gate is normally used as a private gateway to then outside world by the royal family.
 This is the Gateway to the World Map
 
 > s
-You are in a Secret passage
+You are in a Secret passage.
 You can go north or south.
 You are in a secret passage which leads from the Throne room.
 The passage connects the Throne room to the North gate of the Castle.
 
 > s
-You are in the Throne Room
+You are in the Throne Room.
 There is a Throne here.
 You can go north, south, east or west.
 You are standing in the throne room.  There is a large door to the south leading to the main hall.  There are smaller doors to the East and West.
 
 > s
-You are in the Hall
+You are in the Hall.
 There is a Guard, a Statue, a Vase, a Painting and a barrel of Gunpowder here.
 You can go north, south, east or west.
 You are standing in the main hall of the Castle.  It is adorned with many works of art.  There is a large doorway to the North leading to the throne room.  There are smaller doors to the East and West and a the main castle doors to the south.
@@ -2102,19 +2116,19 @@ The guard is standing by the doors to the south.
 You give the music to the guard and you spend the next few hours learning the piece of music.
 
 > n
-You are in the Throne Room
+You are in the Throne Room.
 There is a Throne here.
 You can go north, south, east or west.
 You are standing in the throne room.  There is a large door to the south leading to the main hall.  There are smaller doors to the East and West.
 
 > n
-You are in a Secret passage
+You are in a Secret passage.
 You can go north or south.
 You are in a secret passage which leads from the Throne room.
 The passage connects the Throne room to the North gate of the Castle.
 
 > n
-You are in the North Gate
+You are in the North Gate.
 You can go out to World Map.
 You can go south.
 You are at the Small North Gate of the Castle Cum-Ere-A-Lot.  The gate is normally used as a private gateway to then outside world by the royal family.
@@ -2123,26 +2137,26 @@ This is the Gateway to the World Map
 > out
 You leave the area of Castle Cum-Ere-A-Lot and enter the outside world.
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, or Chipper's Field.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass or Chipper's Field.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to chipper's field
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master and Candi Floss here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
 Chipper's Field used to be an old farming ground but due to recent hard times, the farmer Old Mr Chipper, has had to rent it out to various people.  At the moment it is being used by Oxford's Circus.
 
 > se
-You are in Caravan site
+You are in Caravan site.
 There is a Campfire, a Cooking pot, the large caravan's window, a pile of boxes, Caribou the pygmy and Crusoe here.
-You can go northwest.
 You can go to large caravan.
+You can go northwest.
 
 > go to large caravan
-You are in a large caravan
+You are in a large caravan.
 There is a Window, Donna, a Chair and some Cushions here.
 You can go out to Caravan site.
 You enter the large caravan.  It is adorned with many pink cushions and soft furnishings.  There is a large lady in here, sitting in a chair.  There is a single window in the caravan.
@@ -2163,13 +2177,13 @@ And then she hands you a penny.
 A rather dull looking penny.  It has the head of the king on one   And on the back side......
 
 > out
-You are in Caravan site
+You are in Caravan site.
 There is a Campfire, a Cooking pot, the large caravan's window, a pile of boxes, Caribou the pygmy and Crusoe here.
-You can go northwest.
 You can go to large caravan.
+You can go northwest.
 
 > nw
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master and Candi Floss here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
@@ -2185,10 +2199,10 @@ You eat the candyfloss.  It is very sweet and quite sticky, but extremely tasty.
 Now all you have left is the plastic bag.
 
 > look at plastic bag
-You don't see any plastic bag.
+I can't see that here.
 
 > sw
-You are in Coconut shy
+You are in Coconut shy.
 There is Shelley the Coconut shy attendant and post here.
 You can go northeast.
 This area of the field has been set aside specifically for the coconut shy.  It's always drawn a huge crowd, but that may be due more to the young girl running it.
@@ -2261,10 +2275,10 @@ The coconut is brown and hairy, perhaps it needs a hair cut!
 > take coconut
 You pick it up.
 
-> look at post
+> look at broken post
 The broken post was part of the coconut shy post, unti the cannon brkoe it.  It is about two feet long and in the shape of a 'Y'.
 
-> take post
+> take broken post
 You pick it up.
 
 > talk to shelley
@@ -2298,23 +2312,23 @@ You tip the coconut over the beaker.  The milk pours out easily now that there i
 You pour the rest of the alcohol from the flask into the beaker.
 
 > ne
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
 Chipper's Field used to be an old farming ground but due to recent hard times, the farmer Old Mr Chipper, has had to rent it out to various people.  At the moment it is being used by Oxford's Circus.
 
 > se
-You are in Caravan site
+You are in Caravan site.
 There is a Campfire, a Cooking pot, the large caravan's window, a pile of boxes, Caribou the pygmy and Crusoe here.
-You can go northwest.
 You can go to large caravan.
+You can go northwest.
 
 > use beaker on campfire
 You heat the mixture up on the campfire.
 
 > nw
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
@@ -2323,23 +2337,23 @@ Chipper's Field used to be an old farming ground but due to recent hard times, t
 > out
 You leave Chippers filed and enter the world map
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, or Chipper's Field.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass or Chipper's Field.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to grove entrance
-You are in the Forest Grove Entrance
+You are in the Forest Grove Entrance.
 You can go out to World Map.
 You can go north.
 You are at the entrance to the huge Forest Grove.  The grove is said to be home to many strange animals and plants...... so you should fit right in!
 
 > n
-You are in the Meadow grove
+You are in the Meadow grove.
 You can go north, south, east, west, northeast or northwest.
 
 > nw
-You are in the Shady grove
+You are in the Shady grove.
 There is a mushroom patch here.
 You can go south, east or southeast.
 The shady grove is overrun with all sorts of wild plants and fungi.  There is a whole patch of different types of mushrooms here.
@@ -2359,12 +2373,12 @@ You have created the antidote.
 It is the antidote the doctor wanted.  You made it from the coconut milk, alcohol and mushrooms.
 
 > se
-You are in the Meadow grove
+You are in the Meadow grove.
 You can go north, south, east, west, northeast or northwest.
 There is a pixie in this grove.
 
 > s
-You are in the Forest Grove Entrance
+You are in the Forest Grove Entrance.
 You can go out to World Map.
 You can go north.
 You are at the entrance to the huge Forest Grove.  The grove is said to be home to many strange animals and plants...... so you should fit right in!
@@ -2372,13 +2386,13 @@ You are at the entrance to the huge Forest Grove.  The grove is said to be home 
 > out
 You leave the forest grove and enter the World Map.
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, or Chipper's Field.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass or Chipper's Field.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to century gate
-You are in Century Gate
+You are in Century Gate.
 You can go out to World Map.
 You can go south.
 The Village of Century.
@@ -2389,14 +2403,14 @@ This is commonly referred to as the Sail of the Century.
 
 
 > s
-You are in Century Square
+You are in Century Square.
 There is a Pool, a Mast, a bowl full of water and fish here.
 You can go north or west.
 You are in Century Square, the main focal point of the village.  In the centre of the square there is a pool with a large mast rising out of it.  On top of the mast there is a small crude weather vane.
 To the West is the Surgery.
 
 > w
-You are in the Surgery
+You are in the Surgery.
 There is a receptionists desk, bell and a Magazine here.
 You can go south or east.
 Century houses one of the most well known surgery's in the kingdom- run by Doctor Oo.
@@ -2433,14 +2447,14 @@ With that he hands you a key.
 With that he leaves.
 
 > n
-You are in the Surgery
+You are in the Surgery.
 There is a receptionists desk, bell and a Magazine here.
 You can go south or east.
 Century houses one of the most well known surgery's in the kingdom- run by Doctor Oo.
 You are in a small waiting room.   There are several benches here and a desk.
 
 > e
-You are in Century Square
+You are in Century Square.
 There is a Pool, a Mast, a bowl full of water and fish here.
 You can go north or west.
 You are in Century Square, the main focal point of the village.  In the centre of the square there is a pool with a large mast rising out of it.  On top of the mast there is a small crude weather vane.
@@ -2456,7 +2470,7 @@ You scoop the fish into the bag.
 You pour the water back into the pool
 
 > n
-You are in Century Gate
+You are in Century Gate.
 You can go out to World Map.
 You can go south.
 The Village of Century.
@@ -2469,33 +2483,33 @@ This is commonly referred to as the Sail of the Century.
 > out
 You leave the Village of Century and enter the World Map.
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, or Chipper's Field.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass or Chipper's Field.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to north gate
-You are in the North Gate
+You are in the North Gate.
 You can go out to World Map.
 You can go south.
 You are at the Small North Gate of the Castle Cum-Ere-A-Lot.  The gate is normally used as a private gateway to then outside world by the royal family.
 This is the Gateway to the World Map
 
 > s
-You are in a Secret passage
+You are in a Secret passage.
 You can go north or south.
 You are in a secret passage which leads from the Throne room.
 The passage connects the Throne room to the North gate of the Castle.
 
 > s
-You are in the Throne Room
+You are in the Throne Room.
 There is a Throne here.
 You can go north, south, east or west.
 You are standing in the throne room.  There is a large door to the south leading to the main hall.  There are smaller doors to the East and West.
 
 > w
 You unlock the door to the west with the games room key.
-You are in the Games Room
+You are in the Games Room.
 There is some colourful Bunting here.
 You can go east.
 The games room is quite a colourful room.  There are plenty of pictures on the wall depicting many different activities.
@@ -2507,19 +2521,19 @@ The bunting is a six foot length of string with colourful flags hanging off it.
 You pick it up.
 
 > e
-You are in the Throne Room
+You are in the Throne Room.
 There is a Throne here.
 You can go north, south, east or west.
 You are standing in the throne room.  There is a large door to the south leading to the main hall.  There are smaller doors to the East and West.
 
 > n
-You are in a Secret passage
+You are in a Secret passage.
 You can go north or south.
 You are in a secret passage which leads from the Throne room.
 The passage connects the Throne room to the North gate of the Castle.
 
 > n
-You are in the North Gate
+You are in the North Gate.
 You can go out to World Map.
 You can go south.
 You are at the Small North Gate of the Castle Cum-Ere-A-Lot.  The gate is normally used as a private gateway to then outside world by the royal family.
@@ -2528,20 +2542,20 @@ This is the Gateway to the World Map
 > out
 You leave the area of Castle Cum-Ere-A-Lot and enter the outside world.
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, or Chipper's Field.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass or Chipper's Field.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to chipper's field
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
 Chipper's Field used to be an old farming ground but due to recent hard times, the farmer Old Mr Chipper, has had to rent it out to various people.  At the moment it is being used by Oxford's Circus.
 
 > w
-You are in Stalls area
+You are in Stalls area.
 There is Joey the wannabe stallsman and a table here.
 You can go east.
 This part of the field has been sectioned off for different types of stalls and games.
@@ -2563,7 +2577,7 @@ And he hands you a ticket for the Big Top.
 It is an entry ticket to the big top.
 
 > e
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
@@ -2574,7 +2588,7 @@ You hand the ticket over to the Ring Master.
 He lets you pass.  You have now gained entry into the Big Top.
 
 > s
-You are in Big Top
+You are in Big Top.
 There is a large cage and a knife thrower's Board here.
 You can go north.
 
@@ -2612,17 +2626,17 @@ All he can say is
 Maybe it's an improvement.
 
 > n
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
 Chipper's Field used to be an old farming ground but due to recent hard times, the farmer Old Mr Chipper, has had to rent it out to various people.  At the moment it is being used by Oxford's Circus.
 
 > se
-You are in Caravan site
+You are in Caravan site.
 There is a Campfire, a Cooking pot, the large caravan's window, a pile of boxes, Caribou the pygmy and Crusoe here.
-You can go northwest.
 You can go to large caravan.
+You can go northwest.
 
 > use chopped swede on pot
 You tip the chopped swede into the stew.  Soon it is boling away in there, covered in gravy so that no-one wold know it was there.
@@ -2631,7 +2645,7 @@ You tip the chopped swede into the stew.  Soon it is boling away in there, cover
 You dip the clean cup into the stew pot and get a lovely cup of boiling meat stew.
 
 > nw
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
@@ -2640,13 +2654,13 @@ Chipper's Field used to be an old farming ground but due to recent hard times, t
 > out
 You leave Chippers filed and enter the world map
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, or Chipper's Field.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass or Chipper's Field.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to carnivora
-You are in Carnivora
+You are in Carnivora.
 There is a stern looking Novice here.
 You can go out to World Map.
 You can go north.
@@ -2662,7 +2676,7 @@ But after a few gulps she realises what you have done, and starts to vomit.
 And then she runs into the abbey, dropping the cup on the floor.
 
 > n
-You are in Abbey Hall
+You are in Abbey Hall.
 There is a Tapestry here.
 You can go south or west.
 The Abbey Hall is a long stone room with many alcoves and stone pillars.  At the south end are the main doors which lead out to the grounds.  At the north end there is a huge tapestry hung on the wall.  There is a tiny door to the west.
@@ -2693,7 +2707,7 @@ A small bunch of yellow bananas.  It is not the sort of thing you'd expect to se
 You pick it up.
 
 > w
-You are in the Room of learning
+You are in the Room of learning.
 There is various Books here.
 You can go south or east.
 The room of learning houses many books.  This must be where the nuns come to study.
@@ -2710,11 +2724,12 @@ Are you ready to answer the question of learning?
 2) No
 [choice] yes
 "The question is this....."
+"What is the combined weight of all the Holy Sugarlumps kept in the Blisterine Chapel?"
 You must state your answer now
 That is the correct answer..  You have learnt well"
 
 > s
-You are in the rehabilitation centre
+You are in the rehabilitation centre.
 There is a rack, a cage, Sir Lankylegs and Shiversword the Bard here.
 You can go north.
 This small, cold and damp room may be called a 'rehabilitation centre' but it has all the hallmarks of a torture chamber!
@@ -2735,19 +2750,19 @@ The book contains some music and lyrics to some very popular songs, such as:
 'Verily, I am fortunate, fortunate, fortunate' by the Lady Kylie, 'Is this the pilgrimage to Aberystwyth' by Sir Tony Christus and the ever popular 'Love me for a Season' by SerfZone.
 
 > n
-You are in the Room of learning
+You are in the Room of learning.
 There is various Books here.
 You can go south or east.
 The room of learning houses many books.  This must be where the nuns come to study.
 
 > e
-You are in Abbey Hall
+You are in Abbey Hall.
 There is a Tapestry and a safe here.
 You can go south or west.
 The Abbey Hall is a long stone room with many alcoves and stone pillars.  At the south end are the main doors which lead out to the grounds.  At the north end there is a huge tapestry hung on the wall.  There is a tiny door to the west.
 
 > s
-You are in Carnivora
+You are in Carnivora.
 There is a dirty cup here.
 You can go out to World Map.
 You can go north.
@@ -2758,26 +2773,26 @@ Carnivora: The home of the Vegetable Virgins, a holy group of devout and religio
 > out
 You leave the Abbey of Carnivora and enter the World Map
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, or Chipper's Field.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass or Chipper's Field.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to chipper's field
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
 Chipper's Field used to be an old farming ground but due to recent hard times, the farmer Old Mr Chipper, has had to rent it out to various people.  At the moment it is being used by Oxford's Circus.
 
 > se
-You are in Caravan site
+You are in Caravan site.
 There is a Campfire, a Cooking pot, the large caravan's window, a pile of boxes, Caribou the pygmy and Crusoe here.
-You can go northwest.
 You can go to large caravan.
+You can go northwest.
 
 > go to large caravan
-You are in a large caravan
+You are in a large caravan.
 There is a Window, Donna, a Chair and some Cushions here.
 You can go out to Caravan site.
 You enter the large caravan.  It is adorned with many pink cushions and soft furnishings.  There is a large lady in here, sitting in a chair.  There is a single window in the caravan.
@@ -2793,13 +2808,13 @@ She quickly scribbles a note, and passes it to you.
 This letter was written by Donna as an invitation to a musician to join her in a partnership.
 
 > out
-You are in Caravan site
+You are in Caravan site.
 There is a Campfire, a Cooking pot, the large caravan's window, a pile of boxes, Caribou the pygmy and Crusoe here.
-You can go northwest.
 You can go to large caravan.
+You can go northwest.
 
 > nw
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
@@ -2808,13 +2823,13 @@ Chipper's Field used to be an old farming ground but due to recent hard times, t
 > out
 You leave Chippers filed and enter the world map
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, or Chipper's Field.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass or Chipper's Field.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to carnivora
-You are in Carnivora
+You are in Carnivora.
 There is a dirty cup here.
 You can go out to World Map.
 You can go north.
@@ -2823,19 +2838,19 @@ Carnivora: The home of the Vegetable Virgins, a holy group of devout and religio
 
 
 > n
-You are in Abbey Hall
+You are in Abbey Hall.
 There is a Tapestry and a safe here.
 You can go south or west.
 The Abbey Hall is a long stone room with many alcoves and stone pillars.  At the south end are the main doors which lead out to the grounds.  At the north end there is a huge tapestry hung on the wall.  There is a tiny door to the west.
 
 > w
-You are in the Room of learning
+You are in the Room of learning.
 There is various Books here.
 You can go south or east.
 The room of learning houses many books.  This must be where the nuns come to study.
 
 > s
-You are in the rehabilitation centre
+You are in the rehabilitation centre.
 There is a rack, a cage, Sir Lankylegs and Shiversword the Bard here.
 You can go north.
 This small, cold and damp room may be called a 'rehabilitation centre' but it has all the hallmarks of a torture chamber!
@@ -2847,19 +2862,19 @@ And he rushes off, full of enthusiasm.
 You can't help but feel that he is going to be disappointed.
 
 > n
-You are in the Room of learning
+You are in the Room of learning.
 There is various Books here.
 You can go south or east.
 The room of learning houses many books.  This must be where the nuns come to study.
 
 > e
-You are in Abbey Hall
+You are in Abbey Hall.
 There is a Tapestry and a safe here.
 You can go south or west.
 The Abbey Hall is a long stone room with many alcoves and stone pillars.  At the south end are the main doors which lead out to the grounds.  At the north end there is a huge tapestry hung on the wall.  There is a tiny door to the west.
 
 > s
-You are in Carnivora
+You are in Carnivora.
 There is a dirty cup here.
 You can go out to World Map.
 You can go north.
@@ -2870,26 +2885,26 @@ Carnivora: The home of the Vegetable Virgins, a holy group of devout and religio
 > out
 You leave the Abbey of Carnivora and enter the World Map
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, or Chipper's Field.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass or Chipper's Field.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to chipper's field
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
 Chipper's Field used to be an old farming ground but due to recent hard times, the farmer Old Mr Chipper, has had to rent it out to various people.  At the moment it is being used by Oxford's Circus.
 
 > se
-You are in Caravan site
+You are in Caravan site.
 There is a Campfire, a Cooking pot, the large caravan's window, a pile of boxes, Caribou the pygmy and Crusoe here.
-You can go northwest.
 You can go to large caravan.
+You can go northwest.
 
 > go to large caravan
-You are in a large caravan
+You are in a large caravan.
 There is a Window, Donna, a Chair, some Cushions and Shiversword here.
 You can go out to Caravan site.
 You enter the large caravan.  It is adorned with many pink cushions and soft furnishings.  There is a large lady in here, sitting in a chair.  There is a single window in the caravan.
@@ -2931,13 +2946,13 @@ You hand the bag of rice over.
 The contract was given to you by Shiversword.  He wants you to get a band to sign it to say that they will play at the wedding.
 
 > out
-You are in Caravan site
+You are in Caravan site.
 There is a Campfire, a Cooking pot, the large caravan's window, a pile of boxes, Caribou the pygmy and Crusoe here.
-You can go northwest.
 You can go to large caravan.
+You can go northwest.
 
 > nw
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
@@ -2946,32 +2961,32 @@ Chipper's Field used to be an old farming ground but due to recent hard times, t
 > out
 You leave Chippers filed and enter the world map
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, or Chipper's Field.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass or Chipper's Field.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to north gate
-You are in the North Gate
+You are in the North Gate.
 You can go out to World Map.
 You can go south.
 You are at the Small North Gate of the Castle Cum-Ere-A-Lot.  The gate is normally used as a private gateway to then outside world by the royal family.
 This is the Gateway to the World Map
 
 > s
-You are in a Secret passage
+You are in a Secret passage.
 You can go north or south.
 You are in a secret passage which leads from the Throne room.
 The passage connects the Throne room to the North gate of the Castle.
 
 > s
-You are in the Throne Room
+You are in the Throne Room.
 There is a Throne here.
 You can go north, south, east or west.
 You are standing in the throne room.  There is a large door to the south leading to the main hall.  There are smaller doors to the East and West.
 
 > s
-You are in the Hall
+You are in the Hall.
 There is a Guard, a Statue, a Vase, a Painting and a barrel of Gunpowder here.
 You can go north, south, east or west.
 You are standing in the main hall of the Castle.  It is adorned with many works of art.  There is a large doorway to the North leading to the throne room.  There are smaller doors to the East and West and a the main castle doors to the south.
@@ -2986,19 +3001,19 @@ You pass the contract over to the guard, after all you know he has musical talen
 And the guard signs the contract.
 
 > n
-You are in the Throne Room
+You are in the Throne Room.
 There is a Throne here.
 You can go north, south, east or west.
 You are standing in the throne room.  There is a large door to the south leading to the main hall.  There are smaller doors to the East and West.
 
 > n
-You are in a Secret passage
+You are in a Secret passage.
 You can go north or south.
 You are in a secret passage which leads from the Throne room.
 The passage connects the Throne room to the North gate of the Castle.
 
 > n
-You are in the North Gate
+You are in the North Gate.
 You can go out to World Map.
 You can go south.
 You are at the Small North Gate of the Castle Cum-Ere-A-Lot.  The gate is normally used as a private gateway to then outside world by the royal family.
@@ -3007,13 +3022,13 @@ This is the Gateway to the World Map
 > out
 You leave the area of Castle Cum-Ere-A-Lot and enter the outside world.
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, or Chipper's Field.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass or Chipper's Field.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to century gate
-You are in Century Gate
+You are in Century Gate.
 You can go out to World Map.
 You can go south.
 The Village of Century.
@@ -3024,14 +3039,14 @@ This is commonly referred to as the Sail of the Century.
 
 
 > s
-You are in Century Square
+You are in Century Square.
 There is a Pool and a Mast here.
 You can go north or west.
 You are in Century Square, the main focal point of the village.  In the centre of the square there is a pool with a large mast rising out of it.  On top of the mast there is a small crude weather vane.
 To the West is the Surgery.
 
 > w
-You are in the Surgery
+You are in the Surgery.
 There is a receptionists desk, bell and a Magazine here.
 You can go south or east.
 Century houses one of the most well known surgery's in the kingdom- run by Doctor Oo.
@@ -3056,21 +3071,21 @@ This is going to be so good"
 And he signs the contract.
 
 > n
-You are in the Surgery
+You are in the Surgery.
 There is a receptionists desk and a Magazine here.
 You can go south or east.
 Century houses one of the most well known surgery's in the kingdom- run by Doctor Oo.
 You are in a small waiting room.   There are several benches here and a desk.
 
 > e
-You are in Century Square
+You are in Century Square.
 There is a Pool and a Mast here.
 You can go north or west.
 You are in Century Square, the main focal point of the village.  In the centre of the square there is a pool with a large mast rising out of it.  On top of the mast there is a small crude weather vane.
 To the West is the Surgery.
 
 > n
-You are in Century Gate
+You are in Century Gate.
 You can go out to World Map.
 You can go south.
 The Village of Century.
@@ -3083,13 +3098,13 @@ This is commonly referred to as the Sail of the Century.
 > out
 You leave the Village of Century and enter the World Map.
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, or Chipper's Field.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass or Chipper's Field.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to chipper's field
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
@@ -3104,13 +3119,13 @@ Where do I sign?"
 And he signs the contract immediately
 
 > se
-You are in Caravan site
+You are in Caravan site.
 There is a Campfire, a Cooking pot, the large caravan's window, a pile of boxes, Caribou the pygmy and Crusoe here.
-You can go northwest.
 You can go to large caravan.
+You can go northwest.
 
 > go to large caravan
-You are in a large caravan
+You are in a large caravan.
 There is a Window, Donna, a Chair, some Cushions and Shiversword here.
 You can go out to Caravan site.
 You enter the large caravan.  It is adorned with many pink cushions and soft furnishings.  There is a large lady in here, sitting in a chair.  There is a single window in the caravan.
@@ -3123,27 +3138,27 @@ You hand the contract over.
 And he gives you a hug.
 
 > out
-You are in Caravan site
+You are in Caravan site.
 There is a Campfire, a Cooking pot, the large caravan's window, a pile of boxes, Caribou the pygmy and Crusoe here.
-You can go northwest.
 You can go to large caravan.
+You can go northwest.
 
 > nw
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
 Chipper's Field used to be an old farming ground but due to recent hard times, the farmer Old Mr Chipper, has had to rent it out to various people.  At the moment it is being used by Oxford's Circus.
 
 > s
-You are in Big Top
+You are in Big Top.
 There is a large cage, a knife thrower's Board and Sir Dwane here.
 You can go north.
 
 > use bananas on dwane
 You hold one of the bananas through the bars.  Sir Dwane, in true monkey style, is tempted by it.  He approaches the bars, takes the banana and sits a a short way off from you eating it.
 
-> use face mask on post
+> use face mask on broken post
 You attach the face mask onto the 'Y' shaped post.  The rubber ties of the face mask give quite a bit of stretch.
 You have created a very crude catapult.
 
@@ -3183,7 +3198,7 @@ Now what are you going to do with the skin?
 It is the slippery skin of a banana.
 
 > n
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
@@ -3192,13 +3207,13 @@ Chipper's Field used to be an old farming ground but due to recent hard times, t
 > out
 You leave Chippers filed and enter the world map
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, or Chipper's Field.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass or Chipper's Field.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to carnivora
-You are in Carnivora
+You are in Carnivora.
 There is a dirty cup here.
 You can go out to World Map.
 You can go north.
@@ -3207,19 +3222,19 @@ Carnivora: The home of the Vegetable Virgins, a holy group of devout and religio
 
 
 > n
-You are in Abbey Hall
+You are in Abbey Hall.
 There is a Tapestry and a safe here.
 You can go south or west.
 The Abbey Hall is a long stone room with many alcoves and stone pillars.  At the south end are the main doors which lead out to the grounds.  At the north end there is a huge tapestry hung on the wall.  There is a tiny door to the west.
 
 > w
-You are in the Room of learning
+You are in the Room of learning.
 There is various Books here.
 You can go south or east.
 The room of learning houses many books.  This must be where the nuns come to study.
 
 > s
-You are in the rehabilitation centre
+You are in the rehabilitation centre.
 There is a rack, a cage and Sir Lankylegs here.
 You can go north.
 This small, cold and damp room may be called a 'rehabilitation centre' but it has all the hallmarks of a torture chamber!
@@ -3233,19 +3248,19 @@ Soon you have the cage open and Sir Lankylegs is free.
 And Sir Lankylegs runs off
 
 > n
-You are in the Room of learning
+You are in the Room of learning.
 There is various Books here.
 You can go south or east.
 The room of learning houses many books.  This must be where the nuns come to study.
 
 > e
-You are in Abbey Hall
+You are in Abbey Hall.
 There is a Tapestry and a safe here.
 You can go south or west.
 The Abbey Hall is a long stone room with many alcoves and stone pillars.  At the south end are the main doors which lead out to the grounds.  At the north end there is a huge tapestry hung on the wall.  There is a tiny door to the west.
 
 > s
-You are in Carnivora
+You are in Carnivora.
 There is a dirty cup here.
 You can go out to World Map.
 You can go north.
@@ -3256,19 +3271,19 @@ Carnivora: The home of the Vegetable Virgins, a holy group of devout and religio
 > out
 You leave the Abbey of Carnivora and enter the World Map
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, or Chipper's Field.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass or Chipper's Field.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to grove entrance
-You are in the Forest Grove Entrance
+You are in the Forest Grove Entrance.
 You can go out to World Map.
 You can go north.
 You are at the entrance to the huge Forest Grove.  The grove is said to be home to many strange animals and plants...... so you should fit right in!
 
 > n
-You are in the Meadow grove
+You are in the Meadow grove.
 There is Sir Halibut, Sir Dwane, Sir Lankylags and a pixie here.
 You can go north, south, east, west, northeast or northwest.
 
@@ -3294,6 +3309,7 @@ And he turns away from you, his great coat swooshing behind him.
 And he too disappears!
 
 But something falls out of his coat.
+press a key
 
 
 
@@ -3310,7 +3326,7 @@ You pick it up.
 You use the tiny silver key on the lock of the silver box.  The lid swings open and inside you find a scroll.
 
 > take scroll
-You already have it.
+I can't see that here.
 
 > x scroll
 There appears to be a familiar smell on it
@@ -3322,7 +3338,7 @@ The scroll definitely smells of oranges.
 The scroll appears to be blank.
 
 > s
-You are in the Forest Grove Entrance
+You are in the Forest Grove Entrance.
 You can go out to World Map.
 You can go north.
 You are at the entrance to the huge Forest Grove.  The grove is said to be home to many strange animals and plants...... so you should fit right in!
@@ -3330,23 +3346,23 @@ You are at the entrance to the huge Forest Grove.  The grove is said to be home 
 > out
 You leave the forest grove and enter the World Map.
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, or Chipper's Field.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass or Chipper's Field.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to chipper's field
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
 Chipper's Field used to be an old farming ground but due to recent hard times, the farmer Old Mr Chipper, has had to rent it out to various people.  At the moment it is being used by Oxford's Circus.
 
 > se
-You are in Caravan site
+You are in Caravan site.
 There is a Campfire, a Cooking pot, the large caravan's window, a pile of boxes, Caribou the pygmy and Crusoe here.
-You can go northwest.
 You can go to large caravan.
+You can go northwest.
 
 > use scroll on campfire
 You place the scroll near the flames and wait.  Soon enough, a message appears on the scroll.
@@ -3361,7 +3377,7 @@ SW-N-SE-NE-S-NW
 
 
 > nw
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
@@ -3370,58 +3386,58 @@ Chipper's Field used to be an old farming ground but due to recent hard times, t
 > out
 You leave Chippers filed and enter the world map
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, or Chipper's Field.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass or Chipper's Field.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to grove entrance
-You are in the Forest Grove Entrance
+You are in the Forest Grove Entrance.
 You can go out to World Map.
 You can go north.
 You are at the entrance to the huge Forest Grove.  The grove is said to be home to many strange animals and plants...... so you should fit right in!
 
 > n
-You are in the Meadow grove
+You are in the Meadow grove.
 You can go north, south, east, west, northeast or northwest.
 
 > n
-You are in the Central grove
+You are in the Central grove.
 There is a ring of Stones, a bumpy stone and a leather Case here.
 You can go south, east, west, southeast or southwest.
 The central grove is quite clear with the exception of a few bushes.  However, the focus of the grove appears to be a set of eight stones arranged in a circular pattern.
 
 > sw
-You are in the Grassy grove
+You are in the Grassy grove.
 You can go north, east or northeast.
 The grassy grove is covered with long grass that comes up to your shins.  It really could do with a cut.
 
 > n
-You are in the Shady grove
+You are in the Shady grove.
 There is a mushroom patch here.
 You can go south, east or southeast.
 The shady grove is overrun with all sorts of wild plants and fungi.  There is a whole patch of different types of mushrooms here.
 
 > se
-You are in the Meadow grove
+You are in the Meadow grove.
 You can go north, south, east, west, northeast or northwest.
 There is a pixie in this grove.
 
 > ne
-You are in the Swampy grove
+You are in the Swampy grove.
 There is Swampy Water here.
 You can go south, west or southwest.
 The grove lies on the edge of a huge swamp.  There are many climbing plants here and the air is thick with flying insects.  The swampy water is still and filled with algae, and it smells disgusting.
 There is a pixie in this grove.
 
 > s
-You are in the Wild grove
+You are in the Wild grove.
 There is some wild vegetation here.
 You can go north, west or northwest.
 The wild grove is overrun with wild bushes and plants.  It is difficult to make your way through them
 
 > nw
-You are in the Central grove
+You are in the Central grove.
 There is a ring of Stones, a bumpy stone and a leather Case here.
 You can go south, east, west, southeast or southwest.
 The central grove is quite clear with the exception of a few bushes.  However, the focus of the grove appears to be a set of eight stones arranged in a circular pattern.
@@ -3434,7 +3450,7 @@ Suddenly the trees part in front of you and it reveals a hidden path leading hig
 The scroll suddenly disappears
 
 > n
-You are in the observation point
+You are in the observation point.
 You can go south.
 The observation point is a large hill hidden away in the grove.  From here you can see quite a distance away, maybe further if you had the right equipment.
 
@@ -3453,18 +3469,18 @@ That must be Marlon's Tower and your next destination.
 A new location has been added to your world map.
 
 > s
-You are in the Central grove
+You are in the Central grove.
 There is a ring of Stones, a bumpy stone and a leather Case here.
 You can go north, south, east, west, southeast or southwest.
 The central grove is quite clear with the exception of a few bushes.  However, the focus of the grove appears to be a set of eight stones arranged in a circular pattern.
 There is a pixie in this grove.
 
 > s
-You are in the Meadow grove
+You are in the Meadow grove.
 You can go north, south, east, west, northeast or northwest.
 
 > s
-You are in the Forest Grove Entrance
+You are in the Forest Grove Entrance.
 You can go out to World Map.
 You can go north.
 You are at the entrance to the huge Forest Grove.  The grove is said to be home to many strange animals and plants...... so you should fit right in!
@@ -3472,13 +3488,13 @@ You are at the entrance to the huge Forest Grove.  The grove is said to be home 
 > out
 You leave the forest grove and enter the World Map.
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, Chipper's Field, or Tower courtyard.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, Chipper's Field or Tower courtyard.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to tower courtyard
-You are in the Tower courtyard
+You are in the Tower courtyard.
 There is a large iron Door and a Gargoyle here.
 You can go out to World Map.
 You can go north.
@@ -3487,7 +3503,7 @@ There is a large iron doorway to the north.
 You can see tight up to the top of the tower where there is a window.  There is a light on up there.
 
 > look at window
-You don't see any window.
+I can't see that here.
 
 > look at gargoyle
 The gargoyle watches you menacingly from above the door.
@@ -3507,7 +3523,7 @@ You attach the bell into the slot in the door.
 You ring the bell.  Suddenly the door swings open.
 
 > n
-You are in the Tower: Ground floor
+You are in the Tower: Ground floor.
 There is a small wooden table here.
 You can go south or up.
 You are in the ground floor tower room.  It is a sparsely decorated room with very few items of interest.  
@@ -3527,7 +3543,7 @@ You pick it up.
 You use the nail to pierce some holes in the lid of the jar.
 
 > s
-You are in the Tower courtyard
+You are in the Tower courtyard.
 There is a Gargoyle here.
 You can go out to World Map.
 You can go north.
@@ -3538,19 +3554,19 @@ You can see tight up to the top of the tower where there is a window.  There is 
 > out
 You leave the courtyard.
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, Chipper's Field, or Tower courtyard.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, Chipper's Field or Tower courtyard.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to grove entrance
-You are in the Forest Grove Entrance
+You are in the Forest Grove Entrance.
 You can go out to World Map.
 You can go north.
 You are at the entrance to the huge Forest Grove.  The grove is said to be home to many strange animals and plants...... so you should fit right in!
 
 > n
-You are in the Meadow grove
+You are in the Meadow grove.
 You can go north, south, east, west, northeast or northwest.
 There is a pixie in this grove.
 
@@ -3565,7 +3581,7 @@ You place the pixie into the jar.  With the airholes in the jar lid, you have ma
 Plus you have the added bonus of creating a pixie dust shaker.
 
 > s
-You are in the Forest Grove Entrance
+You are in the Forest Grove Entrance.
 You can go out to World Map.
 You can go north.
 You are at the entrance to the huge Forest Grove.  The grove is said to be home to many strange animals and plants...... so you should fit right in!
@@ -3573,32 +3589,32 @@ You are at the entrance to the huge Forest Grove.  The grove is said to be home 
 > out
 You leave the forest grove and enter the World Map.
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, Chipper's Field, or Tower courtyard.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, Chipper's Field or Tower courtyard.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to north gate
-You are in the North Gate
+You are in the North Gate.
 You can go out to World Map.
 You can go south.
 You are at the Small North Gate of the Castle Cum-Ere-A-Lot.  The gate is normally used as a private gateway to then outside world by the royal family.
 This is the Gateway to the World Map
 
 > s
-You are in a Secret passage
+You are in a Secret passage.
 You can go north or south.
 You are in a secret passage which leads from the Throne room.
 The passage connects the Throne room to the North gate of the Castle.
 
 > s
-You are in the Throne Room
+You are in the Throne Room.
 There is a Throne here.
 You can go north, south, east or west.
 You are standing in the throne room.  There is a large door to the south leading to the main hall.  There are smaller doors to the East and West.
 
 > s
-You are in the Hall
+You are in the Hall.
 There is a Guard, a Statue, a Vase, a Painting and a barrel of Gunpowder here.
 You can go north, south, east or west.
 You are standing in the main hall of the Castle.  It is adorned with many works of art.  There is a large doorway to the North leading to the throne room.  There are smaller doors to the East and West and a the main castle doors to the south.
@@ -3614,19 +3630,19 @@ Soon the dust wears off and the statue drops again, and the movement on the stat
 You pick it up.
 
 > n
-You are in the Throne Room
+You are in the Throne Room.
 There is a Throne here.
 You can go north, south, east or west.
 You are standing in the throne room.  There is a large door to the south leading to the main hall.  There are smaller doors to the East and West.
 
 > n
-You are in a Secret passage
+You are in a Secret passage.
 You can go north or south.
 You are in a secret passage which leads from the Throne room.
 The passage connects the Throne room to the North gate of the Castle.
 
 > n
-You are in the North Gate
+You are in the North Gate.
 You can go out to World Map.
 You can go south.
 You are at the Small North Gate of the Castle Cum-Ere-A-Lot.  The gate is normally used as a private gateway to then outside world by the royal family.
@@ -3635,13 +3651,13 @@ This is the Gateway to the World Map
 > out
 You leave the area of Castle Cum-Ere-A-Lot and enter the outside world.
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, Chipper's Field, or Tower courtyard.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, Chipper's Field or Tower courtyard.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to tower courtyard
-You are in the Tower courtyard
+You are in the Tower courtyard.
 There is a Gargoyle here.
 You can go out to World Map.
 You can go north.
@@ -3650,7 +3666,7 @@ There is a large iron doorway to the north.
 You can see tight up to the top of the tower where there is a window.  There is a light on up there.
 
 > n
-You are in the Tower: Ground floor
+You are in the Tower: Ground floor.
 There is a small wooden table here.
 You can go south or up.
 You are in the ground floor tower room.  It is a sparsely decorated room with very few items of interest.  
@@ -3658,7 +3674,7 @@ There is a spiral staircase leading up to the next floor and a copper gate at th
 
 > u
 You use the copper key to unlock the gate.  You now have access to the first floor.
-You are in Tower: First floor
+You are in Tower: First floor.
 There is a statue and some Drapes here.
 You can go up or down.
 You are in another sparsely decorated tower room.  The floor is stone clad and in the centre of the room there is a statue.
@@ -3693,14 +3709,14 @@ You smear the banana skin along the length of the pole.  Hopefully that will mak
 With the pole now greasier, you are able to slide a couple of the rings off.
 
 > d
-You are in the Tower: Ground floor
+You are in the Tower: Ground floor.
 There is a small wooden table here.
 You can go south or up.
 You are in the ground floor tower room.  It is a sparsely decorated room with very few items of interest.  
 There is a spiral staircase leading up to the next floor and a copper gate at the base of the staircase.
 
 > s
-You are in the Tower courtyard
+You are in the Tower courtyard.
 There is a Gargoyle here.
 You can go out to World Map.
 You can go north.
@@ -3711,26 +3727,26 @@ You can see tight up to the top of the tower where there is a window.  There is 
 > out
 You leave the courtyard.
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, Chipper's Field, or Tower courtyard.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, Chipper's Field or Tower courtyard.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to chipper's field
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
 Chipper's Field used to be an old farming ground but due to recent hard times, the farmer Old Mr Chipper, has had to rent it out to various people.  At the moment it is being used by Oxford's Circus.
 
 > se
-You are in Caravan site
+You are in Caravan site.
 There is a Campfire, a Cooking pot, the large caravan's window, a pile of boxes, Caribou the pygmy and Crusoe here.
-You can go northwest.
 You can go to large caravan.
+You can go northwest.
 
 > go to large caravan
-You are in a large caravan
+You are in a large caravan.
 There is a Window, Donna, a Chair, some Cushions and Shiversword here.
 You can go out to Caravan site.
 You enter the large caravan.  It is adorned with many pink cushions and soft furnishings.  There is a large lady in here, sitting in a chair.  There is a single window in the caravan.
@@ -3754,13 +3770,13 @@ He gives you a set of panpipes
 You have a quick play of the pipes.  Hmm, you were better with the lute.
 
 > out
-You are in Caravan site
+You are in Caravan site.
 There is a Campfire, a Cooking pot, the large caravan's window, a pile of boxes, Caribou the pygmy and Crusoe here.
-You can go northwest.
 You can go to large caravan.
+You can go northwest.
 
 > nw
-You are in Chipper's Field
+You are in Chipper's Field.
 There is the Ring Master here.
 You can go out to World Map.
 You can go south, east, west, southeast or southwest.
@@ -3769,13 +3785,13 @@ Chipper's Field used to be an old farming ground but due to recent hard times, t
 > out
 You leave Chippers filed and enter the world map
 
-You are in the World Map
-You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, Chipper's Field, or Tower courtyard.
+You are in the World Map.
+You can go to Castle Cum-Ere-A-Lot's North Gate, Century Gate, Grove Entrance, Carnivora, Fool's Bypass, Chipper's Field or Tower courtyard.
 The world map is a a large area and tells you where you can visit.
 As you find more clues to help you in your quest, more locations will become available.
 
 > go to tower courtyard
-You are in the Tower courtyard
+You are in the Tower courtyard.
 There is a Gargoyle here.
 You can go out to World Map.
 You can go north.
@@ -3784,14 +3800,14 @@ There is a large iron doorway to the north.
 You can see tight up to the top of the tower where there is a window.  There is a light on up there.
 
 > n
-You are in the Tower: Ground floor
+You are in the Tower: Ground floor.
 There is a small wooden table here.
 You can go south or up.
 You are in the ground floor tower room.  It is a sparsely decorated room with very few items of interest.  
 There is a spiral staircase leading up to the next floor and a copper gate at the base of the staircase.
 
 > u
-You are in Tower: First floor
+You are in Tower: First floor.
 There is a statue and the curtain Pole here.
 You can go up or down.
 You are in another sparsely decorated tower room.  The floor is stone clad and in the centre of the room there is a statue.
@@ -3800,7 +3816,7 @@ You are in another sparsely decorated tower room.  The floor is stone clad and i
 You place the panpipes in the hand of the statue.  It now looks like it is playing them.  Suddenly there is an odd sounds from the stairway.
 
 > u
-You are in Tower: Second floor
+You are in Tower: Second floor.
 There is a low pedestal and some Paintings and carvings here.
 You can go up or down.
 You are standing on the second floor of the tower.  This room is full of paintings and carvings around the walls.  In the centre of the room there is a low pedestal.
@@ -3832,7 +3848,7 @@ You say the word NOLRAM
 Suddenly the pedestal disappears in the ground and you here a strange noise by the staircase
 
 > u
-You are in the Tower: third floor
+You are in the Tower: third floor.
 There is a window here.
 You can go up or down.
 You are standing on the thrid floor of the tower,  there is nothing in here except the window that you saw from outside.
@@ -3848,10 +3864,12 @@ Are you ready to ascend to the top floor?
 2) No
 [choice] Yes
 You climb the stairs to the top floor
-You are in Tower: Top Floor
+You are in Tower: Top Floor.
 You enter the top floor of the tower, not really sure what you might find
+press a key
 
 As you enter you are surprised  to see King Arnold, Queen Winalot, Sir Lankylegs, Sir Halibut, Sir Dwane and Marlon all standing there.
+press a key
 
 
 "Congratulations Loin.  You have passed the test." says the King.
@@ -3860,6 +3878,7 @@ As you enter you are surprised  to see King Arnold, Queen Winalot, Sir Lankylegs
 You have overcome great odds to get here. And we are delighted to grant you full Knight Status!"
 
 So the whole thing had been a test.  And you passed! You can't help but feel pleased with yoursefl
+press a key
 
 
 

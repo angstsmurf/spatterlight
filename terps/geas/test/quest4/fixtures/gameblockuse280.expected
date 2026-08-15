@@ -1,7 +1,7 @@
 
 gameblockuse280
 
-You are in r1
+You are in r1.
 There is torch, flask, lamp and candle here.
 You can go west.
 Room one.
@@ -31,7 +31,7 @@ The lamp's own handler ran.
 The candle's own handler ran.
 
 > west
-You are in r2
+You are in r2.
 You can go east.
 Room two.
 

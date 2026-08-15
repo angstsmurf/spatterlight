@@ -1,5 +1,5 @@
 
-Kurri Ming, v1.0 Slackers Inc.
+Kurri Ming, v1.0 | Slackers Inc.
 
 Welcome to "Kurri Ming". A simple get out of the house style game brought to you by: Slackers Inc.
 
@@ -30,11 +30,13 @@ Enjoy!
 
  
 
+Press any key to continue...
 
 
 Before you know it the alarm goes off  on your radio, "I love chicken it's a real tasty treat.."  After a brief moment you realize you're in your room,  a relief as you have no clue what happened to you last night. As you're getting out of bed you decide that you should at least get dressed, "I love chicken, I think it's great to eat..." you sing along  while putting on a shirt . Oddly enough you mange to finish getting dressed about the same time the song ends, saying to yourself: 
 
  "Steve Lingle, would of bought the CD if I hadn't already downloaded it."
+Press any key to continue...
 
 You begin looking around the room for clues as to what might of happened, having scanned the room you notice a few things that seem different. Firstly, there is a banner over your door which reads: "So Long, and Thanks for All the Fish!" The connection is easy enough to make, its a reference to "The Hitchhickers Guide to the Galaxy" but how on earth did it get there? Putting the thought aside for the moment you continue scanning the room.
 
@@ -59,7 +61,8 @@ There is an EXIT to the NORTH and WEST.
 
 As you enter the living room the first thing you notice is that your good friend Kuroda Kinji is asleep on the sofa. Your footsteps are enough to wake him with a start. 
 
-“Kurri, you frightened me! Probably a good thing though, I had the most ridicules dream.”
+â€œKurri, you frightened me! Probably a good thing though, I had the most ridicules dream.â€
+Press any key to continue...
 
 To the right of your screen you will  notice a Status Variable. It should  currently read:
 
@@ -87,13 +90,13 @@ You now have the Glock.
 You are not entirely sure why, but you have the sneaking suspicion that these will come in handy. Picking up the box you make a mental note that the label says: Contains 50pc.
 
 > use glock on computer
-A voice in your head calls out to you.. “Hey you.. with the gun. SHOOT THE COMPUTER!” Not wanting to upset the person from which the voice was coming, you decide to listen. After all, what has your computer ever done for you? It’s operating system is evil as heck, never should of bought one running Vista. Closing your eyes, you pull on the trigger and hear a loud BANG! What just happened? Is it safe to look? After opening your eyes again you see that the side of your computer has been blown off, and what appears to be a computer chip is laying on the floor. 
+A voice in your head calls out to you.. â€œHey you.. with the gun. SHOOT THE COMPUTER!â€ Not wanting to upset the person from which the voice was coming, you decide to listen. After all, what has your computer ever done for you? Itâ€™s operating system is evil as heck, never should of bought one running Vista. Closing your eyes, you pull on the trigger and hear a loud BANG! What just happened? Is it safe to look? After opening your eyes again you see that the side of your computer has been blown off, and what appears to be a computer chip is laying on the floor. 
 
 > use fuse on box of snap and pops
-A random urge comes over you to create a makeshift bomb. You insert the fuse into the box of snap and pops and look at it for a moment. It isn’t bad for a spontaneous creation, but it could use a finishing touch to be a little more stable.
+A random urge comes over you to create a makeshift bomb. You insert the fuse into the box of snap and pops and look at it for a moment. It isnâ€™t bad for a spontaneous creation, but it could use a finishing touch to be a little more stable.
 
 > use tape on makeshift bomb
-In order to make your bomb more stable, you take the roll of tape and begin wrapping it several times around the fuse and box. At last! You’ve created the perfect little makeshift bomb!
+In order to make your bomb more stable, you take the roll of tape and begin wrapping it several times around the fuse and box. At last! Youâ€™ve created the perfect little makeshift bomb!
 
 > s
 
@@ -109,7 +112,7 @@ There is an EXIT to the EAST.
 > use makeshift bomb on simon game
 Using tape to hold it into place, you attach the makeshift bomb to the backside of the Simon game.
 
-“This should be fun!”
+â€œThis should be fun!â€
 
 You think to yourself, lighting the fuse. After a moment or two the bomb explodes and the back panel to the game is blown off!
 

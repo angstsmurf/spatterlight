@@ -6,15 +6,18 @@
  *  `!include`s it cannot find the file on disk under Geas.  readfile.cc splices
  *  this text in at that point instead (see handle_includes / is_typelib).
  *
- *  This is the *data layer* of the library, adapted for Geas: the original
- *  `!addto game` command overrides (look/examine/take/drop/give/open/close/
- *  read/wear) and the room-description override are dropped, because Geas
- *  already implements those verbs natively and resolves type-inherited
- *  actions/properties through them -- re-adding the library's command layer
- *  would double-handle, and its room renderer relies on gettag(), which Geas
- *  does not provide.  Only the startscript hook is retained.  The type
- *  definitions, helper procedures/functions and the `!addto type <default>`
- *  block are kept verbatim from the released source.
+ *  Verbatim from the released source, including the `!addto game` block.  That
+ *  block used to be cut down to its `startscript` line, on the grounds that
+ *  Geas implements look/examine/take/drop/give/open/close/read/wear natively
+ *  and that the library's room renderer needs gettag(), which Geas did not
+ *  have.  Both halves of that were wrong: Quest adds the library's commands
+ *  ahead of its own verbs and its `description` override in place of the
+ *  native room renderer, so a game that includes the library is meant to be
+ *  played through TLProomDescription and friends -- and gettag() has since
+ *  been implemented (geas-runner.cc:7195).  King's Quest V is the corpus game
+ *  that shows it: with the block cut, all 71 of its room renders came out in
+ *  the native wording and put the exits above the description instead of
+ *  below.
  *
  *  Source: textadventures/quest, src/Legacy/Libraries/Typelib.qlb
  ***************************************************************************/
@@ -49,7 +52,25 @@ static const char geas_builtin_typelib[] = R"GEASLIB(
 '======================================
 
 !addto game
+   command <look at #TLSdObj#; look #TLSdObj#; l #TLSdObj#> do <TLPlook>
+   command <examine #TLSdObj#; inspect #TLSdObj#; x #TLSdObj#> do <TLPexamine>
+   command <open #TLSdObj#> do <TLPopen>
+   command <close #TLSdObj#; shut #TLSdObj#> do <TLPclose>
+   command <take #TLSdObj# from #TLSiObj#> do <TLPtake>
+   command <take #TLSdObj# off> do <TLPunWear>
+   command <take #TLSdObj#> do <TLPtake>
+   command <drop #TLSdObj# into #TLSiObj#> do <TLPputIn>
+   command <drop #TLSdObj# on> do <TLPwear>
+   command <drop #TLSdObj# down; drop down #TLSdObj#; drop #TLSdObj#> do <TLPdrop>
+   command <give #TLSdObj# to #TLSiObj#;give #TLSiObj# the #TLSdObj#> do <TLPgive>
+   command <read #TLSdObj#> do <TLPread>
+   command <wear #TLSdObj#> do <TLPwear>
+   command <unwear #TLSdObj#> do <TLPunWear>
+   description {
+      do <TLProomDescription>
+   }
    startscript do <TLPstartup>
+'   nodebug
 !end
 
 '===========================================

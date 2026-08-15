@@ -1,5 +1,5 @@
 
-The Maze, v1.1 Tim Hamilton
+The Maze, v1.1 | Tim Hamilton
 
 The last thing you remember is hitting on this really pretty girl at a party. Then you suddenly have woken up in the middle of the night in the local hedge maze with the front gate shut and sealed. You need to find a way out of here before daylight hits and you are arrested for tresspassing.
 Press any key to continue.
@@ -36,6 +36,7 @@ You can go west
 
 > take red ball
 You pick it up.
+
 
 > w
 Hedge Maze
@@ -137,10 +138,12 @@ What gets wetter and wetter the more it dries?
 Done.
 You pick it up.
 
+
 > take red ball
 (first removing it from Red dispenser)
 Done.
 You pick it up.
+
 
 > e
 Hedge Maze
@@ -354,6 +357,7 @@ You can go west
 
 > take yellow ball
 You pick it up.
+
 
 > w
 Hedge Maze
@@ -593,10 +597,12 @@ How many were going to st. ives?
 Done.
 You pick it up.
 
+
 > take yellow ball
 (first removing it from Yellow dispenser)
 Done.
 You pick it up.
+
 
 > w
 Hedge Maze
@@ -794,15 +800,18 @@ What building can have a million stories?
 Done.
 You pick it up.
 
+
 > take red ball
 (first removing it from Orange dispenser)
 Done.
 You pick it up.
 
+
 > take yellow ball
 (first removing it from Orange dispenser)
 Done.
 You pick it up.
+
 
 > s
 Hedge Maze
@@ -1002,6 +1011,7 @@ You can go south
 > take blue ball
 You pick it up.
 
+
 > s
 Hedge Maze
 You are in a giant hedge maze. The Hedges are all thick and neatly trimmed. 
@@ -1116,10 +1126,12 @@ If a man gives one son 12 cents and another son 13 cents what time is it?
 Done.
 You pick it up.
 
+
 > take blue ball
 (first removing it from Blue dispenser)
 Done.
 You pick it up.
+
 
 > s
 Hedge Maze
@@ -1458,15 +1470,18 @@ What you find inside the answer to the orange clue + hell -l + f.
 Done.
 You pick it up.
 
+
 > take yellow ball
 (first removing it from Green dispenser)
 Done.
 You pick it up.
 
+
 > take blue ball
 (first removing it from Green dispenser)
 Done.
 You pick it up.
+
 
 > s
 Hedge Maze
@@ -1811,20 +1826,24 @@ The clue reads..
 Done.
 You pick it up.
 
+
 > take red ball
 (first removing it from Violet dispenser)
 Done.
 You pick it up.
+
 
 > take yellow ball
 (first removing it from Violet dispenser)
 Done.
 You pick it up.
 
+
 > take blue ball
 (first removing it from Violet dispenser)
 Done.
 You pick it up.
+
 
 > e
 Hedge Maze
@@ -1900,15 +1919,18 @@ Descramble 'ebereeepk'.
 Done.
 You pick it up.
 
+
 > take red ball
 (first removing it from Indigo dispenser)
 Done.
 You pick it up.
 
+
 > take blue ball
 (first removing it from Indigo dispenser)
 Done.
 You pick it up.
+
 
 > s
 Hedge Maze
@@ -2035,6 +2057,7 @@ You can go north
 
 > take black key
 You pick it up.
+
 
 > n
 Hedge Maze
@@ -2196,6 +2219,7 @@ You can go north
 
 > take white key
 You pick it up.
+
 
 > n
 Hedge Maze

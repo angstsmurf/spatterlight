@@ -1,5 +1,5 @@
 
-The Lazy Gun Cult Felic Roman
+The Lazy Gun Cult | Felic Roman
 
 *The Lazy Gun Cult*
 
@@ -23,12 +23,12 @@ The book is turned to a page marked 'Tuesday IV Sept'.  If you're perception of 
 > x guest book
 The page reads;
 
-Tuesday IV Sept:
+|"Tuesday IV Sept:
 
 T.Count
 WSC
 (unreadable signature) - (whisper words)
-Markus Turnwire"
+Markus Turnwire"|
 
 A strange curved line below the above may indicate the start of an additional, unfinished signature in the book.
 
@@ -55,11 +55,11 @@ It is a painting of a middle aged woman.  Though not particularly beautiful, her
 
 > i
 You are carrying:
-foreign coin
+A foreign coin.
 
 > n
  Foot Of A Marble Staircase
-This is the foot of a grand marble staircase, which ascends up into the darkness.  At the end of each bannister is a pillar carved in the fashion of a lion's roaring ead
+This is the foot of a grand marble staircase, which ascends up into the darkness.  At the end of each bannister is a pillar carved in the fashion of a lion's roaring |head|.
 
 You can go south or up.
 
@@ -76,7 +76,7 @@ You pick it up.
 
 > u
  Midpoint On A Marble Staircase
-You are at the half way point of a wide marble staircase which continues upwards onto a dimly lit landing and down towards a long hall.  There is a small lcovein the east wall here.
+You are at the half way point of a wide marble staircase which continues upwards onto a dimly lit landing and down towards a long hall.  There is a small |alcove| in the east wall here.
 
 You can go up or down.
 
@@ -138,7 +138,7 @@ The label on the bottle depicts a skull symbol, followed by a handwritten messag
 You pick it up.
 
 > x feather
-Etched in red onto the underside of the feather is a miniscule 
+Etched in red onto the underside of the feather is a miniscule |K|.
 
 > take matches
 You pick it up.
@@ -147,7 +147,7 @@ You pick it up.
 You pick it up.
 
 > x arrow
-The letter has been etched in red onto the head of the arrow.
+The letter |K| has been etched in red onto the head of the arrow.
 
 > take note
 You pick it up.
@@ -161,7 +161,7 @@ The note reads -
 You climb into the hole and release your grip on the edges.  You are suddenly sliding down a long, smooth chute - in seconds you suddenly drop some distance and land lightly in the centre of a small room...
 
  Control Room
-This room is little larger than a telephone booth in area, though its ceiling is a considerable distance above you, where you can just make out the terminating end of a person sized chute.  There is a bronze laqueon the wall beside you.
+This room is little larger than a telephone booth in area, though its ceiling is a considerable distance above you, where you can just make out the terminating end of a person sized chute.  There is a bronze |plaque| on the wall beside you.
 There is a short lever set into the wall here., There is a long lever set into the wall here. and A binocular peephole is at eye level in the east wall of the chamber.
 You can go .
 
@@ -194,7 +194,7 @@ You can go north or south.
 
 > n
  Foot Of A Marble Staircase
-This is the foot of a grand marble staircase, which ascends up into the darkness.  At the end of each bannister is a pillar carved in the fashion of a lion's roaring ead
+This is the foot of a grand marble staircase, which ascends up into the darkness.  At the end of each bannister is a pillar carved in the fashion of a lion's roaring |head|.
 
 You can go south or up.
 
@@ -202,7 +202,7 @@ You can go south or up.
 
 > u
  Midpoint On A Marble Staircase
-You are at the half way point of a wide marble staircase which continues upwards onto a dimly lit landing and down towards a long hall.  There is a small lcovein the east wall here.
+You are at the half way point of a wide marble staircase which continues upwards onto a dimly lit landing and down towards a long hall.  There is a small |alcove| in the east wall here.
 There is a hatch in the west wall.
 You can go up or down.
 
@@ -289,7 +289,7 @@ You pick it up.
 The stump of your arm is bleeding profusely...
 
 > x hand
-You examine the hand closely.  To your amazement, you see that a small spatter of blood, landed when you were cut by the hatchet, has coagulated on the palm to form the letter 
+You examine the hand closely.  To your amazement, you see that a small spatter of blood, landed when you were cut by the hatchet, has coagulated on the palm to form the letter |K|.
 The stump of your arm is bleeding profusely...
 
 > e
@@ -338,7 +338,7 @@ You can go north, south or west.
 The stump of your arm is bleeding profusely...
 
 > x oil
-Upon close inspection, you notice a small red etched onto the cask.
+Upon close inspection, you notice a small red |K| etched onto the cask.
 The stump of your arm is bleeding profusely...
 
 > take oil
@@ -377,7 +377,7 @@ The stump of your arm is bleeding profusely...
 
 > n
  By A Red Door
-You are in a corridor next to a ed doorwhich leads east.  The corridor itself leads away south.
+You are in a corridor next to a |red door| which leads east.  The corridor itself leads away south.
 
 You can go south or east.
 
@@ -388,9 +388,9 @@ The stump of your arm is bleeding profusely...
  Ritual Room
 There is an intense and indescribable aura to this room.  It is lit by the morning light spilling from a single round window in the north wall.  There are a number of strange, arcane objects littered about the room, which is populated by a vast array of candles in many different sizes and colours.  
 
-At the far end of the room is a life size  statuedepicting the head and torso of a human.  You feel strangely attracted to its mysterious gaze...
+At the far end of the room is a life size  statue| depicting the head and torso of a human.  You feel strangely attracted to its mysterious gaze...
 
-There is a small  buttonin the wall beside the statue.
+There is a small  button| in the wall beside the statue.
 A life sized statue of a human rests against the east wall.
 You can go west.
 
@@ -434,11 +434,11 @@ You pour the entire contents of the oil cask over the heart, drenching it in fla
 The stump of your arm is bleeding profusely...
 
 > use matches on heart
-You strike a match across the oiled heart.  It suddenly bursts into flames cascading light across the ritual room...
+You strike a match across the oiled heart.  It suddenly bursts into flames|, cascading light across the ritual room...
 The stump of your arm is bleeding profusely...
 
 > x heart
-The heart is  burning wildlyin front of the statue, the flickering light lending reality to its previously still expression...
+The heart is  burning wildly| in front of the statue, the flickering light lending reality to its previously still expression...
 The stump of your arm is bleeding profusely...
 
 > drink bottle

@@ -9,6 +9,7 @@ Night security! How did you end up with this nine dollar an hour job. Oh well at
 
 
 (Some new commands in this game. If you want to only see the room descriptions on the first visit to an area type 'terse'. If you wish to switch back to full descriptions type 'verbose'. Also I have employed the use of footnotes (footnote 1). Footnotes don't affect the game at all. They are usually either informational or comedic in nature. To see a footnote simply type 'footnote n'. n being the number of the footnote.)
+Press any key to continue.....
 
 
 You are in The Security Office.
@@ -25,19 +26,24 @@ Some small cabinets line the lower part of the desk the monitors are on.
 
 > open cabinets
 You open them.
+Some small cabinets line the lower part of the desk the monitors are on.
+They contain A Flashlight and An Electronic Key.
 
 > take flashlight
 (first removing it from Cabinets)
 Done.
 You pick it up.
 
+
 > take electronic key
 (first removing it from Cabinets)
 Done.
 You pick it up.
 
+
 > take hand radio
 You pick it up.
+
 
 > turn on flashlight
 You turn on the flashlight.
@@ -56,6 +62,7 @@ You can go south, east, northwest or southwest.
 > take fire extinguisher
 You remove it from the hooks.
 
+
 > southwest
 You are in The Ladies Room.
 This is the ladies room. It looks just like you thought it might, complete with sink and toilet.
@@ -64,6 +71,7 @@ You can go northeast.
 
 > take soap
 You pick it up.
+
 
 > northeast
 You are in A Short Hallway.
@@ -88,13 +96,17 @@ You can go north.
 > examine desk
 You do notice, tucked into the center of the desk, just under the lip is a wide shallow drawer.
 
+
 > open drawer
 You open it.
+It's a flat wide drawer in the center on the desk.
+It contains a Note attached to an email printout.
 
 > take note
 (first removing it from Drawer)
 Done.
 You pick it up.
+
 
 > read note
 The email printout is a series of short emails from James B. (owner of this office) to Carl S.  In the emails they talk about a series of emails that James has discovered, and are trying to figure out who sent them and who is recieving them. It seems they find the emails rather disturbing. The last entry has James telling Carl to check in the drawer of his desk.
@@ -105,8 +117,10 @@ James.
 > examine computer
 You notice the flash drive is plugged in to a port below a series of wires. You probably wouldn't have found it if you hadn't read the note.
 
+
 > take flash drive
 You remove it from the back of the computer.
+
 
 > north
 You are in An Elbow Hallway.
@@ -121,14 +135,18 @@ You can go east.
 
 > look at first aid box
 It's your standard, wall mounted first aid box.
+It's closed at the moment.
 
 > open first aid box
 You open it.
+It's your standard, wall mounted first aid box.
+It contains A roll of Gauze and a small bottle of Asprin.
 
 > take gauze
 (first removing it from First Aid Box)
 Done.
 You pick it up.
+
 
 > east
 You are in An Elbow Hallway.
@@ -156,6 +174,7 @@ It writhes in pain, squeeling and flopping around on the floor!
 Apparently the chemical in the fire extinguisher is eating away at it.
 Eventually it is reduced to a pile of black goo on the floor.
 
+
 > open door
 You open the door and step out into the courtyard.
 You are in The East Security Courtyard.
@@ -182,14 +201,17 @@ You notice a pair of feet sticking out of the gypsum pile!
 > examine skid steer
 You notice a large wrench sitting inside the skid steer.
 
+
 > take wrench
 You pick it up.
+
 
 > take feet
 You grab hold of the feet and pull.
 You nearly fall over as you pull them out. You notice you are now holding a pair of disembodied legs.
 You end up dropping them and heaving your supper onto the ground. As you start to recover a long sinuous black vine springs out from the gypsum pile and wraps itself around your chest.
 You drop the fire extinguisher and it rolls onto the ground.
+
 The vine pulls you closer to the gypsum pile.
 
 > use soap on vine
@@ -203,11 +225,13 @@ The vine pulls you closer to the gypsum pile.
 > spray vine
 You blast the vine with the fire extinguisher. It shrivels up and burns leaving a pile of black goo behind.
 
+
 > look at legs
 Gross! You start to turn away in disgust when you notice a small object on the ground next to the legs. It must have popped out of one of the pants pockets or something.
 
 > take door opener
 You pick it up.
+
 
 > east
 You are in The North Security Courtyard.
@@ -225,7 +249,7 @@ You can go north or east.
 You are in The West Lab Courtyard.
 You are in the small courtyard on the west side of the lab. The mist is so thick here that you could cut it with a knife, also the floodlights here are out making it hard to see even with the flashlight. A large globe shaped tank takes up most of the area here. There is a small fully screened area around the tank. A narrow metal staircase winds it's way up to the second floor where the lab's side entrance is. You can also go west back to the east security courtyard.
 You can see a Black Moth Swarm here.
-You can go west, up or Screened Cage.
+You can go west, up or to A Screened Cage.
 
 Out of the thick mist a large swarm of jet black moths of all sizes, some as big as your fist, flies at you!
 They swarm around you biting at every bit of exposed flesh they can reach. You shine your flashlight at some and swat some others but are forced to run for the screened cage to escape.
@@ -238,6 +262,7 @@ You can go out.
 > examine argon tank
 You notice near the bottom of the tank there are two large pipes sticking out through the cage. There is a valve attached to one of them.
 
+
 > turn valve
 You open the valve with the wrench. The liquid argon rushes out of the pipe hits the air and turns to gas (footnote 3). The gas blasts out past the cage and saturates the area outside it. You see thousands of moths freeze in mid air and fall to the ground with a crash as they shatter!
 When you are satisfied they are all gone you close the valve again.
@@ -245,7 +270,7 @@ When you are satisfied they are all gone you close the valve again.
 > out
 You are in The West Lab Courtyard.
 You are in the small courtyard on the west side of the lab. The mist is so thick here that you could cut it with a knife, also the floodlights here are out making it hard to see even with the flashlight. A large globe shaped tank takes up most of the area here. There is a small fully screened area around the tank. A narrow metal staircase winds it's way up to the second floor where the lab's side entrance is. You can also go west back to the east security courtyard.
-You can go west, up or Screened Cage.
+You can go west, up or to A Screened Cage.
 
 > up
 You are in The Lab Stairwell.
@@ -290,8 +315,10 @@ The radio fades into silence again.
 > examine desk
 You notice a small rounded key taped to the bottom of the desk.
 
+
 > take rounded key
 You pick it up.
+
 
 > turn on lap top
 You power up the lap top.
@@ -331,7 +358,7 @@ You can go down.
 > down
 You are in The West Lab Courtyard.
 You are in the small courtyard on the west side of the lab. The mist is so thick here that you could cut it with a knife, also the floodlights here are out making it hard to see even with the flashlight. A large globe shaped tank takes up most of the area here. There is a small fully screened area around the tank. A narrow metal staircase winds it's way up to the second floor where the lab's side entrance is. You can also go west back to the east security courtyard.
-You can go west, up or Screened Cage.
+You can go west, up or to A Screened Cage.
 
 > west
 You are in The East Security Courtyard.
@@ -363,10 +390,12 @@ You can go nowhere.
 You press the opener.
 The large overhead cargo door slowly rises up into the ceiling.
 
+
 > look at fork lift
 A large fork lift for moving things around.
 The forks are currently down.
 The fork lift is off.
+It contains The Ignition and a Lever in the forklift.
 
 > use rounded key on ignition
 You put the key in the ignition. It goes in kind of hard but fits. You doubt that you will be able to get it out again.
@@ -385,7 +414,7 @@ You are in The North Security Courtyard.
 (in the forklift)
 You are in the large wide courtyard to the north of the security building. Thick mist blankets the air here making it hard to see anything. The nickel building is in the northern part of the courtyard here. On the outside of the building is a human sized door and a large freight door. The side of the large lab building takes up the eastern side of the courtyard. There are no entrances into the lab from here however. You can go south to the eastern courtyard, north to the back road, or west to the western courtyard.
 You can see a Door leading into the nickel building, an electronic Key Pad, a Fork Lift, The Ignition, a Lever in the forklift and a small Rounded Key in the ignition here.
-You can go north, south, west or Nickel Building.
+You can go north, south, west or to The Nickel Building.
 
 > north
 You are on The Back Road.
@@ -408,10 +437,12 @@ The thing you hit lets out a blood curdling yowl. And you notice that it has bee
 > spray bear
 You blast the bear's claw with the extinguisher! It starts to sizzle and burn and he lets out a yowl and withdraws it.
 
+
 The bear tries to get you with it's other claw!
 
 > spray bear
 You blast the bear's claw with the extinguisher! It starts to sizzle and burn and he lets out a yowl and withdraws it.
+
 
 Being out of claws to strike at you with the bear sticks it's head in and tries to bite you!
 
@@ -434,6 +465,7 @@ You can go south, east or west.
 > examine wreckage
 You sift through the wreckage and eventually come up with a 12 amp fuse which looks to be in good shape. You pocket it.
 
+
 > south
 You are in The Back of Refinery.
 You are behind the refinery. There are a series of small buildings here, some a little bigger than others. There is no way into the refinery from here however.
@@ -447,6 +479,7 @@ You can go east.
 
 > examine alarm panel
 You do notice a good 12 amp fuse in the panel and you pull it out and pocket it.
+
 
 > east
 You are in The Back of Refinery.
@@ -462,6 +495,7 @@ You can go northeast.
 > take hammer
 You pick it up.
 
+
 > northeast
 You are in The Back of Refinery.
 You are behind the refinery. There are a series of small buildings here, some a little bigger than others. There is no way into the refinery from here however.
@@ -471,10 +505,11 @@ You can go north, south, east, west, southwest or southeast.
 You are in Vehicle Maintenance.
 You are in the vehicle maintenance building. Many benches line the walls here with several tools spread out on them. In the center are two vehicle lifts with shallow pits under them, so the mechanics can get under the equipment to work on them. One of the lifts is empty but the other one has a white work truck on it. The exit lies to the northwest.
 You can see a small two gallon Gas Can here.
-You can go northwest or Work Truck.
+You can go northwest or to A Work Truck.
 
 > take gas can
 You pick it up.
+
 
 > go to work truck
 You are in A Work Truck.
@@ -487,16 +522,18 @@ You open the glove box.
 
 > look at glove box
 A small glove box mounted in the dash.
+It contains a 12 amp Dusty Fuse.
 
 > take dusty fuse
 (first removing it from Glove Box)
 Done.
 You pick it up.
 
+
 > out
 You are in Vehicle Maintenance.
 You are in the vehicle maintenance building. Many benches line the walls here with several tools spread out on them. In the center are two vehicle lifts with shallow pits under them, so the mechanics can get under the equipment to work on them. One of the lifts is empty but the other one has a white work truck on it. The exit lies to the northwest.
-You can go northwest or Work Truck.
+You can go northwest or to A Work Truck.
 
 > northwest
 You are in The Back of Refinery.
@@ -523,6 +560,7 @@ You spray the mass with the fire extinguisher. It starts to disolve and sizzle. 
 The fire extinguisher is now empty.
 You discard it.
 
+
 > west
 You are in The Back of Refinery.
 You are behind the refinery. There are a series of small buildings here, some a little bigger than others. There is no way into the refinery from here however.
@@ -544,8 +582,10 @@ You see something spill out of the pipe onto the floor.
 > take wet fuse
 You pick it up.
 
+
 > look at fuse box
 A small fuse box is set in the front of the large water pump.
+The fuse box is closed.
 
 > open fuse box
 You open the fuse box.
@@ -555,20 +595,24 @@ You open the fuse box.
 You remove the fuse.
 You pick it up.
 
+
 > take fried fuse
 (first removing it from Fuse Box)
 You remove the fuse.
 You pick it up.
+
 
 > take cracked fuse
 (first removing it from Fuse Box)
 You remove the fuse.
 You pick it up.
 
+
 > take cooked fuse
 (first removing it from Fuse Box)
 You remove the fuse.
 You pick it up.
+
 
 > put new fuse in fuse box
 You put the fuse in the fuse box.
@@ -651,14 +695,18 @@ Well I don't know what the hell it is!" she says.
 > examine shelves
 You sift through the stuff on the shelves. Eventually you find something you think might be useful, a small can of oil.
 
+
 > examine shelves
 You search through the shelves for something useful. Eventually you find a small roll of duct tape.
+
 
 > take can of oil
 You pick it up.
 
+
 > take duct tape
 You pick it up.
+
 
 > find boots
 You find a pair of work boots lying within the stuff on the shelves. You take your sneakers off and put them on the shelf. You don the work boots. Hey, they are just your size! At least something went your way tonight.
@@ -672,8 +720,10 @@ You search the shelves and eventually you find one.
 > take floor jack
 You pick it up.
 
+
 > take magnet
 You pick it up.
+
 
 > use oil on gas can
 You pour the oil into the gas can. You discard the empty can.
@@ -699,11 +749,15 @@ You smash out the glass with hammer.
 
 > look at cabinet
 A small cabinet used for housing a fire extinguisher. The glass is all busted out of it.
+It contains A Fire Extinguisher in the cabinet.
 
 > take fire extinguisher
 (first removing it from the cabinet)
 You remove the fire extinguisher from the cabinet and give it a kiss.
+
+
 You take the fresh fire extinguisher.
+
 
 > northeast
 You are in The Smelter Hallway.
@@ -728,6 +782,7 @@ You can go west, southwest or up.
 
 > drop fire extinguisher
 You place it down.
+
 
 > use gas can on pumps
 You put the appropriate amount of gas in to the gas can and shake it around so the oil mixes with it.
@@ -757,6 +812,7 @@ You can go northeast.
 
 > take chainsaw
 You pick it up.
+
 
 > fill chainsaw
 You pour all the gas in the can into the chainsaw.
@@ -887,28 +943,11 @@ You fill the gas can with gas.
 You climb up the stairs.
 You are at The Top of the Stairwell.
 You are at the top of the narrow stairwell that leads up the back of the smelter building. A narrow metal walkway leads off to the northwest around a very large open tank. All the water is gone from the tank and it is tilting over the edge of the building at a forty-five degree angle. You can also go back down the stairway to the east smelter courtyard.
-You can go northwest, down or Water Tank.
+You can go northwest, down or to A large Water Tank.
 
 > i
 You are carrying:
-Hand Radio
-Flashlight
-Soap
-Note
-Gauze
-Wrench
-Door Opener
-Hammer
-Gas Can
-Dead Fuse
-Fried Fuse
-Cracked Fuse
-Cooked Fuse
-Ruined Key
-Duct Tape
-Work Boots
-Floor Jack
-Magnet
+A Hand Radio, A Flashlight (providing light), a small container of soft Soap in your pocket, a Note in your pocket, A roll of Gauze in your pocket, a large crescent Wrench, a remote Door Opener in your pocket, a small Hammer, a small two gallon Gas Can, a Dead Fuse in your pocket, a Fried Fuse in your pocket, a Cracked Fuse in your pocket, a Cooked Fuse in your pocket, a Ruined Key in your pocket, a small roll of Duct Tape in your pocket, a pair of Work Boots (being worn), A flat Floor Jack and A small horseshoe Magnet in your pocket.
 
 > go to water tank
 You are in A large Water Tank.
@@ -923,13 +962,15 @@ Oh man!, Looks like he wasn't so lucky. He is lying face down on the bottom of t
 You grimly sift through his pockets for anything useful.
 You do notice he has an electronic key in his pocket.
 
+
 > take electronic key
 You pick it up.
+
 
 > out
 You are at The Top of the Stairwell.
 You are at the top of the narrow stairwell that leads up the back of the smelter building. A narrow metal walkway leads off to the northwest around a very large open tank. All the water is gone from the tank and it is tilting over the edge of the building at a forty-five degree angle. You can also go back down the stairway to the east smelter courtyard.
-You can go northwest, down or Water Tank.
+You can go northwest, down or to A large Water Tank.
 
 > northwest
 You are on A Catwalk.
@@ -958,7 +999,7 @@ Neva follows close behind you.
 > southeast
 You are at The Top of the Stairwell.
 You are at the top of the narrow stairwell that leads up the back of the smelter building. A narrow metal walkway leads off to the northwest around a very large open tank. All the water is gone from the tank and it is tilting over the edge of the building at a forty-five degree angle. You can also go back down the stairway to the east smelter courtyard.
-You can go northwest, down or Water Tank.
+You can go northwest, down or to A large Water Tank.
 Neva follows close behind you.
 
 > down
@@ -1017,6 +1058,7 @@ A tiny key comes sliding out from underneath the door.
 > take tiny key
 You pick it up.
 
+
 > south
 You are in The Smelter Lobby.
 You are in the main entrance to the smelter building. It is a small open area with large double doors leading into the main plant to the west. A small, push handle door leads outside to the south and a metal stairway leads up to the north.
@@ -1067,7 +1109,7 @@ Neva follows close behind you.
 > southeast
 You are in Vehicle Maintenance.
 You are in the vehicle maintenance building. Many benches line the walls here with several tools spread out on them. In the center are two vehicle lifts with shallow pits under them, so the mechanics can get under the equipment to work on them. One of the lifts is empty but the other one has a white work truck on it. The exit lies to the northwest.
-You can go northwest or Work Truck.
+You can go northwest or to A Work Truck.
 Neva follows close behind you.
 
 > go to work truck
@@ -1079,6 +1121,7 @@ Neva follows close behind you.
 
 > look at gun rack
 A typical montana gun rack.
+It contains a Hunting Rifle.
 
 > unlock gun rack
 You unlock the gun rack.
@@ -1086,10 +1129,13 @@ You unlock the gun rack.
 > take hunting rifle
 You remove the rifle from the rack giving it a kiss as you pull it down.
 
+
+
+
 > out
 You are in Vehicle Maintenance.
 You are in the vehicle maintenance building. Many benches line the walls here with several tools spread out on them. In the center are two vehicle lifts with shallow pits under them, so the mechanics can get under the equipment to work on them. One of the lifts is empty but the other one has a white work truck on it. The exit lies to the northwest.
-You can go northwest or Work Truck.
+You can go northwest or to A Work Truck.
 Neva follows close behind you.
 
 > northwest
@@ -1162,6 +1208,7 @@ The spider blasts a bit of web at you as you enter. You duck and the webbing cov
 > shine light on spider
 The spider is too far away from you to be bothered by your flashlight.
 
+
 > northwest
 You are in The Smelting Plant (the center)
 You are in the the center of the smelting plant. Various pieces of equipment are scattered around the place. The only place with totaly bare floor is directly in the center. There is a thick mist in the area here. Now that your in here you can see that the emergency lighting is on, it's just the mist giving it the impression of total darkness.
@@ -1188,6 +1235,7 @@ The spider is now in the center of the room.
 After a few minutes you hear her come back on.
 "Ok, We are ready when you are." Neva says.
 
+
 > use radio
 Which direction do you want to move the ladle?
 1) Tell Neva to move the ladle east.
@@ -1197,6 +1245,7 @@ Which direction do you want to move the ladle?
 [choice] 2
 The ladle moves to the east.
 What the hell? Didn't you just tell her to move it west?
+
 
 > use radio
 Which direction do you want to move the ladle?
@@ -1208,8 +1257,10 @@ Which direction do you want to move the ladle?
 The ladle moves to the south.
 What the hell? Didn't you just tell her to move it north?
 
+
 > shine light on spider
 You shine the light right into the spider's eyes. It rears back temporarily blinded and stunned.
+
 
 > use hunting rifle on chain
 You shoot the chain and snap it in two! The ladle comes crashing down!
@@ -1253,19 +1304,24 @@ You can go northwest or southwest.
 
 > look at closet
 There is a small maintenence closet set in the middle of the east wall here.
+The closet is closed.
 
 > open closet
 You open the closet.
+There is a small maintenence closet set in the middle of the east wall here.
+It contains Some Bolt Cutters and A small Screwdriver.
 
 > take bolt cutters
 (first removing them from Closet)
 You remove it.
 You pick them up.
 
+
 > take screwdriver
 (first removing it from Closet)
 You remove it.
 You pick it up.
+
 
 > southwest
 You are in The Recycle Foyer.
@@ -1290,8 +1346,10 @@ You can go out.
 > take leaf blower
 You pick it up and strap it across your shoulder.
 
+
 > take rake
 You pick it up.
+
 
 > turn on leaf blower
 You turn on the leaf blower.
@@ -1299,7 +1357,7 @@ You turn on the leaf blower.
 > out
 You are in The Recycle Courtyard.
 You are in a small courtyard in the front of the recycle building. Fencing surrounds the small courtyard here and you don't see a way through any further west. You will have to go through the recycle building to the north to get to the refinery.
-You can go north, east or Work Shed.
+You can go north, east or to A small Work Shed.
 
 > north
 You are in The Recycle Foyer.
@@ -1336,10 +1394,12 @@ The clown jumps up on a bench in the back and starts madly making balloon animal
 
 > examine lab benches
 You look throughout the benches but don't find anything.
+
 There are so many balloon animals floating about the room now that it is hard to see anything. The clown has dissapeared from your view.
 
 > examine x-ray machine
 You look around the x-ray machine but don't find anything.
+
 
 > use leaf blower on balloon animals
 You aim the leaf blower at them and blow them out of your way. Many of them get blasted up and hit the ceiling, popping on the sharp corners of the sprinkler heads.
@@ -1352,10 +1412,12 @@ The clown jumps up on a bench in the back and starts madly making balloon animal
 
 > examine microscope
 You look near the microscope but don't find anything.
+
 There are so many balloon animals floating about the room now that it is hard to see anything. The clown has dissapeared from your view.
 
 > examine furnace
 You look around the furnace but don't find anything.
+
 
 > use leaf blower on balloon animals
 You aim the leaf blower at them and blow them out of your way. Many of them get blasted up and hit the ceiling, popping on the sharp corners of the sprinkler heads.
@@ -1368,6 +1430,7 @@ The clown jumps up on a bench in the back and starts madly making balloon animal
 
 > examine eye wash station
 You notice a big red button labeled 'Fire Control' mounted on the wall near the eye wash station.
+
 There are so many balloon animals floating about the room now that it is hard to see anything. The clown has dissapeared from your view.
 
 > use leaf blower on balloon animals
@@ -1391,8 +1454,10 @@ Neva comes bursting through the doors!
 > examine lab benches
 Now that you are no longer under duress, you search through the benches more carefully. You find a door handle.
 
+
 > take door handle
 You pick it up.
+
 
 > north
 You are in The North Recycle Hallway.
@@ -1449,6 +1514,7 @@ Neva follows close behind you.
 > take mop handle
 You pick it up.
 
+
 > tape magnet to mop handle
 You duct tape the magnet to the end of the mop handle. Macgyver would be proud (footnote 11). There is still a little duct tape left but not much.
 
@@ -1504,6 +1570,7 @@ You start raking through the leaves with the metal rake. Eventually you hear a '
 > take ring of keys
 You pick them up.
 
+
 > north
 You are in The Refinery Hallway.
 You are in the refinery's front hallway. It dead ends here at the access door and leads into an upward leading stairwell to the east. To the north you can enter the main part of the refinery.
@@ -1535,11 +1602,13 @@ With that she dissapears back out the door.
 > examine long console
 The only control that you feel safe in using is the lever that raises or lowers the chain hoist in the center of the refinery floor.
 
+
 > lower lever
 You lower the chain.
 
 > take large fire extinguisher
 You remove it from the hooks.
+
 
 > tape gas can to large fire extinguisher
 You tape the extinguisher to the gas can. You have used up the last of your duct tape.
@@ -1610,8 +1679,10 @@ Neva follows close behind you.
 > take safety glasses
 You pick them up.
 
+
 > take ladder
 You pick it up.
+
 
 > south
 You are on The Refinery Top Floor.
@@ -1633,6 +1704,7 @@ Neva follows close behind you.
 > take hose
 You pick it up.
 
+
 > south
 You are on The Refinery Top Floor.
 You are on the top floor of the refinery. The floor is mostly made of metal grating. Many small pieces of equipment litter the area here. There are some metal stairs leading down to the main floor and a small open doorway leads north.
@@ -1650,17 +1722,20 @@ Neva follows close behind you.
 > examine machine
 You don't see any way to start it. It must activate when a fire alarm is pulled. You do notice the end of a pipe sticking out of the bottom of it.
 
+
 > use hose on pipe
 You drop the hose and secure one end of it to the pipe. You give it a couple of tugs. Looks pretty secure.
 
 > take ladder
 With difficulty you manage to remove the ladder and haul it up onto the roof.
 
+
 > use ladder on gap
 You carefully stretch the ladder out across the gap, almost dropping it twice in the process.
 
 > take hose
 You pick up the other end of the hose.
+
 
 > west
 You go to cross the ladder and Neva steps in front of you.
@@ -1684,8 +1759,10 @@ You can go up.
 > take neva's glasses
 You pick them up.
 
+
 > examine chemical tanks
 Several large chemical containers are here. These must be the missing ones. Jerry rigged to the containers is some kind of proccessing machine with a smaller chemical container attached to it. There is a valve sticking out of the front of it.
+
 
 > use wrench on valve
 You close the valve with the wrench. The mist stops comming out of the pipe.
@@ -1761,6 +1838,7 @@ An alarm starts blaring and fire suppressant starts spraying out of the ventilat
 > take hammer
 You pick it up.
 
+
 > north
 You are in an Underground Tunnel.
 You are in a long underground tunnel, running from north to south. The tunnel is roughly hewn out of rock and is has cords providing power from the lab to small light fixtures set in the ceiling.
@@ -1782,6 +1860,7 @@ Thwack!!!!
 It impacts with the back of his head knocking him out cold!
 You drag dave's body across the airport. Along the way you notice that the sun has risen and the mist is dissipating. You can hear the screams of a hundred or more things burning in the morning daylight. You make it out of the airport and prop Dave's lifeless mass up against you car. You reach in the glove box and pull out your cell phone. (You are never leaving this behind again!)
 
+Press any key to continue.
 
 
 After awhile emergeny workers and police arrive. Dave is taken off into custody and the remaining workers are freed. The fence is restored to it's unelectrified state. The police question you several times and it seems quite clear that they are not believing your story until they question the workers.
@@ -1789,11 +1868,13 @@ They media arrives and starts asking questions and badgering everyone for inform
 Finally you are allowed to go home after several very tiring hours.
 You are greeted at your front door by some very scary looking men in black suits, who inform you that what you just experienced was just a minor chemical misshap and that the creatures were just hallucinations brought on by exposure to the chemical. 'Ha! as if!' you think. Finally they allow you to go into your house after making it very clear that you are not to repeat your 'Hallucinations' to anyone.
  
+Press any key to continue.
 
 
 On your way up to bed you catch part of the news on the television....
 'Three people are dead today at the local smelting plant. Initially it was believed to be some kind of terrorist attack but this reporter has been assured by authorities that it was just a minor accident involving one of the chemicals used in the smelting proccess. Authorities did say that that incident could have been much worse if not for the quick thinking and heroics of the plant's lone night security guard. After spending several hours trying to get to the guard for an interview, I finally caught up to him as he was leaving. He only had this to say.'
 "Not on my watch."
+Press any key to continue.
 
 
 Roll Credits!

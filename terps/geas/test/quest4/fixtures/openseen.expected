@@ -1,0 +1,85 @@
+
+openseen
+
+You are in Vault.
+There is statue, crate and box here.
+A stone vault.
+
+> open statue
+You can't open that.
+
+> reveal
+
+> probe
+RECESS UNSEEN
+RECESS OPEN
+CRATE UNSEEN
+CRATE SHUT
+
+> take bronze key
+I can't see that here.
+
+> open recess
+It is already open.
+
+> probe
+RECESS UNSEEN
+RECESS OPEN
+CRATE UNSEEN
+CRATE SHUT
+
+> take bronze key
+I can't see that here.
+
+> x recess
+A niche in the wall.
+It contains bronze key.
+
+> probe
+RECESS SEEN
+RECESS OPEN
+CRATE UNSEEN
+CRATE SHUT
+
+> take bronze key
+(first removing it from recess)
+Done.
+You pick it up.
+
+> open crate
+The lid creaks but does not shift.
+
+> probe
+RECESS SEEN
+RECESS OPEN
+CRATE UNSEEN
+CRATE SHUT
+
+> take nail
+I can't see that here.
+
+> close box
+It is already closed.
+
+> open box
+You open it.
+A cardboard box.
+It contains coin.
+
+> probe
+RECESS SEEN
+RECESS OPEN
+CRATE UNSEEN
+CRATE SHUT
+
+> take coin
+(first removing it from box)
+Done.
+You pick it up.
+
+> close box
+You close it.
+
+> close box
+It is already closed.
+[runner] turns=19 leftover=0 running=true

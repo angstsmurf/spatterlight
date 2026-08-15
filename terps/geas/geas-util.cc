@@ -25,6 +25,8 @@
 #include <cctype>
 #include <cmath>
 #include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include "general.hh"
 #include "istring.hh"
 
@@ -94,6 +96,62 @@ double eval_double (const string &s)
 {
   DoubleParser p (s);
   return p.expr ();
+}
+
+/* VB's Val(): read as much of a number off the front as there is, and answer
+   zero when there is none.  Quest uses it on both sides of the one operation it
+   performs below 3.91, which is why "3 apples" counts as three. */
+static double vb_val_num (const string &s)
+{
+  return strtod (s.c_str (), NULL);
+}
+
+/* See the comment on the declaration in geas-util.hh. */
+double eval_double_pre391 (const string &expr, bool &div_by_zero)
+{
+  div_by_zero = false;
+  /* ObscureNumericExps (V4Game.cs:3434-3455) blanks the character after every
+     "E" so that the sign of an exponent -- 2.345E+20 -- cannot be mistaken for
+     an operator.  The operator is then looked for in this copy but read out of
+     the original, so the two must stay in step character for character. */
+  string obscured = expr;
+  for (string::size_type e = obscured.find ('E'); e != string::npos;
+       e = obscured.find ('E', e + 2))
+    {
+      if (e + 1 < obscured.length ())
+	obscured[e + 1] = 'X';
+      else
+	obscured += 'X';
+    }
+  /* One operation only, and the search order is the operator's own: the first
+     "+" anywhere, else the first "*", else the first "/", else a "-" at the
+     second character or later -- a leading one being the sign of a negative
+     number (ExecSetVar, V4Game.cs:7286-7304). */
+  string::size_type op = obscured.find ('+');
+  if (op == string::npos)
+    op = obscured.find ('*');
+  if (op == string::npos)
+    op = obscured.find ('/');
+  if (op == string::npos && obscured.length () > 1)
+    op = obscured.find ('-', 1);
+  if (op == string::npos || op >= expr.length ())
+    return vb_val_num (expr);
+  double num1 = vb_val_num (expr.substr (0, op));
+  double num2 = vb_val_num (expr.substr (op + 1));
+  switch (expr[op])
+    {
+    case '+': return num1 + num2;
+    case '-': return num1 - num2;
+    case '*': return num1 * num2;
+    case '/':
+      if (num2 == 0.0)
+	{
+	  div_by_zero = true;
+	  return 0.0;
+	}
+      return num1 / num2;
+    }
+  return vb_val_num (expr);
 }
 
 /* A stricter cousin of DoubleParser: it refuses everything Quest's
@@ -177,21 +235,63 @@ bool eval_numeric_expr (const string &s, string &result)
   p.skipws ();
   if (!p.ok || p.i != p.n)
     return false;
-  result = fmt_double (v);
+  /* An arithmetic result is stringified with plain Double.ToString()
+     (ExpressionHandler, V4Game.cs:3272), which keeps the leading zero of a
+     fraction where the Str() used for display drops it. */
+  result = fmt_double_net (v);
   return true;
 }
 
-string fmt_double (double d)
+/* .NET's Double.ToString(): the shortest decimal string that reads back as the
+   same double, laid out the way the "G" format does it -- plain digits while
+   the exponent of the leading digit is above -5 and below 17, scientific
+   outside that range, with an uppercase E and a signed two-digit exponent.
+   Quest hands arithmetic results to the game in this form, and its display of a
+   numeric variable is this with one character removed (see fmt_double). */
+string fmt_double_net (double d)
 {
-  if (d == floor (d) && fabs (d) < 1e15)
+  if (d == 0.0)
+    return "0";
+  char buf[64];
+  int prec;
+  for (prec = 1; prec < 17; prec ++)
     {
-      char buf[32];
-      snprintf (buf, sizeof buf, "%.0f", d);
+      snprintf (buf, sizeof buf, "%.*e", prec - 1, d);
+      if (strtod (buf, NULL) == d)
+	break;
+    }
+  snprintf (buf, sizeof buf, "%.*e", prec - 1, d);
+  const char *epos = strchr (buf, 'e');
+  int exp = (epos != NULL) ? atoi (epos + 1) : 0;
+  if (exp > -5 && exp < 17)
+    {
+      int dec = prec - 1 - exp;
+      if (dec < 0)
+	dec = 0;
+      snprintf (buf, sizeof buf, "%.*f", dec, d);
       return buf;
     }
-  char buf[64];
-  snprintf (buf, sizeof buf, "%.10g", d);
-  return buf;
+  /* C already writes the exponent signed and at least two digits wide, so only
+     the case of the "e" is left to fix. */
+  string rv = buf;
+  for (char &c: rv)
+    if (c == 'e')
+      c = 'E';
+  return rv;
+}
+
+/* VB's Str(), which is how Quest prints a numeric variable or a collectable
+   (Trim(Conversion.Str(...)), V4Game.cs:6721): the .NET rendering with the
+   leading zero of a fraction dropped, so a third is ".3333333333333333" and a
+   negative half is "-.5". */
+string fmt_double (double d)
+{
+  string rv = fmt_double_net (d);
+  if (rv.compare (0, 2, "0.") == 0)
+    rv.erase (0, 1);
+  else if (rv.compare (0, 3, "-0.") == 0)
+    rv.erase (1, 1);
+  return rv;
 }
 
 string trim_braces (const string &s)
@@ -289,6 +389,66 @@ string lcase (string s)
     if (c >= 'A' && c <= 'Z')
       c += 32;
   return s;
+}
+
+/* The 32 places where Windows-1252 and Latin-1 part company.  Everything
+ * outside 0x80-0x9F is its own codepoint in both.  The five holes (0x81,
+ * 0x8D, 0x8F, 0x90, 0x9D) are unassigned in the code page; .NET's
+ * Encoding.GetEncoding(1252) -- which is what the QuestViva oracle reads with
+ * -- passes them through as the matching C1 control, so do the same. */
+static const unsigned short CP1252_HIGH[32] =
+{
+  0x20AC, 0x0081, 0x201A, 0x0192, 0x201E, 0x2026, 0x2020, 0x2021,
+  0x02C6, 0x2030, 0x0160, 0x2039, 0x0152, 0x008D, 0x017D, 0x008F,
+  0x0090, 0x2018, 0x2019, 0x201C, 0x201D, 0x2022, 0x2013, 0x2014,
+  0x02DC, 0x2122, 0x0161, 0x203A, 0x0153, 0x009D, 0x017E, 0x0178
+};
+
+string cp1252_to_utf8 (const string &s)
+{
+  string rv;
+  rv.reserve (s.size());
+  for (unsigned char c : s)
+    {
+      unsigned int cp = (c < 0x80) ? c
+	                : (c < 0xA0) ? CP1252_HIGH[c - 0x80]
+	                : c;
+      if (cp < 0x80)
+	rv += (char) cp;
+      else if (cp < 0x800)
+	{
+	  rv += (char) (0xC0 | (cp >> 6));
+	  rv += (char) (0x80 | (cp & 0x3F));
+	}
+      else
+	{
+	  rv += (char) (0xE0 | (cp >> 12));
+	  rv += (char) (0x80 | ((cp >> 6) & 0x3F));
+	  rv += (char) (0x80 | (cp & 0x3F));
+	}
+    }
+  return rv;
+}
+
+bool text_is_utf8 (const string &s)
+{
+  for (size_t i = 0; i < s.size();)
+    {
+      unsigned char c = (unsigned char) s[i];
+      int len;
+      if (c < 0x80) { i++; continue; }
+      if ((c & 0xE0) == 0xC0)      len = 2;
+      else if ((c & 0xF0) == 0xE0) len = 3;
+      else if ((c & 0xF8) == 0xF0) len = 4;
+      else return false;
+      if (i + len > s.size())
+	return false;
+      for (int k = 1; k < len; k++)
+	if (((unsigned char) s[i + k] & 0xC0) != 0x80)
+	  return false;
+      i += len;
+    }
+  return true;
 }
 
 vector<string> split_param (const string &s)

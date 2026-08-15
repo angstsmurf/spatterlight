@@ -1,21 +1,25 @@
 
 TakeFromContainer
 
-You are in Pantry
+You are in Pantry.
 There is tin, box, jar and urn here.
 A pantry lined with shelves.
 
 > look at tin
 A biscuit tin.
+It contains coin.
 
 > look at box
 A cardboard box.
+It contains pin.
 
 > look at jar
 A screw jar.
+It contains nut and bolt.
 
 > look at urn
 A sealed urn.
+It contains key and ring.
 
 > check
 coin:[tin] pin:[box] nut:[jar] bolt:[jar] key:[urn]
@@ -48,13 +52,10 @@ You slip the ring off the urn's neck.
 
 > i
 You are carrying:
-coin
-pin
-nut
-ring
+coin, pin, nut and ring.
 
 > check
-coin:[] pin:[] nut:[] bolt:[jar] key:[urn]
+coin:[!] pin:[!] nut:[!] bolt:[jar] key:[urn]
 
 > remove coin from tin
 Done.

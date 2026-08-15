@@ -1,5 +1,5 @@
 
-Clay Pigeon Shooting Tomo
+Clay Pigeon Shooting | Tomo
 
 CLAY PIGEON SHOOTING
 
@@ -12,6 +12,7 @@ When using the mouse, you can access shortcuts to the commands by clicking on th
 Happy hunting!
 
 
+Press any key to start playing...
 
 
 

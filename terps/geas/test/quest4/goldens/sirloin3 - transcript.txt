@@ -1,5 +1,5 @@
 
-Solo Hands CJ
+Solo Hands | CJ
 
 
 SIR LOIN 3:  
@@ -10,9 +10,10 @@ Do you want to skip the intro
 1) Yes
 2) No
 [choice] look
+press a key to start
 
 
-You are in your caravan
+You are in your caravan.
 There is bed, fridge and sink here.
 You can go out to Market Square.
 The caravan is where you have been staying recently.  You are renting it off the Queen whilst you search for a way to get the Quail' feather.  You often wondered why the Queen would have such a caravan.
@@ -36,10 +37,10 @@ You look in the sink and find a bowl
 You pick it up.
 
 > out
-You are in The Market Square
+You are in The Market Square.
 There is Dragon, a signpost and Cyril Serpent here.
-You can go north, east or west.
 You can go to your caravan.
+You can go north, east or west.
 You are standing in the market square. To the North you can see a large hut- the Village Hall. The the West are the Village Gardens.
 There is a huge dragon here.
 
@@ -76,7 +77,7 @@ Will you help Cyril mend his glasses?
 The glasses comprise of a metal frame with two semicircular rims.  There are no lenses in the rims.  It looks like you are going to have to find some lenses to mend these glasses.
 
 > w
-You are in the garden centre
+You are in the garden centre.
 There is a water pump, a drain and Simple Simon here.
 You can go south or east.
 
@@ -134,7 +135,7 @@ If you want to check on your current tasks, just type in 'TASKS'.
 Common verbs are:  Look at, use, examine (x), read, wear, talk to, take, turn, pull and open.  There are others which you will have to discover yourself (such as count).
 
 > s
-You are in Lover's grove
+You are in Lover's grove.
 There is Gnomeo and a lover's bench here.
 You can go north.
 This is a small walled garden, filled with large red flowers.  There is a large two-seated bench in the centre.
@@ -162,26 +163,26 @@ Will you help Gnomeo?
 So now you have to get some red flowers.
 
 > n
-You are in the garden centre
+You are in the garden centre.
 There is a water pump, a drain and Simple Simon here.
 You can go south or east.
 
 > e
-You are in The Market Square
+You are in The Market Square.
 There is Dragon, a signpost and Cyril Serpent here.
-You can go north, east or west.
 You can go to your caravan.
+You can go north, east or west.
 You are standing in the market square. To the North you can see a large hut- the Village Hall. The the West are the Village Gardens.
 There is a huge dragon here.
 
 > e
-You are in Guild's row
-You can go west, northeast or southeast.
+You are in Guild's row.
 You can go to the Blacksmith or the laundrette.
+You can go west, northeast or southeast.
 The Guild's Row is a short street going through the village.  From here you have access to certain facilities.
 
 > go to Blacksmith
-You are in Blacksmith
+You are in Blacksmith.
 There is anvil, steam powered hammer, furnace, a bucket, a pair of bellows and a glass cutting device here.
 You can go out to Guild's row.
 
@@ -215,9 +216,9 @@ Inside the device you spy a large diamond, obviously used for cutting the glass.
 The glass cutting device is bolted to the wall.
 
 > out
-You are in Guild's row
-You can go west, northeast or southeast.
+You are in Guild's row.
 You can go to the Blacksmith or the laundrette.
+You can go west, northeast or southeast.
 The Guild's Row is a short street going through the village.  From here you have access to certain facilities.
 
 > ne
@@ -243,10 +244,10 @@ You speak to Winnie.
 "Thank you so much kind man.  Please come in, you are very welcome" And with that Winnie unlocks the gate and wanders off
 
 > n
-You are in the cottage (outside)
+You are in the cottage (outside).
 There is some white flowers, a black cat, barrel and the doorstep here.
-You can go south.
 You can go to cottage (inside).
+You can go south.
 You are standing outside a large cottage.  It has a thatched roof with a chimney with smoke coming out.  The garden is full of lovely flowers.
 
 > look at flowers
@@ -290,7 +291,7 @@ You take the bowl
 
 > go to Cottage (inside)
 The door to the cottage is now open and you enter.
-You are in the cottage (inside)
+You are in the cottage (inside).
 There is Winnie, a huge oven, a rosette, a piggybank and a large couldron here.
 You can go out to cottage (outside).
 
@@ -329,6 +330,7 @@ You speak to Winnie.
 Could you reach in and take a look for me?"
 
 Uh-oh.  This could spell trouble.
+press a key
 
 Do you wish to climb into the oven for Winnie?
 1) Yes
@@ -366,10 +368,10 @@ You speak to Winnie.
 "Have you found my honeycomb?  I not I always find it best to follow the bees"
 
 > out
-You are in the cottage (outside)
+You are in the cottage (outside).
 There is some white flowers, a black cat, barrel and the doorstep here.
-You can go south.
 You can go to cottage (inside).
+You can go south.
 You are standing outside a large cottage.  It has a thatched roof with a chimney with smoke coming out.  The garden is full of lovely flowers.
 
 > s
@@ -388,21 +390,21 @@ You pick it up.
 It appears to be covered with ants!  There must be an anthill in the stump!
 
 > sw
-You are in Guild's row
-You can go west, northeast or southeast.
+You are in Guild's row.
 You can go to the Blacksmith or the laundrette.
+You can go west, northeast or southeast.
 The Guild's Row is a short street going through the village.  From here you have access to certain facilities.
 
 > w
-You are in The Market Square
+You are in The Market Square.
 There is Dragon, a signpost and Cyril Serpent here.
-You can go north, east or west.
 You can go to your caravan.
+You can go north, east or west.
 You are standing in the market square. To the North you can see a large hut- the Village Hall. The the West are the Village Gardens.
 There is a huge dragon here.
 
 > w
-You are in the garden centre
+You are in the garden centre.
 There is a water pump, a drain and Simple Simon here.
 You can go south or east.
 
@@ -416,21 +418,21 @@ You grab the pump with both hands and use the pump.  Water comes splahing out of
 You pick it up.
 
 > e
-You are in The Market Square
+You are in The Market Square.
 There is Dragon, a signpost and Cyril Serpent here.
-You can go north, east or west.
 You can go to your caravan.
+You can go north, east or west.
 You are standing in the market square. To the North you can see a large hut- the Village Hall. The the West are the Village Gardens.
 There is a huge dragon here.
 
 > e
-You are in Guild's row
-You can go west, northeast or southeast.
+You are in Guild's row.
 You can go to the Blacksmith or the laundrette.
+You can go west, northeast or southeast.
 The Guild's Row is a short street going through the village.  From here you have access to certain facilities.
 
 > go to Blacksmith
-You are in Blacksmith
+You are in Blacksmith.
 There is anvil, steam powered hammer, furnace and a glass cutting device here.
 You can go out to Guild's row.
 
@@ -481,16 +483,16 @@ You fit the lenses into the wire frame.  Perfect fit!
 A pair of mended half moon specatcles.
 
 > out
-You are in Guild's row
-You can go west, northeast or southeast.
+You are in Guild's row.
 You can go to the Blacksmith or the laundrette.
+You can go west, northeast or southeast.
 The Guild's Row is a short street going through the village.  From here you have access to certain facilities.
 
 > w
-You are in The Market Square
+You are in The Market Square.
 There is Dragon, a signpost and Cyril Serpent here.
-You can go north, east or west.
 You can go to your caravan.
+You can go north, east or west.
 You are standing in the market square. To the North you can see a large hut- the Village Hall. The the West are the Village Gardens.
 There is a huge dragon here.
 
@@ -500,7 +502,7 @@ You give the spectacles back to Cyril.
 With that, he rushes to the village hall door, unlocks it and rushes through.
 
 > n
-You are in Village Hall
+You are in Village Hall.
 There is Cyril Serpent, a notice and Cyril's desk here.
 You can go south.
 
@@ -530,10 +532,10 @@ As well as the papers, there are several items on the desk, an in tray, an out t
 The pot is a small glass jar with a metal lid.  The ink pot is full of red ink.
 
 > look at in box
-You don't see any in box.
+I can't see that here.
 
 > look at out box
-You don't see any out box.
+I can't see that here.
 
 > look at papers
 There are many papers strewn across the desk.  Cyril is frantically reading through them.  Every now and then he takes a paper from the in tray, stamps it and puts it in the out tray.
@@ -559,20 +561,20 @@ Cyril returns to the desk with the papers.
 
 
 > s
-You are in The Market Square
+You are in The Market Square.
 There is Dragon and a signpost here.
-You can go north, east or west.
 You can go to your caravan.
+You can go north, east or west.
 You are standing in the market square. To the North you can see a large hut- the Village Hall. The the West are the Village Gardens.
 There is a huge dragon here.
 
 > w
-You are in the garden centre
+You are in the garden centre.
 There is a water pump, a drain and Simple Simon here.
 You can go south or east.
 
 > s
-You are in Lover's grove
+You are in Lover's grove.
 There is Gnomeo and a lover's bench here.
 You can go north.
 This is a small walled garden, filled with large red flowers.  There is a large two-seated bench in the centre.
@@ -583,20 +585,20 @@ You hand over the ink stained flowers.
 And with that he rushes away
 
 > n
-You are in the garden centre
+You are in the garden centre.
 There is a water pump, a drain and Simple Simon here.
 You can go south or east.
 
 > e
-You are in The Market Square
+You are in The Market Square.
 There is Dragon and a signpost here.
-You can go north, east or west.
 You can go to your caravan.
+You can go north, east or west.
 You are standing in the market square. To the North you can see a large hut- the Village Hall. The the West are the Village Gardens.
 There is a huge dragon here.
 
 > n
-You are in Village Hall
+You are in Village Hall.
 There is Cyril Serpent, a notice, Cyril's desk, an in tray, an out tray and a bundle of papers here.
 You can go south.
 
@@ -622,15 +624,15 @@ What would you like to ask Cyril about?
 "Now I have heard that Winnie, the local witch has some information about how to talk to ghosts.  I should speak to her!"
 
 > s
-You are in The Market Square
+You are in The Market Square.
 There is Dragon and a signpost here.
-You can go north, east or west.
 You can go to your caravan.
+You can go north, east or west.
 You are standing in the market square. To the North you can see a large hut- the Village Hall. The the West are the Village Gardens.
 There is a huge dragon here.
 
 > w
-You are in the garden centre
+You are in the garden centre.
 There is a water pump, a drain and Simple Simon here.
 You can go south or east.
 
@@ -644,10 +646,10 @@ You grab the pump with both hands and use the pump.  Water comes splahing out of
 You pick it up.
 
 > e
-You are in The Market Square
+You are in The Market Square.
 There is Dragon and a signpost here.
-You can go north, east or west.
 You can go to your caravan.
+You can go north, east or west.
 You are standing in the market square. To the North you can see a large hut- the Village Hall. The the West are the Village Gardens.
 There is a huge dragon here.
 
@@ -661,7 +663,7 @@ You climb on the back of the dragon and he flies away with you.
 Eventually you arrive at your destination- the giant Cat's Head Mountains.
 
 After climbing down, the dragon flies away.
-You are in Mountain Pass
+You are in Mountain Pass.
 There is a signpost and a brass bell here.
 You can go up.
 You are standing in a large clearing in the snow capped  mountains.  There is now way down to the village below, but there are some steps carved into the rocks headin up.  In the distance above you you can see the towering spires of Cat Hedral.  It is very cold.
@@ -671,7 +673,7 @@ You wrap the warm blanket around you like a cloak.
 
 > up
 You leave the pass and climb up to the steps.
-You are in the Steppes
+You are in the Steppes.
 There is the stone steps here.
 You can go up or down.
 The Steppes are the stone steps leading from the mountain pass up to  Cat Hedral.  There is an icy wind blowing here that is sure to freeze you solid if you stood here long enough.
@@ -681,7 +683,7 @@ The wind is biting cold.  You are glad you are wearing the worm blanket.
 You pour the water over some of the steps at the top.  The freezing winds soon make the steps icy and  dangerous.
 
 > up
-You are in a Frozen Plateaux
+You are in a Frozen Plateaux.
 There is a large yeti here.
 You can go west, up or down.
 The plateaux sits high in the moutnain pass .  There is a further path leading up to the mountain peak.  There is also evidence of a animals lair here.
@@ -690,23 +692,25 @@ The plateaux sits high in the moutnain pass .  There is a further path leading u
 You call out to the yeti hoping to get it's attention.
 It runs and fixes you with a vicious stare.
 It starts to run at you.  You think it's time to run.
+press a key
 
 You head back to the steppes. You remember seeing a crack in the rock that you could hide in....
 AS you hide in the crack you can hear the yeti far above you.  It start to run down the stairs, but it is unaware that you have made the steps icy.  It loses it footing and falls crashing down into the pass below.
+press a key
 
 You pause a while, but you can hear no noise.  Perhaps it is dead!
-You are in the Steppes
+You are in the Steppes.
 There is the stone steps here.
 You can go up or down.
 The Steppes are the stone steps leading from the mountain pass up to  Cat Hedral.  There is an icy wind blowing here that is sure to freeze you solid if you stood here long enough.
 
 > up
-You are in a Frozen Plateaux
+You are in a Frozen Plateaux.
 You can go west, up or down.
 The plateaux sits high in the moutnain pass .  There is a further path leading up to the mountain peak.  There is also evidence of a animals lair here.
 
 > west
-You are in cavern
+You are in cavern.
 There is a pile of remains here.
 You can go east.
 You are standing in a damp dark cavern.  There are obvious signs that this was the yeti's lair.  On the ground you can see piled high the remains of many unfortunate adventurer.
@@ -733,18 +737,18 @@ Hidden amongst the remains you find an identification card
 You pick it up.
 
 > east
-You are in a Frozen Plateaux
+You are in a Frozen Plateaux.
 You can go west, up or down.
 The plateaux sits high in the moutnain pass .  There is a further path leading up to the mountain peak.  There is also evidence of a animals lair here.
 
 > down
-You are in the Steppes
+You are in the Steppes.
 There is the stone steps here.
 You can go up or down.
 The Steppes are the stone steps leading from the mountain pass up to  Cat Hedral.  There is an icy wind blowing here that is sure to freeze you solid if you stood here long enough.
 
 > down
-You are in Mountain Pass
+You are in Mountain Pass.
 There is a signpost, a brass bell and the yeti here.
 You can go up.
 You are standing in a large clearing in the snow capped  mountains.  There is now way down to the village below, but there are some steps carved into the rocks headin up.  In the distance above you you can see the towering spires of Cat Hedral.  It is very cold.
@@ -752,6 +756,7 @@ As you descend the steps to the mountain pas you here a growl, you proceed with 
 ...
 Moving into the pass, the yeti, which fell down the steps earlier, suddenly appears.
 He's not dead!  And now he is blocking your path back up the mountain.
+press a key
 
 The Yeti approaches you.  It still seems a bit dazed from the fall, and that has made him angry....
 
@@ -774,22 +779,22 @@ Would you like to fly back to the village?
 2) No
 [choice] yes
 You climb on the back of the dragon and he flies you back to the village.
-You are in The Market Square
+You are in The Market Square.
 There is Dragon and a signpost here.
-You can go north, east or west.
 You can go to your caravan.
+You can go north, east or west.
 You are standing in the market square. To the North you can see a large hut- the Village Hall. The the West are the Village Gardens.
 There is a huge dragon here.
 Now that you are back in the village it is too warm to wear the blanket so you remove it.
 
 > e
-You are in Guild's row
-You can go west, northeast or southeast.
+You are in Guild's row.
 You can go to the Blacksmith or the laundrette.
+You can go west, northeast or southeast.
 The Guild's Row is a short street going through the village.  From here you have access to certain facilities.
 
 > go to laundrette
-You are in laundrette
+You are in laundrette.
 There is washing machines, tumble dryer and a vending machine here.
 You can go out to Guild's row.
 It is a run down laundrette.  There are rows of washing machines and one large tumble dryer.
@@ -801,19 +806,19 @@ Searching the washing machines you find a single solitary sock.
 You pick it up.
 
 > out
-You are in Guild's row
-You can go west, northeast or southeast.
+You are in Guild's row.
 You can go to the Blacksmith or the laundrette.
+You can go west, northeast or southeast.
 The Guild's Row is a short street going through the village.  From here you have access to certain facilities.
 
 > ne
 You are in a long narrow lane, leading from the village to a small run down cottage.
 
 > n
-You are in the cottage (outside)
+You are in the cottage (outside).
 There is some white flowers, a black cat, barrel and the doorstep here.
-You can go south.
 You can go to cottage (inside).
+You can go south.
 You are standing outside a large cottage.  It has a thatched roof with a chimney with smoke coming out.  The garden is full of lovely flowers.
 
 > examine flowers
@@ -826,7 +831,7 @@ You follow the bees as they head ito the forest around you.  You have no idea wh
 ....
 ...
 Eventually you end up in a misty clearing in the forest.
-You are in the Haunted Grove
+You are in the Haunted Grove.
 There is a hive and an abandoned grave here.
 You can go out to the forest.
 
@@ -844,40 +849,40 @@ With the sock on your hand, you feel braver about putting your hand into the hiv
 You have some honeycomb- but it has made the sock sticky!  You take it off
 
 > out
-You are in the forest
+You are in the forest.
 You enter the dark and mysterious forest not knowing where you will end up.
 You rummage through the forest and end up at the garden centre.
-You are in the garden centre
+You are in the garden centre.
 There is a water pump, a drain and Simple Simon here.
 You can go south or east.
 
 > e
-You are in The Market Square
+You are in The Market Square.
 There is Dragon and a signpost here.
-You can go north, east or west.
 You can go to your caravan.
+You can go north, east or west.
 You are standing in the market square. To the North you can see a large hut- the Village Hall. The the West are the Village Gardens.
 There is a huge dragon here.
 
 > e
-You are in Guild's row
-You can go west, northeast or southeast.
+You are in Guild's row.
 You can go to the Blacksmith or the laundrette.
+You can go west, northeast or southeast.
 The Guild's Row is a short street going through the village.  From here you have access to certain facilities.
 
 > ne
 You are in a long narrow lane, leading from the village to a small run down cottage.
 
 > n
-You are in the cottage (outside)
+You are in the cottage (outside).
 There is some white flowers, a black cat, barrel and the doorstep here.
-You can go south.
 You can go to cottage (inside).
+You can go south.
 You are standing outside a large cottage.  It has a thatched roof with a chimney with smoke coming out.  The garden is full of lovely flowers.
 
 > go to cottage (inside)
 The door to the cottage is now open and you enter.
-You are in the cottage (inside)
+You are in the cottage (inside).
 There is Winnie, a huge oven, a rosette, a piggybank and a large couldron here.
 You can go out to cottage (outside).
 
@@ -900,23 +905,23 @@ She passes you the piggy bank.
 "Come back later and there may be some jam for you"
 
 > out
-You are in the cottage (outside)
+You are in the cottage (outside).
 There is some white flowers, a black cat, barrel and the doorstep here.
-You can go south.
 You can go to cottage (inside).
+You can go south.
 You are standing outside a large cottage.  It has a thatched roof with a chimney with smoke coming out.  The garden is full of lovely flowers.
 
 > s
 You are in a long narrow lane, leading from the village to a small run down cottage.
 
 > sw
-You are in Guild's row
-You can go west, northeast or southeast.
+You are in Guild's row.
 You can go to the Blacksmith or the laundrette.
+You can go west, northeast or southeast.
 The Guild's Row is a short street going through the village.  From here you have access to certain facilities.
 
 > go to Blacksmith
-You are in Blacksmith
+You are in Blacksmith.
 There is anvil, steam powered hammer, furnace and a glass cutting device here.
 You can go out to Guild's row.
 
@@ -940,13 +945,13 @@ You pick it up.
 You place the buttons onto the sticky sock and they fix there like a couple of eyes.
 
 > out
-You are in Guild's row
-You can go west, northeast or southeast.
+You are in Guild's row.
 You can go to the Blacksmith or the laundrette.
+You can go west, northeast or southeast.
 The Guild's Row is a short street going through the village.  From here you have access to certain facilities.
 
 > go to laundrette
-You are in laundrette
+You are in laundrette.
 There is washing machines, tumble dryer and a vending machine here.
 You can go out to Guild's row.
 It is a run down laundrette.  There are rows of washing machines and one large tumble dryer.
@@ -961,22 +966,22 @@ You pick it up.
 You drink the soda.  Hmm... sweet!
 
 > out
-You are in Guild's row
-You can go west, northeast or southeast.
+You are in Guild's row.
 You can go to the Blacksmith or the laundrette.
+You can go west, northeast or southeast.
 The Guild's Row is a short street going through the village.  From here you have access to certain facilities.
 
 > se
-You are in a Gravel Path
+You are in a Gravel Path.
 There is a large skip here.
 You can go south or northwest.
 The path is long and narrow and you can see the sea to the South.  The path is covered with gravel.
 
 > s
-You are in Beach
+You are in Beach.
 There is sand and a puppet show tent here.
-You can go north.
 You can go to Puppet Theatre interior.
+You can go north.
 
 > examine sand
 You notice that there appears to be something sticking out of the sand.  A quick dig around reveals a sunken chest hidden in the sand.
@@ -993,19 +998,19 @@ You pick it up.
 You fill the bucket full of sand
 
 > n
-You are in a Gravel Path
+You are in a Gravel Path.
 There is a large skip here.
 You can go south or northwest.
 The path is long and narrow and you can see the sea to the South.  The path is covered with gravel.
 
 > nw
-You are in Guild's row
-You can go west, northeast or southeast.
+You are in Guild's row.
 You can go to the Blacksmith or the laundrette.
+You can go west, northeast or southeast.
 The Guild's Row is a short street going through the village.  From here you have access to certain facilities.
 
 > go to Blacksmith
-You are in Blacksmith
+You are in Blacksmith.
 There is anvil, steam powered hammer, furnace, a glass cutting device and the smashed pig here.
 You can go out to Guild's row.
 
@@ -1032,16 +1037,16 @@ You pick it up.
 You fit the diamond into the clasp on the gold ring.  It fits well!  You have just created a fine diamond ring!
 
 > out
-You are in Guild's row
-You can go west, northeast or southeast.
+You are in Guild's row.
 You can go to the Blacksmith or the laundrette.
+You can go west, northeast or southeast.
 The Guild's Row is a short street going through the village.  From here you have access to certain facilities.
 
 > w
-You are in The Market Square
+You are in The Market Square.
 There is Dragon and a signpost here.
-You can go north, east or west.
 You can go to your caravan.
+You can go north, east or west.
 You are standing in the market square. To the North you can see a large hut- the Village Hall. The the West are the Village Gardens.
 There is a huge dragon here.
 
@@ -1056,7 +1061,7 @@ Do you want to fly back to the mountain pass?
 [choice] yes
 You climb on the back of the dragon and he flies you back to the mountain.
 As you dismount, he flies off
-You are in Mountain Pass
+You are in Mountain Pass.
 There is a signpost, a brass bell and carcass here.
 You can go up.
 You are standing in a large clearing in the snow capped  mountains.  There is now way down to the village below, but there are some steps carved into the rocks headin up.  In the distance above you you can see the towering spires of Cat Hedral.  It is very cold.
@@ -1076,22 +1081,22 @@ You wrap the warm blanket around you like a cloak.
 
 > up
 You leave the pass and climb up to the steps.
-You are in the Steppes
+You are in the Steppes.
 There is the stone steps here.
 You can go up or down.
 The Steppes are the stone steps leading from the mountain pass up to  Cat Hedral.  There is an icy wind blowing here that is sure to freeze you solid if you stood here long enough.
 The wind is biting cold.  You are glad you are wearing the worm blanket.
 
 > count steps
-After spending some time counting the steps you find that there are 0 steps
+After spending some time counting the steps you find that there are 242 steps
 
 > up
-You are in a Frozen Plateaux
+You are in a Frozen Plateaux.
 You can go west, up or down.
 The plateaux sits high in the moutnain pass .  There is a further path leading up to the mountain peak.  There is also evidence of a animals lair here.
 
 > up
-You are in mountain peak
+You are in mountain peak.
 There is Gnomeo and a guard here.
 You can go north, southwest or down.
 The Mountain Peak is a paved area which leads into the entrance to the Cathedral.
@@ -1113,7 +1118,7 @@ You give the diamond ring to Gnomeo.
 "Maybe I will see you later" he says.
 
 > sw
-You are in a building site
+You are in a building site.
 There is workman, a mechanical grinder, a bag, a manual and an unfinished wall here.
 You can go northeast.
 The building site is situated outside the catheral.  There is a workman working on a wall here.
@@ -1168,24 +1173,24 @@ You hand the cement mix over.
 Here, you will need the cement mix" And he hands it back to you.
 
 > ne
-You are in mountain peak
+You are in mountain peak.
 There is a guard here.
 You can go north, southwest or down.
 The Mountain Peak is a paved area which leads into the entrance to the Cathedral.
 
 > down
-You are in a Frozen Plateaux
+You are in a Frozen Plateaux.
 You can go west, up or down.
 The plateaux sits high in the moutnain pass .  There is a further path leading up to the mountain peak.  There is also evidence of a animals lair here.
 
 > down
-You are in the Steppes
+You are in the Steppes.
 There is the stone steps here.
 You can go up or down.
 The Steppes are the stone steps leading from the mountain pass up to  Cat Hedral.  There is an icy wind blowing here that is sure to freeze you solid if you stood here long enough.
 
 > down
-You are in Mountain Pass
+You are in Mountain Pass.
 There is a signpost, a brass bell and carcass here.
 You can go up.
 You are standing in a large clearing in the snow capped  mountains.  There is now way down to the village below, but there are some steps carved into the rocks headin up.  In the distance above you you can see the towering spires of Cat Hedral.  It is very cold.
@@ -1202,22 +1207,22 @@ Would you like to fly back to the village?
 2) No
 [choice] yes
 You climb on the back of the dragon and he flies you back to the village.
-You are in The Market Square
+You are in The Market Square.
 There is Dragon and a signpost here.
-You can go north, east or west.
 You can go to your caravan.
+You can go north, east or west.
 You are standing in the market square. To the North you can see a large hut- the Village Hall. The the West are the Village Gardens.
 There is a huge dragon here.
 Now that you are back in the village it is too warm to wear the blanket so you remove it.
 
 > e
-You are in Guild's row
-You can go west, northeast or southeast.
+You are in Guild's row.
 You can go to the Blacksmith or the laundrette.
+You can go west, northeast or southeast.
 The Guild's Row is a short street going through the village.  From here you have access to certain facilities.
 
 > go to laundrette
-You are in laundrette
+You are in laundrette.
 There is washing machines, tumble dryer and a vending machine here.
 You can go out to Guild's row.
 It is a run down laundrette.  There are rows of washing machines and one large tumble dryer.
@@ -1226,40 +1231,40 @@ It is a run down laundrette.  There are rows of washing machines and one large t
 You decide it is time to start making concrete.  You pour the cement mix into the tumble dryer.
 
 > out
-You are in Guild's row
-You can go west, northeast or southeast.
+You are in Guild's row.
 You can go to the Blacksmith or the laundrette.
+You can go west, northeast or southeast.
 The Guild's Row is a short street going through the village.  From here you have access to certain facilities.
 
 > se
-You are in a Gravel Path
+You are in a Gravel Path.
 There is a large skip here.
 You can go south or northwest.
 The path is long and narrow and you can see the sea to the South.  The path is covered with gravel.
 
 > s
-You are in Beach
+You are in Beach.
 There is sand and a puppet show tent here.
-You can go north.
 You can go to Puppet Theatre interior.
+You can go north.
 
 > use bucket on sand
 You fill the bucket full of sand
 
 > n
-You are in a Gravel Path
+You are in a Gravel Path.
 There is a large skip here.
 You can go south or northwest.
 The path is long and narrow and you can see the sea to the South.  The path is covered with gravel.
 
 > nw
-You are in Guild's row
-You can go west, northeast or southeast.
+You are in Guild's row.
 You can go to the Blacksmith or the laundrette.
+You can go west, northeast or southeast.
 The Guild's Row is a short street going through the village.  From here you have access to certain facilities.
 
 > go to laundrette
-You are in laundrette
+You are in laundrette.
 There is washing machines, tumble dryer and a vending machine here.
 You can go out to Guild's row.
 It is a run down laundrette.  There are rows of washing machines and one large tumble dryer.
@@ -1268,13 +1273,13 @@ It is a run down laundrette.  There are rows of washing machines and one large t
 You tip a bucket full of sand into the tumble dryer.
 
 > out
-You are in Guild's row
-You can go west, northeast or southeast.
+You are in Guild's row.
 You can go to the Blacksmith or the laundrette.
+You can go west, northeast or southeast.
 The Guild's Row is a short street going through the village.  From here you have access to certain facilities.
 
 > se
-You are in a Gravel Path
+You are in a Gravel Path.
 There is a large skip here.
 You can go south or northwest.
 The path is long and narrow and you can see the sea to the South.  The path is covered with gravel.
@@ -1283,13 +1288,13 @@ The path is long and narrow and you can see the sea to the South.  The path is c
 You fill your bucket full of some of the gravel from the skip
 
 > nw
-You are in Guild's row
-You can go west, northeast or southeast.
+You are in Guild's row.
 You can go to the Blacksmith or the laundrette.
+You can go west, northeast or southeast.
 The Guild's Row is a short street going through the village.  From here you have access to certain facilities.
 
 > go to laundrette
-You are in laundrette
+You are in laundrette.
 There is washing machines, tumble dryer and a vending machine here.
 You can go out to Guild's row.
 It is a run down laundrette.  There are rows of washing machines and one large tumble dryer.
@@ -1299,13 +1304,13 @@ It is a run down laundrette.  There are rows of washing machines and one large t
 You tip a bucket of gravel into the dryer.
 
 > out
-You are in Guild's row
-You can go west, northeast or southeast.
+You are in Guild's row.
 You can go to the Blacksmith or the laundrette.
+You can go west, northeast or southeast.
 The Guild's Row is a short street going through the village.  From here you have access to certain facilities.
 
 > se
-You are in a Gravel Path
+You are in a Gravel Path.
 There is a large skip here.
 You can go south or northwest.
 The path is long and narrow and you can see the sea to the South.  The path is covered with gravel.
@@ -1314,13 +1319,13 @@ The path is long and narrow and you can see the sea to the South.  The path is c
 You fill your bucket full of some of the gravel from the skip
 
 > nw
-You are in Guild's row
-You can go west, northeast or southeast.
+You are in Guild's row.
 You can go to the Blacksmith or the laundrette.
+You can go west, northeast or southeast.
 The Guild's Row is a short street going through the village.  From here you have access to certain facilities.
 
 > go to laundrette
-You are in laundrette
+You are in laundrette.
 There is washing machines, tumble dryer and a vending machine here.
 You can go out to Guild's row.
 It is a run down laundrette.  There are rows of washing machines and one large tumble dryer.
@@ -1330,21 +1335,21 @@ It is a run down laundrette.  There are rows of washing machines and one large t
 You tip a bucket of gravel into the dryer.
 
 > out
-You are in Guild's row
-You can go west, northeast or southeast.
+You are in Guild's row.
 You can go to the Blacksmith or the laundrette.
+You can go west, northeast or southeast.
 The Guild's Row is a short street going through the village.  From here you have access to certain facilities.
 
 > w
-You are in The Market Square
+You are in The Market Square.
 There is Dragon and a signpost here.
-You can go north, east or west.
 You can go to your caravan.
+You can go north, east or west.
 You are standing in the market square. To the North you can see a large hut- the Village Hall. The the West are the Village Gardens.
 There is a huge dragon here.
 
 > w
-You are in the garden centre
+You are in the garden centre.
 There is a water pump, a drain and Simple Simon here.
 You can go south or east.
 
@@ -1358,21 +1363,21 @@ You grab the pump with both hands and use the pump.  Water comes splahing out of
 You pick it up.
 
 > e
-You are in The Market Square
+You are in The Market Square.
 There is Dragon and a signpost here.
-You can go north, east or west.
 You can go to your caravan.
+You can go north, east or west.
 You are standing in the market square. To the North you can see a large hut- the Village Hall. The the West are the Village Gardens.
 There is a huge dragon here.
 
 > e
-You are in Guild's row
-You can go west, northeast or southeast.
+You are in Guild's row.
 You can go to the Blacksmith or the laundrette.
+You can go west, northeast or southeast.
 The Guild's Row is a short street going through the village.  From here you have access to certain facilities.
 
 > go to laundrette
-You are in laundrette
+You are in laundrette.
 There is washing machines, tumble dryer and a vending machine here.
 You can go out to Guild's row.
 It is a run down laundrette.  There are rows of washing machines and one large tumble dryer.
@@ -1388,16 +1393,16 @@ You spin the dryer with the ingredients inside.  There is concrete in there!
 You fill the bucket with the concrete
 
 > out
-You are in Guild's row
-You can go west, northeast or southeast.
+You are in Guild's row.
 You can go to the Blacksmith or the laundrette.
+You can go west, northeast or southeast.
 The Guild's Row is a short street going through the village.  From here you have access to certain facilities.
 
 > w
-You are in The Market Square
+You are in The Market Square.
 There is Dragon and a signpost here.
-You can go north, east or west.
 You can go to your caravan.
+You can go north, east or west.
 You are standing in the market square. To the North you can see a large hut- the Village Hall. The the West are the Village Gardens.
 There is a huge dragon here.
 
@@ -1412,7 +1417,7 @@ Do you want to fly back to the mountain pass?
 [choice] yes
 You climb on the back of the dragon and he flies you back to the mountain.
 As you dismount, he flies off
-You are in Mountain Pass
+You are in Mountain Pass.
 There is a signpost, a brass bell and carcass here.
 You can go up.
 You are standing in a large clearing in the snow capped  mountains.  There is now way down to the village below, but there are some steps carved into the rocks headin up.  In the distance above you you can see the towering spires of Cat Hedral.  It is very cold.
@@ -1422,25 +1427,25 @@ You wrap the warm blanket around you like a cloak.
 
 > up
 You leave the pass and climb up to the steps.
-You are in the Steppes
+You are in the Steppes.
 There is the stone steps here.
 You can go up or down.
 The Steppes are the stone steps leading from the mountain pass up to  Cat Hedral.  There is an icy wind blowing here that is sure to freeze you solid if you stood here long enough.
 The wind is biting cold.  You are glad you are wearing the worm blanket.
 
 > up
-You are in a Frozen Plateaux
+You are in a Frozen Plateaux.
 You can go west, up or down.
 The plateaux sits high in the moutnain pass .  There is a further path leading up to the mountain peak.  There is also evidence of a animals lair here.
 
 > up
-You are in mountain peak
+You are in mountain peak.
 There is a guard here.
 You can go north, southwest or down.
 The Mountain Peak is a paved area which leads into the entrance to the Cathedral.
 
 > sw
-You are in a building site
+You are in a building site.
 There is Rod the Hod, a mechanical grinder, a manual and an unfinished wall here.
 You can go northeast.
 The building site is situated outside the catheral.  There is a workman working on a wall here.
@@ -1451,7 +1456,7 @@ You hand the bucket of concrete to Rod.  He epmties it onto the floor and hands 
 "Thanks" he says  "And here is the cathedral pass I promised you.  It should get you in through the main gate"
 
 > ne
-You are in mountain peak
+You are in mountain peak.
 There is a guard here.
 You can go north, southwest or down.
 The Mountain Peak is a paved area which leads into the entrance to the Cathedral.
@@ -1460,7 +1465,7 @@ The Mountain Peak is a paved area which leads into the entrance to the Cathedral
 You hand the pass to the guard.  He takes it and lets you pass.
 
 > north
-You are in Plaza
+You are in Plaza.
 There is a receptionists desk and the receptionist here.
 You can go north, south, east or northeast.
 
@@ -1470,7 +1475,7 @@ You decide to give the library book to the receptionist.
 
 
 > east
-You are in guest lounge
+You are in guest lounge.
 There is Gnomeo and Queen Winalot here.
 You can go north or west.
 The guest lounge is where visitors gather when coming to the cathedral
@@ -1493,17 +1498,17 @@ You talk to the Queen
 When you get it's feather, bring it back to me.  I shall be waiting here!"
 
 > west
-You are in Plaza
+You are in Plaza.
 There is a receptionists desk and the receptionist here.
 You can go north, south, east or northeast.
 
 > south
-You are in mountain peak
+You are in mountain peak.
 You can go north, southwest or down.
 The Mountain Peak is a paved area which leads into the entrance to the Cathedral.
 
 > sw
-You are in a building site
+You are in a building site.
 There is Rod the Hod, a mechanical grinder, a manual and an unfinished wall here.
 You can go northeast.
 The building site is situated outside the catheral.  There is a workman working on a wall here.
@@ -1519,23 +1524,23 @@ Rod sees what you have done.  "That's a brilliant idea" He says and he gives you
 "Well, that's my job done" and he wanders off, leaving his trowel on the ground.
 
 > ne
-You are in mountain peak
+You are in mountain peak.
 You can go north, southwest or down.
 The Mountain Peak is a paved area which leads into the entrance to the Cathedral.
 
 > down
-You are in a Frozen Plateaux
+You are in a Frozen Plateaux.
 You can go west, up or down.
 The plateaux sits high in the moutnain pass .  There is a further path leading up to the mountain peak.  There is also evidence of a animals lair here.
 
 > down
-You are in the Steppes
+You are in the Steppes.
 There is the stone steps here.
 You can go up or down.
 The Steppes are the stone steps leading from the mountain pass up to  Cat Hedral.  There is an icy wind blowing here that is sure to freeze you solid if you stood here long enough.
 
 > down
-You are in Mountain Pass
+You are in Mountain Pass.
 There is a signpost, a brass bell and carcass here.
 You can go up.
 You are standing in a large clearing in the snow capped  mountains.  There is now way down to the village below, but there are some steps carved into the rocks headin up.  In the distance above you you can see the towering spires of Cat Hedral.  It is very cold.
@@ -1552,16 +1557,16 @@ Would you like to fly back to the village?
 2) No
 [choice] yes
 You climb on the back of the dragon and he flies you back to the village.
-You are in The Market Square
+You are in The Market Square.
 There is Dragon and a signpost here.
-You can go north, east or west.
 You can go to your caravan.
+You can go north, east or west.
 You are standing in the market square. To the North you can see a large hut- the Village Hall. The the West are the Village Gardens.
 There is a huge dragon here.
 Now that you are back in the village it is too warm to wear the blanket so you remove it.
 
 > north
-You are in Village Hall
+You are in Village Hall.
 There is Cyril Serpent, a notice, Cyril's desk, an in tray, an out tray and a bundle of papers here.
 You can go south.
 
@@ -1591,32 +1596,32 @@ You pass the 3 gold coins over and Cyril hands you a blank marriage certificate.
 "Now go away and come back when it is signed"
 
 > south
-You are in The Market Square
+You are in The Market Square.
 There is Dragon and a signpost here.
-You can go north, east or west.
 You can go to your caravan.
+You can go north, east or west.
 You are standing in the market square. To the North you can see a large hut- the Village Hall. The the West are the Village Gardens.
 There is a huge dragon here.
 
 > e
-You are in Guild's row
-You can go west, northeast or southeast.
+You are in Guild's row.
 You can go to the Blacksmith or the laundrette.
+You can go west, northeast or southeast.
 The Guild's Row is a short street going through the village.  From here you have access to certain facilities.
 
 > ne
 You are in a long narrow lane, leading from the village to a small run down cottage.
 
 > n
-You are in the cottage (outside)
+You are in the cottage (outside).
 There is some white flowers, a black cat, barrel and the doorstep here.
-You can go south.
 You can go to cottage (inside).
+You can go south.
 You are standing outside a large cottage.  It has a thatched roof with a chimney with smoke coming out.  The garden is full of lovely flowers.
 
 > go to cottage (inside)
 The door to the cottage is now open and you enter.
-You are in the cottage (inside)
+You are in the cottage (inside).
 There is Winnie, a huge oven, a rosette and a large couldron here.
 You can go out to cottage (outside).
 
@@ -1630,10 +1635,10 @@ You scoop some of the jam into the pot and close the lid!  Maybe you will have s
 AS soon as winnie sees you do this, she smiles and carries the couldron away.
 
 > out
-You are in the cottage (outside)
+You are in the cottage (outside).
 There is some white flowers, a black cat, barrel and the doorstep here.
-You can go south.
 You can go to cottage (inside).
+You can go south.
 You are standing outside a large cottage.  It has a thatched roof with a chimney with smoke coming out.  The garden is full of lovely flowers.
 
 > s
@@ -1645,16 +1650,16 @@ You place the jam pot on the stump and very soon there are hordes of ants crawli
 You quickly tighten the lid.
 
 > sw
-You are in Guild's row
-You can go west, northeast or southeast.
+You are in Guild's row.
 You can go to the Blacksmith or the laundrette.
+You can go west, northeast or southeast.
 The Guild's Row is a short street going through the village.  From here you have access to certain facilities.
 
 > w
-You are in The Market Square
+You are in The Market Square.
 There is Dragon and a signpost here.
-You can go north, east or west.
 You can go to your caravan.
+You can go north, east or west.
 You are standing in the market square. To the North you can see a large hut- the Village Hall. The the West are the Village Gardens.
 There is a huge dragon here.
 
@@ -1669,7 +1674,7 @@ Do you want to fly back to the mountain pass?
 [choice] yes
 You climb on the back of the dragon and he flies you back to the mountain.
 As you dismount, he flies off
-You are in Mountain Pass
+You are in Mountain Pass.
 There is a signpost, a brass bell and carcass here.
 You can go up.
 You are standing in a large clearing in the snow capped  mountains.  There is now way down to the village below, but there are some steps carved into the rocks headin up.  In the distance above you you can see the towering spires of Cat Hedral.  It is very cold.
@@ -1679,29 +1684,29 @@ You wrap the warm blanket around you like a cloak.
 
 > up
 You leave the pass and climb up to the steps.
-You are in the Steppes
+You are in the Steppes.
 There is the stone steps here.
 You can go up or down.
 The Steppes are the stone steps leading from the mountain pass up to  Cat Hedral.  There is an icy wind blowing here that is sure to freeze you solid if you stood here long enough.
 The wind is biting cold.  You are glad you are wearing the worm blanket.
 
 > up
-You are in a Frozen Plateaux
+You are in a Frozen Plateaux.
 You can go west, up or down.
 The plateaux sits high in the moutnain pass .  There is a further path leading up to the mountain peak.  There is also evidence of a animals lair here.
 
 > up
-You are in mountain peak
+You are in mountain peak.
 You can go north, southwest or down.
 The Mountain Peak is a paved area which leads into the entrance to the Cathedral.
 
 > north
-You are in Plaza
+You are in Plaza.
 There is a receptionists desk and the receptionist here.
 You can go north, south, east or northeast.
 
 > east
-You are in guest lounge
+You are in guest lounge.
 There is Gnomeo and Queen Winalot here.
 You can go north or west.
 The guest lounge is where visitors gather when coming to the cathedral
@@ -1714,7 +1719,7 @@ You pass the certificate to Gnomeo.  He signs it with glee.  "This is very excit
 "Juniette is working in the kitchen here" He replies
 
 > north
-You are in The Cathedral kitchen
+You are in The Cathedral kitchen.
 There is the Cook, some ingredients and a handwritten note here.
 You can go south, west or southwest.
 The kitchen is a busy area.  The cook is busy preparing food for a function.
@@ -1736,17 +1741,17 @@ And with that she pulls out a huge block of salt from under the table
 You pick it up.
 
 > sw
-You are in Plaza
+You are in Plaza.
 There is a receptionists desk and the receptionist here.
 You can go north, south, east or northeast.
 
 > south
-You are in mountain peak
+You are in mountain peak.
 You can go north, southwest or down.
 The Mountain Peak is a paved area which leads into the entrance to the Cathedral.
 
 > sw
-You are in a building site
+You are in a building site.
 There is a mechanical grinder, a manual, the finished wall and trowel here.
 You can go northeast.
 The building site is situated outside the catheral.  There is a workman working on a wall here.
@@ -1760,17 +1765,17 @@ Eventually there is a huge pile of salt on the floor
 You fill the bowl with salt
 
 > ne
-You are in mountain peak
+You are in mountain peak.
 You can go north, southwest or down.
 The Mountain Peak is a paved area which leads into the entrance to the Cathedral.
 
 > north
-You are in Plaza
+You are in Plaza.
 There is a receptionists desk and the receptionist here.
 You can go north, south, east or northeast.
 
 > ne
-You are in The Cathedral kitchen
+You are in The Cathedral kitchen.
 There is the Cook, some ingredients and a handwritten note here.
 You can go south, west or southwest.
 The kitchen is a busy area.  The cook is busy preparing food for a function.
@@ -1783,7 +1788,7 @@ after a while she finishes the preperation and hads you a pile of food.  "Take t
 You feel a bit too intimidated to refuse.
 
 > west
-You are in the function room
+You are in the function room.
 There is a large dining table and the Superior Mum here.
 You can go north, south or east.
 
@@ -1798,7 +1803,7 @@ Superior Mum sees them and screams.  She then starts stamping on them, trying to
 > north
 "You cannot go that way" says Superior Mum.  "That way leads to the inner sanctum! a holy place where the Holy Quail resides"
 Whilst Superior Mum is distracted, you are able to sneak into the room beyond.
-You are in the Outer Sanctum
+You are in the Outer Sanctum.
 There is a combination lock and some tapestries here.
 You can go north or south.
 The Outer Sanctum is a hallway leading from the fucttion room to the Inner Sanctum.
@@ -1815,7 +1820,7 @@ What number will you try?
 The combination lock clicks and the door swings open
 
 > south
-You are in the function room
+You are in the function room.
 There is a large dining table, the Superior Mum and a large banquet here.
 You can go north, south or east.
 
@@ -1823,28 +1828,28 @@ You can go north, south or east.
 The door south was bolted from this side, so you unlock  it.
 
 > south
-You are in Plaza
+You are in Plaza.
 There is a receptionists desk and the receptionist here.
 You can go north, south, east or northeast.
 
 > south
-You are in mountain peak
+You are in mountain peak.
 You can go north, southwest or down.
 The Mountain Peak is a paved area which leads into the entrance to the Cathedral.
 
 > down
-You are in a Frozen Plateaux
+You are in a Frozen Plateaux.
 You can go west, up or down.
 The plateaux sits high in the moutnain pass .  There is a further path leading up to the mountain peak.  There is also evidence of a animals lair here.
 
 > down
-You are in the Steppes
+You are in the Steppes.
 There is the stone steps here.
 You can go up or down.
 The Steppes are the stone steps leading from the mountain pass up to  Cat Hedral.  There is an icy wind blowing here that is sure to freeze you solid if you stood here long enough.
 
 > down
-You are in Mountain Pass
+You are in Mountain Pass.
 There is a signpost, a brass bell and carcass here.
 You can go up.
 You are standing in a large clearing in the snow capped  mountains.  There is now way down to the village below, but there are some steps carved into the rocks headin up.  In the distance above you you can see the towering spires of Cat Hedral.  It is very cold.
@@ -1861,16 +1866,16 @@ Would you like to fly back to the village?
 2) No
 [choice] yes
 You climb on the back of the dragon and he flies you back to the village.
-You are in The Market Square
+You are in The Market Square.
 There is Dragon and a signpost here.
-You can go north, east or west.
 You can go to your caravan.
+You can go north, east or west.
 You are standing in the market square. To the North you can see a large hut- the Village Hall. The the West are the Village Gardens.
 There is a huge dragon here.
 Now that you are back in the village it is too warm to wear the blanket so you remove it.
 
 > north
-You are in Village Hall
+You are in Village Hall.
 There is Cyril Serpent, a notice, Cyril's desk, an in tray, an out tray and a bundle of papers here.
 You can go south.
 
@@ -1893,17 +1898,17 @@ Cyril gets up from the desk and hurriedly tries to collect up the papers.
 You slip the certificate into the in tray and wait
 
 > look
-You are in Village Hall
+You are in Village Hall.
 There is a notice, Cyril's desk, an in tray and an out tray here.
 You can go south.
 
 > look
-You are in Village Hall
+You are in Village Hall.
 There is a notice, Cyril's desk, an in tray and an out tray here.
 You can go south.
 
 > look
-You are in Village Hall
+You are in Village Hall.
 There is a notice, Cyril's desk, an in tray and an out tray here.
 You can go south.
 Cyril returns to the desk with the papers.
@@ -1913,7 +1918,7 @@ As Cyrli returns to his desk, he picks up the first paper from the in tray.  It 
 He stamps it without looking and places it in his out tray.
 
 > look
-You are in Village Hall
+You are in Village Hall.
 There is Cyril Serpent, a notice, Cyril's desk, an in tray, an out tray and a bundle of papers here.
 You can go south.
 
@@ -1925,10 +1930,10 @@ Cyril gets up from the desk and hurriedly tries to collect up the papers.
 Whilst Cyril is out of the way, you quickly retrieve the certificate from the out tray.
 
 > south
-You are in The Market Square
+You are in The Market Square.
 There is Dragon and a signpost here.
-You can go north, east or west.
 You can go to your caravan.
+You can go north, east or west.
 You are standing in the market square. To the North you can see a large hut- the Village Hall. The the West are the Village Gardens.
 There is a huge dragon here.
 
@@ -1943,7 +1948,7 @@ Do you want to fly back to the mountain pass?
 [choice] yes
 You climb on the back of the dragon and he flies you back to the mountain.
 As you dismount, he flies off
-You are in Mountain Pass
+You are in Mountain Pass.
 There is a signpost, a brass bell and carcass here.
 You can go up.
 You are standing in a large clearing in the snow capped  mountains.  There is now way down to the village below, but there are some steps carved into the rocks headin up.  In the distance above you you can see the towering spires of Cat Hedral.  It is very cold.
@@ -1955,29 +1960,29 @@ Cyril returns to the desk with the papers.
 
 > up
 You leave the pass and climb up to the steps.
-You are in the Steppes
+You are in the Steppes.
 There is the stone steps here.
 You can go up or down.
 The Steppes are the stone steps leading from the mountain pass up to  Cat Hedral.  There is an icy wind blowing here that is sure to freeze you solid if you stood here long enough.
 The wind is biting cold.  You are glad you are wearing the worm blanket.
 
 > up
-You are in a Frozen Plateaux
+You are in a Frozen Plateaux.
 You can go west, up or down.
 The plateaux sits high in the moutnain pass .  There is a further path leading up to the mountain peak.  There is also evidence of a animals lair here.
 
 > up
-You are in mountain peak
+You are in mountain peak.
 You can go north, southwest or down.
 The Mountain Peak is a paved area which leads into the entrance to the Cathedral.
 
 > north
-You are in Plaza
+You are in Plaza.
 There is a receptionists desk and the receptionist here.
 You can go north, south, east or northeast.
 
 > east
-You are in guest lounge
+You are in guest lounge.
 There is Gnomeo and Queen Winalot here.
 You can go north or west.
 The guest lounge is where visitors gather when coming to the cathedral
@@ -1989,28 +1994,28 @@ You hand over the completed marriage certificate.
 And with that Gnomeo skips off in joy.
 
 > west
-You are in Plaza
+You are in Plaza.
 There is a receptionists desk and the receptionist here.
 You can go north, south, east or northeast.
 
 > south
-You are in mountain peak
+You are in mountain peak.
 You can go north, southwest or down.
 The Mountain Peak is a paved area which leads into the entrance to the Cathedral.
 
 > down
-You are in a Frozen Plateaux
+You are in a Frozen Plateaux.
 You can go west, up or down.
 The plateaux sits high in the moutnain pass .  There is a further path leading up to the mountain peak.  There is also evidence of a animals lair here.
 
 > down
-You are in the Steppes
+You are in the Steppes.
 There is the stone steps here.
 You can go up or down.
 The Steppes are the stone steps leading from the mountain pass up to  Cat Hedral.  There is an icy wind blowing here that is sure to freeze you solid if you stood here long enough.
 
 > down
-You are in Mountain Pass
+You are in Mountain Pass.
 There is a signpost, a brass bell and carcass here.
 You can go up.
 You are standing in a large clearing in the snow capped  mountains.  There is now way down to the village below, but there are some steps carved into the rocks headin up.  In the distance above you you can see the towering spires of Cat Hedral.  It is very cold.
@@ -2027,31 +2032,31 @@ Would you like to fly back to the village?
 2) No
 [choice] yes
 You climb on the back of the dragon and he flies you back to the village.
-You are in The Market Square
+You are in The Market Square.
 There is Dragon and a signpost here.
-You can go north, east or west.
 You can go to your caravan.
+You can go north, east or west.
 You are standing in the market square. To the North you can see a large hut- the Village Hall. The the West are the Village Gardens.
 There is a huge dragon here.
 Now that you are back in the village it is too warm to wear the blanket so you remove it.
 
 > e
-You are in Guild's row
-You can go west, northeast or southeast.
+You are in Guild's row.
 You can go to the Blacksmith or the laundrette.
+You can go west, northeast or southeast.
 The Guild's Row is a short street going through the village.  From here you have access to certain facilities.
 
 > se
-You are in a Gravel Path
+You are in a Gravel Path.
 There is a large skip here.
 You can go south or northwest.
 The path is long and narrow and you can see the sea to the South.  The path is covered with gravel.
 
 > s
-You are in Beach
+You are in Beach.
 There is sand and a puppet show tent here.
-You can go north.
 You can go to Puppet Theatre interior.
+You can go north.
 
 > wear sock puppet
 You slip the sock puppet on.
@@ -2069,7 +2074,7 @@ another puppet pops out and looks at your puppet.  "At last, some intelligent co
 You now have access to the tent.
 
 > go to Puppet Theatre interior
-You are in Puppet Theatre interior
+You are in Puppet Theatre interior.
 There is Crazy Daisy and a wicker hamper here.
 You can go out to Beach.
 You are sitting inside a small claustrophobic Puppet Show tent.
@@ -2090,32 +2095,32 @@ You pick it up.
 
 > out
 You exit the Puppet show tent
-You are in Beach
+You are in Beach.
 There is sand and a tent here.
-You can go north.
 You can go to Puppet Theatre interior.
+You can go north.
 
 > n
-You are in a Gravel Path
+You are in a Gravel Path.
 There is a large skip here.
 You can go south or northwest.
 The path is long and narrow and you can see the sea to the South.  The path is covered with gravel.
 You decide to take the sock puppet off.
 
 > nw
-You are in Guild's row
-You can go west, northeast or southeast.
+You are in Guild's row.
 You can go to the Blacksmith or the laundrette.
+You can go west, northeast or southeast.
 The Guild's Row is a short street going through the village.  From here you have access to certain facilities.
 
 > ne
 You are in a long narrow lane, leading from the village to a small run down cottage.
 
 > n
-You are in the cottage (outside)
+You are in the cottage (outside).
 There is some white flowers, a black cat, barrel and the doorstep here.
-You can go south.
 You can go to cottage (inside).
+You can go south.
 You are standing outside a large cottage.  It has a thatched roof with a chimney with smoke coming out.  The garden is full of lovely flowers.
 
 > examine flowers
@@ -2127,11 +2132,11 @@ Suddenly a dozen or so bees, fly out from amongst them.
 You follow the bees as they head ito the forest around you.  You have no idea where they are taking you...
 ....
 ...
+After a while some of the bees fly into the forest, whilst others go back to buzzing around the flowers.
 Eventually you end up in a misty clearing in the forest.
-You are in the Haunted Grove
+You are in the Haunted Grove.
 There is a hive and an abandoned grave here.
 You can go out to the forest.
-After a while some of the bees fly into the forest, whilst others go back to buzzing around the flowers.
 
 > kneel
 You kneel down beside the grave.
@@ -2165,18 +2170,25 @@ As the ghost disappears, a ball drops onto the grave at your feet.  It is a spir
 You pick it up.
 
 > out
-You are in the forest
+You are in the forest.
 You enter the dark and mysterious forest not knowing where you will end up.
-You rummage through the forest and end up at the garden centre.
-You are in the garden centre
-There is a water pump, a drain and Simple Simon here.
-You can go south or east.
+You rummage through the forest and up on the gravel path.
+You are in a Gravel Path.
+There is a large skip here.
+You can go south or northwest.
+The path is long and narrow and you can see the sea to the South.  The path is covered with gravel.
 
-> e
-You are in The Market Square
+> northwest
+You are in Guild's row.
+You can go to the Blacksmith or the laundrette.
+You can go west, northeast or southeast.
+The Guild's Row is a short street going through the village.  From here you have access to certain facilities.
+
+> west
+You are in The Market Square.
 There is Dragon and a signpost here.
-You can go north, east or west.
 You can go to your caravan.
+You can go north, east or west.
 You are standing in the market square. To the North you can see a large hut- the Village Hall. The the West are the Village Gardens.
 There is a huge dragon here.
 
@@ -2191,7 +2203,7 @@ Do you want to fly back to the mountain pass?
 [choice] yes
 You climb on the back of the dragon and he flies you back to the mountain.
 As you dismount, he flies off
-You are in Mountain Pass
+You are in Mountain Pass.
 There is a signpost, a brass bell and carcass here.
 You can go up.
 You are standing in a large clearing in the snow capped  mountains.  There is now way down to the village below, but there are some steps carved into the rocks headin up.  In the distance above you you can see the towering spires of Cat Hedral.  It is very cold.
@@ -2201,40 +2213,40 @@ You wrap the warm blanket around you like a cloak.
 
 > up
 You leave the pass and climb up to the steps.
-You are in the Steppes
+You are in the Steppes.
 There is the stone steps here.
 You can go up or down.
 The Steppes are the stone steps leading from the mountain pass up to  Cat Hedral.  There is an icy wind blowing here that is sure to freeze you solid if you stood here long enough.
 The wind is biting cold.  You are glad you are wearing the worm blanket.
 
 > up
-You are in a Frozen Plateaux
+You are in a Frozen Plateaux.
 You can go west, up or down.
 The plateaux sits high in the moutnain pass .  There is a further path leading up to the mountain peak.  There is also evidence of a animals lair here.
 
 > up
-You are in mountain peak
+You are in mountain peak.
 You can go north, southwest or down.
 The Mountain Peak is a paved area which leads into the entrance to the Cathedral.
 
 > north
-You are in Plaza
+You are in Plaza.
 There is a receptionists desk and the receptionist here.
 You can go north, south, east or northeast.
 
 > north
-You are in the function room
+You are in the function room.
 There is a large dining table, the Superior Mum and a large banquet here.
 You can go north, south or east.
 
 > north
-You are in the Outer Sanctum
+You are in the Outer Sanctum.
 There is some tapestries here.
 You can go north or south.
 The Outer Sanctum is a hallway leading from the fucttion room to the Inner Sanctum.
 
 > north
-You are in the Inner Sanctum
+You are in the Inner Sanctum.
 There is the holy quail, an altar and a font here.
 You can go south.
 The Inner Sanctum is the centre of Cat Hedral.  Here is where the Holy Quail is kept.
@@ -2245,11 +2257,12 @@ Suddenly the Superior Mum Busts into the Inner Sanctum.
 
 "How dare you steal from our most sacred relic.  For this sacrelige I damn you to eternal damnation"
 And with a spin of her hand the world around you disappears.....
+press a key to see your fate
 
 Suddenly you find yourself floating in a dreamlike state.  Or is it more of a nightmare?  
 
 You have been transported to the spirit realm of oblivion.  Will you ever get out?
-You are in oblivion
+You are in oblivion.
 There is a thousand lost souls here.
 You are now trapped in the sprit realm of oblivion.  There appears to be no way out of here.  All you can hear around you are the weeping wails of a thousand lost souls.
 
@@ -2267,29 +2280,29 @@ Soon the world around you starts to swirl and the Inner Sanctum re-materialises.
 The Superior Mum watches in awe as you reappear.
 
 "You have returned from the spirit world.  You are truly blessed!  Because of this you are free to pass and keep the quail feather as your reward.
-You are in the Inner Sanctum
+You are in the Inner Sanctum.
 There is the holy quail, an altar and a font here.
 You can go south.
 The Inner Sanctum is the centre of Cat Hedral.  Here is where the Holy Quail is kept.
 
 > south
-You are in the Outer Sanctum
+You are in the Outer Sanctum.
 There is some tapestries here.
 You can go north or south.
 The Outer Sanctum is a hallway leading from the fucttion room to the Inner Sanctum.
 
 > south
-You are in the function room
+You are in the function room.
 There is a large dining table and a large banquet here.
 You can go north, south or east.
 
 > south
-You are in Plaza
+You are in Plaza.
 There is a receptionists desk and the receptionist here.
 You can go north, south, east or northeast.
 
 > east
-You are in guest lounge
+You are in guest lounge.
 There is Queen Winalot here.
 You can go north or west.
 The guest lounge is where visitors gather when coming to the cathedral
@@ -2300,6 +2313,7 @@ You give the feather to the Queen.
 "You have done well" Says the Queen.  "You have proved your worth as a knight and are now ready to take on more challening tasks.   But before you do, someone wants to speak with you"
 
 
+press a key
 
 With that Gnomeo rushes up to you.
 
@@ -2309,6 +2323,7 @@ With that Gnomeo rushes up to you.
 
 "That is great news" he says......
 
+press a key
 
 
 Soon the day of the wedding arrives....
@@ -2327,6 +2342,7 @@ Gnomeo is distraught
 "I can't believe she hasn't shown up"  He says.
 
 You are just about to console him when something happens
+press a key
 
 
 Suddenly the Cathedral is over-run by guards.  Really short guards.
@@ -2342,6 +2358,7 @@ Gnomeo looks around in utter horror "There has to be some kind of mistake" he sa
 
 And with that the guards drag the poor unsuspecting gnome away....
 ....
+press a key
 
 TO BE CONTINUED.....
 
@@ -2361,4 +2378,4 @@ Hidden trophies found:  0
 
 YOU ACHIEVED THE SAD ENDING
 
-[runner] turns=404 leftover=0 running=false WON=YES
+[runner] turns=405 leftover=0 running=false WON=YES

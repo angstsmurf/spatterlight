@@ -3,7 +3,7 @@ Londe Perplex, v1.0
 
 Welcome to Londe! You can hear us but cannot see us. You can feel us but cannot communicate with us. We know who you are and where you are. We will guide you and protect you for now, mortal. This is where you start. The dance...
 
-You are in the Ballroom
+You are in the Ballroom.
 There is Pain and a Piano key here.
 You can go north.
 An empty ballroom. There are some sceptres here, wandering about and seeking refuge from fear. You are in between and you scavenge for some sort of items that may help you uncover the definition of this realm.
@@ -17,7 +17,7 @@ You try to jab and punch at the sceptres, venting your frustration. But it is no
 You pick it up.
 
 > n
-You are in the Mind corridor
+You are in the Mind corridor.
 There is Insanity and Rage here.
 You can go north, south, east or west.
 Dear mortal, this is the corridor of the mind. This is the first time that you can actually explore the true powers of the mind. Be careful how you trample here. There may be dire consequences. Insanity is a very powerful and destructive entity. You may not regain your norm once you trespass over the land of the futile.
@@ -31,7 +31,7 @@ You embrace it, you love it. It cannot love you back but it connects with you an
 You pick it up.
 
 > w
-You are in the West War
+You are in the West War.
 There is the Warrior here.
 You can go east.
 You have entered the West War, dear mortal. This is a place where you understand the concept of fragility. You are in a position to deny your fragility here. But it is only because of our protection. 
@@ -39,17 +39,17 @@ You have entered the West War, dear mortal. This is a place where you understand
 You may ATTACK.
 
 > use rage on warrior
-You can't use that here.
+You have used your rage against the defenceless warrior. You manage to perpetrate the power in an orb of great fusion. The warrior disappears and is destroyed. But the rage remains in your grasp. 
 
 > e
-You are in the Mind corridor
+You are in the Mind corridor.
 You can go north, south, east or west.
 Dear mortal, this is the corridor of the mind. This is the first time that you can actually explore the true powers of the mind. Be careful how you trample here. There may be dire consequences. Insanity is a very powerful and destructive entity. You may not regain your norm once you trespass over the land of the futile.
 
 You may KILL. You may LOVE.
 
 > n
-You are in the Maze
+You are in the Maze.
 There is the door, the Riddler, some weird Statues and the Broken Tile here.
 You can go north or south.
 Welcome to the Maze. This is where we shall release our protection for a little while. There is a riddler here who shall help you unlock the door to the north. You must speak to him before you proceed. We shall let you do this on your own. Good luck, mortal. 
@@ -65,7 +65,7 @@ You pick it up.
 > use insanity on door
 
 > n
-You are in the green Forest
+You are in the green Forest.
 There is Freighter 1, Freighter 2, Freighter 3, Personified Sacred Guardians and a Magic Box here.
 You can go south.
 Dear mortal, we are here once more. You indeed need our protection here. There are three Freighters here and we need you to attack them. To pass through this level of our reality, you cannot possibly forget us. You need our guiding hand. Speak to us
@@ -83,7 +83,7 @@ The second freighter gnarls and races towards you. The mist has risen. The guard
 The third freighter is calm and waits for your move. His cunning experience in this field has led him to believe that you are temporarily stronger than him right now. The Discus is spinning in your hand, a flaming purple disc that the freighter has his eyes on. The freighter is about to turn around and flee but the discus burns in your hand and he is shot with a bolt of purple power. The freighter is destroyed.
 
 > s
-You are in the Maze
+You are in the Maze.
 There is the door, the Riddler and some weird Statues here.
 You can go north or south.
 Welcome to the Maze. This is where we shall release our protection for a little while. There is a riddler here who shall help you unlock the door to the north. You must speak to him before you proceed. We shall let you do this on your own. Good luck, mortal. 
@@ -91,14 +91,14 @@ Welcome to the Maze. This is where we shall release our protection for a little 
 You may OPEN, CLOSE, DESTROY, ATTACK, EMBRACE.
 
 > s
-You are in the Mind corridor
+You are in the Mind corridor.
 You can go north, south, east or west.
 Dear mortal, this is the corridor of the mind. This is the first time that you can actually explore the true powers of the mind. Be careful how you trample here. There may be dire consequences. Insanity is a very powerful and destructive entity. You may not regain your norm once you trespass over the land of the futile.
 
 You may KILL. You may LOVE.
 
 > e
-You are in East Evermore
+You are in East Evermore.
 There is the Bollbellians here.
 You can go east or west.
 This is the Edge. If you have seen the dance, you know that you must not dwell in this area. You may fall here and not understand the consequences. You might talk of justice but these are human forms of the truth. You would not understand. There are Bollbellians here that are very dangerous. You must not try insanity on these creatures because they have seen it, understood it and will use it as a weapon. Come back here when you have the Discus. Do not look at, speak to or attack these demons. They will kill you. 
@@ -109,7 +109,7 @@ You may ATTACK, you may DANCE, you may JUMP.
 The Bollbellians do not attack. They respect the power of your mind. They move aside and reveal the idea that was not with you before, that the edge was no edge after all. It was a passage to another room to the East. Welcome to the final task, mortal.
 
 > e
-You are in Edge
+You are in Edge.
 There is the OMENGUARDIAN here.
 You can go west.
 You notice that the guardians have left you and joined the Bollbellians. You are all alone here in this final task. The guardians have given you great powers and you must learn to use them on your own now at the end of the Londe Perplex. When you defeat the OMENGUARDIAN before you, you will be given freedom of mind and will be sent to your reality with strong powers that humanity has never foreseen. 

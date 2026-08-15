@@ -1,0 +1,19 @@
+
+dollarpair
+
+You are in Vault.
+It's about $1000000. The hoard is stacked to the ceiling.
+
+> look
+You are in Vault.
+It's about $1000000. The hoard is stacked to the ceiling.
+
+> price
+You search through the $1000000 and find a key.
+
+> both
+Marked $5, sold for $7 -- a $2 profit.
+
+> call
+The teller says: that will be $40, please
+[runner] turns=4 leftover=0 running=true

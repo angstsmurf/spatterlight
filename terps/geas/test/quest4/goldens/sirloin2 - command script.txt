@@ -397,8 +397,8 @@ use curved glass disc on cannon
 take tube3
 look at coconut
 take coconut
-look at post
-take post
+look at broken post
+take broken post
 talk to shelley
 kiss shelley
 take hairgrip
@@ -551,7 +551,7 @@ out
 nw
 s
 use bananas on dwane
-use face mask on post
+use face mask on broken post
 use coconut on catapult
 speak to dwane
 give hairgrip to dwane

@@ -1,12 +1,12 @@
 
 ContVisScope
 
-You are in Room
+You are in Room.
 There is sarcophagus and chest here.
 A dusty chamber.
 
 > look
-You are in Room
+You are in Room.
 There is sarcophagus and chest here.
 A dusty chamber.
 
@@ -23,6 +23,8 @@ A bored goth.
 
 > open chest
 You open it.
+A tin chest.
+It contains coin.
 
 > x goth
 A bored goth.
@@ -42,5 +44,5 @@ A bored goth.
 A stone sarcophagus.
 
 > x goth
-You don't see any goth.
+I can't see that here.
 [runner] turns=12 leftover=0 running=true

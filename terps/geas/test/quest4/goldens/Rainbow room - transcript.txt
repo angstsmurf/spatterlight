@@ -16,7 +16,7 @@ Time to get out of here!
 
 
 
-You are in the Bedroom
+You are in the Bedroom.
 There is a bed, a desk and a wardrobe here.
 You can go south or down.
 
@@ -46,6 +46,8 @@ You take the diary.
 
 > open wardrobe
 You open it.
+It's a wooden wardrobe.
+It contains a Ballerina outfit.
 
 > take tutu
 (first removing it from wardrobe)
@@ -67,7 +69,7 @@ It's a sturdy desk. There's a pen on it.
 You pick it up.
 
 > s
-You are in the bathroom
+You are in the bathroom.
 There is a toilet, a shower and a medicine cabinet here.
 You can go north.
 
@@ -83,9 +85,10 @@ You'd rather not...
 
 > open medicine cabinet
 You open it.
+It contains a tube of toothpaste.
 
 > n
-You are in the Bedroom
+You are in the Bedroom.
 There is a bed, a desk, a wardrobe, a blanket and a pillow here.
 You can go south or down.
 
@@ -98,7 +101,7 @@ There's a bathroom door to the SOUTH.
 There's a staircase leading DOWN to the sitting area.
 
 > d
-You are in the SW corner
+You are in the SW corner.
 There is a couch, a coffee table, a television, a telephone, a window and a lingerie catalog here.
 You can go east, northeast or up.
 
@@ -200,7 +203,7 @@ Looking under the couch, you see a fuse lying under it.
 Now to reach it...
 
 > e
-You are in the SE corner
+You are in the SE corner.
 There is a stove, some cupboards, a sink, a drawer and a kitchen table here.
 You can go north or west.
 
@@ -217,6 +220,8 @@ There's a sitting area to the WEST.
 
 > open drawer
 You open it.
+It's the kitchen drawer.
+It contains a spoon, a fork, a knife and a spatula.
 
 > take spatula
 (first removing it from drawer)
@@ -225,6 +230,8 @@ You pick it up.
 
 > open cupboards
 You open it.
+It's the kitchen cupboards.
+Them contains pots, pans and a frying pan.
 
 > take frying pan
 (first removing it from cupboards)
@@ -232,7 +239,7 @@ Done.
 You pick it up.
 
 > w
-You are in the SW corner
+You are in the SW corner.
 There is a couch, a coffee table, a television, a telephone, a window and a fuse here.
 You can go east, northeast or up.
 
@@ -263,7 +270,7 @@ and that you will bring something to prove your story.
 The police in turn go and pick up Rob, to put him in protective custody, just in case...
 
 > ne
-You are in the NE corner
+You are in the NE corner.
 There is a weird looking door here.
 You can go south, east, west or southwest.
 
@@ -276,7 +283,7 @@ There's a kitchen to the SOUTH.
 There's a sitting area to the SOUTH WEST.
 
 > w
-You are in the closet under the stairs
+You are in the closet under the stairs.
 There is a fuse box, a Tool box, a coat rack, a rain coat and a winter coat here.
 You can go east.
 
@@ -302,9 +309,10 @@ Look! There they are!
 
 > open tool box
 You open it.
+It contains a hacksaw, a roll of tape, a screwdriver and an empty box.
 
 > e
-You are in the NE corner
+You are in the NE corner.
 There is a weird looking door here.
 You can go south, east, west or southwest.
 

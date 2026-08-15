@@ -1,0 +1,28 @@
+
+Errornames
+
+You are in Hall.
+There is a rock and a coin here.
+The hall.
+
+> take rock
+You scoop up it.
+
+> take rock
+You are holding it already.
+
+> take xyzzy
+There is no xyzzy here.
+
+> look at coin
+It looks ordinary enough.
+
+> examine coin
+It looks ordinary enough.
+
+> go
+That spelling redefines badcommand.
+
+> frobnicate the widget
+That spelling redefines badcommand.
+[runner] turns=7 leftover=0 running=true

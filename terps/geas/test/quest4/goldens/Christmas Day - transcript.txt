@@ -1,34 +1,34 @@
 
-Christmas day Sarah
+Christmas day | Sarah
 
-You are in Your room
+You are in Your room.
 There is Bed and Cool Furniture here.
 You can go south.
 You are in your room.
 
 > look
-You are in Your room
+You are in Your room.
 There is Bed and Cool Furniture here.
 You can go south.
 You are in your room.
 
 > south
-You are in Hallway
+You are in Hallway.
 You can go north, south, east, west or southeast.
 
 > south
-You are in Living room
+You are in Living room.
 There is Christmas Tree, Mom's gift, Dad's gift and Big gift here.
 You can go north.
 
 > take big gift
 
 > north
-You are in Hallway
+You are in Hallway.
 You can go north, south, east, west or southeast.
 
 > east
-You are in Dining room
+You are in Dining room.
 There is Table, Chairs, Mom, Dad and Key here.
 You can go west.
 
@@ -36,11 +36,11 @@ You can go west.
 You take the key.
 
 > west
-You are in Hallway
+You are in Hallway.
 You can go north, south, east, west or southeast.
 
 > west
-You are in Your parents room
+You are in Your parents room.
 There is Big bed, Furniture and Case here.
 You can go east.
 

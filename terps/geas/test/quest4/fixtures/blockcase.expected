@@ -1,7 +1,7 @@
 
 BlockCase
 
-You are in Study
+You are in Study.
 There is brass key and ghost here.
 You can go north.
 
@@ -15,6 +15,6 @@ It gleams.
 It sparkles.
 
 > north
-You are in Hall
+You are in Hall.
 A bare hall.
 [runner] turns=4 leftover=0 running=true

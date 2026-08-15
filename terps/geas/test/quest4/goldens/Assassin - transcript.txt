@@ -1,5 +1,5 @@
 
-Assassin, v1.0- silent death Mocha Man and Eager Elmer
+Assassin, v1.0- silent death | Mocha Man and Eager Elmer
 
 
 
@@ -26,6 +26,7 @@ Hunting Horn tavern has a television showing a golf game in the corner and is da
 
 > speak to vinnie
 Vinnie edges closer to you. "Are you interested in, say... dehumanizing fellow, ah, people? If you know what I mean..." he speaks with a light italian accent.
+Press a key when done reading
 
 Do you want to go with Vinnie?
 1) sure, why not
@@ -37,6 +38,7 @@ You are sitting in a very comfortable armchair, surrounded by three other people
 
 > speak to destefano
 "Welcome to the company of the legitimate businessman-- and woman-- of this city. I see you wanted to serve among us! Amazing choice. If you really want to serve with us, please take our membership card from the table in front of you," he says.
+(press a key when ready)
 
 Join the mafia?
 1) take the card (join)
@@ -108,6 +110,7 @@ There is a tall Police Woman standing nonchalantly here.
 You can go north, west, northwest or southwest.
 From here, the Back Gravel Road continues north, or merges with East Elm Street to the Southwest. To the northwest is a community ballpark, and directly to the west is the ciniplex theater. The gravel road is in the worst condition here, because it is the most travelled at this point.
 The police woman speaks to you. "Hey, fella, did you hear anything about a shooting on Elm Street recently?"
+(press a key when ready)
 
 Did you hear anything about a shooting on Elm Street?
 1) "I, uh... didn't hear anything, officer."
@@ -185,6 +188,7 @@ The duck pond is a small, peaceful place with a large family of ducks inhabittin
 You open the envelope and it has a message inside it. The message says:
 
 Okay, here's the deal. Just north of the parking lot on West Ave is a facility that we think the cops are using to spy on us. We want you to find a bomb somewhere (look in educational territory) and blow up the faclilty. Return to the duck pond when you finish.
+(press a key)
 
 Accept this mission?
 1) Accept
@@ -294,12 +298,14 @@ West Ave Parking.
 There is a confused Policeman standing here.
 You can go north or south.
 "Hey, did you see what happened at that building up there?" he asks you.
+(press a key)
 
 Do you know why the building is on fire?
 1) "No, but whatever it was, it wasn't me."
 2) Shoot the cop
 [choice] 2
 The policeman takes the bullets with a look of surprise and anger.
+
 
 > south
 Here's another part of W. Ave.
@@ -380,6 +386,7 @@ It is a typical ballpark: grass, with the occasional mud hole, backed by a chain
 
 > look at phone
 It is DeStefano. "We are going to rob the bank," he says. "Buy an Uzi and meet us at Main and Ave."
+(press a key)
 
 Accept the bank robbery mission?
 1) Accept
@@ -439,6 +446,7 @@ Zeke's Gunshop always smells like steak. All of the shelves, walls, and floor ar
 
 > speak to zeke
 "Hey, pardner," says Zeke lazily. "What can I get ye today?"
+(press a key)
 
 What would you like to purchase?
 1) Pistol                                                                   800 dollars
@@ -527,6 +535,7 @@ You can go south, east, west, northeast, northwest, southeast or southwest.
 This is the second largest intersection in the city, dwarfed only by Hilton and Main, located to the south. To the northwest is the western section of the mall-- the Food Court. To the northeast is the central part of the mall. The Ave is to the East and West, and Main Street is to the south. To the southwest is Grease House, and to the southeast is another restaurant, Creme de la Creme.
 "Ah, I see you have come. Louie and Delsa are to the West. Louie has blown out all the cameras and Delsa has the guards under control," says DeStefano.
 
+
 > west
 This is the easternmost part of W. Ave.
 There is a slender man named Louie and a tall, fit woman named Delsa here.
@@ -571,6 +580,7 @@ There are three levers here, all facing upwards. To change the position of a lev
 "PUT YOUR HANDS UP!!" says the guard.
 He fires at you!! Fortunately, your bulletproof vest takes the shot with ease and you unload your uzi on him.
 
+
 > south
 A teller will be happy to see you at SafeSmart Bank.
 You can go north or south.
@@ -614,6 +624,7 @@ This is a run-down joint with old junk filling every last square inch of floor s
 
 > speak to paul
 "Howdy there! How's yer day goin? I be glad to sell ye somethin!"
+(press a key)
 
 What would you like to say?
 1) Your brother Zeke sent me.
@@ -622,6 +633,7 @@ What would you like to say?
 4) I'd like to buy some gun accessories.
 [choice] 4
 "I got plenty of those," chuckles Paul. "They're prob'ly the only thing around here that's brand new, 'cept me beer," he adds.
+(press another key)
 
 What would you like to buy?
 1) scope                                                                350 dollars
@@ -670,19 +682,24 @@ Around you is a pool table, a bar, a lit fireplace, and other expensive furnitur
 
 The policeman is aiming his handgun at DeStefano's head, and DeStefano and Delsa are standing with their hands up. Louie is creeping, unnoticed, under the pool table.
 "Oh, is this one of your crooks, DeStefano?" says the cop, seeing you, and motions for you to put your hands up too. You do.
+(press a key)
 
 Suddenly, Louie pounces on the cop and pins him to the ground. Immediately, Louie strangles the policeman with his own belt and stands up, breathing hard.
+(press another key)
 
 Immediately, DeStefano takes action, speaking to you.
 "Okay, we hadn't exactly planned on this. I need you and Louie to take the body to the duck pond and dump it in. Can you do that?" You and Louie nod your consent.
+(press another key)
 
 "Alright. Me and Delsa will stay here and clean up. Louie-- you go ahead and make sure the path is clear. You--" he gestures towards you-- "carry the body and throw it in... then come back before the sun rises. Got it?"
 You and Louie nod again, and then leave.
+(key pressing time)
 
 "I'll meet you at the pond," says Louie.
 This is E. Hilton Street.
 You can go north, south, east or west.
 This is the eastern end of East Hilton Street. From here, it turns north and ends in a Parking Lot, and to the south is a very nice white house, 2112 Hilton. To the East is the Legitimate Businessman's Social Club.
+
 
 > west
 This is Hilton and Grey.
@@ -723,10 +740,13 @@ This is the Duck Pond.
 You can go east.
 The duck pond is a small, peaceful place with a large family of ducks inhabitting it, all of which are quite fat from being fed by excited little kids. There are a couple of benches and past the pond is a stretch of forest.
 The moonlight reflects off of the pond as you approach, wondering who the heck killed Louie. Suddenly, you stumble on something in a bush and almost drop your load.
+(press a key)
 
 It is yet another body... a woman, dressed completely in black, holding a pistol and shot in the stomach and shoulder. She obviously killed and was killed by Louie. Further search shows that she has nothing on her to identify her, except a small piece of paper that says "TIFFANY".
+(press key now)
 
 You then toss your load into the pond. The figures sink quickly and then dissappear from view in the murky water. Suddenly, your cell phone rings.
+(one last key to press)
 
 "Hey, it's boss. How we doin? Are you at the pond yet?"
 
@@ -757,8 +777,10 @@ To the north you can see a large parking lot for the library. To the south is th
 
 > speak to destefano
 "Ah, here you are. We're here because we discussed the matter of, ah... Louie's leaving us and we are positive that the Mayor is behind it...
+(press a key)
 
 You seem to be pretty skilled at getting into forbidden places. I need you to kill the mayor, OK? Climb the gate to the west to get into the yard of his mansion... then use this card to get into the front doors," he says, giving you a small keycard. "Then find the mayor-- he'll probably be sleeping-- and kill him. You're gonna need a silencer for your gun before you can go in, though. Once he's dead, return here, got it?"
+(press a key)
 
 Accept the mission?
 1) Okey Dokey
@@ -796,14 +818,18 @@ Here, soft white carpet pads your footsteps. It is dark, but in the large mahoga
 
 > use pistol on mayor
 You fire two shots into the figure... and the breathing stops... it is done.
+(press any key)
 
 
 But wait... an alarm suddenly sounds and a red light begins to flash in the corner of the room! You are confused... perhaps there was more than one security unit?
+(press a key)
 
 
 Suddenly, several guards storm through the door and begin to fire many, many bullets in your direction. You have no time to think... your bulletproof vest is wasted... and so are you.
+(press a key)
 
 However, you die content, knowing that you saved others from having to endure your sorrows of losing everything due to bad management. As you fall to the ground, you know that your purpose has been fufilled.
+(one last key to press)
 
 After your demise, ThereIsNoMafiaHereVille's council was investigated under charges of corruption. A new mayor and council was elected by the people of the city... and the corruption was left to the Mafia. YOU WIN!!
 

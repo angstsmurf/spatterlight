@@ -1,0 +1,26 @@
+
+outprefix350
+
+You are in Hall.
+You can go out to back yard.
+A hall.
+
+> look
+You are in Hall.
+You can go out to back yard.
+A hall.
+
+> out
+You are in back yard.
+You can go out to the Shed.
+A yard.
+
+> look
+You are in back yard.
+You can go out to the Shed.
+A yard.
+
+> out
+You are in Shed.
+A shed.
+[runner] turns=4 leftover=0 running=true

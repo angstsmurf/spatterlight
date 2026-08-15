@@ -832,8 +832,9 @@ void geas_implementation::move (const string &obj, const string &dest)
 
 /* See the comment on the declaration in geas-impl.hh. */
 void geas_implementation::do_add_remove (const string &child, const string &parent,
-					 bool adding)
+					 bool adding, bool discover_parent)
 {
+  string container = parent;
   if (adding)
     {
       /* Quest writes the container's definition name, never its alias. */
@@ -842,9 +843,19 @@ void geas_implementation::do_add_remove (const string &child, const string &pare
     }
   else
     {
+      container = get_obj_parent (child);
       set_obj_property (child, "not parent");
-      move (child, room_of_parent (get_obj_parent (child)));
+      move (child, room_of_parent (container));
     }
+  /* From ASL 4.10 on, moving something into or out of a container also marks
+   * the container "seen"; Quest's own comment explains why -- otherwise you
+   * could LOOK AT the object you just put in and have disambiguation fail
+   * (DoAddRemove, V4Game.cs:2125-2131).  It belongs here, in the one routine
+   * every add and every parented remove goes through, rather than at the
+   * individual call sites: Quest has exactly two places that set "seen", this
+   * one and DoLook, and only this one is version-gated. */
+  if (discover_parent && asl_version_ >= 410 && container != "")
+    set_obj_property (container, "seen");
 }
 
 string geas_implementation::get_obj_parent (const string &obj)
@@ -864,6 +875,17 @@ bool geas_implementation::is_held (const string &name) const
   for (const string &it: state.items)
     if (ci_equal (it, name))
       return true;
+  /* From 3.91 what is in a carried container is carried too.  Quest never asks
+   * the question this way -- a contained object's ContainerRoom is kept in step
+   * with its container's, and MoveThing has recursed into children since 3.91
+   * (V4Game.cs:6643-6653) -- so once the bag is in the inventory, so is
+   * everything in it, and every "do you have that?" test in the game sees it.
+   * geas models containment the other way round and has to walk the chain; it
+   * used to walk it only at the take gate, which left TARDIS Escape refusing
+   * `take sonic screwdriver` as already carried and then refusing to *use* the
+   * screwdriver because the player did not have one. */
+  if (asl_version_ >= 391 && held_in_container (name))
+    return true;
   return false;
 }
 
@@ -891,6 +913,47 @@ bool geas_implementation::container_is_open (const string &name) const
    * action/property lookup.) */
   if (has_obj_property (name, "opened")) return true;
   if (has_obj_property (name, "closed")) return false;
+  return false;
+}
+
+/* See the comment on the declaration in geas-impl.hh. */
+bool geas_implementation::held_in_container (const string &obj) const
+{
+  string p = obj_parent (obj);
+  for (int guard = 0; guard < kMaxContainerDepth && p != ""; guard++)
+    {
+      if (ci_equal (p, "inventory"))
+	return true;
+      p = obj_parent (p);
+    }
+  return false;
+}
+
+/* See the comment on the declaration in geas-impl.hh. */
+bool geas_implementation::player_can_access (const string &obj, string &errmsg) const
+{
+  errmsg = "";
+  /* Bounded like the other chain walks: a game can parent two containers into
+   * each other, and Quest guards the same way -- it keeps the objects it has
+   * already passed, logs "Looped object parents detected" on a repeat, and
+   * answers "no access" with no message at all. */
+  string cur = obj;
+  for (int guard = 0; guard < kMaxContainerDepth; guard++)
+    {
+      string parent;
+      if (!get_obj_property (cur, "parent", parent) || parent == "")
+	return true;
+      /* Note "opened", not container_is_open: this is Quest's own pair of
+       * tests, and neither "closed" nor "transparent" is one of them -- you
+       * can see into a transparent box and still not reach in. */
+      if (!has_obj_property (parent, "surface") &&
+	  !has_obj_property (parent, "opened"))
+	{
+	  errmsg = "inside closed " + displayed_name (parent);
+	  return false;
+	}
+      cur = parent;
+    }
   return false;
 }
 
@@ -1073,18 +1136,115 @@ bool geas_implementation::declared_inside (const string &obj, const string &name
   return false;
 }
 
-vector<string> geas_implementation::container_contents (const string &name) const
+/* See the comment on the declaration in geas-impl.hh. */
+string geas_implementation::list_contents (const string &name)
 {
-  vector<string> rv;
+  string s;
+  if (!has_obj_property (name, "container"))
+    return "";
+
+  /* Shut, and neither transparent nor a surface: the contents are not on show,
+   * and all the object has to say is its "list closed" line, if it has one. */
+  if (!container_is_open (name) && !has_obj_property (name, "transparent") &&
+      !has_obj_property (name, "surface"))
+    {
+      if (get_obj_action (name, "list closed", s))
+	{ run_script_as (name, s); return "<script>"; }
+      if (get_obj_property (name, "list closed", s))
+	return s;
+      return "";
+    }
+
+  /* Quest's contents are the objects whose "parent" property names this one and
+   * that are both Exists and Visible -- the pair geas keeps as the "hidden"
+   * flag update_container_visibility derives, plus an authored "invisible". */
+  vector<string> items;
   for (const auto &o: state.objs)
-    if (ci_equal (o.parent, name) || declared_inside (o.name, name))
+    if (ci_equal (o.parent, name) &&
+	!has_obj_property (o.name, "hidden") &&
+	!has_obj_property (o.name, "invisible"))
       {
-	string disp;
+	string disp, affix;
 	if (!get_obj_property (o.name, "alias", disp))
 	  disp = o.name;
-	rv.push_back (disp);
+	disp = "|b" + disp + "|xb";
+	if (get_obj_property (o.name, "prefix", affix) && affix != "")
+	  disp = affix + " " + disp;
+	if (get_obj_property (o.name, "suffix", affix) && affix != "")
+	  disp = disp + " " + affix;
+	items.push_back (disp);
       }
-  return rv;
+
+  if (items.empty ())
+    {
+      if (get_obj_action (name, "list empty", s))
+	{ run_script_as (name, s); return "<script>"; }
+      if (get_obj_property (name, "list empty", s))
+	return s;
+      return "";
+    }
+
+  if (get_obj_action (name, "list", s))
+    { run_script_as (name, s); return "<script>"; }
+  /* No "list" property at all means the game wrote `list off` -- every object
+   * has one otherwise (see the loader) -- and that says: never list me. */
+  if (!get_obj_property (name, "list", s))
+    return "";
+
+  string header;
+  bool show_items = true;
+  if (s != "")
+    {
+      /* A header ending in a colon introduces the list; one that does not *is*
+       * the whole answer, and the objects are not named at all. */
+      if (s[s.length () - 1] == ':')
+	header = s.substr (0, s.length () - 1) + " ";
+      else
+	{ header = s; show_items = false; }
+    }
+  else
+    {
+      /* The default header is built from the object's "article", which is "it"
+       * unless the game says otherwise -- hence "It contains ...". */
+      string art;
+      if (!get_obj_property (name, "article", art) || art == "")
+	art = "it";
+      art[0] = std::toupper ((unsigned char) art[0]);
+      header = art + " contains ";
+    }
+
+  if (show_items)
+    for (size_t i = 0; i < items.size (); i++)
+      header += (i == 0 ? "" :
+		 (i + 1 == items.size () ? " and " : ", ")) + items[i];
+  return header + ".";
+}
+
+/* See the comment on the declaration in geas-impl.hh. */
+void geas_implementation::do_look (const string &obj, bool examine_error,
+				   bool show_default)
+{
+  /* Looking at something discovers it, and re-derives what its contents can
+   * reach -- which is why a container has to be looked at (or opened, which
+   * looks at it) before the player can reach into it.  Quest only bothers below
+   * DoLook's ASLVersion >= 391 gate, having no container model at all under it;
+   * geas emulates one at every version and reads the same flag, so the flag is
+   * set at every version too, as the look handler has always done. */
+  set_obj_property (obj, "seen");
+
+  bool found_look = dispatch_obj_verb (obj, "look");
+
+  /* Worked out before the fallback error is printed, because it decides
+   * whether there is one: an undescribed container answers with its contents
+   * rather than with "Nothing out of the ordinary". */
+  string contents;
+  if (asl_version_ >= 391)
+    contents = list_contents (obj);
+
+  if (!found_look && show_default && contents == "")
+    display_error (examine_error ? "defaultexamine" : "defaultlook", obj);
+  if (contents != "" && contents != "<script>")
+    print_formatted (contents);
 }
 
 bool geas_implementation::open_container (const string &name)
@@ -1113,7 +1273,6 @@ bool geas_implementation::open_container (const string &name)
 
   set_obj_property (name, "not closed");
   set_obj_property (name, "opened");
-  set_obj_property (name, "seen");   /* opening it discovers it (seen gate) */
 
   string msg = "You open the " + name + ".";
   for (size_t i = 0; i < shown_names.size (); i++)
@@ -1149,6 +1308,39 @@ bool geas_implementation::close_container (const string &name)
       set_obj_property (c, "hidden");
   print_formatted ("You close the " + name + ".");
   return true;
+}
+
+/* See the comment on the declaration in geas-impl.hh. */
+void geas_implementation::do_open_close (const string &name, bool opening,
+					bool show_look)
+{
+  if (opening)
+    {
+      set_obj_property (name, "not closed");
+      set_obj_property (name, "opened");
+      /* geas also lets a game put an object in a container by writing a bare
+       * "<container>" line in the *object's* block.  Those contents are
+       * modelled with the hidden flag rather than a parent, so the sweep
+       * set_obj_property runs cannot reach them; reveal them by hand. */
+      for (const auto &o: state.objs)
+	if (declared_inside (o.name, name) && has_obj_property (o.name, "hidden"))
+	  set_obj_property (o.name, "not hidden");
+      /* Quest shows the container here -- DoLook with the default description
+       * suppressed, so an object with no `look` of its own stays quiet and only
+       * its contents are announced -- and DoLook is what marks it "seen", from
+       * 3.91 on.  Which is also why the contents come out *after* the "You open
+       * it." the caller has already printed. */
+      if (show_look)
+	do_look (name, false, false);
+    }
+  else
+    {
+      set_obj_property (name, "not opened");
+      set_obj_property (name, "closed");
+      for (const auto &o: state.objs)
+	if (declared_inside (o.name, name) && !is_held (o.name))
+	  set_obj_property (o.name, "hidden");
+    }
 }
 
 /* See the comment on the declaration in geas-impl.hh. */
@@ -1257,7 +1449,157 @@ void geas_implementation::goto_room (string room)
     set_obj_property (room, "visited");
 }
 
+/* Quest keeps its player-error messages in a single array indexed by the
+ * PlayerError enum (V4Game.Types.cs:287-326).  SetDefaultPlayerErrorMessages
+ * fills it with the built-in texts (V4Game.Part2.cs:425-471) and
+ * SetUpUserDefinedPlayerErrors then walks the game block overwriting entries
+ * from "error <name; text>" lines (ibid. 1392-1625) -- so the LAST matching
+ * line in the block wins, not the first.  error_table is that array in enum
+ * order.  "id" is the name geas's own call sites pass to display_error; the
+ * name a game writes in ASL is not always the same word (Quest spells
+ * DefaultTake "defaultake"), which asl_error_index sorts out.  An entry marked
+ * pcase is printed through print_eval_p, which capitalises the first letter
+ * after substitution -- the message may open with a #quest.error.gender#
+ * pronoun. */
+namespace {
+
+enum player_error {
+  PE_BadCommand, PE_BadGo, PE_BadGive, PE_BadCharacter, PE_NoItem,
+  PE_ItemUnwanted, PE_BadLook, PE_BadThing, PE_DefaultLook, PE_DefaultSpeak,
+  PE_BadItem, PE_DefaultTake, PE_BadUse, PE_DefaultUse, PE_DefaultOut,
+  PE_BadPlace, PE_BadExamine, PE_DefaultExamine, PE_BadTake, PE_CantDrop,
+  PE_DefaultDrop, PE_BadDrop, PE_BadPronoun, PE_AlreadyOpen, PE_AlreadyClosed,
+  PE_CantOpen, PE_CantClose, PE_DefaultOpen, PE_DefaultClose, PE_BadPut,
+  PE_CantPut, PE_DefaultPut, PE_CantRemove, PE_AlreadyPut, PE_DefaultRemove,
+  PE_Locked, PE_DefaultWait, PE_AlreadyTaken, PE_COUNT
+};
+
+struct error_entry { const char *id; const char *text; bool pcase; };
+
+const error_entry error_table[] = {
+  { "badcommand",     "I don't understand your command. Type HELP for a list of valid commands.", false },
+  { "badgo",          "I don't understand your use of 'GO' - you must either GO in some direction, or GO TO a place.", false },
+  { "badgive",        "You didn't say who you wanted to give that to.", false },
+  { "badcharacter",   "I can't see anybody of that name here.",       false },
+  { "noitem",         "You don't have that.",                         false },
+  { "itemunwanted",   "#quest.error.gender# doesn't want #quest.error.article#.", true },
+  { "badlook",        "You didn't say what you wanted to look at.",   false },
+  { "badthing",       "I can't see that here.",                       false },
+  { "defaultlook",    "Nothing out of the ordinary.",                 false },
+  { "defaultspeak",   "#quest.error.gender# says nothing.",           true },
+  { "baditem",        "I can't see that anywhere.",                   false },
+  { "defaulttake",    "You pick #quest.error.article# up.",           false },
+  { "baduse",         "You didn't say what you wanted to use that on.", false },
+  { "defaultuse",     "You can't use that here.",                     false },
+  { "defaultout",     "There's nowhere you can go out to around here.", false },
+  { "badplace",       "You can't go there.",                          false },
+  { "badexamine",     "You didn't say what you wanted to examine.",   false },
+  { "defaultexamine", "Nothing out of the ordinary.",                 false },
+  { "badtake",        "You can't take #quest.error.article#.",        false },
+  { "cantdrop",       "You can't drop that here.",                    false },
+  { "defaultdrop",    "You drop #quest.error.article#.",              false },
+  { "baddrop",        "You are not carrying such a thing.",           false },
+  { "badpronoun",     "I don't know what '#quest.error.pronoun#' you are referring to.", false },
+  { "alreadyopen",    "It is already open.",                          false },
+  { "alreadyclosed",  "It is already closed.",                        false },
+  { "cantopen",       "You can't open that.",                         false },
+  { "cantclose",      "You can't close that.",                        false },
+  { "defaultopen",    "You open it.",                                 false },
+  { "defaultclose",   "You close it.",                                false },
+  { "badput",         "You didn't specify what you wanted to put #quest.error.article# on or in.", true },
+  { "cantput",        "You can't put that there.",                    false },
+  { "defaultput",     "Done.",                                        false },
+  { "cantremove",     "You can't remove that.",                       false },
+  { "alreadyput",     "It is already there.",                         false },
+  { "defaultremove",  "Done.",                                        false },
+  { "locked",         "The exit is locked.",                          false },
+  { "defaultwait",    "Press a key to continue...",                   false },
+  { "alreadytaken",   "You already have that.",                       false },
+};
+static_assert (sizeof error_table / sizeof error_table[0] == PE_COUNT,
+	       "error_table must cover every PlayerError");
+
+/* Quest's switch on the error name (V4Game.Part2.cs:1410-1610).  The name is
+ * compared un-lowercased and un-trimmed, and -- the part that bites -- an
+ * unrecognised name leaves currentError at 0, so the line overwrites
+ * BadCommand instead of being ignored. */
+int asl_error_index (const string &name, int asl_version)
+{
+  if (name == "defaultake")
+    return asl_version <= 280 ? PE_BadTake : PE_DefaultTake;
+  if (name == "badexamine")
+    return asl_version >= 310 ? PE_BadExamine : PE_BadCommand;
+  /* "defaulttake" -- the spelling geas's own call sites use -- is not a name
+   * Quest's switch knows; a game that writes it is redefining badcommand. */
+  if (name == "defaulttake")
+    return PE_BadCommand;
+  for (int i = 0; i < PE_COUNT; ++i)
+    if (name == error_table[i].id)
+      return i;
+  return PE_BadCommand;
+}
+
+}
+
+void geas_implementation::init_error_messages ()
+{
+  for (int i = 0; i < PE_COUNT; ++i)
+    {
+      error_messages_.push_back (error_table[i].text);
+      error_pcase_.push_back (error_table[i].pcase);
+    }
+
+  const GeasBlock *game = gf.find_by_name ("game", "game");
+  if (game == NULL)
+    {
+      gi->debug_print ("display_error: no 'game' block found");
+      return;
+    }
+  bool examine_customised = false;
+  std::string::size_type c1, c2;
+  for (const string &line: game->data)
+    {
+      /* The keyword is CI -- Quest scans for it with BeginsWith
+       * (SetUpUserDefinedPlayerErrors, V4Game.Part2.cs:1404). */
+      string tok = first_token (line, c1, c2);
+      if (!ci_equal (tok, "error"))
+	continue;
+      tok = next_token (line, c1, c2);
+      if (!is_param (tok))
+	{
+	  gi->debug_print ("Bad error line: " + line);
+	  continue;
+	}
+      string text = param_contents (tok);
+      std::string::size_type index = text.find (';');
+      if (index == string::npos)
+	continue;
+      /* Only the message is trimmed: Quest takes the name as
+       * Left(errorInfo, scp - 1) with no Trim, so "error < badthing; ...>"
+       * matches nothing and lands on badcommand. */
+      int idx = asl_error_index (text.substr (0, index), asl_version_);
+      string msg = trim (text.substr (index + 1));
+      if (idx == PE_DefaultExamine)
+	examine_customised = true;
+      error_messages_[idx] = msg;
+      error_pcase_[idx] = true;
+      /* Setting the default look message sets the default examine message too,
+       * unless an "error <defaultexamine; ...>" line has already been seen. */
+      if (idx == PE_DefaultLook && !examine_customised)
+	{
+	  error_messages_[PE_DefaultExamine] = msg;
+	  error_pcase_[PE_DefaultExamine] = true;
+	}
+    }
+}
+
 void geas_implementation::display_error (string errorname, string obj)
+{
+  display_error_info (errorname, obj, "");
+}
+
+void geas_implementation::display_error_info (string errorname, string obj,
+					      const string &extra)
 {
   GEAS_DBG << "display_error (" << errorname << ", " << obj << ")\n";
   if (obj != "")
@@ -1283,92 +1625,31 @@ void geas_implementation::display_error (string errorname, string obj)
        * handler in try_match). */
     }
 
-  const GeasBlock *game = gf.find_by_name ("game", "game");
-  if (game == NULL)
+  /* Quest has no error of this name: geas's generic verb dispatch needs a
+   * refusal of its own, and a game's "error <defaultverb; ...>" line lands on
+   * badcommand (asl_error_index), so this text is not overridable. */
+  if (errorname == "defaultverb")
     {
-      gi->debug_print ("display_error: no 'game' block found");
+      print_eval ("You can't do that.");
       return;
     }
-  std::string::size_type c1, c2;
-  for (const string &line: game->data)
-    {
-      string tok = first_token (line, c1, c2);
-      /* The keyword is CI -- Quest scans for it with BeginsWith
-       * (SetUpUserDefinedPlayerErrors, V4Game.Part2.cs:1386)... */
-      if (ci_equal (tok, "error"))
-	{
-	  tok = next_token (line, c1, c2);
-	  if (is_param (tok))
-	    {
-	      string text = param_contents(tok);
-	      std::string::size_type index = text.find (';');
-	      string errortype = trim (text.substr (0, index));
-	      /* ...but the error name inside the parameter is case-sensitive:
-	       * Quest switches on it un-lowercased (ibid. 1394). */
-	      if (errortype == errorname)
-		{
-		  print_eval_p (trim (text.substr (index+1)));
-		  return;
-		}
-	    }
-	  else
-	    gi->debug_print ("Bad error line: " + line);
-	}
-    }
 
-  /* The built-in default messages, used when the game block declares no
-   * "error <name; ...>" of its own.  An entry marked pcase goes through
-   * print_eval_p, which capitalises the first letter after substitution
-   * (the message may open with a #quest.error.gender# pronoun). */
-  struct default_error { const char *name; const char *text; bool pcase; };
-  static const default_error default_errors[] = {
-    { "badcommand",     "I don't understand your command. Type HELP for a list of valid commands.", false },
-    { "badgo",          "I don't understand your use of 'GO' - you must either GO in some direction, or GO TO a place.", false },
-    { "badgive",        "You didn't say who you wanted to give that to.", false },
-    { "badcharacter",   "I can't see anybody of that name here.",       false },
-    { "noitem",         "You don't have that.",                         false },
-    { "itemunwanted",   "#quest.error.gender# doesn't want #quest.error.article#.", true },
-    { "badlook",        "You didn't say what you wanted to look at.",   false },
-    { "badthing",       "I can't see that here.",                       false },
-    { "defaultlook",    "Nothing out of the ordinary.",                 false },
-    { "defaultspeak",   "#quest.error.gender# says nothing.",           true },
-    { "baditem",        "I can't see that anywhere.",                   false },
-    { "defaulttake",    "You pick #quest.error.article# up.",           false },
-    { "baduse",         "You didn't say what you wanted to use that on.", false },
-    { "defaultuse",     "You can't use that here.",                     false },
-    { "defaultput",     "You can't put #quest.error.article# there.",   true },
-    /* PlayerError.CantRemove / PlayerError.DefaultRemove, the two messages the
-     * container half of "remove" falls back on (V4Game.Part2.cs:449-451). */
-    { "cantremove",     "You can't remove that.",                       false },
-    { "defaultremove",  "Done.",                                        false },
-    { "defaultwait",    "Time passes...",                               false },
-    { "defaultverb",    "You can't do that.",                           false },
-    { "alreadyopen",    "It is already open.",                          false },
-    { "alreadyclosed",  "It is already closed.",                        false },
-    { "cantopen",       "You can't open that.",                         false },
-    { "cantclose",      "You can't close that.",                        false },
-    { "defaultopen",    "You open it.",                                 false },
-    { "defaultclose",   "You close it.",                                false },
-    /* PlayerError.Locked, the message a locked exit prints when it declares no
-     * lockmessage of its own (V4Game.Part2.cs:452). */
-    { "locked",         "The exit is locked.",                          false },
-    { "defaultout",     "There's nowhere you can go out to around here.", false },
-    { "badplace",       "You can't go there.",                          false },
-    { "defaultexamine", "Nothing out of the ordinary.",                 false },
-    { "badtake",        "You can't take #quest.error.article#.",        false },
-    { "cantdrop",       "You can't drop that here.",                    false },
-    { "defaultdrop",    "You drop #quest.error.article#.",              false },
-    { "baddrop",        "You are not carrying such a thing.",           false },
-    { "badpronoun",     "I don't know what '#quest.error.pronoun#' you are referring to.", false },
-    { "badexamine",     "You didn't say what you wanted to examine.",   false },
-  };
-  for (const default_error &e: default_errors)
-    if (errorname == e.name)
+  if (error_messages_.empty ())
+    init_error_messages ();
+
+  for (int i = 0; i < PE_COUNT; ++i)
+    if (errorname == error_table[i].id)
       {
-	if (e.pcase)
-	  print_eval_p (e.text);
-	else
-	  print_eval (e.text);
+	string msg = eval_string (error_messages_[i]);
+	if (error_pcase_[i])
+	  msg = pcase (msg);
+	if (extra != "")
+	  {
+	    if (msg.length () > 0 && msg[msg.length () - 1] == '.')
+	      msg = msg.substr (0, msg.length () - 1);
+	    msg = msg + " - " + extra + ".";
+	  }
+	print_formatted (msg);
 	return;
       }
   gi->debug_print ("Bad error name " + errorname);
@@ -1390,6 +1671,32 @@ string geas_implementation::displayed_name (const string &obj) const
 	  }
     }
   return rv;
+}
+
+/* The parameter token of a "place [locked] <...>" line, with the optional
+ * keyword consumed and `locked` set from it.
+ *
+ * AddExitFromTag strips a leading "locked " after the direction word, and
+ * "place" is one of the direction words it accepts (RoomExits.cs:120-149), so a
+ * place locks exactly as a compass direction does.  That parser is 4.10's: the
+ * older loader hands the whole line to GetParameter, which scans for the "<" and
+ * so walks straight past the keyword without noticing it (V4Game.Part2.cs:
+ * 1216-1234).  The keyword is therefore eaten at every version -- otherwise the
+ * line reads as malformed and the place disappears -- but only marks the exit
+ * locked from 4.10 on, and below that the parameter keeps its older
+ * "prefix; dest" reading, which is what Quest makes of it there. */
+static string place_tag_param (const string &line, std::string::size_type &c1,
+			       std::string::size_type &c2, int version,
+			       bool &locked)
+{
+  string tok = next_token (line, c1, c2);
+  locked = false;
+  if (ci_equal (tok, "locked"))
+    {
+      locked = (version >= 410);
+      tok = next_token (line, c1, c2);
+    }
+  return tok;
 }
 
 /* For each destination, give:
@@ -1414,7 +1721,8 @@ vector<vector<string> > geas_implementation::get_places (const string &room)
       tok = first_token (line, c1, c2);
       if (tok == "place")
 	{
-	  tok = next_token (line, c1, c2);
+	  bool locked;
+	  tok = place_tag_param (line, c1, c2, asl_version_, locked);
 	  if (!is_param(tok))
 	    {
 	      gi->debug_print ("Expected parameter after 'place' in " + line);
@@ -1426,15 +1734,14 @@ vector<vector<string> > geas_implementation::get_places (const string &room)
 	      gi->debug_print ("Parameter empty in " + line);
 	      continue;
 	    }
-	  std::string::size_type i = dest_param.find (';');
-	  string dest, prefix = "";
-	  if (i == string::npos)
-	    dest = trim (dest_param);
-	  else
-	    {
-	      dest = trim (dest_param.substr (i+1));
-	      prefix = trim (dest_param.substr (0, i));
-	    }
+	  /* A locked place is still advertised in the exits line: locking gates
+	   * the crossing and nothing else (RoomExit.Go, RoomExit.cs:240-259), so
+	   * `locked` is of no interest here -- the "go to" handler asks
+	   * exit_locked() about it.  From 4.10 the second field of the parameter
+	   * is that exit's lock message rather than a prefix, which is why the
+	   * split goes through split_exit_dest. */
+	  string dest, prefix;
+	  split_exit_dest (dest_param, dest, prefix);
 	  string rest = trim (line.substr (c2));
 	  /* The destination room's alias replaces its name only for a *plain*
 	   * place: both the listing and the name the player has to type are
@@ -1628,13 +1935,12 @@ vector<string> geas_implementation::exit_object_names (const string &room)
 	  }
 	else if (tok == "place")
 	  {
-	    tok = next_token (line, c1, c2);
+	    bool locked;
+	    tok = place_tag_param (line, c1, c2, asl_version_, locked);
 	    if (!is_param (tok))
 	      continue;
-	    string dest_param = eval_param (tok);
-	    std::string::size_type i = dest_param.find (';');
-	    string dest = trim (i == string::npos ? dest_param
-				: dest_param.substr (i + 1));
+	    string dest, prefix;
+	    split_exit_dest (eval_param (tok), dest, prefix);
 	    if (dest != "" && !ci_contains (seen_places, dest))
 	      {
 		seen_places.push_back (dest);
@@ -1908,8 +2214,8 @@ bool geas_implementation::exit_declared_locked (const string &room, const string
       vector<string> p = split_param (param_contents (tok));
       /* A directional exit that runs a script has no destination to spend the
        * first field on, so the whole parameter is the lock message
-       * (RoomExits.cs:186-191).  (A *place* exit keeps its destination there
-       * even when scripted, but geas never locks places.) */
+       * (RoomExits.cs:186-191).  A *place* exit keeps its destination there even
+       * when scripted -- see the place scan below. */
       if (trim (line.substr (c2)) != "") {
 	if (!p.empty ())
 	  message = trim (p[0]);
@@ -1919,6 +2225,32 @@ bool geas_implementation::exit_declared_locked (const string &room, const string
     }
     return true;
   }
+
+  /* A directionless exit has no direction word to key on, so it answers to its
+   * destination room's name, which is what FindExit looks a place up by
+   * (V4Game.Part2.cs:7877-7913).  Only from 4.10: below it a room's places are
+   * plain records with nothing to lock, and "lock" cannot reach them either. */
+  if (asl_version_ >= 410)
+    {
+      bool found = false;
+      for (const string &l: gb->data)
+	{
+	  if (first_token (l, c1, c2) != "place")
+	    continue;
+	  bool lk;
+	  string tok = place_tag_param (l, c1, c2, asl_version_, lk);
+	  if (!is_param (tok))
+	    continue;
+	  vector<string> p = split_param (param_contents (tok));
+	  if (p.empty () || !ci_equal (trim (p[0]), dir))
+	    continue;
+	  /* The last declaration wins, as above. */
+	  found = lk;
+	  message = (lk && p.size () >= 2) ? trim (p[1]) : "";
+	}
+      if (found)
+	return true;
+    }
   return false;
 }
 
@@ -1942,10 +2274,47 @@ bool geas_implementation::exit_locked (const string &room, const string &dir)
   return exit_declared_locked (room, dir, message);
 }
 
+/* The right-hand side of a `set numeric <var; ...>`, evaluated as the game's own
+ * ASL version does it.  From 3.91 ExecSetVar hands the text to
+ * ExpressionHandler, which is the full precedence-respecting evaluator geas has
+ * always used; below that it is one binary operation and nothing more
+ * (V4Game.cs:7272-7343 -- see eval_double_pre391), so Kingdom's `set numeric
+ * <x; 10*3/4>` is thirty there and seven and a half here. */
+double geas_implementation::eval_set_numeric (const string &expr)
+{
+  if (asl_version_ >= 391)
+    return eval_double (expr);
+  /* ExecSetVar trims the text before it looks for the operator, and the search
+   * for a "-" starts at the second character: with the space that follows the
+   * semicolon still on the front, " -8-3" would split at the minus sign of the
+   * negative number and answer -8 instead of -11. */
+  bool div_by_zero = false;
+  double rv = eval_double_pre391 (trim (expr), div_by_zero);
+  if (div_by_zero)
+    gi->debug_print ("Division by zero - The result of this operation has been "
+		     "set to zero.");
+  return rv;
+}
+
 void geas_implementation::look()
 {
   string tmp;
   bool described = false;
+  /* The look text is read fresh at every room display, not cached from the last
+   * move: ShowRoomInfo asks GetObjectProperty("look", ...) each time it runs and
+   * writes quest.lookdesc from it, falling back to the room's own tag
+   * (V4Game.Part2.cs:3879-3893).  geas only refreshed it on arrival, so a script
+   * that did `property <room; look=...>` while the player stood there left the
+   * old text on screen until they walked out and back in -- Beam's !intproc116
+   * rewrites the Inside Machine that way.  Quest computes it here, before the
+   * description tag is found, so a description that changes the property still
+   * gets the text as it was when the display began.
+   *
+   * The room's displayed name is the same story: ShowRoomInfo assembles alias,
+   * prefix and suffix a few hundred lines above that (ibid. 3709-3730), so a
+   * `property <room; alias=...>` shows on the very next display too. */
+  regen_var_room ();
+  regen_var_look ();
   if (get_room_action (state.location, "description", tmp))
     { run_script_as (state.location, tmp); described = true; }
   else if (get_room_property (state.location, "description", tmp))
@@ -1984,7 +2353,21 @@ void geas_implementation::look()
   if (!described)
     {
       string in_desc;
-      if (get_room_property (state.location, "indescription", tmp))
+      bool has_in_desc = get_room_property (state.location, "indescription",
+					    tmp);
+      /* From ASL 3.50 the loader mirrors a room's tags into the object-property
+       * table as well as into the room record, and AddToObjectProperties trims
+       * whatever follows the "=" (V4Game.cs:4025) before writing it back over
+       * InDescription (V4Game.cs:4111-4118).  So from 3.50 on the stored value
+       * has no outer whitespace, and one made of nothing but spaces is stored
+       * as the empty string.  TARDIS Escape's Console Room writes
+       * `indescription < >` and depends on that without meaning to. */
+      if (has_in_desc && asl_version_ >= 350)
+	tmp = trim (tmp);
+      /* What Quest tests is whether the stored text is empty, not whether the
+       * tag was there (ShowRoomInfo, V4Game.Part2.cs:3746), so an `indescription
+       * <>` takes the default line below. */
+      if (has_in_desc && !tmp.empty ())
 	{
 	  /* Quest's indescription: a trailing colon is replaced by a space, the
 	   * room name and a full stop ("...west end of the:" becomes "...west
@@ -1998,8 +2381,11 @@ void geas_implementation::look()
 	    print_formatted (in_desc);
 	}
       else
+	/* The sentence ends in a full stop: "You are in " + roomDisplayName +
+	 * "." (ShowRoomInfo, V4Game.Part2.cs:3764; the pre-2.80 display builds
+	 * the same line at 2050). */
 	print_formatted (string ("You are in") + " "
-			 + get_svar ("quest.formatroom"));
+			 + get_svar ("quest.formatroom") + ".");
     }
 
   /* The object list and the exit lines belong to the *default* room display, and
@@ -2024,20 +2410,48 @@ void geas_implementation::look()
        * the main window even on a host that provides such panes (see
        * has_objects_window / get_room_exits); a pane stays a supplementary
        * copy. */
-      if ((tmp = get_svar ("quest.formatobjects")) != "")
+      /* Read first: this is what regenerates the objects pair, and with it the
+       * pre-2.80 characters line that goes above it. */
+      tmp = get_svar ("quest.formatobjects");
+      if (asl_version_ < 280)
+	print_formatted (characters_display_);
+      if (tmp != "")
 	print_eval ("There is #quest.formatobjects# here.");
 
-      /* The exits, after the objects.  The *display* form, so an
-       * "out <the; town>" prefix shows up here ("You can go out to the town."),
-       * as it does in the typelib's own version of this line and in the
-       * "places" line below. */
-      if (get_svar ("quest.doorways.out") != ""
-	  && (tmp = get_svar ("quest.doorways.out.display")) != "")
-	print_formatted ("You can go out to " + tmp + ".");
-      if ((tmp = get_svar ("quest.doorways.dirs")) != "")
-	print_eval ("You can go #quest.doorways.dirs#.");
-      if ((tmp = get_svar ("quest.doorways.places")) != "")
-	print_formatted ("You can go to " + tmp + ".");
+      /* The exits, after the objects.  From ASL 4.10 they are one folded line:
+       * UpdateDoorways hands the whole job to
+       * RoomExits.GetAvailableDirectionsDescription, which lists compass
+       * exits (with "out" among them as a bare word) and places together in
+       * the order the room's tags created them (V4Game.Part2.cs:7207-7211,
+       * RoomExits.cs:304-353).  quest.doorways holds the list without the
+       * sentence around it. */
+      if (asl_version_ >= 410)
+	{
+	  if ((tmp = get_svar ("quest.doorways")) != "")
+	    print_formatted ("You can go " + tmp + ".");
+	}
+      else
+	{
+	  /* From 2.80 the places line is part of roomDisplayText and the
+	   * out/directions string is printed after it, so places come first
+	   * (V4Game.Part2.cs:3838-3874, 3948-3955).  Below 2.80 the three are
+	   * all part of roomDisplayText, in the other order (ShowRoomInfoV2,
+	   * ibid. 2022, 2056, 2092) -- which is the order geas used at every
+	   * version. */
+	  bool places_first = (asl_version_ >= 280);
+	  if (places_first && (tmp = get_svar ("quest.doorways.places")) != "")
+	    print_formatted ("You can go to " + tmp + ".");
+	  /* The *display* form of "out", so an "out <the; town>" prefix shows
+	   * up here ("You can go out to the town."), as it does in the
+	   * typelib's own version of this line and in the "places" line. */
+	  if (get_svar ("quest.doorways.out") != ""
+	      && (tmp = get_svar ("quest.doorways.out.display")) != "")
+	    print_formatted ("You can go out to " + tmp + ".");
+	  if ((tmp = get_svar ("quest.doorways.dirs")) != "")
+	    print_eval ("You can go #quest.doorways.dirs#.");
+	  if (!places_first && (tmp = get_svar ("quest.doorways.places")) != "")
+	    print_formatted ("You can go to " + tmp + ".");
+	}
     }
 
   /* The room's "look" text is the one part of this that a description tag does
@@ -2262,6 +2676,74 @@ void geas_implementation::set_game (const string &s)
 
       state = GeasState (*gi, gf);
 
+      /* The initial value of a variable is a *parameter*, not a literal.
+       * SetUpDisplayVariables runs each `value <...>` through GetParameter as
+       * it walks the game block (V4Game.Part2.cs:744), so a "#var#" or "%var%"
+       * naming a variable defined earlier is substituted, and a "$rand(a;b)$"
+       * is rolled -- once each, in definition order, before anything else in
+       * the game has run.  GeasState stores the text raw, which left Kingdom's
+       * 23 `value <$rand(...)$>` village statistics all sitting at zero and put
+       * the RNG stream one draw per variable out of step with Quest's from the
+       * first turn.
+       *
+       * It is one pass in source order, and each variable comes into existence
+       * as it is reached, so a value can only see the ones above it: a
+       * reference to a variable defined further down reads one that does not
+       * exist yet -- "" for a string, Quest's undefined-numeric -32767 for a
+       * number.  Hence the wipe first: GeasState has already created all of
+       * them from the raw text, and leaving those in place would let a
+       * not-yet-defined variable answer for itself.
+       *
+       * Rebuilt records rather than assignments, for the same reason:
+       * set_svar/set_ivar would fire the variable's `onchange` script, and
+       * Quest's setup does not run those. */
+      for (size_t vi = 0; vi < gf.size ("variable"); vi ++)
+	{
+	  const string &vname = gf.block ("variable", vi).name;
+	  for (size_t k = state.ivars.size (); k-- > 0; )
+	    if (ci_equal (state.ivars[k].name, vname))
+	      state.ivars.erase (state.ivars.begin () + k);
+	  for (size_t k = state.svars.size (); k-- > 0; )
+	    if (ci_equal (state.svars[k].name, vname))
+	      state.svars.erase (state.svars.begin () + k);
+	}
+      for (size_t vi = 0; vi < gf.size ("variable"); vi ++)
+	{
+	  const GeasBlock &vb = gf.block ("variable", vi);
+	  string raw;
+	  bool is_numeric = true;
+	  for (const string &vline: vb.data)
+	    {
+	      /* CI keywords, CS type value -- see static_svar_lookup. */
+	      string vtok = first_token (vline, tok_start, tok_end);
+	      if (ci_equal (vtok, "value"))
+		{
+		  vtok = next_token (vline, tok_start, tok_end);
+		  if (is_param (vtok))
+		    raw = param_contents (vtok);
+		}
+	      else if (ci_equal (vtok, "type"))
+		is_numeric =
+		  (next_token (vline, tok_start, tok_end) != "string");
+	    }
+	  string val = (raw.find_first_of ("#%$") == string::npos)
+		       ? raw : eval_string (raw);
+	  if (is_numeric)
+	    {
+	      IVarRecord iv;
+	      iv.name = vb.name;
+	      iv.set ((size_t) 0, strtod (val.c_str (), NULL));
+	      state.ivars.push_back (iv);
+	    }
+	  else
+	    {
+	      SVarRecord sv;
+	      sv.name = vb.name;
+	      sv.set (0, val);
+	      state.svars.push_back (sv);
+	    }
+	}
+
       state.running = true;
 
       /* Print the game's title/version/author banner once, here at the very
@@ -2396,16 +2878,32 @@ void geas_implementation::set_game (const string &s)
 	 (e.g. Mansion's startscript pauses on "Press any key" before its
 	 "*** THE MANSION ***" intro is shown). */
 
-      /* Run every startscript in order, not just the first: a game block may
-	 carry more than one once a library has appended its own via `!addto game`
-	 (e.g. the bundled type library's TLPstartup runs ahead of the game's own
-	 startscript).  Stopping at the first would silently drop the game's
-	 initialisation -- or the library's. */
+      /* Run every startscript, not just the first: a game block may carry more
+	 than one once a library has appended its own via `!addto game` (e.g. the
+	 bundled type library's TLPstartup, which has to run before the game's own
+	 startscript or the types are not set up when it looks at them).  Stopping
+	 at the first would silently drop the game's initialisation -- or the
+	 library's.
+
+	 From ASL 3.11 the library ones ("lib startscript", tagged in
+	 mark_library_addtos) all run first and in *reverse* order, the innermost
+	 library initialising first; below 3.11 the tag means nothing and they run
+	 in place with the rest (V4Game.Part2.cs:7967-7997). */
+      if (asl_version_ >= 311)
+	for (auto i = game.data.rbegin(); i != game.data.rend(); ++ i)
+	  if (ci_equal (first_token (*i, c1, c2), "lib") &&
+	      ci_equal (next_token (*i, c1, c2), "startscript"))
+	    run_script_as ("game", i->substr (c2 + 1));
       for (const auto &i: game.data)
-	/* CI: Quest matches "startscript " with BeginsWith
-	 * (V4Game.Part2.cs:7971). */
-	if (ci_equal (first_token (i, c1, c2), "startscript"))
-	  run_script_as ("game", i.substr (c2 + 1));
+	{
+	  /* CI: Quest matches "startscript " with BeginsWith
+	   * (V4Game.Part2.cs:7971). */
+	  string tok = first_token (i, c1, c2);
+	  if (ci_equal (tok, "lib") && asl_version_ < 311)
+	    tok = next_token (i, c1, c2);
+	  if (ci_equal (tok, "startscript"))
+	    run_script_as ("game", i.substr (c2 + 1));
+	}
 
       /* ... unless the startscript asked for no intro, in which case it has
 	 (probably) displayed <intro> itself at the point it wanted it. */
@@ -2464,7 +2962,7 @@ void geas_implementation::regen_var_objects ()
    * here (i.e. after every turn) hid them again on the next redraw.  See
    * set_obj_property and move for the sweep's real call sites. */
   string tmp;
-  vector <string> objs;
+  vector <string> objs, chars;
   for (const auto &i: state.objs)
     {
       /* List things in this room -- directly, or inside an open container/
@@ -2477,7 +2975,23 @@ void geas_implementation::regen_var_objects ()
       if (ci_equal (room_of_parent (i.parent), state.location) &&
 	  !get_obj_property (i.name, "hidden", tmp) &&
 	  !get_obj_property (i.name, "invisible", tmp))
-	objs.push_back (i.name);
+	{
+	  /* Below 2.80 Quest keeps characters in a table of their own and
+	   * gives them a line of their own, so one never turns up among the
+	   * objects (ShowRoomInfoV2 walks _chars and then _objs,
+	   * V4Game.Part2.cs:1824-1886; the `define character' branch of the
+	   * loader that fills _chars is itself gated on ASLVersion <= 280,
+	   * ibid. 3571).  From 2.80 on there is no such table and a character
+	   * is an object like any other -- which is how geas stores them at
+	   * every version, so the split has to happen here.  The two gates really
+	   * do differ by one: at exactly 2.80 the loader still fills _chars but
+	   * the room description is ShowRoomInfoV2's successor, which never reads
+	   * it, so a character there is listed nowhere at all. */
+	  if (asl_version_ <= 280 && gf.find_by_name ("character", i.name) != NULL)
+	    chars.push_back (i.name);
+	  else
+	    objs.push_back (i.name);
+	}
     }
   string qobjs = "", qfobjs = "";
   string objname, prefix, main, suffix, propval, print1, print2;
@@ -2513,6 +3027,39 @@ void geas_implementation::regen_var_objects ()
     }
   set_svar ("quest.objects", qobjs);
   set_svar ("quest.formatobjects", qfobjs);
+
+  /* The pre-2.80 characters line.  quest.characters gets the comma-joined
+   * list, without the " and " the printed sentence gets, because Quest sets
+   * the variable before it rewrites the last comma (V4Game.Part2.cs:1836-1856)
+   * -- and gets "" when there is nobody here, where the line itself still
+   * prints. */
+  characters_display_ = "";
+  if (asl_version_ < 280)
+    {
+      string qchars = "";
+      for (size_t i = 0; i < chars.size (); i ++)
+	{
+	  if (!get_obj_property (chars[i], "alias", main))
+	    main = chars[i];
+	  print2 = "|b" + main + "|xb";
+	  if (get_obj_property (chars[i], "prefix", prefix))
+	    print2 = prefix + " " + print2;
+	  if (get_obj_property (chars[i], "suffix", suffix))
+	    print2 = print2 + " " + suffix;
+	  qchars = qchars + (i > 0 ? ", " : "") + print2;
+	}
+      set_svar ("quest.characters", qchars);
+      if (qchars == "")
+	characters_display_ = "There is nobody here.";
+      else
+	{
+	  std::string::size_type lastcomma = qchars.rfind (',');
+	  if (lastcomma != string::npos)
+	    qchars = trim (qchars.substr (0, lastcomma)) + " and "
+		     + trim (qchars.substr (lastcomma + 1));
+	  characters_display_ = "You can see " + qchars + " here.";
+	}
+    }
 }
 
 void geas_implementation::regen_var_room ()
@@ -2533,8 +3080,11 @@ void geas_implementation::regen_var_room ()
   formatroom = "|cr" + formatroom + "|cb";
   if (get_room_property (state.location, "prefix", tmp))
     formatroom = tmp + " " + formatroom;
-  if (get_room_property (state.location, "suffix", tmp))
-    formatroom = formatroom + " " + tmp;
+  /* No suffix: Quest has a Suffix field on objects and on characters, and none
+   * on a room -- ShowRoomInfo builds the displayed name out of the alias and
+   * the prefix and nothing else (V4Game.Part2.cs:3724-3742).  A `suffix' tag on
+   * a room is read into the property table like any other and never displayed.
+   * See finding 73. */
   set_svar ("quest.formatroom", formatroom);
 
 }
@@ -2549,11 +3099,44 @@ void geas_implementation::regen_var_look ()
 
 void geas_implementation::regen_var_dirs()
 {
+  /* From 4.10 the three older doorway variables are not written at all.
+   * UpdateDoorways hands the whole job to GetAvailableDirectionsDescription and
+   * skips the block that sets ".dirs" and the "out" pair
+   * (V4Game.Part2.cs:7207-7211), and ShowRoomInfo's places half is inside its
+   * own `if ASLVersion < 410` (ibid. 3838-3874).  So a 4.10 game that prints
+   * one of them gets an empty string: Nearco's "Puedes ir al: |b#quest.
+   * doorways.dirs#|xb" is a bare label in Quest, and geas filled it with all
+   * eight compass points.  quest.doorways is the mirror image -- set only from
+   * 4.10 (see below) -- so exactly one of the two forms is live at a time. */
+  const bool old_vars = (asl_version_ < 410);
   vector <string> dirs;
-  // the -1 is so that it skips 'out'
-  for (size_t i = 0; i < ARRAYSIZE (dir_names) - 1; i ++)
-    if (exit_dest (state.location, dir_names[i]) != "")
-      dirs.push_back (dir_names[i]);
+  if (asl_version_ >= 280)
+    {
+      /* 2.80 to 4.09: the fixed compass order, straight out of UpdateDoorways'
+       * ten `if` statements (V4Game.Part2.cs:7229-7286).  The -1 skips "out",
+       * which gets its own line below. */
+      for (size_t i = 0; i < ARRAYSIZE (dir_names) - 1; i ++)
+	if (exit_dest (state.location, dir_names[i]) != "")
+	  dirs.push_back (dir_names[i]);
+    }
+  else
+    {
+      /* Below 2.80 there is no room object to read the exits off: ShowRoomInfoV2
+       * walks the room block's own lines and appends each direction as it meets
+       * it (V4Game.Part2.cs:1935-1980), so the line follows the order the author
+       * wrote the tags in.  QDK writes its diagonals NW, NE, SW, SE, which is
+       * why the fixed order showed up as a swapped pair -- Fade To White (210)
+       * listed "northeast, northwest, southeast or southwest" where Quest says
+       * "northwest, northeast, southwest or southeast", and Koww (200) had its
+       * two exits the wrong way round.
+       *
+       * That loop also has no branch for "up" or "down": below 2.80 the two of
+       * them are walkable but never named in the line. */
+      for (const string &dir: exit_dir_order (state.location))
+	if (dir != "up" && dir != "down" && dir != "out"
+	    && exit_dest (state.location, dir) != "")
+	  dirs.push_back (dir);
+    }
   string exits = "";
   if (dirs.size() == 1)
     exits = "|b" + dirs[0] + "|xb";
@@ -2568,7 +3151,8 @@ void geas_implementation::regen_var_dirs()
 	    exits = exits + " or ";
 	}
     }
-  set_svar ("quest.doorways.dirs", exits);
+  if (old_vars)
+    set_svar ("quest.doorways.dirs", exits);
 
   string out_dest = exit_dest (state.location, "out");
   /* An "out { ... }" script is not a destination: readfile de-inlines the block
@@ -2583,7 +3167,9 @@ void geas_implementation::regen_var_dirs()
    * pre-410 two-line form.) */
   if (out_dest.find ('<') != string::npos)
     out_dest = "";
-  if (out_dest == "")
+  if (!old_vars)
+    ;   /* the "out" pair belongs to the pre-4.10 block too */
+  else if (out_dest == "")
     {
       set_svar ("quest.doorways.out", "");
       set_svar ("quest.doorways.out.display", "");
@@ -2609,9 +3195,21 @@ void geas_implementation::regen_var_dirs()
        * the bold, exactly as get_places () renders a place's prefix.  It used to
        * be dropped whenever the destination had a display name -- i.e. always,
        * for a room that exists -- which left it visible only in the one case it
-       * was not written for. */
+       * was not written for.
+       *
+       * An aliased destination below ASL 3.60 loses it, though: UpdateDoorways
+       * keeps "prefix name" together only while there is no alias to replace
+       * the name with, and reattaches the prefix to an alias from 3.60 on
+       * (V4Game.Part2.cs:7294-7305).  King's Quest V (350) goes `out <the;
+       * small country inn -outdoors>' to an aliased room, and Quest's line is
+       * "You can go out to small country inn -outdoors." */
+      string out_alias;
       if (tmp == "")
 	tmp = out_dest;
+      else if (asl_version_ < 360
+	       && get_obj_property (out_dest, "alias", out_alias)
+	       && out_alias != "")
+	prefix = "";
       tmp = (prefix != "" ? prefix + " " : "") + "|b" + tmp + "|xb";
 
       GEAS_DBG << ",    final value {" << tmp << "}" << endl;
@@ -2623,16 +3221,24 @@ void geas_implementation::regen_var_dirs()
   string printed_places = "";
   for (size_t i = 0; i < current_places.size(); i ++)
     {
+      /* Quest builds the list with ", " after every entry, strips the trailing
+       * one and then turns the last remaining comma into " or" -- so from 2.80
+       * the separator before the final place is " or ", with no comma of its
+       * own however many places there are (V4Game.Part2.cs:3845-3868).  The
+       * pre-2.80 display keeps the comma: it splits at Left(places, lastComma)
+       * rather than lastComma - 1 (ibid. 2073-2085), which is where geas's
+       * Oxford comma came from -- it just applied it at every version. */
       if (i == 0)
 	printed_places = current_places[i][0];
-      else if (i < current_places.size() - 1)
+      else if (i + 1 < current_places.size())
 	printed_places = printed_places + ", " + current_places[i][0];
-      else if (current_places.size() == 2)
+      else if (asl_version_ >= 280)
 	printed_places = printed_places + " or " + current_places[i][0];
       else
 	printed_places = printed_places + ", or " + current_places[i][0];
     }
-  set_svar ("quest.doorways.places", printed_places);
+  if (old_vars)
+    set_svar ("quest.doorways.places", printed_places);
 
   /* "quest.doorways" -- the ASL 4.10 single folded list of everywhere you can go
    * from here, which is what a 4.10 game writes its own exits line from.  It is
@@ -2640,8 +3246,7 @@ void geas_implementation::regen_var_dirs()
    * called from UpdateDoorways only when ASLVersion >= 410 (V4Game.Part2.cs:
    * 7191-7194) -- below 4.10 the variable is never assigned at all, so leave it
    * alone there.  (The three ".dirs"/".out"/".places" variables are the other way
-   * round: 4.10 stops setting those.  geas keeps setting them, because it still
-   * prints the pre-4.10 two-line form of the exits itself; see above.)
+   * round: 4.10 stops setting those -- see old_vars above.)
    *
    * Every exit that still exists goes in one list, the compass ones first --
    * AllExits() walks the directions dictionary before the places dictionary
@@ -2657,8 +3262,18 @@ void geas_implementation::regen_var_dirs()
       for (const string &dir: exit_dir_order (state.location))
 	if (exit_dest (state.location, dir) != "")
 	  parts.push_back ("|b" + dir + "|xb");
+      /* A place is the one kind of exit that keeps a destination in the line:
+       * GetDirectionNameDisplay returns "to [prefix ]|bname|xb" for it, and
+       * the prefix is the *destination room's* (RoomExits.cs:512-528, set from
+       * _rooms[GetRoomId()].Prefix by RoomExit.cs:231) -- not the one written
+       * on the "place <the; X>" line, which is the pre-4.10 rule. */
       for (const auto &p: current_places)
-	parts.push_back (p[0]);
+	{
+	  string entry = "|b" + p[2] + "|xb", roomprefix;
+	  if (get_room_property (p[3], "prefix", roomprefix) && roomprefix != "")
+	    entry = roomprefix + " " + entry;
+	  parts.push_back ("to " + entry);
+	}
       /* Quest's own joining: ", " between all but the last two, " or " before
        * the last.  (Its counter is one ahead of the index, so a single exit gets
        * no separator at all and two are joined with " or ".) */
@@ -2840,9 +3455,64 @@ std::string geas_implementation::get_banner ()
   return banner;
 }
 
-void geas_implementation::run_command (const string &s1)
+/* Bring a line the player typed into the same encoding as the game text.
+ * read_geas_file transcodes the file from Windows-1252 to UTF-8, so a noun with
+ * an accent in it is UTF-8 by the time it reaches the object table; input,
+ * though, arrives from a non-Unicode Glk line request (Latin-1 bytes) or
+ * straight out of a command-script file, and "pañuelo" typed as one byte per
+ * letter would no longer match the object of that name.  The test is the same
+ * one the loader uses, and for the same reason: a line that is already
+ * well-formed UTF-8 -- which every pure-ASCII line is -- is left alone. */
+static string input_to_utf8 (const string &s)
 {
-  string s = s1;
+  return text_is_utf8 (s) ? s : cp1252_to_utf8 (s);
+}
+
+/* Quest's SendCommand starts the turn, waits for it to *suspend*, and only then
+ * ticks the timers (V4Game.Part2.cs:78-88):
+ *
+ *     _turnSuspendedTcs = new TaskCompletionSource();
+ *     _ = HandleCommandAsync(command);
+ *     await _turnSuspendedTcs.Task;
+ *     if (elapsedTime > 0) await Tick(elapsedTime);
+ *
+ * A turn suspends when it finishes -- but also at its first `wait` or `pause`,
+ * which is precisely what those do (DoWaitAsync/PauseAsync, V4Game.cs:3674-3680
+ * and 6663-6669, both SignalTurnSuspended before awaiting the player).  So in a
+ * turn that waits for a keypress the timers fire *at the wait*, and the rest of
+ * the turn's script runs after them.  Only the first one counts: the turn's
+ * TaskCompletionSource is created once per SendCommand and TrySetResult on an
+ * already-completed one does nothing.
+ *
+ * The quieter half of the same rule is that Tick skips a timer on the turn it
+ * was armed (BypassThisTurn, ibid. 118-123, which tick_timers has too), so a
+ * `timeron` *after* the turn's wait has already missed that turn's Tick and
+ * spends its bypass on the next one instead -- the timer starts a whole turn
+ * later than it would if the tick came at the end of the turn.  King's Quest V
+ * is built out of exactly this: its rooms arm their cut-scene countdowns from a
+ * script that opens with `wait <press any key>`.
+ *
+ * tick_this_turn is the host's `elapsedTime > 0`: the walkthrough harness's
+ * --tick, one tick per turn.  The Glk frontend leaves it false and drives
+ * tick_timers from a real-time heartbeat instead, as Quest 4 itself does. */
+void geas_implementation::run_command (const string &s1, bool tick_this_turn)
+{
+  turn_tick_pending = tick_this_turn;
+  run_command_body (s1);
+  suspend_turn ();
+}
+
+void geas_implementation::suspend_turn ()
+{
+  if (!turn_tick_pending)
+    return;
+  turn_tick_pending = false;
+  tick_timers ();
+}
+
+void geas_implementation::run_command_body (const string &s1)
+{
+  string s = input_to_utf8 (s1);
 
   if (!is_running_)
     return;
@@ -2888,7 +3558,7 @@ void geas_implementation::run_command (const string &s1)
     if (is_oops)
       {
 	if (oops_ready && corr != "")
-	  run_command (oops_before + corr + oops_after);
+	  run_command_body (oops_before + corr + oops_after);
 	else
 	  print_formatted ("I don't understand your command. "
 			   "Type HELP for a list of valid commands.");
@@ -3048,7 +3718,14 @@ match_rv geas_implementation::match_command (const string &input, uint ichar, co
 /* True if "text" occurs in "target" as a run of whole words, so a player can
  * name an object by part of its name: "rose" matches "Red Rose", "tondy"
  * matches "Head General Tondy", "board" matches "Notice board". */
-static bool word_match (const string &text, const string &target)
+/* need_right_boundary=false is Quest's abbreviation test, which is
+ * `InStr(" " + thisName, " " + name)` (V4Game.cs:4759): the typed noun has to
+ * start a word of the object's name, but it need not finish one.  So "old
+ * jacket" reaches an object actually called `old jacket.', which is how
+ * "Where's my cell phone" expects its jacket to be taken -- stdverbs.lib's
+ * full-stop splitter hands the take the noun with the stop shaved off. */
+static bool word_match (const string &text, const string &target,
+			bool need_right_boundary = true)
 {
   string x = lcase (trim (text)), t = lcase (target);
   if (x.empty())
@@ -3058,7 +3735,7 @@ static bool word_match (const string &text, const string &target)
     {
       bool left_ok = (pos == 0) || t[pos - 1] == ' ';
       std::string::size_type end = pos + x.length();
-      bool right_ok = (end == t.length()) || t[end] == ' ';
+      bool right_ok = !need_right_boundary || (end == t.length()) || t[end] == ' ';
       if (left_ok && right_ok)
 	return true;
       ++ pos;
@@ -3119,7 +3796,8 @@ bool geas_implementation::match_object (const string &text, const string &name, 
   /* Partial matching: accept any whole-word run of the alias or name, so the
    * player can refer to an object by part of its name ("rose" -> "Red Rose").
    * Only used as a fallback (see get_obj_name) so exact matches win. */
-  if (allow_partial && (word_match (text, alias) || word_match (text, name)))
+  if (allow_partial && (word_match (text, alias, false) ||
+			word_match (text, name, false)))
     return true;
 
   const GeasBlock *gb = gf.find_by_name ("object", name);
@@ -3172,6 +3850,12 @@ bool geas_implementation::dereference_vars (vector<match_binding> &bindings, con
 	/* Resolve pronouns ("it", "them", ...) to the last object referenced. */
 	string lc = lcase (trim (binding.var_text));
 	string obj_name;
+	/* Quest clears quest.lastobject on entry to Disambiguate and writes the
+	 * resolved name into it before returning (V4Game.cs:4623, 4646-4689),
+	 * so a fallback message printed after the object was found can name it.
+	 * stdverbs.lib is built entirely out of that: every one of its verb
+	 * responses is "You can't <verb> #(quest.lastobject):article#.". */
+	const_cast<geas_implementation *> (this)->set_svar ("quest.lastobject", "");
 	if (last_object != "" &&
 	    (lc == "it" || lc == "them" || lc == "they" ||
 	     lc == "him" || lc == "her"))
@@ -3186,8 +3870,12 @@ bool geas_implementation::dereference_vars (vector<match_binding> &bindings, con
 	     * the oops state below (both are mutable-by-design). */
 	    const_cast<geas_implementation *> (this)
 	      ->set_svar ("quest.error.object", binding.var_text);
+	    /* The miss is an overridable player error, not a fixed sentence:
+	     * MatchCommand answers an unresolved #@object# with BadThing from
+	     * ASL 3.91 and BadItem below it (V4Game.Part2.cs:2490-2500). */
 	    if (!quiet_notfound)
-	      print_formatted ("You don't see any " + binding.var_text + ".");
+	      const_cast<geas_implementation *> (this)
+		->display_error (asl_version_ >= 391 ? "badthing" : "baditem");
 	    /* Record the first unrecognised object word (its position in the
 	     * command) so a following "oops <correction>" can rebuild and re-run
 	     * the command with the word replaced. */
@@ -3208,6 +3896,8 @@ bool geas_implementation::dereference_vars (vector<match_binding> &bindings, con
 	    binding.var_text = obj_name;
 	    binding.var_name = binding.var_name.substr (1);
 	    last_object = obj_name;   /* remember for a later pronoun */
+	    const_cast<geas_implementation *> (this)
+	      ->set_svar ("quest.lastobject", obj_name);
 	  }
       }
   return rv;
@@ -3310,7 +4000,7 @@ void geas_implementation::set_vars (const vector<match_binding> &v)
     set_svar (i.var_name, i.var_text);
 }
 
-bool geas_implementation::run_commands (string cmd, const GeasBlock *room, bool is_internal)
+bool geas_implementation::run_commands (string cmd, const GeasBlock *room, bool is_internal, bool lib_pass)
 {
   match_rv match;
 
@@ -3322,10 +4012,17 @@ bool geas_implementation::run_commands (string cmd, const GeasBlock *room, bool 
 
   /* Commands and their split patterns are pre-parsed once (see GeasBlock /
    * ensure_cached); we no longer re-tokenize every line of the block each turn.
-   * Order is preserved, so file-order priority (game commands before appended
-   * lib commands) is unchanged. */
+   * Order within a pass is file order.
+   *
+   * The two passes are Quest's: ExecCommand tries the game's own commands, then
+   * its verbs, then the commands a library contributed, then the library's
+   * verbs (V4Game.Part2.cs:4224-4241).  stdverbs.lib is why that matters --
+   * its `command <#stdverbs.command#.>` matches literally anything ending in a
+   * full stop, so on one pass it would eat commands the game means to handle
+   * itself. */
   gf.ensure_cached (*room);
   for (const GeasBlock::cmd_entry &e : room->commands)
+    if (e.is_lib == lib_pass)
     for (const string &pat : e.patterns)
       if ((match = match_command (cmd, pat)))
 	{
@@ -3339,7 +4036,7 @@ bool geas_implementation::run_commands (string cmd, const GeasBlock *room, bool 
   return false;
 }
 
-bool geas_implementation::try_game_verb (const string &cmd, bool is_internal)
+bool geas_implementation::try_game_verb (const string &cmd, bool is_internal, bool lib_pass)
 {
   match_rv match;
 
@@ -3364,8 +4061,11 @@ bool geas_implementation::try_game_verb (const string &cmd, bool is_internal)
 	{
 	  std::string::size_type d1, d2;
 	  string tok = first_token (line, d1, d2);
-	  if (tok == "lib")                  /* optional library-verb prefix */
+	  bool is_lib = (tok == "lib");      /* optional library-verb prefix */
+	  if (is_lib)
 	    tok = next_token (line, d1, d2);
+	  if (is_lib != lib_pass)
+	    continue;
 	  string names_tok;
 	  if (tok == "verb")
 	    names_tok = next_token (line, d1, d2);
@@ -3474,6 +4174,12 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
        * runUserCommand gate the user commands above are (see try_game_verb). */
       if (try_game_verb (cmd, is_internal))
 	return true;
+      /* Then, and only then, whatever a library contributed: its commands, then
+       * its verbs.  Both lose to everything above (V4Game.Part2.cs:4224-4241). */
+      if (run_commands (cmd, gf.find_by_name ("game", "game"), false, true))
+	return true;
+      if (try_game_verb (cmd, is_internal, true))
+	return true;
     }
 
   /* Quest treats LEAVE (and the informal LOOK OUT) as synonyms for OUT/EXIT,
@@ -3536,10 +4242,67 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	    string obj = match.bindings[0].var_text, script;
 	    string ph = phrase;   /* the actual verb the player typed */
 	    string key = v.key;   /* the canonical verb it dispatches to */
-	    /* Opening or closing a container discovers it (seen gate), even when
-	     * the game scripts its own open/close action. */
-	    if (key == "open" || key == "close")
-	      set_obj_property (obj, "seen");
+	    /* "open" and "close" are their own routine in Quest, ExecOpenClose
+	     * (V4Game.cs:2702-2847), and only from ASL 3.91 -- below that there
+	     * is no container model at all and the words are left to the game
+	     * (V4Game.Part2.cs:4448-4455).  Its order of tests is load-bearing,
+	     * so follow it exactly:
+	     *
+	     *   not a container       -> cantopen/cantclose
+	     *   already open/closed   -> alreadyopen/alreadyclosed
+	     *   out of reach          -> cantopen/cantclose + the reason
+	     *   action <open>         -> run it, and nothing else
+	     *   no "open" property    -> cantopen/cantclose
+	     *   otherwise             -> its text (or defaultopen/defaultclose)
+	     *                            and then DoOpenClose
+	     *
+	     * Only that last branch changes any state, which is why Quest never
+	     * marks an opened container "seen" on the way in: DoOpenClose sets
+	     * "opened" and calls DoLook, and DoLook is one of the engine's two
+	     * places that set "seen" (the other being the "add" half of
+	     * DoAddRemove, from 4.10).  geas marked it seen before it even knew
+	     * whether the object could be opened, so a *refused* open -- "It is
+	     * already open." -- was enough to bring a hidden container's contents
+	     * into scope, and The Blight of Elantria handed over a bronze key and
+	     * a ruby that Quest keeps behind its `badthing` text. */
+	    if ((key == "open" || key == "close") && asl_version_ >= 391)
+	      {
+		bool opening = (key == "open");
+		const char *cant  = opening ? "cantopen" : "cantclose";
+		if (!has_obj_property (obj, "container"))
+		  display_error (cant, obj);
+		else if (opening == has_obj_property (obj, "opened"))
+		  display_error (opening ? "alreadyopen" : "alreadyclosed", obj);
+		else
+		  {
+		    string why;
+		    if (!player_can_access (obj, why))
+		      display_error_info (cant, obj, why);
+		    else if (get_obj_action (obj, key, script))
+		      run_script_as (obj, script);
+		    else if (get_obj_property (obj, key, script))
+		      {
+			/* A bare "open"/"close" line declares the container
+			 * openable without giving a message; Quest then prints
+			 * its defaultopen/defaultclose text, not a blank line. */
+			if (script == "")
+			  display_error (opening ? "defaultopen" : "defaultclose", obj);
+			else
+			  print_formatted (script);
+			do_open_close (obj, opening, true);
+		      }
+		    /* Not one of Quest's branches: geas resolves a `define
+		     * object` block's anonymous script line as a last-resort
+		     * action, where Quest folds the game's `default` block into
+		     * the object's own actions as it loads it.  Keep it in the
+		     * place the old dispatch had it, below the property. */
+		    else if (v.use_default && gf.get_obj_default_action (obj, script))
+		      run_script_as (obj, script);
+		    else
+		      display_error (cant, obj);
+		  }
+		return true;
+	      }
 	    /* Prefer an action/property named by the typed verb (objects define
 	     * e.g. action <search>, action <wear>), then the canonical key. */
 	    if (get_obj_action (obj, ph, script) ||
@@ -3578,43 +4341,24 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 		else
 		  display_error ("cantclose", obj);
 	      }
-	    else if (key == "look in" &&
-		     (has_obj_property (obj, "container") ||
-		      has_obj_property (obj, "surface")))
+	    else if (key == "look in")
 	      {
-		/* Look inside a container/surface with no custom handler: list its
-		 * contents if reachable, else its "list closed" text.  Looking in
-		 * discovers it (seen gate). */
-		set_obj_property (obj, "seen");
-		bool open_ = has_obj_property (obj, "surface") ||
-		  container_is_open (obj) || has_obj_property (obj, "transparent");
-		string lc;
-		if (!open_ && get_obj_property (obj, "list closed", lc))
-		  print_formatted (lc);
-		else if (!open_)
-		  print_formatted ("It is closed.");
-		else
-		  {
-		    vector<string> c = container_contents (obj);
-		    string m;
-		    for (size_t i = 0; i < c.size (); i++)
-		      m += (i == 0 ? "Inside you see " :
-			    (i + 1 == c.size () ? " and " : ", ")) + c[i];
-		    if (!c.empty ())
-		      print_formatted (m + ".");
-		    else
-		      {
-			/* An empty container answers with its "list empty" script or
-			   text if it has one (ObjectContents, V4Game.cs:3425-3431). */
-			string le;
-			if (get_obj_action (obj, "list empty", le))
-			  run_script_as (obj, le);
-			else if (get_obj_property (obj, "list empty", le))
-			  print_formatted (le);
-			else
-			  print_formatted ("It is empty.");
-		      }
-		  }
+		/* "look in", "look inside" and "look on" are not verbs of
+		 * their own in Quest: ExecLook strips whichever of the
+		 * three the player typed and then describes the object
+		 * exactly as "look at" does (V4Game.Part2.cs:4885-4922).
+		 * From 3.91 that description ends in the object's contents,
+		 * which is where a container's listing comes from -- there
+		 * is no look-inside listing anywhere in the engine.  geas
+		 * had one, in wording of its own ("Inside you see a and
+		 * b.", "It is closed.", "It is empty."), and printed no
+		 * description at all.
+		 *
+		 * "search" is geas's own third spelling and stays on this
+		 * handler; the two corpus games that give it a meaning
+		 * write `action <search>`, which the lookup above answers
+		 * before ever reaching here. */
+		do_look (obj);
 	      }
 	    else if (key == "wear")
 	      {
@@ -3633,9 +4377,10 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	      }
 	    else
 	      display_error ("defaultverb", obj);
-	    /* Opening/closing a container records its state even when a custom
-	     * action handled the verb, so a scripted "open <msg>" still updates
-	     * availability of the contents. */
+	    /* Below ASL 3.91 only -- from 3.91 the open/close verbs return above,
+	     * out of Quest's own ExecOpenClose.  Opening/closing a container
+	     * records its state even when a custom action handled the verb, so a
+	     * scripted "open <msg>" still updates availability of the contents. */
 	    if (key == "open" && has_obj_property (obj, "container") &&
 		!has_obj_property (obj, "opened"))
 	      { set_obj_property (obj, "not closed"); set_obj_property (obj, "opened"); }
@@ -3659,12 +4404,10 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
       if (!dereference_vars (match.bindings, is_internal))
 	return true;
 
-      string object = match.bindings[0].var_text;
-
-      set_obj_property (object, "seen");   /* discovered: gates container contents */
-      if (!dispatch_obj_verb (object, "look"))
-	display_error ("defaultlook", object);
-
+      /* ExecLook hands every spelling of the verb to DoLook, which is what
+       * marks the object "seen" -- and, from 3.91, follows its description with
+       * its contents. */
+      do_look (match.bindings[0].var_text);
       return true;
     }
 
@@ -3674,12 +4417,13 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
       if (!dereference_vars (match.bindings, is_internal))
 	return true;
 
+      /* ExecExamine answers with the object's own `examine` action or property
+       * and stops there -- no "seen", and no contents listing.  Only an object
+       * with nothing to say to EXAMINE falls through to DoLook, which is then
+       * told to word its own failure as defaultexamine (V4Game.cs:5680-5717). */
       string object = match.bindings[0].var_text;
-      set_obj_property (object, "seen");
-      /* examine, falling back to look. */
-      if (!dispatch_obj_verb (object, "examine") &&
-	  !dispatch_obj_verb (object, "look"))
-	display_error ("defaultexamine", object);
+      if (!dispatch_obj_verb (object, "examine"))
+	do_look (object, true);
       return true;
     }
 
@@ -3724,11 +4468,25 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
     }
   if (match)
     {
-      if (!dereference_vars (match.bindings, is_internal))
-	return true;
-      string script,
-	first = match.bindings[give_reversed ? 1 : 0].var_text,
-	second = match.bindings[give_reversed ? 0 : 1].var_text;
+      /* Two blanks, two scopes, as in "use X on Y": the item is looked for in
+       * the inventory and the recipient in the current room, and each miss has
+       * its own refusal -- NoItem for the item, BadCharacter for the recipient
+       * (ExecGive, V4Game.Part2.cs:4673-4735). */
+      vector<match_binding>
+	item_b (1, match.bindings[give_reversed ? 1 : 0]),
+	char_b (1, match.bindings[give_reversed ? 0 : 1]);
+      vector<string> inv_only (1, "inventory"), room_only (1, state.location);
+      if (!dereference_vars (item_b, inv_only, is_internal, true))
+	{
+	  display_error ("noitem", item_b[0].var_text);
+	  return true;
+	}
+      if (!dereference_vars (char_b, room_only, is_internal, true))
+	{
+	  display_error ("badcharacter", char_b[0].var_text);
+	  return true;
+	}
+      string script, first = item_b[0].var_text, second = char_b[0].var_text;
       if (!is_held (first))
 	display_error ("noitem", first);
       else if (get_obj_action (second, "give " + first, script))
@@ -3998,16 +4756,14 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	  {
 	    print_formatted (addtext);
 	    do_add_remove (first, second, true);
-	    set_obj_property (second, "seen");
 	  }
 	else if (has_obj_property (second, "surface") ||
 		 (has_obj_property (second, "container") && container_is_open (second)))
 	  {
 	    /* Default: relocate the item into/onto the target (real
-	     * containment), then report it.  Mark the target seen so the item
-	     * just placed in it is immediately referenceable (the seen gate). */
+	     * containment), then report it.  do_add_remove marks the target seen
+	     * for us where Quest does, from ASL 4.10 on. */
 	    do_add_remove (first, second, true);
-	    set_obj_property (second, "seen");
 	    string fdisp, sdisp;
 	    if (!get_obj_property (first, "alias", fdisp))  fdisp = first;
 	    if (!get_obj_property (second, "alias", sdisp)) sdisp = second;
@@ -4023,16 +4779,58 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
       (match = match_command (cmd, "get #@object#")) ||
       (match = match_command (cmd, "pick up #@object#")))
     {
-      if (!dereference_vars (match.bindings, is_internal))
-	return true;
+      /* ExecTake disambiguates in the current room and nowhere else
+       * (V4Game.Part2.cs:5132), so a noun that names both something carried and
+       * something lying here is the one lying here, with no menu.  Searching
+       * both at once made The Wizard's fourth yellow bead -- the one just found
+       * in the beds, with three already in hand -- a four-way question Quest
+       * never asks, and the walkthrough's answer to it was read as the next
+       * command.
+       *
+       * The inventory is consulted afterwards, only from 4.10, and only to pick
+       * the wording of the refusal (ibid. 5143-5167). */
+      vector<string> room_only (1, state.location);
+      if (!dereference_vars (match.bindings, room_only, is_internal, true))
+	{
+	  string noun = match.bindings[0].var_text;
+	  vector<match_binding> inv_b (match.bindings);
+	  vector<string> inv_only (1, "inventory");
+	  if (asl_version_ >= 410 &&
+	      dereference_vars (inv_b, inv_only, is_internal, true))
+	    display_error ("alreadytaken", inv_b[0].var_text);
+	  else
+	    display_error (asl_version_ >= 391 ? "badthing" : "baditem", noun);
+	  return true;
+	}
 
       string object = match.bindings[0].var_text;
-      /* Already carrying it? (Some objects are placed straight into the
-       * inventory by other actions, so a later "take" should not fail.) */
+      /* The same answer once more, for a name that reached this far while still
+       * being in hand: a Quest 2.x item, which has no world object to scope and
+       * so answers to its name from anywhere (see get_obj_name), or something
+       * parented into a carried container, which "in hand" reaches into from
+       * 3.91 on (see is_held).  TARDIS Escape parents a pocket to a worn
+       * trenchcoat and overrides alreadytaken; geas used to run a whole take
+       * turn, implied remove and all, on things the player already had. */
       if (is_held (object))
 	{
-	  print_formatted ("You already have it.");
+	  display_error (asl_version_ >= 410   ? "alreadytaken"
+			 : asl_version_ >= 391 ? "badthing"
+			 :                       "baditem", object);
 	  return true;
+	}
+      /* From 3.91 the object has to be reachable before anything else happens:
+       * ExecTake asks PlayerCanAccessObject and, on a no, prints badtake with
+       * the reason appended and returns without running any take script at all
+       * (V4Game.Part2.cs:5176-5186).  We went straight to the script, so
+       * Pyramid of Terror handed the player things out of shut containers. */
+      if (asl_version_ >= 391)
+	{
+	  string why;
+	  if (!player_can_access (object, why))
+	    {
+	      display_error_info ("badtake", object, why);
+	      return true;
+	    }
 	}
       if (get_obj_action (object, "take", tok))
 	{
@@ -4112,8 +4910,17 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 
   if ((match = match_command (cmd, "drop #@object#")))
     {
-      if (!dereference_vars (match.bindings, is_internal))
-	return true;
+      /* The inventory alone: ExecDrop's one Disambiguate is scoped to it, and a
+       * miss is NoItem from 3.91 and BadDrop below (V4Game.cs:5531-5556).  So a
+       * noun shared by a carried object and one already on the floor drops the
+       * carried one rather than asking which. */
+      vector<string> inv_only (1, "inventory");
+      if (!dereference_vars (match.bindings, inv_only, is_internal, true))
+	{
+	  display_error (asl_version_ >= 391 ? "noitem" : "baddrop",
+			 match.bindings[0].var_text);
+	  return true;
+	}
       string scr, obj = match.bindings[0].var_text;
       /* If the object is inside a container/surface, take it out first -- Quest
        * does this implicitly when you drop something still in a container. */
@@ -4335,6 +5142,21 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 					   : current_places[i][2];
 	  if (ci_equal (destination, target) || ci_equal (alt, target))
 	    {
+	      /* Same test, in the same place, as for a directional exit: RoomExit
+	       * .Go refuses a locked exit whatever it carries, script included
+	       * (RoomExit.cs:240-259).  A place is keyed on its destination room
+	       * -- see exit_declared_locked -- and can only be locked from 4.10,
+	       * where a room's exits are exit objects. */
+	      const string &dest = current_places[i][3];
+	      if (asl_version_ >= 410 && exit_locked (state.location, dest))
+		{
+		  string lm = exit_lock_message (state.location, dest);
+		  if (lm != "")
+		    print_formatted (lm);
+		  else
+		    display_error ("locked");
+		  return true;
+		}
 	      if (scripted)
 		{
 		  /* Copy first: the script may goto, which reallocates
@@ -4351,17 +5173,48 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
       return true;
     }
 
-  if (ci_equal (cmd, "inventory") || ci_equal (cmd, "i"))
+  if (ci_equal (cmd, "inventory") || ci_equal (cmd, "inv") || ci_equal (cmd, "i"))
     {
-      vector<vector<string> > inv = get_inventory();
-      if (inv.size() == 0)
-	print_formatted ("You are carrying nothing.");
-      else
-	print_formatted ("You are carrying:");
-      for (const auto &i: inv)
+      /* Quest prints "You are carrying:", a line break, and then the whole
+	 inventory as one sentence: each entry is prefix + name + suffix, the
+	 entries are joined with ", ", the last comma becomes " and", the first
+	 letter is capitalised and the line is stopped with a full stop
+	 (V4Game.Part2.cs:4496-4561).  An empty inventory is a sentence of its
+	 own.  The last comma is found by scanning the built string, as Quest
+	 does, so an object whose own name contains a comma moves the join.
+
+	 The capitalisation is applied to the assembled string *including* its
+	 markup, so when the first entry has no prefix the character it reaches
+	 is the "|" of the name's own bold tag and the name itself stays as the
+	 game spelt it.  Below 2.80 Quest lists bare items, with neither the
+	 bold nor the affixes -- and there the capital does land on the name. */
+      string inv;
+      for (const auto &i: get_inventory ())
 	{
-	  print_normal (i[0]);
-	  print_newline();
+	  string entry = i[0], prefix, suffix;
+	  if (asl_version_ >= 280)
+	    {
+	      entry = "|b" + entry + "|xb";
+	      /* A bare Quest 2.x item has no object record to carry affixes. */
+	      if (i.size () > 2)
+		{
+		  if (get_obj_property (i[2], "prefix", prefix))
+		    entry = prefix + " " + entry;
+		  if (get_obj_property (i[2], "suffix", suffix))
+		    entry = entry + " " + suffix;
+		}
+	    }
+	  inv += entry + ", ";
+	}
+      if (inv == "")
+	print_formatted ("You are not carrying anything.");
+      else
+	{
+	  inv.erase (inv.size () - 2);
+	  std::string::size_type lastcomma = inv.rfind (',');
+	  if (lastcomma != string::npos)
+	    inv = inv.substr (0, lastcomma) + " and" + inv.substr (lastcomma + 1);
+	  print_formatted ("You are carrying:|n" + pcase (inv) + ".");
 	}
       return true;
     }
@@ -4449,6 +5302,17 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 
       return true;
     }
+
+  /* SAVE is a built-in command of the engine's, not of the game's
+   * (V4Game.Part2.cs:4468), even though the dialog it opens belongs to the
+   * frontend -- which is why a typed SAVE never gets this far: geasglk
+   * intercepts it (handle_saverestore_command, geasglk.cc:316) and so does the
+   * walkthrough runner's --save-scum.  What does get here is `exec <save;
+   * normal>`, the "do you want to save?" that several corpus games offer from
+   * a `choice`, and the engine has to recognise it or the turn ends in
+   * "I don't understand your command". */
+  if (ci_equal (cmd, "save"))
+    return true;
 
   if (ci_equal (cmd, "quit"))
     {
@@ -4610,6 +5474,13 @@ void geas_implementation::run_script (const string &s, string &rv)
 	  return;
 	}
       tok = eval_param (tok);
+      /* An empty command line is not an error and does not even end a
+       * paragraph: ExecCommand returns on the spot, before the error path and
+       * before its closing Print("") (V4Game.Part2.cs:4134-4137).  "The Quest
+       * to find The Dark Hills" execs an empty string from a `choice` whose
+       * "no" branch does nothing. */
+      if (trim (tok) == "")
+	return;
       std::string::size_type index = tok.find (';');
       if (index == string::npos)
 	{
@@ -4705,17 +5576,14 @@ void geas_implementation::run_script (const string &s, string &rv)
 	      return;
 	    }
 	  do_add_remove (child, parent, true);
-	  /* From ASL 4.10 on, putting something into a container also marks the
-	   * container "seen"; Quest's own comment explains why -- otherwise you
-	   * could LOOK AT the object just added and have disambiguation fail. */
-	  if (asl_version_ >= 410)
-	    set_obj_property (parent, "seen");
 	}
       else
 	/* Quest clears the object's "parent" property and leaves its
 	 * ContainerRoom alone, so it ends up loose in whatever room the
-	 * container it came out of was in. */
-	do_add_remove (child, "", false);
+	 * container it came out of was in.  A parentless "remove" is the one
+	 * containment change that never reaches DoAddRemove, so it is also the
+	 * one that does not discover the container it emptied. */
+	do_add_remove (child, "", false, false);
       /* No sweep here: move() has already re-derived both the container the
        * object left and the one it entered, which is exactly the pair DoAddRemove
        * touches (V4Game.cs:2133, 2698). */
@@ -5265,7 +6133,7 @@ void geas_implementation::run_script (const string &s, string &rv)
 	  return;
 	}
       tok = eval_param (tok);
-      set_svar (tok, gi->get_string());
+      set_svar (tok, input_to_utf8 (gi->get_string()));
       return;
     }
     break;
@@ -5286,18 +6154,33 @@ void geas_implementation::run_script (const string &s, string &rv)
 	   * with == (V4Game.Part2.cs:2227). */
 	  if (tmp == "normal")
 	    {
-	      try_match (trim (tok.substr (0, index)), true, true);
+	      if (!try_match (trim (tok.substr (0, index)), true, true))
+		display_error ("badcommand");
 	    }
 	  else
 	    {
 	      gi->debug_print ("Bad " + tmp + " in exec in " + s);
-	      try_match (trim (tok.substr (0, index)), true, false);
+	      if (!try_match (trim (tok.substr (0, index)), true, false))
+		display_error ("badcommand");
 	    }
 	}
       else
 	{
-	  try_match (trim (tok.substr (0, index)), true, false);
+	  /* An exec'd command that matches nothing gets the same answer a typed
+	   * one does: ExecuteExec hands the line to the whole of ExecCommand,
+	   * error path included (V4Game.Part2.cs:2229, 4574).  stdverbs.lib
+	   * needs it -- its splitter turns "speak to mr. cake" into "speak to mr"
+	   * plus a stray "cake", and Quest answers the stray half. */
+	  if (!try_match (trim (tok.substr (0, index)), true, false))
+	    display_error ("badcommand");
 	}
+      /* Quest ends every ExecCommand with Print("") (V4Game.Part2.cs:4606), the
+       * blank line that separates one turn's output from the next.  Geas emits
+       * that separator at the top of run_command instead, which comes to the
+       * same thing for a command the player typed but leaves an exec'd one
+       * butted up against whatever follows.  stdverbs.lib's splitter is built
+       * entirely out of exec, so "north, then south" needs the break here. */
+      print_newline ();
       return;
     }
     break;
@@ -5666,8 +6549,13 @@ void geas_implementation::run_script (const string &s, string &rv)
        * moving the object of that name into the current room (V4Game.Part2.cs:
        * 6636-6647).  Below that, items and objects are separate tables and
        * "lose" is a flag on the item alone. */
+      /* Wherever the object was: Quest's PlayerItem moves it into the current
+       * room and runs its lose script without looking at where it came from
+       * (V4Game.Part2.cs:6652-6660), so "lose" means "put this object where I
+       * am standing", not "drop it if I am holding it".  st_give, its mirror
+       * image, has never had such a test either. */
       bool is_object = (asl_version_ >= 280 && state.obj_records (tok) != NULL);
-      if (is_object && ci_equal (get_obj_parent (tok), "inventory"))
+      if (is_object)
 	{
 	  move (tok, state.location);
 	  string tmp;
@@ -5709,6 +6597,18 @@ void geas_implementation::run_script (const string &s, string &rv)
   case st_msg: case st_helpmsg:
     {
       string stmt = tok;
+      /* Quest reads the message with GetParameter, which takes whatever lies
+       * between the line's first '<' and its first '>' and never looks at what
+       * comes before the '<' (V4Game.cs:1858-1874).  So a modifier word
+       * between the statement and its parameter is simply invisible to it --
+       * `nospeak`, the ASL keyword that suppresses the text-to-speech reading
+       * of a message (Libraries/quest.dat:204), is the one games write.  geas
+       * demanded the parameter as the very next token and dropped the whole
+       * message when it was not, which lost King's Quest V's and The Former's
+       * `msg nospeak <...>` lines. */
+      std::string::size_type lt = s.find ('<', c2);
+      if (lt != string::npos)
+	c2 = lt;
       tok = next_token (s, c1, c2);
       if (is_param (tok))
 	print_eval (param_contents(tok));
@@ -5747,6 +6647,7 @@ void geas_implementation::run_script (const string &s, string &rv)
 	}
       int i = (int) eval_double (param_contents(tok));
       gi->pause (i);
+      suspend_turn ();          /* PauseAsync suspends the turn, as `wait` does */
       return;
     }
     break;
@@ -5819,6 +6720,10 @@ void geas_implementation::run_script (const string &s, string &rv)
 	    sync = true;
 	}
       gi->play_sound (fname, looped, sync);
+      /* A synchronous sound holds the turn until it has played out, and Quest
+       * suspends for it too (V4Game.cs:7692-7697). */
+      if (sync)
+	suspend_turn ();
       return;
     }
     break;
@@ -6069,7 +6974,7 @@ void geas_implementation::run_script (const string &s, string &rv)
 	}
       else
 	{
-	  set_ivar (varname, eval_double(tok.substr (index+1)));
+	  set_ivar (varname, eval_set_numeric (tok.substr (index+1)));
 	}
       return;
     }
@@ -6110,7 +7015,7 @@ void geas_implementation::run_script (const string &s, string &rv)
       tok = eval_param (tok);
       std::string::size_type index = tok.find (';');
       string varname = trim (tok.substr (0, index));
-      set_ivar (varname, eval_double(tok.substr (index+1)));
+      set_ivar (varname, eval_set_numeric (tok.substr (index+1)));
       return;
     }
     break;
@@ -6186,6 +7091,10 @@ void geas_implementation::run_script (const string &s, string &rv)
 	  tok = eval_param (tok);
 	}
       gi->wait_keypress (tok);
+      /* The turn suspends here, so this is where its timers tick (see
+       * run_command).  Before the clear below, because in Quest the tick
+       * happens while the game still sits at the keypress. */
+      suspend_turn ();
       /* Quest clears the screen once the player presses a key; clear_screen
        * emits a blank-line separator (see GeasInterface::clear_screen). */
       gi->clear_screen ();
@@ -6615,6 +7524,47 @@ string geas_implementation::run_function (const string &pname, vector<string> ar
   return rv;
 }
 
+/* $removeformatting(...)$: strip Quest's own "|" markup, code by code
+ * (RemoveFormatting, V4Game.cs:121-220).  The table is the original's, in the
+ * original's order -- the one-letter codes are tested before the "x" ones they
+ * share a letter with, "|s" eats three characters (a point size) and every
+ * colour is two.
+ *
+ * The stale-length quirk is the original's too: `len` is declared outside the
+ * loop and only assigned by a branch that matches, so an unrecognised code
+ * removes as many characters as the last recognised one did, not one.  It is
+ * reproduced because a game written against Quest was written against that. */
+static string remove_formatting (const string &s)
+{
+  static const struct { const char *code; int len; } codes[] =
+    {{"b", 1}, {"xb", 2}, {"u", 1}, {"xu", 2}, {"i", 1}, {"xi", 2},
+     {"cr", 2}, {"cb", 2}, {"cl", 2}, {"cy", 2}, {"cg", 2},
+     {"n", 1}, {"xn", 2}, {"s", 3}, {"jc", 2}, {"jl", 2}, {"jr", 2},
+     {"w", 1}, {"c", 1}};
+
+  string rv = s;
+  int len = 0;
+  for (;;)
+    {
+      std::string::size_type pos = rv.find ('|');
+      if (pos == string::npos)
+	return rv;
+      /* Mid(s, pos + 1, 3): the three characters after the bar, or fewer at
+       * the end of the string. */
+      string code = rv.substr (pos + 1, 3);
+      for (const auto &c: codes)
+	if (code.rfind (c.code, 0) == 0)
+	  {
+	    len = c.len;
+	    break;
+	  }
+      if (len == 0)
+	len = 1;
+      rv = rv.substr (0, pos) + (pos + len + 1 <= rv.length ()
+				 ? rv.substr (pos + len + 1) : "");
+    }
+}
+
 string geas_implementation::bad_arg_count (const string &fname)
 {
   gi->debug_print ("Called " + fname + " with " +
@@ -6934,10 +7884,47 @@ string geas_implementation::run_function (const string &pname)
     }
   else if (pname == "numberparameters")
     return string_int (function_args.size());
-  else if (pname == "thisobject")
+  /* "thisobject" and "objectname" are the same thing -- the calling object's
+   * real name -- and "thisobjectname" is its alias (V4Game.cs:7175-7183),
+   * which Quest fills in with the name itself for an object that has none,
+   * so it is displayed_name here. */
+  else if (pname == "thisobject" || pname == "objectname")
     return this_object;
+  else if (pname == "thisobjectname")
+    return displayed_name (this_object);
+  else if (pname == "timerinterval")
+    {
+      if (function_args.size() != 1)
+	return bad_arg_count(pname);
 
-  /* disconnectedby, id, name, removeformatting */
+      /* Timer names CI and the miss value "!", as in timerstate above; the
+       * leading space is VB's Str() and is Quest's too -- "ubound" trims its
+       * result and this one does not (V4Game.cs:7118-7130). */
+      for (const auto &timer: state.timers)
+	if (ci_equal (timer.name, function_args[0]))
+	  return " " + string_int (timer.interval);
+      gi->debug_print ("No such timer '" + function_args[0] + "'");
+      return "!";
+    }
+  else if (pname == "removeformatting")
+    {
+      if (function_args.size() != 1)
+	return bad_arg_count(pname);
+
+      return remove_formatting (function_args[0]);
+    }
+  /* An exit *object*, which is a 4.10 notion geas has no model for: its exits
+   * are still the direction properties of a room.  Quest hands back the exit's
+   * object name, or "" when there is none (V4Game.cs:7196-7205); "" is the
+   * closer of the two answers to give, and below 4.10 the name is not a
+   * function at all and falls through to the [ERROR] below. */
+  else if (pname == "findexit" && asl_version_ >= 410)
+    {
+      gi->debug_print ("findexit is not supported");
+      return "";
+    }
+
+  /* disconnectedby, id, name */
 
   string rv = "";
 
@@ -6953,8 +7940,13 @@ string geas_implementation::run_function (const string &pname)
 	  }
 	return rv;
       }
+  /* A name that is neither a built-in nor a `define function` block prints a
+   * marker rather than nothing: DoFunction logs "No such function" and returns
+   * the literal "[ERROR]" (V4Game.cs:6763-6771).  Returning "" instead closed
+   * the text up over the hole, which hid the author's typo from anyone reading
+   * a transcript -- and hid it from this port's own corpus diffs. */
   gi->debug_print ("No function " + pname + " found.");
-  return "";
+  return "[ERROR]";
 }
 
 v2string geas_implementation::get_inventory ()
@@ -7054,10 +8046,16 @@ v2string geas_implementation::get_room_exits ()
 	rv.push_back ({label, dir_names[i]});
       }
 
-  /* The "out" exit, with the place it leads to when one is named. */
+  /* The "out" exit, with the place it leads to when one is named.  Split here
+   * rather than read back from quest.doorways.out: that variable is a pre-4.10
+   * one and a 4.10 game never sets it (see regen_var_dirs), while this pane is
+   * ours and is drawn at every version. */
   if (exit_dest (state.location, "out") != "")
     {
-      string out = get_svar ("quest.doorways.out");
+      string out, prefix, raw = exit_dest (state.location, "out");
+      if (raw.find ('<') != string::npos)
+	raw = "";   /* an "out { ... }" script is not a destination */
+      split_exit_dest (raw, out, prefix);
       rv.push_back ({out != "" ? "Out to " + out : string ("Out"), "out"});
     }
 
@@ -7584,6 +8582,12 @@ string geas_implementation::eval_string_body (const string &s)
 	    rv += get_svar (s.substr (i+1, j-i-1));
 	  else
 	    {
+	      /* A property the object hasn't got expands to "!", not to nothing:
+	       * GetStringContents reaches GetObjectProperty with its default
+	       * logError = true, which logs the miss and returns "!"
+	       * (V4Game.Part2.cs:2581, V4Game.cs:6249-6252).  stdverbs.lib makes
+	       * this visible everywhere -- an object with no `article` answers
+	       * "You can't buy !.". */
 	      string propname = s.substr (k+1, j-k-1);
 	      if (s[i+1] == '(')
 		{
@@ -7599,8 +8603,11 @@ string geas_implementation::eval_string_body (const string &s)
 		  if (get_obj_property (objname, propname, tmp))
 		    rv += tmp;
 		  else
-		    gi->debug_print ("e_s: Evaluating nonexistent object prop "
-				     "{" + objname + "}:{" + propname + "}");
+		    {
+		      gi->debug_print ("e_s: Evaluating nonexistent object prop "
+				       "{" + objname + "}:{" + propname + "}");
+		      rv += "!";
+		    }
 		}
 	      else
 		{
@@ -7609,7 +8616,10 @@ string geas_implementation::eval_string_body (const string &s)
 		  if (get_obj_property (objname, propname, tmp))
 		    rv += tmp;
 		  else
-		    gi->debug_print ("e_s: Evaluating nonexistent var " + objname);
+		    {
+		      gi->debug_print ("e_s: Evaluating nonexistent var " + objname);
+		      rv += "!";
+		    }
 		}
 	    }
 	  i = j;
@@ -7654,6 +8664,18 @@ string geas_implementation::eval_string_body (const string &s)
 	    {
 	      gi->debug_print ("Unmatched $s in " + s);
 	      return rv + s.substr (i);
+	    }
+	  /* "$$" is the escape for a literal dollar, the same rule the other three
+	   * conversion characters follow: ConvertParameter takes the text between
+	   * the pair, finds it empty and appends the character itself
+	   * (V4Game.cs:6705-6708).  Evaluating the empty name as a function
+	   * instead swallowed the pair whole -- Pure Chaos writes its prices as
+	   * "$$1000000" and the player was shown "1000000". */
+	  if (j == i + 1)
+	    {
+	      rv += "$";
+	      i = j;
+	      continue;
 	    }
 	  string tmp1 = s.substr (i + 1, j - i - 1);
 	  GEAS_DBG << "e_s: first substr was '" << tmp1 << "'\n";
@@ -7787,6 +8809,41 @@ void geas_implementation::tick_timers()
  *                                 *
  ***********************************/
 
+/* The size in a |sNN code: Quest reads the two characters after the "s" with
+ * int.TryParse (TextFormatter.cs:170), which takes an optional sign and then
+ * digits, and nothing else -- so "09" and "-1" are sizes and "9|" is not.  The
+ * old code parsed "|s" plus the first digit instead of the two digits, so it
+ * never read a size at all; nothing in a transcript shows the difference,
+ * since the size lands in a Glk style rather than in the text.
+ *
+ * int.TryParse's default is NumberStyles.Integer, which also skips whitespace
+ * at either end, and that half is visible: ChristmaKwanzakkah's title banner
+ * ends `|cr! |s0 |cb |xb', whose two characters after the "s" are "0" and a
+ * space.  Quest reads that as a size and eats the code; a stricter reader
+ * calls it malformed and prints a literal "|s0" in the middle of the game's
+ * first line (finding 71). */
+static bool parse_two_char_int (const string &s, int &rv)
+{
+  size_t b = 0, e = s.length ();
+  while (b < e && isspace ((unsigned char) s[b]))
+    b ++;
+  while (e > b && isspace ((unsigned char) s[e - 1]))
+    e --;
+  string t = s.substr (b, e - b);
+  if (t.empty ())
+    return false;
+  size_t d = (t[0] == '-' || t[0] == '+') ? 1 : 0;
+  for (size_t k = d; k < t.length (); k ++)
+    if (!(t[k] >= '0' && t[k] <= '9'))
+      return false;
+  if (d == t.length ())
+    return false;
+  rv = parse_int (t.substr (d));
+  if (t[0] == '-')
+    rv = -rv;
+  return true;
+}
+
 GeasResult GeasInterface::print_formatted (const string &s, bool with_newline)
 {
   std::string::size_type i, j;
@@ -7799,10 +8856,24 @@ GeasResult GeasInterface::print_formatted (const string &s, bool with_newline)
           // and update_style should be called at the end.
           // it is true unless cleared (by |n or |w).
           bool changed = true;
+	  /* Set by any arm that turns out not to be a code after all.  Quest
+	   * tries the two-character codes, then the one-character ones, then
+	   * |sNN, and if none matches it emits a literal "|" and carries on
+	   * reading from the character right after the bar, which is then
+	   * ordinary text (TextFormatter.cs:161-176).  This used to fall off
+	   * the end of the switch with the index already past the code
+	   * character, so the loop's own i++ ate it too: The Lazy Gun Cult's
+	   * |K| sigil and |plaque| emphasis both lost two characters a bar,
+	   * which ran the surrounding words together. */
+	  bool literal_bar = false;
           j = i;
           i ++;
           if (i == s.length())
-            continue;
+            {
+	      /* A bar with nothing after it is a code that matched nothing. */
+	      print_normal ("|");
+              continue;
+            }
 
 	  /* The | codes are case-sensitive: Quest's TextFormatter switches on
 	     the raw one- and two-character code. */
@@ -7832,14 +8903,19 @@ GeasResult GeasInterface::print_formatted (const string &s, bool with_newline)
 
             case 's':
 	      {
-		i ++;
-		if (i == s.length() || !(s[i] >= '0' && s[i] <= '9'))
-		  continue;
-		i ++;
-		if (i == s.length() || !(s[i] >= '0' && s[i] <= '9'))
-		  continue;
-
-		int newsize = parse_int (s.substr(j, i-j));
+		/* |sNN wants exactly two characters after the "s", and they
+		 * have to parse as a number: Quest reads them with
+		 * int.TryParse, under a guard that there are two of them
+		 * (TextFormatter.cs:165-176).  A malformed one -- Uranus opens
+		 * with a stray |s9| -- is not a code, and prints as itself. */
+		int newsize;
+		if (i + 2 >= s.length ()
+		    || !parse_two_char_int (s.substr (i + 1, 2), newsize))
+		  {
+		    literal_bar = true;
+		    break;
+		  }
+		i += 2;
 		if (newsize > 0)
 		  cur_style.size = newsize;
 		else
@@ -7852,7 +8928,13 @@ GeasResult GeasInterface::print_formatted (const string &s, bool with_newline)
 
               if (i == s.length() ||
                   !(s[i] == 'l' || s[i] == 'c' || s[i] == 'r'))
-                continue;
+                {
+		  /* Same as |sNN: "j" on its own is not one of Quest's
+		   * one-character codes, so a malformed |jX is a literal
+		   * bar. */
+		  literal_bar = true;
+		  break;
+		}
               if (s[i] == 'l') cur_style.justify = JUSTIFY_LEFT;
               else if (s[i] == 'r') cur_style.justify = JUSTIFY_RIGHT;
               else if (s[i] == 'c') cur_style.justify = JUSTIFY_CENTER;
@@ -7865,13 +8947,19 @@ GeasResult GeasInterface::print_formatted (const string &s, bool with_newline)
 
             case 'w':
               wait_keypress("");
+              /* A wait, and so a suspension: the turn's timers tick here
+               * (see geas_implementation::run_command). */
+              if (runner != NULL)
+                runner->turn_suspended();
               changed = false;
               break;
 
             case 'x':
               i ++;
 
-              if (s[i] == 'b')
+	      if (i == s.length())
+		literal_bar = true;
+              else if (s[i] == 'b')
                 cur_style.is_bold = false;
               else if (s[i] == 'u')
                 cur_style.is_underlined = false;
@@ -7879,12 +8967,27 @@ GeasResult GeasInterface::print_formatted (const string &s, bool with_newline)
                 cur_style.is_italic = false;
               else if (s[i] == 'n' && i + 1 == s.length())
                 changed = with_newline = false;
+	      else
+		/* xb, xi and xu are the only two-character x codes; |xn is
+		 * read off the end of the whole string before formatting
+		 * starts (TextFormatter.cs:29-33), so one in the middle is not
+		 * a code either. */
+		literal_bar = true;
               break;
 
             default:
               GEAS_DBG << "p_f: Fallthrough " << s[i] << std::endl;
               changed = false;
+	      literal_bar = true;
             }
+	  if (literal_bar)
+	    {
+	      print_normal ("|");
+	      /* Resume at the bar, so the loop's i++ lands on the character
+	       * after it and the text branch prints it. */
+	      i = j;
+	      continue;
+	    }
           if (changed)
             update_style();
         }

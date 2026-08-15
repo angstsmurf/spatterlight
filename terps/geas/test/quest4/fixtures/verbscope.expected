@@ -1,0 +1,38 @@
+
+verbscope
+
+You are in Kitchen.
+There is a green apple, a brass key and the cook here.
+A tidy kitchen.
+
+> i
+You are carrying:
+A red apple, a spare key and a cook doll.
+
+> drop apple
+You drop it.
+
+> take key
+You take the brass key off the table.
+
+> take spare key
+You already have that.
+
+> drop green apple
+You don't have that.
+
+> give green apple to cook
+You don't have that.
+
+> give spare key to cook
+"That's mine," says the cook, pocketing it.
+
+> i
+You are carrying:
+A spare key, a brass key and a cook doll.
+
+> look
+You are in Kitchen.
+There is a red apple, a green apple and the cook here.
+A tidy kitchen.
+[runner] turns=9 leftover=0 running=true

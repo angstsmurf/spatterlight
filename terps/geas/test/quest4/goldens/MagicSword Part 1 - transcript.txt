@@ -1,5 +1,5 @@
 
-MagicSword Part 1: Legacy of Earth, v1.0 Dom
+MagicSword Part 1: Legacy of Earth, v1.0 | Dom
 
 What is your name?
 Well Sassanka, you are a young pupil at the Luridii Acadamy. You were sent here when you were about 7 to study magic. Since then you have been drilled in the art of sorcery, but also combat skills have been taught to you, as yours is a harsh world.
@@ -7,7 +7,7 @@ Well Sassanka, you are a young pupil at the Luridii Acadamy. You were sent here 
 
 
 You are in a grand room, the carpet is blue and yellow, and on the walls hang pictures of previous students, who are now well known in the world.
-There is The Head Luridii and A Soothsayer here.
+You can see The Head Luridii and A Soothsayer here.
 You can go out to The Hallway.
 
 > speak to head luridii
@@ -17,15 +17,17 @@ You can go out to The Hallway.
 
 > out
 You are in a grand hallway, with walls of stone, and towering pillars lining it. Here there are doorways leading to all parts of the building.
+There is nobody here.
 You can go out to Outside the Academy.
 You can go to Your Training room Training Room 1, The Library, or The Grand Luridii's Study.
 
 > go to training room 1
-You are in Training Room 1
-There is Your Combat Master and Your Magic Teacher here.
+You are in Training Room 1.
+You can see Your Combat Master and Your Magic Teacher here.
 You can go out to The Hallway.
-You can go northeast or northwest.
-To the northwest is a room where you fight magical replicas of enemys
+You can go northwest or northeast.
+To the northwest is a room where you fight magical replicas of enemys; using weapons.
+ And to the northeast is the room where you fight replicas of enemys; using spells.
 
 > speak to magic teacher
 Well, the time has come for you to leave these halls of learning. Never forget though, that there is always more. You will need this Luridii Staff, and you know a few of the spells. It has been a pleasure teaching you.
@@ -35,8 +37,8 @@ Well, the time has come for you to leave these halls of learning. Never forget t
 "You're gonna need weapons on the journey. You can have this sword, it's magical because it's mage crafted, but the blade's better than the magic, and this normal Dagger."
 
 > northeast
-You are in Training Room 3
-There is a Demon Tree here.
+You are in Training Room 3.
+You can see a Demon Tree here.
 You can go southwest.
 A demonic tree is running at you!! "Use your flam spell on it!!"
 
@@ -44,50 +46,59 @@ A demonic tree is running at you!! "Use your flam spell on it!!"
 You raise your staff, and a bolt of fire comes from the end, burning the tree demon into a pile of simulated ash.
 You hear your Magic Teachers's voice; "Know your foe. Look at it and decide which spell to use."
 
+
 > use air rush spell on smoke whisp
 You point your staff at it and a rush of wind blows it away.
 You hear your Magic Teachers's voice; "Well done. Do the same with this one."
+
 
 > use light flash spell on evil wraith
 You point the staff at it, there is a flash of purple light, and the thing glows yellow and explodes.
 You hear your Magic Teachers's voice; "Nicely done. Now your real challenge comes. Fight a replica mage. Unlike the others there isn't  a characteristic that makes it weak against certain spells. It will also use Minor Castings, such as Flam etc, on you."
 
+
 > use flam spell on mage
 Fire blasts through him. You can see it hurts quite a bit.
 He uses the Flam Spell on you. You bear the pain.
 
-> use flam spell on mage
-Fire blasts through him. You can see it hurts quite a bit.
-He uses the Tremor spell on you.
 
 > use flam spell on mage
 Fire blasts through him. You can see it hurts quite a bit.
 He uses the Tremor spell on you.
+
+
+> use flam spell on mage
+Fire blasts through him. You can see it hurts quite a bit.
+He uses the Tremor spell on you.
+
 
 > use flam spell on mage
 Fire blasts through him. You can see it hurts quite a bit.
 The mage glows in a spectrum of colour, then fades away.
 You hear your Magic Teachers's voice; "Very well done indeed, my child. You may use this, then leave this room, as there is nothing to detain you now.
 
+
 > take heal gem
 You touch the gem, and its green magic flows around you...
 As the gem fades to nothing, you feel much better!!
 
 > southwest
-You are in Training Room 1
-There is Your Combat Master and Your Magic Teacher here.
+You are in Training Room 1.
+You can see Your Combat Master and Your Magic Teacher here.
 You can go out to The Hallway.
-You can go northeast or northwest.
-To the northwest is a room where you fight magical replicas of enemys
+You can go northwest or northeast.
+To the northwest is a room where you fight magical replicas of enemys; using weapons.
+ And to the northeast is the room where you fight replicas of enemys; using spells.
 
 > out
 You are in a grand hallway, with walls of stone, and towering pillars lining it. Here there are doorways leading to all parts of the building.
+There is nobody here.
 You can go out to Outside the Academy.
 You can go to Your Training room Training Room 1, The Library, or The Grand Luridii's Study.
 
 > go to study
 You are in a grand room, the carpet is blue and yellow, and on the walls hang pictures of previous students, who are now well known in the world.
-There is The Head Luridii and A Soothsayer here.
+You can see The Head Luridii and A Soothsayer here.
 You can go out to The Hallway.
 
 > speak to head luridii
@@ -113,7 +124,7 @@ You put up a brave fight, but nothing you do seems to affect them. And there are
  Hours later you wake, feeling dizzy, bruised, and heavy-hearted that you must return to the academy to tell your master, you have failed.....
 Press any key to continue
 You are in a grand room, the carpet is blue and yellow, and on the walls hang pictures of previous students, who are now well known in the world.
-There is The Head Luridii and A Soothsayer here.
+You can see The Head Luridii and A Soothsayer here.
 You can go out to The Hallway.
 
 > speak to head luridii
@@ -129,6 +140,7 @@ He looks at you. "You know what you must do. You must seek out Tolmanorgagon and
 "And by the way I forgot to give you any money for the journey. Here you are.
 
 You are in a grand hallway, with walls of stone, and towering pillars lining it. Here there are doorways leading to all parts of the building.
+There is nobody here.
 You can go out to Outside the Academy.
 You can go to Your Training room Training Room 1, The Library, or The Grand Luridii's Study.
 
@@ -138,19 +150,23 @@ You can go through the grand doorway of the of the Luridii Academy.
 
 > northeast
 You are on the Road to Calamatra
+There is nobody here.
 There is a Statue here.
 You can go northeast or southwest.
 
 > northeast
 You are on the Road to Calamatra
-There is a Signpost and a Tree Demon here.
+You can see a Tree Demon here.
+There is a Signpost here.
 You can go northeast or southwest.
 
 > use flam spell on tree demon
 Fire shoots from the staff, reducing the tree to cinders.
 
+
 > northeast
 You stand before the gateway to Calamatra
+There is nobody here.
 You can go north or southwest.
 
 > north
@@ -161,17 +177,18 @@ There is a certain gloomy air about the place.
 
 > north
 You are on Cal Street.
+There is nobody here.
 You can go north or south.
-You can go to the Sword and Staff Inn or the village Sorcerers House.
+You can go to the Sword and Staff Inn, or the village Sorcerers House.
 
 > north
 You stand before the gate, leading out of Calamatra to the road going to Greenrock Pass.
-There is a Guard here.
+You can see a Guard here.
 You can go north or south.
 
 > north
 You are on the road to Greenrock Pass
-There is a Bandit here.
+You can see a Bandit here.
 You can go north or south.
 A shifty looking person, who is almost definitely a bandit, walks up to you
 "Stick em up" He says while drawing a knife "Gimme all yer money." What the fool doesn't seem to notice however, is that you are armed.
@@ -180,8 +197,10 @@ A shifty looking person, who is almost definitely a bandit, walks up to you
 You calmly draw your Sword..... And stick it through the dumb bandit.
  A search of the body reveals a purse containing 5 astrals, no doubt stolen from some other traveller.
 
+
 > north
 You are on the road to Greenrock Pass. Northwards you can see the pass itself.
+There is nobody here.
 You can go north or south.
 
 > north
@@ -192,25 +211,31 @@ In the normal way you would be able to go north, but as it is, a hulking great m
 Fire blasts from your staff. Golomoshk roars in pain.
 The thing bashes you with its large club.
 
-> use flam spell on golomoshk
-Fire blasts from your staff. Golomoshk roars in pain.
-The thing bashes you with its large club.
 
 > use flam spell on golomoshk
 Fire blasts from your staff. Golomoshk roars in pain.
 The thing bashes you with its large club.
+
+
+> use flam spell on golomoshk
+Fire blasts from your staff. Golomoshk roars in pain.
+The thing bashes you with its large club.
+
 
 > use flam spell on golomoshk
 Fire blasts from your staff. Golomoshk roars in pain.
 It swings its club round......and hits itself in the side of the head!
 
+
 > use flam spell on golomoshk
 Fire blasts from your staff. Golomoshk roars in pain.
 It swings its club round......and hits itself in the side of the head!
 
+
 > use flam spell on golomoshk
 Fire blasts from your staff. Golomoshk roars in pain.
 The thing bashes you with its large club.
+
 
 > use flam spell on golomoshk
 Fire blasts from your staff. Golomoshk roars in pain.
@@ -218,25 +243,30 @@ You hear something from the bushes "Get out of the way!" Azambri emerges from th
  Now lets go get the reward."
 You find a pile of coins!
 You are on the road to Greenrock Pass. Northwards you can see the pass itself.
+There is nobody here.
 You can go north or south.
+
 
 > south
 You are on the road to Greenrock Pass
+There is nobody here.
 You can go north or south.
 
 > south
 You stand before the gate, leading out of Calamatra to the road going to Greenrock Pass.
-There is a Guard here.
+You can see a Guard here.
 You can go north or south.
 
 > south
 You are on Cal Street.
+There is nobody here.
 You can go north or south.
-You can go to the Sword and Staff Inn or the village Sorcerers House.
+You can go to the Sword and Staff Inn, or the village Sorcerers House.
 
 > go to sorcerers house
 You enter a darkish room, with tables full of strange objects around.
-There is a Spell Guide and the village Sorcerer here.
+You can see the village Sorcerer here.
+There is a Spell Guide here.
 You can go out to Cal Street.
 
 > speak to sorcerer
@@ -246,12 +276,13 @@ You can go out to Cal Street.
 
 > out
 You are on Cal Street.
+There is nobody here.
 You can go north or south.
-You can go to the Sword and Staff Inn or the village Sorcerers House.
+You can go to the Sword and Staff Inn, or the village Sorcerers House.
 
 > go to sword and staff inn
-You are in the Sword and Staff Inn
-There is the Innkeeper, the Innkeepers Wife and a Weapon Specialist here.
+You are in the Sword and Staff Inn.
+You can see the Innkeeper, the Innkeepers Wife and a Weapon Specialist here.
 You can go out to Cal Street.
 You are in comfy looking lounge room, with a fire blazing in the hearth.
 
@@ -265,28 +296,33 @@ When you wake up from your sleep, you feel much better.
 
 > out
 You are on Cal Street.
+There is nobody here.
 You can go north or south.
-You can go to the Sword and Staff Inn or the village Sorcerers House.
+You can go to the Sword and Staff Inn, or the village Sorcerers House.
 
 > north
 You stand before the gate, leading out of Calamatra to the road going to Greenrock Pass.
-There is a Guard here.
+You can see a Guard here.
 You can go north or south.
 
 > north
 You are on the road to Greenrock Pass
+There is nobody here.
 You can go north or south.
 
 > north
 You are on the road to Greenrock Pass. Northwards you can see the pass itself.
+There is nobody here.
 You can go north or south.
 
 > north
 You enter the pass, surrounded by mountains on either side
+There is nobody here.
 You can go north or south.
 
 > north
 You are on the Road to Fennat.
+There is nobody here.
 There is a Signpost here.
 You can go south or northwest.
 
@@ -325,7 +361,8 @@ You enter Fennats square. It is nowhere near as grand as Calamatra's, and there 
 
 > go to witches house
 You enter a scruffy little cottage. In the room are various herbs that combine to make magical mixtures.
-There is a Strange Book, the village Witch and the witch's cat Elranog here.
+You can see the village Witch and the witch's cat Elranog here.
+There is a Strange Book here.
 You can go out to Fennat's Village Square.
 
 > speak to witch
@@ -343,6 +380,7 @@ You enter Fennats square. It is nowhere near as grand as Calamatra's, and there 
 
 > east
 You stand before the gate out of Fennat
+There is nobody here.
 You can go west or northeast.
 
 > northeast
@@ -351,8 +389,8 @@ To the east is a gap between the trees.
 A strange mist floats above the forest. This is rumored to be the starting place of the disease. Recently people have been known to go in and never come out.....
 
 > east
-You are in the lush, green, if somewhat confusing Hallucination Forest
-There is a Sprite here.
+You are in the lush, green, if somewhat confusing Hallucination Forest.
+You can see a Sprite here.
 You can go south, west or northeast.
 You see two strange creatures, although the second one runs when it sees you. The first one speaks; "Aaa stranger. Get out of forest. Me get you!"
 And to your suprise it hits you with a stick!!!
@@ -360,13 +398,15 @@ And to your suprise it hits you with a stick!!!
 > use sword on sprite
 One slash of your sword, and the weakling lets out a high pitched squeak then dies.
 
+
 > northeast
-You are in the lush, green, if somewhat confusing Hallucination Forest
-You can go east, southeast or southwest.
+You are in the lush, green, if somewhat confusing Hallucination Forest.
+There is nobody here.
+You can go east, southwest or southeast.
 
 > east
-You are in the lush, green, if somewhat confusing Hallucination Forest
-There is an Archer Sprite here.
+You are in the lush, green, if somewhat confusing Hallucination Forest.
+You can see an Archer Sprite here.
 You can go west or southeast.
 
 > throw dagger at archer sprite
@@ -402,21 +442,24 @@ It drops a keystone, which you pick up.
 You reclaim your dagger.
 
 > southeast
-You are in the lush, green, if somewhat confusing Hallucination Forest
+You are in the lush, green, if somewhat confusing Hallucination Forest.
+There is nobody here.
 You can go south, west, northwest or southeast.
 
 > west
-You are in the dark interior of Hallucination Forest
-There is a Thorny Bush and an Entangled Sprite here.
-You can go east, southeast or southwest.
+You are in the dark interior of Hallucination Forest.
+You can see an Entangled Sprite here.
+There is a Thorny Bush here.
+You can go east, southwest or southeast.
 
 > use dagger on thorny bush
 You chop the bush down, freeing the sprite. It looks at you in suprise, mutters something like "mimblewimble", places something in your hand, and runs away!
 The sprite has given you a keystone!
 
+
 > southeast
-You are in the dark interior of Hallucination Forest
-There is Warsprite1, Warsprite2 and Warsprite3 here.
+You are in the dark interior of Hallucination Forest.
+You can see Warsprite1, Warsprite2 and Warsprite3 here.
 You can go southeast.
 You walk through the clearing and suddenly you are attacked by three small sprites in thin, cheap black armour!
 
@@ -456,23 +499,28 @@ The last demon fades and suddenly a keystone appears!
 You pocket it quickly.
 
 > southeast
-You are in the lush, green, if somewhat confusing Hallucination Forest
-You can go north, northeast, northwest or southwest.
+You are in the lush, green, if somewhat confusing Hallucination Forest.
+There is nobody here.
+You can go north, northwest, northeast or southwest.
 
 > north
-You are in the lush, green, if somewhat confusing Hallucination Forest
+You are in the lush, green, if somewhat confusing Hallucination Forest.
+There is nobody here.
 You can go south, west, northwest or southeast.
 
 > west
-You are in the dark interior of Hallucination Forest
-You can go east, southeast or southwest.
+You are in the dark interior of Hallucination Forest.
+There is nobody here.
+You can go east, southwest or southeast.
 
 > southwest
-You are in the lush, green, if somewhat confusing Hallucination Forest
+You are in the lush, green, if somewhat confusing Hallucination Forest.
+There is nobody here.
 You can go north, northeast or southeast.
 
 > north
-You are in the lush, green, if somewhat confusing Hallucination Forest
+You are in the lush, green, if somewhat confusing Hallucination Forest.
+There is nobody here.
 You can go south, west or northeast.
 
 > west
@@ -482,6 +530,7 @@ A strange mist floats above the forest. This is rumored to be the starting place
 
 > southwest
 You stand before the gate out of Fennat
+There is nobody here.
 You can go west or northeast.
 
 > west
@@ -489,8 +538,8 @@ You enter Fennats square. It is nowhere near as grand as Calamatra's, and there 
  The air here makes you cough.
 
 > go to jolly woodman inn
-You are in the Jolly Woodman Inn
-There is the Landlady, a Lumberjack and Person3 here.
+You are in the Jolly Woodman Inn.
+You can see the Landlady, a Lumberjack and Person3 here.
 You can go out to Fennat's Village Square.
 It looks remarkably similar to the other inn inside.
 
@@ -508,6 +557,7 @@ You enter Fennats square. It is nowhere near as grand as Calamatra's, and there 
 
 > east
 You stand before the gate out of Fennat
+There is nobody here.
 You can go west or northeast.
 
 > northeast
@@ -516,38 +566,45 @@ To the east is a gap between the trees.
 A strange mist floats above the forest. This is rumored to be the starting place of the disease. Recently people have been known to go in and never come out.....
 
 > east
-You are in the lush, green, if somewhat confusing Hallucination Forest
+You are in the lush, green, if somewhat confusing Hallucination Forest.
+There is nobody here.
 You can go south, west or northeast.
 
 > south
-You are in the lush, green, if somewhat confusing Hallucination Forest
+You are in the lush, green, if somewhat confusing Hallucination Forest.
+There is nobody here.
 You can go north, northeast or southeast.
 
 > northeast
-You are in the dark interior of Hallucination Forest
-You can go southeast or southwest.
+You are in the dark interior of Hallucination Forest.
+There is nobody here.
+You can go southwest or southeast.
 
 > southeast
-You are in the dark interior of Hallucination Forest
-You can go north, northeast, northwest or southeast.
+You are in the dark interior of Hallucination Forest.
+There is nobody here.
+You can go north, northwest, northeast or southeast.
 
 > southeast
-You are in the lush, green, if somewhat confusing Hallucination Forest
-There is some Tendrils reaching from a bush, and wrapping tightly around your legs here.
-You can go north, west, northeast or northwest.
+You are in the lush, green, if somewhat confusing Hallucination Forest.
+You can see some Tendrils reaching from a bush and and wrapping tightly around your legs here.
+You can go north, west, northwest or northeast.
 
 > use dagger on tendrils
 Thinking it would be more effective, you draw your sword, and before you can cut up any of the vile things they snatch your sword away and pull it into a bush.
 So you draw your dagger.
 You kneel and hack away at the tendrils. When chopped off they shrivel and die.....but more are coming towards you from a strange bush!
 
-> use dagger on oggy-waggi plant
-You slash at the thorny growth with your dagger.
-The Oggy-Waggi plant hits back!
 
 > use dagger on oggy-waggi plant
 You slash at the thorny growth with your dagger.
 The Oggy-Waggi plant hits back!
+
+
+> use dagger on oggy-waggi plant
+You slash at the thorny growth with your dagger.
+The Oggy-Waggi plant hits back!
+
 The plant sprouts more tendrils!
 
 > use dagger on oggy-waggi plant
@@ -555,33 +612,40 @@ You slash at the thorny growth with your dagger.
 The Oggy-Waggi plant hits back!
 The poisonous tendrils also attack!
 
-> use dagger on oggy-waggi plant
-You slash at the thorny growth with your dagger.
-The Oggy-Waggi plant hits back!
-The poisonous tendrils also attack!
 
 > use dagger on oggy-waggi plant
 You slash at the thorny growth with your dagger.
 The Oggy-Waggi plant hits back!
 The poisonous tendrils also attack!
 
+
 > use dagger on oggy-waggi plant
 You slash at the thorny growth with your dagger.
 The Oggy-Waggi plant hits back!
 The poisonous tendrils also attack!
+
+
+> use dagger on oggy-waggi plant
+You slash at the thorny growth with your dagger.
+The Oggy-Waggi plant hits back!
+The poisonous tendrils also attack!
+
 
 > use dagger on oggy-waggi plant
 You slash at the thorny growth with your dagger.
 With one final brutal slash the plant dies.
 You reclaim your sword, and where the bush was, you can see a keystone which most likely belonged to the last victim of the Oggy-Waggi plants trap. You wipe the poisonous sap off first, before taking it however...
 
+
 > northwest
-You are in the dark interior of Hallucination Forest
-You can go north, northeast, northwest or southeast.
+You are in the dark interior of Hallucination Forest.
+There is nobody here.
+You can go north, northwest, northeast or southeast.
 
 > northeast
-You are in the deep dark depths of Hallucination Forest
-There is a Keystone, Demon1 and Demon2 here.
+You are in the deep dark depths of Hallucination Forest.
+You can see Demon1 and Demon2 here.
+There is a Keystone here.
 You can go southwest.
 "if someone's here who shouldn't be, they'd better get out...quick!!"
 You may be able to see a keystone here, but that doesn't mean your gonna be able to get it!!!
@@ -594,20 +658,24 @@ You say the spell, and swirl your staff around. Out of it's end comes a veil of 
 Under the cover of the mist you sneak in, and grab the keystone without the demons even noticing.
 
 > southwest
-You are in the dark interior of Hallucination Forest
-You can go north, northeast, northwest or southeast.
+You are in the dark interior of Hallucination Forest.
+There is nobody here.
+You can go north, northwest, northeast or southeast.
 
 > northwest
-You are in the dark interior of Hallucination Forest
-You can go southeast or southwest.
+You are in the dark interior of Hallucination Forest.
+There is nobody here.
+You can go southwest or southeast.
 The fog spell has worn off.
 
 > southwest
-You are in the lush, green, if somewhat confusing Hallucination Forest
+You are in the lush, green, if somewhat confusing Hallucination Forest.
+There is nobody here.
 You can go north, northeast or southeast.
 
 > north
-You are in the lush, green, if somewhat confusing Hallucination Forest
+You are in the lush, green, if somewhat confusing Hallucination Forest.
+There is nobody here.
 You can go south, west or northeast.
 
 > west
@@ -617,6 +685,7 @@ A strange mist floats above the forest. This is rumored to be the starting place
 
 > southwest
 You stand before the gate out of Fennat
+There is nobody here.
 You can go west or northeast.
 
 > west
@@ -624,8 +693,8 @@ You enter Fennats square. It is nowhere near as grand as Calamatra's, and there 
  The air here makes you cough.
 
 > go to jolly woodman inn
-You are in the Jolly Woodman Inn
-There is the Landlady, a Lumberjack and Person3 here.
+You are in the Jolly Woodman Inn.
+You can see the Landlady, a Lumberjack and Person3 here.
 You can go out to Fennat's Village Square.
 It looks remarkably similar to the other inn inside.
 
@@ -643,12 +712,13 @@ You enter Fennats square. It is nowhere near as grand as Calamatra's, and there 
 
 > north
 You  walk along a long road with houses either side of it.
+There is nobody here.
 You can go south.
 You can go to the The Doctors house, Ferran House1, or Azambri's Cousins' house.
 
 > go to the doctors house
-You are in The Doctors house
-There is the Doctor and the doctors Assistant here.
+You are in The Doctors house.
+You can see the Doctor and the doctors Assistant here.
 You can go out to Ferran Street.
 
 > speak to assistant
@@ -660,6 +730,7 @@ You can go out to Ferran Street.
 
 > out
 You  walk along a long road with houses either side of it.
+There is nobody here.
 You can go south.
 You can go to the The Doctors house, Ferran House1, or Azambri's Cousins' house.
 
@@ -669,6 +740,7 @@ You enter Fennats square. It is nowhere near as grand as Calamatra's, and there 
 
 > east
 You stand before the gate out of Fennat
+There is nobody here.
 You can go west or northeast.
 
 > northeast
@@ -677,20 +749,24 @@ To the east is a gap between the trees.
 A strange mist floats above the forest. This is rumored to be the starting place of the disease. Recently people have been known to go in and never come out.....
 
 > east
-You are in the lush, green, if somewhat confusing Hallucination Forest
+You are in the lush, green, if somewhat confusing Hallucination Forest.
+There is nobody here.
 You can go south, west or northeast.
 
 > south
-You are in the lush, green, if somewhat confusing Hallucination Forest
+You are in the lush, green, if somewhat confusing Hallucination Forest.
+There is nobody here.
 You can go north, northeast or southeast.
 
 > northeast
-You are in the dark interior of Hallucination Forest
-You can go southeast or southwest.
+You are in the dark interior of Hallucination Forest.
+There is nobody here.
+You can go southwest or southeast.
 
 > southeast
-You are in the dark interior of Hallucination Forest
-You can go north, northeast, northwest or southeast.
+You are in the dark interior of Hallucination Forest.
+There is nobody here.
+You can go north, northwest, northeast or southeast.
 
 > north
 You walk out into a clearing surrounded by trees.
@@ -732,37 +808,44 @@ You hastily stab the druidess before she can do anything to you.
 "Aah" says the first druidess...um...release Sporogia!
 ...
 You hear a little used mechanism creak. A cage door is lifted. A large chunky swamp green and yellow ochre (brownish) creature/demon minion comes charging towards you leting out a deep roar, bundling you outside again.  Press any key to continue
-You are in a Forest clearing
-There is Earth Minion Sporogia here.
+You are in a Forest clearing.
+You can see Earth Minion Sporogia here.
 You can go to back into the Underground Den.
 Minion Sporogia roars and leashes out at you.
+
 
 > use air rush spell on sporogia
 A rush of wind flies at Sporogia affecting the being quite badly.
 Sporogia uses Blink Spore
 Sporogia uses Heal Spore
 
+
 > use air rush spell on sporogia
 A rush of wind flies at Sporogia affecting the being quite badly.
 Sporogia roars and charges at you.
 
+
 > use air rush spell on sporogia
 A rush of wind flies at Sporogia affecting the being quite badly.
 Sporogia barges you with its shell.
+
 
 > use air rush spell on sporogia
 A rush of wind flies at Sporogia affecting the being quite badly.
 Sporogia hits you with its tail.
 
+
 > use air rush spell on sporogia
 A rush of wind flies at Sporogia affecting the being quite badly.
 Sporogia barges you with its shell.
+
 
 > use air rush spell on sporogia
 A rush of wind flies at Sporogia affecting the being quite badly.
 Sporogia uses Blink Spore
 Sporogia uses Blink Spore
 Sporogia barges you with its shell.
+
 
 > use air rush spell on sporogia
 A rush of wind flies at Sporogia affecting the being quite badly.
@@ -772,12 +855,15 @@ Sporogia uses Blink Spore
 Sporogia uses Blink Spore
 Sporogia roars and charges at you.
 
+
 > use air rush spell on sporogia
 A rush of wind flies at Sporogia affecting the being quite badly.
 Sporogia hits you with its tail.
+
 
 > use air rush spell on sporogia
 Sporogia lets out a mighty roar and collapses then rots away into the ground.
+
 
 > use potion
 You drink the potion, and suddenly feel much better!
@@ -789,18 +875,21 @@ I'm gonna destroy you. She waves her hand and your staff is gone!"
 > use dagger on evil druidess
 You slash at her, drawing blood.
  Her eyes start burning red. She holds your staff aloft and the air around goes black. "Gawalana" she mutters Press any key "Gawalana...Press any keyPowers of darkness.....Press any keyPowers of our king.......Press any keySmash this hero."Press any key She then falls to the floor dead. You feel dazed. The blackness she drained her life-force creating overwhelms you. You are spinning in it, writhing in it, drowning in it, lost in it...Untill "Sassanka...Sassanka...Wake up!..WAKE UP!" and a bucket of water is emptied over you!Press any key
-You are in Azambri's Cousins' house
-There is Azambri's Ignisa Polizephter, Azambri and Azambri's Cousin here.
+You are in Azambri's Cousins' house.
+You can see Azambri and Azambri's Cousin here.
+There is Azambri's Ignisa Polizephter here.
 You can go out to Ferran Street.
 "You're up at last!" says Azambri "Shh" says her cousin. "Sassanka's only just up. If you're only going to shout then go out."
 "Fine then!" says Azambri, and storms out. Press any key
 "Sorry about Azambri waking you up so suddenly. She got annoyed. I'm her cousin and I'm a healer. Anyway when I recovered from the disease Azambri went off into the forest saying she was going to kill something to get back into shape. And she found you in this cavern lying on the floor. So she brought you back here and told me to look after you. Now after a week you've recovered again."
+
 
 > take staff
 You gladly recover your staff.
 
 > out
 You  walk along a long road with houses either side of it.
+There is nobody here.
 You can go south.
 You can go to the The Doctors house, Ferran House1, or Azambri's Cousins' house.
 
@@ -809,6 +898,7 @@ You enter Fennats square. It is nowhere near as grand as Calamatra's, and there 
 
 > east
 You stand before the gate out of Fennat
+There is nobody here.
 You can go west or northeast.
 
 > northeast
@@ -816,35 +906,40 @@ You are on the edge of Hallucination Forest.
 To the east is a gap between the trees.
 
 > east
-You are in the lush, green, if somewhat confusing Hallucination Forest
+You are in the lush, green, if somewhat confusing Hallucination Forest.
+There is nobody here.
 You can go south, west or northeast.
 
 > northeast
-You are in the lush, green, if somewhat confusing Hallucination Forest
-You can go east, southeast or southwest.
+You are in the lush, green, if somewhat confusing Hallucination Forest.
+There is nobody here.
+You can go east, southwest or southeast.
 
 > east
-You are in the lush, green, if somewhat confusing Hallucination Forest
+You are in the lush, green, if somewhat confusing Hallucination Forest.
+There is nobody here.
 You can go west or southeast.
 
 > southeast
-You are in the lush, green, if somewhat confusing Hallucination Forest
+You are in the lush, green, if somewhat confusing Hallucination Forest.
+There is nobody here.
 You can go south, west, northwest or southeast.
 
 > southeast
 You are on The far side of the forest.
+There is nobody here.
 You can go northwest or southwest.
 You can go to the Gatehouse.
 
 > go to gatehouse
-You are in the Gatehouse
-There is a Borderguard here.
+You are in the Gatehouse.
+You can see a Borderguard here.
 You can go out to The far side of the forest.
 You can go east.
 
 > east
-You are in the Gatehouse
-There is a Monk and the Guardian of Maren here.
+You are in the Gatehouse.
+You can see a Monk and the Guardian of Maren here.
 You can go west.
 
 > speak to guardian of maren

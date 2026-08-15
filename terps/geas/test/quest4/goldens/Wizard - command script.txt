@@ -368,7 +368,6 @@ speak to control desk
 3
 take secret library scroll
 take yellow bead
-2
 south
 northwest
 east
@@ -393,7 +392,6 @@ speak to delbat
 northwest
 examine beds
 take yellow bead
-4
 examine night stands
 take small note
 read small note
@@ -407,7 +405,6 @@ take rainbow book
 take smudged note
 read smudged note
 take yellow bead
-4
 memorize
 3
 scribe secret library scroll
@@ -532,7 +529,6 @@ rmemorize
 east
 take icy scroll
 take yellow bead
-6
 deluminate
 west
 south
@@ -602,7 +598,6 @@ take red marble
 take red marble
 2
 take yellow bead
-7
 memorize
 8
 northwest
@@ -619,7 +614,6 @@ southeast
 east
 examine pile of hay
 take yellow bead
-8
 take oat
 west
 southwest
@@ -690,7 +684,6 @@ north
 detect magic
 look at basket
 take yellow bead
-9
 south
 south
 southwest
@@ -762,7 +755,6 @@ south
 west
 examine silt
 take yellow bead
-11
 up
 enter boat
 enter misty white portal
@@ -1183,7 +1175,6 @@ wait
 wait
 look
 take yellow bead
-1
 spells
 memorize
 5
@@ -1281,7 +1272,6 @@ breathe on web
 look
 take head
 take yellow bead
-9
 north
 north
 enter misty white portal
@@ -1340,14 +1330,11 @@ yes
 2
 look
 take yellow bead
-14
 north
 take yellow bead
-15
 south
 south
 take yellow bead
-16
 take penned note
 read penned note
 north

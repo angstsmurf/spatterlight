@@ -1,0 +1,13 @@
+
+Doorways410
+
+You are in Hall.
+You can go north, out, up, to A Work Truck or to Shed.
+A hall.
+
+> dump
+folded [north, out, up, to A Work Truck or to Shed]
+dirs []
+places []
+out [] display []
+[runner] turns=1 leftover=0 running=true

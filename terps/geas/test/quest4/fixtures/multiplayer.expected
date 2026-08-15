@@ -1,13 +1,13 @@
 
-Multiplayer gametype, v1.0 geas test
+Multiplayer gametype, v1.0 | geas test
 
-You are in lobby
+You are in lobby.
 There is desk here.
 You can go north.
 A round room with a desk in it.
 
 > look
-You are in lobby
+You are in lobby.
 There is desk here.
 You can go north.
 A round room with a desk in it.
@@ -16,12 +16,12 @@ A round room with a desk in it.
 A cyber-netic desk.
 
 > n
-You are in hall
+You are in hall.
 You can go south.
 A corridor leading back south.
 
 > s
-You are in lobby
+You are in lobby.
 There is desk here.
 You can go north.
 A round room with a desk in it.

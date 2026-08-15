@@ -1,11 +1,12 @@
 
-survive CJ
+survive | CJ
 
 You have recently been enjoying a hike around the lakes in Canada.  Eventually you find a deserted campsite by a lake.   you hear something rustling in the bushes behind you.  
 
 You are trapped in this campsite.  There is only one exit to the South, but that is where the noise was coming from.
+press a key.
 
-You are in the Campsite
+You are in the Campsite.
 There is a small wooden crate, the edge of the lake and muddy ground here.
 You can go south or west.
 You are standing in a large green field which was once a campsite.
@@ -84,7 +85,7 @@ And runs away grasping at it's own throat.
 You have created a safe exit south!
 
 > s
-You are in Freedom
+You are in Freedom.
 
 You have managed to escape the hazardous campsite.  Congratulations.
 [runner] turns=23 leftover=0 running=false WON=YES

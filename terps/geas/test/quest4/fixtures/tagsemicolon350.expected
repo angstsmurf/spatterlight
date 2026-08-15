@@ -1,0 +1,22 @@
+
+tagsemicolon350
+
+You are in sunny Yard.
+There is a grey rock here.
+alpha
+
+> look
+You are in sunny Yard.
+There is a grey rock here.
+alpha
+
+> x rock
+shiny
+
+> take rock
+lifted; hefted
+
+> i
+You are carrying:
+A grey rock.
+[runner] turns=4 leftover=0 running=true

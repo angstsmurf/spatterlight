@@ -1,9 +1,10 @@
 
-Easy Money, v1.0 Keyz Karanza
+Easy Money, v1.0 | Keyz Karanza
 
 Welcome to the wonderful world of commodities trading. Your objective: Parle your 100 dollars into 5000 dollars! Simply, type "Buy" or "Sell" to initiate a trade, choose the commodity you want to trade, and select the number of shares. When you have finished your trading, type "Next" to see how the market changes. Keep doing this until you win. If you get tired just go to the street to exit the game. Good Luck!
 
-You are in the Stock Exchange
+You are in the Stock Exchange.
+There is nobody here.
 You can go out to the street.
 
 > buy

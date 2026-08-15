@@ -1,5 +1,5 @@
 
-The Devil's Bargain, vBeta 1.0 staringmonkey
+The Devil's Bargain, vBeta 1.0 | staringmonkey
 
  
  
@@ -85,6 +85,12 @@ staringmonkey
  
  
  So then your name is Petter...  What the hell kind of name is Petter?  Must be Belgian.  And your quest is "to rock".  That's kind of a mundane quest, don't you think.  Wouldn't it be better to have a more, I don't know, perky quest.  Thats not really even a quest is it.  That's like saying "My quest is Bass Fishing!"  And I'll kill anyone who tries to stop my Bass Fishing.  It just doesn't work, oh well.  And your favorite color is blue.  Why the hell would you like the color blue. Well, your a looney, I'll give you that, but oh well.
+
+ 
+  You have made it passed the insulting introduction 
+ Press any key to proceed... 
+ 
+ 
 
 
 
@@ -182,9 +188,10 @@ What will you do with the computer?
 1) Check my stocks.
 2) Look up pornographical sites.
 3) Write a novel.
-4) Draw a monkey in Paint (©1999 Microsoft, please don't sue me!).
+4) Draw a monkey in Paint (Â©1999 Microsoft, please don't sue me!).
 [choice] 4
 Congratulations, your drawing is superb!  The priest even gives you a printout of it.  If only you could sell it.
+
 
 > south
 
@@ -207,12 +214,10 @@ The inside of the captain's office is luxoriously furnished.  It appears that th
 > take photos
 You take the photos out of the desk.
 
+
 > i
 You are carrying:
-map
-police pass
-monkey drawing
-photos
+Map, police pass, monkey drawing and photos.
 
 > west
 Behind the Counter of the Police Lobby are several Police Officers at desks.   Officer Derek Peterson  sits at a desk typing a report on his Mac.  Another Officer,  Mary Jenkins  sits at a desk spinning a pencil in his fingers.  On one side of the room is a  Blackboard .  A door to the east is labeled  Captain Herris's Office .  Another door to the north is labeled  Cells .  Yet a third door to the west is labeled  Meeting Room .
@@ -278,6 +283,7 @@ If you have any comments about this game send them to staringmonkey@hotmail.com
 
 Thank you for playing
  
+
 
 
 [runner] turns=28 leftover=0 running=false WON=YES

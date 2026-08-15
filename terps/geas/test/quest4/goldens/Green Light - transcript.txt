@@ -1,8 +1,9 @@
 
-Green Light, v1.0 Carlii Cortez
+Green Light, v1.0 | Carlii Cortez
 
 GREEN LIGHT
 Version 1.0 Prereleased
+written by Carlii Cortez. © 2002
 
 
 
@@ -13,7 +14,7 @@ The tower room has no windows and is black all over, so you can bearly see a thi
 
 > i
 You are carrying:
-crowbar
+A long steel black crowbar.
 
 > x grate
 The steel grate seems be casted over a hole below you.
@@ -57,8 +58,8 @@ You pick it up.
 You go up the ladder to the lab.
 You are in the the labratory.
 There is a big wooden table, a wall and an opened trap door barely visible here.
-You can go north or east.
 You can go to potions room.
+You can go north or east.
 Below the tower room lies the labratory. It is a small room, with a desk or two and bubbling liquids. You notice the tower room lies to the north and another room to the east.
 
 > e
@@ -73,8 +74,8 @@ You fill the jug up with water from the fountain.
 > s
 You are in the kitchen.
 There is a big wooden cupboard, a cooking book, a flour pot, a baking dish and an oven here.
-You can go north.
 You can go to inside pantry.
+You can go north.
 Surrounding you are many dirty utensils, empty buckets, old appliances and, strangely enough, saw dust. The kitchen seems to connect with the fountain room from the north.
 
 > x cooking book
@@ -163,8 +164,8 @@ You scoop up some sugar and place it in the tiny vial.
 > out
 You are in the kitchen.
 There is a big wooden cupboard, a cooking book and an oven here.
-You can go north.
 You can go to inside pantry.
+You can go north.
 Surrounding you are many dirty utensils, empty buckets, old appliances and, strangely enough, saw dust. The kitchen seems to connect with the fountain room from the north.
 
 > n
@@ -176,8 +177,8 @@ The fountain room is a large expanse, strangely filled with grass, flowers and a
 > w
 You are in the the labratory.
 There is a big wooden table, a wall and an opened trap door barely visible here.
-You can go north or east.
 You can go to potions room.
+You can go north or east.
 Below the tower room lies the labratory. It is a small room, with a desk or two and bubbling liquids. You notice the tower room lies to the north and another room to the east.
 
 > n
@@ -192,8 +193,8 @@ You slot card B into panel B and hear a slight hum. The whole panel collapses at
 > sw
 You are in the bedroom.
 There is a bed and a humungous purple and green vase here.
-You can go northeast.
 You can go to the top of the bed.
+You can go northeast.
 This dusty room doesn't seem to have been used in a long time. It's a pretty ordinary bedroom except for one thing - the ceiling is 10 metres tall! This is similar to other rooms in the tower. It's as if a giant lived here once or something.
 
 > x vase
@@ -225,8 +226,8 @@ It's just a piece of string dangling, attached to the ceiling.
 You pull the string hard. A large noise errupts and with the feeling that the ceiling will cave in beneath you, you scramble off the bed...
 You are in the bedroom.
 There is a bed here.
-You can go northeast.
 You can go to the top of the bed.
+You can go northeast.
 This dusty room doesn't seem to have been used in a long time. It's a pretty ordinary bedroom except for one thing - the ceiling is 10 metres tall! This is similar to other rooms in the tower. It's as if a giant lived here once or something.
 You look up to the ceiling and see a long protuding ladder has resulting in your pulling the string. You cannot reach it from the ground however.
 
@@ -261,8 +262,8 @@ It must've took a while to climb on top of the giant's bed, but you're on it now
 > go to bedroom
 You are in the bedroom.
 There is a bed here.
-You can go northeast.
 You can go to the top of the bed.
+You can go northeast.
 This dusty room doesn't seem to have been used in a long time. It's a pretty ordinary bedroom except for one thing - the ceiling is 10 metres tall! This is similar to other rooms in the tower. It's as if a giant lived here once or something.
 
 > ne
@@ -274,8 +275,8 @@ The tower room has no windows and is black all over, so you can bearly see a thi
 > s
 You are in the the labratory.
 There is a big wooden table, a wall and an opened trap door barely visible here.
-You can go north or east.
 You can go to potions room.
+You can go north or east.
 Below the tower room lies the labratory. It is a small room, with a desk or two and bubbling liquids. You notice the tower room lies to the north and another room to the east.
 
 > e
@@ -293,8 +294,8 @@ The slide the key into the keyhole beneath the window and creaks open...
 > go to wheatfield
 You are standing in the middle of a wheatfield.
 There is some wheat, a big cute cow and a sign here.
-You can go north.
 You can go to the fountain room.
+You can go north.
 The field is quite small and you see a shed to the north. A high fence surrounds the place, making sure no intruders come out - and so no one can escape either.
 
 > x sign
@@ -329,8 +330,8 @@ The large machine was probably once used to process grain to flour.
 > s
 You are standing in the middle of a wheatfield.
 There is some wheat, a big cute cow and a sign here.
-You can go north.
 You can go to the fountain room.
+You can go north.
 The field is quite small and you see a shed to the north. A high fence surrounds the place, making sure no intruders come out - and so no one can escape either.
 
 > pick wheat
@@ -354,15 +355,15 @@ You put the flour in the pot.
 > s
 You are standing in the middle of a wheatfield.
 There is a field of picked wheat, a big cute cow and a sign here.
-You can go north.
 You can go to the fountain room.
+You can go north.
 The field is quite small and you see a shed to the north. A high fence surrounds the place, making sure no intruders come out - and so no one can escape either.
 
 > go to fountain room
 You are in the fountain room.
 There is a gigantic stone fountain, an eight-eyed monster and a small glass window here.
-You can go south, east or west.
 You can go to wheatfield.
+You can go south, east or west.
 The fountain room is a large expanse, strangely filled with grass, flowers and assorted items of amazement. As the name suggests, in the centre of the room is a gigantic fountain.
 
 > use jug of water on pot with flour
@@ -374,8 +375,8 @@ You add some Clove of Figari.
 > s
 You are in the kitchen.
 There is a big wooden cupboard, a cooking book and an oven here.
-You can go north.
 You can go to inside pantry.
+You can go north.
 Surrounding you are many dirty utensils, empty buckets, old appliances and, strangely enough, saw dust. The kitchen seems to connect with the fountain room from the north.
 
 > use figari dough on baking dish
@@ -392,8 +393,8 @@ Your mouth waters with excitement.
 > n
 You are in the fountain room.
 There is a gigantic stone fountain, an eight-eyed monster and a small glass window here.
-You can go south, east or west.
 You can go to wheatfield.
+You can go south, east or west.
 The fountain room is a large expanse, strangely filled with grass, flowers and assorted items of amazement. As the name suggests, in the centre of the room is a gigantic fountain.
 
 > x eight-eyed monster
@@ -460,15 +461,15 @@ The deep and dark hallway's only light shines from the torches hung on the brick
 > w
 You are in the fountain room.
 There is a gigantic stone fountain and a small glass window here.
-You can go south, east or west.
 You can go to wheatfield.
+You can go south, east or west.
 The fountain room is a large expanse, strangely filled with grass, flowers and assorted items of amazement. As the name suggests, in the centre of the room is a gigantic fountain.
 
 > w
 You are in the the labratory.
 There is a big wooden table, a wall and an opened trap door barely visible here.
-You can go north or east.
 You can go to potions room.
+You can go north or east.
 Below the tower room lies the labratory. It is a small room, with a desk or two and bubbling liquids. You notice the tower room lies to the north and another room to the east.
 
 > n
@@ -483,8 +484,8 @@ You slot card C into panel C and hear a slight hum. The whole panel collapses at
 > sw
 You are in the bedroom.
 There is a bed here.
-You can go south or northeast.
 You can go to the top of the bed.
+You can go south or northeast.
 This dusty room doesn't seem to have been used in a long time. It's a pretty ordinary bedroom except for one thing - the ceiling is 10 metres tall! This is similar to other rooms in the tower. It's as if a giant lived here once or something.
 
 > s
@@ -498,16 +499,22 @@ The giant can barely fit in the library. He is hunched over a desk, reading and 
 
 > speak to Mervil
 "Ah," Mervil the giant says. "It's you. I thought you might find me."
+press any key to continue...
 
 "Who are you?" you ask. "Who am I?!"
+press any key to continue...
 
 "You, my son, are one of my many experiments," Mervil says. He grins, as if mad. "You've turned out great of course."
+press any key to continue...
 
 "Experiments?!" you holler. "Experiments for what?"
+press any key to continue...
 
 "Hush now, Jem," Mervil says. "You have much to do, and not a whole lot of time. You see, I created you using the new magical formula - it's called Green Light and I made it!" Mervil grins excitedly. "The formula is highly seeked of. Everyone want's to know how to make more...more of you!"
+press any key to continue...
 
 "You need to get out there, in the wilderness. Here, Jem, take this, it's my formula for Green Light. Let no one touch it!" Mervil shouts. Suddenly, he looks frightened. "Oh no! They're coming, I can feel it! Run, Jem! Run away!"
+press any key to continue...
 
 .............
 And so, you know now who you are, what your purpose is in life. Conceal the formula. Destroy it even. But do not let it fall into the wrong hands.

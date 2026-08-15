@@ -1,0 +1,16 @@
+
+Errornames280
+
+You are in Hall.
+There is a rock and a coin here.
+The hall.
+
+> take rock
+The rock is far too heavy.
+
+> take coin
+You pick it up.
+
+> frobnicate
+Below 3.10 this line redefines badcommand.
+[runner] turns=3 leftover=0 running=true

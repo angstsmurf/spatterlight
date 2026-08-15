@@ -1,14 +1,14 @@
 
 partialmatch
 
-You are in Hall
+You are in Hall.
 There is Red Rose, Brass Key, Rusty Key, Standing Stone and stone here.
 
 > examine rose
 A single red rose.
 
 > examine key
-You don't see any key.
+I can't see that anywhere.
 
 > examine stone
 A pebble.

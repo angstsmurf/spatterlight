@@ -1,8 +1,8 @@
 
-TARDIS Escape, v.002 Jim R. Harbis
+TARDIS Escape, v.002 | Jim R. Harbis
 
 You awake in a huge room with a strange looking shaft surrounded by computer screens, levers, and buttons in the center of the room. The walls are gold with silver bumps on them. You can't help but wonder how the bloody hell you ended up in a place like this...
-
+You are in the Console Room.
 There is a coat rack, the Wardrobe Staircase and the Floor Grating here.
 You can go west, up or down.
 The main room of the TARDIS.
@@ -17,25 +17,22 @@ What a nice, warm coat. And it's a perfect fit, too!
 
 > look at trenchcoat
 A brown trenchcoat that seems to be very new, unlike the old coat rack it was found on... I wonder if the owner left an I.D. in the breast pocket?
+A left interior breast pocket.
 
 > look at pocket
 There's something bulging inside of it...
 
 > take sonic screwdriver
-(first removing it from pocket)
-*
-You acquired the Sonic Screwdriver! Fantastic!
+Look in your inventory, you greedy pig!
 
 > take note
-(first removing it from pocket)
-*
-You aquired a piece of the note!
+Look in your inventory, you greedy pig!
 
 > use sonic screwdriver on wardrobe staircase
 The door was unlocked.
 
 > up
-You are in TARDIS Wardrobe
+You are in TARDIS Wardrobe.
 There is a closet and the Zero Chamber Door here.
 You can go west or down.
 
@@ -44,6 +41,7 @@ You are scared to open it and see what's inside...
 
 > open closet
 You open the doors.
+You are scared to open it and see what's inside...
 
 > take scrap
 (first removing it from closet)
@@ -54,7 +52,7 @@ You took the scrap of paper
 The door was unlocked.
 
 > west
-You are in the Zero Chamber
+You are in the Zero Chamber.
 There is a crowbar here.
 You can go east.
 As soon as you enter the room you begin to float in the air. 
@@ -63,12 +61,12 @@ As soon as you enter the room you begin to float in the air.
 Yout took the crowbar
 
 > east
-You are in TARDIS Wardrobe
+You are in TARDIS Wardrobe.
 There is a closet and the Zero Chamber Door here.
 You can go west or down.
 
 > down
-
+You are in the Console Room.
 There is a coat rack, the Wardrobe Staircase and the Floor Grating here.
 You can go west, up or down.
 The main room of the TARDIS.
@@ -77,7 +75,7 @@ The main room of the TARDIS.
 You pried the grating up and tossed it aside.
 
 > down
-You are in the Maintainence Area
+You are in the Maintainence Area.
 There is the TARDIS Key here.
 You can go up.
 This room is under the metal grating of the TARDIS console. there appears to be some small item that is just out of your reach...
@@ -86,7 +84,7 @@ This room is under the metal grating of the TARDIS console. there appears to be 
 Well, you could reach it after all!
 
 > up
-
+You are in the Console Room.
 There is a coat rack, the Wardrobe Staircase and the Floor Grating here.
 You can go west, up or down.
 The main room of the TARDIS.
@@ -100,7 +98,7 @@ You can go east or west.
 The door was unlocked.
 
 > west
-You are in Outdoors
+You are in Outdoors.
 There is The Doctor here.
 You can go east.
 You made it out! now, go give the Doctor his coat back, and be prepared for the adventure of your life!

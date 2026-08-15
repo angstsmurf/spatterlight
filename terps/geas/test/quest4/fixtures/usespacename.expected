@@ -1,0 +1,31 @@
+
+usespacename
+
+You are in Field.
+There is Warrior, Wizard, Sage, rage, coin and apple here.
+A field.
+
+> take rage
+You pick it up.
+
+> take coin
+You pick it up.
+
+> take apple
+You pick it up.
+
+> use rage on warrior
+The rage burns the warrior.
+
+> use rage on wizard
+The rage burns the wizard.
+
+> give coin to warrior
+The warrior pockets the coin.
+
+> use coin on sage
+The sage weighs the coin.
+
+> give apple to sage
+The sage bites the apple.
+[runner] turns=8 leftover=0 running=true

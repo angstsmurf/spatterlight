@@ -1,0 +1,39 @@
+
+barcodes
+
+You are in Room.
+A room.
+
+> sigil
+The letter |K| is etched on the head.
+
+> plaque
+There is a bronze |plaque| on the wall beside you.
+
+> quoted
+|"Tuesday IV Sept:
+
+> badsize
+|s9| and then some text.
+
+> goodsize
+big back to normal.
+
+> spacesize
+and then some text.
+
+> badjust
+|jx not justified.
+
+> badx
+|xz not a code, |xn neither in the middle.
+
+> trail
+a bar at the very end |
+
+> colour
+red and green back.
+
+> bold
+bold, italic, under.
+[runner] turns=11 leftover=0 running=true

@@ -1,0 +1,17 @@
+
+Setnum410
+
+You are in Room.
+A plain room.
+
+> run
+10*3/4 [7.5]
+2*3+4 [10]
+100-40-30 [30]
+-8-3 [-11]
+1/3 [.3333333333333333]
+2.5*4 [10]
+41 [41]
+inline [0.3333333333333333]
+inline [7.5]
+[runner] turns=1 leftover=0 running=true

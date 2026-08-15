@@ -1,7 +1,7 @@
 
 gotcontainer
 
-You are in Shore
+You are in Shore.
 There is jar and matches here.
 You can go north.
 A stretch of shore.
@@ -32,11 +32,10 @@ got jar
 
 > i
 You are carrying:
-jar
-matches
+jar and matches.
 
 > north
-You are in Water
+You are in Water.
 You can go south.
 Waist-deep water.
 
@@ -46,7 +45,7 @@ not here matches
 got jar
 
 > south
-You are in Shore
+You are in Shore.
 You can go north.
 A stretch of shore.
 

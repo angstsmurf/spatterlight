@@ -77,7 +77,6 @@ open wallet
 east
 examine stack
 take music
-2
 combine music
 examine bowl
 take golden apple

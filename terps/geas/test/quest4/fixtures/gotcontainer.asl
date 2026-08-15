@@ -1,10 +1,11 @@
 ! `got <X>` when X is inside a container you are carrying.
 !
 ! Quest tracks two things per object: the "parent" property, which is the
-! container it sits in, and a separate ContainerRoom field, which is the room (or
-! "inventory") the whole nest is in.  DoAddRemove copies the container's
-! ContainerRoom onto whatever is put inside it (V4Game.cs:2117-2121, braces
-! elided because readfile.cc de-inlines brace blocks before it strips comments):
+! container it sits in, and a separate ContainerRoom field, which is the room --
+! or "inventory" -- that the whole nest is in.  DoAddRemove copies the
+! container's ContainerRoom onto whatever is put inside it, V4Game.cs:2117-2121.
+! Braces are elided because readfile.cc de-inlines them before stripping
+! comments, so a lone brace in a comment would be read as a block start:
 !
 !     AddToObjectProperties("parent=" + parentName, childId, ctx)
 !     _objs[childId].ContainerRoom = _objs[parentId].ContainerRoom

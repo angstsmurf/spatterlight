@@ -1,12 +1,14 @@
 
 Itemhide217
 
-You are in Cellar
+You are in Cellar.
+There is nobody here.
 There is lamp here.
 The cellar.
 
 > look
-You are in Cellar
+You are in Cellar.
+There is nobody here.
 There is lamp here.
 The cellar.
 
@@ -18,14 +20,14 @@ You pocket the lamp.
 
 > i
 You are carrying:
-coin
-lamp
+Coin and lamp.
 
 > check
 got lamp: yes
 
 > look
-You are in Cellar
+You are in Cellar.
+There is nobody here.
 The cellar.
 
 > ditch
@@ -35,9 +37,10 @@ got lamp: no
 
 > i
 You are carrying:
-coin
+Coin.
 
 > look
-You are in Cellar
+You are in Cellar.
+There is nobody here.
 The cellar.
 [runner] turns=10 leftover=0 running=true

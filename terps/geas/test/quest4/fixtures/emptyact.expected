@@ -1,0 +1,18 @@
+
+emptyact
+
+You are in Lounge.
+There is television and wardrobe here.
+
+> watch television
+A woman in a white dress paces about a priory garden.
+
+> switch off television
+You switch off the vintage viewer.
+
+> watch television
+A single dot, fading.
+
+> wear wardrobe
+The wardrobe will not go on over your coat.
+[runner] turns=4 leftover=0 running=true

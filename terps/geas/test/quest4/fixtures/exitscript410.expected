@@ -1,13 +1,13 @@
 
 ExitScript410
 
-You are in Start
-You can go north, south, east, west or up.
+You are in Start.
+You can go up, west, north, east or south.
 The starting room.
 
 > look
-You are in Start
-You can go north, south, east, west or up.
+You are in Start.
+You can go up, west, north, east or south.
 The starting room.
 
 > west
@@ -23,18 +23,18 @@ Not yet either.
 Nor this one.
 
 > up
-You are in Town
+You are in Town.
 You can go down.
 A small town.
 
 > look
-You are in Town
+You are in Town.
 You can go down.
 A small town.
 
 > down
-You are in Start
-You can go north, south, east, west or up.
+You are in Start.
+You can go up, west, north, east or south.
 The starting room.
 
 > openup
@@ -52,7 +52,7 @@ first statement
 About to leave.
 
 > look
-You are in Start
-You can go north, south, east, west or up.
+You are in Start.
+You can go up, west, north, east or south.
 The starting room.
 [runner] turns=14 leftover=0 running=true

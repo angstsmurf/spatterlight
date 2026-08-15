@@ -191,7 +191,6 @@ look at flowers
 take final clue
 levitate
 take map
-2
 n
 nw
 wait

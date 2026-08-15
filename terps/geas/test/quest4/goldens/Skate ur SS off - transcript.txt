@@ -1,14 +1,14 @@
 
-Skate ur @SS off, v0.4a Wilson Trent
+Skate ur @SS off, v0.4a | Wilson Trent
 
 
 
+Press any Key to Skate!
 
 Here's how to play:  Type "manual" to start manualling on the ground.  When you manual down, type "UP" to continue your manual.  Same with "Down".  When you're done manualling, type "Land" to land it safely.  If you don't land safely, you will fall and wait to recover.  Also, you can type "ollie" and then "kickflip" or "grind rail".  If you try either of these two things when not in the air, then you'll fall.  If you type "revert" then you'll add some points to your score.  Also, you can "Skate up" a pipe and then you'll be in the air again.  If you're up in the air long enough you can type "Left" repeatedly and you will spin in the air. Make sure you do it fast enough!  In this demo version of the upcoming game, there are still special things like decks and places that you can unlock.  You have a music player that has 3 unique songs available.  Just type "Look at Music Player" to see the instructions for use.  Now that that's said, Skate On!
 
 This is the Skate Lobby.
-You can go out to Skate Shop.
-You can go to Skate Shop or Level 1.
+You can go out, to the Skate Shop, to the Half Pipe Central or to Training Area Level 1.
 This is the Area that links to all the other skating zones.  You can also access the Skate Shop from here.  Just type "Go to " and then the area name to go there!  To come back to this lobby just type "go out".
 
 > tutorial
@@ -53,15 +53,15 @@ You fall down!
 Recovering...
 
 > go to skate shop
-You are in the Skate Shop
+You are in the Skate Shop.
 There is Graybone Deck, Capulos Deck, Birdhouse Deck, Darkstar Deck, March of Pigs Deck and Skate Shop Clerk here.
-You can go out to Lobby.
+You can go out.
 2s
 
 > look
-You are in the Skate Shop
+You are in the Skate Shop.
 There is Graybone Deck, Capulos Deck, Birdhouse Deck, Darkstar Deck, March of Pigs Deck and Skate Shop Clerk here.
-You can go out to Lobby.
+You can go out.
 
 > speak to clerk
 "Hey, kid.  How you doing?  If you have Credits you can buy boards and unlock more areas to skate in."
@@ -80,17 +80,16 @@ You are now skating with the GrayBone Deck.
 
 > go out
 This is the Skate Lobby.
-You can go out to Skate Shop.
-You can go to Skate Shop or Level 1.
+You can go out, to the Skate Shop, to the Half Pipe Central or to Training Area Level 1.
 This is the Area that links to all the other skating zones.  You can also access the Skate Shop from here.  Just type "Go to " and then the area name to go there!  To come back to this lobby just type "go out".
 
 > go to half pipe central
-You can't go there.
+You have yet to unlock this Skate Zone.
 
 > go to level 1
-You are in Training Area Level 1
+You are in Training Area Level 1.
 There is Quarter Pipe and Rail here.
-You can go out to Lobby.
+You can go out.
 Here there are quarter pipes and a rail to grind.  Do you know how to play?  If not then type "Tutorial" and hit ENTER.  Skate on!
 
 > skate up quarter pipe

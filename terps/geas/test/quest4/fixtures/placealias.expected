@@ -1,12 +1,12 @@
 
 PlaceAlias
 
-You are in Clearing
+You are in Clearing.
 You can go to plain lift or scriptedroom.
 A clearing with two lifts.
 
 > look
-You are in Clearing
+You are in Clearing.
 You can go to plain lift or scriptedroom.
 A clearing with two lifts.
 
@@ -14,12 +14,12 @@ A clearing with two lifts.
 You can't go there.
 
 > go to plain lift
-You are in plain lift
+You are in plain lift.
 You can go out to Clearing.
 The plain lift.
 
 > out
-You are in Clearing
+You are in Clearing.
 You can go to plain lift or scriptedroom.
 A clearing with two lifts.
 
@@ -28,12 +28,12 @@ You can't go there.
 
 > go to scriptedroom
 You squeeze into the scripted lift.
-You are in scripted lift
+You are in scripted lift.
 You can go out to Clearing.
 The scripted lift.
 
 > out
-You are in Clearing
+You are in Clearing.
 You can go to plain lift or scriptedroom.
 A clearing with two lifts.
 [runner] turns=7 leftover=0 running=true

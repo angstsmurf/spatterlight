@@ -1,12 +1,12 @@
 
-BrOkEn MirRoR: ThE ScReAmInG FoUnTaIn Adam Ironside
+BrOkEn MirRoR: ThE ScReAmInG FoUnTaIn | Adam Ironside
 
 You are sitting on a bench in an underground subway. Your name is Karl Nixon. You are an american tourist enjoying a vacation in Paris.
 A man walks by you with a suitcase. Suddenly two large gangsters grab the man, punch him several times and run off with the briefcase.
 Then there is a huge explosion. A train crashes at full speed into the wall. You fall from your chair and hit your head on the floor.
 All is black...
 
-You are in The Subway Station
+You are in The Subway Station.
 There is a Train, a Vending Machine and a Can of Coke here.
 You can go north.
 All around you is wreckage. It looks like a destruction derby, but with trains, and people. There is a de-reailed train  which is smashed up against the wall, and a vending machine which is randomly spewing out ice cold drinks. Posters ahve been torn and walls have caved in.
@@ -20,7 +20,7 @@ A train has de-railed and collided with a wall due to the explosion. The windows
 You got the can of coke.
 
 > north
-You are in the Stairway
+You are in the Stairway.
 There is a Newspaper and a Banister here.
 You can go north or south.
 After exiting from the platform you arrive at the bottom of some big concrete steps. All around you is litter, and the constant sound of nothing.
@@ -32,7 +32,7 @@ Go NORTH to head up the stairs
 An old, half-torn, newspaper.
 
 > north
-You are in The Subway Entrance
+You are in The Subway Entrance.
 There is the Two Men here.
 You can go south.
 The area around you is large. There is a McDonalds in one corner, and various other shops scattered around the room. Two men stand near the exit, one on his hands and news with a  magnifying glass, and another taking notes.
@@ -45,18 +45,18 @@ The man holding the notepad lowers it so he can see you, and the man on the floo
 "Ah! Bonjour miseur," says the man with the notepad, "I am inspecteur Rosso of le Parisian city, you were involved in the explosion non?"
 Yes inspector, i was.
 ""I knew it!" said the man who was on the floor, "t was you who did the bombing, you are under arrest!""
-"Silence officer Padré," shout Rosso, "Excuse me sir, officer Padré is... not very bright."
-"I am a noble man sir, very clever!" says Padré.
+"Silence officer PadrÃ©," shout Rosso, "Excuse me sir, officer PadrÃ© is... not very bright."
+"I am a noble man sir, very clever!" says PadrÃ©.
 Rosso shakes his head before turning back to you.
 "Now, what happened?" he asked.
 "Well," you begin, "I was sitting waiting for the train when i see this man pass with a brefcase. Suddenly two men jumped out a pucnched him, then stole the briefcase, they ran away after that, then the bomb went off, and i blacked out."
 "Did you see what any of the men looked like?" asked Rosso.
 "No inspector, the situation had overwhelmed me!"
-"Overwhelmed you, pah! nothing overwhelms Padré!"
-Padré, will you shut up please!" shouts Rosso.
+"Overwhelmed you, pah! nothing overwhelms PadrÃ©!"
+PadrÃ©, will you shut up please!" shouts Rosso.
 He turns back to you.
 "Well sir, thankyou for your time, but now you will have to leave the building, if you need anything else visit me at the police station."
-You are in The Street
+You are in The Street.
 There is a Woman here.
 You can go east.
 The street is desserted, except for one woman who continues to take photographs of the train station. Other than that, the place is surprisingly quiet.
@@ -67,30 +67,30 @@ Go EAST to go up the street
 "Hello ma'am."
 "Oh, Bonjour," she says, "Were you involved in the explosion?"
 "Yeah! I nearly got killed."
-"Excellent," she begins, (you think she is saying excellent, you were nearly killed, but then she continues), "I am Chloé, a reporter for Le Parisian, may i interview you?"
+"Excellent," she begins, (you think she is saying excellent, you were nearly killed, but then she continues), "I am ChloÃ©, a reporter for Le Parisian, may i interview you?"
 "Erm, here!"
 "A non, my place, my card." she says as she gives you her card.
 "Okay!"
 "Please call by later."
-Chloé then leaves.
+ChloÃ© then leaves.
 
 > examine card
-Chloé Jarry: Reporter.
+ChloÃ© Jarry: Reporter.
 64 Rose Marianne road
 0202 5890765
 
 > east
-You are in The Street
-You can go west.
+You are in The Street.
 You can go to The english pub.
+You can go west.
 After walking up the road for a while you came to a pub called THE ENGLISH, okay.
 
 Go WEST to head back down the street.
 
 > go to the english pub
-You are in The english pub
+You are in The english pub.
 There is an Old Guy, Rope, a Woman, Two Men, a Bartender, the Alcohol Dispensing Taps and a Brothel Advertisment here.
-You can go out to The Street.
+You can go out to Street.
 There are very few customers around. The bartender is pottering about behind the bar, an old guy sits in the corner constantly sneezing, a woman is sitting at a table by herself, and two men are standig at the bar.
 
 Go OUT to the street.

@@ -1,9 +1,9 @@
 
-The Legend of Cyrn, v1.0 Graham Kelly
+The Legend of Cyrn, v1.0 | Graham Kelly
 
 This is the demo of my rather large, soon-to-be-released game, The Legend of Cyrn. You play as one of eight races, although in the demo you can only choose from two, the Half-Elf and the Human (which are the same game, basically.) I hope you enjoy this game! I promise the full version out within the year.
 
-You are in signup room
+You are in signup room.
 What is your name?
 Choose your race:
 1) Human
@@ -394,8 +394,8 @@ The old dirt road upon which you stand is the branch of the Highway that leads t
 > north
 You are in Vald Daen's Town Square.
 There is a fountain and a Fae Merchant here.
-You can go north, south, east, west, northeast, northwest or southwest.
 You can go to a small alcove.
+You can go north, south, east, west, northeast, northwest or southwest.
 This is the place where the citizens of the Vald go to congregate and converse. The bustle of merchants quibbling over prices, townspeople making small talk and the babbling of the fountain here make for a noisy, yet comfortable atmosphere.
 
 > southwest
@@ -426,8 +426,8 @@ Here the potters of Vald Daen tout their wares to customers. In the back room yo
 > out
 You are in Vald Daen's Town Square.
 There is a fountain and a Fae Merchant here.
-You can go north, south, east, west, northeast, northwest or southwest.
 You can go to a small alcove.
+You can go north, south, east, west, northeast, northwest or southwest.
 This is the place where the citizens of the Vald go to congregate and converse. The bustle of merchants quibbling over prices, townspeople making small talk and the babbling of the fountain here make for a noisy, yet comfortable atmosphere.
 
 > west
@@ -445,8 +445,8 @@ You fill the pot with oil.
 > out
 You are in Vald Daen's Town Square.
 There is a fountain and a Fae Merchant here.
-You can go north, south, east, west, northeast, northwest or southwest.
 You can go to a small alcove.
+You can go north, south, east, west, northeast, northwest or southwest.
 This is the place where the citizens of the Vald go to congregate and converse. The bustle of merchants quibbling over prices, townspeople making small talk and the babbling of the fountain here make for a noisy, yet comfortable atmosphere.
 
 > north

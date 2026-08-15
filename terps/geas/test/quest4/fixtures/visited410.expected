@@ -1,7 +1,7 @@
 
 Visited410
 
-You are in hall
+You are in hall.
 You can go north.
 The hall.
 [hall script: hall NOT visited]
@@ -13,13 +13,13 @@ The hall.
 [check: cellar NOT visited]
 
 > north
-You are in study
+You are in study.
 You can go south.
 The study.
 [study script: study NOT visited]
 
 > south
-You are in hall
+You are in hall.
 You can go north.
 The hall.
 [hall script: hall visited]

@@ -1,0 +1,61 @@
+
+Lookprop
+
+You are in Cave.
+A dark cave.
+
+> dump
+lookdesc [A dark cave.] formatroom [Cave]
+
+> lit
+
+> look
+You are in Cave.
+A bright cave.
+
+> dump
+lookdesc [A bright cave.] formatroom [Cave]
+
+> blank
+
+> look
+You are in Cave.
+
+> dump
+lookdesc [] formatroom [Cave]
+
+> hall
+You are in Hall.
+A wide hall.
+
+> dump
+lookdesc [A wide hall.] formatroom [Hall]
+
+> rename
+
+> look
+You are in Great Hall.
+A wide hall.
+
+> dump
+lookdesc [A wide hall.] formatroom [Great Hall]
+
+> pre
+
+> suf
+
+> look
+You are in the Great Hall.
+A wide hall.
+
+> dump
+lookdesc [A wide hall.] formatroom [the Great Hall]
+
+> study
+You peer around.
+A dusty study.
+
+> look
+You peer around.
+A tidy study.
+[runner] turns=18 leftover=0 running=true

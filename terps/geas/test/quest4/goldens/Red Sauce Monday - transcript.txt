@@ -24,6 +24,7 @@ Press any key to load this merry game.
 
 
 
+Press any key to begin the game!
 
 
 
@@ -248,7 +249,7 @@ You're sure there's some use for this.
 
 > i
 You are carrying:
-RUBBER BAND
+RUBBER BAND.
 
 > challenge chris
 You valiantly step up to the table, but quickly realise that you have no absolutely no chance. 

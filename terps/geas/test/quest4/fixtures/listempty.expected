@@ -1,7 +1,7 @@
 
 listempty
 
-You are in Beach
+You are in Beach.
 There is crate, chest, barrel and pebble here.
 A sandy beach.
 
@@ -12,19 +12,23 @@ crate reads empty
 chest reads empty
 
 > look in crate
+A wooden crate.
 There is nothing in the crate.
 
 > look in barrel
+A barrel.
 You peer into the barrel and see your own reflection.
 
 > look in chest
+A sea chest.
 The chest is shut.
 
 > open chest
-You open the chest.
+You can't open that.
 
 > look in chest
-The chest is empty.
+A sea chest.
+The chest is shut.
 
 > take pebble
 You pick it up.
@@ -36,5 +40,6 @@ You put pebble in crate.
 crate reads empty
 
 > look in crate
-Inside you see pebble.
+A wooden crate.
+It contains pebble.
 [runner] turns=11 leftover=0 running=true

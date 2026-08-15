@@ -1,0 +1,11 @@
+sigil
+plaque
+quoted
+badsize
+goodsize
+spacesize
+badjust
+badx
+trail
+colour
+bold

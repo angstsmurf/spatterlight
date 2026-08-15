@@ -1,13 +1,15 @@
 
 Dupnames
 
-You are in West
+You are in West.
+There is nobody here.
 There is plain ring and wooden chest here.
 You can go east.
 The west room.
 
 > look
-You are in West
+You are in West.
+There is nobody here.
 There is plain ring and wooden chest here.
 You can go east.
 The west room.
@@ -16,7 +18,8 @@ The west room.
 Nothing out of the ordinary.
 
 > look
-You are in West
+You are in West.
+There is nobody here.
 There is plain ring, wooden chest and dented lantern here.
 You can go east.
 The west room.
@@ -28,35 +31,39 @@ A plain ring.
 You take the plain ring.
 
 > look
-You are in West
+You are in West.
+There is nobody here.
 There is wooden chest and dented lantern here.
 You can go east.
 The west room.
 
 > i
 You are carrying:
-ring
+Ring.
 
 > drop ring
 You drop it.
 
 > i
-You are carrying nothing.
+You are not carrying anything.
 
 > look
-You are in West
+You are in West.
+There is nobody here.
 There is plain ring, wooden chest and dented lantern here.
 You can go east.
 The west room.
 
 > e
-You are in East
+You are in East.
+There is nobody here.
 There is jewelled ring and polished lantern here.
 You can go west.
 The east room.
 
 > look
-You are in East
+You are in East.
+There is nobody here.
 There is jewelled ring and polished lantern here.
 You can go west.
 The east room.
@@ -68,23 +75,26 @@ A jewelled ring.
 You take the jewelled ring.
 
 > look
-You are in East
+You are in East.
+There is nobody here.
 There is jewelled ring and polished lantern here.
 You can go west.
 The east room.
 
 > i
 You are carrying:
-ring
+Ring.
 
 > w
-You are in West
+You are in West.
+There is nobody here.
 There is wooden chest and dented lantern here.
 You can go east.
 The west room.
 
 > look
-You are in West
+You are in West.
+There is nobody here.
 There is wooden chest and dented lantern here.
 You can go east.
 The west room.

@@ -1,12 +1,12 @@
 
 Addremove
 
-You are in Vault
+You are in Vault.
 There is chest and coin here.
 The vault.
 
 > look
-You are in Vault
+You are in Vault.
 There is chest and coin here.
 The vault.
 
@@ -15,15 +15,16 @@ The vault.
 > stow
 
 > look
-You are in Vault
+You are in Vault.
 There is chest, pebble and coin here.
 The vault.
 
 > look at chest
 A sturdy chest.
+It contains pebble and coin.
 
 > look
-You are in Vault
+You are in Vault.
 There is chest, pebble and coin here.
 The vault.
 
@@ -32,29 +33,29 @@ The vault.
 > closeit
 
 > look
-You are in Vault
+You are in Vault.
 There is chest and pebble here.
 The vault.
 
 > take coin
-You don't see any coin.
+I can't see that here.
 
 > i
-You are carrying nothing.
+You are not carrying anything.
 
 > noparent
 
 > nosuchchild
 
 > look
-You are in Vault
+You are in Vault.
 There is chest and pebble here.
 The vault.
 
 > openit
 
 > look
-You are in Vault
+You are in Vault.
 There is chest, pebble and coin here.
 The vault.
 [runner] turns=16 leftover=0 running=true

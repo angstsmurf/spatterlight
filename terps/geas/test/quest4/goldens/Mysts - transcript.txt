@@ -1,5 +1,5 @@
 
-Mysts Mihalis "DarkAng3l" Georgostathis
+Mysts | Mihalis "DarkAng3l" Georgostathis
 
 It has been two days since your master told you to follow him to a trip. So, starting from the city of Athens, you reach an abandoned cape in Pelloponisos. Standing by the beach, you and your master, you seem to wait for something. But gods know what are you waiting for...
 
@@ -26,7 +26,7 @@ You wouldn't dare speak to him.
 
 > i
 You are carrying:
-calm
+calm.
 
 > west
 An ordinary narrow path, leading to the top of the cliff. It's rocky and slippery. Some dried bushes are the only vegetation here. Something not abnormal for the arid climate of southern Greece. The path is divided into two different paths, one to the left (north) and one to the right (south). They both lead high, but you doubt whether or not they lead to the top of the cliff. You can also go east, to the beach.
@@ -62,8 +62,7 @@ Light dims again, and you find yourself in the cave. Time and space is normal no
 
 > i
 You are carrying:
-upset
-stone
+upset and stone.
 
 > x stone
  Just a simple stone.

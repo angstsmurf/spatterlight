@@ -20,16 +20,20 @@
 ' containment, which is the same DoAddRemove call reached from the parser.  Note
 ' that `add` writes the container's *definition* name, not its alias.
 '
-' TAKE never writes the property itself -- it asks the container to.  A
-' text/default take of a parented object announces the implied step, runs the
-' REMOVE command on the player's behalf and then gives up if the item is still
-' parented afterwards (ExecTake, V4Game.Part2.cs:5178-5204); see
-' takefromcontainer for that mechanism on its own.  The sack here declares no
-' `remove` of its own, so the container refuses and the take is abandoned with
-' the bones still inside it -- which is why the pedestal goes on accepting the
-' offering.  Barbarian needs that leg of it too: its bones come out of the sack
-' and go back in over the course of the game, and the pedestal has to keep
-' recognising them.
+' TAKE never writes the property itself, and the bones stay in the sack when
+' the player tries to take them out of it -- which is why the pedestal goes on
+' accepting the offering.  Barbarian needs that leg of it too: its bones come
+' out of the sack and go back in over the course of the game, and the pedestal
+' has to keep recognising them.
+'
+' What stops the take here is the *inventory* rule rather than the container's:
+' the sack is being carried, so from 3.91 on everything in it is in the
+' inventory scope too, and from 4.10 a take of something already there answers
+' alreadytaken before any script runs (ExecTake, V4Game.Part2.cs:5143-5153).
+' Drop the sack first and the other mechanism takes over: a text/default take of
+' a parented object announces the implied step, runs the REMOVE command on the
+' player's behalf and gives up if the item is still parented afterwards
+' (ibid. 5178-5204).  See takefromcontainer for that one on its own.
 '
 ' Quest's MoveThing -- the `move <obj; room>` statement -- leaves the property
 ' alone too, so `stash` relocates the bones without disturbing what they claim to

@@ -1,5 +1,5 @@
 
-Riddle Run, v1.0 Hayden A. Schiff
+Riddle Run, v1.0 | Hayden A. Schiff
 
 Welcome to Riddle Run! In this game, you'll have to solve five riddles to escape. You advance one room each time you solve a riddle. To answer a riddle you simply type in the answer. You have an unlimited amount of time and guesses, but you can win trophies at the end depending on how fast you are.
 
@@ -15,7 +15,7 @@ The game will start as soon as you answer this question: What is your name?
 Oh, so your name is Petter. Well Petter, the game has started.
 
 
-You are in Room 1
+You are in Room #1.
 Here's your riddle:
 
 IF THE HEAVENS YOU SEEK
@@ -33,7 +33,7 @@ Is that your final answer?
 The door to Room #2 is open.
 
 > out
-You are in Room 2
+You are in Room #2.
 Here's your riddle:
 
 WATCH ANYTHING ON ME
@@ -51,7 +51,7 @@ Is that your final answer?
 The door to Room #3 is open.
 
 > out
-You are in Room 3
+You are in Room #3.
 Here's your riddle:
 
 I BRIGHTEN YOUR DAY
@@ -69,7 +69,7 @@ Is that your final answer?
 The door to Room #4 is open.
 
 > out
-You are in Room 4
+You are in Room #4.
 Here's your riddle:
 
 THE ANSWER IS NOT GRASS
@@ -84,7 +84,7 @@ I like ice cream too! Is that your final answer?
 The door to Room #5 is open.
 
 > out
-You are in Room 5
+You are in Room #5.
 Here's your riddle:
 
 I'M IN ENGLISH, GERMAN OR EVEN CROATIAN

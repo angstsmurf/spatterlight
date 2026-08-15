@@ -1,0 +1,25 @@
+
+StrUnset
+
+You are in Room.
+A room.
+
+> menu
+1) 
+2) 
+3) 
+4) 
+5) 
+
+> fill
+
+> menu
+1) Fireball
+2) Frostbolt
+3) Mend
+4) 
+5) 
+
+> unset
+nothing here: .
+[runner] turns=4 leftover=0 running=true

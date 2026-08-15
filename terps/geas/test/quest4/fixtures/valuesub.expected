@@ -1,0 +1,15 @@
+
+Valuesub
+
+You are in Room.
+A plain room.
+
+> dump
+early [[]]
+earlyn [-32767]
+greeting [Hello]
+full [Hello there]
+base [7]
+copied [7]
+rolled [4]
+[runner] turns=1 leftover=0 running=true

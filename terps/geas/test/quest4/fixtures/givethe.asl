@@ -29,7 +29,11 @@
 ' The last command below is the precedence check: it contains both separators,
 ' so the split is on " to " -- item "the officer the letter", recipient "sign" --
 ' and both halves are nonsense, so it has to fail rather than quietly fall
-' through to the reading that would have worked.
+' through to the reading that would have worked.  It fails on the item, and only
+' on the item: ExecGive looks that up first, in the inventory alone, and returns
+' on the miss without ever asking the room about the recipient (ibid. 4673-4681),
+' so there is one refusal here and it is NoItem.  The apple line above is the
+' same refusal reached honestly -- the apple is in the room, not in hand.
 
 define game <Givethe>
  asl-version <400>

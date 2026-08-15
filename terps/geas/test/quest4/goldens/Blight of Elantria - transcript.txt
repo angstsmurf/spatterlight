@@ -1,5 +1,5 @@
 
-Blight of Elantria, v3 Craig Dutton
+Blight of Elantria, v3 | Craig Dutton
 
 Blight of Elantria
 By Craig Dutton (c) 2011
@@ -10,6 +10,7 @@ You know of only one way to defeat him - the Pandemonica.  It's an ancient tome 
 
 Good luck on your mission!
 
+Press a key to continue.
 
 
 You are at the crossroads.
@@ -45,6 +46,8 @@ The castle kitchen is always busy with meals prepared and servants running aroun
 
 > open cupboard
 You open it.
+A mahogany cupboard hanging from the wall.
+It contains a bag of salt.
 
 > take salt
 (first removing it from cupboard)
@@ -59,6 +62,8 @@ It is dark and damp and full of various stock.  Water drips from the ceiling and
 
 > open barrel
 You open it.
+A small barrel for storing food or wine.
+It contains an apple.
 
 > take apple
 (first removing it from barrel)
@@ -184,8 +189,8 @@ It is a humble place with little decor.  The floor has been laid with red tiles 
 > use salt on bowl
 You fill the bowl with salt and a rumbling is heard.  You turn around and a secret recess appears on the floor.
 
-> open recess
-It is already open.
+> look at recess
+It contains a bronze key and a small ruby.
 
 > take bronze key
 (first removing it from recess)
@@ -448,6 +453,8 @@ You dig up a coffin.
 
 > open coffin
 You open it.
+A mahogany coffin with no nameplate.
+It contains a skeleton.
 
 > pull skeleton
 The leg bone comes off quite easily!
@@ -466,6 +473,10 @@ You unlock the casket.
 
 > open casket
 You open it.
+
+> look at casket
+An ornate mahogany casket bound in iron.
+It contains a silver crucifix.
 
 > take crucifix
 (first removing it from small casket)
@@ -551,7 +562,8 @@ It is dark and dusty and a sarcophagus sits atop a stone pedestal.  Lit torches 
 The shovel has no problem in opening the sarcophagus and the lid slides off.
 
 > look in sarcophagus
-Inside you see corpse.
+It is carved with skulls and elegant scrolling.
+It contains a corpse.
 
 > look at corpse
 You find a gold key.
@@ -1074,7 +1086,7 @@ This library is the source of all the ice people's knowledge and contains thousa
 Which scroll from 1 to 10,000?
 The scroll of translation appears before you.
 
-> take scroll
+> take scroll of translation
 You pick it up.
 
 > west
@@ -1173,7 +1185,7 @@ The courtyard is cobbled underfoot with buildings around you.  The Great hall li
 
 > north
 You are in the Great Hall.
-You can go south or secret room.
+You can go south or to a secret room.
 The ceiling is vaulted and held up by six marble columns.  The floor has blue and white mosaic tiles and a large oak chair stands on a dais by the north wall.
 
 > go to secret room
@@ -1190,7 +1202,7 @@ You pick it up.
 
 > out
 You are in the Great Hall.
-You can go south or secret room.
+You can go south or to a secret room.
 The ceiling is vaulted and held up by six marble columns.  The floor has blue and white mosaic tiles and a large oak chair stands on a dais by the north wall.
 
 > south
@@ -1524,12 +1536,16 @@ The chest is now unlocked.
 > open chest
 You open it.
 
+> look at chest
+A large chest made from a darkwood and bound in iron.  It has two keyholes.
+It contains the pandemonica.
+
 > take pandemonica
 (first removing it from iron-bound chest)
 Done.
 You pick it up.
 
-> use scroll on pandemonica
+> use scroll of translation on pandemonica
 The scroll glows and merges with the Pandemonica.
 
 > read pandemonica
@@ -1692,8 +1708,9 @@ The Potion of Life does what it says on the label and restores the dead oak tree
 > look at oak
 The oak tree is full of life and contains a hollow.
 
-> open hollow
-It is already open.
+> look at hollow
+A small hollow in the oak.
+It contains a gold crown.
 
 > take crown
 (first removing it from hollow)
@@ -1918,4 +1935,4 @@ It is in fact a large single room with various parts of the house separated with
 The End
 
 
-[runner] turns=401 leftover=0 running=false WON=YES
+[runner] turns=403 leftover=0 running=false WON=YES

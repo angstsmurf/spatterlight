@@ -41,7 +41,9 @@ here: attach the telescope to the tripod in the front loft, look through it to
 see which way the statue's spear points, take it off again, stick the putty to
 the tripod, balance the laser pen on the putty, and then run -- rear loft, out of
 the window, down the trellis, across the driveway and into the graveyard -- and
-chalk the grave the red dot is sitting on before `pentime` drops the pen.  Seven
+chalk the grave the red dot is sitting on before `pentime` drops the pen.  Name
+it in full: "grave" also abbreviates the several gravestones standing beside it,
+and Quest stops to ask which you meant.  Seven
 moves and one CHALK, against a twenty-turn timer.
 
 EXAMINE IS NOT LOOK AT.  The game block defines `verb <examine;x> msg <Examining
@@ -299,8 +301,8 @@ southeast
 south
 east
 southeast
-use chalk on grave
-examine grave
+use chalk on laser marked grave
+examine chalk marked grave
 northwest
 west
 north

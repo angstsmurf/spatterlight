@@ -10,7 +10,7 @@ completely straight-faced high-fantasy treasure hunt: a demon named Xanthos
 undead army in the Southern Peaks, and the only thing that can stop him is the
 Pandemonica, a demonic tome he keeps in his own dungeon.
 
-This script wins the game outright in 401 turns.  Marker:
+This script wins the game outright in 403 turns.  Marker:
     "Elantria is in your debt forever"
 Run it without --tick (see THE BELL below) and under the harness's GEAS_SEED=1
 (see THE SCROLL below -- the answer to one puzzle is drawn from the RNG).
@@ -77,8 +77,11 @@ both (the transcript prints "The mirror's reflection shows you the number:
 3688 is the first and only value the RNG is asked for in the whole game, so it
 is a pure function of the seed: under a different seed the mirror will report a
 different number and the line after `take scrolls` must be changed to match.
+Once it is in hand the scroll has to be named in full -- "scroll" on its own
+also matches the room's "many scrolls", which never leave, so Quest stops to ask
+which of the two you meant.
 `enter` consumes the following script line without spending a turn, which is why
-the turn count is 401 for 402 script lines.
+the turn count is 403 for 404 script lines.
 
 
 THE BELL (why this walkthrough runs without --tick)
@@ -103,23 +106,36 @@ walkthrough exercises the ring/deaf/smash chain, and adding --tick would turn a
 sloppy timer into a hard block.
 
 
-TWO CONTAINERS THAT HIDE THEIR CONTENTS
----------------------------------------
-Three of the game's payoffs sit inside containers that the player has to open
-by hand even though nothing in the prose says they are shut, because the author
-declared the container `opened` (or opened it from a script) but left the child
-objects out of scope until an explicit open:
+FIVE CONTAINERS THAT HIDE THEIR CONTENTS
+----------------------------------------
+Five of the game's payoffs sit inside containers that the player has to *look
+at* by hand even though the prose has already said they are open.  What is
+missing is not the open flag but the `seen` one: a container gives up its
+contents only when it is open AND has been seen, and a look is the only thing
+that ever writes `seen` (DoLook, V4Game.Part2.cs:6083).  Neither of the two
+ways these five come to be open goes through it -- opening an already-open
+container is refused several rungs before DoLook, and the `open <X>` script
+statement passes showLook:false -- so an author who writes `opened` in the
+definition, or opens the thing from a script, leaves the contents unreachable
+until something looks:
 
   * the secret recess in the temple, revealed by `use salt on bowl`, holds the
-    bronze key and the ruby -- `open recess` first;
+    bronze key and the ruby -- `look at recess` first;
+  * the small casket in the church, whose `open` action unlocks with the copper
+    key and then calls `open <casket>`, holds the silver crucifix -- `look at
+    casket` after opening it;
   * the sarcophagus in the crypt, which `use shovel on sarcophagus` already
     calls `open <sarcophagus>` on, holds a `hidden` corpse -- `look in
     sarcophagus` first, then `look at corpse` drops the gold key;
+  * the iron-bound chest in Xanthos' dungeon, opened by the ice and fire keys
+    through the same kind of `open` action, holds the Pandemonica itself --
+    `look at chest` after opening it;
   * the hollow in the restored oak in forest3, revealed by `look at oak`, holds
-    Prince Einhart's crown -- `open hollow` first.
+    Prince Einhart's crown -- `look at hollow` first.
 
-Without those three extra commands `take bronze key`, `look at corpse` and
-`take crown` all answer "You don't see any ...".
+Without those five extra commands `take bronze key`, `take crucifix`, `look at
+corpse`, `take pandemonica` and `take crown` all answer "You don't see any ...",
+and the last of them makes the game unwinnable.
 
 
 THE SHOVEL, WHICH MUST BE BROKEN AND MENDED IN THE RIGHT ORDER
@@ -262,7 +278,7 @@ take egg
 east
 south
 use salt on bowl
-open recess
+look at recess
 take bronze key
 take ruby
 out
@@ -324,6 +340,7 @@ take bone
 west
 use copper key on casket
 open casket
+look at casket
 take crucifix
 up
 scare bats
@@ -455,7 +472,7 @@ use red crystal on monolith
 east
 take scrolls
 3688
-take scroll
+take scroll of translation
 west
 west
 northwest
@@ -548,8 +565,9 @@ south
 use ice key on chest
 use fire key on chest
 open chest
+look at chest
 take pandemonica
-use scroll on pandemonica
+use scroll of translation on pandemonica
 read pandemonica
 north
 down
@@ -581,7 +599,7 @@ northeast
 southeast
 use potion on oak
 look at oak
-open hollow
+look at hollow
 take crown
 southeast
 south

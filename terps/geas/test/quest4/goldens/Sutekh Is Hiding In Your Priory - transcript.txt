@@ -7,18 +7,20 @@ You're on your penny farthing in a trice, and before long you're standing in the
 
 To win this game, you first must find, and give to Sutekh, the one thing that will banish him.  Then, after a couple of other duties, you will have completed, and won, the game.  Type 'help' at any time...if you can complete in under 200 turns, you are a clever person, under 150, very clever, under 100, ludicrously bright, under 50, well, you clearly know the ropes very well...good luck...
 
-You are in the panelled library
+You are in the panelled library.
 There is a television and a bust of a poet here.
 You can go west.
 Bookcases and panels line the walls of this tranquil and scholarly little study.  There is a sumptuous settee here, facing the telly.  A bust of a poet stands on a rostrum by a leafy houseplant.
 
 > watch television
+You watch as a woman in a white dress paces purposefully about in a priory garden.
 
 > switch off television
 You switch off the vintage viewer.
 
 
 > watch television
+You regard the dot for a while, fancying as you do that a leaf flutters to the ground outside.  Well, it is autumn.
 
 > read book
 Which book would you like to peruse?
@@ -36,7 +38,7 @@ He says, 'Your final act in this game will be handing a hooded lady a rose.'
 
 > push panel
 Pressing the panel transports you to the ruined summerhouse in the priory grounds.
-You are in the ruined summerhouse
+You are in the ruined summerhouse.
 There is a fire and David Bowie here.
 You can go north or south.
 The decking in this ruined wooden frame is very 90s...1890s.  Rhododendron-branches reach in through broken panes.  It is a suitable spot to meditate, perhaps?  The decking is rickety, but sturdy.
@@ -70,7 +72,7 @@ You blow on the embers, giving it your best Ray Mears.
 
 
 > south
-You are in the mossy wood
+You are in the mossy wood.
 There is a shovel here.
 You can go north or south.
 Stonehouse sure knew how to landscape a copse, boy did he?  Little cushions of daisied moss carpet this hilly copse, about thirty silver birches and elms, sprouting from the mats of green.  There's a big oak here that seems to outstrip the others in terms of height, and general grandeur, boy what an oak!  But where is Sutekh, where the Devil is the Devil hiding?
@@ -88,7 +90,7 @@ Yes, within the clam-like trinket case, there is an even smaller amulet, a truly
 Things seem a little calmer with the amulet in your grubby mitts.
 
 > south
-You are in the silent meadow
+You are in the silent meadow.
 There is Sarah Jane Smith and a tattered signed photo of les dennis lying in the grass here.
 You can go north.
 Dusk hangs heavy over this dim, rolling meadow.  The horizon looks enticing, yet a world you feel you will never know.  The grass is long, dewy, and lush.  The sky arches over like a cloud-marquee.  Maybe you'd like to dance with someone...go on, don't be shy...a few people in this game will do a little dance with you...
@@ -100,14 +102,14 @@ Dusk hangs heavy over this dim, rolling meadow.  The horizon looks enticing, yet
 Sarah and you tango a few paces, but she seems to be gripping you a bit more tightly than you'd like.
 
 > north
-You are in the mossy wood
+You are in the mossy wood.
 There is a trinket box here.
 You can go north or south.
 Stonehouse sure knew how to landscape a copse, boy did he?  Little cushions of daisied moss carpet this hilly copse, about thirty silver birches and elms, sprouting from the mats of green.  There's a big oak here that seems to outstrip the others in terms of height, and general grandeur, boy what an oak!  But where is Sutekh, where the Devil is the Devil hiding?
 
 > climb oak
 You scramble up through the branches, noticing as you do the cathedral spire above treetops to the west, and to your north, the south face of the priory.  But what's that?  There is a tiny, slit-shaped window right next to the boudoir casement - how can that be?  And after all that thought, you arrive on a sturdy branch.
-You are in the upper branches of the oak
+You are in the upper branches of the oak.
 There is a phoenix egg here.
 You can go down.
 There seems to be a rudimentary treehouse up here.  The branches cradle you quite nicely.  This is where the phoenix roosts, according to Stonehouse, but then he did have a personality disorder.  To your west, you can see the spire of the cathedral striving skyward, like a closed parasol waiting for a party.  Ah, that one could get to the cathedral tea-room.  One has to to win the game.  One must look at the counter, and take the emblem of Sutekh's nemesis back to his hideout.  Could one fly, wish, dream...?  Maybe one could bake a scone.
@@ -124,19 +126,19 @@ You loll on the branch for a while, and a gentle, though cool, evening breeze bu
 
 
 > down
-You are in the mossy wood
+You are in the mossy wood.
 There is a trinket box here.
 You can go north or south.
 Stonehouse sure knew how to landscape a copse, boy did he?  Little cushions of daisied moss carpet this hilly copse, about thirty silver birches and elms, sprouting from the mats of green.  There's a big oak here that seems to outstrip the others in terms of height, and general grandeur, boy what an oak!  But where is Sutekh, where the Devil is the Devil hiding?
 
 > north
-You are in the ruined summerhouse
+You are in the ruined summerhouse.
 There is a fire and David Bowie here.
 You can go north or south.
 The decking in this ruined wooden frame is very 90s...1890s.  Rhododendron-branches reach in through broken panes.  It is a suitable spot to meditate, perhaps?  The decking is rickety, but sturdy.
 
 > north
-You are in the orchard
+You are in the orchard.
 There is a statuette here.
 You can go north or south.
 Gathered like a congregation, sparse apple trees lean in conference.  Grass looks like there's been a scuffle.  Mars hangs like a borbel in velvet heavens.  Stonehouse began this orchard with saplings from the Chelsea Physick Garden, a portal to which can be found in this very location.
@@ -155,7 +157,7 @@ The dew-clad stone figure seems to swivel like a hake on a hook.  Its resemblanc
 
 > kiss statuette
 Ah, you're no slouch.  In kissing the statuette, you find yourself transported, in typical Stonehouse style, to the renowned Chelsea Physick Garden.  But how will you get back, I ask myself.
-You are in the renowned Chelsea Physick Garden
+You are in the renowned Chelsea Physick Garden.
 There is a swing here.
 Ah, walled and wild, not unlike a mental hospital for the criminally insane.  The foliage is dense and green, and although there's a swing under an arch here, there doesn't seem an obvious way to get back to the priory.  But I'm sure you'll find it... 
 
@@ -167,13 +169,16 @@ The arrow, or whoever etched it, seems to want you to walk through the arch.  Ca
 
 > walk through arch
 Well, the arch is indeed the gateway back to the priory, and your quaint little quest.  A scientist-chap installed the portal on Stonehouse's 30th birthday, then, walking through it himself, was never seen again.  But then it's good to do good and not hang around for plaudits, innit?
-You are in the orchard
-There is a statuette here.
+You are in the orchard.
+There is a statuette and a Syrian brass lantern here.
 You can go north or south.
 Gathered like a congregation, sparse apple trees lean in conference.  Grass looks like there's been a scuffle.  Mars hangs like a borbel in velvet heavens.  Stonehouse began this orchard with saplings from the Chelsea Physick Garden, a portal to which can be found in this very location.
 
+> take brass lantern
+You lift the lantern by its easy-grip handle.  Syrian design, reasonably priced.
+
 > north
-You are in the conservatory
+You are in the conservatory.
 There is a newspaper and a plush magenta fez here.
 You can go south, east, west or up.
 This conservatory is class.  Lattice mock-Jacobean windowlets offer a gridded purview of the grounds to the south.  Looks like a good room to lounge around in.  A particularly nice tapestry on the wall'n'all.
@@ -192,7 +197,7 @@ Professor Edgar Stonehouse, noted Egyptologist, has returned home with a sarcoph
 Yes, it both fits and suits you.  I think magenta is your colour.
 
 > up
-You are in the domed observatory
+You are in the domed observatory.
 There is a shiny brass telescope here.
 You can go east or down.
 This observatory is swell, making Greenwich seem an upturned salad bowl.  A window to the west shows a skylight to a lower room.  Trees in the distance sway, like slow silhouettes.  Nice lino.
@@ -204,13 +209,13 @@ The telescope is trained on the pincers of the Crab Nebula.
 You turn the kaleidoscope to the heavens, and a geodesic delight it is.  Planets, asteroids, cooking foil and other utensils orbit a silent dark whirlpool in the firamement.  Suns fixx'n'drift, comets chase eternally the tails of those in pursuit of them...and distant, dim galaxies seem to wink from the morass, as if there is something that travels even faster than light, and thought...
 
 > down
-You are in the conservatory
+You are in the conservatory.
 There is a newspaper here.
 You can go south, east, west or up.
 This conservatory is class.  Lattice mock-Jacobean windowlets offer a gridded purview of the grounds to the south.  Looks like a good room to lounge around in.  A particularly nice tapestry on the wall'n'all.
 
 > west
-You are in the snooker room
+You are in the snooker room.
 There is a full-size snooker table, a cue and some chalk here.
 You can go north, east or west.
 Stonehouse's personal favourite room, its centrepiece, a gleaming green snooker-table, lit from a skylight.  Lush carpet underfoot affirms the lushness of things.  But what's that?  Is that a cloven imprint I see in the pile?  Nice screen.
@@ -223,10 +228,10 @@ You slip the pink slinkily into left middle.  On the black?
 
 > pot black
 The black ball is missing.  And you were doing so well.
+Before you in a kind of mist, a vision of a priest, foggy and antick, seems to beckon atcha, and fade.
 
 > take chalk
 Tou pop the chalk into your left waistcoat pocket.
-Before you in a kind of mist, a vision of a priest, foggy and antick, seems to beckon atcha, and fade.
 
 > chalk cue
 You twiddle the cube atop the cue, and pretty soon it's dusty blue.
@@ -235,7 +240,7 @@ You twiddle the cube atop the cue, and pretty soon it's dusty blue.
 You hear a low groan from the music-room.
 
 > north
-You are in the reasonably pleasant music-room
+You are in the reasonably pleasant music-room.
 There is a church organ and some sheet music here.
 You can go south.
 The carpet, plush and maroon, reaches from window to wall, the window being a charming lattice, in case you were wondering.  The room has a tranquil air, a restful quietness, suited to the musing musician, or any committed thinker.  You and Edgar have had some fun nights jamming in here.
@@ -266,13 +271,13 @@ You prod it and your finger goes through and it disappears in a bursting bubble-
 
 
 > south
-You are in the snooker room
+You are in the snooker room.
 There is a full-size snooker table and a cue here.
 You can go north, east or west.
 Stonehouse's personal favourite room, its centrepiece, a gleaming green snooker-table, lit from a skylight.  Lush carpet underfoot affirms the lushness of things.  But what's that?  Is that a cloven imprint I see in the pile?  Nice screen.
 
 > west
-You are in the servant's area
+You are in the servant's area.
 There is a table, a stove, some scone mix and a smelly bin here.
 You can go east.
 The servant's area is pretty much a kitchen, with a window and a rocking-chair.  An old wooden table, gnarled and streaky, is the centrepiece of this cool, shady realm.  The bin looks a bit too close to the oven if you ask me.  Jars of ingredients line the shelves of a quite charming Welsh dresser.  Satisfied?
@@ -295,25 +300,25 @@ You lift the lid of this rather manky looking bin.
 The bin is filled with detritus from about the last week.  Usually Stonehouse is quite meticulous about such things.
 
 > east
-You are in the snooker room
+You are in the snooker room.
 There is a full-size snooker table and a cue here.
 You can go north, east or west.
 Stonehouse's personal favourite room, its centrepiece, a gleaming green snooker-table, lit from a skylight.  Lush carpet underfoot affirms the lushness of things.  But what's that?  Is that a cloven imprint I see in the pile?  Nice screen.
 
 > east
-You are in the conservatory
+You are in the conservatory.
 There is a newspaper here.
 You can go south, east, west or up.
 This conservatory is class.  Lattice mock-Jacobean windowlets offer a gridded purview of the grounds to the south.  Looks like a good room to lounge around in.  A particularly nice tapestry on the wall'n'all.
 
 > east
-You are in a hallway
+You are in a hallway.
 There is a telephone and a hatstand here.
 You can go north, east or west.
 If there were awards for hallways, this would probably win one.  The dull floral wallpaper is thinning, like your fortunes, a dado running round.  The rug is lush, Armenian, plum'n'peach hexagons.  A portrait looms without meaning to.
 
 > east
-You are in the panelled library
+You are in the panelled library.
 There is a television, a bust of a poet and the mummy of all malevolence here.
 You can go west.
 Bookcases and panels line the walls of this tranquil and scholarly little study.  There is a sumptuous settee here, facing the telly.  A bust of a poet stands on a rostrum by a leafy houseplant.
@@ -322,7 +327,7 @@ Bookcases and panels line the walls of this tranquil and scholarly little study.
 You poke more gently this time, and it whispers, 'Secret window, secret window...' as it vanishes in a cobweb-type thing.
 
 > west
-You are in a hallway
+You are in a hallway.
 There is a telephone and a hatstand here.
 You can go north, east or west.
 If there were awards for hallways, this would probably win one.  The dull floral wallpaper is thinning, like your fortunes, a dado running round.  The rug is lush, Armenian, plum'n'peach hexagons.  A portrait looms without meaning to.
@@ -346,7 +351,7 @@ You listen to your answer-phone message.  'Hello, I'm out at the moment, as you 
 You say hello, but your only reply is the silence all about you.
 
 > north
-You are in the porch
+You are in the porch.
 There is the mummy of all malevolence here.
 You can go north or south.
 An unpretentious porch, like the man himself.  The doormat beneath your feet is thick and bristly, tough-wearing, possibly Robert Dyas.  The doorbell looks strangely enticing.  There is a dark beam over your head, with scratches on it.
@@ -381,7 +386,7 @@ The child looks hale and hearty, quite rejuvenated.
 
 > take child
 You take up the infant, and the two of you find yourselves standing in the churchyard, among the graves.
-You are in the tranquil graveyard
+You are in the tranquil graveyard.
 There is a paltry rose here.
 You can go east, northwest or southwest.
 This graveyard is quite untended.  Various lop-sided and not so lop-sided headstones tilt in the gloom, a dewy mist moistening their glistening corners.  Philip Stonehouse's grave is on a pedestal, a shallow inlay, empty.
@@ -401,13 +406,13 @@ Whose grave would you like to read?
 
 > take rose
 You pick it up.
+The mystery-priest manifests before you again.  Seems to have a cup of tea, from which he's sipping without a qualm, before he fades again, like so much condensation on a window.
 
 > northwest
-You are in the local branch of Loftus and Son
+You are in the local branch of Loftus and Son.
 There is a smart new unicycle, a charming tricycle, Mr Loftus, a pump, a helmet and a horn here.
 You can go east or southeast.
 Apart from bikes, there are pumps, pedals, helmets and horns strewn about like so many pedals'n'pumps, and so forth.  There are tire-marks on the floor where people have ridden about, some leading out the door, it seems.  In short, it's an olde worlde Halfords.
-The mystery-priest manifests before you again.  Seems to have a cup of tea, from which he's sipping without a qualm, before he fades again, like so much condensation on a window.
 
 > speak to mr loftus
 'I do hope you haven't left the oven on,' says Mr Loftus.  'Did you cook the scone mix, eat the scone, get to the cathedral, look at the counter, and take the signed photo?  Frankly, if you didn't, well, I pity you.  Wanna bike?'
@@ -416,13 +421,13 @@ The mystery-priest manifests before you again.  Seems to have a cup of tea, from
 It makes a noise akin to a goose in the throes of lovemaking.
 
 > east
-You are in the baleful canal
+You are in the baleful canal.
 You can go east or west.
 Deep blue, and mournful the canal, with a light mist rolling along it.  Stonehouse used to fish here, but never hooked the mythical hake.  Ah, the bridge that leads to...to where, I wonder...
 
 > cross bridge
 You step cagily onto the boards, and into the mist.  Soon, you find yourself tumbling into the deep, where the hake of all retribution awaits you...
-You are in the gloomy deep
+You are in the gloomy deep.
 There is the Hake of Retribution here.
 Deep in the waters of the canal, lit only by the stereo gloom of the Hake's disc-like eyes.  You feel pinned to the bed, as if caught in the Will of the Hake.  Not good.
 
@@ -432,39 +437,39 @@ Deep in the waters of the canal, lit only by the stereo gloom of the Hake's disc
 
 > sing to hake of retribution
 'Ah, one of my favourite tunes,' the Hake approves, and lifts you back to the surface, and you clamber onto the bank.  And down it goes again.
-You are in the baleful canal
+You are in the baleful canal.
 You can go east or west.
 Deep blue, and mournful the canal, with a light mist rolling along it.  Stonehouse used to fish here, but never hooked the mythical hake.  Ah, the bridge that leads to...to where, I wonder...
 
 > west
-You are in the local branch of Loftus and Son
+You are in the local branch of Loftus and Son.
 There is a smart new unicycle, a charming tricycle, Mr Loftus, a pump, a helmet and a horn here.
 You can go east or southeast.
 Apart from bikes, there are pumps, pedals, helmets and horns strewn about like so many pedals'n'pumps, and so forth.  There are tire-marks on the floor where people have ridden about, some leading out the door, it seems.  In short, it's an olde worlde Halfords.
 
 > follow tire-marks
 What is it with you?  You begin following the tracks, I presume because you think you're some kind Sherlock in Doctor Martens.  Sadly, though, the tire-marks only lead back to the priory gates, where they stop.  Mystery to me, my friend.
-You are in the road outside the grounds
+You are in the road outside the grounds.
 There is Steven the woodsman here.
 You can go south or northeast.
 The road into town curves into the gloom, a tunnel through high, looming ash.  To your south is the gate that leads to Stonehouse's priory, balking at the end of a curving gravel drive.
 
 > northeast
-You are in the tranquil graveyard
+You are in the tranquil graveyard.
 There is a wan child here.
 You can go east, northwest or southwest.
 This graveyard is quite untended.  Various lop-sided and not so lop-sided headstones tilt in the gloom, a dewy mist moistening their glistening corners.  Philip Stonehouse's grave is on a pedestal, a shallow inlay, empty.
 
 > east
-You are in the church
+You are in the church.
 There is a candle, a monk and a battered hymn book here.
 You can go west.
 You are in the church, a lovely, cool and tranquil example of the Romanesque.  Stonehouse pays for its upkeep, so don't say the gentry don't contribute.  The weather, through the stained-glass windows, is crisp, clear, and radiant, as if collecting what light there is from all about.
+The ghostly priest appears before you again, and this time he's mooning atcha without a qualm, and also reminding you that you've taken 99 turns now, and will get slung out of the priory if you exceed 200.
 
 > look at hymn book
 The hymn-book is dog-eared, with an etched portrait of a scholar on its cover.  Wanna read a hymn or two?  I know I would.
 
-The ghostly priest appears before you again, and this time he's mooning atcha without a qualm, and also reminding you that you've taken 99 turns now, and will get slung out of the priory if you exceed 200.
 
 > read hymn book
 Pick a hymn...
@@ -492,7 +497,7 @@ You address the wax effigy and your words become green flame from its wick.  It 
 
 
 > west
-You are in the tranquil graveyard
+You are in the tranquil graveyard.
 There is a wan child here.
 You can go east, northwest or southwest.
 This graveyard is quite untended.  Various lop-sided and not so lop-sided headstones tilt in the gloom, a dewy mist moistening their glistening corners.  Philip Stonehouse's grave is on a pedestal, a shallow inlay, empty.
@@ -506,12 +511,12 @@ Are you really sure?  I mean really, really sure?
 2) No
 [choice] 2
 For those wise enough not to fly recklessly from treetops, a reward.  You are transported by special powers, invested in me, to the Vestry, the cathedral tea-room...only this, and baking, and eating, the scone, gets you there, and you must get there to complete the game, and pick up the sacred photo of Bowen, to be found on the counter...yada yada yada...?
-You are in the cathedral tea-room
+You are in the cathedral tea-room.
 There is Jim Bowen, a slice of walnut cake and Alison Mablethorpe here.
 Pure class, this tea-room.  Beautiful tablecloths adorn a clutch of wooden tables, all clustered about the counter, showing many cakes and pastries.  Behind the counter, Alison Mablethorpe, the curate's wife, with teapot at the ready.  I think you'll agree, it's quite a tea-room.  The cathedral itself stretches into the distance, with a nave to die for, pews galore, and stained-glass windows shooting coloured light dimly down into the stone body of the cathedral.  I reckon it's worth having a look around.  Nice gargoyle.
 
 > eat scone
-You are in the cathedral tea-room
+You are in the cathedral tea-room.
 There is Jim Bowen, a slice of walnut cake and Alison Mablethorpe here.
 Pure class, this tea-room.  Beautiful tablecloths adorn a clutch of wooden tables, all clustered about the counter, showing many cakes and pastries.  Behind the counter, Alison Mablethorpe, the curate's wife, with teapot at the ready.  I think you'll agree, it's quite a tea-room.  The cathedral itself stretches into the distance, with a nave to die for, pews galore, and stained-glass windows shooting coloured light dimly down into the stone body of the cathedral.  I reckon it's worth having a look around.  Nice gargoyle.
 Yes, Stonehouse's scones have a reputation for transporting you to the tea-room of your dreams, the Vestry, in the cathedral.  But how will you get back to the priory, I wonder.
@@ -542,7 +547,7 @@ That pastry gives you a free turn.
 
 > eat slice of walnut cake
 Just as you suspected, eating the walnut cake transports you back to the priory gates.  That's some walnut cake, but then Vestry tea-rooms are a local franchise, providing pastries, cakes, and bagels to various local outlets.  They're doing pretty well, I don't mind telling you.
-You are in the road outside the grounds
+You are in the road outside the grounds.
 There is Steven the woodsman here.
 You can go south or northeast.
 The road into town curves into the gloom, a tunnel through high, looming ash.  To your south is the gate that leads to Stonehouse's priory, balking at the end of a curving gravel drive.
@@ -551,14 +556,13 @@ The road into town curves into the gloom, a tunnel through high, looming ash.  T
 'That's my shovel, that is,' he growls, as if riddled with resentments ancient and modern.
 
 > south
-You are in the sinuous gravel drive
+You are in the sinuous gravel drive.
 There is a Penny Farthing here.
 You can go north, south, east or west.
 The gravel beneath your feet is crunchy and you feel its chill chippings through your thinning soles.  Your Penny Farthing leans against the balustrade, whatever that is.  Dim lawns flank the sinuous driveway in this charming example of a Victorian Folly.  
 
 > east
-You are in the echoing eastern lawn
-There is a Syrian brass lantern here.
+You are in the echoing eastern lawn.
 You can go east or west.
 What a lawn, a rolling, well-maintained piece of grass, almost putting-green thin.  Stonehouse spoke of the 'famous echo' on his beloved eastern lawn.  But then he could go on.  To the east are the railings and the gate to the woodsman's hut...oh yeah, Stonehouse is no slouch.  Wanna shout something, anything?.
 
@@ -568,11 +572,8 @@ The word bounces backatcha from the Priory facade, whatever that is, sounding as
 > shout jim bowen
 The echo back simply cries, 'Win, win...'
 
-> take brass lantern
-You lift the lantern by its easy-grip handle.  Syrian design, reasonably priced.
-
 > east
-You are in the ill-maintained woodsman's hut
+You are in the ill-maintained woodsman's hut.
 There is an issue of the Priesthole, some gelignite and a book of matches with one match left here.
 You can go west.
 The hut is quaint.  There are shelves with various pots and boxes on.  The floor is damp sawdust.  There is a copy of The Priesthole here, your favourite comic.  Looks like an old issue.  There is a hole in the roof, too.  Twigs scratch on the window as the breeze provokes 'em.
@@ -589,18 +590,18 @@ This cartoon-strip shows two wayward school-children, a boy and a girl, who have
 One match, one chance.
 
 > west
-You are in the echoing eastern lawn
+You are in the echoing eastern lawn.
 You can go east or west.
 What a lawn, a rolling, well-maintained piece of grass, almost putting-green thin.  Stonehouse spoke of the 'famous echo' on his beloved eastern lawn.  But then he could go on.  To the east are the railings and the gate to the woodsman's hut...oh yeah, Stonehouse is no slouch.  Wanna shout something, anything?.
 
 > west
-You are in the sinuous gravel drive
+You are in the sinuous gravel drive.
 There is a Penny Farthing here.
 You can go north, south, east or west.
 The gravel beneath your feet is crunchy and you feel its chill chippings through your thinning soles.  Your Penny Farthing leans against the balustrade, whatever that is.  Dim lawns flank the sinuous driveway in this charming example of a Victorian Folly.  
 
 > west
-You are in the shade of the western lawn
+You are in the shade of the western lawn.
 There is a transluscent figure here.
 You can go east.
 The rolling western lawn lives up to its name, it rolls, and is westerly.  There is a pool here, still as a mirror, amid a loose copse of silver birches.  There is a transluscent figure here, perhaps a ghost, who really cares?  All in all, nice lawn.
@@ -609,30 +610,30 @@ The rolling western lawn lives up to its name, it rolls, and is westerly.  There
 'I wish you luck in your hunt for Sutekh.  I found him, but I hadn't been to Loftus and Son...and now look at me...a phantom, trapped here among the birches, a prisoner of silver...please, get to Loftus...'
 
 > east
-You are in the sinuous gravel drive
+You are in the sinuous gravel drive.
 There is a Penny Farthing here.
 You can go north, south, east or west.
 The gravel beneath your feet is crunchy and you feel its chill chippings through your thinning soles.  Your Penny Farthing leans against the balustrade, whatever that is.  Dim lawns flank the sinuous driveway in this charming example of a Victorian Folly.  
 
 > south
-You are in the porch
+You are in the porch.
 You can go north or south.
 An unpretentious porch, like the man himself.  The doormat beneath your feet is thick and bristly, tough-wearing, possibly Robert Dyas.  The doorbell looks strangely enticing.  There is a dark beam over your head, with scratches on it.
 
 > south
-You are in a hallway
+You are in a hallway.
 There is a telephone and a hatstand here.
 You can go north, east or west.
 If there were awards for hallways, this would probably win one.  The dull floral wallpaper is thinning, like your fortunes, a dado running round.  The rug is lush, Armenian, plum'n'peach hexagons.  A portrait looms without meaning to.
 
 > west
-You are in the conservatory
+You are in the conservatory.
 There is a newspaper here.
 You can go south, east, west or up.
 This conservatory is class.  Lattice mock-Jacobean windowlets offer a gridded purview of the grounds to the south.  Looks like a good room to lounge around in.  A particularly nice tapestry on the wall'n'all.
 
 > up
-You are in the domed observatory
+You are in the domed observatory.
 There is a shiny brass telescope here.
 You can go east or down.
 This observatory is swell, making Greenwich seem an upturned salad bowl.  A window to the west shows a skylight to a lower room.  Trees in the distance sway, like slow silhouettes.  Nice lino.
@@ -646,7 +647,7 @@ Just the kind of bed you'd like to get into.  A four-poster symphony in burgundy
 
 > bounce on bed
 You bounce on the bed, and suddenly you hit a spring that catapults you over the bedhead into a little slit-room between the bedroom and the outer-wall...yeah, great architecture...
-You are in the priesthole
+You are in the priesthole.
 There is a ouija board here.
 You can go down.
 Yes, you are in the narrow priesthole.  A little light comes through a slot window high on the wall.  The floor is carpetted plushly, perhaps to make it easier to move about in here when being listened for outside.  There is a ouija board here.  Maybe you'd like to summon someone, or something?
@@ -685,7 +686,7 @@ And once again, the mystic priest materialises before you.  'Well, 144 turns, an
 The match breaks as you strike it, but the flame drops like a flare and the carpet begins to smoulder.  As if sentient of its function, the flame blazes a trail across the floor to the foot of the mummy, who, stock still, says, 'Only flame can free me.  Thank you for banishing Sutekh, and for freeing me from the bondage of these bandages.  Goodbye, traveller, farewell my friend...'
 
 You go into a bit of a tizzy, and before you can catch your breath, you find yourself panting outside the priory gates, looking in at the blazing priory.  But there is still a flower to be given to the hooded chick in the church, to close the game.  Look at that priory!
-You are in the road outside the grounds
+You are in the road outside the grounds.
 There is Steven the woodsman here.
 You can go south or northeast.
 The road into town curves into the gloom, a tunnel through high, looming ash.  To your south is the gate that leads to Stonehouse's priory, balking at the end of a curving gravel drive.
@@ -697,12 +698,12 @@ The windows of the priory are mostly ablaze, flames cracking and leaping from sm
 So many fragmentized priories before you in the lens, aflame, aflame, aflame...
 
 > northeast
-You are in the tranquil graveyard
+You are in the tranquil graveyard.
 You can go east, northwest or southwest.
 This graveyard is quite untended.  Various lop-sided and not so lop-sided headstones tilt in the gloom, a dewy mist moistening their glistening corners.  Philip Stonehouse's grave is on a pedestal, a shallow inlay, empty.
 
 > east
-You are in the church
+You are in the church.
 There is a candle, a monk and a battered hymn book here.
 You can go west.
 You are in the church, a lovely, cool and tranquil example of the Romanesque.  Stonehouse pays for its upkeep, so don't say the gentry don't contribute.  The weather, through the stained-glass windows, is crisp, clear, and radiant, as if collecting what light there is from all about.

@@ -1,0 +1,80 @@
+
+Stdverbs
+
+You are in Hall.
+There is a sword, a stone and a cake here.
+You can go north.
+The hall.
+
+> buy sword
+You can't buy the sword.
+
+> buy stone
+You can't buy !.
+
+> push stone
+You can't push !.
+
+> turn on stone
+You can't turn ! on.
+
+> kiss sword
+I don't think the sword would like that.
+
+> smell sword
+You sniff, but the sword doesn't smell of much.
+
+> sniff sword
+You sniff, but the sword doesn't smell of much.
+
+> eat cake
+You eat the cake.  It was a good cake.
+
+> eat sword
+You can't eat the sword.
+
+> xyzzy
+Surprisingly, absolutely nothing happens.
+
+> jump
+You jump, but nothing happens.
+
+> listen
+You can't hear much.
+
+> wait
+Time passes.
+
+> north, then south
+You are in Yard.
+You can go south.
+The yard.
+
+You are in Hall.
+There is a sword, a stone and a cake here.
+You can go north.
+The hall.
+
+
+> north. south
+You are in Yard.
+You can go south.
+The yard.
+
+You are in Hall.
+There is a sword, a stone and a cake here.
+You can go north.
+The hall.
+
+
+> north.
+You are in Yard.
+You can go south.
+The yard.
+
+
+> look
+You are in Yard.
+You can go south.
+The yard.
+[runner] turns=17 leftover=0 running=true

@@ -2,39 +2,37 @@
 outscript
 
 You are on a Boat.
-You can go north.
+You can go north or out.
 The deck of a small boat.
 
 > look
 You are on a Boat.
-You can go north.
+You can go north or out.
 The deck of a small boat.
 
 > out
 You clamber out of the boat and go ashore.
-You are in West shore
-You can go out to Boat.
-You can go north.
+You are in West shore.
+You can go out or north.
 A stretch of shore.
 
 > look
-You are in West shore
-You can go out to Boat.
-You can go north.
+You are in West shore.
+You can go out or north.
 A stretch of shore.
 
 > out
 You are on a Boat.
-You can go north.
+You can go north or out.
 The deck of a small boat.
 
 > look
 You are on a Boat.
-You can go north.
+You can go north or out.
 The deck of a small boat.
 
 > north
-You are in Cabin
+You are in Cabin.
 You can go south.
 A cramped cabin.
 
@@ -42,17 +40,17 @@ A cramped cabin.
 
 > south
 You are on a Boat.
-You can go north.
+You can go north or out.
 The deck of a small boat.
 
 > out
 You clamber out of the boat and go ashore.
-You are in East shore
-You can go out to Boat.
+You are in East shore.
+You can go out.
 A different stretch of shore.
 
 > look
-You are in East shore
-You can go out to Boat.
+You are in East shore.
+You can go out.
 A different stretch of shore.
 [runner] turns=10 leftover=0 running=true

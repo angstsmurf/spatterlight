@@ -1,5 +1,5 @@
 
-Hospital Visit Katamari
+Hospital Visit | Katamari
 
 You're visiting a sick work friend at the hospital. He's on the 13th floor, Room 101. Can you get to him and give him his present?
 
@@ -25,13 +25,12 @@ It's his present, you better take it
 
 > i
 You are carrying:
-"Get well soon!" Card
-Box of Cigars
+"Get well soon!" Card and Box of Cigars.
 
 > north
-You are in Hall
+You are in Hall.
 There is Foldable Wheelchair here.
-You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You can go north, south, east, west, northwest, northeast, southwest or southeast.
 The hall connecting the Reception to the Lift and Stairs. 
 To the Northeast, East and Southeast are some Patient Rooms
 To the southwest, there is a small Cafeteria
@@ -42,7 +41,7 @@ To the Northwest, there is the stairs and to the north are the lifts.
 I have the feeling someone may need this.
 
 > west
-You are in Disabled Toilet
+You are in Disabled Toilet.
 There is Old man here.
 You can go east.
 A cramped bathroom. A giant toilet/sink combo is squashed into the corner. A old man is lying on the floor
@@ -54,8 +53,8 @@ A cramped bathroom. A giant toilet/sink combo is squashed into the corner. A old
 Thank you. Here, take this.
 
 > east
-You are in Hall
-You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You are in Hall.
+You can go north, south, east, west, northwest, northeast, southwest or southeast.
 The hall connecting the Reception to the Lift and Stairs. 
 To the Northeast, East and Southeast are some Patient Rooms
 To the southwest, there is a small Cafeteria
@@ -63,7 +62,7 @@ To the West, there is a Disabled Toilet
 To the Northwest, there is the stairs and to the north are the lifts.
 
 > northeast
-You are in Ward 1
+You are in Ward 1.
 There is Female Patient here.
 You can go southwest.
 a large room filled with beds. There is a woman in one and another woman cuddled up under the covers.
@@ -72,8 +71,8 @@ a large room filled with beds. There is a woman in one and another woman cuddled
 "My family have not visited me for weeks now. I wish had a card. The nurses say I have a week to live. I had so many things I wanted to do but, alas, thats what old age does to you..."
 
 > southwest
-You are in Hall
-You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You are in Hall.
+You can go north, south, east, west, northwest, northeast, southwest or southeast.
 The hall connecting the Reception to the Lift and Stairs. 
 To the Northeast, East and Southeast are some Patient Rooms
 To the southwest, there is a small Cafeteria
@@ -81,7 +80,7 @@ To the West, there is a Disabled Toilet
 To the Northwest, there is the stairs and to the north are the lifts.
 
 > east
-You are in Ward 2
+You are in Ward 2.
 There is Patient Records 1938 and Flashlight here.
 You can go west.
 Another large room. Looks like it hasn't been used in ages. White sheets, now smothered in dust, cover the only bed in the room. The sink in the corner is filled with stains and dust and the only window has been boarded up. On a stack of boxes labeled "Patient Records 1934" lays a flashlight.
@@ -102,8 +101,8 @@ Garren
 Why did I pick this up?
 
 > west
-You are in Hall
-You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You are in Hall.
+You can go north, south, east, west, northwest, northeast, southwest or southeast.
 The hall connecting the Reception to the Lift and Stairs. 
 To the Northeast, East and Southeast are some Patient Rooms
 To the southwest, there is a small Cafeteria
@@ -111,7 +110,7 @@ To the West, there is a Disabled Toilet
 To the Northwest, there is the stairs and to the north are the lifts.
 
 > southeast
-You are in Ward 3
+You are in Ward 3.
 There is Vending Machine and Cat here.
 You can go northwest.
 The last ward. The room is full of beds and vending machines. A pot plant is lying on the window sill. Wait, what? There is also a cat in here.
@@ -127,8 +126,8 @@ All items cost 50p. If you have no money, go away tramp. Credit/Debit Cards allo
 Meow.
 
 > northwest
-You are in Hall
-You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You are in Hall.
+You can go north, south, east, west, northwest, northeast, southwest or southeast.
 The hall connecting the Reception to the Lift and Stairs. 
 To the Northeast, East and Southeast are some Patient Rooms
 To the southwest, there is a small Cafeteria
@@ -136,7 +135,7 @@ To the West, there is a Disabled Toilet
 To the Northwest, there is the stairs and to the north are the lifts.
 
 > southwest
-You are in Cafeteria
+You are in Cafeteria.
 There is Menu and Dinner Lady Dorris here.
 You can go northeast.
 The cafeteria is a large hall filled with chairs and tables. A few dinner ladies are set up at the serving hatch and a menu hangs from the wall.
@@ -162,8 +161,8 @@ Pie
 "No food left. Goodbye!""""
 
 > northeast
-You are in Hall
-You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You are in Hall.
+You can go north, south, east, west, northwest, northeast, southwest or southeast.
 The hall connecting the Reception to the Lift and Stairs. 
 To the Northeast, East and Southeast are some Patient Rooms
 To the southwest, there is a small Cafeteria
@@ -174,12 +173,12 @@ To the Northwest, there is the stairs and to the north are the lifts.
 A maintence sign is covering the door
 
 > north
-You are in Lift
+You are in Lift.
 You can go south or up.
 A small lift gurgling out some 50's elevator music. Gold bars cover the lift with above it a mirror and below it a seat.
 
 > up
-You are in Thirteeth Floor Hall
+You are in Thirteeth Floor Hall.
 There is Shady Man here.
 You can go north, south, west, northwest, southwest or down.
 
@@ -190,7 +189,7 @@ A shady man in scrubs, wearing sun glasses indoors.
 Can I have that "Get Well Soon!" Card?
 
 > southwest
-You are in Room 101
+You are in Room 101.
 There is Robbie here.
 You can go north or northeast.
 

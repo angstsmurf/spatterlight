@@ -116,7 +116,7 @@ Which message do you want to listen to, homes?
 "Phone, activate!" ...wait, did you ever remember to install the voice command app?
 
 > look at burrito
-The burrito is wrapped in foil emblazoned with TACO PACO'S FOOD VAGÓN and a picture of a smiling Mexican man. It's still warm and smells divine. Uh, disgusting! It smells disgusting and like a fat person would like it.
+The burrito is wrapped in foil emblazoned with TACO PACO'S FOOD VAGÃ“N and a picture of a smiling Mexican man. It's still warm and smells divine. Uh, disgusting! It smells disgusting and like a fat person would like it.
 
 > speak to burrito
 "You have no power over me, food."

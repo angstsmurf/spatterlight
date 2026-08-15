@@ -1,5 +1,5 @@
 
-ThunderClan Mystery 1, Unseen Enemy. (RP with your cat!!) **SPOILERS, SETTING OF FADING ECHOS., v1 Hazelstiltskin
+ThunderClan Mystery 1, Unseen Enemy. (RP with your cat!!) **SPOILERS, SETTING OF FADING ECHOS., v1 | Hazelstiltskin
 
 GAME~
 ThunderClan Mystery number 1!
@@ -91,22 +91,21 @@ Now, choose on the side where to go!
 
 > go to the nursery
 The Nursery
-You can go to ThunderClan Clearing.
+You can go to the ThunderClan Clearing.
 The Nursery smells of milk and warmth. You see your own mother, chatting with Daisy and FernCloud.    You wave your tail at your mother, who waves back.
 Nothing to see here.
 
 > go to thunderclan clearing
 You are in the ThunderClan camp's clearing.
 There is Jayfeather and The group of warriors waiting to be assigned to a patrol. here.
-You can go north.
-You can go to Firestar's Den, The Nursery, Warriors and Apprentices Den, Elders Den, Medicine Cat's Den, or Fallen Tree.
+You can go north, to Firestar's Den, to The Nursery, to the Warriors and Apprentices Den, to Elders Den, to Medicine Cat's Den or to Fallen Tree.
 You can see the cats here and there. You hear voices coming from around the hollow as you stand.
 
 
 > go to warriors and apprentices den
-You are in the Warriors and Apprentices Den
+You are in the Warriors and Apprentices Den.
 There is Toy Mouse here.
-You can go to ThunderClan Clearing.
+You can go to the ThunderClan Clearing.
 You sqeeze past the Fallen Tree and look at the poorly formed den with nest lined inside. The apprentices and warrior's den were both crushed, you recalled, and they had to sleep in the same den.
 Leafpool and Squirrelflight were together weaveing the outer boundaries. They were getting pretty high. But not enough to if it rained, they wouldn't get wet. The lifeless branches of the beech tree were protective around it, but bared no leaves for shelter.
 You give a shy greeting to the sisters. You had heard awful stories about them. Betraying their Clan and everything they had......
@@ -130,18 +129,17 @@ You decide to store it for later.
 Go to clearing?
 
 > take toy mouse
-You already have it.
+You already have that.
 
 > go to thunderclan clearing
 You are in the ThunderClan camp's clearing.
 There is Jayfeather and The group of warriors waiting to be assigned to a patrol. here.
-You can go north.
-You can go to Firestar's Den, The Nursery, Warriors and Apprentices Den, Elders Den, Medicine Cat's Den, or Fallen Tree.
+You can go north, to Firestar's Den, to The Nursery, to the Warriors and Apprentices Den, to Elders Den, to Medicine Cat's Den or to Fallen Tree.
 You can see the cats here and there. You hear voices coming from around the hollow as you stand.
 
 
 > go to elders den
-You are in Elders Den
+You are in Elders Den.
 There is Mousefur and Purdy here.
 You enter the room, and recoil back out of the den, pushed away by the strength of sadness. You peer in, and see Mousefur in a sad clump, her eyes glazed and sad. Purdy was curled next to her, explaining a story on how he fought off a troublesome dog.
 Say *hello or leave?
@@ -155,8 +153,7 @@ He lumbered out, and faced you.
 
 You are in the ThunderClan camp's clearing.
 There is Jayfeather and The group of warriors waiting to be assigned to a patrol. here.
-You can go north.
-You can go to Firestar's Den, The Nursery, Warriors and Apprentices Den, Elders Den, Medicine Cat's Den, or Fallen Tree.
+You can go north, to Firestar's Den, to The Nursery, to the Warriors and Apprentices Den, to Elders Den, to Medicine Cat's Den or to Fallen Tree.
 You can see the cats here and there. You hear voices coming from around the hollow as you stand.
 
 Purdy blinked.
@@ -186,7 +183,7 @@ Pudry got up and stretched, pausing with his chesy on he ground and forelegs spr
 "Mousefur blames er'self. So I always try an' make er' happy. That's that." He got up, nd turned into the den. You sat outside,  listening to Purdy contenue his ramble on the dog fight.
 
 > go to medicine cat's den
-You are in Medicine Cat's Den
+You are in Medicine Cat's Den.
 There is Briarlight and Toadstep and Fish Scale here.
 You enter the Medicine Cat's Den. You peer around, your eyes adjusting to the gloom. The strong scents of herbs roll out to meet you.
 A purr sounds from the shadows. 
@@ -235,18 +232,18 @@ You take Briarlight's shiny scale.
 > go to thunderclan clearing
 You are in the ThunderClan camp's clearing.
 There is Jayfeather and The group of warriors waiting to be assigned to a patrol. here.
-You can go north.
-You can go to Firestar's Den, The Nursery, Warriors and Apprentices Den, Elders Den, Medicine Cat's Den, or Fallen Tree.
+You can go north, to Firestar's Den, to The Nursery, to the Warriors and Apprentices Den, to Elders Den, to Medicine Cat's Den or to Fallen Tree.
 You can see the cats here and there. You hear voices coming from around the hollow as you stand.
 
 
 > go to fallen tree
-You are in Fallen Tree
+You are in Fallen Tree.
 There is Twoleg Necklace here.
 You clamber up onto the strong smelling beech tree. It is brown with many clawmarks. The tree branches wind around the Warrior's den, and the roots protect the nursery. You know that under here lie the blood and death of Longtail and wounds of Briarlight.
 
 You see something at the edge of your vision. 
 You turn and see something white and shiny. You peer closer. It is a hole where a bird's nest would have been. It is filled with twigs, but there is defanatly something in there.
+Make it to the shiny object.
 
 **If you dont have a microphone or webcam that records sound, please let microsoft sam do this activitie for you!**
 Awnser these questions and get to the Shiny Object!
@@ -304,13 +301,10 @@ You've made it!
 
 > i
 You are carrying:
-The Catmint
-Toy Mouse
-Fish Scale
-Twoleg Necklace
+The Catmint, Toy Mouse, Fish Scale and Twoleg Necklace.
 
 > go to outside of camp
-You are in Outside of Camp
+You are in Outside of Camp.
 You are out. Feel free to return if you HAVE NOT aqquired the following items before contenueing.......
 Catmint
 Toy Mouse
@@ -336,6 +330,7 @@ To enjoy it all yourself.
  
 You pad along a well worn trail, smelling strongly of ThunderClan.......
 To Be Contenued.....
+Hit any key for info, or exit and look out for Hazelstiltskin's next Warriors Adventure!
 
 This has full copyright to Hazelsiltskin. 
 This was ThunderClan Mystery 1, Unseen Enemy, Part 1. 

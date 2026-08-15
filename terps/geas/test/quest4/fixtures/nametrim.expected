@@ -1,7 +1,7 @@
 
 Nametrim
 
-You are in Camp
+You are in Camp.
 A camp with a knapsack in the corner.
 
 > check
@@ -20,5 +20,5 @@ Pages of cramped handwriting.
 
 > i
 You are carrying:
-Journal
+Journal.
 [runner] turns=5 leftover=0 running=true

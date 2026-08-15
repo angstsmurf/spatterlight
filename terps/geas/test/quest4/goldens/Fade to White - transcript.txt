@@ -1,15 +1,15 @@
 
-Fade to White, valpha Devon Oratz  (E-mail Necromancerxx@cs.com)
+Fade to White, valpha | Devon Oratz  (E-mail Necromancerxx@cs.com)
 
 Some are afraid of the dark, but you should fear the light, because  it's the light that tears your mind asunder in Devon Oratz's                        Fade to White                                                       Your mind is a rough place, get used to it.......................               Type "help" for help, "about" for adventure and author info. Type "hint" during the game if you're stuck. 
 
 ...
-There is Voice 1 and Voice 2 here.
+You can see Voice 1 and Voice 2 here.
 The world is whiteness.  Hard light, unyielding, like searingly cold steel.  What was the elementary school joke? Rabbits in a snowstorm? Some mindless tedium like that. Well, a blank piece of paper never hurt ones eyes. This does. Oh god this does. A harsh glaring light, like a two pronged needle, impaling the soft tissue of your brain from the socket of each eye. And the eyes themselves. The sting. The ache. Your pupils are burning. Finally, after what seems like an eternity, shapes begin to materialize out of the unyielding white blur. The lamps themselves. Angled, clinical, cruelly sterile, six circular flueroscent lamps. No plastic covers to spread and soften the light. Pure flueroscent glare, unadulterared. And the ceiling. Why that's white too. White tile. The grooves in the tile are black. You try to focus on those, until you hear the voices.  "-es sirrrrrr"                                                                "Administer the Deliphine too, and then begin a steady intrevenus of Lot 9 what was the dosage?"
 Part 1: The Rabbit Hole
 "One pill makes you larger,
 And one pill makes you small,
-And the ones that mother give you don’t do anything at all."
+And the ones that mother give you donâ€™t do anything at all."
 White Rabbit, Jefferson Airplane 
 
 > speak to voice 1
@@ -22,7 +22,7 @@ Loud footsteps sound, echoing as if you were standing in a canyon and not lying 
 > speak to voice 3
 "Shhhhhhhhhhhhhhhh...." A tiny prick on your arm, almost unnoticeable as the fire eats your soul and the lady and the dragon slay your body, and then the white turns to black, and the black to nothing.
 You're lying on a hospital bed.
-There is Dr. Cain here.
+You can see Dr. Cain here.
 You can go northeast.
 The cool sheets are comfortable against your back and you can feel them through the thin fabric of your gown. They are perfect because they just barely necessitate the use of the thick, warm, navy blue, which when snugged up around your body leaves you warm and cozy. The room is comfortable enough, standard hospital fair. The open door in the northeast corner leads to a small, mostly polished stainless steel bathroom. There is a Televison, which is off, without a remote control in sight and  two padded low backed chairs. And the bed, which is particualaryl wonderful, with a remote control for tilting it sitting on your lap.   The heavy wooden door leading out is pulled shut.The only thing that bothers you about the room is that there is no window.  Although the room is comforting in it's familiarity, and normality the situation is quite the opposite.  You see, not only do you have no idea where you are,  which is understandable since you've clearly been abducted, you haven't the faintest idea WHO you are. And that is all the more disconcerting.
 
@@ -37,6 +37,7 @@ When you awaken, you're still groggy, still an amnesiac, but two things have cha
 > get up
 You slowly get to your feet, and carefully remove the bright red cathater from your arm, wincing in pain. Lot 9? You've never heard of anything like that in your life, except, you can't remember anything about your life. Anyway, it makes you nervous.
 You're in your hospital room.
+There is nobody here.
 There is Television and Door here.
 You can go northeast.
 You still don't know who you are, or even fully remember anything.....                              The room is comfortable enough, standard hospital fair. The open door in the northeast corner leads to a small, mostly polished stainless steel bathroom. There is a Televison, which is off, without a remote control in sight and  two padded low backed chairs. And the bed, which is particualaryl wonderful, with a remote control for tilting it sitting on your lap.   The heavy wooden door leading out is pulled shut.The only thing that bothers you about the room is that there is no window. You hear voices and footsteps outside, muffled by the thick door.
@@ -50,6 +51,7 @@ The orderlie leaves, shutting the door behind him with a soft whoosh.
 
 > lie down
 You're lying on a hospital bed.
+There is nobody here.
 You can go northeast.
 The cool sheets are comfortable against your back and you can feel them through the thin fabric of your gown. They are perfect because they just barely necessitate the use of the thick, warm, navy blue, which when snugged up around your body leaves you warm and cozy. The room is comfortable enough, standard hospital fair. The open door in the northeast corner leads to a small, mostly polished stainless steel bathroom. There is a Televison, which is off, without a remote control in sight and  two padded low backed chairs. And the bed, which is particualaryl wonderful, with a remote control for tilting it sitting on your lap.   The heavy wooden door leading out is pulled shut.The only thing that bothers you about the room is that there is no window.  Although the room is comforting in it's familiarity, and normality the situation is quite the opposite.  You see, not only do you have no idea where you are,  which is understandable since you've clearly been abducted, you haven't the faintest idea WHO you are. And that is all the more disconcerting.
 
@@ -65,12 +67,14 @@ You gently remove the bag, with as much care and precision as you can with one a
 > get up
 You slowly get to your feet, and carefully remove the bright red cathater from your arm, wincing in pain. Lot 9? You've never heard of anything like that in your life, except, you can't remember anything about your life. Anyway, it makes you nervous.
 You're in your hospital room.
+There is nobody here.
 There is Television and Door here.
 You can go northeast.
 You still don't know who you are, or even fully remember anything.....                              The room is comfortable enough, standard hospital fair. The open door in the northeast corner leads to a small, mostly polished stainless steel bathroom. There is a Televison, which is off, without a remote control in sight and  two padded low backed chairs. And the bed, which is particualaryl wonderful, with a remote control for tilting it sitting on your lap.   The heavy wooden door leading out is pulled shut.The only thing that bothers you about the room is that there is no window. You hear voices and footsteps outside, muffled by the thick door.
 
 > northeast
-You are in Bathroom
+You are in Bathroom.
+There is nobody here.
 There is Sink here.
 You can go southwest.
 
@@ -86,6 +90,7 @@ You're feeling very sleepy now, having trouble keeping your eyelids open.
 
 > southwest
 You're in your hospital room.
+There is nobody here.
 There is Intrevenus, Television and Door here.
 You can go northeast.
 You still don't know who you are, or even fully remember anything.....                              The room is comfortable enough, standard hospital fair. The open door in the northeast corner leads to a small, mostly polished stainless steel bathroom. There is a Televison, which is off, without a remote control in sight and  two padded low backed chairs. And the bed, which is particualaryl wonderful, with a remote control for tilting it sitting on your lap.   The heavy wooden door leading out is pulled shut.The only thing that bothers you about the room is that there is no window. You hear voices and footsteps outside, muffled by the thick door.
@@ -94,6 +99,7 @@ You really need to get to sleep soon....
 > lie down
 As you lie down you hook the water IV bag to the intrevenus.
 You're lying on a hospital bed.
+There is nobody here.
 You can go northeast.
 The cool sheets are comfortable against your back and you can feel them through the thin fabric of your gown. They are perfect because they just barely necessitate the use of the thick, warm, navy blue, which when snugged up around your body leaves you warm and cozy. The room is comfortable enough, standard hospital fair. The open door in the northeast corner leads to a small, mostly polished stainless steel bathroom. There is a Televison, which is off, without a remote control in sight and  two padded low backed chairs. And the bed, which is particualaryl wonderful, with a remote control for tilting it sitting on your lap.   The heavy wooden door leading out is pulled shut.The only thing that bothers you about the room is that there is no window.  Although the room is comforting in it's familiarity, and normality the situation is quite the opposite.  You see, not only do you have no idea where you are,  which is understandable since you've clearly been abducted, you haven't the faintest idea WHO you are. And that is all the more disconcerting.
 So Sleepy...
@@ -102,7 +108,7 @@ So Sleepy...
 Rock 'a bye Baby
 (WooHoo!!)
 You're lying on a table.
-There is Doctor and Intern here.
+You can see Doctor and Intern here.
 Black. White. From the dead black of deep sleep to the cold sterile white light that does not even vaguely resemble life. The cold steel of the examination table behind you is a numbing shock, as is your sudden nakedness.  The ignorant peace of sleep to this medical torture rack was not a welcome transfer at all. For a few moments all you notice is the glare of blurred white light, and how it gleams against the cruelly sharp looking instruments of cold steel that hover  menacingly above you. Once full conciousness drifts back in you recognize the whir of hydraulics, the splash of fluids through tubes. And then the voices, again. How is it the saying goes? "Inject the PURPLE Melartropin XEE54200, slow the drip of lot 9, and gradually introduce the GREEN, RED, and BLUE PTEC. When all PTEC's are in system cut lot 9 intr-"                "Impossible, the subject appear to be lucid!!!!"    Oh yeah, deja vu all over again.                                                             "That's not fucking possible intern Johnstone,  lot 9 is i- The hell, he is awake? this can't be natural resistance can it?"
 
 > speak to intern
@@ -119,37 +125,43 @@ Ring Ring
 "Well, do it!"
 There is a sudden prick in your neck, a few moments later after the sound of garbled orders and scuffling feet. Slowly, you start to feel floaty. A whole spectrum of happy and bright colors in all manner of hues dance before your eyes before all blend to become the one absolute, white. Then there is music, loud and beautiful, as you see the ceiling rush towards you, mushrooms hanging upside down like spikes, then all is white, but it's a really colorful white....
 you're lying on the dirt on a wood path..
+There is nobody here.
 You can go north or south.
 The white had swallowed up your world and suddenly spit it and you out. Here. Where the hell are you??? Who the hell are you??? What the hell is going on here, whst's happening to you, why??!! Is this a dream? A hallucination from that PMA stuff? Are you dead, you wonder, is this heaven? You get up and  dust yourself off After that place it well could be. lush trees and shrubs, green, pleasant smelling grass and fertile healthy looking dirt mark this rarely tred but well kept path. This can't be a dream, it feels too wonderfully real. The path runs north and south. Lined on either side by thick forest.
 
 > south
 yYou walk along the path to a small clearing..
+There is nobody here.
 You can go north.
 The south ends of the path ends in a small and entirely unremarkable grassy clearing, edged in all directions by huge and lush green trees of all shapes and every size and shape. The clearing smells strongly of flower pollen and dew, the scents of spring and a rough path runs north, winding in between the trees.
 
 > north
 you're lying on the dirt on a wood path..
+There is nobody here.
 You can go north or south.
 The white had swallowed up your world and suddenly spit it and you out. Here. Where the hell are you??? Who the hell are you??? What the hell is going on here, whst's happening to you, why??!! Is this a dream? A hallucination from that PMA stuff? Are you dead, you wonder, is this heaven? You get up and  dust yourself off After that place it well could be. lush trees and shrubs, green, pleasant smelling grass and fertile healthy looking dirt mark this rarely tred but well kept path. This can't be a dream, it feels too wonderfully real. The path runs north and south. Lined on either side by thick forest.
 
 > north
 You're walking along a wooden path..
+There is nobody here.
 You can go north or south.
 Insects buzz not unpleasantly and butterflies fly from flower to flower, dancing beautifully in the air before your eyes. You realize this scene is the very epitome of high spring time, the warm sun on your back, the crunch of brush under foot, the feel of the dust your feet slightly kick, and the sound of birds chirping. The setting almost entirely relaxes you about your general situation. Almost. The path winds around through the tall trees, lazily and happily, to the north and south.
 
 > north
 You're walking up a rough dirt path in the woods..
+There is nobody here.
 You can go north or south.
 The path winds even further north, and as you walk along in between the trees, enjoying  the sun's warmth on your back  and the occasional cool breeze, you begin to meditate about your situation. You have no idea where you are right now, but you're pretty sure that no matter how vividly real it feels, this is jst a drug induced hallucination or dream, and you haven't escaped in the real world. That hospital, what is it really? You can tell the were lying to you about releasing you, and that they intend to subject you to hallucinogenics and other drugs like you were some kind of god damned guineau pig....... But why? Why you? And WHO are they? Who are YOU? The path runs north and south...
 
 > north
 You've come to a branch in the road...
-You can go south, northeast or northwest.
+There is nobody here.
+You can go south, northwest or northeast.
 The path through the forest comes to a fork,  two smaller and more wild looking paths branching off to the northeast and northwest. In between is a wedge of trees and undergrowth, separating the two branches. In the dirt on the northeast path, you can faintly make out one  or two very light sets of foot prints, and  the ground seems more packed and trodden over. This is all  very strange for a drug trip, so you keep forgetting that's what this path is. As real as it feels, it's just a dream, or is it?
 
 > northwest
 You're at a grassy stream.
-There is Black Cat here.
+You can see Black Cat here.
 You can go west or southeast.
 A thin and tiny trickle of a stream runs alongside the path here, contiuing north while the path turns straight west. The water looks cool, and refreshing, sparkling beautifully in the Spring sunlight.  Around the stream is a grassy area filled with all manner of short weeds, less cleared then the path. A large black cat is drinking from the stream. The path runs Southeast and West.
 
@@ -168,16 +180,19 @@ Amazingly the cat speaks  to you,
 
 > southeast
 You've come to a branch in the road...
-You can go south, northeast or northwest.
+There is nobody here.
+You can go south, northwest or northeast.
 The path through the forest comes to a fork,  two smaller and more wild looking paths branching off to the northeast and northwest. In between is a wedge of trees and undergrowth, separating the two branches. In the dirt on the northeast path, you can faintly make out one  or two very light sets of foot prints, and  the ground seems more packed and trodden over. This is all  very strange for a drug trip, so you keep forgetting that's what this path is. As real as it feels, it's just a dream, or is it?
 
 > northeast
 You're walking along a path in the woods.
+There is nobody here.
 You can go east or southwest.
 As you walk further on the trees get less lush and beautiful, the grass less green, turning to a burnt looking dry yellow, craggled weeds protruding from the rocky dirt. The air smells fowly of dung, skunk and rotting dead things, and the path begins to be overgrown by thorny yellowish weeds, the trees rapidly shedding leaves and becoming less and less mundane and comforting. The path runs east and southwest. In the distance to the east you can make out a beautiful, almost glowing red flower,  surrounded by yellow weeds and thorny bushes.
 
 > east
 You've come to the end of the path....
+There is nobody here.
 There is Red Rose here.
 You can go west.
 The beautiful red rose is before you, glowing like a beacon throught the horrid looking vines and weeds.  The forest has come alive. Hands with long sharp fingers made of branches and twigs reach for you, holes and knobs in the bark turn into voracious mouths with lethal teeth, branches tear at you, cutting through your hospital gown and skin, vines turn to snakes, whipping around, there prickers now foot long spikes, a leafless weeping willow near you cackles, it's twisting, limply hanging branches whipping at you, seeking to wrap around you and pull you towards her gaping mouth. An ancient oak tree unleashes an evil laugh and a tremendous branch slams right through the ground near you, leaving a gaping hole of white light. You can retreat to the west.
@@ -186,7 +201,8 @@ The beautiful red rose is before you, glowing like a beacon throught the horrid 
 You pluck the gloriously beautiful red flower.
 A tremendous thunder clap sounds as a branch falls behind you, cutting off your escape, as you look back, sharp thorny vines whip around to hold you, tearing the rose from your hands, and a long spindly tree limb with more then half a dozen fingerlike needle sharp branches rips across your chest, tearing a gaping hole of whiteness in your very person. Great fiery comets of blank whiteness fall like a hail all around, devouring the sinister trees cleanly, erasing them like white out on a living painting that is this forest.  The limbs rake across you again, separating your left arm from your body with a wedge of whiteness, then the white hole that was your chest sucks the rest of you inside it like a great black (WHITE ALL THINGS WHITE.) hole. Fade to White.
 You're sitting down at a table
-There is Blue Pill and Alan Stern here.
+You can see Alan Stern here.
+There is Blue Pill here.
 The last image to dissapear from your mind is that of a vast forest world being absorbed into an infinity of whiteness, and the first image you see is that whiteness, a harsh light being shined right in your eyes, you blink painfully, and the light goes out, a man in a white lab coat who was holding the light lets go of your face and walks away.... The room is very small and  plain, lit by white fleuroscents from the ceiling, it's only furnishing the plain brown table before you, and the uncomfortable metal chair you sit in. The floor and ceiling, and all walls are white tile. The door is plain steel without any knob or handle. Sitting across from you he  is a pretty unremarkable white man in a black buisness suit, white dress shirt and tie. He  is looking at you intently...... "Ah, Mr.Dowers, you're with us, excellent, My name is Alan Stern, if you would just take that blue pill their on the table, we will begin." He gestures to a single oval shaped blue pill lying on the table, next to a small plastic cup of water,  the only things on the large empty table separating the two of  you.
 
 > look at blue pill
@@ -209,7 +225,7 @@ Dr. Stern grimaces,  looks puzzled and concerned, then  conitinues.
 An intercom on the wall beeps incessantly, and Dr. Stern gets up and speaks into it. 
 "Mr. Dowers, sorry for all the inconvenience today has been sir, rest assured we're doing all we can to help you here at St. Gabriels. You're needed for testing to see about your optic nerves, and if they are working properly, we have a full battery of mental capacity testing today, well, off we go. "
 You're sitting in a special restraint chair in a testing lab.
-There is Scientist here.
+You can see Scientist here.
 Dr. Stern and two orderlies "escort" you in, and then Stern instructs you  to sit at the large steel examination chair in the center of the room. You sit, not having much choice, and they leave. Restraining bands lock into place around your wrists, neck, and ankles. An older looking Asian man in a white lab coat walks out in front of you from behind a wall of instrument panels and machines separated from you by an automatic sliding door and a large panel of glass.
 
 > speak to scientist
@@ -220,44 +236,52 @@ Dr. Stern and two orderlies "escort" you in, and then Stern instructs you  to si
 > look at colors
 Your eyes have no choice but to focus on the colors, and when you do, you become the colors, the world become the colors, and the colors become white, blurring together and apart liquidly, the colors are your world....
 You tumble through an expanse of blurred colors..
+There is nobody here.
 You can go north, south, east or west.
 You float through an eternity of bright colors, one blurring into the next like a psychadellic pond, the entire experience faintly reminscent of an LSD trip.  Every color has a scent, a feeling, a smell, and it's own unique sound. There is nothing but blending colors in the world. Nothing at all.  The north is red, the east purple, the west yellow, the south green. You can barely hear a faint humming.
 
 > north
 You tumble through an expanse of blurred colors..
-You can go northeast, northwest, southeast or southwest.
+There is nobody here.
+You can go northwest, northeast, southwest or southeast.
 You float through an eternity of bright colors, one blurring into the next like a psychadellic pond, the entire experience faintly reminscent of an LSD trip.  Every color has a scent, a feeling, a smell, and it's own unique sound. There is nothing but blending colors in the world. Nothing at all. The northeast region is a dark, dark blue. The southeast is yellow. The northwest is green, and the southwestern corner is orange, bright and vibrant. You can hear a humming in the distance.
 
 > southwest
 You tumble through an expanse of blurred colors..
+There is nobody here.
 You can go north, south, east or west.
 You float through an eternity of bright colors, one blurring into the next like a psychadellic pond, the entire experience faintly reminscent of an LSD trip.  Every color has a scent, a feeling, a smell, and it's own unique sound. There is nothing but blending colors in the world. Nothing at all.  The north.....red. The south....purple. The east..... yellow. The west ......blue. The humming now sounds closer, but is  still quiet.
 
 > east
 You tumble through an expanse of blurred colors..
-You can go northeast, northwest, southeast or southwest.
+There is nobody here.
+You can go northwest, northeast, southwest or southeast.
 You float through an eternity of bright colors, one blurring into the next like a psychadellic pond, the entire experience faintly reminscent of an LSD trip.  Every color has a scent, a feeling, a smell, and it's own unique sound. There is nothing but blending colors in the world. Nothing at all. To the northeast there is nothing but brilliant green. To the southwest is red. To the northwest is firery orange. The southeast is beautious blue. You can hear a humming.
 
 > northeast
 You tumble through an expanse of blurred colors..
+There is nobody here.
 You can go north, south, east or west.
 You float through an eternity of bright colors, one blurring into the next like a psychadellic pond, the entire experience faintly reminscent of an LSD trip.  Every color has a scent, a feeling, a smell, and it's own unique sound. There is nothing but blending colors in the world. Nothing at all. The west is blue, the blue of an ocean, the north the yellow of the sun. Green lies east, and purple south. The humming is getting louder and closer.
 
 > west
 You tumble through an expanse of blurred colors..
-You can go northeast, northwest, southeast or southwest.
+There is nobody here.
+You can go northwest, northeast, southwest or southeast.
 You float through an eternity of bright colors, one blurring into the next like a psychadellic pond, the entire experience faintly reminscent of an LSD trip.  Every color has a scent, a feeling, a smell, and it's own unique sound. There is nothing but blending colors in the world. Nothing at all. Northeast has always been and always will be red. Southeast  is eternally the darkest of blues. For all time will northwest be orange. And southwest perpetual purple. The colors are beautiful. You want to stay here, forever. The humming is very loud and close.
 
 > southeast
 You tumble through an expanse of blurred colors..
+There is nobody here.
 You can go north, south, east or west.
 You float through an eternity of bright colors, one blurring into the next like a psychadellic pond, the entire experience faintly reminscent of an LSD trip.  Every color has a scent, a feeling, a smell, and it's own unique sound. There is nothing but blending colors in the world. Nothing at all. Shades and hues dance before yyou eyes hypnotizing, enchanting, numbing your mind from the pain of life. You like the  colors. North shines red. East a deep dark blue. West leads to yellow, buring your vision. But south melts into a  purple wavering liquidly. The source of the headsplitting drone is right on top of you.
 
 > north
 The maze has come to a halt.
-There is a Blue Head and a Floating Head here.
+You can see a Floating Head here.
+There is a Blue Head here.
 You can go out to Maze of Colors.
-You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You can go north, south, east, west, northwest, northeast, southwest or southeast.
 Blue Red Yellow Green, can you see all the colors I've seen? A  giant blue head floats in the mass of swirling brightly colored patterns before you. It looks very familiar.
 
 > speak to floating head
@@ -277,42 +301,50 @@ Your birth name is Jacob Michael Dowers. You are a somewhat well renowned psychi
 
 > out
 You tumble through an expanse of blurred colors..
+There is nobody here.
 You can go north, south, east or west.
 You float through an eternity of bright colors, one blurring into the next like a psychadellic pond, the entire experience faintly reminscent of an LSD trip.  Every color has a scent, a feeling, a smell, and it's own unique sound. There is nothing but blending colors in the world. Nothing at all.  The north is red, the east purple, the west yellow, the south green. You can barely hear a faint humming.
 
 > north
 You tumble through an expanse of blurred colors..
-You can go northeast, northwest, southeast or southwest.
+There is nobody here.
+You can go northwest, northeast, southwest or southeast.
 You float through an eternity of bright colors, one blurring into the next like a psychadellic pond, the entire experience faintly reminscent of an LSD trip.  Every color has a scent, a feeling, a smell, and it's own unique sound. There is nothing but blending colors in the world. Nothing at all. The northeast region is a dark, dark blue. The southeast is yellow. The northwest is green, and the southwestern corner is orange, bright and vibrant. You can hear a humming in the distance.
 
 > southwest
 You tumble through an expanse of blurred colors..
+There is nobody here.
 You can go north, south, east or west.
 You float through an eternity of bright colors, one blurring into the next like a psychadellic pond, the entire experience faintly reminscent of an LSD trip.  Every color has a scent, a feeling, a smell, and it's own unique sound. There is nothing but blending colors in the world. Nothing at all.  The north.....red. The south....purple. The east..... yellow. The west ......blue. The humming now sounds closer, but is  still quiet.
 
 > east
 You tumble through an expanse of blurred colors..
-You can go northeast, northwest, southeast or southwest.
+There is nobody here.
+You can go northwest, northeast, southwest or southeast.
 You float through an eternity of bright colors, one blurring into the next like a psychadellic pond, the entire experience faintly reminscent of an LSD trip.  Every color has a scent, a feeling, a smell, and it's own unique sound. There is nothing but blending colors in the world. Nothing at all. To the northeast there is nothing but brilliant green. To the southwest is red. To the northwest is firery orange. The southeast is beautious blue. You can hear a humming.
 
 > northeast
 You tumble through an expanse of blurred colors..
+There is nobody here.
 You can go north, south, east or west.
 You float through an eternity of bright colors, one blurring into the next like a psychadellic pond, the entire experience faintly reminscent of an LSD trip.  Every color has a scent, a feeling, a smell, and it's own unique sound. There is nothing but blending colors in the world. Nothing at all. The west is blue, the blue of an ocean, the north the yellow of the sun. Green lies east, and purple south. The humming is getting louder and closer.
 
 > west
 You tumble through an expanse of blurred colors..
-You can go northeast, northwest, southeast or southwest.
+There is nobody here.
+You can go northwest, northeast, southwest or southeast.
 You float through an eternity of bright colors, one blurring into the next like a psychadellic pond, the entire experience faintly reminscent of an LSD trip.  Every color has a scent, a feeling, a smell, and it's own unique sound. There is nothing but blending colors in the world. Nothing at all. Northeast has always been and always will be red. Southeast  is eternally the darkest of blues. For all time will northwest be orange. And southwest perpetual purple. The colors are beautiful. You want to stay here, forever. The humming is very loud and close.
 
 > southeast
 You tumble through an expanse of blurred colors..
+There is nobody here.
 You can go north, south, east or west.
 You float through an eternity of bright colors, one blurring into the next like a psychadellic pond, the entire experience faintly reminscent of an LSD trip.  Every color has a scent, a feeling, a smell, and it's own unique sound. There is nothing but blending colors in the world. Nothing at all. Shades and hues dance before yyou eyes hypnotizing, enchanting, numbing your mind from the pain of life. You like the  colors. North shines red. East a deep dark blue. West leads to yellow, buring your vision. But south melts into a  purple wavering liquidly. The source of the headsplitting drone is right on top of you.
 
 > south
 All the colors fly together, blending to a clean and pure white, the sterile, artificial shade you've gotten all too used to, and you're wrenched  into conciousness. 
 You're sitting in a metal restraining chair in the testing room.
+There is nobody here.
 There is Glass here.
 You can go north.
 As you come back from the mind bending expanse of colors, you notice more about the room. It occurs to you for the first that most of your time in this place has been spent being put under and then waking up. The room is large, and entirely unfurnished , made of steel, plaster and tile. The door leading out is to the north, and to the south a sliding door of glass and steel leading to a tiled, glassed in instrument room. In there, you can see the scientist from before. He is occupied with something.                                                                                                                                                           Part 2: Refugees From Wonderland                                              END OF DEMO. That's all for now folks!!! Stay tuned for the games full version coming out in late September. Please send all questions, comments, complaints, and other input to NecromancerXX@cs.com

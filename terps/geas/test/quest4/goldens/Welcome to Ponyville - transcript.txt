@@ -1,5 +1,5 @@
 
-Welcome to Ponyville, v0.2 Klondikekun
+Welcome to Ponyville, v0.2 | Klondikekun
 
 You wake up to a roaring thunder above. The clouds boom and rain falls down on your back and neck. You slowly open your eyes and groan as you steadly try to rise up. Your arms and legs seem to fail you however. You grunt and stare down into a puddle to look at your reflection. The figure in the water is unclear because of the rain.
 
@@ -61,6 +61,7 @@ You try to follow her but you instead collapse and black out.
 
 
 
+Press anything to wake up.
 
 
 "Hey! Wake up!"
@@ -104,7 +105,7 @@ He says goodbye and continues down the rode.
 You turn to see that he dropped you at a location called the Supermare. An apartment complex. You head inside.
 
 
-You are in The Supermare
+You are in The Supermare.
 There is front desk pony here.
 The room is very homey. Decorated with a very old and stylized wood. The walls are painted a warm orange and the floors red. There is a large chandellier overhead and up front are some ponies checking in.
 
@@ -171,6 +172,7 @@ Get to Sleep?
 You decide to go to sleep for now. 
 
 Tomorrow is your first day in this new city. What adventures await you? 
+Press anything to sleep.
 
 
 As you drift to sleep you remember something about yourself.
@@ -206,13 +208,13 @@ Your AGI is now 8!
 
 Your STR is now 16!
 The next day....
-You are in Your Apartment
+You are in Your Apartment.
 You can go east.
 Wakie Wakie. Its 8:00 in the morning.
 
 
 > east
-You are in The Supermare
+You are in The Supermare.
 There is Periwinkle here.
 You can go south or west.
 The room is very homey. The walls are painted a warm orange and the floors red. There is a large chandellier overhead and up front are some ponies checking in. Periwinkle seems to be on break and waves to you to come over.
@@ -235,7 +237,7 @@ You take note of what she said and continue on.
 (The map is an image and may not show. I'm working on it. Apologies!)
 
 > south
-You are in Town Square
+You are in Town Square.
 There is group of ponies here.
 You can go north, east or west.
 
@@ -246,25 +248,25 @@ As you walk out the building into the pleasant atmosphere of Ponyville in its sp
 
 
 > east
-You are in East District
+You are in East District.
 You can go west, northeast or southeast.
 This is the east district of Ponyville. There are a few houses but nothing major.  To the southeast there is a bridge that leads to a large brightly colored building. 
 Northeast is the path to the bridge that leads to the outskirts of the city.
 
 > northeast
-You are in Bridge to the Forest
-You can go east, northeast, northwest or southwest.
+You are in Bridge to the Forest.
+You can go east, northwest, northeast or southwest.
 You come across a bridge that seems to lead to a meadow and a cottage. Past the cottage is a path to the forest. 
 To the north west you see a path leading back into the city, the market district.
 
 > northwest
-You are in Market District
-You can go north, northwest, southeast or southwest.
+You are in Market District.
+You can go north, northwest, southwest or southeast.
 If you thought you had seen the busy side of town, think again. aaThere are only a few places you have interest in.
 One is the infamous sugarcube corner to the north, the other is a tall fascinating tree house to the northwest.
 
 > north
-You are in Sugarcube Corner
+You are in Sugarcube Corner.
 There is Princess Celestia here.
 You can go south.
 You find yourself in a sweets shop of many colors. Very Bright, very pink, very busy. The infamous Sugarcube Corner. You are sure you heard of this place before.
@@ -306,12 +308,14 @@ She bows her head as well, something you did not expect.
 The princess is asking you a question.
 
 Time seems to stop as you remember something.
+Press anything to remember.
 
 
 As you face royalty you remember something about relationships.
 There will be certain times when others will want to talk with you. How you reply to them will directly effect how they react and how your relationship with the character will build. Your race, gender and major may also effect how your relationship increases or decreases.
 
 Always choose your replies carefully to avoid making too many enemies in this new town.
+Your head clears up and time seems to continue again. The princess asked you if you were new in town. How will you reply?
 
 
 1) Yes Ma'am!
@@ -363,24 +367,24 @@ Your Relationship with Applejack is now 5.
 
 
 > south
-You are in Market District
-You can go north, northwest, southeast or southwest.
+You are in Market District.
+You can go north, northwest, southwest or southeast.
 If you thought you had seen the busy side of town, think again. aaThere are only a few places you have interest in.
 One is the infamous sugarcube corner to the north, the other is a tall fascinating tree house to the northwest.
 
 > southwest
-You are in Path to Sweet Apple Acres
+You are in Path to Sweet Apple Acres.
 You can go west, northeast or southeast.
 A pathway leads out into empty pastures. You read a sign proclaiming that this is in fact the path to a "Sweet Apple Acres". If you continue west you will probably stumble upon such farm. Northeast is the road towards the market district. South East heads back to the Town Square.
 
 > southeast
-You are in West District
+You are in West District.
 You can go east or northwest.
 The houses start to grow fewer and fewer as you drift into the west side of town coming up into a path that leads  
 into farm grounds.
 
 > east
-You are in Town Square
+You are in Town Square.
 There is group of ponies here.
 You can go north, east or west.
 
@@ -415,25 +419,25 @@ The Mayor giggles realizing what Celestia is doing.  "Yes. Twilight could always
 You are unsure what she means but you nod and then bow to both of them and continue on your way.
 
 > east
-You are in East District
+You are in East District.
 You can go west, northeast or southeast.
 This is the east district of Ponyville. There are a few houses but nothing major.  To the southeast there is a bridge that leads to a large brightly colored building. 
 Northeast is the path to the bridge that leads to the outskirts of the city.
 
 > northeast
-You are in Bridge to the Forest
-You can go east, northeast, northwest or southwest.
+You are in Bridge to the Forest.
+You can go east, northwest, northeast or southwest.
 You come across a bridge that seems to lead to a meadow and a cottage. Past the cottage is a path to the forest. 
 To the north west you see a path leading back into the city, the market district.
 
 > northwest
-You are in Market District
-You can go north, northwest, southeast or southwest.
+You are in Market District.
+You can go north, northwest, southwest or southeast.
 If you thought you had seen the busy side of town, think again. aaThere are only a few places you have interest in.
 One is the infamous sugarcube corner to the north, the other is a tall fascinating tree house to the northwest.
 
 > northwest
-You are in Twilight's Library
+You are in Twilight's Library.
 There is Twilight Sparkle and Spike here.
 You can go southeast.
 You carefully continue into the tree...house but you stop moving forward as something small bumps into your chest.
@@ -499,15 +503,15 @@ Your Relationship with Spike is now 2.
 
 
 > southeast
-You are in Market District
-You can go north, northwest, southeast or southwest.
+You are in Market District.
+You can go north, northwest, southwest or southeast.
 If you thought you had seen the busy side of town, think again. aaThere are only a few places you have interest in.
 One is the infamous sugarcube corner to the north, the other is a tall fascinating tree house to the northwest.
 Twilight Sparkle looked around the Market District. "Well we're right by Pinkie Pie. Might as well say hello to her first."
 
 
 > north
-You are in Sugarcube Corner
+You are in Sugarcube Corner.
 There is Mr. Cake here.
 You can go south.
 You find yourself in a sweets shop of many colors. Very Bright, very pink, very busy. The infamous Sugarcube Corner. You are sure you heard of this place before.
@@ -518,8 +522,8 @@ You and Twilight look around. Only the taller yellow pony from before was there 
 "Mr. Cake says she and Mrs. Cake had to deliver something. We'll have to come back later. Maybe we should go find Rainbow Dash next then."
 
 > south
-You are in Market District
-You can go north, northwest, southeast or southwest.
+You are in Market District.
+You can go north, northwest, southwest or southeast.
 If you thought you had seen the busy side of town, think again. aaThere are only a few places you have interest in.
 One is the infamous sugarcube corner to the north, the other is a tall fascinating tree house to the northwest.
 The second Twilight walked out of Sugarcube Corner, she immediately looked up into the skies.
@@ -553,19 +557,19 @@ Rainbow Dash shook her wings a little and flapped them.
 but I really gotta dash. I'll see you both later alright?" She gave one last grin before taking off fast into the sky. You can swear that she left a rainbow trail behind.  Twilight sighed in relief. "Rainbow Dash is usually a handful. I'm glad she was decent this time. We should go meet Rarity now."
 
 > southeast
-You are in Bridge to the Forest
-You can go east, northeast, northwest or southwest.
+You are in Bridge to the Forest.
+You can go east, northwest, northeast or southwest.
 You come across a bridge that seems to lead to a meadow and a cottage. Past the cottage is a path to the forest. 
 To the north west you see a path leading back into the city, the market district.
 
 > southwest
-You are in East District
+You are in East District.
 You can go west, northeast or southeast.
 This is the east district of Ponyville. There are a few houses but nothing major.  To the southeast there is a bridge that leads to a large brightly colored building. 
 Northeast is the path to the bridge that leads to the outskirts of the city.
 
 > southeast
-You are in Carousel Boutique
+You are in Carousel Boutique.
 There is Rarity, Sweetie Belle and Torn Hat here.
 You can go northwest.
 The moment you two enter the boutique you hear a loud scream followed by a "HOW COULD YOU?!" 
@@ -589,31 +593,31 @@ Rarity continues. "Well Twilight and friend, its been a pleasure speaking with y
 Twilight nods and turns to the door. "Next lets find Applejack. She should be at Sweet Apple Acres to the west."
 
 > northwest
-You are in East District
+You are in East District.
 You can go west, northeast or southeast.
 This is the east district of Ponyville. There are a few houses but nothing major.  To the southeast there is a bridge that leads to a large brightly colored building. 
 Northeast is the path to the bridge that leads to the outskirts of the city.
 
 > west
-You are in Town Square
+You are in Town Square.
 You can go north, east or west.
 
 As you walk out the building into the pleasant atmosphere of Ponyville in its springtime. The overall enviroment just puts a smile on your face. Up ahead is the town squares building, right in the middle of town.
 
 
 > west
-You are in West District
+You are in West District.
 You can go east or northwest.
 The houses start to grow fewer and fewer as you drift into the west side of town coming up into a path that leads  
 into farm grounds.
 
 > northwest
-You are in Path to Sweet Apple Acres
+You are in Path to Sweet Apple Acres.
 You can go west, northeast or southeast.
 A pathway leads out into empty pastures. You read a sign proclaiming that this is in fact the path to a "Sweet Apple Acres". If you continue west you will probably stumble upon such farm. Northeast is the road towards the market district. South East heads back to the Town Square.
 
 > west
-You are in Sweet Apple Acres
+You are in Sweet Apple Acres.
 You can go east or west.
 After a long journey along the dirt you finally arrive to a large farm.
 "Hey! It's the new pony!" You hear someone call out. You and Twilight turn around to see the same orange pony with the western hat from before who was carrying a basket of apples on her back.  "Howdy there Twilight. Howdy to you too new pony!"
@@ -633,7 +637,7 @@ Twilight flashed a puzzled looking face. "She already told you? But we only just
 "Why don't we talk more inside. I'm sure Big Macintosh and ol Granny Smith would like to meet ya too." AppleJack said as she walked towards the barn. Twilight was about to protest but she was already gone. "Su-sure I guess. Let's try not to stay too long. Alright?" 
 
 > west
-You are in Granny Smith's House
+You are in Granny Smith's House.
 There is Granny Smith, Big Macintosh and Applejack here.
 You can go east.
 You open the door to see Applejack sitting at a table with an big red male with an orange mane, a smaller yellow pony girl with a red mane tied up with a bow and a green older pony at the end of the table. All four of them look to you and Twilight  as you enter. The older one began to speak up in her old squeaky voice.  
@@ -649,7 +653,7 @@ Before Granny Smith can continue Twilight interupts her. "Mrs. Smith. We really 
 Big Macintosh didn't say anything. He just looked down and ate the apple off his plate. Twilight sighed and motioned towards the door. "I'm sure we can talk more later Apple family. But we really have a tight schedule. Goodbye for now!" She pushes your shoulder and walks straight out the door. Granny Smith heard the door open and turned around to see that Twilight had already gone. "Yep. She's so quick. Just like her mother." 
 
 You said goodbye to family and then walked out to chase after Twilight.
-You are in Sweet Apple Acres
+You are in Sweet Apple Acres.
 You can go east or west.
 After a long journey along the dirt you finally arrive to a large farm.
 As you leave down the road to follow Twilight in the distance you hear someone call you from behind. You turn to see that it's Big Macintosh.
@@ -668,25 +672,25 @@ Your Relationship with Granny Smith is now 3.
 You go to catch up with Twilight. "Sorry about that. I wanted to get out of there before Granny went on another one of her wild stories. Anyway I guess that leaves Fluttershy. She's east of here. She lives in a cottage near the forest."
 
 > east
-You are in Path to Sweet Apple Acres
+You are in Path to Sweet Apple Acres.
 You can go west, northeast or southeast.
 A pathway leads out into empty pastures. You read a sign proclaiming that this is in fact the path to a "Sweet Apple Acres". If you continue west you will probably stumble upon such farm. Northeast is the road towards the market district. South East heads back to the Town Square.
 
 > northeast
-You are in Market District
-You can go north, northwest, southeast or southwest.
+You are in Market District.
+You can go north, northwest, southwest or southeast.
 If you thought you had seen the busy side of town, think again. aaThere are only a few places you have interest in.
 One is the infamous sugarcube corner to the north, the other is a tall fascinating tree house to the northwest.
 
 > southeast
-You are in Bridge to the Forest
-You can go east, northeast, northwest or southwest.
+You are in Bridge to the Forest.
+You can go east, northwest, northeast or southwest.
 You come across a bridge that seems to lead to a meadow and a cottage. Past the cottage is a path to the forest. 
 To the north west you see a path leading back into the city, the market district.
 Twilight points over to the cottage on the hilltop. "That's our next destination!"
 
 > northeast
-You are in Fluttershy's Hill
+You are in Fluttershy's Hill.
 You can go southwest.
 You and Twilight both arrive to the cottage. It appears that no one is home. Twilight however knew better then to believe on appearances alone. She proceeded in knocking on the front door. "Fluttershy. It's Twilight." She called out. The door slowly came squeaking open and and a worried blue eye peered out. "Oh, hi Twilight." a soft voice spoke as the door continued to open. There stood a very timid looking yellow pegasus with a long flowing pink mane. She turned to notice you and then took a step back. "Uh..Hi.." 
 
@@ -729,33 +733,33 @@ She leans over and bites the hat and takes it off your head. "Imf prmise Ilf gif
 She shut the door. You walk over to find Twilght again. She's nowhere in sight.
 
 > southwest
-You are in Bridge to the Forest
-You can go east, northeast, northwest or southwest.
+You are in Bridge to the Forest.
+You can go east, northwest, northeast or southwest.
 You come across a bridge that seems to lead to a meadow and a cottage. Past the cottage is a path to the forest. 
 To the north west you see a path leading back into the city, the market district.
 You walked back towards Ponyville alone. Twilight had just disappeared. In fact,the town had seemed empty. You looked up in the sky. It was still the middle of the day. Too early for everything to close.
 
 > southwest
-You are in East District
+You are in East District.
 You can go west, northeast or southeast.
 This is the east district of Ponyville. There are a few houses but nothing major.  To the southeast there is a bridge that leads to a large brightly colored building. 
 Northeast is the path to the bridge that leads to the outskirts of the city.
 
 > west
-You are in Town Square
+You are in Town Square.
 You can go north, east or west.
 
 As you walk out the building into the pleasant atmosphere of Ponyville in its springtime. The overall enviroment just puts a smile on your face. Up ahead is the town squares building, right in the middle of town.
 
 
 > north
-You are in The Supermare
+You are in The Supermare.
 There is Periwinkle here.
 You can go south or west.
 The room is very homey. The walls are painted a warm orange and the floors red. There is a large chandellier overhead and up front are some ponies checking in. Periwinkle seems to be on break and waves to you to come over.
 
 > west
-You are in Your Apartment
+You are in Your Apartment.
 You can go east.
 Wakie Wakie. Its 8:00 in the morning.
 You nervously enter your apartment and close the door. Had something terrible happened while you were talking to Fluttershy? Was Ponyville under attack? Was there some kind of emergency? You can't stop your pony heart from beating rapidly. You turn around and you feel your heart stop at what lays in front of you.
@@ -776,45 +780,45 @@ What lies around the corner?
 
 The next day....
 
-You are in Your Apartment
+You are in Your Apartment.
 There is Futon and Calendar here.
 You can go east.
 Its your apartment.
 You open your eyes to find the side of your futon staring down at you. You apparently passed out on the floor. What exactly happened last night?  You still can't get the sounds of the party out of your head. You stand up and prepare to head out.
 
 > east
-You are in The Supermare
+You are in The Supermare.
 There is Periwinkle here.
 You can go south or west.
 The room is very homey. The walls are painted a warm orange and the floors red. There is a large chandellier overhead and up front are some ponies checking in. Periwinkle is asleep at the desk.
 
 > south
-You are in Town Square
+You are in Town Square.
 There is Lyra here.
 You can go north, south, east or west.
 
 As you walk out the building into the pleasant atmosphere of Ponyville in its springtime. The overall enviroment just puts a smile on your face. Up ahead is the town squares building, right in the middle of town.
 
 > east
-You are in East District
+You are in East District.
 You can go west, northeast or southeast.
 This is the east district of Ponyville. There are a few houses but nothing major.  To the southeast there is a bridge that leads to a large brightly colored building. 
 Northeast is the path to the bridge that leads to the outskirts of the city.
 
 > northeast
-You are in Bridge to the Forest
-You can go east, northeast, northwest or southwest.
+You are in Bridge to the Forest.
+You can go east, northwest, northeast or southwest.
 You come across a bridge that seems to lead to a meadow and a cottage. Past the cottage is a path to the forest. 
 To the north west you see a path leading back into the city, the market district.
 
 > northwest
-You are in Market District
-You can go north, northwest, southeast or southwest.
+You are in Market District.
+You can go north, northwest, southwest or southeast.
 If you thought you had seen the busy side of town, think again. aaThere are only a few places you have interest in.
 One is the infamous sugarcube corner to the north, the other is a tall fascinating tree house to the northwest.
 
 > northwest
-You are in Twilight's Library
+You are in Twilight's Library.
 There is Twilight Sparkle here.
 You can go southeast.
 
@@ -831,19 +835,19 @@ You reply that you understand and asks if Spike is around.
 And with that she leaves. 
 
 > southeast
-You are in Market District
-You can go north, northwest, southeast or southwest.
+You are in Market District.
+You can go north, northwest, southwest or southeast.
 If you thought you had seen the busy side of town, think again. aaThere are only a few places you have interest in.
 One is the infamous sugarcube corner to the north, the other is a tall fascinating tree house to the northwest.
 
 > southeast
-You are in Bridge to the Forest
-You can go east, northeast, northwest or southwest.
+You are in Bridge to the Forest.
+You can go east, northwest, northeast or southwest.
 You come across a bridge that seems to lead to a meadow and a cottage. Past the cottage is a path to the forest. 
 To the north west you see a path leading back into the city, the market district.
 
 > east
-You are in Everfree Forest
+You are in Everfree Forest.
 You can go east or west.
 You walk  into the woods.
 All of a sudden you hear someone call you.
@@ -897,7 +901,7 @@ He runs off and disappears into the forest.
 
 You pick up a dead stick with your mouth and face the enemy. 
 
-You are in Fighting the Corrupted Tree
+You are in Fighting the Corrupted Tree.
 There is Corrupted Tree here.
 The enemy usually has the iniative. They strike first. You can weaken it by attacking and using magic.
 
@@ -930,7 +934,7 @@ You manage to get close enough to swing your branch at the tree.
 The trees hp is now 65 %
 
 > wait
-Time passes...
+Time passes.
 The corrupted tree lets out a growl and slices after you.... It stings but you shrug it off.
 
 1) Attack
@@ -942,7 +946,7 @@ You manage to get close enough to swing your branch at the tree.
 The trees hp is now 49 %
 
 > wait
-Time passes...
+Time passes.
 The corrupted tree lets out a growl and slices after you.... It stings but you shrug it off.
 
 1) Attack
@@ -954,7 +958,7 @@ You manage to get close enough to swing your branch at the tree.
 The trees hp is now 33 %
 
 > wait
-Time passes...
+Time passes.
 The corrupted tree lets out a growl and slices after you.... It stings but you shrug it off.
 
 1) Attack
@@ -966,7 +970,7 @@ You manage to get close enough to swing your branch at the tree.
 The trees hp is now 17 %
 
 > wait
-Time passes...
+Time passes.
 The corrupted tree lets out a growl and slices after you.... It stings but you shrug it off.
 
 1) Attack
@@ -978,7 +982,7 @@ You manage to get close enough to swing your branch at the tree.
 The trees hp is now 1 %
 
 > wait
-Time passes...
+Time passes.
 The corrupted tree lets out a growl and slices after you.... It stings but you shrug it off.
 
 1) Attack
@@ -989,7 +993,7 @@ You manage to get close enough to swing your branch at the tree.
 
 The trees hp is now -15 %
 The Tree stops swinging its "arms" and backs down, Its color begins to fade into a dark grey.  Its leaves crumble off of its branches untill they are have all fallen and it stands motionless.
-You are in Everfree Forest
+You are in Everfree Forest.
 You can go east or west.
 
 You sigh and catch your breathe as you stare at the drained enemy. Before you know it you hear a familiar voice. 
@@ -1012,7 +1016,7 @@ Zecora smiles again. "You two should return to Twilight, she would want to here 
 With that Zecora walks toward her home and you and Spike heed her instructions.
 
 
-You are in East District
+You are in East District.
 You can go west, northeast or southeast.
 This is the east district of Ponyville. There are a few houses but nothing major.  To the southeast there is a bridge that leads to a large brightly colored building. 
 Northeast is the path to the bridge that leads to the outskirts of the city.
@@ -1028,7 +1032,7 @@ Your Relationship with Spike is now 6.
 
 
 
-You are in Your Apartment
+You are in Your Apartment.
 There is Futon and Calendar here.
 You can go east.
 Its your apartment.
@@ -1049,13 +1053,13 @@ Your WIS is now 4!
 
 
 > east
-You are in The Supermare
+You are in The Supermare.
 There is Periwinkle here.
 You can go south or west.
 The room is very homey. The walls are painted a warm orange and the floors red. There is a large chandellier overhead and up front are some ponies checking in. Periwinkle is asleep at the desk.
 
 > south
-You are in Town Square
+You are in Town Square.
 There is Lyra here.
 You can go north, south, east or west.
 
@@ -1072,25 +1076,25 @@ She continues looking around and then sighs.
 
 
 > east
-You are in East District
+You are in East District.
 You can go west, northeast or southeast.
 This is the east district of Ponyville. There are a few houses but nothing major.  To the southeast there is a bridge that leads to a large brightly colored building. 
 Northeast is the path to the bridge that leads to the outskirts of the city.
 
 > northeast
-You are in Bridge to the Forest
-You can go east, northeast, northwest or southwest.
+You are in Bridge to the Forest.
+You can go east, northwest, northeast or southwest.
 You come across a bridge that seems to lead to a meadow and a cottage. Past the cottage is a path to the forest. 
 To the north west you see a path leading back into the city, the market district.
 
 > northwest
-You are in Market District
-You can go north, northwest, southeast or southwest.
+You are in Market District.
+You can go north, northwest, southwest or southeast.
 If you thought you had seen the busy side of town, think again. aaThere are only a few places you have interest in.
 One is the infamous sugarcube corner to the north, the other is a tall fascinating tree house to the northwest.
 
 > northwest
-You are in Twilight's Library
+You are in Twilight's Library.
 There is Twilight Sparkle and Spike here.
 You can go southeast.
 
@@ -1122,7 +1126,7 @@ Spike shrugs. "Whatever..."
 
 The two of you walk towards the train station.
 
-You are in Canterlot Square
+You are in Canterlot Square.
 You can go north, south or east.
 This is Canterlot. Royal city of Equestria. The streets are full of fancy looking ponies who are too stuck up to even notice you. If you head north, you'll eventually get to the royal gates.
 Eventually you arrive at this fancy looking bar. Don't get the wrong idea, its an icecream bar. 
@@ -1184,7 +1188,7 @@ Your Relationship with Twilight is now 9.
 
 
 
-You are in Your Apartment
+You are in Your Apartment.
 There is Futon and Calendar here.
 You can go east.
 Its your apartment.
@@ -1195,20 +1199,20 @@ The next day....
 You open your eyes, sit up and stretch to greet the new day.
 
 > east
-You are in The Supermare
+You are in The Supermare.
 There is Periwinkle here.
 You can go south or west.
 The room is very homey. The walls are painted a warm orange and the floors red. There is a large chandellier overhead and up front are some ponies checking in. Periwinkle is asleep at the desk.
 
 > south
-You are in Town Square
+You are in Town Square.
 There is Lyra here.
 You can go north, south, east or west.
 
 As you walk out the building into the pleasant atmosphere of Ponyville in its springtime. The overall enviroment just puts a smile on your face. Up ahead is the town squares building, right in the middle of town.
 
 > west
-You are in West District
+You are in West District.
 There is Cheerilee here.
 You can go east or northwest.
 The houses start to grow fewer and fewer as you drift into the west side of town coming up into a path that leads  
@@ -1225,7 +1229,7 @@ Go to class with Cheerilee?
 2) No
 [choice] 1
 She smiles and you two move along.
-You are in Ponyville School
+You are in Ponyville School.
 Eventually you and Cheerilee arrive into a class of rowdy youngsters just in time. "Alright now settle down everyone. The bell has rung. It's time for todays lessons."
 
 The children settle down and all look to you.
@@ -1290,7 +1294,7 @@ Your Relationship with Cheerile is now 6.
 
 You end up returning to your apartment and sleeping the rest of the day.
 
-You are in Your Apartment
+You are in Your Apartment.
 There is Futon and Calendar here.
 You can go east.
 Its your apartment.
@@ -1301,20 +1305,20 @@ The next day....
 You open your eyes, sit up and stretch to greet the new day.
 
 > east
-You are in The Supermare
+You are in The Supermare.
 There is Periwinkle here.
 You can go south or west.
 The room is very homey. The walls are painted a warm orange and the floors red. There is a large chandellier overhead and up front are some ponies checking in. Periwinkle is asleep at the desk.
 
 > south
-You are in Town Square
+You are in Town Square.
 There is Lyra here.
 You can go north, south, east or west.
 
 As you walk out the building into the pleasant atmosphere of Ponyville in its springtime. The overall enviroment just puts a smile on your face. Up ahead is the town squares building, right in the middle of town.
 
 > south
-You are in Train Station
+You are in Train Station.
 There is Train Attendee here.
 You can go north.
 
@@ -1330,12 +1334,12 @@ Would you like to purchase a ticket to Canterlot?
 
 He leads you to into the train and soon it takes off up the hill and past the mountains to Canterlot.
 
-You are in Canterlot Train Station
+You are in Canterlot Train Station.
 There is Train Attendee here.
 You can go north.
 
 > north
-You are in Canterlot Square
+You are in Canterlot Square.
 You can go north, south or east.
 This is Canterlot. Royal city of Equestria. The streets are full of fancy looking ponies who are too stuck up to even notice you. If you head north, you'll eventually get to the royal gates.
 
@@ -1343,7 +1347,7 @@ This is Canterlot. Royal city of Equestria. The streets are full of fancy lookin
 To the east you can see various shops and places that demand a deep pocket. You decide to visit them later.
 
 > north
-You are in Outside Celestias Castle
+You are in Outside Celestias Castle.
 There is Hooded Figure here.
 You can go north or south.
 After a long walk you arrive to the Royal gates into Celestia's castle. The guards ask you to state your buisness and then open the gates seeing as you are probably not looking for trouble.
@@ -1358,7 +1362,7 @@ You open the letter. It reads "Dear Princess Celestia. I'm leaving today in sear
 The letter is very brief and has a signature that you cannot read.
 
 > north
-You are in Canterlot Courtoom
+You are in Canterlot Courtoom.
 There is Princess Celestia here.
 You can go south.
 You stand in a line of ponies before a huge door in front of you. Ponies go in and come out of it. Eventually its your turn to enter into a glorious courting room where Princess Celestia and some guards sit before you. Celestia smiles, welcomes you.
@@ -1386,17 +1390,17 @@ You nod and accept the request.
 Your Relationship with Celestia is now 4.
 
 > south
-You are in Outside Celestias Castle
+You are in Outside Celestias Castle.
 You can go north or south.
 After a long walk you arrive to the Royal gates into Celestia's castle. The guards ask you to state your buisness and then open the gates seeing as you are probably not looking for trouble.
 
 > south
-You are in Canterlot Square
+You are in Canterlot Square.
 You can go north, south or east.
 This is Canterlot. Royal city of Equestria. The streets are full of fancy looking ponies who are too stuck up to even notice you. If you head north, you'll eventually get to the royal gates.
 
 > south
-You are in Canterlot Train Station
+You are in Canterlot Train Station.
 There is Train Attendee here.
 You can go north.
 
@@ -1411,31 +1415,31 @@ Head back to Ponyville?
 "Alright then! Right this way!"
 
 He leads you to into the train and soon it takes off back down towards the cheerful town.
-You are in Train Station
+You are in Train Station.
 There is Train Attendee here.
 You can go north.
 
 > north
-You are in Town Square
+You are in Town Square.
 There is Lyra here.
 You can go north, south, east or west.
 
 As you walk out the building into the pleasant atmosphere of Ponyville in its springtime. The overall enviroment just puts a smile on your face. Up ahead is the town squares building, right in the middle of town.
 
 > west
-You are in West District
+You are in West District.
 There is Cheerilee here.
 You can go east or northwest.
 The houses start to grow fewer and fewer as you drift into the west side of town coming up into a path that leads  
 into farm grounds.
 
 > northwest
-You are in Path to Sweet Apple Acres
+You are in Path to Sweet Apple Acres.
 You can go west, northeast or southeast.
 A pathway leads out into empty pastures. You read a sign proclaiming that this is in fact the path to a "Sweet Apple Acres". If you continue west you will probably stumble upon such farm. Northeast is the road towards the market district. South East heads back to the Town Square.
 
 > west
-You are in Sweet Apple Acres
+You are in Sweet Apple Acres.
 There is Applejack and Big Mac here.
 You can go east or west.
 After a long journey along the dirt you finally arrive to a large farm.
@@ -1481,7 +1485,7 @@ Big Mac nods his head to thank you.
 
 He begins to walk off and you head back home puzzled by why the chore took so long.
 
-You are in Your Apartment
+You are in Your Apartment.
 There is Futon and Calendar here.
 You can go east.
 Its your apartment.
@@ -1492,32 +1496,32 @@ The next day....
 You open your eyes, sit up and stretch to greet the new day.
 
 > east
-You are in The Supermare
+You are in The Supermare.
 There is Periwinkle here.
 You can go south or west.
 The room is very homey. The walls are painted a warm orange and the floors red. There is a large chandellier overhead and up front are some ponies checking in. Periwinkle is asleep at the desk.
 
 > south
-You are in Town Square
+You are in Town Square.
 There is Lyra here.
 You can go north, south, east or west.
 
 As you walk out the building into the pleasant atmosphere of Ponyville in its springtime. The overall enviroment just puts a smile on your face. Up ahead is the town squares building, right in the middle of town.
 
 > west
-You are in West District
+You are in West District.
 There is Cheerilee here.
 You can go east or northwest.
 The houses start to grow fewer and fewer as you drift into the west side of town coming up into a path that leads  
 into farm grounds.
 
 > northwest
-You are in Path to Sweet Apple Acres
+You are in Path to Sweet Apple Acres.
 You can go west, northeast or southeast.
 A pathway leads out into empty pastures. You read a sign proclaiming that this is in fact the path to a "Sweet Apple Acres". If you continue west you will probably stumble upon such farm. Northeast is the road towards the market district. South East heads back to the Town Square.
 
 > west
-You are in Sweet Apple Acres
+You are in Sweet Apple Acres.
 There is Applejack and Big Mac here.
 You can go east or west.
 After a long journey along the dirt you finally arrive to a large farm.
@@ -1535,7 +1539,7 @@ Applejack then lowers her head. "Sorting those apples out was a real help though
 She walks off toward the house and you follow her.
 Your Relationship with Applejack is now 10.
 
-You are in Granny Smith's House
+You are in Granny Smith's House.
 There is Granny Smith here.
 You can go east.
 Applejack fixes you a drink that just so happens to be apple flavored. She sits on a stool across from you and takes a swig of the same drink in a bigger cup.
@@ -1558,7 +1562,7 @@ She finishes up her drink in one gulp and moves outside before you can finish yo
 
 You put your drink down and catch up.
 
-You are in Sweet Apple Acres
+You are in Sweet Apple Acres.
 There is Applejack and Big Mac here.
 You can go east or west.
 After a long journey along the dirt you finally arrive to a large farm.
@@ -1581,7 +1585,7 @@ Your STR is now 20!
 
 
 
-You are in Your Apartment
+You are in Your Apartment.
 There is Futon and Calendar here.
 You can go east.
 Its your apartment.
@@ -1592,26 +1596,26 @@ The next day....
 You open your eyes, sit up and stretch to greet the new day.
 
 > east
-You are in The Supermare
+You are in The Supermare.
 There is Periwinkle here.
 You can go south or west.
 The room is very homey. The walls are painted a warm orange and the floors red. There is a large chandellier overhead and up front are some ponies checking in. Periwinkle is asleep at the desk.
 
 > south
-You are in Town Square
+You are in Town Square.
 There is Lyra here.
 You can go north, south, east or west.
 
 As you walk out the building into the pleasant atmosphere of Ponyville in its springtime. The overall enviroment just puts a smile on your face. Up ahead is the town squares building, right in the middle of town.
 
 > east
-You are in East District
+You are in East District.
 You can go west, northeast or southeast.
 This is the east district of Ponyville. There are a few houses but nothing major.  To the southeast there is a bridge that leads to a large brightly colored building. 
 Northeast is the path to the bridge that leads to the outskirts of the city.
 
 > southeast
-You are in Carousel Boutique
+You are in Carousel Boutique.
 There is Rarity here.
 You can go northwest.
 
@@ -1687,7 +1691,7 @@ You assist Rarity for the day, carrying things, holding parts and just being hel
 
 
 
-You are in Your Apartment
+You are in Your Apartment.
 There is Futon and Calendar here.
 You can go east.
 Its your apartment.
@@ -1703,7 +1707,7 @@ You scratch your head wondering why you woke up so early. It seems to be a littl
 
 You try to get back to sleep but you don't succeed so you instead walk outside for a little stroll.
 
-You are in Town Square
+You are in Town Square.
 You can go north, south, east or west.
 
 As you walk out the building into the pleasant atmosphere of Ponyville in its springtime. The overall enviroment just puts a smile on your face. Up ahead is the town squares building, right in the middle of town.
@@ -1751,7 +1755,7 @@ Your Relationship with Luna is now 3.
 
 
 The next day....
-You are in Your Apartment
+You are in Your Apartment.
 There is Futon and Calendar here.
 You can go east.
 Its your apartment.
@@ -1760,38 +1764,38 @@ You open your eyes, sit up and stretch to greet the new day.
 You open your eyes, sit up and stretch to greet the new day.
 
 > east
-You are in The Supermare
+You are in The Supermare.
 There is Periwinkle here.
 You can go south or west.
 The room is very homey. The walls are painted a warm orange and the floors red. There is a large chandellier overhead and up front are some ponies checking in. Periwinkle is asleep at the desk.
 
 > south
-You are in Town Square
+You are in Town Square.
 There is Lyra here.
 You can go north, south, east or west.
 
 As you walk out the building into the pleasant atmosphere of Ponyville in its springtime. The overall enviroment just puts a smile on your face. Up ahead is the town squares building, right in the middle of town.
 
 > east
-You are in East District
+You are in East District.
 You can go west, northeast or southeast.
 This is the east district of Ponyville. There are a few houses but nothing major.  To the southeast there is a bridge that leads to a large brightly colored building. 
 Northeast is the path to the bridge that leads to the outskirts of the city.
 
 > northeast
-You are in Bridge to the Forest
-You can go east, northeast, northwest or southwest.
+You are in Bridge to the Forest.
+You can go east, northwest, northeast or southwest.
 You come across a bridge that seems to lead to a meadow and a cottage. Past the cottage is a path to the forest. 
 To the north west you see a path leading back into the city, the market district.
 
 > northwest
-You are in Market District
-You can go north, northwest, southeast or southwest.
+You are in Market District.
+You can go north, northwest, southwest or southeast.
 If you thought you had seen the busy side of town, think again. aaThere are only a few places you have interest in.
 One is the infamous sugarcube corner to the north, the other is a tall fascinating tree house to the northwest.
 
 > north
-You are in Sugarcube Corner
+You are in Sugarcube Corner.
 There is Mr. Cake and Pinkie Pie here.
 You can go south.
 You find yourself in a sweets shop of many colors. Very Bright, very pink, very busy. The infamous Sugarcube Corner. You are sure you heard of this place before.
@@ -1805,26 +1809,29 @@ Duty calls for Pinkie and you are sure that at the moment you couldn't afford an
 You greet him. "Oh hi there!" He replies.
 You tell him that you heard Mrs. Cake is sick from Pinkie Pie and he nods. "Yes. Dear is having a terrible fever. It happened all so suddenly, the doctor said that she should be fine with just a little rest. Thank you for your concern."
 
+I don't understand your command. Type HELP for a list of valid commands.
+
+
 > south
-You are in Market District
-You can go north, northwest, southeast or southwest.
+You are in Market District.
+You can go north, northwest, southwest or southeast.
 If you thought you had seen the busy side of town, think again. aaThere are only a few places you have interest in.
 One is the infamous sugarcube corner to the north, the other is a tall fascinating tree house to the northwest.
 
 > southeast
-You are in Bridge to the Forest
-You can go east, northeast, northwest or southwest.
+You are in Bridge to the Forest.
+You can go east, northwest, northeast or southwest.
 You come across a bridge that seems to lead to a meadow and a cottage. Past the cottage is a path to the forest. 
 To the north west you see a path leading back into the city, the market district.
 
 > east
-You are in Everfree Forest
+You are in Everfree Forest.
 You can go east or west.
 
 > east
 You continue into the forest. You can hear creatures all around you just ready to attack. All of a sudden it feels dark and cold. You wish you hadn't come her.  Eventually you continue on and find a strange structure. Some kind of house in the middle of the forest?
 
-You are in Strange Hut
+You are in Strange Hut.
 There is Mysterious Zebra here.
 You can go west.
 
@@ -1846,8 +1853,8 @@ You apologize mentioning that you had just taken a wrong turn and was lost in th
 "Even so a stranger you are still. Why have I never seen you in Ponyville?" She interrogates. You explain that you just
 moved in to town a few days ago. She sighs and groans again. Her face then lightens up. "Follow me, do not dismay. I know the path, I've learned the way." She continues out the door without saying anymore words.
 
-You are in Bridge to the Forest
-You can go east, northeast, northwest or southwest.
+You are in Bridge to the Forest.
+You can go east, northwest, northeast or southwest.
 You come across a bridge that seems to lead to a meadow and a cottage. Past the cottage is a path to the forest. 
 To the north west you see a path leading back into the city, the market district.
 The two of you arrive back to the edge of Ponyville. You thank the zebra and apologize again. She nods and heads back. You turn to Ponyville when you realize you forgot to ask her name. Right as you turn she speaks flat out with her flank still turned to you. "Zecora...." She continues back into the forest.  
@@ -1855,11 +1862,11 @@ The two of you arrive back to the edge of Ponyville. You thank the zebra and apo
 You decide it would be good to get more information about the zebra who just saved you.
 
 > east
-You are in Everfree Forest
+You are in Everfree Forest.
 You can go east or west.
 
 > east
-You are in Zecoras home
+You are in Zecoras home.
 There is Zecora and Assorted Pots here.
 You can go west.
 
@@ -1876,23 +1883,23 @@ Zecora blinks. "Mrs. Cake hot and in bed? I have just the thing to cool her head
 You take it and thank her.
 
 > west
-You are in Everfree Forest
+You are in Everfree Forest.
 You can go east or west.
 
 > west
-You are in Bridge to the Forest
-You can go east, northeast, northwest or southwest.
+You are in Bridge to the Forest.
+You can go east, northwest, northeast or southwest.
 You come across a bridge that seems to lead to a meadow and a cottage. Past the cottage is a path to the forest. 
 To the north west you see a path leading back into the city, the market district.
 
 > northwest
-You are in Market District
-You can go north, northwest, southeast or southwest.
+You are in Market District.
+You can go north, northwest, southwest or southeast.
 If you thought you had seen the busy side of town, think again. aaThere are only a few places you have interest in.
 One is the infamous sugarcube corner to the north, the other is a tall fascinating tree house to the northwest.
 
 > north
-You are in Sugarcube Corner
+You are in Sugarcube Corner.
 There is Mr. Cake and Pinkie Pie here.
 You can go south.
 You find yourself in a sweets shop of many colors. Very Bright, very pink, very busy. The infamous Sugarcube Corner. You are sure you heard of this place before.
@@ -1906,6 +1913,9 @@ You tell her that Zecora sent it and he sighs in relief. "Oh well if it's from Z
 
 He takes the jar in his mouth and runs up the stairs.
 
+I don't understand your command. Type HELP for a list of valid commands.
+
+
 > speak to pinkie pie
 Pinkie smiles at you when you arrive. "I saw everything! That's to help Mrs. Cake isn't it? Thank you! I really hope she gets better soon! 
 Your Relationship with Pinkie Pie is now 7.
@@ -1913,38 +1923,38 @@ Your Relationship with Pinkie Pie is now 7.
 "But I still have to fill in for her so I can't hang out until she gets better! You understand right? Thank you again though! Oh..Welcome to SugarCube Corner!" 
 
 > south
-You are in Market District
-You can go north, northwest, southeast or southwest.
+You are in Market District.
+You can go north, northwest, southwest or southeast.
 If you thought you had seen the busy side of town, think again. aaThere are only a few places you have interest in.
 One is the infamous sugarcube corner to the north, the other is a tall fascinating tree house to the northwest.
 
 > southeast
-You are in Bridge to the Forest
-You can go east, northeast, northwest or southwest.
+You are in Bridge to the Forest.
+You can go east, northwest, northeast or southwest.
 You come across a bridge that seems to lead to a meadow and a cottage. Past the cottage is a path to the forest. 
 To the north west you see a path leading back into the city, the market district.
 
 > southwest
-You are in East District
+You are in East District.
 You can go west, northeast or southeast.
 This is the east district of Ponyville. There are a few houses but nothing major.  To the southeast there is a bridge that leads to a large brightly colored building. 
 Northeast is the path to the bridge that leads to the outskirts of the city.
 
 > west
-You are in Town Square
+You are in Town Square.
 There is Lyra here.
 You can go north, south, east or west.
 
 As you walk out the building into the pleasant atmosphere of Ponyville in its springtime. The overall enviroment just puts a smile on your face. Up ahead is the town squares building, right in the middle of town.
 
 > north
-You are in The Supermare
+You are in The Supermare.
 There is Periwinkle here.
 You can go south or west.
 The room is very homey. The walls are painted a warm orange and the floors red. There is a large chandellier overhead and up front are some ponies checking in. Periwinkle is asleep at the desk.
 
 > west
-You are in Your Apartment
+You are in Your Apartment.
 There is Futon and Calendar here.
 You can go east.
 Its your apartment.
@@ -1962,7 +1972,7 @@ It's a  new day!
 Midnight
 
 You open your eyes, get up and go for a night stroll.
-You are in Town Square
+You are in Town Square.
 You can go north, south, east or west.
 
 As you walk out the building into the pleasant atmosphere of Ponyville in its springtime. The overall enviroment just puts a smile on your face. Up ahead is the town squares building, right in the middle of town.
@@ -2010,7 +2020,7 @@ Your Relationship with Luna is now 8.
 
 
 
-You are in Your Apartment
+You are in Your Apartment.
 There is Futon and Calendar here.
 You can go east.
 Its your apartment.
@@ -2019,20 +2029,20 @@ Its your apartment.
 You open your eyes, sit up and stretch to greet the new day.
 
 > east
-You are in The Supermare
+You are in The Supermare.
 There is Periwinkle here.
 You can go south or west.
 The room is very homey. The walls are painted a warm orange and the floors red. There is a large chandellier overhead and up front are some ponies checking in. Periwinkle is asleep at the desk.
 
 > south
-You are in Town Square
+You are in Town Square.
 There is Lyra here.
 You can go north, south, east or west.
 
 As you walk out the building into the pleasant atmosphere of Ponyville in its springtime. The overall enviroment just puts a smile on your face. Up ahead is the town squares building, right in the middle of town.
 
 > south
-You are in Train Station
+You are in Train Station.
 There is Train Attendee here.
 You can go north.
 
@@ -2048,22 +2058,22 @@ Would you like to purchase a ticket to Canterlot?
 
 He leads you to into the train and soon it takes off up the hill and past the mountains to Canterlot.
 
-You are in Canterlot Train Station
+You are in Canterlot Train Station.
 There is Train Attendee here.
 You can go north.
 
 > north
-You are in Canterlot Square
+You are in Canterlot Square.
 You can go north, south or east.
 This is Canterlot. Royal city of Equestria. The streets are full of fancy looking ponies who are too stuck up to even notice you. If you head north, you'll eventually get to the royal gates.
 
 > north
-You are in Outside Celestias Castle
+You are in Outside Celestias Castle.
 You can go north or south.
 After a long walk you arrive to the Royal gates into Celestia's castle. The guards ask you to state your buisness and then open the gates seeing as you are probably not looking for trouble.
 
 > north
-You are in Canterlot Courtoom
+You are in Canterlot Courtoom.
 There is Princess Celestia here.
 You can go south.
 You stand in a line of ponies before a huge door in front of you. Ponies go in and come out of it. Eventually its your turn to enter into a glorious courting room where Princess Celestia and some guards sit before you. Celestia smiles, welcomes you.
@@ -2084,7 +2094,7 @@ Accept the Invitation?
 "Alright then. Let's go to the dining room."
 Your Relationship with Celestia is now 5.
 
-You are in Royal Dining Room
+You are in Royal Dining Room.
 Celestia and the guards lead you higher up into the castle until you reach a glorious large room designed with beatiful stained glass windows and chandellers. In the middle sat a long table covered in a gold and purple sheet.  It was obviously meant for a big feast. Celestia went to sit in a comfy looking chair at the head of the table. You try to decide where to sit.
 
 1) Sit next to Celestia
@@ -2159,23 +2169,23 @@ You can't help but asks if she usually eats alone. She just smiles, doesn't answ
 
 You finish eating and head home.
 Your Relationship with Celestia is now 14.
-You are in Canterlot Courtoom
+You are in Canterlot Courtoom.
 There is Princess Celestia here.
 You can go south.
 You stand in a line of ponies before a huge door in front of you. Ponies go in and come out of it. Eventually its your turn to enter into a glorious courting room where Princess Celestia and some guards sit before you. Celestia smiles, welcomes you.
 
 > south
-You are in Outside Celestias Castle
+You are in Outside Celestias Castle.
 You can go north or south.
 After a long walk you arrive to the Royal gates into Celestia's castle. The guards ask you to state your buisness and then open the gates seeing as you are probably not looking for trouble.
 
 > south
-You are in Canterlot Square
+You are in Canterlot Square.
 You can go north, south or east.
 This is Canterlot. Royal city of Equestria. The streets are full of fancy looking ponies who are too stuck up to even notice you. If you head north, you'll eventually get to the royal gates.
 
 > south
-You are in Canterlot Train Station
+You are in Canterlot Train Station.
 There is Train Attendee here.
 You can go north.
 
@@ -2190,25 +2200,25 @@ Head back to Ponyville?
 "Alright then! Right this way!"
 
 He leads you to into the train and soon it takes off back down towards the cheerful town.
-You are in Train Station
+You are in Train Station.
 There is Train Attendee here.
 You can go north.
 
 > north
-You are in Town Square
+You are in Town Square.
 There is Lyra here.
 You can go north, south, east or west.
 
 As you walk out the building into the pleasant atmosphere of Ponyville in its springtime. The overall enviroment just puts a smile on your face. Up ahead is the town squares building, right in the middle of town.
 
 > east
-You are in East District
+You are in East District.
 You can go west, northeast or southeast.
 This is the east district of Ponyville. There are a few houses but nothing major.  To the southeast there is a bridge that leads to a large brightly colored building. 
 Northeast is the path to the bridge that leads to the outskirts of the city.
 
 > southeast
-You are in Carousel Boutique
+You are in Carousel Boutique.
 There is Rarity here.
 You can go northwest.
 
@@ -2234,7 +2244,7 @@ You assist Rarity for the day, carrying things, holding parts and just being hel
 
 
 
-You are in Your Apartment
+You are in Your Apartment.
 There is Futon and Calendar here.
 You can go east.
 Its your apartment.
@@ -2245,32 +2255,32 @@ The next day....
 You open your eyes, sit up and stretch to greet the new day.
 
 > east
-You are in The Supermare
+You are in The Supermare.
 There is Periwinkle here.
 You can go south or west.
 The room is very homey. The walls are painted a warm orange and the floors red. There is a large chandellier overhead and up front are some ponies checking in. Periwinkle is asleep at the desk.
 
 > south
-You are in Town Square
+You are in Town Square.
 There is Lyra here.
 You can go north, south, east or west.
 
 As you walk out the building into the pleasant atmosphere of Ponyville in its springtime. The overall enviroment just puts a smile on your face. Up ahead is the town squares building, right in the middle of town.
 
 > west
-You are in West District
+You are in West District.
 There is Cheerilee here.
 You can go east or northwest.
 The houses start to grow fewer and fewer as you drift into the west side of town coming up into a path that leads  
 into farm grounds.
 
 > northwest
-You are in Path to Sweet Apple Acres
+You are in Path to Sweet Apple Acres.
 You can go west, northeast or southeast.
 A pathway leads out into empty pastures. You read a sign proclaiming that this is in fact the path to a "Sweet Apple Acres". If you continue west you will probably stumble upon such farm. Northeast is the road towards the market district. South East heads back to the Town Square.
 
 > west
-You are in Sweet Apple Acres
+You are in Sweet Apple Acres.
 There is Applejack and Big Mac here.
 You can go east or west.
 After a long journey along the dirt you finally arrive to a large farm.
@@ -2292,7 +2302,7 @@ Your STR is now 23!
 
 
 
-You are in Your Apartment
+You are in Your Apartment.
 There is Futon and Calendar here.
 You can go east.
 Its your apartment.
@@ -2303,32 +2313,32 @@ The next day....
 You open your eyes, sit up and stretch to greet the new day.
 
 > east
-You are in The Supermare
+You are in The Supermare.
 There is Periwinkle here.
 You can go south or west.
 The room is very homey. The walls are painted a warm orange and the floors red. There is a large chandellier overhead and up front are some ponies checking in. Periwinkle is asleep at the desk.
 
 > south
-You are in Town Square
+You are in Town Square.
 There is Lyra here.
 You can go north, south, east or west.
 
 As you walk out the building into the pleasant atmosphere of Ponyville in its springtime. The overall enviroment just puts a smile on your face. Up ahead is the town squares building, right in the middle of town.
 
 > west
-You are in West District
+You are in West District.
 There is Cheerilee here.
 You can go east or northwest.
 The houses start to grow fewer and fewer as you drift into the west side of town coming up into a path that leads  
 into farm grounds.
 
 > northwest
-You are in Path to Sweet Apple Acres
+You are in Path to Sweet Apple Acres.
 You can go west, northeast or southeast.
 A pathway leads out into empty pastures. You read a sign proclaiming that this is in fact the path to a "Sweet Apple Acres". If you continue west you will probably stumble upon such farm. Northeast is the road towards the market district. South East heads back to the Town Square.
 
 > west
-You are in Sweet Apple Acres
+You are in Sweet Apple Acres.
 There is Applejack and Big Mac here.
 You can go east or west.
 After a long journey along the dirt you finally arrive to a large farm.
@@ -2346,7 +2356,7 @@ Help Big Mac Today?
 You work with Big Mac today. You earn a little coin for the help and then return home
 
 
-You are in Your Apartment
+You are in Your Apartment.
 There is Futon and Calendar here.
 You can go east.
 Its your apartment.
@@ -2357,38 +2367,38 @@ The next day....
 You open your eyes, sit up and stretch to greet the new day.
 
 > east
-You are in The Supermare
+You are in The Supermare.
 There is Periwinkle here.
 You can go south or west.
 The room is very homey. The walls are painted a warm orange and the floors red. There is a large chandellier overhead and up front are some ponies checking in. Periwinkle is asleep at the desk.
 
 > south
-You are in Town Square
+You are in Town Square.
 There is Lyra here.
 You can go north, south, east or west.
 
 As you walk out the building into the pleasant atmosphere of Ponyville in its springtime. The overall enviroment just puts a smile on your face. Up ahead is the town squares building, right in the middle of town.
 
 > east
-You are in East District
+You are in East District.
 You can go west, northeast or southeast.
 This is the east district of Ponyville. There are a few houses but nothing major.  To the southeast there is a bridge that leads to a large brightly colored building. 
 Northeast is the path to the bridge that leads to the outskirts of the city.
 
 > northeast
-You are in Bridge to the Forest
-You can go east, northeast, northwest or southwest.
+You are in Bridge to the Forest.
+You can go east, northwest, northeast or southwest.
 You come across a bridge that seems to lead to a meadow and a cottage. Past the cottage is a path to the forest. 
 To the north west you see a path leading back into the city, the market district.
 
 > northwest
-You are in Market District
-You can go north, northwest, southeast or southwest.
+You are in Market District.
+You can go north, northwest, southwest or southeast.
 If you thought you had seen the busy side of town, think again. aaThere are only a few places you have interest in.
 One is the infamous sugarcube corner to the north, the other is a tall fascinating tree house to the northwest.
 
 > northwest
-You are in Twilight's Library
+You are in Twilight's Library.
 There is Twilight Sparkle and Spike here.
 You can go southeast.
 
@@ -2415,7 +2425,7 @@ Your KNO is now 9!
 
 
 
-You are in Your Apartment
+You are in Your Apartment.
 There is Futon and Calendar here.
 You can go east.
 Its your apartment.
@@ -2426,26 +2436,26 @@ The next day....
 You open your eyes, sit up and stretch to greet the new day.
 
 > east
-You are in The Supermare
+You are in The Supermare.
 There is Periwinkle here.
 You can go south or west.
 The room is very homey. The walls are painted a warm orange and the floors red. There is a large chandellier overhead and up front are some ponies checking in. Periwinkle is asleep at the desk.
 
 > south
-You are in Town Square
+You are in Town Square.
 There is Lyra here.
 You can go north, south, east or west.
 
 As you walk out the building into the pleasant atmosphere of Ponyville in its springtime. The overall enviroment just puts a smile on your face. Up ahead is the town squares building, right in the middle of town.
 
 > east
-You are in East District
+You are in East District.
 You can go west, northeast or southeast.
 This is the east district of Ponyville. There are a few houses but nothing major.  To the southeast there is a bridge that leads to a large brightly colored building. 
 Northeast is the path to the bridge that leads to the outskirts of the city.
 
 > southeast
-You are in Carousel Boutique
+You are in Carousel Boutique.
 There is Rarity here.
 You can go northwest.
 
@@ -2471,7 +2481,7 @@ You assist Rarity for the day, carrying things, holding parts and just being hel
 
 
 
-You are in Your Apartment
+You are in Your Apartment.
 There is Futon and Calendar here.
 You can go east.
 Its your apartment.
@@ -2562,32 +2572,32 @@ Day 19 =  Spring Peaches Festival
 Day 29 = End of Spring
 
 > east
-You are in The Supermare
+You are in The Supermare.
 There is Periwinkle here.
 You can go south or west.
 The room is very homey. The walls are painted a warm orange and the floors red. There is a large chandellier overhead and up front are some ponies checking in. Periwinkle is asleep at the desk.
 
 > south
-You are in Town Square
+You are in Town Square.
 There is Lyra here.
 You can go north, south, east or west.
 
 As you walk out the building into the pleasant atmosphere of Ponyville in its springtime. The overall enviroment just puts a smile on your face. Up ahead is the town squares building, right in the middle of town.
 
 > west
-You are in West District
+You are in West District.
 There is Cheerilee here.
 You can go east or northwest.
 The houses start to grow fewer and fewer as you drift into the west side of town coming up into a path that leads  
 into farm grounds.
 
 > northwest
-You are in Path to Sweet Apple Acres
+You are in Path to Sweet Apple Acres.
 You can go west, northeast or southeast.
 A pathway leads out into empty pastures. You read a sign proclaiming that this is in fact the path to a "Sweet Apple Acres". If you continue west you will probably stumble upon such farm. Northeast is the road towards the market district. South East heads back to the Town Square.
 
 > west
-You are in Sweet Apple Acres
+You are in Sweet Apple Acres.
 There is Applejack and Big Mac here.
 You can go east or west.
 After a long journey along the dirt you finally arrive to a large farm.
@@ -2617,7 +2627,7 @@ Your Relationship with Applejack is now 15.
 
 
 
-You are in Your Apartment
+You are in Your Apartment.
 There is Futon and Calendar here.
 You can go east.
 Its your apartment.

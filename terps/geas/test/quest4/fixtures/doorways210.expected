@@ -1,0 +1,27 @@
+
+Doorways210
+
+You are in Hall.
+There is nobody here.
+You can go out to Yard.
+You can go northwest, north or northeast.
+You can go to the Shed, or Work Truck.
+A hall.
+
+> dump
+folded []
+dirs [northwest, north or northeast]
+places [the Shed, or Work Truck]
+out [Yard]
+
+> up
+You are in Loft.
+There is nobody here.
+A loft.
+
+> dump
+folded []
+dirs []
+places []
+out []
+[runner] turns=3 leftover=0 running=true

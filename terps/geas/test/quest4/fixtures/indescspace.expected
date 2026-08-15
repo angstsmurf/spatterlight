@@ -1,0 +1,26 @@
+
+Indescspace
+
+You are in the Console Room.
+You can go east.
+
+> look
+You are in the Console Room.
+You can go east.
+
+> e
+You are in the Empty Room.
+You can go west or east.
+
+> look
+You are in the Empty Room.
+You can go west or east.
+
+> e
+You are standing in the Colon Room.
+You can go west.
+
+> look
+You are standing in the Colon Room.
+You can go west.
+[runner] turns=5 leftover=0 running=true

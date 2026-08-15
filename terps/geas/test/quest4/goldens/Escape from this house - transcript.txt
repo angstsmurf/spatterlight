@@ -1,9 +1,9 @@
 
-Escape from this house, v1.1 CJN
+Escape from this house, v1.1 | CJN
 
 You need to find a way out of this house
 
-You are in The Entrance
+You are in The Entrance.
 There is a Desk, a Coat stand, a Painting and The Main Doors here.
 You can go north.
 You are standing in the Entrance hall of a large house.  Ther are large double doors to the south but they are locked.  There exit Norh take you to the Small Hall
@@ -39,13 +39,13 @@ as you try to remove the painting ti reveals a small safe behind it.
 The Desk has a drawer in it.
 
 > n
-You are in The Small Hall
+You are in The Small Hall.
+You can go to Kitchen, Large hall, Dining room or Entrance.
 You can go north, south, east or west.
-You can go to Kitchen, Large hall, Dining room, or Entrance.
 The room is empty but has many exits
 
 > w
-You are in The Kitchen
+You are in The Kitchen.
 There is a Table and a pile of Washing up here.
 You can go east or west.
 
@@ -62,13 +62,13 @@ You take the onion
 You take the small knife
 
 > e
-You are in The Small Hall
+You are in The Small Hall.
+You can go to Kitchen, Large hall, Dining room or Entrance.
 You can go north, south, east or west.
-You can go to Kitchen, Large hall, Dining room, or Entrance.
 The room is empty but has many exits
 
 > e
-You are in The Dining room
+You are in The Dining room.
 There is a Fireplace and the Dining Table here.
 You can go north or west.
 You are in a lrage dining room.  There is a lavish table here and a fireplace is set into the wall.  The fire is not lit
@@ -80,21 +80,21 @@ In the fireplace you find some coal
 You take the coal
 
 > w
-You are in The Small Hall
+You are in The Small Hall.
+You can go to Kitchen, Large hall, Dining room or Entrance.
 You can go north, south, east or west.
-You can go to Kitchen, Large hall, Dining room, or Entrance.
 The room is empty but has many exits
 
 > w
-You are in The Kitchen
+You are in The Kitchen.
 There is a Table and a pile of Washing up here.
 You can go east or west.
 
 > w
-You are in The Garden
+You are in The Garden.
 There is a Snow Pile and a Small boy here.
-You can go east.
 You can go to Kitchen.
+You can go east.
 You are in the garden.  It has been snowing.  The melting snow drips onto the ground and a cheeky robin bobs up and down on the large wall that surrounds it.  The only way out of here is back the way you came in
 
 > speak to small boy
@@ -119,21 +119,21 @@ Eventually it melts away and you are back with a pile of snow
 You take the pipe
 
 > e
-You are in The Kitchen
+You are in The Kitchen.
 There is a Table and a pile of Washing up here.
 You can go east or west.
 
 > e
-You are in The Small Hall
+You are in The Small Hall.
+You can go to Kitchen, Large hall, Dining room or Entrance.
 You can go north, south, east or west.
-You can go to Kitchen, Large hall, Dining room, or Entrance.
 The room is empty but has many exits
 
 > n
-You are in The Large hall
+You are in The Large hall.
 There is a Telephone here.
+You can go to Small Hall, Cellar, Upper Landing or Lounge.
 You can go south, east, up or down.
-You can go to Small Hall, Cellar, Upper Landing, or Lounge.
 This is a larger hall.  There are exits leading East to the Lounge and South to the Small hall.
 
 There is a large winding staircase that leads up to an overlooking landing
@@ -141,7 +141,7 @@ There is a large winding staircase that leads up to an overlooking landing
 THere is a small door that leads to a staircase leading down to the cellar
 
 > e
-You are in The Lounge
+You are in The Lounge.
 There is an Old Man and a large Bookcase here.
 You can go south or west.
 A comfortable looking lounge.  It has a large bookcase and several arm chairs.  The large chandelier gives plenty of light and the central heating makes it comfortably warm
@@ -161,10 +161,10 @@ The old man places a silver coin on the table.
 YOu take the coin
 
 > w
-You are in The Large hall
+You are in The Large hall.
 There is a Telephone here.
+You can go to Small Hall, Cellar, Upper Landing or Lounge.
 You can go south, east, up or down.
-You can go to Small Hall, Cellar, Upper Landing, or Lounge.
 This is a larger hall.  There are exits leading East to the Lounge and South to the Small hall.
 
 There is a large winding staircase that leads up to an overlooking landing
@@ -172,7 +172,7 @@ There is a large winding staircase that leads up to an overlooking landing
 THere is a small door that leads to a staircase leading down to the cellar
 
 > u
-You are in The Upper Landing
+You are in The Upper Landing.
 You can go north, east, west or down.
 The landing is rather sparse.  It overlooks tha large hall beneath
 
@@ -182,7 +182,7 @@ To the East there is a bathroom
 The staircase also leads back down
 
 > e
-You are in The Bathroom
+You are in The Bathroom.
 There is a Toilet, a Shower, a Sink and a Bathroom Cabinet here.
 You can go west.
 Small and funstional.  It houses a sink, a shower and a toilet.  Above the sink there is a cabinet with a rather grimy mirror
@@ -206,7 +206,7 @@ You open the Cabinet
 You take the sleeping tablets
 
 > w
-You are in The Upper Landing
+You are in The Upper Landing.
 You can go north, east, west or down.
 The landing is rather sparse.  It overlooks tha large hall beneath
 
@@ -216,7 +216,7 @@ To the East there is a bathroom
 The staircase also leads back down
 
 > w
-You are in The Child's room
+You are in The Child's room.
 There is Colin, a Toy Train and a Cupboard here.
 You can go east.
 You are in a badly decorated childs bedroom.  There are lods of toys all over the place
@@ -225,7 +225,7 @@ You are in a badly decorated childs bedroom.  There are lods of toys all over th
 you Take the toy train
 
 > e
-You are in The Upper Landing
+You are in The Upper Landing.
 You can go north, east, west or down.
 The landing is rather sparse.  It overlooks tha large hall beneath
 
@@ -235,10 +235,10 @@ To the East there is a bathroom
 The staircase also leads back down
 
 > d
-You are in The Large hall
+You are in The Large hall.
 There is a Telephone here.
+You can go to Small Hall, Cellar, Upper Landing or Lounge.
 You can go south, east, up or down.
-You can go to Small Hall, Cellar, Upper Landing, or Lounge.
 This is a larger hall.  There are exits leading East to the Lounge and South to the Small hall.
 
 There is a large winding staircase that leads up to an overlooking landing
@@ -246,10 +246,10 @@ There is a large winding staircase that leads up to an overlooking landing
 THere is a small door that leads to a staircase leading down to the cellar
 
 > d
-You are in The Cellar
+You are in The Cellar.
 There is a large Keg which is filled with wine here.
-You can go south or up.
 You can go to Large hall or Laundry Room.
+You can go south or up.
 it is cool and dark in here.  Just right to keep the wine cool!
 
 > use empty beaker on keg
@@ -259,7 +259,7 @@ You fill the beaker with wine
 You have now got a glass of wine
 
 > s
-You are in The Laundry Room
+You are in The Laundry Room.
 There is a vending Machine, a Basket and a Pile of laundry here.
 You can go north.
 It is small and functional.  There is a sink and a machine attached to the wall.  There also appeasr to be some dirty linen on the floor.  Is it laundry day?
@@ -274,17 +274,17 @@ The token operates the machine and you get a sachet of Washing powder
 You take the powder
 
 > n
-You are in The Cellar
+You are in The Cellar.
 There is a large Keg which is filled with wine here.
-You can go south or up.
 You can go to Large hall or Laundry Room.
+You can go south or up.
 it is cool and dark in here.  Just right to keep the wine cool!
 
 > u
-You are in The Large hall
+You are in The Large hall.
 There is a Telephone here.
+You can go to Small Hall, Cellar, Upper Landing or Lounge.
 You can go south, east, up or down.
-You can go to Small Hall, Cellar, Upper Landing, or Lounge.
 This is a larger hall.  There are exits leading East to the Lounge and South to the Small hall.
 
 There is a large winding staircase that leads up to an overlooking landing
@@ -292,7 +292,7 @@ There is a large winding staircase that leads up to an overlooking landing
 THere is a small door that leads to a staircase leading down to the cellar
 
 > u
-You are in The Upper Landing
+You are in The Upper Landing.
 You can go north, east, west or down.
 The landing is rather sparse.  It overlooks tha large hall beneath
 
@@ -302,7 +302,7 @@ To the East there is a bathroom
 The staircase also leads back down
 
 > e
-You are in The Bathroom
+You are in The Bathroom.
 There is a Toilet, a Shower, a Sink and a Bathroom Cabinet here.
 You can go west.
 Small and funstional.  It houses a sink, a shower and a toilet.  Above the sink there is a cabinet with a rather grimy mirror
@@ -318,7 +318,7 @@ as you do the whole bathroom becomes flooded with sopay water.
 an old man enters
 
 > w
-You are in The Upper Landing
+You are in The Upper Landing.
 You can go north, east, west or down.
 The landing is rather sparse.  It overlooks tha large hall beneath
 
@@ -328,10 +328,10 @@ To the East there is a bathroom
 The staircase also leads back down
 
 > d
-You are in The Large hall
+You are in The Large hall.
 There is a Telephone here.
+You can go to Small Hall, Cellar, Upper Landing or Lounge.
 You can go south, east, up or down.
-You can go to Small Hall, Cellar, Upper Landing, or Lounge.
 This is a larger hall.  There are exits leading East to the Lounge and South to the Small hall.
 
 There is a large winding staircase that leads up to an overlooking landing
@@ -339,7 +339,7 @@ There is a large winding staircase that leads up to an overlooking landing
 THere is a small door that leads to a staircase leading down to the cellar
 
 > e
-You are in The Lounge
+You are in The Lounge.
 There is a large Bookcase and a Cup of coffee here.
 You can go south or west.
 A comfortable looking lounge.  It has a large bookcase and several arm chairs.  The large chandelier gives plenty of light and the central heating makes it comfortably warm
@@ -356,10 +356,10 @@ You take the paper
 The old man is waking up
 
 > w
-You are in The Large hall
+You are in The Large hall.
 There is a Telephone here.
+You can go to Small Hall, Cellar, Upper Landing or Lounge.
 You can go south, east, up or down.
-You can go to Small Hall, Cellar, Upper Landing, or Lounge.
 This is a larger hall.  There are exits leading East to the Lounge and South to the Small hall.
 
 There is a large winding staircase that leads up to an overlooking landing
@@ -367,7 +367,7 @@ There is a large winding staircase that leads up to an overlooking landing
 THere is a small door that leads to a staircase leading down to the cellar
 
 > u
-You are in The Upper Landing
+You are in The Upper Landing.
 You can go north, east, west or down.
 The landing is rather sparse.  It overlooks tha large hall beneath
 
@@ -377,7 +377,7 @@ To the East there is a bathroom
 The staircase also leads back down
 
 > e
-You are in The Bathroom
+You are in The Bathroom.
 There is a Toilet, a Shower, a Sink and a Bathroom Cabinet here.
 You can go west.
 Small and funstional.  It houses a sink, a shower and a toilet.  Above the sink there is a cabinet with a rather grimy mirror
@@ -386,7 +386,7 @@ Small and funstional.  It houses a sink, a shower and a toilet.  Above the sink 
 By looking at the reflection of the message in the mirror, you read that it is in fact the combination to a safe
 
 > w
-You are in The Upper Landing
+You are in The Upper Landing.
 You can go north, east, west or down.
 The landing is rather sparse.  It overlooks tha large hall beneath
 
@@ -396,10 +396,10 @@ To the East there is a bathroom
 The staircase also leads back down
 
 > d
-You are in The Large hall
+You are in The Large hall.
 There is a Telephone here.
+You can go to Small Hall, Cellar, Upper Landing or Lounge.
 You can go south, east, up or down.
-You can go to Small Hall, Cellar, Upper Landing, or Lounge.
 This is a larger hall.  There are exits leading East to the Lounge and South to the Small hall.
 
 There is a large winding staircase that leads up to an overlooking landing
@@ -407,13 +407,13 @@ There is a large winding staircase that leads up to an overlooking landing
 THere is a small door that leads to a staircase leading down to the cellar
 
 > s
-You are in The Small Hall
+You are in The Small Hall.
+You can go to Kitchen, Large hall, Dining room or Entrance.
 You can go north, south, east or west.
-You can go to Kitchen, Large hall, Dining room, or Entrance.
 The room is empty but has many exits
 
 > s
-You are in The Entrance
+You are in The Entrance.
 There is a Desk, a Coat stand, a Painting, a Drawer, a Small safe, a coat and The Main Doors here.
 You can go north.
 You are standing in the Entrance hall of a large house.  Ther are large double doors to the south but they are locked.  There exit Norh take you to the Small Hall
@@ -431,16 +431,16 @@ You use the knife to pry open the drawer.  Soon it breaks open
 You take the toy boat
 
 > n
-You are in The Small Hall
+You are in The Small Hall.
+You can go to Kitchen, Large hall, Dining room or Entrance.
 You can go north, south, east or west.
-You can go to Kitchen, Large hall, Dining room, or Entrance.
 The room is empty but has many exits
 
 > n
-You are in The Large hall
+You are in The Large hall.
 There is a Telephone here.
+You can go to Small Hall, Cellar, Upper Landing or Lounge.
 You can go south, east, up or down.
-You can go to Small Hall, Cellar, Upper Landing, or Lounge.
 This is a larger hall.  There are exits leading East to the Lounge and South to the Small hall.
 
 There is a large winding staircase that leads up to an overlooking landing
@@ -448,7 +448,7 @@ There is a large winding staircase that leads up to an overlooking landing
 THere is a small door that leads to a staircase leading down to the cellar
 
 > u
-You are in The Upper Landing
+You are in The Upper Landing.
 You can go north, east, west or down.
 The landing is rather sparse.  It overlooks tha large hall beneath
 
@@ -458,7 +458,7 @@ To the East there is a bathroom
 The staircase also leads back down
 
 > n
-You are in The Main Bedroom
+You are in The Main Bedroom.
 There is a Lady and a Bed here.
 You can go south.
 You are in the main bedroom there is a bed and a lady lying in it.
@@ -481,7 +481,7 @@ Thank you for helping me. Take this key, it opens the main doors."
 You have the house key
 
 > s
-You are in The Upper Landing
+You are in The Upper Landing.
 You can go north, east, west or down.
 The landing is rather sparse.  It overlooks tha large hall beneath
 
@@ -491,10 +491,10 @@ To the East there is a bathroom
 The staircase also leads back down
 
 > d
-You are in The Large hall
+You are in The Large hall.
 There is a Telephone here.
+You can go to Small Hall, Cellar, Upper Landing or Lounge.
 You can go south, east, up or down.
-You can go to Small Hall, Cellar, Upper Landing, or Lounge.
 This is a larger hall.  There are exits leading East to the Lounge and South to the Small hall.
 
 There is a large winding staircase that leads up to an overlooking landing
@@ -502,13 +502,13 @@ There is a large winding staircase that leads up to an overlooking landing
 THere is a small door that leads to a staircase leading down to the cellar
 
 > s
-You are in The Small Hall
+You are in The Small Hall.
+You can go to Kitchen, Large hall, Dining room or Entrance.
 You can go north, south, east or west.
-You can go to Kitchen, Large hall, Dining room, or Entrance.
 The room is empty but has many exits
 
 > s
-You are in The Entrance
+You are in The Entrance.
 There is a Coat stand, a Painting, a Small safe, a coat, a Broken desk and The Main Doors here.
 You can go north.
 You are standing in the Entrance hall of a large house.  Ther are large double doors to the south but they are locked.  There exit Norh take you to the Small Hall
@@ -518,7 +518,7 @@ You have opened the main doors.
 You can now exit South to the driveway
 
 > s
-You are in The Driveway
+You are in The Driveway.
 There is some Electric gates, a Control box, a huge Tree and a Toy Dog here.
 You can go north.
 Yu are standing in the driveway.  To the north is the main house and to the south is freedom.  However there are huge gates blocking your way south.
@@ -528,22 +528,22 @@ There is a tree in the driveway and an electrical box
 You take the toy dog
 
 > n
-You are in The Entrance
+You are in The Entrance.
 There is a Coat stand, a Painting, a Small safe, a coat and a Broken desk here.
 You can go north or south.
 You are standing in the Entrance hall of a large house.  Ther are large double doors to the south but they are locked.  There exit Norh take you to the Small Hall
 
 > n
-You are in The Small Hall
+You are in The Small Hall.
+You can go to Kitchen, Large hall, Dining room or Entrance.
 You can go north, south, east or west.
-You can go to Kitchen, Large hall, Dining room, or Entrance.
 The room is empty but has many exits
 
 > n
-You are in The Large hall
+You are in The Large hall.
 There is a Telephone here.
+You can go to Small Hall, Cellar, Upper Landing or Lounge.
 You can go south, east, up or down.
-You can go to Small Hall, Cellar, Upper Landing, or Lounge.
 This is a larger hall.  There are exits leading East to the Lounge and South to the Small hall.
 
 There is a large winding staircase that leads up to an overlooking landing
@@ -551,7 +551,7 @@ There is a large winding staircase that leads up to an overlooking landing
 THere is a small door that leads to a staircase leading down to the cellar
 
 > u
-You are in The Upper Landing
+You are in The Upper Landing.
 You can go north, east, west or down.
 The landing is rather sparse.  It overlooks tha large hall beneath
 
@@ -561,7 +561,7 @@ To the East there is a bathroom
 The staircase also leads back down
 
 > w
-You are in The Child's room
+You are in The Child's room.
 There is Colin and a Cupboard here.
 You can go east.
 You are in a badly decorated childs bedroom.  There are lods of toys all over the place
@@ -575,7 +575,7 @@ Thats just what I need to keep all my things in.  Let me help you later
 You take the gold key
 
 > e
-You are in The Upper Landing
+You are in The Upper Landing.
 You can go north, east, west or down.
 The landing is rather sparse.  It overlooks tha large hall beneath
 
@@ -585,10 +585,10 @@ To the East there is a bathroom
 The staircase also leads back down
 
 > d
-You are in The Large hall
+You are in The Large hall.
 There is a Telephone here.
+You can go to Small Hall, Cellar, Upper Landing or Lounge.
 You can go south, east, up or down.
-You can go to Small Hall, Cellar, Upper Landing, or Lounge.
 This is a larger hall.  There are exits leading East to the Lounge and South to the Small hall.
 
 There is a large winding staircase that leads up to an overlooking landing
@@ -596,19 +596,19 @@ There is a large winding staircase that leads up to an overlooking landing
 THere is a small door that leads to a staircase leading down to the cellar
 
 > s
-You are in The Small Hall
+You are in The Small Hall.
+You can go to Kitchen, Large hall, Dining room or Entrance.
 You can go north, south, east or west.
-You can go to Kitchen, Large hall, Dining room, or Entrance.
 The room is empty but has many exits
 
 > s
-You are in The Entrance
+You are in The Entrance.
 There is a Coat stand, a Painting, a Small safe, a coat and a Broken desk here.
 You can go north or south.
 You are standing in the Entrance hall of a large house.  Ther are large double doors to the south but they are locked.  There exit Norh take you to the Small Hall
 
 > s
-You are in The Driveway
+You are in The Driveway.
 There is some Electric gates, a Control box, Colin and a huge Tree here.
 You can go north.
 Yu are standing in the driveway.  To the north is the main house and to the south is freedom.  However there are huge gates blocking your way south.
@@ -637,6 +637,6 @@ You place the rubber pieces around your hands.  This should earth you when you p
 The coin activetes the gates and there is now an exit south
 
 > s
-You are in a celebratory mood.  You have escaped to Freedom
+You are in a celebratory mood.  You have escaped to Freedom.
 You are free!
 [runner] turns=113 leftover=0 running=false WON=YES

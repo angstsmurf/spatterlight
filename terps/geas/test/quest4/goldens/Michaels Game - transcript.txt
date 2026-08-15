@@ -1,15 +1,15 @@
 
-Michael's Game Connie Strump
+Michael's Game | Connie Strump
 
 Hello, Michael! Welcome. We know you enjoy activities like playing with your toys and appreciating all the things we've given you. But, we also know that you sometimes selfishly want to explore the world beyond this room. That's why we've made you this game! Enjoy it. We love you.
 
-You are in Michael's Room
+You are in Michael's Room.
 There is a bed, a television, Harold's Room, a monkey poster, a shark poster, a striking painting of a Native American gentleman, a strange bike hooked up to a record player, Michael's Computer and a toilet here.
 You can go west.
 It's your room, Michael. It is decorated just how you like it with the blue carpet and awesome wallpaper. Look around at all the expensive things we've given you. You are the luckiest boy in the world!
 
 > look
-You are in Michael's Room
+You are in Michael's Room.
 There is a bed, a television, Harold's Room, a monkey poster, a shark poster, a striking painting of a Native American gentleman, a strange bike hooked up to a record player, Michael's Computer and a toilet here.
 You can go west.
 It's your room, Michael. It is decorated just how you like it with the blue carpet and awesome wallpaper. Look around at all the expensive things we've given you. You are the luckiest boy in the world!
@@ -49,6 +49,7 @@ There is a note down here that says "If you can read this then you are disappoin
 
 > look at toilet
 A toilet? Right in your own room? Xanadu! I wonder what that Silver Handle does when you turn it...
+It contains silver handle.
 
 > look at silver handle
 this handle is silver. why did you look at it? I mean, it's right in the name
@@ -84,13 +85,13 @@ You hold the key. Take that, authority.
 You use the key to unlock the door. This is going really well.
 
 > west
-You are in The Gloopon office
+You are in The Gloopon office.
 There is Computers, phones and that glitter you left in here yesterday here.
 You can go east or west.
 This is the world outside your room Michael, The Gloopon Office. Look how boring it is. If I had my own awesome room like the one you just left, I would never leave. There are breakable things everywhere that you shouldn't touch. There are computers and phones for the productive members of society who work here. There's no reason for you to be here. 
 
 > look
-You are in The Gloopon office
+You are in The Gloopon office.
 There is Computers, phones and that glitter you left in here yesterday here.
 You can go east or west.
 This is the world outside your room Michael, The Gloopon Office. Look how boring it is. If I had my own awesome room like the one you just left, I would never leave. There are breakable things everywhere that you shouldn't touch. There are computers and phones for the productive members of society who work here. There's no reason for you to be here. 
@@ -108,13 +109,13 @@ You'd better pick it up or Andrew will yell so hard that his nosebleeds again
 Whew, that was a close one. Better hold onto this stuff, just in case.
 
 > west
-You are in The Library
+You are in The Library.
 There is a bookshelf, a globe, a strange guard guarding the Western door, some other bookshelf, television, a plant and a glass case here.
 You can go north, south, east or west.
 Whoa! Graphics! This game just got interesting! Anyway, this is the library. 
 
 > look
-You are in The Library
+You are in The Library.
 There is a bookshelf, a globe, a strange guard guarding the Western door, some other bookshelf, television, a plant and a glass case here.
 You can go north, south, east or west.
 Whoa! Graphics! This game just got interesting! Anyway, this is the library. 
@@ -152,18 +153,19 @@ It's one of thsoe weird British guards. No, not the not allowed to laugh MArge S
 
 > look at glass case
 This glass case has a machete in it. Behind glass. A valuable, valuable machete. Behind glass. Glass is fun to smash isn't it? Smashable smashable glass.
+It contains machete.
 
 > smash glass case
 You can't smash this glass without some sort of glass smashing device
 
 > north
-You are in The Public Employee Room
+You are in The Public Employee Room.
 There is a lady police officer, a male fireman and a construction worker here.
 You can go north or south.
 Don't say anything bad about unions in here
 
 > look
-You are in The Public Employee Room
+You are in The Public Employee Room.
 There is a lady police officer, a male fireman and a construction worker here.
 You can go north or south.
 Don't say anything bad about unions in here
@@ -175,7 +177,7 @@ What you think only men can be cops?
 "Hello, Michael, I'm a police officer. It is my job to keep people from breaking any laws. Don't break any laws Michael. You are a beautiful child. Oh also I picked this up because I thought it was clue for a crime I was solving, because I solve crimes. But I don't want it anymore. It smells weird." She reaches over and hands you ANOTHER NOTE FROM MICHAEL.
 
 > take another note from michael
-You already have it.
+You already have that.
 
 > look at another note from michael
 HERE IS ANOTHER IMPORTANT THING: 
@@ -198,7 +200,7 @@ I'm not sure what gender this construction worker is.
 "Hello, Michael. I am a construction worker. I build the many constructions in our community. It is hard work but it is fulfilling. Here, have a hammer. It's usefull for building things, though theoretically I guess it could smash some glass or something. Ok you can go now, I'm tired" The construction man or woman reaches over and gives you a hammer. These people are great and not at all a shortcut for the game programmer in giving you clues.
 
 > south
-You are in The Library
+You are in The Library.
 There is a bookshelf, a globe, a strange guard guarding the Western door, some other bookshelf, television, a plant, a glass case and machete here.
 You can go north, south, east or west.
 Whoa! Graphics! This game just got interesting! Anyway, this is the library. 
@@ -213,13 +215,13 @@ You got a machete. Just like you asked for for Grouponicus.
 This certainly belongs in a library
 
 > east
-You are in The Gloopon office
+You are in The Gloopon office.
 There is Computers and phones here.
 You can go east or west.
 This is the world outside your room Michael, The Gloopon Office. Look how boring it is. If I had my own awesome room like the one you just left, I would never leave. There are breakable things everywhere that you shouldn't touch. There are computers and phones for the productive members of society who work here. There's no reason for you to be here. 
 
 > east
-You are in Michael's Room
+You are in Michael's Room.
 There is a bed, a television, Harold's Room, a monkey poster, a shark poster, a striking painting of a Native American gentleman, a strange bike hooked up to a record player, silver handle, Michael's Computer and a toilet here.
 You can go west.
 It's your room, Michael. It is decorated just how you like it with the blue carpet and awesome wallpaper. Look around at all the expensive things we've given you. You are the luckiest boy in the world!
@@ -243,25 +245,25 @@ You got it. This is an important thing so VICTORY MUSIC
 No! You can't burn this. Do your homework!
 
 > west
-You are in The Gloopon office
+You are in The Gloopon office.
 There is Computers and phones here.
 You can go east or west.
 This is the world outside your room Michael, The Gloopon Office. Look how boring it is. If I had my own awesome room like the one you just left, I would never leave. There are breakable things everywhere that you shouldn't touch. There are computers and phones for the productive members of society who work here. There's no reason for you to be here. 
 
 > west
-You are in The Library
+You are in The Library.
 There is a bookshelf, a globe, a strange guard guarding the Western door, some other bookshelf, television, a plant and a glass case here.
 You can go north, south, east or west.
 Whoa! Graphics! This game just got interesting! Anyway, this is the library. 
 
 > north
-You are in The Public Employee Room
+You are in The Public Employee Room.
 There is a lady police officer, a male fireman and a construction worker here.
 You can go north or south.
 Don't say anything bad about unions in here
 
 > north
-You are in Jungle Room
+You are in Jungle Room.
 There is monkey, elephant, tiger, shovel, vines and trees here.
 You can go south or east.
 This is a jungle. It is like a forrest on a spring break. There are lots of exotic things and items. It's a jungle in here! I'll just save you some trouble by the way. You can't burn, smash, or hack the animals, you horrible boy. 
@@ -269,7 +271,7 @@ This is a jungle. It is like a forrest on a spring break. There are lots of exot
 
 
 > look
-You are in Jungle Room
+You are in Jungle Room.
 There is monkey, elephant, tiger, shovel, vines and trees here.
 You can go south or east.
 This is a jungle. It is like a forrest on a spring break. There are lots of exotic things and items. It's a jungle in here! I'll just save you some trouble by the way. You can't burn, smash, or hack the animals, you horrible boy. 
@@ -312,13 +314,13 @@ These darned jungle vines have grown over the door leading east! Mama said there
 You hack those vines just completely to hell. They are extremely gone so don't worry about that they are still in the picture. The door is unlocked now that the vines have been bravely hacked. by you. Michael. in this video game. 
 
 > east
-You are in The Louvre
+You are in The Louvre.
 There is great arts and a DaVinci Code here.
 You can go east or west.
 You are in the Louvre, Michael, so show some respect. 
 
 > look
-You are in The Louvre
+You are in The Louvre.
 There is great arts and a DaVinci Code here.
 You can go east or west.
 You are in the Louvre, Michael, so show some respect. 
@@ -348,13 +350,13 @@ Step 2: Combine dog bones and highlighter
 You unlocked the door going east
 
 > east
-You are in Underwater Room
+You are in Underwater Room.
 There is a pirate skull, A FIFTH NOTE FROM MICHAEL, brass key, a book, Dolphin, key-shaped rock, a Chest with a combination lock and School of fish here.
 You can go west.
 This is the underwater room. You are underwater. It's a good thing you went to breath holding camp, Michael because you will drown if you don't get out of this room in 1 minute.
 
 > look
-You are in Underwater Room
+You are in Underwater Room.
 There is a pirate skull, A FIFTH NOTE FROM MICHAEL, brass key, a book, Dolphin, key-shaped rock, a Chest with a combination lock and School of fish here.
 You can go west.
 
@@ -399,13 +401,13 @@ You took the key. Good luck with that...
 You unlocked the door. Get the hell outta here
 
 > west
-You are in The Louvre
+You are in The Louvre.
 There is great arts and a DaVinci Code here.
 You can go east or west.
 You are in the Louvre, Michael, so show some respect. 
 
 > west
-You are in Jungle Room
+You are in Jungle Room.
 There is monkey, elephant, tiger, vines and trees here.
 You can go south or east.
 This is a jungle. It is like a forrest on a spring break. There are lots of exotic things and items. It's a jungle in here! I'll just save you some trouble by the way. You can't burn, smash, or hack the animals, you horrible boy. 
@@ -413,13 +415,13 @@ This is a jungle. It is like a forrest on a spring break. There are lots of exot
 
 
 > south
-You are in The Public Employee Room
+You are in The Public Employee Room.
 There is a lady police officer, a male fireman and a construction worker here.
 You can go north or south.
 Don't say anything bad about unions in here
 
 > south
-You are in The Library
+You are in The Library.
 There is a bookshelf, a globe, a strange guard guarding the Western door, some other bookshelf, television, a plant and a glass case here.
 You can go north, south, east or west.
 Whoa! Graphics! This game just got interesting! Anyway, this is the library. 
@@ -428,13 +430,13 @@ Whoa! Graphics! This game just got interesting! Anyway, this is the library.
 You unlocked the door to the south. Go there!
 
 > south
-You are in Independence Hall
+You are in Independence Hall.
 There is George Washington, Albert Einstein, Sherlock Holmes and The declaration of independence here.
 You can go north or south.
 Why, Michael! You've stepped through history into Independence Hall in 1776. The founding fathers are here, signing the Declaration of Independence. Talk to them and learn some things.
 
 > look
-You are in Independence Hall
+You are in Independence Hall.
 There is George Washington, Albert Einstein, Sherlock Holmes and The declaration of independence here.
 You can go north or south.
 Why, Michael! You've stepped through history into Independence Hall in 1776. The founding fathers are here, signing the Declaration of Independence. Talk to them and learn some things.
@@ -468,13 +470,13 @@ There he is, our county's first and greatest detective.
 Give me liberty or give me death.
 
 > south
-You are in The Science Lab
+You are in The Science Lab.
 There is The Science table, calcium, pieces of aluminum, dog bones, cinnamon, neon green highlighter, bunsen burner and a computerized computer butler named R.E.Y.N.O.L.D. here.
 You can go north or east.
 It's the science lab. This is probably a good place to learn about science. 
 
 > look
-You are in The Science Lab
+You are in The Science Lab.
 There is The Science table, calcium, pieces of aluminum, dog bones, cinnamon, neon green highlighter, bunsen burner and a computerized computer butler named R.E.Y.N.O.L.D. here.
 You can go north or east.
 It's the science lab. This is probably a good place to learn about science. 
@@ -485,8 +487,10 @@ This science table is sturdy and holds a lot of stuff. You should probably take 
 > look at r.e.y.n.o.l.d.
 R.E.Y.N.O.L.D. is a computer that can talk. He has a green screen and a large slot for inserting something. He is attached to the door going EAST.
 
+
 > speak to r.e.y.n.o.l.d.
 I'm sorry, Michael, I cannot let you pass until you create a new element, like in that movie, The Fifth Element
+
 
 > look at calcium
 The building block of life.
@@ -554,14 +558,14 @@ Now 75 percent less boring!
 Now that's more like it. I love this sexy new element. Thank you for depositing it into me! To show you my robo-gratitude I'll let you keep some AND I'll open this here door here!
 
 > east
-You are in The Oval Office
+You are in The Oval Office.
 There is Desk, eagle rug, fireplace?, a picture of Abraham Lincoln and a big red button button here.
 You can go east or west.
 This egg-shaped desk-hole is the center of the free world, Michael. Best behavior! Didn't Mr. Washington say something about a wife's nickname and a Groupon Says? I was sleeping.
 
 
 > look
-You are in The Oval Office
+You are in The Oval Office.
 There is Desk, eagle rug, fireplace?, a picture of Abraham Lincoln and a big red button button here.
 You can go east or west.
 This egg-shaped desk-hole is the center of the free world, Michael. Best behavior! Didn't Mr. Washington say something about a wife's nickname and a Groupon Says? I was sleeping.
@@ -593,7 +597,7 @@ IT'S SO CONINICAL!
 You got the old timey sleep hat. Man do I love that victory music!
 
 > east
-You are in The Moon
+You are in The Moon.
 There is cheese, the american flag and astro man here.
 You can go west.
 It's the moon! This game is the greatest!
@@ -601,7 +605,7 @@ It's the moon! This game is the greatest!
 ALSO ANSWER this here is a yes or no question: Was the game designer to lazy to set up a challenge in this room?
 
 > look
-You are in The Moon
+You are in The Moon.
 There is cheese, the american flag and astro man here.
 You can go west.
 It's the moon! This game is the greatest!
@@ -628,26 +632,26 @@ DOUBLE VICTORY MUSIC!
 You've got all three sleep ingredients for that dumb beef eatin' Library guard. Go give em to him, Ladyface!
 
 > west
-You are in The Oval Office
+You are in The Oval Office.
 There is Desk, eagle rug, fireplace?, a picture of Abraham Lincoln and a big red button button here.
 You can go east or west.
 This egg-shaped desk-hole is the center of the free world, Michael. Best behavior! Didn't Mr. Washington say something about a wife's nickname and a Groupon Says? I was sleeping.
 
 
 > west
-You are in The Science Lab
+You are in The Science Lab.
 There is The Science table, bunsen burner and a computerized computer butler named R.E.Y.N.O.L.D. here.
 You can go north or east.
 It's the science lab. This is probably a good place to learn about science. 
 
 > north
-You are in Independence Hall
+You are in Independence Hall.
 There is George Washington, Albert Einstein, Sherlock Holmes and The declaration of independence here.
 You can go north or south.
 Why, Michael! You've stepped through history into Independence Hall in 1776. The founding fathers are here, signing the Declaration of Independence. Talk to them and learn some things.
 
 > north
-You are in The Library
+You are in The Library.
 There is a bookshelf, a globe, a strange guard guarding the Western door, some other bookshelf, television, a plant and a glass case here.
 You can go north, south, east or west.
 Whoa! Graphics! This game just got interesting! Anyway, this is the library. 

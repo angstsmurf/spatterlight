@@ -1,0 +1,23 @@
+
+examineseen
+
+You are in Tomb.
+There is a stone Coffin here.
+A small tomb.
+
+> open coffin
+You push the lid off.
+
+> x coffin
+Written on the back of the coffin.
+
+> look at silver coin
+I can't see that here.
+
+> look at coffin
+A heavy stone coffin.
+It contains a Silver coin.
+
+> look at silver coin
+A silver coin.
+[runner] turns=5 leftover=0 running=true

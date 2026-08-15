@@ -1,5 +1,5 @@
 
-The Pilgrims Progress (TA), v0.075 Jason Dyer
+The Pilgrims Progress (TA), v0.075 | Jason Dyer
 
 
 ----------
@@ -21,7 +21,7 @@ Bible Verses taken from the NKJV & AV.
 ----------
 
 
-You are in the fields
+You are in the fields.
 There is a book here.
 You are a man clothed with rags, standing in a field, with your face away from your own house. You have a great burden upon your back.
 
@@ -42,11 +42,11 @@ then quickly you flick through and read ...
 
 You ponder for a while and then brake out with a lamentable cry, saying,
 
-“What shall I do?”
+â€œWhat shall I do?â€
 
 
 > go to house
-You are in the house
+You are in the house.
 There is your wife and your children here.
 Your house is sparse but comfortable. You have lived here since you were born.
 
@@ -62,7 +62,7 @@ At this your relations were shocked. Not that they believed your words, but that
 
 Therefore, because it was drawing towards night, and they hoping that sleep might settle your head, with all haste got you to bed.
 
-You are in your bedroom
+You are in your bedroom.
 There is a candle, a wooden table, a bed, a window looking out to the fields, an old chair and a door leading to the landing here.
 
 > x candle
@@ -100,27 +100,27 @@ So you would often retire to your bedroom to pray for and pity them, and also to
 
 You would also walk solitarily in the fields, sometimes reading, and sometimes praying, and this for some days is how you spent your time ...
 
-You are in the fields
+You are in the fields.
 You can go north, south or northeast.
 You are walking in the fields ...
 
 > n
-You are in the upper fields
+You are in the upper fields.
 You can go north, south or east.
 You are walking in the fields ...
 
 > n
-You are in the high fields
+You are in the high fields.
 You can go south or southwest.
 You are walking in the fields ...
 
 > sw
-You are in the upper fields
+You are in the upper fields.
 You can go east, west, northeast or southeast.
 You are walking in the fields ...
 
 > w
-You are in the upper fields
+You are in the upper fields.
 There is some matches here.
 You can go east.
 You are walking in the fields ...
@@ -132,27 +132,27 @@ You see a box of matches.
 You pick it up.
 
 > e
-You are in the upper fields
+You are in the upper fields.
 You can go east, west, northeast or southeast.
 You are walking in the fields ...
 
 > se
-You are in the fields
+You are in the fields.
 You can go north, south or northeast.
 You are walking in the fields ...
 
 > s
-You are in the lower fields
+You are in the lower fields.
 You can go north or south.
 You are walking in the fields ...
 
 > s
-You are in the low fields
+You are in the low fields.
 You can go north, south, east or west.
 You are walking in the fields ...
 
 > e
-You are in the upper fields
+You are in the upper fields.
 There is a cry for help here.
 You can go west.
 You are walking in the fields ...
@@ -164,12 +164,12 @@ It says, "What shall I do to be saved?"
 You pick it up.
 
 > w
-You are in the upper fields
+You are in the upper fields.
 You can go east, west, northwest or southwest.
 You are walking in the fields ...
 
 > sw
-You are in the fields
+You are in the fields.
 You can go north, south or northeast.
 You are walking in the fields ...
   
@@ -204,23 +204,23 @@ Then said Evangelist, "Keep that light in your eye, and go up directly to it, an
 Evangelist goes North.
 
 > n
-You are in the upper fields
+You are in the upper fields.
 You can go north, south or east.
 You are walking in the fields ...
 
 > n
-You are in the high fields
-You can go south or southwest.
+You are in the high fields.
 You can go to wide plain.
+You can go south or southwest.
 You are walking in the fields ...
 
 > go to wide plain
-You are in the wide plain
+You are in the wide plain.
 You can go to middle of the plain.
 In the distance you can just make out a shining light. Behind, you see your wife and children, crying after you to return, but you put your fingers in your ears, and run on crying, "Life! life! eternal life!"
 
 > go to middle of the plain
-You are in the middle of the plain
+You are in the middle of the plain.
 There is Obstinate and Pliable here.
 You can go to wide plain.
 
@@ -241,12 +241,12 @@ He says to Obstainate, "If what the good Christian says is true, the things he l
 
 At which point Obstinate returned home saying, "I will go back to my place and will be no companion of such misled, fantastical fellows."
 
-You are in the middle of the plain
+You are in the middle of the plain.
 You can go to miry slough.
 You say to Pliable, "Come then, good neighbor, let us be going."
 
 > go to miry slough
-You are in a miry slough
+You are in a miry slough.
 The bog is very deep and you cannot find any footing. Here you wallow for a time, grievously covered with dirt. 
 Pliable enters and falls into the bog.
 
@@ -263,6 +263,10 @@ You struggle to get out of the bog ...
 
 > struggle
 You struggle to get out of the bog ...
+
+
+> struggle
+You struggle ...
 
 
 > struggle
@@ -421,21 +425,6 @@ At this Pliable began to be offended, and angrily said to his fellow, "Is this t
 And with that he gave a desperate struggle or two, and got out of the mire on that side of the slough which was next to his own house.
 
 So away he went, and you saw him no more.
-
-> struggle
-You struggle to that side of the slough that was farthest from your own house, and next to the gate.
-
-Still you could not get out because of the burden that was upon your back ...
-
-At that moment you see a man coming, whose name is Help.
-
-He calls to you, "Give me your hand".
-
-So you give him your hand, and he draws you out, and sets you upon sound ground before bidding you good day.
-
-You are at the sound ground.
-You can go to crossing of ways.
-You are standing on firm ground.
 
 > struggle
 You struggle to that side of the slough that was farthest from your own house, and next to the gate.

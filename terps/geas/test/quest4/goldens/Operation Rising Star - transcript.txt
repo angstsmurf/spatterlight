@@ -1,29 +1,29 @@
 
-Operation Rising Star AAB
+Operation Rising Star | AAB
 
 You wake up in a bloddy lift, by yourself, scared and frighted. It appears you've been locked in the building. Can you get out?
 
 NOTE: Some words in the game are Meant to be mispelled. Note this before commenting on bad spelling.
 
-You are in a Lift
+You are in a Lift.
 There is a Blood Covered Body and a Switchblade here.
 You can go south.
 You have no idea how you got here. Blood is covering the walls, what the hell happened in here? You look around, scared and frightened.
 The indicator above the door is set at 1F. The doors are pried open with a crowbar, jammed in to stop them clamping shut.
 
 > south
-You are in the Main Hall
+You are in the Main Hall.
 There is Petrol Tanker here.
-You can go north, south, east, west, northeast, northwest, southeast or southwest.
+You can go north, south, east, west, northwest, northeast, southwest or southeast.
 The Main Hall for Elisype Tower. 50 Floors of concrete and steel. The front door is blocked by a petrol tanker. Wait, what?
 
 > southeast
-You are in Office Hall
-You can go north, south, east, northeast, northwest, southeast or southwest.
+You are in Office Hall.
+You can go north, south, east, northwest, northeast, southwest or southeast.
 A  hall which has six offices in it.
 
 > southwest
-You are in Room A6
+You are in Room A6.
 There is Card Reader here.
 You can go northeast or southwest.
 An office converted into a storeroom. On the left is bits of bric-a-brac hung on the wall. The US flag, a Maine lincense plate, a plate, ect.

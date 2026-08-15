@@ -8,8 +8,8 @@
 ! So a script's "show <X>" on an object that lives inside a shut container
 ! sticks, and the object stays referrable: Disambiguate scopes a typed noun on
 ! the object's room and its hidden flag alone, never on the container chain
-! (DisambObjHere, V4Game.cs:4303-4350, with Exists being what "hidden" sets,
-! V4Game.cs:4165-4178).  Two games in the corpus reveal a parented object exactly
+! -- see DisambObjHere, V4Game.cs:4303-4350, with Exists being what "hidden"
+! sets, V4Game.cs:4165-4178.  Two games in the corpus reveal a parented object
 ! that way and never open the container afterwards: Christmas Day's Knife and
 ! Darkness's Hammer.
 !
@@ -19,12 +19,13 @@
 ! with the consequence at the end: LOOK AT the still-closed container re-derives
 ! the flags and hides the revealed object again, which is Quest's behaviour too.
 !
-! The hammer and the nail are taken while the case is still shut, and both are
-! written with a *scripted* take, exactly as the two corpus games write theirs
-! (`take give <Hammer>`).  That is not decoration: a text or default take of a
-! parented object runs the container's REMOVE on the way, and a shut container
-! refuses it (see takefromcontainer).  The knife, taken with the case open, is
-! the bare-take half of that.
+! The hammer and the nail are written with a *scripted* take, exactly as the two
+! corpus games write theirs (`take give <Hammer>`).  Being referrable is not the
+! same as being reachable, and the two refusals say so in different words: before
+! the reveal the noun is not seen at all, and after it the take is turned away by
+! the accessibility gate ExecTake consults from 3.91 on, which stops at the shut
+! case before any take script runs.  The knife, taken with the case open, is the
+! half that gets through.
 define game <ContainerVis>
  asl-version <400>
  start <Room>

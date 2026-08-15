@@ -1,0 +1,29 @@
+
+cp1252, v1.0 | Ángel Muñoz
+
+You are in Sala del Museo.
+There is un pañuelo and cañón here.
+Una sala pequeña. El sol entra por la ventana, y hace calor aquí.
+
+> symbols
+QDK range: ‘single’ “double” — dash … ellipsis ™ trade † dagger
+Latin-1 range: © copyright £ pound ½ half × times ÷ divide
+
+> look
+You are in Sala del Museo.
+There is un pañuelo and cañón here.
+Una sala pequeña. El sol entra por la ventana, y hace calor aquí.
+
+> look at pañuelo
+Un pañuelo de seda, bordado con la letra “M”.
+
+> take pañuelo
+You pick it up.
+
+> i
+You are carrying:
+Un pañuelo.
+
+> look at cañón
+Un cañón de bronce, © 1487.
+[runner] turns=6 leftover=0 running=true

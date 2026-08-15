@@ -1,9 +1,9 @@
 
-The Detective, vv1.0 Catalin Nita
+The Detective, vv1.0 | Catalin Nita
 
 
 
-You are in office
+You are in office.
 This is going to be one hell of a day. With all of these paperworks to do. There was some kind of questionaire as well. What should I do?
 
 Do questionaire
@@ -191,7 +191,7 @@ Catalin Nita
 
 
 > 1
-You are in lounge
+You are in lounge.
 Peterson: You ok, Marge?
 
 Marge (wife): Yeah I'm ok. I have to go I'l come a bit later.
@@ -214,7 +214,7 @@ watch tv
 I should be going to pizza hut then.
 
 > go to pizza hut
-You are in pizza hut
+You are in pizza hut.
 Choose 3 toppings please.
 
 
@@ -255,7 +255,7 @@ Peterson: No problem.
 I better head towards HQ.
 
 > go to HQ
-You are in hq
+You are in hq.
 Boss: Have a sit. People living nearby this warehouse  have complained that they hear screams each night. We are wandering what's going on. We are asking you, Peterson to investigate.
 
 Peterson: Is this serious?
@@ -279,7 +279,7 @@ Boss: all the best.
 type 'e' to continue
 
 > e
-You are in helicopter
+You are in helicopter.
 Pilot: You nervous.
 
 Peterson: I have never been on a helicopter before.
@@ -304,7 +304,7 @@ Peterson: Here goes nothing.
 press 'e' to continue
 
 > e
-You are in outside facility
+You are in outside facility.
 This is going to be tricky getting inside. There are 4 guards blocking the front entrance and I  can't just go up to them. There is a van approaching. Obviously one of theirs. What should I do?
 
 Talk to them
@@ -378,7 +378,7 @@ Possibly it might be a code for the computer room for one of the computers. I ha
 
 
 > go to computer room
-You are in computer room
+You are in computer room.
 Please enter the password
 
 > security
@@ -430,7 +430,7 @@ internet explorer
 So much info. Probably this is how they communicate with their customers. The meeting point is in the centre of this warehouse. It's located north west from here. I should be heading there.
 
 > go north west
-You are in meeting point
+You are in meeting point.
 Leader: Give me the cheque.
 
 Marge: Please don't kidnap my child. Here is the cheque.
@@ -459,7 +459,7 @@ Security guard: Nothing here.
 Type 'e' to continue
 
 > e
-You are in home
+You are in home.
 5.4.3.2.1 Ready or not son here I come. Where might he be?
 
 living room
@@ -500,7 +500,7 @@ Peterson: Don't look son.
 type 'enter' to continue
 
 > enter
-You are in cell
+You are in cell.
 Peterson: That must have been the worst nightmare I had in a long time. That son of a ...
 put me in a cell. I have to escape and see how my wife is doing. I hope she is ok.
 
@@ -557,7 +557,7 @@ I escaped. I best head home though.
 type 'enter' to continue
 
 > enter
-You are in my house
+You are in my house.
 There was a note on the table. I should read it.
 
 > read note
@@ -566,7 +566,7 @@ Go to the park.
 Peterson: It's probably from the people from the warehouse. No choice I best head there. They might have my wife
 
 > go to the park
-You are in the park
+You are in the park.
 There was a body on the floor. I should examine it.
 
 > examine body
@@ -580,7 +580,7 @@ We are going to play a little game. If at any stage you stop listening to us. Yo
 Peterson: It's 10:00 pm at the moment. I cannot beleive I have to kill innocent people just to get my son back. But even though. I lost my wife and I wasn't planning on losing my son. I have to go to the address he wrote down
 
 > go to 25 bridge st
-You are in 25 bridge st
+You are in 25 bridge st.
 I'm shaking like bad. I never knew I will ever do this in my life. 
 
 What should I do?
@@ -630,7 +630,7 @@ Emilia Knowles: Wait a second.
 type 'e' to continue
 
 > e
-You are in the living room
+You are in the living room.
 (the next day. Peterson was watching the news on T.V)
 
 anchorman: There was murder on bridge street yesterday night. We spoke to her husband earlier and he said she answered the door to the pizza delivery guy. At the moment we suspect the murderer works at pizza hut. We'l bring you more on that as we get it available.
@@ -649,7 +649,7 @@ Peterson: Of course. I will be there right away.
 type 'enter' to continue
 
 > enter
-You are in bridge st
+You are in bridge st.
 Police officer: The body is right this way.
 
 Peterson: Ok.
@@ -705,7 +705,7 @@ FBI: certanly.
 type 'enter' to continue
 
 > enter
-You are in bank
+You are in bank.
 Peterson: I was going to do the impossible. 
 
 point gun at receptionist
@@ -728,7 +728,7 @@ Peterson: Shit.
 type 'e' to continue
 
 > e
-You are in Outside the bank
+You are in Outside the bank.
 (You are playing as a police officer.)
 
 Police officer: Put your hands up!
@@ -745,7 +745,7 @@ Type 'e' to continue
 
 
 > e
-You are in back entrance
+You are in back entrance.
 Shit, I can't go in like that. I have have to press a 3 digit code. 
 
 (The officer used a special device and saw the 3 numbers pressed.)
@@ -791,7 +791,7 @@ Our suspect is a detective. He dropped a blood dna. I will examine it later. He'
 type ' enter' to continue
 
 > enter
-You are in rooftop
+You are in rooftop.
 Police Officer: Put your hands up. Peterson?
 
 (Peterson jumps of roof.)
@@ -803,7 +803,7 @@ Pilot of helicopter: We lost him. The train entered a tunnel.
 type 'e' to continue
 
 > e
-You are in HQ (boss's room)
+You are in HQ (boss's room).
 Boss: Who did you say it was?
 
 Officer: It was Peterson.
@@ -821,7 +821,7 @@ Boss: Please.
 I have to go to the warehouse.
 
 > go to the warehouse
-You are in outside the warehouse
+You are in outside the warehouse.
 No guards are patrolling. That's strange.
 
 (He got to the front gate.)
@@ -871,7 +871,7 @@ Police officer: Put your hands up!
 type 'enter' to continue
 
 > enter
-You are in the south district
+You are in the south district.
 (You are now playing as Peterson)
 
 I have to go to the rubbish bin.
@@ -882,7 +882,7 @@ Police officer: Put your hands up. We are not going to hurt you.
 type 'e' to continue
 
 > e
-You are in HQ (meeting hall)
+You are in HQ (meeting hall).
 Peterson: I can explain!
 Boss: Don't wory you don't need to explain anything. You're not in trouble. We caught the guy.
 Peterson: You mean the 'leader'?
@@ -906,7 +906,7 @@ type 's' to go to the main menu
 
 
 > s
-You are in office
+You are in office.
 This is going to be one hell of a day. With all of these paperworks to do. There was some kind of questionaire as well. What should I do?
 
 Do questionaire
@@ -959,7 +959,7 @@ You have completed the mini game. To play part 2
 type 'part2'
 
 > part2
-You are in meeting hall (HQ)
+You are in meeting hall (HQ).
 Boss: We traced the cell phone. He's heading to Las Vegas. He's on a train at the moment.
 
 Peterson: Let me go after him.
@@ -988,7 +988,7 @@ Train Inspector: Show me your ticket, please.
 Ticket inpector: You may enter the train.
 
 > enter the train
-You are in the train
+You are in the train.
 It was quite crowed. But I had my own room which was nice. I'm a bit hungry. I should go to the restaurant and see what food they had.
 
 > go to the restaurant
@@ -1043,7 +1043,7 @@ Warehouse member: We found him.
 type 'e' to continue  
 
 > e
-You are in unknown location
+You are in unknown location.
 Peterson: How did you find me?
 Warehouse member: Who asked you to talk. I got your son.
 Peterson: Please let him go.
@@ -1082,7 +1082,7 @@ Peterson: I will tell you later.
  (I should get out of here.)
 
 > get out of here
-You are in Las vegas
+You are in Las vegas.
 What a beautiful site.
 
 Son: Where are we, daddy?
@@ -1096,7 +1096,7 @@ Peterson: I will tell you everything when we get home.
 type 'enter' to continue
 
 > enter
-You are in HQ meeting hall
+You are in HQ meeting hall.
 (You are now playing as the police officer.)
 
 Boss: We are planning an attack on the Warehouse members and the leader so we finish them of once and for all.
@@ -1123,7 +1123,7 @@ Trainee: You'll have to do me a favour first. Pick up a package from carlton str
 Police officer: Fine. 
 
 > go to carlton street
-You are in carlton street
+You are in carlton street.
 Dealer: What do you want?
 
 Police officer: I am here to collect a package for the trainee working at HQ.
@@ -1136,7 +1136,7 @@ Pollice officer: Thanks.
 type 'enter' to continue
 
 > enter
-You are in trainee's office
+You are in trainee's office.
 Trainee: Give me the package then.
 
 > no
@@ -1177,7 +1177,7 @@ type 'e' to continue
 
 
 > e
-You are in Warehouse (Las Vegas)
+You are in Warehouse (Las Vegas).
 This is it.
 I should set the c4.
 
@@ -1203,7 +1203,7 @@ zx12df
 type 'main menu' to get you to to the main menu
 
 > main menu
-You are in office
+You are in office.
 This is going to be one hell of a day. With all of these paperworks to do. There was some kind of questionaire as well. What should I do?
 
 Do questionaire
@@ -1483,7 +1483,7 @@ Boss: You are to investigate.
 type 'h' to continue 
 
 > h
-You are in office
+You are in office.
 This is going to be one hell of a day. With all of these paperworks to do. There was some kind of questionaire as well. What should I do?
 
 Do questionaire

@@ -1,0 +1,58 @@
+
+Timerwait
+
+You are in Hall.
+A stone hall.
+
+> t
+[turn]
+
+> arm
+[before the wait]
+[press a key]
+
+[after the wait]
+
+> t
+[turn]
+
+> t
+[turn]
+[tick]
+
+> go
+[before the wait]
+[press a key]
+[tick]
+
+[after the wait]
+
+> code
+[before the code][tick]
+[after the code]
+
+> p
+[before the pause]
+[tick]
+[after the pause]
+
+> q
+[before the question]
+Ready?
+1) Yes
+2) No
+[choice] 1
+[yes]
+[after the question]
+[tick]
+
+> m
+[before the menu]
+Which one?
+1) One
+2) Two
+[choice] 1
+[one]
+[after the menu]
+[tick]
+[runner] turns=9 leftover=0 running=true

@@ -9,7 +9,7 @@ Made by: Caden James (c) 2011
 
 Reluctantly, you turn to enter the castle...
 
-You are in Entryway
+You are in Entryway.
 You can go north.
 The doors behind you are locked. You can not leave!!!
 
@@ -17,12 +17,12 @@ The doors behind you are locked. You can not leave!!!
 I'm a Zorkian too!
 
 > north
-You are in Hall 1
+You are in Hall 1.
 You can go north, south, east or west.
 A long and dark hallway.
 
 > east
-You are in Bare room
+You are in Bare room.
 There is a Tinted Jar here.
 You can go west.
 This room has nothing in it. Other than a jar...
@@ -32,29 +32,29 @@ A lizard jumps out and attacks you.
 
 
 > west
-You are in Hall 1
+You are in Hall 1.
 You can go north, south, east or west.
 A long and dark hallway.
 
 > west
-You are in a very Strange Room
+You are in a very Strange Room.
 There is floating sign here.
 You can go east.
 You feel lightheaded and fall unconsious.But you wake up...
 
 > east
-You are in Hall 1
+You are in Hall 1.
 You can go north, south, east or west.
 A long and dark hallway.
 You still feel lightheaded.
 
 > north
-You are in Hall 2
+You are in Hall 2.
 You can go north, south, east or west.
 It's still dark...
 
 > north
-You are in Dog!
+You are in Dog!.
 There is Gold and a big dog here.
 You can go south.
 There is a dog here. It is guarding some gold.
@@ -67,19 +67,19 @@ The dog wakes up and bites you, then goes back to sleep.
 
 > south
 (Must...be...CARFUL...)
-You are in Hall 2
+You are in Hall 2.
 You can go north, south, east or west.
 It's still dark...
 "Phew!"
 
 > west
-You are in a Hole
+You are in a Hole.
 You can go east or down.
 There is a Giant hole in the ground!
 Woah!
 
 > down
-You are in a Bathroom?
+You are in a Bathroom?.
 There is a smelly Toilet and some toilet paper here.
 You can go east or up.
 Why is this here? Is this a public attraction? (Well, maybe to Zorkians)

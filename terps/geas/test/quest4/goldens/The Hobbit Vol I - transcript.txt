@@ -1,10 +1,11 @@
 
-The Hobbit: Vol I, v1 Nathan Lindsell
+The Hobbit: Vol I, v1 | Nathan Lindsell
 
 THE HOBBIT__By JRR Tolkien                                                                                                ***********************************                                                                                               You are Bilbo Baggins, a respectable Hobbit who hates adventures. But Gandalf the Wizard and 13 Dwarves make you go on an adventure to recover stolen treasure from the Dragon Smaug...
 
 You are sitting in Bag End
-There is smoke Pipe, rose flower and the wizard Gandalf here.
+You can see the wizard Gandalf here.
+There is smoke Pipe and rose flower here.
 You can go east.
 You are sitting outside in the garden of your hobbit-hole on sunny morning, smoking your pipe, when you see a wizard appear. "I am looking to hire a thief to come on an adventure" he says. "Would you be interested, Mr. Bilbo Baggins?"                      "No" you reply "We are hobbits, quiet and respectable folk. We have no use for adventures and nonsense like that!"                                                                              "Enough!" he says. "I am Gandalf, and Gandalf means me!"                                        "Gandalf?" you say. "Not the wandering wizard who made such excellent fireworks and told tales about dragons, orcs and balrogs and made respectable lads and lasses go on mad adventures?"                                                                     "I am pleased you do remember me!" he says. "But i will send you on this adventure!"                                                                                                                     "But-but--!" you say.                                                                                                     "Enough! Let us have tea in your hobbit-hole. The dwarves will arrive soon."            "--Dwarves?" you reply.
 
@@ -12,7 +13,8 @@ You are sitting outside in the garden of your hobbit-hole on sunny morning, smok
 
 > e
 You are in Bilbo's hobbit-hole
-There is Middle Earth Map, Magic Key, Wizard Gandalf, Dwarf Thorin and Dwarves 12-Dwarve(s) here.
+You can see Wizard Gandalf, Dwarf Thorin and Dwarves 12-Dwarve(s) here.
+There is Middle Earth Map and Magic Key here.
 You can go east or west.
 Dwarves soon arrive. There are 13. One of them is Thorin. He seems important.       You soon realise the dwarves and Gandalf are trying to send you on an adventure. Gandalf shows you map of Middle Earth and a key. "This is where we must go!" he says as he points to the Lonely Mountain.                                                "We seek our treasure, dwarf treasure, that the evil dragon Smaug stole from us!" Thorin says. "We must go now to get our treasure! Head east towards Rivendell!"
 
@@ -22,35 +24,41 @@ Dwarves soon arrive. There are 13. One of them is Thorin. He seems important.   
 
 > e
 You are on your way
-There is eat food, smoke Pipe, Wizard Gandalf, Dwarf Thorin and Dwarves 12-Dwarves here.
+You can see Wizard Gandalf, Dwarf Thorin and Dwarves 12-Dwarves here.
+There is eat food and smoke Pipe here.
 You can go east or west.
 You leave the Shire with the dwarves and Gandalf. You miss your comfortable hobbit-hole. You feel sad. You travel for a long time, for a long way. You need rest and some food. You have some food. You are heading eastward. Continue.
 
 > e
 You are at the Trollshaws
-There is food mutton, foul troll Troll_1, ugly troll Troll_2 and ugly_troll Troll_3 here.
+You can see foul troll Troll_1, ugly troll Troll_2 and ugly_troll Troll_3 here.
+There is food mutton here.
 You can go south, east or west.
 You and your party arrive at the Trollshaws. You try to find wood to make a fire. It is dark. You move to a clearing through the trees and see some ugly, slimy Trolls sitting around a fire cooking mutton on a spittle. There are 3 of them. They are arguing.                                                            "Go and get some of that mutton they are cooking, thief!" whispers Thorin. You walk towards them nervously...
 
 > e
 You move closer to the Trolls
+There is nobody here.
 You can go north, south, east or west.
 You move closer to the Trolls. They don't see you creep up. You try to get their meat, but one of them sees you and picks you up.                                                       "Ere: wot is dis, den, eh?" one of them says.                                                              "Dunno!" says another.                                                                                                 "Cook it. What is it, den?" says one tougher looking troll.                                             "A dwarf?" says one.                                                                                                   "Ner, it wouldn't make a mouthful!" says the tough one.                                               "Shut-up you fool!" says one.                                                                                       "Who ar u tellin' to shut up?" says the tough one.                                                        An argument breaks out between the Trolls. They drop you on the floor. You can escape and get back to the dwarves or get their meat.
 
 > e
 You steal the troll's meat
-There is roast Mutton, troll Troll_1, troll Troll_2 and troll Troll_3 here.
+You can see troll Troll_1, troll Troll_2 and troll Troll_3 here.
+There is roast Mutton here.
 You can go north, south or east.
 You sneak towards their food as they argue. There is some food here. You need this.
 
 > e
 You return to the dwarves
-There is troll Troll_turned_stone_1, troll Troll_turned_stone_2, troll Troll_turned_stone_3, wizard Gandalf, dwarf Thorin and dwarves 12-dwarves here.
+You can see wizard Gandalf, dwarf Thorin and dwarves 12-dwarves here.
+There is troll Troll_turned_stone_1, troll Troll_turned_stone_2 and troll Troll_turned_stone_3 here.
 You can go north, south, east or west.
 You return to the dwarves with the roast mutton. They are pleased with you. You all quietly eat the meat. You hear the Trolls arguing, but soon the sun rises and they turn to stone. Gandalf appears. "There may be a troll's cave near by..where they hide during daylight, and keep possetions!"
 
 > e
 You find a nearby cave...
+There is nobody here.
 There is sword orcrist, sword sting, gold treasure, eat food and torch Dungeon lamp here.
 You can go east or west.
 It is smelly and the troll's kept lots of things. You all find the cave is filled with bones, skeletons, swords, treasure, rope, food and other things. "Ahh!" says Gandalf. "There are some good swords here with runes on them!"                             "And treasure" said Thorin. "Burry the treasure men!" he calls to his dwarves "And we'll collect it on the way back."                                                                                   The dwarves burry the treasure.                                                                                 "Come, we must be on our way!" said Gandalf.
@@ -63,24 +71,27 @@ It is smelly and the troll's kept lots of things. You all find the cave is fille
 
 > e
 You get on your way, and rest at Rivendell
-There is yummy food, middle earth map, elf Elrond, wizard Gandalf, dwarf Thorin, elf Arwen and dwarves 12-dwarf(s) here.
+You can see elf Elrond, wizard Gandalf, dwarf Thorin, elf Arwen and dwarves 12-dwarf(s) here.
+There is yummy food and middle earth map here.
 You can go north, east or west.
 You start on your journey again. You soon arrive at Rivendell, last homely house that lies in the secret valley of the Elves. Elrond owns Rivendell. He is a half-elf friend of Gandalf. Elrond invities you to stay at his house.                                           "Welcome!" he says. "You may rest here for a while and recover. I will provide entertainment, food and shelter! We all welcome you to Rivendell" .                            You hear lovely elvish singing, and have hice meals made my elrond's servents.      He examines your swords and the map: "The runes say that there is a secret enterance to the Lonely Mountain."                                                                               You meet Elrond's daughter, Arwen. She is an elf-princess.                                      "We must be getting on with our quest now!" said Gandalf. "Thank you for your goodness, Elrond!"                                                                                                         "No problem" says Elrond. "You best take the path through the Misty Mountains. But beware of Goblins and Orcs: they live in mountains!"                                            You set off on your quest, over meadows and through woods, until you can see some large cloud-capped mountains ahead...
 
 > e
 You head toward the Misty Mountains
-There is wizard Gandalf, dwarf Thorin and dwarves 12-dwarve(s) here.
+You can see wizard Gandalf, dwarf Thorin and dwarves 12-dwarve(s) here.
 You can go east or west.
 You approach the mountains, and you work your way up the long path to the top of the mountains. It is dark and raining. There is thunder. You are scared. The mountains are black. You need shelter.
 
 > e
 You seek shelter
+There is nobody here.
 You can go south, east or west.
 It is raining heavy and there is darkness and thunder, and the mountain paths are bad. One of the dwarves' finds a cave. It is dark, but dry. You light a fire and dry your clothes.  You all soon fall asleep. You, however, are still awake. You are afraid. Suddenly, the back of the back begins to open up!!! You think it is thieves, so you awake Thorin and the dwarves. "We're being robbed!" you say.                          "Goblins!" says Thorin. "Run!"                                                                                       You see lots of Goblins flood out of the opening. They have evil faces, and creepy weapons. The have horns like a devil, and teeth like a boar. They wear warrior armour. You are scared. You can run, or they will keep you prisoner...
 
 > e
 The goblins take you away
-There is weapon Goblin Knife, wizard Gandalf, dwarf Thorin, dwarves 12-dwarfs, ugly goblin leader and smelly goblins here.
+You can see wizard Gandalf, dwarf Thorin, dwarves 12-dwarfs, ugly goblin leader and smelly goblins here.
+There is weapon Goblin Knife here.
 You can go south, east or west.
 The goblins tie you up with chains and lead you away. They take you though their awful dungeons and tunnels and caves that dive through the middle of the mountains. They take you to their leader, the Goblin Chieften...                                    "Who are these miserable persons?" he asks. He is a large goblin, with a bloated head. "Kill them, they are Elf-friends!"                                                                            Gandalf casts a spell and kills  the goblin chieften, and he says to you "Follow me you fools! Run!" You start running, and hundreds of goblins are running after you...
 
@@ -88,6 +99,7 @@ The goblins tie you up with chains and lead you away. They take you though their
 
 > e
 You try to run away from the Goblins, but you fall over and bump your head...
+There is nobody here.
 There is magic Ring here.
 You can go east or west.
 You trip up and bump your head on a rock and fall down a hole in the tunnel. You lie unconcious...                                                                                                                                        ...You wake up. You are in a very black tunnel. No-one can be seen. You feel about the floor...    You pick up a ring... you crawl along the tunnel floor and you soon come to a large undeground lake...
@@ -96,25 +108,19 @@ You trip up and bump your head on a rock and fall down a hole in the tunnel. You
 
 > e
 You find an underground lake
-There is magic ring and slimy, weak and ugly Gollum here.
+You can see slimy and weak and ugly Gollum here.
+There is magic ring here.
 You can go south, east or west.
 You see an underground lake. You see an island in the middle of the lake. You see a boat approach from the island. In it is a slimy little thing, a creature that is making a horrid noise in his throat "gollum",       :You are scared. He sees you. His skinny body and pales eyes scare you. "Bless us and splash ussssss, my precioussss!" he yells. "Food? What isssss it?"                                                                                  "I'm Bilbo Baggins!" you reply.                                                                                       "Bagginsss: ssstole my preciossss!" he leaps at you. Will you put on the ring that makes you invisible, or wait?
 
 > e
 Run away from Gollum
-There is magic ring, wizard Gandalf, dwarf Thorin and dwarves 13-dwarve(s) here.
+You can see wizard Gandalf, dwarf Thorin and dwarves 13-dwarve(s) here.
+There is magic ring here.
 You can go west.
 You put on the ring, and run away. You run out the tunnels, out of the mountains and you meet your friends! Gandalf and the dwarves greet you. "Well, Mr. Baggins, you did well. Now we must be on..."
 
 > inventory
 You are carrying:
-pipe
-map
-key
-orcrist
-sting
-treasure
-food
-Goblin knife
-ring
+Pipe, map, key, orcrist, sting, treasure, food, Goblin knife and ring.
 [runner] turns=23 leftover=0 running=true WON=YES

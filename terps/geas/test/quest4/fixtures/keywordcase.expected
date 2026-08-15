@@ -7,7 +7,7 @@ repeat until: OK
 for each: rock
 onchange: counter changed
 timerstate: 1
-You are in Start
+You are in Start.
 There is rock here.
 You can go north.
 
@@ -24,6 +24,6 @@ Taken.
 It bounces.
 
 > north
-You are in Cellar
+You are in Cellar.
 A damp cellar.
 [runner] turns=5 leftover=0 running=true

@@ -1,5 +1,5 @@
 
-Love Song., v1.0000000000000000000 Mihalis "DarkAng3l" Georgostathis (mihgeorg@hotmail.com)
+Love Song., v1.0000000000000000000 | Mihalis "DarkAng3l" Georgostathis (mihgeorg@hotmail.com)
 
 
 
@@ -68,6 +68,7 @@ Welcome home! This is your room. It is the typical room owned by a teenage metal
 A radio is by your bed.
 A note is on the floor.
 Your old, reliable guitar is in the corner of the room.
+
 
 > look note
 The note says;

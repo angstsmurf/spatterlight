@@ -1,0 +1,24 @@
+
+Msgnospeak
+
+You are in Hall.
+The hall.
+
+> plain
+PLAIN
+
+> quiet
+QUIET
+
+> helpquiet
+HELPQUIET
+
+> gibberish
+GIBBERISH
+
+> spaced
+SPACED
+
+> substituted
+Hello world.
+[runner] turns=6 leftover=0 running=true

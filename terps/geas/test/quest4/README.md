@@ -19,7 +19,11 @@ self-contained, so they are the ones worth wiring into CI.
   `.expected` transcripts. Ours, and committed.
 - `goldens/` — two committed files per corpus game: the
   `<title> - command script.txt` walkthrough we derived ourselves, and the
-  `<title> - transcript.txt` the engine produces when it replays it.
+  `<title> - transcript.txt` the engine produces when it replays it. Four of
+  the corpus games are pornographic and their transcripts are nothing but that
+  prose, so those four are untracked (`../.gitignore`) and regenerated locally
+  with `run_walkthroughs.sh --bless`; their command scripts are committed like
+  all the others.
 - `games/` — the `.asl`/`.cas` corpus. **Untracked** (`../.gitignore`):
   third-party game data is never committed.
 - `games.manifest.tsv` — the committed sha256 pin for every file in `games/`,

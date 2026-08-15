@@ -1,10 +1,11 @@
 
-The Quest to find The Dark Hills, v2.0 Slackers Inc.
+The Quest to find The Dark Hills, v2.0 | Slackers Inc.
 
 
 
 
 A long time ago something happened to you. It was so long ago in fact, that you don't even remember all of the details. The only things you can seem to remember are that something happened between you and a mysterious group called the Shadow Masters, particularly one by the name of Alexendre Bartolomeu Pendelton, and that it happened in The Dark Hills. You're not exactly sure why Alexandre tried killing you but you have decided to go on a quest in search of The Dark Hills to find out. You hope that along the way you are able to remember more details and figure out any possible explanation for what happened and why. Before you head out on your quest, you may want to gather a few items. After all, you probably won't be able to open your door until you find your key.
+Press any key to continue...
 
 
 Standing beside your neatly-made bed, you begin to have a look around the room and spot one of your old math books on the floor. That doesn't seem too out of the ordinary since math never was your best subject. Each drawer of your dresser is properly closed, just as you left it, and there isn't anything sitting on top of it. As you continue to scan your bedroom, you notice that something doesn't seem quite right with your desk. Among other things you notice that your radio has been moved a tad to the left.
@@ -41,7 +42,7 @@ You unplug it from the wall so you can take it with you, lucky for you the batte
 
 > w
 
-Your bathroom, much like any other, is equipped with a shower against the far wall, a white porcelain toilet against another wall and your sink. Above the white marble sink, there is a stainless steel medicine cabinet hung on the plain white wall. The shower curtain is closed but, as far as you can remember, you hadn't left anything inside it. As you look around, you can't help but wonder why there isn’t a towel hanging on the towel rack.
+Your bathroom, much like any other, is equipped with a shower against the far wall, a white porcelain toilet against another wall and your sink. Above the white marble sink, there is a stainless steel medicine cabinet hung on the plain white wall. The shower curtain is closed but, as far as you can remember, you hadn't left anything inside it. As you look around, you can't help but wonder why there isnâ€™t a towel hanging on the towel rack.
 
 > open medicine cabinet
 You open the medicine cabinet. Inside it there is: a container of baby powder, a tube of toothpaste, a bottle of tylenol, a hairpin, and a roll of medical tape.
@@ -91,6 +92,7 @@ Do you want to save?
 2) No
 [choice] no
 
+
 > search sofa
 A new exit has become available! You can now go East.
 You search the sofa in hopes of finding a few coins. After a moment or two your hand finds something that feels more like paper. You pull it out to see what you've found. Alas, it's a twenty dollar bill!
@@ -98,7 +100,7 @@ You search the sofa in hopes of finding a few coins. After a moment or two your 
 > e
 A new exit has become available! You can now go East.
 
-You step outside the house and begin making your way to the local pub, you note that things seem a bit more quite then usual. You continue walking until you here something off in the distance, before you can even think, a mountain lion pounces in front of you! You’ll have to defeat him if you  wish to continue onto the pub.
+You step outside the house and begin making your way to the local pub, you note that things seem a bit more quite then usual. You continue walking until you here something off in the distance, before you can even think, a mountain lion pounces in front of you! Youâ€™ll have to defeat him if you  wish to continue onto the pub.
 
 > use body spray on mountain lion
 You attack the lion by using the body spray with your lighter creating a flame thrower!
@@ -118,6 +120,7 @@ Do you want to save?
 1) Yes
 2) No
 [choice] no
+
 
 > take axe
 You take the axe!
@@ -141,7 +144,7 @@ You've managed to make it to Spires End, the town looking rather barren as peopl
 
 > ne
 
-As you enter the book shop you see a wide verity of books. Your eye just happens to catch some of the more interesting titles including “The Towel: 101 Fun & Practical Uses!” and “Magic: is it Real or Just a Sham?”. It isn’t long before you see a person in the back placing books upon the shelves. The man stops, as if he can feel your presence.  “Kitzue…” the man says without even turning around. "Might... m-might I be of service?"
+As you enter the book shop you see a wide verity of books. Your eye just happens to catch some of the more interesting titles including â€œThe Towel: 101 Fun & Practical Uses!â€ and â€œMagic: is it Real or Just a Sham?â€. It isnâ€™t long before you see a person in the back placing books upon the shelves. The man stops, as if he can feel your presence.  â€œKitzueâ€¦â€ the man says without even turning around. "Might... m-might I be of service?"
 
 > look for towel
 You have a closer look around the book shop and to your amazment, there just happens to be a blue towel on the floor with green writing... it reads "Don't Panic!" 
@@ -159,7 +162,7 @@ As you enter the cathedral you feel as if someone or something is watching you. 
 
 > d
 
-As you enter the basement to the cathedral and you notice that it is very dark and you can’t really see.  Perhaps now would be a good time to use the torch.
+As you enter the basement to the cathedral and you notice that it is very dark and you canâ€™t really see.  Perhaps now would be a good time to use the torch.
 
 > use torch
 You use the torch and see a trap door.
@@ -169,11 +172,12 @@ You use the torch and see a trap door.
 
 > d
 
-You climb down the lighter and make your way into the tunnel. You move the torch around to better see, there isn’t much. As you begin making your way through the tunnel you see a few rats. You decide that as long as they leave you be, you’ll return the favor. If they decide to mess with you however, they're going down. You begin to wonder what lies ahead, how much further must you go to find what it is you're looking for. Holding your torch up high, you see something at the end of the tunnel. It looks like a rusted ladder!
+You climb down the lighter and make your way into the tunnel. You move the torch around to better see, there isnâ€™t much. As you begin making your way through the tunnel you see a few rats. You decide that as long as they leave you be, youâ€™ll return the favor. If they decide to mess with you however, they're going down. You begin to wonder what lies ahead, how much further must you go to find what it is you're looking for. Holding your torch up high, you see something at the end of the tunnel. It looks like a rusted ladder!
 
 > u
 
 Part Three - You've managed to make it to the second church, but you still have a long way to go on your jouney.
+Press any key to continue...
 
 
 You have a look at your surroundings only to discover that the basement of this church is much more eerie than the first. The damp, heavy air that fills the vast church basement makes it harder to breathe and the dusty floor and walls aren't helping much. As you look around, you notice that there are several large tiles lining each wall. Many of them appear to have olde English writing on them but it's too dark to make out what any of them say from where you are standing so, instead, you decide to look for a way out. While doing so, your eyes happen upon a black coffin leaning against one of the walls. Its lid is slightly ajar but you cannot see inside of it.
@@ -216,10 +220,6 @@ You pick it up.
 You close your eyes and try to concentrate and put your mind at ease. It doesn't take long however for your body to feel light as a feather. You take a chance and open your eyes to your amazement you're off of the ground! 
 
 > take map
-Which map do you mean?
-1) map
-2) Map
-[choice] 2
 
 > n
 
@@ -271,7 +271,7 @@ You give the bottle of tylenol to the tribal leader. Being very happy with his n
 
 > ne
 You now have what you need to continue your journey, and may go North East.
-You are in Grave Yard
+You are in Grave Yard.
 There is statue, Hugo Sawyer and Shovel here.
 You can go east.
 
@@ -280,15 +280,19 @@ Through an almost ghostly fog, you observe several rows of large tombstones thro
 > speak to hugo sawyer
 
 You look at the man standing between you and the path to continue. You decide to ask him if he will move out of the way.
+Press any key to continue...
 
 
 He answers back.. "My name is Hugo Sawyer, I've been stuck in this grave yard for some time now. It's almost as if I've been cursed."
+Press any key to continue...
 
 
 "I shall not move for you, unless you can do something for me."
+Press any key to continue...
 
 
 "There is a grave around here, it shouldn't be to far away. If you can find it, use the shovel to dig it up. In it you'll find a ring, if you can get me the ring I'll let you be on your way."
+Press any key to continue...
 
 
 Your not quite sure where to look for this grave Hugo wants you to dig up, but you note that he said it shouldn't be that far away.

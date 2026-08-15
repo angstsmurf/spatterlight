@@ -8,22 +8,22 @@ Good Luck, You might not need it, but should take it anyway. Yes Good Luck.
 Good LUCK.
 
 > north
-You are in Far Driveway
+You are in Far Driveway.
 You can go north or south.
 You're outside of your house. Good. Find a weapon first, then leave. Go NORTHWEST of the HOUSE SPORTS AREA to the SHED. You Might find a weapon there. Then go to the EDGE OF THE DRIVEWAY and decide whether to go LEFT or RIGHT.
 
 > north
-You are in Middle Driveway
+You are in Middle Driveway.
 You can go north, south or west.
 You see a sighn you and your youngest brother made. It reads:
 FAMILY SPORTS AREA to the left!
 
 > west
-You are in House Sports Area
+You are in House Sports Area.
 You can go east or northwest.
 
 > northwest
-You are in Shed
+You are in Shed.
 There is Golf Club here.
 You can go southeast.
 It contains random things that aren't IN YOUR HOUSE, ON THE GROUND, or IN THE CRAWL SPACE.
@@ -32,31 +32,31 @@ It contains random things that aren't IN YOUR HOUSE, ON THE GROUND, or IN THE CR
 
 > inventory
 You are carrying:
-Golf Club
+Golf Club.
 
 > southeast
-You are in House Sports Area
+You are in House Sports Area.
 You can go east or northwest.
 
 > east
-You are in Middle Driveway
+You are in Middle Driveway.
 You can go north, south or west.
 You see a sighn you and your youngest brother made. It reads:
 FAMILY SPORTS AREA to the left!
 
 > north
-You are in Edge of Driveway
+You are in Edge of Driveway.
 You can go north or south.
 
 > north
-You are in South Straits Highway
+You are in South Straits Highway.
 You can go south, east or west.
 Left: Follow your HEART and your DREAMS, untoughed by society, money, and law.
 
 
 
 > west
-You are in South Straits Highway Left
+You are in South Straits Highway Left.
 You can go east or west.
 
 you have to type west to get it to work, sorry
@@ -111,13 +111,13 @@ Vandy Or Ann?"
 "I had that for my 6th grade field trip, but never got to go. Some kid that bullied me threatened to kill me with his pocketknife if i went. this is our chance to go, so lets!"
 "Alright."
 
-You are in South Straits Highway Far Left Border
+You are in South Straits Highway Far Left Border.
 You can go east or west.
 "Now, Arbor, I'm not easy to get along with, and I'm sensing you're a bit of a bitch, and an annoying one at that, but i think we can make this work."
 "Just do me a favor."
 "And what's that?"
 "If you're going to do Zombieland stuff, please don't get me sued for copyright infringement."
-You are in Wolverine
+You are in Wolverine.
 You can go east.
 "I can tell with those words that you're going to get on my nerves...."
 [runner] turns=16 leftover=0 running=false WON=YES

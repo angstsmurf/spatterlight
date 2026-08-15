@@ -1,5 +1,5 @@
 
-Spectrum, v1.1 Mocha Man
+Spectrum, v1.1 | Mocha Man
 
 
 
@@ -437,17 +437,7 @@ You set the sword down, where it leaves a long shallow cut in the ground.
 
 > i
 You are carrying:
-Gecko Key
-Shimmer Key
-Music
-Flashlight
-Shell
-Flute
-Screwdriver
-pirate
-cat
-Sky Key
-Stone Key
+Gecko Key, the Shimmer Key, a piece of sheet Music, a discarded Flashlight sitting on the path, a small Shell key, sitting out of place, a wooden Flute sitting, a Screwdriver lying on the ground, an old, wooden pirate key, a happy cat sleeping, the Sky Key sitting on the ice and the Stone Key sitting heavily on the path..
 
 > e
 Location Magenta Room.

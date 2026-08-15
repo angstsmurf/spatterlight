@@ -1,5 +1,5 @@
 
-World's End!, v1.0 GAMER!
+World's End!, v1.0 | GAMER!
 
 Name?
 The world was once peaceful. However an insane scientist decided to blow up most of america. The missile missed by miles and hit the antarctic! This, obviously, has caused a tiny problem. The problem is incresed by the fact aliens have been discovered in the middle of the earth and have started rising up! You are trying to stop them. It probably won't work.
@@ -250,7 +250,7 @@ You shoot the alien and it dies. You find 30 gold dollars on it.
 You shoot the alien. It doesn't die. You shoot it 4 more times and it dies. You find a small ice gem on it.
 
 > take ice gem
-You already have it.
+I can't see that here.
 
 > south
 This town is boiling! People are sunbathing everywhere. There is an icecream store serving soup. People are drinking coke and water. Just a normal boiling town.
@@ -598,6 +598,8 @@ You search the corpse and find a box.
 
 > open box
 You open the box.
+It's a box.
+It contains a small eye.
 
 > take eye
 (first removing it from box)
@@ -613,6 +615,7 @@ You shoot the trap door. It falls into the room below.
 
 > down
 You descend into a dark lab. You are thinking you should go and get a flashlight when a light comes on revealing a huge room. A man is aiming a in huge room. A scientist is pointing an uzzi at you!
+PRESS A KEY TO CONTINUE!
 
 I've been expecting you. Now your going to die.
 You are in a lab.
@@ -659,6 +662,7 @@ Y9ou have no choice but to walk away from the contraption.
  "You will get in the spaceship and will have your weapons removed" the alien says.
 You climb into the spaceship full of explosives. Your weapons are taken (including your axe).
  "You will now be left to die" the alien says befor slamming the door and pushing a button. The spaceship blasts into orbit arround the earth!
+PRESS A KEY TO SEE WHAT HAPPENS!
 
 You are stuck on a spaceship full of explosives in orbit around the earth! There is loads of equipment here but you can't destroy any of it.
 
@@ -691,11 +695,14 @@ You wear the parachute.
 
 > use scart lead on socket
 You plug in the scart lead. Suddenly the spaceship dives towards earth! 100000 feet abuv the earth the hatch slides open and you fall to your doom!
+PRESS A KEY TO CONTINUE!
 
 You are falling through the sky towards your doom! Aeroplanes are flying past you!
 The parachute opens and you slow down as you hurtal towards your splatty end. However you think you will still die!
+PRESS A KEY TO SEE WHAT HAPPENS!
 
 You hit something soft. You have enough time to realise it's a pile of junk and you are in a dump befor the force of the fall knocks you out!
+PRESS A KEY TO SEE WHAT HAPPENS!
 
 You wake up in a pile of junk. You pull yourself out.
 This is a dump. There is a huge pile of junk against all sides of the dump. Who knows what you couldn't find here?
@@ -713,6 +720,8 @@ There is a click.
 
 > open suitcase
 You open the suitcase.
+It's a black suitcase.
+It contains a note and a map.
 
 > take map
 (first removing it from suitcase)
@@ -752,12 +761,11 @@ You are lead out onto a desert where a huge cube is hovering! Suddenly 2 vials f
 This is the sahara desert. A huge cube is hovering over you firing lasers at you!
 
 > take vial1
-You already have it.
-A laser misses you!
+I can't see that here.
 
 > take vial2
-You already have it.
-A laser hits you!
+I can't see that here.
+A laser misses you!
 
 > use vial1 on cube
 The vial hits the cube! The assid eats through half of it.
@@ -819,6 +827,7 @@ This is an ice forest. There are ice trees everywhere. There is a stone bench wi
 > north
 You enter a small camp. Before you can walk through it a soldier grabs you.
  "You have trespassed into are camp. Now you will pay!"
+PRESS A KEY TO SEE WHAT HAPPENS!
 
 "If you have a skull though you can pass"
 You are thrown through a gate!
@@ -848,6 +857,8 @@ You search the wood pile and find a sack.
 
 > open sack
 You open the sack.
+It's a black sack.
+It contains a triangle made out of wood and a remote.
 
 > take triangle
 (first removing it from sack)
@@ -1004,27 +1015,11 @@ Your laser hits the alien warlord hurting it for 10 damage!
 The alien warlord's laser hits you hurting you for 10 damage!
 
 > use laser pistol on warlord
-Your laser misses the warlord!
-The alien warlord's laser hits you hurting you for 10 damage!
-
-> use laser pistol on warlord
-Your laser hits the alien warlord hurting it for 10 damage!
-The alien warlord's laser hits you hurting you for 10 damage!
-
-> use laser pistol on warlord
 Your laser hits the alien warlord hurting it for 10 damage!
 The alien warlord's laser hits you hurting you for 10 damage!
 
 > use laser pistol on warlord
 Your laser misses the warlord!
-The alien warlord's laser hits you hurting you for 10 damage!
-
-> use laser pistol on warlord
-Your laser misses the warlord!
-The alien warlord's laser hits you hurting you for 10 damage!
-
-> use laser pistol on warlord
-Your laser hits the alien warlord hurting it for 10 damage!
 The alien warlord's laser misses you!
 
 > use laser pistol on warlord
@@ -1037,64 +1032,31 @@ The alien warlord's laser hits you hurting you for 10 damage!
 
 > use laser pistol on warlord
 Your laser hits the alien warlord hurting it for 10 damage!
-The alien warlord's laser hits you hurting you for 10 damage!
+The alien warlord's laser misses you!
 
 > use laser pistol on warlord
 Your laser misses the warlord!
 The alien warlord's laser hits you hurting you for 10 damage!
-  GAME OVER!
-
-You are in an arena! The chief of the aliens is shooting you!
-
-> use laser pistol on warlord
-Your laser hits the alien warlord hurting it for 10 damage!
-The alien warlord's laser misses you!
-
-> use laser pistol on warlord
-Your laser hits the alien warlord hurting it for 10 damage!
-The alien warlord's laser hits you hurting you for 10 damage!
-  GAME OVER!
-
-You are in an arena! The chief of the aliens is shooting you!
-
-> use laser pistol on warlord
-Your laser hits the alien warlord hurting it for 10 damage!
-The alien warlord's laser hits you hurting you for 10 damage!
-  GAME OVER!
-
-You are in an arena! The chief of the aliens is shooting you!
 
 > use laser pistol on warlord
 Your laser misses the warlord!
 The alien warlord's laser misses you!
 
 > use laser pistol on warlord
-Your laser hits the alien warlord hurting it for 10 damage!
-The alien warlord's laser hits you hurting you for 10 damage!
-  GAME OVER!
+Your laser misses the warlord!
+The alien warlord's laser misses you!
 
-You are in an arena! The chief of the aliens is shooting you!
+> use laser pistol on warlord
+Your laser misses the warlord!
+The alien warlord's laser misses you!
 
 > use laser pistol on warlord
 Your laser misses the warlord!
 The alien warlord's laser hits you hurting you for 10 damage!
-  GAME OVER!
-
-You are in an arena! The chief of the aliens is shooting you!
 
 > use laser pistol on warlord
-Your laser hits the alien warlord hurting it for 10 damage!
+Your laser misses the warlord!
 The alien warlord's laser hits you hurting you for 10 damage!
-  GAME OVER!
-
-You are in an arena! The chief of the aliens is shooting you!
-
-> use laser pistol on warlord
-Your laser hits the alien warlord hurting it for 10 damage!
-The alien warlord's laser hits you hurting you for 10 damage!
-  GAME OVER!
-
-You are in an arena! The chief of the aliens is shooting you!
 
 > use laser pistol on warlord
 Your laser misses the warlord!
@@ -1102,24 +1064,18 @@ The alien warlord's laser misses you!
 
 > use laser pistol on warlord
 Your laser hits the alien warlord hurting it for 10 damage!
-The alien warlord's laser misses you!
-
-> use laser pistol on warlord
-Your laser misses the warlord!
 The alien warlord's laser hits you hurting you for 10 damage!
-  GAME OVER!
-
-You are in an arena! The chief of the aliens is shooting you!
 
 > use laser pistol on warlord
 Your laser hits the alien warlord hurting it for 10 damage!
 The alien warlord's laser hits you hurting you for 10 damage!
-  GAME OVER!
-
-You are in an arena! The chief of the aliens is shooting you!
 
 > use laser pistol on warlord
-Your laser misses the warlord!
+Your laser hits the alien warlord hurting it for 10 damage!
+The alien warlord's laser misses you!
+
+> use laser pistol on warlord
+Your laser hits the alien warlord hurting it for 10 damage!
 The alien warlord's laser hits you hurting you for 10 damage!
   GAME OVER!
 
@@ -1142,6 +1098,10 @@ The alien warlord's laser hits you hurting you for 10 damage!
   GAME OVER!
 
 You are in an arena! The chief of the aliens is shooting you!
+
+> use laser pistol on warlord
+Your laser hits the alien warlord hurting it for 10 damage!
+The alien warlord's laser misses you!
 
 > use laser pistol on warlord
 Your laser hits the alien warlord hurting it for 10 damage!

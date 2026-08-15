@@ -80,7 +80,10 @@ struct GeasBlock
    * dominant tokenization cost once property/action lookups were cached).
    * `script` is the runnable tail of the line; for a command, `patterns` is the
    * split list of surface patterns to match. */
-  struct cmd_entry { std::vector<std::string> patterns; std::string script; };
+  /* is_lib marks a "lib command" line, i.e. one a library contributed through
+   * !addto game.  Quest runs every game command first and only then the lib
+   * ones, so the flag is a dispatch pass, not a comment. */
+  struct cmd_entry { std::vector<std::string> patterns; std::string script; bool is_lib; };
   struct hook_entry { bool is_override; std::string script; };
   mutable std::vector<cmd_entry> commands;
   mutable std::vector<hook_entry> beforeturns, afterturns;
@@ -114,6 +117,13 @@ struct GeasFile
   const std::string *obj_type_of (const std::string &name) const;
   mutable std::string obj_type_scratch;
   std::map <std::string, std::vector<size_t> > type_indecies;
+
+  /* The game's `asl-version`, read from the raw lines before any block is
+   * parsed.  read_into needs it: several of Quest's tag lines only become
+   * properties from a given version onwards, and being a property is what
+   * exposes a value to `;`-splitting (see tag_property_splits).  311 is the
+   * same default geas_implementation uses for a game that names no version. */
+  int asl_version = 311;
 
   /* Fast lookup for find_by_name: maps "<blocktype>\1<lowercased name>" to the
    * indices (into blocks) of every block with that type and name, in definition

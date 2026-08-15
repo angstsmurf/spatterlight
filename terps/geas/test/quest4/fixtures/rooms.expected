@@ -1,7 +1,7 @@
 
 Rooms
 
-You are in Hall
+You are in Hall.
 There is vase and coin here.
 You can go out to the walled garden.
 A hall.
@@ -23,10 +23,10 @@ out: walled garden
 display: the walled garden
 
 > out
-You are in walled garden
+You are in walled garden.
 A garden.
 
 > look
-You are in walled garden
+You are in walled garden.
 A garden.
 [runner] turns=7 leftover=0 running=true

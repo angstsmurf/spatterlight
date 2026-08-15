@@ -1,12 +1,12 @@
 
 UnmatchedPercent
 
-You are in hall
+You are in hall.
 You can go north.
 Yep, 100% empty.
 
 > look
-You are in hall
+You are in hall.
 You can go north.
 Yep, 100% empty.
 
@@ -26,17 +26,17 @@ Doubled % and # are literal.
 Paired 7 and a string.
 
 > north
-You are in plain
+You are in plain.
 You can go south.
 An open plain, %pct%% of it grass.
 
 > look
-You are in plain
+You are in plain.
 You can go south.
 An open plain, %pct%% of it grass.
 
 > south
-You are in hall
+You are in hall.
 You can go north.
 Yep, 100% empty.
 [runner] turns=9 leftover=0 running=true

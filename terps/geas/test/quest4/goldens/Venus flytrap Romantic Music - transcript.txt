@@ -1,5 +1,5 @@
 
-Venus flytrap: Romantic Music, v1.0 nicky.leech@venusflytrap.co.uk
+Venus flytrap: Romantic Music, v1.0 | nicky.leech@venusflytrap.co.uk
 
 
 
@@ -16,13 +16,15 @@ You are standing in your bedroom.
 
 Your single bed.
 
+
 > take everyday clothes
 
 You take your everyday clothes and put them on.
 
+
 > i
 You are carrying:
-everyday clothes
+Everyday clothes.
 
 > go to landing
 
@@ -44,6 +46,7 @@ You are standing in your parent's bedroom.
 > take hat
 
 You take the hat.
+
 
 > out
 
@@ -71,13 +74,16 @@ You are standing in the front room.
 
 How to Juggle by I. Dropballs
 
+
 > x red book
 
 You Too Can Have A Photographic Memory by I. Reed
 
+
 > take red book
 
 You take the red book.
+
 
 > read red book
 
@@ -86,6 +92,7 @@ You read the red book.
 > take green book
 
 You take the green book.
+
 
 > read green book
 
@@ -105,13 +112,16 @@ You are standing in the kitchen.
 
 You take the socks and put them on your feet.
 
+
 > take shoes
 
 You take the shoes and put them on.
 
+
 > take steps
 
 You take the steps.
+
 
 > out
 
@@ -138,6 +148,7 @@ You are standing in the attic.
 > take balls
 
 You take the soft balls.
+
 
 > out
 
@@ -167,17 +178,11 @@ You drop the hat.
 
 > juggle balls
 
-You juggle like a pro. An elderly woman is so impressed, she drops a £2 coin into your hat.
+You juggle like a pro. An elderly woman is so impressed, she drops a Â£2 coin into your hat.
 
 > i
 You are carrying:
-everyday clothes
-red book
-green book
-socks
-shoes
-balls
-money
+Everyday clothes, red book, green book, socks, shoes, balls and money.
 
 > go to public convenience
 
@@ -186,11 +191,12 @@ You are standing inside a public convenience
 
 > x condom machine
 
-If you insert a £2 coin you will receive a packet of condoms.
+If you insert a Â£2 coin you will receive a packet of condoms.
+
 
 > buy condoms
 
-You insert the £2 coin into the condom machine. A packet of condoms falls out.  You put them into your back pocket.
+You insert the Â£2 coin into the condom machine. A packet of condoms falls out.  You put them into your back pocket.
 
 > out
 
@@ -200,6 +206,7 @@ You are standing in the street.  You see a bus stop.
 > take hat
 
 You take the hat.
+
 
 > go to hallway
 
@@ -219,6 +226,7 @@ You are standing in the lodger's bedroom.
 > x romantic music
 
 A collection of love songs by Nat King Cole.
+
 
 > take romantic music
 
@@ -258,9 +266,11 @@ What have you done?
 
 You take the romantic music.
 
+
 > take everyday clothes
 
 You take your everyday clothes and put them on.
+
 
 > wake linda
 
@@ -269,6 +279,7 @@ She is in a deep sleep.
 > x linda
 
 Your worst nightmare.
+
 
 > out
 
