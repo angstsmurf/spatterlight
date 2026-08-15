@@ -479,8 +479,15 @@ scr_dump_structure_once (scr_gameref_t game)
         scr_int score = 0;
         const scr_char *mask = NULL;
         scr_int rpt = 0;
+        scr_int srd = 0;
         k[2].string = "Score";
         if (prop_get (bundle, "I<-sis", &vt, k)) score = vt.integer;
+        /* srd: the task's ShowRoomDesc, as the raw field -- 0 for none,
+         * otherwise room + 1.  See RUNNER_TESTS_TODO.md section 4, where
+         * run400 is measured printing that room's description with no room
+         * name heading, and task_run_task_unrestricted() prints both. */
+        k[2].string = "ShowRoomDesc";
+        if (prop_get (bundle, "I<-sis", &vt, k)) srd = vt.integer;
         k[2].string = "RestrMask";
         if (prop_get (bundle, "S<-sis", &vt, k)) mask = vt.string;
         /* rpt: does the task carry a RepeatText?  A non-repeatable task that
@@ -491,8 +498,8 @@ scr_dump_structure_once (scr_gameref_t game)
           rpt = 1;
         fprintf (stderr,
                  "TASK %ld where=%ld room=%ld restr=%ld rep=%ld rpt=%ld"
-                 " score=%ld mask=[%s] cmd=[%s]\n",
-                 t, wtype, wroom, rcount, rep, rpt, score,
+                 " score=%ld srd=%ld mask=[%s] cmd=[%s]\n",
+                 t, wtype, wroom, rcount, rep, rpt, score, srd,
                  mask ? mask : "", cmd ? cmd : "");
       }
 
