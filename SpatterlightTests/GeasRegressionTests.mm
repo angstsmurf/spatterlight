@@ -20,6 +20,11 @@
 // --- Geas core (unity include) ----------------------------------------------
 // Quoted includes inside these files resolve relative to their own directory
 // (terps/geas), so no extra header search path is required.
+// geas-runner.cc seeds and draws from the shared deterministic RNG, which
+// lives outside the geas tree, so pull it in with the same C linkage.
+extern "C" {
+#include "../terps/common_utils/randomness.c"
+}
 #include "../terps/geas/geas-util.cc"
 #include "../terps/geas/istring.cc"
 #include "../terps/geas/readfile.cc"
