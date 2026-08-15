@@ -312,7 +312,7 @@ the south.
 Also here is a clear bottle.
 
 > take bottle
-You pick up the clear bottle.
+You take the clear bottle.
 
 > move tile
 (Your score has increased by 2)
@@ -358,7 +358,7 @@ but by what is unknown. The door is to the west.
 Also here is the wood.
 
 > take wood
-You pick up the wood.
+You take the wood.
 
 > w
 You move west.
@@ -471,7 +471,7 @@ door to the east is the only exit.
 An old piece of linen is lying on the floor.
 
 > take linen
-You pick up the old piece of linen.
+You take the old piece of linen.
 
 > e
 You move east.

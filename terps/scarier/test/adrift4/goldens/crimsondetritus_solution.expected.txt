@@ -32,7 +32,7 @@ doorway.
 >
 
 > take tube
-You pick up the tube of vanishing cream.
+You take the tube of vanishing cream.
 
 > rub cream on
 (Your score has increased by 10)

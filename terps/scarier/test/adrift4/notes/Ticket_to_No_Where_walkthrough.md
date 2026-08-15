@@ -133,7 +133,10 @@ what separates 100 from a full score.
 - Only one `<waitkey>` pause, at the intro; the leading blank line answers it.
   The later blank line in the file is the author's stray empty command, not a
   pause.
-- One cosmetic divergence noticed and deliberately **not** changed: the Runner
-  says `There is nothing worth taking here.` where SCARE says `There is nothing
-  to pick up here.` Fixing it would churn goldens across the corpus for no
-  behavioural gain; it is logged in `RUNNER_TESTS_TODO.md` instead.
+- One wording divergence noticed here — the Runner says `There is nothing worth
+  taking here.` where SCARE said `There is nothing to pick up here.` **Settled
+  and ported 2026-08-15**: it is a 4.0 rewording, not a cosmetic difference.
+  run370/380/390 all say "nothing to pick up here" and only run400 says "worth
+  taking", so the message is now version-gated (`lib_is_version_400()` in
+  `sclibrar.cpp`), along with the take template it shares a handler with. See
+  §4 of `RUNNER_TESTS_TODO.md`.

@@ -109,7 +109,7 @@ You take the code table and the ball point pen from the comunication console.
  You take the bullets from the body.
 
 > get gun
-You pick up the gun.
+You take the gun.
 
 > load gun
 You put the bullets inside the gun.
@@ -397,7 +397,7 @@ In a panic you quickly slam the door shut and re-latch it, leaving the axe
 inside.
 
 > get axe
-You pick up the axe.
+You take the axe.
 A small rush fills you with pleasure.
 
 > chop off hand with axe
@@ -408,7 +408,7 @@ down again and again…
 The bloody hand falls to the floor wetly.
 
 > get hand
-You pick up the bloody hand.
+You take the bloody hand.
 
 > put hand on green plate
 You put the bloody hand onto the green plate.

@@ -112,7 +112,7 @@ castle.  Nearby there groweth yon nut tree.
 Behold, ye nut layeth upon yon ground in some degree of spectacle.
 
 > get nut
-Ye picketh up ye nut.
+Ye taketh ye nut.
 
 > e
 
@@ -178,7 +178,7 @@ consternation.
 Ye doth see yon sooty string hanging up here.
 
 > get string
-Ye picketh up yon sooty string.
+Ye taketh yon sooty string.
 Unfortunarily, yon string turneth out to be terribly slippery and it droppeth
 from ye hands-- ye believeth it disappeareth into yon stewpot.  Howe'er, ye
 manageth to catch of ye grimy key which appeareth to have been tied to ye
@@ -408,7 +408,7 @@ fountain room, and to ye delight of ye sweet tooth, ye cakery is to ye north.
 Also, whereas & whereupon ye ground ye discovereth of ye magical oven mitt.
 
 > get mitt
-Ye picketh up ye magical oven mitt.
+Ye taketh ye magical oven mitt.
 
 > wear mitt
 Ye putteth on ye magical oven mitt.
@@ -935,7 +935,7 @@ which may be something good (or not).
 Some bag or something doth seem to lie atop ye plinth.
 
 > get bag
-Ye picketh up ye bag o' sleeping powder.
+Ye taketh ye bag o' sleeping powder.
 
 > w
 Ye moveth west.
@@ -1028,7 +1028,7 @@ ye east and ye makery is across ye lake to ye north.
 Also here are yon grasses.
 
 > get grasses
-Ye picketh up yon grasses.
+Ye taketh yon grasses.
 
 > n
 Ye set sail across ye lake in ye magic boat.
@@ -1513,7 +1513,7 @@ forth, ho!, westward through ye nostril socket-- or giveth in to ye fears &
 retreateth to ye north!  Also here is ye brick o' gold.
 
 > get gold
-Ye picketh up ye brick o' gold.
+Ye taketh of ye brick o' gold and stuffeth it in ye treasure sack.
 
 Ye hath gained 1 treasure!
 
@@ -1556,7 +1556,7 @@ hath been built straightly, but ye northerly corridor looketh twisty.
 Within some cracks in ye floor groweth yon weird fungus.
 
 > get fungus
-Ye picketh up yon weird fungus.
+Ye taketh yon weird fungus.
 
 > w
 Ye moveth west.
@@ -1617,7 +1617,7 @@ gleamingly in its jamb!
 Also here is ye golden key.
 
 > get key
-Ye picketh up ye golden key.
+Ye taketh ye golden key.
 
 > unlock door
 Ye unlocketh yon golden door with ye golden key.
@@ -1710,7 +1710,7 @@ At ye feet lieth ye royal scepter of Fundrigglin, dropped by ye mortal foe.
 Also here is yon puddle.
 
 > get scepter
-Ye picketh up ye royal scepter.
+Ye taketh ye royal scepter.
 
 No sooner doth ye holdeth ye royal scepter than ye realizeth its power to
 endeth ye curse of ye evil wizard... will ye useth its power, and endeth ye

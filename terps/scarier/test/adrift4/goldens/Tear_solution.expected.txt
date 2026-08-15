@@ -92,10 +92,10 @@ working tools.
 There is an axe hung on the wall.  A rope lies on the ground.
 
 > get axe
-You pick up the axe.
+You take the axe.
 
 > get rope
-You pick up the rope.
+You take the rope.
 
 > bend iron
 Using the tools in your shack you manage to bend the iron into the shape of
@@ -127,7 +127,7 @@ Chop, chop, chop, you methodically cut down the tree. Once cut, you cut off
 the branches until you are left with a manageable log.
 
 > get log
-You pick up the log.
+You take the log.
 
 > n
 You move north.
@@ -201,7 +201,7 @@ water.
 Also here is a fire extinguisher.
 
 > get extinguisher
-You pick up the fire extinguisher.
+You take the fire extinguisher.
 
 > u
 You move up.

@@ -67,7 +67,7 @@ around the room.  I can crawl out from here to the middle of the bedroom.
 A graham cracker lays against the wall in the corner.
 
 > take cracker
-I pick up the graham cracker.
+I take the graham cracker.
 
 > out
 I move out.
@@ -126,7 +126,7 @@ A small pink, plastic chair sits shoved up against the back of the closet.  A
 wooden chest of drawers sits in the back of the closet.
 
 > take the chair
-I pick up the pink plastic chair.
+I take the pink plastic chair.
 
 > examine the dresser
 A wooden dresser with a top, middle and bottom drawer.

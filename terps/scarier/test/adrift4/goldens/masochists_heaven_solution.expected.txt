@@ -71,7 +71,7 @@ begins to tend the fountain. After a while, he has the bubbles under control,
 and goes back to the garden.
 
 > take can
-I pick up the apple-shaped watering can.
+I take the apple-shaped watering can.
 
 > s
 I move south.

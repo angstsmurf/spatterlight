@@ -36,7 +36,7 @@ Mafia man .
 
 > take hundred dollars
 (Your score has increased by 100)
-You pick up the hundred dollars.
+You take the hundred dollars.
 
 Bouncer walks towards you.
 thank you. Have fun now.
@@ -125,10 +125,10 @@ Bumpy the clown is here.
 You can move north, east, south and west.
 
 > take kewbie doll
-You pick up the kewbie doll.
+You take the kewbie doll.
 
 > take cassette
-You pick up the cassette.
+You take the cassette.
 
 > west
 You move west.

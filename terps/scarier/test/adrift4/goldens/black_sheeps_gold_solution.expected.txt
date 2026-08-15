@@ -53,7 +53,7 @@ Before me lies a broom and a dustpan.
 There is an exit north.
 
 > get all
-I pick up the broom and the dustpan.
+I take the broom and the dustpan.
 
 > n
 I move north.
@@ -621,7 +621,7 @@ Before me lies a one-handed pickaxe and a zippo lighter.
 I can only move out.
 
 > get all
-I pick up the one-handed pickaxe and the zippo lighter.
+I take the one-handed pickaxe and the zippo lighter.
 
 > out
 I move out.
@@ -921,7 +921,7 @@ Before me lies a sturdy rope.
 I can only move west.
 
 > get rope
-I pick up the sturdy rope.
+I take the sturdy rope.
 
 > w
 I move west.
@@ -1000,7 +1000,7 @@ Before me lies an antique gold watch.
 I can only move south.
 
 > get watch
-I pick up the antique gold watch.
+I take the antique gold watch.
 
 > s
 I move south.
@@ -1049,7 +1049,7 @@ Before me lies an antique cross.
 I can only move north.
 
 > get cross
-I pick up the antique cross.
+I take the antique cross.
 
 > n
 I move north.
@@ -1083,7 +1083,7 @@ Before me lies an antique china plate.
 I can only move south.
 
 > get plate
-I pick up the antique china plate.
+I take the antique china plate.
 
 > s
 I move south.

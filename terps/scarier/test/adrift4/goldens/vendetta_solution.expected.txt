@@ -150,7 +150,7 @@ to land."
 The videocom screen then goes blank.
 
 > get key
-You pick up the key card.
+You take the key card.
 
 > s
 You move south.
@@ -1202,7 +1202,7 @@ dead.
 Also here is the mobile telephone.
 
 > get telephone
-You pick up the mobile telephone.
+You take the mobile telephone.
 
 > x monitors
 They show nothing of interest, but underneath the bank of monitors is a

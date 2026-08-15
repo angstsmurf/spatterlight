@@ -323,7 +323,7 @@ anything of interest for some distance (north).
 A rock is here.
 
 > take rock
-I pick up the rock.
+I take the rock.
 
 > north
 I move north.
@@ -534,7 +534,7 @@ A medallion is here.
 A woman is here, happy apparently.
 
 > take medallion
-I pick up the medallion.
+I take the medallion.
 
 > give medallion to woman
 I hold it out to give it to her and she snatches it away from me.
@@ -628,7 +628,7 @@ anything of interest for some distance (north).
 A medallion is here.
 
 > take medallion
-I pick up the medallion.
+I take the medallion.
 
 > wear medallion
 I put on the medallion.
@@ -992,7 +992,7 @@ into the north wall. There is no visible door.
 Also here is a red box and a blanket.
 
 > take blanket
-I pick up the blanket.
+I take the blanket.
 
 > look
 
@@ -1779,7 +1779,7 @@ You throw the lighter at Chip.
 Chip hits you, but it doesn't seem to do any damage.
 
 > take lighter
-I pick up the lighter.
+I take the lighter.
 Chip hits you, but it doesn't seem to do any damage.
 
 > attack chip
@@ -1787,21 +1787,21 @@ You throw the lighter at Chip.
 Chip hits you, but it doesn't seem to do any damage.
 
 > take lighter
-I pick up the lighter.
+I take the lighter.
 Chip hits you, but it doesn't seem to do any damage.
 
 > attack chip
 You throw the lighter at Chip.
 
 > take lighter
-I pick up the lighter.
+I take the lighter.
 Chip hits you.
 
 > attack chip
 You throw the lighter at Chip.
 
 > take lighter
-I pick up the lighter.
+I take the lighter.
 Chip hits you, but it doesn't seem to do any damage.
 
 > attack chip
@@ -1809,7 +1809,7 @@ You throw the lighter at Chip.
 Chip hits you, but it doesn't seem to do any damage.
 
 > take lighter
-I pick up the lighter.
+I take the lighter.
 
 > attack chip
 (Your score has increased by 5)
@@ -1915,7 +1915,7 @@ Scotty hits Ozgat.
 Ozgat manages to avoid Chip's attack.
 
 > take lighter
-I pick up the lighter.
+I take the lighter.
 Ozgat hits Donna.
 Lina hits Ozgat.
 Scotty hits Ozgat, but it doesn't seem to do any damage.
@@ -1929,7 +1929,7 @@ Scotty hits Ozgat, but it doesn't seem to do any damage.
 Ozgat manages to avoid Chip's attack.
 
 > take lighter
-I pick up the lighter.
+I take the lighter.
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
@@ -2034,7 +2034,7 @@ Riven manages to avoid Chip's attack.
 Riven hits Donna.
 
 > take lighter
-I pick up the lighter.
+I take the lighter.
 
 The sound of knives scraping against glass reverberate across the landscape.
 
@@ -2056,7 +2056,7 @@ The riven falls to the ground, defeated. The surface of the earth absorbs its
 body, and soon there is no trace of it.
 
 > take lighter
-I pick up the lighter.
+I take the lighter.
 
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
@@ -2159,7 +2159,7 @@ Scotty hits Riven, but it doesn't seem to do any damage.
 Donna manages to avoid Ozgat's attack.
 
 > take lighter
-I pick up the lighter.
+I take the lighter.
 Lina hits Ozgat.
 Scotty hits Ozgat.
 Tippant hits Riven.
@@ -2184,7 +2184,7 @@ Scotty hits Riven, but it doesn't seem to do any damage.
 Ozgat hits Tippant.
 
 > take lighter
-I pick up the lighter.
+I take the lighter.
 Lina hits Ozgat.
 Scotty hits Riven, but it doesn't seem to do any damage.
 Riven manages to avoid Donna's attack.
@@ -2207,7 +2207,7 @@ Lina hits Riven.
 Scotty hits Riven, but it doesn't seem to do any damage.
 
 > take lighter
-I pick up the lighter.
+I take the lighter.
 Scotty hits Riven, but it doesn't seem to do any damage.
 Tippant hits Riven.
 Donna hits Riven.
@@ -2228,7 +2228,7 @@ The riven falls to the ground, defeated. The surface of the earth absorbs its
 body, and soon there is no trace of it.
 
 > take lighter
-I pick up the lighter.
+I take the lighter.
 
 Thick fog envelopes me and my surroundings. My vision is obscured for a short
 time...and then the smoke vanishes, and everything before me is clearer than
@@ -2375,7 +2375,7 @@ Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
 
 > take double-lighter
-I pick up the double-lighter.
+I take the double-lighter.
 
 The sound of knives scraping against glass reverberate across the landscape.
 

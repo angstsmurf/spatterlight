@@ -37,7 +37,7 @@ to the south leads into the kitchen.
 Also here are some old crumbled magazines.
 
 > take magazines
-You pick up the old crumbled magazines.
+You take the old crumbled magazines.
 
 > read magazines
 The magazines and newspapers are crumbled and greasy from slices of Pizza and
@@ -50,7 +50,7 @@ As you continue you shift through the magazines something falls out and lands
 on the ground with a soft thud.
 
 > take control
-You pick up the remote control.
+You take the remote control.
 
 > turn on tv
 You really wish you had cable, or maybe a satellite disc.

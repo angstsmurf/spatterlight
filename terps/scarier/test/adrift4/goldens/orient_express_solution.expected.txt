@@ -73,7 +73,7 @@ small earthquake.
 You can only move north.
 
 > take bag
-You pick up the bag.
+You take the bag.
 
 > give bag to ivanna
 (Your score has increased by 3)

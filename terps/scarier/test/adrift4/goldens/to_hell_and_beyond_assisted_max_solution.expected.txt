@@ -65,7 +65,7 @@ Ilsar is here.
 You can only move south.
 
 > take hook
-You pick up the hook.
+You take the hook.
 
 > s
 You move south.
@@ -115,7 +115,7 @@ Also here is a rope.
 You can only move west.
 
 > take rope
-You pick up the rope.
+You take the rope.
 
 > use hook with rope
 You attach the hook to the rope.
@@ -438,7 +438,7 @@ Also here is a crowbar.
 You can move west, down and in.
 
 > take crowbar
-You pick up the crowbar.
+You take the crowbar.
 
 > d
 You move down.
@@ -579,7 +579,7 @@ You try all the shelves from top to bottom. Only the bottom one opens.
 There's a piece of paper in it.
 
 > take paper
-You pick up piece of paper.
+You take piece of paper.
 
 > s
 You move south.

@@ -25,7 +25,7 @@ you to fit through.
 Also here is a drumstick.
 
 > take drumstick
-You pick up the drumstick.
+You take the drumstick.
 
 > hit bars with drumstick
 (Your score has decreased by 2)

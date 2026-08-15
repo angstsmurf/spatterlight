@@ -206,7 +206,7 @@ The dagger takes Grimbel in the face and he collapses dead on the ground. As
 luck would have it, one of his ribs snaps off and you quickly swipe it.
 
 > take dagger
-I pick up the throwing dagger.
+I take the throwing dagger.
 
 > x rib
 I see no such thing.

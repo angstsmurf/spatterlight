@@ -77,7 +77,7 @@ A small and grimy room with a few treasures. Exits lie: northeast.
 Also here is some armour and the Blocker's Ring.
 
 > get all
-You pick up the armour and the Blocker's Ring.
+You take the armour and the Blocker's Ring.
 
 > wear all
 You put on the armour and the Blocker's Ring.
@@ -236,7 +236,7 @@ Also here is some meat.
 Snugg the troll is here, looming massively you.
 
 > get meat
-You pick up the meat.
+You take the meat.
 
 > throw meat
 You throw the meat out of the cavern. Snugg watches it with the look of
@@ -264,7 +264,7 @@ fetchin' cello the other day. Here, all yours."
 fellow' or not.
 
 > get thighbone
-You pick up the goblin's thighbone.
+You take the goblin's thighbone.
 
 > e
 To the east you go.
@@ -276,7 +276,7 @@ passage heading off to the west. Exits lie: northwest, southeast and west.
 Also here is some meat.
 
 > get meat
-You pick up the meat.
+You take the meat.
 
 > nw
 To the northwest you go.
@@ -322,7 +322,7 @@ been smashed in the side of the chest.  Some seaweed is on the rusty chest.
 You take the seaweed from the rusty chest.
 
 > get scammin's ring
-You pick up the Scammin's Ring.
+You take the Scammin's Ring.
 
 > wear scammin's ring
 You put on the Scammin's Ring.
@@ -605,7 +605,7 @@ before fleeing away from you as fast as he can.
    What a strange fellow!
 
 > get sword
-You pick up the sword.
+You take the sword.
 
 > e
 To the east you go.
@@ -638,7 +638,7 @@ weighs a lot, you know). You can always come back for more once you've
 successfully cleared the caves of all dangers.
 
 > get all
-You pick up the jewelled rod and the jade sceptre.
+You take the jewelled rod and the jade sceptre.
 
 > w
 You move west.

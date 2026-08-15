@@ -99,7 +99,7 @@ The tower is an empty shell, like the rest of the church.
 A book lies in one corner. Discarded and forgotten perhaps.
 
 > take book
-You pick up the composition book.
+You take the composition book.
 
 > read book
 Opening the composition book, you read the handwritten entry:
@@ -160,7 +160,7 @@ along the wall. The wall continues west  The churchyard lies to the east.
 Just some half dead brush. On the ground beneath lie some dry sticks.
 
 > get sticks
-You pick up the dry sticks.
+You take the dry sticks.
 
 > w
 You move west.

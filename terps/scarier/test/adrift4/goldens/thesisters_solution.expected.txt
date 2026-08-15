@@ -44,7 +44,7 @@ the glovebox.
 You see your car keys, dangling from the ignition.
 
 > get keys
-You pick up the car keys.
+You take the car keys.
 
 > open penknife
 You open your penknife.
@@ -122,7 +122,7 @@ night here would be a very bad idea indeed...
 Also here is a first aid box.
 
 > get box
-You pick up the first aid box.
+You take the first aid box.
 
 > open box
 You open the first aid box.  Some old bandages are inside the first aid box.
@@ -298,7 +298,7 @@ As you peer into the dusty sink you notice an old, frayed flannel sitting in
 it.
 
 > get flannel
-You pick up the old flannel.
+You take the old flannel.
 
 > x mirror
 (Your score has increased by 2)
@@ -469,7 +469,7 @@ book on buckles under the weight and snaps.  Books are scattered all over the
 ground and lumps of wood crash to the floor.  Whoops.
 
 > get wood
-You pick up the long piece of wood.
+You take the long piece of wood.
 
 > east
 You move east.
@@ -750,7 +750,7 @@ Chatfield:  1978 - .  The current head of Chatfield Manor, this Gerald
 Chatfield, must still be alive.
 
 > get urn
-You pick up the beautiful urn.
+You take the beautiful urn.
 
 > east
 You move east.
@@ -805,7 +805,7 @@ scrawled all over it.  It is signed Gerald Chatfield. You push the papers
 aside and get back to the matter in hand.
 
 > get trophy
-You pick up the old trophy.
+You take the old trophy.
 
 > clean trophy with flannel
 (Your score has increased by 3)
@@ -1086,7 +1086,7 @@ door to the south and to the west you can see a back door leading outside.
 Also here is a tin opener and a packet of bread.
 
 > get tin opener
-You pick up the tin opener.
+You take the tin opener.
 
 > open pantry
 You open the pantry.  Some cheese is inside the pantry.
@@ -1146,7 +1146,7 @@ The exit is to the north.
 Also here is a rusty mousetrap.
 
 > get mousetrap
-You pick up the rusty mousetrap.
+You take the rusty mousetrap.
 
 > open can with tin opener
 (Your score has increased by 2)
@@ -1565,7 +1565,7 @@ It's then that you notice the large iron key is still on the floor where
 Tabitha discarded it.
 
 > get iron key
-You pick up the large iron key.
+You take the large iron key.
 
 > west
 You move west.

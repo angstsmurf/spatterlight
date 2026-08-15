@@ -63,7 +63,7 @@ As you contemplate the future, a breeze blows a flyer down the road and it
 lands at your feet.
 
 > take flyer
-You pick up the flyer.
+You take the flyer.
 
 > read flyer
 The flyer is advertising the wrestling show tonight. Apparently your old
@@ -666,7 +666,7 @@ these losses will be turned around when you win the title.
 Also here is a red cigarette lighter.
 
 > take lighter
-You pick up the red cigarette lighter.
+You take the red cigarette lighter.
 
 > w
 You move west.
@@ -726,7 +726,7 @@ east.
 Also here is a crowbar.
 
 > take crowbar
-You pick up the crowbar.
+You take the crowbar.
 
 > e
 You move east.
@@ -830,7 +830,7 @@ from the Youth's female admirers stacked in a corner. The exit is east.
 Also here is a teddy bear and a bunch of flowers.
 
 > take teddy bear
-You pick up the teddy bear.
+You take the teddy bear.
 
 > e
 You move east.
@@ -939,10 +939,10 @@ crowd.
 You see a bag of tacks and a ladder under the ring.
 
 > take tacks
-You pick up the bag of tacks.
+You take the bag of tacks.
 
 > take ladder
-You pick up the ladder.
+You take the ladder.
 
 > e
 You move east.
@@ -1113,10 +1113,10 @@ which you carefully hid here when you realised that you were wrestling
 tonight. This crowbar was always your favourite way to finish your matches.
 
 > take fire extinguisher
-You pick up the fire extinguisher.
+You take the fire extinguisher.
 
 > take crowbar
-You pick up the crowbar.
+You take the crowbar.
 
 > in
 You move in.

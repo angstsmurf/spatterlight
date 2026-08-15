@@ -3160,7 +3160,7 @@ Also here is a striped lab-book.
 You find two heavy magnets on the ground behind one of the machines!
 
 > get magnets
-You pick up two heavy magnets.
+You take two heavy magnets.
 
 > north
 You move back into the corridor.  The door closes behind you.
@@ -3392,7 +3392,7 @@ continues west and south.
 A fire extinguisher is on one of the walls.
 
 > get extinguisher
-You pick up the fire extinguisher.
+You take the fire extinguisher.
 
 > south
 You move south.
@@ -3874,7 +3874,7 @@ to where Octal is so weakened that he can't connect with you at all.
 Realizing that he is beaten, he flees towards the helicopter.
 
 > get band
-You pick up the inhibitor band.
+You take the inhibitor band.
 
     Octal runs around to the side of the helicopter and climbs into the
 cockpit.

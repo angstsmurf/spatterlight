@@ -180,7 +180,7 @@ The shaking feels like it is never going to stop.
 You look under the table and find something.
 
 > get rattle
-You pick up the baby's rattle.
+You take the baby's rattle.
 
 > x notice
 It only has one notice.  "Missing. One smoker's pipe.  If found contact the
@@ -352,7 +352,7 @@ The young girl says "next train going to donningby?"
 It sounds like a train is at platform 2.
 
 > get chocolate
-You pick up the bar of chocolate.
+You take the bar of chocolate.
 
 A young girl wanders out to the west.
 
@@ -369,7 +369,7 @@ You look behind the vending machine and find something.
 It sounds like a train is at platform 2.
 
 > get all
-You pick up the magazine, the gazette and the chewing gum.
+You take the magazine, the gazette and the chewing gum.
 
 It sounds like a train is at platform 2.
 
@@ -859,7 +859,7 @@ A bearded chap is pacing up and down.
 To the north you can see the station entrance.
 
 > get crumbled newspaper
-You pick up the crumbled newspaper.
+You take the crumbled newspaper.
 
 > read crumbled newspaper
 It just has old news in it. One article entitled "Business Snatcher Strikes
@@ -969,7 +969,7 @@ You can also see a bag of shopping.
 The door out of the cafe is east.
 
 > get bag of shopping
-You pick up the bag of shopping.
+You take the bag of shopping.
 
 The whole station seems to be shaking as a freight train rumbles through.
 The shaking feels like it is never going to stop.
@@ -1021,7 +1021,7 @@ A train thunders through the station and it doesn't sound like it is going to
 stop.
 
 > get all
-You pick up the pamphlet.
+You take the pamphlet.
 
 > read pamphlet
 The small blue pamphlet is entitled "Keep Your Station Tidy" and goes on
@@ -1082,7 +1082,7 @@ The Ticket Seller is looking at you expectantly.
 You appear to be able to move north, south and west.
 
 > get banana skin
-You pick up the banana skin.
+You take the banana skin.
 
 The whole station seems to be shaking as a freight train rumbles through.
 The shaking feels like it is never going to stop.
@@ -1334,7 +1334,7 @@ on the announcement.
 It sounds like a train is at platform 1.
 
 > get manual
-You pick up the manual.
+You take the manual.
 
 It sounds like a train is at platform 1.
 
@@ -1453,7 +1453,7 @@ The porter looks at you and then looks at the Trainspotting Manual.  He says
 "OH NO! not another damn Trainspotter!"
 
 > get apple core
-You pick up the apple core.
+You take the apple core.
 
 A train thunders through the station and it doesn't sound like it is going to
 stop.
@@ -2011,7 +2011,7 @@ discuss this."
 He leaves with Mr Peters and the cat follows.
 
 > get all
-You pick up the credit card.
+You take the credit card.
 
 > x credit card
 It the credit card of John Tailer.  It has writing on it.
@@ -2088,7 +2088,7 @@ You can also see a suitcase, a sweeping brush, a bucket and a parcel.
 The door out of the left luggage room is south.
 
 > get parcel
-You pick up the parcel.
+You take the parcel.
 
 > x parcel
 It is a parcel loosely wrapped in brown paper.  The parcel has a label.  The
@@ -2366,7 +2366,7 @@ You cover the drunk with the coat.  The drunk drops something onto the
 platform.
 
 > get all
-You pick up the bottle.
+You take the bottle.
 
 > x bottle
 It's a bottle of 'Wonder White'.  The excellent correcting fluid. To correct
@@ -2461,7 +2461,7 @@ A train thunders through the station and it doesn't sound like it is going to
 stop.
 
 > get wrapper
-You pick up the chocolate wrapper.
+You take the chocolate wrapper.
 
 > sw
 You move southwest.
@@ -2736,7 +2736,7 @@ You hear someone blowing a whistle and the train on platform 2 pulls out of
 the station.
 
 > get sock
-You pick up the single sock.
+You take the single sock.
 
 > south
 You move south.
@@ -2900,7 +2900,7 @@ You appear to be able to move northeast and southeast.
 You can see that the Thrumpton train is at platform 2.
 
 > get carton
-You pick up the hamburger carton.
+You take the hamburger carton.
 
 You can see that the Thrumpton train is at platform 2.
 You hear someone blowing a whistle and the train on platform 2 pulls out of
@@ -3021,7 +3021,7 @@ You can see John Tailer!.
 You appear to be able to move north, east and southwest.
 
 > get credit card
-You pick up the credit card.
+You take the credit card.
 
 > give credit card to john tailer
 (Your score has increased by 20)

@@ -348,7 +348,7 @@ You see no such thing.
 
 > take it
 [take a key]
-You pick up the key.
+You take the key.
 
 > x first mate
 The first mate is a long beanpole of a man, who has more the appearance of a

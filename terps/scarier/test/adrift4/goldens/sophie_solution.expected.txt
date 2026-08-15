@@ -1218,10 +1218,10 @@ Also here is a crucifix and the holy handgrenade.
 Grumble complaining of beer deprivation staggers in.
 
 > get crucifix
-You pick up the crucifix.
+You take the crucifix.
 
 > get holy handgrenade
-You pick up the holy handgrenade.
+You take the holy handgrenade.
 
 > s
 You move south.
@@ -1600,7 +1600,7 @@ moving ain't workin' anymore. The thing's as dead as it should be and a damn
 sight deader than even He can bring back to life."
 
 > get torazin crystal
-You pick up the Torazin Crystal.
+You take the Torazin Crystal.
 
 > e
 You move east.
@@ -1723,19 +1723,19 @@ them out on the ground to get a better look at them.
 all!"
 
 > get thimble
-You pick up the thimble.
+You take the thimble.
 
 > get belt
-You pick up the belt.
+You take the belt.
 
 > get raw meat
-You pick up the raw meat.
+You take the raw meat.
 
 > get whistle
-You pick up the whistle.
+You take the whistle.
 
 > get spike trap
-You pick up the spike trap.
+You take the spike trap.
 
 > se
 You move southeast.
@@ -2042,7 +2042,7 @@ Also here is the Torrow Crystal.
 Grumble complaining of beer deprivation staggers in from below.
 
 > get torrow crystal
-You pick up the Torrow Crystal.
+You take the Torrow Crystal.
 
 > d
 You move down.
@@ -2429,7 +2429,7 @@ The corridor you reached this room by is still open to the north.
 Also here is a chisel.
 
 > get chisel
-You pick up the chisel.
+You take the chisel.
 
 > n
 You move north.
@@ -2453,7 +2453,7 @@ goes flying off down the corridor into the room. The crystal just lies where
 it fell.
 
 > get dark crystal
-You pick up the dark crystal.
+You take the dark crystal.
 
 > x walls
 Vaguely you see some writing on one of the walls, in very, very small print
@@ -2819,7 +2819,7 @@ was modelled on.
 Also here is a snowball.
 
 > get snowball
-You pick up the snowball.
+You take the snowball.
 
 > wash hands
 You haven't got anything to wash them with so you settle for spitting on
@@ -3118,16 +3118,16 @@ room and we will decide on our next move."
    He bids you farewell and departs.
 
 > get crucifix
-You pick up the crucifix.
+You take the crucifix.
 
 > get thimble
-You pick up the thimble.
+You take the thimble.
 
 > get belt
-You pick up the belt.
+You take the belt.
 
 > get whistle
-You pick up the whistle.
+You take the whistle.
 
 > n
 

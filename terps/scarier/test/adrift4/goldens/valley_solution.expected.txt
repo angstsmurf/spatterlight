@@ -76,7 +76,7 @@ on our heads. If you'll order us some proper construction hats, I'll bet I
 can talk the miners into at least giving you a chance."
 
 > get gloves
-You pick up the pair of gardening gloves.
+You take the pair of gardening gloves.
 
 > e
 You move east.
@@ -261,7 +261,7 @@ There is a flash of blue light, then a heavy crate drops on your foot and
 makes you scream like a little girl.
 
 > get crate
-You pick up the crate.
+You take the crate.
 
 > w
 You move west.
@@ -484,7 +484,7 @@ randomly stuck to the wall, except for the crowbar that you notice has fallen
 off its hook and lies all alone and forgotten on the ground.
 
 > get crowbar
-You pick up the crowbar.
+You take the crowbar.
 
 > ask silverbeard about sword
 Silverbeard glances up a little reluctantly from his magazine. "Ah yes,

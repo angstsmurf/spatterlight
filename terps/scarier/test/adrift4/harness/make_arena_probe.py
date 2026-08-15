@@ -14,7 +14,7 @@ def build(cfg):
     s(0)                                    # StartRoom
     ml("You have won.")
     s(cfg['name']); s("SCARE probe"); s("I don't understand.")
-    s(2); s(1); s(0); s(1); s(1)            # Persp ShowExits WaitTurns DispFirstRoom BattleSystem
+    s(cfg.get('persp', 2)); s(1); s(0); s(1); s(1)  # Persp ShowExits WaitTurns DispFirstRoom BattleSystem
     s(cfg.get('maxscore', 0))               # MaxScore (run400's end-of-game summary divides by it)
     s("Player"); s(0); s("A test fighter.")
     s(0); s(0); s(0); s(0); s(100); s(100)  # Task Position ParentObject Gender MaxSize MaxWt
@@ -815,6 +815,24 @@ CONFIGS = {
            # BEFORE the ending rather than after it.
            dict(commands=["printfirst"], complete="EG printfirst.",
                 actions=[(5,0,5), (6,0,0,0)])]),
+ # Take-wording probe (RUNNER_TESTS_TODO §4, the "You pick up" vs "You take"
+ # row): which of run400's two take templates does a *bare* `take`/`get` of an
+ # object lying loose in the room reach?  Scarier says "You pick up the rock.",
+ # a run400 transcript of "It's Easter, Peeps!" says "You take the creme egg.",
+ # and the P-code carries both builders in separate handlers.  Authored
+ # Perspective 1 so the answer reads in the same second person as that
+ # transcript.  No NPCs, no tasks, no battle -- nothing to intercept the
+ # library.  The box is an in-room container so the same session can re-check
+ # the agreed "You take the X from the Y." path, and the lamp/gem give `take
+ # all` and a multiple-object list something to work with.
+ 'TK': dict(name="Probe TK", persp=1,
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    objects=[("a","rock",4,0,0,0,0,0,0),
+             ("a","box",4,0,0,0,0,0,0,1),
+             ("a","lamp",4,0,0,0,0,0,0),
+             ("a","gem",1,0,0,0,0,0,0)],
+    npcs=[]),
 }
 
 if __name__ == '__main__':

@@ -58,7 +58,7 @@ During the course of your inspection, you find a small bowl next to the cage.
 The bowl seems to have held drinking water for whatever was in here.
 
 > get bowl
-You pick up the small bowl.
+You take the small bowl.
 
 > west
 You move west.
@@ -124,7 +124,7 @@ die in peace…."
 mist and vapors of eternity.
 
 > get book
-You pick up the monk's prayer book.
+You take the monk's prayer book.
 
 > read book
 (Your score has increased by 15)

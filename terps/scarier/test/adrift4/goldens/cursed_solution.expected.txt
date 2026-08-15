@@ -31,14 +31,14 @@ leads south, away from your cottage, through the trees.
    An axe lies at your feet.
 
 > take axe
-You pick up the axe.
+You take the axe.
 
 > chop wood
 You grip the axe firmly and try to bring it down as hard as you can on the
 wood. But the axe head is unexpectedly heavy, and it flies out of your hands.
 
 > take axe
-You pick up the axe.
+You take the axe.
 
 > chop wood
 You haven't done this very often - your father made sure there was always

@@ -87,7 +87,7 @@ moonlight.
 Donald McRonald follows you from the east.
 
 > take crowbar
-You pick up the crowbar.
+You take the crowbar.
 
 > east
 You move east.

@@ -90,7 +90,7 @@ Also here is a meat cleaver.
 You can move west, down, southeast and northwest.
 
 > take cleaver
-You pick up the meat cleaver.
+You take the meat cleaver.
 
 > d
 You move down.
@@ -252,7 +252,7 @@ Very messily blown up as well. Bits of his ghostly essence litter the room
 afterwwards.
 
 > take key
-You pick up the key.
+You take the key.
 
 > se
 You move southeast.

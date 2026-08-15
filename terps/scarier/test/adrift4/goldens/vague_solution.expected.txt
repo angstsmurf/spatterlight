@@ -193,7 +193,7 @@ night on a bench.  A trainspotter dressed in wet weather gear is watching
 you.
 
 > get booklet
-You pick up the booklet.
+You take the booklet.
 
 > west
 You move west, pushing through thick fog.
@@ -250,7 +250,7 @@ test.
 In the bottom of the boat you find your old rucksack.
 
 > get rucksack
-You pick up the rucksack.
+You take the rucksack.
 
 > open rucksack
 You open the rucksack.  A leaflet is inside the rucksack.
@@ -1008,7 +1008,7 @@ lighthouse.
 You can also see some card.
 
 > get card
-You pick up the card.
+You take the card.
 
 > down
 You climb down the ladder, into the boat.

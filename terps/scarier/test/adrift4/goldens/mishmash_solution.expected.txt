@@ -393,7 +393,7 @@ south.
 The most useful item that you can see is an old laptop computer.
 
 > get laptop
-You pick up the laptop.
+You take the laptop.
 
 > combine laptop with prototype
 You attach the wires of the early prototype to the laptop. You have knowledge
@@ -536,7 +536,7 @@ almost hidden under the cupboard.
 You remove the ghost cap.
 
 > get passcard
-You pick up the passcard.
+You take the passcard.
 
 > wc
 You put on the ghost cap.
@@ -2075,7 +2075,7 @@ lever that used to be attached next to the tracks.
 You remove the ghost cap.
 
 > get rod
-You pick up the rod.
+You take the rod.
 
 > ne
 You move northeast.

@@ -169,7 +169,7 @@ probably going a bit far. It seems your darling wife is intent on starting
 her own little bloodbath.
 
 > take head
-You pick up the milkman's head.
+You take the milkman's head.
 
 > e
 

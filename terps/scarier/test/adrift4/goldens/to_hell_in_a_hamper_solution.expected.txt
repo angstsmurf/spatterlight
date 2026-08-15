@@ -120,7 +120,7 @@ carpetbag, a bundle of twigs, a boomerang, an ear-trumpet, a toy donkey and a
 sleeping Saint Bernard dog...
 
 > get painting
-I pick up the large framed painting. 'Leave that alone!' cries Hubert.
+I take the large framed painting.
 
 > throw painting
 Without hesitation I fling the painting over the side, thereby consigning
@@ -134,8 +134,7 @@ Unburdening the balloon of this quite large and heavy object causes a sudden
 and immediate gain in altitude of seven hundred feet.
 
 > get donkey
-I pick up the toy donkey. 'If you damage that,' says Hubert, 'I shall tell my
-Aunt Gertie!'
+I take the toy donkey.
 
 > throw donkey
 I fling the toy donkey over the side of the balloon and watch as it spirals
@@ -175,7 +174,7 @@ Hubert, throwing up his hands in horror, 'My Auntie Gertie will have to mend
 that now!'
 
 > get vase
-I pick up the Ting dynasty vase.
+I take the Ting dynasty vase.
 
 > shake vase
 It rattles!
@@ -188,7 +187,7 @@ key among the wreckage!
 never be able to find another one!'
 
 > get key
-I pick up the tiny metal key.
+I take the tiny metal key.
 
 > x bag
 This is by far the largest example of a carpetbag I have ever seen! It must
@@ -226,10 +225,10 @@ I bash the trombone with the rubber mallet. To my surprise, a cricket ball
 pops out of the funnel. I must ask Hubert how that got in there...
 
 > get ball
-I pick up the cricket ball.
+I take the cricket ball.
 
 > get ear-trumpet
-I pick up the ear-trumpet.
+I take the ear-trumpet.
 
 > put ear-trumpet in dog's ear
 I put the ear-trumpet in the Saint Bernard's ear.
@@ -257,7 +256,7 @@ begins to chime...
 The clock chimes five times. 'CUCKOO! CUCKOO! CUCKOO! CUCKOO! CUCKOO!'
 
 > get clock
-I pick up the cuckoo clock. 'Leave that alone!' cries Hubert.
+I take the cuckoo clock.
 
 > throw clock
 I hurl the cuckoo clock over the side of the basket. It continues to chime
@@ -275,7 +274,7 @@ immediate vertical displacement. In this instance, the balloon gains around
 five hundred feet in altitude.
 
 > get ball
-I pick up the cricket ball.
+I take the cricket ball.
 
 > throw ball
 I throw the cricket ball (overarm, naturally) over the side of the basket,
@@ -288,7 +287,7 @@ Unburdening the balloon of this large, heavy object causes a sudden and
 immediate gain in altitude of one thousand feet.
 
 > get bundle
-I pick up the smudge stick.
+I take the smudge stick.
 
 > x overcoat
 Hubert habitually wears this huge black overcoat. It seems to have been
@@ -420,7 +419,7 @@ allowed!' She gives me a crack across the shins with her cane, just for the
 hell of it.
 
 > get smudge stick
-I pick up the smudge stick.
+I take the smudge stick.
 
 > light smudge stick
 I light the smudge stick with the cigarette lighter, then blow it out,

@@ -64,7 +64,7 @@ You palm the hook, which comes free with a simple twist and tug.
     The chimpanzee bounds towards you (from your northeast).
 
 > get stone
-You pick up the flint stone.
+You take the flint stone.
 
 > get blanket
 You take your blanket from your bed.
@@ -95,7 +95,7 @@ you've never seen a mandrill "pounce" before?)
 shaking his head like a disapproving parent.
 
 > get fork
-You pick up the barbecue fork.
+You take the barbecue fork.
 
     The chimpanzee inspects your bed for bananas but comes away with none.
 
@@ -203,7 +203,7 @@ spell before finally stopping to rest here near the bed.
 Time passes...
 
 > get bucket
-You pick up the bucket.
+You take the bucket.
 
     The chimpanzee spies the banana and picks it up.
 Getting ahead of the game, he goes right to peeling it, dropping the peel
@@ -338,7 +338,7 @@ coconut doesn't actually leave the cage, but instead bounces off the nearest
 transparent wall.
 
 > get coconut
-You pick up the coconut.
+You take the coconut.
 
     The mandrill scratches his hairy armpit.
 
@@ -351,7 +351,7 @@ digits in and peel off the remaining husk, which falls to your feet.  You are
 left holding a hard coconut shell.
 
 > get husk
-You pick up the coconut husk.
+You take the coconut husk.
 
     The fire is burning quite hotly.  You could roast quite the marshmallow.
 

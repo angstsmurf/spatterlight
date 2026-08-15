@@ -47,7 +47,7 @@ place has no visible exits.
 You can also see an elastic band.
 
 > get band
-You pick up the elastic band.
+You take the elastic band.
 
 > make lasso
 (Your score has increased by 1)
@@ -109,7 +109,7 @@ you can see.
 An enormous paperclip is laying on the floor.
 
 > get paperclip
-You pick up the paperclip.
+You take the paperclip.
 
 > open can
 (Your score has increased by 1)
@@ -125,7 +125,7 @@ visible exits.
 An enormous paperclip is laying on the floor.
 
 > get paperclip
-You pick up the paperclip.
+You take the paperclip.
 
 > open flap with paperclip
 (Your score has increased by 1)

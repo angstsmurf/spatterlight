@@ -401,7 +401,7 @@ is...
 floor, disturbing the dust that lies there.
 
 > get salts
-You pick up the smelling salts.
+You take the smelling salts.
 
 > wait
    Unable to discover a way to escape this room, you stand there and wait.....
@@ -1671,8 +1671,8 @@ the Orb... Do with it what must be done..."
 Garrick walks towards you.
 
 > get all
-You pick up the picklock, the wallet, the silver marble, your journal, the
-worn, leather gloves, the crucifix, the gold ring, the smelling salts, the
+You take the picklock, the wallet, the silver marble, your journal, the worn,
+leather gloves, the crucifix, the gold ring, the smelling salts, the
 verdigris key, the vial of holy water, the herbs, the scroll and the cobalt
 key.
 
@@ -2803,7 +2803,7 @@ look at the wall and, sure enough, the hood is there. You feel a chill go
 through you that you never saw it before.
 
 > get hood
-You pick up the priest's hood.
+You take the priest's hood.
 
 > wear hood
 You put on the priest's hood.
@@ -2894,7 +2894,7 @@ precious!"
 fall out, crashing to the floor in an unholy mess.
 
 > get jug
-You pick up the jug.
+You take the jug.
 
 > ne
 You move northeast.
@@ -2986,7 +2986,7 @@ destroyed him utterly.
    Lara takes it and begins playing with it once more.
 
 > get dagger
-You pick up the silver dagger.
+You take the silver dagger.
 
 > open chest
    You unlock it with the cobalt key. Inside are a pile of ashes and a note.

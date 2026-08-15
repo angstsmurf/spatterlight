@@ -88,7 +88,7 @@ oh-god-what's-going-on-here variety, rather than the yay-this-is-amazing
 kind.
 
 > take spanner
-You pick up the small spanner.
+You take the small spanner.
 
 The ship lurches suddenly, and you stumble against a wall. The rocking passes
 in a moment. You wonder what could have caused it.
@@ -281,7 +281,7 @@ scurry away in fear.
 You peel a thin strip of foil away from the elevator wall.
 
 > take suitcase
-You pick up the dark suitcase.
+You take the dark suitcase.
 
 > open suitcase
 You open the dark suitcase.  Inside the dark suitcase is a twin-pack prawn
@@ -294,13 +294,13 @@ You take the twin-pack prawn sandwich from the dark suitcase.
 You take the roll of sellotape from the dark suitcase.
 
 > take sunglasses
-You pick up the pair of dark sunglasses.
+You take the pair of dark sunglasses.
 
 > wear sunglasses
 You put on the pair of dark sunglasses. Looking good.
 
 > take pistol
-You pick up the short, black pistol.
+You take the short, black pistol.
 
 > i
 Over your everyday, ordinary clothes you are wearing a pair of dark
@@ -340,7 +340,7 @@ the tunnel shaft. Some of it comes away in your hand.
 Also here is a pair of workmen's boots.
 
 > take boots
-You pick up the pair of workmen's boots.
+You take the pair of workmen's boots.
 
 > wear boots
 You put on the pair of workmen's boots.
@@ -369,7 +369,7 @@ You use the amazing space tool to separate the two sections of the blow
 torch.  They come apart easily.
 
 > take mud
-You pick up the mud.
+You take the mud.
 
 > i
 Over your everyday, ordinary clothes you are wearing a pair of workmen's
@@ -408,7 +408,7 @@ beside her.
 The use of the word 'luxury' has been stretched to a new low.
 
 > take dustbin
-You pick up the large steel dustbin.
+You take the large steel dustbin.
 
 > get goldfish bowl
 You lift up the goldfish bowl, check that no-one is looking, then empty it
@@ -457,10 +457,10 @@ One of the other shoppers drops a slip of paper on the floor. Too lazy, or
 too wealthy, to pick it up, they leave it where it lies.
 
 > take hose
-You pick up the slender vacuum hose.
+You take the slender vacuum hose.
 
 > take dollar
-You pick up the Cittian dollar.
+You take the Cittian dollar.
 
 The maid notices something trapped within the vacuum.
 
@@ -498,7 +498,7 @@ if a little worn and on the small side.
 A large Robot blocks your path.
 
 > take space-suit
-You pick up the child's battered space-suit.
+You take the child's battered space-suit.
 
 > put dollar in slot
 You push the Cittian dollar into the slot and watch as the vending machine
@@ -566,7 +566,7 @@ You shudder. If that counts as real food, you dread to think what they were
 serving in the dining room.
 
 > take gloves
-You pick up the pair of long black gloves.
+You take the pair of long black gloves.
 
 > wear gloves
 You pull on the gloves. They reach all the way up to your elbows.
@@ -611,13 +611,13 @@ pistol, the amazing space tool, the pack of cigarettes, the flint lighter,
 the oxygen tank and the luxury class ticket.
 
 > take sandwich
-You pick up the twin-pack prawn sandwich.
+You take the twin-pack prawn sandwich.
 
 > take oxygen tank
-You pick up the oxygen tank.
+You take the oxygen tank.
 
 > take dustbin
-You pick up the shiny steel dustbin.
+You take the shiny steel dustbin.
 
 > i
 Over your everyday, ordinary clothes you are wearing a pair of workmen's
@@ -971,7 +971,7 @@ You take the white chocolate Cadbury-Schweppes™ Space Bar from the thing what
 looks like a microwave.
 
 > take dustbin
-You pick up the transparent alien dustbin.
+You take the transparent alien dustbin.
 You can hear what sounds like faint screams in the distance.
 
 > i

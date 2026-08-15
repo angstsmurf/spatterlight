@@ -639,6 +639,24 @@ lib_get_perspective (scr_gameref_t game)
 
 
 /*
+ * lib_is_version_400()
+ *
+ * TRUE if this game came from a 4.0 .taf, FALSE for 3.7/3.8/3.9.  Several
+ * library messages were reworded in 4.0 and the Runners never share them
+ * across versions.
+ */
+static scr_bool
+lib_is_version_400 (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[1];
+
+  vt_key[0].string = "Version";
+  return prop_get_integer (bundle, "I<-s", vt_key) >= TAF_VERSION_400;
+}
+
+
+/*
  * lib_select_response()
  * lib_select_plurality()
  *
@@ -4696,12 +4714,25 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
             {
               if (has_printed)
                 pf_buffer_string (filter, total == 0 ? "\n" : "  ");
+              /*
+               * 4.0 reworded the loose-in-the-room take; the from-container
+               * branch reads the same in every version.  Measured live on a
+               * bare `take rock` / `get rock` / `take all`: run370 and run390
+               * answer "You pick up the rock.", run400 "You take the rock."
+               * (run380 shows the pre-4.0 half of the same handler through
+               * its "nothing to pick up here" refusal.)
+               */
               if (parent == -1)
                 pf_buffer_string (filter,
-                                  lib_select_response (game,
-                                                       "You pick up ",
-                                                       "I pick up ",
-                                                       "%player% picks up "));
+                                  lib_is_version_400 (game)
+                                  ? lib_select_response (game,
+                                                         "You take ",
+                                                         "I take ",
+                                                         "%player% takes ")
+                                  : lib_select_response (game,
+                                                         "You pick up ",
+                                                         "I pick up ",
+                                                         "%player% picks up "));
               else
                 pf_buffer_string (filter,
                                   lib_select_response (game,
@@ -5029,7 +5060,10 @@ lib_cmd_take_all (scr_gameref_t game)
   if (objects > 0)
     lib_take_backend (game);
   else
-    pf_buffer_string (filter, "There is nothing to pick up here.");
+    pf_buffer_string (filter,
+                      lib_is_version_400 (game)
+                      ? "There is nothing worth taking here."
+                      : "There is nothing to pick up here.");
 
   pf_buffer_character (filter, '\n');
   return TRUE;
@@ -5070,6 +5104,15 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
                               &references);
   if (objects > 0 || references > 0)
     lib_take_backend (game);
+  else if (lib_is_version_400 (game))
+    {
+      /*
+       * 4.0 has one flat refusal and no "else" form: run400 answers
+       * "There is nothing worth taking here." to `take all except rock`
+       * whether or not the rock is the only thing left in the room.
+       */
+      pf_buffer_string (filter, "There is nothing worth taking here.");
+    }
   else
     {
       pf_buffer_string (filter, "There is nothing");

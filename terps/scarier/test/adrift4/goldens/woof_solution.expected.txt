@@ -29,7 +29,7 @@ I take the doll from the oak.
 Got the doll. Emily will be happy!
 
 > take bone
-I pick up the bone.
+I take the bone.
 
 > eat the bone
 (Your score has increased by 5)
@@ -55,7 +55,7 @@ Attacking Bizet.
 She drops the mouse and runs somewhere.
 
 > take mouse
-I pick up the dead mouse.
+I take the dead mouse.
 
 > s
 I move south.

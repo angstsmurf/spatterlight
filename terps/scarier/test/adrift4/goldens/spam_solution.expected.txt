@@ -27,7 +27,7 @@ So, how do you intend to find out what's in SPAM©?
 >
 
 > take spam
-You pick up the can of SPAM©.
+You take the can of SPAM©.
 
 > north
 You move north.
@@ -48,7 +48,7 @@ groceries, and a can of SPAM©.
 Oh, and your car keys are on the counter.
 
 > take keys
-You pick up car keys.
+You take car keys.
 
 > north
 You move north.

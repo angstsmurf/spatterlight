@@ -55,7 +55,7 @@ There are exits north, south, northeast and northwest.
 >
 
 > get book cover
-You pick up the BOOK COVER.
+You take the BOOK COVER.
 
 > n
 You move north.
@@ -279,7 +279,7 @@ A crumpled page is on the street.
 You can move north and southeast.
 
 > get crumpled page
-You pick up the CRUMPLED PAGE.
+You take the CRUMPLED PAGE.
 
 > read crumpled page
 (Your score has increased by 5)
@@ -335,7 +335,7 @@ A muddy page with a footprint on it lies on the cobblestones.
 You can move north and southwest.
 
 > get muddy page
-You pick up the MUDDY PAGE.
+You take the MUDDY PAGE.
 
 > read muddy page
 (Your score has increased by 5)
@@ -597,7 +597,7 @@ a pile of bones and dust that goes tumbling off the surface of the chair.
 A old SILVER KEY lies among the rubble of the disintergrated bride.
 
 > take silver key
-You pick up the SILVER KEY.
+You take the SILVER KEY.
 
 > out
 You move out.

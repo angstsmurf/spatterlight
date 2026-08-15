@@ -159,7 +159,7 @@ The henge glows and hums momentarily, then stops. A shield appears out of
 thin air, and clatters to the ground.
 
 > take shield
-You pick up the Shield.
+You take the Shield.
 
 > hide from dragon
 (Your score has increased by 10)
@@ -188,7 +188,7 @@ You see a pair of leather gloves hung over a branch of the tree.
 It is raining...
 
 > take gloves
-You pick up the pair of leather gloves.
+You take the pair of leather gloves.
 
 > wear gloves
 You put on the pair of leather gloves.
@@ -270,7 +270,7 @@ the thick leather gloves you wear. A brass key falls out of the log as you
 rummage about inside it.
 
 > get brass key
-You pick up brass key.
+You take brass key.
 
 > n
 You move north.
@@ -395,7 +395,7 @@ Also here is a sword.  It is raining...
 You can move north, east, west, northeast and northwest.
 
 > take sword
-You pick up the sword.
+You take the sword.
 
 > n
 You move north.
@@ -995,7 +995,7 @@ You hear the distant howling of wolves.
 You hear the flutter of batlike wings.
 
 > take boots
-You pick up the pair of thick leather boots.
+You take the pair of thick leather boots.
 
 > wear boots
 You put on the pair of thick leather boots.
@@ -2050,7 +2050,7 @@ You can only move down.
 There is a silver coin here stuck in a crack in a floorboard.
 
 > take coin
-You pick up silver coin.
+You take silver coin.
 
 > d
 You move down.
@@ -2196,7 +2196,7 @@ Seeker hums!
 Boris drags himself off to the west.
 
 > take garlic
-You pick up the garlic bud.
+You take the garlic bud.
 
 Holga stumbles off to the south.
 
@@ -2884,20 +2884,20 @@ fountain that resides in its centre. To the north lies the main hall.
 Also here is a sword, a Shield and gold coin.
 
 > take sword
-You pick up the sword.
+You take the sword.
 
 Gargoyle #1 flies in from the north.
 Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 > take shield
-You pick up the Shield.
+You take the Shield.
 Seeker hums!
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
 damage.
 
 > take gold coin
-You pick up gold coin.
+You take gold coin.
 Seeker hums!
 Gargoyle #1 stabs you with the military fork.
 
@@ -3105,7 +3105,7 @@ Woody scampers in from the north.
 Seeker hums!
 
 > take lantern
-You pick up the lantern.
+You take the lantern.
 Seeker hums!
 
 > turn lantern on
@@ -3777,7 +3777,7 @@ Melvin waddles in from the east.
 Seeker hums!
 
 > take stake
-You pick up the stake.
+You take the stake.
 
 Gargoyle #1 flies in.
 Seeker hums!
@@ -3863,7 +3863,7 @@ You hear the shuffling of feet elsewhere in the castle.
 Dong! You hear a bell toll elsewhere in the castle.
 
 > take silver key
-You pick up silver key.
+You take silver key.
 Seeker hums!
 Seeker hums!
 
@@ -4265,7 +4265,7 @@ piece of metal and gold coin.
 You can move north, east, south and west.
 
 > take all
-You pick up the staff, the pair of leather gloves, the pair of thick leather
+You take the staff, the pair of leather gloves, the pair of thick leather
 boots, the chain attached to a medallion, the sword, the Shield, brass key,
 the tinderbox, the rose, the queen of spades, the rotten garlic bud, the
 venison, the lantern, the chisel, the brooch, silver key, the sceptre, golden
@@ -4528,7 +4528,7 @@ quickly turns his steed and heads off back down to the rest of the knights.
 Seeker hums!
 
 > take horn
-You pick up the  horn of the angels.
+You take the  horn of the angels.
 Seeker hums!
 
 >
@@ -4743,7 +4743,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > take fleshy mound
-You pick up fleshy mound.
+You take fleshy mound.
 
 > n
 You move north.
@@ -5266,7 +5266,7 @@ Also here are chewed bones, a straw mat and some arm and leg greaves.
 You can move north and up.
 
 > take greaves
-You pick up the arm and leg greaves.
+You take the arm and leg greaves.
 
 > wear greaves
 You put on the arm and leg greaves.
@@ -5412,7 +5412,7 @@ Also here is black key.
 You can only move down.
 
 > take black key
-You pick up black key.
+You take black key.
 
 > d
 You move down.

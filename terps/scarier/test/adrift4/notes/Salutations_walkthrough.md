@@ -67,7 +67,7 @@ carries two restrictions and only one of them has failure text:
 |---|---|
 | nothing done | `You can't really move your arms right now...` (T2's text) |
 | jacket off, leaves not examined | `Take what?` (library — the stick isn't in scope yet) |
-| leaves examined, jacket on | `You pick up the long stick.` (library take succeeds) |
+| leaves examined, jacket on | `You take the long stick.` (library take succeeds) |
 
 So the message belongs to the *leaves* restriction; failing only the
 messageless jacket restriction drops straight through to the library, and once
@@ -79,7 +79,7 @@ route deliberately does not take:
 
 - T4 `get knife*` is gated on holding the backpack, but that restriction has
   no failure message either, and the library take reaches into the pack lying
-  on the ground quite happily (`You pick up your hunting knife.`). The whole
+  on the ground quite happily (`You take your hunting knife.`). The whole
   jacket/leaves/stick/pack chain is skippable. Contrast T3 `get pack` and T9
   `get lighter`, which *do* have failure messages — "You stretch as hard as
   you can, but with the pack on the ground and you hanging above it it just

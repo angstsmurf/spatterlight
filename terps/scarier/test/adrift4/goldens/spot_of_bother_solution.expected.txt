@@ -175,7 +175,7 @@ You take aim and throw. The spike hits the bars and bounces back, falling
 onto the ground at your feet.
 
 > get spike
-You pick up the spike.
+You take the spike.
 
 > throw spike at window
 You throw the spike again. This time, it actually clatters against the camera
@@ -184,7 +184,7 @@ haven't caused it any actual damage.
    The spike drops at your feet.
 
 > get spike
-You pick up the spike.
+You take the spike.
 
 > throw spike at window
 You throw the spike-
@@ -193,7 +193,7 @@ window.
    The spike lands at your feet a moment later.
 
 > get spike
-You pick up the spike.
+You take the spike.
 
 > x door
 The door stands closed before you. Very closed. If doors could be said to be
@@ -217,7 +217,7 @@ thunderous explosion is triggered inside the cottage.
 You open the door, revealing an unremarkable hallway beyond it.
 
 > get metal bar
-You pick up the metal bar.
+You take the metal bar.
 
 > n
 
@@ -232,7 +232,7 @@ the south) is the front door via which you entered the cottage.
 There is a basket here.
 
 > get basket
-You pick up the basket.
+You take the basket.
 
 > x basket
 The basket… something about it strikes you as wrong. It's made of metal for a
@@ -386,7 +386,7 @@ far wall has opened, revealing a small cavity.
 Lying on the floor is a shield.
 
 > get shield
-You pick up the shield.
+You take the shield.
 
 > e
 
@@ -947,8 +947,8 @@ shakes, and then... How strange. A devil statue has popped out of the side of
 the cooker.
 
 > get all
-You pick up the dough, the pastry, the bread, the jelly, the bracelet, the
-cob, the devil statue and the garlic.
+You take the dough, the pastry, the bread, the jelly, the bracelet, the cob,
+the devil statue and the garlic.
 
 > s
 
@@ -1338,7 +1338,7 @@ few.
 Also here is a wand.
 
 > get wand
-You pick up the wand.
+You take the wand.
 
 > wave wand at cabinet
 You wave the wand in the general direction of the floating cabinet and, as if
@@ -1362,7 +1362,7 @@ few.
 Also here is a bell.
 
 > get bell
-You pick up the bell.
+You take the bell.
 
 > x pool
 The pool bubbles warmly. There look to be a number of coins lying on the
@@ -1474,7 +1474,7 @@ the picture.
 Also here is a lens.
 
 > get lens
-You pick up the lens.
+You take the lens.
 
 > x glasses
 Mrs Moog's very own glasses. It's probably too much to expect a mad old woman

@@ -643,7 +643,7 @@ to your left.  Moving a little closer you see it is a green gemstone
 partially buried in the stone and dirt.
 
 > take green gemstone
-You pick up the green gemstone.
+You take the green gemstone.
 
 > e
 You move east.
@@ -664,7 +664,7 @@ your left.  Moving a little closer you see it is a grey gemstone partially
 buried in the stone and dirt.
 
 > take grey gemstone
-You pick up the grey gemstone.
+You take the grey gemstone.
 
 > w
 You move west.
@@ -699,7 +699,7 @@ Moving a little closer you see it is a clear gemstone partially buried in the
 stone and dirt.
 
 > take clear gemstone
-You pick up the clear gemstone.
+You take the clear gemstone.
 
 > e
 You move east.
@@ -721,7 +721,7 @@ your rightt.  Moving a little closer you see it is a blue gemstone partially
 buried in the stone and dirt.
 
 > take blue gemstone
-You pick up the blue gemstone.
+You take the blue gemstone.
 
 > d
 You move down.
@@ -735,7 +735,7 @@ to your left.  Moving a little closer you see it is a yellow gemstone
 partially buried in the stone and dirt.
 
 > take yellow gemstone
-You pick up the yellow gemstone.
+You take the yellow gemstone.
 
 > d
 You are not proceeding downward without a secured rope.
@@ -772,7 +772,7 @@ below you.  Moving a little closer you see it is a brown gemstone partially
 buried in the stone and dirt.
 
 > take brown gemstone
-You pick up the brown gemstone.
+You take the brown gemstone.
 
 > d
 You move down.
@@ -805,7 +805,7 @@ The neatly folded cloth disintigrates into a pile of thread-bare patches of
 cloth.  And a flashlight is revealed from under the stack.
 
 > take flashlight
-You pick up the flashlight.
+You take the flashlight.
 
 > s
 Small and narrow tunnel
@@ -1220,7 +1220,7 @@ A suit is lying on the floor.  Searching among the suits you find one that
 looks like it would fit you.
 
 > take suit
-You pick up the suit.
+You select a suit that looks about your size.
 
 > wear suit
 After removing your backpack and belt, you put the suit on over your clothes.

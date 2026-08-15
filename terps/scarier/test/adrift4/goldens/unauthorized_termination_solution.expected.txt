@@ -965,7 +965,7 @@ attacker. 1.5m in height with a cylindrical body, it was the legs which
 seemed most shocking. Your attacker only had two legs!
 
 > get meteor
-You pick up the meteor.
+You take the meteor.
 
 > exam communicator
 Actually part of the wall, the communicator is a narrow oblong shape about
@@ -1168,7 +1168,7 @@ again.
 Omicron-Xi shouts, "Chi-Omega terminate Epsilon-Beta now!"
 
 > get meteor
-You pick up the meteor.
+You take the meteor.
 
 Omicron-Xi shouts, "Chi-Omega you are ordered to terminate Epsilon-Beta!"
 

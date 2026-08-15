@@ -110,7 +110,7 @@ I don't understand what you mean!
 I don't understand what you mean!
 
 > take all
-You pick up the silver key and the rapier.
+You take the silver key and the rapier.
 
 > x silver key
 This glimmering silver key has something engraved on it.  It's in another
@@ -205,7 +205,7 @@ I don't understand what you mean!
 I don't understand what you mean!
 
 > take all
-You pick up the rusty key and the bar.
+You take the rusty key and the bar.
 
 > x rusty key
 This rusty key looks like it will fall apart any second.

@@ -356,7 +356,7 @@ An ordinary disposable razor, shocking pink.  The disposable razor is nice
 and sharp.
 
 > take razor
-You pick up the disposable razor.
+You take the disposable razor.
 
 > x ice
 The surface of the ice is covered with a thick layer of frost, which the

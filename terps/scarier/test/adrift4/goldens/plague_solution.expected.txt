@@ -380,7 +380,7 @@ locked. I could head northeast (through the door) or west (corridor).
 I could also see a baseball cap.
 
 > get cap
-I pick up the baseball cap.
+I helped myself to the baseball cap.
 
 > wear cap
 I pulled the baseball cap on.
@@ -1226,7 +1226,7 @@ I discarded the handwritten note.
 I discarded the torn bible.
 
 > get jacket
-I pick up the short jacket.
+I helped myself to the short jacket.
 
 > wear jacket
 I slipped on the jacket. The zip was bust so I left it open. My arms felt
@@ -1234,7 +1234,7 @@ warmer and it seemed a lot more practical with all the shit that was
 happening!
 
 > get bible
-I pick up the torn bible.
+I helped myself to the torn bible.
 
 > e
 (moving east)
@@ -2215,7 +2215,7 @@ I discarded the screwdriver.
 I discarded the lighter.
 
 > get cutters
-I pick up the cutters.
+I helped myself to the cutters.
 
 > nw
 (moving northwest)

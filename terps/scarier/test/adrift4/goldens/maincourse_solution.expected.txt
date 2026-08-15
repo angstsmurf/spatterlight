@@ -167,7 +167,7 @@ Cat sheepishly enters from the east.
 Somorph think he need loo now...
 
 > take cat fur
-SoMorph picks up the cat fur.
+SoMorph takes the cat fur.
 
 Cat quietly exits to the south.
 SoMorph really need to go toilet...

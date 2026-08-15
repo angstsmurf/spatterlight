@@ -476,7 +476,7 @@ Mark Eridian manages to avoid Skyrv's attack.
 Skynd hits you, but it doesn't seem to do any damage.
 
 > take rifle
-You pick up the 401K Auto Rifle.
+You take the 401K Auto Rifle.
 You can hear the wail of a distant emergency siren.
 Skyrv manages to avoid Mark Eridian's attack.
 Skynd hits you.

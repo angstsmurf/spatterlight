@@ -251,7 +251,7 @@ on the other end of the phone.  "Try not to get too jolly, okay Mulder?"
 "Okay," you say.  She hangs up and your left with the phone in your hand.
 
 > take knife
-You pick up Small Pocket Knife.
+You take Small Pocket Knife.
 
 > out
 You move out.

@@ -533,7 +533,7 @@ eyes to find the fountain has changed.
 >
 
 > take vial
-You pick up the vial.
+You take the vial.
 
 > n
 You move north.
@@ -860,7 +860,7 @@ Also here is La Virgencita key.
 You can move north and south.
 
 > take key
-You pick up La Virgencita key.
+You take La Virgencita key.
 
 > s
 You move south.
@@ -905,7 +905,7 @@ Dr. Micheals is here and looking pensive.
 You can only move south.
 
 > take scalpel
-You pick up the Woebegotten scalpel.
+You take the Woebegotten scalpel.
 
 > s
 You move south.
@@ -1135,7 +1135,7 @@ A vase of Sighing Prudence sits on the magazine table with an attached note.
 You can move north and south.
 
 > take prudence
-You pick up the Sighing Prudence.
+You take the Sighing Prudence.
 
 > n
 You move north.
@@ -1206,7 +1206,7 @@ floor...the final answer to Mercy.
 >
 
 > take spirit
-You pick up Hope's Spirit.
+You take Hope's Spirit.
 
 > put hope's spirit into box
 (Your score has increased by 10)

@@ -81,7 +81,7 @@ I can also see an empty milkbottle.
 I can only move south.
 
 > take bottle
-I pick up the empty milkbottle.
+I take the empty milkbottle.
 
 > take note
 I take the crumpled note from the empty milkbottle.
@@ -148,9 +148,9 @@ Bear thinks of as fishing tackle I dread to think what he uses for hunting -
 a Sherman tank, perhaps?
 
 > take all
-I pick up the pair of secateurs and the ratty old paintbrush.  I take the
-sticks of dynamite from the old metal trunk.  I take the trowel and the pair
-of gardening gloves from one of the plant pots.
+I take the pair of secateurs and the ratty old paintbrush.  I take the sticks
+of dynamite from the old metal trunk.  I take the trowel and the pair of
+gardening gloves from one of the plant pots.
 
 > out
 I move out.
@@ -332,9 +332,9 @@ massive, actually it stops abruptly just above the roof of the cottage.
 Damn, I seem to have dropped all my stuff...
 
 > take all
-I pick up the crumpled note, the broken bottle, the sticks of dynamite, the
-pair of secateurs, the small packet, the trowel, the ratty old paintbrush,
-the overripe pumpkin and the pair of gardening gloves.
+I take the crumpled note, the broken bottle, the sticks of dynamite, the pair
+of secateurs, the small packet, the trowel, the ratty old paintbrush, the
+overripe pumpkin and the pair of gardening gloves.
 
 > climb beanstalk
 If Jack can do it, so can Goldilocks!
@@ -551,7 +551,7 @@ Wow, this chair feels just right! Oh, crap!! The stupid thing collapsed right
 under me! I guess that's what happens if you buy self-assembly.
 
 > take wood
-I pick up the pile of firewood.
+I take the pile of firewood.
 
 > s
 (Getting up off the floor first)
@@ -745,7 +745,7 @@ turbine and bops him on the head. With a cluck of annoyance he hitches up the
 hem of his nightdress, hops over the fence and disappears into the forest.
 
 > take oil can
-I pick up the oil can.
+I take the oil can.
 
 > oil secateurs
 Okay, a dash of SUPERLUBE and these babies are as good as new!
@@ -1032,7 +1032,7 @@ I take the can of beer from the refridgerator.
 Down in one! (Glug, glug glug!) God, that hits the spot!  (Burp!)
 
 > take remote
-I pick up the TV remote control.
+I take the TV remote control.
 
 > plug in tv
 Okay, I put the plug in the wall socket.
@@ -1426,7 +1426,7 @@ green frog emerges from the pond clutching it in one of his slimy flippers.
 He drops it on the grass in front of me and puckers up expectantly...
 
 > take frog
-I pick up the slimy green frog.
+I take the slimy green frog.
 
 > e
 I move east.
@@ -1547,7 +1547,7 @@ tiny point of light, before flitting back out of the window. As she does so,
 something silvery clatters to the floor.
 
 > take wand
-I pick up the magic wand.
+I take the magic wand.
 
 > wave wand at underwear
 (Your score has increased by 3)
@@ -1721,7 +1721,7 @@ I can also see a bearskin rug and an antimacassar.
 I can only move south.
 
 > take rug
-I pick up the bearskin rug.
+I take the bearskin rug.
 
 > s
 I move south.

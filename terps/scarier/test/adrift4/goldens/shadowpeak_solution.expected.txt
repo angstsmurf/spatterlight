@@ -159,7 +159,7 @@ The henge glows and hums momentarily, then stops. A shield appears out of
 thin air, and clatters to the ground.
 
 > take shield
-You pick up the Shield.
+You take the Shield.
 
 > hide from dragon
 (Your score has increased by 10)
@@ -194,7 +194,7 @@ You see a pair of leather gloves hung over a branch of the tree.
 It is raining...
 
 > take gloves
-You pick up the pair of leather gloves.
+You take the pair of leather gloves.
 You hear the flutter of batlike wings.
 
 > wear gloves
@@ -267,7 +267,7 @@ the thick leather gloves you wear. A brass key falls out of the log as you
 rummage about inside it.
 
 > get brass key
-You pick up brass key.
+You take brass key.
 
 > n
 You move north.
@@ -397,7 +397,7 @@ You can move north, east, west, northeast and northwest.
 It stops raining...
 
 > take sword
-You pick up the sword.
+You take the sword.
 You hear Fetlar’s shrill voice shout out, "Where are you, buddy friend?"
 
 > n
@@ -988,7 +988,7 @@ You heave the dead villager to one side,  revealing a pair of leather boots
 and pants.
 
 > take boots
-You pick up the pair of thick leather boots.
+You take the pair of thick leather boots.
 
 > wear boots
 You put on the pair of thick leather boots.
@@ -2106,7 +2106,7 @@ You can only move down.
 There is a silver coin here stuck in a crack in a floorboard.
 
 > take coin
-You pick up silver coin.
+You take silver coin.
 
 > d
 You move down.
@@ -2240,7 +2240,7 @@ Seeker hums!
 Jarris lumbers off to the west.
 
 > take garlic
-You pick up the garlic bud.
+You take the garlic bud.
 
 Holga stumbles off to the west.
 
@@ -2936,18 +2936,18 @@ fountain that resides in its centre. To the north lies the main hall.
 Also here is a sword, a Shield and gold coin.
 
 > take sword
-You pick up the sword.
+You take the sword.
 
 Gargoyle #1 flies in from the north.
 Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 > take shield
-You pick up the Shield.
+You take the Shield.
 Seeker hums!
 
 > take gold coin
-You pick up gold coin.
+You take gold coin.
 Seeker hums!
 You hear the sound of a cat’s "meow".
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
@@ -3049,7 +3049,7 @@ You can only move north.
 Seeker hums!
 
 > take lantern
-You pick up the lantern.
+You take the lantern.
 
 Gargoyle #1 flies in.
 Seeker hums!
@@ -3727,7 +3727,7 @@ You can only move east.
 Seeker hums!
 
 > take stake
-You pick up the stake.
+You take the stake.
 
 Woody scampers in from the east.
 Seeker hums!
@@ -3815,7 +3815,7 @@ You are feeling very tired, indeed, and realise you should find somewhere to
 sleep!
 
 > take silver key
-You pick up silver key.
+You take silver key.
 
 Gargoyle #1 flies in.
 Seeker hums!
@@ -4377,7 +4377,7 @@ Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 > take horn
-You pick up the  horn of the angels.
+You take the  horn of the angels.
 Seeker hums!
 Seeker hums!
 
@@ -4628,7 +4628,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > take fleshy mound
-You pick up fleshy mound.
+You take fleshy mound.
 Seeker hums!
 
 > n
@@ -5230,7 +5230,7 @@ Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
 damage.
 
 > take greaves
-You pick up the arm and leg greaves.
+You take the arm and leg greaves.
 Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
@@ -5396,7 +5396,7 @@ You can only move down.
 Seeker hums!
 
 > take black key
-You pick up black key.
+You take black key.
 
 Gargoyle #1 flies in.
 Seeker hums!

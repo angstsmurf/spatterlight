@@ -52,7 +52,7 @@ Please enter your name:
 > Jenny
 
 > take stick
-You pick up the small stick.
+You take the small stick.
 
 Jenny follows you .
 
@@ -73,10 +73,10 @@ Also here is a piece of dental floss and a small rock.
 Jenny follows you .
 
 > take floss
-You pick up the piece of dental floss.
+You take the piece of dental floss.
 
 > take rock
-You pick up the small rock.
+You take the small rock.
 
 > tie the string to the rock
 (Your score has increased by 20)

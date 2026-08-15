@@ -131,7 +131,8 @@ You can see The Grim Reaper's Scythe.
 Horse waits here, looking quite majestic.
 
 > take scythe
-You pick up the Grim Reaper's Scythe.
+
+You take the Grim Reaper's Scythe.
 
 > say kenya to horse
 
@@ -258,7 +259,8 @@ Exits: West
 You can see a sturdy branch.
 
 > take branch
-You pick up the sturdy branch.
+
+You take the sturdy branch.
 
 > w
 You move west.
@@ -401,7 +403,8 @@ You can see a shovel blade.
 Horse waits here, looking quite majestic.
 
 > take blade
-You pick up the shovel blade.
+
+You take the shovel blade.
 
 > e
 You move east.
@@ -455,7 +458,8 @@ particularly interesting happens until you press one button and a message
 flickers on one of the computer screens briefly - LABORATORY DOOR UNLOCKED
 
 > take lighter
-You pick up the cigarette lighter.
+
+You take the cigarette lighter.
 
 > s
 You move south.
@@ -634,7 +638,8 @@ Horse waits here, looking quite majestic.  Thomas Brewer stands here, looking
 around the cellar thoughtfully.
 
 > take shoe
-You pick up Ernest Busset's shoe.
+
+You take Ernest Busset's shoe.
 
 > x workbench
 

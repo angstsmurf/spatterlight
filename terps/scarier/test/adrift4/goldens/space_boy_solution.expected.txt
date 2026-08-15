@@ -183,7 +183,7 @@ desk and a chair.
 On the desk rests a single page torn from a book.
 
 > take book page
-You pick up the book page.
+You take the book page.
 
 > read book page
 Through the soot and burnt edges you can make out the words "...th. proper
@@ -212,7 +212,7 @@ As you sift through the rubble, your eyes catch the gleam off of a small
 bottle.
 
 > take small bottle
-You pick up the Small Bottle.
+You take the Small Bottle.
 
 > drink orange liquid
 (Your score has increased by 15)
@@ -229,7 +229,7 @@ is a large safe with wires running to a control panel beneath it. On the west
 wall is a bin. You can see an exit to the north. There is a tiny bottle here.
 
 > take whiteredblue tile
-You pick up the whiteredblue tile.
+You take the whiteredblue tile.
 
 > put whiteredblue tile on control panel
 (Your score has increased by 30)
@@ -248,7 +248,7 @@ You can see a pair of funny looking gloves here. There is a note on the wall:
 please return to......" The rest has been lost to time.
 
 > take gloves
-You pick up the set of Ice Gloves.
+You take the set of Ice Gloves.
 
 > wear gloves
 You put on the set of Ice Gloves.
@@ -263,7 +263,7 @@ is a large safe with wires running to a control panel beneath it. On the west
 wall is a bin. You can see an exit to the north. There is a tiny bottle here.
 
 > take tiny bottle
-You pick up the Tiny Bottle.
+You take the Tiny Bottle.
 
 > drink bluish liquid
 (Your score has increased by 15)
@@ -367,7 +367,7 @@ This room has been formed in the shape of an L.
 There seems to be a piece of statue here...it looks like a set of feet.
 
 > take feet
-You pick up the set of feet.
+You take the set of feet.
 
 > se
 You move southeast.
@@ -388,7 +388,7 @@ This room is carved from the rock in the shape of the letter A.
 There is a piece of statue here...they look like legs.
 
 > take legs
-You pick up the pair of legs.
+You take the pair of legs.
 
 > sw
 You move southwest.
@@ -409,7 +409,7 @@ Someone has created this room to resemble a large V.
 There is a piece of statue here...it looks like a chest.
 
 > take chest
-You pick up the chest.
+You take the chest.
 
 > nw
 You move northwest.
@@ -430,7 +430,7 @@ This room is actually two rooms joined together making an odd aa shape.
 There is a piece of statue here...it looks like arms.
 
 > take arms
-You pick up the pair of arms.
+You take the pair of arms.
 
 > ne
 You move northeast.
@@ -452,7 +452,7 @@ letter H.
 There is a piece of statue here...it looks like a head.
 
 > take head
-You pick up the head.
+You take the head.
 
 > n
 You move north.
@@ -602,7 +602,7 @@ As your eyes ajust to the dim light, you notice a wooden stick resting in the
 corner.  There is a note etched into the rockface here.
 
 > take stick
-You pick up the wooden stick.
+You take the wooden stick.
 
 > read note
 The note reads "...look for the letters..."
@@ -852,7 +852,7 @@ and one table.
 There is a fork here.
 
 > take fork
-You pick up the Fork.
+You take the Fork.
 
 > w
 You move west.

@@ -28,7 +28,7 @@ u get it take it bak to ur HOuse to win da game!!!! You can only move south.
 Also here is a crystal.
 
 > take crystal
-You pick up the crystal.
+You take the crystal.
 
 > s
 You move south.

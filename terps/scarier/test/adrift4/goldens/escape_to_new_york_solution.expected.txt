@@ -1075,7 +1075,7 @@ You remove the cap.
 You drop the cap.
 
 > get uniform
-You pick up the uniform.
+You take the uniform.
 
 > wear uniform
 You wear the uniform.
@@ -1206,7 +1206,7 @@ entrance.  The staircase has developed quite a slope.
 You can also see a key.
 
 > get key
-You pick up the key.
+You take the key.
 
 > west
 You move west.
@@ -1243,7 +1243,7 @@ has developed quite a slope.
 You can also see a sapphire pendant and a chamber pot.
 
 > get pendant
-You pick up the sapphire pendant.
+You take the sapphire pendant.
 
 > open furniture
 You open the mahogany furniture.  A pair of cufflinks are inside the mahogany

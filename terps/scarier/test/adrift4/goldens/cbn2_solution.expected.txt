@@ -175,7 +175,7 @@ Also here is a match.
 mortal fear that you were his dearly beloved wife.
 
 > take match
-You pick up the match.
+You take the match.
 
 > s
 You move south.

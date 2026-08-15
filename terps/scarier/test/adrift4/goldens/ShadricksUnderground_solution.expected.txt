@@ -56,7 +56,7 @@ sleep.  I don’t think that is the real reason though.
 Also here is an old lantern.
 
 > take lantern
-I pick up the old lantern.
+I take the old lantern.
 
 > d
 I slowly climb down the narrow ladder and emerge in dark corner of 'Ye Old
@@ -386,7 +386,7 @@ floor is piled high with bat droppings, and the stench is quite nauseating.
 Also here is a small boulder.
 
 > take boulder
-I pick up the small boulder.
+I take the small boulder.
 
 > w
 I move west.
@@ -473,7 +473,7 @@ the tunnel just yet, thought the smell of guano lingers heavily in the air.
 Also here is a medium boulder.
 
 > take boulder
-I pick up the medium boulder.
+I take the medium boulder.
 
 > w
 I move west.

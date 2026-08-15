@@ -143,10 +143,10 @@ refusal wording, not the listing wording, so the rephrase is safe there too.
 Full `make -f Makefile.headless test` after the change: v4 **129/129 PASS**,
 both capacity probes PASS, a5 suite untouched.
 
-### `take` from the floor prints "You pick up" — OPEN
+### `take` from the floor prints "You pick up" — SETTLED AND PORTED 2026-08-15
 
 For an object lying loose in the room, run400 answers `take egg` with
-**"You take the creme egg."**; scarier answers "You pick up the creme egg."
+**"You take the creme egg."**; scarier answered "You pick up the creme egg."
 Both agree on the container/surface case ("You take the lollipop from the
 newspaper rack.").
 
@@ -159,14 +159,16 @@ templates:
   "Take what?" and "There is nothing worth taking here.".
 
 Scarier's `lib_cmd_take_*` mixes the two: "You pick up …" with no parent,
-"You take … from …" with one. Which handler run400 actually reaches for a
-bare `take`, and what it does for `get`, cannot be settled from the listing
-alone — it needs a live `get X` / `take X` pair in the Wine Runner. Note also
-`RUNNER_TESTS_TODO.md` §"Single-object library success vs failing explicit-verb
-task", where run390 was probed live and printed **"You pick up the rock."**
-for `take rock`, so this may be a 3.9-vs-4.0 split rather than a get-vs-take
-one. 37 goldens carry 128 "You pick up …" lines, so this is not a change to
-make on inference. **Left as-is; documented only.**
+"You take … from …" with one.
+
+**It is a 3.9-vs-4.0 split, not a get-vs-take one — measured live in all four
+Runners 2026-08-15** (arena config `TK` for run400; `p39held.taf` for run390;
+`p37pos.taf` for run370; `marooned.taf` for run380). run400 says "You take the
+rock." for `take rock`, `get rock`, the literal verb `pick up rock` and `take
+all`; run390 and run370 say "You pick up …" for all of them. The empty-room
+refusal splits the same way (and 4.0 has no "else" form at all). Ported as
+`lib_is_version_400()` in `sclibrar.cpp`; 71 goldens re-blessed, all of them
+4.0 games, full suite green. See §4 of `RUNNER_TESTS_TODO.md`.
 
 ### `g` does not echo the command it repeats
 

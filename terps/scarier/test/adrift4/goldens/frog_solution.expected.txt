@@ -43,7 +43,7 @@ Also here is a hat.
 You notice tracks in the mud, leading to the south.  That must be the path.
 
 > take hat
-You pick up the hat.
+You take the hat.
 
 > wear hat
 You put on the hat.  It is rather large and does not make you look like

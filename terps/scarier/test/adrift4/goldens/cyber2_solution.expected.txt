@@ -18,7 +18,7 @@ Also here is Electric Uniform.
 There is an exit east.
 
 > take electric uniform
-You pick up Electric Uniform.
+You take Electric Uniform.
 
 > e
 You move east.

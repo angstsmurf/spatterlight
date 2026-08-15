@@ -150,7 +150,7 @@ pinata shell from the ceiling, and then disposing of it somewhere behind the
 counter.
 
 > take candy dots
-You pick up the strip of candy dots.
+You take the strip of candy dots.
 
 "Once you have some candy in your basket, bring it to me and we'll check it
 against Max's list," the shopkeeper offers amiably.
@@ -159,19 +159,19 @@ against Max's list," the shopkeeper offers amiably.
 sort of candy he likes?
 
 > take egg
-You pick up the creme egg.
+You take the creme egg.
 
 > take eggs
-You pick up the tiny chocolate eggs.
+You take the tiny chocolate eggs.
 
 > take chicks
-You pick up the yellow marshmallow chicks.
+You take the yellow marshmallow chicks.
 The shopkeeper retrieves a wind-up chick from beneath the counter, winds it
 up, and sets it down.  The toy gyrates jubilantly across the wooden surface,
 while the whirring sound of the wind-up mechanism drones from inside it.
 
 > take beans
-You pick up the sack of jelly beans.
+You take the sack of jelly beans.
 
 > look
 

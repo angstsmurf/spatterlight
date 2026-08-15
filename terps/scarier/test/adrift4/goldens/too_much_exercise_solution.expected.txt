@@ -208,7 +208,7 @@ sufficient wood for your needs.
 The axe is new and looks sharp.
 
 > take axe
-You pick up the axe.
+You take the axe.
 
 > chop tree
 You begin chopping at the base of the tree with the axe.
@@ -274,13 +274,13 @@ This stick is close to your height in length, and thick enough that it will
 not break easily.
 
 > take stick
-You pick up the long sturdy stick.
+You take the long sturdy stick.
 
 > x branches
 This bunch of small branches looks like it would make good firewood.
 
 > take branches
-You pick up the bunch of small branches.
+You take the bunch of small branches.
 
 > in
 You move in.
@@ -299,7 +299,7 @@ Next to the bed is a suitcase
 You can see a wallet and a piece of meat.
 
 > take meat
-You pick up the piece of meat.
+You take the piece of meat.
 
 > put branches in fireplace
 You load all the branches into the fireplace. A fire automatically starts
@@ -317,7 +317,7 @@ belongings."
 You hear a slight rumbling noise outside.
 
 > take all
-You pick up the suitcase and the wallet.
+You take the suitcase and the wallet.
 
 > out
 You move out.
