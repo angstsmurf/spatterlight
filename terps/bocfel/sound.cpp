@@ -387,7 +387,9 @@ void zsound_effect()
 #ifdef SPATTERLIGHT
 void stash_library_sound_state(library_state_data *dat)
 {
-    if (!dat)
+    // channels is empty if sound is disabled in settings, or if sound
+    // channel creation failed in init_sound.
+    if (!dat || !channels.loaded())
         return;
 
     auto channel = channels.at(Channels::Effects);
@@ -396,13 +398,12 @@ void stash_library_sound_state(library_state_data *dat)
     dat->routine = channel->routine;
     dat->queued_sound = channel->queued.number;
     dat->queued_volume = channel->queued.volume;
-    if (channels.loaded())
-        dat->sound_channel_tag = channel->channel->tag;
+    dat->sound_channel_tag = channel->channel->tag;
 }
 
 void recover_library_sound_state(library_state_data *dat)
 {
-    if (!dat)
+    if (!dat || !channels.loaded())
         return;
     auto channel = channels.at(Channels::Effects);
     channel->channel = gli_schan_for_tag(dat->sound_channel_tag);
