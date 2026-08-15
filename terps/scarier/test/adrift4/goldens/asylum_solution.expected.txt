@@ -322,3 +322,7 @@ through the glass of window. It was a beautiful sunny day out, but a large
 stone fence almost blocked your view of the sun except for a small corner of
 it. A large plaque sat on the wall, just a few metres in front of your
 window. Engraved on it, were the words "Morningwood Mental Institution".
+
+You scored 0 out of the maximum 0!
+That is 100% of the game!
+Well done - you scored maximum points!

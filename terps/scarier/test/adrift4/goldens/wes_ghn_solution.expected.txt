@@ -1227,7 +1227,6 @@ easy but if you stand strong its a possibility that you can save everyone."
 
 The end.
 You've Won the Game!
-Congratulations!
 You scored 90 out of the maximum 100!
 That is 90% of the game!
 You finished 10 points short.

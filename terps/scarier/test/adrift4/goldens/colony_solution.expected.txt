@@ -367,7 +367,6 @@ A small alien hits you, but it doesn't seem to do any damage.
 > fly ship
 You get in the ship and take control , right after you leave the atmosphere
 the planet turns into nothing but a sector of astroids .
-Congratulations!
 You scored 200 out of the maximum 200!
 That is 100% of the game!
 Well done - you scored maximum points!

@@ -400,8 +400,6 @@ house.
 You can move south, up and southwest.
 
 > s
-Congratulations!
-
 Front porch
 The front porch of Desther's house is quite impressive. If you didn't know
 what a dump the inside was, you might well think someone with taste lived

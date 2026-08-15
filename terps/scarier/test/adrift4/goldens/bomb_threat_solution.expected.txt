@@ -269,4 +269,6 @@ Edgar stumbles backwards and falls into the water, dead. You have just won
 Bomb Threat!
 Or have you...
 
-Congratulations!
+You scored 0 out of the maximum 0!
+That is 100% of the game!
+Well done - you scored maximum points!

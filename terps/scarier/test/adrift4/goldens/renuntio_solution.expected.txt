@@ -538,3 +538,6 @@ evitado. Nuestra es la Memoria, somos el recuerdo hecho carne. Noso somos la
 Nada, nosotras somos el Todo... el león en cuyas fauces se encierra un mundo"
 
 Yo-nos me alzo y estiendo mis-nos brazos... y canto.
+You puntosd 0 fuera of the maximum 0!
+That is 100% of the game!
+Well done - you puntosd maximum points!

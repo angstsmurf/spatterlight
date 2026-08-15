@@ -798,11 +798,13 @@ scr_dump_structure_once (scr_gameref_t game)
     static const char *dirs[] =
       { "N","E","S","W","U","D","IN","OUT","NE","SE","SW","NW" };
 
-    /* The game's own win/lose text.  Empty WinText is what makes the engine
-     * fall back to its hard-coded "Congratulations!", so seeing this is the
-     * quick way to tell an engine-supplied ending line from an authored one
-     * when a published transcript and our own disagree about how many there
-     * should be. */
+    /* The game's own win/lose text.  When a published transcript and our own
+     * disagree about how many lines an ending has, this is the quick way to
+     * tell an authored line from an engine-supplied one: an empty WinText
+     * means every line before the score summary came from the winning task's
+     * CompleteText.  (The engine adds nothing of its own there -- the
+     * Runners' "Congratulations!" is a status bar caption, not game text.
+     * See RUNNER_TESTS_TODO.md section 4.) */
     {
       scr_vartype_t hk[2], hv;
 

@@ -317,4 +317,3 @@ You roll a one and move to square 90.
 You climb steadily up a ladder and find yourself on square 100.
 Yes! You have made it to the end of the game. It is completed and you have
 done it!
-Congratulations!

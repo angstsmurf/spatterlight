@@ -105,7 +105,6 @@ moves out of your way allowing you to make a hasty retreat.
 
 Unfortunately as you want to get out, you have to leave the beetle in its
 place rather than take it as you had hoped.
-Congratulations!
 You scored 100 out of the maximum 100!
 That is 100% of the game!
 Well done - you scored maximum points!

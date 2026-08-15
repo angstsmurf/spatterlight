@@ -239,4 +239,6 @@ Later that day, you and Stu were eaten by zombies.
 
 The End
 
-Congratulations!
+You scored 0 out of the maximum 0!
+That is 100% of the game!
+Well done - you scored maximum points!

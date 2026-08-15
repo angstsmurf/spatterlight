@@ -549,8 +549,6 @@ East lies a forest, west a marsh, south a desert, north a plain where the
 wildebeests roam. And a door leads inside the tower itself.
 
 > in
-Congratulations!
-
 Inside the tower
 You're in the tower which is the final location in the game and, as time is
 pressing, pretty damn empty of things to examine.

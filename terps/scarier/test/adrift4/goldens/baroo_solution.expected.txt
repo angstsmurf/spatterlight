@@ -1487,7 +1487,6 @@ M'greet gives a big grin and slaps you on the back.  "It's great to have that
 threat final gone.  I hope you'll help me re-introduce the knowledge of the
 past!"  You look up in the sky and see a final glitter of light as the ship
 vacates the atmosphere heading back into space.
-Congratulations!
 You scored 16 out of the maximum 16!
 That is 100% of the game!
 Well done - you scored maximum points!

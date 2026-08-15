@@ -679,5 +679,3 @@ THE END
 Your score:100 out of 100.
 
 Press a key.
-
-Congratulations!

@@ -209,4 +209,6 @@ their homes and live. What do you say?"
 
 "No."
 
-Congratulations!
+You scored 0 out of the maximum 0!
+That is 100% of the game!
+Well done - you scored maximum points!

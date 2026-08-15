@@ -60,11 +60,11 @@ FILTER="${1:-}"
 # an apostrophe in a marker would break the whole script.)
 map_rows() { cat <<'EOF'
 icecream_solution.txt|IceCream.taf|
-the_cat_in_the_tree_solution.txt|TheCatintheTree.taf|Congratulations!
+the_cat_in_the_tree_solution.txt|TheCatintheTree.taf|You scored 50 out of the maximum 50!
 man_overboard_solution.txt|man overboard.taf|Maybe it wasn't all a waste of time
 pieces_of_eden_solution.txt|Pieces of eden.taf|END OF PART ONE
 princess_in_the_tower_solution.txt|princess1.taf|It seems you've won.
-too_much_exercise_solution.txt|exercise.taf|Congratulations!
+too_much_exercise_solution.txt|exercise.taf|much prefer that Sweet Shop option one of your work colleagues took.
 yak_shaving_solution.txt|yak_shaving.taf|completed the Odd Competition
 buried_alive_solution.txt|buried.taf|Well done. You got to the end
 confession_solution.txt|Confession(1).taf|Striking a plea deal
@@ -85,7 +85,7 @@ topaz_solution.txt|topaz.taf|The two of you set out into the forest.
 thorn_solution.txt|Thorn.taf|You have chosen to look upon your own mortality.
 renegade_brainwave_solution.txt|Renegade_Brainwave.taf|planet Earth has been averted!
 goldilocks_solution.txt|goldilocks.taf|Three Bears are no more
-masochists_heaven_solution.txt|1HRGAME.taf|Congratulations!
+masochists_heaven_solution.txt|1HRGAME.taf|You scored 15 out of the maximum 15!
 griswold_solution.txt|Griswold.taf|And there you have it: the intro
 mhpquest_solution.txt|mhpquest.taf|You have saved Crystal's life
 # Archie's Birthday is AIF: the game's text is sexually explicit, so its solution
@@ -96,9 +96,9 @@ archie_solution.txt|Archie's Birthday V 1-2.taf|To be continued
 # wins first, then documented-max tours / sandboxes / demos.  Tour rows use the
 # final "Your score is N out of a maximum of M." line as their marker so the
 # documented maxima stay locked; win rows use the game's own victory text.
-bomb_threat_solution.txt|Bomb Threat.taf|Congratulations!
+bomb_threat_solution.txt|Bomb Threat.taf|Or have you...
 circus_solution.txt|circus.taf|Congratulations.  You completed the game|SCR_SEED=12
-colony_solution.txt|Colony.taf|Congratulations!
+colony_solution.txt|Colony.taf|You scored 200 out of the maximum 200!
 cyber_solution.txt|cyber.taf|THE END,or is it?
 cyber2_solution.txt|cyber2.taf|you have beaton Cyber Warp 2!
 cybercow_win_solution.txt|lair-of-the-cybercow.taf|Thank you for playing Lair of the CyberCow.
@@ -116,7 +116,7 @@ orient_express_solution.txt|Orient_Express.taf|You successfully complete your as
 screen_savers_solution.txt|The Screen Savers On Planet X.taf|You've managed to get everyone to the set!
 secret_of_lost_world_solution.txt|SecretOfLostWorld.taf|The ship is slowly sailing away
 space_boy_solution.txt|Space Boy's First Adventure.taf|STAY TUNED FOR MORE EXCITING EPISODES
-sun_empire_solution.txt|Sun_Empire_Quest_For_The_Founders.taf|Congratulations!
+sun_empire_solution.txt|Sun_Empire_Quest_For_The_Founders.taf|You scored 125 out of the maximum 145!
 tcom_solution.txt|tcom.taf|the file entitled "tcom2"
 think2_solution.txt|Theannihilationofthink2.taf|Think.com has been restored
 toxically_earth_solution.txt|Toxically_Earth.taf|Thanks for playing RON: TOXICALLY EARTH
@@ -186,15 +186,15 @@ wes_ghn_solution.txt|WesGHN.taf|You've Won the Game!
 # the Second-Hand Shirts has no EndGame action anywhere in its task table, so
 # its row is a tour to the last room.  (Woof prints "My score", not "Your
 # score" -- the corpus's usual tour marker would not have matched.)
-argh_solution.txt|ARGH_sGreatEscape.taf|Congratulations!
+argh_solution.txt|ARGH_sGreatEscape.taf|You scored 98 out of the maximum 125!
 spam_solution.txt|SPAM.taf|Spam King
 wreckage_solution.txt|Wreckage.taf|you've rescued yourself
 vagabond_solution.txt|Vagabond.taf|The End
 woof_solution.txt|Woof.taf|I'm back.
 undefined_solution.txt|Undefined1.taf|An end is defined.
-ecod3_solution.txt|ECOD3.taf|Congratulations!
-goblinhunt_solution.txt|goblinhunt.taf|Congratulations!
-agent4f_solution.txt|agent_4F[1].A.taf|Congratulations!
+ecod3_solution.txt|ECOD3.taf|In an alley behind Denny's.
+goblinhunt_solution.txt|goblinhunt.taf|Tomorrow is the next goblin hunt.
+agent4f_solution.txt|agent_4F[1].A.taf|You wake with a start.  What a terrible dream!
 invasion_shirts_solution.txt|Invasion of the Second-Hand Shirts.taf|You're floating through the air above the trees.
 adriftorama_solution.txt|adriftorama.taf|*****You Win!*****
 # The seventeen games swept out of the Key & Compass ADRIFT index (2026-08-02);
@@ -215,7 +215,7 @@ Glum_Fiddle_solution.txt|Glum Fiddle.taf|Your score:100 out of 100.
 JGrim_solution.txt|JGrim1.0.taf|WHOOOOOSH
 mysteryofcaves_solution.txt|mysteryofcaves.taf|Your finishing rank is: Godlike Adventurer.
 chooseyourown_solution.txt|chooseyourown.taf|"A hunch," you say. You link arms with Sharon Elson.
-fantasyworld_solution.txt|fantasyworld.taf|Congratulations!
+fantasyworld_solution.txt|fantasyworld.taf|You scored 0 out of the maximum 500!
 sophie_solution.txt|sa.taf|You have won.|SCR_SKIP_WAITKEY=1
 sophie_comp_solution.txt|sophie.taf|You have won.|SCR_SKIP_WAITKEY=1
 cursed_solution.txt|cursed.taf|The honour will be all mine, father|SCR_SKIP_WAITKEY=1
@@ -483,7 +483,7 @@ qui_a_tue_dana_solution.txt|QuiATueDana.taf|MERCI A TOI CHRISTOPHE SANS QUI CE J
 #     bomb sequence (crate, wire cutters, three cables) never opens.
 # No waitkeys: the transcript is byte-identical with and without
 # SCR_SKIP_WAITKEY, so the row carries no env.
-enquete_a_hauts_risques_solution.txt|EnqueteAHautsRisques.taf|Congratulations!
+enquete_a_hauts_risques_solution.txt|EnqueteAHautsRisques.taf|Votre score est de 59 sur un maximum de 59!
 # Shadrick's Travels (Mystery) -- WIN, 100/100, and the whole game has exactly
 # four scoring actions (20 + 20 + 10 + 50), all of which this route fires.  The
 # upstream file is a session transcript with a CP1252 0xD8 as its prompt glyph,
@@ -492,7 +492,7 @@ enquete_a_hauts_risques_solution.txt|EnqueteAHautsRisques.taf|Congratulations!
 # hit the disambiguator, and `tire swing to tree` is a typo for `tie`).  They
 # are kept because ADRIFT's "Please be more clear" does NOT consume the next
 # line, so they cost nothing and the transcript stays faithful to the source.
-shadricks_travels_solution.txt|ShadricksTravels.taf|Congratulations!
+shadricks_travels_solution.txt|ShadricksTravels.taf|You scored 50 out of the maximum 100!
 # Monsters (Release 2), Daniel Hiebert -- WIN, 40/40, which the SCR_DUMP_TASKS
 # ACT type=4 total (40 over 8 tasks) confirms is the maximum; all 8 fire here.
 # The upstream file is another real-Runner session transcript, command-then-
@@ -517,7 +517,7 @@ shadricks_travels_solution.txt|ShadricksTravels.taf|Congratulations!
 #     Shadrick's Travels, whose transcript shows `climb oak tree` answered
 #     "You can't climb the old oak tree." -- SCARE used to say "that".
 # Neither change moved any other golden in this suite.
-monsters_solution.txt|Monsters_r2.taf|Congratulations!
+monsters_solution.txt|Monsters_r2.taf|You scored 40 out of the maximum 40!
 # The Amulet (3-hour comp), Daniel Hiebert -- WIN, and a **verbatim** replay of
 # the author's transcript: all 12 commands, no repairs, including the two pure
 # flavour ones (`notes`, `spells`).  The game has NO scoring at all (`score`
@@ -620,7 +620,7 @@ mortality_solution.txt|mortality.taf|one of the two good endings|SCR_SKIP_WAITKE
 # No waitkeys: the transcript is byte-identical with and without
 # SCR_SKIP_WAITKEY, so the row carries no env.  The score reads 96/97 one
 # command before the end and the last `salle du bigboard` is the 97th point.
-largo_winch_solution.txt|largo-winch.taf|Congratulations!
+largo_winch_solution.txt|largo-winch.taf|Votre score est de 96 sur un maximum de 97!
 # Three Monkeys, One Cage (Robert Goodwin, 2003) -- WIN, 98/100, and 98 is the
 # ceiling: every one of the game's 23 scoring actions is banked.  The author
 # wrote a `# jump out` chain whose +2 sits AFTER the two Execute-Task actions
@@ -1108,7 +1108,7 @@ deadman_solution.txt|The Dead Man.taf|ABORT SUCSESFUL|SCR_SKIP_WAITKEY=1
 # backpack *inside* it (TASK 258/286 restrict obj1 to "in capsule"), and the
 # suit puts the backpack back on you, so "remove backpack" has to precede both
 # "put backpack in capsule".  16/16, the game's own maximum.
-baroo_solution.txt|baroo.taf|Congratulations!
+baroo_solution.txt|baroo.taf|You scored 16 out of the maximum 16!
 # Lair of the Vampire -- the author's own 276-line command list plus 3 lines.
 # The ruined stairs (rooms 11/14) are a coin flip: TASK 140 carries you up only
 # while the `stairs` variable is < 3 and TASK 139 rerolls it every turn, so the
@@ -1202,7 +1202,7 @@ redwire_solution.txt|Cut_the_Red_Wire.taf|a maximum possible of 1. Well done.|SC
 # little state machine: TASK 5 needs variable 4 == 1 and sets it to 2, TASK 6
 # (`grant`) needs 2 and sets 3, and TASK 7 -- pattern `*`, i.e. literally
 # anything else -- resets it to 1, so a wrong guess drops you out silently.
-law_solution.txt|I am the Law.taf|Congratulations!|SCR_SKIP_WAITKEY=1
+law_solution.txt|I am the Law.taf|out for Enterprise Research.|SCR_SKIP_WAITKEY=1
 # In Memory (Jacqueline A. Lott, Indigo New Language Speed IF 2011).  Fifteen commands.  Not a puzzle game: you are
 # an unconscious dying person named Alex and the whole of it is TASK 178,
 # `EndGameScene`, gated on `RESTR type=4 v1=2 v2=2 v3=7` -- variable 0 == 7.
@@ -1433,7 +1433,7 @@ diarystrip_solution.txt|diarystrip.taf|You earn a huge tip and the ladies are al
 # (`RESTR type=4` on the value its predecessor wrote), so the Nth identical
 # command matches the Nth task and only the fourth advances the plot.  Its
 # other 250-odd tasks are custom refusals, not puzzles.
-silk_noil_solution.txt|SILKNOIL.TAF|Congratulations!
+silk_noil_solution.txt|SILKNOIL.TAF|The Silk King sprays his crotch liberally with a perfume that soon befouls
 # The Wheels Must Turn: again the author's own walkthrough (zip_w105/
 # walkthru.txt), replayed line for line.  No score anywhere in the file and
 # exactly one EndGame action, T41 `cut * 23 *`, so the route is maximal by
@@ -1833,7 +1833,7 @@ vampire_solution.txt|Vampire.taf|Now you are the most powerful vampire alive.|SC
 # janitor's closet never unlocks; and T46 `n` in the Computer Lab only unlocks
 # the archive door, so a second `n` is needed to walk through it.  The row needs
 # SCR_SKIP_WAITKEY=1 for the six act-transition <waitkey>s.
-merry_murders_solution.txt|Merry_Murders.taf|Congratulations!|SCR_SKIP_WAITKEY=1
+merry_murders_solution.txt|Merry_Murders.taf|You scored 125 out of the maximum 135!|SCR_SKIP_WAITKEY=1
 EOF
 }
 

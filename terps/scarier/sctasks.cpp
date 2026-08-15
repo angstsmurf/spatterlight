@@ -1263,11 +1263,14 @@ task_run_set_task_action (scr_gameref_t game, scr_int var1, scr_int var2)
  *   lose   "Better luck next time." / the two lines / blank
  *   dead   "I'm afraid you are dead!" / the two lines / blank
  *   ended  nothing at all
- *   MaxScore 0, win: the banner and nothing else, not even the blank line
+ *   MaxScore 0, win: run400 prints the banner and nothing else, not even the
+ *                    blank line; run390 prints the summary anyway, at 100%
  *
  * A UTF-16LE census puts every string of the summary in all four Runners
- * (run370/380/390/400), so this is not gated on 4.0; 3.7 and 3.8 have not been
- * driven live.  See RUNNER_TESTS_TODO.md section 4.
+ * (run370/380/390/400), so this is not gated on 4.0, and 3.7 and 3.8 have since
+ * been driven live too: run370 finishing castle.taf and run380 finishing
+ * microwaveman.taf print these lines exactly as below.  See
+ * RUNNER_TESTS_TODO.md section 4.
  */
 static void
 task_print_end_game_summary (scr_gameref_t game, scr_bool is_win)
@@ -1275,18 +1278,33 @@ task_print_end_game_summary (scr_gameref_t game, scr_bool is_win)
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[2];
-  scr_int max_score, percent;
+  scr_int max_score, percent, version;
   scr_char buffer[32];
 
   vt_key[0].string = "Globals";
   vt_key[1].string = "MaxScore";
   max_score = prop_get_integer (bundle, "I<-ss", vt_key);
 
-  /* A game that scores nothing gets no summary, and no trailing blank line. */
-  if (max_score <= 0)
-    return;
+  vt_key[0].string = "Version";
+  version = prop_get_integer (bundle, "I<-s", vt_key);
 
-  percent = (scr_int) floor (game->score * (100.0 / max_score));
+  /* The MaxScore > 0 guard arrived with 4.0.  A scoreless 4.0 game gets no
+     summary and no trailing blank line -- measured in run400 on arena config
+     SC0 and again on TheAmulet.taf, whose MaxScore is 0 -- but run390 prints
+     the summary regardless, and reports a scoreless game as 100% complete:
+     ECOD3.taf (MaxScore 0) ends with "You scored 0 out of the maximum 0!" /
+     "That is 100% of the game!" / "Well done - you scored maximum points!".
+     Whether 3.9 special-cases the divide or only the equal-scores case cannot
+     be told apart at 0 out of 0, and no 3.7 or 3.8 game in the corpus has a
+     MaxScore of 0, so this treats the whole pre-4.0 range alike. */
+  if (max_score <= 0)
+    {
+      if (version >= TAF_VERSION_400)
+        return;
+      percent = 100;
+    }
+  else
+    percent = (scr_int) floor (game->score * (100.0 / max_score));
 
   pf_buffer_string (filter, "You scored ");
   snprintf (buffer, sizeof (buffer), "%ld", game->score);
@@ -1342,14 +1360,21 @@ task_run_end_game_action (scr_gameref_t game, scr_int var1)
         vt_key[1].string = "WinText";
         wintext = prop_get_string (bundle, "S<-ss", vt_key);
 
-        /* Print WinText, if any defined, otherwise a default. */
+        /* Print WinText, if any is defined.  There is no default: the Runners'
+           "Congratulations!" is a *status bar caption*, not a line of game text.
+           run400's endmessage writes it to Form1.StatusBar1 panel 1 (decompiled
+           at 0x000571AC, immediately alongside "You are dead!" at 0x00057205),
+           and those are the literals' only references.  Measured live on two
+           empty-WinText games, one at each end of the version range: run400
+           finishing TheAmulet.taf and run370 finishing castle.taf both print the
+           winning task's own CompleteText and then go straight to the score
+           summary, with the location panel switched to "Congratulations!".  See
+           RUNNER_TESTS_TODO.md section 4. */
         if (!scr_strempty (wintext))
           {
             pf_buffer_string (filter, wintext);
             pf_buffer_character (filter, '\n');
           }
-        else
-          pf_buffer_string (filter, "Congratulations!\n");
 
         /* Handle any associated WinRes resource. */
         vt_key[0].string = "Globals";

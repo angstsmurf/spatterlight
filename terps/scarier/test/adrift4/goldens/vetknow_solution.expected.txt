@@ -1168,7 +1168,6 @@ but you are the champion and you will fight them off. Now that you have some
 money from the match payment, maybe you should have just one drink to
 celebrate.
 
-Congratulations!
 You scored 50 out of the maximum 50!
 That is 100% of the game!
 Well done - you scored maximum points!

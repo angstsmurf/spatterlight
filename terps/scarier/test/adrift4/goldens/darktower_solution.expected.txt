@@ -1021,3 +1021,6 @@ You have moved the switch to the "open" position.
 The lights flicker for a moment and then turn on and stay on.  You have
 restored power to the building.
 To be continued................
+You scored 0 out of the maximum 0!
+That is 100% of the game!
+Well done - you scored maximum points!
