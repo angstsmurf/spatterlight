@@ -2,11 +2,16 @@
 
 ## Unreleased
 
+### Bocfel (Z-code)
+- Fixed a crash that hit every Z-code game at the first prompt (or instantly at launch, when an autosave existed) whenever autosave was on and "Enable sound" was unchecked in the theme settings.
+
 ### Alan 2
 - Alan 2 now plays games compiled with Alan 2.5 and 2.6, such as *Don't Be Late!* and *The Hollywood Murders*, which it previously rejected.
 - Support for pictures and sounds in Alan 2 games such as *The Hollywood Murders* and *A Matter of Time*.
 
 ### Scarier (Adrift)
+- Games that colour their text now display those colours. Colour display can be toggled with the *glk colour* command.
+- New *glk undo*, *glk restore*, *glk restart* and *glk quit* meta-commands for games that block or repurpose the ordinary ones.
 
 #### Adrift 3.7 to 4
 - Plays the two known Adrift 3.7 games, *Alice's Restaurant Anti-Massacree Adventure* and *Castle Quest*, which were rejected before.
@@ -18,6 +23,10 @@
 - The battle system was settled command by command against the original 3.9 and 4.0 runners: weapons and armour, wielding, thrown weapons, the combat narration and the status display. Several games previously believed unwinnable can now be played to the end, among them *The Search for Mr. Smith* and *Wes Garden's Halting Nightmare*.
 - A random-number bug that made choices between two outcomes far less random than intended is fixed.
 - Many parser and world-model fixes, including the precedence of PUT commands, taking and dropping, and restrictions that reach into closed carried containers.
+- Bold, italic and right-justified text.
+- The score summary that the original runners print after every ending is now shown, and score-change notifications are off by default, as in the original.
+- Another round of wording and behaviour matched against the original 3.8/3.9/4.0 runners: the "You pick up" / "You take" version split, the pre-4.0 refusals and death message, where the ending message and "Congratulations!" appear, room-name headings, and *last* and *previous* as synonyms for *again*.
+- The map draws its room connectors the way the original Runner does, with opaque badges and arrowheads on one-way exits, and no longer opens an empty pane in a hidden room.
 
 #### Adrift 5
 - The map pane now opens by itself in those games whose authors shipped it open, and In and Out connectors are drawn on the map, with a badge at both ends.
@@ -25,13 +34,24 @@
 - An adventure with no locations is refused with the same error message as the original runner, rather than starting the player nowhere.
 - A large batch of engine fixes found by a new conformance test suite and by reviewing the Adrift 5 file format: restrictions, task actions, character walks, user-defined functions, object references, conversation, and a dozen text functions that were missing or wrong.
 - The source tree now includes a hand-written specification of the Adrift 5 adventure and save file format, contributed by Dan Fabulich (@dfabulich).
+- Support for the `<del>` tag, so games can erase text they printed earlier, even across turns.
+- Up and Down exits are drawn as badges on the map, contributed by Dan Fabulich (@dfabulich), and In/Out badges appear for one-way connections that only exist as character movements.
+- The title screen uses its own style and the prompt is drawn in the input colour, as in the original runner.
+
+### Geas (Quest)
+- Quest 5 presentation features: clearing the screen, hiding the panes, TextFX effects, and the prompt reappearing after a timer prints text.
 
 ### General
+- The library organiser can no longer delete a folder it does not own. Previously, choosing a custom library location that already contained loose game files could make organising move the folder's entire contents and then delete the folder itself. Now only game folders that Spatterlight itself created are moved and cleaned up; everything else is copied and the originals are left in place.
 - Fixes to scrolling after a game changes a text window's size.
 - Supports the macOS "Now Playing" controls: music from a game shows up in Control Center and on the media keys, and can be paused from there.
 - A text window whose text fits the window is no longer restored scrolled past its own first line.
 - Autorestoring a game saved under a theme that no longer exists no longer brings back the wrong fonts and colors.
 - Library entries for different games that share an IFID no longer steal each other's titles, and existing crossed titles are repaired once at startup.
+- Music resumes where an autosave left off.
+- Leading silence is trimmed from MIDI music.
+- Autosave no longer aborts when the game file's signature can't be computed.
+- Escaped `<br>` tags in game descriptions are decoded instead of shown literally.
 
 ## Release 1.5.2
 
