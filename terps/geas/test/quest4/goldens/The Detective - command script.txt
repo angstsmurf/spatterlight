@@ -46,9 +46,13 @@ saying what they are:
     underground in the American warehouse -- which contradicts the study scene in
     part 1, where the son finds his mother murdered.  The game shipped both.
 
-Because all three are commands in the office, all three work the moment you
-start: nothing checks whether you have earned them.  The script below earns them
-in order anyway.
+Because all three are commands in the office, all three work from the moment
+the game opens: nothing checks whether you have earned them.  The script below
+earns them in order anyway.  (Do not re-wrap this paragraph so that a line
+opens with the word "start" and a colon: both harnesses take the first line
+that begins that way, case-insensitively, as the start-of-commands marker,
+and nine other scripts legitimately write `Start: <room name>.` with trailing
+text, so the marker match cannot be tightened instead.)
 
 Part 1 opens on something else entirely -- a five-question true/false quiz about
 Harry Potter and the Half-Blood Prince, offering "the magnificent prize money",

@@ -15,108 +15,6 @@ type the password here if you want to play  ' part 2'
 
 type the password here if you want to access 'special features'
 
-> in order anyway.
-I don't understand your command. Type HELP for a list of valid commands.
-
-> Part 1 opens on something else entirely -- a five-question true/false quiz about
-I don't understand your command. Type HELP for a list of valid commands.
-
-> Harry Potter and the Half-Blood Prince, offering "the magnificent prize money",
-I don't understand your command. Type HELP for a list of valid commands.
-
-> with four wrong answers that are each a `playerlose`.  Answering the fifth
-I don't understand your command. Type HELP for a list of valid commands.
-
-> correctly prints "type enter to continue", and ENTER is what finally produces the
-I don't understand your command. Type HELP for a list of valid commands.
-
-> 1) new game / 2) story menu.  The right answers are TRUE, 607, BLOOMSBURY,
-I don't understand your command. Type HELP for a list of valid commands.
-
-> HALF-BLOOD PRINCE.
-I don't understand your command. Type HELP for a list of valid commands.
-
-> Every keypad in the game is the same puzzle: you are shown four or five digits
-I don't understand your command. Type HELP for a list of valid commands.
-
-> "jumbled up" and have to type the intended order, which you cannot deduce -- you
-I don't understand your command. Type HELP for a list of valid commands.
-
-> have to know it.  The ones on the critical path are 376 (back entrance, from
-I don't understand your command. Type HELP for a list of valid commands.
-
-> 637) and 3296 (warehouse gate, from 2639).  The C4 puzzle is stranger: you are
-I don't understand your command. Type HELP for a list of valid commands.
-
-> shown 7291 and have to answer with letters, DBCA, under a scheme the trainee
-I don't understand your command. Type HELP for a list of valid commands.
-
-> explains with two worked examples that do not agree with each other.
-I don't understand your command. Type HELP for a list of valid commands.
-
-> Branches the script takes, and the ones it doesn't
-I don't understand your command. Type HELP for a list of valid commands.
-
-> Two scenes fork into different rooms rather than into a loss, and the script
-I don't understand your command. Type HELP for a list of valid commands.
-
-> takes the longer side of both:
-I don't understand your command. Type HELP for a list of valid commands.
-
-> * The lounge offers GET A PIZZA or WATCH TV.  Watching TV goes straight to HQ;
-I don't understand your command. Type HELP for a list of valid commands.
-
-> the pizza detours through the Pizza Hut, where all three toppings lead to
-I don't understand your command. Type HELP for a list of valid commands.
-
-> the same phone call.
-I don't understand your command. Type HELP for a list of valid commands.
-
-> * HQ offers a fake ID or the helicopter.  The fake ID goes straight to the
-I don't understand your command. Type HELP for a list of valid commands.
-
-> facility; the helicopter adds a scene where you are shot down and parachute
-I don't understand your command. Type HELP for a list of valid commands.
-
-> in.  Both land outside the facility.
-I don't understand your command. Type HELP for a list of valid commands.
-
-> The one place a wrong-looking answer is required is the trainee's office: the
-I don't understand your command. Type HELP for a list of valid commands.
-
-> question is "do you get it, yes or no", and NO prints the second worked example.
-I don't understand your command. Type HELP for a list of valid commands.
-
-> The script answers NO and then YES, which is allowed because both are just
-I don't understand your command. Type HELP for a list of valid commands.
-
-> commands.
-I don't understand your command. Type HELP for a list of valid commands.
-
-> Two `command <>` entries with no name at all sit in HQ and at 25 Bridge St, and
-I don't understand your command. Type HELP for a list of valid commands.
-
-> `command <up>` and `command <left>` in the facility car park have no script, so
-I don't understand your command. Type HELP for a list of valid commands.
-
-> those two turns print nothing.  The script types them to show they exist.
-I don't understand your command. Type HELP for a list of valid commands.
-
-> The special features are three minigames that are pure keypad drills.  The
-I don't understand your command. Type HELP for a list of valid commands.
-
-> 30-level keypad run in the script is the full set of answers; the "situations"
-I don't understand your command. Type HELP for a list of valid commands.
-
-> run is levels 1 to 5 (USE C4, HOUSE, UNIVERSE, then either direction in the
-I don't understand your command. Type HELP for a list of valid commands.
-
-> forest, then 32036), whose reward is the MATE password.
-I don't understand your command. Type HELP for a list of valid commands.
-
-> Start:
-I don't understand your command. Type HELP for a list of valid commands.
-
 > do questionaire
 Answer all the questions correctly about the 6th Harry Potter book and you could be winning the magnificent prize money. Answer true or false.
 
@@ -1494,4 +1392,4 @@ Don't do questionaire
 type the password here if you want to play  ' part 2'
 
 type the password here if you want to access 'special features'
-[runner] turns=210 leftover=0 running=true WON=YES
+[runner] turns=176 leftover=0 running=true WON=YES
