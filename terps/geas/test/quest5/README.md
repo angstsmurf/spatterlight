@@ -78,10 +78,29 @@ cd harness/oracle
 extractor modes mean, and what each curated override in `oracle/overrides/`
 deviates from.
 
-## Native replay (`harness/aslx_replay`)
+## Native replay (`harness/run_replays.sh`, `harness/aslx_replay`)
 
 The other half of the same regression: our engine against the same frozen
-scripts. Built on demand, since it needs the corpus.
+scripts. `run_replays.sh` is the mirror image of `oracle/check_golden.sh` over
+exactly the same two files — it replays every `goldens/<Game>.cmd` through
+`aslx_replay` and diffs against `goldens/<Game>.txt` — but a FAIL here means
+*we* diverged from what real Quest prints, not that the oracle drifted. It
+builds the binary itself, fans out across cores, and prints the head of each
+failing diff (golden on the left).
+
+```sh
+cd quest5/harness
+./run_replays.sh                       # the whole corpus, in parallel
+./run_replays.sh acreage hobbit        # just the matching games
+WORK=/tmp/replays ./run_replays.sh     # keep the full transcripts
+```
+
+Games with a golden but no game file are `MISS`, not `FAIL`; a run that
+replayed nothing at all exits non-zero rather than reading green. `GAMES=`,
+`JOBS=` and `DIFF_LINES=` override the corpus directory, the fan-out and the
+diff excerpt.
+
+A single game by hand, which is also how the sweep invokes it:
 
 ```sh
 make quest5/harness/aslx_replay                        # from ../
