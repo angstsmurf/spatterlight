@@ -71,13 +71,13 @@ This is the town where you grew up in and where you still live. It's just a norm
 > use smg on plinth
 You shoot the plinth. It shatters and the statue falls down a hole. A security chip rolls across the ground.
 
-> take heatville chip
+> take security chip
 You pick it up.
 
 > east
 This is a teleport stand. It's name says it all. People are teleporting around. A notice reads "just type teleport."
 
-> use heatville chip on device
+> use security chip on device
 You insert the chip. There is a wering from the teleporter.
 
 > teleport
@@ -100,7 +100,7 @@ Will you get the diamond?
 [choice] 1
 "Great."
 
-> speak to trader
+> speak to salesman
 "I'll give you this scrrewdriver for 2 gold dollars. Want it?"
 1) Yes
 2) No
@@ -249,9 +249,6 @@ You shoot the alien and it dies. You find 30 gold dollars on it.
 > use smg on alien
 You shoot the alien. It doesn't die. You shoot it 4 more times and it dies. You find a small ice gem on it.
 
-> take ice gem
-I can't see that here.
-
 > south
 This town is boiling! People are sunbathing everywhere. There is an icecream store serving soup. People are drinking coke and water. Just a normal boiling town.
 
@@ -355,7 +352,7 @@ These are just normal fields. There is a crop circle in the middle of the fields
 > examine crop circle
 You examine the crop circle and see a security chip.
 
-> take sleepville chip
+> take security chip
 You pick it up.
 
 > south
@@ -364,7 +361,11 @@ This town is boiling! People are sunbathing everywhere. There is an icecream sto
 > teleport
 This is a teleport stand. It's name says it all. People are teleporting around. A notice reads "just type teleport."
 
-> use sleepville chip on device
+> use security chip on device
+Please select which security chip you mean:
+1) a security chip
+2) a security chip
+[choice] 1
 You insert the security chip.
 
 > teleport
@@ -389,7 +390,7 @@ You pick it up.
 > teleport
 This is a teleport stand. It's name says it all. People are teleporting around. A notice reads "just type teleport."
 
-> use awakeville chip on device
+> use security chip on device
 You insert the security chip.
 
 > teleport
@@ -518,7 +519,7 @@ This is an east to west road. To the east are some gates guarded by guards and t
 You lean over the edge of the crator and see a glinting object. The guard leaves the guardhouse and pushes you down the crator! You quiklygrab a ledge and climb down to the bottom.
 This is the bottom of a huge crator. There is nothing here really.
 
-> take bloodbath city chip
+> take security chip
 You pick it up.
 
 > use smg on light
@@ -578,7 +579,7 @@ This is the town where you grew up in and where you still live. It's just a norm
 > east
 This is a teleport stand. It's name says it all. People are teleporting around. A notice reads "just type teleport."
 
-> use bloodbath city chip on device
+> use security chip on device
 You insert the security chip.
 
 > teleport
@@ -648,7 +649,7 @@ You pick it up.
 > use pen on paper
 You draw a crop circle on the piece of paper.
 
-> use paper2 on elevator
+> use paper on elevator
 You swipe the paper and the elevator's doors slide open.
 
 > go to elevator
@@ -762,22 +763,26 @@ You are lead out onto a desert where a huge cube is hovering! Suddenly 2 vials f
 
 This is the sahara desert. A huge cube is hovering over you firing lasers at you!
 
-> take vial1
-I can't see that here.
+> use vial on cube
+Please select which vial you mean:
+1) a vial
+2) a vial
+[choice] 1
+The vial misses the cube but you catch it.
 
-> take vial2
-I can't see that here.
-A laser misses you!
-
-> use vial1 on cube
+> use vial on cube
+Please select which vial you mean:
+1) a vial
+2) a vial
+[choice] 1
 The vial hits the cube! The assid eats through half of it.
 A laser hits you!
 
-> use vial2 on cube
+> use vial on cube
 The vial hits the cube. The assid eats through half of it!
 The cube explodes! You hurl yourself out of the way as it hits the ground! A security chip flies from the huge crator and lands in front of you.
 
-> take dumbville chip
+> take security chip
 You pick it up.
 
 > south
@@ -787,7 +792,7 @@ This is the town where you grew up in and where you still live. It's just a norm
 > east
 This is a teleport stand. It's name says it all. People are teleporting around. A notice reads "just type teleport."
 
-> use dumbville chip on device
+> use security chip on device
 You insert the security chip.
 
 > teleport
@@ -965,7 +970,7 @@ You hear a click.
 > east
 You are standing beside a pond. You don't know why there is a pond in the front yard! A bench is next to the pond.
 
-> use triangle2 on bench
+> use triangle on bench
 You fit the triangle into the hole in the bench.
 
 > west
@@ -993,7 +998,7 @@ This is the dumb town of dumbville. People are falling over because they are to 
 > teleport
 This is a teleport stand. It's name says it all. People are teleporting around. A notice reads "just type teleport."
 
-> use darkness chip on device
+> use security chip on device
 You insert the security chip. The teleporter rumbles ominously!
 
 > teleport
@@ -1038,12 +1043,16 @@ The alien warlord's laser hits you hurting you for 10 damage!
 Your laser hits the alien warlord hurting it for 10 damage!
 The alien warlord's laser misses you!
 
-> use laser pistol on warlord
-Your laser misses the warlord!
+> speak to warlord
+"I will kill you" the warlord yells.
 The alien warlord's laser hits you hurting you for 10 damage!
 
 > use laser pistol on warlord
-Your laser misses the warlord!
+Your laser hits the alien warlord hurting it for 10 damage!
+The alien warlord's laser misses you!
+
+> speak to warlord
+"I will kill you" the warlord yells.
 The alien warlord's laser misses you!
 
 > use laser pistol on warlord
@@ -1054,8 +1063,8 @@ The alien warlord's laser misses you!
 Your laser misses the warlord!
 The alien warlord's laser misses you!
 
-> use laser pistol on warlord
-Your laser misses the warlord!
+> speak to warlord
+"I will kill you" the warlord yells.
 The alien warlord's laser hits you hurting you for 10 damage!
 
 > use laser pistol on warlord
@@ -1063,7 +1072,11 @@ Your laser misses the warlord!
 The alien warlord's laser hits you hurting you for 10 damage!
 
 > use laser pistol on warlord
-Your laser misses the warlord!
+Your laser hits the alien warlord hurting it for 10 damage!
+The alien warlord's laser misses you!
+
+> speak to warlord
+"I will kill you" the warlord yells.
 The alien warlord's laser misses you!
 
 > use laser pistol on warlord
@@ -1073,35 +1086,6 @@ The alien warlord's laser hits you hurting you for 10 damage!
 > use laser pistol on warlord
 Your laser hits the alien warlord hurting it for 10 damage!
 The alien warlord's laser hits you hurting you for 10 damage!
-
-> use laser pistol on warlord
-Your laser hits the alien warlord hurting it for 10 damage!
-The alien warlord's laser misses you!
-
-> use laser pistol on warlord
-Your laser hits the alien warlord hurting it for 10 damage!
-The alien warlord's laser hits you hurting you for 10 damage!
-  GAME OVER!
-
-You are in an arena! The chief of the aliens is shooting you!
-
-> use laser pistol on warlord
-Your laser hits the alien warlord hurting it for 10 damage!
-The alien warlord's laser misses you!
-
-> use laser pistol on warlord
-Your laser misses the warlord!
-The alien warlord's laser hits you hurting you for 10 damage!
-  GAME OVER!
-
-You are in an arena! The chief of the aliens is shooting you!
-
-> use laser pistol on warlord
-Your laser misses the warlord!
-The alien warlord's laser hits you hurting you for 10 damage!
-  GAME OVER!
-
-You are in an arena! The chief of the aliens is shooting you!
 
 > use laser pistol on warlord
 Your laser hits the alien warlord hurting it for 10 damage!
@@ -1123,4 +1107,4 @@ You jump out of bed your legs crumpling under you like dust!
 
 (to be continued)
 
-[runner] turns=221 leftover=0 running=false WON=YES
+[runner] turns=238 leftover=0 running=false WON=YES

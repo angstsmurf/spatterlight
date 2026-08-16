@@ -388,7 +388,7 @@ down
 use crucifix on ghoul
 take blue crystal
 up
-use oar on boat2
+use oar on boat
 south
 give ring to elf
 take bow

@@ -23,6 +23,8 @@
 #ifndef __geas_impl_hh
 #define __geas_impl_hh
 
+#include <cstdlib>
+
 #include "GeasRunner.hh"
 #include "geas-state.hh"
 #include "LimitStack.hh"
@@ -125,6 +127,19 @@ class geas_implementation : public GeasRunner
    * puzzle item's alias (Permanant Room has both `define object <Wall Paper>'
    * and a `Peice of Paper' aliased "paper"). */
   bool use_abbreviations_ = true;
+  /* DELIBERATE deviation: accept an object's declared (internal) name as a
+   * last resort when it names exactly one object in scope.  Quest never does
+   * -- an alias *replaces* the name in Disambiguate's eyes (V4Game.cs:
+   * 4704-4767) -- but early geas always did, on purpose: an author's `boat2'
+   * or `Louvre key' in a player's mouth leaves no doubt what was meant, and
+   * refusing it helps nobody.  The unique-match rule is what keeps that safe:
+   * this pass can turn a refusal into a success, never ask a disambiguation
+   * question Quest would not have asked, never pick a different object than
+   * Quest picked.  Only when deriving Quest-compatible walkthroughs must the
+   * leniency be off, so the scripts stay replayable in a real Quest: the
+   * walkthrough runner sets GEAS_STRICT_NAMES for exactly that reason
+   * (--lenient-names turns it back off per fixture). */
+  bool lenient_names_ = std::getenv ("GEAS_STRICT_NAMES") == nullptr;
   /* Quest displays the game block's <intro> text section automatically once the
    * startscript has run, unless the startscript executed "nointro" -- games that
    * print their own credits sequence use that to show <intro> exactly where they
@@ -216,7 +231,7 @@ public:
    * (ExecUse's "noitem"/"badthing"); the caller prints it instead. */
   bool dereference_vars (std::vector<match_binding>&, const std::vector<std::string>&, bool is_internal,
 			 bool quiet_notfound = false) const;
-  bool match_object (const std::string &text, const std::string &name, bool is_internal = false, bool allow_partial = true) const;
+  bool match_object (const std::string &text, const std::string &name, bool is_internal = false, bool allow_partial = true, bool internal_name_ok = false) const;
   void set_vars (const std::vector<match_binding> &v);
   bool run_commands (std::string, const GeasBlock *, bool is_internal = false, bool lib_pass = false);
 

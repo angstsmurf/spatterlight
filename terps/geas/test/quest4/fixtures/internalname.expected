@@ -1,0 +1,25 @@
+
+internalname
+
+You are in Vault.
+There is Gold Key, ruby and garnet here.
+A vault.
+
+> look at gold key
+It has a miniature Vitruvian man.
+
+> look at louvre key
+It has a miniature Vitruvian man.
+
+> look at ruby
+Deep red, pigeon-blood.
+
+> look at red gem1
+Deep red, pigeon-blood.
+
+> look at gem1
+Deep red, pigeon-blood.
+
+> look at red gem
+I can't see that here.
+[runner] turns=6 leftover=0 running=true

@@ -119,6 +119,7 @@ so a script reads exactly like what a player types. Two script styles work:
 | `--echo` | echo the full transcript (otherwise only a summary + tail) |
 | `--seed N` | RNG seed (or set `GEAS_SEED`) |
 | `--max-reloads N` | per-turn save-scum reload cap (default 20000) |
+| `--lenient-names` | keep the engine's player-facing name leniency (a declared name like `boat2` resolves when it points at exactly one object). Off here by default: the runner sets `GEAS_STRICT_NAMES` and gets Quest's alias-only matching, because a walkthrough derived with it must replay in a real Quest. `fixtures/internalname.asl` uses this flag (via its `.args` file); `fixtures/loosename.asl` pins the strict side. |
 
 Exit status is 0 when the win marker is seen (or, with no `--win`, when the
 whole script ran), else 1.
@@ -132,14 +133,16 @@ Run these from `harness/`. A simple game just needs a win marker:
   ../games/Magic.asl "../goldens/Magic World - command script.txt"
 ```
 
-World's End needs all three extras: timer ticking (its dynamite fuse is a
-real-time timer whose explosion reveals an item the rest of the game needs),
-and save-scum for its two random fights:
+World's End needs `--tick` (its dynamite fuse is a real-time timer whose
+explosion reveals an item the rest of the game needs) and a fixed seed: its
+two random fights are scripted turn for turn against the seed-1 draw stream
+(see the command script's header for the derivation), so it no longer needs
+`--save-scum` or `--fight` — those extras remain in the runner for deriving
+the next such walkthrough, where they let you explore a fight before
+linearising it:
 
 ```sh
-GEAS_SEED=1 ./geas_walkthrough_runner --tick --save-scum \
-  --fight "use vial1 on cube|use vial2 on cube=The cube explodes" \
-  --fight "use laser pistol on warlord=slumps to the ground dead" \
+GEAS_SEED=1 ./geas_walkthrough_runner --tick \
   --win "slumps to the ground dead" \
   "../games/worldsend/world's end.asl" "../goldens/Worlds End - command script.txt"
 ```

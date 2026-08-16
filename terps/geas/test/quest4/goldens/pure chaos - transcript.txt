@@ -361,13 +361,6 @@ It's just a small bed.
 > look under bed
 You find a box under there.
 
-> look at box2
-It's a small wooden box.
-
-> open box2
-You open it.
-It's a small wooden box.
-
 > take square
 You pick it up.
 
@@ -377,7 +370,7 @@ It has the same symbols as the disc.
 > use disc on square
 You fit the 2 together.
 
-> look at dws
+> look at disc
 It's the disc and the square joined together.
 
 > w
@@ -403,7 +396,7 @@ This is the eastern hallway. North is the observatory door.
 > look at observatory door
 It's the observatory door. There's a square in the middle with a circle carved into the square.
 
-> use dws on observatory door
+> use disc on observatory door
 The door opens.
 
 > n
@@ -828,4 +821,4 @@ You wake up tied to a bed.
 You are tied to a bed.
 You are strapped to a bed. A person is holding a scowpel and is going ot operate on you!
 You completed the demo.
-[runner] turns=174 leftover=0 running=false WON=YES
+[runner] turns=172 leftover=0 running=false WON=YES

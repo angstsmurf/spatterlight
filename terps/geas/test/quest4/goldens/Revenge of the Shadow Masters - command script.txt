@@ -131,7 +131,7 @@ w
 n
 e
 e
-use room key on door to hotel
+use room key on door
 e
 e
 s

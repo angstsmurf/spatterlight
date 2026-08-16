@@ -6,26 +6,81 @@ text <win>`; the run ends on its "(to be continued)".
 The first input is the "tester" that answers the startscript's `enter <name>`
 prompt, not a command.
 
-This is the only script in the suite that needs all three runner extras, so
-run_walkthroughs.sh passes them (and GEAS_SEED is fixed, but the seed does not
-decide the outcome -- --save-scum does):
+Run with --tick, for the dynamite: `define timer <dynamite>` has interval <5>
+and starts disabled; lighting the stick planted by the spaceship turns it on,
+and the explosion hides the spaceship, which is what lets "examine crop
+circle" in the fields reveal the sleepville security chip the game needs
+later.  The six LOOKs after lighting it are the fuse burning down.  Without
+ticks it never explodes.
 
-  * --tick, for the dynamite.  `define timer <dynamite>` has interval <5> and
-    starts disabled; lighting the stick planted by the spaceship turns it on,
-    and the explosion hides the spaceship, which is what lets "examine crop
-    circle" in the fields reveal the sleepville security chip the game needs
-    later.  Without ticks the fuse never burns down.
-  * two --fight specs, for the two fights the game decides with $rand(1; 2)$:
-      - the hovering cube in the sahara desert.  Each vial does 5 of its 10
-        health on a coin flip, so both have to land, while `define timer <cube>`
-        (interval <1>) takes 10 health off you every other turn.  A missed
-        vial1 is caught and can be thrown again; a missed vial2 prints nothing
-        at all.
-      - the alien warlord, 10 damage each way on the same coin flip.
-  * --save-scum, which is what actually wins those two: a losing streak of
-    flips can kill you outright, so the runner restores and throws again.
+The two fights, and why this script has no --save-scum
+------------------------------------------------------
+This script used to be the one walkthrough that needed the runner's
+--save-scum and --fight extras: the game decides its two fights with
+$rand(1;2)$ / $rand(1;3)$ draws, and a losing streak kills you outright.  But
+under GEAS_SEED=1 the draw stream is a fixed xoshiro128** sequence -- the
+same sequence the oracle's qv4 replays (QVH_SEED=1) -- and this game makes
+*no draw at all* before the desert, so every draw either fight will ever see
+can be computed in advance.  The fight turns below were solved offline
+against that stream (geas's $rand(a;b)$ is lower + draw % range,
+geas-runner.cc), then verified by replay; they are not luck, and rerolling is
+never needed.
 
-Start: hometown (the room prints its description, not a name).
+  * The hovering cube (sahara desert): each vial takes 5 of its 10 health on
+    a $rand(1;2)$ coin, while `define timer <cube>` (interval <1>) fires a
+    laser back on the same coin.  Both vials are given by the desert room
+    script -- there is nothing to take -- and both are `alias <vial>`, so the
+    first USE VIAL ON CUBE is a two-way disambiguation menu; the 1 after each
+    of the first two throws answers it (vial1, defined first, is entry 1).  A
+    missed vial1 is caught and can be thrown again; a missed vial2 prints
+    nothing at all.  Under seed 1 the fight is: vial1 miss, vial1 hit (the
+    cube's laser hits back), vial2 hit -- and once vial1 is gone the third
+    throw needs no menu answer.
+  * The alien warlord (arena): your laser does 10 of its 100 health on
+    $rand(1;2)$, and an afterturn script fires back for 10 of your 100 on
+    $rand(1;3)>1$ -- a 2/3 chance, so trading shot for shot loses: spamming
+    the laser from this stream position is dead in 17 turns, 8 hits to its
+    10.  The script instead idles on four turns -- 7, 9, 12 and 15 of the
+    fight, as SPEAK TO WARLORD, which draws nothing -- so that the afterturn
+    draw eats the values that would have been losing shots and every laser
+    lands on a favourable one.  19 turns: six hits, two misses, an idle, a
+    hit, an idle, two misses, an idle, a miss and a hit, an idle, four hits.
+    The arena's room script heals you to 100 on entry, and the afterturn does
+    not fire on the entry turn -- the first draw of the fight is the first
+    shot's.
+
+Aliases: what this script may and may not type
+----------------------------------------------
+Quest's matcher accepts an object's alias and never its definition name once
+an alias replaces it (ObjectAlias is *initialised* to the name and
+*overwritten* by `alias', V4Game.cs:4738-4760), and geas now agrees, so:
+
+  * All six teleporter chips -- heatville, sleepville, awakeville, bloodbath
+    city, dumbville, darkness -- are `alias <security chip>`, and TAKE/USE
+    SECURITY CHIP is the only way to name any of them.  The device hides
+    each chip as it is inserted, so the phrase is unambiguous at every use
+    but one: when the sleepville chip is inserted the awakeville chip (given
+    by snowville's computer) is already in inventory, so that USE SECURITY
+    CHIP ON DEVICE is a two-way menu, answered 1 (sleepville, defined
+    first); the next insertion is the awakeville chip, alone again.
+  * The heatville screwdriver seller is `trader' aliased "salesman": SPEAK
+    TO SALESMAN.
+  * `paper2' (the pen-marked paper) and `triangle2' (the clay triangle) are
+    aliased "paper" and "triangle", and their originals are hidden by the
+    time they exist, so the plain nouns reach them.
+  * The two fields aliens share the alias "alien": the first USE SMG ON
+    ALIEN is a two-way menu, answered 1; the second is unambiguous.
+
+The other menus are the game's own `ask'/`choose' prompts (teleport
+destinations, shop offers, the bus fare, the suitcase's 1873 code) and each
+is answered by the line after it.  GO TO ELEVATORROOM really is the room's
+definition name -- `go to' matches rooms by name, not through the object
+matcher -- and TAKE ICE GEM was dropped from older revisions of this script:
+alien2's death script already does `give <ice gem>`, so the take was a
+scripted "I can't see that here.".
+
+279 script lines, 238 turns, seed 1, run with --tick.
+Start:
 
 tester
 speak to statue
@@ -44,14 +99,14 @@ speak to gun seller
 1
 south
 use smg on plinth
-take heatville chip
+take security chip
 east
-use heatville chip on device
+use security chip on device
 teleport
 2
 speak to man
 1
-speak to trader
+speak to salesman
 1
 teleport
 teleport
@@ -89,7 +144,6 @@ north
 use smg on alien
 1
 use smg on alien
-take ice gem
 south
 teleport
 teleport
@@ -120,16 +174,17 @@ look
 look
 north
 examine crop circle
-take sleepville chip
+take security chip
 south
 teleport
-use sleepville chip on device
+use security chip on device
+1
 teleport
 3
 use screwdriver on bed
 take screw
 teleport
-use awakeville chip on device
+use security chip on device
 teleport
 4
 speak to man
@@ -165,7 +220,7 @@ speak to guard
 arctic
 north
 examine crator
-take bloodbath city chip
+take security chip
 use smg on light
 search corpse
 use teleporter on light
@@ -181,7 +236,7 @@ speak to gun seller
 1
 south
 east
-use bloodbath city chip on device
+use security chip on device
 teleport
 5
 search corpse
@@ -198,7 +253,7 @@ down
 use axe on barrels
 take pen
 use pen on paper
-use paper2 on elevator
+use paper on elevator
 go to elevator
 use keypad
 mut
@@ -224,24 +279,15 @@ get on bus
 1
 use map
 give chips to scientist
-take vial1
-take vial2
-use vial1 on cube
-use vial2 on cube
-use vial1 on cube
-use vial2 on cube
-use vial1 on cube
-use vial2 on cube
-use vial1 on cube
-use vial2 on cube
-use vial1 on cube
-use vial2 on cube
-use vial1 on cube
-use vial2 on cube
-take dumbville chip
+use vial on cube
+1
+use vial on cube
+1
+use vial on cube
+take security chip
 south
 east
-use dumbville chip on device
+use security chip on device
 teleport
 6
 examine jewelry
@@ -284,7 +330,7 @@ teleport
 6
 north
 east
-use triangle2 on bench
+use triangle on bench
 west
 open door
 north
@@ -292,7 +338,7 @@ speak to oracle
 south
 south
 teleport
-use darkness chip on device
+use security chip on device
 teleport
 7
 north
@@ -302,36 +348,15 @@ use laser pistol on warlord
 use laser pistol on warlord
 use laser pistol on warlord
 use laser pistol on warlord
+speak to warlord
+use laser pistol on warlord
+speak to warlord
 use laser pistol on warlord
 use laser pistol on warlord
+speak to warlord
 use laser pistol on warlord
 use laser pistol on warlord
-use laser pistol on warlord
-use laser pistol on warlord
-use laser pistol on warlord
-use laser pistol on warlord
-use laser pistol on warlord
-use laser pistol on warlord
-use laser pistol on warlord
-use laser pistol on warlord
-use laser pistol on warlord
-use laser pistol on warlord
-use laser pistol on warlord
-use laser pistol on warlord
-use laser pistol on warlord
-use laser pistol on warlord
-use laser pistol on warlord
-use laser pistol on warlord
-use laser pistol on warlord
-use laser pistol on warlord
-use laser pistol on warlord
-use laser pistol on warlord
-use laser pistol on warlord
-use laser pistol on warlord
-use laser pistol on warlord
-use laser pistol on warlord
-use laser pistol on warlord
-use laser pistol on warlord
+speak to warlord
 use laser pistol on warlord
 use laser pistol on warlord
 use laser pistol on warlord

@@ -25,8 +25,7 @@
 # reproduces anyone else's walkthrough, which is what lets them be committed
 # while the games themselves cannot be.
 #
-# Builds the runner if needed.  Uses a fixed RNG seed for reproducibility;
-# World's End's two random fights are won by --save-scum regardless of seed.
+# Builds the runner if needed.  Uses a fixed RNG seed for reproducibility.
 # geas draws its $rand(a;b)$ from erkyrath_random() (common_utils/randomness.c),
 # which is xoshiro128** once seeded, so a seeded run makes the same draws here
 # as in the Spatterlight build and the same draws on every platform -- which is
@@ -186,10 +185,11 @@ play ExitsOfTheWorld     "Exits of The World.asl"      "Exits of The World - com
 # DePaw kill you and then calls playerwin, and the game defines no win text (see
 # the script's header).  The marker is the killing blow.
 play EscapeElevator      "EtE.asl"                     "Escape the Elevator - command script.txt"                  "fall down dead"
-play WorldsEnd           "worldsend/world's end.asl"   "Worlds End - command script.txt"                           "slumps to the ground dead" \
-    --tick --save-scum \
-    --fight "use vial1 on cube|use vial2 on cube=The cube explodes" \
-    --fight "use laser pistol on warlord=slumps to the ground dead"
+# World's End's two random fights are scripted turn for turn against the
+# seed-1 draw stream (see the command script's header); it no longer needs
+# --save-scum or --fight, so it diffs -- and joins the oracle sweep -- like
+# everything else.
+play WorldsEnd           "worldsend/world's end.asl"   "Worlds End - command script.txt"                           "slumps to the ground dead" --tick
 
 play EasyMoney           "EasyMoney.asl"               "Easy Money - command script.txt"                           "YOU DID IT"
 play BriceBall           "Fantasy BriceBall 001.cas"   "Fantasy BriceBall - command script.txt"                    "YOU WIN"

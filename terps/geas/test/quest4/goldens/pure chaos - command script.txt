@@ -94,21 +94,27 @@ wrong for the other three, the sort of accident that is hard to spot without the
 menu in the transcript.  (The runner prints the numbered menu for exactly that
 reason.)
 
-USE DWS ON OBSERVATORY DOOR
----------------------------
+USE DISC ON OBSERVATORY DOOR
+----------------------------
 The kid's-room square joins the disc: USE DISC ON SQUARE hides both and gives you
 an object whose name is `dws` and whose alias is "disc with square".  The
-observatory door wants `use <dws>`, and the obvious command for it cannot be
+observatory door wants `use <dws>`, and the alias's own full form cannot be
 typed:
 
     USE DISC WITH SQUARE ON OBSERVATORY DOOR
 
 splits on " with " long before it splits on " on ", and the header's own synonym
 line -- `use disc with square = use disc on square` -- rewrites the front of it
-first for good measure.  So the door has to be opened by the internal name, USE
-DWS ON OBSERVATORY DOOR.  Likewise LOOK AT BOX2 in the kid's room: `box2` is
-`alias <box>` and the box from the clock is already in your inventory, so LOOK AT
-BOX is a two-way disambiguation between two options both displayed as "box".
+first for good measure.  What saves the game is the abbreviation pass (the game
+is ASL 400 with `abbreviations on`): DISC is a word-initial run of "disc with
+square", the original disc is hidden by the join, so USE DISC ON OBSERVATORY
+DOOR has exactly one candidate in the inventory.  The internal name `dws`
+itself is not typeable -- an alias *replaces* the definition name in Quest's
+matcher -- which is also why the kid's-room box2 gets no LOOK of its own:
+`box2` is `alias <box>` and the box from the clock is already in your
+inventory, so LOOK AT BOX is a two-way disambiguation menu, and LOOK AT BOX2
+is "I can't see that here."  The script just leaves the empty box under the
+bed where LOOK UNDER BED revealed it.
 
 The magnifying glass, and the star map
 --------------------------------------
@@ -178,11 +184,13 @@ undeclared room still works.  test/fixtures/gotonoroom.asl pins all of it.
 
 Loose ends
 ----------
-Nine of the objects the script handles are pure scenery: the notebook and pen in
-your own bedroom (the pen does open the coke), the scroll on the bathroom window
-ledge, the vial of black liquid on the balcony, the sereal box, the chairs on the
-deck, the tape recorder ("You insert the tape and push play but nothing
-happens"), the empty closet, and the empty box2 under the kid's bed.  The
+Eight of the objects the script handles are pure scenery: the notebook and pen
+in your own bedroom (the pen does open the coke), the scroll on the bathroom
+window ledge, the vial of black liquid on the balcony, the sereal box, the
+chairs on the deck, the tape recorder ("You insert the tape and push play but
+nothing happens"), and the empty closet.  (The empty box2 under the kid's bed
+used to be a ninth, but its only typeable name is a disambiguation menu -- see
+USE DISC ON OBSERVATORY DOOR above -- so the script leaves it alone.)  The
 balcony's north window looks into "a small room.  Maybe there's a way to open the
 window" -- there is not.  `define variable <cabinet>` is a string set to "locked"
 that nothing reads, with `onchange msg <>`; `starmap` is a numeric set to 1 that
@@ -273,18 +281,16 @@ s
 e
 look at bed
 look under bed
-look at box2
-open box2
 take square
 look at square
 use disc on square
-look at dws
+look at disc
 w
 n
 down
 e
 look at observatory door
-use dws on observatory door
+use disc on observatory door
 n
 look at telescope
 use tape on telescope

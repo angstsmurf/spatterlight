@@ -25,9 +25,14 @@
 
     --fight "c1|c2|...=marker"   Repeat the |-separated commands (cycled),
                   save-scumming, until `marker` appears in real output.  Use
-                  for fights the script can't spell out turn-by-turn because
-                  they are random (alternate vials at a cube; fire until a
-                  boss dies).  Repeatable.
+                  for exploring a random fight before linearising it
+                  (alternate vials at a cube; fire until a boss dies).
+                  Repeatable.  No committed walkthrough uses this or
+                  --save-scum any more: under a fixed seed the draw stream is
+                  known in advance, so even World's End's two coin-flip
+                  fights are spelled out turn for turn (see its script's
+                  header), which is what lets its transcript be diffed and
+                  oracle-compared like every other game's.
 
     --win "marker"   Success marker.  Sets the exit code (0 = seen) and the
                   reported WON state, and guards --save-scum from rewinding a
@@ -40,6 +45,14 @@
   pane's current contents (get_status_vars ()) into the transcript instead.
     --seed N      RNG seed (overrides $GEAS_SEED).
     --max-reloads N   Per-turn save-scum reload cap (default 20000).
+    --lenient-names   Keep the engine's player-facing name leniency (accepting
+                  a declared name like `boat2' when it points at exactly one
+                  object).  By default this tool sets GEAS_STRICT_NAMES and
+                  gets Quest's alias-only matching instead: a walkthrough
+                  derived here has to replay in a real Quest, so it must never
+                  lean on a noun Quest would refuse.  Playing interactively is
+                  the opposite trade, which is why lenient is the engine's own
+                  default and strict is this tool's.
 
   Exit status: 0 if a win marker was given and seen, or if no win marker was
   given and the whole script ran; 1 otherwise.
@@ -317,7 +330,7 @@ main (int argc, char **argv)
 {
   std::vector<Fight> fights;
   std::string win_marker;
-  bool opt_scum = false, opt_echo = false;
+  bool opt_scum = false, opt_echo = false, opt_lenient = false;
   int seed = getenv ("GEAS_SEED") ? atoi (getenv ("GEAS_SEED")) : 0;
   bool have_seed = getenv ("GEAS_SEED");
   std::vector<std::string> pos;
@@ -339,6 +352,8 @@ main (int argc, char **argv)
 	opt_scum = true;
       else if (a == "--echo")
 	opt_echo = true;
+      else if (a == "--lenient-names")
+	opt_lenient = true;
       else if (a == "--seed")
 	{
 	  seed = atoi (need ("--seed").c_str ());
@@ -378,8 +393,9 @@ main (int argc, char **argv)
 	{
 	  std::cout << "usage: " << argv[0]
 		    << " [--tick] [--save-scum] [--echo] [--seed N]\n"
-		       "          [--max-reloads N] [--win MARKER]"
-		       " [--fight \"c1|c2=MARKER\"]...\n"
+		       "          [--lenient-names] [--max-reloads N]"
+		       " [--win MARKER]\n"
+		       "          [--fight \"c1|c2=MARKER\"]...\n"
 		       "          <game-file> <command-script>\n";
 	  return 0;
 	}
@@ -406,6 +422,14 @@ main (int argc, char **argv)
       snprintf (buf, sizeof buf, "%d", seed);
       setenv ("GEAS_SEED", buf, 1);
     }
+
+  /* Quest's alias-only noun matching, unless --lenient-names asked for the
+     engine's player-facing default (see lenient_names_ in geas-impl.hh).
+     The flag wins over an inherited environment either way. */
+  if (opt_lenient)
+    unsetenv ("GEAS_STRICT_NAMES");
+  else
+    setenv ("GEAS_STRICT_NAMES", "1", 1);
 
   /* Read the script.  A "raw" script is one clean input per line; a prose
      walkthrough may carry a header (skipped up to a "Start:" line, if any)

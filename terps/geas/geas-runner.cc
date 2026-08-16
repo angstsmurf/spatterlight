@@ -4018,7 +4018,7 @@ static bool match_object_alts (string text, const vector<string> &alts, bool is_
   return false;
 }
 
-bool geas_implementation::match_object (const string &text, const string &name, bool is_internal, bool allow_partial) const
+bool geas_implementation::match_object (const string &text, const string &name, bool is_internal, bool allow_partial, bool internal_name_ok) const
 {
   GEAS_DBG << "* * * match_object (" << text << ", " << name << ", "
        << (is_internal ? "true" : "false") << ")\n";
@@ -4027,25 +4027,42 @@ bool geas_implementation::match_object (const string &text, const string &name, 
 
   if (is_internal && ci_equal (text, name)) return true;
 
+  /* The lenient internal-name arm (see lenient_names_ in geas-impl.hh): only
+   * get_obj_name's last-resort pass sets internal_name_ok, after the exact and
+   * partial alias passes have both come up empty, and it keeps the result only
+   * when exactly one object answers.  The word-run half rides the same
+   * allow_partial gate as the alias's, so a game that turned abbreviations off
+   * gets the exact declared name and nothing looser. */
+  if (internal_name_ok &&
+      (ci_equal (text, name) ||
+       (allow_partial && word_match (text, name, false))))
+    return true;
+
   if (get_obj_property (name, "prefix", prefix) &&
       starts_with (text, prefix + " ") &&
-      match_object (text.substr (prefix.length() + 1), name, false, allow_partial))
+      match_object (text.substr (prefix.length() + 1), name, false, allow_partial, internal_name_ok))
     return true;
 
   if (get_obj_property (name, "suffix", suffix) &&
       ends_with (text, " " + suffix) &&
-      match_object (text.substr (0, text.length() - suffix.length() - 1), name, false, allow_partial))
+      match_object (text.substr (0, text.length() - suffix.length() - 1), name, false, allow_partial, internal_name_ok))
     return true;
 
   if (!get_obj_property (name, "alias", alias))
     alias = name;
   if (ci_equal (text, alias))
     return true;
-  /* Partial matching: accept any whole-word run of the alias or name, so the
-   * player can refer to an object by part of its name ("rose" -> "Red Rose").
-   * Only used as a fallback (see get_obj_name) so exact matches win. */
-  if (allow_partial && (word_match (text, alias, false) ||
-			word_match (text, name, false)))
+  /* Partial matching: accept any whole-word run of the alias, so the player
+   * can refer to an object by part of its name ("rose" -> "Red Rose").  Only
+   * used as a fallback (see get_obj_name) so exact matches win.  The alias
+   * only, never the definition name: Quest's abbreviation pass reads
+   * ObjectAlias (V4Game.cs:4738-4760), which is *initialised* to the name and
+   * *replaced* by `alias' -- so an aliased object's definition name is not
+   * typeable at all.  Blight of Elantria's island boat is `boat2' aliased
+   * "boat", and USE OAR ON BOAT2 is "That doesn't work." in Quest.  geas
+   * deliberately re-admits the declared name, but only through the
+   * internal_name_ok arm above, on the last-resort unique-match pass. */
+  if (allow_partial && word_match (text, alias, false))
     return true;
 
   const GeasBlock *gb = gf.find_by_name ("object", name);
@@ -4176,12 +4193,26 @@ string geas_implementation::get_obj_name (const string &name, const vector<strin
    * disambiguation question Quest would not have asked, and never pick a
    * different object than Quest picked -- and ambiguity is the whole failure
    * mode, which is why Permanant Room above needed an escape hatch that a
-   * pre-391 author had no reason to write. */
+   * pre-391 author had no reason to write.
+   *
+   * And a third pass, another DELIBERATE deviation (lenient_names_ in
+   * geas-impl.hh): when both of those find nothing, accept the object's
+   * *declared* name -- the `define object <boat2>' identifier an alias has
+   * replaced -- if it names exactly one object in scope.  Quest refuses those
+   * outright; early geas always took them, on purpose, and the unique-match
+   * rule is what makes the leniency safe (it can only ever turn a refusal
+   * into a success).  The walkthrough runner sets GEAS_STRICT_NAMES to turn
+   * this pass off, so derived walkthroughs stay replayable in a real Quest. */
   bool try_partial = use_abbreviations_;
   bool unique_only = asl_version_ < 391;
-  for (int pass = 0; pass < (try_partial ? 2 : 1) && objs.empty(); pass ++)
+  for (int pass = 0; pass < 3 && objs.empty(); pass ++)
     {
-      bool allow_partial = (pass == 1);
+      bool internal_name = (pass == 2);
+      if (pass == 1 && !try_partial)
+	continue;
+      if (internal_name && !lenient_names_)
+	break;
+      bool allow_partial = internal_name ? try_partial : (pass == 1);
       for (size_t objnum = 0; objnum < state.objs.size(); objnum ++)
 	{
 	  bool is_used = false;
@@ -4204,7 +4235,8 @@ string geas_implementation::get_obj_name (const string &name, const vector<strin
 	    }
 	  if (is_used &&
 	      !has_obj_property (state.objs[objnum].name, "hidden") &&
-	      match_object (name, state.objs[objnum].name, is_internal, allow_partial))
+	      match_object (name, state.objs[objnum].name, is_internal,
+			    allow_partial, internal_name))
 	    {
 	      string printed_name, tmp, oname = state.objs[objnum].name;
 	      objs.push_back (oname);
@@ -4225,8 +4257,11 @@ string geas_implementation::get_obj_name (const string &name, const vector<strin
 	    }
 	}
       /* An ambiguous loose match below 391 is dropped rather than put to the
-	 player: Quest found nothing here, so the answer stays "nothing". */
-      if (allow_partial && unique_only && objs.size () > 1)
+	 player: Quest found nothing here, so the answer stays "nothing".  The
+	 internal-name pass is unique-only at every version -- ambiguity is
+	 exactly the doubt that forfeits the leniency. */
+      if (objs.size () > 1 &&
+	  ((allow_partial && unique_only) || internal_name))
 	{
 	  objs.clear ();
 	  printed_objs.clear ();
@@ -4430,8 +4465,15 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 
   if (!is_normal)
     {
-      if (run_commands (cmd, gf.find_by_name ("room", state.location)) ||
-	  run_commands (cmd, gf.find_by_name ("game", "game")))
+      /* is_internal rides along: Quest's AllowRealNamesInCommand lives in the
+       * ctx that ExecCommand hands ExecUserCommand, so a `command' block hit
+       * from an exec'd or implied turn resolves its `#@...#' blanks with real
+       * names allowed too (V4Game.Part2.cs:2228-2231, 4232-4242).  Things That
+       * Go Bump's `command <remove #@ob#>' is the witness: the implied removal
+       * of TAKE DUSTY FUSE hands it "remove fuse3", and `fuse3' is a real name
+       * its alias has replaced. */
+      if (run_commands (cmd, gf.find_by_name ("room", state.location), is_internal) ||
+	  run_commands (cmd, gf.find_by_name ("game", "game"), is_internal))
 	return true;
       /* Verbs are next, ahead of every built-in and inside the same
        * runUserCommand gate the user commands above are (see try_game_verb). */
@@ -4439,7 +4481,7 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	return true;
       /* Then, and only then, whatever a library contributed: its commands, then
        * its verbs.  Both lose to everything above (V4Game.Part2.cs:4224-4241). */
-      if (run_commands (cmd, gf.find_by_name ("game", "game"), false, true))
+      if (run_commands (cmd, gf.find_by_name ("game", "game"), is_internal, true))
 	return true;
       if (try_game_verb (cmd, is_internal, true))
 	return true;

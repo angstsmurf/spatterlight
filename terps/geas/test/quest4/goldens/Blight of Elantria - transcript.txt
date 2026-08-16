@@ -708,7 +708,7 @@ You can go down.
 You can see a boat and a grating.
 It is only a few hundred yards wide and is overgrown with grasses and reeds.
 
-> use oar on boat2
+> use oar on boat
 You punt across the lake since you only have one oar.
 You are by the lake.
 You can go south or northwest.

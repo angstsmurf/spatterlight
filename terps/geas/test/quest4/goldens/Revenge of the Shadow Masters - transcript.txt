@@ -150,7 +150,7 @@ The setting of the resort's courtyard isn't much different from the tropical the
 
 As you continue on your way though the courtyard, you notice that there is now a gym to the North instead of a massage room. After gazing around at the other side, you begin to wonder just how big the swimming pool is because there is another entrance to it on the South side of the courtyard. Just in front of you, to the East, is the entrance to where the hotel rooms are. On either side of the hotel entrance is a tall wall made of tropical plants. It's obvious that whoever owns this resort has taken extra care to ensure that it is well maintained for its guests.
 
-> use room key on door to hotel
+> use room key on door
 
 Taking your room key out of your pocket, you use it on the door to the hotel. After a moment the green light comes on, and the door becomes unlocked.
 
