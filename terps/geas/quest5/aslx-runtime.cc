@@ -1075,20 +1075,21 @@ std::shared_ptr<std::vector<Stmt>> Interp::compile_script(const std::string &src
     return v;
 }
 
-void Interp::run_script(const std::string &source, Context &ctx) {
-    if (script_errors_fatal_) return;
+// The script boundary (QuestViva RunScriptAsync): a parse or runtime throw
+// aborts THIS script body only; it is logged and reported, and the calling
+// script carries on with its next statement. The cap throw fires BEFORE the
+// guarded region, so it propagates to the ENCLOSING boundary, exactly as
+// RunScriptAsync's entry check does.
+template <typename Body>
+void Interp::script_boundary(Context &ctx, Body body) {
     if (script_depth_ >= kMaxScriptDepth)
         throw std::runtime_error(
             "Script execution depth exceeded 200 - this usually means a script "
             "is recursing infinitely (e.g. a \"changed<field>\" script that "
             "sets the field it's watching)");
-    // This is the script boundary (QuestViva RunScriptAsync): a parse or
-    // runtime throw aborts THIS script body only; it is logged and reported,
-    // and the calling script carries on with its next statement.
     ++script_depth_;
     try {
-        auto stmts = compile_script(source);
-        exec_block(*stmts, ctx);
+        body();
     } catch (TurnSuspended &ts) {
         // Not an error: a synchronous `play sound` parked the turn. The
         // suspension passes through every script boundary to the turn
@@ -1103,6 +1104,14 @@ void Interp::run_script(const std::string &source, Context &ctx) {
         report_script_error(err.what());
     }
     --script_depth_;
+}
+
+void Interp::run_script(const std::string &source, Context &ctx) {
+    if (script_errors_fatal_) return;
+    script_boundary(ctx, [&] {
+        auto stmts = compile_script(source);
+        exec_block(*stmts, ctx);
+    });
 }
 
 // -- execution --------------------------------------------------------------
@@ -1480,28 +1489,10 @@ void Interp::run_callback_boundary(const std::vector<Stmt> *body, Context &ctx) 
     // flush loop both run callbacks through RunScriptAsync), so nested
     // `on ready` chains contribute to the 200 cap exactly like the oracle --
     // which decides which sub-calls die during an error-cascade unwind (The
-    // Bony King's beforeenter spiral). The cap throw fires BEFORE the guarded
-    // region, propagating to the ENCLOSING boundary, like RunScriptAsync's
-    // entry check. A failure inside is reported and the engine carries on; a
-    // TurnSuspended (synchronous `play sound`) abandons the callback silently.
-    if (script_depth_ >= kMaxScriptDepth)
-        throw std::runtime_error(
-            "Script execution depth exceeded 200 - this usually means a script "
-            "is recursing infinitely (e.g. a \"changed<field>\" script that "
-            "sets the field it's watching)");
-    ++script_depth_;
-    try {
-        exec_block(*body, ctx);
-    } catch (TurnSuspended &ts) {
-        // A script boundary: claim the unwound frames with this callback's
-        // context so resume_parked_tail can re-run them (see run_script).
-        ts.frames.push_back(TurnSuspended::Frame{nullptr, 0, ctx});
-        --script_depth_;
-        throw;
-    } catch (const std::exception &err) {
-        report_script_error(err.what());
-    }
-    --script_depth_;
+    // Bony King's beforeenter spiral). A failure inside is reported and the
+    // engine carries on; a TurnSuspended (synchronous `play sound`) abandons
+    // the callback silently.
+    script_boundary(ctx, [&] { exec_block(*body, ctx); });
 }
 
 void Interp::add_on_ready(const std::vector<Stmt> *body, const Context &ctx) {
@@ -3038,15 +3029,34 @@ bool Interp::exec_statement_command(const std::string &name,
     // to the output sink. JS.setPanelContents is the picture frame
     // (SetFramePicture/ClearFramePicture wrap it, and OnEnterRoom sets it from
     // the room's `picture` attribute) -- routed to the set_panel_contents host
-    // hook when one is installed, untouched (arg unevaluated) otherwise.
+    // hook when one is installed, dropped otherwise.
     // Everything else is a UI side effect we can ignore in the headless/native
     // core (a later presentation milestone wires the rest).
     if (name.compare(0, 3, "JS.") == 0) {
         std::string fn = name.substr(3);
+        /* A JS.* call is an ordinary FunctionCallScript to QuestViva: it
+         * evaluates EVERY argument, left to right, before it even looks at the
+         * name -- so an argument that fails reports a script error whether or
+         * not anything is listening at the other end. Cache them here and read
+         * the cache below (the shadowing `ev`), so each argument is evaluated
+         * exactly once, in order, on every path including the ones we ignore.
+         *
+         * Evaluating lazily instead -- only the arguments a handled case
+         * actually reads -- silently dropped three "The given key 'x' was not
+         * present in the dictionary" reports from The Acreage, whose CoreGrid
+         * map paints an uncharted room: JS.Grid_DrawBox's first three
+         * arguments each call Grid_GetGridCoordinateForPlayer on coordinates
+         * the room does not have yet. See the `picture` note below for the
+         * same rule on a statement we do implement. */
+        std::vector<Value> jsargs;
+        jsargs.reserve(args.size());
+        for (const auto &a : args)
+            jsargs.push_back(eval_expr(*a, ctx));
+        auto ev = [&](size_t i) -> Value {
+            return i < jsargs.size() ? jsargs[i] : vnull();
+        };
         /* Hand an unimplemented JS.* call's last argument to the host, which
-         * decides whether it names a game function to fire as an ASLEvent.
-         * Evaluating the argument only happens here, hook installed, so the
-         * headless path stays untouched. */
+         * decides whether it names a game function to fire as an ASLEvent. */
         auto js_fallback = [&] {
             /* Zero-argument calls reach the host too, with an empty argument:
              * the name alone can be the signal (JS.HookClicks installs the
@@ -3112,9 +3122,7 @@ bool Interp::exec_statement_command(const std::string &name,
              * "window.location.reload();" (older Cores first probe the
              * desktop player's RestartGame()).  That reload IS the restart
              * -- route it to the host.  Everything else this eval channel
-             * carries (transcript flags, jQuery pane tweaks) stays ignored;
-             * the argument is only evaluated with a hook installed, so
-             * headless transcripts are untouched. */
+             * carries (transcript flags, jQuery pane tweaks) stays ignored. */
             std::string js = to_string(ev(0));
             if (js.find("location.reload") != std::string::npos ||
                 js.find("RestartGame") != std::string::npos)
@@ -3125,11 +3133,9 @@ bool Interp::exec_statement_command(const std::string &name,
             js_fallback();
         } else if (grid_draw) {
             /* The grid-map paint vocabulary (CoreGrid.aslx -> grid.js),
-             * forwarded as GridDraw commands. Argument evaluation only
-             * happens down here, hook set -- the headless path above stays
-             * untouched. Guarding numbers through as_double keeps a game
-             * that passes junk from crashing the bridge (grid.js would have
-             * silently drawn NaNs). */
+             * forwarded as GridDraw commands. Guarding numbers through
+             * as_double keeps a game that passes junk from crashing the
+             * bridge (grid.js would have silently drawn NaNs). */
             auto num = [&](size_t i) { return as_double(ev(i)); };
             GridDraw g;
             if (fn == "ShowGrid") {

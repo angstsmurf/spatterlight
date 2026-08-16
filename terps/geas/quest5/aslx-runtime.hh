@@ -730,6 +730,11 @@ private:
     void update_status_variables();
 
     int script_depth_ = 0;
+    // One script boundary (WorldModel.RunScriptAsync), shared by run_script and
+    // run_callback_boundary: the entry depth check, the depth accounting, and
+    // the two catches. BODY runs inside it with CTX as its context. Defined in
+    // aslx-runtime.cc, which is the only translation unit that instantiates it.
+    template <typename Body> void script_boundary(Context &ctx, Body body);
     int script_error_count_ = 0;
     bool script_errors_fatal_ = false;
     bool reporting_error_ = false;
