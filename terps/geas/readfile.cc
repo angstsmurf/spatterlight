@@ -31,6 +31,7 @@
 #include "reserved_words.hh"
 #include "GeasRunner.hh"
 #include "general.hh"
+#include "standardlib_builtin.hh"
 #include "stdverbs_builtin.hh"
 #include "typelib_builtin.hh"
 
@@ -1103,6 +1104,24 @@ static bool is_stdverbs (const string &name)
   return base == "stdverbs.lib";
 }
 
+/* A.G. Bampton's standard.lib (the Quest 2-era container library) also ships
+ * with Quest rather than with games.  Quest 4 looks for a copy next to the
+ * game first and falls back to its bundled one (V4Game.cs:1397-1415), and its
+ * content changes play: its !addto synonyms block rewrites "get X" to
+ * "take X" before any game command can match, and its LOOK AT override lists
+ * a container's contents.  Splice in the bundled copy (see
+ * geas_builtin_standardlib in standardlib_builtin.hh) when no file is on
+ * disk, or a game that !includes it plays differently from Quest. */
+static bool is_standardlib (const string &name)
+{
+  string base = name;
+  std::string::size_type slash = base.find_last_of ("/\\");
+  if (slash != string::npos)
+    base = base.substr (slash + 1);
+  base = lcase (base);
+  return base == "standard.lib";
+}
+
 /* MaDbRiT's Type Library (typelib.qlb / typelib.lib) is another standard Quest
  * library that ships with Quest/QDK rather than with games, so it is never on
  * disk for us to load.  Unlike stdverbs/net, it supplies content Geas does NOT
@@ -1236,6 +1255,28 @@ static void handle_includes (const vector<string> &in_data_arg, const string &fi
 		  == open.end())
 		handle_includes (split_lines (geas_builtin_typelib), "typelib.qlb",
 				 out_data, gi, open);
+	      continue;
+	    }
+	  /* The container library.  Unlike the two above, a game could ship its
+	     own copy, and Quest reads an adjacent file before falling back to
+	     the bundled one (V4Game.cs:1397-1415); do the same. */
+	  if (is_standardlib (param_contents (tok)))
+	    {
+	      string libname = gi->absolute_name (param_contents (tok), filename);
+	      string contents = gi->get_file (libname);
+	      if (contents.empty ())
+		{
+		  if (std::find (open.begin(), open.end(), string ("standard.lib"))
+		      == open.end())
+		    handle_includes (split_lines (geas_builtin_standardlib),
+				     "standard.lib", out_data, gi, open);
+		}
+	      else if (std::find (open.begin(), open.end(), lcase (libname))
+		       != open.end())
+		gi->debug_print ("Ignoring recursive !include of " + libname);
+	      else
+		handle_includes (split_lines (contents), libname, out_data, gi,
+				 open);
 	      continue;
 	    }
 	  //handle_includes (split_lines (gi->get_file (param_contents (tok))), out_data, gi);

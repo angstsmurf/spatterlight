@@ -18,7 +18,7 @@ Press any key to continue...
 
 
 Game name: A certain Oscar.
-Version 1.00
+Version: 1.00
 Author: Ido Angel
 Copyright: AI42 Ltd.
 A memorable identity search game.
@@ -33,17 +33,26 @@ This a large and quietly white hospital room. Your bed seems to be the only one 
 > look at bed
 It's a fairly large hospital bed. The sheets are white, and smell like a strange combination of lanolin and aspirin. You are in the bed.
 
+ a remote control.
+
 > look at tv
 The expensive looking TV set is off.
+
+ a remote control.
 
 > look at window
 It's a large, wall-to-wall, thick glass window. You can look through it.
 
+ a remote control.
+
 > look at remote control
 The remote has only two buttons, marked "ON" and "OFF".
 
+ a remote control.
+
 > look at yourself
 You are looking weary and confused.
+
 
 > speak to yourself
 You urge your weary self to do something.
@@ -61,46 +70,52 @@ The window can't be opened, or closed, for that matter. You can look through it,
 You are not carrying anything.
 
 > get up
-You get up from the bed.
-This a large and quietly white hospital room. Your bed seems to be the only one here, which is strange, considering the size of the room. The total whiteness of the room makes your eyes hurt.  The only non-white object in this room is an expensive looking TV set, which is mounted on the north wall, just infront of you. A window, located west to you,  is overlooking the hospital garden. To the east there is a door, which is locked.
+What? Where?
 
 
 > look
-This a large and quietly white hospital room. Your bed seems to be the only one here, which is strange, considering the size of the room. The total whiteness of the room makes your eyes hurt.  The only non-white object in this room is an expensive looking TV set, which is mounted on the north wall, just infront of you. A window, located west to you,  is overlooking the hospital garden. To the east there is a door, which is locked.
+This a large and quietly white hospital room. Your bed seems to be the only one here, which is strange, considering the size of the room. The total whiteness of the room makes your eyes hurt.  The only non-white object in this room is an expensive looking TV set, which is mounted on the north wall, just infront of you. A window, located west to you,  is overlooking the hospital garden. To the east there is a door, which is locked. You are currently lying on the bed.
 
 > look at bed
+It's a fairly large hospital bed. The sheets are white, and smell like a strange combination of lanolin and aspirin. You are in the bed.
 
-It's a fairly large hospital bed. The sheets are white, and smell like a strange combination of lanolin and aspirin.
+ a remote control.
 
 > look at tv
 The expensive looking TV set is off.
 
+ a remote control.
+
 > look at window
 It's a large, wall-to-wall, thick glass window. You can look through it.
+
+ a remote control.
 
 > look at remote control
 The remote has only two buttons, marked "ON" and "OFF".
 
+ a remote control.
+
 > take remote control
 You take the remote control in your hand.
+
 
 > inventory
 You are not carrying anything.
 
 > look
-This a large and quietly white hospital room. Your bed seems to be the only one here, which is strange, considering the size of the room. The total whiteness of the room makes your eyes hurt.  The only non-white object in this room is an expensive looking TV set, which is mounted on the north wall, just infront of you. A window, located west to you,  is overlooking the hospital garden. To the east there is a door, which is locked.
-
-> return to bed
-You lie down on the bed.
 This a large and quietly white hospital room. Your bed seems to be the only one here, which is strange, considering the size of the room. The total whiteness of the room makes your eyes hurt.  The only non-white object in this room is an expensive looking TV set, which is mounted on the north wall, just infront of you. A window, located west to you,  is overlooking the hospital garden. To the east there is a door, which is locked. You are currently lying on the bed.
 
+> return to bed
+You can't take that.
 
 > look at bed
 It's a fairly large hospital bed. The sheets are white, and smell like a strange combination of lanolin and aspirin. You are in the bed.
 
+
 > about
 Game name: A certain Oscar.
-Version 1.00
+Version: 1.00
 Author: Ido Angel
 Copyright: AI42 Ltd.
 A memorable identity search game.

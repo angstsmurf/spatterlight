@@ -5590,7 +5590,9 @@ bool geas_implementation::try_match (string cmd, bool is_internal, bool is_norma
 	      is_param (t = next_token (line, d1, d2)))
 	    print_formatted (label + eval_param (t));
       };
-      emit ("version",   "Version ");
+      /* "Version:", with the colon: ShowGameAbout prints |bVersion:|xb
+       * (V4Game.Part2.cs:3648), like the other three labels. */
+      emit ("version",   "Version: ");
       emit ("author",    "Author: ");
       emit ("copyright", "Copyright: ");
       emit ("info",      "");

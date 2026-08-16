@@ -212,6 +212,23 @@ for corpus in $corpora; do
     fi
   done < "$manifest"
 
+  # A Certain Oscar (Oscar.asl) !includes movecont.lib, a QDK helper library
+  # that was never distributed with the game and has not survived anywhere we
+  # can find.  Quest refuses to load a game whose library is missing, so the
+  # QuestViva oracle (quest4/harness/oracle/) cannot open the game without one;
+  # geas skips a missing include and plays on either way.  Synthesize a
+  # comment-only stand-in: it defines nothing, so both engines behave exactly
+  # as if the include had been skipped, and the oracle can open the game.
+  # Not a manifest row: the manifest pins third-party files, and this is ours.
+  if [ "$mode" = fetch ] && [ "$corpus" = quest4 ] && [ ! -f "$dir/movecont.lib" ]; then
+    printf "%s\r\n%s\r\n%s\r\n" \
+      "' movecont.lib stub: the real QDK library was never distributed with the game." \
+      "' Both geas and QuestViva read this adjacent file; it defines nothing, matching" \
+      "' geas's historical behaviour of including nothing when the file was missing." \
+      > "$dir/movecont.lib"
+    printf 'WROTE    %-46s synthesized stub (see comment in script)\n' movecont.lib
+  fi
+
   if [ "$mode" = manual ]; then
     printf '%s: %d row(s) to download by hand\n' "$corpus" "$n_manual"
     continue

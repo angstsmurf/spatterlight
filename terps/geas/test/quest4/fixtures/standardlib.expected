@@ -1,0 +1,37 @@
+
+standardlib, v1.0 | fixture
+
+ready
+You are in ward.
+There is nobody here.
+There is a coin here.
+A bare test ward.
+
+> about
+Game name: standardlib
+Version: 1.0
+Author: fixture
+Copyright: none
+standard.lib splice fixture
+
+> look at crate
+A slatted crate.
+
+ a coin.
+
+> look at coin
+A dull coin.
+
+ a coin.
+
+> get up
+What? Where?
+
+
+> take coin
+You can't take it.
+
+
+> inventory
+You are not carrying anything.
+[runner] turns=6 leftover=0 running=true

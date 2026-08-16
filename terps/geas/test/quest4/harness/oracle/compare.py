@@ -123,6 +123,28 @@ def drop_banner(geas, name):
     return geas
 
 
+def ensure_movecont_stub():
+    """Synthesize games/movecont.lib if the corpus predates it.
+
+    A Certain Oscar !includes movecont.lib, a QDK helper library that was
+    never distributed with the game.  Quest fatals on a missing library, so
+    qv4 cannot open the game without one on disk; a comment-only stand-in
+    defines nothing, which leaves geas playing exactly as it did when it
+    skipped the missing include.  fetch_games.sh writes the same stub; this
+    is the self-heal for corpora fetched before it did.
+    """
+    path = os.path.join(GAMES, "movecont.lib")
+    if os.path.isdir(GAMES) and not os.path.exists(path):
+        with open(path, "w", newline="") as f:
+            f.write(
+                "' movecont.lib stub: the real QDK library was never"
+                " distributed with the game.\r\n"
+                "' Both geas and QuestViva read this adjacent file; it defines"
+                " nothing, matching\r\n"
+                "' geas's historical behaviour of including nothing when the"
+                " file was missing.\r\n")
+
+
 def run(g):
     label = g["label"]
     gamefile = os.path.join(GAMES, g["game"])
@@ -132,9 +154,12 @@ def run(g):
     if not (os.path.exists(gamefile) and os.path.exists(script)
             and os.path.exists(golden)):
         return label, "SKIP", "missing files", 0
-    # World's End is the one game the geas transcript cannot be reproduced from
-    # a script alone: --save-scum/--fight replay lethal turns until the RNG
-    # cooperates, so its transcript is a function of the runner, not the game.
+    # A transcript made with --save-scum or --fight is a function of the
+    # runner, not the game -- lethal turns are replayed until the RNG
+    # cooperates -- so it cannot be reproduced from the script alone and
+    # cannot be compared.  No current walkthrough uses either flag (World's
+    # End, the one that did, is now scripted turn for turn against the seed-1
+    # draw stream); this guard is for the next one.
     if "--save-scum" in g["flags"] or "--fight" in g["flags"]:
         return label, "SKIP", "save-scum replay", 0
 
@@ -197,6 +222,7 @@ def main():
     if not games:
         print("no matching games")
         return 1
+    ensure_movecont_stub()
     rows = list(ThreadPoolExecutor(max_workers=8).map(run, games))
     same = sum(1 for r in rows if r[1] == "SAME")
     for label, verdict, note, moved in sorted(rows, key=lambda r: -r[3]):
