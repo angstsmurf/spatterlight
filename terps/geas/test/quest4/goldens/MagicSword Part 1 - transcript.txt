@@ -19,7 +19,7 @@ You can go out to The Hallway.
 You are in a grand hallway, with walls of stone, and towering pillars lining it. Here there are doorways leading to all parts of the building.
 There is nobody here.
 You can go out to Outside the Academy.
-You can go to Your Training room raining Room 1, The Library, or The Grand Luridii's Study.
+You can go to Your Training room Training Room 1, The Library, or The Grand Luridii's Study.
 
 > go to training room 1
 You are in Training Room 1.
@@ -94,7 +94,7 @@ To the northwest is a room where you fight magical replicas of enemys; using wea
 You are in a grand hallway, with walls of stone, and towering pillars lining it. Here there are doorways leading to all parts of the building.
 There is nobody here.
 You can go out to Outside the Academy.
-You can go to Your Training room raining Room 1, The Library, or The Grand Luridii's Study.
+You can go to Your Training room Training Room 1, The Library, or The Grand Luridii's Study.
 
 > go to study
 You are in a grand room, the carpet is blue and yellow, and on the walls hang pictures of previous students, who are now well known in the world.
@@ -145,7 +145,7 @@ He looks at you. "You know what you must do. You must seek out Tolmanorgagon and
 You are in a grand hallway, with walls of stone, and towering pillars lining it. Here there are doorways leading to all parts of the building.
 There is nobody here.
 You can go out to Outside the Academy.
-You can go to Your Training room raining Room 1, The Library, or The Grand Luridii's Study.
+You can go to Your Training room Training Room 1, The Library, or The Grand Luridii's Study.
 
 > out
 You are outside the Academy. It is a fine day. To the northeast lies the path to the village of Calamatra.

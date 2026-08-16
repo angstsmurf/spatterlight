@@ -1744,18 +1744,21 @@ vector<vector<string> > geas_implementation::get_places (const string &room)
 	  string printed_dest = (prefix != "" ? prefix + " " : "") +
 	    "|b" + displayed + "|xb";
 	  /* Below 2.80 the printed form is cut out of the tag's parameter by
-	   * hand, and with a fencepost error in it: ShowRoomInfoV2 takes the
-	   * prefix as Trim(Left(place, InStr(place, ";") - 1)) but the name as
-	   * Right(place, Len(place) - (InStr(place, ";") + 1)), one character
-	   * short, because that +1 assumes a space after the semicolon
+	   * hand.  Quest's own cut has a fencepost error in it: ShowRoomInfoV2
+	   * takes the prefix as Trim(Left(place, InStr(place, ";") - 1)) but the
+	   * name as Right(place, Len(place) - (InStr(place, ";") + 1)), one
+	   * character short, because that +1 assumes a space after the semicolon
 	   * (V4Game.Part2.cs:1988-1999).  The usual `place <The; Library>'
 	   * spelling has one and comes out right; "Magic Sword" writes `place
 	   * <Your Training room;Training Room 1>' without one, and Quest really
 	   * does offer to take the player to "Your Training room raining Room
-	   * 1".  A parameter with no semicolon at all is printed whole, unTrimmed
-	   * (ibid. 2000-2003).  The names the player may *type* are unaffected:
-	   * PlaceExist splits the parameter properly (ibid. 6568-6594), which is
-	   * why "go to training room 1" still works there. */
+	   * 1".  geas splits properly instead -- a DELIBERATE deviation: the
+	   * mangled name is one Quest's own PlaceExist would accept from the
+	   * player (it splits the parameter properly, ibid. 6568-6594, which is
+	   * why "go to training room 1" works even there), so printing it whole
+	   * only ever helps.  The oracle sweep carries the resulting Magic Sword
+	   * diff as `deliberate:' -- see FINDINGS.md.  A parameter with no
+	   * semicolon at all is printed whole, unTrimmed (ibid. 2000-2003). */
 	  if (asl_version_ < 280)
 	    {
 	      std::string::size_type semi = dest_param.find (';');
@@ -1763,8 +1766,7 @@ vector<vector<string> > geas_implementation::get_places (const string &room)
 		printed_dest = "|b" + dest_param + "|xb";
 	      else
 		printed_dest = trim (dest_param.substr (0, semi)) + " |b"
-		  + (semi + 2 <= dest_param.size ()
-		     ? dest_param.substr (semi + 2) : string ("")) + "|xb";
+		  + trim (dest_param.substr (semi + 1)) + "|xb";
 	    }
 
 	  vector<string> tmp;

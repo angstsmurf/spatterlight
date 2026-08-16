@@ -32,13 +32,17 @@
 ' character too many, because that +1 assumes a space after the semicolon.  The
 ' usual spelling has one and survives -- "The; Library" gives "The Library" --
 ' but "Your Training room;Training Room 1" gives "Your Training room raining
-' Room 1", and Magic Sword (217) really is played that way.  A parameter with
-' no semicolon in it is printed whole and unTrimmed (ibid. 2000-2003).
+' Room 1", and Quest really plays Magic Sword (217) that way.  geas splits
+' properly instead, a DELIBERATE deviation: the mangled name only ever hurts
+' (the full one is what Quest's own PlaceExist accepts from the player,
+' ibid. 6568-6594), so this fixture pins "Training Room 1" whole, and the
+' oracle sweep carries Magic Sword's resulting 6 lines as `deliberate:'.
+' A parameter with no semicolon in it is printed whole and unTrimmed
+' (ibid. 2000-2003).
 '
-' The names the player may type are untouched by any of this: PlaceExist splits
-' the parameter properly (ibid. 6568-6594), so `go to training room 1' still
-' works, and this fixture goes that way to prove it.  The trailing "or" keeps
-' its comma before 2.80 (ibid. 2073-2085), which geas already had.
+' The names the player may type are the same on both sides either way, and
+' this fixture ends with `go to training room 1' to prove it.  The trailing
+' "or" keeps its comma before 2.80 (ibid. 2073-2085), which geas already had.
 '
 ' `look'.  V2 reads it off the source lines too, taking GetParameter of the
 ' first line beginning "look" outside a nested define (ibid. 2157-2183).  So

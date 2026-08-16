@@ -699,6 +699,19 @@ def classify(line, mates, in_inventory, others=(), prev="", cmd="",
     if (side == "-" and cmd.lower().startswith(("> take", "> get", "> pick up"))
             and any(PICKUP.match(o) for o in others)):
         return "error <defaultake> is spelt with one t"
+    # Below ASL 2.80 ShowRoomInfoV2's place split drops the first character of
+    # the destination name when the author wrote no space after the semicolon
+    # (V4Game.Part2.cs:1988-1999).  geas splits properly ON PURPOSE -- the
+    # mangled name only ever hurts, and the full one is what Quest's own
+    # PlaceExist accepts from the player -- so this divergence is policy, not a
+    # bug on either side.  Magic Sword's training room is the corpus's one
+    # instance, matched literally the way PICTURE_CAPTIONS are; the check must
+    # stay above the V2_SHAPES catch-all below, which would otherwise swallow
+    # both halves.  See FINDINGS.md, "Below ASL 2.80 a place <prefix;room>
+    # loses the room's first letter".
+    if text.startswith(("You can go to Your Training room Training Room 1, ",
+                        "You can go to Your Training room raining Room 1, ")):
+        return "deliberate: pre-280 place fencepost"
     # Quest routes a game declared below asl-version 280 into a room display of
     # its own -- ShowRoomInfoV2, V4Game.Part2.cs:1723-2178 -- which geas does not
     # have (finding 54).  Everything it prints is laid out differently: the

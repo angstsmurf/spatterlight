@@ -5,7 +5,7 @@ You are in the cell.
 There is nobody here.
 You can go out to The door is locked..
 You can go north.
-You can go to Your Training room raining Room 1, The Library, or Yard.
+You can go to Your Training room Training Room 1, The Library, or Yard.
 A bare cell.
 
 > look
@@ -13,7 +13,7 @@ You are in the cell.
 There is nobody here.
 You can go out to The door is locked..
 You can go north.
-You can go to Your Training room raining Room 1, The Library, or Yard.
+You can go to Your Training room Training Room 1, The Library, or Yard.
 A bare cell.
 
 > lookdesc
@@ -35,7 +35,7 @@ You are in the cell.
 There is nobody here.
 You can go out to The door is locked..
 You can go north.
-You can go to Your Training room raining Room 1, The Library, or Yard.
+You can go to Your Training room Training Room 1, The Library, or Yard.
 A bare cell.
 
 > go to training room 1
