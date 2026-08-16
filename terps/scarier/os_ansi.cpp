@@ -147,17 +147,41 @@ os_print_tag (scr_int tag, const scr_char *argument)
          * the flush above, so with 2>&1 the marker lands in transcript order).
          * Combined with SCR_SKIP_WAITKEY=1 -- which keeps the command list in
          * sync -- that turns "how many blank lines does this solution need, and
-         * where?" into a read rather than a bisection.
+         * where?" into a read rather than a bisection.  Without the skip, the
+         * marker also names the line the pause just ate, which is what tells a
+         * deliberate filler apart from a real command going missing (see
+         * harness/waitkey_audit.py).
          */
-        if (getenv ("SCR_MARK_WAITKEY"))
+        int mark_waitkey = getenv ("SCR_MARK_WAITKEY") != NULL;
+
+        if (mark_waitkey)
           {
             fflush (stdout);
             fprintf (stderr, "[WAITKEY]\n");
           }
         if (getenv ("SCR_SKIP_WAITKEY"))
           break;
-        if (!feof (stdin))
-          fgets (dummy, sizeof (dummy), stdin);
+        /*
+         * Honour the '#' comment convention os_read_line applies below.  A
+         * comment is documentation, not input, so a pause must not be able to
+         * eat one: doing so hid the swallow (the route still ran in full,
+         * because the free filler happened to be the header) and made the
+         * behaviour depend on whether a solution file was commented -- 25 of
+         * the wired rows were relying on exactly that accident.
+         */
+        dummy[0] = '\0';
+        while (!feof (stdin) && fgets (dummy, sizeof (dummy), stdin)
+               && dummy[strspn (dummy, " \t")] == '#')
+          dummy[0] = '\0';
+        if (mark_waitkey)
+          {
+            scr_int length = strlen (dummy);
+
+            while (length > 0 && (dummy[length - 1] == '\n'
+                                  || dummy[length - 1] == '\r'))
+              dummy[--length] = '\0';
+            fprintf (stderr, "[WAITKEY ate \"%s\"]\n", dummy);
+          }
         break;
       }
     }

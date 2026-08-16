@@ -21,10 +21,14 @@
 #     bag of shopping in hand, "get all" takes the pamphlet only; SCARE used to
 #     empty the bag as well, which then made the banana skin too heavy to pick
 #     up and cost the fifth litter point.
-# The single blank line at the top answers the intro's "Press ENTER to
-# continue"; the blank line further down is the author's stray empty command,
-# not a waitkey (this game has exactly one pause, measured with
-# SCR_MARK_WAITKEY=1).
+# Exactly one pause, the intro's "Press ENTER to continue" (measured with
+# SCR_MARK_WAITKEY=1); the blank line further down is the author's stray empty
+# command.
+# 2026-08-16: the row sets SCR_SKIP_WAITKEY=1, so the pauses are transparent.
+# They never were answered by the blank lines here -- until the fix, the pause
+# read did not honour the "#" comment convention and ate this header instead,
+# which is why the blanks below reached the game as ordinary empty commands.
+# They are turns the route was derived with, so they stay.
 
 x bin
 get wire

@@ -3,8 +3,12 @@
 # is TASK 2 (ACT type=4 v1=100) which also ends it (ACT type=6 v1=0), so the
 # maximum is 100/100 and this route reaches it in 11 commands.
 #
-# FOOTGUN 1: the game opens with a "[Press return to continue]" title screen,
-# so the FIRST line of the solution must be blank or its command is eaten.
+# FOOTGUN 1: the game opens with a "[Press return to continue]" title screen.
+# 2026-08-16: the row sets SCR_SKIP_WAITKEY=1, so the pauses are transparent.
+# They never were answered by the blank lines here -- until the fix, the pause
+# read did not honour the "#" comment convention and ate this header instead,
+# which is why the blanks below reached the game as ordinary empty commands.
+# They are turns the route was derived with, so they stay.
 #
 # FOOTGUN 2: the southern wall is a closed openable (OPENABLE obj=0
 # openable=6) and it gates the room 0 -> room 1 exit (EXIT room=0 S gateObj=0

@@ -4,7 +4,8 @@
 # No author walkthrough exists and the game has no hint system; the route was
 # derived from SCR_DUMP_TASKS (124 tasks, 10 rooms, one EndGame action -- TASK
 # 68, "enter dustbin" on the alien bridge).
-# The two blank lines at the top are the title-screen <waitkey>s.
+# Two title-screen <waitkey>s.  The row sets SCR_SKIP_WAITKEY=1, so they are
+# transparent; the blank fillers went out 2026-08-16.
 # Act 1, the cabin.  Break the porthole and feed the W.O.R.C.S. turbine
 # through it: the spanner sets the ship on fire, then the cardboard bed makes
 # the smoke that brings the fire door down.  "move chair to door" first, or
@@ -46,8 +47,6 @@
 # second helmet, and the microwave prints the Space Bar that TASK 68 wants in
 # your hand.  EVENT 12 launches the escape pods three turns after you step to
 # the mirror, and TASK 64 will not let you re-load the chute until it has.
-
-
 x me
 press switch
 take spanner
@@ -125,8 +124,6 @@ take dustbin
 i
 put dustbin in chute
 enter dustbin
-
-
 in
 x hand
 take disc
@@ -151,6 +148,3 @@ take dustbin
 i
 put dustbin in chute
 enter dustbin
-
-
-

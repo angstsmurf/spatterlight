@@ -8,17 +8,12 @@
 # the "am I male or female?" prompt; the later ones pick conversation topics
 # inside "talk to <someone>" menus, and the "3" after the Reaper conversation
 # leaves that menu.
-# The 45 blank lines answer the game's 45 "...press a key..." pauses; their
-# positions were measured with SCR_MARK_WAITKEY=1 rather than guessed, and the
-# two leading blanks are the title card and the "remember" hint.
-
-
+# The game has 45 "...press a key..." pauses (positions measured with
+# SCR_MARK_WAITKEY=1).  They used to be answered by 45 blank filler lines;
+# since 2026-08-16 the row sets SCR_SKIP_WAITKEY=1 instead, the fillers are
+# gone, and every line here is a command.
 1
-
 e
-
-
-
 x floor
 wait
 wait
@@ -26,12 +21,8 @@ wait
 wait
 wait
 smash east wall with flint
-
-
-
 n
 n
-
 w
 sw
 in
@@ -44,49 +35,28 @@ ne
 e
 in
 pray
-
 sw
 w
 sw
 in
 talk to marhon
 3
-
 out
 ne
 e
 e
 n
-
-
-
-
-
-
-
 e
-
-s
-
-
-
 s
 s
-
-
+s
 in
 x tapestry
-
 throw lightstone at demon
-
 e
 e
 2
-
-
-
 e
-
 2
 in
 out
@@ -94,13 +64,7 @@ out
 1
 kneel
 kiss hand
-
-
-
-
-
 se
-
 1
 1
 1
@@ -132,7 +96,6 @@ out
 in
 touch wheel with key
 touch key to wheel
-
 touch cell with key
 d
 d
@@ -142,7 +105,6 @@ touch depression with key
 touch key to depression
 i
 use key
-
 talk to reaper
 2
 1
@@ -150,9 +112,6 @@ talk to reaper
 2
 2
 2
-
-
-
 out
 3
 n
@@ -160,7 +119,4 @@ n
 n
 n
 call reaper
-
 kill fallen with giver of sleep
-
-

@@ -112,12 +112,206 @@ the first of the three where **`HINT2=` did not hand over the walkthrough** —
 all five entries are prose and none names a command. See *Murder in Great
 Falls* below.
 
-**One open item, opened 2026-08-12: `harness/waitkey_audit.py` flags 18 wired
-rows as SUSPECT** — games with a `<waitkey>` whose row does not set
-`SCR_SKIP_WAITKEY=1`, and which have no blank filler line to spare, so a real
-command is being swallowed. `icecream` is the proven case. Nothing is failing
-and nothing regressed; see *Salutations* below for what the trap is and why
-fixing a row is not a one-line change.
+**Closed 2026-08-16: the 18 SUSPECT rows, and the comment-eating bug behind a
+further 24.** `harness/waitkey_audit.py` now reports **SUSPECT 0**. See
+"The waitkey audit" below for the full account; in short, every row whose game
+reaches a `<waitkey>` on its route now sets `SCR_SKIP_WAITKEY=1` (IMMUNE 97),
+the surplus filler lines are gone, and `os_ansi.cpp`'s pause read honours the
+same `#` comment convention `os_read_line` has always applied. All 242 rows
+PASS.
+
+**2026-08-16: *The Woods Are Dark* wired, suite 243 rows, 243 PASS.** Back to
+the smallest-first order the third wave was following — `thewoods.taf`, 71,216
+bytes, **3.90**, Cannibal 2003, 23 rooms / 82 tasks / 18 objects / **10
+variables, 0 events**. **WON 100/100** in 73 commands, and 100 is provably the
+ceiling: 21 `ACT type=4` awards summing to exactly the declared maximum, all 21
+on the critical path and all 21 fired. With no events and no NPC clocks the
+whole game is one dependency chain, so there is no pacing to get wrong — only
+two self-gating steps to get in order (`lift trunk` needs `trunk == 0`, the
+dolls house needs `melissa == 0`), and both are the shape that reads as "already
+dealt with" if you come back to them. Two things worth carrying: **T16
+`unlock window` only scores in Drew's Bedroom** because the game-wide
+`* unlock * window *` task, T51, has that one room cut out of its `WHERE_ROOMS`
+list so the command falls through to the scoring twin; and **T10 `bounce ball`
+teleports the player to the Back Yard** mid-message, so the second half of the
+route starts downstairs rather than where the ball was found. See
+*The Woods Are Dark* below.
+
+**2026-08-16: *Captive Universe* wired, suite 244 rows, 244 PASS.** Next in the
+smallest-first order — `Captive.taf`, 74,568 bytes, **3.90**, no author recorded
+anywhere, after the Harry Harrison novel. 62 rooms / 61 tasks / 49 objects /
+2 NPCs / 19 events / **no variables**. **WON 100/100** in 57 commands, and 100
+is provably the ceiling (nine `ACT type=4` awards, 8×10 + 20, all nine fired;
+the only other one is T3 `* hint *` at **−356**, the author's joke penalty for
+asking for a hint). With no variables at all, every gate in the game is a
+task-done test or an event, and the first half is a **one-shot clock**: leaving
+the courtyard gate (T11) starts four events at once that fire at exactly turns
+8, 18, 18 and 20 and never again (`restart=0`), so the route only has to be
+somewhere safe at those three instants — rooms 19/40/41/44 and the swamp appear
+in no arrest task's `WHERE_ROOMS`. The village and the inner temple are the
+mirror image, `starter=1 restart=1` arrests that run *every* turn until
+nightfall, which is why everything the second half needs is unreachable before
+turn 20. Two things worth carrying: **`Globals.WaitTurns` is 3 here too**, so
+the four `z`s that pace to nightfall are twelve turns (third witness after
+Cursed and *The Vampire With A Conscience*); and **EVENT 18 [Timedoor] is an
+`affTask` pointing at its own `startTask` with `fin=1`**, i.e. a task that
+un-completes itself one turn later — the ledge's steel door slides shut unless
+`w` is the very next command. A corpus-wide sweep puts that idiom in **nine**
+files (`Captive`, `Mangiasaur`, `To_Hell_And_Beyond`, `Vendetta`, `humbug`,
+`losttombv2`, `the_pk_girl`, `tra`, `wrecked`), so it is a shape to recognise,
+not a novelty. See *Captive Universe* below.
+
+**2026-08-16: *Adventures of Thumper — Wonder Wombat* wired, suite 245 rows,
+245 PASS.** Next non-AIF file in the smallest-first order — `wonderwombat.taf`,
+107,200 bytes, **3.90**, Chris Tyson 2001–2002. 51 rooms / 131 tasks / 76
+objects / 39 NPCs / 39 events / 15 variables / **441 `<waitkey>` tags**.
+**WON in 217 commands.** The file contains **not one `ACT type=4`**, so the
+game has no score at all and the summary reads *"You scored 0 out of the
+maximum 0! … 100% of the game!"* after **any** ending, win, loss or death — a
+score marker would pass on a corpse, so the row matches the winning cutscene's
+closing line `THUMPER KICKS ASS!!!` instead. That is now the rule for
+no-score games: **never anchor on the summary when MaxScore is 0.**
+
+Four transferable findings:
+
+* **Two different string matchers, one object.** The jar is *"a jar of chronic
+  fooluffultitus syndrom pills"*. `take fooluffultitus pills` is refused with
+  "Take what?" while `take syndrom pills` works — the built-in take/drop parser
+  matches the object's own name plus its **prefix adjective** words only. But
+  `give syndrom pills to fry` is refused with "Give … to who?" while
+  `give fooluffultitus pills to fry` works — task command matching runs against
+  the **raw input string** (`*fooluffultitus*fry*`) and never consults the noun
+  parser. A refused `take` therefore says nothing about whether a task command
+  will match, and vice versa.
+* **A maze that cannot be mapped.** Rooms 32–41 all catch `n`/`s`/`e`/`w` with
+  one `where=2` task whose action is `type=1 v1=0 v2=1 v3=0` — *move player to
+  a **random** room*. The only real edges in the block are `32 S -> 31` and
+  `41 N -> 42`. Under the seeded harness the wander is reproducible, so the
+  route's twelve norths are a measured constant with no meaning; they would be
+  wrong under any other seed. Worth recognising the shape before trying to map
+  one.
+* **Turn-parity-sensitive routes exist.** The only copy of the titus component
+  sits in room 30, *Fantasy Land*, entered at `alcohol >= 100` and left at
+  `<= 99`, with alcohol decaying 1 per 5 turns from `EVENT 0 -> TASK 1`. Which
+  `drink beer` tips over — and how many turns the hangover lasts — depends on
+  the total turn count of everything before it, so deleting even a failed
+  command higher up desyncs the second half of the route. Three failed probe
+  commands were trimmed during derivation and every count below them had to be
+  re-measured. If a route has a meter threshold in it, treat the whole prefix
+  as frozen.
+* **Losing on purpose is a gate.** The swear-off pays $5,000 for the word from
+  under the shack doormat, but only in round two: losing round one is what
+  sends Percy the Possum to the bar, and the arena will not re-open while he
+  is in it.
+
+Nine unrestricted author cheats survive in the shipped file (`win`, `chunka`,
+`oozle`, `thoof`, `skam`, `joxxx`, `glenn`, `rottencop`, `joepoe`); `win` is a
+bare `ACT type=6 v1=0` usable from anywhere. None is used. See
+*WonderWombat_walkthrough.md*.
+
+**2026-08-17: the 3.90 *Town of Azra* wired, suite 246 rows, 246 PASS — and
+the "half this game's goals are unreachable" verdict was a property of the
+*file*, not the game.** The corpus carries two Azra builds and the table below
+had them down as "a second file, not a second game". That is true of the data
+and false of the play. `The_Town_Of_Azra.taf` (IF Archive) is a **4.00**
+upconversion of the author's **3.90** original, `The Town Of Azra.taf`
+(adrift.co); the ADRIFT 4 editor left every battle attribute degenerate, so the
+4.0 `accuracy > agility` gate is `0 > 0` and no blow ever lands. Combat is
+Azra's only income, so the 4.00 file is walled off at the shops and the inn —
+which is exactly where the existing 27-turn row stops. The 3.90 file is
+recognised by `battle_is_legacy_version()`, gets `battle_legacy` (no hit gate;
+`damage = strength − defence`), and plays through **all six goals the author
+lists in his intro**: kill a bandit, sell a deer carcass to Drako, buy from all
+three shops, stay at Gralle's Inn, learn Stealth Tactics, and buy the $7,500
+house. 414 commands / **505 turns**, `SCR_SKIP_WAITKEY=1`. Both rows stay: each
+is faithful to its own file, and together they are the corpus's cleanest
+demonstration that **an editor upconversion can silently destroy a game**.
+
+Four transferable findings:
+
+* **Check for a sibling build before writing an "unreachable" verdict.** The
+  old note here had a careful, correct, four-paragraph proof that four of six
+  goals were dead — against the wrong file. The tell was already recorded: the
+  *upgraded-3.9 fingerprint* (every attribute range `Lo == Hi`, acc/agi/recovery
+  all zero) means the shipped 4.00 file is a conversion, which means an original
+  may exist. When a game's blocker is the acc-vs-agi stalemate, look for a 3.9x
+  release before concluding anything.
+* **A rejected command costs no turn.** "That is not an option or command." is a
+  parser rejection and the clock does not advance. So a route derived by an
+  adaptive driver can have all its failed probes **deleted** afterwards with no
+  effect on anything downstream — 49 of them came out of this route and the turn
+  count stayed at 505. Substituting `z` for them instead moved it to 756 and
+  desynced every NPC. This is the exact opposite of the *Wonder Wombat* lesson
+  above (where trimming a failed command desynced the second half): there the
+  meter was ticking on a real turn count, here the trimmed commands were never
+  turns at all. Establish which case you are in before editing a derived route.
+* **Armour can delete a grind.** Damage is `strength − defence` applied only
+  when positive, so pushing defence past the enemy's strength makes a fight
+  free rather than merely cheaper. Azra's bandit has strength 5; rawhide (2) +
+  bronze helmet (1) + copper armour (4) = 7, and the remaining ~470 turns need
+  no healing at all. Worth a `status` check before budgeting a long fight.
+* **Read the intro's goal list.** Azra prints its six goals, the `search for
+  money` hint and Drako's exact `sell … for 500 dollars` phrasing on the title
+  screens. For a game with no score and no ending, that list *is* the
+  completion criterion, and the win marker becomes the final `stats` turn count.
+
+Also settled: rooms 16/17/18 (Town Council Hall, its Main Door, the Law
+Building with Pahlidro) have no inbound exit from rooms 0–15 and no task that
+moves the player there — task 58 `enter *** town council hall` is itself
+`where = room 17`. Orphaned in both builds. See *The_Town_Of_Azra_walkthrough.md*.
+
+**2026-08-17: *Vardock Bates* wired, suite 247 rows, 247 PASS — and with it
+every non-AIF file in the corpus is done.** 2,928,980 bytes, 4.00, Spanish, by
+far the largest `.taf` here and the last 4.00 holdout. A five-chapter vampire
+story: buried alive in chapter 1, a scavenger hunt through Barcelona in
+chapter 2, a flashback to Ramsés II's Egypt in chapter 3, a museum robbery in
+chapter 4, and a two-ending choice on top of Christ the Redeemer in chapter 5.
+**WON in 103 commands.** No score at all (not one `ACT type=4`) and an empty
+`WINTEXT`, so the row matches a line of the winning cutscene, exactly as
+`relojero` does — and, as with `relojero`, the engine prints no end-of-game
+score summary either. `SCR_SKIP_WAITKEY=1` for the five chapter banners.
+
+Three transferable findings:
+
+* **A Spanish ADRIFT game can be entirely English underneath.** The author
+  writes his task patterns with **English verbs and Spanish nouns**
+  (`[take]{el}[mechero/encendedor]`, `[light]{el}[mechero]`) and ships a
+  `SYNONYM` table that rewrites the player's Spanish input before matching. So
+  the dump reads like an English game while the play is Spanish, and *both*
+  languages parse at the prompt. `relojero` is built the same way. When a dump
+  looks bilingual, check the synonym table before assuming the patterns are
+  unreachable.
+* **The library take handler does not accept a Spanish article.**
+  `coger el revolver` → *"¿Qué quieres coger?"*, `coger revolver` works. The
+  built-in noun parser knows only the object's own name and prefix words;
+  author tasks accept the article only because they spell it out in a `{el}`
+  optional group. This is the *Wonder Wombat* "two different string matchers,
+  one object" lesson again, in a second language — and it is worth checking
+  first whenever a plainly-correct `take` is refused.
+* **Two endings can both be `ACT type=6 v1=0`, with one gating the other.** In
+  room 38 `poner el brazalete` (TASK 36) and `lanzar el brazalete` (TASK 35)
+  are both wins, but TASK 35 requires TASK 36 **UNdone** plus the briefcase
+  opened and the Committee's document taken and read. So one ending silently
+  locks the other out and the asymmetry is the only thing that says which is
+  the "full" one. Only the fuller ending is wired.
+
+Also: the revolver behind the bathroom mirror is a pure trap — TASK 56 (touch
+or attack the wolf), TASK 57 (shoot it) and TASK 31 (`matar a jason`) all
+`exec task 23`, an EndGame **lose**. The wolf is beaten with the cobblestone
+that broke the mirror. Two hard timers: EVENT 0 gives ten turns from mounting
+the horse in Egypt to `decir museo` against a shortest path of eight, and
+EVENT 3 gives exactly one turn from `hablar con jason` to `esquivar el baston`.
+See *Vardock_Bates_walkthrough.md*.
+
+**The AIF holdouts, for whoever picks this up next.** `enc1.taf` (*Encounter 1:
+Tim's Mom*) is the next file by size and was **deliberately not wired**: the
+author's shipped `enc1.txt` states the player character is a 15-year-old boy
+and the entire 50-point scoring table is explicit sex with an adult. That is
+not the *Diary of a Stripper* / *Camp Windy Lake 2* case — those were adult
+content between adults, gitignored and wired. `enc2.taf` (*Encounter 2: The
+Study Group*) is by the same author and its blurb sets it in a 12th-grade study
+group; **check its `enc2.txt` before wiring it**. Do not simply take `enc1` as
+"next by size" without reading this paragraph.
 
 Otherwise nothing here is open work. The one exception this file used to carry — the
 Runner's **"You can't do that here!"** refusal for a task typed outside its
@@ -223,26 +417,35 @@ Two things came out of this wave beyond the rows:
   leaves the backpack the player is carrying — see `probe p39held` and the
   comment above `restr_object_in_place` in `screstrs.cpp`.
 
-**Parked again 2026-08-11 at the user's request.** Nothing is broken and
-nothing is half-finished — the suite is green at 242/242 and every wired game
-has all four artefacts. What remains is **12 unwired `.taf` files, 11 of them
-v3.90 and 1 v4.00** (23 when this was written; *Camp Windy Lake : Part 2*,
+**Parked again 2026-08-11 at the user's request, unparked 2026-08-16 for
+*The Woods Are Dark* and *Captive Universe*.** Nothing is broken and nothing is
+half-finished — the suite is green at 247/247 and every wired game has all four
+artefacts. What remains is **7 unwired `.taf` files, all of them
+v3.90** (23 when this was written; *Camp Windy Lake : Part 2*,
 *Salutations* and *A Day at the Iachini House* went in on 2026-08-12,
 *La hija del relojero*, both *Veteran Knowledge* files, *The Lost Tomb*,
 *The Long Journey Home*, *Murder in Great Falls*, *The Vampire With A
-Conscience* and *The Merry Murders* on 2026-08-14); the table below is the
+Conscience* and *The Merry Murders* on 2026-08-14, *The Woods Are Dark* and
+*Captive Universe* and *Wonder Wombat* on 2026-08-16, and the 3.90 *Town of
+Azra* and *Vardock Bates* on 2026-08-17); the table below is the
 original 29, with the six done in the third wave struck through and windy2,
 salutations, iachini, relojero, vetknow, vetknow2, losttombv2, Journ2,
-mudergreatfalls, Vampire and Merry_Murders struck through after them. The sole
-remaining 4.00 file is `Vardock Bates.taf`, which is Spanish and 2.9 MB.
-**Next by size is `thewoods.taf`** (71,216 bytes, 3.90, *The Woods Are Dark*)
-— but note that `The Town Of Azra.taf` above it is a second *file* of an
-already-wired game, not a second game.
+mudergreatfalls, Vampire, Merry_Murders, thewoods, Captive, wonderwombat and
+Vardock Bates struck through after them.
+**Every file left is AIF**, and every 4.00 file in the corpus is now
+wired. `enc1.taf` (101,668 bytes, 3.90,
+*Encounter 1: Tim's Mom*) is next by size and was declined on content grounds —
+see the *Wonder Wombat* entry above for why, and read `enc2.txt` before
+treating `enc2.taf` as merely "the next one". The remaining five (`windy`,
+`Buffy Before the Date`, `croft`, `dr-who-vortex-lust`, `gamma`) are the
+ordinary *Diary of a Stripper* case: wire the row, gitignore the solution,
+golden and notes.
 
 **Two cautions about that list.** *Byte size does not compare across versions*:
 a 4.00 `.taf` is zlib-compressed and a 3.90 one is only XOR-obfuscated, so the
 13,868-byte 4.00 file and the 44,145-byte 3.90 file in the Azra row below are
-the *same game*. And *the smallest-first ordering is by file size, not by game
+the *same game* — though, as it turned out, not the same game to *play*; see
+the 2026-08-17 entry. And *the smallest-first ordering is by file size, not by game
 size* — read the Ver column before picking. Version comes from the 14-byte
 header signature (`sctaffil.cpp`, `V400_SIGNATURE`/`V390_SIGNATURE`/…), which
 is also what tells 3.80 and 3.70 apart from 3.90; every 3.80 and 3.70 file in
@@ -253,7 +456,7 @@ the manifest is already wired.
 | 5,591 | 4.00 | ~~`salutations.taf`~~ | ~~Salutations~~ | **WIRED 2026-08-12 — WON, no score in the file** |
 | 19,083 | 4.00 | ~~`iachini.taf`~~ | ~~A Day at the Iachini House~~ | **WIRED 2026-08-12 — WON 115/115** |
 | 21,775 | 4.00 | ~~`relojero.taf`~~ | ~~La hija del relojero~~ | **WIRED 2026-08-14 — WON, no score in the file** |
-| 44,145 | 3.90 | `The Town Of Azra.taf` | The Town of Azra | **the adrift.co release of an already-wired game** — `The_Town_Of_Azra.taf` (4.00, 13,868 bytes, IF Archive) is row `the_town_of_azra_solution.txt`, and the existing route replays on this build too, so this is a second file, not a second game |
+| 44,145 | 3.90 | ~~`The Town Of Azra.taf`~~ | ~~The Town of Azra~~ | **WIRED 2026-08-17 — all six of the author's goals; no score in the file.** Same *game* as `The_Town_Of_Azra.taf` (4.00, 13,868 bytes) but **not the same game to play**: only the 3.90 file gets `battle_legacy`, and combat is the game's only income |
 | 44,503 | 3.90 | ~~`as.taf`~~ | ~~Asylum~~ | **WIRED, third wave** |
 | 44,666 | 3.90 | ~~`Wheel105.taf`~~ | ~~The Wheels Must Turn~~ | **WIRED, third wave** |
 | 45,737 | 3.90 | ~~`life.taf`~~ | ~~Life~~ | **WIRED, third wave** |
@@ -267,10 +470,10 @@ the manifest is already wired.
 | 59,896 | 3.90 | ~~`mudergreatfalls.taf`~~ | ~~Murder In Great Falls~~ | **WIRED 2026-08-14 — WON 200/200** |
 | 63,183 | 3.90 | ~~`Vampire.taf`~~ | ~~The Vampire With A Conscience~~ | **WIRED 2026-08-14 — WON 100/100** |
 | 69,489 | 3.90 | ~~`Merry_Murders.taf`~~ | ~~Merry Murders~~ | **WIRED 2026-08-14 — WON 135/135** |
-| 71,216 | 3.90 | `thewoods.taf` | The Woods Are Dark | |
-| 74,568 | 3.90 | `Captive.taf` | Captive Universe | |
+| 71,216 | 3.90 | ~~`thewoods.taf`~~ | ~~The Woods Are Dark~~ | **WIRED 2026-08-16 — WON 100/100** |
+| 74,568 | 3.90 | ~~`Captive.taf`~~ | ~~Captive Universe~~ | **WIRED 2026-08-16 — WON 100/100** |
 | 101,668 | 3.90 | `enc1.taf` | Encounter 1: Tim's Mom | **AIF** |
-| 107,200 | 3.90 | `wonderwombat.taf` | Adventures of Thumper – Wonder Wombat | |
+| 107,200 | 3.90 | ~~`wonderwombat.taf`~~ | ~~Adventures of Thumper – Wonder Wombat~~ | **WIRED 2026-08-16 — WON; no score in the file** |
 | 114,698 | 3.90 | `windy.taf` | Camp Windy Lake | **AIF** |
 | 120,335 | 3.90 | `enc2.taf` | Encounter 2: The Study Group | **AIF** |
 | 125,581 | 3.90 | `Buffy Before the Date.taf` | Buffy: Before the Date | **AIF** |
@@ -278,7 +481,7 @@ the manifest is already wired.
 | 166,913 | 3.90 | `dr-who-vortex-lust.taf` | Doctor Who and the Vortex of Lust | **AIF** |
 | 191,548 | 3.90 | ~~`windy2.taf`~~ | ~~Camp Windy Lake: Part 2~~ | **WIRED 2026-08-12 — AIF, solution/golden gitignored** |
 | 277,834 | 3.90 | `gamma.taf` | The Gamma Gals | **AIF** |
-| 2,928,980 | 4.00 | `Vardock Bates.taf` | Vardock Bates | **Spanish**, and by far the largest file in the corpus |
+| 2,928,980 | 4.00 | ~~`Vardock Bates.taf`~~ | ~~Vardock Bates~~ | **WIRED 2026-08-17 — WON; no score in the file.** Spanish, and by far the largest file in the corpus |
 
 **Author material already on this machine, for whoever picks this up next.**
 Several of the remaining games shipped documentation in their IF Archive /
@@ -439,6 +642,87 @@ score was checked against the shifted run (`thetest_win`, the two
 `to_hell_and_beyond_assisted` rows). Each one needs its route re-checked and
 its win marker re-proved, which is a wave of work, not a sweep. Re-run
 `python3 harness/waitkey_audit.py` after any of them is done.
+
+### Worked through, 2026-08-16 — SUSPECT 0
+
+The wave got done, and it turned up a second, larger case underneath it.
+
+**The 18.** One repair rule, applied uniformly: put `SCR_SKIP_WAITKEY=1` on
+the row so a solution line is a command again, then delete the lines that were
+only ever filler and keep the lines that are route steps. Five rows came out
+**byte-identical** — `the_cat_in_the_tree` (a leading `z`), `thetest` and
+`thetest_win` (three leading `z` each), and both `to_hell_and_beyond_assisted`
+rows (a `look` at four points) — which is the proof that those deletions hit
+exactly the filler, and it retires the worry above about the routes that were
+transcribed under the shift. The other 13 were re-blessed. **No score moved
+anywhere in the suite**, and every win marker was re-proved before blessing.
+
+Two rows were more than bookkeeping:
+
+- **`man_overboard`** was losing seven real commands to the cabin's pause —
+  `i`, `x hat`, `wear hat`, `x bed`, `x cupboard`, `open it`,
+  `take all from cupboard`. The committed golden recorded the damage in plain
+  sight: `x beard` → "You see no such thing.", `wear beard` → "Wear what?",
+  `x log` and `read log` likewise, because the cupboard they come out of was
+  never opened. All four answer properly now.
+- **`circus`** (*Menagerie!*) was losing its first two commands, `Easy` and
+  `open case`. Restoring them shifts every NPC's wander by two turns, and
+  Pringles is then absent when the single `give peanut to pringles` fires —
+  no knife, no knife sale, and the score falls 64 → 58. The route's own
+  spam-until-present idiom is the fix: **ten** tries is the measured minimum
+  under `SCR_SEED=12` (nine still misses him), the committed route uses twelve
+  for margin, and 64/140 is back.
+
+**The bug underneath: the pause did not honour `#`.** `os_read_line` has
+skipped comment lines unconditionally for a long time — a `#` is never a valid
+ADRIFT command, and the commented solution files are the documented corpus.
+The `<waitkey>` read did not, so a pause could eat a comment. That is worse
+than it sounds in both directions: it hid the swallow (the route still ran in
+full, because the header was free filler, so the audit saw nothing wrong), and
+it made a solution's behaviour depend on how many lines of prose it happened to
+carry. `SCR_MARK_WAITKEY=1` — which now also names the line each pause ate —
+put the count at **25 rows** with a pause eating a comment; `farfromhome` was
+the one where a real command was lost as well, and it was already in the 18.
+
+The pause read now skips comments the same way (`os_ansi.cpp`), and the other
+**24 rows** were converted with the same rule as the 18. Eleven came out
+byte-identical. Of the thirteen that did not:
+
+- **`cbn` / `cbn2`** are the counter-example to "delete every blank". Their
+  five (resp. three) *leading* blanks are real empty-command turns — one of
+  `cbn`'s is what TASK 38 turns into the move out of room 0 — and deleting
+  them loses the game. Only the blanks feeding the `x desk` mid-message pauses
+  come out: two in `cbn`, one in `cbn2`. Both then pass byte-identical.
+- **`TheADRIFTProject`** had been blessing the broken run. Its filler blanks
+  were answering the *name* prompt, so the player was "Anonymous" and the
+  gender prompt was asked twice and refused twice; the solution's own `Drifter`
+  and `male` were arriving a prompt late. The route as written finally runs.
+- **`griswold`** gets `x cassette` back, which shifts the doorbell event a turn.
+- The remaining nine differ only by bare `>` prompts disappearing — empty turns
+  the old golden recorded, which produced no game output at all.
+
+2026-08-16, 242 rows:
+
+| Bucket | Rows | Δ |
+|---|---|---|
+| IMMUNE | 97 | +47 (the 18, the 24, and rows wired since) |
+| NO-WAITKEY | 113 | +4 (corpus growth) |
+| ABSORBED | 8 | −11 |
+| FILLED | 24 | −13 |
+| **SUSPECT** | **0** | **−18** |
+
+The 24 rows still in FILLED are the ones the convention genuinely suits and
+they are left alone: their fillers are blank lines, never comments, so the
+`#` fix does not touch them and the audit confirms they still balance. Suite:
+**242 PASS, exit 0.**
+
+*The Woods Are Dark* went in later the same day and moved IMMUNE to 98, which
+is the rule above applied to a new row rather than a repair: its one
+`<waitkey>` sits in the title text, so it takes `SCR_SKIP_WAITKEY=1` and its
+header runs straight into the first command with no blank line for a pause to
+eat. Suite **243 PASS, exit 0**. *Captive Universe* followed and landed in
+NO-WAITKEY (114): `plaintext()` finds no `<waitkey>` in the file at all, so its
+row carries no env. Suite **244 PASS, exit 0**.
 
 ## A Day at the Iachini House (2026-08-12) — a declared maximum that is exactly reachable
 
@@ -961,13 +1245,143 @@ Also a reminder about instrumentation: `grep -c waitkey` on a
 stderr and the tags live in the *transcript*. `SCR_MARK_WAITKEY=1` finds six,
 one per act transition.
 
+## The Woods Are Dark (2026-08-16) — a whole game with no clock in it
+
+71,216 bytes, ADRIFT 3.90, **Cannibal**, 2003.
+`https://ifarchive.org/if-archive/games/adrift/WoodsAreDark.zip`. 23 rooms, 82
+tasks, 18 objects, **10 variables and 0 events**. **WON 100/100** in 73
+commands through T48 `take head` in the Graves; 21 `ACT type=4` awards sum to
+exactly the declared maximum and all 21 are on the critical path, so the
+ceiling is the maximum and nothing is missable. Full write-up in
+`The_Woods_Are_Dark_walkthrough.md`.
+
+You are looking for two friends who walked into the woods above Black Hill and
+did not come out, and the game is the night you spend in the cottage where the
+Doherty family were murdered five years earlier. Each ghost you satisfy pays
+out a piece of what happened, until the picture you hang in the master bedroom
+puts you at the graves with the man who did it.
+
+**No events, no NPC walks, no timers of any kind.** That is unusual enough in
+this corpus to be the headline: with nothing on a clock there is no pacing to
+get wrong and no `z` to spend, and the entire game is a dependency graph held
+in seven of its ten variables (`cat`, `hearth`, `trunk`, `melissa`, `drew`,
+`hook`, `attic`). Derivation was correspondingly cheap — read the variable
+writes out of `SCR_DUMP_TASKS`, topologically sort the awards, walk it once.
+
+Three findings worth carrying:
+
+**1. A game-wide task can have a room *cut out* of it to make room for a
+scoring twin.** `unlock window` matches two tasks. T51 `* lock * window *` is
+`where=2` and carries `* unlock * window *` as ALTCMD[2] — but its
+`WHERE_ROOMS` list is `[0 5 6 7 8 9 10 11 13 14 15 19]`, and room **12**,
+Drew's Bedroom, is conspicuously not in it. So in the one room where the cat is
+sitting outside the glass, the command falls past T51 and reaches T16, whose
+own ALTCMD[1] is the same pattern and which pays +5 and sets `cat = 1`. When
+two tasks share a verb, check the `WHERE_ROOMS` list before assuming the
+lower-indexed one always wins — the author may have punched a hole in it.
+
+**2. A task can relocate the player mid-message, and the prose is the only
+notice.** T10 `bounce ball` has an `ACT type=1` to the Back Yard buried in a
+long passage that reads as happening where you stand; the giveaway is one
+clause, "against the wall in the backyard". Every plan for the second half of
+the route that starts from Melissa's Bedroom is wrong. The general rule: read
+`ACT type=1` out of the dump for *every* task on the route, not just the ones
+that look like movement.
+
+**3. Self-gating tasks are the ones that get skipped.** `lift trunk` (T21)
+requires `trunk == 0` and sets it to 1; the dolls house (T31) requires
+`melissa == 0` and sets it to 1. Both are one-shot, both sit in a room you have
+other business in, and both pay out something you do not need for another forty
+moves — T21's is the smudge of tiny writing that `look at writing` reads with
+the looking glass at the very end of the chain. A restriction of the form
+"variable X is still 0" combined with an action that sets X is a reliable marker
+for "do this on the first visit or not at all".
+
+The one place the route spends a turn on nothing is the Clearing: T52
+`hang picture` drops you in room 20, and T45 there is a bare `[*]` with no
+restrictions, so *any* command is consumed by the forwarding into the Graves.
+The solution spends a `look` on it rather than losing `take head`.
+
+## Captive Universe (2026-08-16) — a one-shot clock, and a task that undoes itself
+
+Next in the smallest-first order. `Captive.taf`, 74,568 bytes, **3.90**, no
+author recorded anywhere — the endgame signs off *"Based on Captive Universe by
+Harry Harrison"*, after the 1969 novel. 62 rooms, 61 tasks, 49 objects, 2 NPCs,
+19 events, **no variables at all**. **WON 100/100** in 57 commands; suite
+243 → **244 rows, 244 PASS**. Full write-up in
+`notes/Captive_Universe_walkthrough.md`.
+
+You are the next sacrifice, locked in the temple cells and due to die at dawn.
+The valley you have lived in all your life is sealed by a boulder the gods
+dropped in the only exit; it is in fact the cargo deck of a colony ship, and the
+diamond in the temple throne is its navigation key.
+
+**100/100 is provable.** Nine `ACT type=4` awards, 8×10 + 20, summing to exactly
+the declared maximum, and the route fires all nine. The tenth scoring action
+goes the other way and is a joke: **T3 `* hint *` is `ACT type=4 v1=-356`**, the
+author's penalty for asking for a hint, and it is the only thing in the file
+that can move the score off the ceiling. No published walkthrough exists and no
+author hint menu either — the `HINT2=` grep that carried *Veteran Knowledge* and
+*The Lost Tomb* returns nothing here — so this one came off the dump.
+
+**The transferable finding: with no variables, all the gating is events, and
+one-shot events are easier than they look.** Leaving the courtyard gate (T11)
+starts *four* events in the same turn — EVENT 13 at turn 8 (arrest in rooms
+11–18), EVENT 10 and EVENT 11 at turn 18 (arrest in the trees / in the open
+fields) and EVENT 9 at turn 20 (nightfall). All four are **`restart=0`**, so
+each fires once, at exactly that turn, and never again. The route therefore does
+not need to hurry or to plan a path — it only has to be somewhere safe on turns
+8, 18 and 20, and rooms 19/40/41/44 (up trees) and the swamp appear in no arrest
+task's `WHERE_ROOMS`. The mirror image is the pair that gate the second half:
+EVENT 14 (village) and EVENT 6 (inner temple) are `starter=1 restart=1`, running
+*every* turn while `-nighttime` is undone, so the Smith, the grainhouse, your
+mother and the throne are all simply unreachable before turn 20. Read `restart`
+before counting anything: a `restart=0` arrest is an instant to dodge, a
+`restart=1` one is a wall to wait out.
+
+**And a shape to recognise: an event that un-completes its own starter.**
+EVENT 18 [Timedoor] is `starter=3 startTask=40 affTask=40(fin=1) time1=1` — T39
+levers the ledge's steel door open, and one turn later the same event marks T39
+*undone*. T40 `west` is restricted on T39 being done, so `w` must be the very
+next command; spend a turn on anything else and the door "beeps, flashes a
+little green light, and slides shut again". Not a soft-lock — the +10 EVENT 4
+already paid is kept and T39 is `rep=1` — but a route that pauses on the ledge
+reads as a wrong solution. A corpus-wide `SCR_DUMP_TASKS` sweep finds
+`affTask …(fin=1)` in **nine** files (`Captive`, `Mangiasaur`,
+`To_Hell_And_Beyond`, `Vendetta`, `humbug` ×2, `losttombv2`, `the_pk_girl`,
+`tra` ×6, `wrecked` ×17), nearly all of them pointing back at their own
+`startTask`. **Symptom to watch for: a step that visibly succeeded stops
+counting as done a turn or two later.**
+
+**Third witness for `Globals.WaitTurns` = 3** (after Cursed and *The Vampire
+With A Conscience*), and here it is load-bearing in the other direction: the
+four `z`s that pace the route to nightfall are *twelve* turns, so counting them
+as four would put the wait five turns short.
+
+**Two entrances, same 20 points, and the route deliberately takes the long
+one.** The ship can be entered by the ledge (rope → `tie rope to ledge` → `u` →
+`use crowbar` → `w`) or through the swamp (`use crowbar` then `swim` in room 35,
+crowbar only). EVENTS 2/3 both pay T17 and EVENTS 4/5 both pay T19, so the score
+is identical and the swamp is eight commands shorter — verified, it wins
+100/100 too. The committed route takes the author's designed path so the
+regression covers both NPCs, the three chained Smith events (crowbar → rob the
+grainhouse → grain-for-rope) and the timed door rather than routing around them.
+Same call as *Salutations*.
+
+Two small author notes worth having: the four `open * door` tasks T4–T7 are
+distinguished **only by how many `*`s the pattern carries**, one per pair of
+rooms, so the player types `open door` everywhere and never sees the seam; and
+T41–T44 each chain **three `ACT type=1`s in one task**, walking the ship's four
+passageway rooms in a single turn, which is why rooms 56–59 exist on the map and
+are never seen.
+
 ## Where everything is
 
 | What | Where |
 |---|---|
 | The manifest — one line per row, `solution\|game\|win-marker\|env` | the table at the top of `harness/run_v4_walkthroughs.sh` |
 | Routes and their recorded transcripts | `goldens/<name>_solution.txt` + `<name>_solution.expected.txt` |
-| **Per-game analysis, route prose and score accounting** | `notes/<Game>_walkthrough.md` — 192 of them (190 tracked; the AIF ones are gitignored) |
+| **Per-game analysis, route prose and score accounting** | `notes/<Game>_walkthrough.md` — 194 of them (192 tracked; the two AIF ones, *Archie's Birthday* and *Diary of a Stripper*, are gitignored) |
 | Engine fidelity questions raised along the way | `../../../RUNNER_TESTS_TODO.md` |
 | Which rows a game's `<waitkey>` is eating commands from | `python3 harness/waitkey_audit.py` |
 | The full session-by-session derivation log (2026-06-24 → 2026-08-04) | git history of this file; it was pruned in the commit that added this line, so `git log --follow -p -- test/adrift4/notes/WALKTHROUGH_TODO.md` has all 4134 lines of it |

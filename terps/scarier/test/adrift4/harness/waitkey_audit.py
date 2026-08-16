@@ -35,6 +35,21 @@ Buckets:
              hand before touching it; adding SCR_SKIP_WAITKEY=1 rewrites the
              golden and can invalidate a route that was derived under the
              shift.
+
+2026-08-16: SUSPECT is 0, and the sweep that got it there also fixed the bug
+this script could not see -- the pause read did not honour the '#' comment
+convention os_read_line applies, so a <waitkey> could eat a header line.  That
+hid the swallow (the route still ran in full, on free filler) in 25 more rows.
+os_ansi.cpp skips comments in both reads now, and every row whose game reaches
+a pause sets SCR_SKIP_WAITKEY=1.  What is left in FILLED is the convention
+working as intended, on blank lines only.  See notes/WALKTHROUGH_TODO.md,
+"Worked through, 2026-08-16".
+
+When repairing a row, the rule is: set SCR_SKIP_WAITKEY=1, delete the lines
+that were only ever filler, keep the lines that are route steps.  A blank line
+is not automatically filler -- in `cbn` and `cbn2` the leading blanks are real
+empty-command turns, one of which is what a [*] task turns into the move out of
+room 0, and deleting them loses the game.
 """
 
 import os

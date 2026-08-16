@@ -80,10 +80,13 @@ Time passes...
 > z
 Time passes...
 
-> x glow
-You see nothing special about the glow.
+> z
+Time passes...
 
 A gentle orange glow ignites itself a few feet away to the west.
+
+> x glow
+The small tinge of orange light is coming from the west.
 
 > w
 You follow the glow.

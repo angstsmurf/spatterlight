@@ -6,9 +6,13 @@
 # restriction that TASK 27 [use CAG on smell-o-matic] be done.  Pushing it
 # before that just phones the Smell Division.
 #
-# FOOTGUN: the three leading BLANK lines ride out the intro's three
-# "<waitkey><cls>" pauses ("...make sure when you kill a chicken...",
-# "You finish the job...").  Without them the first three commands vanish.
+# The intro has three "<waitkey><cls>" pauses ("...make sure when you kill a
+# chicken...", "You finish the job...").
+# 2026-08-16: the row sets SCR_SKIP_WAITKEY=1, so the pauses are transparent.
+# They never were answered by the blank lines here -- until the fix, the pause
+# read did not honour the "#" comment convention and ate this header instead,
+# which is why the blanks below reached the game as ordinary empty commands.
+# They are turns the route was derived with, so they stay.
 #
 # The book in the bookshelf is the walkthrough, and it is worth reading in
 # full: a C.A.G. is "an antenna (which can be made out of any long metal

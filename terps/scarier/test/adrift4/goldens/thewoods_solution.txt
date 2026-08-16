@@ -1,0 +1,133 @@
+# The Woods Are Dark (thewoods.taf) -- Cannibal, 2003.  ADRIFT 3.90, 23 rooms,
+# 82 tasks, 18 objects, ten variables, no events.  100/100, which the game
+# confirms with "Well done - you scored maximum points!".
+#
+# One win: TASK 48 in room 21 [Graves], cmd `* head *`, +5 and then
+# ACT type=6 v1=0.  Everything before it is a single chain -- almost every step
+# unlocks the next, so there is no scenic order to choose.  Seven of the ten
+# variables carry the gating: cat, hearth, trunk, melissa, drew, hook and attic.
+#
+# The chain, with the task numbers from SCR_DUMP_TASKS:
+#   look at garden    TASK 8 -> the chicken burger, which is cat food.
+#   look at sink      TASK 35 -> the metal hook.
+#   look at fridge    TASK 36 -> the broom handle.  Key and paint lie loose in
+#                     the Kitchen and are simply taken.
+#   look at metal     TASK 12 +5 -> the brush;  look at oil TASK 13 +2 -> tape.
+#   unlock window     TASK 16 +5, reached through its ALTCMD[1].  Needs the key
+#                     and cat==0; the cat comes in off the branch and the
+#                     variable goes to 1.
+#   feed cat          TASK 39.  Needs cat>0, sets cat=2 -- which is what makes
+#                     the Toilet scene below fire.  No score of its own.
+#   lift trunk        TASK 21 +5.  Needs trunk==0, so it must come BEFORE any
+#                     other trunk handling; it reveals the tiny writing that
+#                     `look at writing` pays out for, much later.
+#   open trunk        TASK 19 +3 -> the firewood.
+#   look at walls     TASK 49 +5 in the Toilet.  Needs cat==2 -> the lighter.
+#   make fire         TASK 24 +5.  Wood and lighter;  sets hearth=1.
+#   sit chair         TASK 25 +5.  Sets hearth=2.
+#   look at fireplace TASK 28 +5 -> the half burnt diary.  Needs hearth==2, so
+#                     the chair is not optional colour.
+#   hook broom        TASK 41 +5.  Hook + handle + tape; sets hook=1 and eats
+#                     the hook and the tape, leaving the handle you still need.
+#   look at trap      TASK 40 +5.  Needs the handle and hook==1, and sets
+#                     attic=1.  It is the ladder scene, but note that the `u`
+#                     below (TASK 80) gates on hook==1, not on attic -- the +5
+#                     is what you would lose by skipping it, not the Attic.
+#   look at crate     TASK 43 +5 -> the framed picture (the endgame trigger).
+#   look at suitcase  TASK 44 +5 -> the dolls house figures.
+#   put figures in dollshouse
+#                     TASK 31 +5.  Needs melissa==0, sets it to 1 and drops the
+#                     rubber ball into the room.
+#   look at diary     TASK 11 +5.  Gating step for the ball.
+#   bounce ball       TASK 10 +5.  Needs the ball held AND TASK 11 done; the
+#                     task teleports you to the Back Yard, so the walk back up
+#                     below starts from there, not from Melissa's Bedroom.
+#   look at bath      TASK 53.  Needs TASK 10 done -> the model pram.
+#   paint pram        TASK 50 +5.  Pram + paint + brush -> the looking glass.
+#   look at writing   TASK 22 +5.  Needs the glass, and the writing exists only
+#                     because the trunk was lifted twenty moves earlier.
+#   sing song         TASK 23 +5.  Sets drew=1, which is what unlocks `s` from
+#                     the Landing into the Master Bedroom (TASK 32).
+#   hang picture      TASK 52 +5.  Needs the picture; moves you to room 20
+#                     [Clearing].
+#   look              filler.  TASK 45 is `[*]` in the Clearing -- ANY command
+#                     forwards you to the Graves -- and it takes the whole turn,
+#                     so `take head` here would only do the forwarding.
+#   take head         TASK 48 +5, and the game ends.
+#
+# `3` at the menu declines the intro.  One <waitkey> fires before it, in the
+# title text, so the row sets SCR_SKIP_WAITKEY=1 and there is no blank line
+# between this header and the first command for it to eat.
+3
+n
+n
+look at garden
+in
+w
+look at sink
+take hook
+look at fridge
+take key
+take paint
+out
+e
+look at metal
+take brush
+look at oil
+take tape
+w
+sw
+se
+in
+n
+u
+n
+unlock window
+feed cat
+lift trunk
+open trunk
+s
+d
+e
+look at walls
+w
+s
+make fire
+sit chair
+look at fireplace
+hook broom
+n
+u
+e
+e
+look at trap
+u
+look at crate
+take picture
+look at suitcase
+take figures
+d
+w
+n
+put figures in dollshouse
+look at diary
+take ball
+bounce ball
+in
+e
+n
+u
+w
+look at bath
+take pram
+paint pram
+e
+n
+look at writing
+sing song
+s
+e
+s
+hang picture
+look
+take head

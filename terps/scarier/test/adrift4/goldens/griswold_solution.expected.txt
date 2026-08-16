@@ -57,12 +57,6 @@ uninteresting.
    You see doors to the west leading into the kitchen and the east leading to
 the hallway.
 
->
-
->
-
->
-
 > x me
 You carry around a mental image of yourself in your mind and this mental
 image is fourteen years old, unbelievably stunning in a gorgeous sort of
@@ -103,6 +97,15 @@ ominous words: "The video cassette Shelly is NEVER EVER to be shown because
 it would corrupt her fragile mind. On no account is she to be shown this
 cassette. EVER."
    Hmmm…
+
+> x cassette
+You see the strange words again: "The video cassette Shelly is NEVER EVER to
+be shown because it would corrupt her fragile mind. On no account is she to
+be shown this cassette. EVER."
+   You wonder why your family left a cassette in the video that they didn't
+want you to see for fear it would corrupt your fragile mind. Then again, the
+video lacks a play button so there's not much chance you're going to be
+watching it here any time soon.
 
 > x stereo
 You blink. Where has the stereo gone? TV, video… no stereo. Weird. You were
@@ -177,6 +180,14 @@ small, withered tree perhaps fallen victim to some foul wasting disease -
 makes you wish mother would just wake up and get some taste in décor one day.
 She thinks it's fashionable, for mercy's sake!
 
+The doorbell barks.
+   Yes, you heard that right. It barks. Mother apparently thought that a
+doorbell which made the sound of a bell was kind of boring so she had it
+replaced with a barking one instead. Hmmm… barking and mother. Two words that
+really should not be used in the same sentence but which often are.
+   Anyway, someone is at the front door and no one else in the house seems
+willing to go and open it. Looks like it's you on Door Opening Duty again.
+
 > x dresser
 Yes, a hat dresser. You didn't know there were such things but, apparently,
 there are because you're looking at one right now. Mother probably purchased
@@ -185,14 +196,6 @@ with bags that she can barely stand. In fact, you don't think she does stand.
 She just falls forward, but very slowly, and in the general direction of her
 house.
    The hat dresser appears to be locked.
-
-The doorbell barks.
-   Yes, you heard that right. It barks. Mother apparently thought that a
-doorbell which made the sound of a bell was kind of boring so she had it
-replaced with a barking one instead. Hmmm… barking and mother. Two words that
-really should not be used in the same sentence but which often are.
-   Anyway, someone is at the front door and no one else in the house seems
-willing to go and open it. Looks like it's you on Door Opening Duty again.
 
 > x door
 The front door is closed, keeping the horrors of the outside world firmly
@@ -246,3 +249,6 @@ enough, something interesting will happen.
 
 Or maybe you'd be better off just typing RESTART and having another go to see
 if there is anything you missed the first time.
+
+> quit
+Do you really want to quit? [Y/N]

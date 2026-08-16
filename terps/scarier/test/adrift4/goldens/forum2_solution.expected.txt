@@ -37,8 +37,6 @@ columns of digits and symbols. Frames and half-rendered creatures prowl on
 the edge of your vision, digitized whispers rebounding through your brain.
 You spot the Reviews forum over to the east.
 
->
-
 > e
 You leap eastwards into the forum.
 

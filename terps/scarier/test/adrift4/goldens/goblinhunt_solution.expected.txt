@@ -30,12 +30,6 @@ you don't know.
 
 There is an exit north.
 
->
-
->
-
->
-
 > n
 You move north.
 

@@ -8,12 +8,11 @@
 # is TASK 49 [exist] in ROOM 11, which is the epilogue, not the ending (see
 # the easter egg below).
 #
-# FOOTGUNS -- every blank line here is load-bearing:
-#   * one leading blank for the intro's "... press any key ...<waitkey><cls>";
-#   * TWO trailing blanks, because the win message has two <waitkey>s buried
-#     in the MIDDLE of it (after "you make it back to the forum" and after
-#     Woodfish's "It's just one big text adventure!").  Without them the
-#     harness's own "quit" and "y" are eaten by the pauses instead.
+# Three <waitkey>s -- the intro's "... press any key ...<waitkey><cls>", and
+# two buried in the MIDDLE of the win message (after "you make it back to the
+# forum" and after Woodfish's "It's just one big text adventure!"), which used
+# to eat the harness's own "quit" and "y".  The row sets SCR_SKIP_WAITKEY=1,
+# so all three are transparent; the blank fillers went out 2026-08-16.
 #
 # FOOTGUN -- the game's own built-in walkthrough (type `walkthru`) opens with
 # "x third scroll", and that does not work.  TASK 3's command pattern is
@@ -59,7 +58,6 @@
 # 44 [cease to exist] moves you to ROOM 11 [You have ceased to exist!], and
 # TASK 49 [exist] there is the game's one and only ACT type=6 -- v1=3, i.e.
 # "stop", not a win.
-
 e
 x scroll three
 attack guard
@@ -82,5 +80,3 @@ punch pillar
 w
 in
 say shoehorn
-
-

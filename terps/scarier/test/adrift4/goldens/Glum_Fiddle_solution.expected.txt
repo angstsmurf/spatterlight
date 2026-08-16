@@ -9,8 +9,6 @@ Go straight to the Game
 Read the Credits
 Restore a saved game
 
->
-
 > game
 Tiny Gatehouse
 All around you gorse, gnarled trees and tough, spiky grass struggles to grow.

@@ -14,10 +14,10 @@
 # needs, so only it leads to a win.  The two negative awards (-5, -1) are traps
 # this route never springs.
 #
-# The blank first line answers the intro <waitkey>; the blank line after
-# "read incantation" answers the one in the resurrection scene.  There are no
-# others (measured with SCR_MARK_WAITKEY=1).
-
+# Two <waitkey> pauses, and no others (measured with SCR_MARK_WAITKEY=1): the
+# intro, and one in the resurrection scene after "read incantation".  The row
+# sets SCR_SKIP_WAITKEY=1, so both are transparent and the blank fillers they
+# used to need went out 2026-08-16.
 n
 n
 in
@@ -125,7 +125,6 @@ take scroll
 put body on slab
 give potion to woman
 read incantation
-
 s
 d
 d

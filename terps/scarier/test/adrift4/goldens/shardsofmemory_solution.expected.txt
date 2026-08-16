@@ -29,10 +29,6 @@ But before my adventure begins, one question: am I male or female?
    1)  Male
    2)  Female
 
->
-
->
-
 > 1
 Male I am.
 ...press a key...

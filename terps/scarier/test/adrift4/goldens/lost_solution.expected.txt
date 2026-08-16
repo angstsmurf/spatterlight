@@ -22,6 +22,9 @@ parked your car in the gravel lot nearby but you didn't come here simply to
 drive straight home.  There's a table under the shelter. To the south is a
 path through the pines.
 
+> i
+You are carrying an orienteering pamphlet, a letter and a note.
+
 > read note
 From: MapMan@servtech.net
 Date:  24 December 2000 20:06:08 EST

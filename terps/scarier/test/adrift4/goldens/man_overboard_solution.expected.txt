@@ -89,17 +89,52 @@ specifically requested a room with no view as you get terrible seasickness
 (hey, even Captain's positions are open to stringent equal opportunity
 policies). You can only move north.
 
+> i
+You are carrying your homemade Captain's hat.
+
+> x hat
+This is the homemade Captains hat that you made all by yourself in week 2 of
+the "Pillaging, plundering and piracy for dummies course".
+
+> wear hat
+You put on your homemade Captain's hat.
+
+> x bed
+An uncomfy well worn bed that could do with a change.
+
+> x cupboard
+A small wooden cupboard in the corner of your room. All your wordly
+possessions lie within...  The Cupboard is closed.
+
+> open it
+[open Cupboard]
+You open the Cupboard.  A Fake beard and the Captain's log are inside the
+Cupboard.
+
+> take all from cupboard
+You take the Fake beard and the Captain's log from the Cupboard.
+
 > x beard
-You see no such thing.
+A fake ginger beard that you bought from a fancy dress shop for half a
+sheckle, when you found out that you were going to be a Captain. You have
+always had a problem growing facial hair, and feel that a beard really
+defines a true leader.
 
 > wear beard
-Wear what?
+You put on the Fake beard.
 
 > x log
-You see no such thing.
+A small book that you purchased intending to document all of your exploits
+onboard HMS Challenged. Might make an interesting read someday.
 
 > read log
-You see no such thing.
+You open the journal and begin to read...."July 1st  -  This is my first enry
+in the log. We set sail today, all filled with joy, and expectations. This
+Log is going to be a thorough and accurate documentation of all my adventures
+and experiences onboard the HMS Challenged." You flick through the journal
+and reach the next entry dated "December 4th - Auntie Ethel's birthday" Ah,
+well, you never were much of a writer. Maybe you can fill in the blanks with
+stories of sharks,giants squids and lost cities when you get home.
 
 > x poster
 Shiver me timbers! The lovely Kelly Brook in all her glory (well, without

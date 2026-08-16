@@ -9,15 +9,12 @@ had staggered about for a few seconds, and then blacked out. When you woke up, y
 get home!
 Please enter your name:
 
-> x
+> Sam
 
 The base of the mountain
 A huge mountain looms in front of you, like a man before an ant. You can see
 a small hole at the base of a group of trees. There is a path that leads
 south, through a winding forest. A small, dilapidated cabin lies eastward.
-
-> Sam
-And what, exactly, in English, is that supposed to mean?
 
 > e
 You move east.
@@ -483,8 +480,8 @@ walls.  He is wearing a glass crown that is set with emeralds, sapphires, and
 rubies. It has a large "P" set in the center of it.
 
 > ask man about riddle
-Before you can open your mouth, he begins to speak. "Hello, x. Yes, I do know
-your name. I like to know my victims."
+Before you can open your mouth, he begins to speak. "Hello, Sam. Yes, I do
+know your name. I like to know my victims."
 "Victims?" you ask.
 "Yes, victims. You see, down in the Labyrinth of Terror, I have imprisoned
 five demons, so that they may no longer plague my realm, but they do still

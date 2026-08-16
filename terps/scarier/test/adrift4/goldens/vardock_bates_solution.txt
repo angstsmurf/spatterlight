@@ -1,0 +1,103 @@
+examinarme
+coger el mechero del bolsillo
+encender el mechero
+encender el mechero
+encender el mechero
+escuchar
+gritar
+coger las llaves del bolsillo
+hablar trabajadores
+examinar la moto
+montar en la moto
+arrancar la moto con las llaves
+examinar el vagabundo
+hablar con el vagabundo
+coger el adoquin
+morder al vagabundo en el cuello
+dar las llaves de la moto al vagabundo
+este
+examinar los buzones
+abrir el buzon numero seis
+coger la carta del buzon
+leer la carta
+norte
+este
+examinar los recortes
+leer los recortes de periodico
+examinar el crucifijo
+sur
+examinar el espejo
+lanzar el adoquin al espejo
+coger revolver
+coger adoquin
+norte
+oeste
+sur
+oeste
+sur
+sur
+sur
+oeste
+lanzar el adoquin al lobo
+este
+este
+este
+sur
+examinar la estatua
+leer la inscripcion de la estatua
+norte
+norte
+oeste
+oeste
+norte
+norte
+este
+este
+decir el nombre de jhave
+entrar
+examinar las ratas
+sur
+examinar los tubos
+sur
+examinar la roca
+tirar de la palanca
+norte
+examinar el maletin
+coger el maletin
+sur
+examinar el caballo
+montar en el caballo
+este
+este
+sur
+lanzar el brazalete a la charca
+sur
+examinar el taxi
+hablar con el taxista
+decir museo
+esperar
+esperar
+morder al taxista en el cuello
+examinar el taxi
+examinar el cartel
+entrar
+sur
+oeste
+este
+sur
+examinar el brazalete
+romper la vitrina
+norte
+norte
+este
+hablar con jason
+esquivar el baston
+coger baston
+oeste
+sur
+sur
+romper la vitrina con el baston
+abrir el maletin
+coger documento
+leer el documento
+lanzar el brazalete a la ciudad

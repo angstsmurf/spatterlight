@@ -1,0 +1,891 @@
+Loading game...
+
+Vardock Bates
+
+Aventura Conversacional creada por Pipo98  v.1.0.2
+
+Esta aventura ha sido programada con Adrift V.4.00. Release 51, de Campbell
+Wild
+
+CAPÍTULO 1
+
+"EL DESPERTAR"
+
+Oscuridad
+
+    Despiertas  con  la sensación de haber estado dormido un día entero. Tu
+cuerpo, entumecido, hace ademán de moverse, pero tu cerebro le indica que es
+prácticamente imposible hacerlo en tan reducido espacio. La tenebrosa
+oscuridad bromea contigo...  no pudiendo  distinguir entre tener los ojos
+abiertos o cerrados. Las gotas de sudor frio de tu frente se abren camino
+entre las sucias heridas de tu cara  y, ... los nudillos rajados en sangre
+delatan una cruel lucha de la que no logras acordarte. Llevas puesto unos
+pantalones vaqueros, acartonados por el barro seco acumulado en su
+superficie.
+
+> examinarme
+Tienes un aspecto verdaderamente lamentable, unas profundas ojeras y una
+extraña herida en tu cuello.
+
+> coger el mechero del bolsillo
+Estiras tus enjutos dedos haciendo un gran esfuerzo de dolor, apretando los
+dientes porque sabes que ese objeto puede llegar a ser la respuesta de dónde
+te encuentras. Coges el mechero.
+
+> encender el mechero
+Agarrándolo con fuerza, pero a la vez  con   el brazo tembloroso, intentas
+con tu pulgar crear un ápice de luz.... ¡Chas!, ¡Chas!... el mechero
+enciende... Una tela de raso blanco adornada con rococós volantes se moldea
+alrededor de tu cuerpo, creando una atmósfera agobiante .... ¡ Diós mio, esto
+parece !....¡¡ Un ataúd !!. El mechero se apaga.
+
+> encender el mechero
+Vuelves a intentarlo, pero nada...
+
+> encender el mechero
+El tiempo pasa y asumes que puede haber llegado el final de tus días. La
+eterna espera hace que tu mente te juegue alguna mala pasada, como la de oir
+voces.¡Un momento!...¡No es tu mente!... Alguien se acerca.
+
+> escuchar
+¡Alguien está pasando por encima tuyo!...
+
+> gritar
+Llenas los pulmones de lo que puede ser algo del último aire que existe en la
+caja y, sabiendo que la vida te va en ello, sale de tu garganta un
+desgarrador y profundo  "¡¡SOCORRO!!".
+
+Pulsa una tecla...
+
+Cementerio
+
+14 de Octubre del 2007, 10:35 pm Cementerio de Sibiu (Centro de Rumanía).
+
+    Dos trabajadores del cementerio de Sibiu se encuentran arrodillados
+delante tuyo, sus ojos aún están temblando de pánico. En el momento en el que
+se dirigían a realizar tareas de limpieza en la zona arbolada, escucharon tu
+grito desgarrador y a toda prisa te sacaron de aquella tumba. Cerca tuyo, a
+unos escasos metros, puedes ver una motocicleta.
+
+> coger las llaves del bolsillo
+Coges las llaves.
+
+> hablar trabajadores
+Los trabajadores se miran entre ellos, no parecen entenderte. Lo mejor que
+podrías hacer es intentar desaparecer de aquí para no llamar la atención.
+
+> examinar la moto
+Una moto tipo custom, negra-mate, te llama la atención el dibujo del depósito
+de gasolina en el que se representa la lucha entre un endemoniado vampiro y
+un humano.
+
+> montar en la moto
+Te montas en la moto.
+
+> arrancar la moto con las llaves
+
+Metes y giras la llave en el contacto de la moto....
+
+Con  el  talón izquierdo subes el caballete de la moto y sales de ese
+cementerio en busca de una respuesta...
+
+CAPÍTULO 2
+
+"LA BÚSQUEDA"
+
+El velocímetro de tu moto marca 180 Km/h, el frio aire de Rumanía en Otoño
+cala tus ropas  no produciéndote sensación alguna de frio. ¿Qué eres? ¿Quién
+eres?.... frenas de golpe.... bloqueando la rueda trasera y dejando la goma
+quemada en el asfalto...ese edificio te es muy familiar. Aparcas cerca de la
+acera de la calle y te bajas de ella dirigiéndote hacia este.
+
+> examinar el vagabundo
+Un hombre de avanzada edad, barbas blancas y grasientas, ataviado con  un
+roído abrigo y sombrero oscuro.
+
+> hablar con el vagabundo
+-Buenas noches señor  "Bates", ¡una noche odiosamente fría! Tiene bastante
+mal aspecto...¿Le puedo ayudar en algo?...
+
+> coger el adoquin
+Coges ese viejo adoquín.
+
+> morder al vagabundo en el cuello
+Puede que su sangre no sea del todo apta para el consumo vampiriano.
+
+> dar las llaves de la moto al vagabundo
+
+-No se preocupe Señor Bates, como siempre su moto estará bien vigilada.
+
+-Aquí tiene el billete de Avión a Barcelona que me dejó esta mañana.
+
+Coges el billete de avión.
+
+> este
+Vas al este.
+
+Entrada edificio
+
+Entras en el edificio, y como ya habías deducido desde fuera, se trata de un
+bloque de apartamentos antiguos y austeros. Aunque andas casi en la penumbra
+puedes ver a tu izquierda una fila de buzones. Hacia el este vas a un
+callejón trasero del edificio y al norte una escalera de madera sube al
+primer piso.
+
+> examinar los buzones
+Una fila de unos cuantos buzones colgados en la pared. En el buzón número 6
+puedes leer "Mr. Vardock Bates".
+
+> abrir el buzon numero seis
+Está abierto...dentro hay una carta.
+
+> coger la carta del buzon
+Coges la carta.
+
+> leer la carta
+Rompes el estraño sello de cera y comienzas a leer esa extraña carta...
+
+   Despreciable Señor Bates.-
+
+     Después de los últimos episodios realizados por usted, en lo que se
+refiere a la captura y exterminio de los vampiros de la Zona Central de
+Rumanía, tenga por seguro que el Ilustrísimo Comité ha tomado la decisión de
+su rápida aniquilación.
+
+     No tenga la más mínima duda de que sus últimos días han llegado Sr.
+Bates, no dude en que su final está cerca.
+
+                                                          Jason Dhirco.
+
+Ahora recuerdas...
+
+Vardock Bates...
+
+El Cazavampiros...
+
+    Esa tarde habías salido con tu moto en busca de uno de esos chupasangres.
+En principio era un chivatazo de un sólido contacto... pero todo se convirtió
+en una organizada emboscada presidida por Jason Dhirco, líder del "Comité".
+
+    El mordisco en el cuello de uno de tus atacantes fue la venganza perfecta
+de aquellas sucias ratas...covertirte, en muy pocas horas, en uno de ellos.
+
+> norte
+Vas al norte.
+
+Primer piso
+
+    El primer piso está compuesto de un pasillo alargado y estrecho, con
+puertas de apartamentos a los dos lados de este. Una bombilla parpadeante y
+escasa se hace  con  el  protagonismo en la creación de espantosas sombras.
+La puerta del apartamento número 6, hacia el este, está abierta de par en
+par.
+
+> este
+Vas al este.
+
+Apartamento
+
+La luz encendida hace que tus ojos se deslumbren durante unos segundos, hasta
+que te adaptas al nuevo ambiente. Esta es tu casa, el olor mezclado  con   el
+aire delata que en estos metros cuadrados has pasado muchas horas, ves unos
+recortes de periódico encima del escritorio junto a la máquina de escribir.
+
+> examinar los recortes
+Recortes de diferentes periódicos de la zona y europeos.
+
+> leer los recortes de periodico
+puedes leer en uno de ellos...
+
+PRÓXIMA INAUGURACIÓN EN EL MUSEO ARQUEOLÓGICO DE BARCELONA
+
+     A partir de este mes de Octubre y gracias al arquéologo Kem Murray
+podremos disfrutar,  en nuestra ciudad Condal, de la exposición titulada
+"Tesoros Egipcios".
+
+   Entre algunos de estos incalculables tesoros destacamos el brazalete del
+Faraón Ramsés II, envuelto a lo largo de su existencia, en una curiosa
+leyenda en la que se creía que era el único antídoto ante el mordisco de un
+vampiro...[ ]....
+
+> examinar el crucifijo
+Al fijar tu mirada hacia este un fuerte malestar se apodera de tu cuerpo.
+
+> sur
+Vas al sur.
+
+Aseo
+
+En el fondo de la habitación se encuentra el pequeño aseo, un rincón
+destinado a las tareas de higiene personal. Un espejo, casi velado por el
+tiempo, y una diminuta palangana de cerámica blanca son los útiles de aseo
+que más destacan.
+
+> examinar el espejo
+El tiempo ha hecho que el propio cristal tenga un aspecto viejo y velado.
+
+> lanzar el adoquin al espejo
+
+Lanzas la piedra hacia el espejo y se rompe en añicos...
+
+puedes ver un pequeño hueco  escarbado en la pared....
+
+y dentro de éste, ¡hay un revólver!
+
+> coger revolver
+Coges un revólver.
+
+> coger adoquin
+Coges un adoquín.
+
+> norte
+Vas al norte.
+
+Apartamento
+
+La luz encendida hace que tus ojos se deslumbren durante unos segundos, hasta
+que te adaptas al nuevo ambiente. Esta es tu casa, el olor mezclado  con   el
+aire delata que en estos metros cuadrados has pasado muchas horas, ves unos
+recortes de periódico encima del escritorio junto a la máquina de escribir.
+
+> oeste
+Vas al oeste.
+
+Primer piso
+
+    El primer piso está compuesto de un pasillo alargado y estrecho, con
+puertas de apartamentos a los dos lados de este. Una bombilla parpadeante y
+escasa se hace  con  el  protagonismo en la creación de espantosas sombras.
+La puerta del apartamento número 6, hacia el este, está abierta de par en
+par.
+
+> sur
+Vas al sur.
+
+Entrada edificio
+
+Entras en el edificio, y como ya habías deducido desde fuera, se trata de un
+bloque de apartamentos antiguos y austeros. Aunque andas casi en la penumbra
+puedes ver a tu izquierda una fila de buzones. Hacia el este vas a un
+callejón trasero del edificio y al norte una escalera de madera sube al
+primer piso.
+
+> oeste
+Vas al oeste.
+
+Calle
+
+Puede que no sea la mejor calle de Sibiu, pero tienes el presentimiento de
+que has estado allí otra vez. Está oscuro, aún así  puedes ver en una esquina
+a un viejo vagabundo.
+El vagabundo está aquí.
+
+> sur
+Vas al sur.
+
+Entrada parque
+
+A estas horas la humedad se apodera del ambiente de Rumanía. Has entrado en
+el gran parque de esta ciudad, los árboles se extienden hasta donde alcanza
+tu vista y un manto de hojas empapadas se forma debajo de tus pies.
+
+> sur
+Vas al sur.
+
+..Parque..
+
+Has decidido adentrarte en el interior del parque. La inmensa cantidad de
+árboles y la oscura noche crea un lugar fácil de perder la orientación.
+
+> sur
+Vas al sur.
+
+. Parque .
+
+    Has decidido adentrarte en el interior del parque. La inmensa cantidad de
+árboles y la oscura noche crea un lugar fácil de perder la orientación.
+
+> oeste
+Vas al oeste.
+
+..Parque
+
+Has decidido adentrarte en el interior del parque. La inmensa cantidad de
+árboles y la oscura noche crea un lugar fácil de perder la orientación.
+Un lobo se encuentra haciendo círculos alrededor tuyo.
+
+> lanzar el adoquin al lobo
+
+Lanzas ese adoquín al lobo...
+
+Los lobos de la raza Kork, se caracterizan por su rapidez, sigilo y
+violencia...
+
+El adoquín golpea en el lomo del lobo y éste huye asustado....
+
+Es la primera vez que ves algo así..
+
+Un Kork huyendo.
+
+> este
+Vas al este.
+
+. Parque .
+
+    Has decidido adentrarte en el interior del parque. La inmensa cantidad de
+árboles y la oscura noche crea un lugar fácil de perder la orientación.
+
+> este
+Vas al este.
+
+. Parque
+
+Has decidido adentrarte en el interior del parque. La inmensa cantidad de
+árboles y la oscura noche crea un lugar fácil de perder la orientación.
+
+> este
+Vas al este.
+
+Parque .
+
+Has decidido adentrarte en el interior del parque. La inmensa cantidad de
+árboles y la oscura noche crea un lugar fácil de perder la orientación.
+
+> sur
+Vas al sur.
+
+Estatua
+
+La gran masa de árboles del parque de Sibiu deja por un instante un pequeño
+claro... de donde, como si del suelo naciera, se alza una descomunal estatua.
+
+> examinar la estatua
+Una monstruosa gárgola encima de un alargado pedestal, en este puedes ver una
+inscripción. La tierra del suelo parece estar un poco removida.
+
+> leer la inscripcion de la estatua
+Puedes leer...."El muro que se interpone entre el yo y el camino hacia la
+salvación, sólo se abrirá   con   el nombre de Jhavé".
+
+> norte
+Vas al norte.
+
+Parque .
+
+Has decidido adentrarte en el interior del parque. La inmensa cantidad de
+árboles y la oscura noche crea un lugar fácil de perder la orientación.
+
+> norte
+Vas al norte.
+
+.Parque
+
+Has decidido adentrarte en el interior del parque. La inmensa cantidad de
+árboles y la oscura noche crea un lugar fácil de perder la orientación.
+
+> oeste
+Vas al oeste.
+
+..Parque.
+
+Has decidido adentrarte en el interior del parque. La inmensa cantidad de
+árboles y la oscura noche crea un lugar fácil de perder la orientación.
+
+> oeste
+Vas al oeste.
+
+..Parque..
+
+Has decidido adentrarte en el interior del parque. La inmensa cantidad de
+árboles y la oscura noche crea un lugar fácil de perder la orientación.
+
+> norte
+Vas al norte.
+
+Entrada parque
+
+A estas horas la humedad se apodera del ambiente de Rumanía. Has entrado en
+el gran parque de esta ciudad, los árboles se extienden hasta donde alcanza
+tu vista y un manto de hojas empapadas se forma debajo de tus pies.
+
+> norte
+Vas al norte.
+
+Calle
+
+Puede que no sea la mejor calle de Sibiu, pero tienes el presentimiento de
+que has estado allí otra vez. Está oscuro, aún así  puedes ver en una esquina
+a un viejo vagabundo.
+El vagabundo está aquí.
+
+> este
+Vas al este.
+
+Entrada edificio
+
+Entras en el edificio, y como ya habías deducido desde fuera, se trata de un
+bloque de apartamentos antiguos y austeros. Aunque andas casi en la penumbra
+puedes ver a tu izquierda una fila de buzones. Hacia el este vas a un
+callejón trasero del edificio y al norte una escalera de madera sube al
+primer piso.
+
+> este
+Vas al este.
+
+Callejón trasero
+
+Un callejón, el cual no parece tener salida, se muestra ante tí. Un extraño
+muro de ladrillo te impide y corta el camino.
+
+> decir el nombre de jhave
+No teniendo mucha confianza en tí mismo dices el nombre del
+creador....Jhavé....
+Los ladrillos del muro comienzan a temblar, desmoronándose de una forma
+ordenada y matemática...puedes ver un  pasadizo...
+
+> entrar
+Vas adentro.
+
+Pasadizo
+
+Estás en un alargado pasadizo, puedes ver al sur una pequeña luz de lo que
+parece ser otra estancia.
+
+> examinar las ratas
+Puras ratas asquerosas de cloaca.
+
+> sur
+Vas al sur.
+
+Laboratorio
+
+Tubos de ensayo, un mortero, embudos y vasos de precipitados...un minúsculo
+pero completo laboratorio, donde realizar cualquier estudio.
+
+También hay  un maletín.
+
+> examinar los tubos
+Casi todos están llenos de algún líquido.
+
+> sur
+Vas al sur.
+
+Pasadizo.
+
+Un pasillo alargado, entre la penumbra puedes ver una roca que podría hacer
+las funciones de puerta.
+
+> examinar la roca
+Parece hacer las funciones de una puerta, puedes ver una palanca en un
+lateral de ella.
+
+> tirar de la palanca
+Tiras de, pero no pasa nada.
+
+> norte
+Vas al norte.
+
+Laboratorio
+
+Tubos de ensayo, un mortero, embudos y vasos de precipitados...un minúsculo
+pero completo laboratorio, donde realizar cualquier estudio.
+
+También hay  un maletín.
+
+> examinar el maletin
+No ves tal cosa.
+
+> coger el maletin
+Coges el curioso maletín.
+
+Llegó el momento de partir hacia Barcelona...
+
+En busca del antídoto... el brazalete de Ramses II.
+
+CAPÍTULO 3
+
+"EL BRAZALETE SALVADOR"
+
+Ramsés II >> El Tesoro más preciado que poseo Urhiya,... este brazalete fue
+obsequio de mi padre...el Dios Seti, por el valor demostrado en la campaña de
+Canaar...Un obsequio demoníaco y aterrador, el cual se ha convertido en mi
+mayor pesadilla.
+
+Urhiya>> Como siervo suyo...haré lo que vos ordenéis excelentísima Divinidad.
+
+Ramsés II>> Sólo una misión Urhiya,...LA DESTRUCCIÓN... te ordeno que alejes de mí este malvado presente, que
+alejes de mí su poder atractivo para los siervos de Anubis.
+
+Urhiya>> Sus deseos son órdenes para mí...
+
+Ramsés te da el brazalete y desaparece entre las sombras del templo.
+
+Templo
+
+Templo de Abu Simbel, al Sur de Egipto 1264 a.C.
+
+Sala principal del templo, pinturas de la diosa Nekhbet adornan el
+espectacular techo, las paredes en cambio, se encuentran decoradas con
+escenas de batallas en Siria, Libia y Nubia. En el centro, un pasillo
+gobernado por cuatro colosos a cada lado representando a Ramsés II,
+elevándolo a la categoría de Dios y tomando forma de Osiris.
+
+> sur
+Vas al sur.
+
+Salida del Templo
+
+La noche estrellada ya ha caido en Egipto, noche sembrada de relucientes
+astros sobre un oscuro fondo, una media luna encabeza el nocturno escenario,
+dándole al tono azabache una minúscula claridad. Las dunas se pierden en el
+horizonte de espeso calor, corre una ligera brisa que hace agradable el
+momento.
+
+También hay  un caballo.
+
+> examinar el caballo
+No ves tal cosa.
+
+> montar en el caballo
+Rápidamente y dando un ágil salto subes a tu caballo.
+La luna que antes brillaba, es tapada por un oscuro manto de nubes. En el
+momento en que subías en tu fiel caballo,  más de doscientos jinetes oscuros,
+hijos del Diós de los muertos, se disponen a rodearte.
+
+> este
+Vas al este.
+
+Dunas
+
+La grandiosidad del desierto se hace inexplicable  con  tan sólo ver las
+infinitas dunas, la suave brisa hace bailar de una forma armónica a los
+minúsculos granos de arena, proclamando así su imparable avance.  Los jinetes
+oscuros van tras tus huellas...
+
+> este
+Vas al este.
+
+ Dunas
+
+La grandiosidad del desierto se hace inexplicable  con  tan sólo ver las
+infinitas dunas, la suave brisa hace bailar de una forma armónica a los
+minúsculos granos de arena, proclamando así su imparable avance.  Los jinetes
+oscuros van tras tus huellas...
+
+> sur
+Vas al sur.
+
+Oasis
+
+De entre las dunas del desierto aparece un pequeño oasis, un aire de vida a
+aquello que parecía totalmente apagado. Notas el frescor del agua gracias a
+una hermosa charca,  el verdor de la vegetación y el cobijo de las palmeras.
+  Los jinetes oscuros van tras tus huellas...
+
+> lanzar el brazalete a la charca
+Te siguen los pasos de muy cerca y sabes, que si no te deshaces del brazalete
+ahora mismo, puede que después sea demasiado tarde. Miras hacia la charca y
+lanzas con todas tus fuerzas el maldito brazalete, ¡¡jamás lo encontrarán
+ahí!!.
+
+CAPÍTULO 4
+
+"EL ROBO"
+
+15 de Octubre del 2007, 04:35 p.m. Aeropuerto de Barcelona.
+
+Te encuentras en la terminal de vuelos internacionales del aeropuerto de
+Barcelona. Notas que la transformación de tu cuerpo está muy avanzada. El
+gran bullicio llega hasta desorientarte por momentos, en dirección sur se
+encuentra la salida... donde es posible coger un taxi.
+
+> sur
+Vas al sur.
+
+Parada de taxis
+
+Una larga cola de taxis espera a que los turistas, gente de negocios y demás
+alquilen sus servicios. El primer taxista se encuentra leyendo un diario,
+sentado en el sillón de su vehículo.
+El taxista está aquí.
+
+> examinar el taxi
+Un antiguo Merrcedes, puertas amarillas y resto en negro, típico de la ciudad
+condal.
+
+> hablar con el taxista
+
+Taxista.- ¡Buenas tardes Señor!
+
+....Buenas....
+
+Taxista.- ¿Dónde le llevo?
+
+> decir museo
+
+Taxista.- ¡Enseguida, Señor!...
+
+Te subes en la parte trasera del taxi, tu cuerpo está tembloroso y un fuerte
+dolor de estómago no te deja pensar...
+
+El taxi arranca tomando la dirección del museo arqueológico.
+
+Barcelona
+Barcelona, unas de las ciudades más cosmopolitas del mundo, uno puede ir por
+sus calles vestido de tarzán y seguro que nadie se parará a mirarte
+extrañado.
+
+> esperar
+El tiempo pasa...
+El coche se detiene delante de tu destino.
+Una pequeña escalinata te conduce al interior del museo. En la entrada puedes
+ver un gran cartel donde se anuncia la exposición: "Tesoros Egipcios".
+
+> esperar
+El tiempo pasa...
+Tu mirada se fija en el cuello del taxista, puedes sentir el latido de su
+corazón y oler su sangre caliente...estás hambriento....¡de...sangre!
+
+> morder al taxista en el cuello
+
+Tu cerebro se colapsa y solamente piensas en el olor a sangre caliente que
+desprende ese hombre...
+
+Escuchas el pulso de su cuello retumbar en tus tímpanos...
+
+Te lanzas sobre él y, agarrándolo con fuerza, introduces tus incisivos en su
+cuello...
+
+...El hambre ha desaparecido...
+
+> examinar el taxi
+La policía de la ciudad ya ha acordonado la zona y están inspeccionando el
+cadáver del taxista, será mejor que no llames la atención por aquí.
+
+> examinar el cartel
+Se anuncia la exposición "Tesoros Egipcios".
+
+> entrar
+Vas adentro.
+
+Sala Esfinges
+
+La exposición "Tesoros Egipcios", comienza en esta sala principal del
+recinto. Puedes ver una muestra de diferentes esfinges de famosos faraones
+egipcios, como Tutmosis III y Tutmosis I de la XVIII dinastía, famosos por
+sus conquistas de territorios mittanos. También puedes ver unas obras
+esculpidas de Seti I, padre de Ramsés II.
+
+> sur
+Vas al sur.
+
+Sala Escritos
+
+Vidrieras con atiguos pergaminos egipcios y otros documentos de la época. En
+un lugar destacado puedes ver el "Tratado de Qadesh", un documento sobre
+preciosas hojas de plata, el cual formalizó la tregua entre Egipto y el
+imperio Hitita.
+
+> oeste
+Vas al oeste.
+
+Sala Momias
+
+La sala de momias y sacófagos. Quizás, es la sala que más público la visita.
+Momias de diferentes faraones y sus impresionantes sarcófagos presiden la
+estancia.
+
+> este
+Vas al este.
+
+Sala Escritos
+
+Vidrieras con atiguos pergaminos egipcios y otros documentos de la época. En
+un lugar destacado puedes ver el "Tratado de Qadesh", un documento sobre
+preciosas hojas de plata, el cual formalizó la tregua entre Egipto y el
+imperio Hitita.
+
+> sur
+Vas al sur.
+
+Sala Reservada
+
+Una sala a media luz,...en el centro de ella se encuentra colocada la vitrina
+principal de toda la exposición...EL BRAZALETE DE RAMSÉS II...Unos pequeños
+focos alumbran desde el techo hasta esa obra de arte, creando un escenario de
+protagonismo misterioso.
+
+> examinar el brazalete
+Un brazalete de oro, con motivos fúnebres y  curiosos jeroglíficos.
+
+> romper la vitrina
+Parece un material muy resistente... necesitarías algo para poder romperla.
+
+> norte
+Vas al norte.
+
+Sala Escritos
+
+Vidrieras con atiguos pergaminos egipcios y otros documentos de la época. En
+un lugar destacado puedes ver el "Tratado de Qadesh", un documento sobre
+preciosas hojas de plata, el cual formalizó la tregua entre Egipto y el
+imperio Hitita.
+
+> norte
+Vas al norte.
+
+Sala Esfinges
+
+La exposición "Tesoros Egipcios", comienza en esta sala principal del
+recinto. Puedes ver una muestra de diferentes esfinges de famosos faraones
+egipcios, como Tutmosis III y Tutmosis I de la XVIII dinastía, famosos por
+sus conquistas de territorios mittanos. También puedes ver unas obras
+esculpidas de Seti I, padre de Ramsés II.
+
+> este
+Vas al este.
+
+Terraza Mirador
+
+Desde aquí tienes unas vistas increibles de la ciudad de Barcelona... a lo
+lejos el Tibidabo, distingues también la Sagrada Familia y las torres de
+plaza España.
+
+Notas un profundo escalofrio...
+
+Hay alguien más en el mirador...
+
+Jason Dhirco está aquí, lleva un bastón en su mano izquierda. Deberías hablar
+con él.
+
+> hablar con jason
+
+Dhirco.- ...¡Miren en que se ha convertido!...El famoso cazavampiros....
+
+                ...¡En otro CHUPASANGRES!...
+
+                 Nunca conseguiras el brazalete Bates...¡Es propiedad del
+COMITÉ!...
+
+Jason Dhirco te lanza su bastón directamente hacia el corazón....
+
+> esquivar el baston
+
+Ahora tus reflejos se han agudizado...y esquivas el bastón.
+
+Dhirco, al ver que te has convertido en alguien muy superior a él, se lanza
+al vacío del mirador transformándose en pocos segundos en un murciélago
+imposible de alcanzar.
+
+Ves el bastón de Dhirco.
+
+> coger baston
+Coges el bastón.
+
+> oeste
+Vas al oeste.
+
+Sala Esfinges
+
+La exposición "Tesoros Egipcios", comienza en esta sala principal del
+recinto. Puedes ver una muestra de diferentes esfinges de famosos faraones
+egipcios, como Tutmosis III y Tutmosis I de la XVIII dinastía, famosos por
+sus conquistas de territorios mittanos. También puedes ver unas obras
+esculpidas de Seti I, padre de Ramsés II.
+
+> sur
+Vas al sur.
+
+Sala Escritos
+
+Vidrieras con atiguos pergaminos egipcios y otros documentos de la época. En
+un lugar destacado puedes ver el "Tratado de Qadesh", un documento sobre
+preciosas hojas de plata, el cual formalizó la tregua entre Egipto y el
+imperio Hitita.
+
+> sur
+Vas al sur.
+
+Sala Reservada
+
+Una sala a media luz,...en el centro de ella se encuentra colocada la vitrina
+principal de toda la exposición...EL BRAZALETE DE RAMSÉS II...Unos pequeños
+focos alumbran desde el techo hasta esa obra de arte, creando un escenario de
+protagonismo misterioso.
+
+> romper la vitrina con el baston
+
+Miras el bastón y la vitrina...puede que sea buena idea...
+
+Golpeas con todas tus fuerzas el cristal blindado de la vitrina y se rompe en
+mil pedazos...
+
+Saltan todas las alarmas del museo...Coges el brazalete rapidamente...
+Los vigilantes se acercan a tí, apuntándote con sus revólveres....
+
+Elevándote un metro del suelo...con los ojos inyectados en sangre...lanzas un
+grito que hace recular a todos...
+
+El brazalete es tuyo.
+
+CAPÍTULO 5
+
+"RESURRECCIÓN"
+
+El mundo ante tí, nuevas puertas se han abierto en tu vida...ahora es el
+momento de elegir...
+
+Tu anterior vida como Vardock Bates....el cazavampiros...
+
+...o...
+
+LA INMORTALIDAD...
+
+Brasil
+
+Brasil 17 de Octubre del 2007.
+
+Te encuentras en la cima del Cristo Redentor, en el cerro del Corcovado.
+Puedes ver la ciudad de Brasil, iluminada por infinitas luces.
+
+> abrir el maletin
+Abres el maletín...
+
+Encuentras un documento...firmado por "EL COMITÉ"...
+
+> coger documento
+Coges el documento.
+
+> leer el documento
+
+Sr. Bates:
+
+     Usted, señor Bates es el único que puede llevar a nuestra raza a la
+supremacía en el mundo entero. Es el esperado por todos nosotros, es nuestro
+líder. Habíamos caído en un profundo abismo, del cual era imposible salir
+bajo el mando de Jason Dhirco.
+
+    Ahora tiene la oportunidad de deshacerse del brazalete y liderar "El
+Comité" o por el contrario... utilizarlo para volver a su anterior vida... es
+su decisión señor Bates.
+
+    Esta raza que se pone a sus pies...
+
+EL COMITÉ.
+
+> lanzar el brazalete a la ciudad
+Miras el brazalete en tu mano...
+
+¿Una decisión correcta?...
+
+Lanzas el brazalete al vacío...
+
+El cielo se nubla por completo...
+
+Ha nacido el nuevo Dios y Señor de las bestias...Vardock Bates...
+
+El Dios de los muertos...
+
+HAS ELEGIDO LA INMORTALIDAD PARA SIEMPRE...
+
+Has ganado, te espero en la próxima aventura de Vardock Bates.

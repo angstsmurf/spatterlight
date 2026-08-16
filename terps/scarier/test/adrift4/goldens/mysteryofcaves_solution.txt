@@ -4,8 +4,13 @@
 # "short" at any prompt; "clues" gives a staged hint list), with one command
 # removed: the author's list gives "give necklace to cyana" twice, and the
 # second copy only answers "Give what?".
-# The two blank lines at the top are the title/instructions <waitkey>s; there
-# are no others in the game.
+# Two <waitkey>s, the title and the instructions screen; there are no others
+# in the game.
+# 2026-08-16: the row sets SCR_SKIP_WAITKEY=1, so the pauses are transparent.
+# They never were answered by the blank lines here -- until the fix, the pause
+# read did not honour the "#" comment convention and ate this header instead,
+# which is why the blanks below reached the game as ordinary empty commands.
+# They are turns the route was derived with, so they stay.
 # Scoring: 21 tasks award +5 each, and leaving with the diamond, ruby, pearl,
 # jewelled rod and jade sceptre in hand adds another +5 apiece (TASKs 138-142,
 # run by TASK 137 on the second "s" at the Entrance).  TASK 143 then picks a

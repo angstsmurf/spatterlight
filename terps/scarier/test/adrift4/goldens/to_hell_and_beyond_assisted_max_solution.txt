@@ -64,7 +64,6 @@ n
 u
 in
 e
-look
 turn on water
 w
 n
@@ -97,7 +96,6 @@ out
 w
 w
 w
-look
 s
 use sword
 take sword
@@ -114,7 +112,6 @@ e
 n
 n
 get in
-look
 n
 w
 n
@@ -201,7 +198,6 @@ e
 e
 e
 get on board
-look
 s
 s
 s

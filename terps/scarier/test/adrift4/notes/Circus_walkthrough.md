@@ -1,4 +1,4 @@
-# Menagerie! (`circus.taf`) — ★ WON 64/140 (deterministic, seed 2)
+# Menagerie! (`circus.taf`) — ★ WON 64/140 (deterministic, seed 12)
 
 David Good's **"Menagerie!"** (v1.03, 2001; WON 1st place, ADRIFT Spring 2001
 Minicomp). Native **ADRIFT 3.90.17**. You are **Willow Murphy**, a PETA spy sent
@@ -7,7 +7,7 @@ without getting caught**. 18 rooms, 158 tasks, 16 NPCs, 18 events. Difficulty
 (Easy/Medium/Hard, Medium default) gates timers + the stored max (Easy max = 140).
 
 **Status: ★ SOLVED — deterministic full WIN banked** in
-`goldens/circus_solution.txt` (run with `SC_SEED=2`; ending *"...PETA plants a
+`goldens/circus_solution.txt` (run with `SCR_SEED=12`; ending *"...PETA plants a
 Willow tree in your name"*). The economy that had this parked is closed by the
 **toy-knife chain** (below); NPC timing is handled by *spam-until-present*.
 
@@ -29,7 +29,7 @@ Willow tree in your name"*). The economy that had this parked is closed by the
    prereq for the reading). `e`,`e`,`e`→fortune teller, **`ask reading`** (−4 tok,
    +6) — deals **three tarot cards** = the trunk combo.
 4. **Combo is randomised**: the cards' Roman numerals are the lock numbers (re-read
-   with `x first/second/third card`). **Under seed 2: XIII / IX / V → 13, 9, 5.**
+   with `x first/second/third card`). **Under seed 12: XIII / IX / V → 13, 9, 5.**
 5. **Trunk**: `w`,`w`,`n`,`n`,`n`,`n`,`e`→Clown Dressing Room, **`turn lock 13`**,
    `turn lock 9`, `turn lock 5` (*"click as the lock opens"*), `open trunk` (+10),
    **`take videocamera`**.
@@ -52,8 +52,8 @@ at `#initialize` and re-rolled only on each *successful* funhouse `west`. The fu
 `fundeath == 1`: +10 then `ACT type=6 v1=2` = "Skippy the clown ... heart attack").
 Under the harness's **default seed 1, `fundeath==1` → the game is UNWINNABLE** (every
 first funhouse entry kills). `fundeath==1` happens for ~1/11 seeds (seeds 1, 9, 17,
-25, 33...). **Use `SC_SEED=2`** (fundeath=8) or any non-1-mod-8-ish survivable seed.
-The harness `seed.c` now reads `SC_SEED` (default 1); this is the analogue of
+25, 33...). **Use `SCR_SEED=12`** or any other survivable seed.
+The harness `seed.cpp` reads `SCR_SEED` (default 1); this is the analogue of
 Shadow_Of_The_Past's beast gamble — a real player saves before `west` and retries.
 
 ## The win (fully decoded)
@@ -97,7 +97,7 @@ videotape present, plus a `swords` (var57) condition (set by play, normally sati
    are repopulated by the card values (NOT a fixed 13/10/5; tasks 122–130 each set a
    combo slot from the card's number).
 3. **Clown Dressing Room (room5)**: `turn lock <c1>` → `turn lock <c2>` → `turn lock
-   <c3>` for the three card numbers (**seed 2: XIII/IX/V → 13, 9, 5**; the lock tasks
+   <c3>` for the three card numbers (**seed 12: XIII/IX/V → 13, 9, 5**; the lock tasks
    82-90 require the reading done), then `open trunk` (task79, +10) → **take videocamera**.
 4. **Animal Cages (room4)**: `ask barb for tape` (task77, +10) — Barb (NPC5, lion tamer)
    fetches the videotape out of the lion cage (do NOT `open lion cage` — instant death,
@@ -145,10 +145,17 @@ room10 Funhouse       : E->9
   spent) forces buying **10 tokens / $5**; start $2 + knife $1 + selling ~30 points = $5.
   The food pump and `play wheel`/`give tip cecily` are all net-negative or break-even, so
   they're avoided.
-- **NPC timing solved by spam-until-present:** Joe (peanut, room0) and Barb (tape, room4)
-  wander deterministically; repeat the action across turns until they walk in (robust to
-  turn drift). Pringles (room14) and Bill (funhouse) stay put — Bill only leaves if you
-  ever `give popcorn to zap`, so never do that.
+- **NPC timing solved by spam-until-present:** Joe (peanut, room0), Barb (tape, room4)
+  and **Pringles (room14)** wander deterministically; repeat the action across turns
+  until they walk in (robust to turn drift). Bill (funhouse) does stay put — he only
+  leaves if you ever `give popcorn to zap`, so never do that.
+  Pringles was long assumed stationary, and the route got away with a single
+  `give peanut to pringles` only because the row's first two commands (`Easy`,
+  `open case`) were being eaten by `<waitkey>` pauses. With those restored
+  (2026-08-16, `SCR_SKIP_WAITKEY=1`) every wander is two turns earlier and he is
+  **not** under the bleachers on the first try: **ten** attempts is the measured
+  minimum under `SCR_SEED=12`, nine costs the knife and with it six points
+  (64 → 58). The committed route spams twelve for margin.
 
 ## Death traps to avoid
 Opening ANY cage (`open lion/tiger/gorilla/elephant`, tasks 10/11/36/38) = death;
@@ -156,8 +163,8 @@ Opening ANY cage (`open lion/tiger/gorilla/elephant`, tasks 10/11/36/38) = death
 plus timed mad-clown / tightrope(guido) / lion-tamer / magic-act / stampede / timed-die.
 
 ## Banked solution
-`goldens/circus_solution.txt` (run with **`SC_SEED=2`**) is a complete deterministic
+`goldens/circus_solution.txt` (run with **`SCR_SEED=12 SCR_SKIP_WAITKEY=1`**) is a complete deterministic
 **WIN, 64/140**, verified via `play.sh`. Marker: *"...PETA plants a Willow tree in your
 name with a brass plaque..."* / *"Congratulations. You completed the game"*. The combo
-inside it (13/9/5) is seed-2-specific — for any other seed, read the three tarot cards
+inside it (13/9/5) is seed-12-specific — for any other seed, read the three tarot cards
 after `ask reading` and turn the locks to those numerals.

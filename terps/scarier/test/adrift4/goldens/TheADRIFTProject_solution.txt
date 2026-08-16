@@ -22,15 +22,15 @@
 # the author's live run, and the escape route has to start one turn later.
 # Repair 3: a "score" before the winning "push button", so the golden records
 # the tally (80, +10 for the button = 90).
-# The four blank lines answer four <waitkey> pauses, measured with
-# SCR_MARK_WAITKEY=1.
-
-
+# Four <waitkey> pauses (measured with SCR_MARK_WAITKEY=1).  The row sets
+# SCR_SKIP_WAITKEY=1; before that, 2026-08-16, the blank fillers meant to
+# answer them were landing on the Runner's name and gender prompts instead --
+# the player came out called "Anonymous", the gender question was asked and
+# refused twice, and the golden recorded all of it.  "Drifter" and "male"
+# below now reach the prompts they were written for.
 Drifter
 male
 take suit
-
-
 wear it
 open door
 s

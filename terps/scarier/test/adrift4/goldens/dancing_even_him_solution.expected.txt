@@ -31,6 +31,10 @@ completely out of sight.  The only light source is from high above to one
 corner. You appear to be standing on some very large round objects. This
 place has no visible exits.
 
+> exam round objects
+They are very large round coins, each at least 2m in diameter. Even in the
+gloom you can clearly make out a queens head on some of them.
+
 > exam coins
 They are very large round coins. Even in the gloom you can clearly make out
 the queens head on some of them. You find something hidden in the coins.

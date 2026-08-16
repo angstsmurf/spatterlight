@@ -59,19 +59,19 @@ FILTER="${1:-}"
 # mis-parses heredocs inside $() when the content's quote count is odd --
 # an apostrophe in a marker would break the whole script.)
 map_rows() { cat <<'EOF'
-icecream_solution.txt|IceCream.taf|
-the_cat_in_the_tree_solution.txt|TheCatintheTree.taf|You scored 50 out of the maximum 50!
-man_overboard_solution.txt|man overboard.taf|Maybe it wasn't all a waste of time
+icecream_solution.txt|IceCream.taf||SCR_SKIP_WAITKEY=1
+the_cat_in_the_tree_solution.txt|TheCatintheTree.taf|You scored 50 out of the maximum 50!|SCR_SKIP_WAITKEY=1
+man_overboard_solution.txt|man overboard.taf|Maybe it wasn't all a waste of time|SCR_SKIP_WAITKEY=1
 pieces_of_eden_solution.txt|Pieces of eden.taf|END OF PART ONE
 princess_in_the_tower_solution.txt|princess1.taf|It seems you've won.
 too_much_exercise_solution.txt|exercise.taf|much prefer that Sweet Shop option one of your work colleagues took.
-yak_shaving_solution.txt|yak_shaving.taf|completed the Odd Competition
+yak_shaving_solution.txt|yak_shaving.taf|completed the Odd Competition|SCR_SKIP_WAITKEY=1
 buried_alive_solution.txt|buried.taf|Well done. You got to the end
-confession_solution.txt|Confession(1).taf|Striking a plea deal
+confession_solution.txt|Confession(1).taf|Striking a plea deal|SCR_SKIP_WAITKEY=1
 snakes_and_ladders_solution.txt|sandl.taf|made it to the end of the game|SCR_SEED=2
 veteran_solution.txt|veteran.taf|fulfilling your destiny
-togetyou_solution.txt|togetyou.taf|another flesh-sack
-zombies_solution.txt|ZAC.taf|you and Stu were eaten by zombies
+togetyou_solution.txt|togetyou.taf|another flesh-sack|SCR_SKIP_WAITKEY=1
+zombies_solution.txt|ZAC.taf|you and Stu were eaten by zombies|SCR_SKIP_WAITKEY=1
 adrift_maze_solution.txt|ADRIFTMaze.taf|You WIN!
 cruel_solution.txt|CAH.taf|destroyed our reality
 trabula_solution.txt|Trabula.taf|given the gold coins to Trabula
@@ -81,23 +81,23 @@ shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shad
 shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=155
 alexis_solution.txt|ALEXIS.TAF|you have beaten Urgorn
 alexis_worn_cube_solution.txt|ALEXIS.TAF|you have beaten Urgorn
-topaz_solution.txt|topaz.taf|The two of you set out into the forest.
+topaz_solution.txt|topaz.taf|The two of you set out into the forest.|SCR_SKIP_WAITKEY=1
 thorn_solution.txt|Thorn.taf|You have chosen to look upon your own mortality.
 renegade_brainwave_solution.txt|Renegade_Brainwave.taf|planet Earth has been averted!
 goldilocks_solution.txt|goldilocks.taf|Three Bears are no more
 masochists_heaven_solution.txt|1HRGAME.taf|You scored 15 out of the maximum 15!
-griswold_solution.txt|Griswold.taf|And there you have it: the intro
+griswold_solution.txt|Griswold.taf|And there you have it: the intro|SCR_SKIP_WAITKEY=1
 mhpquest_solution.txt|mhpquest.taf|You have saved Crystal's life
 # Archie's Birthday is AIF: the game's text is sexually explicit, so its solution
 # and golden are deliberately NOT committed (they are in harness/.gitignore).  The
 # row stays so the regression runs where the files exist; elsewhere it NOSCRIPTs.
-archie_solution.txt|Archie's Birthday V 1-2.taf|To be continued
+archie_solution.txt|Archie's Birthday V 1-2.taf|To be continued|SCR_SKIP_WAITKEY=1
 # The adrift-battle corpus (the WALKTHROUGH_TODO.md games, banked 2026-06) --
 # wins first, then documented-max tours / sandboxes / demos.  Tour rows use the
 # final "Your score is N out of a maximum of M." line as their marker so the
 # documented maxima stay locked; win rows use the game's own victory text.
 bomb_threat_solution.txt|Bomb Threat.taf|Or have you...
-circus_solution.txt|circus.taf|Congratulations.  You completed the game|SCR_SEED=12
+circus_solution.txt|circus.taf|Congratulations.  You completed the game|SCR_SEED=12 SCR_SKIP_WAITKEY=1
 colony_solution.txt|Colony.taf|You scored 200 out of the maximum 200!
 cyber_solution.txt|cyber.taf|THE END,or is it?
 cyber2_solution.txt|cyber2.taf|you have beaton Cyber Warp 2!
@@ -123,7 +123,7 @@ toxically_earth_solution.txt|Toxically_Earth.taf|Thanks for playing RON: TOXICAL
 xfiles_solution.txt|The_X-Files_A_New_Beginning.taf|Welcome to the Resistance.
 del_sol_solution.txt|Del Sol.taf|Your score is 26 out of a maximum of 46.
 inverness_solution.txt|inverness.taf|Your score is 75 out of a maximum of 205.
-les_feux_solution.txt|Les Feux de l'enfer.taf|Votre score est 25 sur un maximum de 115.|SCR_SEED=138
+les_feux_solution.txt|Les Feux de l'enfer.taf|Votre score est 25 sur un maximum de 115.|SCR_SEED=138 SCR_SKIP_WAITKEY=1
 lifesimulation_solution.txt|lifesimulation.taf|Your score is 0 out of a maximum of 0.
 matts_house_solution.txt|Matt's House.taf|Your score is 5 out of a maximum of 5.
 mr_smith_solution.txt|The_Search_For_Mr_Smith.taf|You scored 90 out of the maximum 100!
@@ -134,14 +134,27 @@ spirits_flight_solution.txt|The_Spirits_Flight.taf|Your score is 50 out of a max
 srsintro_solution.txt|SRSintro.taf|
 the_nonsense_machine_6000_solution.txt|The_Nonsense_Machine_6000.taf|
 the_town_of_azra_solution.txt|The_Town_Of_Azra.taf|Number of turns passed: 27
-thetest_solution.txt|thetest.taf|Your score is 5 out of a maximum of 25.
+# Azra ships as two files and they are NOT the same game to play.  The
+# underscored IF Archive build is a 4.00-signature upconversion of the author's
+# 3.90 original: the ADRIFT 4 editor left every battle attribute degenerate, so
+# accuracy 0 is never > agility 0, every blow misses and combat is an eternal
+# stalemate (verified live in run400 -- adrift-combat-zero-accuracy-stalemate).
+# Combat is Azra's only income, so that build caps at the shops and the inn,
+# which is all the 27-turn row above can reach.  The spaced adrift.co build is
+# the untouched 3.90 file, gets battle_legacy (strength - defence, every blow
+# connects), and plays through all six goals the author lists in the intro:
+# kill a bandit, sell a deer carcass to Drako, buy from all three shops, stay at
+# Gralle's Inn, learn Stealth Tactics, purchase the house.  See
+# The_Town_Of_Azra_walkthrough.md.
+the_town_of_azra_v390_solution.txt|The Town Of Azra.taf|Number of turns passed: 505|SCR_SKIP_WAITKEY=1
+thetest_solution.txt|thetest.taf|Your score is 5 out of a maximum of 25.|SCR_SKIP_WAITKEY=1
 # thetest IS winnable (2026-08-01, verified live in run390 to "Well done!  You
 # won!" at 20/25): the colour-door needs addything==3, i.e. two consecutive
 # key/door colour matches on `unlock door` (the old "circular lock /
 # unwinnable" verdict misindexed task 15's variable restriction -- var1-2 is
 # addything, not robot2).  The route's unlock/shout spam is RNG-timing under
 # the fixed seed; see thetest_walkthrough.md for the mechanism.
-thetest_win_solution.txt|thetest.taf|Well done!  You won!
+thetest_win_solution.txt|thetest.taf|Well done!  You won!|SCR_SKIP_WAITKEY=1
 through_time_solution.txt|Through time.taf|This is as far as this adventure will take you at this point.
 to_hell_and_beyond_solution.txt|To_Hell_And_Beyond.taf|You have entered the town of Oran.
 # The assisted To-Hell row needs BOTH aids: the game's combat data is all-zero
@@ -149,7 +162,7 @@ to_hell_and_beyond_solution.txt|To_Hell_And_Beyond.taf|You have entered the town
 # (Var2=-1).  With only SCR_ASSUME_COMBAT the player never leaves the mansion
 # and the closing "claim the throne" is not understood (the 2026-07-14 "desync"
 # was exactly that -- a replay missing SCR_ASSUME_MOVES).
-to_hell_and_beyond_assisted_solution.txt|To_Hell_And_Beyond.taf|You are now ruler of Beyond|SCR_ASSUME_COMBAT=1 SCR_ASSUME_MOVES=1
+to_hell_and_beyond_assisted_solution.txt|To_Hell_And_Beyond.taf|You are now ruler of Beyond|SCR_ASSUME_COMBAT=1 SCR_ASSUME_MOVES=1 SCR_SKIP_WAITKEY=1
 # ...and the *max* assisted row, 265/373 (the row above banks 265-17=248).  The
 # extra 20 comes from task 72 `^^aquired armor^^` (Theeve's death reward), which
 # NOTHING in the game executes -- To Hell & Beyond is an upgraded 3.9 file and
@@ -165,7 +178,7 @@ to_hell_and_beyond_assisted_solution.txt|To_Hell_And_Beyond.taf|You are now rule
 # room 166 and teleports the player out on the very turn they enter.  373 itself
 # is NOT the ceiling -- tasks 86 `go home` (+80) and 87 `claim the throne`
 # (+150) both carry an ACT type=6, so only one of the two can ever be banked.
-to_hell_and_beyond_assisted_max_solution.txt|To_Hell_And_Beyond.taf|You are now ruler of Beyond|SCR_ASSUME_COMBAT=1 SCR_ASSUME_MOVES=1
+to_hell_and_beyond_assisted_max_solution.txt|To_Hell_And_Beyond.taf|You are now ruler of Beyond|SCR_ASSUME_COMBAT=1 SCR_ASSUME_MOVES=1 SCR_SKIP_WAITKEY=1
 # Villains_And_Kings is a V390 file, so battle_legacy skips the acc>agi gate and
 # the assassin is killable with no aid at all -- the old 13/37 "faithful" row and
 # its SCR_ASSUME_COMBAT=1 companion (30/37) both rested on 4.0 combat rules being
@@ -187,34 +200,34 @@ wes_ghn_solution.txt|WesGHN.taf|You've Won the Game!
 # its row is a tour to the last room.  (Woof prints "My score", not "Your
 # score" -- the corpus's usual tour marker would not have matched.)
 argh_solution.txt|ARGH_sGreatEscape.taf|You scored 98 out of the maximum 125!
-spam_solution.txt|SPAM.taf|Spam King
+spam_solution.txt|SPAM.taf|Spam King|SCR_SKIP_WAITKEY=1
 wreckage_solution.txt|Wreckage.taf|you've rescued yourself
-vagabond_solution.txt|Vagabond.taf|The End
+vagabond_solution.txt|Vagabond.taf|The End|SCR_SKIP_WAITKEY=1
 woof_solution.txt|Woof.taf|I'm back.
 undefined_solution.txt|Undefined1.taf|An end is defined.
 ecod3_solution.txt|ECOD3.taf|In an alley behind Denny's.
-goblinhunt_solution.txt|goblinhunt.taf|Tomorrow is the next goblin hunt.
+goblinhunt_solution.txt|goblinhunt.taf|Tomorrow is the next goblin hunt.|SCR_SKIP_WAITKEY=1
 agent4f_solution.txt|agent_4F[1].A.taf|You wake with a start.  What a terrible dream!
 invasion_shirts_solution.txt|Invasion of the Second-Hand Shirts.taf|You're floating through the air above the trees.
-adriftorama_solution.txt|adriftorama.taf|*****You Win!*****
+adriftorama_solution.txt|adriftorama.taf|*****You Win!*****|SCR_SKIP_WAITKEY=1
 # The seventeen games swept out of the Key & Compass ADRIFT index (2026-08-02);
 # see the per-game notes/*_walkthrough.md for where each .taf came from.
 wax_worx_solution.txt|wax_worx.taf|[PRESS ANY KEY TO DIE]
 sommeril_solution.txt|sommeril.taf|www.angelfire.com/games5/sommeril
-dragonshrine_solution.txt|DragonShrineR43.taf|ended the Curse of Dragon Shrine
-shardsofmemory_solution.txt|shardsofmemory.taf|My adventure has ended, and in victory besides
-TheADRIFTProject_solution.txt|TheADRIFTProject.taf|the entire ADRIFT community greet you
-ShadricksUnderground_solution.txt|ShadricksUnderground.taf|the robbers were caught red handed in the vault
-ticket_solution.txt|ticket.taf|You won and managed to score 110 out of a possible 110
+dragonshrine_solution.txt|DragonShrineR43.taf|ended the Curse of Dragon Shrine|SCR_SKIP_WAITKEY=1
+shardsofmemory_solution.txt|shardsofmemory.taf|My adventure has ended, and in victory besides|SCR_SKIP_WAITKEY=1
+TheADRIFTProject_solution.txt|TheADRIFTProject.taf|the entire ADRIFT community greet you|SCR_SKIP_WAITKEY=1
+ShadricksUnderground_solution.txt|ShadricksUnderground.taf|the robbers were caught red handed in the vault|SCR_SKIP_WAITKEY=1
+ticket_solution.txt|ticket.taf|You won and managed to score 110 out of a possible 110|SCR_SKIP_WAITKEY=1
 cleft_solution.txt|cleft.taf|You scored 100 out of the maximum 100!
 Tear_solution.txt|Tear.taf|Suddenly the world seems a brighter place, and you feel there is a good
 tq3_solution.txt|tq3.taf|Please forward your comments to chris@jons.org.
 yeh_solution.txt|yeh.taf|Your score is 3100 out of a maximum of 3400.
-ADRIFTMAS_Party_solution.txt|ADRIFTMAS_Party.taf|"Merry ADRIFTMAS TO ALL!  And to all a good night!"
-Glum_Fiddle_solution.txt|Glum Fiddle.taf|Your score:100 out of 100.
-JGrim_solution.txt|JGrim1.0.taf|WHOOOOOSH
-mysteryofcaves_solution.txt|mysteryofcaves.taf|Your finishing rank is: Godlike Adventurer.
-chooseyourown_solution.txt|chooseyourown.taf|"A hunch," you say. You link arms with Sharon Elson.
+ADRIFTMAS_Party_solution.txt|ADRIFTMAS_Party.taf|"Merry ADRIFTMAS TO ALL!  And to all a good night!"|SCR_SKIP_WAITKEY=1
+Glum_Fiddle_solution.txt|Glum Fiddle.taf|Your score:100 out of 100.|SCR_SKIP_WAITKEY=1
+JGrim_solution.txt|JGrim1.0.taf|WHOOOOOSH|SCR_SKIP_WAITKEY=1
+mysteryofcaves_solution.txt|mysteryofcaves.taf|Your finishing rank is: Godlike Adventurer.|SCR_SKIP_WAITKEY=1
+chooseyourown_solution.txt|chooseyourown.taf|"A hunch," you say. You link arms with Sharon Elson.|SCR_SKIP_WAITKEY=1
 fantasyworld_solution.txt|fantasyworld.taf|You scored 0 out of the maximum 500!
 sophie_solution.txt|sa.taf|You have won.|SCR_SKIP_WAITKEY=1
 sophie_comp_solution.txt|sophie.taf|You have won.|SCR_SKIP_WAITKEY=1
@@ -236,17 +249,17 @@ amonkeytoomany_solution.txt|amonkeytoomany.taf|Hooray! You've made it through th
 # 2nd One-Hour Game Competition
 dfu_solution.txt|DFU.taf|Thank you, and good night.
 percy_solution.txt|Percy.taf|prince among vikings
-forum_solution.txt|forum.taf|You Won!
+forum_solution.txt|forum.taf|You Won!|SCR_SKIP_WAITKEY=1
 # 3rd One-Hour Game Competition
-cbn_solution.txt|CBN.taf|you excelled yourself
-cbn2_solution.txt|cbn2.taf|the archives room goes up in flames
+cbn_solution.txt|CBN.taf|you excelled yourself|SCR_SKIP_WAITKEY=1
+cbn2_solution.txt|cbn2.taf|the archives room goes up in flames|SCR_SKIP_WAITKEY=1
 crm_solution.txt|CRM.taf|You take a long bow as the curtains close for the show, and the dead body
-ecod2_solution.txt|ECOD2.taf|has been captured
+ecod2_solution.txt|ECOD2.taf|has been captured|SCR_SKIP_WAITKEY=1
 imagination_solution.txt|Imagination.taf|Was this all just in your imagination?
-asdfa_solution.txt|asdfa.taf|bottle of Nightmare Inducer fluid back in his pocket
+asdfa_solution.txt|asdfa.taf|bottle of Nightmare Inducer fluid back in his pocket|SCR_SKIP_WAITKEY=1
 demonhunter_solution.txt|demonhunter.taf|journey to the beginning of your new life. You're a demonhunter.
-forum2_solution.txt|forum2.taf|***You have won!***
-pyramid_solution.txt|pyramid.taf|moves out of your way allowing you to make a hasty retreat.
+forum2_solution.txt|forum2.taf|***You have won!***|SCR_SKIP_WAITKEY=1
+pyramid_solution.txt|pyramid.taf|moves out of your way allowing you to make a hasty retreat.|SCR_SKIP_WAITKEY=1
 saffire_solution.txt|saffire.taf|you reach heaven
 shore_solution.txt|shore.taf|an island shrouded in a steel fog.
 ticktick_solution.txt|ticktick.taf|I'm afraid you are dead!
@@ -288,8 +301,8 @@ to_hell_in_a_hamper_solution.txt|Hamper.taf|reached the incredible altitude of 3
 # anything but "There is no phantom here", and `talk to ghost` only parses in
 # the Rocky outcropping (task 28, where=room 17) -- so it is five waits, two
 # follows, then `x ghost` and exactly four talks before the ghost dissolves.
-lost_solution.txt|LOST.TAF|place your foot on the path leading up the crumbling cliff
-lost_down_solution.txt|LOST.TAF|has shown you a doorway back to that brighter world.
+lost_solution.txt|LOST.TAF|place your foot on the path leading up the crumbling cliff|SCR_SKIP_WAITKEY=1
+lost_down_solution.txt|LOST.TAF|has shown you a doorway back to that brighter world.|SCR_SKIP_WAITKEY=1
 # Marika the Offering is a one-room siege: the walkthru is prose ("there are
 # five ways for The Count to get into the room") and names no commands, so the
 # route is derived from the task table -- window shut+locked with the hairpin,
@@ -409,7 +422,7 @@ beanstalk_solution.txt|Beanstalk.taf|*** You have won ***
 #     line is the win marker.
 black_sheeps_gold_solution.txt|BlackSheepsGold.taf|You've beaten Black Sheep's Gold!|SCR_SKIP_WAITKEY=1
 doomed_xycanthus_solution.txt|xycanthus.taf|Then the gem flickers like a guttering candle and goes
-dancing_even_him_solution.txt|dancingevenhim.taf|it is an anagram of Vending Machine
+dancing_even_him_solution.txt|dancingevenhim.taf|it is an anagram of Vending Machine|SCR_SKIP_WAITKEY=1
 # The Demon Hunter (2003) -- WIN, 200/200, after two repairs to the delron list.
 #   1. `south` -> `s`.  TASK 1 (where=1 room=6, the Armory) has cmd=[s] with
 #      ALTCMDs [go s] [go south] [walk south] [wlk s] [walk s] -- the author
@@ -1330,7 +1343,7 @@ chicago_solution.txt|chicago.taf|Daisy was found guilty of double homicide
 # the ENDING -- %opinion%==5, the last of the four written ALTs.  Reading the
 # diary sets %opinion% to 5 (it does not add), so 6/7 are reachable and print
 # the author's unwritten "ending6"/"ending7" placeholders.
-everything_solution.txt|everything.taf|I'll smile as I curse her name and everything Emanuelle.
+everything_solution.txt|everything.taf|I'll smile as I curse her name and everything Emanuelle.|SCR_SKIP_WAITKEY=1
 # Textident Evil: 100/100 (the game's own stated maximum).  TURN-CRITICAL --
 # four monster events run on a fixed global cadence and the zombie's WALKs
 # re-teleport it onto the player after every kill, so the `instructions` turn
@@ -1403,7 +1416,7 @@ report_solution.txt|report.taf|You scored 100 out of the maximum 100!
 # and the box to the Puzzlelord -- nothing can be fetched back afterwards.
 # The pirate walks away after one turn, so `give pearl to pirate` has to be
 # the first command on the lighthouse's 4th floor.
-farfromhome_solution.txt|FarFromHome.taf|You scored 50 out of the maximum 50!
+farfromhome_solution.txt|FarFromHome.taf|You scored 50 out of the maximum 50!|SCR_SKIP_WAITKEY=1
 # S Tar Dus T: no score anywhere in the file, so the goal is the richest of
 # the four `sw` endings.  All four are gated on T31 (the magic words) and
 # then picked in file order by what else you did: T33 wants the lake water
@@ -1834,6 +1847,99 @@ vampire_solution.txt|Vampire.taf|Now you are the most powerful vampire alive.|SC
 # the archive door, so a second `n` is needed to walk through it.  The row needs
 # SCR_SKIP_WAITKEY=1 for the six act-transition <waitkey>s.
 merry_murders_solution.txt|Merry_Murders.taf|You scored 135 out of the maximum 135!|SCR_SKIP_WAITKEY=1
+
+# The Woods Are Dark -- ADRIFT 3.90, 71,216 bytes, Cannibal 2003.  A haunted
+# cottage in Black Hill: 23 rooms, 82 tasks, no events and no clocks, so the
+# whole game is one dependency chain held together by ten variables.  WIN with
+# the FULL 100/100 -- the 21 `ACT type=4` awards sum to the declared MaxScore
+# and every one is on the critical path.  Three ordering traps: `lift trunk`
+# needs trunk==0, so it must precede `open trunk` even though the writing it
+# reveals is not read until forty moves later; `look at fireplace` needs
+# hearth==2, which only `sit chair` sets, so the chair is load-bearing rather
+# than colour; and TASK 10 `bounce ball` teleports the player to the Back Yard,
+# so the route back upstairs starts there.  The last Clearing turn is spent on
+# a bare `look` because TASK 45 is `[*]` -- any command is consumed by the
+# forwarding to the Graves.  One <waitkey> sits in the title text ahead of the
+# menu, hence SCR_SKIP_WAITKEY=1.
+thewoods_solution.txt|thewoods.taf|You scored 100 out of the maximum 100!|SCR_SKIP_WAITKEY=1
+
+# Captive Universe -- ADRIFT 3.90, 74,568 bytes, after the Harry Harrison novel.
+# 62 rooms, 61 tasks, 19 events, no variables.  WIN with the FULL 100/100: nine
+# `ACT type=4` awards (8x10 + 1x20) sum to the declared MaxScore and the route
+# fires all nine.  The game is one long clock -- walking out of the courtyard
+# gate (TASK 11) starts four one-shot arrest/nightfall events at once, which
+# fire at exactly turns 8, 18, 18 and 20 and never again, so the first half of
+# the route is "climb a tree that appears in no arrest task's WHERE_ROOMS and
+# wait".  Two traps: Globals.WaitTurns is 3, so the four `z`s are twelve turns,
+# not four; and EVENT 18 [Timedoor] un-finishes TASK 39 one turn after it runs
+# (affTask fin=1), so `w` off the ledge must be the very next command after
+# `use crowbar` or the steel door slides shut again.  A shorter route exists --
+# `use crowbar` then `swim` in room 35 enters the ship through the swamp for
+# the same 20 points and skips the grain quest and the rope entirely -- but the
+# committed route takes the author's designed path so the regression covers
+# both NPCs, the three chained Smith events and the timed door.  No <waitkey>
+# in the file, hence no env.
+captive_solution.txt|Captive.taf|You scored 100 out of the maximum 100!|
+
+# Adventures of Thumper - Wonder Wombat -- ADRIFT 3.90, 107,200 bytes, Chris
+# Tyson 2001-2002.  51 rooms, 131 tasks, 76 objects, 39 NPCs, 39 events, 15
+# variables and 441 <waitkey> tags, hence SCR_SKIP_WAITKEY=1.  The file
+# contains NOT ONE `ACT type=4`, so the game has no score at all and the
+# end-of-game summary reads "You scored 0 out of the maximum 0! ... 100% of the
+# game!" for any ending -- the row therefore matches the winning cutscene's
+# closing line instead.  WIN via TASK 127 `*note*` in room 0, which is the only
+# `ACT type=6 v1=0` on the critical path (the other three are the two survival
+# deaths and TASK 46 `win`, an unrestricted author cheat).
+# Four meters (bladder, hygiene, smoke, alcohol) each step by one every five
+# turns via EVENT 0 -> TASK 1 `#statsdown`, so the two meter deaths sit ~500
+# turns away and only two spots matter: TASK 38 sets hygiene to 0 in the
+# dumpster/truck/tip and TASK 50 then kills for hygiene 0 with the gas mask
+# off, and the mandatory beer binge drives alcohol past 100 to enter Fantasy
+# Land (TASK 57) where the titus component is the only copy in the game.  That
+# makes the second half of the route TURN-PARITY SENSITIVE: Fantasy Land opens
+# at alcohol 100 and closes at 99, so adding or deleting one turn anywhere
+# earlier moves which `drink beer` tips over and how long the hangover lasts.
+# Three more traps: the swear-off must be LOST once before KARNISHNAR (the word
+# from under the shack doormat) is worth $5000, because losing is what sends
+# Percy the Possum to the bar and re-opens the arena; `take fooluffultitus
+# pills` is refused while `take syndrom pills` works (the built-in take parser
+# matches only the object's own prefix words) yet `give fooluffultitus pills to
+# fry` is the form that works (task commands match the raw input string, a
+# different matcher); and maze rooms 32-41 answer every compass direction with
+# TASK 63, a move-to-RANDOM-room action, so the maze cannot be mapped -- the 12
+# norths in the route are simply what the seeded harness needs.
+wonderwombat_solution.txt|wonderwombat.taf|THUMPER KICKS ASS!!!|SCR_SKIP_WAITKEY=1
+
+# Vardock Bates -- ADRIFT 4.00, 2,928,980 bytes, "Pipo98" v1.0.2, in SPANISH.
+# 39 rooms, 68 tasks, 77 objects, 4 NPCs, 4 events, 1 variable.  The file
+# contains NOT ONE `ACT type=4` and WINTEXT is empty, so the game has no score
+# and no win banner of its own -- the row matches a line of the winning
+# cutscene instead, the same way relojero_solution.txt does.  SCR_SKIP_WAITKEY=1
+# is for the four chapter-title <waitkey> screens.
+# The author writes his task patterns with ENGLISH verbs and Spanish nouns
+# ([take]{el}[mechero]) and ships a SYNONYM table that rewrites the player's
+# Spanish input, so both languages parse; the library replies are Spanish.  One
+# consequence matters for the route: the built-in take handler does NOT accept
+# the Spanish article ("coger el revolver" -> "Que quieres coger?"), while
+# author tasks do because they spell the article out in a {el} group -- hence
+# the bare `coger revolver` / `coger adoquin` / `coger baston` / `coger
+# documento` next to `coger el mechero del bolsillo`.
+# Two hard timers.  EVENT 0 [Jinetes] starts when you mount the horse in Egypt
+# and executes TASK 23 (`--Fin--`, EndGame lose) ten turns later; only TASK 22
+# `decir museo` pauses it, and the shortest path from the horse to the taxi is
+# eight turns, so there are exactly two turns of slack.  EVENT 3 [Lanzamiento
+# de baston] starts on `hablar con jason` on the museum terrace and kills on
+# the NEXT turn, so `esquivar el baston` must follow it immediately.
+# The revolver is a pure trap: TASK 56 (touch/attack the wolf) and TASK 57
+# (shoot it) both `exec task 23`, as does TASK 31 `kill jason`.  The Kork wolf
+# is beaten by throwing the cobblestone at it (TASK 58), which is also why the
+# adoquin has to be picked back up after it shatters the bathroom mirror.
+# The endgame is a two-ending choice in Brasil and BOTH are `ACT type=6 v1=0`
+# wins: TASK 36 `poner el brazalete` (go back to being human) and TASK 35
+# `lanzar * brazalete *` (take the Committee's offer).  TASK 35 additionally
+# requires 36 UNdone plus 37/38/39 done, i.e. the maletin opened and the
+# document taken and read -- so the fuller of the two endings is the one wired.
+vardock_bates_solution.txt|Vardock Bates.taf|HAS ELEGIDO LA INMORTALIDAD PARA SIEMPRE|SCR_SKIP_WAITKEY=1
 EOF
 }
 

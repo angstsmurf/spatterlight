@@ -20,7 +20,12 @@
 # then opening the drawers lands on the unwritten "ending6"/"ending7" stubs.
 #
 # Two <waitkey> pauses before the first prompt (title screen + prologue),
-# located with SCR_MARK_WAITKEY=1 -- hence the two leading blank lines.
+# located with SCR_MARK_WAITKEY=1.
+# 2026-08-16: the row sets SCR_SKIP_WAITKEY=1, so the pauses are transparent.
+# They never were answered by the blank lines here -- until the fix, the pause
+# read did not honour the "#" comment convention and ate this header instead,
+# which is why the blanks below reached the game as ordinary empty commands.
+# They are turns the route was derived with, so they stay.
 
 
 x dust

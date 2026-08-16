@@ -26,6 +26,9 @@ You are in a smooth, slippery tube with a shiny pink lining.  From here to
 you can go to the ear, nose, mouth or stomach.
 Millions of your relatives are here.
 
+> x me
+You are basically a ball with spikes sticking out.
+
 > x relative
 Loads and loads of your family, all multiplying and infecting. It is a
 beautiful sight.
@@ -36,12 +39,12 @@ You need to state which place you are going to.
 > x tube
 On either side of the throat you can see the tonsils.
 
+It sounds like something is being eaten or maybe the flesh-sack is taking a
+drink?
+
 > x tonsils
 The tonsils help to catch germs entering through the throat.  "Well, they are
 going to catch something today!" you think to yourself.
-
-It sounds like something is being eaten or maybe the flesh-sack is taking a
-drink?
 
 > infect tonsils
 They are now Infected!

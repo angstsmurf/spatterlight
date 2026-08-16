@@ -369,6 +369,9 @@ de grosses pierres grises et vos pas résonne sur le sol de roche. Une porte
 se trouve
 à l'extrémité du couloir. Au sud vous distinguez la petite caverne.
 
+> drink fiole bleue
+Un grand frisson parcourt votre corps et vous vous sentez beaucoup mieux.
+
 > n
 Vous vous déplacez vers le Nord.
 

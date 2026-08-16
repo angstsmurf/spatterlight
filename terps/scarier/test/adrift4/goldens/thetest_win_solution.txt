@@ -1,6 +1,3 @@
-z
-z
-z
 open clothes
 take fluff
 drop fluff

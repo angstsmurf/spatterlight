@@ -53,6 +53,12 @@ To the west a rickety wooden structure nestles amongst tall grass. Far away
 to the north the valley is blocked by a sheer wall of ice; an enormous
 glacier!
 
+> x me
+You are somewhat raggedy looking after your journey
+
+> i
+You are carrying nothing.
+
 > x glacier
 The surface of the ice is covered with a thick layer of frost, which the
 light cannot penetrate.
@@ -109,8 +115,8 @@ accepted."
 
 A lowly acolyte stands guard outside the door to the caravan.
 
-The acolyte attempts to clap with one hand, cupping the other hand over his
-ear the better to hear the sound it makes.
+The acolyte attempts to catch a passing fly with his chopsticks. They say
+that a man who can catch a fly with chopsticks can do anything.
 
 > x acolyte
 A little dude with orange robes, horn-rimmed glasses and a flat-top. If he
@@ -120,8 +126,8 @@ pair of chopsticks.
 > x chopsticks
 You see nothing special about the pair of chopsticks.
 
-The acolyte attempts to catch a passing fly with his chopsticks. They say
-that a man who can catch a fly with chopsticks can do anything.
+The acolyte attempts to clap with one hand, cupping the other hand over his
+ear the better to hear the sound it makes.
 
 > ask acolyte about lama
 'His holiness the Lama will be able to answer all your questions.' says the
@@ -193,8 +199,8 @@ A lowly acolyte stands guard outside the door to the caravan.
 You decide against giving the jar to the acolyte. You doubt that he'd be of
 any help in getting the lid off, and you'd probably never see it again.
 
-The acolyte attempts to catch a passing fly with his chopsticks. They say
-that a man who can catch a fly with chopsticks can do anything.
+The acolyte attempts to clap with one hand, cupping the other hand over his
+ear the better to hear the sound it makes.
 
 > clap
 With one hand you clap the acolyte about the face with a sound that echoes

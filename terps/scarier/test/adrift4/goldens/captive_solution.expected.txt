@@ -1,0 +1,570 @@
+Loading game...
+
+Captive Universe
+  The last few days have been very hectic, ending with your imprisonment. The
+tribal elders chose you to be the next sacrifice, and your life will end at
+dawn tomorrow. You are not surprised that you were chosen, since you have
+been unpopular with the priests ever since you were a boy, always asking
+questions like why the god Tezchatlix could not even protect the priests from
+the scorpions, let alone the villagers. Last year had been a year of plenty,
+and many of the villagers had privately expected that it would be a dry year
+this year. The high priest Cittlalat had almost been looking for an excuse to
+punish you, and a sacrifice to bring rain to the village was always popular.
+ You are twenty four years old,and you have lived in the valley all your
+life. You didn't really have much choice, as there is no way out of it. Some
+time in the past, the gods thought fit to drop a huge boulder in the only
+exit, blocking it completely. The legend states that it will be removed again
+in five hundred years, when the punishment is over. The priests do not say
+how much time is left, and it doesn't matter. It will not happen in your
+lifetime.
+  The priests. They are a as good a group of uninquiring, traditional,
+vicious old men as one could hope to find in any society. When you were
+younger you were required to learn at the temple one day in three for two
+years, as all boys had to. The lucky ones were taken on as apprentice
+priests, and never had to lift a load again in there lives. You were easily
+the most intelligent in your class, having taught yourself to read without
+the priests knowing.  But you asked far too many questions that no one had
+answers to, and because of this you are here.
+  You clench your fists. Well, you're not going to sit here and take it. The
+gods may judge you as they will, but the priests won't keep you here forever.
+You look around your cell, carefully searching for a way out...
+
+Inside your cell
+   Your cell is fairly well lit, from a torch just outside. The floor is made
+of large stone flagstones, and the cell door is made of large bars, a mixture
+of steel and copper. It's to the north, by the way. You know about these
+things from the village smith, one of the few people you got on well with.
+The walls are bricked fairly well, the cells were obviously made by someone
+who wasn't going to do anything by halves.
+
+> get stone
+You winkle the loose flagstone out from it's hole and store it about your
+person. It leaves a bare patch of dirt on the floor where it was.
+
+> hit lock with stone
+You give the lock a good whacking with your flagstone. The lock begins to
+bend, but your flagstone breaks before you can actually break the lock off.
+You continue hitting it with half of the stone but the rock crumbles even
+more. Eventually there is no stone left. You curse under your breath, and
+finish the job off with your bare feet. The lock is now broken and the cell
+door swings open. You can only hope your noise didn't attract any of the
+temple guards. The open door is to the North.
+
+> n
+You move north.
+
+Outside your cell
+You are outside your cell. The door of your cell is wide open, and there's no
+point closing it. Any guards coming past will notice that you've gone anyway.
+On one wall there is a burning torch, but it's firmly bolted and anyway you'd
+only burn yourself fiddling with it. Your cell is to the south, and the
+passage continues to the north and east.
+
+> n
+You move north.
+
+Inside West Door of Cell Block
+You are just inside the west door of the cell block. The door itself is to
+the north, and the almost featureless passage leads to the south.  The door
+is closed at the moment.
+
+> open door
+You open the large wooden door.
+
+> n
+You move north.
+
+In the Southwest corner of the Courtyard
+The courtyard is empty. You are in the Southwest corner of it, the gate is to
+the North and East. It seems to be wide open, just a large arch against the
+darkening sky.  The door on the wall to the south is open, and you can see
+what looks like the cell block through it.
+
+> ne
+You move northeast.
+
+Inside the Courtyard Gate
+You are just inside the wide arch, leading to freedom. The gates are wide
+open, an unusual state of events. It would take more strength than you alone
+have got to close them. I myself would suggest getting out of here, hiding
+somewhere, and not coming out until nightfall. The gates are to the north,
+and the courtyard is in all other directions.
+
+> n
+You leave the courtyard and you are now outside the temple grounds. So far so
+good.
+
+Between the Courtyard Gate and the Village
+Running to the north is a path into the center of the village. To the south
+is the main gate of the temple courtyard. Not very far to the west you can
+see part of the cliff which surrounds the valley. To the east lies the land
+which the villagers make use of, at the moment unfortunately and fatally dry.
+
+> e
+You move east.
+
+Outside Northeast wall
+You are in some wheat fields just to the northeast of the temple. To the
+north, south and east are small clumps of trees. There are two ways to get to
+the village from here, one to the north and another to the east. To the
+southwest is the temple.  If anyone in the village looks this way, they'll
+probably see you.
+
+> e
+You move east.
+
+Under some trees
+You are standing in a group of trees. Many of the trees are pines, and the
+undergrowth is almost non-existent. They look fairly easy to climb. You can
+see nothing outside of your bunch of trees.
+
+> u
+You move up.
+
+Up a tree
+You are halfway up a tree. All around you are other trees, completely
+blocking your view of anything. Higher up in the tree you can see a birds
+nest. You could climb higher if you want.  Hopefully no one will find you up
+here.
+
+> u
+You move up.
+
+Far too high up a tree
+You are at the swaying top of a decidious tree. You can just reach a birds
+nest built on the uppermost branches. The nest seems to be deserted.  No one
+will find you up here.
+
+> x nest
+The birds nest is fairly small. It seems to be deserted.   Inside the birds
+nest is some blue string, the coin and the small golden key.
+
+> get key
+You take the small golden key from the birds nest.
+
+> x string
+The blue string is too old and weak to be much use for anything.
+
+> x coin
+It's an old coin, of the sort that used to be used for trading with other
+villages, or so the priests say. It is now almost completely worthless, and
+if the priests saw it they would instantly take it off you and add it to
+their collection. In your case they are already going to take everything off
+you.
+
+> z
+Time passes...
+The sun is now sliding beneath the horizon, lighting up the entire valley
+orange.
+
+> z
+Time passes...
+
+> z
+Time passes...
+The sun is now below the horizon, but he sky is still light. Soon the
+villagers will go to bed.
+
+> z
+Time passes...
+The last light above the cliffs to the west disappears. At about this time of
+day all the villagers go home, in fact almost everybody goes to sleep at
+night. Just a handful of guards stay on the late watch at the temple.
+Incidentally, the stars look wonderful tonight.
+
+> d
+You move down.
+
+Up a tree
+You are halfway up a tree. All around you are other trees, completely
+blocking your view of anything. Higher up in the tree you can see a birds
+nest. You could climb higher if you want.  It is truly dark in here.
+
+> d
+You move down.
+
+Under some trees
+You are standing in a group of trees. Many of the trees are pines, and the
+undergrowth is almost non-existent. They look fairly easy to climb. You can
+see nothing outside of your bunch of trees.   It is pitch black in here.
+
+> w
+You move west.
+
+Outside Northeast wall
+You are in some wheat fields just to the northeast of the temple. To the
+north, south and east are small clumps of trees. There are two ways to get to
+the village from here, one to the north and another to the east. To the
+southwest is the temple.  Your feet feel cold in the dampish wheat.
+
+> w
+You move west.
+
+Between the Courtyard Gate and the Village
+Running to the north is a path into the center of the village. To the south
+is the main gate of the temple courtyard. Not very far to the west you can
+see part of the cliff which surrounds the valley. To the east lies the land
+which the villagers make use of, at the moment unfortunately and fatally dry.
+
+> n
+You move north.
+
+In the Village Square
+The village is completely deserted. The only hut here you would go *in*to is
+the smith's. Here and there fires, glow, but it would be best to keep a low
+profile and keep away from them. *Up* above you is the grain house, built on
+stilts to stop rats getting in. The punishing for breaking into it is death,
+but you have nothing to lose. Unfortunately it's locked, and you won't be
+able to tear the door open with your hands. Paths lead to the east, west and
+south. The moon makes the village uncormfortably bright.
+
+> in
+You move in.
+
+Inside the Smith's hut
+You have ventured inside the Smith's hut. The forge is still glowing,
+indicating that the Smith was at work on something less than two hours ago.
+All around the walls and on the floor are tools, benches and other bits of
+junk. There is only one way back out again.
+The Smith himself appears, brandishing a crossbow. He lowers it when he sees
+it is you. `Thank goodness you're here,' he says in a low voice. `You see, I
+have a problem. Nobody has bought much in the way of tools this season, and
+I've just run out of food. I was just about to rob the grainhouse, and I
+really don't want to do that. They might trace it to me. But now you're here,
+and I would really appreciate it if you robbed it for me. You have nothing to
+lose,  I'll let you have half the grain, and I'll give you a good long rope
+for your trouble- when you come back with the grain. And you can keep the
+crowbar. Here it is here.' he finishes.
+
+> out
+You move out.
+
+In the Village Square
+The village is completely deserted. The only hut here you would go *in*to is
+the smith's. Here and there fires, glow, but it would be best to keep a low
+profile and keep away from them. *Up* above you is the grain house, built on
+stilts to stop rats getting in. The punishing for breaking into it is death,
+but you have nothing to lose. Unfortunately it's locked, and you won't be
+able to tear the door open with your hands. Paths lead to the east, west and
+south. The moon makes the village uncormfortably bright.
+
+> use crowbar
+You quietly take the grainhouse door to pieces, with your little friend the
+crowbar. Now you can go *up* into the grainhouse.
+
+> u
+You move up.
+
+Inside the Grainhouse
+It's dark in the grainhouse. The only light shines in through the open door.
+Inside there are several cobs of corn and many piles of wheat. The only way
+back out again is to climb down the ladder. Some of the corn smells past it's
+best.
+
+> get corn
+You take as match grain and corn as you can hold on to.
+
+> d
+You move down.
+
+In the Village Square
+The village is completely deserted. The only hut here you would go *in*to is
+the smith's. Here and there fires, glow, but it would be best to keep a low
+profile and keep away from them. *Up* above you is the grain house, built on
+stilts to stop rats getting in. The punishing for breaking into it is death,
+but you have nothing to lose. Unfortunately it's locked, and you won't be
+able to tear the door open with your hands. Paths lead to the east, west and
+south. The moon makes the village uncormfortably bright.
+
+> in
+You move in.
+
+Inside the Smith's hut
+You have ventured inside the Smith's hut. The forge is still glowing,
+indicating that the Smith was at work on something less than two hours ago.
+All around the walls and on the floor are tools, benches and other bits of
+junk. There is only one way back out again.  The Smith is still here.
+You give the Smith half of the pile of grain. His eyes light up, and he
+hurries away to stash it somewhere. He returns with a rope, and gives it to
+you. `Here,' he says `and thank you.'
+
+> out
+You move out.
+
+In the Village Square
+The village is completely deserted. The only hut here you would go *in*to is
+the smith's. Here and there fires, glow, but it would be best to keep a low
+profile and keep away from them. *Up* above you is the grain house, built on
+stilts to stop rats getting in. The punishing for breaking into it is death,
+but you have nothing to lose. Unfortunately it's locked, and you won't be
+able to tear the door open with your hands. Paths lead to the east, west and
+south. The moon makes the village uncormfortably bright.
+
+> w
+You move west.
+
+In the Village, among the houses
+The mud houses of the village are all dark. The people inside must be
+sleeping. You could go *in* to your house. Paths lead to the south and east.
+To the east is the village square. The grass around here is worn from the
+feet of people over centuries.
+
+> in
+You move in.
+
+Inside your house
+You are inside your own house.
+You are met in your house by your mother, who is sitting up by candle light.
+`Yotihuac! As soon as I heard you escaped, I thought I'd better wait to see
+if you turned up,'  she says. `Are you hungry? Here, have this tortilla. It's
+got apples in. It's my last one.' She lowers her voice. `I really shouldn't
+be talking to you, but since your father died, you're all I've got.'  You
+glance around the room, and it looks just like you left it- after a whole day
+of being away. The door is the only way Out.
+
+> eat tortilla
+You eat the apple flavoured tortilla. After your day without food, it tastes
+delicious.
+
+> out
+You move out.
+
+In the Village, among the houses
+The mud houses of the village are all dark. The people inside must be
+sleeping. You could go *in* to your house. Paths lead to the south and east.
+To the east is the village square. The grass around here is worn from the
+feet of people over centuries.
+
+> s
+You move south.
+
+Outside the Northwest wall, by the cliff
+You are just to the north and west of the Temple. A path into the village
+leads to the north. To the east is where you came out of the temple. The
+ground here is unused, too stony and too close to the cliff. The cliff itself
+towers above you to the west. Just to the south is the gap between the temple
+and the cliff, the part of the cliff where the vultures land.   The cliff
+looks rougher and even taller in the bright but cold light of the almost full
+moon.
+
+> s
+You move south.
+
+Outside the West wall, by the cliff
+You are in the gap between the temple and the cliff. You can leave to the
+north and south. This piece of cliff has always intrigued you. The vultures
+always land here, on a ledge about four storeys up. Always the exact same
+piece of cliff. All the same, it doesn't look much more climbable than the
+rest of the cliff.   You shiver in the cold night air, and wrap your
+ceremonial robe more tightly around you.
+
+> s
+You move south.
+
+Outside the Southwest wall, by the cliff
+You are just to the south and west of the Temple. The ground here is unused,
+too stony and too close to the cliff. The cliff itself towers above you to
+the west. Just to the north is the gap between the temple and the cliff, the
+part of the cliff where the vultures land. To the south is the waterfall, the
+only reason the village has been able to survive as long as it has. To the
+east is some more unused land.  The cliffs just to the west look larger than
+normal in the moonlight.
+
+> e
+You move east.
+
+Outside the South wall
+You are just to the south of the temple, and just to the north of the stream.
+Most years the stream is more of a river, but at least it's still flowing.
+Further to the west is the cliff, and to the east is some more unused fields.
+The grass around here grows much better than further to the north, but
+nothing is planted. In the temple wall in the north is a small door, but the
+key to it was allegedly stolen years ago by a magpie, probably for decorating
+its nest.
+
+> unlock door
+You put the key you found in the nest into the small door. It fits! You turn
+it slowly, until the lock clicks and the door swings open. Now you can go
+*in* to the temple.
+
+> in
+You move in.
+
+In the Inner temple
+You are in the throne room of the temple. The door you just came in is the
+way out. Some large doors lead north. The room is decorated with statues and
+candles, and in the center of it all is the magnificent throne.  Embedded in
+its gold and velvet structure is a massive diamond. It makes all the other
+colourful jewels seem pointless, and you judge it to be rarer than a friendly
+priest.
+
+> use crowbar
+You winkle the massive diamond out of its hole. It feels heavier than you
+expected.
+
+> out
+You move out.
+
+Outside the South wall
+You are just to the south of the temple, and just to the north of the stream.
+Most years the stream is more of a river, but at least it's still flowing.
+Further to the west is the cliff, and to the east is some more unused fields.
+The grass around here grows much better than further to the north, but
+nothing is planted. In the temple wall in the north is a small door, but the
+key to it was allegedly stolen years ago by a magpie, probably for decorating
+its nest.
+
+> w
+You move west.
+
+Outside the Southwest wall, by the cliff
+You are just to the south and west of the Temple. The ground here is unused,
+too stony and too close to the cliff. The cliff itself towers above you to
+the west. Just to the north is the gap between the temple and the cliff, the
+part of the cliff where the vultures land. To the south is the waterfall, the
+only reason the village has been able to survive as long as it has. To the
+east is some more unused land.  The cliffs just to the west look larger than
+normal in the moonlight.
+
+> n
+You move north.
+
+Outside the West wall, by the cliff
+You are in the gap between the temple and the cliff. You can leave to the
+north and south. This piece of cliff has always intrigued you. The vultures
+always land here, on a ledge about four storeys up. Always the exact same
+piece of cliff. All the same, it doesn't look much more climbable than the
+rest of the cliff.   You shiver in the cold night air, and wrap your
+ceremonial robe more tightly around you.
+
+> tie rope to ledge
+After a few tries, you manage to snag the rope on the ledge, and after
+several more you get it hooked on well enough to support your weight.
+
+> u
+You struggle up the rope. Your hands feel numb and you can't keep your robe
+wrapped around yourself. Eventually you reach the rocky ledge.
+
+On the ledge
+The ledge is small enough to make you worry about how high up you are. Built
+into the side of a the cliff is a steel door, to the west in fact. None of
+the villagers have ever spoken about it, so you assume they don't know about
+it. The vultures flew away before you got here. It's even colder up here than
+down below. Little bones are scattered around the place.  Tied to the ledge
+is a rope, allowing you to get down  to the ground.
+
+> use crowbar
+You attack the steel door with your crowbar. Twenty minutes of near
+exhaustion later you manage to lever it open. The opening is to the west.
+
+> w
+You walk into a white, clean, brightly lit room. You have never seen a place
+that looked so sterile. You have no idea what a place like this is doing
+built into the cliff. At this point the door behind you beeps, flashes a
+little green light, and slides shut again.
+
+In the Meat Room
+The large room isn't much warmer than outside, but at least it's less windy.
+Large carcasses of- what?- hang from the cieling on metal ropes. Most of the
+carcasses are larger than you are, but they don't look like people. There is
+an iron ladder leading upwards, and a brightly lit clean white passage to the
+north.
+This place is confusing.
+
+> n
+You walk down the bright passage for what seems like ages. Finally you get to
+another room, like the Meat room but without meat and warmer.
+
+At the Port Computer Terminal
+This room is fairly big, and almost completely empty. On one wall there is a
+large black square, possibly made out of some well-polished stone. Just below
+it are three buttons- a red one, a black one and a yellow one. A yellow and
+black sign on the wall says: `Port Computer Terminal'. Corridors lead to the
+south and the east.
+
+> e
+You move east.
+
+In the Port Loading Bay
+The passageway here isn't white, it's made of greasy steel. There is a closed
+door to the north, made out of solid black iron. Just next to it is a red
+button, labelled `Emergency Release' nelow it in smaller letters is `Port
+Loading Bay' . To the west is a brighter room, and to the east is a darker
+one.
+
+> e
+You move east.
+
+In the Security Field Room
+You are in a dark room which is apparently called `Security Field', as a sign
+on the southern wall states.  It is quite dark here, lit up only by a green
+glowing wall in the doorway on the north wall. There are wires all over the
+roof, but all too high too reach. There is  a plug in a plug socket, low on
+the north wall. The corridor goes to the east and west.
+
+> pull plug
+You pull the little plug out of it's hole in the wall. The glowing green
+Security Field promptly folds up and disappears, allowing you to travel to
+the north. Thank goodness for that, eh?
+
+> n
+You step inside the room and gasp.
+
+In the Cockpit
+The room is almost spherical except for a flattish floor. In the center of
+the room is a pedestal, with absolutely nothing on it. In front of it is a
+blue seat, not as decorated as the temple throne but rivaling it for comfort.
+The most startling thing about the room is that it's walls and floor are
+clear, and outside you can see stars. Billions of them, more than you ever
+saw on the clearest night in the valley. Why should there be stars on all
+sides? Just in front of the seat is a screen, filled with text. The exit door
+is to the south.
+
+> put diamond on pedestal
+You drop the diamond back into it's hole on the pedestal. Nothing happens-
+for two seconds. Then, judging by the way the stars move, this entire place
+swivels slowly and points itself at what looks like a small blue and white
+globe in the dark sky. The screen changes. You sit in the seat and read it.
+5 hours until landing...
+You lean back in your seat, and you quickly fall asleep.
+As seen by Temple Guard Thossler:
+Thossler was up to his waist in swamp mud, peering around him for the escaped
+sacrifice. It was just after dawn, and the sun was peeping over the hills.
+Suddenly big grey clouds rolled in from all directions, lightning flashed,
+thunder rolled and it began to rain. Thossler cursed under his breath, and
+continued his search. Then another bolt of lightning struck the massive
+boulder to the north. Thossler stared, disbelieving, and yelled to his
+comrade Cheor. Together they ran to the boulder, and were met there by all
+the villagers who had been working in the fields, milling around excited but
+uncertain. And then the priests arrived. High Priest Cittlalat lead the way,
+and all the priests and guards walked into the narrow pass, followed by the
+villagers.
+ Cittlalat felt confused when the he arrived at the tunnel bored into the
+horizon. He felt even more confused as he walked out into the metal
+strangeness of the Starboard Loading Bay, and tried not to show it. He
+cheered up slightly as he walked down the unloading ramp and saw the hills
+all around him, even if the grass was overgrown and the trees looked
+unfamiliar. He turned around and adressed his people: `People! I bring you a
+new land!', neglecting to add the most of the work was actually done by the
+Colonization II, a spaceship designed to look like a small part of Earth,
+after the failure of its predecessor Colonization.
+ You stand on top of nearby hill, watching them. The weather here is cloudy,
+but it's better than the storm going on inside Colonization II. You came out
+earlier, when all the meat and building material was unloaded from the Port
+Loading Bay. You know that without a temple to live in the priests will be
+little better than a band of robbers, but at least all the young people will
+be getting smarter because of the specially engineered genes. And the priests
+won't be able to push people around for long. Because as soon as the ship
+landed, the Computer Terminals suddenly turned themselves into all-purpose
+Encyclopedias. You're going to return there as soon as you know the villagers
+have settled in, and spend your days learning about spaceships, robots, Earth
+and machinery. There will be a day when you will return to found a new group
+of leaders, riding on the back of Sarrona, the Serpent Goddess (otherwise
+known as the heat seeking population control and guard robot).
+
+C O N G R A T U L A T I O N S !
+ Based on Captive Universe by Harry Harrison
+
+You scored 100 out of the maximum 100!
+That is 100% of the game!
+Well done - you scored maximum points!

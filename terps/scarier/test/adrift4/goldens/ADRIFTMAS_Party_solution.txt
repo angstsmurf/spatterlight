@@ -39,12 +39,11 @@
 #  * TASK 35 wants the cue ball still ON the billiards table (RESTR type=0
 #    v2=5), so never pick it up; TASK 36 wants task 35 done first.
 #  * Two <waitkey> pauses beyond the opening one: after `look` (the fall from
-#    the roof) and after `eat nutmeg` (the nutmeg trip).  They are the blank
-#    lines below -- do not reflow them.
-
+#    the roof) and after `eat nutmeg` (the nutmeg trip).  The row sets
+#    SCR_SKIP_WAITKEY=1, so all three are transparent; the blank fillers went
+#    out 2026-08-16 and the opening `look` -- which the first pause had been
+#    eating -- now runs.
 look
-
-
 kiss mystery
 make snowball
 make snowman
@@ -67,7 +66,6 @@ n
 open cabinet
 get nutmeg
 eat nutmeg
-
 n
 ask samantha about shower
 n

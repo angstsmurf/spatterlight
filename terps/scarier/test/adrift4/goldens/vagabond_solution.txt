@@ -1,6 +1,11 @@
 # Vagabond (Scott Meridian, 2004) -- ADRIFT 4.0, 1-Hour Game Comp.
 # WIN 1/1.  Route is the game's own built-in `walkthru` command, verified live.
-# The leading blank line answers the "[Press any key to begin]" title pause.
+# The title has one "[Press any key to begin]" pause.
+# 2026-08-16: the row sets SCR_SKIP_WAITKEY=1, so the pauses are transparent.
+# They never were answered by the blank lines here -- until the fix, the pause
+# read did not honour the "#" comment convention and ate this header instead,
+# which is why the blanks below reached the game as ordinary empty commands.
+# They are turns the route was derived with, so they stay.
 
 west
 north

@@ -1,0 +1,414 @@
+Hero
+
+
+
+
+e
+change a dollar into cents
+buy a coffee
+take the mug of coffee
+gulp the coffee
+sip the coffee
+buy a steak
+take a bite out of the steak
+w
+w
+buy a bronze helmet
+buy rawhide armor
+wear the rawhide armor
+e
+s
+s
+buy a hunting sword
+wield the hunting sword
+n
+se
+rent a room
+in
+lie on the bed
+nap on the bed
+out
+nw
+wear the bronze helmet
+n
+w
+buy copper armor
+wear the copper armor
+e
+n
+n
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+z
+z
+z
+z
+z
+z
+z
+attack bandit
+attack bandit
+search for money
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+search for money
+learn stealth from ormulus
+go stealth
+n
+z
+z
+attack deer
+attack deer
+attack deer
+attack deer
+take the deer carcass
+s
+s
+s
+s
+w
+s
+show the deer carcass to Drako
+sell the deer carcass to Drako for 500 dollars
+n
+e
+n
+n
+n
+n
+attack deer
+attack deer
+attack deer
+attack deer
+take the deer carcass
+s
+s
+s
+s
+w
+s
+show the deer carcass to Drako
+sell the deer carcass to Drako for 500 dollars
+n
+e
+n
+n
+n
+n
+z
+z
+z
+z
+z
+z
+attack deer
+attack deer
+attack deer
+attack deer
+take the deer carcass
+s
+s
+s
+s
+w
+s
+show the deer carcass to Drako
+sell the deer carcass to Drako for 500 dollars
+n
+e
+n
+n
+n
+n
+attack deer
+attack deer
+attack deer
+attack deer
+take the deer carcass
+s
+s
+s
+s
+w
+s
+show the deer carcass to Drako
+sell the deer carcass to Drako for 500 dollars
+n
+e
+n
+n
+n
+n
+z
+z
+z
+z
+z
+z
+attack deer
+attack deer
+attack deer
+attack deer
+take the deer carcass
+s
+s
+s
+s
+w
+s
+show the deer carcass to Drako
+sell the deer carcass to Drako for 500 dollars
+n
+e
+n
+n
+n
+n
+attack deer
+attack deer
+attack deer
+attack deer
+take the deer carcass
+s
+s
+s
+s
+w
+s
+show the deer carcass to Drako
+sell the deer carcass to Drako for 500 dollars
+n
+e
+n
+n
+n
+n
+z
+z
+z
+z
+z
+attack deer
+attack deer
+attack deer
+attack deer
+take the deer carcass
+s
+s
+s
+s
+w
+s
+show the deer carcass to Drako
+sell the deer carcass to Drako for 500 dollars
+n
+e
+n
+n
+n
+n
+attack deer
+attack deer
+attack deer
+attack deer
+take the deer carcass
+s
+s
+s
+s
+w
+s
+show the deer carcass to Drako
+sell the deer carcass to Drako for 500 dollars
+n
+e
+n
+n
+n
+n
+z
+z
+z
+z
+z
+z
+attack deer
+attack deer
+attack deer
+attack deer
+take the deer carcass
+s
+s
+s
+s
+w
+s
+show the deer carcass to Drako
+sell the deer carcass to Drako for 500 dollars
+n
+e
+n
+n
+n
+n
+attack deer
+attack deer
+attack deer
+attack deer
+take the deer carcass
+s
+s
+s
+s
+w
+s
+show the deer carcass to Drako
+sell the deer carcass to Drako for 500 dollars
+n
+e
+n
+n
+n
+n
+z
+z
+z
+z
+z
+z
+attack deer
+attack deer
+attack deer
+attack deer
+take the deer carcass
+s
+s
+s
+s
+w
+s
+show the deer carcass to Drako
+sell the deer carcass to Drako for 500 dollars
+n
+e
+n
+n
+n
+n
+attack deer
+attack deer
+attack deer
+attack deer
+take the deer carcass
+s
+s
+s
+s
+w
+s
+show the deer carcass to Drako
+sell the deer carcass to Drako for 500 dollars
+n
+e
+n
+n
+n
+n
+z
+z
+z
+z
+z
+attack deer
+attack deer
+attack deer
+attack deer
+take the deer carcass
+s
+s
+s
+s
+w
+s
+show the deer carcass to Drako
+sell the deer carcass to Drako for 500 dollars
+n
+e
+n
+n
+n
+n
+attack deer
+attack deer
+attack deer
+attack deer
+take the deer carcass
+s
+s
+s
+s
+w
+s
+show the deer carcass to Drako
+sell the deer carcass to Drako for 500 dollars
+n
+e
+n
+n
+n
+n
+z
+z
+z
+z
+z
+z
+attack deer
+attack deer
+attack deer
+attack deer
+take the deer carcass
+s
+s
+s
+s
+w
+s
+show the deer carcass to Drako
+sell the deer carcass to Drako for 500 dollars
+n
+e
+e
+wealth
+buy house
+unlock the front door
+in
+sit on the large sofa
+relax on the large sofa
+lie on the small sofa
+nap on the small sofa
+u
+lie on the bed
+nap on the bed
+sit on the chair
+relax on the chair
+d
+in
+out
+status
+stats
+wealth

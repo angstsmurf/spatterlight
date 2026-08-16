@@ -8,17 +8,21 @@
 # TASK 22 -- rules changed AND 101 Classics smashed -- is the one the game
 # itself calls "the best possible ending in the game".
 #
-# FOOTGUNS -- blank lines in this file are load-bearing in TWO different ways:
-#   * the intro ends in "...press a key...<waitkey>"; the five leading blanks
-#     ride that out, and the sixth is the throwaway command that TASK 38 turns
-#     into the move from room 0 [The Story So Far...] into room 1.
-#   * `x desk` in Chap's Office has a <waitkey> in the MIDDLE of its message
-#     ("...finds...<waitkey> nothing!"), and so does the second look
-#     ("Again you look and... <waitkey>this time you find a pen!").  Each eats
-#     the following line of input, so the two desk searches need a blank line
-#     apiece or the pen is never found -- and without the pen `change rules`
-#     answers "You've nothing to change them with!" and you silently lose two
-#     of the nine awards.
+# Seven <waitkey>s: the intro's "...press a key...", and one in the MIDDLE of
+# each `x desk` message in Chap's Office ("...finds...<waitkey> nothing!", then
+# "Again you look and... <waitkey>this time you find a pen!").  The pen is what
+# `change rules` needs -- without it you get "You've nothing to change them
+# with!" and silently lose two of the nine awards.
+# 2026-08-16: the row sets SCR_SKIP_WAITKEY=1, so the pauses are transparent.
+# They never were answered by the blank lines here -- until the fix, the pause
+# read did not honour the "#" comment convention and ate this header instead,
+# which is why the blanks below reached the game as ordinary empty commands.
+# They are turns the route was derived with, so they stay.
+# FOOTGUN -- do not delete the five leading blanks as "filler".  They are real
+# turns, and one of them is the throwaway command that TASK 38 turns into the
+# move from room 0 [The Story So Far...] into room 1; drop them and the game is
+# unwinnable.  The two that DID feed the desk pauses are the ones that went out
+# 2026-08-16.
 #
 # The chain:
 #   open door        TASK 2 -- +5 for opening a door, and the joke is the point.
@@ -48,9 +52,7 @@ give cd to rudolph
 ne
 se
 x desk
-
 x desk
-
 nw
 sw
 sw

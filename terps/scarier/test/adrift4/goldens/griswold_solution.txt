@@ -4,15 +4,15 @@
 # reaching the author's sign-off ("And there you have it: the intro to The
 # Amazing Uncle Griswold") and the deliberately unwritten void room beyond it.
 #
-# The three blank lines answer the title/intro "...press a key..." pauses.
+# The row sets SCR_SKIP_WAITKEY=1, so the title/intro "...press a key..."
+# pauses are transparent and every line below is a command.  The three blank
+# fillers they used to need went out 2026-08-16, along with the pause that was
+# quietly eating `x cassette`.
 #
 # The one puzzle is a timer, not a lock: a doorbell event fires around turn 15
 # and only then does `open door` in the Hallway pass its variable restriction
 # (TASK 97) and move you on.  Everything before `e` below is just marking time
 # -- any 15 commands would do; these are the Key & Compass examines.
-
-
-
 x me
 x tv
 x video

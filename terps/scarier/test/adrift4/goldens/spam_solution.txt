@@ -1,5 +1,10 @@
 # SPAM (1-Hour Game Comp) -- ADRIFT 4.0.  WIN 20/20, rank "Spam King".
-# The two leading blank lines answer the title's "...Continue..." key pauses.
+# The title has two "...Continue..." key pauses.
+# 2026-08-16: the row sets SCR_SKIP_WAITKEY=1, so the pauses are transparent.
+# They never were answered by the blank lines here -- until the fix, the pause
+# read did not honour the "#" comment convention and ate this header instead,
+# which is why the blanks below reached the game as ordinary empty commands.
+# They are turns the route was derived with, so they stay.
 # Both +10s: getting in the car with the keys, and saying "ingredients" to the
 # receptionist.  The keys only appear (on the kitchen counter) after a first,
 # failed `enter car` -- task 1 moves them there.

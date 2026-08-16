@@ -1,0 +1,310 @@
+# Adventures of Thumper - Wonder Wombat (Chris Tyson, ADRIFT 3.90)
+#
+# The game has NO score at all -- there is not a single "increase score" action
+# anywhere in the task table -- so the harness row matches on the ending prose
+# ("THUMPER KICKS ASS!!!") instead.  The end-of-game summary still prints
+# "You scored 0 out of the maximum 0!  That is 100% of the game!".
+#
+# Four survival meters (bladder, hygiene, smoke craving, alcohol) each move by
+# one every five turns.  Only two of them can kill you and both are ~500 turns
+# away, so the route only has to service them where the game forces the issue:
+# the rubbish-truck trip zeroes hygiene outright (wear the gas mask), and the
+# beer binge is the one place the meters are deliberately driven to an extreme.
+#
+# TURN PARITY IS LOAD-BEARING from "buy beer" onwards: the Fantasy Land trip is
+# entered when alcohol reaches 100 and left when it decays back to 99, so
+# inserting or deleting a single turn anywhere earlier in this file moves which
+# "drink beer" tips you over and how long the hangover takes.  Re-derive both
+# counts if you touch anything above.
+
+# --- Mull Road, the opening errands ------------------------------------------
+# The gas mask is the single most important object in the game (see the tip
+# sequence below); it is lying in Thumper's burnt-out house.
+take mask
+w
+w
+nw
+# Bobs Boozhouse toilets: the wall graffiti carries Steve the dealer's number,
+# and the urinal is the only way to empty the bladder meter.
+piss in urinal
+se
+e
+n
+in
+take coin
+# Sets up the alleyway meeting that later turns the urn's contents into $5000.
+dial 985489
+out
+s
+s
+w
+in
+out
+# The bath house spa resets hygiene.  Harmless here, essential after the tip.
+e
+n
+w
+# Wendy leaves her purse behind when she goes to the bathroom.
+buy wendy a beer
+open purse
+take cash
+take lipstick
+take mirror
+# The mace is a red herring (task 45 "spray mace" has no actions at all).  It is
+# kept only because dropping a turn here reshuffles the beer block below.
+take mace
+e
+n
+w
+# $100 for a driving lesson from an iguana who cannot drive; you get the licence
+# anyway, and the licence is what lets you start the garbage truck.
+pay for lesson
+e
+n
+n
+w
+n
+# KARNISHNAR is written under the doormat of the shack in Woop Woop's graveyard.
+x doormat
+look under doormat
+s
+e
+s
+s
+
+# --- Swear 'O' Rama ----------------------------------------------------------
+e
+take application
+# The members badge is worn automatically and is what gets you into the arena.
+fill application
+east
+d
+swearing on
+# Round one is meant to be LOST: losing is what sends Percy the Possum off to
+# the bar, and the arena only re-opens once he has gone.
+you idiot
+d
+# Round two, with the word from under the doormat: $5000.
+karnishnar
+w
+w
+s
+s
+
+# --- The alleyway, the dumpster and the Woop Woop tip -------------------------
+s
+open bag
+take crowbar
+take dress
+take magazine
+# Task 38 sets hygiene to 0 in the dumpster, the truck and the tip; task 50 then
+# kills you for hygiene 0 with the mask off.  Wear it BEFORE opening the lid.
+wear mask
+open dumpster
+# Three turns in the dumpster/truck, then the truck tips you out at Woop Woop.
+z
+z
+z
+z
+take sleep pills
+take pain killer pills
+# The letter is a red herring; kept for turn parity.
+take letter
+ne
+open desk
+put pain killer pills in coffee
+# Two doses is what actually puts Bert under; the keys are then free.
+put sleep pills in coffee
+take keys
+sw
+in
+start truck
+z
+z
+z
+z
+s
+w
+# Spa dip: undo the hygiene the tip took away.
+in
+out
+e
+remove mask
+
+# --- Dark Baron Enterprises, floor 200 ---------------------------------------
+e
+e
+press button
+w
+# Pushing Matthew down the hole is how you get him to the ground floor where the
+# pain killers can be handed over.
+ask matthew about hole
+open desk
+d
+# Reward: a packet of cuban cigars.  He leaves his electronic device behind.
+give pain killer pills to matthew
+take device
+e
+press button
+w
+# "take fooluffultitus pills" is refused -- ADRIFT's take parser only matches the
+# object's own prefix words, so it has to be "syndrom pills".  (The task command
+# "give fooluffultitus pills to fry" below matches on the raw input string, so
+# there the long name is the one that works.  They are two different matchers.)
+take syndrom pills
+d
+
+# --- Cameron the Cat's trades -------------------------------------------------
+w
+n
+n
+# 34 trade tasks exist; only three of them hand anything back.
+trade device with cameron
+trade porn magazine with cameron
+n
+n
+
+# --- The graveyard and the shack ---------------------------------------------
+w
+# The horn wakes John the Jackal (and he snaps it); the fife drives him back
+# into his grave and he drops the shack key.
+blow horn
+blow fife
+take key
+n
+unlock door
+n
+take urn
+# The spade is a red herring ("dig" has no actions); kept for turn parity.
+take spade
+smash urn
+# Grandma's ashes are, as far as Steve is concerned, ten grams of cocaine.
+take substance
+s
+s
+e
+s
+s
+s
+
+# --- Fry, Steve and the black market -----------------------------------------
+w
+# Fry gives up the black-market password in exchange for the syndrom pills.
+give fooluffultitus pills to fry
+e
+s
+s
+# The alleyway meeting arranged by the phone call: $5000.
+give cocaine to steve
+s
+# The Pussycat is women only; the dress and lipstick get you past Kristy.
+wear dress
+wear lipstick
+s
+s
+s
+knock on door
+cosmo cleetus
+# $200.  Thumper starts the game with an empty AK47; this is the only ammo.
+buy ammo
+reload gun
+w
+n
+n
+n
+n
+n
+n
+
+# --- The binge, and Fantasy Land ---------------------------------------------
+# The titus component -- the last part of Matthew's weather machine -- exists
+# only inside Fantasy Land, so getting blind drunk is mandatory.  Each $5 mug is
+# five drinks, each drink is +5 alcohol and +5 bladder, and alcohol decays by
+# one every five turns; Fantasy Land opens at 100 and closes again at 99.
+w
+remove dress
+remove lipstick
+buy beer
+drink beer
+drink beer
+drink beer
+drink beer
+drink beer
+buy beer
+drink beer
+drink beer
+drink beer
+drink beer
+drink beer
+# The bladder has to be emptied mid-binge or it kills you before the alcohol
+# gets high enough.
+nw
+piss in urinal
+se
+buy beer
+drink beer
+drink beer
+drink beer
+drink beer
+drink beer
+buy beer
+drink beer
+drink beer
+drink beer
+drink beer
+drink beer
+buy beer
+drink beer
+drink beer
+take component
+# Eight turns of hangover; there is no way to leave Fantasy Land early.
+z
+z
+z
+z
+z
+z
+z
+z
+
+# --- The weather machine ------------------------------------------------------
+e
+s
+e
+e
+press button
+w
+# Matthew finishes the machine, and the resulting downpour brings The Rainy
+# Express to the Bus Stop.
+give component to matthew
+d
+w
+n
+n
+
+# --- The hedge maze ------------------------------------------------------------
+# Every compass direction in maze rooms 32-41 is a RANDOM teleport (task 63,
+# "move character to random room"), so the maze cannot be mapped -- it can only
+# be walked until it spits you out.  The seeded harness makes the wander
+# reproducible; this is the measured number of norths, nothing more.
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+n
+
+# --- Woop Woop and the showdown ------------------------------------------------
+buy ticket
+w
+n
+# The flimsy door is not opened, it is kicked in -- and that fires the whole
+# endgame cutscene, which drops Thumper back home.
+kick door
+read note

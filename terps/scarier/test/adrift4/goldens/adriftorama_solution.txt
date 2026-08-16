@@ -3,7 +3,12 @@
 # about golf").  Eighteen holes of mini-golf; the last putt prints
 # "*****You Win!*****".
 #
-# The two blank lines answer the title's two "...Continue..." pauses.
+# The title has two "...Continue..." pauses.
+# 2026-08-16: the row sets SCR_SKIP_WAITKEY=1, so the pauses are transparent.
+# They never were answered by the blank lines here -- until the fix, the pause
+# read did not honour the "#" comment convention and ate this header instead,
+# which is why the blanks below reached the game as ordinary empty commands.
+# They are turns the route was derived with, so they stay.
 # `buy ball` feeds the gold token into the machine (task 1); `north` opens the
 # door and slides you to the first hole (task 8).
 #

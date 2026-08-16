@@ -35,21 +35,18 @@
 # lets the pigs out, which is the lie you tell the Ogre at the stalagmites.
 # The eight "wait"s in the barrel cover EVENT 13's 5-8 turn random delay
 # before Glum steps on the cracked plank and falls into the chasm.
-# Blank lines are <waitkey> presses: one before the menu, two after
-# "say sandwich" (the dog encounter re-prints itself), one on the third
-# "wait" (the courier), two after "jump" (the diary and the score).
-
+# Six <waitkey> pauses: one before the menu, two after "say sandwich" (the dog
+# encounter re-prints itself), one on the third "wait" (the courier), two after
+# "jump" (the diary and the score).  The row sets SCR_SKIP_WAITKEY=1, so they
+# are transparent; the blank fillers went out 2026-08-16.
 game
 say cow
 say sandwich
-
-
 say ache
 say hello
 wait
 wait
 wait
-
 wait
 e
 e
@@ -112,5 +109,3 @@ drop tray
 take cushion from sack
 throw cushion
 jump
-
-

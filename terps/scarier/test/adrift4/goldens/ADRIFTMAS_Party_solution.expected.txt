@@ -34,7 +34,7 @@ smoking a bit.  It doesn't bother you much, because you are St. Nick.
 
 Dasher, Dancer, Prancer, Vixen, Comet, Cupid, Donder and Blitzen are here.
 
->
+> look
 As you try to do that, you lose your balance and fall on the slippery roof.
 With a horrid scream, you slide at great speed towards the edge of the roof.
 The last thing you see is the amused faces of your reindeer as you fall over
@@ -61,8 +61,6 @@ Though you can't see through the tall, arched windows, the colorful Christmas
 lights make you feel cheerful and bright.
 Mystery is talking with some Drifters, making sure everyone is having a good
 time.
-
->
 
 > kiss mystery
 You lay a Happy Holidays kiss on Mystery.  Turns out that Mystery didn't

@@ -32,6 +32,9 @@ painting of the old wooden bridge where you met him.
 
 Someone is knocking at the door.
 
+> x blinds
+The blinds are partially opened, allowing light in from the outside.
+
 > x table
 The coffee table is littered with hundreds of family photos.  Many of them
 have your ex-husband cut out.  An empty bottle of Jack Daniels lies turned
@@ -99,8 +102,11 @@ lawyer got there.  In a small, private room, your lawyer asks, "Jane, I want
 you to go over the events of that day with me.  Just start at the beginning."
  She began jotting notes down on a yellow legal pad.
 
-> z
-Time passes...
+> x lawyer
+She is an younger woman; younger than you, anyway.  Her almond shaped face is
+framed with the brisk ends of her reddish-brown hair, that curls up slightly
+at the nape of the neck.  She is wearing a shit-brown suit, with a silky
+looking beige blouse beneath.
 
 "I got up that morning and took a shower and left for work. The day went by
 like normal and I came home.  The phone was ringing when I walked in the

@@ -14,14 +14,16 @@
 #   +3 T23 unlock box                +3 T24 open box
 #   +8 T29 lost                          ACT type=6 v1=0  WIN
 #
-# TWO <waitkey> PAUSES EAT A SCRIPT LINE (found with SCR_MARK_WAITKEY=1),
-# and that is why this file has two bare `x` lines that are not commands:
-#   * one in the introduction, BEFORE "Please enter your name:" -- so the
-#     first line of the script is the keypress and the SECOND line is the
-#     name.  Put "Sam" first and the game is played by a character called
-#     `look`.
-#   * one inside the beanstalk descent, so `climb beanstalk` is followed by
-#     a keypress line before the next real command.
+# TWO <waitkey> PAUSES (found with SCR_MARK_WAITKEY=1), both in nasty places:
+#   * one in the introduction, BEFORE "Please enter your name:" -- so an
+#     unskipped pause makes the game be played by a character named after
+#     whatever the first script line happens to be.
+#   * one inside the beanstalk descent, right after `climb beanstalk`.
+# 2026-08-16: the row sets SCR_SKIP_WAITKEY=1, so both are transparent and
+# "Sam" reaches the name prompt.  The two bare `x` lines that used to feed
+# them are gone -- and this was the one row in the corpus where a pause was
+# eating a real command as well as this header, which is what turned up the
+# comment bug behind the whole 2026-08-16 sweep.
 #
 # THE GAME IS THREE ONE-WAY CHAPTERS.  Nothing can be carried back:
 #   1. Mountain/forest/field/cabin/cellar/cave (rooms 0-5).  T6 `dump water
@@ -92,7 +94,6 @@
 # fourteen wrong answers (fear, strength, sloth, panic, ghosts, anger,
 # ignorance, pain, cold, death, monsters, satan, ice, dark) and T28 answers
 # the spelling-out ("50 fang cross") without winning; only T29 `lost` scores.
-x
 Sam
 e
 open wood box
@@ -123,7 +124,6 @@ s
 s
 sw
 climb beanstalk
-x
 w
 n
 open seashell

@@ -54,15 +54,7 @@ you are in one piece, letting a sigh of relief escape you.
 
 Please enter your name:
 
->
-Please choose the player's gender (male or female):
-
->
-Please answer "male" or "female".
-Please choose the player's gender (male or female):
-
 > Drifter
-Please answer "male" or "female".
 Please choose the player's gender (male or female):
 
 > male
@@ -778,7 +770,7 @@ Your score is 80 out of a maximum of 100.  (80%)
 > push button
 You push the button and the Captain Wild appears on the static filled screen.
 
-"Anonymous, you made it!  Is everything ok?"
+"Drifter, you made it!  Is everything ok?"
 
 "Yes. Though I think the ship is going to need some major repairs.  I had to
 blow the dump.  That robot tore the place up, and blowing the hatch was the
@@ -797,7 +789,7 @@ The screen goes blank and you climb back down and head to the bridge.  Once
 back on Earth,  Captain Wild and the entire ADRIFT community greet you,
 chanting your name.
 
-"Anonymous! Anonymous! Anonymous!"
+"Drifter! Drifter! Drifter!"
 
 You scored 90 out of the maximum 100!
 That is 90% of the game!

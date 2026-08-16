@@ -7,12 +7,16 @@
 # the game: TASK 21 [s] at the Entrance while holding the deed (RESTR type=0
 # v1=7 v2=1), ACT type=6 v1=0.
 #
-# FOOTGUN -- the TWO leading blank lines do different jobs:
-#   * the intro ends in "...press a key...<waitkey>" (the only waitkey in the
-#     whole game -- grep the decoded .taf and there is just the one);
-#   * TASK 0 is [*] in room 0 [The Story So Far...] and its only action is to
-#     move you to room 1, so the second blank is the throwaway command that
-#     buys the walk into the Entrance.
+# The intro ends in "...press a key...<waitkey>" -- the only waitkey in the
+# whole game (grep the decoded .taf and there is just the one).
+# 2026-08-16: the row sets SCR_SKIP_WAITKEY=1, so the pauses are transparent.
+# They never were answered by the blank lines here -- until the fix, the pause
+# read did not honour the "#" comment convention and ate this header instead,
+# which is why the blanks below reached the game as ordinary empty commands.
+# They are turns the route was derived with, so they stay.
+# FOOTGUN -- do not delete the two leading blanks as "filler": TASK 0 is [*] in
+# room 0 [The Story So Far...] and its only action is to move you to room 1, so
+# one of them is the throwaway command that buys the walk into the Entrance.
 #
 # FOOTGUN -- DO NOT EXAMINE THE SHELF.  The Pantry description all but begs
 # you to ("a single shelf that is just crying out for someone to come along

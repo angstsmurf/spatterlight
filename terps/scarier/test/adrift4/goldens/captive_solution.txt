@@ -1,0 +1,141 @@
+# Captive Universe (Captive.taf) -- ADRIFT 3.90, 74,568 bytes.  62 rooms,
+# 61 tasks, 49 objects, 2 NPCs, 19 events, no variables.  Based on Harry
+# Harrison's novel of the same name: you are Yotihuac, an Aztec-ish villager
+# locked in the temple cells and due to be sacrificed at dawn.
+#
+# WIN, 100/100 -- the file's declared maximum.  Nine `ACT type=4` awards and no
+# other scoring anywhere: 8x10 + 1x20 = 100, and this route fires all nine.
+# (A tenth, TASK 3 `* hint *`, is -356 -- the author's joke penalty for asking
+# for a hint.  It is the only way to move the score off the ceiling.)
+#
+# The whole game is a clock.  Breaking the cell lock starts EVENT 0, which
+# kills you in the courtyard ten turns later; walking out of the courtyard gate
+# (TASK 11) starts four more at once -- EVENT 13 at turn 8 (arrest anywhere in
+# rooms 11-18), EVENT 10 and EVENT 11 at turn 18 (arrest in the trees / in the
+# open fields) and EVENT 9 at turn 20, which is nightfall.  All four are
+# restart=0, i.e. they fire ONCE at exactly that turn and never again, so the
+# only thing that matters is where you are standing on turns 8, 18 and 20.
+# Two more arrests run every turn until nightfall: EVENT 14 covers the village
+# (rooms 20/21) and EVENT 6 covers the inner temple (room 43).  So the first
+# half of the game is: get clear of the temple, climb something, and wait.
+#
+# The route, with task numbers from SCR_DUMP_TASKS:
+#   get stone           TASK 0.  The loose flagstone in the cell floor.
+#   hit lock with stone TASK 1 +10, and it opens room 0's north exit
+#                       (EXIT gateTask=1).  This also starts EVENT 0.
+#   n n open door n ne  Through the cell block and across the courtyard.
+#                       `open door` is TASK 6, whose WHERE_ROOMS is [2 5] --
+#                       the author wrote four separate `open * door` tasks,
+#                       one per pair of rooms, distinguished only by the number
+#                       of `*`s in the pattern.
+#   n                   TASK 11 +10, out of the gate.  Starts the day clock.
+#   e e u u             To room 44 [Far too high up a tree], via rooms 18, 30
+#                       and 40.  Rooms 40/44 appear in no arrest task's
+#                       WHERE_ROOMS, so this is where you sit out turns 8 and
+#                       18.  Room 19 and the swamp would do as well.
+#   x nest              The magpie's nest holds the blue string, the coin and
+#                       the small golden key -- the one "allegedly stolen years
+#                       ago by a magpie" that the room 15 description mentions.
+#   get key             Needed for the inner temple.  String and coin are
+#                       scenery; no task refers to either.
+#   x string  x coin    Filler, and the only place the coin is described.
+#   z z z z             The wait for nightfall.  Globals.WaitTurns is 3 in this
+#                       game, so this is TWELVE turns, not four: turns 9-20.
+#                       Night falls on the last one.
+#   d d w w n           Down the tree and into the village, which is lethal
+#                       until exactly now.
+#   in                  The Smith's hut.  EVENT 16 is starter=1/restart=1, so
+#                       TASK 34 fires the moment you walk in: he hands over the
+#                       crowbar and asks you to rob the grainhouse for him.
+#   out use crowbar u   TASK 32 takes the grainhouse door apart, opening room
+#                       20's `up` exit (EXIT gateTask=32).
+#   get corn            TASK 35.
+#   d in                Back to the Smith; EVENT 17 fires TASK 37, which takes
+#                       the grain and gives you the rope.
+#   out w in            Your mother's house.  EVENT 15 fires TASK 33 +10 on
+#                       entry: the tortilla.
+#   eat tortilla        TASK 36 +10.
+#   out s s s e         Round the west and south walls to room 15.
+#   unlock door         TASK 20, with the key -- opens room 15's `in` exit.
+#   in use crowbar      TASK 24 +10 prises the diamond out of the throne.
+#                       Room 43 would have been an instant arrest before dark.
+#   out w n             Back to room 13, the gap where the vultures land.
+#   tie rope to ledge   TASK 14.
+#   u                   TASK 15.  EVENT 2 pays TASK 17 +10 for the climb.
+#   use crowbar         TASK 39 levers the steel door open, and EVENT 4 pays
+#                       TASK 19 +10.  EVENT 18 [Timedoor] then un-finishes
+#                       TASK 39 one turn later (affTask fin=1), so the `w`
+#                       below must be the VERY NEXT command -- spend a turn on
+#                       anything else and the door "beeps, flashes a little
+#                       green light, and slides shut again".  Recoverable: the
+#                       points are kept and `use crowbar` works again.
+#   w                   TASK 40, into the ship.
+#   n                   TASK 41 walks the whole passage in one turn (three
+#                       chained `ACT type=1`s: rooms 59, 58, 50), so one `n`
+#                       covers what the map draws as four rooms.
+#   e e                 Port Loading Bay, then the Security Field Room.  Do NOT
+#                       `push button` in either loading bay: TASK 46 is an
+#                       `ACT type=6 v1=2` death.
+#   pull plug           TASK 48 +10; the security field folds up and room 54's
+#                       north exit opens (EXIT gateTask=48).
+#   put diamond on pedestal
+#                       TASK 50 +20 and `ACT type=6 v1=0` -- the win.
+#
+# No <waitkey> anywhere in the file, so the row needs no env.
+get stone
+hit lock with stone
+n
+n
+open door
+n
+ne
+n
+e
+e
+u
+u
+x nest
+get key
+x string
+x coin
+z
+z
+z
+z
+d
+d
+w
+w
+n
+in
+out
+use crowbar
+u
+get corn
+d
+in
+out
+w
+in
+eat tortilla
+out
+s
+s
+s
+e
+unlock door
+in
+use crowbar
+out
+w
+n
+tie rope to ledge
+u
+use crowbar
+w
+n
+e
+e
+pull plug
+n
+put diamond on pedestal

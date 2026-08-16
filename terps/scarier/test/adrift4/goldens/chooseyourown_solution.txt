@@ -13,22 +13,18 @@
 # rolled 1-3 or 4-6): page 2012 (the gift shop's back room, [2]) and the
 # psychic duel (page 191, [2] = your own powers blunt the blast).  Both are
 # ordinary menu picks here, so the run stays deterministic.
-# Blank lines are <waitkey> pauses, not commands.  The first two are the
-# title and instruction screens; the rest are the "...press a key..." breaks
-# inside long passages, and the last two are the epilogue and "THE END".
-
-
+# Nineteen <waitkey> pauses: the title and instruction screens, the
+# "...press a key..." breaks inside long passages, and the epilogue and
+# "THE END" at the close.  The row sets SCR_SKIP_WAITKEY=1, so they are
+# transparent; the blank fillers went out 2026-08-16 and every line here is a
+# menu pick.
 1
 2
-
 1
-
 1
 4
 3
 1
-
-
 1
 1
 1
@@ -37,7 +33,6 @@
 1
 1
 2
-
 2
 2
 3
@@ -48,23 +43,16 @@
 1
 1
 1
-
 2
-
-
-
-
 1
 1
 1
 1
-
 3
 3
 1
 1
 2
-
 2
 1
 1
@@ -73,11 +61,8 @@
 2
 1
 1
-
 2
 2
-
-
 1
 1
 1
@@ -85,5 +70,3 @@
 1
 2
 3
-
-

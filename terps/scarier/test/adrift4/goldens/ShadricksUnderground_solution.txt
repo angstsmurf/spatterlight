@@ -8,9 +8,9 @@
 # The game declares no MaxScore, so its own "score" verb prints the comic
 # "My score is 85 out of a maximum of 0.  (0%)".  That is the game's bug, not
 # the harness's -- the per-task awards are all there.
-# The five blank lines answer five <waitkey> pauses, measured with
-# SCR_MARK_WAITKEY=1.
-
+# Five <waitkey> pauses (measured with SCR_MARK_WAITKEY=1).  The row sets
+# SCR_SKIP_WAITKEY=1, so they are transparent; the blank fillers they used to
+# need went out 2026-08-16.
 look
 up
 take lantern
@@ -19,7 +19,6 @@ give lantern to mum
 look
 open trapdoor
 d
-
 x shelf
 x jars
 open pickled eggs
@@ -89,8 +88,6 @@ n
 nw
 ne
 s
-
-
 take ladder
 n
 sw
@@ -109,4 +106,3 @@ s
 in
 score
 up
-

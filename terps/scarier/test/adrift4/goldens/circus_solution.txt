@@ -18,6 +18,20 @@ buy peanut
 ne
 look under bleachers
 down
+# Pringles wanders; spam until he is here to take the peanut.  Ten tries is the
+# measured minimum under SCR_SEED=12 -- nine still misses him and costs the
+# knife, and with it six points.
+give peanut to pringles
+give peanut to pringles
+give peanut to pringles
+give peanut to pringles
+give peanut to pringles
+give peanut to pringles
+give peanut to pringles
+give peanut to pringles
+give peanut to pringles
+give peanut to pringles
+give peanut to pringles
 give peanut to pringles
 take knife
 up

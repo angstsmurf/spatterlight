@@ -31,10 +31,6 @@ uneasy.
 [1]  Remain in your seat.
 [2]  Go and investigate.
 
->
-
->
-
 > 1
 Telling yourself that it was just a dream, or your overactive imagination,
 which woke you, you sit back in your seat and try to find your place in the

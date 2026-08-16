@@ -5,13 +5,18 @@
 # maximum is 30 and this route takes all six.  TASK 23 [light *match*] in the
 # Archives is the only ACT type=6 v1=0.
 #
-# FOOTGUNS -- the blank lines are load-bearing:
-#   * the intro has THREE "...press a key...<waitkey>" pauses, and a fourth
-#     line is needed as the throwaway command that TASK 0 turns into the move
-#     out of room 0 [The Story So Far...]: hence four leading blanks.
-#   * `x desk` in Bogg's Office has a <waitkey> in the middle of its message
-#     ("completely empty.<waitkey> Aside, that is, from an empty cup"), which
-#     eats the next line -- hence the blank after it.
+# Four <waitkey>s: three in the intro, and one in the middle of `x desk` in
+# Bogg's Office ("completely empty.<waitkey> Aside, that is, from an empty
+# cup").
+# 2026-08-16: the row sets SCR_SKIP_WAITKEY=1, so the pauses are transparent.
+# They never were answered by the blank lines here -- until the fix, the pause
+# read did not honour the "#" comment convention and ate this header instead,
+# which is why the blanks below reached the game as ordinary empty commands.
+# They are turns the route was derived with, so they stay.
+# FOOTGUN -- do not delete the three leading blanks as "filler".  They are real
+# turns, and one is the throwaway command that TASK 0 turns into the move out of
+# room 0 [The Story So Far...].  The one that DID feed the desk pause went out
+# 2026-08-16.
 #
 # `give coffee` must NOT name Lisa.  TASK 4 [*lisa*] sits ahead of TASK 10
 # [give *coffee*] in task order and matches any command containing her name,
@@ -39,7 +44,6 @@ x girl
 u
 nw
 x desk
-
 se
 s
 fill cup

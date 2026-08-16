@@ -84,8 +84,6 @@ leaves astray and small twigs and branches tumbling to the ground.  It is
 really too dark to make out which directions are clear for passing, but you
 can barely make out that the muddy road is back to the east.
 
->
-
 > n
 You move north.
 

@@ -26,8 +26,6 @@ Run upstairs and fetch me the lantern and I‘ll fill it with oil for you.
 Don‘t know why he keeps going down there in the dark.  That is the third time
 today."
 
->
-
 > look
 
 In 'Ye Old Pub

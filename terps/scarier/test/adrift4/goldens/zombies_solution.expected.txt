@@ -91,6 +91,10 @@ zombies. "Hey Stu, do you think we could make it through there?"
 Stu shook his head. "They'd probably tear us apart like G.I Joe's. But it's
 your decision, you lead, I'll follow."
 
+> x Stu
+Stu's a guy who would shoot at you with a gun during the day, and then call
+you his best friend at night. He's cool that way.
+
 > x zombies
 You love zombies in movies, but zombies in real life are real douchebags.
 
