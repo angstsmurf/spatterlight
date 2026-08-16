@@ -170,14 +170,16 @@ void geas_implementation::init_error_messages ()
     }
   bool examine_customised = false;
   std::string::size_type c1, c2;
-  for (const string &line: game->data)
+  for (size_t li = 0; li < game->data.size (); li ++)
     {
       /* The keyword is CI -- Quest scans for it with BeginsWith
        * (SetUpUserDefinedPlayerErrors, V4Game.Part2.cs:1404). */
-      string tok = first_token (line, c1, c2);
-      if (!ci_equal (tok, "error"))
+      const GeasBlock::line_first &lt = gf.line_tok (*game, li);
+      if (!ci_equal (lt.tok, "error"))
 	continue;
-      tok = next_token (line, c1, c2);
+      const string &line = game->data[li];
+      c2 = lt.end;
+      string tok = next_token (line, c1, c2);
       if (!is_param (tok))
 	{
 	  gi->debug_print ("Bad error line: " + line);
@@ -328,13 +330,15 @@ vector<vector<string> > geas_implementation::get_places (const string &room)
     return rv;
 
   std::string::size_type c1, c2;
-  for (const auto &line: gb->data)
+  for (size_t li = 0; li < gb->data.size (); li ++)
     {
-      string tok = first_token (line, c1, c2);
-      if (tok == "place")
+      const GeasBlock::line_first &lt = gf.line_tok (*gb, li);
+      if (lt.tok == "place")
 	{
+	  const string &line = gb->data[li];
+	  c2 = lt.end;
 	  bool locked;
-	  tok = place_tag_param (line, c1, c2, asl_version_, locked);
+	  string tok = place_tag_param (line, c1, c2, asl_version_, locked);
 	  if (!is_param(tok))
 	    {
 	      gi->debug_print ("Expected parameter after 'place' in " + line);
@@ -538,9 +542,9 @@ vector<string> geas_implementation::exit_dir_order (const string &room)
   const GeasBlock *gb = gf.find_by_name ("room", room);
   std::string::size_type c1, c2;
   if (gb != NULL)
-    for (const string &line: gb->data)
+    for (size_t li = 0; li < gb->data.size (); li ++)
       {
-	string tok = first_token (line, c1, c2);
+	const string &tok = gf.line_tok (*gb, li).tok;
 	if (is_dir_name (tok) && !ci_contains (rv, tok))
 	  rv.push_back (tok);
       }
@@ -573,9 +577,10 @@ vector<string> geas_implementation::exit_object_names (const string &room)
 
   std::string::size_type c1, c2;
   if (gb != NULL)
-    for (const string &line: gb->data)
+    for (size_t li = 0; li < gb->data.size (); li ++)
       {
-	string tok = first_token (line, c1, c2);
+	const GeasBlock::line_first &lt = gf.line_tok (*gb, li);
+	const string &tok = lt.tok;
 	if (is_dir_name (tok))
 	  {
 	    if (!ci_contains (seen_dirs, tok))
@@ -586,12 +591,14 @@ vector<string> geas_implementation::exit_object_names (const string &room)
 	  }
 	else if (tok == "place")
 	  {
+	    const string &line = gb->data[li];
+	    c2 = lt.end;
 	    bool locked;
-	    tok = place_tag_param (line, c1, c2, asl_version_, locked);
-	    if (!is_param (tok))
+	    string ptok = place_tag_param (line, c1, c2, asl_version_, locked);
+	    if (!is_param (ptok))
 	      continue;
 	    string dest, prefix;
-	    split_exit_dest (eval_param (tok), dest, prefix);
+	    split_exit_dest (eval_param (ptok), dest, prefix);
 	    if (dest != "" && !ci_contains (seen_places, dest))
 	      {
 		seen_places.push_back (dest);
@@ -754,13 +761,19 @@ string geas_implementation::exit_dest (const string &room, const string &dir, bo
  * skipped here too -- Lovesong's hall carries three stray "south" lines
  * under its real "south <yard>", and taking the last of those would wall
  * the house off. */
-static const string *last_dir_decl (const GeasBlock *gb, const string &dir)
+static const string *last_dir_decl (const GeasFile &gf, const GeasBlock *gb,
+				    const string &dir)
 {
-  std::string::size_type c1, c2;
   const string *decl = NULL;
-  for (const string &l: gb->data)
-    if (first_token (l, c1, c2) == dir && next_token (l, c1, c2) != "")
-      decl = &l;
+  for (size_t li = 0; li < gb->data.size (); li ++)
+    {
+      const GeasBlock::line_first &lt = gf.line_tok (*gb, li);
+      if (lt.tok != dir)
+	continue;
+      std::string::size_type c1, c2 = lt.end;
+      if (next_token (gb->data[li], c1, c2) != "")
+	decl = &gb->data[li];
+    }
   return decl;
 }
 
@@ -770,7 +783,7 @@ string geas_implementation::declared_exit_dest (const GeasBlock *gb,
 {
   std::string::size_type c1, c2;
   is_script = false;
-  const string *decl = last_dir_decl (gb, dir);
+  const string *decl = last_dir_decl (gf, gb, dir);
   if (decl == NULL)
     return "";
   const string &line = *decl;
@@ -876,7 +889,7 @@ bool geas_implementation::exit_declared_locked (const string &room, const string
   std::string::size_type c1, c2;
   /* The last declaration wins, skipping bare direction lines -- see
    * last_dir_decl. */
-  const string *decl = last_dir_decl (gb, dir);
+  const string *decl = last_dir_decl (gf, gb, dir);
   if (decl != NULL) {
     const string &line = *decl;
     first_token (line, c1, c2);
@@ -906,10 +919,13 @@ bool geas_implementation::exit_declared_locked (const string &room, const string
   if (asl_version_ >= 410)
     {
       bool found = false;
-      for (const string &l: gb->data)
+      for (size_t li = 0; li < gb->data.size (); li ++)
 	{
-	  if (first_token (l, c1, c2) != "place")
+	  const GeasBlock::line_first &lt = gf.line_tok (*gb, li);
+	  if (lt.tok != "place")
 	    continue;
+	  const string &l = gb->data[li];
+	  c2 = lt.end;
 	  bool lk;
 	  string tok = place_tag_param (l, c1, c2, asl_version_, lk);
 	  if (!is_param (tok))
@@ -1018,18 +1034,19 @@ void geas_implementation::look()
       const GeasBlock *game = gf.find_by_name ("game", "game");
       if (game != NULL)
 	{
-	  std::string::size_type c1, c2;
-	  for (const string &line: game->data)
-	    if (first_token (line, c1, c2) == "description")
-	      {
-		string rest = trim (line.substr (c2));
-		if (is_param (rest))
-		  print_formatted (param_contents (rest));
-		else
-		  run_script_as ("game", rest);
-		described = true;
-		break;
-	      }
+	  for (size_t li = 0; li < game->data.size (); li ++)
+	    {
+	      const GeasBlock::line_first &lt = gf.line_tok (*game, li);
+	      if (lt.tok != "description")
+		continue;
+	      string rest = trim (game->data[li].substr (lt.end));
+	      if (is_param (rest))
+		print_formatted (param_contents (rest));
+	      else
+		run_script_as ("game", rest);
+	      described = true;
+	      break;
+	    }
 	}
     }
 

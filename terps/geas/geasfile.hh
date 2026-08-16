@@ -87,6 +87,17 @@ struct GeasBlock
   struct hook_entry { bool is_override; std::string script; };
   mutable std::vector<cmd_entry> commands;
   mutable std::vector<hook_entry> beforeturns, afterturns;
+
+  /* Cached first token of each `data` line, with the offset just past it (where
+   * next_token resumes).  The exit/place scanners (exit_dir_order,
+   * last_dir_decl, get_places, ...) classify every line of a room block by its
+   * first token on every navigation, which re-tokenized the same immutable text
+   * thousands of times -- next_token was the top self-time frame for
+   * movement-heavy games like "The Maze".  Built lazily via GeasFile::line_tok;
+   * `.end` lets a caller carry on tokenizing the rest of the line for free. */
+  struct line_first { std::string tok; std::string::size_type end; };
+  mutable std::vector<line_first> first_tokens;
+  mutable size_t first_tokens_lines = 0;
 };
 
 struct GeasFile
@@ -157,6 +168,12 @@ struct GeasFile
   /* Tokenize a block's raw `data` into its directive cache once (see GeasBlock).
    * No-op if already built; callable from const getters (cache is mutable). */
   void ensure_cached (const GeasBlock &b) const;
+
+  /* First token of data line `i` of `b`, with the offset just past it, cached
+   * per block (see GeasBlock::first_tokens).  Equivalent to
+   * `first_token (b.data[i], t1, t2)` with t2 returned as `.end`, but lexed once
+   * instead of on every navigation scan. */
+  const GeasBlock::line_first &line_tok (const GeasBlock &b, size_t i) const;
 
   void read_into (const std::vector<std::string>&, const std::string &, uint, bool, const reserved_words&, const reserved_words&);
 

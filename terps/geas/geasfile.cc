@@ -151,6 +151,26 @@ size_t GeasFile::size (const std::string &type) const {
 }
 
 
+const GeasBlock::line_first &GeasFile::line_tok (const GeasBlock &b, size_t i) const
+{
+  /* Rebuild if `data` grew since (mirrors ensure_cached's cached_lines guard);
+   * for the room blocks these scanners walk, `data` is done growing by the time
+   * anyone navigates, so this builds exactly once. */
+  if (b.first_tokens_lines != b.data.size ())
+    {
+      b.first_tokens.clear ();
+      b.first_tokens.reserve (b.data.size ());
+      std::string::size_type t1, t2;
+      for (const std::string &l : b.data)
+	{
+	  std::string tok = first_token (l, t1, t2);
+	  b.first_tokens.push_back ({std::move (tok), t2});
+	}
+      b.first_tokens_lines = b.data.size ();
+    }
+  return b.first_tokens[i];
+}
+
 void GeasFile::ensure_cached (const GeasBlock &b) const
 {
   if (b.cache_built && b.cached_lines == b.data.size ())

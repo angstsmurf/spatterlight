@@ -15,17 +15,17 @@ void geas_implementation::run_procedure (const string &pname, vector<string> arg
 
 void geas_implementation::run_procedure (const string &pname)
 {
-  for (uint i = 0; i < gf.size ("procedure"); i ++)
-    if (ci_equal (gf.block ("procedure", i).name, pname))
-      {
-	const GeasBlock &proc = gf.block ("procedure", i);
-	for (uint j = 0; j < proc.data.size(); j ++)
-	  {
-	    run_script(proc.data[j]);
-	  }
-	return;
-      }
-  gi->debug_print ("No procedure " + pname + " found.");
+  /* O(1) name_index lookup rather than a case-insensitive linear scan over
+     every procedure block on every call (a profile hotspot).  find_by_name
+     returns the first-defined match, exactly what the old scan did. */
+  const GeasBlock *proc = gf.find_by_name ("procedure", pname);
+  if (proc == NULL)
+    {
+      gi->debug_print ("No procedure " + pname + " found.");
+      return;
+    }
+  for (uint j = 0; j < proc->data.size (); j ++)
+    run_script (proc->data[j]);
 }
 
 string geas_implementation::run_function (const string &pname, vector<string> args)

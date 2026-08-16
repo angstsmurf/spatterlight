@@ -374,37 +374,38 @@ void geas_implementation::run_script (const string &s, string &rv)
 	  return;
 	}
       string procname = param_contents (tok);
-      for (uint i = 0; i < gf.size ("procedure"); i ++)
-	if (ci_equal (gf.block ("procedure", i).name, procname))
-	  {
-	    const GeasBlock &proc = gf.block ("procedure", i);
-	    for (uint j = 0; j < proc.data.size (); j ++)
-	      {
-		std::string::size_type d1, d2;
-		string line = proc.data[j];
-		if (!ci_equal (first_token (line, d1, d2), "case"))
-		  continue;
-		string t2 = next_token (line, d1, d2);
-		if (ci_equal (t2, "else"))
-		  {
-		    run_script (trim (line.substr (d2)));
-		    return;
-		  }
-		if (!is_param (t2))
-		  continue;
-		bool matched = false;
-		for (const string &val : split_param (param_contents (t2)))
-		  if (ci_equal (trim (val), selector))
-		    { matched = true; break; }
-		if (matched)
-		  {
-		    run_script (trim (line.substr (d2)));
-		    return;
-		  }
-	      }
-	    return;
-	  }
-      gi->debug_print ("No case block " + procname + " found");
+      /* O(1) name_index lookup instead of the case-insensitive linear scan the
+         other procedure dispatch used to do (see run_procedure). */
+      const GeasBlock *casep = gf.find_by_name ("procedure", procname);
+      if (casep == NULL)
+	{
+	  gi->debug_print ("No case block " + procname + " found");
+	  return;
+	}
+      for (uint j = 0; j < casep->data.size (); j ++)
+	{
+	  std::string::size_type d1, d2;
+	  string line = casep->data[j];
+	  if (!ci_equal (first_token (line, d1, d2), "case"))
+	    continue;
+	  string t2 = next_token (line, d1, d2);
+	  if (ci_equal (t2, "else"))
+	    {
+	      run_script (trim (line.substr (d2)));
+	      return;
+	    }
+	  if (!is_param (t2))
+	    continue;
+	  bool matched = false;
+	  for (const string &val : split_param (param_contents (t2)))
+	    if (ci_equal (trim (val), selector))
+	      { matched = true; break; }
+	  if (matched)
+	    {
+	      run_script (trim (line.substr (d2)));
+	      return;
+	    }
+	}
       return;
     }
     break;

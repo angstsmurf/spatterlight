@@ -2540,28 +2540,36 @@ void Interp::log_destroy(Element *e) {
 static void collect_field_chain(World &w, Element *e, const std::string &name,
                                 const Value *&base,
                                 std::vector<const Value *> &exts,
-                                std::unordered_set<const Element *> &path) {
+                                std::vector<const Element *> &path) {
     // `path` holds the elements on the active recursion stack; a repeat means a
     // runtime inheritance cycle (a bad <inherit> in the file, or a runtime
     // parent/type edit), which would otherwise recurse until the C++ stack
-    // overflows. Erasing on exit keeps this a back-edge check only, so legal
+    // overflows. Popping on exit keeps this a back-edge check only, so legal
     // diamond inheritance still visits a shared base once per path -- the
     // listextend accumulation below must not be deduplicated.
-    if (!e || !path.insert(e).second) return;
+    //
+    // path is a stack used strictly LIFO (push on entry, pop on exit), and
+    // inheritance chains are short, so a plain vector with a linear back-edge
+    // scan is cheaper than an unordered_set: no per-node hashing and no heap
+    // churn (the set's insert/erase were a profile hotspot on Woo Rebooted).
+    if (!e) return;
+    for (const Element *p : path)
+        if (p == e) return;
+    path.push_back(e);
     if (const Value *own = e->field(name)) {
         if (own->list_extend) exts.push_back(own);
         else if (!base) base = own;
     }
     for (auto it = e->inherits.rbegin(); it != e->inherits.rend(); ++it)
         collect_field_chain(w, w.find(*it), name, base, exts, path);
-    path.erase(e);
+    path.pop_back();
 }
 
 const Value *Interp::resolve_field(Element *e, const std::string &name) {
     if (!e) return nullptr;
     const Value *base = nullptr;
     std::vector<const Value *> exts;
-    std::unordered_set<const Element *> path;
+    std::vector<const Element *> path;
     collect_field_chain(world_, e, name, base, exts, path);
     if (exts.empty()) return base;  // fast path: no listextend in the chain
     // Merge on read (Fields.GetMergedResult): the base list's entries first,
