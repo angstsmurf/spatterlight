@@ -40,7 +40,7 @@ BIN := $(Q4)/geas_walkthrough_runner
 SRC := $(Q4)/geas_walkthrough_runner.cc
 TESTBIN := $(Q4)/geas_unit_tests
 TESTSRC := $(Q4)/geas_unit_tests.cc
-DEPS = $(wildcard ../*.cc ../*.hh) $(RANDSRC)
+DEPS = $(wildcard ../*.cc ../*.hh ../*.inc) $(RANDSRC)
 
 # The engine draws its random numbers from erkyrath_random() -- xoshiro128**
 # when seeded -- so that a seeded run gives the same numbers here, in the app
