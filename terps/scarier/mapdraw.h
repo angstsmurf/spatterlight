@@ -152,11 +152,22 @@ typedef struct map_surface_s {
 extern map_surface_t *map_surface_new (int w, int h);
 extern void map_surface_free (map_surface_t *s);
 
-/* The two colours the map is drawn in, normally the Glk buffer's normal
-   style: `background` fills the map and the room boxes, `text` draws the
-   connectors, borders and labels, and the player's room is their inversion.
-   Black on white until the host says otherwise. */
+/* The host's text style, normally the Glk buffer's style_Normal.  Black on
+   white until the host says otherwise.  How the two colours are spent on the
+   drawing depends on the scheme below. */
 extern void map_set_palette (unsigned int background, unsigned int text);
+
+/* MAP_SCHEME_STANDARD spends them flat: `background` fills the map and the
+   room boxes, `text` draws the connectors, borders and labels, and the
+   player's room is their inversion.  MAP_SCHEME_DERIVED treats them as paper
+   and ink and mixes room fills, a you-are-here amber, faded link greys and
+   contrast-picked labels out of them.  Standard until the host says
+   otherwise; the setting is the host's to remember. */
+enum {
+  MAP_SCHEME_STANDARD = 0,
+  MAP_SCHEME_DERIVED = 1
+};
+extern void map_set_colour_scheme (int scheme);
 
 /* What the renderer needs to know about the run.  Keeping this a callback
    table is what lets the map be drawn from the headless harness (and diffed)

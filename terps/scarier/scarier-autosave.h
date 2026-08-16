@@ -84,6 +84,10 @@ struct ScarierGlkFrontendState {
     int map_shown = 0;
     int map_at_top = 0;
     int map_zoom = 0;
+    /* "glk map colour": which of the two schemes the map is drawn in.  An
+     * autosave written before this field existed decodes as 0, the standard
+     * colours, which is what those sessions restored as anyway. */
+    int map_colourful = 0;
     /* "glk colour": the archived windows come back painted in the game's
      * palette, so the flag has to come back with them.  Without it the
      * interpreter reads as off in front of a coloured screen, and the next
