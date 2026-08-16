@@ -261,6 +261,9 @@ public:
   void set_ivar (const std::string &, int);
   void set_ivar (const std::string &, double);
   void set_ivar (const std::string &, size_t, double);
+  /* Run the "onchange" script of the variable block of the given name, if
+   * there is one; called by both setters when index 0 is written. */
+  void run_onchange_script (const std::string &);
 
   std::string get_svar (const std::string &) const;
   std::string get_svar (const std::string &, size_t) const;

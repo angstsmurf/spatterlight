@@ -181,6 +181,29 @@ void geas_implementation::set_svar (const string &varname, const string &varval)
     set_svar (base, index, varval);
 }
 
+/* Fire the onchange script of the variable block named for the changed
+ * variable, if any.  The LAST "onchange" line in the block wins, since Quest's
+ * loader overwrites the field on each one. */
+void geas_implementation::run_onchange_script (const string &varname)
+{
+  for (size_t varn = 0; varn < gf.size("variable"); varn ++)
+    {
+      const GeasBlock &go (gf.block ("variable", varn));
+      if (ci_equal (go.name, varname))
+	{
+	  string script = "";
+	  std::string::size_type c1, c2;
+	  for (uint j = 0; j < go.data.size(); j ++)
+	    /* CI: Quest reads the block's keywords with BeginsWith, which
+	     * lowercases (V4Game.Part2.cs:715). */
+	    if (ci_equal (first_token (go.data[j], c1, c2), "onchange"))
+	      script = trim (go.data[j].substr (c2 + 1));
+	  if (script != "")
+	    run_script (script);
+	}
+    }
+}
+
 void geas_implementation::set_svar (const string &varname, size_t index, const string &varval)
 {
   size_t n;
@@ -200,24 +223,7 @@ void geas_implementation::set_svar (const string &varname, size_t index, const s
     }
   state.svars[n].set(index, varval);
   if (index == 0)
-    {
-      for (size_t varn = 0; varn < gf.size("variable"); varn ++)
-	{
-	  const GeasBlock &go (gf.block ("variable", varn));
-	  if (ci_equal (go.name, varname))
-	    {
-	      string script = "";
-	      std::string::size_type c1, c2;
-	      for (uint j = 0; j < go.data.size(); j ++)
-		/* CI: Quest reads the block's keywords with BeginsWith, which
-		 * lowercases (V4Game.Part2.cs:715). */
-		if (ci_equal (first_token (go.data[j], c1, c2), "onchange"))
-		  script = trim (go.data[j].substr (c2 + 1));
-	      if (script != "")
-		run_script (script);
-	    }
-	}
-    }
+    run_onchange_script (varname);
 }
 
 string geas_implementation::get_svar (const string &varname) const
@@ -304,23 +310,7 @@ void geas_implementation::set_ivar (const string &varname, size_t index, double 
     }
   state.ivars[n].set(index, varval);
   if (index == 0)
-    {
-      for (size_t varn = 0; varn < gf.size("variable"); varn ++)
-	{
-	  const GeasBlock &go (gf.block ("variable", varn));
-	  if (ci_equal (go.name, varname))
-	    {
-	      string script = "";
-	      std::string::size_type c1, c2;
-	      for (uint j = 0; j < go.data.size(); j ++)
-		/* CI -- see set_svar. */
-		if (ci_equal (first_token (go.data[j], c1, c2), "onchange"))
-		  script = trim (go.data[j].substr (c2 + 1));
-	      if (script != "")
-		run_script (script);
-	    }
-	}
-    }
+    run_onchange_script (varname);
 }
 
 ostream &operator<< (ostream &o, const match_binding &mb)
@@ -1692,11 +1682,10 @@ vector<vector<string> > geas_implementation::get_places (const string &room)
   if (gb == NULL)
     return rv;
 
-  string line, tok;
   std::string::size_type c1, c2;
   for (const auto &line: gb->data)
     {
-      tok = first_token (line, c1, c2);
+      string tok = first_token (line, c1, c2);
       if (tok == "place")
 	{
 	  bool locked;
@@ -1784,7 +1773,7 @@ vector<vector<string> > geas_implementation::get_places (const string &room)
     {
       if (i.src != room)
 	continue;
-      line = i.dest;
+      const string &line = i.dest;
       string tok = first_token (line, c1, c2);
       if (tok == "exit")
 	{
@@ -2109,92 +2098,96 @@ string geas_implementation::exit_dest (const string &room, const string &dir, bo
   return declared;
 }
 
+/* The LAST declaration of a direction wins: the pre-4.10 loader assigns the
+ * room's field afresh on every "north " line (V4Game.Part2.cs:1042-1044),
+ * and 4.10's AddExitFromTag re-uses and re-assigns the direction's existing
+ * exit object (SetDirection, RoomExits.cs:20-33), so a later line overwrites
+ * an earlier one either way.
+ *
+ * ...among the lines Quest reads at all: BeginsWith ("south ") needs the
+ * trailing space, so a *bare* direction line assigns nothing and must be
+ * skipped here too -- Lovesong's hall carries three stray "south" lines
+ * under its real "south <yard>", and taking the last of those would wall
+ * the house off. */
+static const string *last_dir_decl (const GeasBlock *gb, const string &dir)
+{
+  std::string::size_type c1, c2;
+  const string *decl = NULL;
+  for (const string &l: gb->data)
+    if (first_token (l, c1, c2) == dir && next_token (l, c1, c2) != "")
+      decl = &l;
+  return decl;
+}
+
 string geas_implementation::declared_exit_dest (const GeasBlock *gb,
 						const string &dir,
 						bool &is_script) const
 {
   std::string::size_type c1, c2;
   is_script = false;
-  /* The LAST declaration of a direction wins: the pre-4.10 loader assigns the
-   * room's field afresh on every "north " line (V4Game.Part2.cs:1042-1044),
-   * and 4.10's AddExitFromTag re-uses and re-assigns the direction's existing
-   * exit object (SetDirection, RoomExits.cs:20-33), so a later line overwrites
-   * an earlier one either way.
+  const string *decl = last_dir_decl (gb, dir);
+  if (decl == NULL)
+    return "";
+  const string &line = *decl;
+  first_token (line, c1, c2);   /* just to set c2, the end of the keyword */
+  std::string::size_type line_start = c2;
+  string tok = next_token (line, c1, c2);
+  /* Before 4.10 "out" is not read like the other directions.  Every other
+   * direction goes through GetTextOrScript, which decides between the two by
+   * looking at the line; "out" is cut in two at its first '>' and both
+   * halves are kept -- Out.Text is GetParameter, the contents of the first
+   * <...>, and Out.Script is everything after that '>'
+   * (V4Game.Part2.cs:1018-1030).  So the parameter is always a destination,
+   * whatever keyword stands in front of it: "out msg <You need to get up
+   * first.>" leaves Out.Script empty, and GoDirection then hands the message
+   * to PlayGame as a room name (ibid. 6324-6356), which prints nothing
+   * because no room is called that.  UpdateDoorways advertises Out.Text
+   * either way (ibid. 7218-7233), so the room still says "You can go out to
+   * You need to get up first..".  The script half is the caller's business.
    *
-   * ...among the lines Quest reads at all: BeginsWith ("south ") needs the
-   * trailing space, so a *bare* direction line assigns nothing and must be
-   * skipped here too -- Lovesong's hall carries three stray "south" lines
-   * under its real "south <yard>", and taking the last of those would wall
-   * the house off. */
-  const string *decl = NULL;
-  for (const string &l: gb->data)
-    if (first_token (l, c1, c2) == dir && next_token (l, c1, c2) != "")
-      decl = &l;
-  if (decl != NULL) {
-    const string &line = *decl;
-    string tok = first_token (line, c1, c2);
+   * From 4.10 on AddExitFromTag parses "out" with all the rest and a leading
+   * keyword really does make the tag a script. */
+  if (asl_version_ < 410 && ci_equal (dir, "out"))
     {
-      std::string::size_type line_start = c2;
-      tok = next_token (line, c1, c2);
-      /* Before 4.10 "out" is not read like the other directions.  Every other
-       * direction goes through GetTextOrScript, which decides between the two by
-       * looking at the line; "out" is cut in two at its first '>' and both
-       * halves are kept -- Out.Text is GetParameter, the contents of the first
-       * <...>, and Out.Script is everything after that '>'
-       * (V4Game.Part2.cs:1018-1030).  So the parameter is always a destination,
-       * whatever keyword stands in front of it: "out msg <You need to get up
-       * first.>" leaves Out.Script empty, and GoDirection then hands the message
-       * to PlayGame as a room name (ibid. 6324-6356), which prints nothing
-       * because no room is called that.  UpdateDoorways advertises Out.Text
-       * either way (ibid. 7218-7233), so the room still says "You can go out to
-       * You need to get up first..".  The script half is the caller's business.
-       *
-       * From 4.10 on AddExitFromTag parses "out" with all the rest and a leading
-       * keyword really does make the tag a script. */
-      if (asl_version_ < 410 && ci_equal (dir, "out"))
-	{
-	  while (tok != "" && !is_param (tok))
-	    tok = next_token (line, c1, c2);
-	  return is_param (tok) ? param_contents (tok) : "";
-	}
-      /* "<dir> locked <dest; lockmessage>": a (initially locked) exit whose
-       * destination is the first ;-separated field.  Locking only gates
-       * traversal (handled by the caller), so return the destination here.
-       *
-       * A locked exit that carries a *script* is different: it has no
-       * destination at all, and its parameter -- if it has one -- is the lock
-       * message (RoomExits.cs:186-191).  Reading that field as a room name
-       * would send the player to a room named after the refusal text. */
-      if (ci_equal (tok, "locked")) {
-	std::string::size_type after_lock = c2;
+      while (tok != "" && !is_param (tok))
 	tok = next_token (line, c1, c2);
-	if (is_param (tok)) {
-	  string rest = trim (line.substr (c2));
-	  if (rest != "") {
-	    is_script = true;
-	    return rest;
-	  }
-	  vector<string> p = split_param (param_contents (tok));
-	  if (!p.empty ())
-	    return trim (p[0]);
-	  return "";
-	}
-	if (tok != "") {
-	  is_script = true;
-	  return trim (line.substr (after_lock));
-	}
-	return "";
+      return is_param (tok) ? param_contents (tok) : "";
+    }
+  /* "<dir> locked <dest; lockmessage>": a (initially locked) exit whose
+   * destination is the first ;-separated field.  Locking only gates
+   * traversal (handled by the caller), so return the destination here.
+   *
+   * A locked exit that carries a *script* is different: it has no
+   * destination at all, and its parameter -- if it has one -- is the lock
+   * message (RoomExits.cs:186-191).  Reading that field as a room name
+   * would send the player to a room named after the refusal text. */
+  if (ci_equal (tok, "locked")) {
+    std::string::size_type after_lock = c2;
+    tok = next_token (line, c1, c2);
+    if (is_param (tok)) {
+      string rest = trim (line.substr (c2));
+      if (rest != "") {
+	is_script = true;
+	return rest;
       }
-      if (is_param (tok))
-	return param_contents(tok);
-      if (tok != "")
-	{
-	  is_script = true;
-	  return trim (line.substr (line_start + 1));
-	}
+      vector<string> p = split_param (param_contents (tok));
+      if (!p.empty ())
+	return trim (p[0]);
       return "";
     }
+    if (tok != "") {
+      is_script = true;
+      return trim (line.substr (after_lock));
+    }
+    return "";
   }
+  if (is_param (tok))
+    return param_contents(tok);
+  if (tok != "")
+    {
+      is_script = true;
+      return trim (line.substr (line_start + 1));
+    }
   return "";
 }
 
@@ -2237,11 +2230,8 @@ bool geas_implementation::exit_declared_locked (const string &room, const string
     return false;
   std::string::size_type c1, c2;
   /* The last declaration wins, skipping bare direction lines -- see
-   * declared_exit_dest. */
-  const string *decl = NULL;
-  for (const string &l: gb->data)
-    if (first_token (l, c1, c2) == dir && next_token (l, c1, c2) != "")
-      decl = &l;
+   * last_dir_decl. */
+  const string *decl = last_dir_decl (gb, dir);
   if (decl != NULL) {
     const string &line = *decl;
     first_token (line, c1, c2);
@@ -8174,10 +8164,7 @@ string geas_implementation::run_function (const string &pname)
       if (function_args.size() != 1)
 	return bad_arg_count(pname);
 
-      string rv = function_args[0];
-      for (uint i = 0; i < rv.size(); i ++)
-	rv[i] = tolower (rv[i]);
-      return rv;
+      return lcase (function_args[0]);
     }
   else if (pname == "left")
     {
@@ -8279,10 +8266,7 @@ string geas_implementation::run_function (const string &pname)
       if (function_args.size() != 1)
 	return bad_arg_count(pname);
 
-      string rv = function_args[0];
-      for (uint i = 0; i < rv.length(); i ++)
-	rv[i] = toupper (rv[i]);
-      return rv;
+      return ucase (function_args[0]);
     }
   else if (pname == "rand")
     {
