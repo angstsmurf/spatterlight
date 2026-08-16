@@ -1,0 +1,37 @@
+
+TurnCase
+
+You are in Lab.
+You can go north.
+A tidy lab.
+
+> probe
+(lab before)
+Probed.
+(lab after)
+(game after)
+
+> wave
+(lab before)
+You wave grandly.
+(lab after)
+(game after)
+
+> zap
+(lab before)
+Zap!
+(lab after)
+(game after)
+
+> north
+(lab before)
+You are in Hall.
+A bare hall.
+(lab after)
+(game after)
+
+> wave
+(game before)
+You wave grandly.
+(game after)
+[runner] turns=5 leftover=0 running=true

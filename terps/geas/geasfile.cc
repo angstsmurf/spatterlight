@@ -197,13 +197,18 @@ void GeasFile::ensure_cached (const GeasBlock &b) const
 	}
 
       /* Per-turn block directives (room & game blocks).  These never overlap
-       * with property/action/type lines, so handle and skip the rest. */
-      if (tok == "command" || tok == "lib")
+       * with property/action/type lines, so handle and skip the rest.
+       * All of these keywords are matched with the case-insensitive
+       * BeginsWith (V4Game.cs:1094): "command " V4Game.Part2.cs:1215, the
+       * "command"/"lib command" tags 2350-2375, "beforeturn "/"afterturn "
+       * 1276/1281 (rooms) and 1387/1392 (game). */
+      if (ci_equal (tok, "command") || ci_equal (tok, "lib"))
 	{
+	  bool is_lib = ci_equal (tok, "lib");
 	  string htok = tok;
-	  if (htok == "lib")   /* "lib command <...>": a library-supplied command */
+	  if (is_lib)   /* "lib command <...>": a library-supplied command */
 	    htok = next_token (line, c1, c2);
-	  if (htok == "command")
+	  if (ci_equal (htok, "command"))
 	    {
 	      string p = next_token (line, c1, c2);
 	      if (is_param (p))
@@ -211,7 +216,7 @@ void GeasFile::ensure_cached (const GeasBlock &b) const
 		  GeasBlock::cmd_entry e;
 		  e.patterns = split_param (param_contents (p));
 		  e.script = (c2 + 1 < line.length ()) ? line.substr (c2 + 1) : "";
-		  e.is_lib = (tok == "lib");
+		  e.is_lib = is_lib;
 		  b.commands.push_back (std::move (e));
 		}
 	      else
@@ -219,15 +224,16 @@ void GeasFile::ensure_cached (const GeasBlock &b) const
 	    }
 	  continue;
 	}
-      if (tok == "beforeturn" || tok == "afterturn")
+      if (ci_equal (tok, "beforeturn") || ci_equal (tok, "afterturn"))
 	{
-	  /* Script starts after the keyword, or after a following "override". */
+	  /* Script starts after the keyword, or after a following "override"
+	   * (also a case-insensitive BeginsWith: V4Game.Part2.cs:4205/4595). */
 	  std::string::size_type scr_starts = c2;
-	  bool ov = (next_token (line, c1, c2) == "override");
+	  bool ov = ci_equal (next_token (line, c1, c2), "override");
 	  if (ov)
 	    scr_starts = c2;
 	  GeasBlock::hook_entry h {ov, line.substr (scr_starts)};
-	  if (tok == "beforeturn")
+	  if (ci_equal (tok, "beforeturn"))
 	    b.beforeturns.push_back (std::move (h));
 	  else
 	    b.afterturns.push_back (std::move (h));
