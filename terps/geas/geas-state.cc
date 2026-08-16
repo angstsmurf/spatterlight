@@ -215,6 +215,136 @@ std::string serialize_game (const std::string &gamename, const GeasState &gs)
   return gos.contents (gamename);
 }
 
+/* ---- reading a save back ------------------------------------------------ *
+ *
+ * The two deserializers below -- one for a save file, one for the autosave's
+ * undo history -- pull the same record vectors out of the same wire format,
+ * because both were put there by the same write_to () overloads above.  This is
+ * the reading half of that pairing, gathered so that each loop has exactly one
+ * writer to stay in step with rather than two.
+ *
+ * A save is untrusted input, and every count in it is a loop bound.  No record
+ * or array element can occupy less than one byte on the wire (even an empty
+ * string costs its NUL), so a count exceeding the bytes left in the stream
+ * cannot be honest: reject the save rather than trying to allocate for it.
+ * Without this a corrupt (or hostile) count of a few billion sends us
+ * resizing/pushing until we run out of memory.  Every reader here answers false
+ * to such a count, and its caller abandons the whole save. */
+namespace {
+
+struct SaveReader
+{
+  GeasInputStream &gis;
+  SaveReader (GeasInputStream &in) : gis (in) {}
+
+  /* A count of records. */
+  bool count (size_t &out)
+  {
+    size_t n = gis.get_uint ();
+    if (n > gis.remaining ())
+      return false;
+    out = n;
+    return true;
+  }
+  /* Same, for an array's highest index: it holds max() + 1 elements. */
+  bool elem_count (size_t &out)
+  {
+    size_t mx = gis.get_uint ();
+    if (mx >= gis.remaining ())
+      return false;
+    out = mx + 1;
+    return true;
+  }
+
+  bool objs (vector<ObjectRecord> &out)
+  {
+    size_t n;
+    if (!count (n)) return false;
+    for (size_t i = 0; i < n; i ++)
+      {
+	ObjectRecord o;
+	o.name = gis.get_str ();
+	o.hidden = (gis.get_char () == 0);
+	o.invisible = (gis.get_char () == 0);
+	o.parent = gis.get_str ();
+	o.is_room = (o.hidden && o.invisible);   /* see ObjectRecord::is_room */
+	out.push_back (o);
+      }
+    return true;
+  }
+
+  bool exits (vector<ExitRecord> &out)
+  {
+    size_t n;
+    if (!count (n)) return false;
+    for (size_t i = 0; i < n; i ++)
+      {
+	string s = gis.get_str (), d = gis.get_str ();
+	out.push_back (ExitRecord (s, d));
+      }
+    return true;
+  }
+
+  bool timers (vector<TimerRecord> &out)
+  {
+    size_t n;
+    if (!count (n)) return false;
+    for (size_t i = 0; i < n; i ++)
+      {
+	TimerRecord t;
+	t.name = gis.get_str ();
+	t.is_running = (gis.get_int () == 0);
+	t.interval = gis.get_uint ();
+	t.elapsed = ticks_left_to_elapsed (t.interval, gis.get_uint ());
+	out.push_back (t);
+      }
+    return true;
+  }
+
+  bool svars (vector<SVarRecord> &out)
+  {
+    size_t n, cnt;
+    if (!count (n)) return false;
+    for (size_t i = 0; i < n; i ++)
+      {
+	SVarRecord v;
+	v.name = gis.get_str ();
+	if (!elem_count (cnt)) return false;
+	for (size_t j = 0; j < cnt; j ++)
+	  v.set (j, gis.get_str ());
+	out.push_back (v);
+      }
+    return true;
+  }
+
+  bool ivars (vector<IVarRecord> &out)
+  {
+    size_t n, cnt;
+    if (!count (n)) return false;
+    for (size_t i = 0; i < n; i ++)
+      {
+	IVarRecord v;
+	v.name = gis.get_str ();
+	if (!elem_count (cnt)) return false;
+	for (size_t j = 0; j < cnt; j ++)
+	  v.set (j, gis.get_int ());
+	out.push_back (v);
+      }
+    return true;
+  }
+
+  bool items (vector<string> &out)
+  {
+    size_t n;
+    if (!count (n)) return false;
+    for (size_t i = 0; i < n; i ++)
+      out.push_back (gis.get_str ());
+    return true;
+  }
+};
+
+}   /* namespace */
+
 /* ---- undo history (Spatterlight autosave) ------------------------------- */
 
 static void write_to (GeasOutputStream &gos, const UndoState &u)
@@ -255,60 +385,22 @@ bool deserialize_undo_history (const std::string &data,
   if (data.compare (0, magic.size(), magic) != 0 || data[magic.size()] != 0)
     return false;
   GeasInputStream gis (data.substr (magic.size() + 1));
-
-  /* The same hostile-count guards deserialize_game uses: no element can
-   * occupy less than a byte on the wire. */
-  auto count = [&gis] (size_t &out) -> bool
-    {
-      size_t n = gis.get_uint();
-      if (n > gis.remaining()) return false;
-      out = n;
-      return true;
-    };
-  auto elem_count = [&gis] (size_t &out) -> bool
-    {
-      size_t mx = gis.get_uint();
-      if (mx >= gis.remaining()) return false;
-      out = mx + 1;
-      return true;
-    };
+  SaveReader rd (gis);
 
   size_t nstates;
-  if (!count (nstates)) return false;
+  if (!rd.count (nstates)) return false;
   for (size_t si = 0; si < nstates; si++)
     {
       UndoState u;
       u.running = gis.get_char() != 0;
       u.location = gis.get_str();
       u.props_len = gis.get_uint();
-      size_t n, cnt;
-      if (!count (n)) return false;
-      for (size_t i = 0; i < n; i++)
-        { ObjectRecord o; o.name = gis.get_str(); o.hidden = (gis.get_char() == 0);
-          o.invisible = (gis.get_char() == 0); o.parent = gis.get_str();
-          o.is_room = (o.hidden && o.invisible);   /* see ObjectRecord::is_room */
-          u.objs.push_back (o); }
-      if (!count (n)) return false;
-      for (size_t i = 0; i < n; i++)
-        { string s = gis.get_str(), d = gis.get_str(); u.exits.push_back (ExitRecord (s, d)); }
-      if (!count (n)) return false;
-      for (size_t i = 0; i < n; i++)
-        { TimerRecord t; t.name = gis.get_str(); t.is_running = (gis.get_int() == 0);
-          t.interval = gis.get_uint(); t.elapsed = ticks_left_to_elapsed (t.interval, gis.get_uint());
-      u.timers.push_back (t); }
-      if (!count (n)) return false;
-      for (size_t i = 0; i < n; i++)
-        { SVarRecord v; v.name = gis.get_str();
-          if (!elem_count (cnt)) return false;
-          for (size_t j = 0; j < cnt; j++) v.set (j, gis.get_str()); u.svars.push_back (v); }
-      if (!count (n)) return false;
-      for (size_t i = 0; i < n; i++)
-        { IVarRecord v; v.name = gis.get_str();
-          if (!elem_count (cnt)) return false;
-          for (size_t j = 0; j < cnt; j++) v.set (j, gis.get_int()); u.ivars.push_back (v); }
-      if (!count (n)) return false;
-      for (size_t i = 0; i < n; i++)
-        u.items.push_back (gis.get_str());
+      if (!rd.objs (u.objs)) return false;
+      if (!rd.exits (u.exits)) return false;
+      if (!rd.timers (u.timers)) return false;
+      if (!rd.svars (u.svars)) return false;
+      if (!rd.ivars (u.ivars)) return false;
+      if (!rd.items (u.items)) return false;
       states.push_back (u);
     }
   return true;
@@ -338,72 +430,34 @@ bool deserialize_game (const std::string &filedata, std::string &gamename, GeasS
   gs = GeasState();
   gs.running = true;
   gs.location = gis.get_str();
+  SaveReader rd (gis);
 
-  /* A save file is untrusted input, and every count in it is a loop bound.  No
-   * record or array element can occupy less than one byte on the wire (even an
-   * empty string costs its NUL), so a count exceeding the bytes left in the
-   * stream cannot be honest: reject the save rather than trying to allocate for
-   * it.  Without this a corrupt (or hostile) count of a few billion sends us
-   * resizing/pushing until we run out of memory. */
-  auto count = [&gis] (size_t &out) -> bool
-    {
-      size_t n = gis.get_uint();
-      if (n > gis.remaining()) return false;
-      out = n;
-      return true;
-    };
-  /* Same, for an array's highest index: it holds max()+1 elements. */
-  auto elem_count = [&gis] (size_t &out) -> bool
-    {
-      size_t mx = gis.get_uint();
-      if (mx >= gis.remaining()) return false;
-      out = mx + 1;
-      return true;
-    };
-
-  size_t n, cnt;
-  if (!count (n)) return false;
+  /* Properties are the one vector with no counterpart in an undo snapshot (a
+     snapshot records the props log by length -- see UndoState), and they go in
+     through add_prop so props_index is built as we read. */
+  size_t n;
+  if (!rd.count (n)) return false;
   for (size_t i = 0; i < n; i ++)
     { string nm = gis.get_str(), d = gis.get_str(); gs.add_prop (nm, d); }
-  if (!count (n)) return false;
-  for (size_t i = 0; i < n; i ++)
-    { ObjectRecord o; o.name = gis.get_str(); o.hidden = (gis.get_char() == 0);
-      o.invisible = (gis.get_char() == 0); o.parent = gis.get_str();
-      o.is_room = (o.hidden && o.invisible);   /* see ObjectRecord::is_room */
-      gs.objs.push_back (o); }
-  if (!count (n)) return false;
-  for (size_t i = 0; i < n; i ++)
-    { string s = gis.get_str(), d = gis.get_str(); gs.exits.push_back (ExitRecord (s, d)); }
-  if (!count (n)) return false;
-  for (size_t i = 0; i < n; i ++)
-    { TimerRecord t; t.name = gis.get_str(); t.is_running = (gis.get_int() == 0);
-      t.interval = gis.get_uint(); t.elapsed = ticks_left_to_elapsed (t.interval, gis.get_uint());
-      gs.timers.push_back (t); }
-  if (!count (n)) return false;
-  for (size_t i = 0; i < n; i ++)
-    { SVarRecord v; v.name = gis.get_str();
-      if (!elem_count (cnt)) return false;
-      for (size_t j = 0; j < cnt; j ++) v.set (j, gis.get_str()); gs.svars.push_back (v); }
-  if (!count (n)) return false;
-  for (size_t i = 0; i < n; i ++)
-    { IVarRecord v; v.name = gis.get_str();
-      if (!elem_count (cnt)) return false;
-      for (size_t j = 0; j < cnt; j ++) v.set (j, gis.get_int()); gs.ivars.push_back (v); }
+  if (!rd.objs (gs.objs)) return false;
+  if (!rd.exits (gs.exits)) return false;
+  if (!rd.timers (gs.timers)) return false;
+  if (!rd.svars (gs.svars)) return false;
+  if (!rd.ivars (gs.ivars)) return false;
   if (!gis.eof())   // items were appended by our serializer
-    { if (!count (n)) return false;
-      for (size_t i = 0; i < n; i ++) gs.items.push_back (gis.get_str()); }
+    { if (!rd.items (gs.items)) return false; }
   return true;
 }
 
-/* The index key for an object name: lower-cased and trimmed.  Trimmed because
- * readfile.cc registers every block under its trim()'d name, so a runtime name
- * that still carries a stray space -- "Something 'Bout A Hex" both defines and
- * gives its journal as `<Journal >' -- has to land on the same key as the
- * definition, or its properties are set on one name and read back from another.
- * See GeasFile::build_name_key, which folds the same way. */
+/* The index key for an object name -- see fold_lower_into (geas-util.hh), which
+ * is also what GeasFile keys its own name tables with.  This form allocates, so
+ * it is only for building the index; PropsIndex::find folds into a scratch
+ * buffer instead. */
 static string name_index_key (const string &name)
 {
-  return lcase (trim (name));
+  string key;
+  fold_lower_into (key, name);
+  return key;
 }
 
 void GeasState::add_prop (const string &name, const string &data)
@@ -457,50 +511,26 @@ void GeasState::ensure_objs_index () const
   objs_index.valid = true;
 }
 
+/* Fold into the reused scratch buffer rather than allocating a name_index_key()
+ * temporary per lookup: this sits on the get_obj_property / get_obj_action
+ * runtime path, which runs per object per turn. */
+const vector<size_t> *PropsIndex::find (const string &name)
+{
+  fold_lower_into (key_scratch, name);
+  auto it = map.find (key_scratch);
+  return it == map.end () ? nullptr : &it->second;
+}
+
 const vector<size_t> *GeasState::obj_records (const string &name) const
 {
   ensure_objs_index ();
-  /* Lowercase (and trim -- see name_index_key) into a reused buffer, as
-   * prop_records does: the ASCII fold here matches ci_equal, so a hit is exactly
-   * what the old linear scans matched. */
-  string &key = objs_index.key_scratch;
-  size_t beg = 0, end = name.size ();
-  while (beg < end && isspace ((unsigned char) name[beg]))
-    beg ++;
-  while (end > beg && isspace ((unsigned char) name[end - 1]))
-    end --;
-  size_t nn = end - beg;
-  key.resize (nn);
-  for (size_t i = 0; i < nn; i++)
-    {
-      unsigned char c = (unsigned char) name[beg + i];
-      key[i] = (c >= 'A' && c <= 'Z') ? c + 32 : c;
-    }
-  auto it = objs_index.map.find (key);
-  return it == objs_index.map.end () ? nullptr : &it->second;
+  return objs_index.find (name);
 }
 
 const vector<size_t> *GeasState::prop_records (const string &name) const
 {
   ensure_props_index ();
-  /* Build the lowercased, trimmed key (see name_index_key) into a reused buffer
-   * rather than allocating an lcase() temporary on every lookup (this is on the
-   * get_obj_property / get_obj_action runtime path). */
-  string &key = props_index.key_scratch;
-  size_t beg = 0, end = name.size ();
-  while (beg < end && isspace ((unsigned char) name[beg]))
-    beg ++;
-  while (end > beg && isspace ((unsigned char) name[end - 1]))
-    end --;
-  size_t nn = end - beg;
-  key.resize (nn);
-  for (size_t i = 0; i < nn; i++)
-    {
-      unsigned char c = (unsigned char) name[beg + i];
-      key[i] = (c >= 'A' && c <= 'Z') ? c + 32 : c;
-    }
-  auto it = props_index.map.find (key);
-  return it == props_index.map.end () ? nullptr : &it->second;
+  return props_index.find (name);
 }
 
 UndoState GeasState::save_undo () const

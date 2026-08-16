@@ -64,25 +64,9 @@ void GeasFile::build_name_key (std::string &out, const string &type,
    * 'Bout A Hex" needs it: the journal is `define object <Journal >' and the
    * knapsack hands it over with `give <Journal >', while `if got <Journal>'
    * elsewhere drops the space. */
-  size_t beg = 0, end = name.size ();
-  while (beg < end && isspace ((unsigned char) name[beg]))
-    beg ++;
-  while (end > beg && isspace ((unsigned char) name[end - 1]))
-    end --;
-
-  /* One sized write into the reused buffer rather than reserve + push_back per
-   * char (which was a profile hotspot): resize once, then fill directly. */
-  size_t tn = type.size (), nn = end - beg;
-  out.resize (tn + 1 + nn);
-  char *p = &out[0];
-  std::memcpy (p, type.data (), tn);
-  p[tn] = '\1';
-  char *q = p + tn + 1;
-  for (size_t i = 0; i < nn; i++)
-    {
-      unsigned char c = (unsigned char) name[beg + i];
-      q[i] = (c >= 'A' && c <= 'Z') ? c + 32 : c;
-    }
+  out.assign (type);
+  out += '\1';
+  fold_lower_append (out, name);
 }
 
 std::string GeasFile::name_key (const string &type, const string &name)
@@ -491,91 +475,149 @@ void GeasFile::get_type_keys (const string &typen, set<string> &rv) const
   GEAS_DBG << "Returning (" << rv << ")\n";
 }
 
-bool GeasFile::block_property (const GeasBlock &block, const string &propname, string &string_rv) const
+/* The property family and the action family are the same walk over two
+ * different halves of a parsed block: a `properties <...>` or tag line lands in
+ * obj_prop / type_prop, an `action <...>` line in obj_act / type_act, and the
+ * four lookups over each differ only in which list they read, in whether an
+ * entry carries its own truth value, and in the noun their diagnostics use.
+ * They used to be written out twice and kept in step by hand -- each half's
+ * comments pointed at the other -- so both are expressed once here and selected
+ * with an `entry_kind`. */
+namespace {
+
+struct entry_kind
 {
-  bool bool_rv = false;
-  ensure_cached (block);
-  /* One pass, in source order: last writer wins.  Quest reads a define block a
-   * line at a time and applies each line where it stands, and a `type <...>`
-   * line is a property source like any other -- it pushes the whole type
-   * through the same AddToObjectProperties a `properties <...>` line uses, and
-   * that overwrites an entry of the same name (InitialiseObject,
-   * V4Game.Part2.cs:3398-3405; V4Game.cs:4042-4069).  So a type named *below* a
-   * tag beats it, and only a tag below the type survives.  For the usual
-   * type-first ordering this is the same answer as resolving the types first,
-   * which is what geas used to do unconditionally; Operation: Sleepover writes
-   * the other order eight times, and lost an adjective off each garment
-   * ("a black sweater" for Quest's "a sweater"). */
-  for (const GeasBlock::dir &d: block.obj_prop)
-    if (d.is_type)
-      get_type_property (d.a, propname, bool_rv, string_rv);
-    else if (ci_equal (d.a, propname))
-      {
-	string_rv = d.b;
-	bool_rv = d.bv;
-      }
-  GEAS_DBG << "g_o_p: Ultimately returning " << (bool_rv ? "true" : "false")
-       << ", with string <" << string_rv << ">\n\n";
-  return bool_rv;
-}
+  /* The lists to walk in an object/room block and in a `type` block. */
+  std::vector<GeasBlock::dir> GeasBlock::*obj_list;
+  std::vector<GeasBlock::dir> GeasBlock::*type_list;
+  /* A property carries its own truth value -- `not hidden` is a property that
+     is present and false -- whereas an action is simply present or absent. */
+  bool value_from_bv;
+  const char *noun;      /* "property" / "action", for the diagnostics */
+  const char *obj_tag;   /* GEAS_DBG trace prefixes */
+  const char *room_tag;
+};
 
-bool GeasFile::get_obj_property (const string &objname, const string &propname, string &string_rv, const string &preferred_parent) const
+const entry_kind prop_kind = { &GeasBlock::obj_prop, &GeasBlock::type_prop,
+			       true, "property", "g_o_p", "g_r_p" };
+const entry_kind act_kind = { &GeasBlock::obj_act, &GeasBlock::type_act,
+			      false, "action", "g_o_a", "g_r_a" };
+
+/* Fold the type's entry for `name`, and those of every type it includes, into
+   bool_rv/string_rv.  Quest property and action names are case-insensitive. */
+void get_type_entry (const GeasFile &gf, const entry_kind &k,
+		     const string &typenamex, const string &name,
+		     bool &bool_rv, string &string_rv)
 {
-  GEAS_DBG << "g_o_p: Getting prop <" << propname << "> of obj <" << objname << ">\n";
-  string_rv = "!";
-
-  const string *oti = obj_type_of (objname);
-  if (oti == NULL)
-    {
-      debug_print ("Checking nonexistent object <" + objname + "> for property <" + propname + ">");
-      return false;
-    }
-  const string &objtype = *oti;
-
-  const GeasBlock *block = find_by_name (objtype, objname, preferred_parent);
-
+  const GeasBlock *block = gf.find_by_name ("type", typenamex);
   if (block == NULL)
     {
-      gi->debug_print ("get_obj_property: no block for object '" + objname + "'");
-      return false;
-    }
-  return block_property (*block, propname, string_rv);
-}
-
-bool GeasFile::get_room_property (const string &roomname, const string &propname, string &string_rv) const
-{
-  GEAS_DBG << "g_r_p: Getting prop <" << propname << "> of room <" << roomname << ">\n";
-  string_rv = "!";
-  const GeasBlock *block = find_by_name ("room", roomname);
-  if (block == NULL)
-    {
-      debug_print ("Checking nonexistent room <" + roomname + "> for property <" + propname + ">");
-      return false;
-    }
-  return block_property (*block, propname, string_rv);
-}
-
-void GeasFile::get_type_property (const string &typenamex, const string &propname, bool &bool_rv, string &string_rv) const
-{
-  const GeasBlock *block = find_by_name ("type", typenamex);
-  if (block == NULL)
-    {
-      debug_print ("Object of nonexistent type " + typenamex);
+      gf.debug_print ("Object of nonexistent type " + typenamex);
       return;
     }
-  ensure_cached (*block);
-  for (const GeasBlock::dir &d: block->type_prop)
+  gf.ensure_cached (*block);
+  for (const GeasBlock::dir &d: block->*(k.type_list))
     {
       if (d.is_type)
-	get_type_property (d.a, propname, bool_rv, string_rv);
-      else if (ci_equal (d.a, propname))   /* Quest property names are case-insensitive */
+	get_type_entry (gf, k, d.a, name, bool_rv, string_rv);
+      else if (ci_equal (d.a, name))
 	{
-	  bool_rv = d.bv;
+	  bool_rv = k.value_from_bv ? d.bv : true;
 	  string_rv = d.b;
 	}
     }
 }
-	      
+
+/* One pass over a resolved block, in source order: last writer wins.  Quest
+ * reads a define block a line at a time and applies each line where it stands,
+ * and a `type <...>` line is an entry source like any other -- it pushes the
+ * whole type through the same AddToObjectProperties a `properties <...>` line
+ * uses, and that overwrites an entry of the same name (InitialiseObject,
+ * V4Game.Part2.cs:3398-3405; V4Game.cs:4042-4069), just as AddObjectAction
+ * overwrites a like-named action (V4Game.cs:3784-3816).  So a type named
+ * *below* a tag beats it, and only a tag below the type survives.  For the
+ * usual type-first ordering this is the same answer as resolving the types
+ * first, which is what geas used to do unconditionally; Operation: Sleepover
+ * writes the other order eight times, and lost an adjective off each garment
+ * ("a black sweater" for Quest's "a sweater"). */
+bool block_entry (const GeasFile &gf, const entry_kind &k,
+		  const GeasBlock &block, const string &name, string &string_rv)
+{
+  bool bool_rv = false;
+  gf.ensure_cached (block);
+  for (const GeasBlock::dir &d: block.*(k.obj_list))
+    if (d.is_type)
+      get_type_entry (gf, k, d.a, name, bool_rv, string_rv);
+    else if (ci_equal (d.a, name))
+      {
+	string_rv = d.b;
+	bool_rv = k.value_from_bv ? d.bv : true;
+      }
+  GEAS_DBG << k.obj_tag << ": Ultimately returning " << (bool_rv ? "true" : "false")
+	   << ", with string <" << string_rv << ">\n\n";
+  return bool_rv;
+}
+
+bool get_obj_entry (const GeasFile &gf, const entry_kind &k,
+		    const string &objname, const string &name,
+		    string &string_rv, const string &preferred_parent)
+{
+  GEAS_DBG << k.obj_tag << ": Getting " << k.noun << " <" << name
+	   << "> of object <" << objname << ">\n";
+  string_rv = "!";
+
+  const string *oti = gf.obj_type_of (objname);
+  if (oti == NULL)
+    {
+      gf.debug_print ("Checking nonexistent object <" + objname + "> for " +
+		      k.noun + " <" + name + ">.");
+      return false;
+    }
+
+  const GeasBlock *block = gf.find_by_name (*oti, objname, preferred_parent);
+  if (block == NULL)
+    {
+      gf.gi->debug_print (string ("get_obj_") + k.noun +
+			  ": no block for object '" + objname + "'");
+      return false;
+    }
+  return block_entry (gf, k, *block, name, string_rv);
+}
+
+bool get_room_entry (const GeasFile &gf, const entry_kind &k,
+		     const string &roomname, const string &name,
+		     string &string_rv)
+{
+  GEAS_DBG << k.room_tag << ": Getting " << k.noun << " <" << name
+	   << "> of room <" << roomname << ">\n";
+  string_rv = "!";
+  const GeasBlock *block = gf.find_by_name ("room", roomname);
+  if (block == NULL)
+    {
+      gf.debug_print ("Checking nonexistent room <" + roomname + "> for " +
+		      k.noun + " <" + name + ">.");
+      return false;
+    }
+  return block_entry (gf, k, *block, name, string_rv);
+}
+
+}   /* namespace */
+
+bool GeasFile::get_obj_property (const string &objname, const string &propname, string &string_rv, const string &preferred_parent) const
+{
+  return get_obj_entry (*this, prop_kind, objname, propname, string_rv,
+			preferred_parent);
+}
+
+bool GeasFile::get_room_property (const string &roomname, const string &propname, string &string_rv) const
+{
+  return get_room_entry (*this, prop_kind, roomname, propname, string_rv);
+}
+
+void GeasFile::get_type_property (const string &typenamex, const string &propname, bool &bool_rv, string &string_rv) const
+{
+  get_type_entry (*this, prop_kind, typenamex, propname, bool_rv, string_rv);
+}
 
 
 void GeasFile::flatten_type (const string &typenamex,
@@ -654,62 +696,15 @@ bool GeasFile::type_of_type (const string &subtype, const string &supertype) con
 
 
 
-bool GeasFile::block_action (const GeasBlock &block, const string &actname, string &string_rv) const
+bool GeasFile::get_obj_action (const string &objname, const string &actname, string &string_rv, const string &preferred_parent) const
 {
-  bool bool_rv = false;
-  ensure_cached (block);
-  /* One pass in source order, as in block_property: AddObjectAction overwrites
-   * a like-named action just as AddToObjectProperties overwrites a property
-   * (V4Game.cs:3784-3816), and the loader runs both from the same `type <...>`
-   * line, so an `action <rub>` written above a type that also defines `rub`
-   * loses to it. */
-  for (const GeasBlock::dir &d: block.obj_act)
-    if (d.is_type)
-      get_type_action (d.a, actname, bool_rv, string_rv);
-    else if (ci_equal (d.a, actname))
-      {
-	string_rv = d.b;
-	bool_rv = true;
-      }
-
-  GEAS_DBG << "g_o_a: Ultimately returning value " << (bool_rv ? "true" : "false")  << ", with string <" << string_rv << ">\n\n";
-
-  return bool_rv;
-}
-
-bool GeasFile::get_obj_action (const string &objname, const string &propname, string &string_rv, const string &preferred_parent) const
-{
-  GEAS_DBG << "g_o_a: Getting action <" << propname << "> of object <" << objname << ">\n";
-  string_rv = "!";
-
-  const string *oti = obj_type_of (objname);
-  if (oti == NULL)
-    {
-      debug_print ("Checking nonexistent object <" + objname + "> for action <" + propname + ">.");
-      return false;
-    }
-  const string &objtype = *oti;
-
-  const GeasBlock *block = find_by_name (objtype, objname, preferred_parent);
-  if (block == NULL)
-    {
-      gi->debug_print ("get_obj_action: no block for object '" + objname + "'");
-      return false;
-    }
-  return block_action (*block, propname, string_rv);
+  return get_obj_entry (*this, act_kind, objname, actname, string_rv,
+			preferred_parent);
 }
 
 bool GeasFile::get_room_action (const string &roomname, const string &actname, string &string_rv) const
 {
-  GEAS_DBG << "g_r_a: Getting action <" << actname << "> of room <" << roomname << ">\n";
-  string_rv = "!";
-  const GeasBlock *block = find_by_name ("room", roomname);
-  if (block == NULL)
-    {
-      debug_print ("Checking nonexistent room <" + roomname + "> for action <" + actname + ">.");
-      return false;
-    }
-  return block_action (*block, actname, string_rv);
+  return get_room_entry (*this, act_kind, roomname, actname, string_rv);
 }
 
 bool GeasFile::get_obj_default_action (const string &objname, string &string_rv) const
@@ -746,45 +741,9 @@ bool GeasFile::get_obj_default_action (const string &objname, string &string_rv)
 
 void GeasFile::get_type_action (const string &typenamex, const string &actname, bool &bool_rv, string &string_rv) const
 {
-  const GeasBlock *block = find_by_name ("type", typenamex);
-  if (block == NULL)
-    {
-      debug_print ("Object of nonexistent type " + typenamex);
-      return;
-    }
-  ensure_cached (*block);
-  for (const GeasBlock::dir &d: block->type_act)
-    {
-      if (d.is_type)
-	get_type_action (d.a, actname, bool_rv, string_rv);
-      else if (ci_equal (d.a, actname))   /* Quest action names are case-insensitive */
-	{
-	  bool_rv = true;
-	  string_rv = d.b;
-	}
-    }
+  get_type_entry (*this, act_kind, typenamex, actname, bool_rv, string_rv);
 }
  
-/* Fold to lower case in place, matching the ASCII fold build_name_key uses (and
- * lcase() under the C locale), without allocating a fresh string per call.
- * Surrounding whitespace is dropped for the same reason build_name_key drops it:
- * block names are registered trimmed, so keys derived from them must be too. */
-static void fold_lower_into (std::string &out, const string &s)
-{
-  size_t beg = 0, end = s.size ();
-  while (beg < end && isspace ((unsigned char) s[beg]))
-    beg ++;
-  while (end > beg && isspace ((unsigned char) s[end - 1]))
-    end --;
-  size_t n = end - beg;
-  out.resize (n);
-  for (size_t i = 0; i < n; i++)
-    {
-      unsigned char c = (unsigned char) s[beg + i];
-      out[i] = (c >= 'A' && c <= 'Z') ? (char) (c + 32) : (char) c;
-    }
-}
-
 const std::string *GeasFile::obj_type_of (const string &name) const
 {
   fold_lower_into (obj_type_scratch, name);

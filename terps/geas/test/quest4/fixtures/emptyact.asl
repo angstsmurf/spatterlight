@@ -3,7 +3,7 @@
 ! if it is the last character, logs "No script given for '<name>' action data"
 ! and returns (V4Game.cs:3934-3939) -- the loader has already trimmed the line
 ! (V4Game.cs:1335), so that test and "no script" are the same test.  geas
-! registered the action anyway, block_action found it, and the verb printed
+! registered the action anyway, the action lookup found it, and the verb printed
 ! nothing at all.
 !
 ! What the empty action shadows is the object's like-named `properties

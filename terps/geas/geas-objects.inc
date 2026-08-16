@@ -276,40 +276,24 @@ v2string geas_implementation::object_verbs (const string &obj) const
   if (game != NULL)
     for (const string &line: game->data)
       {
-	std::string::size_type d1, d2;
-	string tok = first_token (line, d1, d2);
-	if (tok == "lib")                       /* optional library-verb prefix */
-	  tok = next_token (line, d1, d2);
-	string names_tok;
-	if (tok == "verb")
-	  names_tok = next_token (line, d1, d2);
-	else if (is_param (tok))                /* bare "<name> <script>" form */
-	  names_tok = tok;
-	else
+	GameVerbLine v;
+	if (!parse_game_verb_line (line, v))
 	  continue;
-	if (!is_param (names_tok))
-	  continue;
-	/* The action or property the verb looks for on the object is whatever
-	   follows a colon, and the colon is taken out of the name list; with no
-	   colon it is the first (or only) name (V4Game.cs:2958-2976, mirrored in
-	   try_game_verb).  So "verb <hoist;lift:raise>" is typed as HOIST or
-	   LIFT, labelled "Hoist", and looks for `action <raise>` -- checking
-	   responds() against the typed name instead missed every colon form.
-	   (try_game_verb reads the name list with eval_param, which is not const;
-	   an unresolved #string# reference in a verb name only arises in the QDK
-	   mistake that leaves the verb dead anyway, so take it as written.) */
-	string names_str = param_contents (names_tok), key;
-	std::string::size_type colon = names_str.find (':');
-	if (colon != string::npos)
-	  {
-	    key = trim (names_str.substr (colon + 1));
-	    names_str = trim (names_str.substr (0, colon));
-	  }
-	vector<string> names = split_param (names_str);
+	/* Both `verb' and `lib verb' declarations offer an entry; the menu does
+	   not care which library the verb came from.  Checking responds()
+	   against the typed name rather than split_verb_names' key missed every
+	   colon form: "verb <hoist;lift:raise>" is typed as HOIST but looks for
+	   `action <raise>`.
+
+	   try_game_verb resolves the name list with eval_param, which is not
+	   const; an unresolved #string# reference in a verb name only arises in
+	   the QDK mistake that leaves the verb dead anyway, so take it as
+	   written. */
+	vector<string> names;
+	string key;
+	split_verb_names (param_contents (v.names_tok), names, key);
 	if (names.empty () || trim (names[0]) == "")
 	  continue;
-	if (key == "")
-	  key = trim (names[0]);
 	if (responds (key) && !has_indirect_object (trim (names[0])))
 	  add (label_of (names[0]));
       }

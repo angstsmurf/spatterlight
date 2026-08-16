@@ -37,18 +37,39 @@ using namespace std;
  *   expr   := term (('+'|'-') term)*
  *   term   := factor (('*'|'/') factor)*
  *   factor := ('+'|'-') factor | '(' expr ')' | number
- * Unparseable tail is ignored, matching Quest's lenient evaluation. */
+ *
+ * The grammar serves both of Quest's numeric readings, which differ only in
+ * what they do when it is not met, so `strict` selects between them rather than
+ * the whole descent being written out twice:
+ *
+ *   lenient (eval_double) -- take what there is and carry on.  A missing
+ *     operand reads as zero, a division by zero yields zero, an unclosed
+ *     bracket is forgiven, and an unparseable tail is simply left behind.
+ *
+ *   strict (eval_numeric_expr) -- refuse everything Quest's ExpressionHandler
+ *     refuses.  Quest splits the expression on + - * / and demands that every
+ *     element between the operators be numeric (V4Game.cs:3190-3200), so an
+ *     operand that is not arithmetic through and through fails instead of being
+ *     read up to the first unusable character; `ok` goes false and the caller
+ *     leaves the operand as it was.
+ *
+ * `ok` is only ever cleared in strict mode, so the `ok &&` guards on the two
+ * operator loops -- which stop the descent as soon as a sub-expression has
+ * failed -- cost a lenient parse nothing. */
 namespace {
-  struct DoubleParser {
+  struct NumParser {
     const string &s;
     size_t i = 0, n;
-    DoubleParser (const string &str) : s (str), n (str.length ()) {}
+    const bool strict;
+    bool ok = true;
+    NumParser (const string &str, bool in_strict)
+      : s (str), n (str.length ()), strict (in_strict) {}
     void skipws () { while (i < n && isspace ((unsigned char) s[i])) i++; }
     double expr () {
       double v = term ();
       for (;;) {
 	skipws ();
-	if (i < n && (s[i] == '+' || s[i] == '-')) {
+	if (ok && i < n && (s[i] == '+' || s[i] == '-')) {
 	  char op = s[i++];
 	  double r = term ();
 	  v = (op == '+') ? v + r : v - r;
@@ -60,11 +81,19 @@ namespace {
       double v = factor ();
       for (;;) {
 	skipws ();
-	if (i < n && (s[i] == '*' || s[i] == '/')) {
+	if (ok && i < n && (s[i] == '*' || s[i] == '/')) {
 	  char op = s[i++];
 	  double r = factor ();
-	  if (op == '*') v *= r;
-	  else v = (r != 0.0) ? v / r : 0.0;
+	  if (op == '*')
+	    v *= r;
+	  else if (r != 0.0)
+	    v /= r;
+	  else if (strict)
+	    /* Quest reports "Division by zero" as a failed expression, leaving
+	       the operand as it was.  */
+	    { ok = false; return 0; }
+	  else
+	    v = 0.0;
 	} else break;
       }
       return v;
@@ -80,13 +109,18 @@ namespace {
 	i++;
 	double v = expr ();
 	skipws ();
-	if (i < n && s[i] == ')') i++;
+	if (i < n && s[i] == ')')
+	  i++;
+	else if (strict)
+	  ok = false;
 	return v;
       }
       size_t start = i;
       while (i < n && isdigit ((unsigned char) s[i])) i++;
       if (i < n && s[i] == '.') { i++; while (i < n && isdigit ((unsigned char) s[i])) i++; }
-      if (i == start) return 0;
+      /* No digits at all, or -- strictly -- a lone decimal point. */
+      if (i == start) { if (strict) ok = false; return 0; }
+      if (strict && i == start + 1 && s[start] == '.') { ok = false; return 0; }
       return atof (s.substr (start, i - start).c_str ());
     }
   };
@@ -94,7 +128,7 @@ namespace {
 
 double eval_double (const string &s)
 {
-  DoubleParser p (s);
+  NumParser p (s, false);
   return p.expr ();
 }
 
@@ -154,75 +188,6 @@ double eval_double_pre391 (const string &expr, bool &div_by_zero)
   return vb_val_num (expr);
 }
 
-/* A stricter cousin of DoubleParser: it refuses everything Quest's
- * ExpressionHandler refuses.  Quest splits the expression on + - * / and
- * demands that every element between the operators be numeric
- * (V4Game.cs:3190-3200), so an operand that is not arithmetic through and
- * through fails instead of being read up to the first unusable character. */
-namespace {
-  struct StrictParser {
-    const string &s;
-    size_t i = 0, n;
-    bool ok = true;
-    StrictParser (const string &str) : s (str), n (str.length ()) {}
-    void skipws () { while (i < n && isspace ((unsigned char) s[i])) i++; }
-    double expr () {
-      double v = term ();
-      for (;;) {
-	skipws ();
-	if (ok && i < n && (s[i] == '+' || s[i] == '-')) {
-	  char op = s[i++];
-	  double r = term ();
-	  v = (op == '+') ? v + r : v - r;
-	} else break;
-      }
-      return v;
-    }
-    double term () {
-      double v = factor ();
-      for (;;) {
-	skipws ();
-	if (ok && i < n && (s[i] == '*' || s[i] == '/')) {
-	  char op = s[i++];
-	  double r = factor ();
-	  if (op == '*')
-	    v *= r;
-	  else if (r == 0.0)
-	    /* Quest reports "Division by zero" as a failed expression, leaving
-	       the operand as it was.  */
-	    { ok = false; return 0; }
-	  else
-	    v /= r;
-	} else break;
-      }
-      return v;
-    }
-    double factor () {
-      skipws ();
-      if (i < n && (s[i] == '+' || s[i] == '-')) {
-	char op = s[i++];
-	double v = factor ();
-	return (op == '-') ? -v : v;
-      }
-      if (i < n && s[i] == '(') {
-	i++;
-	double v = expr ();
-	skipws ();
-	if (i < n && s[i] == ')')
-	  i++;
-	else
-	  ok = false;
-	return v;
-      }
-      size_t start = i;
-      while (i < n && isdigit ((unsigned char) s[i])) i++;
-      if (i < n && s[i] == '.') { i++; while (i < n && isdigit ((unsigned char) s[i])) i++; }
-      if (i == start || (i == start + 1 && s[start] == '.')) { ok = false; return 0; }
-      return atof (s.substr (start, i - start).c_str ());
-    }
-  };
-}
-
 bool eval_numeric_expr (const string &s, string &result)
 {
   /* A bare number is arithmetic too, but Quest hands it back verbatim -- the
@@ -230,7 +195,7 @@ bool eval_numeric_expr (const string &s, string &result)
      reformatted number -- so leave those alone and keep "5.0" as "5.0". */
   if (s.find_first_of ("+-*/()") == string::npos)
     return false;
-  StrictParser p (s);
+  NumParser p (s, true);
   double v = p.expr ();
   p.skipws ();
   if (!p.ok || p.i != p.n)
@@ -324,6 +289,56 @@ string nonparam (const string &type, const string &var)
   return "Non-parameter for " + type + " in \"" + var + "\"";
 }
 
+bool parse_game_verb_line (const string &line, GameVerbLine &out)
+{
+  std::string::size_type d1, d2;
+  string tok = first_token (line, d1, d2);
+  out.is_lib = (tok == "lib");             /* optional library-verb prefix */
+  if (out.is_lib)
+    tok = next_token (line, d1, d2);
+  if (tok == "verb")
+    out.names_tok = next_token (line, d1, d2);
+  else if (is_param (tok))                 /* bare "<name> <script>" form */
+    out.names_tok = tok;
+  else
+    return false;
+  if (!is_param (out.names_tok))
+    return false;
+  out.deflt = trim (line.substr (d2));     /* default script */
+  return true;
+}
+
+void split_verb_names (const string &names_str, vstring &names, string &key)
+{
+  names.clear ();
+  key = "";
+
+  string rest = names_str;
+  std::string::size_type colon = rest.find (':');
+  if (colon != string::npos)
+    {
+      key = trim (rest.substr (colon + 1));
+      rest = trim (rest.substr (0, colon));
+    }
+
+  for (;;)
+    {
+      std::string::size_type scp = rest.find (';');
+      if (scp == string::npos)
+	{
+	  names.push_back (rest);
+	  break;
+	}
+      names.push_back (trim (rest.substr (0, scp)));
+      rest = trim (rest.substr (scp + 1));
+      if (rest == "")
+	break;
+    }
+
+  if (key == "" && !names.empty ())
+    key = trim (names[0]);
+}
+
 //ostream &operator << (ostream &o, const GeasBlock &gb) { return o; }
 //string trim (string s, trim_modes) { return s; }
 
@@ -389,6 +404,31 @@ string lcase (string s)
     if (c >= 'A' && c <= 'Z')
       c += 32;
   return s;
+}
+
+/* See the comment on the declarations in geas-util.hh. */
+void fold_lower_append (string &out, const string &s)
+{
+  size_t beg = 0, end = s.size ();
+  while (beg < end && isspace ((unsigned char) s[beg]))
+    beg ++;
+  while (end > beg && isspace ((unsigned char) s[end - 1]))
+    end --;
+  /* One sized write rather than reserve + push_back per character (which was a
+     profile hotspot): resize once, then fill directly. */
+  size_t n = end - beg, at = out.size ();
+  out.resize (at + n);
+  for (size_t i = 0; i < n; i ++)
+    {
+      unsigned char c = (unsigned char) s[beg + i];
+      out[at + i] = (c >= 'A' && c <= 'Z') ? (char) (c + 32) : (char) c;
+    }
+}
+
+void fold_lower_into (string &out, const string &s)
+{
+  out.clear ();
+  fold_lower_append (out, s);
 }
 
 /* The 32 places where Windows-1252 and Latin-1 part company.  Everything

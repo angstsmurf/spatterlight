@@ -234,14 +234,9 @@ struct GeasFile
   const GeasBlock *find_by_name (const std::string &type, const std::string &name,
 				 const std::string &preferred_parent = "") const;
 
-private:
-  /* The block-walking tails of get_obj_property / get_obj_action, once the
-   * block has been resolved: inherited types first, then the block's own
-   * entries, so a directly-defined one always wins. */
-  bool block_property (const GeasBlock &block, const std::string &propname,
-		       std::string &rv) const;
-  bool block_action (const GeasBlock &block, const std::string &actname,
-		     std::string &rv) const;
+  /* The four lookups above and their property counterparts share one
+     implementation, parameterized on which half of the block to read: see
+     `entry_kind` in geasfile.cc. */
 };
 
 extern std::ostream &operator << (std::ostream &, const GeasBlock &);

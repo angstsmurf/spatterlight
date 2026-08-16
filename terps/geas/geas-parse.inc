@@ -820,12 +820,9 @@ bool geas_implementation::try_game_verb (const string &cmd, bool is_internal, bo
 {
   match_rv match;
 
-  /* Game-scope verb declarations.  Quest writes these as either
-   *   verb <name[;synonym;...]> <default script>     (asl source) or
-   *   <name[;synonym;...]> <default script>           (compiled form),
-   * optionally prefixed with "lib" for a library-supplied verb.  They register
-   * custom verbs (e.g. "destroy", "mount") with a default response; an object
-   * overrides via action <name> or properties <name=...>.
+  /* Game-scope verb declarations (see GameVerbLine for the syntax).  They
+   * register custom verbs (e.g. "destroy", "mount") with a default response; an
+   * object overrides via action <name> or properties <name=...>.
    *
    * These run before every built-in: ExecCommand tries user commands, then
    * ExecVerb, then library commands and library verbs, and only reaches its own
@@ -839,28 +836,12 @@ bool geas_implementation::try_game_verb (const string &cmd, bool is_internal, bo
   if (game != NULL)
     for (const string &line: game->data)
 	{
-	  std::string::size_type d1, d2;
-	  string tok = first_token (line, d1, d2);
-	  bool is_lib = (tok == "lib");      /* optional library-verb prefix */
-	  if (is_lib)
-	    tok = next_token (line, d1, d2);
-	  if (is_lib != lib_pass)
+	  GameVerbLine v;
+	  if (!parse_game_verb_line (line, v))
 	    continue;
-	  string names_tok;
-	  if (tok == "verb")
-	    names_tok = next_token (line, d1, d2);
-	  else if (is_param (tok))           /* bare "<name> <script>" form */
-	    names_tok = tok;
-	  else
+	  if (v.is_lib != lib_pass)
 	    continue;
-	  if (!is_param (names_tok))
-	    continue;
-	  string deflt = trim (line.substr (d2));        /* default script */
-	  /* The action/property the verb looks for on the object is whatever
-	   * follows a colon, and the colon is taken out of the name list; with no
-	   * colon it is the first (or only) name (V4Game.cs:2958-2976).
-	   *
-	   * ExecVerb reads the name list with GetParameter, so #string#, %numeric%
+	  /* ExecVerb reads the name list with GetParameter, so #string#, %numeric%
 	   * and $function$ references inside it are substituted before any matching
 	   * happens (V4Game.cs:2946).  That matters for a mistake QDK invites: an
 	   * author who types the *command* form into the verb box ends up with
@@ -874,49 +855,11 @@ bool geas_implementation::try_game_verb (const string &cmd, bool is_internal, bo
 	   * "Consider it dropped." and never ran the gingerbread man's own drop
 	   * script -- the script that unlocks the only way into the second half of
 	   * the game. */
-	  string names_str = eval_param (names_tok), key;
-	  std::string::size_type colon = names_str.find (':');
-	  if (colon != string::npos)
-	    {
-	      key = trim (names_str.substr (colon + 1));
-	      names_str = trim (names_str.substr (0, colon));
-	    }
-	  /* Quest walks the name list with a do-while that trims every segment it
-	   * splits off at a semicolon but leaves the *last* one (the whole
-	   * parameter, when there is no semicolon at all) exactly as written
-	   * (V4Game.cs:2978-3003).  A verb declared "verb <use >" is therefore
-	   * matched as BeginsWith (cmd, "use  ") -- two spaces -- and can never
-	   * fire.  QDK 4.1.5 emits such names whenever the author leaves a
-	   * trailing space in the verb box, and games rely on the resulting dead
-	   * verbs without knowing it: "final of social studies.cas" declares
-	   * "verb <use >" ahead of "verb <use key in>", and only because the
-	   * former is unmatchable does USE KEY IN CLOSED DOOR reach the door's
-	   * "action <use key in>" and open the one locked door in the game.
-	   * Trimming here made "use " swallow every USE in the file.
-	   *
-	   * The same line splits on ';' alone, so the "verb <pick up; take, take>"
-	   * that QDK writes when an author types a comma registers "pick up" and
-	   * "take, take", not "take" -- which is why split_param's semicolon-only
-	   * split is right and why TAKE in that game falls through to the later
-	   * "verb <take>". */
 	  vector<string> names;
-	  for (string rest = names_str;;)
-	    {
-	      std::string::size_type scp = rest.find (';');
-	      if (scp == string::npos)
-		{
-		  names.push_back (rest);
-		  break;
-		}
-	      names.push_back (trim (rest.substr (0, scp)));
-	      rest = trim (rest.substr (scp + 1));
-	      if (rest == "")
-		break;
-	    }
+	  string key;
+	  split_verb_names (eval_param (v.names_tok), names, key);
 	  if (names.empty() || trim (names[0]) == "")
 	    continue;
-	  if (key == "")
-	    key = trim (names[0]);
 	  for (const string &verbname: names)
 	    {
 	      if (trim (verbname) == "")
@@ -930,8 +873,8 @@ bool geas_implementation::try_game_verb (const string &cmd, bool is_internal, bo
 		    run_script_as (obj, script);
 		  else if (get_obj_property (obj, key, script))
 		    print_formatted (script);
-		  else if (deflt != "")
-		    run_script_as (obj, deflt);
+		  else if (v.deflt != "")
+		    run_script_as (obj, v.deflt);
 		  return true;
 		}
 	    }

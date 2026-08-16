@@ -147,6 +147,12 @@ struct PropsIndex
   bool valid = false;
   std::string key_scratch;   /* reused buffer for lowercased lookup keys */
 
+  /* The records held under `name` (folded to a key the same way the index was
+     built -- see fold_lower_into), or nullptr if it has none.  Non-const
+     because it writes the key into key_scratch; both indices are `mutable`
+     members of GeasState, so the const lookups can still call it. */
+  const std::vector<size_t> *find (const std::string &name);
+
   PropsIndex () = default;
   PropsIndex (const PropsIndex &) {}
   PropsIndex &operator= (const PropsIndex &) { map.clear (); valid = false; return *this; }

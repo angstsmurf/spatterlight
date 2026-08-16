@@ -630,10 +630,18 @@ public:
    * Lower under AddressSanitizer: its redzones inflate run_script's frame
    * several-fold, so 500 nested frames overflow the sanitizer's stack before
    * this guard ever trips (fixtures/scriptdepth.asl found this).  Production
-   * builds keep Quest's number. */
+   * builds keep Quest's number.
+   *
+   * The sanitizer's number is bracketed by measurement, on the default 8 MB
+   * main-thread stack: scriptdepth.asl's benign 40-deep `descend` costs three
+   * nesting levels per call and so needs a cap of at least 125 to run to
+   * completion, while its runaway `oscillate` blows the stack outright once the
+   * cap is 230 or more.  175 sits between the two with room on both sides.  It
+   * was 100, which is *below* the benign case: `descend` gave up eight calls
+   * short of the bottom, and the fixture failed under `make asan` alone. */
 #if defined(__has_feature)
 # if __has_feature(address_sanitizer)
-  static constexpr int kMaxScriptDepth = 100;
+  static constexpr int kMaxScriptDepth = 175;
 # else
   static constexpr int kMaxScriptDepth = 500;
 # endif

@@ -48,6 +48,53 @@ extern std::string param_contents (const std::string &s);
 
 extern std::string nonparam (const std::string &, const std::string &);
 
+/* One game-scope verb declaration, as read from a line of the `game' block.
+ * Quest writes these as either
+ *   verb <name[;synonym;...][:key]> <default script>     (asl source) or
+ *   <name[;synonym;...][:key]> <default script>          (compiled form),
+ * optionally prefixed with "lib" for a library-supplied verb. */
+struct GameVerbLine
+{
+  bool is_lib;             /* the "lib" prefix was present */
+  std::string names_tok;   /* the <...> naming the verb, still unresolved */
+  std::string deflt;       /* the default script that follows it */
+
+  GameVerbLine () : is_lib (false) {}
+};
+
+/* True if LINE is such a declaration, filling OUT.  The name list comes back as
+ * the raw parameter token because the two readers of the `game' block have to
+ * resolve it differently -- try_game_verb with eval_param, the verb-menu
+ * builder (which is const) with param_contents.  Resolve it, then hand the
+ * result to split_verb_names. */
+extern bool parse_game_verb_line (const std::string &line, GameVerbLine &out);
+
+/* Split a *resolved* verb name list into the names the verb answers to and the
+ * key it looks for on the object.  The key is whatever follows a ':', and the
+ * colon is taken out of the name list; with no colon it is the first (or only)
+ * name (V4Game.cs:2958-2976).  So "verb <hoist;lift:raise>" is typed as HOIST or
+ * LIFT, labelled "Hoist", and looks for `action <raise>'.
+ *
+ * Quest walks the list with a do-while that trims every segment it splits off
+ * at a semicolon but leaves the *last* one (the whole parameter, when there is
+ * no semicolon at all) exactly as written (V4Game.cs:2978-3003).  A verb
+ * declared "verb <use >" is therefore matched as BeginsWith (cmd, "use  ") --
+ * two spaces -- and can never fire.  QDK 4.1.5 emits such names whenever the
+ * author leaves a trailing space in the verb box, and games rely on the
+ * resulting dead verbs without knowing it: "final of social studies.cas"
+ * declares "verb <use >" ahead of "verb <use key in>", and only because the
+ * former is unmatchable does USE KEY IN CLOSED DOOR reach the door's
+ * "action <use key in>" and open the one locked door in the game.  Trimming
+ * here made "use " swallow every USE in the file.  Callers must therefore trim
+ * each name themselves before using it as text.
+ *
+ * The split is on ';' alone, so the "verb <pick up; take, take>" that QDK
+ * writes when an author types a comma registers "pick up" and "take, take", not
+ * "take" -- which is why TAKE in that game falls through to the later
+ * "verb <take>". */
+extern void split_verb_names (const std::string &names_str,
+			      vstring &names, std::string &key);
+
 extern std::string string_geas_block (const GeasBlock &);
 
 extern bool starts_with (const std::string &, const std::string &);
@@ -100,6 +147,26 @@ extern bool eval_numeric_expr (const std::string &s, std::string &result);
 extern std::string pcase (std::string s);
 extern std::string ucase (std::string s);
 extern std::string lcase (std::string s);
+
+/* The canonical index key for a name: surrounding whitespace dropped and the
+ * ASCII letters folded to lower case -- i.e. lcase (trim (s)), but written into
+ * a caller-owned buffer so a hot lookup allocates nothing.  Every name-keyed
+ * table in the engine folds this way and they must agree byte for byte:
+ * GeasFile::name_index and obj_types (build_name_key, obj_type_of) and
+ * GeasState's props_index / objs_index (PropsIndex::find) are all probed with
+ * names the game typed in whatever case and spacing it liked, and a block is
+ * registered under its trim()'d name (see readfile.cc).  "Something 'Bout A
+ * Hex" needs the trim: it defines its journal as `<Journal >' and reads it back
+ * as `<Journal>'.  The fold is ASCII-only, matching ci_equal and lcase (), so a
+ * hit here is exactly what the linear ci_equal scans these indices replaced
+ * would have matched -- and, unlike the locale-aware tolower (), it does not
+ * pay for a locale lookup per character on the property-lookup hot path.
+ *
+ * fold_lower_append extends `out`; fold_lower_into replaces it.  Neither
+ * releases the buffer's capacity, which is what keeps a reused scratch string
+ * allocation-free.  `out` and `s` must not alias. */
+extern void fold_lower_append (std::string &out, const std::string &s);
+extern void fold_lower_into (std::string &out, const std::string &s);
 
 /* Re-encode a line of game text from Windows-1252 to UTF-8.  Quest is a VB6
  * program: it reads its files a byte at a time through Chr(), which maps them

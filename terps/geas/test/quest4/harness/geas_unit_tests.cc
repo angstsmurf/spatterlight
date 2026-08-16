@@ -231,6 +231,114 @@ test_timer_roundtrip ()
 	 "a garbled ticks-left field restarts the cycle rather than seeding it");
 }
 
+/* ---- the autosave's undo history rides the same wire format as a save file,
+   and since the readers were gathered into SaveReader it rides the same reader
+   code too -- so a mistake there would show up here rather than only in a
+   Spatterlight autorestore, which no test can drive.  Nothing else in the suite
+   loads a history. ---- */
+void
+test_undo_history_roundtrip ()
+{
+  std::vector<UndoState> states;
+  for (int s = 0; s < 3; s++)
+    {
+      UndoState u;
+      u.running = (s != 1);
+      u.location = "Room" + string_int (s);
+      u.props_len = 7 * s;          /* a snapshot records props by length only */
+
+      ObjectRecord o;
+      o.name = "lamp";
+      o.parent = "Cellar";
+      o.hidden = (s == 2);
+      o.invisible = false;
+      o.is_room = false;
+      u.objs.push_back (o);
+
+      u.exits.push_back (ExitRecord ("Room0", "Room1"));
+
+      TimerRecord t;
+      t.name = "fuse";
+      t.is_running = true;
+      t.interval = 10;
+      t.elapsed = (uint) s;
+      u.timers.push_back (t);
+
+      SVarRecord sv ("hero");
+      sv.set (0, "Rincewind");
+      sv.set (2, "third");          /* sparse again: max() == 2 */
+      u.svars.push_back (sv);
+
+      IVarRecord iv ("score");
+      iv.set (0, 42 + s);
+      u.ivars.push_back (iv);
+
+      u.items.push_back ("a rusty key");
+      states.push_back (u);
+    }
+
+  const std::string wire = serialize_undo_history (states);
+  std::vector<UndoState> back;
+  check (deserialize_undo_history (wire, back), "undo history: reloads");
+  check (back.size () == states.size (), "undo history: every snapshot");
+
+  for (size_t s = 0; s < back.size () && s < states.size (); s++)
+    {
+      const UndoState &a = states[s], &b = back[s];
+      check (b.running == a.running && b.location == a.location
+	       && b.props_len == a.props_len,
+	     "undo history: snapshot header " + string_int (s));
+      check (b.objs.size () == 1 && b.objs[0].name == "lamp"
+	       && b.objs[0].parent == "Cellar"
+	       && b.objs[0].hidden == a.objs[0].hidden
+	       && b.objs[0].invisible == a.objs[0].invisible
+	       && !b.objs[0].is_room,
+	     "undo history: objects " + string_int (s));
+      check (b.exits.size () == 1 && b.exits[0].src == "Room0"
+	       && b.exits[0].dest == "Room1",
+	     "undo history: exits " + string_int (s));
+      check (b.timers.size () == 1 && b.timers[0].name == "fuse"
+	       && b.timers[0].is_running && b.timers[0].interval == 10
+	       && b.timers[0].elapsed == a.timers[0].elapsed,
+	     "undo history: timers " + string_int (s));
+      check (b.svars.size () == 1 && b.svars[0].name == "hero"
+	       && b.svars[0].max () == 2
+	       && b.svars[0].get (0) == "Rincewind"
+	       && b.svars[0].get (2) == "third",
+	     "undo history: string variables " + string_int (s));
+      check (b.ivars.size () == 1 && b.ivars[0].name == "score"
+	       && b.ivars[0].get (0) == 42 + (int) s,
+	     "undo history: numeric variables " + string_int (s));
+      check (b.items.size () == 1 && b.items[0] == "a rusty key",
+	     "undo history: items " + string_int (s));
+    }
+
+  /* An empty history is legal -- the first turn has nothing to undo to. */
+  std::vector<UndoState> none, none_back;
+  check (deserialize_undo_history (serialize_undo_history (none), none_back)
+	   && none_back.empty (),
+	 "undo history: an empty history round-trips");
+
+  /* The magic is what keeps a history written by an older engine, whose
+     ObjectRecord::parent meant something else, from being replayed. */
+  check (!deserialize_undo_history ("", back), "undo history: empty rejected");
+  check (!deserialize_undo_history ("GEASUNDO1" + std::string (1, char (0)), back),
+	 "undo history: superseded magic rejected");
+  check (!deserialize_undo_history ("not a history at all", back),
+	 "undo history: garbage rejected");
+
+  /* Truncated at every byte: an autosave can be cut short, and each of these
+     leaves a count promising more records than the stream can hold.  The point
+     is that none of them reads past the end (run this under -fsanitize=address)
+     or tries to allocate for a count it cannot honour. */
+  for (size_t cut = 0; cut < wire.size (); cut++)
+    {
+      std::vector<UndoState> partial;
+      deserialize_undo_history (wire.substr (0, cut), partial);
+    }
+  check (true, "undo history: no truncation reads past the end");
+}
+
 /* ---- split_lines: "_" continues a line onto the next one.  A line that is
    nothing but the marker leaves an empty accumulator to index. ---- */
 void
@@ -262,6 +370,8 @@ main ()
   test_serialize_roundtrip ();
   std::cout << "timer round trip:\n";
   test_timer_roundtrip ();
+  std::cout << "undo history round trip:\n";
+  test_undo_history_roundtrip ();
   std::cout << "split_lines:\n";
   test_split_lines ();
 
