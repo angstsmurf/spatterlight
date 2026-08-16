@@ -1,0 +1,319 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ The Child Murderer 
+ 
+ Interactive Suspense 
+ 
+ An introductory level adventure 
+ 
+ Written by Michael Zerbo 
+ Created Using ALAN 2.6 
+ 
+ Your name is Charles Browning and you are the personal servant to Robert Harris, a rich businessman living in a suburb of London. Recently an odd occurrence had happened to you; one of the groundskeepers, Jim Devlin, approached you with a plan to kidnap one of Harris' daughters in exchange for a ransom. Now you have known Jim for quite a while, and he always plays practical jokes, so you assumed he was kidding. It has been on your mind though, and you can only hope that it was just a bad joke...
+
+Garden1.
+You are standing in the gardens behind the house. The cool summer breeze feels good on this afternoon. A cobblestone path leads up towards the house, a stately manor that you are proud to work in. The gardens continue to your west and to the north is the house entrance. 
+ 
+ Options: 
+ (G)et, (T)alk to, E(x)amine, (U)se, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (N)orth, (S)outh, (E)ast, (W)est, U(p), (D)own 
+
+> Entrance.
+You standing just inside the back entrance to the house. To your left are several trays of fruit left out for the children. Exits lead north and south. 
+ 
+ Visible objects: Strawberries 
+ 
+ Options: 
+ (G)et, (T)alk to, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (N)orth, (S)outh, (E)ast, (W)est, (U)p, (D)own 
+You standing just inside the back entrance to the house. To your left are several trays of fruit left out for the children. Exits lead north and south. 
+ 
+ Visible objects: Strawberries 
+ 
+ Options: 
+ (G)et, (T)alk to, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (N)orth, (S)outh, (E)ast, (W)est, (U)p, (D)own 
+
+> House.
+You are standing in the living quarters of the house. Directly before you is a large table and to your right is the fireplace. The floor is covered with a light grey carpet. Exits lead south, east and west. 
+ 
+ Options: 
+ (G)et, (T)alk to, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (N)orth, (S)outh, (E)ast, (W)est, (U)p, (D)own 
+You are standing in the living quarters of the house. Directly before you is a large table and to your right is the fireplace. The floor is covered with a light grey carpet. Exits lead south, east and west. 
+ 
+ Options: 
+ (G)et, (T)alk to, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (N)orth, (S)outh, (E)ast, (W)est, (U)p, (D)own 
+
+> Parlor.
+You are standing in the parlor. Before you is the master of the house, Mr. Harris. He is sitting in a relaxed position looking directly at you. Exits lead east and west. 
+ 
+ Visible objects: Master 
+ 
+ Options: 
+ (G)et, (T)alk to, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (N)orth, (S)outh, (E)ast, (W)est, (U)p, (D)own 
+ 
+ 
+"Charles, go get my wife, will you. Tell her we will be late for the concert if she does not hurry up." 
+ 
+You are standing in the parlor. Before you is the master of the house, Mr. Harris. He is sitting in a relaxed position looking directly at you. Exits lead east and west. 
+ 
+ Visible objects: Master 
+ 
+ Options: 
+ (G)et, (T)alk to, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (N)orth, (S)outh, (E)ast, (W)est, (U)p, (D)own 
+ 
+ 
+
+> House.
+You are standing in the living quarters of the house. Directly before you is a large table and to your right is the fireplace. The floor is covered with a light grey carpet. Exits lead south, east and west. 
+ 
+ Options: 
+ (G)et, (T)alk to, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (N)orth, (S)outh, (E)ast, (W)est, (U)p, (D)own 
+You are standing in the living quarters of the house. Directly before you is a large table and to your right is the fireplace. The floor is covered with a light grey carpet. Exits lead south, east and west. 
+ 
+ Options: 
+ (G)et, (T)alk to, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (N)orth, (S)outh, (E)ast, (W)est, (U)p, (D)own 
+
+> Den.
+You are standing in the master's den. Before you is a large desk covered with many papers. A hallway leads to the north and to the east. 
+ 
+ Visible objects: Desk 
+ 
+ Options: 
+ (G)et, (T)alk to, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (N)orth, (S)outh, (E)ast, (W)est, (U)p, (D)own 
+You are standing in the master's den. Before you is a large desk covered with many papers. A hallway leads to the north and to the east. 
+ 
+ Visible objects: Desk 
+ 
+ Options: 
+ (G)et, (T)alk to, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (N)orth, (S)outh, (E)ast, (W)est, (U)p, (D)own 
+
+> You look over the desk and notice that the candlestick located on it is down to a small nub. You remove it and replace it with a new one.
+> House.
+You are standing in the living quarters of the house. Directly before you is a large table and to your right is the fireplace. The floor is covered with a light grey carpet. Exits lead south, east and west. 
+ 
+ Options: 
+ (G)et, (T)alk to, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (N)orth, (S)outh, (E)ast, (W)est, (U)p, (D)own 
+You are standing in the living quarters of the house. Directly before you is a large table and to your right is the fireplace. The floor is covered with a light grey carpet. Exits lead south, east and west. 
+ 
+ Options: 
+ (G)et, (T)alk to, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (N)orth, (S)outh, (E)ast, (W)est, (U)p, (D)own 
+
+> Entrance.
+You standing just inside the back entrance to the house. To your left are several trays of fruit left out for the children. Exits lead north and south. 
+ 
+ Visible objects: Strawberries 
+ 
+ Options: 
+ (G)et, (T)alk to, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (N)orth, (S)outh, (E)ast, (W)est, (U)p, (D)own 
+You standing just inside the back entrance to the house. To your left are several trays of fruit left out for the children. Exits lead north and south. 
+ 
+ Visible objects: Strawberries 
+ 
+ Options: 
+ (G)et, (T)alk to, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (N)orth, (S)outh, (E)ast, (W)est, (U)p, (D)own 
+
+> You think that perhaps Alice would like a few strawberries. You walk over to the tray of fruit and take a handful.
+Entrance.
+You standing just inside the back entrance to the house. To your left are several trays of fruit left out for the children. Exits lead north and south. 
+ 
+ Visible objects: Strawberries 
+ 
+ Options: 
+ (G)et, (T)alk to, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (N)orth, (S)outh, (E)ast, (W)est, (U)p, (D)own 
+You standing just inside the back entrance to the house. To your left are several trays of fruit left out for the children. Exits lead north and south. 
+ 
+ Visible objects: Strawberries 
+ 
+ Options: 
+ (G)et, (T)alk to, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (N)orth, (S)outh, (E)ast, (W)est, (U)p, (D)own 
+
+> Garden1.
+You are standing in the gardens behind the house. The cool summer breeze feels good on this afternoon. A cobblestone path leads up towards the house, a stately manor that you are proud to work in. The gardens continue to your west and to the north is the house entrance. 
+ 
+ Options: 
+ (G)et, (T)alk to, E(x)amine, (U)se, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (N)orth, (S)outh, (E)ast, (W)est, U(p), (D)own 
+
+> Garden2.
+You are walking through the beautiful gardens of your employers. The bright sun is shining onto the many flowers located here. To your south you can hear several voices. The gardens also continue to your east. 
+ 
+ Options: 
+ (G)et, (T)alk to, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (N)orth, (S)outh, (E)ast, (W)est, (U)p, (D)own 
+
+> Garden3.
+You are standing before the wife and youngest child of your employer. They are resting outside with the family dog, Harold. Mrs. Harris looks up at you and says, "Hello Charles," in a pleasant voice. 
+ 
+ Visible objects: Mrs Harris, Alice, Harold (the dog) 
+ 
+ Options: 
+ (G)et, (T)alk to, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (N)orth, (S)outh, (E)ast, (W)est, (U)p, (D)own 
+ You are standing before the wife and youngest child of your employer. They are resting outside with the family dog, Harold. Mrs. Harris looks up at you and says, "Hello Charles," in a pleasant voice. 
+ 
+ Visible objects: Mrs Harris, Alice, Harold (the dog) 
+ 
+ Options: 
+ (G)et, (T)alk to, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (N)orth, (S)outh, (E)ast, (W)est, (U)p, (D)own 
+ 
+
+
+> You tell Mrs. Harris about the concert. She hurries up, commenting that she had forgotten all about it. Alice doesn't want to seem to go inside, however. She starts to cry and holds onto Harold. "Charles, could you do something? I don't want to be late for the concert."
+
+>  Alice takes a strawberry from you and thanks you. "They are my favorite,", she says in a sweet voice. You tell her she can have more if she enters the house. She gets up and follows you. 
+ 
+ "Thank you Charles, I didn't know how to get her in," Mrs. Harris remarks. After several minutes the Harris' get ready for the concert. They leave on time, with plans to spend most of the evening out. 
+ 
+ You check that the front door is unlocked and the children are in bed, before you go to your room for the night. You awake very early the next morning. The sun is just rising and you hurridly rise from your bed, hoping to start a great day. Your hopes are smashed as you look down at the floor. Alice is lying there, dead.
+ 
+ You fall to the floor in horror. You try to make some sense of this, when you hear the maid outside your door. If she catches you with the body, you will be blamed for the murder. You must do something, and do it fast.
+
+Bedroom.
+You are standing in your small, but well furnished bedroom. The only visible exit is to the south. There is the dead child, Alice, here. 
+ 
+ Visible objects: Alice 
+ 
+ Options: 
+ (G)et, (T)alk to, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (N)orth, (S)outh, (E)ast, (W)est, (U)p, (D)own 
+You are standing in your small, but well furnished bedroom. The only visible exit is to the south. There is the dead child, Alice, here. 
+ 
+ Visible objects: Alice 
+ 
+ Options: 
+ (G)et, (T)alk to, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (N)orth, (S)outh, (E)ast, (W)est, (U)p, (D)own 
+
+
+> You think about how if the maid catches Alice in here, you will be hung as the murderer. You pick up Alice and place her on your shoulders.
+
+>  You sneak out of your room and into the gardens. From there you start walking on back roads and hidden paths until you leave town.
+
+Coast.
+You are standing on the top of a cliff looking over the shoreline. A trail here leads down to the beach. To the north is a road leading back to the city. 
+ 
+ Options: 
+ (G)et, (T)alk to, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (N)orth, (S)outh, (E)ast, (W)est, (U)p, (D)own 
+You are standing on the top of a cliff looking over the shoreline. A trail here leads down to the beach. To the north is a road leading back to the city. 
+ 
+ Options: 
+ (G)et, (T)alk to, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (N)orth, (S)outh, (E)ast, (W)est, (U)p, (D)own 
+
+
+> Beach.
+You are standing on the beach. The waves hitting the surf are making a a deafening sound. To your south you spot a cave. 
+ 
+ Options: 
+ (G)et, (T)alk to, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (N)orth, (S)outh, (E)ast, (W)est, (U)p, (D)own 
+
+
+> You light the candle and lay it down in the cave. The cave is quite small, but big enough to easily conceal a dead body...
+
+Cave.
+You are standing inside the cave. It is very damp, with eerie shadows covering the walls. 
+ 
+ Options: 
+ (G)et, (T)alk to, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (N)orth, (S)outh, (E)ast, (W)est, (U)p, (D)own 
+
+
+> You carefully hide the girl's body in the cave.
+
+> Beach.
+You are standing on the beach. The waves hitting the surf are making a a deafening sound. To your south you spot a cave. 
+ 
+ Options: 
+ (G)et, (T)alk to, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (N)orth, (S)outh, (E)ast, (W)est, (U)p, (D)own 
+
+
+> Coast.
+You are standing on the top of a cliff looking over the shoreline. A trail here leads down to the beach. To the north is a road leading back to the city. 
+ 
+ Options: 
+ (G)et, (T)alk to, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (N)orth, (S)outh, (E)ast, (W)est, (U)p, (D)own 
+You are standing on the top of a cliff looking over the shoreline. A trail here leads down to the beach. To the north is a road leading back to the city. 
+ 
+ Options: 
+ (G)et, (T)alk to, E(x)amine, (Us)e, (L)ook, (R)estore, Sa(v)e, (Q)uit 
+ (N)orth, (S)outh, (E)ast, (W)est, (U)p, (D)own 
+
+
+> You walk for quite a distance until you reach the outskirts of the city. You enter a nearby carriage.
+
+End_demo.
+You are sitting in a hansom cab. The driver turns to you and asks, "Where to?" 
+ 
+ 'Where to?', indeed. They must have discovered that Alice is missing by now, and you will be their prime suspect. 
+ 
+ You have gotten this far without getting caught, can you manage to find safety from your captors? Can you locate the fiend who murdered Alice, and have him brought to justice? 
+ 
+ To find out, please order the Registered version of Bloody Murder for just Eighteen Dollars. It includes both the complete versions of Child Murderer and Inner Demons, additional digitized graphics and full stories. 
+ 
+ The games will be sent on high density 3.5" disks for the PC. 
+ 
+ You may order by Credit Card, Cash, Check or Money order. 
+ 
+ Toll Free Ordering: Visa or MasterCard orders may be placed by calling Laser Point at (800) 894-6758 
+ 
+ Electronic Mail Registration: You may register via electronic mail by sending the following information to: orders@laserpoint.com 
+ 
+ - Name of Product, Visa or MasterCard Account Number, Card Type (Visa or MasterCard), Card Expiration Date, Name of Card Holder 
+ 
+ Postal Mail Registration: You may send cash, money order, or check, drawn in U.S. funds on a U.S. bank to: 
+ 
+ Laser Point 
+ Bloody Murder Registration 
+ P.O. Box 2378 
+ Watsonville, CA 95077 
+ 
+
+
+> 
+
+Do you want to RESTART, RESTORE or QUIT? Do you want to RESTART, RESTORE or QUIT? 
+<end of input>

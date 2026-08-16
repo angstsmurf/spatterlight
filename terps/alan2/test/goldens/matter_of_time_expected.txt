@@ -1,0 +1,212 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ A Matter of Time 
+ 
+ An Introductory Adventure 
+ 
+ (C) 1995 Michael Zerbo 
+ Created using ALAN Version 2.5 
+ 
+ You are a research physicist named Jonathan Stone. You are standing in the Professor's laboratory. It is the year 2150. You are about to embark on a great journey, a journey into the unknown. In front of you is the Professor's time machine. The control panel is apparently missing. However, the dials are locked on a specific date. A date seventy-five million years into the past. This will be your destination, searching for your mentor and friend... 
+ 
+ 
+ Your story began several days ago as Dr. Joseph Adams and Dr. Karl Evers, bitter rivals, were each working on their version of a machine which would travel in time. They were working towards a deadline for government funding. Only one would receive it, the other left out in the cold. You worked for Professor Adams as an assistant. His daughter Clarisse also helped out when she could. 
+ 
+ 
+ You knew Professor Adams was coming close to a breakthrough with his work, although you had no idea how close he was to actually creating a working time machine. 
+ 
+ 
+ This morning Dr. Evers was found dead in his laboratory, apparently murdered. Two bullet holes were found in his head. The police visited you a short while ago, requesting the presence of Dr. Adams for questioning. To your surprise he was nowhere to be found. The police automatically began a hunt for Dr. Adams, who became their prime suspect. Just now, as you carefully look over the Professor's laboratory do you discover where the Professor went... 
+ 
+ 
+ The time machine is missing... 
+ 
+ You begin a search for any information the Professor may have left behind. A small note sticking out from one of the Professor's notebooks, catches your eye. You quickly remove it. 
+ 
+ It reads as follows: 
+ 
+ I am going alone. It is too dangerous to risk other lives. I will attempt to go as far back as we had planned, to the brink of oblivion, when time began. I will search for what man has searched for his entire existance, the proof of God. I will return on the day you are reading this note. 
+ - Professor Adams 
+ 
+ You call Clarisse into the room and show her what you found. You both can not believe that the Professor was involved in the murder. It must be just a coincidence that the Professor tested his machine this morning. You did not think the machine was ready for use, but obviously you had been mistaken. 
+ 
+ Just then, with a flash of light, the time machine reappears in the laboratory. However, it is empty. You remember a safety device inside the machine which could be set to return it to the present time in case of a problem. Unfortunately, that is what must have happened. 
+ 
+"I am going after him", you hear Clarisse saying. You know you will have to find him if he is still alive. However, you are not sure about bringing Clarisse along. Also, you know you must hurry. 
+ 
+
+
+Clearings.
+You decide that it is too dangerous for Clarisse and quickly position yourself in the machine. You nervously start the controls and hope for the best. The machine begins to shake and you notice a strange grinding sound eminating from the machine. You also notice that your field of view appears to be shrinking, and your vision is getting blurry. You close your eyes for a few seconds and after opening them you find yourself in a small clearing. You are still sitting inside the time machine. After regaining your composure you decide to have a look about. There appears to be a trail leading to the north and to the east. Towards the north it seems to be rocky and to the east you think you hear some type of river. You can see large tracks to the east. Other than this trail there seems to be no other exits. You are surrounded by forests. 
+ The time machine is located here. 
+ 
+ There appears to be a trail leading to the north and to the east. Towards the north it seems to be rocky and to the east you think you hear some type of river. You can see large tracks to the east. Other than this trail there seems to be no other exits. You are surrounded by forests. 
+ The time machine is located here. 
+
+> Trail.
+To the north is a trail leading to some hills and mountains. The view is very lovely. You look about the area, but you do not see any animal life nearby. You wonder where the Professor could be. If he took this path you would have noticed footprints. He could have wandered into the forest or took the other path. 
+ 
+ You can see a trail leading to a small opening in the trees. Exits lead north, south and west.
+ 
+To the north is a trail leading to some hills and mountains. The view is very lovely. You look about the area, but you do not see any animal life nearby. You wonder where the Professor could be. If he took this path you would have noticed footprints. He could have wandered into the forest or took the other path. 
+ 
+ You can see a trail leading to a small opening in the trees. Exits lead north, south and west.
+
+
+> Forest.
+You are standing in the jungle. Little light is shining through the leaves and the air is very thick. A trail leads to the east and west.
+
+> Swamp.
+You are standing in a swampy area. Vines are hanging down from the trees. The air is very humid and moist. A large tree is standing before you. 
+ 
+
+
+> Tree.
+You are located up in a tree. You can see down around you for quite a distance. Swampy land surrounds this area blocking further travel. You can spot a hill to your northeast. Leaves and vines block a full view of the surrounding lands.
+ 
+You are located up in a tree. You can see down around you for quite a distance. Swampy land surrounds this area blocking further travel. You can spot a hill to your northeast. Leaves and vines block a full view of the surrounding lands.
+ 
+
+
+> Taken.
+
+>  Swamp (again)
+
+
+>  Forest (again)
+
+
+>  Trail (again)
+
+
+>  Clearings (again)
+
+
+>  The time machine is in generally good working order. Several of the manual controls are not present, but the Professor should hopefully be able to fix them. That is, if you ever find him. There appears to be an greasy substance around the control panel.
+
+>  You scoop out some of the substance onto a leaf.
+
+> Trail.
+To the north is a trail leading to some hills and mountains. The view is very lovely. You look about the area, but you do not see any animal life nearby. You wonder where the Professor could be. If he took this path you would have noticed footprints. He could have wandered into the forest or took the other path. 
+ 
+ You can see a trail leading to a small opening in the trees. Exits lead north, south and west.
+ 
+To the north is a trail leading to some hills and mountains. The view is very lovely. You look about the area, but you do not see any animal life nearby. You wonder where the Professor could be. If he took this path you would have noticed footprints. He could have wandered into the forest or took the other path. 
+ 
+ You can see a trail leading to a small opening in the trees. Exits lead north, south and west.
+
+
+> Hill.
+You are standing in front of a large hill. There is a small cave within sight. You can see a path leading to the top of the hill. There is less plant life located here. 
+ 
+You are standing in front of a large hill. There is a small cave within sight. You can see a path leading to the top of the hill. There is less plant life located here. 
+
+> Cave.
+You are standing in a small, damp cave. To the east is a dark tunnel. There is an old iron box here.
+
+>  You put the oily substance on the hinges of the box.
+
+>  You manage to lift the rusty lid of the box. It seems that rust had been holding the box together, as it seems to fall into pieces as the oily substance flows over it. There are some basic supplies here. There is some canned food, a small axe and an electronic lamp. You set the lamp up, illuminating the cave.
+
+>  Taken.
+
+>  Hill (again)
+
+
+>  Trail (again)
+
+
+> Clearings.
+There appears to be a trail leading to the north and to the east. Towards the north it seems to be rocky and to the east you think you hear some type of river. You can see large tracks to the east. Other than this trail there seems to be no other exits. You are surrounded by forests. 
+ The time machine is located here. 
+ 
+ There appears to be a trail leading to the north and to the east. Towards the north it seems to be rocky and to the east you think you hear some type of river. You can see large tracks to the east. Other than this trail there seems to be no other exits. You are surrounded by forests. 
+ The time machine is located here. 
+
+> River.
+You are standing on a dirt path. Directly before you is a waterfall that is moving very fast. At the bottom of the falls you can make out a river with a long coastline. 
+ 
+ There are also several large tracks to the north leading behind some trees and bushes.
+ 
+You are standing on a dirt path. Directly before you is a waterfall that is moving very fast. At the bottom of the falls you can make out a river with a long coastline. 
+ 
+ There are also several large tracks to the north leading behind some trees and bushes. There are several large pieces of wood here.
+
+>  You clean off the metal using the nearby water.
+
+>  Clearings (again)
+
+
+> Trail.
+To the north is a trail leading to some hills and mountains. The view is very lovely. You look about the area, but you do not see any animal life nearby. You wonder where the Professor could be. If he took this path you would have noticed footprints. He could have wandered into the forest or took the other path. 
+ 
+ You can see a trail leading to a small opening in the trees. Exits lead north, south and west.
+ 
+To the north is a trail leading to some hills and mountains. The view is very lovely. You look about the area, but you do not see any animal life nearby. You wonder where the Professor could be. If he took this path you would have noticed footprints. He could have wandered into the forest or took the other path. 
+ 
+ You can see a trail leading to a small opening in the trees. Exits lead north, south and west.
+
+
+> Hill.
+You are standing in front of a large hill. There is a small cave within sight. You can see a path leading to the top of the hill. There is less plant life located here. 
+ 
+You are standing in front of a large hill. There is a small cave within sight. You can see a path leading to the top of the hill. There is less plant life located here. 
+
+> Hilltop.
+You are standing on top of the hill. You can see smoke in the far distance to your southeast. Since it doesn't appear cloudy you doubt lightning struck and it doesn't seem a likely place for a brush fire. You think it may be the Professor. To the east is a small protruding piece of rock. You could get a better view if you could get on it. However, it does look a bit dangerous. 
+ 
+You are standing on top of the hill. You can see smoke in the far distance to your southeast. Since it doesn't appear cloudy you doubt lightning stuck and it doesn't seem a likely place for a brush fire. You think it may be the Professor. To the east is a small protruding piece of rock. You could get a better view if you could get on it. However, it does look a bit dangerous. 
+
+> You aim the metal at the sun, trying to create a signal that the Professor can see. The shiny metal reflects the sunlight quite well. After about ten minutes, you start to see a similar signal in the far distance, across the river along the shoreline. It must be the Professor. You now have an approximate idea of where he is.
+
+End_demo.
+
+ 
+ This is the end of the Demonstration version of this game. To further your adventure, please order the full Registered version of the game from Laser Point Publishing & Distribution. The Registered version contains the complete game, additional graphics, sounds, and dinosaurs! 
+ 
+The Registration Fee for the game is ten dollars in U.S. funds.
+ You may order by Credit Card, Cash, Check or Money order. 
+ 
+ Toll Free Ordering: Visa or MasterCard orders may be placed by calling Laser Point at (800) 894-6758 
+ 
+ Electronic Mail Registration: You may register via electronic mail by sending the following information to: orders@laserpoint.com 
+ 
+ - Name of Product, Visa or MasterCard Account Number, Card Type (Visa or MasterCard), Card Expiration Date, Name of Card Holder 
+ 
+ Postal Mail Registration: You may send cash, money order, or check, drawn in U.S. funds on a U.S. bank to: 
+ 
+ Laser Point 
+ A Matter of Time Registration 
+ P.O. Box 2378 
+ Watsonville, CA 95077 
+ 
+ Compuserve customers may register through the Compuserve Shareware Registry. Go SWERG and register product 8833.
+
+> 
+
+ Do you want to RESTART, RESTORE or QUIT? Do you want to RESTART, RESTORE or QUIT? 
+<end of input>

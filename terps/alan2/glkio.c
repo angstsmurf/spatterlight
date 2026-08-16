@@ -11,6 +11,7 @@
 
 #include "glk.h"
 #include "glkio.h"
+#include "glkmedia.h"
 
 #define BUFSIZE 1024
 
@@ -25,7 +26,12 @@ void glkio_printf(char *fmt, ...)
   {
     char buf[BUFSIZE];	/* FIXME: buf size should be foolproof */
     vsnprintf(buf, BUFSIZE, fmt, argp);
-    glk_put_string(buf);
+#ifdef SPATTERLIGHT
+    /* The media layer gets first refusal, so that it can hold back a
+       description the game repeats across a picture (see glkmedia.c) */
+    if (!glkmedia_filter_output(buf))
+#endif
+      glk_put_string(buf);
   }
   va_end(argp);
 }

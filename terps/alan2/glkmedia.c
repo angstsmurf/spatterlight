@@ -9,9 +9,15 @@
     viewer <name>.pcx    Viewer 2.2, a VESA SVGA image viewer: flip the
                          whole screen to the picture, wait for a key,
                          restore text mode
+    showjpg <name>.jpg   Jan Patera's ShowJPG, the same thing for JPEGs.
+                         A Matter of Time 1.2 (1995, re-released 2003)
+                         re-rendered its pictures as JPEG and switched to
+                         it; everything else about the idiom is unchanged
     sbplay <name>.wav /s SBPlay 2.11, a Sound Blaster sample player that
                          blocks until the sample has finished
-    pause                COMMAND.COM's "Press any key to continue . . ."
+    pause                COMMAND.COM's "Press any key to continue . . .",
+                         used to hold the text before the flip to graphics
+                         and so ignored here -- see glkmedia_system()
 
   Media files live next to the game. On-disk case does not match the
   command strings (DOS did not care), and two of the shareware files lie
@@ -36,11 +42,9 @@
                                    gli_enable_graphics, gli_enable_sound */
 
 #include "types.h"
-#include "main.h"               /* advnam, output(), para(), statusline() */
+#include "main.h"               /* advnam, para(), newline() */
 #include "glkio.h"              /* glkMainWin */
 #include "glkmedia.h"
-
-#define GRAPHICS_ROCK 250
 
 #define MAX_ENTRIES 128
 #define MAX_NAME 64
@@ -60,8 +64,6 @@ static MediaEntry entries[MAX_ENTRIES];
 static int numentries = 0;
 static int nextpicres = 1;
 static int nextsndres = 1;
-
-static winid_t gfxwin = NULL;
 
 /* SBPLAY.EXE blocked, so consecutive sbplay calls played sequentially in
    DOS. Glk playback is asynchronous and a second play on the same channel
@@ -158,28 +160,6 @@ static unsigned char *readFile(const char *path, long *lenp)
     fclose(f);
     *lenp = len;
     return data;
-}
-
-
-/*----------------------------------------------------------------------
-  Keypress waiting, shared by pause and picture dismissal
-\*----------------------------------------------------------------------*/
-
-static void drawPicture(MediaEntry *e);
-
-static void waitForKey(MediaEntry *pic)
-{
-    event_t event;
-
-    glk_request_char_event(glkMainWin);
-    do {
-        glk_select(&event);
-        if (event.type == evtype_Arrange || event.type == evtype_Redraw) {
-            statusline();
-            if (pic != NULL)
-                drawPicture(pic);
-        }
-    } while (event.type != evtype_CharInput);
 }
 
 
@@ -441,6 +421,20 @@ static Boolean registerPicture(MediaEntry *e)
     if (data == NULL)
         return FALSE;
 
+    /* A format the app reads by itself needs no help from us: hand the
+       file over as it lies. This is the showjpg case (A Matter of Time
+       1.2), and it also covers a PCX or IFF game whose art someone has
+       since converted. */
+    if (len > 3
+        && ((data[0] == 0xFF && data[1] == 0xD8 && data[2] == 0xFF)
+            || memcmp(data, "\x89PNG", 4) == 0
+            || memcmp(data, "GIF8", 4) == 0)) {
+        free(data);
+        e->resno = nextpicres++;
+        win_loadimage(e->resno, e->path, 0, (int)len);
+        return TRUE;
+    }
+
     if (data[0] == 0x0A)
         pixels = decodePcx(data, len, &w, &h, pal);
     else
@@ -471,68 +465,247 @@ static Boolean registerPicture(MediaEntry *e)
 
 
 /*----------------------------------------------------------------------
-  viewer: flip to the picture, wait for a key, flip back
+  Holding back the text a game repeats across a picture
+
+  VIEWER.EXE wiped the screen twice over: once flipping to graphics and
+  once restoring text mode. So the games print the text around a picture
+  twice -- the acode idiom is describe, pause, viewer, describe again, the
+  second copy being what the player reads once the graphics screen is
+  gone. Drawn inline the picture wipes nothing, so the second copy is pure
+  repetition, and far more glaring than it ever was in DOS.
+
+  What gets repeated is not tidy. In The Hollywood Murders "examine julie"
+  repeats one sentence, and the two copies differ by a trailing space. In
+  A Matter of Time every room repeats its description AND its object list,
+  and on the way in the first copy is glued to the end of a much longer
+  paragraph ("You decide that it is too dangerous for Clarisse ... There
+  appears to be a trail leading to the north"). Paragraphs are therefore
+  the wrong unit. What holds in both games is that the words printed after
+  the picture are the last words printed before it, so that is the test:
+  compare word by word, ignoring white space entirely, and look for the
+  repeat as a suffix of what came before.
+
+  Every character the interpreter prints funnels through glkio_printf(),
+  which offers it here first. Normally it goes straight out and all we do
+  is keep a copy of the turn so far. From the moment a picture is drawn
+  the rest of the turn is held back instead, and whatever part of it
+  repeats the run-up to the picture is dropped; the rest is printed.
+
+  Text may never be lost: whatever is held is resolved and released at the
+  next prompt, at the next picture, at the end of the game, and released
+  untouched if it outgrows the buffer.
 \*----------------------------------------------------------------------*/
 
-static void drawPicture(MediaEntry *e)
+#define TEXT_MAX 4096           /* per buffer; only the tail of the turn
+                                   can ever match, so older text is
+                                   dropped off the front rather than
+                                   stopping us from tracking */
+#define MAX_WORDS (TEXT_MAX / 2)
+
+/* Below this a match is more likely to be a coincidence -- a stray "Yes."
+   or the room name -- than a repeated description */
+#define MIN_REPEAT_WORDS 4
+#define MIN_REPEAT_CHARS 24
+
+static char before[TEXT_MAX];   /* what the main window got this turn */
+static int beforelen = 0;
+static char held[TEXT_MAX];     /* printed since the picture, not yet out */
+static int heldlen = 0;
+static Boolean holding = FALSE;
+
+/* statusline() prints through the same funnel with the status window
+   current, and none of that is transcript */
+static Boolean toMainWindow(void)
 {
-    glui32 iw, ih, ww, wh, dw, dh;
-
-    if (gfxwin == NULL)
-        return;
-    if (!glk_image_get_info(e->resno, &iw, &ih) || iw == 0 || ih == 0)
-        return;
-    glk_window_get_size(gfxwin, &ww, &wh);
-    if (ww == 0 || wh == 0)
-        return;
-
-    dw = ww;
-    dh = ww * ih / iw;
-    if (dh > wh) {
-        dh = wh;
-        dw = wh * iw / ih;
-    }
-    glk_window_clear(gfxwin);
-    glk_image_draw_scaled(gfxwin, e->resno, (ww - dw) / 2, (wh - dh) / 2,
-                          dw, dh);
+    return (Boolean)(glkMainWin != NULL
+                     && glk_stream_get_current() == glk_window_get_stream(glkMainWin));
 }
+
+static void rememberText(const char *s, int len)
+{
+    if (len >= TEXT_MAX) {      /* keep the tail, drop the rest */
+        s += len - TEXT_MAX;
+        len = TEXT_MAX;
+    }
+    if (beforelen + len > TEXT_MAX) {
+        int drop = beforelen + len - TEXT_MAX;
+        memmove(before, before + drop, beforelen - drop);
+        beforelen -= drop;
+    }
+    memcpy(before + beforelen, s, len);
+    beforelen += len;
+}
+
+static void emitText(const char *s, int len)
+{
+    glk_put_buffer((char *)s, len);
+    rememberText(s, len);
+}
+
+typedef struct { int off, len; } Word;
+
+static int splitWords(const char *s, int slen, Word *w)
+{
+    int i = 0, n = 0;
+
+    while (i < slen && n < MAX_WORDS) {
+        while (i < slen && isspace((unsigned char)s[i])) i++;
+        if (i == slen)
+            break;
+        w[n].off = i;
+        while (i < slen && !isspace((unsigned char)s[i])) i++;
+        w[n].len = i - w[n].off;
+        n++;
+    }
+    return n;
+}
+
+/* How much of the front of `b` repeats the end of `a`, in bytes of `b`,
+   0 for no repeat worth dropping. Longest run of words wins, so a repeat
+   that the game followed with something new is still recognised. */
+static int repeatedRun(const char *a, int alen, const char *b, int blen)
+{
+    static Word aw[MAX_WORDS], bw[MAX_WORDS];
+    int na = splitWords(a, alen, aw);
+    int nb = splitWords(b, blen, bw);
+    int k, i, chars;
+
+    for (k = (na < nb ? na : nb); k > 0; k--) {
+        chars = 0;
+        for (i = 0; i < k; i++) {
+            Word *x = &aw[na - k + i], *y = &bw[i];
+            if (x->len != y->len || memcmp(a + x->off, b + y->off, x->len) != 0)
+                break;
+            chars += x->len;
+        }
+        if (i == k && k >= MIN_REPEAT_WORDS && chars >= MIN_REPEAT_CHARS)
+            return bw[k - 1].off + bw[k - 1].len;
+    }
+    return 0;
+}
+
+/* Safety valve: out it all goes, unjudged */
+static void releaseHeld(void)
+{
+    int n = heldlen;
+
+    heldlen = 0;
+    holding = FALSE;
+    if (n > 0)
+        emitText(held, n);
+}
+
+/* Drop the repeat, print the rest */
+static void resolveHeld(void)
+{
+    int n, run;
+
+    if (!holding)
+        return;
+    holding = FALSE;
+
+    run = repeatedRun(before, beforelen, held, heldlen);
+    n = heldlen - run;
+    heldlen = 0;
+    if (n > 0)
+        emitText(held + run, n);
+}
+
+/*======================================================================
+  glkmedia_filter_output()
+
+  Offered every string on its way to the main window. Returns TRUE when
+  the string has been dealt with here and the caller must not print it.
+ */
+int glkmedia_filter_output(char *str)
+{
+    int len;
+
+    if (str == NULL || str[0] == '\0' || !toMainWindow())
+        return FALSE;
+
+    len = (int)strlen(str);
+
+    if (!holding) {
+        rememberText(str, len);
+        return FALSE;               /* the caller prints it, as always */
+    }
+
+    if (heldlen + len > TEXT_MAX) { /* far more than a repeat: give up */
+        releaseHeld();
+        return FALSE;
+    }
+    memcpy(held + heldlen, str, len);
+    heldlen += len;
+    return TRUE;
+}
+
+/*======================================================================
+  glkmedia_flush_output()
+
+  Called where the text stops and something else takes over: before input
+  is asked for, and at the end of the game. This is where a turn ends, so
+  it is where the held text is judged and released, and where the record
+  of the turn starts afresh.
+
+  The turn has to start afresh, or the record would begin with the "> "
+  prompt agetline() prints before asking for input, followed by nothing at
+  all for the line the player types -- the library echoes that, it does
+  not come through here.
+ */
+void glkmedia_flush_output(void)
+{
+    resolveHeld();
+    beforelen = 0;
+}
+
+
+/*----------------------------------------------------------------------
+  viewer: put the picture in the transcript
+\*----------------------------------------------------------------------*/
 
 static void showPicture(MediaEntry *e)
 {
-    glui32 iw, ih, ww, wh;
-    winid_t parent;
+    glui32 iw, ih;
 
     if (e->resno == 0 && !registerPicture(e)) {
         e->broken = TRUE;
         return;
     }
+
+    /* Nothing to say to a host that cannot draw into a buffer window --
+       and say it before touching the transcript, so that a text-only host
+       (CheapGlk) still gets the byte-identical output it got before */
+    if (!glk_gestalt(gestalt_Graphics, 0)
+        || !glk_gestalt(gestalt_DrawImage, wintype_TextBuffer))
+        return;
     if (!glk_image_get_info(e->resno, &iw, &ih) || iw == 0 || ih == 0) {
         e->broken = TRUE;
         return;
     }
 
     /* DOS flipped the whole screen to graphics and back on a keypress.
-       Split the buffer window instead of replacing it, so the transcript
-       survives, and give the picture as much of the height as its aspect
-       ratio asks for -- the library clamps what does not fit. */
-    if (gfxwin == NULL)
-        gfxwin = glk_window_open(glkMainWin, winmethod_Above | winmethod_Fixed,
-                                 0, wintype_Graphics, GRAPHICS_ROCK);
-    if (gfxwin == NULL)
-        return;
+       Draw into the buffer window instead: the picture stays where the
+       game put it, so there is nothing to flip back from and no keypress
+       to wait for. Original size with the aspect ratio kept, but never
+       wider than the window and re-resolved on every re-layout, so a
+       640x480 screenshot fits and follows a resize (Glk 0.7.6
+       glk_image_draw_scaled_ext; 0x10000 is 1.0 in 16.16 fixed point). */
+    resolveHeld();              /* two pictures in a turn, as at startup */
 
-    glk_window_set_background_color(gfxwin, 0x000000);
-    glk_window_get_size(gfxwin, &ww, &wh);
-    parent = glk_window_get_parent(gfxwin);
-    if (parent != NULL && ww > 0)
-        glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
-                                   ww * ih / iw, NULL);
-    drawPicture(e);
+    para();
+    glk_image_draw_scaled_ext(glkMainWin, e->resno, imagealign_InlineUp, 0,
+                              0, 0x10000,
+                              imagerule_WidthOrig | imagerule_AspectRatio,
+                              0x10000);
+    newline();
 
-    waitForKey(e);
-
-    glk_window_close(gfxwin, NULL);
-    gfxwin = NULL;
+    /* Whatever the game says from here to the end of the turn is held
+       back, and judged against the run-up to this picture. The paragraph
+       break just printed is part of that run-up, but only as white space,
+       which the comparison ignores. */
+    heldlen = 0;
+    holding = (Boolean)(beforelen > 0);
 }
 
 
@@ -613,7 +786,8 @@ void glkmedia_system(char *command)
     for (i = 0; n > 1 && arg[i] != '\0'; i++)
         arg[i] = tolower(arg[i]);
 
-    if (strcmp(verb, "viewer") == 0 && n > 1) {
+    if ((strcmp(verb, "viewer") == 0 || strcmp(verb, "showjpg") == 0)
+        && n > 1) {
         /* The game's own "graphics off" verb gates the call sites in
            acode; this covers the Spatterlight preference on top */
         if (gli_enable_graphics) {
@@ -627,13 +801,17 @@ void glkmedia_system(char *command)
             if (e != NULL && e->path != NULL && !e->broken)
                 playSound(e);
         }
-    } else if (strcmp(verb, "pause") == 0) {
-        para();
-        output("[Press any key to continue]");
-        waitForKey(NULL);
-        newline();
     }
-    /* Anything else: this is not DOS, do not try to run it */
+    /* "pause" -- COMMAND.COM's "Press any key to continue . . ." -- is
+       ignored. The games use it to hold the text on screen before
+       VIEWER.EXE flips the whole screen to graphics, so it sits right in
+       front of a viewer call: the acode idiom is describe, pause, viewer,
+       describe again on the way back. Drawing the picture inline wipes
+       nothing, so there is nothing to hold, and the prompt would only ask
+       the player for a keypress to reveal a picture that is already on its
+       way into the transcript.
+
+       Anything else: this is not DOS, do not try to run it */
 }
 
 #endif /* SPATTERLIGHT */

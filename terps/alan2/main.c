@@ -42,6 +42,7 @@
 #ifdef GLK
 #include "glk.h"
 #include "glkio.h"
+#include "glkmedia.h"
 #include "randomness.h"
 
 extern glui32 gli_determinism;
@@ -162,6 +163,9 @@ void terminate(code)
 #endif
 
 #ifdef GLK
+#ifdef SPATTERLIGHT
+  glkmedia_flush_output();      /* the last picture may still be holding */
+#endif
   glk_exit();
 #else
   exit(code);
@@ -361,7 +365,9 @@ void newline()
 #endif
 {
 #ifdef GLK
-  glk_put_char('\n');
+  /* Through printf(), not glk_put_char(), so that paragraph breaks reach
+     the media layer's output filter along with everything else */
+  printf("\n");
 #else
   char buf[256];
   

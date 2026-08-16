@@ -10,6 +10,7 @@
 #include "main.h"
 #include "glk.h"
 #include "glkio.h"
+#include "glkmedia.h"
 
 /*======================================================================
 
@@ -23,6 +24,11 @@
 Boolean readline(char usrbuf[])
 {
   event_t event;
+#ifdef SPATTERLIGHT
+  /* Nothing the media layer is holding back may sit there across a
+     prompt, waiting for text that will not come until the player types */
+  glkmedia_flush_output();
+#endif
   glk_request_line_event(glkMainWin, usrbuf, 255, 0);
   /* FIXME: buffer size should be infallible: all existing calls use 256 or
      80 character buffers, except parse which uses LISTLEN (currently 100)

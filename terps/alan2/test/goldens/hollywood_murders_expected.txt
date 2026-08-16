@@ -1,0 +1,216 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ The Hollywood Murders 
+ An Interactive Mystery 
+ 
+ Written by Michael Zerbo 
+ Created using Alan 2.6 
+ 
+ 
+ 
+ Your name is Jim Novak, a private investigator living in a suburb of Los Angeles. You have a small rented office located in a run down part of the neighborhood, an old jalopy and a few dollars to your name. You haven't had much of a caseload recently, or actually anytime that you can remember. You've managed to scratch out a living in this line of work, but just barely. Maybe your luck will change. It actually can't get much worse. Or so you think... 
+
+Office.
+You are sitting in your office on a hot summer day. It's early in the morning and the heat is already getting to you. Beads of sweat trickle down your face. A small fan is sitting on a nearby table, barely creating a breeze. Your radio is sitting next to it. An old desk is standing directly before you, with an assortment of papers scattered across its surface. To your left is a file cabinet and to your right is an overfilled waste paper basket. 
+ 
+ Hanging from your walls are a few landscapes, most of them painted by yourself. They are nothing special, but they do give the room a somewhat brighter look. To the north is a closed door. To your south is an open window.
+
+>  You look into the basket hoping to find something of use. A small business card catches your eye.
+
+>  Taken.
+
+>  You open the door.
+
+>  You walk into your secretary's office.
+
+Office.
+You are standing in your secretary's office. Julie is currently sitting at her desk typing away. "Hello Jim," she says as she gives you a quick glance. 
+ 
+ You give her a smile and tell her to go on with her work. 
+ 
+The room is quite small, and can barely be called an office. It is more of an reception area for potential clients. Besides a small desk which your secretary is working at, there are a set of chairs against the far wall, and a file cabinet to your direct right. 
+ 
+ There are a couple of pictures hanging here, none of which are your landscapes. Julie decorated this room, and it actually looks a lot better than your own office. Your office is to the direct south. To the west is an open door. 
+
+
+> "Lost your key again? Here's my copy. Don't lose it again, or you'll be locked out forever," Julie replies.
+
+>  You walk into your office.
+
+Office.
+You are sitting in your office on a hot summer day. It's early in the morning and the heat is already getting to you. Beads of sweat trickle down your face. A small fan is sitting on a nearby table, barely creating a breeze. Your radio is sitting next to it. An old desk is standing directly before you, with an assortment of papers scattered across its surface. To your left is a file cabinet and to your right is an overfilled waste paper basket. 
+ 
+ Hanging from your walls are a few landscapes, most of them painted by yourself. They are nothing special, but they do give the room a somewhat brighter look. To the north is your secretary's office. To your south is an open window.
+
+>  You unlock the drawer using the key.
+
+>  You open the desk drawer.
+
+>  Taken.
+
+>  You put the glasses on.
+
+>  The card reads: 
+ Franklin Office Supplies
+ 
+ "Your only stop for your general office needs" 
+ 
+ 15 Locust Avenue 
+ Los Angeles, CA 11382 
+ (202) 757-3838 
+ 
+ On the back of the card is the name, Thea Harbou, with the message, "Please call - urgent" 
+ 
+ Now you remember where the card came from. Two days ago, while in Sammy's, the local drinking hole, your remember a dame handing you this card, asking for you to call back. It is a shame you can't remember too much about that evening, simply that you came back home to sleep it off. You think back, but can't get a clear picture of her. Perhaps, she was hitting on you. You can hope, anyway... 
+ 
+ Maybe you should give her a call.
+ 
+
+
+> You pick up the phone and give Thea a call. 
+ 
+A soft spoken woman answers. After a few minutes of conversation, you discover that she wants to hire you to find her husband. You ask her to stop by the office. 
+ 
+After waiting for about half an hour, Julie shows your potential client in. She appears to be in her early 30's, slender, tall , and with long black hair. She is wearing a tight fitting black dress, which shows off her hourglass figure. You ask her to sit down, and she gracefully moves into a nearby seat. 
+ 
+ She hands you a black and white photo. "That is my husband, the tall one with the mustache," she says with a German accent. "Me and my Joseph came over to America as soon as the war ended. Four years ago he disappeared, no trace, nothing. I looked endlessly for him, but couldn't find him. I just happened to run across this photo in a film magazine. It seems my Joseph has gotten himself some sort of job in Hollywood, in the movies." 
+ 
+ You nod knowingly. You have had plenty of cases of husbands leaving wives in the past. Some just get tired of their wives, some just want a new life. You explain that if you do manage to find him, he likely will not want to come back.
+ 
+ "Perhaps," Thea says. "One thing though, before he left he didn't know I was pregnant. We now have a five year old son." "That does change things," you tell her. She hands you a few other documents relating to her husband, and a small bracelet. "This is all I can pay you for now, I don't have much money. After you find my husband, I'll get more for you." 
+ 
+ Normally you don't barter your services. However, being that both of you seem desperate, you agree. 
+ "I'll get back to you as soon as I find out anything." You see Thea out of the office.
+
+>  You pick up your revolver.
+
+>  You walk into your secretary's office.
+
+Office.
+You are standing in your secretary's office. "Hello, four eyes, Julie says with a smirk." You ignore the comment. The room is quite small, and can barely be called an office. It is more of an reception area for potential clients. Besides a small desk which your secretary is working at, there are a set of chairs against the far wall, and a file cabinet to your direct right. 
+ 
+ There are a couple of pictures hanging here, none of which are your landscapes. Julie decorated this room, and it actually looks a lot better than your own office. Your office is to the direct south. To the west is an open door. 
+
+
+> You ask Julie to take a look at the photo. She's always reading those movie magazines, maybe she knows the name of the film. 
+ 
+ "Let's see, it's one of those crime films. Not 'Crime city', hmm, I know, it's from 'The postman always rings twice', with John Garfield. That's him in the foreground. Don't tell me you have Garfield as a client, bigshot." "No, no, just the fellow in the back, the one with the mustache," you tell her. 
+ "No idea who he is, just some extra it looks like," Julie replies. 
+ You thank her for the help. Hmm, not a bad film if you remember. Can't quite remember the studio though.
+
+>  You walk into the hallway.
+
+Hallway.
+You are standing in a hallway directly outside of your office. You have the only office on this floor of the building, which is a bit rundown. The wallpaper, which seems to be barely clinging to the walls is a dark grey, and the light grey carpet is quite worn. A set of stairs are to your south. The hallway continues to the north, and your office is to the east.
+
+>  You walk over to the stairway.
+
+Stairway.
+You are standing before a stairwell leading to the ground floor. Your office is to the north. Stairs are located to the south.
+
+> Stairs.
+The stairs lead down to the street level. You can hear the hustle and bustle of everyday life as the sounds of the outside world make their way into the building. Exits lead down and north. 
+
+> Street.
+You are standing outside the building which houses your office. This area of town is generally quite busy, at least during business hours. A few people brush across you as they walk by in a hurry. 
+ 
+ Exits lead up to your office and east and west along the sidewalk.
+
+> Sidewalk.
+You are standing before an old pawn shop. The barred windows protect the gathered riches of the poor and downtrodden of the neighborhood. Visible exits lead east, west and north. 
+You are standing before an old pawn shop. The barred windows protect the gathered riches of the poor and downtrodden of the neighborhood. Visible exits lead east, west and north.
+
+> Pawn Shop.
+You are standing inside a pawn shop. It is cluttered with various goods. An old man, most likely the owner, is sitting behind the counter. 
+
+> You hand the bracelet to the broker, hoping to get decent money for it. "I'll give you ten dollars," the man says. "I'm being generous too.". You accept the offer and take the money.
+
+>  You hand the documents to the old man. "Well let's see here," he mumbles out. "I know a bit of German, not a whole lot though." He takes out a pen and starts scribbling away. After a few minutes he hands the papers back to you. "That's all I can translate, friend. Hope it is of some help.
+
+>  The old man has translated a few paragraphs for you. There are some old pictures of Joesph Harbou, one next to some German dame, a filmmaker of some sort, Leni Riefenstahl. From reading over the papers, it looks as if Harbou was involved with some Nazi propaganda films in the early thirties. Once the war started, he and his wife left the country and came to the United States. That's about all you can figure out from them.
+
+> Sidewalk.
+You are standing before an old pawn shop. The barred windows protect the gathered riches of the poor and downtrodden of the neighborhood. Visible exits lead east, west and north. 
+You are standing before an old pawn shop. The barred windows protect the gathered riches of the poor and downtrodden of the neighborhood. Visible exits lead east, west and north.
+
+> Street.
+You are standing outside the building which houses your office. This area of town is generally quite busy, at least during business hours. A few people brush across you as they walk by in a hurry. 
+ 
+ Exits lead up to your office and east and west along the sidewalk.
+
+> Sidewalk.
+You are standing in front of Harold's newsstand, your favorite place to check out the local gossip. Harold is standing behind his stand reading a newspaper. 
+ 
+ Exits lead east and west. 
+ 
+You are standing in front of Harold's newsstand, your favorite place to check out the local gossip. Harold is standing behind his stand reading a newspaper. 
+ 
+ Exits lead east and west. Your car is parked here.
+
+>  You buy one of the film magazines from Harold. 
+ 
+You are standing in front of Harold's newsstand, your favorite place to check out the local gossip. Harold is standing behind his stand reading a newspaper. 
+ 
+ Exits lead east and west. 
+
+
+> You flip through the film magazine looking for any references to the film 'The postman always rings twice'. With luck, you manage to find a small article with the information you need. The film was produced by M-G-M, and their studio is not too far from here.
+
+>  You get into your car and head out over to M-G-M, a short drive away. You arrive at the opulent M-G-M studio in about half an hour, ready to begin your investigation. Your heart starts pumping excitedly as you anticipate the adventure ahead. 
+ 
+
+
+End_demo.
+This has been just a short trial version of The Hollywood Murders. If you wish to continue your adventure, please order the Registered version from Laser Point Publishing and Distribution. 
+ 
+ For Fifteen Dollars (Check, Money order or Credit card), you can order the full Registered version of the game. It includes many additional graphics and the complete storyline. 
+ 
+ Requires 386 or better, SVGA graphics, Sound card, and HD. 
+ 
+ You may order Toll Free: (800) 894-6758 
+ 
+ Visa and MasterCard orders accepted. 
+ 
+ You may also register through the mail at: 
+ 
+ Laser Point 
+ Hollywood Murders Registration 
+ P.O. Box 2378 
+ Watsonville, CA 95077 
+ 
+ California residents please remember to include 8.25 percent sales tax. 
+ 
+ Electronic mail registration: You may register via electronic mail at orders@laserpoint.com 
+ 
+ Compuserve: Compuserve members may register using the Compuserve shareware registry. GO SWERG and register product #11665. 
+ 
+ 
+
+> 
+
+Do you want to RESTART, RESTORE or QUIT? Do you want to RESTART, RESTORE or QUIT? 
+<end of input>

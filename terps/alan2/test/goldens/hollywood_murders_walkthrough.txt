@@ -1,0 +1,30 @@
+look in basket
+take card
+open door
+n
+ask julie for key
+s
+unlock drawer with key
+open drawer
+take glasses
+wear glasses
+read card
+call thea
+take gun
+n
+show photo to julie
+w
+s
+s
+d
+w
+n
+give bracelet to man
+show documents to man
+read documents
+s
+e
+e
+buy magazine
+read magazine
+drive car
