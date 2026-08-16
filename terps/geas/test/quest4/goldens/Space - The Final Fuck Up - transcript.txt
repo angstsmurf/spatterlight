@@ -35,10 +35,10 @@ You scoop up some of the liquid into the jar and seal it tightly.
 You are in Hallway.
 You can see a Cat here.
 There is a Control Panel here.
-You can go to Stasis Room, Sciece Lab, Medilab, or the Bridge.
+You can go to Stasis Room, Science Lab, Medilab, or the Bridge.
 A metalic hallway. There are panels all over the place.
 
-> go to sciece lab
+> go to science lab
 You are in the Sciece Lab.
 There is nobody here.
 There is a Microscope here.
@@ -53,7 +53,7 @@ It's a virus.....and an acid......it's an acidic virus.
 You are in Hallway.
 You can see a Cat here.
 There is a Control Panel here.
-You can go to Stasis Room, Sciece Lab, Medilab, or the Bridge.
+You can go to Stasis Room, Science Lab, Medilab, or the Bridge.
 A metalic hallway. There are panels all over the place.
 
 > go to the bridge

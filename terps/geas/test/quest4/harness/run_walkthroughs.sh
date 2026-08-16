@@ -7,6 +7,11 @@
 #   ./run_walkthroughs.sh [games dir]
 #   ./run_walkthroughs.sh --bless [games dir]     (re)record the transcripts
 #   ./run_walkthroughs.sh --win-only [games dir]  win markers only, no diffing
+#   ./run_walkthroughs.sh --only <pattern> [...]  play just the games whose label
+#                                                 matches (case-insensitive
+#                                                 substring, or a shell glob);
+#                                                 combines with --bless to
+#                                                 re-record a single transcript
 #
 # Each game is checked twice over: the win marker has to appear, *and* the whole
 # transcript has to match "<title> - transcript.txt" in ../goldens byte for
@@ -30,14 +35,16 @@
 set -u
 here=$(cd "$(dirname "$0")" && pwd)
 
-bless=no; winonly=no
+bless=no; winonly=no; only=
 while [ $# -gt 0 ]; do
     case "$1" in
         --bless)    bless=yes; shift ;;
         --win-only) winonly=yes; shift ;;
+        --only)     only=$2; shift 2 ;;
         *)          break ;;
     esac
 done
+only_lc=$(printf '%s' "$only" | tr '[:upper:]' '[:lower:]')
 
 G=${1:-"$here/../games"}
 
@@ -52,11 +59,17 @@ tmpdiff=${TMPDIR:-/tmp}/geas_walkthrough_diff.$$
 trap 'rm -f "$tmpdiff"' EXIT INT TERM
 
 export GEAS_SEED=1
-pass=0; fail=0
+pass=0; fail=0; matched=0
 
 # play  <label>  <game>  <command script>  <win-marker>  [extra runner args...]
 play() {
     label=$1; game=$2; wt=$3; marker=$4; shift 4
+    if [ -n "$only" ]; then
+        case "$(printf '%s' "$label" | tr '[:upper:]' '[:lower:]')" in
+            $only_lc | *"$only_lc"*) matched=$((matched+1)) ;;
+            *) return ;;
+        esac
+    fi
     wtfile="$here/../goldens/$wt"
     if [ ! -f "$G/$game" ] || [ ! -f "$wtfile" ]; then
         printf '%-22s SKIP (missing files)\n' "$label"; return
@@ -291,7 +304,10 @@ play OneRobot            one_robot.asl                 "One Robot - command scri
 play ChristmaKwanzakkah  ChristmaKwanzakkah.asl        "ChristmaKwanzakkah - command script.txt"                   "You got the tree and won"
 
 # "Pyramid Of Terror" is a hunt for the letters of MARZIPAN, the one thing Sutekh can't
-# abide; you win by holding the yellowy blob and dropping it in his chamber.  It turned up
+# abide; you win by holding the yellowy blob and THROWing it in his chamber -- dropping it
+# only works in geas, because Quest's DROP honours nothing but a raw `drop` tag and the
+# blob has only an `action <drop>` (oracle finding 72, confirmed in the real 4.1.5 runner:
+# it answers "You drop it." and leaves the trapdoor locked).  It turned up
 # three engine divergences at once: a bogus `verb <drop #@object#>` that must evaluate to the
 # unmatchable name "drop ", a dangling `then` in USE CANE, and a goth revealed inside a
 # never-opened sarcophagus, who only stays in scope if the container sweep is per-container.
@@ -567,13 +583,16 @@ play MarioIsMissing2     "MIM2UQ.asl"                  "Mario Is Missing 2 Ultim
 # banked in the sail boat's glass case.
 play Shipwrecked         "Shipwrecked1.3.cas"          "Shipwrecked - command script.txt"                          "You have completed Shipwrecked"
 
-# Barbarian is the corpus's longest fight: 633 script lines, 508 turns, 250/250,
+# Barbarian is the corpus's longest fight: 639 script lines, 512 turns, 250/250,
 # and eight scripted battles plus a five-stage trap all won with fixed menu
 # answers under GEAS_SEED=1.  Every optional fight is compulsory, because a win
 # is +1 maxhealth and Gak only teaches the Vault above 16 -- and the Vault is the
 # one thing in `thorgincombat` that clears `enemymounted`, so without it the
-# final duel never leaves its mounted loop.  Two divergences came out of it, both
-# fixtured.  The game's own `unwield` command computes
+# final duel never leaves its mounted loop.  Three divergences came out of it,
+# all fixtured.  The sack of bones must be OPENed before the bones go in and
+# CLOSEd again for the pedestal: Quest refuses PUT into a closed container
+# before its add machinery is consulted (ExecAddRemove, V4Game.cs:2563-2578;
+# fixtures/putclosed.asl).  The game's own `unwield` command computes
 # `$left(#command1#; %length1%)$` over "Battle axe (wielded)" to strip the
 # " (wielded)" suffix; geas ended the argument list at the *first* right paren,
 # which cut it down to one argument, so the function returned nothing and the put
@@ -904,6 +923,9 @@ play MetalSonicsQuest    "MSQ.asl"                     "Metal Sonic's Quest - co
 # prints in its `finalscene' branch after you press SEND on the last MSN message.
 play SomethingBoutAHex   "something 'bout a hex.cas"   "Something 'Bout A Hex - command script.txt"                "completed BOOK TWO of Something 'Bout a Hex" --tick
 
+if [ -n "$only" ] && [ "$matched" -eq 0 ]; then
+    echo "no game label matches --only '$only'"; exit 1
+fi
 [ "$bless" = yes ] && exit 0
 echo "----"
 echo "pass=$pass fail=$fail"

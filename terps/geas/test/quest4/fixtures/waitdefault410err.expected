@@ -22,5 +22,6 @@ A stone hall.
 [after]
 
 > code
-[before the code][after the code]
+[before the code]
+[after the code]
 [runner] turns=4 leftover=0 running=true

@@ -13,6 +13,7 @@ This coat hanger appears to have been left here for quite a long time. There is 
 > take trenchcoat
 (first removing it from coat rack)
 You took
+
 What a nice, warm coat. And it's a perfect fit, too!
 
 > look at trenchcoat
@@ -46,6 +47,7 @@ You are scared to open it and see what's inside...
 > take scrap
 (first removing it from closet)
 *
+
 You took the scrap of paper
 
 > use sonic screwdriver on zero chamber door

@@ -17,8 +17,17 @@
 ! With no lockmessage at all the exit falls back to PlayerError.Locked, "The
 ! exit is locked." (V4Game.Part2.cs:452), which a game can override with
 ! "error <locked; ...>" -- Locked is error type "locked" (ibid. 1584-1586).
+!
+! ASL 4.10, because exit objects are all there is to lock: before 4.10 a room's
+! exits are plain fields on the room, "locked" is not a keyword the loader knows
+! and "unlock" has no object to reach.  This fixture was written at 400 by
+! mistake and Quest refused nothing in it -- it answered each `unlock' with "[An
+! internal error occurred]" and let the player walk out through the ship gate,
+! and the `out' line advertised "You can go out to Yard The guard shakes his
+! head." because the whole parameter went into Out.Text (see roominfov2exits and
+! finding 74).  geas still locks pre-4.10 exits; no corpus game declares one.
 define game <OutLocked>
- asl-version <400>
+ asl-version <410>
  start <Cell>
  error <locked; The door does not budge.>
 end define

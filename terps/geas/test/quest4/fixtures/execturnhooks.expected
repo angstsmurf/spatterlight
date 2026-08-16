@@ -1,0 +1,125 @@
+
+ExecTurnHooks
+
+You are in lab.
+There is lamp here.
+A small laboratory.
+
+> prod
+  [lab before]
+  [game before]
+You prod the switch.
+  [lab after]
+  [game after]
+
+> poke
+  [lab before]
+  [game before]
+  [lab before]
+  [game before]
+You prod the switch.
+  [lab after]
+  [game after]
+
+  [lab after]
+  [game after]
+
+> poke twice
+  [lab before]
+  [game before]
+  [lab before]
+  [game before]
+You prod the switch.
+  [lab after]
+  [game after]
+
+  [lab before]
+  [game before]
+You prod the switch.
+  [lab after]
+  [game after]
+
+  [lab after]
+  [game after]
+
+> ghost
+  [lab before]
+  [game before]
+  [lab before]
+  [game before]
+I don't understand your command. Type HELP for a list of valid commands.
+  [lab after]
+  [game after]
+
+  [lab after]
+  [game after]
+
+> nothing
+  [lab before]
+  [game before]
+  [lab after]
+  [game after]
+
+> spaces
+  [lab before]
+  [game before]
+  [lab before]
+  [game before]
+I don't understand your command. Type HELP for a list of valid commands.
+  [lab after]
+  [game after]
+
+  [lab after]
+  [game after]
+
+> blank
+  [lab before]
+  [game before]
+  [lab after]
+  [game after]
+
+> bad
+  [lab before]
+  [game before]
+  [lab after]
+  [game after]
+
+> take lamp
+  [lab before]
+  [game before]
+You know better than to touch that.
+  [lab after]
+  [game after]
+
+> grab
+  [lab before]
+  [game before]
+  [lab before]
+  [game before]
+You know better than to touch that.
+  [lab after]
+  [game after]
+
+  [lab after]
+  [game after]
+
+> grab hard
+  [lab before]
+  [game before]
+  [lab before]
+  [game before]
+You pick it up.
+  [lab after]
+  [game after]
+
+  [lab after]
+  [game after]
+
+> inventory
+  [lab before]
+  [game before]
+You are carrying:
+lamp.
+  [lab after]
+  [game after]
+[runner] turns=12 leftover=0 running=true

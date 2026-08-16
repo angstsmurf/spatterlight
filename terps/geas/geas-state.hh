@@ -61,7 +61,17 @@ struct TimerRecord
 {
   std::string name;
   bool is_running;
-  uint interval, timeleft;
+  /* Quest counts a timer *up* and compares the count against the interval as
+   * it stands on each tick -- "TimerTicks = TimerTicks + elapsedTime; if
+   * (TimerTicks >= TimerInterval) { TimerTicks = 0; …}"
+   * (V4Game.Part2.cs:126-131).  For a fixed interval that is the same clock as
+   * counting down and re-arming, but `set interval' moves the interval under a
+   * cycle already in flight, and only the count-up form lets the change take
+   * effect within that cycle -- a shortened interval can fire at once off the
+   * ticks already banked, and a lengthened one applies immediately rather than
+   * from the cycle after next.  The Pilgrim's Progress steps its "sinking in
+   * mire" timer down from 15 to 10 to 5 from inside its own action. */
+  uint interval, elapsed;
   /* Quest's TimerType.BypassThisTurn: "don't trigger timer during the turn it
    * was first enabled" (SetTimerState, V4Game.Part2.cs:561-574).  Every
    * timeron/timeroff raises it, and the next tick spends it instead of

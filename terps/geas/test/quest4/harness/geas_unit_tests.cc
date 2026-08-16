@@ -174,6 +174,63 @@ test_serialize_roundtrip ()
 	 "a state holding an empty record still serializes in sync");
 }
 
+/* ---- timers round-trip through a count-*down* wire field, which is where a
+   count-up engine can underflow.  No fixture can reach this: the harness plays
+   a game to the end, and nothing in a .cmd file writes a save file. ---- */
+void
+test_timer_roundtrip ()
+{
+  /* `set interval' moves the interval under a cycle already in flight without
+     touching the count (it is the tick that zeroes that), so a timer can sit at
+     elapsed > interval indefinitely -- switch it off with ticks banked, shorten
+     its interval, and nothing will bring the count back down, because the tick
+     skips a stopped timer.  Save in that window. */
+  struct { const char *name; bool running; uint interval, elapsed, want; } cases[] =
+    {
+      { "midway",   true,  10, 3,  3  },  /* the ordinary case */
+      { "banked",   false,  3, 8,  2  },  /* interval cut below the count */
+      { "atlimit",  true,   5, 5,  4  },  /* the boundary, likewise unwritable */
+      { "fresh",    true,   7, 0,  0  },
+    };
+
+  GeasState gs;
+  gs.location = "Cellar";
+  for (const auto &c: cases)
+    {
+      TimerRecord tr;
+      tr.name = c.name;
+      tr.is_running = c.running;
+      tr.interval = c.interval;
+      tr.elapsed = c.elapsed;
+      gs.timers.push_back (tr);
+    }
+
+  GeasState back;
+  std::string name;
+  check (deserialize_game (serialize_game ("g.asl", gs), name, back)
+	   && back.timers.size () == sizeof cases / sizeof cases[0],
+	 "round trip: timers reload");
+
+  for (size_t i = 0; i < back.timers.size () && i < sizeof cases / sizeof cases[0];
+       i++)
+    {
+      /* The two out-of-cycle timers cannot round-trip their count exactly --
+	 the wire has no room for one above the interval -- so what they must
+	 preserve is the *debt*: a timer that owed one more tick still owes one
+	 more tick, rather than being handed a whole fresh interval. */
+      check (back.timers[i].is_running == cases[i].running
+	       && back.timers[i].interval == cases[i].interval
+	       && back.timers[i].elapsed == cases[i].want,
+	     std::string ("round trip: timer ") + cases[i].name);
+    }
+
+  /* The reader's two garbled-save markers, which is what the writer must never
+     produce by accident: a count-down of 0, and one past the interval. */
+  check (ticks_left_to_elapsed (10, 0) == 0 && ticks_left_to_elapsed (10, 11) == 0
+	   && ticks_left_to_elapsed (10, 10) == 0 && ticks_left_to_elapsed (10, 1) == 9,
+	 "a garbled ticks-left field restarts the cycle rather than seeding it");
+}
+
 /* ---- split_lines: "_" continues a line onto the next one.  A line that is
    nothing but the marker leaves an empty accumulator to index. ---- */
 void
@@ -203,6 +260,8 @@ main ()
   test_deserialize ();
   std::cout << "serialize round trip:\n";
   test_serialize_roundtrip ();
+  std::cout << "timer round trip:\n";
+  test_timer_roundtrip ();
   std::cout << "split_lines:\n";
   test_split_lines ();
 

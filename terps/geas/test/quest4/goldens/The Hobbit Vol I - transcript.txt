@@ -122,5 +122,5 @@ You put on the ring, and run away. You run out the tunnels, out of the mountains
 
 > inventory
 You are carrying:
-Pipe, map, key, orcrist, sting, treasure, food, Goblin knife and ring.
+Key, pipe, food, orcrist, sting and treasure.
 [runner] turns=23 leftover=0 running=true WON=YES

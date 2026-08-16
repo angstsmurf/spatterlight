@@ -133,10 +133,34 @@ void write_to (GeasOutputStream &gos, const ExitRecord &er)
   gos.put (er.src).put (er.dest);
 }
 
+/* The inverse of what write_to puts on the wire.  A save from before timers
+ * counted up holds ticks-left in 1..interval; anything outside that is a
+ * garbled or hostile save and starts the timer's cycle over rather than
+ * seeding it with a count it could never have reached. */
+static uint ticks_left_to_elapsed (uint interval, uint ticks_left)
+{
+  return (ticks_left == 0 || ticks_left > interval) ? 0 : interval - ticks_left;
+}
+
 void write_to (GeasOutputStream &gos, const TimerRecord &tr)
 {
+  /* The wire keeps the count-*down* field geas used to hold in the record --
+   * the ticks the timer has left to run -- so that a save written before
+   * timers counted up still loads.  See TimerRecord for why the engine counts
+   * the other way now.
+   *
+   * A tick leaves `elapsed' below `interval' (it zeroes the count when it
+   * fires, :9243), but `set interval' moves the interval under a cycle already
+   * in flight without touching the count, so a timer with 12 ticks banked and
+   * its interval set to 5 sits at elapsed > interval until the next tick fires
+   * it.  A save taken in that window must not compute the difference unsigned:
+   * it wraps to about four billion, and ticks_left_to_elapsed reads anything
+   * above the interval as garbled and starts the cycle over -- turning a timer
+   * that owed one tick into one owing a full interval.  1 is the encoding for
+   * "fires on the next tick"; 0 is not available, being the reader's other
+   * garbled-save marker. */
   gos.put (tr.name).put (tr.is_running ? 0 : 1).put (tr.interval)
-    .put (tr.timeleft);
+    .put (tr.elapsed < tr.interval ? tr.interval - tr.elapsed : 1);
 }
 
 
@@ -206,7 +230,11 @@ static void write_to (GeasOutputStream &gos, const UndoState &u)
   write_to (gos, u.items);
 }
 
-static const char *const kUndoHistoryMagic = "GEASUNDO1";
+/* Bumped to 2 when ObjectRecord::parent stopped doubling as the container link
+ * and became Quest's ContainerRoom alone: the field is unchanged on the wire,
+ * but a history written by the old engine holds container names where this one
+ * expects rooms, and replaying it would put objects inside themselves. */
+static const char *const kUndoHistoryMagic = "GEASUNDO2";
 
 std::string serialize_undo_history (const std::vector<UndoState> &states)
 {
@@ -266,7 +294,8 @@ bool deserialize_undo_history (const std::string &data,
       if (!count (n)) return false;
       for (size_t i = 0; i < n; i++)
         { TimerRecord t; t.name = gis.get_str(); t.is_running = (gis.get_int() == 0);
-          t.interval = gis.get_uint(); t.timeleft = gis.get_uint(); u.timers.push_back (t); }
+          t.interval = gis.get_uint(); t.elapsed = ticks_left_to_elapsed (t.interval, gis.get_uint());
+      u.timers.push_back (t); }
       if (!count (n)) return false;
       for (size_t i = 0; i < n; i++)
         { SVarRecord v; v.name = gis.get_str();
@@ -348,7 +377,8 @@ bool deserialize_game (const std::string &filedata, std::string &gamename, GeasS
   if (!count (n)) return false;
   for (size_t i = 0; i < n; i ++)
     { TimerRecord t; t.name = gis.get_str(); t.is_running = (gis.get_int() == 0);
-      t.interval = gis.get_uint(); t.timeleft = gis.get_uint(); gs.timers.push_back (t); }
+      t.interval = gis.get_uint(); t.elapsed = ticks_left_to_elapsed (t.interval, gis.get_uint());
+      gs.timers.push_back (t); }
   if (!count (n)) return false;
   for (size_t i = 0; i < n; i ++)
     { SVarRecord v; v.name = gis.get_str();
@@ -549,8 +579,15 @@ GeasState::GeasState (GeasInterface &gi, const GeasFile &gf)
       else
 	//data.parent = lcase (param_contents (go.parent));
 	data.parent = param_contents (go.parent);
-      /* An explicit "parent <X>" line puts the object inside container X rather
-       * than in the room it is defined in. */
+      /* An explicit "parent <X>" line says which container the object starts off
+       * in.  It says nothing about which *room* it is in: Quest turns the line
+       * into the object's own "parent" property and leaves ContainerRoom as the
+       * enclosing "define room" set it (V4Game.Part2.cs:3562-3565), so an object
+       * declared in one room and parented to a container in another is filed
+       * under the room it was written in until something moves it.  (Teaching
+       * geasfile.cc's obj_tag_property list about "parent" would not work
+       * instead: that would rewrite the definition line as a properties line,
+       * and it is the raw line that this loop scans for.) */
       for (const auto &line: go.data)
 	{
 	  std::string::size_type c1, c2;
@@ -558,20 +595,7 @@ GeasState::GeasState (GeasInterface &gi, const GeasFile &gf)
 	    {
 	      std::string p = next_token (line, c1, c2);
 	      if (is_param (p))
-		{
-		  data.parent = param_contents (p);
-		  /* Quest converts the line into the object's own "parent"
-		   * property while loading -- AddToObjectProperties ("parent=" +
-		   * ..., V4Game.Part2.cs:3538-3540) -- which is the very property
-		   * DoAddRemove writes when something is put into a container
-		   * during play.  Record it here as well, so a game that starts an
-		   * object off inside a container can still read back
-		   * #obj:parent#.  Teaching geasfile.cc's obj_tag_property list
-		   * about "parent" would not work instead: that would rewrite the
-		   * definition line as a properties line, and it is the raw line
-		   * that this loop scans for.  */
-		  add_prop (data.name, "properties parent=" + data.parent);
-		}
+		add_prop (data.name, "properties parent=" + param_contents (p));
 	      break;
 	    }
 	}
@@ -674,7 +698,8 @@ GeasState::GeasState (GeasInterface &gi, const GeasFile &gf)
 	}
       tr.name = go.name;
       tr.is_running = (status == "enabled");
-      tr.interval = tr.timeleft = parse_int (interval);
+      tr.interval = parse_int (interval);
+      tr.elapsed = 0;
       timers.push_back (tr);
     }
 
@@ -763,7 +788,7 @@ ostream &operator<< (ostream &o, const ExitRecord &er)
 ostream &operator<< (ostream &o, const TimerRecord &tr) 
 {
   return o << tr.name << ": " << (tr.is_running ? "" : "not ") << "running (" 
-	   << tr.timeleft << " // " << tr.interval << ")"; 
+	   << tr.elapsed << " // " << tr.interval << ")"; 
 }
 
 ostream &operator<< (ostream &o, const SVarRecord &sr) 

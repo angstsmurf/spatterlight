@@ -55,6 +55,7 @@ It contains a carrot.
 > take carrot
 (first removing it from nosebag)
 you take it
+
 You pick it up.
 
 > out
@@ -616,6 +617,7 @@ It is a small sack filled with potatoes
 > take it
 (first removing it from cupboards)
 Done.
+
 You pick it up.
 
 > x peas
@@ -624,6 +626,7 @@ The peas are small and round.  And quite hard!
 > take it
 (first removing it from cupboards)
 Done.
+
 You pick it up.
 
 > e
@@ -767,6 +770,7 @@ This will never pass for Skelibar at the moment.
 > take it
 (first removing it from toy box)
 Done.
+
 You pick it up.
 
 > look at shooter
@@ -775,6 +779,7 @@ A small plastic straw for blowing through.  Put a pea in it and you can project 
 > take it
 (first removing it from toy box)
 Done.
+
 You pick it up.
 
 > e
@@ -1504,6 +1509,7 @@ The sticky label has a picture of a lemon on it.
 > take it
 (first removing it from crate)
 Done.
+
 You pick it up.
 
 > x sir
@@ -1882,6 +1888,7 @@ This is a diving mask to cover the eyes.  It has a mouth piece and a socket for 
 > take it
 (first removing it from Chest)
 Done.
+
 You pick it up.
 
 > use shooter on mask

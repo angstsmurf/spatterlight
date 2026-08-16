@@ -1,0 +1,59 @@
+
+outparam
+
+You are in Bedroom.
+You can go out to You need to get up first.. You can go east.
+A bedroom.
+
+> out
+
+> east
+You are in Hall.
+You can go out to ring. You can go east or west.
+A hall.
+
+> out
+
+> east
+You are in Porch.
+You can go out to Bedroom. You can go east or west.
+A porch.
+
+> out
+You think better of it.
+
+> east
+You are in Gate.
+You can go out to the Bedroom. You can go east or west.
+A gate.
+
+> east
+You are in Field.
+You can go west.
+A field.
+
+> out
+There's nowhere you can go out to around here.
+
+> west
+You are in Gate.
+You can go out to the Bedroom. You can go east or west.
+A gate.
+
+> out
+You are in Bedroom.
+You can go out to You need to get up first.. You can go east.
+A bedroom.
+
+> unbar
+
+> look
+You are in Bedroom.
+You can go out to Hall. You can go east.
+A bedroom.
+
+> out
+You are in Hall.
+You can go out to ring. You can go east or west.
+A hall.
+[runner] turns=13 leftover=0 running=true

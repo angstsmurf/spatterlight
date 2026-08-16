@@ -196,9 +196,11 @@ She disappears briefly into the back room, and returns with instructions for the
 
 > examine clue 1
 This is one of the clues provided to you for the murder-mystery weekend.  It is printed on a parchment-colored paper.
+First clue
 
 > examine clue 2
 This is one of the clues provided to you for the murder-mystery weekend.  It is printed on a strip of pink paper.
+Second clue
 
 > take newspaper
 "I'd like to buy a newspaper."
@@ -227,6 +229,7 @@ You slip a dollar into the bill acceptor and instantly the keyboard springs to l
 As soon as he hears the music starting, the bartender says, loud enough for you to hear, "If I have to hear that stupid song one more time, I'm gong to puke."
 
 > examine dartboard
+Barroom dartboard
 
 > use note
 The note is scrawled on the back of a bar napkin.  It reads, "Please do not take the darts!  We're paused in the middle of a series of games (a combination of 301 and 501), and my victory is a virtual lock! --R.L."
@@ -431,6 +434,7 @@ Which would you like to read on page B-4?
 3) Your horoscope
 4) The kids' crossword puzzle
 [choice] 4
+Kids' crossword
 
 > look at jar
 More of a goblet than a jar, there is a small sign taped to the back lip reading "Tips."
@@ -568,6 +572,7 @@ Eventually, a can of Diet Pepsi dispenses below with a clunk.  You take it, and 
 
 > examine clue 3
 This is one of the clues provided to you for the murder-mystery weekend.  It is printed on white paper.
+Third clue
 
 > use can
 You pop open the top of your Diet Pepsi and begin to chug it down.  Waves of effervescent refreshment roll over you.  The nectar of the gods has nothing on this carbonated beverage.  Finishing the can, you loudly exhale, "Ahhh!"  You do a little dance and then smile broadly.  Somewhere, the voice of Ray Charles speaks and a jingle plays.  You earn a few extra points.

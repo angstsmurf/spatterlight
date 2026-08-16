@@ -402,6 +402,27 @@ void GeasFile::read_into (const vector<string> &in_data,
 	         property path in Quest too.  */
 	      if (tok == "hidden" && blocktype != "type")
 		line = "properties <hidden; !hiddentag>";
+
+	      /* A bare "surface" line declares a container as well: Quest's object
+	         loader answers it with two AddToObjectProperties calls, "container"
+	         and then "surface" (V4Game.Part2.cs:3472-3477).  That matters because
+	         ListContents refuses outright anything without the "container"
+	         property (V4Game.cs:3306-3309), so a surface that was only ever
+	         tagged "surface" lists nothing at all -- which is how Barbarian's
+	         Mantle came to swallow the Vase standing on it, and the Wizard's
+	         bar-top the bottle of sludge.  Only the bare line does this: a
+	         "properties <surface>" adds just the one property, and so does a
+	         surface inherited from a type, whose lines Quest folds straight into
+	         a property string (GetPropertiesInType, V4Game.cs:6335-6342).
+	         Below ASL 3.91 the loader's surface branch is empty, so a bare
+	         line records neither property and the whole line goes. */
+	      if (tok == "surface" && blocktype != "type")
+		{
+		  if (asl_version >= 391)
+		    line = "properties <surface; container>";
+		  else
+		    drop_line = true;
+		}
 	    }
 	  else if (props[ltok] && is_param(rest))
 	    {

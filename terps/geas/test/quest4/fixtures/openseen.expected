@@ -44,6 +44,7 @@ CRATE SHUT
 > take bronze key
 (first removing it from recess)
 Done.
+
 You pick it up.
 
 > open crate
@@ -75,6 +76,7 @@ CRATE SHUT
 > take coin
 (first removing it from box)
 Done.
+
 You pick it up.
 
 > close box

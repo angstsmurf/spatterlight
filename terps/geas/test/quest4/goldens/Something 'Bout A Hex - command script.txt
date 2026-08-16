@@ -12,7 +12,9 @@ structure is a colour-coded index of the years the brick follows him through:
 1 9 r e d 9 1, 1 9 o r a n g e 9 7, 1 9 y e l l o w 9 8, 2 0 g r e e n 0 1,
 2 0 b l u e 0 2, 2 0 i n d i g o 0 3, 2 0 v i o l e t 0 4.  Each of those is a
 `define room' AND an `invisible' object; picking the object up is how you jump to
-the year.  The seven jumps are the spine of Book Two, and they are not in
+the year.  Take them by the spaced-out ALIAS -- the objects are declared
+`19yellow98tag', `20blue02tag' and so on, and Quest matches the alias only, so
+`take 1 9 y e l l o w 9 8' is the form every jump uses below.  The seven jumps are the spine of Book Two, and they are not in
 chronological order -- the transcript below runs
 1998 -> 2001 -> 1991 -> 1998 -> 2002 -> 1997 -> 2004 -> 2001 -> 1997 -> 2003 ->
 2004 -> 1998 -> 2001 -> 1991 -> 1997 -> 2004, which is the order the author
@@ -55,9 +57,12 @@ Honda Accord' then `use Honda Accord', `take Mini-van' then `use Mini-van' -- an
 it is also what makes Dougherty's Pub work at all: Derrick pours three drinks
 that ALL answer to "Jim-n-Ginger" (`Jim-N-Ginger', `Jim 2', `Jim 3', each with
 that alias) and leaves the ones you have not been handed yet sitting in the bar
-room, so `use Jim-N-Ginger' has exactly one candidate.  geas used to search
-inventory and room together here and raise a disambiguation menu Quest never
-shows, which silently ate the next line of this script.
+room, so `use Jim-n-Ginger' has exactly one candidate.  All three drinks are
+typed that way below, by the shared alias -- `use Jim 2' and `use Jim 3' name
+the objects the way the author declared them, which geas resolves and Quest
+answers `You don't have that.' to.  geas used to search inventory and room
+together here and raise a disambiguation menu Quest never shows, which silently
+ate the next line of this script.
 
 Type the iguana's ALIAS, not its name.  The author spelled the object
 `define object <iquana>' and aliased it `iguana'.  Quest's `Disambiguate' matches
@@ -804,7 +809,7 @@ look
 look
 look
 look
-take 19yellow98tag
+take 1 9 y e l l o w 9 8
 out
 sw
 speak to Colin
@@ -914,7 +919,7 @@ go to Front Bar
 speak to Derrick
 1
 1
-use Jim 2
+use Jim-n-Ginger
 speak to raissa
 2
 1
@@ -923,7 +928,7 @@ speak to raissa
 speak to Derrick
 1
 1
-use Jim 3
+use Jim-n-Ginger
 speak to raissa
 2
 2

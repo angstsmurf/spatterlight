@@ -1,0 +1,4 @@
+plain
+popup
+animation
+shut

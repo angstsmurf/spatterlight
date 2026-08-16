@@ -37,6 +37,7 @@ It contains lock pick.
 > take lock pick
 (first removing it from leather pouch)
 Done.
+
 You pick it up.
 
 > use lock pick on iron door

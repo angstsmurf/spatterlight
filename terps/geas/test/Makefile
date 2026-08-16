@@ -55,6 +55,14 @@ ASLXSRC := $(Q5)/aslx_loader_test.cc
 ASLXDEPS := ../quest5/aslx.cc ../quest5/aslx.hh
 ASLXLIBS := -lexpat -lz
 
+# Quest 4 game dumper: prints a .asl/.cas game as the GeasBlocks the engine's
+# loader builds (all three QCGF versions, preprocessing applied).  The other
+# decoder is ../uncas.pl, an independent Perl reimplementation that emits
+# compilable ASL; casdump shows what the engine itself parsed.  A reading
+# tool, so built on demand and not part of check.
+#   make quest4/harness/casdump
+CASDUMP := $(Q4)/casdump
+
 # Quest 5 milestone-2 script/expression runtime test.
 ASLXRTBIN := $(Q5)/aslx_runtime_test
 ASLXRTSRC := $(Q5)/aslx_runtime_test.cc
@@ -104,6 +112,9 @@ $(BIN): $(SRC) $(DEPS) $(RANDOBJ)
 
 $(TESTBIN): $(TESTSRC) $(DEPS) $(RANDOBJ)
 	$(CXX) $(CXXFLAGS) $(RANDFLAGS) $(TESTSRC) $(RANDOBJ) -o $@
+
+$(CASDUMP): $(CASDUMP).cc $(DEPS) $(RANDOBJ)
+	$(CXX) $(CXXFLAGS) $(RANDFLAGS) $(CASDUMP).cc $(RANDOBJ) -o $@
 
 $(ASLXBIN): $(ASLXSRC) $(ASLXDEPS)
 	$(CXX) $(CXXFLAGS) $(ASLXSRC) $(ASLXLIBS) -o $@

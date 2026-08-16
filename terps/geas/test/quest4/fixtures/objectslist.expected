@@ -1,0 +1,32 @@
+
+objectslist
+
+You are in Hall.
+There is a rock of granite, a coin and a brass lamp here.
+You can go to Study.
+A hall.
+
+> probe
+objects: a rock, a coin, a brass lamp
+format: a rock of granite, a coin, a brass lamp
+
+> reveal
+objects: a rock, a coin, a brass lamp, a mouse
+format: a rock of granite, a coin, a brass lamp, a mouse
+
+> look
+You are in Hall.
+There is a rock of granite, a coin, a brass lamp and a mouse here.
+You can go to Study.
+A hall.
+
+> probe
+objects: a rock, a coin, a brass lamp, a mouse
+format: a rock of granite, a coin, a brass lamp, a mouse
+
+> go to study
+before objects: a shelf, a chair
+before format: a shelf and a chair
+after objects: a shelf, a chair, a ledger
+after format: a shelf, a chair, a ledger bound in calf
+[runner] turns=5 leftover=0 running=true

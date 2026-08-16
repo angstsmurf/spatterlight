@@ -19,6 +19,7 @@ It contains a can of pepsi and an apple.
 > take pepsi
 (first removing it from fridge)
 Done.
+
 You pick it up.
 
 > drink pepsi
@@ -40,6 +41,7 @@ It contains the bedroom key.
 > take bedroom key
 (first removing it from cereal box)
 Done.
+
 You pick it up.
 
 > examine bedroom key
@@ -51,6 +53,7 @@ a milky way, your favorite however you notice it has a small hole in the wrapper
 > take candy bar
 (first removing it from table)
 Done.
+
 You probably should not dare eating it though. What about the hole in the wrapper?
 
 > put candy bar in waste can
@@ -90,6 +93,7 @@ It contains a notepad and the office key.
 > take notepad
 (first removing it from door)
 Done.
+
 as you take it you notice some words written on it. Could you read the notepad?
 
 > read notepad
@@ -98,6 +102,7 @@ It reads, Don't give up too soon. I did not forget to add the cell phone to the 
 > take office key
 (first removing it from door)
 Done.
+
 You pick it up.
 
 > push square
@@ -116,6 +121,8 @@ It contains an old jacket. and a dream game book.
 > take old jacket.
 (first removing it from cardboard box)
 Done.
+
+
 You pick it up.
 
 
@@ -165,6 +172,7 @@ It contains a pen and a record book.
 > take record book
 (first removing it from desk drawer)
 Done.
+
 You pick it up.
 
 > read record book

@@ -39,7 +39,10 @@ public partial class V4Game
     private const BindingFlags QvhRecordFields =
         BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
 
-    /// <summary>A VB6 record was a class module, not a <c>Type</c>.</summary>
+    /// <summary>
+    /// A VB6 record was a <c>Type</c>, not a class module -- and the tell is
+    /// nesting inside <c>V4Game</c>, as the remarks above set out.
+    /// </summary>
     private static bool IsQvhRecord(Type t) => t.IsClass && t.DeclaringType == typeof(V4Game);
 
     /// <summary>

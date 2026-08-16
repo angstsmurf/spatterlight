@@ -33,6 +33,23 @@ self-contained, so they are the ones worth wiring into CI.
 - `harness/` — the runner, the unit tests and the two shell drivers. Binaries
   build here and are gitignored.
 
+About half the corpus is compiled `.cas` rather than readable `.asl`, and you
+cannot grep a compiled game. `../../uncas.pl` decompiles one back to source
+(`perl ../../uncas.pl game.cas [game.asl]`, or the other way round with an
+`.asl` first argument to compile), which is how you find the `items <…>` line
+or the `command <…>` a transcript is tripping over. It shares its keyword table
+with `readfile.cc`, so the two decode `.cas` identically — a keyword missing
+from one is missing from the other, and both were wrong the same way before the
+table was completed from the real Quest's `quest.dat`.
+
+`harness/casdump.cc` (`make quest4/harness/casdump` from `../`, then
+`casdump game.cas`) is the other view of the same thing: it runs the engine's
+own loader and prints every parsed GeasBlock — `!include`s merged, `!addto`
+folded in, tag lines already rewritten to `properties` — which is exactly the
+text the runtime's lookups walk. Read a game as its author wrote it with
+uncas.pl; read what geas *believes* it says with casdump; a disagreement
+between the two is a loader bug.
+
 ## Fixtures (`fixtures/`, `harness/run_fixtures.sh`)
 
 Small hand-written `.asl` games, each paired with a `.cmd` script and a golden

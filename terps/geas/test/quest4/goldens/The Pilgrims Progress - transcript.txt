@@ -354,26 +354,6 @@ You struggle ...
 You struggle ...
 
 
-> struggle
-You struggle ...
-
-
-> struggle
-You struggle ...
-
-
-> struggle
-You struggle ...
-
-
-> struggle
-You struggle ...
-
-
-> struggle
-You struggle ...
-
-
 Pliable struggles ...
 
 > struggle
@@ -425,6 +405,81 @@ At this Pliable began to be offended, and angrily said to his fellow, "Is this t
 And with that he gave a desperate struggle or two, and got out of the mire on that side of the slough which was next to his own house.
 
 So away he went, and you saw him no more.
+
+> struggle
+You struggle to that side of the slough that was farthest from your own house, and next to the gate.
+
+Still you could not get out because of the burden that was upon your back ...
+
+At that moment you see a man coming, whose name is Help.
+
+He calls to you, "Give me your hand".
+
+So you give him your hand, and he draws you out, and sets you upon sound ground before bidding you good day.
+
+You are at the sound ground.
+You can go to crossing of ways.
+You are standing on firm ground.
+
+> struggle
+You struggle to that side of the slough that was farthest from your own house, and next to the gate.
+
+Still you could not get out because of the burden that was upon your back ...
+
+At that moment you see a man coming, whose name is Help.
+
+He calls to you, "Give me your hand".
+
+So you give him your hand, and he draws you out, and sets you upon sound ground before bidding you good day.
+
+You are at the sound ground.
+You can go to crossing of ways.
+You are standing on firm ground.
+
+> struggle
+You struggle to that side of the slough that was farthest from your own house, and next to the gate.
+
+Still you could not get out because of the burden that was upon your back ...
+
+At that moment you see a man coming, whose name is Help.
+
+He calls to you, "Give me your hand".
+
+So you give him your hand, and he draws you out, and sets you upon sound ground before bidding you good day.
+
+You are at the sound ground.
+You can go to crossing of ways.
+You are standing on firm ground.
+
+> struggle
+You struggle to that side of the slough that was farthest from your own house, and next to the gate.
+
+Still you could not get out because of the burden that was upon your back ...
+
+At that moment you see a man coming, whose name is Help.
+
+He calls to you, "Give me your hand".
+
+So you give him your hand, and he draws you out, and sets you upon sound ground before bidding you good day.
+
+You are at the sound ground.
+You can go to crossing of ways.
+You are standing on firm ground.
+
+> struggle
+You struggle to that side of the slough that was farthest from your own house, and next to the gate.
+
+Still you could not get out because of the burden that was upon your back ...
+
+At that moment you see a man coming, whose name is Help.
+
+He calls to you, "Give me your hand".
+
+So you give him your hand, and he draws you out, and sets you upon sound ground before bidding you good day.
+
+You are at the sound ground.
+You can go to crossing of ways.
+You are standing on firm ground.
 
 > struggle
 You struggle to that side of the slough that was farthest from your own house, and next to the gate.

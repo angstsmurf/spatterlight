@@ -1,0 +1,27 @@
+
+RemoveNoParent
+
+You are in Room.
+There is sarcophagus and chest here.
+A dusty chamber.
+
+> reveal goth
+
+> x goth
+A bored goth.
+
+> parented remove
+
+> x goth
+A bored goth.
+
+> reveal goth
+
+> x goth
+A bored goth.
+
+> bare remove
+
+> x goth
+I can't see that here.
+[runner] turns=8 leftover=0 running=true

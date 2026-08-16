@@ -1,0 +1,22 @@
+
+BareSurface
+
+You are in Room.
+There is mantle, vase, ledge, bowl, plinth and bust here.
+A room with three things to stand things on.
+
+> look
+You are in Room.
+There is mantle, vase, ledge, bowl, plinth and bust here.
+A room with three things to stand things on.
+
+> x mantle
+A stone mantle.
+It contains vase.
+
+> x ledge
+A narrow ledge.
+
+> x plinth
+A marble plinth.
+[runner] turns=4 leftover=0 running=true

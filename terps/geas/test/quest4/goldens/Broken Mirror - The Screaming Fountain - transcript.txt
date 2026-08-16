@@ -81,13 +81,13 @@ Chloé Jarry: Reporter.
 
 > east
 You are in The Street.
-You can go to The english pub.
+You can go to THE ENGLISH.
 You can go west.
 After walking up the road for a while you came to a pub called THE ENGLISH, okay.
 
 Go WEST to head back down the street.
 
-> go to the english pub
+> go to the english
 You are in The english pub.
 There is an Old Guy, Rope, a Woman, Two Men, a Bartender, the Alcohol Dispensing Taps and a Brothel Advertisment here.
 You can go out to Street.

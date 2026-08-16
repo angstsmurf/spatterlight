@@ -21,6 +21,7 @@ It contains coin.
 > take coin
 (first removing it from crate)
 Done.
+
 You pick it up.
 
 > close crate

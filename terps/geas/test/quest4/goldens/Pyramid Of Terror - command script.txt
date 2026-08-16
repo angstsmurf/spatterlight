@@ -8,8 +8,10 @@ letters of MARZIPAN, because the hermit in the cell below the chamber of fire
 knows what nobody else will tell you: Sutekh cannot abide wedding-cake, and a
 wedding-cake ingredient is the only thing that will kill him.  Once you have
 guessed the word you do not need to type it -- you need to be holding the yellowy
-blob and DROP it in his chamber.  85 turns below, taking in every room, every
-timer and every one of the letters.
+blob and THROW it in his chamber (not DROP it: see THE TWO ONE-WAY UNLOCKS).
+80 turns below, taking in every room, every timer, and every letter -- including
+the R, which sits on the far side of a window that slams shut at OPEN OVEN (see
+THE GOTH).
 
 
 THE LETTERS
@@ -17,7 +19,8 @@ THE LETTERS
   M   the rug in the sarcophagus chamber; also the magnolia walls of the
       seemingly empty room ("Magnolia begins with an M")
   A   inside the sarcophagus -- LOOK AT it before you open it
-  R   the Jane Eyre book, once the goth lets you read it
+  R   READ the Jane Eyre book -- it answers even from inside the goth, so it
+      works any time in her one-room window (see THE GOTH)
   Z   the stone king in the chessboard room ("a zip, I tells ya")
   I   the seven-legged spider in the cobweb
   P   the condensation on the oven window, after SWITCH ON OVEN
@@ -30,21 +33,21 @@ never listed; you find them by reading the room description and typing the noun.
 
 THE SPINE
 
-Only thirteen of the 85 turns are load-bearing:
+Only thirteen of the 80 turns are load-bearing:
 
   n n n n e e            sewer -> passageway -> sarcophagus chamber -> kitchen
                          -> temple of enticement -> chessboard room ->
                          seemingly empty room
   take marzipan
   e / dive in            swimming-pool, then the dive into Sutekh's chamber
-  drop marzipan          the trapdoor above clicks open
+  throw marzipan         Sutekh dissolves, the trapdoor above clicks open
   up                     your drawing-room
   play record player     reveals the joint
   smoke joint            wins
 
-Everything else -- the goth, the gingerbread man, the hermit, the coffee-shop --
-is optional colour.  The script below does all of it, because most of it is where
-the game's authoring quirks live.
+Everything else -- the goth, the coffee-shop, the gingerbread man, the hermit --
+is optional colour.  The script below does all of it, in the one order that
+reaches all of it, because most of it is where the game's authoring quirks live.
 
 
 THE TWO ONE-WAY UNLOCKS
@@ -64,30 +67,67 @@ man, and DROP him -- anywhere, the script teleports you back to the sarcophagus
 chamber itself.  EAT GINGERBREAD MAN instead is instant death (`playerlose`), and
 the object warns you which way round it goes if you SPEAK TO it first.
 
-The other locked exit is `up` out of Sutekh's chamber, unlocked by dropping (or
-throwing) the marzipan at him.  Dropping the blob anywhere else silently loses
-it, and there is no second one, so the run is dead if you drop it early -- the
-`action <drop>` script runs `lose <yellowy blob>` on both branches.
+The other locked exit is `up` out of Sutekh's chamber, and the blob offers two
+scripts that open it: `action <drop>` and `action <throw>`.  Only THROW works in
+Quest.  The blob has no raw `drop` tag, and Quest's own DROP handling runs
+nothing else (finding 72 in the oracle FINDINGS): the real Quest 4.1.5 under
+Wine (probed 2026-08-16, ~/quest-oracle/pyramid.cmd) answers DROP MARZIPAN in
+Sutekh's chamber with the stock "You drop it.", leaves UP locked, and only
+THROW MARZIPAN dissolves Sutekh and opens the trapdoor -- the `action <throw>`
+is reached through the game-block `verb <throw>`, which is a live path where
+DROP's is not.  geas still runs `action <drop>` (the divergence finding 72
+records), so the script throws, which both engines play identically.
+
+Don't drop or throw the blob anywhere else: in geas the `action <drop>` runs
+`lose <yellowy blob>` on both branches and `action <throw>` starts with `lose`,
+and there is no second blob.  (In Quest an early DROP is the harmless default
+drop, so the two engines part company on a misstep here -- another reason the
+script keeps the blob pocketed until Sutekh's chamber.)
 
 
-THE GOTH AND THE COFFEE-SHOP
+THE GOTH, AND THE ONE-WINDOW DOORWAY TO THE COFFEE-SHOP
 
 The goth is `parent <sarcophagus>` and `hidden`; the sarcophagus's open script
-reveals her with a bare `show <goth>` and never opens the sarcophagus.  Give her
-the brass ring, LOOK AT her to reveal the Jane Eyre book, TAKE the book (she
-refuses, and the refusal is the hint), then GIVE JANE EYRE BOOK TO GOTH and she
-invites you for a coffee.  The command that accepts is YES GOTH -- `action <yes>`
-on the goth, reachable because the game defines `verb <yes>` and the synonym
-`accept = yes`.
+reveals her with a bare `show <goth>` and never opens the sarcophagus.  You get
+one room's worth of her, and the script now takes all of it: give her the brass
+ring, LOOK AT her to reveal the Jane Eyre book, TAKE the book (she refuses, and
+the refusal is the hint), give it back for her invitation, READ it for the R --
+the read answers even with the book back inside her -- and say YES GOTH.  The
+two of you are transported to the coffee-shop of mystic interludes, the game's
+one room with no exits: the way out is USE CAFETIERE (with MAKE COFFEE, a global
+game command that pours anywhere) and then DRINK AMERICANO, whose script does
+`goto <seemingly empty room>`.  The goth stays behind for good, dreaming of
+limes, which is why the later SPEAK TO GOTH in the chessboard room answers "I
+can't see that here."
 
-That teleports both of you to the coffee-shop, which has no exits at all: the
-only way out is USE CAFETIERE (or MAKE COFFEE, a game command that works
-anywhere) and then DRINK AMERICANO, whose script does
-`goto <seemingly empty room>`.  So the coffee-shop is a second, prettier route
-into the room with the marzipan in it.  Three kinds of bean sit there for a
-`weigh` command whose body the author left empty -- WEIGH ROBUSTA BEANS prints
-nothing at all, in Quest as much as here -- and LOOK AT them for the weights.
-The special Sutekh beans cannot be taken.
+The window is real, and it slams shut at OPEN OVEN, because the oven's open
+script ends with a parentless `remove <gingerbread man>`:
+
+    ExecAddRemoveScript, no ";" in the parameter (V4Game.cs:2695-2699)
+        AddToObjectProperties("not parent", childId)
+        UpdateVisibilityInContainers(ctx, _objs[parentId].ObjectName)
+                                            ^ parentId is never assigned on
+                                              this branch, so it is 0, so the
+                                              name is "" -- a sweep of *every*
+                                              container in the game
+
+The sarcophagus is `seen` but was never `opened` (its open script ran instead of
+DoOpenClose), so that sweep re-derives the goth's hidden flag as hidden and she
+is gone.  A player who opens the oven before saying YES loses everything behind
+her for the rest of the game: the book, the invitation, the coffee-shop -- its
+three kinds of bean, its `weigh` command with an empty body, its Seattle Sound
+-- and the letter R.  So the script does the whole goth line first and only then
+walks back for the kitchen: the Americano drops you in the seemingly empty room
+(where the marzipan is, but it can wait), and w, w, s returns you through the
+chessboard room and the temple.
+
+The window itself is what Quest does, and the QuestViva oracle plays the whole
+coffee-shop scene byte-identically.  One earlier version of this walkthrough
+went through the coffee-shop for the wrong reason -- geas used to name the
+emptied container on that branch rather than sweeping everything, so the goth
+survived the oven -- and the next went round her entirely, believing the sweep
+made the shop unreachable; in fact the pre-oven YES GOTH is live in both
+engines.
 
 
 THE VENDING MACHINE
@@ -120,7 +160,7 @@ carry the brass ring, `horus timer` (30) while you carry the lichen.  The other
 five are turned on by scripts -- the pipe in the temple, the spider's venom, the
 slushpuppy's tartrazine, the record player's Kashka, and the mummy vision that
 the mouldy Snickers gives you.  None of them can kill you; the Snickers vision is
-cleared by SICK UP SNICKERS, the pipe by STOP PIPE.  At 85 turns the script trips
+cleared by SICK UP SNICKERS, the pipe by STOP PIPE.  At 73 turns the script trips
 most of them at least once, which is why the transcript has stray nags in it.
 
 
@@ -145,13 +185,14 @@ All three are pinned by fixtures now (danglthen, verbeval, contviscope).
     then-branch one character past the "then" token and ran off the end of the
     string, aborting the process.
 
-3.  SPEAK TO GOTH.  She is revealed inside a sarcophagus that is never opened, so
-    her visibility depends on nothing re-deriving the hidden flags of the
-    sarcophagus's contents.  Quest's every runtime call to
-    UpdateVisibilityInContainers names one container; geas swept them all, so the
-    first unrelated LOOK AT a container anywhere in the game put her back out of
-    scope and both SPEAK TO GOTH and GIVE BOOK TO GOTH answered "You don't see
-    any goth."
+3.  SPEAK TO GOTH, in the one room where Quest still answers it.  She is
+    revealed inside a sarcophagus that is never opened, so her visibility
+    depends on nothing re-deriving the hidden flags of the sarcophagus's
+    contents.  Quest's runtime calls to UpdateVisibilityInContainers name one
+    container -- except the parentless `remove` above, which names none; geas
+    swept them all every time, so the first unrelated LOOK AT a container
+    anywhere in the game put her out of scope and even the ring and the book
+    answered "You don't see any goth."
 
 
 OTHER THINGS WORTH KNOWING
@@ -186,7 +227,14 @@ give brass ring to goth
 look at goth
 take jane eyre book
 give jane eyre book to goth
-n
+read jane eyre book
+yes goth
+speak to goth
+use cafetiere
+drink americano
+w
+w
+s
 switch on oven
 look at oven
 open oven
@@ -216,21 +264,9 @@ take marble sparrow
 e
 speak to granite queen
 befriend king
-w
-s
-s
-speak to goth
-yes goth
-look at Seattle Sound
-weigh Robusta beans
-weigh Arabica beans
-weigh special Sutekh beans
-take special Sutekh beans
-take Robusta beans
 speak to goth
 use cafetiere
-take Americano
-drink Americano
+e
 look at magnolia walls
 look at vending machine
 wave cane
@@ -247,7 +283,7 @@ dive in
 take magnifying glass
 use magnifying glass
 speak to Sutekh
-drop marzipan
+throw marzipan
 up
 open drapes
 take scroll

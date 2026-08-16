@@ -604,6 +604,7 @@ It contains a small eye.
 > take eye
 (first removing it from box)
 Done.
+
 You pick it up.
 
 > use eye on statue
@@ -726,6 +727,7 @@ It contains a note and a map.
 > take map
 (first removing it from suitcase)
 Done.
+
 You pick it up.
 
 > south
@@ -863,11 +865,13 @@ It contains a triangle made out of wood and a remote.
 > take triangle
 (first removing it from sack)
 Done.
+
 You pick it up.
 
 > take remote
 (first removing it from sack)
 Done.
+
 You pick it up.
 
 > south

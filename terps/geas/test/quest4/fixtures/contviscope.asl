@@ -3,7 +3,10 @@
 ! DoLook (2147) and both DoAddRemove paths (2133, 2698) all name the one
 ! container whose state just changed -- and the argument-less form runs exactly
 ! once, at the end of loading (V4Game.Part2.cs:3611).  So an event on one
-! container can never re-derive the hidden flags of anything held by another.
+! container can never re-derive the hidden flags of anything held by another --
+! with one exception, a `remove <X>` written without a parent, which sweeps
+! everything because it hands the sweep an unassigned object number
+! (removenoparent).
 !
 ! That is what keeps a scripted "show <X>" alive.  As containervis pins down, a
 ! reveal into a never-opened container sticks until *that* container has an event

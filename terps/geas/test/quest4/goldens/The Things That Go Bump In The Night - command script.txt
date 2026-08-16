@@ -2,7 +2,7 @@ The Things That Go Bump In The Night, by Tim Hamilton (QDK 4.1.6, ASL 410)
 - raw command script for geas_walkthrough_runner.
 Game system: Quest 4.  Win marker: "Not on my watch."
 
-340 turns, and by far the largest Quest 4 game in the corpus: 87 rooms, four
+318 turns, and by far the largest Quest 4 game in the corpus: 87 rooms, four
 separate buildings, a dozen keyed and coded doors, and five timed set-pieces
 that kill you if you spend a turn in the wrong place.  You are the lone night
 security guard at a smelting complex; something has turned the fence live,
@@ -46,22 +46,41 @@ the race against the `f=5` (empty extinguisher) branch, which is what lets the
 extinguisher survive the fight to be thrown at the beast at the end.  The menu
 answers below are option *numbers*, and they do not count as turns.
 
+EXEC RUNS THE TURN HOOKS AGAIN.  Quest's `exec` is not a dispatch shortcut: it
+hands its parameter to the whole of ExecCommand, so an exec'd command gets its
+own `beforeturn` and its own `afterturn` on top of the outer turn's.  Three of
+this game's set-pieces are timed off `afterturn` and three of its commands are
+written as `exec`, so the route below is built around which commands tick the
+clock twice.
+
 THE HUGE SPIDER (Smelting Plant).  The plant is a 3x3 grid tracked in
-`location2`, and `beforeturn` recomputes the spider's approach (`spider3`) from
-your *pre-move* location.  Two things freeze it: SHINE LIGHT ON SPIDER sets
-`spider4` unconditionally, buying two still turns, and USE RADIO sets both
-`spider4` and `spider5`, buying one -- so the radio conversation that talks Neva
-through the overhead ladle controls doubles as a stall.  That is the only way to
-walk the ladle into the centre square while the spider sits at range 5, and then
-USE HUNTING RIFLE ON CHAIN drops it.
+`location2`; `beforeturn` recomputes the spider's approach square (`spider3`)
+from your *pre-move* location and `afterturn` either moves it there or, if
+`spider4` is set, burns a stun instead.  SHINE LIGHT ON SPIDER and USE RADIO are
+both `exec`.  SHINE LIGHT ON SPIDER sets `spider4`, the inner `afterturn` sets
+`spider5`, and the outer one clears both: one still turn, nothing carried over.
+USE RADIO sets `spider4` *and* `spider5`, so the inner `afterturn` clears them
+and the outer one lets the spider move -- it is not a stall at all.  The only
+stun that carries is USE FLASHLIGHT ON SPIDER, a plain object `use` with no
+`exec`, and it only bites when the spider is on an adjacent square.  So: three
+radio turns walk the ladle to the centre (Neva reverses every direction you give
+her, which is why the answers below read as "east" and "west"), one adjacent
+flashlight stun buys the turn needed to let the spider come round to the centre,
+and SHOOT CHAIN finishes it -- that one is `flag on <spider4>` followed by
+`exec <use hunting rifle on chain>`, so it satisfies the "spider must be
+stunned" test inside its own turn and no separate stun is needed at the end.
 
 THE CLOWN (Recycle Work Lab).  USE LEAF BLOWER ON BALLOON ANIMALS is what sets
-`search1=1`; without it the five examinable spots only ever get `search1` to 5
+`search1=1`; without it the five searchable spots only ever get `search1` to 5
 and the Button never appears.  So the blower has to be fired *before* the
-examines, and re-fired between them, because each round the balloons drift back
-and the clown closes in.  USE FLASHLIGHT ON CLOWN is the reset that keeps
-bloodloss at zero.  Five spots (lab benches, x-ray machine, microscope, furnace,
-eye wash station), then PRESS BUTTON, then the Door Handle is under the benches.
+searches, and re-fired between them, because each round the balloons drift back
+and the clown closes in.  USE FLASHLIGHT ON CLOWN is the reset that puts `clown1`
+back to zero before it reaches the value that claws you.  The searches are
+written as X and not EXAMINE on purpose: the game defines
+`command <Examine #@ob#> exec <x #@ob#>`, so every EXAMINE advances `clown1`
+twice and you get clawed on the second search of each pair.  Five spots (lab
+benches, x-ray machine, microscope, furnace, eye wash station), then PRESS
+BUTTON, then the Door Handle is under the benches.
 
 THE RING OF KEYS (Refinery Courtyard) is a four-step Rube Goldberg: LOOK AT TABLE
 reveals the keys on a stone table on the far side of an electrified fence; the
@@ -90,7 +109,12 @@ you fetch the hose, then the ladder is pulled up after you (which destroys the
 DOWN exit) and laid across the Gap to the lab roof.  USE HOSE ON PIPE ties the
 hose to the fire-suppressant machine first -- the bat carries you off no matter
 what, and holding the other end of that hose is the only thing between you and
-the ground.  It is also, later, what pipes the suppressant into the ventilation
+the ground.  The grab also costs a point of bloodloss, and the moth swarm and the
+two blows the bear lands during SPRAY BEAR (another `exec`, so the fork lift's
+`afterturn` runs its attack twice a turn) have already spent three of the four
+you get, so USE GAUZE goes in just before the crossing.  `rg` is a five-use
+counter and this is its only use in the route.  The hose is also, later, what
+pipes the suppressant into the ventilation
 system once the chemical valve behind the lab has been shut with the Wrench.
 
 THE GLASSES SWAP is the ending.  Neva has been your sidekick since the gypsum
@@ -103,7 +127,7 @@ the Ventilation System, or the alarm sounds and nothing happens), retrieve the
 hammer -- the throw drops it -- then two turns through the Underground Tunnel
 (`tunnel1` > 2 and Dave escapes) and one on the runway.
 
-Two lines below look like mistakes and are not.  Line 179 (I) is a deliberate
+Two lines below look like mistakes and are not.  Line 314 (I) is a deliberate
 inventory check inside the octopus aftermath; and LOOK in the Secret Labratory is
 a sacrificial turn, because that room's `beforeturn` is `if here <Dave> then
 dontprocess` -- the first command you type there is swallowed by design while the
@@ -330,17 +354,15 @@ use electronic key on key pad
 open door
 west
 yes
-shine light on spider
-northwest
-look at large ladle
-east
 use radio
+northwest
+use radio
+1
+use flashlight on spider
+north
 use radio
 2
-use radio
-3
-shine light on spider
-use hunting rifle on chain
+shoot chain
 west
 north
 northeast
@@ -362,19 +384,19 @@ northwest
 south
 use leaf blower on balloon animals
 use flashlight on clown
-examine lab benches
-examine x-ray machine
+x lab benches
+x x-ray machine
 use leaf blower on balloon animals
 use flashlight on clown
-examine microscope
-examine furnace
+x microscope
+x furnace
 use leaf blower on balloon animals
 use flashlight on clown
-examine eye wash station
+x eye wash station
 use leaf blower on balloon animals
 use flashlight on clown
 press button
-examine lab benches
+x lab benches
 take door handle
 north
 southwest
@@ -427,6 +449,7 @@ examine machine
 use hose on pipe
 take ladder
 use ladder on gap
+use gauze
 take hose
 west
 use flashlight on bat

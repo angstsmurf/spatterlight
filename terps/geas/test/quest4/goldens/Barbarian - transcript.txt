@@ -11,11 +11,15 @@ By Wonderjudge. Any questions or problems?
 Contact me at wonderjudge22@yahoo.com
 Press any key to continue
 
+
 You grew up in the small nordic town of golsiv. Golsiv is on the northern coast of the mainland. The people here are stout northmen and grow very large and barrel chested. Your father was the town chieftan. His rule was just and fair. The people knew their future was secure as you grew to be a young man. You were known to be just and fair and are almost as big as your father. A week ago when you were out hunting a small group of men in scarlet robes requested an audience with your father. When you returned home you found you father dead, slumped over in his chair. After a week of grieving the council of elders met to determine who would lead this town. You thought that rulership would automatically pass to you. You were wrong.
 Press any key to continue
 
+
 The council informs you that as you are not of age and your fathers death is under investigation you will need to complete three tasks. The tasks were to be set up by thorgin. Thorgin is bound not to be fair as if you fail in your tasks the leaderships role would probably fall to him. You go to see him in the great hall now to find out your first task......
 Press any key to continue
+
+
 
 
 You are at the North end of the village 
@@ -49,10 +53,12 @@ There is a fire going in the fireplace. There is a large mantle on the top.
 
 > look at mantle
 A large stone mantle on the fireplace.
+It contains a Vase.
 
 > take vase
 (first removing it from Mantle)
 Done.
+
 You pick it up.
 
 > shake vase
@@ -1177,6 +1183,7 @@ You remove the silver coin from the coffin and put it in your pocket.
 > take dusty scroll
 (first removing it from Coffin)
 Done.
+
 You pick it up.
 
 > read dusty scroll
@@ -1271,7 +1278,7 @@ You can go north, south, east or west.
 > east
 You are in a Tomb 
 You are in a small tomb off the main part of the crypt. The only exit is west.
-a stone Coffin and a Stone pressure plate is here.
+a stone Coffin and a Stone pressure plate are here.
 You can go west.
 
 > put rock in coffin
@@ -1310,7 +1317,7 @@ You can go north, south, east or west.
 > east
 You are in a Tomb 
 You are in a small tomb off the main part of the crypt. The only exit is west.
-a stone Coffin and a Stone pressure plate is here.
+a stone Coffin and a Stone pressure plate are here.
 You can go west.
 
 > put rock in coffin
@@ -1348,7 +1355,7 @@ You can go north, south, east or west.
 > west
 You are in a Tomb 
 You are in a small tomb off the main part of the crypt. The only exit is west.
-a stone Coffin and a Stone pressure plate is here.
+a stone Coffin and a Stone pressure plate are here.
 You can go east.
 
 > put rock in coffin
@@ -1539,8 +1546,14 @@ You pick it up.
 > take sack
 You pick it up.
 
+> open sack
+You open the sack.
+
 > put pile of bones in sack
 You put the pile of bones in the sack.
+
+> close sack
+You close the sack.
 
 > unwield battle axe
 You put away the Battle axe (wielded).
@@ -2825,7 +2838,7 @@ You can go north, south, east or west.
 > south
 You are in an Empty room 
 You are in an empty room. The walls here are all made of a light grey stone. Well the room isn't totally empty there is a grey stone pedestal in the center.
-a small stone Pedestal and a Large diamond is here.
+a small stone Pedestal and a Large diamond are here.
 You can go north.
 
 > remove large diamond from pedestal
@@ -2861,7 +2874,7 @@ You jam the chisel in between the lever and the wall locking the lever in place.
 > south
 You are in an Empty room 
 You are in an empty room. The walls here are all made of a light grey stone. Well the room isn't totally empty there is a grey stone pedestal in the center.
-a small stone Pedestal and a Large diamond is here.
+a small stone Pedestal and a Large diamond are here.
 You can go north.
 
 > remove large diamond from pedestal
@@ -3944,15 +3957,18 @@ As you are all celebrating your victory suddenly out of the darkness a great num
 "This village is under the control of the Red Scorpions now! We tried to do it peacefully with Thorgin's help but now we have to take matters into our own hands!" one of the figures shouts.
 
 
+
 You all start to protest when suddenly a great shadow can be seen and growing. The figures don't seem to notice the shadow and one of them continues to speak.
 "You will all now come with us to be..."
 He is interrupted by another voice, one you recognize!
 "They won't go anywhere with you!" it roars!
 "What who dares challenge us!?!" the figure says looking around for the source of the voice.
 
+
 "FRED!" thunders the voice as the figure of Fred the dragon lands in front of them. Everyone is looking petrified now as great gouts of flames erupt from Fred's mouth consuming several figures.
 "REVENGE!" thunders Fred as his tail sends several of them flying!
 "Teach you to steal my things!!" Fred says as he eats several more!
+
 
 
 Soon all the Red Scorpions are in full flight. Fred lets out one more round of flame at them as they all dissapear then turns towards you.
@@ -3970,11 +3986,13 @@ You take the 'Eye of the East' from a very scared looking Hardin and present it 
 "Farewell Fred the Fierce!" you shout as he dissapears into the sky.
 
 
+
 The next day you are annointed 'Chieftan' of the village in a great ceremony followed by a great feast in your honor!
 And from that day forward everyone came to know you as Tandum Dragonfriend chieftan of Golsiv.
 The end.
 
+
 Well Done!
 You have finished Barbarian!
 
-[runner] turns=510 leftover=0 running=false WON=YES
+[runner] turns=512 leftover=0 running=false WON=YES

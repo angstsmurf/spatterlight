@@ -38,8 +38,7 @@ You can go east.
 The west room.
 
 > i
-You are carrying:
-Ring.
+You are not carrying anything.
 
 > drop ring
 You drop it.
@@ -82,8 +81,7 @@ You can go west.
 The east room.
 
 > i
-You are carrying:
-Ring.
+You are not carrying anything.
 
 > w
 You are in West.

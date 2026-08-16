@@ -512,3 +512,33 @@ elif take_anchor in p2text:
     print("[patch] patched: V4Game.Part2.cs -> take sets isInContainer")
 else:
     sys.exit("[patch] ExecTake's parent lookup not found (upstream changed?)")
+
+# 14. Expose "the turn is parked on an `enter`" to the driver. This one adds no
+# behaviour: `enter <var>` suspends the turn and waits for the next SendCommand
+# to fill the variable (ExecuteEnterAsync -> _commandOverrideModeOn), which is
+# a *mid-turn* input, not a turn of its own -- no `> ` echo, no afterturn. A
+# headless driver that ticks the timers once per turn has to be able to tell
+# that input apart from a command, and the flag saying so is private. Wizard is
+# the corpus case: its library desk asks for a row number and a book letter, so
+# its 15-turn portal timer ran three ticks ahead of geas's and the two engines
+# walked into different worlds (see the quest4 oracle's FINDINGS.md).
+enter_anchor = """    public Task SendCommand(string command)
+    {
+        return SendCommand(command, 0, null);
+    }"""
+enter_repl = """    public Task SendCommand(string command)
+    {
+        return SendCommand(command, 0, null);
+    }
+
+    // qvh: is the turn parked on an `enter`, waiting for a mid-turn input
+    // rather than for the next command? -- see patch_questviva.py section 14.
+    public bool QvhAwaitingEnter => _commandOverrideModeOn;"""
+p2text = part2.read_text()
+if "QvhAwaitingEnter" in p2text:
+    print("[patch] already patched: V4Game.Part2.cs -> QvhAwaitingEnter")
+elif enter_anchor in p2text:
+    part2.write_text(p2text.replace(enter_anchor, enter_repl, 1))
+    print("[patch] patched: V4Game.Part2.cs -> QvhAwaitingEnter")
+else:
+    sys.exit("[patch] SendCommand(string) not found (upstream changed?)")

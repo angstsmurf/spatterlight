@@ -1,0 +1,29 @@
+
+placeversion
+
+You are in Hall.
+You can go to Basement or Attic.
+A hall.
+
+> go to cellar
+You can't go there.
+
+> go to basement
+You are in Basement.
+You can go to Hall.
+Damp.
+
+> go to hall
+You are in Hall.
+You can go to Basement or Attic.
+A hall.
+
+> go to loft
+You can't go there.
+
+> go to attic
+You haul yourself up.
+You are in Loft.
+You can go to Hall.
+Dusty.
+[runner] turns=5 leftover=0 running=true

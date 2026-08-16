@@ -1,0 +1,57 @@
+
+SetInterval
+
+You are in Hall.
+A hall.
+
+> z
+[turn]
+
+> z
+[turn]
+[stepping]
+
+> z
+[turn]
+
+> z
+[turn]
+
+> fast
+[cutting banked to 2]
+[banked]
+
+> z
+[turn]
+[stepping]
+
+> z
+[turn]
+[banked]
+
+> z
+[turn]
+
+> z
+[turn]
+[banked]
+
+> z
+[turn]
+[stepping]
+
+> z
+[turn]
+[banked]
+
+> z
+[turn]
+
+> z
+[turn]
+[banked]
+
+> z
+[turn]
+[stepping]
+[runner] turns=14 leftover=0 running=true

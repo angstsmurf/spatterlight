@@ -1,4 +1,4 @@
-! An unmatched conversion character (#, % or ~) is not fatal.
+! An unmatched conversion character (#, %, ~ or $) is not fatal.
 !
 ! Each pass of Quest's ConvertParameter looks for its character in pairs; when
 ! one has no partner it reports "Line parameter <...> has missing %" to the log
@@ -16,6 +16,11 @@
 !
 ! Note that "%%" and "##" are *empty* variable names, not unmatched characters,
 ! and Quest emits a single literal % or # for them (6705-6708).
+!
+! ConvertParameter is one body called once per conversion character, so all four
+! behave alike -- $ included, which is why the dollar commands below read the
+! same as the percent ones.  geas had left the $ arm passing the rest of the
+! string through instead of discarding the parameter (finding 34).
 !
 ! One divergence remains, and it is the reason this file has two rooms.  Quest
 ! converts a room's `look` text once at load (SetUpRoomData, V4Game.Part2.cs:
@@ -35,6 +40,8 @@ define game <UnmatchedPercent>
  command <empty> msg <Doubled %% and ## are literal.>
  command <both> msg <Stray % and paired #var#.>
  command <paired> msg <Paired %num% and #var#.>
+ command <dollar> msg <A stray $ dollar.>
+ command <dollarempty> msg <A doubled $$ is literal.>
 end define
 
 ! The room description is the case that used to silence the entire game.

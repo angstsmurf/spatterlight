@@ -19,7 +19,7 @@ You can go out to The Hallway.
 You are in a grand hallway, with walls of stone, and towering pillars lining it. Here there are doorways leading to all parts of the building.
 There is nobody here.
 You can go out to Outside the Academy.
-You can go to Your Training room Training Room 1, The Library, or The Grand Luridii's Study.
+You can go to Your Training room raining Room 1, The Library, or The Grand Luridii's Study.
 
 > go to training room 1
 You are in Training Room 1.
@@ -94,7 +94,7 @@ To the northwest is a room where you fight magical replicas of enemys; using wea
 You are in a grand hallway, with walls of stone, and towering pillars lining it. Here there are doorways leading to all parts of the building.
 There is nobody here.
 You can go out to Outside the Academy.
-You can go to Your Training room Training Room 1, The Library, or The Grand Luridii's Study.
+You can go to Your Training room raining Room 1, The Library, or The Grand Luridii's Study.
 
 > go to study
 You are in a grand room, the carpet is blue and yellow, and on the walls hang pictures of previous students, who are now well known in the world.
@@ -110,10 +110,12 @@ Are there any last things you want to do here?
 
 They give you a peasant's clothes, and a strange box.
 The next day you set out for the king. The day is fine, and you are making good progress as you are just beyond the town of Calamatra. However you see some people on the road ahead.....And they seem to be blocking the road off.       Press any key to continue
+
 "Give us what you have in that box!!!!"
 You refuse, and the leader barks out something in a strange language. "We'll ask you again, Give us what you have in the box"
 "Never!!" you bellow, and draw your Sword.
-The leader laughs at you, and says something to the others. They all start pulsing red, and their forms starts changing.    Press any key to continue They grow taller, and wings sprout from their backs. 
+The leader laughs at you, and says something to the others. They all start pulsing red, and their forms starts changing.    Press any key to continue
+ They grow taller, and wings sprout from their backs. 
 "We are the priests of Tolmanorgagon; The King of Darkness.
 Our master lurks, having been beaten by Sassanka; a mortal hero blessed by the gods; decades ago, but he merely waits.....   Press any key to continue
 ...Waits for you Sassanka.....
@@ -121,6 +123,7 @@ Our master lurks, having been beaten by Sassanka; a mortal hero blessed by the g
 
 You put up a brave fight, but nothing you do seems to affect them. And there are just too many of them, circling around you, and casting spells at you.
  Eventually you tire and fall. Knowing they have won, the priests circle closer and take the box. They just leave you lying there...      Press any key to continue
+
  Hours later you wake, feeling dizzy, bruised, and heavy-hearted that you must return to the academy to tell your master, you have failed.....
 Press any key to continue
 You are in a grand room, the carpet is blue and yellow, and on the walls hang pictures of previous students, who are now well known in the world.
@@ -142,7 +145,7 @@ He looks at you. "You know what you must do. You must seek out Tolmanorgagon and
 You are in a grand hallway, with walls of stone, and towering pillars lining it. Here there are doorways leading to all parts of the building.
 There is nobody here.
 You can go out to Outside the Academy.
-You can go to Your Training room Training Room 1, The Library, or The Grand Luridii's Study.
+You can go to Your Training room raining Room 1, The Library, or The Grand Luridii's Study.
 
 > out
 You are outside the Academy. It is a fine day. To the northeast lies the path to the village of Calamatra.
@@ -599,13 +602,14 @@ You kneel and hack away at the tendrils. When chopped off they shrivel and die..
 > use dagger on oggy-waggi plant
 You slash at the thorny growth with your dagger.
 The Oggy-Waggi plant hits back!
+The plant sprouts more tendrils!
 
 
 > use dagger on oggy-waggi plant
 You slash at the thorny growth with your dagger.
 The Oggy-Waggi plant hits back!
+The poisonous tendrils also attack!
 
-The plant sprouts more tendrils!
 
 > use dagger on oggy-waggi plant
 You slash at the thorny growth with your dagger.
@@ -714,9 +718,9 @@ You enter Fennats square. It is nowhere near as grand as Calamatra's, and there 
 You  walk along a long road with houses either side of it.
 There is nobody here.
 You can go south.
-You can go to the The Doctors house, Ferran House1, or Azambri's Cousins' house.
+You can go to the Doctors, Ferran House1, or Ferran House 2.
 
-> go to the doctors house
+> go to the doctors
 You are in The Doctors house.
 You can see the Doctor and the doctors Assistant here.
 You can go out to Ferran Street.
@@ -732,7 +736,7 @@ You can go out to Ferran Street.
 You  walk along a long road with houses either side of it.
 There is nobody here.
 You can go south.
-You can go to the The Doctors house, Ferran House1, or Azambri's Cousins' house.
+You can go to the Doctors, Ferran House1, or Ferran House 2.
 
 > south
 You enter Fennats square. It is nowhere near as grand as Calamatra's, and there are fewer people here.
@@ -874,13 +878,19 @@ I'm gonna destroy you. She waves her hand and your staff is gone!"
 
 > use dagger on evil druidess
 You slash at her, drawing blood.
- Her eyes start burning red. She holds your staff aloft and the air around goes black. "Gawalana" she mutters Press any key "Gawalana...Press any keyPowers of darkness.....Press any keyPowers of our king.......Press any keySmash this hero."Press any key She then falls to the floor dead. You feel dazed. The blackness she drained her life-force creating overwhelms you. You are spinning in it, writhing in it, drowning in it, lost in it...Untill "Sassanka...Sassanka...Wake up!..WAKE UP!" and a bucket of water is emptied over you!Press any key
+ Her eyes start burning red. She holds your staff aloft and the air around goes black. "Gawalana" she mutters Press any key
+ "Gawalana...Press any key
+Powers of darkness.....Press any key
+Powers of our king.......Press any key
+Smash this hero."Press any key
+ She then falls to the floor dead. You feel dazed. The blackness she drained her life-force creating overwhelms you. You are spinning in it, writhing in it, drowning in it, lost in it...Untill "Sassanka...Sassanka...Wake up!..WAKE UP!" and a bucket of water is emptied over you!Press any key
 You are in Azambri's Cousins' house.
 You can see Azambri and Azambri's Cousin here.
 There is Azambri's Ignisa Polizephter here.
 You can go out to Ferran Street.
 "You're up at last!" says Azambri "Shh" says her cousin. "Sassanka's only just up. If you're only going to shout then go out."
 "Fine then!" says Azambri, and storms out. Press any key
+
 "Sorry about Azambri waking you up so suddenly. She got annoyed. I'm her cousin and I'm a healer. Anyway when I recovered from the disease Azambri went off into the forest saying she was going to kill something to get back into shape. And she found you in this cavern lying on the floor. So she brought you back here and told me to look after you. Now after a week you've recovered again."
 
 
@@ -891,7 +901,7 @@ You gladly recover your staff.
 You  walk along a long road with houses either side of it.
 There is nobody here.
 You can go south.
-You can go to the The Doctors house, Ferran House1, or Azambri's Cousins' house.
+You can go to the Doctors, Ferran House1, or Ferran House 2.
 
 > south
 You enter Fennats square. It is nowhere near as grand as Calamatra's, and there are fewer people here.
@@ -945,7 +955,8 @@ You can go west.
 > speak to guardian of maren
 "Yet again this is the end of the line Sassanka. You can go no further.
 There is nothing beyond the door leading outside. It has not yet been created.....
-Still your path has not been particually difficult, and you probably got here with ease."   Press any key to continue"
+Still your path has not been particually difficult, and you probably got here with ease."   Press any key to continue
+"
 Are you finished now? Or do you wish to return.
 1) Yes
 2) No

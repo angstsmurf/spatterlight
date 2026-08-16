@@ -4,9 +4,12 @@ Into The Briny Blue | Scott Lange and Abigail Auner
 The president has gone missing. As Shane Georgeson, a secret service agent, it's your task to find him. He was last seen somewhere around here babbling about the lost city of Atlantis. You and your trusty companion Darrel get on the USS Secret Service and drive out to where the president was last seen, swimming three hundred miles offshore of Florida. Thus begins your quest.... 
 
 
+
 INTO THE BRINY BLUE
 
+
 By Scott Lange and Abigail Auner. Type "VERBS" to see a list of all twelve of the verbs the game accepts. Type  "HELP" to see some hints. Type "CREDITS" to see information about this game's creators. Type  "ABOUT" to see other information. Press ENTER to begin.
+
 
 
 You are in the office of the USS Secret Service.

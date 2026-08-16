@@ -3,6 +3,7 @@
 # whichever binary produced it.
 /quest4/harness/geas_walkthrough_runner
 /quest4/harness/geas_unit_tests
+/quest4/harness/casdump
 /quest4/harness/randomness.o
 /quest5/harness/aslx_loader_test
 /quest5/harness/aslx_runtime_test

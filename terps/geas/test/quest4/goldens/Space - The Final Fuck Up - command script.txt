@@ -7,7 +7,7 @@ open cupboard
 take jar
 use jar on liquid
 out
-go to sciece lab
+go to science lab
 use liquid on microscope
 out
 go to the bridge

@@ -170,6 +170,7 @@ It contains Crowbar.
 > take crowbar
 (first removing it from Cupboard)
 Done.
+
 This could be a multi-purpose tool, from killing to leverage.
 
 > east
@@ -322,11 +323,13 @@ It contains Power key and Flashlight.
 > take power key
 (first removing it from Cabinet)
 Done.
+
 You pick it up.
 
 > take flashlight
 (first removing it from Cabinet)
 Done.
+
 You pick it up.
 
 > out
@@ -487,6 +490,7 @@ It contains Medical kit.
 > take medical kit
 (first removing it from Medical kit box)
 Done.
+
 You pick it up.
 
 > use medical kit
@@ -807,6 +811,6 @@ You're out! It has never been so good to get out of your apartment building. Its
        For now . . .
        Thanks for playing :)
 
-       You completed the game in 143 turns, try to beat your best!
+       You completed the game in 147 turns, try to beat your best!
        Hulkman508's First Game
 [runner] turns=143 leftover=0 running=false WON=YES

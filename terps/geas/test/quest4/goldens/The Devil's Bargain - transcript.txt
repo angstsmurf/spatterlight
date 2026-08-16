@@ -51,6 +51,7 @@ staringmonkey
 22 Arabian Jumping Llamas 
 
 
+
  
  
  
@@ -94,13 +95,15 @@ staringmonkey
 
 
 
+
     
  
  
 
 Welcome to The Devil's Bargain.  In this text roleplaying game you portray a common thug living life on the streets.  You can play this character in many ways:  a thief, a nice guy, a drugE, or something else.  Whatever you choose I'm sure you will take full advantage of your resources as you try to build your fortune in this game. 
 
-Press any key to continue...  
+Press any key to continue... 
+ 
 
 
 
@@ -109,7 +112,8 @@ Objective:  Buy a Guitar (A $1000 Ibanez) from the Pawn Shop on Maple Avenue so 
 
 Losing:  Their are numerous ways to lose, dying or being thrown in jail without bail money are the most common. 
 
-Press any key to continue...  
+Press any key to continue... 
+ 
 
 
 
@@ -120,7 +124,9 @@ Tips:
  Blue = A Place
  Green = An Object
 
-Press any key to begin playing...  
+Press any key to begin playing... 
+ 
+
   
 
 
@@ -223,7 +229,7 @@ You take the photos out of the desk.
 
 > i
 You are carrying:
-Map, police pass, monkey drawing and photos.
+Map, police pass, photos and monkey drawing.
 
 > west
 Behind the Counter of the Police Lobby are several Police Officers at desks.   Officer Derek Peterson  sits at a desk typing a report on his Mac.  Another Officer,  Mary Jenkins  sits at a desk spinning a pencil in his fingers.  On one side of the room is a  Blackboard .  A door to the east is labeled  Captain Herris's Office .  Another door to the north is labeled  Cells .  Yet a third door to the west is labeled  Meeting Room .
@@ -277,6 +283,7 @@ The Guitar will set you back 1000 dollars.  Are you sure you want it?
 The owner of the shop reaches in the glass case and pulls out a beatiful Les paul guitar.
 
 Press a key to continue...
+
 
 
  

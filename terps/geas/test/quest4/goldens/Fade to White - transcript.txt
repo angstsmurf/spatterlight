@@ -23,6 +23,7 @@ Loud footsteps sound, echoing as if you were standing in a canyon and not lying 
 "Shhhhhhhhhhhhhhhh...." A tiny prick on your arm, almost unnoticeable as the fire eats your soul and the lady and the dragon slay your body, and then the white turns to black, and the black to nothing.
 You're lying on a hospital bed.
 You can see Dr. Cain here.
+You can go out to You need to get up first..
 You can go northeast.
 The cool sheets are comfortable against your back and you can feel them through the thin fabric of your gown. They are perfect because they just barely necessitate the use of the thick, warm, navy blue, which when snugged up around your body leaves you warm and cozy. The room is comfortable enough, standard hospital fair. The open door in the northeast corner leads to a small, mostly polished stainless steel bathroom. There is a Televison, which is off, without a remote control in sight and  two padded low backed chairs. And the bed, which is particualaryl wonderful, with a remote control for tilting it sitting on your lap.   The heavy wooden door leading out is pulled shut.The only thing that bothers you about the room is that there is no window.  Although the room is comforting in it's familiarity, and normality the situation is quite the opposite.  You see, not only do you have no idea where you are,  which is understandable since you've clearly been abducted, you haven't the faintest idea WHO you are. And that is all the more disconcerting.
 
@@ -39,6 +40,7 @@ You slowly get to your feet, and carefully remove the bright red cathater from y
 You're in your hospital room.
 There is nobody here.
 There is Television and Door here.
+You can go out to You need to open the door first..
 You can go northeast.
 You still don't know who you are, or even fully remember anything.....                              The room is comfortable enough, standard hospital fair. The open door in the northeast corner leads to a small, mostly polished stainless steel bathroom. There is a Televison, which is off, without a remote control in sight and  two padded low backed chairs. And the bed, which is particualaryl wonderful, with a remote control for tilting it sitting on your lap.   The heavy wooden door leading out is pulled shut.The only thing that bothers you about the room is that there is no window. You hear voices and footsteps outside, muffled by the thick door.
 
@@ -52,6 +54,7 @@ The orderlie leaves, shutting the door behind him with a soft whoosh.
 > lie down
 You're lying on a hospital bed.
 There is nobody here.
+You can go out to You need to get up first..
 You can go northeast.
 The cool sheets are comfortable against your back and you can feel them through the thin fabric of your gown. They are perfect because they just barely necessitate the use of the thick, warm, navy blue, which when snugged up around your body leaves you warm and cozy. The room is comfortable enough, standard hospital fair. The open door in the northeast corner leads to a small, mostly polished stainless steel bathroom. There is a Televison, which is off, without a remote control in sight and  two padded low backed chairs. And the bed, which is particualaryl wonderful, with a remote control for tilting it sitting on your lap.   The heavy wooden door leading out is pulled shut.The only thing that bothers you about the room is that there is no window.  Although the room is comforting in it's familiarity, and normality the situation is quite the opposite.  You see, not only do you have no idea where you are,  which is understandable since you've clearly been abducted, you haven't the faintest idea WHO you are. And that is all the more disconcerting.
 
@@ -69,6 +72,7 @@ You slowly get to your feet, and carefully remove the bright red cathater from y
 You're in your hospital room.
 There is nobody here.
 There is Television and Door here.
+You can go out to You need to open the door first..
 You can go northeast.
 You still don't know who you are, or even fully remember anything.....                              The room is comfortable enough, standard hospital fair. The open door in the northeast corner leads to a small, mostly polished stainless steel bathroom. There is a Televison, which is off, without a remote control in sight and  two padded low backed chairs. And the bed, which is particualaryl wonderful, with a remote control for tilting it sitting on your lap.   The heavy wooden door leading out is pulled shut.The only thing that bothers you about the room is that there is no window. You hear voices and footsteps outside, muffled by the thick door.
 
@@ -92,6 +96,7 @@ You're feeling very sleepy now, having trouble keeping your eyelids open.
 You're in your hospital room.
 There is nobody here.
 There is Intrevenus, Television and Door here.
+You can go out to You need to open the door first..
 You can go northeast.
 You still don't know who you are, or even fully remember anything.....                              The room is comfortable enough, standard hospital fair. The open door in the northeast corner leads to a small, mostly polished stainless steel bathroom. There is a Televison, which is off, without a remote control in sight and  two padded low backed chairs. And the bed, which is particualaryl wonderful, with a remote control for tilting it sitting on your lap.   The heavy wooden door leading out is pulled shut.The only thing that bothers you about the room is that there is no window. You hear voices and footsteps outside, muffled by the thick door.
 You really need to get to sleep soon....
@@ -100,6 +105,7 @@ You really need to get to sleep soon....
 As you lie down you hook the water IV bag to the intrevenus.
 You're lying on a hospital bed.
 There is nobody here.
+You can go out to You need to get up first..
 You can go northeast.
 The cool sheets are comfortable against your back and you can feel them through the thin fabric of your gown. They are perfect because they just barely necessitate the use of the thick, warm, navy blue, which when snugged up around your body leaves you warm and cozy. The room is comfortable enough, standard hospital fair. The open door in the northeast corner leads to a small, mostly polished stainless steel bathroom. There is a Televison, which is off, without a remote control in sight and  two padded low backed chairs. And the bed, which is particualaryl wonderful, with a remote control for tilting it sitting on your lap.   The heavy wooden door leading out is pulled shut.The only thing that bothers you about the room is that there is no window.  Although the room is comforting in it's familiarity, and normality the situation is quite the opposite.  You see, not only do you have no idea where you are,  which is understandable since you've clearly been abducted, you haven't the faintest idea WHO you are. And that is all the more disconcerting.
 So Sleepy...

@@ -1,0 +1,63 @@
+
+Itemtable
+
+You are in Yard.
+There is nobody here.
+There is coin here.
+The yard.
+
+> i
+You are carrying:
+Key.
+
+> grab sack
+
+> grab rope
+
+> i
+You are carrying:
+Sack, rope and key.
+
+> stash
+
+> i
+You are carrying:
+Sack, rope and key.
+
+> grab torch
+
+> check torch
+got torch: no
+
+> grab lantern
+
+> grab spade
+
+> check lantern
+got lantern: yes
+
+> check spade
+got spade: no
+
+> i
+You are carrying:
+Sack, rope, key and lantern.
+
+> miscase
+
+> check rope
+got rope: yes
+
+> i
+You are carrying:
+Sack, rope, key and lantern.
+
+> ditch rope
+
+> check rope
+got rope: no
+
+> i
+You are carrying:
+Sack, key and lantern.
+[runner] turns=19 leftover=0 running=true

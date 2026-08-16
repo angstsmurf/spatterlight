@@ -21,6 +21,8 @@ Press any key to continue....
 
 
 
+
+
 You are in Your Bedroom (in almost total darkness).
 You are in your bedroom. the only light comes dimly in from the edges of your closed door. You do notice you have gone to sleep holding your spellbook again.
 
@@ -58,7 +60,7 @@ You open the dresser.
 
 > take robe
 (first removing it from Dresser)
-Done.
+
 You pick it up.
 
 > wear robe
@@ -1316,7 +1318,7 @@ Strangely enough your bucket refills itself with sand.
 
 > take empty beaker
 (first removing it from Glass Machine)
-Done.
+
 You pick it up.
 
 > use empty beaker on potion dispenser
@@ -1329,7 +1331,7 @@ You press the button. The dispenser makes alot of strange noises then some red f
 
 > take beaker
 (first removing it from Potion Dispenser)
-Done.
+
 You pick it up.
 
 > use beaker on potion mixer
@@ -1345,7 +1347,7 @@ The mixer makes some strange noises as the beaker empties. After a few moments a
 
 > take red potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use bucket of sand on glass machine
@@ -1356,7 +1358,7 @@ Strangely enough your bucket refills itself with sand.
 
 > take empty beaker
 (first removing it from Glass Machine)
-Done.
+
 You pick it up.
 
 > use empty beaker on potion dispenser
@@ -1369,7 +1371,7 @@ You press the button. The dispenser makes alot of strange noises then some yello
 
 > take beaker
 (first removing it from Potion Dispenser)
-Done.
+
 You pick it up.
 
 > use beaker on potion mixer
@@ -1385,7 +1387,7 @@ The mixer makes some strange noises as the beaker empties. After a few moments a
 
 > take yellow potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use red potion on potion mixer
@@ -1405,7 +1407,7 @@ The mixer makes some strange noises. After a few moments a potion pops out of th
 
 > take orange potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use bucket of sand on glass machine
@@ -1416,7 +1418,7 @@ Strangely enough your bucket refills itself with sand.
 
 > take empty beaker
 (first removing it from Glass Machine)
-Done.
+
 You pick it up.
 
 > use empty beaker on potion dispenser
@@ -1430,7 +1432,7 @@ You press the button. The dispenser makes alot of strange noises then some red f
 
 > take beaker
 (first removing it from Potion Dispenser)
-Done.
+
 You pick it up.
 
 > use beaker on potion mixer
@@ -1446,7 +1448,7 @@ The mixer makes some strange noises as the beaker empties. After a few moments a
 
 > take red potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > south
@@ -2006,6 +2008,7 @@ How can I help you my friend?
 > look at bottle of sludge
 A bottle of disgusting sludge.
 
+It contains a Label.
 
 > take label
 You already have that.
@@ -2098,7 +2101,7 @@ Strangely enough your bucket refills itself with sand.
 
 > take empty beaker
 (first removing it from Glass Machine)
-Done.
+
 You pick it up.
 
 > use empty beaker on potion dispenser
@@ -2111,7 +2114,7 @@ You press the button. The dispenser makes alot of strange noises then some yello
 
 > take beaker
 (first removing it from Potion Dispenser)
-Done.
+
 You pick it up.
 
 > use beaker on potion mixer
@@ -2127,7 +2130,7 @@ The mixer makes some strange noises as the beaker empties. After a few moments a
 
 > take yellow potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use bucket of sand on glass machine
@@ -2138,7 +2141,7 @@ Strangely enough your bucket refills itself with sand.
 
 > take empty beaker
 (first removing it from Glass Machine)
-Done.
+
 You pick it up.
 
 > use empty beaker on potion dispenser
@@ -2151,7 +2154,7 @@ You press the button. The dispenser makes alot of strange noises then some blue 
 
 > take beaker
 (first removing it from Potion Dispenser)
-Done.
+
 You pick it up.
 
 > use beaker on potion mixer
@@ -2167,7 +2170,7 @@ The mixer makes some strange noises as the beaker empties. After a few moments a
 
 > take blue potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use yellow potion on potion mixer
@@ -2187,7 +2190,7 @@ The mixer makes some strange noises. After a few moments a potion pops out of th
 
 > take green potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > memorize
@@ -2353,7 +2356,7 @@ You are in the center of a small town set in the middle of nowhere. You think th
 
 > northwest
 You are in a Tavern.
-There is some Shelves filled with bottles and a Bartender serving drinks here.
+There is some Shelves filled with bottles, a Bartender serving drinks and a Label here.
 You can go north, east or southeast.
 You are in a small country tavern. A variety of liquors fill the shelves behind the bar. A grumpy looking bartender is serving drinks here.
 
@@ -2454,6 +2457,7 @@ You are in small but well kept church. Stained glass windows let in sunlight for
 
 > detect magic
 You cast Detect Magic.
+The Yellow Bead glows briefly.
 The Bucket of sand glows briefly.
 The Yellow Bead glows briefly.
 The Yellow Bead glows briefly.
@@ -2474,8 +2478,10 @@ It contains a pile Lemon drops in the basket and a Yellow Bead.
 
 > take yellow bead
 (first removing it from Basket)
-Done.
-You pick it up.
+A strange force prevents you from taking it.
+You must need to make a donation first.
+
+
 
 > south
 You are in a Market.
@@ -2535,7 +2541,7 @@ Strangely enough your bucket refills itself with sand.
 
 > take empty beaker
 (first removing it from Glass Machine)
-Done.
+
 You pick it up.
 
 > use empty beaker on potion dispenser
@@ -2548,7 +2554,7 @@ You press the button. The dispenser makes alot of strange noises then some yello
 
 > take beaker
 (first removing it from Potion Dispenser)
-Done.
+
 You pick it up.
 
 > use beaker on potion mixer
@@ -2564,7 +2570,7 @@ The mixer makes some strange noises as the beaker empties. After a few moments a
 
 > take yellow potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > rmemorize
@@ -2854,7 +2860,7 @@ Strangely enough your bucket refills itself with sand.
 
 > take empty beaker
 (first removing it from Glass Machine)
-Done.
+
 You pick it up.
 
 > use empty beaker on potion dispenser
@@ -2867,7 +2873,7 @@ You press the button. The dispenser makes alot of strange noises then some red f
 
 > take beaker
 (first removing it from Potion Dispenser)
-Done.
+
 You pick it up.
 
 > use beaker on potion mixer
@@ -2883,7 +2889,7 @@ The mixer makes some strange noises as the beaker empties. After a few moments a
 
 > take red potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use bucket of sand on glass machine
@@ -2894,7 +2900,7 @@ Strangely enough your bucket refills itself with sand.
 
 > take empty beaker
 (first removing it from Glass Machine)
-Done.
+
 You pick it up.
 
 > use empty beaker on potion dispenser
@@ -2907,7 +2913,7 @@ You press the button. The dispenser makes alot of strange noises then some yello
 
 > take beaker
 (first removing it from Potion Dispenser)
-Done.
+
 You pick it up.
 
 > use beaker on potion mixer
@@ -2923,7 +2929,7 @@ The mixer makes some strange noises as the beaker empties. After a few moments a
 
 > take yellow potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use bucket of sand on glass machine
@@ -2934,7 +2940,7 @@ Strangely enough your bucket refills itself with sand.
 
 > take empty beaker
 (first removing it from Glass Machine)
-Done.
+
 You pick it up.
 
 > use empty beaker on potion dispenser
@@ -2947,7 +2953,7 @@ You press the button. The dispenser makes alot of strange noises then some blue 
 
 > take beaker
 (first removing it from Potion Dispenser)
-Done.
+
 You pick it up.
 
 > use beaker on potion mixer
@@ -2963,7 +2969,7 @@ The mixer makes some strange noises as the beaker empties. After a few moments a
 
 > take blue potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use yellow potion on potion mixer
@@ -2983,7 +2989,7 @@ The mixer makes some strange noises. After a few moments a potion pops out of th
 
 > take green potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use bucket of sand on glass machine
@@ -2994,7 +3000,7 @@ Strangely enough your bucket refills itself with sand.
 
 > take empty beaker
 (first removing it from Glass Machine)
-Done.
+
 You pick it up.
 
 > use empty beaker on potion dispenser
@@ -3007,7 +3013,7 @@ You press the button. The dispenser makes alot of strange noises then some blue 
 
 > take beaker
 (first removing it from Potion Dispenser)
-Done.
+
 You pick it up.
 
 > use beaker on potion mixer
@@ -3023,7 +3029,7 @@ The mixer makes some strange noises as the beaker empties. After a few moments a
 
 > take blue potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use blue potion on potion mixer
@@ -3043,7 +3049,7 @@ The mixer makes some strange noises. After a few moments a potion pops out of th
 
 > take violet potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > memorize
@@ -3315,7 +3321,7 @@ Strangely enough your bucket refills itself with sand.
 
 > take empty beaker
 (first removing it from Glass Machine)
-Done.
+
 You pick it up.
 
 > use empty beaker on potion dispenser
@@ -3328,7 +3334,7 @@ You press the button. The dispenser makes alot of strange noises then some red f
 
 > take beaker
 (first removing it from Potion Dispenser)
-Done.
+
 You pick it up.
 
 > use beaker on potion mixer
@@ -3344,7 +3350,7 @@ The mixer makes some strange noises as the beaker empties. After a few moments a
 
 > take red potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use bucket of sand on glass machine
@@ -3355,7 +3361,7 @@ Strangely enough your bucket refills itself with sand.
 
 > take empty beaker
 (first removing it from Glass Machine)
-Done.
+
 You pick it up.
 
 > use empty beaker on potion dispenser
@@ -3368,7 +3374,7 @@ You press the button. The dispenser makes alot of strange noises then some yello
 
 > take beaker
 (first removing it from Potion Dispenser)
-Done.
+
 You pick it up.
 
 > use beaker on potion mixer
@@ -3384,7 +3390,7 @@ The mixer makes some strange noises as the beaker empties. After a few moments a
 
 > take yellow potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use red potion on potion mixer
@@ -3404,7 +3410,7 @@ The mixer makes some strange noises. After a few moments a potion pops out of th
 
 > take orange potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > rmemorize
@@ -3441,6 +3447,279 @@ Please select a spell.
 [choice] 10
 You memorize the Enchant spell.
 
+> enchant purse
+You cast Enchant on the Small purse.
+
+Another coin appears in the purse.
+
+
+> memorize
+Please select a spell.
+1) Illuminate
+2) Unlock
+3) Scribe
+4) Detect magic
+5) Levitate
+6) Enfeeble
+7) Bremoval
+8) Charm
+9) Bind
+10) Enchant
+11) 
+12) 
+[choice] 10
+You memorize the Enchant spell.
+
+> south
+You are in the Basement.
+You can go north, south or up.
+You are in the basement of the tower. The great spiral stair that winds up through the tower starts here. There are also two archways leading north to the alchemy lab and south to the summoning lab.
+
+> south
+You are in the Summoning Labratory.
+There is a Swirling Misty Portal above the pentagram here.
+You can go north.
+You are in a large labratory used by the wizard's to teach the art of summoning to it's advanced students. You have never been in here yourself as you are a new student. In the center of the room is a large pentegram, used as a safety net for advanced summons. The lab itself has been virtually ripped to shreds. Broken equipment lies everywhere and there is blood on the floor and walls. The only exit is to the north.
+
+The mist in the portal is currently red.
+
+
+> enter portal
+You enter the swirling portal. You feel like you are being squeezed from all sides and then folded and then suddenly you find yourself elsewhere.
+
+You are in a Forest.
+There is a Misty White Portal here.
+You can go north, south, east or west.
+You are in a dense forest. The trees form a sort of canopy here. Paths lead off in the four cardinal directions from here.
+
+
+> north
+You are on a Road.
+You can go south or northeast.
+You are on a dirt road leading out of the forest to the south and heading towards a town to the northeast.
+
+
+> northeast
+You are at the Town square.
+There is a Small boy here.
+You can go north, east, northwest or southwest.
+You are in the center of a small town set in the middle of nowhere. You think this might be not to far from the tower because you remember seeing one like this from the top of the tower. There are some stables to the east, a bar to the northwest, and a market to the north. The road out of town leads to the southwest.
+
+
+> northwest
+You are in a Tavern.
+There is some Shelves filled with bottles, a Bartender serving drinks and a Label here.
+You can go north, east or southeast.
+You are in a small country tavern. A variety of liquors fill the shelves behind the bar. A grumpy looking bartender is serving drinks here.
+
+
+> north
+You are in an Alley.
+There is a Shady looking man here.
+You can go south or southeast.
+You are in a narrow alley between a tavern and a church. Trash litters the area here.
+
+
+> southeast
+You are in a Market.
+There is a Street Merchant here.
+You can go north, south, west or northwest.
+You are at the town market. Stalls selling all kinds of goods and food line the area here. You can go north to a church, west to a bar, south to the town square or northwest to an alley.
+
+
+> north
+You are in a Church.
+There is an Offering plate on the altar, a Small sign affixed to the altar, a Basket sitting on the altar, a pile Lemon drops in the basket and a Yellow Bead here.
+You can go south.
+You are in small but well kept church. Stained glass windows let in sunlight for both sides here. Lines of pews run from the entrance down to near the back of the church. In the back there is an altar and a podium behind it.
+
+
+> use copper coin on offering plate
+You remove the coin from the purse.
+
+Another coin appears in the purse.
+
+
+You put the coin in the plate. Strangely it vanishes.
+
+
+> take yellow bead
+(first removing it from Basket)
+
+You pick it up.
+
+> south
+You are in a Market.
+There is a Street Merchant here.
+You can go north, south, west or northwest.
+You are at the town market. Stalls selling all kinds of goods and food line the area here. You can go north to a church, west to a bar, south to the town square or northwest to an alley.
+
+
+> south
+You are at the Town square.
+There is a Small boy here.
+You can go north, east, northwest or southwest.
+You are in the center of a small town set in the middle of nowhere. You think this might be not to far from the tower because you remember seeing one like this from the top of the tower. There are some stables to the east, a bar to the northwest, and a market to the north. The road out of town leads to the southwest.
+
+
+> southwest
+You are on a Road.
+You can go south or northeast.
+You are on a dirt road leading out of the forest to the south and heading towards a town to the northeast.
+
+
+> south
+You are in a Forest.
+There is a Misty White Portal here.
+You can go north, south, east or west.
+You are in a dense forest. The trees form a sort of canopy here. Paths lead off in the four cardinal directions from here.
+
+
+> enter misty white portal
+You enter the swirling portal. You feel like you are being squeezed from all sides and then folded and then suddenly you find yourself elsewhere.
+
+You are in the Summoning Labratory.
+There is a Swirling Misty Portal above the pentagram here.
+You can go north.
+You are in a large labratory used by the wizard's to teach the art of summoning to it's advanced students. You have never been in here yourself as you are a new student. In the center of the room is a large pentegram, used as a safety net for advanced summons. The lab itself has been virtually ripped to shreds. Broken equipment lies everywhere and there is blood on the floor and walls. The only exit is to the north.
+
+The mist in the portal is currently yellow.
+
+
+> north
+You are in the Basement.
+You can go north, south or up.
+You are in the basement of the tower. The great spiral stair that winds up through the tower starts here. There are also two archways leading north to the alchemy lab and south to the summoning lab.
+
+> north
+You are in the Alchemy labratory.
+There is a Blackboard fixed to the wall, a Glass Machine, a Potion Dispenser, a Red Button on the potion dispenser, a Yellow Button on the potion dispenser, a Blue Button on the potion dispenser, a Potion Mixer and a Lever here.
+You can go south.
+You are in a labratory. Strange devices are all about the place as well as strange ingredients and mixes all along the shelves here. The exit is to the south.
+
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+You feel the effects of the red potion wear off.
+
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
+> wait
+Time passes.
+
 > south
 You are in the Basement.
 You can go north, south or up.
@@ -3475,7 +3754,7 @@ Strangely enough your bucket refills itself with sand.
 
 > take empty beaker
 (first removing it from Glass Machine)
-Done.
+
 You pick it up.
 
 > use empty beaker on potion dispenser
@@ -3488,7 +3767,7 @@ You press the button. The dispenser makes alot of strange noises then some red f
 
 > take beaker
 (first removing it from Potion Dispenser)
-Done.
+
 You pick it up.
 
 > use beaker on potion mixer
@@ -3504,7 +3783,7 @@ The mixer makes some strange noises as the beaker empties. After a few moments a
 
 > take red potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use bucket of sand on glass machine
@@ -3515,7 +3794,7 @@ Strangely enough your bucket refills itself with sand.
 
 > take empty beaker
 (first removing it from Glass Machine)
-Done.
+
 You pick it up.
 
 > use empty beaker on potion dispenser
@@ -3528,7 +3807,7 @@ You press the button. The dispenser makes alot of strange noises then some blue 
 
 > take beaker
 (first removing it from Potion Dispenser)
-Done.
+
 You pick it up.
 
 > use beaker on potion mixer
@@ -3544,7 +3823,7 @@ The mixer makes some strange noises as the beaker empties. After a few moments a
 
 > take blue potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use red potion on potion mixer
@@ -3564,7 +3843,7 @@ The mixer makes some strange noises. After a few moments a potion pops out of th
 
 > take indigo potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use bucket of sand on glass machine
@@ -3572,12 +3851,10 @@ You pour the sand into the machine. It makes alot of strange noises then a beake
 
 Strangely enough your bucket refills itself with sand.
 
-You feel the effects of the red potion wear off.
-
 
 > take empty beaker
 (first removing it from Glass Machine)
-Done.
+
 You pick it up.
 
 > use empty beaker on potion dispenser
@@ -3590,7 +3867,7 @@ You press the button. The dispenser makes alot of strange noises then some yello
 
 > take beaker
 (first removing it from Potion Dispenser)
-Done.
+
 You pick it up.
 
 > use beaker on potion mixer
@@ -3606,7 +3883,7 @@ The mixer makes some strange noises as the beaker empties. After a few moments a
 
 > take yellow potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use bucket of sand on glass machine
@@ -3617,7 +3894,7 @@ Strangely enough your bucket refills itself with sand.
 
 > take empty beaker
 (first removing it from Glass Machine)
-Done.
+
 You pick it up.
 
 > use empty beaker on potion dispenser
@@ -3630,7 +3907,7 @@ You press the button. The dispenser makes alot of strange noises then some blue 
 
 > take beaker
 (first removing it from Potion Dispenser)
-Done.
+
 You pick it up.
 
 > use beaker on potion mixer
@@ -3646,7 +3923,7 @@ The mixer makes some strange noises as the beaker empties. After a few moments a
 
 > take blue potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use yellow potion on potion mixer
@@ -3666,7 +3943,7 @@ The mixer makes some strange noises. After a few moments a potion pops out of th
 
 > take green potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use bucket of sand on glass machine
@@ -3677,7 +3954,7 @@ Strangely enough your bucket refills itself with sand.
 
 > take empty beaker
 (first removing it from Glass Machine)
-Done.
+
 You pick it up.
 
 > use empty beaker on potion dispenser
@@ -3690,7 +3967,7 @@ You press the button. The dispenser makes alot of strange noises then some blue 
 
 > take beaker
 (first removing it from Potion Dispenser)
-Done.
+
 You pick it up.
 
 > use beaker on potion mixer
@@ -3706,7 +3983,7 @@ The mixer makes some strange noises as the beaker empties. After a few moments a
 
 > take blue potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use blue potion on potion mixer
@@ -3726,7 +4003,7 @@ The mixer makes some strange noises. After a few moments a potion pops out of th
 
 > take violet potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use indigo potion on potion mixer
@@ -3746,7 +4023,7 @@ The mixer makes some strange noises. After a few moments a potion pops out of th
 
 > take potion (v+i)
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use bucket of sand on glass machine
@@ -3757,7 +4034,7 @@ Strangely enough your bucket refills itself with sand.
 
 > take empty beaker
 (first removing it from Glass Machine)
-Done.
+
 You pick it up.
 
 > use empty beaker on potion dispenser
@@ -3770,7 +4047,7 @@ You press the button. The dispenser makes alot of strange noises then some red f
 
 > take beaker
 (first removing it from Potion Dispenser)
-Done.
+
 You pick it up.
 
 > use beaker on potion mixer
@@ -3786,7 +4063,7 @@ The mixer makes some strange noises as the beaker empties. After a few moments a
 
 > take red potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use red potion on potion mixer
@@ -3806,7 +4083,7 @@ The mixer makes some strange noises. After a few moments a potion pops out of th
 
 > take potion (v+i+r)
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use bucket of sand on glass machine
@@ -3817,7 +4094,7 @@ Strangely enough your bucket refills itself with sand.
 
 > take empty beaker
 (first removing it from Glass Machine)
-Done.
+
 You pick it up.
 
 > use empty beaker on potion dispenser
@@ -3830,7 +4107,7 @@ You press the button. The dispenser makes alot of strange noises then some yello
 
 > take beaker
 (first removing it from Potion Dispenser)
-Done.
+
 You pick it up.
 
 > use beaker on potion mixer
@@ -3846,7 +4123,7 @@ The mixer makes some strange noises as the beaker empties. After a few moments a
 
 > take yellow potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use bucket of sand on glass machine
@@ -3857,7 +4134,7 @@ Strangely enough your bucket refills itself with sand.
 
 > take empty beaker
 (first removing it from Glass Machine)
-Done.
+
 You pick it up.
 
 > use empty beaker on potion dispenser
@@ -3870,7 +4147,7 @@ You press the button. The dispenser makes alot of strange noises then some blue 
 
 > take beaker
 (first removing it from Potion Dispenser)
-Done.
+
 You pick it up.
 
 > use beaker on potion mixer
@@ -3886,7 +4163,7 @@ The mixer makes some strange noises as the beaker empties. After a few moments a
 
 > take blue potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use yellow potion on potion mixer
@@ -3906,7 +4183,7 @@ The mixer makes some strange noises. After a few moments a potion pops out of th
 
 > take green potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use green potion on potion mixer
@@ -3926,7 +4203,7 @@ The mixer makes some strange noises. After a few moments a potion pops out of th
 
 > take potion (v+i+r+g)
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use bucket of sand on glass machine
@@ -3937,7 +4214,7 @@ Strangely enough your bucket refills itself with sand.
 
 > take empty beaker
 (first removing it from Glass Machine)
-Done.
+
 You pick it up.
 
 > use empty beaker on potion dispenser
@@ -3950,7 +4227,7 @@ You press the button. The dispenser makes alot of strange noises then some blue 
 
 > take beaker
 (first removing it from Potion Dispenser)
-Done.
+
 You pick it up.
 
 > use beaker on potion mixer
@@ -3966,7 +4243,7 @@ The mixer makes some strange noises as the beaker empties. After a few moments a
 
 > take blue potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use blue potion on potion mixer
@@ -3986,7 +4263,7 @@ The mixer makes some strange noises. After a few moments a potion pops out of th
 
 > take potion (b+o)
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use bucket of sand on glass machine
@@ -3997,7 +4274,7 @@ Strangely enough your bucket refills itself with sand.
 
 > take empty beaker
 (first removing it from Glass Machine)
-Done.
+
 You pick it up.
 
 > use empty beaker on potion dispenser
@@ -4010,7 +4287,7 @@ You press the button. The dispenser makes alot of strange noises then some yello
 
 > take beaker
 (first removing it from Potion Dispenser)
-Done.
+
 You pick it up.
 
 > use beaker on potion mixer
@@ -4026,7 +4303,7 @@ The mixer makes some strange noises as the beaker empties. After a few moments a
 
 > take yellow potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use yellow potion on potion mixer
@@ -4046,7 +4323,7 @@ The mixer makes some strange noises. After a few moments a potion pops out of th
 
 > take potion (b+o+y)
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use potion (v+i+r+g) on potion mixer
@@ -4066,7 +4343,7 @@ The mixer makes some strange noises. After a few moments a potion pops out of th
 
 > take rainbow potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use bucket of sand on glass machine
@@ -4077,7 +4354,7 @@ Strangely enough your bucket refills itself with sand.
 
 > take empty beaker
 (first removing it from Glass Machine)
-Done.
+
 You pick it up.
 
 > use empty beaker on potion dispenser
@@ -4090,7 +4367,7 @@ You press the button. The dispenser makes alot of strange noises then some red f
 
 > take beaker
 (first removing it from Potion Dispenser)
-Done.
+
 You pick it up.
 
 > use beaker on potion mixer
@@ -4106,7 +4383,7 @@ The mixer makes some strange noises as the beaker empties. After a few moments a
 
 > take red potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use bucket of sand on glass machine
@@ -4117,7 +4394,7 @@ Strangely enough your bucket refills itself with sand.
 
 > take empty beaker
 (first removing it from Glass Machine)
-Done.
+
 You pick it up.
 
 > use empty beaker on potion dispenser
@@ -4130,7 +4407,7 @@ You press the button. The dispenser makes alot of strange noises then some yello
 
 > take beaker
 (first removing it from Potion Dispenser)
-Done.
+
 You pick it up.
 
 > use beaker on potion mixer
@@ -4146,7 +4423,7 @@ The mixer makes some strange noises as the beaker empties. After a few moments a
 
 > take yellow potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use red potion on potion mixer
@@ -4166,7 +4443,7 @@ The mixer makes some strange noises. After a few moments a potion pops out of th
 
 > take orange potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use bucket of sand on glass machine
@@ -4177,7 +4454,7 @@ Strangely enough your bucket refills itself with sand.
 
 > take empty beaker
 (first removing it from Glass Machine)
-Done.
+
 You pick it up.
 
 > use empty beaker on potion dispenser
@@ -4190,7 +4467,7 @@ You press the button. The dispenser makes alot of strange noises then some red f
 
 > take beaker
 (first removing it from Potion Dispenser)
-Done.
+
 You pick it up.
 
 > use beaker on potion mixer
@@ -4206,7 +4483,7 @@ The mixer makes some strange noises as the beaker empties. After a few moments a
 
 > take red potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use bucket of sand on glass machine
@@ -4217,7 +4494,7 @@ Strangely enough your bucket refills itself with sand.
 
 > take empty beaker
 (first removing it from Glass Machine)
-Done.
+
 You pick it up.
 
 > use empty beaker on potion dispenser
@@ -4230,7 +4507,7 @@ You press the button. The dispenser makes alot of strange noises then some blue 
 
 > take beaker
 (first removing it from Potion Dispenser)
-Done.
+
 You pick it up.
 
 > use beaker on potion mixer
@@ -4246,7 +4523,7 @@ The mixer makes some strange noises as the beaker empties. After a few moments a
 
 > take blue potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use red potion on potion mixer
@@ -4266,7 +4543,7 @@ The mixer makes some strange noises. After a few moments a potion pops out of th
 
 > take indigo potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use bucket of sand on glass machine
@@ -4277,7 +4554,7 @@ Strangely enough your bucket refills itself with sand.
 
 > take empty beaker
 (first removing it from Glass Machine)
-Done.
+
 You pick it up.
 
 > use empty beaker on potion dispenser
@@ -4290,7 +4567,7 @@ You press the button. The dispenser makes alot of strange noises then some yello
 
 > take beaker
 (first removing it from Potion Dispenser)
-Done.
+
 You pick it up.
 
 > use beaker on potion mixer
@@ -4306,7 +4583,7 @@ The mixer makes some strange noises as the beaker empties. After a few moments a
 
 > take yellow potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use bucket of sand on glass machine
@@ -4317,7 +4594,7 @@ Strangely enough your bucket refills itself with sand.
 
 > take empty beaker
 (first removing it from Glass Machine)
-Done.
+
 You pick it up.
 
 > use empty beaker on potion dispenser
@@ -4330,7 +4607,7 @@ You press the button. The dispenser makes alot of strange noises then some blue 
 
 > take beaker
 (first removing it from Potion Dispenser)
-Done.
+
 You pick it up.
 
 > use beaker on potion mixer
@@ -4346,7 +4623,7 @@ The mixer makes some strange noises as the beaker empties. After a few moments a
 
 > take blue potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use yellow potion on potion mixer
@@ -4366,7 +4643,7 @@ The mixer makes some strange noises. After a few moments a potion pops out of th
 
 > take green potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > use bucket of sand on glass machine
@@ -4377,7 +4654,7 @@ Strangely enough your bucket refills itself with sand.
 
 > take empty beaker
 (first removing it from Glass Machine)
-Done.
+
 You pick it up.
 
 > use empty beaker on potion dispenser
@@ -4390,7 +4667,7 @@ You press the button. The dispenser makes alot of strange noises then some blue 
 
 > take beaker
 (first removing it from Potion Dispenser)
-Done.
+
 You pick it up.
 
 > use beaker on potion mixer
@@ -4406,7 +4683,7 @@ The mixer makes some strange noises as the beaker empties. After a few moments a
 
 > take blue potion
 (first removing it from Potion Mixer)
-Done.
+
 You pick it up.
 
 > memorize
@@ -6460,4 +6737,4 @@ You have finished Wizard!!
 Play Wizard2 by wonderjudge!
 
 
-[runner] turns=1089 leftover=0 running=false WON=YES
+[runner] turns=1149 leftover=0 running=false WON=YES

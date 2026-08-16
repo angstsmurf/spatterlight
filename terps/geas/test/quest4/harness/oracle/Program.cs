@@ -25,7 +25,18 @@ using QuestViva.Legacy;
 //
 // Options:
 //   --tick        Tick timers once per turn, matching the runner's --tick
-//                 (geas's tick_timers counts down one second per turn).
+//                 (geas's tick_timers counts down one second per turn).  The
+//                 tick is driven from here rather than from SendCommand's own
+//                 `elapsedTime`, because that one fires the moment the turn
+//                 *parks* and a `selection` parks it: a `timeron` in a choice
+//                 script would be armed after the tick and spend its
+//                 BypassThisTurn a turn later than geas spends it.  We tick at
+//                 the turn's first suspension that is not a menu or an `enter`
+//                 -- the two suspensions that read a line from the *script*
+//                 rather than end the turn -- which is where geas's
+//                 suspend_turn ticks (geas-runner.cc:3742-3749), including at a
+//                 `wait` or `pause`, which geas deliberately matches.
+//                 QV4_EARLY_TICK=1 puts it back.
 //   --echo        (accepted and ignored; the transcript always goes to stdout)
 //
 // Environment: QVH_SEED seeds the patched-in ErkyrathRandomV4 (see
@@ -74,6 +85,12 @@ string? swallowNext = null;
 // happen; the transcript itself is only written at the end, so this is the way
 // to see where a game that never returns got to.
 var trace = Environment.GetEnvironmentVariable("QV4_TRACE") is { Length: > 0 } tv && tv != "0";
+
+// QV4_EARLY_TICK=1 restores the tick placement --tick had before the menu
+// deferral below: SendCommand's own, which fires the moment the turn *parks*
+// (V4Game.Part2.cs:78-87).  Kept as an escape hatch for re-measuring the
+// artefact it removes; the corpus comparison does not set it.
+var earlyTick = Environment.GetEnvironmentVariable("QV4_EARLY_TICK") is { Length: > 0 } et && et != "0";
 
 void Emit(string html)
 {
@@ -152,6 +169,7 @@ var turns = 0;
 // walkthrough whose last command opens a menu -- Attempted Assassination's duel
 // -- ends one line into the menu here and wins there.
 var starved = 0;
+var pendingTick = false;
 const int maxStarved = 200;
 while (!finished && (queue.Count > 0 || player.PendingMenu is not null
                                      || player.PendingQuestion is not null))
@@ -194,8 +212,26 @@ while (!finished && (queue.Count > 0 || player.PendingMenu is not null
         if (trace) Console.Error.WriteLine("[cmd] " + cmd);
         // V4Game echoes "> cmd" itself (ExecCommand, V4Game.Part2.cs:4139), as
         // geas's run_command does, so neither is echoed here.
-        if (tick) await game.SendCommand(cmd, 1, null);
+        if (tick && earlyTick) await game.SendCommand(cmd, 1, null);
         else await game.SendCommand(cmd);
+        if (tick && !earlyTick) pendingTick = true;
+    }
+    // The deferred tick, at the first suspension of the turn that is *not* a
+    // menu or an `enter` -- so before Settle(), because geas ticks at a `wait`
+    // or `pause` too (suspend_turn, geas-runner.cc:3742-3749) and Settle is
+    // what resumes one.  The two suspensions skipped over are the ones geas
+    // does not have: its make_choice and its `enter` both read the answer from
+    // the script inside the turn, so a turn that asks for one is still one
+    // turn and still one tick.  An `enter` answer arrives through SendCommand
+    // like a command, which is why it needs QvhAwaitingEnter to be told apart
+    // (patch_questviva.py section 14) -- Wizard's library desk asks for a row
+    // number and a book letter, and those two inputs used to put its 15-turn
+    // portal timer three ticks ahead of geas's.
+    if (pendingTick && player.PendingMenu is null && player.PendingQuestion is null
+        && !game.QvhAwaitingEnter)
+    {
+        pendingTick = false;
+        await game.Tick(1);
     }
     await Settle();
 }

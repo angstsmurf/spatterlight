@@ -45,7 +45,7 @@ You take the hooka and put it in your coat pocket
 
 > i
 You are carrying:
-Lighter, Good Nugget and Hooka.
+Good Nugget, Hooka and Lighter.
 
 > use hooka
 You take the Good Nugget and pack the hooka with it you take a small burning stick from the fire pit and touch it to the top as you inhale.You take as big a hit as you can and exhale on the sign.As you do so you can see through the smoke that the sign is readable now and has a small key attached to it now that you are realy stoned.
@@ -179,7 +179,7 @@ Instinct leads you down the deer trail.You follow the deer trail untill it leads
 
 > i
 You are carrying:
-Lighter, Hooka, Key, Locket, Glowing Mushroom and Good Brazilian Kind.
+Hooka, Lighter, Key, Locket, Glowing Mushroom and Good Brazilian Kind.
 
 > w
 You are in Sleeping Forest (North West 2).

@@ -51,7 +51,13 @@ RULES = [
     # exits line its `description { do <TLProomDescription> }` override
     # rewrites.  Finding 19 is fixed: the library's `!addto game` block is read
     # now, geas runs the same override, and the bucket is empty.
-    ("container contents not listed", "+", r"^(It contains |[A-Z].* contains ).*\.$"),
+    # A rule for the contents listing stood here, with two more in classify():
+    # one for the "Nothing out of the ordinary." geas printed in its place, and
+    # a catch-all for anything Quest added under a `look at`/`open` that geas
+    # did not.  All three are gone with finding 77 -- a bare `surface` line
+    # declares a container too, so the listings come out now -- and the last of
+    # them was the broadest rule in the file, which is reason enough not to
+    # leave it standing over a fixed bug.
     ("badthing/baditem hard-coded", "-", r"^You don't see any .*\.$"),
     # Two `take: already-have answer` rules stood here for findings 22 and 27,
     # which are fixed; both wordings now come out of the same engine branch.
@@ -74,7 +80,8 @@ RULES = [
     # The implied removal's parenthetical used to be geas-only and had a rule
     # here.  It is not a divergence any more: QuestViva's ExecTake never set
     # isInContainer, so the whole removal was dead code, and patch_questviva.py
-    # section 13 restores it.  What is left is Wizard's alone -- see below.
+    # section 13 restores it, and finding 76 makes geas run the removal as the
+    # same nested command Quest runs, so nothing is left of it at all.
     ("take: no container-access gate", "+", r"^You can't take .* - inside closed .*\.$"),
     ("error <defaultake> is spelt with one t", "+", r"^You pick .* up\.$"),
     # A rule for finding 33 -- Quest prints an unrecognised `|` code as a
@@ -107,10 +114,9 @@ BADTHING = re.compile(r"^I can't see that (here|anywhere)\.$")
 # or to the Hall.".
 OUTWORD = re.compile(r"^You can go (.*[ ,])?out\b")
 
-# The default contents listing: "It contains a and b." and its `article` forms.
-LOOKCMD = re.compile(r"^> (open|look at|look in|x|examine) ")
-
-CONTAINS = re.compile(r"^(It|They|[A-Z].*) contains? .*\.$")
+# A LOOKCMD and a CONTAINS pattern stood here for the contents listing -- "It
+# contains a and b." and its `article` forms, and the look/open commands that
+# print it.  Gone with finding 77's rules above.
 
 # Quest 4 put a `picture <file; caption>` in a popup window with the caption as
 # its title; QuestViva has no popup window, so ShowPicture prints the caption
@@ -186,27 +192,46 @@ DESYNC = {
     # have to (see LOOSE_NAMES).  Something 'Bout A Hex was too, and is the one
     # of the seven with something else underneath -- see below.
     #
-    # After the DO NOT DISTURB sign is named by its alias, Hex parts company on
-    # a turn that geas spends and Quest does not: Quest answers the `look` that
-    # follows the Christ Church menu straight away, geas answers it 77 lines
-    # later, so one of the two swallowed a command at the menu.  Anchored on
-    # the head of that hunk; the cause has not been run to ground.
-    "SomethingBoutAHex": ("You are in The OhioInn Parking Lot.",
-                          "desync: a command swallowed at a menu"),
+    # After the DO NOT DISTURB sign is named by its alias, Hex parted company on
+    # a turn that geas spent and Quest did not, twice over: `timeron
+    # <christchurch>` (interval 2) from the Christ Church choice of
+    # `leavemotellousiville`, then `timeron <get camcorder>` (interval 10) from
+    # the `thanks.` choice of `oldbartender3`, both armed inside a `selection`.
+    # Both were the tick artefact below, and the harness's deferred tick settled
+    # both: the first 2 488 lines are identical now.
+    #
+    # Two more divergences were underneath them, both finding 14 again, both on
+    # lines the rewording had missed because the desync was in front of them:
+    # `take 19yellow98tag` (aliased `1 9 y e l l o w 9 8`, revealed at the end
+    # of the dream) and `use Jim 2`/`use Jim 3` (both aliased `Jim-n-Ginger`,
+    # which is the only name Quest will take and which has exactly one
+    # candidate in the inventory each time).  Reworded like the rest, and the
+    # game is byte-identical now -- the corpus's largest divergence, 5 333
+    # lines at the start of this sitting, is gone without a change to geas.
     # Blight of Elantria used to be here, credited first to finding 45 and then
     # to QuestViva's dead implied-removal path.  Section 13 of
     # patch_questviva.py revives that path and Blight's thousand-line desync
     # went with it, so it has no entry any more.
     #
-    # Wizard survived both.  What parts it now is its Misty White Portal, whose
-    # destination cycles: QuestViva prints one more "The mist in the portal
-    # changes color." than geas before the player steps through, so the two
-    # engines enter different worlds -- geas a Forest, QuestViva a Small ledge
-    # -- and never meet again.  The cycle's driver has not been run to ground;
-    # what is certain is the extra line and the world it leads to.  The 57
-    # `Done.'s before the anchor are counted on their own (see classify).
-    "Wizard": ("> enter portal",
-               "desync: the portal's mist cycles a turn apart"),
+    # Wizard survived both, on its Misty White Portal: QuestViva used to reach
+    # each colour change three turns before geas, so the two engines stepped
+    # through into different worlds -- geas a Forest, QuestViva a Small ledge --
+    # and never met again, 3 609 lines of it.  That was the harness's tick, not
+    # either engine's timer.  `enter <var>` parks the turn and is answered by
+    # the *next* SendCommand, so the oracle counted a mid-turn input as a turn
+    # and ticked for it; Wizard's library desk asks for a row number and a book
+    # letter, which put its 15-turn portal timer three ticks ahead for the rest
+    # of the game.  Program.cs skips the tick while QvhAwaitingEnter is set
+    # (patch_questviva.py section 14) and the whole cycle lines up.
+    #
+    # What was left parted company in the church, over the implied removal: the
+    # Yellow Bead in the offering basket has an `action <remove>' that refuses
+    # it until a donation is made, Quest ran that action and the take failed,
+    # geas removed the bead from the basket itself and pocketed it, and from
+    # there geas was carrying a bead Quest never handed over.  Finding 76 is
+    # fixed -- the implied removal is a nested command now -- and the
+    # walkthrough donates on a detour, so Wizard has no entry here either.  Its
+    # six remaining lines are finding 77 and are classified one by one.
     # Finding 37's `use on'/`give to' half is fixed; this is its other half,
     # which stands on purpose.  geas trims a `define' header's name and Quest
     # does not, so `define object < door>' answers to `door' here and to nothing
@@ -218,54 +243,40 @@ DESYNC = {
     # its treasury are rolled from (finding 17).  Both are evaluated at load
     # now, and its transcript is identical to Quest's from the first line to
     # the last, so there is nothing left to anchor.
-    # QuestViva ticks the timers at the turn's first *suspension* -- a menu, a
-    # `wait`, a sync `playwav` -- so a `timeron` reached after that point sets
-    # BypassThisTurn too late and loses a turn.  ZombiesAttack arms its timer
-    # inside a menu choice; On The Far Blue arms it from the room script of a
-    # `goto` that follows a `wait <Press any key.>`.
-    "ZombiesAttack": ("The man grunts something inhuman and pulls himself up. "
-                      "He launches himself at you, you barely miss it. "
-                      "Something is messed up with him, you have to attack him "
-                      "with something!",
-                      "desync: timer armed after the turn's tick"),
-    "OnTheFarBlue": ("A huge shark attack's your raft! stop him now before "
-                     "it's to late!.",
-                     "desync: timer armed after the turn's tick"),
-    # `use cocktail` opens the bartender menu; choice 6 runs `do <jack make a
-    # drink begin>`, which ends in `timeron <drinktimer>` (interval 30).  The
-    # menu is the turn's suspension, so QuestViva has already ticked by the time
-    # the timer is armed and the drink arrives one turn late -- and every timer
-    # line after it is off by that turn.
-    # Four timers hand off to one another inside the machine, and the first of
-    # them is armed from a room script that has already suspended on a
-    # `pause <3000>` -- so QuestViva's BypassThisTurn is set after that turn's
-    # tick and survives into the next one.  The whole chain runs a turn late,
-    # and by the closing `out` geas has landed (playerwin) while Quest is still
-    # in the atmosphere (playerlose).
-    # Anchored on the machine's own description, which is the head of the first
-    # hunk: that is where the extra `look` shows the chain has already slipped a
-    # turn, several screens before the deceleration that makes it fatal.
-    "Beam": ("You are inside the container docking machine under a mess of "
-             "unidentifiable equipment in a crawlspace that probably was not "
-             "intended as such. There is an opening near your head.",
-             "desync: timer armed after the turn's tick"),
-    # The party's guest list is a chain of five-turn timers, and the first is
-    # armed by `procedure <party>` immediately after its `wait <press a key>` --
-    # so QuestViva arms it after that turn's tick and the whole party runs a
-    # turn behind.  Every `give drinks to <guest>` in the walkthrough is then
-    # aimed at whoever was in the room a turn ago, the drinks tally comes out
-    # lower, and the tuxedo it pays for is never won.
-    "ShiverswordTales": ("> give drinks to sir dwane",
-                         "desync: timer armed after the turn's tick"),
-    "The Lazst Resort": ("> use cocktail",
-                         "desync: timer armed after the turn's tick"),
-    # The turn before this one is `shine light on spider`, which is
-    # `exec <use flashlight on ...>` behind a stun flag; the extra afterturn
-    # burns the stun a turn early, the spider gets a free move, and it catches
-    # and kills the player two turns later.  The `> northwest` that actually
-    # diverges is outside the hunk's context, so anchor on the hunk's head.
-    "Things": ("You are in The Smelting Plant (the center)",
-               "desync: 47, `exec` re-runs the turn scripts"),
+    # The whole "timer armed after the turn's tick" bucket used to live here:
+    # ZombiesAttack, The Lazst Resort and Something 'Bout A Hex on menus, Beam,
+    # ShiverswordTales and On The Far Blue on `wait`/`pause`.  QuestViva ticks
+    # at the turn's first *suspension* -- a menu, a `wait`, a sync `playwav` --
+    # so a `timeron` reached after that point set BypassThisTurn too late and
+    # lost a turn.  geas mirrors the `wait`/`pause` half deliberately
+    # (suspend_turn, geas-runner.cc:3742-3749), which settled the second three;
+    # the menu half it cannot mirror, because make_choice answers from the
+    # script inside the turn.  So the harness defers the tick past a menu
+    # instead (Program.cs, `pendingTick`), and the first three settled too:
+    # The Lazst Resort is byte-identical, ZombiesAttack is down to the two lines
+    # below, and Hex's 5 333 lines fell to 3 604 with an older divergence
+    # underneath them.  QV4_EARLY_TICK=1 puts the artefact back.
+    #
+    # What ZombiesAttack has left is a turn count: `You completed the game in
+    # 143 turns` against Quest's 147, off one `afterturn` -- the game counts in
+    # that hook -- four times in 143 turns.  Every other line of the transcript
+    # is identical, which is what makes it hard to localise; the cause has not
+    # been run to ground.  A probe settles that a `selection` is not it: qv4
+    # runs one afterturn for a turn that opens a menu, as geas does.
+    "ZombiesAttack": ("You completed the game in 143 turns, try to beat your "
+                      "best!",
+                      "afterturn: qv4 runs four more than geas"),
+    # On The Far Blue's room is `define room <Eastern beach of forest island >`
+    # and Quest keeps the space it was declared with.  Finding 37's other half,
+    # the same one Metal Sonic's Quest is anchored on below.
+    "OnTheFarBlue": ("You are in Eastern beach of forest island.",
+                     "37, geas trims a declared name"),
+    # Things was anchored here on finding 47 -- `shine light on spider` is
+    # `exec <use flashlight on ...>` behind a stun flag, and geas ran the
+    # afterturn once where Quest ran it twice, so the two engines burned the
+    # stun a turn apart and the spider caught the player in one of them.  geas
+    # runs the exec'd turn now, its walkthrough was re-derived against the new
+    # clock, and the game is byte-identical, so it has no entry any more.
     # The Room Key's third handler is `use on <Door to hotel>`, and no object of
     # that name exists anywhere in the game -- the author wrote the tag and
     # never declared the door.  geas answers it anyway (finding 14 in its widest
@@ -287,40 +298,29 @@ DESYNC = {
                   "desync: 14, names matched too loosely"),
     "GhostLight": ("> use chalk on grave",
                    "desync: 48, abbreviations match word-initially"),
-    # The Jane Eyre book -- inside the goth, who is a closed container -- used
-    # to be taken by geas and refused by Quest (finding 26), and parted the two
-    # transcripts a third of the way in.  With the gate in place they run
-    # together until `drop marzipan`, which is where Sutekh is destroyed in
-    # geas and merely littered on in Quest: the blob's `action <drop>` runs in
-    # geas, and Quest's ExecDrop never looks at an action (finding 72).  The
-    # trapdoor stays shut, so the whole of the game's last scene -- the
-    # drawing-room, the scroll, the record player, the ending -- is geas's
-    # alone.
-    "PyramidOfTerror": ("> drop marzipan",
-                        "desync: 72, `action <drop>` runs where Quest drops"),
-    # Five rooms all called some spelling of "Asteroid Surface", chained by
-    # `place <Asteroid Surface2>` and aliased back to "Asteroid Surface".  At
-    # asl-version 210 Quest lists and answers to the raw room name (finding 54),
-    # so every `go to asteroid surface` in the walkthrough is refused and the
-    # game stays on the first surface while geas walks the chain to the end.
-    "Uranus": ("You can go to Asteroid Surface.",
-               "desync: 54, no pre-2.80 room display"),
-    # `place <Science Lab>` into a room aliased "Sciece Lab" (the author's typo).
-    # geas answers to the alias, Quest at 210 to the name, and the walkthrough
-    # types the alias.
-    "Space": ("You are in the Sciece Lab.",
-              "desync: 54, no pre-2.80 room display"),
-    # `place <the; Sword and Staff Inn>` and a scripted `place <the village;
-    # Sorcerers House>`; the walkthrough's `southeast` out of the plant room is
-    # where the two engines' idea of the exits first costs a move.
-    "MagicSword": ("The plant sprouts more tendrils!",
-                   "desync: 54, no pre-2.80 room display"),
-    # `place <THE ENGLISH>` into a room aliased "The english pub".  BrokenMirror
-    # is asl-version 310, below the 311 that turns the substitution on, so Quest
-    # advertises and answers to "THE ENGLISH" and the walkthrough's `go to the
-    # english pub` never gets in.
-    "BrokenMirror": ("You can go to The english pub.",
-                     "desync: 53, place alias not version-gated"),
+    # A PyramidOfTerror entry stood here for `drop marzipan`, where Sutekh was
+    # destroyed in geas and merely littered on in Quest: the blob's
+    # `action <drop>` ran in geas, and Quest's ExecDrop never looks at an
+    # action (finding 72, confirmed in the real 4.1.5 runner).  The rule is
+    # faithful and stays; the *walkthrough* was rerouted to THROW MARZIPAN --
+    # the game-block `verb <throw>` both engines dispatch -- and the game is
+    # byte-identical now.  (Its earlier desync, the Jane Eyre book inside the
+    # goth, had already gone with finding 26's gate.)
+    # Four entries stood here for the pre-2.80 room display and the place alias:
+    # Uranus and Space, whose `place` chains geas walked and Quest refused
+    # (finding 54); Magic Sword, whose plant-room exits cost it a move (also
+    # 54); and BrokenMirror's `place <THE ENGLISH>` into a room aliased "The
+    # english pub" (finding 53).  All four are fixed.  Uranus, Space and
+    # BrokenMirror are byte-identical now; Magic Sword's transcripts stay in
+    # step the whole way and are down to the three lines below.
+    # Not a desync, and not yet a numbered finding: in the Oggy-Waggi plant
+    # fight the turn script's `if has <Timer;=0> then ... else set <Timer;-1>`
+    # (MagicSwordP1 procedure 201, reached from the afterturn block) reaches
+    # zero a turn earlier in Quest, so "The plant sprouts more tendrils!" and
+    # the extra attack it unlocks are one round out of phase.  The two sides
+    # differ by how many times that block has run by the first blow, so the
+    # question is which engine runs the afterturn script on the turn the player
+    # walks in.
     # `sinking in mire` steps its own interval 15 -> 10 -> 5, and geas re-arms
     # from the old value before running the action (finding 52), so every
     # message in the bog is a cycle late and the rescue arrives four turns after
@@ -396,23 +396,10 @@ TYPE_ORDER = {
                   "a pair of red shorts", "a pair of shorts"),
 }
 
-# `|w` waits without ending the line in geas, so the sentence after the code is
-# stuck onto the one before it, where Quest starts a paragraph (finding 64).
-# The pair is (what geas runs together, what Quest puts on either side of the
-# break) -- both qv4 halves, because the prompt this one waits on is inside the
-# `msg` string rather than a `wait <...>` of its own, so printing the runner's
-# wait messages does not reunite them.
-BARW = {
-    "MagicSword": (("The leader laughs at you, and says something to the "
-                    "others. They all start pulsing red, and their forms "
-                    "starts changing. Press any key to continue They grow "
-                    "taller, and wings sprout from their backs.",
-                    ("The leader laughs at you, and says something to the "
-                     "others. They all start pulsing red, and their forms "
-                     "starts changing. Press any key to continue",
-                     "They grow taller, and wings sprout from their "
-                     "backs.")),),
-}
+# A BARW table stood here for finding 64, holding Magic Sword's one `|w` line
+# and the two halves Quest broke it into.  It is gone: `print_formatted` flushes
+# at the code now, as Quest's Print does, and the bucket emptied on the
+# re-bless.
 
 # `msg nospeak <...>`: Quest ignores the modifier and prints, geas rejects the
 # statement and drops the line (finding 42).  One of the corpus's five sites is
@@ -421,6 +408,20 @@ NOSPEAK = {
     "TheFormer": ("That? Hmm.... Well, it has Dectyne-type wiring, "
                   "so this had to have come from a 7.",),
 }
+
+# Finding 77's other two halves, both in Wizard and both about a container's
+# contents being somewhere geas does not think they are.  The room line is the
+# Tavern's: `add <Label; Bottle of sludge>' happens while the bottle is still
+# standing there and `give <Bottle of sludge>' moves only the bottle, so Quest
+# goes on listing the label in the Tavern and geas takes it away with the
+# bottle.  The bead is the church basket's, seen by a `for each object in
+# <room>' whose `exists <...>' test Quest passes and geas's seen gate does not.
+# A CONTAINER_ROOM table stood here for finding 77's other two lines -- the
+# Wizard's Label, left standing in the Tavern by a `lose` that moved the object
+# and not the `parent` property, and the church bead DETECT MAGIC skipped.  Both
+# were geas conflating Quest's two answers to "where is this object"; fixed, and
+# Wizard is byte-identical now.
+
 
 # Games whose timer-driven cut-scenes land a turn apart because Quest ticks at
 # the turn's first `wait` and geas ticks at the end of the turn (finding 57).
@@ -492,16 +493,11 @@ USE_ON_PADDED = {
                       "You have used your rage against the defenceless warrior."),),
 }
 
-# Turn-script output Quest printed a second time because an `exec <...>` re-
-# entered ExecCommand (finding 47).  Dark Hills' living room answers `if ask <Do
-# you want to save?>` with `exec <save; normal>`, so its `beforeturn` runs again
-# inside the `n` turn; Things doubles a `take`/`spray` wrapper's room scripts.
-EXEC_TURNSCRIPT = {
-    "DarkHills": ("A new exit has become available!",),
-    "Things": ("The vine pulls you closer to the gypsum pile.",
-               "The bear rakes you with it's claw",
-               "The bear bites at you and draws it's head back"),
-}
+# Finding 47 -- turn-script output Quest printed a second time because an
+# `exec <...>` re-entered ExecCommand, tabulated here for Dark Hills' `exec
+# <save; normal>` and Things' `take`/`spray` wrappers.  Fixed: geas runs the
+# exec'd command as a turn of its own, hooks included, and both games are
+# byte-identical.
 
 # Output from an `if property <obj; name=value>` that came out true in geas and
 # is always false in Quest (finding 43).  Blade Sentinel's droid menu assigns the
@@ -574,14 +570,12 @@ def classify(line, mates, in_inventory, others=(), prev="", cmd="",
     # the error line itself, which is the finding.
     if aborted and text != "[An internal error occurred]":
         return "after a QuestViva internal error"
-    # Both engines announce the implied removal now (patch_questviva.py section
-    # 13).  geas then prints the `remove` command's own answer as well, and
-    # Quest prints nothing -- but only in Wizard, whose containers are the
-    # corpus's only ones to reach it, 57 times and always `Done.`.  Every other
-    # game's implied removal is silent on both sides, which is why this is a
-    # rule of its own rather than the old blanket one.
-    if side == "-" and prev.startswith("(first removing "):
-        return "take: geas answers the implied remove"
+    # A rule for the line geas used to print after "(first removing ...)" -- the
+    # nested `remove' command's own answer, `Done.' 57 times in Wizard -- lived
+    # here.  Finding 76 is fixed: the implied removal is a whole nested command
+    # on both sides now, and the only "(first removing ...)" left in a diff is
+    # Blight of Elantria's, where the whole passage is one-sided for a reason of
+    # its own and belongs to that cascade rather than to a rule here.
     # Quest routes an unrecognised command that starts with "the " into ExecOops,
     # which does nothing at all when no correction is pending; geas parses it as
     # an ordinary command and reaches the bad-command error.
@@ -726,17 +720,8 @@ def classify(line, mates, in_inventory, others=(), prev="", cmd="",
     if side == "-" and any(text.startswith(w)
                            for w in QV_NULL_OBJ0.get(label, ())):
         return "QuestViva defect"
-    # A container with no `look` of its own: Quest's DoLook prints the contents
-    # listing, geas the stock "nothing out of the ordinary".  The listing itself
-    # is caught by the CONTAINS rule; this is the line it replaces.
-    if (side == "-" and text == "Nothing out of the ordinary."
-            and any(CONTAINS.match(o) for o in others)):
-        return "container contents not listed"
     if side == "-" and text in PROPERTY_PAIR.get(label, ()):
         return "43, `property <obj; name=value>` true in geas"
-    if side == "+" and any(text.startswith(w)
-                           for w in EXEC_TURNSCRIPT.get(label, ())):
-        return "47, `exec` runs the turn scripts again"
     for refusal, ran in USE_ON_PADDED.get(label, ()):
         if (side == "-" and text == refusal) or (side == "+"
                                                  and text.startswith(ran)):
@@ -751,9 +736,6 @@ def classify(line, mates, in_inventory, others=(), prev="", cmd="",
     for head in QUEST_OBJECTS.get(label, ()):
         if text.startswith(head):
             return "15, quest.objects joins with ` and `"
-    for joined, halves in BARW.get(label, ()):
-        if (side == "-" and text == joined) or (side == "+" and text in halves):
-            return "64, `|w` does not end the line"
     # A menu geas offered and Quest did not, because Quest scopes the lookup to
     # one place and found only one candidate (finding 22).  The harness answers
     # geas's menu from the script, so Quest reads that answer as a command.
@@ -815,15 +797,6 @@ def classify(line, mates, in_inventory, others=(), prev="", cmd="",
     for bucket, want, rx in RULES:
         if side == want and rx.search(text):
             return bucket
-    # Last: `open` runs the whole of DoLook, so Quest prints the object's
-    # description and its contents listing; `look at` prints the listing after
-    # the description.  Either way geas prints neither, and the listing of a
-    # shut container is the game's own `list closed` text, which no pattern can
-    # recognise -- so credit output Quest added under a look/open that geas
-    # never wrote at all, once every other rule has passed on it.
-    if (side == "+" and onesided and LOOKCMD.match(cmd.lower())
-            and not text.startswith(("> ", "I can't see", "[An internal"))):
-        return "container contents not listed"
     return None
 
 

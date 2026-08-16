@@ -206,6 +206,7 @@ It contains a tape.
 > take tape
 (first removing it from x box)
 Done.
+
 You pick it up.
 
 > look at tape
@@ -528,11 +529,13 @@ It contains a notebook and pen.
 > take notebook
 (first removing it from bedside table)
 Done.
+
 You pick it up.
 
 > take pen
 (first removing it from bedside table)
 Done.
+
 You pick it up.
 
 > n
@@ -819,6 +822,7 @@ It's a keypad. Use it unlock the door.
 Enter code.
 The floor falls from under you. you fall and land at the bottom of a pipe where you get beaten the crap out of!
 PUSH A KEY TO CONTINUE!
+
 
 You wake up tied to a bed.
 You are tied to a bed.

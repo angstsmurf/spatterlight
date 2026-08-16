@@ -52,6 +52,7 @@ It contains a Ballerina outfit.
 > take tutu
 (first removing it from wardrobe)
 Done.
+
 You pick it up.
 
 > wear tutu
@@ -226,6 +227,7 @@ It contains a spoon, a fork, a knife and a spatula.
 > take spatula
 (first removing it from drawer)
 Done.
+
 You pick it up.
 
 > open cupboards
@@ -236,6 +238,7 @@ Them contains pots, pans and a frying pan.
 > take frying pan
 (first removing it from cupboards)
 Done.
+
 You pick it up.
 
 > w

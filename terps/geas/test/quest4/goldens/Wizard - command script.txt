@@ -5,7 +5,7 @@ Needs --tick: almost every gate in the game is a `define timer` with a turn
 interval, and geas only advances timers when the runner ticks them.  Needs
 GEAS_SEED=1 for one reason only (see IDIOCY below).
 No score in this game; the win is `playerwin` from the endgame.
-1088 turns, 1218 script lines - the extra lines are menu picks, `ask` answers
+1149 turns, 1266 script lines - the extra lines are menu picks, `ask` answers
 and `enter` answers, none of which the runner counts as turns.
 
 You are a month-old apprentice at the wizards' tower by the sea.  A summoning
@@ -40,9 +40,9 @@ the description ("You don't know what the spell does yet").  So Enlighten - the
 prerequisite for memorizing Bremoval or Badder at all, and for `banish` in the
 last scene - can only be unlocked by casting Enfeeble on yourself first.  That
 sets `idiot2`, whose `beforeturn ... dontprocess` swallows every command for the
-next 45 turns, so lines 167-212 are 46 forced `wait`s.  The game's one and only
+next 45 turns, so lines 164-209 are 46 forced `wait`s.  The game's one and only
 `$rand(1; 5)$` is the drooling message picked each of those turns, and roll 5
-makes you throw the spellbook on the floor - hence `take spellbook` at line 213.
+makes you throw the spellbook on the floor - hence `take spellbook` at line 210.
 Under GEAS_SEED=1 roll 5 lands early and the pickup is real; that draw is the
 whole reason the seed is pinned.
 
@@ -58,14 +58,14 @@ current value: black kills nothing but wastes the trip, red goes to Forest1,
 yellow to the Small ledge, blue to the Lake shore.  The colour is only printed
 by the room's entry `script` and by LOOK AT PORTAL - a bare LOOK will not tell
 you - so the script probes with `look at portal` and then pads with `wait` until
-the wanted colour comes round.  That padding is why the run is 1088 turns; the
-wait blocks at (counting from the Start: line) 16-70, 167-212, 294-328,
-460-496, 562-606, 855-930, 946-984, 995-1018 and 1035-1048 are all
+the wanted colour comes round.  That padding is why the run is 1149 turns; the
+wait blocks at (counting from the Start: line) 16-70, 164-209, 290-324,
+453-489, 554-598, 658-697, 908-983, 998-1036, 1047-1070 and 1086-1099 are all
 either timer waits or portal-phase alignment, and they are tuned to this exact
 script - inserting or deleting a turn anywhere before them will land the wrong
 colour.  Every destination has its
 own Misty White Portal home.  Late in the game `stabilize swirling misty portal`
-(line 1161) freezes it white forever, which is the fifth destination: the
+(line 1209) freezes it white forever, which is the fifth destination: the
 Outside gate of the enemy castle.
 
 The colour is worth being able to compute, because retuning these blocks by hand
@@ -93,7 +93,7 @@ empty beaker`, `use empty beaker on potion dispenser`, `push red|yellow|blue
 button`, `take beaker`, `use beaker on potion mixer`, `pull lever`, `take
 <colour> potion` - and a mix is four: both inputs onto the mixer, `pull lever`,
 `take <result>`.  The blue button is unlabelled until `use label on unlabeled
-button` (line 377); the label itself is inside the tavern's Bottle of sludge and
+button` (line 371); the label itself is inside the tavern's Bottle of sludge and
 has to be BADDERed into a "Label2" you can carry.  The Empty bucket from the
 closet starts magical, so `use empty bucket on sand` at the lake makes a Bucket
 of sand that never runs out - infinite beakers.
@@ -102,9 +102,11 @@ Y+B=Green, B+Green=Violet, B+Orange=(B+O), Y+(B+O)=(B+O+Y), Indigo+Violet=
 (V+I), R+(V+I)=(V+I+R), Green+(V+I+R)=(V+I+R+G), and finally
 (V+I+R+G)+(B+O+Y)=Rainbow.  The five combination bottles have no alias, so they
 must be typed exactly as they are named: `take potion (v+i)`, `use potion
-(b+o+y) on potion mixer`.  Lines 647-768 are the whole Rainbow chain in one
+(b+o+y) on potion mixer`.  Lines 613-821 are the whole Rainbow chain in one
 sitting - twelve primaries and nine mixes - because each mix has an "only one of
-each potion type" guard and the chain has to be walked in order.
+each potion type" guard and the chain has to be walked in order.  (The church
+detour at 637-701 is spliced into it, after the Orange mix; it takes
+nothing out of the mixer and so does not disturb the guard.)
 What the potions do: Red = `cr`, cold resistance, for the Snowblown path.
 Orange = `bf`, fire breath, for the wall of ice and the spider web.  Yellow =
 `bu`, gills, for the flooded cavern.  Green = `sa`, speak with animals, for the
@@ -126,8 +128,29 @@ a 4x4 lights-out grid drawn entirely in .jpg tiles, i.e. completely invisible in
 a text runner; the coordinates are column a-d by row 1-4 and each press toggles
 itself and its orthogonal neighbours.  All sixteen start lit, and the shortest
 of the sixteen solutions is exactly four presses whose toggle sets partition the
-board: C1, A2, D3, B4 (lines 1148-1151).  The table then prints the shiny scroll
+board: C1, A2, D3, B4 (lines 1196-1199).  The table then prints the shiny scroll
 = Stabilize.
+
+THE CHURCH DONATION, AND THE 60-TURN DETOUR.  One of the sixteen beads is
+guarded: the church's offering basket hangs an `action <remove>` on its Yellow
+Bead that refuses it ("A strange force prevents you from taking it.") until
+`church1` is set, and `church1` is only set by putting a Copper coin in the
+offering plate.  The obvious coin is the one out of the shady man's purse, but
+that one is owed to the street merchant, so the second coin has to come from the
+purse itself - `enchant purse` is what makes it refill, one coin per removal.
+Enchant is the tenth spell and is not learned until the holey scroll under the
+boulder on the Tiny ledge (scribed at line 608), which is why this bead is
+fetched on a detour rather than during the town visit: lines 637-701 cast Enchant
+on the purse, re-memorize the slot, ride the red portal back to the church, pay,
+take the bead and come home.  The first, failed attempt at line 433 is left in
+the script on purpose: the refusal is the output worth having, because it only
+appears if the implied removal is run as a whole nested command the way Quest
+runs it (the `action <remove>` is looked up on the bead, not on the basket).
+The detour is padded to exactly 60 turns (the 40 `wait`s at 658-697) so that it
+is phase-neutral: `portal1` is the only timer in the game that is `enabled` at
+definition, its period is 60 turns, and every later `enter portal` in this script
+depends on landing in the right colour window.  Add or drop a single turn in here
+and the whole rest of the route lands the wrong colour.
 
   1. The tower (lines 1-98).  Illuminate, dress, the dusty scroll under the bed
      (Detect magic), Scribe, Unlock, then the 60-turn door wait.  Up to the roof
@@ -135,14 +158,14 @@ board: C1, A2, D3, B4 (lines 1148-1151).  The table then prints the shiny scroll
      the Broom and the Empty bucket.  The Collapsed wall in the stairwell is
      passed with `levitate collapsed wall` + yes, which also moves the wall to
      the far side, so every later trip through the stairwell needs another
-     Levitate (lines 843 and 940).  The library's chandelier is reached from the
+     Levitate (lines 896 and 992).  The library's chandelier is reached from the
      balcony one floor above it: `gravitate chandelier` at line 93 brings it
      down, and EXAMINE BROKEN CHANDELIER in the library below is the first bead.
-  2. Library and barracks (99-157).  The control desk is a menu-driven
+  2. Library and barracks (99-154).  The control desk is a menu-driven
      catalogue with three options, all three of which are used.  Option 1 wants
      a row (1-2000) and a book (a-e): 1112 and "c" is a hollowed-out book with a
      bead in it, and that call number is written on Mercoz's smudged note, which
-     this route does not pick up until line 154 - the script simply uses it
+     this route does not pick up until line 152 - the script simply uses it
      early.  Option 2 with the topic "portals" is the in-game explanation of the
      colour cycle, including "never enter when the mist is black".  Option 3 is
      the librarian insisting there are no secrets in the library, and it has to
@@ -151,24 +174,24 @@ board: C1, A2, D3, B4 (lines 1148-1151).  The table then prints the shiny scroll
      The Main Entrance's south door is blocked by two Giant statues: EXAMINE
      GIANT STATUES + yes opens a `repeat until` over six flags (each statue's
      arm, shield and head), and every control locks or unlocks one of the
-     others, so it is not six moves but ten.  Lines 124-133 are a
+     others, so it is not six moves but ten.  Lines 123-132 are a
      breadth-first-search solution: 1, 3, 5, 2, 3, 4, 6, 1, 4, 2.
      Behind the door Delbat is the one other surviving apprentice; Mercoz's body
      in the dormitory's south wing carries the Rainbow book (Bremoval), the
      smudged note and a bead.
-  3. Enfeeble, Enlighten, loadout (158-227).  Scribe both books, cast Enfeeble,
+  3. Enfeeble, Enlighten, loadout (155-224).  Scribe both books, cast Enfeeble,
      sit out the 45 idiot turns, pick the spellbook back up, `rmemorize` 6 for
      Enlighten, cast it, and use the 40-turn `int1` window to memorize Bremoval
      and Badder - the only two spells whose memorization checks `int1`.
-  4. First red portal (228-286).  Fill the bucket at the lake on the way past,
+  4. First red portal (225-267).  Fill the bucket at the lake on the way past,
      then the Alchemy lab for Red and Orange, drunk immediately for `cr`+`bf`.
-  5. Yellow portal: the mountain (287-345).  Snowblown path needs `cr`; the wall
+  5. Yellow portal: the mountain (268-324).  Snowblown path needs `cr`; the wall
      of ice needs fire breath; `bremoval beast` turns the Beast into a Beas...
      into nothing and re-creates the destroyed east exit of the Small cave (the
      startscript destroys it at load).  The Crystal cavern has the icy scroll
      (Charm) and a bead but no exit - `deluminate` is the way out, so the trip
      is ordered to cast Bremoval first and free the slot for it.
-  6. Red portal: the town (346-424).  `bremoval boars` gives the Oars.  The
+  6. Red portal: the town (325-399).  `bremoval boars` gives the Oars.  The
      small boy has to be Charmed before he will talk, and his puzzle is
      ten-peg solitaire in the game's own move order; the answer sequence is
      remove peg 2 then choices 1,1,1,1,2,1,1,1, which yields the bag of
@@ -176,35 +199,36 @@ board: C1, A2, D3, B4 (lines 1148-1151).  The table then prints the shiny scroll
      bottle of sludge, LOOK AT the bottle before TAKE LABEL (the seen gate
      again), then `badder label`.  The stables hide a bead in the hay and the
      Oat that becomes the Boat.
-  7. Blue and red portals: bind, purse, shells, church (425-461).  The songbird
+  7. Blue and red portals: bind, purse, shells, church (400-452).  The songbird
      in the oak drops the crumpled scroll (Bind).  `bind shady looking man`
      stops the mugging that otherwise robs you; his purse holds a copper coin,
      and the coin must be taken into inventory proper, because the street
      merchant's `got <Copper coin>` does not see a coin sitting inside a carried
      container.  The shell game is rigged in your favour by `levitate ball`
      before picking a shell.  In the church, `detect magic` is what reveals the
-     bead in the basket.
-  8. The lake and the sunken temple, first visit (462-544).  Yellow potion for
+     bead in the basket - but the basket refuses to give it up on this visit,
+     and the pickup happens on the detour at 637-701 (see THE CHURCH DONATION).
+  8. The lake and the sunken temple, first visit (453-537).  Yellow potion for
      gills, `badder oat` for the Boat, `unbind rope` to open the trap door, and
      then the flooded cavern east to the temple.  `badder rain` in the north
      wing turns the endless rain into the Brain and permanently drains the
      temple (`flood1`), which is also what makes the cavern walkable later.
-  9. The Rainbow potion (545-797).  Violet for the boulder on the Tiny ledge
+  9. The Rainbow potion (538-821).  Violet for the boulder on the Tiny ledge
      (holey scroll = Enchant) with a red-potion trip up the mountain, then the
-     long uninterrupted chain to Rainbow.
- 10. The mouse hole (866-962).  Green potion for `sa`, Indigo to shrink, then
+     chain to Rainbow, broken only by the church detour at 637-701.
+ 10. The mouse hole (822-985).  Green potion for `sa`, Indigo to shrink, then
      the Enormous Area behind the closet mouse hole.  All eight of its exits
      loop back to itself and the hole to the Large mouse hole only exists if you
      entered from the Closet, so this has to be a dedicated trip up the tower.
      Ask the giant mouse for its third option after pushing the yellow ball, and
      the `shrink` timer (80 turns) dumps you back out with the bead.
- 11. Bucket of water and the ent (963-1024).  `disenchant bucket of sand`,
+ 11. Bucket of water and the ent (986-1082).  `disenchant bucket of sand`,
      empty it, fill it with lake water, `enchant bucket of water` - the Fire
      checks `property <Bucket of water; magical>` and a non-magical bucketful
      just wastes the bucket.  Putting the fire out makes the ent clear the
      spiders, which unlocks Forest3 south; behind the web (burned with fire
      breath) are the last outdoor bead and the stone Head.
- 12. The golem (1051-1106).  Two red marbles for the eye sockets and the Brain
+ 12. The golem (1083-1158).  Two red marbles for the eye sockets and the Brain
      for the skull, then `use head on giant statue`.  SPEAK TO GOLEM + yes
      swaps your mind into it: your inventory and your memorized spells are
      parked in the `wstuff` room and the golem's hands are too big to pick
@@ -215,16 +239,16 @@ board: C1, A2, D3, B4 (lines 1148-1151).  The table then prints the shiny scroll
      bead the golem could not pick up into the room you can reach.  With the
      furnace lit, LOOK AT STRANGE MACHINE offers the lever puzzle twice: 1,3,1
      drops the Powerfull scroll (Banish) and 1,3,1,2 drops the sixteenth bead.
- 13. The bead table and Stabilize (1107-1164).  `bremoval broom`, in, sixteen
+ 13. The bead table and Stabilize (1159-1219).  `bremoval broom`, in, sixteen
      beads, four presses, out, scribe the shiny scroll, and freeze the portal
      white.
- 14. Reconnaissance (1165-1188).  The Iron gate is magical from the start, so
+ 14. Reconnaissance (1220-1243).  The Iron gate is magical from the start, so
      `unlock iron gate` fails until `disenchant iron gate`.  `gravitate
      drawbridge` sets `draw1` permanently.  Then swim the moat to the cracked
      wall and SPEAK TO HOLE for the stained scroll (Shield).  This trip has to
      happen before the lever is pulled: once `end1` is set, the Moat's entry
      script drops piranhas in it and kills you outright.
- 15. The assault (1189-1220).  Memorize Shield, Enlighten, Gravitate, Levitate
+ 15. The assault (1244-1266).  Memorize Shield, Enlighten, Gravitate, Levitate
      and Destabilize - the full five - and carry the Powerfull scroll, the bag
      of marbles and the Blue and Rainbow potions.  Drink Rainbow on the castle
      grounds (the gargoyles at the front door kill anyone without `i1`), Shield
@@ -246,8 +270,13 @@ board: C1, A2, D3, B4 (lines 1148-1151).  The table then prints the shiny scroll
      portal` blows it up instead, the scorpions take you, and the order is safe.
      You lose, and you win.
 
-No geas divergences turned up in this game; it exercised a lot of the engine
-(nested selections, `repeat until`, `for each object in <room>`, `enter`,
+This game is the one that found FINDINGS.md 76: geas used to satisfy the implied
+"(first removing X from Y)" of a take by calling its built-in container handler
+instead of running `remove X` as a whole nested command the way Quest's ExecTake
+does, so the game's own `verb <remove>` and the beads' `action <remove>` never
+got a look at it and the church bead came away for free.  With that fixed the
+route needs the donation detour above.  Otherwise it exercised a lot of the
+engine (nested selections, `repeat until`, `for each object in <room>`, `enter`,
 container `seen` gating, timers under `--tick`, definition-order
 disambiguation) and matched throughout.
 Start:
@@ -887,6 +916,67 @@ rmemorize
 10
 memorize
 10
+enchant purse
+memorize
+10
+south
+south
+enter portal
+north
+northeast
+northwest
+north
+southeast
+north
+use copper coin on offering plate
+take yellow bead
+south
+south
+southwest
+south
+enter misty white portal
+north
+north
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
 south
 south
 north

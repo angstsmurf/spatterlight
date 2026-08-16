@@ -281,6 +281,7 @@ It contains the Dim Hall Key and the Curator's Notes.
 > take key
 (first removing it from Desk)
 Done.
+
 You take the key with you.
 
 > south

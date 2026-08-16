@@ -22,16 +22,19 @@ You open the desk and inside it, there is an old map, a can of body spray, a lig
 > take body spray
 (first removing it from desk)
 Done.
+
 You pick it up.
 
 > take map
 (first removing it from desk)
 Done.
+
 You pick it up.
 
 > take lighter
 (first removing it from desk)
 Done.
+
 You pick it up.
 
 > take back pack
@@ -91,6 +94,7 @@ Do you want to save?
 1) Yes
 2) No
 [choice] no
+A new exit has become available! You can now go East.
 
 
 > search sofa

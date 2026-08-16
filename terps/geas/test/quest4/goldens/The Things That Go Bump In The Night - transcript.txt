@@ -32,12 +32,16 @@ They contain A Flashlight and An Electronic Key.
 > take flashlight
 (first removing it from Cabinets)
 Done.
+
+
 You pick it up.
 
 
 > take electronic key
 (first removing it from Cabinets)
 Done.
+
+
 You pick it up.
 
 
@@ -105,6 +109,8 @@ It contains a Note attached to an email printout.
 > take note
 (first removing it from Drawer)
 Done.
+
+
 You pick it up.
 
 
@@ -145,6 +151,8 @@ It contains A roll of Gauze and a small bottle of Asprin.
 > take gauze
 (first removing it from First Aid Box)
 Done.
+
+
 You pick it up.
 
 
@@ -211,6 +219,7 @@ You grab hold of the feet and pull.
 You nearly fall over as you pull them out. You notice you are now holding a pair of disembodied legs.
 You end up dropping them and heaving your supper onto the ground. As you start to recover a long sinuous black vine springs out from the gypsum pile and wraps itself around your chest.
 You drop the fire extinguisher and it rolls onto the ground.
+The vine pulls you closer to the gypsum pile.
 
 The vine pulls you closer to the gypsum pile.
 
@@ -437,14 +446,18 @@ The thing you hit lets out a blood curdling yowl. And you notice that it has bee
 > spray bear
 You blast the bear's claw with the extinguisher! It starts to sizzle and burn and he lets out a yowl and withdraws it.
 
-
 The bear tries to get you with it's other claw!
+
+The bear rakes you with it's claw and draws it back for another strike!
+
 
 > spray bear
 You blast the bear's claw with the extinguisher! It starts to sizzle and burn and he lets out a yowl and withdraws it.
 
-
 Being out of claws to strike at you with the bear sticks it's head in and tries to bite you!
+
+The bear bites at you and draws it's head back for another strike!
+
 
 > use flashlight on bear
 You shine the flashlight right in the bears face! It reels it's head backward out of the lift.
@@ -527,6 +540,8 @@ It contains a 12 amp Dusty Fuse.
 > take dusty fuse
 (first removing it from Glove Box)
 Done.
+
+
 You pick it up.
 
 
@@ -593,24 +608,32 @@ You open the fuse box.
 > take dead fuse
 (first removing it from Fuse Box)
 You remove the fuse.
+
+
 You pick it up.
 
 
 > take fried fuse
 (first removing it from Fuse Box)
 You remove the fuse.
+
+
 You pick it up.
 
 
 > take cracked fuse
 (first removing it from Fuse Box)
 You remove the fuse.
+
+
 You pick it up.
 
 
 > take cooked fuse
 (first removing it from Fuse Box)
 You remove the fuse.
+
+
 You pick it up.
 
 
@@ -1205,27 +1228,6 @@ You are in the southeast corner of the smelting plant. Various pieces of equipme
 There is A Huge Spider in the southwest corner, A Large Ladle suspended over the northwest corner and A Chain holding up the ladle here.
 The spider blasts a bit of web at you as you enter. You duck and the webbing covers the door you came in. "Great, just great.' you think as you are now trapped in here.
 
-> shine light on spider
-The spider is too far away from you to be bothered by your flashlight.
-
-
-> northwest
-You are in The Smelting Plant (the center)
-You are in the the center of the smelting plant. Various pieces of equipment are scattered around the place. The only place with totaly bare floor is directly in the center. There is a thick mist in the area here. Now that your in here you can see that the emergency lighting is on, it's just the mist giving it the impression of total darkness.
-There is A Huge Spider in the southwest corner, A Large Ladle suspended over the northwest corner and A Chain holding up the ladle here.
-
-> look at large ladle
-A large black ladle used for pouring out molten material. It actually looks more like a giant cauldron but the smelters call it a ladle. It looks to weight about a ton and is suspended from a chain high above the floor. The controls for it must be in the control room.
-The spider moves toward you!
-The spider is now in the western part of the room.
-
-> east
-You are in The Smelting Plant (the eastern part)
-You are in the the eastern part of the smelting plant. Various pieces of equipment are scattered around the place. The only place with totaly bare floor is directly in the center. There is a thick mist in the area here. Now that your in here you can see that the emergency lighting is on, it's just the mist giving it the impression of total darkness.
-There is A Huge Spider in the western part, A Large Ladle suspended over the northwest corner and A Chain holding up the ladle here.
-The spider moves toward you!
-The spider is now in the center of the room.
-
 > use radio
 "Neva! Are you there?" you ask.
 "Right here. What do you need?" she replies.
@@ -1235,6 +1237,36 @@ The spider is now in the center of the room.
 After a few minutes you hear her come back on.
 "Ok, We are ready when you are." Neva says.
 
+The spider moves toward you!
+The spider is now in the southern part of the room.
+
+> northwest
+You are in The Smelting Plant (the center)
+You are in the the center of the smelting plant. Various pieces of equipment are scattered around the place. The only place with totaly bare floor is directly in the center. There is a thick mist in the area here. Now that your in here you can see that the emergency lighting is on, it's just the mist giving it the impression of total darkness.
+There is A Huge Spider in the southern part, A Large Ladle suspended over the northwest corner and A Chain holding up the ladle here.
+The spider moves toward you!
+The spider is now in the southeast corner of the room.
+
+> use radio
+Which direction do you want to move the ladle?
+1) Tell Neva to move the ladle east.
+2) Tell Neva to move the ladle west.
+3) Tell Neva to move the ladle north.
+4) Tell Neva to move the ladle south.
+[choice] 1
+The ladle moves to the south.
+What the hell? Didn't you just tell her to move it east?
+
+The spider moves toward you!
+The spider is now in the southern part of the room.
+
+> use flashlight on spider
+You shine the light right into the spider's eyes. It rears back temporarily blinded and stunned.
+
+> north
+You are in The Smelting Plant (the northern part)
+You are in the the northern part of the smelting plant. Various pieces of equipment are scattered around the place. The only place with totaly bare floor is directly in the center. There is a thick mist in the area here. Now that your in here you can see that the emergency lighting is on, it's just the mist giving it the impression of total darkness.
+There is A Huge Spider in the southern part, A Large Ladle suspended over the west side and A Chain holding up the ladle here.
 
 > use radio
 Which direction do you want to move the ladle?
@@ -1246,23 +1278,10 @@ Which direction do you want to move the ladle?
 The ladle moves to the east.
 What the hell? Didn't you just tell her to move it west?
 
+The spider moves toward you!
+The spider is now in the center of the room.
 
-> use radio
-Which direction do you want to move the ladle?
-1) Tell Neva to move the ladle east.
-2) Tell Neva to move the ladle west.
-3) Tell Neva to move the ladle north.
-4) Tell Neva to move the ladle south.
-[choice] 3
-The ladle moves to the south.
-What the hell? Didn't you just tell her to move it north?
-
-
-> shine light on spider
-You shine the light right into the spider's eyes. It rears back temporarily blinded and stunned.
-
-
-> use hunting rifle on chain
+> shoot chain
 You shoot the chain and snap it in two! The ladle comes crashing down!
 SPLAT!!!!!!!!!!!!!!!!!!
 
@@ -1272,6 +1291,7 @@ The goo from the spider has also splattered onto the webs and weighted them down
 Neva comes running in the room.
 "Is it gone?" she wimpers.
 "Yes, it's gone." you reply.
+
 
 > west
 You are in The Recycle Courtyard.
@@ -1314,12 +1334,16 @@ It contains Some Bolt Cutters and A small Screwdriver.
 > take bolt cutters
 (first removing them from Closet)
 You remove it.
+
+
 You pick them up.
 
 
 > take screwdriver
 (first removing it from Closet)
 You remove it.
+
+
 You pick it up.
 
 
@@ -1392,15 +1416,13 @@ With the balloon animals out of the way you can see the clown trying to sneak up
 You shine the light at the clown. He squeals and retreats to the far side of the room.
 The clown jumps up on a bench in the back and starts madly making balloon animals, cackling madly as he goes!
 
-> examine lab benches
+> x lab benches
 You look throughout the benches but don't find anything.
-
 There are so many balloon animals floating about the room now that it is hard to see anything. The clown has dissapeared from your view.
 
-> examine x-ray machine
+> x x-ray machine
 You look around the x-ray machine but don't find anything.
 
-
 > use leaf blower on balloon animals
 You aim the leaf blower at them and blow them out of your way. Many of them get blasted up and hit the ceiling, popping on the sharp corners of the sprinkler heads.
 You can see more clearly now.
@@ -1410,14 +1432,12 @@ With the balloon animals out of the way you can see the clown trying to sneak up
 You shine the light at the clown. He squeals and retreats to the far side of the room.
 The clown jumps up on a bench in the back and starts madly making balloon animals, cackling madly as he goes!
 
-> examine microscope
+> x microscope
 You look near the microscope but don't find anything.
-
 There are so many balloon animals floating about the room now that it is hard to see anything. The clown has dissapeared from your view.
 
-> examine furnace
+> x furnace
 You look around the furnace but don't find anything.
-
 
 > use leaf blower on balloon animals
 You aim the leaf blower at them and blow them out of your way. Many of them get blasted up and hit the ceiling, popping on the sharp corners of the sprinkler heads.
@@ -1428,9 +1448,8 @@ With the balloon animals out of the way you can see the clown trying to sneak up
 You shine the light at the clown. He squeals and retreats to the far side of the room.
 The clown jumps up on a bench in the back and starts madly making balloon animals, cackling madly as he goes!
 
-> examine eye wash station
+> x eye wash station
 You notice a big red button labeled 'Fire Control' mounted on the wall near the eye wash station.
-
 There are so many balloon animals floating about the room now that it is hard to see anything. The clown has dissapeared from your view.
 
 > use leaf blower on balloon animals
@@ -1451,9 +1470,8 @@ Neva comes bursting through the doors!
 "Don't worry about it." you say.
 "Let's get moving."
 
-> examine lab benches
+> x lab benches
 Now that you are no longer under duress, you search through the benches more carefully. You find a door handle.
-
 
 > take door handle
 You pick it up.
@@ -1733,6 +1751,9 @@ With difficulty you manage to remove the ladder and haul it up onto the roof.
 > use ladder on gap
 You carefully stretch the ladder out across the gap, almost dropping it twice in the process.
 
+> use gauze
+You wrap up your wounds with the gauze.
+
 > take hose
 You pick up the other end of the hose.
 
@@ -1964,4 +1985,4 @@ Thank You for Playing!
 (Footnote 444)
 You have won!
 
-[runner] turns=319 leftover=0 running=false WON=YES
+[runner] turns=318 leftover=0 running=false WON=YES

@@ -89,20 +89,20 @@ Yea..good choice, too big. "Now what guys? Land on it and drill a hole and launc
 you land on the Surface, still in your ships. "Guys, get your suits on, Hugo, you bring the nuke." you say. You are now on the surface with your squad.
 You can see Simon, Hugo and Tads here.
 There is Nuke Buggy here.
-You can go to Asteroid Surface.
+You can go to Asteroid Surface2.
 
 > talk to tads
 "Let's just finish."
 
-> go to asteroid surface
+> go to asteroid surface2
 Your ships are in the background.
 You can see Simon, Hugo and Tads here.
-You can go to Asteroid Surface.
+You can go to Asteroid Surface3.
 
 > talk to tads
 "Cold, too." he says. "Man, I'm cold, too." you say. "WAIT! Remeber back in school, they talked about the migration and how earth was, when they came! The "Fatties" came from a cold planet! We shouldn't be cold! Our suits have heaters!" he says loudly. "Whats your point Tads?" you ask. "THE "FATTIES" ARE HERE!" he yells. ""What was that!?" you yell, turning around quickly. You see a shadow, but then it's gone. "Simon! Drill the hole and launch it! Tads, Hugo, arms ready!" you yell, getting you laser rifle.
 
-> go to asteroid surface
+> go to asteroid surface3
 You, Hugo, and Tads run.
 There is nobody here.
 There is Metal Hull in the Distance here.
@@ -122,12 +122,12 @@ Attack?
 You and the squad (Hugo, Tads) fire at them. YES!! They're turning back!
 You leave the battle area, and head toward Simon.
 You can see Simon here.
-You can go to Asteroid Surface.
+You can go to Asteroid surface5.
 
 > talk to simon
 "GOT IT!" she yells. "OK," you say. "Back to the ships. simon, gimme the detonator." you ask. "Ok," she says, handing it to you.
 
-> go to asteroid surface
+> go to asteroid surface5
 You run towards your ship, hoping it'll work.
 There is nobody here.
 There is Your ship here.

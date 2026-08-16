@@ -4,10 +4,14 @@ Operation: Sleepover, v2.0 | Justin Bailey
 Operation: Sleepover
 A Text-Based AR/TG Adventure game - version 2.0
 
-You finish up a paragraph on your English paper and lean back in your chair. You've been at this too long, it's time for a break from homework. As you reach for the doorknob, you feel a mild shock. Static electricity. You reach again, and are again zapped by the doorknob, only more powerfully this time.  
-"I won't let you ruin their night."  
-You look in the direction of the strange, high-pitched voice and see a small woman, only six inches tall, and with wings, sitting on top of your desk. You've definitely been spending too long on your homework.  
+You finish up a paragraph on your English paper and lean back in your chair. You've been at this too long, it's time for a break from homework. As you reach for the doorknob, you feel a mild shock. Static electricity. You reach again, and are again zapped by the doorknob, only more powerfully this time. 
+ 
+"I won't let you ruin their night." 
+ 
+You look in the direction of the strange, high-pitched voice and see a small woman, only six inches tall, and with wings, sitting on top of your desk. You've definitely been spending too long on your homework. 
+ 
 "I am Amy's guardian faery, Amisael. You know that she and her dance company friends are having a sleepover downstairs tonight, and I know that you want to spy on all those pretty girls. I won't let you ruin their party." 
+
 You stare at her a moment longer, still not believing what you're seeing. Suddenly, there's a flash of light, and she's gone. 
 You are in Kaden's bedroom.
 Your room features the normal setup for a fifteen year old boy.
@@ -64,10 +68,14 @@ You can go south or west.
 The kitchen is to the west, the living room to the south.
 
 > speak to amy
-"Hey, Kaden, can you help me carry these snack trays downstairs?"  
-You grab one of the trays and follow Amy downstairs. You hand the tray to one of her friends, and are quickly rushed out of the room.  
-You stand in the hall for a moment thinking about all the cute girls you just saw in their PJs before Amisael comes into view.  
-"I don't know how you got out of your room, but you've had your peek at the party. Now leave them alone."  
+"Hey, Kaden, can you help me carry these snack trays downstairs?" 
+ 
+You grab one of the trays and follow Amy downstairs. You hand the tray to one of her friends, and are quickly rushed out of the room. 
+ 
+You stand in the hall for a moment thinking about all the cute girls you just saw in their PJs before Amisael comes into view. 
+ 
+"I don't know how you got out of your room, but you've had your peek at the party. Now leave them alone." 
+ 
 The faery turns and vanishes.
 You are in the Downstairs Hallway.
 You can go south, east or west.
@@ -165,13 +173,17 @@ You can go west.
 There's a tiny bit of light coming in through a vent in the south wall.
 
 > look at vent
-You look through the slits and see your sister's slumber party in the other room. It's not as exciting as you had hoped. All they're doing is playing trivial pursuit. The only funny part is that none of them seem to be able to get any of the sports questions right.  
+You look through the slits and see your sister's slumber party in the other room. It's not as exciting as you had hoped. All they're doing is playing trivial pursuit. The only funny part is that none of them seem to be able to get any of the sports questions right. 
+ 
 Suddenly, you hear a woman's voice behind you. 
 "I warned you not to bother them. Really, your immature behavior startles me." 
 You turn around and see Amisael staring you in the face.
-She waves her hands and you see a strange light come at you. 
+
+She waves her hands and you see a strange light come at you.
+ 
 You close your eyes as the room starts to spin around you. 
-"Let's see if this helps you grow up."  
+"Let's see if this helps you grow up." 
+ 
 You slowly open your eyes. Somehow, you've been sent back to the laundry room. It's bigger now than it was before. Actually, you're smaller. It looks like the faery somehow regressed you into a toddler to teach you a lesson. Everything you were carrying is gone, too. 
 You are in the Laundry Room.
 There is the washing machine and the dryer here.
@@ -248,7 +260,7 @@ You stand in the upstairs hallway. The master bedroom is northwest, Amy's room i
 You are in Kaden's bedroom.
 Your bedroom hasn't changed at all, but it sure looks different from this angle.
 You can go northwest.
-You can see your bed, your dresser, a desk, your English homework, a book, a lamp, a bust of Mozart, electrical outlets and the heating vent.
+You can see your bed, your dresser, a desk, your English homework, a book, a lamp, a bust of Mozart, electrical outlets, the heating vent.
 
 > look at vent
 It's the heating vent for your room.
@@ -264,14 +276,21 @@ You can go south or southwest.
 You can see Amisael, a bed, a dresser with a mirror on top, a closet and a crystal ball.
 
 > take ball
-You crawl towards the crystal, hoping not to attract the faery's attention.  
-"You probably don't realize how much noise your plastic diaper makes when you crawl, do you?"  
-You slowly turn around and see Amisael standing behind you, smiling. 
+You crawl towards the crystal, hoping not to attract the faery's attention. 
+ 
+"You probably don't realize how much noise your plastic diaper makes when you crawl, do you?" 
+ 
+You slowly turn around and see Amisael standing behind you, smiling.
+ 
 "Since you're so determined to get into the slumber party, I'm going to let you join us."
+
 You see the strange lights coming at you again, and you feel dizzy in your whole body (if that's even possible). 
-"Did you know that when your mother was pregnant, the doctor told your parents that you were going to be a girl? It's true. Your parents had even picked out the cutest name for you: Hannah."  
-Amisael looks at you a moment and smiles.  
-"Come down and join us whenever you're ready. I'll be waiting with the other girls."  
+"Did you know that when your mother was pregnant, the doctor told your parents that you were going to be a girl? It's true. Your parents had even picked out the cutest name for you: Hannah." 
+ 
+Amisael looks at you a moment and smiles. 
+ 
+"Come down and join us whenever you're ready. I'll be waiting with the other girls." 
+ 
 With a wave of her hand, the faery vanishes. You look into Amy's mirror and confirm what you already new: Amisael's turned you into a 9 year old girl. But look at the bright side. At least you're older now.
 
 > unlock door
@@ -430,11 +449,15 @@ The dining room is to the north, the hallway to the west.
 > use atari on television
 You fire up the ancient device and after the screen flashes a couple of times, the following text appears: 
 
+
 In the year 1512, the Council of Wizards commissioned a Spanish explorer named Juan Ponce de Leon to find the ancient Fountain of Youth and thus save their dying race. 
+
 They never should have trusted their fate to a muggle. 
+
 Junkosoft Presents: 
 The Legacy of Leon
 A Magical Gaming Experience 
+
 
 Sparks and smoke suddenly come out the back of the Atari as it dies of extreme old age.
 
@@ -464,9 +487,12 @@ You knock on the door and are answered only by Amy's voice.
 "Who is it?" 
 Type your name
 
-Amy opens the door and gives you a big hug, telling you how adorable you are in your pajamas. She brings you into the party, and everyone agrees that you're just the cutest thing they've ever seen.  
-They sit you down and put some makeup on you and do up your hair and make you even cuter than you were before. Then they have you walk up and down the room like a fashion model while Amy takes pictures with the digital camera.  
-Eventually it is decided that if you can prove you're a man underneath that little girl body, you can become a boy again. They grab Trivial Pursuit and ask you a Sports question.  
+Amy opens the door and gives you a big hug, telling you how adorable you are in your pajamas. She brings you into the party, and everyone agrees that you're just the cutest thing they've ever seen. 
+ 
+They sit you down and put some makeup on you and do up your hair and make you even cuter than you were before. Then they have you walk up and down the room like a fashion model while Amy takes pictures with the digital camera. 
+ 
+Eventually it is decided that if you can prove you're a man underneath that little girl body, you can become a boy again. They grab Trivial Pursuit and ask you a Sports question. 
+ 
 
 What NFL quarterback, according to Hollywood Henderson, "couldn't spell cat if you spotted him the C and the A"? 
  A)Terry Bradshaw 
@@ -475,19 +501,28 @@ What NFL quarterback, according to Hollywood Henderson, "couldn't spell cat if y
  D)Peyton Manning
 Type only the letter of your answer.
 
-The girl asking the question looks at you and frowns.  
-"She got it right."  
-"In that case, I guess we have to keep up our end of the bargain, don't we?" says Amy. She snaps her fingers and Amisael appears next to her. "Hannah wants to be a boy, Amisael."  
-The faery nods her head and grins. Once again the strange light comes at you again, followed by the dizziness.  
-Then there's something different, two more flashes of light. You open your eyes and see all the girls crowded around Amy, looking at the digital camera.  
-You look down at your body and realize that you're still dressed like a girl, complete with make up and a wig. Amy must have taken pictures of you like this!  
-"Now, Kaden, if you don't do everything your big sister wants from now on, I'll make sure these pictures find their way out. Understood?"  
-You nod your head, but you can't believe that your own big sister would black mail you. Wait. Big sister? That's right. She's always been your big sister, hasn't she?  
+The girl asking the question looks at you and frowns. 
+ 
+"She got it right." 
+ 
+"In that case, I guess we have to keep up our end of the bargain, don't we?" says Amy. She snaps her fingers and Amisael appears next to her. "Hannah wants to be a boy, Amisael." 
+ 
+The faery nods her head and grins. Once again the strange light comes at you again, followed by the dizziness. 
+ 
+Then there's something different, two more flashes of light. You open your eyes and see all the girls crowded around Amy, looking at the digital camera. 
+ 
+You look down at your body and realize that you're still dressed like a girl, complete with make up and a wig. Amy must have taken pictures of you like this! 
+ 
+"Now, Kaden, if you don't do everything your big sister wants from now on, I'll make sure these pictures find their way out. Understood?" 
+ 
+You nod your head, but you can't believe that your own big sister would black mail you. Wait. Big sister? That's right. She's always been your big sister, hasn't she? 
+ 
 You obey quickly when the girls send you away. You don't want Mom and Dad to see those pictures. What if she showed your friends at school? They'll be calling you a sissy all the way into high school.
 You finished this game as Kaden, a 9 year old boy.
 You were wearing cow jammies, a cami, a pair of panties.
 You were carrying: a sweater, sewing kit, lighter, cookies, a pair of shorts, screwdriver.
 
 The End
+
 Congratulations on a job well done. Now, a new quest will begin for you. Say Justin Bailey in your bedroom next time you play.
 [runner] turns=92 leftover=0 running=false WON=YES

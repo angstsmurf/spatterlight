@@ -1,0 +1,29 @@
+
+waitflush
+
+You are in the room.
+
+> one
+Alpha
+ Beta
+
+> two
+Gamma
+
+> three
+
+Delta
+
+> four
+Epsilon
+
+Zeta
+
+> five
+Green still one line
+
+> six
+Eta
+
+Theta
+[runner] turns=6 leftover=0 running=true

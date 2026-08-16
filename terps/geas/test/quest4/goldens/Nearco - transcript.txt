@@ -10,7 +10,7 @@ Estás en el desierto.
 
 La arena del suelo quema tus sandalias. A lo lejos, puedes percibir el efecto óptico que se produce cuando el aire caliente asciende desde las dunas. El Sol, abrasador, quema tu piel sin piedad.
 
-Aquí hay: un hueso, una piedra and una roca
+Aquí hay: un hueso, una piedra, una roca
 Puedes ir al: 
 
 > take hueso
@@ -365,7 +365,7 @@ Recuerdas la frase de Eurípides:
 Estás en una planta intermedia de la cueva
 Es una sala iluminada por antorchas.
 
-Aquí hay: un soldado persa and y otro soldado persa más
+Aquí hay: un soldado persa, y otro soldado persa más
 Puedes ir al: 
 Dos persas están sentandos pobre unas estalagmitas que rodean otra de mayor tamaño, la cual simula una mesa de juego. Los soldados están tan ensimismados jugando a los dados que no se dan cuenta de tu presencia. Dan voces y beben vino sin preocuparse demasiado de lo que ocurre a su alrededor.
 

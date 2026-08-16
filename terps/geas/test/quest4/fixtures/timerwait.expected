@@ -28,7 +28,8 @@ A stone hall.
 [after the wait]
 
 > code
-[before the code][tick]
+[before the code]
+[tick]
 [after the code]
 
 > p

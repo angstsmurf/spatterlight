@@ -1,0 +1,67 @@
+
+ContainerRoom
+
+You are in Tavern.
+There is bottle here.
+A small country tavern.
+
+> x bottle
+A bottle of sludge.
+
+> stash
+
+> where
+bottle in Tavern, label in Tavern
+
+> look
+You are in Tavern.
+There is bottle and label here.
+A small country tavern.
+
+> x bottle
+A bottle of sludge.
+It contains label.
+
+> takebottle
+
+> where
+bottle in inventory, label in inventory
+
+> inventory
+You are carrying:
+bottle and label.
+
+> dropbottle
+
+> where
+bottle in Tavern, label in Tavern
+
+> look
+You are in Tavern.
+There is bottle and label here.
+A small country tavern.
+
+> takebottle
+
+> droplabel
+
+> where
+bottle in inventory, label in Tavern
+
+> look
+You are in Tavern.
+There is label here.
+A small country tavern.
+
+> x bottle
+A bottle of sludge.
+It contains label.
+
+> takelabel
+
+> where
+bottle in inventory, label in inventory
+
+> x bottle
+A bottle of sludge.
+[runner] turns=19 leftover=0 running=true

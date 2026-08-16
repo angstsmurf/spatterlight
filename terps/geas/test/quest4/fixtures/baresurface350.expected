@@ -1,0 +1,18 @@
+
+BareSurface350
+
+You are in Room.
+There is mantle, vase, ledge and bowl here.
+A room with two things to stand things on.
+
+> look
+You are in Room.
+There is mantle, vase, ledge and bowl here.
+A room with two things to stand things on.
+
+> x mantle
+A stone mantle.
+
+> x ledge
+A narrow ledge.
+[runner] turns=3 leftover=0 running=true

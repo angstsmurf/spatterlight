@@ -153,6 +153,18 @@ class geas_implementation : public GeasRunner
     double init = 0.0;
   };
   std::vector<CollectableDef> collectables;
+  /* Quest 2.x "items": the game block's `items <a; b; c>' (or its older spelling
+   * `possitems') declares every item the player can ever hold, and below ASL
+   * 2.80 that table *is* the inventory -- each entry carries a Got flag that
+   * give/lose set and clear, and there are no objects in it at all
+   * (SetUpItemArrays, V4Game.Part2.cs:6961-7014).  The names never change, so
+   * like the collectables they are session state; which of them are held lives
+   * in GeasState::items, so save, restore and undo carry it already.
+   *
+   * From 2.80 on Quest ignores the table completely -- give/lose move the
+   * *object* of that name instead -- so this is only ever consulted below that,
+   * and a 3.x game's leftover `items' line has no effect. */
+  std::vector<std::string> item_table_;
   Logger logger;
 
 public:
@@ -182,6 +194,7 @@ public:
   /* The body of a turn, without the timer tick that closes it: `oops` re-runs
    * the corrected command through this, since the two of them are one turn. */
   void run_command_body (const std::string &);
+  void run_turn (const std::string &, bool is_internal, bool is_normal);
   /* Quest's turn does not run to its end and stop -- it *suspends*, at its
    * first `wait` or `pause` as much as at its close, and SendCommand ticks the
    * timers the moment it does (V4Game.Part2.cs:78-88).  Called at each such
@@ -267,11 +280,29 @@ public:
   void apply_type (const std::string &obj, const std::string &typenm);
 
   void regen_var_look ();
+  /* The room's look text as regen_var_look last read it.  Below ASL 2.80 the
+   * display prints this rather than quest.lookdesc, which Quest's 2.x room
+   * display never writes -- see regen_var_look. */
+  std::string look_desc_;
   void regen_var_dirs ();
-  void regen_var_objects ();
+  /* Rebuild quest.objects and quest.formatobjects.  Quest has two writers of
+   * the pair and they punctuate differently: the room display puts " and "
+   * before the last object of quest.formatobjects, the pane refresh joins with
+   * ", " throughout.  `room_display' picks the first; the deferred flush in
+   * get_svar, which stands for the pane refresh, takes the default. */
+  void regen_var_objects (bool room_display = false);
   void regen_var_room ();
 
   void look();
+
+  /* Display one picture.  Quest 4 had two picture routines and the tag's form
+   * and the game's ASL version chose between them (V4Game.Part2.cs:5836-5858):
+   * ShowPicture opened a picture window, splitting an optional "; <caption>"
+   * and "@<width>x<height>" off the filename, and ShowPictureInTextAsync drew
+   * the image among the game text and split nothing.  `popup' selects the
+   * first. */
+  void show_picture (const std::string &spec, bool popup);
+
   /* The right-hand side of a `set numeric`, evaluated the way the game's own
    * ASL version does -- the full expression from 3.91, a single binary
    * operation below it.  See the definition. */
@@ -352,17 +383,25 @@ public:
    * Quest's way of saying "no such object". */
   bool resolve_at_room (std::string &name) const;
   void set_obj_action (const std::string &obj, const std::string &act);
-  void move (const std::string &obj, const std::string &dest);
+  /* Quest's MoveThing (V4Game.cs:6621-6660): put an object in a room (or in
+   * "inventory").  That is a write to ContainerRoom -- ObjectRecord::parent --
+   * and never touches the "parent" property, so an object moved while still
+   * inside a container keeps saying it is in that container.  From ASL 3.91 the
+   * move takes the container's contents with it: everything whose "parent"
+   * property names this object is moved to the same room, recursively.
+   * `depth` is the cycle guard on that recursion; callers leave it alone. */
+  void move (const std::string &obj, const std::string &dest, int depth = 0);
   /* Quest's DoAddRemove (V4Game.cs:2113-2133): containment is recorded as the
    * child's "parent" *property* (holding the container's definition name, and
    * cleared with "not parent"), which games read back as #child:parent#.
    * Barbarian's pedestal will only swap the sack for the Eye of the East when
    * `is <#Pile of bones:parent#; Sack>` holds -- and springs a lethal trap
-   * otherwise.  geas keeps containment in ObjectRecord::parent instead, so the
-   * property has to be written alongside the move or such a check never
-   * matches.  Only the container statements and verbs route through here:
-   * Quest's MoveThing (rooms) leaves the property alone.  TAKE reaches it
-   * indirectly, by running "remove <object>" first -- see the take handler.
+   * otherwise.  Putting something in also copies the container's ContainerRoom
+   * onto it, so the two agree from then on; taking it out again leaves the room
+   * alone, because the object has not gone anywhere.  Only the container
+   * statements and verbs route through here: MoveThing leaves the property
+   * alone.  TAKE reaches it indirectly, by running "remove <object>" first --
+   * see the take handler.
    *
    * From ASL 4.10 the container is also marked "seen" -- one of the engine's
    * only two places that write that property, the other being DoLook.  Quest's
@@ -379,6 +418,8 @@ public:
    * current_places, which regen_var_dirs() reallocates partway through. */
   bool room_exists (const std::string &room) const;
   void goto_room (std::string room);
+  /* Non-const wrapper for container_room, for the callers that have no const
+   * handle; it complains to the debug log when there is no such object. */
   std::string get_obj_parent (const std::string &obj);
   /* True if the player is carrying this -- either an object in the inventory or
    * a Quest 2.x item (which has no world object). */
@@ -396,14 +437,6 @@ public:
    * text the caller appends to its refusal.  From ASL 3.91 `take` asks this
    * before it does anything else. */
   bool player_can_access (const std::string &obj, std::string &errmsg) const;
-  /* True if `obj` sits, however deeply, inside something the player is
-   * carrying.  Quest has no such walk: it keeps a contained object's
-   * ContainerRoom in step with its container's, so from ASL 3.91 -- when
-   * MoveThing began recursing into children (V4Game.cs:6643-6653) -- picking up
-   * a bag puts everything in it in the inventory scope as well.  geas models
-   * containment the other way round (the content's location *is* the
-   * container), so it has to walk the chain to ask the same question. */
-  bool held_in_container (const std::string &obj) const;
   /* A container's open/closed state: open if opened at runtime or declared
    * "opened", closed if closed at runtime, and (per Quest) closed by default. */
   bool container_is_open (const std::string &name) const;
@@ -424,12 +457,28 @@ public:
    * suppresses that fallback entirely (the open path passes false). */
   void do_look (const std::string &obj, bool examine_error = false,
 		bool show_default = true);
-  /* Parent object name of `obj` ("" if unplaced). */
-  std::string obj_parent (const std::string &obj) const;
-  /* The room/inventory an object ultimately sits in, walking up through any
-   * containers/surfaces it is nested in. */
-  std::string room_of (const std::string &obj) const;
-  std::string room_of_parent (const std::string &parent) const;
+  /* Quest keeps two quite separate answers to "where is this object", and geas
+   * has to keep them apart as well or games that use both fall over:
+   *
+   *   container_room -- ObjectType.ContainerRoom, the room the object is in (or
+   *     "inventory", or "" for one that is nowhere).  It is what `here`, `got`,
+   *     $locationof$, the room listing, `for each object in <room>` and the
+   *     object pane all read, and what MoveThing writes.
+   *   obj_container -- the "parent" property, the *container* the object is in,
+   *     or "" for one that is in no container.  It is what ListContents,
+   *     UpdateVisibilityInContainers and PlayerCanAccessObject read, and what
+   *     DoAddRemove writes.
+   *
+   * Putting something into a container sets both (the child takes the
+   * container's room); taking it out again clears only the property.  They can
+   * legitimately drift apart afterwards -- `lose <X>` drops an object into the
+   * current room without disturbing its "parent" -- and a game can rely on
+   * that: the Wizard's bar-top label is dropped in the tavern while still
+   * counting as the bottle's contents, and so is listed in the room.  geas used
+   * to conflate the two in the single field ObjectRecord::parent, which made
+   * such an object vanish from the world entirely. */
+  std::string container_room (const std::string &obj) const;
+  std::string obj_container (const std::string &obj) const;
   /* Depth cap on every walk up the object parent chain.  A game can create a
    * cycle in that chain (put the bag in the box, then the box in the bag), so
    * an unbounded walk is a hang / stack overflow, not a theoretical concern. */
@@ -438,7 +487,11 @@ public:
    * inner into outer would make the parent chain a cycle. */
   bool is_inside (const std::string &inner, const std::string &outer) const;
   /* Whether the interior of container/surface P currently makes its contents
-   * available (open|transparent & seen, or a surface; and P itself reachable). */
+   * available.  Quest's test, verbatim and deliberately flat: a surface's
+   * contents always are, a container's only when it has been seen and is either
+   * open or transparent (V4Game.Part2.cs:7721).  Whether P is itself reachable
+   * -- shut inside another container, or hidden -- does not come into it; that
+   * is player_can_access's question, asked separately and only of the player. */
   bool content_available (const std::string &P) const;
   /* Quest's UpdateVisibilityInContainers: set each contained object's hidden
    * flag from its container's state, so pane/here/exists/resolution agree. */
@@ -499,6 +552,23 @@ public:
       return p;
     return eval_string (p);
   }
+
+  /* Quest 2.x items (see the item_table_ comment above). */
+  void set_up_items ();
+  /* The declared item of that name, or NULL.  Quest matches an item name
+   * exactly and case-sensitively wherever it *writes* the Got flag
+   * (SetUpStartItems and PlayerItem, V4Game.Part2.cs:7050-7057 and 6681-6690)
+   * and case-insensitively wherever it reads it (ExecuteIfGot, V4Game.cs:7382;
+   * ExecDrop; ExecUse), so the two lookups are not interchangeable: a game that
+   * writes `lose <hooka>' against an `items <...; Hooka; ...>' declaration is
+   * losing nothing at all, and The Dream Weaver is one that does.
+   *
+   * Only the writing side has a helper.  Every reader wants "is the player
+   * holding something of this name", which is a case-insensitive walk of
+   * state.items -- the held names, not the declared ones -- and searching
+   * item_table_ instead would answer yes for an item the game declares and the
+   * player has never picked up. */
+  const std::string *find_item (const std::string &name) const;
 
   /* Collectables (see the CollectableDef comment above). */
   void set_up_collectables ();

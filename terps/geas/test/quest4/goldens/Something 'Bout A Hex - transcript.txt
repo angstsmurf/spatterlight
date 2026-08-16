@@ -3642,7 +3642,7 @@ Very accommodating for the business traveler. A king size bed with three plush p
 
  zzzz ...zzzz .... zzzz...
 
-> take 19yellow98tag
+> take 1 9 y e l l o w 9 8
 You have awakened in your your living room.
 You can go out to the middle of the living room.
 
@@ -4365,7 +4365,7 @@ DERRICK: "What were you having, Lad?"
 [choice] 1
 You have another Jim and Ginger.
 
-> use Jim 2
+> use Jim-n-Ginger
 You start on another Jim and ginger.
 
 > speak to raissa
@@ -4397,7 +4397,7 @@ it is awfully quiet. why don't you pop in one of those tapes?
 [choice] 1
 Yet another jim and ginger.
 
-> use Jim 3
+> use Jim-n-Ginger
 You start on yet another drink.
 
 > speak to raissa

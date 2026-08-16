@@ -31,7 +31,7 @@ talk to two men
 talk to woman
 examine chloé's buisness card
 east
-go to the english pub
+go to the english
 talk to bartender
 talk to two men
 examine old guy

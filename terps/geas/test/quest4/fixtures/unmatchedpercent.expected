@@ -25,6 +25,12 @@ Doubled % and # are literal.
 > paired
 Paired 7 and a string.
 
+> dollar
+<ERROR>
+
+> dollarempty
+A doubled $ is literal.
+
 > north
 You are in plain.
 You can go south.
@@ -39,4 +45,4 @@ An open plain, %pct%% of it grass.
 You are in hall.
 You can go north.
 Yep, 100% empty.
-[runner] turns=9 leftover=0 running=true
+[runner] turns=11 leftover=0 running=true

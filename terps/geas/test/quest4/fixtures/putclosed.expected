@@ -1,0 +1,40 @@
+
+Putclosed
+
+You are in Lab.
+There is bone, coin, pin, sack, box and tray here.
+The lab.
+
+> take bone
+You pick it up.
+
+> take coin
+You pick it up.
+
+> take pin
+You pick it up.
+
+> put bone in sack
+You can't put that there.
+
+> open sack
+You open the sack.
+
+> put bone in sack
+The sack takes the bone.
+
+> close sack
+You close the sack.
+
+> put coin in box
+You can't put that there.
+
+> open box
+You can't open that.
+
+> put coin in box
+You can't put that there.
+
+> put pin on tray
+It rests on the tray.
+[runner] turns=11 leftover=0 running=true

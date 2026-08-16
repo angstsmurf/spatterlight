@@ -63,7 +63,41 @@ You can't take it - inside closed goth.
 > give jane eyre book to goth
 You don't have that.
 
-> n
+> read jane eyre book
+You read a passage.  Jane is speaking with Mr Rochester at Thornfield.  The more you read, the more you keeping noticing the letter R.  Is it R for Rochester, or maybe there's an R in the only thing that brings Sutekh to his diabolical knees.
+
+> yes goth
+You accept her invitation, and the two of you are transported, as you are, to the coffee-shop of mystic interludes.  Fancy a frappe?
+You are in the coffee-shop of mystic interludes.
+There is some Robusta beans, some Arabica beans, some special Sutekh beans and a gleaming self-service cafetiere here.
+.You find yourself, with your gothfriend, in a high-up, mystic coffee-bar.  It seems to look out over Seattle Sound, a la Frasier and Niles.  The place is decorated with bookish understatedness.
+
+> speak to goth
+'I'm glad we came here,' she says.  'I cannot leave though.  You can, by drinking your Americano.  I will remain, dreaming of limes, listening to the Sound.'
+
+> use cafetiere
+You pull the lever and after a steaming and a gushing, a pale Americano pours forth into your waiting paper-cup.  Enjoy.  
+
+> drink americano
+You sip the Americano, and before you can take a meaningful gulp, you are whizzed'n'whirled into a room you've not seen before...
+You are in a seemingly empty room.
+There is a yellowy blob and a vending machine here.
+You can go east or west.
+This room seems fairly bland, four magnolia walls surround you.
+
+> w
+You are in the chequered chessboard room.
+There is a granite queen and a stone king here.
+You can go east or west.
+Well, this is the chessboard room.  The light here comes in through a skylight, or is it a manhole cover?  The floor is a chessboard, with all the pieces set out as if at the beginning of the game.  They are stone pieces, and the taller ones reach up to your shoulder.  Nice feature.
+
+> w
+You are in the temple of enticement.
+There is the cursed pipe of Albion here.
+You can go south or east.
+This is Sutekh's awful shrine to all decadence.  Concoctions line the shelves around the walls, and there are jars and test-tubes along a crowded, diabolical workbench.
+
+> s
 You are in an underground kitchen.
 There is an oven here.
 You can go north or south.
@@ -92,7 +126,7 @@ You are now the proud owner of a ruined and empty Lilt can.
 
 > drop gingerbread man
 You are in the sarcophagus chamber.
-There is a brass ring, a sarcophagus, a goth and a jane eyre book here.
+There is a brass ring and a sarcophagus here.
 You can go north, south or northwest.
 This is the sarcophagus chamber.  Before you, there is a bejewelled rug with a large letter M at its centre, nesting like a spider within red and purple spirals.  Beyond there is a tapestry hanging, and then just behind, a looming, ornate sarcophagus.
 You're back in the sarcophagus room.  Seems dropping gingerbread in this world sets you back a bit.  But it looks slightly different in here...
@@ -140,7 +174,7 @@ This room smells of sulphur.  There are three tall blazing orange flames burning
 
 > se
 You are in the sarcophagus chamber.
-There is a brass ring, a sarcophagus, a goth and a jane eyre book here.
+There is a brass ring and a sarcophagus here.
 You can go north, south or northwest.
 This is the sarcophagus chamber.  Before you, there is a bejewelled rug with a large letter M at its centre, nesting like a spider within red and purple spirals.  Beyond there is a tapestry hanging, and then just behind, a looming, ornate sarcophagus.
 
@@ -181,60 +215,13 @@ Being stone, she doesn't have much to say.  You might say there's a stony silenc
 His granite lips quiver into action, 'There is a zip in that which kills Sutekh, a zip I tells ya.'
 
 
-> w
-You are in the temple of enticement.
-There is the cursed pipe of Albion and a dainty marble sparrow here.
-You can go south or east.
-This is Sutekh's awful shrine to all decadence.  Concoctions line the shelves around the walls, and there are jars and test-tubes along a crowded, diabolical workbench.
-
-> s
-You are in an underground kitchen.
-There is an oven here.
-You can go north or south.
-It looks as if someone lodged here for a while.  There's a full mesh bin here, so full that most of the rubbish in it has petrified.  Now who'd have lived in a place like this?
-
-> s
-You are in the sarcophagus chamber.
-There is a brass ring, a sarcophagus, a goth and a jane eyre book here.
-You can go north, south or northwest.
-This is the sarcophagus chamber.  Before you, there is a bejewelled rug with a large letter M at its centre, nesting like a spider within red and purple spirals.  Beyond there is a tapestry hanging, and then just behind, a looming, ornate sarcophagus.
-
 > speak to goth
-'It was pretty stuffy in that mahogany monstrosity,' she says.
-
-
-> yes goth
-You accept her invitation, and the two of you are transported, as you are, to the coffee-shop of mystic interludes.  Fancy a frappe?
-You are in the coffee-shop of mystic interludes.
-There is some Robusta beans, some Arabica beans, some special Sutekh beans and a gleaming self-service cafetiere here.
-.You find yourself, with your gothfriend, in a high-up, mystic coffee-bar.  It seems to look out over Seattle Sound, a la Frasier and Niles.  The place is decorated with bookish understatedness.
-
-> look at Seattle Sound
-It is a misty day out on the Sound.  You see a tiny boat, a tug, dot across the greyness like a speck in a waking dream.
-
-> weigh Robusta beans
-
-> weigh Arabica beans
-
-> weigh special Sutekh beans
-
-> take special Sutekh beans
-Oh dear, they seem to have a forcefield around them.
-
-> take Robusta beans
-You scoop up and pocket the Robustas.
-
-> speak to goth
-'I'm glad we came here,' she says.  'I cannot leave though.  You can, by drinking your Americano.  I will remain, dreaming of limes, listening to the Sound.'
+I can't see that here.
 
 > use cafetiere
 You pull the lever and after a steaming and a gushing, a pale Americano pours forth into your waiting paper-cup.  Enjoy.  
 
-> take Americano
-You pick it up.
-
-> drink Americano
-You sip the Americano, and before you can take a meaningful gulp, you are whizzed'n'whirled into a room you've not seen before...
+> e
 You are in a seemingly empty room.
 There is a yellowy blob and a vending machine here.
 You can go east or west.
@@ -296,10 +283,8 @@ You look into its convex slightly scratched lens, and the letters PAN seem to dr
 > speak to Sutekh
 He murmurs something, seeming to snipe at self, and says, 'I shall make a plaything of you...'
 
-> drop marzipan
-Aha, you drop the yellowy blob, that you and Sutekh both know to be marzipan, to the dark stone floor.  'No, not the marzipan,' he howls, clamping jet gauntlets to his temples.  'Please, take it away, destroy it.  I offer you an alliance...destroy it, and I will give you a planet as a plaything, a system to reign over.'  As you are about to answer him, in a steaming mass of melted malevolence, Sutekh, Lord of all things dark, of destruction and dust, dissolves into so many grains of fizzing, dimming light before you, until, in a hole that seems to suck itself in on itself, the outline of Sutekh vanishes completely, leaving cool, clear, peaceful air.  It's as if a cloud has lifted.  Above you, the trapdoor clicks open.  You can go up now...
-
-
+> throw marzipan
+You throw the marzipan at the diabolical fiend.  The fiend dives to avoid it, but one of the flames catch the edge of it and Sutekh begins to wheeze, and writhe.  'No, not the marzipan,' he pleads.  'Take it away, destroy it, and I shall reward you.  I offer you an alliance, I shall give you a planet as a plaything, a solar system to toy with.'  But as he crows, you see his outline fizz away like so many tiny lights, and his silhouette seems to suck itself in on itself, and disappear like a dot in the middle of an old-fashioned TV.  Sutekh is gone, you have destroyed the diabolical demon.  And where he was, clean, cool, calming air.  You hear the trapdoor above you click open.  You can go up now...
 
 > up
 You are in your drawing-room.
@@ -326,4 +311,4 @@ You drop the needle on the record, and the eerie, ethereal song from Lionheart f
 You do so, and a few minutes in, as Kashka from Baghdad returns to the cradle, you see visions in the curtains, mummies, a goth, a gingerbread man...
 Well, you slew Sutekh.  He wasn't all bad, I know, but it was you or him, I feel.  Thank you for passing through my world, maybe see you again.  Love, Sutekh
 
-[runner] turns=85 leftover=0 running=false WON=YES
+[runner] turns=80 leftover=0 running=false WON=YES

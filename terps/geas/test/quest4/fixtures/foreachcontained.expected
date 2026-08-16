@@ -1,0 +1,32 @@
+
+ForEachContained
+
+You are in Church.
+There is basket, yellow bead, chest and candle here.
+A quiet church.
+
+> look
+You are in Church.
+There is basket, yellow bead, chest and candle here.
+A quiet church.
+
+> detect
+The yellow bead glows briefly.
+The ruby glows briefly.
+
+> detect existing
+The yellow bead glows briefly.
+
+> x basket
+A wicker basket.
+It contains yellow bead.
+
+> open chest
+You open it.
+A shut chest.
+It contains ruby.
+
+> detect existing
+The yellow bead glows briefly.
+The ruby glows briefly.
+[runner] turns=6 leftover=0 running=true

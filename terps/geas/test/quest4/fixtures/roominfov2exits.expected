@@ -1,0 +1,44 @@
+
+roominfov2exits
+
+You are in the cell.
+There is nobody here.
+You can go out to The door is locked..
+You can go north.
+You can go to Your Training room raining Room 1, The Library, or Yard.
+A bare cell.
+
+> look
+You are in the cell.
+There is nobody here.
+You can go out to The door is locked..
+You can go north.
+You can go to Your Training room raining Room 1, The Library, or Yard.
+A bare cell.
+
+> lookdesc
+lookdesc=[]
+
+> out
+
+> north
+You are in the corridor.
+There is nobody here.
+You can go out to the cell.
+A dim corridor.
+
+> lookdesc
+lookdesc=[]
+
+> out
+You are in the cell.
+There is nobody here.
+You can go out to The door is locked..
+You can go north.
+You can go to Your Training room raining Room 1, The Library, or Yard.
+A bare cell.
+
+> go to training room 1
+You are in the training room.
+There is nobody here.
+[runner] turns=7 leftover=0 running=true

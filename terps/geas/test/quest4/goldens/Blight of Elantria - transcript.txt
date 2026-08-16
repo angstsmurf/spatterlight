@@ -52,6 +52,7 @@ It contains a bag of salt.
 > take salt
 (first removing it from cupboard)
 Done.
+
 You pick it up.
 
 > down
@@ -68,6 +69,7 @@ It contains an apple.
 > take apple
 (first removing it from barrel)
 Done.
+
 You pick it up.
 
 > up
@@ -195,11 +197,13 @@ It contains a bronze key and a small ruby.
 > take bronze key
 (first removing it from recess)
 Done.
+
 You pick it up.
 
 > take ruby
 (first removing it from recess)
 Done.
+
 You pick it up.
 
 > out
@@ -255,6 +259,7 @@ You are surrounded by a circle of nine stone monoliths with a stone altar in the
 > take knife
 (first removing it from altar)
 Done.
+
 You pick it up.
 
 > west
@@ -481,6 +486,7 @@ It contains a silver crucifix.
 > take crucifix
 (first removing it from small casket)
 Done.
+
 You pick it up.
 
 > up
@@ -1543,6 +1549,7 @@ It contains the pandemonica.
 > take pandemonica
 (first removing it from iron-bound chest)
 Done.
+
 You pick it up.
 
 > use scroll of translation on pandemonica
@@ -1715,6 +1722,7 @@ It contains a gold crown.
 > take crown
 (first removing it from hollow)
 Done.
+
 You pick it up.
 
 > southeast

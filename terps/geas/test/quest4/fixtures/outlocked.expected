@@ -2,7 +2,7 @@
 OutLocked
 
 You are in Cell.
-You can go out to Yard. You can go north, south or down.
+You can go out, north, south or down.
 A cell.  Doors lead out, north, south and down.
 
 > north
@@ -31,6 +31,6 @@ The guard shakes his head.
 
 > out
 You are in Yard.
-You can go out to Cell.
+You can go out.
 The prison yard.
 [runner] turns=10 leftover=0 running=true

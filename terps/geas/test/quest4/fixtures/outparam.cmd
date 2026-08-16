@@ -1,0 +1,13 @@
+out
+east
+out
+east
+out
+east
+east
+out
+west
+out
+unbar
+look
+out

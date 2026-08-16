@@ -5,7 +5,7 @@ same command script at the same seed (`GEAS_SEED=1` / `QVH_SEED=1`), diffed
 after the normalisation described in `README.md`:
 
 ```
-73/111 identical, 36 differ, 2 skipped/failed
+96/111 identical, 13 differ, 2 skipped/failed
 ```
 
 The two that are not compared are World's End (its transcript is a
@@ -13,17 +13,17 @@ The two that are not compared are World's End (its transcript is a
 and A Certain Oscar, whose missing `movecont.lib` QuestViva refuses and geas
 reads past — see *QuestViva's own defects*.
 
-`triage.py` attributes all but 2 800 of the 13 002 diff lines to a cause, and
+`triage.py` attributes all but 989 of the 1 491 diff lines to a cause, and
 `firstdiff.py` prints each game's *first* divergence — the only one with a cause
 of its own, since everything after it is cascade.  Run `python3 triage.py` for
 the current numbers; the "first" column below is the third one it prints, and
-sums to the 36 games that differ.
+sums to the 13 games that differ.
 
 Once a game's two transcripts stop describing the same world — a lookup that
 succeeds on one side only, a timer a turn out — nothing after that point is
 independent evidence, so those runs are credited whole to the divergence that
 parted them.  Those are the `desync:` rows; between them they account for
-9 537 of the 13 002 lines.
+467 of the 1 491 lines.
 
 The corpus shrank by 5 528 lines in one sitting without a single change to
 geas, which is worth stating plainly because both halves of it are lessons
@@ -38,64 +38,89 @@ about measurement rather than about the engine:
   authors declared them (finding 14).  A desync at turn 30 hides everything
   after it, so those runs were 10 324 lines all proving one known bug; the same
   runs now agree with Quest almost everywhere and disagree in places nobody had
-  seen.  Barbarian's 1 690 unclassified lines and Blight of Elantria's 981 are
+  seen.  Barbarian's 1 690 unclassified lines and Blight of Elantria's 983 are
   what was underneath.
+* **The oracle's tick was in the wrong place**, and moving it took another
+  2 358 lines off — again with no change to geas.  `--tick` used to come from
+  `SendCommand`'s own `elapsedTime`, which fires the moment the turn *parks*,
+  and a `selection` parks it; the harness ticks at the turn's first non-menu
+  suspension now, which is where geas ticks.  See *A menu splits the turn* in
+  *QuestViva's own defects*.  The Lazst Resort is byte-identical, ZombiesAttack
+  is down to two lines, and Something 'Bout A Hex lost 1 729 — with two older,
+  realer divergences underneath them, both finding 14 on lines the rewording
+  had never been able to see.  Rewording those took the corpus's largest
+  divergence, 5 333 lines, to nothing.
 
 | divergence | diff lines | games | first in |
 | --- | ---: | ---: | ---: |
-| desync: a command swallowed at a menu | 5320 | 1 | – |
-| unclassified | 2800 | 10 | 8 |
-| desync: the portal's mist cycles a turn apart | 2324 | 1 | – |
-| desync: timer armed after the turn's tick | 645 | 2 | 1 |
-| desync: 47, `exec` re-runs the turn scripts | 620 | 1 | – |
-| menu skipped, choice typed as a command | 570 | 1 | – |
+| unclassified | 989 | 3 | 3 |
 | desync: 37, geas trims a declared name | 338 | 1 | – |
-| desync: 14, names matched too loosely | 129 | 2 | – |
-| desync: 54, no pre-2.80 room display | 104 | 3 | 1 |
-| desync: 53, place alias not version-gated | 37 | 1 | 1 |
-| desync: 72, `action <drop>` runs where Quest drops | 20 | 1 | – |
-| command echo realigned by a shifted cut-scene | 18 | 2 | 1 |
-| room display: no pre-2.80 path | 14 | 4 | 2 |
-| picture caption printed as text | 10 | 3 | 3 |
-| 65, inventory order below 2.80 | 10 | 4 | 4 |
+| desync: 14, names matched too loosely | 129 | 2 | 1 |
+| command echo realigned by a shifted cut-scene | 8 | 1 | – |
 | 14, names matched too loosely | 7 | 1 | – |
 | `oops`/`the`: Quest answers nothing | 5 | 1 | 1 |
 | 62, pre-280 `look` name lookup | 4 | 1 | 1 |
-| 47, `exec` runs the turn scripts again | 4 | 2 | 2 |
-| 15, `quest.objects` joins with `" and "` | 4 | 1 | 1 |
 | `<ERROR>` not produced at load time (known) | 4 | 2 | 2 |
-| container contents not listed | 3 | 3 | 2 |
-| 64, `\|w` does not end the line | 3 | 1 | – |
-| take: geas answers the implied remove | 2 | 1 | – |
-| `quest.formatobjects`: flat comma list | 2 | 1 | 1 |
+| 37, geas trims a declared name | 2 | 1 | 1 |
+| room display: no pre-2.80 path | 1 | 1 | – |
 | 43, `property <obj; name=value>` true in geas | 1 | 1 | 1 |
 | 46, empty `place <>` dropped | 1 | 1 | 1 |
 | 40, `outputoff <>` obeyed | 1 | 1 | 1 |
 | QuestViva defect | 1 | 1 | 1 |
-| exits: 4.10 single line | 1 | 1 | 1 |
 
-The `unclassified` row is ten games, and it is where the next work is.  Two of
-them are almost all of it, and both were hidden behind a desync until this
-sitting:
+Findings 78 and 72 are the difference between that table and the one a sitting
+earlier: Barbarian's 1 684 unclassified lines and its 570-line menu-skip shadow
+are gone with the closed-container put gate, and Pyramid of Terror's 20-line
+`action <drop>` desync went when its ending swapped DROP MARZIPAN for THROW.
+The sitting before that was finding 76, which accounted for most of the
+difference then.  The implied `remove` of a take-out-of-a-container is a nested
+turn in Quest, and Wizard's walkthrough had been living off geas's shortcut,
+taking the church's bead without paying the donation; repairing the walkthrough
+retired the 2 324-line mist-cycle desync and took Wizard from 2 341 divergent
+lines to 417, and running the implied removal as a real turn took those 417 to
+6.  Those six were finding 77, under the desync all along, and they are gone
+too: Wizard is byte-identical.
 
-* **Barbarian**, 1 690 lines.  Its room listing pluralises where Quest does not
-  (`a stone Coffin and a Stone pressure plate is here.` against Quest's `are
-  here.`), and a few turns later `put bones in sack` succeeds in geas and is
-  refused in Quest, which parts the two for good.  The `is`/`are` half looks
-  like a small fix; the `put` half has not been run to ground.
-* **Blight of Elantria**, 981 lines.  geas punts across the lake and Quest does
+The `unclassified` row is three games, and it is where the next work is.
+Blight of Elantria is almost all of it:
+
+* **Barbarian's 1 684 lines are gone.**  `put bones in sack` succeeded in geas
+  because it ran the Sack's `add` script with the sack still closed; Quest —
+  the real 4.1.5 runner included — refuses a put into a closed container
+  before any of its add machinery is consulted, and the pedestal puzzle was
+  designed around exactly that (finding 78).  The walkthrough now plays the
+  intended OPEN SACK / PUT / CLOSE SACK, and the game is byte-identical at
+  512 turns and 250/250.  The room listing that pluralised where Quest does
+  not (`a stone Coffin and a Stone pressure plate is here.` against Quest's
+  `are here.`) was the other half of this and went with finding 77: the game
+  counts the room with its own `for each object in <#quest.currentroom#>`,
+  and the plate had been `add`ed to the coffin.
+* **Blight of Elantria**, 983 lines.  geas punts across the lake and Quest does
   not follow, so from there geas is exploring an island Quest never reaches.
   Its old 995-line desync (finding 45, then the oracle's dead implied-removal
   path) is gone; this is a different and genuine divergence underneath it.
-* **Pyramid of Terror**, 57 lines: geas lists a goth and a jane eyre book in the
-  room that Quest does not.
-* **Wizard**, 17 lines, and the four one- and two-line tails in MichaelsGame,
-  Shipwrecked, OnTheFarBlue, SomethingBoutAHex and ShadowMasters — the first two
-  of which are a stray space in an object's display name, in opposite
-  directions, and are probably finding 37's trimming seen from both sides.
-* **PilgrimsProgress**, 45 lines, where geas needs more `struggle` turns than
-  Quest to climb out of the Slough of Despond (finding 52's, though the rule
-  that used to catch it no longer fires).
+* The short tails in MichaelsGame (4) and Shipwrecked (2) — both a stray space
+  in an object's display name, in opposite directions, and probably finding
+  37's trimming seen from both sides.  On The Far Blue's two lines were the same
+  thing and are classified now: its room is declared `<Eastern beach of forest
+  island >` and Quest keeps the space.  SomethingBoutAHex's and ShadowMasters's
+  stray lines are gone with the tick fix.  Magic Sword's three lines are gone:
+  they were the Oggy-Waggi plant's escalation counter reaching zero a round
+  earlier in Quest, which is finding 47, and the game is now byte-identical.
+* Wizard's 17 lines are gone: what was left of them after finding 76 was
+  finding 77, and the game is byte-identical now.
+* Pyramid of Terror's 57 unclassified lines are gone with finding 77 as well:
+  they were a goth and a Jane Eyre book geas listed in a room Quest does not,
+  and Quest is right — a parentless `remove` two rooms away sweeps her out of
+  scope.  Its walkthrough now does the whole goth line (coffee-shop included)
+  inside the window before that sweep, and its last 20 lines went when the
+  final scene swapped DROP MARZIPAN for THROW MARZIPAN — the drop was finding
+  72, settled against the real runner, and the game is byte-identical now.
+* PilgrimsProgress's 45 lines are gone: finding 52 is fixed, and it no longer
+  needs more `struggle` turns than Quest to climb out of the Slough of Despond.
+* The four games whose only quarrel was their inventory — Dream Weaver, The
+  Devil's Bargain, Venus Flytrap Romantic Music and The Hobbit — are gone too:
+  finding 65 is fixed, and each is now byte-identical.
 
 Each finding below cites the line in both engines, so it can be checked
 without re-running anything.
@@ -239,8 +264,8 @@ the `|b…|xb` geas had been leaving out is what makes `pcase` land in the same
 place.  Below 2.80 Quest lists bare items with neither bold nor affixes, and
 there the capital does reach the name.
 
-What is **not** fixed is which things are listed, and in what order: that is
-finding 65.
+Which things are listed, and in what order, was left over as finding 65 — since
+fixed there too.
 
 Quest builds one sentence with each object's prefix and suffix, upper-cases the
 first letter, joins with `", "` and `" and "`, and ends with a full stop
@@ -571,10 +596,19 @@ silver`, not `take silver bracelet`.  That costs nothing, because geas's
 matching is a strict *superset* of Quest's: any noun Quest resolves, geas
 resolves the same way, so nothing in the fourteen reworded walkthroughs plays
 differently in geas (each was re-run before blessing, and every line but the
-command echoes was unchanged).  Eight of them are byte-identical to Quest now,
-and Something 'Bout A Hex's remaining 5 320 lines are a *different* divergence
-that this one had been hiding — a command one of the two engines swallows at the
-Christ Church menu.
+command echoes was unchanged).  Nine of them are byte-identical to Quest now.
+
+Something 'Bout A Hex took three passes, and is the clearest illustration of
+why a desync has to be cleared before anything behind it can be read.  The
+first pass reworded the DO NOT DISTURB sign; what surfaced was the QuestViva
+menu/tick artefact (see the defects section).  With that fixed, two more of
+this same finding surfaced, on lines the earlier pass had never been able to
+see: `take 19yellow98tag`, an object aliased `1 9 y e l l o w 9 8` and revealed
+at the end of the dream, and `use Jim 2` / `use Jim 3`, two of Derrick's three
+drinks, all three aliased `Jim-n-Ginger` — which is the only name Quest will
+take, and which has exactly one candidate in the inventory each time.  Typing
+the aliases changes nothing in geas but the echo, and the game is byte-identical
+now: 5 333 lines, the largest divergence in the corpus, down to none.
 
 The finding itself is pinned by `../../fixtures/loosename.asl` instead, which
 types three of the old phrasings and gets three answers Quest would refuse.  The
@@ -603,7 +637,9 @@ make geas match it — including in that.
 Quest uses `", "` throughout `quest.objects` and puts `" and "` only in
 `quest.formatobjects` (`V4Game.Part2.cs:3770-3815`, 1860-1910); geas puts
 `" and "` in both.  Nearco, which prints `#quest.objects#` itself, comes out as
-`un hueso, una piedra and una roca`.
+`un hueso, una piedra and una roca`.  `quest.objects` also has no suffix on it —
+all three routines that write it stop at the prefix and the name — where geas
+appended one.
 
 `quest.formatobjects` is not reliably the `" and "` list either.  Three routines
 write it, and only two of them punctuate: `ShowRoomInfo`
@@ -627,6 +663,37 @@ and `show <vent2>`, then the list:
 
 One line; of the eight corpus games that print `#quest.formatobjects#` it is the
 only one that changes visibility first.
+
+**Fixed.**  `regen_var_objects` (`geas-runner.cc:2987-3080`) takes a
+`room_display` flag and builds the two lists apart: `quest.objects` is prefix
+and name joined with `", "` and stops there, `quest.formatobjects` keeps the
+bold name and the suffix and takes `" and "` before the last item only when the
+flag is up.  `look()` raises it (`:2327`), because ShowRoomInfo sets the pair a
+couple of hundred lines above the point where it looks for a description tag
+(`V4Game.Part2.cs:3799-3830` against 3924-3956) — so a described room sets them
+just as an undescribed one does, and a description that prints
+`#quest.formatobjects#` before disturbing anything gets the punctuated list.
+
+The `" and "` then lives no longer than the display that made it.  ShowRoomInfo's
+last act, once the default display has printed or the tag has run, is a call to
+`UpdateObjectList` (`ibid. 3974`; `ShowRoomInfoV2` does the same at `:2156`), so
+the punctuated pair is readable from inside a description tag **and from nowhere
+else** — a game reading `quest.formatobjects` on any later turn gets the comma
+list, even with nothing moved since.  `look()` marks the pair dirty on its way
+out (`geas-runner.cc:2494`) rather than regenerating, which keeps the flattening
+off the cost of walking into a room.
+
+That last point was measured, not deduced: the first cut of `fixtures/objectslist`
+had geas answering `a rock of granite, a coin and a brass lamp` on the turn after
+LOOK and qv4 answering the comma list, which is what sent me back to the tail of
+ShowRoomInfo.  The fixture pins all of it — both lists, both punctuations, the
+suffix, and the seam inside `<Study>`'s description — and it is byte-identical
+against qv4.  Nearco and Sleepover are now byte-identical too.
+
+`quest.objects` has one residue left, and it belongs to finding 54: below 2.80
+`ShowRoomInfoV2` writes the declared *name* where `UpdateObjectList` writes the
+alias, so on those games the variable changes spelling depending on which
+routine wrote it last.  geas uses the alias throughout.
 
 ### 16. `set numeric` below ASL 3.91 evaluates the whole expression
 
@@ -914,6 +981,9 @@ implied-removal lines.
 
 ### 23. Below ASL 3.11 a place is named by its tag, not the room's alias
 
+**Fixed** — see finding 53, which is this one found from the other end and
+carries the fix and the fallout.
+
 `place <Science Lab>` in a room whose target is `define room <Science Lab>` /
 `alias <Sciece Lab>` should print — and answer to — *Science Lab* at ASL 2.10.
 Quest gates the alias substitution on the version:
@@ -1171,6 +1241,36 @@ Quest also maps the key to `BadTake` rather than `DefaultTake` at ASL ≤ 2.80
 
 ### 31. `picture <file; caption>` — the caption is never split off the filename
 
+**Fixed.**  The whole dispatch chain is now in geas: a new `show_picture`
+(`geas-runner.cc:2520-2560`) does the splitting, and `st_picture`
+(`geas-runner.cc:6803-6826`), `st_show` (`geas-runner.cc:6559-6575`) and
+`st_animate` (`geas-runner.cc:5623-5639`) pick the routine the way
+`V4Game.Part2.cs:5836-5858` does — `picture popup` from 3.90, plain `picture`
+as the popup from 2.82 to 3.89 and as the in-text form from 3.90, `show` as the
+popup below 2.82, `animate` and `animate persist` always, and `picture close`
+never.  The caption comes off first and the size off what is left, so
+`map.jpg@640x480; The Shire` yields all three and a `;` after an `@` still
+belongs to the caption.  `picture.asl` walks the chain at 4.10 and
+`pictureshow.asl` / `pictureshow282.asl` pin the 2.82 boundary; all three are
+byte-identical to qv4.
+
+The caption *is* printed, and that wants saying because Quest 4 did not print
+it: it went in the title bar of the picture window — "If a caption is
+specified, that caption is used for the window title, rather than the default
+'Picture'" (Quest 4.1.5's own `quest.chm`, `script-script.htm`, which also shows
+that the in-text `picture <file>` has no caption or `@size` syntax at all,
+hence the split-nothing branch above).  Neither QuestViva nor geas has a picture
+window to title; both draw the image among the text, and QuestViva's own comment
+at `V4Game.Part2.cs:3666-3668` says as much.  So the only place left for the
+author's caption is with the image, and geas prints it there too — which has the
+side benefit that the caption survives a host with no graphics at all, as the
+fixtures and the walkthrough runner are.  Burglary and Defenders of Gondor go
+byte-identical on it; the caption is also passed to `show_image`, where
+`geasglk.cc` still drops it.
+
+The version gate costs Michael's Game nothing either way: its `picture popup`
+tags are at 4.10, where popup is the form that splits.
+
 Quest's `ShowPicture` splits the tag's contents on `;` for a caption and on `@`
 for a display size, prints the caption as ordinary game text, and then shows the
 image (`V4Game.Part2.cs:3660-3686`):
@@ -1283,6 +1383,14 @@ Three corpus games write `$$` — Dark Hills, Pure Chaos and Shadow Masters — 
 only Pure Chaos's is in text the replay reaches.
 
 ### 34. An unmatched `$` does not yield `<ERROR>`
+
+**Fixed.**  The `$` arm of `eval_string_body` (`geas-runner.cc:8834-8845`) now
+returns `"<ERROR>"` and logs `Line parameter <…> has missing $`, so all four
+conversion characters read alike.  `unmatchedpercent.asl` gained a `dollar` and
+a `dollarempty` command; the fixture itself does not load in qv4 (it never did —
+its stray `%` in a room description is a load error there), so the two commands
+were also checked against qv4 in a throwaway game that has nothing else in it,
+and agree.
 
 The three other conversion characters already follow Quest: `eval_string`
 returns the literal string `<ERROR>` for the whole parameter when `#`, `%` or
@@ -2082,6 +2190,24 @@ Quest gives.
 
 ### 47. `exec <…>` runs the turn scripts again
 
+**Fixed.**  Everything `ExecCommand` does after the echo — the `quest.command`
+variables, synonym substitution, both `beforeturn` hooks, the dispatch, both
+`afterturn` hooks — moved out of `run_command_body` into a new
+`geas_implementation::run_turn` (`geas-runner.cc:3820-3912`).  `run_command_body`
+keeps the parts that belong to a *typed* command, the echo and the undo
+snapshot, and calls `run_turn` once; `st_exec` calls it too (`ibid.
+6440-6498`), for both the plain form and `; normal`, instead of reaching into
+`try_match`.  `ctx.DontProcessCommand` is saved and restored around the inner
+turn, since it is a per-call flag in Quest and an exec'd turn must not clear the
+outer turn's.  `fixtures/execturnhooks.asl` pins the shape — one `exec`, two
+`exec`s in one command, an `exec` of a command that matches nothing, `exec <take
+lamp>` against `exec <take lamp; normal>`, and the empty and bad-modifier forms
+that run no turn at all — and matches qv4 exactly.  Three corpus games became
+byte-identical: Magic Sword, ESPER Drom Bennacht and The Quest to find The Dark
+Hills; Something 'Bout A Hex lost twelve lines and Metal Sonic's Quest one.
+Things had to have its walkthrough re-derived against the new clock, and now
+matches qv4 for all 318 turns where the old route never did.
+
 A turn in Quest is not "one player command"; it is "one call to `ExecCommand`".
 The `beforeturn` and `afterturn` blocks live at the bottom of that routine and
 nothing suppresses them on re-entry — `skipAfterTurn` is declared at
@@ -2106,7 +2232,7 @@ all.)
 
 so a game whose `command <…>` wraps the standard handling in `exec <…; normal>`
 gets its room and game turn scripts run twice for the one thing the player
-typed.  geas runs them exactly once, from `run_command`, around the whole turn.
+typed.  geas ran them exactly once, from `run_command`, around the whole turn.
 
 The probe is small enough to read whole:
 
@@ -2249,10 +2375,47 @@ Quest then bounces the player back to the Smelter Lobby and plays out the rest
 of the walkthrough in the wrong room; 500-odd diff lines, all of it downstream
 of one flag cleared a turn early.
 
-geas's reading is the sane one and the one a walkthrough author would expect —
-Things is only winnable under it.  It is still a divergence, and the sharpest
-one in the corpus: nothing about the transcript before the death hints that the
-two engines are counting turns differently.
+Magic Sword shows the same clock in three lines instead of five hundred.  Every
+attack in it goes through
+
+```
+command <use #obj# on #char#> exec <use #obj# on #char#; normal>
+```
+
+and the game's `afterturn` counts the Oggy-Waggi plant's regrowth down:
+
+```
+if is <#quest.currentroom#;FO6> and here <Oggy-Waggi Plant> and not here
+  <Poison Tendrils> then do <~Internal Procedure 201>
+
+define procedure <~Internal Procedure 201>
+ if has <Timer;=0> then do <~Internal Procedure 202> else set <Timer;-1>
+```
+
+Two ticks a turn, so the tendrils came back on the first slash under Quest and
+the second under geas:
+
+```
+> use dagger on oggy-waggi plant
+ You slash at the thorny growth with your dagger.
+ The Oggy-Waggi plant hits back!
+-The plant sprouts more tendrils!            ← geas, one turn late
++The plant sprouts more tendrils!            ← Quest, on this turn
+```
+
+`; normal` is the other half of the same call: it is `ExecCommand`'s
+`runUserCommand` turned off (`V4Game.Part2.cs:2246-2251`), so the game's own
+`command <>` definitions are passed over and the built-in handling runs — which
+is how a `command <use … on …>` can exec the very phrase that matched it without
+looping.  The extra pass over the hooks happens either way.  An exec'd command
+that matches nothing takes the same error path a typed one does (`ibid. 4574`),
+hooks included; geas answered the error, but not the hooks.
+
+geas's old reading was the sane one and the one a walkthrough author would
+expect — Things was only winnable under it, and its walkthrough had to be
+re-derived once geas started counting turns the way Quest does.  It was also the
+sharpest divergence in the corpus: nothing about the transcript before the death
+hinted that the two engines were counting turns differently.
 
 ### 48. An abbreviation is a word-initial prefix, not a whole word
 
@@ -2550,8 +2713,20 @@ Quest doing what Quest does, and the empty string is ours.
 
 ### 52. `set interval` does not affect the cycle already in flight
 
-geas counts a timer *down* and re-arms it from `interval` at the moment it
-fires:
+**Fixed.**  `TimerRecord::timeleft` is now `elapsed` (`geas-state.hh:60-72`) and
+`tick_timers` counts up and compares against the interval as it stands on the
+tick (`geas-runner.cc:8940-8956`), which is Quest's clock exactly; `set
+interval` needed no change at all once the count ran the other way.
+`timer_will_fire` reads `elapsed + 1 >= interval` (`geas-runner.cc:2562-2568`).
+The save format keeps the old count-*down* field on the wire —
+`interval - elapsed` out, `ticks_left_to_elapsed` back in
+(`geas-state.cc:134-152, 282, 365`) — so saves written before this still load.
+
+The Pilgrim's Progress goes byte-identical on it: its slough messages arrive on
+Quest's turns and the four `struggle`s at the end land on dry ground.
+
+geas counted a timer *down* and re-armed it from `interval` at the moment it
+fired:
 
 ```c++
       if (tr.timeleft != 0)
@@ -2563,8 +2738,8 @@ fires:
 	  const GeasBlock *gb = gf.find_by_name ("timer", tr.name);
 ```
 
-(`geas-runner.cc:7740-7752`).  Quest counts *up* and compares the accumulated
-count against the interval as it stands on each tick:
+(the old `geas-runner.cc:7740-7752`).  Quest counts *up* and compares the
+accumulated count against the interval as it stands on each tick:
 
 ```csharp
                     _timers[i].TimerTicks = _timers[i].TimerTicks + elapsedTime;
@@ -2631,11 +2806,12 @@ name is Help." — arrives four turns after Quest's.  The walkthrough's last fou
 first message is one turn out for the unrelated reason that `timeron <sinking
 in mire>` follows a `pause <4000>`: the timer-armed-after-the-tick family.)
 
-A faithful fix is to store the count-up form — an `elapsed` that resets to 0 on
+The fix was to store the count-up form — an `elapsed` that resets to 0 on
 firing, tested `elapsed >= interval` — which is also what Quest saves and what
-its `RaiseNextTimerTickRequest` subtracts (`V4Game.Part2.cs:8149`).  geas's own
-save format writes `interval` and `timeleft` (`geas-state.cc:138-139`), so the
-change is not free, but the two are trivially interconvertible.
+its `RaiseNextTimerTickRequest` subtracts (`V4Game.Part2.cs:8149`).
+`setinterval.asl` pins both halves: a timer shortened from outside that fires on
+the very turn it is shortened, and one that raises its own interval from inside
+its action.
 
 ### 53. A place is named by its destination's alias in every ASL version
 
@@ -2680,6 +2856,26 @@ cutoff, and below 2.80 finding 54 takes over the whole display: The Broken
 Mirror (3.10) and Green Light (3.10).  The Broken Mirror is a whole-game
 desync: `place <THE ENGLISH>` leads to a room aliased "The english pub", the
 walkthrough types the alias, and Quest never lets it into the pub.
+
+**Fixed.**  `get_places` (`geas-runner.cc:1746-1775`) carries both halves of the
+condition now, on the tag-declared places and on the ones `create exit` adds —
+they land in the same `Places` array, and `GetGoToExits` reads it the same way.
+`fixtures/placeversion.asl` and `placeversion310.asl` are the probe above turned
+into a pair of fixtures, the same file with only the version line changed; both
+are byte-identical against qv4.  (`fixtures/placealias.asl` keeps the no-script
+half, which was already right.)
+
+Four walkthroughs had to be reworded, and that is the interesting part: they
+were typing names that only geas's bug had ever accepted.  Space's `go to
+sciece lab` is now `go to science lab`, The Broken Mirror's `go to the english
+pub` is `go to the english`, Magic Sword's `go to the doctors house` is `go to
+the doctors`, and Uranus's three identical `go to asteroid surface` lines are
+`asteroid surface2`, `surface3` and `surface5` — because that chain of five
+rooms all aliased "Asteroid Surface" is exactly what a player of the real thing
+has to type.  All four games still reach their win markers, and all four, plus
+Green Light, are byte-identical against the oracle now — Magic Sword only after
+finding 54 gave it a pre-2.80 room display and finding 47 gave it Quest's turn
+count.
 
 ### 54. Games below ASL 2.80 have their own room display, which geas does not have
 
@@ -2730,6 +2926,41 @@ of them desync outright, all on the missing place aliasing: Uranus chains five
 rooms called some spelling of "Asteroid Surface" and never gets off the first
 one in Quest; Space's `place <Science Lab>` leads to a room the author aliased
 "Sciece Lab"; Magic Sword loses a move in a fight because its exits differ.
+
+**Fixed**, a bullet at a time and mostly under other findings' names — the
+separate characters sentence went in with finding 11, the places comma with 10,
+the source order and the two exit lines with 7 and 8, the place aliasing with
+53, the whole-`look` value with 55 and the per-display re-read with 50.  What was left
+after all of those was the `out` line and the `look` text, and they are the two
+places where V2 reads the room block's *source* where geas had an exit object
+and a property:
+
+* `regen_var_dirs` (`geas-runner.cc:3330-3367`) now builds the pre-2.80 "out"
+  line the way `ShowRoomInfoV2` does — the last room line beginning `out`, its
+  first `<…>` whatever the tag was written for, looked up as a room name for an
+  alias and printed plain, with no prefix split and no bolding.  So Fade to
+  White's `out msg <You need to get up first.>` advertises the refusal as a
+  destination, which is what Quest does with it; that game is byte-identical
+  against the oracle now.
+* `regen_var_look` (`ibid. 3219-3273`) reads the look text off the block's own
+  lines below 2.80, so a `look msg <…>` — an action with no text to it anywhere
+  else — reads as the message it prints; and it stops writing `quest.lookdesc`
+  there, because V2 never writes it (`V4Game.Part2.cs:3897` is the only writer)
+  and a 2.x game printing `#quest.lookdesc#` gets an empty string.  The display
+  prints geas's own copy instead, which is what Quest's `lookDesc` local is.
+
+`fixtures/roominfov2exits.asl` pins all of it — the scripted `out`, the aliased
+one, the three shapes of `place`, the scripted `look` and the empty
+`quest.lookdesc` — and is byte-identical against qv4 but for one line, which was
+finding 74 below and not this; that is fixed too now, and the fixture matches
+outright.
+
+The one thing that went in *against* a recorded decision is the place
+fencepost, "Below ASL 2.80 a `place <prefix;room>` loses the room's first
+letter" under **Direction uncertain**, which was filed as too silly to
+reproduce.  It is part of this same display and it is the last thing between
+Magic Sword and a clean diff, so `get_places` (`geas-runner.cc:1766-1790`) now
+reproduces it: see that entry.
 
 ### 55. A tag value is cut off at its first semicolon
 
@@ -3088,14 +3319,22 @@ divergence the empty stub had been hiding.  Fixtures `stdverbs.asl` /
   (`V4Game.Part2.cs:2229, 4574`); geas silently dropped it.  The splitter turns
   Ponyville's `speak to mr. cake` into `speak to mr` plus a stray `cake`, and
   Quest answers the stray half — which is the "worse" Ponyville reading above.
-  `geas-runner.cc:5354-5374`.  Two riders: an *empty* exec is not an error and
-  does not even end a paragraph, because `ExecCommand` returns before both the
-  error path and its closing `Print("")` (`:4134-4137`; The Quest to find The
-  Dark Hills execs one from a `choice` whose "no" branch does nothing —
-  `geas-runner.cc:4672-4678`), and every `ExecCommand` ends with that
-  `Print("")` (`:4606`), which geas emitted at the top of `run_command`
-  instead, so an exec'd command was butted up against whatever followed
-  (`geas-runner.cc:5375-5382`).
+  `geas-runner.cc:6440-6498`.  Three riders, all of them about what `exec` does
+  *not* do.  An *empty* exec is not an error and does not even end a paragraph,
+  because `ExecCommand` returns before the hooks, the error path and its closing
+  `Print("")` (`:4137-4141`; The Quest to find The Dark Hills execs one from a
+  `choice` whose "no" branch does nothing) — the guard for that had been written
+  into `st_action` by mistake, where it did nothing, and is now in `st_exec`
+  where it belongs.  A post-command parameter that is not `normal` is logged and
+  runs nothing at all: the else arm of `ExecExec` never reaches `ExecCommand`
+  (`:2251-2254`), where geas used to run the command anyway.  And every
+  `ExecCommand` that does run ends with that `Print("")` (`:4606`), which geas
+  emitted at the top of `run_command` instead, so an exec'd command was butted
+  up against whatever followed.  The two halves of the `; normal` form are
+  trimmed and the one-argument form is not (`:2231, 2243-2246`), so `exec <   >`
+  is a command Quest tries and fails to match while `exec < ; normal>` is the
+  empty one that returns.  `fixtures/execturnhooks.asl` carries all five shapes
+  and matches qv4 line for line.
 * **`save` is a built-in command of the engine's** (`V4Game.Part2.cs:4468`),
   even though the dialog belongs to the frontend.  A typed SAVE never reaches
   the engine — geasglk intercepts it (`geasglk.cc:316`) and so does the
@@ -3531,7 +3770,64 @@ same flush in Quest — and to suppress `print_formatted`'s closing newline when
 the code was the last thing in the string, so a trailing `|w` does not leave a
 blank line behind.
 
+**Fixed.**  `print_formatted` now carries a `pending` flag that is Quest's
+`printString <> ""`: it is set by every character the loop consumes and cleared
+by the two flushing arms, each of which calls `print_newline` before it waits
+or wipes, and the closing newline is emitted only while it is set
+(`geas-runner.cc:9146-9166`, `9200-9221`, `9266-9277`, `9327`).  The flush is
+unconditional, as Quest's is, so a string that opens with either code opens
+with a blank line; the flag starts set, so `print_formatted("")` still ends a
+line.  `fixtures/waitflush.asl` walks the six shapes — text either side of the
+code, a trailing one, a leading one, the clearing `|c`, a colour `|c` that is
+not a flush point, and two codes back to back — and matches qv4 exactly.
+
+Magic Sword's 16 diff lines drop to 3, all of them the Oggy-Waggi plant's
+escalation arriving a turn later in geas than in Quest — a divergence of its
+own, nothing to do with this, and finding 47's.  The other eight `|w` games do
+not move the count, because `compare.sh` normalises trailing whitespace away
+and collapses runs of blank lines on both sides, which is exactly what stood
+between the two engines there — but their transcripts do change, and Sleepover's
+by 81 lines: `|w |n` between sentences was one paragraph per pair and is now a
+line, a space, and the next paragraph, which is what Quest shows and what a
+player would have seen.  Four fixtures (`timerwait`, `waitdefault400/410/410err`)
+re-blessed for the same reason.
+
 ### 65. Below ASL 2.80 the inventory is the item table, in declaration order
+
+**Fixed.**  geas now has the table: `set_up_items` reads every `items` /
+`possitems` line of the game block into `item_table_` at load
+(`geas-runner.cc:8479-8530`), `get_inventory` walks it in declaration order and
+takes the entries `state.items` marks as held (`:8330-8358`), and `give` /
+`lose` write that flag through the table instead of keeping a list of their own
+(`:6669-6685` and `:6886-6900`).  Four games settle — Dream Weaver, The Devil's
+Bargain, Venus Flytrap Romantic Music and The Hobbit — and the oracle goes from
+86 to 90 identical out of 111.  (The fourth is The Hobbit, not the What Do You
+Do the original paragraph names below: that one was settled by another fix in
+between, and The Hobbit's inventory came out from behind it.)
+
+Three rules came out of the table, and `itemtable` pins all of them:
+
+* **Order** is the `items <…>` line's, not the order the player collected in.
+* **Scope** is the table and nothing else.  `give <torch>` against a table that
+  does not declare a torch matches nothing and hands over nothing — `PlayerItem`
+  walks `_items` and simply falls off the end (`V4Game.Part2.cs:6681-6690`) — and
+  an *object* filed under `"inventory"` is not listed either, which is what
+  dropped The Hobbit's `Goblin knife` and `ring` from its final `inventory`.
+  This also re-blessed `dupnames`: a 210 game that takes a ring is carrying
+  nothing, in Quest as now in geas.
+* **The match** is exact and case-sensitive where the flag is *written* and
+  case-insensitive where it is *read* (`ExecuteIfGot`, `V4Game.cs:7382`), so a
+  miscased `lose` takes nothing away.  Only a script line can reach that, the
+  player's own words having been lowercased long before; The Dream Weaver has
+  two of them, `lose <hooka>` and `lose <good nugget>` against an
+  `items <Good Nugget; Hooka; …>` declaration.
+
+A second `items` / `possitems` line contributes only its *first* entry, because
+Quest declares the loop's end-of-list flag once, ahead of the walk over the game
+block, and never resets it (ibid. 6963).  A VB6 bug, kept, and pinned by the
+fixture — nothing in the corpus has a second line, so only a fixture can hold it.
+
+The original finding follows.
 
 Fell out of finding 6: once both engines print the same sentence, what is left
 is that they do not agree on what goes in it.  From 2.80 up Quest walks `_objs`
@@ -3746,13 +4042,17 @@ Pyramid Of Terror   define object <yellowy blob>  action <drop> { … }
 +You drop it.
 ```
 
-geas runs the action.  Not fixed: the action is where the game unlocks Sutekh's
-Chamber Of Cruelty, so under Quest's rule the walkthrough cannot finish — the
-trapdoor never opens and the last six commands answer `I can't see that here.`
-That is 20 of Pyramid of Terror's 27 diff lines, and every one of them is
-geas playing the game the author meant and QuestViva playing the game Quest
-wrote.  Reproducing it would mean deciding that this game is unwinnable, which
-wants more evidence than one engine's source.
+geas runs the action.  Not fixed, but no longer load-bearing.  The real
+Quest 4.1.5 under Wine confirmed the rule on 2026-08-16
+(`~/quest-oracle/pyramid.cmd`): DROP MARZIPAN in Sutekh's chamber answers the
+stock `You drop it.` and UP stays `The exit is locked.` — and the game is still
+winnable there, because THROW MARZIPAN reaches the blob's `action <throw>`
+through the game-block `verb <throw>`, a live dispatch path where DROP's is
+not, and that action runs the same unlock.  The walkthrough now throws instead
+of dropping, both engines play the last scene identically, and Pyramid of
+Terror is byte-identical.  Nothing in the corpus depends on the divergence any
+more; it would only show up in a game that drops an `action <drop>`-only
+object.
 
 ### 73. A room has no suffix
 
@@ -3763,23 +4063,367 @@ alias and the prefix and nothing else (`V4Game.Part2.cs:3724-3742`), so a
 `suffix <…>` tag on a room is stored in the property table like any other and
 never displayed.  No corpus game writes one; `fixtures/lookprop.asl` pins it.
 
+### 74. An `out` tag is split at its first `>`, so `out msg <…>` is a destination
+
+Every other direction tag goes through `GetTextOrScript`, which decides between
+a destination and a script by whether the whole of what follows the keyword is
+one `<…>`.  `out` does not.  The loader cuts the line in two at the first `>`
+and keeps both halves (`V4Game.Part2.cs:1018-1030`):
+
+```csharp
+                    else if (BeginsWith(_lines[j], "out "))
+                    {
+                        r.Out.Text = await GetParameter(_lines[j], _nullContext);
+                        r.Out.Script = Strings.Trim(Strings.Mid(_lines[j], Strings.InStr(_lines[j], ">") + 1));
+```
+
+and `GoDirection` prefers the script, falling back to the text as a room name
+(`ibid. 6324-6356`).  So the parameter is *always* a destination, whatever
+keyword stands in front of it.  `out msg <You need to get up first.>` has
+nothing after its `>`: the script is empty, the message is the destination, and
+going out walks towards a room called "You need to get up first." — there being
+no such room, `PlayGame` returns without a word (`ibid. 6674-6684`) and the
+command prints nothing at all.  geas ran the `msg`.
+
+`UpdateDoorways` advertises `Out.Text` either way (`ibid. 7218-7233`), so the
+room still says "You can go out to You need to get up first..", split on a
+semicolon into prefix and name as any destination would be.  geas suppressed
+that line for a scripted out, on the theory that a room name never contains an
+angle bracket — which is true of the name but not of the tag it came from.
+
+The line is version-gated after all, though not in the loader: from 4.10 rooms
+carry exit objects and `out` is parsed by `AddExitFromTag` with all the rest
+(`RoomExits.cs:143-191`), where a leading keyword *does* make the tag a script.
+So the divergence is pre-4.10 only, and geas was right about 4.10 games.  The
+refusal moved with it: `PlayerError.DefaultOut`, "There's nowhere you can go out
+to around here.", is GoDirection's, and 4.10's `ExecuteGo` cannot find an exit
+called "out" and answers with `BadPlace`, "You can't go there."
+(`RoomExits.cs:291-296`), exactly as a missing `north` does.
+
+Two shapes geas already had right: `out <Out> if is <%Told%;5> then goto <Out>
+else say <You are not allowed to leave.>` — Magic Sword's academy — has both
+halves, and the script wins outright; and `create exit out <src; dest>` assigns
+`Out.Text` alone (`V4Game.cs:5482-5485`), so a declared script still beats a
+destination made at run time.
+
+Nothing in the corpus moves.  The pre-4.10 games that carry the shape are Fade
+to White (210) and A Bargain (210), and their walkthroughs never type `out` in
+the room concerned; both are below 2.80, where the display comes from
+`ShowRoomInfoV2` and was already right (finding 54).  The four games with
+`out do <!intprocNNN>` — Barbarian, Shipwrecked, Wizard, As Darkness Falls 2 —
+are all 410.
+
+**Fixed.**  `declared_exit_dest` now reads a pre-4.10 `out` the way the loader
+does, returning the first `<…>` on the line as a destination and never a script
+(`geas-runner.cc:2159-2179`); the movement handler's existing after-`>` check
+supplies `Out.Script` and its `exit_dest` fallback supplies `Out.Text`, dynamic
+destination included, in Quest's order (`ibid. 5261-5344`).  `regen_var_dirs`
+drops the angle-bracket heuristic and advertises whatever `Out.Text` holds
+(`ibid. 3391-3400`), and the empty case answers `badplace` from 4.10 and
+`defaultout` below it (`ibid. 5329-5335`).
+
+`fixtures/outparam.asl` (350) walks the five shapes — bare message, `do
+<procedure>`, parameter plus script, `<prefix; dest>`, and no out at all — and
+`fixtures/outparam410.asl` is the same game at 410, where the first two fire and
+the refusal changes; both match qv4 exactly.  `fixtures/roominfov2exits.asl`,
+which carried the one line where that fixture and qv4 disagreed, now matches too.
+`fixtures/outlocked.asl` was written at 400 by mistake: exit locking is a 4.10
+feature, Quest refused nothing in it and answered every `unlock` with "[An
+internal error occurred]", so it is now declared 410 — the version Exits of The
+World, the game it was written for, actually uses.  geas still locks pre-4.10
+exits; no corpus game declares one, and it is not filed as a finding.
+
+### 75. Below ASL 2.80 `take` is a script, not a transfer
+
+The other half of finding 65's split, found while writing its fixture.  From
+2.80 up `ExecTake` reads the object's `Take` text/action and ends a default or
+text take with `PlayerItem(item, true)`, which moves the object into
+`"inventory"` and runs its gain script.  Below 2.80 it does none of that
+(`V4Game.Part2.cs:5247-5267`):
+
+```csharp
+            for (int i = _objs[id].DefinitionSectionStart + 1, ...)
+                if (BeginsWith(_lines[i], "take"))
+                {
+                    var script = Strings.Trim(GetEverythingAfter(Strings.Trim(_lines[i]), "take"));
+                    await ExecuteScript(script, ctx, id);
+```
+
+It scans the object's raw definition for a line starting `take`, runs whatever
+follows it as a **script**, and stops.  Nothing is moved, nothing is printed
+that the script does not print, no container is emptied first and no gain script
+runs; only a missing `take` line is answered at all, with `badtake`.  So the 2.x
+way to make something takeable is `take give <Rope>` — the `give` sets the item's
+Got flag, which below 2.80 is what the inventory reads.  A `take` on its own, or
+a `take <You pocket it.>`, does nothing whatever: the parameter is a script, and
+a bare `<…>` is not a statement.
+
+Measured on a 217 probe with four objects — `take`, `take <You pocket the
+lamp.>`, `take give <rock>` and no `take` line — and **confirmed against the real
+Quest 4.1.5 under Wine** (`~/quest-oracle/probe7.asl`), which answers exactly as
+qv4 does, line for line:
+
+| | real Quest 4.1.5 / qv4 | geas |
+| --- | --- | --- |
+| `take coin` (bare `take`) | *nothing* | `You pick it up.` |
+| `look` | `There is coin, lamp, rock and log here.` | `There is lamp, rock and log here.` |
+| `take lamp` (`take <text>`) | *nothing* | `You pocket the lamp.` |
+| `look` | all four still here | `There is rock and log here.` |
+| `take rock` (`take give <rock>`) | *nothing* | *nothing* |
+| `i` | `Rock.` | `Rock.` |
+| `drop rock` | `I don't understand your command.` | `You drop it.` |
+| `i` | `Rock.` | `Rock.` |
+| `take log` (no `take` line) | `You can't take it.` | `You can't take it.` |
+
+The runner's own panes make the split visible: after `take rock` the Inventory
+pane lists `Rock` while *Places and Objects* still lists `Coin`, `Lamp`, `Rock`
+and `Log`.  Below 2.80 the item and the object of the same name are two
+unconnected things, and only the item ever moves.  geas's `drop rock` is doubly
+wrong — the verb should not exist, and the `You drop it.` it prints is not even
+true, since the item flag survives and the next `i` still says `Rock.`
+
+geas's take handler (`geas-runner.cc:5063-5193`) has no pre-2.80 branch: it
+prints `defaulttake` or the take text, moves the object and runs `gain`, at every
+version.  The moved object is now invisible to the inventory — that is finding 65
+— but it has still left the room, so the room listing parts company.
+
+`drop` goes with it.  Quest gates the verb itself, not just its effect:
+`else if (CmdStartsWith(input, "drop ") & (ASLVersion >= 280))`
+(`V4Game.Part2.cs:4388`), so below 2.80 `drop rock` is answered `I don't
+understand your command.` even when the player is demonstrably carrying the
+rock.  geas's `drop` (`geas-runner.cc:5196`) is unversioned.
+
+Nothing in the corpus moves.  Seven pre-2.80 games carry `take` lines — Dream
+Weaver, Black Forest, A Certain Oscar, The Hobbit, Lovesong, Space and Uranus,
+75 lines between them — and every one is a script form: `take do <…>`,
+`take msg <…>`, `take if …`, and The Hobbit's `take give <…>` / `take lose <…>`.
+geas routes all of those through `get_obj_action` and runs them, which is what
+Quest does, so the branch that diverges is unreachable in the corpus; not one
+line is a bare `take` or a `take <text>`.  A second Wine probe
+(`~/quest-oracle/probe8.asl`, a `take msg <…>` and a `take do <…>` beside each
+other) puts all three engines byte-for-byte together on those two forms,
+including on a procedure declared inside the game block, which none of them
+finds.  Black Forest's five diff lines are two objects sharing the name `Rope`,
+not this.  Filed rather than fixed: the fix is
+a version gate on one branch, but there is no corpus evidence to bless it
+against, and `fixtures/itemtable.asl` sidesteps it deliberately with
+`moveobject` for exactly that reason.
+
+### 76. The implied removal is not run as a command
+
+Taking something out of a container removes it from that container first.  Both
+engines announce the step; what they do next is not the same thing at all.
+Quest hands the removal back to its own parser —
+
+```
+    await Print("(first removing " + _objs[id].Article + " from " + parentDisplayName + ")", ctx);
+    ctx.AllowRealNamesInCommand = true;
+    await ExecCommand("remove " + _objs[id].ObjectName, ctx, false, dontSetIt: true);
+```
+
+(`V4Game.Part2.cs:5219-5223`) — so the implied `remove` is a whole nested
+`ExecCommand`: synonyms, `beforeturn`, the game's own `command` blocks, its
+`verb` blocks, then the built-in `remove` handler, then `afterturn`.  geas
+called `remove_from_container` directly instead, which is only the last of
+those: the container's `remove` action or text, and nothing above it.
+
+The difference shows the moment a game defines `verb <remove>`, because a verb
+is looked up **on the object being removed**, not on the container.  Wizard's
+game block opens with `verb <remove> msg <You can't remove that.>`, and its
+beakers, potions and beads each carry an `action <remove>` of their own; Quest
+runs those, geas ran the basket's default and printed `Done.`
+
+`probe12.asl` is the whole thing in twenty lines — a `container`/`opened` box
+with a bare `remove`, a gem inside it with `take` and
+`action <remove> msg <The gem refuses to be removed.>`, and a game-level
+`verb <remove>`:
+
+```
+> take gem
+(first removing it from box)          both
+The gem refuses to be removed.        Quest — the take then aborts, and
+                                      `i` says the player has nothing
+Done.                                 geas before the fix — the container's
+You pick it up.                       default, and the gem is pocketed
+```
+
+Drop the `verb <remove>` line and the two engines agree again, `Done.` and all:
+without a verb to intercept it the nested `ExecCommand` reaches the same
+built-in handler geas used to call directly.
+
+411 of Wizard's last 417 divergent lines, and everything downstream of them.
+Eight corpus games define `verb <remove>` — Bear Campsite, Pyramid Of Terror,
+Shipwrecked1.3, Shiversword2, Wizard1.3, shiversword1, sirloin2 and sirloin3 —
+but Wizard is the only one whose walkthrough also takes something out of a
+container, and its church offering basket holds a Yellow Bead whose
+`action <remove>` refuses the bead until a donation is made (`!intproc149` →
+`!intproc372`).  Quest's take fails there and geas's succeeded, and from there
+geas was carrying a bead Quest never handed over: the bead table the endgame
+turns on was a bead apart in the two engines for the rest of the run.
+
+**Fixed.**  `run_turn(cmd, is_internal=true, is_normal=false)` is already geas's
+`ExecCommand` — it is what `exec` uses, and `is_internal` is
+`AllowRealNamesInCommand` — so the substitution itself is small: print the
+parenthetical, save and restore `last_object` (Quest's `dontSetIt`: an implied
+removal must not leave "it" pointing at the thing it removed,
+`V4Game.Part2.cs:4616-4622`), run the nested turn, then abort the take if the
+object still has a parent.  The nested turn also has to close itself with a
+blank line, because geas prints a turn's separator at the top of `run_command`
+where Quest's `ExecCommand` ends with `Print("")` (ibid. 4614); that blank is
+the only change in fourteen other goldens.
+
+Two things had to be re-recorded with it.  Six fixtures gained the blank line
+(`containervis`, `contviscope`, `gotcontainer`, `openclose`, `openseen`,
+`takefromcontainer`), and Wizard's walkthrough had to be repaired, because it
+exploited exactly this bug: it took the church bead without donating.  The
+donation needs a second Copper coin, which needs `enchant purse`, which needs a
+spell that is not learned until much later, so the fix costs the walkthrough a
+detour back to the church — padded to exactly 60 turns, the period of the
+`portal1` timer, so that the portal-colour alignment of the whole rest of the
+route is undisturbed.  See the header of `goldens/Wizard - command script.txt`.
+
+### 77. What a container's contents line leaves out, and where a given-away container leaves them
+
+**Fixed.**  All three were already in Wizard's diff before 76 was fixed, buried
+under the desync it caused; they were all that was left of it, six lines, plus
+six more in Barbarian.  Filed together because they are all about what "inside a
+container" means, and two of the three turned out to be the same bug.  Wizard is
+byte-identical to Quest now, and both of the diagnoses first written here were
+wrong.
+
+*The contents line* is not about `invisible` at all.  A bare `surface` line
+declares a **container** as well: Quest's object loader answers it with two
+`AddToObjectProperties` calls, `"container"` and then `"surface"`
+(`V4Game.Part2.cs:3472-3477`), and `ListContents` refuses outright anything
+without the `container` property (`V4Game.cs:3306-3309`).  So a surface that was
+only ever tagged `surface` listed nothing at all in geas — which is how
+Barbarian's Mantle came to swallow the Vase standing on it, and the Wizard's
+bar-top the Bottle of sludge.  `readfile.cc:406-425` now rewrites the bare line
+to `properties <surface; container>`, and only the bare line:
+`properties <surface>` adds the one property it names, and so does one inherited
+from a type,
+whose lines Quest folds straight into a property string (`GetPropertiesInType`,
+`V4Game.cs:6335-6342`).  All three spellings sit side by side in
+`fixtures/baresurface.asl`.  Below ASL 3.91 the branch's body is skipped
+altogether, so the bare line records *neither* property and geas drops it;
+`fixtures/baresurface350.asl` is that half.
+
+*The Label's room* and *the church bead* are one bug: geas conflated Quest's two
+quite separate answers to "where is this object" in the single field
+`ObjectRecord::parent`.
+
+  * `ContainerRoom` is the **room** (or `"inventory"`).  It is what `here`,
+    `got`, `$locationof$`, the room listing, `for each object in <room>` and the
+    object pane read, and `MoveThing` writes.
+  * The `parent` **property** is the **container**.  It is what `ListContents`,
+    `UpdateVisibilityInContainers` and `PlayerCanAccessObject` read, and
+    `DoAddRemove` writes.
+
+They are kept roughly in step — `add` copies the container's room across
+(`DoAddRemove`, `V4Game.cs:2117-2118`) and `MoveThing` carries a container's
+contents along whenever it moves (`V4Game.cs:6642-6653`, ASL ≥ 3.91) — but they
+are allowed to disagree, and Wizard's tavern is where that shows.  `!intproc479`
+runs `show <Label>`, `add <Label; Bottle of sludge>`,
+`show <Bottle of sludge>`, `give <Bottle of sludge>`, so the label goes into the
+bottle while the bottle is still standing in the Tavern; later BADDER LABEL does
+`lose <Label>`, which moves the *object* to the current room and leaves the
+property alone (`PlayerItem`,
+`V4Game.Part2.cs:6660-6662`).  The label is therefore standing in the Tavern and
+still listed as the bottle's contents, for the rest of the game:
+
+```
+You are in a Tavern.
+There is some Shelves filled with bottles, a Bartender serving drinks
+  and a Label here.                     Quest — geas stopped at the bartender
+```
+
+Two lines, one for each later visit.  The same split is the whole of the church
+bead: `for each object in <#quest.currentroom#>` compares each object's
+ContainerRoom to the name it was given (`ExecForEach`, `V4Game.cs:5029-5040`)
+and knows nothing about the `parent` property, so a bead in the church's basket
+is, to the loop, in the church.  It is not a scope question and `exists` was
+never the suspect — the loop reaches into a shut container quite happily, and
+`exists` is
+only the inverse of `hidden`.  geas filed the bead under the basket, so DETECT
+MAGIC skipped it.
+
+Barbarian's six lines are the same loop again, and worth spelling out because
+they look nothing like a container bug.  The game writes its own room listing:
+it counts the room with `for each object in <#quest.currentroom#>` into
+`%dummy2%` and then prints `#quest.formatobjects# are here.` or `is here.`
+according to the count.  Its tomb holds a Coffin and a Stone pressure plate, and
+the plate is put there by `add <Stone5; Coffin>` — so Quest counts two and geas
+counted one, and printed a two-object list under a singular verb:
+
+```
+a stone Coffin and a Stone pressure plate is here.      geas
+a stone Coffin and a Stone pressure plate are here.     Quest
+```
+
+The split is now real: `container_room` and `obj_container` in
+`geas-runner.cc`, `move` recursing into the `parent`-property children as
+`MoveThing` does, `do_add_remove` assigning the container's room rather than
+moving, `give` clearing the property first (`V4Game.Part2.cs:6648-6652` —
+without that, Gathered in Darkness's batteries follow the radio out of the world
+and its flashlight never lights), and the loader no longer letting `parent <X>`
+decide which room an object starts in.  `fixtures/containerroom.asl` and
+`fixtures/foreachcontained.asl` pin the two halves.
+
+One casualty, and it is Quest's, not ours.  A `remove <X>` written without a
+parent hands its sweep an object number that was never assigned
+(`V4Game.cs:2695-2699`), so it re-derives the hidden flags of *every* container
+in the game.  That is the one exception to the rule `contviscope` pins — every
+other runtime sweep names the single container whose state just changed, which
+is what lets a scripted `show <X>` into a never-opened container stick.
+Pyramid of Terror's oven has exactly that line in its open script
+(`remove <gingerbread man>`, `games/Pyramid Of Terror.asl:332`), which puts
+the goth in the never-opened sarcophagus two rooms away out of scope for good,
+and takes the Jane Eyre book, the coffee-shop and one letter of MARZIPAN with
+her.  QuestViva plays it the same way, so the walkthrough now routes around her
+through the chessboard room; `fixtures/removenoparent.asl` pins it, and
+`contviscope` gained a note.  That is 57 of Pyramid of Terror's 77 diff lines.
+
+### 78. A closed container refuses PUT before its add machinery is consulted
+
+**Fixed.**  Quest answers `You can't put that there.` the moment the put's
+target is neither a `surface` nor `opened`, before it has looked for an `add`
+action or an `add <text>` property (`ExecAddRemove`, V4Game.cs:2563-2578).
+geas went straight to the add machinery, so a closed container with an `add`
+script took the object anyway.  Confirmed in the real 4.1.5 runner
+(`putprobe.asl`, 2026-08-16, nine turns byte-identical to qv4): the closed put
+refuses, the open put runs the script, and a `remove` from the closed
+container is a scope miss (`I can't see that here.`) in both engines.
+
+Barbarian is the game this parted, 1 684 unclassified diff lines plus a
+570-line menu-skip shadow (once the transcripts desynced at the sack, every
+fight menu after it misaligned).  Its Sack's `add` script bags the Pile of
+bones, but the pedestal wants the bones sealed in a *closed* sack — `use
+<Sack>` is a lethal trap if the bones are missing, and a different lethal trap
+if flag `sack1` says the sack is still open — and the fortune teller spells
+the intent out: "I see you using a closed sack filled with bones on a
+pedestal."  So OPEN SACK / PUT PILE OF BONES IN SACK / CLOSE SACK is the
+designed dance, geas's ungated put had been skipping the whole puzzle, and
+the walkthrough plays it properly now; the game is byte-identical at 512
+turns and 250/250.  `fixtures/putclosed.asl` pins the gate from the player's
+side: the closed put refused for an `add` action and an `add <text>` property
+alike, the opened put running the script, and a `surface` exempt (the gate
+reads the property pair, and a surface has no open state).
+
+Two inventions of ours went out with it: the put branch used to consult a
+`put <item>` and then a catch-all `put anything` action on the target before
+anything else.  Quest has no such actions — `ExecAddRemove` is the entire put
+path, and no corpus game defines one (the only object-level `put` line in all
+112 games is a `put on = wear` synonym) — so both lookups are gone.
+
+Two seams remain on the far side of the gate, recorded rather than fixed:
+geas has no implied take (from ASL 3.92 Quest prints `(first taking …)` and
+runs a nested `take` when the object is not held), and when an open container
+or surface has no add machinery at all geas still performs a real containment
+with a default `You put X in Y.` where Quest answers `You can't put that
+there.` for that case too.  No line of the 96 identical transcripts reaches
+either seam, so they wait for a game that does.
+
 ## Direction uncertain
-
-### `take` out of a container prints an implied removal
-
-geas prints `(first removing <article> from <parent>)` and then the parent's
-`remove <…>` message; Quest prints neither, because `ExecTake`'s
-`isInContainer` is declared `false` and never assigned
-(`V4Game.Part2.cs:5165-5215`).  `ExecDrop` does set the same flag
-(`V4Game.cs:5552-5610`), so this looks like a bug that Axe's VB6 had and
-QuestViva translated faithfully — which would make geas's behaviour a
-deliberate improvement rather than a divergence to fix.
-
-360 lines across 17 games, in matched pairs: the parenthetical is always
-followed by `Done.`, geas's `defaultremove` text, and all 174 `Done.` lines in
-the corpus are one of these.  TARDIS Escape is the first-divergence case; over
-half the total is downstream of Wizard's finding-22 desync rather than fresh
-evidence.
 
 ### `<ERROR>` is not produced at load time
 
@@ -3823,6 +4467,19 @@ writes `place <Your Training room;Training Room 1>`:
 rather than a translation slip, so this is probably real Quest behaviour — but
 it is a bug, and reproducing it would only make geas print a mangled room name,
 so it is recorded rather than filed.
+
+**Reproduced after all**, with finding 54.  The reasoning above still holds line
+by line; what changed is that the rest of the pre-2.80 room display is now
+Quest's, and this is the one line of it that was not — the last of Magic
+Sword's display diffs, and, with finding 47, the last of its diffs at all.
+A display that is faithful except where
+the original embarrasses itself is harder to reason about than one that is
+faithful, and the mangling is confined to the *printed* name: `PlaceExist`
+splits the parameter properly (`V4Game.Part2.cs:6568-6594`), so `go to training
+room 1` still works, in Quest and now in geas.  `get_places`
+(`geas-runner.cc:1766-1790`) does the same two `Right()`/`Left()` cuts;
+`fixtures/roominfov2exits.asl` carries all three shapes of the tag — with a
+space after the semicolon, without one, and with no semicolon at all.
 
 ## Harness artefacts, not engine bugs
 
@@ -3869,7 +4526,9 @@ so it is recorded rather than filed.
   changed line.  Six games were reported as `DIFF 1 lines` with an empty diff
   file.  Fixed; they are the six identical games in the summary above.
 * **A menu splits the turn on the QuestViva side, so a timer armed inside a
-  `selection` starts a turn late.**  Both harnesses approximate Quest's
+  `selection` started a turn late.**  *Fixed in the harness; the account below
+  is what it used to do, and `QV4_EARLY_TICK=1` puts it back.*  Both harnesses
+  approximate Quest's
   real-time timers with one tick per player command (`--tick`), and both engines
   skip the tick of the turn a timer is switched on (`BypassThisTurn`,
   `V4Game.Part2.cs:561-574`; `TimerRecord::bypass`, `geas-runner.cc:6164`).  But
@@ -3893,6 +4552,48 @@ so it is recorded rather than filed.
   empty glass the rest of the walkthrough needs for the ice machine, the hand
   dryer and the cork-and-needle compass; QuestViva is still holding the
   cocktail and fails all three.
+  SomethingBoutAHex is the third, and the largest single divergence in the whole
+  corpus at 5 320 lines.  It hits the artefact twice.  The Christ Church choice
+  of `leavemotellousiville` arms `timeron <christchurch>` (interval 2): geas
+  fires it on the 2nd turn after the menu, QuestViva on the 3rd.  That one is
+  bounded — the two rejoin eight lines later at `go to Old Building` — and it is
+  only the anchor because it is the first line to differ.  The desync proper is
+  `timeron <get camcorder>` (interval 10), armed by the `thanks.` choice of
+  `oldbartender3`; the walkthrough waits it out with ten `look`s, geas fires on
+  the 10th, exactly the declared interval, and the next line of the script
+  answers the bartender's menu.  QuestViva fires on the 11th, so that line is
+  typed at the prompt instead (`I don't understand your command.`) and the *next*
+  one, `w`, is eaten as the menu answer.  From there QuestViva is in the wrong
+  room without the camcorder and answers `You can't go there.` to the rest of the
+  file.
+
+  **The fix** is one flag in `Program.cs`.  `--tick` no longer passes
+  `elapsedTime` to `SendCommand`; the loop calls `Tick(1)` itself, at the
+  turn's first suspension that is *not* a menu or a question — before
+  `Settle()`, because geas ticks at a `wait` or `pause` too and `Settle` is
+  what resumes one.  That is exactly where `suspend_turn` ticks
+  (`geas-runner.cc:3742-3749`), so the two harnesses now agree about when a
+  turn is over: at its first suspension, except the one geas does not have.
+  Deferring past the `wait`/`pause` suspension as well was tried and is wrong —
+  it costs Beam, King's Quest V, Pilgrim's Progress, Shiversword Tales and Sir
+  Loin 3 their agreement, because geas deliberately mirrors *that* half.
+
+  The result: The Lazst Resort is byte-identical, ZombiesAttack is down to a
+  turn count (below), Something 'Bout A Hex from 5 333 lines to 3 604 — and
+  what was left of Hex was finding 14 again, twice, on lines its rewording had
+  never been able to see because this artefact was covering them.  Reworded in
+  turn, it is byte-identical too (see finding 14).  Real
+  Quest still ticks off a wall clock and neither harness does, so this is
+  agreement between approximations rather than ground truth; the Wine runner is
+  what would settle the real ordering, and it has not been asked.
+* **ZombiesAttack counts four turns more than geas**, `You completed the game in
+  147 turns` against 143, and every other line of the two transcripts is
+  identical.  The game counts in an `afterturn` hook, so QuestViva runs four
+  more of those over 143 turns.  A `selection` is not the cause — a probe with
+  an `afterturn` that prints its counter runs it exactly once for a turn that
+  opens a menu, in both engines — and beyond that it has not been run to
+  ground.  It is credited to itself in `triage.py` rather than to either
+  engine, because which side is wrong is not yet known.
 * **The Detective's replay begins 33 turns too early.**  Both runners find the
   end of a command script's prose header by taking the first line that *begins*
   with `start:` (`geas_walkthrough_runner.cc:414-421`, `Program.cs:243`), which
@@ -4087,7 +4788,7 @@ notes for anyone repeating it: the installer must be run for real
 register the OCXs by hand, and the .asl must have CRLF line endings or Quest
 reports "No 'define game' block".
 
-Six classes were put to it.  Three confirmed geas and convicted the oracle:
+Nine classes were put to it.  Three confirmed geas and convicted the oracle:
 
 * The implied removal.  Quest announces it — `(first removing it from X)` —
   and so does geas.  qv4 printed nothing, because its `ExecTake` never set
@@ -4120,6 +4821,40 @@ The third is still open:
   `alias <Silver>` + `suffix <bracelet>`, real Quest answers TAKE SILVER
   BRACELET with `I can't see that here.` and only TAKE SILVER works.  geas
   accepts both.
+
+The seventh convicted geas and *acquitted* the oracle, which is the useful
+direction to have it run in:
+
+* **Pre-2.80 `take` and `drop`** (finding 75) — Quest 4.1.5 prints nothing and
+  moves nothing for a bare `take` or a `take <text>`, keeps the object in the
+  room even while its like-named item is in the Inventory pane, and refuses
+  `drop` outright below 2.80.  qv4 had said all of that already; the runner
+  settles that it was translating faithfully rather than dropping a branch, as
+  it had on the implied removal above.  Probes `probe7.asl` and `probe8.asl`.
+
+The eighth settled a game rather than a rule:
+
+* **Pyramid of Terror, end to end** (findings 72 and 77) — probed as
+  `pyramid.asl`/`pyramid.cmd`, 23 turns, 2026-08-16.  The goth scope window is
+  real: right after OPEN SARCOPHAGUS she takes the brass ring, and after OPEN
+  OVEN's parentless `remove` she answers `I can't see that here.` and drops
+  out of the Places pane.  And finding 72's rule holds without making the game
+  unwinnable: DROP MARZIPAN in Sutekh's chamber gets the stock `You drop it.`
+  and UP stays `The exit is locked.`, but THROW MARZIPAN — the game-block
+  `verb <throw>` dispatching to the blob's `action <throw>` — dissolves
+  Sutekh, opens the trapdoor, and wins.  The corpus walkthrough throws now,
+  and takes the goth's coffee-shop invitation inside the window, which both
+  geas and qv4 play byte-identically.
+
+The ninth convicted geas again:
+
+* **The closed-container put** (finding 78) — `putprobe.asl`, nine turns,
+  2026-08-16.  A Sack-alike with an `add` script: the real runner refuses
+  `put bone in sack` with `You can't put that there.` while the sack is
+  closed, runs the script once it is open, and calls the `remove` from the
+  closed sack a scope miss, all of it byte-for-byte the QuestViva answer.  So
+  the oracle was translating faithfully, geas's ungated `add` was the bug,
+  and Barbarian's pedestal puzzle turned out to be designed around the gate.
 
 The installer is worth keeping for a second reason: it ships the authoritative
 `standard.lib`, `stdverbs.lib` and `typelib.qlb`, and `versions.txt`, the full

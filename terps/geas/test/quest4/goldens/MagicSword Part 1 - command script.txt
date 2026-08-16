@@ -286,7 +286,7 @@ speak to landlady
 1
 out
 north
-go to the doctors house
+go to the doctors
 speak to assistant
 1
 out
