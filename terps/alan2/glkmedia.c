@@ -32,6 +32,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <string.h>
 #include <strings.h>
 #include <ctype.h>
@@ -465,6 +466,158 @@ static Boolean registerPicture(MediaEntry *e)
 
 
 /*----------------------------------------------------------------------
+  The title screens
+
+  All five of these games open the same way: clear the screen with a
+  screenful of blank lines, show one or two full-screen pictures, and only
+  then print the title and the opening text.
+
+    The Hollywood Murders   title.pcx, share.pcx   (gun.wav, lady.wav in
+                                                    between)
+    Inner Demons            title.pcx, share.pcx
+    The Child Murderer      title1.pcx, info.pcx
+    A Matter of Time (demo) title.pcx, info.pcx
+    A Matter of Time 1.2    title.jpg
+
+  These are title screens, not illustrations: VIEWER.EXE filled the screen
+  with each one and held it there until the player pressed a key, and the
+  game printed nothing at all around them. Inline in the transcript they
+  would be two pictures stacked above the title with nothing to say what
+  they are, and the player would scroll straight past the second one.
+
+  So while nothing but white space has been printed, a picture goes into a
+  graphics window covering the whole frame and waits for a keypress or a
+  mouse click, as it did in DOS. Once the game prints its first real text
+  the window closes and everything after that is drawn inline, which is
+  where the rest of the art belongs -- the acode idiom for an illustration
+  is describe, pause, viewer, describe again, so any picture that is not a
+  title screen has text in front of it by construction.
+
+  Blank lines have to count as nothing here, or the screen-clearing
+  paragraph the games print first would end the title phase before the
+  first picture ever arrived.
+\*----------------------------------------------------------------------*/
+
+static Boolean titlephase = TRUE;  /* nothing but white space printed yet */
+static winid_t titlewin = NULL;    /* whole-frame graphics window, or NULL */
+static int titleresno = 0;         /* what is in it, for redraws on resize */
+
+/* Fill the window with the picture: scaled up or down to fit, aspect ratio
+   kept, centred, exactly as a title screen wants to be seen. */
+static void drawTitlePicture(void)
+{
+    glui32 ww, wh, iw, ih, dw, dh;
+
+    if (titlewin == NULL || titleresno == 0)
+        return;
+    glk_window_get_size(titlewin, &ww, &wh);
+    if (ww == 0 || wh == 0)
+        return;
+    if (!glk_image_get_info(titleresno, &iw, &ih) || iw == 0 || ih == 0)
+        return;
+
+    /* The smaller of the two ratios is the one that fits, in 16.16 fixed
+       point so that the rounding cannot silently overflow the window */
+    if ((glui32)(((uint64_t)ww << 16) / iw) < (glui32)(((uint64_t)wh << 16) / ih)) {
+        dw = ww;
+        dh = (glui32)(((uint64_t)ih * ww + iw / 2) / iw);
+    } else {
+        dh = wh;
+        dw = (glui32)(((uint64_t)iw * wh + ih / 2) / ih);
+    }
+    if (dw > ww) dw = ww;
+    if (dh > wh) dh = wh;
+
+    glk_window_clear(titlewin);
+    glk_image_draw_scaled(titlewin, titleresno,
+                          (glsi32)(ww - dw) / 2, (glsi32)(wh - dh) / 2, dw, dh);
+}
+
+/* Split the root, so the picture covers the status line too -- DOS flipped
+   the whole screen. Returns FALSE if the host will not give us the window,
+   and the caller falls back to drawing inline. */
+static Boolean openTitleWindow(void)
+{
+    if (titlewin != NULL)
+        return TRUE;
+    if (!glk_gestalt(gestalt_DrawImage, wintype_Graphics))
+        return FALSE;
+
+    titlewin = glk_window_open(glk_window_get_root(),
+                               winmethod_Above | winmethod_Proportional, 100,
+                               wintype_Graphics, 0);
+    if (titlewin == NULL)
+        return FALSE;
+
+    /* Letterbox in black, the way the screen looked around a picture VIEWER.EXE
+       had centred in a mode it had just cleared */
+    glk_window_set_background_color(titlewin, 0x000000);
+    glk_window_clear(titlewin);
+    return TRUE;
+}
+
+static void closeTitleWindow(void)
+{
+    if (titlewin != NULL) {
+        glk_window_close(titlewin, NULL);
+        titlewin = NULL;
+        titleresno = 0;
+    }
+    /* The buffer window is current again, and its stream with it: closing a
+       window the game never wrote to leaves glk_set_window() alone */
+}
+
+/* The game has something to say: the title screens are over */
+static void endTitlePhase(void)
+{
+    titlephase = FALSE;
+    closeTitleWindow();
+}
+
+/* Show the picture full-frame and hold it there until the player presses a
+   key or clicks in it. FALSE means it could not be done and the picture
+   should go inline after all. */
+static Boolean showTitlePicture(MediaEntry *e)
+{
+    event_t event;
+    Boolean chars;
+
+    if (!openTitleWindow())
+        return FALSE;
+
+    titleresno = e->resno;
+    drawTitlePicture();
+
+    /* A graphics window takes keys only where the host says it can; where
+       it cannot, the keypress has to be read from the buffer window
+       underneath, which the split has squeezed to nothing but which still
+       has the input focus */
+    chars = (Boolean)(glk_gestalt(gestalt_GraphicsCharInput, 0) != 0);
+    if (chars)
+        glk_request_char_event(titlewin);
+    else if (glkMainWin != NULL)
+        glk_request_char_event(glkMainWin);
+    else
+        return TRUE;            /* nowhere to read from: leave it up */
+    glk_request_mouse_event(titlewin);
+
+    do {
+        glk_select(&event);
+        if (event.type == evtype_Arrange)
+            drawTitlePicture();
+    } while (event.type != evtype_CharInput && event.type != evtype_MouseInput);
+
+    /* Whichever one arrived, the other is still outstanding */
+    if (event.type == evtype_MouseInput)
+        glk_cancel_char_event(chars ? titlewin : glkMainWin);
+    else
+        glk_cancel_mouse_event(titlewin);
+
+    return TRUE;
+}
+
+
+/*----------------------------------------------------------------------
   Holding back the text a game repeats across a picture
 
   VIEWER.EXE wiped the screen twice over: once flipping to graphics and
@@ -611,6 +764,18 @@ static void resolveHeld(void)
         emitText(held + run, n);
 }
 
+/* The screen-clearing blank lines the games print before their title
+   screens are not the game speaking */
+static Boolean hasVisibleText(const char *s, int len)
+{
+    int i;
+
+    for (i = 0; i < len; i++)
+        if (!isspace((unsigned char)s[i]))
+            return TRUE;
+    return FALSE;
+}
+
 /*======================================================================
   glkmedia_filter_output()
 
@@ -625,6 +790,11 @@ int glkmedia_filter_output(char *str)
         return FALSE;
 
     len = (int)strlen(str);
+
+    /* The game has found its voice: take the title screen down before the
+       words it is about to print go underneath it */
+    if (titlephase && hasVisibleText(str, len))
+        endTitlePhase();
 
     if (!holding) {
         rememberText(str, len);
@@ -657,7 +827,30 @@ void glkmedia_flush_output(void)
 {
     resolveHeld();
     beforelen = 0;
+
+    /* A prompt is the game speaking too, and a game that reached one
+       without printing a word would otherwise leave the player looking at
+       a title screen with the input line squeezed to nothing behind it */
+    if (titlephase)
+        endTitlePhase();
 }
+
+/*======================================================================
+  glkmedia_reset()
+
+  A restart re-runs the start section, title screens and all, so it starts
+  a fresh title phase -- and it must not inherit a half-finished turn from
+  the run before it either.
+ */
+void glkmedia_reset(void)
+{
+    closeTitleWindow();
+    titlephase = TRUE;
+    beforelen = 0;
+    heldlen = 0;
+    holding = FALSE;
+}
+
 
 
 /*----------------------------------------------------------------------
@@ -673,16 +866,23 @@ static void showPicture(MediaEntry *e)
         return;
     }
 
-    /* Nothing to say to a host that cannot draw into a buffer window --
-       and say it before touching the transcript, so that a text-only host
-       (CheapGlk) still gets the byte-identical output it got before */
-    if (!glk_gestalt(gestalt_Graphics, 0)
-        || !glk_gestalt(gestalt_DrawImage, wintype_TextBuffer))
+    /* Nothing to say to a host that cannot draw at all -- and say it before
+       touching the transcript, so that a text-only host (CheapGlk) still
+       gets the byte-identical output it got before */
+    if (!glk_gestalt(gestalt_Graphics, 0))
         return;
     if (!glk_image_get_info(e->resno, &iw, &ih) || iw == 0 || ih == 0) {
         e->broken = TRUE;
         return;
     }
+
+    /* Before the game has printed anything this is a title screen, and it
+       gets the whole frame and a keypress, the way DOS showed it */
+    if (titlephase && showTitlePicture(e))
+        return;
+
+    if (!glk_gestalt(gestalt_DrawImage, wintype_TextBuffer))
+        return;
 
     /* DOS flipped the whole screen to graphics and back on a keypress.
        Draw into the buffer window instead: the picture stays where the

@@ -1788,6 +1788,12 @@ static void init()
   looking = FALSE;		/* Not looking now */
   dscrstkp = 0;			/* No describe in progress */
 
+#ifdef SPATTERLIGHT
+  /* run() longjmps back here to restart, and the start section shows the
+     title screens again */
+  glkmedia_reset();
+#endif
+
   load();
 
   initheader();

@@ -91,6 +91,36 @@ On-disk case does not match the command strings (`CARPARK.PCX` vs
   before any output is emitted, so their transcripts are unchanged. Honours
   `gli_enable_graphics`.
 
+- **Title screens.** The pictures a game shows *before it has printed a word*
+  are the exception: those are title screens, and DOS gave them the whole
+  screen and a keypress. So do we. Until the first non-white-space character
+  reaches `glkio_printf()` the run is in its *title phase*, and a picture
+  drawn during it opens a `wintype_Graphics` window over the **root**
+  (`winmethod_Above | winmethod_Proportional`, size 100), so it covers the
+  status line too, and holds it there until the player presses a key or
+  clicks in it. The window is black and the picture is scaled to fit it —
+  up as well as down, aspect ratio kept, centred — and redrawn on
+  `evtype_Arrange`, so it follows a resize. Consecutive title pictures reuse
+  the one window rather than closing and reopening it (*The Hollywood
+  Murders* and *Inner Demons* show two, the others one).
+
+  The phase ends — and the window closes, uncovering the buffer window with
+  the game's first paragraph in it — at the first real text, or at a prompt
+  (`glkmedia_flush_output()`) if the game somehow reached one without
+  speaking. Every later picture goes inline as above. `glkmedia_reset()`,
+  called from `init()`, starts a fresh title phase, so a `restart` shows the
+  title screens again.
+
+  There is no count of title images anywhere: "before any text" is the whole
+  rule, and it generalises because the illustration idiom below always
+  prints the room or object description *first*. The blank lines the games
+  print to clear the DOS screen (~26 of them) are white space and so count
+  as nothing. Where the host will not give up a graphics window, or cannot
+  take character input in one (`gestalt_GraphicsCharInput` — the keypress is
+  then read from the buffer window underneath, which the split has squeezed
+  to nothing but which still has the input focus), the picture falls back to
+  being drawn inline.
+
 - **`pause`.** Ignored. It is not an independent effect: the games use it to
   hold the text on screen before VIEWER.EXE flips the whole screen to
   graphics, so it sits directly in front of a `viewer` call — the acode
@@ -151,9 +181,14 @@ On-disk case does not match the command strings (`CARPARK.PCX` vs
 
 ## Testing
 
-Verified in the app (title/share/secret pictures drawn inline and re-fitting
-on a window resize, the repeated description gone, radio playing
-`suspense.wav` audibly) and headless. The headless CheapGlk harness (see the
+Verified in the app (both *Hollywood Murders* title screens full-frame in the
+graphics window, advanced by a keypress and by a mouse click, the window
+closing on the first text and coming back after `restart`; share/secret
+pictures drawn inline and re-fitting on a window resize; the repeated
+description gone; radio playing `suspense.wav` audibly) and headless. Driving
+the app from a script needs a real `CGEventPost` click — System Events'
+`click at {x, y}` silently does nothing to a graphics window. The headless
+CheapGlk harness (see the
 `alan2` build recipe used for the 2.6 work) builds with `-DSPATTERLIGHT`
 plus `-Itest`: `test/glkimp.h` is a stub of the Spatterlight extensions and
 `test/headless_stubs.c` defines them, in the style of

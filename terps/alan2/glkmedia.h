@@ -22,6 +22,10 @@ extern void glkmedia_system(char *command);
    anything still held. */
 extern int glkmedia_filter_output(char *str);
 extern void glkmedia_flush_output(void);
+
+/* Called where the adventure starts, including after a restart, to begin a
+   fresh title phase and drop any text still held from the run before */
+extern void glkmedia_reset(void);
 #endif
 
 #endif
