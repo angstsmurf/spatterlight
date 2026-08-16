@@ -74,7 +74,7 @@ Go EAST to go up the street
 "Please call by later."
 Chloé then leaves.
 
-> examine card
+> examine chloé's buisness card
 Chloé Jarry: Reporter.
 64 Rose Marianne road
 0202 5890765

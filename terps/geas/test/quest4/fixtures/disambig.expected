@@ -1,0 +1,31 @@
+
+Disambig | fixture
+
+You are in Hall.
+There is a bed, bed and the bed here.
+A bare hall.
+
+> x bed
+Please select which bed you mean:
+1) a bed
+2) bed
+3) a rickety bed
+[choice] 1
+The first bed.
+
+> x bed
+Please select which bed you mean:
+1) a bed
+2) bed
+3) a rickety bed
+[choice] 2
+The second bed.
+
+> x bed
+Please select which bed you mean:
+1) a bed
+2) bed
+3) a rickety bed
+[choice] 3
+The third bed.
+[runner] turns=3 leftover=0 running=true

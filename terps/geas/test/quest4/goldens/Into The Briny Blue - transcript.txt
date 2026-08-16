@@ -130,9 +130,9 @@ Made of high-quality mahogany with handcarved leaf motifs, this bookshelf contai
 The pattern on this rug is done in red, blue, and gold fibers. You can tell it's Oriental because of the tiny Buddhas that make up the rug's border.
 
 > look at bed
-Which bed do you mean?
+Please select which bed you mean:
 1) bed
-2) bed
+2) a bed
 [choice] look at desk
 Pretty much standard.
 
@@ -346,13 +346,13 @@ You are at the rocks.
 You can go south.
 Amidst all the sand that's here on the ocean floor, there is a singular heap of rocks. They aren't particularly talented or special rocks, save for their location. The rock pile sure is neat, though. The rest of the ocean floor is back south. Your secret service senses tell you that there isn't much of anything to the north or east or any non-south direction.
 
-> look at rock pile
+> look at pile of rocks
 There is a pile of rocks here. It is made up of: rocks.
 
-> sleep on rock pile
+> sleep on pile of rocks
 Ah! A perfect spot for a nap! Normally sleeping underwater is dangerous, but you figure why not? You've gotten this far, so you might as well. You doze off and awake several hours later, ready to resume your search.
 
-> use gun on rock pile
+> use gun on pile of rocks
 BLAM! The rocks shatter in a zillion pieces when you shoot them, only to be replaced seconds later by more rocks!
 
 > south

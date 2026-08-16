@@ -288,8 +288,8 @@ look at machete
 east
 east
 burn monkey poster
-look at louvre key
-take louvre key
+look at gold key
+take gold key
 burn shark poster
 take glass of milk
 burn bed
@@ -316,7 +316,7 @@ look at arts
 4
 take a fourth note from michael
 look at a fourth note from michael
-use louvre key
+use gold key
 east
 look
 take brass key

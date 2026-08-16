@@ -80,7 +80,7 @@ You can go east or northwest.
 A long, extensive room filled with leather- and wood-bound tomes, scrolls, and spellbooks. The beautiful marble floor almost rings as you walk upon it, and is so clean that you can see your reflection clearly. It must have been cleaned magically to shine with such a wondrous luster. Many scholars desire to see this room, and many would consider you lucky to be here. A rare few do get chosen to study here, and many are sitting in the room now, studying happily.
 
 > give scroll to scholar
-Which scholar do you mean?
+Please select which scholar you mean:
 1) Sleeping
 2) Awake
 [choice] 2
@@ -286,8 +286,7 @@ The sun shines brightly upon the ever-gleaming doors to the Great Scholarly Hall
 > south
 You go to the Training Hall.
 There is the Combat Adviser and the Arcane Adviser here.
-You can go out to outside the great gates.
-You can go west.
+You can go out to outside the great gates. You can go west.
 It is here that countless scholars have trained. The large wooden room is lined with seats to hold the people waiting for admission.
 
 > west
@@ -304,8 +303,7 @@ You try again. Your blow comes around...
 ...and strikes the dummy! The Combat Adviser congratulates you and bids you out.
 You go to the Training Hall.
 There is the Combat Adviser and the Arcane Adviser here.
-You can go out to outside the great gates.
-You can go east.
+You can go out to outside the great gates. You can go east.
 It is here that countless scholars have trained. The large wooden room is lined with seats to hold the people waiting for admission.
 "Ya will receive mo'e advanced trainin' when ya enter a combatant guild," says the Combat Adviser.
 
@@ -400,8 +398,7 @@ This is the place where the citizens of the Vald go to congregate and converse. 
 
 > southwest
 You step into the Vald Daen Potter's Shop.
-You can go out to Town Square.
-You can go south.
+You can go out to Town Square. You can go south.
 Here the potters of Vald Daen tout their wares to customers. In the back room you can see a potter, working away.
 
 > south
@@ -419,8 +416,7 @@ A few hours later you return and take a fully baked pot.
 
 > out
 You step into the Vald Daen Potter's Shop.
-You can go out to Town Square.
-You can go south.
+You can go out to Town Square. You can go south.
 Here the potters of Vald Daen tout their wares to customers. In the back room you can see a potter, working away.
 
 > out

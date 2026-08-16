@@ -1203,7 +1203,7 @@ You open the box.
 > take rope
 You take the rope.
 
-> take ceramic tile41
+> take ceramic tile4
 You take the tile.
 
 > out

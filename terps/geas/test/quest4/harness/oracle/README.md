@@ -71,12 +71,10 @@ frontend noise.  Both sides are put through the same normalisation
 
 `qv4` itself absorbs the harness-shape differences, always bending QuestViva
 towards geas so that what is left is engine behaviour: menus are printed in
-geas's `caption` / `N) option` / `[choice] N` shape, `ask` is rendered as a
-Yes/No menu the way geas's `choose_yes_no` is, and Quest's default
-`Press a key to continue...` — the one a `wait` with no message of its own
-prints — is dropped, because geas prints nothing there in any frontend and the
-diff would otherwise report finding 2 once per `wait`.  A `wait <message>` is
-kept on both sides: the runner prints the author's text the way GeasGlk does.
+geas's `caption` / `N) option` / `[choice] N` shape, and `ask` is rendered as a
+Yes/No menu the way geas's `choose_yes_no` is.  A `wait` is kept whole on both
+sides — the message the author wrote, or the engine's own
+`Press a key to continue...` where there is none (finding 2, since fixed).
 See the comment at the top of `Program.cs`.
 
 ## Findings

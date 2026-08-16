@@ -23,7 +23,7 @@ There is an envelope in here.
 > look at envelope
 Its a plan white envelope.
 
-> open letter
+> open envelope
 There is a note in here.
 
 > read note

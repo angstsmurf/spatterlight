@@ -1,0 +1,28 @@
+
+loosename
+
+You are in Vault.
+There is a beautiful Silver bracelet, Gold Key and Ceramic tile4 here.
+A vault.
+
+> look at silver
+Round and smooth.
+
+> look at silver bracelet
+Round and smooth.
+
+> look at gold key
+It has a miniature Vitruvian man.
+
+> look at louvre key
+It has a miniature Vitruvian man.
+
+> look at ceramic tile4
+A crude design, notched in the back.
+
+> look at ceramic tile41
+A crude design, notched in the back.
+
+> take silver bracelet
+You pick it up.
+[runner] turns=7 leftover=0 running=true

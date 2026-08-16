@@ -27,8 +27,7 @@ Perhaps that is where you need to go.
 > go to shurlee temple
 You are in Shurlee Temple.
 There is a large statue head here.
-You can go out to World Map.
-You can go north.
+You can go out to World Map. You can go north.
 The Goddess Shurlee was known for her childish antics and curly hair.  This temple was erected for her many years ago by the Shurlee druids, a cult of young virgins that liked to dress in party dresses and red curly wigs.
 
 However, now the temple is nothing more than ruins.
@@ -67,8 +66,7 @@ You are standing in the ruins of Shurlee Temple.  There is no longer a roof abov
 > south
 You are in Shurlee Temple.
 There is a large statue head here.
-You can go out to World Map.
-You can go north.
+You can go out to World Map. You can go north.
 The Goddess Shurlee was known for her childish antics and curly hair.  This temple was erected for her many years ago by the Shurlee druids, a cult of young virgins that liked to dress in party dresses and red curly wigs.
 
 However, now the temple is nothing more than ruins.
@@ -137,8 +135,7 @@ You are standing in the ruins of Shurlee Temple.  There is no longer a roof abov
 > south
 You are in Shurlee Temple.
 There is a large statue head and a small hole here.
-You can go out to World Map.
-You can go north.
+You can go out to World Map. You can go north.
 The Goddess Shurlee was known for her childish antics and curly hair.  This temple was erected for her many years ago by the Shurlee druids, a cult of young virgins that liked to dress in party dresses and red curly wigs.
 
 However, now the temple is nothing more than ruins.
@@ -208,8 +205,7 @@ You are in the World Map.  When you find clues or are told of different places y
 > go to shurlee temple
 You are in Shurlee Temple.
 There is a large statue head and a small hole here.
-You can go out to World Map.
-You can go north.
+You can go out to World Map. You can go north.
 The Goddess Shurlee was known for her childish antics and curly hair.  This temple was erected for her many years ago by the Shurlee druids, a cult of young virgins that liked to dress in party dresses and red curly wigs.
 
 However, now the temple is nothing more than ruins.
@@ -258,8 +254,7 @@ You are standing in the ruins of Shurlee Temple.  There is no longer a roof abov
 > south
 You are in Shurlee Temple.
 There is a large statue head and a small hole here.
-You can go out to World Map.
-You can go north.
+You can go out to World Map. You can go north.
 The Goddess Shurlee was known for her childish antics and curly hair.  This temple was erected for her many years ago by the Shurlee druids, a cult of young virgins that liked to dress in party dresses and red curly wigs.
 
 However, now the temple is nothing more than ruins.
@@ -272,8 +267,7 @@ You are in the World Map.  When you find clues or are told of different places y
 > go to elliott's bottom
 You are in Elliott's Bottom.
 There is Simon of the Cowl here.
-You can go out to World Map.
-You can go north, east, west or northwest.
+You can go out to World Map. You can go north, east, west or northwest.
 The village of Elliott's Bottom is nestled between two hills.
 
 > speak to simon
@@ -377,8 +371,7 @@ When Olive returns, she seems somewhat cheerier.  "I have my ticket.  Remember y
 > south
 You are in Elliott's Bottom.
 There is Simon of the Cowl here.
-You can go out to World Map.
-You can go north, east, west or northwest.
+You can go out to World Map. You can go north, east, west or northwest.
 The village of Elliott's Bottom is nestled between two hills.
 
 > west
@@ -386,8 +379,7 @@ You are in the Globes Theatre.
 The Globes Theatre is one of the most visited theatres in the land.  Often people have been heard to have said "Have you seen Elliott's Globes"?
 You are in an auditorium.
 There is a Bouncer and the stalls here.
-You can go out to Elliott's Bottom.
-You can go west, northwest or up.
+You can go out to Elliott's Bottom. You can go west, northwest or up.
 The auditorium is a large room with tiered seats facing a main stage.  There is an exit which leads to a room back stage and a door leading upwards to the theatre boxes.
 
 > give pass to bouncer
@@ -421,15 +413,13 @@ You put the gold piece into the slot and it releases the glasses.
 > down
 You are in an auditorium.
 There is a Bouncer and the stalls here.
-You can go out to Elliott's Bottom.
-You can go west, northwest or up.
+You can go out to Elliott's Bottom. You can go west, northwest or up.
 The auditorium is a large room with tiered seats facing a main stage.  There is an exit which leads to a room back stage and a door leading upwards to the theatre boxes.
 
 > out
 You are in Elliott's Bottom.
 There is Simon of the Cowl here.
-You can go out to World Map.
-You can go north, east, west or northwest.
+You can go out to World Map. You can go north, east, west or northwest.
 The village of Elliott's Bottom is nestled between two hills.
 
 > north
@@ -447,8 +437,7 @@ And she gives you 1 gold piece
 > south
 You are in Elliott's Bottom.
 There is Simon of the Cowl here.
-You can go out to World Map.
-You can go north, east, west or northwest.
+You can go out to World Map. You can go north, east, west or northwest.
 The village of Elliott's Bottom is nestled between two hills.
 
 > east
@@ -513,8 +502,7 @@ You pick it up.
 > west
 You are in Elliott's Bottom.
 There is Simon of the Cowl here.
-You can go out to World Map.
-You can go north, east, west or northwest.
+You can go out to World Map. You can go north, east, west or northwest.
 The village of Elliott's Bottom is nestled between two hills.
 
 > west
@@ -522,8 +510,7 @@ You are in the Globes Theatre.
 The Globes Theatre is one of the most visited theatres in the land.  Often people have been heard to have said "Have you seen Elliott's Globes"?
 You are in an auditorium.
 There is a Bouncer and the stalls here.
-You can go out to Elliott's Bottom.
-You can go west, northwest or up.
+You can go out to Elliott's Bottom. You can go west, northwest or up.
 The auditorium is a large room with tiered seats facing a main stage.  There is an exit which leads to a room back stage and a door leading upwards to the theatre boxes.
 
 > west
@@ -562,15 +549,13 @@ As you stand on the stage you start to remember all the good times You and John 
 > east
 You are in an auditorium.
 There is a Bouncer and the stalls here.
-You can go out to Elliott's Bottom.
-You can go west, northwest or up.
+You can go out to Elliott's Bottom. You can go west, northwest or up.
 The auditorium is a large room with tiered seats facing a main stage.  There is an exit which leads to a room back stage and a door leading upwards to the theatre boxes.
 
 > out
 You are in Elliott's Bottom.
 There is Simon of the Cowl here.
-You can go out to World Map.
-You can go north, east, west or northwest.
+You can go out to World Map. You can go north, east, west or northwest.
 The village of Elliott's Bottom is nestled between two hills.
 
 > out
@@ -611,8 +596,7 @@ You are in the World Map.  When you find clues or are told of different places y
 > go to elliott's bottom
 You are in Elliott's Bottom.
 There is Simon of the Cowl here.
-You can go out to World Map.
-You can go north, east, west or northwest.
+You can go out to World Map. You can go north, east, west or northwest.
 The village of Elliott's Bottom is nestled between two hills.
 
 > northwest
@@ -666,8 +650,7 @@ She hangs up her cloak on the back of the chair, takes her crystal ball and leav
 > southeast
 You are in Elliott's Bottom.
 There is Simon of the Cowl here.
-You can go out to World Map.
-You can go north, east, west or northwest.
+You can go out to World Map. You can go north, east, west or northwest.
 The village of Elliott's Bottom is nestled between two hills.
 
 > east
@@ -694,8 +677,7 @@ The farm is nothing more than a muddy field containing one sheep.
 > west
 You are in Elliott's Bottom.
 There is Simon of the Cowl here.
-You can go out to World Map.
-You can go north, east, west or northwest.
+You can go out to World Map. You can go north, east, west or northwest.
 The village of Elliott's Bottom is nestled between two hills.
 
 > out
@@ -734,8 +716,7 @@ You are in the World Map.  When you find clues or are told of different places y
 > go to elliott's bottom
 You are in Elliott's Bottom.
 There is Simon of the Cowl here.
-You can go out to World Map.
-You can go north, east, west or northwest.
+You can go out to World Map. You can go north, east, west or northwest.
 The village of Elliott's Bottom is nestled between two hills.
 
 > use camera on simon
@@ -783,8 +764,7 @@ You are in the World Map.  When you find clues or are told of different places y
 
 > go to burningham
 You are in the village of Burningham.
-You can go out to World Map.
-You can go north, south, east or west.
+You can go out to World Map. You can go north, south, east or west.
 You are standing in the centre of the village.  
 To the North is Edison's Electrical Emporium.
 To the West is Al Chemist's Alchemy store
@@ -821,8 +801,7 @@ However, you were a bit too heavy handed.  You have broken the pestle.  All you 
 
 > east
 You are in the village of Burningham.
-You can go out to World Map.
-You can go north, south, east or west.
+You can go out to World Map. You can go north, south, east or west.
 You are standing in the centre of the village.  
 To the North is Edison's Electrical Emporium.
 To the West is Al Chemist's Alchemy store
@@ -837,8 +816,7 @@ You are in the World Map.  When you find clues or are told of different places y
 > go to shurlee temple
 You are in Shurlee Temple.
 There is a large statue head and a small hole here.
-You can go out to World Map.
-You can go north.
+You can go out to World Map. You can go north.
 The Goddess Shurlee was known for her childish antics and curly hair.  This temple was erected for her many years ago by the Shurlee druids, a cult of young virgins that liked to dress in party dresses and red curly wigs.
 
 However, now the temple is nothing more than ruins.
@@ -895,8 +873,7 @@ You are standing in the ruins of Shurlee Temple.  There is no longer a roof abov
 > south
 You are in Shurlee Temple.
 There is a large statue head and a small hole here.
-You can go out to World Map.
-You can go north.
+You can go out to World Map. You can go north.
 The Goddess Shurlee was known for her childish antics and curly hair.  This temple was erected for her many years ago by the Shurlee druids, a cult of young virgins that liked to dress in party dresses and red curly wigs.
 
 However, now the temple is nothing more than ruins.
@@ -909,8 +886,7 @@ You are in the World Map.  When you find clues or are told of different places y
 > go to elliott's bottom
 You are in Elliott's Bottom.
 There is Simon of the Cowl here.
-You can go out to World Map.
-You can go north, east, west or northwest.
+You can go out to World Map. You can go north, east, west or northwest.
 The village of Elliott's Bottom is nestled between two hills.
 
 > east
@@ -958,8 +934,7 @@ The farm is nothing more than a muddy field containing one sheep.
 > west
 You are in Elliott's Bottom.
 There is Simon of the Cowl here.
-You can go out to World Map.
-You can go north, east, west or northwest.
+You can go out to World Map. You can go north, east, west or northwest.
 The village of Elliott's Bottom is nestled between two hills.
 
 > out
@@ -969,8 +944,7 @@ You are in the World Map.  When you find clues or are told of different places y
 
 > go to burningham
 You are in the village of Burningham.
-You can go out to World Map.
-You can go north, south, east or west.
+You can go out to World Map. You can go north, south, east or west.
 You are standing in the centre of the village.  
 To the North is Edison's Electrical Emporium.
 To the West is Al Chemist's Alchemy store
@@ -992,8 +966,7 @@ And he hands you 2 gold pieces.
 
 > east
 You are in the village of Burningham.
-You can go out to World Map.
-You can go north, south, east or west.
+You can go out to World Map. You can go north, south, east or west.
 You are standing in the centre of the village.  
 To the North is Edison's Electrical Emporium.
 To the West is Al Chemist's Alchemy store
@@ -1008,8 +981,7 @@ You are in the World Map.  When you find clues or are told of different places y
 > go to elliott's bottom
 You are in Elliott's Bottom.
 There is Simon of the Cowl here.
-You can go out to World Map.
-You can go north, east, west or northwest.
+You can go out to World Map. You can go north, east, west or northwest.
 The village of Elliott's Bottom is nestled between two hills.
 
 > west
@@ -1017,8 +989,7 @@ You are in the Globes Theatre.
 The Globes Theatre is one of the most visited theatres in the land.  Often people have been heard to have said "Have you seen Elliott's Globes"?
 You are in an auditorium.
 There is a Bouncer and the stalls here.
-You can go out to Elliott's Bottom.
-You can go west, northwest or up.
+You can go out to Elliott's Bottom. You can go west, northwest or up.
 The auditorium is a large room with tiered seats facing a main stage.  There is an exit which leads to a room back stage and a door leading upwards to the theatre boxes.
 
 > northwest
@@ -1113,14 +1084,12 @@ Simon approaches you and hands you your prize.  A large crystal bowl and a recor
 > east
 You are in an auditorium.
 There is the stalls here.
-You can go out to Elliott's Bottom.
-You can go west, northwest or up.
+You can go out to Elliott's Bottom. You can go west, northwest or up.
 The auditorium is a large room with tiered seats facing a main stage.  There is an exit which leads to a room back stage and a door leading upwards to the theatre boxes.
 
 > out
 You are in Elliott's Bottom.
-You can go out to World Map.
-You can go north, east, west or northwest.
+You can go out to World Map. You can go north, east, west or northwest.
 The village of Elliott's Bottom is nestled between two hills.
 
 > north
@@ -1137,8 +1106,7 @@ Here, I said I would help you.  Take this book, it is an unofficial biography of
 
 > south
 You are in Elliott's Bottom.
-You can go out to World Map.
-You can go north, east, west or northwest.
+You can go out to World Map. You can go north, east, west or northwest.
 The village of Elliott's Bottom is nestled between two hills.
 
 > out
@@ -1148,8 +1116,7 @@ You are in the World Map.  When you find clues or are told of different places y
 
 > go to burningham
 You are in the village of Burningham.
-You can go out to World Map.
-You can go north, south, east or west.
+You can go out to World Map. You can go north, south, east or west.
 You are standing in the centre of the village.  
 To the North is Edison's Electrical Emporium.
 To the West is Al Chemist's Alchemy store
@@ -1168,8 +1135,7 @@ You give the contract to Bing.  You think he needs it more you do.
 
 > west
 You are in the village of Burningham.
-You can go out to World Map.
-You can go north, south, east or west.
+You can go out to World Map. You can go north, south, east or west.
 You are standing in the centre of the village.  
 To the North is Edison's Electrical Emporium.
 To the West is Al Chemist's Alchemy store
@@ -1183,8 +1149,7 @@ You are in the World Map.  When you find clues or are told of different places y
 
 > go to elliott's bottom
 You are in Elliott's Bottom.
-You can go out to World Map.
-You can go north, east, west or northwest.
+You can go out to World Map. You can go north, east, west or northwest.
 The village of Elliott's Bottom is nestled between two hills.
 
 > east
@@ -1210,8 +1175,7 @@ You rub the paste into the wool until you have a green wool
 
 > west
 You are in Elliott's Bottom.
-You can go out to World Map.
-You can go north, east, west or northwest.
+You can go out to World Map. You can go north, east, west or northwest.
 The village of Elliott's Bottom is nestled between two hills.
 
 > out
@@ -1221,8 +1185,7 @@ You are in the World Map.  When you find clues or are told of different places y
 
 > go to burningham
 You are in the village of Burningham.
-You can go out to World Map.
-You can go north, south, east or west.
+You can go out to World Map. You can go north, south, east or west.
 You are standing in the centre of the village.  
 To the North is Edison's Electrical Emporium.
 To the West is Al Chemist's Alchemy store
@@ -1263,8 +1226,7 @@ You pass the photograph over to Cherie.
 
 > north
 You are in the village of Burningham.
-You can go out to World Map.
-You can go north, south, east or west.
+You can go out to World Map. You can go north, south, east or west.
 You are standing in the centre of the village.  
 To the North is Edison's Electrical Emporium.
 To the West is Al Chemist's Alchemy store
@@ -1278,8 +1240,7 @@ You are in the World Map.  When you find clues or are told of different places y
 
 > go to elliott's bottom
 You are in Elliott's Bottom.
-You can go out to World Map.
-You can go north, east, west or northwest.
+You can go out to World Map. You can go north, east, west or northwest.
 The village of Elliott's Bottom is nestled between two hills.
 
 > east
@@ -1316,8 +1277,7 @@ You attach the wires of the battery to the bulb.  Very soon the bulb is glowing 
 
 > north
 You are in the village of Burningham.
-You can go out to World Map.
-You can go north, south, east or west.
+You can go out to World Map. You can go north, south, east or west.
 You are standing in the centre of the village.  
 To the North is Edison's Electrical Emporium.
 To the West is Al Chemist's Alchemy store
@@ -1336,8 +1296,7 @@ You hand the camera back to Edison.
 
 > south
 You are in the village of Burningham.
-You can go out to World Map.
-You can go north, south, east or west.
+You can go out to World Map. You can go north, south, east or west.
 You are standing in the centre of the village.  
 To the North is Edison's Electrical Emporium.
 To the West is Al Chemist's Alchemy store
@@ -1359,8 +1318,7 @@ You buy the hair dye
 
 > west
 You are in the village of Burningham.
-You can go out to World Map.
-You can go north, south, east or west.
+You can go out to World Map. You can go north, south, east or west.
 You are standing in the centre of the village.  
 To the North is Edison's Electrical Emporium.
 To the West is Al Chemist's Alchemy store
@@ -1374,8 +1332,7 @@ You are in the World Map.  When you find clues or are told of different places y
 
 > go to elliott's bottom
 You are in Elliott's Bottom.
-You can go out to World Map.
-You can go north, east, west or northwest.
+You can go out to World Map. You can go north, east, west or northwest.
 The village of Elliott's Bottom is nestled between two hills.
 
 > use glowing bulb on crystal bowl
@@ -1456,8 +1413,7 @@ You remove the cloak and hang it back on the chair
 
 > southeast
 You are in Elliott's Bottom.
-You can go out to World Map.
-You can go north, east, west or northwest.
+You can go out to World Map. You can go north, east, west or northwest.
 The village of Elliott's Bottom is nestled between two hills.
 You decide to remove the green wool before leaving the tent.
 
@@ -1488,8 +1444,7 @@ The farm is nothing more than a muddy field containing one sheep.
 
 > west
 You are in Elliott's Bottom.
-You can go out to World Map.
-You can go north, east, west or northwest.
+You can go out to World Map. You can go north, east, west or northwest.
 The village of Elliott's Bottom is nestled between two hills.
 
 > out
@@ -1500,8 +1455,7 @@ You are in the World Map.  When you find clues or are told of different places y
 > go to royal court
 You are in the Royal Court.
 There is Statue here.
-You can go out to World Map.
-You can go north.
+You can go out to World Map. You can go north.
 You are standing in the main courtyard of Castle Cum-Ere-A-Lot.
 
 > north
@@ -1527,8 +1481,7 @@ The Queen is looking upset about something as you approach
 > south
 You are in the Royal Court.
 There is Statue here.
-You can go out to World Map.
-You can go north or southwest.
+You can go out to World Map. You can go north or southwest.
 You are standing in the main courtyard of Castle Cum-Ere-A-Lot.
 
 > southwest
@@ -1567,8 +1520,7 @@ Leaving you, holding the Magic Carp, in the barn, with a ground Cult Leader.
 You quietly nip out of the barn
 You are in the Royal Court.
 There is Statue here.
-You can go out to World Map.
-You can go north or southwest.
+You can go out to World Map. You can go north or southwest.
 You are standing in the main courtyard of Castle Cum-Ere-A-Lot.
 You take off the dress
 You take off the red wig

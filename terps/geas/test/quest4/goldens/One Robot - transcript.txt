@@ -488,7 +488,7 @@ There is Thug, Thug and Thug here.
 You can go south.
 
 > use chain gun on thug
-Which thug do you mean?
+Please select which thug you mean:
 1) Thug
 2) Thug
 3) Thug
@@ -496,7 +496,7 @@ Which thug do you mean?
 You blast away the thug.
 
 > use chain gun on thug
-Which thug do you mean?
+Please select which thug you mean:
 1) Thug
 2) Thug
 [choice] 1

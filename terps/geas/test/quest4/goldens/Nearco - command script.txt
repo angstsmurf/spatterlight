@@ -141,7 +141,7 @@ Start:
 take hueso
 take piedra
 use piedra on roca
-use casco on prisma
+use casco on piedra tallada
 use hueso on pañuelo
 use antorcha on casco con prisma
 north

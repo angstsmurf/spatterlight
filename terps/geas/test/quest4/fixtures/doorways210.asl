@@ -12,7 +12,10 @@
 ! the line or in quest.doorways.dirs.
 !
 ! The rest of the pre-2.80 display is here as the frame around it: the three
-! lines come out in the order out, directions, places (ibid. 2022, 2056, 2092),
+! lines come out in the order out, directions, places (ibid. 2022, 2056, 2092)
+! -- and as three *lines*, each appended to roomDisplayText with its own vbCrLf,
+! where 2.80 and up join the first two into one (see doorways400).  The word
+! "out" is plain here; only the directions carry |b markup (ibid. 1942-1979),
 ! the places list keeps its Oxford comma (it splits at the last comma rather
 ! than one character before it, ibid. 2073-2085), and the 4.10 folded variable
 ! is untouched at this version.

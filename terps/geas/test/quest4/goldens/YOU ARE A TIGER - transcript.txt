@@ -42,7 +42,7 @@ There's a rump-shakin' backing track here. You vaguely remember working on it ye
 > speak to computer
 "meg white COME ON SHOW ME HER NAKED..."
 
-> look at phone
+> look at iphone
 Hey, it's your phone! The message light is blinking.
 Which message do you want to listen to, homes?
 1) Girlfriend
@@ -112,7 +112,7 @@ Which message do you want to listen to, homes?
 [choice] 6
 *heavy breathing* Hey baby. I just got home and I couldn't stop thinking about you. We should get together later and- Dougie no! It's nobody! I swear! *CLICK*
 
-> speak to phone
+> speak to iphone
 "Phone, activate!" ...wait, did you ever remember to install the voice command app?
 
 > look at burrito

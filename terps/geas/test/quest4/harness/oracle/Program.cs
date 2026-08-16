@@ -22,12 +22,6 @@ using QuestViva.Legacy;
 //   * `ask`.  geas renders it as a two-option Yes/No make_choice, so a script
 //     answers it with 1 or 2; V4Game hands the caption to the UI and prints
 //     nothing.  Same substitution.
-//   * `wait`.  V4Game prints "Press a key to continue..." (V4Game.cs:6115)
-//     when the statement carries no message of its own; geas prints nothing
-//     for a bare `wait` in any frontend.  Dropped, because it would report
-//     finding 2 once per `wait` rather than once.  A `wait <message>` is a
-//     different matter: the author's text is kept here and printed by the
-//     runner too (geas_walkthrough_runner.cc:139-148), so the two sides meet.
 //
 // Options:
 //   --tick        Tick timers once per turn, matching the runner's --tick
@@ -94,17 +88,6 @@ void Emit(string html)
     if (trace) Console.Error.WriteLine("[out] " + t.Replace("\n", "\\n"));
     if (swallowNext != null && t.TrimEnd() == swallowNext) { swallowNext = null; return; }
     swallowNext = null;
-    // V4Game.cs:6115 prints this for a `wait` with no message of its own; geas
-    // prints nothing there, in any frontend, which is finding 2 -- reported
-    // once, not once per `wait`.  It goes out as "|nPress a key to
-    // continue...", and that leading newline is not part of the prompt: after
-    // a `|xn` line it is what ends the paragraph, which geas's bare wait --
-    // printing nothing at all -- still does.
-    if (t.Trim() == "Press a key to continue...")
-    {
-        if (transcript.Length > 0 && transcript[^1] != '\n') transcript.Append('\n');
-        return;
-    }
     transcript.Append(t);
     if (!nobr && !t.EndsWith('\n')) transcript.Append('\n');
 }

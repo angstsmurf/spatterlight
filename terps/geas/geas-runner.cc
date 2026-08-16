@@ -2437,18 +2437,38 @@ void geas_implementation::look()
 	   * (V4Game.Part2.cs:3838-3874, 3948-3955).  Below 2.80 the three are
 	   * all part of roomDisplayText, in the other order (ShowRoomInfoV2,
 	   * ibid. 2022, 2056, 2092) -- which is the order geas used at every
-	   * version. */
+	   * version.
+	   *
+	   * The out and directions sentences are also one *line* from 2.80 on,
+	   * not two: UpdateDoorways returns them as a single string with a space
+	   * between (V4Game.Part2.cs:7308-7312, 7353) and ShowRoomInfo prints
+	   * that string with one Print (ibid. 3951-3954).  Below 2.80 each ends
+	   * in its own vbCrLf, so there they really are separate lines (ibid.
+	   * 2022, 2056).  2.80 bolds the word "out" too, where the older path
+	   * leaves it plain; both bold the directions, which is where
+	   * quest.doorways.dirs already carries its own markup. */
 	  bool places_first = (asl_version_ >= 280);
 	  if (places_first && (tmp = get_svar ("quest.doorways.places")) != "")
 	    print_formatted ("You can go to " + tmp + ".");
 	  /* The *display* form of "out", so an "out <the; town>" prefix shows
 	   * up here ("You can go out to the town."), as it does in the
 	   * typelib's own version of this line and in the "places" line. */
+	  string out_line = "", dirs_line = "";
 	  if (get_svar ("quest.doorways.out") != ""
 	      && (tmp = get_svar ("quest.doorways.out.display")) != "")
-	    print_formatted ("You can go out to " + tmp + ".");
+	    out_line = places_first ? "You can go |bout|xb to " + tmp + "."
+				    : "You can go out to " + tmp + ".";
 	  if ((tmp = get_svar ("quest.doorways.dirs")) != "")
-	    print_eval ("You can go #quest.doorways.dirs#.");
+	    dirs_line = "You can go " + tmp + ".";
+	  if (places_first && out_line != "" && dirs_line != "")
+	    print_formatted (out_line + " " + dirs_line);
+	  else
+	    {
+	      if (out_line != "")
+		print_formatted (out_line);
+	      if (dirs_line != "")
+		print_formatted (dirs_line);
+	    }
 	  if (!places_first && (tmp = get_svar ("quest.doorways.places")) != "")
 	    print_formatted ("You can go to " + tmp + ".");
 	}
@@ -3961,8 +3981,17 @@ string geas_implementation::get_obj_name (const string &name, const vector<strin
 	    {
 	      string printed_name, tmp, oname = state.objs[objnum].name;
 	      objs.push_back (oname);
+	      /* What the disambiguation menu calls this object: its `detail', or
+	       * failing that its alias with the `prefix' in front (V4Game.cs:
+	       * 4810-4820 -- ObjectType.Prefix is stored with the trailing space
+	       * already on it, Part2:3273).  A prefix is only ever an article, so
+	       * it is what tells two same-named objects apart in the list:
+	       * "a bed" / "bed" / "a rickety bed" for three beds carrying,
+	       * respectively, a prefix, nothing, and a detail. */
 	      if (!get_obj_property (oname, "alias", printed_name))
 		printed_name = oname;
+	      if (get_obj_property (oname, "prefix", tmp) && tmp != "")
+		printed_name = tmp + " " + printed_name;
 	      if (get_obj_property (oname, "detail", tmp))
 		printed_name = tmp;
 	      printed_objs.push_back (printed_name);
@@ -3980,7 +4009,14 @@ string geas_implementation::get_obj_name (const string &name, const vector<strin
   if (objs.size() > 1)
     {
       uint num = 0;
-      num = gi->make_choice ("Which " + name + " do you mean?", printed_objs);
+      /* Quest's wording, which it prints into the main text as
+       * "- |iPlease select which bed you mean:|xi" ahead of the menu and
+       * echoes the chosen option back under as "- a bed" (V4Game.cs:4802-4803,
+       * 4854).  The marker and the italics are that window's presentation of
+       * a menu; here the caption is handed to the host, which lays the menu
+       * out its own way (see GeasGlkInterface::make_choice). */
+      num = gi->make_choice ("Please select which " + name + " you mean:",
+			     printed_objs);
 
       return objs[num];
     }
@@ -7081,7 +7117,13 @@ void geas_implementation::run_script (const string &s, string &rv)
   case st_wait:
     {
       tok = next_token (s, c1, c2);
-      if (tok != "")
+      /* Quest tests the *unevaluated* rest of the line (ExecuteWaitAsync,
+       * V4Game.cs:6103-6118), so `wait <>' counts as carrying a message and
+       * prints it -- nothing -- where a `wait' with no parameter at all falls
+       * through to the default.  Prison Break and MetroidLite both open with a
+       * `wait <>' and neither wants the default text. */
+      bool bare_wait = (tok == "");
+      if (!bare_wait)
 	{
 	  if (!is_param(tok))
 	    {
@@ -7089,6 +7131,19 @@ void geas_implementation::run_script (const string &s, string &rv)
 	      return;
 	    }
 	  tok = eval_param (tok);
+	}
+      /* And a bare `wait' is not silent.  From ASL 4.10 it prints the
+       * overridable `defaultwait' error message; below 4.10 it prints a fixed
+       * string that no `error <defaultwait; ...>' can reach, preceded by a
+       * blank line.  Only the `wait' statement does this -- the `|w' code
+       * waits with no message of its own (Part2:6747-6753), which is why the
+       * message is built here and not in wait_keypress. */
+      if (bare_wait)
+	{
+	  if (asl_version_ >= 410)
+	    display_error ("defaultwait");
+	  else
+	    print_formatted ("|nPress a key to continue...");
 	}
       gi->wait_keypress (tok);
       /* The turn suspends here, so this is where its timers tick (see

@@ -5,70 +5,97 @@ same command script at the same seed (`GEAS_SEED=1` / `QVH_SEED=1`), diffed
 after the normalisation described in `README.md`:
 
 ```
-40/111 identical, 68 differ, 3 skipped/failed
+73/111 identical, 36 differ, 2 skipped/failed
 ```
 
-The three that are not compared are World's End (its transcript is a
+The two that are not compared are World's End (its transcript is a
 `--save-scum` replay, so it is a function of the runner rather than the game)
-and two games QuestViva itself cannot run — see *QuestViva's own defects*.
+and A Certain Oscar, whose missing `movecont.lib` QuestViva refuses and geas
+reads past — see *QuestViva's own defects*.
 
-`triage.py` attributes every one of the 20 348 diff lines to a cause, and
+`triage.py` attributes all but 2 800 of the 13 002 diff lines to a cause, and
 `firstdiff.py` prints each game's *first* divergence — the only one with a cause
 of its own, since everything after it is cascade.  Run `python3 triage.py` for
 the current numbers; the "first" column below is the third one it prints, and
-sums to the 68 games that differ.
+sums to the 36 games that differ.
 
 Once a game's two transcripts stop describing the same world — a lookup that
 succeeds on one side only, a timer a turn out — nothing after that point is
 independent evidence, so those runs are credited whole to the divergence that
 parted them.  Those are the `desync:` rows; between them they account for
-16 670 of the 20 348 lines, with a further 2 761 after a QuestViva internal
-error, and nine games (all of finding 14's) for 10 489.
+9 537 of the 13 002 lines.
+
+The corpus shrank by 5 528 lines in one sitting without a single change to
+geas, which is worth stating plainly because both halves of it are lessons
+about measurement rather than about the engine:
+
+* **Three of the defects were the oracle's**, all one translation slip — VB6's
+  `Type` was a value and QuestViva makes it a `class` — and fixing them took
+  57 identical transcripts to 65 and 16 internal errors to 1.  A ground-truth
+  oracle that is wrong in a corner is worse than no oracle there, because the
+  diff looks like evidence.
+* **Fourteen walkthroughs were re-worded** to stop naming objects the way their
+  authors declared them (finding 14).  A desync at turn 30 hides everything
+  after it, so those runs were 10 324 lines all proving one known bug; the same
+  runs now agree with Quest almost everywhere and disagree in places nobody had
+  seen.  Barbarian's 1 690 unclassified lines and Blight of Elantria's 981 are
+  what was underneath.
 
 | divergence | diff lines | games | first in |
 | --- | ---: | ---: | ---: |
-| desync: 14, names matched too loosely | 10489 | 9 | 1 |
-| desync: 22, lookup not scoped per verb | 3022 | 1 | – |
-| after a QuestViva internal error | 2761 | 1 | – |
-| desync: 45, `open` marks a container seen | 1010 | 1 | – |
-| desync: timer armed after the turn's tick | 989 | 5 | 1 |
-| desync: 47, `exec` re-runs the turn scripts | 615 | 1 | – |
-| exits: out and dirs split | 369 | 6 | 5 |
-| desync: 37, an object name is trimmed | 338 | 1 | – |
-| take: implied remove (QV defect) | 116 | 14 | 4 |
+| desync: a command swallowed at a menu | 5320 | 1 | – |
+| unclassified | 2800 | 10 | 8 |
+| desync: the portal's mist cycles a turn apart | 2324 | 1 | – |
+| desync: timer armed after the turn's tick | 645 | 2 | 1 |
+| desync: 47, `exec` re-runs the turn scripts | 620 | 1 | – |
+| menu skipped, choice typed as a command | 570 | 1 | – |
+| desync: 37, geas trims a declared name | 338 | 1 | – |
+| desync: 14, names matched too loosely | 129 | 2 | – |
 | desync: 54, no pre-2.80 room display | 104 | 3 | 1 |
-| cp1252 text not transcoded | 92 | 13 | 9 |
-| 14, names matched too loosely | 75 | 8 | 5 |
-| container contents not listed | 74 | 18 | 15 |
-| desync: 52, `set interval` applies a cycle late | 46 | 1 | – |
-| disambiguation menu wording | 39 | 9 | 6 |
-| desync: 53, place alias not version-gated | 37 | 1 | – |
+| desync: 53, place alias not version-gated | 37 | 1 | 1 |
 | desync: 72, `action <drop>` runs where Quest drops | 20 | 1 | – |
-| QuestViva defect | 18 | 7 | 2 |
-| 56, type applied out of source order | 16 | 1 | 1 |
-| 57, timers tick at the wait | 14 | 2 | 1 |
-| 22, lookup not scoped per verb | 12 | 3 | – |
-| room display: no pre-2.80 path | 10 | 4 | – |
+| command echo realigned by a shifted cut-scene | 18 | 2 | 1 |
+| room display: no pre-2.80 path | 14 | 4 | 2 |
 | picture caption printed as text | 10 | 3 | 3 |
-| 65, inventory order below 2.80 | 10 | 4 | 2 |
-| tag value truncated at `;` | 10 | 1 | 1 |
-| menu skipped, choice typed as a command | 6 | 2 | – |
-| `error <defaultake>` is spelt with one t | 6 | 1 | – |
-| `oops`/`the` answered where Quest is silent | 5 | 1 | 1 |
+| 65, inventory order below 2.80 | 10 | 4 | 4 |
+| 14, names matched too loosely | 7 | 1 | – |
+| `oops`/`the`: Quest answers nothing | 5 | 1 | 1 |
 | 62, pre-280 `look` name lookup | 4 | 1 | 1 |
-| 47, `exec` runs the turn scripts again | 4 | 2 | – |
-| command echo realigned by a shifted cut-scene | 4 | 1 | 1 |
-| `<ERROR>` not produced at load time (known) | 4 | 2 | 1 |
-| 63, `place locked` exit dropped | 4 | 1 | 1 |
+| 47, `exec` runs the turn scripts again | 4 | 2 | 2 |
+| 15, `quest.objects` joins with `" and "` | 4 | 1 | 1 |
+| `<ERROR>` not produced at load time (known) | 4 | 2 | 2 |
+| container contents not listed | 3 | 3 | 2 |
 | 64, `\|w` does not end the line | 3 | 1 | – |
-| exits: 4.10 single line | 3 | 2 | 1 |
-| 37, `use on <name >` not trimmed | 2 | 1 | 1 |
-| `quest.formatobjects`: flat comma list | 2 | 1 | – |
+| take: geas answers the implied remove | 2 | 1 | – |
+| `quest.formatobjects`: flat comma list | 2 | 1 | 1 |
 | 43, `property <obj; name=value>` true in geas | 1 | 1 | 1 |
 | 46, empty `place <>` dropped | 1 | 1 | 1 |
 | 40, `outputoff <>` obeyed | 1 | 1 | 1 |
-| 15, `quest.objects` joins with `" and "` | 1 | 1 | – |
-| 42, `msg nospeak` dropped | 1 | 1 | 1 |
+| QuestViva defect | 1 | 1 | 1 |
+| exits: 4.10 single line | 1 | 1 | 1 |
+
+The `unclassified` row is ten games, and it is where the next work is.  Two of
+them are almost all of it, and both were hidden behind a desync until this
+sitting:
+
+* **Barbarian**, 1 690 lines.  Its room listing pluralises where Quest does not
+  (`a stone Coffin and a Stone pressure plate is here.` against Quest's `are
+  here.`), and a few turns later `put bones in sack` succeeds in geas and is
+  refused in Quest, which parts the two for good.  The `is`/`are` half looks
+  like a small fix; the `put` half has not been run to ground.
+* **Blight of Elantria**, 981 lines.  geas punts across the lake and Quest does
+  not follow, so from there geas is exploring an island Quest never reaches.
+  Its old 995-line desync (finding 45, then the oracle's dead implied-removal
+  path) is gone; this is a different and genuine divergence underneath it.
+* **Pyramid of Terror**, 57 lines: geas lists a goth and a jane eyre book in the
+  room that Quest does not.
+* **Wizard**, 17 lines, and the four one- and two-line tails in MichaelsGame,
+  Shipwrecked, OnTheFarBlue, SomethingBoutAHex and ShadowMasters — the first two
+  of which are a stray space in an object's display name, in opposite
+  directions, and are probably finding 37's trimming seen from both sides.
+* **PilgrimsProgress**, 45 lines, where geas needs more `struggle` turns than
+  Quest to climb out of the Slough of Despond (finding 52's, though the rule
+  that used to catch it no longer fires).
 
 Each finding below cites the line in both engines, so it can be checked
 without re-running anything.
@@ -94,6 +121,16 @@ The full stop is unconditional, not "added if missing": One Robot's
 the corpus's only double stop.
 
 ### 2. A bare `wait` prints nothing
+
+**Fixed** (`geas-runner.cc:7117-7152`).  `st_wait` now takes all three of
+`ExecuteWaitAsync`'s branches, and takes them off the *unevaluated* rest of the
+line the way Quest does, so `wait <>` still counts as carrying a message and
+prints it -- nothing.  That distinction is most of the corpus: Prison Break,
+MetroidLite, Ponyville, Burglary, Treasure Hunt, The Statue of Riddles, The
+Former and Lazy Gun Cult all write `wait <>`, and The Devil's Bargain is the
+one game that gains the default line.  `waitdefault410.asl`,
+`waitdefault410err.asl` and `waitdefault400.asl` pin the three branches, and
+qv4 no longer drops the line, so the corpus checks it too.
 
 `st_wait` (`geas-runner.cc:6176-6193`) passes the message to
 `gi->wait_keypress (tok)`, which prints nothing when `tok` is empty.  Quest's
@@ -223,9 +260,9 @@ objects whose `ContainerRoom` is `"inventory"` (ibid. 4502).  26 games.
 
 ### 7. Exit lines come out in the wrong order
 
-**Fixed.**  `geas-runner.cc:2130-2150` puts the places line first from 2.80 on
-and keeps the pre-2.80 out / directions / places order below it.  Finding 8 is
-deliberately left alone: out and the directions are still two lines.
+**Fixed.**  `geas-runner.cc:2434-2475` puts the places line first from 2.80 on
+and keeps the pre-2.80 out / directions / places order below it.  Finding 8,
+the line the out and directions sentences share, went with it.
 
 For ASL 2.80 and up, `ShowRoomInfo` appends the places line to
 `roomDisplayText` (`V4Game.Part2.cs:3838-3874`) and prints the `out`/
@@ -242,6 +279,15 @@ geas:  You can go west.                    qv4:  You can go to your bed or the b
 22 games.
 
 ### 8. `out` and the directions belong on one line
+
+**Fixed**, from 2.80 up only (`geas-runner.cc:2456-2475`).  The gate is real:
+`ShowRoomInfoV2` ends each of its three sentences with its own `vbCrLf`
+(`V4Game.Part2.cs:2022`, 2056, 2092), so below 2.80 they are three lines and
+Quest 4.1.5 itself prints them that way — `doorways210.asl` is the half of the
+pair that pins it, `doorways400.asl` the half that pins the join.  2.80 also
+bolds the word `out` (`"You can go |bout|xb to "`, ibid. 7308) where the older
+path leaves it plain, and that went with the fix; both versions have always
+bolded the directions, which is where `quest.doorways.dirs` gets its markup.
 
 `UpdateDoorways` builds `You can go out to <place>.` and `You can go <dirs>.`
 into a single returned string separated by a space
@@ -369,6 +415,13 @@ Money and Koww), Magic Sword with 57 of them and Devil's Bargain with 39.
 
 ### 12. Looking at (or opening) a container does not list its contents
 
+**Fixed.**  `list_contents` (`geas-runner.cc:1140-1232`) is Quest's
+`ListContents`, header rule and all, and `do_look` (`:1225-1252`) runs it from
+3.91 on, before the fallback error so that an undescribed container answers
+with its contents rather than with "Nothing out of the ordinary".  `open` goes
+through the same `do_look` (`:3541-3571`), which is why opening a container now
+shows both its description and what is in it.
+
 From ASL 3.91 on, *every* object description ends with the object's contents
 listing; geas produces one only for the separate `look in` verb, so both
 `look at`/`x` and `open` come out short:
@@ -442,6 +495,11 @@ Note that this is engine behaviour, not the type library: only two corpus games
 
 ### 13. `.asl` / `.cas` text is not transcoded from Windows-1252
 
+**Fixed.**  `cp1252_to_utf8` (`geas-util.cc:394-420`) carries the 32
+positions where Windows-1252 and Latin-1 part company, and `readfile.cc:710`
+applies it to game text -- unless the file is already valid UTF-8, which a
+later author's editor may have made it.
+
 Quest's `Chr`/`Asc` go through cp1252, so `©`, `£`, curly quotes and accented
 letters come out right; geas passes the bytes through and they land in the Glk
 buffer as mojibake.  14 games — Nearco, Something 'Bout A Hex, Green Light,
@@ -464,13 +522,13 @@ word-matches the raw ASL *name*, so it accepts nouns Quest rejects:
 | Nearco | name `Prisma`, alias `piedra tallada` | `use casco on prisma` | resolves | `Ese objeto no existe.` |
 | Social Studies | name `Letter`, alias `Envelope` | `open letter` | opens it | `I can't see that here.` |
 
-Every one of those walkthroughs depends on the loose match, so each of those
-games diverges for the rest of the run.  Nearco's is the sharpest: the prism is
-made by `use piedra on roca`, and every later puzzle needs it, so a single
-alias lookup decides the whole game.  Social Studies shows the quieter shape:
-the failed `open letter` skips a `show <Note>` / `reveal <Note>`, so the Note
-never joins the Lobby's object list and every later description of the room is
-one object short in qv4.
+Those are the phrasings the walkthroughs used to type (they have since been
+reworded — see below), and each of them cost the rest of the run.  Nearco's was
+the sharpest: the prism is made by `use piedra on roca`, and every later puzzle
+needs it, so a single alias lookup decided the whole game.  Social Studies shows
+the quieter shape: the failed `open letter` skipped a `show <Note>` / `reveal
+<Note>`, so the Note never joined the Lobby's object list and every later
+description of the room was one object short in qv4.
 
 The exact-match half of geas's `match_object` is right — with an alias present,
 `alias` is what `text` is compared against — so this is entirely the *partial*
@@ -500,19 +558,45 @@ A probe, at 4.10 and with no `exec` in sight:
  He is cleaning the glasses.
 ```
 
-Nine further corpus games type an aliased object's ASL name — after discounting
-the ones Quest still reaches as a word-initial abbreviation of the alias
-(finding 48), which is how `post it` finds `post it note` and `woodsman` finds
-`Steven the woodsman`: The Birthday Assignment (`bartender`, `kevin`), Briny
-Blue (`rock pile`), Enterprising (`useless card`), Pure Chaos (`box2`, `dws`),
-Shadow Masters (`door to hotel`, `door to men's restroom`), Social Studies
-(`letter`), Sutekh (`sute stonehouse`), Treasure Hunt (`silver bracelet`) and
-YOU ARE A TIGER (`phone`).  Most of those lose a turn each.  The Birthday
-Assignment loses the game: the bartender and the homeless man are its two
-conversation trees, and `punch bartender` — the script that walks the player out
-of the tavern — never runs, so Quest is still in the Prospect Inn while geas is
-three rooms away, and the walkthrough's menu answers are read as commands
-("`> 2`", "I don't understand your command").
+Thirteen corpus games typed an aliased object's ASL name — after discounting the
+ones Quest still reaches as a word-initial abbreviation of the alias (finding
+48), which is how `post it` finds `post it note` and `woodsman` finds `Steven
+the woodsman`.  Between them they were 10 324 diff lines, more than half the
+corpus's total, and all any of them proved was this finding over and over: a
+desync at turn 30 hides every divergence after it, so a whole transcript spent
+re-proving one known bug bought no evidence about anything else.
+
+**The scripts have been reworded** to phrasings both engines accept — `take
+silver`, not `take silver bracelet`.  That costs nothing, because geas's
+matching is a strict *superset* of Quest's: any noun Quest resolves, geas
+resolves the same way, so nothing in the fourteen reworded walkthroughs plays
+differently in geas (each was re-run before blessing, and every line but the
+command echoes was unchanged).  Eight of them are byte-identical to Quest now,
+and Something 'Bout A Hex's remaining 5 320 lines are a *different* divergence
+that this one had been hiding — a command one of the two engines swallows at the
+Christ Church menu.
+
+The finding itself is pinned by `../../fixtures/loosename.asl` instead, which
+types three of the old phrasings and gets three answers Quest would refuse.  The
+day the partial pass is tightened, that fixture moves and the rewording stays
+correct.
+
+Two games cannot be reworded, and they are the interesting ones, because in both
+the loose match is the *only* thing that makes the game playable:
+
+* **Pure Chaos.**  `define object <dws>` / `alias <disc with square>` is the key
+  to the observatory door, and its alias cannot be typed: `USE DISC WITH SQUARE
+  ON OBSERVATORY DOOR` splits on `" with "` long before it splits on `" on "`,
+  and the game header's own `use disc with square = use disc on square` synonym
+  rewrites the front of it first for good measure.
+* **Shadow Masters.**  The Room Key carries `use on <Door to hotel>` and no
+  object of that name was ever declared — the author wrote the tag and forgot
+  the door.  geas resolves the tag's target as a name and unlocks Courtyard 2's
+  east exit; Quest says `I can't see that here.`, and there is no other way
+  through.
+
+So a real Quest 4.1.5 cannot finish either game.  Tightening the matcher would
+make geas match it — including in that.
 
 ### 15. `quest.objects` joins with `" and "`
 
@@ -735,6 +819,15 @@ half needs `regen_var_dirs` to take the same route.
 
 ### 21. The disambiguation menu is worded differently, and its options lose the prefix
 
+**Fixed** (`geas-runner.cc:3982-3998`, 4011-4018), and measured in Quest 4.1.5
+itself: three beds aliased `bed`, one with a prefix, one with neither, one with
+both a prefix and a `detail`, list as `a bed`, `bed` and `a rickety bed` —
+the detail wins outright and its own prefix is not prepended.
+`fixtures/disambig.asl` is that game.  What geas does *not* emit is the `- `
+marker or the italics: those are the Quest window's presentation of a menu, and
+geas hands the caption and the labels to the host to lay out
+(`GeasGlkInterface::make_choice`).
+
 geas asks `Which <noun> do you mean?` (`geas-runner.cc:3293`).  Quest asks
 `Please select which <noun> you mean:`, printed italic behind a `- ` marker
 (`V4Game.cs:4802-4803`), and echoes the chosen option back as `- <option>|n`
@@ -763,6 +856,11 @@ menu — caption, numbered options, chosen answer — into geas's layout, so wha
 is left is only the text.)
 
 ### 22. Object lookup is not scoped per verb
+
+**Fixed.**  A noun is resolved against the scope the verb dispatches in
+rather than against everything in reach (`geas-runner.cc:6846-6900`);
+`verbscope.asl` and `verbscope350.asl` pin it either side of the version
+gate.
 
 geas resolves every noun against the same two places, inventory and the current
 room (`dereference_vars`, `geas-runner.cc:3157-3162`).  Quest passes a scope to
@@ -1044,6 +1142,12 @@ whole rewrite mechanism is invisible in geas.)
 
 ### 30. The take-success error key is spelt `defaultake`, with one t
 
+**Fixed** with finding 4: `asl_error_index` (`geas-runner.cc:1528`) reads
+the key under Quest's spelling, so `error <defaultake; ...>` reaches the
+take-success message and the five corpus games that write `defaulttake` redefine
+`badcommand` instead, exactly as they do in Quest.  `errornames.asl` is the
+fixture.
+
 What finding 4's spelling bullet costs, measured.  Quest's error-key table has
 the typo (`V4Game.Part2.cs:1472`), and QuestViva
 reproduces it, so `error <defaultake; …>` is what a game must write to override
@@ -1271,6 +1375,11 @@ unclassified for a long time.
 
 ### 35. `place locked <room; message>` is thrown away
 
+**Fixed** with finding 63: `place_param` (`geas-runner.cc:1676-1700`)
+consumes the optional `locked` keyword after the direction word and keeps the
+message, so a locked place prints the author's refusal instead of being read as
+one long room name.  `outlocked.asl` is the fixture.
+
 `RoomExits.AddExitFromTag` strips the `locked ` keyword *before* it looks at
 what kind of exit this is, so a place gets the same treatment as a compass
 direction (`RoomExits.cs:145-149`):
@@ -1306,6 +1415,10 @@ the destination as a *prefix* and the lock message as the room name
 (`V4Game.Part2.cs:1216-1234`) — so this is a 4.10-and-up statement.
 
 ### 36. A `type <…>` line does not override the properties written above it
+
+**Fixed** with finding 56: `geasfile.cc:472-500` reads a define block in
+one pass, in source order, so a `type <...>` line applies where it stands and
+the last writer wins.  `typeorder.asl` is the fixture.
 
 Quest reads an object block one line at a time and applies each line as it comes
 to it, and a `type <…>` line is applied by pushing the type's whole property list
@@ -1371,6 +1484,13 @@ type's `prefix` is not merely shorter but different — `undies` sets
 in the replay prints.
 
 ### 37. `use on <…>` keeps a trailing space the object's name has lost
+
+**Fixed** in its first half only.  `use <a> on <b>` and `give <a> to <b>` trim
+the names they rewrite, as the `define` header already did
+(`readfile.cc:202-208`); `usespacename.asl` is the fixture.  The second half
+below — geas trimming a declared *object* name where Quest does not, so Metal
+Sonic's Quest can be finished here and not there — stands on purpose, and is
+what MetalSonicsQuest's `DESYNC` anchor still credits.
 
 geas trims the name in a `define` header (`readfile.cc:202-208`) because so much
 else about a name arrives trimmed:
@@ -1446,6 +1566,11 @@ engine.
 
 ### 38. The abbreviation pass needs a whole word, where Quest needs only a word start
 
+**Fixed** with finding 48, which is this finding re-measured: `word_match`
+grew a `need_right_boundary` parameter, false on the abbreviation pass
+(`geas-runner.cc:3067-3090`, `:3145-3146`), so geas matches word-initially like
+Quest.
+
 Quest's second disambiguation pass — the one gated on ASL ≥ 3.91 and
 `abbreviations` — is a single `InStr` against the object's display name with a
 space glued to the front of both sides (`V4Game.cs:4760-4766`):
@@ -1498,6 +1623,12 @@ on its tripod on the geas side, Sir Loin 2's poster is read instead of the post
 being taken.
 
 ### 39. A room tag containing a semicolon is truncated at every ASL version
+
+**Fixed** with finding 55: the truncation of a tag value at its first
+semicolon is version-gated (`readfile.cc:169-180`), so a room or object tag that
+contains one keeps it where Quest keeps it.  `tagsemicolon.asl`,
+`tagsemicolon320.asl` and `tagsemicolon350.asl` pin the three sides of the
+gate.
 
 geas rewrites each recognised tag line into a property line
 (`readfile.cc:350-353`):
@@ -1662,6 +1793,10 @@ divergence is display-only here — but it need not be: the same table backs
 and stuck in Quest.
 
 ### 42. `msg nospeak <…>` prints nothing
+
+**Fixed.**  `nospeak` is consumed as the keyword it is
+(`geas-runner.cc:6636-6650`), so `msg nospeak <...>` prints nothing;
+`msgnospeak.asl` is the fixture.
 
 `nospeak` is an ASL keyword (`Libraries/quest.dat:204`) that suppresses the
 text-to-speech reading of a message.  Quest ignores it when printing, because
@@ -1851,6 +1986,12 @@ player who types `the door` at a game with no `the` command gets no answer at
 all.
 
 ### 45. `open` and `close` mark a container `seen`
+
+**Fixed.**  The `set_obj_property (obj, "seen")` at the head of the
+open/close dispatch is gone (`geas-runner.cc:4286-4305`): only `do_look` sets
+the flag, so a refused `open` no longer brings a hidden container's contents
+into scope and The Blight of Elantria keeps its bronze key where Quest keeps
+it.  `openseen.asl` is the fixture.
 
 Everything parented inside a container is out of scope until the container is
 both open (or transparent, or a surface) *and* `seen`:
@@ -2592,6 +2733,8 @@ one in Quest; Space's `place <Science Lab>` leads to a room the author aliased
 
 ### 55. A tag value is cut off at its first semicolon
 
+**Fixed** with finding 39 (`readfile.cc:169-180`).
+
 geas rewrites every tag-property line into the object-property form as it reads
 the file — `look <alpha; beta>` becomes `properties <look=alpha; beta>`
 (`readfile.cc:349-353`) — and a `properties <…>` list is `;`-separated, so the
@@ -2624,6 +2767,8 @@ room is
 of which geas prints the first eight words and stops.
 
 ### 56. A `type <…>` line is applied where it stands, not before the object's own tags
+
+**Fixed** with finding 36 (`geasfile.cc:472-500`, `typeorder.asl`).
 
 geas resolves an object's inherited types first and then lets the object's own
 properties override them, whatever the source order.  The comment in
@@ -2699,6 +2844,9 @@ taking `is_type` entries as they come; the two-pass form stays correct for the
 type-first ordering, which is what every other corpus game writes.
 
 ### 57. Timers tick at the turn's first `wait`, not at the end of the turn
+
+**Fixed**; the shape of the change is described at the end of this
+section.
 
 `SendCommand` starts the turn, waits for it to *suspend*, and only then ticks:
 
@@ -3256,6 +3404,8 @@ folding into the same version gate if 62 is fixed.
 
 ### 63. `place locked <...>` is not parsed, so the exit vanishes entirely
 
+**Fixed** with finding 35 (`geas-runner.cc:1676-1700`, `outlocked.asl`).
+
 Quest strips the `locked ` keyword *after* the direction word, and `place` is
 one of the direction words `AddExitFromTag` accepts (`RoomExits.cs:120-146`):
 
@@ -3766,17 +3916,45 @@ so it is recorded rather than filed.
 
 Where these appear, geas is right and the oracle is wrong.
 
-* **DromBennacht** — `NullReferenceException` during load.
-* **A Certain Oscar** — fails to initialise.
-* `[An internal error occurred]` — 16 lines across 8 games.  Run any of them
-  with `QVH_LOG=1` and the log names the offending script line; all sixteen
-  come from three causes, and two of the three are translation defects.
+Three of them have since been **fixed** rather than worked around, in sections
+11–13 of `../../quest5/harness/oracle/patch_questviva.py`, and the corpus went
+from 57 identical transcripts to 65 on the strength of it.  All three are the
+same translation slip in three places, so they share one helper: VB6's `Type`
+was a *value*, and QuestViva translates it to a `class`.  An unassigned array
+slot was a real zeroed record rather than `null`, and `a = b` copied every field
+rather than aliasing.  `QvhRecord.cs` restores both by reflection — deliberately
+not by hand, because seventy assignments go quietly stale the moment upstream
+adds a field, which is the one failure mode a ground-truth oracle must not have.
+
+* **DromBennacht** — `NullReferenceException` during load.  **Fixed** by
+  section 11; it is a 1-line diff now.
+* **A Certain Oscar** — fails to initialise.  **Not a defect.**  The game
+  `!include`s `movecont.lib`, which is not on disk, and QuestViva's
+  `FATAL ERROR: Library not found` is what a real Quest does with a missing
+  library.  geas is the lenient one here: `readfile.cc` special-cases only
+  `net.lib` and `stdverbs.lib` and reads on regardless of the rest.  The game
+  is uncomparable until the library is found, not broken.
+* **`TLTclothing` kills it at load.**  Give an object the type library's
+  `TLTclothing` (or any of the eleven garment types built on it — `TLThat`,
+  `TLTshoes`, `TLTdress`, …) and `SetUpCharObjectInfo` throws
+  `NullReferenceException` out of `GetPropertiesInType` →
+  `DoInternalFunction` (`V4Game.cs:7179`) before the first turn.  geas plays
+  such a game fine.  It is why `fixtures/typelibsyn.asl` dresses its hat in
+  `TLTobject`: the fixture has to be runnable on both sides to be worth
+  anything.
+* `[An internal error occurred]` — was 16 lines across 8 games; **one** now, and
+  that one is geas's divergence rather than QuestViva's (see `pause <>` below).
+  Run any of them with `QVH_LOG=1` and the log names the offending script line;
+  all sixteen came from three causes, and two of the three were translation
+  defects.
   (`$str…$` rendering as `[ERROR]` was filed here too and is not a defect: an
   unknown function really does yield `[ERROR]` in Quest — see finding 51 — and
   geas's empty string is the divergence.)
 
 **`_objs` is a class, so index 0 is `null` where VB6 had a zeroed record.**
-This is the big one — 12 of the 16 lines.  `ObjectType` was a VB6 `Type`, so
+**Fixed** — patch section 11 fills `_objs[0]` and `_rooms[0]` with
+`QvhZeroedRecord<T>()` in `SetUpGameObject`.  This was the big one — 12 of the
+16 lines.  `ObjectType` was a VB6 `Type`, so
 `_objs(0)` was a real, blank element and reading it was harmless; QuestViva
 declares it `internal class ObjectType` (`V4Game.Types.cs:214`) and leaves
 `_objs[0]` unassigned, so the same read throws.  Two routines do exactly that:
@@ -3814,8 +3992,9 @@ Freshman Fantastic's Tom says `#name:#` — an object called `name`, no property
 +[An internal error occurred]
 ```
 
-**`clone` copies a reference, so it renames the original.**  Also a value-type
-translation slip, and a nastier one because it corrupts the world model rather
+**`clone` copies a reference, so it renames the original.**  **Fixed** — patch
+section 12 makes both assignments `QvhCopyRecord(...)`.  Also a value-type
+translation slip, and a nastier one because it corrupted the world model rather
 than just throwing:
 
 ```csharp
@@ -3837,9 +4016,29 @@ Market>`, and tracing `id` through the walkthrough shows the damage:
 ### CLONE name={Tomato}  id=0   n=438      <- "Tomato" no longer exists
 ```
 
-The second sale renames the only Tomato to `Tomato2`; the third cannot find one,
-falls into `_objs[0]`, and takes the following `show` and `give` down with it —
-three lines, and the player never gets the fruit.
+The second sale renamed the only Tomato to `Tomato2`; the third could not find
+one, fell into `_objs[0]`, and took the following `show` and `give` down with it
+— three lines, and the player never got the fruit.  With section 12 in place the
+greengrocer's whole vegetable puzzle agrees exactly on both sides.
+
+**`ExecTake` never sets `isInContainer`, so the implied removal is dead code.**
+**Fixed** — patch section 13.  Taking an object that is inside a container makes
+Quest remove it first and say so; QuestViva translated the block but dropped the
+one line that arms it, so the block could never run:
+
+```csharp
+            var parent = GetObjectProperty("parent", id, false, false);
+            parentID = GetObjectIdNoAlias(parent);
+```
+
+This was the riskiest of the three to patch, because `## Ground truth` below
+records a hand-driven Quest 4.1.5 probe that appears to say the opposite.  It
+was settled by measurement instead of by argument: restoring the line made
+**seven more whole transcripts byte-identical**, which is far stronger evidence
+than one probe whose note names the wrong engine as the one printing the
+parenthetical (see the correction there).  What is left over is geas's own: it
+prints the `remove` command's answer as well as the parenthetical, and Quest
+prints nothing.  Only Wizard reaches it, 57 times, always `Done.`
 
 **`pause <>` is a type mismatch in VB6 too.**  Sir Loin's one line is
 `Conversions.ToInteger("")` throwing out of `V4Game.Part2.cs:5998`; `CInt("")`
@@ -3852,7 +4051,7 @@ Two things previously filed here are not QuestViva's fault after all.  The
 unconsumed `|s9|` (Uranus) and `|"` (The Lazy Gun Cult) codes are Quest
 behaving correctly — see finding 33 — and the two `<ERROR>` markers are geas's
 own documented compromise, below.
-* Three defects were fixed rather than worked around, in
+* Earlier defects fixed the same way, in
   `../../quest5/harness/oracle/patch_questviva.py`: the CAS loader's character
   set (section 9), and `Begin()` not honouring the turn-suspension handshake
   (section 10), which used to deadlock eight games.  There are now no timeouts
@@ -3874,26 +4073,94 @@ Things that could plausibly have diverged and do not:
 * The leading space VB's `Str()` puts in front of a positive number (`" 4"`) is
   display-only and is normalised away.
 
+## Ground truth: the real Quest 4.1.5
+
+Everything above is measured against QuestViva, which is Alex Warren's C# port
+of his own VB6 Quest 4 — a very close translation, but a translation, and the
+section above this one is the list of places it is wrong.  So the original was
+stood up as well: `quest415.exe` installed under Wine (Gcenx Wine Devel, x86_64
+via Rosetta), driven by screenshot and keystroke, with hand-written probe games
+in `~/quest-oracle/`.  It is far too slow to replay the corpus through, but it
+settles a disputed line in a couple of minutes, which is what it is for.  Two
+notes for anyone repeating it: the installer must be run for real
+(`/VERYSILENT /SUPPRESSMSGBOXES /NORESTART`) because `regsvr32` will not
+register the OCXs by hand, and the .asl must have CRLF line endings or Quest
+reports "No 'define game' block".
+
+Six classes were put to it.  Three confirmed geas and convicted the oracle:
+
+* The implied removal.  Quest announces it — `(first removing it from X)` —
+  and so does geas.  qv4 printed nothing, because its `ExecTake` never set
+  `isInContainer` and the whole block was dead code; patch section 13 revives
+  it and seven transcripts went byte-identical.  What still divides the two is
+  smaller and geas's own: geas prints the `remove` command's answer as well.
+  Only Wizard reaches it, 57 times, always `Done.`
+
+  *This bullet used to say the reverse* — that the parenthetical was qv4's and
+  geas printed `You pick it up.` alone.  It is corrected rather than deleted
+  because it is the one place in this file the two engines got swapped, and the
+  swap is easy to repeat: in `out/*.diff` the `---` side is geas and the `+++`
+  side is qv4, so a `-` line is geas's.  The code diagnosis was right all along;
+  only the attribution was backwards.
+* `look at <container>` lists the contents (finding 12).
+* Inventory wording and order.
+
+Three convicted geas.  Two are now fixed against it:
+
+* **Exit lines** (finding 8) — from 2.80 Quest prints the out and directions
+  sentences as one line, not two, with the places line above them; below 2.80
+  they really are three lines, which is the gate the fix carries.
+* **Disambiguation** (finding 21) — the prompt is
+  `Please select which X you mean:` and an option without a `detail` is
+  labelled `<prefix> <alias>`.
+
+The third is still open:
+
+* **Noun matching** (finding 14) — geas is too loose.  Given
+  `alias <Silver>` + `suffix <bracelet>`, real Quest answers TAKE SILVER
+  BRACELET with `I can't see that here.` and only TAKE SILVER works.  geas
+  accepts both.
+
+The installer is worth keeping for a second reason: it ships the authoritative
+`standard.lib`, `stdverbs.lib` and `typelib.qlb`, and `versions.txt`, the full
+changelog back to 1998.  Diffing the two bundled copies against them found
+`stdverbs_builtin.hh` identical bar trailing whitespace, and one real gap in
+`typelib_builtin.hh`: it was missing the library's `!addto synonyms` block, so
+a game that includes the type library did not answer PUT X IN Y, DON X, TAKE
+OFF X, SHUT X, LOOK INTO X, TAKE X OUT OF Y or TALK TO X, all of which Quest
+does.  The bundled copy is verbatim now, and `fixtures/typelibsyn.asl` pins
+each phrasing beside the verb it rewrites to.  (No corpus game moved: King's
+Quest V is the only one that includes the library, and it uses none of them.)
+
 ## Loose ends
 
 * The Quest 5 oracle harness
   (`../../quest5/harness/oracle/Program.cs`) has **not** been given the
   `CultureInfo.InvariantCulture` pin.  Its goldens were generated under
   `en_SE`, so adding it would move them; it needs checking on its own terms.
-* The unclassified pile is **empty**: all 20 348 lines are accounted for.  It
+* The unclassified pile is **2 800 lines across 10 games**, all named above.  It
   started at 17443 lines across 68 games, and mining it is where findings 19-73
   came from, so the pile having earned its keep is the reason to distrust an
   empty one — a rule that swallows a line is only as good as the reading behind
-  it.  (The last five went with the fixes for 16-33: Freshman Fantastic's `-!`
-  was finding 28's sentinel, and the four stray exits- or room-line halves —
-  Broken Mirror's, Space's and two of Skate Ur Ass Off's — paired up again once
-  the exit lines themselves stopped diverging.)  Each bucket's
-  comment in `triage.py` says what that reading was; the ones to re-examine
-  first if a golden moves are the two generic ones, "command echo realigned by
-  a shifted cut-scene" and the `desync:` anchors, which credit whole runs to a
-  single cause.  The `wait` fix is one worked example: re-blessing the goldens
-  emptied one bucket and refilled the pile with nine lines that belonged to
-  another.
+  it.  It did reach empty, with the fixes for 16-33, and did not stay there:
+  PilgrimsProgress's 45 lines are finding 52's, whose rule stopped firing when
+  the lines around it moved, and OnTheFarBlue's 2 are a room name Quest prints
+  with a space before the stop.  It grew back to 2 800 the moment finding 14's
+  desyncs were reworded away, which is the same lesson pointing forwards: a
+  pile that small was small because most of the corpus was not being measured.
+  Each bucket's comment in `triage.py` says what
+  that reading was; the ones to re-examine first if a golden moves are the two
+  generic ones, "command echo realigned by a shifted cut-scene" and the
+  `desync:` anchors, which credit whole runs to a single cause.  The `wait` fix
+  is one worked example: re-blessing the goldens emptied one bucket and refilled
+  the pile with nine lines that belonged to another.  The `desync:` anchors are
+  the other: marking findings 22, 45 and 37 fixed left three of them still
+  crediting 3 560 lines to bugs that were gone, and `firstdiff.py` showed two of
+  the three now part for a QuestViva reason instead.  A `desync:` label is a
+  claim about a cause, not a scar — re-read it whenever its finding closes.
+  Nine more went the same way at once when their walkthroughs were reworded:
+  a `desync:` anchor is also a claim that the divergence was worth spending a
+  transcript on, and for finding 14 it had stopped being true.
 * Findings 1 and 66-67 are the same lesson from the other end — what a *fix*
   does to a bucket.  Finding 1's was two blanket regexes, `^You are in .*\.$`
   on the qv4 side and `^You are in .*[^.]$` on the geas side.  While the stop

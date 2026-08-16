@@ -744,9 +744,9 @@ You can go east.
 You are in a small games room filled with toys and games. The walls are painted with colourful cartoon patterns and a small window lets in a tiny bit of light.  There are several cupboards and boxed here.
 
 > give key to sir
-Which key do you mean?
-1) key
-2) cemetery key
+Please select which key you mean:
+1) the toy box key
+2) the cemetery key
 [choice] 1
 You give the key to Sir Halibut.  He gets excited and opens up the toy box he was sitting on.  He pulls out something you can't see and skips off merrily
 
@@ -917,9 +917,9 @@ You give the sword to Sir Dwane.
 "Perfect" he says.  "All I need now is a design to work from"
 
 > give rubbing to sir
-Which rubbing do you mean?
-1) rubbing
-2) brass rubbing kit
+Please select which rubbing you mean:
+1) a rubbing
+2) a brass rubbing kit
 [choice] 1
 You give the rubbing to Sir Dwane
 

@@ -22,7 +22,7 @@ Coges la piedra.
 > use piedra on roca
 Frotas la piedra contra la roca durante varios minutos hasta que consigues darle la forma de un prisma.
 
-> use casco on prisma
+> use casco on piedra tallada
 Introduces el prisma dentro del casco y lo sujetas con la correa que se ata debajo del mentón, consiguiendo que el trozo de roca quede suspendido en el aire, en el centro semiesférico del casco.
 
 > use hueso on pañuelo

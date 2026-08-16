@@ -1191,8 +1191,7 @@ You can see a small island to the southwest, and what seems to be a small pier a
 
 > south
 You are sitting in your rowboat next to a small, rotting pier that extends from the island.
-You can go out to the island pier.
-You can go north, south, east, northeast or southeast.
+You can go out to the island pier. You can go north, south, east, northeast or southeast.
 
 > out
 You tie the bow of the rowboat loosely around one of the pier's planks, and step onto the pier.
@@ -1248,8 +1247,7 @@ The pier is of poor construction, consisting simply of two long planks that are 
 > go to the rowboat near island
 You untie your boat and hop in.
 You are sitting in your rowboat next to a small, rotting pier that extends from the island.
-You can go out to the island pier.
-You can go north, south, east, northeast or southeast.
+You can go out to the island pier. You can go north, south, east, northeast or southeast.
 
 > north
 You are rowing your boat in the bay.
@@ -1276,8 +1274,7 @@ You can go north, south, east, west, northeast, southeast or southwest.
 
 > north
 You are sitting in the rowboat you rented, alongside the small pier.
-You can go out to the pier.
-You can go south, east, southeast or southwest.
+You can go out to the pier. You can go south, east, southeast or southwest.
 
 > out
 You are standing on a small pier.

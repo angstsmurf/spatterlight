@@ -45,8 +45,7 @@ Throughout the game you can fimd cleaning points.  When you have found all ten, 
 You descend the rickety stairs to the living room below
 You are in the living room.
 There is mat, your cat and a bowl here.
-You can go out to street.
-You can go west or up.
+You can go out to street. You can go west or up.
 You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
 
 > look at mat
@@ -91,8 +90,7 @@ You grate the onions on the grater and create some onion powder
 > east
 You are in the living room.
 There is mat, your cat and a bowl here.
-You can go out to street.
-You can go west or up.
+You can go out to street. You can go west or up.
 You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
 
 > out
@@ -142,8 +140,7 @@ You are in Shiversword's house.
 You enter your own house.  
 You are in the living room.
 There is mat, your cat and a bowl here.
-You can go out to street.
-You can go west or up.
+You can go out to street. You can go west or up.
 You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
 
 > up
@@ -162,8 +159,7 @@ You put on the peanut costume
 You descend the rickety stairs to the living room below
 You are in the living room.
 There is mat, your cat and a bowl here.
-You can go out to street.
-You can go west or up.
+You can go out to street. You can go west or up.
 You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
 
 > west
@@ -182,8 +178,7 @@ And your mum takes a leaflet.
 > east
 You are in the living room.
 There is mat, your cat and a bowl here.
-You can go out to street.
-You can go west or up.
+You can go out to street. You can go west or up.
 You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
 
 > out
@@ -422,8 +417,7 @@ You are in Shiversword's house.
 You enter your own house.  
 You are in the living room.
 There is mat, your cat and a bowl here.
-You can go out to street.
-You can go west or up.
+You can go out to street. You can go west or up.
 You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
 
 > up
@@ -448,8 +442,7 @@ In the privacy of your bedroom, you put your clothes on.
 You descend the rickety stairs to the living room below
 You are in the living room.
 There is mat, your cat and a bowl here.
-You can go out to street.
-You can go west or up.
+You can go out to street. You can go west or up.
 You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
 
 > out
@@ -484,8 +477,7 @@ You are in Shiversword's house.
 You enter your own house.  
 You are in the living room.
 There is mat, your cat and a bowl here.
-You can go out to street.
-You can go west or up.
+You can go out to street. You can go west or up.
 You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
 
 > look at mat
@@ -611,8 +603,7 @@ You are in Shiversword's house.
 You enter your own house.  
 You are in the living room.
 There is mat, your cat, a bowl and some Cat vomit here.
-You can go out to street.
-You can go west or up.
+You can go out to street. You can go west or up.
 You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
 
 > use face mask on cat vomit
@@ -634,8 +625,7 @@ You speak to your Mama
 > east
 You are in the living room.
 There is mat, your cat, a bowl and a dark Stain here.
-You can go out to street.
-You can go west or up.
+You can go out to street. You can go west or up.
 You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
 
 > out
@@ -688,8 +678,7 @@ You are in Shiversword's house.
 You enter your own house.  
 You are in the living room.
 There is mat, your cat, a bowl and a dark Stain here.
-You can go out to street.
-You can go west or up.
+You can go out to street. You can go west or up.
 You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
 
 > use bleach on stain
@@ -733,8 +722,7 @@ You place the sweets in the jar.
 > east
 You are in the living room.
 There is mat, your cat and a bowl here.
-You can go out to street.
-You can go west or up.
+You can go out to street. You can go west or up.
 You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
 You don't really want to carry the baking tray around with you, so you decide to leave it in the kitchen.
 
@@ -772,8 +760,7 @@ You are in Shiversword's house.
 You enter your own house.  
 You are in the living room.
 There is mat, your cat and a bowl here.
-You can go out to street.
-You can go west or up.
+You can go out to street. You can go west or up.
 You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
 
 > up
@@ -792,8 +779,7 @@ You put on the peanut costume
 You descend the rickety stairs to the living room below
 You are in the living room.
 There is mat, your cat and a bowl here.
-You can go out to street.
-You can go west or up.
+You can go out to street. You can go west or up.
 You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
 
 > out
@@ -956,8 +942,7 @@ You are in Shiversword's house.
 You enter your own house.  
 You are in the living room.
 There is mat, your cat and a bowl here.
-You can go out to street.
-You can go west or up.
+You can go out to street. You can go west or up.
 You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
 
 > up
@@ -976,8 +961,7 @@ In the privacy of your bedroom, you put your clothes on.
 You descend the rickety stairs to the living room below
 You are in the living room.
 There is mat, your cat and a bowl here.
-You can go out to street.
-You can go west or up.
+You can go out to street. You can go west or up.
 You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
 
 > out
@@ -1050,8 +1034,7 @@ You are in Shiversword's house.
 You enter your own house.  
 You are in the living room.
 There is mat, your cat and a bowl here.
-You can go out to street.
-You can go west or up.
+You can go out to street. You can go west or up.
 You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
 
 > west
@@ -1093,8 +1076,7 @@ You pick it up.
 > east
 You are in the living room.
 There is mat, your cat and a bowl here.
-You can go out to street.
-You can go west or up.
+You can go out to street. You can go west or up.
 You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
 
 > out
@@ -1400,8 +1382,7 @@ You are in Shiversword's house.
 You enter your own house.  
 You are in the living room.
 There is mat, your cat and a bowl here.
-You can go out to street.
-You can go west or up.
+You can go out to street. You can go west or up.
 You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
 
 > look at mat
@@ -1432,8 +1413,7 @@ You drape the sheet around you and create a crude toga.
 You descend the rickety stairs to the living room below
 You are in the living room.
 There is mat, your cat and a bowl here.
-You can go out to street.
-You can go west or up.
+You can go out to street. You can go west or up.
 You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
 
 > out
@@ -1657,8 +1637,7 @@ In the privacy of your bedroom, you put your clothes on.
 You descend the rickety stairs to the living room below
 You are in the living room.
 There is mat, your cat and a bowl here.
-You can go out to street.
-You can go west or up.
+You can go out to street. You can go west or up.
 You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
 
 > out
@@ -1733,8 +1712,7 @@ You are in Shiversword's house.
 You enter your own house.  
 You are in the living room.
 There is mat, your cat and a bowl here.
-You can go out to street.
-You can go west or up.
+You can go out to street. You can go west or up.
 You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
 
 > west
@@ -1751,8 +1729,7 @@ You show your Mama your new lute, but even that doesn't cheer her up
 > east
 You are in the living room.
 There is mat, your cat and a bowl here.
-You can go out to street.
-You can go west or up.
+You can go out to street. You can go west or up.
 You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
 
 > out
@@ -1795,8 +1772,7 @@ You are in Shiversword's house.
 You enter your own house.  
 You are in the living room.
 There is mat, your cat and a bowl here.
-You can go out to street.
-You can go west or up.
+You can go out to street. You can go west or up.
 You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
 
 > west
@@ -1814,8 +1790,7 @@ Mama looks at you and hugs you.  "My boy.  I am not mad at you now."
 > east
 You are in the living room.
 There is mat, your cat and a bowl here.
-You can go out to street.
-You can go west or up.
+You can go out to street. You can go west or up.
 You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
 
 > out
@@ -1938,8 +1913,7 @@ You are in Shiversword's house.
 You enter your own house.  
 You are in the living room.
 There is mat, your cat and a bowl here.
-You can go out to street.
-You can go west or up.
+You can go out to street. You can go west or up.
 You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
 
 > up
@@ -1958,8 +1932,7 @@ You put on the tuxedo
 You descend the rickety stairs to the living room below
 You are in the living room.
 There is mat, your cat and a bowl here.
-You can go out to street.
-You can go west or up.
+You can go out to street. You can go west or up.
 You are in a small living room.  There is a front door here with a small slot for a letterbox.  On the floor there is a large mat which extends to all the walls.
 
 > out

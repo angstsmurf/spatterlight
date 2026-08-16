@@ -1932,9 +1932,9 @@ Which peg do you wish to move?
 You pick it up.
 
 > take red marble
-Which red marble do you mean?
-1) Red marble
-2) Red marble
+Please select which red marble you mean:
+1) a large Red marble
+2) a large Red marble
 [choice] 1
 You pick it up.
 
@@ -5282,9 +5282,9 @@ You are in a very large underground temple. By the looks of things this temple o
 
 
 > use red marble on head
-Which red marble do you mean?
-1) Red marble
-2) Red marble
+Please select which red marble you mean:
+1) a large Red marble
+2) a large Red marble
 [choice] 1
 You place the red marble in an eye socket.
 
@@ -5645,226 +5645,226 @@ You can go out.
 You are in a plain and unardorned room. It seems more like a rift in space than a place.
 
 > use yellow bead on strange table
-Which yellow bead do you mean?
-1) Yellow Bead
-2) Yellow Bead
-3) Yellow Bead
-4) Yellow Bead
-5) Yellow Bead
-6) Yellow Bead
-7) Yellow Bead
-8) Yellow Bead
-9) Yellow Bead
-10) Yellow Bead
-11) Yellow Bead
-12) Yellow Bead
-13) Yellow Bead
-14) Yellow Bead
-15) Yellow Bead
-16) Yellow Bead
+Please select which yellow bead you mean:
+1) a Yellow Bead
+2) a Yellow Bead
+3) a Yellow Bead
+4) a Yellow Bead
+5) a Yellow Bead
+6) a Yellow Bead
+7) a Yellow Bead
+8) a Yellow Bead
+9) a Yellow Bead
+10) a Yellow Bead
+11) a Yellow Bead
+12) a Yellow Bead
+13) a Yellow Bead
+14) a Yellow Bead
+15) a Yellow Bead
+16) a Yellow Bead
 [choice] 1
 You place the bead on the table.
 
 
 > use yellow bead on strange table
-Which yellow bead do you mean?
-1) Yellow Bead
-2) Yellow Bead
-3) Yellow Bead
-4) Yellow Bead
-5) Yellow Bead
-6) Yellow Bead
-7) Yellow Bead
-8) Yellow Bead
-9) Yellow Bead
-10) Yellow Bead
-11) Yellow Bead
-12) Yellow Bead
-13) Yellow Bead
-14) Yellow Bead
-15) Yellow Bead
+Please select which yellow bead you mean:
+1) a Yellow Bead
+2) a Yellow Bead
+3) a Yellow Bead
+4) a Yellow Bead
+5) a Yellow Bead
+6) a Yellow Bead
+7) a Yellow Bead
+8) a Yellow Bead
+9) a Yellow Bead
+10) a Yellow Bead
+11) a Yellow Bead
+12) a Yellow Bead
+13) a Yellow Bead
+14) a Yellow Bead
+15) a Yellow Bead
 [choice] 1
 You place the bead on the table.
 
 
 > use yellow bead on strange table
-Which yellow bead do you mean?
-1) Yellow Bead
-2) Yellow Bead
-3) Yellow Bead
-4) Yellow Bead
-5) Yellow Bead
-6) Yellow Bead
-7) Yellow Bead
-8) Yellow Bead
-9) Yellow Bead
-10) Yellow Bead
-11) Yellow Bead
-12) Yellow Bead
-13) Yellow Bead
-14) Yellow Bead
+Please select which yellow bead you mean:
+1) a Yellow Bead
+2) a Yellow Bead
+3) a Yellow Bead
+4) a Yellow Bead
+5) a Yellow Bead
+6) a Yellow Bead
+7) a Yellow Bead
+8) a Yellow Bead
+9) a Yellow Bead
+10) a Yellow Bead
+11) a Yellow Bead
+12) a Yellow Bead
+13) a Yellow Bead
+14) a Yellow Bead
 [choice] 1
 You place the bead on the table.
 
 
 > use yellow bead on strange table
-Which yellow bead do you mean?
-1) Yellow Bead
-2) Yellow Bead
-3) Yellow Bead
-4) Yellow Bead
-5) Yellow Bead
-6) Yellow Bead
-7) Yellow Bead
-8) Yellow Bead
-9) Yellow Bead
-10) Yellow Bead
-11) Yellow Bead
-12) Yellow Bead
-13) Yellow Bead
+Please select which yellow bead you mean:
+1) a Yellow Bead
+2) a Yellow Bead
+3) a Yellow Bead
+4) a Yellow Bead
+5) a Yellow Bead
+6) a Yellow Bead
+7) a Yellow Bead
+8) a Yellow Bead
+9) a Yellow Bead
+10) a Yellow Bead
+11) a Yellow Bead
+12) a Yellow Bead
+13) a Yellow Bead
 [choice] 1
 You place the bead on the table.
 
 
 > use yellow bead on strange table
-Which yellow bead do you mean?
-1) Yellow Bead
-2) Yellow Bead
-3) Yellow Bead
-4) Yellow Bead
-5) Yellow Bead
-6) Yellow Bead
-7) Yellow Bead
-8) Yellow Bead
-9) Yellow Bead
-10) Yellow Bead
-11) Yellow Bead
-12) Yellow Bead
+Please select which yellow bead you mean:
+1) a Yellow Bead
+2) a Yellow Bead
+3) a Yellow Bead
+4) a Yellow Bead
+5) a Yellow Bead
+6) a Yellow Bead
+7) a Yellow Bead
+8) a Yellow Bead
+9) a Yellow Bead
+10) a Yellow Bead
+11) a Yellow Bead
+12) a Yellow Bead
 [choice] 1
 You place the bead on the table.
 
 
 > use yellow bead on strange table
-Which yellow bead do you mean?
-1) Yellow Bead
-2) Yellow Bead
-3) Yellow Bead
-4) Yellow Bead
-5) Yellow Bead
-6) Yellow Bead
-7) Yellow Bead
-8) Yellow Bead
-9) Yellow Bead
-10) Yellow Bead
-11) Yellow Bead
+Please select which yellow bead you mean:
+1) a Yellow Bead
+2) a Yellow Bead
+3) a Yellow Bead
+4) a Yellow Bead
+5) a Yellow Bead
+6) a Yellow Bead
+7) a Yellow Bead
+8) a Yellow Bead
+9) a Yellow Bead
+10) a Yellow Bead
+11) a Yellow Bead
 [choice] 1
 You place the bead on the table.
 
 
 > use yellow bead on strange table
-Which yellow bead do you mean?
-1) Yellow Bead
-2) Yellow Bead
-3) Yellow Bead
-4) Yellow Bead
-5) Yellow Bead
-6) Yellow Bead
-7) Yellow Bead
-8) Yellow Bead
-9) Yellow Bead
-10) Yellow Bead
+Please select which yellow bead you mean:
+1) a Yellow Bead
+2) a Yellow Bead
+3) a Yellow Bead
+4) a Yellow Bead
+5) a Yellow Bead
+6) a Yellow Bead
+7) a Yellow Bead
+8) a Yellow Bead
+9) a Yellow Bead
+10) a Yellow Bead
 [choice] 1
 You place the bead on the table.
 
 
 > use yellow bead on strange table
-Which yellow bead do you mean?
-1) Yellow Bead
-2) Yellow Bead
-3) Yellow Bead
-4) Yellow Bead
-5) Yellow Bead
-6) Yellow Bead
-7) Yellow Bead
-8) Yellow Bead
-9) Yellow Bead
+Please select which yellow bead you mean:
+1) a Yellow Bead
+2) a Yellow Bead
+3) a Yellow Bead
+4) a Yellow Bead
+5) a Yellow Bead
+6) a Yellow Bead
+7) a Yellow Bead
+8) a Yellow Bead
+9) a Yellow Bead
 [choice] 1
 You place the bead on the table.
 
 
 > use yellow bead on strange table
-Which yellow bead do you mean?
-1) Yellow Bead
-2) Yellow Bead
-3) Yellow Bead
-4) Yellow Bead
-5) Yellow Bead
-6) Yellow Bead
-7) Yellow Bead
-8) Yellow Bead
+Please select which yellow bead you mean:
+1) a Yellow Bead
+2) a Yellow Bead
+3) a Yellow Bead
+4) a Yellow Bead
+5) a Yellow Bead
+6) a Yellow Bead
+7) a Yellow Bead
+8) a Yellow Bead
 [choice] 1
 You place the bead on the table.
 
 
 > use yellow bead on strange table
-Which yellow bead do you mean?
-1) Yellow Bead
-2) Yellow Bead
-3) Yellow Bead
-4) Yellow Bead
-5) Yellow Bead
-6) Yellow Bead
-7) Yellow Bead
+Please select which yellow bead you mean:
+1) a Yellow Bead
+2) a Yellow Bead
+3) a Yellow Bead
+4) a Yellow Bead
+5) a Yellow Bead
+6) a Yellow Bead
+7) a Yellow Bead
 [choice] 1
 You place the bead on the table.
 
 
 > use yellow bead on strange table
-Which yellow bead do you mean?
-1) Yellow Bead
-2) Yellow Bead
-3) Yellow Bead
-4) Yellow Bead
-5) Yellow Bead
-6) Yellow Bead
+Please select which yellow bead you mean:
+1) a Yellow Bead
+2) a Yellow Bead
+3) a Yellow Bead
+4) a Yellow Bead
+5) a Yellow Bead
+6) a Yellow Bead
 [choice] 1
 You place the bead on the table.
 
 
 > use yellow bead on strange table
-Which yellow bead do you mean?
-1) Yellow Bead
-2) Yellow Bead
-3) Yellow Bead
-4) Yellow Bead
-5) Yellow Bead
+Please select which yellow bead you mean:
+1) a Yellow Bead
+2) a Yellow Bead
+3) a Yellow Bead
+4) a Yellow Bead
+5) a Yellow Bead
 [choice] 1
 You place the bead on the table.
 
 
 > use yellow bead on strange table
-Which yellow bead do you mean?
-1) Yellow Bead
-2) Yellow Bead
-3) Yellow Bead
-4) Yellow Bead
+Please select which yellow bead you mean:
+1) a Yellow Bead
+2) a Yellow Bead
+3) a Yellow Bead
+4) a Yellow Bead
 [choice] 1
 You place the bead on the table.
 
 
 > use yellow bead on strange table
-Which yellow bead do you mean?
-1) Yellow Bead
-2) Yellow Bead
-3) Yellow Bead
+Please select which yellow bead you mean:
+1) a Yellow Bead
+2) a Yellow Bead
+3) a Yellow Bead
 [choice] 1
 You place the bead on the table.
 
 
 > use yellow bead on strange table
-Which yellow bead do you mean?
-1) Yellow Bead
-2) Yellow Bead
+Please select which yellow bead you mean:
+1) a Yellow Bead
+2) a Yellow Bead
 [choice] 1
 You place the bead on the table.
 

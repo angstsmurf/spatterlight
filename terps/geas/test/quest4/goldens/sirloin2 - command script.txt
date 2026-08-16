@@ -394,7 +394,7 @@ use cup of gunpowder on tube
 look at cannon
 use wooden ball on cannon
 use curved glass disc on cannon
-take tube3
+take tube
 look at coconut
 take coconut
 look at broken post
@@ -599,7 +599,7 @@ s
 nw
 say reveal
 n
-use disc on tube3
+use disc on tube
 use telescope
 s
 s

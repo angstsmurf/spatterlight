@@ -240,9 +240,9 @@ This town is boiling! People are sunbathing everywhere. There is an icecream sto
 These are just normal fields. There is a crop circle in the middle of the fields. There is a small spaceship parked in the middle of the circle.
 
 > use smg on alien
-Which alien do you mean?
-1) alien
-2) alien
+Please select which alien you mean:
+1) an alien
+2) an alien
 [choice] 1
 You shoot the alien and it dies. You find 30 gold dollars on it.
 

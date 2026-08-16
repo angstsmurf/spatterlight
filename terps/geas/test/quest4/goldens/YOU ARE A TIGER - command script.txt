@@ -67,7 +67,7 @@ look at desk
 speak to desk
 look at computer
 speak to computer
-look at phone
+look at iphone
 1
 check voicemail
 2
@@ -79,7 +79,7 @@ check voicemail
 5
 check voicemail
 6
-speak to phone
+speak to iphone
 look at burrito
 speak to burrito
 drink jack daniels

@@ -106,13 +106,13 @@ You can go north, south or west.
 You are at an alleyway. Even it being just past midday, there is no sunlight here, though despite that, the space here is surprisingly warm.
 You see an old man in raggedy clothes, leaning against a wall with his eyes turned to the sky, observing a passing airship. There's a distinct look of longing in his lined face and you get the feeling that he used to be something so much more than what he is now.
 
-> x kevin
+> x homeless man
 A gruff man. He seems to be middle aged, and has long, brown hair (white in some spots) which flows just past his neck. He also has a matching beard which comes just past his shoulderline and seems to be gruff and thick.
 His clothes are tattered and on the floor there is what you make out to be a makeshift home, pieced together with various woodstuff and clothing material.
 
 He leaning against the wall and is gazing longingly at the sky, staring at the various airships that past by. As you watch him, you can't help but feel that he used to be much more in life than he is now.
 
-> punch kevin
+> punch homeless man
 Now now. You wouldn't hit a harmless hobo in real life, would you? What makes this guy any different? Just cause he's not real? Is that discrimination?
 
 > x sky
@@ -120,7 +120,7 @@ Looking at it for yourself, you can easily see why the homeless man is so captiv
 
 Well, you may as well get used to its magnitude, seeing as how you'll be flying in it.
 
-> speak to kevin
+> speak to homeless man
 As you approach the man, he takes notice of you and, as though it pains him to ask, he says "Spare some coin?"
 What will you do?
 
@@ -156,7 +156,7 @@ There is Barkeep here.
 You can go south.
 The space here isn't as large as you expected. Several tables and chairs are arranged neatly and toward the back of the tavern is the bar. The bartender is cleaning dishes and polishing the bar.
 
-> x bartender
+> x barkeep
 He's cleaning the glasses.
 
 > x tables
@@ -173,7 +173,7 @@ You decide to leave the table and chair alone.
 > x bar
 It's a well kept bar.
 
-> speak to bartender
+> speak to barkeep
 As you approach the bar, the barkeep greets you with a friendly smile.
 "Welcome friend, welcome to the Prospect Inn. Ah, you must be the young airship captain everyone is talking about. Well, what can I get you?"
 What will you say?
@@ -200,7 +200,7 @@ You thank him for his time and are about to leave when he adds...
 "Oh. Dust storms. They're quite common in this area. They'll cause all kinds of problems for you if you're not careful."
 
 
-> speak to bartender
+> speak to barkeep
 As you approach the bar, the barkeep greets you with a friendly smile.
 "Welcome friend, welcome to the Prospect Inn. Ah, you must be the young airship captain everyone is talking about. Well, what can I get you?"
 What will you say?
@@ -229,7 +229,7 @@ Please, do enjoy it, and remember that if you abuse the drink, the drink will ab
 Your crew will appreciate the drinks.
 Crew tolerance +1
 
-> speak to bartender
+> speak to barkeep
 As you approach the bar, the barkeep greets you with a friendly smile.
 "Welcome friend, welcome to the Prospect Inn. Ah, you must be the young airship captain everyone is talking about. Well, what can I get you?"
 What will you say?
@@ -243,7 +243,7 @@ You ask for...
 "Well, take care then."
 He resumes polishing glasses.
 
-> punch bartender
+> punch barkeep
 You draw back your arm, readying your fist for a punch when the bartender smashes the glass he's holding and points the jagged edge at you.
 
 You get the message and relax your arm.

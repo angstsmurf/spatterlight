@@ -183,10 +183,10 @@ There is a 9-Volt battery here.
 You can go out to master bedroom.
 The desk has papers strewn about. There is a trip plan arranged, the map indicates a yellow highlight traced over the interstate route from Baltimore to New Orleans. A pink highlighter shows a route with stops in Louisville and Memphis, and then south to New Orleans. Inside the desk are guitar picks, pocket change, rubber bands, scotch tape, stapler, paper clips, old batteries, pencil sharpener, tape measure, scissors, blah, blah, blah..
 
-> take 9volt battery
+> take 9-volt battery
 You take the battery
 
-> use 9volt battery on reverb pedal
+> use 9-volt battery on reverb pedal
 You place the battery inside the pedal. You click the pedal and the red light comes on indicating that it is working.
 
 > out
@@ -787,7 +787,7 @@ You can go to bathroom window.
 You can go west.
 A very bright bathroom. The landlord built a cool glassblock wall along one side of the shower stall for added light.
 
-> take magazine insert
+> take do not disturb sign
 While reading the fine article about the early years of REM, and getting a little business taken care of, you glance over to the bathroom door. Perhaps you missed it earlier, maybe you didn't, but there is a plaque on the door that reads:
 
 1 9 o r a n g e 9 7
@@ -807,7 +807,7 @@ There is a doorknob here.
 You can go to Motel Room.
 It is the front door of the motel room.
 
-> use magazine insert on doorknob
+> use do not disturb sign on doorknob
 You placed the DO NOT DISTURB sign on the front door
 
 > go to Motel Room

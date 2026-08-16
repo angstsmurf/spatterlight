@@ -1411,7 +1411,7 @@ A door lies to the WEST.
 A set of double doors is NORTH of here.
 
 > use horn with mysterious carving
-Which horn do you mean?
+Please select which horn you mean:
 1) Ivory Horn
 2) Ebony Horn
 [choice] 1

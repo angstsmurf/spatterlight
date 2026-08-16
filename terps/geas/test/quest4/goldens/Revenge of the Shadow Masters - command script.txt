@@ -121,7 +121,7 @@ s
 look at picture frame
 remove picture
 take map
-use crowbar on door to men's restroom
+use crowbar on men's restroom
 look at map
 e
 look at stalls

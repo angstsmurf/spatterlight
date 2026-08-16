@@ -170,8 +170,12 @@ This street is fairly busy, mainly due to the  1st National Church of Internatio
 > north
 This is a very beautiful church with a large vaulted ceiling.  It is a new age revolutionary kind of church.  A man in a black monk-like-robe greets you at the door.  He throws you against the wall searches you, takes any weapons you have, and rushes you along.  You have only seconds to glance at the amazing architecture, before you are rushed into the main sanctuary of the church.
 
+Press a key to continue...
+
 
  This is the main section of the church it contains rows and rows of pews.  At the front sits a computer with it's screen on.  The sheer size of the church is astounding.  A  Weeping Man  is sitting near the front.  Other people are milling around they seem totally uninterested in you.  Off to the right side you notice someone who might have been a  Friend  of yours a while back.  As you enter the sanctuary a  Priest  comes up to you.
+
+Press a key to continue...
 
 What can we do for you here, my son.
 1) I would like to make a confession.
@@ -196,6 +200,8 @@ Congratulations, your drawing is superb!  The priest even gives you a printout o
 > south
 
  You are rushed back out of the church.  The monk who assaulted you when you came in stands against one wall, he gives you a friendly nod as you are rushed out.
+
+Press a key to continue...
 
 This street is fairly busy, mainly due to the  1st National Church of International Things  to the north, but also due to  Laser's Mini-Mall  to the south.  To the east is  Stricker Street1 .
 
@@ -269,6 +275,8 @@ The Guitar will set you back 1000 dollars.  Are you sure you want it?
 2) No
 [choice] yes
 The owner of the shop reaches in the glass case and pulls out a beatiful Les paul guitar.
+
+Press a key to continue...
 
 
  

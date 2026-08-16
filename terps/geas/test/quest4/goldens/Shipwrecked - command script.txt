@@ -368,7 +368,7 @@ go to stone building
 look at stone box
 open stone box
 take rope
-take ceramic tile41
+take ceramic tile4
 out
 south
 south

@@ -251,7 +251,7 @@ read sheet music
 sing sheet music
 open church organ
 look at sutekh
-use kaleidoscope on sute stonehouse
+use kaleidoscope on sutekh
 play organ
 speak to mummy of all malevolence
 prod mummy of all malevolence

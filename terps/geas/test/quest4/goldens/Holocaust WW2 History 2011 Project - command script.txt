@@ -168,7 +168,7 @@ look at big desk
 open right drawer
 open left drawer
 look at envelope
-open letter
+open envelope
 read note
 w
 pull carpet

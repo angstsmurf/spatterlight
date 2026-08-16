@@ -240,7 +240,7 @@ n
 n
 w
 n
-take silver bracelet
+take silver
 n
 w
 n
@@ -260,7 +260,7 @@ take diamonds
 e
 n
 drop gold bar
-drop silver bracelet
+drop silver
 drop pearl
 drop watch
 drop diamonds

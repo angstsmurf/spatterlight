@@ -1,0 +1,64 @@
+
+TypelibSyn | fixture
+
+You are in  Lab.
+A bare lab.
+
+Guard is here.
+
+You can see a crate and a hat here.
+
+
+> look into crate
+A wooden crate.
+
+(It is closed, you cannot see inside.)
+
+> examine crate
+A wooden crate.
+
+(It is closed, you cannot see inside.)
+
+> put hat in crate
+You'll have to open the crate...
+
+> drop hat into crate
+You'll have to open the crate...
+
+> look in crate
+A wooden crate.
+
+(It is closed, you cannot see inside.)
+
+> take hat out of crate
+Taken.
+
+> take hat from crate
+You have already got it.
+
+> don hat
+You cannot wear the hat!
+
+> wear hat
+You cannot wear the hat!
+
+> take off hat
+You can't do that.
+
+> unwear hat
+You can't do that.
+
+> shut crate
+It is already closed.
+
+> close crate
+It is already closed.
+
+> talk to guard
+"Nothing to report," he says.
+
+> speak to guard
+"Nothing to report," he says.
+
+> quit
+[runner] turns=16 leftover=0 running=false

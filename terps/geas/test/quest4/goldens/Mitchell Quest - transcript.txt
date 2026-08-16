@@ -177,10 +177,10 @@ You are in Deaney's gun room. It's the room where Deaney keeps all his guns. Tha
 You slowly let that all sink into your brain.
 
 > examine chalk outline
-Which chalk outline do you mean?
-1) chalk outline
-2) chalk outline
-3) chalk outline
+Please select which chalk outline you mean:
+1) a chalk outline
+2) another chalk outline
+3) yet another chalk outline
 [choice] 1
 Thisn one seems to be vaguely Mathis shaped. Chance are it wasn't for him to say.
 

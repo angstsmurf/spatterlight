@@ -1,0 +1,26 @@
+
+Waitdefault410
+
+You are in Hall.
+A stone hall.
+
+> bare
+[before]
+Press a key to continue...
+
+[after]
+
+> own
+[before]
+[the game's own wait line]
+
+[after]
+
+> empty
+[before]
+
+[after]
+
+> code
+[before the code][after the code]
+[runner] turns=4 leftover=0 running=true

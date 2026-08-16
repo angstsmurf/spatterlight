@@ -171,8 +171,7 @@ The door is now open because you shot the door handle off.
 
 > north
 You are in Mysterious Room.
-You can go out to room03.
-You can go north.
+You can go out to room03. You can go north.
 You shoot out the door handle and quickly open up the door, only to see the dark clothed man jump out of the window! You can't believe your eyes. You run over to the window and look down. The man is no where in sight. There is a trash can below the window, just big enough for someone to jump into.
 
 > north

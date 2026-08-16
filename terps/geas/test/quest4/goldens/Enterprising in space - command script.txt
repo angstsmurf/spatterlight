@@ -304,9 +304,9 @@ look at card reader
 examine card reader
 speak to card reader
 use hollow deck program card on card reader
-look at useless card
-examine useless card
-speak to useless card
+look at useless hollow deck card
+examine useless hollow deck card
+speak to useless hollow deck card
 look at virtual dominatrix
 examine virtual dominatrix
 speak to virtual dominatrix

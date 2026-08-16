@@ -33,7 +33,10 @@ RULES = [
     # two more in classify() for the two object lines it changes the shape of.
     # All three are gone: the finding is fixed, geas prints the characters line
     # itself, and the bucket emptied when the goldens were re-blessed.
-    ("exits: out and dirs split", "+", r"^You can go out to .*\. You can go .*\.$"),
+    # A rule for the out/directions line split (finding 8) used to be here, and
+    # a second in classify() to credit the two geas halves it was built from.
+    # Both are gone: geas joins them from 2.80 up now, as Quest does, and the
+    # bucket emptied on the next re-bless.
     # The 4.10 line folds directions and places together, so it has both a
     # place ("to ...") and a separator.  The negative lookahead keeps the
     # pre-4.10 two-sentence line above from being taken for it.
@@ -52,8 +55,10 @@ RULES = [
     ("badthing/baditem hard-coded", "-", r"^You don't see any .*\.$"),
     # Two `take: already-have answer` rules stood here for findings 22 and 27,
     # which are fixed; both wordings now come out of the same engine branch.
-    ("disambiguation menu wording", "-", r"^Which .* do you mean\?$"),
-    ("disambiguation menu wording", "+", r"^Please select which .* you mean:$"),
+    # Two rules for the disambiguation caption (finding 21) stood here, and one
+    # in classify() for the option labels the prefix used to be missing from.
+    # All three are fixed and gone; WHICH below now spells Quest's wording,
+    # which is geas's too.
     ("cp1252 text not transcoded", "-", r"�"),
     # Two rules for finding 51/32 (`$$` stands for a literal `$` in Quest and
     # vanished in geas) used to match Pure Chaos's `msg <You search through the
@@ -66,7 +71,10 @@ RULES = [
     # and next_token would truncate "<ERROR>" at its '>'.  Documented at
     # geasfile.cc:899-923.
     ("<ERROR> not produced at load time (known)", "+", r"^<ERROR"),
-    ("take: implied remove (QV defect)", "-", r"^\(first removing .* from .*\)$"),
+    # The implied removal's parenthetical used to be geas-only and had a rule
+    # here.  It is not a divergence any more: QuestViva's ExecTake never set
+    # isInContainer, so the whole removal was dead code, and patch_questviva.py
+    # section 13 restores it.  What is left is Wizard's alone -- see below.
     ("take: no container-access gate", "+", r"^You can't take .* - inside closed .*\.$"),
     ("error <defaultake> is spelt with one t", "+", r"^You pick .* up\.$"),
     # A rule for finding 33 -- Quest prints an unrecognised `|` code as a
@@ -135,19 +143,23 @@ PICTURE_CAPTIONS = frozenset((
 # sources: every object with an alias whose own name is neither one of its
 # valid names, nor reachable as a word-initial abbreviation of any valid name
 # in the game (finding 48), and which the walkthrough actually types.
+#
+# Thirteen games used to be listed here and in DESYNC below, between them ten
+# thousand diff lines, and all any of them proved was finding 14 over and over.
+# Their scripts now say what a player would have to say -- TAKE SILVER, not
+# TAKE SILVER BRACELET -- which costs nothing, because geas matches everything
+# Quest matches and more, and buys the rest of each transcript as evidence.
+# The finding itself is pinned by ../../fixtures/loosename.asl instead.
+#
+# The two left are the two that cannot be reworded.  Both name an object no
+# player can reach: PureChaos's `dws` is aliased "disc with square", and USE
+# DISC WITH SQUARE ON OBSERVATORY DOOR splits on " with " long before " on ";
+# ShadowMasters' Room Key carries `use on <Door to hotel>` and no object of
+# that name was ever declared.  geas's loose matching is the only thing that
+# gets either game past its door, so a real Quest cannot finish them at all.
 LOOSE_NAMES = {
-    "BirthdayAssignment": ("bartender", "kevin"),
-    "BrinyBlue": ("rock pile",),
-    # `define object <Card> alias <Chloé's buisness card>`: geas answers to the
-    # definition name, Quest at asl 310 only to the alias.
-    "BrokenMirror": ("card",),
-    "Enterprising": ("useless card",),
     "PureChaos": ("box2", "dws"),
-    "ShadowMasters": ("door to hotel", "door to men's restroom"),
-    "SocialStudies": ("letter",),
-    "Sutekh": ("sute stonehouse",),
-    "TreasureHunt": ("silver bracelet",),
-    "YouAreATiger": ("phone",),
+    "ShadowMasters": ("door to hotel",),
 }
 
 
@@ -168,18 +180,40 @@ LOOSE_NAMES = {
 # that command falls outside the diff's context lines, the first line of the hunk
 # it opens.
 DESYNC = {
-    "SomethingBoutAHex": ("> take 9volt battery",
-                          "desync: 14, names matched too loosely"),
-    "Nearco": ("> use casco on prisma",
-               "desync: 14, names matched too loosely"),
-    "Shipwrecked": ("> take ceramic tile41",
-                    "desync: 14, names matched too loosely"),
-    "Wizard": ("> take yellow bead",
-               "desync: 22, lookup not scoped per verb"),
-    "BlightOfElantria": ("> take bronze key",
-                         "desync: 45, open marks a container seen"),
+    # Nearco, Shipwrecked, SirLoin2, TreasureHunt, MichaelsGame and
+    # BirthdayAssignment were all anchored on finding 14 here and are all
+    # byte-identical now: their scripts name the objects the way a player would
+    # have to (see LOOSE_NAMES).  Something 'Bout A Hex was too, and is the one
+    # of the seven with something else underneath -- see below.
+    #
+    # After the DO NOT DISTURB sign is named by its alias, Hex parts company on
+    # a turn that geas spends and Quest does not: Quest answers the `look` that
+    # follows the Christ Church menu straight away, geas answers it 77 lines
+    # later, so one of the two swallowed a command at the menu.  Anchored on
+    # the head of that hunk; the cause has not been run to ground.
+    "SomethingBoutAHex": ("You are in The OhioInn Parking Lot.",
+                          "desync: a command swallowed at a menu"),
+    # Blight of Elantria used to be here, credited first to finding 45 and then
+    # to QuestViva's dead implied-removal path.  Section 13 of
+    # patch_questviva.py revives that path and Blight's thousand-line desync
+    # went with it, so it has no entry any more.
+    #
+    # Wizard survived both.  What parts it now is its Misty White Portal, whose
+    # destination cycles: QuestViva prints one more "The mist in the portal
+    # changes color." than geas before the player steps through, so the two
+    # engines enter different worlds -- geas a Forest, QuestViva a Small ledge
+    # -- and never meet again.  The cycle's driver has not been run to ground;
+    # what is certain is the extra line and the world it leads to.  The 57
+    # `Done.'s before the anchor are counted on their own (see classify).
+    "Wizard": ("> enter portal",
+               "desync: the portal's mist cycles a turn apart"),
+    # Finding 37's `use on'/`give to' half is fixed; this is its other half,
+    # which stands on purpose.  geas trims a `define' header's name and Quest
+    # does not, so `define object < door>' answers to `door' here and to nothing
+    # a player can type there.  Trimming lets the game be finished, and the cost
+    # is this desync.
     "MetalSonicsQuest": ("> take door",
-                         "desync: 37, an object name is trimmed"),
+                         "desync: 37, geas trims a declared name"),
     # Kingdom used to part company here, on the `$rand(10;20)$` its army and
     # its treasury are rolled from (finding 17).  Both are evaluated at load
     # now, and its transcript is identical to Quest's from the first line to
@@ -232,39 +266,27 @@ DESYNC = {
     # diverges is outside the hunk's context, so anchor on the hunk's head.
     "Things": ("You are in The Smelting Plant (the center)",
                "desync: 47, `exec` re-runs the turn scripts"),
-    # `door to men's restroom` is an ASL name behind an alias (finding 14), and
-    # prying it open is how the walkthrough is handed its room key.  Without the
-    # key Quest is locked out of the hotel for the rest of the game.
-    "ShadowMasters": ("> use crowbar on door to men's restroom",
+    # The Room Key's third handler is `use on <Door to hotel>`, and no object of
+    # that name exists anywhere in the game -- the author wrote the tag and
+    # never declared the door.  geas answers it anyway (finding 14 in its widest
+    # form: the tag's target is enough of a name), unlocks Courtyard 2's east
+    # exit and walks into the hotel.  Quest says "I can't see that here.", the
+    # exit stays locked, and there is no other way through it, so a real Quest
+    # cannot finish this game.  Nothing can be reworded here; the anchor stands.
+    "ShadowMasters": ("> use room key on door to hotel",
                       "desync: 14, names matched too loosely"),
-    # One of the eight treasures is `define object <Silver Bracelet>` behind
-    # `alias <Silver>` (finding 14).  Quest never picks it up, so the safe room
-    # is one treasure short, the rainbow key is never handed over, and the
-    # second half of the maze is closed to it.
-    "TreasureHunt": ("> take silver bracelet",
-                     "desync: 14, names matched too loosely"),
     # `dws` -- `define object <dws>` behind `alias <disc with square>` (finding
-    # 14) -- is the key to the observatory door, and Quest cannot see it.  The
-    # observatory holds the telescope and the floor symbol, so everything the
-    # walkthrough does up there answers "I can't see that here."
+    # 14) -- is the key to the observatory door, and the alias cannot be typed:
+    # USE DISC WITH SQUARE ON OBSERVATORY DOOR splits on " with " long before it
+    # splits on " on ", and the header's own `use disc with square = use disc on
+    # square` synonym rewrites the front of it first.  So the only command that
+    # opens the door is the one only geas accepts.  The observatory holds the
+    # telescope and the floor symbol, so everything the walkthrough does up
+    # there answers "I can't see that here."
     "PureChaos": ("> use dws on observatory door",
                   "desync: 14, names matched too loosely"),
     "GhostLight": ("> use chalk on grave",
                    "desync: 48, abbreviations match word-initially"),
-    # Finding 48 compounds this one a dozen lines later -- Quest's abbreviation
-    # pass reads "post" as "Poster" too and puts up a menu that eats the next
-    # command -- but the tube is where the two transcripts first disagree.
-    "SirLoin2": ("> take tube3",
-                 "desync: 14, names matched too loosely"),
-    # `x bartender` is the first of two objects this walkthrough names by their
-    # ASL name (finding 14).  Quest cannot see either of them, so it never gets
-    # the bartender's menu -- and `punch bartender`, the script that walks the
-    # player out of the tavern, does not run either, so from here the two
-    # transcripts are in different rooms.
-    "BirthdayAssignment": ("He's cleaning the glasses.",
-                           "desync: 14, names matched too loosely"),
-    "MichaelsGame": ("> look at louvre key",
-                     "desync: 14, names matched too loosely"),
     # The Jane Eyre book -- inside the goth, who is a closed container -- used
     # to be taken by geas and refused by Quest (finding 26), and parted the two
     # transcripts a third of the way in.  With the gate in place they run
@@ -354,7 +376,7 @@ def dirlist(text):
 PICKUP = re.compile(r"^You pick .* up\.$")
 OPTION = re.compile(r"^(\d+\) )")
 CHOICE_ECHO = re.compile(r"^> \d+$")
-WHICH = re.compile(r"^Which .* do you mean\?$")
+WHICH = re.compile(r"^Please select which .* you mean:$")
 
 
 # The corpus games that declare an asl-version below 280 and so are shown
@@ -552,13 +574,14 @@ def classify(line, mates, in_inventory, others=(), prev="", cmd="",
     # the error line itself, which is the finding.
     if aborted and text != "[An internal error occurred]":
         return "after a QuestViva internal error"
-    # geas's implied removal reports itself twice: the parenthetical, then the
-    # `defaultremove` text.  All 174 of these follow one.
-    # geas's implied removal reports itself twice: the parenthetical, then the
-    # `defaultremove` text -- or, where the container carries a `remove <…>` tag
-    # of its own, whatever that says (Sir Loin's nosebag: `you take it`).
+    # Both engines announce the implied removal now (patch_questviva.py section
+    # 13).  geas then prints the `remove` command's own answer as well, and
+    # Quest prints nothing -- but only in Wizard, whose containers are the
+    # corpus's only ones to reach it, 57 times and always `Done.`.  Every other
+    # game's implied removal is silent on both sides, which is why this is a
+    # rule of its own rather than the old blanket one.
     if side == "-" and prev.startswith("(first removing "):
-        return "take: implied remove (QV defect)"
+        return "take: geas answers the implied remove"
     # Quest routes an unrecognised command that starts with "the " into ExecOops,
     # which does nothing at all when no correction is pending; geas parses it as
     # an ordinary command and reaches the bad-command error.
@@ -583,13 +606,6 @@ def classify(line, mates, in_inventory, others=(), prev="", cmd="",
         return "cp1252 text not transcoded"
     if MOVED.match(text) and text in (mates if side == "-" else others):
         return "exits: places after directions"
-    # Quest prints the out-exit and the directions as one line, geas as two, so
-    # the rule above only sees the qv4 half.  Credit the two geas lines it was
-    # built from: each is a piece of that one line.
-    if side == "-" and text.startswith("You can go ") and any(
-            o.startswith(text + " ") or o.endswith(" " + text)
-            for o in others if o.startswith("You can go out to ")):
-        return "exits: out and dirs split"
     # Two rules for finding 24 -- an exits line whose two halves differ only by
     # the destination room's prefix, either an article (noart) or something
     # longer like The Things That Go Bump In The Night's `prefix <A large>`
@@ -738,12 +754,6 @@ def classify(line, mates, in_inventory, others=(), prev="", cmd="",
     for joined, halves in BARW.get(label, ()):
         if (side == "-" and text == joined) or (side == "+" and text in halves):
             return "64, `|w` does not end the line"
-    # The options of a disambiguation menu (finding 21): Quest falls back to
-    # `Prefix + ObjectAlias` where geas prints the bare alias, so option n reads
-    # differently on the two sides while the numbering stays put.
-    m = OPTION.match(text)
-    if m and any(o.startswith(m.group(1)) for o in others):
-        return "disambiguation menu wording"
     # A menu geas offered and Quest did not, because Quest scopes the lookup to
     # one place and found only one candidate (finding 22).  The harness answers
     # geas's menu from the script, so Quest reads that answer as a command.

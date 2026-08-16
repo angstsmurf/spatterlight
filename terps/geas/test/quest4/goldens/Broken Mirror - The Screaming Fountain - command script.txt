@@ -29,7 +29,7 @@ look at newspaper
 north
 talk to two men
 talk to woman
-examine card
+examine chloé's buisness card
 east
 go to the english pub
 talk to bartender

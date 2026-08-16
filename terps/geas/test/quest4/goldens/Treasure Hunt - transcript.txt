@@ -326,7 +326,7 @@ There is a beautiful Silver bracelet here.
 You can go north, south or east.
 In the gold room, the walls curve to shape the room like a sphere. The walls, floor and ceiling are a deep, rich, amber color.
 
-> take silver bracelet
+> take silver
 You slip the bracelet around your wrist. It is warm and smooth.
 You picked up a treasure!
 
@@ -414,7 +414,7 @@ Welcome to the safe room. Here, you will deposit all eight treasures you find in
 > drop gold bar
 The gold is on the ground.
 
-> drop silver bracelet
+> drop silver
 The bracelet sits on the ground, still warm.
 
 > drop pearl
@@ -504,8 +504,7 @@ You pick up the prism, weighing it in your hand, and hold it up to the light. A 
 > w
 The hidden door opens and you step into the Entry Hall.
 There is a happy cat sleeping here.
-You can go out to Great Job!.
-You can go east or west.
+You can go out to Great Job!. You can go east or west.
 Your cat now waits for you here in the entry hall. There is a new, smaller doorway leading out. Bright daylight pours through it.
 
 > out

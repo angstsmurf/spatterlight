@@ -215,9 +215,9 @@ down
 look at sign
 read sign
 north
-look at rock pile
-sleep on rock pile
-use gun on rock pile
+look at pile of rocks
+sleep on pile of rocks
+use gun on pile of rocks
 south
 west
 look at folder

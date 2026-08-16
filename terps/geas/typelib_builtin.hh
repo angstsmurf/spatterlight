@@ -6,20 +6,25 @@
  *  `!include`s it cannot find the file on disk under Geas.  readfile.cc splices
  *  this text in at that point instead (see handle_includes / is_typelib).
  *
- *  Verbatim from the released source, including the `!addto game` block.  That
- *  block used to be cut down to its `startscript` line, on the grounds that
- *  Geas implements look/examine/take/drop/give/open/close/read/wear natively
- *  and that the library's room renderer needs gettag(), which Geas did not
- *  have.  Both halves of that were wrong: Quest adds the library's commands
- *  ahead of its own verbs and its `description` override in place of the
- *  native room renderer, so a game that includes the library is meant to be
- *  played through TLProomDescription and friends -- and gettag() has since
- *  been implemented (geas-runner.cc:7195).  King's Quest V is the corpus game
- *  that shows it: with the block cut, all 71 of its room renders came out in
- *  the native wording and put the exits above the description instead of
- *  below.
+ *  Verbatim from the file Quest 4.1.5 installs, including the `!addto game`
+ *  block, the `!addto synonyms` block and the `!QDK` editor section (which
+ *  handle_includes skips).  The one addition is the `set string <TLSdObj;>`
+ *  marked below.
  *
- *  Source: textadventures/quest, src/Legacy/Libraries/Typelib.qlb
+ *  The `!addto game` block used to be cut down to its `startscript` line, on
+ *  the grounds that Geas implements look/examine/take/drop/give/open/close/
+ *  read/wear natively and that the library's room renderer needs gettag(),
+ *  which Geas did not have.  Both halves of that were wrong: Quest adds the
+ *  library's commands ahead of its own verbs and its `description` override in
+ *  place of the native room renderer, so a game that includes the library is
+ *  meant to be played through TLProomDescription and friends -- and gettag()
+ *  has since been implemented (geas-runner.cc:7195).  King's Quest V is the
+ *  corpus game that shows it: with the block cut, all 71 of its room renders
+ *  came out in the native wording and put the exits above the description
+ *  instead of below.
+ *
+ *  Source: Quest 4.1.5, typelib.qlb (byte for byte the same file as
+ *  textadventures/quest, src/Legacy/Libraries/Typelib.qlb)
  ***************************************************************************/
 
 #ifndef GEAS_TYPELIB_BUILTIN_HH
@@ -55,15 +60,15 @@ static const char geas_builtin_typelib[] = R"GEASLIB(
    command <look at #TLSdObj#; look #TLSdObj#; l #TLSdObj#> do <TLPlook>
    command <examine #TLSdObj#; inspect #TLSdObj#; x #TLSdObj#> do <TLPexamine>
    command <open #TLSdObj#> do <TLPopen>
-   command <close #TLSdObj#; shut #TLSdObj#> do <TLPclose>
+   command <close #TLSdObj#; shut #TLSdObj#> do <TLPclose>   
    command <take #TLSdObj# from #TLSiObj#> do <TLPtake>
    command <take #TLSdObj# off> do <TLPunWear>
    command <take #TLSdObj#> do <TLPtake>
    command <drop #TLSdObj# into #TLSiObj#> do <TLPputIn>
-   command <drop #TLSdObj# on> do <TLPwear>
-   command <drop #TLSdObj# down; drop down #TLSdObj#; drop #TLSdObj#> do <TLPdrop>
+   command <drop #TLSdObj# on> do <TLPwear>   
+   command <drop #TLSdObj# down; drop down #TLSdObj#; drop #TLSdObj#> do <TLPdrop>   
    command <give #TLSdObj# to #TLSiObj#;give #TLSiObj# the #TLSdObj#> do <TLPgive>
-   command <read #TLSdObj#> do <TLPread>
+   command <read #TLSdObj#> do <TLPread>   
    command <wear #TLSdObj#> do <TLPwear>
    command <unwear #TLSdObj#> do <TLPunWear>
    description {
@@ -77,6 +82,16 @@ static const char geas_builtin_typelib[] = R"GEASLIB(
 '== Add some synonyms used in the library ==
 '===========================================
 
+!addto synonyms
+   back; back from; out of =from
+   inside; in to; in =into
+   look into = examine   
+   put =drop
+   don; drop on = wear
+   take off; remove = unwear
+   shut = close
+   talk = speak
+!end
 
 '==================================================
 '== A couple of dummy rooms, used by the library ==
@@ -103,8 +118,9 @@ define procedure <TLPstartup>
    set string <TLSplayerRoom;>
    set string <TLScontentList;>
    set string <TLStemp;>
-'  TLSdObj is normally bound by the command layer (removed in this Geas build),
-'  so declare it here: the type actions reached by Geas's native verbs set it.
+'  TLSdObj is the object name the library's own command layer binds; declare
+'  it so that a type action reached another way (through one of Geas's
+'  native verbs) still finds the string defined.
    set string <TLSdObj;>
    set string <TLSrealName;>
    set string <TLSlist;>
@@ -1137,6 +1153,88 @@ end define
 '== INTERFACE FOR Q.D.K. ==
 '==========================
 
+!QDK
+
+'script <MaDbRiTs Types Library>
+'   command <Initialise the library (use in startscript); TLPstartup>
+'      display <Initialise MaDbRiTs Types Library.>
+
+object <Basics>
+   type <Regular object; TLTobject>
+   type <Scenery (not takeable or described) object; TLTscenery> 
+   property <Make regular object not takeable;not takeable>
+   property <Not takeable msg;noTake;text>
+   property <Not wearable msg;noWear;text>
+   
+object <Readable>
+   type <Readable object;TLTreadable>
+   property <Message if read;readMessage;text>
+   action <Action if read;read>
+
+object <Containers>
+   type <Container object (can have things put in it); TLTcontainer>
+   property <Header for listing;listHeader;text> 
+   property <Size Limit;sizeLimit;text>
+   property <Weight Limit;weightLimit;text>
+   
+   type <Containable object (can be put in things); TLTcontainable>  
+   property <Size;size;text>
+   property <Weight;weight;text>
+   property <Start game inside;isIn;objects>
+   property <Msg if Too Big;tooBig;text>
+   property <Msg if Too Heavy;tooHeavy;text>
+	action <Action when contained;contained>
+
+object <Actor>
+   type <Actor can carry things;TLTcontainer>
+   property <Header for listing;listHeader;text> 
+   property <Size Limit;sizeLimit;text>
+   property <Weight Limit;weightLimit;text>
+   type <Actor; TLTactor>
+   property <Actor not named. (e.g. 'the sailor' not 'Jack');not named>
+   property <Default speak reply;noSpeak;text>
+   action <Script if spoken to;speak>
+   
+object <Closables>   
+   type <Closable object     NOTE Following properties all have useful defaults;TLTclosable>
+   property <Start open?;not closed>
+   property <Closed text (container);closedDesc;text>
+   property <Is closed description;isClosedDesc;text>   
+   property <Closing description;closingDesc;text>   
+   property <Is open description;isOpenDesc;text>   
+   property <Opening description;openingDesc;text>
+   action <Script when opened;opened>
+   action <Script when closed;closed>
+
+object <Clothing 1>  
+   type <Sweater;TLTsweater>
+   type <Shirt;TLTshirt>
+   type <Vest (top half underwear / bra etc.);TLTvest>
+   type <Teddy (or 1 piece swimsuit etc.);TLTteddy>
+   type <Underwear (shorts or briefs);TLTundies>
+   type <Socks;TLTsocks>
+   type <Tights (a.k.a. Panty Hose);TLTtights>
+   type <Dress;TLTdress>
+   type <Skirt;TLTskirt>
+   type <Trousers;TLTtrousers>
+   type <Shoes;TLTshoes>
+   type <Hat           NOTE Clothing continues on next tab!;TLThat>   
+   
+   
+object <Clothing 2>
+   type <Gloves;TLTgloves>
+   type <Jacket (short coat);TLTjacket>
+   type <Coat (long coat)       NOTE Properties below have defaults! See the manual;TLTcoat>  
+   property <Msg when put on;wearmessage;text>
+   property <Msg when taken off;unwearmessage;text>   
+   property <Head cover value;headcover;text>
+   property <Hands cover value;handscover;text>
+   property <Feet cover value;feetcover;text>
+   property <Top cover value;topcover;text>
+   property <Bottom cover value;botcover;text>
+   property <Sex;sex;text>
+   property <Start game worn?;worn>
+!end
 )GEASLIB";
 
 #endif

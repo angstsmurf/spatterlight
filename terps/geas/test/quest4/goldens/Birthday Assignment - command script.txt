@@ -65,10 +65,10 @@ numbers hard to read back later.  In order, as the script types them:
   speak to bartender -> tavern
      1  ask for a beer  (re-enters the tavern menu)
      3  anything interesting to do   (the dust-storm hint)
-  speak to bartender
+  speak to barkeep
      2  ask for information -> the keg offer -> buykeg
      1  accept (500c), CT +1
-  speak to bartender
+  speak to barkeep
      4  nothing, I'm good thanks
   speak to gunsmith -> Gunshop
      3  ask for information
@@ -166,27 +166,27 @@ sit benches
 speak to benches
 w
 n
-x kevin
-punch kevin
+x homeless man
+punch homeless man
 x sky
-speak to kevin
+speak to homeless man
 2
 2
 n
-x bartender
+x barkeep
 x tables
 sit tables
 speak to tables
 x bar
-speak to bartender
+speak to barkeep
 1
 3
-speak to bartender
+speak to barkeep
 2
 1
-speak to bartender
+speak to barkeep
 4
-punch bartender
+punch barkeep
 w
 x guns
 speak to guns

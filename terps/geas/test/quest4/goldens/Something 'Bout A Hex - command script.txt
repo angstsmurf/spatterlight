@@ -195,8 +195,8 @@ e
 se
 se
 go to the desk
-take 9volt battery
-use 9volt battery on reverb pedal
+take 9-volt battery
+use 9-volt battery on reverb pedal
 out
 nw
 nw
@@ -330,10 +330,10 @@ s
 e
 go to bathroom window
 go to bathroom
-take magazine insert
+take do not disturb sign
 w
 go to Motel Door
-use magazine insert on doorknob
+use do not disturb sign on doorknob
 go to Motel Room
 take typewriter
 1

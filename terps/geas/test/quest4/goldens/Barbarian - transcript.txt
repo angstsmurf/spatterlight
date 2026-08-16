@@ -458,9 +458,9 @@ What will you say to tessi?
 
 
 > give tomato to tessi
-Which tomato do you mean?
-1) Tomato
-2) Tomato
+Please select which tomato you mean:
+1) a Tomato
+2) a Tomato
 [choice] 1
 "Thank you Tandum." she says.
 

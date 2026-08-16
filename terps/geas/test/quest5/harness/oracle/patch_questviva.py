@@ -416,3 +416,99 @@ elif begin_anchor in p2text:
     print("[patch] patched: V4Game.Part2.cs -> park-aware Begin()")
 else:
     sys.exit("[patch] Begin() anchor not found in V4Game.Part2.cs (upstream changed?)")
+
+# 11. Array slot 0 must be a zeroed record, not null. ObjectType and RoomType
+# were VB6 `Type` blocks, so `ReDim objs(1)` gave two real, blank elements and
+# reading objs(0) -- the "no such object" id that GetObjectIdNoAlias and an
+# unset `parentID` both come back as -- was harmless. QuestViva declares them
+# classes and leaves index 0 unassigned, so the same read throws and the turn
+# dies with "[An internal error occurred]": 12 of the corpus's 16 such lines,
+# across six games. It also kills two loads outright, because
+# GetPropertiesInType evaluates a type's `properties` line through GetParameter
+# with the null context, whose CallingObjectId is 0 -- so any type library
+# `properties` line containing #thisobject# reaches `_objs[0].ObjectName`
+# before the first turn. That is the whole TLTclothing family (eleven garment
+# types) and ESPER: The Secret of Drom Bennacht with it.
+shutil.copy2(oracle / "QvhRecord.cs", legacy / "QvhRecord.cs")
+
+part2 = legacy / "V4Game.Part2.cs"
+p2text = part2.read_text()
+zero_anchor = """        _numberObjs = 1;
+        _objs = new ObjectType[2];
+"""
+zero_repl = """        _numberObjs = 1;
+        _objs = new ObjectType[2];
+        // qvh patch: VB6 slot 0 is a zeroed record, not null -- section 11.
+        _objs[0] = QvhZeroedRecord<ObjectType>();
+        _rooms = new RoomType[1];
+        _rooms[0] = QvhZeroedRecord<RoomType>();
+"""
+if "QvhZeroedRecord<ObjectType>" in p2text:
+    print("[patch] already patched: V4Game.Part2.cs -> zeroed _objs[0]/_rooms[0]")
+elif zero_anchor in p2text:
+    part2.write_text(p2text.replace(zero_anchor, zero_repl, 1))
+    print("[patch] patched: V4Game.Part2.cs -> zeroed _objs[0]/_rooms[0]")
+else:
+    sys.exit("[patch] SetUpGameObject's _objs allocation not found (upstream changed?)")
+
+# 12. `clone` must copy the record, not alias it. Same value-type slip, and a
+# worse one because it corrupts the world model instead of throwing: the fresh
+# ObjectType is discarded on the very next line, both slots end up pointing at
+# the one object, and the two assignments that follow rename and move the
+# ORIGINAL. Barbarian's greengrocer sells one vegetable per `clone <X; X%c%;
+# Market>`, so the second sale renames the only Tomato to Tomato2 and the third
+# finds none, falls into _objs[0] and takes the following `show` and `give`
+# down with it.
+v4 = legacy / "V4Game.cs"
+v4text = v4.read_text()
+clone_edits = [
+    ("""        _objs[_numberObjs] = new ObjectType();
+        _objs[_numberObjs] = _objs[id];""",
+     """        // qvh patch: a VB6 record assignment copies -- section 12.
+        _objs[_numberObjs] = QvhCopyRecord(_objs[id]);"""),
+    ("""            _rooms[_numberRooms] = new RoomType();
+            _rooms[_numberRooms] = _rooms[_objs[id].CorresRoomId];""",
+     """            // qvh patch: a VB6 record assignment copies -- section 12.
+            _rooms[_numberRooms] = QvhCopyRecord(_rooms[_objs[id].CorresRoomId]);"""),
+]
+if "QvhCopyRecord" in v4text:
+    print("[patch] already patched: V4Game.cs -> clone copies the record")
+else:
+    for old, new in clone_edits:
+        if old not in v4text:
+            sys.exit("[patch] ExecClone's aliasing assignment not found (upstream changed?)")
+        v4text = v4text.replace(old, new, 1)
+    v4.write_text(v4text)
+    print("[patch] patched: V4Game.cs -> clone copies the record")
+
+# 13. `take` must notice the object is in a container. ExecTake declares
+# `isInContainer = false` and never assigns it again, so the sixty lines
+# guarded by it -- print "(first removing it from X)", run `remove <obj>`, and
+# bail out if the removal failed -- are dead code. The `parentID` computed
+# immediately above them is read by nothing else, and the block's own comment
+# ("So, we want to take an object that's in a container or surface. So first we
+# have to remove the object from that container") is a translated VB6 comment,
+# so the original plainly set the flag where the parent was looked up and the
+# line was dropped in translation. Restoring it makes SEVEN more corpus games
+# byte-identical between geas and the oracle -- Blight of Elantria's
+# thousand-line desync among them -- which is the evidence that geas has the
+# behaviour right and this is QuestViva's defect, not geas's invention.
+#
+# NOTE: `FINDINGS.md`'s *Ground truth* section records the opposite from a
+# hand-driven Quest 4.1.5 probe under Wine, but names the wrong engine as the
+# one printing the parenthetical, so the sides were confused when it was
+# written. Re-measure it before trusting either.
+take_anchor = """            var parent = GetObjectProperty("parent", id, false, false);
+            parentID = GetObjectIdNoAlias(parent);"""
+take_repl = """            var parent = GetObjectProperty("parent", id, false, false);
+            // qvh patch: the dropped line that makes the block below live -- section 13.
+            if (!string.IsNullOrEmpty(parent)) isInContainer = true;
+            parentID = GetObjectIdNoAlias(parent);"""
+p2text = part2.read_text()
+if "section 13" in p2text:
+    print("[patch] already patched: V4Game.Part2.cs -> take sets isInContainer")
+elif take_anchor in p2text:
+    part2.write_text(p2text.replace(take_anchor, take_repl, 1))
+    print("[patch] patched: V4Game.Part2.cs -> take sets isInContainer")
+else:
+    sys.exit("[patch] ExecTake's parent lookup not found (upstream changed?)")

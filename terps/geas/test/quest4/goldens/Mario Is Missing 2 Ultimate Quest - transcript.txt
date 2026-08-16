@@ -1171,8 +1171,7 @@ This is big-time Goomba City! If Doopliss wasn't here, you could enjoy it here!
 > west
 You are in Goomba City- Highway.
 There is Machines here.
-You can go out to Toad Town- Main Sqaure.
-You can go north, south, east, west, northeast or northwest.
+You can go out to Toad Town- Main Sqaure. You can go north, south, east, west, northeast or northwest.
 This is Highway Gembo 3.
 
 > out

@@ -104,7 +104,7 @@ As you remove the picture from its frame, you see a small piece of parchment fal
 > take map
 You pick it up.
 
-> use crowbar on door to men's restroom
+> use crowbar on men's restroom
 
 A sudden urge to destory things comes over you, but what should you do? It doesn't take long for the thought to come to mind. You pick up your crowbar and begain prying the door to the mens bathroom open as you think to yourself "Ha ha, who needs a room key when you have a crowbar!"
 
@@ -179,7 +179,7 @@ The first thing you notice as you enter the room is that there is a neat looking
 The pillows look very fluffy and comfortable and the bed is very inviting but you know that right now is no time to be sleeping. As you look over the bed more thoroughly, you notice that despite the covers being pulled tight, there is a lump right in the center. Pulling the blankets back, you uncover a rather old looking book.
 
 > read book
-Which book do you mean?
+Please select which book you mean:
 1) The Towel: 101 Fun & Practical Uses
 2) book
 [choice] 2

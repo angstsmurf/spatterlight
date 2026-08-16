@@ -9,10 +9,13 @@
 ! in front of it -- "place <the; Shed>" -- while the destination room's own
 ! prefix is not consulted, which is why the truck loses its "A".
 !
-! The room display still differs by one line break: Quest builds the out line
-! and the directions line into a single roomDisplayText and prints them
-! together (finding 8), where geas prints two.  The four variables themselves
-! are word for word.
+! From 2.80 the out sentence and the directions sentence share a line: they are
+! joined by a space inside the one string UpdateDoorways returns (ibid.
+! 7308-7312, 7353) and printed with a single Print (ibid. 3951-3954), and the
+! places line -- part of roomDisplayText -- comes above them both.  That is the
+! shape pinned here; doorways210 is the other half of the gate, where the three
+! sentences are three lines.  2.80 also bolds the word "out", which the older
+! path leaves plain.
 define game <Doorways400>
  asl-version <400>
  start <Hall>
