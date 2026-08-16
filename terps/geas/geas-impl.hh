@@ -186,26 +186,26 @@ public:
   geas_implementation (GeasInterface *in_gi)
      : GeasRunner (in_gi), undo_buffer (kUndoLevels), is_running_(true) {}
   //void set_game (std::string s);
-  void set_game (const std::string &s);
-  std::string save_state (bool run_hooks = true);
-  bool load_state (const std::string &data, bool run_hooks = true);
+  void set_game (const std::string &s) override;
+  std::string save_state (bool run_hooks = true) override;
+  bool load_state (const std::string &data, bool run_hooks = true) override;
   /* Re-register the GeasFile definition aliases of runtime-cloned objects after
    * a state has been loaded (see the "!clones" trail). */
   void restore_clones ();
-  std::string save_undo_history ();
-  bool load_undo_history (const std::string &data);
+  std::string save_undo_history () override;
+  bool load_undo_history (const std::string &data) override;
   /* Run every "<keyword> <script>" line in the game block (e.g. beforesave /
    * onload) in file order, in the game's context. */
   void run_game_event (const std::string &keyword);
-  std::string get_location ();
-  void restart ();
-  bool undo ();
-  bool timer_will_fire ();
-  bool has_timers () { return !state.timers.empty (); }
+  std::string get_location () override;
+  void restart () override;
+  bool undo () override;
+  bool timer_will_fire () override;
+  bool has_timers () override { return !state.timers.empty (); }
 
-  bool is_running () const;
-  std::string get_banner ();
-  void run_command (const std::string &, bool tick_this_turn = false);
+  bool is_running () const override;
+  std::string get_banner () override;
+  void run_command (const std::string &, bool tick_this_turn = false) override;
   /* The body of a turn, without the timer tick that closes it: `oops` re-runs
    * the corrected command through this, since the two of them are one turn. */
   void run_command_body (const std::string &);
@@ -651,14 +651,14 @@ public:
   bool eval_cond (const std::string &);
   GeasState state;
 
-  virtual void tick_timers();
-  virtual v2string get_inventory();
-  virtual v2string get_room_contents();
+  void tick_timers() override;
+  v2string get_inventory() override;
+  v2string get_room_contents() override;
   v2string get_room_contents(const std::string &);
-  virtual v2string get_object_verbs(const std::string &);
-  virtual v2string get_room_exits();
-  virtual vstring get_status_vars();
-  virtual std::vector<bool> get_valid_exits();
+  v2string get_object_verbs(const std::string &) override;
+  v2string get_room_exits() override;
+  vstring get_status_vars() override;
+  std::vector<bool> get_valid_exits() override;
 
 
   inline void print_formatted (const std::string &s) const { if (outputting) gi->print_formatted(s); }

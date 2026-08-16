@@ -648,7 +648,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         Value out = arg(0);
         out.detach();
         std::vector<std::string> attrs;
-        for (int i = 1; i < n; ++i) attrs.push_back(to_string(arg(i)));
+        for (size_t i = 1; i < n; ++i) attrs.push_back(to_string(arg(i)));
         auto key_at = [&](const Value &el, size_t k) -> std::string {
             Element *e = world_.find(to_string(el));
             const Value *f = e ? resolve_field(e, attrs[k]) : nullptr;

@@ -824,8 +824,10 @@ std::vector<OutSection> g_sections;
  * says so -- bound the log rather than grow it for the length of a game. */
 const size_t kMaxSections = 8;
 /* win_unprint copies into the 64 KB message buffer as uint16_t
- * (glkimp/connect.c:220), so a retract longer than that would overrun it. */
-const size_t kMaxUnput = 16384;
+ * (glkimp/connect.c:220), so a retract longer than that would overrun it.
+ * Referenced only by the SPATTERLIGHT unput path; kMaxLogChunks below is
+ * sized against it in every build. */
+[[maybe_unused]] const size_t kMaxUnput = 16384;
 
 void render_html(const std::string &raw);
 
@@ -951,8 +953,9 @@ unsigned g_clear_gen = 0;
  * and a cleared-away link must not hand its number's action to a later link
  * -- same high-water scheme as disable_command_links) and the output-section
  * log (no recorded chunk can tail-match an emptied window; a section opened
- * before the clear hides as a no-op, like jQuery hiding a destroyed div). */
-void clear_screen_ui()
+ * before the clear hides as a no-op, like jQuery hiding a destroyed div).
+ * Installed (and so referenced) only under SPATTERLIGHT. */
+[[maybe_unused]] void clear_screen_ui()
 {
     for (size_t i = g_links_spent; i < g_links.size(); i++)
         g_links[i] = LinkAction{};
@@ -2629,8 +2632,9 @@ bool play_audio_inline(const std::vector<std::string> &srcs, bool loop)
  * awaited wait slot). A keypress skips: the sound is stopped and the turn
  * resumes at once (also the safety valve if the notification never comes).
  * Timer events are deliberately ignored -- the turn is suspended, engine
- * ticks resume at prompt level. */
-void wait_for_sound(Interp &in, glui32 id)
+ * ticks resume at prompt level.
+ * Reached only from play_sound_ui, so only under SPATTERLIGHT. */
+[[maybe_unused]] void wait_for_sound(Interp &in, glui32 id)
 {
     glk_request_char_event(gwin);
     for (;;) {
@@ -2654,8 +2658,9 @@ void wait_for_sound(Interp &in, glui32 id)
  * always continues -- only the hook-less headless engine keeps the oracle's
  * abandoned-turn semantics. A looping synchronous sound never finishes, so
  * it plays without blocking; deterministic mode (gli_sa_delays off) never
- * blocks, like the timer heartbeat. */
-void play_sound_ui(Interp &in, const std::string &name, bool sync, bool loop)
+ * blocks, like the timer heartbeat.
+ * Installed (and so referenced) only under SPATTERLIGHT. */
+[[maybe_unused]] void play_sound_ui(Interp &in, const std::string &name, bool sync, bool loop)
 {
 #ifdef SPATTERLIGHT
     if (!glk_gestalt(gestalt_Sound2, 0))
@@ -3284,11 +3289,11 @@ void install_host_hooks(Interp &in, bool &restart_requested)
      * duration -- see AutosaveSuspend.  (The script-command forms are pending
      * engine state and are safe; they run from the prompt loop.) */
     in.menu_provider = [&in](const MenuData &m, std::string &key) -> bool {
-        AutosaveSuspend no_autosave;
+        [[maybe_unused]] AutosaveSuspend no_autosave;
         return run_menu_ui(in, m, key);
     };
     in.ask_provider = [&in](const std::string &q, bool &answer) -> bool {
-        AutosaveSuspend no_autosave;
+        [[maybe_unused]] AutosaveSuspend no_autosave;
         return run_question_ui(in, q, answer);
     };
     in.request_save = [&in] { do_save_ui(in); };

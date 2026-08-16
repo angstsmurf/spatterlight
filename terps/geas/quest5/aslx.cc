@@ -1084,7 +1084,9 @@ struct Loader {
 
     // ---- end tag ----------------------------------------------------------
 
-    void end(const std::string &name) {
+    // The tag name is not needed: frames mirror the tag nesting exactly, so
+    // the matching frame is always the top of the stack.
+    void end(const std::string & /* name */) {
         if (frames.empty()) return;
         Frame f = std::move(frames.back());
         frames.pop_back();

@@ -145,30 +145,6 @@ std::string double_to_str(double d) {
     return buf;
 }
 
-// Canonical string for a dictionary entry value. Our loader materialises
-// string/object-dictionary entries as String/ObjectRef only (typed dict values
-// are not round-tripped), so a runtime-added boxed entry (e.g. a boolean flag
-// on game.currentcommandresolvedelements) is coerced to its textual form rather
-// than serialized as an empty <value>. QuestViva's legacy SaveString does the
-// same (ToString of the boxed value).
-// A Value that cannot be flattened to a single string: a nested collection.
-// Such an entry forces a dictionary/list to serialize as the generic typed form
-// (QuestViva's QuestList<object> "dictionary"/"list"), whatever its declared
-// container type -- our runtime NewDictionary()/`dictionary add` can put a whole
-// dictionary inside a "stringdictionary" (Quest's grid coordinates).
-bool is_collection(const Value &v) {
-    switch (v.type) {
-    case Value::Type::StringList:
-    case Value::Type::ObjectList:
-    case Value::Type::StringDict:
-    case Value::Type::ObjectDict:
-    case Value::Type::ScriptDict:
-        return true;
-    default:
-        return false;
-    }
-}
-
 // A string/object dictionary can faithfully hold ONLY strings / object refs; a
 // value of any other type (int, double, boolean, or a nested collection) forces
 // the generic typed "dictionary" form with per-value types. (Quest's grid
@@ -189,6 +165,12 @@ bool list_needs_generic(const Value &v) {
     return false;
 }
 
+// Canonical string for a dictionary entry value. Our loader materialises
+// string/object-dictionary entries as String/ObjectRef only (typed dict values
+// are not round-tripped), so a runtime-added boxed entry (e.g. a boolean flag
+// on game.currentcommandresolvedelements) is coerced to its textual form rather
+// than serialized as an empty <value>. QuestViva's legacy SaveString does the
+// same (ToString of the boxed value).
 std::string dict_value_string(const Value &v) {
     switch (v.type) {
     case Value::Type::Null:      return "";

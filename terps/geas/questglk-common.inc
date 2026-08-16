@@ -9,7 +9,12 @@
    divider, the transcript metaverb, the save-file prompts, and the small
    string/UTF-8 utilities.  The player-visible strings live here so the two
    frontends cannot drift apart.  Both engines' output is pinned by byte-diff
-   regression suites; changes here must keep it byte-stable. */
+   regression suites; changes here must keep it byte-stable.
+
+   A helper only one of the two frontends calls is marked [[maybe_unused]] so
+   the other still compiles clean under -Wall.  (questglk_unit_tests exercises
+   a small subset of the whole menu, so its build alone turns the unused-
+   function warning off instead -- see the test Makefile.) */
 
 #include <cctype>
 #include <fstream>
@@ -61,7 +66,7 @@ trim (const std::string &s)
  * ASCII letter is touched -- a UTF-8 lead byte (>= 0x80) or non-letter first
  * character is left alone, so accented or symbol-first names pass through
  * unchanged. */
-static std::string
+[[maybe_unused]] static std::string
 cap_first (std::string s)
 {
     if (!s.empty () && (unsigned char) s[0] < 0x80)
@@ -499,7 +504,7 @@ put_pane_link (strid_t s, const std::string &label, glui32 linkval, bool utf8)
  * looped = repeat forever; a non-zero notify requests a finish notification
  * (the Quest 5 synchronous play).  False when the channel is unavailable
  * (sound disabled or unsupported) or the sound would not start. */
-static bool
+[[maybe_unused]] static bool
 play_single_sound (schanid_t *chan, glui32 resno, bool looped, glui32 notify)
 {
     if (!*chan)

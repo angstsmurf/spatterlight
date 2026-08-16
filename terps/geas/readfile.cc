@@ -1019,11 +1019,11 @@ vector<string> split_lines (const string &data)
   return rv;
 }
 
-void show_tokenize (string s)
+void show_tokenize (string /* s */)
 {
 }
 
-void say_push (const vector<string> &v)
+void say_push (const vector<string> & /* v */)
 {
 }
 	  

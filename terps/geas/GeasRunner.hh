@@ -121,7 +121,7 @@ public:
   virtual std::string get_file (const std::string &filename) const = 0;
   virtual void debug_print (const std::string &s) { std::cerr << s << std::endl; }
   virtual GeasResult wait_keypress (const std::string &) { return r_not_supported; }
-  virtual GeasResult pause (int msec) { return r_not_supported; }
+  virtual GeasResult pause (int /* msec */) { return r_not_supported; }
   /* Quest clears the screen here (e.g. after a "wait" keypress, or on the
    * "clear"/"|c" commands).  A scrollback-based Glk window must not wipe the
    * transcript, so emit a single blank line as a separator instead. */
@@ -137,8 +137,9 @@ public:
   /* Unsure what arguments this will take.
    * May also add animated, persistent, close image
    */
-  virtual GeasResult show_image (const std::string &filename, const std::string &resolution,
-				 const std::string &caption, ...)
+  virtual GeasResult show_image (const std::string & /* filename */,
+				 const std::string & /* resolution */,
+				 const std::string & /* caption */, ...)
   { return r_not_supported; }
 
   /* Again, unsure what arguments to give
@@ -146,7 +147,8 @@ public:
    * If sync is true, do not return until file ends
    * If filename is "", stop playing sounds.
    */
-  virtual GeasResult play_sound (const std::string &filename, bool looped, bool sync)
+  virtual GeasResult play_sound (const std::string & /* filename */,
+				 bool /* looped */, bool /* sync */)
   { return r_not_supported; }
   
   /* Asks the user to type a free format string
@@ -172,7 +174,7 @@ public:
    *         -   3 if it couldn't find a program to run it
    *         -   4 if it ran out of memory
    */
-  virtual int shell (std::vector<std::string> args, bool active)
+  virtual int shell (std::vector<std::string> /* args */, bool /* active */)
   { return 0; }
 
   /* say the argument using text-to-speech
@@ -252,7 +254,7 @@ public:
   /* run_hooks runs the game's beforesave/onload scripts (a real player save or
    * restore); pass false for a transparent, side-effect-free state snapshot. */
   virtual std::string save_state(bool run_hooks = true) { (void) run_hooks; return std::string(); }
-  virtual bool load_state(const std::string &data, bool run_hooks = true) { (void) run_hooks; return false; }
+  virtual bool load_state(const std::string & /* data */, bool run_hooks = true) { (void) run_hooks; return false; }
 
   /* Serialize / restore the whole undo history (for the Spatterlight
    * autosave, so UNDO still works across an autorestore -- as Bocfel

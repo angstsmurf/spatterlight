@@ -25,8 +25,13 @@
 
 CXX      ?= clang++
 CC       ?= clang
-CXXFLAGS ?= -std=c++17 -O2 -w -I..
-ASANFLAGS := -std=c++17 -O1 -g -w -I.. -fsanitize=address,undefined
+CXXFLAGS ?= -std=c++17 -O2 -Wall -Wextra -I..
+ASANFLAGS := -std=c++17 -O1 -g -Wall -Wextra -I.. -fsanitize=address,undefined
+
+# questglk_unit_tests exercises a small subset of questglk-common.inc, a menu
+# of static helpers shared by the two Glk frontends, so most of the menu is
+# (correctly) unused in that one translation unit.
+QGLKWARN := -Wno-unused-function
 
 Q4 := quest4/harness
 Q5 := quest5/harness
@@ -123,7 +128,7 @@ $(ASLXRTBIN): $(ASLXRTSRC) $(ASLXRTDEPS)
 	$(CXX) $(CXXFLAGS) $(ASLXRTSRC) $(ASLXLIBS) -o $@
 
 $(QGLKBIN): $(QGLKSRC) ../questglk-common.inc
-	$(CXX) $(CXXFLAGS) -I$(CHEAPGLK) $(QGLKSRC) $(CHEAPGLK)/libcheapglk.a -o $@
+	$(CXX) $(CXXFLAGS) $(QGLKWARN) -I$(CHEAPGLK) $(QGLKSRC) $(CHEAPGLK)/libcheapglk.a -o $@
 
 $(ASLXLINKBIN): $(ASLXLINKSRC) ../quest5/aslxglk.cc ../quest5/aslxglk-map.inc \
 	         ../questglk-common.inc $(ASLXRTDEPS)
@@ -184,7 +189,7 @@ asan: $(SRC) $(TESTSRC) $(DEPS) $(RANDOBJ)
 	$(CXX) $(ASANFLAGS) $(RANDFLAGS) $(SRC) $(RANDOBJ) -o $(BIN)
 	$(CXX) $(ASANFLAGS) $(ASLXSRC) $(ASLXLIBS) -o $(ASLXBIN)
 	$(CXX) $(ASANFLAGS) $(ASLXRTSRC) $(ASLXLIBS) -o $(ASLXRTBIN)
-	$(CXX) $(ASANFLAGS) -I$(CHEAPGLK) $(QGLKSRC) $(CHEAPGLK)/libcheapglk.a -o $(QGLKBIN)
+	$(CXX) $(ASANFLAGS) $(QGLKWARN) -I$(CHEAPGLK) $(QGLKSRC) $(CHEAPGLK)/libcheapglk.a -o $(QGLKBIN)
 	cd $(Q4) && ./geas_unit_tests
 	cd $(Q5) && ./aslx_loader_test
 	cd $(Q5) && ./aslx_runtime_test
