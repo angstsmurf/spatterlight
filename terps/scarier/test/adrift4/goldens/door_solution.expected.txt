@@ -1,0 +1,44 @@
+Loading game...
+
+Door
+A traditional text adventure by Eric T. Dorrath
+
+Written for the InsideADRIFT Summer Competition 2008.
+
+Your objective is simple.  Escape from the kitchen.
+
+The Kitchen
+You are in a reasonable sized Kitchen.  You look around and can see a single
+lonely unit next to the cooker.  An old fridge seems to be leaning against
+one wall with a washing machine next to it.  The window over the kitchen sink
+is difficult to see out of.  A table is positioned in the centre of the room
+and on the floor near the back door is a small dog basket.  On the wall you
+can see a fuse box with a single switch. The door to the back garden south.
+
+> open unit
+You open the unit.  A packet of coffee and a glass jar are inside the unit.
+
+> get jar
+You take the glass jar from the unit.
+
+> unlock door with jar
+When is a door not a door?  When it is a jar!!!
+
+You hear the back door unlocking.
+
+> open door
+You open the door. I guess it is now ajar.
+
+> south
+You head south. You have escaped.
+
+THE END
+
+You now have the option to either restart the game, undo your last move,
+restore a previous saved game position or quit.
+
+Feel free to report any bugs, send praise or give general feedback to
+erictdorrath@delron.org.uk
+
+> quit
+Do you really want to quit? [Y/N]

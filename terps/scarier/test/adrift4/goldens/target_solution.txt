@@ -1,0 +1,33 @@
+1
+x me
+i
+read paper
+read map
+x tramp
+throw knife at tramp
+get knife
+x tramp
+get badge
+x badge
+get radio
+turn on radio
+y
+search air conditioning
+get camera
+s
+x man
+shoot man
+throw camera
+throw radio
+n
+sw
+get bullet
+ne
+nw
+x sniper
+shoot sniper
+se
+open door
+d
+d
+y

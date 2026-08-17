@@ -1,0 +1,31 @@
+x me
+i
+ask artist about albert
+e
+x teller
+open pouch
+get quarter
+put quarter in coin slot
+ask teller about strange
+w
+ask artist about strange
+s
+ask simon about strange
+e
+ask grumpy about strange
+w
+n
+x tree
+e
+unlock change machine with silver key
+x change machine
+get motherload
+ask teller about wizards
+w
+s
+give motherload to simon
+ask simon about wizards
+ask simon about magic
+n
+lookfrotho
+ask artist about business

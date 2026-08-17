@@ -1,0 +1,5 @@
+open unit
+get jar
+unlock door with jar
+open door
+south

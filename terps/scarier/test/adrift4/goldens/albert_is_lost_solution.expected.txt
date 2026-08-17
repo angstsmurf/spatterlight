@@ -1,0 +1,330 @@
+Loading game...
+
+Albert is Lost!: An Adventure in Real Life
+
+Forsooth!
+
+Join Tiberius Thingamus in...
+
+Albert is Lost!:
+An Adventure in Real Life
+Written by Tiberius Thingamus using ADRIFT 4.
+ADRIFT (c) Campbell Wild.
+v.1.1: 1 May 2010.
+
+[press almost any key to continue]
+
+     They were just about to have their picture drawn by a sketch artist at
+the Annual Fall Festival in Oldeland, Ohio when Tiberius's littler
+brother-type person, Albert (also of the clan Thingamus), disappeared!
+
+     Now Tiberius must uncover treasure & the long-lost secrets of magic in
+order to discover whence his brother hath hid and rescue him from potential
+danger by evil wizards!
+
+[press almost any key to continue]
+
+The Sketch Artist's Booth
+Here in the semi-shade of a denuded nut tree stands the open-air booth of a
+sketch artist.  She sits by her easel, playing idly with her drawing
+instruments.  A trail south leads to a little hill where buskers sometimes
+entertain people eating lunch, and a less-used one leads east to a secluded
+section of the festival.   Also nearby is yon stout bush.
+
+"F'sooth!" cries Tiberius.  "Where hath Albert gone off to this time?"
+
+Type tutorial receiveth some instruction on important commands in this game
+and other how-to-play essentialities (or just tut if ye hate full words).
+
+> x me
+Lo, 'tis that star-crossed & cross-eyed poet of ye olde computer age!
+Tiberius Thingamus is wearing his Most Jauntily Plumed Beret, a floofy
+blouse, some fancy pantaloons and a belt pouch.
+
+> i
+Tiberius Thingamus is wearing his Most Jauntily Plumed Beret, a floofy
+blouse, some fancy pantaloons and a belt pouch, and Tiberius Thingamus is
+carrying a red quill.
+
+> ask artist about albert
+"Good lady," says Tiberius. "Hath ye seen my brother Albert about ye
+grounds?"
+
+"He can't've gone too far.  Must be hiding somewhere around here.  Why not
+have a look around?"
+
+> e
+Tiberius blunders off to the east.
+
+Fortune Teller 5000
+Tiberius has now ventured into shadows unexplored by the common
+festival-goer.  Under the near-black, sun-killing shade of four tarps in a
+little alley between the empty, cobwebbed stalls of long-forgotten vendors
+stands a monolith from another age-- the Fortune Teller 5000.  Nearby is a
+waste barrel for fortunes cast aside in bygone years, decades, maybe even
+millenia, and next to that standeth a change machine.  Two barely discernible
+paths lead west to the sketch artist's booth and south towards the sugared
+grease smell of a food vendor's trailer.
+
+> x teller
+A cabinet covered in glowing lights with a coin slot and ticker tape
+dispenser.  Garish-coloured writing in an oversized font adorns the machine
+in a semi-circular pattern.
+
+"Forecast ye fortune, ONLY 1 Quarter!  Ask me ANYTHING!"
+
+> open pouch
+Tiberius unclosess the belt pouch.  A quarter is inside the belt pouch.
+
+> get quarter
+Tiberius picks ups the quarter from the belt pouch.
+
+Wally the Stray slinketh in from the south.
+
+> put quarter in coin slot
+Tiberius puts/drops/feeds/inserts the solitary quarter into the Fortune
+Teller 5000.
+
+The cabinet lights up and makes some fanfare.
+
+"WHAT HO!  A customer!" it printeth out in ticker tape.  "Looketh around and
+ye shall findeth something in ye scenery hath changed (See Footnote 2).
+Whate'er 'tis that hath changed may helpeth ye find ye little brother.  Feel
+free to asketh me any other questions ye liketh and I shall do my best to
+answereth."
+
+When he finishes reading it, Tiberius disposes of the ticker tape fortune in
+the conveniently nearby barrel.
+
+> ask teller about strange
+Tiberius glances over his shoulder and then whispers, "Say, O mighty fortune
+telling box, doth ye noticeth any strange out-of-placeness here?"
+
+Fortune Teller 5000 prints out: "My reply is nay."
+
+Tiberius tosses out the fortune after reading it.
+
+> w
+Tiberius wanders west.
+
+The Sketch Artist's Booth
+Here in the lukewarm shade of a windblown nut tree stands the open-air booth
+of a sketch artist.  She sits by her easel, playing idly with her drawing
+instruments.  A trail south leads to a little hill where buskers sometimes
+entertain people eating lunch, and a less-used one leads east to a secluded
+section of the festival.   Also nearby is yon stout bush.
+
+Wally the Stray slinketh in from the east.
+
+> ask artist about strange
+Tiberius inquires, "Doth anything seemeth strange to ye 'round this
+vicinitary?"
+
+To which the sketch artist responds, "Well... now that you mention it, I
+coulda sworn that tree looked different earlier today."
+
+> s
+Tiberius blunders off to the south.
+
+Rhyming Dude & Bucket
+Upon this hill, festival-goers oft eat their lunch.  Howe'er, there is
+currently only one person here, a busker offering rhymes.  A buskin' bucket
+layeth upright here.  The sketch artist's booth lies on a slope north of
+here, whereas a food vendor's trailer is to the east.
+
+> ask simon about strange
+"Hail, fellow poet!" says Tiberius.  "Doth anything in this perimetary
+looketh a bit off to ye?"
+
+Rhymin' Simon answers, "We all go through a stupid phase.  I say just enjoy
+it, kid.  You'll grow out of it."
+
+Tiberius scratches his head o'er this.  "What phase?"
+
+Wally the Stray slinketh in from the north.
+
+> e
+Tiberius prances east.
+
+Trailer-O-Foode (sic)
+Oh, the joy of Oldeland festival foods.  If vendors could deep fry pure sugar
+in the essence of sodium, they would slather it in cheap barbeque sauce and
+sell sticks of it for $6.50 a piece.  It's entirely unlike the organic
+markets, where local farmers sell their produce, composting materials, and
+delicious homemade salsas on the weekend.
+
+Over there is the vendor's trailer, next to a low billboard.  North is a
+shady part of the festival and the luncheon hill is to the west.
+A grumpy-looking vendor sits behind the trailer window, scratching and
+snarling.
+
+> ask grumpy about strange
+"Hath ye noticed anything unusual about, snackmonger?" asks Tiberius.
+
+The vendor looks at Tiberius, then at the sky.  "No."
+
+> w
+Tiberius wanders west.
+
+Rhyming Dude & Bucket
+Upon this hill, festival-goers oft eat their lunch.  Howe'er, there is
+currently only one person here, a busker offering rhymes.  A buskin' bucket
+layeth upright here.  The sketch artist's booth lies on a slope north of
+here, whereas a food vendor's trailer is to the east.
+Wally the Stray sitteth about here, occasionally licking at his paws.
+
+> n
+Tiberius meanders north.
+
+The Sketch Artist's Booth
+Here in the lukewarm shade of a windblown nut tree stands the open-air booth
+of a sketch artist.  She sits by her easel, playing idly with her drawing
+instruments.  A trail south leads to a little hill where buskers sometimes
+entertain people eating lunch, and a less-used one leads east to a secluded
+section of the festival.   Also nearby is yon stout bush.
+
+> x tree
+One of the first to lose its leaves at the approach of autumn.  A small pile
+of fallen walnuts surrounds it.
+
+WHAT, HO!  Amidst the branches, Tiberius hath found a silver key!
+
+> e
+Tiberius meanders east.
+
+Fortune Teller 5000
+Tiberius has now ventured into shadows unexplored by the common
+festival-goer.  Under the near-black, sun-killing shade of four tarps in a
+little alley between the empty, cobwebbed stalls of long-forgotten vendors
+stands a monolith from another age-- the Fortune Teller 5000.  Nearby is a
+waste barrel for fortunes cast aside in bygone years, decades, maybe even
+millenia, and next to that standeth a change machine.  Two barely discernible
+paths lead west to the sketch artist's booth and south towards the sugared
+grease smell of a food vendor's trailer.
+
+> unlock change machine with silver key
+The change machine unlocketh with a satisfying click! and doth springeth
+suddenly and irreversibly open.
+
+Its usefulness exhausted, Tiberius tosseth ye silver key into yon waste
+barrel.
+
+Ooo... whatever could be inside yon change machine?
+
+> x change machine
+Paper money goes in, quarters come out.  It looketh like it hasn't seen a
+thread of paper in forever.  The change machine is open.  From inside there
+comes the blinding gleam of yon quarter motherload!
+
+> get motherload
+Tiberius picks ups yon quarter motherload from the change machine.
+
+Wally the Stray slinketh in from the south.
+
+HUZZAH!  Tiberius now has some treasure!
+
+Yon Fortune Teller 5000 spontaneously prints out: "Good news and bad news!
+
+"Good news: Now ye can GIVE ye treasure to one of ye festival workers and ask
+them about MAGIC, but beware of deception!  Those that telleth ye the wrong
+word could doometh ye brother... after giving up ye treasure, but before
+asking about magic, ye best testeth their sincerity by asking about wizards.
+
+"Bad news: Ye >UNDO command is no longer available."
+
+"Drat," bemoans Tiberius.  "How will I getteth along without being able to
+>UNDOeth?"
+
+> ask teller about wizards
+Tiberius reverently asks, "O fortuitous fortune finding device, what doth ye
+knoweth about wizards?"
+
+Fortune Teller 5000 prints out: "One of yon festival workers is actually a
+wizard who can teacheth ye if ye asketh 'em about MAGIC."
+
+Tiberius throws away the ticker tape when that's over.
+
+> w
+Tiberius blunders off to the west.
+
+The Sketch Artist's Booth
+Here in the lukewarm shade of a windblown nut tree stands the open-air booth
+of a sketch artist.  She sits by her easel, playing idly with her drawing
+instruments.  A trail south leads to a little hill where buskers sometimes
+entertain people eating lunch, and a less-used one leads east to a secluded
+section of the festival.   Also nearby is yon stout bush.
+
+> s
+Tiberius prances south.
+
+Rhyming Dude & Bucket
+Upon this hill, festival-goers oft eat their lunch.  Howe'er, there is
+currently only one person here, a busker offering rhymes.  A buskin' bucket
+layeth upright here.  The sketch artist's booth lies on a slope north of
+here, whereas a food vendor's trailer is to the east.
+
+> give motherload to simon
+Tiberius droppeth all of yon quarter motherload into yon bucket.
+
+"Hooray!" shouts yon busker.  "Whatever you wanna say, just ask away.  I'll
+answer you all day!"
+
+> ask simon about wizards
+"Pray tell," says Tiberius.  "What doth ye knoweth about practitioners of the
+wizardly arts, sir?"
+
+"If you're not careful, an evil wizard could turn you into a lizard!"
+
+> ask simon about magic
+"Most honorable rhymesman," Tiberius begins.  "What doth ye knoweth about the
+casting of magic?"
+
+"Ah, there's a trick," answers Rhymin' Simon.  "To making your magic effects
+stick.  You need a verb to fit that's most superb- something like
+LOOKFROTHO!"
+
+ "An' how would I useth LOOKFROTHO so?"
+
+ "Just say it ev'ry place ye go.  Surely when it works, ye'll know!"
+
+Wally the Stray slinketh in from the north.
+
+> n
+Tiberius goes north.
+
+The Sketch Artist's Booth
+Here in the lukewarm shade of a windblown nut tree stands the open-air booth
+of a sketch artist.  She sits by her easel, playing idly with her drawing
+instruments.  A trail south leads to a little hill where buskers sometimes
+entertain people eating lunch, and a less-used one leads east to a secluded
+section of the festival.   Also nearby is yon stout bush.
+
+"Ye shall soon be safe, Albert," mumbleth Tiberius.  "Thinketh of chocolate,
+li'l buddy."
+
+> lookfrotho
+"LOOKFROTHO!" invoketh Tiberius...
+
+From out behind yon bush cometh a magical pwoof! and out bursts Albert who
+shouts, "PIRATE SHIP!" for no particular reason (see Footnote 3) and bounds
+into Tiberius's arms.
+
+"Glad to findeth ye safe, little buddy," says Tiberius.  "Now let's getteth
+yon mighty portraiture sketched."
+
+Tiberius may now wish to ask The Sketch Artist about business.
+
+> ask artist about business
+"Milady," says Tiberius.  "My brother and I are now ready for the creation of
+our portraits!"
+
+"Alright," says the artist.
+
+"Can they not be done as caricatures, but as real-life pictures?"
+
+"Sure."
+
+And so she drew them, and Tiberius and Albert went home happily, with many
+tales to tell of their exciting adventures that day.
+
+THE END

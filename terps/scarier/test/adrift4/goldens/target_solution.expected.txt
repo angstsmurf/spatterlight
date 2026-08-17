@@ -1,0 +1,304 @@
+Loading game...
+
+Target
+
+Target
+
+by Richard Otter
+Version 1.00, 2005
+
+[1st in the InsideADRIFT Summer Comp 2005]
+
+1. Play the game
+
+2. Read the introduction
+
+3. Useful information
+
+4. Credits
+
+> 1
+
+Roof of the Building
+You are on the roof of the post-modern Bakewell Insurance Building, which has
+21 floors and was built around 11 years ago. A strong wind is blowing from
+the east and it looks like it could easily rain soon. A large antenna is
+whipping in the wind to your right and the air conditioning equipment in
+front of you is making a very loud noise. Just at your feet is the closed
+door leading down to the roof exit. You can go north, northeast, east,
+southeast, south, southwest, west, northwest and down.
+A dirty, smelly old tramp is lying on the floor.
+
+> x me
+You are as well as can be expected, considering the circumstances.  You are
+wearing a long leather coat.
+
+> i
+You are wearing a long leather coat, and you are carrying a JK54 rifle, a
+sheet of paper, a knife and a map.
+
+The tramp asks, "Are you sure you don't have a quid?"
+"No," you reply.
+He continues, "Are you up here to carry out some maintenance work?"
+"Get lost old man," you reply.
+
+> read paper
+Campbell, the name of your target is Charles Carter.
+Your target can be recognised by the following description (no photograph
+unfortunately) -
+He has been in hospital having an eye operation, it does not state which eye.
+He is also known to favour wearing unusual footwear, which is an odd fact to
+be given.
+Unconfirmed sighting in the art gallery part of town.
+The fee is $176,000; to be paid in the usual manner.
+
+You are a little concerned about the poor description Moore has given you.
+Without a photo you are hoping that not too many people today have an eye
+patch.
+
+> read map
+   /\
+North
+
+                                        Cambridge Road (gold)
+
+                Grange Street (insurance)                        Mill Road
+(art)
+
+Lombard Street (bank)
+       Middle Street (mobile)
+
+                Bridge Street (elect)                        Bailey Road
+(food)
+
+                                        Windsor Road (animals)
+
+The tramp asks, "Are you up here to clean the windows?"
+"Get lost old man," you reply.
+The tramp pretends to yawn.
+
+> x tramp
+It is one of those dirty, smelly, unshaven tramps who hang around the town
+and who has probably been drinking far too much. Although, it is a very odd
+place for a tramp to be and he looks a lot cleaner than you would expect.
+The tramp is wearing a pair of old corduroy trousers, a filthy camel brown
+jacket and a pair of trainers, and is carrying a bottle.
+A very loud motorbike can be heard to the south.
+
+> throw knife at tramp
+Looking around quickly to make sure no-one else is around you take out your
+knife and throw it at the poor old tramp. He lets out a scream and then is
+silent. Something has fallen from his clothes.
+
+> get knife
+You take the knife.
+
+> x tramp
+It is the body of a dead, smelly old tramp.  The dead tramp is wearing a pair
+of old corduroy trousers, a filthy camel brown jacket and a pair of trainers,
+and is carrying a bottle and a police radio.
+
+> get badge
+You take the badge.
+
+> x badge
+It is a police badge, the tramp must have been an undercover policeman.
+
+> get radio
+You take the radio.
+
+> turn on radio
+You turn on the police radio.
+
+Suddenly a voice says, "Echo Three to Echo Four, Echo Three to Echo Four,
+come in, over."
+
+Do you answer Y or N?
+
+> y
+Speaking into the radio you say, "Echo Four to Echo Three, over."
+The voices answers, "Confirm picture taken of suspects, over?"
+You reply, "Confirm over."
+
+Turning off the radio, your mind races on what you have heard. "Pictures of
+the suspects? They must have taken pictures, so where is the camera?" You
+quickly look around but cannot see one, but it must be up on the roof
+somewhere.
+A large airplane roars overhead, you are very close to the airport here.
+
+> search air conditioning
+Just part of the roof clutter you get on tall buildings. The equipment is
+making a lot of noise at the moment.  A camera is on the air conditioning
+equipment.
+
+> get camera
+You take the camera.
+
+> s
+You move south.
+
+South end of the roof
+You are at the southern end of the building which overlooks Windsor Road.  In
+front of you is a low brick wall and as you examine below it seems to be the
+pet shop part of town. The various buildings around you generate little
+interest. From here you can go north.
+Standing in the street below, is a man.
+
+> x man
+Using the scope of the gun you can see that he is wearing a grey jumper. He
+also has on green cords and a pair of black flip-flops on his feet. He has
+light brown hair cut short to disguise a hint of baldness and an oblong
+shaped face. With light stubble, he is a thin and wiry build and you notice
+that he wears an eye patch. He is holding a brown parcel. At the moment he
+staring at the building opposite.
+
+> shoot man
+Using the scope of the gun you target the man, at the same time moving your
+finger onto the trigger. Taking a slightly deeper breath than normal, you
+exhale, and then pause. Gently, you increase the tension on the trigger until
+the rifle fires. Waiting until the recoil of the weapon has stopped you then
+release the trigger.
+
+Your target has collapsed to the ground.  Looks like it is time to leave.
+
+Something hits the roof making a 'ffutt' sound. Looking around quickly you
+say aloud, "Hey! That sounded like a bullet?"
+
+> throw camera
+You throw the camera over the wall and it disappears out of sight.
+Someone has stopped and is looking at the body.
+
+> throw radio
+You throw the radio over the wall and it disappears out of sight.
+Someone has stopped and is looking at the body.
+
+In a moment of weakness you let your mind wander, and a piece of information
+from your training surfaces -
+"Eye relief - this is the distance from the eye to the rear sight."
+You shake your head and tell yourself to concentrate.
+
+> n
+You move north.
+
+Roof of the Building
+You are on the roof of the post-modern Bakewell Insurance Building, which has
+21 floors and was built around 11 years ago. A strong wind is blowing from
+the east and it looks like it could easily rain soon. A large antenna is
+whipping in the wind to your right and the air conditioning equipment in
+front of you is making a very loud noise. Just at your feet is the closed
+door leading down to the roof exit. You can go north, northeast, east,
+southeast, south, southwest, west, northwest and down.
+The body of a dead undercover policeman is lying here.
+A small flock of birds, probably pigeons, fly overhead.
+
+> sw
+You move southwest.
+
+Southwest end of the roof
+You are at the southwest end of the building which overlooks Bridge Street.
+In front of you is a low brick wall and as you examine below it seems to be
+the electrical part of town. None of the buildings around you arouse any
+interest. From here you can go north and northeast.
+
+A 9mm round for your JK54 rifle is lying on the floor.
+Below you, is a man standing in the street.
+
+Something hits the roof making a 'ffutt' sound.
+
+> get bullet
+You pickup the 9mm round and load it into your weapon.
+
+> ne
+You move northeast.
+
+Roof of the Building
+You are on the roof of the post-modern Bakewell Insurance Building, which has
+21 floors and was built around 11 years ago. A strong wind is blowing from
+the east and it looks like it could easily rain soon. A large antenna is
+whipping in the wind to your right and the air conditioning equipment in
+front of you is making a very loud noise. Just at your feet is the closed
+door leading down to the roof exit. You can go north, northeast, east,
+southeast, south, southwest, west, northwest and down.
+The body of a dead undercover policeman is lying here.
+
+> nw
+You move northwest.
+
+Northwest end of the roof
+You are at the northwest end of the building which overlooks Grange Street.
+In front of you is a low brick wall and as you examine below it seems to be
+the insurance part of town. About 300m away you can see the slightly taller
+Appleton Tower. From here you can go southeast.
+Below, you can see a man standing in the street.
+
+Something hits the roof making a 'ffutt' sound.
+You can hear a police car; you stand still for a moment as it seems to be
+heading this way.
+
+> x sniper
+The sniper is too far away, all you can see clearly through your gun sight is
+his head.
+
+> shoot sniper
+Using the scope of the gun you target the sniper, at the same time moving
+your finger onto the trigger. Taking a slightly deeper breath than normal,
+you exhale, and then pause. Gently, you increase the tension on the trigger
+until the rifle fires. Waiting until the recoil of the weapon has stopped you
+then release the trigger. The sniper disappears from view, it looks like it
+is time to leave.
+
+> se
+You move southeast.
+
+Roof of the Building
+You are on the roof of the post-modern Bakewell Insurance Building, which has
+21 floors and was built around 11 years ago. A strong wind is blowing from
+the east and it looks like it could easily rain soon. A large antenna is
+whipping in the wind to your right and the air conditioning equipment in
+front of you is making a very loud noise. Just at your feet is the closed
+door leading down to the roof exit. You can go north, northeast, east,
+southeast, south, southwest, west, northwest and down.
+The body of a dead undercover policeman is lying here.
+
+> open door
+You open the door.
+You can hear a police car; you stand still for a moment as it seems to be
+heading this way.
+
+> d
+You move down.
+
+Top of the Stairs
+
+> d
+Going down the stairs will end the game.  Do you want to do this now Y or N?
+
+> y
+You go down the stairs.
+
+It looks like you have taken out the right man. The newspapers tomorrow will
+contain the story of how someone called Charles Carter was killed by a single
+shot, fired from the roof of the Bakewell Insurance Building. Apparently he
+was involved with Russian crime gangs and it is believed this was a gangland
+killing.
+
+The story also goes on about the murder of an undercover policeman on the
+roof of the Bakewell Insurance Building. Half to yourself you mutter, "Well
+he wasn't that good at being an undercover cop!"
+
+Also in the newspaper is the story of a police marksman who was murdered on
+the roof of the Appleton Tower. Someone close to the investigation has
+reported that police believe it was the gunman sighted on the Bakewell
+Insurance Building the same day.
+
+Well, at least you took out the right target. You will need to start thinking
+about how you are going to spend the money.
+
+You managed to score 100 out of 100.
+
+THE END
+
+Feel free to report any bugs, send praise or give general feedback to
+richardo@delron.org.uk
+
+www.delron.org.uk

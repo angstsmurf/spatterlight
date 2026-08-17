@@ -1,0 +1,395 @@
+Loading game...
+
+The Marlin Affair: Prologue
+You are June Starr, a talented up-and-coming young intergalactic spy who was
+just sent on your first real mission. Which you flubbed horribly.
+
+After successfully infiltering a starship factory owned by the spoiled, rich,
+shallow...kind of handsome Marlin Grey, your job was to use the cover of your
+new job to take careful notes of certain shipments coming and going and
+report back to your superiors at the Station, the orbital spy school that
+you've lived and trained at for years.
+
+Then Marlin invited you to his office for a drink. You had strict orders to
+the effect that your role was strictly observational until you had more
+experience, but one drink wouldn't hurt, right? Besides, you might manage to
+get some important information out of him...
+
+He invited you over again the next night. And the next. Then to a restaurant
+he owned on a luxury spaceliner for a romantic dinner...where he admittedly
+spent most of the night talking about himself, his ex girlfriend, the latest
+company he'd bought out, the scuba diving trip he'd been on the week before
+and whether or not it was worth it to buy a private island on Old Earth, but
+he was still good looking and had an incredibly sexy voice, so you were happy
+to let him babble on and reasoned that it could only be a good thing you were
+going above and beyond the call of duty here to find out what your superiors
+wanted to know.
+
+And you kept right on thinking this until that very last drink arrived, the
+one with the drugs in it. The last thing you remember was your vision
+blurring, your muscles refusing to respond, and Marlin's vaguely regretful
+voice. "June, uh, so one of my main guys tells me you're a spy or something?"
+He sighs. "That really sucks, you're cute and all but everyone's saying I
+need to put you in some kind of death trap now, so I guess..."
+
+Now you're slowly coming awake with your head pounding and a mouth that feels
+like cotton. Trying to rub your aching forehead brings to your attention the
+fact that your hands are chained behind you. You're not sure where you are;
+the gentle humming of an engine suggests that it's somewhere in space, but
+that doesn't exactly narrow it down, and all you know is that you've got to
+figure out a way to get free and escape...
+
+> look
+
+Cargo Room
+You're slumped in a narrow closet-like room, so small that you can't even
+fully stretch your legs, with your hands cuffed to a metal bar that runs
+along the floor behind you. The cold steel-grey walls, dimly lit by a row of
+tiny white lights, are featureless except for a cabinet set into the one
+you're facing, a sturdy airlock door to the south, and a more traditional
+sliding one to the north.
+
+> x cabinet
+A smooth cabinet face with the word 'MAINTENANCE' painted on it in three
+different languages, and a small image of a pair of lips set into the upper
+right corner, indicating it opens in response to a voice command.
+
+> say open
+There is a second of silence as your voice is processed, then with a faint
+whir the cabinet door slides open, revealing a set of shelves containing a
+couple of tools within.
+
+> get tools
+Seeing how you're still sitting on the floor and effectively chained to the
+wall behind you, reaching the shelf with your hands is going to be a problem.
+
+> kick tools
+With a bit of creative twisting and turning, you're able to position yourself
+at an angle to get in a decent kick. At your first attempt the shelves just
+rattle a bit, but after a couple more increasingly determined tries, both
+tools are sent bouncing onto the floor.
+
+> get spinner
+Hooking the tool with your foot, you manage to slide it over within reach of
+your hands and pick it up with a feeling of triumph. Now you're getting
+somewhere!
+
+> turn on spinner
+After a bit of sparking and sputtering, the yellow disk of light that gives
+the laser spinner its name hums to life, whirling away at a speed faster than
+the eye can follow and ready to cut something.
+
+> cut handcuffs
+It takes a bit of careful manuevering (you don't want to slice into your
+wrists after all!) but once you're in the right position it only takes a
+second for the laser to reduce the handcuffs into so many pieces of scrap
+metal. You switch the tool off and stand up, free at last!
+
+> get screwench
+You take the screwench.
+
+> n
+The door is tightly closed, and there doesn't seem to be any obvious way to
+open it.
+
+> x door
+A metal sliding door. There doesn't seem to be any way to open it from this
+side, just a flat panel where the latch or scanner would normally be.
+
+> x panel
+A small rectangular panel is set into the door.
+
+> open panel with screwench
+The screwench isn't really the right size so it's fiddly work, but finally
+the last screw is undone and dropped to the floor, where it rolls off to who
+knows where, and you're able to pry open the panel.
+
+> x panel
+Behind the panel is a tangled mess of microchips and wires; this sort of
+thing isn't really your area of expertise, but from what you recall of your
+Basic Security classes it appears to be the insides of a simple electronic
+lock, seen from the back. There are lots of wires, but the most important
+seems to be a thin red one that leads to the main mechanism from somewhere
+inside the door.
+
+> unplug wire
+"Hope this works..." you mutter, grabbing hold of the red wire and yanking it
+loose. As you do so a tiny arc of blue energy leaps from the socket and onto
+your hand before you can yank it away, giving you a painful zap that sets
+your heart to racing. At the same time, the door emits a harsh buzzing sound,
+sliding open in short jerky motions, then closed, then open again until it
+freezes at about the halfway point, leaving just enough space for you to
+squeeze through.
+
+You pause a moment to rub your hand, reflecting ruefully that the shock you
+received will probably leave a burn mark, and wondering what would have
+happened if the jolt had been stronger...
+
+> n
+The first thing you notice as you step through the door is that you're in a
+small shuttle, probably one of Marlin's. The second, third, and forth thing
+is that there's a forcefield blocking off the controls, it's kind of
+uncomfortably warm in here and for some reason the that the viewscreen is
+letting in quite a bit of light. Too much light. In fact, you almost never
+get that level of brightness unless you're just a little to close to...oh
+hell.
+
+You've got a spectacular view of a white sun in the viewscreen, and that's
+because you're heading right for it.
+
+...death trap indeed. This one isn't terribly original, but you have to admit
+it's a classic.
+
+> x forcefield
+A sparkling blue wall of solid energy, with the little generator that
+sustains it sitting behind the pilot's seat. A forcefield is standard safety
+equipment on most ships, meant to protect the pilot and passengers in the
+event of a hull breach, mutiny, hi-jacking, or a variety of other emergency
+situations.
+
+> x generator
+The machine that projects the forcefield. Unfortunately on the other side of
+the forcefield.
+
+> x logo
+For some reason the logo of Grey Enterprises is not the obvious color, but
+blue. It's a large circular emblem depicting some sort of leaping fish with a
+ridiculous spike on its nose.
+
+As you look closer you discover that the logo is not simply printed on the
+floor as you originally thought, but is actually the lid of a hatch leading
+downwards.
+
+> open hatch
+You lift the hatch, revealing the shuttle's humming innards below. A few thin
+metal rungs make it possible to climb down into the cramped space, you
+suppose for maintenance and repairs.
+
+> d
+You take a moment to test your weight on the ladder (they make you nervous),
+then climb down a short distance to the room below.
+
+> n
+Honestly it doesn't even look like someone is meant to be able to squeeze
+into that compartment from this one. Luckily you're smaller than the average
+mechanic, but it looks like you'll need both hands free to pull this off.
+
+> drop all
+You drop the screwench, the handcuffs and the laser spinner.
+
+> n
+You have to half climb, half jump over one of the machines to avoid a mess of
+wires and sharp-edged, delicate looking parts. With some effort you manage to
+make it into the next compartment without damaging either them or yourself,
+though you do find yourself wishing for about the billionth time that you
+were wearing something more sensible for this sort of work.
+
+> u
+You move up.
+
+Front of Shuttle
+Here a wide, curved viewscreen takes up most of the northern wall, with a
+communications center directly beneath it, a navigation computer to the left,
+and the engineering station to the right. You're rather concerned to see that
+the first two don't seem to be receiving any power. It's strange that a new
+ship would have a major malfunction like this--though honestly by this point
+you wouldn't be surprised to find that either Marlin or his thugs
+deliberately tampered with it--and more importantly you need to access that
+navigation computer to set a new course.
+
+An active emergency forcefield generator is sitting on the floor between the
+pilot's chair and a hatch leading to the thrumming engine room below, while
+the rest of the shuttle is to the south.
+
+A pair of blue gloves has been tucked into the net pouch on the back of the
+pilot's chair.
+
+> turn off generator
+You crouch down and flip the switch. The forcefield flickers, then goes off.
+Simple enough...
+
+...until with a harsh crackling, buzzing noise one of the computers behind
+you explodes in a shower of glass. You're already close to the ground and
+quick to shield your face, but even with the pilot's chair between you and
+the worst of it you sustain several minor cuts and scratches.
+
+You're just picking yourself up and checking over your injuries in disbelief,
+when from somewhere a recording of a familiar and all too cheerful voice
+starts to speak...
+
+"June, hey, this is Marlin! A...uh, friend of mine said you might be able to
+escape so my guys went ahead and rigged a bomb to go off if the forcefield
+went down. Hope you're not dead or anything. Yet, I mean." There's a long
+pause as though he's fumbling for something to say...
+
+> s
+You move south.
+
+Back of Shuttle
+You're standing in the back of a small shuttle. It only takes a second's
+glance to realize that the northern section, containing the computers,
+pilot's chair, viewscreen, and thus everything even remotely important or
+useful to you right now has been blocked off by a powerful forcefield.
+
+As for the part you're in, there's not a whole lot that stands out here; it
+seems to be an 'efficiency' model, no doubt right off the assembly line of
+the very factory you were investigating. The engines hum quietly somewhere
+beneath your feet, and to your left and right, respectively, a spartan bed
+and table have been unfolded from the walls, a Grey Enterprises logo stamped
+on the floor between them. The combination storage compartment and airlock
+you were locked in is back to the south.
+
+"....uh, anyway, last night was fun, too bad you turned out to be a spy and
+all..." Another pause.
+
+> d
+You move down.
+
+Machine Room
+A tiny, cramped compartment filled with no-doubt vital machinery you know
+nothing about and are none too eager to fool with. The engine itself appears
+to be in a seperate compartment a little ways north of here, but it'll be a
+tight squeeze between two connected pieces of equipment to get there. A hatch
+leads back up to the back of the shuttle.
+
+A screwench lies here.
+
+Also here are the handcuffs and a laser spinner.
+
+|"...oh damn, my lunch is here. Gotta go, babe." The recording goes silent,
+leaving you to reflect that was probably the weakest example of villainous
+gloating you've ever heard and a complete waste of such a sexy voi...
+
+Ahem.
+
+...you're still going to kill the bastard.
+
+> get all
+You take the screwench, the handcuffs and the laser spinner.
+
+> u
+You move up.
+
+Back of Shuttle
+You're standing in the back of a small shuttle. It only takes a second's
+glance to realize that the northern section, containing the computers,
+pilot's chair, viewscreen, and thus everything even remotely important or
+useful to you right now has been blocked off by a powerful forcefield.
+
+As for the part you're in, there's not a whole lot that stands out here; it
+seems to be an 'efficiency' model, no doubt right off the assembly line of
+the very factory you were investigating. The engines hum quietly somewhere
+beneath your feet, and to your left and right, respectively, a spartan bed
+and table have been unfolded from the walls, a Grey Enterprises logo stamped
+on the floor between them. The combination storage compartment and airlock
+you were locked in is back to the south.
+
+> n
+You move north.
+
+Front of Shuttle
+You survey the front of the shuttle, broken glass from the burnt-out husk of
+the navigation computer crunching underfoot. Beneath the wide viewscreen that
+takes up most of the northern wall is the communication center, and to the
+right of it, thankfully far enough away from the blast that it remained
+undamaged, is the engineering station that monitors such things as life
+support and fuel.
+
+An inactive emergency forcefield generator is sitting on the floor between
+the pilot's chair and a hatch leading to the thrumming engine room below,
+while the rest of the shuttle is to the south.
+
+A pair of blue gloves has been tucked into the net pouch on the back of the
+pilot's chair.
+
+> x gloves
+A pair of bright blue gloves that look long enough to go up to your elbows,
+made out what looks like the same hazard-proof material as the labcoats and
+engineering smocks used at the Station.
+
+> get gloves
+You take the pair of blue gloves.
+
+> d
+You take a moment to test your weight on the ladder (they make you nervous),
+then climb down a short distance to the room below.
+
+> wear gloves
+You pull the long gloves on, the material bunching up around your elbows.
+They're much too large and rather uncomfortable.
+
+> unscrew bolt with screwench
+This is probably not the recommended way to unhook an engine, but you've got
+to try something. Working quickly, you adjust the screwench over the first
+bolt and give it a good yank.
+
+Nothing happens.
+
+You give a frustrated sigh, wipe your hands on your dress, grit your teeth
+and grab the tool again, pulling as hard as you can until with a squeak of
+protest the first bolt begins to move. By the time the fourth comes loose,
+you feel like you could damn near say the same about some of the muscles in
+your back, but the thought is interrupted by the crackling blue energy that
+suddenly blazes from the end of the cord as you yank it free. You struggle to
+hold it steady and pointed away from you as it writhes like a live thing in
+your grip; tendrils of lightning try to crawl up your arms, but thankfully
+can't find their way past the gloves, and after a few moments of this the
+last of its power seems spent.
+
+Meanwhile, the engine grinds to a slow, shuddering halt, and you allow
+yourself to breathe a sigh of relief. No doubt the shuttle is still coasting
+forward on momentum alone, but in terms of even relatively small solar
+distances you might as well be sitting dead in the water, and are no longer
+in any real danger of getting too close to the sun before help can arrive.
+
+> u
+You move up.
+
+Front of Shuttle
+You survey the front of the shuttle, broken glass from the burnt-out husk of
+the navigation computer crunching underfoot. Beneath the wide viewscreen that
+takes up most of the northern wall is the communication center, and to the
+right of it, thankfully far enough away from the blast that it remained
+undamaged, is the engineering station that monitors such things as life
+support and fuel.
+
+An inactive emergency forcefield generator is sitting on the floor between
+the pilot's chair and a hatch leading to the silent engine room below, while
+the rest of the shuttle is to the south.
+
+> x communications center
+The computer the pilot generally uses to do a variety of important things,
+including verifying flight plans, signaling for assistance, picking up
+musical broadcasts from his home planet, or accessing all 400 channels of
+intergalactic porn...though not necessarily in that order.
+
+It still doesn't have any power, but at least it doesn't seem to have been
+damaged by the blast.
+
+> get unit from generator
+You unhook the little power unit from the generator, flipping it around and
+noting that there's still plenty of juice left.
+
+> plug unit into center
+Holding your breath and sending up a little prayer, you attach the power unit
+to the appropriate slot in the communications center, not allowing yourself
+to relax until the screen comes to life with a series of the most beautiful
+beeps you've ever heard.
+
+It's not long until your distress signal is answered, and a group of
+salvagers are happy to ferry you back to the Station in exchange for dibs on
+cutting the shuttle down to its component parts. You gladly agree, only
+wishing you could do the same to Marlin...
+
+...but revenge will have to wait for another day. Right now, after a hot
+shower and a change of clothes, your first concern is going to be reporting
+to your superiors and coming up with a good excuse as to why you wrecked your
+first real mission and why you deserve another chance.
+
+Just how good of a liar are you? Find out in...
+
+The Marlin Affair: Chapter One
+coming soon!
+
+> quit
+Do you really want to quit? [Y/N]

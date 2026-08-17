@@ -1,0 +1,40 @@
+look
+x cabinet
+say open
+get tools
+kick tools
+get spinner
+turn on spinner
+cut handcuffs
+get screwench
+n
+x door
+x panel
+open panel with screwench
+x panel
+unplug wire
+n
+x forcefield
+x generator
+x logo
+open hatch
+d
+n
+drop all
+n
+u
+turn off generator
+s
+d
+get all
+u
+n
+x gloves
+get gloves
+d
+wear gloves
+unscrew bolt with screwench
+u
+x communications center
+get unit from generator
+plug unit into center

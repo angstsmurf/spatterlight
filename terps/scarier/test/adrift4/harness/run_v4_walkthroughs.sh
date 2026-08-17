@@ -2067,6 +2067,82 @@ dr-who-vortex-lust_solution.txt|dr-who-vortex-lust.taf|You scored 150 out of the
 # T211 (+2) is the one scoring task that needs it still in Heather's hands
 # at the end of her scene.
 gamma_solution.txt|gamma.taf|You scored 150 out of the maximum 150!
+# The next three are derived from the games' OWN in-game hint menus, dumped with
+# `SCR_DUMP_TASKS=1 harness/scare <game>` and read off the HINTQ/HINT1/HINT2
+# fields (see notes/WALKTHROUGH_TODO.md) -- no external walkthrough for any of
+# them exists.
+#
+# Pirate's Plunder!: nine questions, all three tiers filled, and the sledgehammer
+# tier gives literal commands ("Cut the brambles.", "Tie the vine to the hook and
+# put the grappling hook in the tree."), so the route is the hint table in order.
+# Two things the hints do not say: Ichabod has to be at the BOTTOM of the cliff
+# before `pull rope` will hoist the chest ("Ye'll have to findeth some waye,
+# thing, or person to steady it from ye bottom") -- `call ichabod` on Ye Treasure
+# Beach both fetches him and triggers Captain Hookhead's ghost ship -- and the
+# cannon is pushed one room per turn along ship -> beach -> marsh -> ruins ->
+# cliff, which only works after `cut brambles` has opened the marsh's east path.
+# The chest then goes back the same way and `set sail` ends it at 10/10.  The
+# riddle scroll's "toward ye end don't celebrate!" is a real trap (TASK 10).
+plunder_gargoyle_solution.txt|plunder_gargoyle.taf|Ye scored 10 out of the maximum 10!
+# Albert is Lost!: three questions, full three tiers.  The game has no score, so
+# the marker is the closing line.  Its two randomised facts are re-rolled off the
+# RNG as the game runs, so the route is NOT transplantable -- insert or delete a
+# single turn and both move:
+#   * which of the four scenery objects changed (walnut tree / buskin' bucket /
+#     vendor's trailer / stalls) and therefore hides the silver key.  Ask each
+#     worker `about strange`; exactly one reports it.  Under this solution's
+#     turn sequence it is the Sketch Artist and the walnut tree.
+#   * which worker is the real wizard.  Give the quarter motherload to the wrong
+#     one and they hand over a false magic word that dooms Albert; the Fortune
+#     Teller's own advice is to test them with `ask X about wizards` first.  The
+#     tell is respect, not knowledge -- the impostor sneers ("wizards are dumb"),
+#     and the true word is always LOOKFROTHO.  Here it is Rhymin' Simon (who is
+#     himself the transformed Albert, so saying the word on his hill does
+#     nothing; he is hiding behind the bush at the booth).
+# Needs SCR_SKIP_WAITKEY: the two-page intro's keypresses otherwise eat commands.
+albert_is_lost_solution.txt|Albert is Lost! An Adventure in Real Life.taf|Tiberius and Albert went home happily|SCR_SKIP_WAITKEY=1
+# Target: 23 questions but tier-1 only, because the author deliberately shipped
+# no external walkthrough -- target.zip's walkthru.txt says "Each time Target is
+# played certain key facts will change; so an external walkthru is not possible.
+# The game does include a built-in walkthru."  That built-in one is the `cheat`
+# command, which prints the run's actual compass directions but costs 10 of the
+# 100 points, so it is used to CONFIRM the derivation, never in the route.
+# Under the seeded engine the three drawn facts are fixed at game start (turn-1
+# `cheat` already reports them): target south, spare bullet southwest, sniper
+# northwest on the Appleton Tower.  Identification is by description only -- the
+# paper's "eye operation" + "unusual footwear" pick out the eye-patched man in
+# black flip-flops to the south, and the paper's own art-gallery sighting
+# (northeast) is flagged unconfirmed and is a decoy.  The tramp is an undercover
+# policeman; killing him yields the badge and the police radio, and answering
+# `y` on the radio is what reveals the camera hidden on the air conditioning.
+# The row opens with `1` to pick "Play the game" out of the title menu.
+target_solution.txt|target.taf|You managed to score 100 out of 100.
+# The next three are replays of walkthroughs the authors bundled INSIDE the comp
+# archives rather than publishing separately, which is why the IFDB harvest never
+# saw them (same story as Silk Noil and The Wheels Must Turn).  Copies kept in
+# `downloaded/`; all three are followed verbatim, command for command.
+#
+# Door: `SummerCompGames08.zip` member `games/doordocs/walkthru.txt`, five
+# commands, and the whole joke is the puzzle -- "When is a door not a door?  When
+# it is a jar!!!"  No score; the marker is the escape line.
+door_solution.txt|door.taf|You head south. You have escaped.
+# The Marlin Affair: Prologue: `SummerCompGames08.zip` member
+# `games/junedocs/june_walkthrough.txt` (the .taf is `junepro.taf` upstream).
+# Forty commands, no score, ends on the sequel teaser.  Needs SCR_SKIP_WAITKEY:
+# the long backstory intro is paged with keypresses that otherwise eat the first
+# six commands -- and that matters here, because `unscrew bolt with screwench`
+# fails outright ("I don't understand what you want me to do with the bolts")
+# unless the gloves have been worn, and the gloves leg only lines up once the
+# whole file is being fed to the game rather than the tail of it.
+marlin_affair_solution.txt|marlin_affair.taf|The Marlin Affair: Chapter One|SCR_SKIP_WAITKEY=1
+# Can It Be All So Simple?: `SummerComp05.zip` member
+# `SummerComp05/cibass/Walkthrough.txt`.  Forty commands of which fifteen are
+# `wait` -- the game is mostly a timed narrative, and the waits are load-bearing,
+# not padding.  No score.  The end is not a victory in any ordinary sense (the
+# "monsters" were the narrator's family), and the author signs it off with
+# "[Press any key to discontinue]", which is what the marker greps for.  Needs
+# SCR_SKIP_WAITKEY for the same reason as the Marlin Affair.
+cibass_solution.txt|CIBASS.taf|[Press any key to discontinue]|SCR_SKIP_WAITKEY=1
 EOF
 }
 

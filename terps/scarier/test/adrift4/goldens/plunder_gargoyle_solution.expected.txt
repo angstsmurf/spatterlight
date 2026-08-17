@@ -1,0 +1,405 @@
+Loading game...
+
+Pirate's Plunder!
+
+Pirate's Plunder!
+By ye olde scribbling scribe, Tiberius Thingamus.
+'Twas writ for ye 2010 Summer Comp.
+ADRIFT  (c) & courtesy of Campbell Wild.
+.     .     .     .     .     .     .     .     .     .
+
+Ye Olde Pirate Ship
+Arrgh!  'Tis ye olde pirate ship, which ye sail with ye pirate buddy Ichabod.
+ 'Tis a good place to drinketh some grog and telleth ye pirate stories at
+sea.  Also, ye liketh to sail around in it plunderin', which is what maketh
+ye a pirate in ye first place.  From here ye can moveth east down ye
+gangplank to yon beach.  Or, when ye feeleth ready, ye might set sail.
+
+Also here is ye olde riddle scroll and ye cannon.
+
+Lo, ye be Captain Somebody.  Ye looketh mighty piratey, because ye happen to
+a pirate.  Yarrgh, me hearties...!  Ye are wearing ye pirate clothes and
+carrying ye cutlass.
+
+If ye need some help on how to play ye game, type tutorial.  Remember, if ye
+be stuck on how to use something, look at it by typing x followed by ye
+object name, me matey!  If ye get really stuck, typeth hint.
+
+> read scroll
+Ye riddle scroll looketh old and leathery.  Aside from some stuff which
+helped ye navigate to Loot Island, it sayeth:
+
+^^^^^^^^^^^^^^^^^^^^
+
+Findeth ye the Isle o' Loot
+And followeth ye sign of yon boot.
+Through ye marshes navigate
+But toward ye end don't celebrate!
+Ye still must enter ye olde ruins,
+Discover ye Secret of cursed dubloons,
+Then reacheth ye cliff bottom
+Where ye treasures await, if ye spot 'em!
+
+^^^^^^^^^^^^^^^^^^^^
+
+What a silly treasureman ye gotteth this from!
+
+> x cannon
+'Tis just what ye thinketh it is.  A big, ol' boomer fer blastin' ye enemies'
+ships down to Davy Jones's locker!  Yo ho!
+
+Ye might be able to pusheth it around, but ye can't carry it.  Also, ye might
+shoot a Kraken with it by typing SHOOT KRAKEN.
+
+> e
+Ye swaggereth east.
+
+Ye Beach
+'Tis mighty sandy and tropical here.  Look, yon palm trees!  This island
+really knoweth how to do it.  Some day, 'twill probably maketh an incredible
+touristy attraction of some sort.  But today, 'twill leadeth ye to treasure.
+Shiver me timbers!  Thar be some footprints in ye sand here.
+
+Also here is ye shovel.
+Ye helpful pirate buddy Ichabod standeth by, lookin' around.
+
+> get shovel
+Ye take ye shovel.
+
+> x footprints
+They looketh like some mysterious, foot-shaped impressions in ye sand.  They
+leadeth south.
+
+> s
+Ye swaggereth south.
+
+Ye Deadly Marshes
+Oh, ye deadliness!  Ye must be about yea high in swampy muck.  Dense, twisted
+greenery and brambles surroundeth ye upon many sides.  Howe'er, ye think ye
+might goeth in almost any direction if ye tried.  Ye could also taketh ye
+waye back north to ye beach, which was much more pleasant on ye eyes and on
+ye nose, by the powers!
+
+> cut brambles
+Aha!  Ye hacketh away at yon evilly brambled shrubbery and discovereth a path
+to ye east!
+
+Ye swatteth bothersome swamp bugs away from ye.
+
+> e
+Ye swaggereth east.
+
+Ye Olde Ruins
+Verily, ye ruins looketh crumbly and stonish.  Strange carvings cover ye
+walls except on ye northern wall, which hath a huge crack in it.  Lo, yon
+eerie totem standeth amidst ye aged rubble.  Obvious exits are west and east.
+
+> x totem
+By th' powers!  It may have some writing on it which ye could read, me matey.
+ Typeth ye read totem to checketh it out!
+
+> read totem
+Ye totem sayeth:
+
+To remove ye Curse from ye island's treasure, let ye dubloons see this totem
+and then sayeth ye magic word...
+
+Arrrgh!  Ye wondereth what that could mean.
+
+> x crack
+It looketh dark enough that it might lead somewhence interesting.  Ye might
+pass through it, were ye skinny enough...
+
+> call ichabod
+Ye calleth fer Ichabod and he comes boundin' in, at the ready.
+
+> tell ichabod to go north
+"Aye, aye, Cap'n!" sayeth Ichabod, and then he squeezeth and wriggleth his
+lithe frame through yon crack in ye northern wall.  Ye hath always wanted to
+use ye word "lithe."  Shiver me timbers!
+
+Moments later, Ichabod emergeth with an old hook which he droppeth upon ye
+floor fer ye.  "This might be useful!" he sayeth.
+
+> get hook
+Ye take yon big hook.
+
+> e
+Ye swaggereth east.
+
+Ye Cliffside
+'Tis the top o' some big cliffs o'erlooking another beach.  Ye hath a good
+view of ye ocean from here, too.  A viney tree groweth at ye cliff's edge.
+Ye could go west back to ye olde ruins... and maybe down?
+
+> x viney tree
+'Tis a sturdy tree o'er grown with many tough-lookin' vines.  A vine is
+inside yon viney tree.
+
+> get vine
+Ye take the vine from yon viney tree.
+
+> tie vine to hook
+Yo ho!  Good thinkin', me hearty.  Using ye best pirate knots, ye hath
+fashioned a grappling hook!  Ye taketh it in ye hands and admire its
+workmanship.  It could be useful to ye if ye putteth it in a secure place.
+
+> put grappling hook in tree
+Ye secure yon grappling hook inside ye branches o' yon viney tree.  It
+holdeth steady as a faithful trade wind.
+
+Ye thinketh ye may now safely climb down ye cliffside, me matey!  By th'
+powers!
+
+> d
+Ye swaggereth down.
+
+Ye Treasure Beach
+Yon pristine beach looketh prime fer the digging!  But thar be many sandy
+patches in which to dig.  Each might be worth a look.  Arrrgh!  Yon dangling
+rope o'er ye cliffs leadeth back up to ye rest of Loot Island, and to ye east
+loometh ye great, oceanic depths.
+
+> search sandy patches
+Ye taketh a close look at all o' ye sandy patches and, lo!  Ye hath
+discovered an X-shaped patch o' sand, me hearty!  Yarr harr!  This must
+undoubtedly be where ye must dig.
+
+> dig
+HUZZAH!  Yo ho!  And shiver me timbers!  Ye digging at ye X reveals yon
+treasure chest, me matey!
+
+Unfortunarily, ye thinketh ye probably can't lift it by yeself.  Ye might
+need to get ye pirate buddy Ichabod to helpeth ye.
+
+> call ichabod
+Ye calleth fer Ichabod and he comes boundin' down ye cliffside.  He stumbles
+to 'is feet and a' the ready, aye.
+
+Ichabod jumpeth with joy at ye sight of yon treasure chest and giveth ye a
+big, piratey hug.
+
+Before ye can celebrate, howe'er, a ghostly ship appears in ye distance.
+Ichabod gets his spyglass from out his pantaloons and doth taketh a look.
+
+"Avast!" he sayeth.  "'Tis ye arch enemy, that scurvy ghost pirate, Captain
+Hookhead!  We'll never make it off the isle alive if he comes after us,
+Cap'n!"
+
+Ye pirate buddy Ichabod is right.  Ye'll have to do something to get rid of
+Captain Hookhead's ghost ship.  Shiver me timbers!
+
+> tie rope to chest
+Ye tie yon rope to ye treasure chest.  Now ye could pulleth it up ye
+cliffside, ye artful rascal!
+
+> u
+Yo ho!  Ye make a hearty climb up ye cliffside.  Ye were always a good rope
+climber in gym class, me matey.
+
+Ye Cliffside
+'Tis the top o' some big cliffs o'erlooking another beach.  Ye hath a good
+view of ye ocean from here, too.  A viney tree groweth at ye cliff's edge,
+from which dangleth ye mightily secure grappling hook.  Ye could go west back
+to ye olde ruins or down ye cliffside.
+
+Now ye can hoist ye treasure up!  Typeth ye PULL ROPE or HOIST TREASURE to do
+so.  Arrrgh!
+
+> pull rope
+Ye taketh hold of ye vine rope and pull fer all yer blood!
+
+"Haul away!" ye calleth.  "Hold 'er line steady, bo'sun!  Don't let 'er prize
+slip, me swabby.  Come on, heave!  Ho!"
+
+Many a turn later, drenched in ye own sweat, ye hath raised yon treasure
+chest upon ye cliffside.  Ye giveth ye line one final pull and dust off ye
+palms.  Ichabod climbeth up to join ye and unties ye rope from yon treasure
+chest.
+
+> w
+Ye swaggereth west.
+
+Ye Olde Ruins
+Verily, ye ruins looketh crumbly and stonish.  Strange carvings cover ye
+walls except on ye northern wall, which hath a huge crack in it.  Lo, yon
+eerie totem standeth amidst ye aged rubble.  Obvious exits are west and east.
+
+> w
+Ye swaggereth west.
+
+Ye Deadly Marshes
+Oh, ye deadliness!  Ye must be about yea high in swampy muck.  Dense, twisted
+greenery and brambles surroundeth ye upon many sides.  Ye could also taketh
+ye waye back north to ye beach or head east along ye path ye cut through yon
+twisted greenery.
+
+Ye swatteth bothersome swamp bugs away from ye.
+
+> n
+Ye swaggereth north.
+
+Ye Beach
+'Tis mighty sandy and tropical here.  Look, yon palm trees!  This island
+really knoweth how to do it.  Some day, 'twill probably maketh an incredible
+touristy attraction of some sort.  But today, 'twill leadeth ye to treasure.
+By th' powers!  Thar be some footprints in ye sand here.
+
+> w
+Ye swaggereth west.
+
+Ye Olde Pirate Ship
+Arrgh!  'Tis ye olde pirate ship, which ye sail with ye pirate buddy Ichabod.
+ 'Tis a good place to drinketh some grog and telleth ye pirate stories at
+sea.  Also, ye liketh to sail around in it plunderin', which is what maketh
+ye a pirate in ye first place.  From here ye can moveth east down ye
+gangplank to yon beach.  Or, when ye feeleth ready, ye might set sail.
+
+Also here is ye olde riddle scroll and ye cannon.
+
+> push cannon east
+Hi-ho!  Ye pusheth ye cannon eastward.
+
+Ye Beach
+'Tis mighty sandy and tropical here.  Look, yon palm trees!  This island
+really knoweth how to do it.  Some day, 'twill probably maketh an incredible
+touristy attraction of some sort.  But today, 'twill leadeth ye to treasure.
+Yarr harr!  Thar be some footprints in ye sand here.
+
+Also here is ye cannon.
+
+> push cannon south
+Hi-ho!  Ye pusheth ye cannon southward.
+
+Ye Deadly Marshes
+Oh, ye deadliness!  Ye must be about yea high in swampy muck.  Dense, twisted
+greenery and brambles surroundeth ye upon many sides.  Ye could also taketh
+ye waye back north to ye beach or head east along ye path ye cut through yon
+twisted greenery.
+
+Also here is ye cannon.
+
+> push cannon east
+Hi-ho!  Ye pusheth ye cannon eastward.
+
+Ye Olde Ruins
+Verily, ye ruins looketh crumbly and stonish.  Strange carvings cover ye
+walls except on ye northern wall, which hath a huge crack in it.  Lo, yon
+eerie totem standeth amidst ye aged rubble.  Obvious exits are west and east.
+
+Also here is ye cannon.
+
+> push cannon east
+Hi-ho!  Ye pusheth ye cannon eastward.
+
+Ye Cliffside
+'Tis the top o' some big cliffs o'erlooking another beach.  Ye hath a good
+view of ye ocean from here, too.  A viney tree groweth at ye cliff's edge,
+from which dangleth ye mightily secure grappling hook.  Ye could go west back
+to ye olde ruins or down ye cliffside.
+
+Also here is ye cannon and yon treasure chest.
+Ye helpful pirate buddy Ichabod standeth by, lookin' around.
+
+> shoot ghost ship
+Ye aimeth ye trusty cannon and let loose upon Captain Hookhead's boat,
+blowing it to smithereens!  A billowing, black cloud of smoke and a few
+planks are all that remain... and those, too, sink t' the Devil!
+
+Ye've finished off ye ghostly nemesis, me matey.  Well done!
+
+> push treasure west
+Ichabod and yeself each take an end of yon treasure chest and hauleth it
+west.
+
+Ye Olde Ruins
+Verily, ye ruins looketh crumbly and stonish.  Strange carvings cover ye
+walls except on ye northern wall, which hath a huge crack in it.  Lo, yon
+eerie totem standeth amidst ye aged rubble.  Obvious exits are west and east.
+
+Also here is yon treasure chest.
+Ye helpful pirate buddy Ichabod standeth by, lookin' around.
+
+> open chest
+Ye shove open yon heavy, creaking treasure lid and are blinded by yon gleam
+for a bit.  Ye cleareth ye eyes... but dare ye look again in ye treasure
+chest?
+
+> please
+Ye sayeth, "Please."
+
+By some G'forsaken power, ye treasured dubloons begin a-glowin' and the give
+off a flash brighter than the broadsides of a diamond galleon!
+
+F'sooth... something hath happened.
+
+> x chest
+Behold!  Ye treasure ye hath been looking for this whole time.  It looketh
+far too heavy fer ye to carry, but ye bet ye could moveth it about if ye had
+Ichabod with ye.  Ye'd just have to type MOVE CHEST WEST or some such.  Yon
+treasure chest is open.  Loadsa awesome dubloons are inside yon treasure
+chest.
+
+> push treasure west
+Ichabod and yeself each take an end of yon treasure chest and hauleth it
+west.
+
+Ye Deadly Marshes
+Oh, ye deadliness!  Ye must be about yea high in swampy muck.  Dense, twisted
+greenery and brambles surroundeth ye upon many sides.  Ye could also taketh
+ye waye back north to ye beach or head east along ye path ye cut through yon
+twisted greenery.
+
+Also here is yon treasure chest.
+Ye helpful pirate buddy Ichabod standeth by, lookin' around.
+
+Somewhence, yon creepy swamp crickets chirpeth.
+
+> push treasure north
+Ichabod and yeself each take an end of yon treasure chest and hauleth it
+north.
+
+Ye Beach
+'Tis mighty sandy and tropical here.  Look, yon palm trees!  This island
+really knoweth how to do it.  Some day, 'twill probably maketh an incredible
+touristy attraction of some sort.  But today, 'twill leadeth ye to treasure.
+Yarr harr!  Thar be some footprints in ye sand here.
+
+Also here is yon treasure chest.
+Ye helpful pirate buddy Ichabod standeth by, lookin' around.
+
+> push treasure west
+Ichabod and yeself each take an end of yon treasure chest and hauleth it
+west.
+
+Ye Olde Pirate Ship
+Arrgh!  'Tis ye olde pirate ship, which ye sail with ye pirate buddy Ichabod.
+ 'Tis a good place to drinketh some grog and telleth ye pirate stories at
+sea.  Also, ye liketh to sail around in it plunderin', which is what maketh
+ye a pirate in ye first place.  From here ye can moveth east down ye
+gangplank to yon beach.  Or, when ye feeleth ready, ye might set sail.
+
+Also here is ye olde riddle scroll and yon treasure chest.
+Ye helpful pirate buddy Ichabod standeth by, lookin' around.
+
+> set sail
+Aye, set sail!
+
+"Ahoy, bo'sun!" ye calleth.  "Unfurl ye sails and set a course for
+adventure."
+
+"Aye, aye, Cap'n!" calls Ichabod.
+
+Treasure-laden, uncursed, and free of ye nemesis, ye and ye pirate buddy
+Ichabod be destined to sail on to greater exploits.  Yo ho!
+
+... ye do realize that ye left ye cannon on the island, but with all o' ye
+loot, ye might as well buy another one.  Maybe in a hundred or so years
+someone will discover ye cannon and put a plaque on it: "Genuine pirate
+cannon."
+
+FINAL SCORE: REAL PIRATE!
+
+Ye scored 10 out of the maximum 10!
+That is 100% of the game!
+Well done - ye scored maximum points!

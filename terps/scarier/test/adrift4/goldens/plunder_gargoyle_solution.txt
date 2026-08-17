@@ -1,0 +1,43 @@
+read scroll
+x cannon
+e
+get shovel
+x footprints
+s
+cut brambles
+e
+x totem
+read totem
+x crack
+call ichabod
+tell ichabod to go north
+get hook
+e
+x viney tree
+get vine
+tie vine to hook
+put grappling hook in tree
+d
+search sandy patches
+dig
+call ichabod
+tie rope to chest
+u
+pull rope
+w
+w
+n
+w
+push cannon east
+push cannon south
+push cannon east
+push cannon east
+shoot ghost ship
+push treasure west
+open chest
+please
+x chest
+push treasure west
+push treasure north
+push treasure west
+set sail

@@ -1,0 +1,40 @@
+wait
+wait
+wait
+wait
+stand
+turn on lights
+take crowbar
+south
+down
+south
+open fridge
+examine counter
+take knife
+north
+up
+knife
+down
+north
+west
+knock on the door
+east
+south
+up
+southwest
+down
+north
+west
+unlock door with crowbar
+take bat
+kill monster with bat
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
