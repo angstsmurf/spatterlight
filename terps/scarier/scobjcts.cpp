@@ -364,6 +364,7 @@ obj_scale (scr_int multiple, scr_int index_)
  *
  * TODO It's possible to have static objects in the player inventory, moved
  * by events -- how should these be handled, as they have no SizeWeight?
+ * See RUNNER_TESTS_TODO.md section 9.
  */
 scr_int
 obj_get_size (scr_gameref_t game, scr_int object)

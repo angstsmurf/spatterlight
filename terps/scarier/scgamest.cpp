@@ -1210,9 +1210,7 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
   game->sound_active = FALSE;
 
   /* Initialize wait turns from game properties. */
-  vt_key[0].string = "Globals";
-  vt_key[1].string = "WaitTurns";
-  game->waitturns = prop_get_integer (bundle, "I<-ss", vt_key);
+  game->waitturns = prop_get_global_integer (bundle, "WaitTurns");
 
   /* Non-game conveniences. */
   game->is_running = FALSE;

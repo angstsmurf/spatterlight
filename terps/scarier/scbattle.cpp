@@ -761,9 +761,6 @@ static void
 battle_print_combatant (scr_gameref_t game, scr_int npc, scr_int form)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[3];
-  const scr_char *name;
 
   if (npc < 0)
     {
@@ -772,11 +769,7 @@ battle_print_combatant (scr_gameref_t game, scr_int npc, scr_int form)
       return;
     }
 
-  vt_key[0].string = "NPCs";
-  vt_key[1].integer = npc;
-  vt_key[2].string = "Name";
-  name = prop_get_string (bundle, "S<-sis", vt_key);
-  pf_buffer_string (filter, name);
+  lib_print_npc_np (game, npc);
   if (form == 2)
     pf_buffer_string (filter, "'s");
 }

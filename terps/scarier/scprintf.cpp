@@ -1123,9 +1123,10 @@ pf_empty (scr_filterref_t filter)
 /*
  * pf_buffer_string()
  * pf_buffer_character()
+ * pf_buffer_integer()
  *
- * Add a string, and a single character, to the printfilter buffer.  If muted,
- * these functions do nothing.
+ * Add a string, a single character, and a decimal integer, to the
+ * printfilter buffer.  If muted, these functions do nothing.
  */
 void
 pf_buffer_string (scr_filterref_t filter, const scr_char *string)
@@ -1163,6 +1164,15 @@ pf_buffer_character (scr_filterref_t filter, scr_char character)
 
   buffer[0] = character;
   buffer[1] = NUL;
+  pf_buffer_string (filter, buffer);
+}
+
+void
+pf_buffer_integer (scr_filterref_t filter, scr_int value)
+{
+  scr_char buffer[32];
+
+  snprintf (buffer, sizeof (buffer), "%ld", value);
   pf_buffer_string (filter, buffer);
 }
 

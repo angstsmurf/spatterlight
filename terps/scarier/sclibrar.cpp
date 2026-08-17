@@ -561,52 +561,19 @@ lib_print_object (scr_gameref_t game, scr_int object)
 
 /*
  * lib_print_npc_np
- * lib_print_npc
  *
- * Convenience functions to print out an NPC's name, with and without
- * any prefix.
+ * Convenience function to print out an NPC's name, without any prefix.
  */
-static void
+void
 lib_print_npc_np (scr_gameref_t game, scr_int npc)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[3];
-  const scr_char *name;
 
   /* Get the NPC's short description, and print it. */
-  vt_key[0].string = "NPCs";
-  vt_key[1].integer = npc;
-  vt_key[2].string = "Name";
-  name = prop_get_string (bundle, "S<-sis", vt_key);
-
-  pf_buffer_string (filter, name);
+  pf_buffer_string (filter,
+                    prop_get_indexed_string (bundle, "NPCs", npc, "Name"));
 }
-
-#if 0
-static void
-lib_print_npc (scr_gameref_t game, scr_int npc)
-{
-  const scr_filterref_t filter = gs_get_filter (game);
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[3];
-  const scr_char *prefix;
-
-  /* Get the NPC's prefix. */
-  vt_key[0].string = "NPCs";
-  vt_key[1].integer = npc;
-  vt_key[2].string = "Prefix";
-  prefix = prop_get_string (bundle, "S<-sis", vt_key);
-
-  /* If the prefix isn't empty, print it, then print NPC name. */
-  if (!scr_strempty (prefix))
-    {
-      pf_buffer_string (filter, prefix);
-      pf_buffer_character (filter, ' ');
-    }
-  lib_print_npc_np (game, npc);
-}
-#endif
 
 
 /*
@@ -635,17 +602,12 @@ static scr_int
 lib_get_perspective (scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[2];
-  scr_int perspective, version;
+  scr_int perspective;
 
-  vt_key[0].string = "Globals";
-  vt_key[1].string = "Perspective";
-  perspective = prop_get_integer (bundle, "I<-ss", vt_key);
+  perspective = prop_get_global_integer (bundle, "Perspective");
 
-  vt_key[0].string = "Version";
-  version = prop_get_integer (bundle, "I<-s", vt_key);
-
-  if (version < TAF_VERSION_400 && perspective != LIB_FIRST_PERSON)
+  if (prop_get_taf_version (bundle) < TAF_VERSION_400
+      && perspective != LIB_FIRST_PERSON)
     return LIB_SECOND_PERSON;
 
   return perspective;
@@ -662,11 +624,7 @@ lib_get_perspective (scr_gameref_t game)
 static scr_bool
 lib_is_version_400 (scr_gameref_t game)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[1];
-
-  vt_key[0].string = "Version";
-  return prop_get_integer (bundle, "I<-s", vt_key) >= TAF_VERSION_400;
+  return prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400;
 }
 
 
@@ -1134,7 +1092,7 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
    * List NPCs in the room that don't have an in room description and that
    * request a default "...is here" with "#".
    *
-   * TODO Is this right?
+   * TODO Is this right?  See RUNNER_TESTS_TODO.md section 9.
    */
   list.clear ();
   for (npc = 0; npc < gs_npc_count (game); npc++)
@@ -1517,30 +1475,80 @@ lib_direction_name (scr_int direction)
 }
 
 
+/*
+ * lib_compass_names()
+ *
+ * Return the direction names list for the game's compass, eight point or
+ * four.
+ */
+static const scr_char *const *
+lib_compass_names (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+
+  return prop_get_global_boolean (bundle, "EightPointCompass")
+         ? DIRNAMES_8 : DIRNAMES_4;
+}
+
+
+/*
+ * lib_room_exit_available()
+ *
+ * Return TRUE if the player room defines an exit in the given direction and
+ * nothing currently blocks its use.
+ */
 static scr_bool
-lib_room_has_exits (scr_gameref_t game)
+lib_room_exit_available (scr_gameref_t game, scr_int direction)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[4], vt_rvalue;
-  scr_bool eightpointcompass;
+
+  vt_key[0].string = "Rooms";
+  vt_key[1].integer = gs_playerroom (game);
+  vt_key[2].string = "Exits";
+  vt_key[3].integer = direction;
+  return prop_get (bundle, "I<-sisi", &vt_rvalue, vt_key)
+         && lib_can_go (game, gs_playerroom (game), direction);
+}
+
+
+/*
+ * lib_room_exit_destination()
+ *
+ * Return TRUE and write the destination of the player room's exit in the
+ * given direction, FALSE if the room defines no such exit.
+ */
+static scr_bool
+lib_room_exit_destination (scr_gameref_t game,
+                           scr_int direction, scr_int *destination)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[5], vt_rvalue;
+
+  vt_key[0].string = "Rooms";
+  vt_key[1].integer = gs_playerroom (game);
+  vt_key[2].string = "Exits";
+  vt_key[3].integer = direction;
+  vt_key[4].string = "Dest";
+  if (!prop_get (bundle, "I<-sisis", &vt_rvalue, vt_key))
+    return FALSE;
+
+  *destination = vt_rvalue.integer - 1;
+  return TRUE;
+}
+
+
+static scr_bool
+lib_room_has_exits (scr_gameref_t game)
+{
   const scr_char *const *dirnames;
   scr_int index_;
 
-  /* Decide on four or eight point compass names list. */
-  vt_key[0].string = "Globals";
-  vt_key[1].string = "EightPointCompass";
-  eightpointcompass = prop_get_boolean (bundle, "B<-ss", vt_key);
-  dirnames = eightpointcompass ? DIRNAMES_8 : DIRNAMES_4;
-
   /* Return on the first valid, usable exit found. */
+  dirnames = lib_compass_names (game);
   for (index_ = 0; dirnames[index_]; index_++)
     {
-      vt_key[0].string = "Rooms";
-      vt_key[1].integer = gs_playerroom (game);
-      vt_key[2].string = "Exits";
-      vt_key[3].integer = index_;
-      if (prop_get (bundle, "I<-sisi", &vt_rvalue, vt_key)
-          && lib_can_go (game, gs_playerroom (game), index_))
+      if (lib_room_exit_available (game, index_))
         return TRUE;
     }
   return FALSE;
@@ -1556,30 +1564,15 @@ scr_bool
 lib_cmd_print_room_exits (scr_gameref_t game)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[4];
-  scr_bool eightpointcompass;
   const scr_char *const *dirnames;
   scr_int index_;
   lib_list_t list;
 
-  /* Decide on four or eight point compass names list. */
-  vt_key[0].string = "Globals";
-  vt_key[1].string = "EightPointCompass";
-  eightpointcompass = prop_get_boolean (bundle, "B<-ss", vt_key);
-  dirnames = eightpointcompass ? DIRNAMES_8 : DIRNAMES_4;
-
   /* Poll for an exit for each valid direction name. */
+  dirnames = lib_compass_names (game);
   for (index_ = 0; dirnames[index_]; index_++)
     {
-      scr_vartype_t vt_rvalue;
-
-      vt_key[0].string = "Rooms";
-      vt_key[1].integer = gs_playerroom (game);
-      vt_key[2].string = "Exits";
-      vt_key[3].integer = index_;
-      if (prop_get (bundle, "I<-sisi", &vt_rvalue, vt_key)
-          && lib_can_go (game, gs_playerroom (game), index_))
+      if (lib_room_exit_available (game, index_))
         list.push_back (index_);
     }
   if (!list.empty ())
@@ -1634,7 +1627,6 @@ lib_describe_player_room (scr_gameref_t game, scr_bool force_verbose)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[2];
 
   /* Print the room name. */
   lib_print_room_name (game, gs_playerroom (game));
@@ -1649,9 +1641,7 @@ lib_describe_player_room (scr_gameref_t game, scr_bool force_verbose)
       lib_print_room_description (game, gs_playerroom (game));
 
       /* Print exits if the ShowExits global requests it. */
-      vt_key[0].string = "Globals";
-      vt_key[1].string = "ShowExits";
-      showexits = prop_get_boolean (bundle, "B<-ss", vt_key);
+      showexits = prop_get_global_boolean (bundle, "ShowExits");
       if (showexits && lib_room_has_exits (game))
         {
           pf_buffer_character (filter, '\n');
@@ -1763,6 +1753,28 @@ lib_cmd_undo (scr_gameref_t game)
 
 
 /*
+ * lib_format_elapsed_time()
+ *
+ * Format a count of elapsed game seconds as "[Hh ][M]Mm SSs".
+ */
+static void
+lib_format_elapsed_time (scr_int timestamp, scr_char *buffer, size_t length)
+{
+  scr_int hr, min, sec;
+
+  /* Separate the timestamp out into components. */
+  hr = timestamp / SECS_PER_HOUR;
+  min = (timestamp % SECS_PER_HOUR) / MINS_PER_HOUR;
+  sec = timestamp % SECS_PER_MINUTE;
+
+  if (hr > 0)
+    snprintf (buffer, length, "%ldh %02ldm %02lds", hr, min, sec);
+  else
+    snprintf (buffer, length, "%ldm %02lds", min, sec);
+}
+
+
+/*
  * lib_cmd_history_common()
  * lib_cmd_history_number()
  * lib_cmd_history()
@@ -1814,23 +1826,14 @@ lib_cmd_history_common (scr_gameref_t game, scr_int limit)
       memo_next_command (memento, &command, &sequence, &timestamp, &turns);
       if (count >= first)
         {
-          scr_int hr, min, sec;
           scr_char buffer[64];
 
           /* Write the history entry sequence. */
           snprintf (buffer, sizeof(buffer), "%4ld -- Time ", sequence);
           if_print_string (buffer);
 
-          /* Separate the timestamp out into components. */
-          hr = timestamp / SECS_PER_HOUR;
-          min = (timestamp % SECS_PER_HOUR) / MINS_PER_HOUR;
-          sec = timestamp % SECS_PER_MINUTE;
-
           /* Print playing time as "[HHh ][M]Mm SSs". */
-          if (hr > 0)
-            snprintf (buffer, sizeof(buffer), "%ldh %02ldm %02lds", hr, min, sec);
-          else
-            snprintf (buffer, sizeof(buffer), "%ldm %02lds", min, sec);
+          lib_format_elapsed_time (timestamp, buffer, sizeof(buffer));
           if_print_string (buffer);
 
           /* Follow up with the turns count, and the command string itself. */
@@ -2237,13 +2240,11 @@ lib_cmd_information (scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_var_setref_t vars = gs_get_vars (game);
-  scr_vartype_t vt_key[2];
+  scr_vartype_t vt_key[1];
   const scr_char *gamename, *compile_date, *gameauthor;
   scr_char *filtered;
 
-  vt_key[0].string = "Globals";
-  vt_key[1].string = "GameName";
-  gamename = prop_get_string (bundle, "S<-ss", vt_key);
+  gamename = prop_get_global_string (bundle, "GameName");
   filtered = pf_filter_for_info (gamename, vars);
   pf_strip_tags (filtered);
 
@@ -2395,20 +2396,15 @@ lib_cmd_wait (scr_gameref_t game)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[2];
   scr_int waitturns;
 
   /* Note if wait turns is different from the game's setting. */
-  vt_key[0].string = "Globals";
-  vt_key[1].string = "WaitTurns";
-  waitturns = prop_get_integer (bundle, "I<-ss", vt_key);
+  waitturns = prop_get_global_integer (bundle, "WaitTurns");
   if (waitturns != game->waitturns)
     {
-      scr_char buffer[32];
 
       pf_buffer_string (filter, "(");
-      snprintf (buffer, sizeof(buffer), "%ld", game->waitturns);
-      pf_buffer_string (filter, buffer);
+      pf_buffer_integer (filter, game->waitturns);
       pf_buffer_string (filter,
                         game->waitturns == 1 ? " turn)\n" : " turns)\n");
     }
@@ -2573,19 +2569,11 @@ scr_bool
 lib_cmd_time (scr_gameref_t game)
 {
   const scr_var_setref_t vars = gs_get_vars (game);
-  scr_uint timestamp;
-  scr_int hr, min, sec;
   scr_char buffer[64];
 
   /* Get elapsed game time and convert to hour, minutes, and seconds. */
-  timestamp = var_get_elapsed_seconds (vars);
-  hr = timestamp / SECS_PER_HOUR;
-  min = (timestamp % SECS_PER_HOUR) / MINS_PER_HOUR;
-  sec = timestamp % SECS_PER_MINUTE;
-  if (hr > 0)
-    snprintf (buffer, sizeof(buffer), "%ldh %02ldm %02lds", hr, min, sec);
-  else
-    snprintf (buffer, sizeof(buffer), "%ldm %02lds", min, sec);
+  lib_format_elapsed_time (var_get_elapsed_seconds (vars), buffer,
+                           sizeof(buffer));
 
   /* Print the game's elapsed time. */
   if_print_string ("You have been running the game for ");
@@ -2641,34 +2629,20 @@ static scr_bool
 lib_go (scr_gameref_t game, scr_int direction)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[5], vt_rvalue;
-  scr_bool eightpointcompass, is_trapped, is_exitable[12];
+  scr_bool is_trapped, is_exitable[12];
   scr_int destination, index_;
   const scr_char *const *dirnames;
 
   /* Decide on four or eight point compass names list. */
-  vt_key[0].string = "Globals";
-  vt_key[1].string = "EightPointCompass";
-  eightpointcompass = prop_get_boolean (bundle, "B<-ss", vt_key);
-  dirnames = eightpointcompass ? DIRNAMES_8 : DIRNAMES_4;
+  dirnames = lib_compass_names (game);
 
   /* Start by seeing if there are any exits at all available. */
   is_trapped = TRUE;
   for (index_ = 0; dirnames[index_]; index_++)
     {
-      vt_key[0].string = "Rooms";
-      vt_key[1].integer = gs_playerroom (game);
-      vt_key[2].string = "Exits";
-      vt_key[3].integer = index_;
-      if (prop_get (bundle, "I<-sisi", &vt_rvalue, vt_key)
-          && lib_can_go (game, gs_playerroom (game), index_))
-        {
-          is_exitable[index_] = TRUE;
-          is_trapped = FALSE;
-        }
-      else
-        is_exitable[index_] = FALSE;
+      is_exitable[index_] = lib_room_exit_available (game, index_);
+      if (is_exitable[index_])
+        is_trapped = FALSE;
     }
   if (is_trapped)
     {
@@ -2687,14 +2661,7 @@ lib_go (scr_gameref_t game, scr_int direction)
    * Check for the exit, and if it doesn't exist, refuse, and list the possible
    * options.
    */
-  vt_key[0].string = "Rooms";
-  vt_key[1].integer = gs_playerroom (game);
-  vt_key[2].string = "Exits";
-  vt_key[3].integer = direction;
-  vt_key[4].string = "Dest";
-  if (prop_get (bundle, "I<-sisis", &vt_rvalue, vt_key))
-    destination = vt_rvalue.integer - 1;
-  else
+  if (!lib_room_exit_destination (game, direction, &destination))
     {
       lib_list_t list;
 
@@ -2848,6 +2815,30 @@ lib_cmd_go_southwest (scr_gameref_t game)
 
 
 /*
+ * lib_skip_article()
+ *
+ * Bypass any "a"/"an"/"the" prefix on a filtered, normalized room name,
+ * returning the name trimmed of it.
+ */
+static scr_char *
+lib_skip_article (scr_char *name)
+{
+  scr_char *skipped;
+
+  if (scr_compare_word (name, "a", 1))
+    skipped = name + 1;
+  else if (scr_compare_word (name, "an", 2))
+    skipped = name + 2;
+  else if (scr_compare_word (name, "the", 3))
+    skipped = name + 3;
+  else
+    skipped = name;
+
+  return scr_trim_string (skipped);
+}
+
+
+/*
  * lib_compare_rooms()
  *
  * Helper for lib_cmd_go_room().  Compare the name of the passed in room
@@ -2868,15 +2859,7 @@ lib_compare_rooms (scr_gameref_t game, scr_int room, const scr_char *string)
   scr_normalize_string (scr_trim_string (name));
 
   /* Bypass any prefix on the room name. */
-  if (scr_compare_word (name, "a", 1))
-    compare_name = name + 1;
-  else if (scr_compare_word (name, "an", 2))
-    compare_name = name + 2;
-  else if (scr_compare_word (name, "the", 3))
-    compare_name = name + 3;
-  else
-    compare_name = name;
-  scr_trim_string (compare_name);
+  compare_name = lib_skip_article (name);
 
   /* Compare strings, then free the allocated name. */
   status = scr_strcasecmp (compare_name, string) == 0;
@@ -2904,8 +2887,7 @@ lib_cmd_go_room (scr_gameref_t game)
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_var_setref_t vars = gs_get_vars (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[5], vt_rvalue;
-  scr_bool eightpointcompass, is_trapped, is_ambiguous;
+  scr_bool is_trapped, is_ambiguous;
   scr_int direction, destination, index_;
   const scr_char *const *dirnames;
   scr_char *name, *compare_name;
@@ -2916,15 +2898,7 @@ lib_cmd_go_room (scr_gameref_t game)
   scr_normalize_string (scr_trim_string (name));
 
   /* Bypass any prefix on the request room name. */
-  if (scr_compare_word (name, "a", 1))
-    compare_name = name + 1;
-  else if (scr_compare_word (name, "an", 2))
-    compare_name = name + 2;
-  else if (scr_compare_word (name, "the", 3))
-    compare_name = name + 3;
-  else
-    compare_name = name;
-  scr_trim_string (compare_name);
+  compare_name = lib_skip_article (name);
 
   /* See if the named room is the current player room. */
   if (lib_compare_rooms (game, gs_playerroom (game), compare_name))
@@ -2935,10 +2909,7 @@ lib_cmd_go_room (scr_gameref_t game)
     }
 
   /* Decide on four or eight point compass names list. */
-  vt_key[0].string = "Globals";
-  vt_key[1].string = "EightPointCompass";
-  eightpointcompass = prop_get_boolean (bundle, "B<-ss", vt_key);
-  dirnames = eightpointcompass ? DIRNAMES_8 : DIRNAMES_4;
+  dirnames = lib_compass_names (game);
 
   /* Search adjacent and available rooms for a name match. */
   is_trapped = TRUE;
@@ -2947,12 +2918,9 @@ lib_cmd_go_room (scr_gameref_t game)
   destination = -1;
   for (index_ = 0; dirnames[index_]; index_++)
     {
-      vt_key[0].string = "Rooms";
-      vt_key[1].integer = gs_playerroom (game);
-      vt_key[2].string = "Exits";
-      vt_key[3].integer = index_;
-      if (prop_get (bundle, "I<-sisi", &vt_rvalue, vt_key)
-          && lib_can_go (game, gs_playerroom (game), index_))
+      scr_int location;
+
+      if (lib_room_exit_available (game, index_))
         {
           is_trapped = FALSE;
 
@@ -2962,20 +2930,14 @@ lib_cmd_go_room (scr_gameref_t game)
            * rooms are reachable by multiple directions, such as both "south"
            * and "out").
            */
-          vt_key[4].string = "Dest";
-          if (prop_get (bundle, "I<-sisis", &vt_rvalue, vt_key))
+          if (lib_room_exit_destination (game, index_, &location)
+              && location != destination
+              && lib_compare_rooms (game, location, compare_name))
             {
-              scr_int location;
-
-              location = vt_rvalue.integer - 1;
-              if (location != destination
-                  && lib_compare_rooms (game, location, compare_name))
-                {
-                  if (direction != -1)
-                    is_ambiguous = TRUE;
-                  direction = index_;
-                  destination = location;
-                }
+              if (direction != -1)
+                is_ambiguous = TRUE;
+              direction = index_;
+              destination = location;
             }
         }
     }
@@ -3206,7 +3168,6 @@ lib_disambiguate_npc (scr_gameref_t game,
 /*
  * lib_disambiguate_object_common()
  * lib_disambiguate_object()
- * lib_disambiguate_object_extended()
  *
  * Filter, then search the set of object matches.  If only one matched, note
  * and return it.  If multiple matched, print a disambiguation message and
@@ -3214,11 +3175,10 @@ lib_disambiguate_npc (scr_gameref_t game,
  * -1 with *is_ambiguous FALSE if requested, otherwise print a message then
  * return -1.
  *
- * Extended disambiguation operates as normal disambiguation, except that if
- * normal disambiguation returns more than one object, the resolver function,
- * if supplied, is used to see if the multiple objects can be resolved into
- * just one object.  The resolver function can normally be the same as the
- * function used to filter objects for multiple references.
+ * If normal disambiguation returns more than one object, the resolver
+ * function, if supplied, is used to see if the multiple objects can be
+ * resolved into just one object.  The resolver function can normally be the
+ * same as the function used to filter objects for multiple references.
  */
 static scr_int
 lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
@@ -3362,17 +3322,6 @@ lib_disambiguate_object (scr_gameref_t game,
                          const scr_char *verb, scr_bool *is_ambiguous)
 {
   return lib_disambiguate_object_common (game, verb, NULL, -1, is_ambiguous);
-}
-
-static scr_int
-lib_disambiguate_object_extended (scr_gameref_t game, const scr_char *verb,
-                                  scr_bool (*resolver)
-                                      (scr_gameref_t, scr_int, scr_int),
-                                  scr_int resolver_arg,
-                                  scr_bool *is_ambiguous)
-{
-  return lib_disambiguate_object_common (game, verb,
-                                         resolver, resolver_arg, is_ambiguous);
 }
 
 
@@ -4113,9 +4062,9 @@ lib_parse_next_object (scr_gameref_t game, const scr_char *verb,
 
   /* If we extracted an object from referenced text, disambiguate. */
   if (is_matched)
-    *object = lib_disambiguate_object_extended (game, verb,
-                                                resolver, resolver_arg,
-                                                is_ambiguous);
+    *object = lib_disambiguate_object_common (game, verb,
+                                              resolver, resolver_arg,
+                                              is_ambiguous);
   else
     *is_ambiguous = FALSE;
 
@@ -4364,6 +4313,54 @@ lib_carried_burden (scr_gameref_t game)
 
 
 /*
+ * lib_carried_size()
+ * lib_carried_weight()
+ *
+ * The player's current carried size and weight as the capacity checks see
+ * them.  By default this is the Runner's running total (gs_carried_*, with
+ * its take/drop double-count); in legacy mode it is recomputed afresh from
+ * currently held or worn objects.
+ */
+static scr_int
+lib_carried_size (scr_gameref_t game)
+{
+  scr_int index_, size;
+
+  if (!game->capacity_recompute)
+    return gs_carried_size (game);
+
+  size = 0;
+  for (index_ = 0; index_ < gs_object_count (game); index_++)
+    {
+      if (gs_object_position (game, index_) == OBJ_HELD_PLAYER
+          || gs_object_position (game, index_) == OBJ_WORN_PLAYER)
+        size += obj_get_size (game, index_);
+    }
+
+  return size;
+}
+
+static scr_int
+lib_carried_weight (scr_gameref_t game)
+{
+  scr_int index_, weight;
+
+  if (!game->capacity_recompute)
+    return gs_carried_weight (game);
+
+  weight = 0;
+  for (index_ = 0; index_ < gs_object_count (game); index_++)
+    {
+      if (gs_object_position (game, index_) == OBJ_HELD_PLAYER
+          || gs_object_position (game, index_) == OBJ_WORN_PLAYER)
+        weight += obj_get_weight (game, index_);
+    }
+
+  return weight;
+}
+
+
+/*
  * lib_cmd_count()
  *
  * Display player weight and size limits and amounts currently carried.
@@ -4373,7 +4370,6 @@ lib_cmd_count (scr_gameref_t game)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   scr_int size, weight;
-  scr_char buffer[32];
 
   /*
    * A version 3.8 game has neither of these axes -- report the one pooled
@@ -4382,58 +4378,30 @@ lib_cmd_count (scr_gameref_t game)
   if (obj_uses_burden_model (game))
     {
       pf_buffer_string (filter, "Burden:  You have ");
-      snprintf (buffer, sizeof(buffer), "%ld", lib_carried_burden (game));
-      pf_buffer_string (filter, buffer);
+      pf_buffer_integer (filter, lib_carried_burden (game));
       pf_buffer_string (filter, ".  The most you can hold is ");
-      snprintf (buffer, sizeof(buffer), "%ld",
-                obj_get_player_burden_limit (game));
-      pf_buffer_string (filter, buffer);
+      pf_buffer_integer (filter, obj_get_player_burden_limit (game));
       pf_buffer_string (filter, ".\n");
 
       game->is_admin = TRUE;
       return TRUE;
     }
 
-  /*
-   * Report the same carried totals the capacity checks use: the running totals
-   * by default, or a fresh recompute from held/worn objects in legacy mode.
-   */
-  if (game->capacity_recompute)
-    {
-      scr_int index_;
-
-      size = weight = 0;
-      for (index_ = 0; index_ < gs_object_count (game); index_++)
-        {
-          if (gs_object_position (game, index_) == OBJ_HELD_PLAYER
-              || gs_object_position (game, index_) == OBJ_WORN_PLAYER)
-            {
-              size += obj_get_size (game, index_);
-              weight += obj_get_weight (game, index_);
-            }
-        }
-    }
-  else
-    {
-      size = gs_carried_size (game);
-      weight = gs_carried_weight (game);
-    }
+  /* Report the same carried totals the capacity checks use. */
+  size = lib_carried_size (game);
+  weight = lib_carried_weight (game);
 
   /* Print the player limits and amounts used. */
   pf_buffer_string (filter, "Size:    You have ");
-  snprintf (buffer, sizeof(buffer), "%ld", size);
-  pf_buffer_string (filter, buffer);
+  pf_buffer_integer (filter, size);
   pf_buffer_string (filter, ".  The most you can hold is ");
-  snprintf (buffer, sizeof(buffer), "%ld", obj_get_player_size_limit (game));
-  pf_buffer_string (filter, buffer);
+  pf_buffer_integer (filter, obj_get_player_size_limit (game));
   pf_buffer_string (filter, ".\n");
 
   pf_buffer_string (filter, "Weight:  You have ");
-  snprintf (buffer, sizeof(buffer), "%ld", weight);
-  pf_buffer_string (filter, buffer);
+  pf_buffer_integer (filter, weight);
   pf_buffer_string (filter, ".  The most you can hold is ");
-  snprintf (buffer, sizeof(buffer), "%ld", obj_get_player_weight_limit (game));
-  pf_buffer_string (filter, buffer);
+  pf_buffer_integer (filter, obj_get_player_weight_limit (game));
   pf_buffer_string (filter, ".\n");
 
   game->is_admin = TRUE;
@@ -4467,25 +4435,8 @@ lib_object_too_heavy (scr_gameref_t game, scr_int object, scr_bool *is_portable)
   player_limit = obj_get_player_weight_limit (game);
   object_weight = obj_get_weight (game, object);
 
-  /*
-   * Establish the player's current carried weight.  By default this is the
-   * Runner's running total (gs_carried_weight, with its take/drop double-count);
-   * in legacy mode it is recomputed afresh from currently held or worn objects.
-   */
-  if (game->capacity_recompute)
-    {
-      scr_int index_;
-
-      weight = 0;
-      for (index_ = 0; index_ < gs_object_count (game); index_++)
-        {
-          if (gs_object_position (game, index_) == OBJ_HELD_PLAYER
-              || gs_object_position (game, index_) == OBJ_WORN_PLAYER)
-            weight += obj_get_weight (game, index_);
-        }
-    }
-  else
-    weight = gs_carried_weight (game);
+  /* Establish the player's current carried weight. */
+  weight = lib_carried_weight (game);
 
   /* If requested, return object portability. */
   if (is_portable)
@@ -4534,24 +4485,8 @@ lib_object_too_large (scr_gameref_t game, scr_int object, scr_bool *is_portable)
   player_limit = obj_get_player_size_limit (game);
   object_size = obj_get_size (game, object);
 
-  /*
-   * Current carried size: the running total by default, or a fresh recompute
-   * from held/worn objects in legacy mode (see lib_object_too_heavy).
-   */
-  if (game->capacity_recompute)
-    {
-      scr_int index_;
-
-      size = 0;
-      for (index_ = 0; index_ < gs_object_count (game); index_++)
-        {
-          if (gs_object_position (game, index_) == OBJ_HELD_PLAYER
-              || gs_object_position (game, index_) == OBJ_WORN_PLAYER)
-            size += obj_get_size (game, index_);
-        }
-    }
-  else
-    size = gs_carried_size (game);
+  /* Establish the player's current carried size. */
+  size = lib_carried_size (game);
 
   /* If requested, return object portability. */
   if (is_portable)
@@ -9207,11 +9142,9 @@ scr_bool
 lib_cmd_turns (scr_gameref_t game)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  scr_char buffer[32];
 
   pf_buffer_string (filter, "You have taken ");
-  snprintf (buffer, sizeof(buffer), "%ld", game->turns);
-  pf_buffer_string (filter, buffer);
+  pf_buffer_integer (filter, game->turns);
   if (game->turns == 1)
     pf_buffer_string (filter, " turn so far.\n");
   else
@@ -9226,14 +9159,10 @@ lib_cmd_score (scr_gameref_t game)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[2];
   scr_int max_score, percent;
-  scr_char buffer[32];
 
   /* Get max score, and calculate score as a percentage. */
-  vt_key[0].string = "Globals";
-  vt_key[1].string = "MaxScore";
-  max_score = prop_get_integer (bundle, "I<-ss", vt_key);
+  max_score = prop_get_global_integer (bundle, "MaxScore");
   if (game->score > 0 && max_score > 0)
     percent = (game->score * 100) / max_score;
   else
@@ -9245,14 +9174,11 @@ lib_cmd_score (scr_gameref_t game)
                                          "Your score is ",
                                          "My score is ",
                                          "%player%'s score is "));
-  snprintf (buffer, sizeof(buffer), "%ld", game->score);
-  pf_buffer_string (filter, buffer);
+  pf_buffer_integer (filter, game->score);
   pf_buffer_string (filter, " out of a maximum of ");
-  snprintf (buffer, sizeof(buffer), "%ld", max_score);
-  pf_buffer_string (filter, buffer);
+  pf_buffer_integer (filter, max_score);
   pf_buffer_string (filter, ".  (");
-  snprintf (buffer, sizeof(buffer), "%ld", percent);
-  pf_buffer_string (filter, buffer);
+  pf_buffer_integer (filter, percent);
   pf_buffer_string (filter, "%)\n");
 
   game->is_admin = TRUE;

@@ -562,7 +562,6 @@ restr_pass_task_char (scr_gameref_t game, scr_int var1, scr_int var2, scr_int va
   /* Player or NPC? */
   if (var1 == 0)
     {
-      scr_vartype_t vt_key[2];
       scr_int gender;
 
       /* Player -- decode based on var2. */
@@ -597,9 +596,7 @@ restr_pass_task_char (scr_gameref_t game, scr_int var1, scr_int var2, scr_int va
                                                                   var3 - 1);
 
         case 7:                /* Player gender */
-          vt_key[0].string = "Globals";
-          vt_key[1].string = "PlayerGender";
-          gender = prop_get_integer (bundle, "I<-ss", vt_key);
+          gender = prop_get_global_integer (bundle, "PlayerGender");
           return gender == var3;
 
         default:

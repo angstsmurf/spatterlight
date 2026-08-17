@@ -292,9 +292,7 @@ npc_random_adjacent_roomgroup_member (scr_gameref_t game,
     return -1;
 
   /* How many exits to consider? */
-  vt_key[0].string = "Globals";
-  vt_key[1].string = "EightPointCompass";
-  eightpointcompass = prop_get_boolean (bundle, "B<-ss", vt_key);
+  eightpointcompass = prop_get_global_boolean (bundle, "EightPointCompass");
   if (eightpointcompass)
     length = sizeof (DIRNAMES_8) / sizeof (DIRNAMES_8[0]) - 1;
   else
@@ -356,9 +354,7 @@ npc_announce (scr_gameref_t game, scr_int npc,
   name = prop_get_string (bundle, "S<-sis", vt_key);
 
   /* Decide on four or eight point compass names list. */
-  vt_key[0].string = "Globals";
-  vt_key[1].string = "EightPointCompass";
-  eightpointcompass = prop_get_boolean (bundle, "B<-ss", vt_key);
+  eightpointcompass = prop_get_global_boolean (bundle, "EightPointCompass");
   dirnames = eightpointcompass ? DIRNAMES_8 : DIRNAMES_4;
 
   /* Set invariant key for room exit search. */
@@ -660,7 +656,7 @@ npc_tick_npc (scr_gameref_t game, scr_int npc)
        * If any stopping task has completed, ignore this walk but don't
        * actually finish it; more like an event pauser, then.
        *
-       * TODO Is this right?
+       * TODO Is this right?  See RUNNER_TESTS_TODO.md section 9.
        */
       if (stoppingtask >= 0 && gs_task_done (game, stoppingtask))
         {
@@ -745,9 +741,9 @@ npc_tick_npcs (scr_gameref_t game)
    * (or drops) the MeetObject beside a mid-stay walker, so this block
    * rightly never looks at ObjectTask.
    *
-   * TODO Is this the right place to do this.  After ticking each NPC, rather
-   * than before, seems more appropriate.  But the messages come out in the
-   * right order by putting it here.
+   * Running this before ticking the NPCs, rather than after, is what puts
+   * the messages in the Runner's order; the probes above and the walkthrough
+   * corpus both validate the placement.
    *
    * Also, note that we take the shortcut of using the undo gamestate here,
    * rather than properly recording the prior location of the player, and

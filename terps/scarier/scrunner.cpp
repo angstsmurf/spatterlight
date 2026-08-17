@@ -17,12 +17,6 @@
  * USA
  */
 
-/*
- * Module notes:
- *
- * o ...
- */
-
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -90,6 +84,22 @@ run_is_separator (const scr_char *line, scr_int posn)
 
 
 /*
+ * run_get_version()
+ *
+ * Return the game's TAF version from the bundle's top-level "Version"
+ * property -- a TAF_VERSION_* value, set once at parse time.
+ */
+static scr_int
+run_get_version (const scr_prop_setref_t bundle)
+{
+  scr_vartype_t vt_key;
+
+  vt_key.string = "Version";
+  return prop_get_integer (bundle, "I<-s", &vt_key);
+}
+
+
+/*
  * run_is_task_function()
  *
  * Check for the presence of a command function in the first task command,
@@ -102,7 +112,6 @@ run_is_task_function (const scr_char *pattern, scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_var_setref_t vars = gs_get_vars (game);
-  scr_vartype_t vt_key[3];
   scr_int room, object;
 
   /* Simple comparison against the one known task expression. */
@@ -114,16 +123,14 @@ run_is_task_function (const scr_char *pattern, scr_gameref_t game)
   /*
    * Compare the argument read in against known room names.
    *
-   * TODO Is this simple room name comparison good enough?
+   * TODO Is this simple room name comparison good enough?  See
+   * RUNNER_TESTS_TODO.md section 9.
    */
-  vt_key[0].string = "Rooms";
   for (room = 0; room < gs_room_count (game); room++)
     {
       const scr_char *name;
 
-      vt_key[1].integer = room;
-      vt_key[2].string = "Short";
-      name = prop_get_string (bundle, "S<-sis", vt_key);
+      name = prop_get_indexed_string (bundle, "Rooms", room, "Short");
       if (scr_strcasecmp (name, argument.data ()) == 0)
         break;
     }
@@ -134,16 +141,13 @@ run_is_task_function (const scr_char *pattern, scr_gameref_t game)
    * Select a dynamic object from the room.
    *
    * TODO What are the selection criteria supposed to be?  Here we use "on
-   * the floor".
+   * the floor".  See RUNNER_TESTS_TODO.md section 9.
    */
-  vt_key[0].string = "Objects";
   for (object = 0; object < gs_object_count (game); object++)
     {
       scr_bool bstatic;
 
-      vt_key[1].integer = object;
-      vt_key[2].string = "Static";
-      bstatic = prop_get_boolean (bundle, "B<-sis", vt_key);
+      bstatic = prop_get_indexed_boolean (bundle, "Objects", object, "Static");
       if (!bstatic && obj_directly_in_room (game, object, room))
         break;
     }
@@ -680,7 +684,40 @@ run_priority_commands (scr_gameref_t game, const scr_char *string)
     }
   run_priority_pass_active = FALSE;
 
-  /* Nothing matched match the string.  Or if it did, its handler failed. */
+  /* Nothing matched the string.  Or if it did, its handler failed. */
+  return FALSE;
+}
+
+/*
+ * run_move_commands()
+ *
+ * Return the movement command table matching the game's compass setting.
+ */
+static scr_commandsref_t
+run_move_commands (const scr_prop_setref_t bundle)
+{
+  return prop_get_global_boolean (bundle, "EightPointCompass")
+         ? MOVE_COMMANDS_8 : MOVE_COMMANDS_4;
+}
+
+/*
+ * run_try_command_table()
+ *
+ * Search a command table for a match to the string, returning TRUE on the
+ * first matching command whose handler succeeds.
+ */
+static scr_bool
+run_try_command_table (scr_commandsref_t command,
+                       scr_gameref_t game, const scr_char *string)
+{
+  for (; command->command; command++)
+    {
+      if (uip_match (command->command, string, game))
+        {
+          if (command->handler (game))
+            return TRUE;
+        }
+    }
   return FALSE;
 }
 
@@ -696,24 +733,11 @@ static scr_bool
 run_movement_succeeds (scr_gameref_t game, const scr_char *string)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_bool eightpointcompass, is_movement = FALSE;
-  scr_commandsref_t command;
-
-  eightpointcompass = prop_get_global_boolean (bundle, "EightPointCompass");
-  command = eightpointcompass ? MOVE_COMMANDS_8 : MOVE_COMMANDS_4;
+  scr_bool is_movement;
 
   lib_set_movement_probe (TRUE);
-  for (; command->command; command++)
-    {
-      if (uip_match (command->command, string, game))
-        {
-          if (command->handler (game))
-            {
-              is_movement = TRUE;
-              break;
-            }
-        }
-    }
+  is_movement = run_try_command_table (run_move_commands (bundle),
+                                       game, string);
   lib_set_movement_probe (FALSE);
 
   return is_movement;
@@ -724,39 +748,18 @@ static scr_bool
 run_standard_commands (scr_gameref_t game, const scr_char *string)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[2];
-  scr_bool eightpointcompass;
-  scr_commandsref_t command;
-
-  /* Select the appropriate movement commands. */
-  vt_key[0].string = "Globals";
-  vt_key[1].string = "EightPointCompass";
-  eightpointcompass = prop_get_boolean (bundle, "B<-ss", vt_key);
-  command = eightpointcompass ? MOVE_COMMANDS_8 : MOVE_COMMANDS_4;
 
   /*
    * Search movement commands first, returning TRUE if any matching command
    * handler succeeded.  Then repeat for standard library commands.
    */
-  for (; command->command; command++)
-    {
-      if (uip_match (command->command, string, game))
-        {
-          if (command->handler (game))
-            return TRUE;
-        }
-    }
+  if (run_try_command_table (run_move_commands (bundle), game, string))
+    return TRUE;
 
-  for (command = STANDARD_COMMANDS; command->command; command++)
-    {
-      if (uip_match (command->command, string, game))
-        {
-          if (command->handler (game))
-            return TRUE;
-        }
-    }
+  if (run_try_command_table (STANDARD_COMMANDS, game, string))
+    return TRUE;
 
-  /* Nothing matched match the string.  Or if it did, its handler failed. */
+  /* Nothing matched the string.  Or if it did, its handler failed. */
   return FALSE;
 }
 
@@ -771,7 +774,6 @@ run_update_status (scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_var_setref_t vars = gs_get_vars (game);
-  scr_vartype_t vt_key[2];
   const scr_char *name, *status;
   scr_char *filtered;
   scr_bool statusbox;
@@ -785,14 +787,11 @@ run_update_status (scr_gameref_t game)
   game->current_room_name.reset (filtered);
 
   /* See if the game does a status box. */
-  vt_key[0].string = "Globals";
-  vt_key[1].string = "StatusBox";
-  statusbox = prop_get_boolean (bundle, "B<-ss", vt_key);
+  statusbox = prop_get_global_boolean (bundle, "StatusBox");
   if (statusbox)
     {
       /* Get the status line, and filter and untag it. */
-      vt_key[1].string = "StatusBoxText";
-      status = prop_get_string (bundle, "S<-ss", vt_key);
+      status = prop_get_global_string (bundle, "StatusBoxText");
       filtered = pf_filter (status, vars, bundle);
       pf_strip_tags (filtered);
     }
@@ -956,17 +955,13 @@ run_match_task_common (scr_gameref_t game,
       /* Match using either the parser, or the special function matcher. */
       if (is_normal)
         {
-          if (pattern[first] != SPECIAL_PATTERN)
-            {
-              /*
-               * Make a special case of library calls and commands that begin
-               * with a wildcard; these we ignore for this match attempt.
-               */
-              if (is_library && pattern[first] == WILDCARD_PATTERN)
-                is_matched = FALSE;
-              else
-                is_matched = uip_match (pattern, string, game);
-            }
+          /*
+           * Make a special case of library calls and commands that begin
+           * with a wildcard; these we ignore for this match attempt.
+           */
+          if (pattern[first] != SPECIAL_PATTERN
+              && !(is_library && pattern[first] == WILDCARD_PATTERN))
+            is_matched = uip_match (pattern, string, game);
         }
       else
         {
@@ -1113,7 +1108,6 @@ run_task_is_loudly_restricted (scr_gameref_t game, scr_int task)
 /*
  * run_game_commands_common()
  * run_game_commands_in_parser_context()
- * run_game_commands_in_library_context()
  *
  * The central handler for running, or at least trying to run, game-defined
  * tasks that have commands that match the input string.  Here's the algorithm
@@ -1260,18 +1254,6 @@ run_game_commands_in_parser_context (scr_gameref_t game, const scr_char *string,
   return run_game_commands_common (game, string, include_restrictions, FALSE);
 }
 
-static scr_bool
-run_game_commands_in_library_context (scr_gameref_t game, const scr_char *string)
-{
-  /*
-   * Try game commands, including restrictions, and noting that this is a
-   * library call so that the parse matcher can exclude game commands that
-   * begin with a '*' wildcard.
-   */
-  return run_game_commands_common (game, string, TRUE, TRUE);
-}
-
-
 /*
  * run_does_command_match()
  *
@@ -1402,17 +1384,14 @@ run_game_functions (scr_gameref_t game, const scr_char *string)
  * variants E/G): the walk task fires with a wildcard listed before it, and
  * a restricted walk task prints its FailMessage on every arrival turn.
  */
+static void run_task_command_dispatch (scr_gameref_t game, scr_int eventtask);
+
 void
 run_npc_walk_task (scr_gameref_t game, scr_int walktask)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key;
-  scr_int version;
 
-  vt_key.string = "Version";
-  version = prop_get_integer (bundle, "I<-s", &vt_key);
-
-  if (version < TAF_VERSION_400)
+  if (run_get_version (bundle) < TAF_VERSION_400)
     run_task_command_dispatch (game, walktask);
   else if (task_can_run_task_directional (game, walktask, TRUE))
     task_run_task (game, walktask, TRUE);
@@ -1449,7 +1428,7 @@ run_npc_walk_task (scr_gameref_t game, scr_int walktask)
  * walk CharTask/ObjectTask path above (in the 3.9 Runner both are the same
  * P-code sequence); run_event_task() is the event-facing name.
  */
-void
+static void
 run_task_command_dispatch (scr_gameref_t game, scr_int eventtask)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
@@ -1564,12 +1543,8 @@ static scr_bool
 run_defer_loud_tasks_to_movement (scr_gameref_t game, const scr_char *string)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key;
-  scr_int version;
 
-  vt_key.string = "Version";
-  version = prop_get_integer (bundle, "I<-s", &vt_key);
-  if (version > TAF_VERSION_380)
+  if (run_get_version (bundle) > TAF_VERSION_380)
     return FALSE;
 
   return run_movement_succeeds (game, string);
@@ -1628,7 +1603,6 @@ run_task_refusal (scr_gameref_t game, const scr_char *string)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_filterref_t filter = gs_get_filter (game);
-  scr_vartype_t vt_key[3];
   scr_int version, perspective, task_count, task, direction;
   scr_int refusal, refused_task;
   const scr_char *repeattext;
@@ -1642,8 +1616,7 @@ run_task_refusal (scr_gameref_t game, const scr_char *string)
   if (scr_strempty (string))
     return FALSE;
 
-  vt_key[0].string = "Version";
-  version = prop_get_integer (bundle, "I<-s", vt_key);
+  version = run_get_version (bundle);
 
   /*
    * Look for the first task in list order whose command matches the input and
@@ -1728,7 +1701,7 @@ run_task_refusal (scr_gameref_t game, const scr_char *string)
  * run_all_commands()
  * run_game_task_commands()
  *
- * Alternative facets of run_commands_common().  The first is used by the
+ * Alternative facets of run_game_commands_common().  The first is used by the
  * main user input handling loop; the latter by the library when looking for
  * game commands that override standard actions.
  */
@@ -1790,13 +1763,8 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    */
   if (status && !game->is_admin)
     {
-      scr_vartype_t vt_key;
-      scr_int version;
-
       /* Check "task command functions" for version 4.0 only. */
-      vt_key.string = "Version";
-      version = prop_get_integer (bundle, "I<-s", &vt_key);
-      if (version == TAF_VERSION_400)
+      if (run_get_version (bundle) == TAF_VERSION_400)
         run_game_functions (game, string);
     }
 
@@ -1806,7 +1774,12 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
 scr_bool
 run_game_task_commands (scr_gameref_t game, const scr_char *string)
 {
-  return run_game_commands_in_library_context (game, string);
+  /*
+   * Try game commands, including restrictions, and noting that this is a
+   * library call so that the parse matcher can exclude game commands that
+   * begin with a '*' wildcard.
+   */
+  return run_game_commands_common (game, string, TRUE, TRUE);
 }
 
 
@@ -2151,9 +2124,7 @@ run_prompt_player_name (scr_gameref_t game)
   scr_char buffer[LINE_BUFFER_SIZE];
   const scr_char *name;
 
-  vt_key[0].string = "Globals";
-  vt_key[1].string = "PromptName";
-  if (!prop_get_boolean (bundle, "B<-ss", vt_key))
+  if (!prop_get_global_boolean (bundle, "PromptName"))
     return;
 
   for (;;)
@@ -2175,6 +2146,7 @@ run_prompt_player_name (scr_gameref_t game)
       break;
     }
 
+  vt_key[0].string = "Globals";
   vt_key[1].string = "PlayerName";
   prop_put_string (bundle, "S<-ss", name, vt_key);
 }
@@ -2202,9 +2174,7 @@ run_prompt_player_gender (scr_gameref_t game)
   scr_vartype_t vt_key[2];
   scr_int gender;
 
-  vt_key[0].string = "Globals";
-  vt_key[1].string = "PlayerGender";
-  gender = prop_get_integer (bundle, "I<-ss", vt_key);
+  gender = prop_get_global_integer (bundle, "PlayerGender");
 
   /* Only an Unknown (2) gender needs a choice; Male (1)/Female (0) are set. */
   if (gender != 2)
@@ -2240,6 +2210,8 @@ run_prompt_player_gender (scr_gameref_t game)
       pf_buffer_string (filter, "Please answer \"male\" or \"female\".\n");
     }
 
+  vt_key[0].string = "Globals";
+  vt_key[1].string = "PlayerGender";
   prop_put_integer (bundle, "I<-ss", gender, vt_key);
 }
 
@@ -2284,9 +2256,7 @@ run_main_loop (scr_gameref_t game)
        * style_Subheader and <c> to the input colour, and the ANSI port
        * discards both tags, leaving headless output unchanged.
        */
-      vt_key[0].string = "Globals";
-      vt_key[1].string = "GameName";
-      gamename = prop_get_string (bundle, "S<-ss", vt_key);
+      gamename = prop_get_global_string (bundle, "GameName");
       pf_buffer_string (filter, "<font size=14><c>");
       pf_buffer_string (filter, gamename);
       pf_buffer_string (filter, "</c></font>");
@@ -2338,9 +2308,7 @@ run_main_loop (scr_gameref_t game)
       evt_start_load_events (game);
 
       /* If flagged, describe the initial room. */
-      vt_key[0].string = "Globals";
-      vt_key[1].string = "DispFirstRoom";
-      disp_first_room = prop_get_boolean (bundle, "B<-ss", vt_key);
+      disp_first_room = prop_get_global_boolean (bundle, "DispFirstRoom");
       if (disp_first_room)
         lib_cmd_look (game);
 

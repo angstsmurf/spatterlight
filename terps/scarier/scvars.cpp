@@ -741,13 +741,10 @@ var_get_system (scr_var_setref_t vars,
   /* Check name for known system variables. */
   if (strcmp (name, "author") == 0)
     {
-      scr_vartype_t vt_key[2];
       const scr_char *author;
 
       /* Get and return the global gameauthor string. */
-      vt_key[0].string = "Globals";
-      vt_key[1].string = "GameAuthor";
-      author = prop_get_string (bundle, "S<-ss", vt_key);
+      author = prop_get_global_string (bundle, "GameAuthor");
       if (scr_strempty (author))
         author = "[Author unknown]";
 
@@ -759,14 +756,12 @@ var_get_system (scr_var_setref_t vars,
       /* See if there is a referenced character. */
       if (vars->referenced_character != -1)
         {
-          scr_vartype_t vt_key[3];
           const scr_char *npc_name;
 
           /* Return the character name string. */
-          vt_key[0].string = "NPCs";
-          vt_key[1].integer = vars->referenced_character;
-          vt_key[2].string = "Name";
-          npc_name = prop_get_string (bundle, "S<-sis", vt_key);
+          npc_name = prop_get_indexed_string (bundle, "NPCs",
+                                              vars->referenced_character,
+                                              "Name");
           if (scr_strempty (npc_name))
             npc_name = "[Character unknown]";
 
@@ -849,13 +844,10 @@ var_get_system (scr_var_setref_t vars,
 
   else if (strcmp (name, "maxscore") == 0)
     {
-      scr_vartype_t vt_key[2];
       scr_int maxscore;
 
       /* Return the maximum score. */
-      vt_key[0].string = "Globals";
-      vt_key[1].string = "MaxScore";
-      maxscore = prop_get_integer (bundle, "I<-ss", vt_key);
+      maxscore = prop_get_global_integer (bundle, "MaxScore");
 
       return var_return_integer (maxscore, type, vt_rvalue);
     }
@@ -1066,16 +1058,13 @@ var_get_system (scr_var_setref_t vars,
 
   else if (strcmp (name, "player") == 0)
     {
-      scr_vartype_t vt_key[2];
       const scr_char *playername;
 
       /*
        * Return player's name from properties, or just "Player" if not set
        * in the properties.
        */
-      vt_key[0].string = "Globals";
-      vt_key[1].string = "PlayerName";
-      playername = prop_get_string (bundle, "S<-ss", vt_key);
+      playername = prop_get_global_string (bundle, "PlayerName");
       if (scr_strempty (playername))
         playername = "Player";
 
@@ -1398,13 +1387,10 @@ var_get_system (scr_var_setref_t vars,
 
   else if (strcmp (name, "title") == 0)
     {
-      scr_vartype_t vt_key[2];
       const scr_char *gamename;
 
       /* Return the game's title. */
-      vt_key[0].string = "Globals";
-      vt_key[1].string = "GameName";
-      gamename = prop_get_string (bundle, "S<-ss", vt_key);
+      gamename = prop_get_global_string (bundle, "GameName");
       if (scr_strempty (gamename))
         gamename = "[Title unknown]";
 

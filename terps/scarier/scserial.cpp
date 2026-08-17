@@ -781,10 +781,7 @@ ser_variable_at (scr_prop_setref_t bundle, scr_int index_,
 static scr_bool
 ser_game_is_pre_v4 (scr_prop_setref_t bundle)
 {
-  scr_vartype_t vt_key[1];
-
-  vt_key[0].string = "Version";
-  return prop_get_integer (bundle, "I<-s", vt_key) < TAF_VERSION_400;
+  return prop_get_taf_version (bundle) < TAF_VERSION_400;
 }
 
 

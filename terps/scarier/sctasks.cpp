@@ -1141,16 +1141,11 @@ task_run_change_score_action (scr_gameref_t game, scr_int task, scr_int var1)
       increase_score = !gs_task_scored (game, task);
       if (!increase_score)
         {
-          scr_vartype_t vt_key[3];
-          scr_int version;
-
           if (task_trace)
             scr_trace ("Task: already scored task %ld\n", var1);
 
           /* Version 3.8 and 3.7 games permit tasks to rescore. */
-          vt_key[0].string = "Version";
-          version = prop_get_integer (bundle, "I<-s", vt_key);
-          if (version <= TAF_VERSION_380)
+          if (prop_get_taf_version (bundle) <= TAF_VERSION_380)
             {
               increase_score = !prop_get_indexed_boolean (bundle, "Tasks",
                                                           task, "SingleScore");
@@ -1279,16 +1274,11 @@ task_print_end_game_summary (scr_gameref_t game, scr_bool is_win)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[2];
   scr_int max_score, percent, version;
   scr_char buffer[32];
 
-  vt_key[0].string = "Globals";
-  vt_key[1].string = "MaxScore";
-  max_score = prop_get_integer (bundle, "I<-ss", vt_key);
-
-  vt_key[0].string = "Version";
-  version = prop_get_integer (bundle, "I<-s", vt_key);
+  max_score = prop_get_global_integer (bundle, "MaxScore");
+  version = prop_get_taf_version (bundle);
 
   /* The MaxScore > 0 guard arrived with 4.0.  A scoreless 4.0 game gets no
      summary and no trailing blank line -- measured in run400 on arena config
@@ -1804,10 +1794,8 @@ static scr_bool
 task_suppresses_additional_message (scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[1];
 
-  vt_key[0].string = "Version";
-  if (prop_get_integer (bundle, "I<-s", vt_key) != TAF_VERSION_380)
+  if (prop_get_taf_version (bundle) != TAF_VERSION_380)
     return FALSE;
 
   return pf_ends_with_double_space (gs_get_filter (game));

@@ -216,6 +216,8 @@ extern scr_bool prop_get_global_boolean (scr_prop_setref_t bundle,
                                         const scr_char *name);
 extern const scr_char *prop_get_global_string (scr_prop_setref_t bundle,
                                               const scr_char *name);
+/* bundle["Version"] -- the TAF_VERSION_* constant of the parsed .taf. */
+extern scr_int prop_get_taf_version (scr_prop_setref_t bundle);
 /* bundle[class_][index_][name] -- one field of one indexed entity. */
 extern scr_int prop_get_indexed_integer (scr_prop_setref_t bundle,
                                         const scr_char *class_,
@@ -313,6 +315,7 @@ extern void pf_buffer_string (scr_filterref_t filter,
                               const scr_char *string);
 extern void pf_buffer_character (scr_filterref_t filter,
                                  scr_char character);
+extern void pf_buffer_integer (scr_filterref_t filter, scr_int value);
 extern void pf_buffer_paragraph (scr_filterref_t filter,
                                  const scr_char *string);
 extern void pf_buffer_paragraph_line (scr_filterref_t filter,
@@ -502,6 +505,7 @@ extern const scr_char *lib_direction_name (scr_int direction);
 extern void lib_print_room_name (scr_gameref_t game, scr_int room);
 extern void lib_print_room_description (scr_gameref_t game, scr_int room);
 extern void lib_print_object_np (scr_gameref_t game, scr_int object);
+extern void lib_print_npc_np (scr_gameref_t game, scr_int npc);
 /* "I'm afraid you are dead!", or its first-person form for a pre-4.0 game. */
 extern const scr_char *lib_get_death_message (scr_gameref_t game);
 extern scr_bool lib_cmd_go_north (scr_gameref_t game);
@@ -779,7 +783,6 @@ extern scr_bool run_game_task_commands (scr_gameref_t game,
                                        const scr_char *string);
 extern void run_npc_walk_task (scr_gameref_t game, scr_int walktask);
 extern void run_event_task (scr_gameref_t game, scr_int eventtask);
-extern void run_task_command_dispatch (scr_gameref_t game, scr_int task);
 extern scr_bool run_does_command_match (scr_gameref_t game,
                                        const scr_char *string);
 extern scr_bool run_in_priority_pass (void);

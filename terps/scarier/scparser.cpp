@@ -1067,9 +1067,8 @@ uip_match_whitespace (void)
    * prior character is whitespace, "double-match" the space.
    *
    * Also, match if we haven't yet matched any text.  In effect, this means
-   * leading spaces on patterns will be ignored.
-   *
-   * TODO Is this what we want to happen?  It seems harmless, even useful.
+   * leading spaces on patterns will be ignored -- harmless, even useful,
+   * and long since validated by the walkthrough corpus.
    */
   if (uip_posn == 0 || scr_isspace (uip_string[uip_posn - 1]))
     return TRUE;
@@ -2313,8 +2312,7 @@ uip_assign_pronouns (scr_gameref_t game, const scr_char *string)
 
           if (count == 1)
             {
-              scr_vartype_t vt_key[3];
-              scr_int version, gender;
+              scr_int gender;
 
               /*
                * Version 3.8 games lack NPC gender information, so for this
@@ -2323,9 +2321,7 @@ uip_assign_pronouns (scr_gameref_t game, const scr_char *string)
                * field either (its NPC record is version 3.8's), so it takes
                * the same treatment.
                */
-              vt_key[0].string = "Version";
-              version = prop_get_integer (bundle, "I<-s", vt_key);
-              if (version <= TAF_VERSION_380)
+              if (prop_get_taf_version (bundle) <= TAF_VERSION_380)
                 {
                   game->him_npc = npc;
                   game->her_npc = npc;
@@ -2340,10 +2336,8 @@ uip_assign_pronouns (scr_gameref_t game, const scr_char *string)
               else
                 {
                   /* Find the NPC gender, so we know the pronoun to assign. */
-                  vt_key[0].string = "NPCs";
-                  vt_key[1].integer = npc;
-                  vt_key[2].string = "Gender";
-                  gender = prop_get_integer (bundle, "I<-sis", vt_key);
+                  gender = prop_get_indexed_integer (bundle, "NPCs",
+                                                     npc, "Gender");
 
                   switch (gender)
                     {

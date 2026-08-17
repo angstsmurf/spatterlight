@@ -315,7 +315,8 @@ evt_move_object (scr_gameref_t game, scr_int object, scr_int destination)
        * If static, mark as no longer unmoved.
        *
        * TODO Is this the only place static objects can be moved?  And just
-       * how static is a static object if it's moveable, anyway?
+       * how static is a static object if it's moveable, anyway?  See
+       * RUNNER_TESTS_TODO.md section 9.
        */
       if (obj_is_static (game, object))
         gs_set_object_static_unmoved (game, object, FALSE);
@@ -339,11 +340,7 @@ evt_taf_version (scr_gameref_t game, scr_int event)
   version = evt_cache_version;
   if (version == 0)
     {
-      const scr_prop_setref_t bundle = gs_get_bundle (game);
-      scr_vartype_t vt_key[1];
-
-      vt_key[0].string = "Version";
-      version = prop_get_integer (bundle, "I<-s", vt_key);
+      version = prop_get_taf_version (gs_get_bundle (game));
       evt_cache_version = version;
     }
   return version;
@@ -889,7 +886,8 @@ evt_tick_event (scr_gameref_t game, scr_int event)
          * immediately, its time will already be zero, even before decrement,
          * which is how we tell which events to apply this hack to.
          *
-         * TODO This seems to work, but also seems very dodgy.
+         * Inelegant, but it yields the Runner's timer values, and the
+         * walkthrough corpus validates it.
          */
         if (gs_event_time (game, event) == 0)
           {
