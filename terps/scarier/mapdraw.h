@@ -57,6 +57,19 @@ enum {
 #define MAP_N_DIRS 12
 extern const char *const map_dirs[MAP_N_DIRS];
 
+/* Up, Down, In and Out are the "badge" directions: they have no bearing on the
+   plan, so they are drawn as icons on the room box rather than as compass
+   connectors.  They are contiguous in the enum, which MAP_BADGE exploits to
+   index per-badge arrays. */
+#define MAP_N_BADGES 4
+#define MAP_BADGE(dir) ((dir) - DIR_UP)
+
+static inline int
+map_is_badge_dir (int dir)
+{
+  return dir >= DIR_UP && dir <= DIR_OUT;
+}
+
 /* The runner's node defaults (FileIO.vb only writes Width/Height when they
    differ from these).  The ADRIFT 4 mapper adopts them too, so a room box is
    the same size whichever engine placed it. */
@@ -103,8 +116,9 @@ typedef struct map_node_s {
                                  but still draws connectors to a seen hidden
                                  room (Map.vb:1156 DrawNode vs DrawLinks)    */
   /* Location has a Movement in this badge direction (FileIO.vb bHasIn/Out/
-     Up/Down).  Far-end In/Out icons gate on these, not on duplex. */
-  unsigned char has_in, has_out, has_up, has_down;
+     Up/Down), indexed by MAP_BADGE.  Far-end In/Out icons gate on these, not
+     on duplex. */
+  unsigned char has_badge[MAP_N_BADGES];
   map_link_t *links;
   int n_links;
 } map_node_t;

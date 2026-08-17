@@ -30,7 +30,6 @@
  * from SCARE's zero-based numbering at the edges.
  */
 
-#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -82,8 +81,6 @@ typedef struct {
 
 /* Whether the last build gave up, for scmap_failed(). */
 static int scmap_last_fail = 0;
-
-static void sm_set_grid (sm_layout_t *L, int rno, int *x, int *y);
 
 
 /*
@@ -1123,8 +1120,7 @@ scmap_build (scr_gameref_t game, const map_view_t *view)
       for (d = 0; d < MAP_N_DIRS; d++)
         {
           int dest = L.rooms[rno].exits[d];
-          int is_badge = (d == DIR_UP || d == DIR_DOWN
-                          || d == DIR_IN || d == DIR_OUT);
+          int is_badge = map_is_badge_dir (d);
           char key[16];
 
           if (dest <= 0 || dest > n || dest == rno)
