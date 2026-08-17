@@ -3,10 +3,10 @@
 ## Release 1.5.4
 
 ### Bocfel (Z-code)
-- Fixed a crash that hit every Z-code game at the first prompt (or instantly at launch, when an autosave existed) whenever autosave was on and "Enable sound" was unchecked in the theme settings.
+- Fixed a crash that hit every Z-code game at the first prompt (or instantly at launch, when an autosave existed) whenever autosave was on and "Enable sound" was off in the theme settings.
 
 ### Alan 2
-- Alan 2 now plays games compiled with Alan 2.5 and 2.6, such as *Don't Be Late!* and *The Hollywood Murders*, which it previously rejected.
+- Alan 2 now plays Alan version 2.5 and 2.6 games, such as *Don't Be Late!* and *The Hollywood Murders*, which it previously rejected.
 - Support for pictures and sounds in Alan 2 games such as *The Hollywood Murders* and *A Matter of Time*.
 
 ### Scarier (Adrift)
@@ -27,35 +27,31 @@
 - Bold, italic and right-justified text.
 - The score summary that the original runners print after every ending is now shown, and score-change notifications are off by default, as in the original.
 - Another round of wording and behaviour matched against the original 3.8/3.9/4.0 runners: the "You pick up" / "You take" version split, the pre-4.0 refusals and death message, where the ending message and "Congratulations!" appear, room-name headings, and *last* and *previous* as synonyms for *again*.
-- The map draws its room connectors the way the original Runner does, with opaque badges and arrowheads on one-way exits, and no longer opens an empty pane in a hidden room.
+- The map draws its room connectors the way the original Runner does, with opaque badges and arrowheads on one-way exits, and no longer opens an empty pane when the player is in a hidden room.
 
 #### Adrift 5
-- The map pane now opens by itself in those games whose authors shipped it open, and In and Out connectors are drawn on the map, with a badge at both ends.
+- The map pane now opens by itself in those games whose authors shipped it open, and In and Out connectors are drawn on the map, with a badge at both ends. In/Out badges also appear for one-way connections that only exist as character movements.
 - Questions that the game asks through a pop-up dialog, such as the player's name or "Are you male or female?", are asked in the story window instead of being silently skipped.
 - An adventure with no locations is refused with the same error message as the original runner, rather than starting the player nowhere.
 - A large batch of engine fixes found by a new conformance test suite and by reviewing the Adrift 5 file format: restrictions, task actions, character walks, user-defined functions, object references, conversation, and a dozen text functions that were missing or wrong.
 - The source tree now includes a hand-written specification of the Adrift 5 adventure and save file format, contributed by Dan Fabulich (@dfabulich).
 - Support for the `<del>` tag, so games can erase text they printed earlier, even across turns.
-- Up and Down exits are drawn as badges on the map, contributed by Dan Fabulich (@dfabulich), and In/Out badges appear for one-way connections that only exist as character movements.
-- The title screen uses its own style and the prompt is drawn in the input colour, as in the original runner.
 
 ### Geas (Quest)
 - Both Quest engines are faster after a profiling pass over their per-turn hot spots: about a fifth off Quest 4 replay times, with movement-heavy games like *Shipwrecked* several times quicker, and a smaller gain in Quest 5.
 
 #### Quest 4
-- The Quest 4 engine was settled against the original: every game in a 111-game test corpus is replayed through both Geas and a faithful translation of the original Quest 4 runner and the transcripts compared, with the real Quest 4.1.5 under Wine as tie-breaker on disputed lines. 100 of the 111 transcripts are now byte-identical, and every remaining difference is a documented, deliberate improvement over a bug in the original.
-- Game text is decoded as Windows-1252, so the accented letters and typographic quotes games were written with survive.
+- The Quest 4 engine was settled against the original: every game in a 111-game test corpus is replayed through both Geas and Quest Viva and the transcripts compared, with the real Quest 4.1.5 under Wine as tie-breaker on disputed lines. 100 of the 111 transcripts are now byte-identical, and every remaining difference is a documented, deliberate improvement over a bug in the original.
+- Game text is decoded as Windows-1252. Accented letters and typographic quotes are printed accurately.
 - Quest's standard library is bundled, so games that expect it installed next to the runner get their synonyms and verbs; *A certain Oscar* now plays as intended.
 - Containers behave as in the original: looking at or opening one lists its contents, a container given to a character keeps its contents, and a closed container refuses PUT before anything else is considered — which turns out to be how *Barbarian*'s pedestal puzzle was designed to be solved.
-- Timers tick at the same moment in the turn as the original, which makes the cut-scenes in games like *King's Quest V* play out correctly.
 - "Take X from Y" runs the implied removal as a real nested command, so games that watch for it react.
 - Many parser and wording fixes matched line by line against the original: object lookup is scoped per verb, the disambiguation prompt uses Quest's wording, locked places print the author's refusal message, `msg nospeak` prints nothing, unknown text functions yield the original's error marker, and the pre-2.80 dialect (its separate item table, script-based `take`, `out` tag parameters) is implemented. The panes' verb menus no longer overlook verbs whose declaration maps them to a differently-named action.
-- As a deliberate deviation from the original, referring to an object by its internal script name is still understood when there is no doubt which object is meant — Quest refuses such commands, but accepting them makes games more player-friendly. Likewise, exit lines in pre-2.80 games print their destination names whole, where the original clips the first letter off a name written without a space after the semicolon.
+- As a deliberate deviation from the original, exit lines in pre-2.80 games print their destination names whole, where the original clips the first letter off a name written without a space after the semicolon.
 
 #### Quest 5
-- The Quest 5 engine got the same settling as Quest 4: every game in an 86-game test corpus is replayed through Geas and compared against transcripts from the original .NET Quest, and all 86 now match byte for byte.
-- Arguments to a game's interface calls are evaluated even when the call itself does nothing in a text-only interpreter, so a script error in an argument is reported just as the original reports it — *The Acreage*'s map code depends on those errors appearing.
-- Quest 5 presentation features: clearing the screen, hiding the panes, TextFX effects, and the prompt reappearing after a timer prints text.
+- Arguments to a game's interface calls are evaluated even when the call itself does nothing in a text-only interpreter, so a script error in an argument is reported just as the original reports it. *The Acreage*'s map code depends on those errors appearing.
+- A subset Quest 5 presentation features were implemented: clearing the screen, hiding the panes, certain TextFX effects, and the prompt reappearing after a timer prints text.
 
 ### General
 - The library organiser can no longer delete a folder it does not own. Previously, choosing a custom library location that already contained loose game files could make organising move the folder's entire contents and then delete the folder itself. Now only game folders that Spatterlight itself created are moved and cleaned up; everything else is copied and the originals are left in place.
