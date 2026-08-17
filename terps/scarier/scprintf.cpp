@@ -125,6 +125,130 @@ typedef struct scr_filter_s
 
 
 /*
+ * Original/replacement string-pair table caches.
+ *
+ * Two immutable game tables drive the filters below as (original -> replacement)
+ * string pairs: the ALRs (Automatic Language Replacements) applied to output by
+ * pf_replace_alrs(), and the Synonyms applied to input by pf_filter_input().
+ * Both used to re-resolve every entry from the string-keyed property tree
+ * ("<table>"/index/"Original"|"Replacement") on every call -- an O(count)
+ * prop_get() storm per call, dominated by the prop_find_child() strcmp scan
+ * each lookup drives.  For the ALRs, which run on every output flush and every
+ * filter pass, profiling text-heavy ADRIFT 4 games (humbug) put ~30% of engine
+ * time there.
+ *
+ * Each table is resolved once into a flat array the consumer iterates directly,
+ * with no prop_get() calls left in the hot loop.  The two tables differ enough
+ * to keep separate builders -- ALRs are taken in a length-sorted order held in
+ * "ALRs2"/"ALRIndex", synonyms in raw property order -- but they share the
+ * entry shape, the storage (pointers straight into the property store, which
+ * owns the strings for the game's lifetime; no copies), and the lifetime.
+ *
+ * Lifetime: both are reset by pf_cache_reset() from pf_create(), which
+ * run_create() calls exactly once per game, so the cached pointers can never
+ * outlive the bundle they point into.
+ */
+typedef struct
+{
+  const scr_char *original;
+  size_t original_length;
+  const scr_char *replacement;
+  size_t replacement_length;
+} pf_str_pair_t;
+
+static std::vector<pf_str_pair_t> pf_alr_cache;
+static scr_bool pf_alr_cache_built = FALSE;
+static std::vector<pf_str_pair_t> pf_synonym_cache;
+static scr_bool pf_synonym_cache_built = FALSE;
+
+static void
+pf_cache_reset (void)
+{
+  pf_alr_cache.clear ();
+  pf_alr_cache_built = FALSE;
+  pf_synonym_cache.clear ();
+  pf_synonym_cache_built = FALSE;
+}
+
+/* Populate 'entry' from the property tree, given the resolved original and
+   replacement strings; shared by both builders below. */
+static void
+pf_str_pair_set (pf_str_pair_t &entry,
+                 const scr_char *original, const scr_char *replacement)
+{
+  entry.original = original;
+  entry.original_length = strlen (original);
+  entry.replacement = replacement;
+  entry.replacement_length = strlen (replacement);
+}
+
+static void
+pf_alr_cache_build (scr_prop_setref_t bundle, scr_int alr_count)
+{
+  scr_int index_;
+
+  pf_alr_cache.clear ();
+  pf_alr_cache.reserve (alr_count);
+
+  for (index_ = 0; index_ < alr_count; index_++)
+    {
+      scr_vartype_t vt_key[3];
+      pf_str_pair_t entry;
+      const scr_char *original, *replacement;
+      scr_int alr;
+
+      /* The ALRs are applied in a length-sorted order held in ALRs2; map this
+       * slot to the underlying ALR the way pf_replace_alrs() always has. */
+      vt_key[0].string = "ALRs2";
+      vt_key[1].integer = index_;
+      vt_key[2].string = "ALRIndex";
+      alr = prop_get_integer (bundle, "I<-sis", vt_key);
+
+      vt_key[0].string = "ALRs";
+      vt_key[1].integer = alr;
+      vt_key[2].string = "Original";
+      original = prop_get_string (bundle, "S<-sis", vt_key);
+      vt_key[2].string = "Replacement";
+      replacement = prop_get_string (bundle, "S<-sis", vt_key);
+
+      pf_str_pair_set (entry, original, replacement);
+      pf_alr_cache.push_back (entry);
+    }
+
+  pf_alr_cache_built = TRUE;
+}
+
+static void
+pf_synonym_cache_build (scr_prop_setref_t bundle, scr_int synonym_count)
+{
+  scr_int index_;
+
+  pf_synonym_cache.clear ();
+  pf_synonym_cache.reserve (synonym_count);
+
+  for (index_ = 0; index_ < synonym_count; index_++)
+    {
+      scr_vartype_t vt_key[3];
+      pf_str_pair_t entry;
+      const scr_char *original, *replacement;
+
+      /* Synonyms are taken in raw property order -- no ALRs2-style sort. */
+      vt_key[0].string = "Synonyms";
+      vt_key[1].integer = index_;
+      vt_key[2].string = "Original";
+      original = prop_get_string (bundle, "S<-sis", vt_key);
+      vt_key[2].string = "Replacement";
+      replacement = prop_get_string (bundle, "S<-sis", vt_key);
+
+      pf_str_pair_set (entry, original, replacement);
+      pf_synonym_cache.push_back (entry);
+    }
+
+  pf_synonym_cache_built = TRUE;
+}
+
+
+/*
  * pf_is_valid()
  *
  * Return TRUE if pointer is a valid printfilter, FALSE otherwise.
@@ -166,6 +290,10 @@ pf_create (void)
 
       initialized = TRUE;
     }
+
+  /* A new filter means a new game (run_create is the sole caller): drop the
+   * string-pair caches held for the previous game, whose bundle is going away. */
+  pf_cache_reset ();
 
   /* Create a new printfilter; 'buffer' default-constructs empty. */
   filter = new scr_filter_t ();
@@ -305,53 +433,41 @@ pf_interpolate_vars (const scr_char *string, scr_var_setref_t vars)
  */
 static scr_bool
 pf_replace_alr (const scr_char *string,
-                std::string &out, scr_int alr, scr_prop_setref_t bundle)
+                std::string &out, const pf_str_pair_t &entry)
 {
-  scr_vartype_t vt_key[3];
-  const scr_char *marker, *cursor, *original, *replacement;
-
-  /* Retrieve the ALR original string, set replacement to NULL for now. */
-  vt_key[0].string = "ALRs";
-  vt_key[1].integer = alr;
-  vt_key[2].string = "Original";
-  original = prop_get_string (bundle, "S<-sis", vt_key);
-  replacement = NULL;
+  const scr_char *marker, *cursor;
+  scr_bool replaced;
 
   /* Ignore pathological empty originals. */
-  if (original[0] == NUL)
+  if (entry.original[0] == NUL)
     return FALSE;
 
   /* Run through the marker string looking for things to replace. */
   std::string result;
+  replaced = FALSE;
   marker = string;
-  for (cursor = strstr (marker, original);
-       cursor; cursor = strstr (marker, original))
+  for (cursor = strstr (marker, entry.original);
+       cursor; cursor = strstr (marker, entry.original))
     {
-      /* Optimize by retrieving the replacement string only on demand. */
-      if (!replacement)
-        {
-          vt_key[2].string = "Replacement";
-          replacement = prop_get_string (bundle, "S<-sis", vt_key);
-        }
-
       /* Append the text up to the match, then the replacement. */
       result.append (marker, cursor - marker);
-      result.append (replacement);
+      result.append (entry.replacement);
 
       /* Advance over the original. */
-      marker = cursor + strlen (original);
+      marker = cursor + entry.original_length;
+      replaced = TRUE;
     }
 
   /*
    * If a replacement was made, append any trailing text and hand the rebuilt
    * string back through 'out'.  If nothing matched, leave 'out' untouched.
    */
-  if (replacement)
+  if (replaced)
     {
       result.append (marker);
       out = std::move (result);
     }
-  return replacement != NULL;
+  return replaced;
 }
 
 
@@ -372,6 +488,15 @@ pf_replace_alrs (const scr_char *string, scr_prop_setref_t bundle,
   scr_bool replaced;
 
   /*
+   * Resolve the immutable ALR table from the property tree once per game (see
+   * pf_alr_cache above); after that the hot loop reads it directly, with no
+   * prop_get() lookups at all.  The count is fixed for a game, so a lazy build
+   * on first use is safe.
+   */
+  if (!pf_alr_cache_built || (scr_int) pf_alr_cache.size () != alr_count)
+    pf_alr_cache_build (bundle, alr_count);
+
+  /*
    * 'marker' is the string we replace into; it starts as the input and, once
    * any ALR fires, points into 'current' (the std::string holding the rebuilt
    * text).  std::string's amortized growth removes the need for the old two-
@@ -383,8 +508,6 @@ pf_replace_alrs (const scr_char *string, scr_prop_setref_t bundle,
   /* Run through each ALR that exists. */
   for (index_ = 0; index_ < alr_count; index_++)
     {
-      scr_vartype_t vt_key[3];
-      scr_int alr;
       std::string rebuilt;
 
       /*
@@ -395,16 +518,10 @@ pf_replace_alrs (const scr_char *string, scr_prop_setref_t bundle,
         continue;
 
       /*
-       * Get the actual ALR number for the ALR.  This comes from the index
-       * that we sorted earlier by length of original string.  Try replacing
-       * that ALR in the current marker string.
+       * Try replacing this ALR -- taken in the length-sorted order baked into
+       * the cache at build time -- in the current marker string.
        */
-      vt_key[0].string = "ALRs2";
-      vt_key[1].integer = index_;
-      vt_key[2].string = "ALRIndex";
-      alr = prop_get_integer (bundle, "I<-sis", vt_key);
-
-      if (pf_replace_alr (marker, rebuilt, alr, bundle))
+      if (pf_replace_alr (marker, rebuilt, pf_alr_cache[index_]))
         {
           /*
            * The string was altered.  Adopt the rebuilt text as the current
@@ -1644,6 +1761,16 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle)
   synonym_count = prop_get_child_count (bundle, "I<-s", vt_key);
 
   /*
+   * Resolve the immutable synonym table from the property tree once per game
+   * (see the string-pair caches above); after that the word loop reads it
+   * directly, with no prop_get() lookups.  The count is fixed for a game, so a
+   * lazy build on first use is safe.
+   */
+  if (!pf_synonym_cache_built
+      || (scr_int) pf_synonym_cache.size () != synonym_count)
+    pf_synonym_cache_build (bundle, synonym_count);
+
+  /*
    * 'current' is the active string -- the input until a synonym fires, then
    * the 'buffer' copy (basic copy-on-write).  'offset' is our position within
    * it; we work by offset because std::string edits may reallocate.
@@ -1685,17 +1812,11 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle)
       span = 0;
       for (index_ = 0; index_ < synonym_count; index_++)
         {
-          const scr_char *original, *replacement;
-          scr_int extent, length;
+          const pf_str_pair_t &entry = pf_synonym_cache[index_];
+          scr_int extent;
 
-          /* Retrieve the synonym original string. */
-          vt_key[0].string = "Synonyms";
-          vt_key[1].integer = index_;
-          vt_key[2].string = "Original";
-          original = prop_get_string (bundle, "S<-sis", vt_key);
-
-          /* Compare the original at this point. */
-          extent = pf_compare_words (current + offset, original);
+          /* Compare the synonym original at this point. */
+          extent = pf_compare_words (current + offset, entry.original);
           if (extent == 0)
             continue;
 
@@ -1714,17 +1835,11 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle)
               modified = TRUE;
             }
 
-          /* Find the replacement text for this synonym. */
-          vt_key[0].string = "Synonyms";
-          vt_key[1].integer = index_;
-          vt_key[2].string = "Replacement";
-          replacement = prop_get_string (bundle, "S<-sis", vt_key);
-          length = strlen (replacement);
-
           /* Splice the replacement in for the matched extent. */
-          buffer.replace (offset, extent, replacement, length);
+          buffer.replace (offset, extent, entry.replacement,
+                          entry.replacement_length);
           current = buffer.c_str ();
-          span = length;
+          span = entry.replacement_length;
 
           if (pf_trace)
             scr_trace ("Printfilter: synonym \"%s\"\n", buffer.c_str ());
