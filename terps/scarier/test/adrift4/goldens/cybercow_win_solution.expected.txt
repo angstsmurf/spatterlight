@@ -355,6 +355,7 @@ It is raining quite heavily.
 It is daytime.
 
 You can move north, east, south, west and down.
+The rain seems to be letting up.
 
 > e
 You move east.
@@ -630,7 +631,6 @@ It is daytime.
 You can move north, east, south, west and down.
 
 The Robot marches in  from the east.
--COME. COME. PATHETIC. HUMAN.- The Robot grates.  -STOP. SCREWING. AROUND.-
 
 > d
 You move down.

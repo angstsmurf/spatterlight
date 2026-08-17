@@ -2176,6 +2176,14 @@ run_prompt_player_name (scr_gameref_t game)
  * globals, mirroring the Runner.  The value lives in the (session-persistent)
  * property bundle, so it survives save/restore/undo within a session, and a
  * fresh load re-asks -- exactly as the Runner behaves.
+ *
+ * The stored value is ADRIFT's own gender enumeration -- Male 0, Female 1,
+ * Unknown/Neuter 2, the NPC_MALE/NPC_FEMALE/NPC_NEUTER of scprotos.h -- because
+ * that is what a type-3 var2=7 restriction compares against (screstrs.cpp case
+ * 7 does a bare `gender == var3`).  Recording male as 1 and female as 0, as
+ * this used to, silently ran every gender-gated task on the opposite branch:
+ * "Provenance" dressed a male player in a house dress, and "The Secret of the
+ * Lost World" answered "female" but took the male path (ring to the princess).
  */
 static void
 run_prompt_player_gender (scr_gameref_t game)
@@ -2188,8 +2196,8 @@ run_prompt_player_gender (scr_gameref_t game)
 
   gender = prop_get_global_integer (bundle, "PlayerGender");
 
-  /* Only an Unknown (2) gender needs a choice; Male (1)/Female (0) are set. */
-  if (gender != 2)
+  /* Only an Unknown (2) gender needs a choice; Male (0)/Female (1) are set. */
+  if (gender != NPC_NEUTER)
     return;
 
   for (;;)
@@ -2211,12 +2219,12 @@ run_prompt_player_gender (scr_gameref_t game)
         ;
       if (*reply == 'm' || *reply == 'M')
         {
-          gender = 1;
+          gender = NPC_MALE;
           break;
         }
       if (*reply == 'f' || *reply == 'F')
         {
-          gender = 0;
+          gender = NPC_FEMALE;
           break;
         }
       pf_buffer_string (filter, "Please answer \"male\" or \"female\".\n");

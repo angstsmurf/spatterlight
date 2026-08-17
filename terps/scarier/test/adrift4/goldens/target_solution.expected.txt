@@ -75,6 +75,7 @@ Lombard Street (bank)
 
 The tramp asks, "Are you up here to clean the windows?"
 "Get lost old man," you reply.
+A very loud motorbike can be heard to the south.
 The tramp pretends to yawn.
 
 > x tramp
@@ -83,7 +84,6 @@ and who has probably been drinking far too much. Although, it is a very odd
 place for a tramp to be and he looks a lot cleaner than you would expect.
 The tramp is wearing a pair of old corduroy trousers, a filthy camel brown
 jacket and a pair of trainers, and is carrying a bottle.
-A very loud motorbike can be heard to the south.
 
 > throw knife at tramp
 Looking around quickly to make sure no-one else is around you take out your
@@ -103,6 +103,7 @@ You take the badge.
 
 > x badge
 It is a police badge, the tramp must have been an undercover policeman.
+Somewhere in the distance you can hear a fire engine.
 
 > get radio
 You take the radio.
@@ -124,7 +125,6 @@ Turning off the radio, your mind races on what you have heard. "Pictures of
 the suspects? They must have taken pictures, so where is the camera?" You
 quickly look around but cannot see one, but it must be up on the roof
 somewhere.
-A large airplane roars overhead, you are very close to the airport here.
 
 > search air conditioning
 Just part of the roof clutter you get on tall buildings. The equipment is
@@ -151,6 +151,8 @@ light brown hair cut short to disguise a hint of baldness and an oblong
 shaped face. With light stubble, he is a thin and wiry build and you notice
 that he wears an eye patch. He is holding a brown parcel. At the moment he
 staring at the building opposite.
+You can hear a police car; you stand still for a moment as it seems to be
+heading this way.
 
 > shoot man
 Using the scope of the gun you target the man, at the same time moving your
@@ -174,7 +176,7 @@ Someone has stopped and is looking at the body.
 
 In a moment of weakness you let your mind wander, and a piece of information
 from your training surfaces -
-"Eye relief - this is the distance from the eye to the rear sight."
+"Line of departure - this is the path the bullet would take without gravity."
 You shake your head and tell yourself to concentrate.
 
 > n
@@ -189,7 +191,9 @@ front of you is making a very loud noise. Just at your feet is the closed
 door leading down to the roof exit. You can go north, northeast, east,
 southeast, south, southwest, west, northwest and down.
 The body of a dead undercover policeman is lying here.
-A small flock of birds, probably pigeons, fly overhead.
+
+Something hits the roof making a 'ffutt' sound.
+Somewhere in the distance you can hear a fire engine.
 
 > sw
 You move southwest.
@@ -202,8 +206,6 @@ interest. From here you can go north and northeast.
 
 A 9mm round for your JK54 rifle is lying on the floor.
 Below you, is a man standing in the street.
-
-Something hits the roof making a 'ffutt' sound.
 
 > get bullet
 You pickup the 9mm round and load it into your weapon.
@@ -221,6 +223,8 @@ door leading down to the roof exit. You can go north, northeast, east,
 southeast, south, southwest, west, northwest and down.
 The body of a dead undercover policeman is lying here.
 
+Something hits the roof making a 'ffutt' sound.
+
 > nw
 You move northwest.
 
@@ -230,10 +234,7 @@ In front of you is a low brick wall and as you examine below it seems to be
 the insurance part of town. About 300m away you can see the slightly taller
 Appleton Tower. From here you can go southeast.
 Below, you can see a man standing in the street.
-
-Something hits the roof making a 'ffutt' sound.
-You can hear a police car; you stand still for a moment as it seems to be
-heading this way.
+You can hear the sounds of the traffic below.
 
 > x sniper
 The sniper is too far away, all you can see clearly through your gun sight is
@@ -262,8 +263,6 @@ The body of a dead undercover policeman is lying here.
 
 > open door
 You open the door.
-You can hear a police car; you stand still for a moment as it seems to be
-heading this way.
 
 > d
 You move down.

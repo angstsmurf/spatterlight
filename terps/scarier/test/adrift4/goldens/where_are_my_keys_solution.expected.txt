@@ -513,11 +513,11 @@ You take a tablet from the packet.
 
 > eat tablet
 You take one of the headache tablets and swallow it.
+You can hear a dog howling.
 
 > x sink
 The kitchen sink is filled to the top with dirty dishes of every size and
 type.
-You can hear a dog howling.
 
 > get dirty dishes
 You try to lift the dirty dishes from the sink but you can't.  As you are
@@ -530,6 +530,7 @@ I do not think that is a good idea.
 You take the teaspoon.  You take the tub of butter, the butter knife and the
 bottle of milk from the fridge.  You take the pizza box and the breadbin from
 the kitchen table.  You take the saucepan and the frying pan from the cooker.
+You can hear a dog howling.
 
 > make coffee
 You put a spoonful of coffee in the mug. You pour hot water into the mug.
@@ -545,6 +546,7 @@ The mug now contains hot black coffee.
 
 > drink coffee
 You drink the mug of coffee. You feel a little better.
+You can hear a dog howling.
 
 > east
 You move east.
@@ -561,7 +563,6 @@ You can see a pair of boxer shorts.
 
 > open door
 You open the front door.
-You can hear a dog howling.
 
 > north
 You move north.
@@ -574,6 +575,7 @@ gate to the north.  Near the front door is a mat with the word 'Welcome' on
 it.  The front garden is surrounded by a very tall hedge.  Looking over the
 front gate you can see the traffic going by in Carter Street.  The front gate
 is closed.
+You can hear a dog howling.
 
 > open gate
 

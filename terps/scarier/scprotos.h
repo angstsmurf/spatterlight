@@ -143,6 +143,7 @@ extern scr_bool scr_is_congruential_random (void);
 extern void scr_seed_random (scr_uint new_seed);
 extern scr_int scr_rand (void);
 extern scr_int scr_randomint (scr_int low, scr_int high);
+extern scr_int scr_randomint_exclusive (scr_int low, scr_int high);
 extern scr_bool scr_strempty (const scr_char *string);
 extern scr_char *scr_trim_string (scr_char *string);
 extern scr_char *scr_normalize_string (scr_char *string);

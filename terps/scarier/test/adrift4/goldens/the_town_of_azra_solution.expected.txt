@@ -88,10 +88,10 @@ You take the mug of coffee from the bar.
 > gulp the coffee
 You tip the cup back and take a medium-sized gulp of the coffee. There is 85
 percent of the coffee left.
+Harthro booms, "Where's all the dirty dishes? C'mon! They gotta get cleaned!"
 
 > sip the coffee
 You take a small sip from the mug of coffee.
-Harthro booms, "Where's all the dirty dishes? C'mon! They gotta get cleaned!"
 
 > buy a steak
 You yell out to Harthro that you'd like to order his best steak for 8

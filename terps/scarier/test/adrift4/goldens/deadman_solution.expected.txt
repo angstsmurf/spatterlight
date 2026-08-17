@@ -138,14 +138,14 @@ Using the blunt tip of the scissors, a little luck and a lot of persistence,
 you manage to loosen the remaining screws, and open the panel.The guts of the
 radio appear torn out.Who have I been talking to?
 
-> wear bandage on neck
-You wrap the bandage tightly around your skull. Hopefully this will control
-the bleeding.
-
 The pain in your head becomes over powering.  Gripping you neck with both
 hands, you lay on the floor in the fetal position until the pain becomes
 subsides.
 [-00:53-]
+
+> wear bandage on neck
+You wrap the bandage tightly around your skull. Hopefully this will control
+the bleeding.
 
 > turn camera to camera 1
 You turn the dial to camera 1.  The screen flickers above you.
@@ -219,9 +219,6 @@ God, you wish someone would answer.
 
 > z
 Time passes...
-
-> z
-Time passes...
 Your thoughts are interrupted by harsh static.
 A loud voice fills the room.
 
@@ -246,10 +243,13 @@ Time passes...
 
 > z
 Time passes...
+A small rush fills you with pleasure.
 
 > z
 Time passes...
-A small rush fills you with pleasure.
+
+> z
+Time passes...
 
 Suddenly your head begins to spin and the lights fades in and out, slowly at
 first, but soon working its way up to a frenzied strobe. Then darkness.
@@ -286,13 +286,13 @@ Time passes...
 
 > z
 Time passes...
-
-> z
-Time passes...
-
-> z
-Time passes...
 A small rush fills you with pleasure.
+
+> z
+Time passes...
+
+> z
+Time passes...
 
 > z
 Time passes...
@@ -354,9 +354,7 @@ You awaken on the control room floor.
 
 > z
 Time passes...
-
-> stand
-You stand up.
+A small rush fills you with pleasure.
 
 A banging on the door startles you and you turn to stare at the cold steel.
 A muffled voice fills the quite room,
@@ -376,6 +374,9 @@ silence.
 The door stands closed and latched.
 The pounding at the door returns.
 
+> stand
+You stand up.
+
 > open door
 Slowly you unlatch the steel door and pull it open just a crack.  Not seeing
 anyone, you open the door wider. Out of the corner of your eye something
@@ -388,7 +389,6 @@ inside.
 
 > get axe
 You take the axe.
-A small rush fills you with pleasure.
 
 > chop off hand with axe
 With a wild swing the axe arcs down at the wrist of Capt. Mattingly.  You

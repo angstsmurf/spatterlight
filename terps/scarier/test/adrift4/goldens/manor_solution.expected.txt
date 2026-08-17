@@ -264,6 +264,9 @@ You move north.
 Spare Bedroom
 It is dark here. You cannot see anything.
 
+You suddenly feel a chill in the air, and hear a whispery voice say "Sam!".
+You spin around, but no one is there!
+
 > search clothes
 You search the pile of clothing and find a small rubber ball. When you touch
 the ball, you hear a voice behind you, and turn to see a small boy, dressed
@@ -275,9 +278,6 @@ for that!"
 
 With that, the image fades and a split second later, you hear a scream from
 downstairs. Angie!
-
-You suddenly feel a chill in the air, and hear a whispery voice say "Sam!".
-You spin around, but no one is there!
 
 > take ball
 You pick up the ball.
@@ -346,13 +346,13 @@ You move north.
 Attic Stairwell
 It is dark here. You cannot see anything.
 
+You hear the wind picking up outside, and thunder in the distance.
+
 > u
 You move up.
 
 Attic
 It is dark here. You cannot see anything.
-
-You hear the wind picking up outside, and thunder in the distance.
 
 > search junk
 In amongst the antiques, you find an old wooden crucifix.

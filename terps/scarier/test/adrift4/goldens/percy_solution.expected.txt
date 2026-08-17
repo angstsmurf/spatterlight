@@ -12,9 +12,6 @@ outside you don't see any great need to leave right now.
 > z
 Time passes...
 
-> z
-Time passes...
-
 Somewhere a door opens and in strides Throgbert, your second-in-command.
    "Sire!" he cries. "I have been speaking to the men and we feel the time
 has come for your clan to conquer the world. I have drawn up a series of
@@ -35,6 +32,9 @@ not much in the way of reward but it'll show the locals what we're made of."
 rewards as such but on the plus side it'll give the men a much needed boost
 of confidence knowing there's someone they can push around without getting a
 kicking."
+
+> z
+Time passes...
 
 > 1
 "A wise decision, sire," says Throgbert. "I shall give the orders to the men

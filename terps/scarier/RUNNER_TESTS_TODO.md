@@ -5,10 +5,11 @@ answered. Companion to `ADRIFT4_vs_ADRIFT5.md` (which records semantics already
 settled) and `test/adrift4/notes/WALKTHROUGH_TODO.md` (which is about route
 derivation, not engine fidelity).
 
-**Every section is closed** — §§1–8 between 2026-08-01 and 2026-08-09, and §9,
-the backlog of code-comment TODOs, on 2026-08-17. The `## Closure log` section
-at the foot is the record of *how* each one closed, not a plan. What is still
-live is the method — how to stage a probe against each
+**Every section is closed** — §§1–8 between 2026-08-01 and 2026-08-09; §9, the
+backlog of code-comment TODOs, on 2026-08-17; and §10, the event-length roll
+when `Time1 ≠ Time2`, raised, measured in both Runners and ported all on
+2026-08-17. The `## Closure log` section at the foot is the record of *how*
+each closed, not a plan. What is still live is the method — how to stage a probe against each
 Runner (§ *Running the Runners*, §5's `where` probe, §6's 3.70 codec, §7, §8) —
 and the **§4 divergence table**, which is the standing list of every place
 Scarier and the Runner are known to differ, with the reason each one is kept,
@@ -720,8 +721,10 @@ do not patch) vs *Scarier divergence* (→ engine fix).
 
 Every row is settled — measured live, ported, deliberately kept, or refuted —
 with one exception. *Restriction evaluation order* rests on the P-code alone
-because no ADRIFT 4 restriction has a side effect, so there is nothing to probe.
-This table is the live part of the file — keep it current.
+because no ADRIFT 4 restriction has a side effect, so there is nothing to
+probe. (*An event's length when `Time1 ≠ Time2`* was the other exception until
+2026-08-17, when §10's probes settled it in both Runners.) This table is the
+live part of the file — keep it current.
 
 | Item | Scarier | Runner | Status |
 |---|---|---|---|
@@ -759,6 +762,7 @@ This table is the live part of the file — keep it current.
 | Zero-length events, the whole shape table | ~~a `Time1=Time2=0` event finishes on the turn it starts, whatever started it, and (before the row above) re-armed for ever~~ **PORTED 2026-08-02** | **what starts the event decides what it does** — run400 has three distinct answers, all probed live: (1) **started at game load** (StarterType=1) → starts and finishes on turn 0, once; (2) **started off a clock** (a StarterType=2 delay, or a restart-after-delay countdown) → prints its StartText and then **parks**: it stays running for the rest of the game, its LookText appears in every later room description, and its FinishText and TaskAffected never run; (3) **started by its starter task** (StarterType=3) → starts *and* finishes on the trigger turn, once.  Restart is a fourth axis: RestartType=1 (immediately) really does start the event again — a second StartText, then it parks per (2) — while RestartType=2 (after delay) on an immediate or task starter goes quiet for good, with no LookText, so it is not sitting in a running state either. | **Probed live 2026-08-02** — `make_arena_probe.py` configs `EV2` (the three starter types, all zero-length, all RestartType=2), `EV3` (the same delayed start with a *non-zero* length, proving the generator's StartTime/EndTime layout and so that `EV2`'s silence is semantics, not a bad file), `EV4` (Del Sol's exact shape with all three texts — this is where the parking showed up: `G1 START.` on the delay turn, `G2 FINISH.` from the length-2 control the turn after, `G1 FINISH.` never, and `G1 LOOK.` still in the room description eight turns later), and `EV5` (all three starters *with* texts and affected tasks, which is what separated "restarts and parks" from "goes dormant": `H1 START. … H1 START.` at turn 0 and `H1 LOOK.` for ever after; `H2`/`H3` silent after their single firing).  **Engine ported** (`scevents.cpp`): `evt_is_zero_length()` names the shape; the ES_WAITING countdown path starts such an event without finishing it; ES_RUNNING leaves a parked event's clock alone instead of decrementing it negative; and the finish-time gate now covers RestartType=2 with starter 1 **or 3** (the starter-task cell used to re-fire the affected task *every turn* after its first trigger) while RestartType=1 is deliberately no longer gated, so it restarts and parks like the Runner.  Corpus: v4 104/104 PASS, a5 unaffected; one golden re-blessed — `TheADRIFTProject`, where the extra length roll on the restart shifts the RNG stream and Joshua's gum tastes of carpet instead of octopus.  Del Sol's EVENT 11 "physics distraction 3" is the corpus's only live instance of shape (2), and it is room-gated: the walkthrough is never in the physics room at turn 25, so no golden moved. |
 | When immediate events start relative to the opening room description | ~~they start during the first tick, i.e. **after** the opening description: their StartText prints below it, and their LookText is missing from it~~ **FIXED 2026-08-02** | both Runners start them during load, **before** the description: the opening room text carries their LookText, their StartText is nowhere to be seen (printed into the pre-intro screen and cleared), and only the finish half lands under the description.  Probe `EV5` turn 0, run400: `A bare arena.  H1 LOOK.  H2 LOOK.  H1 FINISH.  H1 TASK.  H1 START.  …` against the old Scarier's `A bare arena.` / `H1 START.` / `H1 FINISH.` / `H1 TASK.` / … | **Probed live in BOTH Runners and FIXED 2026-08-02.**  The probe the old note asked for is `EV6` in `make_arena_probe.py` — a plain **length-3** immediate event carrying all three texts, so the zero-length parking model can't be confused with the start model.  run400 puts `K1 LOOK.` in the opening description, never prints `K1 START.`, and still finishes on the third command turn; `make_39_fwprobe.py` variant `e` gets the same answer from run390, so this is **not** a version split.  Ported in `scevents.cpp` as `evt_start_load_events()` / `evt_finish_load_events()`, called either side of the `DispFirstRoom` block in `scrunner.cpp`: the start half runs before the description (silent — `evt_start_event()` gained a `silent` flag — and +1 on the clock so the startup tick's decrement still lands on the rolled length), the finish half runs just before that tick, because a zero-length immediate event's FinishText/TaskAffected/RestartType=1 restart all land *below* the room text in `EV5`.  **Corpus exposure, measured** (`scdump.cpp`'s EVENT line now ends `texts=SLF`): 590 events in 75 of 121 games, 280 of them immediate-start across 49 games; **7 immediate events carry a LookText** (Shadowpeak, `The Town Of Azra` ×2 file copies, tq3) and **16 carry a StartText** (tq3, Azra ×2, adriftorama, Shadowpeak, Colony, yak_shaving, Main Course, Del Sol); 65 events in 19 games have a LookText at all.  Corpus 128/128 PASS after re-blessing: the direct fallout is Colony/Del Sol/Main Course (turn-0 StartText gone), Azra and villains_and_kings (LookText now inside the opening description), and the rest is RNG drift — rolling immediate-event lengths at load moves them *ahead of* `battle_start()`'s stamina rolls, which churns light_up, circus, melbourne_beach, alexis and Main Course's NPC walks.  That reordering is unverifiable by construction (the Runners seed from `Timer`, so their combat differs run to run — §1), and it is the order the load-start model implies; accepted deliberately. |
 | Where an event's LookText sits **inside** the room block | ~~inside the description paragraph, before the object list and the character lines: `A bare arena.  K1 LOOK.` / `Also here is a rock.` / `Robot is here…`~~ **FIXED 2026-08-02** | **dead last, after everything**: `A bare arena.  Also here is a rock.  Robot is here, looking dangerous.  K1 LOOK.` | **Probed live 2026-08-02 (probes `EV7`/`EV8` in run400, run390 agreeing on the 3.9 twin) and FIXED the same day.**  The LookText loop in `lib_print_room_description()` (`sclibrar.cpp`) now runs *after* `lib_print_room_contents()`, joined on with a new `pf_buffer_join()` (`scprintf.cpp`): it removes the single terminating newline our section printers add, then separates with the Runner's two spaces unless the preceding text ends with an author's own break — so `Fetlar the overly fetid is here.  It is raining...` joins on one line, while a `<br>`-led LookText (CyberCow's night-time lines) still starts its own.  A buffer-length guard keeps the join from migrating LookText up onto the room name line when the room has no description or contents.  It also retired a small old wart: a LookText after a `<br>`-terminated description used to print with a stray leading two-space indent (Shadowpeak's `  It is raining...`).  Corpus fallout, all verified to be pure relocation before re-blessing: 14 rows across 10 games (Shadowpeak ×3, CyberCow ×2, villains_and_kings ×2, Azra, orient_express, screen_savers, secret_of_lost_world, ticket, tq3, JGrim); 127/127 PASS, a5 suite untouched, sanitizers clean. |
+| An event's **length** when `Time1 ≠ Time2` | ~~`evt_start_event()` rolled `scr_randomint (time1, time2)`, **inclusive of both bounds**, so a `0..1` event was length 0 about half the time~~ **FIXED 2026-08-17**: `scr_randomint_exclusive()` (`scutils.cpp`) at the three event-timing call sites — the length roll in `evt_start_event()`, the restart-after-delay re-roll in `evt_finish_event()`, and the load-time StarterType=2 delay in `scgamest.cpp`.  It draws once even when `hi <= lo` (VB6 evaluates `Rnd` unconditionally), so every `Time1 == Time2` event keeps its exact stream position and the blast radius stays confined to games with real ranges | **exclusive upper bound, measured live in BOTH Runners**: on a `1..3` range every draw is 1 or 2, never 3 — the event length at load, the StarterType=2 start delay, and the restart-after-delay re-roll all alike.  The P-code's two `+1` sibling sites never surfaced in any event-timing family | **Settled live and PORTED 2026-08-17, the same day the question was raised** — §10 has the probe recipe and results (config `EL` in `make_arena_probe.py` for run400, `make_39_evlenprobe.py` for run390: 5 sessions, ~240 draws across three roll families, all in {1,2}), and the closure log has the corpus fallout.  The fix went in the *callers*, not `scr_randomint`, whose other call sites carry their own arbitrated semantics.  *Provenance* now wins on the default `SCR_SEED=1` and its `SCR_SEED=2` pin is off; the stream shift cost ten routes their wins — six re-pinned to new seeds, the three Shadowpeak variants re-derived by the documented recipe, Vampire and iqsfot re-derived by hand — and the suite is back to 260/260 PASS.  The a5 corpora never moved: the change touches v4 event code only. |
 | Put-family precedence, 3.9 half | same port, ungated | **run390 agrees with run400**: `put pill in cup` with a matched-but-failing task runs the library put ("You put the pill inside the cup.", fail message suppressed) | **Verified live 2026-08-02** (`make_39_fwprobe.py`): the ungated port is faithful on both sides. |
 | Which of the two container-listing styles a container gets | ~~postfixed ("*An umbrella is inside the umbrella stand.*") only for a **dynamic** container holding exactly one object, or one that is part of an NPC; everything else prefixed ("*Inside X is …*") — recorded in `lib_list_in_object()` as "frankly, a mystery"~~ **FIXED 2026-08-03** | purely a **count**: 1 or 2 contained objects → postfixed, 3+ → prefixed, with **no static-vs-dynamic test anywhere in the chain** | **Derived from run400.txt and confirmed against a real Runner transcript 2026-08-03**, while wiring *It's Easter, Peeps!* — see the dated note below. |
 | `take <object lying loose in the room>` | ~~"You pick up the creme egg." in every version~~ **version-gated 2026-08-15** | pre-4.0 "You pick up the creme egg."; 4.0 "You **take** the creme egg." — both agree on the container case, "You take the lollipop from the newspaper rack." | **Settled live and PORTED 2026-08-15.** All four Runners probed on a bare take of a loose room object: run370 (`p37pos.taf`, `drop rock` / `take rock`) → "You pick up the small rock."; run390 (`p39held.taf`, `drop key` then `take key` / `get key` / `take all`) → "You pick up the key."; run400 (probe `TK`) → "You take the rock." for `take rock`, `get rock`, the literal verb `pick up rock`, and `take all` ("You take the rock, the box and the lamp."). run380 shows the pre-4.0 half of the same handler through its "nothing to pick up here" refusal, and a UTF-16LE literal census confirms "There is nothing worth taking here." exists **only** in run400.exe (0x183e4). The container branch and `drop` are byte-identical in both generations ("You take the rock from the box." / "You drop the rock, the box, the lamp and the gem."), so only the `parent == -1` template moved: `lib_is_version_400()` picks it in `sclibrar.cpp`. Corpus fallout: 71 goldens re-blessed, every changed line the take rewording and every changed game a 4.0-signature `.taf`; full suite green. |
@@ -1316,6 +1320,109 @@ mis-parsing a game's pictures.)
       bug at the one place where name and index part company, and that is
       fixed: **472/472** embedded resources in the corpus now land on their
       own first byte.
+
+## 10. The event-length roll when `Time1 ≠ Time2` (raised, measured and ported 2026-08-17)
+
+**CLOSED the day it was raised** — probed live in both Runners, exclusive
+upper bound everywhere, ported at the three event-timing call sites; the
+measured answer and the corpus fallout are in the checklist results below and
+in the closure log. The narrative that follows is the state of knowledge at
+the moment the question was raised, kept as the record of *why* the probes
+took the shape they did. `evt_start_event()` (`scevents.cpp`) set an event's
+length with
+
+```c
+gs_set_event_time (game, event, scr_randomint (time1, time2));
+```
+
+and `scr_randomint` is **inclusive of both bounds**, so a `Time1=0 Time2=1`
+event is length 0 on about half the seeds.
+
+Nothing in this file has ever measured that, because **every** event-timing
+probe written so far — all of §4's zero-length and starter-type rows,
+`make_39_evtimeprobe.py` in its entirety, and the `EV*` configs of
+`make_arena_probe.py` — sets `Time1 == Time2`, where the range semantics are
+invisible. The question stayed hidden until a corpus game landed on it.
+
+**What the P-code already says.** run400 has no inclusive two-field range roll
+anywhere near the event machinery. Every `Rnd` site in the binary that rolls
+between two *record fields* compiles to
+
+```
+FMemLdI2 lo ; CR8I2 ; Rnd ; FMemLdI2 hi ; FMemLdI2 lo ; SubI2 ; MulR8 ;
+FnIntR8 ; AddR8            ' = lo + Int(Rnd * (hi - lo))
+```
+
+— an **exclusive** upper bound. There are sixteen such sites; the four in the
+event/timer code (`0006FD44` and `000705E3`, both immediately after a timer
+countdown reaches zero and both in `mdlSpreadTheLoad` territory, plus `0008F48E`
+and `000920B1` on the file-reading path) all take exactly that shape, and two
+siblings (`0006FE23`, `00091628`, on restart and load branches) take it with a
+further `+ 1` *outside* the `Int`, i.e. a `[lo+1, hi]` range. The battle
+attribute rolls agree (`Battles.bas:658/677`). The **only** inclusive form in
+the whole binary is `Express.bas:648` — `Int(Rnd * ((hi - lo) + 1)) + lo` — and
+that is the author-facing `rand(x,y)` *expression* function, a different thing
+with its own §4-settled semantics.
+
+So the shape of the answer is no longer in doubt: `scr_randomint(time1, time2)`
+is wrong for event lengths in at least one of the two possible ways. What is
+still open is **which field each site rolls** — the dump prints no operand for
+`FMemLdI2`, so `Time1/Time2` (length) and `StartTime/EndTime` (the StarterType=2
+delay) cannot be told apart by reading, and one of the two families carries that
+extra `+1`. That is what the probe is for.
+
+**The one data point.** *Provenance* (`test/adrift4/`) has EVENT 7: immediate
+starter, `Time1=0 Time2=1`, TaskAffected `#Run Gender Task`, whose `Where` list
+is the two rooms the player has left by the end of turn 1. So the roll is
+directly observable from the player's clothing:
+
+- length 0 → the event finishes inside `evt_finish_load_events()`, the `Where`
+  check passes, and turn 1's `i` says *You are wearing a brown tweed suit*;
+- length 1 → it comes due at the end of turn 1, from a room the `Where` list
+  does not cover, and the suit is never worn.
+
+Four live run400 sessions on the shipped `provenance.taf` all show the suit.
+That is 4/4 for length 0 — consistent with the exclusive reading, and possible
+but unlikely (1 in 16) under the inclusive one. The walkthrough row pins
+`SCR_SEED=2`, a seed that happens to roll 0, and the reasoning is written up in
+`test/adrift4/notes/Provenance_walkthrough.md`.
+
+**Why it is not simply fixed.** The event-length roll is on the shared RNG
+stream, so narrowing the range changes the *sequence*, not just this draw:
+every later `scr_randomint` in every game with a random-length event shifts.
+That is a corpus-wide re-bless, and the P-code above narrows the answer without
+pinning it — a fix that is exclusive where the Runner is exclusive-plus-one is
+no better than the bug. Measure first.
+
+- [x] **Probe the range semantics in run400** — **DONE 2026-08-17**, as config
+      `EL` in `make_arena_probe.py`, which authors all three roll families in
+      one file so a single 24×`z` session measures them together: E1 immediate
+      + restart-immediately, `Time1=1 Time2=3` (successive-finish gaps = fresh
+      length rolls); E2 delayed start `1..1` + restart-after-the-same-delay,
+      `Time1=1 Time2=3` (start→finish spans = fresh length rolls); E3 delayed
+      start `1..3`, `Time1=Time2=1` (successive-start gaps = fresh **delay**
+      rolls). The `1..3` range separates all three candidate readings by
+      value alone: exclusive-hi → {1,2}, inclusive → {1,2,3}, the `+1` form →
+      {2,3}. Three run400 sessions (s1–s3, ~145 draws): **every draw in
+      {1,2}, both values abundant in every family** — exclusive upper bound
+      for the event length, the StarterType=2 delay, and the restart re-roll
+      alike, and the `+1` sibling sites belong to neither family.
+- [x] **Then run390** — **DONE the same day**, as `make_39_evlenprobe.py`, the
+      V390 twin of `EL` (same three events; its docstring carries both
+      Runners' numbers). Two sessions (r1/r2, ~95 draws): identical — every
+      draw in {1,2}, never a 3, in all three families. No version split.
+- [x] **Only then decide.** **PORTED 2026-08-17**: the upper bound is
+      exclusive, so `scr_randomint_exclusive()` went into `scutils.cpp` and
+      the three event-timing call sites — `evt_start_event()`'s length roll,
+      `evt_finish_event()`'s restart-after-delay re-roll, and `scgamest.cpp`'s
+      load-time StarterType=2 delay — now use it; `scr_randomint` itself is
+      untouched, exactly as this item prescribed. It draws once even for a
+      degenerate `hi <= lo` range, mirroring VB6's unconditional `Rnd`
+      evaluation, so `Time1 == Time2` events (the overwhelming majority)
+      keep their exact stream cadence. Full corpus re-blessed — ten routes
+      lost their wins to the stream shift and were repaired (see the closure
+      log) — **260/260 PASS**, and *Provenance* wins on the default
+      `SCR_SEED=1`: that row's seed pin is off.
 
 ## Closure log (was: "Suggested order")
 
@@ -2584,3 +2691,72 @@ bytes are the test.
 
 With this, **§9 is closed**: five items, four settled in front of a running
 Runner and one in front of the corpus, all five ported.
+
+**2026-08-17: §10 — the event-length roll is EXCLUSIVE of `Time2`, in both
+Runners, in every event-timing family; ported the same day, and the corpus
+paid for it.** The measurement is exactly the recipe §10 prescribed, plus one
+refinement: instead of one event per question, config `EL` in
+`make_arena_probe.py` (and its V390 twin `make_39_evlenprobe.py`) authors all
+three roll families into one file — immediate/restart-immediately length
+`1..3`, delayed-start length `1..3`, and a `1..3` **delay** with fixed length —
+so a single 24×`z` session yields ~50 draws across every family at once, and
+the `1..3` range separates the three candidate readings by value alone
+(exclusive → {1,2}, inclusive → {1,2,3}, the `+1` form → {2,3}). run400,
+three sessions, ~145 draws; run390, two sessions, ~95 draws: **every single
+draw in {1,2}, both values abundant everywhere.** So both Runners roll
+`lo + Int(Rnd * (hi - lo))` for the event length, the StarterType=2 start
+delay, and the restart-after-delay re-roll alike; the P-code's two `+1`
+sibling sites belong to some other record pair entirely, and there is no
+version split.
+
+The port is `scr_randomint_exclusive()` (`scutils.cpp`), used at the three
+event-timing call sites — `evt_start_event()`'s length roll,
+`evt_finish_event()`'s restart re-roll, `scgamest.cpp`'s load-time delay —
+and nowhere else; `scr_randomint`'s other callers keep their own arbitrated
+semantics, per this section's own instruction. The one design decision worth
+recording: the function **draws even when `hi <= lo`**, because VB6 evaluates
+`Rnd` unconditionally, so every `Time1 == Time2` event — the overwhelming
+majority — consumes exactly the RNG draw it always did and keeps its stream
+position. That confined the blast radius to games authoring real ranges.
+
+Confined, not small. *Provenance* flipped the right way — EVENT 7's `0..1`
+roll is now 0 on every seed, the game wins on the default `SCR_SEED=1`
+(260/300), and its `SCR_SEED=2` pin came off — but the corpus `--bless` run
+refused **ten** rows whose win markers had vanished, and a control run of the
+reverted build passed everything except Provenance, proving all ten were the
+roll change and nothing else. (Worth internalizing: exclusive rolls make
+ranged respawn and ambient events fire *sooner* on average, so games with
+attrition mechanics got genuinely harder.) The repairs, cheapest first:
+
+- **Six rows re-pinned** by seed sweep, route text untouched: `light_up`
+  45→16, `azra` +26, `adriftorama` +18, `ticket` +10, `wrecked` +234,
+  `textident_evil` +4.
+- **The three Shadowpeak variants re-derived by their documented recipe**
+  (`test/adrift4/notes/Shadowpeak_walkthrough.md`): sweep seeds for a clean
+  upstream through `press stone button` (score, room 157, Damastus alive via
+  `SCR_TRACE_JUDY`), then `harness/shadowpeak_chase.py` re-derives the maze
+  chase. New seeds 7 / 13 (allgargoyles) / 149 (killwraith), new chase blocks
+  spliced in, all three WIN. The recipe held up exactly as written — no
+  brute-force whole-route sweeping needed.
+- **Vampire re-derived by hand at seed 1.** EVENT 4 [CarsAtRingRoute3]
+  (`Time 10..15`) is that file's only ranged roll, and re-timing it moved
+  every draw behind Simonsen's random-walk to the Bozo club — he now arrives
+  a fixed half hour later, whatever the player does. The route absorbs it
+  with 29 `x girl` time-killers, `buy beer` hoisted into the dead window, and
+  the waits cut 6→4; the taxi queue goes in at 23:39, one minute before T83
+  starts refusing. Zero slack, still 100/100.
+- **iqsfot's chapter-5 fight re-choreographed at seed 1.** The four mook
+  respawn events (15–18) and the heal event (45) all carry ranged timers, so
+  their cycles shortened and re-phased and the old attack weave desynced.
+  Re-derived adaptively from the mechanics in
+  `notes/Irvine_Quik_walkthrough.md` (correct verb always KOs, whiff means
+  absent, exits blocked while anyone stands, `claw` only with the elite
+  alone). Still a WIN.
+
+Final state: **260/260 v4 rows PASS**, Provenance unpinned, nine other pins
+updated in `run_v4_walkthroughs.sh` with the reasoning in each row's comment.
+The a5 corpora never moved — the change touches v4 event code only, and
+`scr_randomint_exclusive` is a pure addition to the shared `scutils.cpp`.
+
+With this, **§10 is closed** — raised, measured in both Runners, ported and
+re-blessed inside one day — and the file has **no open section**.

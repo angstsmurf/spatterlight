@@ -358,12 +358,12 @@ Using the spatula, you thrust into the floor, scooping up a bladeful of
 compacted dirt.  A little more digging and you uncover a yellow balloon,
 which is in surprisingly good condition.
 
-> take balloon
-You pick up the yellow balloon.
-
 For a second, a strong fragrance is in the air.  A fleeting image in your
 mind of another place and time is triggered by the smell, only to disappear
 as quickly as it arrived.
+
+> take balloon
+You pick up the yellow balloon.
 
 > up
 You move up.

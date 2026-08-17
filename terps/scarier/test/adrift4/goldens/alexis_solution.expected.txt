@@ -289,10 +289,10 @@ blocked by a large troll.
 Narfild is here.
 
 Serond follows you from the south-east.
-Serond shoots Narfild with the oak staff.
 
 > attack narfild
 You hit Narfild with the magic cube.
+Serond shoots Narfild with the oak staff.
 Narfild, lets out a loud grunt as he lurches forward and slumps to the floor.
 
 > attack narfild
@@ -713,27 +713,24 @@ You can also see the Kedarn stone.
 There is a Forester Goblin hanging from a tree here.
 
 Serond follows you from the north-west.
-Serond shoots Forester Goblin with the oak staff.
+Forester Goblin shoots Serond with the bow and arrow.
 
 > attack goblin
 You hit Forester Goblin with the magic cube.
+Serond shoots Forester Goblin with the oak staff.
 The Goblin drops from the tree and lands on the floor. Then, it's little body
 shrivels and turns to dust, it is then blown away by the light wind.
 
-Forester Goblin jumps through the trees to you.
+> attack goblin
+Command not understood
 
 > attack goblin
-You hit Forester Goblin with the magic cube.
-
-Forester Goblin jumps through the trees to you.
-
-> attack goblin
-You hit Forester Goblin with the magic cube.
-
-Forester Goblin jumps through the trees to you.
+Command not understood
 
 > take kedarn stone
 You pick up the Kedarn stone.
+
+Forester Goblin jumps through the trees to you.
 
 > nw
 You move northwest.
@@ -788,7 +785,6 @@ The Longmore marsh king is here.
 
 Serond follows you from the south-east.
 Serond shoots Longmore king with the oak staff.
-Longmore king stabs Serond with the pointy stick.
 
 > attack monster
 You hit Longmore king with the magic cube.
@@ -870,6 +866,7 @@ will take you along a path.
 There is an eagle above you circling around your head.
 
 Serond follows you from the west.
+Serond shoots Eagle with the oak staff.
 Eagle hits Serond.
 
 > attack eagle
@@ -1027,7 +1024,8 @@ take you up the mountain.
 There is a large Narn here.
 
 Serond follows you from the south-west.
-You drop to the floor feeling very ill.
+You get up and start walking again.
+Serond shoots Karurn with the oak staff.
 Karurn hits Serond.
 
 > nw
@@ -1087,7 +1085,6 @@ have brought a gift from Natalya."
 Haron hands you a phial.
 Serond shoots Larnt with the oak staff.
 Haron cuts Larnt with the elven sword.
-Larnt cuts you with the blade from Uron.
 
 > attack larnt
 You hit Larnt with the magic cube.
@@ -1261,8 +1258,8 @@ the South. He then smiles, and says:
 Serond follows you.
 
 Haron follows you.
+Serond shoots Urgorn with the oak staff.
 Haron cuts Urgorn with the elven sword.
-Urgorn shoots Haron with the ball of fire.
 
 > attack urgorn
 You hit Urgorn with the magic cube.
@@ -1272,9 +1269,6 @@ Serond shoots Urgorn with the oak staff.
 You hit Urgorn with the magic cube.
 Serond shoots Urgorn with the oak staff.
 Haron cuts Urgorn with the elven sword.
-
-> attack urgorn
-You hit Urgorn with the magic cube.
 Receiving one more hit, Urgorn falls backwards.
 He loses his balance and tips into the pit behind him. As he falls, he
 releases an almighty ball of light. It travels up out of the pit and into the

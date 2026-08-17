@@ -417,6 +417,26 @@ scr_randomint (scr_int low, scr_int high)
                            * (unsigned long long) (high - low + 1)) >> 31);
 }
 
+scr_int
+scr_randomint_exclusive (scr_int low, scr_int high)
+{
+  /*
+   * The Runners roll event lengths and delays as lo + Int(Rnd * (hi - lo)),
+   * so the high bound is never drawn unless it equals the low one -- unlike
+   * the author-facing rand(x,y) expression, which is inclusive.  Rnd is
+   * consumed even when the range is degenerate, so draw unconditionally to
+   * keep the stream cadence identical either way.
+   */
+  if (high <= low)
+    {
+      scr_rand ();
+      return low;
+    }
+
+  return low + (scr_int) (((unsigned long long) scr_rand ()
+                           * (unsigned long long) (high - low)) >> 31);
+}
+
 
 /* Miscellaneous general ascii constants. */
 static const scr_char NUL = '\0';

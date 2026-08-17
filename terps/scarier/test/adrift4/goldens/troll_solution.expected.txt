@@ -97,11 +97,11 @@ He replies. "Ok, I'll put it on his account."
 The landlord puts his hand in his pocket and fumbles about a bit. (He seems
 to enjoy that a bit too much for your comfort.) Finally he pulls out a ticket
 and places it on the bar.
+The landlord coughs up something vile and spits it on the floor.
 
 > buy beer
 He scoops some warm, flat beer out of a barrel behind him with a tankard and
 slaps it on the bar.
-The landlord coughs up something vile and spits it on the floor.
 
 > buy wine
 The landlord ducks under the bar, rummages around, and returns holding a
@@ -113,17 +113,17 @@ on the bar.
 
 > get ticket
 You take a ticket from the bar.
+The landlord scratches himself (the less you know about where the better!)
 
 > get beer
 You take a tankard from the bar.
-The landlord scratches himself (the less you know about where the better!)
 
 > get wine
 You take a green bottle from the bar.
+The landlord blows his nose on the rag.
 
 > get whiskey
 You take a brown bottle from the bar.
-The landlord blows his nose on the rag.
 
 > drink beer
 Holding your nose with one hand, and the tankard with the other, you knock it
@@ -132,12 +132,12 @@ back in one big gulp.
 > drink wine
 Pulling the cork out with your teeth and spitting it 5 horizontal feet, you
 pour the wine straight down your throat without swallowing.
+The landlord farts. (He seems quite happy about it.)
 
 > drink whiskey
 You take a mouthful, slosh it around a bit, then swallow. It tastes like hot
 dish water and burns all the way down. Does wonders for your mouth ulcers
 though.
-The landlord farts. (He seems quite happy about it.)
 Having sampled the landlords inventory, you wait patiently for the coach to
 arrive. But after what feels like an age has passed (10 minutes) you begin to
 feel quite parched and decide to have another drink to wet your whistle. Then
@@ -976,11 +976,12 @@ decrepid tables and chairs. A cork board with notices pinned to it hangs on
 the wall to the right of the entrance.
 
 Also here is a cork and a pile of empty bottles and tankards.
+The landlord farts. (He seems quite happy about it.)
+The landlord coughs up something vile and spits it on the floor.
 
 > pay landlord
 Thinking it best to pay your drinks bill yourself, instead of charging it to
 the chief, you fork over a large sum of money to the landlord.
-The landlord blows his nose on the rag.
 
 > out
 You move out.

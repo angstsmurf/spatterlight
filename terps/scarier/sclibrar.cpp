@@ -6795,7 +6795,15 @@ lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
             lib_attempt_key_acquisition (game, key);
           }
 
-        if (gs_object_position (game, key) != OBJ_HELD_PLAYER)
+        /*
+         * The runner asks whether the key is indirectly held by the player,
+         * not whether it sits in the hands: a key that is worn, or stowed in
+         * an open bag being carried, unlocks perfectly well.  Provenance
+         * relies on this -- its walkthrough wears the brass key so that the
+         * cave's forced "drop all" can't take it away, then unlocks the
+         * wooden chest while still only wearing it.
+         */
+        if (!obj_indirectly_held_by_player (game, key))
           {
             if (with_key)
               {

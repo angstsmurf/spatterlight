@@ -424,9 +424,6 @@ You can only move in.
 
 > drop milk
 You drop the bowl.
-
-> z
-You pause a moment...
 The rain seems to be letting up.
 
 > z
@@ -439,6 +436,9 @@ The warm seasonable rain is nearly over.
 > z
 You pause a moment...
 The rain has stopped.
+
+> z
+You pause a moment...
 
 > in
 You move in.

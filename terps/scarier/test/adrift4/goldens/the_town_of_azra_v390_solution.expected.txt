@@ -94,16 +94,15 @@ You take a mug of coffee from the bar.
 > gulp the coffee
 You tip the cup back and take a medium-sized gulp of the coffee. There is 85
 percent of the coffee left.
+Harthro booms, "Where's all the dirty dishes? C'mon! They gotta get cleaned!"
 
 > sip the coffee
 You take a small sip from the mug of coffee.
-Harthro booms, "Where's all the dirty dishes? C'mon! They gotta get cleaned!"
 
 > buy a steak
 You yell out to Harthro that you'd like to order his best steak for 8
 dollars. He slides down your plate, a few minutes later, and you pay the
 money. You have $490 and 50 cents.
-A few people leave the tavern together.
 
 > take a bite out of the steak
 You take a decent bite out of the steak. It tastes delicious. Another
@@ -332,21 +331,10 @@ money hunting these bandits. (Hint- after killing a bandit, use the command
 There is a bandit here!!  You currently have room rented at Gralle's Inn.
 
 You can move north and south.
-
-> attack bandit
-You chop Bandit with the hunting sword.
 Bandit hits you, but it doesn't seem to do any damage.
 
 > attack bandit
 You chop Bandit with the hunting sword.
-
-> attack bandit
-You chop Bandit with the hunting sword.
-Bandit hits you, but it doesn't seem to do any damage.
-
-> attack bandit
-You chop Bandit with the hunting sword.
-Bandit hits you, but it doesn't seem to do any damage.
 
 > attack bandit
 You chop Bandit with the hunting sword.
@@ -361,6 +349,19 @@ Bandit hits you, but it doesn't seem to do any damage.
 
 > attack bandit
 You chop Bandit with the hunting sword.
+You have 12 hours left of your stay at Gralle's Inn.
+Bandit hits you, but it doesn't seem to do any damage.
+
+> attack bandit
+You chop Bandit with the hunting sword.
+Bandit hits you, but it doesn't seem to do any damage.
+
+> attack bandit
+You chop Bandit with the hunting sword.
+Bandit hits you, but it doesn't seem to do any damage.
+
+> attack bandit
+You chop Bandit with the hunting sword.
 
 > z
 Time passes...
@@ -383,6 +384,47 @@ Time passes...
 > z
 Time passes...
 Bandit hits you, but it doesn't seem to do any damage.
+Bandit hits you, but it doesn't seem to do any damage.
+
+> attack bandit
+You chop Bandit with the hunting sword.
+
+> attack bandit
+You chop Bandit with the hunting sword.
+You kill the vile bandit! Hopefully he was carrying a lot of money.
+Bandit hits you, but it doesn't seem to do any damage.
+
+> search for money
+You search the dead body for some money. You now have $507 and 63 cents.
+
+> attack bandit
+You chop Bandit with the hunting sword.
+Bandit hits you, but it doesn't seem to do any damage.
+
+> attack bandit
+You chop Bandit with the hunting sword.
+Bandit hits you, but it doesn't seem to do any damage.
+
+> attack bandit
+You chop Bandit with the hunting sword.
+Bandit hits you, but it doesn't seem to do any damage.
+
+> attack bandit
+You chop Bandit with the hunting sword.
+
+> attack bandit
+You chop Bandit with the hunting sword.
+Bandit hits you, but it doesn't seem to do any damage.
+
+> attack bandit
+You chop Bandit with the hunting sword.
+
+> attack bandit
+You chop Bandit with the hunting sword.
+Bandit hits you, but it doesn't seem to do any damage.
+
+> attack bandit
+You chop Bandit with the hunting sword.
 Bandit hits you, but it doesn't seem to do any damage.
 
 > attack bandit
@@ -392,54 +434,9 @@ Bandit hits you, but it doesn't seem to do any damage.
 > attack bandit
 You chop Bandit with the hunting sword.
 You kill the vile bandit! Hopefully he was carrying a lot of money.
-You have two hours left of your stay at Gralle's Inn.
-Bandit hits you, but it doesn't seem to do any damage.
 
 > search for money
-You search the dead body for some money. You now have $485 and 148 cents.
-
-> attack bandit
-You chop Bandit with the hunting sword.
-Bandit hits you, but it doesn't seem to do any damage.
-
-> attack bandit
-You chop Bandit with the hunting sword.
-Bandit hits you, but it doesn't seem to do any damage.
-
-> attack bandit
-You chop Bandit with the hunting sword.
-Bandit hits you, but it doesn't seem to do any damage.
-
-> attack bandit
-You chop Bandit with the hunting sword.
-Bandit hits you, but it doesn't seem to do any damage.
-
-> attack bandit
-You chop Bandit with the hunting sword.
-
-> attack bandit
-You chop Bandit with the hunting sword.
-Bandit hits you, but it doesn't seem to do any damage.
-
-> attack bandit
-You chop Bandit with the hunting sword.
-
-> attack bandit
-You chop Bandit with the hunting sword.
-Bandit hits you, but it doesn't seem to do any damage.
-
-> attack bandit
-You chop Bandit with the hunting sword.
-Bandit hits you, but it doesn't seem to do any damage.
-
-> attack bandit
-You chop Bandit with the hunting sword.
-You kill the vile bandit! Hopefully he was carrying a lot of money.
-
-> search for money
-You search the dead body for some money. You now have $903 and 198 cents.
-Your stay at Gralle's Inn is over. To stay any longer, you should see Gralle
-and rent out the room again.
+You search the dead body for some money. You now have $923 and 73 cents.
 Bandit hits you, but it doesn't seem to do any damage.
 
 > learn stealth from ormulus
@@ -450,9 +447,8 @@ methods of approach, and attack styles. "Something to keep in mind... when
 you're in stealth, you become tired. This means you can only stay in steath
 position for a limited amount of time."
  When he's finished, you pay him the requested amount, $800. You now know
-STEALTH! (Hint: type 'go stealth' to engage in stealth mode). You have $103
-and 198 cents.
-Bandit hits you, but it doesn't seem to do any damage.
+STEALTH! (Hint: type 'go stealth' to engage in stealth mode). You have $123
+and 73 cents.
 
 > go stealth
 You remember what Ormulus told you as you crouch and use stealth movements.
@@ -465,7 +461,8 @@ You move north.
 In the Northern Forest
 This is the Northern Forest. It is thick with trees, moss, rocks, and ferns.
 You spot various piles of deer droppings, letting you know that this is an
-area that deer pass by.  You're still using stealth tactics.
+area that deer pass by.  You currently have room rented at Gralle's Inn.
+You're still using stealth tactics.
 
 You can only move south.
 
@@ -509,7 +506,8 @@ carry small or large amounts of money. Therefore, as bandits find their
 source of money in harassing travelers, some people find their source of
 money hunting these bandits. (Hint- after killing a bandit, use the command
 'search for money' to search their dead bodies for money.
-There is a bandit here!!  You're still using stealth tactics.
+There is a bandit here!!  You currently have room rented at Gralle's Inn.
+You're still using stealth tactics.
 
 You can move north and south.
 
@@ -520,7 +518,8 @@ On Northern Trail
 This a trail that leads out of the town, to the north. It is well kept by
 gardeners, so it is not overgrown. The area to the north, however, is not
 traveled by often, and is unkept.
-Ormulus is here.  You're still using stealth tactics.
+Ormulus is here.  You currently have room rented at Gralle's Inn.  You're
+still using stealth tactics.
 
 You can move north and south.
 
@@ -534,7 +533,8 @@ a crowd fills the street.
 
 Also here is a pile of rubbish.
 Kiris is here.  The street is busy with people walking, purchasing, and
-talking.  You're still using stealth tactics.
+talking.  You currently have room rented at Gralle's Inn.  You're still using
+stealth tactics.
 
 You can move north, east, south and west.
 Hurry up and finish whatever it is you're doing in stealth mode... you can't
@@ -547,7 +547,8 @@ At Poel's Plaza
 This is a small plaza of shops and stalls. It was named after the first
 Council Officer del Economica, Preu Poel. To the south is a metalsmith's
 shop, to the southeast is an inn, to the north is a crowded street, and to
-the west is a road.  You're still using stealth tactics.
+the west is a road.  You currently have room rented at Gralle's Inn.  You're
+still using stealth tactics.
 
 You can move north, east, south, west and southeast.
 
@@ -556,7 +557,8 @@ You move west.
 
 Outside a few stores
 You are on a semi-busy road. A few people can be seen going by you. To the
-south is a Butcher Shop.  You're still using stealth tactics.
+south is a Butcher Shop.  You currently have room rented at Gralle's Inn.
+You're still using stealth tactics.
 
 You can move east and south.
 
@@ -566,7 +568,8 @@ You move south.
 Butcher Shop
 This is a butcher shop. You can see many dead carcasses hanging against the
 wall, behind the counter. The name of the butcher is Drako.
-Drako is here.  You're still using stealth tactics.
+Drako is here.  You currently have room rented at Gralle's Inn.  You're still
+using stealth tactics.
 
 You can only move north.
 
@@ -585,7 +588,7 @@ You move north.
 
 Outside a few stores
 You are on a semi-busy road. A few people can be seen going by you. To the
-south is a Butcher Shop.
+south is a Butcher Shop.  You currently have room rented at Gralle's Inn.
 
 You can move east and south.
 
@@ -596,7 +599,7 @@ At Poel's Plaza
 This is a small plaza of shops and stalls. It was named after the first
 Council Officer del Economica, Preu Poel. To the south is a metalsmith's
 shop, to the southeast is an inn, to the north is a crowded street, and to
-the west is a road.
+the west is a road.  You currently have room rented at Gralle's Inn.
 
 You can move north, east, south, west and southeast.
 
@@ -610,9 +613,10 @@ a crowd fills the street.
 
 Also here is a pile of rubbish.
 Kiris is here.  The street is busy with people walking, purchasing, and
-talking.
+talking.  You currently have room rented at Gralle's Inn.
 
 You can move north, east, south and west.
+You have two hours left of your stay at Gralle's Inn.
 
 > n
 You move north.
@@ -621,7 +625,7 @@ On Northern Trail
 This a trail that leads out of the town, to the north. It is well kept by
 gardeners, so it is not overgrown. The area to the north, however, is not
 traveled by often, and is unkept.
-Ormulus is here.
+Ormulus is here.  You currently have room rented at Gralle's Inn.
 
 You can move north and south.
 
@@ -637,7 +641,8 @@ random bandit attacks. Everyone knows that these bandits, when killed, may
 carry small or large amounts of money. Therefore, as bandits find their
 source of money in harassing travelers, some people find their source of
 money hunting these bandits. (Hint- after killing a bandit, use the command
-'search for money' to search their dead bodies for money.
+'search for money' to search their dead bodies for money.  You currently have
+room rented at Gralle's Inn.
 
 You can move north and south.
 
@@ -648,7 +653,7 @@ In the Northern Forest
 This is the Northern Forest. It is thick with trees, moss, rocks, and ferns.
 You spot various piles of deer droppings, letting you know that this is an
 area that deer pass by.
-Deer is here.
+Deer is here.  You currently have room rented at Gralle's Inn.
 
 You can only move south.
 
@@ -682,7 +687,8 @@ random bandit attacks. Everyone knows that these bandits, when killed, may
 carry small or large amounts of money. Therefore, as bandits find their
 source of money in harassing travelers, some people find their source of
 money hunting these bandits. (Hint- after killing a bandit, use the command
-'search for money' to search their dead bodies for money.
+'search for money' to search their dead bodies for money.  You currently have
+room rented at Gralle's Inn.
 
 You can move north and south.
 
@@ -693,7 +699,7 @@ On Northern Trail
 This a trail that leads out of the town, to the north. It is well kept by
 gardeners, so it is not overgrown. The area to the north, however, is not
 traveled by often, and is unkept.
-Ormulus is here.
+Ormulus is here.  You currently have room rented at Gralle's Inn.
 
 You can move north and south.
 
@@ -707,7 +713,7 @@ a crowd fills the street.
 
 Also here is a pile of rubbish.
 Kiris is here.  The street is busy with people walking, purchasing, and
-talking.
+talking.  You currently have room rented at Gralle's Inn.
 
 You can move north, east, south and west.
 
@@ -720,9 +726,11 @@ At Poel's Plaza
 This is a small plaza of shops and stalls. It was named after the first
 Council Officer del Economica, Preu Poel. To the south is a metalsmith's
 shop, to the southeast is an inn, to the north is a crowded street, and to
-the west is a road.
+the west is a road.  You currently have room rented at Gralle's Inn.
 
 You can move north, east, south, west and southeast.
+Your stay at Gralle's Inn is over. To stay any longer, you should see Gralle
+and rent out the room again.
 
 > w
 You move west.
@@ -811,7 +819,6 @@ money hunting these bandits. (Hint- after killing a bandit, use the command
 'search for money' to search their dead bodies for money.
 
 You can move north and south.
-Bandit hits you, but it doesn't seem to do any damage.
 
 > n
 You move north.
@@ -1239,7 +1246,6 @@ money hunting these bandits. (Hint- after killing a bandit, use the command
 There is a bandit here!!
 
 You can move north and south.
-Bandit hits you, but it doesn't seem to do any damage.
 
 > s
 You move south.
@@ -1411,7 +1417,6 @@ money hunting these bandits. (Hint- after killing a bandit, use the command
 There is a bandit here!!
 
 You can move north and south.
-Bandit hits you, but it doesn't seem to do any damage.
 
 > s
 You move south.
@@ -1727,6 +1732,7 @@ money hunting these bandits. (Hint- after killing a bandit, use the command
 There is a bandit here!!
 
 You can move north and south.
+Bandit hits you, but it doesn't seem to do any damage.
 
 > n
 You move north.
@@ -1773,7 +1779,6 @@ money hunting these bandits. (Hint- after killing a bandit, use the command
 There is a bandit here!!
 
 You can move north and south.
-Bandit hits you, but it doesn't seem to do any damage.
 
 > s
 You move south.
@@ -2266,7 +2271,6 @@ money hunting these bandits. (Hint- after killing a bandit, use the command
 There is a bandit here!!
 
 You can move north and south.
-Bandit hits you, but it doesn't seem to do any damage.
 
 > n
 You move north.
@@ -2332,6 +2336,7 @@ money hunting these bandits. (Hint- after killing a bandit, use the command
 There is a bandit here!!
 
 You can move north and south.
+Bandit hits you, but it doesn't seem to do any damage.
 
 > s
 You move south.
@@ -2456,6 +2461,7 @@ money hunting these bandits. (Hint- after killing a bandit, use the command
 There is a bandit here!!
 
 You can move north and south.
+Bandit hits you, but it doesn't seem to do any damage.
 
 > n
 You move north.
@@ -2866,7 +2872,6 @@ money hunting these bandits. (Hint- after killing a bandit, use the command
 There is a bandit here!!
 
 You can move north and south.
-Bandit hits you, but it doesn't seem to do any damage.
 
 > s
 You move south.
@@ -2992,6 +2997,7 @@ money hunting these bandits. (Hint- after killing a bandit, use the command
 There is a bandit here!!
 
 You can move north and south.
+Bandit hits you, but it doesn't seem to do any damage.
 
 > n
 You move north.
@@ -3153,14 +3159,14 @@ You can only move west.
 
 > wealth
 Money Status:                                                             You
-have $7603.                                             You have ¢198.
+have $7623.                                             You have ¢73.
 
 > buy house
 Garthus gets extremely excited. He can barely speak, "Finally!! Yes, after
 all my waiting... I get to leave Azra!! WOOOO WEEEE! Here's the key, pal!" He
 hands you the key, then you hand him the money, and he runs off down the road
-with a sack of his personal belongings. The house IS YOURS! You have $103 and
-198 cents.
+with a sack of his personal belongings. The house IS YOURS! You have $123 and
+73 cents.
 
 > unlock the front door
 You put your key into the keyhole of your front door and turn it. The door
@@ -3254,14 +3260,14 @@ Agility:        0-0           0           0
 
 > stats
 These are your stats:
-Wealth: $103, and 198 cents.
+Wealth: $123, and 73 cents.
 Number of turns passed: 505
 
 For Stamina, Strength, and Defense values, type status.
 
 > wealth
 Money Status:                                                             You
-have $103.                                             You have ¢198.
+have $123.                                             You have ¢73.
 
 > quit
 Do you really want to quit? [Y/N]

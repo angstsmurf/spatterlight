@@ -332,10 +332,10 @@ There is a ring at the doorbell.
 
 > z
 Time passes...
+The doorbell is pressed again.
 
 > z
 Time passes...
-The doorbell is pressed again.
 
 > invite julie in
 You welcome Julie into your home. She appears very pleased to see you and
@@ -1005,6 +1005,7 @@ on! Hit the Accelerator! Hit the Accelerator!"
 > exit car
 You jump out of the car quickly and into the lane. Your heart is beating fast
 as you know that there isn't much time.
+The sirens seem to get closer...
 
 > w
 You move west.
@@ -1017,7 +1018,6 @@ A flock of sheep is here. They appear to be taking as much time as possible
 to cross the road.  A shephard is here, he is nonchalantly chewing a piece of
 grass as he coaxes his sheep across.  You can't see the police car, but you
 can definitely hear it, and it's getting closer...
-The sirens seem to get closer...
 
 > shoot shephard
 You level the stun-gun at the innocent shephard and fire. He slumps to the

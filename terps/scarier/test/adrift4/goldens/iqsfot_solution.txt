@@ -1,3 +1,12 @@
+# Chapter-5 fight choreography RE-DERIVED 2026-08-17 for the section-10
+# exclusive event-length roll (RUNNER_TESTS_TODO.md): the four mook respawn
+# events (15-18) and the heal event (45) carry ranged timers, so their cycles
+# shortened and re-phased, and the old attack weave desynced.  Re-derived
+# adaptively with the scratch tool iq_refight.py's rules, distilled from
+# notes/Irvine_Quik_walkthrough.md: a correct-verb attack always KOs
+# (sentry=punch, patrol=sweep, guard=kick, soldier=throw), whiff messages mean
+# the target is absent, exits stay blocked while anyone is in the room, and
+# `claw elite` is spent only with the elite alone.  Runs at SCR_SEED=1.
 play
 no
 no
@@ -145,18 +154,15 @@ sweep patrol
 sweep patrol
 punch sentry
 throw soldier
-kick guard
-kick guard
 w
+kick guard
 n
 w
 unlock door
-claw elite
+sweep patrol
+sweep patrol
 punch sentry
-sweep patrol
-sweep patrol
-kick guard
-throw soldier
+claw elite
 w
 teach fan karate
 give jacket to fan

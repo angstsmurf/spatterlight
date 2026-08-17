@@ -1,0 +1,621 @@
+Loading game...
+
+Pestilence
+
+Pestilence
+
+by Richard Otter
+Version 1.00, 2006
+
+1. Play the game
+
+2. Read the introduction
+
+3. Useful information
+
+4. Credits
+
+> 1
+
+The pain from your headache is now much worse.  Although it is difficult to
+put into words it is like a piercing or maybe a burning pain. A bit like
+someone is stabbing at your eyes with a nail or knife from the inside.
+
+Outside the Medical Centre
+The Rushmore Medical Centre is situated in a very grim and desperate part of
+town. Standing at the end of a long and high brick wall lined alley, it has a
+less than inviting appearance. About three floors in height and made from
+grey concrete blocks, the centre seems to be surrounded by various mounds of
+rubbish. A strong looking security door is to the north and the highway is
+back to the south.
+A wide-eyed hungry looking security guard is watching you.
+
+> exam rubbish
+Hiding amongst of the smelly mounds is an old house brick and a broken knife,
+the latter of which you pick up.
+
+> get brick
+You take the brick.
+
+> throw knife at guard
+Using as much force as you can, you thrust the knife repeatedly into the
+chest of the security guard. Making a gurgling sound he collapses to the
+ground.
+
+> get key
+You take the silver key.
+
+> unlock door
+You unlock and open the door.
+
+> north
+You move north.
+
+Foyer
+Little more than a small hall, the window-less foyer contains nothing more
+than a bench like seat. To the north is the entrance to the medical centre
+and south is the outside world, through a strong looking security door.
+
+As you enter the foyer you notice that a crowd of people has appeared
+outside.
+
+> close door
+You close the door, which automatically locks.
+
+> north
+You move north.
+
+Medical Centre Reception
+A semi-circular reception desk sits just to one side of the room. To the
+north is a plain metal door and south leads back to the foyer. To one side of
+the inner door is a sad looking plant sitting in a plastic pot. The extensive
+waiting facilities seem to consist of one plastic seat.
+
+> put brick on desk
+You carefully place the brick on the button.
+The door to the north opens.
+
+> north
+With the brick holding down the button you go north, through the door. The
+door closes behind you.
+
+Corridor
+The plain white walls are dripping with condensation and the flooring looks
+to be covered in some sort of anti-slip surface. Along the ceiling are rows
+of harsh fluorescent lights. North leads to some stairs, east to a
+consultation room, west to a lab and south is the reception area.
+
+You can also see a silver key.
+
+Someone charges into you from the room on the left and runs away to the
+north.  You can hear them running down some stairs.
+
+> get key
+You take the silver key.
+
+> north
+You move north.
+
+Ground Floor Stairs
+You are on an iron grid stairway which leads both up and downwards and a
+large "Level G" is painted on the wall. The place has the look and feel of
+one of those stairwells in a multi-storey car park. To the south is a
+corridor.
+
+> down
+You move down.
+
+Basement Stairs
+You are on an iron grid stairway which leads upwards.  A large "Level B" is
+painted on the wall. To the south is what appears to be a store room.
+
+> south
+You move south.
+
+Store Room
+The long, low room smells of oil and something else which you can't quite
+place.  Nearly all the available space is filled with pipes, cables and
+junction boxes.  Pushed against one wall is a large wooden crate. To the
+north are some stairs leading up.
+You can see someone trying to hide behind a large crate.
+
+> exam someone
+The lab assistant appears to be in his mid-twenties, with a pale complexion
+and long gangly limbs he has a nerdy appearance.  He seems to be frightened
+at the moment and has an almost manic look about him. His face is covered in
+boils and red marks.  The lab assistant is wearing a white coat.
+
+> talk to assistant
+He a high pitched voices he shouts, "Please, please don't kill me!" Looking
+the floor he says, "I'm sorry I thought, well I thought you might be one of
+them."
+
+You are about to ask who one of them are when he continues with, "I'm think
+I'm infected, some crazy woman upstairs bit me! I need the cure."
+
+> ask assistant about cure
+Wide eyed he almost screams, "Artemis is the cure! I must have Artemis!"
+
+> ask assistant about artemis
+Calming down for a moment he continues with, "We developed a cure for the
+pestilence called Artemis.  It is made up of four chemicals, I think the
+formula is in the office upstairs."
+
+> talk to assistant
+Waiting for he to calm a little you ask, "What happened here?"
+
+"I was working in the lab when everything just went manic. The staff started
+attacking each other and destroying everything."
+
+You are about to ask for more information when he continues with, "Some crazy
+woman bit me! I'm think I'm infected, so I need the cure."
+
+> talk to assistant
+Looking around he says, "I'm think I'm infected. I need the cure."
+
+> north
+You move north.
+
+Basement Stairs
+You are on an iron grid stairway which leads upwards.  A large "Level B" is
+painted on the wall. To the south is what appears to be a store room.
+
+> up
+You move up.
+
+Ground Floor Stairs
+You are on an iron grid stairway which leads both up and downwards and a
+large "Level G" is painted on the wall. To the south is a corridor.
+
+> south
+You move south.
+
+Corridor
+The plain white walls are dripping with condensation and the flooring looks
+to be covered in some sort of anti-slip surface. Along the ceiling are rows
+of harsh fluorescent lights. North leads to some stairs, east to a
+consultation room, west to a lab and south is the reception area.
+
+> east
+You move east.
+
+Consultation Room
+Like the rest of the building, the consultation room is a dismissal place.
+Off-white walls and little or no furniture give a very depressing feel to the
+room. Pushed up against one wall is a desk and chair with a filing cabinet
+standing next to it. Sitting all alone in one corner is an old blue rubbish
+bin. To the west is a corridor.
+
+> exam desk
+The green metal desk is of the type which has no drawers or storage. In fact
+it is more like a table than a desk.  A glass jar is on the desk.
+
+> get jar
+You take the glass jar from the desk.
+
+> exam bin
+Navy blue, it is fairly narrow and has a perforated decorative rim.  A torn
+piece of paper is inside the waste bin.
+
+> get paper
+You take the torn piece of paper from the waste bin.
+
+> read paper
+The piece of paper is a small part of what must have been a much large
+document.  All you can make out are a few words - 'cure is called Artemis'
+and  'fourth chemical is Helios'.
+
+> west
+You move west.
+
+Corridor
+The plain white walls are dripping with condensation and the flooring looks
+to be covered in some sort of anti-slip surface. Along the ceiling are rows
+of harsh fluorescent lights. North leads to some stairs, east to a
+consultation room, west to a lab and south is the reception area.
+
+> north
+You move north.
+
+Ground Floor Stairs
+You are on an iron grid stairway which leads both up and downwards and a
+large "Level G" is painted on the wall. To the south is a corridor.
+
+> up
+You move up.
+
+First Floor Stairs
+You are on an iron grid stairway which leads both up and downwards and a
+large "Level 1" is painted on the wall. To the south is a corridor.
+
+> south
+You move south.
+
+Corridor
+The plain white walls are dripping with condensation and the flooring looks
+to be covered in some sort of anti-slip surface. Along the ceiling are rows
+of harsh fluorescent lights. North leads to some stairs, east to the dining
+hall, south is to a wooden door and west to an examination room.
+
+> west
+You move west.
+
+Examination Room
+The plain white room has a cold feel to it and for some reason it makes you
+feel a little uneasy. Maybe it is something to do with the low ceiling or
+perhaps the room suffers with damp.  A lonely metal table occupies the centre
+of the room.  Against one wall is a bench with a desk standing a few metres
+away. To the east is a corridor.
+
+> exam table
+About 2m in length the dull metal table a simple design, basically an oblong
+flat surface. It is standing on four sturdy looking steel legs with cross
+braces.  An autopsy victim is on the table.
+
+> exam victim
+It looks like someone has been carrying out an autopsy on one of the plague
+victims. As you examine the still form something falls to the floor.
+
+> get card
+You take the record card.
+
+> read card
+The record card has lots of medical mumbo-jumbo but you can make out two
+words -  'Artemis' and 'Hermes'.
+
+> east
+You move east.
+
+Corridor
+The plain white walls are dripping with condensation and the flooring looks
+to be covered in some sort of anti-slip surface. Along the ceiling are rows
+of harsh fluorescent lights. North leads to some stairs, east to the dining
+hall, south is to a wooden door and west to an examination room.
+
+> east
+You move east.
+
+Dining Hall
+In your experience the dining hall is a normally a great meeting place. It is
+somewhere to take a well earned rest and spend time chatting with friends and
+colleagues. Usually it can be one of the busiest places in any organisation;
+here though it is strangely quiet. The room is arranged with bench like seats
+either side of several long tables. To the west is a corridor and south is
+the kitchen.
+A discarded half eaten corpse is lying on the floor.
+
+> south
+You move south.
+
+Kitchen
+After the rest of the centre the kitchen seems to be a very pleasant
+surprise. Rather than depressing it has a light, bright and warm feel to it.
+After a brief look around you have the impression that no actual cooking
+takes place here, as you can see no cooking facilities. The only equipment
+seems to be a fridge and a worktop fixed to the wall.  Above the worktop, at
+about head height, is a small mirror. So it is likely that it is just a food
+preparation area rather than a traditional kitchen. The dining hall is north.
+
+> kick wall
+Using as much force as you can muster you break open the wall. To the west
+you now can see a room beyond.
+
+> west
+You move west.
+
+Records
+With several of the lights out most of the room is in shadow and it also
+seems to have an unpleasant musty smell.  In front of you is a counter which
+basically cuts the room into two halves. Behind the counter are row after row
+of filing cabinets. To the north is a door probably leading to a corridor and
+east is a hole in the wall.
+
+> exam counter
+From the look of it, the battered old counter has been in the building some
+years.  A book is on the counter.
+
+> get book
+You take the book from the counter.
+
+> read book
+The book is covered in blood, all you can make out are a few words - 'cure is
+called Artemis' and  'third chemical is Hera'.
+
+> east
+You move east.
+
+Kitchen
+After the rest of the centre the kitchen seems to be a very pleasant
+surprise. Rather than depressing it has a light, bright and warm feel to it.
+After a brief look around you have the impression that no actual cooking
+takes place here, as you can see no cooking facilities. The only equipment
+seems to be a fridge and a worktop fixed to the wall.  Above the worktop, at
+about head height, is a small mirror. So it is likely that it is just a food
+preparation area rather than a traditional kitchen. The dining hall is north
+and through a hole in the west wall is another room.
+
+> north
+You move north.
+
+Dining Hall
+In your experience the dining hall is a normally a great meeting place. It is
+somewhere to take a well earned rest and spend time chatting with friends and
+colleagues. Usually it can be one of the busiest places in any organisation;
+here though it is strangely quiet. The room is arranged with bench like seats
+either side of several long tables. To the west is a corridor and south is
+the kitchen.
+A discarded half eaten corpse is lying on the floor.
+
+> west
+You move west.
+
+Corridor
+The plain white walls are dripping with condensation and the flooring looks
+to be covered in some sort of anti-slip surface. Along the ceiling are rows
+of harsh fluorescent lights. North leads to some stairs, east to the dining
+hall, south is to a wooden door and west to an examination room.
+
+> north
+You move north.
+
+First Floor Stairs
+You are on an iron grid stairway which leads both up and downwards and a
+large "Level 1" is painted on the wall. To the south is a corridor.
+
+> up
+You move up.
+
+Second Floor Stairs
+You are on an iron grid stairway which leads downwards. A large "Level 2" is
+painted on the wall. To the south is a corridor.
+
+> south
+You move south.
+
+Corridor
+The plain white walls are dripping with condensation and the flooring looks
+to be covered in some sort of anti-slip surface. Along the ceiling are rows
+of harsh fluorescent lights. North leads to some stairs, east to a security
+office, west to a hold cell and south is an office. On the wall next to the
+holding cell door is a small metal lever.
+You hear someone call out, "Someone, anyone, please help me." The voice
+sounds female.
+
+> east
+You move east.
+
+Security Room
+The small office appears to be an extremely neat and tidy place, although
+that is probably due to it containing very little in the way of furniture.
+The walls are lined with security monitors and a lonely desk and chair sits
+in the middle of the room. Just inside the door is a panel set into the wall.
+You appear to be able to go west.
+
+> unlock panel
+You unlock and open the panel. Fumbling with the key, you drop it on the
+floor. Looking around you cannot see it anywhere.
+
+> press button
+You press the button which doesn't really seem to do anything. From somewhere
+near by you hear a woman screaming. After a few moments the screaming stops.
+
+> west
+You move west.
+
+Corridor
+The plain white walls are dripping with condensation and the flooring looks
+to be covered in some sort of anti-slip surface. Along the ceiling are rows
+of harsh fluorescent lights. North leads to some stairs, east to a security
+office, west to a hold cell and south is an office. On the wall next to the
+holding cell door is a small metal lever.
+
+> pull lever
+You pull the lever into the down position. The door to the holding cell
+clicks open.
+
+> west
+You move west.
+
+Holding Cell
+This place is obviously designed to be functional rather than pretty. It is
+just wide enough that someone outstretched can touch the sides and is about
+twice that in length.  Either side of a small bunk is a stainless steel sink
+and toilet. You also notice that the walls and ceiling are completely bare,
+apart from an air vent and a bright fluorescent light. Written in chalk on
+the cell wall is the word 'Zeus'. You seem to be able to go east out into a
+corridor.
+The body of a woman is lying here.
+
+> east
+You move east.
+
+Corridor
+The plain white walls are dripping with condensation and the flooring looks
+to be covered in some sort of anti-slip surface. Along the ceiling are rows
+of harsh fluorescent lights. North leads to some stairs, east to a security
+office, west to a hold cell and south is an office. On the wall next to the
+holding cell door is a small metal lever.
+
+> north
+You move north.
+
+Second Floor Stairs
+You are on an iron grid stairway which leads downwards. A large "Level 2" is
+painted on the wall. To the south is a corridor.
+
+> down
+You move down.
+
+First Floor Stairs
+You are on an iron grid stairway which leads both up and downwards and a
+large "Level 1" is painted on the wall. To the south is a corridor.
+
+> down
+You move down.
+
+Ground Floor Stairs
+You are on an iron grid stairway which leads both up and downwards and a
+large "Level G" is painted on the wall. To the south is a corridor.
+
+> south
+You move south.
+
+Corridor
+The plain white walls are dripping with condensation and the flooring looks
+to be covered in some sort of anti-slip surface. Along the ceiling are rows
+of harsh fluorescent lights. North leads to some stairs, east to a
+consultation room, west to a lab and south is the reception area.
+
+> west
+You move west.
+
+Laboratory
+In the centre of the room is a large workbench decorated with test tubes and
+complicated distillation apparatus. On the wall opposite the door is a long
+wooden shelf. The room seems to have a very strange smell. The only exit is
+east, which leads to a corridor.
+
+> exam shelf
+Narrow and fairly long, the wooden shelf is about shoulder height.  Some
+apollo, some ares, some athena, some demeter, some hades, some helios, some
+hera, some hermes and some zeus are on the shelf.
+
+> get all from shelf
+You take the apollo, the ares, the athena, the demeter, the hades, the
+helios, the hera, the hermes and the zeus from the shelf.
+
+> mix artemis
+You pour some Zeus, Hermes, Hera and Helios into the glass jar.
+You notice that the liquid in the jar has changed colour.
+
+> east
+You move east.
+
+Corridor
+The plain white walls are dripping with condensation and the flooring looks
+to be covered in some sort of anti-slip surface. Along the ceiling are rows
+of harsh fluorescent lights. North leads to some stairs, east to a
+consultation room, west to a lab and south is the reception area.
+
+> north
+You move north.
+
+Ground Floor Stairs
+You are on an iron grid stairway which leads both up and downwards and a
+large "Level G" is painted on the wall. To the south is a corridor.
+
+> down
+You move down.
+
+Basement Stairs
+You are on an iron grid stairway which leads upwards.  A large "Level B" is
+painted on the wall. To the south is what appears to be a store room.
+
+> south
+You move south.
+
+Store Room
+The long, low room smells of oil and something else which you can't quite
+place.  Nearly all the available space is filled with pipes, cables and
+junction boxes.  Pushed against one wall is a large wooden crate. To the
+north are some stairs leading up.
+A worried looking lab assistant is trying to hide.
+
+> give artemis to assistant
+You hand the jar filled with Artemis to the lab assistant. He shouts,
+"Artemis!" before gulping the mixture down. He hands you back the jar.
+
+> talk to assistant
+Calmly he replies, "Thank you for the Artemis, I suggest you cure yourself
+and then we can talk more."
+
+> mix cure
+You pour some Zeus, Hermes, Hera and Helios into the glass jar.
+You notice that the liquid in the jar has changed colour.
+
+> drink artemis
+You gulp down the mixture and hopefully you are cured.
+
+Time to find a way out of this place. Maybe the lab assistant can help.
+
+> talk to assistant
+Calmly he replies, "You look cured." He hands you a small key and continues,
+"This will open a window upstairs."
+
+Before you have the chance to talk to him further he runs off north.  You can
+hear someone running up the stairs.
+
+> north
+You move north.
+
+Basement Stairs
+You are on an iron grid stairway which leads upwards.  A large "Level B" is
+painted on the wall. To the south is what appears to be a store room.
+
+> up
+You move up.
+
+Ground Floor Stairs
+You are on an iron grid stairway which leads both up and downwards and a
+large "Level G" is painted on the wall. To the south is a corridor.
+
+> up
+You move up.
+
+First Floor Stairs
+You are on an iron grid stairway which leads both up and downwards and a
+large "Level 1" is painted on the wall. To the south is a corridor.
+
+> up
+You move up.
+
+Second Floor Stairs
+You are on an iron grid stairway which leads downwards. A large "Level 2" is
+painted on the wall. To the south is a corridor.
+
+> south
+You move south.
+
+Corridor
+The plain white walls are dripping with condensation and the flooring looks
+to be covered in some sort of anti-slip surface. Along the ceiling are rows
+of harsh fluorescent lights. North leads to some stairs, east to a security
+office, west to a hold cell and south is an office. On the wall next to the
+holding cell door is a small metal lever.
+
+> south
+You move south.
+
+Office
+The office is completely empty of all the usual furniture you would expect.
+It is as if someone has moved out or is about to move in. Although it looks
+like it might have been unoccupied for sometime. To the north is a corridor
+and south a window.
+
+> drop jar
+You drop the glass jar.
+
+> unlock window
+You unlock and open the window.
+
+> south
+You climb out through the open window. It is quite a drop to the ground but
+you decide to jump.
+
+You have managed to survive the Pestilence and you are alive!  You carefully
+lower yourself and make you way home, considering yourself lucky to be alive.
+
+You managed to score 100 out of the maximum 100.
+
+The End
+
+You now have the option to either restart the game, undo your last move,
+restore a previous saved game position or quit.
+
+Feel free to report any bugs, send praise or give general feedback to
+richardo@delron.org.uk
+
+www.delron.org.uk
+
+> quit
+Do you really want to quit? [Y/N]

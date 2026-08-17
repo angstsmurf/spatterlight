@@ -1122,7 +1122,8 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
             start = prop_get_integer (bundle, "I<-sis", vt_key);
             vt_key[2].string = "EndTime";
             end = prop_get_integer (bundle, "I<-sis", vt_key);
-            gs_set_event_time (game, index_, scr_randomint (start, end));
+            gs_set_event_time (game, index_,
+                               scr_randomint_exclusive (start, end));
             break;
           }
 

@@ -829,36 +829,37 @@ n
 n
 n
 press stone button
-# DAMASTUS chase RE-DERIVED after the follow-player walk-stop fix (2026-08-02:
-# followers warp to the player only on walk arrival ticks, per live run400/
-# run390 probes K/L -- the every-tick trailing is gone, which re-threaded the
-# walkers' RNG engine-wide).  Now at SCR_SEED=20.  Upstream clean at seed 20 (room 157, score 575, Damastus alive).
+# DAMASTUS chase RE-DERIVED after the section-10 exclusive event-length roll
+# (2026-08-17: event lengths and delays roll lo + Int(Rnd*(hi-lo)), matching
+# both real Runners -- ranged events re-timed and re-threaded the walkers'
+# RNG engine-wide).  Now at SCR_SEED=13.  Upstream clean at seed 13
+# (room 157, score 575, Damastus alive).
 # Greedy BFS from the stone button (room 157): attack when co-located, else
-# BFS-step toward him.  Damastus dies in room 152, stamina 47.
+# BFS-step toward him.  Damastus dies in room 149, stamina 30.
 # Re-derive with harness/shadowpeak_chase.py if upstream turns change again.
+e
+e
+e
+e
+e
+e
 s
 s
 s
 s
-attack damastus
-attack damastus
 s
-attack damastus
 n
 attack damastus
+n
+attack damastus
 s
 attack damastus
 n
+attack damastus
+n
+attack damastus
 n
 n
-n
-n
-e
-e
-e
-e
-e
-e
 press bronze button
 # Out and up to the peak: w,w,w->160, s->163. SESSION 21: grab the arm-and-leg
 # greaves (obj170) here in the Minotaur's lair and WEAR them - they are required

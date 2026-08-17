@@ -1045,10 +1045,10 @@ Time passes...
 
 > z
 Time passes...
+The dryer's motion is slowing.
 
 > z
 Time passes...
-The dryer's motion is slowing.
 The dryer slows to a stop.  Your laundry is done!
 
 > z

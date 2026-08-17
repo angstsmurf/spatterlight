@@ -648,6 +648,7 @@ windows you think you can see moving shapes - or is it your imagination?
 
 You can move north, south and west.
 A sudden crash of lightning makes you jump.
+You hear the chiming of the grandfather clock.
 
 > w
 You move west.
@@ -675,6 +676,7 @@ mixture bubbles merrily in a flask over a bunsen burner. It has been fixed to
 the spot by screws. Eggbert obviously wants it to stay put.
 
 You can only move up.
+You hear the chiming of the grandfather clock.
 
 > pour potion into mixture
 Stealthily, you pour the blue potion into the green mixture. Your heart beats
@@ -696,6 +698,7 @@ the laboratory.
 
 You can move east and down.
 A sudden crash of lightning makes you jump.
+You hear the chiming of the grandfather clock.
 
 > e
 You move east.
@@ -775,6 +778,7 @@ You can move north, south and west.
 
 Horace lurches in from the north.
 The wind howls and you shiver.
+You hear the chiming of the grandfather clock.
 
 > w
 You move west.

@@ -1,0 +1,86 @@
+1
+exam rubbish
+get brick
+throw knife at guard
+get key
+unlock door
+north
+close door
+north
+put brick on desk
+north
+get key
+north
+down
+south
+exam someone
+talk to assistant
+ask assistant about cure
+ask assistant about artemis
+talk to assistant
+talk to assistant
+north
+up
+south
+east
+exam desk
+get jar
+exam bin
+get paper
+read paper
+west
+north
+up
+south
+west
+exam table
+exam victim
+get card
+read card
+east
+east
+south
+kick wall
+west
+exam counter
+get book
+read book
+east
+north
+west
+north
+up
+south
+east
+unlock panel
+press button
+west
+pull lever
+west
+east
+north
+down
+down
+south
+west
+exam shelf
+get all from shelf
+mix artemis
+east
+north
+down
+south
+give artemis to assistant
+talk to assistant
+mix cure
+drink artemis
+talk to assistant
+north
+up
+up
+up
+south
+south
+drop jar
+unlock window
+south

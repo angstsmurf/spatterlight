@@ -598,8 +598,6 @@ your left, a building with a sign over the door reads "Town Crier" in Gothic
 letters.
 
 You can move north, south and in.
- Up ahead, you glimpse a black robed figure - a hooded man -  walking in the
-distance, but he disappears into the swirling fog.
 
 > n
 You move north.
@@ -757,8 +755,6 @@ east side of this block you can hear the hammering of metal against metal,
 coming from a roofed open area under a large tree.
 
 You can move north, south and in.
- Somewhere in the distance, you can hear the low, flat toll of a bell. It
-sounds strangely warped and slow.
 
 > n
 You move north.

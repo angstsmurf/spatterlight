@@ -55,10 +55,10 @@ You take the lollipop from the newspaper rack.
 > put lollipop in basket
 You put the lollipop inside the Easter basket.
 
+You hear a clucking noise emanating from the window display.
+
 > take newspaper
 You take the newspaper from the newspaper rack.
-
-You hear a clucking noise emanating from the window display.
 
 > x newspaper
 The business section of today's paper.
@@ -74,15 +74,15 @@ Oakley Inc.                                OO                1-2/2
 LS Starrett Co.                        S(CX)                1-1/3
 E*TRADE Financial Corp.                E(T)                1-1/2
 
+"You must be shopping for somebody pretty special, I'd say!"  The shopkeeper
+glances at you knowingly.
+
 > x window
 The window display consists of a large ceramic rabbit holding out a serving
 plate, a golden goose, and abundant quantities of both plastic and painted
 Easter eggs nestled in copious green grass which lines the bottom of the
 storefront window.  Gold letters form an arc above the main display which
 cheers, "Happy Easter!!!" to those peeking in from out-of-doors.
-
-"You must be shopping for somebody pretty special, I'd say!"  The shopkeeper
-glances at you knowingly.
 
 > x rabbit
 The ceramic rabbit in the storefront window puts you very much in mind of
@@ -163,12 +163,12 @@ You take the creme egg.
 
 > take eggs
 You take the tiny chocolate eggs.
-
-> take chicks
-You take the yellow marshmallow chicks.
 The shopkeeper retrieves a wind-up chick from beneath the counter, winds it
 up, and sets it down.  The toy gyrates jubilantly across the wooden surface,
 while the whirring sound of the wind-up mechanism drones from inside it.
+
+> take chicks
+You take the yellow marshmallow chicks.
 
 > take beans
 You take the sack of jelly beans.
@@ -362,15 +362,15 @@ of candy dots, a candy coin, a creme egg, the tiny chocolate eggs, the yellow
 marshmallow chicks, a sack of jelly beans, a macaroon and a lollipop.  A few
 bills and a couple of photographs are inside your wallet.
 
+"Don't forget to look up, if you haven't tried that yet.  You never know
+where things may be hiding in this store, so you'll have to look around
+carefully."  The shopkeeper's helpful voice rings out across the store.
+
 > ask shopkeeper about goose
 He leans forward conspiratorially, even though you and he are clearly the
 only ones in the shop at the moment.  He whispers, "I'll tell you a secret
 about that goose.  She likes candy dots.  They're her favorite food, in
 fact!"
-
-"Don't forget to look up, if you haven't tried that yet.  You never know
-where things may be hiding in this store, so you'll have to look around
-carefully."  The shopkeeper's helpful voice rings out across the store.
 
 > feed candy dots to goose
 The goose stands and pecks at the candy dots contentedly, revealing a token

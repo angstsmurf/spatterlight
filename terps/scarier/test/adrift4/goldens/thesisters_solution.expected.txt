@@ -848,6 +848,9 @@ You take the socks from the tall wardrobe.
 > get shoes
 You take the shoes from the tall wardrobe.
 
+You pause, a chill running down your spine.  Did you just hear a child
+giggling or was it your imagination?
+
 > east
 You move east.
 
@@ -856,9 +859,6 @@ First Floor Landing.
 You are at the end of the landing in front of a blank wall.  There is a door
 to the east with a plaque reading Study on it.  The door on the west wall has
 no markings.  The landing leads back north.
-
-You pause, a chill running down your spine.  Did you just hear a child
-giggling or was it your imagination?
 
 > north
 You move north.
@@ -1601,6 +1601,9 @@ You unlock the metal door with the large iron key.
 > open metal door
 You open the metal door.
 
+You feel something brush against your shoulder.  You spin round in shock.
+There's nothing there.
+
 > south
 You move south.
 
@@ -1608,9 +1611,6 @@ Cellar Stairway.
 
 You are standing at the top of a dark, dingy brick staircase.  It leads down
 underneath the house.
-
-You feel something brush against your shoulder.  You spin round in shock.
-There's nothing there.
 
 > down
 You move down.
@@ -1761,6 +1761,8 @@ Time passes...
 "There's no way out!" screams Gerald Chatfield.  THUD!  THUD!
 
 THUD!  The door shakes.  THUD!
+
+"There's no way out!" screams Gerald Chatfield.  THUD!  THUD!
 
 > score
 Your score is 99 out of a maximum of 109.  (90%)

@@ -1231,6 +1231,36 @@ CONFIGS = {
           # Is the suffix test Option Compare Text, like the module's other
           # string compares (see the GD probes), or Binary?
           ("Hotel",0,0,250,0,0,0,0,0,0,0,0,0,0,0,0,"Hotel IS HERE.")]),
+ # Event-length RANGE semantics (RUNNER_TESTS_TODO section 10).  Every earlier
+ # event probe set Time1 == Time2, where the roll's range semantics are
+ # invisible; the run400 P-code says every two-field range roll near the event
+ # machinery is `lo + Int(Rnd*(hi-lo))` (EXCLUSIVE hi), with a `+ 1` variant
+ # ([lo+1, hi]) on one restart and one load branch, while scr_randomint is
+ # inclusive of both bounds.  Which family rolls which field is unreadable in
+ # the dump (FMemLdI2 prints no operand), so measure all of them at once:
+ #   E1  starter=1, restart=1, len 1..3  -> first 1F gap since load = the
+ #       load-path length roll; every later 1S->1F gap = the restart-branch
+ #       length roll.  Exclusive: lengths in {1,2}; inclusive: {1,2,3};
+ #       the +1 form: {2,3}.
+ #   E2  starter=2 delay 1..1, restart=2, len 1..3 -> each 2S->2F gap = the
+ #       in-play (delay-countdown-zero) length roll, same three signatures.
+ #   E3  starter=2 delay 1..3, restart=2, len 1..1 -> first 3S turn = the
+ #       load delay roll + 1; later 3F->3S gaps = the restart-after-delay
+ #       roll (scevents.cpp's other scr_randomint site).
+ # The load path re-seeds from Timer, so fresh sessions are independent; ~25
+ # x `z` per session reads out ~8 draws per family.
+ 'EL': dict(name="Probe EL",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    npcs=[],
+    events=[dict(short="Len Imm Restart", affected=0, starter=1, restart=1,
+                 time1=1, time2=3, starttext="1S.", finishtext="1F."),
+            dict(short="Len Delay", affected=0, starter=2, restart=2,
+                 start=1, end=1, time1=1, time2=3,
+                 starttext="2S.", finishtext="2F."),
+            dict(short="Delay Range", affected=0, starter=2, restart=2,
+                 start=1, end=3, time1=1, time2=1,
+                 starttext="3S.", finishtext="3F.")]),
 }
 
 if __name__ == '__main__':

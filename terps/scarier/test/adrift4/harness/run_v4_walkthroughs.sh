@@ -76,9 +76,9 @@ adrift_maze_solution.txt|ADRIFTMaze.taf|You WIN!
 cruel_solution.txt|CAH.taf|destroyed our reality
 trabula_solution.txt|Trabula.taf|given the gold coins to Trabula
 shred_em_solution.txt|shreddem.taf|Due to lack of evidence
-shadowpeak_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=1
-shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=20
-shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=155
+shadowpeak_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=7
+shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=13
+shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=149
 alexis_solution.txt|ALEXIS.TAF|you have beaten Urgorn
 alexis_worn_cube_solution.txt|ALEXIS.TAF|you have beaten Urgorn
 topaz_solution.txt|topaz.taf|The two of you set out into the forest.|SCR_SKIP_WAITKEY=1
@@ -109,7 +109,7 @@ funhouse_solution.txt|FunHouse.taf|thank you for bravely protecting this importa
 gateway_solution.txt|gateway.taf|THE END
 hyper_b_s_solution.txt|hyper_b_s.taf|The Flare Rat is dead! Mission complete!
 jason_vs_salm_solution.txt|Jason Vs. Salm.taf|Good job then!|SCR_SEED=11
-light_up_solution.txt|light_up_4summer_comp.taf|THE END|SCR_SEED=45
+light_up_solution.txt|light_up_4summer_comp.taf|THE END|SCR_SEED=16
 maincourse_solution.txt|Main Course.taf|You're on your way home with just a little indigestion!|SCR_SEED=17
 melbourne_beach_solution.txt|Melbourne Beach.taf|You successfully completed the original game Melbourne Beach
 orient_express_solution.txt|Orient_Express.taf|You successfully complete your assignment.
@@ -146,7 +146,7 @@ the_town_of_azra_solution.txt|The_Town_Of_Azra.taf|Number of turns passed: 27
 # kill a bandit, sell a deer carcass to Drako, buy from all three shops, stay at
 # Gralle's Inn, learn Stealth Tactics, purchase the house.  See
 # The_Town_Of_Azra_walkthrough.md.
-the_town_of_azra_v390_solution.txt|The Town Of Azra.taf|Number of turns passed: 505|SCR_SKIP_WAITKEY=1
+the_town_of_azra_v390_solution.txt|The Town Of Azra.taf|Number of turns passed: 505|SCR_SEED=26 SCR_SKIP_WAITKEY=1
 thetest_solution.txt|thetest.taf|Your score is 5 out of a maximum of 25.|SCR_SKIP_WAITKEY=1
 # thetest IS winnable (2026-08-01, verified live in run390 to "Well done!  You
 # won!" at 20/25): the colour-door needs addything==3, i.e. two consecutive
@@ -209,7 +209,7 @@ ecod3_solution.txt|ECOD3.taf|In an alley behind Denny's.
 goblinhunt_solution.txt|goblinhunt.taf|Tomorrow is the next goblin hunt.|SCR_SKIP_WAITKEY=1
 agent4f_solution.txt|agent_4F[1].A.taf|You wake with a start.  What a terrible dream!
 invasion_shirts_solution.txt|Invasion of the Second-Hand Shirts.taf|You're floating through the air above the trees.
-adriftorama_solution.txt|adriftorama.taf|*****You Win!*****|SCR_SKIP_WAITKEY=1
+adriftorama_solution.txt|adriftorama.taf|*****You Win!*****|SCR_SEED=18 SCR_SKIP_WAITKEY=1
 # The seventeen games swept out of the Key & Compass ADRIFT index (2026-08-02);
 # see the per-game notes/*_walkthrough.md for where each .taf came from.
 wax_worx_solution.txt|wax_worx.taf|[PRESS ANY KEY TO DIE]
@@ -218,7 +218,7 @@ dragonshrine_solution.txt|DragonShrineR43.taf|ended the Curse of Dragon Shrine|S
 shardsofmemory_solution.txt|shardsofmemory.taf|My adventure has ended, and in victory besides|SCR_SKIP_WAITKEY=1
 TheADRIFTProject_solution.txt|TheADRIFTProject.taf|the entire ADRIFT community greet you|SCR_SKIP_WAITKEY=1
 ShadricksUnderground_solution.txt|ShadricksUnderground.taf|the robbers were caught red handed in the vault|SCR_SKIP_WAITKEY=1
-ticket_solution.txt|ticket.taf|You won and managed to score 110 out of a possible 110|SCR_SKIP_WAITKEY=1
+ticket_solution.txt|ticket.taf|You won and managed to score 110 out of a possible 110|SCR_SEED=10 SCR_SKIP_WAITKEY=1
 cleft_solution.txt|cleft.taf|You scored 100 out of the maximum 100!
 Tear_solution.txt|Tear.taf|Suddenly the world seems a brighter place, and you feel there is a good
 tq3_solution.txt|tq3.taf|Please forward your comments to chris@jons.org.
@@ -581,7 +581,7 @@ marooned_solution.txt|marooned.taf|Congratulations, you are no longer Marooned!
 # re-encodes its restriction byte-identically to our parse.
 # (4) "turn it" after "put key in ignition" binds to the ignition and hits the
 # not-yet-started blocker; "turn key" is what scores.
-wrecked_solution.txt|wrecked.taf|Hope you enjoyed playing Wrecked.
+wrecked_solution.txt|wrecked.taf|Hope you enjoyed playing Wrecked.|SCR_SEED=234
 # Mortality (David Whyld, 2004).  A VERBATIM replay of the author's own session
 # transcript shipped inside the game's doc file: all 78 commands, no repairs,
 # word-for-word identical responses, ending on one of the two good endings.
@@ -1348,7 +1348,7 @@ everything_solution.txt|everything.taf|I'll smile as I curse her name and everyt
 # four monster events run on a fixed global cadence and the zombie's WALKs
 # re-teleport it onto the player after every kill, so the `instructions` turn
 # and the exact command count before the dog fight are load-bearing.
-textident_evil_solution.txt|Textident_Evil.taf|Congratulations! You've successfully beaten Textident Evil.
+textident_evil_solution.txt|Textident_Evil.taf|Congratulations! You've successfully beaten Textident Evil.|SCR_SEED=4
 # Impulso: a Spanish conversation piece with no map, no objects and no
 # score -- 12 tasks, all unrestricted, chained by ACT type=1 moves.  You
 # reconstruct three murders for a journalist and the only failure mode is
@@ -1825,9 +1825,15 @@ murder_great_falls_solution.txt|mudergreatfalls.taf|Ken is found guilty of tripl
 # unless the stick is jammed in the container handles (T62 -> T77's own check),
 # and EVENT 8 [RaiseJon] is the 20-turn wait that T64 `open container` needs.
 # On top of those, T83 refuses the taxi queue from 23:40 and T119 loses at
-# midnight.  The six `wait`s in the middle of the script are EVENT 8's, and
-# anything from four upward works -- the file sets Globals/WaitTurns to 3, so
-# one `wait` is three turns of event clock (and three minutes of the other two).
+# midnight.  The four `wait`s in the middle of the script are EVENT 8's, and
+# four is the minimum -- the file sets Globals/WaitTurns to 3, so one `wait`
+# is three turns of event clock (and three minutes of the other two).
+# RE-DERIVED for the section-10 exclusive event-length roll: EVENT 4
+# [CarsAtRingRoute3] holds the file's only ranged Time (10..15), and its
+# changed roll re-times Simonsen's random walk to the Bozo -- he now arrives
+# ~30 turns later on seed 1, at a fixed absolute turn no route can beat.  The
+# script kills those turns at the club (29 x `x girl`, with `buy beer` hoisted
+# into the window); the queue then goes in at 23:39, ONE minute inside T83.
 # The row needs SCR_SKIP_WAITKEY=1 for the single <waitkey> that ends the intro.
 vampire_solution.txt|Vampire.taf|Now you are the most powerful vampire alive.|SCR_SKIP_WAITKEY=1
 
@@ -2129,11 +2135,12 @@ door_solution.txt|door.taf|You head south. You have escaped.
 # The Marlin Affair: Prologue: `SummerCompGames08.zip` member
 # `games/junedocs/june_walkthrough.txt` (the .taf is `junepro.taf` upstream).
 # Forty commands, no score, ends on the sequel teaser.  Needs SCR_SKIP_WAITKEY:
-# the long backstory intro is paged with keypresses that otherwise eat the first
-# six commands -- and that matters here, because `unscrew bolt with screwench`
-# fails outright ("I don't understand what you want me to do with the bolts")
-# unless the gloves have been worn, and the gloves leg only lines up once the
-# whole file is being fed to the game rather than the tail of it.
+# the prose is paged with keypress prompts, and each prompt eats a line of the
+# solution file -- four of them here (`look`, `x cabinet`, `x forcefield`, and
+# the `s` after `turn off generator`).  Losing that `s` desynchronises every
+# later move, and the run then dies on `unscrew bolt with screwench` ("I don't
+# understand what you want me to do with the bolts") in a way that reads like a
+# walkthrough bug but is only a swallowed movement.
 marlin_affair_solution.txt|marlin_affair.taf|The Marlin Affair: Chapter One|SCR_SKIP_WAITKEY=1
 # Can It Be All So Simple?: `SummerComp05.zip` member
 # `SummerComp05/cibass/Walkthrough.txt`.  Forty commands of which fifteen are
@@ -2143,6 +2150,61 @@ marlin_affair_solution.txt|marlin_affair.taf|The Marlin Affair: Chapter One|SCR_
 # "[Press any key to discontinue]", which is what the marker greps for.  Needs
 # SCR_SKIP_WAITKEY for the same reason as the Marlin Affair.
 cibass_solution.txt|CIBASS.taf|[Press any key to discontinue]|SCR_SKIP_WAITKEY=1
+# Pestilence: Richard Otter's own bundled `Walkthru` (copy in `downloaded/`),
+# eighty-five commands replayed verbatim.  The solution opens with `1` to pick
+# "Play the game" out of the four-item title menu.  Full marks, and the marker
+# pins the score so a silent scoring regression cannot pass.
+pestilence_solution.txt|pestilence.taf|You managed to score 100 out of the maximum 100.
+# Give Me Your Lunch Money: derived, not replayed.  The author's bundled
+# `WALKTHRU` (copy in `downloaded/`) is prose and says so itself -- "Commands
+# below will not function if used verbatim, but should be taken as general
+# instruction" -- so the sixty-five commands here are its steps turned into real
+# input.  Gather the four prank components (fishing line from the box at the
+# secret stash, mud from the front yard spigot with the laundry-room bucket, the
+# watermelon from the kitchen table filled from the garden hose, the Rare Bears
+# underwear from Sis' room), `set up` each on the playground east of the school,
+# go to bed, climb the crawl tube, wait out six turns and pull the strings four
+# times.  `set up` is the game's own custom verb; ordinary `put`/`drop` will not
+# arm a trap.  Needs SCR_SKIP_WAITKEY for the paged intro.  The game's banner is
+# `- - - Victory! - - -`, but a marker may not start with `-` (the harness passes
+# it straight to `grep -F`), so the marker drops the leading dashes.
+gmylm_solution.txt|GMYLM_2010.taf|Victory! - - -|SCR_SKIP_WAITKEY=1
+# Provenance: the author's `walkthrough_short.txt` (bundled in provenance.zip,
+# copy in `downloaded/`) with two deliberate departures, both forced:
+#
+#   * Around the china/crystal errand the route waits nineteen turns in the
+#     dining room before `get china` / `get crystal`.  TASK 81/87 both carry
+#     RESTR type=3 v1=2 v2=0 v3=0 -- "the butler is in the same room as you" --
+#     and each adds 1 to the `butlermap` variable; only at butlermap==2 does
+#     TASK 422 fire TASK 423 and the butler hand over the map of the caves.  The
+#     event that voices his request ("...help moving the fine china and crystal
+#     ware") is pure narration and does NOT move him; on the turn it fires he has
+#     just walked out ("The butler exits."), so taking the china right then gets
+#     the plain library take, butlermap stays 0, and the map is never given.  The
+#     author's transcript was recorded on a build where he happened to be present.
+#   * The final ferry loads the rugged rucksack instead of carrying by hand.  The
+#     author's eleven-item pickup at the maze entrance overruns both carry limits
+#     here ("Your hands are full at the moment." on the rucksack, "too heavy" on
+#     the binoculars and the raincoat), so the rucksack is taken, worn and opened
+#     first and every item goes inside it; at the altar they come back out one at
+#     a time.  This also folds the author's second round trip into one, which is
+#     why the route is shorter than the source file.
+#
+# This row once carried SCR_SEED=2: EVENT 7 (immediate, Time1=0 Time2=1) runs
+# TASK 124 "#Run Gender Task", whose Where list is rooms [0, 165], while EVENT 8
+# moves the player out of room 165.  Only a length roll of 0 -- finishing during
+# load, still in room 165 -- gets the brown tweed suit worn, and four live
+# run400.exe runs all wore it, but under the old inclusive [Time1, Time2] roll
+# seed 1 rolled 1.  The event-length roll is now exclusive of Time2 (measured
+# live in run400 AND run390 with `make_arena_probe.py EL` /
+# `make_39_evlenprobe.py`, RUNNER_TESTS_TODO.md section 10), so a 0..1 range
+# always rolls 0, every seed wears the suit, and the pin came off.
+#
+# 260/300 is a win, not a shortfall: the readme says outright that "it is possible
+# to win the game without scoring all the possible points ... the goal of the game
+# is not to score the maximum number of points".  The stray `a cauldron` line is
+# the author's own typo, kept verbatim; it is a parse error and costs no turn.
+provenance_solution.txt|provenance.taf|Look for PROVENANCE II in the summer of 2006!!!|SCR_SKIP_WAITKEY=1
 EOF
 }
 

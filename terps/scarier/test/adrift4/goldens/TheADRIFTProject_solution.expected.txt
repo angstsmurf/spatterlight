@@ -59,9 +59,6 @@ Please choose the player's gender (male or female):
 
 > male
 
-> take suit
-You take the gravity suit from the captain's chair.
-
 The ADRIFT Project
 Classified
 
@@ -81,6 +78,9 @@ main screen.  Titanium walls encircle the bridge, and are embedded with
 several flat-screen control panels that flicker randomly.  The door to the
 ADRIFT-O-Lift is to the south, near a small vent that lies at ground level
 and appears to have some writing just above it.
+
+> take suit
+You take the gravity suit from the captain's chair.
 
 > wear it
 [wear a gravity suit]

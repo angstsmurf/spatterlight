@@ -54,15 +54,15 @@ roasted beetles hangs beside the King.
 > get key
 (You would like to have that key, indeed.  But the grotesque presence of the
 Silk King makes you hesitate.  If you don't first succeed...)
+Reclining in his harness, the King takes a pinch of roasted beetles from his
+tray, sprinkles the delicacy onto his outstretched tongue, and commences to
+chew noisily, his jowls quivering in salivary delight.  The movement reveals
+a glittering key at his throat, hanging from a thin chain.
 
 > get key
 (And the task of obtaining the key presents a severe problem of
 accessibility, as the King is suspended in the middle of the clearing.)  You
 fidget nervously.
-Reclining in his harness, the King takes a pinch of roasted beetles from his
-tray, sprinkles the delicacy onto his outstretched tongue, and commences to
-chew noisily, his jowls quivering in salivary delight.  The movement reveals
-a glittering key at his throat, hanging from a thin chain.
 
 > get key
 The Silk King regards you suspiciously.  Several tiny flesh-colored

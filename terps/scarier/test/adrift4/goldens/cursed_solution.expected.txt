@@ -1234,15 +1234,15 @@ is a workman who appears to be repairing some stonework.
 
    A harsh, cold wind whistles by, making you shiver.
 
+   Somewhere in the distance you hear the sound of voices raised in
+excitement, mingled with a few bleats from excited sheep.
+
 > dig under scaffolding
 Wasting no time, you sprint across to the base of the scaffolding. The
 workman above shows no signs of having seen you as you get to work. Your paws
 easily dig through the compacted dirt of the road as you undermine one of the
 bamboo poles holding up the structure. The hole is a foot deep by the time
 you finish, and you move away a good distance to await the results.
-
-   Somewhere in the distance you hear the sound of voices raised in
-excitement, mingled with a few bleats from excited sheep.
 
    You notice the scaffolding wobble slightly. The workman above looks
 around, but on seeing nothing, returns to his task.
@@ -1254,6 +1254,9 @@ You wait for something to happen.
 against the building. He looks nervous.
 
    A harsh, cold wind whistles by, making you shiver.
+
+   Somewhere in the distance you hear the sound of voices raised in
+excitement, mingled with a few bleats from excited sheep.
 
    The scaffolding shakes alarmingly, and the workman, as if sensing imminent
 danger, begins his descent.
@@ -1267,14 +1270,14 @@ around the area.
 > z
 You wait for something to happen.
 
-   Somewhere in the distance you hear the sound of voices raised in
-excitement, mingled with a few bleats from excited sheep.
-
    "Help!" the workman cries, as he dangles from the window ledge. "Help!"
 
    A harsh, cold wind whistles by, making you shiver.
 
    "Help!" the workman cries, as he dangles from the window ledge. "Help!"
+
+   Somewhere in the distance you hear the sound of voices raised in
+excitement, mingled with a few bleats from excited sheep.
 
    Guards from the city gates rush to assist the man hanging from the window
 ledge. They don't even glance in your direction.
@@ -1307,9 +1310,6 @@ the east, past a line of shops and houses, you can see the city gates.
    An old maple tree stands at the corner of the alley, looking a little sad
 and neglected, particularly with most of its foliage lost to autumn. Beneath
 it is the remains of an old, burlap sack, lying on the ground in tatters.
-
-   Somewhere in the distance you hear the sound of voices raised in
-excitement, mingled with a few bleats from excited sheep.
 
    Your vulpine hearing detects some sounds -- movement to the west.
 
@@ -1473,6 +1473,8 @@ clearly on his mind, but he doesn't pursue it.
 A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
 
+   One of the logs in the fire settles into the ash softly.
+
    "Please enjoy your wine," Rithusar reminds you. "Don't let it go to
 waste." He then returns his gaze to the fire.
 
@@ -1480,8 +1482,6 @@ waste." He then returns his gaze to the fire.
 A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
 
-   One of the logs in the fire settles into the ash softly.
-
 > no
 A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
@@ -1489,6 +1489,9 @@ made no sense.
 > no
 A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
+
+   The fire pops loudly, sending a few embers and ash whirling around the
+hearth.
 
 > no
 A strange thought comes to your mind, but you quickly dismiss it. It really
@@ -1543,8 +1546,7 @@ made no sense.
 A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
 
-   You feel a draft from under the door and it makes you shiver. You pull
-your cloak around yourself even tighter.
+   One of the logs in the fire settles into the ash softly.
 
 > no
 A strange thought comes to your mind, but you quickly dismiss it. It really
@@ -1562,8 +1564,8 @@ made no sense.
 A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
 
-   An soft, eerie sound reaches your ears as the wind blows across the top of
-the chimney.
+   The wind rattles against the windows, making both you and the king jump
+slightly.
 
 > z
 You wait for something to happen.
@@ -3265,6 +3267,8 @@ with the rich, acrid smell.
 > invisible
 You think about invisibility, and immediately you disappear.
 
+   The dog sneezes a couple of times, whimpers, then settles down again.
+
 > w
 You gingerly step past the dog, your invisible feet silent on the stone
 floor, and your scent masked by the burnt spices. You slip through the door
@@ -3510,6 +3514,9 @@ the crown prince of Rylane.
    "Absolutely," Lord Vonisor says, before stepping forward and opening the
 door.
 
+   Lord Vonisor pulls out his sword and checks the blade for any marks and
+flaws. He returns the blade to the scabbard.
+
 > n
 As you move to enter the door, Lord Vonisor steps forward and says, "It looks
 dark in there. I'd better go first with the candle." He moves into the room
@@ -3527,8 +3534,8 @@ of rich green which has been spoiled by a dark, sinister stain near the edge.
     A passage leads westwards, while the door back to the corridor stands
 open to the south.
 
-   Lord Vonisor stands close by, his hand on the hilt of his sword, ready for
-action.
+   Standing a short distance away is Lord Vonisor, who is looking at you but
+is obviously ready for anything.
 
 > smell
 You can smell a faint, but very distinct odour here, past the mustiness that
@@ -3540,8 +3547,6 @@ the table.
 the corridor close by. Then you hear the sound of feet walking along the
 corridor, muted somewhat by the carpet. The sound retreats into the distance,
 then disappears altogether.
-
-   Lord Vonisor rubs the back of his head impatiently.
 
 > x cup
 The cup is made from gold and bears a royal seal that is imprinted in the
@@ -3631,9 +3636,6 @@ running from floor to ceiling, and extends about six inches into the room.
 buttress, and as you look closer your vulpine eyes notice a small indentation
 in the corner where the buttress meets the wall. Something about this mark
 looks alien, out of place.
-
-   Lord Vonisor pulls out his sword and checks the blade for any marks and
-flaws. He returns the blade to the scabbard.
 
 > x indentation
 The indentation is almost invisible, blending into the surrounding stonework

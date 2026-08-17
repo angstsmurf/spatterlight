@@ -56,7 +56,8 @@ out.  An old magazine and a pencil are inside the rubbish bin.
 > get magazine
 You take the old magazine from the rubbish bin.
 
-A small black and white cat strolls out to the east.
+A small black and white cat strolls out to the west.
+The drunk makes a sighing sound.
 
 You hear a voice coming from somewhere behind you, "Are you still wasting
 your time? Your dinner is nearly ready!"
@@ -78,7 +79,7 @@ to me".
 
 Muttering something under his breath like, "Not another one!" he turns
 towards you and states, "Identify the game that this location comes from".
-The drunk makes a whimpering sound.
+The trainspotter whistles a tuneless song.
 
 > talk to porter
 Looking around you answer with "The location? It is a railway station".
@@ -99,10 +100,12 @@ a game. Still, you should try being a non-player character".
 He turns towards you and states, "Identify the game this location comes from
 and then find it written on something".
 
+A small black and white cat strolls in from the west.
+
 The whole station shakes as a freight train rumbles through.  The shaking
 feels like it is never going to stop.
 The trainspotter writes in his book.
-The trainspotter looks from one side of the station to the other.
+The drunk makes a coughing sound.
 
 > talk to trainspotter
 The Trainspotter says "Hello my name is Norman. I have had a busy day filling
@@ -113,6 +116,9 @@ hide it.  For some reason you are aware that it has no relevance.
 
 > open door
 You open the set of double doors with glass panels.
+
+A small black and white cat strolls out to the east.
+The drunk makes a sighing sound.
 
 > south
 You move south, pushing through thick fog.
@@ -174,6 +180,7 @@ The trainspotter writes in his book.
 
 > give coat to drunk
 You cover the drunk with the coat, he drops a booklet onto the platform.
+The drunk makes a choking sound.
 
 > look
 
@@ -191,6 +198,7 @@ You can also see a booklet.
 A porter is here leaning against the wall.  A drunk is sleeping off a heavy
 night on a bench.  A trainspotter dressed in wet weather gear is watching
 you.
+The trainspotter whistles a tuneless song.
 
 > get booklet
 You take the booklet.
@@ -288,12 +296,8 @@ double doors with glass panels.
 
 Against the wall you can see one of those wire frame rubbish bins.
 A porter is here leaning against the wall.  A drunk is sleeping off a heavy
-night on a bench.  A trainspotter dressed in wet weather gear is watching
-you.
-
-A train thunders through the station and it doesn't sound like it is going to
-stop.
-The trainspotter writes in his book.
+night on a bench.  A cat is silently wandering around.  A trainspotter
+dressed in wet weather gear is watching you.
 
 > east
 You move east, pushing through thick fog.
@@ -307,8 +311,6 @@ Road and the yard behind the pub is to the south.
 Colin Turner is standing at the bar.  Fred Sutton is staring vacantly around.
  Emma Taylor is standing behind the bar.
 
-A small black and white cat strolls in from the east.
-
 Looking at your manhood and smiling Emma remarks, "Hello love, you will catch
 a cold dressed like that!".
 
@@ -318,6 +320,7 @@ Puzzled and confused you look around in disbelief, you are in a public house.
 > exam bar
 The narrow bar (the pub's counter) is surprisingly clean and tidy.  Some
 paper and an ashtray are on the narrow bar.
+Colin and Fred are arguing about some football match.
 
 Looking at your manhood and smiling Emma remarks, "Still not worried about
 catching a cold then!".
@@ -325,21 +328,17 @@ catching a cold then!".
 > get paper
 You take the paper from the narrow bar.
 
-A small black and white cat strolls out to the south.
-Colin and Fred are staring at each other.
-
 > buy pint
 Emma pours you a pint and smiling says, "That will be a pound, love". You
 hand over a pound and she passes you the beer.
+Colin and Fred are watching Emma.
+Emma starts to clear away some empty glasses.
 
 > give pint to fred
 You hand the pint over to Fred who is smiling from ear to ear. Colin is
 standing just to your right trying to look thirsty. Fred puts the pad down on
 the bar and drinks the beer in a couple of goes.  Whilst he is busy you pick
 up the pad he has been carrying.
-
-A small black and white cat strolls in from the south.
-Colin and Fred are arguing about some football match.
 
 > east
 You move east, pushing through thick fog.
@@ -362,8 +361,6 @@ alive yesterday. Although, you have no idea what happen yesterday.
 Although the beast is quite obviously dead, it appears to be watching you.
 In fact you are pretty sure it is alive.
 
-A small black and white cat strolls in from the west.
-
 > talk to tarc
 Bizarrely the remains stir into life and even start to talk, "I am the Tarc".
 It pauses for a moment as if gaining strength, "And my kind has always lived
@@ -377,8 +374,6 @@ have been a living snarling beast yesterday.
 > get rib
 You pull the rib from the remains of the beast. As you pull the rib out the
 remains make a groaning noise.
-
-A small black and white cat strolls out to the west.
 
 > east
 You move east.
@@ -544,7 +539,7 @@ The dull metal room, which is exactly 2m square and 2.5m in height, is
 appropriate to your level of achievement. Attached to the wall behind you is
 the all important recharger with the teleporter on the floor opposite. To
 your left is the communicator with your own personal storage shelf above it.
-With the lighting fixed on the lowest setting the place is in murkiness, just
+With the lighting fixed on the lowest setting the place is in darkness, just
 how you prefer it.
 
 > exam shelf
@@ -571,8 +566,8 @@ The room slowly fades and is replaced with your destination.
 
 Centre for Examination
 The hexagonal metal room is 10m across and nearly 5m in height. With the
-standard hidden lighting set to a low level, most of the room is in gloom. A
-security monitor is on one side of the room, to your right the interrogator
+standard hidden lighting set to a low level, most of the room is in darkness.
+A security monitor is on one side of the room, to your right the interrogator
 and virtually opposite is the teleporter.
 Zeta-Theta is standing against the wall.
 
@@ -608,13 +603,14 @@ The room slowly fades and is replaced with your destination.
 Roof of Building
 You are on the roof of the futuristic Bakewell Insurance Building, which has
 19 floors and was built around 10 years ago. A strong wind is blowing from
-the east and it looks like it could easily rain soon. A large antenna is
-whipping in the wind to your right and the air conditioning equipment in
-front of you is making a very loud noise. A large sign is fastened to the
-roof here. Just at your feet is the closed door leading down to the roof
-exit. You can go north, northeast, east, southeast, south, southwest, west,
-northwest and down.
+the east and it looks like it could easily rain this afternoon. A large
+antenna is whipping in the wind to your right and the air conditioning
+equipment in front of you is making a very loud noise. A large sign is
+fastened to the roof here. Just at your feet is the closed door leading down
+to the roof exit. You can go north, northeast, east, southeast, south,
+southwest, west, northwest and down.
 A dirty, smelly old tramp is lying on the floor.
+A large airplane roars overhead, you are very close to the airport here.
 
 > talk to tramp
 You are about to talk to the Tramp when he starts to speak, "Hello! Any
@@ -631,7 +627,6 @@ He then asks, "What are you doing up here? Are you lost?".
 
 You reply, "Mind your own business old man". It is a strange question from a
 tramp.
-A very loud motorbike can be heard to the south.
 
 > give note to tramp
 You hand the note to the tramp who, after studying it, replies, "Correct,
@@ -735,6 +730,8 @@ And died.
 To the west there is a large chamber and to the east you can make out a
 statue.
 
+A small black and white cat strolls in from the west.
+
 > west
 You move west.
 
@@ -746,7 +743,8 @@ and a wall mounted jukebox. To the west is Albert Street, east is Draycot
 Road and the yard behind the pub is to the south.
 Colin Turner is standing at the bar.  Fred Sutton is staring vacantly around.
  Emma Taylor is standing behind the bar.
-Colin and Fred are staring at each other.
+Colin and Fred are discussing playmate of the month.
+Emma is listening to Fred and Colin.
 
 > west
 You move west.
@@ -761,21 +759,19 @@ double doors with glass panels.
 
 Against the wall you can see one of those wire frame rubbish bins.
 A porter is here leaning against the wall.  A drunk is sleeping off a heavy
-night on a bench.  A cat is silently wandering around.  A trainspotter
-dressed in wet weather gear is watching you.
-
-A small black and white cat strolls out to the east.
+night on a bench.  A trainspotter dressed in wet weather gear is watching
+you.
 
 A train thunders through the station and it doesn't sound like it is going to
 stop.
 The trainspotter writes in his book.
-The drunk makes a coughing sound.
 
 Looking surprised the porter exclaims, "Solved four locations I hear". He
 looks you up and down before continuing, "Unbelievable!".
 
 > open doors
 You open the set of double doors with glass panels.
+The drunk makes a sighing sound.
 
 > south
 You move south.
@@ -810,6 +806,8 @@ to his work.
 
 > exam pigeonhole
 Examining the pigeonholes you find a handout hidden amongst the mail.
+The postal clerk takes a package from a mail bag and drops it in one of the
+bins.
 
 > give playbill to postal clerk
 You hand the playbill to the Postal Clerk who, after studying it, replies,
@@ -826,11 +824,13 @@ square it has a high wall all the way around and the floor is concrete. The
 exits are through a metal gate to the south and back into the pub north.
 
 You can also see a photograph.
-Jed Peters is watching you carefully.
+A cat is silently wandering around.  Jed Peters is watching you carefully.
 
 > give handout to jed peters
 You hand the handout to Jed Peters who, after studying it, replies, "Yeh,
 this location is from Fire in the Blood.  Now get lost!".
+
+A small black and white cat strolls out to the north.
 
 > north
 You move north.
@@ -849,7 +849,9 @@ bar.
 You put some money into the jukebox and just starts playing.
 
 A small black and white cat strolls out to the east.
-The jukebox is loudly playing country music.
+The jukebox is loudly playing a song by one of those girl bands.
+Colin and Fred are whispering to each other.
+Emma is using a cloth to carefully clean a glass.
 
 > south
 You move south.
@@ -861,7 +863,8 @@ exits are through a metal gate to the south and back into the pub north.
 
 You can also see a photograph.
 Jed Peters is watching you carefully.
-The jukebox inside the pub is loudly playing country music.
+The jukebox inside the pub is loudly playing a song by one of those girl
+bands.
 You can even hear the music playing in the pub out here; it will definitely
 drown out any noise in the yard.
 
@@ -889,6 +892,8 @@ you.
 A train thunders through the station and it doesn't sound like it is going to
 stop.
 The trainspotter writes in his book.
+The drunk makes a whimpering sound.
+The trainspotter looks from one side of the station to the other.
 
 Looking surprised the porter exclaims, "Solved six locations I hear". He
 looks you up and down before continuing, "Amazing!".
@@ -910,6 +915,7 @@ with an axe, in our yard. The police are investigating". She looks around and
 then whispers, "We think it was him, the evil author".
 
 You notice that the pub is strangely quiet.
+Emma quickly wipes the bar.
 
 > south
 You move south.
@@ -970,11 +976,7 @@ Against the wall you can see one of those wire frame rubbish bins.
 A porter is here leaning against the wall.  A drunk is sleeping off a heavy
 night on a bench.  A trainspotter dressed in wet weather gear is watching
 you.
-
-The whole station shakes as a freight train rumbles through.  The shaking
-feels like it is never going to stop.
-The trainspotter writes in his book.
-The drunk makes a coughing sound.
+The trainspotter rocks from one foot to the other.
 
 > west
 You move west.
@@ -1054,8 +1056,8 @@ A porter is here leaning against the wall.  A drunk is sleeping off a heavy
 night on a bench.  A trainspotter dressed in wet weather gear is watching
 you.
 
-A train thunders through the station and it doesn't sound like it is going to
-stop.
+The whole station shakes as a freight train rumbles through.  The shaking
+feels like it is never going to stop.
 The trainspotter writes in his book.
 
 Looking surprised the porter exclaims, "Solved seven locations I hear". He
@@ -1066,8 +1068,6 @@ You hand the paper to the Porter who, after studying it, replies, "Correct,
 this location is from 'Ticket to No Where'".
 
 The porter heads south.
-The drunk makes a coughing sound.
-The trainspotter looks down at his shoes.
 
 > east
 You move east.
@@ -1136,7 +1136,7 @@ The room slowly fades and is replaced with your destination.
 
 Centre for Examination
 The hexagonal metal room is 10m across and nearly 5m in height. With the
-standard hidden lighting set to a low level, most of the room is in dullness.
+standard hidden lighting set to a low level, most of the room is in darkness.
 A security monitor is on one side of the room, to your right the interrogator
 and virtually opposite is the teleporter.
 Zeta-Theta is standing next to the teleporter.
@@ -1153,12 +1153,12 @@ The room slowly fades and is replaced with your destination.
 Roof of Building (Target)
 You are on the roof of the futuristic Bakewell Insurance Building, which has
 19 floors and was built around 10 years ago. A strong wind is blowing from
-the east and it looks like it could easily rain sometime today. A large
-antenna is whipping in the wind to your right and the air conditioning
-equipment in front of you is making a very loud noise. A large sign is
-fastened to the roof here. Just at your feet is the closed door leading down
-to the roof exit. You can go north, northeast, east, southeast, south,
-southwest, west, northwest and down.
+the east and it looks like it could easily rain soon. A large antenna is
+whipping in the wind to your right and the air conditioning equipment in
+front of you is making a very loud noise. A large sign is fastened to the
+roof here. Just at your feet is the closed door leading down to the roof
+exit. You can go north, northeast, east, southeast, south, southwest, west,
+northwest and down.
 
 You can also see a badge.
 The body of a dead tramp is lying here.

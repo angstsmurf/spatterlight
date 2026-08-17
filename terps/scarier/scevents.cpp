@@ -456,7 +456,7 @@ evt_start_event (scr_gameref_t game, scr_int event, scr_bool silent)
 
   time1 = evt_cached_integer (game, event, EVT_TIME1, "Time1");
   time2 = evt_cached_integer (game, event, EVT_TIME2, "Time2");
-  gs_set_event_time (game, event, scr_randomint (time1, time2));
+  gs_set_event_time (game, event, scr_randomint_exclusive (time1, time2));
 
   if (evt_trace)
     scr_trace ("Event: start event handling done, %ld\n", event);
@@ -692,7 +692,8 @@ evt_finish_event (scr_gameref_t game, scr_int event)
             start = evt_cached_integer (game, event, EVT_START_TIME,
                                         "StartTime");
             end = evt_cached_integer (game, event, EVT_END_TIME, "EndTime");
-            gs_set_event_time (game, event, scr_randomint (start, end));
+            gs_set_event_time (game, event,
+                               scr_randomint_exclusive (start, end));
             break;
           }
 

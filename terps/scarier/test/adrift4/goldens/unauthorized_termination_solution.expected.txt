@@ -58,9 +58,9 @@ The room slowly fades and is replaced with your destination.
 
 Centre for Examination
 The hexagonal metal room is 10m across and nearly 5m in height. With the
-standard hidden lighting set to a low level, most of the room is in
-murkiness. A security monitor is on one side of the room, to your right the
-interrogator and virtually opposite is the teleporter.
+standard hidden lighting set to a low level, most of the room is in dullness.
+A security monitor is on one side of the room, to your right the interrogator
+and virtually opposite is the teleporter.
 Zeta-Theta is standing against the wall.
 
 > talk to zeta-theta
@@ -119,7 +119,7 @@ Centre for Examination
 The hexagonal metal room is nearly 5m in height and 10m across. A security
 monitor is on one side of the room, to your right the interrogator and
 virtually opposite is the teleporter. With the standard hidden lighting set
-to a low level, most of the room is in dullness.
+to a low level, most of the room is in murkiness.
 Zeta-Theta is standing against the wall.
 
 > talk to zeta-theta
@@ -178,7 +178,7 @@ Centre for Examination
 The hexagonal metal room is nearly 5m in height and 10m across. A security
 monitor is on one side of the room, to your right the interrogator and
 virtually opposite is the teleporter. With the standard hidden lighting set
-to a low level, most of the room is in darkness.
+to a low level, most of the room is in dullness.
 Zeta-Theta is standing against the wall.
 
 > talk to zeta-theta
@@ -573,6 +573,7 @@ Before you can speak the unknown individual says, "Gamma-Sigma was a comrade
 of mine, here." The individual hands you a recording chip and a hexagonal id
 badge then continues, "Gamma-Sigma found out about the Echo Series 9." The
 individual then disappears back into the mass of functioners.
+In the distance a Phi is hovering.
 
 > west
 You move west.
@@ -593,7 +594,6 @@ The vast assembly plant of the Tie creation centre towers about you. Spread
 out before you are machines of every shape, size, complexity and function.
 All are being serviced by an army of Alpha, Beta and Phi Series 3 and 4
 individuals. To the west are the stores and the control room is south.
-In the distance a Phi is hovering.
 
 > south
 You move south.
@@ -680,6 +680,7 @@ The vast assembly plant of the Tet creation centre towers about you. Spread
 out before you are machines of every shape, size, complexity and function.
 All are being serviced by an army of Alpha, Beta and Phi Series 3 and 4
 individuals. To the west are the stores and the control room is south.
+An Alpha model rumbles passed you carrying various boxes.
 
 > west
 You move west.
@@ -910,7 +911,7 @@ Centre for Examination
 The hexagonal metal room is nearly 5m in height and 10m across. A security
 monitor is on one side of the room, to your right the interrogator and
 virtually opposite is the teleporter. With the standard hidden lighting set
-to a low level, most of the room is in murkiness.
+to a low level, most of the room is in darkness.
 Zeta-Theta is standing against the wall.
 
 As you enter Zeta-Theta moves towards you and in a raised voice, "Why have
@@ -946,7 +947,7 @@ The dull metal room, which is exactly 2m square and 2.5m in height, is
 appropriate to your level of achievement. Attached to the wall behind you is
 the all important recharger with the teleporter on the floor opposite. To
 your left is the communicator with your own personal storage shelf above it.
-With the lighting fixed on the lowest setting the place is in murkiness, just
+With the lighting fixed on the lowest setting the place is in shadow, just
 how you prefer it.
 Someone is standing to one side of the room.
 
@@ -1003,7 +1004,7 @@ Centre for Examination
 The hexagonal metal room is nearly 5m in height and 10m across. A security
 monitor is on one side of the room, to your right the interrogator and
 virtually opposite is the teleporter. With the standard hidden lighting set
-to a low level, most of the room is in gloom.
+to a low level, most of the room is in dullness.
 Zeta-Theta is standing against the wall.
 
 As you enter Zeta-Theta looks surprised to see you and moves towards you.
@@ -1032,7 +1033,7 @@ The vast assembly plant of the Tet creation centre towers about you. Spread
 out before you are machines of every shape, size, complexity and function.
 All are being serviced by an army of Alpha, Beta and Phi Series 3 and 4
 individuals. To the west are the stores and the control room is south.
-In the distance a Phi is hovering.
+An Alpha model rumbles passed you carrying various boxes.
 
 The tracer you are carrying is indicating west.
 

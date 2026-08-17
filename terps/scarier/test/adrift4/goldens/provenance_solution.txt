@@ -1,0 +1,754 @@
+Corey
+male
+look
+x the blood
+follow the blood
+g
+g
+g
+g
+g
+w
+w
+n
+n
+s
+s
+e
+e
+knock on the door
+x the door
+x the transom
+x the ledge
+g
+get the skeleton key
+x the mailbox
+unlock it
+open it
+get the envelope
+x it
+open it
+get the parchment
+read it
+lift the door mat
+read the list
+put the list in the mailbox
+put the parchment in the mailbox
+put the envelope in the mailbox
+unlock door
+open it
+n
+open door
+open window
+x armoire
+open it
+get rucksack
+climb out
+s
+e
+n
+n
+n
+ne
+se
+n
+x hook
+get rope
+s
+nw
+sw
+s
+s
+s
+w
+s
+se
+s
+climb tree
+tie rope to branch
+climb rope
+u
+d
+d
+untie rope
+get knife
+get stick
+get stone
+x gate
+open it
+unlock it
+open it
+s
+x tent
+get it
+throw stick
+get tent
+n
+n
+nw
+n
+e
+e
+e
+e
+e
+e
+e
+e
+e
+read sign
+i
+drop rucksack
+drop tent
+drop knife
+w
+w
+w
+w
+w
+w
+w
+w
+w
+n
+climb in
+n
+n
+w
+get canteen
+e
+s
+s
+climb out
+s
+w
+w
+nw
+n
+n
+n
+ne
+w
+get bucket
+e
+sw
+s
+s
+s
+se
+e
+e
+e
+ne
+x the well
+tie rope to bucket
+open bucket
+open canteen
+put canteen in bucket
+put stone in bucket
+close lid
+lower bucket into well
+open bucket
+get stone
+get canteen
+close it
+get rope
+drop bucket
+sw
+e
+e
+e
+e
+e
+e
+e
+e
+i
+drop rope
+drop canteen
+w
+w
+w
+w
+w
+w
+w
+w
+n
+s
+w
+n
+climb in
+n
+w
+s
+get matches
+n
+e
+n
+w
+w
+in
+x shelf
+get lamp
+out
+e
+e
+s
+s
+climb out
+s
+w
+w
+nw
+n
+n
+x brush
+open cellar door
+unlock it
+n
+ne
+w
+get axe
+hit axe with rock
+drop rock
+get axe
+get wood
+put wood on stump
+chop wood with axe
+get kindling
+e
+get shovel
+sw
+s
+break lock with axe
+open cellar door
+turn on lamp
+d
+dig ground
+get shovel
+x stove
+open it
+x it
+u
+turn off lamp
+s
+s
+se
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+i
+drop whistle
+drop axe
+drop shovel
+w
+w
+w
+w
+w
+w
+w
+w
+n
+n
+n
+ne
+n
+n
+x the mausoleum
+open gate
+unlock it
+drop lock
+open gate
+get chains
+open gate
+open granite door
+i
+s
+s
+sw
+s
+s
+s
+w
+n
+climb in
+n
+x the photographs
+x the fireplace
+x the mantle
+x the mirror
+get the crystal ball
+put kindling on grate
+start fire
+open flue
+light fire
+n
+x sideboard
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+get china
+get crystal
+z
+z
+z
+z
+z
+z
+i
+s
+s
+climb out
+s
+i
+e
+n
+n
+n
+ne
+n
+n
+in
+x sarcophagus
+x lid
+out
+s
+s
+sw
+s
+s
+s
+e
+e
+e
+e
+e
+e
+e
+e
+i
+drop map
+drop raincoat
+w
+w
+w
+w
+w
+w
+w
+w
+w
+n
+climb in
+n
+n
+w
+w
+e
+e
+in
+x dust
+get stool
+out
+w
+w
+u
+drop stool
+n
+rub crystal ball
+s
+nw
+rub crystal ball
+x shelf
+get binoculars
+se
+ne
+rub crystal ball
+x bed
+x drawer
+unlock drawer
+sw
+d
+e
+e
+e
+x desk
+unlock it
+open it
+get brass key
+x bust
+x seam
+push head
+w
+w
+w
+u
+ne
+unlock drawer
+open it
+get boots
+sw
+stand on stool
+rub crystal ball
+x chest
+unlock it
+open it
+get helmet
+get headlamp
+put headlamp on helmet
+d
+d
+e
+e
+s
+s
+climb out
+s
+e
+n
+n
+n
+ne
+n
+n
+in
+put crystal ball in opening
+d
+turn on lantern
+d
+e
+e
+x drain
+open it
+w
+w
+u
+turn off lamp
+s
+out
+s
+s
+sw
+s
+s
+s
+e
+e
+e
+e
+e
+e
+e
+e
+i
+drop lamp
+drop binoculars
+wear helmet
+wear boots
+i
+w
+w
+w
+w
+w
+w
+w
+w
+w
+n
+climb in
+n
+n
+e
+unlock door
+open it
+d
+x athanor
+a cauldron
+x bench
+x vessels
+x table
+get book
+read it
+drop it
+l
+x pentagram
+x floor
+x candles
+u
+unlock door
+wait
+g
+n
+d
+e
+e
+s
+n
+w
+w
+ask butler about drain
+e
+e
+s
+s
+time
+x armoire
+i
+e
+climb out
+s
+w
+w
+nw
+n
+n
+n
+ne
+e
+e
+e
+nw
+n
+n
+nw
+nw
+e
+read sign
+d
+activate headlamp
+d
+d
+d
+i
+wear brass key
+drop all
+s
+sw
+x skeleton
+se
+x hole
+x sand
+x glass
+put mirror in light
+in
+x chest
+unlock it
+open it
+get bellows
+x skeleton
+get mattress
+out
+inflate mattress
+float across pond
+n
+d
+e
+e
+s
+s
+x armoire
+get headlamp
+get bellows
+get mattress
+climb out
+s
+w
+w
+nw
+n
+n
+ne
+n
+ne
+e
+e
+e
+nw
+n
+n
+nw
+nw
+d
+e
+d
+wear boots
+wear helmet
+d
+d
+get skeleton key
+get watch
+get matches
+s
+u
+u
+w
+se
+s
+s
+s
+se
+sw
+se
+sw
+s
+s
+s
+e
+e
+e
+e
+e
+e
+e
+e
+get rucksack
+wear rucksack
+open rucksack
+get rope
+put rope in rucksack
+get axe
+put axe in rucksack
+get canteen
+put canteen in rucksack
+get knife
+put knife in rucksack
+get lamp
+put lamp in rucksack
+get shovel
+put shovel in rucksack
+get binoculars
+put binoculars in rucksack
+get tent
+put tent in rucksack
+get map
+put map in rucksack
+get raincoat
+put raincoat in rucksack
+get whistle
+put whistle in rucksack
+look
+n
+e
+e
+e
+e
+e
+n
+n
+n
+n
+w
+s
+s
+s
+w
+w
+w
+w
+w
+w
+w
+w
+n
+n
+n
+w
+n
+n
+n
+n
+n
+n
+e
+e
+e
+e
+e
+e
+e
+e
+s
+w
+w
+w
+w
+w
+s
+e
+e
+e
+e
+e
+s
+s
+s
+w
+n
+n
+w
+w
+w
+w
+s
+s
+s
+s
+e
+e
+n
+x drain
+i
+get rope
+put rope on altar
+get axe
+put axe on altar
+get canteen
+put canteen on altar
+get knife
+put knife on altar
+get lamp
+put lamp on altar
+get shovel
+put shovel on altar
+get binoculars
+put binoculars on altar
+get tent
+put tent on altar
+get map
+put map on altar
+get raincoat
+put raincoat on altar
+remove helmet
+remove boots
+remove rucksack
+put all on altar
+i
+get whistle
+blow the whistle

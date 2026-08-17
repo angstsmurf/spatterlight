@@ -169,8 +169,139 @@ wall. You count 4 beer tabs along it, and an equal amount of bartenders. You
 can go east back to the street, and another door behind the bar to the west.
 
 Bartender and The Bozo Guard are here.
-Simonsen is watching you carefully.  A girl at a small table by the
-dancefloor eyes you closly.
+A girl at a small table by the dancefloor eyes you closly.
+
+> buy beer
+You order a beer from the bartender at the bar.
+
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.
+
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.
+
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.
+
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.
+
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.
+
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.
+
+Bozo Guard walks off to the west.
+
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.
+
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.
+
+Bozo Guard walks towards you from the west.
+
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.
+
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.
+
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.
+
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.
+
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.
+
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.
+
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.
+
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.
+
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.
+
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.
+
+Bozo Guard walks off to the west.
+
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.
+
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.
+
+Bozo Guard walks towards you from the west.
+
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.
+It's been some time since you last fed. You feel that strong cursed hunger
+for blood. It's time to find a suitable victim.
+
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.
+
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.
+
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.
+
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.
+
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.
+
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.
+Your watch makes a small beep.
+
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.
+
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.
+
+Jon Simonsen enters from the east.
 
 > ask simonsen about plan
 "Wait", Simonsen says. "We don't have much time. Have you found a way to get
@@ -180,8 +311,7 @@ put it behind your belt and quickly buttons your jacket to hide it. "And here
 are the carbonated bullets", he slips a small box in your jacket's left
 pocket.
 
-> buy beer
-You order a beer from the bartender at the bar.
+Bozo Guard walks off to the west.
 
 > e
 You move east.
@@ -231,6 +361,7 @@ price", he says to the junkies. The argument continues.
 
 > put heroin in beer
 You put a tiny piece of the heroin in the beer.
+The hunger is tearing at you now. You feel weak.
 
 > w
 You move west.
@@ -325,17 +456,6 @@ Time passes...
 
 > wait
 Time passes...
-Your watch makes a small beep.
-
-> wait
-Time passes...
-
-> wait
-Time passes...
-
-Bozo Guard walks off to the west.
-
-Bozo Guard walks towards you from the west.
 
 > wait
 Time passes...
@@ -351,6 +471,8 @@ bozo back door.
 
 Anette follows you from the from the east.
 
+Bozo Guard walks towards you from the east.
+
 > remove stick
 You pull the stick out from the container handles.
 
@@ -359,6 +481,8 @@ You hear some noise from inside the container. When you open it up it reveals
 Jon. Now he's an undead just like you. His eyes are filled with hate. But he
 can't harm you since you are his creator, his master. He climbs out of the
 container.
+
+Bozo Guard walks off to the east.
 
 > e
 You move east.

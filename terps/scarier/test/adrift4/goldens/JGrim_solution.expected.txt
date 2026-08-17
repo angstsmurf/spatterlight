@@ -83,11 +83,11 @@ beginning to fear that it is the wrong kind of excited. The
 oh-god-what's-going-on-here variety, rather than the yay-this-is-amazing
 kind.
 
-> take spanner
-You take the small spanner.
-
 The ship lurches suddenly, and you stumble against a wall. The rocking passes
 in a moment. You wonder what could have caused it.
+
+> take spanner
+You take the small spanner.
 
 > break window with spanner
 You take off your jacket and wrap it carefully around your elbow. You've seen
@@ -102,17 +102,14 @@ your elbow.
 A large crack appears under your finger. The window shatters. You stare at
 your finger in awe.
 
+There is a loud, drawn-out scraping sound, almost as if a giant tin-opener
+were opening a giant tin.
+
 > throw spanner through window
 You throw a spanner in the W.O.R.C.S.
 
 There is a loud shudder and a handful of sparks spatter from the hole. The
 turbine starts to whine, and small flames appear in the hole.
-
-There is a loud, drawn-out scraping sound, almost as if a giant tin-opener
-were opening a giant tin.
-
-> get box
-You take a box from the pile that makes up your bed.
 
 'Bing, bong, bing' pipes the tannoy. 'Would all passengers please remain in
 their cabins. Do not be alarmed, there is no cause for concern.'
@@ -120,15 +117,12 @@ their cabins. Do not be alarmed, there is no cause for concern.'
 Seconds later, before the tannoy clicks off, you hear someone add 'Oh God,
 what's going on?'
 
+> get box
+You take a box from the pile that makes up your bed.
+
 > move chair to door
 You push the rickety (yet strong) two and a half legged chair up against the
 room door. Hopefully that will suffice.
-
-> throw box in hole
-You throw a box in the W.O.R.C.S.
-
-Flames lick at the box, and it starts to smoulder and burn. Dark smoke rises
-from the turbine and drifts toward you.
 
 'Bing, bong, bing' pipes the tannoy. You look up as a female voice booms
 nervously, 'Would all passengers please report to the escape deck. Do not be
@@ -137,6 +131,12 @@ alarmed, there is no cause for concern.'
 Great. The escape deck, if you remember correctly, is a good twenty floors
 up. And before you can even get to the elevator, you have to get out of this
 room. You really hope this is a drill.
+
+> throw box in hole
+You throw a box in the W.O.R.C.S.
+
+Flames lick at the box, and it starts to smoulder and burn. Dark smoke rises
+from the turbine and drifts toward you.
 
 > wait
 Time passes...
@@ -435,11 +435,6 @@ front.
 
 > wait
 Time passes...
-
-> wait
-Time passes...
-An elderly lady discusses the various merits of different types of
-elderflower honey.
 The maid vacuums away, but as the cleaner goes over the mud it makes an odd
 squawking noise and splutters to a stop.
 
@@ -449,16 +444,23 @@ cleaner apart, looking inside for the source of the blockage.
 
 > wait
 Time passes...
+An elderly lady discusses the various merits of different types of
+elderflower honey.
+
+> wait
+Time passes...
 One of the other shoppers drops a slip of paper on the floor. Too lazy, or
 too wealthy, to pick it up, they leave it where it lies.
 
 > take hose
 You take the slender vacuum hose.
 
+The maid notices something trapped within the vacuum.
+
 > take dollar
 You take the Cittian dollar.
-
-The maid notices something trapped within the vacuum.
+The maid wiggles her arm, her fingers lost in the depths of the vacuum
+cleaner.
 
 > e
 You leave the Gift Shop and return to the Luxury Dining Area.

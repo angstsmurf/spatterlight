@@ -10,8 +10,8 @@
 # need a gun, silver-free carbonated bullets, and an *undead* assistant to
 # carry a second gun past the mirrors that screen the conference-room door.
 #
-# RESULT: **WIN, 100 out of a declared maximum of 100**, in 57 input lines
-# (55 moves, 1 `score` check and the final `end`).
+# RESULT: **WIN, 100 out of a declared maximum of 100**, in 84 input lines
+# (82 moves, 1 `score` check and the final `end`).
 #
 # 100 IS PROVABLY THE CEILING AND IT IS EXACTLY REACHABLE.  The file holds
 # exactly 18 `ACT type=4` awards and no other scoring machinery:
@@ -44,11 +44,24 @@
 # T78 -RaiseJonS, which is what `open container` (T64) waits for.  Finally T83
 # refuses the taxi queue from 23:40 and T119 -ToLate loses the game at 24:00.
 #
-# `wait` IS WORTH THREE TURNS HERE.  The file sets `Globals/WaitTurns` to 3, so
-# each of the six `wait`s below burns three minutes off the clock and three
-# turns off EVENT 8 -- which is why six of them, plus the seven other commands
-# between the drain and `remove stick`, clear a 20-turn event.  Four is the
-# measured minimum (three leaves T70 still refusing the stick).
+# SIMONSEN'S WANDER SETS THE SCHEDULE.  Simonsen walks from his flat toward
+# the Bozo nightclub on a walk whose stops are room *groups*, so every step is
+# an RNG draw -- and EVENT 4 [CarsAtRingRoute3] carries the file's only ranged
+# event length (Time 10..15).  When the event-length roll became exclusive of
+# Time2 (RUNNER_TESTS_TODO.md section 10, matching both real Runners), that
+# one event re-timed the whole seed-1 stream, and Simonsen now reaches the
+# club a good half hour later than he used to: he walks in at the fixed
+# absolute turn the stream dictates, whatever the player does in the
+# meantime.  Hence the block of `x girl` time-killers below -- 29 of them,
+# because his arrival turn is absolute and cannot be met any earlier -- with
+# `buy beer` (T39) hoisted into the same dead window.  That hoist is not
+# cosmetic: it moves one turn out of the post-ask leg, and the taxi queue now
+# goes in at 23:39, ONE minute before T83 starts refusing it.  Zero slack.
+#
+# `wait` IS WORTH THREE TURNS HERE.  The file sets `Globals/WaitTurns` to 3,
+# so each `wait` below burns three minutes off the clock and three turns off
+# EVENT 8.  Four `wait`s is the measured minimum (three leaves T70 still
+# refusing the stick) -- and four is also all the taxi deadline affords.
 #
 # NOT NEEDED, despite looking essential: the earth from the coffin (T50) and
 # the shaving foam in the bathroom (T130/T131, for smearing the door mirrors)
@@ -91,10 +104,42 @@ change back
 hitchhike
 # --- Karl Johan ------------------------------------------------------------
 w
+# T39, +5 -- bought now, while killing time: see SIMONSEN'S WANDER above.
+buy beer
+# Simonsen is still walking here.  His arrival turn is fixed by the RNG
+# stream, so these 29 turns cannot be spent anywhere useful -- everything
+# hoistable already has been.
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
+x girl
 # T48 -- Simonsen hands over the gun and the carbonated bullets, then follows.
 ask simonsen about plan
-# T39, +5.
-buy beer
 e
 n
 e
@@ -128,9 +173,7 @@ give roses to anette
 # T49, +5 -- she downs the spiked beer.
 give beer to anette
 # --- Wait out EVENT 8 [RaiseJon] -------------------------------------------
-# Six `wait`s = 18 turns (Globals/WaitTurns is 3).
-wait
-wait
+# Four `wait`s = 12 turns (Globals/WaitTurns is 3), the measured minimum.
 wait
 wait
 wait
@@ -145,7 +188,7 @@ e
 e
 s
 # T84, +5 -- needs BOTH Anette and Simonsen present; the taxi drops all three
-# of you in the lobby and forces the clock to 23:45.
+# of you in the lobby and forces the clock to 23:45.  Entered at 23:39.
 enter queue
 # --- The elevator ----------------------------------------------------------
 e

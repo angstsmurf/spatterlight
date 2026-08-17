@@ -322,18 +322,19 @@ until we are ready for redemption.  Some ancient ones recognized the need to
 wait and prepared the present politics as wizards: we who enforce the law and
 teach what is permissible."
 
-> ask brogo about warlocks
-Brogo quickly looks around the room, much like a guilty child who tries to
-hide from mother, then with a voice that belies the words, "They are a
-renegade group of wizards who use the old knowledge against all
-prescriptions.  You should not trust them."
-
 While Brogo was talking, a brown cloaked figure enters the room from the
 kitchen doors.  A hood covers the head and face, so you can't determine the
 gender.  The wizards try to act superior, yet you can tell they fear this
 individual as they make room.  The person selects a chair and swings it from
 a table to sit near a wall, then sits down in a reclined slouch, hands folded
 over the waist.
+
+> ask brogo about warlocks
+Brogo looks out the corner of his eyes at the brown cloaked figure, and with
+a slight tremor in his voice, "Warlocks have the authority to disseminate
+knowledge as they see fit."
+
+The cloaked figure puts hands behind its head and briefly chuckles.
 
 > ask figure about warlocks
 Under the hood you see a smirk as the warlock shakes the head slightly.  The

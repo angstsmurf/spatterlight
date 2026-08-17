@@ -101,8 +101,6 @@ good height.  The lighting is dim, but not excessively so.  There is a
 bookstore to the west, a software shop to the east, and more mall extending
 to the north.  The mall's exit is south.
 
-    A happy-looking couple walks by, the girl leaning on the guy's shoulder.
-
 > n
 You move north.
 
@@ -145,9 +143,6 @@ Time passes...
 
     Three girls enter the ice cream parlor and take a table a little ways
 off.  One of them is the girl you saw sitting by the fountain earlier.
-
-> wait
-Time passes...
 
 > wait
 Time passes...
@@ -223,6 +218,9 @@ The golden-haired girl comes running up to you and grabs hold of your arm.
 1) "I'll do my best."
 2) "I'm sorry.  There's nothing I can do for you."
 3) "No time to chat, we've got to go after those men!"
+
+> wait
+Time passes...
 
 > 1
 "Thank you", she replies emphatically.  "We must hurry."  She is ready to
@@ -1851,9 +1849,6 @@ Time passes...
 > wait
 Time passes...
 
-    Ethan leans down and picks up a piece of tissue, blows his nose on it,
-and chucks it back among the trash that constitutes the floor of his room.
-
 > wait
 Time passes...
 
@@ -2963,8 +2958,6 @@ only.  Numerous people walk past you in every which direction, their
 destinations not deducible from reading only their faces.  The patter of feet
 on pavement is heard continually.
 
-    A group of idle teens cross your path.
-
 > south
 You move south.
 
@@ -3565,9 +3558,6 @@ Time passes...
 
     A steady humming sound fills the air.
 
-    "What is that unnerving sound?", asks Laurie.  She wouldn't understand
-even if you told her.
-
     "Oh, Petter, it will be so good to leave this awful place behind us.  Let
 us hurry and get out."
 
@@ -3598,6 +3588,9 @@ are hanging ropes and cords of varying sizes.
     Laurie follows you from the west.
 
     A steady humming sound fills the air.
+
+    "What is that unnerving sound?", asks Laurie.  She wouldn't understand
+even if you told her.
 
 > north
 You move north.

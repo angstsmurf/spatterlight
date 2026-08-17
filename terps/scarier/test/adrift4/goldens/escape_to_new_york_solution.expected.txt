@@ -79,6 +79,7 @@ the forward staircase and to the southeast is a barber shop.
 
 > look under chair
 You look under the chair and find a tie pin, which you pick up.
+You hear a door close.
 
 > open suitcase
 You open the suitcase.  Inside the suitcase is a receipt, some wires and a
@@ -86,7 +87,6 @@ bank note.
 
 > put tie pin in suitcase
 You put the tie pin inside the suitcase.
-You hear a door close.
 
 > close suitcase
 You close the suitcase.
@@ -176,7 +176,6 @@ The purser replies, "Well I hope it is one at a time, he will not get that
 many people in F22."
 
 You make a mental note to find out who is in F22.
-The barber winks at you.
 
 > talk to barber
 The barber looks you up and down and then says, "Hello Sir, you do know that
@@ -260,6 +259,7 @@ The walls are oak panelled with silver-plated metal brackets holding oak
 handrails. The staircase leads up to 'F' deck and heading south will take you
 onto 'G' deck.
 One of the crew (a man named Collins) is leaning against the wall.
+Collins scratches his nose.
 
 > south
 You move south.
@@ -311,6 +311,7 @@ The ship's Post Office houses a range of bags, bins and pigeonholes for
 sorting the mail. To your west is a corridor (Scotland Road) and some steps
 lead down.
 A postal clerk is busy sorting the mail.
+The postal clerk is reading the address on a parcel.
 
 > open suitcase
 You open the suitcase.  Inside the suitcase is a receipt, some wires, a bank
@@ -321,7 +322,8 @@ You take the receipt from the suitcase.
 
 > close suitcase
 You close the suitcase.
-The postal clerk is reading the address on a parcel.
+The postal clerk takes a letter from a mail bag and drops it in one of the
+bins.
 
 > give receipt to clerk
 You hand the receipt to the clerk who looks at it for a moment and says,
@@ -338,7 +340,8 @@ tired.  The postal clerk is carrying a coin.
 > get coin
 The postal clerk has his back to you so you carefully pick his pocket. It
 will probably be a good idea not to be seen carrying it about the ship.
-The postal clerk rubs his chin.
+The postal clerk takes a parcel from a bin and puts it in one of the mail
+bags.
 
 > open suitcase
 You open the suitcase.  Inside the suitcase are some wires, a bank note and a
@@ -346,10 +349,11 @@ tie pin.
 
 > put coin in suitcase
 You put the coin inside the suitcase.
+The postal clerk takes a parcel from a bin and puts it in one of the mail
+bags.
 
 > close suitcase
 You close the suitcase.
-The postal clerk looks in one of the mail bags.
 
 > down
 You go down the steps.
@@ -381,8 +385,6 @@ The ship's Post Office houses a range of bags, bins and pigeonholes for
 sorting the mail. To your west is a corridor (Scotland Road) and some steps
 lead down.
 A postal clerk is busy sorting the mail.
-The postal clerk takes a letter from a mail bag and drops it in one of the
-bins.
 
 > west
 You move west.
@@ -417,7 +419,6 @@ The walls are oak panelled with silver-plated metal brackets holding oak
 handrails. The staircase leads up to 'F' deck and heading south will take you
 onto 'G' deck.
 One of the crew (a man named Collins) is leaning against the wall.
-Collins scratches his head.
 
 > up
 You move up.
@@ -464,7 +465,10 @@ silver-plated metal brackets holding oak handrails. You can go either up to
 'D' deck or down the staircase to 'F' deck.  To the east is a crew corridor
 known as 'Scotland Road' and heading west will take you to the second class
 entrance.
+The Master-at-Arms is stood watching you very carefully.
 You can hear someone talking to the west.
+King looks at the suitcase and asks, "Are you moving house?" He doesn't seem
+to be expecting an answer and just chuckles to himself.
 
 > west
 You move west.
@@ -524,10 +528,10 @@ coin and a tie pin.
 
 > get note
 You take the bank note from the suitcase.
-The barber is giving you a very firm look.
 
 > close suitcase
 You close the suitcase.
+The barber coughs.
 
 > give note to barber
 You hand the £20 to the barber who smiles and says, "Do you know, I believe I
@@ -536,7 +540,6 @@ the money.
 
 Quietly to yourself you mutter, "So, now I need to get back and retrieve my
 package without getting caught by this Jones character."
-The barber shakes his hand from side to side.
 
 > southeast
 You move southeast.
@@ -569,8 +572,10 @@ panelled in two contrasting veneers of maple and mahogany (you spent a couple
 of years working as a carpenter). The decorative mouldings and all the
 handrails look like they are bronze.  You can go west to a corridor, east to
 the forward staircase and to the southeast is a barber shop.
-The concerned looking ship's barber is here.
-The barber rubs his chin.
+The Master-at-Arms is stood watching you very carefully.  The concerned
+looking ship's barber is here.
+
+Master-at-Arms King leaves to the south-east.
 
 > east
 You move east.
@@ -826,9 +831,6 @@ This entrance, like the rest of the second-class area is oak panelled, with
 the usual tiled flooring.  Heading either north or south will take you to one
 of the Promenade Decks on the ship. To the east is the forward staircase and
 to the west is the door to the Smoking Room.
-The Master-at-Arms is stood watching you very carefully.
-
-Master-at-Arms King leaves to the east.
 
 > south
 You move south.
@@ -1113,7 +1115,6 @@ The ship's Post Office houses a range of bags, bins and pigeonholes for
 sorting the mail. To your west is a corridor (Scotland Road) and some steps
 lead down.  The room has developed quite a slope.
 The postal clerk is looking around and appears very worried.
-The postal clerk wipes his face with the back of his hand.
 
 > west
 You move west.
@@ -1217,7 +1218,6 @@ handrails look like they are bronze.  You can go west to a corridor, east to
 the forward staircase and to the southeast is a barber shop.  The place is
 full of people wearing lifebelts and everyone seems to be talking at once.
 The worried looking ship's barber is here.
-The barber coughs.
 
 > west
 You move west.
@@ -1294,6 +1294,7 @@ silver-plated metal brackets holding oak handrails. You can go either up to
 'D' deck or down the staircase to 'F' deck.  To the east is a crew corridor
 known as 'Scotland Road' and heading west will take you to the second class
 entrance.  The staircase has developed quite a slope.
+The Master-at-Arms is stood watching you very carefully.
 
 > east
 You move east.
@@ -1378,6 +1379,10 @@ face his replies, "Thank you! I thought I had lost this in all the
 excitement."
 You look away for only a second and the purser has gone. "Blimey," you think
 to yourself, "Now he would make a good sneak thief!"
+
+Master-at-Arms King enters from the west.
+With the Master-at-arms hanging around it would not be a good idea to let him
+catch you with anything stolen.
 
 > up
 You move up.
@@ -1510,10 +1515,6 @@ Library.  The room has developed quite a slope.
 
 You can also see a purse.
 
-Master-at-Arms King enters from the west.
-King looks at the suitcase and asks, "Are you moving house?" He doesn't seem
-to be expecting an answer and just chuckles to himself.
-
 > south
 You move south.
 
@@ -1556,6 +1557,11 @@ The walls are oak panelled with silver-plated metal brackets holding oak
 handrails. You can go either up to 'B' deck or down the staircase to 'D'
 deck.  To the west is the entrance to the Library.  The staircase has
 developed quite a slope.
+The Master-at-Arms is stood watching you very carefully.
+With the Master-at-arms hanging around it would not be a good idea to let him
+catch you with anything stolen.
+
+Master-at-Arms King leaves to above.
 
 > up
 You move up.
@@ -1565,6 +1571,11 @@ You are on the second-class forward staircase, 'B' Deck.  Heading up the
 staircase will lead you to 'A' deck and down will take you to 'C' deck.  The
 western exit leads to the Smoking Room.  The staircase has developed quite a
 slope.
+The Master-at-Arms is stood watching you very carefully.
+With the Master-at-arms hanging around it would not be a good idea to let him
+catch you with anything stolen.
+With the Master-at-arms hanging around it would not be a good idea to let him
+catch you with anything stolen.
 
 > up
 You move up.
@@ -1625,8 +1636,8 @@ the few small areas lit by lamps near the lifeboats. In front of you is one
 of the seven or so wooden lifeboats on this side of the ship, it is attached
 to a couple of arms called davits. The door to the south leads to the boat
 deck entrance and a small metal locker is just to your right.  To the north
-the crew are busy loading one of the lifeboats. A band is playing something
-you recognise as being by Verdi.
+the crew are busy loading one of the lifeboats. You can hear the band playing
+something by Gilbert and Sullivan.
 5th Officer Lowe is supervising the loading one of the lifeboats.  To one
 side is a large group of men, mostly first class passengers.  Some ladies and
 children are waiting near to the lifeboat ready to board the small boat.

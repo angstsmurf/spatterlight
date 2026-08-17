@@ -372,17 +372,17 @@ another, until I am holding a huge bundle of coloured handkerchiefs all tied
 together at the corners. 'Leave those alone!' protests Hubert, 'my Aunt
 Gertie will be very annoyed when she finds out you've stolen my hankies!'
 
-> make parachute
-Fortunately I was taught to sew by the overbearing nuns who educated me in
-that convent school. Stitching the handkerchiefs together  I soon construct a
-parachute strong enough to support a reasonably lightweight person.
-
 From somewhere up in the heavens I hear what sounds like the cry of the north
 American Bald Eagle; extremely unlikely at this latitude. A second later my
 suspicions are confirmed as, against all probability, a magnificent specimin
 of that species swoops out of the sky, clutching something in its talons. It
 deposits this object at my feet and flies on. I look down to discover the
 very same smudge stick I threw out earlier lying at my feet!
+
+> make parachute
+Fortunately I was taught to sew by the overbearing nuns who educated me in
+that convent school. Stitching the handkerchiefs together  I soon construct a
+parachute strong enough to support a reasonably lightweight person.
 
 > get mummy
 I carefully lift the Egyptian mummy from the carpetbag and heave it over my

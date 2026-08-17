@@ -778,32 +778,31 @@ n
 n
 n
 press stone button
-# DAMASTUS chase RE-DERIVED after the follow-player walk-stop fix (2026-08-02:
-# followers warp to the player only on walk arrival ticks, per live run400/
-# run390 probes K/L -- the every-tick trailing is gone, which re-threaded the
-# walkers' RNG engine-wide).  Now at SCR_SEED=1.  Upstream clean at seed 1 (room 157, score 560, Damastus alive).
+# DAMASTUS chase RE-DERIVED after the section-10 exclusive event-length roll
+# (2026-08-17: event lengths and delays roll lo + Int(Rnd*(hi-lo)), matching
+# both real Runners -- ranged events re-timed and re-threaded the walkers'
+# RNG engine-wide).  Now at SCR_SEED=7.  Upstream clean at seed 7 (room 157,
+# score 560, Damastus alive).
 # Greedy BFS from the stone button (room 157): attack when co-located, else
-# BFS-step toward him.  Damastus dies in room 157, stamina 50.
+# BFS-step toward him.  Damastus dies in room 161, stamina 38.
 # Re-derive with harness/shadowpeak_chase.py if upstream turns change again.
-s
-s
-s
-s
-s
-n
-attack damastus
-n
-attack damastus
-n
-attack damastus
-n
-attack damastus
-n
-attack damastus
 e
 e
 e
 e
+e
+e
+s
+n
+attack damastus
+s
+attack damastus
+n
+attack damastus
+w
+attack damastus
+w
+attack damastus
 e
 e
 press bronze button

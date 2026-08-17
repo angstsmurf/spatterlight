@@ -476,6 +476,8 @@ through the marsh your eyes are fixed to the ground to try and be able to get
 through the ground. You can trudge northwest, southeast or attempt another
 direction.
 The Longmore marsh king is here.
+Longmore king stabs you with the pointy stick, but it doesn't seem to do any
+damage.
 
 > se
 You move southeast.
@@ -675,6 +677,8 @@ northwest.
 
 You can also see the Kedarn stone.
 There is a Forester Goblin hanging from a tree here.
+Forester Goblin shoots you with the bow and arrow, but it doesn't seem to do
+any damage.
 
 > attack goblin
 You cut Forester Goblin with the small sword.
@@ -683,6 +687,8 @@ any damage.
 
 > attack goblin
 You cut Forester Goblin with the small sword.
+Forester Goblin shoots you with the bow and arrow, but it doesn't seem to do
+any damage.
 
 > attack goblin
 You cut Forester Goblin with the small sword.
@@ -786,11 +792,6 @@ damage.
 
 > attack monster
 You cut Longmore king with the small sword.
-Longmore king stabs you with the pointy stick, but it doesn't seem to do any
-damage.
-
-> attack monster
-You cut Longmore king with the small sword.
 
 > attack monster
 You cut Longmore king with the small sword.
@@ -801,6 +802,9 @@ damage.
 You cut Longmore king with the small sword.
 Longmore king stabs you with the pointy stick, but it doesn't seem to do any
 damage.
+
+> attack monster
+You cut Longmore king with the small sword.
 
 > attack monster
 You cut Longmore king with the small sword.
@@ -885,7 +889,6 @@ about 60ft down onto jagged rocks. The ravine is about 30ft wide and
 impossible to jump across. Jumping down would result in immediate death. West
 will take you along a path.
 There is an eagle above you circling around your head.
-Eagle hits you, but it doesn't seem to do any damage.
 
 > attack eagle
 You cut Eagle with the small sword.
@@ -1093,8 +1096,6 @@ corridor. East will take you into a smaller room.
 Larnt is here.
 
 Haron follows you from the south.
-Larnt cuts you with the blade from Uron, but it doesn't seem to do any
-damage.
 
 > attack larnt
 You cut Larnt with the small sword.
@@ -1103,7 +1104,6 @@ Larnt cuts Haron with the blade from Uron.
 
 > attack larnt
 You cut Larnt with the small sword.
-Larnt cuts Haron with the blade from Uron.
 
 > attack larnt
 You cut Larnt with the small sword.

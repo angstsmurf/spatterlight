@@ -1,0 +1,65 @@
+w
+w
+open box
+get fishing line
+e
+show pockets
+n
+turn on spigot
+n
+n
+n
+open cabinet
+get bucket
+s
+s
+s
+get mud
+s
+e
+e
+set up mud
+w
+w
+n
+get hose
+n
+w
+n
+x table
+get watermelon
+use hose with watermelon
+e
+u
+s
+x rare bears
+get underwear
+n
+d
+s
+s
+s
+e
+e
+set up watermelon
+set up underwear
+set up fishing line
+w
+w
+n
+n
+n
+u
+n
+go to bed
+climb tube
+wait
+wait
+wait
+wait
+wait
+wait
+pull strings
+pull strings
+pull strings
+pull strings

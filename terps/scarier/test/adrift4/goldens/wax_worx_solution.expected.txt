@@ -264,6 +264,8 @@ from the lawn beside the door is what looks like a for sale sign.
 
 In the middle of the lawn stands the wax figure of a clown, weirdly out of
 place in this patch of faux suburbia.
+The tip of Marie's wig tickles your chin as the head moves slightly.
+Accidentally, or to get your attention?
 
 > put nose on clown
 You squeeze the glob of wax into a slightly more spherical shape and stick it
@@ -275,7 +277,6 @@ pudgy hands clapping.
 
 The hands must have moved because you realize you are holding what appears to
 be a glowstick.  A reward for your act of cosmetic mercy.
-You feel Marie's head tremble against your chest.
 
 > n
 You step inside. Into cold. Like the inside of a freezer.  Or a morgue.

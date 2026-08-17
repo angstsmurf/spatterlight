@@ -27,6 +27,7 @@ You move south.
 Edge of Road
 The lonely edge of the road where people used to pass. The lonely road
 stretches far East and West, but the only place around here is to the West.
+A small bird flies overhead in the bright blue sky.
 
 > w
 You move west.
@@ -35,7 +36,6 @@ Outside Cabin
 A lone cabin sits abandoned at the edge of the road. It's long uncut grass
 sways in the gusting wind. A small pile of logs pile against the side of the
 building, cut down from the forest trees. The road continues West and East.
-A small bird flies overhead in the bright blue sky.
 
 > in
 You move in.
@@ -237,6 +237,7 @@ You move east.
 Edge of Road
 The lonely edge of the road where people used to pass. The lonely road
 stretches far East and West, but the only place around here is to the West.
+A small bird flies overhead in the bright blue sky.
 
 > n
 You move north.
@@ -301,6 +302,7 @@ Path
 The long path continues South through the forest and North to the Mines. Tall
 trees reach up into the heavens, their large limbs swaying in motion with the
 wind.
+A small bird flies overhead in the bright blue sky.
 
 > s
 You move south.

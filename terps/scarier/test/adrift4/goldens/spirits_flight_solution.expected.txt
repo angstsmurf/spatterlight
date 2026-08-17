@@ -161,6 +161,7 @@ Breezy Path
 The path leads to a cliff top to the south and Whistle Hamlet to the north.
 A fierce wind blows.
 Moyru is here.
+Lamanluie cuts Moyru with the old rusty broken blood-stained scimitar.
 
 > attack moyru
 You stab Moyru with the Spirit Dagger.
@@ -201,12 +202,11 @@ must be the ridge of storms.
 Fergo is here.
 
 You can only move down.
-Fergo stabs you with Fletched Spear.
+Fergo stabs Lamanluie with Fletched Spear.
+Lamanluie cuts Fergo with the old rusty broken blood-stained scimitar.
 
 > attack fergo
 You stab Fergo with the Spirit Dagger.
-Fergo stabs you with Fletched Spear.
-Lamanluie cuts Fergo with the old rusty broken blood-stained scimitar.
 Fergo collapses. The wind elemental leaves his body and transforms itself
 into an object.
 The Fletched Spear floats magically into your hands.
@@ -234,6 +234,7 @@ A steady wind blows.
 Morana is here.
 
 You can only move south.
+Lamanluie cuts Morana with the old rusty broken blood-stained scimitar.
 
 > attack morana
 You stab Morana with the Spirit Dagger.
@@ -317,6 +318,7 @@ Serpanern is here.
 
 You can only move north.
 Lamanluie cuts Serpanern with the old rusty broken blood-stained scimitar.
+Serpanern hits Lamanluie, but it doesn't seem to do any damage.
 
 > attack serpanern
 You stab Serpanern with the Spirit Dagger.
@@ -361,11 +363,10 @@ The cave is full of drawings of mystical sea creatures. Stalactites of
 wondrous colour hang from the ceiling. Bleeched coral is growing in the far
 corner.
 Crynasalda is here.
-Crynasalda hits you.
+Lamanluie cuts Crynasalda with the old rusty broken blood-stained scimitar.
 
 > attack crynasalda
 You stab Crynasalda with the Spirit Dagger.
-Lamanluie cuts Crynasalda with the old rusty broken blood-stained scimitar.
 Crynasalda collapses. The water elemental leaves her body and transforms
 itself into an object.
 The Sea Serpent's Scales floats magically onto your body.
@@ -471,6 +472,7 @@ appears cold and silent.
 Afernoga is here.
 
 You can move north and east.
+You feel cold.
 
 > north
 You walk north.
@@ -481,7 +483,6 @@ hotter as you reach the volcano itself. The water elemental does you a favour
 and cools you down slightly.
 
 You can move south and northeast.
-You feel cold.
 
 > northeast
 You walk northeast.
@@ -491,6 +492,7 @@ This path is carved right onto the edge of the volcano. Looking down, you see
 that the lava looks much more dangerous than you thought it would be.
 
 You can move east, in and southwest.
+You feel cold.
 
 > east
 You walk east.
@@ -501,8 +503,7 @@ from your body drips onto the ground and sizzles mightily.
 Kelorano is here.
 
 You can only move west.
-Lamanluie cuts Kelorano with the old broken scimitar.
-Kelorano hits you with Ever-burning torch.
+Kelorano hits Lamanluie with Ever-burning torch.
 
 > kelorano t1
 Lava engulfs Kelorano's body. He screams and you only hope that he is
@@ -517,12 +518,13 @@ as though it'll erupt any minute. It creeps ever so slowly at you.
 Also here are The Amber of Flames.
 Lamanluie and Kelorano are here.
 You feels as though you should leave quickly.
-Kelorano hits you, but it doesn't seem to do any damage.
+Lamanluie cuts Kelorano with the old scimitar.
+Kelorano hits Lamanluie.
 
 > get amber
 You pick up the Amber of Flames.
 Lamanluie cuts Kelorano with the old scimitar.
-Kelorano hits you, but it doesn't seem to do any damage.
+Kelorano hits Lamanluie.
 
 > west
 You walk west.
@@ -563,6 +565,7 @@ Slikerma is here.
 
 You can only move west.
 Lamanluie cuts Slikerma with the old scimitar.
+Slikerma hits Lamanluie, but it doesn't seem to do any damage.
 
 > attack slikerma
 You stab Slikerma with the Spirit Dagger.

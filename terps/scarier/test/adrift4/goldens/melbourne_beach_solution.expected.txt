@@ -559,12 +559,13 @@ Also here is a chess table.
 David strolls into the room.  You two sit down and play chess. You lost the
 game.  Too bad.  Better luck next time!
 
-Dave shakes your hand and says, "Good game. Next time, I'll be white, OK?"
+Dave shakes your hand and says, "Good game. Next time, I'll be black, OK?"
 
 > play chess
-You and David play a game of chess. You won the game.  Congratulations!
+You and David play a game of chess. You lost the game.  Too bad.  Better luck
+next time!
 
-Dave shakes your hand and says, "Good game. Next time, I'll be black, OK?"
+Dave shakes your hand and says, "Good game. Next time, I'll be white, OK?"
 
 > play chess
 You and David play a game of chess. You lost the game.  Too bad.  Better luck

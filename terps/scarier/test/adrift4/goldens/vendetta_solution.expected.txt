@@ -180,11 +180,11 @@ here other than yourself. At this altitude, the freezing wind is
 exceptionally strong and cuts through you like a knife. Looking up, you
 notice that the sky is clear and the stars are twinkling brightly overhead;
 it looks like there is going to be a frost up here tonight...
+An unexpectedly strong gust of wind roars across the landing pad, almost
+knocking you over.
 
 > open cargo hold
 You open the cargo hold.  Sally's suitcase is inside the cargo hold.
-An unexpectedly strong gust of wind roars across the landing pad, almost
-knocking you over.
 
 > get suitcase
 You take Sally's suitcase from the cargo hold.
@@ -280,6 +280,8 @@ A taxi post is just a small electronic box with a single button on top,
 mounted on a post. They are used to call taxis and autocabs. These posts are
 located next to the roadside and each one has their own dedicated parking
 space for a taxi to stop.
+The freezing wind howls around you.
+A tiny white snowflake flutters down from the sky and lands on your cheek.
 A young man squeezes his way through the crowd and walks up to the roadside,
 where he stands with is hands in his pockets, jigging up and down to keep
 warm. This was not the man who was spying on you; he is far too young.
@@ -287,7 +289,6 @@ Whoever it was would have been long gone by now.
 
 > push button
 You press the button on the taxi post and wait for something to show up.
-A tiny white snowflake flutters down from the sky and lands on your cheek.
 
 > wait
 Time passes...
@@ -296,11 +297,11 @@ watching the traffic as it rushes past.
 
 > wait
 Time passes...
+Several snowflakes drift down from the heavens. There could be many more
+where these came from.
 
 > wait
 Time passes...
-Several snowflakes drift down from the heavens. There could be many more
-where these came from.
 A green autocab pulls over near the young man and he hops inside. A few
 seconds later, the autocab starts moving again and rejoins the rest of the
 traffic.
@@ -310,14 +311,15 @@ Time passes...
 
 > wait
 Time passes...
-The freezing wind howls around you.
-
-> wait
-Time passes...
 It is beginning to snow quite heavily, now.
 
 > wait
 Time passes...
+It is snowing.
+
+> wait
+Time passes...
+The freezing wind howls around you.
 It is snowing.
 An autocab moves out of the main body of traffic and into the parking lane;
 it looks like it is going to pull up nearby.
@@ -420,7 +422,6 @@ smug grin on his face.
 "Nice suitcase you got there." he calls out to you, gesturing with his foot.
 "Drop dead." you reply, walking past him. He laughs out loud and walks off
 into the night.
-The freezing wind howls around you.
 It is snowing.
 
 > n
@@ -462,7 +463,6 @@ Chloe and Sally are here.
 You see Sally first; she is hard to miss wearing that outfit. Sally is
 standing at the opposite side of the room, talking to Chloe, a close friend
 of hers.
-"Excuse me!" someone says, squeezing past you.
 
 > talk to sally
 
@@ -485,6 +485,7 @@ your hand and disappears into the changing rooms.
 
 > wait
 Time passes...
+A hubbub of laughter erupts from the corner of the room.
 Chloe remains silent, deep in thought, glancing at you every now and again.
 
 > wait
@@ -509,7 +510,6 @@ satisfied with how it is at the moment."
 
 > wait
 Time passes...
-A hubbub of laughter erupts from the corner of the room.
 "I'll be truthful with you. I'm not into women, men, animals or anything
 else. I know that isn't normal, but then I'm not a normal person." you say to
 her. Chloe looks surprised.

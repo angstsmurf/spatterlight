@@ -1,0 +1,796 @@
+Loading game...
+
+Give Me Your Lunch Money
+Give Me Your Lunch Money
+A Tale of the Exploits of an 8 Year-Old Inventor
+By DCBSupafly
+
+Presented for ADRIFT 4.0
+2009 Twin Comp
+
+You may type the following at any time:
+
+"Help" A brief explanation of what's going on, how to play
+"Credits" A brief explanation of who is to blame for this adventure
+
+Finally, this adventure's creator recommends playing with a map enabled and
+with autocomplete disabled, but neither is necessary
+
+If you see these:     ...    then the adventure wants you to press a key to
+move on
+
+And now, with no further ado...
+
+The bell stopped ringing only a few seconds ago, but I've already made my way
+to the front of the school.  I'm hurrying out of school even more than usual
+because today I get to finish my project in the park.  As I run past the
+other kids, I imagine the fortress on the cliff.  It's a fortress I built of
+leaves and twigs and other stuff at the park, and it sits on a huge
+moss-covered rock above the creek.  The fortress is over 12 inches tall and
+has little shacks in the courtyard and even a tower.  Anyway it took me two
+afternoons to build the fortress on the rock, and now that it's built, I get
+to install the best part!
+
+...
+
+The drawbridge!
+
+...
+
+All I need is some kind of string or tiny rope or something and I can attach
+it to the bridge. If I can find something like that, then the bridge will
+actually raise and lower!  I bet I can find something that will work in my
+secret stash in the park, and now that the rest of the fortress is finished,
+today is the day to look!
+
+Hankin Elementary School
+Hankin is my school.  The school is a pretty cool building.  Made of brick
+and really old with designs in the stone parts.  I like the carvings of
+gears, and the one of the people dancing.  There are lots of kids out in
+front of the school right now because the bell just rang.
+
+The park is just west of here.
+
+> w
+I move west.
+
+The Park
+The park is on the way home from school.  My house is just a block north of
+here, which is really cool because it means I can go to the park on my walk
+home every day.  The park has a creek, benches, tennis courts, and a lot of
+trees.
+To the west, behind a fir tree is my secret stash, where I keep cool stuff I
+find.  Hankin Elementary School is just east of here.
+
+The rock that sticks out over the creek here was the perfect spot to build my
+fortress.
+
+> w
+I move west.
+
+My Secret Stash
+My secret stash is an old metal lunchbox I dug up.  I took it to this little
+room I can get to under some fir trees.  When you come around from the back
+of this one tree by the rocks, it's like a little cave with walls of fir
+needles, and you disappear under here!  So this is where I buried the
+lunchbox.  It's like a little sunken treasure chest with the lid sticking
+out, hidden from view with some branches and pine needles that I lay over it.
+
+The only way out of the secret room is back east to the park.
+
+> open box
+I brush aside the pine needles and the box squeaks as it opens up, revealing
+my secret stash.  Some dirty old fishing line is coiled up in the bottom of
+the lunchbox.
+
+> get fishing line
+I take fishing line from metal lunchbox.
+
+> e
+I leave the hidden room in the fir tree in a hurry and head for the fortress
+on the rock.  When I'm climbing up the rocks to the spot where the fortress
+is, I hear voices.  Some kids are talking about my fortress!
+
+When I get up to the top, I see there's three of them.  I recognize them all
+because they go to Hankin, but I don't really know them since they are all
+older than me.  Their names are Baxter, Vick, & Theodore.  Baxter is the
+oldest and tallest, since he's in 5th grade.  I think Vicky is Vick's real
+name, but she doesn't like it.  I know most people called Theodore "Big T"
+... which makes sense because he's pretty big for a 4th grader.
+
+When I come closer, Vick puts her hands on her hips and says "Who are
+you?"...
+
+"Is this your little house?" Says Baxter...
+
+"Yeah, do you like it?"
+
+"Yeah it's pretty cool."  He says.
+
+"Hey!"  says Vick, "I got an idea!  Why don't you give us your lunch money?"
+she takes a step forward and holds out a hand.  She is standing right next to
+my fortress...
+
+"I don't have any lunch money.  We already had lunch today."  I try to sound
+tough, but I'm kinda nervous...
+
+"Oh yeah?" says Baxter.  He looks around for a second, and his eyes rest on
+the fortress.  "Well, it's either lunch money or stick house...which one will
+it be kid?"
+
+Vick smiles at me, still holding out her hand.  "Come on kid.  I don't
+believe you got no money...why don't ya just give us what's left of your
+lunch money?"
+
+Baxter and Theodore bend over to inspect the fortress and I say to her "I
+promise I don't have any.  Could you pl..."
+
+"OH YEAH? Then show me your pockets!" she demands.
+
+> show pockets
+I reach into my pockets.  I am carrying nothing but the fishing line, and to
+show them, I pull my pockets inside out.
+
+"Haha, just trash!" says Theodore.
+
+"Aw, that's really too bad." says Baxter.
+
+Then Vick takes a step backwards, crushing the front of the fortress.
+"Oops!" she says, pretending that it was an accident.  Baxter pushes her.
+"You clumsy kid!" he says, and he kicks the fortress' tower, sending all the
+pieces flying out over the creek.
+
+"Stop it you guys!" I shout, but as if the fortress weren't damaged enough,
+Baxter and Vick step aside and Theodore does a somersault landing right on
+top of it. He giggles stupidly as he crushes it...
+
+I stand there with steam coming out of my hot face for a second until Baxter
+says "Go home kid.  Bring us your lunch money tomorrow and..."  but I can't
+listen to another word...
+
+"NO!  Instead!  I challenge you to a fight!  To avenge my fortress!  At the
+playground, tomorrow after school...YOU BUTTHEADS!"
+As soon as I finish speaking the words, I can feel my knees shaking...
+
+"Haha, okay."  Baxter doesn't seem scared.
+"Alright, kid, you got a deal.  We'll invite everyone!" says Vick, and they
+turn to leave...
+"You're dead meat, shrimp," calls Theodore as they exit the park.
+
+I sit for a minute at the rock with the wrecked fortress, to calm down and
+get ready.  I have a long afternoon ahead of me.  The only thing left to do
+now is head home and get ready for tomorrow.
+
+> n
+There's nowhere else to go now but home.  I know what I need to do.  I have
+to prepare for the challenge tomorrow.  I know it was crazy to challenge them
+because I can't beat three older kids by myself...
+
+Since I can't win if I fight them, I will have to out-smart them!  At home I
+can make some inventions to help me tomorrow, and then I'll teach them a
+lesson in manners!
+
+ When I get home, I can look around for things that might be useful for
+building traps.  Once I get some things, I can put them together to create
+traps, and set those traps up at the Hankin School Playground east of the
+school building.  There's three bullies, so I'll need at least three traps
+set up before I can go to bed tonight...
+
+Front Yard
+It's the front yard.  It's covered in grass with a little pathway around the
+garden leading up to the front door.  Just seeing my yard makes me feel
+safe... it means I got all the way home from school in one piece!
+
+The park is just south of here, and the foyer of my house is to the north.
+
+The front spigot sticks out of the side of the house by the garden.  A rubber
+garden hose is coiled up in a corner of the garden.
+
+> turn on spigot
+I turn the spigot, which kinda sticks when it's off.  Eventually it gives and
+the water chugs out.
+After the water has been running for a while the ground gets really muddy.
+
+> n
+I move north.
+
+Foyer
+The front entryway to my house is kept clean.  Mom & Dad don't let me and Sis
+play in here, and we get yelled at when we put our backpacks down in here.
+Sis' backpack is on the floor.
+
+The front yard is just outside to the south.  The hallway is to the north.
+The dining room is just west of here, and across to the east is the living
+room.
+
+Sis' backpack is on the floor here.
+
+> n
+I move north.
+
+Hallway
+The hallway has wooden floors...not as much fun as the kitchen floors.
+
+There's not too much to do here, but from here I can go upstairs to the
+bedrooms and stuff, or down to the basement!
+
+To the east is the bathroom, to the west is the kitchen, the southern exit
+leads back to the foyer and the north goes to the laundry room towards the
+backyard.
+
+> n
+I move north.
+
+Laundry Room
+We call this the laundry room, I guess because of the laundry.  It has other
+more interesting stuff in it too, like the cleaning supplies cabinet and a
+door to the backyard.
+
+The eastern exit leads to the garage, the north outside, and the south back
+into the hallway.
+
+> open cabinet
+I open cleaning supplies cabinet.  The only thing in here I can safely use is
+probably this plastic bucket.
+
+> get bucket
+I take plastic bucket from cleaning supplies cabinet.
+
+> s
+I move south.
+
+Hallway
+The hallway has wooden floors...not as much fun as the kitchen floors.
+
+There's not too much to do here, but from here I can go upstairs to the
+bedrooms and stuff, or down to the basement!
+
+To the east is the bathroom, to the west is the kitchen, the southern exit
+leads back to the foyer and the north goes to the laundry room towards the
+backyard.
+
+> s
+I move south.
+
+Foyer
+The front entryway to my house is kept clean.  Mom & Dad don't let me and Sis
+play in here, and we get yelled at when we put our backpacks down in here.
+Sis' backpack is on the floor.
+
+The front yard is just outside to the south.  The hallway is to the north.
+The dining room is just west of here, and across to the east is the living
+room.
+
+Sis' backpack is on the floor here.
+
+> s
+I move south.
+
+Front Yard
+It's the front yard.  It's covered in grass with a little pathway around the
+garden leading up to the front door.  Just seeing my yard makes me feel
+safe... it means I got all the way home from school in one piece!
+
+The park is just south of here, and the foyer of my house is to the north.
+
+The front spigot sticks out of the side of the house by the garden.  A rubber
+garden hose is coiled up in a corner of the garden.
+
+> get mud
+I take a nice big scoop of mud in the bucket.  This stuff is yucky.  I can't
+wait to dump it on someone!
+
+> s
+I move south.
+
+The Park
+The park is on the way home from school.  My house is just a block north of
+here, which is really cool because it means I can go to the park on my walk
+home every day.  The park has a creek, benches, tennis courts, and a lot of
+trees.
+To the west, behind a fir tree is my secret stash, where I keep cool stuff I
+find.  Hankin Elementary School is just east of here.
+
+The rock that sticks out over the creek here was the perfect spot to build my
+fortress.
+
+> e
+I move east.
+
+Hankin Elementary School
+Hankin is my school.  The school is a pretty cool building.  Made of brick
+and really old with designs in the stone parts.  I like the carvings of
+gears, and the one of the people dancing.  The school yard looks calm now
+compared to how it looks when there are students here.
+
+To the east is the Hankin playground, and the park is off to the west.
+
+> e
+I move east.
+
+Hankin School Playground
+The Hankin school playground is a great place.  I spend a lot of time here,
+on the jungle gym, hanging upside down on the monkey bars, or studying the
+mechanics of the see-saw.  I like to read inside the plastic crawl tube
+sometimes.
+
+The only way out of the playground is west to the front of the school.
+
+For now, I need to set up my traps here on the playground.
+
+> set up mud
+I prop the mud bucket up on the top of the monkey bars where it can dump its
+contents on an unsuspecting bully below.
+
+With this one set up, it means I have 1 trap set up. I can't go to bed
+tonight until I have at least 3 traps ready; One for each bully.
+
+> w
+I move west.
+
+Hankin Elementary School
+Hankin is my school.  The school is a pretty cool building.  Made of brick
+and really old with designs in the stone parts.  I like the carvings of
+gears, and the one of the people dancing.  The school yard looks calm now
+compared to how it looks when there are students here.
+
+To the east is the Hankin playground, and the park is off to the west.
+
+> w
+I move west.
+
+The Park
+The park is on the way home from school.  My house is just a block north of
+here, which is really cool because it means I can go to the park on my walk
+home every day.  The park has a creek, benches, tennis courts, and a lot of
+trees.
+To the west, behind a fir tree is my secret stash, where I keep cool stuff I
+find.  Hankin Elementary School is just east of here.
+
+The rock that sticks out over the creek here was the perfect spot to build my
+fortress.
+
+> n
+I move north.
+
+Front Yard
+It's the front yard.  It's covered in grass with a little pathway around the
+garden leading up to the front door.  Just seeing my yard makes me feel
+safe... it means I got all the way home from school in one piece!
+
+The park is just south of here, and the foyer of my house is to the north.
+
+The front spigot sticks out of the side of the house by the garden.  A rubber
+garden hose is coiled up in a corner of the garden.
+
+> get hose
+I take the hose.
+
+> n
+I move north.
+
+Foyer
+The front entryway to my house is kept clean.  Mom & Dad don't let me and Sis
+play in here, and we get yelled at when we put our backpacks down in here.
+Sis' backpack is on the floor.
+
+The front yard is just outside to the south.  The hallway is to the north.
+The dining room is just west of here, and across to the east is the living
+room.
+
+Sis' backpack is on the floor here.
+
+> w
+I move west.
+
+Dining Room
+This place is fancy.  I like the table in here because it's big enough that I
+can make inventions on it, but I have to put down newspaper first, and I have
+to clear it off before dinner every night.
+
+The kitchen is just north, so you can bring food in here to eat, and the
+foyer is just east, so you can bring guests in here without letting them see
+the rest of the messy house.
+
+> n
+I move north.
+
+Kitchen
+The kitchen is cool.  It's full of good food.  Sometimes Dad forgets to clean
+out the fridge for a while, or take out the trash, and then it gets gross.  I
+like the floor because you can slide on it in your socks!  It's Linoleum.
+There's also the kitchen counter in here, which is pretty tall: only a little
+below my head.
+
+The eastern exit leads to the hall, with stairs, and the south goes into the
+dining room to eat.
+
+Besides that, it's really just the kitchen table, which isn't as big or fancy
+as the dining room table.  The spice rack the biggest thing on the counter
+right now.
+
+> x table
+The kitchen table is wooden.  It's big enough for all four of us.  Rotten
+watermelon is on kitchen table.
+
+> get watermelon
+I take rotten watermelon from kitchen table.
+
+> use hose with watermelon
+The watermelon is old enough at this point that I could probably smash it
+open with my hands...or with someone's face.  I wrap the hose around the
+watermelon to create the watermelon to the face trap!
+
+> e
+I move east.
+
+Hallway
+The hallway has wooden floors...not as much fun as the kitchen floors.
+
+There's not too much to do here, but from here I can go upstairs to the
+bedrooms and stuff, or down to the basement!
+
+To the east is the bathroom, to the west is the kitchen, the southern exit
+leads back to the foyer and the north goes to the laundry room towards the
+backyard.
+
+> u
+I move up.
+
+Upstairs Hallway
+The upstairs hallway is pretty much like the downstairs hallway except that
+it has carpet like all the rooms upstairs.
+
+The southern door goes to Sis' room, the eastern one is the bathroom, the
+northern door is for my room, and the western door leads to Mom & Dad's room.
+
+> s
+I move south.
+
+My Sister's Bedroom
+I'm not really supposed to go in here alone.  I've been in here before
+though.  Sis has a bunch of Rare Bears stuff on the walls, and some drawings
+that we made.
+
+There's a door to the north that leads back to the hall.
+Sis is napping away under her cozy Rare Bear sheets.
+
+> x rare bears
+My sister's whole room is covered in Rare Bear stuff.
+
+> get underwear
+It's a great idea!  Rare Bear underwear could be launched at a bully!  The
+only thing more embarrassing than underwear on your head is Rare Bear
+underwear on your head!  I grab the underwear off the stuffed bear.  Sis will
+never notice.
+
+> n
+I move north.
+
+Upstairs Hallway
+The upstairs hallway is pretty much like the downstairs hallway except that
+it has carpet like all the rooms upstairs.
+
+The southern door goes to Sis' room, the eastern one is the bathroom, the
+northern door is for my room, and the western door leads to Mom & Dad's room.
+
+> d
+I move down.
+
+Hallway
+The hallway has wooden floors...not as much fun as the kitchen floors.
+
+There's not too much to do here, but from here I can go upstairs to the
+bedrooms and stuff, or down to the basement!
+
+To the east is the bathroom, to the west is the kitchen, the southern exit
+leads back to the foyer and the north goes to the laundry room towards the
+backyard.
+
+> s
+I move south.
+
+Foyer
+The front entryway to my house is kept clean.  Mom & Dad don't let me and Sis
+play in here, and we get yelled at when we put our backpacks down in here.
+Sis' backpack is on the floor.
+
+The front yard is just outside to the south.  The hallway is to the north.
+The dining room is just west of here, and across to the east is the living
+room.
+
+Sis' backpack is on the floor here.
+
+> s
+I move south.
+
+Front Yard
+It's the front yard.  It's covered in grass with a little pathway around the
+garden leading up to the front door.  Just seeing my yard makes me feel
+safe... it means I got all the way home from school in one piece!
+
+The park is just south of here, and the foyer of my house is to the north.
+
+The front spigot sticks out of the side of the house by the garden.
+
+> s
+I move south.
+
+The Park
+The park is on the way home from school.  My house is just a block north of
+here, which is really cool because it means I can go to the park on my walk
+home every day.  The park has a creek, benches, tennis courts, and a lot of
+trees.
+To the west, behind a fir tree is my secret stash, where I keep cool stuff I
+find.  Hankin Elementary School is just east of here.
+
+The rock that sticks out over the creek here was the perfect spot to build my
+fortress.
+
+> e
+I move east.
+
+Hankin Elementary School
+Hankin is my school.  The school is a pretty cool building.  Made of brick
+and really old with designs in the stone parts.  I like the carvings of
+gears, and the one of the people dancing.  The school yard looks calm now
+compared to how it looks when there are students here.
+
+To the east is the Hankin playground, and the park is off to the west.
+
+> e
+I move east.
+
+Hankin School Playground
+The Hankin school playground is a great place.  I spend a lot of time here,
+on the jungle gym, hanging upside down on the monkey bars, or studying the
+mechanics of the see-saw.  I like to read inside the plastic crawl tube
+sometimes.
+
+The only way out of the playground is west to the front of the school.
+
+For now, I need to set up my traps here on the playground.
+
+The bucket of mud is sitting up on top of the monkey bars.
+
+> set up watermelon
+Using the same double half-hitches as I had on the tree at home, I tie the
+watermelon to the flagpole.  I hoist the watermelon up the flagpole so it's
+ready to fall at the slightest tug.
+
+With this one set up, it means I have 2 traps set up. I can't go to bed
+tonight until I have at least 3 traps ready; One for each bully.
+
+> set up underwear
+I balance the Rare Bear underwear at the top of the playground jungle gym,
+ready to fall down on whoever walks under it!
+
+Now that I've got at least three traps set up, I have one for each bully.  I
+just need to set up the fishing line and I can go to bed when I want.  I
+could, of course, keep adding traps until the sun goes down, too.
+
+> set up fishing line
+I wrap the fishing line all around the playground, through the equipment and
+under the wood chips.  Then I make a bunch of pull strings to lead to the
+traps.
+
+Now that I've got at least three traps set up, I have one for each bully. The
+fishing line pull strings are all setup and I can go to bed whenever I want.
+I could, of course, keep adding traps until the sun goes down, too.
+
+> w
+I move west.
+
+Hankin Elementary School
+Hankin is my school.  The school is a pretty cool building.  Made of brick
+and really old with designs in the stone parts.  I like the carvings of
+gears, and the one of the people dancing.  The school yard looks calm now
+compared to how it looks when there are students here.
+
+To the east is the Hankin playground, and the park is off to the west.
+
+> w
+I move west.
+
+The Park
+The park is on the way home from school.  My house is just a block north of
+here, which is really cool because it means I can go to the park on my walk
+home every day.  The park has a creek, benches, tennis courts, and a lot of
+trees.
+To the west, behind a fir tree is my secret stash, where I keep cool stuff I
+find.  Hankin Elementary School is just east of here.
+
+The rock that sticks out over the creek here was the perfect spot to build my
+fortress.
+
+> n
+I move north.
+
+Front Yard
+It's the front yard.  It's covered in grass with a little pathway around the
+garden leading up to the front door.  Just seeing my yard makes me feel
+safe... it means I got all the way home from school in one piece!
+
+The park is just south of here, and the foyer of my house is to the north.
+
+The front spigot sticks out of the side of the house by the garden.
+
+> n
+I move north.
+
+Foyer
+The front entryway to my house is kept clean.  Mom & Dad don't let me and Sis
+play in here, and we get yelled at when we put our backpacks down in here.
+Sis' backpack is on the floor.
+
+The front yard is just outside to the south.  The hallway is to the north.
+The dining room is just west of here, and across to the east is the living
+room.
+
+Sis' backpack is on the floor here.
+
+> n
+I move north.
+
+Hallway
+The hallway has wooden floors...not as much fun as the kitchen floors.
+
+There's not too much to do here, but from here I can go upstairs to the
+bedrooms and stuff, or down to the basement!
+
+To the east is the bathroom, to the west is the kitchen, the southern exit
+leads back to the foyer and the north goes to the laundry room towards the
+backyard.
+
+> u
+I move up.
+
+Upstairs Hallway
+The upstairs hallway is pretty much like the downstairs hallway except that
+it has carpet like all the rooms upstairs.
+
+The southern door goes to Sis' room, the eastern one is the bathroom, the
+northern door is for my room, and the western door leads to Mom & Dad's room.
+
+> n
+I move north.
+
+My Room
+My room is pretty cool.  You can see the backyard from my window, and I have
+a big corner desk.
+
+The only exit here is south to the hallway.
+
+My dart gun is lying on the floor in the corner.
+
+> go to bed
+Satisfied with my trap setups, I decide to call it a day.  After dinner with
+my family, I go to bed.  My dreams are of a future free from pestering
+bullies and full of wonderful inventions...
+
+The next day at school I see the bullies in the halls.  Vick holds out her
+hand like she wants my lunch money every time I see her.  Baxter whispers to
+all his friends, presumably inviting them to the playground...the more the
+merrier!  And Theodore actually bumps into me on purpose, knocking my books
+on the floor.  All I can do is smile at each of them.  "See you after
+school!" I say.
+
+As soon as the bell rings, I run to the playground.  I burst through the
+rapidly growing circle the other kids have formed around the playground, and
+into the no man's land of wood chips and playground equipment.  After a quick
+look around, I can see that my traps are all setup and ready to go.  I just
+need to climb up to the top of the crawl tube and then I'm ready to go.
+
+> climb tube
+I climb up the stairs and into the crawl tube. From here I can see the whole
+playground, and more importantly, I have a bunch of little pull strings in
+front of me to activate my traps!
+The bullies should be here soon.  All that's left now is to wait.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+Baxter, Vick, and Theodore approach.
+
+"Hey kid!"  shouts Vick as they push through the audience.  "You ready to pay
+up, or you still lookin' for trouble?"
+
+Baxter runs his hand through his hair, and then pounds his other hand with a
+fist. For once, I'm not worried.
+
+Theodore is the first to step toward me, and he walks right into the path of
+my first trap.  Now is the time to pull a string and activate one of my
+traps!
+
+> wait
+Time passes...
+
+The bullies are moving towards my position.  Now is the time to pull a string
+for a trap!
+
+> pull strings
+I pull the string and the simplest of my traps is activated. From the top of
+the jungle gym, directly above Big T, Sis' Rare Bear Underwear falls down
+covering Big T's face!  he rips the underwear off his head immediately, but
+the damage has been done!  Every kid in the playground is laughing
+hysterically.  Big T will forever be known as "Underwear Head".
+
+The bullies are moving towards my position.  Now is the time to pull a string
+for a trap!
+
+> pull strings
+Vick rushes headlong into the path of the mud bucket trap.  My string pulls
+the mud bucket over the edge of the monkey bars, and out sloshes gallon after
+gallon of dirty brown mud!  Vick is covered in wet earth from head to toe and
+yells in anger while the gallery of students look on in hilarious delight.
+
+The bullies are moving towards my position.  Now is the time to pull a string
+for a trap!
+
+> pull strings
+Baxter takes one more step forward after I pull the string, and a big nasty
+watermelon swings down from the flag pole above and explodes into his face.
+He is stunned and reels for a moment before pieces of the watermelon begin
+sliding down his face.  Baxter looks furious, and the students surrounding
+the playground cheer!
+There are no more traps to activate!
+
+Press Enter to Continue...
+
+> pull strings
+I look around, and am pleased to see the bullies are done.  It's clear that
+they've now had enough.  They are no longer ready to fight, and hopefully no
+longer ready to bully other kids anymore!  The crowd begins to chant ...
+
+Lunch Money!  Lunch Money!
+
+Each of the bullies reaches into their pockets and pull out their lunch
+money.  They lay it all down on the ground and then turn to leave...
+
+I climb down and collect the money, which, after counting, I discover to be
+$5.75!!!  The crowd rushes up to me and lifts me up into the air.  As I surf
+the crowd of Hankin Elementary students on the hands of my fellow liberated
+students, I dream about what kind of tiny fortress supplies I can buy with
+$5.75!!!
+
+- - - Victory! - - -
+Press a key for the Credits.
+
+Give Me Your Lunch Money
+A Tale of the Exploits of an 8 Year-Old Inventor
+By DCBSupafly
+
+Presented for ADRIFT 4.0
+2009 Twin Comp
+2010 Rerelease
+
+Written and Created by DCBSupafly
+
+Original Soundtrack by W Ryder Timberlake
+
+Testing
+Peechiz Alpha Tester
+Eva Ann Berlin Alpha Tester
+Josh Davis Alpha Tester
+Micah Linnemeier Alpha Tester
+Duncan Bowsman Beta Tester
+
+Thanks to
+Cowboy for hosting the Twin Comp and welcoming me into the ADRIFT community
+Campbell Wild for ADRIFT and his support of the software
+
+Contact the author of this game via DCBSupafly@gmail.com with any and all
+questions, comments, concerns, conversational topics.
+
+Thanks for playing!
