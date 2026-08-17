@@ -1,6 +1,6 @@
 # Change log
 
-## Unreleased
+## Release 1.5.4
 
 ### Bocfel (Z-code)
 - Fixed a crash that hit every Z-code game at the first prompt (or instantly at launch, when an autosave existed) whenever autosave was on and "Enable sound" was unchecked in the theme settings.
@@ -11,7 +11,8 @@
 
 ### Scarier (Adrift)
 - Games that colour their text now display those colours. Colour display can be toggled with the *glk colour* command.
-- New *glk undo*, *glk restore*, *glk restart* and *glk quit* meta-commands for games that block or repurpose the ordinary ones.
+- New *glk undo*, *glk restore*, *glk restart* and *glk quit* meta-commands to use when their standard counterparts are unavailable, such as in the player name entry dialog.
+- A new *glk map colour* command switches the map between the standard colours and an alternative scheme derived from the current theme, which mixes room fills, connector greys and a you-are-here marker out of the theme's own paper and ink. The choice is remembered per game.
 
 #### Adrift 3.7 to 4
 - Plays the two known Adrift 3.7 games, *Alice's Restaurant Anti-Massacree Adventure* and *Castle Quest*, which were rejected before.
@@ -39,6 +40,21 @@
 - The title screen uses its own style and the prompt is drawn in the input colour, as in the original runner.
 
 ### Geas (Quest)
+- Both Quest engines are faster after a profiling pass over their per-turn hot spots: about a fifth off Quest 4 replay times, with movement-heavy games like *Shipwrecked* several times quicker, and a smaller gain in Quest 5.
+
+#### Quest 4
+- The Quest 4 engine was settled against the original: every game in a 111-game test corpus is replayed through both Geas and a faithful translation of the original Quest 4 runner and the transcripts compared, with the real Quest 4.1.5 under Wine as tie-breaker on disputed lines. 100 of the 111 transcripts are now byte-identical, and every remaining difference is a documented, deliberate improvement over a bug in the original.
+- Game text is decoded as Windows-1252, so the accented letters and typographic quotes games were written with survive.
+- Quest's standard library is bundled, so games that expect it installed next to the runner get their synonyms and verbs; *A certain Oscar* now plays as intended.
+- Containers behave as in the original: looking at or opening one lists its contents, a container given to a character keeps its contents, and a closed container refuses PUT before anything else is considered — which turns out to be how *Barbarian*'s pedestal puzzle was designed to be solved.
+- Timers tick at the same moment in the turn as the original, which makes the cut-scenes in games like *King's Quest V* play out correctly.
+- "Take X from Y" runs the implied removal as a real nested command, so games that watch for it react.
+- Many parser and wording fixes matched line by line against the original: object lookup is scoped per verb, the disambiguation prompt uses Quest's wording, locked places print the author's refusal message, `msg nospeak` prints nothing, unknown text functions yield the original's error marker, and the pre-2.80 dialect (its separate item table, script-based `take`, `out` tag parameters) is implemented. The panes' verb menus no longer overlook verbs whose declaration maps them to a differently-named action.
+- As a deliberate deviation from the original, referring to an object by its internal script name is still understood when there is no doubt which object is meant — Quest refuses such commands, but accepting them makes games more player-friendly. Likewise, exit lines in pre-2.80 games print their destination names whole, where the original clips the first letter off a name written without a space after the semicolon.
+
+#### Quest 5
+- The Quest 5 engine got the same settling as Quest 4: every game in an 86-game test corpus is replayed through Geas and compared against transcripts from the original .NET Quest, and all 86 now match byte for byte.
+- Arguments to a game's interface calls are evaluated even when the call itself does nothing in a text-only interpreter, so a script error in an argument is reported just as the original reports it — *The Acreage*'s map code depends on those errors appearing.
 - Quest 5 presentation features: clearing the screen, hiding the panes, TextFX effects, and the prompt reappearing after a timer prints text.
 
 ### General
