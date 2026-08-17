@@ -145,7 +145,6 @@ I move west.
 Outside the village pub
 I am outside the village pub.  It looks like this is the usual hang about for
 the youth of Ambersville.
-
 Biff and Boff are here.
 
 I can move north, east, west and in.
@@ -176,7 +175,6 @@ I move out.
 Outside the village pub
 I am outside the village pub.  It looks like this is the usual hang about for
 the youth of Ambersville.
-
 Biff and Boff are here.  It is raining.
 
 I can move north, east, west and in.
@@ -315,7 +313,6 @@ I move west.
 Outside the village pub
 I am outside the village pub.  It looks like this is the usual hang about for
 the youth of Ambersville.
-
 Biff and Boff are here.
 
 I can move north, east, west and in.
@@ -352,7 +349,6 @@ I move in.
 Inside the train
 The train looks like a normal train.  Lots of seats, big windows etc.  There
 is a cubicle near the rear of the carriage.
-
 Boris is here.
 
 I can move in and out.
@@ -384,7 +380,6 @@ I move out.
 Inside the train
 The train looks like a normal train.  Lots of seats, big windows etc.  There
 is a cubicle near the rear of the carriage.
-
 Boris is here.
 
 I can move in and out.
@@ -628,7 +623,6 @@ I move south.
 Outside the village pub
 I am outside the village pub.  It looks like this is the usual hang about for
 the youth of Ambersville.
-
 Biff and Boff are here.
 
 I can move north, east, west and in.
@@ -731,7 +725,6 @@ I move west.
 Outside the village pub
 I am outside the village pub.  It looks like this is the usual hang about for
 the youth of Ambersville.
-
 Biff and Boff are here.  It is raining.
 
 I can move north, east, west and in.
@@ -769,7 +762,6 @@ I move out.
 Outside the village pub
 I am outside the village pub.  It looks like this is the usual hang about for
 the youth of Ambersville.
-
 Biff and Boff are here.  It is raining.
 
 I can move north, east, west and in.
@@ -899,7 +891,6 @@ Whoosh!
 Narnia
 I am in a snowy land.  There are lots of trees about, casting eerie shadows
 all over the place.  There appears to be some sort of portal here.
-
 Mr Tumnus is here.
 
 > x Mr Tumnus
@@ -988,7 +979,6 @@ I move east.
 Outside the village pub
 I am outside the village pub.  It looks like this is the usual hang about for
 the youth of Ambersville.
-
 Biff and Boff are here.  It is raining.
 
 I can move north, east, west and in.
@@ -1319,7 +1309,6 @@ I move south.
 Outside the village pub
 I am outside the village pub.  It looks like this is the usual hang about for
 the youth of Ambersville.
-
 Biff and Boff are here.
 
 I can move north, east, west and in.
@@ -1383,7 +1372,6 @@ I move in.
 Inside the train
 The train looks like a normal train.  Lots of seats, big windows etc.  There
 is a cubicle near the rear of the carriage.
-
 Boris is here.
 
 I can move in and out.
@@ -1441,7 +1429,6 @@ I move in.
 Inside a dimly lit room
 I am inside a dimly lit room.  There are a couple of comfy seats and a table
 in the room.  Over in the corner sits a computer.
-
 Suzie is here.
 
 I can only move out.
@@ -1495,7 +1482,6 @@ I move in.
 Inside the train
 The train looks like a normal train.  Lots of seats, big windows etc.  There
 is a cubicle near the rear of the carriage.
-
 Boris is here.
 
 I can move in and out.
@@ -1542,7 +1528,6 @@ I move east.
 Outside the village pub
 I am outside the village pub.  It looks like this is the usual hang about for
 the youth of Ambersville.
-
 Biff and Boff are here.  It is raining.
 
 I can move north, east, west and in.

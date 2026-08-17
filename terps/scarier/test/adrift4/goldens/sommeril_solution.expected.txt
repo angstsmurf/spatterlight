@@ -413,7 +413,6 @@ sizes line the shelves from floor to ceiling, and great piles of them are
 stacked virtually in every available space as well. A DISPLAY TABLE occupies
 the center of the floor, and it holds a treasure of half-forgotten TOYS.  The
 Gargoyle smiles widely at you.
-
 SHOPKEEPER is here.
 
 You can only move out.
@@ -677,7 +676,6 @@ rear. The tools of the trade - a BELLOWS, an ANVIL, various HAMMERS and TONGS
 - are collected in one central work area. Raw METAL of various shapes lies in
 a heap in one corner. In the STALL, straight ahead,  you can see a grey HORSE
 standing very, very still.
-
 BLACKSMITH is here.
 
 You can move north and out.
@@ -743,7 +741,6 @@ rear. The tools of the trade - a BELLOWS, an ANVIL, various HAMMERS and TONGS
 - are collected in one central work area. Raw METAL of various shapes lies in
 a heap in one corner. In the STALL, straight ahead,  you can see a grey HORSE
 standing very, very still.
-
 BLACKSMITH is here.
 
 You can move north and out.

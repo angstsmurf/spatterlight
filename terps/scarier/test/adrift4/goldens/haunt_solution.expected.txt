@@ -468,7 +468,6 @@ mixture bubbles merrily in a flask over a bunsen burner. It has been fixed to
 the spot by screws. Eggbert obviously wants it to stay put.
 
 Also here is rusty cog.
-
 Eggbert is here.
 
 > take cog
@@ -631,7 +630,6 @@ In the Living Room
 You are in the living room. Two armchairs are facing a fireplace, reminiscent
 perhaps of when this house was inhabited. A drinks cabinet is on the west
 wall.
-
 Eggbert is here.
 
 You can move north and west.
@@ -809,7 +807,6 @@ flask that once held Eggbert's prized potion is now empty. You pray he
 doesn't notice for a while.
 
 Also here is bottle of whisky.
-
 Eggbert is here.
 
 You can only move up.

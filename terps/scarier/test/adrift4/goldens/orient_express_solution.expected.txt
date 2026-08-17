@@ -6,7 +6,6 @@ At the Station
 You are at the Destination Station. The platform is long and bustling with
 activity.  There is a newspaper stand, and a soda machine here. The train is
 stopped at the station.
-
 Oddly Istink is here.
 
 > examine mustach
@@ -62,7 +61,6 @@ This is another train car full of compartments. Doors line the corridor. The
 compartments are numbered B1-B20.  Maybe you should talk to the woman.
 
 Also here is a bag and a note.
-
 Ivanna Stiffdrink is here.  The walls appear as if they are being shook by a
 small earthquake.
 
@@ -199,7 +197,6 @@ You move south.
 Lounge Car
 This is the lounge. Many passengers enjoy a drink or two here. There is a bar
 at the far end. There are many cocktail tables and chairs.
-
 Igotta Bigbottom is here.
 
 You can only move north.
@@ -245,7 +242,6 @@ This train car provides a relaxing place to enjoy a meal.  Small tables and a
 few booths take up the space in this room.  This car also has a kitchen built
 on top of it. The passengers do not have access to the kitchen. There is a
 booth with a large table.
-
 Gimme Atip is here.  You take a quick look out the window and see the station
 getting larger as you approach.
 
@@ -261,7 +257,6 @@ This car provides bathrooms for the passengers. Doors line both sides of the
 corridor.
 
 Also here is a sign.
-
 Oddly Istink is here.  You take a quick look out the window and see the
 station getting larger as you approach.
 
@@ -349,7 +344,6 @@ This is Ivanna's favorite place. It is a large red building that looks much
 like a country barn. There is walk up window. They had to close the doors to
 the public due the the rash of theft and robbery. This is the address on the
 card.
-
 Habibo is here.
 
 You can only move south.
@@ -383,7 +377,6 @@ This is the warehouse where you assume that the Big Boss does his business.
 It is dark and musty. Every now and then you can see something moving out of
 the corner of your eye. Shadows move across the room,  giving no indication
 of what is hiding there.
-
 Thug , Ivill Getyou and Anita Fortune are here.
 
 You can only move east.

@@ -34,7 +34,6 @@ You move north.
 Shop
 You are in a large shop that has all kinds of items. One item you have your
 eye on, the type 3 Wave Motion Cannon.
-
 Merchant is here.
 
 You can only move south.
@@ -94,7 +93,6 @@ You move northeast.
 
 Back Ally
 You are in the back ally of a famous pizza restorant.
-
 Hooded figrure is here.
 
 You can move in and southwest.
@@ -192,7 +190,6 @@ Blinking on the computer screen: Password correct! you may pass.
 Mr. Bissoff's Room
 You are in the room with Mr. Bissoff! As soon as you get in, he snatches your
 weapon! All of a sudden, Lightning comes in!
-
 Lightning and Mr. Bissoff are here.
 Mr. Bissoff manages to avoid Lightning's attack.
 

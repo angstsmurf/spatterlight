@@ -172,8 +172,9 @@ You move south.
 
 A Blasted Heath near Forres
 This is a deserted, foul place.  You can go north to the road.
-Graymalkin the cat is here, skulking around.  Paddock the toad is here.
-Three Witches are here, dancing around a boiling cauldron.
+Paddock the toad is here.
+Graymalkin the cat is here, skulking around.  Three Witches are here, dancing
+around a boiling cauldron.
 
 > ask witches about box
 "Ah," says the first witch, looking at the box. "This is a riddle box."

@@ -213,7 +213,6 @@ Washington, D.C.  Christmas lights line the buildings as snowfall gently
 continues to layer the streets.  Well kept during the tourist season, you
 wonder if you'll be able to hail a taxi.  You feel drawn to the parking
 garage for some reason.  Maybe it's just the cold.
-
 Volunteer is here.
 
 You can move north, east, south and in.
@@ -264,7 +263,6 @@ Washington, D.C.  Christmas lights line the buildings as snowfall gently
 continues to layer the streets.  Well kept during the tourist season, you
 wonder if you'll be able to hail a taxi.  You feel drawn to the parking
 garage for some reason.  Maybe it's just the cold.
-
 Volunteer is here.
 
 You can move north, east, south and in.
@@ -302,7 +300,6 @@ friendly, if somewhat darkly lit.  "What the hell are you doing in my
 establishment without any pants on?" Nick roars, "Get out of here!"
 
 Also here is A Jukebox Machine.
-
 Nick is here.
 
 You can move up and out.
@@ -360,7 +357,6 @@ friendly, if somewhat darkly lit.  "What the hell are you doing in my
 establishment without any pants on?" Nick roars, "Get out of here!"
 
 Also here is A Jukebox Machine.
-
 Nick is here.
 
 You can move up and out.
@@ -386,7 +382,6 @@ Washington, D.C.  Christmas lights line the buildings as snowfall gently
 continues to layer the streets.  Well kept during the tourist season, you
 wonder if you'll be able to hail a taxi.  You feel drawn to the parking
 garage for some reason.  Maybe it's just the cold.
-
 Volunteer is here.
 
 You can move north, east, south, in and southwest.
@@ -431,7 +426,6 @@ Washington, D.C.  Christmas lights line the buildings as snowfall gently
 continues to layer the streets.  Well kept during the tourist season, you
 wonder if you'll be able to hail a taxi.  You feel drawn to the parking
 garage for some reason.  Maybe it's just the cold.
-
 Volunteer is here.
 
 You can move north, east, south, west, in and southwest.
@@ -460,9 +454,8 @@ This is the private operating layer of the LGM News Service, printers of the
 infamous Magic Bullet Digest.  A network of computers fills the room.
 Shelves, boxes, and wires incorporate the rest.  The sight of their coffee
 machine gives you a nauseous feeling.
-Langly is here.
-
 Byers, Frohike and Skinner are here.
+Langly is here.
 
 > call ruth
 Thinking back on the events of the last few hours, you decide to call Ruth.
@@ -527,7 +520,6 @@ Washington, D.C.  Christmas lights line the buildings as snowfall gently
 continues to layer the streets.  Well kept during the tourist season, you
 wonder if you'll be able to hail a taxi.  You feel drawn to the parking
 garage for some reason.  Maybe it's just the cold.
-
 Volunteer is here.
 
 You can move north, east, south, west, in and southwest.
@@ -651,7 +643,6 @@ Arroway Hardware
 This is a small town hardware store that has recently been renovated.  Rows
 and rows of hardware equipment make up the shelves that line the walls.
 There's a counter here, too.
-
 Arroway is here.
 
 > take directions
@@ -677,9 +668,8 @@ to be doing remarkably well.  The newer concrete building seems to dwarf its
 forgotten neighbors.  Wheelbarrows lean against the outside of this building.
 
 Also here is VW Van.
-Langly is here.
-
 Byers, Frohike and Skinner are here.
+Langly is here.
 
 You can move south, in and southwest.
 
@@ -705,9 +695,8 @@ to be doing remarkably well.  The newer concrete building seems to dwarf its
 forgotten neighbors.  Wheelbarrows lean against the outside of this building.
 
 Also here is VW Van.
-Langly is here.
-
 Byers, Frohike and Skinner are here.
+Langly is here.
 
 You can move south, in and southwest.
 Frohike looks to you and your companions and you all get out of the van.

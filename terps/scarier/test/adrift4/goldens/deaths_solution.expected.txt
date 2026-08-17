@@ -89,7 +89,6 @@ You move east.
 
 Red kitchen
 this is the kitchen of apartment number 3
-
 Jim is here.
 
 You can only move west.
@@ -137,7 +136,6 @@ You move west.
 
 Lit dining room
 this is the dining room of apartment 2
-
 Ireen is here.
 
 You can only move east.
@@ -175,7 +173,6 @@ You move west.
 
 Dark closet
 this is a closet for apartment 4
-
 Rooth is here.
 
 You can only move east.
@@ -231,7 +228,6 @@ You move east.
 
 Hall1 west
 this is the hallway leading to the bedrooms of apartment 1
-
 Debbie is here.
 
 You can only move west.
@@ -255,7 +251,6 @@ You move north.
 
 Guest room
 this is a guest room in the house of death
-
 Beth is here.
 
 You can only move south.
@@ -280,7 +275,6 @@ You move south.
 
 Master bedroom
 this is the master bedroom in the house of death
-
 Ross is here.
 Ross hits you with metal glove, but it doesn't seem to do any damage.
 
@@ -308,7 +302,6 @@ Hall1 west
 this is the hallway leading to the bedrooms of apartment 1
 
 Also here is frying pan.
-
 Debbie is here.
 
 You can move east and west.
@@ -355,7 +348,6 @@ You move up.
 Third floor
 this is the top floor of the building of death.  There are two doors on each
 side of the hallway.
-
 Demon is here.
 
 You can move east, west and down.
@@ -372,7 +364,6 @@ You move up.
 
 Attic
 this is the attic of the house of death
-
 Dark force is here.
 
 You can only move down.

@@ -31,7 +31,6 @@ The rooftop is quite high, and you can see down below.  You must be careful
 not to slip on the fresh fallen snow.  Your reindeer wait just ahead of the
 sleigh, talking amongst themselves while you're away.  The chimney is nearby,
 smoking a bit.  It doesn't bother you much, because you are St. Nick.
-
 Dasher, Dancer, Prancer, Vixen, Comet, Cupid, Donder and Blitzen are here.
 
 > look
@@ -423,12 +422,11 @@ A large corner desk takes up space on the north and eastern wall, accompanied
 by matching framed prints.  A high back leather chair sits before the desk.
 Sitting atop a plant stand in the southeast corner is a very large Venus'
 Flytrap, near two arched windows on the south wall.
+DuoDave is here.
 davidw is standing here looking for someone to antagonize.  JJ Sonick is
 here, and seems to be distracted by thoughts of anime chracters battling
 sentient, philosophical kiwi fruits.  Mystery is talking with some Drifters,
 making sure everyone is having a good time.
-
-DuoDave is here.
 
 You can move west and northwest.
 
@@ -493,10 +491,9 @@ Hall
 Standing in the hall is the bust of Rob Roy MacGregor and a pink rug that
 lies on the floor.  The hall opens to the living room, dining room, and
 foyer.
+DuoDave is here.
 davidw is standing here looking for someone to antagonize.  Mystery is
 talking with some Drifters, making sure everyone is having a good time.
-
-DuoDave is here.
 
 You can move north, south, west, northeast, southeast and southwest.
 
@@ -588,10 +585,9 @@ Hall
 Standing in the hall is the bust of Rob Roy MacGregor and a pink rug that
 lies on the floor.  The hall opens to the living room, dining room, and
 foyer.
+DuoDave is here.
 Woodfish, his spiky blue hair catching your attention, stands with his hands
 in his jeans pockets, looking comfortably around the room.
-
-DuoDave is here.
 
 You can move north, south, west, northeast, southeast and southwest.
 

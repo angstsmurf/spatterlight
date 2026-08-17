@@ -314,9 +314,13 @@ evt_move_object (scr_gameref_t game, scr_int object, scr_int destination)
       /*
        * If static, mark as no longer unmoved.
        *
-       * TODO Is this the only place static objects can be moved?  And just
-       * how static is a static object if it's moveable, anyway?  See
-       * RUNNER_TESTS_TODO.md section 9.
+       * This is the only place a static object moves.  The task action mover
+       * refuses them outright (see task_move_object), so an event is the sole
+       * route by which one can reach the player's hands -- measured live in
+       * run400, RUNNER_TESTS_TODO.md section 9.  A static that gets there is
+       * listed by "inventory", but the Runner does not otherwise count it as
+       * held: it weighs nothing towards the player's limits and cannot be
+       * dropped, which is what obj_get_size/obj_get_weight's zero preserves.
        */
       if (obj_is_static (game, object))
         gs_set_object_static_unmoved (game, object, FALSE);
@@ -598,7 +602,7 @@ evt_finish_event (scr_gameref_t game, scr_int event)
           if (evt_trace)
             scr_trace ("Event: event running task %ld forwards\n", task);
 
-          task_run_task (game, task, TRUE);
+          run_task_run_by_index (game, task);
         }
       else
         {

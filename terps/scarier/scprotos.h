@@ -781,6 +781,7 @@ extern void res_cancel_resources (scr_gameref_t game);
 /* Game runner functions. */
 extern scr_bool run_game_task_commands (scr_gameref_t game,
                                        const scr_char *string);
+extern scr_bool run_task_run_by_index (scr_gameref_t game, scr_int task);
 extern void run_npc_walk_task (scr_gameref_t game, scr_int walktask);
 extern void run_event_task (scr_gameref_t game, scr_int eventtask);
 extern scr_bool run_does_command_match (scr_gameref_t game,

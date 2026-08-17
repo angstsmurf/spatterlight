@@ -458,7 +458,6 @@ Clothes, theatrical costumes, bags, personal items and musical instruments
 occupy most of the space in this small room. The rest is shared amongst the
 two dozen or so actors who are either talking, drinking, or picking at a
 neatly-prepared buffet in the corner of the room.
-
 Chloe and Sally are here.
 You see Sally first; she is hard to miss wearing that outfit. Sally is
 standing at the opposite side of the room, talking to Chloe, a close friend
@@ -552,7 +551,6 @@ by five giant, conical-shaped pillars, which you recognise as the "claws";
 part of the Dragon Lithoid's "right hand", presumably where the restaurant
 got its name from. There are very few people here at the moment, but then
 again, it is still quite early in the evening.
-
 Sally is here.
 The two of you are just waiting for your main course to arrive. Sally is
 sitting at the table opposite, laughing.
@@ -672,7 +670,6 @@ large bay window that stretches the entire length of the wall. In the corner,
 right next to the window is a small bookshelf, to the right of which is a
 videocom. In the middle of the room is a leather sofa and a small coffee
 table.
-
 Sally is here.
 "I can't believe you haven't got any rooms left with two beds. Surely you
 can't be that busy at this time of the year..." you tell the receptionist.
@@ -2088,7 +2085,6 @@ cover every available space on the wall, while four medieval suits of armour
 stand in each corner of the room, facing you accusingly. Right in front of
 you is Natalia, sitting on a high chair in the middle of the room like a
 queen upon her throne.
-
 Sally is here.
 She is stroking a large stuffed animal lying next to the chair that looks
 like a legendary griffon, about the size of a rhinoceros. It stares at you

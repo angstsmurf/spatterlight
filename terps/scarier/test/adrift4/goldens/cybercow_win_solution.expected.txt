@@ -765,7 +765,6 @@ Bottom of the Well
 The stone wall leads up to a small circular view of the sky.  A rope dangles
 here.  The CyberCow, victorious, has lain it head on the ruptured hulk of the
 Robot and weeps bitterly.
-
 CyberCow and Robot are here.
 
 > up
@@ -814,7 +813,6 @@ In the Bell (floating in a vast expanse of water)
 You are careful to keep your weight opposite the crack, so the leaky surface
 of the bell stays out of the water.  The iron bell wouldn't have to take on
 much water to sink like a rock--
-
 A fairy is here.
 It is night-time.  Moonlight shines silver on the water.
 
@@ -827,7 +825,6 @@ In the Bell (floating in a vast expanse of water)
 You are careful to keep your weight opposite the crack, so the leaky surface
 of the bell stays out of the water.  The iron bell wouldn't have to take on
 much water to sink like a rock--
-
 A fairy is here.
 It is night-time.  The moon, three days from full, casts your shadow on the
 water and the inward curve of the bell.

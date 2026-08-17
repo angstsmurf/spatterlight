@@ -5,10 +5,9 @@ answered. Companion to `ADRIFT4_vs_ADRIFT5.md` (which records semantics already
 settled) and `test/adrift4/notes/WALKTHROUGH_TODO.md` (which is about route
 derivation, not engine fidelity).
 
-**Sections 1–8 are all closed** — every one settled between 2026-08-01 and
-2026-08-09, and the `## Closure log` section at the foot is the record of *how*
-each one closed, not a plan. The one open section is **§9**, the 2026-08-17
-backlog of code-comment TODOs still awaiting a Runner probe session. What is still
+**Every section is closed** — §§1–8 between 2026-08-01 and 2026-08-09, and §9,
+the backlog of code-comment TODOs, on 2026-08-17. The `## Closure log` section
+at the foot is the record of *how* each one closed, not a plan. What is still
 live is the method — how to stage a probe against each
 Runner (§ *Running the Runners*, §5's `where` probe, §6's 3.70 codec, §7, §8) —
 and the **§4 divergence table**, which is the standing list of every place
@@ -786,6 +785,12 @@ This table is the live part of the file — keep it current.
 | Perspective 2 (third person) in a pre-4.0 game | ~~renders third person — inventory reads "Player is carrying nothing.", and the capacity probe narrates "Player puts the b1 inside the c52t."~~ **PORTED 2026-08-10** | **pre-4.0 has only two perspectives**: run390 answers second person for `Globals/Perspective` 1, 2 **and** 3 — "You are carrying nothing.", "You put the b1 inside the c52t." — and first person only for 0 | **Divergence observed live 2026-08-10 and FIXED the same day.** Noticed while pinning which word the `Where` refusal leads with (the refusal itself was already correct — it follows the same two-way split), and independently on the 3.9 capacity probe, which is authored Perspective 2. Ported as `lib_get_perspective()` (`sclibrar.cpp`), which returns `LIB_SECOND_PERSON` for any non-zero Perspective when `version < TAF_VERSION_400`; the two switch sites that render a person (`lib_select_response()`, `lib_nothing_happens_common()`) now read through it, so no third-person string had to be version-gated one by one. Out-of-range values reach the existing error branch for 4.0 only — pre-4.0 they are simply second person, which is what run390 does with 3. **Corpus census** (new `GAME version= perspective=` dump line): of 192 measurable games, **not one pre-4.0 game authors Perspective 2** — the three that do (*Main Course*, *iqsfot*, *yonastoundingcastle*) are all 4.0 and keep their third person, verified live ("SoMorph hits, but nothing happens."). So the 203 walkthrough goldens did not move. The one thing that did: the **capacity probe goldens**, 144 lines each of "Player picks up" → "You pick up" / "Player puts … inside" → "You put … inside" — moving them **onto** the run390 transcript recorded in §"container capacity", not away from it. |
 | Do a task's remaining actions run after an action that ends the game? | ~~doc comment claimed "if any action ends the game, return immediately"~~ — the loop never did that: it **ran** the remaining actions with the print filter muted, and the doc comment was simply stale (fixed 2026-08-09). The one real divergence, **PORTED 2026-08-09**: a trailing Execute-Task action used to be dispatched too, so its callee's score and state changes landed. | **in-line actions after the ending still run** — a task whose actions are `end game` then `+7 points` finishes on 7 out of 7 — but an **Execute Task** action after the ending is a **no-op** | **Settled live 2026-08-09** with a new `EG` arena probe (`make_arena_probe.py`), read off run400's own end-of-game summary with `MaxScore=7` so a trailing `+7` shows as "100% of the game! / Well done" and a dropped one as "0%". One ending per session, so one Runner launch per cell: `scorefirst` (`+7`, `end`) → **7/7**, the control proving the summary reports the engine score; `scorelast` (`end`, `+7`) → **7/7** — *this is the answer: the trailing action runs*; `execlast` (`exec` a task that ends the game, then `+7`) → **7/7**, Three Monkeys' actual shape; `printfirst` (`exec` a task that prints and scores, then `end`) → **7/7** with the callee's text shown; `printlast` (`end`, then that same `exec`) → **0/7 with no text at all**, which is what pinned the divergence — the callee is demonstrably fine, so the Runner is dropping the dispatch, not muting it. Scarier agreed on the first four and awarded the 7 on the fifth, and all five cells now match. **Mechanism confirmed in the P-code 2026-08-09**, answering the question the probe alone could not — the Runner refuses the *dispatch*, not the callee's completion. The chain is `Sub_20_22` (RunTask) → `Sub_20_12` (mark complete) → `Sub_20_11` (run actions) → back to `Sub_20_22` for a type-5 action. **`mdlSpreadTheLoad.Sub_20_22` opens, at file offset `0005F750`, with `ImpAdLdUI1 <gameover> / CI2UI1 / LitI2_Byte 0 / GtI2 / BranchF / ExitProc`** — `If gameOver > 0 Then Exit Sub`, ahead of restrictions, CompleteText and actions alike. The type-5 branch of the action executor `Sub_20_11` (`@0008D588`, forwards arm `@0008D5AC`) calls it at `@0008D5D1` **unguarded**, bracketing the call only with stores of `0`/`1` to an unrelated global. The action *loop* has no gameover test at all: `Sub_20_11` reads that flag exactly **once**, at `@0008D621` inside the EndGame (type-6) handler, where it guards the ending *display* (`Sub_20_33`) against re-printing — which is precisely why in-line actions behind an ending still run. Same-variable proof: the flag is import slot `0x7E` in `mdlSpreadTheLoad` and `0x4F` in the form modules (P32Dasm does not print `ImpAd*` operands; read the 2 bytes after the `fd a0`/`fd b0` opcode at the listing address, which is a file offset into `run400.exe`), the load/store census splits perfectly along module lines, and the EndGame action's Var1→flag mapping (`0→1`, `1→3`, `2→2`, `3→4`, at `@08D694`/`@08D6AB`/`@08D6C2`/`@08D6D9`) matches `Form1.evaluate`'s reads of `0x4F` exactly (`1` = "Congratulations!", `2` or `4` = "You are dead!", `3` = "Game ended"). `Sub_20_2`, the NPC tick, carries the same `> 0 → Exit Sub` guard. **Ported structurally**: the guard now sits at the top of `task_run_task()` rather than on the type-5 action, mirroring the Runner; every other caller is already behind the main loop's `if (game->is_running)`, so this is a no-op for them. Whole v4 suite re-run after both the port and the move: **203/203 PASS, no golden moved.** **Verdict for *Three Monkeys One Cage*: "98/100 is the ceiling" is a fact about the game, not about our engine.** Task 603 is `exec 604` / `exec 608` / `player_moves--` / `player_score += 2`; the two callees are mutually exclusive and both end the game, but the `+2` is an **in-line** action, so it is credited in *both* engines — it is simply never displayable, because the game is over and this game's score is an author variable that only the `score` command ever prints. 98 is the highest score a player can ever *see*; the 100th point is banked in state at the instant of the win. |
 | Article for an **empty `Prefix`** when an object is named | the two printers guess differently: `lib_print_object()` (sclibrar.cpp ~503) defaults an empty prefix to `"a "`, `lib_print_object_np()` (~428, empty-prefix branch ~472) defaults it to `"the "`. So the take message reads **`You take the Fenix de laton de el cajon`**. The `_np` default carries a standing `TODO This is empirical ... a real PITA` comment, i.e. it was guessed, not measured. | **identical — `the` on the take path, `a` on the description path.** Arbitrated by running the witness game itself in run400: `abrir cajon` → `Extendiendo mi mano abrì el cajon.  Encontrè un Fenix de laton dentro del cajon.`, then `coger fenix` → `You take the Fenix de laton de el cajon.` | **SETTLED 2026-08-14, NO divergence.** Both of Scarier's empty-`Prefix` defaults are what the real Runner does, and the two goldens' lines are byte-identical to run400's (`relojero_solution.expected.txt:66-67` and `:72`). The probe was the witness itself rather than a synthetic file — *La hija del relojero*'s 49-entry replacement table makes the article directly readable in the output, and the game is already staged in the prefix. Launched as `WINEPREFIX=$PWD/pfx WINEDLLOVERRIDES="mmdevapi=d" wine 'C:\adrift\run400.exe' 'C:\adrift\relojero.taf'` (audio off, then dismiss the "Cannot play sounds" dialog — see `wine-audio-desktop-softlock`). **So the author's `You take a` → `Con sumo cuidado cogi el` pair never fired in the real Runner either**: he wrote it speculatively, which is exactly the caveat this row flagged, and it is *not* evidence of an `a` default on the take path. His `A` → `Encontre un` pair, by contrast, fires in run400 — that is the `Encontrè un Fenix…` above — confirming `lib_print_object()`'s `"a "` default too. (A bonus tell that the table is a blind string replace, not a message lookup: the room description's `A mi lado hay…` comes out as `Encontrè un mi lado hay…` in run400 as well.) The standing `TODO This is empirical … a real PITA` comment in `sclibrar.cpp` can be retired: it is measured now. The 235 goldens riding on `"the "` are safe. (That settles the *empty*-prefix default only, and only for 4.0 — it is the one version where the take message normalizes both nouns. The **non-empty** case is the row above, settled and ported 2026-08-15: pre-3.9 leaves a `some` prefix alone, and pre-4.0 prints the *taken* object's prefix raw on the from-container path. Neither rule touches the empty-prefix defaults, which are still `"the "` for `_np` and `"a "` for the plain printer; what the pre-4.0 Runners do with an **empty** prefix on the from-container path is not measured, and no corpus golden exercises it.) |
+| `getdynfromroom()` — when it runs, and what it picks | ~~a matcher: a separate pass over every task on every player command, evaluating the function in **any** command (primary included), firing the task itself when it matched~~ **PORTED 2026-08-17**: not a matcher at all — evaluated only as a preamble to running a task **by index**, over the task's **alternate** commands only | run400's `mdlSpreadTheLoad.Sub_20_22` (the by-index task runner: an *execute task* action, an event's TaskAffected, a walk's CharTask/ObjectTask, the battle system) evaluates the function before running the task; the typed-command matcher never does, and nothing fires spontaneously. Syntax: squeeze **all** spaces, require `#%object%=getdynfromroom(`, and require the **raw** command to end `)`. Argument compared case-insensitively to the room's `Short`; first **non-static** object standing directly in that room wins, in object order. run390 has no `getdynfromroom` at all (zero occurrences in its P-code) | **Settled live 2026-08-17 and PORTED** (probes `GD1`–`GDR` of `make_arena_probe.py`, driven in run400 under Wine; §9). `run_task_run_by_index()` (scrunner.cpp) is the new by-index runner and carries the preamble; `run_game_functions()` and the whole `is_normal == FALSE` matcher branch are **deleted**. Humbug is the only corpus user — its always-restarting one-turn EVENT 45 *robot in cellar* runs TASK 310 by index every turn, and the getdynfromroom in its `ALTCMD[1]` is what tells the robot which object to sweep down the chute; the faithful implementation reproduces the existing golden **byte for byte** (the old spontaneous pass had been firing the task a *second* time per turn, which the golden happened to survive). **deliberate:** two run400 fenceposts are not reproduced, both of which can only lose a match the author meant: (1) its room scan is `For r = 0 To roomCount - 1` over a 1-based array, so the game's **last room** is unreachable — proved live, `larder` as room 10 of 10 matched nothing and returned its pie the moment a spare 11th room was appended; its object loop has no such bug; (2) it squeezes the argument but compares against the **unsqueezed** room name, so no room whose name contains a space is reachable — not even by the manual's own worked example, `getdynfromroom(The Park)`. |
+| Can a **task action** move a **static** object? | ~~yes — only the *by-index* object selector was limited to dynamics, so the "referenced object", "all held" and "all worn" selectors moved statics like anything else~~ **PORTED 2026-08-17** | **no, never, for any selector or any destination.** run400's object mover skips `Static = 1` before any destination case runs, so `grab plaque` (action: move the referenced object to "held by player") prints the task's CompleteText and moves nothing, and a move-to-hidden aimed at a static the player is *already* holding is refused the same way | **Settled live 2026-08-17 and PORTED** (`SM` probe of `make_arena_probe.py`, run400 under Wine; §9). `task_move_object()` (`sctasks.cpp`) now returns early for a static, next to the existing negative-index guard. The consequence is the answer to the other half of the same question: **`evt_move_object()` is the one and only place a static object moves**, which is what the `scevents.cpp` static-unmoved comment was asking. Corpus: 251/251 v4 walkthroughs and the whole headless suite unmoved. |
+| What an object an **event** puts in the player's hands weighs | recomputed from object positions, like everything else: the object is listed by `inventory`, counts towards `count`/`weigh`, and can be dropped | **the Runner half-moves it.** `inventory` lists it, but nothing else treats it as held: `count` stays 0 and `drop` refuses it. The staleness runs the other way too — take an object by hand (`count` = 1), then let an event move it to another room, and it leaves the listing while still occupying its size indefinitely. Not a running counter: grabbing the same object twice with a task action leaves `count` at 1, so the totals *are* recomputed — over a held-ness the event mover never writes | **`deliberate:` divergence, measured live 2026-08-17, NOT ported** (`SM` probe, four run400 sessions; §9). Reproducing it would mean carrying a second held-state through game state and the `.tas` save format to inherit a bug that hands out free carrying capacity in one direction and confiscates it permanently in the other, with no authorial use either way. What *is* ported from the same measurement is the part with a defensible reading: statics contribute 0 size and 0 weight (`obj_get_size`/`obj_get_weight`), which is what run400 effectively does too, since a static can only ever reach the hand by the event route and so is never counted. |
+| Which characters join the *"X, Y and Z are here."* sentence, and in what order | ~~only the ones whose in-room text is literally `#`, contributing their **`Name`**, and the sentence printed **after** the characters with texts of their own~~ **PORTED 2026-08-17**: every character whose text ends in the nine characters `" is here."`, contributing that text with the suffix trimmed off, and the sentence printed **first** | the `#` never reaches the lister: the **loader** (@00091EDF) rewrites the text to `<name> is here.` before the game starts, and the lister (@00072944) tests `Right(text, 9) = " is here."` — exact and case-sensitive, over whatever text is there. So an author who types the default out in full joins the sentence too, under the words *they* typed rather than the character's name, and a near miss of punctuation or case does not | **Settled live 2026-08-17 and PORTED** (probe `NH` of `make_arena_probe.py`, driven in run400 under Wine; §9). Eight characters in one room came out as `Alpha, Charlie, Delta and The stranger are here.  Bravo lurks in the corner.  Golf is here!  Hotel IS HERE.` — `Delta` (author-written `Delta is here.`) and `Foxtrot` (`The stranger is here.`) fold, `Golf is here!` and `Hotel IS HERE.` do not, and the character with an empty text is not mentioned at all. `lib_print_room_contents()` (sclibrar.cpp) now builds the joined list first, from both routes, and the custom-text loop skips what the list took. Rebless: 81 v4 goldens, all of it the fold, the reorder, and the line rewrapping they cause. **deliberate:** the joined sentence no longer opens with a blank line. It always had one, back when it could hold nothing but `#` characters and so always stood alone; now that it shares the block with the characters it belongs among, a blank line between them reads as an accident. The Runner has no line breaks here at all — the whole room block is one paragraph (§3) — so nothing is being contradicted, and one list to a line is what the rest of the block already does. |
+| A walk's **`StoppingTask`**: does completing it pause the walk or end it? | ~~pause, and only that: the tick was skipped and the step counter left exactly where it stood, so un-completing the task carried the walk on mid-cycle~~ **PORTED 2026-08-17**: the walk is held at the **top** of its cycle for as long as the task is complete | neither reading is right. The walk is not finished — un-completing the task starts it moving again — but it does not resume where it stopped either: it runs a **fresh cycle**, arriving at stop 0 on the turn the task is un-completed | **Settled live 2026-08-17 and PORTED** (probe `S` of `make_400_walkprobe.py`, three run400 sessions under Wine; §9). A looping two-stop walk, `Times` 2 and 2, frozen at three different points of the cycle and released after three different waits, ends in the same state every time. Frozen away from stop 0, the release turn prints `RESUME TASK DONE.  Bob BOB ENTERS..` in one breath; frozen standing at stop 0, the release turn prints nothing at all and the next visible step is two turns later — the same fresh cycle, whose arrival at stop 0 is a move to where the walker already is. The middle session puts `stopit` on the turn the walk was due to move and it does not move, which places the check after the player's task in the turn and rules out a merely-frozen counter. `npc_tick_npc()` (scnpcs.cpp) now calls `npc_start_npc_walk()` on every stopped tick instead of skipping. 4.0 only, and not by choice: V390 has no *unset task* action (its action types 5 and up are V400's 6 and up), so a 3.9 stopping task can never be un-completed and the question cannot be posed there. No golden moved. |
+
 ---
 
 ## 5. `Where` = "No rooms" on a player-typed task — SETTLED 2026-08-04, NO divergence
@@ -1199,44 +1204,118 @@ lost.
       spent failing the climb, an RNG divergence from the published run, not
       a visibility one.
 
-## 9. Open probe backlog (2026-08-17) — the code-comment TODOs not yet taken to a Runner
+## 9. Probe backlog (2026-08-17) — the code-comment TODOs not yet taken to a
+##    Runner.  All five closed the same day; the last one on corpus data.
 
 The 2026-08-17 TODO sweep resolved what it could without a Runner session
 (the "affective weapon!" string was settled from the four Runners' string
 tables — all of run370–run400 say `I don't think X would be a very affective
 weapon!`, now ported; three corpus-settled question-comments were retired in
-place). These are the questions that remain, each answerable with the staging
-methods above. None has corpus exposure — that is why they are still open.
+place). The five below were the questions that remained; all five closed on
+2026-08-17, four in front of a running Runner and the last in front of the
+corpus. None was believed to have corpus exposure — that is why they were still
+open — and two of them turned out to have it after all. (`getdynfromroom` has
+exactly one user, Humbug: the "no corpus exposure" reading came from grepping
+for *execute task* actions targeting the task and forgetting that an event's
+`TaskAffected` runs a task by index too. The negative resource lengths were
+mis-parsing a game's pictures.)
 
-- [ ] **Static objects moved into the inventory** (`scobjcts.cpp`
-      `obj_get_size`/`obj_get_weight`, plus the related question at
-      `scevents.cpp` ~317). Statics have no `SizeWeight`; Scarier gives them
-      size and weight 0. Probe: an event that moves a static object to the
-      player (the only way one can get there), then `count` / `weigh` in
-      run400 — and check whether anything else can move a static, which
-      decides if `scevents.cpp`'s static-unmoved marking is the only site.
-- [ ] **`#` in-room text for NPCs** (`sclibrar.cpp`, the NPC half of the
-      room lister). A leading `#` on an NPC's in-room description is taken
-      as "use the default *X is here*". Probe: NPCs with `#`-prefixed, empty,
-      and plain in-room texts in one room, in run390 and run400.
-- [ ] **Walk `StoppingTask` = pause or finish?** (`scnpcs.cpp`, walk tick).
-      Scarier treats a completed stopping task as an event-pauser: the walk
-      is skipped but not finished, so un-completing the task resumes it.
-      Probe: a walk with a stopping task, complete the task mid-walk, then
-      un-complete it (task that unchecks it) and watch whether the walk
-      resumes or is dead.
-- [ ] **`getdynfromroom` selection criteria** (`scrunner.cpp` ~126/142).
-      Scarier matches the room by case-insensitive Short-name comparison and
-      picks the first dynamic object lying directly in the room. Probe: a
-      task using `# %object% = getdynfromroom(...)` with several candidate
-      objects (on floor, inside/on another object, carried) and rooms whose
-      names differ only in case/whitespace.
-- [ ] **Negative resource lengths in 4.0 TAFs** (`sctafpar.cpp`
-      `parse_handle_v400_resource`). For resources already seen, the length
-      field goes negative — `-(length+2)` is close to a resource index but
-      not always. Not stageable as a probe; this one is disassembly
-      archaeology (`~/Desktop/run400.txt`, the resource-loading path), with
-      taftool-built TAFs carrying repeated resources as the cross-check.
+- [x] **Static objects moved into the inventory** — **SETTLED LIVE AND
+      PORTED 2026-08-17.** Both code-comment TODOs are retired. Three answers,
+      all measured in run400 with the `SM` arena probe (a coin, a static
+      plaque, events that move either one to the player's hands or to the far
+      room, and two tasks whose actions move the *referenced* object):
+      1. **Zero was right.** An event-placed object contributes nothing to the
+         player's `count` totals — not just statics, the dynamic coin too — so
+         a static, which can arrive no other way, never weighs anything.
+         `obj_get_size`/`obj_get_weight` keep their 0 and now say why.
+      2. **A task action cannot move a static, by any selector.** run400's
+         mover skips `Static = 1` before any destination case, so the refusal
+         is total: `grab plaque` (action = move referenced object to "held by
+         player") prints its completion text and moves nothing, and a
+         move-to-hidden aimed at a static the player is *already* holding is
+         refused the same way. Scarier moved statics happily — only the
+         by-index selector was limited to dynamics — so `task_move_object()`
+         now carries the same test. **This makes `evt_move_object()` the one
+         and only place a static moves**, which is the answer the
+         `scevents.cpp` comment was asking for.
+      3. `deliberate:` **the event mover's "held by player" is a half-move,
+         and Scarier does not reproduce that.** run400's `inventory` lists the
+         object but nothing else treats it as held: `count` stays 0, and
+         `drop` refuses it. The stale state cuts the other way too — take the
+         coin by hand (`count` = 1), then let an event move it to another
+         room, and it vanishes from the listing while still occupying its size
+         forever. The totals are *not* a running counter: grabbing the same
+         object twice with a task action leaves `count` at 1, so the summer
+         recomputes, over a held-ness that the event mover simply never
+         writes. Scarier recomputes from object positions and is
+         self-consistent — the event-held coin weighs 1 and can be dropped.
+         Porting the Runner's split would mean carrying a second held-state
+         through the save format to reproduce a bug that both grants free
+         carrying capacity and permanently confiscates it.
+- [x] **`#` in-room text for NPCs** — **SETTLED LIVE AND PORTED 2026-08-17.**
+      See the §4 row and the batch note at the end of this file. The `#` is
+      not a marker the room lister ever sees: the **loader** (@00091EDF)
+      replaces the whole text with `<name> is here.` before the game starts,
+      and what the lister (@00072944) tests is the *tail* —
+      `Right(text, 9) = " is here."`. Three consequences, all measured, all
+      ported:
+      1. A character whose text the **author** wrote out in full joins the
+         same sentence, contributing that text **minus the nine characters**
+         rather than its own name — probe NPC `Foxtrot`, text
+         `The stranger is here.`, comes out as *The stranger*.
+      2. The test is exact and **case-sensitive**: `Golf is here!` and
+         `Hotel IS HERE.` both stay in the second group and print their own
+         text verbatim.
+      3. The joined sentence comes **first**, ahead of the characters with
+         something of their own to say — Scarier had the two groups in the
+         opposite order. Empty text still drops the character entirely.
+- [x] **Walk `StoppingTask` = pause or finish?** — **SETTLED LIVE AND PORTED
+      2026-08-17.** Neither, quite. See the §4 row and the batch note at the
+      end of this file. A completed stopping task holds the walk at the **top
+      of its cycle**: un-completing the task does start it moving again (so
+      not "finish"), but it does not carry on from where it froze (so not
+      "pause" either) — it runs a **fresh cycle**, arriving at stop 0 on the
+      very turn the task is un-completed. Three run400 sessions over probe
+      `S` of `make_400_walkprobe.py`, freezing the walk at three different
+      points of the cycle, all end in the same state. Ported as a one-line
+      re-arm (`npc_start_npc_walk()`) in place of the old bare `continue`; no
+      golden moved. Only 4.0 can pose the question: V390 has no "unset task"
+      action at all (its action types 5+ are V400's 6+), so a 3.9 stopping
+      task, once complete, is complete for good.
+- [x] **`getdynfromroom` selection criteria** — **SETTLED LIVE AND PORTED
+      2026-08-17.** See the §4 row and the batch note at the end of this file.
+      The two code-comment TODOs are retired; the question turned out to be
+      the smaller half of the answer, because the function is not a matcher
+      at all. run400 evaluates it only as a preamble to running a task **by
+      index** (`mdlSpreadTheLoad.Sub_20_22`), over that task's **alternate**
+      commands only, and Scarier's separate "scan every task on every player
+      command and fire it" pass — `run_game_functions()` — had no counterpart
+      in the Runner and is gone. Selection: squeeze all spaces, require
+      `#%object%=getdynfromroom(` and a **raw** trailing `)`, compare the
+      argument case-insensitively to the room `Short`, take the first
+      non-static object directly in that room. 4.0 only (run390's P-code has
+      not one occurrence). Two run400 fenceposts deliberately not
+      reproduced: the last room of the game is unreachable, and no room whose
+      name contains a space is reachable. Humbug — the one corpus user, via
+      EVENT 45's by-index run of TASK 310 — reproduces its golden byte for
+      byte.
+- [x] **Negative resource lengths in 4.0 TAFs** — **DECODED AND FIXED
+      2026-08-17.** See the batch note at the end of this file. It is a
+      back-reference and nothing else: `-N` means *entry N of the game's
+      resource table*, counting from one over distinct resource **names** in
+      the order the parse meets them, with the trailing `##` looping flag
+      stripped first and with named-but-unembedded (zero-length) resources
+      counted just the same as embedded ones. The rule reproduces all **535**
+      negative records in the 427-game corpus exactly — the old
+      `-(length+2)` guess had missed both of the reasons the count slips.
+      Settled from corpus data rather than a Runner session, as the item
+      itself predicted, and cross-checked against the files' own magic bytes.
+      Scarier resolves back-references by name, which reaches the same entry,
+      so the decode changes no behaviour by itself — but it did expose a live
+      bug at the one place where name and index part company, and that is
+      fixed: **472/472** embedded resources in the corpus now land on their
+      own first byte.
 
 ## Closure log (was: "Suggested order")
 
@@ -2175,3 +2254,333 @@ script with two `look`s fixed it. And **the echo is the only trustworthy record
 of what the Runner received**, so a probe worth running is one where every
 command echoes visibly and the answer is a distinct printed string rather than
 an absence.
+
+### 2026-08-17 — `getdynfromroom` is not a matcher, and the probe that proved it
+
+The §9 item read like a small one: *what are the selection criteria?* The
+answer is that the criteria were the easy half. The hard half is **when** the
+function runs, and Scarier had that wrong from the start.
+
+**The probe.** `make_arena_probe.py` config `GD` (rebuild and deploy with
+`python3 make_arena_probe.py GD p4GD.plain && python3 taftool.py pack
+p4GD.plain pronoun_test.taf p4GD.taf`, then drop the `.taf` into
+`~/adrift-battle/runner/wine/pfx/drive_c/adrift/`). Every syntax variant gets
+a room of its own holding exactly one dynamic object nothing else claims —
+the probes are destructive, so two sharing a room would leave the second
+silent for the wrong reason — and every CompleteText reads `GDn
+[%theobject%]`. That last detail is what makes the whole thing legible:
+run400 expands `%theobject%` to "the coin", prints `%object%` **verbatim**,
+and leaves `%theobject%` unexpanded when no reference is set. So the
+read-out distinguishes *set to X*, *set to nothing* and *never evaluated*
+without any second channel.
+
+**The finding that reframed the item.** Typing a probe's command does
+nothing. Nothing fires spontaneously either — sitting in the room and typing
+`look` produces silence, turn after turn. The function is evaluated in exactly
+one place: `mdlSpreadTheLoad.Sub_20_22` at `@0005F750`, the routine that runs
+a task **by its index**, as a preamble before the run. Its six callers are the
+whole story — `Battles.Sub_12_1`/`Sub_12_4`, the NPC walk
+(`mdlSpreadTheLoad.Sub_20_2` at `00068B8E`/`00068BED`), and `Sub_20_11` /
+`Sub_20_33`. The typed-command matcher is not among them. The only way to
+make any probe speak was to wrap it in a second task whose action is *execute
+task N* — which is how `GDX1`…`GDXR` came to exist.
+
+And the preamble scans the task's **alternate** commands only. A TAF task
+stores a primary `Command` plus an `ALTCMD` array, and the array is what
+`Sub_20_22` walks, so `GD0` — whose *sole* command is the function — never
+evaluates it, while `GD2` (function written second) does. This was
+mis-diagnosed as a 1-based/0-based off-by-one for two rounds before the TAF
+record shape explained it.
+
+**The criteria, measured variant by variant.** Squeeze every space out of the
+command; it must open `#%object%=getdynfromroom(`; the **raw** command must
+end `)` (`getdynfromroom(larder)x` is not a function — `GDL`, retested twice).
+The squeezed argument is compared to the room's `Short`
+**case-insensitively** in both directions (`attic`≡`Attic`, `STUDY`≡`Study`),
+so the `LCase()` in the P-code is redundant — an early "Option Compare Binary"
+reading was wrong. The first **non-static** object standing directly in the
+room wins, in object order (`vault` holds *ring* then *gem* and yields the
+ring; a cellar holding only a static yields nothing, and yields the mop once
+one is put there). The reference survives the rest of the turn.
+
+**Two fenceposts, both deliberately not ported.** The room scan is `For r = 0
+To roomCount - 1` over a 1-based array, so the game's **last room** can never
+match: `larder` as room 10 of 10 returned nothing, and returned its pie the
+moment a sacrificial 11th room was appended. (Its object loop has no such bug
+— the mop, added last, is still found. That asymmetry is why the probe parks a
+spare at each end.) And it squeezes the *argument* but compares against the
+*unsqueezed* room name, so no room whose name contains a space is reachable —
+not `dark cave`, not `wine cellar`, not `winecellar`, and not the manual's own
+worked example `getdynfromroom(The Park)`. Both bugs can only lose a match the
+author meant to make, so Scarier squeezes both sides and scans every room, and
+says so at the fix site.
+
+**The port, and the corpus surprise.** `run_task_run_by_index()` (scrunner.cpp)
+is the new by-index runner carrying the preamble; the five `task_run_task()`
+sites that correspond to `Sub_20_22`'s callers now go through it (scbattle.cpp
+×2, scevents.cpp's 4.0 branch, `run_npc_walk_task()`'s 4.0 branch,
+`task_run_set_task_action()`). `run_game_functions()` and the entire
+`is_normal == FALSE` branch of the task matcher are deleted, which collapses
+`run_match_task_common()` back into `run_match_task_commands()`.
+
+§9 recorded this item as having no corpus exposure. It has exactly one user,
+and the "no exposure" reading was simply a bad grep: *Humbug*'s TASK 310
+(`# Robot cleaning` + `ALTCMD[1] = #%object% = getdynfromroom(Cellar)`) is not
+the target of any *execute task* action — but an event's `TaskAffected` runs a
+task by index just the same, and Humbug's always-restarting one-turn EVENT 45
+*robot in cellar* points straight at it. The getdynfromroom is what tells the
+robot which object to sweep down the chute. The faithful implementation
+reproduces the committed golden **byte for byte**; the old spontaneous pass
+had been firing the same task a *second* time every turn, and the golden
+happened to survive it. Turning the by-index preamble on while leaving the
+spontaneous pass in place is what broke Humbug — the robot ate the treasure
+map — and is how the double-fire was noticed at all. Corpus: v4 walkthroughs
+all PASS.
+
+### 2026-08-17, second batch — a static in your hands: what put it there, and what it weighs
+
+The §9 item that started as "statics have no `SizeWeight` — what should
+`obj_get_size`/`obj_get_weight` say?" turned out to be three questions, and the
+one in the code comments was the least interesting of them. The `SM` arena
+probe (`make_arena_probe.py`) carries a dynamic coin, a static plaque, events
+that move either one to the player's hands or to the far room, and two tasks
+whose actions move the *referenced* object — `grab %object%` (to held by
+player) and `hide %object%` (to hidden). Four run400 sessions under Wine:
+
+1. **Zero was right, but not for the stated reason.** `count` with the plaque
+   in the inventory reads `Size: 0 / Weight: 0` — but so does `count` with the
+   *coin* there, if an event is what put it there. The static's 0 was never
+   isolable against a baseline that was itself 0. It is right anyway: a static
+   can reach the hand by no other route, so run400 never charges for one.
+2. **A task action cannot move a static, by any selector or to any
+   destination.** `grab plaque` prints `SM: grabbed [the plaque].` — so the
+   `%object%` reference resolves to a static perfectly well — and then leaves
+   the plaque where it was. `hide plaque`, aimed at a static an event had
+   already put in the player's hands, is refused identically. That matches the
+   standing static-analysis note on run400's mover (`Sub_20_11 @0008C200`,
+   `If Objects(o).Static = 1 Then <next object>` at `@0008C360`, ahead of the
+   destination `Select Case`), and it was a genuine divergence: Scarier's
+   `task_move_object()` only limited the *by-index* selector to dynamics, so
+   the "referenced object", "all held" and "all worn" selectors moved statics
+   freely. Ported as an early return next to the existing negative-index
+   guard. This is the answer the `scevents.cpp ~317` comment wanted:
+   **`evt_move_object()` is the only place a static moves**, and its comment
+   now says so instead of asking.
+3. **The Runner's event mover half-moves an object into the hand, and that we
+   do not copy.** The inventory lister shows it; nothing else agrees. `count`
+   stays 0 while the coin is listed, `drop coin` answers `You are not holding
+   the coin.`, and `drop plaque` gets the out-of-scope `I don't understand
+   what you want me to do with the plaque.` Take the coin by hand instead and
+   `count` reads 1 — then let an event move it to the far room, and it leaves
+   the listing while `count` *stays* at 1. Both directions of stale. It is not
+   a running counter: `grab coin` twice in a row leaves `count` at 1 and
+   `drop coin` returns it to 0, so the totals are recomputed each time, over a
+   held-ness that the event mover simply never writes. Scarier recomputes from
+   object positions and is self-consistent — event-held coin weighs 1, and can
+   be dropped. Carried as `deliberate:`: reproducing the split would mean a
+   second held-state threaded through game state and the `.tas` save format,
+   to inherit a bug that grants free carrying capacity in one direction and
+   permanently confiscates it in the other.
+
+Scarier now reproduces (1) and (2) cell for cell against the run400
+transcripts, including the exact refusal texts. Regression: 251/251 v4
+walkthroughs, the full headless suite green (five `PASS: 0 failure(s)`
+blocks), a5 walkthroughs `MATCH=173, NOSCRIPT=2, SKIP=24` — no golden moved,
+which is what you would expect of a rule that only ever *refuses* a move no
+solved route asks for.
+
+### 2026-08-17, third batch — the `#` is gone before the lister runs
+
+The §9 item read "a leading `#` on an NPC's in-room description is taken as
+*use the default X is here*", and the probe was meant to settle what happens
+when `#`, empty and plain texts share a room. It settled something else: by
+the time the room lister runs there is **no `#` left to find**. The loader
+(@00091EDF) substitutes the whole text with `<name> is here.` when the game is
+read in, so the lister (@00072944) has nothing but ordinary texts in front of
+it, and the test it makes is on the **tail** — VB's `Right(text, 9)` against
+the literal `" is here."`.
+
+The `NH` arena probe (`make_arena_probe.py`) puts eight characters in one
+room: `Alpha` and `Charlie` with `#`, `Bravo` with a text of its own, `Echo`
+with an empty one, `Delta` with the default typed out in full
+(`Delta is here.`), `Foxtrot` with the default *shape* but someone else's name
+(`The stranger is here.`), and `Golf`/`Hotel` as near misses on punctuation
+and case. run400 prints, all on one line:
+
+```
+A bare probe room.  Alpha, Charlie, Delta and The stranger are here.  Bravo
+lurks in the corner.  Golf is here!  Hotel IS HERE.
+```
+
+which answers every part of it at once:
+
+1. **The author's own default folds in too.** `Delta` and `Foxtrot` join the
+   sentence. Nothing looked up a name to put there: `Foxtrot` contributes
+   *The stranger*, because what the sentence is built from is the text with
+   its last nine characters cut off.
+2. **The tail test is exact and case-sensitive.** `Golf is here!` misses on
+   the punctuation, `Hotel IS HERE.` on the case, and both print verbatim in
+   the second group — so this is a `Binary` comparison, unlike the string
+   compares in the same module that the `GD` probes found running under
+   `Option Compare Text`.
+3. **The joined sentence comes first.** Scarier had the two groups the other
+   way round, which was invisible for as long as the first group could only
+   hold `#` characters that no author bothers to mix with anything.
+4. **An empty text drops the character.** `Echo` is not mentioned. Unchanged
+   — Scarier already did this.
+
+`lib_print_room_contents()` (sclibrar.cpp) now collects the joined list first,
+from both routes, and the custom-text loop skips whatever the list took. Two
+things had to be handled that the Runner never sees, because the Runner has no
+line breaks in a room block at all (§3, the standing section-vs-paragraph
+divergence):
+
+- Authors routinely start a character's in-room text with `\n` or `<br>` so
+  the character gets its own line. The custom-text loop already stripped those
+  when the buffer was on a fresh line; the fold has to strip them *before* the
+  tail test as well, or `<br>Delta is here.` folds and then contributes
+  `<br>Delta`. `lib_skip_leading_breaks()` is shared by both sides so they
+  agree on what the text is.
+- The joined sentence used to be preceded by an unconditional break, and so by
+  a blank line. That is now conditional — one line break, never two —
+  documented at the fix site and in the §4 row as a **deliberate** change: a
+  group that now shares the block with the characters it belongs among should
+  not be fenced off from them, and one list to a line is what the rest of the
+  room block already does.
+
+Regression: 81 v4 goldens re-blessed, and every hunk in them is the fold, the
+reorder, or the line rewrapping those two cause — 547 of the deleted lines are
+the blank line above, and the only text that changes case is a folded
+`a monkey is here.` that now starts a line and so starts a sentence. After the
+rebless, 251/251 v4 walkthroughs, the full headless suite green (five
+`PASS: 0 failure(s)` blocks), a5 walkthroughs `MATCH=173, NOSCRIPT=2,
+SKIP=24`.
+
+### 2026-08-17, fourth batch — a stopped walk is not paused, it is rewound
+
+The §9 item offered two answers — a completed `StoppingTask` pauses the walk,
+or it ends it — and the right one is a third. Probe `S` of
+`make_400_walkprobe.py` is a looping two-stop walk, `Times` 2 and 2, with the
+`stopit` task as its `StoppingTask` and a `resume` task whose only action is
+the *unset task* action aimed back at `stopit`. Three sessions in run400 under
+Wine, each padded with two leading looks, freezing the walk at a different
+point of the cycle:
+
+| session | `stopit` on | `resume` on | what the release turn printed | next visible step |
+|---|---|---|---|---|
+| 1 | turn 6, standing at stop 0 | turn 10 | nothing | turn 12, `BOB LEAVES` |
+| 2 | turn 7, the turn the walk was **due to move** | turn 10 | nothing | turn 12, `BOB LEAVES` |
+| 3 | turn 4, standing **away** from stop 0 | turn 7 | `RESUME TASK DONE.  Bob BOB ENTERS..` | turn 9, `BOB LEAVES` |
+
+Read together they say one thing: while the stopping task is complete the walk
+is held at the **top of its cycle**, and the moment the task is un-completed it
+runs a fresh cycle, arriving at stop 0 on that very turn.
+
+- Session 3 is the one that shows it plainly. The walker is at the far stop,
+  and the release turn does not merely un-freeze it — it moves it, in the same
+  breath as the task's own completion text.
+- Sessions 1 and 2 look at first like a lost tick: the release turn is silent
+  and the next move is two turns away rather than one. It is the same fresh
+  cycle. The walker is already standing at stop 0, so the cycle's first act —
+  arrive at stop 0 — moves it to where it already is, and a move that goes
+  nowhere prints no enter line (the same rule walk probe K found for a
+  follow-player stop the walker was already sharing with the player).
+- Session 2 also settles the turn order, which was never in question but is
+  worth having on the record: `stopit` lands on the turn the walk was due to
+  move, and the walk does not move. The stopping-task check runs after the
+  player's task, on state the task has already changed.
+- And it rules out the reading Scarier had. A merely-frozen counter would have
+  had one tick left in session 2 and two in session 1, so the two sessions
+  would have released one turn apart. They did not.
+
+The port is one line: where `npc_tick_npc()` (scnpcs.cpp) skipped the tick and
+left the counter alone, it now calls `npc_start_npc_walk()` first. All three
+sessions then replay cell for cell against the run400 transcripts. Regression:
+256/256 v4 walkthroughs, the full headless suite green, a5 walkthroughs
+`MATCH=173, NOSCRIPT=2, SKIP=24` — **no golden moved**, which is what a corpus
+of solved walkthroughs should look like for a rule that can only be reached by
+un-completing a task on purpose.
+
+There is no 3.9 half to this. V390 has no *unset task* action at all — its
+action types 5 and up are V400's 6 and up, which is why the parser's
+`V390_TASK_ACTION:Type>4?#Type++` fixup exists — so a 3.9 stopping task, once
+complete, stays complete, and a stopped walk stays stopped whatever the model.
+
+### 2026-08-17, fifth batch — the negative length is a back-reference, and it was hiding a real bug
+
+The last §9 item said up front that it was not a probe, and it was not: it is
+data archaeology, and the data is the 427-game version 4.0 corpus itself. A
+one-line trace in `parse_get_v400_resource_offset()` printing every resource
+record as the parse meets it (name, length) turns the question into arithmetic.
+
+The rule, and it is exact:
+
+> A negative resource length `-N` means **entry N of the game's resource
+> table**, counting from one. The table holds each distinct resource *name* in
+> the order the parse encounters it.
+
+Two details are what the old `-(length+2)` guess was missing, and each one is
+worth the trace line that found it:
+
+1. **The `##` looping-sound flag is stripped before the name comparison.**
+   `.\Words_be.mid##` and `.\Words_be.mid` are one entry, not two.
+   `To_Hell_And_Beyond` alone has 21 records that line up only once this is
+   done — it is the game that settles the question, since deduplicating on the
+   raw name gets every one of them wrong and no game prefers the raw name.
+2. **A named resource with a length of zero still takes an entry.** These are
+   resources the author referred to but never embedded, and they are invisible
+   to Scarier because `parse_handle_v400_resource()` drops zero-length slots
+   before the table ever sees them. They are the reason the count "slips": in
+   `the_pk_girl` the first three back-references are dead on (`-1`, `-2`, `-3`)
+   and every later one is two too high, and the two extra entries are a pair of
+   truncated junk names — `./././././sounds/./.` and `./././././sounds/././s` —
+   sitting between `katryn.jpg` and `aileen.jpg` with no data behind them.
+
+Checked over the whole corpus: **535 negative records, 535 matches, zero
+misses.** (Under the raw-name variant, 514 of 535.)
+
+Scarier never counts. It resolves a back-reference by looking the name up in
+its own table, which reaches the same entry by a different road and needs no
+index — so the decode, by itself, changes nothing. The value of having it is
+that it says exactly where the two roads part: **a back-reference to a name
+that was only ever seen with a zero length.** Adrift has an entry for it;
+Scarier has none, the lookup fails, and the record fell through to the code
+that *adds* a resource — entering the back-reference itself as the length.
+Since each entry's offset is measured from the one before it
+(`offset = prev.offset + prev.length + 1`), a negative length there runs the
+whole chain backwards for every resource that follows.
+
+That was live, in two of the six games that have a dangling back-reference:
+
+| game | dangling name | cost |
+|---|---|---|
+| `MikeDesert_SuburbanProdigy3` | `.\gold.jpg`, entry 28 | the **ten** resources embedded after it, all 27 bytes early — both endings' pictures among them |
+| `House` | `././sounds/././sounds/././sounds`, entry 9 | `Atmos1.wav`, 8 bytes early |
+
+The other four (`Dream Quest`, `To_Hell_And_Beyond`, `Orient_Express`,
+`The_Shuffling_Room`) embed no resources at all, so their chains had nothing to
+corrupt. `House` turns out to be one of them in practice — its `Embedded` flag
+is off, so its offsets are never used — which leaves `MikeDesert` as the one
+game a player would have noticed, and only if they got to an ending.
+
+The fix is to report *no data* for an unresolvable back-reference instead of
+adding a table entry for it: the resource genuinely is not in the file, so
+length 0 is the truthful answer and the chain stays intact. Verified against
+the files' own bytes rather than against ourselves — take every embedded
+resource in the corpus, add the game's resource base to its computed offset,
+and read the first four bytes: **472/472 land on their own `GIF8` / `RIFF` /
+`MThd` / JPEG SOI marker.** Before the fix, `MikeDesert`'s last ten read as
+noise.
+
+Two trace lines stay behind, both under `SCR_TRACE_PARSE`: one naming each
+resource with its resolved length and offset, and one for the unembedded slots
+Adrift counts and we drop — which is the whole story of this item in two lines
+of output whenever a game misbehaves again.
+
+Regression: 256/256 v4 walkthroughs, the full headless suite green, a5
+walkthroughs `MATCH=173, NOSCRIPT=2, SKIP=24`. No golden moved; the headless
+harness has no resource playback, so the corpus cannot see this fix — the magic
+bytes are the test.
+
+With this, **§9 is closed**: five items, four settled in front of a running
+Runner and one in front of the corpus, all five ported.

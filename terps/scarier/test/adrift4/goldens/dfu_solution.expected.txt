@@ -89,7 +89,6 @@ sign droops along the wall and extends into the Alley to the East. Guarding
 the entrance to the North, is a giant bouncer. A card on his coat says "Hi,
 my name is Bruno", and the word Bruno is spelled with capitals, with many
 skull and crossbone signs near it.
-
 Bruno is here.
 
 > n

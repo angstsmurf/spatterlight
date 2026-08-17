@@ -653,16 +653,32 @@ npc_tick_npc (scr_gameref_t game, scr_int npc)
       stoppingtask = prop_get_integer (bundle, "I<-sisis", vt_key) - 1;
 
       /*
-       * If any stopping task has completed, ignore this walk but don't
-       * actually finish it; more like an event pauser, then.
+       * A completed stopping task holds the walk at the top of its cycle: it
+       * neither finishes it -- un-completing the task starts it moving again
+       * -- nor merely freezes the counter where it stood.  Re-arming it every
+       * stopped turn is what reproduces run400 (probe `S` of
+       * make_400_walkprobe.py, three sessions live under Wine,
+       * RUNNER_TESTS_TODO.md section 9): with a looping two-stop walk,
+       * Times = 2 and 2, stopping the walk anywhere in the cycle and
+       * un-completing the task N turns later always yields the same thing --
+       * the walk runs a *fresh* cycle, arriving at stop 0 on the turn the task
+       * is un-completed.  Stop it with the walker away from stop 0 and
+       * "resume" prints its own text and the walker's arrival in one breath:
+       * `RESUME TASK DONE.  Bob BOB ENTERS..`.  Stop it with the walker
+       * already standing at stop 0 and that arrival is a move to where it
+       * already is, so nothing is printed and the next visible step comes two
+       * turns later -- the one-turn delay that looks like a lost tick but is
+       * the cycle starting over.
        *
-       * TODO Is this right?  See RUNNER_TESTS_TODO.md section 9.
+       * Scarier used to skip the tick and leave the counter alone, which
+       * resumed mid-cycle instead.
        */
       if (stoppingtask >= 0 && gs_task_done (game, stoppingtask))
         {
           if (npc_trace)
-            scr_trace ("NPC: ignoring NPC %ld walk, stop task done\n", npc);
+            scr_trace ("NPC: holding NPC %ld walk, stop task done\n", npc);
 
+          npc_start_npc_walk (game, npc, walk);
           continue;
         }
 

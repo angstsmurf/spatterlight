@@ -72,7 +72,6 @@ Merchant's Stand
 In the vast land of checkerboards, you come to something of interest. There
 is a consession stand here with an array of items spread out on it. Behind
 the stand is a merchant wearing colorful clothes.
-
 Merchant is here.
 
 You can move east and west.
@@ -91,7 +90,6 @@ You move west.
 By the Banana Moon Statue
 There is a statue here of a big banana. Or maybe its a crescent moon. Hell, I
 can't tell.
-
 Old Man is here.
 
 You can move east and west.
@@ -147,7 +145,6 @@ You move east.
 By the Banana Moon Statue
 There is a statue here of a big banana. Or maybe its a crescent moon. Hell, I
 can't tell.
-
 Old Man is here.
 
 You can move east and west.
@@ -159,7 +156,6 @@ Merchant's Stand
 In the vast land of checkerboards, you come to something of interest. There
 is a consession stand here with an array of items spread out on it. Behind
 the stand is a merchant wearing colorful clothes.
-
 Merchant is here.
 
 You can move east and west.
@@ -181,7 +177,6 @@ You move south.
 
 Tree
 There is a huge dead tree here.
-
 Squirrel is here.
 
 You can move north and south.
@@ -432,7 +427,6 @@ Mansion Entrance
 Inside, it is very dark. There are cobwebs and dust everywhere. It is eerily
 quiet. The walls are blue-gray and the floors are black marble.  Above is an
 extravagent chandeleir, but it is not lit.
-
 Squirrel is here.
 
 > n
@@ -542,7 +536,6 @@ You move north.
 Mirror Ballroom
 How strange... It's just like the other ballroom, except creepier and
 backwards.
-
 Vampy is here.
 
 You can move east and south.
@@ -555,7 +548,6 @@ You move east.
 Corridor
 This is a cold, narrow, dead-end corridor that the ghost likes to haunt. The
 walls and floor are made of stone and it is dark and lonely.
-
 Ghost is here.
 
 You can only move west.
@@ -580,7 +572,6 @@ You move west.
 Mirror Ballroom
 How strange... It's just like the other ballroom, except creepier and
 backwards.
-
 Vampy is here.
 
 You can move east and south.
@@ -648,7 +639,6 @@ Merchant's Stand
 In the vast land of checkerboards, you come to something of interest. There
 is a consession stand here with an array of items spread out on it. Behind
 the stand is a merchant wearing colorful clothes.
-
 Merchant is here.
 
 You can move east and west.
@@ -663,7 +653,6 @@ You move west.
 By the Banana Moon Statue
 There is a statue here of a big banana. Or maybe its a crescent moon. Hell, I
 can't tell.
-
 Old Man is here.
 
 You can move east and west.
@@ -704,7 +693,6 @@ Merchant's Stand
 In the vast land of checkerboards, you come to something of interest. There
 is a consession stand here with an array of items spread out on it. Behind
 the stand is a merchant wearing colorful clothes.
-
 Merchant is here.
 
 You can move east and west.
@@ -826,7 +814,6 @@ Merchant's Stand
 In the vast land of checkerboards, you come to something of interest. There
 is a consession stand here with an array of items spread out on it. Behind
 the stand is a merchant wearing colorful clothes.
-
 Merchant is here.
 
 You can move east and west.
@@ -927,7 +914,6 @@ Merchant's Stand
 In the vast land of checkerboards, you come to something of interest. There
 is a consession stand here with an array of items spread out on it. Behind
 the stand is a merchant wearing colorful clothes.
-
 Merchant is here.
 
 You can move east and west.
@@ -978,7 +964,6 @@ Mansion Entrance
 Inside, it is very dark. There are cobwebs and dust everywhere. It is eerily
 quiet. The walls are blue-gray and the floors are black marble.  Above is an
 extravagent chandeleir, but it is not lit.
-
 Squirrel is here.
 
 Vampy glides in from outside.

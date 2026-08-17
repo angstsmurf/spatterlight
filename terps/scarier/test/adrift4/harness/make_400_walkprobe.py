@@ -35,6 +35,31 @@ matching its direct event-task execution.
                   ObjectTask, and does dropping the MeetObject beside the
                   mid-stay walker fire it?  Session:
                   z n s z get rock z drop rock z.
+    S             StoppingTask: a looping two-stop walk (Times = 2 / 2) with
+                  StoppingTask = the "stopit" task, plus a "resume" task whose
+                  only action is type 5 Var1=1 Var2=0, i.e. un-complete
+                  "stopit".  MEASURED 2026-08-17, three sessions in run400:
+                  the stopping task neither finishes the walk nor freezes its
+                  counter where it stood -- it holds the walk at the TOP of
+                  its cycle, so un-completing the task runs a fresh cycle
+                  starting that very turn.  Sessions (each padded with two
+                  leading looks):
+                    1  z z z stopit z z z resume z z z z  -- frozen standing
+                       at stop 0; resume is silent and the next move is two
+                       turns later (the fresh cycle's "arrival" at stop 0 is
+                       a move to where Bob already is)
+                    2  z z z z stopit z z resume z z z z  -- stopit lands on
+                       the turn the walk was due to move: it does not move,
+                       so the check runs after the player's task; resume then
+                       behaves exactly as in session 1, which is what proves
+                       the counter is re-armed rather than held
+                    3  z stopit z z resume z z z z        -- frozen away from
+                       stop 0, and the resume turn prints
+                       "RESUME TASK DONE.  Bob BOB ENTERS.." in one breath
+                  There is no 3.9 twin: V390 has no "unset task" action at
+                  all (its action types 5+ are V400's 6+), so a completed
+                  stopping task can never be un-completed in a 3.9 game and
+                  the question does not arise there.
 
 Output is the PLAIN body only; produce a Runner-valid .taf with:
 
@@ -154,7 +179,7 @@ else:
     s(0)
 
 # TASKS
-def task(cmd, text, restr=None):
+def task(cmd, text, restr=None, actions=()):
     s(1); s(cmd)         # V$Command: count, then count lines
     s(text)              # CompleteText
     s("")                # ReverseMessage
@@ -175,7 +200,9 @@ def task(cmd, text, restr=None):
         s(gate)          # Var1: 1-based task index
         s(0)             # Var2: 0 = task must be done (gate never is -> FAIL)
         s(failmsg)       # FailMessage
-    s(0)                 # Actions
+    s(len(actions))      # Actions: raw field tuples, e.g. (5, 1, 0) to unset
+    for a in actions:    # task 0 -- Var2 there is a 0-based task index.
+        for f in a: s(f)
     s("#" if restr else "")  # RestrMask ("#" = the single restriction)
     # RESOURCE Res: nothing
 
@@ -198,17 +225,24 @@ elif variant == "M":             # M: ObjectTask, no CharTask
     s(1)
     task("#metobj", "OBJTASK FIRED.")
     chartask = 0
+elif variant == "S":             # S: StoppingTask -- pause or finish?
+    s(2)
+    task("stopit", "STOP TASK DONE.")
+    task("resume", "RESUME TASK DONE.", actions=[(5, 1, 0)])
+    chartask = 0
 else:                            # C/D/H/K/L: no wildcard -- walk wiring only
     s(1)
     task("#met", "CHARTASK FIRED.")
     chartask = 1
 
 # D/E/F/G/H/K: visible looping walk (a 1-stop walk never runs in the Runners).
-looped = variant in ("D", "E", "F", "G", "H", "K", "L", "M")
+looped = variant in ("D", "E", "F", "G", "H", "K", "L", "M", "S")
 
 # How many turns the walker stays at each stop.  Only H/K use a stay longer
 # than one turn -- that is the whole point of them.
 times = (3, 2) if variant in ("H", "K", "L", "M") else (1, 1)
+if variant == "S":
+    times = (2, 2)
 
 # K: stop 0 is "follow player" (walk Rooms value 1) instead of a fixed room.
 first_stop = 1 if variant == "K" else 2
@@ -233,7 +267,7 @@ s(0)                     # StartTask (0 = start at game start)
 s(chartask)              # CharTask (1-based task index of #met)
 s(1 if variant == "M" else 0)  # MeetObject (1-based dynamic-object index)
 s(1 if variant == "M" else 0)  # ObjectTask
-s(0)                     # StoppingTask
+s(1 if variant == "S" else 0)  # StoppingTask (1-based -> "stopit")
 s(0)                     # MeetChar (0 = the player)
 s("")                    # ChangedDesc
 s(first_stop)            # Rooms[0]: 0=hidden 1=follow n+2=room n -> room 0

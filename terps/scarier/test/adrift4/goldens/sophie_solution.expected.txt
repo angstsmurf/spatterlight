@@ -167,7 +167,6 @@ the patches of lichen are crude drawings which you suppose were left behind
 by the previous inhabitants of the cave. The sound of the sea breaking on the
 shore can be heard from outside.
    Exits lie: northeast (to the beach).
-
 Grumble, Snitch, Arkle, Grolsch "Thigh-Cracker" Thunderhammer the
 Skullbreaker and Randle are here.
 
@@ -737,7 +736,6 @@ and doesn't look at all safe), you see a battered old font, which hints that
 this used to be some kind of church a long time ago. The bustle of the
 outside world drifts in from the north.
    Exits lie: north (to Merridew Lane).
-
 Lurch, Grunge and Moppet are here.
 
 Grumble complaining of beer deprivation staggers in from the north.
@@ -1688,7 +1686,6 @@ everything is quite eerie and shadowy here.
 wooded area.
    Exits lie: southwest (to outside the Prancing Pratt Public House) and
 northeast and southeast (deeper into the wooded area).
-
 Kontik is here.
 
 Grumble complaining of beer deprivation staggers in from the south-west.
@@ -1818,7 +1815,6 @@ everything is quite eerie and shadowy here.
 wooded area.
    Exits lie: southwest (to outside the Prancing Pratt Public House) and
 northeast and southeast (deeper into the wooded area).
-
 Kontik is here.
 
 Grumble complaining of beer deprivation staggers in from the south-east.
@@ -1853,10 +1849,9 @@ seems very bothered by this.
 several very stressed looking waitresses.
    Exits lie: northwest (to the road outside the Prancing Pratt), east (to
 the games room), southeast (to the fight pit) and south (to the strip den).
+Smiggles the bartender and Snark are here.
 Seated at a table in the corner of the room is Balfour.  Stiran is here,
-regarding the proceedings with disdain.  Smiggles the bartender is here.
-
-Snark is here.
+regarding the proceedings with disdain.
 
 Grumble complaining of beer deprivation staggers in from the north-west.
 
@@ -1945,8 +1940,9 @@ seems very bothered by this.
 several very stressed looking waitresses.
    Exits lie: northwest (to the road outside the Prancing Pratt), east (to
 the games room), southeast (to the fight pit) and south (to the strip den).
+Smiggles the bartender is here.
 Seated at a table in the corner of the room is Balfour.  Stiran is here,
-regarding the proceedings with disdain.  Smiggles the bartender is here.
+regarding the proceedings with disdain.
 
 As you enter the main room, you catch sight of a girl swiping someone's
 wallet and sneaking off southwards into the strip den.
@@ -2000,8 +1996,9 @@ seems very bothered by this.
 several very stressed looking waitresses.
    Exits lie: northwest (to the road outside the Prancing Pratt), east (to
 the games room), southeast (to the fight pit) and south (to the strip den).
+Smiggles the bartender is here.
 Seated at a table in the corner of the room is Balfour.  Stiran is here,
-regarding the proceedings with disdain.  Smiggles the bartender is here.
+regarding the proceedings with disdain.
 
 Grumble complaining of beer deprivation staggers in from the south.
 
@@ -2060,8 +2057,9 @@ seems very bothered by this.
 several very stressed looking waitresses.
    Exits lie: northwest (to the road outside the Prancing Pratt), east (to
 the games room), southeast (to the fight pit) and south (to the strip den).
+Smiggles the bartender is here.
 Seated at a table in the corner of the room is Balfour.  Stiran is here,
-regarding the proceedings with disdain.  Smiggles the bartender is here.
+regarding the proceedings with disdain.
 
 Grumble complaining of beer deprivation staggers in from above.
 
@@ -3295,7 +3293,6 @@ up. A dust-covered table and several dust-covered chairs are arrayed in front
 of a dust-covered fireplace while a flight of steps lead up to the next
 floor.
    Exits lie: south (to outside the farmhouse).
-
 Melissa is here.
 
 The moment you step inside the farmhouse, you hear a sound that goes
@@ -3951,7 +3948,6 @@ look like the sort of things that would give you nightmares if you spent too
 long thinking about them.
    Exits lie: south (to the shadowy hall), northwest (to a corridor) and
 north (to a large open chamber).
-
 Benthem, Rudgutter, Srorg, Ilasera and Pulm are here.
 
 "Ah, and who might you be, girl?" asks Benthem. "Wandering around the bowels

@@ -143,7 +143,6 @@ overly large headphones. You take you seat on the pleather bus seat. The
 pleather seems to have been torn and is mostly gone. There is also a blood
 stain on the seat next to you. The roar of the engine is terrible for your
 headache. You should just wait and get this ride over with.
-
 Driver is here.
 
 > wait
@@ -172,7 +171,6 @@ secretary behind a rather large desk. The room smells rather odd and the
 secruity is sleeping. The benches are all occupied but random people in
 suites, forcing you to stand in your bathrobe. This could not be awkward. You
 should ask the secretary about debit card.
-
 Secretary is here.
 
 > ask secretary about mail
@@ -193,7 +191,6 @@ desk. Behind the single desk is a short man in a suite stamping some papers
 with a bluetooth earpiece in his ear. This is the sad image of bureaucracy.
 The vast ammount of typing is not helping your headache. His nameplate on the
 desk reads Walter. The Lobby is to the east.
-
 Walter is here.
 
 > ask walter about debit card
@@ -211,7 +208,6 @@ secretary behind a rather large desk. The room smells rather odd and the
 secruity is sleeping. The benches are all occupied but random people in
 suites, forcing you to stand in your bathrobe. This could not be awkward. You
 should ask the secretary about debit card.
-
 Secretary is here.
 
 > give the approval note to secretary
@@ -230,7 +226,6 @@ small bean bag is a platypus. The nametag on the desk simply says "The
 Platypus - Director of Form Requests" Well, the upside is that the cellar is
 dark so your head doesn't hurt as bad. You should try to speak with the
 platypus. To the east is back to the lobby.
-
 Platypus is here.
 
 > ask platypus about approval note
@@ -304,7 +299,6 @@ plates, and clothes. The meal seems to be egg whites and milk. You and your
 terrible bathrobe stick out like a sore thumb. all the patients have name
 tags. There is a Larry, Moe, and Curly. There is also a doctor. You should
 probably talk to him.
-
 Curly, Larry and Doctor are here.
 
 > ask doctor about approval form
@@ -386,7 +380,6 @@ secretary behind a rather large desk. The room smells rather odd and the
 secruity is sleeping. The benches are all occupied but random people in
 suites, forcing you to stand in your bathrobe. This could not be awkward. You
 should ask the secretary about debit card.
-
 Secretary is here.
 
 > e
@@ -397,7 +390,6 @@ This is a massive room with many many cubicles. There is a single desk in
 front of you while the massive ammount of cubicles loom behind the single
 desk.  Except this time, the platypus is here. He seems happy. You give
 approval notes to platypus.
-
 Walter is here.
 
 > give approval notes to platypus

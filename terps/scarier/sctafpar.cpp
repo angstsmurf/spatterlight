@@ -1425,9 +1425,28 @@ parse_clear_v400_resources_table (void)
  * order in which they are encountered when reading through the TAF file.
  *
  * A warning -- this function may return a new length.  Resources that
- * have been seen once already have non-useful (though apparently non-zero)
- * lengths; this function needs to handle that.  The caller needs to compare
+ * have been seen once already carry a negative length instead of their real
+ * one; this function needs to handle that.  The caller needs to compare
  * length with real_length to see if that happened.
+ *
+ * What the negative length is, is a back-reference: -N means "this is entry
+ * N of the game's resource table", counting from one.  That table holds each
+ * distinct resource *name* in the order the parse meets it, with the trailing
+ * "##" looping flag stripped before the comparison, and it counts entries
+ * whose length is zero -- resources named but not embedded -- just the same
+ * as embedded ones.  Only a slot with no name at all is passed over.  The
+ * rule reproduces all 535 negative records in the 427-game version 4.0
+ * corpus exactly, and the "##" stripping is not cosmetic: To_Hell_And_Beyond
+ * has 21 records that only line up once it is done (RUNNER_TESTS_TODO.md
+ * section 9).
+ *
+ * We resolve back-references by name rather than by index, which comes to
+ * the same thing and needs no separate count.  The one case where the
+ * distinction bites is a back-reference to a name that was only ever seen
+ * with a zero length -- a resource the author referred to but never embedded.
+ * Those names are not in our table, since the caller drops zero-length slots
+ * before we see them, so the lookup fails; see below for why that must not
+ * become a table entry.
  */
 static scr_int
 parse_get_v400_resource_offset (const scr_char *name,
@@ -1472,6 +1491,29 @@ parse_get_v400_resource_offset (const scr_char *name,
       return offset;
     }
 
+  /*
+   * A back-reference we could not resolve names a resource that is not in the
+   * TAF: every embedded resource enters the table at its first appearance, so
+   * the only way to miss is for that first appearance to have had a length of
+   * zero.  Report no data instead of adding an entry, because the entry would
+   * hold the back-reference itself as a length, and the offset of every
+   * resource added after it is measured from the one before -- a negative
+   * length there runs the whole chain backwards.  That was live: it put
+   * House's Atmos1.wav 8 bytes early and all ten of the resources
+   * MikeDesert_SuburbanProdigy3 embeds after its dangling ".\gold.jpg" 27
+   * bytes early, both endings' pictures among them.
+   */
+  if (length < 0)
+    {
+      if (parse_trace)
+        scr_trace ("Parse: dangling back-reference %ld for \"%s\"\n",
+                   length, clean_name);
+
+      scr_free (clean_name);
+      *real_length = 0;
+      return 0;
+    }
+
   /* Resize the resources table if required. */
   if (parse_resources_length == parse_resources_size)
     {
@@ -1511,16 +1553,18 @@ parse_get_v400_resource_offset (const scr_char *name,
  * Extra special handling for a version 4.0 resource; extracts details of
  * the sound or graphic just parsed, and adds an offset property if defined.
  *
- * A warning -- Adrift seems to use -ve numbers as lengths for resources
- * already parsed, where TAF files include the resource.  It's unclear
- * what the -ve values mean, so here we ignore them and work off the
- * resource file name given.  This means we have to look for length not
- * equal to zero, not just lengths greater than zero.
+ * Adrift uses -ve numbers as lengths for resources already parsed, where TAF
+ * files include the resource: -N means "see entry N of the resource table",
+ * counting from one over distinct names in encounter order.  We ignore the
+ * number and work off the resource file name given, which reaches the same
+ * entry; parse_get_v400_resource_offset() has the details, and the corpus
+ * evidence, above.  This is why we have to look for length not equal to
+ * zero, not just lengths greater than zero.
  *
- * TODO Work out what this means.  The -ve lengths look like a form of
- * 'resource number'; -(length+2) is tantalizingly close to the index into
- * our parse_resources table, but not always...  See RUNNER_TESTS_TODO.md
- * section 9.
+ * Zero-length slots we drop here still occupy a numbered entry in Adrift's
+ * table.  That costs us nothing, since we never count -- but it does mean a
+ * back-reference can name a resource we have never recorded, and that case
+ * is handled where the lookup fails rather than here.
  */
 static void
 parse_handle_v400_resource (const scr_char *file_key,
@@ -1535,16 +1579,27 @@ parse_handle_v400_resource (const scr_char *file_key,
   length = parse_get_keyed_integer (length_key);
 
   /*
+   * Named but with no data of its own.  We drop it below; Adrift still counts
+   * it, so trace it -- a back-reference that lands here is why one can dangle.
+   */
+  if (parse_trace && length == 0
+      && !scr_strempty (file) && strcmp (file, "##") != 0)
+    scr_trace ("Parse: unembedded resource \"%s\"\n", file);
+
+  /*
    * If defined and has a length, rewrite the offset, and also the length
    * in case changed.
    */
   if (!scr_strempty (file) && length != 0)
     {
-      scr_int real_length;
+      scr_int real_length, offset;
 
-      parse_put_keyed_integer (offset_key,
-                               parse_get_v400_resource_offset (file, length,
-                                                               &real_length));
+      offset = parse_get_v400_resource_offset (file, length, &real_length);
+      parse_put_keyed_integer (offset_key, offset);
+
+      if (parse_trace)
+        scr_trace ("Parse: resource \"%s\" len %ld at %ld\n",
+                   file, real_length, offset);
 
       /* Rewrite length if changed. */
       if (real_length != length)
@@ -3480,6 +3535,9 @@ parse_add_resources_offset (scr_prop_setref_t bundle, scr_tafref_t taf)
    */
   embedded = prop_get_global_boolean (bundle, "Embedded");
   offset = embedded ? taf_get_game_data_length (taf) + 1 : 0;
+
+  if (parse_trace)
+    scr_trace ("Parse: resource base %ld\n", offset);
 
   /* Add this offset to the properties. */
   vt_key.string = "ResourceOffset";

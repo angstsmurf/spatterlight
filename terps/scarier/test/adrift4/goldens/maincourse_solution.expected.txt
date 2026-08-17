@@ -285,7 +285,6 @@ Room is empty. Only Cryo Tube here. So must be cryo stasis room.
 SoMorph think at least room is clean. Wish room was warmer.
 
 SoMorph see exit to East.
-
 Human is here.
 
 SoMorph can only move east.
@@ -317,7 +316,6 @@ SoMorph think at least room is clean. Wish room was warmer.
 SoMorph see exit to East.
 
 Also here is a dead human.
-
 Human is here.
 
 SoMorph can only move east.
@@ -337,7 +335,6 @@ SoMorph think at least room is clean. Wish room was warmer.
 SoMorph see exit to East.
 
 Also here is a dead human.
-
 Human is here.
 
 SoMorph can only move east.
@@ -413,7 +410,6 @@ he not seem very friendly to SoMorph.
 SoMorph can go South to corridor.
 
 Also here is some catnip.
-
 Frank is here.
 
 SoMorph can only move south.

@@ -2930,9 +2930,7 @@ of the vampire.    In the corner is a large chest.
 
 Exits lie: west (to the ancient feasthall)
 
-Chad the vampire is here.
-
-Lara is here.
+Chad the vampire and Lara are here.
 
    Chad looks up as you enter and presses a dagger hard against Lara's
 throat. "You've found me then? Now what are you going to do?"

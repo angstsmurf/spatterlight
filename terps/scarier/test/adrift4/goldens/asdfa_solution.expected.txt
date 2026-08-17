@@ -144,7 +144,6 @@ Aside from the coffin, there's nothing much here. Yep, the coffin. You're not
 quite sure why there's a coffin in the cellar but it doesn't take a genius to
 guess what's inside.
    Exits lie: up (to the top of the steps).
-
 Toto is here.
 
    "Toto!" you cry. "What are you doing here?"
@@ -197,7 +196,6 @@ in a dream you might find the roaring fire and cosy armchair to be quite
 welcoming. As it is, you find yourself looking around for creepy things and
 getting more than a little creeped out when you don't find them.
    Exits lie: southeast (to the entrance).
-
 Otto is here.
 
    "Otto!" you say. "Thank god I've got a friend in all of this!"

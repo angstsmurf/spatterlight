@@ -65,7 +65,6 @@ You move down.
 Control Stairwell
 Underneath the steel framework that supports the control room above the
 laboratory floor, a stairwell leads up.  The lab floor is to the north.
-
 Mhentsh is here.
 
 Jeriah Eldon enters from the north.
@@ -291,9 +290,8 @@ You move south.
 Control Stairwell
 Underneath the steel framework that supports the control room above the
 laboratory floor, a stairwell leads up.  The lab floor is to the north.
-Jeriah Eldon is pacing here musing over a notepad.
-
 Mhentsh is here.
+Jeriah Eldon is pacing here musing over a notepad.
 
 > u
 You move up.
@@ -348,9 +346,8 @@ You move down.
 Control Stairwell
 Underneath the steel framework that supports the control room above the
 laboratory floor, a stairwell leads up.  The lab floor is to the north.
-Jeriah Eldon is pacing here musing over a notepad.
-
 Mhentsh is here.
+Jeriah Eldon is pacing here musing over a notepad.
 
 Mark Eridian walks in from above.
 

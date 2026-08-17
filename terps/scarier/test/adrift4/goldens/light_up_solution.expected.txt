@@ -1853,7 +1853,6 @@ couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
 bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
 same...but everything is so different. It is not clear where I can go.
-
 Lina, Scotty, Tippant and Donna are here.
 
 Bits of ice barrage me from the side. It feels like a thousand tiny
@@ -2123,7 +2122,7 @@ couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
 bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
 same...but everything is so different. It is not clear where I can go.
-An ozgat is here.  A riven is here.
+An ozgat and A riven are here.
 Lina hits Ozgat.
 Scotty hits Ozgat.
 Riven manages to avoid Donna's attack.
@@ -2660,7 +2659,6 @@ couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
 bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
 same...but everything is so different. It is not clear where I can go.
-
 Red Riven and Blue Riven are here.
 
 I lapse into a coughing fit, unable to control myself. I cough up a thick
@@ -3057,7 +3055,6 @@ couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
 bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
 same...but everything is so different. It is not clear where I can go.
-
 Lina, Scotty, Tippant, Donna and Chip are here.
 
 The ground in front of me drops out, creating a swirling vortex of a
@@ -3072,7 +3069,7 @@ couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
 bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
 same...but everything is so different. It is not clear where I can go.
-An ozgat is here.  A higher is here.  A riven is here.
+An ozgat, A higher and A riven are here.
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.

@@ -43,7 +43,6 @@ Hotel Lobby
 You are now in the lobby of the hotel. You see the check in desk here. To the
 west you see what appears to be a waiting room. To the east, you can see the
 street. By going up, you can go to the floor that your room is on.
-
 Inn keeper is here.
 
 > e
@@ -206,7 +205,6 @@ You are standing in a very messy room, which for lack of a better word would
 have to be considered a lab. There are beakers and papers everywhere. Oddly
 enough, all of the chemicals that are not in beakers do appear to be neatly
 stacked in cabinet.
-
 Wizard is here.
 
 > give herb to wizard

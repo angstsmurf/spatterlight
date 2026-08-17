@@ -131,19 +131,31 @@ def build(cfg):
         s(0); s("")                         # PrefTime1 PrefText1
         s(0); s(0)                          # ResumeTask ResumerCompleted
         s(0); s("")                         # PrefTime2 PrefText2
-        s(0); s(0); s(0); s(0); s(0); s(0)  # Obj2/Dest Obj3/Dest Obj1/Dest
+        # Obj2/Dest Obj3/Dest Obj1/Dest.  Object numbers are 1-based, 0 = none.
+        # Destinations are 0 hidden, 1 held by player, 2 the player's room,
+        # 3 + N room N, and beyond that room groups.  Obj1 moves when the
+        # event starts, Obj2 and Obj3 when it finishes.
+        if isinstance(e, dict):
+            s(e.get('obj2', 0)); s(e.get('obj2dest', 0))
+            s(e.get('obj3', 0)); s(e.get('obj3dest', 0))
+            s(e.get('obj1', 0)); s(e.get('obj1dest', 0))
+        else:
+            s(0); s(0); s(0); s(0); s(0); s(0)
         s(aff)                              # TaskAffected
 
-    npcs = cfg['npcs']                      # (name, room0based, att, stam, strLo,strHi, accLo,accHi, defLo,defHi, agiLo,agiHi, speed, recovery [, killedtask, staminatask])
+    npcs = cfg['npcs']                      # (name, room0based, att, stam, strLo,strHi, accLo,accHi, defLo,defHi, agiLo,agiHi, speed, recovery [, killedtask, staminatask, inroomtext])
     s(len(npcs))
     for n in npcs:
         (name, room, att, stam, sl, sh, al, ah, dl, dh, gl, gh, speed, rec) = n[:14]
         ktask = n[14] if len(n) > 14 else 0     # 1-based task refs, 0 = none
         stask = n[15] if len(n) > 15 else 0
+        # InRoomText: "#" asks for the engine's default "<name> is here." line,
+        # and "" drops the NPC from the room description altogether.
+        inroom = n[16] if len(n) > 16 else name + " is here, looking dangerous."
         s(name); s("a"); s(0)
         s("A probe NPC."); s(room + 1); s(""); s(0)
         s(0); s(0); s(0)                    # topics walks showenterexit
-        s(name + " is here, looking dangerous."); s(0)
+        s(inroom); s(0)
         s(att)
         s(stam); s(stam)
         s(sl); s(sh); s(al); s(ah); s(dl); s(dh); s(gl); s(gh)
@@ -905,6 +917,320 @@ CONFIGS = {
                 actions=[(4,3), (6,0,0,0)]),
            dict(commands=["sclose"], complete="SC0 sclose.",
                 actions=[(4,3), (6,1,0,0)])]),
+ # getdynfromroom (RUNNER_TESTS_TODO section 9, "getdynfromroom selection
+ # criteria").  run400 evaluates the function inside Sub_20_22 -- the routine
+ # that *runs a task by its index* -- as a preamble, so it is not a matcher at
+ # all: nothing here fires on a typed command, and every probe below has to be
+ # reached through a wrapper task whose action is "execute task N".  Read off
+ # @0005F750 and then measured live, variant by variant:
+ #
+ #   For each ALTERNATE command of the task     ' the primary Command is not
+ #     If Left(Replace(cmd, " ", ""), 25)       ' in the array it walks
+ #          = "#%object%=getdynfromroom("
+ #       And Right(cmd, 1) = ")"                ' the RAW command, not squeezed
+ #     Then
+ #       arg = the squeezed text between "(" and the final ")"
+ #       For r = 0 To roomCount - 1             ' 1-based array: LAST room lost
+ #         If arg = Rooms(r).Short Then         ' case-INsensitive
+ #           For o = 0 To objCount - 1          ' 0-based: no fencepost here
+ #             If Objects(o).[1A] = r And Objects(o).[18] = 0 Then ref = o : Exit For
+ #
+ # Measured results, all live in run400 with the wrappers below:
+ #
+ #   GD1/GD3..GD0   function written as the task's FIRST command: never
+ #                  evaluated (the TAF's primary Command is not an ALTCMD).
+ #   GD2/GDA/GDD/GDE  function written second, third or last: evaluated.
+ #   GDF/GDG/GDH    "attic"/"STUDY"/"Attic" all match "Attic"/"Study", so the
+ #                  comparison is case-insensitive both ways and the LCase()
+ #                  in the P-code is redundant.
+ #   GDI/GDJ/GDK    "dark cave", "winecellar" and "wine cellar" ALL miss: the
+ #                  argument is squeezed but the room name is not, so no room
+ #                  whose name contains a space is reachable -- not even by
+ #                  the manual's own example, "getdynfromroom(The Park)".
+ #   GDL            "getdynfromroom(larder)x" misses: the raw command's last
+ #                  character has to be ")".
+ #   GDM            the cellar's mop, added as the LAST object, is still found.
+ #   GDN            "larder" as room 10 of 10 missed, and started returning
+ #                  its pie the moment a spare 11th room was appended -- the
+ #                  room loop drops the last room, the object loop does not.
+ #   GDE/GDR        the vault holds "ring" then "gem" and yields the ring:
+ #                  first in object order wins.
+ #   GD3            the cellar holding only a static yields nothing.
+ #
+ # Scarier reproduces all of that except the two run400 bugs that can only
+ # lose an intended match: it squeezes the room name too (so GDI/GDJ/GDK do
+ # fire) and it scans every room (so GDN would fire even as the last room).
+ # Both are marked "deliberate:" in scrunner.cpp run_is_task_function().
+ #
+ # Every syntax variant gets a room of its own, holding exactly one dynamic
+ # object nothing else claims.  That matters because the probes are destructive
+ # -- each one that works empties its room -- so two probes sharing a room would
+ # leave the second one silent for the wrong reason.
+ #
+ #   0 hall         coin      the player's own room, plain lowercase name
+ #   1 kitchen      spoon     function line written *second*
+ #   2 cellar       (static)  a room whose only content is a static
+ #   3 Attic        trunk     lowercase argument vs a capitalised room
+ #   4 dark cave    bat       argument with a space, matching the room
+ #   5 Study        lamp      uppercase argument vs a capitalised room
+ #   6 wine cellar  rope      space-stripped argument vs a spaced room
+ #   7 vault        ring,gem  two candidates: which one wins?
+ #   8 shed         hoe       reached only by a task with no typeable command
+ #   9 larder       pie       argument with junk after the ")"
+ 'GD': dict(name="Probe GD", persp=1, maxscore=0,
+    player=(200,0,0,0,0,0,0,0,0,0),
+    # Long descriptions are deliberately identical to the Shorts, so a probe
+    # that fires tells us nothing about *which* room field run400 matches
+    # against -- and one that still misses rules the question out entirely.
+    rooms=[("hall","hall",{}), ("kitchen","kitchen",{}),
+           ("cellar","cellar",{}), ("Attic","Attic",{}),
+           ("dark cave","dark cave",{}), ("Study","Study",{}),
+           ("wine cellar","wine cellar",{}), ("vault","vault",{}),
+           ("shed","shed",{}), ("larder","larder",{}),
+           # A sacrificial last room and a sacrificial last object: run400's
+           # room and object loops both run 0 To count-1 over 1-based arrays,
+           # so whatever sits last is never reached.  Parking a spare at each
+           # end keeps "larder" and "the mop" inside the visited range -- and
+           # the mop, in the otherwise static-only cellar, is what proves the
+           # object loop drops its last entry too.
+           ("spare","spare",{})],
+    objects=[("a","key",1,0,0,0,0,0,0),      # held by the player
+             ("a","coin",4,0,0,0,0,0,0),     # hall
+             ("a","spoon",5,0,0,0,0,0,0),    # kitchen
+             ("a","trunk",7,0,0,0,0,0,0),    # Attic
+             ("a","bat",8,0,0,0,0,0,0),      # dark cave
+             ("a","lamp",9,0,0,0,0,0,0),     # Study
+             ("a","rope",10,0,0,0,0,0,0),    # wine cellar
+             ("a","ring",11,0,0,0,0,0,0),    # vault, first
+             ("a","gem",11,0,0,0,0,0,0),     # vault, second
+             ("a","hoe",12,0,0,0,0,0,0),     # shed
+             ("a","pie",13,0,0,0,0,0,0),    # larder
+             ("a","mop",6,0,0,0,0,0,0)],     # cellar, alone with the static
+    statics=[("a","plaque",1,2)],            # cellar: the only thing in it
+    npcs=[],
+    # run400 does not expand %object% in CompleteText at all -- it prints the
+    # placeholder verbatim -- so each probe instead carries a "move the
+    # REFERENCED object to held by the player" action (type 0, Var1 = 2 the
+    # referenced object, Var2 = 4 held by, Var3 = 0 the player) and the answer
+    # is read off the inventory.
+    tasks=[# Control: prove the observation channel itself.  `gdc coin` sets the
+           # referenced object the ordinary way, so if this one does not bring
+           # the coin to hand then a silent getdynfromroom probe below means
+           # nothing.
+           dict(commands=["gdc %object%"],
+                complete="GDC [%theobject%]", actions=[(0,2,4,0)]),
+           dict(commands=["# %object% = getdynfromroom(hall)","gd1"],
+                complete="GD1 [%theobject%]", actions=[(0,2,4,0)]),
+           # Function line second: does the scan look past the first command?
+           dict(commands=["gd2","# %object% = getdynfromroom(kitchen)"],
+                complete="GD2 [%theobject%]", actions=[(0,2,4,0)]),
+           dict(commands=["# %object% = getdynfromroom(cellar)","gd3"],
+                complete="GD3 [%theobject%]", actions=[(0,2,4,0)]),
+           dict(commands=["# %object% = getdynfromroom(attic)","gd4"],
+                complete="GD4 [%theobject%]", actions=[(0,2,4,0)]),
+           dict(commands=["# %object% = getdynfromroom(STUDY)","gd5"],
+                complete="GD5 [%theobject%]", actions=[(0,2,4,0)]),
+           dict(commands=["# %object% = getdynfromroom(dark cave)","gd6"],
+                complete="GD6 [%theobject%]", actions=[(0,2,4,0)]),
+           dict(commands=["# %object% = getdynfromroom(winecellar)","gd7"],
+                complete="GD7 [%theobject%]", actions=[(0,2,4,0)]),
+           dict(commands=["# %object% = getdynfromroom(vault)","gd8"],
+                complete="GD8 [%theobject%]", actions=[(0,2,4,0)]),
+           dict(commands=["# %object% = getdynfromroom(larder)x","gd9"],
+                complete="GD9 [%theobject%]", actions=[(0,2,4,0)]),
+           # No typeable command at all.  Scarier used to scan for the function
+           # in a pass over every task on every player command and fire the
+           # task itself when it matched, so this one fired spontaneously
+           # there; run400 only evaluates the function while running a task by
+           # index, and stayed silent.  That whole spontaneous pass is gone as
+           # of the section 9 port, so this probe is silent in both now.
+           dict(commands=["# %object% = getdynfromroom(shed)"],
+                complete="GD0 SPONTANEOUS [%theobject%]", actions=[(0,2,4,0)]),
+           # run400 evaluates the function only inside the by-index task runner
+           # (mdlSpreadTheLoad.Sub_20_22), which the typed-command matcher never
+           # reaches -- so these three drive the same probes the other way, via
+           # an "execute task" action (type 5, Var1 = 0, Var2 = 0-based index).
+           dict(commands=["gdx1"], complete="GDX1 [%theobject%]",
+                actions=[(5,0,1)]),
+           dict(commands=["gdx2"], complete="GDX2 [%theobject%]",
+                actions=[(5,0,2)]),
+           dict(commands=["gdx3"], complete="GDX3 [%theobject%]",
+                actions=[(5,0,3)]),
+           dict(commands=["gdx4"], complete="GDX4 [%theobject%]",
+                actions=[(5,0,4)]),
+           dict(commands=["gdx5"], complete="GDX5 [%theobject%]",
+                actions=[(5,0,5)]),
+           dict(commands=["gdx6"], complete="GDX6 [%theobject%]",
+                actions=[(5,0,6)]),
+           dict(commands=["gdx7"], complete="GDX7 [%theobject%]",
+                actions=[(5,0,7)]),
+           dict(commands=["gdx8"], complete="GDX8 [%theobject%]",
+                actions=[(5,0,8)]),
+           dict(commands=["gdx9"], complete="GDX9 [%theobject%]",
+                actions=[(5,0,9)]),
+           dict(commands=["gdx0"], complete="GDX0 [%theobject%]",
+                actions=[(5,0,10)]),
+           # Only GD2 above matched, and GD2 is the only one whose function
+           # line is not the *first* command -- so this pair swaps the two
+           # variables over: hall with the function second, kitchen with the
+           # function first.  Whichever fires names the real discriminator.
+           dict(commands=["gda","# %object% = getdynfromroom(hall)"],
+                complete="GDA [%theobject%]"),
+           dict(commands=["# %object% = getdynfromroom(kitchen)","gdb"],
+                complete="GDB [%theobject%]"),
+           dict(commands=["gdxa"], complete="GDXA [%theobject%]",
+                actions=[(5,0,21)]),
+           dict(commands=["gdxb"], complete="GDXB [%theobject%]",
+                actions=[(5,0,22)]),
+           # Three-command tasks pin down the scanned range: is it "every
+           # command but the first", or only the last?
+           dict(commands=["dd1","dd2","# %object% = getdynfromroom(shed)"],
+                complete="GDD [%theobject%]"),
+           dict(commands=["ee1","# %object% = getdynfromroom(vault)","ee2"],
+                complete="GDE [%theobject%]"),
+           dict(commands=["gdxd"], complete="GDXD [%theobject%]",
+                actions=[(5,0,25)]),
+           dict(commands=["gdxe"], complete="GDXE [%theobject%]",
+                actions=[(5,0,26)]),
+           # With the position question settled, the argument-syntax questions
+           # get re-asked with the function safely in second place, and with no
+           # actions at all so that nothing empties a room behind our back.
+           dict(commands=["ff","# %object% = getdynfromroom(attic)"],
+                complete="GDF [%theobject%]"),      # lower arg vs "Attic"
+           dict(commands=["gg","# %object% = getdynfromroom(STUDY)"],
+                complete="GDG [%theobject%]"),      # upper arg vs "Study"
+           dict(commands=["hh","# %object% = getdynfromroom(Attic)"],
+                complete="GDH [%theobject%]"),      # exact arg vs "Attic"
+           dict(commands=["ii","# %object% = getdynfromroom(dark cave)"],
+                complete="GDI [%theobject%]"),      # spaced arg, spaced room
+           dict(commands=["jj","# %object% = getdynfromroom(winecellar)"],
+                complete="GDJ [%theobject%]"),      # stripped vs "wine cellar"
+           dict(commands=["kk","# %object% = getdynfromroom(wine cellar)"],
+                complete="GDK [%theobject%]"),      # spaced vs "wine cellar"
+           dict(commands=["ll","# %object% = getdynfromroom(larder)x"],
+                complete="GDL [%theobject%]"),      # junk after the ")"
+           dict(commands=["mm","# %object% = getdynfromroom(cellar)"],
+                complete="GDM [%theobject%]"),      # a room holding only a static
+           dict(commands=["gdxf"], complete="GDXF [%theobject%]",
+                actions=[(5,0,29)]),
+           dict(commands=["gdxg"], complete="GDXG [%theobject%]",
+                actions=[(5,0,30)]),
+           dict(commands=["gdxh"], complete="GDXH [%theobject%]",
+                actions=[(5,0,31)]),
+           dict(commands=["gdxi"], complete="GDXI [%theobject%]",
+                actions=[(5,0,32)]),
+           dict(commands=["gdxj"], complete="GDXJ [%theobject%]",
+                actions=[(5,0,33)]),
+           dict(commands=["gdxk"], complete="GDXK [%theobject%]",
+                actions=[(5,0,34)]),
+           dict(commands=["gdxl"], complete="GDXL [%theobject%]",
+                actions=[(5,0,35)]),
+           dict(commands=["gdxm"], complete="GDXM [%theobject%]",
+                actions=[(5,0,36)]),
+           # The shape "Humbug" uses, and the only shape in either corpus: a
+           # "#" comment first, the function second, nothing typeable.  Does
+           # the Runner ever run such a task by itself?
+           dict(commands=["# gdn comment","# %object% = getdynfromroom(larder)"],
+                complete="GDN FIRED [%theobject%]"),
+           dict(commands=["gdxn"], complete="GDXN [%theobject%]",
+                actions=[(5,0,45)]),
+           # GDN came back empty even though its function line is second and
+           # its room is a plain lowercase one with a pie in it -- so a leading
+           # "#" comment does something.  These four vary where the comment
+           # sits relative to a plain command and to the function.
+           dict(commands=["# o1","# o2","# %object% = getdynfromroom(larder)"],
+                complete="GDO [%theobject%]"),
+           dict(commands=["pp","# p1","# %object% = getdynfromroom(larder)"],
+                complete="GDP [%theobject%]"),
+           dict(commands=["# q1","qq","# %object% = getdynfromroom(larder)"],
+                complete="GDQ [%theobject%]"),
+           dict(commands=["# r1","# %object% = getdynfromroom(vault)"],
+                complete="GDR [%theobject%]"),
+           dict(commands=["gdxo"], complete="GDXO [%theobject%]",
+                actions=[(5,0,47)]),
+           dict(commands=["gdxp"], complete="GDXP [%theobject%]",
+                actions=[(5,0,48)]),
+           dict(commands=["gdxq"], complete="GDXQ [%theobject%]",
+                actions=[(5,0,49)]),
+           dict(commands=["gdxr"], complete="GDXR [%theobject%]",
+                actions=[(5,0,50)])]),
+ # Moving a static object (RUNNER_TESTS_TODO section 9, "static objects moved
+ # into the inventory"), SETTLED LIVE 2026-08-17.  Three results, from four
+ # run400 sessions over this one probe:
+ #
+ #   smhold, z, i   -> "You are carrying a plaque."  An EVENT moves a static
+ #                     into the hand; run400 does it too.
+ #   grab plaque    -> "SM: grabbed [the plaque]." and the plaque does not
+ #                     move.  A TASK ACTION never moves a static, whatever the
+ #                     selector or destination -- run400's mover Sub_20_11
+ #                     @0008C200 bails at @0008C360, "If Objects(o).Static = 1
+ #                     Then <next object>", ahead of the destination cases.
+ #                     "hide plaque" with the plaque already in hand is
+ #                     refused the same way.  Scarier moved it; now ported
+ #                     (task_move_object).  So evt_move_object() really is the
+ #                     only place a static moves.
+ #   count          -> 0 while the coin is in the inventory BY EVENT, and 1
+ #                     after "take coin"; and after "grab coin" twice it is
+ #                     still 1, so the total is recomputed, not counted up.
+ #                     An event's "held by player" is a half-move in run400:
+ #                     listed, but not held.  deliberate: not reproduced.
+ 'SM': dict(name="Probe SM", persp=1, maxscore=0,
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Probe Room","A bare probe room.",{0: 1}),
+           ("Far Room","A far room.",{2: 0})],
+    objects=[("a","coin",4,0,0,0,0,0,0)],
+    statics=[("a","plaque",1,0)],            # Probe Room only
+    npcs=[],
+    tasks=[dict(commands=["smcoin"], complete="SM: coin event armed."),
+           dict(commands=["smhold"], complete="SM: plaque-to-player armed."),
+           dict(commands=["smroom"], complete="SM: plaque-to-Far-Room armed."),
+           dict(commands=["smaway"], complete="SM: coin-to-Far-Room armed."),
+           # The event mover is not the only way a static can reach the hand:
+           # a task action's "referenced object" selector reaches statics too,
+           # since only the by-index selector is restricted to dynamics.
+           dict(commands=["grab %object%"], complete="SM: grabbed [%theobject%].",
+                actions=[(0,2,4,0)]),
+           dict(commands=["hide %object%"], complete="SM: hid [%theobject%].",
+                actions=[(0,2,0,0)])],
+    events=[dict(short="SM Coin", affected=0, starter=3, tasknum=1, restart=0,
+                 time1=1, time2=1, starttext="SM1 start.",
+                 obj1=1, obj1dest=1),        # coin -> held by player
+            dict(short="SM Hold", affected=0, starter=3, tasknum=2, restart=0,
+                 time1=1, time2=1, starttext="SM2 start.",
+                 obj1=2, obj1dest=1),        # plaque -> held by player
+            dict(short="SM Room", affected=0, starter=3, tasknum=3, restart=0,
+                 time1=1, time2=1, starttext="SM3 start.",
+                 obj1=2, obj1dest=4),        # plaque -> Far Room
+            dict(short="SM Away", affected=0, starter=3, tasknum=4, restart=0,
+                 time1=1, time2=1, starttext="SM4 start.",
+                 obj1=1, obj1dest=4)]),      # coin -> Far Room, from the hand
+ # NPC in-room text (RUNNER_TESTS_TODO section 9, "'#' in-room text for NPCs").
+ # run400 does the "#" substitution in the *loader* @00091EDF -- the text
+ # becomes "<name> is here." there and then -- and the room lister @00072944
+ # partitions the NPCs on Right(text, 9) = " is here.", emitting that group
+ # first as one joined sentence and the custom texts after it.  Scarier tests
+ # for a literal "#" at list time and emits the two groups the other way
+ # round, so an author text that happens to end in " is here." is never folded
+ # into the joined sentence.  Delta below is exactly that case.
+ 'NH': dict(name="Probe NH", persp=1, maxscore=0,
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Probe Room","A bare probe room.",{})],
+    objects=[], tasks=[],
+    npcs=[("Alpha",0,0,250,0,0,0,0,0,0,0,0,0,0,0,0,"#"),
+          ("Bravo",0,0,250,0,0,0,0,0,0,0,0,0,0,0,0,
+           "Bravo lurks in the corner."),
+          ("Charlie",0,0,250,0,0,0,0,0,0,0,0,0,0,0,0,"#"),
+          ("Delta",0,0,250,0,0,0,0,0,0,0,0,0,0,0,0,"Delta is here."),
+          ("Echo",0,0,250,0,0,0,0,0,0,0,0,0,0,0,0,""),
+          # Does the joined sentence name the NPC, or echo the text with its
+          # " is here." trimmed off?  Foxtrot's text names someone else.
+          ("Foxtrot",0,0,250,0,0,0,0,0,0,0,0,0,0,0,0,
+           "The stranger is here."),
+          # A near miss: same words, wrong punctuation -- stays custom.
+          ("Golf",0,0,250,0,0,0,0,0,0,0,0,0,0,0,0,"Golf is here!"),
+          # Is the suffix test Option Compare Text, like the module's other
+          # string compares (see the GD probes), or Binary?
+          ("Hotel",0,0,250,0,0,0,0,0,0,0,0,0,0,0,0,"Hotel IS HERE.")]),
 }
 
 if __name__ == '__main__':

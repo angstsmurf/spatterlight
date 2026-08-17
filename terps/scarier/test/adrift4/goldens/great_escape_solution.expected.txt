@@ -218,7 +218,6 @@ landing. You feel that it would be innappropriate to venture out of the house
 at this point without at least a pair of well-washed trousers.
 
 Also here is the letter.
-
 First Thug and Second Thug are here.  Two enormous men crash through your
 door. They both look quite dangerous
 
@@ -269,7 +268,6 @@ been long since forgotten.  Mounted on the wall is a huge painting. From here
 you can move west to the street or east to Mrs Walters' kitchen.
 
 Also here is the burger-phone.
-
 Mrs Walters is here.
 
 > give chocolate to mrs walters
@@ -384,7 +382,6 @@ upstairs landing or west to the outside world and all it's myriad wonders
 (choke!)
 
 Also here is the letter.
-
 Unconscious First Thug, Unconscious Second Thug and Julie are here.
 
 > converse with julie
@@ -503,7 +500,6 @@ An important-looking notice hangs on one of the walls.  From here you can
 move north, east, west or down. North leads to the 'useless book section',
 east leads to the 'foreign book section', west leads to the 'modern fiction'
 section and down leads back down to the shopping centre entrance.
-
 Betty is here.
 
 > w
@@ -529,7 +525,6 @@ An important-looking notice hangs on one of the walls.  From here you can
 move north, east, west or down. North leads to the 'useless book section',
 east leads to the 'foreign book section', west leads to the 'modern fiction'
 section and down leads back down to the shopping centre entrance.
-
 Betty is here.
 
 > give pills to betty
@@ -595,7 +590,6 @@ From here you can move north, east, west or down. North leads to the 'useless
 book section', east leads to the 'foreign book section', west leads to the
 'modern fiction' section and down leads back down to the shopping centre
 entrance.
-
 Betty is here.
 
 > w
@@ -803,7 +797,6 @@ combo. Unfortunately for you, the bank worker happens to be Norwegian, a
 country whose language you have never been able to master.  Armed with your
 knowledge of Norwegian, you feel certain that you will be able to have a
 decnt conversation with Mr George. You can only move south from here.
-
 Norge George is here.
 
 > converse with norge george
@@ -907,7 +900,6 @@ hand cars.  The Fullerton 'Hog' seems to call to you from it's space on the
 'cheapo car of the week' stand. From here, you can go north to the south end
 of the street or south to Matthews' office, although he usually keeps it
 locked.
-
 Matthews is here.
 
 > converse with matthews
@@ -947,7 +939,6 @@ hand cars.  The Fullerton 'Hog' seems to call to you from it's space on the
 'cheapo car of the week' stand. From here, you can go north to the south end
 of the street or south to Matthews' office, newly accessable through the use
 of his key.
-
 Unconscious Matthews is here.
 
 > enter car

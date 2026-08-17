@@ -216,7 +216,6 @@ apartment was built. Now it just looks funny, not to speak of the horrible
 greenish color on the walls.  You can go south to the living room. To the
 north is the staircase down to the first floor, but you have no reason to
 leave the apartment.
-
 Hanna is here.
 
 > eat hanna
@@ -251,7 +250,6 @@ Bathroom
 You always get claustrophobic when you enter your bathroom. It's the smallest
 room in the apartment, even the staircase is bigger. A shower cabinet, a sink
 and a toilet barely fits in here. You can go south to the bedroom.
-
 Hanna is here.
 
 > ask hanna about invitation

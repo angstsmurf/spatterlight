@@ -554,7 +554,6 @@ bedroom. The front door has been wedged open. Just inside the front door is
 an open trapdoor.
 
  Just inside the front door is an open trapdoor.
-
 The Big Bad Wolf is here.
 
 I can move north, west, up, down and out.
@@ -598,7 +597,6 @@ bedroom. The front door has been wedged open. Just inside the front door is
 an open trapdoor.
 
  Just inside the front door is an open trapdoor.
-
 The Big Bad Wolf is here.
 
 I can move north, west, up, down and out.
@@ -645,7 +643,6 @@ bedroom. The front door has been wedged open. Just inside the front door is
 an open trapdoor.
 
  Just inside the front door is an open trapdoor.
-
 The Big Bad Wolf is here.
 
 I can move north, west, up, down and out.

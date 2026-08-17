@@ -62,7 +62,6 @@ you. In fact you don't think they ever were. They all preferred the Star and
 for that the Youth is going to pay. You can only head south.
 
 Also here is a bunch of flowers and a teddy bear.
-
 The Youth is here.
 
 > x The Youth
@@ -156,7 +155,6 @@ The Monster's locker room
 The Monster is here, sitting on the floor brooding, in preparation for his
 title challenge. The light is broken, leaving the room near-dark apart from a
 few candles on the floor. You can only head south.
-
 The Monster is here.
 
 > x The Monster
@@ -205,7 +203,6 @@ The High Flyer is here practicing his aerial maneuvers before the tournament
 on a mattress on the floor. You don't see that there is a place in wrestling
 for these flashy stupid moves and would gladly outlaw them. You can only head
 north.
-
 The High Flyer is here.
 
 > x The High Flyer
@@ -271,7 +268,6 @@ you. In fact you don't think they ever were. They all preferred the Star and
 for that the Youth is going to pay. You can only head south.
 
 Also here is a bunch of flowers.
-
 The Youth is here.
 
 > throw acid at The Youth

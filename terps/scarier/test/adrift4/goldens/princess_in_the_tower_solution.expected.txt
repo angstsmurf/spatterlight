@@ -184,7 +184,6 @@ about as you make your way around. In the middle of the cave is pit sunken
 into the floor in which are the roasted bodies of several unfortunate fellows
 who decided to wander around in a dank cave in the dark. The outside world is
 to the north.
-
 Grimbel is here.
 
 > x pit
@@ -483,7 +482,6 @@ You've reached a clearing in the forest, in the centre of which are a trio of
 standing stones. Each appears to be of immense age and they are covered with
 lichen and moss which give off a foul smelling odour. A path leads away to
 the northwest.
-
 Lorel is here.
 
 > x stones
@@ -552,7 +550,6 @@ wildebeests roam. And a door leads inside the tower itself.
 Inside the tower
 You're in the tower which is the final location in the game and, as time is
 pressing, pretty damn empty of things to examine.
-
 The Princess is here.
 "Ah," says the princess. "You made it after all."
 

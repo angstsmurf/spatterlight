@@ -286,7 +286,6 @@ is a musty smell that fills the air. There is a large cave east of here and a
 smaller one to the west. Northwest takes you into a winding passage.
 Southeast takes you down a straight passage.  The path northwest is being
 blocked by a large troll.
-
 Narfild is here.
 
 Serond follows you from the south-east.
@@ -426,7 +425,8 @@ Serond follows you from the south-west.
 Long Glaven path
 The path is long and will take you either northeast to a junction or
 southwest towards a cave.   Tarin the dwarf is barring your way northeast.
-Serond is standing on your right.  Tarin, the dwarf is here.
+Tarin, the dwarf is here.
+Serond is standing on your right.
 
 > give food to tarin
 Tarin takes the food eagerly. Tarin eats the food and then he bows his head
@@ -556,7 +556,6 @@ You are in the centre of a easily distinguishable Elven camp. There are small
 wooden huts to the north, east,  southeast and south. The huts are covered
 with mud and branches. A wide path leads west to a junction. A small path
 leads southwest towards the sea.
-
 Natalya is here.
 
 Serond follows you from the west.
@@ -591,7 +590,6 @@ You are in the centre of a easily distinguishable Elven camp. There are small
 wooden huts to the north, east,  southeast and south. The huts are covered
 with mud and branches. A wide path leads west to a junction. A small path
 leads southwest towards the sea.
-
 Natalya is here.
 
 Serond follows you from the east.
@@ -621,7 +619,6 @@ You are in the centre of a easily distinguishable Elven camp. There are small
 wooden huts to the north, east,  southeast and south. The huts are covered
 with mud and branches. A wide path leads west to a junction. A small path
 leads southwest towards the sea.
-
 Natalya is here.
 
 Serond follows you from the north.
@@ -633,7 +630,6 @@ South wooden hut
 This hut appears to be an area for cooking and eating. There is a fire in the
 centre of the hut with a large metal pan hanging over it. There is a long
 table around the outside.
-
 Derek is here.
 
 Serond follows you from the north.
@@ -649,7 +645,6 @@ You are in the centre of a easily distinguishable Elven camp. There are small
 wooden huts to the north, east,  southeast and south. The huts are covered
 with mud and branches. A wide path leads west to a junction. A small path
 leads southwest towards the sea.
-
 Natalya is here.
 
 Serond follows you from the south.
@@ -682,7 +677,6 @@ You are in the centre of a easily distinguishable Elven camp. There are small
 wooden huts to the north, east,  southeast and south. The huts are covered
 with mud and branches. A wide path leads west to a junction. A small path
 leads southwest towards the sea.
-
 Natalya is here.
 
 Serond follows you from the south-east.
@@ -985,7 +979,6 @@ You are at the centre of a long footbridge, reaching across the ravine. There
 is a handrail on either side, with planks of wood to walk on. West goes to
 one side of the bridge, east to the other.  Larnt is standing in front of you
 barring the way.
-
 Larnt is here.
 
 Serond follows you from the west.
@@ -1083,7 +1076,6 @@ The hall is huge and has Gargoyles around the ceiling. When looking at one,
 another seems to move out of the corner of your eye.  Out will take you back
 outside. North will take you into a long room. West will take you into a
 corridor. East will take you into a smaller room.
-
 Larnt is here.
 
 Serond follows you from the south.

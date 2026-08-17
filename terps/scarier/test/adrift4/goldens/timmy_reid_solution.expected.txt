@@ -128,7 +128,6 @@ upward from the fuse box.
 In the Cottage Living Room
 You are standing in the small cottage living room.  The living room is pitch
 dark.
-
 Jon is here.
 You've earned 5 additional points for doing the right thing.
 Electricity rips through your spine as your ears are attacked by one of Art's
@@ -146,7 +145,6 @@ wall is an antique clock , a small fuse box and a magazine rack.  There is
 also a crummy old couch there.  To the north is a stairway leading upstairs,
 the bathroom door and a corner seat.  A small plastic sea gull hangs on the
 end of the chain that dangles from the light above.
-
 Jon is here.
 You get only 2 points for doing something obvious.
 
@@ -166,7 +164,6 @@ solitaire in the corner.  The window coverings are some cruddy old bamboo
 roll-up blinds.
 
 Also here is a thin mattress.
-
 Kevin is here.
 
 > open storage chest
@@ -266,7 +263,6 @@ wall is an antique clock , a small fuse box and a magazine rack.  There is
 also a crummy old couch there.  To the north is a stairway leading upstairs,
 the bathroom door and a corner seat.  A small plastic sea gull hangs on the
 end of the chain that dangles from the light above.
-
 Hovey is here.
 
 Hovey shuffles off to the north.
@@ -282,7 +278,6 @@ in the kitchen...  To the north is a small window with a towel rack below.
 To the east is a small shower stall.  To the west is a toilet and a vanity.
 (You have quite cleverly avoided being emprisoned with the old "knife trick"
 by taking  all the knives from the silverware drawer.)
-
 Hovey is here.
 
 > get grandpa's shoes
@@ -318,7 +313,6 @@ in the kitchen...  To the north is a small window with a towel rack below.
 To the east is a small shower stall.  To the west is a toilet and a vanity.
 (You have quite cleverly avoided being emprisoned with the old "knife trick"
 by taking  all the knives from the silverware drawer.)
-
 Hovey and The faint odor of snappers are here.
 
 Hovey shuffles off to the south.
@@ -349,7 +343,6 @@ wall is an antique clock , a small fuse box and a magazine rack.  There is
 also a crummy old couch there.  To the north is a stairway leading upstairs,
 the bathroom door and a corner seat.  A small plastic sea gull hangs on the
 end of the chain that dangles from the light above.
-
 The faint odor of snappers is here.
 
 > e
@@ -363,7 +356,6 @@ sink, a silverware drawer, a gas stove and a kitchen cupboard.
 
 Also here is a plastic garbage container, the kitchen table and the kitchen
 chairs.
-
 Hovey is here.
 
 Hovey shuffles off to outside.
@@ -381,7 +373,6 @@ fastened above the porch door and an old welcome mat lies just before the
 front door.  There is a yellow bug light above the kitchen window and a
 clothes line running from a large silver colored pulley up to the telephone
 pole near the road.
-
 Hovey is here.
 Your ears are rudely awakened by the sound of a skill saw screaming and
 scraping through some lumber off  in the distance.
@@ -412,7 +403,6 @@ set of concrete steps leading steeply up to the front porch.  There is a
 vague cloud of smoke billowing up from the porch door.  They live here year
 round and have for as long as you can remember.  There is a very deep and
 wide rut to the left of the stairs where Puppy has dug out a bed.
-
 Puppy is here.  The sound of a skill saw ripping through some lumber can be
 heard intermittantly off in the distance.
 The sound of a skill saw ripping lumber finally fades to  stillness.
@@ -433,7 +423,6 @@ Oakland Avenue.  The porch windows are large with wire screens.  There is an
 old beat up telephone pole in front of the cottage with a clothes line
 running from it.  There is an old tree stump directly in front of the
 cottage.  Uncle George's cottage is on the south side of the road.
-
 The faint odor of snappers is here.
 
 > e
@@ -442,7 +431,6 @@ You move east.
 On Oakland Ave. @ side yard
 You are standing on Oakland Ave at the top of the cottage side yard.  To the
 south is the ball field behind the Salvation Army building.
-
 Hovey is here.
 
 Hovey shuffles off to the north.
@@ -457,7 +445,6 @@ This is the side yard of the cottage.  This is where people sometimes park
 their cars when they stay at the cottage.  You can usually fit two cars in
 here.  The grass is very long and is in need of whackin'.  Somebody should be
 out here cuttin' the grass with the bladed golf club.
-
 Hovey is here.
 Electricity rips through your spine as your ears are attacked by one of Art's
 coughing fits.  It ends after several seconds and you wonder if he's dead.
@@ -471,7 +458,6 @@ wooded door that leads to a crawl space below the cottage.  The door is set
 below the surface of the grass and wooden boards hold back the dirt from the
 depression.  The grass is very long and is in need of whackin'.  Grandpa or
 Dad should be out here with the bladed golf club.
-
 Dad is here.
 
 Hovey shuffles towards you from the south.
@@ -518,7 +504,6 @@ wooded door that leads to a crawl space below the cottage.  The door is set
 below the surface of the grass and wooden boards hold back the dirt from the
 depression.  The grass is very long and is in need of whackin'.  Grandpa or
 Dad should be out here with the bladed golf club.
-
 Hovey, Dad and The faint odor of snappers are here.
 Electricity rips through your spine as your ears are attacked by one of Art's
 coughing fits.  It ends after several seconds and you wonder if he's dead.
@@ -567,7 +552,6 @@ cottage and the Salvation Army building.  It is a small grassy field with
 dirt spots worn where the bases and home plate would be on a baseball field.
 There is a large tree in shallow center field and the backs of the cottages
 on Oakland Ave. angle away to the west.
-
 Billy is here.  The sound of a skill saw ripping through some lumber can be
 heard intermittantly off in the distance.
 The sound of a skill saw ripping lumber finally fades to  stillness.
@@ -740,7 +724,6 @@ You smell old newspapers.  Grandpa gets his morning paper and plain donuts
 here.
 
 Also here is a box of plain donuts.
-
 Jon is here.
 
 > take the box of plain donuts
@@ -809,7 +792,6 @@ Household supplies like tapes, pins, extension cords, clothes lines and
 pulleys are here.  There are other useful things like matches and lighter
 fluid.  There are also fun things like caps and cap guns, balsa wood
 airplanes and all sorts of oddly colored cheap toys imported from Hong Kong.
-
 Mr. Wortman is here.
 
 > look
@@ -822,7 +804,6 @@ Household supplies like tapes, pins, extension cords, clothes lines and
 pulleys are here.  There are other useful things like matches and lighter
 fluid.  There are also fun things like caps and cap guns, balsa wood
 airplanes and all sorts of oddly colored cheap toys imported from Hong Kong.
-
 Jon and Mr. Wortman are here.
 
 > buy matches
@@ -874,7 +855,6 @@ This is the Old Orchard Beach Police Station.  It looks much like the police
 station on the Andy Griffith Show.  There is a small table with a coffee
 maker and some donuts on the north wall.  Jail cells line the east wall and
 there is a counter on the west wall.
-
 Jon, Captain Miller and Wayne Tucker are here.
 
 > get jelly donut
@@ -1185,7 +1165,6 @@ You are standing in the northwest corner of Palace Playland.  The Sizzler is
 here and is whipping innocent victims around in centripital circles.  There
 is a booth where you have to knock down three fuzzy looking creatures with a
 large softball.  Boring!!!
-
 Dave the Guesser is here.
 
 > s
@@ -1219,7 +1198,6 @@ powder on everything, especially the floor.  The smell of carbon saturates
 the air.  There is a maintenance closet at the far end of the building.
 
 Also here is a fine black powder.
-
 Dodgem Cars attendant is here.
 
 > ask the attendant for the key
@@ -1292,7 +1270,6 @@ On Grand Ave. near bar
 You are standing just outside of a biker bar.  It seems deserted but you
 realize that everybody is inside already.  There is a steady hum of music
 from within and you can hear glass breaking occassionally.
-
 Bouncer is here.  Traffic is zipping by in both directions.
 
 A band of Harley's cruises toward you from the south.
@@ -1376,7 +1353,6 @@ at the low tide mark.  The rocks are called Googin's Rocks although you don't
 know why.
 
 Also here is a young family.
-
 Sunbather is here.  The airplane is a red piper cub with a white stripe going
 down the body.  The engine sounds like an old pick truck driving up a steep
 grade.  The sign which it is draggins is approximately 20 feet long and is
@@ -1419,7 +1395,6 @@ at the low tide mark.  The rocks are called Googin's Rocks although you don't
 know why.
 
 Also here is a young family.
-
 Sunbather is here.
 
 Canadian couple walks towards you from the north.
@@ -1473,7 +1448,6 @@ On Grand Ave. near bar
 You are standing just outside of a biker bar.  It seems deserted but you
 realize that everybody is inside already.  There is a steady hum of music
 from within and you can hear glass breaking occassionally.
-
 Bouncer is here.  Traffic is zipping by in both directions.
 
 > bribe the bouncer
@@ -1545,7 +1519,6 @@ You move west.
 On Oakland Ave. @ side yard
 You are standing on Oakland Ave at the top of the cottage side yard.  To the
 south is the ball field behind the Salvation Army building.
-
 Hovey and Billy are here.  You can see Billy casually riding his bike on the
 road near the cottage.  He's quite shakey due to the slow speed and tight
 turns but he doesn't falter.
@@ -1574,7 +1547,6 @@ Oakland Avenue.  The porch windows are large with wire screens.  There is an
 old beat up telephone pole in front of the cottage with a clothes line
 running from it.  There is an old tree stump directly in front of the
 cottage.  Uncle George's cottage is on the south side of the road.
-
 Jon is here.  You can see Billy casually riding his bike on the road near the
 cottage.  He's quite shakey due to the slow speed and tight turns but he
 doesn't falter.
@@ -1587,7 +1559,6 @@ Oakland Avenue.  The porch windows are large with wire screens.  There is an
 old beat up telephone pole in front of the cottage with a clothes line
 running from it.  There is an old tree stump directly in front of the
 cottage.  Uncle George's cottage is on the south side of the road.
-
 Jon is here.  You can see Billy casually riding his bike on the road near the
 cottage.  He's quite shakey due to the slow speed and tight turns but he
 doesn't falter.
@@ -1600,7 +1571,6 @@ Oakland Avenue.  The porch windows are large with wire screens.  There is an
 old beat up telephone pole in front of the cottage with a clothes line
 running from it.  There is an old tree stump directly in front of the
 cottage.  Uncle George's cottage is on the south side of the road.
-
 Jon is here.  You can see Billy casually riding his bike on the road near the
 cottage.  He's quite shakey due to the slow speed and tight turns but he
 doesn't falter.
@@ -1615,7 +1585,6 @@ Oakland Avenue.  The porch windows are large with wire screens.  There is an
 old beat up telephone pole in front of the cottage with a clothes line
 running from it.  There is an old tree stump directly in front of the
 cottage.  Uncle George's cottage is on the south side of the road.
-
 Jon and The faint odor of snappers are here.  You can see Billy casually
 riding his bike on the road near the cottage.  He's quite shakey due to the
 slow speed and tight turns but he doesn't falter.

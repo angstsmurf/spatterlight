@@ -26,9 +26,8 @@ What'll it be sir. The bracelet and strips of tickets are five dollars each.
 Hurry up now got a line forming here.
 
 Also here is a hundred dollars, a drink and a ticket.
-The tall man is pleasant.
-
 Ticket man and Your children 8) are here.
+The tall man is pleasant.
 
 There are exits north and east.
 
@@ -50,7 +49,6 @@ You move east.
 Enter Hall of Mirrors
 This room is full of mirrors. There is a door somewhere here. You have time,
 find it!
-
 Brat Kid is here.
 
 You can move north, south and west.
@@ -70,7 +68,6 @@ You move east.
 Vampire lair
 A coffin opens and closes as you walk past the wax figure of Dracula.
 Creepy......
-
 Vampire is here.
 
 You can move east, south and west.
@@ -83,7 +80,6 @@ Feel your way around the walls. You cannot see anything. Find the door and
 leave this gosh awful room as quick as you can. It gives you the creeps!
 
 Also here is a kewbie doll.
-
 Bumpy the clown is here.
 
 You can move north, east, south and west.
@@ -116,7 +112,6 @@ Feel your way around the walls. You cannot see anything. Find the door and
 leave this gosh awful room as quick as you can. It gives you the creeps!
 
 Also here is a kewbie doll.
-
 Bumpy the clown is here.
 
 You can move north, east, south and west.
@@ -133,7 +128,6 @@ You move west.
 Vampire lair
 A coffin opens and closes as you walk past the wax figure of Dracula.
 Creepy......
-
 Vampire is here.
 
 You can move east, south and west.
@@ -153,7 +147,6 @@ You move south.
 Enter Hall of Mirrors
 This room is full of mirrors. There is a door somewhere here. You have time,
 find it!
-
 Brat Kid is here.
 
 You can move north, south and west.
@@ -167,9 +160,8 @@ What'll it be sir. The bracelet and strips of tickets are five dollars each.
 Hurry up now got a line forming here.
 
 Also here is a drink and a ticket.
-Violent mafia man is here looking for a cassette. He knows where to look!
-
 Tall man, Ticket man, Bouncer and Your children 8) are here.
+Violent mafia man is here looking for a cassette. He knows where to look!
 
 You can move north and east.
 

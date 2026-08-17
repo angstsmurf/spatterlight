@@ -484,6 +484,29 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
       return;
     }
 
+  /*
+   * Static objects do not move for a task action.  run400's object mover
+   * (Sub_20_11 @0008C200) skips them at @0008C360 -- "If Objects(o).Static = 1
+   * Then <next object>" -- before any destination case runs, so the refusal
+   * covers every destination, not just the room ones.  Measured live
+   * (RUNNER_TESTS_TODO.md section 9): a task whose action moves the referenced
+   * object to "held by player" prints its completion text for "grab plaque"
+   * and leaves the plaque exactly where it was, and a move-to-hidden aimed at
+   * a static the player is already holding (an event put it there) is refused
+   * in the same way.  Only the by-index selector is limited to dynamics, so
+   * without this test the "referenced object" selector would reach statics.
+   *
+   * The event mover keeps its own copy of this decision -- and does not make
+   * it, which is why evt_move_object() is the one and only way a static can
+   * reach the player's hands.
+   */
+  if (obj_is_static (game, object))
+    {
+      if (task_trace)
+        scr_trace ("Task: ignoring move of static object %ld\n", object);
+      return;
+    }
+
   /* Select action depending on var2. */
   switch (var2)
     {
@@ -1206,7 +1229,7 @@ task_run_set_task_action (scr_gameref_t game, scr_int var1, scr_int var2)
           if (task_trace)
             scr_trace ("Task: redirecting to task %ld\n", var2);
 
-          status = task_run_task (game, var2, TRUE);
+          status = run_task_run_by_index (game, var2);
         }
       else
         {

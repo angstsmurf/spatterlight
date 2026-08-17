@@ -10,7 +10,6 @@ You move north.
 
 Hallway
 The hallway
-
 Dozer is here.
 
 There are exits north, east, south and west.

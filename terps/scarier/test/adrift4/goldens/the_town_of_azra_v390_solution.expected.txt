@@ -53,7 +53,6 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-
 Kiris is here.  The street is busy with people walking, purchasing, and
 talking.
 
@@ -75,7 +74,6 @@ This is a brightly lit tavern. People are jammed in here, and Harthro is
 managing all of their orders. The smell of meat, work, and pure human
 entertainment fill your nostrils. If you're hungry or thirsty, ask Harthro
 about the menu. Also here is the dirty dish rack.
-
 Harthro is here.  Hartho's Golden Tavern is alive with laughter, joy, and an
 overall sense of loud peace.
 
@@ -120,10 +118,8 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-Ormulus is here.
-
-Kiris is here.  The street is busy with people walking, purchasing, and
-talking.
+Ormulus and Kiris are here.  The street is busy with people walking,
+purchasing, and talking.
 
 You can move north, east, south and west.
 
@@ -132,7 +128,6 @@ You move west.
 
 In Golapho's Armor
 You are in Golapho's Armor shop. There is a item sign here.
-
 Golapho is here.
 
 You can only move east.
@@ -160,10 +155,8 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-Ormulus is here.
-
-Kiris is here.  The street is busy with people walking, purchasing, and
-talking.
+Ormulus and Kiris are here.  The street is busy with people walking,
+purchasing, and talking.
 
 You can move north, east, south and west.
 
@@ -185,7 +178,6 @@ In Calado's Metal Works
 This is shop where you can buy metal items, such as swords, shields, and
 knives. Ask Calado about any of those categories and he will tell you what he
 has available for sale.
-
 Calado is here.
 
 You can only move north.
@@ -216,7 +208,6 @@ In Gralle's Inn
 This is Gralle's Inn, the place for newcomers to stay. Gralle is the young
 heir to the inn, after her father, Tullin, was killed in the hunting
 campaigns. You may ask Gralle about staying here.
-
 Gralle is here.
 
 You can only move northwest.
@@ -251,7 +242,6 @@ In Gralle's Inn
 This is Gralle's Inn, the place for newcomers to stay. Gralle is the young
 heir to the inn, after her father, Tullin, was killed in the hunting
 campaigns. You may ask Gralle about staying here.
-
 Gralle is here.  You currently have room rented at Gralle's Inn.
 
 You can move in and northwest.
@@ -279,10 +269,8 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-Ormulus is here.
-
-Kiris is here.  The street is busy with people walking, purchasing, and
-talking.  You currently have room rented at Gralle's Inn.
+Ormulus and Kiris are here.  The street is busy with people walking,
+purchasing, and talking.  You currently have room rented at Gralle's Inn.
 
 You can move north, east, south and west.
 
@@ -291,7 +279,6 @@ You move west.
 
 In Golapho's Armor
 You are in Golapho's Armor shop. There is a item sign here.
-
 Golapho is here.  You currently have room rented at Gralle's Inn.
 
 You can only move east.
@@ -313,10 +300,8 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-Ormulus is here.
-
-Kiris is here.  The street is busy with people walking, purchasing, and
-talking.  You currently have room rented at Gralle's Inn.
+Ormulus and Kiris are here.  The street is busy with people walking,
+purchasing, and talking.  You currently have room rented at Gralle's Inn.
 
 You can move north, east, south and west.
 
@@ -548,7 +533,6 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-
 Kiris is here.  The street is busy with people walking, purchasing, and
 talking.  You're still using stealth tactics.
 
@@ -582,7 +566,6 @@ You move south.
 Butcher Shop
 This is a butcher shop. You can see many dead carcasses hanging against the
 wall, behind the counter. The name of the butcher is Drako.
-
 Drako is here.  You're still using stealth tactics.
 
 You can only move north.
@@ -626,7 +609,6 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-
 Kiris is here.  The street is busy with people walking, purchasing, and
 talking.
 
@@ -666,7 +648,6 @@ In the Northern Forest
 This is the Northern Forest. It is thick with trees, moss, rocks, and ferns.
 You spot various piles of deer droppings, letting you know that this is an
 area that deer pass by.
-
 Deer is here.
 
 You can only move south.
@@ -725,7 +706,6 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-
 Kiris is here.  The street is busy with people walking, purchasing, and
 talking.
 
@@ -759,7 +739,6 @@ You move south.
 Butcher Shop
 This is a butcher shop. You can see many dead carcasses hanging against the
 wall, behind the counter. The name of the butcher is Drako.
-
 Drako is here.
 
 You can only move north.
@@ -802,10 +781,8 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-Ormulus is here.
-
-Kiris is here.  The street is busy with people walking, purchasing, and
-talking.
+Ormulus and Kiris are here.  The street is busy with people walking,
+purchasing, and talking.
 
 You can move north, east, south and west.
 
@@ -921,10 +898,8 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-Ormulus is here.
-
-Kiris is here.  The street is busy with people walking, purchasing, and
-talking.
+Ormulus and Kiris are here.  The street is busy with people walking,
+purchasing, and talking.
 
 You can move north, east, south and west.
 The crowd continues its loud and unruly behavior.
@@ -956,7 +931,6 @@ You move south.
 Butcher Shop
 This is a butcher shop. You can see many dead carcasses hanging against the
 wall, behind the counter. The name of the butcher is Drako.
-
 Drako is here.
 
 You can only move north.
@@ -999,10 +973,8 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-Ormulus is here.
-
-Kiris is here.  The street is busy with people walking, purchasing, and
-talking.
+Ormulus and Kiris are here.  The street is busy with people walking,
+purchasing, and talking.
 
 You can move north, east, south and west.
 
@@ -1041,7 +1013,6 @@ In the Northern Forest
 This is the Northern Forest. It is thick with trees, moss, rocks, and ferns.
 You spot various piles of deer droppings, letting you know that this is an
 area that deer pass by.
-
 Deer is here.
 
 You can only move south.
@@ -1099,10 +1070,8 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-Ormulus is here.
-
-Kiris is here.  The street is busy with people walking, purchasing, and
-talking.
+Ormulus and Kiris are here.  The street is busy with people walking,
+purchasing, and talking.
 
 You can move north, east, south and west.
 
@@ -1132,7 +1101,6 @@ You move south.
 Butcher Shop
 This is a butcher shop. You can see many dead carcasses hanging against the
 wall, behind the counter. The name of the butcher is Drako.
-
 Drako is here.
 
 You can only move north.
@@ -1175,7 +1143,6 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-
 Kiris is here.  The street is busy with people walking, purchasing, and
 talking.
 
@@ -1294,7 +1261,6 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-
 Kiris is here.  The street is busy with people walking, purchasing, and
 talking.
 
@@ -1326,7 +1292,6 @@ You move south.
 Butcher Shop
 This is a butcher shop. You can see many dead carcasses hanging against the
 wall, behind the counter. The name of the butcher is Drako.
-
 Drako is here.
 
 You can only move north.
@@ -1370,7 +1335,6 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-
 Kiris is here.  The street is busy with people walking, purchasing, and
 talking.
 
@@ -1411,7 +1375,6 @@ In the Northern Forest
 This is the Northern Forest. It is thick with trees, moss, rocks, and ferns.
 You spot various piles of deer droppings, letting you know that this is an
 area that deer pass by.
-
 Deer is here.
 
 You can only move south.
@@ -1470,7 +1433,6 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-
 Kiris is here.  The street is busy with people walking, purchasing, and
 talking.
 
@@ -1506,7 +1468,6 @@ You move south.
 Butcher Shop
 This is a butcher shop. You can see many dead carcasses hanging against the
 wall, behind the counter. The name of the butcher is Drako.
-
 Drako is here.
 
 You can only move north.
@@ -1550,10 +1511,8 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-Ormulus is here.
-
-Kiris is here.  The street is busy with people walking, purchasing, and
-talking.
+Ormulus and Kiris are here.  The street is busy with people walking,
+purchasing, and talking.
 
 You can move north, east, south and west.
 
@@ -1664,10 +1623,8 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-Ormulus is here.
-
-Kiris is here.  The street is busy with people walking, purchasing, and
-talking.
+Ormulus and Kiris are here.  The street is busy with people walking,
+purchasing, and talking.
 
 You can move north, east, south and west.
 
@@ -1697,7 +1654,6 @@ You move south.
 Butcher Shop
 This is a butcher shop. You can see many dead carcasses hanging against the
 wall, behind the counter. The name of the butcher is Drako.
-
 Drako is here.
 
 You can only move north.
@@ -1740,10 +1696,8 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-Ormulus is here.
-
-Kiris is here.  The street is busy with people walking, purchasing, and
-talking.
+Ormulus and Kiris are here.  The street is busy with people walking,
+purchasing, and talking.
 
 You can move north, east, south and west.
 
@@ -1781,7 +1735,6 @@ In the Northern Forest
 This is the Northern Forest. It is thick with trees, moss, rocks, and ferns.
 You spot various piles of deer droppings, letting you know that this is an
 area that deer pass by.
-
 Deer is here.
 
 You can only move south.
@@ -1841,10 +1794,8 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-Ormulus is here.
-
-Kiris is here.  The street is busy with people walking, purchasing, and
-talking.
+Ormulus and Kiris are here.  The street is busy with people walking,
+purchasing, and talking.
 
 You can move north, east, south and west.
 
@@ -1874,7 +1825,6 @@ You move south.
 Butcher Shop
 This is a butcher shop. You can see many dead carcasses hanging against the
 wall, behind the counter. The name of the butcher is Drako.
-
 Drako is here.
 
 You can only move north.
@@ -1917,10 +1867,8 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-Ormulus is here.
-
-Kiris is here.  The street is busy with people walking, purchasing, and
-talking.
+Ormulus and Kiris are here.  The street is busy with people walking,
+purchasing, and talking.
 
 You can move north, east, south and west.
 
@@ -2039,7 +1987,6 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-
 Kiris is here.  The street is busy with people walking, purchasing, and
 talking.
 
@@ -2071,7 +2018,6 @@ You move south.
 Butcher Shop
 This is a butcher shop. You can see many dead carcasses hanging against the
 wall, behind the counter. The name of the butcher is Drako.
-
 Drako is here.
 
 You can only move north.
@@ -2115,7 +2061,6 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-
 Kiris is here.  The street is busy with people walking, purchasing, and
 talking.
 
@@ -2157,7 +2102,6 @@ In the Northern Forest
 This is the Northern Forest. It is thick with trees, moss, rocks, and ferns.
 You spot various piles of deer droppings, letting you know that this is an
 area that deer pass by.
-
 Deer is here.
 
 You can only move south.
@@ -2218,7 +2162,6 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-
 Kiris is here.  The street is busy with people walking, purchasing, and
 talking.
 
@@ -2250,7 +2193,6 @@ You move south.
 Butcher Shop
 This is a butcher shop. You can see many dead carcasses hanging against the
 wall, behind the counter. The name of the butcher is Drako.
-
 Drako is here.
 
 You can only move north.
@@ -2293,10 +2235,8 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-Ormulus is here.
-
-Kiris is here.  The street is busy with people walking, purchasing, and
-talking.
+Ormulus and Kiris are here.  The street is busy with people walking,
+purchasing, and talking.
 
 You can move north, east, south and west.
 
@@ -2412,10 +2352,8 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-Ormulus is here.
-
-Kiris is here.  The street is busy with people walking, purchasing, and
-talking.
+Ormulus and Kiris are here.  The street is busy with people walking,
+purchasing, and talking.
 
 You can move north, east, south and west.
 
@@ -2445,7 +2383,6 @@ You move south.
 Butcher Shop
 This is a butcher shop. You can see many dead carcasses hanging against the
 wall, behind the counter. The name of the butcher is Drako.
-
 Drako is here.
 
 You can only move north.
@@ -2488,10 +2425,8 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-Ormulus is here.
-
-Kiris is here.  The street is busy with people walking, purchasing, and
-talking.
+Ormulus and Kiris are here.  The street is busy with people walking,
+purchasing, and talking.
 
 You can move north, east, south and west.
 
@@ -2529,7 +2464,6 @@ In the Northern Forest
 This is the Northern Forest. It is thick with trees, moss, rocks, and ferns.
 You spot various piles of deer droppings, letting you know that this is an
 area that deer pass by.
-
 Deer is here.
 
 You can only move south.
@@ -2587,10 +2521,8 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-Ormulus is here.
-
-Kiris is here.  The street is busy with people walking, purchasing, and
-talking.
+Ormulus and Kiris are here.  The street is busy with people walking,
+purchasing, and talking.
 
 You can move north, east, south and west.
 Two men get in a violent fight. They take it out elsewhere.
@@ -2622,7 +2554,6 @@ You move south.
 Butcher Shop
 This is a butcher shop. You can see many dead carcasses hanging against the
 wall, behind the counter. The name of the butcher is Drako.
-
 Drako is here.
 
 You can only move north.
@@ -2666,10 +2597,8 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-Ormulus is here.
-
-Kiris is here.  The street is busy with people walking, purchasing, and
-talking.
+Ormulus and Kiris are here.  The street is busy with people walking,
+purchasing, and talking.
 
 You can move north, east, south and west.
 
@@ -2785,7 +2714,6 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-
 Kiris is here.  The street is busy with people walking, purchasing, and
 talking.
 
@@ -2817,7 +2745,6 @@ You move south.
 Butcher Shop
 This is a butcher shop. You can see many dead carcasses hanging against the
 wall, behind the counter. The name of the butcher is Drako.
-
 Drako is here.
 
 You can only move north.
@@ -2860,7 +2787,6 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-
 Kiris is here.  The street is busy with people walking, purchasing, and
 talking.
 
@@ -2902,7 +2828,6 @@ In the Northern Forest
 This is the Northern Forest. It is thick with trees, moss, rocks, and ferns.
 You spot various piles of deer droppings, letting you know that this is an
 area that deer pass by.
-
 Deer is here.
 
 You can only move south.
@@ -2963,7 +2888,6 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-
 Kiris is here.  The street is busy with people walking, purchasing, and
 talking.
 
@@ -2995,7 +2919,6 @@ You move south.
 Butcher Shop
 This is a butcher shop. You can see many dead carcasses hanging against the
 wall, behind the counter. The name of the butcher is Drako.
-
 Drako is here.
 
 You can only move north.
@@ -3038,10 +2961,8 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-Ormulus is here.
-
-Kiris is here.  The street is busy with people walking, purchasing, and
-talking.
+Ormulus and Kiris are here.  The street is busy with people walking,
+purchasing, and talking.
 
 You can move north, east, south and west.
 
@@ -3155,10 +3076,8 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-Ormulus is here.
-
-Kiris is here.  The street is busy with people walking, purchasing, and
-talking.
+Ormulus and Kiris are here.  The street is busy with people walking,
+purchasing, and talking.
 
 You can move north, east, south and west.
 
@@ -3189,7 +3108,6 @@ You move south.
 Butcher Shop
 This is a butcher shop. You can see many dead carcasses hanging against the
 wall, behind the counter. The name of the butcher is Drako.
-
 Drako is here.
 
 You can only move north.
@@ -3229,7 +3147,6 @@ You move east.
 
 On a Residential Block
 This is a residential area of town. There are many houses around here.
-
 Garthus and Romi are here.
 
 You can only move west.

@@ -92,7 +92,6 @@ south. You can see kids returning home from school.
 Snow on the streets is so high that only the best fitted jeeps can drive
 through the streets while all other cars have to wait until the weather stops
 its rampage. Children are jumping from rooftops into heaps of snow.
-
 Anne is here.
 
 > n
@@ -137,7 +136,6 @@ street goes east and west. You can see kids returning home from school.
 Snow on the streets is so high that only the best fitted jeeps can drive
 through the streets while all other cars have to wait until the weather stops
 its rampage. Children are jumping from rooftops into heaps of snow.
-
 Elise is here.
 
 > in
@@ -207,7 +205,6 @@ south. You can see kids returning home from school.
 Snow on the streets is so high that only the best fitted jeeps can drive
 through the streets while all other cars have to wait until the weather stops
 its rampage. Children are jumping from rooftops into heaps of snow.
-
 Anne is here.
 
 > in

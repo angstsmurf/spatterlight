@@ -168,10 +168,9 @@ not a single mirror in sight. The bar itself is large and covers an entire
 wall. You count 4 beer tabs along it, and an equal amount of bartenders. You
 can go east back to the street, and another door behind the bar to the west.
 
+Bartender and The Bozo Guard are here.
 Simonsen is watching you carefully.  A girl at a small table by the
-dancefloor eyes you closly.  The Bozo Guard is here.
-
-Bartender is here.
+dancefloor eyes you closly.
 
 > ask simonsen about plan
 "Wait", Simonsen says. "We don't have much time. Have you found a way to get
@@ -270,10 +269,8 @@ not a single mirror in sight. The bar itself is large and covers an entire
 wall. You count 4 beer tabs along it, and an equal amount of bartenders. You
 can go east back to the street, and another door behind the bar to the west.
 
-A girl at a small table by the dancefloor eyes you closly.  The Bozo Guard is
-here.
-
-Bartender is here.
+Bartender and The Bozo Guard are here.
+A girl at a small table by the dancefloor eyes you closly.
 
 Jon Simonsen enters from the east.
 
@@ -376,9 +373,7 @@ not a single mirror in sight. The bar itself is large and covers an entire
 wall. You count 4 beer tabs along it, and an equal amount of bartenders. You
 can go east back to the street, and another door behind the bar to the west.
 
-The Bozo Guard is here.
-
-Bartender is here.
+Bartender and The Bozo Guard are here.
 
 Jon Simonsen enters from the west.
 
@@ -423,7 +418,8 @@ guests from behind the counter. The lobby isn't crowded this time of the
 night, and, luckily, you can't see any vampires around. To the east is the
 elevator, and to the west a door leads into the conference rooms. Doors to
 the south leads out of the hotel.
-Simonsen is here.  Anette is here.
+Simonsen is here.
+Anette is here.
 
 > e
 You move east.

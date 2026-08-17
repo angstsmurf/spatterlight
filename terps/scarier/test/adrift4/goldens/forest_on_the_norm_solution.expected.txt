@@ -38,7 +38,6 @@ I move east.
 Wood
 There is a chicken. Isn`t that the chicken, which has stolen my starship? The
 chicken is blocking your way.
-
 Chicken is here.
 
 > give easteregg to chicken
@@ -68,7 +67,6 @@ I move north.
 
 Cave
 I am in the cave. He.... I`ve seen him in space before: Roger W.
-
 Roger is here.
 
 > ask roger about way
@@ -79,7 +77,6 @@ I move north.
 
 Big tree
 He, it looks like the biggest tree in RON!
-
 Big tree is here.
 
 > climb big tree

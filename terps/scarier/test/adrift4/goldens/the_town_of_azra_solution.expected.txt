@@ -51,7 +51,6 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-
 Kiris is here.  The street is busy with people walking, purchasing, and
 talking.
 
@@ -69,7 +68,6 @@ This is a brightly lit tavern. People are jammed in here, and Harthro is
 managing all of their orders. The smell of meat, work, and pure human
 entertainment fill your nostrils. If you're hungry or thirsty, ask Harthro
 about the menu. Also here is the dirty dish rack.
-
 Harthro is here.  Hartho's Golden Tavern is alive with laughter, joy, and an
 overall sense of loud peace.
 
@@ -116,10 +114,8 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-Ormulus is here.
-
-Kiris is here.  The street is busy with people walking, purchasing, and
-talking.
+Ormulus and Kiris are here.  The street is busy with people walking,
+purchasing, and talking.
 
 You can move north, east, south and west.
 
@@ -128,7 +124,6 @@ You move west.
 
 In Golapho's Armor
 You are in Golapho's Armor shop. There is a item sign here.
-
 Golapho is here.
 
 You can only move east.
@@ -156,10 +151,8 @@ itself and buying things. There's a street lamp on the side of the road, and
 a crowd fills the street.
 
 Also here is a pile of rubbish.
-Ormulus is here.
-
-Kiris is here.  The street is busy with people walking, purchasing, and
-talking.
+Ormulus and Kiris are here.  The street is busy with people walking,
+purchasing, and talking.
 
 You can move north, east, south and west.
 
@@ -181,7 +174,6 @@ In Calado's Metal Works
 This is shop where you can buy metal items, such as swords, shields, and
 knives. Ask Calado about any of those categories and he will tell you what he
 has available for sale.
-
 Calado is here.
 
 You can only move north.
@@ -212,7 +204,6 @@ In Gralle's Inn
 This is Gralle's Inn, the place for newcomers to stay. Gralle is the young
 heir to the inn, after her father, Tullin, was killed in the hunting
 campaigns. You may ask Gralle about staying here.
-
 Gralle is here.
 
 You can only move northwest.
@@ -247,7 +238,6 @@ In Gralle's Inn
 This is Gralle's Inn, the place for newcomers to stay. Gralle is the young
 heir to the inn, after her father, Tullin, was killed in the hunting
 campaigns. You may ask Gralle about staying here.
-
 Gralle is here.  You currently have room rented at Gralle's Inn.
 
 You can move in and northwest.

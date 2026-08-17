@@ -202,7 +202,6 @@ leads to the waiting room for the king.  There are some great stained glass
 windows on all sides of you, bringing the room to look like a shining pillar
 of light.  There is a long red rug in the hall.  You also feal a slight
 draft.
-
 Jackass Trying to Kill You is here.  Yup, its still the first day.
 
 You can move north and south.
@@ -248,7 +247,6 @@ leads to the waiting room for the king.  There are some great stained glass
 windows on all sides of you, bringing the room to look like a shining pillar
 of light.  There is a long red rug in the hall.  You also feal a slight
 draft.
-
 Jackass Trying to Kill You (dead) is here.  Yup, its still the first day.
 
 You can move north and south.
@@ -294,7 +292,6 @@ leads to the waiting room for the king.  There are some great stained glass
 windows on all sides of you, bringing the room to look like a shining pillar
 of light.  There is a long red rug in the hall.  You also feal a slight
 draft.
-
 Jackass Trying to Kill You (dead) is here.  Yup, its still the first day.
 
 You can move north and south.
@@ -354,7 +351,6 @@ man is Cccrrrrraaaazy.  The room has 2 big sculptures on both sides of the
 room( that makes for  four(4) for you idiots).  There are some  lamps and
 torches hanging around.  A big table in the middle has a radio blaring disco
 music.  Wow!
-
 Sculpto is here.  Yup, its still the first day.
 
 You can only move east.

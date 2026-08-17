@@ -146,7 +146,6 @@ You move south.
 Small wood
 You're wandering around in a very dark location indeed. The ground is pretty
 much hidden from view and all you can see for a long, long way are trees.
-
 Walter is here.
 
 You can move north and east.
@@ -241,7 +240,6 @@ Desther's bedroom
 To say that Desther spends his nights here, his bedroom is surprisingly
 sparse. In fact, aside from the bed and a window overlooking the street there
 is nothing much here at all.
-
 Cedrick is here.
 
 You can only move southeast.
@@ -367,7 +365,6 @@ Ugh! This place looks like it hasn't been cleaned in years! It also looks
 (don't read the next bit if you're at all squeamish) that Desther doesn't
 bother using the toilet - instead he just finds a nice dry spot and does his
 business there. As such, the smell is just too unbearable.
-
 Claudia is here.
 
 You can only move east.
@@ -404,7 +401,6 @@ Front porch
 The front porch of Desther's house is quite impressive. If you didn't know
 what a dump the inside was, you might well think someone with taste lived
 here.
-
 Desther is here.
 "Ah, well done," says Desther. "I see the ghosts have departed."
 

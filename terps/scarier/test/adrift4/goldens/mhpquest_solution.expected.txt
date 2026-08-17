@@ -18,7 +18,6 @@ Made from the wood of the surrounding trees, it blends in very well with the
 surroundings. The room is not well furnished. There is just a table, an old
 stove and two beds. In one of the beds lies your daughter, Crystal. Set in
 the south wall of the cottage is a small squage window.
-
 Crystal is here.
 
 >
@@ -362,7 +361,6 @@ Made from the wood of the surrounding trees, it blends in very well with the
 surroundings. The room is not well furnished. There is just a table, an old
 stove and two beds. In one of the beds lies your daughter, Crystal. Set in
 the south wall of the cottage is a small squage window.
-
 Crystal is here.
 
 > feed clover to crystal

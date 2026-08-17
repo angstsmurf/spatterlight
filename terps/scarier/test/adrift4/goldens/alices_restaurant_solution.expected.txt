@@ -112,7 +112,6 @@ The Stable
 You are at the stable.  Back in the days when this was an active church, it
 had room for 10 horses.  The stalls smell distinctly of manure and straw.
 In the back of the stable there is an old cabinet of some kind.
-
 Horse is here.
 
 You can only move south.
@@ -168,7 +167,6 @@ busy.    There are several new holes in the ground and roots and bulbs have
 been brought to the surface along with some blue rocks.  These are slag from
 the old iron furnace that once supported the workers of the town.  They must
 have been buried for years.
-
 Horse is here.
 
 You can move north and west.
@@ -228,7 +226,6 @@ hole-in-the-wall but you're sure the inside must have a few homey touches.
 Your red VW microbus is parked nearby.   As you step towards the door, a rude
 man blocks your path.  "Where do you think you're going you long haired
 hippie perversion?"  he asks.
-
 Rude Customer is here.
 
 > put sign on window
@@ -321,7 +318,6 @@ impressive rose window which has images of Matthew, Mark, Luke and John.  At
 the northern end of the sanctuary is the area that once held the altar.  The
 attractiveness of the room is marred somewhat by the presence of a large pile
 of garbage in the corner.   To the west is the bell tower.
-
 Alice and Facha are here.
 
 You can move south, west and out.
@@ -409,7 +405,6 @@ impressive rose window which has images of Matthew, Mark, Luke and John.  At
 the northern end of the sanctuary is the area that once held the altar.  The
 attractiveness of the room is marred somewhat by the presence of a large pile
 of garbage in the corner.   To the west is the bell tower.
-
 Alice and Facha are here.
 
 You can move south, west and out.
@@ -546,7 +541,6 @@ impressive rose window which has images of Matthew, Mark, Luke and John.  At
 the northern end of the sanctuary is the area that once held the altar.  The
 attractiveness of the room is marred somewhat by the presence of a large pile
 of garbage in the corner.   To the west is the bell tower.
-
 Alice and Facha are here.
 
 You can move south, west and out.
@@ -693,7 +687,6 @@ The door is now open.
 
 In Room 604.
 The room is barren except for the psychiatrist's desk.
-
 Psychiatrist is here.
 "Come in my boy," says the psychiatrist.  He is apparently trying to put you
 at ease.  It is not working.  You enter room 604 anyway.  The psychiatrist

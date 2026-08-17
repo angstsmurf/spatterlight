@@ -91,7 +91,6 @@ You can see a pale green light coming from down from a room you can't quite
 see yet , you don't think its a mine because all the mines extend from the
 main building . The tunnel is made the same way execpt it has a very large
 crack in the aluminum .
-
 An alien is here.
 
 You can move south and up.
@@ -119,7 +118,6 @@ You can see a pale green light coming from down from a room you can't quite
 see yet , you don't think its a mine because all the mines extend from the
 main building . The tunnel is made the same way execpt it has a very large
 crack in the aluminum .
-
 An alien is here.
 
 You can move south and up.
@@ -194,7 +192,6 @@ You are on the roof that appears to be a launch pad for small ships , there
 is a large tower in the middle of the roof that has a small  door on it that
 looks almost rusted through . There are lights on the top of the tower that
 are still illuminated for some reason .
-
 A small alien is here.
 
 You can move down and in.
@@ -283,7 +280,6 @@ You can see a pale green light coming from down from a room you can't quite
 see yet , you don't think its a mine because all the mines extend from the
 main building . The tunnel is made the same way execpt it has a very large
 crack in the aluminum .
-
 An alien is here.
 
 You can move south and up.
@@ -358,7 +354,6 @@ You are on the roof that appears to be a launch pad for small ships , there
 is a large tower in the middle of the roof that has a small  door on it that
 looks almost rusted through . There are lights on the top of the tower that
 are still illuminated for some reason .
-
 A small alien is here.
 
 You can move down and in.

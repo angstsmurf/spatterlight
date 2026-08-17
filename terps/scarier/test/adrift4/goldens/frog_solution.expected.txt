@@ -56,7 +56,6 @@ You hop closer to your battle with the princess.
 Castle gate.
 This is the entrance to the castle.  The castle lies to the south.  A guard
 blocks your way.
-
 Guard is here.
 
 > s
@@ -67,7 +66,6 @@ You are in an elegant throne room that would probably impress you with its
 magnificance if you were into interior design rather than being a simple love
 lorn amphibian. Reggie lounges in  a corner. The princess is pointing a lugar
 at you. You had better do something. Fast.
-
 Reggie and Princess are here.
 
 > flick tongue

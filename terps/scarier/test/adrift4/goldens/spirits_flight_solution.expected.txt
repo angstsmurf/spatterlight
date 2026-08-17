@@ -44,7 +44,6 @@ You walk south.
 
 Path to Stone Circle
 The path is paved with large gravel, and is lined on the sides with stones.
-
 Lamanluie is here.
 
 There are exits north and south.
@@ -64,7 +63,6 @@ You walk southeast.
 High Wizard'sTower
 The bottom part of the tower is open. Potions and books alike scatter the
 tables and shelves
-
 Kilfuno is here.
 
 You can only move northwest.
@@ -98,7 +96,6 @@ You move out.
 High Wizard'sTower
 The bottom part of the tower is open. Potions and books alike scatter the
 tables and shelves
-
 Kilfuno is here.
 
 You can only move northwest.
@@ -122,7 +119,6 @@ You walk north.
 
 Path to Stone Circle
 The path is paved with large gravel, and is lined on the sides with stones.
-
 Lamanluie is here.
 
 You can move north and south.
@@ -154,7 +150,6 @@ You walk southwest.
 Whistle Hamlet
 The place is full of pine trees. Log-houses dot the area.  People are locked
 inside their homes, scared of the missing wind elemental.
-
 Fernipor is here.
 
 You can move south and northeast.
@@ -165,7 +160,6 @@ You walk south.
 Breezy Path
 The path leads to a cliff top to the south and Whistle Hamlet to the north.
 A fierce wind blows.
-
 Moyru is here.
 
 > attack moyru
@@ -204,7 +198,6 @@ You climb up.
 Ridge of Storms
 You emerge from the cavern to find yourself up in the clouds on a ridge. This
 must be the ridge of storms.
-
 Fergo is here.
 
 You can only move down.
@@ -238,7 +231,6 @@ You walk north.
 Breezy Path
 The path leads to a cliff top to the south and Whistle Hamlet to the north.
 A steady wind blows.
-
 Morana is here.
 
 You can only move south.
@@ -257,7 +249,6 @@ Whistle Hamlet
 The place is full of pine trees. Log-houses dot the area.  People smile at
 you as you past, hopeful that soon the elementals will be returned to the
 Stone Circle.
-
 Fernipor is here.
 
 You can move south and northeast.
@@ -313,7 +304,6 @@ The Merfolk's Domain
 The place is an amazing splendour of coral buildings and fish schools. The
 wind elemental does you a favour and allows you to breathe underwater.  The
 Merfolk are slightly agitated at the water's fierce churning
-
 Korishia is here.
 
 You can move north and south.
@@ -323,7 +313,6 @@ You walk south.
 
 Water Tunnel
 A thin tunnel under the water.
-
 Serpanern is here.
 
 You can only move north.
@@ -362,7 +351,6 @@ The carvern is covered in translucent ice.  Borken pieces of the mirror are
 on the floor.
 
 Also here is A snow flake.
-
 Lamanluie is here.
 
 > down
@@ -372,7 +360,6 @@ Sea Serpent's Cave
 The cave is full of drawings of mystical sea creatures. Stalactites of
 wondrous colour hang from the ceiling. Bleeched coral is growing in the far
 corner.
-
 Crynasalda is here.
 Crynasalda hits you.
 
@@ -423,7 +410,6 @@ The Merfolk's Domain
 The place is an amazing splendour of coral buildings and fish schools. The
 wind elemental does you a favour and allows you to breathe underwater.  The
 Merfolk swim around happily.
-
 Korishia is here.
 
 You can move north and south.
@@ -471,7 +457,6 @@ You walk north.
 Desert Path
 The path is dry and cracked. The sun beats down on you hard. The air is hot
 and dry.  A lizard is here.
-
 Slikerma is here.
 
 You can only move west.
@@ -483,7 +468,6 @@ You walk west.
 Vulcan's Forge
 A small clearing with only a hut. It appears to be a blacksmith's.  The hut
 appears cold and silent.
-
 Afernoga is here.
 
 You can move north and east.
@@ -514,7 +498,6 @@ You walk east.
 Core of Volcano
 The magma is oozing everywhere and your body breaks into a sweat. Each drop
 from your body drips onto the ground and sizzles mightily.
-
 Kelorano is here.
 
 You can only move west.
@@ -532,7 +515,6 @@ from your body drips onto the ground and sizzles mightily.  The magma looks
 as though it'll erupt any minute. It creeps ever so slowly at you.
 
 Also here are The Amber of Flames.
-
 Lamanluie and Kelorano are here.
 You feels as though you should leave quickly.
 Kelorano hits you, but it doesn't seem to do any damage.
@@ -567,7 +549,6 @@ You walk south.
 Vulcan's Forge
 A small clearing with only a hut. It appears to be a blacksmith's.  The hut
 appears cold and silent.
-
 Afernoga is here.
 
 You can move north and east.
@@ -578,7 +559,6 @@ You walk east.
 Desert Path
 The path is dry and cracked. The sun beats down on you hard. The air is hot
 and dry.  A lizard is hissing at you, blocking your way.
-
 Slikerma is here.
 
 You can only move west.

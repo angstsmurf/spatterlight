@@ -100,49 +100,106 @@ run_get_version (const scr_prop_setref_t bundle)
 
 
 /*
+ * run_squeeze_spaces()
+ *
+ * Copy 'string' into 'buffer' with every space dropped.  The 4.0 Runner
+ * squeezes the whole command this way before it looks for a task command
+ * function, which is what makes the spacing in the function free-form.
+ */
+static void
+run_squeeze_spaces (const scr_char *string, scr_char *buffer)
+{
+  const scr_char *cursor;
+  scr_char *out;
+
+  for (cursor = string, out = buffer; *cursor != NUL; cursor++)
+    {
+      if (*cursor != ' ')
+        *out++ = *cursor;
+    }
+  *out = NUL;
+}
+
+
+/*
  * run_is_task_function()
  *
- * Check for the presence of a command function in the first task command,
- * and action it if found.  This is a 4.0.42 compatibility hack -- at
- * present, only getdynfromroom() exists.  Returns TRUE if function found
- * and handled.
+ * Check for the presence of a command function in a task command, and action
+ * it if found.  This is a 4.0 feature -- at present, only getdynfromroom()
+ * exists.  Returns TRUE if function found and handled.
+ *
+ * The syntax and the selection are measured against the live 4.0 Runner (see
+ * RUNNER_TESTS_TODO.md section 9, probes GDA..GDR of
+ * test/adrift4/harness/make_arena_probe.py).  run400 squeezes every space out
+ * of the command, requires what is left to open "#%object%=getdynfromroom("
+ * and the *raw* command to end in ")" -- so "getdynfromroom(larder)x" is not
+ * a function at all -- then compares the squeezed argument to room names
+ * case-insensitively and takes the first non-static object standing directly
+ * in the room it finds.  Object order decides between candidates (a room
+ * holding "ring" then "gem" yields the ring), a room holding only statics
+ * yields nothing, and the reference set here survives the rest of the turn.
+ *
+ * Two run400 bugs are deliberately not reproduced, both of which can only
+ * lose a match the author meant to make:
+ *
+ *   deliberate: run400 scans rooms with "For r = 0 To roomCount - 1" over a
+ *     1-based array, so the game's *last* room can never be found.  Proved
+ *     live: "larder" as room 10 of 10 matched nothing, and started returning
+ *     its pie the moment a spare 11th room was appended.  (Its object loop
+ *     has no such fencepost -- an object added last is still found.)
+ *   deliberate: run400 squeezes the spaces out of the argument but compares
+ *     it against the unsqueezed room name, so no room whose name contains a
+ *     space is reachable -- not even by the manual's own worked example,
+ *     "getdynfromroom(The Park)".  We squeeze both sides, which keeps every
+ *     match run400 can make and adds the ones it drops.
+ *
+ * The 3.9 Runner has no getdynfromroom at all (not one occurrence in its
+ * P-code), hence the version gate.
  */
 static scr_bool
 run_is_task_function (const scr_char *pattern, scr_gameref_t game)
 {
+  static const scr_char *const FUNCTION = "#%object%=getdynfromroom(";
+
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_var_setref_t vars = gs_get_vars (game);
-  scr_int room, object;
+  scr_int length, argument_length, room, object;
+  scr_char *argument;
 
-  /* Simple comparison against the one known task expression. */
-  std::vector<scr_char> argument (strlen (pattern) + 1);
-  if (sscanf (pattern, " # %%object%% = getdynfromroom (%[^)])",
-              argument.data ()) == 0)
+  if (run_get_version (bundle) < TAF_VERSION_400)
     return FALSE;
 
-  /*
-   * Compare the argument read in against known room names.
-   *
-   * TODO Is this simple room name comparison good enough?  See
-   * RUNNER_TESTS_TODO.md section 9.
-   */
+  /* The Runner tests the raw command's final character for the ")". */
+  length = strlen (pattern);
+  if (length == 0 || pattern[length - 1] != ')')
+    return FALSE;
+
+  std::vector<scr_char> squeezed (length + 1);
+  run_squeeze_spaces (pattern, squeezed.data ());
+  if (scr_strncasecmp (squeezed.data (), FUNCTION, strlen (FUNCTION)) != 0)
+    return FALSE;
+
+  /* Take the argument, dropping the ")" that the raw test guarantees. */
+  argument = squeezed.data () + strlen (FUNCTION);
+  argument_length = strlen (argument);
+  assert (argument_length > 0 && argument[argument_length - 1] == ')');
+  argument[argument_length - 1] = NUL;
+
+  /* Compare the argument read in against known room names. */
   for (room = 0; room < gs_room_count (game); room++)
     {
       const scr_char *name;
 
       name = prop_get_indexed_string (bundle, "Rooms", room, "Short");
-      if (scr_strcasecmp (name, argument.data ()) == 0)
+      std::vector<scr_char> compressed (strlen (name) + 1);
+      run_squeeze_spaces (name, compressed.data ());
+      if (scr_strcasecmp (compressed.data (), argument) == 0)
         break;
     }
   if (room == gs_room_count (game))
     return FALSE;
 
-  /*
-   * Select a dynamic object from the room.
-   *
-   * TODO What are the selection criteria supposed to be?  Here we use "on
-   * the floor".  See RUNNER_TESTS_TODO.md section 9.
-   */
+  /* Select the first dynamic object standing on the room's floor. */
   for (object = 0; object < gs_object_count (game); object++)
     {
       scr_bool bstatic;
@@ -849,7 +906,7 @@ run_notify_score_change (scr_gameref_t game)
 /*
  * Cached per-task command patterns.
  *
- * run_match_task_common() is called for every task on every player command,
+ * run_match_task_commands() is called for every task on every player command,
  * and before caching it re-read the task's (Reverse)Command pattern strings
  * from the bundle on each attempt.  The patterns are immutable once a game
  * is loaded, and prop_get_string() returns stable pointers into the bundle,
@@ -920,20 +977,18 @@ run_forget_game (const void *game)
 }
 
 /*
- * run_match_task_common()
  * run_match_task_commands()
- * run_match_task_functions()
  *
- * Helpers for run_game_commands_common().
+ * Helper for run_game_commands_common().
  *
  * Search task command for a match to the string passed in, returning TRUE
  * if a task command matches, FALSE otherwise.  Ordinary or reverse commands
  * are selected by 'forwards'.
  */
 static scr_bool
-run_match_task_common (scr_gameref_t game,
-                       scr_int task, const scr_char *string, scr_bool forwards,
-                       scr_bool is_library, scr_bool is_normal)
+run_match_task_commands (scr_gameref_t game,
+                         scr_int task, const scr_char *string,
+                         scr_bool forwards, scr_bool is_library)
 {
   const std::vector<const scr_char *> &patterns =
       run_task_command_patterns (game, task, forwards);
@@ -952,22 +1007,13 @@ run_match_task_common (scr_gameref_t game,
       pattern = patterns[command];
       first = strspn (pattern, WHITESPACE);
 
-      /* Match using either the parser, or the special function matcher. */
-      if (is_normal)
-        {
-          /*
-           * Make a special case of library calls and commands that begin
-           * with a wildcard; these we ignore for this match attempt.
-           */
-          if (pattern[first] != SPECIAL_PATTERN
-              && !(is_library && pattern[first] == WILDCARD_PATTERN))
-            is_matched = uip_match (pattern, string, game);
-        }
-      else
-        {
-          if (pattern[first] == SPECIAL_PATTERN)
-            is_matched = run_is_task_function (pattern, game);
-        }
+      /*
+       * Make a special case of library calls and commands that begin with a
+       * wildcard; these we ignore for this match attempt.
+       */
+      if (pattern[first] != SPECIAL_PATTERN
+          && !(is_library && pattern[first] == WILDCARD_PATTERN))
+        is_matched = uip_match (pattern, string, game);
 
       /* Stop searching if we find a match. */
       if (is_matched)
@@ -1026,26 +1072,6 @@ run_match_task_common (scr_gameref_t game,
 
   /* Return TRUE if we found a pattern match. */
   return is_matched;
-}
-
-static scr_bool
-run_match_task_commands (scr_gameref_t game,
-                         scr_int task, const scr_char *string,
-                         scr_bool forwards, scr_bool is_library)
-{
-  /*
-   * Match tasks using the normal pattern matcher, with or without any note
-   * about whether the call is from the library.
-   */
-  return run_match_task_common (game, task, string, forwards, is_library, TRUE);
-}
-
-static scr_bool
-run_match_task_functions (scr_gameref_t game,
-                          scr_int task, const scr_char *string, scr_bool forwards)
-{
-  /* Match tasks against "task command functions". */
-  return run_match_task_common (game, task, string, forwards, FALSE, FALSE);
 }
 
 
@@ -1318,41 +1344,39 @@ run_does_command_match (scr_gameref_t game, const scr_char *string)
 }
 
 
+
 /*
- * run_game_functions()
+ * run_task_run_by_index()
  *
- * Iterate over every task, ignoring those not runnable, searching just for
- * "task command functions".  These seem to happen in addition to any regular
- * command matches, so we try them as a separate action.
+ * Run a task selected by its index rather than by matching input -- the 4.0
+ * Runner's Sub_20_22.  Every one of that routine's callers goes through here:
+ * an "execute task" action, an event running its TaskAffected, a walk's
+ * CharTask or ObjectTask, and the battle system.
+ *
+ * The reason it is not simply task_run_task() is the preamble: before running
+ * the task, run400 walks the task's *alternate* commands looking for a task
+ * command function, and a getdynfromroom() found there sets the Referenced
+ * Object for the run.  The task's primary command is not in the array it
+ * scans, so a task whose only command is the function never evaluates it.
+ * Verified live in run400 (RUNNER_TESTS_TODO.md section 9): wrapping each
+ * probe in an "execute task" action is the only way to make its function
+ * fire at all, and a probe carrying the function as its sole command stays
+ * silent.
  */
-static void
-run_game_functions (scr_gameref_t game, const scr_char *string)
+scr_bool
+run_task_run_by_index (scr_gameref_t game, scr_int task)
 {
-  scr_int task_count, task, direction;
+  const std::vector<const scr_char *> &patterns =
+      run_task_command_patterns (game, task, TRUE);
+  scr_int command;
 
-  /* Iterate over every task, ignoring those not runnable. */
-  task_count = gs_task_count (game);
-  for (task = 0; task < task_count; task++)
+  for (command = 1; command < (scr_int) patterns.size (); command++)
     {
-      if (!task_can_run_task (game, task))
-        continue;
-
-      /*
-       * Try matching forwards and reverse commands.  I don't know if it's
-       * valid to put a function in a reverse command, but nevertheless...
-       */
-      for (direction = 0; direction < 2; direction++)
-        {
-          const scr_bool is_forwards = !direction;
-
-          if (task_can_run_task_directional (game, task, is_forwards)
-              && run_match_task_functions (game, task, string, is_forwards))
-            {
-              if (run_task_is_unrestricted (game, task))
-                task_run_task (game, task, is_forwards);
-            }
-        }
+      if (run_is_task_function (patterns[command], game))
+        break;
     }
+
+  return task_run_task (game, task, TRUE);
 }
 
 
@@ -1386,6 +1410,7 @@ run_game_functions (scr_gameref_t game, const scr_char *string)
  */
 static void run_task_command_dispatch (scr_gameref_t game, scr_int eventtask);
 
+
 void
 run_npc_walk_task (scr_gameref_t game, scr_int walktask)
 {
@@ -1394,7 +1419,7 @@ run_npc_walk_task (scr_gameref_t game, scr_int walktask)
   if (run_get_version (bundle) < TAF_VERSION_400)
     run_task_command_dispatch (game, walktask);
   else if (task_can_run_task_directional (game, walktask, TRUE))
-    task_run_task (game, walktask, TRUE);
+    run_task_run_by_index (game, walktask);
 }
 
 
@@ -1708,7 +1733,6 @@ run_task_refusal (scr_gameref_t game, const scr_char *string)
 static scr_bool
 run_all_commands (scr_gameref_t game, const scr_char *string)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_bool status;
 
   /*
@@ -1755,18 +1779,6 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
     status = run_standard_commands (game, string);
   if (!status)
     status = run_task_refusal (game, string);
-
-  /*
-   * For version 4.0 games, it seems that if any command succeeded, we need
-   * need to scan for and run any matching "task command functions", in
-   * addition to anything done above.
-   */
-  if (status && !game->is_admin)
-    {
-      /* Check "task command functions" for version 4.0 only. */
-      if (run_get_version (bundle) == TAF_VERSION_400)
-        run_game_functions (game, string);
-    }
 
   return status;
 }

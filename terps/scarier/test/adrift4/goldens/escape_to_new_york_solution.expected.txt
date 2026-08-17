@@ -841,7 +841,7 @@ drop. To the north is the entrance to the staircase and at the rear of the
 promenade you can see the Well Deck below. On one side of the promenade are
 the rectangular windows of the smoking room; on the other over the side of
 the ship is open sea.
-A well dressed man is here.  A beautiful woman is here.
+A man and woman are in an embrace; kissing.
 
 > exam man
 From the clothes the man must be from first class. He is kissing a beautiful

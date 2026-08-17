@@ -35,7 +35,6 @@ In the cave
 You are standing in a large cave.  The cave is lit up by dozens if of
 lanterns.  You see a man sitting down in a chair.  He is wearing a
 multi-colored scarf and holding a cane.
-
 Man is here.
 The man looks at you and says  "Thank you for coming.  I am teh man in the
 multi-colored scarf.  I have brought you here cause I need your help.  I need
@@ -92,7 +91,6 @@ In the hidden City
 You have gone down the tunnel, and have ended up in a water world.  There are
 mermaids, and things of that nature.  Wow, your super hero career is starting
 to be interesting.  You look at all the seashells and things.
-
 The Mermaid is here.
 
 You can move north and up.
@@ -115,7 +113,6 @@ yellow, and he is wearing sunglasses.  He might be a good person to talk to.
  there is nothing else of interest in this house.
 
 Also here is a necklace.
-
 Bob the bass is here.
 
 You can only move out.
@@ -139,7 +136,6 @@ In the hidden City
 You have gone down the tunnel, and have ended up in a water world.  There are
 mermaids, and things of that nature.  Wow, your super hero career is starting
 to be interesting.  You look at all the seashells and things.
-
 The Mermaid is here.
 
 You can move north and up.
@@ -352,7 +348,6 @@ You move in.
 In the Merckentile
 You stride in to the merckentile.  You see Pavlov sitting behind the counter.
  There is not a lot here though.
-
 Pavlov is here.
 
 You can only move out.
@@ -418,7 +413,6 @@ You step inside.  The door swings shut and locks it's self.  The room is
 furnished with benches.  There are a few things on the wall.  nothing
 interesting though.  Then Julian the goat appears.  He looks at you and seems
 verry mad.  Do something.  You have a laser gun, use it!
-
 Julian is here.
 
 The Mermaid follows you.
@@ -440,7 +434,6 @@ away.
 In the radio station
 You are in w m t h radio.  You have know idea what you are doing here.  Maybe
 it's time for your radio show.  No, it's not.  What.
-
 Mr. Shaphren is here.
 
 The Mermaid follows you.
@@ -467,7 +460,6 @@ You move north.
 In the radio station
 You are in w m t h radio.  You have know idea what you are doing here.  Maybe
 it's time for your radio show.  No, it's not.  What.
-
 Mr. Shaphren is here.
 
 You can move east, south and west.
@@ -480,7 +472,6 @@ You move east.
 In the Controll Room
 You ar standing in a room full of equipment.  Everything from microphones, to
 cd players.  You look around, and don't see anything of interest.
-
 Ben is here.
 
 You can only move west.
@@ -496,7 +487,6 @@ You move west.
 In the radio station
 You are in w m t h radio.  You have know idea what you are doing here.  Maybe
 it's time for your radio show.  No, it's not.  What.
-
 Mr. Shaphren is here.
 
 You can move east, south and west.
@@ -600,7 +590,6 @@ You move east.
 In the radio station
 You are in w m t h radio.  You have know idea what you are doing here.  Maybe
 it's time for your radio show.  No, it's not.  What.
-
 Mr. Shaphren is here.
 
 You can move east, south and west.
@@ -682,7 +671,6 @@ the entrance and see a wall of rocks blocking your path.    Sudenly the worm
 materializes out of no where.  Ha Ha.  I am the evil crawl space worm.  I am
 mighty and fat, I mean strong.  I am going to eat you, like I ate those
 cameras.  You glance at your laser gun, and know exactly what to do.
-
 Worm is here.
 
 The Mermaid follows you.
@@ -730,7 +718,6 @@ You are standing in a large room.  There are wierd contraptions in this room.
  They don't look to interesting though.  You notice flying cars.  Wow!
 
 Also here is a virus.
-
 Tim is here.
 
 You can only move west.
@@ -770,7 +757,6 @@ You move south.
 The Information Super Highway
 You stand on a street.  You see space ships flying by.  Wow!  You look around
 and don't see much of anything.
-
 Pavlov is here.
 
 You can move north and west.
@@ -794,7 +780,6 @@ You move in.
 Inside the Virus Center
 You are standing in a poorly furnished room.  On the wall you see some
 beakers, and test tubes.
-
 Blurp is here.
 
 You can only move out.
@@ -821,7 +806,6 @@ You move east.
 The Information Super Highway
 You stand on a street.  You see space ships flying by.  Wow!  You look around
 and don't see much of anything.
-
 Pavlov is here.
 
 You can move north and west.
@@ -858,7 +842,6 @@ You move east.
 Micro land
 You are standing in a large room.  There are wierd contraptions in this room.
  They don't look to interesting though.  You notice flying cars.  Wow!
-
 Tim is here.
 
 You can only move west.

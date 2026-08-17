@@ -225,7 +225,6 @@ tucked tomorrow's to do list into the corner of the frame ("I always look at
 this painting when I get up, and this way I won't forget my list," she once
 told you.) The hall out into the apartment is to the east, and the master
 bathroom is to the south.
-
 Claudia is here.
 
 > talk to claudia
@@ -370,9 +369,8 @@ superconducting diamagnetic field. The two field generators, one larger than
 the other, take up the center of the room. Cables run from each across the
 floor to a row of computers sitting on a table. The hallway out of the MagLab
 is to the east.
-Mike's loud voice makes it hard not to notice he's in the room.
-
 Claudia is here.
+Mike's loud voice makes it hard not to notice he's in the room.
 
 > climb on machine
 You climb the rungs up the side of the large field generator and stand on the
@@ -467,7 +465,6 @@ Justin's pet Rhesus monkey, sits when he's here and not floating in the
 superconducting diamagnetic field. A small field generator takes up the
 center of the room. Cables run from it across the floor to a computer sitting
 on a table. The hallway out of the MagLab is to the east.
-
 Justin is here.
 
 > talk to justin
@@ -825,7 +822,6 @@ to disguise the age of the hardwood floors and hide some of the faded spots
 on the walls. A rather striking stairway to the right leads upstairs, to the
 west is the living room, the kitchen is down the hallway to the north, and
 the door out of the house is to the south.
-
 Justin is here.
 
 > answer the door

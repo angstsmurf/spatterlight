@@ -36,7 +36,6 @@ You are standing in a long, white hall.  To the west is the Netcam Cineplex,
 to the east is the Lab area, to the north is the studio lobby, and the set is
 south.
   There's a huge pile of purple penguins here, as well as Megan's G4.
-
 Megan is here.
 
 > e
@@ -164,7 +163,6 @@ You are standing in a long, white hall.  To the west is the Netcam Cineplex,
 to the east is the Lab area, to the north is the studio lobby, and the set is
 south.
   There's a huge pile of purple penguins here, as well as Megan's G4.
-
 Megan is here.
 
 > install disc
@@ -197,7 +195,6 @@ This is a small snack room.   West leads to outside the set.  Jessica is
 here, frantically drinking coffee.  Whenever she is about to finish, a
 servobot in the corner glides over, gives her a refill, and then returns to
 the corner.
-
 Jessica is here.
 
 > drop peel
@@ -274,7 +271,6 @@ shouts above the music, "Hey!  You've got to help me get out of here!  I
 never wanted to be part of this contest but these crazy aliens won't let me
 go!"   As he finishes speaking the aliens cheer and clap, apparently pleased
 with his speech.
-
 Martin is here.
 
 > play video
@@ -374,7 +370,6 @@ This is the lobby of the Planet X Luxury Hotel.  West takes you back outside,
 while to the north you can see some kind of game room.  Through the open
 doors to the west you can see the bulldozer continuing its approach.  There
 is a glass case here.
-
 Joshua is here.
 
 > n
@@ -383,7 +378,6 @@ You move north.
 Game room
 This is the Planet X Luxury Hotel's game room.  South takes you back to the
 lobby.  There is an Asteroids game here.
-
 Darci is here.
 
 > flip switch
@@ -405,7 +399,6 @@ while to the north you can see some kind of game room.  Through the open
 doors to the west you can see the bulldozer continuing its approach.
 
 Also here are the game tokens, a bazooka and broken glass.
-
 Joshua is here.  The Asteroids game is here.
 
 > take bazooka
@@ -481,7 +474,6 @@ After speaking, Tom falls back into frustrated contemplation.
 Dark Room
 You're in a room that is very dark except for a single shaft of light that
 descends from a slit in the ceiling.
-
 Tom is here.
 
 > search room
@@ -543,7 +535,6 @@ Desert cafe
 You are inside the delightfully quaint Planet X Desert Cafe.
 
 Also here is Roger's ID.
-
 Roger is here.
 
 > take ID
@@ -622,7 +613,6 @@ You move north.
 
 Desert cafe
 You are inside the delightfully quaint Planet X Desert Cafe.
-
 Roger is here.
 
 > show printout to Roger
@@ -1062,7 +1052,6 @@ You move east.
 Lab Area B
 This is the second of two rooms set up for equipment testing. West will take
 you back to Lab Area A.  UGM 3.0 is set up here.
-
 Yosh is here.
 
 > install modulator

@@ -410,7 +410,6 @@ Dining room
 In the dining room of the Fenwick House
 
 Also here is a putter.
-
 Mr Fenwick is here.
 
 > give food to mr fenwick

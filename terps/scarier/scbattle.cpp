@@ -863,7 +863,7 @@ battle_kill (scr_gameref_t game, scr_int npc, scr_bool visible)
        * no task text and no corpse line either (probe KT2: a done
        * non-repeatable KilledTask re-killed prints only the hit line). */
       if (task_can_run_task_directional (game, task, TRUE))
-        task_run_task (game, task, TRUE);
+        run_task_run_by_index (game, task);
     }
   else if (visible && !battle_legacy)
     {
@@ -922,7 +922,7 @@ battle_apply_damage (scr_gameref_t game, scr_int npc, scr_int damage,
        * site) -- see the room-eligibility note in battle_kill. */
       task = battle_npc_battle_task (game, npc, "StaminaTask");
       if (task >= 0 && task_can_run_task_directional (game, task, TRUE))
-        task_run_task (game, task, TRUE);
+        run_task_run_by_index (game, task);
     }
 }
 

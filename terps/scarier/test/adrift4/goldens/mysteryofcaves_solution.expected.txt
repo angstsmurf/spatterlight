@@ -356,7 +356,6 @@ Lengthy passage
 This passage runs straight and smooth for as far as you can see to the
 northwest. In the other direction, it opens out into a series of twisty
 little passages. Exits lie: northwest and southeast.
-
 Cyana is here.
 
 > se
@@ -410,7 +409,6 @@ Lengthy passage
 This passage runs straight and smooth for as far as you can see to the
 northwest. In the other direction, it opens out into a series of twisty
 little passages. Exits lie: northwest and southeast.
-
 Cyana is here.
 
 > talk to cyana

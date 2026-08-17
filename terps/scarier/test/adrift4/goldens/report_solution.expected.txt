@@ -138,7 +138,6 @@ and to your east is the back end of the Main Block. The rubbish duty students
 are wandering around here picking up rubbish and putting it into their bins.
 One small student is carrying a bin that is far too big for him. The Common
 Room dominates your southern vista.  The library door is closed.
-
 Mr B is here.
 
 > take apple
@@ -193,7 +192,6 @@ and to your east is the back end of the Main Block. The rubbish duty students
 are wandering around here picking up rubbish and putting it into their bins.
 One small student is carrying a bin that is far too big for him. The Common
 Room dominates your southern vista.  The library door is closed.
-
 Mr B is here.
 
 > s
@@ -297,7 +295,6 @@ and to your east is the back end of the Main Block. The rubbish duty students
 are wandering around here picking up rubbish and putting it into their bins.
 One small student is carrying a bin that is far too big for him. The Common
 Room dominates your southern vista.  The library door is closed.
-
 Mr B is here.
 
 > open door
@@ -331,7 +328,6 @@ One small student is carrying a bin that is far too big for him. The Common
 Room dominates your southern vista.  The library door is wide open. You smirk
 at the thought of Liz's anger towards the next poor soul who enters the
 Library.
-
 Mr B is here.
 
 > s
@@ -360,8 +356,8 @@ with Year 8 students who mill around like ants who have been cut off from
 their nest. One particular Year 8 student sits morosely on the ground,
 lacking in energy which is quite unlike the usual behaviour of a Year 8. The
 entrance to the main block is to the south.
-Mrs Walsh is here, bullying Correspondence students.  A Year 8 student is
-here.
+A Year 8 student is here.
+Mrs Walsh is here, bullying Correspondence students.
 
 > s
 You move south.
@@ -389,7 +385,6 @@ The Bursar's office is the financial hub of the school where students pay the
 various fees and charges that are a result of school activities. The one-way
 corridor stretches to your north while you can turn back now to the corridor
 entrance.
-
 The Bursar is here.
 
 > give money to bursar
@@ -428,7 +423,6 @@ of studying statistics in an attempt to secure qualifications for the future.
 Your eyelids start to get heavy simply thinking about the time you spent here
 earlier in your school life. Various poor attempts at mathematic humour adorn
 the walls.
-
 Mr Cook is here.
 
 > give calculator to mr cook
@@ -457,7 +451,6 @@ One small student is carrying a bin that is far too big for him. The Common
 Room dominates your southern vista.  The library door is wide open. You smirk
 at the thought of Liz's anger towards the next poor soul who enters the
 Library.
-
 Mr B is here.
 
 > s
@@ -594,7 +587,6 @@ expect in an office, there is a phone on his desk. The only exit from this
 office is to the south.
 
 Also here is your Biology report.
-
 Homus is here.
 
 > take biology report
@@ -687,7 +679,6 @@ One small student is carrying a bin that is far too big for him. The Common
 Room dominates your southern vista.  The library door is wide open. You smirk
 at the thought of Liz's anger towards the next poor soul who enters the
 Library.
-
 Mr B is here.
 
 > w
@@ -711,7 +702,6 @@ In the Library
 The library is filled with books on all sorts of topics. It's Liz's pride and
 joy and not a bad place to find some information. One particular bookcase
 catches your eye.
-
 Gapper and Liz are here.
 
 > give cards to gapper
@@ -751,7 +741,6 @@ One small student is carrying a bin that is far too big for him. The Common
 Room dominates your southern vista.  The library door is wide open. You smirk
 at the thought of Liz's anger towards the next poor soul who enters the
 Library.
-
 Mr B is here.
 
 > s

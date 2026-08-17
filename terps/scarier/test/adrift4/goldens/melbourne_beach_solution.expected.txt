@@ -93,7 +93,6 @@ Outside Bedrooms
 This is a long, white-tiled hallway lined with photographs. The guest room is
 to the east, David's room is to the north-east, a bathroom is to the north,
 Judy's bedroom is to the west. The hallway continues to the south.
-
 David is here.
 
 David retreats to the north.
@@ -458,7 +457,6 @@ south there is an eating area, east is the laundry, north is the dining room,
 and north-east is the entrance hall.  You can see the pool and back porch
 through the west window.  There is a pot of hot coffee here, and it smells
 good.
-
 David is here.
 
 > e
@@ -522,7 +520,6 @@ south there is an eating area, east is the laundry, north is the dining room,
 and north-east is the entrance hall.  You can see the pool and back porch
 through the west window.  There is a pot of hot coffee here, and it smells
 good.
-
 David is here.
 
 > get pot

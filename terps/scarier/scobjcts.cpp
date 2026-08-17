@@ -362,9 +362,12 @@ obj_scale (scr_int multiple, scr_int index_)
  * Return the relative size and weight of an object.  For containers, the
  * weight includes the weight of each contained object.
  *
- * TODO It's possible to have static objects in the player inventory, moved
- * by events -- how should these be handled, as they have no SizeWeight?
- * See RUNNER_TESTS_TODO.md section 9.
+ * Static objects have no SizeWeight, and an event can put one in the player's
+ * inventory (evt_move_object is the only mover that will), so both functions
+ * have to answer for one.  Zero is right: run400 never counts an event-placed
+ * object towards the player's limits at all, static or not -- measured live,
+ * RUNNER_TESTS_TODO.md section 9 -- so a static, which can arrive no other
+ * way, contributes nothing to the carried totals in either engine.
  */
 scr_int
 obj_get_size (scr_gameref_t game, scr_int object)
@@ -373,7 +376,7 @@ obj_get_size (scr_gameref_t game, scr_int object)
   scr_vartype_t vt_key[3];
   scr_int size, count;
 
-  /* TODO For now, give static objects no size. */
+  /* Static objects have no size; see the note above. */
   if (obj_is_static (game, object))
     return 0;
 
@@ -405,7 +408,7 @@ obj_get_weight (scr_gameref_t game, scr_int object)
   scr_vartype_t vt_key[3];
   scr_int weight, count;
 
-  /* TODO For now, give static objects no weight. */
+  /* Static objects have no weight; see the note above obj_get_size. */
   if (obj_is_static (game, object))
     return 0;
 

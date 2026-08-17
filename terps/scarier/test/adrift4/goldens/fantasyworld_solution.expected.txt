@@ -48,7 +48,6 @@ yourself a great protector.  To the north lies the hut of the chieftan and
 the the south lies the trail that winds its way out of the village.
 
 Also here is a pretty flower.
-
 Aline, Villagers and Muse are here.
 
 > nosex
@@ -99,7 +98,6 @@ This is the village which you called home for the last few years.  Everybody
 here is your friend for though you came as a stranger, you have proven
 yourself a great protector.  To the north lies the hut of the chieftan and
 the the south lies the trail that winds its way out of the village.
-
 Villagers and Muse are here.
 
 > s
@@ -116,7 +114,6 @@ laughs in response.
   "Slay me?  I think that you will change your mind when the time comes.
 Much is not as it seems from this isolated place, but, to ease your mind,
 slay me then."
-
 Mat and Dragon are here.
 
 > point wand at dragon
@@ -145,7 +142,6 @@ You have reached the bridge crossing the mighty mountain river Thale.  To the
 north is the trailhead which leads to the village and to the south is the
 trail proper.  If you desire, you can climb down to the river itself but
 caution is recommended.
-
 Bridge Guard is here.
 
 > d
@@ -156,7 +152,6 @@ This is the landing on Thale.  The only exit is up to the bridge above or out
 into the river.  Without a boat, traveling along the river will prove fatal
 for only a few hundred feet, there is a minor waterfall and several dangerous
 rapids.  Even with a boat, it is a dangerous feat.
-
 Gelry is here.
 
 > give flower to gelry
@@ -171,7 +166,6 @@ You have reached the bridge crossing the mighty mountain river Thale.  To the
 north is the trailhead which leads to the village and to the south is the
 trail proper.  If you desire, you can climb down to the river itself but
 caution is recommended.
-
 Bridge Guard is here.
 
 > give lock to guard
@@ -213,7 +207,6 @@ chimney on the outside.  As well, there are stairs here that lead to a loft
 though it is plain that there is on second story from the outside.
 
 Also here is a mirror.
-
 Edwin and Gail are here.
 
 > get mirror
@@ -294,7 +287,6 @@ them are nice but nothing that hasn't been seen before.  The third is a huge
 stone creation that is beautiful to behold.  Carved upon the lid is the image
 of a buxom woman and the words carved along the side read "Ever lasting
 love."
-
 Caroline is here.
 
 > ask caroline about elder
@@ -381,7 +373,6 @@ village lies.  If you really look, you can just make it out in the haze of
 distance.  The path continues to wind to the west.   As you look around, you
 notice something high up to the east but don't see any obvious way to get
 there.
-
 Ghoul is here.
 You gain a few hit points
 
@@ -442,7 +433,6 @@ You think you can leave to the west but even standing in the doorway dulls
 your perception.  You can see a heavy fireplace here though there is no
 chimney on the outside.  As well, there are stairs here that lead to a loft
 though it is plain that there is on second story from the outside.
-
 Edwin is here.
 
 > train turn undead
@@ -497,7 +487,6 @@ village lies.  If you really look, you can just make it out in the haze of
 distance.  The path continues to wind to the west.   As you look around, you
 notice something high up to the east but don't see any obvious way to get
 there.
-
 Ghoul is here.
 
 > w
@@ -508,7 +497,6 @@ You are near the summit of the pass.  On either side of you the cliffs rise
 high above you blocking out the sun.  This would be a perfect place for an
 ambush.    The path continues to the north and east, but there seems to be a
 cave toward the west.
-
 Greater Ghoul is here.
 
 > turn greater ghoul
@@ -628,7 +616,6 @@ village lies.  If you really look, you can just make it out in the haze of
 distance.  The path continues to wind to the west.   As you look around, you
 notice something high up to the east but don't see any obvious way to get
 there.
-
 Ghoul is here.
 
 > n
@@ -677,7 +664,6 @@ You think you can leave to the west but even standing in the doorway dulls
 your perception.  You can see a heavy fireplace here though there is no
 chimney on the outside.  As well, there are stairs here that lead to a loft
 though it is plain that there is on second story from the outside.
-
 Edwin is here.
 
 > train turn undead
@@ -732,7 +718,6 @@ village lies.  If you really look, you can just make it out in the haze of
 distance.  The path continues to wind to the west.   As you look around, you
 notice something high up to the east but don't see any obvious way to get
 there.
-
 Ghoul is here.
 
 > w
@@ -743,7 +728,6 @@ You are near the summit of the pass.  On either side of you the cliffs rise
 high above you blocking out the sun.  This would be a perfect place for an
 ambush.    The path continues to the north and east, but there seems to be a
 cave toward the west.
-
 Greater Ghoul is here.
 
 > w
@@ -765,7 +749,6 @@ on guard, even men on guard playing at dice in a corner.  As you enter, the
 men look up at you curiously.
 
 Also here is dead mage.
-
 Bandits and Bandit Lord are here.
 
 > resurrect dead mage
@@ -817,7 +800,6 @@ You are near the summit of the pass.  On either side of you the cliffs rise
 high above you blocking out the sun.  This would be a perfect place for an
 ambush.    The trail continues south and to the west, there is a huge rock
 buildup as if a landslide buried something forever.
-
 Bandit Lord and Greater Ghoul are here.
 
 > s
@@ -828,7 +810,6 @@ You have reached the summit of the pass and before you you can see the valley
 of the King.  The fair city of Harmon's Glade  lies to far to the south and
 as you gaze northward, you can only see the winding mountian pass that you
 just traversed.
-
 Skeleton Warrior is here.
 
 > turn skeleton warrior
@@ -854,7 +835,6 @@ continues toward Harmon's Glade.  The ancient forest seems to encroach right
 up to the mountain and the trail on either side of it.  You have not walked
 in that ancient forest but stories say that if you lose your way, you can
 stumble about there forever.
-
 Highwayman is here.
 You gain a few hit points
 
@@ -921,7 +901,6 @@ As you pass under the arch from the roadway, a cowled figure approaches
 though you don't know from whence he came.  "Welcome to the University of
 Magical instruction" the man or woman says in a strange voice.  "Whatever you
 require, ask and I shall answer."
-
 Melvin and Mary are here.
 
 > give sphere to melvin
@@ -973,7 +952,6 @@ though you don't know from whence he came.  "Welcome to the University of
 Magical instruction" the man or woman says in a strange voice.  "Whatever you
 require, ask and I shall answer."    The floor is littered with flagstones
 pulled down from the ceiling by Melvin the insane mage.
-
 Elder, Melvin and Mary are here.
 
 > cast magic missile at melvin
@@ -1009,7 +987,6 @@ occasional servant running around.   To the east and west are dark hallways
 guarded by two guards each.  From the dusty smell of the eastern passage, you
 guess that it leads to a dungeon.  From the way that the western guards seem
 to be watching you, you guess that that way lies the throne room.
-
 Royal Knight is here.
 
 > w
@@ -1020,7 +997,6 @@ This is the throne room and it is decorated with a throne of heavy black
 stone.  Two burly guards stand to either side of the throne itself.  There
 are several tapestries here depticting the history of Harmon's Glade and the
 lineage of the King.
-
 King Harmon is here.
 
 > give amulet to king harmon
@@ -1045,7 +1021,6 @@ occasional servant running around.   To the east and west are dark hallways
 guarded by two guards each.  From the dusty smell of the eastern passage, you
 guess that it leads to a dungeon.  From the way that the western guards seem
 to be watching you, you guess that that way lies the throne room.
-
 Royal Knight is here.
 
 > n
@@ -1087,7 +1062,6 @@ Guild.    Then, a voice says from behind the group, "It's obvious that he's
 here for training."  You turn and see the guild master there.  Behind her is
 a tall climbing wall that almost reaches the ceiling as well as a few other
 darkened areas.
-
 Thieves and Marissa are here.
 
 > train climb
@@ -1136,7 +1110,6 @@ Ah, the Harmon's Glade Inn.  Not what you expected by comfortable and clean
 nonetheless.   Apparently they expected you because your room to the south is
 ready and waiting.  There is a tavern to the east where you can drown your
 sorrows.
-
 Jim is here.
 
 > buy meat
@@ -1172,7 +1145,6 @@ continues toward Harmon's Glade.  The ancient forest seems to encroach right
 up to the mountain and the trail on either side of it.  You have not walked
 in that ancient forest but stories say that if you lose your way, you can
 stumble about there forever.
-
 Highwayman is here.
 
 > give gold to highwayman
@@ -1205,7 +1177,6 @@ You are near the summit of the pass.  On either side of you the cliffs rise
 high above you blocking out the sun.  This would be a perfect place for an
 ambush.    The trail continues south and to the west, there is a huge rock
 buildup as if a landslide buried something forever.
-
 Bandit Lord and Greater Ghoul are here.
 
 > buy poison
@@ -1226,7 +1197,6 @@ village lies.  If you really look, you can just make it out in the haze of
 distance.  The path continues to wind to the west.   As you look around, you
 notice something high up to the east but don't see any obvious way to get
 there.
-
 Ghoul is here.
 
 > n
@@ -1267,7 +1237,6 @@ The hole
 This is a dark forbidding hole and you're surprised that you weren't aware of
 it before.  As far as you can tell, the only way is back up but there is the
 potential for other paths among the roots and dirt.
-
 Goblins and Goblin Chief are here.
 
 > cast magic missile at goblin chief
@@ -1329,7 +1298,6 @@ them are nice but nothing that hasn't been seen before.  The third is a huge
 stone creation that is beautiful to behold.  Carved upon the lid is the image
 of a buxom woman and the words carved along the side read "Ever lasting
 love."
-
 Caroline is here.
 
 > give goblin blood to caroline
@@ -1413,7 +1381,6 @@ place.  You notice that it seems to have been converted into a temple but do
 not recognize the symbol as any traditional god.   There is a well here and
 it seems to be well used as the rope and pulley are in a state of good
 repair.
-
 Ghost of Temple Guard is here.
 
 > kill ghost
@@ -1440,7 +1407,6 @@ it seems to be well used as the rope and pulley are in a state of good
 repair.  The Temple Guard is without a head but still swinging his sword
 fiercely at all that come close.   You have only moments before his killing
 arc reaches you.
-
 Aline, Mat, Ghost of Temple Guard and Gail are here.
 
 > turn ghost
@@ -1460,7 +1426,6 @@ you can see a statue of the god being worshipped here.  To the east is the
 keep.
 
 Also here is Statue of Jedimah.
-
 Worshippers is here.
 
 > e
@@ -1474,7 +1439,6 @@ voice.   There is an Altar here and before it stands the statue of a woman.
 The walls are lined with stone bookshelves.
 
 Also here is Altar of Silence.
-
 Elizabeth is here.
 
 > put mirror on statue
@@ -1574,7 +1538,6 @@ village lies.  If you really look, you can just make it out in the haze of
 distance.  The path continues to wind to the west.   As you look around, you
 notice something high up to the east but don't see any obvious way to get
 there.
-
 Ghoul is here.
 
 > w
@@ -1585,7 +1548,6 @@ You are near the summit of the pass.  On either side of you the cliffs rise
 high above you blocking out the sun.  This would be a perfect place for an
 ambush.    The trail continues south and to the west, there is a huge rock
 buildup as if a landslide buried something forever.
-
 Greater Ghoul is here.
 
 > s
@@ -1635,7 +1597,6 @@ This farm is owned by Jed Hobbles and is run by same.  You don't know Jed and
 Jed don't know you which is bad for both of you because Jed doesn't
 appreciate strangers wandering on his land.  To the west is the road or you
 can head east to the farmhouse proper
-
 Selkie and Jed's dogs are here.
 
 > give meat to dogs
@@ -1654,7 +1615,6 @@ clean place with everything put where it belongs.  Jed himself rarely leaves
 the place as his daughters work the farm.      As you enter, Jed stands up
 and bellows, "What in blazes are you doing in my house!  What did you do to
 my dogs!"
-
 Jed Hobble and Carrie are here.
 
 > show gold to jed
@@ -1682,7 +1642,6 @@ appreciate strangers wandering on his land.  To the west is the road or you
 can head east to the farmhouse proper
 
 Also here is dog blood.
-
 Jed Hobble and Selkie are here.
 
 > w
@@ -1724,7 +1683,6 @@ circular clearing.  Ancient lore tells you that this is a dryad grove.  What
 you remember of Dryads is shaky but you recall that they are beautiful
 godesses of the forest and punish any who trespass upon their lands.  As you
 enter, a Dryad rushes up to you.  "You are a great hero, you must assist me."
-
 Merna is here.
 
 > give circlet to merna
@@ -1795,7 +1753,6 @@ occasional servant running around.   To the east and west are dark hallways
 guarded by two guards each.  From the dusty smell of the eastern passage, you
 guess that it leads to a dungeon.  From the way that the western guards seem
 to be watching you, you guess that that way lies the throne room.
-
 Royal Knight is here.
 
 > w
@@ -1806,7 +1763,6 @@ This is the throne room and it is decorated with a throne of heavy black
 stone.  Two burly guards stand to either side of the throne itself.  There
 are several tapestries here depticting the history of Harmon's Glade and the
 lineage of the King.
-
 King Harmon is here.
 
 > give book to king harmon
@@ -1936,7 +1892,6 @@ Dark Room
 This room is pitch black and no manner of light source and permeate the
 darkness here.  You can hear something moving in the nothingness and then a
 smoothly soothing voice speaks to you.  "What do you want, human."
-
 Shade is here.
 Aline stabs Skull Collector with light rapier, but it doesn't seem to do any
 damage.
@@ -2058,7 +2013,6 @@ Dungeon
 This is the dungeon of Harmon's Keep and under less happy circumstances, it
 might be cheery, as far as dungeons go.  The exit is to the west though it
 seems to be well guarded.
-
 Jailer is here.
 
 > give heart to jailer
@@ -2193,7 +2147,6 @@ circular clearing.  Ancient lore tells you that this is a dryad grove.  What
 you remember of Dryads is shaky but you recall that they are beautiful
 godesses of the forest and punish any who trespass upon their lands.  As you
 enter, a Dryad rushes up to you.  "You are a great hero, you must assist me."
-
 Merna is here.
 
 > ask merna about demon
@@ -2223,7 +2176,6 @@ Royal guards.  You can't see what he is doing as he seems to be lounging
 about reading the book you acquired for him and fingering Melvin's medallion.
 
 Also here is Demon gate.
-
 Demon is here.
 
 > n
@@ -2252,7 +2204,6 @@ You are near the summit of the pass.  On either side of you the cliffs rise
 high above you blocking out the sun.  This would be a perfect place for an
 ambush.    The trail continues south and to the west, there is a huge rock
 buildup as if a landslide buried something forever.
-
 Greater Ghoul is here.
 You gain a few hit points
 
@@ -2265,7 +2216,6 @@ village lies.  If you really look, you can just make it out in the haze of
 distance.  The path continues to wind to the west.   As you look around, you
 notice something high up to the east but don't see any obvious way to get
 there.
-
 Ghoul is here.
 
 > n
@@ -2326,7 +2276,6 @@ a beam of sunlight upon a shattered Altar.  Then, a shape moves out of the
 gloom toward you.  "Ah, you return."
 
 Also here is Altar of Silence.
-
 Elizabeth and Jedimah are here.
 
 > ask jedimah about demon
@@ -2411,7 +2360,6 @@ them are nice but nothing that hasn't been seen before.  The third is a huge
 stone creation that is beautiful to behold.  Carved upon the lid is the image
 of a buxom woman and the words carved along the side read "Ever lasting
 love."
-
 Caroline is here.
 
 > ask caroline about demon
@@ -2469,7 +2417,6 @@ haunted by foul beasts.  Rumor also has it that there is a temple in the
 mountains though none can claim to have seen it.    As you look to your
 village, you can't help but to weep at the senseless slaughter that took
 place there.
-
 Dragon is here.
 
 > ask dragon about demon
@@ -2535,7 +2482,6 @@ village lies.  If you really look, you can just make it out in the haze of
 distance.  The path continues to wind to the west.   As you look around, you
 notice something high up to the east but don't see any obvious way to get
 there.
-
 Ghoul is here.
 
 > w
@@ -2546,7 +2492,6 @@ You are near the summit of the pass.  On either side of you the cliffs rise
 high above you blocking out the sun.  This would be a perfect place for an
 ambush.    The trail continues south and to the west, there is a huge rock
 buildup as if a landslide buried something forever.
-
 Greater Ghoul is here.
 
 > s
@@ -2581,7 +2526,6 @@ Royal guards.  You can't see what he is doing as he seems to be lounging
 about reading the book you acquired for him and fingering Melvin's medallion.
 
 Also here is Demon gate.
-
 Demon is here.
 
 > throw ruby box into gate
@@ -2624,7 +2568,6 @@ You are near the summit of the pass.  On either side of you the cliffs rise
 high above you blocking out the sun.  This would be a perfect place for an
 ambush.    The trail continues south and to the west, there is a huge rock
 buildup as if a landslide buried something forever.
-
 Greater Ghoul is here.
 
 Demon  from the south.
@@ -2638,7 +2581,6 @@ village lies.  If you really look, you can just make it out in the haze of
 distance.  The path continues to wind to the west.   As you look around, you
 notice something high up to the east but don't see any obvious way to get
 there.
-
 Ghoul is here.
 
 Demon  from the west.
@@ -2712,7 +2654,6 @@ a beam of sunlight upon a shattered Altar.  Then, a shape moves out of the
 gloom toward you.  "Ah, you return."
 
 Also here is Altar of Silence.
-
 Elizabeth and Jedimah are here.
 
 Demon  from the west.
@@ -2799,7 +2740,6 @@ village lies.  If you really look, you can just make it out in the haze of
 distance.  The path continues to wind to the west.   As you look around, you
 notice something high up to the east but don't see any obvious way to get
 there.
-
 Ghoul is here.
 
 Demon  from the north.
@@ -2812,7 +2752,6 @@ You are near the summit of the pass.  On either side of you the cliffs rise
 high above you blocking out the sun.  This would be a perfect place for an
 ambush.    The trail continues south and to the west, there is a huge rock
 buildup as if a landslide buried something forever.
-
 Greater Ghoul is here.
 
 Demon  from the east.
@@ -2874,7 +2813,6 @@ circular clearing.  Ancient lore tells you that this is a dryad grove.  What
 you remember of Dryads is shaky but you recall that they are beautiful
 godesses of the forest and punish any who trespass upon their lands.  As you
 enter, a Dryad rushes up to you.  "You are a great hero, you must assist me."
-
 Merna is here.
 
 Demon  from the north.
@@ -2953,7 +2891,6 @@ You are near the summit of the pass.  On either side of you the cliffs rise
 high above you blocking out the sun.  This would be a perfect place for an
 ambush.    The trail continues south and to the west, there is a huge rock
 buildup as if a landslide buried something forever.
-
 Greater Ghoul is here.
 
 Demon  from the south.
@@ -2967,7 +2904,6 @@ village lies.  If you really look, you can just make it out in the haze of
 distance.  The path continues to wind to the west.   As you look around, you
 notice something high up to the east but don't see any obvious way to get
 there.
-
 Ghoul is here.
 
 Demon  from the west.
@@ -3027,7 +2963,6 @@ haunted by foul beasts.  Rumor also has it that there is a temple in the
 mountains though none can claim to have seen it.    As you look to your
 village, you can't help but to weep at the senseless slaughter that took
 place there.
-
 Dragon is here.
 
 Demon  from the south.
@@ -3098,7 +3033,6 @@ them are nice but nothing that hasn't been seen before.  The third is a huge
 stone creation that is beautiful to behold.  Carved upon the lid is the image
 of a buxom woman and the words carved along the side read "Ever lasting
 love."
-
 Caroline is here.
 
 Demon  from outside.
@@ -3173,7 +3107,6 @@ This is the landing on Thale.  The only exit is up to the bridge above or out
 into the river.  Without a boat, traveling along the river will prove fatal
 for only a few hundred feet, there is a minor waterfall and several dangerous
 rapids.  Even with a boat, it is a dangerous feat.
-
 Gelry is here.
 
 Demon  from above.
@@ -3225,7 +3158,6 @@ haunted by foul beasts.  Rumor also has it that there is a temple in the
 mountains though none can claim to have seen it.    As you look to your
 village, you can't help but to weep at the senseless slaughter that took
 place there.
-
 Dragon is here.
 
 > ask dragon about quest

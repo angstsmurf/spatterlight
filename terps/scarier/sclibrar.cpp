@@ -33,6 +33,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <string>
 #include <vector>
 
 #include "scarier.h"
@@ -948,6 +949,46 @@ lib_get_npc_inroom_text (scr_gameref_t game, scr_int npc)
 
 
 /*
+ * lib_npc_text_is_default()
+ *
+ * TRUE if an NPC's in-room text is one the room lister folds into its joined
+ * "X, Y and Z are here." sentence -- that is, one ending in " is here.".  The
+ * Runner's "#" has already become such a text by the time its lister runs;
+ * see the note in lib_print_room_contents().  Exact and case-sensitive, as
+ * measured: "Golf is here!" and "Hotel IS HERE." are not folded.
+ */
+enum { LIB_NPC_HERE_LENGTH = 9 };       /* strlen (" is here.") */
+
+/*
+ * lib_skip_leading_breaks()
+ *
+ * Advance past any run of leading line breaks -- literal newlines or "<br>"
+ * tags -- that an author put at the front of a character's in-room text so
+ * that the character would start on a line of its own.  Scarier is already on
+ * a line of its own there; see the note in lib_print_room_contents().
+ */
+static const scr_char *
+lib_skip_leading_breaks (const scr_char *text)
+{
+  while (*text == '\n' || !scr_strncasecmp (text, "<br>", 4))
+    text += (*text == '\n') ? 1 : 4;
+
+  return text;
+}
+
+static scr_bool
+lib_npc_text_is_default (const scr_char *description)
+{
+  static const scr_char *const SUFFIX = " is here.";
+
+  scr_int length = strlen (description);
+
+  return length > LIB_NPC_HERE_LENGTH
+         && strcmp (description + length - LIB_NPC_HERE_LENGTH, SUFFIX) == 0;
+}
+
+
+/*
  * lib_print_room_contents()
  *
  * Print a list of the contents of a room.
@@ -1031,6 +1072,105 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
       pf_buffer_string (filter, ".\n");
     }
 
+  /*
+   * List the NPCs in the room.  A "#" in-room text asks for the default
+   * "<name> is here.", and the Runner splits the room's characters into the
+   * ones saying exactly that -- joined into one sentence -- and the ones with
+   * something of their own to say.
+   *
+   * Two things about that split are not what they look like, both measured
+   * live in run400 (RUNNER_TESTS_TODO.md section 9).  The "#" substitution
+   * happens in the *loader* (@00091EDF): the text simply becomes "<name> is
+   * here." before the game starts, and by the time the room lister
+   * (@00072944) runs there is no "#" left to test for.  What it tests instead
+   * is the tail -- Right(text, 9) = " is here." -- so a character whose text
+   * the author wrote out in full joins the sentence too, contributing the text
+   * with those nine characters trimmed off rather than its own name.  Probe
+   * NPCs "Delta" ("Delta is here.") and "Foxtrot" ("The stranger is here.")
+   * come out as "Alpha, Charlie, Delta and The stranger are here.", so it is
+   * the text that is trimmed and not the name that is looked up.  The test is
+   * exact and case-sensitive: "Golf is here!" and "Hotel IS HERE." both stay
+   * in the second group.
+   *
+   * And the joined sentence comes *first*, ahead of the characters with their
+   * own text, which is the other half of what Scarier had backwards.
+   */
+  {
+    std::vector<std::string> joined;
+
+    for (npc = 0; npc < gs_npc_count (game); npc++)
+      {
+        const scr_char *description;
+
+        if (!npc_in_room (game, npc, room))
+          continue;
+
+        description = lib_get_npc_inroom_text (game, npc);
+        if (!scr_strcasecmp (description, "#"))
+          {
+            joined.push_back (prop_get_indexed_string (bundle, "NPCs",
+                                                       npc, "Name"));
+          }
+        else
+          {
+            /*
+             * Drop any leading break the author wrote to put this character on
+             * a line of its own -- the joined sentence already is one -- and
+             * trim the suffix to get the name the Runner joins in.
+             */
+            description = lib_skip_leading_breaks (description);
+            if (lib_npc_text_is_default (description))
+              {
+                joined.push_back (std::string (description,
+                                               strlen (description)
+                                               - LIB_NPC_HERE_LENGTH));
+              }
+          }
+      }
+
+    if (!joined.empty ())
+      {
+        const scr_char *buffered;
+        size_t index_;
+
+        /*
+         * Start a line, but only one.  The Runner runs this straight on from
+         * the room description inside the turn's single paragraph, with the
+         * characters that have their own text following just as directly;
+         * Scarier prints the room block as sections, one list to a line, and
+         * this joins that convention -- the section-vs-paragraph difference is
+         * the standing one in RUNNER_TESTS_TODO.md section 3.  The same test
+         * the custom-text loop below makes, for the same reason: whatever came
+         * before usually ended with a break already, and a second one would
+         * open a gap the Runner has no counterpart for.
+         *
+         * This is a change for the "#" characters, whose sentence used to be
+         * preceded by an unconditional break and so by a blank line.  Back
+         * then the sentence could hold nothing else and always stood alone;
+         * now that the authors' own " is here." texts join it, a group set off
+         * by a blank line from the very characters it belongs with reads as an
+         * accident rather than a choice.
+         */
+        buffered = pf_get_buffer (filter);
+        if (!(buffered && pf_text_ends_with_break (buffered)))
+          pf_buffer_character (filter, '\n');
+        pf_new_sentence (filter);
+        for (index_ = 0; index_ < joined.size (); index_++)
+          {
+            if (index_ > 0)
+              {
+                pf_buffer_string (filter,
+                                  index_ == joined.size () - 1
+                                  ? " and " : ", ");
+              }
+            pf_buffer_string (filter, joined[index_].c_str ());
+          }
+        pf_buffer_string (filter,
+                          joined.size () == 1 ? " is here" : " are here");
+        pf_buffer_string (filter, ".\n");
+      }
+  }
+
   /* List NPCs directly in the room that have an in room description. */
   count = 0;
   for (npc = 0; npc < gs_npc_count (game); npc++)
@@ -1039,9 +1179,12 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
         {
           const scr_char *description;
 
-          /* Print any non='#' in-room description. */
+          /* Print any text not already folded into the sentence above. */
           description = lib_get_npc_inroom_text (game, npc);
-          if (!scr_strempty (description) && scr_strcasecmp (description, "#"))
+          if (!scr_strempty (description)
+              && scr_strcasecmp (description, "#")
+              && !lib_npc_text_is_default (lib_skip_leading_breaks
+                                             (description)))
             {
               const scr_char *buffered;
               scr_bool buffer_has_break, desc_has_break;
@@ -1087,35 +1230,6 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
     }
   if (count > 0)
     pf_buffer_character (filter, '\n');
-
-  /*
-   * List NPCs in the room that don't have an in room description and that
-   * request a default "...is here" with "#".
-   *
-   * TODO Is this right?  See RUNNER_TESTS_TODO.md section 9.
-   */
-  list.clear ();
-  for (npc = 0; npc < gs_npc_count (game); npc++)
-    {
-      if (npc_in_room (game, npc, room))
-        {
-          const scr_char *description;
-
-          /* Print name for descriptions marked '#'. */
-          description = lib_get_npc_inroom_text (game, npc);
-          if (!scr_strempty (description) && !scr_strcasecmp (description, "#"))
-            list.push_back (npc);
-        }
-    }
-  if (!list.empty ())
-    {
-      pf_buffer_character (filter, '\n');
-      pf_new_sentence (filter);
-      lib_print_list (game, list, lib_print_npc_np, " and ");
-      pf_buffer_string (filter,
-                        list.size () == 1 ? " is here" : " are here");
-      pf_buffer_string (filter, ".\n");
-    }
 }
 
 

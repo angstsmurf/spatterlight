@@ -69,7 +69,6 @@ You move in.
 
 Kitchen
 You are in the mice kitchen. There is a chef that is choppin' them up.
-
 Mice Chef is here.
 
 You can move east and out.
@@ -136,7 +135,6 @@ You move east.
 
 Kitchen
 You are in the mice kitchen. There is a chef that is choppin' them up.
-
 Mice Chef is here.
 
 You can move east and out.

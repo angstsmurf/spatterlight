@@ -377,7 +377,6 @@ has not seen much use. Statues of saints sit back in alcoves long forgotten
 and you can smell an unpleasantly dank odor rising from the pews. There is a
 moderate-sized wooden altar off to one side of the room, but overall this
 room holds little of interest.
-
 Hope is here.
 
 You can only move west.

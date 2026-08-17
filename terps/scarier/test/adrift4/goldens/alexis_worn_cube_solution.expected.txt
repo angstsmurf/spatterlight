@@ -329,7 +329,6 @@ is a musty smell that fills the air. There is a large cave east of here and a
 smaller one to the west. Northwest takes you into a winding passage.
 Southeast takes you down a straight passage.  The path northwest is being
 blocked by a large troll.
-
 Narfild is here.
 Narfild hits you with the large club, but it doesn't seem to do any damage.
 
@@ -538,9 +537,8 @@ You are in the centre of a easily distinguishable Elven camp. There are small
 wooden huts to the north, east,  southeast and south. The huts are covered
 with mud and branches. A wide path leads west to a junction. A small path
 leads southwest towards the sea.
-Serond is standing on your right.
-
 Natalya is here.
+Serond is standing on your right.
 
 > e
 You move east.
@@ -570,9 +568,8 @@ You are in the centre of a easily distinguishable Elven camp. There are small
 wooden huts to the north, east,  southeast and south. The huts are covered
 with mud and branches. A wide path leads west to a junction. A small path
 leads southwest towards the sea.
-Serond is standing on your right.
-
 Natalya is here.
+Serond is standing on your right.
 
 > n
 You move north.
@@ -597,9 +594,8 @@ You are in the centre of a easily distinguishable Elven camp. There are small
 wooden huts to the north, east,  southeast and south. The huts are covered
 with mud and branches. A wide path leads west to a junction. A small path
 leads southwest towards the sea.
-Serond is standing on your right.
-
 Natalya is here.
+Serond is standing on your right.
 
 > s
 You move south.
@@ -608,7 +604,6 @@ South wooden hut
 This hut appears to be an area for cooking and eating. There is a fire in the
 centre of the hut with a large metal pan hanging over it. There is a long
 table around the outside.
-
 Derek is here.
 
 > put water in pan
@@ -622,9 +617,8 @@ You are in the centre of a easily distinguishable Elven camp. There are small
 wooden huts to the north, east,  southeast and south. The huts are covered
 with mud and branches. A wide path leads west to a junction. A small path
 leads southwest towards the sea.
-Serond is standing on your right.
-
 Natalya is here.
+Serond is standing on your right.
 
 > se
 You move southeast.
@@ -652,9 +646,8 @@ You are in the centre of a easily distinguishable Elven camp. There are small
 wooden huts to the north, east,  southeast and south. The huts are covered
 with mud and branches. A wide path leads west to a junction. A small path
 leads southwest towards the sea.
-Serond is standing on your right.
-
 Natalya is here.
+Serond is standing on your right.
 
 > w
 You move west.
@@ -1010,7 +1003,6 @@ You are at the centre of a long footbridge, reaching across the ravine. There
 is a handrail on either side, with planks of wood to walk on. West goes to
 one side of the bridge, east to the other.  Larnt is standing in front of you
 barring the way.
-
 Larnt is here.
 
 > give stones to larnt
@@ -1098,7 +1090,6 @@ The hall is huge and has Gargoyles around the ceiling. When looking at one,
 another seems to move out of the corner of your eye.  Out will take you back
 outside. North will take you into a long room. West will take you into a
 corridor. East will take you into a smaller room.
-
 Larnt is here.
 
 Haron follows you from the south.

@@ -23,7 +23,6 @@ You move north.
 Trabula's
 Trabula's Emporium is more than just an equipment store, it seems like they
 have everything you could want!
-
 Trabula is here.
 "Ah I'm so glad to see you," the man says.
 
@@ -362,7 +361,6 @@ You move north.
 Trabula's
 Trabula's Emporium is more than just an equipment store, it seems like they
 have everything you could want!
-
 Trabula is here.
 
 > give diamond ring to trabula

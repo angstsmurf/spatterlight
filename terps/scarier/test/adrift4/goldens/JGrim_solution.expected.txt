@@ -1032,7 +1032,6 @@ facing a large computer panel. In front of the panel is a huge bay window,
 from which you can see the remains of the planet Jupiter. The rest of the
 ship lies behind you, to the west, and there are locked doors where the
 escape pod used to be.
-
 A hideous and headless alien corpse is here.
 
 The ship is disintegrating around you, the aliens obviously decided that they

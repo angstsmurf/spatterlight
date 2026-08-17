@@ -467,9 +467,8 @@ baseball games as the aroma of hot dogs drifts over to you.
 
 There are seats to the northeast and northwest.  Due north is the center
 ring.
-Marie is here, behind the ticket booth.
-
 the vendor is here.
+Marie is here, behind the ticket booth.
 
 > n
 You move north.
@@ -606,7 +605,6 @@ You're behind the circus tent, in an area where animals and performers
 prepare.  There is a lot of straw and sawdust on the ground here.  To the
 south is the backdoor to the big top.  To the north you see some animal
 cages, to the east and west are trailers used as dressing rooms.
-
 Barb is here.
 
 Barb exits to the west.
@@ -696,9 +694,7 @@ This is where the animal cages are.  There is straw and sawdust on the ground
 here.  You see an elephant cage, a lion cage, a tiger cage, and a gorilla
 cage.  There is also a stable here.  The rear entrance to the big top is to
 your south, as are the dressing rooms.
-Pringles the monkey is here.
-
-Barb is here.
+Barb and Pringles the monkey are here.
 
 Barb walks out to the south.
 

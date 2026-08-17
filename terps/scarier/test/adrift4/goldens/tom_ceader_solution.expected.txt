@@ -56,7 +56,6 @@ The bar
 The bar has some people around it , there is a bar tender behind the bar ,
 and a couple of stools . The bar is very ill lit with one light in the middle
 of the room .
-
 Gorge and Tom are here.
 
 You can only move out.
@@ -111,7 +110,6 @@ A lock smith shop
 The lock smith is standing behind the order table , there are lots of
 machines here . The lighting is provided by two 60 watts light bulbs . There
 is also a pop machine and a couch here.
-
 Keymaker is here.
 
 You can only move out.

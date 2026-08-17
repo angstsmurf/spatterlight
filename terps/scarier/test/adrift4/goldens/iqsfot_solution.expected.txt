@@ -1379,7 +1379,8 @@ EXIT HATCH
 The corridor continues aft to the kitchens and starboard toward the bridge.
 To port, a door reads: "Gatts Grupen: Captain."  A hatch leads down to the
 surface of Traglea.
-The CAS droid is here.  First Mate Silthen attends the exit hatch.
+The CAS droid is here.
+First Mate Silthen attends the exit hatch.
 
 HiRBy hovers over from the south.
 

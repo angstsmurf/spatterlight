@@ -60,7 +60,6 @@ site but to your horror Heralds friend Mrs Assface comes running towards you
 with a machine gun!!!!!!
  What do you do 1) take machine gun or
 2)duck!
-
 Mrs Assface is here.
 
 > 2

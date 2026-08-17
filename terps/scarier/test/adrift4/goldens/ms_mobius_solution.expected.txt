@@ -161,7 +161,7 @@ come back and join to its other end. It covers both "top" and "bottom" of the
 floor without ever really leaving the ground--you see, the Mobius Belt has
 only one side. The aforementioned corridor runs north and south, but you'll
 have to float if you're going anywhere, as there's no gravity.
-Virgil is here.  Chelsea is here.  Bo is here.
+Virgil, Chelsea and Bo are here.
 
 > look
 
@@ -174,7 +174,7 @@ come back and join to its other end. It covers both "top" and "bottom" of the
 floor without ever really leaving the ground--you see, the Mobius Belt has
 only one side. The aforementioned corridor runs north and south, but you'll
 have to float if you're going anywhere, as there's no gravity.
-Virgil is here.  Chelsea is here.  Bo is here.
+Virgil, Chelsea and Bo are here.
 
 > score
 Your score is 2 out of a maximum of 3.  (66%)

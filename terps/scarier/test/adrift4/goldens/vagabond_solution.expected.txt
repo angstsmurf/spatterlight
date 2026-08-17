@@ -63,7 +63,6 @@ You move west.
 Corridor to the Docking Bays
 This corridor connects the Docking Bays to the West and the Concourse to the
 East. A toolbox is here.
-
 George is here.
 
 > give credits to bum
