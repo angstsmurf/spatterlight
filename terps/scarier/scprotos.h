@@ -164,6 +164,8 @@ extern void taf_destroy (scr_tafref_t taf);
 extern scr_tafref_t taf_create (scr_read_callbackref_t callback, void *opaque);
 extern scr_tafref_t taf_create_tas (scr_read_callbackref_t callback,
                                    void *opaque);
+extern scr_tafref_t taf_create_tas_raw (scr_read_callbackref_t callback,
+                                        void *opaque);
 extern void taf_first_line (scr_tafref_t taf);
 extern const scr_char *taf_next_line (scr_tafref_t taf);
 extern scr_bool taf_more_lines (scr_tafref_t taf);
@@ -939,6 +941,7 @@ extern void obj_debug_trace (scr_bool flag);
 
 /* Game serialization functions. */
 extern void ser_set_fast_compression (scr_bool fast);
+extern void ser_set_raw_memo (scr_bool raw);
 extern void ser_save_game (scr_gameref_t game,
                            scr_write_callbackref_t callback, void *opaque);
 extern void ser_save_game_to_file (scr_gameref_t game,

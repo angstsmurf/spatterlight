@@ -146,6 +146,26 @@ ser_set_fast_compression (scr_bool fast)
   ser_compression = fast ? Z_BEST_SPEED : Z_DEFAULT_COMPRESSION;
 }
 
+/*
+ * Raw (uncompressed) mode for the next serialization run.  The undo ring's
+ * in-memory memos are a self-contained round trip that never touches disk and
+ * never interoperates with a Runner, so they can skip zlib entirely: profiling
+ * put the per-turn deflate at ~20-48% of the interpreter, and it buys nothing
+ * for a buffer we rewrite every 16 turns and read back ourselves.  memo_save_-
+ * game()/memo_load_game() set this around their ser_save_game()/ser_load_game()
+ * calls; the save side (ser_flush) then passes bytes straight through, and the
+ * load side (ser_load_game) reads them back via taf_create_tas_raw().  File
+ * saves never set it, so their zlib format -- and the save-file sniffer -- are
+ * untouched.  Both entry points self-clear it, like ser_pre_v4.
+ */
+static scr_bool ser_raw_memo = FALSE;
+
+void
+ser_set_raw_memo (scr_bool raw)
+{
+  ser_raw_memo = raw;
+}
+
 /* Output buffer. */
 static scr_byte *ser_buffer = NULL;
 static scr_int ser_buffer_length = 0;
@@ -170,6 +190,27 @@ ser_flush (scr_bool is_final)
   static z_stream stream;
 
   scr_int status;
+
+  /*
+   * A raw memo is passed straight through, uncompressed and unobfuscated --
+   * taf_create_tas_raw() reads it back verbatim.  Like the pre-4.0 branch it
+   * never touches the deflate state, so the 4.0 path below is unaffected.
+   */
+  if (ser_raw_memo)
+    {
+      if (ser_buffer_length > 0)
+        {
+          ser_callback (ser_opaque, ser_buffer, ser_buffer_length);
+          ser_buffer_length = 0;
+        }
+
+      if (is_final)
+        {
+          scr_free (ser_buffer);
+          ser_buffer = NULL;
+        }
+      return;
+    }
 
   /*
    * A pre-4.0 save is not compressed at all: the plain text goes out xor'd
@@ -993,6 +1034,7 @@ ser_save_game_internal (scr_gameref_t game, scr_write_callbackref_t callback,
   ser_callback = NULL;
   ser_opaque = NULL;
   ser_pre_v4 = FALSE;
+  ser_raw_memo = FALSE;
 }
 
 void
@@ -1312,10 +1354,17 @@ ser_load_game (scr_gameref_t game,
   const scr_char *gamename;
   scr_bool runner_format = FALSE;
 
-  /* Create a TAF (TAS) reference from callbacks, for reader functions. */
-  ser_tas = taf_create_tas (callback, opaque);
+  /* Create a TAF (TAS) reference from callbacks, for reader functions.  A raw
+   * memo (ser_set_raw_memo) skips the sniff/inflate and is read back verbatim;
+   * everything downstream is identical, since the byte stream is the same one
+   * a decompressed 4.0 save would present. */
+  ser_tas = ser_raw_memo ? taf_create_tas_raw (callback, opaque)
+                         : taf_create_tas (callback, opaque);
   if (!ser_tas)
-    return FALSE;
+    {
+      ser_raw_memo = FALSE;
+      return FALSE;
+    }
 
   /*
    * The container tells us the layout: only run390.exe -- and ser_save_game_-
@@ -1347,6 +1396,7 @@ ser_load_game (scr_gameref_t game,
       taf_destroy (ser_tas);
       ser_tas = NULL;
       ser_pre_v4 = FALSE;
+      ser_raw_memo = FALSE;
       return FALSE;
     }
 
@@ -1634,6 +1684,7 @@ ser_load_game (scr_gameref_t game,
   taf_destroy (ser_tas);
   ser_tas = NULL;
   ser_pre_v4 = FALSE;
+  ser_raw_memo = FALSE;
   return TRUE;
 }
 
