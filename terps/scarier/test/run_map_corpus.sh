@@ -70,8 +70,12 @@ render_views() {
     done
 }
 
-for g in "$HERE"/test/adrift4/games/*.taf; do
-    [ -e "$g" ] && render_views v4 "$BIN4" "$g"
+# Match the extension case-insensitively: a handful of corpus games are named
+# .TAF, and a plain *.taf glob rendered none of them.
+for g in "$HERE"/test/adrift4/games/*; do
+    [ -e "$g" ] || continue
+    [ "$(printf '%s' "${g##*.}" | tr 'A-Z' 'a-z')" = taf ] || continue
+    render_views v4 "$BIN4" "$g"
 done
 for g in "$HERE"/test/adrift5/games/*; do
     [ -e "$g" ] && render_views a5 "$BIN5" "$g"

@@ -1,6 +1,6 @@
 # The game corpora: manifests, fetching, and why the checksums matter
 
-The ADRIFT regression suites here replay real games — 245 ADRIFT 3.7/3.8/3.9/4.0
+The ADRIFT regression suites here replay real games — 431 ADRIFT 3.7/3.8/3.9/4.0
 `.taf` files and 174 ADRIFT 5 `.taf`/`.blorb` files at the time of writing. Those files
 are third-party and copyrighted, so they are **not** committed (`adrift4/games/`
 and `adrift5/games/` are gitignored) and every suite that needs them SKIPs when
@@ -52,10 +52,13 @@ a different build date stamped in the `.taf`, i.e. we hold the *earlier* release
 | `chooseyourown.taf` | `ifarchive.org/…/ChooseYourOwn.taf` | 22 Aug 2004 vs 16 Sep 2004 |
 | `TheADRIFTProject.taf` | `adrift.co/files/games/theadriftproject.taf` | 05 Aug 2004 vs 31 Aug 2004 |
 
-`chooseyourown.taf` is the one of those three that has since been resolved: the
-22 Aug build survives in the Wayback Machine's copy of `delron.org.uk`, so that
-row now has a real `source` and the table entry above is only history. The other
-two are still `MANUAL`.
+All three have since been resolved, and the table above is only history: the
+`chooseyourown.taf` 22 Aug build survives in the Wayback Machine's copy of
+`delron.org.uk`, and the other two — like `topaz.taf` and `ticket.taf`, the two
+other ADRIFT 4 rows whose own name serves different bytes today — survive in the
+competition bundle each game was originally released in, on the IF Archive under
+`games/mini-comps/adrift/`. The comp zip is the release; what the site serves
+under the game's own name is a later rebuild.
 
 The goldens in `adrift4/goldens/` and `adrift5/goldens/` are byte-exact
 transcripts. Replaying one of them against a different release of its game
@@ -142,7 +145,7 @@ Tab-separated, one row per game file, `#` comment header:
 | `size` | bytes |
 | `sha256` | the pin |
 | `source` | URL to download, or `-` if none is known |
-| `member` | path inside that archive when `source` is a `.zip`, else `-` |
+| `member` | path inside that archive when `source` is a `.zip`, else `-`; `outer.zip\|inner.taf` reaches through a nested one |
 | `title` | canonical title (ScummVM's ADRIFT detection tables, else adrift.co) |
 | `note` | why `source` is `-`, when we know |
 
@@ -151,12 +154,31 @@ against a full mirror of adrift.co (619 games, including zip members) and the IF
 Archive's `if-archive/games/adrift/` (194 files), plus, for the Spanish-language
 ADRIFT games, `if-archive/games/adrift/spanish/` and the Spanish competition
 directories the archive's `Master-Index` points at, plus a Wayback Machine sweep
-of four dead ADRIFT/AIF hosts (see below). A row gets a `source` only when
-some upstream file or archive member hashes **identically** — nothing here is a
-guess from a matching filename.
+of four dead ADRIFT/AIF hosts (see below). The 2026-08-17 ADRIFT 4 expansion
+added two more haystacks, because most of what it pinned are competition
+entries that were only ever published inside a comp bundle: every zip adrift.co
+lists under its Competitions category, and `if-archive/games/mini-comps/adrift/`.
+The last eight rows of that expansion each needed their own trail, because the
+sites that published them are gone: the Wayback copies of `aif.emsai.net`'s
+`fetch.php` download endpoint, of `aifcommunity.org/games/adrift/`, and of
+`delron.org.uk/games/`, plus two adrift.co bundles (`threesmallgames.zip`,
+`4_COBL.zip`) and two Spring Thing directories on the IF Archive.
 
-Coverage as recorded: 211/245 ADRIFT 4 and 152/174 ADRIFT 5 rows are fetchable.
-The remaining 56 are marked `MANUAL`. Their notes distinguish two cases:
+The twelve rows added right after that came from one more dead host,
+`newsletter.aifcommunity.org` — the *Inside Erin* newsletter, which hosted the
+AIF mini-comps from 2006 to 2014 and published each year's entries as a single
+bundle. Indexing every archived zip there (recursing one level, since the 2006
+bundle packs each entry as the zip its author submitted) turned up 180 distinct
+blobs, of which twelve are ADRIFT games that appear nowhere else — they are
+outside IFDB's `adrift 4` tag, which is why the sweep above missed them. Three
+of the twelve are only reachable through that inner zip, which is what the
+`member` column's `|` separator is for.
+
+A row gets a `source` only when some upstream file or archive member hashes
+**identically** — nothing here is a guess from a matching filename.
+
+Coverage as recorded: 412/431 ADRIFT 4 and 152/174 ADRIFT 5 rows are fetchable.
+The remaining 41 are marked `MANUAL`. Their notes distinguish two cases:
 
 - *different release upstream: `<url>` (sha256 …)* — the game is still online, but
   not these bytes. Anyone who finds the original release can drop it in; the
@@ -186,7 +208,7 @@ Four provenance quirks worth knowing:
   ADRIFT games only ever circulated on sites that are now offline, and their game
   files were archived along with the pages linking them. Sweeping four of them
   (`delron.org.uk`, `shadowvault.net`, `adrift.org.uk/ftp/games/`, and
-  `aifcommunity.org` plus `newsletter.aifcommunity.org`) recovered 36 rows that
+  `aifcommunity.org` plus `newsletter.aifcommunity.org`) recovered 48 rows that
   no live mirror has, including original releases that upstream has since
   overwritten. The recipe: query the CDX API per host
   (`web.archive.org/cdx/search/cdx?url=<host>&matchType=prefix&output=text&fl=original,timestamp,statuscode,length&filter=statuscode:200`),
@@ -195,7 +217,9 @@ Four provenance quirks worth knowing:
   re-crawls of dead paths are ~1350-byte placeholders), and fetch the survivors
   with the `id_` timestamp modifier for raw, unrewritten bytes. Comp collections
   (`…/comps/downloads/ectocomp-2008.zip`, `newsletter.aifcommunity.org/2013minicomp.zip`)
-  are worth more than single-game URLs: one zip often carries several rows.
+  are worth more than single-game URLs: one zip often carries several rows —
+  index them one level deep, because a bundle may hold each entry as the zip its
+  author submitted rather than as a loose `.taf`.
   **Wayback throttles hard** — after roughly 20 downloads in quick succession it
   refuses TCP connections outright for a while, which curl reports in
   milliseconds as `Couldn't connect`, not as an HTTP status. `fetch` therefore
@@ -208,7 +232,8 @@ Four provenance quirks worth knowing:
 
 Drop the file in the corpus directory, then append a row: `file`, `size` (bytes),
 `sha256`, and a `source` URL you have verified hashes to the same bytes (plus
-`member` if it lives in a zip). `sh test/fetch_games.sh verify` is the check.
+`member` if it lives in a zip, written `outer.zip|inner.taf` if it lives in a zip
+inside that zip). `sh test/fetch_games.sh verify` is the check.
 
 Anything in a corpus directory that is not a manifest row — a download leftover,
 a game's sibling `.xml`/`.txt` metadata — is simply ignored, by both the script

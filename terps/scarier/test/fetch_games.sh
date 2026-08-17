@@ -103,12 +103,29 @@ download() {                            # download URL -> cache, echo the path
   done
 }
 
-extract() {                             # extract ARCHIVE MEMBER -> DEST
-  if unzip -p "$1" "$2" > "$3" 2>/dev/null < /dev/null && [ -s "$3" ]; then
-    return 0
-  fi
-  rm -f "$3"
-  return 1
+# extract ARCHIVE MEMBER -> DEST.  MEMBER may reach through nested archives,
+# "outer.zip|inner/game.taf": the 2006 AIF mini-comp bundle packs each entry as
+# the zip its author submitted, and unzip cannot descend on its own.
+extract() {
+  _arc=$1 _mem=$2 _dst=$3 _prev="" _n=0
+  while :; do
+    case "$_mem" in
+      *'|'*) _inner=${_mem#*'|'}; _mem=${_mem%%'|'*}
+             _n=$((_n + 1)); _out="$_dst.nest$_n" ;;
+      *)     _inner=""; _out="$_dst" ;;
+    esac
+    if unzip -p "$_arc" "$_mem" > "$_out" 2>/dev/null < /dev/null && [ -s "$_out" ]
+    then
+      # Safe to drop the enclosing archive now that unzip has finished reading it
+      [ -n "$_prev" ] && rm -f "$_prev"
+      [ -n "$_inner" ] || return 0
+      _prev=$_out _arc=$_out _mem=$_inner
+    else
+      rm -f "$_out"
+      [ -n "$_prev" ] && rm -f "$_prev"
+      return 1
+    fi
+  done
 }
 
 mode=verify
