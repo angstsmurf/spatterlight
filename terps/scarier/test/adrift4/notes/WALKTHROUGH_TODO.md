@@ -303,15 +303,251 @@ the horse in Egypt to `decir museo` against a shortest path of eight, and
 EVENT 3 gives exactly one turn from `hablar con jason` to `esquivar el baston`.
 See *Vardock_Bates_walkthrough.md*.
 
-**The AIF holdouts, for whoever picks this up next.** `enc1.taf` (*Encounter 1:
-Tim's Mom*) is the next file by size and was **deliberately not wired**: the
-author's shipped `enc1.txt` states the player character is a 15-year-old boy
-and the entire 50-point scoring table is explicit sex with an adult. That is
-not the *Diary of a Stripper* / *Camp Windy Lake 2* case — those were adult
-content between adults, gitignored and wired. `enc2.taf` (*Encounter 2: The
-Study Group*) is by the same author and its blurb sets it in a 12th-grade study
-group; **check its `enc2.txt` before wiring it**. Do not simply take `enc1` as
-"next by size" without reading this paragraph.
+**2026-08-17: the eight AIF holdouts were triaged on content, and
+*Lara Croft: The Sun Obelisk* wired, suite 248 rows, 248 PASS** (250 after
+*Doctor Who* and *The Gamma Gals* below)**.** See
+*The AIF holdouts* below for the triage — four of the eight are declined and
+four are the ordinary *Diary of a Stripper* case. `croft.taf` is the first of
+the four, 148,447 bytes, **3.90**, Christopher Cole, Fall 2002: a Tomb Raider
+pastiche, cast adults throughout, 35 rooms / 231 tasks / 40 objects / 30
+statics / 4 NPCs / 4 variables / **one event**. **WON 150/150** in 101
+commands, and 150 is provably the ceiling (48 `ACT type=4` awards, 27×2 + 7×3 +
+13×5 + 1×10 = exactly the declared maximum, all 48 fired). Eleven `ACT type=6`
+— ten `v1=2` deaths and one `v1=0`. No `<waitkey>` in the file at all, so the
+row carries no env (NO-WAITKEY 115). Solution and golden gitignored, row
+committed, no notes file — the *Camp Windy Lake 2* treatment, third time.
+
+The row's reason to exist is that **the author's own shipped walkthrough is
+three points short of the total it prints.** `croftwlk.txt` (by John
+<not_jwc@hotmail.com>, in the game's own zip, now
+`downloaded/LaraCroft_SunObelisk_walkthrough.txt`) is annotated with running
+scores all the way to 150, and replaying it verbatim ends at **147**. The
+culprit is one line. The game is adult AIF, so the strings are written here in
+schematic form — `V` is the verb the walkthrough types, `V'` the verb the tasks
+are written with, `N` the shared noun; the literal commands are in the
+gitignored `goldens/croft_solution.txt`. The offending line is `V N with jade`:
+
+* The file carries `SYNONYM [V] -> [V']`, and substitution runs **before**
+  task matching — *La hija del relojero*'s finding, now in an English game. The
+  matcher sees `V' N with jade`.
+* **TASK 117 `V' N*` then claims it.** 117 is unrestricted, sits six
+  indices in front of the task the author meant, and its trailing `*` swallows
+  the rest of the line. It is the *solo* statue action and has already fired for
+  its +2 earlier in the scene, so the second hit reprints its message and
+  awards nothing — a silent loss with plausible output, the shape *The Lost
+  Tomb*'s death mask has.
+* The +3 is **TASK 123**, whose 25 patterns include `V' * N* with jade`.
+  Reaching it needs a phrasing 117 cannot claim; the route uses 123's own
+  `me and jade V' * N*` (typed with `V`) — which also settles
+  that **a medial `*` matches zero words**, not just one or more.
+
+This is first-match precedence rather than an engine divergence — **and that
+was measured in the real Runner, not inferred from the task indices.** See
+*Verified against run390* below. The transferable rule is the pairing — **when
+a game ships a `SYNONYM` table, read it before trusting any published route**,
+because the command the author documents is not the string the matcher sees,
+and a lower-indexed unrestricted task with a trailing `*` will quietly eat the
+rewritten form.
+
+**Verified against run390, 2026-08-17.** The parity claim above was first
+written from the dump alone, which is not evidence about the Runner, so it was
+measured. Replaying all 101 croft commands in `run390.exe` proved too fragile
+(the game's picture window takes focus and the scripted keystrokes desync
+within a few turns — the first attempt sat in the Ante Chamber at score 0),
+so the shape was reduced to a purpose-built probe instead:
+`harness/make_39_synprobe.py`. It is built from croft's own vocabulary so that
+it is a faithful reduction of the file, which is why it is **gitignored** along
+with the AIF solutions and goldens; it lives in `harness/` on this machine.
+One room, no objects, `SYNONYM [V] -> [V']`, `MaxScore 3`, `bNoAutoComplete 1`
+— the game turns the Runner's input mangling off for itself — and exactly two
+unrestricted, repeatable, all-rooms tasks:
+
+    TASK 1  `V' N*`                                      -> "TASK1 FIRED."  +0
+    TASK 2  `me and jade V' * N*` / `V' * N* with jade`
+                                                         -> "TASK2 FIRED."  +3
+
+Run in `run390.exe` under Wine (`pfx/drive_c/adrift/pSYN.taf`, screenshot
+`synB.png`) and in `harness/scare`, the two agree line for line:
+
+| command | run390 | Scarier |
+|---|---|---|
+| `V' N with jade` | TASK1 FIRED, score 0 | TASK1 FIRED, score 0 |
+| `V N with jade` | TASK1 FIRED, **score 0** | TASK1 FIRED, **score 0** |
+| `me and jade V N` | TASK2 FIRED, score 3 | TASK2 FIRED, score 3 |
+
+So all three of the sub-claims hold in the real Runner: the `SYNONYM` rewrite
+happens **before** task matching (row 2 behaves exactly like row 1), the
+lower-indexed unrestricted task with the trailing `*` **does** steal the line
+from the higher-indexed one that spells the command out, and a **medial `*`
+matches zero words** (row 3 matches `me and jade V' * N*` with nothing
+between `jade` and `N`). `croftwlk.txt` really does top out at 147 in the
+Runner it was written for, and Scarier is right to score it that way.
+
+Two harness notes from this, both already in the Wine memory but worth the
+repetition: **the first scripted command after launch is routinely lost** —
+`synA.png` shows a blank echo and "I don't understand." where the first
+command should be, and padding the script with two `look`s fixed it — and **the
+echo is the only trustworthy record of what the Runner actually received**, so
+a probe worth running is one whose every command echoes visibly.
+
+Also worth carrying: `shoot goon` at the Waterfall is the **scoring branch**
+(it needs the twin Magnums, lost at the cave's dead end), and the alternative —
+sliding down the slope in the Thick Jungle — skips Strathairn's Camp and 21 of
+the 150 points, which the author's own FAQ puts at 67% of the total. The Hall
+of Spheres riddle answer is typed **bare** as `tomorrow`, a task command rather
+than a `say`/`answer` verb. The altar must be **pulled**, not opened; opening
+it is one of the ten deaths. And the shirt button, the chunk of quartz, the
+Aztec coin and the Lost Cave's hollowed-out rock altar are author-confirmed red
+herrings — every carried item is taken away before the Temple regardless of
+route, so none of them can matter.
+
+**2026-08-17: *Doctor Who and the Vortex of Lust* wired, suite 249 rows, 249
+PASS** (250 after *The Gamma Gals* below)**.** `dr-who-vortex-lust.taf`, 166,913 bytes, **3.90**, Christopher Cole
+again — the fourth Cole game in the corpus after `diarystrip`, `windy2` and
+`croft`. 25 rooms, 209 tasks, 9 NPCs. **WON 150/150** in 113 commands, and
+150 is provably the ceiling: 50 `ACT type=4` awards summing to exactly the
+declared maximum, all fired by this route. Only **two** `ACT type=6` in the
+whole file — `shoot dalek` (death) and `replace staff` (the win). No
+`<waitkey>` anywhere, but the game *does* prompt for a name, so line 1 of the
+solution is `Sam` and the row still carries no env. Solution and golden
+gitignored, row committed, no notes file — the *Camp Windy Lake 2* treatment,
+fourth time.
+
+**The author ships no walkthrough at all**, only `drwho-score.txt` (kept as
+`downloaded/DrWho_VortexOfLust_scoresheet.txt`), which lists *what* scores but
+never what unlocks it. So the route was derived from the dump against that
+score sheet, and **the order is the whole puzzle**. It is one forced chain:
+three of the six girls have `startRoom=-1` and are placed only by finishing the
+one before.
+
+(Each girl's chain ends in a *finisher* task; the literal commands are in the
+gitignored `goldens/dr-who-vortex-lust_solution.txt`.)
+
+* Ace's finisher moves Nyssa into Your Room.
+* Nyssa's finisher moves Sarah into the Lab and Adric into the Library, and
+  gates `tell tegan about adric`.
+* Tegan's finisher hands over the picture, the only way to score Adric.
+* `give picture to adric` pays out the dispenser code `12553m`.
+* the wine that code dispenses is what starts Sarah.
+
+**Leela is the trap in that chain.** She is on the map from the start and has
+no gate, so she is the natural one to leave for later — but Sarah's finisher
+(TASK 159) moves characters 2..7 and 9 to room 0 and empties the TARDIS, so the
+Solarium has to be visited **before** the Lab. Getting it wrong costs 15 points
+and prints **no refusal at all**: the same silent-loss shape as croft's TASK
+117 and *The Lost Tomb*'s death mask, and the third time in this corpus that a
+route is wrong without the game ever saying so.
+
+Per girl an `X sex` variable gates every body task, and in every case it is set
+by something **non-sexual**: `tell peri about temporal breach` (which itself
+needs `ask k9 about temporal energy`, and K9 is in the first corridor), `round
+3` of the strip darts, `tell tegan about adric`, `give wine to sarah`. Reading
+the body tasks alone therefore tells you nothing about how to reach them.
+
+Two more traps the route avoids: seven of Ace's nine scoring tasks require the
+7th Doctor's hat **not** to be worn (restriction type 0 `Var2=8`), so wearing
+the hat quietly removes 12 of her 15 points; and `shoot dalek` with the blaster
+rifle is the game's only death — the Dalek is disabled with the sonic
+screwdriver from the Doctor's jacket in the very first room. The Kitchen's
+other code, `122-663a`, is a task with no actions: a red herring.
+
+**2026-08-17: *The Gamma Gals* wired, suite 250 rows, 250 PASS — and that is
+the last unwired `.taf` in the ADRIFT 4 corpus.** `gamma.taf`, 277,834 bytes,
+**3.90**, Christopher Cole for the **fifth** time after `diarystrip`, `windy2`,
+`croft` and `dr-who-vortex-lust`. 44 rooms (ten of them closets), 304 tasks, 10
+NPCs, 32 variables — the largest v4 file in the corpus. **WON 150/150** in 182
+commands, and 150 is provably the ceiling: 68 `ACT type=4` awards summing to
+exactly the declared maximum, all fired by this route. **Not one refused
+command in the whole transcript** — no "You can't go in that direction", no
+"You can't do that here", no parser complaint. No `<waitkey>` in the
+deobfuscated body, but the game *does* prompt for a name, so line 1 is `Sam`
+and the row carries no env. Solution and golden gitignored, row committed, no
+notes file — the *Camp Windy Lake 2* treatment, fifth time.
+
+**Again the author ships no walkthrough**, only `gamma-score.txt` (kept as
+`downloaded/GammaGals_scoresheet.txt`) and `gamma.txt`
+(`downloaded/GammaGals_readme.txt`). The score sheet is grouped per girl, and
+**those group totals are what pin the route down**: Sharron 14, Sharron &
+Shannon 29, Shannon 9, Heather 10, Kelly 17, Christine 11, Laurie 2, Krista 3,
+Krista & Laurie 10, Stacey 35, Other 10. The route hits every group exactly, so
+the 150 is not just a total that happens to arrive — each scene is closed out.
+
+The game is adult AIF, so the scene commands are referred to below by task
+number and by role — a girl's *finisher* is the last scoring task in her chain.
+The literal strings are in the gitignored `goldens/gamma_solution.txt`.
+
+**Stacey is a counter, not a place.** The win is TASK 292, Stacey's finisher
+(+10, the file's only `ACT type=6 v1=0`), gated on `stacey sex == 7`
+**exactly**, not `>=`. Six non-repeatable tasks bump it, and they are the other
+five girls' finishers plus the twins: T91 (the twins' finisher) +1, T125
+(Shannon) +1, T182 (Heather) +1, T232 (Kelly) +1, T250 (Christine) +1, T252
+`tell krista about laurie` +2. All six must fire, so
+Stacey is *necessarily* the last scene — and an `== 7` gate means overshooting
+is as fatal as undershooting, except that there is nothing else to overshoot
+with.
+
+**The ordering trap is Sharron.** All six solo-Sharron scoring tasks (44, 45,
+54, 58, 62, 64) carry `CHAR Shannon NOT in room with player`, and T63, the
+last of Sharron's solo chain (+2), **moves Shannon into Sharron's Room**. Do it
+early and 14 points
+disappear with **no refusal printed at all** — the fourth silent-loss shape in
+this corpus after croft's TASK 117, *The Lost Tomb*'s death mask and *Doctor
+Who*'s Leela.
+
+Per girl an `X sex` variable gates every body task and, exactly as in *Doctor
+Who*, is always set by something **non-sexual**: `give bracelet sharron`
+(bracelet behind the Downstairs Bathroom toilet), `show bottle to heather`,
+`light joint` (joint under the Party Room couch, lighter on the Front Porch
+table one room off the start), `tell christine about erin`, `tell laurie about
+krista`, `tell krista about laurie`. And the girls place each other — T93 sends
+Heather to the Kitchen, T95 drops the player in Shannon's Room, T52 sends
+Laurie to the Front Room, T76 sends Krista to her own room, T252 puts Krista in
+Laurie's room (the only way to get the pair together), T168 moves Heather to
+the Party Room, T182 moves Christine to the Dining Room, T234 moves Kelly to
+her room and hides Erin, T237 moves Christine to her room. The walking order is
+forced by that graph, not chosen.
+
+**`wendy` is the hidden keystone.** TASK 126, a bare word with no verb, +5,
+Heather's Room, player must be **alone** — and it is the prerequisite for `tell
+kelly about zeke`, which gates *all 17* Kelly points. Heather only leaves her
+room once the bracelet is handed over, so the bracelet has to come first or
+`wendy` cannot be typed. Two other details worth keeping: `mix rum and coke`
+consumes the coke and the glass but **not** the bottle, and TASK 211 (+2) is
+the one scoring task that needs the bottle still in Heather's hands at the end
+of her scene; and
+`play kelly's video` needs the player **alone** in the TV Room, Erin being the
+one character with no scoring tasks of her own and the video being what removes
+her from the map. The red herrings are real and skipped: the quarter under the
+Front Room sofa, `ride bike`, `workout`, `play stereo`, the Shower's shampoo,
+and `put rum in glass` / `pour coke in glass`, which are accepted and do
+nothing.
+
+**The AIF holdouts, triaged 2026-08-17.** Eight files were left when every
+non-AIF game was done. They are not one category, and the split is on the age
+of the cast, not on how explicit the text is. **Four are declined**; four are
+the ordinary *Diary of a Stripper* / *Camp Windy Lake 2* case — adult content
+between adults, wire the row and gitignore the solution, golden and notes.
+
+| File | Title | Verdict | Evidence |
+|---|---|---|---|
+| `enc1.taf` | Encounter 1: Tim's Mom | **declined** | the author's shipped `enc1.txt` states the PC is a 15-year-old boy and the whole 50-point table is explicit sex with an adult |
+| `windy.taf` | Camp Windy Lake | **declined** | the *game's own opening screen* reads "This game's hero is a fourteen year old boy and involves some sexual scenes with very young girls", and `score.txt` scores each of them; the readme adds incest and non-consensual sex |
+| `enc2.taf` | Encounter 2: The Study Group | **declined** | `enc2.txt` sets it in a 12th-grade English class study group and the scoring table is explicit sex driven by getting the three classmates drunk to the point of passing out |
+| `Buffy Before the Date.taf` | Buffy: Before the Date | **declined** | Sunnydale-High-era fan fiction: Xander is "a poor student", Cordelia is his girlfriend, the `dawn` conversation topic answers "She doesn't exist yet, Xand", Buffy's maths homework is an object, and the wine is "not really legal for your age" |
+| `croft.taf` | Lara Croft: The Sun Obelisk | **WIRED 2026-08-17** | Lara Croft, Damian, Jade, Tapper — adults |
+| `dr-who-vortex-lust.taf` | Doctor Who and the Vortex of Lust | **WIRED 2026-08-17** | the file's own companion bios give ages, the youngest being Peri at twenty |
+| `gamma.taf` | The Gamma Gals | **WIRED 2026-08-17** | a sorority house; the PC's girlfriend is a sister there |
+| `windy2.taf` | Camp Windy Lake: Part 2 | **WIRED 2026-08-12** | the readme's cast list is nineteen- and twenty-year-old counsellors plus the thirty-something owner |
+
+The four declines are not a judgement about the corpus or about wiring AIF —
+`windy2` and `diarystrip` are wired and their rows are worth having. They are
+about deriving and committing a *walkthrough*, i.e. a scored, step-by-step
+route through explicit sexual content whose participants the author has put at
+school age. Each verdict above is quoted from the game's own shipped text, so
+it does not need re-deriving; if it is ever revisited, revisit it on that
+evidence rather than on file size. **None remain to wire**: `gamma.taf`
+(277,834 bytes) went in on 2026-08-17, and with it every `.taf` in the ADRIFT 4
+corpus is either wired or declined on the evidence above.
 
 Otherwise nothing here is open work. The one exception this file used to carry — the
 Runner's **"You can't do that here!"** refusal for a task typed outside its
@@ -419,27 +655,27 @@ Two things came out of this wave beyond the rows:
 
 **Parked again 2026-08-11 at the user's request, unparked 2026-08-16 for
 *The Woods Are Dark* and *Captive Universe*.** Nothing is broken and nothing is
-half-finished — the suite is green at 247/247 and every wired game has all four
-artefacts. What remains is **7 unwired `.taf` files, all of them
-v3.90** (23 when this was written; *Camp Windy Lake : Part 2*,
+half-finished — the suite is green at 250/250 and every wired game has all four
+artefacts. What remains is **4 unwired `.taf` files, all of them
+v3.90 and all four declined on content grounds** (23 when this was written;
+*Camp Windy Lake : Part 2*,
 *Salutations* and *A Day at the Iachini House* went in on 2026-08-12,
 *La hija del relojero*, both *Veteran Knowledge* files, *The Lost Tomb*,
 *The Long Journey Home*, *Murder in Great Falls*, *The Vampire With A
 Conscience* and *The Merry Murders* on 2026-08-14, *The Woods Are Dark* and
 *Captive Universe* and *Wonder Wombat* on 2026-08-16, and the 3.90 *Town of
-Azra* and *Vardock Bates* on 2026-08-17); the table below is the
+Azra*, *Vardock Bates*, *Lara Croft: The Sun Obelisk*, *Doctor Who and the
+Vortex of Lust* and *The Gamma Gals* on 2026-08-17); the table below is the
 original 29, with the six done in the third wave struck through and windy2,
 salutations, iachini, relojero, vetknow, vetknow2, losttombv2, Journ2,
-mudergreatfalls, Vampire, Merry_Murders, thewoods, Captive, wonderwombat and
-Vardock Bates struck through after them.
+mudergreatfalls, Vampire, Merry_Murders, thewoods, Captive, wonderwombat,
+Vardock Bates, croft, dr-who-vortex-lust and gamma struck through after them.
 **Every file left is AIF**, and every 4.00 file in the corpus is now
-wired. `enc1.taf` (101,668 bytes, 3.90,
-*Encounter 1: Tim's Mom*) is next by size and was declined on content grounds —
-see the *Wonder Wombat* entry above for why, and read `enc2.txt` before
-treating `enc2.taf` as merely "the next one". The remaining five (`windy`,
-`Buffy Before the Date`, `croft`, `dr-who-vortex-lust`, `gamma`) are the
-ordinary *Diary of a Stripper* case: wire the row, gitignore the solution,
-golden and notes.
+wired. **Read *The AIF holdouts, triaged 2026-08-17* at the top of this file
+before touching any of them**: all four that are left (`enc1`, `windy`, `enc2`,
+`Buffy Before the Date`) are declined on content grounds, with the evidence
+quoted from each game's own shipped text. **There is no next file to take.**
+Do not pick one by size without reading that section.
 
 **Two cautions about that list.** *Byte size does not compare across versions*:
 a 4.00 `.taf` is zlib-compressed and a 3.90 one is only XOR-obfuscated, so the
@@ -472,15 +708,15 @@ the manifest is already wired.
 | 69,489 | 3.90 | ~~`Merry_Murders.taf`~~ | ~~Merry Murders~~ | **WIRED 2026-08-14 — WON 135/135** |
 | 71,216 | 3.90 | ~~`thewoods.taf`~~ | ~~The Woods Are Dark~~ | **WIRED 2026-08-16 — WON 100/100** |
 | 74,568 | 3.90 | ~~`Captive.taf`~~ | ~~Captive Universe~~ | **WIRED 2026-08-16 — WON 100/100** |
-| 101,668 | 3.90 | `enc1.taf` | Encounter 1: Tim's Mom | **AIF** |
+| 101,668 | 3.90 | `enc1.taf` | Encounter 1: Tim's Mom | **AIF — DECLINED on content, 2026-08-17** |
 | 107,200 | 3.90 | ~~`wonderwombat.taf`~~ | ~~Adventures of Thumper – Wonder Wombat~~ | **WIRED 2026-08-16 — WON; no score in the file** |
-| 114,698 | 3.90 | `windy.taf` | Camp Windy Lake | **AIF** |
-| 120,335 | 3.90 | `enc2.taf` | Encounter 2: The Study Group | **AIF** |
-| 125,581 | 3.90 | `Buffy Before the Date.taf` | Buffy: Before the Date | **AIF** |
-| 148,447 | 3.90 | `croft.taf` | Lara Croft: The Sun Obelisk | **AIF** |
-| 166,913 | 3.90 | `dr-who-vortex-lust.taf` | Doctor Who and the Vortex of Lust | **AIF** |
+| 114,698 | 3.90 | `windy.taf` | Camp Windy Lake | **AIF — DECLINED on content, 2026-08-17** |
+| 120,335 | 3.90 | `enc2.taf` | Encounter 2: The Study Group | **AIF — DECLINED on content, 2026-08-17** |
+| 125,581 | 3.90 | `Buffy Before the Date.taf` | Buffy: Before the Date | **AIF — DECLINED on content, 2026-08-17** |
+| 148,447 | 3.90 | ~~`croft.taf`~~ | ~~Lara Croft: The Sun Obelisk~~ | **WIRED 2026-08-17 — WON 150/150; AIF, solution/golden gitignored.** The author's own shipped walkthrough tops out at 147 |
+| 166,913 | 3.90 | ~~`dr-who-vortex-lust.taf`~~ | ~~Doctor Who and the Vortex of Lust~~ | **WIRED 2026-08-17 — WON 150/150; AIF, solution/golden gitignored.** No walkthrough exists; derived from the dump against the author's score sheet |
 | 191,548 | 3.90 | ~~`windy2.taf`~~ | ~~Camp Windy Lake: Part 2~~ | **WIRED 2026-08-12 — AIF, solution/golden gitignored** |
-| 277,834 | 3.90 | `gamma.taf` | The Gamma Gals | **AIF** |
+| 277,834 | 3.90 | ~~`gamma.taf`~~ | ~~The Gamma Gals~~ | **WIRED 2026-08-17 — WON 150/150; AIF, solution/golden gitignored.** No walkthrough exists; derived from the dump against the author's score sheet |
 | 2,928,980 | 4.00 | ~~`Vardock Bates.taf`~~ | ~~Vardock Bates~~ | **WIRED 2026-08-17 — WON; no score in the file.** Spanish, and by far the largest file in the corpus |
 
 **Author material already on this machine, for whoever picks this up next.**
@@ -488,7 +724,8 @@ Several of the remaining games shipped documentation in their IF Archive /
 adrift.co packages, unpacked under `~/Downloads`: `windy2walk.txt` +
 `cw2faq.txt` (Camp Windy Lake 2 — used 2026-08-12, now kept as
 `downloaded/CampWindyLake2_walkthrough.txt` / `_faq.txt`),
-`croftwlk.txt` + `lcsofaq.txt` (Lara Croft),
+`croftwlk.txt` + `lcsofaq.txt` (Lara Croft — used 2026-08-17, now kept as
+`downloaded/LaraCroft_SunObelisk_walkthrough.txt` / `_faq.txt`),
 `score.txt` (Camp Windy Lake), `enc1.txt` / `enc2.txt` (the Encounters), and
 `readme.txt` (The Long Journey Home). *Where Is Richard?* ships `Map.jpg` — a
 hand-drawn sketch of the swamp, readable and accurate — but no walkthrough,

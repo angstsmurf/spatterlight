@@ -20,3 +20,25 @@
 # Camp Windy Lake : Part 2 (AIF): explicit text, deliberately not committed.
 /goldens/windy2_solution.txt
 /goldens/windy2_solution.expected.txt
+
+# Lara Croft : The Sun Obelisk (AIF): explicit text, deliberately not committed.
+/goldens/croft_solution.txt
+/goldens/croft_solution.expected.txt
+
+# Doctor Who and the Vortex of Lust (AIF): explicit text, deliberately not
+# committed.
+/goldens/dr-who-vortex-lust_solution.txt
+/goldens/dr-who-vortex-lust_solution.expected.txt
+
+# The Gamma Gals (AIF): explicit text, deliberately not committed.
+/goldens/gamma_solution.txt
+/goldens/gamma_solution.expected.txt
+
+# The croft.taf SYNONYM-precedence probe generator.  It is a faithful
+# reduction of an AIF file and is built from that game's own vocabulary, so
+# it stays local like the solutions above; the finding it measured is
+# recorded, in schematic form, in the croft comment block in
+# harness/run_v4_walkthroughs.sh and in notes/WALKTHROUGH_TODO.md.
+/harness/make_39_synprobe.py
+/harness/pSYN.taf
+/harness/pSYN.taf.plain

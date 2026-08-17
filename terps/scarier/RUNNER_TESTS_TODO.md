@@ -2087,3 +2087,52 @@ two measured-and-parked ones with zero corpus reach (object scope on a task
 command, run400's take-vs-failing-task split), the won't-fix combat RNG, and
 restriction evaluation order, which rests on the P-code because no ADRIFT 4
 restriction can have a side effect to probe.
+
+**2026-08-17: SYNONYM substitution runs before task matching in run390 too —
+NO divergence.** *Lara Croft: The Sun Obelisk* (`croft.taf`, 3.90) declares
+one `SYNONYM`. The game is adult AIF, so the strings are written schematically
+here — `V` is the verb the walkthrough types, `V'` the verb the tasks are
+written with, `N` the shared noun; the literal commands are in
+`test/adrift4/goldens/croft_solution.txt`, which is gitignored. The table is
+`SYNONYM [V] -> [V']`, and the shipped walkthrough types `V N
+with jade` annotated +3. Scarier scores nothing there: the rewrite happens
+before matching, so the matcher sees `V' N with jade`, and TASK 117 `V'
+N*` — unrestricted, six indices in front of the +3 task, trailing `*`
+swallowing the rest of the line — claims it, having already fired for its own
++2 earlier in the scene. That reasoning is entirely from the dump, i.e. it is
+evidence about *Scarier*, not about the Runner, so it was measured.
+
+Replaying all 101 croft commands in `run390.exe` is not viable — the game's
+picture window takes focus and the scripted keystrokes desync within a few
+turns (the first attempt sat in the Ante Chamber at score 0 after 78
+commands). So the shape was reduced to a probe:
+`test/adrift4/harness/make_39_synprobe.py`. It is built from the game's own
+vocabulary and is therefore gitignored alongside the solution, so it exists
+only on this machine. One room, no objects, `MaxScore
+3`, `bNoAutoComplete 1` (the game turns the Runner's input mangling off for
+itself), the same `SYNONYM`, and two unrestricted repeatable all-rooms tasks —
+TASK 1 `V' N*` printing "TASK1 FIRED." for no points, TASK 2 `me and jade
+V' * N*` / `V' * N* with jade` printing "TASK2 FIRED." for +3.
+
+`run390.exe` and `harness/scare` agree line for line:
+
+| command | run390 | Scarier |
+|---|---|---|
+| `V' N with jade` | TASK1 FIRED, score 0 | TASK1 FIRED, score 0 |
+| `V N with jade` | TASK1 FIRED, score 0 | TASK1 FIRED, score 0 |
+| `me and jade V N` | TASK2 FIRED, score 3 | TASK2 FIRED, score 3 |
+
+Three findings at once, all confirmed in the Runner: the `SYNONYM` rewrite
+precedes task matching (row 2 is indistinguishable from row 1); a lower-indexed
+unrestricted task whose command ends in `*` **does** steal the line from a
+higher-indexed task that spells the same command out; and a **medial `*`
+matches zero words** (row 3 matches with nothing between `jade` and `N`).
+`croftwlk.txt` therefore tops out at 147 in the very Runner it was written for.
+
+Two harness notes, both re-learned the hard way. **The first scripted command
+after launch is routinely lost** — the first probe run showed a blank echo and
+"I don't understand." where the command should have been, and padding the
+script with two `look`s fixed it. And **the echo is the only trustworthy record
+of what the Runner received**, so a probe worth running is one where every
+command echoes visibly and the answer is a distinct printed string rather than
+an absence.

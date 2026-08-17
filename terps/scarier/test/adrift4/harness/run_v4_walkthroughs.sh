@@ -1940,6 +1940,133 @@ wonderwombat_solution.txt|wonderwombat.taf|THUMPER KICKS ASS!!!|SCR_SKIP_WAITKEY
 # requires 36 UNdone plus 37/38/39 done, i.e. the maletin opened and the
 # document taken and read -- so the fuller of the two endings is the one wired.
 vardock_bates_solution.txt|Vardock Bates.taf|HAS ELEGIDO LA INMORTALIDAD PARA SIEMPRE|SCR_SKIP_WAITKEY=1
+
+# Lara Croft : The Sun Obelisk -- ADRIFT 3.90, Christopher Cole, Fall 2002,
+# 148,447 bytes.  35 rooms, 231 tasks, 40 objects, 30 statics, 4 NPCs, 4
+# variables, ONE event.  ADULT AIF, cast is adults throughout, so it goes in
+# on the Diary of a Stripper / Camp Windy Lake 2 terms: `goldens/croft_solution.txt`
+# and its `.expected.txt` are gitignored and this row is the only committed
+# artefact, which is why the mechanics live here instead of in a notes file.
+# The row NOSCRIPTs where those files do not exist, which is not a failure.
+# WIN, 150/150, in 101 commands.  The ceiling is provable rather than
+# assumed: 48 `ACT type=4` awards and no other scoring action, 27x2 + 7x3 +
+# 13x5 + 1x10 = 150 = the game's own declared maximum, and the route fires
+# all 48.  Eleven `ACT type=6`, ten `v1=2` deaths and exactly one `v1=0`
+# (TASK 166, the last command of the route).  No <waitkey> in the file at
+# all, no name or gender prompt, so the row carries no env -- NO-WAITKEY in
+# the audit.
+# THE ROW EXISTS FOR THE 3 POINTS THE AUTHOR'S OWN WALKTHROUGH LOSES.  The
+# game ships croftwlk.txt (by John <not_jwc@hotmail.com>, kept as
+# downloaded/LaraCroft_SunObelisk_walkthrough.txt) annotated with running
+# scores all the way to 150, and replaying it verbatim ends at 147.  The
+# game is adult AIF, so the strings are schematic here -- V is the verb the
+# walkthrough types, V' the verb the tasks are written with, N the shared
+# noun; the literal commands are in the gitignored solution file.  The
+# culprit is `V N with jade`: the file's `SYNONYM [V] -> [V']` rewrites the
+# input BEFORE task matching (relojero's finding, now in an English game),
+# so the matcher sees `V' N with jade`, and TASK 117
+# `V' N*` -- unrestricted, six indices in front of the task the author
+# meant, trailing `*` swallowing the rest of the line -- claims it.  TASK
+# 117 is the solo statue action and has already fired for its +2 earlier in
+# the scene, so the second hit reprints its message and awards nothing.  The
+# +3 is TASK 123, reachable only with a phrasing 117 cannot claim; the route
+# uses TASK 123's own `me and jade V' * N*` (typed with V), the medial `*`
+# matching zero words.  First-match precedence,
+# not an engine divergence -- MEASURED, not inferred from the task indices.
+# Replaying all 101 commands in run390.exe desyncs (the picture window steals
+# focus), so the shape was reduced to make_39_synprobe.py, which is built
+# from the game's own vocabulary and is therefore gitignored alongside the
+# solution; on this machine it sits in this directory.  One room,
+# SYNONYM [V] -> [V'], TASK 1 `V' N*` (+0) and TASK 2
+# `me and jade V' * N*` / `V' * N* with jade` (+3), both
+# unrestricted.  run390 and Scarier agree line for line -- `V N with jade`
+# fires TASK1 and scores nothing in both, `me and jade V N` fires
+# TASK2 and scores 3 in both -- so the published 150 really is unreachable as
+# written, in the Runner the walkthrough was written for.
+# Route notes: `shoot goon` at the Waterfall is the scoring branch and needs
+# the twin Magnums -- the alternative (sliding down the slope in the Thick
+# Jungle) skips Strathairn's Camp and 21 of the 150 points, which the
+# author's FAQ puts at 67% of the total.  The Hall of Spheres riddle answer
+# is typed bare as `tomorrow`, a task command rather than a `say`/`answer`.
+# `x wall` + `push plate` in the second cave room is the only source of the
+# headdress stone, without which both lower-level switches are inert and the
+# waterfall exit never opens.  The altar must be PULLED, not opened (opening
+# it is one of the ten deaths).  Jimmy the Neck is unbeatable by design; `x
+# jungle` east of him reveals the path round.  The shirt button, the chunk
+# of quartz, the Aztec coin and the Lost Cave's hollowed-out rock altar are
+# author-confirmed red herrings and every carried item is taken away before
+# the Temple regardless of route, so the route ignores all four.
+croft_solution.txt|croft.taf|You scored 150 out of the maximum 150!
+# Doctor Who and the Vortex of Lust: 150/150, the fourth Cole game here.
+# 25 rooms, 209 tasks, 9 NPCs; 50 `ACT type=4` actions summing to exactly the
+# declared 150 and this route fires all of them.  Only two `ACT type=6` in the
+# whole file -- `shoot dalek` (death) and `replace staff` (the win).  No
+# <waitkey>, but the game DOES prompt for a name, so line 1 of the solution is
+# `Sam` and the row still needs no env.
+# The author ships NO walkthrough, only drwho-score.txt (kept as
+# downloaded/DrWho_VortexOfLust_scoresheet.txt), which lists WHAT scores but
+# not what unlocks it.  THE ORDER IS THE WHOLE PUZZLE, and it is a single
+# chain: three of the six girls have startRoom=-1 and are placed by finishing
+# the one before.  (Each girl's chain ends in a "finisher" task; the literal
+# commands are in the gitignored solution file.)  Ace's finisher moves Nyssa
+# into Your Room, Nyssa's moves
+# Sarah into the Lab and Adric into the Library (and gates `tell tegan about
+# adric`), Tegan's hands you the picture that is the only way to score
+# Adric, Adric pays with the dispenser code `12553m`, and the wine that code
+# dispenses is what starts Sarah.  Leela is the exception: she is on the map
+# from the start and has no gate, so she is easy to leave for later -- but
+# Sarah's finisher (T159) moves characters 2..7 and 9 to room 0 and empties the
+# TARDIS, so the Solarium has to be visited BEFORE the Lab.  Getting that
+# wrong costs 15 points and prints no refusal at all.
+# Per girl an `X sex` variable gates every body task and is always set by
+# something non-sexual: `tell peri about temporal breach` (which itself needs
+# `ask k9 about temporal energy`, and K9 is in the first corridor), `round 3`
+# of the strip darts, `tell tegan about adric`, `give wine to sarah`.
+# Two traps the route avoids: seven of Ace's nine scoring tasks require the
+# 7th Doctor's hat NOT to be worn (type 0 Var2=8) -- wear it and 12 of her 15
+# points go away -- and `shoot dalek` with the blaster rifle is the game's
+# only death.  The Dalek is disabled with the sonic screwdriver from the
+# Doctor's jacket in the very first room.  The Kitchen's other code,
+# `122-663a`, is a task with no actions: a red herring.
+dr-who-vortex-lust_solution.txt|dr-who-vortex-lust.taf|You scored 150 out of the maximum 150!
+# The Gamma Gals: 150/150, the FIFTH Cole game here.  44 rooms, 304 tasks,
+# 10 NPCs, 32 variables; 68 `ACT type=4` actions summing to exactly the
+# declared 150 and this route fires all of them, with not one refused
+# command in the 182.  No <waitkey> in the deobfuscated body, but the game
+# DOES prompt for a name, so line 1 of the solution is `Sam` and the row
+# still needs no env.
+# The author ships NO walkthrough, only gamma-score.txt (kept as
+# downloaded/GammaGals_scoresheet.txt).  It is grouped per girl, and those
+# group totals are what pin the route down: Sharron 14, Sharron & Shannon
+# 29, Shannon 9, Heather 10, Kelly 17, Christine 11, Laurie 2, Krista 3,
+# Krista & Laurie 10, Stacey 35, Other 10.
+# The game is adult AIF, so scene commands are named by task number and by
+# role below -- a girl's "finisher" is the last scoring task in her chain --
+# and the literal strings are in the gitignored solution file.
+# STACEY IS A COUNTER, NOT A PLACE.  The win is T292, Stacey's finisher
+# (+10, the file's only `ACT type=6 v1=0`), gated on `stacey sex == 7`
+# EXACTLY.  Six non-repeatable tasks bump it and they are the other five
+# girls' finishers plus the twins: T91 (the twins) +1, T125 (Shannon) +1,
+# T182 (Heather) +1, T232 (Kelly) +1, T250 (Christine) +1,
+# T252 `tell krista about laurie` +2.  All six must
+# fire, so Stacey is necessarily the last scene.
+# Per girl an `X sex` variable gates every body task and is always set by
+# something non-sexual: `give bracelet sharron` (bracelet behind the
+# Downstairs Bathroom toilet), `show bottle to heather`, `light joint`
+# (joint under the Party Room couch, lighter on the Front Porch table),
+# `tell christine about erin`, `tell laurie about krista`, `tell krista
+# about laurie`.
+# THE ORDERING TRAP IS SHARRON: all six solo-Sharron scoring tasks carry
+# `CHAR Shannon NOT in room with player`, and T63, the last of Sharron's
+# solo chain, MOVES SHANNON IN.  Do it early and 14 points vanish with no
+# refusal printed.
+# `wendy` (T126, +5, Heather's Room, player ALONE) is also the gate on
+# `tell kelly about zeke`, i.e. on all 17 Kelly points; Heather only leaves
+# her room once the bracelet is handed over, so the bracelet comes first.
+# `mix rum and coke` consumes the coke and the glass but NOT the bottle, and
+# T211 (+2) is the one scoring task that needs it still in Heather's hands
+# at the end of her scene.
+gamma_solution.txt|gamma.taf|You scored 150 out of the maximum 150!
 EOF
 }
 
