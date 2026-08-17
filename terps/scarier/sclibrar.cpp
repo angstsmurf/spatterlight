@@ -7975,11 +7975,12 @@ lib_battle_attack_with (scr_gameref_t game, const scr_char *verb,
   else
     {
       /*
-       * TODO Adrift uses "affective" [sic] here.  Should SCARIER be right, or
-       * bug-compatible?
+       * "affective" [sic] and the "!" are the Runner's: every Runner string
+       * table, run370 through run400, carries "I don't think X would be a
+       * very affective weapon!" verbatim (measured 2026-08-17).
        */
       lib_print_wrapped_object (game, "I don't think ",
-                                object, " would be a very effective weapon.\n");
+                                object, " would be a very affective weapon!\n");
     }
   return TRUE;
 }

@@ -5,10 +5,10 @@ answered. Companion to `ADRIFT4_vs_ADRIFT5.md` (which records semantics already
 settled) and `test/adrift4/notes/WALKTHROUGH_TODO.md` (which is about route
 derivation, not engine fidelity).
 
-**Nothing here is an open task any more.** The file kept its `_TODO` name for the
-sake of the several dozen code comments that cite it, but every numbered section
-below closed between 2026-08-01 and 2026-08-09, and the `## Closure log` section
-at the foot is the record of *how* each one closed, not a plan. What is still
+**Sections 1–8 are all closed** — every one settled between 2026-08-01 and
+2026-08-09, and the `## Closure log` section at the foot is the record of *how*
+each one closed, not a plan. The one open section is **§9**, the 2026-08-17
+backlog of code-comment TODOs still awaiting a Runner probe session. What is still
 live is the method — how to stage a probe against each
 Runner (§ *Running the Runners*, §5's `where` probe, §6's 3.70 codec, §7, §8) —
 and the **§4 divergence table**, which is the standing list of every place
@@ -1198,6 +1198,45 @@ lost.
       is never up the statue on those three turns at all — they are turns
       spent failing the climb, an RNG divergence from the published run, not
       a visibility one.
+
+## 9. Open probe backlog (2026-08-17) — the code-comment TODOs not yet taken to a Runner
+
+The 2026-08-17 TODO sweep resolved what it could without a Runner session
+(the "affective weapon!" string was settled from the four Runners' string
+tables — all of run370–run400 say `I don't think X would be a very affective
+weapon!`, now ported; three corpus-settled question-comments were retired in
+place). These are the questions that remain, each answerable with the staging
+methods above. None has corpus exposure — that is why they are still open.
+
+- [ ] **Static objects moved into the inventory** (`scobjcts.cpp`
+      `obj_get_size`/`obj_get_weight`, plus the related question at
+      `scevents.cpp` ~317). Statics have no `SizeWeight`; Scarier gives them
+      size and weight 0. Probe: an event that moves a static object to the
+      player (the only way one can get there), then `count` / `weigh` in
+      run400 — and check whether anything else can move a static, which
+      decides if `scevents.cpp`'s static-unmoved marking is the only site.
+- [ ] **`#` in-room text for NPCs** (`sclibrar.cpp`, the NPC half of the
+      room lister). A leading `#` on an NPC's in-room description is taken
+      as "use the default *X is here*". Probe: NPCs with `#`-prefixed, empty,
+      and plain in-room texts in one room, in run390 and run400.
+- [ ] **Walk `StoppingTask` = pause or finish?** (`scnpcs.cpp`, walk tick).
+      Scarier treats a completed stopping task as an event-pauser: the walk
+      is skipped but not finished, so un-completing the task resumes it.
+      Probe: a walk with a stopping task, complete the task mid-walk, then
+      un-complete it (task that unchecks it) and watch whether the walk
+      resumes or is dead.
+- [ ] **`getdynfromroom` selection criteria** (`scrunner.cpp` ~126/142).
+      Scarier matches the room by case-insensitive Short-name comparison and
+      picks the first dynamic object lying directly in the room. Probe: a
+      task using `# %object% = getdynfromroom(...)` with several candidate
+      objects (on floor, inside/on another object, carried) and rooms whose
+      names differ only in case/whitespace.
+- [ ] **Negative resource lengths in 4.0 TAFs** (`sctafpar.cpp`
+      `parse_handle_v400_resource`). For resources already seen, the length
+      field goes negative — `-(length+2)` is close to a resource index but
+      not always. Not stageable as a probe; this one is disassembly
+      archaeology (`~/Desktop/run400.txt`, the resource-loading path), with
+      taftool-built TAFs carrying repeated resources as the cross-check.
 
 ## Closure log (was: "Suggested order")
 
