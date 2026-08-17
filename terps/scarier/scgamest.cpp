@@ -1479,13 +1479,14 @@ gs_destroy (scr_gameref_t game)
   assert (gs_is_game_valid (game));
 
   /* Drop the parser's cached %object%/%character% candidates and the task,
-   * serializer, event and command-matcher property caches for this game, so a
-   * later game allocated at the same address can't inherit them. */
+   * serializer, event, command-matcher and map property caches for this game,
+   * so a later game allocated at the same address can't inherit them. */
   uip_forget_game (game);
   task_forget_game (game);
   ser_forget_game (game);
   evt_forget_game (game);
   run_forget_game (game);
+  scmap_forget_game (game);
 
   /* The state arrays (rooms, objects, tasks, events, npcs and their walksteps,
    * the *_references) are std::vector and the owning game strings

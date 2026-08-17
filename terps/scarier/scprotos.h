@@ -481,6 +481,7 @@ extern void task_forget_game (const void *game);
 extern void ser_forget_game (const void *game);
 extern void evt_forget_game (const void *game);
 extern void run_forget_game (const void *game);
+extern void scmap_forget_game (const void *game);
 
 /* Library perspective enumeration and functions. */
 enum
