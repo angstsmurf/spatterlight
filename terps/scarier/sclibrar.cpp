@@ -8230,6 +8230,33 @@ lib_cmd_attack_npc_with (scr_gameref_t game)
   return lib_battle_attack_with (game, "attack", -1, TRUE);
 }
 
+/*
+ * lib_cmd_slap_npc()
+ * lib_cmd_slap_npc_with()
+ *
+ * `slap`/`smack` are attack/kick synonyms in pre-4.0 Runners only; 4.0
+ * dropped them from the grammar entirely, so on a 4.0+ game these decline
+ * (return FALSE) and let the input fall through to other grammar, matching
+ * the "I'm afraid that I wasn't anticipating that particular input."
+ * response the real 4.0 Runner gives -- measured live 2026-08-18 against
+ * run390/run400 on The Town of Azra (3.90) and easter.taf (4.00).
+ */
+scr_bool
+lib_cmd_slap_npc (scr_gameref_t game)
+{
+  if (lib_is_version_400 (game))
+    return FALSE;
+  return lib_battle_attack_bare (game, "attack", -1, TRUE);
+}
+
+scr_bool
+lib_cmd_slap_npc_with (scr_gameref_t game)
+{
+  if (lib_is_version_400 (game))
+    return FALSE;
+  return lib_battle_attack_with (game, "attack", -1, TRUE);
+}
+
 scr_bool
 lib_cmd_chop_npc (scr_gameref_t game)
 {

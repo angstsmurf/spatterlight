@@ -596,6 +596,8 @@ extern scr_bool lib_cmd_read_other (scr_gameref_t game);
 extern scr_bool lib_cmd_stand_on_object (scr_gameref_t game);
 extern scr_bool lib_cmd_stand_on_floor (scr_gameref_t game);
 extern scr_bool lib_cmd_attack_npc_with (scr_gameref_t game);
+extern scr_bool lib_cmd_slap_npc (scr_gameref_t game);
+extern scr_bool lib_cmd_slap_npc_with (scr_gameref_t game);
 extern scr_bool lib_cmd_chop_npc (scr_gameref_t game);
 extern scr_bool lib_cmd_chop_npc_with (scr_gameref_t game);
 extern scr_bool lib_cmd_cut_npc (scr_gameref_t game);

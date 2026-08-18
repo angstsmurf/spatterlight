@@ -495,27 +495,26 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"[kill/slay] %character% with %object%", lib_cmd_kill_npc_with},
   {"fight %character% with %object%", lib_cmd_fight_npc_with},
   /*
-   * `slap` was grouped here as a supposed synonym, but it isn't one: `slap
-   * shopkeeper` gets the generic two-word catch-all's "I don't understand
-   * what you want to do with shopkeeper." -- the same unrecognised-verb
-   * response `smack`/`strike` get -- not `kick`/`attack`'s "avoids your
-   * feeble attempts" combat default.  Measured live 2026-08-18 against
-   * run400 on easter.taf, reproduced twice; `smack` was tried alongside it
-   * and likewise not recognised.
+   * `slap`/`smack` are pre-4.0-only synonyms for attack/kick: dropped from
+   * the Runner's grammar in 4.0, where `slap gizmo` gets the same "I'm
+   * afraid that I wasn't anticipating that particular input." a nonsense
+   * verb gets, not attack/kick's combat dispatch.  But in 3.90 (measured
+   * live 2026-08-18 against run390 on The Town of Azra, controlled against
+   * both `strike` and a nonsense verb) `slap gizmo`/`smack gizmo` get the
+   * identical "Who do you want to attack?" that `kick gizmo` does -- a
+   * genuine synonym there.  lib_cmd_slap_npc[_with]() decline outright
+   * (return FALSE, falling through to further grammar) on 4.0+ games and
+   * otherwise behave exactly like attack/kick.  `strike` was tried
+   * alongside both and never recognised in either version -- not a
+   * synonym at any version.
    */
   {"[attack/kick] %character%", lib_cmd_attack_npc},
+  {"[slap/smack] %character%", lib_cmd_slap_npc},
+  {"[slap/smack] %character% with %object%", lib_cmd_slap_npc_with},
   {"chop %character%", lib_cmd_chop_npc},
   {"cut %character%", lib_cmd_cut_npc},
   {"shoot %character%", lib_cmd_shoot_npc},
   {"stab %character%", lib_cmd_stab_npc},
-  /*
-   * `slay bob` lands on the engine's generic "avoids your feeble
-   * attempts" combat-evasion default -- the same hardcoded fallback
-   * `kill`/`hit`/`attack` land on -- where an unrecognised verb like
-   * `strike bob` instead gets the generic two-word-catch-all's "I don't
-   * understand what you want to do with bob."  Measured live 2026-08-18
-   * against run400 on easter.taf; `strike` was not recognised.
-   */
   {"[kill/slay] %character%", lib_cmd_kill_npc},
   {"fight %character%", lib_cmd_fight_npc},
 
