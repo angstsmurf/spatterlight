@@ -73,16 +73,16 @@ I don't understand what you mean!
 I don't understand what you mean!
 
 > check out
-I don't understand what you mean!
+You see no such thing.
 
 > make out
 Ah man, this is good stuff!  There's nothing like some sweet woodshop lovin!
 You better hope that Hina doesn't catch wind of this or else she really will
 drop you forever
+The best weed ever!!! exclaims Harry
 
 > work
 You set to work on your project.  This is going to be the best slingshot ever
-The best weed ever!!! exclaims Harry
 
 > help
 Grudgingly, you go over to where Bob is and help him figure out whatever he
@@ -90,13 +90,13 @@ was rambling about.
 
 > yes
 That's interesting, but it doesn't mean much.
+"Hey Noslen, help me out will ya, I don't know how to turn this machine
+on..." asks  Bob.
 
 > make out with jarvin
 Ah man, this is good stuff!  There's nothing like some sweet woodshop lovin!
 You better hope that Hina doesn't catch wind of this or else she really will
 drop you forever
-"Hey Noslen, help me out will ya, I don't know how to turn this machine
-on..." asks  Bob.
 
 > take notes
 Take what?
@@ -106,6 +106,7 @@ I don't understand what you mean!
 
 > no
 That's interesting, but it doesn't mean much.
+"Hey, Noslen, make out with me some more" says Jarvin
 
 > pass note
 I don't understand what you mean!
@@ -123,16 +124,17 @@ I don't understand what you mean!
 I don't understand what you mean!
 
 > check out
-I don't understand what you mean!
+You see no such thing.
 
 > make out
 Ah man, this is good stuff!  There's nothing like some sweet woodshop lovin!
 You better hope that Hina doesn't catch wind of this or else she really will
 drop you forever
-"Hey, Noslen, make out with me some more" says Jarvin
 
 > work
 You set to work on your project.  This is going to be the best slingshot ever
+"Noslen, you are the best!", says Jarvin.  Lets make out some more.
+"Noslen, you are the best.  help me with this wood will ya" asks Bob
 
 > help
 Grudgingly, you go over to where Bob is and help him figure out whatever he
@@ -140,22 +142,11 @@ was rambling about.
 
 > yes
 That's interesting, but it doesn't mean much.
-"Noslen, you are the best!", says Jarvin.  Lets make out some more.
-"Noslen, you are the best.  help me with this wood will ya" asks Bob
 
 > make out with jarvin
 Ah man, this is good stuff!  There's nothing like some sweet woodshop lovin!
 You better hope that Hina doesn't catch wind of this or else she really will
 drop you forever
-
-> take notes
-Take what?
-
-> pay attention
-I don't understand what you mean!
-
-> no
-That's interesting, but it doesn't mean much.
 Wood shop stinks.
 Wish there was something exciting to do...
 You find a corner of a room where no one is at and decide to sleep through
@@ -180,6 +171,19 @@ screwdriver are here.  She wants to skewer Noslen.
 You manage to avoid DaNiEl's attack.
 You manage to avoid JaRvIn's attack.
 
+> take notes
+Take what?
+You manage to avoid DaNiEl's attack.
+You manage to avoid JaRvIn's attack.
+
+> pay attention
+I don't understand what you mean!
+
+> no
+That's interesting, but it doesn't mean much.
+You manage to avoid DaNiEl's attack.
+You manage to avoid JaRvIn's attack.
+
 > pass note
 I don't understand what you mean!
 
@@ -196,7 +200,9 @@ I don't understand what you mean!
 I don't understand what you mean!
 
 > check out
-I don't understand what you mean!
+You see no such thing.
+You manage to avoid DaNiEl's attack.
+You manage to avoid JaRvIn's attack.
 
 > make out
 I don't understand what you mean!
@@ -233,70 +239,6 @@ You manage to avoid JaRvIn's attack.
 
 > make out with jarvin
 I don't understand what you want to do with JaRvIn.
-You manage to avoid DaNiEl's attack.
-You manage to avoid JaRvIn's attack.
-
-> take notes
-Take what?
-You manage to avoid DaNiEl's attack.
-You manage to avoid JaRvIn's attack.
-
-> pay attention
-I don't understand what you mean!
-
-> no
-That's interesting, but it doesn't mean much.
-You manage to avoid DaNiEl's attack.
-You manage to avoid JaRvIn's attack.
-
-> pass note
-I don't understand what you mean!
-
-> write note to hina
-I don't understand what you mean!
-
-> gamble
-I don't understand what you mean!
-
-> chill out
-I don't understand what you mean!
-
-> practice
-I don't understand what you mean!
-
-> check out
-I don't understand what you mean!
-
-> make out
-I don't understand what you mean!
-
-> work
-I don't understand what you mean!
-
-> help
-These are some of the typical commands used in this adventure:
-
-  [N]orth, [E]ast, [S]outh, [W]est, [U]p, [D]own, [In], [O]ut, [L]ook,
-[Exits]
-  E[x]amine <object>, [Get <object>], [Drop <object>], [...it], [...all]
-  [Where is <object>]
-  [Give <object> to  <character>], [Open...], [Close...], [Ask <character>
-about <subject>]
-  [Wear <object>], [Remove <object>], [I]nventory
-  [Put <object> into <object>], [Put <object> onto <object>]
-
-Use the Save, Restore, Undo, and Quit commands to save and restore games,
-undo a move, and leave the  game.  Use History and Redo to view and repeat
-recent game commands.
-
-The Hint command displays any game hints, Notify provides score change
-notification, and Verbose and Brief control room descriptions.
-
-Use License to view SCARIER's licensing terms and conditions, and Version to
-print both SCARIER's and the game's version number.
-
-> yes
-That's interesting, but it doesn't mean much.
 The bell rings and everyone leaves the class.
 
 Physics
@@ -306,9 +248,6 @@ this class will be the most difficult.  The walls are full of science posters
 and apart from a couple of mass sets, the only thing of interest is the
 blackboard, that is if math is anything exciting.
 The hottest girl in the universe is sitting beside you.
-
-> make out with jarvin
-I don't understand what you mean!
 
 > take notes
 Staring at the direction of the teacher, you write the stuff you see on the
@@ -342,7 +281,7 @@ I don't understand what you mean!
 I don't understand what you mean!
 
 > check out
-I don't understand what you mean!
+You see no such thing.
 
 > make out
 I don't understand what you mean!
@@ -354,11 +293,11 @@ I don't understand what you mean!
 You look at Joshuas' notes and try and make some sense of it all.  Joshua
 really is a moron.  Mr Ech is teaching the kids how to add...He needs help on
 this?
+"Noslen...come win some big money... lets GAMBLE" the gamblers tell you.
 
 > yes
 "well at least you're honest...meet me after school so we can talk about this
 weekend...
-"Noslen...come win some big money... lets GAMBLE" the gamblers tell you.
 
 > make out with jarvin
 I don't understand what you mean!
@@ -369,22 +308,22 @@ board.
 
 > pay attention
 You nod your head as Mr. Ech rambles off some physics junk.
+"Hey Noslen,  pass up this note will ya?"  Some girl asks.
 
 > no
 That's interesting, but it doesn't mean much.
-"Hey Noslen,  pass up this note will ya?"  Some girl asks.
 
 > pass note
 Noslen grabs the note and passes it on.
-
-> write note to hina
-I don't understand what you want to do with HIna.
 "Big money...Big money...win big money..."  The gamblers want you to come and
 GAMBLE.
 
+> write note to hina
+I don't understand what you want to do with HIna.
+"Pass this note will Noslen?"  some boy asks.
+
 > gamble
 Sweet!  Playing with these morons you can win big money!
-"Pass this note will Noslen?"  some boy asks.
 
 > chill out
 I don't understand what you mean!
@@ -393,7 +332,7 @@ I don't understand what you mean!
 I don't understand what you mean!
 
 > check out
-I don't understand what you mean!
+You see no such thing.
 
 > make out
 I don't understand what you mean!
@@ -408,6 +347,8 @@ this?
 
 > yes
 That's interesting, but it doesn't mean much.
+"Hey Noslen, be a sweetie will ya and pass this note to the boy behind you."
+asks some boy by you
 
 > make out with jarvin
 I don't understand what you mean!
@@ -418,8 +359,6 @@ board.
 
 > pay attention
 You nod your head as Mr. Ech rambles off some physics junk.
-"Hey Noslen, be a sweetie will ya and pass this note to the boy behind you."
-asks some boy by you
 
 > no
 That's interesting, but it doesn't mean much.
@@ -440,33 +379,50 @@ I don't understand what you mean!
 I don't understand what you mean!
 
 > check out
-I don't understand what you mean!
-
-> make out
-I don't understand what you mean!
-
-> work
-I don't understand what you mean!
-
-> help
-You look at Joshuas' notes and try and make some sense of it all.  Joshua
-really is a moron.  Mr Ech is teaching the kids how to add...He needs help on
-this?
-
-> yes
-That's interesting, but it doesn't mean much.
-
-> make out with jarvin
-I don't understand what you mean!
-
-> take notes
-Staring at the direction of the teacher, you write the stuff you see on the
-board.
+You see no such thing.
 
 Physical Education
 The gym is large, but not large enough for the 50 kids that are all supposed
 to play basketball at the same time.  The teacher, Ms. Rasmussen, is trying
 to organize some kind of practice, but half the kids aren't paying attention.
+
+> make out
+You go witht the random hot chick under the bleachers and start to
+smooch....mmm.its so nice...home Hina doesn't find out about this...
+
+> work
+I don't understand what you mean!
+
+> help
+These are some of the typical commands used in this adventure:
+
+  [N]orth, [E]ast, [S]outh, [W]est, [U]p, [D]own, [In], [O]ut, [L]ook,
+[Exits]
+  E[x]amine <object>, [Get <object>], [Drop <object>], [...it], [...all]
+  [Where is <object>]
+  [Give <object> to  <character>], [Open...], [Close...], [Ask <character>
+about <subject>]
+  [Wear <object>], [Remove <object>], [I]nventory
+  [Put <object> into <object>], [Put <object> onto <object>]
+
+Use the Save, Restore, Undo, and Quit commands to save and restore games,
+undo a move, and leave the  game.  Use History and Redo to view and repeat
+recent game commands.
+
+The Hint command displays any game hints, Notify provides score change
+notification, and Verbose and Brief control room descriptions.
+
+Use License to view SCARIER's licensing terms and conditions, and Version to
+print both SCARIER's and the game's version number.
+
+> yes
+That's interesting, but it doesn't mean much.
+
+> make out with jarvin
+I don't understand what you mean!
+
+> take notes
+Take what?
 
 > pay attention
 I don't understand what you mean!
@@ -494,6 +450,70 @@ totaly want to make out with you now...
 > check out
 She is so FINE!   You and her could   WAIT...this is a PG game!  What are you
 trying to do, blow the rating?!...she is nice though.
+
+> make out
+You go witht the random hot chick under the bleachers and start to
+smooch....mmm.its so nice...home Hina doesn't find out about this...
+
+> work
+I don't understand what you mean!
+
+> help
+These are some of the typical commands used in this adventure:
+
+  [N]orth, [E]ast, [S]outh, [W]est, [U]p, [D]own, [In], [O]ut, [L]ook,
+[Exits]
+  E[x]amine <object>, [Get <object>], [Drop <object>], [...it], [...all]
+  [Where is <object>]
+  [Give <object> to  <character>], [Open...], [Close...], [Ask <character>
+about <subject>]
+  [Wear <object>], [Remove <object>], [I]nventory
+  [Put <object> into <object>], [Put <object> onto <object>]
+
+Use the Save, Restore, Undo, and Quit commands to save and restore games,
+undo a move, and leave the  game.  Use History and Redo to view and repeat
+recent game commands.
+
+The Hint command displays any game hints, Notify provides score change
+notification, and Verbose and Brief control room descriptions.
+
+Use License to view SCARIER's licensing terms and conditions, and Version to
+print both SCARIER's and the game's version number.
+
+> yes
+That's interesting, but it doesn't mean much.
+
+> make out with jarvin
+I don't understand what you mean!
+
+> take notes
+Take what?
+"Noslen, lets MAKE OUT under the bleachers...asks some random hot chick.
+
+> pay attention
+I don't understand what you mean!
+
+> no
+That's interesting, but it doesn't mean much.
+
+> pass note
+I don't understand what you mean!
+
+> write note to hina
+I don't understand what you mean!
+
+> gamble
+I don't understand what you mean!
+
+> chill out
+I don't understand what you mean!
+
+> practice
+I don't understand what you mean!
+
+> check out
+You see no such thing.
+Practice...Practice...Practice....Noslen thinks.
 
 > make out
 You go witht the random hot chick under the bleachers and start to

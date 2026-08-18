@@ -274,16 +274,22 @@ static scr_commands_t PRIORITY_COMMANDS[] = {
    * to get things from." where `take all from burton` again gets the
    * "handled" reply.  `pick up X from Y` is not a take-from either ("Take
    * what?").  All measured live 2026-08-18; Professor Von Witt's own bundled
-   * walkthrough depends on the bare-`pick` form. */
-  {"[[get/take/remove/extract/pick] [all/everything] from/empty] %object%",
+   * walkthrough depends on the bare-`pick` form.
+   *
+   * `grab %object%` is the same story: `grab gizmo` (no such object, easter
+   * Egg Hunt) gets the identical "Take what?" the bare-object fallback gives
+   * `take gizmo`/`pick gizmo`.  Only that bare-object form was independently
+   * measured live 2026-08-18; it is folded into the rest of the object take
+   * family here by analogy with `pick`, not by testing every form. */
+  {"[[get/take/remove/extract/pick/grab] [all/everything] from/empty] %object%",
    lib_cmd_take_all_from},
-  {"[[get/take/remove/extract/pick] [all/everything] from/empty] %object%"
+  {"[[get/take/remove/extract/pick/grab] [all/everything] from/empty] %object%"
    " [[except/but] {for}/apart from] %text%",
    lib_cmd_take_from_except_multiple},
-  {"[get/take/remove/extract/pick] [all/everything]"
+  {"[get/take/remove/extract/pick/grab] [all/everything]"
    " [[except/but] {for}/apart from] %text% from %object%",
    lib_cmd_take_from_except_multiple},
-  {"[get/take/remove/extract/pick] %text% from %object%",
+  {"[get/take/remove/extract/pick/grab] %text% from %object%",
    lib_cmd_take_from_multiple},
   {"[get/take] [all/everything] from %character%", lib_cmd_take_all_from_npc},
   {"[get/take] [all/everything] from %character%"
@@ -293,16 +299,16 @@ static scr_commands_t PRIORITY_COMMANDS[] = {
    " [[except/but] {for}/apart from] %text% from %character%",
    lib_cmd_take_from_npc_except_multiple},
   {"[get/take] %text% from %character%", lib_cmd_take_from_npc_multiple},
-  {"[[get/take/pick up/pick] [all/everything]/pick [all/everything] up]",
+  {"[[get/take/pick up/pick/grab] [all/everything]/pick [all/everything] up]",
    lib_cmd_take_all},
-  {"[get/take/pick up/pick] [all/everything]"
+  {"[get/take/pick up/pick/grab] [all/everything]"
    " [[except/but] {for}/apart from] %text%",
    lib_cmd_take_except_multiple},
   /* `pick %text% up` before the bare-`pick` catch-all: a failed object parse
    * in lib_cmd_take_multiple falls through, but keep `pick flowers up` from
    * ever being read as `pick "flowers up"` in the first place. */
   {"pick %text% up", lib_cmd_take_multiple},
-  {"[get/take/pick up/pick] %text%", lib_cmd_take_multiple},
+  {"[get/take/pick up/pick/grab] %text%", lib_cmd_take_multiple},
   /*
    * "drop X in Y" and "drop X on Y" are Adrift's put handlers wearing a
    * different verb: `drop wallet in bin` answers "You put your wallet inside
@@ -371,18 +377,32 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   /* Inventory, and general investigation of surroundings. */
 #ifdef SCARIER_NO_ABBREVIATIONS
   {"[inventory/inv]", lib_cmd_inventory},
-  {"[ex/exam/examine/look {at}] {{the} [room/location]}", lib_cmd_look},
-  {"[ex/exam/examine/look {at/in}] %object%", lib_cmd_examine_object},
-  {"[ex/exam/examine/look {at}] %character%", lib_cmd_examine_npc},
-  {"[ex/exam/examine/look {at}] [me/self/myself]", lib_cmd_examine_self},
-  {"[ex/exam/examine/look {at}] all", lib_cmd_examine_all},
+  /*
+   * `inspect gizmo` and `check gizmo` (no such object, easter Egg Hunt) both
+   * get the identical "You see no such thing." the examine family's
+   * unmatched-object fallback gives `examine gizmo`; measured live 2026-08-18
+   * against run400.
+   */
+  {"[ex/exam/examine/inspect/check/look {at}] {{the} [room/location]}",
+   lib_cmd_look},
+  {"[ex/exam/examine/inspect/check/look {at/in}] %object%",
+   lib_cmd_examine_object},
+  {"[ex/exam/examine/inspect/check/look {at}] %character%",
+   lib_cmd_examine_npc},
+  {"[ex/exam/examine/inspect/check/look {at}] [me/self/myself]",
+   lib_cmd_examine_self},
+  {"[ex/exam/examine/inspect/check/look {at}] all", lib_cmd_examine_all},
 #else
   {"[inventory/inv/i]", lib_cmd_inventory},
-  {"[x/ex/exam/examine/l/look {at}] {{the} [room/location]}", lib_cmd_look},
-  {"[x/ex/exam/examine/look {at/in}] %object%", lib_cmd_examine_object},
-  {"[x/ex/exam/examine/look {at}] %character%", lib_cmd_examine_npc},
-  {"[x/ex/exam/examine/look {at}] [me/self/myself]", lib_cmd_examine_self},
-  {"[x/ex/exam/examine/look {at}] all", lib_cmd_examine_all},
+  {"[x/ex/exam/examine/inspect/check/l/look {at}] {{the} [room/location]}",
+   lib_cmd_look},
+  {"[x/ex/exam/examine/inspect/check/look {at/in}] %object%",
+   lib_cmd_examine_object},
+  {"[x/ex/exam/examine/inspect/check/look {at}] %character%",
+   lib_cmd_examine_npc},
+  {"[x/ex/exam/examine/inspect/check/look {at}] [me/self/myself]",
+   lib_cmd_examine_self},
+  {"[x/ex/exam/examine/inspect/check/look {at}] all", lib_cmd_examine_all},
 #endif
 
   /* Attempted acquisition of and disposal of NPCs. */
@@ -417,14 +437,27 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"[drop/put down] %text% [on/onto/on top of] %object%",
    lib_cmd_put_on_multiple},
   {"open %object%", lib_cmd_open_object},
-  {"close %object%", lib_cmd_close_object},
+  /*
+   * A handful of the Runner's single-verb physical actions turned out to
+   * have an unbracketed synonym apiece, found the same way `pick` was: type
+   * the verb at a nonexistent object and compare wording against the
+   * canonical verb's identical unmatched-object fallback.  `shut gizmo` gets
+   * `close gizmo`'s "You can't close that.", `bolt`/`unbolt gizmo` do not
+   * ("I'm afraid that I wasn't anticipating that particular input.").
+   * `hand gizmo to bob` gets `give gizmo to bob`'s "Give what?".  All
+   * measured live 2026-08-18 against run400 on easter.taf; none of the other
+   * candidates tried alongside them (twist/rotate for turn, shove for push,
+   * tug for pull, sip/gulp for drink, wield's brandish, snatch for take,
+   * toss/chuck for throw, switch on/off) were recognised.
+   */
+  {"[close/shut] %object%", lib_cmd_close_object},
   {"unlock %object% with %text%", lib_cmd_unlock_object_with},
   {"lock %object% with %text%", lib_cmd_lock_object_with},
   {"unlock %object%", lib_cmd_unlock_object},
   {"lock %object%", lib_cmd_lock_object},
   {"read %object%", lib_cmd_read_object},
   {"read *", lib_cmd_read_other},
-  {"give %object% to %character%", lib_cmd_give_object_npc},
+  {"[give/hand] %object% to %character%", lib_cmd_give_object_npc},
   {"sit {down/up} [on/in] %object%", lib_cmd_sit_on_object},
   {"stand {up/down} [on/in] %object%", lib_cmd_stand_on_object},
   {"[lie/lay] on %object%", lib_cmd_lie_on_object},
@@ -433,7 +466,7 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"sit {down/up} {[on/in] {the} [ground/floor]}", lib_cmd_sit_on_floor},
   {"stand {up/down} {[on/in] {the} [ground/floor]}", lib_cmd_stand_on_floor},
   {"[lie/lay] {down/up} {[on/in] {the} [ground/floor]}", lib_cmd_lie_on_floor},
-  {"eat %object%", lib_cmd_eat_object},
+  {"[eat/consume] %object%", lib_cmd_eat_object},
 
   /* Dressing up, and dressing down. */
   {"[[wear/put on/don] [all/everything]/put [all/everything] on]",
@@ -452,21 +485,38 @@ static scr_commands_t STANDARD_COMMANDS[] = {
 
   /* Selected NPC interactions and conversation. */
   {"ask %character% about %text%", lib_cmd_ask_npc_about},
-  {"[attack/kick/slap] %character% with %object%", lib_cmd_attack_npc_with},
+  {"[attack/kick] %character% with %object%", lib_cmd_attack_npc_with},
   {"chop %character% with %object%", lib_cmd_chop_npc_with},
   {"cut %character% with %object%", lib_cmd_cut_npc_with},
   {"hit %character% with %object%", lib_cmd_hit_npc_with},
   {"shoot %character% with %object%", lib_cmd_shoot_npc_with},
   {"stab %character% with %object%", lib_cmd_stab_npc_with},
   {"throw %object% at %character%", lib_cmd_throw_npc_with},
-  {"kill %character% with %object%", lib_cmd_kill_npc_with},
+  {"[kill/slay] %character% with %object%", lib_cmd_kill_npc_with},
   {"fight %character% with %object%", lib_cmd_fight_npc_with},
-  {"[attack/kick/slap] %character%", lib_cmd_attack_npc},
+  /*
+   * `slap` was grouped here as a supposed synonym, but it isn't one: `slap
+   * shopkeeper` gets the generic two-word catch-all's "I don't understand
+   * what you want to do with shopkeeper." -- the same unrecognised-verb
+   * response `smack`/`strike` get -- not `kick`/`attack`'s "avoids your
+   * feeble attempts" combat default.  Measured live 2026-08-18 against
+   * run400 on easter.taf, reproduced twice; `smack` was tried alongside it
+   * and likewise not recognised.
+   */
+  {"[attack/kick] %character%", lib_cmd_attack_npc},
   {"chop %character%", lib_cmd_chop_npc},
   {"cut %character%", lib_cmd_cut_npc},
   {"shoot %character%", lib_cmd_shoot_npc},
   {"stab %character%", lib_cmd_stab_npc},
-  {"kill %character%", lib_cmd_kill_npc},
+  /*
+   * `slay bob` lands on the engine's generic "avoids your feeble
+   * attempts" combat-evasion default -- the same hardcoded fallback
+   * `kill`/`hit`/`attack` land on -- where an unrecognised verb like
+   * `strike bob` instead gets the generic two-word-catch-all's "I don't
+   * understand what you want to do with bob."  Measured live 2026-08-18
+   * against run400 on easter.taf; `strike` was not recognised.
+   */
+  {"[kill/slay] %character%", lib_cmd_kill_npc},
   {"fight %character%", lib_cmd_fight_npc},
 
   /* More movement, waiting, and miscellaneous administrative commands. */
@@ -539,11 +589,11 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"[count/num]", lib_cmd_count},
 
   /* Standard response commands; no real action, just output. */
-  {"[get/take/pick up/pick] *", lib_cmd_get_what},
+  {"[get/take/pick up/pick/grab] *", lib_cmd_get_what},
   {"open *", lib_cmd_open_what},
-  {"close *", lib_cmd_close_other},
-  {"give %object% *", lib_cmd_give_object},
-  {"give *", lib_cmd_give_what},
+  {"[close/shut] *", lib_cmd_close_other},
+  {"[give/hand] %object% *", lib_cmd_give_object},
+  {"[give/hand] *", lib_cmd_give_what},
   {"lock %text%", lib_cmd_lock_other},
   {"lock", lib_cmd_lock_what},
   {"unlock %text%", lib_cmd_unlock_other},
@@ -556,7 +606,7 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"[wear/put on/don] *", lib_cmd_wear_what},
   {"[shit/fuck/bastard/cunt/crap/hell/shag/bollocks/bollox/bugger] *",
    lib_cmd_profanity},
-  {"[x/examine/look {at}] *", lib_cmd_examine_other},
+  {"[x/examine/inspect/check/look {at}] *", lib_cmd_examine_other},
   {"[locate/where {is/are}/find] *", lib_cmd_locate_other},
   {"[cp/mv/ln/ls] *", lib_cmd_unix_like},
   {"dir *", lib_cmd_dos_like},
@@ -566,8 +616,14 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"block %object% *", lib_cmd_block_object},
   {"block %text%", lib_cmd_block_other},
   {"block", lib_cmd_block_what},
-  {"[break/destroy/smash] %object% *", lib_cmd_break_object},
-  {"[break/destroy/smash] %text%", lib_cmd_break_other},
+  /*
+   * `shatter gizmo`/`crack gizmo` (no such object) get the identical "You
+   * might need that." `break gizmo` does; measured live 2026-08-18.  Only the
+   * object-directed form was tested, so they're added here and not to the
+   * bare `break`/`destroy`/`smash` responses below.
+   */
+  {"[break/destroy/smash/shatter/crack] %object% *", lib_cmd_break_object},
+  {"[break/destroy/smash/shatter/crack] %text%", lib_cmd_break_other},
   {"break", lib_cmd_break_what},
   {"destroy", lib_cmd_destroy_what},
   {"smash", lib_cmd_smash_what},
@@ -585,8 +641,14 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"cut %text%", lib_cmd_cut_other},
   {"cut", lib_cmd_cut_what},
   {"dance *", lib_cmd_dance},
-  {"drink %object% *", lib_cmd_drink_object},
-  {"drink %text%", lib_cmd_drink_other},
+  /*
+   * `swallow gizmo` (no such object) gets the identical "You can't drink
+   * that." `drink gizmo` does; measured live 2026-08-18.  `sip`/`gulp gizmo`
+   * do not ("I'm afraid that I wasn't anticipating that particular input.").
+   * As above, only the object-directed form was tested.
+   */
+  {"[drink/swallow] %object% *", lib_cmd_drink_object},
+  {"[drink/swallow] %text%", lib_cmd_drink_other},
   {"drink", lib_cmd_drink_what},
   {"eat *", lib_cmd_eat_other},
   {"feed *", lib_cmd_feed},
@@ -610,13 +672,19 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"kiss %character% *", lib_cmd_kiss_npc},
   {"kiss %object% *", lib_cmd_kiss_object},
   {"kiss *", lib_cmd_kiss_other},
-  {"kill *", lib_cmd_kill_other},
+  {"[kill/slay] *", lib_cmd_kill_other},
   {"lift %object% *", lib_cmd_lift_object},
   {"lift %text%", lib_cmd_lift_other},
   {"lift", lib_cmd_lift_what},
-  {"light %object% *", lib_cmd_light_object},
-  {"light %text%", lib_cmd_light_other},
-  {"light", lib_cmd_light_what},
+  /*
+   * `ignite gizmo` matches `light gizmo`'s "You can't light that." exactly;
+   * `burn gizmo` instead falls to the generic "I'm afraid that I wasn't
+   * anticipating that particular input.", so it was left out.  Measured
+   * live 2026-08-18 against run400 on easter.taf.
+   */
+  {"[light/ignite] %object% *", lib_cmd_light_object},
+  {"[light/ignite] %text%", lib_cmd_light_other},
+  {"[light/ignite]", lib_cmd_light_what},
   {"listen *", lib_cmd_listen},
   {"mend %object% *", lib_cmd_mend_object},
   {"mend %text%", lib_cmd_mend_other},
@@ -628,8 +696,13 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"press %object% *", lib_cmd_press_object},
   {"press %text%", lib_cmd_press_other},
   {"press", lib_cmd_press_what},
-  {"pull %object% *", lib_cmd_pull_object},
-  {"pull %text%", lib_cmd_pull_other},
+  /*
+   * `yank gizmo` (no such object) gets the identical "You pull, but nothing
+   * happens." `pull gizmo` does; measured live 2026-08-18.  `tug gizmo` does
+   * not.  As above, only the object-directed form was tested.
+   */
+  {"[pull/yank] %object% *", lib_cmd_pull_object},
+  {"[pull/yank] %text%", lib_cmd_pull_other},
   {"pull", lib_cmd_pull_what},
   {"punch *", lib_cmd_punch},
   {"push %object% *", lib_cmd_push_object},
