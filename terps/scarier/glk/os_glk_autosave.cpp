@@ -349,7 +349,10 @@ gsc_stash_frontend_state (ScarierGlkFrontendState *st)
   st->map_shown = gsc_map_shown;
   st->map_at_top = gsc_map_at_top;
   st->map_zoom = gsc_map_zoom;
-  st->map_colourful = gsc_map_colourful;
+  st->map_follow = gsc_map_follow;
+  st->map_cx = gsc_map_cam.cx;
+  st->map_cy = gsc_map_cam.cy;
+  st->map_page = gsc_map_cam.page;
   st->colour_on = gsc_colour_enabled;
 
   /* The exact RNG state (which generator is active plus the xoshiro words),
@@ -410,9 +413,13 @@ gsc_recover_frontend_state (const ScarierGlkFrontendState *st)
   gsc_map_shown = st->map_shown;
   gsc_map_at_top = st->map_at_top;
   gsc_map_zoom = st->map_zoom;
-  /* The renderer is a fresh process's, at its default; the scheme has to be
-     named again or the restored map would come back in the standard colours. */
-  gsc_map_set_colourful (st->map_colourful);
+  gsc_map_follow = st->map_follow;
+  gsc_map_cam.cx = st->map_cx;
+  gsc_map_cam.cy = st->map_cy;
+  gsc_map_cam.page = st->map_page;
+  /* So that the first redraw takes the restored pan as it finds it, instead
+     of seeing a change of room and going back to following the player. */
+  gsc_map_last_player[0] = '\0';
   /* The restored streams still carry the zcolors colour mode set on them, and
      the restored windows their black background, so taking the flag back is
      all it takes to pick the mode up where it left off.  (An autosave written
@@ -425,7 +432,7 @@ gsc_recover_frontend_state (const ScarierGlkFrontendState *st)
      layout the game shipped -- is what tells the two apart, so the wait
      survives the autosave. */
   {
-    int pref = gsc_map_pref_read (NULL, NULL);
+    int pref = gsc_map_pref_read (NULL);
 
     gsc_map_want = gsc_map_shown || pref == 1
                    || (pref < 0 && gsc_map_default_shown ());

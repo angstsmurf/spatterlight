@@ -30,6 +30,7 @@
 
 #include <cstdlib>
 #include <cstring>
+#include <cstdio>
 #include <cmath>
 #include <map>
 #include <string>
@@ -53,35 +54,24 @@ const int map_dir_dy[MAP_N_DIRS] = { -1, 0, 1, 0, 0, 0, 0, 0, -1, 1, 1, -1 };
 /* Map.vb:33-39 paints a fixed pastel palette.  We colour the map from the
    host's text style instead, so the pane matches the story text in any theme.
    The host passes the two colours in (map_set_palette); until it does, black
-   on white.  Only the badge accents are fixed in either scheme.
+   on white.  Only the badge accents are fixed.
 
-   Two schemes are on offer, chosen by map_set_colour_scheme:
+   Paper and ink seed a small hierarchy:
 
-     MAP_SCHEME_STANDARD  paper and ink seed a small hierarchy, with no
-                          third hue:
+     canvas      = background
+     room fill   = a little ink mixed into paper
+     here fill   = the room card mixed further toward ink, so the player's
+                   room reads as the filled-in box
+     strokes     = ink
+     labels      = ink or paper, on the other side of the fill
+     links/stubs = ink faded toward paper
 
-                            canvas      = background
-                            room fill   = a little ink mixed into paper
-                            here fill   = the room card mixed further toward
-                                          ink, so the player's room reads as
-                                          the filled-in box
-                            strokes     = ink
-                            labels      = ink or paper, on the other side
-                                          of the fill
-                            links/stubs = ink faded toward paper
-
-                          Links are then drawn near-opaque, since the fading
-                          is already in the colour.
-
-     MAP_SCHEME_DERIVED   the same cards, but the player's room is mixed
-                          toward amber (ADRIFT's yellow), with orange and
-                          cyan fallbacks if amber collapses into the card,
-                          and the here-stroke picks up a little gold. */
+   Links are then drawn near-opaque, since the fading is already in the
+   colour. */
 static unsigned int map_bg = 0xFFFFFF;
 static unsigned int map_fg = 0x000000;
-static int map_scheme = MAP_SCHEME_STANDARD;
 
-/* Resolved by rebuild_derived_palette() for whichever scheme is in force. */
+/* Resolved by rebuild_derived_palette(). */
 static unsigned int map_room_fill = 0xFFFFFF;
 static unsigned int map_room_stroke = 0x000000;
 static unsigned int map_here_fill = 0x000000;
@@ -94,14 +84,12 @@ static int map_link_alpha = 100;        /* connectors on the player's level */
 static int map_link_alpha_far = 30;     /* ... and on another level */
 static int map_palette_ready = 0;
 
+/* The badge discs, one hue per way out of a room, and the mark on them. */
 #define ICON_IN        0x00A000
 #define ICON_OUT       0xE06090
 #define ICON_UP        0xFEBC2E     /* the Finder window's yellow button */
 #define ICON_DOWN      0x4060D0
-#define ACCENT_AMBER   0xFFF3A0
-#define ACCENT_GOLD    0xB8860B
-#define ACCENT_ORANGE  0xFFB060
-#define ACCENT_CYAN    0x60D8E8
+#define ICON_MARK      0xFFFFFF
 
 static int
 rgb_chan (unsigned int rgb, int shift)
@@ -140,32 +128,6 @@ rgb_luminance (unsigned int rgb)
        + 0.0722 * (rgb_chan (rgb, 0) / 255.0);
 }
 
-static double
-rgb_contrast (unsigned int a, unsigned int b)
-{
-  double la = rgb_luminance (a) + 0.05;
-  double lb = rgb_luminance (b) + 0.05;
-  return la > lb ? la / lb : lb / la;
-}
-
-static double
-rgb_dist (unsigned int a, unsigned int b)
-{
-  double dr = rgb_chan (a, 16) - rgb_chan (b, 16);
-  double dg = rgb_chan (a, 8) - rgb_chan (b, 8);
-  double db = rgb_chan (a, 0) - rgb_chan (b, 0);
-  return sqrt (dr * dr + dg * dg + db * db);
-}
-
-static int
-rgb_near_gray (unsigned int rgb)
-{
-  int r = rgb_chan (rgb, 16), g = rgb_chan (rgb, 8), b = rgb_chan (rgb, 0);
-  int mx = r > g ? (r > b ? r : b) : (g > b ? g : b);
-  int mn = r < g ? (r < b ? r : b) : (g < b ? g : b);
-  return (mx - mn) < 12;
-}
-
 /* Room fills are drawn at this alpha over the canvas (Map.vb ~200).  Label
    contrast must be measured against the blended on-screen colour, not the
    raw fill -- otherwise a mid amber over black picks black ink that then
@@ -191,132 +153,31 @@ paper_ink_label_on (unsigned int fill)
   return fg_l > bg_l ? map_fg : map_bg;
 }
 
-static unsigned int
-best_label_on (unsigned int fill)
-{
-  unsigned int cands[4];
-  unsigned int best = 0;
-  double best_c = -1.0;
-  double fill_l = rgb_luminance (fill);
-  /* Mid and dark fills: light ink.  Bright fills (light-theme amber): dark
-     ink.  WCAG alone prefers black on a muddy olive that still reads poorly
-     in the 8x8 map font. */
-  int want_light = fill_l < 0.60;
-  int i, pass;
-
-  cands[0] = map_fg;
-  cands[1] = map_bg;
-  cands[2] = 0x000000;
-  cands[3] = 0xFFFFFF;
-
-  for (pass = 0; pass < 2; pass++)
-    {
-      for (i = 0; i < 4; i++)
-        {
-          double cand_l = rgb_luminance (cands[i]);
-          double c;
-          if (pass == 0)
-            {
-              if (want_light && cand_l < 0.55)
-                continue;
-              if (!want_light && cand_l >= 0.55)
-                continue;
-            }
-          c = rgb_contrast (fill, cands[i]);
-          if (c > best_c)
-            {
-              best_c = c;
-              best = cands[i];
-            }
-        }
-      if (best_c > 0.0)
-        break;
-    }
-  return best;
-}
-
 static void
 rebuild_derived_palette (void)
 {
   int dark = rgb_luminance (map_bg) < 0.45;
   double room_t = dark ? 0.18 : 0.12;
-  double here_t = dark ? 0.80 : 0.70;
   double fill_a = MAP_ROOM_FILL_ALPHA / 255.0;
-  unsigned int accents[3];
-  unsigned int accent;
-  unsigned int here;
   unsigned int room_eff, here_eff;
-  int i;
 
   map_palette_ready = 1;
 
-  if (map_scheme != MAP_SCHEME_DERIVED)
-    {
-      /* Paper and ink only: rooms sit a little off the canvas; the player's
-         room is mixed further toward ink so it reads as the filled-in box.
-         Shallow here-mixes landed on a mid grey whose label then failed to
-         invert. */
-      map_room_fill = mix_rgb (map_bg, map_fg, room_t);
-      map_room_stroke = map_fg;
-      map_here_fill = mix_rgb (map_room_fill, map_fg,
-                              dark ? 0.85 : 0.90);
-      map_here_stroke = map_fg;
-      room_eff = mix_rgb (map_bg, map_room_fill, fill_a);
-      here_eff = mix_rgb (map_bg, map_here_fill, fill_a);
-      map_label = paper_ink_label_on (room_eff);
-      map_here_label = paper_ink_label_on (here_eff);
-      map_link = mix_rgb (map_bg, map_fg, dark ? 0.50 : 0.60);
-      map_stub = mix_rgb (map_bg, map_fg, dark ? 0.35 : 0.40);
-      map_link_alpha = 220;
-      map_link_alpha_far = 70;
-      return;
-    }
-
-  accents[0] = ACCENT_AMBER;
-  accents[1] = ACCENT_ORANGE;
-  accents[2] = ACCENT_CYAN;
-
+  /* Paper and ink only: rooms sit a little off the canvas; the player's
+     room is mixed further toward ink so it reads as the filled-in box.
+     Shallow here-mixes landed on a mid grey whose label then failed to
+     invert. */
   map_room_fill = mix_rgb (map_bg, map_fg, room_t);
-  /* Near-neutral cards (default black-on-white) get a touch of amber so
-     they keep the ADRIFT beige instead of flat gray.  Skip once the theme
-     already carries a hue. */
-  if (rgb_near_gray (map_room_fill))
-    map_room_fill = mix_rgb (map_room_fill, ACCENT_AMBER, 0.08);
-
   map_room_stroke = map_fg;
-
-  accent = accents[0];
-  for (i = 0; i < 3; i++)
-    {
-      here = mix_rgb (map_room_fill, accents[i], here_t);
-      if (rgb_dist (here, map_room_fill) >= 40.0)
-        {
-          accent = accents[i];
-          break;
-        }
-    }
-  map_here_fill = mix_rgb (map_room_fill, accent, here_t);
-  /* On dark paper a shallow mix left a muddy olive; keep lifting toward the
-     accent until the *on-screen* card (after MAP_ROOM_FILL_ALPHA over the
-     canvas) is a readable gold that can carry dark ink. */
-  if (dark)
-    {
-      for (i = 0;
-           i < 6
-           && rgb_luminance (mix_rgb (map_bg, map_here_fill, fill_a)) < 0.65;
-           i++)
-        map_here_fill = mix_rgb (map_here_fill, accent, 0.40);
-    }
-  map_here_stroke = mix_rgb (map_fg, ACCENT_GOLD, 0.50);
-
+  map_here_fill = mix_rgb (map_room_fill, map_fg,
+                          dark ? 0.85 : 0.90);
+  map_here_stroke = map_fg;
   room_eff = mix_rgb (map_bg, map_room_fill, fill_a);
   here_eff = mix_rgb (map_bg, map_here_fill, fill_a);
-  map_label = best_label_on (room_eff);
-  map_here_label = best_label_on (here_eff);
-
+  map_label = paper_ink_label_on (room_eff);
+  map_here_label = paper_ink_label_on (here_eff);
   map_link = mix_rgb (map_bg, map_fg, dark ? 0.50 : 0.60);
   map_stub = mix_rgb (map_bg, map_fg, dark ? 0.35 : 0.40);
-  /* The fading is in the colour now, so draw the line itself near-opaque. */
   map_link_alpha = 220;
   map_link_alpha_far = 70;
 }
@@ -333,14 +194,6 @@ map_set_palette (unsigned int background, unsigned int text)
 {
   map_bg = background & 0xFFFFFF;
   map_fg = text & 0xFFFFFF;
-  rebuild_derived_palette ();
-}
-
-void
-map_set_colour_scheme (int scheme)
-{
-  map_scheme = (scheme == MAP_SCHEME_DERIVED) ? MAP_SCHEME_DERIVED
-                                              : MAP_SCHEME_STANDARD;
   rebuild_derived_palette ();
 }
 
@@ -372,7 +225,7 @@ map_free (map_t *map)
 /* Find the node for a room.  NULL if the room was never placed on the map:
    ADRIFT 5 rooms created procedurally have no node, and the ADRIFT 4 layout
    passes over rooms the author flagged to hide. */
-static const map_node_t *
+const map_node_t *
 map_find (const map_t *map, const char *lockey)
 {
   int p, n;
@@ -585,6 +438,112 @@ fill_circle (map_surface_t *s, int cx, int cy, int r, unsigned int rgb,
   rgbsurf_fill_circle (s, cx, cy, r, rgb, alpha);
 }
 
+/* Pixel-centre barycentric fill.  These triangles are a handful of pixels
+   across (a badge's inner disc), so a bounding-box walk is cheap. */
+static double
+orient2d (double ax, double ay, double bx, double by, double cx, double cy)
+{
+  return (bx - ax) * (cy - ay) - (by - ay) * (cx - ax);
+}
+
+static void
+fill_triangle (map_surface_t *s,
+               double x0, double y0, double x1, double y1,
+               double x2, double y2, unsigned int rgb, int alpha)
+{
+  int minx, maxx, miny, maxy, x, y;
+  double a = orient2d (x0, y0, x1, y1, x2, y2);
+
+  if (a == 0.0)
+    return;
+  if (a < 0.0)
+    {
+      double tx = x1, ty = y1;
+      x1 = x2;
+      y1 = y2;
+      x2 = tx;
+      y2 = ty;
+    }
+  minx = (int) floor (x0 < x1 ? (x0 < x2 ? x0 : x2) : (x1 < x2 ? x1 : x2));
+  maxx = (int) ceil  (x0 > x1 ? (x0 > x2 ? x0 : x2) : (x1 > x2 ? x1 : x2));
+  miny = (int) floor (y0 < y1 ? (y0 < y2 ? y0 : y2) : (y1 < y2 ? y1 : y2));
+  maxy = (int) ceil  (y0 > y1 ? (y0 > y2 ? y0 : y2) : (y1 > y2 ? y1 : y2));
+  for (y = miny; y <= maxy; y++)
+    for (x = minx; x <= maxx; x++)
+      {
+        double px = x + 0.5, py = y + 0.5;
+        if (orient2d (x0, y0, x1, y1, px, py) >= -0.5
+            && orient2d (x1, y1, x2, y2, px, py) >= -0.5
+            && orient2d (x2, y2, x0, y0, px, py) >= -0.5)
+          blend (s, x, y, rgb, alpha);
+      }
+}
+
+/* The Up/Down arrow on a badge of radius `r`: an upright triangle with its
+   tip `t` above the badge's centre and its base corners `h` to either side
+   and `b` below.  The corners lie on a circle 3px inside the disc's edge, or
+   as near as whole pixels come, and as near equilateral as they come too:
+   any flatter and the mark reads as a slice of the disc, not an arrow. */
+static void
+ud_triangle_offsets (int r, double *t, double *h, double *b)
+{
+  const double s3 = 0.8660254037844386; /* √3/2 */
+  int inner = r - 3, hh, bb;
+  double best = 1e9;
+
+  /* The two smallest are drawn by hand. */
+  if (r <= 5)
+    {
+      /* Scales 10-11. */
+      *t = *h = *b = 2;
+      return;
+    }
+  if (r == 6)
+    {
+      /* Scales 12-13: wider than the whole-pixel equilateral fit. */
+      *t = *h = 3.5;
+      *b = 2;
+      return;
+    }
+
+  /* The tip goes on the circle.  A base corner goes on the pixel within the
+     circle that is nearest the equilateral one, (√3/2, 1/2) of the way out,
+     with its distance in from the circle counted three times over. */
+  *t = inner;
+  *h = *b = 1;
+  for (hh = 1; hh <= inner; hh++)
+    for (bb = 1; hh * hh + bb * bb <= inner * inner; bb++)
+      {
+        double in = inner - sqrt ((double) (hh * hh + bb * bb));
+        double dh = hh - s3 * inner, db = bb - 0.5 * inner;
+        double score = 3.0 * in * in + dh * dh + db * db;
+
+        if (score < best)
+          {
+            best = score;
+            *h = hh;
+            *b = bb;
+          }
+      }
+}
+
+static void
+fill_ud_triangle (map_surface_t *s, int cx, int cy, int r, int up,
+                  unsigned int rgb, int alpha)
+{
+  /* Pixel centres, matching the disc whose visual centre is (cx,cy). */
+  double ox = cx + 0.5, oy = cy + 0.5;
+  double t, h, b;
+
+  ud_triangle_offsets (r, &t, &h, &b);
+  if (!up)
+    {
+      t = -t;
+      b = -b;
+    }
+  fill_triangle (s, ox, oy - t, ox - h, oy + b, ox + h, oy + b, rgb, alpha);
+}
+
 /* A filled arrow head at (x,y) pointing along (dx,dy) -- GDI+
    AdjustableArrowCap(4,4), used for one-way links. */
 static void
@@ -768,12 +727,25 @@ typedef struct {
   int ox, oy;                   /* pixel offset of map origin */
 } proj_t;
 
+/* The height of the strip the camera keeps clear for the pan/zoom buttons,
+   in a window `h` pixels high: the map has what is left underneath it. */
+static int
+chrome_top (const map_camera_t *cam, int h)
+{
+  if (cam->chrome_h <= 0 || h <= 0)
+    return 0;
+  return cam->chrome_h < h ? cam->chrome_h : h;
+}
+
 static void
 proj_init (proj_t *p, const map_camera_t *cam, const map_surface_t *dst)
 {
+  int top = chrome_top (cam, dst->h);
+
   p->cam = cam;
   p->ox = dst->w / 2 - cam->cx;
-  p->oy = dst->h / 2 - cam->cy;
+  /* Centre the view in the area under the buttons. */
+  p->oy = top + (dst->h - top) / 2 - cam->cy;
 }
 
 static int
@@ -1130,14 +1102,23 @@ map_has_content (const map_t *map, const map_view_t *view,
   return 0;
 }
 
-/* The manual zoom ladder ("glk zoom in/out").  The automatic fit never goes
-   above MAP_SCALE_MAX, but a player asking to zoom in can usefully get closer
-   than the fit would; past 32 the boxes stop gaining anything. */
+/* The manual zoom ladder ("glk zoom in/out"), from MAP_ZOOM_MIN to
+   MAP_ZOOM_MAX.  The automatic fit stays within MAP_SCALE_MIN and
+   MAP_SCALE_MAX, but a player asking to zoom in can usefully get closer than
+   the fit would, and out to see the whole of a big map at once; past 32 the
+   boxes stop gaining anything, and below 3 a room is smaller than its badges
+   and too small to click. */
+static const int map_zoom_ladder[] = {
+  MAP_ZOOM_MIN, 4, 5, 7, MAP_SCALE_MIN, 12, 16, 20, 26, MAP_ZOOM_MAX
+};
+#define MAP_ZOOM_LADDER_N \
+  ((int) (sizeof map_zoom_ladder / sizeof map_zoom_ladder[0]))
+
 int
 map_zoom_step (int scale, int dir)
 {
-  static const int ladder[] = { 3, 4, 5, 6, 8, 10, 12, 16, 20, 26, 32 };
-  const int n = (int) (sizeof ladder / sizeof ladder[0]);
+  const int *ladder = map_zoom_ladder;
+  const int n = MAP_ZOOM_LADDER_N;
   int i;
 
   if (dir > 0)
@@ -1155,106 +1136,350 @@ map_zoom_step (int scale, int dir)
   return scale;
 }
 
-void
-map_frame (const map_t *map, const map_view_t *view,
-             const char *player_key, const map_surface_t *dst,
-             int zoom, map_camera_t *cam)
+/* --- framing ------------------------------------------------------------ */
+
+/* Pixels kept clear around the seen rooms when fitting them to the window,
+   for the labels and out-arrows that overhang the boxes. */
+#define MAP_FRAME_MARGIN 24
+
+static int
+clamp_int (int v, int lo, int hi)
 {
-  const map_node_t *pn;
-  const map_page_t *page;
-  int i, minx = 0, miny = 0, maxx = 0, maxy = 0, first = 1;
-  int sx, sy, scale;
+  return v < lo ? lo : (v > hi ? hi : v);
+}
 
-  cam->page = 0;
-  cam->scale = 10;
-  cam->cx = 0;
-  cam->cy = 0;
-  if (map == NULL || dst == NULL)
-    return;
+/* The box around every room on `page` the player has seen, in map units. */
+typedef struct {
+  int x0, y0, x1, y1;
+} map_extent_t;
 
-  pn = map_find (map, player_key);
-  player_page_key (map, player_key, &cam->page);
-
-  page = page_by_key (map, cam->page);
-  if (page == NULL)
-    return;
+/* Returns 0, leaving `ext` alone, when no room on the page has been seen. */
+static int
+seen_extent (const map_page_t *page, const map_view_t *view,
+             map_extent_t *ext)
+{
+  int i, found = 0;
 
   for (i = 0; i < page->n_nodes; i++)
     {
       const map_node_t *n = &page->nodes[i];
+
       if (!view_seen (view, n->key))
         continue;
-      if (first)
-        {
-          minx = n->x;
-          miny = n->y;
-          maxx = n->x + n->w;
-          maxy = n->y + n->h;
-          first = 0;
-        }
-      else
-        {
-          if (n->x < minx)
-            minx = n->x;
-          if (n->y < miny)
-            miny = n->y;
-          if (n->x + n->w > maxx)
-            maxx = n->x + n->w;
-          if (n->y + n->h > maxy)
-            maxy = n->y + n->h;
-        }
+      if (!found || n->x < ext->x0)
+        ext->x0 = n->x;
+      if (!found || n->y < ext->y0)
+        ext->y0 = n->y;
+      if (!found || n->x + n->w > ext->x1)
+        ext->x1 = n->x + n->w;
+      if (!found || n->y + n->h > ext->y1)
+        ext->y1 = n->y + n->h;
+      found = 1;
     }
-  if (first)
-    return;                     /* nothing seen yet */
+  return found;
+}
 
-  /* Fit the seen extent, with a margin for the labels and out-arrows -- unless
-     a manual zoom has pinned the scale, when only the centring below runs. */
-  if (zoom > 0)
-    scale = zoom;
-  else
-    {
-      sx = (maxx - minx) > 0 ? (dst->w - 24) / (maxx - minx) : MAP_SCALE_MAX;
-      sy = (maxy - miny) > 0 ? (dst->h - 24) / (maxy - miny) : MAP_SCALE_MAX;
-      scale = sx < sy ? sx : sy;
-      if (scale > MAP_SCALE_MAX)
-        scale = MAP_SCALE_MAX;
-      if (scale < MAP_SCALE_MIN)
-        scale = MAP_SCALE_MIN;
-    }
+/* The largest scale at which `span` map units go into `room` pixels. */
+static int
+fit_axis (int span, int room)
+{
+  return span > 0 ? room / span : MAP_SCALE_MAX;
+}
+
+/* Place the camera along one axis: the seen extent `lo`..`hi` (map units)
+   against `room` pixels of window.  An extent that fits is centred, and
+   cannot pan.  One that overflows is centred on `want` as nearly as keeping
+   the window full allows, and can still pan whichever ways it stopped short
+   of an end: those buttons are added to `enabled`. */
+static int
+frame_axis (int lo, int hi, int scale, int room, int want,
+            int back_btn, int fwd_btn, unsigned int *enabled)
+{
+  int first, last;
+
+  if ((hi - lo) * scale <= room)
+    return (int) ((lo + hi) / 2.0 * scale);
+
+  first = lo * scale + room / 2;
+  last = hi * scale - room / 2;
+  want = clamp_int (want, first, last);
+  if (want > first)
+    *enabled |= MAP_CHROME_BIT (back_btn);
+  if (want < last)
+    *enabled |= MAP_CHROME_BIT (fwd_btn);
+  return want;
+}
+
+/* map_frame's work: choose the page, the scale and the centre.  Returns the
+   pan buttons that have somewhere to go, and passes back the scale the
+   automatic fit would choose. */
+static unsigned int
+frame_camera (const map_t *map, const map_view_t *view,
+              const char *player_key, const map_surface_t *dst,
+              int zoom, int follow, map_camera_t *cam, int *fit_scale)
+{
+  const map_node_t *pn = map_find (map, player_key);
+  const map_page_t *page;
+  map_extent_t ext;
+  int room_w, room_h, sx, sy, scale, want_x, want_y;
+  unsigned int pan = 0;
+
+  /* Stay on the player's page while they are on a visible map room; a hidden
+     or unplaced room keeps the previous page so the view does not jump. */
+  if (pn != NULL && !pn->hidden)
+    cam->page = pn->page;
+  else if (page_by_key (map, cam->page) == NULL
+           && !player_page_key (map, player_key, &cam->page))
+    cam->page = 0;
+
+  page = page_by_key (map, cam->page);
+  if (page == NULL || !seen_extent (page, view, &ext))
+    return 0;                   /* nothing seen yet */
+
+  /* Fit into the area under the button strip, less the margin. */
+  room_w = dst->w - MAP_FRAME_MARGIN;
+  room_h = dst->h - chrome_top (cam, dst->h) - MAP_FRAME_MARGIN;
+  sx = fit_axis (ext.x1 - ext.x0, room_w);
+  sy = fit_axis (ext.y1 - ext.y0, room_h);
+  *fit_scale = clamp_int (sx < sy ? sx : sy, MAP_SCALE_MIN, MAP_SCALE_MAX);
+
+  scale = zoom > 0 ? clamp_int (zoom, MAP_ZOOM_MIN, MAP_ZOOM_MAX)
+                   : *fit_scale;
   cam->scale = scale;
 
-  /* Centre the seen extent when it fits at this scale (CentreMap); once it is
-     too big to show at once, follow the player instead (LockPlayerCentre) and
-     clamp so we never scroll past the edge of the map. */
-  cam->cx = (int) ((minx + maxx) / 2.0 * scale);
-  cam->cy = (int) ((miny + maxy) / 2.0 * scale);
-
-  if (pn != NULL && view_seen (view, pn->key))
+  /* Where an axis that overflows would like its centre: on the player while
+     following (LockPlayerCentre), otherwise wherever the last frame, or a
+     pan button since, left it.  A hidden or unseen room is not followed. */
+  if (follow && pn != NULL && !pn->hidden && view_seen (view, pn->key))
     {
-      int spanx = (maxx - minx) * scale;
-      int spany = (maxy - miny) * scale;
-      int lo, hi;
-      if (spanx > dst->w - 24)
-        {
-          cam->cx = (int) ((pn->x + pn->w / 2.0) * scale);
-          lo = minx * scale + (dst->w - 24) / 2;
-          hi = maxx * scale - (dst->w - 24) / 2;
-          if (cam->cx < lo)
-            cam->cx = lo;
-          if (cam->cx > hi)
-            cam->cx = hi;
-        }
-      if (spany > dst->h - 24)
-        {
-          cam->cy = (int) ((pn->y + pn->h / 2.0) * scale);
-          lo = miny * scale + (dst->h - 24) / 2;
-          hi = maxy * scale - (dst->h - 24) / 2;
-          if (cam->cy < lo)
-            cam->cy = lo;
-          if (cam->cy > hi)
-            cam->cy = hi;
-        }
+      want_x = (int) ((pn->x + pn->w / 2.0) * scale);
+      want_y = (int) ((pn->y + pn->h / 2.0) * scale);
     }
+  else
+    {
+      want_x = cam->cx;
+      want_y = cam->cy;
+    }
+  cam->cx = frame_axis (ext.x0, ext.x1, scale, room_w, want_x,
+                        MAP_CHROME_PAN_L, MAP_CHROME_PAN_R, &pan);
+  cam->cy = frame_axis (ext.y0, ext.y1, scale, room_h, want_y,
+                        MAP_CHROME_PAN_U, MAP_CHROME_PAN_D, &pan);
+  return pan;
+}
+
+void
+map_frame (const map_t *map, const map_view_t *view,
+           const char *player_key, const map_surface_t *dst,
+           int zoom, int follow, map_camera_t *cam, map_chrome_t *chrome)
+{
+  unsigned int enabled = 0;
+  int fit_scale = MAP_SCALE_MAX;
+
+  if (cam == NULL)
+    return;
+  cam->scale = MAP_SCALE_MIN;
+  if (map != NULL && dst != NULL)
+    enabled = frame_camera (map, view, player_key, dst, zoom, follow, cam,
+                            &fit_scale);
+  if (chrome == NULL)
+    return;
+
+  if (cam->scale < MAP_ZOOM_MAX)
+    enabled |= MAP_CHROME_BIT (MAP_CHROME_ZOOM_IN);
+  if (cam->scale > MAP_ZOOM_MIN)
+    enabled |= MAP_CHROME_BIT (MAP_CHROME_ZOOM_OUT);
+  chrome->fit_scale = fit_scale;
+  chrome->enabled = enabled;
+}
+
+void
+map_pan (map_camera_t *cam, int w, int h, int button)
+{
+  /* A quarter of the view at a time, but never a crawl. */
+  int dx = w / 4, dy = (h - chrome_top (cam, h)) / 4;
+
+  if (dx < 16)
+    dx = 16;
+  if (dy < 16)
+    dy = 16;
+  switch (button)
+    {
+    case MAP_CHROME_PAN_L: cam->cx -= dx; break;
+    case MAP_CHROME_PAN_R: cam->cx += dx; break;
+    case MAP_CHROME_PAN_U: cam->cy -= dy; break;
+    case MAP_CHROME_PAN_D: cam->cy += dy; break;
+    default: break;
+    }
+}
+
+/* --- floating pan/zoom chrome ------------------------------------------- */
+
+#define MAP_BTN_SIZE 14       /* even, for the even marks of draw_chrome_btn */
+#define MAP_BTN_PAD 3
+#define MAP_BTN_ALPHA 230       /* ~90% opaque */
+#define MAP_BTN_MAX 6
+
+#define MAP_CHROME_PAN_BITS \
+  (MAP_CHROME_BIT (MAP_CHROME_PAN_L) | MAP_CHROME_BIT (MAP_CHROME_PAN_R) \
+   | MAP_CHROME_BIT (MAP_CHROME_PAN_U) | MAP_CHROME_BIT (MAP_CHROME_PAN_D))
+
+/* A button's top-left corner; they are all MAP_BTN_SIZE square. */
+typedef struct {
+  int id;
+  int x, y;
+} map_btn_t;
+
+/* Lay the button row out into `out` (room for MAP_BTN_MAX), right-aligned in
+   a window `win_w` wide, and return the count: the four pan buttons, then
+   zoom in and out.  The pan buttons are left out while the whole map fits,
+   which is to say while none of them is enabled. */
+static int
+map_chrome_layout (int win_w, const map_chrome_t *chrome, map_btn_t *out)
+{
+  static const int ids[MAP_BTN_MAX] = {
+    MAP_CHROME_PAN_L, MAP_CHROME_PAN_R, MAP_CHROME_PAN_U, MAP_CHROME_PAN_D,
+    MAP_CHROME_ZOOM_IN, MAP_CHROME_ZOOM_OUT
+  };
+  int pans = (chrome->enabled & MAP_CHROME_PAN_BITS) != 0;
+  int first = pans ? 0 : 4, n = MAP_BTN_MAX - first;
+  int i, x, total;
+
+  /* Neighbours share their border, one pixel column. */
+  total = n * MAP_BTN_SIZE - (n - 1);
+  x = win_w - MAP_BTN_PAD - total;
+  if (x < MAP_BTN_PAD)
+    x = MAP_BTN_PAD;
+
+  for (i = 0; i < n; i++)
+    {
+      out[i].id = ids[first + i];
+      out[i].x = x;
+      out[i].y = MAP_BTN_PAD;
+      x += MAP_BTN_SIZE - 1;
+    }
+  return n;
+}
+
+/* One pixel of a button's mark, at (u,v) on the MAP_BTN_SIZE - 2 square
+   inside its border. */
+static void
+chrome_mark_px (map_surface_t *s, const map_btn_t *b, int u, int v,
+                unsigned int rgb, int alpha)
+{
+  blend (s, b->x + 1 + u, b->y + 1 + v, rgb, alpha);
+}
+
+static unsigned int
+chrome_ink (int enabled)
+{
+  return enabled ? map_fg : mix_rgb (map_fg, map_bg, 0.55);
+}
+
+/* One edge of a button's border, in the ink for `enabled`. */
+static void
+chrome_edge (map_surface_t *s, int x0, int y0, int x1, int y1, int enabled)
+{
+  fill_span (s, x0, y0, x1, y1, chrome_ink (enabled),
+             enabled ? MAP_BTN_ALPHA : MAP_BTN_ALPHA / 2);
+}
+
+/* A button's border, each pixel painted once so that the see-through ink is
+   even all round.  Its left edge is the previous button's right edge, if
+   there is one (`joined_left`), and so is not drawn again here; its right
+   edge, shared with the next button, is drawn live if either side is
+   (`right_enabled`). */
+static void
+draw_chrome_border (map_surface_t *s, const map_btn_t *b, int enabled,
+                    int joined_left, int right_enabled)
+{
+  int x0 = b->x, y0 = b->y;
+  int x1 = x0 + MAP_BTN_SIZE - 1, y1 = y0 + MAP_BTN_SIZE - 1;
+  int from = joined_left ? x0 + 1 : x0;
+
+  chrome_edge (s, from, y0, x1 - 1, y0, enabled);
+  chrome_edge (s, from, y1, x1 - 1, y1, enabled);
+  if (!joined_left)
+    chrome_edge (s, x0, y0 + 1, x0, y1 - 1, enabled);
+  chrome_edge (s, x1, y0, x1, y1, right_enabled);
+}
+
+/* A button's face and its mark.  A greyed button stays in its place, so the
+   row does not shuffle about under the pointer as the view moves. */
+static void
+draw_chrome_btn (map_surface_t *s, const map_btn_t *b, int enabled)
+{
+  unsigned int face = mix_rgb (map_bg, map_fg, enabled ? 0.12 : 0.06);
+  unsigned int ink = chrome_ink (enabled);
+  int mid = (MAP_BTN_SIZE - 2) / 2; /* first pixel past the inside's centre */
+  int mark_alpha = enabled ? 255 : 140;
+  int i, k;
+
+  /* Inside the border only, so that a shared border is not blended twice. */
+  fill_rect (s, b->x + 1, b->y + 1, b->x + MAP_BTN_SIZE - 2,
+             b->y + MAP_BTN_SIZE - 2, face, MAP_BTN_ALPHA);
+
+  /* The marks are drawn by hand rather than taken from the font, so that
+     each is an even number of pixels across and sits with the same gap on
+     either side.  An arrow is a triangle 4 deep and 8 wide, a plus 6 square
+     with strokes 2 thick: the same 20 pixels of ink apiece. */
+  if (b->id == MAP_CHROME_ZOOM_IN || b->id == MAP_CHROME_ZOOM_OUT)
+    {
+      for (i = -3; i < 3; i++)
+        for (k = -1; k < 1; k++)
+          {
+            chrome_mark_px (s, b, mid + i, mid + k, ink, mark_alpha);
+            if (b->id == MAP_CHROME_ZOOM_IN && (i < -1 || i >= 1))
+              chrome_mark_px (s, b, mid + k, mid + i, ink, mark_alpha);
+          }
+      return;
+    }
+  for (k = 0; k < 4; k++)       /* k steps from the base toward the tip */
+    for (i = -(4 - k); i < 4 - k; i++)
+      {
+        int along = (b->id == MAP_CHROME_PAN_R || b->id == MAP_CHROME_PAN_D)
+                    ? mid - 2 + k : mid + 1 - k;
+
+        if (b->id == MAP_CHROME_PAN_L || b->id == MAP_CHROME_PAN_R)
+          chrome_mark_px (s, b, along, mid + i, ink, mark_alpha);
+        else
+          chrome_mark_px (s, b, mid + i, along, ink, mark_alpha);
+      }
+}
+
+void
+map_chrome_draw (map_surface_t *dst, const map_chrome_t *chrome)
+{
+  map_btn_t btns[MAP_BTN_MAX];
+  int n, i;
+
+  if (dst == NULL || chrome == NULL)
+    return;
+  n = map_chrome_layout (dst->w, chrome, btns);
+  for (i = 0; i < n; i++)
+    draw_chrome_btn (dst, &btns[i], map_chrome_enabled (chrome, btns[i].id));
+  for (i = 0; i < n; i++)
+    {
+      int on = map_chrome_enabled (chrome, btns[i].id);
+      int next_on = i + 1 < n && map_chrome_enabled (chrome, btns[i + 1].id);
+
+      draw_chrome_border (dst, &btns[i], on, i > 0, on || next_on);
+    }
+}
+
+int
+map_chrome_hit (int w, const map_chrome_t *chrome, int px, int py)
+{
+  map_btn_t btns[MAP_BTN_MAX];
+  int n, i;
+
+  if (chrome == NULL)
+    return MAP_CHROME_NONE;
+  n = map_chrome_layout (w, chrome, btns);
+  for (i = 0; i < n; i++)
+    if (px >= btns[i].x && px < btns[i].x + MAP_BTN_SIZE
+        && py >= btns[i].y && py < btns[i].y + MAP_BTN_SIZE)
+      return btns[i].id;
+  return MAP_CHROME_NONE;
 }
 
 /* An exit that leads somewhere the player has not been is drawn as a short
@@ -1289,45 +1514,123 @@ static const int a4_badge_site[MAP_N_BADGES] = {
   BADGE_NNE, BADGE_SSW, BADGE_WNW, BADGE_ESE
 };
 
+/* The In/Out mark: a serifed I or a square-shouldered O, built from bars to
+   suit the size of the badge, since no font cell sits centred on a disc this
+   small.  The first row whose min_r the badge's radius reaches is used. */
+typedef struct {
+  int min_r;
+  int thick;                    /* weight of every stroke                   */
+  int half_h;                   /* rows above and below the centre          */
+  int bar_hw;                   /* half-width of I's serifs, and of O's top
+                                   and bottom                               */
+  int side_x;                   /* outer column of O's walls                */
+  int stem_hw;                  /* half-width of I's stem                   */
+} io_mark_t;
+
+static const io_mark_t io_marks[] = {
+  { 10, 3, 6, 4, 4, 1 },        /* scale 20 and up: 9 wide, 13 high         */
+  {  6, 1, 3, 1, 2, 0 },        /* scales 12-19: 7 high                     */
+  {  0, 1, 2, 1, 2, 0 }         /* scales 3-11: 5 high                     */
+};
+
+static void
+draw_io_letter (map_surface_t *s, int cx, int cy, int r, char letter,
+                unsigned int rgb, int alpha)
+{
+  const io_mark_t *m = io_marks;
+  int x, y, i, hw;
+
+  while (r < m->min_r)
+    m++;
+
+  /* The bars across the top and bottom.  O's taper toward its outer rows
+     (1, 3, 5... either side of the centre column), which rounds its
+     shoulders once the strokes are thick enough to have any. */
+  for (i = 0; i < m->thick; i++)
+    {
+      hw = m->bar_hw;
+      if (letter == 'O' && hw > 1 + 2 * i)
+        hw = 1 + 2 * i;
+      for (x = -hw; x <= hw; x++)
+        {
+          blend (s, cx + x, cy - m->half_h + i, rgb, alpha);
+          blend (s, cx + x, cy + m->half_h - i, rgb, alpha);
+        }
+    }
+
+  /* Between them, I's stem or O's two walls. */
+  for (y = -m->half_h + m->thick; y <= m->half_h - m->thick; y++)
+    {
+      if (letter == 'I')
+        {
+          for (x = -m->stem_hw; x <= m->stem_hw; x++)
+            blend (s, cx + x, cy + y, rgb, alpha);
+        }
+      else
+        {
+          for (i = 0; i < m->thick; i++)
+            {
+              blend (s, cx - m->side_x + i, cy + y, rgb, alpha);
+              blend (s, cx + m->side_x - i, cy + y, rgb, alpha);
+            }
+        }
+    }
+}
+
 /* The IN / OUT / UP / DOWN bubble on a node edge (DrawInOutIcon, Map.vb:1530;
-   Form29.doicon for ADRIFT 4 Up/Down), at badge site `site`. */
+   Form29.doicon for ADRIFT 4 Up/Down), at badge site `site`: a disc in the
+   direction's colour, marked in white with an I, an O or an arrow.  The
+   arrows are there because a U and a D are hard to tell apart, and from an
+   O, at the size of a badge.
+
+   `alpha` fades the whole badge with its card.  `dim` is the badge for a way
+   that leads somewhere not yet seen: the disc washed out toward the paper,
+   and its mark fainter.  It is washed out rather than made see-through
+   because the badges are drawn over the room's name, which at small scales
+   runs underneath them. */
 static void
 draw_dir_icon_site (map_surface_t *s, const proj_t *p, const map_node_t *n,
-                    int dir, int site, int alpha)
+                    int dir, int site, int alpha, int dim)
 {
-  double cx, cy;
-  const char *letter;
+  double x, y;
   unsigned int rgb;
-  int r = p->cam->scale / 2;
-  if (r < 3)
-    r = 3;
+  int cx, cy, mark_alpha = alpha;
+  /* Half a map unit, but no smaller than a disc that can still carry its
+     mark: below MAP_SCALE_MIN the badges stop shrinking with the rooms. */
+  int r = p->cam->scale / 2 < 4 ? 4 : p->cam->scale / 2;
+
   switch (dir)
     {
-    case DIR_IN:   letter = "I"; rgb = ICON_IN;   break;
-    case DIR_OUT:  letter = "O"; rgb = ICON_OUT;  break;
-    case DIR_UP:   letter = "U"; rgb = ICON_UP;   break;
-    case DIR_DOWN: letter = "D"; rgb = ICON_DOWN; break;
+    case DIR_IN:   rgb = ICON_IN;   break;
+    case DIR_OUT:  rgb = ICON_OUT;  break;
+    case DIR_UP:   rgb = ICON_UP;   break;
+    case DIR_DOWN: rgb = ICON_DOWN; break;
     default: return;
     }
-  badge_site_point (p, n, site, &cx, &cy);
-  fill_circle (s, (int) cx, (int) cy, r, rgb, alpha);
-  draw_text (s, &kSmallFont, letter, 1, (int) cx - 2, (int) cy - 3,
-             0xFFFFFF, alpha);
+  if (dim)
+    {
+      rgb = mix_rgb (rgb, map_bg, 0.5);
+      mark_alpha /= 2;
+    }
+
+  badge_site_point (p, n, site, &x, &y);
+  cx = (int) x;
+  cy = (int) y;
+  fill_circle (s, cx, cy, r, rgb, alpha);
+  if (dir == DIR_IN || dir == DIR_OUT)
+    draw_io_letter (s, cx, cy, r, dir == DIR_IN ? 'I' : 'O', ICON_MARK,
+                    mark_alpha);
+  else
+    fill_ud_triangle (s, cx, cy, r, dir == DIR_UP, ICON_MARK, mark_alpha);
 }
 
 /* The ADRIFT 4 runner had two pictures per icon: the normal one when the
    destination has been seen (clicking it recentres the map there), and a
-   dimmed one when it has not (Form29.doicon, the seen-flag branch).  We dim
-   by alpha instead.  Only badge links carry the distinction; ADRIFT 5's
-   DrawInOutIcon has a single look. */
+   dimmed one when it has not (Form29.doicon, the seen-flag branch). */
 static int
-badge_alpha (const map_view_t *view, const map_link_t *lk, int alpha)
+badge_dest_unseen (const map_view_t *view, const map_link_t *lk)
 {
-  if (!lk->badge)
-    return alpha;
-  if (lk->dest != NULL && view_seen (view, lk->dest))
-    return alpha;
-  return alpha / 2;
+  return lk->dest == NULL || !view_seen (view, lk->dest);
 }
 
 /* Which badges a node wears, and on which half-wind / compass site.
@@ -1908,13 +2211,14 @@ render_exit_stubs (const render_ctx_t *rc)
     }
 }
 
-/* Pass 3 of map_render for the node at index i: its room box, badges and
-   label. */
+/* Pass 3 of map_render for the node at index i: its room box, then its
+   label, then its badges on top.  At low scales a badge overlaps the name,
+   and the name's ink across it would make its mark unreadable. */
 static void
 render_node (const render_ctx_t *rc, int i, const char *player_key)
 {
   const map_node_t *n = &rc->page->nodes[i];
-  int x0, y0, x1, y1, alpha, bopq, is_player, k, l;
+  int x0, y0, x1, y1, alpha, is_player, k, l;
   const map_link_t *bl[MAP_N_BADGES] = { NULL, NULL, NULL, NULL };
   unsigned int fill;
 
@@ -1945,6 +2249,17 @@ render_node (const render_ctx_t *rc, int i, const char *player_key)
   draw_rect (rc->dst, x0, y0, x1, y1,
              is_player ? map_here_stroke : map_room_stroke, alpha);
 
+  /* Below MAP_SCALE_MIN a name would be a smudge across the box. */
+  if (rc->view != NULL && rc->view->name != NULL
+      && rc->p->cam->scale >= MAP_SCALE_MIN)
+    {
+      const char *label = rc->view->name (rc->view->ctx, n->key);
+      if (label != NULL && label[0] != '\0')
+        draw_label (rc->dst, label, x0, y0, x1, y1,
+                    is_player ? map_here_label : map_label,
+                    alpha == 50 ? 90 : 255);
+    }
+
   for (l = 0; l < n->n_links; l++)
     if (map_is_badge_dir (n->links[l].dir))
       bl[MAP_BADGE (n->links[l].dir)] = &n->links[l];
@@ -1964,12 +2279,9 @@ render_node (const render_ctx_t *rc, int i, const char *player_key)
             bl[MAP_BADGE (dir)] = NULL;
         }
     }
-  /* ADRIFT 4's rc->badges are the runner's little bitmaps, painted over the
-     room box rather than blended into it, and there is no second level
-     for the off-level alpha to mean anything on: draw them opaque, so a
-     badge stays legible on the filled-in player box.  ADRIFT 5's are part
-     of the drawing and keep the node's own alpha. */
-  bopq = rc->map->line_links ? 255 : alpha;
+  /* A3/A4: opaque, and dimmed when the destination is unseen.
+     A5: opaque on the player's level; fades with the card off-level
+     (there is no second level on A4's flat map). */
   if (rc->badges == NULL)
     {
       /* A3/A4: fixed sites (U NNE, D SSW, I WNW, O ESE). */
@@ -1979,8 +2291,8 @@ render_node (const render_ctx_t *rc, int i, const char *player_key)
           const map_link_t *lk = bl[MAP_BADGE (dir)];
           if (lk != NULL)
             draw_dir_icon_site (rc->dst, rc->p, n, dir,
-                                a4_badge_site[MAP_BADGE (dir)],
-                                badge_alpha (rc->view, lk, bopq));
+                                a4_badge_site[MAP_BADGE (dir)], 255,
+                                badge_dest_unseen (rc->view, lk));
         }
     }
   else
@@ -1992,6 +2304,7 @@ render_node (const render_ctx_t *rc, int i, const char *player_key)
          DrawNode stub path -- has[] set without a matching SourceAnchor
          Link).  A Link whose route is currently blocked leaves has[] set
          but bl[] NULL; those must stay hidden. */
+      int badge_a = (alpha == 50) ? 50 : 255;
       for (k = 0; k < MAP_N_BADGES; k++)
         {
           int dir = badge_order[k];
@@ -2001,19 +2314,8 @@ render_node (const render_ctx_t *rc, int i, const char *player_key)
               || (x->has[MAP_BADGE (dir)]
                   && find_dir_link (n, dir) == NULL))
             draw_dir_icon_site (rc->dst, rc->p, n, dir,
-                                x->site[MAP_BADGE (dir)],
-                                lk != NULL ? badge_alpha (rc->view, lk, alpha)
-                                           : alpha);
+                                x->site[MAP_BADGE (dir)], badge_a, 0);
         }
-    }
-
-  if (rc->view != NULL && rc->view->name != NULL)
-    {
-      const char *label = rc->view->name (rc->view->ctx, n->key);
-      if (label != NULL && label[0] != '\0')
-        draw_label (rc->dst, label, x0, y0, x1, y1,
-                    is_player ? map_here_label : map_label,
-                    alpha == 50 ? 90 : 255);
     }
 }
 

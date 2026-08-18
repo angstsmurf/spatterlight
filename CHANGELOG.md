@@ -10,6 +10,8 @@
 ### Scarier (Adrift)
 - Text set in Wingdings, Wingdings 3 or Symbol is translated to Unicode, as Webdings already was. Games that put meaning in a symbol font — the aliens' speech in *The Most Average Man in the World*, the row of droplets in *The Reluctant Resurrectee* — now read as the author meant them to instead of spilling raw letters.
 - The default map colours are now less flat, with in-between tints added to the previous two.
+- A map too big for its pane can be moved about with the arrow buttons at its top right, and any map zoomed with the + and − buttons beside them. *glk zoom N* sets an exact size, from 3 to 32; below 10 the rooms lose their names, to give an overview of a big map. The Up and Down badges now show an arrow rather than a letter.
+- The *glk map colour* command has been removed: the map is always drawn in the standard colours.
 - Sounds and pictures that a game names but never packed into its game file are now found beside it. Such a game refers to each file by its full path on the author's computer, so Scarier looks in the game's own folder for a file of that name, whatever its capitals. This brings back the sounds of Adrift 4 games like *Druggy Lane*, and the pictures and sounds of Adrift 5 games shipped as a bare .taf.
 
 #### Adrift 3.7 to 4

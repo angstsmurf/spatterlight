@@ -48,11 +48,6 @@ int gsc_map_want = FALSE;
    hiding and re-showing the map does not move it, and it is remembered with
    the visibility (gsc_map_pref_write) so neither does restarting. */
 int gsc_map_at_top = FALSE;
-/* How the two colours the map is drawn in are spent ("glk map colour"):
-   paper/ink cards by default, or the same cards with a you-are-here amber
-   (MAP_SCHEME_DERIVED in mapdraw.h).  Kept with the visibility and the
-   placement (gsc_map_pref_write). */
-int gsc_map_colourful = FALSE;
 /* Set when the game defines a MAP command of its own (Lost Coastlines has a
    sea chart): the game's command wins, and the pane is reached with the
    "glk map" escape instead. */
@@ -62,16 +57,27 @@ int gsc_map_taken = FALSE;
    noticed as the replayed opening arrives (gsc_map_notice_restart). */
 static scr_int gsc_map_restarts = 0;
 
-/* The camera and pixel size of the last map redraw, so a mouse click can be
-   hit-tested against exactly what is on screen. */
-static map_camera_t gsc_map_cam;
+/* The camera, button state and pixel size of the last map redraw, so a mouse
+   click can be hit-tested against exactly what is on screen. */
+map_camera_t gsc_map_cam;
+static map_chrome_t gsc_map_chrome;
 static int gsc_map_px_w = 0, gsc_map_px_h = 0;
 
-/* A manual zoom ("glk zoom in/out"), as pixels per map unit; 0 while the map
-   is fitting itself to its window ("glk zoom auto", the default).  A manual
-   zoom is kept until "auto" puts it back; meanwhile the view pans to keep the
-   player on-screen. */
+/* A manual zoom ("glk zoom in/out/N", or the zoom buttons), as pixels per map
+   unit; 0 while the map is fitting itself to its window ("glk zoom auto", the
+   default).  A manual zoom is kept until "auto" puts it back. */
 int gsc_map_zoom = 0;
+
+/* Whether a map too big for its window keeps the player's room in view.  A
+   pan button turns that off, so the view stays where the player put it; it
+   comes back when they walk into a different room, which gsc_map_last_player
+   (the room of the last redraw; a room key, as long as gsc_a5_walk_to's) is
+   there to notice. */
+int gsc_map_follow = TRUE;
+char gsc_map_last_player[256] = "";
+
+static int gsc_map_chrome_click (int px, int py);
+static int gsc_map_zoom_apply (int dir);
 
 /* The pixels currently on screen, kept so that a redraw need only send the rows
    that have changed.  The map is redrawn at every prompt, but most turns do not
@@ -176,6 +182,14 @@ gsc_map_click (event_t *event)
       snprintf (here_room, sizeof here_room, "%ld",
                 (long) gs_playerroom ((scr_gameref_t) gsc_game));
       here = here_room;
+    }
+
+  /* The floating pan/zoom buttons: act on them, re-arm, and keep waiting. */
+  if (gsc_map_chrome_click ((int) event->val1, (int) event->val2))
+    {
+      if (glk_gestalt (gestalt_MouseInput, wintype_Graphics))
+        glk_request_mouse_event (gsc_map_window);
+      return FALSE;
     }
 
   hit = map_hit (gsc_map, &view, &gsc_map_cam, gsc_map_px_w, gsc_map_px_h,
@@ -315,12 +329,16 @@ gsc_a5_map_view (a5_state_t *st, map_view_t *view)
  * room you are in and the rooms you have seen, both of which change as you
  * play, and the runner likewise recomputed it every time it drew.
  *
- * Returns FALSE if there is no map to show.
+ * Returns FALSE if there is no map to show.  Mid-game ADRIFT 4 HideOnMap keeps
+ * the previous layout so the pan/zoom view can freeze on the last-known map
+ * instead of wiping the pane.
  */
 static int
 gsc_map_current (map_view_t *view, const char **player, char *keybuf,
                  int keysize)
 {
+  map_t *built;
+
   if (gsc_is_a5)
     {
       a5_state_t *st;
@@ -337,10 +355,15 @@ gsc_map_current (map_view_t *view, const char **player, char *keybuf,
     return FALSE;
 
   scmap_view ((scr_gameref_t) gsc_game, view);
-  map_free (gsc_map);
-  gsc_map = scmap_build ((scr_gameref_t) gsc_game, view);
-  if (gsc_map == NULL)
+  built = scmap_build ((scr_gameref_t) gsc_game, view);
+  if (built != NULL)
+    {
+      map_free (gsc_map);
+      gsc_map = built;
+    }
+  else if (gsc_map == NULL)
     return FALSE;
+  /* else no layout from this room (HideOnMap mid-game): keep the last one. */
 
   snprintf (keybuf, (size_t) keysize, "%ld",
             (long) gs_playerroom ((scr_gameref_t) gsc_game));
@@ -384,6 +407,83 @@ gsc_map_worth_opening (void)
   return map_has_content (gsc_map, &view, ploc);
 }
 
+/*
+ * gsc_map_zoom_apply()
+ *
+ * Step the manual zoom in (dir > 0) or out (dir <= 0) along map_zoom_step's
+ * ladder, from the manual zoom or from wherever the automatic fit last landed.
+ * Zooming out from a manual zoom above the automatic fit stops at the fit,
+ * and goes back to automatic there; from the fit it goes on down the ladder,
+ * to MAP_ZOOM_MIN.  Returns TRUE if the zoom changed.
+ */
+static int
+gsc_map_zoom_apply (int dir)
+{
+  int scale = gsc_map_zoom > 0 ? gsc_map_zoom : gsc_map_cam.scale;
+  int zoom;
+
+  /* A map with nothing drawn yet steps from the runner's default. */
+  if (scale < MAP_ZOOM_MIN)
+    scale = MAP_SCALE_MIN;
+  zoom = map_zoom_step (scale, dir);
+  if (dir > 0)
+    {
+      if (zoom == scale)
+        return FALSE;
+    }
+  else
+    {
+      if (zoom == scale)
+        return FALSE;
+      if (zoom <= gsc_map_chrome.fit_scale
+          && scale > gsc_map_chrome.fit_scale)
+        zoom = 0;
+    }
+
+  if (zoom == gsc_map_zoom)
+    return FALSE;
+  gsc_map_zoom = zoom;
+  gsc_map_redraw ();
+  return TRUE;
+}
+
+/*
+ * gsc_map_chrome_click()
+ *
+ * Handle a click on the floating pan/zoom buttons.  Returns TRUE if the click
+ * landed on one, greyed or not: a greyed button swallows its click, so that it
+ * does not fall through to the map underneath and walk to a room.
+ */
+static int
+gsc_map_chrome_click (int px, int py)
+{
+  int id = map_chrome_hit (gsc_map_px_w, &gsc_map_chrome, px, py);
+
+  if (id == MAP_CHROME_NONE)
+    return FALSE;
+  if (!map_chrome_enabled (&gsc_map_chrome, id))
+    return TRUE;
+
+  switch (id)
+    {
+    case MAP_CHROME_ZOOM_IN:
+      gsc_map_zoom_apply (1);
+      break;
+
+    case MAP_CHROME_ZOOM_OUT:
+      gsc_map_zoom_apply (-1);
+      break;
+
+    default:
+      /* A pan: the view now stays put until the player changes rooms. */
+      gsc_map_follow = FALSE;
+      map_pan (&gsc_map_cam, gsc_map_px_w, gsc_map_px_h, id);
+      gsc_map_redraw ();
+      break;
+    }
+  return TRUE;
+}
+
 /* One run of a colour, for rgbsurf_send. */
 static void
 gsc_map_span (void *ctx, unsigned int rgb, int x, int y, int len)
@@ -412,6 +512,7 @@ gsc_map_redraw (void)
   const char *ploc = NULL;
   char keybuf[16];
   glui32 w, h;
+  int buttons;
 
   /* A map that was asked for while there was nothing on it: try again now
      that the game has moved on.  (gsc_map_show comes straight back here, but
@@ -445,9 +546,8 @@ gsc_map_redraw (void)
       }
   }
 
-  /* Nothing to draw: an ADRIFT 4 layout that gave up, or a player standing in a
-     room hidden from the map -- where the runner showed an empty map too.  Wipe
-     the pane rather than leave the last one up; it will come back by itself. */
+  /* Nothing to draw yet: no map has ever been built (opening staging room).
+     Mid-game HideOnMap keeps the previous layout via gsc_map_current. */
   if (!gsc_map_current (&view, &ploc, keybuf, sizeof keybuf))
     {
       glk_window_clear (gsc_map_window);
@@ -455,12 +555,35 @@ gsc_map_redraw (void)
       return;
     }
 
+  /* Moving to a different visible room restores follow-the-player.  A hidden
+     room leaves the camera where it was.  The first redraw after open/restore
+     only records the room -- it must not override a restored pan. */
+  if (ploc != NULL)
+    {
+      if (gsc_map_last_player[0] != '\0'
+          && strcmp (ploc, gsc_map_last_player) != 0)
+        {
+          const map_node_t *pn = map_find (gsc_map, ploc);
+
+          if (pn != NULL && !pn->hidden)
+            gsc_map_follow = TRUE;
+        }
+      snprintf (gsc_map_last_player, sizeof gsc_map_last_player, "%s", ploc);
+    }
+
   surf = map_surface_new ((int) w, (int) h);
   if (surf == NULL)
     return;
 
-  map_frame (gsc_map, &view, ploc, surf, gsc_map_zoom, &gsc_map_cam);
+  /* The pan/zoom buttons only earn their strip of the window where they can
+     be clicked. */
+  buttons = glk_gestalt (gestalt_MouseInput, wintype_Graphics) != 0;
+  gsc_map_cam.chrome_h = buttons ? MAP_CHROME_H : 0;
+  map_frame (gsc_map, &view, ploc, surf, gsc_map_zoom, gsc_map_follow,
+             &gsc_map_cam, &gsc_map_chrome);
   map_render (gsc_map, &view, ploc, &gsc_map_cam, surf);
+  if (buttons)
+    map_chrome_draw (surf, &gsc_map_chrome);
   gsc_map_px_w = surf->w;
   gsc_map_px_h = surf->h;
   if (gsc_is_a5)
@@ -668,22 +791,19 @@ gsc_map_pref_ref (void)
  * The player's remembered choice for this game: 1 to show the map, 0 to hide
  * it, -1 when they have never said.  Where they last put it is returned
  * through at_top on the same terms -- 1 for the top band, 0 for the pane at
- * the right, -1 for never said -- and which colour scheme they last had
- * through colourful, 1 for the derived colours and 0 for the flat ones.
- * Files written before the map could be moved hold only the first byte, and
- * ones written before it could be recoloured only the first two, so a missing
- * byte reads as never said rather than as a choice.
+ * the right, -1 for never said.  Files written before the map could be moved
+ * hold only the first byte, so a missing byte reads as never said rather than
+ * as a choice.  (A third byte, left by the removed "glk map colour", is
+ * ignored.)
  */
 int
-gsc_map_pref_read (int *at_top, int *colourful)
+gsc_map_pref_read (int *at_top)
 {
   frefid_t fileref;
   int value = -1;
 
   if (at_top != NULL)
     *at_top = -1;
-  if (colourful != NULL)
-    *colourful = -1;
 
   fileref = gsc_map_pref_ref ();
   if (fileref == NULL)
@@ -704,10 +824,6 @@ gsc_map_pref_read (int *at_top, int *colourful)
           if (at_top != NULL && (c == 't' || c == 'r'))
             *at_top = (c == 't');
 
-          c = glk_get_char_stream (stream);
-          if (colourful != NULL && (c == 'c' || c == 'p'))
-            *colourful = (c == 'c');
-
           glk_stream_close (stream, NULL);
         }
     }
@@ -720,10 +836,9 @@ gsc_map_pref_read (int *at_top, int *colourful)
  * gsc_map_pref_write()
  *
  * Remember that the player asked for the map to be shown or hidden in this
- * game, where they had it, and which colours they drew it in, so that the next
- * session opens the way they left it.  The position and the colour scheme are
- * recorded even when the map is off, so that turning it back on later still
- * puts it where they last had it, looking the way it did.
+ * game and where they had it, so that the next session opens the way they left
+ * it.  The position is recorded even when the map is off, so that turning it
+ * back on later still puts it where they last had it.
  *
  * Only a game whose map the player has actually moved away from its default
  * gets a file; one they have put back where it started has theirs removed
@@ -732,7 +847,7 @@ gsc_map_pref_read (int *at_top, int *colourful)
  * do accumulate are only for games the player made a decision about.
  */
 static void
-gsc_map_pref_write (int shown, int at_top, int colourful)
+gsc_map_pref_write (int shown, int at_top)
 {
   frefid_t fileref;
   strid_t stream;
@@ -741,7 +856,7 @@ gsc_map_pref_write (int shown, int at_top, int colourful)
   if (fileref == NULL)
     return;
 
-  if (!shown == !gsc_map_default_shown () && !at_top && !colourful)
+  if (!shown == !gsc_map_default_shown () && !at_top)
     {
       if (glk_fileref_does_file_exist (fileref))
         glk_fileref_delete_file (fileref);
@@ -754,7 +869,6 @@ gsc_map_pref_write (int shown, int at_top, int colourful)
     {
       glk_put_char_stream (stream, (unsigned char) (shown ? '1' : '0'));
       glk_put_char_stream (stream, (unsigned char) (at_top ? 't' : 'r'));
-      glk_put_char_stream (stream, (unsigned char) (colourful ? 'c' : 'p'));
       glk_stream_close (stream, NULL);
     }
   glk_fileref_destroy (fileref);
@@ -800,6 +914,10 @@ gsc_map_show (void)
       return;
     }
   gsc_map_shown = TRUE;
+  /* A newly opened map starts out on the player, whatever was panned to in
+     the last one. */
+  gsc_map_follow = TRUE;
+  gsc_map_last_player[0] = '\0';
   gsc_map_screen_drop ();       /* a fresh window holds nothing */
   gsc_map_redraw ();
 
@@ -875,7 +993,7 @@ gsc_map_set (int shown)
      worth keeping.  A deferred open is the opposite case -- the player did
      ask, and the map is on its way. */
   gsc_map_want = gsc_map_shown || deferred;
-  gsc_map_pref_write (gsc_map_want, gsc_map_at_top, gsc_map_colourful);
+  gsc_map_pref_write (gsc_map_want, gsc_map_at_top);
 }
 
 /*
@@ -913,7 +1031,7 @@ gsc_map_toggle (void)
 void
 gsc_map_auto_reveal (void)
 {
-  int pref, at_top, colourful;
+  int pref, at_top;
 
   if (gsc_map_shown)
     return;
@@ -925,15 +1043,12 @@ gsc_map_auto_reveal (void)
       || !glk_gestalt (gestalt_DrawImage, wintype_Graphics))
     return;
 
-  pref = gsc_map_pref_read (&at_top, &colourful);
+  pref = gsc_map_pref_read (&at_top);
 
-  /* Where the map goes, and what it is drawn in, are remembered whether or not
-     it is opened now, so that a later "glk map on" puts it back the way the
-     player last had it. */
+  /* Where the map goes is remembered whether or not it is opened now, so that
+     a later "glk map on" puts it back the way the player last had it. */
   if (at_top >= 0)
     gsc_map_at_top = at_top;
-  if (colourful >= 0)
-    gsc_map_set_colourful (colourful);
 
   if (pref < 0)
     {
@@ -1026,89 +1141,6 @@ gsc_map_place (int at_top)
 }
 
 /*
- * gsc_map_set_colourful()
- *
- * Pick the scheme the renderer spends the story's two colours in.  Silent, and
- * it draws nothing: gsc_map_auto_reveal calls this before there is a pane.
- */
-void
-gsc_map_set_colourful (int colourful)
-{
-  gsc_map_colourful = colourful;
-  map_set_colour_scheme (colourful ? MAP_SCHEME_DERIVED
-                                   : MAP_SCHEME_STANDARD);
-}
-
-/*
- * gsc_map_colour()
- *
- * "glk map colour": draw the map with a you-are-here amber, or back in the
- * paper-and-ink cards that are the default.  Unlike placement this does not
- * ask for a map: recolouring one that is hidden is a preference for next
- * time, not a request to see it.
- *
- * The pixels we think are on screen were drawn in the old scheme, so they are
- * dropped before the redraw; otherwise the row comparison would find them
- * unchanged and send nothing.  Redrawing here rather than leaving it to the
- * next prompt is what gsc_set_colour does, and for the same reason: the
- * glk-command loop never reaches the turn loop's prompt.
- */
-static void
-gsc_map_colour (int colourful)
-{
-  if (gsc_map_colourful == colourful)
-    {
-      gsc_normal_string (colourful
-                         ? "The map is already drawn in colour.\n"
-                         : "The map is already drawn in the standard"
-                           " colours.\n");
-      return;
-    }
-
-  gsc_map_set_colourful (colourful);
-  gsc_map_screen_drop ();
-  gsc_map_redraw ();
-  gsc_normal_string (colourful
-                     ? "The map is now drawn in colour.\n"
-                     : "The map is now drawn in the standard colours.\n");
-  gsc_map_pref_write (gsc_map_want, gsc_map_at_top, gsc_map_colourful);
-}
-
-/*
- * gsc_map_colour_word()
- *
- * True if the argument to "glk map" starts with the word colour, in any of the
- * four spellings "glk colour" itself answers to; *arg is then advanced past it
- * to whatever followed, with the leading space eaten.
- *
- * Matched at a word boundary and longest first, so that "colours" is not read
- * as "colour" with a stray "s" argument.
- */
-static int
-gsc_map_colour_word (const char **arg)
-{
-  static const char * const words[] = {
-    "colours", "colors", "colour", "color", NULL
-  };
-  const char *s = *arg;
-  int i;
-
-  for (i = 0; words[i] != NULL; i++)
-    {
-      size_t len = strlen (words[i]);
-
-      if (scr_strncasecmp (s, words[i], len) == 0
-          && (s[len] == '\0' || s[len] == ' ' || s[len] == '\t'))
-        {
-          s += len;
-          *arg = s + strspn (s, " \t");
-          return TRUE;
-        }
-    }
-  return FALSE;
-}
-
-/*
  * gsc_command_map()
  *
  * "glk map [on|off]".  Always available, even for the rare game that defines a
@@ -1146,25 +1178,6 @@ gsc_command_map (const char *argument)
     {
       gsc_map_place (FALSE);
     }
-  /* "glk map colour" on its own toggles, so that one command both tries the
-     alternative colours and puts them away again; "on"/"off" are there for a
-     player who would rather say which they mean.  All four spellings of the
-     word that "glk colour" answers to are accepted here too. */
-  else if (gsc_map_colour_word (&argument))
-    {
-      if (*argument == '\0')
-        gsc_map_colour (!gsc_map_colourful);
-      else if (scr_strcasecmp (argument, "on") == 0)
-        gsc_map_colour (TRUE);
-      else if (scr_strcasecmp (argument, "off") == 0)
-        gsc_map_colour (FALSE);
-      else if (scr_strcasecmp (argument, "status") == 0)
-        gsc_normal_string (gsc_map_colourful
-                           ? "The map is drawn in colour.\n"
-                           : "The map is drawn in the standard colours.\n");
-      else
-        gsc_command_usage ("map");
-    }
   else if (scr_strncasecmp (argument, "zoom", 4) == 0
            && (argument[4] == '\0' || argument[4] == ' '
                || argument[4] == '\t'))
@@ -1179,15 +1192,20 @@ gsc_command_map (const char *argument)
 /*
  * gsc_command_zoom()
  *
- * "glk zoom [in | out | auto]".  Plain "glk zoom" zooms in, and "default" is a
- * synonym for "auto".  A manual zoom is kept until "auto" puts the map back
- * to fitting itself to its window; meanwhile the view pans to keep the
- * player on-screen (map_frame).
+ * "glk zoom [in | out | auto | N]".  Plain "glk zoom" zooms in, and "default"
+ * is a synonym for "auto".  A number pins the scale to that many pixels per
+ * map unit, which must lie between MAP_ZOOM_MIN and MAP_ZOOM_MAX.  A manual
+ * zoom is kept until "auto" puts the map back to fitting itself to its
+ * window; meanwhile a map too big for the window follows the player around
+ * (map_frame).
  */
 void
 gsc_command_zoom (const char *argument)
 {
-  int in, scale, stepped;
+  char buf[96];
+  char *end;
+  long pinned;
+  int numeric, dir = 0;
 
   if (gsc_is_a5 ? gsc_a5_run == NULL : gsc_game == NULL)
     return;
@@ -1214,16 +1232,22 @@ gsc_command_zoom (const char *argument)
       return;
     }
 
-  if (strlen (argument) == 0 || scr_strcasecmp (argument, "in") == 0)
-    in = TRUE;
-  else if (scr_strcasecmp (argument, "out") == 0)
-    in = FALSE;
-  else
+  pinned = strtol (argument, &end, 10);
+  numeric = end != argument && *end == '\0';
+  if (!numeric)
     {
-      gsc_command_usage ("zoom");
-      return;
+      if (strlen (argument) == 0 || scr_strcasecmp (argument, "in") == 0)
+        dir = 1;
+      else if (scr_strcasecmp (argument, "out") == 0)
+        dir = -1;
+      else
+        {
+          gsc_command_usage ("zoom");
+          return;
+        }
     }
 
+  /* The rest zoom relative to, or are limited by, the map as drawn. */
   if (!gsc_map_shown)
     {
       gsc_normal_string ("The map is not open.  Use ");
@@ -1232,18 +1256,27 @@ gsc_command_zoom (const char *argument)
       return;
     }
 
-  /* Step from the manual zoom, or from wherever the automatic fit last
-     landed; a map with nothing drawn yet steps from the runner's default. */
-  scale = gsc_map_zoom > 0 ? gsc_map_zoom : gsc_map_cam.scale;
-  if (scale < MAP_SCALE_MIN)
-    scale = 10;
-  stepped = map_zoom_step (scale, in ? 1 : -1);
-  if (stepped == scale)
+  if (!numeric)
     {
-      gsc_normal_string (in ? "The map is already at its maximum zoom.\n"
-                            : "The map is already at its minimum zoom.\n");
-      return;
+      if (!gsc_map_zoom_apply (dir))
+        gsc_normal_string (dir > 0
+                           ? "The map is already at its maximum zoom.\n"
+                           : "The map is already at its minimum zoom.\n");
     }
-  gsc_map_zoom = stepped;
-  gsc_map_redraw ();
+  else if (pinned < MAP_ZOOM_MIN || pinned > MAP_ZOOM_MAX)
+    {
+      snprintf (buf, sizeof buf, "Map zoom must be between %d and %d.\n",
+                MAP_ZOOM_MIN, MAP_ZOOM_MAX);
+      gsc_normal_string (buf);
+    }
+  else if (pinned == gsc_map_zoom)
+    {
+      snprintf (buf, sizeof buf, "The map is already at zoom %ld.\n", pinned);
+      gsc_normal_string (buf);
+    }
+  else
+    {
+      gsc_map_zoom = (int) pinned;
+      gsc_map_redraw ();
+    }
 }

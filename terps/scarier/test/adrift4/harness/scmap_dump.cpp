@@ -23,11 +23,12 @@
  * a5map_dump.
  *
  *   ./scmap_dump <game.taf> [script.txt] [-o out.ppm] [-w W] [-h H] [-all]
- *                [-grid] [-colour]
+ *                [-grid] [-zoom N] [-chrome]
  *
  *   -all      mark every room seen (whole-map view, for development)
  *   -grid     print the grid as ASCII, the way Form29.display_grid did
- *   -colour   draw in the alternative scheme "glk map colour" selects
+ *   -zoom N   pin the map scale (pixels per map unit); default auto-fits
+ *   -chrome   draw the pan/zoom buttons, as the Glk frontend does
  *   -bg/-fg   the host text style the palette is built from, RRGGBB hex
  */
 
@@ -44,12 +45,11 @@ static int g_reveal_all = 0;
 static scr_gameref_t g_game = NULL;
 static const char *g_out = "scmap.ppm";
 static int g_width = 480, g_height = 480, g_grid = 0;
-/* -colour: render in the alternative scheme "glk map colour" selects.
-   -bg/-fg stand in for the host's text style, which the Glk frontend measures
-   off the story window; the derived scheme reads very differently on dark
-   paper, so it needs to be eyeballable here too. */
-static int g_colour = 0;
+/* -bg/-fg stand in for the host's text style, which the Glk frontend measures
+   off the story window. */
 static long g_bg = -1, g_fg = -1;
+static int g_zoom = 0;          /* 0 = auto-fit; else pin map_frame scale */
+static int g_chrome = 0;        /* draw the pan/zoom buttons */
 
 static void draw_and_exit (void);
 
@@ -146,7 +146,8 @@ static void
 draw_and_exit (void)
 {
   map_surface_t *surf;
-  map_camera_t cam;
+  map_camera_t cam = { 0 };
+  map_chrome_t chrome;
   map_view_t view;
   map_t *map;
   char player[16];
@@ -180,10 +181,12 @@ draw_and_exit (void)
   if (g_bg >= 0 || g_fg >= 0)
     map_set_palette ((unsigned int) (g_bg >= 0 ? g_bg : 0xFFFFFF),
                      (unsigned int) (g_fg >= 0 ? g_fg : 0x000000));
-  map_set_colour_scheme (g_colour ? MAP_SCHEME_DERIVED : MAP_SCHEME_STANDARD);
   surf = map_surface_new (g_width, g_height);
-  map_frame (map, &view, player, surf, 0, &cam);
+  cam.chrome_h = g_chrome ? MAP_CHROME_H : 0;
+  map_frame (map, &view, player, surf, g_zoom, 1, &cam, &chrome);
   map_render (map, &view, player, &cam, surf);
+  if (g_chrome)
+    map_chrome_draw (surf, &chrome);
   fprintf (stderr, "scale=%d\n", cam.scale);
 
   f = fopen (g_out, "wb");
@@ -220,7 +223,7 @@ main (int argc, char **argv)
   if (argc < 2)
     {
       fprintf (stderr, "usage: %s <game.taf> [script] [-o out.ppm] [-w W]"
-               " [-h H] [-all] [-grid] [-colour]\n"
+               " [-h H] [-all] [-grid] [-zoom N] [-chrome]\n"
                "       [-bg RRGGBB] [-fg RRGGBB]\n", argv[0]);
       return 1;
     }
@@ -236,9 +239,10 @@ main (int argc, char **argv)
         g_reveal_all = 1;
       else if (strcmp (argv[i], "-grid") == 0)
         g_grid = 1;
-      else if (strcmp (argv[i], "-colour") == 0
-               || strcmp (argv[i], "-color") == 0)
-        g_colour = 1;
+      else if (strcmp (argv[i], "-zoom") == 0 && i + 1 < argc)
+        g_zoom = atoi (argv[++i]);
+      else if (strcmp (argv[i], "-chrome") == 0)
+        g_chrome = 1;
       else if (strcmp (argv[i], "-bg") == 0 && i + 1 < argc)
         g_bg = strtol (argv[++i], NULL, 16);
       else if (strcmp (argv[i], "-fg") == 0 && i + 1 < argc)

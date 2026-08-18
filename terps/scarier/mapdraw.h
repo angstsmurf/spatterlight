@@ -157,6 +157,11 @@ typedef struct map_s {
 
 extern void map_free (map_t *map);
 
+/* Find the node for a room.  NULL if the room was never placed on the map:
+   ADRIFT 5 rooms created procedurally have no node, and the ADRIFT 4 layout
+   passes over rooms the author flagged to hide. */
+extern const map_node_t *map_find (const map_t *map, const char *lockey);
+
 /* --- rendering ---------------------------------------------------------- */
 
 /* A 24-bit RGB surface, 0x00RRGGBB per pixel, row-major: the shared
@@ -168,21 +173,9 @@ extern map_surface_t *map_surface_new (int w, int h);
 extern void map_surface_free (map_surface_t *s);
 
 /* The host's text style, normally the Glk buffer's style_Normal.  Black on
-   white until the host says otherwise.  How the two colours are spent on the
-   drawing depends on the scheme below. */
+   white until the host says otherwise.  The map mixes them as paper and ink:
+   shaded room cards, a filled-in player's room, and faded connectors. */
 extern void map_set_palette (unsigned int background, unsigned int text);
-
-/* MAP_SCHEME_STANDARD mixes `background` and `text` as paper and ink:
-   shaded room cards, a filled-in player's room, faded connectors.  No
-   third hue.  MAP_SCHEME_DERIVED keeps those cards but paints you-are-here
-   in amber (with orange/cyan fallbacks) the way the ADRIFT runner did.
-   Standard until the host says otherwise; the setting is the host's to
-   remember. */
-enum {
-  MAP_SCHEME_STANDARD = 0,
-  MAP_SCHEME_DERIVED = 1
-};
-extern void map_set_colour_scheme (int scheme);
 
 /* What the renderer needs to know about the run.  Keeping this a callback
    table is what lets the map be drawn from the headless harness (and diffed)
@@ -213,23 +206,87 @@ typedef struct map_camera_s {
   int page;                   /* page to draw                                */
   int scale;                  /* pixels per map unit (runner default 10)     */
   int cx, cy;                 /* centre of the view, in map units * scale    */
+  int chrome_h;               /* strip along the top that the host keeps for
+                                 the pan/zoom buttons (MAP_CHROME_H); the map
+                                 is framed and drawn in what is left below
+                                 it.  0 for no buttons.                      */
 } map_camera_t;
 
-/* Pick the page the player is on and frame it.  With `zoom` 0, fits the seen
-   nodes to `dst` (clamped between MAP_SCALE_MIN and MAP_SCALE_MAX) and centres
-   on the player, like the runner's LockPlayerCentre.  A positive `zoom` pins
-   the scale to that many pixels per map unit instead (a manual "glk zoom");
-   the centring still runs, so the view pans to keep the player on-screen. */
-#define MAP_SCALE_MIN 3
+/* Pixels per map unit.  The automatic fit stays between MAP_SCALE_MIN, the
+   runner's own scale, and MAP_SCALE_MAX; a map too big for its window at the
+   minimum is panned across rather than shrunk until its labels are unreadable.
+   A manual zoom may go on up to MAP_ZOOM_MAX, or down to MAP_ZOOM_MIN for an
+   overview of a big map; below MAP_SCALE_MIN the rooms are drawn without
+   their names, which no longer fit in them. */
+#define MAP_ZOOM_MIN 3
+#define MAP_SCALE_MIN 10
 #define MAP_SCALE_MAX 16
+#define MAP_ZOOM_MAX 32
+
+/* The floating pan/zoom buttons, drawn over the top-right of the map. */
+enum {
+  MAP_CHROME_NONE = 0,
+  MAP_CHROME_PAN_L,
+  MAP_CHROME_PAN_R,
+  MAP_CHROME_PAN_U,
+  MAP_CHROME_PAN_D,
+  MAP_CHROME_ZOOM_IN,
+  MAP_CHROME_ZOOM_OUT
+};
+#define MAP_CHROME_BIT(id) (1u << (id))
+
+/* Height of the button row, padding included: what a host that wants the
+   buttons puts in map_camera_t.chrome_h. */
+#define MAP_CHROME_H 20
+
+/* What map_frame found out about the view, which is what the buttons need. */
+typedef struct map_chrome_s {
+  int fit_scale;              /* the scale the automatic fit would pick, even
+                                 while a manual zoom is overriding it        */
+  unsigned int enabled;       /* MAP_CHROME_BIT of each button that would
+                                 change the view: a pan with travel left, a
+                                 zoom in below MAP_ZOOM_MAX, a zoom out above
+                                 MAP_ZOOM_MIN.  The rest are drawn greyed.   */
+} map_chrome_t;
+
+static inline int
+map_chrome_enabled (const map_chrome_t *chrome, int id)
+{
+  return (chrome->enabled & MAP_CHROME_BIT (id)) != 0;
+}
+
+/* Point the camera: pick the page, and frame the rooms seen on it into `dst`
+   under cam->chrome_h, which the caller sets.  With `zoom` 0 the scale is the
+   automatic fit; a positive `zoom` pins it (within MAP_ZOOM_MIN and
+   MAP_ZOOM_MAX).  An axis the rooms fit along is centred on them.  One they
+   overflow is centred on the player's room if `follow` (the runner's
+   LockPlayerCentre), and otherwise keeps the cam->cx/cy passed in -- the last
+   frame's, or a map_pan since -- and either way stops at the edge of the
+   rooms.  A hidden or missing player room is never followed.  `chrome`, if
+   not NULL, is filled in for the buttons. */
 extern void map_frame (const map_t *map, const map_view_t *view,
                        const char *player_key, const map_surface_t *dst,
-                       int zoom, map_camera_t *cam);
+                       int zoom, int follow, map_camera_t *cam,
+                       map_chrome_t *chrome);
 
 /* The next manual zoom level in from (dir > 0) or out from (dir <= 0) `scale`
    pixels per map unit.  Returns `scale` unchanged at the end of the range,
    which is how a caller knows to warn instead of redraw. */
 extern int map_zoom_step (int scale, int dir);
+
+/* Draw the button row over a rendered map.  The pan buttons are only there
+   while the map overflows its window. */
+extern void map_chrome_draw (map_surface_t *dst, const map_chrome_t *chrome);
+
+/* Which button of a `w`-pixel-wide map is at (px,py), or MAP_CHROME_NONE.  A
+   greyed button still answers, so that the host can swallow the click rather
+   than let it through to the room underneath: ask map_chrome_enabled. */
+extern int map_chrome_hit (int w, const map_chrome_t *chrome, int px, int py);
+
+/* Move the camera one press of pan button `button` across a `w` x `h` view:
+   about a quarter of it.  The next map_frame (with `follow` off) stops it at
+   the edge of the map. */
+extern void map_pan (map_camera_t *cam, int w, int h, int button);
 
 /* Draw the map.  Only rooms the player has seen are drawn (as in both
    runners); the player's own room is highlighted. */
