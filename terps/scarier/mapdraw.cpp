@@ -47,7 +47,7 @@ const char *const map_dirs[MAP_N_DIRS] = {
 /* Map.vb:33-39 paints a fixed pastel palette.  We colour the map from the
    host's text style instead, so the pane matches the story text in any theme.
    The host passes the two colours in (map_set_palette); until it does, black
-   on white.  Only the badge accents are fixed in either scheme.
+   on white.  Badges are paper discs with an ink stroke and letter.
 
    Two schemes are on offer, chosen by map_set_colour_scheme:
 
@@ -90,10 +90,6 @@ static int map_link_alpha = 100;        /* connectors on the player's level */
 static int map_link_alpha_far = 30;     /* ... and on another level */
 static int map_palette_ready = 0;
 
-#define ICON_IN        0x00A000
-#define ICON_OUT       0xE06090
-#define ICON_UP        0xFEBC2E     /* the Finder window's yellow button */
-#define ICON_DOWN      0x4060D0
 #define ACCENT_AMBER   0xFFF3A0
 #define ACCENT_GOLD    0xB8860B
 #define ACCENT_ORANGE  0xFFB060
@@ -604,6 +600,148 @@ fill_circle (map_surface_t *s, int cx, int cy, int r, unsigned int rgb,
     for (dx = -r; dx <= r; dx++)
       if (dx * dx + dy * dy <= r * r)
         blend (s, cx + dx, cy + dy, rgb, alpha);
+}
+
+static void
+stroke_circle (map_surface_t *s, int cx, int cy, int r, unsigned int rgb,
+               int alpha)
+{
+  int dx, dy, inner;
+
+  if (r < 1)
+    {
+      blend (s, cx, cy, rgb, alpha);
+      return;
+    }
+  inner = (r - 1) * (r - 1);
+  for (dy = -r; dy <= r; dy++)
+    for (dx = -r; dx <= r; dx++)
+      {
+        int d2 = dx * dx + dy * dy;
+        if (d2 <= r * r && d2 > inner)
+          blend (s, cx + dx, cy + dy, rgb, alpha);
+      }
+}
+
+/* Pixel-centre barycentric fill.  These triangles are a handful of pixels
+   across (a badge's inner disc), so a bounding-box walk is cheap. */
+static double
+orient2d (double ax, double ay, double bx, double by, double cx, double cy)
+{
+  return (bx - ax) * (cy - ay) - (by - ay) * (cx - ax);
+}
+
+static void
+fill_triangle (map_surface_t *s,
+               double x0, double y0, double x1, double y1,
+               double x2, double y2, unsigned int rgb, int alpha)
+{
+  int minx, maxx, miny, maxy, x, y;
+  double a = orient2d (x0, y0, x1, y1, x2, y2);
+
+  if (a == 0.0)
+    return;
+  if (a < 0.0)
+    {
+      double tx = x1, ty = y1;
+      x1 = x2;
+      y1 = y2;
+      x2 = tx;
+      y2 = ty;
+    }
+  minx = (int) floor (x0 < x1 ? (x0 < x2 ? x0 : x2) : (x1 < x2 ? x1 : x2));
+  maxx = (int) ceil  (x0 > x1 ? (x0 > x2 ? x0 : x2) : (x1 > x2 ? x1 : x2));
+  miny = (int) floor (y0 < y1 ? (y0 < y2 ? y0 : y2) : (y1 < y2 ? y1 : y2));
+  maxy = (int) ceil  (y0 > y1 ? (y0 > y2 ? y0 : y2) : (y1 > y2 ? y1 : y2));
+  for (y = miny; y <= maxy; y++)
+    for (x = minx; x <= maxx; x++)
+      {
+        double px = x + 0.5, py = y + 0.5;
+        if (orient2d (x0, y0, x1, y1, px, py) >= -0.5
+            && orient2d (x1, y1, x2, y2, px, py) >= -0.5
+            && orient2d (x2, y2, x0, y0, px, py) >= -0.5)
+          blend (s, x, y, rgb, alpha);
+      }
+}
+
+/* Isosceles Up/Down mark.  Corners sit on a concentric circle inset from
+   the stroke so they never touch the ring; the shape is equilateral (or
+   the closest integer stretch) so it reads as an arrow rather than a
+   slice of the disc. */
+static void
+ud_triangle_offsets (int r, int *t, int *h, int *b)
+{
+  const double s3 = 0.8660254037844386; /* √3/2 */
+  int tt, hh, bb, best_t = 1, best_h = 1, best_b = 1;
+  int inset = (r >= 6) ? 3 : ((r >= 4) ? 2 : 1);
+  int inner = r - inset;
+  double R, t0, h0, b0, best = 1e9;
+  int lim2;
+
+  if (inner < 1)
+    inner = 1;
+  R = (double) inner;
+  t0 = R;
+  h0 = s3 * R;
+  b0 = 0.5 * R;
+  lim2 = inner * inner;
+
+  for (tt = 1; tt <= inner; tt++)
+    for (hh = 1; hh <= inner; hh++)
+      for (bb = 1; bb <= inner; bb++)
+        {
+          double rb, dr, dshape, score;
+          if (tt * tt > lim2 || hh * hh + bb * bb > lim2)
+            continue;
+          rb = sqrt ((double) (hh * hh + bb * bb));
+          dr = (double) tt - rb;
+          dshape = (tt - t0) * (tt - t0)
+                 + (hh - h0) * (hh - h0)
+                 + (bb - b0) * (bb - b0);
+          score = dr * dr * 3.0 + dshape;
+          if (score < best)
+            {
+              best = score;
+              best_t = tt;
+              best_h = hh;
+              best_b = bb;
+            }
+        }
+  *t = best_t;
+  *h = best_h;
+  *b = best_b;
+}
+
+static void
+fill_ud_triangle (map_surface_t *s, int cx, int cy, int r, int up,
+                  unsigned int rgb, int alpha)
+{
+  int t, h, b;
+  double ox, oy, x0, y0, x1, y1, x2, y2;
+
+  ud_triangle_offsets (r, &t, &h, &b);
+  /* Pixel centres, matching the disc whose visual centre is (cx,cy). */
+  ox = cx + 0.5;
+  oy = cy + 0.5;
+  if (up)
+    {
+      x0 = ox;
+      y0 = oy - t;
+      x1 = ox - h;
+      y1 = oy + b;
+      x2 = ox + h;
+      y2 = oy + b;
+    }
+  else
+    {
+      x0 = ox;
+      y0 = oy + t;
+      x1 = ox - h;
+      y1 = oy - b;
+      x2 = ox + h;
+      y2 = oy - b;
+    }
+  fill_triangle (s, x0, y0, x1, y1, x2, y2, rgb, alpha);
 }
 
 /* A filled arrow head at (x,y) pointing along (dx,dy) -- GDI+
@@ -1551,53 +1689,57 @@ static const int a4_badge_site[MAP_N_BADGES] = {
 };
 
 /* The IN / OUT / UP / DOWN bubble on a node edge (DrawInOutIcon, Map.vb:1530;
-   Form29.doicon for ADRIFT 4 Up/Down).  `xp`/`yp` are percents of the box. */
+   Form29.doicon for ADRIFT 4 Up/Down).  `xp`/`yp` are percents of the box.
+   Paper fill and ink stroke are opaque; `label_alpha` is the mark only.
+   ADRIFT 4 halves it when the destination is unseen (Form29.doicon's dim
+   bitmap); ADRIFT 5 is always opaque. */
 static void
 draw_dir_icon_xy (map_surface_t *s, const proj_t *p, const map_node_t *n,
-                  int dir, double xp, double yp, int alpha)
+                  int dir, double xp, double yp, int label_alpha)
 {
   double cx, cy;
-  const char *letter;
-  unsigned int rgb;
+  const char *letter = NULL;
   int r = p->cam->scale / 2;
   if (r < 3)
     r = 3;
   switch (dir)
     {
-    case DIR_IN:   letter = "I"; rgb = ICON_IN;   break;
-    case DIR_OUT:  letter = "O"; rgb = ICON_OUT;  break;
-    case DIR_UP:   letter = "U"; rgb = ICON_UP;   break;
-    case DIR_DOWN: letter = "D"; rgb = ICON_DOWN; break;
+    case DIR_IN:   letter = "I"; break;
+    case DIR_OUT:  letter = "O"; break;
+    case DIR_UP:
+    case DIR_DOWN: break;
     default: return;
     }
   rel_point (p, n, xp, yp, &cx, &cy);
-  fill_circle (s, (int) cx, (int) cy, r, rgb, alpha);
-  draw_text (s, &kSmallFont, letter, 1, (int) cx - 2, (int) cy - 3,
-             0xFFFFFF, alpha);
+  fill_circle (s, (int) cx, (int) cy, r, map_bg, 255);
+  stroke_circle (s, (int) cx, (int) cy, r, map_fg, 255);
+  if (letter != NULL)
+    draw_text (s, &kSmallFont, letter, 1, (int) cx - 2, (int) cy - 3,
+               map_fg, label_alpha);
+  else
+    fill_ud_triangle (s, (int) cx, (int) cy, r, dir == DIR_UP,
+                      map_fg, label_alpha);
 }
 
 static void
 draw_dir_icon_site (map_surface_t *s, const proj_t *p, const map_node_t *n,
-                    int dir, int site, int alpha)
+                    int dir, int site, int label_alpha)
 {
   double xp, yp;
   badge_pct (site, &xp, &yp);
-  draw_dir_icon_xy (s, p, n, dir, xp, yp, alpha);
+  draw_dir_icon_xy (s, p, n, dir, xp, yp, label_alpha);
 }
 
 /* The ADRIFT 4 runner had two pictures per icon: the normal one when the
    destination has been seen (clicking it recentres the map there), and a
-   dimmed one when it has not (Form29.doicon, the seen-flag branch).  We dim
-   by alpha instead.  Only badge links carry the distinction; ADRIFT 5's
-   DrawInOutIcon has a single look. */
+   dimmed one when it has not (Form29.doicon, the seen-flag branch).  The
+   disc stays opaque; only the mark is halved. */
 static int
-badge_alpha (const map_view_t *view, const map_link_t *lk, int alpha)
+badge_label_alpha (const map_view_t *view, const map_link_t *lk)
 {
-  if (!lk->badge)
-    return alpha;
   if (lk->dest != NULL && view_seen (view, lk->dest))
-    return alpha;
-  return alpha / 2;
+    return 255;
+  return 128;
 }
 
 /* Which badges a node wears, and on which half-wind / compass site.
@@ -2192,7 +2334,7 @@ map_render (const map_t *map, const map_view_t *view,
   for (i = 0; i < page->n_nodes; i++)
     {
       const map_node_t *n = &page->nodes[i];
-      int x0, y0, x1, y1, alpha, bopq, is_player, k;
+      int x0, y0, x1, y1, alpha, is_player, k;
       const map_link_t *bl[MAP_N_BADGES] = { NULL, NULL, NULL, NULL };
       unsigned int fill;
 
@@ -2241,12 +2383,8 @@ map_render (const map_t *map, const map_view_t *view,
                 bl[MAP_BADGE (dir)] = NULL;
             }
         }
-      /* ADRIFT 4's badges are the runner's little bitmaps, painted over the
-         room box rather than blended into it, and there is no second level
-         for the off-level alpha to mean anything on: draw them opaque, so a
-         badge stays legible on the filled-in player box.  ADRIFT 5's are part
-         of the drawing and keep the node's own alpha. */
-      bopq = map->line_links ? 255 : alpha;
+      /* Paper disc and ink stroke are opaque.  ADRIFT 4 halves the mark when
+         the destination is unseen; ADRIFT 5's mark is always opaque. */
       if (badges == NULL)
         {
           /* A3/A4: fixed sites (U NNE, D SSW, I WNW, O ESE). */
@@ -2257,7 +2395,7 @@ map_render (const map_t *map, const map_view_t *view,
               if (lk != NULL)
                 draw_dir_icon_site (dst, &p, n, dir,
                                     a4_badge_site[MAP_BADGE (dir)],
-                                    badge_alpha (view, lk, bopq));
+                                    badge_label_alpha (view, lk));
             }
         }
       else
@@ -2277,8 +2415,7 @@ map_render (const map_t *map, const map_view_t *view,
               if (lk != NULL || x->is_far[MAP_BADGE (dir)]
                   || (x->has[MAP_BADGE (dir)] && !node_has_link_dir (n, dir)))
                 draw_dir_icon_site (dst, &p, n, dir, x->site[MAP_BADGE (dir)],
-                                    lk != NULL ? badge_alpha (view, lk, alpha)
-                                               : alpha);
+                                    255);
             }
         }
 
